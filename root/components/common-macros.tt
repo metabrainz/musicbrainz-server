@@ -5,7 +5,7 @@
         [%- text -%]
     </li>
 [%- END -%]
-[%#- This next could use localization for alternating comma/period use per locale -%]
+[%-# This next could use localization for alternating comma/period use per locale -%]
 [%- MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%- MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
 [%- MACRO url_escape(url) BLOCK; url | url; END -%]
@@ -56,7 +56,7 @@ END; -%]
     IF classes.size; 'class="' _ classes.join(' ') _ '"';
     ELSE; '';
     END -%]
-[%#- Take type and return pluralized word form, avoids problems with '|% type %|s' -#%]
+[%-# Take type and return pluralized word form, avoids problems with '|% type %|s' #-%]
 [%- MACRO get_plural_type(entity)
     SWITCH entity;
         CASE 'release';
@@ -92,7 +92,6 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
@@ -108,21 +107,21 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
-      caption = l("This entity has been deleted, and cannot be displayed correctly.");
+      caption = l("This entity has been removed, and cannot be displayed correctly.");
       '<span class="deleted tooltip" title="' _ caption _ '">' _
-        (html_escape(entity.name) || l('[deleted]')) _
+        (html_escape(entity.name) || l('[removed]')) _
       '</span>';
     END;
     disambiguation(entity) UNLESS text;
 END -%]
 
-[% MACRO descriptive_link(entity)
+[%- MACRO descriptive_link(entity)
     IF entity.artist_credit.defined;
         l('{entity} by {artist}', { entity => link_entity(entity),
                                     artist => artist_credit(entity.artist_credit) });
     ELSE;
         l('{entity}', { entity => link_entity(entity) });
-    END; %]
+    END; -%]
 
 [%- MACRO entity_type(entity) BLOCK;
     type = "$entity";
@@ -281,7 +280,7 @@ END-%]
 
 [%- MACRO simple_link(url, text) BLOCK %]
     <a href="[% url %]">[% text %]</a>
-[% END %]
+[%- END -%]
 
 [%- MACRO request_login(text) BLOCK -%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>
@@ -322,7 +321,7 @@ END -%]
     </th>
 [%- END -%]
 
-[% MACRO entity_label(type) BLOCK;
+[%- MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'release'; l('Release:');
@@ -331,9 +330,9 @@ END -%]
     ELSIF type == 'work'; l('Work:');
     ELSIF type == 'url'; l('URL:');
     END;
-END %]
+END -%]
 
-[% MACRO use_in_relationship(entity) BLOCK;
+[%- MACRO use_in_relationship(entity) BLOCK;
     IF c.session.relationship.id == entity.id;
       l('Please select another entity to relate {name} to', { name => c.session.relationship.name });
     ELSE;
@@ -341,15 +340,15 @@ END %]
                                     : l('Use in a relationship');
       link_entity(entity, 'relate', text);
     END;
-END %]
+END -%]
 
-[% MACRO relate_to_url(entity) BLOCK;
+[%- MACRO relate_to_url(entity) BLOCK;
     uri = c.uri_for_action('/edit/relationship/create_url', {
                         type => entity_type(entity),
                         entity => entity.gid
                    });
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
-END %]
+END -%]
 
 [%- MACRO relate_to_ellipsis(entity) BLOCK -%]
     <a href="#relate_to">[%- l('Relate to ...') -%]</a>
@@ -378,19 +377,19 @@ END %]
     </div>
 [%- END -%]
 
-[% MACRO quality_name(quality) SWITCH quality;
+[%- MACRO quality_name(quality) SWITCH quality;
     CASE 0;  l('low quality level');
     CASE 1;  l('default quality level');
     CASE -1; l('default quality level');
     CASE 2;  l('high quality level');
-END %]
+END -%]
 
 [%- MACRO edit_conditions(expire_action) SWITCH expire_action;
     CASE 1; l('Accept upon expiration');
     CASE 2; l('Reject upon expiration');
 END -%]
 
-[%#- See /lib/MusicBrainz/Server/Edit/Utils.pm for status names -%]
+[%-# See /lib/MusicBrainz/Server/Edit/Utils.pm for status names -%]
 [%- MACRO edit_status_description(edit) SWITCH edit.status;
         CASE 1; l('This edit is open and awaiting votes before it can be applied.');
         CASE 2; l('This edit has been successfully applied.');
@@ -408,7 +407,7 @@ END -%]
         CASE 9; l('This edit was cancelled.');
 END -%]
 
-[% MACRO expiration_time(datetime) BLOCK %]
+[%- MACRO expiration_time(datetime) BLOCK -%]
     [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
         [% IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days %]
             [% l('Expires in <span class="tooltip" title="{exactdate}">{days}</span>',
@@ -431,13 +430,13 @@ END -%]
     [% ELSE %]
         [% l('Already expired') %]
     [% END %]
-[% END %]
+[%- END -%]
 
 [%- MACRO age(datetime) BLOCK -%] 
     [%- Age.format(datetime, "{age} ago") -%]
 [%- END -%]
 
-[% MACRO display_relationship(relationship) BLOCK; %]
+[%- MACRO display_relationship(relationship) BLOCK; -%]
             [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
             [%- relationship.phrase | html %]
             [% IF relationship.target.artist_credit %]
@@ -466,9 +465,9 @@ END -%]
             [%- ELSIF !relationship.link.end_date.is_empty -%]
                 [% l('until {date}', { date => relationship.link.end_date.format }) %]
             [%- END -%]
-[% END %]
+[%- END -%]
 
-[% MACRO trusted_domain(url) BLOCK;
+[%- MACRO trusted_domain(url) BLOCK;
     url.url.host.search('discogs.com$')   ||
     url.url.host.search('wikipedia.org$') ||
     url.url.host.search('bbc.co.uk$')     ||
@@ -480,17 +479,21 @@ END -%]
     url.url.host.search('twitter.com$')   ||
     url.url.host.search('youtube.com$')   ||
     0;
-END %]
+END -%]
 
-[% MACRO favicon_image(url)
-       IF url.url.host.search('amazon'); '/static/images/favicons/amazon-16.png';
-    ELSIF url.url.host.search('wikipedia.org$'); '/static/images/favicons/wikipedia-16.png';
-    ELSIF url.url.host.search('facebook.com'); '/static/images/favicons/facebook-16.png';
-    ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-16.png';
-    ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-16.png';
-    ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-16.png';
+[%- MACRO favicon_image(url)
+       IF url.url.host.search('amazon'); '/static/images/favicons/amazon-32.jpg';
+    ELSIF url.url.host.search('discogs.com$'); '/static/images/favicons/discogs-32.png';
+    ELSIF url.url.host.search('wikipedia.org$'); '/static/images/favicons/wikipedia-32.png';
+    ELSIF url.url.host.search('bbc.co.uk'); '/static/images/favicons/bbc-32.gif';
+    ELSIF url.url.host.search('facebook.com'); '/static/images/favicons/facebook-32.png';
+    ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-32.png';
+    ELSIF url.url.host.search('last.fm'); '/static/images/favicons/lastfm-32.png';
+    ELSIF url.url.host.search('imdb.com'); '/static/images/favicons/imdb.png';
+    ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-32.png';
+    ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-32.png';
     ELSE;  'http://' _ url.url.host _ '/favicon.ico';
-END %]
+END -%]
 
 [%- MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">

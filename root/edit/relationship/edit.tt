@@ -68,7 +68,7 @@ var typeInfo = [% type_info %];
             [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
               <span id="change-direction">
               [%- IF no_javascript -%]
-                  [% r.checkbox('direction') %] Change direction
+                  [% r.checkbox('direction') %] [% l('Change direction') %]
               [%- ELSE -%]
                   [% r.hidden('direction') %]
                   <input type="button" id="changedirection" value="[% l('Change direction') %]" />

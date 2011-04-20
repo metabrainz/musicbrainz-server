@@ -66,7 +66,7 @@
     <tr class="artist-credit-preview">
       <td colspan="4">
         <div class="row">
-          <label>Preview</label>
+          <label>[% l('Preview') %]</label>
           <span class="artist-credit-preview">[% artist_credit(acfield.fif) %]</span>
         </div>
       </td>
@@ -346,7 +346,7 @@
         <a href="#add_disc">[% l('Add Disc') %]</a>
       </div>
 
-      <h3>Options</h3>
+      <h3>[% l('Options') %]</h3>
       <p id="tracklist-options">
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
       <label for="tracknumbers">[% l('Track names start with a number') %]</label>
@@ -364,7 +364,7 @@
       [%#- FIXME: use guesscase() -%]
 
       <fieldset class="guesscase">
-        <legend>Guess case</legend>
+        <legend>[% l('Guess case') %]</legend>
         <table style="width: 100%">
           <tr>
             <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
@@ -399,7 +399,7 @@
 
   <div class="documentation basic-tracklist">
 
-    <h2>Preview</h2>
+    <h2>[% l('Preview') %]</h2>
 
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>

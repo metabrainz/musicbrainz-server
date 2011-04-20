@@ -7,7 +7,7 @@
                 <li>[% relate_to_ellipsis(url) %]</li>
                 <li>[% link_entity(url, 'edits', l('View editing history')) %]</li>
             [% ELSE %]
-                <li>[% request_login(l('Please login to edit this URL')) %]</li>
+                <li>[% request_login(l('Please log in to edit this URL')) %]</li>
             [% END %]
         </ul>
     [% END %]

@@ -357,6 +357,15 @@ div.warning img.warning {
     padding-left: 2em;
 }
 
+#sidebar .cover-art {
+    text-align: center;
+}
+
+#sidebar .cover-art img {
+    max-height: 300px;
+    max-width: 218px; /* references #sidebar's width */
+}
+
 /*
 ** Footer
 */
