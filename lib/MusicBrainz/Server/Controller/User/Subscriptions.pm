@@ -15,6 +15,12 @@ with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
     type => 'label',
 };
 
+sub subscriptions : Chained('/user/load') {
+    my ($self, $c) = @_;
+    my $user = $c->stash->{user};
+    $c->response->redirect($c->uri_for_action('/user/subscriptions/artist', [ $user->name ]));
+}
+
 1;
 
 =head1 COPYRIGHT
