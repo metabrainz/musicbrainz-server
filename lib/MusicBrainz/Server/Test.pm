@@ -445,7 +445,7 @@ sub commandline_override
     @tests = split(/,/,join(',',@tests));
 
     @default_tests = map {
-        /^t::/ ? $_ : $prefix."::".$_;
+        /^t::/ ? $_ : $prefix.$_;
     } @tests if scalar @tests;
 
     return @default_tests;

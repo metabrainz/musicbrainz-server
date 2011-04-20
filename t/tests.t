@@ -82,7 +82,7 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::WorkType
 );
 
-@classes = commandline_override ("t::MusicBrainz::Server", @classes);
+@classes = commandline_override ("t::MusicBrainz::Server::", @classes);
 
 plan tests => scalar(@classes);
 run_tests($_ => $_) for (@classes);
