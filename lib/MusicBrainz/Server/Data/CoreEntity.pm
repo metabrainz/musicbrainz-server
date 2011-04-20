@@ -14,7 +14,29 @@ sub _gid_redirect_table
 sub get_by_gids
 {
     my ($self, @gids) = @_;
-    return $self->_get_by_keys('gid', @gids);
+    my $gid_map = $self->_get_by_keys('gid', @gids);
+    my $table = $self->_gid_redirect_table;
+    return $gid_map
+        unless defined($table);
+    my @missing_gids;
+    for my $gid (@gids) {
+        unless (exists $gid_map->{$gid}) {
+            push @missing_gids, $gid;
+        }
+    }
+    if (@missing_gids) {
+        my $sql = "SELECT new_id FROM $table
+            WHERE gid IN (" . placeholders(@missing_gids) . ")";
+        my $ids = $self->sql->select_single_row_array($sql, @missing_gids);
+        my $id_map = $self->get_by_ids(@$ids);
+        for my $id (@$ids) {
+            if (exists $id_map->{$id}) {
+                my $obj = $id_map->{$id};
+                $gid_map->{$id} = $obj;
+            }
+        }
+    }
+    return $gid_map;
 }
 
 sub get_by_gid
