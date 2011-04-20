@@ -60,9 +60,11 @@ memory_cycle_ok($annotation);
 
 $rec = $rec_data->get_by_gid('0986e67c-6b7a-40b7-b4ba-c9d7583d6426');
 is ( $rec->id, 1 );
+is ( $rec->gid, '54b9d183-7dab-42ba-94a3-7388a66604b8' );
 
-my $rec_map = $rec_data->get_by_gids('0986e67c-6b7a-40b7-b4ba-c9d7583d6426');
-is ( $rec_map->{1}->id, 1 );
+my $rec_map = $rec_data->get_by_gids('0986e67c-6b7a-40b7-b4ba-c9d7583d6426', '54b9d183-7dab-42ba-94a3-7388a66604b8');
+is ( $rec_map->{'0986e67c-6b7a-40b7-b4ba-c9d7583d6426'}->id, 1 );
+is ( $rec_map->{'54b9d183-7dab-42ba-94a3-7388a66604b8'}->id, 1 );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
