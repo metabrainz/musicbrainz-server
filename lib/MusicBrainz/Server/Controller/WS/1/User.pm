@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::WS::1::User;
 BEGIN { use Moose; extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use HTTP::Status qw( :constants );
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 
 __PACKAGE__->config(
     model => 'Artist',
@@ -37,11 +37,11 @@ sub user_repository : Path('/ws/1/user') {
 
     my $nag_status = $c->model('Editor')->donation_check($user);
 
-
     $c->stash->{serializer}->add_namespace( ext => 'http://musicbrainz.org/ns/ext-1.0#' );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->xml(
-        List->new( _element => 'ext:user' )->serialize(
+        list_of(
+            \'ext:user',
             [ $user ], undef, { nag => $nag_status }
         )
     ));
