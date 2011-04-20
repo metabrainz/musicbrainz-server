@@ -15,7 +15,7 @@
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]
                 [% rdfa_recording_isrc(recording, isrc) %]
                 [% IF c.user_exists %]
-                [% l('({delete_uri|delete})', {
+                [% l('({delete_uri|remove})', {
                        delete_uri => c.uri_for_action('/isrc/delete', { isrc_id => isrc.id }) }) %]
                 [% END %]
                 [% END %]
@@ -34,7 +34,7 @@
               [% recording.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
             </a>
           </li>
-          <li>[% link_entity(recording, 'delete', l('Delete this recording')) %]</li>
+          <li>[% link_entity(recording, 'delete', l('Remove this recording')) %]</li>
           <li>[% link_entity(recording, 'edits', l('View editing history')) %]</li>
           <li>[% link_entity(recording, 'add_isrc', l('Add ISRC')) %]</li>
           [% IF recording.edits_pending %]

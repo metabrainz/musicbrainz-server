@@ -6,7 +6,7 @@
 
         <form action="[% c.req.uri | html %]" method="post">
             <div class="row">
-                <label>Page:</label>
+                <label>[% l('Page:') %]</label>
                 <span>[% page | html %]</span>
             </div>
 

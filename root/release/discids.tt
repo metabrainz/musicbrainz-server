@@ -1,11 +1,11 @@
 [%- WRAPPER 'release/layout.tt' page='discids' -%]
 
-    <h2>[% l('DiscIDs') %]</h2>
+    <h2>[% l('Disc IDs') %]</h2>
     [% IF has_cdtocs %]
         <table class="tbl">
             <thead>
                 <tr>
-                    <th>[% l('DiscID') %]</th>
+                    <th>[% l('Disc ID') %]</th>
                     <th>[% l('Tracks') %]</th>
                     <th>[% l('Length') %]</th>
                     [% IF c.user_exists %]
@@ -49,7 +49,7 @@
             </tbody>
         </table>
     [% ELSE %]
-        <p>[% l('There are no DiscIDs attached to this release.') %]</p>
+        <p>[% l('There are no disc IDs attached to this release.') %]</p>
     [% END %]
 
     [% IF c.user_exists %]

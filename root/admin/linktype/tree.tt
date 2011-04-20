@@ -14,8 +14,8 @@
         <strong>[% l('Description:') %]</strong> [% obj.description || l("(none)") %]<br />
         [%- IF c.user.is_relationship_editor -%]
         [
-            <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">Edit</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">Delete</a>[% END %]
+            <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">[% l('Remove') %]</a>[% END %]
         ]
         [% END %]
         </div>

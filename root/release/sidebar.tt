@@ -145,7 +145,7 @@
             [% l('Merge this release with another') %]
           </a>
         </li>
-        <li>[% link_entity(release, 'delete', l('Delete this release')) %]</li>
+        <li>[% link_entity(release, 'delete', l('Remove this release')) %]</li>
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>[% use_in_relationship(release) %]</li>
