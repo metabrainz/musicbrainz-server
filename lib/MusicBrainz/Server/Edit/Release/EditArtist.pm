@@ -38,6 +38,20 @@ has '+data' => (
     ]
 );
 
+around related_entities => sub {
+    my ($orig, $self) = @_;
+
+    my $related = $self->$orig;
+    if (exists $self->data->{new_artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new_artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old_artist_credit});
+        push @{ $related->{artist} }, keys(%new), keys(%old);
+    }
+    
+    return $related;
+};
+
+
 sub alter_edit_pending
 {
     my $self = shift;
