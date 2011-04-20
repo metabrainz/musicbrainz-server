@@ -9,7 +9,7 @@ around 'serialize' => sub
     my ($orig, $self, $entity, $inc, $data) = @_;
     my @body = $self->$orig($entity, $inc, $data);
 
-    push @body, ( $self->gen->rating({ 'votes-count' => $entity->rating_count }, $entity->rating ) )
+    push @body, ( $self->gen->rating({ 'votes-count' => $entity->rating_count }, int($entity->rating / 20) ) )
         if $inc && $inc->ratings;
 
     push @body, ( $self->gen->user_rating(int($entity->user_rating / 20)) )
