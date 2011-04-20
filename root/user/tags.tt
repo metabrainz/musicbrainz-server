@@ -1,17 +1,9 @@
 [% WRAPPER "user/profile/layout.tt" title=l("Tags") page="tags" %]
-
-   <p>
-       [% IF tags.tags.size %]
-           [% BLOCK tag_link_block %]
-           <a href="[% c.uri_for_action('/user/tag', [ user.name ], tag.tag.name) %]">
-           [% tag.tag.name | html %]
-           </a>
-           [% END %]
-           [% INCLUDE 'components/tag-cloud.tt'
-                tags = tags.tags  %]
-       [% ELSE %]
-           [%- l('{user} has not tagged anything.', { user => user.name }) %]
-       [% END %]
-   </p>
-
+    [% BLOCK tag_link_block %]
+    <a href="[% c.uri_for_action('/user/tag', [ user.name ], tag.tag.name) %]">
+    [% tag.tag.name | html %]
+    </a>
+    [% END %]
+    [%- INCLUDE "components/tags.tt" tags=tags.tags
+        no_tags_text=l('{user} has not tagged anything.', { user => html_escape(user.name) }) -%]
 [% END %]

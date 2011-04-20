@@ -115,7 +115,7 @@
         <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 
         <p>
-          Search:
+        [% l('Search:') %]
           <span class="autocomplete">
             <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
             <img class="search" src="/static/images/icons/search.png" />
@@ -211,7 +211,7 @@
               <span class="add-recording" style="display: none">[%- l('(add a new recording)') -%]</span>
             </td>
             <td rowspan="2" class="buttons" style="vertical-align: middle; width: 10%;">
-              <a class="change-recording" href="#change-recording">Change</a>
+              <a class="change-recording" href="#change-recording">[% l('Change') %]</a>
             </td>
           </tr>
 

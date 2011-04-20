@@ -1,3 +1,7 @@
+[%- BLOCK tag_link_block -%]
+[%- link_tag(tag.tag) -%]
+[%- END -%]
+
 <h2>[% l("Tags") %]</h2>
 
 [%- IF tags.size -%]
@@ -9,12 +13,14 @@
       </thead>
       <tbody>
         [%- FOREACH tag IN tags -%]
-        <tr>
-          <td>[% link_tag(tag.tag) %]</td>
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+          <td>[% PROCESS tag_link_block %]</td>
           <td>[% tag.count %]</td>
         </tr>
         [%- END -%]
       </tbody>
     </table>
     [%- END -%]
-[%- ELSE -%]<p>[% no_tags_text %]</p>[%- END -%]
+[%- ELSE -%]
+    <p>[% no_tags_text %]</p>
+[%- END -%]

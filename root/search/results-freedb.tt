@@ -10,7 +10,7 @@
                             <th>[% l('Title') %]</th>
                             <th>[% l('Artist') %]</th>
                             <th>[% l('Tracks') %]</th>
-                            <th>[% l('Discid') %]</th>
+                            <th>[% l('FreeDB ID') %]</th>
                             <th>[% l('Year') %]</th>
                             <th>[% l('Action') %]</th>
                         </tr>

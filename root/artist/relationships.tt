@@ -5,7 +5,7 @@
     [% INCLUDE "components/relationships.tt" source=artist
         relationships=artist.grouped_relationships('artist', 'url', 'label') %]
 
-    <h2>[% l('Appearences') %]</h2>
+    <h2>[% l('Appearances') %]</h2>
     <table class="tbl">
         <thead>
             <tr>
@@ -14,7 +14,7 @@
                 <th>[% l('Artist') %]</th>
             </tr>
         </thead>
-        [%- FOREACH relationship IN artist.appearences.pairs -%]
+        [%- FOREACH relationship IN artist.appearances.pairs -%]
             <thead>
                 <tr class="subh">
                     <th></th>
@@ -25,8 +25,10 @@
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
                     <td>
-                    [% UNLESS rel.link.end_date.is_empty AND rel.link.begin_date.is_empty %]
-                      [% rel.link.begin_date.format %] &mdash; [% rel.link.end_date.format %]
+                    [% IF rel.link.begin_date.format == rel.link.end_date.format %]
+                      [% rel.link.begin_date.format %]
+                    [% ELSIF !rel.link.end_date.is_empty AND !rel.link.begin_date.is_empty %]
+                      [% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %]
                     [% END %]
                     </td>
                     <td>

@@ -32,6 +32,7 @@
 [%- END -%]
 
 [% WRAPPER 'layout.tt' title=l('Add Work') full_width=1 %]
+   <h1>[%- l('Add Work') -%]</h1>
    [%- IF no_javascript -%]
      [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
