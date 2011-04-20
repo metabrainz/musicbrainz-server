@@ -4,9 +4,7 @@ use Moose;
 use Readonly;
 use MusicBrainz::XML::Generator;
 use MusicBrainz::Server::WebService::WebServiceIncV1;
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
-
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity list_of);
 
 sub mime_type { 'application/xml' }
 
@@ -60,7 +58,7 @@ sub serialize_list
     my ($self, $type, $entities, $inc, $data) = @_;
 
     return $self->xml_decl_begin .
-        List->new( _element => $type )->serialize($entities, $inc, $data) .
+        list_of( \$type, $entities, $inc, $data ) .
         $self->xml_decl_end;
 }
 
