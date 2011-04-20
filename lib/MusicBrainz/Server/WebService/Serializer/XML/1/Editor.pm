@@ -26,7 +26,7 @@ sub serialize
     my $nag_status = $opts->{nag_status};
 
     return (
-        $self->gen->name($entity->name) ),
+        $self->gen->name($entity->name),
         $self->gen->${ \'ext:nag' }(
             { show => $nag_status && $nag_status->{nag} ? 'true' : 'false' }
         )
