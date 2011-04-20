@@ -425,7 +425,7 @@ sub compare_body
     eq_or_diff($got, $expected);
 }
 
-=method
+=func commandline_override
 
 Allow the user of an aggregate test file to specify which tests to run.
 
