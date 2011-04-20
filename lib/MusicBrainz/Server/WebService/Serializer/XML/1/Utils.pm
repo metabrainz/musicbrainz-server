@@ -17,6 +17,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::ArtistAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit',
     'MusicBrainz::Server::Entity::CDStub' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDStub',
+    'MusicBrainz::Server::Entity::Editor' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Editor',
     'MusicBrainz::Server::Entity::ISRC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ISRC',
     'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Label',
     'MusicBrainz::Server::Entity::MediumCDTOC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDTOC',
