@@ -122,7 +122,7 @@ sub serialize
     push @body, (
         $self->gen->rating(
             { 'votes-count' => $entity->release_group->rating_count },
-            $entity->release_group->rating
+            int($entity->release_group->rating / 20)
         )
     ) if $inc && $inc->ratings;
 
