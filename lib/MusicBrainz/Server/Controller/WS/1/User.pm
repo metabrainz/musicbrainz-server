@@ -41,7 +41,7 @@ sub user_repository : Path('/ws/1/user') {
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->xml(
         list_of(
-            \'ext:user',
+            \'ext:user-list',
             [ $user ], undef, { nag => $nag_status }
         )
     ));
