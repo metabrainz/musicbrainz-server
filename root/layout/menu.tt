@@ -20,26 +20,6 @@
                 </li>
             </ul>
         </li>
-        [% IF c.user_exists && c.user.is_admin %]
-            <li class="admin">
-                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
-                <ul>
-                    [% IF c.user.is_relationship_editor %]
-                        <li>
-                            [% l('{uri|Edit Link Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
-                        </li>
-                        <li>
-                            [% l('{uri|Edit Link Attribute Types}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
-                        </li>
-                    [% END %]
-                    [% IF c.user.is_wiki_transcluder %]
-                        <li>
-                            [% l('{uri|Transclude WikiDocs}', { uri => c.uri_for_action('/admin/wikidoc/index') }) %]
-                        </li>
-                    [% END %]
-                </ul>
-            </li>
-        [% END %]
         <li class="data">
             [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
             <ul>
@@ -69,6 +49,26 @@
                 </li>
             </ul>
         </li>
+        [% IF c.user_exists && c.user.is_admin %]
+            <li class="admin">
+                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
+                <ul>
+                    [% IF c.user.is_relationship_editor %]
+                        <li>
+                            [% l('{uri|Edit Link Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
+                        </li>
+                        <li>
+                            [% l('{uri|Edit Link Attribute Types}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_wiki_transcluder %]
+                        <li>
+                            [% l('{uri|Transclude WikiDocs}', { uri => c.uri_for_action('/admin/wikidoc/index') }) %]
+                        </li>
+                    [% END %]
+                </ul>
+            </li>
+        [% END %]
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
         <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>

@@ -226,10 +226,20 @@ $raw_sql->commit;
 $edit = $edit_data->get_by_id(2);
 is($edit->status, $STATUS_DELETED);
 
-subtest 'Find edits by subscription' => sub {
+};
+
+test 'Find edits by subscription' => sub {
     use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
     use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
     use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
+
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
+    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
+
+    my $sql = $test->c->sql;
+    my $raw_sql = $test->c->raw_sql;
 
     my $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
     my @edits = $edit_data->find_for_subscription($sub);
@@ -261,8 +271,15 @@ subtest 'Find edits by subscription' => sub {
     ok((grep { $_->id == 2 } @edits), 'has edit #2');
     memory_cycle_ok($edit_data);
     memory_cycle_ok(\@edits);
+
+    $raw_sql->do('UPDATE edit SET status = ? WHERE id = ?',
+                 $STATUS_ERROR, 1);
+    $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
+    my @edits = $edit_data->find_for_subscription($sub);
+    is(@edits => 1, 'found 1 edit');
+    ok(!(grep { $_->id == 1 } @edits), 'doesnt have edit #1');
+    ok((grep { $_->id == 4 } @edits), 'has edit #4');
 };
 
-};
 
 1;

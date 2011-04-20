@@ -26,7 +26,12 @@
    [% page.content %]
    [% END %]
 
+
    <h2>[% l('Details') %]</h2>
+   [% IF class.does('MusicBrainz::Server::Edit::PerEditConditions') %]
+      <p>[% l('This edit type changes voting conditions dynamically based on the exact edit being made. Please
+            see the official edit type documentation for more details.') %]</p>
+   [% ELSE %]
    <table class="tbl">
      <thead>
        <tr>
@@ -67,4 +72,5 @@
        </tr>
      </tbody>
    </table>
+   [% END %]
 [% END %]

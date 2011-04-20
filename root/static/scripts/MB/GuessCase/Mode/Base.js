@@ -86,7 +86,7 @@ MB.GuessCase.Mode.Base = function () {
      **/
     self.getDescription = function() {
         var s = self._desc;
-        s = s.replace('[url]', '<a href="'+self.getURL()+'" target="_blank">'+self.getName()+' ');
+        s = s.replace('[url]', '<a href="'+self.getURL()+'" target="_blank">'+self.getName()+' mode ');
         s = s.replace('[/url]', '</a>');
         return s;
     };

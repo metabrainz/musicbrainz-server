@@ -8,7 +8,27 @@ BEGIN { use MusicBrainz::Server::Edit::Artist::Merge }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
+use MusicBrainz::Server::Types qw( :edit_status );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+
+test 'Non-existant merge target' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO editor (id, name, password) VALUES
+    (1, 'editor', 'password'), (4, 'ModBot', 'mod');
+EOSQL
+
+    my $edit = create_edit($c);
+    $c->model('Artist')->delete(2);
+
+    accept_edit($c, $edit);
+
+    is($edit->status, $STATUS_FAILEDDEP);
+    ok(defined $c->model('Artist')->get_by_id(1));
+};
 
 test all => sub {
 

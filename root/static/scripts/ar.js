@@ -98,6 +98,7 @@ $(function() {
             newSelect.attr('id', 'id-' + newSelectName);
             newSelect.val('');
             selects.append(newDiv);
+            newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
         selects.find('div').each(function() {

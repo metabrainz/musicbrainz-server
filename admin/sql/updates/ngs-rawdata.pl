@@ -261,6 +261,13 @@ while (my $row = $raw_sql->next_row_hash_ref) {
 }
 $raw_sql->finish;
 
+$sql->do(
+    "INSERT INTO editor_watch_preferences (editor, notify_via_email, notification_timeframe)
+         SELECT id, FALSE, '@ 1 week'::INTERVAL
+           FROM editor
+          WHERE id NOT IN (SELECT editor FROM editor_watch_preferences)"
+);
+
     $sql->commit;
     $raw_sql->commit;
 };

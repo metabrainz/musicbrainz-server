@@ -36,11 +36,16 @@ sub build_display_data
     return {
         recording => $loaded->{Recording}->{ $self->data->{recording_id} },
         artist => {
-            old => Artist->meta->clone_instance(
-                $loaded->{Artist}->{ $self->data->{old_artist_id} },
-                name => $self->data->{old_artist_name}
-            ),
-            new => $loaded->{Artist}->{ $self->data->{new_artist_id} },
+            old => $loaded->{Artist}->{ $self->data->{old_artist_id} } ||
+                Artist->new(
+                    id => $self->data->{old_artist_id},
+                    name => $self->data->{old_artist_name}
+                ),
+            new => $loaded->{Artist}->{ $self->data->{new_artist_id} } ||
+                Artist->new(
+                    id => $self->data->{new_artist_id},
+                    name => $self->data->{new_artist_name}
+                ),
         }
     }
 }

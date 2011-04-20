@@ -12,13 +12,11 @@ has '+name' => ( default => 'watch-prefs' );
 has_field 'type_id' => (
     type => 'Select',
     multiple => 1,
-    required => 1
 );
 
 has_field 'status_id' => (
     type => 'Select',
     multiple => 1,
-    required => 1
 );
 
 has_field 'notify_via_email' => (

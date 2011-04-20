@@ -2,13 +2,14 @@
   <h2>[% l('Releases by {artist}', { artist => link_entity(artist) }) %]</h2>
   [% IF releases.size %]
     <p>[% l('Please select the medium you wish to attach the CDTOC to') %]</p>
-    <form action="[% c.req.uri.path %]" method="get">
+    <form action="[% c.req.uri %]" method="get">
       <input type="hidden" name="toc" value="[% toc %]" />
+      <input type="hidden" name="artist" value="[% c.req.query_params.artist %]" />
       [% FOR release=releases %]
       <table class="tbl">
           <thead>
             <tr>
-              <th colspan="3">[% link_entity(release) %]</th>
+              <th colspan="3">[% descriptive_link(release) %]</th>
             </tr>
           </thead>
           <tbody>
