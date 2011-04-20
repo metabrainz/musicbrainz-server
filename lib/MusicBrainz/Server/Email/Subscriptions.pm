@@ -77,8 +77,8 @@ editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
 [% self.server %]/user/[% self.editor.name %]/subscriptions
 
-To see all open edits for your subscribed artists, see this link:
-[% self.server %]/edit/search
+To see all open edits for your subscriptions, see this link:
+[% self.server %]/edit/subscribed
 };
 }
 
@@ -99,8 +99,9 @@ sub edits_for_type {
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
 [%- artist = sub.subscription.artist -%]
-[% artist.name %] ([% artist.comment %]) ([% sub.open.size %] open, [% sub.applied.size %] applied)
+[% artist.name %] [% '(' _ artist.comment _ ') ' IF artist.comment %]([% sub.open.size %] open, [% sub.applied.size %] applied)
 [% self.server %]/artist/[% artist.gid %]/edits
+
 [% END %]
 };
 }
@@ -109,13 +110,14 @@ sub edits_for_editors {
     my $self = shift;
     my $subs = \@_;
     return strip tt q{
-Changes for by your subscribed editors:
+Changes by your subscribed editors:
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
 [%- editor = sub.subscription.subscribed_editor -%]
 [% editor.name %] ([% sub.open.size %] open, [% sub.applied.size %] applied)
-Open edits: [% self.server %]/user/[% editor.name %]/open-edits
+Open edits: [% self.server %]/user/[% editor.name %]/edits/open
 All edits: [% self.server %]/user/[% editor.name %]/edits
+
 [% END %]
 };
 }

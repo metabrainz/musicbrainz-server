@@ -143,24 +143,27 @@ sub find_for_subscription
     my ($self, $subscription) = @_;
     if($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit 
-                      WHERE id > ? AND editor = ?';
+                      WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
         return query_to_list(
             $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
-            $subscription->subscribed_editor_id
+            $subscription->subscribed_editor_id,
+            $STATUS_OPEN, $STATUS_APPLIED
         );
     }
     else {
         my $type = $subscription->type;
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
-            "   AND id > ?";
+            "   AND id > ? AND status IN (?, ?)";
         return query_to_list(
             $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
-            $query, $subscription->target_id, $subscription->last_edit_sent);
+            $query, $subscription->target_id, $subscription->last_edit_sent,
+            $STATUS_OPEN, $STATUS_APPLIED
+        );
     }
 }
 
