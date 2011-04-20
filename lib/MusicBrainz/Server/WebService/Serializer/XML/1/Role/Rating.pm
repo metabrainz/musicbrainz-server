@@ -8,7 +8,7 @@ before 'serialize' => sub
 {
     my ($self, $entity, $inc, $data) = @_;
 
-    $self->add( $self->gen->rating({ 'votes-count' => $entity->rating_count }, $entity->rating ) )
+    $self->add( $self->gen->rating({ 'votes-count' => $entity->rating_count }, int($entity->rating / 20) ) )
         if $inc && $inc->ratings;
 
     $self->add( $self->gen->user_rating(int($entity->user_rating / 20)) )
