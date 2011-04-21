@@ -1,5 +1,6 @@
 package t::MusicBrainz::Server::Edit::Release::ReorderMediums;
-use Test::Deep;
+
+use Test::Deep qw( cmp_set );
 use Test::Routine;
 use Test::More;
 
@@ -29,11 +30,11 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 INSERT INTO tracklist (id) VALUES (1);
 
 INSERT INTO medium (id, release, tracklist, position)
-    VALUES (1, 1, 1, 1),
-           (2, 1, 1, 2),
-           (3, 1, 1, 3),
-           (4, 1, 1, 4),
-           (5, 1, 1, 5);
+    VALUES (101, 1, 1, 1),
+           (102, 1, 1, 2),
+           (103, 1, 1, 3),
+           (104, 1, 1, 4),
+           (105, 1, 1, 5);
 EOSQL
 
     $test->clear_edit;
@@ -61,20 +62,22 @@ has edit => (
             edit_type => $EDIT_RELEASE_REORDER_MEDIUMS,
             editor_id => 1,
             release   => $test->release_to_edit,
-            new_order => $test->new_order
+            medium_positions => $test->medium_positions
         );
     }
 );
 
-has new_order => (
+has medium_positions => (
     is => 'ro',
-    default => sub { {
-        1 => 1, # Disc 1 does not change
-        3 => 2, # Disc 2 is now medium #3
-        4 => 3, # Disc 3 is now medium #4
-        2 => 4, # Disc 4 is now medium #2
-        5 => 5, # Disc 5 does not change
-    }}
+    default => sub {
+        return [
+            { medium_id => 101, old => 1, new => 1 }, # Disc 1 does not change
+            { medium_id => 102, old => 2, new => 3 }, # Disc 2 is now medium #3
+            { medium_id => 103, old => 3, new => 4 }, # Disc 3 is now medium #4
+            { medium_id => 104, old => 4, new => 2 }, # Disc 4 is now medium #2
+            { medium_id => 105, old => 5, new => 5 }, # Disc 5 does not change
+        ];
+    }
 );
 
 test 'Accept edit' => sub {
@@ -83,7 +86,11 @@ test 'Accept edit' => sub {
 
     $test->clear_release;
 
-    positions_ok($test->release_to_edit, reverse %{ $test->new_order });
+    position_ok($test->release_to_edit, 101, 1);
+    position_ok($test->release_to_edit, 102, 3);
+    position_ok($test->release_to_edit, 103, 4);
+    position_ok($test->release_to_edit, 104, 2);
+    position_ok($test->release_to_edit, 105, 5);
 };
 
 test 'Reject edit' => sub {
@@ -91,7 +98,11 @@ test 'Reject edit' => sub {
 
     $test->clear_release;
 
-    positions_ok($test->release_to_edit, map { $_ => $_ } (1, 2, 3, 4, 5));
+    position_ok($test->release_to_edit, 101, 1);
+    position_ok($test->release_to_edit, 102, 2);
+    position_ok($test->release_to_edit, 103, 3);
+    position_ok($test->release_to_edit, 104, 4);
+    position_ok($test->release_to_edit, 105, 5);
 };
 
 test 'Edit properties' => sub {
@@ -112,15 +123,13 @@ test 'Edit properties' => sub {
             'is related to the release group of the release being reordered');
 };
 
-sub positions_ok {
-    my ($release, %position_id_map) = @_;
-    for my $position (keys %position_id_map) {
-        my $medium_id = $position_id_map{$position};
-        my $medium = $release->mediums->[$position - 1];
+sub position_ok {
+    my ($release, $medium_id, $position) = @_;
 
-        is($medium->position => $position);
-        is($medium->id => $medium_id, "Disc $position should be $medium_id");
-    }
+    my $medium = $release->mediums->[$position - 1];
+
+    is($medium->position => $position);
+    is($medium->id => $medium_id, "Disc $position should be $medium_id");
 }
 
 1;
