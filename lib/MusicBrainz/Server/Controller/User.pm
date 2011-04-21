@@ -223,7 +223,7 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Chained('base') RequireAuth HiddenOnSlaves
+sub contact : Chained('load') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -246,14 +246,20 @@ sub contact : Chained('base') RequireAuth HiddenOnSlaves
     my $form = $c->form( form => 'User::Contact' );
     if ($c->form_posted && $form->process( params => $c->req->params )) {
 
-        my $result = $c->model('Email')->send_message_to_editor(
-            from           => $c->user,
-            to             => $editor,
-            subject        => $form->value->{subject},
-            message        => $form->value->{body},
-            reveal_address => $form->value->{reveal_address},
-            send_to_self   => $form->value->{send_to_self},
-        );
+        my $result;
+        try {
+            $result = $c->model('Email')->send_message_to_editor(
+                from           => $c->user,
+                to             => $editor,
+                subject        => $form->value->{subject},
+                message        => $form->value->{body},
+                reveal_address => $form->value->{reveal_address},
+                send_to_self   => $form->value->{send_to_self},
+            );
+        }
+        catch {
+            $c->flash->{message} = l('Your message could not be sent');
+        };
 
         $c->res->redirect($c->uri_for_action('/user/contact', [ $editor->name ], { sent => $result }));
         $c->detach;

@@ -30,9 +30,9 @@
     </span>
     <span class="link">
       [%# NOTE: do not add other classes to the <a> element below, this class is used by javascript to get the entity type. --warp. %]
-      <a tabindex="-1" class="[%- type -%]"
+      <a tabindex="-1" class="[%- type -%]" target="_blank"
         [% IF entity.gid %]
-          href="[% "/" _ type _ "/show/" _  entity.gid %]"
+          href="[% "/" _ type _ "/" _  entity.gid %]"
           title="[% entity.comment %]"
         [% ELSE %]
           href=""
@@ -68,7 +68,7 @@ var typeInfo = [% type_info %];
             [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
               <span id="change-direction">
               [%- IF no_javascript -%]
-                  [% r.checkbox('direction') %] Change direction
+                  [% r.checkbox('direction') %] [% l('Change direction') %]
               [%- ELSE -%]
                   [% r.hidden('direction') %]
                   <input type="button" id="changedirection" value="[% l('Change direction') %]" />

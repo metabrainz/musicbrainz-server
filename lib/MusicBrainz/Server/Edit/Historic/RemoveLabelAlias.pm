@@ -34,7 +34,7 @@ sub upgrade
         alias => $self->previous_value,
         alias_id => $self->row_id
     });
-    
+
     return $self;
 }
 

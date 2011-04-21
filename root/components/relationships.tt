@@ -20,8 +20,10 @@
                         [% ELSE %]
                             [% link_entity(rel.target) %]
                         [% END %]
-                        [% IF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
-                        ([% rel.link.begin_date.format %]&mdash;[% rel.link.end_date.format %])
+                        [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format %]
+                        ([% rel.link.begin_date.format %])
+                        [% ELSIF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
+                        ([% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %])
                         [% END %]
 
                         [%- IF c.user_exists -%]

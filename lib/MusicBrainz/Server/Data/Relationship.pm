@@ -130,7 +130,7 @@ sub _load
             $target_id = 'entity0';
         }
 
-        my $select = "* FROM l_${type0}_${type1}
+        my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id";
         my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
                      l.end_date_year,   l.end_date_month,   l.end_date_day';
@@ -283,10 +283,12 @@ sub merge_entities
 
     # Delete relationships where the start is the same as the end
     # (after merging)
-    $self->sql->do("DELETE FROM l_${type}_${type}
-               WHERE (entity0 = ? AND entity1 IN (" . placeholders(@source_ids) . '))
-                 OR  (entity0 IN (' . placeholders(@source_ids) . ') AND entity1 = ?)',
-        $target_id, @source_ids, @source_ids, $target_id);
+    my @ids = ($target_id, @source_ids);
+    $self->sql->do(
+        "DELETE FROM l_${type}_${type} WHERE
+             (entity0 IN (" . placeholders(@ids) . ')
+          AND entity1 IN (' . placeholders(@ids) . '))',
+        @ids, @ids);
 
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
@@ -378,8 +380,8 @@ sub update
     my $row = {};
 
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
-    $row->{entity0} = $values->{entity0_id} if exists $values->{entity0_id};
-    $row->{entity1} = $values->{entity1_id} if exists $values->{entity1_id};
+    $row->{entity0} = $values->{entity0_id} if $values->{entity0_id};
+    $row->{entity1} = $values->{entity1_id} if $values->{entity1_id};
 
     $self->sql->update_row("l_${type0}_${type1}", $row, { id => $id });
 }

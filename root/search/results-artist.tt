@@ -31,8 +31,14 @@
                 </table>
             [% END %]
         [%- ELSE -%]
-            <p>[% l('No results found') %]</p>
+            <p>[% l('No results found. Try refining your search query.') %]</p>
         [%- END -%]
+        <p>
+          [% l('Alternatively, you may {uri|add a new artist}.', {
+                uri => c.uri_for_action('/artist/create', {
+                         'edit-artist.name' => query
+                       }) }) %]
+        </p>
         [%- INCLUDE "search/form.tt" -%]
     </div>
 [% END %]

@@ -20,6 +20,8 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 sub edit_name { l('Add release') }
 sub edit_type { $EDIT_RELEASE_CREATE }
 sub _create_model { 'Release' }
@@ -55,6 +57,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
+        Release          => { $self->entity_id => [ 'ArtistCredit' ] },
         ReleaseStatus    => [ $self->data->{status_id} ],
         ReleaseGroup     => [ $self->data->{release_group_id} ],
         Script           => [ $self->data->{script_id} ],
@@ -78,6 +81,8 @@ sub build_display_data
         script        => $script ? $loaded->{Script}{ $script } : '',
         language      => $lang ? $loaded->{Language}{ $lang } : '',
         barcode       => $self->data->{barcode} || '',
+        release       => $loaded->{Release}{ $self->entity_id } ||
+            Release->new( name => $self->data->{name} )
     };
 }
 

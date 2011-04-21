@@ -14,6 +14,34 @@ use MusicBrainz::Server::Test;
 
 with 't::Context';
 
+test 'Relationships between merged entities' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO label_name (id, name) VALUES (1, 'A'), (2, 'B'), (3, 'C');
+INSERT INTO label (id, name, sort_name, gid)
+    VALUES (1, 1, 1, '9b335b20-5f88-11e0-80e3-0800200c9a66'),
+           (2, 2, 2, 'a2b31070-5f88-11e0-80e3-0800200c9a66'),
+           (3, 3, 3, 'a9de8b40-5f88-11e0-80e3-0800200c9a66');
+
+INSERT INTO link_type (id, entity_type0, entity_type1, name, gid, link_phrase,
+                       short_link_phrase, reverse_link_phrase)
+    VALUES (1, 'label', 'label', 'label AR', 'ff68bcc0-5f88-11e0-80e3-0800200c9a66',
+            'phrase', 'short', 'reverse');
+INSERT INTO link (id, link_type) VALUES (1, 1);
+
+INSERT INTO l_label_label (id, link, entity0, entity1)
+    VALUES (1, 1, 2, 3), (2, 1, 1, 3);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, 2, 3);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+    is (scalar($label->all_relationships) => 0);
+};
+
 test all => sub {
 
 my $test = shift;

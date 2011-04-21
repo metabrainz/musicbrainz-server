@@ -7,6 +7,8 @@ use MusicBrainz::Server::Translation qw ( l ln );
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Artist';
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
+
 sub _alias_model { shift->c->model('Artist')->alias }
 
 sub edit_name { l('Remove artist alias') }
@@ -26,7 +28,7 @@ has 'artist_id' => (
     isa => 'Int',
     is => 'rw',
     lazy => 1,
-    default => sub { shift->data->{entity_id} }
+    default => sub { shift->data->{entity}{id} }
 );
 
 sub foreign_keys
@@ -43,7 +45,8 @@ around 'build_display_data' => sub
     my ($self, $loaded) = @_;
 
     my $data = $self->$orig($loaded);
-    $data->{artist} = $loaded->{Artist}->{ $self->artist_id };
+    $data->{artist} = $loaded->{Artist}->{ $self->artist_id }
+        || Artist->new(name => $self->data->{entity}{name});
 
     return $data;
 };

@@ -13,7 +13,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>http://localhost:3000/release/add</td>
+	<td>/release/add</td>
 	<td></td>
 </tr>
 <tr>
@@ -54,7 +54,7 @@
 <tr>
 	<td>fireEvent</td>
 	<td>css=textarea.tracklist</td>
-	<td>keyup</td>
+	<td>blur</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
@@ -68,27 +68,12 @@
 </tr>
 <tr>
 	<td>type</td>
-	<td>id-missing.artists.0.sort_name</td>
+	<td>id-missing.artist.0.sort_name</td>
 	<td>test artist, MBS-1448</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id-missing.artists.0.comment</td>
-	<td>This is a comment for test artist MBS-1448.</td>
-</tr>
-<tr>
-	<td>echo</td>
-	<td>FIXME: only one entry should appear for the missing artist (remove this and the following two commands when MBS-1513 is fixed)</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id-missing.artists.1.sort_name</td>
-	<td>test artist, MBS-1448</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id-missing.artists.1.comment</td>
+	<td>id-missing.artist.0.comment</td>
 	<td>This is a comment for test artist MBS-1448.</td>
 </tr>
 <tr>

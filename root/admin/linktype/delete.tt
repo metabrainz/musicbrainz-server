@@ -1,14 +1,14 @@
-[%- WRAPPER 'layout.tt' title=l('Delete Relationship Type') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Remove Relationship Type') full_width=1 -%]
     <div id="content">
-        <h1>[% l('Delete Relationship Type') %]</h1>
+        <h1>[% l('Remove Relationship Type') %]</h1>
 
         <p>
-            [%- l('Are you sure you wish to delete the <strong>{link_type}</strong> relationship type?', { link_type => link_type.name }) -%]
+            [%- l('Are you sure you wish to remove the <strong>{link_type}</strong> relationship type?', { link_type => link_type.name }) -%]
         </p>
 
         <form action="[% c.req.uri %]" method="post">
             <span class="buttons">
-                <button type="submit" name="confirm.submit">[% l('Delete') %]</button>
+                <button type="submit" name="confirm.submit">[% l('Remove') %]</button>
             </span>
         </form>
     </div>

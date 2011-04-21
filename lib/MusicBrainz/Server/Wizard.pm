@@ -5,8 +5,7 @@ use Carp qw( croak );
 has '_current' => (
     is => 'rw',
     isa => 'Int',
-    default => 0,
-    trigger => \&_set_current
+    default => 0
 );
 
 has '_processed_page' => (
@@ -79,7 +78,7 @@ has $_ => (
 ) for qw( on_cancel on_submit );
 
 sub skip {
-    my ($self, $page) = @_;
+    my $self = shift;
 
     my $skip = $self->pages->[$self->_current]->{skip};
     return defined $skip ? &$skip : 0;
@@ -188,6 +187,11 @@ sub render
     if (! $self->shown->[$self->_current])
     {
         $page->clear_errors;
+
+        # clear_errors doesn't clear everything, error_fields on the form still
+        # contains the error fields -- so let's set an extra flag so the template
+        # knows wether to show errors or not.
+        $self->c->stash->{hide_errors} = 1;
     }
 
     # mark the current page as having been shown to the user.
@@ -315,10 +319,13 @@ sub _route
 
     my $p = $self->c->request->parameters;
     my $requested = $self->_current;
+    my $allow_skip = 1;
     if (defined $p->{next})
     {
         return $self->navigate_to_page unless $self->valid ($page);
-
+        if (my $submit = $self->pages->[$self->_current]->{submit}) {
+            $submit->();
+        }
         $requested++;
     }
     elsif (defined $p->{previous})
@@ -337,6 +344,9 @@ sub _route
     }
     else
     {
+        # Only skip pages when using "Previous" and "Next" buttons, do not
+        # allow skipping when a page tab has been clicked directly.
+        $allow_skip = 0;
         my $max = scalar @{ $self->pages } - 1;
         for (0..$max)
         {
@@ -351,7 +361,7 @@ sub _route
     if ($requested < $self->_current)
     {
         # navigate to previous pages, skipping pages which need to be skipped.
-        while ($requested < $self->_current || $self->skip ($page))
+        while ($requested < $self->_current || ($allow_skip && $self->skip))
         {
             last unless $self->find_previous_page;
             $page = $self->navigate_to_page;
@@ -362,7 +372,8 @@ sub _route
         # validate each page when moving forward.
         # - if a page is not valid, stop there.
         # - if a page should be skipped, skip it.
-        while ($self->skip ($page) || ($self->valid ($page) && $requested > $self->_current))
+        while (($allow_skip && $self->skip) ||
+               ($self->valid ($page) && $requested > $self->_current))
         {
             last unless $self->find_next_page;
             $page = $self->navigate_to_page;
@@ -415,16 +426,6 @@ around '_current' => sub {
 
     return $self->$orig ($value);
 };
-
-sub _set_current
-{
-    my ($self, $value, $old_page) = @_;
-
-    my $change_page = $self->pages->[$old_page]->{change_page};
-    $change_page->($value) if defined $change_page;
-
-    $self->{_current} = $value;
-}
 
 sub _store
 {

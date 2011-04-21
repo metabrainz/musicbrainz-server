@@ -3,6 +3,7 @@ package MusicBrainz::Server::Test;
 use DBDefs;
 use Encode qw( encode );
 use FindBin '$Bin';
+use Getopt::Long;
 use HTTP::Headers;
 use HTTP::Request;
 use MusicBrainz::Server::CacheManager;
@@ -25,7 +26,7 @@ use Sub::Exporter -setup => {
     exports => [
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
-            compare_body html_ok
+            compare_body html_ok commandline_override
         ),
         ws_test => \&_build_ws_test,
     ],
@@ -75,6 +76,9 @@ sub _load_query
         open(FILE, "<" . $default);
         $query = do { local $/; <FILE> };
     }
+
+    # comment PostgreSQL interactive terminal commands.
+    $query =~ s/^(\\.*)$/-- $1/mg;
 
     return $query;
 }
@@ -330,21 +334,17 @@ sub _build_ws_test_xml {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
-    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     my $validator = schema_validator($args->{version});
 
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
         $opts ||= {};
 
+        my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
             }
-            else {
-                $mech->clear_credentials;
-            }
-
 
             $Test->plan(tests => 4);
 
@@ -421,11 +421,42 @@ sub compare_body
     eq_or_diff($got, $expected);
 }
 
+=func commandline_override
+
+Allow the user of an aggregate test file to specify which tests to run.
+
+The "--tests" option can be supplied to a test, it should be followed
+by a comma separated list of tests to run.  A default $prefix has to
+be specified so that the user does not have to supply the full package
+name of a test.
+
+Example:
+
+  prove -l -v t/tests.t :: --tests Entity::Label,Data::Artist
+
+=cut
+
+sub commandline_override
+{
+    my ($prefix, @default_tests) = @_;
+
+    my @tests;
+    GetOptions ("tests=s" => \@tests);
+    @tests = split(/,/,join(',',@tests));
+
+    @default_tests = map {
+        /^t::/ ? $_ : $prefix.$_;
+    } @tests if scalar @tests;
+
+    return @default_tests;
+}
+
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

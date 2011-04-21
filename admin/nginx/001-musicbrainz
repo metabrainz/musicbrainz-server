@@ -1,6 +1,6 @@
 server {
 	listen	0.0.0.0:80;
-	server_name	test.musicbrainz.org rc1.musicbrainz.org;
+	server_name	_;
 
 	access_log	/var/log/nginx/001-musicbrainz.access.log;
 	access_log	/var/log/nginx/001-musicbrainz.proxy.log proxylog;

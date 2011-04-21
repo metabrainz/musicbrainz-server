@@ -201,8 +201,11 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             var $bubble = $select_template.clone ().insertAfter ($select_template);
             self.renderTrack (idx, $track, $bubble, trk);
 
-            var name = 'rec_mediums.'+disc+'.associations.'+idx+'.gid';
-            $track.find ('input.gid').attr ('name', name);
+            var name_prefix = 'rec_mediums.'+disc+'.associations.'+idx;
+            $track.find ('input.gid').attr ('name', name_prefix + '.gid');
+            $track.find ('input.confirmed').attr ('name', name_prefix + '.confirmed');
+            $track.find ('input.edit_sha1').attr ('name', name_prefix + '.edit_sha1')
+                .val (trk.edit_sha1);
 
             var id = 'select-recording-'+disc+'-'+idx;
             $bubble.attr ('id', id).find ('input.recordingmatch').attr ('name', id);

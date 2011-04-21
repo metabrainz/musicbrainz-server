@@ -17,7 +17,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, medium, cdtoc, edits_pending';
+    return 'medium_cdtoc.id, medium, cdtoc, edits_pending';
 }
 
 sub _column_mapping
@@ -60,11 +60,17 @@ sub load_for_mediums
     return @list;
 }
 
-sub find_by_cdtoc
+sub find_by_discid
 {
-    my ($self, $cdtoc_id) = @_;
-    return sort { $a->id <=> $b->id }
-        values %{ $self->_get_by_keys("cdtoc", $cdtoc_id) };
+    my ($self, $discid) = @_;
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+           JOIN cdtoc ON cdtoc = cdtoc.id
+          WHERE discid = ?
+       ORDER BY medium_cdtoc.id ASC';
+    return query_to_list(
+        $self->sql, sub { $self->_new_from_row(@_) },
+        $query, $discid);
 }
 
 sub get_by_medium_cdtoc
@@ -112,6 +118,27 @@ sub delete
           LEFT JOIN medium_cdtoc mcd ON mcd.cdtoc = cd.id
              WHERE cd.id = ? AND mcd.id IS NULL
          )', $cdtoc_id);
+}
+
+sub merge_mediums
+{
+    my ($self, $new_medium, @old_mediums) = @_;
+    my @mediums = ($new_medium, @old_mediums);
+    $self->sql->do(
+        'DELETE FROM medium_cdtoc
+               WHERE id NOT IN (
+                         SELECT DISTINCT ON (cdtoc) id
+                           FROM medium_cdtoc
+                          WHERE medium IN ('.placeholders(@mediums).')
+                     )
+                AND medium IN (' . placeholders(@mediums) . ')',
+        @mediums, @mediums
+    );
+
+    $self->sql->do(
+        'UPDATE medium_cdtoc SET medium = ? WHERE medium IN ('.placeholders(@mediums).')',
+        $new_medium, @mediums
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

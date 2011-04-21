@@ -7,7 +7,7 @@
                content=link_entity(collection.editor) %]
         [%- END -%]
 
-        [% link_collection(collection, 'delete', l('Delete this collection')) %]
+        [% link_collection(collection, 'delete', l('Remove this collection')) %]
     [% END %]
 
     <div id="content">

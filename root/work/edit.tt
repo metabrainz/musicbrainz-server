@@ -2,6 +2,7 @@
 
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
+      "lib/jquery.ui/external/jquery.cookie.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Work.js",
       "scripts/MB/GuessCase/Mode/Base.js",

@@ -98,6 +98,7 @@ $(function() {
             newSelect.attr('id', 'id-' + newSelectName);
             newSelect.val('');
             selects.append(newDiv);
+            newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
         selects.find('div').each(function() {
@@ -120,8 +121,20 @@ $(function() {
         filterSelect($input, 1);
         return false;
     });
-    $('input.selectFilter').live('keyup', function() {
-        filterSelect($(this), 0);
+
+    var KEY_UP = 37, KEY_LEFT = 38,
+        KEY_DOWN = 40, KEY_RIGHT = 39;
+    $('input.selectFilter').live('keyup', function(event) {
+        var $input = $(this);
+        if (event.keyCode == KEY_UP || event.keyCode == KEY_LEFT) {
+            filterSelect($input, -1);
+        }
+        else if(event.keyCode == KEY_DOWN || event.keyCode == KEY_RIGHT) {
+            filterSelect($input, 1);
+        }
+        else {
+            filterSelect($input, 0);
+        }
     });
 
     var linkTypeSelect = $("select[id='id-ar.link_type_id']");

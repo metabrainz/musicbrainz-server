@@ -13,7 +13,7 @@ before 'serialize' => sub
     my ($self, $entity, $inc, $opts) = @_;
 
     my $type = $entity->link->type->name;
-    $type =~ s/ /_/;
+    $type =~ s/\s+/_/g;
 
     $self->attributes->{type}   = camelize($type);
     $self->attributes->{begin}  = $entity->link->begin_date->format

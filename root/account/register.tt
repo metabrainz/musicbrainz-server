@@ -19,7 +19,7 @@
     <form action="[% c.req.uri %]" method="post">
         [% form_row_text(r, 'username', l('Username:')) %]
         <div class="row no-label">
-            <span class="input-note">[% l('Your username will be publically visible.') %]</span>
+            <span class="input-note">[% l('Your username will be publicly visible.') %]</span>
         </div>
         [% form_row_password(r, 'password', l('Password:')) %]
         [% form_row_password(r, 'confirm_password', l('Confirm password:')) %]
@@ -28,7 +28,7 @@
             <span class="input-note">[% l('You must provide a working email address if you wish to contribute to the database.') %]</span>
         </div>
         <div class="row no-label">
-            <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_of_Conduct') }) %]</p>
+            <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_Of_Conduct') }) %]</p>
             [% form_submit(l('Create Account')) %]
         </div>
     </form>

@@ -26,10 +26,12 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { l('Edit release') }
 sub _edit_model { 'Release' }
-sub release_id { shift->data->{entity_id} }
+sub release_id { shift->data->{entity}{id} }
 
 sub change_fields
 {
@@ -51,11 +53,27 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
-        entity_id => Int,
+        entity => Dict[
+            id => Int,
+            name => Str
+        ],
         new => change_fields(),
         old => change_fields()
     ]
 );
+
+around related_entities => sub {
+    my ($orig, $self) = @_;
+
+    my $related = $self->$orig;
+    if (exists $self->data->{new}{artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+        push @{ $related->{artist} }, keys(%new), keys(%old);
+    }
+
+    return $related;
+};
 
 sub foreign_keys
 {
@@ -79,7 +97,7 @@ sub foreign_keys
     }
 
     $relations->{Release} = {
-        $self->data->{entity_id} => [ 'ArtistCredit' ]
+        $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
     return $relations;
@@ -117,7 +135,8 @@ sub build_display_data
         };
     }
 
-    $data->{release} = $loaded->{Release}{ $self->data->{entity_id} };
+    $data->{release} = $loaded->{Release}{ $self->data->{entity}{id} }
+        || Release->new( name => $self->data->{entity}{name} );
 
     return $data;
 }

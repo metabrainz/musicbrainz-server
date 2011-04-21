@@ -1,15 +1,20 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+package t::MusicBrainz::Server::Edit::Relationship::Edit;
+use Test::Routine;
 use Test::More;
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Relationship::Edit' }
+with 't::Context';
+
+BEGIN { use MusicBrainz::Server::Edit::Relationship::Edit }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context();
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
@@ -21,7 +26,7 @@ is($rel->link->type->id, 1, "link type id = 1");
 is($rel->link->begin_date->year, undef, "no begin date");
 is($rel->link->end_date->year, undef, "no end date");
 
-my $edit = _create_edit();
+my $edit = _create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
 
 my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
@@ -42,7 +47,7 @@ ok(defined $rel);
 is($rel->edits_pending, 0, "After rejecting the edit, no edit pending on the relationship");
 
 # Test accepting the edit
-$edit = _create_edit();
+$edit = _create_edit($c);
 accept_edit($c, $edit);
 $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
 ok(defined $rel, "After accepting the edit, the relationship has...");
@@ -58,7 +63,7 @@ ok(defined $rel, "Before accepting the edit...");
 is($rel->entity0_id, 1, "... entity0 is artist 1");
 is($rel->entity1_id, 2, "... entity1 is artist 2");
 
-$edit = _create_edit_change_direction ();
+$edit = _create_edit_change_direction ($c);
 accept_edit($c, $edit);
 
 $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
@@ -66,9 +71,11 @@ ok(defined $rel, "After accepting the edit...");
 is($rel->entity0_id, 2, "... entity0 is now artist 2");
 is($rel->entity1_id, 1, "... entity1 is now artist 1");
 
-done_testing;
+};
 
 sub _create_edit {
+    my $c = shift;
+
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
@@ -87,6 +94,8 @@ sub _create_edit {
 }
 
 sub _create_edit_change_direction {
+    my $c = shift;
+
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
@@ -104,3 +113,5 @@ sub _create_edit_change_direction {
         attributes => [],
     );
 }
+
+1;

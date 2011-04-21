@@ -49,6 +49,8 @@ h1 span {
     width: 300px;
 }
 
+#release-editor fieldset select.format { width: 150px; }
+
 #release-editor fieldset input[type=checkbox],
 #release-editor fieldset span.partial-date input { width: auto; }
 #release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
@@ -154,6 +156,7 @@ div.guesscase-options,
 
 #release-editor div.tracklist-padding { padding: 0 12px 12px 12px; }
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
+table.medium.tbl tr.deleted { display: none; }
 table.medium.tbl td.position  { width: 2em; }
 table.medium.tbl td.credits-button { width: 4em; text-align: right; }
 table.medium.tbl td.length    { width: 5em; }
@@ -180,11 +183,15 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     width: 100%;
 }
 
+#release-editor .medium.tbl td input[type=text].lookup-performed { background: #bfb; }
+#release-editor .medium.tbl td input[type=text].column-disabled.lookup-performed { background: #fff; }
+
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
 
 #release-editor .recordings p { margin-top: 0; }
 #release-editor .documentation p { margin-top: 0; }
+#release-editor .documentation div.warning p { margin-top: 1em; }
 #release-editor table.preview { width: 100%; margin: 0 0 10px 0 }
 #release-editor table.preview .artist { width: 160px; }
 #release-editor table.preview .duration {
@@ -200,7 +207,8 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor div.basic-disc.expanded { margin: 0 0 10px 0; }
 #release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 0; }
 #release-editor table.basic-format h3 { margin: 0; }
-#release-editor table.basic-format td.format { text-align: right; }
+#release-editor table.basic-format td.format { text-align: center; }
+#release-editor table.basic-format td.icon { text-align: right; }
 
 #release-editor div.basic-medium-format-and-title div.row {
     display: inline;

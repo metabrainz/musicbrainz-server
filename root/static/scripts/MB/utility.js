@@ -110,3 +110,47 @@ MB.utility.escapeHTML = function (str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+/* structureToString renders a structure to a string.  It is similar to
+   serializing a structure, but intended as input to a hash function.
+
+   The output string is not easily deserialized.
+*/
+MB.utility.structureToString = function (obj) {
+    if (MB.utility.isString (obj))
+    {
+        return obj;
+    }
+    else if (MB.utility.isArray (obj))
+    {
+        var ret = [];
+        $.each (obj, function (idx, item) {
+            ret.push (MB.utility.structureToString (item));
+        });
+
+        return '[' + ret.join (",") + ']';
+    }
+    else
+    {
+        var keys = MB.utility.keys (obj);
+        keys.sort ();
+
+        var ret = [];
+        $.each (keys, function (idx, key) {
+            ret.push (key + ":" + MB.utility.structureToString (obj[key]));
+        });
+
+        return '{' + ret.join (",") + '}';
+    }
+};
+
+
+/* Set a particular button to be the default submit action for a form. */
+MB.utility.setDefaultAction = function (form, button) {
+
+    $(form).prepend (
+        $(button).clone ().css ({
+           position: 'absolute',
+           left: "-999px", top: "-999px", height: 0, width: 0
+        }));
+
+};

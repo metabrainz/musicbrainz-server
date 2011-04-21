@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Role::Name;
 use MooseX::Role::Parameterized;
 
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
 parameter 'name_table' => (
     isa => 'Str',
@@ -38,7 +38,7 @@ role
             $found_names{$new_name} = $id;
         }
         return %found_names;
-    }
+    };
 };
 
 no Moose::Role;

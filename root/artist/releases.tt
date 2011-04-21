@@ -1,3 +1,9 @@
+[% BLOCK layout_head %]
+    <script src="[% c.model('FileCache').squash_scripts(
+      'scripts/MB/Control/SelectAll.js'
+    ) %]"></script>
+[% END %]
+
 [%- WRAPPER 'artist/layout.tt' title=l('Releases') page='releases' -%]
     [%- IF releases.size -%]
       <form action="[% c.uri_for_action('/release/merge_queue') %]"
@@ -18,10 +24,10 @@
             <p>[% l('This artist only has releases by various artists.') %]</p>
         [% ELSE %]
             [% IF !show_va %]
-                <p>[% l('Showing releases by this artist. {show_all|Show various artist releases}.',
+                <p>[% l('Showing releases by this artist. {show_all|Show Various Artist releases instead}.',
                         { show_all = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 1 }) }) %]</p>
             [% ELSE %]
-                <p>[% l('Showing various artist release groups. {show_subset|Show only release groups by this artist}.',
+                <p>[% l('Showing Various Artist releases. {show_subset|Show releases by this artist instead}.',
                         { show_subset = c.uri_for_action('/artist/releases', [ artist.gid ], { va = 0 }) }) %]</p>
             [% END %]
         [% END %]

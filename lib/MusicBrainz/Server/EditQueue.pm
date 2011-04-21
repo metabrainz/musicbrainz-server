@@ -30,6 +30,18 @@ has 'summary' => (
     default => 0
 );
 
+my %action_name = (
+    $STATUS_OPEN => 'open',
+    $STATUS_APPLIED => 'applied',
+    $STATUS_FAILEDVOTE => 'failed vote',
+    $STATUS_FAILEDDEP => 'failed dep',
+    $STATUS_FAILEDPREREQ => 'failed prereq',
+    $STATUS_NOVOTES => 'no votes',
+    $STATUS_TOBEDELETED => 'to be deleted',
+    $STATUS_DELETED => 'deleted',
+    $STATUS_ERROR => 'error'
+);
+
 sub process_edits
 {
     my ($self) = @_;
@@ -70,7 +82,7 @@ sub process_edits
         $self->log->info("Summary:\n");
         my @actions = sort { $a cmp $b } keys %stats;
         foreach my $action (@actions) {
-            $self->log->info(sprintf "  %-20.20s %d\n", $action, $stats{$action});
+            $self->log->info(sprintf "  %-20.20s %d\n", $action_name{$action}, $stats{$action});
         }
     }
 

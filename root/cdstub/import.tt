@@ -1,5 +1,5 @@
 [% WRAPPER 'cdstub/layout.tt' full_width=1 title=l('Import CD Stub') %]
-  <h2>[% l('Import CDStub') %]</h2>
+  <h2>[% l('Import CD Stub') %]</h2>
   <p>[% l('Please search for the artist you wish to create a new release for:') %]</p>
 
   <form action="[% c.req.uri %]" method="post">
@@ -12,6 +12,7 @@
     <input type="hidden" name="barcode" value="[% cdstubtoc.cdstub.barcode %]" />
     <input type="hidden" name="comment" value="[% cdstubtoc.cdstub.comment %]" />
     <input type="hidden" name="mediums.0.toc" value="[% cdstubtoc.toc %]" />
+    <input type="hidden" name="mediums.0.format" value="CD" />
 
     [% FOR track=cdstubtoc.cdstub.tracks %]
       <input type="hidden" name="mediums.0.track.[% loop.index %].name"

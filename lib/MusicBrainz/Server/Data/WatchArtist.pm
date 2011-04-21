@@ -150,21 +150,23 @@ sub save_preferences {
         'DELETE FROM editor_watch_release_status WHERE editor = ?',
         $editor_id);
 
-    my @types = @{ $preferences->{type_id} };
-    my @type_editors = ($editor_id) x @types;
-    $self->sql->do(
-        'INSERT INTO editor_watch_release_group_type
+    if(my @types = grep { $_ } @{ $preferences->{type_id} }) {
+        my @type_editors = ($editor_id) x @types;
+        $self->sql->do(
+            'INSERT INTO editor_watch_release_group_type
             (editor, release_group_type) VALUES ' .
-        join(', ', ('(?, ?)') x @types),
-        mesh @type_editors, @types);
+                join(', ', ('(?, ?)') x @types),
+            mesh @type_editors, @types);
+    }
 
-    my @status = @{ $preferences->{status_id} };
-    my @status_editors = ($editor_id) x @status;
-    $self->sql->do(
-        'INSERT INTO editor_watch_release_status
-            (editor, release_status) VALUES ' .
-        join(', ', ('(?, ?)') x @status),
-        mesh @status_editors, @status);
+    if(my @status = grep { $_ } @{ $preferences->{status_id} }) {
+        my @status_editors = ($editor_id) x @status;
+        $self->sql->do(
+            'INSERT INTO editor_watch_release_status
+                (editor, release_status) VALUES ' .
+                    join(', ', ('(?, ?)') x @status),
+            mesh @status_editors, @status);
+    }
 
     $self->sql->do(
         'UPDATE editor_watch_preferences SET

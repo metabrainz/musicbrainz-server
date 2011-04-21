@@ -11,16 +11,16 @@
 
   <form action="[% c.req.uri %]" method="GET">
     <input type="hidden" name="toc" value="[% toc %]" />
+    [% r.hidden('query') %]
     [%- IF results.size -%]
       [% WRAPPER 'components/with-pager.tt' %]
-      <table class="tbl">
-        [%- FOREACH result=results -%]
-          [% release=result.entity %]
+      [%- FOREACH result=results -%]
+        [% release=result.entity %]
+        <table class="tbl">
           <thead>
             <tr>
               <th colspan="3">
-                [% l('{release} by {artist}', { release => link_entity(release),
-                                                artist => artist_credit(release.artist_credit) }) %]
+                [% descriptive_link(release) %]
               </th>
             </tr>
           </thead>
@@ -39,11 +39,9 @@
                     hide_rating = 1 %]
             [%- END -%]
           </tbody>
-        [% END %]
       </table>
-      <div class="row no-label">
-        [% form_submit(l('Select')) %]
-      </div>
+      [% END %]
+      [% form_submit(l('Attach CDTOC')) %]
       [% END %]
     [%- END -%]
   </form>

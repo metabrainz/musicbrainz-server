@@ -15,7 +15,15 @@ sub BUILD
     my $class = shift;
     my $mpo = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Edit::Historic',
-        require     => 1
+        require     => 1,
+        except      => [qw(
+                              MusicBrainz::Server::Edit::Historic::Fast
+                              MusicBrainz::Server::Edit::Historic::Base
+                              MusicBrainz::Server::Edit::Historic::NGSMigration
+                              MusicBrainz::Server::Edit::Historic::Artist
+                              MusicBrainz::Server::Edit::Historic::Label
+                              MusicBrainz::Server::Edit::Historic::Utils
+                       )]
     );
 
     %edit_mapping = (

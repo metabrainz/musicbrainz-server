@@ -143,24 +143,27 @@ sub find_for_subscription
     my ($self, $subscription) = @_;
     if($subscription->isa(EditorSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM edit 
-                      WHERE id > ? AND editor = ?';
+                      WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
         return query_to_list(
             $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
-            $subscription->subscribed_editor_id
+            $subscription->subscribed_editor_id,
+            $STATUS_OPEN, $STATUS_APPLIED
         );
     }
     else {
         my $type = $subscription->type;
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
-            "   AND id > ?";
+            "   AND id > ? AND status IN (?, ?)";
         return query_to_list(
             $self->c->raw_sql,
             sub { $self->_new_from_row(shift) },
-            $query, $subscription->target_id, $subscription->last_edit_sent);
+            $query, $subscription->target_id, $subscription->last_edit_sent,
+            $STATUS_OPEN, $STATUS_APPLIED
+        );
     }
 }
 
@@ -180,6 +183,74 @@ sub find_by_voter
         sub { $self->_new_from_row(shift) },
         $query, $voter_id, $offset
     );
+}
+
+
+sub subscribed_entity_edits
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my @subscribable_types = qw( artist label );
+
+    my %subscriptions = map {
+        $_ => $self->c->sql->select_single_column_array(
+            "SELECT $_ FROM editor_subscribe_$_ WHERE editor = ?",
+            $editor_id
+        )
+    } @subscribable_types;
+
+    my @filter_on = grep { @{ $subscriptions{$_} } } keys %subscriptions
+        or return;
+
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+        ' WHERE editor != ?
+            AND status = ?
+            AND id IN (' .
+            join(
+                ' UNION ALL ',
+                map {
+                    "SELECT edit FROM edit_$_ WHERE $_ IN (" .
+                        placeholders(@{ $subscriptions{$_} }) .
+                    ')'
+                } @filter_on
+            ) .
+         ')
+       ORDER BY id DESC
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub {
+            return $self->_new_from_row(shift);
+        },
+        $query, $editor_id, $STATUS_OPEN,
+        (map { @{ $subscriptions{$_} } } @filter_on),
+        $offset);
+}
+
+sub subscribed_editor_edits {
+    my ($self, $editor_id, $limit, $offset) = @_;
+
+    my @editor_ids = @{
+        $self->c->sql->select_single_column_array(
+            'SELECT subscribed_editor FROM editor_subscribe_editor
+              WHERE editor = ?',
+            $editor_id)
+    } or return;
+
+    my $query =
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+        ' WHERE status = ?
+            AND editor IN (' . placeholders(@editor_ids) . ')
+       ORDER BY id DESC
+         OFFSET ?';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub {
+            return $self->_new_from_row(shift);
+        },
+        $query, $STATUS_OPEN, @editor_ids, $offset);
 }
 
 sub merge_entities
@@ -301,6 +372,12 @@ sub create
         my $now = DateTime->now;
         my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
+        # Some edits need the ID when they are accepted, and the accept code
+        # might run before edit insertion (ie, autoedits).
+        $edit->id($self->sql->select_single_value(
+            "SELECT nextval('edit_id_seq')"
+        ));
+
         # Automatically accept auto-edits on insert
         if ($edit->auto_edit) {
             my $st = $self->_do_accept($edit);
@@ -310,6 +387,7 @@ sub create
         };
 
         my $row = {
+            id => $edit->id,
             editor => $edit->editor_id,
             data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
             status => $edit->status,
@@ -322,11 +400,10 @@ sub create
         };
 
         my $edit_id = $self->c->raw_sql->insert_row('edit', $row, 'id');
-        $edit->id($edit_id);
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
-            $ids = [ uniq @$ids ];
+            $ids = [ uniq grep { defined } @$ids ];
             @$ids or next;
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
@@ -442,6 +519,16 @@ sub _do_reject
 
     try {
         $edit->reject;
+    }
+    catch (MusicBrainz::Server::Edit::Exceptions::MustApply $err) {
+        $self->c->model('EditNote')->add_note(
+            $edit->id,
+            {
+                editor_id => $EDITOR_MODBOT,
+                text => $err
+            }
+        );
+        return $STATUS_APPLIED;
     }
     catch ($err) {
         carp("Could not reject " . $edit->id . ": $err");

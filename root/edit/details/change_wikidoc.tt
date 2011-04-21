@@ -26,7 +26,7 @@
   [% ELSE %]
   <tr>
     <th>[% l('New version:') %]</th>
-    <td class="old">[% l('Page deleted') %]</td>
+    <td class="old">[% l('Page removed') %]</td>
   </tr>
   [% END %]
 </table>

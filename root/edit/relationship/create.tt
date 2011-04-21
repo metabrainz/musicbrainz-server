@@ -20,7 +20,7 @@
    </script>
 [% END %]
 
-[%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Create Relationship') full_width=1 -%]
 
     <h1>[% l('Create Relationship') %]</h1>
 
@@ -55,7 +55,7 @@
                     [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
                       <span id="change-direction">
                       [%- IF no_javascript -%]
-                        [% r.checkbox('direction') %] Change direction
+                        [% r.checkbox('direction') %] [% l('Change direction') %]
                       [%- ELSE -%]
                         [% r.hidden('direction') %]
                         <input type="button" id="changedirection" value="[% l('Change direction') %]" />

@@ -1,5 +1,5 @@
 input { background: #fff; color: #000; }
-.mb_placeholder { color: #aaa; }
+input:-moz-placeholder, .mb_placeholder { color: #aaa; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {
@@ -54,8 +54,10 @@ span.error {
 
 input.error,
 select.error {
-    background: #ffaaaa;
+    background: #ffaaaa ! important;
 }
+
+input.lookup-performed { background: #bfb; }
 
 form .input-note {
     font-style: italic;
@@ -237,6 +239,6 @@ div.documentation div.bubble {
     border-radius: 12px;
 }
 
-div.documentation div.artist-credit div.row { clear: none; }
+div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
 div.documentation div.container { width: 100%; }
 

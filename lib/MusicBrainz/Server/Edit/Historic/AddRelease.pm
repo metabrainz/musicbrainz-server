@@ -32,7 +32,7 @@ sub _release_ids
 sub _artist_ids
 {
     my $self = shift;
-    return map { $_->{artist_id} } @{ $self->data->{tracks} };
+    return $self->data->{artist_id}, (map { $_->{artist_id} } @{ $self->data->{tracks} });
 }
 
 sub _release_events

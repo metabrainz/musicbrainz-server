@@ -1,6 +1,7 @@
 [%- BLOCK layout_head -%]
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
+      "lib/jquery.ui/external/jquery.cookie.js",
       "scripts/MB/utility.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Release.js",
@@ -34,7 +35,7 @@
 
 [% WRAPPER 'layout.tt' title=l('Add New Release Group') full_width=1 %]
    [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page.") ) -%]
+     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
 
    [% INCLUDE 'artist/header.tt' artist=initial_artist IF initial_artist %]

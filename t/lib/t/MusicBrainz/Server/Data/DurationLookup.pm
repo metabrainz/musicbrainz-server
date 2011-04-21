@@ -24,18 +24,41 @@ my $lookup_data = MusicBrainz::Server::Data::DurationLookup->new(c => $test->c);
 does_ok($lookup_data, 'MusicBrainz::Server::Data::Role::Context');
 memory_cycle_ok($lookup_data);
 
-my $result = $lookup_data->lookup("1 10 323860 182 36697 68365 94047 125922 180342 209172 245422 275887 300862", 10000);
-is ( defined $result->[0] && $result->[0]->medium->tracklist_id, 1 );
-is ( defined $result->[0] && $result->[0]->distance, 0 );
-is ( defined $result->[0] && $result->[0]->medium_id, 3 );
+my $result = $lookup_data->lookup("1 7 171327 150 22179 49905 69318 96240 121186 143398", 10000);
+ok ( scalar(@$result) > 0, 'found results' );
+
+if (my ($result) = grep { $_->medium_id == 1 } @$result) {
+    ok ($result, 'returned medium 1');
+    is ( $result->medium->tracklist_id, 1 );
+    is ( $result->distance, 1 );
+    is ( $result->medium_id, 1 );
+}
+
+if (my ($result) = grep { $_->medium_id == 3 } @$result) {
+    ok ($result, 'returned medium 3');
+    is ( $result->medium->tracklist_id, 1 );
+    is ( $result->distance, 1 );
+    is ( $result->medium_id, 3 );
+}
 
 memory_cycle_ok($lookup_data);
 memory_cycle_ok($result);
 
-$result = $lookup_data->lookup("1 10 205220 150 5646 32497 60461 75807 100902 106930 128979 144938 170007", 10000);
-is ( defined $result->[0] && $result->[0]->medium->tracklist_id, 2 );
-is ( defined $result->[0] && $result->[0]->distance, 0 );
-is ( defined $result->[0] && $result->[0]->medium_id, 4 );
+$result = $lookup_data->lookup("1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877", 10000);
+
+if (my ($result) = grep { $_->medium_id == 2 } @$result) {
+    ok ($result, 'returned medium 1');
+    is ( $result->medium->tracklist_id, 2 );
+    is ( $result->distance, 1 );
+    is ( $result->medium_id, 2 );
+}
+
+if (my ($result) = grep { $_->medium_id == 4 } @$result) {
+    ok ($result, 'returned medium 4');
+    is ( $result->medium->tracklist_id, 2 );
+    is ( $result->distance, 1 );
+    is ( $result->medium_id, 4 );
+}
 
 memory_cycle_ok($lookup_data);
 memory_cycle_ok($result);

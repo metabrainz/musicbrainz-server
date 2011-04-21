@@ -33,7 +33,7 @@ sub discid : Chained('root') PathPart('discid') Args(1)
     my $stash = WebServiceStash->new;
     my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
     if ($cdtoc) {
-        my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_cdtoc($cdtoc->id);
+        my @mediumcdtocs = $c->model('MediumCDTOC')->find_by_discid($cdtoc->discid);
         $c->model('Medium')->load(@mediumcdtocs);
 
         my $opts = $stash->store ($cdtoc);

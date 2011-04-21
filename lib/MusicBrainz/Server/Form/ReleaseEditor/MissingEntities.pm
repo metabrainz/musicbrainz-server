@@ -19,18 +19,21 @@ for my $type (@types) {
         required => 1
     );
 
-    has_field "missing.$type.sort_name" => (
+    has_field "missing.$type.for" => (
         type => 'Text',
         required => 1
+    );
+
+    has_field "missing.$type.sort_name" => (
+        type => 'Text'
     );
 
     has_field "missing.$type.comment" => (
         type => 'Text'
     );
 
-    has_field "missing.$type.for" => (
-        type => 'Text',
-        required => 1
+    has_field "missing.$type.entity_id" => (
+        type => 'Integer',
     );
 }
 
@@ -40,6 +43,10 @@ sub validate {
     for my $type (@types) {
         for my $field ($self->field('missing')->field($type)->fields) {
             next if $field->has_errors;
+            next if $field->field('entity_id')->value;
+
+            $field->field('sort_name')->required(1);
+            $field->field('sort_name')->validate_field;
 
             my @entities = $self->ctx->model(type_to_model($type))
                 ->find_by_name($field->field('name')->input)

@@ -14,6 +14,8 @@
 
         MB.Control.ReleaseRecordings ();
 
+        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+
     });
   </script>
 [%- END -%]
@@ -27,7 +29,7 @@
       <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 
       <p>
-        Search:
+        [% l('Search:') %]
         <span class="autocomplete">
           <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
           <img class="search" src="/static/images/icons/search.png" />
@@ -152,11 +154,13 @@
             <td class="name" style="width: 40%; padding: 0.5em 0.5em 0 0;" ></td>
             <td class="recording" style="width: 40%; padding: 0.5em 0 0 0;">
               <input class="gid" type="hidden" />
+              <input class="confirmed" type="hidden" value="1" />
+              <input class="edit_sha1" type="hidden" />
               <span class="recording"></span>
               <span class="add-recording" style="display: none">[%- l('(add a new recording)') -%]</span>
             </td>
             <td rowspan="2" class="buttons" style="vertical-align: middle; width: 10%;">
-              <a class="change-recording" href="#change-recording">Change</a>
+              <a class="change-recording" href="#change-recording">[% l('Change') %]</a>
             </td>
           </tr>
 
@@ -183,6 +187,8 @@
       [%- medium = mediums.fields.$medium_idx -%]
       [%- edits = tracklist_edits.$medium_idx.edits -%]
 
+      [%- NEXT IF medium.field('deleted').value -%]
+
       <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]">
 
         [%- r.hidden (rec_medium.field('tracklist_id'), class => 'tracklist-id' ) -%]
@@ -202,8 +208,7 @@
           [%- END -%]
         </legend>
 
-        [%- IF edits -%]
-
+        [%- IF rec_medium.field('associations').fields -%]
         <table>
           <thead>
           <tr>
@@ -212,9 +217,13 @@
           </thead>
           <tbody>
 
-          [%- FOR track=edits -%]
+          [%- FOR assoc=rec_medium.field('associations').fields -%]
             [%- track_idx = loop.index -%]
-            [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
+            [%- IF edits -%]
+              [%- track=edits.$track_idx -%]
+            [%- ELSE -%]
+              [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
+            [%- END -%]
             [%- recording = suggestions.$medium_idx.$track_idx -%]
             <tr class="track">
               <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position | html %]</td>
@@ -223,6 +232,7 @@
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
                 [%- r.hidden (assoc.field('gid'), class => 'gid') -%]
                 [%- r.hidden (assoc.field('confirmed'), class => 'confirmed') -%]
+                [%- r.hidden (assoc.field('edit_sha1'), class => 'edit_sha1') -%]
 
                 [% addnew = (assoc.field('gid').value == 'new') %]
                 <span class="recording"
@@ -251,7 +261,9 @@
             <tr>
               <td style="padding: 0 0.5em 0.5em 0;" class="artist">
                 [% l('by') %]
-                <span class="track-artist">[%- track.artist_credit.preview | html -%]</span>
+                <span class="track-artist">
+                  [%- track.artist_credit.preview || track.artist_credit.name | html -%]
+                </span>
               </td>
               <td style="padding: 0 0 0.5em 0;" >
                 <span class="recording"
@@ -300,11 +312,13 @@
         [%- edits = tracklist_edits.$medium_idx.edits -%]
         [%- medium = mediums.fields.$medium_idx -%]
 
-        [%- NEXT UNLESS edits -%]
-
-        [%- FOR track=edits -%]
+        [%- FOR assoc=rec_medium.field('associations').fields -%]
           [%- track_idx = loop.index -%]
-          [%- assoc=rec_medium.field('associations').fields.$track_idx -%]
+          [%- IF edits -%]
+            [%- track=edits.$track_idx -%]
+          [%- ELSE -%]
+            [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
+          [%- END -%]
           [%- recording = suggestions.$medium_idx.$track_idx -%]
 
           [% name = "select-recording-$medium_idx-$track_idx" %]

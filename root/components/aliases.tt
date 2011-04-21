@@ -11,7 +11,7 @@
                             [% l('Actions') %]
                         </td>
                     [% END %]
-                    <th style="width: 5em">[% l('Language') %]</th>
+                    <th style="width: 5em">[% l('Locale') %]</th>
                 </tr>
             </thead>
             <tbody about="[% rdfa_entity_curi(entity) %]">
@@ -28,11 +28,11 @@
                               [%- l('Edit') -%]
                             </a> |
                             <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
-                              [%- l('Delete') -%]
+                              [%- l('Remove') -%]
                             </a>
                         </td>
                     [% END %]
-                    <td>[% IF alias.locale %][% alias.locale | language %][% END %]</td>
+                    <td>[% IF alias.locale %][% alias.locale | locale %][% END %]</td>
                 </tr>
             [%- END -%]
             </tbody>
@@ -49,6 +49,6 @@
          </a>
        </p>
     [% ELSE %]
-       <p>[% l('Please {log_in|login} to add or edit aliases',
+       <p>[% l('Please {log_in|log in} to add or edit aliases',
                { log_in => login_url() }) %]</p>
     [% END %]

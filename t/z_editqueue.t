@@ -17,8 +17,6 @@ use MusicBrainz::Server::Edit;
 use MusicBrainz::Server::Constants qw( :edit_type :quality );
 use MusicBrainz::Server::Types qw( :edit_status );
 
-use MusicBrainz::Server::Edit::Label::Create;
-
 {
     package MockEdit;
     use Moose;
@@ -28,6 +26,9 @@ use MusicBrainz::Server::Edit::Label::Create;
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c, '+inserttestdata-with-truncate');
+MusicBrainz::Server::Test->prepare_test_database($c, '+editqueue-truncate');
+MusicBrainz::Server::Test->prepare_raw_test_database($c, '+editqueue_raw-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+editqueue');
 MusicBrainz::Server::Test->prepare_raw_test_database($c, '+editqueue_raw');
 
@@ -39,28 +40,21 @@ my $log = Log::Dispatch->new( outputs => [ [ 'Null', min_level => 'debug' ] ] );
 my $queue;
 
 $c->model('Edit')->create(
-    edit_type => $EDIT_LABEL_CREATE,
+    edit_type => $EDIT_ARTIST_DELETE,
     editor_id => 1,
-
-    name => '!K7',
-    sort_name => '!K7 Recordings',
+    to_delete => $c->model('Artist')->get_by_id(1)
 );
 
 $c->model('Edit')->create(
-    edit_type => $EDIT_LABEL_CREATE,
+    edit_type => $EDIT_ARTIST_DELETE,
     editor_id => 1,
-
-    name => '!K7 Recordings',
-    sort_name => '!K7 Recordings',
+    to_delete => $c->model('Artist')->get_by_id(2)
 );
 
 my $edit = $c->model('Edit')->get_by_id(100);
-is($edit->edit_type, $EDIT_LABEL_CREATE);
-is($edit->status, $STATUS_OPEN);
 
-my $label = $c->model('Label')->get_by_id(100);
-is($label->name, '!K7');
-is($label->edits_pending, 1);
+my $artist = $c->model('Artist')->get_by_id(1);
+is($artist->edits_pending, 1);
 
 $c->model('Edit')->cancel($edit);
 
@@ -68,12 +62,10 @@ $edit = $c->model('Edit')->get_by_id(100);
 is($edit->status, $STATUS_TOBEDELETED);
 
 $edit = $c->model('Edit')->get_by_id(101);
-is($edit->edit_type, $EDIT_LABEL_CREATE);
 is($edit->status, $STATUS_OPEN);
 
-$label = $c->model('Label')->get_by_id(101);
-is($label->name, '!K7 Recordings');
-is($label->edits_pending, 1);
+$artist = $c->model('Artist')->get_by_id(2);
+is($artist->edits_pending, 1);
 
 # Close a to-be-deleted edit
 $queue = MusicBrainz::Server::EditQueue->new( c => $c, log => $log );
