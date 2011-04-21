@@ -1,9 +1,3 @@
-[% BLOCK layout_head %]
-    <script src="[% c.model('FileCache').squash_scripts(
-      'scripts/MB/Control/SelectAll.js'
-    ) %]"></script>
-[% END %]
-
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
     [%- IF releases.size -%]

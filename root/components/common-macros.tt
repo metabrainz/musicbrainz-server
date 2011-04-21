@@ -512,3 +512,23 @@ END -%]
 http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
+[%- MACRO script_manifest(manifest) BLOCK -%]
+  [%- IF c.debug -%]
+    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
+        <script src="/static/[%- file -%]"></script>
+    [%- END -%]
+  [%- ELSE -%]
+    <script src="/static/[% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
+  [%- END -%]
+[%- END -%]
+
+[%- MACRO css_manifest(manifest) BLOCK -%]
+  [%- IF c.debug -%]
+    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'css'); -%]
+        <link rel="stylesheet" type="text/css" href="/static/[%- file -%]" />
+    [%- END -%]
+  [%- ELSE -%]
+    <link rel="stylesheet" type="text/css" href="/static/styles/[% c.model('FileCache').manifest_signature(manifest, 'css') %].css"></script>
+  [%- END -%]
+[%- END -%]
+

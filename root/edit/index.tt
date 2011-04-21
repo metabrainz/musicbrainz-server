@@ -1,5 +1,4 @@
 [%- BLOCK layout_head -%]
-    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditNote.js') %]"></script>
     <script type="text/javascript">
         $(function() {
             MB.Control.EditNote($('textarea'));
