@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use DBDefs;
 use Digest::MD5 qw( md5_hex );
+use Digest::MD5::File qw( file_md5_hex );
 use File::Find;
 use IO::All;
 use List::MoreUtils qw( uniq );
@@ -22,8 +23,7 @@ sub manifest_signature {
     my ($self, $manifest, $type) = @_;
     unless (exists $self->manifest_signatures->{$manifest}) {
         my $signature = md5_hex(join ',', map {
-            my $mtime = (stat($_))[9];
-            join(':', file($_)->basename, $mtime);
+            join(':', file($_)->basename, file_md5_hex($_));
         } map { DBDefs::STATIC_FILES_DIR . "/$_" }
             $self->manifest_files($manifest, $type));
 
