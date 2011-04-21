@@ -14,6 +14,8 @@
 
        MB.Control.ReleaseInformation ();
 
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+
     });
   </script>
 [%- END -%]
@@ -33,7 +35,7 @@
   <div class="half-width">
     [% r.hidden ('wizard_session_id') %]
     <fieldset>
-      <legend>Release information</legend>
+      <legend>[% l('Release information') %]</legend>
       [% form_row_text (r, 'name') %]
       [% r.hidden ('release_group_id') %]
       <div class="row">
@@ -60,10 +62,10 @@
     </fieldset>
 
     <fieldset>
-      <legend>Release event</legend>
+      <legend>[% l('Release event') %]</legend>
 
       [% WRAPPER form_row %]
-         <label for="release-date">Date</label>
+         <label for="release-date">[% l('Date') %]</label>
          [% r.date('date') %]
       [% END %]
 
@@ -107,7 +109,7 @@
     </fieldset>
 
     <fieldset class="information">
-      <legend>Additional information</legend>
+      <legend>[% l('Additional information') %]</legend>
       [% form_row_textarea(r, 'annotation', l('Annotation')) %]
       [% form_row_text(r, 'comment', l('Comment')) %]
     </fieldset>

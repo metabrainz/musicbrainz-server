@@ -2,7 +2,7 @@
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
     <div id="sidebar">
         <div id="taggers" class="triple-column">
-            <h2 class="taggers">Tag Your Music »</h2>
+            <h2 class="taggers">[% l('Tag Your Music »') %]</h2>
             <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" />
             <ul>
                 <li>[% l('{doc|MusicBrainz Picard}',
@@ -75,7 +75,7 @@
 
     <div id="triple">
         <div id="community" class="triple-column first-column">
-            <h2 class="community">Community »</h2>
+            <h2 class="community">[% l('Community »') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/community.png') %]" />
             <p>
                 [% l('{doc|Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>}',
@@ -84,7 +84,7 @@
         </div>
 
         <div id="products" class="triple-column">
-            <h2 class="products">MusicBrainz Database »</h2>
+            <h2 class="products">[% l('MusicBrainz Database »') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/download.png') %]" />
             <p>
                 [% l('{doc|The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.}',
@@ -93,7 +93,7 @@
         </div>
 
         <div id="developers" class="triple-column last-column">
-            <h2 class="developers">Developers »</h2>
+            <h2 class="developers">[% l('Developers »') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/developer.png') %]" />
             <p>
                 [% l('{doc|Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.}',

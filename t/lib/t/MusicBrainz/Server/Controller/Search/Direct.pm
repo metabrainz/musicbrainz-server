@@ -11,19 +11,26 @@ my $test = shift;
 my $mech = $test->mech;
 my $c    = $test->c;
 
+MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO link_type
+    (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,
+     short_link_phrase)
+    VALUES (1000, '8610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
+            'performed',
+            'performed by',
+            'performer');
+INSERT INTO link (id, link_type, attribute_count) VALUES (1000, 1000, 0);
+INSERT INTO l_artist_work (id, entity0, link, entity1)
+    VALUES (1000, 6, 1000, 1);
+EOSQL
+
 $mech->get_ok('/search?query=Kate&type=artist&direct=on', 'perform artist search');
 html_ok($mech->content);
 $mech->content_contains('3 results', 'has result count');
 $mech->content_contains('Kate Bush', 'has correct search result');
 $mech->content_contains('Bush, Kate', 'has artist sortname');
 $mech->content_contains('/artist/4b585938-f271-45e2-b19a-91c634b5e396', 'has link to artist');
-
-$mech->requests_redirectable( [] );
-$mech->get ('/search?query=Warp&type=label&direct=on');
-is ($mech->status(), 302, "Single result, redirected");
-ok ($mech->response()->header('location') =~ m{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, '... to label page');
-
-$mech->requests_redirectable( ['GET', 'HEAD'] );
 
 $mech->get_ok('/search?query=Dancing+Queen&type=work&direct=on', 'perform works search');
 html_ok($mech->content);

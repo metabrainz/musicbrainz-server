@@ -203,6 +203,23 @@ sub begin : Private
     {
         $c->session->{tport} = $c->req->query_params->{tport};
     }
+
+    # Merging
+    if (my $merger = $c->session->{merger}) {
+        my $model = $c->model($merger->type);
+        my @merge = values %{
+            $model->get_by_ids($merger->all_entities)
+        };
+        $c->model('ArtistCredit')->load(@merge);
+
+        $c->stash(
+            to_merge => [ @merge ],
+            merger => $merger,
+            merge_link => $c->uri_for_action(
+                model_to_type($merger->type) . '/merge',
+            )
+        );
+    }
 }
 
 =head2 end
@@ -254,23 +271,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
-
-    # Merging
-    if (my $merger = $c->session->{merger}) {
-        my $model = $c->model($merger->type);
-        my @merge = values %{
-            $model->get_by_ids($merger->all_entities)
-        };
-        $c->model('ArtistCredit')->load(@merge);
-
-        $c->stash(
-            to_merge => [ @merge ],
-            merger => $merger,
-            merge_link => $c->uri_for_action(
-                model_to_type($merger->type) . '/merge',
-            )
-        );
-    }
 }
 
 sub chrome_frame : Local

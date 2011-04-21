@@ -65,6 +65,18 @@ sub _insert_hash
     return $data
 }
 
+around reject => sub {
+    my ($orig, $self) = @_;
+    if ($self->c->model('Recording')->can_delete($self->entity_id)) {
+        $self->$orig;
+    }
+    else {
+        MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+            'This edit cannot be rejected as the recording is already being used by other releases',
+        );
+    }
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

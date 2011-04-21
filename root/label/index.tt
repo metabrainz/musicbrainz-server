@@ -1,7 +1,7 @@
 [%- WRAPPER "label/layout.tt" page='index' -%]
     [%- INCLUDE 'label/annotation.tt' summary=1 -%]
 
-    <h2>Releases</h2>
+    <h2>[% l('Releases') %]</h2>
     [%- WRAPPER "components/with-pager.tt" %]
         [%- IF releases.size -%]
             <table class="tbl">

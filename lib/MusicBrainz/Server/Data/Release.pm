@@ -280,6 +280,30 @@ sub find_by_recording
     }
 }
 
+sub find_by_recordings
+{
+    my ($self, @ids) = @_;
+    return () unless @ids;
+
+    my $query =
+        "SELECT DISTINCT ON (release.id) " . $self->_columns . ", recording.id AS recording
+           FROM release
+           JOIN release_name name ON name.id = release.name
+           JOIN medium ON release.id = medium.release
+           JOIN track ON track.tracklist = medium.tracklist
+           JOIN recording ON recording.id = track.recording
+          WHERE recording.id IN (" . placeholders(@ids) . ")";
+
+    my %map;
+    $self->sql->select($query, @ids);
+    while (my $row = $self->sql->next_row_hash_ref) {
+        $map{ $row->{recording} } ||= [];
+        push @{ $map{ $row->{recording} } }, $self->_new_from_row($row)
+    }
+
+    return %map;
+}
+
 sub find_by_artist_track_count
 {
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
@@ -407,7 +431,8 @@ sub find_by_collection
         "date"   => "date_year, date_month, date_day, musicbrainz_collate(name.name)",
         "title"  => "musicbrainz_collate(name.name), date_year, date_month, date_day",
         "artist" => sub {
-            $extra_join = "JOIN artist_name ac_name ON ac_name.id=release.artist_credit";
+            $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit
+                           JOIN artist_name ac_name ON ac_name.id=ac.name";
             return "musicbrainz_collate(ac_name.name), date_year, date_month, date_day, musicbrainz_collate(name.name)";
         },
     });
@@ -532,9 +557,12 @@ sub merge
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
-        my @tracklist_merges = @{ 
-            $self->sql->select_list_of_lists(
-                'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
+        my @merges = @{
+            $self->sql->select_list_of_hashes(
+                'SELECT newmed.id AS new_id,
+                        oldmed.id AS old_id,
+                        newmed.tracklist AS new_tracklist,
+                        oldmed.tracklist AS old_tracklist
                    FROM medium newmed, medium oldmed
                   WHERE newmed.release = ?
                     AND oldmed.release IN (' . placeholders(@old_ids) . ')
@@ -542,8 +570,16 @@ sub merge
                 $new_id, @old_ids
             )
         };
-        for my $tracklist_merge (@tracklist_merges) {
-            $self->c->model('Tracklist')->merge(@$tracklist_merge);
+        for my $merge (@merges) {
+            $self->c->model('Tracklist')->merge(
+                $merge->{new_tracklist},
+                $merge->{old_tracklist}
+            ) if $merge->{new_tracklist} != $merge->{old_tracklist};
+
+            $self->c->model('MediumCDTOC')->merge_mediums(
+                $merge->{new_id},
+                $merge->{old_id}
+            );
         }
 
         $self->sql->do(
@@ -565,7 +601,7 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $release, $names) = @_;
-    my $row = hash_to_row($release, { 
+    my $row = hash_to_row($release, {
         artist_credit => 'artist_credit',
         release_group => 'release_group_id',
         status => 'status_id',

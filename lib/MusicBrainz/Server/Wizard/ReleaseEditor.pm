@@ -613,7 +613,9 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            map { $_ => $artist->{$_} } qw( name sort_name comment ));
+            name => $artist->{name},
+            sort_name => $artist->{sort_name} || '',
+            comment => $artist->{comment} || '');
     } grep { !$_->{entity_id} } @missing_artist;
 
     my @missing_label = @{ $data->{missing}{label} || [] };
@@ -674,13 +676,17 @@ sub _edit_release_labels
             else
             {
                 # Edit ReleaseLabel
-                $create_edit->(
-                    $EDIT_RELEASE_EDITRELEASELABEL, $editnote,
+                my %args = (
                     release_label => $old_label,
-                    label => $labels->{ $new_label->{label_id} },
                     catalog_number => $new_label->{catalog_number},
                     as_auto_editor => $data->{as_auto_editor},
-                    );
+                );
+
+                my $label;
+                $label = $labels->{ $new_label->{label_id} } if $new_label->{label_id};
+                $args{label} = $label if $label;
+
+                $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
         elsif ($new_label->{label_id} || $new_label->{catalog_number})
@@ -709,6 +715,8 @@ sub _edit_release_track_edits
     {
         $medium_idx++;
 
+        my $rec_medium = $data->{rec_mediums}->[$medium_idx];
+
         if ($new->{id})
         {
             # The medium already exists
@@ -734,7 +742,7 @@ sub _edit_release_track_edits
                     as_auto_editor => $data->{as_auto_editor},
                 );
 
-                if ($new->{edits}) {
+                if ($new->{edits} || $rec_medium->{associations}) {
                     $opts{tracklist} = $new->{tracks};
                 }
 
@@ -758,13 +766,17 @@ sub _edit_release_track_edits
             $opts->{name} = $new->{name} if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
-            if (my $tracklist_id = $new->{tracklist_id}) {
+            if ($new->{tracks}) {
+                $opts->{tracklist} = $new->{tracks};
+            }
+            elsif (my $tracklist_id = $new->{tracklist_id}) {
                 my $tracklist_entity = $self->c->model('Tracklist')->get_by_id($tracklist_id);
                 $self->c->model('Track')->load_for_tracklists($tracklist_entity);
                 $self->c->model('ArtistCredit')->load($tracklist_entity->all_tracks);
                 $opts->{tracklist} = $tracklist_entity->tracks;
-            } else {
-                $opts->{tracklist} = $new->{tracks};
+            }
+            else {
+                die "Medium data does not contain sufficient information to create a tracklist";
             }
 
             # Add medium

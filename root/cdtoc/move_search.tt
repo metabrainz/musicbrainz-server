@@ -1,9 +1,9 @@
 [% WRAPPER 'layout.tt' full_width=1 %]
     <h2>[% l('Move Disc ID') %]</h2>
     [%- WRAPPER 'layout/guidelines.tt' -%]
-        [% create_guideline(l('Select a release to which the Disc ID {discid} should be moved to.', { discid => medium_cdtoc.cdtoc.discid })) %]
+        [% create_guideline(l('Select a release to which the disc ID {discid} should be moved to.', { discid => medium_cdtoc.cdtoc.discid })) %]
         [% create_guideline(l('Only releases with the same amount of tracks ({n}) as the release
-                               the Disc ID is currently attached to are shown.', { n => medium_cdtoc.cdtoc.track_count })) %]
+                               the disc ID is currently attached to are shown.', { n => medium_cdtoc.cdtoc.track_count })) %]
     [% END %]
 
   <form action="[% c.req.uri_for_action('/cdtoc/move') %]" method="get">

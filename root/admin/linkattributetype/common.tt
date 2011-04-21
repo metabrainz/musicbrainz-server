@@ -22,7 +22,7 @@
 
             [
             <a href="[% c.uri_for_action('/admin/linkattributetype/edit', obj.id) %]">[% l('Edit') %]</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.id) %]">[% l('Delete') %]</a>[% END %]
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.id) %]">[% l('Remove') %]</a>[% END %]
             ]
         [%- ELSE -%]
             [%- IF obj.description && obj.description != obj.name -%]

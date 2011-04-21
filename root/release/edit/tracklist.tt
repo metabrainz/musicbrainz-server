@@ -10,8 +10,11 @@
 
         "scripts/MB/GuessCase/Utils.js",
         "scripts/MB/GuessCase/Handler/Base.js",
+        "scripts/MB/GuessCase/Handler/Artist.js",
+        "scripts/MB/GuessCase/Handler/Release.js",
         "scripts/MB/GuessCase/Handler/Track.js",
         "scripts/MB/GuessCase/Mode/Base.js",
+        "scripts/MB/GuessCase/Mode/Artist.js",
         "scripts/MB/GuessCase/Mode/Classical.js",
         "scripts/MB/GuessCase/Mode/English.js",
         "scripts/MB/GuessCase/Mode/French.js",
@@ -21,6 +24,8 @@
         "scripts/MB/GuessCase/Flags.js",
         "scripts/MB/GuessCase/Modes.js",
         "scripts/MB/GuessCase/Main.js",
+        "scripts/MB/GuessCase/Artist.js",
+        "scripts/MB/GuessCase/Release.js",
         "scripts/MB/GuessCase/Track.js",
 
         "scripts/MB/Control/ArtistCredit.js",
@@ -40,6 +45,8 @@
 
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
 
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+
     });
 
   </script>
@@ -51,7 +58,7 @@
     <tr class="artist-credit-preview">
       <td colspan="4">
         <div class="row">
-          <label>Preview</label>
+          <label>[% l('Preview') %]</label>
           <span class="artist-credit-preview">[% artist_credit(acfield.fif) %]</span>
         </div>
       </td>
@@ -160,6 +167,11 @@
                 <div class="row advanced-tracklist" style="display: none;">
                   [% r.label(medium_field.field('name'), l('Title')) %]
                   [% r.text(medium_field.field('name')) %]
+
+                  <input type="button" class="icon guesscase-medium"
+                      title="[% l('Guess case track') %]"
+                      style="background-image: url(/static/images/icons/guesscase.png); width: 16px; height: 16px; border: 0;" />
+
                 </div>
               </div>
             </td>
@@ -187,7 +199,7 @@
         <a href="#add_disc">[% l('Add Disc') %]</a>
       </div>
 
-      <h3>Options</h3>
+      <h3>[% l('Options') %]</h3>
       <p id="tracklist-options">
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
       <label for="tracknumbers">[% l('Track names start with a number') %]</label>
@@ -205,7 +217,7 @@
       [%#- FIXME: use guesscase() -%]
 
       <fieldset class="guesscase">
-        <legend>Guess case</legend>
+        <legend>[% l('Guess case') %]</legend>
         <table style="width: 100%">
           <tr>
             <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
@@ -240,7 +252,7 @@
 
   <div class="documentation basic-tracklist">
 
-    <h2>Preview</h2>
+    <h2>[% l('Preview') %]</h2>
 
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
@@ -377,7 +389,7 @@
     [% END %]
 
     <fieldset class="use-tracklist" style="display: none; padding: 1em 0;">
-      <legend>Use tracklist</legend>
+      <legend>[% l('Use tracklist') %]</legend>
       <div class="row">
         <label for="tracklist-release">[% l('Release:') %]</label>
         <input type="text" id="tracklist-release" class="tracklist-release" value="" />

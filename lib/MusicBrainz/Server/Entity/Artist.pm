@@ -77,7 +77,7 @@ sub is_special_purpose {
         || ($self->gid && $self->gid eq $VARTIST_GID);
 }
 
-sub appearences {
+sub appearances {
     my $self = shift;
     my @rels = $self->relationships_by_type('release', 'release_group', 'work',
                                             'recording');

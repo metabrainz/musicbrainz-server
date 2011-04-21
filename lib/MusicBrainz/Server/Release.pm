@@ -1312,7 +1312,7 @@ sub XML_URL
 {
     my $this = shift;
     sprintf "http://%s/ws/1/release/%s?type=xml&inc=artist+counts+release-events+discs+tracks",
-        &DBDefs::RDF_SERVER,
+        &DBDefs::WEB_SERVER,
         $this->mbid,
     ;
 }

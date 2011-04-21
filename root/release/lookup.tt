@@ -1,7 +1,7 @@
 [%- WRAPPER 'layout.tt' title=l("CD Lookup") full_width=1 -%]
     <h1>[% l("CD Lookup results") %]</h1>
     [% IF results.size %]
-        <p>[% l("Found more than one match for the CD with toc {toc}: ", { toc => toc }) %]</p>
+        <p>[% l("Found more than one match for the CD with TOC {toc}: ", { toc => toc }) %]</p>
         <table class="tbl">
             <thead>
             <tr>
@@ -30,6 +30,6 @@
         </table>
         <p>[% l("* Match indicates the total difference in seconds between the CD you requested and the matches we found.") %]</p>
     [% ELSE %]
-        <p>[% l("No matching CDs were found for toc {toc}.", { toc => toc }) %]</p>
+        <p>[% l("No matching CDs were found for TOC {toc}.", { toc => toc }) %]</p>
     [% END %]
 [%- END -%]

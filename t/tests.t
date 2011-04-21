@@ -6,7 +6,7 @@ use lib 't/lib';
 use Test::More;
 use Test::Routine::Util;
 
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Test qw( commandline_override );
 
 my @classes = qw(
     t::MusicBrainz::Server::Entity::Artist
@@ -82,5 +82,8 @@ my @classes = qw(
     t::MusicBrainz::Server::Data::WorkType
 );
 
+@classes = commandline_override ("t::MusicBrainz::Server", @classes);
+
 plan tests => scalar(@classes);
 run_tests($_ => $_) for (@classes);
+

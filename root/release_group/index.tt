@@ -10,7 +10,72 @@
         <h2>[% rg.type.name %]</h2>
         <form action="[% c.uri_for_action('/release/merge_queue') %]"
               method="post">
-          [%- INCLUDE 'release_group/releases-list.tt' rdfa_this_rg=rg WRAPPER 'components/with-pager.tt' -%]
+          <table class="tbl">
+            <thead>
+              <tr>
+                [% IF c.user_exists %]<th></th>[% END %]
+                <th>[% l('Release') %]</th>
+                <th>[% l('Format') %]</th>
+                <th>[% l('Tracks') %]</th>
+                <th>[% l('Date') %]</th>
+                <th>[% l('Country') %]</th>
+                <th>[% l('Label') %]</th>
+                <th>[% l('Catalog#') %]</th>
+                <th>[% l('Barcode') %]</th>
+                [%- IF c.session.tport -%]
+                  <th>[% l('Tagger') %]</th>
+                [%- END -%]
+              </tr>
+            </thead>
+            [% IF rdfa_made %]
+            <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
+              [% ELSE %]
+            <tbody>
+              [% END %]
+              [%- FOR group=releases -%]
+              <tr class="subh">
+                [% IF c.user_exists %]<th></th>[% END %]
+                <th colspan="[% c.session.tport ? 10 : 9 %]">[% group.0.status_name || l('(unknown)') %]</th>
+              </tr>
+              [% FOR release=group %]
+              <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
+                [% IF c.user_exists %]
+                <td>
+                  <input type="checkbox" name="add-to-merge"
+                         value="[% release.id %]" />
+                </td>
+                [% END %]
+                [% IF rdfa_made %]
+	            <td>
+                  [% rdfa_made_release_link(release) %]
+                  [% disambiguation(release) %]
+                </td>
+	            [% ELSE %]
+	            <td>
+                  [% rdfa_event_product_release_link(release) %]
+                  [% disambiguation(release) %]
+                </td>
+	            [% END %]
+                <td>[% rdfa_release_format(release) or "-" %]</td>
+                <td>[% release.combined_track_count or "-" %]</td>
+                <td>[% rdfa_release_event_date(release) %]</td>
+                <td>
+                  [%- IF release.country -%]
+		          [% rdfa_release_country_abbr(release) %]
+                  [%- END -%]
+                </td>
+                <td>[% rdfa_release_label_list(release.labels) %]</td>
+                <td>[% rdfa_release_catno_list(release.labels) %]</td>
+                <td>[% rdfa_release_barcode(release.barcode) IF release.barcode %]</td>
+                [%- IF c.session.tport -%]
+                <td>[% tagger_icon(release) %]</td>
+                [%- END -%]
+                [% END %]
+              </tr>
+              [% END %]
+            </tbody>
+          </table>
+
           [% form_submit(l('Add selected releases for merging')) WRAPPER form_row  IF c.user_exists %]
         </form>
     [%- ELSE -%]

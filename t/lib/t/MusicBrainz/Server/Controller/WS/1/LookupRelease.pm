@@ -214,7 +214,7 @@ ws_test 'release with puids',
 
 ws_test 'release with ratings',
     '/release/699c8545-75b4-378e-bc29-9d0f951f7eee?type=xml&inc=ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="699c8545-75b4-378e-bc29-9d0f951f7eee" type="Album Official"><title>Surrender</title><text-representation script="Latn" language="ENG" /><rating votes-count="3">87</rating></release></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><release id="699c8545-75b4-378e-bc29-9d0f951f7eee" type="Album Official"><title>Surrender</title><text-representation script="Latn" language="ENG" /><rating votes-count="3">4</rating></release></metadata>';
 
 ws_test 'release with artist-relationships',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?type=xml&inc=artist-rels' =>
@@ -264,7 +264,7 @@ ws_test 'release with counts',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
     <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
-    <release-event-list count="1" /><disc-list count="1" />
+    <release-event-list count="1" /><disc-list count="1" /><track-list count="12" />
   </release>
 </metadata>';
 
@@ -290,19 +290,19 @@ ws_test 'release with label-relationships',
  <asin>B000002IX5</asin>
  <relation-list target-type="Label">
   <relation direction="backward"
-            target="50c384a2-0b44-401b-b893-8181173339c7"
-            type="Publishing">
-   <label id="50c384a2-0b44-401b-b893-8181173339c7">
-    <name>Atlantic</name>
-    <sort-name>Atlantic</sort-name>
-   </label>
-  </relation>
-  <relation direction="backward"
             target="1bfd06be-a6ed-4ced-8159-7d4d2923a40c"
             type="Publishing">
    <label id="1bfd06be-a6ed-4ced-8159-7d4d2923a40c">
     <name>Epitaph</name>
     <sort-name>Epitaph</sort-name>
+   </label>
+  </relation>
+  <relation direction="backward"
+            target="50c384a2-0b44-401b-b893-8181173339c7"
+            type="Publishing">
+   <label id="50c384a2-0b44-401b-b893-8181173339c7">
+    <name>Atlantic</name>
+    <sort-name>Atlantic</sort-name>
    </label>
   </relation>
  </relation-list>

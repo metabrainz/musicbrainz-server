@@ -1,6 +1,6 @@
 <ul class="r">
     [%- IF c.user_exists -%]
-        <li>
+        <li class="account">
             [% link_entity(c.user) %]
             <ul>
                 <li>
@@ -20,27 +20,7 @@
                 </li>
             </ul>
         </li>
-        [% IF c.user_exists && c.user.is_admin %]
-            <li>
-                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
-                <ul>
-                    [% IF c.user.is_relationship_editor %]
-                        <li>
-                            [% l('{uri|Edit Link Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
-                        </li>
-                        <li>
-                            [% l('{uri|Edit Link Attribute Types}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
-                        </li>
-                    [% END %]
-                    [% IF c.user.is_wiki_transcluder %]
-                        <li>
-                            [% l('{uri|Transclude WikiDocs}', { uri => c.uri_for_action('/admin/wikidoc/index') }) %]
-                        </li>
-                    [% END %]
-                </ul>
-            </li>
-        [% END %]
-        <li>
+        <li class="data">
             [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
             <ul>
                 <li>
@@ -69,6 +49,26 @@
                 </li>
             </ul>
         </li>
+        [% IF c.user_exists && c.user.is_admin %]
+            <li class="admin">
+                <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
+                <ul>
+                    [% IF c.user.is_relationship_editor %]
+                        <li>
+                            [% l('{uri|Edit Relationship Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
+                        </li>
+                        <li>
+                            [% l('{uri|Edit Relationship Attributes}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_wiki_transcluder %]
+                        <li>
+                            [% l('{uri|Transclude WikiDocs}', { uri => c.uri_for_action('/admin/wikidoc/index') }) %]
+                        </li>
+                    [% END %]
+                </ul>
+            </li>
+        [% END %]
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
         <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>
@@ -76,7 +76,7 @@
 </ul>
 
 <ul>
-    <li>
+    <li class="about">
         [%- l('{doc|About}', {doc => doc_link('About_MusicBrainz')}) -%]
         <ul>
             <li>
@@ -108,13 +108,13 @@
             </li>
         </ul>
     </li>
-    <li>
+    <li class="blog">
         <a href="http://blog.musicbrainz.org" class="internal">
             [% l('Blog') %]
         </a>
     </li>
 
-    <li>
+    <li class="products">
         [%- l('{doc|Products}', {doc => doc_link('Products')}) -%]
         <ul>
             <li>
@@ -143,7 +143,7 @@
             </li>
         </ul>
     </li>
-    <li>
+    <li class="search">
         [% l('{uri|Search}', { uri => c.uri_for('/search') }) %]
         <ul>
             [%- IF c.user_exists -%]
@@ -166,7 +166,7 @@
         </ul>
     </li>
     [%- IF c.user_exists -%]
-        <li>
+        <li class="editing">
             [%- l('{doc|Editing}', {doc => doc_link('How_Editing_Works')}) -%]
             <ul>
                 <li>
@@ -183,7 +183,7 @@
                     [% l('{uri|Add Work}', { uri => c.uri_for_action('/work/create') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
+                    [% l('{uri|Import From Freedb}', { uri => c.uri_for_action('/release_editor/import/freedb') }) %]
                 </li>
                 <li class="separator">
                     [% l('{uri|Vote on Edits}', { uri => c.uri_for('/edit/open') }) %]
@@ -197,7 +197,7 @@
             </ul>
         </li>
     [%- END -%]
-    <li>
+    <li class="documentation">
         [%- l('{doc|Documentation}', {doc => doc_link('MusicBrainz_Documentation')}) -%]
         <ul>
             <li>
@@ -223,7 +223,7 @@
             </li>
         </ul>
     </li>
-    <li>
+    <li class="contact">
         [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
         <ul>
             <li>
