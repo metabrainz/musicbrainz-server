@@ -13,7 +13,7 @@ my @classes = $mpo->plugins;
 
 push @classes, 't::MusicBrainz::Server::EditRegistry';
 
-@classes = commandline_override ("t::MusicBrainz::Server::Edit", @classes);
+@classes = commandline_override ("t::MusicBrainz::Server::Edit::", @classes);
 
 plan tests => scalar(@classes);
 run_tests($_ => $_) for (@classes);

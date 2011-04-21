@@ -11,7 +11,7 @@ my $mpo = Module::Pluggable::Object->new(
     search_path => 't::MusicBrainz::Server::Controller');
 my @classes = $mpo->plugins;
 
-@classes = commandline_override ("t::MusicBrainz::Server::Controller", @classes);
+@classes = commandline_override ("t::MusicBrainz::Server::Controller::", @classes);
 
 plan tests => scalar(@classes);
 run_tests($_ => $_) for (@classes);
