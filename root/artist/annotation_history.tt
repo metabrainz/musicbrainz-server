@@ -1,6 +1,4 @@
 [% BLOCK layout_head %]
-   <script type="text/javascript" src="/static/scripts/MB/Control/AnnotationHistory.js">
-   </script>
    <script type="text/javascript">
    $(function() {
      MB.Control.AnnotationHistory('#annotation-history');
