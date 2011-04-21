@@ -1,5 +1,5 @@
-[%- WRAPPER 'release_group/layout.tt' title=l('Delete Release Group') full_width=1 -%]
-    <h2>[% l('Delete Release Group ') %]</h2>
+[%- WRAPPER 'release_group/layout.tt' title=l('Remove Release Group') full_width=1 -%]
+    <h2>[% l('Remove Release Group ') %]</h2>
     [%- IF can_delete -%]
         <p>
             [%- l('Are you sure you wish to remove the release group {rg} by {artist} from MusicBrainz?', { rg => link_entity(rg), artist => artist_credit(rg.artist_credit) }) -%]
@@ -14,7 +14,7 @@
         </form>
     [%- ELSE -%]
     <p>
-       [% l('This release group cannot be deleted, because there are still releases, tracks and/or relationships attributed to it.') -%]
+       [% l('This release group cannot be removed, because there are still releases, tracks and/or relationships attributed to it.') -%]
     </p>
     [%- END -%]
 [%- END -%]
