@@ -307,17 +307,17 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         moveFields ('basic', 'advanced');
         $('.basic-tracklist').hide ();
         $('.advanced-tracklist').show ();
-        $('#id-advanced').val ('1');
         $(window).scrollTop (0);
+        $.cookie ('tracklist_mode', 'advanced', { path: '/', expires: 365 });
     });
 
     $("a[href=#basic]").click (function () {
         moveFields ('advanced', 'basic');
         $('.advanced-tracklist').hide ();
         $('.basic-tracklist').show ();
-        $('#id-advanced').val ('0');
         self.tracklist.render ();
         self.preview.render ();
+        $.cookie ('tracklist_mode', 'basic', { path: '/', expires: 365 });
     });
 
     $("a[href=#add_disc]").click (function () {
@@ -343,7 +343,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     self.preview.render ();
     self.tracklist.render ();
 
-    if ($('#id-advanced').val () == '1')
+    if ($.cookie ('tracklist_mode') === "advanced")
     {
         $("a[href=#advanced]").trigger ('click');
     }
