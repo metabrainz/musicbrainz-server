@@ -1,18 +1,14 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1;
 
 use Moose;
-use MusicBrainz::XML::Generator;
+use MusicBrainz::XML;
 
-our $gen = MusicBrainz::XML::Generator->new(
-    escape => 'always,even-entities'
-);
+our $gen = MusicBrainz::XML->new;
 
 has 'gen' => (
     is => 'rw',
-    isa => 'MusicBrainz::XML::Generator',
-    default => sub {
-        $gen
-    },
+    isa => 'MusicBrainz::XML',
+    default => sub { $gen },
 );
 
 sub do_serialize {
