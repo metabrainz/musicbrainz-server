@@ -28,7 +28,8 @@ sub as_string {
     my $body = join('', map { ref($_) eq 'MusicBrainz::XML::Text'
                                   ? _escape($$_) : $_ }
                         @{ $element->{body} });
-    my @attributes = map { "$_=" . q{"} . $attrs{$_} . q{"} }
+    my @attributes =
+        map { "$_=" . q{"} . _escape($attrs{$_}) . q{"} }
         grep { defined $attrs{$_} } keys %attrs;
 
     if ($body) {
