@@ -1,6 +1,4 @@
 [%- BLOCK layout_head -%]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
       "lib/jquery.ui/external/jquery.cookie.js",

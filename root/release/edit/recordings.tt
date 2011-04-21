@@ -45,7 +45,7 @@
             </td>
             <td class="recording">
               <input type="hidden" class="gid" value="" />
-              <a class="name" href="/recording"> </a>
+              <a target="_blank" class="name" href="/recording"> </a>
             </td>
             <td class="artist"></td>
             <td class="length"></td>
@@ -77,7 +77,7 @@
             [%- ELSE -%]
               <td class="recording">
                 <input type="hidden" class="gid" value="" />
-                <a href="" class="name" />
+                <a target="_blank" href="" class="name" />
               </td>
               <td class="artist"></td>
               <td class="length"></td>
