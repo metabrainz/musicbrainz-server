@@ -490,8 +490,8 @@ END -%]
     ELSE;  'http://' _ url.url.host _ '/favicon.ico';
 END -%]
 
-[%- MACRO warning(message) BLOCK -%]
-   <div class="nojavascript warning">
+[%- MACRO warning(message, class) BLOCK -%]
+   <div class="warning[% ' ' _ class IF class %]">
      <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
    </div>
@@ -505,5 +505,25 @@ END -%]
 
 [%- MACRO wiki_link(server, id) BLOCK -%]
 http://[%- server -%]/[%- id -%]"
+[%- END -%]
+
+[%- MACRO script_manifest(manifest) BLOCK -%]
+  [%- IF c.debug -%]
+    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
+        <script src="/static/[%- file -%]"></script>
+    [%- END -%]
+  [%- ELSE -%]
+    <script src="/static/[% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
+  [%- END -%]
+[%- END -%]
+
+[%- MACRO css_manifest(manifest) BLOCK -%]
+  [%- IF c.debug -%]
+    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'css'); -%]
+        <link rel="stylesheet" type="text/css" href="/static/[%- file -%]" />
+    [%- END -%]
+  [%- ELSE -%]
+    <link rel="stylesheet" type="text/css" href="/static/styles/[% c.model('FileCache').manifest_signature(manifest, 'css') %].css"></script>
+  [%- END -%]
 [%- END -%]
 

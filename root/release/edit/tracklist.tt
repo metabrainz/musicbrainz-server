@@ -1,46 +1,19 @@
 [%- BLOCK layout_head -%]
-  <link rel="stylesheet" type="text/css" href="[%-
-      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
+  [% script_manifest('guess-case.js.manifest') %]
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('release-editor.js.manifest') %]
 
-  <script type="text/javascript" src="[%-
-      c.model('FileCache').squash_scripts(
-        "lib/json/json2.js",
-        "lib/sha1/sha1.js",
-        "scripts/MB/TrackParser.js",
-
-        "scripts/MB/GuessCase/Utils.js",
-        "scripts/MB/GuessCase/Handler/Base.js",
-        "scripts/MB/GuessCase/Handler/Artist.js",
-        "scripts/MB/GuessCase/Handler/Release.js",
-        "scripts/MB/GuessCase/Handler/Track.js",
-        "scripts/MB/GuessCase/Mode/Base.js",
-        "scripts/MB/GuessCase/Mode/Artist.js",
-        "scripts/MB/GuessCase/Mode/Classical.js",
-        "scripts/MB/GuessCase/Mode/English.js",
-        "scripts/MB/GuessCase/Mode/French.js",
-        "scripts/MB/GuessCase/Mode/Sentence.js",
-        "scripts/MB/GuessCase/Input.js",
-        "scripts/MB/GuessCase/Output.js",
-        "scripts/MB/GuessCase/Flags.js",
-        "scripts/MB/GuessCase/Modes.js",
-        "scripts/MB/GuessCase/Main.js",
-        "scripts/MB/GuessCase/Artist.js",
-        "scripts/MB/GuessCase/Release.js",
-        "scripts/MB/GuessCase/Track.js",
-
-        "scripts/MB/Control/ArtistCredit.js",
-        "scripts/MB/Control/Bubble.js",
-        "scripts/MB/Control/ReleaseAddDisc.js",
-        "scripts/MB/Control/ReleaseAdvancedTab.js",
-        "scripts/MB/Control/ReleaseBasicTab.js",
-        "scripts/MB/Control/ReleaseEdits.js",
-      )
-  -%]"></script>
   <script type="text/javascript">
 
     $('document').ready (function () {
 
        MB.release_artist_json = [% release_artist_json %];
+       MB.medium_cdtocs = [
+       [%- FOR medium=release.mediums -%]
+           [% medium.cdtocs.size %],
+       [%- END -%]
+           null
+       ];
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
@@ -262,7 +235,6 @@
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
-    [%- r.hidden ('advanced') -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
 
@@ -288,7 +260,7 @@
             <td class="disc" >
             [% IF multidisc %]
               <h3>
-                [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+                [% l('Disc {num}', { num => '<span class="discnum">' _ medium_field.field('position').value _ '</span>' }) %]
               </h3>
             [% END %]
             </td>
@@ -398,6 +370,8 @@
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
 
+    <div style="display: none" id="discid-warning">[% warning("") %]</div>
+
     <div id="preview"> </div>
 
     <div style="float: right; margin: 10px;" class="buttons">
@@ -454,7 +428,7 @@
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
       <legend>
-        [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+        [% l('Disc {num}', { num => '<span class="discnum">' _ (medium_field.field('position').value) _ '</span>' }) %]
       </legend>
 
       <table class="advanced-format">
