@@ -51,7 +51,9 @@ MB.Control.ReleasePreview = function (advancedtab) {
     self.render = function () {
         var preview = $('#preview').html ('');
 
-        $.each (self.adv.discs, function (idx, disc) {
+        $.each (self.adv.positions, function (idx, disc) {
+
+            if (!disc) { return; }
 
             $('<h3>').text (disc.fullTitle ()).appendTo (preview);
 
@@ -185,8 +187,8 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
         /* FIXME: remove from parent textareas. */
         self.$textarea.val ('');
-        self.$textarea.hide ();
-        self.$basicdisc.hide ();
+        self.$textarea.addClass ('deleted');
+        self.$basicdisc.addClass ('deleted');
 
         if (!chained)
         {
@@ -249,7 +251,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     if (!self.$tracklist_id.length)
     {
-        self.$tracklist_id = self.disc.fieldset.find ('input.tracklist-id');
+        self.$tracklist_id = self.disc.$fieldset.find ('input.tracklist-id');
     }
 
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
@@ -270,6 +272,17 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.disc.registerBasic (self);
 
+    if (self.disc.isDeleted ())
+    {
+        self.$textarea.addClass ('deleted');
+        self.$basicdisc.addClass ('deleted');
+    }
+    else
+    {
+        self.$textarea.removeClass ('deleted');
+        self.$basicdisc.removeClass ('deleted');
+    }
+
     return self;
 }
 
@@ -279,13 +292,13 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 MB.Control.ReleaseTracklist = function (advancedtab, preview) {
     var self = MB.Object ();
 
-    var render = function () {
+    self.render = function () {
         $.each (self.textareas, function (idx, textarea) {
             textarea.render ();
         });
     };
 
-    var newDisc = function (disc, expand_discs) {
+    self.newDisc = function (disc, expand_discs) {
         var ta = MB.Control.ReleaseTextarea (disc, self.preview);
         self.textareas.push (ta);
 
@@ -297,7 +310,7 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
         return ta;
     };
 
-    var guessCase = function () {
+    self.guessCase = function () {
         /* make sure all the input fields on the advanced tab are up-to-date. */
         $.each (self.textareas, function (i, textarea) {
             textarea.updatePreview ();
@@ -313,10 +326,6 @@ MB.Control.ReleaseTracklist = function (advancedtab, preview) {
 
     self.adv = advancedtab;
     self.preview = preview;
-
-    self.render = render;
-    self.newDisc = newDisc;
-    self.guessCase = guessCase;
 
     self.textareas = [];
     $.each (self.adv.discs, function (idx, disc) {
@@ -343,7 +352,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         $('div.guesscase-'+from).children().appendTo($('div.guesscase-'+to));
     };
 
-    var addDisc = function () {
+    self.addDisc = function () {
         return self.tracklist.newDisc (self.adv.addDisc (), true);
     };
 
@@ -379,7 +388,6 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         }
     });
 
-    self.addDisc = addDisc;
     self.adv = advancedtab;
     self.preview = MB.Control.ReleasePreview (self.adv);
     self.tracklist = MB.Control.ReleaseTracklist (self.adv, self.preview);
