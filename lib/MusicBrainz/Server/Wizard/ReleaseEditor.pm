@@ -950,6 +950,7 @@ sub _edit_release_track_edits
             else
             {
                 my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+                $entity->release($self->release);
 
                 if ($previewing)
                 {

@@ -595,6 +595,7 @@ my %track_ar_types = (
         25 => 'work',        # lyrics
         26 => 'work',        # score
         27 => 'recording',   # IMDB samples
+        28 => 'recording',   # streaming
     }
 );
 
