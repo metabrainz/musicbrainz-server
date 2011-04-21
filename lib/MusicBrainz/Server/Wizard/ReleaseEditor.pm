@@ -711,7 +711,7 @@ sub _edit_release_track_edits
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
 
-    my %new_order;
+    my @new_order;
     my $re_order = 0;
 
     my $medium_idx = -1;
@@ -738,14 +738,11 @@ sub _edit_release_track_edits
             {
                 my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
 
-                if ($previewing)
-                {
-                    $new_order{$entity->position} = $new->{position};
-                }
-                else
-                {
-                    $new_order{$entity->id} = $new->{position};
-                }
+                push @new_order, {
+                    medium_id => $entity->id,
+                    old => $entity->position,
+                    new => $new->{position},
+                };
                 $re_order ||= ($entity->position != $new->{position});
 
                 # Edit medium
@@ -810,14 +807,11 @@ sub _edit_release_track_edits
                 );
             }
 
-            if ($previewing)
-            {
-                $new_order{$add_medium_position} = $new->{position};
-            }
-            else
-            {
-                $new_order{$add_medium->entity_id} = $new->{position};
-            }
+            push @new_order, {
+                medium_id => $add_medium->entity_id,
+                old => $add_medium_position,
+                new => $new->{position},
+            };
             $re_order ||= ($add_medium_position != $new->{position});
         }
     }
@@ -827,7 +821,7 @@ sub _edit_release_track_edits
             $EDIT_RELEASE_REORDER_MEDIUMS,
             $editnote,
             release  => $self->release,
-            new_order => \%new_order,
+            medium_positions => \@new_order,
             as_auto_editor => $data->{as_auto_editor},
         );
     }
