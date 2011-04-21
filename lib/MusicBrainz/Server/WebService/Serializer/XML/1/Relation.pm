@@ -30,8 +30,7 @@ sub attributes {
         join(' ', map {
             my $s = $_->name;
             $s =~ s/^\s*//;
-            $s =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
-            $s
+            camelize($s)
         } $entity->link->all_attributes) || undef );
 
     if ($entity->target_type eq 'url')

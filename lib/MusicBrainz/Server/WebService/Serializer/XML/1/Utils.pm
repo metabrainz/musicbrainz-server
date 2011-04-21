@@ -64,10 +64,8 @@ sub map_type {
     return $type_map{$type} || camelize($type);
 }
 
-use MusicBrainz::XML::Generator;
-our $gen = MusicBrainz::XML::Generator->new(
-    escape => 'always,even-entities'
-);
+use MusicBrainz::XML;
+our $gen = MusicBrainz::XML->new;
 
 sub list_of {
     my $element = ref $_[0] eq 'SCALAR' ? ${ shift() } : undef;
