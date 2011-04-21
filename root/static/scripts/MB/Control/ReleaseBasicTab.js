@@ -26,6 +26,28 @@ MB.Control._preview_update_timeout = 500;
 MB.Control.ReleasePreview = function (advancedtab) {
     var self = MB.Object ();
 
+    self.warnings_active = [];
+    self.do_not_add_tracks = MB.utility.template (MB.text.DoNotAddTracks);
+    self.do_not_remove_tracks = MB.utility.template (MB.text.DoNotRemoveTracks);
+
+    self.warning = function (template, disc) {
+        self.warnings_active.push (template.draw ({ "disc": disc.fullTitle () }));
+    };
+
+    self.updateWarnings = function () {
+        if (self.warnings_active.length)
+        {
+            $('#discid-warning').show ().find ('div.warning p').html (
+                self.warnings_active.join ("<br />"));
+        }
+        else
+        {
+            $('#discid-warning').hide ().find ('div.warning p').html ("");
+        }
+
+        self.warnings_active = [];
+    };
+
     self.render = function () {
         var preview = $('#preview').html ('');
 
@@ -35,12 +57,14 @@ MB.Control.ReleasePreview = function (advancedtab) {
 
             var table = $('<table class="preview">').appendTo(preview);
 
+            var count = 0;
             $.each (disc.sorted_tracks, function (idx, item) {
                 if (item.isDeleted ())
                 {
                     return;
                 }
 
+                count++;
                 var tr = $('<tr>').appendTo (table);
                 tr.append ($('<td class="trackno">').text (item.$position.val ()));
                 tr.append ($('<td class="title">').text (item.$title.val ()));
@@ -51,7 +75,19 @@ MB.Control.ReleasePreview = function (advancedtab) {
                 tr.append ($('<td class="duration">').text (item.$length.val ()));
             });
 
+            if (disc.track_count && (count > disc.track_count))
+            {
+                self.warning (self.do_not_add_tracks, disc);
+            }
+            else if (disc.track_count && (count < disc.track_count))
+            {
+                self.warning (self.do_not_remove_tracks, disc);
+            }
+
         });
+
+        self.updateWarnings ();
+
     };
 
     self.preview = $('#preview');
@@ -83,8 +119,11 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
                 str += MB.TrackParser.separator + item.$artist.val ();
             }
 
+            /* do not render a track length if:
+               - the track does not have a duration
+               - the duration cannot be changed (attached discid). */
             var len = item.lengthOrNull ();
-            if (len)
+            if (len && !self.hasToc ())
             {
                 str += " (" + len + ")";
             }
@@ -191,6 +230,10 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
         return self.$various_artists.val() == '1';
     };
 
+    self.hasToc = function () {
+        return MB.medium_cdtocs[disc.number] || self.$toc.val () !== '';
+    };
+
     self.disc = disc;
     self.preview = preview;
 
@@ -201,6 +244,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
+    self.$toc = self.$basicdisc.find ('input.toc');
     self.$various_artists = self.$basicdisc.find ('input.various-artists');
 
     if (!self.$tracklist_id.length)

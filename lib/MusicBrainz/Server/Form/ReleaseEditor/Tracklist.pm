@@ -114,8 +114,8 @@ sub _track_errors {
         # caught later on... here in _track_errors we just ignore it.
         if ($details)
         {
-            my $distance = abs ($details->length -
-                                unformat_track_length ($track->{length}));
+            my $distance = $track->{length} eq '?:??' ? 0
+                : abs ($details->length - unformat_track_length ($track->{length}));
 
             # always reset the track length.
             $track->{length} = format_track_length ($details->length);

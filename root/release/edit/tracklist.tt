@@ -41,6 +41,12 @@
     $('document').ready (function () {
 
        MB.release_artist_json = [% release_artist_json %];
+       MB.medium_cdtocs = [
+       [%- FOR medium=release.mediums -%]
+           [% medium.cdtocs.size %],
+       [%- END -%]
+           null
+       ];
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
@@ -154,10 +160,10 @@
             <td class="format">
 
               <div class="basic-medium-format-and-title">
-                [% r.hidden(medium_field.field('id')) %]
-                [% r.hidden(medium_field.field('toc')) %]
-                [% r.hidden(medium_field.field('deleted')) %]
-                [% r.hidden(medium_field.field('position')) %]
+                [% r.hidden(medium_field.field('id'), class => 'id') %]
+                [% r.hidden(medium_field.field('toc'), class => 'toc') %]
+                [% r.hidden(medium_field.field('deleted'), class => 'deleted') %]
+                [% r.hidden(medium_field.field('position'), class => 'position') %]
                 [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]
 
                 <div class="row">
@@ -256,6 +262,8 @@
 
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
+
+    <div style="display: none" id="discid-warning">[% warning("") %]</div>
 
     <div id="preview"> </div>
 

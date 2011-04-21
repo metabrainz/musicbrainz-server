@@ -44,6 +44,8 @@
         SearchErrorOccured    : "[% l('Sorry, an error occurred during your search') %]",
         AddNewTrack:            "[% l('Add another track') %]",
         AddAnotherMedium      : "[% l('Add another medium') %]",
+        DoNotAddTracks: "[% l('<strong>Warning</strong>: #{disc} has a discid, you cannot add tracks') %]",
+        DoNotRemoveTracks: "[% l('<strong>Warning</strong>: #{disc} has a discid, you cannot remove tracks') %]",
         RatingTitles: [
               "[% rating_tooltip(0) %]",
               "[% rating_tooltip(1) %]",
