@@ -64,6 +64,19 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     };
 
     /**
+     * parseLength adds a colon to the track length if the user omitted it.
+     */
+    self.parseLength = function () {
+        var length = self.$length.val ();
+
+        if (length.match (/:/)) {
+            return;
+        }
+
+        self.$length.val (length.replace (/([0-9]*)([0-9][0-9])/, "$1:$2"));
+    };
+
+    /**
      * Guess Case the track title.
      */
     self.guessCase = function () {
@@ -130,6 +143,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$acrow.remove ();
     };
 
+    self.$length.bind ('blur.mb', self.parseLength);
     self.$row.find ("input.remove-track").bind ('click.mb', self.deleteTrack);
     self.$row.find ("input.guesscase-track").bind ('click.mb', self.guessCase);
 
@@ -563,7 +577,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 
-    self.edits = MB.Control.ReleaseEdits ($('#mediums\\.'+self.number+'\\.edits'));
+    self.edits = MB.Control.ReleaseEdits ($('#id-mediums\\.'+self.number+'\\.edits'));
 
     self.$buttons = $('#mediums\\.'+self.number+'\\.buttons');
 

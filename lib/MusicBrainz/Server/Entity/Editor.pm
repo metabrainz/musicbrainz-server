@@ -93,7 +93,18 @@ has [qw( accepted_edits rejected_edits failed_edits accepted_auto_edits )] => (
     isa => 'Int',
 );
 
-has [qw( registration_date last_login_date email_confirmation_date )] => (
+use DateTime;
+has [qw( registration_date )] => (
+    isa    => 'DateTime',
+    is     => 'rw',
+    coerce => 1,
+    lazy   => 1,
+    # This is the date of the first commit, and will be moved to the database
+    # in the next schema change
+    default => sub { DateTime->new( year => 2000, month => 9, day => 7 ) }
+);
+
+has [qw( last_login_date email_confirmation_date )] => (
     isa    => 'DateTime',
     is     => 'rw',
     coerce => 1,

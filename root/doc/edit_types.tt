@@ -1,11 +1,9 @@
 [% extra_css = "wikidocs.css" %]
-[% WRAPPER "layout.tt" full_width=1 title=l('Edit types') -%]
+[% WRAPPER "layout.tt" full_width=1 title=l('Edit Types') -%]
     <div id="content">
         <h1>[%- l('Edit Types') -%]</h1>
-        <ul>
           [% FOR category=by_category.pairs %]
-            <li>
-              [% category.key %]
+            <h2>[% category.key %]</h2>
               <ul>
                 [% FOR edit_type=category.value %]
                   [% USE class = Class(edit_type) %]
@@ -16,8 +14,6 @@
                   </li>
                 [% END %]
               </ul>
-            </li>
           [% END %]
-        </ul>
     </div>
 [% END %]

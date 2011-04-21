@@ -28,6 +28,8 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::Tags';
 
 sub root : Chained('/') PathPart('ws/1/artist') CaptureArgs(0) { }
 
+__PACKAGE__->config( paging_limit => 250 );
+
 sub lookup : Chained('load') PathPart('')
 {
     my ($self, $c, $gid) = @_;
@@ -35,10 +37,8 @@ sub lookup : Chained('load') PathPart('')
 
     $c->model('ArtistType')->load($artist);
 
-    if ($c->stash->{inc}->rg_type)
-    {
-        my @rg;
-
+    my @rg;
+    if ($c->stash->{inc}->rg_type || $c->stash->{inc}->rel_status) {
         if ($c->stash->{inc}->various_artists)
         {
             @rg = $c->model('ReleaseGroup')->filter_by_track_artist($artist->id, $c->stash->{inc}->rg_type);
@@ -47,71 +47,66 @@ sub lookup : Chained('load') PathPart('')
         {
             @rg = $c->model('ReleaseGroup')->filter_by_artist($artist->id, $c->stash->{inc}->rg_type);
         }
+    }
 
+    if (@rg) {
         $c->model('ArtistCredit')->load(@rg);
         $c->model('ReleaseGroupType')->load(@rg);
         $c->stash->{data}->{release_groups} = \@rg;
+        my ($results, $hits) = $self->_load_paged($c, sub {
+            $c->model('Release')->find_by_release_group([ map { $_->id } @rg ], shift, shift)
+        });
 
-        if (@rg)
-        {
-            my ($results, $hits) = $self->_load_paged($c, sub {
-                $c->model('Release')->find_by_release_group([ map { $_->id } @rg ], shift, shift)
-            });
+        $c->model('ReleaseStatus')->load(@$results);
 
-            $c->model('ReleaseStatus')->load(@$results);
+        my @releases;
+        if ($c->stash->{inc}->rel_status && @rg) {
+            @releases = grep { $_->status_id == $c->stash->{inc}->rel_status } @$results;
+        }
+        else {
+            @releases = @$results;
+        }
 
-            my @releases;
-            if ($c->stash->{inc}->rel_status && @rg)
-            {
-                @releases = grep { $_->status->id == $c->stash->{inc}->rel_status } @$results;
-            }
-            else
-            {
-                @releases = @$results;
-            }
+        # make sure the release groups are hooked up to the releases, so
+        # the serializer can get the release type from the release group.
+        my %rel_to_rg_map = map { ( $_->id => $_ ) } @rg;
+        map { $_->release_group($rel_to_rg_map{$_->release_group_id}) } @releases;
 
-            # make sure the release groups are hooked up to the releases, so
-            # the serializer can get the release type from the release group.
-            my %rel_to_rg_map = map { ( $_->id => $_ ) } @rg;
-            map { $_->release_group($rel_to_rg_map{$_->release_group_id}) } @releases;
+        if ($c->stash->{inc}->discs) {
+            $c->model('Medium')->load_for_releases(@releases);
+            my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } @releases);
+            $c->model('CDTOC')->load(@medium_cdtocs);
+        }
 
-            if ($c->stash->{inc}->discs)
-            {
-                $c->model('Medium')->load_for_releases(@releases);
-                my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } @releases);
-                $c->model('CDTOC')->load(@medium_cdtocs);
-            }
+        $c->model('ReleaseStatus')->load(@releases);
+        $c->model('Language')->load(@releases);
+        $c->model('Script')->load(@releases);
 
-            $c->model('ReleaseStatus')->load(@releases);
-            $c->model('Language')->load(@releases);
-            $c->model('Script')->load(@releases);
+        $c->model('Relationship')->load_subset([ 'url' ], @releases);
+        $c->stash->{inc}->asin(1);
 
-            $c->model('Relationship')->load_subset([ 'url' ], @releases);
-            $c->stash->{inc}->asin(1);
+        $c->stash->{inc}->releases(1);
+        $c->stash->{data}->{releases} = \@releases;
 
-            $c->stash->{inc}->releases(1);
-            $c->stash->{data}->{releases} = \@releases;
+        if ($c->stash->{inc}->release_events) {
+            $c->model('Medium')->load_for_releases(@releases)
+                unless $c->stash->{inc}->discs;
 
-            if ($c->stash->{inc}->release_events) {
-                $c->model('Medium')->load_for_releases(@releases)
-                    unless $c->stash->{inc}->discs;
+            $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+            $c->model('ReleaseLabel')->load(@releases);
+            $c->model('Country')->load(@releases);
 
-                $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-                $c->model('ReleaseLabel')->load(@releases);
-                $c->model('Country')->load(@releases);
+            $c->model('Label')->load(map { $_->labels->[0] } @releases)
+                if $c->stash->{inc}->labels;
+        }
 
-                $c->model('Label')->load(map { $_->labels->[0] } @releases)
-                    if $c->stash->{inc}->labels;
-            }
+        if ($c->stash->{inc}->counts) {
+            $c->model('Medium')->load_for_releases(@releases)
+                unless $c->stash->{inc}->discs ||
+                    $c->stash->{inc}->release_events;
 
-            if ($c->stash->{inc}->counts) {
-                $c->model('Medium')->load_for_releases(@releases)
-                    unless $c->stash->{inc}->discs ||
-                           $c->stash->{inc}->release_events;
-
-                $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } @releases)
-                    unless $c->stash->{inc}->discs;
-            }
+            $c->model('MediumCDTOC')->load_for_mediums(map { $_->all_mediums } @releases)
+                unless $c->stash->{inc}->discs;
         }
     }
 

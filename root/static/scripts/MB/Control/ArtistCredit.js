@@ -58,7 +58,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.$remove_artist = self.$row.find ('input.remove-artist-credit');
 
     self.clear = function () {
-        self.$name.val ('');
+        self.$name.val ('').removeClass('error');
         self.$sortname.val ('');
         self.$credit.val ('');
         self.$join.val ('');
@@ -76,15 +76,23 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.container.clearError (self);
         self.$sortname.val (data.sortname);
         self.$join.val (data.join || '');
-        self.$credit.val (data.name);
         self.$gid.val (data.gid);
         self.$id.val (data.id);
         self.updateLookupPerformed ();
 
-        if (self.$credit.val () === '')
+        if (data.name === '' || data.name === data.artist_name)
         {
-            self.$credit.attr ('placeholder', data.artist_name)
+            self.$credit
+                .val ('')
+                .attr ('placeholder', data.artist_name)
                 .mb_placeholder (self.placeholder_options);
+        }
+        else
+        {
+            self.$credit
+                .removeAttr ('placeholder')
+                .mb_placeholder (self.placeholder_options)
+                .val (data.name);
         }
 
         if (self.$join.val () !== '')
@@ -98,7 +106,17 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         if (self.$gid.val () === "" && self.$id.val () === "")
         {
             self.$name.val (MB.GuessCase.artist.guess (self.$name.val ()));
-            self.$credit.val (MB.GuessCase.artist.guess (self.$credit.val ()));
+
+            if (self.$credit.val () !== "")
+            {
+                self.$credit.val (MB.GuessCase.artist.guess (self.$credit.val ()));
+            }
+            else if (self.$credit.attr ('placeholder') !== "")
+            {
+                self.$credit.attr (
+                    'placeholder',
+                    MB.GuessCase.artist.guess (self.$credit.attr ('placeholder')));
+            }
         }
     };
 
@@ -136,6 +154,13 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         event.preventDefault();
         return false;
+    };
+
+    self.lookupHook = function (request) {
+
+        self.$name.removeClass ('error');
+
+        return request;
     };
 
     self.nameBlurred = function(event) {
@@ -294,7 +319,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     MB.Control.Autocomplete ({
         'input': self.$name,
         'entity': 'artist',
-        'select': self.update
+        'select': self.update,
+        'lookupHook': self.lookupHook
     });
 
     if (obj === null)
@@ -348,7 +374,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         MB.Control.Autocomplete ({
             'input': self.$artist_input,
             'entity': 'artist',
-            'select': self.update
+            'select': self.update,
+            'lookupHook': self.lookupHook
         });
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
@@ -393,6 +420,13 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     self.update = function(event, data) {
         event.preventDefault();
         self.box[0].update(event, data);
+    };
+
+    self.lookupHook = function (request) {
+
+        self.$artist_input.removeClass ('error');
+
+        return request;
     };
 
     self.addArtistBox = function () {

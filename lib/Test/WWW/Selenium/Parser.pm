@@ -7,6 +7,11 @@ use aliased 'Test::WWW::Selenium::Parser::Test';
 
 my $timeout_in_seconds = 60;
 
+has speed => (
+    is => 'rw',
+    required => 0
+);
+
 has test_runner => (
     is => 'ro',
     required => 1
@@ -27,6 +32,7 @@ our %dispatch = (
     focus => 'focus_ok',
     open => 'open_ok',
     select => 'select_ok',
+    setSpeed => 'set_speed_ok',
     type => 'type_ok',
     uncheck => 'uncheck_ok',
     verifyElementNotPresent => sub {
@@ -57,6 +63,19 @@ our %dispatch = (
               sleep(1);
           }
           $tb->ok(0, 'Could not find: ' . $_[0]);
+        }
+    },
+    waitForValue => sub {
+        my $sel = shift;
+      WAIT: {
+          for (1..$timeout_in_seconds) {
+              if (eval { $_[1] ne $sel->get_value($_[0]) }) {
+                  $tb->ok(1, $_[0] . ' has value ' . $_[1]);
+                  last WAIT
+              }
+              sleep(1);
+          }
+          $tb->ok(0, $_[0] . ' does not have value ' . $_[1]);
         }
     },
     waitForNotValue => sub {
@@ -102,7 +121,12 @@ our %dispatch = (
 
 sub BUILDARGS {
     my ($self, %args) = @_;
+
+    my $speed = delete $args{speed};
+
     $args{test_runner} ||= Test::WWW::Selenium->new(%args);
+    $args{speed} = $speed;
+
     return \%args;
 }
 
@@ -118,6 +142,11 @@ sub run_test {
             }
             else {
                 $self->test_runner->$method($command->args);
+            }
+
+            if ($self->speed && $command->command eq "open")
+            {
+                $self->test_runner->set_speed_ok ($self->speed)
             }
         }
     });

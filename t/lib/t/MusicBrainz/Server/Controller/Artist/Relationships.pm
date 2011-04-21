@@ -19,7 +19,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/relationships', 'get artist relationships');
 html_ok($mech->content);
 {
-    local $TODO = 'The new appearences listing loses this detail';
+    local $TODO = 'The new appearances listing loses this detail';
     $mech->content_contains('guitar');
 }
 $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce');

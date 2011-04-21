@@ -112,7 +112,7 @@ before 'serialize' => sub
     $self->add(
         $self->gen->rating(
             { 'votes-count' => $entity->release_group->rating_count },
-            $entity->release_group->rating
+            int($entity->release_group->rating / 20)
         )
     ) if $inc && $inc->ratings;
 
@@ -133,6 +133,10 @@ before 'serialize' => sub
         $self->add( $self->gen->$relist({ count => 1 }) )
             unless $inc->release_events;
 
+        $self->add( $self->gen->$disclist({
+            count => scalar map { $_->all_cdtocs } map { $_->all_mediums } $entity
+        })) unless $inc->discs;
+
         unless (
             $inc->tracklist || $inc->tracks ||
             ($opts && $opts->{track_map}) )
@@ -141,10 +145,6 @@ before 'serialize' => sub
                 count => sum map { $_->tracklist->track_count } $entity->all_mediums
             }) )
         }
-
-        $self->add( $self->gen->$disclist({
-            count => scalar map { $_->all_cdtocs } map { $_->all_mediums } $entity
-        })) unless $inc->discs;
     }
 };
 

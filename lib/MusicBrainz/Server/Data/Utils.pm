@@ -398,7 +398,7 @@ sub merge_table_attributes {
     my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
     my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
     my @columns = @{ $named_params{columns} } or confess 'Missing parameter \@columns';
-    my @all_ids = ($new_id, @$old_ids);
+    my @all_ids = ($new_id, @old_ids);
 
     $sql->do(
         "UPDATE $table SET " .

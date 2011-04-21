@@ -1,25 +1,42 @@
 [% WRAPPER 'user/profile/layout.tt' title=l('Subscribers') page='subscribers' %]
     <h2>[% l('Subscribers') %]</h2>
     [% IF public_editors.size || private_editors > 0 %]
-        <p>[% l('The following editors are subscribed to edits that {editor} makes:', { editor => link_entity(user) }) %]</p>
+        <p>[% ln('There is currently {num} user subscribed to edits that {user} makes:',
+                 'There are currently {num} users subscribed to edits that {user} makes:',
+                 public_editors.size + private_editors,
+                 { user => html_escape(user.name), num => public_editors.size + private_editors }) %]</p>
         <ul>
-        [% FOR editor=public_editors %]
-            <li>[% link_entity(editor) %]</li>
-        [% END %]
-            [% IF private_editors %]
-            <li>[% ln('{n} other editor', '{n} other editors', private_editors, { n => private_editors }) %]</li>
+            [% FOR editor=public_editors %]
+                <li>[% link_editor(editor) %]</li>
+            [% END %]
+
+            [% IF public_editors.size && private_editors %]
+                <li>[% ln('plus {n} other anonymous user', 'Plus {n} other anonymous users',
+                           private_editors, { n => private_editors }) %]</li>
+            [% ELSIF private_editors %]
+                <li>[% ln('An anonymous user', '{n} anonymous users',
+                           private_editors, { n => private_editors }) %]</li>
             [% END %]
         </ul>
     [% ELSE %]
-        <p>[% l('There are currently no editors subscribed to edits that {editor} makes.',
-                { editor => link_entity(user) }) %]</p>
+        [% IF viewing_own_profile %]
+            <p>[% l('There are currently no users subscribed to edits that you make.') %]</p>
+        [% ELSE %]
+            <p>[% l('There are currently no users subscribed to edits that {user} makes.',
+                    { user => html_escape(user.name) }) %]</p>
+        [% END %]
     [% END %]
 
     [% IF !viewing_own_profile %]
         [% IF subscribed %]
-            <p>[% l('You are currently subscribed.') %]</p>
+            <p>[% l('You are currently subscribed. {unsub|Unsubscribe}?',
+                   { unsub => c.uri_for_action('/account/subscriptions/editor/remove', { id => user.id }) }) %]</p>
+        [% ELSIF public_editors.size + private_editors == 0 %]
+            <p>[% l("Be the first! {sub|Subscribe}?",
+                   { sub => c.uri_for_action('/account/subscriptions/editor/add', { id => user.id }) }) %]</p>
         [% ELSE %]
-            <p>[% l('You are not currently subscribed.') %]</p>
+            <p>[% l('You are not currently subscribed. {sub|Subscribe}?',
+                   { sub => c.uri_for_action('/account/subscriptions/editor/add', { id => user.id }) }) %]</p>
         [% END %]
     [% END %]
 [% END %]
