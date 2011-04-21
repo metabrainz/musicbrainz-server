@@ -799,6 +799,8 @@ sub _edit_release_track_edits
 
             if ($new->{position} != $medium_idx + 1)
             {
+                $add_medium->entity->release($self->release);
+
                 # Disc was inserted at the wrong position, enter an edit to re-order it.
                 $create_edit->(
                     $EDIT_MEDIUM_EDIT, $editnote,

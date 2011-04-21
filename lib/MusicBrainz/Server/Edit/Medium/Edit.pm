@@ -83,6 +83,10 @@ sub initialize
     {
         die "You must specify the object to edit" unless defined $entity;
 
+        unless ($entity->release) {
+            $self->c->model('Release')->load($entity);
+        }
+
         $data = {
             entity_id => $entity->id,
             release => {
