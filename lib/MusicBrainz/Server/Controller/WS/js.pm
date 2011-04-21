@@ -305,7 +305,7 @@ sub _recording_direct {
     $c->model ('ArtistCredit')->load (@entities);
     $c->model('ISRC')->load_for_recordings (@entities);
 
-    my %appears_on = $c->model('Recording')->appears_on (3, @entities);
+    my %appears_on = $c->model('Recording')->appears_on (\@entities, 3);
 
     my @output = map {
         {
@@ -359,7 +359,7 @@ sub _recording_indexed {
             push @entities, $entity;
         }
 
-        my %appears_on = $c->model('Recording')->appears_on (3, @entities);
+        my %appears_on = $c->model('Recording')->appears_on (\@entities, 3);
 
         @output = map {
             {
@@ -591,7 +591,7 @@ sub associations : Chained('root') PathPart Args(1) {
     $c->model('Recording')->load ($tracklist->all_tracks);
 
     my %appears_on = $c->model('Recording')->appears_on (
-        3, map { $_->recording } $tracklist->all_tracks);
+        [ map { $_->recording } $tracklist->all_tracks ], 3);
 
     my @structure;
     for (sort { $a->position <=> $b->position } $tracklist->all_tracks)

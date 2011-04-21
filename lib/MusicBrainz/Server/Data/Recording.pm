@@ -236,14 +236,6 @@ sub find_standalone
         $query, $artist_id, $offset || 0);
 }
 
-sub editor_can_create_recordings {
-    my ($self, $editor) = @_;
-    return DateTime::Duration->compare(
-        DateTime->now - $editor->registration_date,
-        DateTime::Duration->new( weeks => 2 )
-      ) && $editor->accepted_edits >= 10;
-}
-
 =method appears_on
 
 This method will return a list of release groups the recordings appear
@@ -254,9 +246,9 @@ then singles, etc..) and then by name.
 
 sub appears_on
 {
-    my ($self, $limit, @recordings) = @_;
+    my ($self, $recordings, $limit) = @_;
 
-    my @ids = map { $_->id } @recordings;
+    my @ids = map { $_->id } @$recordings;
 
     my $query =
         "SELECT DISTINCT ON (recording.id, name.name, type)
@@ -294,6 +286,14 @@ sub appears_on
     }
 
     return %map;
+}
+
+sub editor_can_create_recordings {
+    my ($self, $editor) = @_;
+    return DateTime::Duration->compare(
+        DateTime->now - $editor->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) && $editor->accepted_edits >= 10;
 }
 
 __PACKAGE__->meta->make_immutable;
