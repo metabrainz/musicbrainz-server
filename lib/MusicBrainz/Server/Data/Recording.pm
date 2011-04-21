@@ -236,9 +236,9 @@ then singles, etc..) and then by name.
 
 sub appears_on
 {
-    my ($self, $limit, @recordings) = @_;
+    my ($self, $recordings, $limit) = @_;
 
-    my @ids = map { $_->id } @recordings;
+    my @ids = map { $_->id } @$recordings;
 
     my $query =
         "SELECT DISTINCT ON (recording.id, name.name, type)
