@@ -1,9 +1,7 @@
 [%- BLOCK layout_head -%]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
-
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
-      "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
+      "lib/jquery.ui/external/jquery.cookie.js",
       "scripts/MB/utility.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Work.js",
@@ -36,7 +34,7 @@
 [% WRAPPER 'layout.tt' title=l('Add Work') full_width=1 %]
    <h1>[%- l('Add Work') -%]</h1>
    [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page.") ) -%]
+     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
 
    [% INCLUDE 'work/edit_form.tt' %]

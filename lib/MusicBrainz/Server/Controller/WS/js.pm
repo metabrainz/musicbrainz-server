@@ -305,16 +305,14 @@ sub _recording_direct {
     $c->model ('ArtistCredit')->load (@entities);
     $c->model('ISRC')->load_for_recordings (@entities);
 
-    my @output;
+    my %appears_on = $c->model('Recording')->appears_on (\@entities, 3);
 
-    for (@entities) {
-        push @output, {
+    my @output = map {
+        {
             recording => $_,
-            appears => [
-                $c->model ('ReleaseGroup')->find_by_recording ($_->id)
-            ]
-        };
-    };
+            appears_on => $appears_on{$_->id}
+        }
+    } @entities;
 
     my $pager = Data::Page->new ();
     $pager->entries_per_page ($limit);
@@ -346,6 +344,8 @@ sub _recording_indexed {
     {
         $pager = $response->{pager};
 
+        my @entities;
+
         for my $result (@{ $response->{results} })
         {
             my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
@@ -356,11 +356,17 @@ sub _recording_indexed {
 
             $entity->artist_credit ($result->{entity}->artist_credit);
 
-            my @rgs = $c->model ('ReleaseGroup')->find_by_release_gids (
-                map { $_->gid } @{ $result->{extra} });
-
-            push @output, { recording => $entity, appears => \@rgs };
+            push @entities, $entity;
         }
+
+        my %appears_on = $c->model('Recording')->appears_on (\@entities, 3);
+
+        @output = map {
+            {
+                recording => $_,
+                appears_on => $appears_on{$_->id}
+            }
+        } @entities;
     }
     else
     {
@@ -584,6 +590,9 @@ sub associations : Chained('root') PathPart Args(1) {
 
     $c->model('Recording')->load ($tracklist->all_tracks);
 
+    my %appears_on = $c->model('Recording')->appears_on (
+        [ map { $_->recording } $tracklist->all_tracks ], 3);
+
     my @structure;
     for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
     {
@@ -603,19 +612,18 @@ sub associations : Chained('root') PathPart Args(1) {
             edit_sha1 => hash_structure ($track)
         };
 
-
-        my %rgs;
-        for ($c->model ('ReleaseGroup')->find_by_recording ($_->recording->id))
-        {
-            $rgs{$_->gid} = { 'name' => $_->name, 'gid' => $_->gid };
-        }
-
         $data->{recording} = {
             gid => $_->recording->gid,
             name => $_->recording->name,
             length => format_track_length($_->recording->length),
             artist_credit => { preview => $_->artist_credit->name },
-            releasegroups => [ sort { $a->{name} cmp $b->{name} } values %rgs ],
+            appears_on => {
+                hits => $appears_on{$_->recording->id}{hits},
+                results => [ map { {
+                    'name' => $_->name,
+                    'gid' => $_->gid
+                    } } @{ $appears_on{$_->recording->id}{results} } ],
+            }
         };
 
         push @structure, $data;

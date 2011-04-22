@@ -6,6 +6,7 @@
       c.model('FileCache').squash_scripts(
         "lib/json/json2.js",
         "lib/sha1/sha1.js",
+        "lib/jquery.ui/external/jquery.cookie.js",
         "scripts/MB/TrackParser.js",
 
         "scripts/MB/GuessCase/Utils.js",
@@ -41,6 +42,12 @@
     $('document').ready (function () {
 
        MB.release_artist_json = [% release_artist_json %];
+       MB.medium_cdtocs = [
+       [%- FOR medium=release.mediums -%]
+           [% medium.cdtocs.size %],
+       [%- END -%]
+           null
+       ];
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
@@ -262,7 +269,6 @@
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
-    [%- r.hidden ('advanced') -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
 
@@ -288,7 +294,7 @@
             <td class="disc" >
             [% IF multidisc %]
               <h3>
-                [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+                [% l('Disc {num}', { num => '<span class="discnum">' _ medium_field.field('position').value _ '</span>' }) %]
               </h3>
             [% END %]
             </td>
@@ -398,6 +404,8 @@
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
 
+    <div style="display: none" id="discid-warning">[% warning("") %]</div>
+
     <div id="preview"> </div>
 
     <div style="float: right; margin: 10px;" class="buttons">
@@ -454,7 +462,7 @@
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
       <legend>
-        [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+        [% l('Disc {num}', { num => '<span class="discnum">' _ (medium_field.field('position').value) _ '</span>' }) %]
       </legend>
 
       <table class="advanced-format">

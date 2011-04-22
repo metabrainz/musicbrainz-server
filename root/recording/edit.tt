@@ -1,6 +1,7 @@
 [%- BLOCK layout_head -%]
   <script type="text/javascript" src="[%-
     c.model('FileCache').squash_scripts(
+      "lib/jquery.ui/external/jquery.cookie.js",
       "scripts/MB/GuessCase/Handler/Base.js",
       "scripts/MB/GuessCase/Handler/Track.js",
       "scripts/MB/GuessCase/Mode/Base.js",
@@ -33,7 +34,7 @@
 [% WRAPPER 'recording/layout.tt' full_width=1 title=l('Edit recording') page='edit' %]
 
    [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page.") ) -%]
+     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
 
    [% INCLUDE 'recording/edit_form.tt' %]
