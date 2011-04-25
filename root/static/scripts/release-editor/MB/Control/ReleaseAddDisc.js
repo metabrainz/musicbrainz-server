@@ -27,6 +27,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
     self.$loading = self.$tracklist.find('.tracklist-loading');
     self.$icon = self.$tracklist.find ('span.ui-icon');
     self.$id = self.$tracklist.find ('input.id');
+    self.$toc = self.$tracklist.find ('input.toc');
 
     self.$tracklist
         .appendTo (parent.$container)
@@ -58,7 +59,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         $.getJSON ('/ws/js/' + self.type + '/' + self.$id.val (), function (data) {
             self.$table.find ('tr.track').eq (0).nextAll ().remove ();
 
-            $.each (data, function (idx, item) {
+            $.each (data.tracks, function (idx, item) {
                 var tr = self.$table.find ('tr.track').eq(0).clone ()
                     .appendTo (self.$table.find ('tbody'));
 
@@ -71,6 +72,8 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
                 tr.find ('td.length').text (item.length);
                 tr.show ();
             });
+
+            self.$toc.val (data.toc);
 
             self.$loading.hide ();
             self.$table.show ();
@@ -87,13 +90,8 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
     };
 
     self.renderToDisc = function (basic_disc) {
-        //  FIXME: currently not handled correctly by the server.
-        /*
-        if (self.type === 'cdstub')
-        {
-            basic_disc.$toc.val (self.discid);
-        }
-        */
+
+        basic_disc.$toc.val (self.$toc.val ());
 
         var data = [];
         $.each (self.$table.find ('tr.track'), function (idx, row) {
@@ -119,7 +117,6 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             }
 
             basic_disc.disc.getTrack (idx - 1).render (trk);
-
         });
 
         basic_disc.disc.sort ();

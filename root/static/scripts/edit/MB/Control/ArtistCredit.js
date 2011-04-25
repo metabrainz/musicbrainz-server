@@ -256,7 +256,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         var name = self.$credit.val ();
         if (name === '')
         {
-            name = self.$credit.attr ('placeholder');
+            name = self.$name.val ();
         }
 
         if (!name)
