@@ -228,6 +228,7 @@
 
       [%# either tracklist id, freedb id or discid (cdstub). %]
       <input type="hidden" class="id" />
+      <input type="hidden" class="toc" />
       <br />
 
       <table class="import-tracklist medium tbl" style="display: none">

@@ -394,7 +394,8 @@ sub tracklist : Chained('root') PathPart Args(1) {
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
         $tracklist->all_tracks);
 
-    my $structure = [ map {
+    my $ret = { toc => "" };
+    my $ret->{tracks} = [ map {
         length => format_track_length($_->length),
         name => $_->name,
         artist_credit => {
@@ -405,7 +406,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
     $tracklist->all_tracks ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', $structure));
+    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
 }
 
 sub freedb : Chained('root') PathPart Args(2) {
@@ -413,40 +414,45 @@ sub freedb : Chained('root') PathPart Args(2) {
 
     my $response = $c->model ('FreeDB')->lookup ($category, $id);
 
-    my @ret = map {
+    my $ret = { toc => "" };
+    my $ret->{tracks} = [ map {
         {
             name => $_->{title},
             artist => $_->{artist},
             length => format_track_length($_->{length}),
         }
-    } @{ $response->tracks };
+    } @{ $response->tracks } ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@ret));
+    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
 };
 
 sub cdstub : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
-    my @ret;
-    my $toc = $c->model('CDStubTOC')->get_by_discid($id);
+    my $cdstub_toc = $c->model('CDStubTOC')->get_by_discid($id);
+    my $ret = {
+        toc => "",
+        tracks => []
+    };
 
-    if ($toc)
+    if ($cdstub_toc)
     {
-        $c->model('CDStub')->load ($toc);
-        $c->model('CDStubTrack')->load_for_cdstub ($toc->cdstub);
-        $toc->update_track_lengths;
+        $c->model('CDStub')->load ($cdstub_toc);
+        $c->model('CDStubTrack')->load_for_cdstub ($cdstub_toc->cdstub);
+        $cdstub_toc->update_track_lengths;
 
-        @ret = map {
+        $ret->{toc} = $cdstub_toc->toc;
+        $ret->{tracks} = [ map {
             {
                 name => $_->title,
                 length => format_track_length($_->length),
             }
-        } $toc->cdstub->all_tracks;
+        } $cdstub_toc->cdstub->all_tracks ];
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@ret));
+    $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
 }
 
 sub tracklist_results {

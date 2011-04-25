@@ -46,6 +46,7 @@ sub initialize {
     if ($self->preview)
     {
        $self->entity_id(0);
+       $opts{release} = { id => 0, name => "" };
     }
     else {
         my $release = $opts{release} or die 'Missing "release" argument';

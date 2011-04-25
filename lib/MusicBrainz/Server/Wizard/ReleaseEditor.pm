@@ -799,15 +799,14 @@ sub _edit_release_track_edits
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
-            my $toc = $self->c->model('CDStubTOC')->get_by_discid ($new->{toc}) if $new->{toc};
-            if ($toc)
+            if ($new->{toc})
             {
                 $create_edit->(
                     $EDIT_MEDIUM_ADD_DISCID,
                     $editnote,
+                    cdtoc => $new->{toc},
+                    release => $self->release,
                     medium_id  => $previewing ? 0 : $add_medium->entity_id,
-                    release_id => $previewing ? 0 : $self->release->id,
-                    cdtoc      => $toc->toc,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }

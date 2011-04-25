@@ -516,7 +516,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             if (tracklist_id)
             {
                 $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, function (data) {
-                    use_data (self.changeTrackArtists (data));
+                    use_data (self.changeTrackArtists (data.tracks));
                 });
             }
             else
