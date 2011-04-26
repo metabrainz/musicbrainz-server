@@ -1188,7 +1188,7 @@ sub _expand_mediums
         {
             $disc->{tracks} = [ ];
         }
-        else
+        elsif ($tracklist_id)
         {
             my $tracklist = $self->c->model('Tracklist')->get_by_id ($tracklist_id);
             $self->c->model('Track')->load_for_tracklists ($tracklist);
