@@ -1,36 +1,39 @@
-[% WRAPPER "layout.tt" title=l("Search Results") full_width=1 %]
+[%- WRAPPER "layout.tt" title=l("Search Results") full_width=1 -%]
     <div id="content">
-        <h1>[% l("Search Results") %]</h1>
+        <h1>[%- l("Search Results") -%]</h1>
         [%- IF results.size -%]
-            [% WRAPPER 'components/with-pager.tt' search=1 %]
+            [%- WRAPPER 'components/with-pager.tt' search=1 -%]
                 <table class="tbl">
                     <thead>
                         <tr>
-                            <th>[% l('Score') %]</th>
-                            <th>[% l('Name') %]</th>
-                            <th>[% l('Artist') %]</th>
+                            <th>[%- l('Score') -%]</th>
+                            <th>[%- l('Name') -%]</th>
+                            <th>[%- l('Artist') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
                         [%- FOR result=results -%]
-                        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                            <td>[% result.score %]</td>
-                            <td>[% link_entity(result.entity) %]</td>
+                        <tr[%- ' class="ev"' IF loop.count % 2 == 0 -%]>
+                            <td>[%- result.score -%]</td>
+                            <td>[%- link_entity(result.entity) -%]</td>
                             <td>
-                              <ul>
-                                [% FOR artist=result.entity.artists %]
-                                <li>[% link_entity(artist) %]</li>
-                                [% END %]
-                              </ul>
+                              [%- firstartist = 1 -%]
+                              [%- FOR rel=result.entity.relationships -%]
+                                [%- IF rel.entity1.isa('MusicBrainz::Server::Entity::Artist') -%]
+                                  [%- UNLESS firstartist -%], [%- END -%]
+                                  [%- link_artist(rel.entity1) -%]
+                                  [%- firstartist = 0 -%]
+                                [%- END -%]
+                              [%- END -%]
                             </td>
                         </tr>
                         [%- END -%]
                     </tbody>
                 </table>
-            [% END %]
+            [%- END -%]
         [%- ELSE -%]
-            <p>[% l('No results found') %]</p>
+            <p>[%- l('No results found') -%]</p>
         [%- END -%]
         [%- INCLUDE "search/form.tt" -%]
     </div>
-[% END %]
+[%- END -%]
