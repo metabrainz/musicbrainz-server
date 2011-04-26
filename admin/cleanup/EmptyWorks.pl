@@ -65,32 +65,6 @@ print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), 
 
 print localtime() . " : Finding unused works (using AR criteria)\n";
 
-my $query = <<EOF;
-
-    SELECT work.id
-    FROM work
-    WHERE last_updated > NOW() - '1 day'::INTERVAL
-      AND work.edits_pending = 0
-      AND work.id NOT IN (
-          SELECT entity1 FROM l_artist_work
-          UNION ALL
-          SELECT entity1 FROM l_label_work
-          UNION ALL
-          SELECT entity1 FROM l_recording_work
-          UNION ALL
-          SELECT entity1 FROM l_release_work
-          UNION ALL
-          SELECT entity1 FROM l_release_group_work
-          UNION ALL
-          SELECT entity1 FROM l_url_work
-          UNION ALL
-          SELECT entity0 FROM l_work_work
-          UNION ALL
-          SELECT entity1 FROM l_work_work
-      );
-
-EOF
-
 my $count = 0;
 my $removed = 0;
 my $privs = $BOT_FLAG;
@@ -98,7 +72,38 @@ $privs |= $AUTO_EDITOR_FLAG if $use_auto_mod;
 
 my @works = values %{
     $c->model('Work')->get_by_ids(@{
-        $c->sql->select_single_column_array($query)
+        $c->raw_sql->select_single_column_array(
+            'SELECT work.id
+               FROM (SELECT unnest(?::INTEGER[])) work(id)
+                  WHERE NOT EXISTS (
+                        SELECT TRUE FROM edit_work
+                          JOIN edit ON edit.id = edit_work.edit
+                         WHERE edit_work.work = work.id
+                           AND edit.status = 1
+                        )',
+            $c->sql->select_single_column_array(
+                "SELECT work.id
+                   FROM work
+                  WHERE last_updated > NOW() - '1 day'::INTERVAL
+                    AND work.edits_pending = 0
+                    AND work.id NOT IN (
+                        SELECT entity1 FROM l_artist_work
+                        UNION ALL
+                        SELECT entity1 FROM l_label_work
+                        UNION ALL
+                        SELECT entity1 FROM l_recording_work
+                        UNION ALL
+                        SELECT entity1 FROM l_release_work
+                        UNION ALL
+                        SELECT entity1 FROM l_release_group_work
+                        UNION ALL
+                        SELECT entity1 FROM l_url_work
+                        UNION ALL
+                        SELECT entity0 FROM l_work_work
+                        UNION ALL
+                        SELECT entity1 FROM l_work_work
+                    )")
+        )
     })
 };
 

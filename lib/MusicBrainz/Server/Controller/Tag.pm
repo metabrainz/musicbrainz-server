@@ -45,7 +45,7 @@ sub show : Chained('load') PathPart('')
 
             ($_ . '_tags' => $entities,
              $_ . '_count' => $total)
-        } qw( artist label recording release_group work )
+        } qw( artist label recording release release_group work )
     );
 }
 
@@ -75,6 +75,17 @@ sub recording : Chained('load')
 
     my $entity_tags = $self->_load_paged($c, sub {
         $c->model('Recording')->tags->find_entities($c->stash->{tag}->id, shift, shift);
+    });
+    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
+    $c->stash( entity_tags => $entity_tags );
+}
+
+sub release : Chained('load') PathPart('release')
+{
+    my ($self, $c) = @_;
+
+    my $entity_tags = $self->_load_paged($c, sub {
+        $c->model('Release')->tags->find_entities($c->stash->{tag}->id, shift, shift);
     });
     $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
     $c->stash( entity_tags => $entity_tags );

@@ -1,4 +1,4 @@
 [% WRAPPER 'layout.tt' title=l('Cannot add recordings') full_width=1 %]
-   <p>[% l('Sorry, you must have been a member for at least 2 weeks and have 10 accepted no-auto edits
-            until you may add standalone recordings') %]</p>
+   <p>[% l('Sorry, you must have been a member for at least 2 weeks and have 10 accepted non-auto-edits
+            before you may add standalone recordings') %]</p>
 [% END %]

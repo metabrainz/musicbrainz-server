@@ -149,6 +149,10 @@ div.guesscase-options,
 
 #release-editor #editnote  { height: 70px; }
 
+#release-editor div.basic-disc.deleted,
+#release-editor textarea.tracklist.deleted,
+#release-editor fieldset.advanced-disc.deleted { display: none; }
+
 #release-editor fieldset.advanced-disc tr.track > td > span > input[type=text],
 #release-editor fieldset.advanced-disc tr.track > td > input[type=text] { border: 1px solid transparent; }
 #release-editor fieldset.advanced-disc tr.track > td > span > input[type=text]:focus,
@@ -191,6 +195,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor .recordings p { margin-top: 0; }
 #release-editor .documentation p { margin-top: 0; }
+#release-editor .documentation div.warning p { margin-top: 1em; }
 #release-editor table.preview { width: 100%; margin: 0 0 10px 0 }
 #release-editor table.preview .artist { width: 160px; }
 #release-editor table.preview .duration {

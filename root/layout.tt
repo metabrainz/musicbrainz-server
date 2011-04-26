@@ -35,8 +35,8 @@
             [%- IF c.user_exists -%]
                 <script type="text/javascript" src="[%-
                   c.model('FileCache').squash_scripts(
-                      "lib/jquery/jquery-1.4.4.js",
-                      "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
+                      "lib/jquery/jquery-1.5.1.js",
+                      "lib/jquery.ui/ui/jquery-ui-1.8.10.custom.js",
                       "scripts/mb_placeholder.js",
                       "scripts/MB.js",
                       "scripts/global.js",
@@ -48,7 +48,7 @@
             [%- ELSE -%]
                 <script type="text/javascript" src="[%-
                   c.model('FileCache').squash_scripts(
-                      "lib/jquery/jquery-1.4.4.js",
+                      "lib/jquery/jquery-1.5.1.js",
                       "scripts/mb_placeholder.js",
                       "scripts/MB.js",
                       "scripts/global.js",
@@ -147,16 +147,16 @@
 
         <div id="footer">
             <p class="links">
-                <a href="http://metabrainz.org/donate" class="internal">Donate</a> | 
-                <a href="http://wiki.musicbrainz.org/" class="internal">Wiki</a> | 
-                <a href="http://forums.musicbrainz.org/" class="internal">Forums</a> | 
-                <a href="http://jira.musicbrainz.org/" class="internal">Bug Tracker</a> | 
-                <a href="http://www.cafepress.com/musicbrainz" class="internal">Schwag</a>
+                <a href="http://metabrainz.org/donate" class="internal">[% ('Donate') %]</a> | 
+                <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> | 
+                <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> | 
+                <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> | 
+                <a href="http://www.cafepress.com/musicbrainz" class="internal">[% l('Schwag') %]</a>
             </p>
 
             <p class="sponsors">
                 [% l('Hosted by {host|Digital West}. Sponsored by: {url1|Google},
-                      {url2|OSUOSL} and {more|others&hellip;}',
+                      {url2|OSUOSL} and {more|others…}',
                     { host => 'http://digitalwest.net/',
                       url1 => 'http://www.google.com/',
                       url2 => 'http://osuosl.org/',

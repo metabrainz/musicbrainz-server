@@ -46,25 +46,29 @@ MB.Control.autocomplete_formatters = {
     "recording": function (ul, item) {
         var a = $("<a>").text (item.name);
 
-        a.append (' - <span class="autocomplete-artist">' + 
-                  MB.utility.escapeHTML (item.artist) + '</span>');
-
-        if (item.releasegroups)
-        {
-            var rgs = {};
-            /* don't display the same name multiple times. */
-            $.each (item.releasegroups, function (idx, item) {
-                rgs[item.name] = item.name;
-            });
-
-            a.append ('<br /><span class="autocomplete-appears">appears on: ' +
-                      MB.utility.escapeHTML (MB.utility.keys (rgs).join (", ")) + '</span>');
-        }
-
         if (item.comment)
         {
-            a.append ('<br /><span class="autocomplete-comment">(' +
+            a.append ('<span class="autocomplete-comment">(' +
                       MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
+        a.append ('<br /><span class="autocomplete-comment">by ' +
+                  MB.utility.escapeHTML (item.artist) + '</span>');
+
+        if (item.appears_on)
+        {
+            var rgs = [];
+            $.each (item.appears_on.results, function (idx, item) {
+                rgs.push (item.name);
+            });
+
+            if (item.appears_on.hits > item.appears_on.results.length)
+            {
+                rgs.push ('...');
+            }
+
+            a.append ('<br /><span class="autocomplete-appears">appears on: ' +
+                      MB.utility.escapeHTML (rgs.join (", ")) + '</span>');
         }
 
         if (item.isrcs.length)
@@ -237,6 +241,10 @@ MB.Control.Autocomplete = function (options) {
 
         self.pagerButtons ();
 
+        if ($(document).height () > $('body').height ())
+        {
+            $('body').height ($(document).height ());
+        }
     };
 
     self.lookup = function (request, response) {
@@ -301,13 +309,13 @@ MB.Control.Autocomplete = function (options) {
 
         self.changeEntity (options.entity);
 
-        self.$input.autocomplete ({
+        self.$input.autocomplete ($.extend({}, options, {
             'source': self.lookup,
             'minLength': options.minLength ? options.minLength : 2,
             'select': self.select,
             'close': self.close,
             'open': self.open
-        });
+        }));
 
         self.autocomplete = self.$input.data ('autocomplete');
         self.$input.bind ('keydown.mb', self.pagerKeyEvent);

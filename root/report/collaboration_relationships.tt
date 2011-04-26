@@ -3,12 +3,12 @@
 <h1>[% l('Artists with Collaboration Relationships') %]</h1>
 <p>[% l('This report lists artists which have collaboration relationships but no URL relationships.
          Many collaborations were automatically split. The ones here weren\'t
-         because the artist names weren\'t all be found in the collaboration name,
+         because the artist names weren\'t all found in the collaboration name,
          not all of the artists were linked or the collaboration artist had other relationships.
 ') %]
 </p>
 <ul>
-    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>
 

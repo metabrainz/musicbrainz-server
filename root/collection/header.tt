@@ -4,7 +4,7 @@
 
 [%- IF c.user_exists && collection.editor.id == c.user.id -%]
     [%- info_links.push(['edit', link_collection(collection, 'edit', l('Edit'))]) -%]
-    [%- info_links.push(['delete', link_collection(collection, 'delete', l('Delete'))]) -%]
+    [%- info_links.push(['delete', link_collection(collection, 'delete', l('Remove'))]) -%]
 [%- END -%]
 
 <div class="collectionheader">

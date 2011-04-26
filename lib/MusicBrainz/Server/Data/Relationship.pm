@@ -283,10 +283,12 @@ sub merge_entities
 
     # Delete relationships where the start is the same as the end
     # (after merging)
-    $self->sql->do("DELETE FROM l_${type}_${type}
-               WHERE (entity0 = ? AND entity1 IN (" . placeholders(@source_ids) . '))
-                 OR  (entity0 IN (' . placeholders(@source_ids) . ') AND entity1 = ?)',
-        $target_id, @source_ids, @source_ids, $target_id);
+    my @ids = ($target_id, @source_ids);
+    $self->sql->do(
+        "DELETE FROM l_${type}_${type} WHERE
+             (entity0 IN (" . placeholders(@ids) . ')
+          AND entity1 IN (' . placeholders(@ids) . '))',
+        @ids, @ids);
 
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;

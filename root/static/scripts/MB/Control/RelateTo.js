@@ -77,11 +77,21 @@ MB.Control.RelateTo = function () {
         return ret;
     };
 
+    self.show = function (event) {
+        self.$relate.appendTo ($('body')).show ()
+
+        var o = self.$link.offset ();
+        var top = o.top + self.$link.height () + 8;
+        var left = o.left + self.$link.width () - self.$relate.width () + 8;
+
+        self.$relate.offset ({ top: Math.round (top), left: Math.round (left) });
+    };
+
     self.$select.bind ('change.mb', function (event) {
         self.autocomplete.changeEntity (self.type ());
     });
 
-    self.$link.bind ('click.mb', function (event) { self.$relate.show (); });
+    self.$link.bind ('click.mb', self.show);
     self.$cancel.bind ('click.mb', function (event) { self.$relate.hide (); });
     self.$create.bind ('click.mb', self.createRelationship);
 
@@ -89,7 +99,12 @@ MB.Control.RelateTo = function () {
         'entity': self.type (),
         'input': self.$input,
         'select': self.select,
-        'resultHook': self.resultHook
+        'resultHook': self.resultHook,
+        'position': {
+            my: "right top",
+            at: "right bottom",
+            collision: "none"
+        }
     });
 
     return self;

@@ -75,6 +75,9 @@ override 'prepare_tracklist' => sub {
         $self->c->stash->{release_artist_json} = $json->encode (
             artist_credit_to_alternative_ref ($release->artist_credit));
     }
+
+    $self->c->model('Medium')->load_for_releases($self->release);
+    $self->c->model('MediumCDTOC')->load_for_mediums($self->release->all_mediums);
 };
 
 augment 'load' => sub
@@ -83,8 +86,6 @@ augment 'load' => sub
 
     $self->_load_release;
     $self->c->model('Medium')->load_for_releases($self->release);
-
-    $self->c->stash( medium_formats => [ $self->c->model('MediumFormat')->get_all ] );
 
     return $self->release;
 };

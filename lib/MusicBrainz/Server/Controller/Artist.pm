@@ -185,7 +185,10 @@ sub show : PathPart('') Chained('load')
             );
         }
 
-        $c->stash( template => 'artist/index.tt' );
+        $c->stash(
+            show_va => $show_va,
+            template => 'artist/index.tt'
+        );
     }
 
     if ($c->user_exists) {

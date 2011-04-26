@@ -90,7 +90,7 @@ INSERT INTO track (id, tracklist, position, recording, name, artist_credit, leng
 
 INSERT INTO release_name (id, name) VALUES (1, 'Aerial');
 
-INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, '7c3218d7-75e0-4e8c-971f-f097b6c308c5', 1, 1);
+INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES (1, '7c3218d7-75e0-4e8c-971f-f097b6c308c5', 1, 1, 1);
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, date_year)
     VALUES (1, 'f205627f-b70a-409d-adbe-66289b614e80', 1, 1, 1, 2007),
@@ -109,9 +109,9 @@ INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_off
               (2, 'IeldkVfIh1wep_M8CMuDvA0nQ7Q-', '6309da09', 9, 189343,
               '{150,6614,32287,54041,61236,88129,92729,115276,153877}', FALSE);
 
-ALTER SEQUENCE track_name_id_seq RESTART 17;
-ALTER SEQUENCE track_id_seq RESTART 17;
-ALTER SEQUENCE recording_id_seq RESTART 17;
-ALTER SEQUENCE tracklist_id_seq RESTART 3;
+ALTER SEQUENCE track_id_seq RESTART 100;
+ALTER SEQUENCE track_name_id_seq RESTART 100;
+ALTER SEQUENCE tracklist_id_seq RESTART 100;
+ALTER SEQUENCE recording_id_seq RESTART 100;
 
 
