@@ -707,7 +707,8 @@ foreach my $orig_t0 (@entity_types) {
                 if (exists $seen_ar_type{$row->{id}}) {
                     # Generate a new UUID if we are making a copy
                     my $uuid = OSSP::uuid->new;
-                    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/$id");
+                    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/".
+                            $row->{name});
                     $gid = $uuid->export("str");
                 }
                 $seen_ar_type{$row->{id}} = 1;
@@ -739,7 +740,7 @@ foreach my $orig_t0 (@entity_types) {
 print STDERR "Initializing recording-work AR types\n";
 my $root_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
 my $uuid = OSSP::uuid->new;
-$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$root_id");
+$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/ROOT");
 my $gid = $uuid->export("str");
 $sql->do("INSERT INTO link_type
     (id, gid, name, link_phrase,
@@ -748,7 +749,7 @@ $sql->do("INSERT INTO link_type
     $root_id, $gid, "ROOT", "", "", "ROOT", "recording", "work");
 
 my $recording_work_link_type_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
-$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$recording_work_link_type_id");
+$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/performance");
 $gid = $uuid->export("str");
 $sql->do("INSERT INTO link_type
     (id, gid, name, description, link_phrase,
