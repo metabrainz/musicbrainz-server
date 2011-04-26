@@ -330,7 +330,8 @@ END -%]
 
 [%- MACRO use_in_relationship(entity) BLOCK;
     IF c.session.relationship.id == entity.id;
-      l('Please select another entity to relate {name} to', { name => c.session.relationship.name });
+      text = l('Cancel relate to {name}', { name => c.session.relationship.name });
+      link_entity(entity, 'cancel_relate', text);
     ELSE;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                     : l('Use in a relationship');
