@@ -482,7 +482,7 @@ END %]
     ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-16.png';
     ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-16.png';
     ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-16.png';
-    ELSE;  'http://' _ url.url.host _ '/favicon.ico';
+    ELSE; '/static/images/favicons/external-16.png';
 END %]
 
 [%- MACRO warning(message) BLOCK -%]
