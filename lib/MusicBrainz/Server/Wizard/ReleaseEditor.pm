@@ -1274,6 +1274,7 @@ sub _seed_parameters {
         my $release_group = $self->c->model('ReleaseGroup')
             ->get_by_gid($release_group_mbid);
         $params->{release_group_id} = $release_group->id;
+        $params->{release_group}{name} = $release_group->name;
     }
 
     for my $label (@{ $params->{labels} || [] }) {
