@@ -175,6 +175,7 @@ Creating the database
 
         local   all    all    trust
 
+
 3)  Create the databases
 
     You have two options when it comes to databases. You can either opt for a
@@ -226,6 +227,18 @@ Creating the database
 
         This will convert the data to the NGS format and will take some time.
         Please be patient!
+
+
+    NOTE: on a fresh postgresql install you may see the following error:
+
+        CreateFunctions.sql:33: ERROR:  language "plpgsql" does not exist
+
+    To resolve that login to postgresql with the "postgres" user (or
+    any other postgresql user with SUPERUSER privileges) and load the
+    "plpgsql" language into the database with the following command:
+
+        postgres=# CREATE LANGUAGE plpgsql;
+
 
 Starting the server
 ------------------
