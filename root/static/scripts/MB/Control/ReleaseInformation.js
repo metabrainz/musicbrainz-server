@@ -363,6 +363,28 @@ MB.Control.ReleaseInformation = function() {
         $('input#release-artist').bind ('artistCreditChanged', function (event) {
             $('div.row.change-track-artists').show ();
         });
+
+        MB.Control.Autocomplete ({
+            'input': $('input#id-release_group_name'),
+            'entity': 'release-group',
+            'select': self.selectReleaseGroup
+        });
+        self.indicateSelectedReleaseGroup();
+    };
+
+    self.selectReleaseGroup = function(event, data) {
+        $('input#id-release_group_id').val(data.id);
+        self.indicateSelectedReleaseGroup();
+    };
+
+    self.indicateSelectedReleaseGroup = function() {
+        if ($('input#id-release_group_id').val()) {
+            $('input#id-release_group_name').addClass ('lookup-performed');
+        }
+        else
+        {
+            $('input#id-release_group_name').removeClass ('lookup-performed');
+        }
     };
 
     self.addLabel = function ($row) {

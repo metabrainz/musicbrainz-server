@@ -38,6 +38,7 @@
       <legend>[% l('Release information') %]</legend>
       [% form_row_text (r, 'name') %]
       [% r.hidden ('release_group_id') %]
+      [% form_row_text (r, 'release_group_name', l('Release Group:')) %]
       <div class="row">
         [% r.label('various_artists', 'Various Artists release') %]
         <img style="float: right; margin-right: 12px;" id="help-va"
