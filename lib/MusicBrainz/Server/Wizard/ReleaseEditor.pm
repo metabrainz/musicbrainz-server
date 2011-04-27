@@ -1031,6 +1031,12 @@ sub _seed_parameters {
         }
     }
 
+    if (my $release_group_mbid = delete $params->{release_group}) {
+        my $release_group = $self->c->model('ReleaseGroup')
+            ->get_by_gid($release_group_mbid);
+        $params->{release_group_id} = $release_group->id;
+    }
+
     for my $label (@{ $params->{labels} || [] }) {
         if (my $mbid = $label->{mbid}) {
             my $entity = $self->c->model('Label')
