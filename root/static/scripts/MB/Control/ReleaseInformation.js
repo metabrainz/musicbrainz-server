@@ -365,7 +365,7 @@ MB.Control.ReleaseInformation = function() {
         });
 
         MB.Control.Autocomplete ({
-            'input': $('input#id-release_group_name'),
+            'input': $('input#id-release_group\\\.name'),
             'entity': 'release-group',
             'select': self.selectReleaseGroup
         });
@@ -379,11 +379,11 @@ MB.Control.ReleaseInformation = function() {
 
     self.indicateSelectedReleaseGroup = function() {
         if ($('input#id-release_group_id').val()) {
-            $('input#id-release_group_name').addClass ('lookup-performed');
+            $('input#id-release_group\\\.name').addClass ('lookup-performed');
         }
         else
         {
-            $('input#id-release_group_name').removeClass ('lookup-performed');
+            $('input#id-release_group\\\.name').removeClass ('lookup-performed');
         }
     };
 
