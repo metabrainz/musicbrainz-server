@@ -112,8 +112,8 @@
             <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
 
-        [% INCLUDE 'layout/merge-helper.tt'
-           IF c.session.merger AND !hide_merge_helper %]
+        [%- INCLUDE 'layout/merge-helper.tt'
+           IF c.session.merger AND !hide_merge_helper -%]
 
         <div id="footer">
             <p class="links">
