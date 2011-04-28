@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::MySpace;
+package MusicBrainz::Server::Entity::URL::InternetArchive;
 
 use Moose;
 
@@ -8,12 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^https?://(?:www.)?myspace.com/([^/]+)/?$}i) {
-        return $1;
-    }
-    else {
-        return "MySpace";
-    }
+    return "Internet Archive";
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -318,10 +318,3 @@ ul.favicons li img {
     vertical-align: middle;
 }
 
-ul.favicons img.border {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    padding: 1px;
-}
