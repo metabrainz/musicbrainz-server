@@ -122,7 +122,7 @@ sub edit : Local RequireAuth Edit
 
             push @attributes, scalar($attr->all_children)
                 ? @$value
-                : $value ? $attr->all_children : ();
+                : $value ? $attr->id : ();
         }
 
         my $values = $form->values;
@@ -217,7 +217,7 @@ sub create : Local RequireAuth Edit
 
             push @attributes, scalar($attr->all_children)
                 ? @$value
-                : $value ? $attr->all_children : ();
+                : $value ? $attr->id : ();
         }
 
         my $entity0 = $source;

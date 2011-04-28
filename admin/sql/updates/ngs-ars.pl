@@ -1126,6 +1126,18 @@ $sql->do("INSERT INTO link (id, link_type)
         'cover', 'Indicates that one entity is a cover of another entity'
     );
 
+    # Recording-work performance should allow 'cover' as an attribute
+    $sql->do(
+        'INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
+             VALUES (?, ?, ?, ?)',
+        $recording_work_link_type_id, $cover_attribute_id, 0, 1);
+
+    # Work-work other version should allow parody and translated as attributes
+    $sql->do(
+        "INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
+             SELECT ?, id, 0, 1 FROM link_attribute_type WHERE name IN ('parody', 'translated')",
+        $link_type_map{ join("_", 'work', 'work', $OTHER_VERSION) });
+
     $rows = $sql->select_list_of_hashes(
         'SELECT * FROM public.l_track_track WHERE link_type = 5'
     );
