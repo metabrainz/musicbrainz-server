@@ -346,6 +346,11 @@ sub USE_ETAGS { 1 }
 
 sub CATALYST_DEBUG { 1 }
 
+# If you are developing on MusicBrainz, you should set this to a true value
+# This will turn off some optimizations (such as CSS/JS compression) to make
+# developing and debuging easier
+sub DEVELOPMENT_SERVER { 0 }
+
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages

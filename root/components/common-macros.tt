@@ -508,7 +508,7 @@ http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
 [%- MACRO script_manifest(manifest) BLOCK -%]
-  [%- IF c.debug -%]
+  [%- IF server_details.developement_server -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
         <script src="/static/[%- file -%]"></script>
     [%- END -%]
@@ -518,7 +518,7 @@ http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
 [%- MACRO css_manifest(manifest) BLOCK -%]
-  [%- IF c.debug -%]
+  [%- IF server_details.developement_server -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'css'); -%]
         <link rel="stylesheet" type="text/css" href="/static/[%- file -%]" />
     [%- END -%]
