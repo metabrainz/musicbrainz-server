@@ -1,15 +1,21 @@
+[%- MACRO display_favicon(url, text) BLOCK -%]
+       <li>
+          <img src="[% favicon_image(url) %]" class="border"/>
+          <a href="[% url.url %]">
+            [%- text || url.sidebar_name | html -%]</a>
+        </li>
+[%- END -%]
+
 [%- favicons = entity.relationships_by_type('url') -%]
 [%- IF favicons -%]
     <p><strong>[% l('External links:') %]</strong></p>
     <ul class="favicons">
       [%- FOREACH favicon IN favicons -%]
-        [% url=favicon.target %]
-        [% NEXT UNLESS url.does('MusicBrainz::Server::Entity::URL::Sidebar') %]
-        <li>
-          <a href="[% url.url %]">
-            <img src="[% favicon_image(url) %]" class="border"/>
-            [% url.sidebar_name | html %]</a>
-        </li>
+        [%- display_favicon(favicon.target, l('Official homepage')) IF favicon.link.type.name == 'official homepage' -%]
+      [%- END -%]
+
+      [%- FOREACH favicon IN favicons.sort('phrase') -%]
+        [%- display_favicon(favicon.target) IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') -%]
       [%- END -%]
     </ul>
 [%- END -%]
