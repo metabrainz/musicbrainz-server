@@ -737,20 +737,10 @@ foreach my $orig_t0 (@entity_types) {
     }
 }
 
-print STDERR "Initializing recording-work AR types\n";
-my $root_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
 my $uuid = OSSP::uuid->new;
-$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/ROOT");
-my $gid = $uuid->export("str");
-$sql->do("INSERT INTO link_type
-    (id, gid, name, link_phrase,
-    reverse_link_phrase, short_link_phrase, entity_type0, entity_type1)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-    $root_id, $gid, "ROOT", "", "", "ROOT", "recording", "work");
-
 my $recording_work_link_type_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
 $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/performance");
-$gid = $uuid->export("str");
+my $gid = $uuid->export("str");
 $sql->do("INSERT INTO link_type
     (id, gid, name, description, link_phrase,
     reverse_link_phrase, short_link_phrase, entity_type0, entity_type1)
