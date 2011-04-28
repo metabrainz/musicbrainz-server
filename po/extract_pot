@@ -126,7 +126,7 @@ sub parse_file {
             $po->msgid($msgid);
             $po->msgstr("");
         }
-        my $next = shift @{$_};
+        my $next = shift @{$content};
         if ( defined $next && $next eq 'COMMA' ) {
             shift @{$content};
             if (shift @{$content} eq 'LITERAL') {
