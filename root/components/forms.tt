@@ -210,7 +210,7 @@
               <img class="search" src="/static/images/icons/search.png" />
               <input type="hidden" class="gid" value="[% artist.gid | html %]" />
               <input type="hidden" class="sortname" value="[% artist.sort_name | html %]" />
-              [%- r.text (ac.field('artist').field('id'), class => 'id') -%]
+              [%- r.hidden (ac.field('artist').field('id'), class => 'id') -%]
             </span>
 
             <input type="button" class="icon remove-artist-credit"

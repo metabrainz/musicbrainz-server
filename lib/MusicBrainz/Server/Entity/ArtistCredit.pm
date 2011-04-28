@@ -40,6 +40,7 @@ sub from_artist
     return $class->new(
         names => [
             ArtistCreditName->new(
+                artist => $artist,
                 artist_id => $artist->id,
                 name      => $artist->name
             )

@@ -65,7 +65,7 @@ sub artist_credit_from_loaded_definition
                 Artist->new( $ac_name->{artist} )
         );
 
-        $ac->{join_phrase} = $ac_name->{join_phrase} if $ac_name->{join_phrase};
+        $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
         push @names, $ac;
     }
 
@@ -79,23 +79,18 @@ sub artist_credit_preview
     my ($loaded, $definition) = @_;
 
     my @names;
-    my @def = @$definition;
-
-    while (@def)
+    for my $ac_name (@{ $definition->{names} })
     {
-        my $artist = shift @def;
-        my $join = shift @def;
-
-        next unless $artist->{name};
+        next unless $ac_name->{name};
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
-            name => $artist->{name});
+            name => $ac_name->{name} );
 
         $ac->artist(
-            $loaded->{Artist}->{ $artist->{artist} }
-                || Artist->new( name => $artist->{name} )
-        ) if $artist->{artist};
-        $ac->join_phrase($join) if $join;
+            $loaded->{Artist}->{ $ac_name->{artist}->{id} } ||
+            Artist->new( $ac_name->{artist} ) ) if $ac_name->{artist};
+
+        $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
 
         push @names, $ac;
     }

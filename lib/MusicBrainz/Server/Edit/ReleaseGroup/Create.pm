@@ -61,7 +61,7 @@ sub build_display_data
 sub _insert_hash
 {
     my ($self, $data) = @_;
-    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} });
+    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     return $data
 }
 
