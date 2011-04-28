@@ -65,51 +65,51 @@ sub load
 
 sub find_or_insert
 {
-    my ($self, @artist_joinphrase) = @_;
+    my ($self, $artist_credit) = @_;
 
-    my $i = 0;
-    my ($credits, $join_phrases) = part { $i++ % 2 } @artist_joinphrase;
-    my @positions = (0..scalar @$credits - 1);
-    my @artists = map { $_->{artist} } @$credits;
-    my @names = map { $_->{name} } @$credits;
+    my @names = @{ $artist_credit->{names} };
 
     # remove unused trailing artistcredit slots.
-    while (!defined $artists[$positions[-1]] || !defined $names[$positions[-1]])
+    while (!defined $names[$#names]->{name} &&
+           !defined $names[$#names]->{artist}->{id})
     {
-        pop @positions;
-        pop @artists;
         pop @names;
-        pop @$join_phrases if scalar @$join_phrases > scalar @positions;
     }
+
+    my @positions = (0..$#names);
+    my @artists = map { $_->{artist}->{id} } @names;
+    my @credits = map { $_->{name} } @names;
+    my @join_phrases = map { $_->{join_phrase} } @names;
 
     my $name = "";
     my (@joins, @conditions);
     for my $i (@positions) {
+        my $ac_name = $names[$i];
         my $join = "JOIN artist_credit_name acn_$i ON acn_$i.artist_credit = ac.id " .
                    "JOIN artist_name an_$i ON an_$i.id = acn_$i.name";
         my $condition = "acn_$i.position = ? AND ".
                         "acn_$i.artist = ? AND ".
                         "an_$i.name = ?";
-        $condition .= " AND acn_$i.join_phrase = ?" if defined $join_phrases->[$i];
+        $condition .= " AND acn_$i.join_phrase = ?" if defined $ac_name->{join_phrase};
         push @joins, $join;
         push @conditions, $condition;
-        $name .= $names[$i];
-        $name .= $join_phrases->[$i] if defined $join_phrases->[$i];
+        $name .= $ac_name->{name};
+        $name .= $ac_name->{join_phrase} if $ac_name->{join_phrase};
     }
 
     my $query = "SELECT ac.id FROM artist_credit ac " .
                 join(" ", @joins) .
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
-    my @args = zip @positions, @artists, @names, @$join_phrases;
-    pop @args unless defined $join_phrases->[$#names];
-    my $id = $self->sql->select_single_value($query, @args, scalar @names);
+    my @args = zip @positions, @artists, @credits, @join_phrases;
+    pop @args unless defined $join_phrases[$#credits];
+    my $id = $self->sql->select_single_value($query, @args, scalar @credits);
 
     if(!defined $id)
     {
-        my %names_id = $self->c->model('Artist')->find_or_insert_names(@names, $name);
+        my %names_id = $self->c->model('Artist')->find_or_insert_names(@credits, $name);
         $id = $self->sql->insert_row('artist_credit', {
             name => $names_id{$name},
-            artist_count => scalar @names,
+            artist_count => scalar @credits,
         }, 'id');
         for my $i (@positions)
         {
@@ -117,8 +117,8 @@ sub find_or_insert
                     artist_credit => $id,
                     position => $i,
                     artist => $artists[$i],
-                    name => $names_id{$names[$i]},
-                    join_phrase => $join_phrases->[$i],
+                    name => $names_id{$credits[$i]},
+                    join_phrase => $join_phrases[$i],
                 });
         }
     }
