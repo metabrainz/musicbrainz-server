@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' full_width=1 title=l('Attach CDTOC to medium') %] 
+[% WRAPPER 'layout.tt' full_width=1 title=l('Attach CD TOC to medium') %]
   <h2>[% l('Select a disc') %]</h2>
   <p>[% l('There are multiple discs with {n} tracks. Please select the correct disc.',
           { n => cdtoc.track_count }) %]</p>
@@ -15,6 +15,6 @@
       </li>
       [% END %]
     </ul>
-    [% form_submit(l('Attach CDTOC')) %]
+    [% form_submit(l('Attach CD TOC')) %]
   </form>
 [% END %]
