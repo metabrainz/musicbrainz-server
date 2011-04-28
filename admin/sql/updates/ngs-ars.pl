@@ -737,8 +737,8 @@ foreach my $orig_t0 (@entity_types) {
     }
 }
 
-my $recording_work_link_type_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
 my $uuid = OSSP::uuid->new;
+my $recording_work_link_type_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
 $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/performance");
 my $gid = $uuid->export("str");
 $sql->do("INSERT INTO link_type
