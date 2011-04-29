@@ -100,7 +100,7 @@ sub merge_releases
     $self->sql->do(
         "DELETE FROM editor_collection_release
                WHERE release IN (" . placeholders(@ids) . ")
-                 AND NOT IN (
+                 AND (collection, release) NOT IN (
                      SELECT DISTINCT ON (collection) collection, release
                        FROM editor_collection_release
                       WHERE release IN (" . placeholders(@ids) . ")
