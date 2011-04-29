@@ -147,7 +147,7 @@
 
         <div id="footer">
             <p class="links">
-                <a href="http://metabrainz.org/donate" class="internal">[% ('Donate') %]</a> | 
+                <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> | 
                 <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> | 
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> | 
                 <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> | 
