@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-29 22:37+0100\n"
+"POT-Creation-Date: 2011-04-29 22:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6599,12 +6599,6 @@ msgstr ""
 msgid "Track lengths:"
 msgstr ""
 
-#: ../root/cdstub/edit.tt:61 ../root/cdstub/index.tt:7
-#: ../root/release/index.tt:4
-#, perl-format
-msgid "Track listing"
-msgstr ""
-
 #: ../root/release/edit/tracklist.tt:211
 #, perl-format
 msgid "Track names start with a number"
@@ -6622,9 +6616,10 @@ msgstr ""
 msgid "Track:"
 msgstr ""
 
+#: ../root/cdstub/edit.tt:61 ../root/cdstub/index.tt:7
 #: ../root/release/edit/recordings.tt:205
-#: ../root/release/edit/tracklist.tt:132 ../root/tracklist/index.tt:1
-#: ../root/tracklist/index.tt:2
+#: ../root/release/edit/tracklist.tt:132 ../root/release/index.tt:4
+#: ../root/tracklist/index.tt:1 ../root/tracklist/index.tt:2
 #, perl-format
 msgid "Tracklist"
 msgstr ""

@@ -58,7 +58,7 @@
             [% form_row_checkbox(r, 'multiple_artists', l('This CD has tracks from more than one artist (e.g. a compilation CD)')) %]
         </fieldset>
         <fieldset>
-            <legend>[% l('Track listing') %]</legend>
+            <legend>[% l('Tracklist') %]</legend>
             [% FOR track=form.field('tracks').fields %]
                 [% prefix = 'tracks.' _ loop.index _ '.' %]
                 [% form_row_text_long(r, prefix _ 'title', l('Track ' _ loop.count _ ':')) %]

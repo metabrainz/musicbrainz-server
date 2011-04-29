@@ -4,7 +4,7 @@
         <p>[% cdstubtoc.cdstub.comment %]</p>
     [% END %]
 
-    <h2>[% l('Track listing') %]</h2>
+    <h2>[% l('Tracklist') %]</h2>
     <table class="tbl">
         <thead>
             <tr>
