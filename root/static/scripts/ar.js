@@ -98,6 +98,9 @@ $(function() {
             newSelect.attr('id', 'id-' + newSelectName);
             newSelect.val('');
             selects.append(newDiv);
+            if(!newDiv.find('input.removeAttr').length) {
+                newDiv.append(MB.html.input({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove} ));
+            }
             newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
