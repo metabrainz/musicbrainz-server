@@ -1,15 +1,15 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships;
 use Moose::Role;
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
-
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( map_type );
+use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of map_type );
 
 requires 'serialize';
 
-before 'serialize' => sub
+around serialize => sub
 {
-    my ($self, $entity, $inc, $opts) = @_;
+    my ($orig, $self, $entity, $inc, $opts) = @_;
+    my @body = $self->$orig($entity, $inc, $opts);
 
     if ($inc && $inc->has_rels) {
         my %by_type = map { $_ => [] } @{$inc->get_rel_types};
@@ -20,16 +20,21 @@ before 'serialize' => sub
                 $relationship;
         }
 
-        for my $type (sort keys %by_type) {
+        for my $type (grep { @{ $by_type{$_} } } sort keys %by_type) {
             my $relationships = $by_type{$type};
 
-            $self->add(
-                List->new( sort => sub { $_->target_key . $_->link->type->name } )
-                    ->serialize({ 'target-type' => map_type($type) },
-                                $relationships)
+            push @body, (
+                list_of(
+                    { 'target-type' => map_type($type) },
+                    [
+                        sort_by { $_->target_key . $_->link->type->name }
+                            @$relationships
+                    ])
             )
         }
     }
+
+    return @body;
 };
 
 no Moose::Role;

@@ -147,7 +147,7 @@ sub lookup : Chained('load') PathPart('')
             if ($c->stash->{inc}->puids);
 
         if ($c->stash->{inc}->track_level_rels) {
-            $self->load_relationships($c, $_) for @recordings;
+            $self->load_relationships($c, @recordings);
         }
     }
 
