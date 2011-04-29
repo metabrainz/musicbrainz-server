@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-29 22:59+0100\n"
+"POT-Creation-Date: 2011-04-29 23:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,11 +148,6 @@ msgstr ""
 #: ../root/admin/adjust_flags.tt:15
 #, perl-format
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr ""
-
-#: ../root/cdstub/error.tt:19
-#, perl-format
-msgid "<p>Sorry, <code>{discid}</code> is not a valid disc ID.</p>"
 msgstr ""
 
 #: ../root/edit/edit_header.tt:62
@@ -5417,6 +5412,11 @@ msgstr ""
 msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try  "
 "{search_url|searching for it} instead."
+msgstr ""
+
+#: ../root/cdstub/error.tt:19
+#, perl-format
+msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:44
