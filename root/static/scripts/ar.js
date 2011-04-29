@@ -107,6 +107,11 @@ $(function() {
                 .append(MB.html.input({ type: 'text', size: '7', 'class': 'selectFilter' }))
                 .append(MB.html.a({ href: '#', 'class': 'selectFilterNext' }, '&#9658;'));
         });
+
+        selects.find('div:gt(0)').each(function() {
+            $(this).append(' ')
+                .append(MB.html.input({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove} ));
+        });
     });
 
     $('a.selectFilterPrev').live('click', function() {
@@ -120,6 +125,10 @@ $(function() {
         $input.focus();
         filterSelect($input, 1);
         return false;
+    });
+    $('input.removeAttr').live('click', function(ev) {
+        ev.preventDefault();
+        $(this).parent('div').remove();
     });
 
     var KEY_UP = 37, KEY_LEFT = 38,
