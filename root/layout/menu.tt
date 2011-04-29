@@ -13,7 +13,7 @@
                     [% l('{uri|Preferences}', { uri => c.uri_for_action('/account/preferences') }) %]
                 </li>
                 <li>
-                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers', [ c.user.name ]) }) %]
+                    [% l('{uri|Subscriptions}', { uri => c.uri_for_action('/user/subscriptions/artist', [ c.user.name ]) }) %]
                 </li>
                 <li>
                     [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
