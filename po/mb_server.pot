@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-29 22:49+0100\n"
+"POT-Creation-Date: 2011-04-29 22:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,16 +88,12 @@ msgstr ""
 msgid "(hidden)"
 msgstr ""
 
-#: ../root/edit/details/add_release_annotation.tt:35
-#: ../root/edit/details/add_release_annotation.tt:38
-#, perl-format
-msgid "(no change log)"
-msgstr ""
-
 #: ../root/annotation/common.tt:17 ../root/annotation/history.tt:29
 #: ../root/edit/details/add_artist_annotation.tt:10
 #: ../root/edit/details/add_label_annotation.tt:10
 #: ../root/edit/details/add_recording_annotation.tt:10
+#: ../root/edit/details/add_release_annotation.tt:35
+#: ../root/edit/details/add_release_annotation.tt:38
 #: ../root/edit/details/add_release_group_annotation.tt:10
 #: ../root/edit/details/add_work_annotation.tt:10
 #, perl-format
@@ -1401,11 +1397,6 @@ msgstr ""
 msgid "Change direction"
 msgstr ""
 
-#: ../root/annotation/edit.tt:21
-#, perl-format
-msgid "Change log:"
-msgstr ""
-
 #: ../root/release/change_quality.tt:2
 #, perl-format
 msgid "Change quality"
@@ -1436,7 +1427,7 @@ msgstr ""
 msgid "Changelog"
 msgstr ""
 
-#: ../root/annotation/common.tt:17
+#: ../root/annotation/common.tt:17 ../root/annotation/edit.tt:21
 #: ../root/edit/details/add_artist_annotation.tt:7
 #: ../root/edit/details/add_label_annotation.tt:7
 #: ../root/edit/details/add_recording_annotation.tt:7
