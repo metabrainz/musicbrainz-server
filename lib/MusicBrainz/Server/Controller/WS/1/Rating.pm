@@ -2,8 +2,6 @@ package MusicBrainz::Server::Controller::WS::1::Rating;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
-
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Readonly;
 

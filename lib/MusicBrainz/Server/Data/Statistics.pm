@@ -133,6 +133,37 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM vote",
         DB => 'RAWDATA'
     },
+    "count.releasegroup.Nreleases" => {
+        DESC => "Distribution of releases per releasegroup",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT release_count, COUNT(*) AS freq
+                FROM release_group_meta
+                GROUP BY release_count
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 0 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.releasegroup.".$_."releases" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.release.various" => {
         DESC => "Count of all 'Various Artists' releases",
         SQL => 'SELECT COUNT(*) FROM release
@@ -699,6 +730,50 @@ my %stats = (
             +{
                 map {
                     "count.recording.".$_."puids" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
+    "count.recording.Nreleases" => {
+        DESC => "Distribution of appearances on releases per recording",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT r.id, count(*) AS c
+                    FROM recording r
+                        JOIN track t ON t.recording = r.id
+                        JOIN tracklist tl ON tl.id = t.tracklist
+                        JOIN medium m ON tl.id = m.tracklist
+                    GROUP BY r.id 
+                    UNION
+                    SELECT r.id, 0 AS c
+                    FROM recording r
+                        LEFT JOIN track t ON t.recording = r.id
+                    WHERE t.id IS NULL
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 0 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.recording.".$_."releases" => $dist{$_}
                 } keys %dist
             };
         },

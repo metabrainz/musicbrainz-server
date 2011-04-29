@@ -2,9 +2,8 @@ package MusicBrainz::Server::Controller::WS::1::Tag;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
-
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 use Readonly;
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::LoadEntity';
@@ -77,7 +76,7 @@ sub tag : Path('/ws/1/tag')
         my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->res->body($c->stash->{serializer}->xml( List->new->serialize([ map { $_->tag } @tags ]) ));
+        $c->res->body($c->stash->{serializer}->xml( list_of([ map { $_->tag } @tags ]) ));
     }
 }
 
