@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-29 23:01+0100\n"
+"POT-Creation-Date: 2011-04-29 23:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1836,14 +1836,9 @@ msgstr ""
 msgid "Disc {num}"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:197
+#: ../root/cdtoc/attach_medium.tt:13 ../root/release/edit/recordings.tt:197
 #, perl-format
 msgid "Disc {num}: {title}"
-msgstr ""
-
-#: ../root/cdtoc/attach_medium.tt:13
-#, perl-format
-msgid "Disc {pos}: {title}"
 msgstr ""
 
 #: ../root/report/separate_discs.tt:1 ../root/report/separate_discs.tt:3
