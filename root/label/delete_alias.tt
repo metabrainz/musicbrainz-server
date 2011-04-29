@@ -4,7 +4,7 @@
        [% create_guideline(l("Please review the documentation about {aliases|label aliases},
                               before entering this edit.",
                              { aliases => doc_link('Label_Alias') })) %]
-       [% create_guideline(l("Are you sure you want to remove the alias {alias} , which
+       [% create_guideline(l("Are you sure you want to remove the alias {alias}, which
                               points to the label {label}?",
                              { alias => alias.name, label => link_entity(label) })) %]
        [% create_guideline(l("If you added this alias by mistake, please follow the

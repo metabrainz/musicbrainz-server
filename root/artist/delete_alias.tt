@@ -4,7 +4,7 @@
        [% create_guideline(l("Please review the documentation about {aliases|artist aliases},
                               before entering this edit.",
                              { aliases => doc_link('Artist_Alias') })) %]
-       [% create_guideline(l("Are you sure you want to remove the alias {alias} , which
+       [% create_guideline(l("Are you sure you want to remove the alias {alias}, which
                               points to the artist {artist}?",
                              { alias => html_escape(alias.name),
                                artist => link_entity(artist) })) %]

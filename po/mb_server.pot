@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-29 22:56+0100\n"
+"POT-Creation-Date: 2011-04-29 22:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -737,21 +737,21 @@ msgstr ""
 #: ../root/artist/delete_alias.tt:7
 #, perl-format
 msgid ""
-"Are you sure you want to remove the alias {alias} , which points to the "
+"Are you sure you want to remove the alias {alias}, which points to the "
 "artist {artist}?"
 msgstr ""
 
 #: ../root/label/delete_alias.tt:7
 #, perl-format
 msgid ""
-"Are you sure you want to remove the alias {alias} , which points to the "
-"label {label}?"
+"Are you sure you want to remove the alias {alias}, which points to the label "
+"{label}?"
 msgstr ""
 
 #: ../root/work/delete_alias.tt:7
 #, perl-format
 msgid ""
-"Are you sure you want to remove the alias {alias} , which points to the work "
+"Are you sure you want to remove the alias {alias}, which points to the work "
 "{work}?"
 msgstr ""
 
