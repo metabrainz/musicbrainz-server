@@ -31,6 +31,7 @@ use DBDefs;
 use integer;
 
 use Getopt::Long;
+use Encode qw( encode );
 
 my $fHelp;
 my $OutputDir = ".";
@@ -412,7 +413,7 @@ sub dumptable
     while ($dbh->pg_getcopydata($buffer) >= 0)
     {
         $longest = length($buffer) if length($buffer) > $longest;
-        print DUMP $buffer
+        print DUMP encode('utf-8', $buffer)
                 or die $!;
 
         ++$rows;
