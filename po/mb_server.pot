@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-29 23:05+0100\n"
+"POT-Creation-Date: 2011-05-01 09:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,7 +390,7 @@ msgstr ""
 msgid "Add a new recording"
 msgstr ""
 
-#: ../root/artist/layout.tt:76 ../root/cdtoc/attach_artist_releases.tt:46
+#: ../root/artist/layout.tt:76 ../root/cdtoc/attach_artist_releases.tt:47
 #: ../root/cdtoc/attach_filter_artist.tt:38
 #: ../root/cdtoc/attach_filter_artist.tt:46
 #: ../root/cdtoc/attach_filter_release.tt:49
@@ -7636,8 +7636,10 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:38
 #, perl-format
-msgid "{artist} has no releases which have {n} tracks."
-msgstr ""
+msgid "{artist} has no releases which have only {n} track."
+msgid_plural "{artist} has no releases which have {n} tracks."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../root/artist/relationships.tt:31 ../root/components/relationships.tt:26
 #, perl-format
