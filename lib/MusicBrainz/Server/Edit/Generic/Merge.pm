@@ -99,13 +99,18 @@ sub accept
 {
     my $self = shift;
     my $model = $self->c->model( $self->_merge_model );
-    if (my $target = $model->get_by_id($self->new_entity->{id})) {
-        $self->do_merge;
-    }
-    else {
+    if (!$model->get_by_id($self->new_entity->{id})) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'The target has been removed since this edit was created'
         );
+    }
+    if (!values %{ $model->get_by_ids($self->_old_ids) }) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'There are no longer any entities to merge'
+        );
+    }
+    else {
+        $self->do_merge;
     }
 }
 

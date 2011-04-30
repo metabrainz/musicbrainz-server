@@ -286,13 +286,12 @@ sub find_by_recordings
     return () unless @ids;
 
     my $query =
-        "SELECT DISTINCT ON (release.id) " . $self->_columns . ", recording.id AS recording
+        "SELECT DISTINCT ON (release.id) " . $self->_columns . ", track.recording
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
            JOIN track ON track.tracklist = medium.tracklist
-           JOIN recording ON recording.id = track.recording
-          WHERE recording.id IN (" . placeholders(@ids) . ")";
+          WHERE track.recording IN (" . placeholders(@ids) . ")";
 
     my %map;
     $self->sql->select($query, @ids);

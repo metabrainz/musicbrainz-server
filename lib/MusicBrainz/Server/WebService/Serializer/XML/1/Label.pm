@@ -1,8 +1,9 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1::Label;
-
 use Moose;
+
+use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 use String::CamelCase qw(camelize);
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
@@ -12,24 +13,35 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 
 sub element { 'label'; }
 
-before 'serialize' => sub
-{
+sub attributes {
     my ($self, $entity, $inc, $opts) = @_;
+    my @attrs;
 
     if ($entity->type)
     {
         my $type = $entity->type->name;
         $type =~ s/ /_/;
-        $self->attributes->{type} = camelize($type);
+        push @attrs, ( type => camelize($type) );
     }
 
-    $self->add($self->gen->name($entity->name));
-    $self->add($self->gen->sort_name($entity->sort_name));
-    $self->add($self->gen->country($entity->country->iso_code)) if $entity->country;
+    return @attrs;
+}
 
-    $self->add( List->new( sort => sub { $_->name } )
-                    ->serialize($opts->{aliases}) )
+sub serialize
+{
+    my ($self, $entity, $inc, $opts) = @_;
+    my @body;
+
+    push @body, ($self->gen->name($entity->name));
+    push @body, ($self->gen->sort_name($entity->sort_name));
+    push @body, ($self->gen->country($entity->country->iso_code)) if $entity->country;
+
+    push @body, ( list_of([
+        sort_by { $_->name } @{$opts->{aliases}}
+    ]) )
         if ($inc && $inc->aliases);
+
+    return @body;
 };
 
 __PACKAGE__->meta->make_immutable;

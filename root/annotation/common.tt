@@ -8,7 +8,7 @@
                 [% annotation.summary | format_wikitext  %]
                 [% IF annotation.summary_is_short %]
                     <p><a href="[% c.uri_for(c.controller.action_for('latest_annotation'), [ entity.gid ]) %]">
-                        Read more&hellip;</a></p>
+                        [%- l('Read more…') %]</a></p>
                 [% END %]
             [% END %]
         </div>

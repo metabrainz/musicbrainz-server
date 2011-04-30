@@ -2,7 +2,7 @@
 
     <table>
         <tr>
-            <th>[% l('DiscID:') %]</th>
+            <th>[% l('Disc ID:') %]</th>
             <td>[% cdtoc.discid %]</td>
         </tr>
         <tr>

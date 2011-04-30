@@ -15,7 +15,7 @@ UPDATE release_coverart
                 WHEN substring(url.url from E'^http://www\\.amazon\\.(com|ca|de|fr|it|co\\.(jp|uk))/') = 'co.uk' THEN '02'
                 WHEN substring(url.url from E'^http://www\\.amazon\\.(com|ca|de|fr|it|co\\.(jp|uk))/') IN ('ca', 'com') THEN '01'
             END)
-        || '.MZZZZZZZ.jpg'
+        || '.LZZZZZZZ.jpg'
         FROM l_release_url l
           JOIN link      ON l.link = link.id
           JOIN link_type ON link.link_type = link_type.id

@@ -29,7 +29,7 @@
       <p>[% l('If we do not have a recording for this track in the database yet, please select "Add a new recording" below.') %]</p>
 
       <p>
-        Search:
+        [% l('Search:') %]
         <span class="autocomplete">
           <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
           <img class="search" src="/static/images/icons/search.png" />
@@ -45,7 +45,7 @@
             </td>
             <td class="recording">
               <input type="hidden" class="gid" value="" />
-              <a class="name" href="/recording"> </a>
+              <a target="_blank" class="name" href="/recording"> </a>
             </td>
             <td class="artist"></td>
             <td class="length"></td>
@@ -77,7 +77,7 @@
             [%- ELSE -%]
               <td class="recording">
                 <input type="hidden" class="gid" value="" />
-                <a href="" class="name" />
+                <a target="_blank" href="" class="name" />
               </td>
               <td class="artist"></td>
               <td class="length"></td>
@@ -160,7 +160,7 @@
               <span class="add-recording" style="display: none">[%- l('(add a new recording)') -%]</span>
             </td>
             <td rowspan="2" class="buttons" style="vertical-align: middle; width: 10%;">
-              <a class="change-recording" href="#change-recording">Change</a>
+              <a class="change-recording" href="#change-recording">[% l('Change') %]</a>
             </td>
           </tr>
 
@@ -187,9 +187,8 @@
       [%- medium = mediums.fields.$medium_idx -%]
       [%- edits = tracklist_edits.$medium_idx.edits -%]
 
-      [%- NEXT IF medium.field('deleted').value -%]
-
-      <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]">
+      <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]"
+        [%- IF medium.field('deleted').value %] style="display: none"[% END %]>
 
         [%- r.hidden (rec_medium.field('tracklist_id'), class => 'tracklist-id' ) -%]
         <legend>

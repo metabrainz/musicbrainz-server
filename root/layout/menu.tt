@@ -55,10 +55,10 @@
                 <ul>
                     [% IF c.user.is_relationship_editor %]
                         <li>
-                            [% l('{uri|Edit Link Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
+                            [% l('{uri|Edit Relationship Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
                         </li>
                         <li>
-                            [% l('{uri|Edit Link Attribute Types}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
+                            [% l('{uri|Edit Relationship Attributes}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
                         </li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]

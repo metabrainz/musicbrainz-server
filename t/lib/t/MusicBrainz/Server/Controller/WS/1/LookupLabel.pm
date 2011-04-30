@@ -60,7 +60,7 @@ ws_test 'label lookup with tags',
 
 ws_test 'label lookup with ratings',
         '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?type=xml&inc=ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="46f0f4cd-8aab-4b33-b698-f459faf64190" type="OriginalProduction"><name>Warp Records</name><sort-name>Warp Records</sort-name><country>GB</country><rating votes-count="1">100</rating></label></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><label id="46f0f4cd-8aab-4b33-b698-f459faf64190" type="OriginalProduction"><name>Warp Records</name><sort-name>Warp Records</sort-name><country>GB</country><rating votes-count="1">5</rating></label></metadata>';
 
 ws_test 'label lookup with artist-relationships',
         '/label/fe03671d-df66-4984-abbc-bd022f5c6c3f?type=xml&inc=artist-rels' =>

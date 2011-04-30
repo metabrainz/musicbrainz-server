@@ -5,6 +5,7 @@
     <form action="[% c.req.uri %]" method="get">
       <input type="hidden" name="toc" value="[% toc %]" />
       <input type="hidden" name="artist" value="[% c.req.query_params.artist %]" />
+      [% WRAPPER 'components/with-pager.tt' %]
       [% FOR release=releases %]
       <table class="tbl">
           <thead>
@@ -29,6 +30,7 @@
           [% END %]
           </tbody>
       </table>
+      [% END %]
       [% END %]
       [% form_submit(l('Attach CDTOC')) %]
     </form>

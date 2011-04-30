@@ -6,6 +6,7 @@
       c.model('FileCache').squash_scripts(
         "lib/json/json2.js",
         "lib/sha1/sha1.js",
+        "lib/jquery.ui/external/jquery.cookie.js",
         "scripts/MB/TrackParser.js",
 
         "scripts/MB/GuessCase/Utils.js",
@@ -40,6 +41,12 @@
     $('document').ready (function () {
 
        MB.release_artist_json = [% release_artist_json %];
+       MB.medium_cdtocs = [
+       [%- FOR medium=release.mediums -%]
+           [% medium.cdtocs.size %],
+       [%- END -%]
+           null
+       ];
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
 
@@ -58,7 +65,7 @@
     <tr class="artist-credit-preview">
       <td colspan="4">
         <div class="row">
-          <label>Preview</label>
+          <label>[% l('Preview') %]</label>
           <span class="artist-credit-preview">[% artist_credit(acfield.fif) %]</span>
         </div>
       </td>
@@ -121,7 +128,6 @@
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
-    [%- r.hidden ('advanced') -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
 
@@ -147,17 +153,17 @@
             <td class="disc" >
             [% IF multidisc %]
               <h3>
-                [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+                [% l('Disc {num}', { num => '<span class="discnum">' _ medium_field.field('position').value _ '</span>' }) %]
               </h3>
             [% END %]
             </td>
             <td class="format">
 
               <div class="basic-medium-format-and-title">
-                [% r.hidden(medium_field.field('id')) %]
-                [% r.hidden(medium_field.field('toc')) %]
-                [% r.hidden(medium_field.field('deleted')) %]
-                [% r.hidden(medium_field.field('position')) %]
+                [% r.hidden(medium_field.field('id'), class => 'id') %]
+                [% r.hidden(medium_field.field('toc'), class => 'toc') %]
+                [% r.hidden(medium_field.field('deleted'), class => 'deleted') %]
+                [% r.hidden(medium_field.field('position'), class => 'position') %]
                 [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]
 
                 <div class="row">
@@ -199,7 +205,7 @@
         <a href="#add_disc">[% l('Add Disc') %]</a>
       </div>
 
-      <h3>Options</h3>
+      <h3>[% l('Options') %]</h3>
       <p id="tracklist-options">
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
       <label for="tracknumbers">[% l('Track names start with a number') %]</label>
@@ -217,7 +223,7 @@
       [%#- FIXME: use guesscase() -%]
 
       <fieldset class="guesscase">
-        <legend>Guess case</legend>
+        <legend>[% l('Guess case') %]</legend>
         <table style="width: 100%">
           <tr>
             <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
@@ -252,10 +258,12 @@
 
   <div class="documentation basic-tracklist">
 
-    <h2>Preview</h2>
+    <h2>[% l('Preview') %]</h2>
 
     <h3>[% information.field('name').value | html %]</h3>
     <p>by [% release_artist.fif.name | html %]</p>
+
+    <div style="display: none" id="discid-warning">[% warning("") %]</div>
 
     <div id="preview"> </div>
 
@@ -313,7 +321,7 @@
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
       <legend>
-        [% l('Disc {num}', { num => '<span class="discnum">' _ (loop.index + 1) _ '</span>' }) %]
+        [% l('Disc {num}', { num => '<span class="discnum">' _ (medium_field.field('position').value) _ '</span>' }) %]
       </legend>
 
       <table class="advanced-format">
@@ -389,7 +397,7 @@
     [% END %]
 
     <fieldset class="use-tracklist" style="display: none; padding: 1em 0;">
-      <legend>Use tracklist</legend>
+      <legend>[% l('Use tracklist') %]</legend>
       <div class="row">
         <label for="tracklist-release">[% l('Release:') %]</label>
         <input type="text" id="tracklist-release" class="tracklist-release" value="" />
