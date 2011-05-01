@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-01 12:53+0100\n"
+"POT-Creation-Date: 2011-05-01 13:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2478,7 +2478,7 @@ msgstr ""
 msgid "Format:"
 msgstr ""
 
-#: ../root/layout.tt:152
+#: ../root/layout/menu.tt:234 ../root/layout.tt:152
 #, perl-format
 msgid "Forums"
 msgstr ""
@@ -7027,11 +7027,6 @@ msgid ""
 "We've sent you instructions on how to reset your password. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr ""
-
-#: ../root/layout/menu.tt:234
-#, perl-format
-msgid "Web Forums"
 msgstr ""
 
 #: ../root/account/edit.tt:15

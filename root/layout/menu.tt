@@ -231,7 +231,7 @@
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org" class="internal">
-                    [% l('Web Forums') %]
+                    [% l('Forums') %]
                 </a>
             </li>
             <li class="separator">
