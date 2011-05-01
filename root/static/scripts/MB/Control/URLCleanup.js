@@ -51,8 +51,10 @@ MB.constants.LINK_TYPES = {
     coverart: {
         release: 78
     },
-    lyricwiki: {
-        release_group: 92
+    lyrics: {
+        artist: 197,
+        release_group: 93,
+        work: 272
     }
 };
 
@@ -152,17 +154,24 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
                     "www.mange-disque.tv/fs/md_$3.jpg");
             }
         },
-        lyricwiki: {
-            match: new RegExp("^(http://)?([^/]+\.)?lyrics\.wikia\.com", "i"),
-            type: MB.constants.LINK_TYPES.lyricwiki
+        lyrics: {
+            match: new RegExp("^(http://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com)", "i"),
+            type: MB.constants.LINK_TYPES.lyrics
         }
     };
 
     var validationRules = { };
-    // "has lyrics at" is only allowed for Lyric Wiki
-    validationRules[ MB.constants.LINK_TYPES.lyricwiki.release ] = function() {
-        return cleanups.lyricwiki.match.test($('#id-ar\\.url').val())
+    // "has lyrics at" is only allowed for certain lyrics sites
+    validationRules[ MB.constants.LINK_TYPES.lyrics.artist ] = function() {
+        return cleanups.lyrics.match.test($('#id-ar\\.url').val())
     };
+    validationRules[ MB.constants.LINK_TYPES.lyrics.release_group ] = function() {
+        return cleanups.lyrics.match.test($('#id-ar\\.url').val())
+    };
+    validationRules[ MB.constants.LINK_TYPES.lyrics.work ] = function() {
+        return cleanups.lyrics.match.test($('#id-ar\\.url').val())
+    };
+
 
     self.guessType = function (sourceType, currentURL) {
         for (var group in cleanups) {
