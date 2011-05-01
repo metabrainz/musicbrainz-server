@@ -164,7 +164,7 @@
     <td>&nbsp;</td>
 </tr>
 <tr>
-    <td>[% l('PUIDs (distinct ids):') %]</td>
+    <td>[% l('PUIDs (distinct IDs):') %]</td>
     <td>[% stats.statistic('count.puid.ids') %]</td>
     <td>&nbsp;</td>
 </tr>
