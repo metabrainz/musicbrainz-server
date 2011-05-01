@@ -4777,7 +4777,7 @@ msgstr ""
 msgid "Release groups"
 msgstr ""
 
-#: ../root/browse/release_group.tt:8
+#: ../root/artist/browse_various.tt:5 ../root/browse/release_group.tt:8
 #, perl-format
 msgid "Release groups starting with “{index}”"
 msgstr ""
@@ -4855,11 +4855,6 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:2
 #, perl-format
 msgid "Releases by {artist}"
-msgstr ""
-
-#: ../root/artist/browse_various.tt:5
-#, perl-format
-msgid "Releases groups starting with “{index}”"
 msgstr ""
 
 #: ../root/artist/browse_various_releases.tt:5 ../root/browse/release.tt:8
