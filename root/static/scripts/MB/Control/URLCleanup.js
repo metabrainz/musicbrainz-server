@@ -55,6 +55,36 @@ MB.constants.LINK_TYPES = {
         artist: 197,
         release_group: 93,
         work: 272
+    },
+    bbcmusic: {
+        artist: 190
+    },
+    discography: {
+        artist: 184
+    },
+    mailorder: {
+        artist: 175,
+        release: 79
+    },
+    microblog: {
+        artist: 198,
+        label: 223
+    },
+    review: {
+        release_group: 94
+    },
+    socialnetwork: {
+        artist: 192,
+        label: 218
+    },
+    vgmdb: {
+        artist: 191,
+        release: 86,
+        label: 210
+    },
+    youtube: {
+        artist: 192,
+        label: 225
     }
 };
 
@@ -157,6 +187,42 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         lyrics: {
             match: new RegExp("^(http://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com)", "i"),
             type: MB.constants.LINK_TYPES.lyrics
+        },
+        bbcmusic: {
+            match: new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i"),
+            type: MB.constants.LINK_TYPES.bbcmusic
+        },
+        discography: {
+            match: new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/band\\.php", "i"),
+            type: MB.constants.LINK_TYPES.discography
+        },
+        microblog: {
+            match: new RegExp("^(https?://)?(www\\.)?twitter\\.com/", "i"),
+            type: MB.constants.LINK_TYPES.microblog
+        },
+        ozonru: {
+            match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i"),
+            type: MB.constants.LINK_TYPES.mailorder
+        },
+        ozonrucoverart: {
+            match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/multimedia/", "i"),
+            type: MB.constants.LINK_TYPES.coverart
+        },
+        review: {
+            match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
+            type: MB.constants.LINK_TYPES.review
+        },
+        socialnetwork: {
+            match: new RegExp("^(https?://)?([^/]+\.)?facebook\\.com/", "i"),
+            type: MB.constants.LINK_TYPES.socialnetwork
+        },
+        vgmdb: {
+            match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
+            type: MB.constants.LINK_TYPES.vgmdb
+        },
+        youtube: {
+            match: new RegExp("^(https?://)?([^/]+\.)?youtube\\.com/", "i"),
+            type: MB.constants.LINK_TYPES.youtube
         }
     };
 
