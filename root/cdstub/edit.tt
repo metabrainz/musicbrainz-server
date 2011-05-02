@@ -61,10 +61,10 @@
             <legend>[% l('Tracklist') %]</legend>
             [% FOR track=form.field('tracks').fields %]
                 [% prefix = 'tracks.' _ loop.index _ '.' %]
-                [% form_row_text_long(r, prefix _ 'title', l('Track ' _ loop.count _ ':')) %]
+                [% form_row_text_long(r, prefix _ 'title', l('Track {n}:', { n => loop.count })) %]
 
                 <div id="artist_field_[% loop.count %]">
-                    [% form_row_text_long(r, prefix _ 'artist', l('Artist ' _ loop.count _ ':')) %]
+                    [% form_row_text_long(r, prefix _ 'artist', l('Artist {n}:', { n => loop.count })) %]
                 </div>
             [% END %]
         </fieldset>

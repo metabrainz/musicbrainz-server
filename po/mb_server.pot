@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-01 13:19+0100\n"
+"POT-Creation-Date: 2011-05-02 08:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -847,11 +847,6 @@ msgstr ""
 msgid "Artist"
 msgstr ""
 
-#: ../root/cdstub/edit.tt:67
-#, perl-format
-msgid "Artist "
-msgstr ""
-
 #: ../root/artist/edit_form.tt:37
 #, perl-format
 msgid "Artist Details"
@@ -890,6 +885,11 @@ msgstr ""
 #: ../root/user/ratings.tt:3
 #, perl-format
 msgid "Artist ratings"
+msgstr ""
+
+#: ../root/cdstub/edit.tt:67
+#, perl-format
+msgid "Artist {n}:"
 msgstr ""
 
 #: ../root/cdstub/edit.tt:55 ../root/cdstub/import.tt:7
@@ -6512,11 +6512,6 @@ msgstr ""
 msgid "Track"
 msgstr ""
 
-#: ../root/cdstub/edit.tt:64
-#, perl-format
-msgid "Track "
-msgstr ""
-
 #: ../root/taglookup/form.tt:6
 #, perl-format
 msgid "Track #:"
@@ -6556,6 +6551,11 @@ msgstr ""
 #: ../root/edit/details/historic/add_track_old.tt:26
 #, perl-format
 msgid "Track number:"
+msgstr ""
+
+#: ../root/cdstub/edit.tt:64
+#, perl-format
+msgid "Track {n}:"
 msgstr ""
 
 #: ../root/edit/details/historic/remove_track.tt:14
