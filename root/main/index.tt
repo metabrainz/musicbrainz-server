@@ -26,8 +26,7 @@
     <div id="content">
         <h1>[% l('Welcome to MusicBrainz!') %]</h1>
         <p>
-            [% l('MusicBrainz is an open music encyclopedia that collects, and makes available to the public, music metadata.',
-                { doc => doc_link('MusicBrainz_Database') }) %]
+            [% l('MusicBrainz is an open music encyclopedia that collects, and makes available to the public, music metadata.') %]
         </p>
 
         <p>

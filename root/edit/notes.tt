@@ -16,8 +16,8 @@
         [% FOR note=edit.edit_notes %]
             <div class="edit-note">
                 <h3 class="[%- PROCESS votename -%]">
-                    [%- l('{editor}', { editor => link_entity(note.editor) }) -%]
-                    <span class="date">[%- l('{date}', date=UserDate.format(note.post_time)) -%]</span>
+                    [%- link_entity(note.editor) -%]
+                    <span class="date">[%- UserDate.format(note.post_time) -%]</span>
                 </h3>
                 <div class="edit-note-text">
                     [%- note.text | format_editnote -%]

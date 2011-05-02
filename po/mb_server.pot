@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-02 13:21+0100\n"
+"POT-Creation-Date: 2011-05-02 13:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,9 +50,10 @@ msgstr ""
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr ""
 
-#: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
-#: ../root/freedb/show.tt:62 ../root/recording/index.tt:9
-#: ../root/release/edit/tracklist.tt:371 ../root/release/edit/tracklist.tt:433
+#: ../root/cdstub/index.tt:11 ../root/edit/details/historic/add_release.tt:49
+#: ../root/freedb/show.tt:10 ../root/freedb/show.tt:62
+#: ../root/recording/index.tt:9 ../root/release/edit/tracklist.tt:371
+#: ../root/release/edit/tracklist.tt:433
 #, perl-format
 msgid "#"
 msgstr ""
@@ -192,14 +193,14 @@ msgstr ""
 msgid "<strong>Note</strong>:"
 msgstr ""
 
-#: ../root/main/index.tt:39
+#: ../root/main/index.tt:38
 #, perl-format
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone "
 "to contribute and releasing the {doc|data} under {doc2|open licenses}."
 msgstr ""
 
-#: ../root/main/index.tt:44
+#: ../root/main/index.tt:43
 #, perl-format
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
@@ -1148,7 +1149,7 @@ msgid ""
 "the email to verify the new email address."
 msgstr ""
 
-#: ../root/main/index.tt:74
+#: ../root/main/index.tt:73
 #, perl-format
 msgid ""
 "Become a part of our <strong>global community</strong> and <strong>start "
@@ -1616,7 +1617,7 @@ msgstr ""
 msgid "Comment:"
 msgstr ""
 
-#: ../root/main/index.tt:71
+#: ../root/main/index.tt:70
 #, perl-format
 msgid "Community »"
 msgstr ""
@@ -1842,7 +1843,7 @@ msgstr ""
 msgid "Detect track durations"
 msgstr ""
 
-#: ../root/main/index.tt:87
+#: ../root/main/index.tt:86
 #, perl-format
 msgid "Developers »"
 msgstr ""
@@ -3259,7 +3260,7 @@ msgstr ""
 msgid "Length:"
 msgstr ""
 
-#: ../root/main/index.tt:50
+#: ../root/main/index.tt:49
 #, perl-format
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
@@ -3585,7 +3586,7 @@ msgstr ""
 msgid "MusicBrainz Database"
 msgstr ""
 
-#: ../root/main/index.tt:79
+#: ../root/main/index.tt:78
 #, perl-format
 msgid "MusicBrainz Database »"
 msgstr ""
@@ -3600,7 +3601,7 @@ msgstr ""
 msgid "MusicBrainz Server"
 msgstr ""
 
-#: ../root/main/index.tt:34
+#: ../root/main/index.tt:33
 #, perl-format
 msgid "MusicBrainz aims to be:"
 msgstr ""
@@ -3627,7 +3628,7 @@ msgid ""
 "to the public, music metadata."
 msgstr ""
 
-#: ../root/main/index.tt:62
+#: ../root/main/index.tt:61
 #, perl-format
 msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
@@ -6240,7 +6241,7 @@ msgstr ""
 msgid "The main server is located at {uri}."
 msgstr ""
 
-#: ../root/main/index.tt:82
+#: ../root/main/index.tt:81
 #, perl-format
 msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
@@ -7062,7 +7063,7 @@ msgstr ""
 msgid "Use Tracklist"
 msgstr ""
 
-#: ../root/main/index.tt:90
+#: ../root/main/index.tt:89
 #, perl-format
 msgid ""
 "Use our <strong>XML web service</strong> or <strong>development libraries</"
@@ -7923,7 +7924,7 @@ msgid_plural "with {num} disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/main/index.tt:55
+#: ../root/main/index.tt:54
 #, perl-format
 msgid "{about|More Information} — {faq|FAQs} — {contact|Contact Us}"
 msgstr ""
@@ -7958,11 +7959,6 @@ msgid_plural "{count} private ratings not listed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/edit/notes.tt:20
-#, perl-format
-msgid "{date}"
-msgstr ""
-
 #: ../root/user/profile.tt:41
 #, perl-format
 msgid "{doc|Auto-Editor}"
@@ -7983,21 +7979,11 @@ msgstr ""
 msgid "{doc|Transclusion Editor}"
 msgstr ""
 
-#: ../root/edit/notes.tt:19
-#, perl-format
-msgid "{editor}"
-msgstr ""
-
 #: ../root/edit/require_note.tt:4
 #, perl-format
 msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
-msgstr ""
-
-#: ../root/user/profile.tt:18
-#, perl-format
-msgid "{email}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:114
