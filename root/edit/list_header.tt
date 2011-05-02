@@ -10,11 +10,9 @@
             [% END %]
             <a href="[% c.uri_for('/edit/open') %]">[% l('Open edits') %]</a>
             | 
-            <a href="/404">[% l('Voting suggestions') %]</a>
+            <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Subscribed entities') %]</a>
             | 
-            <a href="/404">[% l('Subscribed artists') %]</a>
-            | 
-            <a href="/404">[% l('Subscribed editors') %]</a>
+            <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Subscribed editors') %]</a>
         </dd>
         <dt>
             [%- l('Help:') -%]

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-02 13:25+0100\n"
+"POT-Creation-Date: 2011-05-02 13:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2225,7 +2225,7 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: ../root/edit/info.tt:56 ../root/edit/list_header.tt:25
+#: ../root/edit/info.tt:56 ../root/edit/list_header.tt:23
 #, perl-format
 msgid "Editing FAQ"
 msgstr ""
@@ -2739,7 +2739,7 @@ msgstr ""
 msgid "Guess case track"
 msgstr ""
 
-#: ../root/edit/list_header.tt:20
+#: ../root/edit/list_header.tt:18
 #, perl-format
 msgid "Help:"
 msgstr ""
@@ -2761,7 +2761,7 @@ msgid ""
 "and {more|others…}"
 msgstr ""
 
-#: ../root/edit/list_header.tt:29
+#: ../root/edit/list_header.tt:27
 #, perl-format
 msgid "How editing works"
 msgstr ""
@@ -5909,7 +5909,7 @@ msgstr ""
 msgid "Style Guidelines"
 msgstr ""
 
-#: ../root/edit/list_header.tt:27 ../root/main/index.tt:20
+#: ../root/edit/list_header.tt:25 ../root/main/index.tt:20
 #, perl-format
 msgid "Style guidelines"
 msgstr ""
@@ -5946,12 +5946,12 @@ msgstr ""
 
 #: ../root/edit/list_header.tt:15
 #, perl-format
-msgid "Subscribed artists"
+msgid "Subscribed editors"
 msgstr ""
 
-#: ../root/edit/list_header.tt:17
+#: ../root/edit/list_header.tt:13
 #, perl-format
-msgid "Subscribed editors"
+msgid "Subscribed entities"
 msgstr ""
 
 #: ../root/artist/layout.tt:47 ../root/artist/subscribers.tt:1
@@ -7199,7 +7199,7 @@ msgstr ""
 msgid "Votes:"
 msgstr ""
 
-#: ../root/edit/info.tt:55 ../root/edit/list_header.tt:23
+#: ../root/edit/info.tt:55 ../root/edit/list_header.tt:21
 #, perl-format
 msgid "Voting FAQ"
 msgstr ""
@@ -7207,11 +7207,6 @@ msgstr ""
 #: ../root/doc/edit_type.tt:46
 #, perl-format
 msgid "Voting period (days)"
-msgstr ""
-
-#: ../root/edit/list_header.tt:13
-#, perl-format
-msgid "Voting suggestions"
 msgstr ""
 
 #: ../root/main/500.tt:15
