@@ -1,5 +1,5 @@
-[%- WRAPPER 'layout.tt' title='Import from FreeDB' full_width=1 -%]
-  <h2>[% l('FreeDB Import') %]</h2>
+[%- WRAPPER 'layout.tt' title='Import From FreeDB' full_width=1 -%]
+  <h2>[% l('Import From FreeDB') %]</h2>
   <p>
     [% l("You can search FreeDB releases from any indexed search table or use
     the shortcut form below. Alternatively if you already know the category/id

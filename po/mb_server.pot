@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-02 08:23+0100\n"
+"POT-Creation-Date: 2011-05-02 08:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2530,24 +2530,14 @@ msgstr ""
 msgid "FreeDB ID"
 msgstr ""
 
-#: ../root/release_editor/import/freedb.tt:29
+#: ../root/otherlookup/form.tt:8 ../root/release_editor/import/freedb.tt:29
 #, perl-format
 msgid "FreeDB ID:"
-msgstr ""
-
-#: ../root/release_editor/import/freedb.tt:2
-#, perl-format
-msgid "FreeDB Import"
 msgstr ""
 
 #: ../root/cdtoc/info.tt:9
 #, perl-format
 msgid "FreeDB:"
-msgstr ""
-
-#: ../root/otherlookup/form.tt:8
-#, perl-format
-msgid "Freedb ID:"
 msgstr ""
 
 #: ../root/edit/details/historic/move_disc_id.tt:9
@@ -2889,6 +2879,11 @@ msgstr ""
 #: ../root/cdstub/import.tt:42
 #, perl-format
 msgid "Import CD stub"
+msgstr ""
+
+#: ../root/release_editor/import/freedb.tt:2
+#, perl-format
+msgid "Import From FreeDB"
 msgstr ""
 
 #: ../root/freedb/show.tt:54
@@ -7760,7 +7755,7 @@ msgstr ""
 
 #: ../root/layout/menu.tt:142
 #, perl-format
-msgid "{doc|Freedb Gateway}"
+msgid "{doc|FreeDB Gateway}"
 msgstr ""
 
 #: ../root/edit/list_header.tt:29
@@ -8102,7 +8097,7 @@ msgstr ""
 
 #: ../root/layout/menu.tt:186
 #, perl-format
-msgid "{uri|Import From Freedb}"
+msgid "{uri|Import From FreeDB}"
 msgstr ""
 
 #: ../root/layout/menu.tt:219
