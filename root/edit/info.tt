@@ -52,9 +52,9 @@
 
     <p>[%- l('For more information:') -%]</p>
     <ul class="links">
-        <li>[%- l('{doc|Voting FAQ}', { doc => doc_link('Voting_FAQ') }) -%]</li>
-        <li>[%- l('{doc|Editing FAQ}', { doc => doc_link('Editing_FAQ') }) -%]</li>
-        <li>[%- l('{uri|Edit Conditions}', { uri => c.uri_for('/edit/conditions') }) %]</li>
+        <li><a href="[% doc_link('Voting_FAQ') %]">[% l('Voting FAQ') %]</a></li>
+        <li><a href="[% doc_link('Editing_FAQ') %]">[% l('Editing FAQ') %]</a></li>
+        <li><a href="[% c.uri_for('/edit/conditions') %]">[% l('Edit Conditions') %]</a></li>
     </ul>
 [% END %]
 

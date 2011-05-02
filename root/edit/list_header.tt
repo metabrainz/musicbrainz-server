@@ -4,29 +4,29 @@
             [%- l('Quick links:') -%]
         </dt>
         <dd>
-            [% IF !search %]
-                [%- l('{url|Search for edits}', { url => c.uri_for_action('/edit/search') }) -%]
+            [%- IF !search -%]
+                <a href="[% c.uri_for_action('/edit/search') %]">[% l('Search for edits') %]</a>
                 | 
             [% END %]
-            [%- l('{url|Open edits}', { url => c.uri_for('/edit/open') }) -%]
+            <a href="[% c.uri_for('/edit/open') %]">[% l('Open edits') %]</a>
             | 
-            [%- l('{url|Voting suggestions}', { url => '/404' }) -%]
+            <a href="/404">[% l('Voting suggestions') %]</a>
             | 
-            [%- l('{url|Subscribed artists}', { url => '/404' }) -%]
+            <a href="/404">[% l('Subscribed artists') %]</a>
             | 
-            [%- l('{url|Subscribed editors}', { url => '/404' }) -%]
+            <a href="/404">[% l('Subscribed editors') %]</a>
         </dd>
         <dt>
             [%- l('Help:') -%]
         </dt>
         <dd>
-            [%- l('{doc|Voting FAQ}', { doc => doc_link('Voting_FAQ') }) -%]
+            <a href="[% doc_link('Voting_FAQ') %]">[% l('Voting FAQ') %]</a>
             | 
-            [%- l('{doc|Editing FAQ}', { doc => doc_link('Editing_FAQ') }) -%]
+            <a href="[% doc_link('Editing_FAQ') %]">[% l('Editing FAQ') %]</a>
             | 
-            [%- l('{doc|Style guidelines}', { doc => doc_link('Official_Style_Guidelines') }) -%]
+            <a href="[% doc_link('Official_Style_Guidelines') %]">[% l('Style guidelines') %]</a>
             | 
-            [%- l('{doc|How editing works}', { doc => doc_link('How_Editing_Works') }) -%]
+            <a href="[% doc_link('How_Editing_Works') %]">[% l('How editing works') %]</a>
         </dd>
     </dl>
 </div>

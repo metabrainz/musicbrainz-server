@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-02 08:29+0100\n"
+"POT-Creation-Date: 2011-05-02 13:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,14 +192,14 @@ msgstr ""
 msgid "<strong>Note</strong>:"
 msgstr ""
 
-#: ../root/main/index.tt:46
+#: ../root/main/index.tt:39
 #, perl-format
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone "
 "to contribute and releasing the {doc|data} under {doc2|open licenses}."
 msgstr ""
 
-#: ../root/main/index.tt:51
+#: ../root/main/index.tt:44
 #, perl-format
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
@@ -228,6 +228,11 @@ msgstr ""
 msgid ""
 "A relationship between {entity0} and {entity1} already exists with these "
 "attributes"
+msgstr ""
+
+#: ../root/layout/menu.tt:80
+#, perl-format
+msgid "About"
 msgstr ""
 
 #: ../root/edit/vote.tt:19
@@ -286,6 +291,11 @@ msgstr ""
 msgid "Active:"
 msgstr ""
 
+#: ../root/layout/menu.tt:173
+#, perl-format
+msgid "Add Artist"
+msgstr ""
+
 #: ../root/artist/add_alias.tt:1
 #, perl-format
 msgid "Add Artist Alias"
@@ -308,7 +318,7 @@ msgstr ""
 msgid "Add ISRC"
 msgstr ""
 
-#: ../root/release/edit/information.tt:100
+#: ../root/layout/menu.tt:176 ../root/release/edit/information.tt:100
 #: ../root/release/edit/information.tt:102
 #, perl-format
 msgid "Add Label"
@@ -339,12 +349,18 @@ msgstr ""
 msgid "Add Relationship"
 msgstr ""
 
-#: ../root/release/edit/layout.tt:4
+#: ../root/layout/menu.tt:179 ../root/release/edit/layout.tt:4
 #, perl-format
 msgid "Add Release"
 msgstr ""
 
-#: ../root/work/create.tt:34 ../root/work/create.tt:35
+#: ../root/layout/menu.tt:182
+#, perl-format
+msgid "Add Various Artists Release"
+msgstr ""
+
+#: ../root/layout/menu.tt:185 ../root/work/create.tt:34
+#: ../root/work/create.tt:35
 #, perl-format
 msgid "Add Work"
 msgstr ""
@@ -438,6 +454,11 @@ msgstr ""
 #: ../root/artist/add_alias.tt:2
 #, perl-format
 msgid "Add artist alias"
+msgstr ""
+
+#: ../root/cdstub/layout.tt:23
+#, perl-format
+msgid "Add disc ID to an existing release"
 msgstr ""
 
 #: ../root/edit/add_note.tt:4
@@ -574,6 +595,11 @@ msgstr ""
 #: ../root/label/aliases.tt:1 ../root/work/aliases.tt:1
 #, perl-format
 msgid "Aliases"
+msgstr ""
+
+#: ../root/layout/menu.tt:42
+#, perl-format
+msgid "All My Edits"
 msgstr ""
 
 #: ../root/admin/linkattributetype/instruments.tt:8
@@ -1029,6 +1055,11 @@ msgstr ""
 msgid "Auto-editor"
 msgstr ""
 
+#: ../root/layout/menu.tt:101
+#, perl-format
+msgid "Auto-editor Elections"
+msgstr ""
+
 #: ../root/user/privileged.tt:18
 #, perl-format
 msgid "Auto-editors"
@@ -1117,6 +1148,13 @@ msgid ""
 "the email to verify the new email address."
 msgstr ""
 
+#: ../root/main/index.tt:74
+#, perl-format
+msgid ""
+"Become a part of our <strong>global community</strong> and <strong>start "
+"contributing!</strong>"
+msgstr ""
+
 #: ../root/scripts/text_strings.tt:68
 #, perl-format
 msgid "Began:"
@@ -1134,6 +1172,16 @@ msgstr ""
 #: ../root/edit/relationship/edit.tt:118 ../root/label/edit_form.tt:53
 #, perl-format
 msgid "Begin date:"
+msgstr ""
+
+#: ../root/layout/menu.tt:206
+#, perl-format
+msgid "Beginners Guide"
+msgstr ""
+
+#: ../root/main/index.tt:18
+#, perl-format
+msgid "Beginners guide"
 msgstr ""
 
 #: ../root/search/error/internal-error.tt:6
@@ -1170,6 +1218,7 @@ msgid "Bots"
 msgstr ""
 
 #: ../root/browse/index.tt:1 ../root/browse/index.tt:3
+#: ../root/layout/menu.tt:155
 #, perl-format
 msgid "Browse"
 msgstr ""
@@ -1234,6 +1283,11 @@ msgstr ""
 #: ../root/browse/index.tt:9 ../root/search/index.tt:9
 #, perl-format
 msgid "Browse works"
+msgstr ""
+
+#: ../root/layout/menu.tt:164
+#, perl-format
+msgid "Browser Search Plugins"
 msgstr ""
 
 #: ../root/layout.tt:153
@@ -1385,7 +1439,7 @@ msgstr ""
 #: ../root/account/change_password_ok.tt:1
 #: ../root/account/change_password_ok.tt:3
 #: ../root/account/change_password.tt:1 ../root/account/change_password.tt:3
-#: ../root/account/change_password.tt:15
+#: ../root/account/change_password.tt:15 ../root/layout/menu.tt:10
 #, perl-format
 msgid "Change Password"
 msgstr ""
@@ -1562,7 +1616,7 @@ msgstr ""
 msgid "Comment:"
 msgstr ""
 
-#: ../root/main/index.tt:78
+#: ../root/main/index.tt:71
 #, perl-format
 msgid "Community »"
 msgstr ""
@@ -1622,6 +1676,11 @@ msgid ""
 "into MusicBrainz!"
 msgstr ""
 
+#: ../root/layout/menu.tt:229
+#, perl-format
+msgid "Contact Us"
+msgstr ""
+
 #: ../root/components/forms.tt:181
 #, perl-format
 msgid "Copy"
@@ -1657,7 +1716,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: ../root/account/register.tt:32
+#: ../root/account/register.tt:32 ../root/layout/menu.tt:74
 #, perl-format
 msgid "Create Account"
 msgstr ""
@@ -1667,6 +1726,11 @@ msgstr ""
 #: ../root/edit/relationship/create_url.tt:22
 #, perl-format
 msgid "Create Relationship"
+msgstr ""
+
+#: ../root/user/collections.tt:36
+#, perl-format
+msgid "Create a new collection"
 msgstr ""
 
 #: ../root/account/register.tt:1 ../root/account/register.tt:3
@@ -1689,6 +1753,11 @@ msgstr ""
 msgid ""
 "Currently it does this by looking for releases where every track contains \"/"
 "\" or \"-\"."
+msgstr ""
+
+#: ../root/layout/menu.tt:92
+#, perl-format
+msgid "Data Licenses"
 msgstr ""
 
 #: ../root/statistics/index.tt:185
@@ -1773,9 +1842,14 @@ msgstr ""
 msgid "Detect track durations"
 msgstr ""
 
-#: ../root/main/index.tt:96
+#: ../root/main/index.tt:87
 #, perl-format
 msgid "Developers »"
+msgstr ""
+
+#: ../root/layout/menu.tt:224
+#, perl-format
+msgid "Development"
 msgstr ""
 
 #: ../root/release_editor/import/freedb.tt:23
@@ -1866,6 +1940,11 @@ msgstr ""
 msgid "Do not watch this artist for new releases"
 msgstr ""
 
+#: ../root/layout/menu.tt:203
+#, perl-format
+msgid "Documentation"
+msgstr ""
+
 #: ../root/user/login.tt:12
 #, perl-format
 msgid "Don't have an account? {uri|Create one now}!"
@@ -1948,6 +2027,11 @@ msgstr ""
 msgid "Edit Collection"
 msgstr ""
 
+#: ../root/edit/info.tt:57 ../root/layout/menu.tt:197
+#, perl-format
+msgid "Edit Conditions"
+msgstr ""
+
 #: ../root/label/edit.tt:29
 #, perl-format
 msgid "Edit Label"
@@ -1970,6 +2054,7 @@ msgstr ""
 
 #: ../root/account/edit_ok.tt:1 ../root/account/edit_ok.tt:3
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:3
+#: ../root/layout/menu.tt:7
 #, perl-format
 msgid "Edit Profile"
 msgstr ""
@@ -1991,7 +2076,7 @@ msgstr ""
 msgid "Edit Relationship Attribute"
 msgstr ""
 
-#: ../root/admin/index.tt:7
+#: ../root/admin/index.tt:7 ../root/layout/menu.tt:61
 #, perl-format
 msgid "Edit Relationship Attributes"
 msgstr ""
@@ -2001,7 +2086,7 @@ msgstr ""
 msgid "Edit Relationship Type"
 msgstr ""
 
-#: ../root/admin/index.tt:6
+#: ../root/admin/index.tt:6 ../root/layout/menu.tt:58
 #, perl-format
 msgid "Edit Relationship Types"
 msgstr ""
@@ -2134,6 +2219,26 @@ msgstr ""
 msgid "Edited"
 msgstr ""
 
+#: ../root/layout/menu.tt:170
+#, perl-format
+msgid "Editing"
+msgstr ""
+
+#: ../root/edit/info.tt:56 ../root/edit/list_header.tt:25
+#, perl-format
+msgid "Editing FAQ"
+msgstr ""
+
+#: ../root/layout/menu.tt:194
+#, perl-format
+msgid "Editing Suggestions"
+msgstr ""
+
+#: ../root/main/index.tt:19
+#, perl-format
+msgid "Editing introduction"
+msgstr ""
+
 #: ../root/annotation/history.tt:8
 #, perl-format
 msgid "Editor"
@@ -2194,9 +2299,19 @@ msgstr ""
 msgid "Edits For Your Subscribed Entities"
 msgstr ""
 
+#: ../root/layout/menu.tt:48
+#, perl-format
+msgid "Edits by Subscribed Editors"
+msgstr ""
+
 #: ../root/user/edits.tt:18
 #, perl-format
 msgid "Edits by {name}"
+msgstr ""
+
+#: ../root/layout/menu.tt:45
+#, perl-format
+msgid "Edits for Subscribed Entities"
 msgstr ""
 
 #: ../root/label/edits.tt:19
@@ -2410,6 +2525,11 @@ msgstr ""
 msgid "External links:"
 msgstr ""
 
+#: ../root/layout/menu.tt:212 ../root/main/index.tt:21
+#, perl-format
+msgid "FAQs"
+msgstr ""
+
 #: ../root/user/profile.tt:127
 #, perl-format
 msgid "Failed"
@@ -2478,7 +2598,7 @@ msgstr ""
 msgid "Format:"
 msgstr ""
 
-#: ../root/layout/menu.tt:234 ../root/layout.tt:152
+#: ../root/layout/menu.tt:236 ../root/layout.tt:152
 #, perl-format
 msgid "Forums"
 msgstr ""
@@ -2523,6 +2643,11 @@ msgstr[1] ""
 #: ../root/scripts/text_strings.tt:70
 #, perl-format
 msgid "Founded:"
+msgstr ""
+
+#: ../root/layout/menu.tt:142
+#, perl-format
+msgid "FreeDB Gateway"
 msgstr ""
 
 #: ../root/search/results-freedb.tt:13
@@ -2633,6 +2758,11 @@ msgstr ""
 msgid ""
 "Hosted by {host|Digital West}. Sponsored by: {url1|Google}, {url2|OSUOSL} "
 "and {more|others…}"
+msgstr ""
+
+#: ../root/edit/list_header.tt:29
+#, perl-format
+msgid "How editing works"
 msgstr ""
 
 #: ../root/account/preferences.tt:40
@@ -2881,7 +3011,7 @@ msgstr ""
 msgid "Import CD stub"
 msgstr ""
 
-#: ../root/release_editor/import/freedb.tt:2
+#: ../root/layout/menu.tt:188 ../root/release_editor/import/freedb.tt:2
 #, perl-format
 msgid "Import From FreeDB"
 msgstr ""
@@ -2913,6 +3043,11 @@ msgstr ""
 msgid "In order to view this page please visit the main server at {uri}."
 msgstr ""
 
+#: ../root/layout/menu.tt:89
+#, perl-format
+msgid "In the Press"
+msgstr ""
+
 #: ../root/user/login.tt:20
 #, perl-format
 msgid "Incorrect username or password"
@@ -2924,7 +3059,7 @@ msgid "Indexed Searches:"
 msgstr ""
 
 #: ../root/admin/index.tt:8 ../root/admin/linkattributetype/instruments.tt:3
-#: ../root/admin/linkattributetype/instruments.tt:5
+#: ../root/admin/linkattributetype/instruments.tt:5 ../root/layout/menu.tt:221
 #, perl-format
 msgid "Instrument Tree"
 msgstr ""
@@ -2954,6 +3089,11 @@ msgstr ""
 msgid ""
 "It looks like you're using Internet Explorer.<br/>To get the most out of "
 "this website we highly recommend the use of {uri|Google Chrome Frame}."
+msgstr ""
+
+#: ../root/layout/menu.tt:124 ../root/main/index.tt:9
+#, perl-format
+msgid "Jaikoz"
 msgstr ""
 
 #: ../root/release/edit/layout.tt:20
@@ -3119,7 +3259,7 @@ msgstr ""
 msgid "Length:"
 msgstr ""
 
-#: ../root/main/index.tt:57
+#: ../root/main/index.tt:50
 #, perl-format
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
@@ -3130,6 +3270,11 @@ msgstr ""
 #: ../root/edit/details/edit_relationship_type.tt:20
 #, perl-format
 msgid "Link phrase:"
+msgstr ""
+
+#: ../root/layout/menu.tt:139
+#, perl-format
+msgid "Live Data Feed"
 msgstr ""
 
 #: ../root/components/aliases.tt:14
@@ -3151,6 +3296,11 @@ msgstr ""
 #: ../root/user/login.tt:34
 #, perl-format
 msgid "Log In"
+msgstr ""
+
+#: ../root/layout/menu.tt:19
+#, perl-format
+msgid "Log Out"
 msgstr ""
 
 #: ../root/components/common-macros.tt:282
@@ -3213,11 +3363,21 @@ msgstr ""
 msgid "MBID:"
 msgstr ""
 
+#: ../root/layout/menu.tt:127 ../root/main/index.tt:10
+#, perl-format
+msgid "Magic MP3 Tagger"
+msgstr ""
+
 #: ../root/account/preferences.tt:25
 #, perl-format
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
+msgstr ""
+
+#: ../root/layout/menu.tt:232
+#, perl-format
+msgid "Mailing Lists"
 msgstr ""
 
 #: ../root/taglookup/nag.tt:22
@@ -3420,12 +3580,27 @@ msgstr ""
 msgid "MusicBrainz - The Open Music Encyclopedia"
 msgstr ""
 
-#: ../root/main/index.tt:87
+#: ../root/layout/menu.tt:133
+#, perl-format
+msgid "MusicBrainz Database"
+msgstr ""
+
+#: ../root/main/index.tt:79
 #, perl-format
 msgid "MusicBrainz Database »"
 msgstr ""
 
-#: ../root/main/index.tt:41
+#: ../root/layout/menu.tt:121 ../root/main/index.tt:8
+#, perl-format
+msgid "MusicBrainz Picard"
+msgstr ""
+
+#: ../root/layout/menu.tt:130
+#, perl-format
+msgid "MusicBrainz Server"
+msgstr ""
+
+#: ../root/main/index.tt:34
 #, perl-format
 msgid "MusicBrainz aims to be:"
 msgstr ""
@@ -3445,14 +3620,14 @@ msgid ""
 "or label, please use the above form to create an account."
 msgstr ""
 
-#: ../root/main/index.tt:36
+#: ../root/main/index.tt:29
 #, perl-format
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects, and makes available "
 "to the public, music metadata."
 msgstr ""
 
-#: ../root/main/index.tt:69
+#: ../root/main/index.tt:62
 #, perl-format
 msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
@@ -3494,6 +3669,36 @@ msgstr ""
 #: ../root/layout.tt:32
 #, perl-format
 msgid "MusicBrainz: Track"
+msgstr ""
+
+#: ../root/layout/menu.tt:27
+#, perl-format
+msgid "My Collections"
+msgstr ""
+
+#: ../root/layout/menu.tt:24
+#, perl-format
+msgid "My Data"
+msgstr ""
+
+#: ../root/layout/menu.tt:39
+#, perl-format
+msgid "My Open Edits"
+msgstr ""
+
+#: ../root/layout/menu.tt:30
+#, perl-format
+msgid "My Ratings"
+msgstr ""
+
+#: ../root/layout/menu.tt:33
+#, perl-format
+msgid "My Tags"
+msgstr ""
+
+#: ../root/layout/menu.tt:36
+#, perl-format
+msgid "My Watched Artists"
 msgstr ""
 
 #: ../root/edit/index.tt:40
@@ -3907,9 +4112,10 @@ msgstr ""
 msgid "Open Edits"
 msgstr ""
 
-#: ../root/artist/layout.tt:63 ../root/label/layout.tt:56
-#: ../root/recording/layout.tt:41 ../root/release_group/layout.tt:36
-#: ../root/release/sidebar.tt:159 ../root/work/layout.tt:39
+#: ../root/artist/layout.tt:63 ../root/edit/list_header.tt:11
+#: ../root/label/layout.tt:56 ../root/recording/layout.tt:41
+#: ../root/release_group/layout.tt:36 ../root/release/sidebar.tt:159
+#: ../root/work/layout.tt:39
 #, perl-format
 msgid "Open edits"
 msgstr ""
@@ -4077,6 +4283,11 @@ msgstr ""
 #: ../root/account/register.tt:24 ../root/user/login.tt:24
 #, perl-format
 msgid "Password:"
+msgstr ""
+
+#: ../root/layout/menu.tt:86
+#, perl-format
+msgid "People"
 msgstr ""
 
 #: ../root/artist/details.tt:20 ../root/label/details.tt:20
@@ -4376,6 +4587,7 @@ msgstr ""
 
 #: ../root/account/preferences_ok.tt:1 ../root/account/preferences_ok.tt:3
 #: ../root/account/preferences.tt:1 ../root/account/preferences.tt:3
+#: ../root/layout/menu.tt:13
 #, perl-format
 msgid "Preferences"
 msgstr ""
@@ -4416,7 +4628,13 @@ msgstr ""
 msgid "Privacy"
 msgstr ""
 
-#: ../root/user/privileged.tt:14 ../root/user/privileged.tt:16
+#: ../root/layout/menu.tt:98
+#, perl-format
+msgid "Privacy Policy"
+msgstr ""
+
+#: ../root/layout/menu.tt:104 ../root/user/privileged.tt:14
+#: ../root/user/privileged.tt:16
 #, perl-format
 msgid "Privileged User Accounts"
 msgstr ""
@@ -4424,6 +4642,11 @@ msgstr ""
 #: ../root/main/500.tt:19
 #, perl-format
 msgid "Problem not going away? Please {con|contact us}."
+msgstr ""
+
+#: ../root/layout/menu.tt:118
+#, perl-format
+msgid "Products"
 msgstr ""
 
 #: ../root/user/profile/layout.tt:12
@@ -4454,7 +4677,7 @@ msgstr ""
 msgid "Query:"
 msgstr ""
 
-#: ../root/main/index.tt:18
+#: ../root/main/index.tt:15
 #, perl-format
 msgid "Quick Start »"
 msgstr ""
@@ -4595,6 +4818,7 @@ msgstr ""
 #: ../root/admin/linkattributetype/index.tt:3
 #: ../root/admin/linkattributetype/index.tt:5
 #: ../root/admin/linktype/index.tt:7 ../root/admin/linktype/tree.tt:44
+#: ../root/layout/menu.tt:218
 #, perl-format
 msgid "Relationship Attributes"
 msgstr ""
@@ -4609,6 +4833,7 @@ msgstr ""
 #: ../root/admin/linkattributetype/index.tt:11
 #: ../root/admin/linkattributetype/instruments.tt:12
 #: ../root/admin/linktype/index.tt:2 ../root/admin/linktype/index.tt:4
+#: ../root/layout/menu.tt:215
 #, perl-format
 msgid "Relationship Types"
 msgstr ""
@@ -5093,9 +5318,14 @@ msgstr ""
 msgid "Removed"
 msgstr ""
 
-#: ../root/layout/menu.tt:244
+#: ../root/layout/menu.tt:246
 #, perl-format
 msgid "Report a Bug"
+msgstr ""
+
+#: ../root/layout/menu.tt:250
+#, perl-format
+msgid "Report a Copyright Violation"
 msgstr ""
 
 #: ../root/report/index.tt:1 ../root/report/index.tt:3
@@ -5179,7 +5409,7 @@ msgstr ""
 #: ../root/cdtoc/attach_filter_release.tt:8 ../root/cdtoc/lookup.tt:48
 #: ../root/cdtoc/lookup.tt:58 ../root/cdtoc/move_search.tt:15
 #: ../root/components/search.tt:11 ../root/edit/list.tt:27
-#: ../root/edit/search.tt:13 ../root/layout.tt:80
+#: ../root/edit/search.tt:13 ../root/layout/menu.tt:147 ../root/layout.tt:80
 #: ../root/otherlookup/form.tt:14 ../root/release_editor/import/freedb.tt:9
 #: ../root/release_editor/import/freedb.tt:19
 #: ../root/release_editor/import/freedb.tt:31
@@ -5188,6 +5418,11 @@ msgstr ""
 #: ../root/taglookup/form.tt:13
 #, perl-format
 msgid "Search"
+msgstr ""
+
+#: ../root/layout/menu.tt:151
+#, perl-format
+msgid "Search Edits"
 msgstr ""
 
 #: ../root/search/error/wrapper.tt:1 ../root/search/error/wrapper.tt:2
@@ -5240,11 +5475,21 @@ msgstr ""
 msgid "Search for an Editor"
 msgstr ""
 
+#: ../root/edit/list_header.tt:8
+#, perl-format
+msgid "Search for edits"
+msgstr ""
+
 #: ../root/search/form.tt:57
 #, perl-format
 msgid ""
 "Search indexes are updated every 6 hours, use the direct database search if "
 "you require up to the minute correct results."
+msgstr ""
+
+#: ../root/cdstub/layout.tt:33
+#, perl-format
+msgid "Search the database for this CD"
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:32
@@ -5378,6 +5623,11 @@ msgstr ""
 #: ../root/scripts/text_strings.tt:74
 #, perl-format
 msgid "Slow? Switch back to indexed search."
+msgstr ""
+
+#: ../root/layout/menu.tt:95
+#, perl-format
+msgid "Social Contract"
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:30
@@ -5610,6 +5860,11 @@ msgstr ""
 msgid "Sort name:"
 msgstr ""
 
+#: ../root/layout/menu.tt:83
+#, perl-format
+msgid "Sponsors"
+msgstr ""
+
 #: ../root/artist/standalone_recordings.tt:7
 #, perl-format
 msgid "Standalone Recordings"
@@ -5625,7 +5880,7 @@ msgstr ""
 msgid "Start over"
 msgstr ""
 
-#: ../root/user/profile.tt:106
+#: ../root/layout/menu.tt:107 ../root/user/profile.tt:106
 #, perl-format
 msgid "Statistics"
 msgstr ""
@@ -5646,6 +5901,16 @@ msgstr ""
 #: ../root/watch/list.tt:25
 #, perl-format
 msgid "Stop watching selected artists"
+msgstr ""
+
+#: ../root/layout/menu.tt:209
+#, perl-format
+msgid "Style Guidelines"
+msgstr ""
+
+#: ../root/edit/list_header.tt:27 ../root/main/index.tt:20
+#, perl-format
+msgid "Style guidelines"
 msgstr ""
 
 #: ../root/user/contact.tt:8
@@ -5678,6 +5943,16 @@ msgstr ""
 msgid "Subscribed Editors"
 msgstr ""
 
+#: ../root/edit/list_header.tt:15
+#, perl-format
+msgid "Subscribed artists"
+msgstr ""
+
+#: ../root/edit/list_header.tt:17
+#, perl-format
+msgid "Subscribed editors"
+msgstr ""
+
 #: ../root/artist/layout.tt:47 ../root/artist/subscribers.tt:1
 #: ../root/artist/subscribers.tt:2 ../root/label/layout.tt:37
 #: ../root/label/subscribers.tt:1 ../root/label/subscribers.tt:2
@@ -5686,7 +5961,12 @@ msgstr ""
 msgid "Subscribers"
 msgstr ""
 
-#: ../root/layout/menu.tt:239
+#: ../root/layout/menu.tt:16
+#, perl-format
+msgid "Subscriptions"
+msgstr ""
+
+#: ../root/layout/menu.tt:241
 #, perl-format
 msgid "Suggest a Feature"
 msgstr ""
@@ -5787,8 +6067,9 @@ msgstr ""
 
 #: ../root/artist/tags.tt:1 ../root/collection/tags.tt:1
 #: ../root/components/tags.tt:5 ../root/label/tags.tt:1
-#: ../root/recording/tags.tt:1 ../root/release_group/tags.tt:1
-#: ../root/release/tags.tt:1 ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/layout/menu.tt:158 ../root/recording/tags.tt:1
+#: ../root/release_group/tags.tt:1 ../root/release/tags.tt:1
+#: ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
 #: ../root/user/profile/layout.tt:25 ../root/user/tags.tt:1
 #: ../root/work/tags.tt:1
 #, perl-format
@@ -5957,6 +6238,14 @@ msgstr ""
 #: ../root/layout.tt:96
 #, perl-format
 msgid "The main server is located at {uri}."
+msgstr ""
+
+#: ../root/main/index.tt:82
+#, perl-format
+msgid ""
+"The majority of the data in the <strong>MusicBrainz Database</strong> is "
+"released into the <strong>Public Domain</strong> and can be downloaded and "
+"used <strong>for free</strong>."
 msgstr ""
 
 #: ../root/main/403.tt:5
@@ -6454,6 +6743,7 @@ msgid "To:"
 msgstr ""
 
 #: ../root/cdstub/browse.tt:1 ../root/cdstub/browse.tt:4
+#: ../root/layout/menu.tt:161
 #, perl-format
 msgid "Top CD Stubs"
 msgstr ""
@@ -6579,7 +6869,7 @@ msgstr ""
 msgid "Tracks:"
 msgstr ""
 
-#: ../root/admin/index.tt:11
+#: ../root/admin/index.tt:11 ../root/layout/menu.tt:66
 #, perl-format
 msgid "Transclude WikiDocs"
 msgstr ""
@@ -6772,6 +7062,13 @@ msgstr ""
 msgid "Use Tracklist"
 msgstr ""
 
+#: ../root/main/index.tt:90
+#, perl-format
+msgid ""
+"Use our <strong>XML web service</strong> or <strong>development libraries</"
+"strong> to create your own MusicBrainz-enabled applications."
+msgstr ""
+
 #: ../root/release/edit/tracklist.tt:273
 #, perl-format
 msgid "Use the advanced tracklist editor if this preview seems incorrect."
@@ -6822,7 +7119,7 @@ msgid ""
 "will result in inaccurate results."
 msgstr ""
 
-#: ../root/cdstub/browse.tt:19 ../root/cdstub/layout.tt:27
+#: ../root/cdstub/browse.tt:19 ../root/cdstub/layout.tt:25
 #, perl-format
 msgid "Various Artists"
 msgstr ""
@@ -6858,6 +7155,11 @@ msgstr ""
 #: ../root/admin/wikidoc/index.tt:12
 #, perl-format
 msgid "View transclusion history"
+msgstr ""
+
+#: ../root/layout/menu.tt:191
+#, perl-format
+msgid "Vote on Edits"
 msgstr ""
 
 #: ../root/edit/list.tt:74
@@ -6896,9 +7198,19 @@ msgstr ""
 msgid "Votes:"
 msgstr ""
 
+#: ../root/edit/info.tt:55 ../root/edit/list_header.tt:23
+#, perl-format
+msgid "Voting FAQ"
+msgstr ""
+
 #: ../root/doc/edit_type.tt:46
 #, perl-format
 msgid "Voting period (days)"
+msgstr ""
+
+#: ../root/edit/list_header.tt:13
+#, perl-format
+msgid "Voting suggestions"
 msgstr ""
 
 #: ../root/main/500.tt:15
@@ -7021,7 +7333,7 @@ msgstr ""
 msgid "Website:"
 msgstr ""
 
-#: ../root/main/index.tt:34
+#: ../root/main/index.tt:27
 #, perl-format
 msgid "Welcome to MusicBrainz!"
 msgstr ""
@@ -7117,6 +7429,11 @@ msgstr ""
 #: ../root/statistics/index.tt:34
 #, perl-format
 msgid "Works:"
+msgstr ""
+
+#: ../root/layout/menu.tt:136
+#, perl-format
+msgid "XML Web Service"
 msgstr ""
 
 #: ../root/artist/details.tt:30 ../root/label/details.tt:30
@@ -7606,7 +7923,7 @@ msgid_plural "with {num} disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/main/index.tt:62
+#: ../root/main/index.tt:55
 #, perl-format
 msgid "{about|More Information} — {faq|FAQs} — {contact|Contact Us}"
 msgstr ""
@@ -7621,36 +7938,6 @@ msgstr[1] ""
 #: ../root/artist/relationships.tt:31 ../root/components/relationships.tt:26
 #, perl-format
 msgid "{begindate} &ndash; {enddate}"
-msgstr ""
-
-#: ../root/layout/menu.tt:48
-#, perl-format
-msgid "{col|Edits by Subscribed Editors}"
-msgstr ""
-
-#: ../root/layout/menu.tt:45
-#, perl-format
-msgid "{col|Edits for Subscribed Entities}"
-msgstr ""
-
-#: ../root/layout/menu.tt:27
-#, perl-format
-msgid "{col|My Collections}"
-msgstr ""
-
-#: ../root/layout/menu.tt:30
-#, perl-format
-msgid "{col|My Ratings}"
-msgstr ""
-
-#: ../root/layout/menu.tt:33
-#, perl-format
-msgid "{col|My Tags}"
-msgstr ""
-
-#: ../root/layout/menu.tt:36
-#, perl-format
-msgid "{col|My Watched Artists}"
 msgstr ""
 
 #: ../root/user/profile.tt:78
@@ -7671,19 +7958,9 @@ msgid_plural "{count} private ratings not listed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/layout/menu.tt:24
-#, perl-format
-msgid "{data|My Data}"
-msgstr ""
-
 #: ../root/edit/notes.tt:20
 #, perl-format
 msgid "{date}"
-msgstr ""
-
-#: ../root/layout/menu.tt:80
-#, perl-format
-msgid "{doc|About}"
 msgstr ""
 
 #: ../root/user/profile.tt:41
@@ -7691,131 +7968,9 @@ msgstr ""
 msgid "{doc|Auto-Editor}"
 msgstr ""
 
-#: ../root/main/index.tt:81
-#, perl-format
-msgid ""
-"{doc|Become a part of our <strong>global community</strong> and "
-"<strong>start contributing!</strong>}"
-msgstr ""
-
-#: ../root/layout/menu.tt:204
-#, perl-format
-msgid "{doc|Beginners Guide}"
-msgstr ""
-
-#: ../root/main/index.tt:21
-#, perl-format
-msgid "{doc|Beginners guide}"
-msgstr ""
-
-#: ../root/layout/menu.tt:227
-#, perl-format
-msgid "{doc|Contact Us}"
-msgstr ""
-
-#: ../root/layout/menu.tt:92
-#, perl-format
-msgid "{doc|Data Licenses}"
-msgstr ""
-
-#: ../root/layout/menu.tt:222
-#, perl-format
-msgid "{doc|Development}"
-msgstr ""
-
 #: ../root/cdstub/index.tt:36
 #, perl-format
 msgid "{doc|Disc ID}:"
-msgstr ""
-
-#: ../root/layout/menu.tt:201
-#, perl-format
-msgid "{doc|Documentation}"
-msgstr ""
-
-#: ../root/edit/info.tt:56 ../root/edit/list_header.tt:25
-#, perl-format
-msgid "{doc|Editing FAQ}"
-msgstr ""
-
-#: ../root/main/index.tt:23
-#, perl-format
-msgid "{doc|Editing introduction}"
-msgstr ""
-
-#: ../root/layout/menu.tt:170
-#, perl-format
-msgid "{doc|Editing}"
-msgstr ""
-
-#: ../root/layout/menu.tt:210 ../root/main/index.tt:27
-#, perl-format
-msgid "{doc|FAQs}"
-msgstr ""
-
-#: ../root/layout/menu.tt:142
-#, perl-format
-msgid "{doc|FreeDB Gateway}"
-msgstr ""
-
-#: ../root/edit/list_header.tt:29
-#, perl-format
-msgid "{doc|How editing works}"
-msgstr ""
-
-#: ../root/layout/menu.tt:89
-#, perl-format
-msgid "{doc|In the Press}"
-msgstr ""
-
-#: ../root/layout/menu.tt:124 ../root/main/index.tt:10
-#, perl-format
-msgid "{doc|Jaikoz}"
-msgstr ""
-
-#: ../root/layout/menu.tt:139
-#, perl-format
-msgid "{doc|Live Data Feed}"
-msgstr ""
-
-#: ../root/layout/menu.tt:127 ../root/main/index.tt:12
-#, perl-format
-msgid "{doc|Magic MP3 Tagger}"
-msgstr ""
-
-#: ../root/layout/menu.tt:230
-#, perl-format
-msgid "{doc|Mailing Lists}"
-msgstr ""
-
-#: ../root/layout/menu.tt:133
-#, perl-format
-msgid "{doc|MusicBrainz Database}"
-msgstr ""
-
-#: ../root/layout/menu.tt:121 ../root/main/index.tt:8
-#, perl-format
-msgid "{doc|MusicBrainz Picard}"
-msgstr ""
-
-#: ../root/layout/menu.tt:130
-#, perl-format
-msgid "{doc|MusicBrainz Server}"
-msgstr ""
-
-#: ../root/layout/menu.tt:86
-#, perl-format
-msgid "{doc|People}"
-msgstr ""
-
-#: ../root/layout/menu.tt:98
-#, perl-format
-msgid "{doc|Privacy Policy}"
-msgstr ""
-
-#: ../root/layout/menu.tt:118
-#, perl-format
-msgid "{doc|Products}"
 msgstr ""
 
 #: ../root/user/profile.tt:43
@@ -7823,74 +7978,14 @@ msgstr ""
 msgid "{doc|Relationship Editor}"
 msgstr ""
 
-#: ../root/layout/menu.tt:248
-#, perl-format
-msgid "{doc|Report a Copyright Violation}"
-msgstr ""
-
-#: ../root/layout/menu.tt:95
-#, perl-format
-msgid "{doc|Social Contract}"
-msgstr ""
-
-#: ../root/layout/menu.tt:83
-#, perl-format
-msgid "{doc|Sponsors}"
-msgstr ""
-
-#: ../root/layout/menu.tt:207
-#, perl-format
-msgid "{doc|Style Guidelines}"
-msgstr ""
-
-#: ../root/edit/list_header.tt:27 ../root/main/index.tt:25
-#, perl-format
-msgid "{doc|Style guidelines}"
-msgstr ""
-
-#: ../root/main/index.tt:90
-#, perl-format
-msgid ""
-"{doc|The majority of the data in the <strong>MusicBrainz Database</strong> "
-"is released into the <strong>Public Domain</strong> and can be downloaded "
-"and used <strong>for free</strong>.}"
-msgstr ""
-
 #: ../root/user/profile.tt:44
 #, perl-format
 msgid "{doc|Transclusion Editor}"
 msgstr ""
 
-#: ../root/main/index.tt:99
-#, perl-format
-msgid ""
-"{doc|Use our <strong>XML web service</strong> or <strong>development "
-"libraries</strong> to create your own MusicBrainz-enabled applications.}"
-msgstr ""
-
-#: ../root/edit/info.tt:55 ../root/edit/list_header.tt:23
-#, perl-format
-msgid "{doc|Voting FAQ}"
-msgstr ""
-
-#: ../root/layout/menu.tt:136
-#, perl-format
-msgid "{doc|XML Web Service}"
-msgstr ""
-
 #: ../root/edit/notes.tt:19
 #, perl-format
 msgid "{editor}"
-msgstr ""
-
-#: ../root/layout/menu.tt:42
-#, perl-format
-msgid "{edits|All My Edits}"
-msgstr ""
-
-#: ../root/layout/menu.tt:39
-#, perl-format
-msgid "{edits|My Open Edits}"
 msgstr ""
 
 #: ../root/edit/require_note.tt:4
@@ -8015,199 +8110,9 @@ msgstr ""
 msgid "{type} “{work}”"
 msgstr ""
 
-#: ../root/layout/menu.tt:173
-#, perl-format
-msgid "{uri|Add Artist}"
-msgstr ""
-
-#: ../root/layout/menu.tt:176
-#, perl-format
-msgid "{uri|Add Label}"
-msgstr ""
-
-#: ../root/layout/menu.tt:178
-#, perl-format
-msgid "{uri|Add Release}"
-msgstr ""
-
-#: ../root/layout/menu.tt:180
-#, perl-format
-msgid "{uri|Add Various Artists Release}"
-msgstr ""
-
-#: ../root/layout/menu.tt:183
-#, perl-format
-msgid "{uri|Add Work}"
-msgstr ""
-
-#: ../root/cdstub/layout.tt:22
-#, perl-format
-msgid "{uri|Add disc ID to an existing release}"
-msgstr ""
-
-#: ../root/layout/menu.tt:164
-#, perl-format
-msgid "{uri|Browser Search Plugins}"
-msgstr ""
-
-#: ../root/layout/menu.tt:155
-#, perl-format
-msgid "{uri|Browse}"
-msgstr ""
-
-#: ../root/layout/menu.tt:10
-#, perl-format
-msgid "{uri|Change Password}"
-msgstr ""
-
-#: ../root/layout/menu.tt:74
-#, perl-format
-msgid "{uri|Create Account}"
-msgstr ""
-
-#: ../root/user/collections.tt:36
-#, perl-format
-msgid "{uri|Create a new collection}"
-msgstr ""
-
-#: ../root/edit/info.tt:57 ../root/layout/menu.tt:195
-#, perl-format
-msgid "{uri|Edit Conditions}"
-msgstr ""
-
-#: ../root/layout/menu.tt:7
-#, perl-format
-msgid "{uri|Edit Profile}"
-msgstr ""
-
-#: ../root/layout/menu.tt:61
-#, perl-format
-msgid "{uri|Edit Relationship Attributes}"
-msgstr ""
-
-#: ../root/layout/menu.tt:58
-#, perl-format
-msgid "{uri|Edit Relationship Types}"
-msgstr ""
-
-#: ../root/layout/menu.tt:192
-#, perl-format
-msgid "{uri|Editing Suggestions}"
-msgstr ""
-
-#: ../root/layout/menu.tt:186
-#, perl-format
-msgid "{uri|Import From FreeDB}"
-msgstr ""
-
-#: ../root/layout/menu.tt:219
-#, perl-format
-msgid "{uri|Instrument Tree}"
-msgstr ""
-
-#: ../root/layout/menu.tt:19
-#, perl-format
-msgid "{uri|Log Out}"
-msgstr ""
-
-#: ../root/layout/menu.tt:13
-#, perl-format
-msgid "{uri|Preferences}"
-msgstr ""
-
 #: ../root/components/common-macros.tt:341
 #, perl-format
 msgid "{uri|Relate to URL}"
-msgstr ""
-
-#: ../root/layout/menu.tt:216
-#, perl-format
-msgid "{uri|Relationship Attributes}"
-msgstr ""
-
-#: ../root/layout/menu.tt:213
-#, perl-format
-msgid "{uri|Relationship Types}"
-msgstr ""
-
-#: ../root/layout/menu.tt:151
-#, perl-format
-msgid "{uri|Search Edits}"
-msgstr ""
-
-#: ../root/cdstub/layout.tt:31
-#, perl-format
-msgid "{uri|Search the database for this CD}"
-msgstr ""
-
-#: ../root/layout/menu.tt:147
-#, perl-format
-msgid "{uri|Search}"
-msgstr ""
-
-#: ../root/layout/menu.tt:16
-#, perl-format
-msgid "{uri|Subscriptions}"
-msgstr ""
-
-#: ../root/layout/menu.tt:158
-#, perl-format
-msgid "{uri|Tags}"
-msgstr ""
-
-#: ../root/layout/menu.tt:161
-#, perl-format
-msgid "{uri|Top CD Stubs}"
-msgstr ""
-
-#: ../root/layout/menu.tt:66
-#, perl-format
-msgid "{uri|Transclude WikiDocs}"
-msgstr ""
-
-#: ../root/layout/menu.tt:189
-#, perl-format
-msgid "{uri|Vote on Edits}"
-msgstr ""
-
-#: ../root/layout/menu.tt:101
-#, perl-format
-msgid "{url|Auto-editor Elections}"
-msgstr ""
-
-#: ../root/edit/list_header.tt:11
-#, perl-format
-msgid "{url|Open edits}"
-msgstr ""
-
-#: ../root/layout/menu.tt:104
-#, perl-format
-msgid "{url|Privileged User Accounts}"
-msgstr ""
-
-#: ../root/edit/list_header.tt:8
-#, perl-format
-msgid "{url|Search for edits}"
-msgstr ""
-
-#: ../root/layout/menu.tt:107
-#, perl-format
-msgid "{url|Statistics}"
-msgstr ""
-
-#: ../root/edit/list_header.tt:15
-#, perl-format
-msgid "{url|Subscribed artists}"
-msgstr ""
-
-#: ../root/edit/list_header.tt:17
-#, perl-format
-msgid "{url|Subscribed editors}"
-msgstr ""
-
-#: ../root/edit/list_header.tt:13
-#, perl-format
-msgid "{url|Voting suggestions}"
 msgstr ""
 
 #: ../root/user/collections.tt:32
