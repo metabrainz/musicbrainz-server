@@ -9,7 +9,7 @@
 
 # Certain cron processes mail their output off separately if they fail.  This
 # is where they get mailed to.
-ADMIN_EMAILS="rob dave lukas"
+ADMIN_EMAILS="root"
 
 # Were to put database exports, and replication data, for public consumption;
 # who should own them, and what mode they should have.
