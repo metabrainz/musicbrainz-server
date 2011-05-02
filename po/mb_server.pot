@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-02 08:13+0100\n"
+"POT-Creation-Date: 2011-05-02 08:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6512,16 +6512,6 @@ msgstr ""
 msgid "Track"
 msgstr ""
 
-#: ../root/edit/details/edit_track_length.tt:12
-#, perl-format
-msgid "Track Length:"
-msgstr ""
-
-#: ../root/edit/details/edit_track_number.tt:12
-#, perl-format
-msgid "Track Number:"
-msgstr ""
-
 #: ../root/release/edit/tracklist.tt:410
 #, perl-format
 msgid "Track count:"
@@ -6530,6 +6520,11 @@ msgstr ""
 #: ../root/cdtoc/info.tt:21
 #, perl-format
 msgid "Track details:"
+msgstr ""
+
+#: ../root/edit/details/edit_track_length.tt:12
+#, perl-format
+msgid "Track length:"
 msgstr ""
 
 #: ../root/edit/details/set_track_lengths_from_discid.tt:19
@@ -6542,6 +6537,7 @@ msgstr ""
 msgid "Track names start with a number"
 msgstr ""
 
+#: ../root/edit/details/edit_track_number.tt:12
 #: ../root/edit/details/historic/add_track_kv.tt:26
 #: ../root/edit/details/historic/add_track_old.tt:26
 #: ../root/taglookup/form.tt:6
