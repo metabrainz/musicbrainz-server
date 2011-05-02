@@ -1,6 +1,5 @@
 [% BLOCK layout_head %]
-   <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
-   <script src="[% c.uri_for('/static/scripts/MB/Control/URLCleanup.js') %]"></script>
+  [% script_manifest('edit.js.manifest') %]
    <script type="text/javascript">
     $('document').ready(function() {
       MB.Control.URLCleanup(

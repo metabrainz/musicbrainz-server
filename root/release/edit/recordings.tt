@@ -1,14 +1,6 @@
 [%- BLOCK layout_head -%]
-  <link rel="stylesheet" type="text/css" href="[%-
-      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
-
-  <script type="text/javascript" src="[%-
-      c.model('FileCache').squash_scripts(
-        "lib/json/json2.js",
-        "scripts/MB/Control/Bubble.js",
-        "scripts/MB/Control/ReleaseRecordings.js",
-      )
-  -%]"></script>
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('release-editor.js.manifest') %]
   <script type="text/javascript">
     $('document').ready (function () {
 
