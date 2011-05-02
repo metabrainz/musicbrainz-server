@@ -7,7 +7,7 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_alternative_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -223,11 +223,7 @@ sub recording_edits_from_tracklist
                 {
                     name => $_->name,
                     length => format_track_length ($_->length),
-                    artist_credit => {
-                        preview => $_->artist_credit->name,
-                        names => artist_credit_to_alternative_ref (
-                            $_->artist_credit)
-                    }
+                    artist_credit => artist_credit_to_ref ($_->artist_credit),
                 });
 
             $recording_edits{$edit_sha1} = {

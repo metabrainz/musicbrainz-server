@@ -16,7 +16,6 @@ use Storable;
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
-    artist_credit_to_alternative_ref
     artist_credit_to_ref
     check_data
     check_in_use
@@ -104,26 +103,6 @@ sub artist_credit_to_ref
     $ret{preview} = $artist_credit->name if !$for_change_hash;
 
     return \%ret;
-}
-
-# FIXME: It is unfortunate that we have two different formats for storing
-# artist credits outside of objects.  These should be consolidated. --warp.
-sub artist_credit_to_alternative_ref
-{
-    my ($artist_credit) = @_;
-
-    warn "FIXME: this can now be removed.  port everything over to ac_to_ref. \n";
-
-    return $artist_credit unless blessed $artist_credit;
-
-    return [
-        map {
-            name => $_->name,
-            gid => $_->artist->gid,
-            id => $_->artist->id,
-            artist_name => $_->artist->name,
-            join => $_->join_phrase
-        }, $artist_credit->all_names ];
 }
 
 sub load_subobjects

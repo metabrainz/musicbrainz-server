@@ -2,7 +2,7 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Edit;
 use Moose;
 use Data::Compare;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref artist_credit_to_alternative_ref );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
@@ -73,7 +73,7 @@ override 'prepare_tracklist' => sub {
         # The release artist was changed, provide javascript with the original
         # release artist, so it knows which track artists to update.
         $self->c->stash->{release_artist_json} = $json->encode (
-            artist_credit_to_alternative_ref ($release->artist_credit));
+            artist_credit_to_ref ($release->artist_credit));
     }
 
     $self->c->model('Medium')->load_for_releases($self->release);
