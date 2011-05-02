@@ -127,7 +127,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             match: new RegExp("^(https?://)?([^/]+\.)?myspace\.com","i"),
             type: MB.constants.LINK_TYPES.myspace,
             clean: function(url) {
-                return url.replace(/^(https?:\/\/)?([^\/]+\.)?myspace\.com/, "http://www.myspace.com");
+                return url.replace(/^(https?:\/\/)?myspace\.com/, "http://www.myspace.com");
             }
         },
         purevolume: {
