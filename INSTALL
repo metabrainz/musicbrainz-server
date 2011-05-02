@@ -197,8 +197,8 @@ Creating the database
 
             ftp://ftp.musicbrainz.org/pub/musicbrainz/data/ngs/
 
-        To get going, you need at least the mbdump.tar.bz2 and
-        mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit
+        To get going, you need at least the mbdump.tar.bz2, mbdump-editor.tar.bz2
+        and mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit
         your needs. Assuming the dumps have been downloaded to /tmp/dumps/ you
         can import them with:
 
