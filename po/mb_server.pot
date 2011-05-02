@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-02 16:28+0100\n"
+"POT-Creation-Date: 2011-05-02 16:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4645,6 +4645,7 @@ msgstr ""
 
 #: ../root/edit/details/change_artist_quality.tt:7
 #: ../root/edit/details/change_release_quality.tt:7
+#: ../root/edit/details/historic/change_release_quality.tt:14
 #: ../root/release/change_quality.tt:5 ../root/release/sidebar.tt:47
 #, perl-format
 msgid "Quality:"
@@ -5168,6 +5169,7 @@ msgstr ""
 #: ../root/edit/details/historic/add_track_kv.tt:3
 #: ../root/edit/details/historic/add_track_old.tt:3
 #: ../root/edit/details/historic/change_release_group.tt:3
+#: ../root/edit/details/historic/change_release_quality.tt:4
 #: ../root/edit/details/historic/mac_to_sac.tt:3
 #: ../root/edit/details/historic/remove_disc_id.tt:3
 #: ../root/edit/details/historic/remove_release.tt:2
