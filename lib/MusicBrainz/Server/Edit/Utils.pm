@@ -109,13 +109,13 @@ sub clean_submitted_artist_credits
 
     # Remove empty artist credits.
     my @delete;
-    my $max = scalar @{ $ac } - 1;
-    for (0..$max)
+    my @names = @{ $ac->{names} };
+    for (0..$#names)
     {
-        my $part = $ac->[$_];
+        my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
-            push @delete, $_ unless ($part->{artist} || $part->{name});
+            push @delete, $_ unless ($part->{artist}->{id} || $part->{artist}->{name} || $part->{name});
         }
         elsif (! $part)
         {
@@ -125,7 +125,7 @@ sub clean_submitted_artist_credits
 
     for (@delete)
     {
-        delete $ac->[$_];
+        delete $ac->{names}->[$_];
     }
 
     return $ac;
@@ -189,12 +189,12 @@ sub status_names
     return %STATUS_NAMES
 }
 
-
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Oliver Charles
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -74,7 +74,7 @@ sub ref_to_type
         return $map{$_}
             if ($ref->isa("MusicBrainz::Server::Entity::$_"))
     }
-    warn "Could not resolve the type of $ref";
+
     return;
 }
 

@@ -294,6 +294,26 @@ sub load_meta
     }, @_);
 }
 
+
+sub load_for_artist_credits {
+    my ($self, @artist_credits) = @_;
+
+    return unless @artist_credits;
+
+    my %artist_ids;
+    for my $ac (@artist_credits)
+    {
+        map { $artist_ids{$_->artist_id} = 1 } $ac->all_names;
+    }
+
+    my $artists = $self->get_by_ids (keys %artist_ids);
+
+    for my $ac (@artist_credits)
+    {
+        map { $_->artist ($artists->{$_->artist_id}) } $ac->all_names;
+    }
+};
+
 sub load_for_works {
     my ($self, @works) = @_;
     return unless @works;

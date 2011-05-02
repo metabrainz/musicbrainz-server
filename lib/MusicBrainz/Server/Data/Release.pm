@@ -669,7 +669,9 @@ sub find_similar
     my @releases = map { $_->entity } @$results;
     $self->c->model('ArtistCredit')->load(@releases);
 
-    my %artist_ids = map { $_->{artist} => 1 } grep { ref($_) } @$artist_credit;
+    my %artist_ids = map { $_->{artist}->{id} => 1 }
+        grep { ref($_) } @{ $artist_credit->{names} };
+
     return
         # Make sure all the artists are in the artist credit
         grep {

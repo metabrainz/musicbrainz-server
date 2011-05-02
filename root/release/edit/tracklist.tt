@@ -66,7 +66,7 @@
       <td colspan="4">
         <div class="row">
           <label>[% l('Preview') %]</label>
-          <span class="artist-credit-preview">[% artist_credit(acfield.fif) %]</span>
+          <span class="artist-credit-preview">[% artist_credit(acfield.item) %]</span>
         </div>
       </td>
     </tr>
@@ -80,17 +80,17 @@
   </thead>
   <tbody>
 
-  [% FOR ac=acfield.field('names').fields %]
-    [% artistnum = loop.index %]
-    [% artist = acfield.fif.names.$artistnum.artist %]
+  [%- FOR ac=acfield.field('names').fields -%]
+    [%- artistnum = loop.index -%]
+    [%- artist = ac.field('artist').item -%]
     <tr class="artist-credit-box">
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
-          <input type="text" class="name" value="[% artist.name | html %]" />
+          [%- r.text (ac.field('artist').field('name'), class => 'name') -%]
           <img class="search" src="/static/images/icons/search.png" />
         </span>
         <input type="hidden" class="gid" value="[% artist.gid | html %]" />
-        [% r.hidden (ac.field('artist_id'), class => 'id') %]
+        [%- r.hidden (ac.field('artist').field('id'), class => 'id') -%]
       </td>
       <td class="artistcredit">
         <input type="text" class="credit" value="[% ac.field('name').value | html %]" />
@@ -121,10 +121,10 @@
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
-  [% USE r = FormRenderer(form) %]
-  [% USE w = Wizard() %]
-  [% information = w.page ('information') %]
-  [% release_artist = information.field('artist_credit') %]
+  [%- USE r = FormRenderer(form) -%]
+  [%- USE w = Wizard() -%]
+  [%- information = w.page ('information') -%]
+  [%- release_artist = information.field('artist_credit') -%]
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]

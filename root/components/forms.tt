@@ -110,7 +110,7 @@
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
           <input type="text" id="[% id %]" style="width: 262px"
-              value="[% html_escape(form.field('artist_credit').fif.name) %]" />
+              value="[% html_escape(form.field('artist_credit').item.name) %]" />
           <img class="search" src="/static/images/icons/search.png" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />

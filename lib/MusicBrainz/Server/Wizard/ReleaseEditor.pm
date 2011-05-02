@@ -445,10 +445,10 @@ sub prepare_missing_entities
     my $data = $self->_expand_mediums(clone($self->value));
 
     my @credits = map +{
-            for => $_->{name},
-            name => $_->{name},
-        }, uniq_by { $_->{name} }
-            $self->_misssing_artist_credits($data);
+            for => $_->{artist}->{name},
+            name => $_->{artist}->{name},
+        }, uniq_by { $_->{artist}->{name} }
+    $self->_misssing_artist_credits($data);
 
     my @labels = map +{
             for => $_->{name},
@@ -513,12 +513,13 @@ sub _missing_labels {
 sub _misssing_artist_credits
 {
     my ($self, $data) = @_;
+
     return
         (
             # Artist credit for the release itself
-            grep { !$_->{artist} } grep { ref($_) }
-            map { @{ clean_submitted_artist_credits($_) } }
-                $data->{artist_credit}
+            grep { !$_->{artist}->{id} }
+            grep { ref($_) }
+            @{ clean_submitted_artist_credits($data->{artist_credit})->{names} }
         ),
         (
             # Artist credits on new tracklists
@@ -544,15 +545,10 @@ sub create_edits
 
     unless ($previewing) {
         for my $bad_ac ($self->_misssing_artist_credits($data)) {
-            my $artist = $created{artist}{ $bad_ac->{name} }
+            my $artist = $created{artist}{ $bad_ac->{artist}->{name} }
                 or die 'No artist was created for ' . $bad_ac->{name};
 
-            # XXX Fix me
-            # Because bad_ac might refer to data in the form submisison
-            # OR an actual ArtistCredit object, we need to fill in both of these
-            # It's a horrible hack.
-            $bad_ac->{artist} = $artist;
-            $bad_ac->{artist_id} = $artist;
+            $bad_ac->{artist}->{id} = $artist;
         }
 
         for my $bad_label ($self->_missing_labels($data)) {
@@ -767,12 +763,16 @@ sub _edit_release_track_edits
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
             if ($new->{tracks}) {
+                $self->c->model('Artist')->load_for_artist_credits (
+                    map { $_->artist_credit } @{ $new->{tracks} });
                 $opts->{tracklist} = $new->{tracks};
             }
             elsif (my $tracklist_id = $new->{tracklist_id}) {
                 my $tracklist_entity = $self->c->model('Tracklist')->get_by_id($tracklist_id);
                 $self->c->model('Track')->load_for_tracklists($tracklist_entity);
                 $self->c->model('ArtistCredit')->load($tracklist_entity->all_tracks);
+                $self->c->model('Artist')->load_for_artist_credits (
+                    map { $_->artist_credit } $tracklist_entity->all_tracks);
                 $opts->{tracklist} = $tracklist_entity->tracks;
             }
             else {
@@ -954,6 +954,7 @@ sub _expand_mediums
             my $tracklist = $self->c->model('Tracklist')->get_by_id ($tracklist_id);
             $self->c->model('Track')->load_for_tracklists ($tracklist);
             $self->c->model('ArtistCredit')->load ($tracklist->all_tracks);
+            $self->c->model('Artist')->load ($tracklist->all_tracks);
 
             my $pos = 0;
             $disc->{tracks} = [ map {

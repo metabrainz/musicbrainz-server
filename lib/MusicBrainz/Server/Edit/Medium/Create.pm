@@ -104,7 +104,7 @@ sub _insert_hash {
     # Create related data (artist credits and recordings)
     my $tracklist = delete $data->{tracklist};
     for my $track (@$tracklist) {
-        $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
+        $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit});
         $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
     }
 
