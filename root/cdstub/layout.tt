@@ -4,7 +4,7 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- USE Age -%]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Date added:')
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Added:')
                content=age(cdstubtoc.cdstub.date_added) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Last modified:')
                content=age(cdstubtoc.cdstub.last_modified) -%]
