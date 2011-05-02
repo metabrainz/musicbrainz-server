@@ -59,6 +59,9 @@ echo `date`" : Processing subscriptions"
 # Recalculate related tags
 ./admin/CalculateRelatedTags.sh
 
+echo `date`": Updating cover art links"
+./admin/RebuildCoverArtUrls.pl
+
 echo `date`" : Nightly jobs complete!"
 
 # eof
