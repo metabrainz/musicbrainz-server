@@ -259,11 +259,9 @@ sub find_by_recording
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      $join_types
-                 WHERE release.id IN (
-                    SELECT release FROM medium
-                        JOIN track ON track.tracklist = medium.tracklist
-                        JOIN recording ON recording.id = track.recording
-                     WHERE recording.id IN (" . placeholders(@ids) . "))
+                     JOIN medium ON medium.release = release.id
+                     JOIN track ON track.tracklist = medium.tracklist
+                 WHERE track.recording IN (" . placeholders(@ids) . ")
                  $where_statuses
                  $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
