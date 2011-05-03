@@ -82,9 +82,9 @@ sub display_tracklist {
                 length => $_->{length},
                 artist_credit => artist_credit_preview ($loaded, $_->{artist_credit}),
                 position => $_->{position},
-                recording => $_->{recording_id} ? 
-                    $loaded->{Recording}{ $_->{recording_id} } :
-                    Recording->new( name => $_->{name} )
+                recording => !$_->{recording_id} || !$loaded->{Recording}{ $_->{recording_id} } ?
+                    Recording->new( name => $_->{name} ) : 
+                    $loaded->{Recording}{ $_->{recording_id} }
             )
         } sort { $a->{position} <=> $b->{position} } @$tracklist ]
     )

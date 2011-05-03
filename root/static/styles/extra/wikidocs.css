@@ -7,24 +7,24 @@
     margin-top: 1em;
 }
 
-dt {
+.wikicontent dt {
     margin-top: 5px;
     font-weight: bold;
 }
 
-dd {
+.wikicontent dd {
     margin: 0 0 5px 0;
     padding-left: 20px;
 }
 
-hr {
+.wikicontent hr {
     border: none;
     background-color: #CCCCCC;
     height: 1px;
     margin: 2px 0;
 }
 
-pre {
+.wikicontent pre {
     padding: 0.5em 1em;
     background: #DDDDDD;
     overflow: auto;
@@ -32,14 +32,15 @@ pre {
     border-left: 5px solid #FC6714;
 }
 
-code {
+.wikicontent code {
     background-color: #DDDDDD;
 }
 
 /* 
 ** Images 
 */
-div.floatright, table.floatright {
+.wikicontent div.floatright,
+.wikicontent table.floatright {
 	clear: right;
 	float: right;
 	position: relative;
@@ -47,7 +48,8 @@ div.floatright, table.floatright {
 	border: 0;
 }
 
-div.floatleft, table.floatleft {
+.wikicontent div.floatleft,
+.wikicontent table.floatleft {
 	float: left;
 	clear: left;
 	position: relative;
@@ -55,13 +57,14 @@ div.floatleft, table.floatleft {
 	border: 0;
 }
 
-div.floatright p { font-style: italic; }
-div.floatleft p { font-style: italic; }
+.wikicontent div.floatright p { font-style: italic; }
+.wikicontent div.floatleft p { font-style: italic; }
 
 /*
 ** TOC
 */
-#toc, .toc {
+.wikicontent #toc,
+.wikicontent .toc {
     background-color: #F9F9F9;
     border: 1px solid #AAAAAA;
     font-size: 95%;
@@ -73,18 +76,21 @@ div.floatleft p { font-style: italic; }
 /* For pages that have no content between the h1 and the TOC */
 h1 + #toc, h1 + .toc { margin-top: 1em; }
 
-#toc #toctitle, .toc #toctitle,
-#toc .toctitle, .toc .toctitle {
+.wikicontent #toc #toctitle,
+.wikicontent .toc #toctitle,
+.wikicontent #toc .toctitle,
+.wikicontent .toc .toctitle {
     text-align:center;
 }
 
-#toc h2 {
+.wikicontent #toc h2 {
     color: #000000;
     font-size: 100%;
     margin: 0 0 5px 0;
 }
 
-#toc ul, .toc ul {
+.wikicontent #toc ul,
+.wikicontent .toc ul {
     margin: 0;
     padding-left: 0;
     list-style-type: none;
@@ -92,12 +98,13 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
     line-height: 150%;
 }
 
-#toc ul ul, .toc ul ul {
+.wikicontent #toc ul ul,
+.wikicontent .toc ul ul {
     margin-left: 20px;
 }
 
 /* header section (only shown for unofficial pages) */
-.wikidocs-header {
+.wikicontent .wikidocs-header {
     border-bottom: 2px dotted #CCCCCC;
     margin: 5px 0 10px;
     padding-bottom: 5px;
@@ -105,7 +112,7 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 }
 
 /* footer section */
-.wikidocs-footer {
+.wikicontent .wikidocs-footer {
     border-top: 2px dotted #CCCCCC;
     margin-top: 10px;
     padding-top: 5px;
@@ -117,15 +124,15 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 ** wikitable class for skinning tables,
 ** table[border^=1] added for backwards support
 */
-table[border^="1"],
-table.wikitable {
+.wikicontent table[border^="1"],
+.wikicontent table.wikitable {
     border-collapse: collapse;
     border: 1px solid #ADB9CC;
     margin: 1em 1em 1em 0;
 }
 
-table[border^="1"] th,
-table.wikitable th {
+.wikicontent table[border^="1"] th,
+.wikicontent table.wikitable th {
     border: 1px solid #ADB9CC;
     background: #F1F1F1;
     text-align: right;
@@ -133,25 +140,25 @@ table.wikitable th {
     font-size: 110%;
 }
 
-table[border^="1"] tr:first-child th,
-table.wikitable tr:first-child th {
+.wikicontent table[border^="1"] tr:first-child th,
+.wikicontent table.wikitable tr:first-child th {
     text-align: center;
 }
 
-table[border^="1"] td,
-table.wikitable td {
+.wikicontent table[border^="1"] td,
+.wikicontent table.wikitable td {
     border: 1px solid #ADB9CC;
     padding: 3px 5px;
 }
 
 /* This will look nice for the few browsers that do/will support nth-child */
-table[border^="1"] tr:nth-child(odd) td,
-table.wikitable tr:nth-child(odd) td {
+.wikicontent table[border^="1"] tr:nth-child(odd) td,
+.wikicontent table.wikitable tr:nth-child(odd) td {
     background: #FAFAFA;
 }
 
-table[border^="1"] caption,
-.wikitable caption {
+.wikicontent table[border^="1"] caption,
+.wikicontent .wikitable caption {
     margin-bottom: 5px;
     font-weight: bold;
 }

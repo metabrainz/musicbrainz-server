@@ -2,7 +2,6 @@ package MusicBrainz::Server::Controller::WS::1::Collection;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 use MusicBrainz::Server::Validation;
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';

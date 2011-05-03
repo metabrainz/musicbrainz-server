@@ -7,31 +7,33 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity list_of);
 
 sub element { 'track'; }
 
-before 'serialize' => sub
+sub serialize
 {
     my ($self, $entity, $inc, $opts) = @_;
+    my @body;
 
-    $self->add( $self->gen->title($entity->name) );
-    $self->add( $self->gen->duration($entity->length) ) if $entity->length;
+    push @body, ( $self->gen->title($entity->name) );
+    push @body, ( $self->gen->duration($entity->length) ) if $entity->length;
 
-    $self->add( ArtistCredit->new->serialize($entity->artist_credit) )
+    push @body, ( serialize_entity($entity->artist_credit) )
         if $entity->artist_credit;
 
     $inc && $inc->artist(0);
 
-    $self->add( List->new->serialize($entity->isrcs) )
+    push @body, ( list_of($entity->isrcs) )
         if $inc && $inc->isrcs;
 
-    $self->add( List->new->serialize([ map { $_->puid } @{ $entity->puids} ]) )
+    push @body, ( list_of([ map { $_->puid } @{ $entity->puids} ]) )
         if $inc && $inc->puids;
 
-    $self->add( List->new->serialize($opts->{releases}) )
+    push @body, ( list_of($opts->{releases}) )
         if $inc && $inc->releases;
+
+    return @body;
 };
 
 __PACKAGE__->meta->make_immutable;

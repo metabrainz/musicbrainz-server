@@ -1,11 +1,6 @@
 [% BLOCK layout_head %]
-   <script type="text/javascript" src="[%-
-     c.model('FileCache').squash_scripts(
-       "scripts/MB/Control/URLCleanup.js",
-       "scripts/MB/html.js",
-       "scripts/ar.js",
-     ) -%]">
-   </script>
+  [% script_manifest('edit.js.manifest') %]
+
    <script type="text/javascript">
     $('document').ready(function() {
       MB.Control.URLCleanup(

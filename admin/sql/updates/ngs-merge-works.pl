@@ -274,6 +274,10 @@ Sql::run_in_transaction(sub {
 
         # Get a list of IDs to merge
         my @old_ids = grep { $_ != $new_id } @ids;
+        unless(@old_ids) {
+            printf STDERR "Skipping work $new_id\n";
+            next;
+        }
 
         # Add them to the database
         printf LOG "Merging %s to %s\n", join(',', @old_ids), $new_id;

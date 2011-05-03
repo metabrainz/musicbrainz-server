@@ -5,10 +5,9 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'release'; }
 
-before 'serialize' => sub
-{
+sub serialize {
     my ($self, $entity, $inc, $opts) = @_;
-    $self->add(
+    return (
         $self->gen->title($entity->title),
         $self->gen->artist(
             $self->gen->name($entity->artist)
@@ -19,10 +18,10 @@ before 'serialize' => sub
                     $self->gen->title($_->title),
                     $self->gen->duration($_->length)
                 )
-            } $entity->all_tracks 
+            } $entity->all_tracks
         )
     );
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

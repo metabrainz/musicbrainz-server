@@ -25,14 +25,8 @@ OUTPUT=`
     ./admin/CheckVotes.pl --verbose --summary --ignore-deadlocks 2>&1
 ` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
 
-./admin/RemoveOldSessions > /dev/null
-
 OUTPUT=`
     ./admin/RunExport 2>&1
-` || echo "$OUTPUT"
-
-OUTPUT=`
-    ./admin/SubscribeAutomodsToList 2>&1
 ` || echo "$OUTPUT"
 
 # eof

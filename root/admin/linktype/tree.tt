@@ -1,5 +1,5 @@
 [%- BLOCK layout_head -%]
-  <script type="text/javascript" src="[%- c.model('FileCache').squash_scripts("scripts/MB/reltypeslist.js") -%]"></script>
+  [% script_manifest('edit.js.manifest') %]
 [%- END -%]
 
 [% BLOCK link_type %]

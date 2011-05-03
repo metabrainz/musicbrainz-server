@@ -35,8 +35,6 @@ sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 # Where static files are located
 sub STATIC_FILES_DIR { MB_SERVER_ROOT . '/root/static' }
-# HTTP Path where static files reside
-sub STATIC_PREFIX { '/static' }
 
 ################################################################################
 # The Database
@@ -347,6 +345,11 @@ sub SESSION_STORE_ARGS
 sub USE_ETAGS { 1 }
 
 sub CATALYST_DEBUG { 1 }
+
+# If you are developing on MusicBrainz, you should set this to a true value
+# This will turn off some optimizations (such as CSS/JS compression) to make
+# developing and debuging easier
+sub DEVELOPMENT_SERVER { 0 }
 
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
