@@ -55,7 +55,10 @@ fieldset legend {
     font-weight: bold;
 }
 
-#sidebar h2 { font-size: 100% }
+#sidebar h2 {
+    font-size: 100%;
+    margin-left: -5px;
+}
 
 h3 {
     margin-top: 1em;
@@ -354,7 +357,7 @@ div.warning img.warning {
 
 #sidebar ul.links {
     margin: 0;
-    padding-left: 2em;
+    padding-left: 1.5em;
 }
 
 #sidebar ul.links hr {
