@@ -99,23 +99,33 @@
 
     [% IF c.user_exists %]
         <h2>[% l('Collections') %]</h2>
-        <ul class="links">
-            [%- IF collections.size > 0 -%]
+        [%- IF collections.size > 0 -%]
+            <ul class="links">
             [% FOREACH collection IN collections %]
-                <li>[% link_collection(collection) %]
+                <li>
                 [% IF containment.${collection.id} %]
-                    (<a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
-                        [%- l('remove') %]</a>)
+                    <a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
+                        [%- IF collections.size == 1 -%]
+                            [%- l('Remove from my collection') -%]
+                        [%- ELSE -%]
+                            [%- l('Remove from {collection}', { collection => collection.name }) %]
+                        [%- END -%]
+                    </a>
                 [% ELSE %]
-                    (<a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) %]">
-                        [%- l('add') %]</a>)
+                    <a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) %]">
+                    [%- IF collections.size == 1 -%]
+                        [%- l('Add to my collection') -%]
+                    [%- ELSE -%]
+                        [%- l('Add to {collection}', {collection => collection.name }) %]
+                    [%- END -%]
+                    </a>
                 [% END %]
                 </li>
             [% END %]
-            [% ELSE %]
-                <li>[% l("You have no collections. {uri|Create one}", {uri => c.uri_for_action("/collection/create")}) %]</li>
-            [% END %]
-        </ul>
+            </ul>
+        [% ELSE %]
+            [% l("You have no collections. {uri|Create one!}", {uri => c.uri_for_action("/collection/create")}) %]
+        [% END %]
     [% END %]
 
     [% INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release %]
