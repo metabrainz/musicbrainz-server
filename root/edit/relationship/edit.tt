@@ -45,6 +45,13 @@
 var typeInfo = [% type_info %];
 </script>
 
+    [% IF exists %]
+        <p><strong>[% l('A relationship between {entity0} and {entity1} already
+                         exists with these attributes.',
+                        { entity0 => link_entity(rel.entity0),
+                          entity1 => link_entity(rel.entity1) }) %]</strong></p>
+    [% END %]
+
 <fieldset>
     <legend>[% l('Relationship Details') %]</legend>
 
