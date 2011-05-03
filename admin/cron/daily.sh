@@ -43,7 +43,7 @@ fi
 # Create the reports
 echo `date`" : Running reports"
 OUTPUT=`
-    nice ./admin/reports/RunReports 2>&1
+    nice ./admin/RunReports.pl 2>&1
 ` || echo "$OUTPUT"
 
 # Add missing track lengths
