@@ -74,6 +74,22 @@ Images:
     icons/rating_star.gif
     icons/rating_star_small.gif
 
+
+----------------------------------------------------------------------------
+
+Source:      jQuery UI
+Authors:     jQuery UI Authors (http://jqueryui.com/about)
+License:     MIT/GPLv2
+Notes:
+
+    Originally located at demos/autocomplete/images/ui-anim_basic_16x16.gif
+    in the jQuery UI distribution (if the autocomplete component is selected
+    during the download).
+
+Images:
+
+    icons/loading.gif
+
 ----------------------------------------------------------------------------
 
 Source:      MusicBrainz
