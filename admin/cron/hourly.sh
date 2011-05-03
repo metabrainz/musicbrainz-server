@@ -22,7 +22,7 @@ fi
 . ./admin/functions.sh
 
 OUTPUT=`
-    ./admin/CheckVotes.pl --verbose --summary --ignore-deadlocks 2>&1
+    ./admin/CheckVotes.pl --verbose --summary 2>&1
 ` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
 
 OUTPUT=`
