@@ -352,11 +352,6 @@ sub linked_works
         }
     }
 
-    if ($c->stash->{inc}->artist_credits)
-    {
-        $c->model('ArtistCredit')->load(@$works);
-    }
-
     $self->_tags_and_ratings($c, 'Work', $works, $stash);
 }
 
