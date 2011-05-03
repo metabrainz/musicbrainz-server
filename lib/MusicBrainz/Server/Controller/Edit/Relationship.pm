@@ -3,6 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIP_EDIT
@@ -128,7 +129,7 @@ sub edit : Local RequireAuth Edit
             begin_date        => $values->{begin_date},
             end_date          => $values->{end_date},
             change_direction  => $values->{direction},
-            attributes        => \@attributes
+            attributes        => [uniq @attributes],
         );
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
@@ -214,7 +215,7 @@ sub create : Local RequireAuth Edit
             link_type_id => $form->field('link_type_id')->value,
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
-            attributes => \@attributes,
+            attributes => [uniq @attributes],
             entity0 => $entity0->id,
             entity1 => $entity1->id,
         })) {
@@ -235,7 +236,7 @@ sub create : Local RequireAuth Edit
             begin_date   => $form->field('begin_date')->value,
             end_date     => $form->field('end_date')->value,
             link_type    => $link_type,
-            attributes   => \@attributes,
+            attributes   => [uniq @attributes],
         );
 
         my $redirect = $c->controller(type_to_model($type0))->action_for('show');
