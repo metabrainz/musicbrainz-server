@@ -71,6 +71,7 @@ sub edit : Local RequireAuth Edit
     $c->stash(
         root => $tree,
         type_info => JSON->new->latin1->encode(\%type_info),
+        rel => $rel
     );
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
@@ -124,6 +125,18 @@ sub edit : Local RequireAuth Edit
             push @attributes, scalar($attr->all_children)
                 ? @$value
                 : $value ? $attr->id : ();
+        }
+
+        if ($c->model('Relationship')->exists($type0, $type1, {
+            link_type_id => $values->{link_type_id},
+            begin_date   => $values->{begin_date},
+            end_date     => $values->{end_date},
+            attributes   => [uniq @attributes],
+            entity0      => $values->{entity0}->{id},
+            entity1      => $values->{entity1}->{id},
+        })) {
+            $c->stash( exists => 1 );
+            $c->detach;
         }
 
         my $values = $form->values;
