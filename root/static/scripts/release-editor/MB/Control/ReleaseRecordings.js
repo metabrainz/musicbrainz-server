@@ -210,8 +210,6 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
         self.parent.parent.bc.add ($target, $container);
 
         $container.bind ('bubbleOpen.mb', function (event) {
-            console.log ('confirmed?', self.$confirmed.val ());
-
             if (self.$confirmed.val ())
             {
                 $target.text (MB.text.Done).removeClass ('negative');
