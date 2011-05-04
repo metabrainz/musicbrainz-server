@@ -1,7 +1,4 @@
 [%- BLOCK layout_head -%]
-  <link rel="stylesheet" type="text/css" href="[%-
-      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
-
   <script type="text/javascript">
     $('document').ready (function () {
        MB.utility.setDefaultAction ('form.release-editor', '#id-save');

@@ -1160,7 +1160,7 @@ sub _expand_mediums
                 $self->_expand_track ($_, $rec);
             } @{ $self->edited_tracklist($json->decode($edits)) } ];
         }
-        else
+        elsif ($tracklist_id)
         {
             my $tracklist = $self->c->model('Tracklist')->get_by_id ($tracklist_id);
             $self->c->model('Track')->load_for_tracklists ($tracklist);

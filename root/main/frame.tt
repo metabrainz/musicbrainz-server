@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' full_width=1 -%]
     <div id="content">
-        <h1>Google Chrome Frame</h1>
+        <h1>[% l('Google Chrome Frame') %]</h1>
         <p>
            [% l("Google Chrome Frame is a plug-in that seamlessly brings Google Chrome's
                  open web technologies and speedy JavaScript engine to Internet Explorer.

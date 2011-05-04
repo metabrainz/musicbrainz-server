@@ -1,14 +1,7 @@
 [%- BLOCK layout_head -%]
-  <link rel="stylesheet" type="text/css" href="[%-
-      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('release-editor.js.manifest') %]
 
-  <script type="text/javascript" src="[%-
-      c.model('FileCache').squash_scripts(
-        "scripts/MB/Control/ArtistCredit.js",
-        "scripts/MB/Control/Bubble.js",
-        "scripts/MB/Control/ReleaseInformation.js",
-      )
-  -%]"></script>
   <script type="text/javascript">
     $('document').ready (function () {
 
@@ -35,7 +28,7 @@
   <div class="half-width">
     [% r.hidden ('wizard_session_id') %]
     <fieldset>
-      <legend>Release information</legend>
+      <legend>[% l('Release information') %]</legend>
       [% form_row_text (r, 'name') %]
       [% r.hidden ('release_group_id') %]
       <div class="row">
@@ -62,10 +55,10 @@
     </fieldset>
 
     <fieldset>
-      <legend>Release event</legend>
+      <legend>[% l('Release event') %]</legend>
 
       [% WRAPPER form_row %]
-         <label for="release-date">Date</label>
+         <label for="release-date">[% l('Date') %]</label>
          [% r.date('date') %]
       [% END %]
 
@@ -109,7 +102,7 @@
     </fieldset>
 
     <fieldset class="information">
-      <legend>Additional information</legend>
+      <legend>[% l('Additional information') %]</legend>
       [% form_row_textarea(r, 'annotation', l('Annotation')) %]
       [% form_row_text(r, 'comment', l('Comment')) %]
     </fieldset>

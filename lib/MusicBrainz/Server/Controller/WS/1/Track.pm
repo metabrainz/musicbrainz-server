@@ -237,7 +237,9 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->releases) {
-        my @releases = $c->model('Release')->find_by_recording($track->id);
+        my @releases = map { @$_ } values %{
+            {$c->model('Release')->find_by_recordings($track->id)}
+        };
 
         $c->model('ReleaseStatus')->load(@releases);
         $c->model('ReleaseGroup')->load(@releases);

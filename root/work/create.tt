@@ -1,28 +1,7 @@
 [%- BLOCK layout_head -%]
-  <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
+  [% script_manifest('guess-case.js.manifest') %]
+  [% script_manifest('edit.js.manifest') %]
 
-  <script type="text/javascript" src="[%-
-    c.model('FileCache').squash_scripts(
-      "lib/jquery.ui/ui/jquery-ui-1.8.6.custom.js",
-      "scripts/MB/utility.js",
-      "scripts/MB/GuessCase/Handler/Base.js",
-      "scripts/MB/GuessCase/Handler/Work.js",
-      "scripts/MB/GuessCase/Mode/Base.js",
-      "scripts/MB/GuessCase/Mode/Classical.js",
-      "scripts/MB/GuessCase/Mode/English.js",
-      "scripts/MB/GuessCase/Mode/French.js",
-      "scripts/MB/GuessCase/Mode/Sentence.js",
-      "scripts/MB/GuessCase/Input.js",
-      "scripts/MB/GuessCase/Output.js",
-      "scripts/MB/GuessCase/Flags.js",
-      "scripts/MB/GuessCase/Utils.js",
-      "scripts/MB/GuessCase/Modes.js",
-      "scripts/MB/GuessCase/Main.js",
-      "scripts/MB/GuessCase/Work.js",
-      "scripts/MB/Control/Autocomplete.js",
-      "scripts/MB/Control/Bubble.js",
-      "scripts/MB/Control/GuessCase.js",
-    ) -%]"></script>
   <script type="text/javascript">
     $('document').ready(function() {
 
@@ -34,8 +13,9 @@
 [%- END -%]
 
 [% WRAPPER 'layout.tt' title=l('Add Work') full_width=1 %]
+   <h1>[%- l('Add Work') -%]</h1>
    [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page.") ) -%]
+     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
 
    [% INCLUDE 'work/edit_form.tt' %]

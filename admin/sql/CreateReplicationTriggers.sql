@@ -364,10 +364,6 @@ CREATE TRIGGER "reptg_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_tag_relation"
-AFTER INSERT OR DELETE OR UPDATE ON "tag_relation"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 CREATE TRIGGER "reptg_track"
 AFTER INSERT OR DELETE OR UPDATE ON "track"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

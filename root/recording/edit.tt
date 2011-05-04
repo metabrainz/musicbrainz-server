@@ -1,24 +1,7 @@
 [%- BLOCK layout_head -%]
-  <script type="text/javascript" src="[%-
-    c.model('FileCache').squash_scripts(
-      "scripts/MB/GuessCase/Handler/Base.js",
-      "scripts/MB/GuessCase/Handler/Track.js",
-      "scripts/MB/GuessCase/Mode/Base.js",
-      "scripts/MB/GuessCase/Mode/Classical.js",
-      "scripts/MB/GuessCase/Mode/English.js",
-      "scripts/MB/GuessCase/Mode/French.js",
-      "scripts/MB/GuessCase/Mode/Sentence.js",
-      "scripts/MB/GuessCase/Input.js",
-      "scripts/MB/GuessCase/Output.js",
-      "scripts/MB/GuessCase/Flags.js",
-      "scripts/MB/GuessCase/Utils.js",
-      "scripts/MB/GuessCase/Modes.js",
-      "scripts/MB/GuessCase/Main.js",
-      "scripts/MB/GuessCase/Track.js",
-      "scripts/MB/Control/ArtistCredit.js",
-      "scripts/MB/Control/Bubble.js",
-      "scripts/MB/Control/GuessCase.js",
-    ) -%]"></script>
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('guess-case.js.manifest') %]
+
   <script type="text/javascript">
     $('document').ready(function() {
 
@@ -33,7 +16,7 @@
 [% WRAPPER 'recording/layout.tt' full_width=1 title=l('Edit recording') page='edit' %]
 
    [%- IF no_javascript -%]
-     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page.") ) -%]
+     [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
 
    [% INCLUDE 'recording/edit_form.tt' %]

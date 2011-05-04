@@ -2,19 +2,25 @@ package MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags;
 use Moose::Role;
 use namespace::autoclean;
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 
-before 'serialize' => sub
+around serialize => sub
 {
-    my ($self, $entity, $inc, $data) = @_;
+    my ($orig, $self, $entity, $inc, $data) = @_;
+    my @body = $self->$orig($entity, $inc, $data);
 
-    $self->add( List->new(sort => sub { $_->tag->name } )
-                    ->serialize($data->{tags}) )
+    push @body, (
+        list_of([ sort_by { $_->tag->name } @{ $data->{tags} } ])
+    )
         if $inc && $inc->tags;
 
-    $self->add( List->new(sort => sub { $_->tag->name } )
-                    ->serialize($data->{user_tags}) )
+    push @body, (
+        list_of([ sort_by { $_->tag->name } @{ $data->{user_tags} } ])
+    )
         if $inc && $inc->user_tags;
+
+    return @body
 };
 
 1;

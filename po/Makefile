@@ -6,46 +6,36 @@ TT=$(sort $(shell find ../root -type f -name \*.tt))
 POFILES=$(wildcard *.po)
 MOFILES=$(POFILES:.po=.mo)
 
-all: mb_server.pot mo check
+all: $(MOFILES) check
 
-mo: $(MOFILES)
+install: $(MOFILES)	
+	@for file in $(MOFILES); do \
+	     	lang=`echo $$file | sed 's/\.mo//'`; \
+		install -d ../lib/LocaleData/$$lang/LC_MESSAGES/; \
+		echo "Installing $$file to ../lib/LocaleData/$$lang/LC_MESSAGES/mb_server.mo"; \
+		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/mb_server.mo; \
+	done
 
-install: all
-    @for file in $(MOFILES); do \
-        lang=`echo $$file | sed 's/\.mo//'`; \
-        install -d ../lib/LocaleData/$$lang/LC_MESSAGES/; \
-        echo "Installing $$file to ../lib/LocaleData/$$lang/LC_MESSAGES/mb_server.mo"; \
-        install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/mb_server.mo; \
-    done
-
-mb_server.pot: $(POTFILES)
-    @if perl -e '($$ver)=`xgettext -V | head -n 1`=~/.*\s+([0-9]+\.[0-9]+)/; die "gettext $$ver too old, not updating the pot file\n" if $$ver < 0.16'; then \
-        echo "Rebuilding the .pot file"; \
-        echo "- Update templates .pot"; \
-        ./extract_pot $(TT) | msguniq -s > mb_server.pot; \
-        xgettext --from-code utf-8 --keyword=__ --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES) ; \
-    fi
+mb_server.pot: $(POTFILES) $(TT)
+	@echo "Rebuilding the .pot file"; 
+	@echo "- Update templates' .pot"; 
+	@find ../root -type f -name \*.tt | sort | ./extract_pot | msguniq -s > mb_server.pot;
+	@echo "- Update code .pot"
+	@xgettext --from-code utf-8 --keyword=__ --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
 
 clean:
-    rm -f $(MOFILES)
+	rm -f $(MOFILES)
 
 %.mo: %.po
-    @msgfmt -o $@ $<
+	@msgfmt -o $@ $<
 
 %.po: mb_server.pot
-    @echo -n "Merging $@"
-    @msgmerge $@ mb_server.pot -o $@.new 2>&1
-# Typically all that changes was a date or line number. I'd prefer not to
-# commit such changes, so detect and ignore them.
-    @if [ "`diff $@ $@.new | grep '[<>]' | grep -v '[<>] #:' | wc -l`" -ne 2 ]; then \
-        mv -f $@.new $@; \
-    else \
-        rm -f $@.new; \
-    fi
+	@echo -n "Merging $@"
+	@msgmerge $@ mb_server.pot -o $@.new 2>&1
 
 check:
-    @for file in $(POFILES); do \
-        lang=`echo $$file | sed 's/\.po//'`; \
-        printf "$$lang: "; \
-        msgfmt -o /dev/null -c -v --statistics $$lang.po;\
-    done
+	@for file in $(POFILES); do \
+		lang=`echo $$file | sed 's/\.po//'`; \
+		printf "$$lang: "; \
+		msgfmt -o /dev/null -c -v --statistics $$lang.po;\
+	done

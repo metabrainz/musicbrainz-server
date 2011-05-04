@@ -4,17 +4,16 @@
         tag_links.push(link_tag(tag.tag));
     END;
     IF more;
-        tag_links.push(link_entity(entity, 'tags', l('more&hellip;')));
+        tag_links.push(link_entity(entity, 'tags', l('more…')));
     END;
     tag_links.join(', ');
 END -%]
 
-<script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
 <script type="text/javascript">
     $(function() {
         MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
             "[% c.uri_for('/tag/') %]",
-            '[% link_entity(entity, 'tags', l('more&hellip;')).replace("'", "\\'").replace('</', '<\/') %]');
+            '[% link_entity(entity, 'tags', l('more…')).replace("'", "\\'").replace('</', '<\/') %]');
     });
 </script>
 
@@ -24,7 +23,7 @@ END -%]
     <span class="tags">
       [% tag_list(tags, more, entity) %]
       [% UNLESS tags.size %]
-      (none)
+      [%- l('(none)') -%]
       [% END %]
     </span>
     </p>

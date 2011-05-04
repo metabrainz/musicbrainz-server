@@ -42,67 +42,67 @@
     [%- END -%]
 [%- END -%]
 
-[% BLOCK form_row %]
+[%- BLOCK form_row -%]
     <div class="row" [% IF row_id %]id="[% row_id %]"[% END %]>
       [% content %]
     </div>
-[% END %]
+[%- END -%]
 
-[% MACRO form_row_text(r, field_name, label) BLOCK %]
+[%- MACRO form_row_text(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.text(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
-[% END %]
+[%- END -%]
 
-[% MACRO form_row_text_long(r, field_name, label) BLOCK %]
+[%- MACRO form_row_text_long(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.text(field_name, { size => 47 })  %]
       [% field_errors(form, field_name) %]
     [% END %]
-[% END %]
+[%- END -%]
 
-[% MACRO form_row_textarea(r, field_name, label) BLOCK %]
+[%- MACRO form_row_textarea(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.textarea(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
-[% END %]
+[%- END -%]
 
-[% MACRO form_row_password(r, field_name, label) BLOCK %]
+[%- MACRO form_row_password(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.password(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
-[% END %]
+[%- END -%]
 
-[% MACRO form_row_checkbox(r, field_name, label) BLOCK %]
+[%- MACRO form_row_checkbox(r, field_name, label) BLOCK -%]
     <div class="row no-label">
       [% r.checkbox(field_name) %]
       [% r.label(field_name, label || r.form.field(field_name).label, inline => 1) %]
       [% field_errors(r.form, field_name) %]
     </div>
-[% END %]
+[%- END -%]
 
-[% MACRO form_row_select(r, field_name, label) BLOCK %]
+[%- MACRO form_row_select(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.select(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
-[% END %]
+[%- END -%]
 
-[% MACRO form_row_date(r, field_name, label) BLOCK %]
+[%- MACRO form_row_date(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, fake => 1) %]
       [% r.date(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
-[% END %]
+[%- END -%]
 
 [%- MACRO form_row_artist_credit(form, id) BLOCK -%]
     [%- id = id || 'entity-artist' -%]
@@ -120,7 +120,7 @@
 
 [%- MACRO guesscase BLOCK -%]
   <fieldset class="guesscase">
-    <legend>Guess case</legend>
+    <legend>[% l('Guess case') %]</legend>
     <div style="float: right; margin: 10px;" class="buttons">
       <a href="#guesscase">[% l('Guess case') %]</a>
     </div>
@@ -193,7 +193,7 @@
         [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) -%]
       </p>
       <div class="row">
-        <label>Preview</label>
+        <label>[% l('Preview') %]</label>
         <span class="artist-credit-preview">[% artist_credit(acfield.fif) %]</span>
       </div>
 

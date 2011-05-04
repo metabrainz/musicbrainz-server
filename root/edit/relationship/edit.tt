@@ -1,11 +1,6 @@
-[% BLOCK layout_head %]
-  <script type="text/javascript" src="[%-
-      c.model('FileCache').squash_scripts(
-        "scripts/MB/html.js",
-        "scripts/MB/Control/RelationshipEdit.js",
-        "scripts/ar.js",
-      )
-  -%]"></script>
+[%- BLOCK layout_head -%]
+  [% script_manifest('edit.js.manifest') %]
+
   <script type="text/javascript">
     $('document').ready (function () {
 
@@ -50,6 +45,13 @@
 var typeInfo = [% type_info %];
 </script>
 
+    [% IF exists %]
+        <p><strong>[% l('A relationship between {entity0} and {entity1} already
+                         exists with these attributes.',
+                        { entity0 => link_entity(rel.entity0),
+                          entity1 => link_entity(rel.entity1) }) %]</strong></p>
+    [% END %]
+
 <fieldset>
     <legend>[% l('Relationship Details') %]</legend>
 
@@ -68,7 +70,7 @@ var typeInfo = [% type_info %];
             [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
               <span id="change-direction">
               [%- IF no_javascript -%]
-                  [% r.checkbox('direction') %] Change direction
+                  [% r.checkbox('direction') %] [% l('Change direction') %]
               [%- ELSE -%]
                   [% r.hidden('direction') %]
                   <input type="button" id="changedirection" value="[% l('Change direction') %]" />

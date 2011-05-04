@@ -62,7 +62,7 @@ around 'search' => sub
             $c->model('Language')->load(@releases);
             $c->model('Script')->load(@releases);
             $c->model('Country')->load(@releases);
-            $c->model('Relationship')->load_subset([ 'url '], @releases);
+            $c->model('Relationship')->load_subset([ 'url' ], @releases);
 
             $c->model('Medium')->load_for_releases(@releases);
 
@@ -147,7 +147,7 @@ sub lookup : Chained('load') PathPart('')
             if ($c->stash->{inc}->puids);
 
         if ($c->stash->{inc}->track_level_rels) {
-            $self->load_relationships($c, $_) for @recordings;
+            $self->load_relationships($c, @recordings);
         }
     }
 

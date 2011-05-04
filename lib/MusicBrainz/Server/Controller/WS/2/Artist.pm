@@ -104,6 +104,7 @@ sub artist_toplevel
     if ($c->stash->{inc}->works)
     {
         my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
+        $results[0] = [ map { @{ $_->{works} } } @{ $results[0] } ];
         $opts->{works} = $self->make_list (@results);
 
         $self->linked_works ($c, $stash, $opts->{works}->{items});

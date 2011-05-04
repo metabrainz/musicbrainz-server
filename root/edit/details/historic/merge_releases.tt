@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <th>[%- ln('Old release:', 'Old releases:', edit.display_data.releases.size) %]</th>
+    <th>[%- l('Old releases:') %]</th>
     <td>
       <ul>
         [% FOR release=edit.display_data.releases.old %]

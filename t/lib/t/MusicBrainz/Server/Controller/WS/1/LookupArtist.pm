@@ -220,7 +220,7 @@ ws_test 'artist lookup with track-relationships',
 
 ws_test 'artist lookup with ratings',
     '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group"><name>Plone</name><sort-name>Plone</sort-name><rating votes-count="2">70</rating></artist></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group"><name>Plone</name><sort-name>Plone</sort-name><rating votes-count="2">3</rating></artist></metadata>';
 
 ws_test 'artist lookup with release-events',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?type=xml&inc=release-events+sa-Album' =>

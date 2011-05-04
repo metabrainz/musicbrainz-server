@@ -38,6 +38,7 @@ sub _entity_class
 sub find_by_medium
 {
     my ($self, @medium_ids) = @_;
+    return () unless @medium_ids;
 
     my $query = "
         SELECT " . $self->_columns . " FROM " . $self->_table . "

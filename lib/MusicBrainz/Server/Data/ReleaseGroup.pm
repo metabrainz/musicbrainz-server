@@ -206,9 +206,9 @@ sub filter_by_artist
                         ON rgm.id = rg.id
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE acn.artist = ?
-                   AND type = ?
-                 ORDER BY
+                 WHERE acn.artist = ?" .
+                     ($type ? " AND type = ? " : "") .
+                "ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -224,7 +224,7 @@ sub filter_by_artist
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, $type);
+        $query, $artist_id, $type ? ($type) : ());
 }
 
 sub filter_by_track_artist
@@ -251,9 +251,9 @@ sub filter_by_track_artist
                          JOIN artist_credit_name acn
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?
-                 )
-                       AND type = ?
-                 ORDER BY
+                 ) " .
+                     ($type ? " AND type = ? " : "") .
+                 "ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -269,7 +269,7 @@ sub filter_by_track_artist
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, $type);
+        $query, $artist_id, $type ? ($type) : ());
 }
 
 sub find_by_release

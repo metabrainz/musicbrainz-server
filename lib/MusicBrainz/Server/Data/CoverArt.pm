@@ -167,8 +167,19 @@ sub find_outdated_releases
 
     my $query = '
         SELECT release.id AS r_id, release.barcode AS r_barcode,
-               url.url, link_type.name AS link_type
+               url.url, link_type.name AS link_type,
+               CASE '.
+                   join(' ',
+                        map {
+                            my $providers = $self->get_providers($_);
+                            "WHEN link_type.name = '$_' THEN " .
+                                ((grep { $_->isa(RegularExpressionProvider) } @$providers)
+                                    ? 0 : 1)
+                        } @url_types
+                    ) . '
+               END AS _sort_order
           FROM release
+          JOIN release_coverart ON release.id = release_coverart.id
      LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
      LEFT JOIN link ON ( link.id = l.link )
      LEFT JOIN link_type ON ( link_type.id = link.link_type )
@@ -179,8 +190,10 @@ sub find_outdated_releases
                      OR NOW() - last_updated > ?
              )
            AND ( link_type.name IN ('  . placeholders(@url_types) . ')
-              OR release.barcode IS NOT NULL )';
-
+              OR release.barcode IS NOT NULL )
+      ORDER BY release_coverart.cover_art_url NULLS FIRST,
+               _sort_order ASC,
+               release_coverart.last_updated ASC';
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
     return query_to_list($self->c->sql, sub {

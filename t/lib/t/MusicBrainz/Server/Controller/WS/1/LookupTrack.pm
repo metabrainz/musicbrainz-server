@@ -119,11 +119,11 @@ ws_test 'lookup track with releases',
       <sort-name>7nin Matsuri</sort-name><name>7人祭</name>
     </artist>
     <release-list>
-      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
-        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
-      </release>
       <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
         <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
+      </release>
+      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
+        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
       </release>
     </release-list>
   </track>
@@ -230,7 +230,7 @@ ws_test 'lookup track with ratings',
     '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><track id="0d16494f-2ba4-4f4f-adf9-ae1f3ee1673d">
  <title>The Song Remains the Same</title>
  <duration>329600</duration>
- <rating votes-count="2">60</rating>
+ <rating votes-count="2">3</rating>
 </track></metadata>';
 
 ws_test 'lookup track with user-tags',

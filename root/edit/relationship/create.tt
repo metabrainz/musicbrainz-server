@@ -1,6 +1,4 @@
 [% BLOCK layout_head %]
-   <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
-   <script src="[% c.uri_for('/static/scripts/ar.js') %]" type="text/javascript"></script>
    <script type="text/javascript">
      $(document).ready (function () {
         var checkbox = $('#id-ar\\.direction');
@@ -55,7 +53,7 @@
                     [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
                       <span id="change-direction">
                       [%- IF no_javascript -%]
-                        [% r.checkbox('direction') %] Change direction
+                        [% r.checkbox('direction') %] [% l('Change direction') %]
                       [%- ELSE -%]
                         [% r.hidden('direction') %]
                         <input type="button" id="changedirection" value="[% l('Change direction') %]" />
