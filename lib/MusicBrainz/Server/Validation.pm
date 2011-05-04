@@ -41,6 +41,7 @@ require Exporter;
         is_valid_url
         is_positive_integer
         is_valid_discid
+        is_guid
         normalise_strings
     )
 }
@@ -112,6 +113,8 @@ sub IsGUID
     $_[0] = $1;
     1;
 }
+
+sub is_guid { goto \&IsGUID }
 
 sub IsValidURL
 {
