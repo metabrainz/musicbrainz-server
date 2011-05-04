@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Wizard;
 use TryCatch;
 
@@ -1032,18 +1033,22 @@ sub _seed_parameters {
     }
 
     if (my $release_group_mbid = delete $params->{release_group}) {
-        my $release_group = $self->c->model('ReleaseGroup')
-            ->get_by_gid($release_group_mbid);
-        $params->{release_group_id} = $release_group->id;
-        $params->{release_group}{name} = $release_group->name;
+        if(is_guid($release_group_mbid) and
+               my $release_group = $self->c->model('ReleaseGroup')
+                   ->get_by_gid($release_group_mbid)) {
+            $params->{release_group_id} = $release_group->id;
+            $params->{release_group}{name} = $release_group->name;
+        }
     }
 
     for my $label (@{ $params->{labels} || [] }) {
         if (my $mbid = $label->{mbid}) {
-            my $entity = $self->c->model('Label')
-                ->get_by_gid($mbid);
-            $label->{label_id} = $entity->id;
-            $label->{name} = $entity->name;
+            if(is_guid($mbid) and
+                   my $entity = $self->c->model('Label')
+                       ->get_by_gid($mbid)) {
+                $label->{label_id} = $entity->id;
+                $label->{name} = $entity->name;
+            }
         }
         elsif (my $name = $label->{name}) {
             $label->{name} = $name;
