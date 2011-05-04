@@ -298,7 +298,7 @@
         </table>
         <div style="display: none" class="tracklist-loading">
           <p>
-            <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+            <img src="/static/images/icons/loading.gif" />
             &nbsp;
             [% l('Now loading tracklist...') %]
           </p>
@@ -465,7 +465,7 @@
 
       <div style="display: none" class="tracklist-loading">
         <p>
-          <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+          <img src="/static/images/icons/loading.gif" />
           &nbsp;
           [% l('Now loading tracklist...') %]
         </p>

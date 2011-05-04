@@ -26,6 +26,7 @@ CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, 
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
+CREATE INDEX isrc_idx_recording ON isrc (recording);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);
@@ -126,6 +127,8 @@ CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
 CREATE INDEX medium_idx_release ON medium (release);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
+
+CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 
 CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
 

@@ -40,6 +40,7 @@ sub find_by_recording
     my $self = shift;
 
     my @ids = ref $_[0] ? @{$_[0]} : @_;
+    return () unless @ids;
 
     my $query = "SELECT ".$self->_columns."
                    FROM ".$self->_table."

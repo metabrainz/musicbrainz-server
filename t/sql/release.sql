@@ -57,7 +57,7 @@ INSERT INTO medium (id, tracklist, release, position) VALUES (1, 1, 3, 1);
 INSERT INTO recording (id, artist_credit, name, gid)
     VALUES (1, 2, 1, 'b43eb990-ff5b-11de-8a39-0800200c9a66');
 INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
-    VALUES (1, 1, 1, 1, 1, 1);
+    VALUES (1, 1, 1, 1, 1, 1), (100, 1, 1, 1, 2, 1);
 
 -- test search ranking.
 INSERT INTO release_name (id, name) VALUES (4, 'Blues on Blonde on Blonde');
