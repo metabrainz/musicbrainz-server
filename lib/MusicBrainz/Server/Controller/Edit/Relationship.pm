@@ -119,12 +119,12 @@ sub edit : Local RequireAuth Edit
         }
 
         if ($c->model('Relationship')->exists($type0, $type1, {
-            link_type_id => $values->{link_type_id},
-            begin_date   => $values->{begin_date},
-            end_date     => $values->{end_date},
+            link_type_id => $form->field('link_type_id')->value,
+            begin_date   => $form->field('begin_date')->value,
+            end_date     => $form->field('end_date')->value,
             attributes   => [uniq @attributes],
-            entity0      => $values->{entity0}->{id},
-            entity1      => $values->{entity1}->{id},
+            entity0      => $form->field('entity0.id')->value,
+            entity1      => $form->field('entity1.id')->value,
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -135,13 +135,13 @@ sub edit : Local RequireAuth Edit
             edit_type => $EDIT_RELATIONSHIP_EDIT,
             type0             => $type0,
             type1             => $type1,
-            entity0_id        => $values->{entity0}->{id},
-            entity1_id        => $values->{entity1}->{id},
+            entity0_id        => $form->field('entity0.id')->value,
+            entity1_id        => $form->field('entity0.id')->value,
             relationship      => $rel,
-            link_type_id      => $values->{link_type_id},
-            begin_date        => $values->{begin_date},
-            end_date          => $values->{end_date},
-            change_direction  => $values->{direction},
+            link_type_id      => $form->field('link_type_id')->value,
+            begin_date        => $form->field('begin_date')->value,
+            end_date          => $form->field('end_date')->value,
+            change_direction  => $form->field('direction')->value,
             attributes        => [uniq @attributes],
         );
 
