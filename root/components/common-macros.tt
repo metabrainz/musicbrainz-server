@@ -525,7 +525,7 @@ http://[%- server -%]/[%- id -%]"
         <link rel="stylesheet" type="text/css" href="/static/[%- file -%]" />
     [%- END -%]
   [%- ELSE -%]
-    <link rel="stylesheet" type="text/css" href="/static/styles/[% c.model('FileCache').manifest_signature(manifest, 'css') %].css"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/[% c.model('FileCache').manifest_signature(manifest, 'css') %].css" />
   [%- END -%]
 [%- END -%]
 
