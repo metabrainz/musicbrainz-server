@@ -108,13 +108,14 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
 };
 
 
-MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
+MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
     var self = MB.Object ();
 
-    var $container = $('#select-recording-'+disc+'-'+track);
-
+    self.parent = parent;
+    self.$container = $('#select-recording-'+disc+'-'+track);
     self.$row = $(row);
-    self.$matches = $container.find ('table.matches tbody');
+    self.$confirmed = self.$row.find ('input.confirmed');
+    self.$matches = self.$container.find ('table.matches tbody');
 
     self.$link = self.$row.find ('span.recording');
     self.$gid = self.$row.find ('input.gid');
@@ -122,8 +123,15 @@ MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
     self.$use_recording = self.$row.next ().andSelf ().find ('span.recording');
     self.$add_recording = self.$row.find ('span.add-recording');
 
-    var change = function (event) {
-        var $row = $(this).closest ('tr');
+    self.$use_suggested = self.$container.find ('button.use-suggested');
+    self.$search_recording = self.$container.find ('button.search-recording');
+    self.$add_new = self.$container.find ('button.add-new');
+
+    self.change = function (event, $row) {
+        if (! $row)
+        {
+            $row = $(this).closest ('tr');
+        }
 
         if ($row.hasClass ('addnew'))
         {
@@ -143,10 +151,93 @@ MB.Control.ReleaseRecordingsTrack = function (disc, track, row) {
         }
     };
 
-    self.$matches.find ('input.recordingmatch').change (change);
+    self.confirmed = function () {
+        self.$confirmed.val ("1");
+        self.$container.find ('div.confirm-recording').hide ();
+        self.$container.find ('div.search-recording').show ();
+    };
+
+    self.select_first_suggestion = function () {
+        var $suggestion_rows = self.$container.find ('tr.servermatch');
+        var $rec = $suggestion_rows.eq (0);
+        self.$container.find ('input.newrecording').removeAttr ('checked');
+        $suggestion_rows.find ('input.servermatch').removeAttr ('checked');
+        $rec.find ('input.servermatch').attr ('checked', 'checked');
+
+        return $rec;
+    };
+
+    self.select_add_new_recording = function () {
+        var $suggestion_rows = self.$container.find ('tr.servermatch');
+        $suggestion_rows.find ('input.servermatch').removeAttr ('checked');
+
+        return self.$container.find ('input.newrecording')
+            .attr ('checked', 'checked').closest ('tr');
+    };
+
+    self.use_suggested = function (event) {
+        self.confirmed ();
+
+        self.change (null, self.select_first_suggestion ());
+        self.bubble.hide ();
+
+        event.preventDefault ();
+        return false;
+    };
+
+    self.search_recording = function (event) {
+        self.confirmed ();
+
+        self.change (null, self.select_first_suggestion ());
+        self.bubble.hide ();
+        self.bubble.show ();
+
+        event.preventDefault ();
+        return false;
+    };
+
+    self.add_new = function (event) {
+        self.confirmed ();
+
+        self.change (null, self.select_add_new_recording ());
+        self.bubble.hide ();
+
+        event.preventDefault ();
+        return false;
+    };
+
+    self.addBubble = function ($target, $container) {
+        self.parent.parent.bc.add ($target, $container);
+
+        $container.bind ('bubbleOpen.mb', function (event) {
+            if (self.$confirmed.val ())
+            {
+                $target.text (MB.text.Done).removeClass ('negative');
+            }
+        });
+
+        $container.bind ('bubbleClose.mb', function (event) {
+            if (self.$confirmed.val ())
+            {
+                $target.text (MB.text.Change).removeClass ('negative');
+            }
+        });
+    };
+
+    self.$use_suggested.bind ('click.mb', self.use_suggested);
+    self.$search_recording.bind ('click.mb', self.search_recording);
+    self.$add_new.bind ('click.mb', self.add_new);
+
+    self.$matches.find ('input.recordingmatch').bind ('change.mb', self.change);
 
     var artistname = $.trim (self.$row.next ().find ('.track-artist').text ());
-    self.select = MB.Control.ReleaseRecordingsSelect ($container, artistname, change);
+    self.select = MB.Control.ReleaseRecordingsSelect (self.$container, artistname, self.change);
+
+    self.addBubble (
+        self.$row.find ('.change-recording'),
+        self.$container.find ('div.select-recording'));
+
+    self.bubble = self.$row.find ('.change-recording').data ('bubble');
 
     return self;
 };
@@ -166,9 +257,6 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
         $track.find ('.position').text (idx + 1);
         $track.find ('.name').text (data.name);
         $track.find ('.track-artist').text (data.artist_credit.preview);
-
-        /* search bubble. */
-        self.parent.addBubble ($track.find ('.change-recording'), $bubble.find ('div.select-recording'));
 
         $bubble.find ('tr.servermatch.recordingmatch').show ();
         $bubble.find ('tr.servermatch a.name').text (data.recording.name)
@@ -212,7 +300,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             $track.removeClass ('template');
             $bubble.removeClass ('template');
 
-            var rr_track = MB.Control.ReleaseRecordingsTrack (disc, idx, $track.eq(0));
+            var rr_track = MB.Control.ReleaseRecordingsTrack (self, disc, idx, $track.eq(0));
             self.tracks.push (rr_track);
 
             var appears = rr_track.select.renderReleaseGroups (
@@ -239,7 +327,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
     self.initializeTracks = function () {
         self.$fieldset.find ('tr.track').each (function (idx, row) {
-            self.tracks.push (MB.Control.ReleaseRecordingsTrack (disc, idx, row));
+            self.tracks.push (MB.Control.ReleaseRecordingsTrack (self, disc, idx, row));
         });
     };
 
@@ -261,33 +349,11 @@ MB.Control.ReleaseRecordings = function () {
     self.discs = [];
     self.bc = MB.Control.BubbleCollection ();
 
-    self.addBubble = function ($targets, $containers) {
-        self.bc.add ($targets, $containers);
-
-        $containers.each (function (idx, elem) {
-            $(elem).bind ('bubbleOpen.mb', function (event) {
-                $targets.eq (idx)
-                    .text (MB.text.Done)
-                    .removeClass ('negative')
-                    .closest ('tr').find ('input.confirmed').val ("1");
-            });
-
-            $(elem).bind ('bubbleClose.mb', function (event) {
-                $targets.eq (idx).text (MB.text.Change);
-            });
-        });
-    };
-
     $('fieldset.recording-assoc-disc').each (function (idx, disc) {
         var discno = $(disc).attr ('id').replace ('recording-assoc-disc-', '');
 
         self.discs.push (MB.Control.ReleaseRecordingsDisc (self, discno, disc));
     });
-
-    var $targets = $('tr.track:not(.template) .change-recording');
-    var $containers = $('div.select-recording-container:not(.template) div.select-recording');
-
-    self.addBubble ($targets, $containers);
 
     return self;
 };
