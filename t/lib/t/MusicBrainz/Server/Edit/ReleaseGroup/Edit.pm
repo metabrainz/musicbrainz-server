@@ -51,11 +51,19 @@ sub create_edit {
         editor_id => 2,
         to_edit => $rg,
 
-        artist_credit => [
-            { name => 'Break', artist => 1 },
-            ' & ',
-            { name => 'Silent Witness', artist => 1 },
-        ],
+        artist_credit => {
+            names => [
+                {
+                    artist => { id => 1, name => 'Break' },
+                    name => 'Break',
+                    join_phrase => ' & ',
+                },
+                {
+                    artist => { id => 1, name => 'Break' },
+                    name => 'Silent Witness',
+                    join_phrase => '',
+                }
+            ] },
         name => 'We Know',
         comment => 'EP',
         type_id => 1,

@@ -122,15 +122,19 @@ before 'initialize' => sub
 
 sub _mapping
 {
+    my $for_change_hash = 1;
+
     return (
-        artist_credit => sub { artist_credit_to_ref(shift->artist_credit) },
+        artist_credit => sub {
+            artist_credit_to_ref(shift->artist_credit, $for_change_hash)
+        },
     );
 }
 
 sub _edit_hash
 {
     my ($self, $data) = @_;
-    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} })
+    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
     return $data;
 }
@@ -164,3 +168,24 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
+
+=head1 LICENSE
+
+Copyright (C) 2011 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+=cut
+

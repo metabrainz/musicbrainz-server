@@ -7,7 +7,7 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_alternative_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref artist_credit_to_edit_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -222,24 +222,20 @@ sub recording_edits_from_tracklist
         $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
         $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
 
-        for (@{ $tracklist->{tracks} })
+        for my $trk (@{ $tracklist->{tracks} })
         {
             my $edit_sha1 = hash_structure (
                 {
-                    name => $_->name,
-                    length => format_track_length ($_->length),
-                    artist_credit => {
-                        preview => $_->artist_credit->name,
-                        names => artist_credit_to_alternative_ref (
-                            $_->artist_credit)
-                    }
+                    name => $trk->name,
+                    length => format_track_length ($trk->length),
+                    artist_credit => artist_credit_to_edit_ref ($trk->artist_credit),
                 });
 
             $recording_edits{$edit_sha1} = {
                 edit_sha1 => $edit_sha1,
                 confirmed => 1,
-                id => $_->recording->id,
-                gid => $_->recording->gid
+                id => $trk->recording->id,
+                gid => $trk->recording->gid
             };
         }
     }
@@ -656,12 +652,12 @@ sub prepare_missing_entities
     my ($self) = @_;
 
     my $data = $self->_expand_mediums(clone($self->value));
+    my @artist_credits = $self->_missing_artist_credits($data);
 
     my @credits = map +{
-            for => $_->{name},
-            name => $_->{name},
-        }, uniq_by { $_->{name} }
-            $self->_misssing_artist_credits($data);
+            for => $_->{artist}->{name},
+            name => $_->{artist}->{name},
+        }, uniq_by { $_->{artist}->{name} } @artist_credits;
 
     my @labels = map +{
             for => $_->{name},
@@ -723,15 +719,16 @@ sub _missing_labels {
         @{ $data->{labels} };
 }
 
-sub _misssing_artist_credits
+sub _missing_artist_credits
 {
     my ($self, $data) = @_;
+
     return
         (
             # Artist credit for the release itself
-            grep { !$_->{artist} } grep { ref($_) }
-            map { @{ clean_submitted_artist_credits($_) } }
-                $data->{artist_credit}
+            grep { !$_->{artist}->{id} }
+            grep { ref($_) }
+            @{ clean_submitted_artist_credits($data->{artist_credit})->{names} }
         ),
         (
             # Artist credits on new tracklists
@@ -756,16 +753,11 @@ sub create_edits
     my (%created) = $self->_edit_missing_entities(%args);
 
     unless ($previewing) {
-        for my $bad_ac ($self->_misssing_artist_credits($data)) {
-            my $artist = $created{artist}{ $bad_ac->{name} }
+        for my $bad_ac ($self->_missing_artist_credits($data)) {
+            my $artist = $created{artist}{ $bad_ac->{artist}->{name} }
                 or die 'No artist was created for ' . $bad_ac->{name};
 
-            # XXX Fix me
-            # Because bad_ac might refer to data in the form submisison
-            # OR an actual ArtistCredit object, we need to fill in both of these
-            # It's a horrible hack.
-            $bad_ac->{artist} = $artist;
-            $bad_ac->{artist_id} = $artist;
+            $bad_ac->{artist}->{id} = $artist;
         }
 
         for my $bad_label ($self->_missing_labels($data)) {
@@ -996,12 +988,16 @@ sub _edit_release_track_edits
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
             if ($new->{tracks}) {
+                $self->c->model('Artist')->load_for_artist_credits (
+                    map { $_->artist_credit } @{ $new->{tracks} });
                 $opts->{tracklist} = $new->{tracks};
             }
             elsif (my $tracklist_id = $new->{tracklist_id}) {
                 my $tracklist_entity = $self->c->model('Tracklist')->get_by_id($tracklist_id);
                 $self->c->model('Track')->load_for_tracklists($tracklist_entity);
                 $self->c->model('ArtistCredit')->load($tracklist_entity->all_tracks);
+                $self->c->model('Artist')->load_for_artist_credits (
+                    map { $_->artist_credit } $tracklist_entity->all_tracks);
                 $opts->{tracklist} = $tracklist_entity->tracks;
             }
             else {
@@ -1136,10 +1132,7 @@ sub _expand_track
         name => $trk->{name},
         position => $trk->{position},
         artist_credit => ArtistCredit->from_array ([
-            map {
-                { artist => $_->{id}, name => $_->{name} },
-                $_->{join}
-            } grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
+            grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
         ]));
 
     if ($assoc)
@@ -1194,6 +1187,7 @@ sub _expand_mediums
             my $tracklist = $self->c->model('Tracklist')->get_by_id ($tracklist_id);
             $self->c->model('Track')->load_for_tracklists ($tracklist);
             $self->c->model('ArtistCredit')->load ($tracklist->all_tracks);
+            $self->c->model('Artist')->load ($tracklist->all_tracks);
 
             my $pos = 0;
             $disc->{tracks} = [ map {
@@ -1218,7 +1212,9 @@ sub _expand_mediums
 
 =method edited_tracklist
 
-Returns a list of tracks, sorted by position, with deleted tracks removed
+Returns a list of tracks, sorted by position, with deleted tracks
+removed.  It also converts artist credits to the same format used by
+'artist_credit_to_ref'.
 
 =cut
 
@@ -1227,7 +1223,23 @@ sub edited_tracklist
     my ($self, $tracks) = @_;
 
     my $idx = 1;
-    map { $_->{original_position} = $idx++; } @$tracks;
+    for my $trk (@$tracks)
+    {
+        my @names = @{ $trk->{artist_credit}->{names} };
+        $trk->{artist_credit}->{names} = [ map {
+            {
+                artist => {
+                    id => $_->{id},
+                    gid => $_->{gid},
+                    name => $_->{artist_name},
+                },
+                name => $_->{name},
+                join_phrase => $_->{join},
+            }
+        } @names ];
+
+        $trk->{original_position} = $idx++;
+    }
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
@@ -1410,6 +1422,26 @@ sub _seed_parameters {
 
     return collapse_hash($params);
 };
+
+=head1 LICENSE
+
+Copyright (C) 2011 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+=cut
 
 __PACKAGE__->meta->make_immutable;
 1;

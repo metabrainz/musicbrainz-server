@@ -126,7 +126,7 @@ sub accept {
     verify_artist_credits($self->c, $self->data->{new_artist_credit});
 
     my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
-        @{ $self->data->{new_artist_credit} }
+        $self->data->{new_artist_credit}
     );
 
     $self->c->model('Release')->update(
