@@ -1,7 +1,7 @@
 [%- USE r = FormRenderer(otherlookup) -%]
 <div class="searchform">
     <form action="[% c.uri_for_action('/otherlookup/index') %]">
-        [% form_row_text(r, 'catno',    l('Catalog Number:')) %]
+        [% form_row_text(r, 'catno',    l('Catalog number:')) %]
         [% form_row_text(r, 'barcode',  l('Barcode:')) %]
         [% form_row_text(r, 'isrc',     l('ISRC:')) %]
         [% form_row_text(r, 'iswc',     l('ISWC:')) %]
