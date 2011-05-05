@@ -184,9 +184,6 @@
                 <li>
                     <a href="[% c.uri_for_action('/work/create') %]">[% l('Add Work') %]</a>
                 </li>
-                <li>
-                    <a href="[% c.uri_for_action('/release_editor/import/freedb') %]">[% l('Import From FreeDB') %]</a>
-                </li>
                 <li class="separator">
                     <a href="[% c.uri_for('/edit/open') %]">[% l('Vote on Edits') %]</a>
                 </li>
