@@ -1292,10 +1292,10 @@ sub _seed_parameters {
         if (my $mbid = $artist_credit->{mbid}){
             my $entity = $self->c->model('Artist')
                 ->get_by_gid($mbid);
-            $artist_credit->{artist_id} = $entity->id;
             $artist_credit->{name} ||= $entity->name;
             $artist_credit->{gid} = $entity->gid;
-            $artist_credit->{artist_name} = $entity->name;
+            $artist_credit->{artist}->{id} = $entity->id;
+            $artist_credit->{artist}->{name} = $entity->name;
         }
     }
 
