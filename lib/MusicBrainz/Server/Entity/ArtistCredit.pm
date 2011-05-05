@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::ArtistCredit;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
+use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
 extends 'MusicBrainz::Server::Entity';
@@ -59,14 +60,20 @@ sub from_array
     while (@ac)
     {
         my $artist = shift @ac;
-        my $join = shift @ac;
 
         next unless $artist && $artist->{name};
 
         my %initname = ( name => $artist->{name} );
 
-        $initname{join_phrase} = $join if $join;
-        $initname{artist_id} = $artist->{artist} if $artist->{artist};
+        $initname{join_phrase} = $artist->{join_phrase} if $artist->{join_phrase};
+        if ($artist->{artist})
+        {
+            $initname{artist_id} = $artist->{artist}->{id} if $artist->{artist}->{id};
+            delete $artist->{artist}->{id} unless $artist->{artist}->{id};
+            delete $artist->{artist}->{gid} unless $artist->{artist}->{gid};
+
+            $initname{artist} = Artist->new( %{ $artist->{artist} } );
+        }
 
         $ret->add_name( ArtistCreditName->new(%initname) );
     }
@@ -81,6 +88,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

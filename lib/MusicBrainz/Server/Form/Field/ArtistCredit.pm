@@ -29,14 +29,20 @@ around 'validate_field' => sub {
         next unless $_;
 
         my $artist_id = Text::Trim::trim $_->{'artist'}->{'id'};
+        my $artist_name = Text::Trim::trim $_->{'artist'}->{'name'};
         my $name = Text::Trim::trim $_->{'name'};
 
         if ($artist_id && $name)
         {
             $artists++;
         }
-
-        if (! $artist_id && $name)
+        elsif (! $artist_id && ! $artist_name && $name)
+        {
+            $self->add_error (
+                l('Please add an artist name for {credit}',
+                  { credit => $name }));
+        }
+        elsif (! $artist_id && $name)
         {
             if ($self->allow_unlinked)
             {
@@ -47,7 +53,7 @@ around 'validate_field' => sub {
                 # FIXME: better error message.
                 $self->add_error (
                     l('Artist "{artist}" is unlinked, please select an existing artist',
-                      { artist => $_->{'name'} }));
+                      { artist => $name }));
             }
         }
     }
@@ -63,57 +69,6 @@ around 'validate_field' => sub {
 
     return !$self->has_errors;
 };
-
-# sub validate
-# {
-#     my $self = shift;
-
-#     my @credits;
-#     my @fields = $self->field('names')->fields;
-#     while (@fields) {
-#         my $field = shift @fields;
-
-#         my $name = $field->field('name')->value;
-#         my $id = $field->field('artist_id')->value;
-#         my $join = $field->field('join_phrase')->value || undef;
-
-#         push @credits, { artist => $id, name => $name };
-#         push @credits, $join if $join || @fields;
-#     }
-
-
-#     $self->value(\@credits);
-# }
-
-# around 'fif' => sub {
-#     my $orig = shift;
-#     my $self = shift;
-
-#     my $fif = $self->$orig (@_);
-
-#     return MusicBrainz::Server::Entity::ArtistCredit->new unless $fif;
-
-#     # FIXME: shouldn't happen.
-#     return MusicBrainz::Server::Entity::ArtistCredit->new unless $fif->{'names'};
-
-#     my @names;
-#     for ( @{ $fif->{'names'} } )
-#     {
-#         next unless $_->{'name'};
-
-#         my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
-#             name => $_->{'name'},
-#             );
-#         $acn->artist_id($_->{'artist_id'}) if looks_like_number ($_->{'artist_id'});
-#         $acn->join_phrase($_->{'join_phrase'}) if $_->{'join_phrase'};
-#         push @names, $acn;
-#     }
-
-#     my $ret = MusicBrainz::Server::Entity::ArtistCredit->new( names => \@names );
-#     $self->form->ctx->model('Artist')->load(@{ $ret->names });
-
-#     return $ret;
-# };
 
 =head1 LICENSE
 

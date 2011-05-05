@@ -86,9 +86,17 @@ sub artist_credit_preview
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name} );
 
-        $ac->artist(
-            $loaded->{Artist}->{ $ac_name->{artist}->{id} } ||
-            Artist->new( $ac_name->{artist} ) ) if $ac_name->{artist};
+        my $loaded_artist = $loaded->{Artist}->{ $ac_name->{artist}->{id} };
+        if ($loaded_artist)
+        {
+            $ac->artist ($loaded_artist);
+        }
+        elsif ($ac_name->{artist})
+        {
+            delete $ac_name->{artist}->{id};
+            delete $ac_name->{artist}->{gid} unless $ac_name->{artist}->{gid};
+            $ac->artist(Artist->new( $ac_name->{artist} ));
+        }
 
         $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
 

@@ -261,7 +261,10 @@ is($artist->name, 'Test Artist');
 ok($artist_data->can_delete(1));
 memory_cycle_ok($artist_data, 'artist data does not leak after can_delete');
 
-my $ac = $test->c->model('ArtistCredit')->find_or_insert({ artist => 1, name => 'Calibre' });
+my $ac = $test->c->model('ArtistCredit')->find_or_insert(
+    {
+        names => [ { artist => { id => 1, name => 'Calibre' }, name => 'Calibre' } ]
+    });
 ok($artist_data->can_delete(1));
 
 my $rec = $test->c->model('Recording')->insert({

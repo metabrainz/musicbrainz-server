@@ -7,7 +7,7 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref artist_credit_to_edit_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -220,20 +220,20 @@ sub recording_edits_from_tracklist
         $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
         $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
 
-        for (@{ $tracklist->{tracks} })
+        for my $trk (@{ $tracklist->{tracks} })
         {
             my $edit_sha1 = hash_structure (
                 {
-                    name => $_->name,
-                    length => format_track_length ($_->length),
-                    artist_credit => artist_credit_to_ref ($_->artist_credit),
+                    name => $trk->name,
+                    length => format_track_length ($trk->length),
+                    artist_credit => artist_credit_to_edit_ref ($trk->artist_credit),
                 });
 
             $recording_edits{$edit_sha1} = {
                 edit_sha1 => $edit_sha1,
                 confirmed => 1,
-                id => $_->recording->id,
-                gid => $_->recording->gid
+                id => $trk->recording->id,
+                gid => $trk->recording->gid
             };
         }
     }
@@ -650,12 +650,12 @@ sub prepare_missing_entities
     my ($self) = @_;
 
     my $data = $self->_expand_mediums(clone($self->value));
+    my @artist_credits = $self->_missing_artist_credits($data);
 
     my @credits = map +{
             for => $_->{artist}->{name},
             name => $_->{artist}->{name},
-        }, uniq_by { $_->{artist}->{name} }
-    $self->_misssing_artist_credits($data);
+        }, uniq_by { $_->{artist}->{name} } @artist_credits;
 
     my @labels = map +{
             for => $_->{name},
@@ -717,7 +717,7 @@ sub _missing_labels {
         @{ $data->{labels} };
 }
 
-sub _misssing_artist_credits
+sub _missing_artist_credits
 {
     my ($self, $data) = @_;
 
@@ -751,7 +751,7 @@ sub create_edits
     my (%created) = $self->_edit_missing_entities(%args);
 
     unless ($previewing) {
-        for my $bad_ac ($self->_misssing_artist_credits($data)) {
+        for my $bad_ac ($self->_missing_artist_credits($data)) {
             my $artist = $created{artist}{ $bad_ac->{artist}->{name} }
                 or die 'No artist was created for ' . $bad_ac->{name};
 
@@ -1107,10 +1107,7 @@ sub _expand_track
         name => $trk->{name},
         position => $trk->{position},
         artist_credit => ArtistCredit->from_array ([
-            map {
-                { artist => $_->{id}, name => $_->{name} },
-                $_->{join}
-            } grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
+            grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
         ]));
 
     if ($assoc)
@@ -1186,7 +1183,9 @@ sub _expand_mediums
 
 =method edited_tracklist
 
-Returns a list of tracks, sorted by position, with deleted tracks removed
+Returns a list of tracks, sorted by position, with deleted tracks
+removed.  It also converts artist credits to the same format used by
+'artist_credit_to_ref'.
 
 =cut
 
@@ -1195,7 +1194,23 @@ sub edited_tracklist
     my ($self, $tracks) = @_;
 
     my $idx = 1;
-    map { $_->{original_position} = $idx++; } @$tracks;
+    for my $trk (@$tracks)
+    {
+        my @names = @{ $trk->{artist_credit}->{names} };
+        $trk->{artist_credit}->{names} = [ map {
+            {
+                artist => {
+                    id => $_->{id},
+                    gid => $_->{gid},
+                    name => $_->{artist_name},
+                },
+                name => $_->{name},
+                join_phrase => $_->{join},
+            }
+        } @names ];
+
+        $trk->{original_position} = $idx++;
+    }
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }

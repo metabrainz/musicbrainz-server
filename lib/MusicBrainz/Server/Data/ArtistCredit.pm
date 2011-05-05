@@ -70,8 +70,8 @@ sub _find
     my @names = @{ $artist_credit->{names} };
 
     # remove unused trailing artistcredit slots.
-    while (!defined $names[$#names]->{name} &&
-           !defined $names[$#names]->{artist}->{id})
+    while (!defined $names[$#names]->{artist}->{id} &&
+           (!defined $names[$#names]->{name} || $names[$#names]->{name} eq ''))
     {
         pop @names;
     }
@@ -79,7 +79,8 @@ sub _find
     my @positions = (0..$#names);
     my @artists = map { $_->{artist}->{id} } @names;
     my @credits = map { $_->{name} } @names;
-    my @join_phrases = map { $_->{join_phrase} } @names;
+    my @join_phrases = map { $_->{join_phrase} }
+      grep { defined $_->{join_phrase} && $_->{join_phrase} ne '' } @names;
 
     my $name = "";
     my (@joins, @conditions);
@@ -90,7 +91,14 @@ sub _find
         my $condition = "acn_$i.position = ? AND ".
                         "acn_$i.artist = ? AND ".
                         "an_$i.name = ?";
-        $condition .= " AND acn_$i.join_phrase = ?" if defined $ac_name->{join_phrase};
+        if (defined $ac_name->{join_phrase} && $ac_name->{join_phrase} ne '')
+        {
+            $condition .= " AND acn_$i.join_phrase = ?"
+        }
+        else
+        {
+            $condition .= " AND (acn_$i.join_phrase = '' OR acn_$i.join_phrase IS NULL)"
+        }
         push @joins, $join;
         push @conditions, $condition;
         $name .= $ac_name->{name};
@@ -103,9 +111,10 @@ sub _find
 
     my @args = zip @positions, @artists, @credits, @join_phrases;
     pop @args unless defined $join_phrases[$#credits];
+
     my $id = $self->sql->select_single_value($query, @args, scalar @credits);
 
-    return ($id, $name, \@positions, \@credits, \@artists, $join_phrases);
+    return ($id, $name, \@positions, \@credits, \@artists, \@join_phrases);
 }
 
 sub find
@@ -130,7 +139,7 @@ sub find_or_insert
         my %names_id = $self->c->model('Artist')->find_or_insert_names(@$credits, $name);
         $id = $self->sql->insert_row('artist_credit', {
             name => $names_id{$name},
-            artist_count => scalar @$names,
+            artist_count => scalar @$credits,
         }, 'id');
         for my $i (@$positions)
         {
