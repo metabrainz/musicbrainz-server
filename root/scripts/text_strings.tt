@@ -22,7 +22,7 @@
         None: '[% l('(none)') %]',
         Artist: '[% l('Artist') %]',
         Name: '[% l('Name') %]',
-        JoinPhrase: '[% l('Join Phrase') %]',
+        JoinPhrase: '[% l('Join phrase') %]',
         Cancel: '[% l('Cancel') %]',
         Change: '[% l('Change') %]',
         Done: '[% l('Done') %]',
