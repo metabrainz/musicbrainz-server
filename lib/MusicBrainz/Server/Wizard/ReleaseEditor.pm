@@ -601,12 +601,27 @@ sub prepare_recordings
             $recording_edits[$count]->{associations} ||= [];
             my $edit_idx = 0;
             for my $edit (@{ $medium->{edits} }) {
-                $recording_edits[$count]->{associations}[$edit_idx++] ||= {
+                $recording_edits[$count]->{associations}[$edit_idx] ||= {
                     'gid' => 'new',
                     'confirmed' => 1,
                     'edit_sha1' => $edit->{edit_sha1},
                 };
+
+                # If a recording MBID is seeded it needs to be loaded from the DB.
+                my $gid = $recording_edits[$count]->{associations}[$edit_idx]->{gid};
+                if ($gid ne "new")
+                {
+                    # FIXME: collect these in a single query.
+                    $suggestions[$count][$edit_idx] = [
+                        $self->c->model ('Recording')->get_by_gid ($gid)
+                    ];
+                }
+
+                $edit_idx++;
             }
+
+            $self->c->model('ArtistCredit')->load (
+                map { $_->[0] } grep { $_ } @{ $suggestions[$count] });
         }
         elsif ($recording_edits[$count]->{associations} &&
                scalar @{ $recording_edits[$count]->{associations} })
