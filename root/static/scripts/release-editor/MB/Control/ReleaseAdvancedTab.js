@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010-2011 MetaBrainz Foundation
+   Copyright (C) 2010,2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -461,11 +461,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
            that track with the new release artist.
         */
         $.each (data, function (idx, track) {
-            if (track.artist_credit.names.length === MB.release_artist_json.length)
+            if (track.artist_credit.names.length === MB.release_artist_json.names.length)
             {
                 var update = true;
 
-                $.each (MB.release_artist_json, function (idx, credit) {
+                $.each (MB.release_artist_json.names, function (idx, credit) {
                     tmp = track.artist_credit.names[idx];
                     if (credit.name !== tmp.name || credit.id !== tmp.id)
                     {

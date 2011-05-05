@@ -16,14 +16,14 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 use base 'Exporter';
 
 our @EXPORT_OK = qw(
-    date_closure
-    load_artist_credit_definitions
     artist_credit_from_loaded_definition
     artist_credit_preview
-    clean_submitted_artist_credits
     changed_relations
     changed_display_data
+    clean_submitted_artist_credits
+    date_closure
     edit_status_name
+    load_artist_credit_definitions
     status_names
     verify_artist_credits
 );
@@ -63,16 +63,15 @@ sub date_closure
 sub load_artist_credit_definitions
 {
     my $ac = shift;
-    my @ac = @$ac;
+    my @ac = @{ $ac->{names} };
 
     my %load;
     while(@ac) {
-        my $artist = shift @ac;
-        my $join   = shift @ac;
+        my $ac_name = shift @ac;
 
-        next unless $artist->{name} && $artist->{artist};
+        next unless $ac_name->{name} && $ac_name->{artist}->{id};
 
-        $load{ $artist->{artist} } = [];
+        $load{ $ac_name->{artist}->{id} } = [];
     }
 
     return %load;
@@ -83,22 +82,17 @@ sub artist_credit_from_loaded_definition
     my ($loaded, $definition) = @_;
 
     my @names;
-    my @def = @$definition;
-
-    while (@def)
+    for my $ac_name (@{ $definition->{names} })
     {
-        my $artist = shift @def;
-        my $join = shift @def;
-
-        next unless $artist->{name} && $artist->{artist};
+        next unless $ac_name->{name} && $ac_name->{artist}->{id};
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
-            name => $artist->{name},
-            artist => $loaded->{Artist}->{ $artist->{artist} } ||
-                Artist->new( name => $artist->{name} )
+            name => $ac_name->{name},
+            artist => $loaded->{Artist}->{ $ac_name->{artist}->{id} } ||
+                Artist->new( $ac_name->{artist} )
         );
-        $ac->join_phrase($join) if $join;
 
+        $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
         push @names, $ac;
     }
 
@@ -112,23 +106,26 @@ sub artist_credit_preview
     my ($loaded, $definition) = @_;
 
     my @names;
-    my @def = @$definition;
-
-    while (@def)
+    for my $ac_name (@{ $definition->{names} })
     {
-        my $artist = shift @def;
-        my $join = shift @def;
-
-        next unless $artist->{name};
+        next unless $ac_name->{name};
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
-            name => $artist->{name});
+            name => $ac_name->{name} );
 
-        $ac->artist(
-            $loaded->{Artist}->{ $artist->{artist} }
-                || Artist->new( name => $artist->{name} )
-        ) if $artist->{artist};
-        $ac->join_phrase($join) if $join;
+        my $loaded_artist = $loaded->{Artist}->{ $ac_name->{artist}->{id} };
+        if ($loaded_artist)
+        {
+            $ac->artist ($loaded_artist);
+        }
+        elsif ($ac_name->{artist})
+        {
+            delete $ac_name->{artist}->{id};
+            delete $ac_name->{artist}->{gid} unless $ac_name->{artist}->{gid};
+            $ac->artist(Artist->new( $ac_name->{artist} ));
+        }
+
+        $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
 
         push @names, $ac;
     }
@@ -147,13 +144,13 @@ sub clean_submitted_artist_credits
 
     # Remove empty artist credits.
     my @delete;
-    my $max = scalar @{ $ac } - 1;
-    for (0..$max)
+    my @names = @{ $ac->{names} };
+    for (0..$#names)
     {
-        my $part = $ac->[$_];
+        my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
-            push @delete, $_ unless ($part->{artist} || $part->{name});
+            push @delete, $_ unless ($part->{artist}->{id} || $part->{artist}->{name} || $part->{name});
         }
         elsif (! $part)
         {
@@ -163,7 +160,7 @@ sub clean_submitted_artist_credits
 
     for (@delete)
     {
-        delete $ac->[$_];
+        delete $ac->{names}->[$_];
     }
 
     return $ac;
@@ -227,12 +224,12 @@ sub status_names
     return %STATUS_NAMES
 }
 
-
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Oliver Charles
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

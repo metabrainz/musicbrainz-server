@@ -59,10 +59,10 @@ sub create_edit {
         name => 'Edited name',
         comment => 'Edited comment',
         length => '12345',
-        artist_credit => [
-            { artist => 1, name => 'Foo' },
-        ]
-    );
+        artist_credit => {
+            names => [
+                { artist => { id => 1 }, name => 'Foo' },
+            ] } );
 }
 
 sub is_unchanged {

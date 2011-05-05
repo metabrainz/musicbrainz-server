@@ -25,7 +25,8 @@ my $request = POST $mech->uri, [
     'edit-release-group.type_id' => 2,
     'edit-release-group.name' => 'Another name',
     'edit-release-group.artist_credit.names.0.name' => 'Foo',
-    'edit-release-group.artist_credit.names.0.artist_id' => '3',
+    'edit-release-group.artist_credit.names.0.artist.name' => 'Bar',
+    'edit-release-group.artist_credit.names.0.artist.id' => '3',
 ];
 
 my $response = $mech->request($request);
@@ -35,16 +36,26 @@ my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Edit');
 is_deeply($edit->data, {
     new => {
-        artist_credit => [ { artist => 3, name => 'Foo' } ],
+        artist_credit => {
+            names => [ {
+                artist => { id => 3, name => 'Bar' },
+                name => 'Foo',
+            } ]
+        },
         name => 'Another name',
         comment => 'A comment!',
         type_id => 2,
     },
     old => {
-        type_id => 1,
+        artist_credit => {
+            names => [ {
+                artist => { id => 6, name => 'ABBA' },
+                name => 'ABBA',
+                join_phrase => undef,
+            } ] },
         name => 'Arrival',
         comment => undef,
-        artist_credit => [ { artist => 6, name => 'ABBA' } ]
+        type_id => 1,
     },
     entity => {
         id => 1,

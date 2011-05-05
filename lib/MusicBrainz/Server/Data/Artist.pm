@@ -294,6 +294,28 @@ sub load_meta
     }, @_);
 }
 
+
+sub load_for_artist_credits {
+    my ($self, @artist_credits) = @_;
+
+    return unless @artist_credits;
+
+    my %artist_ids;
+    for my $ac (@artist_credits)
+    {
+        map { $artist_ids{$_->artist_id} = 1 }
+        grep { $_->artist_id } $ac->all_names;
+    }
+
+    my $artists = $self->get_by_ids (keys %artist_ids);
+
+    for my $ac (@artist_credits)
+    {
+        map { $_->artist ($artists->{$_->artist_id}) }
+        grep { $_->artist_id } $ac->all_names;
+    }
+};
+
 sub load_for_works {
     my ($self, @works) = @_;
     return unless @works;
@@ -395,6 +417,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
