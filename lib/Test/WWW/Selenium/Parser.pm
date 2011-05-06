@@ -28,6 +28,10 @@ our %dispatch = (
         $sel->click_ok(@_);
         $sel->wait_for_page_to_load_ok(30000)
     },
+    echo => sub {
+        shift;
+        $tb->diag (shift);
+    },
     fireEvent => 'fire_event_ok',
     focus => 'focus_ok',
     open => 'open_ok',
@@ -44,14 +48,15 @@ our %dispatch = (
         $tb->ok(not shift->is_text_present(@_));
     },
     verifyTextPresent => 'is_text_present_ok',
-    verifyNotVisible => sub {
-        $tb->ok(not shift->is_visible(@_));
-    },
-    verifyVisible => 'is_visible',
     verifyNotValue => sub {
         $tb->ok(not shift->value_is(@_));
     },
+    verifyNotVisible => sub {
+        $tb->ok(not shift->is_visible(@_));
+    },
+    verifySelectedLabel => 'selected_label_is',
     verifyValue => 'value_is',
+    verifyVisible => 'is_visible',
     waitForElementPresent => sub {
         my $sel = shift;
       WAIT: {
