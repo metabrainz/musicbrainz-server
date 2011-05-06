@@ -68,11 +68,18 @@ sub from_array
         $initname{join_phrase} = $artist->{join_phrase} if $artist->{join_phrase};
         if ($artist->{artist})
         {
-            $initname{artist_id} = $artist->{artist}->{id} if $artist->{artist}->{id};
-            delete $artist->{artist}->{id} unless $artist->{artist}->{id};
-            delete $artist->{artist}->{gid} unless $artist->{artist}->{gid};
+            if (blessed ($artist->{artist}))
+            {
+                $initname{artist} = $artist->{artist};
+            }
+            else
+            {
+                $initname{artist_id} = $artist->{artist}->{id} if $artist->{artist}->{id};
+                delete $artist->{artist}->{id} unless $artist->{artist}->{id};
+                delete $artist->{artist}->{gid} unless $artist->{artist}->{gid};
 
-            $initname{artist} = Artist->new( %{ $artist->{artist} } );
+                $initname{artist} = Artist->new( %{ $artist->{artist} } );
+            }
         }
 
         $ret->add_name( ArtistCreditName->new(%initname) );

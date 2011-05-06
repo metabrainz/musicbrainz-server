@@ -599,12 +599,27 @@ sub prepare_recordings
             $recording_edits[$count]->{associations} ||= [];
             my $edit_idx = 0;
             for my $edit (@{ $medium->{edits} }) {
-                $recording_edits[$count]->{associations}[$edit_idx++] ||= {
+                $recording_edits[$count]->{associations}[$edit_idx] ||= {
                     'gid' => 'new',
                     'confirmed' => 1,
                     'edit_sha1' => $edit->{edit_sha1},
                 };
+
+                # If a recording MBID is seeded it needs to be loaded from the DB.
+                my $gid = $recording_edits[$count]->{associations}[$edit_idx]->{gid};
+                if ($gid ne "new")
+                {
+                    # FIXME: collect these in a single query.
+                    $suggestions[$count][$edit_idx] = [
+                        $self->c->model ('Recording')->get_by_gid ($gid)
+                    ];
+                }
+
+                $edit_idx++;
             }
+
+            $self->c->model('ArtistCredit')->load (
+                map { $_->[0] } grep { $_ } @{ $suggestions[$count] });
         }
         elsif ($recording_edits[$count]->{associations} &&
                scalar @{ $recording_edits[$count]->{associations} })
@@ -1130,12 +1145,36 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
+    my @names = @{ $trk->{artist_credit}->{names} };
+
+    # artists may be seeded with an MBID, or selected in the release editor
+    # with just an id.
+    # FIXME: move this out of _expand_track.
+
+    my $gid_artists = $self->c->model ('Artist')->get_by_gids (
+        map { $_->{artist}->{gid} }
+        grep { $_->{artist} && $_->{artist}->{gid} } @names);
+
+    my %artists_by_gid = map { $_->gid => $_ } values %$gid_artists;
+
+    my $artists_by_id = $self->c->model ('Artist')->get_by_ids (
+        map { $_->{artist}->{id} }
+        grep { $_->{artist} && $_->{artist}->{id} } @names);
+
+    for my $ac_name (@names)
+    {
+        my $artist = $artists_by_gid{ $ac_name->{artist}->{gid} } ||
+            $artists_by_id->{ $ac_name->{artist}->{id} };
+
+        my $ac_name->{artist} = $artist;
+    }
+
     my $entity = Track->new(
         length => unformat_track_length ($trk->{length}),
         name => $trk->{name},
         position => $trk->{position},
         artist_credit => ArtistCredit->from_array ([
-            grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
+            grep { $_->{name} } @names
         ]));
 
     if ($assoc)

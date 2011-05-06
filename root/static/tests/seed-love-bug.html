@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Seed release editor test</title>
+    <style type="text/css">
+      input[type=text] {
+          width: 24em;
+          font-family: "Liberation Mono", "DejaVu Mono", "Courier New", monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <form  name="form" id="form" action="/release/add" method="post">
+
+      <fieldset>
+        <legend>Release information</legend>
+        <input name="name" type="text" value="the Love Bug" /><br />
+        <input name="country" type="text" value="JP" />
+        <input name="language" type="text" value="jpn" /><br />
+        <input name="type" type="text" value="single" />
+        <input name="status" type="text" value="official" /><br />
+        <input name="barcode" type="text" value="4988064451180" /><br />
+        <input name="date.year" type="text" value="2011" />
+        <input name="date.month" type="text" value="05" />
+        <input name="date.day" type="text" value="06" /><br />
+        <input name="comment" type="text" value="Seed release editor test" /><br />
+        <input name="artist_credit.names.0.mbid" type="text" value="22dd2db3-88ea-4428-a7a8-5cd3acf23175" /><br />
+        <input name="release_group" type="text" value="153f0a09-fead-3370-9b17-379ebd09446b" /><br />
+        <input name="labels.0.mbid" type="text" value="72a46579-e9a0-405a-8ee1-e6e6b63b8212" />
+        <input name="labels.0.catalog_number" type="text" value="RZCD-45118" /><br />
+      </fieldset>
+      
+      <fieldset>
+        <legend>Tracklist</legend>
+        <input name="mediums.0.track.0.name" type="text" value="the Love Bug"/>
+        <input name="mediums.0.track.0.length" type="text" value="242226"/><br />
+        <input name="mediums.0.track.1.name" type="text" value="the Love Bug (Big Bug NYC remix)"/>
+        <input name="mediums.0.track.1.length" type="text" value="222000"/><br />
+        <input name="mediums.0.track.2.name" type="text" value="the Love Bug (cover)"/>
+        <input name="mediums.0.track.2.length" type="text" value="333000"/><br />
+        <input name="mediums.1.track.0.name" type="text" value="Second disc seed test"/>
+      </fieldset>
+
+      <fieldset>
+        <legend>Recordings</legend>
+        <input name="mediums.0.track.0.recording" type="text" value="0cf3008f-e246-428f-abc1-35f87d584d60"/><br />
+        <input name="mediums.0.track.1.recording" type="text" value="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d"/><br />
+        <input name="mediums.0.track.2.recording" type="text" value="3f33fc37-43d0-44dc-bfd6-60efd38810c5"/><br />
+      </fieldset>
+
+      <input type="submit" value="seed">
+
+</form></body>

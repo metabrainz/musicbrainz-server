@@ -71,7 +71,6 @@
     style="display: none" [% IF name %]id="[% name %]"[% END %]>
 
     <div class="select-recording bubble">
-
       [%- IF NOT confirmed AND name -%]
       <div class="confirm-recording">
 
@@ -139,7 +138,7 @@
             </tr>
 
             [%- addnew_is_default = 0 -%]
-            [%- IF suggestions.size -%]
+            [%- IF suggestions AND suggestions.size -%]
               [%- FOR recording = suggestions -%]
                 [%# The first entry is the the default suggestion. %]
                 [%# If it is empty "add new recording" is selected as default. %]
@@ -151,6 +150,7 @@
               [%- END -%]
             [%- ELSE -%]
               [%- recording_suggestion (1, 0, name) -%]
+              [%- addnew_is_default = 1 -%]
             [%- END -%]
 
             <tr class="addnew">
