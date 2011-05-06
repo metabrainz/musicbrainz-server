@@ -99,8 +99,8 @@
 
     [% IF c.user_exists %]
         <h2>[% l('Collections') %]</h2>
+        <ul class="links">
         [%- IF collections.size > 0 -%]
-            <ul class="links">
             [% FOREACH collection IN collections %]
                 <li>
                 [% IF containment.${collection.id} %]
@@ -122,10 +122,11 @@
                 [% END %]
                 </li>
             [% END %]
-            </ul>
         [% ELSE %]
-            [% l("You have no collections. {uri|Create one!}", {uri => c.uri_for_action("/collection/create")}) %]
+            <li>[% l("You have no collections!") %]</li>
         [% END %]
+            <li><a href="[% c.uri_for_action("/collection/create") %]">[% l('Create a new collection') %]</a></li>
+        </ul>
     [% END %]
 
     [% INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release %]
