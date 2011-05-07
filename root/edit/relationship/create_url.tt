@@ -1,7 +1,7 @@
 [% BLOCK layout_head %]
   [% script_manifest('edit.js.manifest') %]
 
-   <script type="text/javascript">
+   <script type="text/javascript">//<![CDATA[
     $('document').ready(function() {
       MB.Control.URLCleanup(
         $('#id-ar\\.type').val(),
@@ -9,7 +9,7 @@
         $('#id-ar\\.url')
       );
     });
-   </script>
+   //]]></script>
 [% END %]
 
 [%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
@@ -22,9 +22,9 @@
 
     <input type="hidden" id="id-ar.type" value="[% type %]" />
 
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         var typeInfo = [% type_info %];
-    </script>
+    //]]></script>
 
     <fieldset>
         <legend>[% l('Relationship Details') %]</legend>

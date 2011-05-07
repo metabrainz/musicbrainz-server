@@ -1,11 +1,11 @@
 [% BLOCK layout_head %]
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         $(function() {
             MB.Control.TagEditor($('#sidebar-tags'),
                 "[% c.uri_for_action('/artist/tag_async', [ artist.gid ]) %]",
                 "[% c.uri_for('/tag/') %]");
         });
-    </script>
+    //]]></script>
 [% END %]
 
 [%- WRAPPER "artist/layout.tt" page='index' -%]

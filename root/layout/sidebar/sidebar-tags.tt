@@ -9,13 +9,13 @@
     tag_links.join(', ');
 END -%]
 
-<script type="text/javascript">
+<script type="text/javascript">//<![CDATA[
     $(function() {
         MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
             "[% c.uri_for('/tag/') %]",
             '[% link_entity(entity, 'tags', l('more…')).replace("'", "\\'").replace('</', '<\/') %]');
     });
-</script>
+//]]></script>
 
 <div id="sidebar-tags">
     <p>

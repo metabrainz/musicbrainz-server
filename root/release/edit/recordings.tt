@@ -1,7 +1,7 @@
 [%- BLOCK layout_head -%]
   [% script_manifest('edit.js.manifest') %]
   [% script_manifest('release-editor.js.manifest') %]
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
     $('document').ready (function () {
 
         MB.Control.ReleaseRecordings ();
@@ -9,7 +9,7 @@
         MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
     });
-  </script>
+  //]]></script>
 [%- END -%]
 
 [%- MACRO recording_suggestion(template, checked, name, recording) BLOCK -%]

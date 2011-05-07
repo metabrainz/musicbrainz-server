@@ -29,16 +29,14 @@
             [%- script_manifest('common.js.manifest') -%]
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
-        <script type="text/javascript">
-            //<![CDATA[
+        <script type="text/javascript">//<![CDATA[
             $(document).ready (function () {
                 $("[placeholder]").mb_placeholder ();
                 [% IF c.user_exists %]
                     MB.Control.RelateTo ();
                 [%- END -%]
             });
-            //]]>
-        </script>
+        //]]></script>
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
     </head>

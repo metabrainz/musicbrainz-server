@@ -1,5 +1,5 @@
 [% BLOCK layout_head %]
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         function vaswitch(artist_value)
         {
             var va_checkbox = document.getElementById("id-CDStub.multiple_artists");
@@ -43,7 +43,7 @@
                 vaswitch(artist_value);
             });
         }
-    </script>
+    //]]></script>
 [% END %]
 
 [% WRAPPER 'cdstub/layout.tt' full_width=1 page='edit' %]
