@@ -23,7 +23,7 @@ sub do_upgrade
     return {
         entity => {
             id => $self->artist_id,
-            name => '[deleted]',
+            name => '[removed]',
         },
         old => {
             sort_name => $self->previous_value

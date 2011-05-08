@@ -134,7 +134,7 @@ span.autocomplete.disabled img.search { display: none; }
 span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
 
 .ui-autocomplete-loading {
-    background: white url(../lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif) right center no-repeat;
+    background: white url(../images/icons/loading.gif) right center no-repeat;
 }
 .autocomplete-comment { font-size: smaller; color: #666; }
 button.autocomplete-pager {

@@ -43,7 +43,7 @@ fi
 # Create the reports
 echo `date`" : Running reports"
 OUTPUT=`
-    nice ./admin/reports/RunReports 2>&1
+    nice ./admin/RunReports.pl 2>&1
 ` || echo "$OUTPUT"
 
 # Add missing track lengths
@@ -58,6 +58,9 @@ echo `date`" : Processing subscriptions"
 
 # Recalculate related tags
 ./admin/CalculateRelatedTags.sh
+
+echo `date`": Updating cover art links"
+./admin/RebuildCoverArtUrls.pl
 
 echo `date`" : Nightly jobs complete!"
 

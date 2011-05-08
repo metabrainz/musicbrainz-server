@@ -44,7 +44,8 @@ sub get_translations {
     my $data = shift;
     my @translations = ();
     my $line_number;
-    while (my $item = shift @$data) {
+    while (@$data) {
+        my $item = shift @$data;
         if (ref $item eq q{} && $item eq 'TEXT') {
             shift @$data;
             next;
@@ -79,7 +80,7 @@ sub get_translations {
                 }
                 # Two parens at the back
                 pop @contents;
-                pop @contents;
+                pop @contents;                
                 push @translations, \@contents;
             }
         }
@@ -111,35 +112,36 @@ sub parse_file {
     # We now have our strings as arrayref of arrayrefs
     for (@{$strings}) {
         my $line_number = shift @{$_};
-        my $content = shift @{$_};
-        next unless @{$content};
-        $content = $content->[0];
-        my $po = Locale::PO->new();
-        $po->add_flag('perl-format');
-        my $cur = shift @{$content};
-        $po->reference("$file:$line_number");
-        if (defined $cur && $cur eq 'LITERAL' ) {
-            my $msgid = shift @{$content};
-            $msgid =~ s/\r*\n\s*/ /xmsg;
-            $msgid =~ s/\\'/'/xmsg;
-            $msgid =~ s/^\'(.*)\'$/$1/xmsg;
-            $po->msgid($msgid);
-            $po->msgstr("");
-        }
-        my $next = shift @{$content};
-        if ( defined $next && $next eq 'COMMA' ) {
-            shift @{$content};
-            if (shift @{$content} eq 'LITERAL') {
-                my $plural = shift @{$content};
-                $plural =~ s/\r*\n\s*/ /xmsg;
-                $plural =~ s/\\'/'/xmsg;
-                $plural =~ s/^\'(.*)\'$/$1/xmsg;
-                $po->msgid_plural($plural);
-                delete $po->{msgstr};
-                $po->msgstr_n( {0 => "", 1 => ""});
+        my $contents = shift @{$_};
+        next unless $contents and @{$contents};
+        for my $content (@$contents) {
+            my $po = Locale::PO->new();
+            $po->add_flag('perl-format');
+            my $cur = shift @{$content};
+            $po->reference("$file:$line_number");
+            if (defined $cur && $cur eq 'LITERAL' ) {
+                my $msgid = shift @{$content};
+                $msgid =~ s/\r*\n\s*/ /xmsg;
+                $msgid =~ s/\\'/'/xmsg;
+                $msgid =~ s/^\'(.*)\'$/$1/xmsg;
+                $po->msgid($msgid);
+                $po->msgstr("");
             }
+            my $next = shift @{$content};
+            if ( defined $next && $next eq 'COMMA' ) {
+                shift @{$content};
+                if (shift @{$content} eq 'LITERAL') {
+                    my $plural = shift @{$content};
+                    $plural =~ s/\r*\n\s*/ /xmsg;
+                    $plural =~ s/\\'/'/xmsg;
+                    $plural =~ s/^\'(.*)\'$/$1/xmsg;
+                    $po->msgid_plural($plural);
+                    delete $po->{msgstr};
+                    $po->msgstr_n( {0 => "", 1 => ""});
+                }
+            }
+            push @pos, $po if defined $cur && $cur eq 'LITERAL';
         }
-        push @pos, $po if defined $cur && $cur eq 'LITERAL';
     };
 
     return @pos;

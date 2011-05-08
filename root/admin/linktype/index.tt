@@ -1,6 +1,5 @@
-[% extra_css = "wikidocs.css" %]
 [% WRAPPER "layout.tt" title=l("Relationship Types") full_width=1 %]
-    <div id="content">
+    <div id="content" class="wikicontent">
         <h1>[% l("Relationship Types") %]</h1>
 
         <p class="buttons">

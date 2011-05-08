@@ -22,7 +22,7 @@ sub do_upgrade {
         alias_id  => $self->row_id,
         entity => {
             id => $self->artist_id,
-            name => '[deleted]'
+            name => '[removed]'
         },
         new => {
             name => $self->new_value,

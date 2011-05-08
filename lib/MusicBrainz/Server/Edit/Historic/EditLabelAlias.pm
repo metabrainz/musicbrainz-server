@@ -23,7 +23,7 @@ sub do_upgrade
         alias_id  => $self->row_id,
         entity    => {
             id => $self->label_id_from_alias($self->row_id) || 0,
-            name => '[deleted]',
+            name => '[removed]',
         },
         old       => { name => $self->previous_value },
         new       => { name => $self->new_value }

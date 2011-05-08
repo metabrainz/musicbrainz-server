@@ -240,7 +240,8 @@ sub end : ActionClass('RenderView')
         staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
         is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
-        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED
+        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
+        developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
     # Determine which server version to display. If the DBDefs string is empty

@@ -354,17 +354,6 @@ sub _serialize_work
     push @list, $gen->title($work->name);
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
-    if ($toplevel)
-    {
-        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artists || $inc->artist_credits;
-    }
-    else
-    {
-        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
-    }
-
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 

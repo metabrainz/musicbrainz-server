@@ -13,7 +13,7 @@
             [% form_field_errors(form, 'body') %]
         [% END %]
 
-        [% form_row_checkbox(r, 'reveal_address', l('Reveal my address address')) %]
+        [% form_row_checkbox(r, 'reveal_address', l('Reveal my email address')) %]
         [% form_row_checkbox(r, 'send_to_self', l('Send a copy to my own email address')) %]
 
         <div class="row no-label">

@@ -5,7 +5,7 @@
       <th>[% l('Date') %]</th>
       <th>[% l('Country') %]</th>
       <th>[% l('Label') %]</th>
-      <th>[% l('Catalog Number') %]</th>
+      <th>[% l('Catalog number') %]</th>
       <th>[% l('Barcode') %]</th>
       <th>[% l('Format') %]</th>
     </tr>

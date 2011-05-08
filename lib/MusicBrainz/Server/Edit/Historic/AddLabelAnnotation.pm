@@ -25,7 +25,7 @@ sub do_upgrade
         changelog => $self->new_value->{ChangeLog},
         entity    => {
             id   => $self->row_id,
-            name => '[deleted]',
+            name => '[removed]',
         }
     }
 };

@@ -138,7 +138,9 @@ $(function() {
     });
 
     var linkTypeSelect = $("select[id='id-ar.link_type_id']");
-    linkTypeSelect.change(function() { updateLinkType(this) });
-    updateLinkType(linkTypeSelect[0]);
+    if (linkTypeSelect.length) {
+      linkTypeSelect.change(function() { updateLinkType(this) });
+      updateLinkType(linkTypeSelect[0]);
+    }
 
 });
