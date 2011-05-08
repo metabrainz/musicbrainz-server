@@ -32,7 +32,7 @@ sub do_upgrade {
                 id => $self->resolve_recording_id(
                     $self->new_value->{"TrackId$i"}
                 ),
-                name => '[deleted]',
+                name => '[removed]',
             }
         };
     }

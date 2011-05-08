@@ -28,7 +28,10 @@ sub do_upgrade
     remove_equal($old, $new);
 
     return {
-        entity_id => $self->artist_id,
+        entity => {
+            id => $self->artist_id,
+            name => '[removed]'
+        },
         old => $old,
         new => $new
     };

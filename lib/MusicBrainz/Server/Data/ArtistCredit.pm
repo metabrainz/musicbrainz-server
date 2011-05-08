@@ -63,10 +63,9 @@ sub load
     load_subobjects($self, 'artist_credit', @objs);
 }
 
-sub find_or_insert
+sub _find
 {
     my ($self, @artist_joinphrase) = @_;
-
     my $i = 0;
     my ($credits, $join_phrases) = part { $i++ % 2 } @artist_joinphrase;
     my @positions = (0..scalar @$credits - 1);
@@ -102,22 +101,43 @@ sub find_or_insert
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
     my @args = zip @positions, @artists, @names, @$join_phrases;
     pop @args unless defined $join_phrases->[$#names];
+
     my $id = $self->sql->select_single_value($query, @args, scalar @names);
+
+    return ($id, $name, \@positions, \@names, \@artists, $join_phrases);
+}
+
+sub find
+{
+    my ($self, @artist_joinphrase) = @_;
+
+    my ($id, $name, $positions, $names, $artists, $join_phrases) =
+        $self->_find (@artist_joinphrase);
+
+    return $id;
+}
+
+sub find_or_insert
+{
+    my ($self, @artist_joinphrase) = @_;
+
+    my ($id, $name, $positions, $names, $artists, $join_phrases) =
+        $self->_find (@artist_joinphrase);
 
     if(!defined $id)
     {
-        my %names_id = $self->c->model('Artist')->find_or_insert_names(@names, $name);
+        my %names_id = $self->c->model('Artist')->find_or_insert_names(@$names, $name);
         $id = $self->sql->insert_row('artist_credit', {
             name => $names_id{$name},
-            artist_count => scalar @names,
+            artist_count => scalar @$names,
         }, 'id');
-        for my $i (@positions)
+        for my $i (@$positions)
         {
             $self->sql->insert_row('artist_credit_name', {
                     artist_credit => $id,
                     position => $i,
-                    artist => $artists[$i],
-                    name => $names_id{$names[$i]},
+                    artist => $artists->[$i],
+                    name => $names_id{$names->[$i]},
                     join_phrase => $join_phrases->[$i],
                 });
         }

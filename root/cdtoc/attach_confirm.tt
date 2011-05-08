@@ -1,5 +1,5 @@
-[% WRAPPER 'layout.tt' title=l('Attach CDTOC') full_width=1 %]
-  <h2>[% l('Attach CDTOC') %]</h2>
+[% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
+  <h2>[% l('Attach CD TOC') %]</h2>
   [% WRAPPER 'layout/guidelines.tt' %]
     [%- create_guideline(l('Are you sure that you wish to attach the disc ID <code>{discid}</code> to
                             {release} by {artist}?', { discid => cdtoc.discid, release => link_entity(release),

@@ -459,6 +459,7 @@ sub ImportAllTables
         release_group_type
         release_label
         release_meta
+        release_coverart
         release_name
         release_packaging
         release_status

@@ -6,22 +6,36 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'event' }
 
-before 'serialize' => sub
-{
+sub attributes {
     my ($self, $entity, $inc, $opts) = @_;
+    my @attr;
 
-    $self->attributes->{date} = $entity->date->format unless $entity->date->is_empty;
-    $self->attributes->{country} = $entity->country->iso_code if $entity->country;
-    $self->attributes->{barcode} = $entity->barcode if $entity->barcode;
-    $self->attributes->{format} = $entity->combined_format_name
+    push @attr, ( date => $entity->date->format ) unless $entity->date->is_empty;
+    push @attr, ( country => $entity->country->iso_code ) if $entity->country;
+    push @attr, ( barcode => $entity->barcode ) if $entity->barcode;
+    push @attr, ( format => $entity->combined_format_name )
         if $entity->combined_format_name;
 
     # FIXME - multiple release labels = multiple release events?
     if ($entity->labels->[0]) {
-        $self->attributes->{'catalog-number'} = $entity->labels->[0]->catalog_number;
-        $self->add( serialize_entity( $entity->labels->[0]->label) )
+        push @attr, ( 'catalog-number' => $entity->labels->[0]->catalog_number )
+    }
+
+    return @attr;
+}
+
+sub serialize
+{
+    my ($self, $entity, $inc, $opts) = @_;
+    my @body;
+
+    # FIXME - multiple release labels = multiple release events?
+    if ($entity->labels->[0]) {
+        push @body, ( serialize_entity( $entity->labels->[0]->label) )
             if $inc && $inc->labels;
     }
+
+    return @body;
 };
 
 __PACKAGE__->meta->make_immutable;

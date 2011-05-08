@@ -28,5 +28,5 @@ elsif (! -x $xvfb_run)
 }
 else
 {
-    exec ($xvfb_run, $phantomjs, $testrunner, $testsuite);
+    exec ($xvfb_run, "--auto-servernum", $phantomjs, $testrunner, $testsuite);
 }

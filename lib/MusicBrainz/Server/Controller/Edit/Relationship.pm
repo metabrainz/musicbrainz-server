@@ -3,6 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIP_EDIT
@@ -61,6 +62,7 @@ sub edit : Local RequireAuth Edit
     $c->stash(
         root => $tree,
         type_info => JSON->new->latin1->encode(\%type_info),
+        rel => $rel
     );
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
@@ -113,7 +115,19 @@ sub edit : Local RequireAuth Edit
 
             push @attributes, scalar($attr->all_children)
                 ? @$value
-                : $value ? $attr->all_children : ();
+                : $value ? $attr->id : ();
+        }
+
+        if ($c->model('Relationship')->exists($type0, $type1, {
+            link_type_id => $form->field('link_type_id')->value,
+            begin_date   => $form->field('begin_date')->value,
+            end_date     => $form->field('end_date')->value,
+            attributes   => [uniq @attributes],
+            entity0      => $form->field('entity0.id')->value,
+            entity1      => $form->field('entity1.id')->value,
+        })) {
+            $c->stash( exists => 1 );
+            $c->detach;
         }
 
         my $values = $form->values;
@@ -121,14 +135,14 @@ sub edit : Local RequireAuth Edit
             edit_type => $EDIT_RELATIONSHIP_EDIT,
             type0             => $type0,
             type1             => $type1,
-            entity0_id        => $values->{entity0}->{id},
-            entity1_id        => $values->{entity1}->{id},
+            entity0_id        => $form->field('entity0.id')->value,
+            entity1_id        => $form->field('entity0.id')->value,
             relationship      => $rel,
-            link_type_id      => $values->{link_type_id},
-            begin_date        => $values->{begin_date},
-            end_date          => $values->{end_date},
-            change_direction  => $values->{direction},
-            attributes        => \@attributes
+            link_type_id      => $form->field('link_type_id')->value,
+            begin_date        => $form->field('begin_date')->value,
+            end_date          => $form->field('end_date')->value,
+            change_direction  => $form->field('direction')->value,
+            attributes        => [uniq @attributes],
         );
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
@@ -199,7 +213,7 @@ sub create : Local RequireAuth Edit
 
             push @attributes, scalar($attr->all_children)
                 ? @$value
-                : $value ? $attr->all_children : ();
+                : $value ? $attr->id : ();
         }
 
         my $entity0 = $source;
@@ -214,7 +228,7 @@ sub create : Local RequireAuth Edit
             link_type_id => $form->field('link_type_id')->value,
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
-            attributes => \@attributes,
+            attributes => [uniq @attributes],
             entity0 => $entity0->id,
             entity1 => $entity1->id,
         })) {
@@ -235,7 +249,7 @@ sub create : Local RequireAuth Edit
             begin_date   => $form->field('begin_date')->value,
             end_date     => $form->field('end_date')->value,
             link_type    => $link_type,
-            attributes   => \@attributes,
+            attributes   => [uniq @attributes],
         );
 
         my $redirect = $c->controller(type_to_model($type0))->action_for('show');

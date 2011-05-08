@@ -17,7 +17,7 @@ has '+data' => (
     isa => Dict[
         name        => Str,
         parent_id   => Nullable[Int],
-        description => Str,
+        description => Nullable[Str],
         child_order => Str
     ]
 );

@@ -37,7 +37,7 @@ sub do_upgrade
     return {
         entity => {
             id => $self->resolve_url_id($self->row_id),
-            name => '[deleted]'
+            name => '[removed]'
         },
         new => $new,
         old => $old
