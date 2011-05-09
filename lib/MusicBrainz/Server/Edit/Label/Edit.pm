@@ -132,7 +132,8 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{end_date}
         and partial_date_from_row($self->data->{old}{end_date})->format ne '';
 
-    return 0 if exists $self->data->{old}{type} and $self->data->{old}{type} != 0;
+    return 0 if exists $self->data->{old}{type_id}
+        and $self->data->{old}{type_id} != 0;
 
     return 1;
 }
