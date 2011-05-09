@@ -131,11 +131,21 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ?';
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT ?';
 
-    return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
-            return $self->_new_from_row(shift);
-        }, $query, @args, $offset);
+    my $count_query = 'SELECT count(1) FROM ' . $self->_table .
+        ' WHERE  ' . join ' AND ', map { "($_)" } @pred if @pred;
+
+    if (my $count = $self->sql->select_single_value($count_query, @args)) {
+        return (
+            [ query_to_list($self->c->raw_sql, sub {
+                return $self->_new_from_row(shift)
+            }, $query, @args, $offset, $limit) ], $count
+        );
+    }
+    else {
+        return ([], 0);
+    }
 }
 
 sub find_for_subscription
