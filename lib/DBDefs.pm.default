@@ -162,6 +162,9 @@ sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 # Using Cache::Memory is good for a development environment, but is likely not
 # suited for production.  Use something like memcached in a production setup.
 #
+# If you want to use something such as Memcached, the settings here should be
+# the same as the settings you use for the session store.
+#
 sub PLUGIN_CACHE_OPTIONS {
     return {
 #        class => "Cache::Memory",
@@ -179,16 +182,12 @@ sub CACHE_DEFAULT_EXPIRES { 3600 }
 # Default delete time in seconds.  Use 0 means allow re-insert straight away.
 sub CACHE_DEFAULT_DELETE { 4 }
 
-# XXX remove this
-# Cache::Memcached options
-our %CACHE_OPTIONS = (
-    servers => [ '127.0.0.1:11211' ],
-    debug => 0,
-);
-sub CACHE_OPTIONS { \%CACHE_OPTIONS }
-
 # Use memcached and a small in-memory cache, see below if you
 # want to disable caching
+#
+# The caching options here relate to object caching - such as caching artists,
+# releases, etc in order to speed up queries. If you are using Memcached
+# to store sessions as well this should be a *different* memcached server.
 our %CACHE_MANAGER_OPTIONS = (
     profiles => {
         memory => {
