@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { l('Add release') }
@@ -58,9 +59,11 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
+        Country          => [ $self->data->{country_id} ],
         Release          => { $self->entity_id => [ 'ArtistCredit' ] },
         ReleaseStatus    => [ $self->data->{status_id} ],
         ReleaseGroup     => [ $self->data->{release_group_id} ],
+        ReleasePackaging => [ $self->data->{packaging_id} ],
         Script           => [ $self->data->{script_id} ],
         Language         => [ $self->data->{language_id} ],
     };
@@ -78,12 +81,17 @@ sub build_display_data
         artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
+        country       => $loaded->{Country}{ $self->data->{country_id} },
+        packaging     => $loaded->{ReleasePackaging}{ $self->data->{packaging_id} },
         status        => $status ? $loaded->{ReleaseStatus}->{ $status } : '',
         script        => $script ? $loaded->{Script}{ $script } : '',
         language      => $lang ? $loaded->{Language}{ $lang } : '',
         barcode       => $self->data->{barcode} || '',
         release       => $loaded->{Release}{ $self->entity_id } ||
-            Release->new( name => $self->data->{name} )
+            Release->new( name => $self->data->{name} ),
+        date          => PartialDate->new(
+            map { $_ => $self->data->{date}{$_} } qw( year month day )
+        )
     };
 }
 
