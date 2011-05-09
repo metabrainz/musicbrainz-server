@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { 'Reorder mediums' }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
 
+with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
