@@ -30,6 +30,13 @@
   </tr>
   [% END %]
 
+  [% IF edit.display_data.language %]
+  <tr>
+    <th>[% l('Language:') %]</th>
+    <td>[% edit.display_data.language.name | html %]</td>
+  </tr>
+  [% END %]
+
   [% IF edit.display_data.script %]
   <tr>
     <th>[% l('Script:') %]</th>
@@ -37,10 +44,31 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.language %]
+  [% IF !edit.display_data.date.is_empty %]
   <tr>
-    <th>[% l('Language:') %]</th>
-    <td>[% edit.display_data.language.name | html %]</td>
+    <th>[% l('Date:') %]</th>
+    <td>[% edit.display_data.date.format %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.country %]
+  <tr>
+    <th>[% l('Country:') %]</th>
+    <td>[% edit.display_data.country.name | html %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.packaging %]
+  <tr>
+    <th>[% l('Packaging:') %]</th>
+    <td>[% edit.display_data.packaging.name | html %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.barcode %]
+  <tr>
+    <th>[% l('Barcode:') %]</th>
+    <td>[% edit.display_data.barcode | html %]</td>
   </tr>
   [% END %]
 </table>
