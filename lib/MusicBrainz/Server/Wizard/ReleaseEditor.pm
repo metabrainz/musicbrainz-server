@@ -31,6 +31,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
+    $EDIT_RELEASE_REORDER_MEDIUMS
 );
 
 extends 'MusicBrainz::Server::Wizard';
@@ -921,6 +922,9 @@ sub _edit_release_track_edits
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
 
+    my @new_order;
+    my $re_order = 0;
+
     my $medium_idx = -1;
     for my $new (@{ $data->{mediums} })
     {
@@ -931,24 +935,35 @@ sub _edit_release_track_edits
         if ($new->{id})
         {
             # The medium already exists
+            my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+            $entity->release ($self->release);
 
             if ($new->{deleted})
             {
                 # Delete medium
                 $create_edit->(
                     $EDIT_MEDIUM_DELETE, $editnote,
-                    medium => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    medium => $entity,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
             else
             {
+                my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+                $entity->release($self->release);
+
+                push @new_order, {
+                    medium_id => $entity->id,
+                    old => $entity->position,
+                    new => $new->{position},
+                };
+                $re_order ||= ($entity->position != $new->{position});
+
                 # Edit medium
                 my %opts = (
                     name => $new->{name},
                     format_id => $new->{format_id},
-                    position => $new->{position},
-                    to_edit => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    to_edit => $entity,
                     separate_tracklists => 1,
                     as_auto_editor => $data->{as_auto_editor},
                 );
@@ -968,8 +983,10 @@ sub _edit_release_track_edits
         {
             # Medium does not exist yet.
 
+            my $add_medium_position = $self->add_medium_position ($medium_idx, $new);
+
             my $opts = {
-                position => $medium_idx + 1,
+                position => $add_medium_position,
                 release => $previewing ? undef : $self->release,
                 as_auto_editor => $data->{as_auto_editor},
             };
@@ -993,28 +1010,35 @@ sub _edit_release_track_edits
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
-            if ($new->{toc}) {
+            if ($new->{toc})
+            {
                 $create_edit->(
                     $EDIT_MEDIUM_ADD_DISCID,
                     $editnote,
+                    cdtoc => $new->{toc},
+                    release => $self->release,
                     medium_id  => $previewing ? 0 : $add_medium->entity_id,
-                    release_id => $previewing ? 0 : $self->release->id,
-                    cdtoc      => $new->{toc},
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
 
-            if ($new->{position} != $medium_idx + 1)
-            {
-                # Disc was inserted at the wrong position, enter an edit to re-order it.
-                $create_edit->(
-                    $EDIT_MEDIUM_EDIT, $editnote,
-                    position => $new->{position},
-                    to_edit => $add_medium->entity,
-                    as_auto_editor => $data->{as_auto_editor},
-                );
-            }
+            push @new_order, {
+                medium_id => $add_medium->entity_id,
+                old => $add_medium_position,
+                new => $new->{position},
+            };
+            $re_order ||= ($add_medium_position != $new->{position});
         }
+    }
+
+    if ($re_order) {
+        $create_edit->(
+            $EDIT_RELEASE_REORDER_MEDIUMS,
+            $editnote,
+            release  => $self->release,
+            medium_positions => \@new_order,
+            as_auto_editor => $data->{as_auto_editor},
+        );
     }
 }
 
@@ -1159,6 +1183,10 @@ sub _expand_mediums
                 $pos++;
                 $self->_expand_track ($_, $rec);
             } @{ $self->edited_tracklist($json->decode($edits)) } ];
+        }
+        elsif ($disc->{deleted})
+        {
+            $disc->{tracks} = [ ];
         }
         elsif ($tracklist_id)
         {
