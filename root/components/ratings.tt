@@ -7,7 +7,7 @@
         [%- IF rating.editor.preferences.public_ratings == 0 -%]
         [%- private_ratings = private_ratings + 1 -%]
         [%- ELSE -%]
-        <li>[% rating_stars(entity, rating.editor.id != c.user.id) %] - [% link_entity(rating.editor) %]</li>
+        <li>[% show_rating(rating) %] - [% link_entity(rating.editor) %]</li>
         [%- END -%]
     [%- END -%]
     </ul>

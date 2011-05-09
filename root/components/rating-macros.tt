@@ -38,3 +38,11 @@ END -%]
 </span>
 [%- END -%]
 
+[%- MACRO show_rating(rating) BLOCK -%]
+<span class="inline-rating">
+    <span class="star-rating small-star">
+        <span class="current-rating" style="width:[% rating.rating %]%;">[% 5 * rating.rating / 100 %]</span>
+    </span>
+</span>
+[%- END -%]
+

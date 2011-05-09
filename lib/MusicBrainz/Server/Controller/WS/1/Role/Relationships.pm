@@ -9,14 +9,14 @@ before 'lookup' => sub {
 
 sub load_relationships
 {
-    my ($self, $c, $entity) = @_;
+    my ($self, $c, @entities) = @_;
     return unless ($c->stash->{inc}->has_rels);
 
     my $types = $c->stash->{inc}->get_rel_types;
 
-    my @rels = $c->model('Relationship')->load_subset($types, $entity);
+    my @rels = $c->model('Relationship')->load_subset($types, @entities);
     my @releases;
-    for my $relationship (@{$entity->relationships}) {
+    for my $relationship (map { @{$_->relationships} } @entities) {
         if ($relationship->target->isa('MusicBrainz::Server::Entity::Release')) {
             push @releases, $relationship->target;
         }

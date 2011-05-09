@@ -1,6 +1,5 @@
-[% extra_css = "wikidocs.css" %]
 [% WRAPPER "layout.tt" full_width=1 title=l('Edit Types') -%]
-    <div id="content">
+    <div id="content" class="wikicontent">
         <h1>[%- l('Edit Types') -%]</h1>
           [% FOR category=by_category.pairs %]
             <h2>[% category.key %]</h2>

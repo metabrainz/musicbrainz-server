@@ -5,11 +5,24 @@ extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
 sub element { 'artist'; }
 
-before 'serialize' => sub
+sub attributes {
+    my ($self, $entity) = @_;
+
+    if (@{$entity->names} > 1) {
+        return ( id => $entity->names->[0]->artist->gid );
+    }
+    else {
+        my $artist = $entity->names->[0]->artist;
+        return ( id => $artist->gid );
+    }
+}
+
+sub serialize
 {
     my ($self, $entity, $inc, $opts) = @_;
+    my @body;
 
-    $self->add( $self->gen->name($entity->name) );
+    push @body, ( $self->gen->name($entity->name) );
 
     if (@{$entity->names} > 1)
     {
@@ -17,16 +30,16 @@ before 'serialize' => sub
         # properly in /ws/1.  The name is the combined artist name, and the ID
         # is the ID of the *first* artist.
 
-        $self->attributes->{id} = $entity->names->[0]->artist->gid;
-        $self->add( $self->gen->sort_name($entity->name) );
+        push @body, ( $self->gen->sort_name($entity->name) );
     }
     else
     {
         my $artist = $entity->names->[0]->artist;
 
-        $self->attributes->{id} = $artist->gid;
-        $self->add( $self->gen->sort_name($artist->sort_name) );
+        push @body, ( $self->gen->sort_name($artist->sort_name) );
     }
+
+    return @body;
 };
 
 __PACKAGE__->meta->make_immutable;

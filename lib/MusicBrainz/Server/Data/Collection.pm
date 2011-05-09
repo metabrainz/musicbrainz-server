@@ -93,17 +93,24 @@ sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    my @ids = ($new_id, @old_ids);
+
     # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
     # a collection that already contains $new_id)
-    $self->sql->do("DELETE FROM editor_collection_release
-              WHERE release IN (".placeholders(@old_ids).") AND
-                  collection IN (SELECT collection FROM editor_collection_release WHERE release = ?)",
-              @old_ids, $new_id);
+    $self->sql->do(
+        "DELETE FROM editor_collection_release
+               WHERE release IN (" . placeholders(@ids) . ")
+                 AND (collection, release) NOT IN (
+                     SELECT DISTINCT ON (collection) collection, release
+                       FROM editor_collection_release
+                      WHERE release IN (" . placeholders(@ids) . ")
+                 )",
+        @ids, @ids);
 
     # Move all remaining joins to the new release
     $self->sql->do("UPDATE editor_collection_release SET release = ?
-              WHERE release IN (".placeholders(@old_ids).")",
-              $new_id, @old_ids);
+              WHERE release IN (".placeholders(@ids).")",
+              $new_id, @ids);
 }
 
 sub delete_releases

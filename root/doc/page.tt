@@ -1,6 +1,5 @@
-[% extra_css = "wikidocs.css" %]
 [% WRAPPER "layout.tt" full_width=1 title=page.title -%]
-    <div id="content">
+    <div id="content" class="wikicontent">
         <h1>[%- page.title -%]</h1>
         [%- IF !page.version -%]
             <div class="wikidocs-header">
