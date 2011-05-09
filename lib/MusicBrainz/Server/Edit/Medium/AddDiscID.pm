@@ -33,6 +33,8 @@ has '+data' => (
 
 method release_id { $self->data->{release}{id} }
 
+method allow_auto_edit { 1 }
+
 method alter_edit_pending
 {
     return {
