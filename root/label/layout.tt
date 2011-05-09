@@ -17,6 +17,9 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                content=html_escape(label.ipi_code)
                    IF label.ipi_code -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
+               content=html_escape('LC-' _ label.label_code)
+                   IF label.label_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(label.country.name)
                    IF label.country -%]
