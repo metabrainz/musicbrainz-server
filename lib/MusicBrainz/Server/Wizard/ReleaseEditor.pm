@@ -750,7 +750,7 @@ sub _missing_artist_credits
         ),
         (
             # Artist credits on new tracklists
-            grep { !$_->artist_id }
+            grep { !$_->artist || !$_->artist->id }
             map { @{ $_->artist_credit->names } }
             map { @{ $_->{tracks} } } grep { $_->{edits} }
             @{ $data->{mediums} }
@@ -1161,12 +1161,12 @@ sub _expand_track
         map { $_->{artist}->{id} }
         grep { $_->{artist} && $_->{artist}->{id} } @names);
 
-    for my $ac_name (@names)
+    for my $i (0..$#names)
     {
-        my $artist = $artists_by_gid{ $ac_name->{artist}->{gid} } ||
-            $artists_by_id->{ $ac_name->{artist}->{id} };
+        my $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} } ||
+            $artists_by_id->{ $names[$i]->{artist}->{id} };
 
-        my $ac_name->{artist} = $artist;
+        $names[$i]->{artist} = $artist if $artist;
     }
 
     my $entity = Track->new(
