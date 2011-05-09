@@ -3,6 +3,7 @@ use Moose::Role;
 use namespace::autoclean;
 
 use DBDefs;
+use Encode qw( encode );
 use MooseX::Types::Moose qw( Str );
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Entity::Types;
@@ -56,7 +57,7 @@ sub create_email {
             From => $self->from,
             Subject => $self->subject
         ],
-        body => $self->body,
+        body => encode('utf-8', $self->body),
         attributes => {
             content_type => "text/plain",
             charset      => "UTF-8",
