@@ -1,15 +1,10 @@
-<?xml version="1.0"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-
-<svg xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 16 16" width="16px" height="16px">
-
-    <rect id="border" fill="#000" width="16px" height="16px" />
-    <rect id="background" fill="#fff" x="1px" y="1px" width="14px" height="14px" />
-
-    <polygon fill="#000" points="3,8 8,3 13,8" />
-    <rect fill="#000" x="7px" y="3px" width="2px" height="10px" />
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+<rect id="border" fill="#999999" width="16" height="16"/>
+<rect id="background" x="1" y="1" fill="#FFFFFF" width="14" height="14"/>
+<rect x="5.641" y="5.5" fill="#1C94C4" width="3.869" height="7.5"/>
+<polygon fill="#1C94C4" points="12.608,8.986 7.609,3 2.609,8.986 "/>
 </svg>
