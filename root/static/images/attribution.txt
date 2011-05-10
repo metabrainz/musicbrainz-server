@@ -108,11 +108,21 @@ Images:
 
 ----------------------------------------------------------------------------
 
-Source:      MusicBrainz Picard
-Authors:     Carlin Mangar
-License:     CC-BY-SA/2.0/uk (see 
-             resources/img-src/Copyright.htm included with Picard)
+Source:      MusicBrainz
+License:     GPL v2 or later
+
 Images:
 
-    logos/musicbrainz-picard.png
+    icons/add_row.png
+    icons/collapse.png
+    icons/delete_row.png
+    icons/down.png
+    icons/expand.png
+    icons/guesscase.32x32.png
+    icons/guesscase.png
+    icons/help.png
+    icons/search.png
+    icons/up.png
+
+    (original .svg versions are in src/icons/*.svg)
 
