@@ -16,7 +16,8 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBeGroups') %]">[% l('Artists that may be groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBePersons') %]">[% l('Artists that may be persons') %]</a></li>
-            <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a>
+            <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'PossibleCollaborations') %]">[% l('Artists which look like collaborations') %]</a></li>
         </ul>
 
         <h2>[% l('Release groups') %]</h2>

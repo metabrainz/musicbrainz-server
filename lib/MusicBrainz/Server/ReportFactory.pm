@@ -16,6 +16,7 @@ my @all = qw(
     NoLanguage
     NoScript
     PartOfSetRelationships
+    PossibleCollaborations
     RecordingsWithEarliestReleaseRelationships
     SeparateDiscs
 );
@@ -32,6 +33,7 @@ use MusicBrainz::Server::Report::MultipleDiscogsLinks;
 use MusicBrainz::Server::Report::NoLanguage;
 use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
+use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::SeparateDiscs;
 
