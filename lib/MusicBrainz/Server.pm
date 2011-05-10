@@ -207,12 +207,32 @@ sub relative_uri
     return $uri;
 }
 
+use POSIX qw(SIGALRM);
+
 around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
     Translation->instance->build_languages_from_header($c->req->headers);
-    $c->$orig(@_);
+
+    if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
+        alarm($max_request_time);
+        POSIX::sigaction(
+            SIGALRM, POSIX::SigAction->new(sub {
+                $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
+                                       $c->req->uri,
+                                       $max_request_time));
+                $c->log->_flush;
+                exit(42)
+            }));
+
+        $c->$orig(@_);
+
+        alarm(0);
+    }
+    else {
+        $c->$orig(@_);
+    }
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
