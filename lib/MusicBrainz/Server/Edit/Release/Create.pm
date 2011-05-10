@@ -89,9 +89,9 @@ sub build_display_data
         barcode       => $self->data->{barcode} || '',
         release       => $loaded->{Release}{ $self->entity_id } ||
             Release->new( name => $self->data->{name} ),
-        date          => PartialDate->new(
+        date          => PartialDate->new({
             map { $_ => $self->data->{date}{$_} } qw( year month day )
-        )
+        })
     };
 }
 
