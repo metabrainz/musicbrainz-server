@@ -372,5 +372,15 @@ sub PROFILE_WEB_SERVICE { 0 }
 # Log if a request in / (not /ws) takes more than x seconds
 sub PROFILE_SITE { 0 }
 
+# If you want the FastCGI processes to restart, configure this
+sub AUTO_RESTART {
+#    return {
+#        active => 1,
+#        check_each => 10,
+#        max_bits => 134217728,
+#        min_handled_requests => 100
+#    }
+}
+
 1;
 # eof DBDefs.pm
