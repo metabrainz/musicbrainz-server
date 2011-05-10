@@ -108,7 +108,8 @@ feature 'Developer features' =>
     ;
 
 feature 'Production server' =>
-    'Digest::MD5::File' => '0.07'
+    'Digest::MD5::File' => '0.07',
+    'Catalyst::Plugin::AutoRestart' => '0.93'
     ;
 
 feature 'Fast edit migration' =>

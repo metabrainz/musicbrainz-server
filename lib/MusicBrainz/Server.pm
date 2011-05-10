@@ -159,6 +159,10 @@ if (&DBDefs::USE_ETAGS) {
     push @args, "Cache::HTTP";
 }
 
+if (my $config = DBDefs::AUTO_RESTART) {
+    __PACKAGE__->config->{'Plugin::AutoRestart'} = $config;
+    push @args, 'AutoRestart';
+}
 
 if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
 {
