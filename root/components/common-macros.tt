@@ -477,18 +477,15 @@ END -%]
     0;
 END -%]
 
-[%- MACRO favicon_image(url)
-       IF url.url.host.search('discogs.com$'); '/static/images/favicons/discogs-32.png';
-    ELSIF url.url.host.search('wikipedia.org$'); '/static/images/favicons/wikipedia-32.png';
-    ELSIF url.url.host.search('bbc.co.uk'); '/static/images/favicons/bbc-32.gif';
-    ELSIF url.url.host.search('facebook.com'); '/static/images/favicons/facebook-32.png';
-    ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-32.png';
-    ELSIF url.url.host.search('last.fm'); '/static/images/favicons/lastfm-32.png';
-    ELSIF url.url.host.search('imdb.com'); '/static/images/favicons/imdb.png';
-    ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-32.png';
-    ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-32.png';
-    ELSE;  'http://' _ url.url.host _ '/favicon.ico';
-END -%]
+[% MACRO favicon_image(url)
+       IF url.url.host.search('amazon'); '/static/images/favicons/amazon-16.png';
+    ELSIF url.url.host.search('wikipedia.org$'); '/static/images/favicons/wikipedia-16.png';
+    ELSIF url.url.host.search('facebook.com'); '/static/images/favicons/facebook-16.png';
+    ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-16.png';
+    ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-16.png';
+    ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-16.png';
+    ELSE; '/static/images/favicons/external-16.png';
+END %]
 
 [%- MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
