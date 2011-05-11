@@ -26,11 +26,11 @@ sub related_entities
     my %rel;
 
     for my $link (@{ $self->data->{links} }) {
-        $rel{ $link->{entity_type0} } ||= [];
-        push @{ $rel{ $link->{entity_type0} } }, $link->{entity0_id};
+        $rel{ $link->{entity0_type} } ||= [];
+        push @{ $rel{ $link->{entity0_type} } }, $link->{entity0_id};
 
-        $rel{ $link->{entity_type1} } ||= [];
-        push @{ $rel{ $link->{entity_type1} } }, $link->{entity1_id};
+        $rel{ $link->{entity1_type} } ||= [];
+        push @{ $rel{ $link->{entity1_type} } }, $link->{entity1_id};
     }
 
     return \%rel;
@@ -42,11 +42,11 @@ sub foreign_keys
     my %fk;
 
     for my $link (@{ $self->data->{links} }) {
-        my $k0 = type_to_model($link->{entity_type0});
+        my $k0 = type_to_model($link->{entity0_type});
         $fk{ $k0  } ||= [];
         push @{ $fk{ $k0 } }, $link->{entity0_id};
 
-        my $k1 = type_to_model($link->{entity_type1});
+        my $k1 = type_to_model($link->{entity1_type});
         $fk{ $k1  } ||= [];
         push @{ $fk{ $k1 } }, $link->{entity1_id};
     }
