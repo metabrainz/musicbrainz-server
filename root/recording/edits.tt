@@ -1,5 +1,5 @@
 [% BLOCK layout_head %]
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         $(function() {
             $('.edit-list').each(function() {
                 MB.Control.EditSummary(this);
@@ -9,7 +9,7 @@
               MB.Control.EditList('#edits');
             [% END %]
         });
-    </script>
+    //]]></script>
 [% END %]
 
 [% WRAPPER 'layout.tt' title=l('Edits for “{name}”', { name => html_escape(recording.name) }) full_width=1 %]

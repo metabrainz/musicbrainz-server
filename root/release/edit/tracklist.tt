@@ -3,7 +3,7 @@
   [% script_manifest('edit.js.manifest') %]
   [% script_manifest('release-editor.js.manifest') %]
 
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
 
     $('document').ready (function () {
 
@@ -23,7 +23,7 @@
 
     });
 
-  </script>
+  //]]></script>
 [%- END -%]
 
 [%- MACRO artist_credit_row(acfield) BLOCK -%]
