@@ -8,7 +8,7 @@
         [%- l('Release by {artist}', {artist = rdfa_artist_credit(release.artist_credit)})%]
     <span class="small">
         [% IF release.release_group.release_count > 1 %]
-            (<a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">[% l("see all versions of this release") %]</a>)
+            (<a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">[% l("see other versions of this release") %]</a>)
         [% ELSE %]
             ([% l('{uri|see release group}', { uri => c.uri_for_action('/release_group/show', [release.release_group.gid]) }) %])
         [% END %]
