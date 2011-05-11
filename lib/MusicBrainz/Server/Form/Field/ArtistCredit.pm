@@ -11,7 +11,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 has 'allow_unlinked' => ( isa => 'Bool', is => 'rw', default => '0' );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
-has_field 'names.name'        => ( type => 'Text', required => 1);
+has_field 'names.name'        => ( type => 'Text');
 has_field 'names.artist'      => ( type => '+MusicBrainz::Server::Form::Field::Artist' );
 has_field 'names.join_phrase' => ( type => 'Text', trim => { transform => sub { shift } });
 
@@ -68,6 +68,34 @@ around 'validate_field' => sub {
     }
 
     return !$self->has_errors;
+};
+
+=method value
+
+An artist credit which has the same value as the artist name is
+displayed as a placeholder.  These will not be submitted by the
+browser.  When requesting the value of an ArtistCredit field using
+this method these 'undef' artist credits will be replaced with the
+artist name.
+
+=cut
+
+around 'value' => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $ret = $self->$orig (@_);
+
+    return $ret unless $ret && $ret->{names};
+
+    my @names = @{ $ret->{names} };
+    for my $i ($#names)
+    {
+        $ret->{names}->[$i]->{name} = $ret->{names}->[$i]->{artist}->{name}
+            if !$ret->{names}->[$i]->{name};
+    }
+
+    return $ret;
 };
 
 =head1 LICENSE
