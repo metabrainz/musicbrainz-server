@@ -599,12 +599,30 @@ sub prepare_recordings
             # A new tracklist has been entered, create new recordings
             # for all these tracks by default (no recording
             # assocations are suggested).
-            $recording_edits[$count]->{associations} = [ map {
-                {
+            $recording_edits[$count]->{associations} ||= [];
+            my $edit_idx = 0;
+            for my $edit (@{ $medium->{edits} }) {
+                $recording_edits[$count]->{associations}[$edit_idx] ||= {
                     'gid' => 'new',
                     'confirmed' => 1,
-                    'edit_sha1' => $_->{edit_sha1},
-                } } @{ $medium->{edits} } ];
+                    'edit_sha1' => $edit->{edit_sha1},
+                };
+
+                # If a recording MBID is seeded it needs to be loaded from the DB.
+                my $gid = $recording_edits[$count]->{associations}[$edit_idx]->{gid};
+                if ($gid ne "new")
+                {
+                    # FIXME: collect these in a single query.
+                    $suggestions[$count][$edit_idx] = [
+                        $self->c->model ('Recording')->get_by_gid ($gid)
+                    ];
+                }
+
+                $edit_idx++;
+            }
+
+            $self->c->model('ArtistCredit')->load (
+                map { $_->[0] } grep { $_ } @{ $suggestions[$count] });
         }
         elsif ($recording_edits[$count]->{associations} &&
                scalar @{ $recording_edits[$count]->{associations} })
@@ -1376,7 +1394,26 @@ sub _seed_parameters {
                             : format_track_length($length);
                     }
 
+                    my $sha = hash_structure({
+                        name => $track->{name},
+                        length => $track->{length},
+                        artist_credit => $track->{artist_credit},
+                    });
+                    $track->{edit_sha1} = $sha;
+
                     push @edits, $track;
+
+                    if (my $recording_id = delete $track->{recording}) {
+                        if(my $recording = $self->c->model('Recording')->get_by_gid($recording_id)) {
+                            $params->{rec_mediums}[$medium_idx]{associations} ||= [];
+                            push @{ $params->{rec_mediums}[$medium_idx]{associations} }, {
+                                edit_sha1 => $sha,
+                                confirmed => 1,
+                                id => $recording->id,
+                                gid => $recording->gid
+                            };
+                        }
+                    }
                 }
 
                 $medium->{edits} = $json->encode(\@edits);
