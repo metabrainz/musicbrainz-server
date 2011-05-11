@@ -38,7 +38,7 @@ sub _expand {
     if (-d $path) {
         my @items;
         find(sub { push @items, $File::Find::name if $_ =~ /\.$type$/ }, $path);
-        return uniq @items;
+        return sort uniq @items;
     }
     else {
         return $path =~ /\.$type$/ ? (file($path)->absolute) : ();
@@ -51,9 +51,6 @@ sub manifest_files {
     my $relative_to = DBDefs::STATIC_FILES_DIR;
 
     return
-        # Sort the files (so the signature is consistent)
-        sort
-
         # Convert paths back to relative paths of the manifest directory
         map  { file($_)->relative($relative_to) }
 
