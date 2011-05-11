@@ -13,6 +13,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -188,6 +189,10 @@ sub accept {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('The tracklist has changed since this edit was created');
         }
+
+        verify_artist_credits($self->c, map {
+            $_->{artist_credit}
+        } @{ $data_new_tracklist });
 
         # Create related data (artist credits and recordings)
         for my $track (@{ $data_new_tracklist }) {
