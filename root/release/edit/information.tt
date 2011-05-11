@@ -40,7 +40,8 @@
       </div>
 
       [%- form_row_artist_credit(form, 'release-artist') -%]
-      <div class="row change-track-artists" style="display: none">
+      <div class="row change-track-artists"
+        [%- UNLESS edit_release -%]style="display: none"[%- END -%]>
         [% r.label('various_artists', 'Change track artists') %]
         <img style="float: right; margin-right: 12px;" id="help-cta"
              src="/static/images/icons/help.png" />

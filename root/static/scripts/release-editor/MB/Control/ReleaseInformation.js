@@ -328,7 +328,11 @@ MB.Control.ReleaseInformation = function() {
         self.bubbles.add ($('#id-annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
 
-        $('#id-various_artists').bind ('change', function () {
+        $('#id-change_track_artists').bind ('focus.mb', function () {
+            $('#help-cta').data ('bubble').show ();
+        });
+
+        $('#id-various_artists').bind ('change.mb', function () {
             if ($(this).is(':checked'))
             {
                 self.variousArtistsChecked ();
@@ -359,10 +363,6 @@ MB.Control.ReleaseInformation = function() {
         self.artistcredit = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
-
-        $('input#release-artist').bind ('artistCreditChanged', function (event) {
-            $('div.row.change-track-artists').show ();
-        });
 
         MB.Control.Autocomplete ({
             'input': $('input#id-release_group\\\.name'),

@@ -93,6 +93,8 @@ augment 'load' => sub
     $self->_load_release;
     $self->c->model('Medium')->load_for_releases($self->release);
 
+    $self->c->stash->{edit_release} = 1;
+
     return $self->release;
 };
 
