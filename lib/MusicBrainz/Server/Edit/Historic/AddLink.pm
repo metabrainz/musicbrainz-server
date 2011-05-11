@@ -100,6 +100,61 @@ my %end_point_map = (
 #        ]
 #    }
 # }
+ 'album' => {
+    'album' => {
+        13 => [ [ 'release_group', 'release_group' ] ], # cover
+        11 => [ [ 'release_group', 'release_group' ] ], # live performance
+        8  => [ [ 'release_group', 'release_group' ] ], # compilations
+        9  => [ [ 'release_group', 'release_group' ] ], # DJ-mix
+        4  => [ [ 'release_group', 'release_group' ] ], # remixes
+        7  => [ [ 'release_group', 'release_group' ] ], # remix
+        5  => [ [ 'release_group', 'release_group' ] ], # mash-up
+        18 => [ [ 'release_group', 'release_group' ] ], # single from
+    },
+    'artist' => {
+        44 => [ [ 'artist', 'release_group' ] ], # tribute
+        28 => [ [ 'artist', 'release_group' ] ], # artists and repertoire
+        29 => [ [ 'artist', 'release_group' ] ], # creative direction
+        34 => [ [ 'artist', 'release_group' ] ], # travel
+    },
+    'url' => {
+        25 => [ [ 'release_group', 'url' ] ], # musicmoz
+        16 => [ [ 'release_group', 'url' ] ], # discography
+        23 => [ [ 'release_group', 'url' ] ], # wikipedia
+        17 => [ [ 'release_group', 'url' ] ], # review
+        36 => [ [ 'release_group', 'url' ] ], # ibdb
+        37 => [ [ 'release_group', 'url' ] ], # iobdb
+        27 => [ [ 'release_group', 'url' ] ], # IMDb
+        38 => [ [ 'release_group', 'url' ] ], # lyrics
+        41 => [ [ 'release_group', 'url' ] ], # recording studio
+        42 => [ [ 'release_group', 'url' ] ], # score
+    },
+ },
+ 'artist' => {
+    'track' => {
+        13 => [ [ 'artist', 'work' ] ], # composition
+        14 => [ [ 'artist', 'work' ] ], # composer
+        16 => [ [ 'artist', 'work' ] ], # lyricist
+        43 => [ [ 'artist', 'work' ] ], # instrumentator
+        44 => [ [ 'artist', 'work' ] ], # orchestrator
+        51 => [ [ 'artist', 'work' ] ], # librettist
+        53 => [ [ 'artist', 'work' ] ], # writer
+    },
+ },
+ 'track' => {
+    'track' => {
+        4  => [ [ 'work', 'work' ] ], # other version
+# TODO:
+#        5  => [ [ 'work', 'work' ] ], # cover
+    },
+    'url' => {
+        18 => [ [ 'work', 'url' ] ], # other databases
+        23 => [ [ 'work', 'url' ] ], # ibdb
+        24 => [ [ 'work', 'url' ] ], # iobdb
+        25 => [ [ 'work', 'url' ] ], # lyrics
+        26 => [ [ 'work', 'url' ] ], # score
+    },
+ },
 );
 
 # ArtistID -> [ ArtistID ]
