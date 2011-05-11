@@ -135,10 +135,10 @@ sub _expand_relationships {
         $entity1_type, $entity1_id) = @_;
 
     my $mappings = $end_point_map{$entity0_type}{$entity1_type}{$link_type_id} ||
-        [
+        [ [
             upgrade_type($entity0_type),
             upgrade_type($entity1_type)
-        ];
+        ] ];
 
     return map {
         my ($mapped_type0, $mapped_type1) = @$_;
