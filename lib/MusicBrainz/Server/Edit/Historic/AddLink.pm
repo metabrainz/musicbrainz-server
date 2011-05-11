@@ -82,7 +82,7 @@ sub build_display_data
                 ),
                 direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD
             ),
-        } @{ $self->data->links }
+        } @{ $self->data->{links} }
     }
 }
 
