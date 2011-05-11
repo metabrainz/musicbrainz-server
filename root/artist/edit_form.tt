@@ -26,7 +26,7 @@
 
           [%- WRAPPER 'layout/guidelines.tt' -%]
               [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
-              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('Artist_Comment')})) -%]
+              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish artists with the same name, and that you know what you are doing.', {doc_artistcomment => doc_link('Artist_Comment')})) -%]
           [%- END -%]
 
           [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this artist is not duplicate, and I know what I am doing.')) %]

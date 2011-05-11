@@ -9,7 +9,7 @@
   [% END %]
 
   <tr>
-    <th>[% l('Track Number:') %]</th>
+    <th>[% l('Track number:') %]</th>
     <td class="old">[% edit.display_data.position.old | html %]</td>
     <td class="new">[% edit.display_data.position.new | html %]</td>
   </tr>

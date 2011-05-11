@@ -16,8 +16,8 @@
              }) %]</p>
 [% END %]
 [% IF not_valid %]
-    <p>[% l('<p>Sorry, <code>{discid}</code> is not a valid disc ID.</p>', 
-             { discid => discid } ) %]
+    <p>[% l('Sorry, <code>{discid}</code> is not a valid disc ID.', 
+             { discid => discid } ) %]</p>
 [% END %]
 
 [% END %]
