@@ -5,12 +5,9 @@
             <h2 class="taggers">[% l('Tag Your Music »') %]</h2>
             <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" />
             <ul>
-                <li>[% l('{doc|MusicBrainz Picard}',
-                    { doc => doc_link('MusicBrainz_Picard') }) %]</li>
-                <li>[% l('{doc|Jaikoz}',
-                    { doc => doc_link('Jaikoz') }) %]</li>
-                <li>[% l('{doc|Magic MP3 Tagger}',
-                    { doc => doc_link('Magic_MP3_Tagger') }) %]</li>
+                <li><a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a></li>
+                <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz') %]</a></li>
+                <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
             </ul>
         </div>
 
@@ -18,14 +15,10 @@
             <h2>[% l('Quick Start »') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/quick-start.png') %]" />
             <ul>
-                <li>[% l('{doc|Beginners guide}',
-                    { doc => doc_link('Beginners_Guide') }) %]</li>
-                <li>[% l('{doc|Editing introduction}',
-                    { doc => doc_link('How_Editing_Works') }) %]</li>
-                <li>[% l('{doc|Style guidelines}',
-                    { doc => doc_link('Official_Style_Guidelines') }) %]</li>
-                <li>[% l('{doc|FAQs}',
-                    { doc => doc_link('Frequently_Asked_Questions') }) %]</li>
+                <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
+                <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
+                <li><a href="[% doc_link('Official_Style_Guidelines') %]">[% l('Style guidelines') %]</a></li>
+                <li><a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a></li>
             </ul>
         </div>
     </div>
@@ -33,8 +26,7 @@
     <div id="content">
         <h1>[% l('Welcome to MusicBrainz!') %]</h1>
         <p>
-            [% l('MusicBrainz is an open music encyclopedia that collects, and makes available to the public, music metadata.',
-                { doc => doc_link('MusicBrainz_Database') }) %]
+            [% l('MusicBrainz is an open music encyclopedia that collects, and makes available to the public, music metadata.') %]
         </p>
 
         <p>
@@ -78,8 +70,7 @@
             <h2 class="community">[% l('Community »') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/community.png') %]" />
             <p>
-                [% l('{doc|Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>}',
-                    { doc => doc_link('How_To_Contribute') }) %]
+                <a href="[% doc_link('How_To_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
             </p>
         </div>
 
@@ -87,8 +78,7 @@
             <h2 class="products">[% l('MusicBrainz Database »') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/download.png') %]" />
             <p>
-                [% l('{doc|The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.}',
-                    { doc => doc_link('MusicBrainz_Database') }) %]
+                <a href="[% doc_link('MusicBrainz_Database') %]">[% l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.') %]</a>
             </p>
         </div>
 
@@ -96,8 +86,7 @@
             <h2 class="developers">[% l('Developers »') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/developer.png') %]" />
             <p>
-                [% l('{doc|Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.}',
-                    { doc => doc_link('Developer_Resources') }) %]
+                <a href="[% doc_link('Developer_Resources')  %]">[% l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.') %]</a>
             </p>
         </div>
     </div>

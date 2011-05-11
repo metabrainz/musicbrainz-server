@@ -22,19 +22,21 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
-        <script type="text/javascript">document.cookie = "javascript=true; path=/";</script>
+        <script type="text/javascript">//<![CDATA[
+                                       document.cookie = "javascript=true; path=/";
+                                       //]]></script>
         [%- UNLESS no_javascript -%]
             [%- script_manifest('common.js.manifest') -%]
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
-        <script type="text/javascript">
+        <script type="text/javascript">//<![CDATA[
             $(document).ready (function () {
                 $("[placeholder]").mb_placeholder ();
                 [% IF c.user_exists %]
                     MB.Control.RelateTo ();
                 [%- END -%]
             });
-        </script>
+        //]]></script>
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
     </head>
@@ -117,7 +119,7 @@
 
         <div id="footer">
             <p class="links">
-                <a href="http://metabrainz.org/donate" class="internal">[% ('Donate') %]</a> | 
+                <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> | 
                 <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> | 
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> | 
                 <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> | 
