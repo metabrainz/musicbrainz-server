@@ -51,6 +51,9 @@ sub manifest_files {
     my $relative_to = DBDefs::STATIC_FILES_DIR;
 
     return
+        # Sort the files (so the signature is consistent)
+        sort
+
         # Convert paths back to relative paths of the manifest directory
         map  { file($_)->relative($relative_to) }
 
