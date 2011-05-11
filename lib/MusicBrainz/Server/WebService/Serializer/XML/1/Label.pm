@@ -7,6 +7,7 @@ use String::CamelCase qw(camelize);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
+with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
@@ -34,7 +35,12 @@ sub serialize
 
     push @body, ($self->gen->name($entity->name));
     push @body, ($self->gen->sort_name($entity->sort_name));
+    push @body, ($self->gen->label_code($entity->label_code)) if $entity->label_code;
+    push @body, ($self->gen->disambiguation($entity->comment)) if $entity->comment;
+
     push @body, ($self->gen->country($entity->country->iso_code)) if $entity->country;
+
+    push @body, ( $self->lifespan ($entity) ) if $self->has_lifespan ($entity);
 
     push @body, ( list_of([
         sort_by { $_->name } @{$opts->{aliases}}

@@ -180,6 +180,7 @@ ws_test 'release with release events & labels',
       <event date="2007-01-29" format="CD" barcode="600116817020" catalog-number="ZIQ170CD" country="GB">
         <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
           <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+          <life-span begin="1995" />
         </label>
       </event>
     </release-event-list>
@@ -295,6 +296,7 @@ ws_test 'release with label-relationships',
    <label id="1bfd06be-a6ed-4ced-8159-7d4d2923a40c">
     <name>Epitaph</name>
     <sort-name>Epitaph</sort-name>
+    <life-span begin="1980" />
    </label>
   </relation>
   <relation direction="backward"
@@ -303,6 +305,7 @@ ws_test 'release with label-relationships',
    <label id="50c384a2-0b44-401b-b893-8181173339c7">
     <name>Atlantic</name>
     <sort-name>Atlantic</sort-name>
+    <label-code>121</label-code><life-span begin="1947" />
    </label>
   </relation>
  </relation-list>
