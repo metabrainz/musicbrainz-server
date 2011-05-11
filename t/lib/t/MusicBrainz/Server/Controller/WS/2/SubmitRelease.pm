@@ -26,6 +26,7 @@ test all => sub {
 SELECT setval('clientversion_id_seq', (SELECT MAX(id) FROM clientversion));
 INSERT INTO editor (id, name, password)
     VALUES (1, 'new_editor', 'password');
+INSERT INTO release_gid_redirect (gid, new_id) VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 49161);
 EOSQL
 
     my $content = '<?xml version="1.0" encoding="UTF-8"?>
@@ -73,6 +74,36 @@ EOSQL
 
     my $next_edit = MusicBrainz::Server::Test->get_latest_edit($c);
     is($next_edit->id, $edit->id, 'did not submit an edit');
+
+    $content = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <release-list>
+    <release id="78ad6e24-dc0a-4c20-8284-db2d44d28fb9">
+      <barcode>4942463511227</barcode>
+    </release>
+  </release-list>
+</metadata>';
+
+    $req = xml_post('/ws/2/release?client=test-1.0', $content);
+    $mech->request($req);
+    is($mech->status, HTTP_OK);
+    xml_ok($mech->content);
+
+    $next_edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    my $rel = $c->model('Release')->get_by_gid('0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e');
+    isa_ok($next_edit, 'MusicBrainz::Server::Edit::Release::EditBarcodes');
+    is_deeply($next_edit->data, {
+        submissions => [
+            {
+                release => {
+                    id => $rel->id,
+                    name => $rel->name
+                },
+                barcode => '4942463511227'
+            }
+        ]
+    });
+
 };
 
 1;

@@ -27,6 +27,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 SELECT setval('clientversion_id_seq', (SELECT MAX(id) FROM clientversion));
 INSERT INTO editor (id, name, password)
     VALUES (1, 'new_editor', 'password');
+INSERT INTO recording_gid_redirect (gid, new_id) VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 4223060);
 EOSQL
 
 
@@ -85,6 +86,34 @@ $rec = $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7'
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddISRCs');
 is_deeply($edit->data->{isrcs}, [
     { isrc => 'GBAAA0300123',
+      recording => {
+          id => $rec->id,
+          name => $rec->name
+      }
+  }
+]);
+
+$content = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <recording-list>
+    <recording id="78ad6e24-dc0a-4c20-8284-db2d44d28fb9">
+      <puid-list>
+        <puid id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e"></puid>
+      </puid-list>
+    </recording>
+  </recording-list>
+</metadata>';
+
+$req = xml_post('/ws/2/recording?client=test-1.0', $content);
+$mech->request($req);
+is($mech->status, HTTP_OK);
+xml_ok($mech->content);
+
+$edit = MusicBrainz::Server::Test->get_latest_edit($c);
+$rec = $c->model('Recording')->get_by_gid('487cac92-eed5-4efa-8563-c9a818079b9a');
+isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddPUIDs');
+is_deeply($edit->data->{puids}, [
+    { puid => 'eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e',
       recording => {
           id => $rec->id,
           name => $rec->name
