@@ -382,5 +382,12 @@ sub AUTO_RESTART {
 #    }
 }
 
+# The maximum amount of time a process can be serving a single request
+# If undef, the process is never killed
+# If set to a positive integer, the process can server a single request
+# for MAX_REQUEST_TIME seconds, and if it is still not done the process
+# will be killed (and log a message about the request it was serving).
+sub MAX_REQUEST_TIME { undef }
+
 1;
 # eof DBDefs.pm
