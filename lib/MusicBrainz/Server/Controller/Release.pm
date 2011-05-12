@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
+use List::MoreUtils qw( part );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -337,6 +338,22 @@ sub _merge_form_arguments {
         init_object => { medium_positions => { map => \@mediums } }
     );
 }
+
+around _merge_submit => sub {
+    my ($orig, $self, $c, $form, $entities) = @_;
+    my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
+    my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$entities;
+    if ($c->model('Release')->can_merge(
+        $form->field('merge_strategy')->value,
+        $new_id, map { $_->id } @$old)) {
+        $self->$orig($c, $form, $entities);
+    }
+    else {
+        $form->field('merge_strategy')->add_error(
+            l('This merge strategy is not applicable to the releases you have selected.')
+        );
+    }
+};
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,

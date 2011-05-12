@@ -1,11 +1,13 @@
 [% BLOCK layout_head %]
 <script type="text/javascript">
+    function updateStrategy(val) {
+        $('.merge-strategy').hide();
+        $('#merge-strategy-' + val).show();
+    }
+
     $(function() {
-        $('#id-merge\\.merge_strategy').change(function() {
-            var val = $(this).val();
-            $('.merge-strategy').hide();
-            $('#merge-strategy-' + val).show();
-        });
+        $('#id-merge\\.merge_strategy').change(function() { updateStrategy($(this).val()) });
+        updateStrategy($('#id-merge\\.merge_strategy').val());
     });
 </script>
 [% END %]
@@ -47,6 +49,12 @@
                   <label>[% l('New position:') %]</label>
                   [% r.text(field.field('position')) %]
                   [% r.hidden(field.field('id')) %]
+                  [% IF medium.name %]
+                    [% l('(was medium {position}: {name})', { position => medium.position,
+                                                              name => medium.name }) %]
+                  [% ELSE %]
+                    [% l('(was medium {position})', { position => medium.position }) %]
+                  [% END %]
                 </th>
               </tr>
               [% FOR track=medium.tracklist.tracks %]
