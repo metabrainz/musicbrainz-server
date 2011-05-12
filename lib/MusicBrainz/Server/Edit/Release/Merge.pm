@@ -2,10 +2,11 @@ package MusicBrainz::Server::Edit::Release::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Map );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
@@ -23,7 +24,8 @@ has '+data' => (
             name => Str,
             id   => Int
         ] ],
-        merge_strategy => Int
+        merge_strategy => Int,
+        medium_positions => Nullable[Map[ Int, Int ]]
     ]
 );
 
@@ -52,7 +54,8 @@ sub do_merge
     $self->c->model('Release')->merge(
         new_id => $self->new_entity->{id},
         old_ids => [ $self->_old_ids ],
-        merge_strategy => $self->data->{merge_strategy}
+        merge_strategy => $self->data->{merge_strategy},
+        medium_positions => $self->data->{medium_positions}
     );
 };
 
