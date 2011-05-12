@@ -178,11 +178,18 @@ sub release_ids       {
 # ReleaseGroupID -> [ ReleaseGroupID ]
 sub release_group_ids { shift; return ( shift ) }
 
+# AlbumID -> [ ReleaseGroupID ]
+sub release_rg_ids {
+    my $self = shift;
+    return $self->find_release_group_id(
+        $self->resolve_album_id(shift));
+}
+
 # UrlID -> [ UrlID ]
-sub url_ids           { shift; return ( shift ) }
+sub url_ids           { shift; return ( $self->resolve_url_id(shift) ) }
 
 # TrackID -> [ WorkID ]
-sub work_ids          { shift; return ( shift ) }
+sub work_ids          { shift; return ( $self->resolve_work_id(shift) ) }
 
 sub _expand_relationships {
     my ($self, $link_type_id,

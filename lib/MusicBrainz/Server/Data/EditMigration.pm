@@ -154,6 +154,17 @@ sub resolve_album_id
     return $tmp_release_album->{$id} || $id;
 }
 
+my $tmp_work_merge;
+sub resolve_work_id
+{
+    my ($self, $id) = @_;
+    $tmp_work_merge ||=
+        $self->construct_map('tmp_work_merge',
+                             'old_work' => 'new_work');
+
+    return $tmp_work_merge->{$id} || $id;
+}
+
 my $public_annotations;
 sub resolve_annotation_id
 {
