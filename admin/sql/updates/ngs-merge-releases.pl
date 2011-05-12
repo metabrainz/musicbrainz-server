@@ -263,7 +263,7 @@ eval {
                     $medium_position_attributes{ $medium->{position} } ||=
                         $sql->select_single_value(
                         'INSERT INTO link_attribute_type (root, parent, gid, name, child_order)
-                             VALUES (?, ?, ?, ?) RETURNING id',
+                             VALUES (?, ?, ?, ?, ?) RETURNING id',
                         ($medium_position_root) x 2,
                         do {
                             $uuid->make("v3", $UUID_NS_URL,
@@ -271,7 +271,8 @@ eval {
                                             $medium->{position});
                             $uuid->export('str')
                         },
-                        'Medium ' . $medium->{position}
+                        'Medium ' . $medium->{position},
+                        $medium->{position}
                     );
 
                     my $key = join(
