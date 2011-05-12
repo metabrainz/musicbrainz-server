@@ -17,7 +17,7 @@
       </ul>
 
     [%- IF no_javascript -%]
-      [%- warning( l("Javascript needs to be enabled to edit releases.") ) -%]
+      [%- warning( l("Javascript needs to be enabled to edit releases."), "nojavascript" ) -%]
     [%- END -%]
 
     [%- IF !hide_errors && form.error_fields.size -%]

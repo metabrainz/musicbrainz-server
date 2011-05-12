@@ -392,7 +392,7 @@ FROM (
             FROM public.l_artist_track l
                 JOIN public.lt_artist_track lt ON lt.id = l.link_type
             WHERE lt.name IN ('composition', 'composer', 'lyricist', 'instrumentator',
-                             'orchestrator', 'librettist', 'misc', 'writer')
+                             'orchestrator', 'librettist', 'misc', 'publishing', 'writer')
         UNION
         SELECT link1 AS id
             FROM public.l_label_track l
@@ -402,17 +402,32 @@ FROM (
         SELECT link0 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
+            WHERE lt.name IN ('other version', 'remaster', 'karaoke')
         UNION
         SELECT link1 AS id
             FROM public.l_track_track l
                 JOIN public.lt_track_track lt ON lt.id = l.link_type
-            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke')
+            WHERE lt.name IN ('other version', 'medley', 'remaster', 'karaoke', 'cover')
         UNION
         SELECT link0 AS id
             FROM public.l_track_url l
                 JOIN public.lt_track_url lt ON lt.id = l.link_type
             WHERE lt.name IN ('lyrics', 'score', 'ibdb', 'iobdb', 'publishing', 'misc')
+        UNION
+        -- Cover ARs that are translated/parody covers created a work at both end point
+        SELECT link0 AS id
+            FROM public.l_track_track l
+                JOIN public.lt_track_track lt ON lt.id = l.link_type
+            WHERE lt.name = 'cover'
+              AND EXISTS (
+                  SELECT TRUE
+                    FROM public.link_attribute la
+                    JOIN public.link_attribute_type lat ON lat.id = la.attribute_type
+                   WHERE (lat.mbid = 'ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1' -- translated
+                      OR  lat.mbid = 'd73de9d3-934b-419c-8c83-2e48a5773b14' -- parody
+                         )
+                     AND la.link = l.id
+                         )
 ) t;
 CREATE UNIQUE INDEX tmp_work_id ON tmp_work (id);
 
@@ -606,7 +621,7 @@ INSERT INTO medium_cdtoc (medium, cdtoc)
 \echo Stats
 
 INSERT INTO statistic (value, date_collected, name)
-    SELECT value, lastupdated,
+    SELECT DISTINCT ON (name, lastupdated) value, lastupdated,
       CASE
         WHEN name = 'count.album' THEN 'count.release'
         WHEN name = 'count.album.has_discid' THEN 'count.medium.has_discid'
@@ -669,7 +684,7 @@ INSERT INTO statistic (value, date_collected, name)
       ) s;
 
 INSERT INTO statistic (value, date_collected, name)
-    SELECT value, snapshotdate, 'count.recording'
+    SELECT DISTINCT ON (name, snapshotdate) value, snapshotdate, 'count.recording'
     FROM (
            SELECT value, lastupdated::date AS snapshotdate, name FROM public.currentstat
       UNION

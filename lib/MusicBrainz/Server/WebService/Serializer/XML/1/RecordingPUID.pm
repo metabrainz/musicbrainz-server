@@ -1,31 +1,39 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1::RecordingPUID;
 use Moose;
 use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit';
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
+
 sub element { 'track'; }
 
-before 'serialize' => sub
-{
+sub attributes {
+    my ($self, $entity) = @_;
+
+    return ( id => $entity->recording->gid );
+}
+
+sub serialize {
     my ($self, $entity, $inc, $opts) = @_;
 
-    $self->attributes->{id} = $entity->recording->gid;
+    my @body;
 
-    $self->add( $self->gen->title($entity->recording->name) );
-    $self->add( $self->gen->duration($entity->recording->length) )
+    push @body, ( $self->gen->title($entity->recording->name) );
+    push @body, ( $self->gen->duration($entity->recording->length) )
         if $entity->recording->length;
 
-    $self->add( ArtistCredit->new->serialize($entity->recording->artist_credit) )
+    push @body, ( ArtistCredit->new->serialize($entity->recording->artist_credit) )
         if $entity->recording->artist_credit;
 
-    $self->add(
-        List->new->serialize(
+    push @body, (
+        list_of(
             $opts->{recording_release_map}{ $entity->recording->id },
             undef, { track_map => $opts->{track_map} }
         )
     );
+
+    return @body;
 };
 
 __PACKAGE__->meta->make_immutable;

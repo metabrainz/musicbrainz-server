@@ -35,8 +35,6 @@ sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 # Where static files are located
 sub STATIC_FILES_DIR { MB_SERVER_ROOT . '/root/static' }
-# HTTP Path where static files reside
-sub STATIC_PREFIX { '/static' }
 
 ################################################################################
 # The Database
@@ -101,7 +99,6 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # The host names of the HTML / RDF parts of the server
 # To use a port number other than 80, add it like so: "myhost:8000"
 sub WEB_SERVER         { "www.musicbrainz.example.com" }
-sub RDF_SERVER         { "rdf.musicbrainz.example.com" }
 sub LUCENE_SERVER    { "search.musicbrainz.org" }
 
 ################################################################################
@@ -165,6 +162,9 @@ sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 # Using Cache::Memory is good for a development environment, but is likely not
 # suited for production.  Use something like memcached in a production setup.
 #
+# If you want to use something such as Memcached, the settings here should be
+# the same as the settings you use for the session store.
+#
 sub PLUGIN_CACHE_OPTIONS {
     return {
 #        class => "Cache::Memory",
@@ -182,16 +182,12 @@ sub CACHE_DEFAULT_EXPIRES { 3600 }
 # Default delete time in seconds.  Use 0 means allow re-insert straight away.
 sub CACHE_DEFAULT_DELETE { 4 }
 
-# XXX remove this
-# Cache::Memcached options
-our %CACHE_OPTIONS = (
-    servers => [ '127.0.0.1:11211' ],
-    debug => 0,
-);
-sub CACHE_OPTIONS { \%CACHE_OPTIONS }
-
 # Use memcached and a small in-memory cache, see below if you
 # want to disable caching
+#
+# The caching options here relate to object caching - such as caching artists,
+# releases, etc in order to speed up queries. If you are using Memcached
+# to store sessions as well this should be a *different* memcached server.
 our %CACHE_MANAGER_OPTIONS = (
     profiles => {
         memory => {
@@ -282,24 +278,8 @@ EOF
 # will be shown (if subversion is in use).
 sub VERSION { "TRUNK" }
 
-# Mods with no votes, for artists which have subscribers, can stay open longer
-# after expiry.  This defines how long.
-sub MOD_PERIOD_GRACE { '1 week' }
-
-# If this file exists (and is writeable by the web server), debugging
-# information is logged here.
-sub DEBUG_LOG    { "/tmp/musicbrainz-debug.log" }
-
-# Preload files when starting the server? Should normally be 1. Sometimes easier
-# to develop new features with it turned off
-sub PRELOAD_FILES { 1 }
-
-# This log file is used to record updates to perform later.
-sub DEFERRED_UPDATE_LOG { "/tmp/musicbrainz-deferred-update.log" }
-
 # How long (in seconds) a web/rdf session can go "idle" before being timed out
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-sub RDF_SESSION_SECONDS_TO_LIVE { 3600 * 1 }
 
 # The cookie name to use
 sub SESSION_COOKIE { "AF_SID" }
@@ -325,11 +305,6 @@ sub AWS_ASSOCIATE_ID
     return keys %amazon_store_associate_ids if not @_;
     return $amazon_store_associate_ids{$_[0]};
 }
-
-sub AWS_DEVELOPER_ID { "D1TBI5FHXK38IE" }
-
-# Always use the ids now
-sub AWS_USE_ASSOCIATE_IDS { 1 }
 
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
@@ -370,6 +345,11 @@ sub USE_ETAGS { 1 }
 
 sub CATALYST_DEBUG { 1 }
 
+# If you are developing on MusicBrainz, you should set this to a true value
+# This will turn off some optimizations (such as CSS/JS compression) to make
+# developing and debuging easier
+sub DEVELOPMENT_SERVER { 0 }
+
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages
@@ -391,6 +371,23 @@ sub PROFILE_WEB_SERVICE { 0 }
 
 # Log if a request in / (not /ws) takes more than x seconds
 sub PROFILE_SITE { 0 }
+
+# If you want the FastCGI processes to restart, configure this
+sub AUTO_RESTART {
+#    return {
+#        active => 1,
+#        check_each => 10,
+#        max_bits => 134217728,
+#        min_handled_requests => 100
+#    }
+}
+
+# The maximum amount of time a process can be serving a single request
+# If undef, the process is never killed
+# If set to a positive integer, the process can server a single request
+# for MAX_REQUEST_TIME seconds, and if it is still not done the process
+# will be killed (and log a message about the request it was serving).
+sub MAX_REQUEST_TIME { undef }
 
 1;
 # eof DBDefs.pm

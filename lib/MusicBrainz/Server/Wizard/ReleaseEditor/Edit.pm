@@ -11,6 +11,12 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ARTIST
 );
 
+sub add_medium_position {
+    my ($self, $idx, $new) = @_;
+
+    return $idx + 1;
+};
+
 augment 'create_edits' => sub
 {
     my ($self, %opts) = @_;
@@ -25,7 +31,7 @@ augment 'create_edits' => sub
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
                      country_id barcode date as_auto_editor );
-    my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+    my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
 
     $args{'to_edit'} = $self->release;
     $self->c->stash->{changes} = 0;
@@ -75,6 +81,9 @@ override 'prepare_tracklist' => sub {
         $self->c->stash->{release_artist_json} = $json->encode (
             artist_credit_to_alternative_ref ($release->artist_credit));
     }
+
+    $self->c->model('Medium')->load_for_releases($self->release);
+    $self->c->model('MediumCDTOC')->load_for_mediums($self->release->all_mediums);
 };
 
 augment 'load' => sub
@@ -84,7 +93,7 @@ augment 'load' => sub
     $self->_load_release;
     $self->c->model('Medium')->load_for_releases($self->release);
 
-    $self->c->stash( medium_formats => [ $self->c->model('MediumFormat')->get_all ] );
+    $self->c->stash->{edit_release} = 1;
 
     return $self->release;
 };

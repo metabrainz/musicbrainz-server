@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    verify_artist_credits
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -64,6 +65,24 @@ sub _insert_hash
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} });
     return $data
 }
+
+around reject => sub {
+    my ($orig, $self) = @_;
+    if ($self->c->model('Recording')->can_delete($self->entity_id)) {
+        $self->$orig;
+    }
+    else {
+        MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+            'This edit cannot be rejected as the recording is already being used by other releases',
+        );
+    }
+};
+
+before accept => sub {
+    my ($self) = @_;
+
+    verify_artist_credits($self->c, $self->data->{artist_credit});
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

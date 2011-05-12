@@ -1,6 +1,9 @@
-[%- BLOCK layout_head -%]
-  <link rel="stylesheet" type="text/css" href="[%-
-      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
+[% BLOCK layout_head %]
+  <script type="text/javascript">//<![CDATA[
+    $('document').ready (function () {
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+    });
+  //]]></script>
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]

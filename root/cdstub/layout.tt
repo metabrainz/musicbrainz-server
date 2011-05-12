@@ -4,7 +4,7 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- USE Age -%]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Date added:')
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Added:')
                content=age(cdstubtoc.cdstub.date_added) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Last modified:')
                content=age(cdstubtoc.cdstub.last_modified) -%]
@@ -19,22 +19,18 @@
 
         <ul class="links">
           <li>[% link_cdstub(cdstubtoc, 'import', l('Import as MusicBrainz release')) %]</li>
-          <li>[% l('{uri|Add disc ID to an existing release}',
-                   { uri => c.uri_for_action('/cdtoc/attach', {
-                       toc => cdstubtoc.toc
-                   }) } ) %]</li>
+          <li><a href="[% c.uri_for_action('/cdtoc/attach', { toc => cdstubtoc.toc }) %]">
+                [%- l('Add disc ID to an existing release') %]</a></li>
           <li>
             [% artist = 'artist:(' _ (cdstubtoc.cdstub.artist || l('Various Artists')) _ ')' %]
             [% release = 'release:(' _ cdstubtoc.cdstub.title _ ')' %]
             [% tracks = 'tracks:(' _ cdstubtoc.track_count _ ')' %]
             [% barcode = 'barcode:(' _ cdstubtoc.cdstub.barcode _ ')' IF cdstubtoc.cdstub.barcode %]
-            [% l('{uri|Search the database for this CD}', {
-                    uri => html_escape(c.uri_for_action('/search/search', {
+            <a href="[% html_escape(c.uri_for_action('/search/search', {
                         query => artist _ ' ' _ release _ ' ' _ tracks _ ' ' _ barcode,
                         type => 'release',
                         advanced => 1
-                    }))
-            }) %]
+                    })) %]">[% l('Search the database for this CD') %]
           </li>
         </ul>
     [% END %]

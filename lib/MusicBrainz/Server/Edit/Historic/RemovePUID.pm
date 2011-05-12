@@ -39,7 +39,7 @@ sub do_upgrade
         puid              => $self->previous_value,
         recording         => {
             id => $recording_id,
-            name => '[deleted]',
+            name => '[removed]',
         },
 
         recording_puid_id => $recording_puid_id,

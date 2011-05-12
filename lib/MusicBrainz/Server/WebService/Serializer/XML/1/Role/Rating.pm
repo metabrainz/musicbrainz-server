@@ -2,17 +2,20 @@ package MusicBrainz::Server::WebService::Serializer::XML::1::Role::Rating;
 use Moose::Role;
 use namespace::autoclean;
 
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 
-before 'serialize' => sub
+around 'serialize' => sub
 {
-    my ($self, $entity, $inc, $data) = @_;
+    my ($orig, $self, $entity, $inc, $data) = @_;
+    my @body = $self->$orig($entity, $inc, $data);
 
-    $self->add( $self->gen->rating({ 'votes-count' => $entity->rating_count }, $entity->rating ) )
+    push @body, ( $self->gen->rating({ 'votes-count' => $entity->rating_count }, int($entity->rating / 20) ) )
         if $inc && $inc->ratings;
 
-    $self->add( $self->gen->user_rating(int($entity->user_rating / 20)) )
+    push @body, ( $self->gen->user_rating(int($entity->user_rating / 20)) )
         if $entity->user_rating && $inc && $inc->user_ratings;
+
+    return @body;
 };
 
 1;

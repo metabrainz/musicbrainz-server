@@ -19,7 +19,7 @@
     <form action="[% c.req.uri %]" method="post">
         [% form_row_text(r, 'username', l('Username:')) %]
         <div class="row no-label">
-            <span class="input-note">[% l('Your username will be publically visible.') %]</span>
+            <span class="input-note">[% l('Your username will be publicly visible.') %]</span>
         </div>
         [% form_row_password(r, 'password', l('Password:')) %]
         [% form_row_password(r, 'confirm_password', l('Confirm password:')) %]

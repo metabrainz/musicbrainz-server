@@ -15,7 +15,7 @@
         [% WRAPPER property name=l("Email:") %]
             [% IF user.email %]
                 [% IF viewing_own_profile %]
-                    [%- l('{email}', { email => html_escape(user.email) }) %]
+                    [%- html_escape(user.email) %]
                 [% ELSE %]
                     [%- l('(hidden)') -%]
                 [% END %]
@@ -75,7 +75,7 @@
 
         [% WRAPPER property name="Subscribers:" %]
             [% IF subscriber_count %]
-                [% l('{count} ({url|view})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
+                [% l('{count} ({url|view list})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
             [% ELSE %]
                 [% l('0') %]
             [% END %]
@@ -116,7 +116,7 @@
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => c.uri_for_action('/user/edits/accepted', [ user.name ]) }) %]
         [% END %]
 
-        [% WRAPPER statistics name=l("Autoedits") %]
+        [% WRAPPER statistics name=l("Auto-edits") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_auto_edits), view_url => c.uri_for_action('/user/edits/autoedits', [ user.name ]) }) %]
         [% END %]
 
@@ -158,11 +158,11 @@
                     </th>
                     <td headers="table_vote_summary_recent">
                         [% add_commas(v.recent.count) %]
-                        ([% v.recent.percentage %]%)
+                        ([% l('{percentage}%', { percentage => v.recent.percentage }) %])
                     </td>
                     <td headers="table_vote_summary_overall">
                         [% add_commas(v.all.count) %]
-                        ([% v.all.percentage %]%)
+                        ([% l('{percentage}%', { percentage => v.all.percentage }) %])
                     </td>
                 </tr>
             [% END %]
@@ -175,11 +175,11 @@
                     </th>
                     <th class="totals" headers="table_vote_summary_recent">
                         [% add_commas(totals.recent.count) %]
-                        (100%)
+                        ([% l('100%') %])
                     </th>
                     <th class="totals" headers="table_vote_summary_overall">
                         [% add_commas(totals.all.count) %]
-                        (100%)
+                        ([% l('100%') %])
                     </th>
                 </tr>
         </tfoot>

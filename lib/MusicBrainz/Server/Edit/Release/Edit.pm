@@ -17,6 +17,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
     clean_submitted_artist_credits
+    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -61,6 +62,19 @@ has '+data' => (
         old => change_fields()
     ]
 );
+
+around related_entities => sub {
+    my ($orig, $self) = @_;
+
+    my $related = $self->$orig;
+    if (exists $self->data->{new}{artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+        push @{ $related->{artist} }, keys(%new), keys(%old);
+    }
+
+    return $related;
+};
 
 sub foreign_keys
 {
@@ -161,7 +175,11 @@ sub _edit_hash
     return $data;
 }
 
-sub _xml_arguments { return ForceArray => [ 'artist_credit' ] }
+before accept => sub {
+    my ($self) = @_;
+
+    verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+};
 
 sub allow_auto_edit
 {

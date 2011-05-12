@@ -1,5 +1,5 @@
 [% BLOCK layout_head %]
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         function vaswitch(artist_value)
         {
             var va_checkbox = document.getElementById("id-CDStub.multiple_artists");
@@ -43,7 +43,7 @@
                 vaswitch(artist_value);
             });
         }
-    </script>
+    //]]></script>
 [% END %]
 
 [% WRAPPER 'cdstub/layout.tt' full_width=1 page='edit' %]
@@ -55,16 +55,16 @@
             [% form_row_text_long(r, 'artist', l('Artist:')) %]
             [% form_row_text(r, 'barcode', l('Barcode:')) %]
             [% form_row_text_long(r, 'comment', l('Comment:')) %]
-            [% form_row_checkbox(r, 'multiple_artists', l('This CD has tracks from more than one artist (e.g. a compiliation CD)')) %]
+            [% form_row_checkbox(r, 'multiple_artists', l('This CD has tracks from more than one artist (e.g. a compilation CD)')) %]
         </fieldset>
         <fieldset>
-            <legend>[% l('Track listing') %]</legend>
+            <legend>[% l('Tracklist') %]</legend>
             [% FOR track=form.field('tracks').fields %]
                 [% prefix = 'tracks.' _ loop.index _ '.' %]
-                [% form_row_text_long(r, prefix _ 'title', l('Track ' _ loop.count _ ':')) %]
+                [% form_row_text_long(r, prefix _ 'title', l('Track {n}:', { n => loop.count })) %]
 
                 <div id="artist_field_[% loop.count %]">
-                    [% form_row_text_long(r, prefix _ 'artist', l('Artist ' _ loop.count _ ':')) %]
+                    [% form_row_text_long(r, prefix _ 'artist', l('Artist {n}:', { n => loop.count })) %]
                 </div>
             [% END %]
         </fieldset>

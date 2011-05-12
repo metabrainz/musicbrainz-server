@@ -1,14 +1,16 @@
-[% WRAPPER 'layout.tt' l('Attach CDTOC') full_width=1 %]
+[% WRAPPER 'layout.tt' l('Attach CD TOC') full_width=1 %]
   <h2>[% l('Releases by {artist}', { artist => link_entity(artist) }) %]</h2>
   [% IF releases.size %]
-    <p>[% l('Please select the medium you wish to attach the CDTOC to') %]</p>
-    <form action="[% c.req.uri.path %]" method="get">
+    <p>[% l('Please select the medium you wish to attach the CD TOC to') %]</p>
+    <form action="[% c.req.uri %]" method="get">
       <input type="hidden" name="toc" value="[% toc %]" />
+      <input type="hidden" name="artist" value="[% c.req.query_params.artist %]" />
+      [% WRAPPER 'components/with-pager.tt' %]
       [% FOR release=releases %]
       <table class="tbl">
           <thead>
             <tr>
-              <th colspan="3">[% link_entity(release) %]</th>
+              <th colspan="3">[% descriptive_link(release) %]</th>
             </tr>
           </thead>
           <tbody>
@@ -29,11 +31,13 @@
           </tbody>
       </table>
       [% END %]
-      [% form_submit(l('Attach CDTOC')) %]
+      [% END %]
+      [% form_submit(l('Attach CD TOC')) %]
     </form>
   [% ELSE %]
-    <p>[% l('{artist} has no releases which have {n} tracks.', { artist => link_entity(artist),
-              n => cdtoc.track_count }) %]</p>
+    <p>[% ln('{artist} has no releases which have only {n} track.',
+             '{artist} has no releases which have {n} tracks.',
+             cdtoc.track_count, { artist => link_entity(artist), n => cdtoc.track_count }) %]</p>
   [% END %]
 
   <form action="[% c.uri_for('/release/add') %]" method="post">

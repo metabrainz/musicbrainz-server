@@ -1,32 +1,42 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup;
 use Moose;
 
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity);
-
-use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::List';
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity list_of);
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::GID';
 
 sub element { 'release-group'; }
 
-before 'serialize' => sub
-{
+sub attributes {
     my ($self, $entity, $inc, $opts) = @_;
+    return () if $opts->{'gid-only'};
 
-    # a special case, used when the release group is included in an artist lookup.
-    return if $opts->{'gid-only'};
+    my @attrs;
 
-    $self->attributes->{type} = $entity->type->name
+    push @attrs, ( type => $entity->type->name )
         if $entity->type;
 
-    $self->add( $self->gen->title($entity->name) );
+    return @attrs;
+}
 
-    $self->add( serialize_entity($entity->artist_credit) )
+sub serialize
+{
+    my ($self, $entity, $inc, $opts) = @_;
+    # a special case, used when the release group is included in an artist lookup.
+    return () if $opts->{'gid-only'};
+
+    my @body;
+
+    push @body, ( $self->gen->title($entity->name) );
+
+    push @body, ( serialize_entity($entity->artist_credit) )
         if ($inc && $inc->artist);
 
-    $self->add( List->new->serialize($opts->{releases}, $inc) )
+    push @body, ( list_of($opts->{releases}, $inc) )
         if ($inc && $inc->releases);
+
+    return @body;
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -38,6 +38,7 @@ sub _entity_class
 sub find_by_medium
 {
     my ($self, @medium_ids) = @_;
+    return () unless @medium_ids;
 
     my $query = "
         SELECT " . $self->_columns . " FROM " . $self->_table . "
@@ -118,6 +119,27 @@ sub delete
           LEFT JOIN medium_cdtoc mcd ON mcd.cdtoc = cd.id
              WHERE cd.id = ? AND mcd.id IS NULL
          )', $cdtoc_id);
+}
+
+sub merge_mediums
+{
+    my ($self, $new_medium, @old_mediums) = @_;
+    my @mediums = ($new_medium, @old_mediums);
+    $self->sql->do(
+        'DELETE FROM medium_cdtoc
+               WHERE id NOT IN (
+                         SELECT DISTINCT ON (cdtoc) id
+                           FROM medium_cdtoc
+                          WHERE medium IN ('.placeholders(@mediums).')
+                     )
+                AND medium IN (' . placeholders(@mediums) . ')',
+        @mediums, @mediums
+    );
+
+    $self->sql->do(
+        'UPDATE medium_cdtoc SET medium = ? WHERE medium IN ('.placeholders(@mediums).')',
+        $new_medium, @mediums
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

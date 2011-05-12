@@ -74,7 +74,7 @@ CREATE TABLE artist_credit_name (
     position            SMALLINT NOT NULL, -- PK
     artist              INTEGER NOT NULL, -- references artist.id CASCADE
     name                INTEGER NOT NULL, -- references artist_name.id
-    join_phrase         VARCHAR(32)
+    join_phrase         TEXT
 );
 
 CREATE TABLE artist_gid_redirect

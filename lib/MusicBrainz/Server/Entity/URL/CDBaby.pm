@@ -4,7 +4,7 @@ use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
 
-sub pretty_name { 'CDBaby' }
+sub pretty_name { 'CD Baby' }
 
 override url => sub {
     my $self = shift;

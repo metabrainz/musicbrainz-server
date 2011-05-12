@@ -56,13 +56,13 @@ ws_test 'artist lookup with release groups',
     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <release-list>
-            <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official" >
-                <title>My Demons</title><text-representation language="ENG" script="Latn"/>
-                <asin>B000KJTG6K</asin><release-group id="22b54315-6e51-350b-bb34-e6e16f7688bd"/>
-            </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134" type="Album Official" >
                 <title>Repercussions</title><text-representation language="ENG" script="Latn"/>
                 <asin>B001IKWNCE</asin><release-group id="56683a0b-45b8-3664-a231-5b68efe2e7e2"/>
+            </release>
+            <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official" >
+                <title>My Demons</title><text-representation language="ENG" script="Latn"/>
+                <asin>B000KJTG6K</asin><release-group id="22b54315-6e51-350b-bb34-e6e16f7688bd"/>
             </release>
         </release-list>
         <release-group-list>
@@ -220,7 +220,7 @@ ws_test 'artist lookup with track-relationships',
 
 ws_test 'artist lookup with ratings',
     '/artist/3088b672-fba9-4b4b-8ae0-dce13babfbb4?type=xml&inc=ratings' =>
-    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group"><name>Plone</name><sort-name>Plone</sort-name><rating votes-count="2">70</rating></artist></metadata>';
+    '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"><artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group"><name>Plone</name><sort-name>Plone</sort-name><rating votes-count="2">3</rating></artist></metadata>';
 
 ws_test 'artist lookup with release-events',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?type=xml&inc=release-events+sa-Album' =>
@@ -230,16 +230,16 @@ ws_test 'artist lookup with release-events',
     <name>Distance</name><sort-name>Distance</sort-name>
     <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
     <release-list>
-      <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
-        <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
-        <release-event-list>
-          <event country="GB" format="CD" date="2007-01-29" barcode="600116817020" catalog-number="ZIQ170CD" />
-        </release-event-list>
-      </release>
       <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134" type="Album Official">
         <title>Repercussions</title><text-representation script="Latn" language="ENG" /><asin>B001IKWNCE</asin>
         <release-event-list>
           <event country="GB" format="2xCD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD" />
+        </release-event-list>
+      </release>
+      <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+        <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+        <release-event-list>
+          <event country="GB" format="CD" date="2007-01-29" barcode="600116817020" catalog-number="ZIQ170CD" />
         </release-event-list>
       </release>
     </release-list>
@@ -254,22 +254,22 @@ ws_test 'artist lookup with release-events',
     <name>Distance</name><sort-name>Distance</sort-name>
     <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
     <release-list>
-      <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
-        <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
-        <release-event-list>
-          <event country="GB" format="CD" date="2007-01-29" barcode="600116817020" catalog-number="ZIQ170CD">
-            <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
-              <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
-            </label>
-          </event>
-        </release-event-list>
-      </release>
       <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134" type="Album Official">
         <title>Repercussions</title><text-representation script="Latn" language="ENG" /><asin>B001IKWNCE</asin>
         <release-event-list>
           <event country="GB" format="2xCD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD">
             <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
-              <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+              <name>Planet Mu</name><sort-name>Planet Mu</sort-name><life-span begin="1995" />
+            </label>
+          </event>
+        </release-event-list>
+      </release>
+      <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+        <title>My Demons</title><text-representation script="Latn" language="ENG" /><asin>B000KJTG6K</asin>
+        <release-event-list>
+          <event country="GB" format="CD" date="2007-01-29" barcode="600116817020" catalog-number="ZIQ170CD">
+            <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
+              <name>Planet Mu</name><sort-name>Planet Mu</sort-name><life-span begin="1995" />
             </label>
           </event>
         </release-event-list>
@@ -285,15 +285,15 @@ ws_test 'artist lookup with discs',
   <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
     <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
     <release-list>
-      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
-        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
+      <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+        <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
         <asin>B00005LA6G</asin>
         <disc-list>
           <disc sectors="60295" id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-"/>
         </disc-list>
       </release>
-      <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
-        <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
+      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
+        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
         <asin>B00005LA6G</asin>
         <disc-list>
           <disc sectors="60295" id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-"/>
@@ -310,15 +310,15 @@ ws_test 'artist lookup with counts',
   <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
     <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
     <release-list>
-      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
-        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
+      <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
+        <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
         <asin>B00005LA6G</asin>
         <release-event-list count="1"/>
         <disc-list count="1"/>
         <track-list count="3"/>
       </release>
-      <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
-        <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
+      <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
+        <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
         <asin>B00005LA6G</asin>
         <release-event-list count="1"/>
         <disc-list count="1"/>
@@ -339,13 +339,13 @@ ws_test 'artist lookup with label-relationships',
      <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelFounder">
        <label id="60a71ab7-a21b-4f25-94e0-1f51a84a9add">
          <name>Frequency Recordings</name>
-         <sort-name>Frequency Recordings</sort-name>
+         <sort-name>Frequency Recordings</sort-name><life-span begin="2001" />
        </label>
      </relation>
      <relation target="fe03671d-df66-4984-abbc-bd022f5c6c3f" type="LabelFounder">
        <label id="fe03671d-df66-4984-abbc-bd022f5c6c3f">
          <name>RAM Records</name>
-         <sort-name>RAM Records</sort-name>
+         <sort-name>RAM Records</sort-name><life-span begin="1992" />
        </label>
      </relation>
     </relation-list>
@@ -364,7 +364,7 @@ ws_test 'artist lookup with artist-relationships',
  <relation-list target-type="Artist">
   <relation direction="backward"
             target="05d83760-08b5-42bb-a8d7-00d80b3bf47c"
-            type="MemberOf Band">
+            type="MemberOfBand">
    <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
     <name>Paul Allgood</name>
     <sort-name>Allgood, Paul</sort-name>

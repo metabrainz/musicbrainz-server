@@ -1,6 +1,9 @@
 [%- BLOCK layout_head -%]
-  <link rel="stylesheet" type="text/css" href="[%-
-      c.model('FileCache').squash_styles("styles/release-editor.css") -%]" />
+  <script type="text/javascript">//<![CDATA[
+    $('document').ready (function () {
+       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+    });
+  //]]></script>
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
@@ -21,7 +24,7 @@
             [% r.hidden(artist_row.field('name')) %]
             [% IF possible.size %]
             <p>[% l('We found the following artists with the same name already existing in
-                     MusicBrainz. If any of these are the artist you intened to use, please
+                     MusicBrainz. If any of these are the artist you intended to use, please
                      select the artist:') %]</p>
             <ul>
               [% FOR artist=possible %]
@@ -54,7 +57,7 @@
             [% r.hidden(label_row.field('name')) %]
             [% IF possible.size %]
             <p>[% l('We found the following labels with the same name already existing in
-                     MusicBrainz. If any of these are the label you intened to use, please
+                     MusicBrainz. If any of these are the label you intended to use, please
                      select the label:') %]</p>
             <ul>
               [% FOR label=possible %]

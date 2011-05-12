@@ -203,6 +203,23 @@ sub begin : Private
     {
         $c->session->{tport} = $c->req->query_params->{tport};
     }
+
+    # Merging
+    if (my $merger = $c->session->{merger}) {
+        my $model = $c->model($merger->type);
+        my @merge = values %{
+            $model->get_by_ids($merger->all_entities)
+        };
+        $c->model('ArtistCredit')->load(@merge);
+
+        $c->stash(
+            to_merge => [ @merge ],
+            merger => $merger,
+            merge_link => $c->uri_for_action(
+                model_to_type($merger->type) . '/merge',
+            )
+        );
+    }
 }
 
 =head2 end
@@ -223,7 +240,8 @@ sub end : ActionClass('RenderView')
         staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
         is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
-        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED
+        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
+        developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
     # Determine which server version to display. If the DBDefs string is empty
@@ -254,23 +272,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
-
-    # Merging
-    if (my $merger = $c->session->{merger}) {
-        my $model = $c->model($merger->type);
-        my @merge = values %{
-            $model->get_by_ids($merger->all_entities)
-        };
-        $c->model('ArtistCredit')->load(@merge);
-
-        $c->stash(
-            to_merge => [ @merge ],
-            merger => $merger,
-            merge_link => $c->uri_for_action(
-                model_to_type($merger->type) . '/merge',
-            )
-        );
-    }
 }
 
 sub chrome_frame : Local

@@ -5,6 +5,7 @@ use Text::Trim qw( trim );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Track qw( format_track_length unformat_track_length );
+use Try::Tiny;
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -17,10 +18,6 @@ has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => 'Integer' );
 has_field 'mediums.tracklist_id' => ( type => 'Integer' );
 has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
-
-# keep track of advanced or basic view, useful when navigating away from
-# this page and coming back, or when validation failed.
-has_field 'advanced' => ( type => 'Integer' );
 
 sub options_mediums_format_id {
     my ($self) = @_;
@@ -90,6 +87,19 @@ sub _track_errors {
         return l('An artist is required on track {pos}.', { pos => $pos });
     }
 
+    my $error = try {
+        unformat_track_length ($track->{length});
+        return;
+    }
+    catch {
+        return l(
+            'Track {pos} has an invalid length. Must be in the format MM:SS',
+            { pos => $pos }
+        );
+    };
+
+    return $error if $error;
+
     if ($cdtoc)
     {
         # cdtoc present, so do not allow the user to change track lengths.
@@ -104,8 +114,8 @@ sub _track_errors {
         # caught later on... here in _track_errors we just ignore it.
         if ($details)
         {
-            my $distance = abs ($details->length -
-                                unformat_track_length ($track->{length}));
+            my $distance = $track->{length} eq '?:??' ? 0
+                : abs ($details->length - unformat_track_length ($track->{length}));
 
             # always reset the track length.
             $track->{length} = format_track_length ($details->length);

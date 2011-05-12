@@ -49,14 +49,16 @@ sub skip_duplicates
 
 sub change_page_duplicates
 {
-    my ($self, $page) = @_;
+    my ($self) = @_;
 
     my $release_id = $self->value->{duplicate_id}
         or return;
 
     my $release = $self->c->model('Release')->get_by_id($release_id);
     $self->c->model('Medium')->load_for_releases($release);
-    $self->_post_to_page($page, collapse_hash({
+
+    my $TRACKLIST_PAGE = 2;
+    $self->_post_to_page($TRACKLIST_PAGE, collapse_hash({
         mediums => [
             map +{
                 tracklist_id => $_->tracklist_id,
@@ -84,10 +86,16 @@ around _build_pages => sub {
             form => 'ReleaseEditor::Duplicates',
             prepare => sub { $self->prepare_duplicates; },
             skip => sub { $self->skip_duplicates; },
-            change_page => sub { $self->change_page_duplicates (@_); }
+            submit => sub { $self->change_page_duplicates (@_); }
         },
         @pages[1..$#pages]
     ];
+};
+
+sub add_medium_position {
+    my ($self, $idx, $new) = @_;
+
+    return $new->{position};
 };
 
 augment 'create_edits' => sub

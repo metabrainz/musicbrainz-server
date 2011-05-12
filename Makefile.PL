@@ -106,7 +106,12 @@ feature 'Developer features' =>
     'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
     ;
- 
+
+feature 'Production server' =>
+    'Digest::MD5::File' => '0.07',
+    'Catalyst::Plugin::AutoRestart' => '0.93'
+    ;
+
 feature 'Fast edit migration' =>
     -default   => 1,
     'JSON::XS' => '2.27',
@@ -119,6 +124,7 @@ requires 'Locale::TextDomain' => '1.16';
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
 
+test_requires 'Env::Path';
 test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::HTML5::Sanity';
 test_requires 'LWP::UserAgent::Mockable';
@@ -132,6 +138,8 @@ test_requires 'Test::Magpie' => '0.04';
 test_requires 'Test::Memory::Cycle';
 test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
+test_requires 'Test::WWW::Selenium';
+test_requires 'Test::WWW::Selenium::Catalyst';
 test_requires 'XML::Parser';
 
 catalyst;

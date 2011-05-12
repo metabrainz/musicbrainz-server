@@ -1,237 +1,236 @@
 <ul class="r">
     [%- IF c.user_exists -%]
-        <li>
+        <li class="account">
             [% link_entity(c.user) %]
             <ul>
                 <li>
-                    [% l('{uri|Edit Profile}', { uri => c.uri_for('/account/edit') }) %]
+                    <a href="[% c.uri_for('/account/edit') %]">[% l('Edit Profile') %]</a>
                 </li>
                 <li>
-                    [% l('{uri|Change Password}', { uri => c.uri_for_action('/account/change_password') }) %]
+                    <a href="[% c.uri_for_action('/account/change_password') %]">[% l('Change Password') %]</a>
                 </li>
                 <li>
-                    [% l('{uri|Preferences}', { uri => c.uri_for_action('/account/preferences') }) %]
+                    <a href="[% c.uri_for_action('/account/preferences') %]">[% l('Preferences') %]</a>
                 </li>
                 <li>
-                    [% l('{uri|Subscribers}', { uri => c.uri_for_action('/user/subscribers', [ c.user.name ]) }) %]
+                    <a href="[% c.uri_for_action('/user/subscriptions/artist', [ c.user.name ]) %]">[% l('Subscriptions') %]</a>
                 </li>
                 <li>
-                    [% l('{uri|Log Out}', { uri => c.uri_for_action('/user/logout') }) %]
+                    <a href="[% c.uri_for_action('/user/logout') %]">[% l('Log Out') %]</a>
+                </li>
+            </ul>
+        </li>
+        <li class="data">
+            <a href="[% c.uri_for_action('/user/profile', [ c.user.name ]) %]">[% l('My Data') %]</a>
+            <ul>
+                <li>
+                    <a href="[% c.uri_for_action('/user/collections', [ c.user.name ]) %]">[% l('My Collections') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/ratings', [ c.user.name ]) %]">[% l('My Ratings') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/tags', [ c.user.name ]) %]">[% l('My Tags') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/watch/list') %]">[% l('My Watched Artists') %]</a>
+                </li>
+                <li class="separator">
+                    <a href="[% c.uri_for_action('/user/edits/open', [ c.user.name ]) %]">[% l('My Open Edits') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/user/edits/all', [ c.user.name ]) %]">[% l('All My Edits') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Edits for Subscribed Entities') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Edits by Subscribed Editors') %]</a>
                 </li>
             </ul>
         </li>
         [% IF c.user_exists && c.user.is_admin %]
-            <li>
+            <li class="admin">
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
                 <ul>
                     [% IF c.user.is_relationship_editor %]
                         <li>
-                            [% l('{uri|Edit Link Types}', { uri => c.uri_for_action('/admin/linktype/index') }) %]
+                            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
                         </li>
                         <li>
-                            [% l('{uri|Edit Link Attribute Types}', { uri => c.uri_for_action('/admin/linkattributetype/index') }) %]
+                            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Relationship Attributes') %]</a>
                         </li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]
                         <li>
-                            [% l('{uri|Transclude WikiDocs}', { uri => c.uri_for_action('/admin/wikidoc/index') }) %]
+                            <a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a>
                         </li>
                     [% END %]
                 </ul>
             </li>
         [% END %]
-        <li>
-            [% l('{data|My Data}', { data => c.uri_for_action('/user/profile', [ c.user.name ]) }) %]
-            <ul>
-                <li>
-                    [% l('{col|My Collections}', { col => c.uri_for_action('/user/collections', [ c.user.name ]) }) %]
-                </li>
-                <li>
-                    [% l('{col|My Ratings}', { col => c.uri_for_action('/user/ratings', [ c.user.name ]) }) %]
-                </li>
-                <li>
-                    [% l('{col|My Tags}', { col => c.uri_for_action('/user/tags', [ c.user.name ]) }) %]
-                </li>
-                <li>
-                    [% l('{col|My Watched Artists}', { col => c.uri_for_action('/watch/list') }) %]
-                </li>
-                <li class="separator">
-                    [% l('{edits|My Open Edits}', { edits => c.uri_for_action('/user/edits/open', [ c.user.name ]) }) %]
-                </li>
-                <li>
-                    [% l('{edits|All My Edits}', { edits => c.uri_for_action('/user/edits/all', [ c.user.name ]) }) %]
-                </li>
-                <li>
-                    [% l('{col|Edits for Subscribed Entities}', { col => c.uri_for_action('/edit/subscribed') }) %]
-                </li>
-                <li>
-                    [% l('{col|Edits by Subscribed Editors}', { col => c.uri_for_action('/edit/subscribed_editors') }) %]
-                </li>
-            </ul>
-        </li>
     [%- ELSE -%]
         <li>[% request_login(l('Log In')) %]</li>
-        <li>[% l('{uri|Create Account}', { uri => c.uri_for_action('/account/register') }) %]</li>
+        <li><a href="[% c.uri_for_action('/account/register') %]">[% l('Create Account') %]</a></li>
     [%- END -%]
 </ul>
 
 <ul>
-    <li>
-        [%- l('{doc|About}', {doc => doc_link('About_MusicBrainz')}) -%]
+    <li class="about">
+        <a href="[% doc_link('About_MusicBrainz') %]">[% l('About') %]</a>
         <ul>
             <li>
-                [%- l('{doc|Sponsors}', {doc => doc_link('MusicBrainz_Sponsors')}) -%]
+                <a href="[% doc_link('MusicBrainz_Sponsors') %]">[% l('Sponsors') %]</a>
             </li>
             <li>
-                [%- l('{doc|People}', {doc => doc_link('MusicBrainz_Bio')}) -%]
+                <a href="[% doc_link('MusicBrainz_Bio') %]">[% l('People') %]</a>
             </li>
             <li>
-                [%- l('{doc|In the Press}', {doc => doc_link('MusicBrainz_Press')}) -%]
+                <a href="[% doc_link('MusicBrainz_Press') %]">[% l('In the Press') %]</a>
             </li>
             <li class="separator">
-                [%- l('{doc|Data Licenses}', {doc => doc_link('MusicBrainz_License')}) -%]
+                <a href="[% doc_link('MusicBrainz_License') %]">[% l('Data Licenses') %]</a>
             </li>
             <li>
-                [%- l('{doc|Social Contract}', {doc => doc_link('Social_Contract')}) -%]
+                <a href="[% doc_link('Social_Contract') %]">[% l('Social Contract') %]</a>
             </li>
             <li>
-                [%- l('{doc|Privacy Policy}', {doc => doc_link('MusicBrainz_Privacy_Policy')}) -%]
+                <a href="[% doc_link('MusicBrainz_Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
             </li>
             <li class="separator">
-                [% l('{url|Auto-editor Elections}', { url => c.uri_for('/elections') }) %]
+                <a href="[% c.uri_for('/elections') %]">[% l('Auto-editor Elections') %]</a>
             </li>
             <li>
-                [% l('{url|Privileged User Accounts}', { url => c.uri_for('/privileged') }) %]
+                <a href="[% c.uri_for('/privileged') %]">[% l('Privileged User Accounts') %]</a>
             </li>
             <li>
-                [% l('{url|Statistics}', { url => c.uri_for('/statistics') }) %]
+                <a href="[% c.uri_for('/statistics') %]">[% l('Statistics') %]</a>
             </li>
         </ul>
     </li>
-    <li>
+    <li class="blog">
         <a href="http://blog.musicbrainz.org" class="internal">
             [% l('Blog') %]
         </a>
     </li>
 
-    <li>
-        [%- l('{doc|Products}', {doc => doc_link('Products')}) -%]
+    <li class="products">
+        <a href="[% doc_link('Products') %]">[%  l('Products') %]</a>
         <ul>
             <li>
-                [%- l('{doc|MusicBrainz Picard}', {doc => doc_link('MusicBrainz_Picard')}) -%]
+                <a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a>
             </li>
             <li>
-                [%- l('{doc|Jaikoz}', {doc => doc_link('Jaikoz')}) -%]
+                <a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz') %]</a>
             </li>
             <li>
-                [%- l('{doc|Magic MP3 Tagger}', {doc => doc_link('Magic_MP3_Tagger')}) -%]
+                <a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a>
             </li>
             <li class="separator">
-                [%- l('{doc|MusicBrainz Server}', {doc => doc_link('MusicBrainz_Server')}) -%]
+                <a href="[% doc_link('MusicBrainz_Server') %]">[% l('MusicBrainz Server') %]</a>
             </li>
             <li>
-                [%- l('{doc|MusicBrainz Database}', {doc => doc_link('MusicBrainz_Database')}) -%]
+                <a href="[% doc_link('MusicBrainz_Database') %]">[% l('MusicBrainz Database') %]</a>
             </li>
             <li>
-                [%- l('{doc|XML Web Service}', {doc => doc_link('XML_Web_Service')}) -%]
+                <a href="[% doc_link('XML_Web_Service') %]">[% l('XML Web Service') %]</a>
             </li>
             <li>
-                [%- l('{doc|Live Data Feed}', {doc => doc_link('Live_Data_Feed')}) -%]
+                <a href="[% doc_link('Live_Data_Feed') %]">[% l('Live Data Feed') %]</a>
             </li>
             <li class="separator">
-                [%- l('{doc|Freedb Gateway}', {doc => doc_link('FreeDB_Gateway')}) -%]
+                <a href="[% doc_link('FreeDB_Gateway') %]">[% l('FreeDB Gateway') %]</a>
             </li>
         </ul>
     </li>
-    <li>
-        [% l('{uri|Search}', { uri => c.uri_for('/search') }) %]
+    <li class="search">
+        <a href="[% c.uri_for('/search') %]">[% l('Search') %]</a>
         <ul>
             [%- IF c.user_exists -%]
                 <li>
-                    [% l('{uri|Search Edits}', { uri => c.uri_for_action('/edit/search') }) %]
+                    <a href="[% c.uri_for_action('/edit/search') %]">[% l('Search Edits') %]</a>
                 </li>
             [% END %]
             <li>
-                [% l('{uri|Browse}', { uri => c.uri_for('/browse') }) %]
+                <a href="[% c.uri_for('/browse') %]">[% l('Browse') %]</a>
             </li>
             <li>
-                [% l('{uri|Tags}', { uri => c.uri_for('/tags') }) %]
+                <a href="[% c.uri_for('/tags') %]">[% l('Tags') %]</a>
             </li>
             <li>
-                [% l('{uri|Top CD Stubs}', { uri => c.uri_for('/cdstub/browse') }) %]
+                <a href="[% c.uri_for('/cdstub/browse') %]">[% l('Top CD Stubs') %]</a>
             </li>
             <li class="separator">
-                 [% l('{uri|Browser Search Plugins}', { uri => c.uri_for('/search/plugins') }) %]
+                 <a href="[% c.uri_for('/search/plugins') %]">[% l('Browser Search Plugins') %]</a>
             </li>
         </ul>
     </li>
     [%- IF c.user_exists -%]
-        <li>
-            [%- l('{doc|Editing}', {doc => doc_link('How_Editing_Works')}) -%]
+        <li class="editing">
+            <a href="[% doc_link('How_Editing_Works') %]">[% l('Editing') %]</a>
             <ul>
                 <li>
-                    [% l('{uri|Add Artist}', { uri => c.uri_for('/artist/create') }) %]
+                    <a href="[% c.uri_for('/artist/create') %]">[% l('Add Artist') %]</a>
                 </li>
                 <li>
-                     [% l('{uri|Add Label}', { uri => c.uri_for('/label/create') }) %]
-                </li>
-                <li> [% l('{uri|Add Release}', { uri => c.uri_for_action('/release_editor/add') }) %]</li>
-                <li>
-                    [% l('{uri|Add Various Artists Release}', { uri => c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) }) %]
+                    <a href="[% c.uri_for('/label/create') %]">[% l('Add Label') %]</a>
                 </li>
                 <li>
-                    [% l('{uri|Add Work}', { uri => c.uri_for_action('/work/create') }) %]
+                    <a href="[% c.uri_for_action('/release_editor/add') %]">[% l('Add Release') %]</a>
                 </li>
                 <li>
-                    [% l('{uri|Import From Freedb}', { uri => c.uri_for('/release/freedb_import') }) %]
+                    <a href="[% c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) %]">[% l('Add Various Artists Release') %]</a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for_action('/work/create') %]">[% l('Add Work') %]</a>
                 </li>
                 <li class="separator">
-                    [% l('{uri|Vote on Edits}', { uri => c.uri_for('/edit/open') }) %]
+                    <a href="[% c.uri_for('/edit/open') %]">[% l('Vote on Edits') %]</a>
                 </li>
                 <li>
-                    [% l('{uri|Editing Suggestions}', { uri => c.uri_for_action('/report/index') }) %]
+                    <a href="[% c.uri_for_action('/report/index') %]">[% l('Editing Suggestions') %]</a>
                 </li>
                 <li class="separator">
-                    [% l('{uri|Edit Conditions}', { uri => c.uri_for_action('/edit/edit_types') }) %]
+                    <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Conditions') %]</a>
                 </li>
             </ul>
         </li>
     [%- END -%]
-    <li>
-        [%- l('{doc|Documentation}', {doc => doc_link('MusicBrainz_Documentation')}) -%]
+    <li class="documentation">
+        <a href="[% doc_link('MusicBrainz_Documentation') %]">[% l('Documentation') %]</a>
         <ul>
             <li>
-                [%- l('{doc|Beginners Guide}', {doc => doc_link('Beginners_Guide')}) -%]
+                <a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners Guide') %]</a>
             </li>
             <li>
-                [%- l('{doc|Style Guidelines}', {doc => doc_link('Official_Style_Guideline')}) -%]
+                <a href="[% doc_link('Official_Style_Guideline') %]">[% l('Style Guidelines') %]</a>
             </li>
             <li>
-                [%- l('{doc|FAQs}', {doc => doc_link('Frequently_Asked_Questions')}) -%]
+                <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>
             </li>
             <li class="separator">
-                [%- l('{uri|Relationship Types}', { uri => c.uri_for('/admin/linktype') }) -%]
+                <a href="[% c.uri_for('/admin/linktype') %]">[% l('Relationship Types') %]</a>
             </li>
             <li>
-                [%- l('{uri|Relationship Attributes}', { uri => c.uri_for('/admin/linkattributetype') }) -%]
+                <a href="[% c.uri_for('/admin/linkattributetype') %]">[% l('Relationship Attributes') %]</a>
             </li>
             <li>
-                [%- l('{uri|Instrument Tree}', { uri => c.uri_for('/admin/linkattributetype/instruments') }) -%]
+                <a href="[% c.uri_for('/admin/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a>
             </li>
             <li class="separator">
-                [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
+                <a href="[% doc_link('Development') %]">[% l('Development') %]</a>
             </li>
         </ul>
     </li>
-    <li>
-        [%- l('{doc|Contact Us}', {doc => doc_link('Contact_Us')}) -%]
+    <li class="contact">
+        <a href="[% doc_link('Contact_Us') %]">[% l('Contact Us') %]</a>
         <ul>
             <li>
-                [%- l('{doc|Mailing Lists}', {doc => doc_link('Mailing_Lists')}) -%]
+                <a href="[% doc_link('Mailing_Lists') %]">[% l('Mailing Lists') %]</a>
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org" class="internal">
-                    [% l('Web Forums') %]
+                    [% l('Forums') %]
                 </a>
             </li>
             <li class="separator">
@@ -245,7 +244,7 @@
                 </a>
             </li>
             <li>
-                [%- l('{doc|Report a Copyright Violation}', {doc => doc_link('Copyright_Violation_Notice')}) -%]
+                <a href="[% doc_link('Copyright_Violation_Notice') %]">[% l('Report a Copyright Violation') %]</a>
             </li>
         </ul>
     </li>

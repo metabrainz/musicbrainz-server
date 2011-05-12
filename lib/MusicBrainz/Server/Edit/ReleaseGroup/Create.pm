@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_preview
+    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -65,7 +66,13 @@ sub _insert_hash
     return $data
 }
 
-sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+sub allow_auto_edit { 1 }
+
+before accept => sub {
+    my ($self) = @_;
+
+    verify_artist_credits($self->c, $self->data->{artist_credit});
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

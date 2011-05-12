@@ -131,6 +131,37 @@ sub merge
     }
 }
 
+sub find
+{
+    my ($self, $tracks) = @_;
+
+    my $query =
+        'SELECT tracklist
+           FROM (
+                    SELECT tracklist FROM track
+                      JOIN track_name name ON name.id = track.name
+                     WHERE ' . join(' OR ', ('(
+                               name.name ILIKE ?
+                           AND artist_credit = ?
+                           AND position = ?
+                           )') x @$tracks) . '
+                ) s
+       GROUP BY tracklist
+         HAVING COUNT(tracklist) = ?';
+
+    return @{
+        $self->sql->select_single_column_array(
+            $query,
+            (map {
+                $_->{name},
+                $_->{artist_credit},
+                $_->{position}
+            } @$tracks),
+            scalar(@$tracks)
+        )
+    };
+}
+
 sub find_or_insert
 {
     my ($self, $tracks) = @_;

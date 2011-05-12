@@ -13,7 +13,6 @@ CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
 
 CREATE UNIQUE INDEX artist_name_idx_name ON artist_name (name);
 CREATE INDEX artist_name_idx_page ON artist_name (page_index(name));
-CREATE INDEX artist_name_gin ON artist_name USING gin (to_tsvector('mb_simple', name));
 
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
@@ -27,6 +26,7 @@ CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, 
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
+CREATE INDEX isrc_idx_recording ON isrc (recording);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);
@@ -113,7 +113,6 @@ CREATE UNIQUE INDEX label_alias_idx_locale_label ON label_alias (label, locale);
 
 CREATE UNIQUE INDEX label_name_idx_name ON label_name (name);
 CREATE INDEX label_name_idx_page ON label_name (page_index(name));
-CREATE INDEX label_name_gin ON label_name USING gin (to_tsvector('mb_simple', name));
 
 CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 CREATE INDEX label_tag_idx_label ON label_tag (label);
@@ -126,8 +125,10 @@ CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
-CREATE UNIQUE INDEX medium_idx_release ON medium (release, position);
+CREATE INDEX medium_idx_release ON medium (release);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
+
+CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 
 CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
 
@@ -161,7 +162,6 @@ CREATE INDEX release_group_tag_idx_release_group ON release_group_tag (release_g
 
 CREATE UNIQUE INDEX release_name_idx_name ON release_name (name);
 CREATE INDEX release_name_idx_page ON release_name (page_index(name));
-CREATE INDEX release_name_gin ON release_name USING gin (to_tsvector('mb_simple', name));
 
 CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
 
@@ -176,7 +176,6 @@ CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 
 CREATE UNIQUE INDEX track_name_idx_name ON track_name (name);
-CREATE INDEX track_name_gin ON track_name USING gin (to_tsvector('mb_simple', name));
 
 CREATE INDEX tracklist_idx_track_count ON tracklist (track_count);
 
@@ -194,7 +193,6 @@ CREATE UNIQUE INDEX work_alias_idx_locale_work ON work_alias (work, locale);
 
 CREATE UNIQUE INDEX work_name_idx_name ON work_name (name);
 CREATE INDEX work_name_idx_page ON work_name (page_index(name));
-CREATE INDEX work_name_gin ON work_name USING gin (to_tsvector('mb_simple', name));
 
 CREATE INDEX work_tag_idx_tag ON work_tag (tag);
 

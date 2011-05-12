@@ -28,46 +28,6 @@ echo `date`" : Collecting statistics"
 
 DATETIME=`date +'%Y%m%d-%H%M%S'`
 
-# Backup CVS
-if [ "$CVS_DIR" != "" ]
-then
-    echo `date`" : Backing up CVS"
-    tar -C / -cjf "$TEMP_DIR"/cvs-$DATETIME.tar.bz2 "$CVS_DIR"
-    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/cvs-$DATETIME.tar.bz2
-    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/cvs-$DATETIME.tar.bz2
-    mv "$TEMP_DIR"/cvs-$DATETIME.tar.bz2 "$BACKUP_DIR"/
-fi
-
-# Backup the Wiki
-if [ "$WIKI_DIRS" != "" ]
-then
-    echo `date`" : Backing up the Wiki"
-    tar -C / -cjf "$TEMP_DIR"/wiki-$DATETIME.tar.bz2 $WIKI_DIRS
-    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/wiki-$DATETIME.tar.bz2
-    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/wiki-$DATETIME.tar.bz2
-    mv "$TEMP_DIR"/wiki-$DATETIME.tar.bz2 "$BACKUP_DIR"/
-fi
-
-# Backup the Apache config files
-if [ "$APACHE_CONFIG_DIRS" != "" ]
-then
-    echo `date`" : Backing up the Apache config files"
-    tar -C / -cjf "$TEMP_DIR"/apacheconf-$DATETIME.tar.bz2 $APACHE_CONFIG_DIRS
-    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/apacheconf-$DATETIME.tar.bz2
-    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/apacheconf-$DATETIME.tar.bz2
-    mv "$TEMP_DIR"/apacheconf-$DATETIME.tar.bz2 "$BACKUP_DIR"/
-fi
-
-# Backup Mailman
-if [ "$MAILMAN_DIR" != "" ]
-then
-    echo `date`" : Backing up Mailman"
-    tar -C / -cjf "$TEMP_DIR"/mailman-$DATETIME.tar.bz2 $MAILMAN_DIR
-    chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/mailman-$DATETIME.tar.bz2
-    chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/mailman-$DATETIME.tar.bz2
-    mv "$TEMP_DIR"/mailman-$DATETIME.tar.bz2 "$BACKUP_DIR"/
-fi
-
 # Identify and remove unused artists
 echo `date`" : Removing unused artists"
 ./admin/cleanup/EmptyArtists.pl --remove --summary --noverbose
@@ -83,7 +43,7 @@ fi
 # Create the reports
 echo `date`" : Running reports"
 OUTPUT=`
-    nice ./admin/reports/RunReports 2>&1
+    nice ./admin/RunReports.pl 2>&1
 ` || echo "$OUTPUT"
 
 # Add missing track lengths
@@ -98,6 +58,9 @@ echo `date`" : Processing subscriptions"
 
 # Recalculate related tags
 ./admin/CalculateRelatedTags.sh
+
+echo `date`": Updating cover art links"
+./admin/RebuildCoverArtUrls.pl
 
 echo `date`" : Nightly jobs complete!"
 

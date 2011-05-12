@@ -1,11 +1,9 @@
 [% BLOCK layout_head %]
-   <script type="text/javascript" src="/static/scripts/MB/Control/AnnotationHistory.js">
-   </script>
-   <script type="text/javascript">
+   <script type="text/javascript">//<![CDATA[
    $(function() {
      MB.Control.AnnotationHistory('#annotation-history');
    });
-   </script>
+   //]]></script>
 [% END %]
 
 [% WRAPPER 'artist/layout.tt' full_width=1 title=l('Annotation history') %]

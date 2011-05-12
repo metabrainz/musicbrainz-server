@@ -49,6 +49,8 @@ sub build_display_data
     };
 }
 
+sub allow_auto_edit { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

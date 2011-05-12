@@ -257,17 +257,15 @@ sub find_by_recording
     my ($join_types, $where_types) = _where_type_in (@$types);
 
     my @ids = ref $ids ? @$ids : ( $ids );
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT ON (release.id) " . $self->_columns . "
                  FROM " . $self->_table . "
                      $join_types
-                 WHERE release.id IN (
-                    SELECT release FROM medium
-                        JOIN track ON track.tracklist = medium.tracklist
-                        JOIN recording ON recording.id = track.recording
-                     WHERE recording.id IN (" . placeholders(@ids) . "))
+                     JOIN medium ON medium.release = release.id
+                     JOIN track ON track.tracklist = medium.tracklist
+                 WHERE track.recording IN (" . placeholders(@ids) . ")
                  $where_statuses
                  $where_types
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
+                 ORDER BY release.id, date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
 
     if (!defined $limit) {
@@ -279,6 +277,29 @@ sub find_by_recording
             $self->c->sql, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
             $query, @ids, @$statuses, @$types, $offset || 0);
     }
+}
+
+sub find_by_recordings
+{
+    my ($self, @ids) = @_;
+    return () unless @ids;
+
+    my $query =
+        "SELECT DISTINCT ON (release.id) " . $self->_columns . ", track.recording
+           FROM release
+           JOIN release_name name ON name.id = release.name
+           JOIN medium ON release.id = medium.release
+           JOIN track ON track.tracklist = medium.tracklist
+          WHERE track.recording IN (" . placeholders(@ids) . ")";
+
+    my %map;
+    $self->sql->select($query, @ids);
+    while (my $row = $self->sql->next_row_hash_ref) {
+        $map{ $row->{recording} } ||= [];
+        push @{ $map{ $row->{recording} } }, $self->_new_from_row($row)
+    }
+
+    return %map;
 }
 
 sub find_by_artist_track_count
@@ -408,7 +429,8 @@ sub find_by_collection
         "date"   => "date_year, date_month, date_day, musicbrainz_collate(name.name)",
         "title"  => "musicbrainz_collate(name.name), date_year, date_month, date_day",
         "artist" => sub {
-            $extra_join = "JOIN artist_name ac_name ON ac_name.id=release.artist_credit";
+            $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit
+                           JOIN artist_name ac_name ON ac_name.id=ac.name";
             return "musicbrainz_collate(ac_name.name), date_year, date_month, date_day, musicbrainz_collate(name.name)";
         },
     });
@@ -559,9 +581,12 @@ sub merge
         confess('Mediums contain differing numbers of tracks')
             unless $self->can_merge($MERGE_MERGE, $new_id, @old_ids);
 
-        my @tracklist_merges = @{
-            $self->sql->select_list_of_lists(
-                'SELECT newmed.tracklist AS new, oldmed.tracklist AS old
+        my @merges = @{
+            $self->sql->select_list_of_hashes(
+                'SELECT newmed.id AS new_id,
+                        oldmed.id AS old_id,
+                        newmed.tracklist AS new_tracklist,
+                        oldmed.tracklist AS old_tracklist
                    FROM medium newmed, medium oldmed
                   WHERE newmed.release = ?
                     AND oldmed.release IN (' . placeholders(@old_ids) . ')
@@ -569,8 +594,16 @@ sub merge
                 $new_id, @old_ids
             )
         };
-        for my $tracklist_merge (@tracklist_merges) {
-            $self->c->model('Tracklist')->merge(@$tracklist_merge);
+        for my $merge (@merges) {
+            $self->c->model('Tracklist')->merge(
+                $merge->{new_tracklist},
+                $merge->{old_tracklist}
+            ) if $merge->{new_tracklist} != $merge->{old_tracklist};
+
+            $self->c->model('MediumCDTOC')->merge_mediums(
+                $merge->{new_id},
+                $merge->{old_id}
+            );
         }
 
         $self->sql->do(
@@ -592,7 +625,7 @@ sub merge
 sub _hash_to_row
 {
     my ($self, $release, $names) = @_;
-    my $row = hash_to_row($release, { 
+    my $row = hash_to_row($release, {
         artist_credit => 'artist_credit',
         release_group => 'release_group_id',
         status => 'status_id',

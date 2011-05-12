@@ -1,45 +1,27 @@
 package MusicBrainz::Server::WebService::Serializer::XML::1;
 
 use Moose;
-use MusicBrainz::XML::Generator;
+use MusicBrainz::XML;
 
-has 'attributes' => (
-    is => 'rw',
-    isa => 'HashRef[Str]',
-    default => sub { { } },
-);
-
-has 'children' => (
-    is => 'rw',
-    isa => 'ArrayRef[Str]',
-    default => sub { [ ] },
-);
+our $gen = MusicBrainz::XML->new;
 
 has 'gen' => (
     is => 'rw',
-    isa => 'MusicBrainz::XML::Generator',
-    default => sub {
-        MusicBrainz::XML::Generator->new(
-            escape => 'always,even-entities'
-        )
-    },
+    isa => 'MusicBrainz::XML',
+    default => sub { $gen },
 );
 
-sub add
-{
-    my $self = shift;
-
-    push @{$self->children}, @_;
-}
-
-sub serialize
-{
+sub do_serialize {
     my ($self, $entity, $inc, $opts) = @_;
-
     my $element = $self->element;
-
-    return $self->gen->$element($self->attributes, @{$self->children});
+    return $self->gen->$element(
+        { $self->attributes($entity, $inc, $opts) },
+        $self->serialize($entity, $inc, $opts),
+    );
 }
+
+sub attributes { }
+sub serialize { }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

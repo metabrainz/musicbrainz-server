@@ -60,6 +60,11 @@ memory_cycle_ok($annotation);
 
 $rec = $rec_data->get_by_gid('0986e67c-6b7a-40b7-b4ba-c9d7583d6426');
 is ( $rec->id, 1 );
+is ( $rec->gid, '54b9d183-7dab-42ba-94a3-7388a66604b8' );
+
+my $rec_map = $rec_data->get_by_gids('0986e67c-6b7a-40b7-b4ba-c9d7583d6426', '54b9d183-7dab-42ba-94a3-7388a66604b8');
+is ( $rec_map->{'0986e67c-6b7a-40b7-b4ba-c9d7583d6426'}->id, 1 );
+is ( $rec_map->{'54b9d183-7dab-42ba-94a3-7388a66604b8'}->id, 1 );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
 my $results;
@@ -128,6 +133,17 @@ $rec = $rec_data->get_by_id(1);
 ok(defined $rec);
 $rec = $rec_data->get_by_id(2);
 ok(!defined $rec);
+
+my @entities = map { $rec_data->get_by_id($_) } qw(1 8 14);
+
+my %appears = $rec_data->appears_on (\@entities, 2);
+$results = $appears{1}->{results};
+
+is ($appears{8}->{results}->[0]->name, "Aerial", "recording 8 appears on Aerial");
+is ($appears{1}->{hits}, 4, "recording 1 appears on four release groups");
+is (scalar @$results, 2, " ... of which two have been returned");
+is ($results->[0]->name, "Aerial", "recording 1 appears on Aerial");
+is ($results->[1]->name, "エアリアル", "recording 1 appears on エアリアル");
 
 };
 

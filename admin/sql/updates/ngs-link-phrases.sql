@@ -246,12 +246,6 @@ update link_type set
 --	reverse_link_phrase = 'contract' -- contract
 --	where gid = 'e74a40e7-0f27-4e05-bdbd-eb10f5309472';
 
--- name: cover (recording-recording)
-update link_type set
-	link_phrase = '{translated} {parody:parody|cover} of', -- is a {translated} {parody} cover of
-	reverse_link_phrase = '{translated} {parody:parodies|covers}' -- is covered by {translated} {parody}
-	where gid = '29af33a1-8125-462d-a600-1e3facfd0436';
-
 -- name: cover (release_group-release_group)
 update link_type set
 	link_phrase = '{translated} {parody:parody|cover} of', -- is a {translated} {parody} cover of
@@ -382,7 +376,7 @@ update link_type set
 update link_type set
 	link_phrase = 'Discogs', -- has a Discogs page at
 	reverse_link_phrase = 'Discogs page for' -- is a Discogs page for
-	where gid = '14028de3-cac1-38e0-9a53-5c12acb748f0';
+	where gid = '99e550f3-5ab4-3110-b5b9-fe01d970b126';
 
 -- name: DJ-mix (recording-recording)
 update link_type set
@@ -562,7 +556,7 @@ update link_type set
 update link_type set
 	link_phrase = 'samples IMDb entry', -- contains samples from the IMDb entry at
 	reverse_link_phrase = 'IMDb entrysampled in' -- is an IMDb entry for the work sampled in
-	where gid = '0544be34-e5a0-3184-916c-c9c91d8cc52c';
+	where gid = '85b0a010-3237-47c7-8476-6fcefd4761af';
 
 -- name: instrument (artist-recording)
 update link_type set
@@ -754,7 +748,7 @@ update link_type set
 update link_type set
 	link_phrase = 'lyrics page', -- has lyrics available at
 	reverse_link_phrase = 'lyrics page for' -- contains lyrics for
-	where gid = '2fb24b43-0050-36cf-a65a-60ca0b525e3e';
+	where gid = '156344d3-da8b-40c6-8b10-7b1c22727124';
 
 -- name: lyrics (url-work)
 update link_type set
@@ -850,7 +844,7 @@ update link_type set
 update link_type set
 	link_phrase = 'miscellaneous roles', -- has a miscellaneous role on
 	reverse_link_phrase = 'miscellaneous support' -- contains miscellaneous support from
-	where gid = 'c4271b58-9275-33a4-bf2a-13e43b559da6';
+	where gid = '7d166271-99c7-3a13-ae96-d2aab758029d';
 
 -- name: misc (recording-url)
 update link_type set
@@ -862,7 +856,7 @@ update link_type set
 update link_type set
 	link_phrase = 'miscellaneous roles', -- has a miscellaneous role on
 	reverse_link_phrase = 'miscellaneous support' -- contains miscellaneous support from
-	where gid = '967e0b3b-e968-314a-b200-7d52a72a0a31';
+	where gid = '00687ce8-17e1-3343-b6e5-0a91b919fe24';
 
 -- name: mix (artist-recording)
 update link_type set
@@ -986,8 +980,8 @@ update link_type set
 
 -- name: other version (work-work)
 update link_type set
-	link_phrase = 'later versions', -- is the earliest version of
-	reverse_link_phrase = 'original version' -- is a later version of
+	link_phrase = 'later {translated} {parody} versions', -- is the earliest version of
+	reverse_link_phrase = 'original {translated} {parody} version' -- is a later version of
 	where gid = '7440b539-19ab-4243-8c03-4f5942ca2218';
 
 -- name: parent (artist-artist)
@@ -1004,9 +998,9 @@ update link_type set
 
 -- name: performance (recording-work)
 update link_type set
-	link_phrase = 'performance of', -- is a performance of
-	reverse_link_phrase = 'performances' -- has performance
-	where gid = 'a41ff967-4930-3520-bb4e-6656a1f8f358';
+	link_phrase = '{translated} {cover} performance of', -- is a performance of
+	reverse_link_phrase = '{translated} {cover} performances' -- has performance
+	where gid = 'a3005666-a872-32c3-ad06-98af558e99b0';
 
 -- name: performance (artist-recording)
 --update link_type set
@@ -1144,7 +1138,7 @@ update link_type set
 update link_type set
 	link_phrase = 'published', -- published
 	reverse_link_phrase = 'publisher' -- was published by
-	where gid = '1d4220f4-e4e0-3f93-b5a5-3fb4150feb12';
+	where gid = 'a442b140-830b-30b0-a4aa-2e36f098b6aa';
 
 -- name: publishing (label-recording)
 update link_type set
@@ -1162,7 +1156,7 @@ update link_type set
 update link_type set
 	link_phrase = 'published', -- published
 	reverse_link_phrase = 'publisher' -- was published by
-	where gid = '201ccc0e-fcd6-39ab-8676-511e0c1283a6';
+	where gid = '05ee6f18-4517-342d-afdf-5897f64276e3';
 
 -- name: publishing (recording-url)
 update link_type set
@@ -1174,7 +1168,7 @@ update link_type set
 update link_type set
 	link_phrase = 'published', -- published
 	reverse_link_phrase = 'publisher' -- was published by
-	where gid = '8dd8b1da-ae23-3428-a5cb-0f28d5fbb535';
+	where gid = 'f600f326-5105-383b-aaf3-8e96c4163d9f';
 
 -- name: purchase for download (artist-url)
 update link_type set
@@ -1246,7 +1240,7 @@ update link_type set
 update link_type set
 	link_phrase = 'recording studio', -- was recorded by studio at
 	reverse_link_phrase = 'recording studio' -- studio recorded
-	where gid = '56e664bf-0763-321a-8e84-4e56f0dc12e2';
+	where gid = 'b17e54df-dcff-4ce3-9ab6-83f4bc0ec50b';
 
 -- name: remaster (recording-recording)
 update link_type set
@@ -1498,7 +1492,7 @@ update link_type set
 update link_type set
 	link_phrase = 'score', -- has a score available at
 	reverse_link_phrase = 'score for' -- contains the score for
-	where gid = '042fcd90-a327-31f6-9306-e6770d9d7ef1';
+	where gid = '89e70668-d56d-4888-9778-d43a3deb6944';
 
 -- name: score (url-work)
 update link_type set
@@ -1553,12 +1547,6 @@ update link_type set
 	link_phrase = 'stream for free', -- can be streamed for free at
 	reverse_link_phrase = 'free music streaming page for' -- is a free music streaming page for
 	where gid = '08445ccf-7b99-4438-9f9a-fb9ac18099ee';
-
--- name: streaming music (release_group-url)
-update link_type set
-	link_phrase = 'stream for free', -- can be streamed for free at
-	reverse_link_phrase = 'free music streaming page for' -- is a free music streaming page for
-	where gid = '10f8d3c2-fa5d-3450-9ad3-6c5f18c5774b';
 
 -- name: streaming music (url-work)
 update link_type set
@@ -1619,12 +1607,6 @@ update link_type set
 	link_phrase = 'VGMdb', -- has a VGMdb page at
 	reverse_link_phrase = 'VGMdb page for' -- has a VGMdb page at
 	where gid = '6af0134a-df6a-425a-96e2-895f9cd342ba';
-
--- name: vgmdb (release_group-url)
-update link_type set
-	link_phrase = 'VGMdb', -- has a VGMdb page at
-	reverse_link_phrase = 'VGMdb page for' -- has a VGMdb page at
-	where gid = '1c4ed27e-b2c2-30b3-bce2-0bccffcd5e8a';
 
 -- name: vocal (artist-recording)
 update link_type set

@@ -19,7 +19,7 @@
   [% IF edit.display_data.position %]
   <tr>
     <th>[% l('Position:') %]</th>
-    <td class="old">[% edit.display_data.position.old %]</td>
+    <td class="old">[% edit.display_data.position.old || '' %]</td>
     <td class="new">[% edit.display_data.position.new %]</td>
   </tr>
   [% END %]

@@ -85,4 +85,19 @@ $sql->commit;
 
 };
 
+test 'Reordering mediums' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+
+    $c->model('Medium')->reorder(
+        1 => 2, # Medium 1 is now position 2
+        2 => 1, # Medium 2 is now position 1
+    );
+
+    is($c->model('Medium')->get_by_id(1)->position => 2);
+    is($c->model('Medium')->get_by_id(2)->position => 1);
+};
+
 1;

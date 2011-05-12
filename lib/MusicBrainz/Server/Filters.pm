@@ -9,6 +9,7 @@ use URI::Escape;
 use Encode;
 use Text::WikiFormat;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Try::Tiny;
 
 sub release_date
 {
@@ -151,7 +152,14 @@ sub language
 
 sub locale
 {
-    return DateTime::Locale->load(shift)->name
+    my $locale_name = shift;
+    try {
+        my $locale = DateTime::Locale->load($locale_name);
+        return $locale->name
+    }
+    catch {
+        return;
+    }
 }
 
 1;

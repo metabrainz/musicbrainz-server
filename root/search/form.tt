@@ -1,6 +1,6 @@
 [%- USE search = FormRenderer(form) -%]
 <div class="searchform">
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
       $(document).ready (function () {
 
         var advanced = $('#id-advanced');
@@ -23,7 +23,7 @@
             }
         });
       });
-    </script>
+    //]]></script>
 
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">
         [% form_row_text_long(search, 'query', l('Query:')) %]

@@ -174,16 +174,9 @@ around create => sub {
     }
 };
 
-before 'edit' => sub {
+before '_merge_confirm' => sub {
     my ($self, $c) = @_;
-    my $recording = $c->stash->{recording};
-};
-
-after 'merge' => sub {
-    my ($self, $c) = @_;
-    $c->model('ArtistCredit')->load(
-        $c->stash->{recording}, $c->stash->{old}, $c->stash->{new}
-    );
+    $c->model('ISRC')->load_for_recordings(@{ $c->stash->{to_merge} });
 };
 
 around '_merge_search' => sub {

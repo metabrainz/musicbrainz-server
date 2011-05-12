@@ -5,6 +5,7 @@ use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::Label';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
@@ -32,7 +33,7 @@ sub _release_ids
 sub _artist_ids
 {
     my $self = shift;
-    return map { $_->{artist_id} } @{ $self->data->{tracks} };
+    return $self->data->{artist_id}, (map { $_->{artist_id} } @{ $self->data->{tracks} });
 }
 
 sub _release_events

@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    verify_artist_credits
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Translation 'l';
@@ -37,6 +38,20 @@ has '+data' => (
         new_artist_credit => ArtistCreditDefinition
     ]
 );
+
+around related_entities => sub {
+    my ($orig, $self) = @_;
+
+    my $related = $self->$orig;
+    if (exists $self->data->{new_artist_credit}) {
+        my %new = load_artist_credit_definitions($self->data->{new_artist_credit});
+        my %old = load_artist_credit_definitions($self->data->{old_artist_credit});
+        push @{ $related->{artist} }, keys(%new), keys(%old);
+    }
+    
+    return $related;
+};
+
 
 sub alter_edit_pending
 {
@@ -107,6 +122,8 @@ sub initialize {
 
 sub accept {
     my $self = shift;
+
+    verify_artist_credits($self->c, $self->data->{new_artist_credit});
 
     my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
         @{ $self->data->{new_artist_credit} }
