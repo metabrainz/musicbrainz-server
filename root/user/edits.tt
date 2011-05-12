@@ -14,5 +14,5 @@
 
 [% WRAPPER 'user/profile/layout.tt' title=l('Edits') %]
    <h2>[% l('Edits by {name}', { name => html_escape(user.name) }) %]</h2>
-   [% INCLUDE 'edit/list.tt' %]
+   [% INCLUDE 'edit/list.tt' guess_search=1 %]
 [% END %]
