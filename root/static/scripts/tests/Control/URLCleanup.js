@@ -99,7 +99,7 @@ MB.tests.URLCleanup.GuessType = function() {
 
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
-                    MB.constants.LINK_TYPES.lyricwiki.release
+                    MB.constants.LINK_TYPES.lyrics.release
                 ]
             ];
 
