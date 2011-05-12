@@ -46,11 +46,17 @@
                 <td class="label">[% l('Recordings:') %]</td>
                 <td colspan="2" id="entity1">
                   <table class="tbl">
+                    <tr>
+                      <thead>
+                        <th>
+                          <input type="checkbox" />
+                        </th>
+                        <th colspan="5"></th>
+                      </thead>
+                    </tr>
                     [% FOR medium=release.all_mediums %]
                     <tr class="subh">
-                      <th>
-                        <input type="checkbox" />
-                      </th>
+                      <th></th>
                       <th colspan="5">
                         [%~ medium.format_name or l("Medium") | html =%]
                         [%= medium.position ~%]
