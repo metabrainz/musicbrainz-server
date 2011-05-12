@@ -204,7 +204,7 @@ sub query_to_list_limited
     my ($sql, $offset, $limit, $builder, $query, @args) = @_;
     $sql->select($query, @args);
     my @result;
-    while ($limit--) {
+    while (!defined($limit) || $limit--) {
         my $row = $sql->next_row_hash_ref or last;
         my $obj = $builder->($row);
         push @result, $obj;

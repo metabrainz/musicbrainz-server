@@ -67,6 +67,10 @@ END; -%]
             l('labels');
         CASE 'track';
             l('tracks');
+        CASE 'recording';
+            l('recordings');
+        CASE 'release_group';
+            l('release groups');
         CASE 'editor';
             l('editors');
         CASE DEFAULT;
