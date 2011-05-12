@@ -105,9 +105,9 @@ sub build_display_data
     return $data;
 }
 
-before 'initialize' => sub
+around 'initialize' => sub
 {
-    my ($self, %opts) = @_;
+    my ($orig, $self, %opts) = @_;
     my $recording = $opts{to_edit} or return;
     if (exists $opts{artist_credit} && !$recording->artist_credit) {
         $self->c->model('ArtistCredit')->load($recording);
@@ -118,6 +118,8 @@ before 'initialize' => sub
             if MusicBrainz::Server::Track::FormatTrackLength($opts{length}) eq
                 MusicBrainz::Server::Track::FormatTrackLength($recording->length);
     }
+
+    $self->$orig(%opts);
 };
 
 sub _mapping
