@@ -346,6 +346,13 @@ END -%]
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END -%]
 
+[%- MACRO entity_lookup BLOCK -%]
+  <span class="autocomplete">
+    <img class="search" src="/static/images/icons/search.png" />
+    <input type="text" class="entity" value="" style="width: 170px;" />
+  </span>
+[%- END -%]
+
 [%- MACRO relate_to_ellipsis(entity) BLOCK -%]
     <a href="#relate_to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
@@ -360,10 +367,7 @@ END -%]
           <option value="release">[% l('Release') %]</option>
           <option value="work">[% l('Work') %]</option>
         </select>
-        <span class="autocomplete">
-          <img class="search" src="/static/images/icons/search.png" />
-          <input type="text" class="entity" value="" style="width: 170px;" />
-        </span>
+        [%- entity_lookup -%]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
           <input class="negative button cancel" type="button" value="[% l('Cancel') %]" style="float: left;" />

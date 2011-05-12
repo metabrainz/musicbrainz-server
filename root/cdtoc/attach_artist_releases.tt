@@ -1,3 +1,13 @@
+[%- BLOCK layout_head -%]
+  <script type="text/javascript">//<![CDATA[
+    $('document').ready (function () {
+
+       MB.Control.AttachTOC ();
+
+    });
+  //]]></script>
+[%- END -%]
+
 [% WRAPPER 'layout.tt' l('Attach CD TOC') full_width=1 %]
   <h2>[% l('Releases by {artist}', { artist => link_entity(artist) }) %]</h2>
   [% IF releases.size %]
@@ -32,18 +42,39 @@
       </table>
       [% END %]
       [% END %]
+      <br />
       [% form_submit(l('Attach CD TOC')) %]
     </form>
+    <p>[% l('Alternatively you can add new a release for this artist, or add a disc to an existing release.') %]</p>
   [% ELSE %]
     <p>[% ln('{artist} has no releases which have only {n} track.',
              '{artist} has no releases which have {n} tracks.',
              cdtoc.track_count, { artist => link_entity(artist), n => cdtoc.track_count }) %]</p>
+    <p>[% l('You can add new a release for this artist, or add a disc to an existing release.') %]</p>
   [% END %]
 
-  <form action="[% c.uri_for('/release/add') %]" method="post">
-    <input type="hidden" name="artist_credit.names.0.mbid"
-           value="[% artist.gid %]" />
-    <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
-    [% form_submit(l('Add a new release')) %]
-  </form>
+  <p>
+    [% l('Search for a release:') %]<br />
+    <span class="autocomplete">
+      <img class="search" src="/static/images/icons/search.png" />
+      <input type="text" class="entity" value="" style="width: 170px;" />
+    </span>
+  </p>
+
+  <span class="buttons">
+    <form id="attach-to-release" action="" method="post" style="display: inline">
+      <input type="hidden" name="mediums.9999999999.toc" value="[% toc %]" />
+      <button type="submit" class="disabled" style="min-width: 170px;">
+      [%- l('Add to a existing release') -%]</button>
+    </form>
+
+    <form id="add-new-release" action="" method="post" style="display: inline">
+      <input type="hidden" name="artist_credit.names.0.mbid"
+             value="[% artist.gid %]" />
+      <input type="hidden" name="mediums.0.toc" value="[% toc %]" />
+      <button type="submit">[%- l('Add a new release') -%]</button>
+    </form>
+  </span>
+
+
 [% END %]
