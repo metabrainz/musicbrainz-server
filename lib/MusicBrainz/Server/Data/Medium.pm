@@ -224,6 +224,11 @@ sub reorder {
     my @medium_ids = keys %ordering;
 
     $self->sql->do(
+        'UPDATE medium SET position = -position
+          WHERE id IN (' . placeholders(@medium_ids) . ')',
+        @medium_ids);
+
+    $self->sql->do(
         'UPDATE medium SET position =
                 (SELECT position
                    FROM (VALUES ' . join(', ', ('(?::INTEGER, ?::INTEGER)') x @medium_ids) . ')
