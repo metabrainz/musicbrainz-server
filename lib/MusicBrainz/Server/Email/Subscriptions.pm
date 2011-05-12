@@ -54,12 +54,14 @@ sub text {
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed artists',
-        @{ $self->edits->{artist} }
+        $self->edits->{artist},
+        'artist'
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
-        @{ $self->edits->{label} }
+        $self->edits->{label},
+        'label'
     ) if exists $self->edits->{label};
 
     push @sections, $self->edits_for_editors(
@@ -91,16 +93,16 @@ Please do not reply to this message.  If you need help, please see
 }
 
 sub edits_for_type {
-    my $self = shift;
-    my $header = shift;
-    my $subs = \@_;
+    my ($self, $header, $subs, $type) = @_;
+    my $get_entity = sub { shift->$type };
+
     return strip tt q{
 [% header %]
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
-[%- artist = sub.subscription.artist -%]
-[% artist.name %] [% '(' _ artist.comment _ ') ' IF artist.comment %]([% sub.open.size %] open, [% sub.applied.size %] applied)
-[% self.server %]/artist/[% artist.gid %]/edits
+[%- entity = get_entity(sub.subscription) -%]
+[% entity.name %] [% '(' _ entity.comment _ ') ' IF entity.comment %]([% sub.open.size %] open, [% sub.applied.size %] applied)
+[% self.server %]/[% type %]/[% entity.gid %]/edits
 
 [% END %]
 };
