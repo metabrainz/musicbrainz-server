@@ -141,7 +141,7 @@ eval {
     $sql->do(
         'INSERT INTO link_type_attribute_type (link_type, attribute_type, min)
              SELECT id, ?, ? FROM link_type WHERE gid = ?',
-        $medium_position_root, '9162dedd-790c-446c-838e-240f877dbfe2', 0);
+        $medium_position_root, 0, '9162dedd-790c-446c-838e-240f877dbfe2'); # dj-mixed AR
 
     $sql->do("
         CREATE TABLE tmp_release_merge (
