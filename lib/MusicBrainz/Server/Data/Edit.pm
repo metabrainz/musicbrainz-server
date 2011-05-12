@@ -131,7 +131,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ? LIMIT 5000';
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT 500';
 
     return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -176,7 +176,7 @@ sub find_by_voter
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
        ORDER BY id DESC
-         OFFSET ? LIMIT 5000';
+         OFFSET ? LIMIT 500';
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
