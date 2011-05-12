@@ -123,27 +123,33 @@ role {
             $self->_merge_form_arguments($c, @entities)
         );
         if ($form->submitted_and_valid($c->req->params)) {
-            my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
-            my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @entities;
-            $self->_insert_edit($c, $form,
-                edit_type => $params->edit_type,
-                new_entity => {
-                    id => $new->[0]->id,
-                    name => $new->[0]->name,
-                },
-                old_entities => [ map +{
-                    id => $_->id,
-                    name => $_->name
-                }, @$old ],
-                map { $_->name => $_->value } $form->edit_fields
-            );
-
-            $c->session->{merger} = undef;
-
-            $c->response->redirect(
-                $c->uri_for_action($self->action_for('show'), [ $new->[0]->gid ])
-            );
+            $self->_merge_submit($c, $form, \@entities);
         }
+    };
+
+    method _merge_submit => sub {
+        my ($self, $c, $form, $entities) = @_;
+        my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
+        my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$entities;
+        $self->_insert_edit(
+            $c, $form,
+            edit_type => $params->edit_type,
+            new_entity => {
+                id => $new->[0]->id,
+                name => $new->[0]->name,
+            },
+            old_entities => [ map +{
+                id => $_->id,
+                name => $_->name
+            }, @$old ],
+            map { $_->name => $_->value } $form->edit_fields
+        );
+
+        $c->session->{merger} = undef;
+
+        $c->response->redirect(
+            $c->uri_for_action($self->action_for('show'), [ $new->[0]->gid ])
+        );
     };
 };
 
