@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # The following has been taken from
 # http://www.catalystframework.org/calendar/2007/18
