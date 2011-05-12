@@ -39,7 +39,7 @@
                     <a href="[% c.uri_for_action('/user/edits/open', [ c.user.name ]) %]">[% l('My Open Edits') %]</a>
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/user/edits/all', [ c.user.name ]) %]">[% l('All My Edits') %]"</a>
+                    <a href="[% c.uri_for_action('/user/edits/all', [ c.user.name ]) %]">[% l('All My Edits') %]</a>
                 </li>
                 <li>
                     <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Edits for Subscribed Entities') %]</a>
