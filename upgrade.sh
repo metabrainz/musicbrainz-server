@@ -66,8 +66,6 @@ then
     ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreateFKConstraints.sql
     echo `date` : Creating triggers
     ./admin/psql READWRITE <./admin/sql/CreateTriggers.sql
-    echo `date` : Adding table constraints
-    ./admin/psql READWRITE <./admin/sql/CreateConstraints.sql
 fi
 
 echo `date` : Creating indexes
