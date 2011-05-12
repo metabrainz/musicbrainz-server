@@ -6,7 +6,7 @@
         </li>
 [%- END -%]
 
-[%- favicons = entity.relationships_by_type('url') -%]
+[%- favicons = [ entity.relationships_by_type('url') ]  -%]
 [%- IF favicons -%]
     <p><strong>[% l('External links:') %]</strong></p>
     <ul class="favicons">
