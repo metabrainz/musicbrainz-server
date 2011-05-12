@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use List::Util qw( first );
+use Scalar::Util qw/ looks_like_number /;
 use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_REMOVE_DISCID
@@ -101,7 +102,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
 
     $c->model('Release')->load(@$mediums);
     $c->model('ArtistCredit')->load(map { $_->release } @$mediums);
-    
+
     $c->stash( mediums => $mediums );
 
     $self->edit_action($c,
@@ -129,6 +130,11 @@ sub attach : Local RequireAuth
     $c->stash( cdtoc => $cdtoc );
 
     if (my $medium_id = $c->req->query_params->{medium}) {
+
+        $self->error($c, status => HTTP_BAD_REQUEST,
+                     message => l('The provided medium id is not valid')
+            ) unless looks_like_number ($medium_id);
+
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
@@ -153,6 +159,11 @@ sub attach : Local RequireAuth
         )
     }
     elsif (my $artist_id = $c->req->query_params->{artist}) {
+
+        $self->error($c, status => HTTP_BAD_REQUEST,
+                     message => l('The provided artist id is not valid')
+            ) unless looks_like_number ($artist_id);
+
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
         my $releases = $self->_load_paged($c, sub {
