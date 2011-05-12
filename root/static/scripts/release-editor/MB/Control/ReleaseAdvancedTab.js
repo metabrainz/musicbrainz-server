@@ -198,7 +198,17 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * tracklist table.  It copies the release artistcredit.
      */
     self.addTrack = function () {
-        var trackno = self.tracks.length;
+        var trackno = 0;
+        $.each (self.tracks, function (idx, item) {
+            if (item.isDeleted ())
+                return;
+
+            var pos = parseInt (item.$position.val ());
+            if (pos > trackno)
+            {
+                trackno = pos;
+            }
+        });
 
         var previous = null;
         if (self.$table.find ('tr.track').length)
