@@ -31,8 +31,6 @@ package DBDefs;
 
 # The server root, i.e. the parent directory of admin, bin, lib, root, etc.
 sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
-# The data import directory (used by some reports)
-sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 # Where static files are located
 sub STATIC_FILES_DIR { MB_SERVER_ROOT . '/root/static' }
 
@@ -107,10 +105,6 @@ sub LUCENE_SERVER    { "search.musicbrainz.org" }
 
 sub SMTP_SERVER { "localhost" }
 
-# If this is not undef, it lists a file to where all mail should be spooled
-# (instead of being sent via SMTP_SERVER)
-sub DEBUG_MAIL_SPOOL { undef }
-
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
 # passwords.  However you MUST change it from the default
@@ -173,15 +167,6 @@ sub PLUGIN_CACHE_OPTIONS {
     };
 };
 
-# Show MISS, HIT, SET etc
-sub CACHE_DEBUG { 1 }
-
-# Default expiry time in seconds.  Use 0 for "never".
-sub CACHE_DEFAULT_EXPIRES { 3600 }
-
-# Default delete time in seconds.  Use 0 means allow re-insert straight away.
-sub CACHE_DEFAULT_DELETE { 4 }
-
 # Use memcached and a small in-memory cache, see below if you
 # want to disable caching
 #
@@ -233,14 +218,6 @@ sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
 sub RATELIMIT_SERVER { undef }
 
 ################################################################################
-# Proxy settings
-################################################################################
-
-sub PROXY_ENABLE { 0 }
-sub PROXY_HOST { '' }
-sub PROXY_PORT { 8000 }
-
-################################################################################
 # Minify settings
 ################################################################################
 
@@ -276,7 +253,7 @@ EOF
 # the server version, e.g. at the foot of each web page.  Basically it can be
 # whatever you want. If you leave it blank, the current subversion revision
 # will be shown (if subversion is in use).
-sub VERSION { "TRUNK" }
+sub VERSION { "master" }
 
 # How long (in seconds) a web/rdf session can go "idle" before being timed out
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
