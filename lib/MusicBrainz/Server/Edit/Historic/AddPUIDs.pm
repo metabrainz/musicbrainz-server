@@ -13,7 +13,7 @@ sub related_entities {
     my $self = shift;
     return {
         recording => [
-            map { $_->{recording_id} } @{ $self->data->{puids} }
+            map { $_->{recording}{id} } @{ $self->data->{puids} }
         ]
     }
 }

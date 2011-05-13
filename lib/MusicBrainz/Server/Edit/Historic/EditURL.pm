@@ -14,7 +14,7 @@ sub ngs_class { 'MusicBrainz::Server::Edit::URL::Edit' }
 sub related_entities {
     my $self = shift;
     return {
-        url => [ $self->data->{entity_id} ]
+        url => [ $self->data->{entity}{id} ]
     }
 }
 
