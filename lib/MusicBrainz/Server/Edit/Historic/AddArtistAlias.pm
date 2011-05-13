@@ -12,7 +12,7 @@ sub ngs_class { 'MusicBrainz::Server::Edit::Artist::AddAlias' }
 sub related_entities {
     my $self = shift;
     return {
-        artist => [ $self->data->{entity_id} ]
+        artist => [ $self->data->{entity}{id} ]
     }
 }
 

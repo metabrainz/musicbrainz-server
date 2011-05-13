@@ -14,7 +14,7 @@ sub edit_type { 46 }
 sub related_entities {
     my $self = shift;
     return {
-        recording => [ $self->data->{recording_id} ]
+        recording => [ $self->data->{recording}{id} ]
     }
 }
 
