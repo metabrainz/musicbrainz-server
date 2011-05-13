@@ -95,8 +95,6 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
     self.renderToDisc = function (basic_disc) {
 
-        basic_disc.$toc.val (self.$toc.val ());
-
         var data = [];
         $.each (self.$table.find ('tr.track'), function (idx, row) {
 
@@ -123,6 +121,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             basic_disc.disc.getTrack (idx - 1).render (trk);
         });
 
+        basic_disc.$toc.val (self.$toc.val ());
         basic_disc.disc.sort ();
         basic_disc.render ();
         basic_disc.updatePreview ();
