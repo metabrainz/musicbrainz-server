@@ -89,7 +89,7 @@ around 'search' => sub
             }
         }
 
-        $c->res->body($c->stash->{serializer}->serialize_list('release', \@releases, $inc, { score => 100 }));
+        $c->res->body($c->stash->{serializer}->serialize_list('release-list', \@releases, $inc, { score => 100 }));
   	}
     else {
         $self->$orig($c);
