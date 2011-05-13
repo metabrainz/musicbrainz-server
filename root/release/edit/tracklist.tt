@@ -96,7 +96,7 @@
 
 <div style="display: none;" class="tracklist-searching import-message">
   <p>
-    <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+    <img src="/static/images/icons/loading.gif" />
     &nbsp;
     [% l('Searching...') %]
   </p>
@@ -223,7 +223,7 @@
 
       <div style="display: none; height: 6em; margin-top: 5em;" class="tracklist-loading">
         <p>
-          <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+          <img src="/static/images/icons/loading.gif" />
           &nbsp;
           [% l('Now loading tracklist...') %]
         </p>
