@@ -179,11 +179,8 @@ sub release_ids       {
     return @{ $self->album_release_ids(shift) };
 }
 
-# ReleaseGroupID -> [ ReleaseGroupID ]
-sub release_group_ids { shift; return ( shift ) }
-
 # AlbumID -> [ ReleaseGroupID ]
-sub release_rg_ids {
+sub release_group_ids {
     my $self = shift;
     return $self->find_release_group_id(
         $self->resolve_album_id(shift));
