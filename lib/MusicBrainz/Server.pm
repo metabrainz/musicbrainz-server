@@ -208,11 +208,20 @@ sub relative_uri
 }
 
 use POSIX qw(SIGALRM);
+use IO::Handle;
+
+my $fh;
 
 around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
+    unless ($fh) {
+        open($fh, ">", "/home/musicbrainz/requests/$$");
+        $fh->autoflush(1);
+    }
+
+    printf $fh "%s : Serving %s\n", time, $c->req->uri;
     Translation->instance->build_languages_from_header($c->req->headers);
 
     if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
