@@ -3,7 +3,6 @@ package MusicBrainz::Server::WebService::XMLSerializer;
 use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
-use Switch;
 use List::UtilsBy qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
