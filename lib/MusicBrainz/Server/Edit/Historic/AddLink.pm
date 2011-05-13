@@ -144,8 +144,12 @@ my %end_point_map = (
  'track' => {
     'track' => {
         4  => [ [ 'work', 'work' ] ],      # other version
-# TODO:
-#        5  => [ [ 'work', 'work' ] ], # cover
+# FIXME:
+        5  => [                            # cover
+            [ 'recording', 'work' ],
+            [ 'work', 'work'      ],
+        ],
+        14 => [ [ 'recording', 'work' ] ], # medley
     },
     'url' => {
         18 => [ [ 'work', 'url' ] ], # other databases
