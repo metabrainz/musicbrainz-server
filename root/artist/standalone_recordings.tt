@@ -1,9 +1,0 @@
-[%- WRAPPER 'artist/layout.tt' title=l('Standalone Recordings') page='standalone' -%]
-    <h2>[% l('Recordings') %]</h2>
-    [%- IF recordings.size -%]
-        <p>[% l('The following are stand-alone recordings which have never been included on a release.') %]</p>
-        [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
-    [%- ELSE -%]
-        <p>[%- l('This artist does not have any standalone recordings.') -%]</p>
-    [%- END -%]
-[%- END -%]
