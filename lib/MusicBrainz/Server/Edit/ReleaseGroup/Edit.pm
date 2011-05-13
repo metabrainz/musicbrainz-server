@@ -12,7 +12,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
     load_artist_credit_definitions
-    artist_credit_from_loaded_definition
     verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
