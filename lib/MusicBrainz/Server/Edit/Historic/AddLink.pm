@@ -143,7 +143,7 @@ my %end_point_map = (
  },
  'track' => {
     'track' => {
-        4  => [ [ 'work', 'work' ] ], # other version
+        4  => [ [ 'work', 'work' ] ],      # other version
 # TODO:
 #        5  => [ [ 'work', 'work' ] ], # cover
     },
@@ -166,13 +166,13 @@ sub label_ids         { shift; return ( shift ) }
 # TrackID -> [ RecordingID ]
 sub recording_ids     {
     my $self = shift;
-    return ( $self->resolve_recording_id(shift) )
+    return ( $self->resolve_recording_id(shift) );
 }
 
 # AlbumID -> [ ReleaseID ]
 sub release_ids       {
     my $self = shift;
-    return @{ $self->album_release_ids(shift) }
+    return @{ $self->album_release_ids(shift) };
 }
 
 # ReleaseGroupID -> [ ReleaseGroupID ]
@@ -186,10 +186,10 @@ sub release_rg_ids {
 }
 
 # UrlID -> [ UrlID ]
-sub url_ids           { shift; return ( $self->resolve_url_id(shift) ) }
+sub url_ids           { my $self = shift; return ( $self->resolve_url_id(shift) ) }
 
 # TrackID -> [ WorkID ]
-sub work_ids          { shift; return ( $self->resolve_work_id(shift) ) }
+sub work_ids          { my $self = shift; return ( $self->resolve_work_id(shift) ) }
 
 sub _expand_relationships {
     my ($self, $link_type_id,
