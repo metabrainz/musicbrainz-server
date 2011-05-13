@@ -1307,7 +1307,7 @@ $sql->do(
      WHERE NOT EXISTS (
          SELECT TRUE FROM l_recording_work ar
            JOIN link ON link.id = ar.link
-          WHERE ar.entity0 = work.id
+          WHERE ar.entity1 = work.id
             AND link.link_type = ?
      )
 ",

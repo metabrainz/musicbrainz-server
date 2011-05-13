@@ -24,7 +24,7 @@ sub do_upgrade
     return {
         entity => {
             id => $self->row_id,
-            name => '[deleted]'
+            name => '[removed]'
         },
         old => {
             type_id => upgrade_id($self->previous_value)

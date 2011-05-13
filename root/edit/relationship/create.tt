@@ -1,5 +1,5 @@
 [% BLOCK layout_head %]
-   <script type="text/javascript">
+   <script type="text/javascript">//<![CDATA[
      $(document).ready (function () {
         var checkbox = $('#id-ar\\.direction');
         $('#changedirection').click (function (event) {
@@ -15,7 +15,7 @@
              $('#entity1').html (entity0);
         });
      });
-   </script>
+   //]]></script>
 [% END %]
 
 [%- WRAPPER 'layout.tt' title=l('Create Relationship') full_width=1 -%]
@@ -26,9 +26,9 @@
 
     <form action="[% c.req.uri | html %]" method="post">
 
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         var typeInfo = [% type_info %];
-    </script>
+    //]]></script>
 
     [% IF exists %]
         <p><strong>[% l('A relationship between {entity0} and {entity1} already
@@ -42,11 +42,11 @@
 
         <table class="form">
             <tr>
-                <td class="label">[% entity_label(source_type) %]</td>
+                <th class="label">[% entity_label(source_type) %]</th>
                 <td colspan="2" id="entity0">[% link_entity(source) %]</td>
             </tr>
             <tr>
-                <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
+                <th class="label">[% r.label('link_type_id', l('Type:')) %]</th>
                 <td colspan="2">
                     [% r.select('link_type_id', no_default => 1) %]
                     [% field_errors(form, 'link_type_id') %]
@@ -64,11 +64,11 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">[% entity_label(dest_type) %]</td>
+                <th class="label">[% entity_label(dest_type) %]</th>
                 <td colspan="2" id="entity1">[% link_entity(dest) %]</td>
             </tr>
             <tr>
-                <td class="label"><label>[% l('Attributes:') %]</label></td>
+                <th class="label">[% l('Attributes:') %]</th>
                 <td>
                 [% FOR attr IN attr_tree.children %]
                     <div id="attr-section-[% attr.id %]" class="ar-attr">
@@ -93,12 +93,12 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">[% r.label('begin_date', l('Begin date:')) %]</td>
+                <th class="label">[% r.label('begin_date', l('Begin date:')) %]</th>
                 <td colspan="2">[% r.date('begin_date') %]
                 [% field_errors(form, 'begin_date') %]</td>
             </tr>
             <tr>
-                <td class="label">[% r.label('end_date', l('End date:')) %]</td>
+                <th class="label">[% r.label('end_date', l('End date:')) %]</th>
                 <td colspan="2">[% r.date('end_date') %]
                 [% field_errors(form, 'end_date') %]</td>
             </tr>

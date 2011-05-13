@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010,2011 MetaBrainz Foundation
+   Copyright (C) 2010-2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -245,6 +245,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$expand_icon = self.$basicdisc.find ('input.expand-disc');
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
+    self.$toc = self.$basicdisc.find ('input.toc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
     self.$toc = self.$basicdisc.find ('input.toc');
     self.$various_artists = self.$basicdisc.find ('input.various-artists');
@@ -371,10 +372,6 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         self.tracklist.render ();
         self.preview.render ();
         $.cookie ('tracklist_mode', 'basic', { path: '/', expires: 365 });
-    });
-
-    $("a[href=#add_disc]").click (function () {
-        self.addDisc ();
     });
 
     $("a[href=#guesscase]").click (function () {

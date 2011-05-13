@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010,2011 MetaBrainz Foundation
+   Copyright (C) 2010-2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -198,7 +198,17 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * tracklist table.  It copies the release artistcredit.
      */
     self.addTrack = function () {
-        var trackno = self.tracks.length;
+        var trackno = 0;
+        $.each (self.tracks, function (idx, item) {
+            if (item.isDeleted ())
+                return;
+
+            var pos = parseInt (item.$position.val ());
+            if (pos > trackno)
+            {
+                trackno = pos;
+            }
+        });
 
         var previous = null;
         if (self.$table.find ('tr.track').length)
@@ -516,7 +526,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             if (tracklist_id)
             {
                 $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, function (data) {
-                    use_data (self.changeTrackArtists (data));
+                    use_data (self.changeTrackArtists (data.tracks));
                 });
             }
             else
@@ -650,154 +660,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     {
         self.$fieldset.removeClass ('deleted');
     }
-
-    return self;
-};
-
-MB.Control.ReleaseUseTracklist = function (parent) {
-    var self = MB.Object ();
-
-    self.parent = parent;
-    self.$fieldset = $('fieldset.use-tracklist');
-    self.$release = self.$fieldset.find ('input.tracklist-release');
-    self.$artist = self.$fieldset.find ('input.tracklist-artist');
-    self.$count = self.$fieldset.find ('input.tracklist-count');
-    self.$template = self.$fieldset.find ('.use-tracklist-template');
-    self.$pager = self.$fieldset.find ('span.pager-tracklist');
-
-    self.$usetracklist = $('a[href=#use_tracklist]');
-    self.$search = $('a[href=#search_tracklist]');
-    self.$next = $('a[href=#next_tracklist]');
-    self.$prev = $('a[href=#prev_tracklist]');
-
-    self.expand = function (event) {
-
-        var $div = $(this).closest('div');
-        var $table = $div.find('table');
-        var $icon = $div.find ('span.ui-icon');
-        var $loading = $div.find('.tracklist-loading');
-        var $buttons = $div.find ('div.buttons');
-        var tracklist = $div.find ('input.tracklist-id').val ();
-
-        if ($table.is(':visible') || $loading.is(':visible'))
-        {
-            $icon.removeClass ('ui-icon-triangle-1-s').addClass ('ui-icon-triangle-1-e');
-            $div.removeClass ('tracklist-padding');
-            $loading.hide ();
-            $table.hide ();
-            $buttons.hide ();
-            self.$pager.hide ();
-
-            return;
-        }
-
-        $icon.removeClass ('ui-icon-triangle-1-e').addClass ('ui-icon-triangle-1-s');
-        $div.addClass ('tracklist-padding');
-        $loading.show ();
-
-        $.getJSON ('/ws/js/tracklist/' + tracklist, function (data) {
-            $table.find ('tr.track').eq (0).nextAll ().remove ();
-
-            $.each (data, function (idx, item) {
-                var tr = $table.find ('tr.track').eq(0).clone ()
-                    .appendTo ($table.find ('tbody'));
-
-                tr.find ('td.position').text (idx + 1);
-                tr.find ('td.title').text (item.name);
-                tr.find ('td.artist').text (item.artist_credit.preview);
-                tr.find ('td.length').text (item.length);
-                tr.show ();
-            });
-
-            $loading.hide ();
-            $table.show ();
-            $buttons.show ();
-        });
-
-    };
-
-    self.results = function (data) {
-
-        $.each (data, function (idx, item) {
-            if (item.current)
-            {
-                var pager = MB.utility.template (MB.text.Pager);
-                self.total = item.pages;
-
-                self.$pager.text (pager.draw ({ 'page': item.current, 'total': item.pages }));
-                return;
-            }
-
-            var tl = self.$template.clone ()
-                .appendTo (self.$fieldset)
-                .removeClass ('use-tracklist-template')
-                .addClass ('use-tracklist');
-
-            var format = item.format ? item.format : 'Disc';
-            var medium = '(' + format + ' ' + item.position +
-                (item.medium ? ': ' + item.medium : '') + ')';
-
-            tl.find ('span.title').text (item.name);
-            tl.find ('span.medium').text (medium);
-            tl.find ('span.artist').text (item.artist);
-            tl.find ('input.tracklist-id').val (item.tracklist_id);
-            tl.find ('a.icon').bind ('click.mb', self.expand);
-            tl.find ('a[href=#use_this_tracklist]').bind ('click.mb', function (event) {
-                self.useTracklist (item.tracklist_id);
-            });
-
-            tl.show ();
-        });
-
-        self.$fieldset.css ('height', 'auto');
-    };
-
-    self.search = function (event, direction) {
-        var newPage = self.page + direction;
-        if (newPage < 1 || newPage > self.total)
-        {
-            return;
-        }
-
-        self.page = newPage;
-        var height = $('fieldset.use-tracklist').innerHeight ();
-        self.$fieldset.css ('height', height);
-        self.$fieldset.find ('div.use-tracklist').remove ();
-
-        var data = {
-            q: self.$release.val (),
-            artist: self.$artist.val (),
-            tracks: self.$count.val (),
-            page: self.page
-        };
-        $.getJSON ('/ws/js/tracklist', data, self.results);
-    };
-
-    self.useTracklist = function (id) {
-
-        var ta = self.parent.basic.addDisc ();
-        ta.tracklist_id.val (id);
-        ta.collapse ();
-        ta.expand ();
-
-        self.$fieldset.hide ();
-    };
-
-    self.onChange = function (event) { self.page = 1; };
-
-    self.page = 1;
-    self.total = 1;
-
-    self.$search.bind ('click.mb', function (event) { self.search (event, 0); });
-    self.$prev.bind ('click.mb', function (event) { self.search (event, -1); });
-    self.$next.bind ('click.mb', function (event) { self.search (event,  1); });
-    self.$usetracklist.bind ('click.mb', function (event) {
-        self.$fieldset.toggle ();
-    });
-
-    self.$release.bind ('change.mb', self.onChange);
-    self.$artist.bind ('change.mb', self.onChange);
-    self.$count.bind ('change.mb', self.onChange);
 
     return self;
 };
@@ -941,8 +803,6 @@ MB.Control.ReleaseAdvancedTab = function () {
     self.discs = [];
     self.positions = [];
     self.basic = null; // set by MB.Control.ReleaseBasicTab.
-
-    self.use_tracklist = MB.Control.ReleaseUseTracklist (self);
 
     self.$tab.find ('fieldset.advanced-disc').each (function (idx, item) {
         var disc = MB.Control.ReleaseDisc (self, $(item));

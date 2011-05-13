@@ -3,7 +3,7 @@ package MusicBrainz::Server::Edit::Utils;
 use strict;
 use warnings;
 
-use List::MoreUtils qw( uniq ); 
+use List::MoreUtils qw( uniq );
 
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Entity::ArtistCredit;
@@ -25,6 +25,7 @@ our @EXPORT_OK = qw(
     edit_status_name
     load_artist_credit_definitions
     status_names
+    verify_artist_credits
 );
 
 sub verify_artist_credits

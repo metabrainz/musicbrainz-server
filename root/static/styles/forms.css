@@ -242,3 +242,17 @@ div.documentation div.bubble {
 div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
 div.documentation div.container { width: 100%; }
 
+table.form th,
+table.form td{
+    vertical-align: top;
+}
+
+table.form th {
+    text-align: right;
+    padding-bottom: 8pt;
+    width: 100pt;
+}
+
+table.form {
+    padding: 10pt 0;
+}

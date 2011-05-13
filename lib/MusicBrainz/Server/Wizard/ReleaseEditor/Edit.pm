@@ -11,6 +11,12 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ARTIST
 );
 
+sub add_medium_position {
+    my ($self, $idx, $new) = @_;
+
+    return $idx + 1;
+};
+
 augment 'create_edits' => sub
 {
     my ($self, %opts) = @_;
@@ -86,6 +92,8 @@ augment 'load' => sub
 
     $self->_load_release;
     $self->c->model('Medium')->load_for_releases($self->release);
+
+    $self->c->stash->{edit_release} = 1;
 
     return $self->release;
 };

@@ -18,7 +18,7 @@
     [% END %]
 
     [% WRAPPER form_row %]
-      [% r.label('changelog', l('Change log:')) %]
+      [% r.label('changelog', l('Changelog:')) %]
       [% r.text('changelog', { size => 50 }) %]
       [% field_errors(r.form, 'changelog') %]
     [% END %]

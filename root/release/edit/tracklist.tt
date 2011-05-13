@@ -3,7 +3,7 @@
   [% script_manifest('edit.js.manifest') %]
   [% script_manifest('release-editor.js.manifest') %]
 
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
 
     $('document').ready (function () {
 
@@ -16,14 +16,14 @@
        ];
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
-
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
+       MB.Control.ReleaseAddDisc (advanced_tab, basic_tab);
 
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
     });
 
-  </script>
+  //]]></script>
 [%- END -%]
 
 [%- MACRO artist_credit_row(acfield) BLOCK -%]
@@ -87,6 +87,30 @@
 </table>
 [%- END -%]
 
+[%- MACRO tracklist_pager BLOCK -%]
+<div class="pager" style="width: 100%; text-align: right; display: none;">
+  <a href="#prev">&lt;&lt;</a>
+  <span class="pager"></span>
+  <a href="#next">&gt;&gt;</a>
+</div>
+
+<div style="display: none;" class="tracklist-searching import-message">
+  <p>
+    <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+    &nbsp;
+    [% l('Searching...') %]
+  </p>
+</div>
+
+<div style="display: none;" class="tracklist-no-results import-message">
+  <p>[% l('No results') %]</p>
+</div>
+
+<div style="display: none;" class="tracklist-error import-message">
+  <p>[% l('An error occured: ') %]<span class="message"> </span></p>
+</div>
+[%- END -%]
+
 [%- MACRO artist_credit_preview_from_field(ac) BLOCK -%]
   [%- FOR credit=ac.value.names -%]
     [%- credit.name | html -%][%- credit.join_phrase | html -%]
@@ -94,10 +118,125 @@
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
-  [%- USE r = FormRenderer(form) -%]
-  [%- USE w = Wizard() -%]
-  [%- information = w.page ('information') -%]
-  [%- release_artist = information.field('artist_credit') -%]
+  [% USE r = FormRenderer(form) %]
+  [% USE w = Wizard() %]
+  [% information = w.page ('information') %]
+  [% release_artist = information.field('artist_credit') %]
+
+  <div class="add-disc-dialog" style="display: none">
+    <h1>Add Disc</h1>
+
+    <div class="tabs">
+      <ul class="tabs">
+        <li class="first sel"><a class="manual" href="#manual">[% l('Manual entry') %]</a></li>
+        <li><a class="tracklist" href="#tracklist">[% l('Existing tracklist') %]</a></li>
+        <li><a class="cdstub" href="#cdstub">[% l('CDStub import') %]</a></li>
+        <li><a class="freedb" href="#freedb">[% l('FreeDB import') %]</a></li>
+      </ul>
+    </div>
+
+    <div class="add-disc-tab manual">
+        <p>
+        [% l('To use an existing tracklist or import a disc from a cdstub or freedb, select the appropriate tab.') %]
+        [% l('Alternatively, click "Add Disc" to manually enter the tracklist.') %]
+        </p>
+    </div>
+
+    <div class="add-disc-tab tracklist" style="display: none">
+      <p>
+        [% l('Use the following fields to search for an existing tracklist.') %]
+      </p>
+
+      <table class="import-search-fields">
+        <tr>
+          <td><label for="import-release">[% l('Release:') %]</label></td>
+          <td><input type="text" id="import-release" class="release" value="[% information.field('name').value | html %]" /></td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td><label for="import-artist">[% l('Artist:') %]</label></td>
+          <td><input type="text" id="import-artist" class="artist" value="[% release_artist.fif.name | html %]" /></td>
+          <td rowspan="2" style="vertical-align: bottom;">
+            <div class="buttons">
+              <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="track-count">[% l('Track count:') %]</label></td>
+          <td><input type="text" id="track-count" class="track-count" value="" /></td>
+        </tr>
+      </table>
+
+      [%- tracklist_pager -%]
+    </div>
+    <div class="add-disc-tab cdstub" style="display: none">
+      <p>
+        [% l('Use the following fields to search for a cdstub.') %]
+      </p>
+
+      [%- tracklist_pager -%]
+    </div>
+    <div class="add-disc-tab freedb" style="display: none">
+      <p>
+        [% l('Use the following fields to search for a freedb.') %]
+      </p>
+
+      [%- tracklist_pager -%]
+    </div>
+
+    <div class="import-template" style="display: none; padding-left: 1em;">
+      <a class="icon" href="#expand_tracklist">
+        <span class="ui-icon ui-icon-triangle-1-e" style="display: inline-block;">
+          [%- l("Expand") -%]
+        </span>
+
+        <span class="title"></span>
+        <span class="medium"></span>
+        [% l('by'); %] <span class="artist"></span>
+      </a>
+
+      [%# either tracklist id, freedb id or discid (cdstub). %]
+      <input type="hidden" class="id" />
+      <input type="hidden" class="toc" />
+      <br />
+
+      <table class="import-tracklist medium tbl" style="display: none">
+        <thead>
+          <tr>
+            <th class="position">[% l('#') %]</th>
+            <th class="title">[% l('Title') %]</th>
+            <th class="artist">[% l('Artist') %]</th>
+            <th class="length">[% l('Length') %]</th>
+          </tr>
+        </thead>
+        <tfoot />
+        <tbody>
+          <tr class="track" style="display: none;">
+            <td class="position" style="text-align: right;"></td>
+            <td class="title"></td>
+            <td class="artist"></td>
+            <td class="length"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="display: none; height: 6em; margin-top: 5em;" class="tracklist-loading">
+        <p>
+          <img src="/static/lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif" />
+          &nbsp;
+          [% l('Now loading tracklist...') %]
+        </p>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <input type="button" class="positive add-disc" value="[% l('Add Disc') %]" />
+      <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
+    </div>
+
+  </div>
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
@@ -369,63 +508,6 @@
     </fieldset>
     [% END %]
 
-    <fieldset class="use-tracklist" style="display: none; padding: 1em 0;">
-      <legend>[% l('Use tracklist') %]</legend>
-      <div class="row">
-        <label for="tracklist-release">[% l('Release:') %]</label>
-        <input type="text" id="tracklist-release" class="tracklist-release" value="" />
-      </div>
-      <div class="row">
-        <label for="tracklist-artist">[% l('Artist:') %]</label>
-        <input type="text" id="tracklist-artist" class="tracklist-artist" value="" />
-      </div>
-      <div class="row">
-        <label for="tracklist-count">[% l('Track count:') %]</label>
-        <input type="text" id="tracklist-count" class="tracklist-count" value="" />
-      </div>
-      <div class="row no-label buttons">
-        <a style="min-width: 5em;" href="#search_tracklist">[% l('Search') %]</a>
-        <a style="min-width: 5em;" href="#prev_tracklist">[% l('Prev') %]</a>
-        <a style="min-width: 5em;" href="#next_tracklist">[% l('Next') %]</a>
-        <span class="pager-tracklist"></span>
-      </div>
-
-      <div class="use-tracklist-template" style="display: none; padding-left: 1em;">
-
-        <a class="icon" href="#expand_tracklist">
-          <span class="ui-icon ui-icon-triangle-1-e">[% l("Expand") %]</span>
-        </a>
-        <span class="title"></span> <span class="medium"></span>
-        [% l('by'); %] <span class="artist"></span>
-        <input type="hidden" class="tracklist-id" />
-        <br />
-
-        <table class="medium tbl" style="display: none">
-          <thead>
-            <tr>
-              <th class="position">[% l('#') %]</th>
-              <th class="title">[% l('Title') %]</th>
-              <th class="artist">[% l('Artist') %]</th>
-              <th class="length">[% l('Length') %]</th>
-            </tr>
-          </thead>
-          <tfoot />
-          <tbody>
-            <tr class="track" style="display: none;">
-              <td class="position" style="text-align: right;"></td>
-              <td class="title"></td>
-              <td class="artist"></td>
-              <td class="length"></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="row no-label buttons" style="display: none">
-          <a href="#use_this_tracklist">[% l('Use this tracklist') %]</a>
-        </div>
-      </div>
-
-    </fieldset>
-
     <div class="guesscase-advanced">
     </div>
 
@@ -434,7 +516,6 @@
         <a href="#basic" style="margin-right: 1px">[% l('Return to basic editor') %]</a>
       </div>
       [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-      <a href="#use_tracklist">[% l('Use Tracklist') %]</a>
       <a href="#add_disc">[% l('Add Disc') %]</a>
       [% r.submit ('previous', l('« Previous')) %]
       [% r.submit ('next', l('Next »')) %]

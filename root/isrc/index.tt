@@ -4,9 +4,15 @@
 
     <h2>[% ln('Associated with {num} recording', 'Associated with {num} recordings', recordings.size, { num => recordings.size }) %]</h2>
 
-    <table class="tbl">
+    <form action="[% c.uri_for_action('/recording/merge_queue') %]" method="post">
+      <table class="tbl">
         <thead>
             <tr>
+                [% IF c.user_exists %]
+                <th style="width: 1em">
+                  <input type="checkbox" />
+                </th>
+                [% END %]
                 <th>[% l('Title') %]</th>
                 <th>[% l('Artist') %]</th>
                 <th class="treleases">[% l('Length') %]</th>
@@ -15,12 +21,20 @@
         <tbody>
             [%- FOR recording=recordings -%]
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                [% IF c.user_exists %]
+                <td>
+                  <input type="checkbox" name="add-to-merge"
+                         value="[% recording.id %]" />
+                </td>
+                [% END %]
                 <td>[% link_entity(recording) %]</td>
                 <td>[% artist_credit(recording.artist_credit) %]</td>
                 <td>[% recording.length | format_length %]</td>
             </tr>
             [%- END -%]
         </tbody>
-    </table>
+      </table>
+      [% form_submit(l('Add selected recordings for merging')) WRAPPER form_row IF c.user_exists %]
+    </form>
 
 [%- END -%]

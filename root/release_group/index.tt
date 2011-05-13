@@ -7,7 +7,7 @@
           <table class="tbl">
             <thead>
               <tr>
-                [% IF c.user_exists %]<th></th>[% END %]
+                [% IF c.user_exists %]<th><input type="checkbox" /></th>[% END %]
                 <th>[% l('Release') %]</th>
                 <th>[% l('Format') %]</th>
                 <th>[% l('Tracks') %]</th>

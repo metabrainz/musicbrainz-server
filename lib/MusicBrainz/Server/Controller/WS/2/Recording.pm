@@ -213,9 +213,8 @@ sub recording_submit : Private
         }
     }
 
-    my %recordings_by_id = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
-                                                                  keys %submit_isrc) };
-    my %recordings_by_gid = map { $_->gid => $_ } values %recordings_by_id;
+    my %recordings_by_gid = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
+                                                                   keys %submit_isrc) };
 
     my @submissions;
     for my $recording_gid (keys %submit_puid, keys %submit_isrc) {

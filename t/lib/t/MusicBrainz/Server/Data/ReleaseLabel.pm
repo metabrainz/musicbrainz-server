@@ -94,7 +94,7 @@ INSERT INTO release_label (release, label, catalog_number)
 EOSQL
 
     subtest 'Merging when label and catalog numbers are not null' => sub {
-        $test->c->model('Release')->merge(new_id => 1, old_ids => [ 2 ]);
+        $test->c->model('ReleaseLabel')->merge_releases(1, 2);
 
         my $release = $test->c->model('Release')->get_by_id(1);
         $test->c->model('ReleaseLabel')->load($release);
@@ -107,7 +107,7 @@ EOSQL
     };
 
     subtest 'Merging when label is NULL' => sub {
-        $test->c->model('Release')->merge(new_id => 3, old_ids => [ 4 ]);
+        $test->c->model('ReleaseLabel')->merge_releases(3, 4);
 
         my $release = $test->c->model('Release')->get_by_id(3);
         $test->c->model('ReleaseLabel')->load($release);

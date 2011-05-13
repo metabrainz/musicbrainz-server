@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    verify_artist_credits
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -104,9 +105,9 @@ sub build_display_data
     return $data;
 }
 
-before 'initialize' => sub
+around 'initialize' => sub
 {
-    my ($self, %opts) = @_;
+    my ($orig, $self, %opts) = @_;
     my $recording = $opts{to_edit} or return;
     if (exists $opts{artist_credit} && !$recording->artist_credit) {
         $self->c->model('ArtistCredit')->load($recording);
@@ -117,6 +118,8 @@ before 'initialize' => sub
             if MusicBrainz::Server::Track::FormatTrackLength($opts{length}) eq
                 MusicBrainz::Server::Track::FormatTrackLength($recording->length);
     }
+
+    $self->$orig(%opts);
 };
 
 sub _mapping
@@ -138,7 +141,11 @@ sub _edit_hash
     return $data;
 }
 
-sub _xml_arguments { ForceArray => [ 'artist_credit' ] }
+before accept => sub {
+    my ($self) = @_;
+
+    verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+};
 
 sub allow_auto_edit
 {

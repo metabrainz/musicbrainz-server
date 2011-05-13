@@ -27,7 +27,7 @@ sub do_upgrade
     return {
         entity => {
             id => $self->row_id,
-            name => '[deleted]'
+            name => '[removed]'
         },
         new => {
             artist_credit => [

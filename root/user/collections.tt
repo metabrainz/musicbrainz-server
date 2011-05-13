@@ -33,7 +33,7 @@
 [%- END -%]
 
 [% IF viewing_own_profile %]
-    <p>[% l('{uri|Create a new collection}', { uri => c.uri_for_action('/collection/create') }) %]</p>
+    <p><a href="[% c.uri_for_action('/collection/create') %]">[% l('Create a new collection') %]</a></p>
 [% END %]
 
 [% END %]

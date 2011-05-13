@@ -49,8 +49,7 @@ echo `date` : Fixing refcounts
 ./admin/psql READWRITE <./admin/sql/updates/ngs-refcount.sql
 
 echo `date` : Migrating edits
-echo This step currently disabled
- ./admin/sql/updates/ngs-migrate-edits.pl
+./admin/sql/updates/ngs-migrate-edits.pl
 
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
@@ -84,12 +83,13 @@ echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
 echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
 echo `date`: Cleaning up and vacuuming
-# echo 'DROP TABLE tmp_recording_merge' | ./admin/psql READWRITE
-# echo 'DROP TABLE tmp_recording_merge' | ./admin/psql RAWDATA
-# echo 'DROP TABLE tmp_release_merge'   | ./admin/psql READWRITE
-# echo 'DROP TABLE tmp_release_album'   | ./admin/psql READWRITE
+echo 'DROP TABLE tmp_recording_merge' | ./admin/psql RAWDATA
 echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
 echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
+
+echo "Export of temporary migration tables"
+./admin/ExportAllTables --table=tmp_release_album --table=tmp_recording_merge --table=tmp_work_merge --table=tmp_url_merge --table=tmp_release_merge --keep-files --without-replication --nocompress
+echo "PLEASE BACKUP these exported dumps from /tmp/mbexport-XXXX!!!!!!"
 
 echo `date` : Done
 

@@ -1,17 +1,10 @@
-<?xml version="1.0"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-
-<svg xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     viewBox="0 0 16 16" width="16px" height="16px">
-
-    <rect id="border" fill="#000" width="16px" height="16px" />
-    <rect id="background" fill="#fff" x="1px" y="1px" width="14px" height="14px" />
-
-    <g font-family="Verdana" font-size="10" font-weight="100">
-      <text stroke="#000" x="3" y="9">g</text>
-      <text stroke="#000" x="8" y="13">c</text>
-    </g>
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+<rect id="border" fill="#AAAAAA" width="16" height="16"/>
+<rect id="background" x="1" y="1" fill="#FFFFFF" width="14" height="14"/>
+<text transform="matrix(1 0 0 1 2.375 9.7148)" fill="#414141" font-family="'HelveticaNeue'" font-size="10">A</text>
+<text transform="matrix(1 0 0 1 9.248 13.1777)" fill="#737373" font-family="'HelveticaNeue'" font-size="9.2283">a</text>
 </svg>

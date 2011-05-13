@@ -308,7 +308,7 @@ sub send_first_no_vote
 {
     my $self = shift;
     my $email = $self->_create_no_vote_email(@_);
-    return try { $self->_send_email($email) }
+    return try { $self->_send_email($email) } catch { warn $_ };
 }
 
 sub send_message_to_editor
@@ -351,7 +351,7 @@ sub send_subscriptions_digest
         from => $NOREPLY_ADDRESS,
         %opts
     );
-    return try { $self->_send_email($email->create_email) }
+    return try { $self->_send_email($email->create_email) } catch { warn $_ };
 }
 
 sub send_edit_note
@@ -359,7 +359,7 @@ sub send_edit_note
     my ($self, %opts) = @_;
 
     my $email = $self->_create_edit_note_email(%opts);
-    return try { $self->_send_email($email) }
+    return try { $self->_send_email($email) } catch { warn $_ };
 }
 
 has 'transport' => (

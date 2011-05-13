@@ -236,7 +236,7 @@ Sql::run_in_transaction(sub {
     undef %link_map;
     undef %link_map_update;
 
-    $sql->do("CREATE TEMPORARY TABLE tmp_work_merge (
+    $sql->do("CREATE TABLE tmp_work_merge (
         old_work INTEGER NOT NULL,
         new_work INTEGER NOT NULL
     )");

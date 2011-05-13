@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' full_width=1 title=l('Attach CDTOC to medium') %] 
+[% WRAPPER 'layout.tt' full_width=1 title=l('Attach CD TOC to medium') %]
   <h2>[% l('Select a disc') %]</h2>
   <p>[% l('There are multiple discs with {n} tracks. Please select the correct disc.',
           { n => cdtoc.track_count }) %]</p>
@@ -10,11 +10,11 @@
       [% FOR medium=mediums %]
       <li>
         <input type="radio" name="medium" value="[% medium.id %]" />
-        [% medium.name ? l('Disc {pos}: {title}', { pos => medium.position, title => medium.name }) :
-                         l('Disc {pos}', { pos => medium.position }) %]
+        [% medium.name ? l('Disc {num}: {title}', { num => medium.position, title => medium.name }) :
+                         l('Disc {num}', { num => medium.position }) %]
       </li>
       [% END %]
     </ul>
-    [% form_submit(l('Attach CDTOC')) %]
+    [% form_submit(l('Attach CD TOC')) %]
   </form>
 [% END %]

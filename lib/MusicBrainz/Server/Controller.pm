@@ -26,7 +26,7 @@ sub not_found
 sub invalid_mbid
 {
     my ($self, $c, $id) = @_;
-    $c->stash( message  => l("'$id' is not a valid MusicBrainz ID") );
+    $c->stash( message  => l("'{id}' is not a valid MusicBrainz ID", { id => $id }) );
     $c->detach('/error_400');
 }
 

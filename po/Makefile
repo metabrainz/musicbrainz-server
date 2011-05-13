@@ -21,7 +21,7 @@ mb_server.pot: $(POTFILES) $(TT)
 	@echo "- Update templates' .pot"; 
 	@find ../root -type f -name \*.tt | sort | ./extract_pot | msguniq -s > mb_server.pot;
 	@echo "- Update code .pot"
-	@xgettext --from-code utf-8 --keyword=__ --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
+	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
 
 clean:
 	rm -f $(MOFILES)

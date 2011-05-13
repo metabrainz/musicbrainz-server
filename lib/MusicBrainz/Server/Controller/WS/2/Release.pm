@@ -225,8 +225,7 @@ sub release_submit : Private
         push @submit, { release => $id, barcode => $barcode };
     }
 
-    my %releases = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
-    my %gid_map = map { $_->gid => $_ } values %releases;
+    my %gid_map = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
 
     for my $submission (@submit) {
         my $gid = $submission->{release};
