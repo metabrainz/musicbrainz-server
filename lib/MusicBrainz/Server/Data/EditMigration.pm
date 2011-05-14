@@ -23,6 +23,7 @@ sub BUILD
                               MusicBrainz::Server::Edit::Historic::Artist
                               MusicBrainz::Server::Edit::Historic::Label
                               MusicBrainz::Server::Edit::Historic::Utils
+                              MusicBrainz::Server::Edit::Historic::Relationship
                        )]
     );
 
