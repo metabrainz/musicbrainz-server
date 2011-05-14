@@ -4,19 +4,21 @@
 
         <p><strong>[%- l('Oops, something went wrong!') -%]</strong></p>
 
-        [% IF message %]
-            <p>
-                <strong>[%- l('Error message: ') -%]</strong>
-                <code>[%- message | html -%]</code>
-            </p>
-        [% END %]
-
         <p>
-            [%- l('Waiting a few minutes and repeating your request may solve the problem.') %]
+            <strong>[%- l('Error message: ') -%]</strong>
+            [% IF message %]
+                <code>[%- message | html -%]</code>
+            [% ELSE %]
+                <code>[%- l('(No details about this error are available)') -%]</code>
+            [% END %]
         </p>
 
-        <p class="small">
-            [% l('Problem not going away? Please {con|contact us}.', { con => doc_link('Contact_Us') }) -%]
+        <p>
+            [%- l("We're terribly sorry for this problem. Please wait a few minutes and repeat your request &mdash; the problem may go away.") %]
+        </p>
+        <p>
+            [%- l('If the problem persists, please {report|report a bug} and include any error message that is shown above.', 
+                 { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1") }) -%]
         </p>
     </div>
 [%- END -%]

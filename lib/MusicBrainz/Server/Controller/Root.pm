@@ -98,6 +98,15 @@ sub error_500 : Private
     $c->detach;
 }
 
+sub error_503 : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(503);
+    $c->stash->{template} = 'main/503.tt';
+    $c->detach;
+}
+
 sub error_mirror : Private
 {
     my ($self, $c) = @_;
