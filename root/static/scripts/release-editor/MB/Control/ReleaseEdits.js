@@ -86,7 +86,7 @@ MB.Control.ReleaseEdits = function ($edits) {
                 'gid': credit.artist.gid,
                 'id': credit.artist.id,
                 'join': credit.join_phrase,
-                'name': credit.name,
+                'name': credit.name
             });
         });
 
