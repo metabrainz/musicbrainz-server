@@ -17,6 +17,10 @@ sub related_entities
 {
     my $self = shift;
     return {
+        artist  => [
+            $self->data->{old_artist_id},
+            $self->data->{artist_id}
+        ],
         release => $self->data->{release_ids},
     }
 }
@@ -30,7 +34,10 @@ sub foreign_keys
         Release => {
             map { $_ => [ 'ArtistCredit' ] } $self->release_ids
         },
-        Artist => [ $self->data->{artist_id} ]
+        Artist => [
+            $self->data->{old_artist_id},
+            $self->data->{artist_id},
+        ]
     }
 }
 
@@ -45,6 +52,13 @@ sub build_display_data
         )
         : Artist->new( name => $self->data->{artist_name} );
 
+    my $old_artist = defined $loaded->{Artist}->{ $self->data->{old_artist_id} }
+        ? Artist->meta->clone_instance(
+            $loaded->{Artist}->{ $self->data->{old_artist_id} },
+            name => $self->data->{artist_name},
+        )
+        : Artist->new( name => $self->data->{old_artist_name} );
+
     return {
         releases => [
             map {
@@ -53,7 +67,7 @@ sub build_display_data
         ],
         artist => {
             new => $new_artist,
-            old => Artist->new( name => $self->data->{old_artist_name} )
+            old => $old_artist
         }
     }
 }
@@ -65,6 +79,7 @@ sub upgrade
         release_ids     => $self->album_release_ids($self->row_id),
         old_artist_name => $self->previous_value,
         %{ $self->new_value },
+        old_artist_id   => $self->artist_id,
     });
 
     return $self;

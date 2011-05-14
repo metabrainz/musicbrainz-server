@@ -34,7 +34,16 @@ sub related_entities
 {
     my $self = shift;
     return {
-        release => [ $self->_release_ids ]
+        artist  => [ $self->artist_id ],
+        release => [ $self->_release_ids ],
+        label   => [
+            map { $_->label_id }
+                @{ $self->data->{additions} },
+                @{ $self->data->{removals} },
+                map {
+                    $_->{old}, $_->{new}
+                } @{ $self->data->{edits} },
+        ]
     }
 }
 
