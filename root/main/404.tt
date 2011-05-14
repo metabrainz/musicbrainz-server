@@ -20,9 +20,9 @@
                    faq => doc_link('FAQ') }) -%]
         </p>
 
-        <p class="small">
-            [%- l('Found a broken link on our site? Please {con|contact us}.',
-                 { con => doc_link('Contact_Us') }) -%]
+        <p>
+            [%- l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.', 
+                 { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1") }) -%]
         </p>
     </div>
 [% END %]
