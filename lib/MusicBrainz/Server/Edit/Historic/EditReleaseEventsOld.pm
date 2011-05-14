@@ -60,6 +60,7 @@ sub _build_re {
         release        => $loaded->{Release}{ $re->{release_id} },
         country        => $loaded->{Country}{ $re->{country_id} },
         label          => $loaded->{Label}{ $re->{label_id} },
+        label_id       => $re->{label_id},
         format         => $loaded->{MediumFormat}{ $re->{format_id} },
         catalog_number => $re->{catalog_number},
         barcode        => $re->{barcode},
@@ -80,6 +81,10 @@ sub build_display_data
                 label   => {
                     old => $loaded->{Label}{ $_->{old}{label_id} },
                     new => $loaded->{Label}{ $_->{new}{label_id} },
+                },
+                label_id => {
+                    old => $_->{old}{label_id},
+                    new => $_->{new}{label_id}
                 },
                 date    => {
                     old => partial_date_from_row($_->{old}{date}),
