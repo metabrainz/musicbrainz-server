@@ -102,7 +102,7 @@ while (1) {
             push @names, @{$aliases{$member->{id}}};
         }
         # Add "F. Bar", "Foo" and "Bar" from names like "Foo Bar"
-        if ($member->{name} =~ /^\w+ \w+$/) {
+        if ($member->{name} =~ /^[\w-]+ ((van|von|de) )?[\w-]+$/i) {
             my $abbr = $member->{name};
             my $first = $member->{name};
             my $last = $member->{name};
@@ -199,7 +199,7 @@ while (1) {
     my $has_long_joinphrase = 0;
     foreach my $artist (@artists) {
         # The two here as bytes should be \x{0442}\x{0430} and \x{0A05}\x{00A24}\x{0A47} if the joinphrase is a proper Perl Unicode string
-        if (length($artist->{joinphrase}) > 5 && $artist->{joinphrase} !~ /^( (avec|feat\.|featuring|introducing|joins|loved|meets?|pres\.|presents|starring|thanx|versus|with|\xd1\x82\xd0\xb0|\xe0\xa8\x85\xe0\xa8\xa4\xe0\xa9\x87) |, (and|with) )?$/i) {
+        if (length($artist->{joinphrase}) > 5 && $artist->{joinphrase} !~ /^( (avec|feat\.|featuring|introducing|joins|loved|meets?|pres\.|presents|starring|thanx|versus|with( the)?|\xd1\x82\xd0\xb0|\xe0\xa8\x85\xe0\xa8\xa4\xe0\xa9\x87|redesigned by|plus|loves|arranged by|and the|& (the|le|la|die)) |, (and|with) | feat\.)?$/i) {
             $has_long_joinphrase = 1;
             last;
         }
