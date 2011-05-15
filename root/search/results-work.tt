@@ -15,16 +15,15 @@
                         [%- FOR result=results -%]
                         <tr[%- ' class="ev"' IF loop.count % 2 == 0 -%]>
                             <td>[%- result.score -%]</td>
-                            <td>[%- link_entity(result.entity) -%]</td>
+                            <td>[%- descriptive_link(result.entity) -%]</td>
                             <td>
-                              [%- firstartist = 1 -%]
+                              <ul>
                               [%- FOR rel=result.entity.relationships -%]
                                 [%- IF rel.entity1.isa('MusicBrainz::Server::Entity::Artist') -%]
-                                  [%- UNLESS firstartist -%], [%- END -%]
-                                  [%- link_artist(rel.entity1) -%]
-                                  [%- firstartist = 0 -%]
+                                  <li>[%- descriptive_link(rel.entity1) -%]</li>
                                 [%- END -%]
                               [%- END -%]
+                              </ul>
                             </td>
                         </tr>
                         [%- END -%]
