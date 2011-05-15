@@ -37,7 +37,7 @@ sub related_entities
         artist  => [ $self->artist_id ],
         release => [ $self->_release_ids ],
         label   => [
-            map { $_->label_id }
+            map { $_->{label_id} }
                 @{ $self->data->{additions} },
                 @{ $self->data->{removals} },
                 map {

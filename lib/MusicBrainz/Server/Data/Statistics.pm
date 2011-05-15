@@ -606,9 +606,10 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT c, COUNT(*) AS freq
                 FROM (
-                    SELECT medium, COUNT(*) AS c
+                    SELECT medium.release, COUNT(*) AS c
                     FROM medium_cdtoc
-                    GROUP BY medium
+                    JOIN medium ON medium_cdtoc.medium = medium.id
+                    GROUP BY medium.release
                 ) AS t
                 GROUP BY c
                 ",

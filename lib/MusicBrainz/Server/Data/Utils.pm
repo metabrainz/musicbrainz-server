@@ -86,17 +86,17 @@ sub artist_credit_to_ref
 
     my %ret = ( names => [] );
 
-    for ($artist_credit->all_names)
+    for my $ac ($artist_credit->all_names)
     {
         my %ac_name = (
-            join_phrase => $_->join_phrase,
-            name => $_->name,
+            join_phrase => $ac->join_phrase,
+            name => $ac->name,
             artist => {
-                name => $_->artist->name,
-                id => $_->artist->id,
+                name => $ac->artist->name,
+                id => $ac->artist->id,
             }
         );
-        $ac_name{artist}->{gid} = $_->artist->gid if !$for_change_hash;
+        $ac_name{artist}->{gid} = $ac->artist->gid if !$for_change_hash;
 
         push @{ $ret{names} }, \%ac_name;
     }
