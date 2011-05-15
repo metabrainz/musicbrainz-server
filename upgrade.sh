@@ -50,6 +50,7 @@ echo `date` : Fixing refcounts
 
 echo `date` : Migrating edits
 ./admin/sql/updates/ngs-migrate-edits.pl
+./admin/sql/updates/ngs-fix-artist-links.pl
 
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
