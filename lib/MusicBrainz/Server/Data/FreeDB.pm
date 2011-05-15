@@ -4,6 +4,7 @@ use Moose;
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
 use aliased 'MusicBrainz::Server::Entity::FreeDB';
+use MusicBrainz::Server::Translation qw( l ln );
 
 use Carp 'confess';
 use LWP::UserAgent;
@@ -44,6 +45,15 @@ sub read {
 
 sub _do_read {
     my ($self, $response) = @_;
+
+    # WARNING: evil hack.  For some reason the freedb lookup will
+    # sometimes (always?) return a 500 error with a 200 OK status
+    # code, so we cannot rely on $response->is_success here.
+    if ($response->decoded_content =~ /^500 Syntax error/i)
+    {
+        MusicBrainz::Server::Exceptions::InvalidInput->throw (
+            l("Error requesting data from freedb"));
+    }
 
     # Extract all key-value pairs in the FreeDB data
     my %data = map { split /=/, $_, 2 }
