@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Types;
 use strict;
 use MooseX::Types -declare => [qw( ArtistCreditDefinition PartialDateHash )];
-use MooseX::Types::Moose qw( ArrayRef Int Maybe );
+use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Sub::Exporter -setup => { exports => [qw(
     ArtistCreditDefinition
@@ -35,6 +35,18 @@ subtype PartialDateHash,
     ];
 
 subtype ArtistCreditDefinition,
-    as ArrayRef;
+    as Dict[
+        names => ArrayRef[
+            Dict[
+                artist => Dict[
+                    name => Nullable[Str],
+                    id => Nullable[Str],
+                    gid => Optional[Str],
+                ],
+                name => Nullable[Str],
+                join_phrase => Nullable[Str],
+            ]],
+        preview => Optional[Str],
+    ];
 
 1;

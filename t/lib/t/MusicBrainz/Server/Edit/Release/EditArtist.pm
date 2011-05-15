@@ -62,9 +62,10 @@ sub create_edit {
         edit_type => $EDIT_RELEASE_ARTIST,
         release => $original_release,
         update_tracklists => $update,
-        artist_credit => [
-            { artist => 2, name => 'My new AC' }
-        ]
+        artist_credit => {
+            names => [
+                { artist => { id => 2 }, name => 'My new AC' }
+            ] }
     );
 }
 

@@ -433,7 +433,7 @@ END -%]
     [% END %]
 [%- END -%]
 
-[%- MACRO age(datetime) BLOCK -%] 
+[%- MACRO age(datetime) BLOCK -%]
     [%- Age.format(datetime, "{age} ago") -%]
 [%- END -%]
 
@@ -511,8 +511,9 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO script_manifest(manifest) BLOCK -%]
   [%- IF server_details.developement_server -%]
+    [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script src="/static/[%- file -%]"></script>
+        <script src="/static/[%- file -%]?t=[% date.now %]"></script>
     [%- END -%]
   [%- ELSE -%]
     <script src="/static/[% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
