@@ -34,6 +34,7 @@ sub resolve_album_id { shift->migration->resolve_album_id(@_) }
 sub resolve_url_id { shift->migration->resolve_url_id(@_) }
 sub resolve_release_id { shift->migration->resolve_release_id(@_) }
 sub resolve_recording_id { shift->migration->resolve_recording_id(@_) }
+sub resolve_work_id { shift->migration->resolve_work_id(@_) }
 sub artist_name { shift->migration->artist_name(@_) }
 sub label_id_from_alias { shift->migration->label_id_from_alias(@_) }
 sub resolve_annotation_id { shift->migration->resolve_annotation_id(@_) }
