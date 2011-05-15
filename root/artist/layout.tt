@@ -38,6 +38,7 @@
             async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
             -%]
 
+        [% UNLESS artist.is_special_purpose %]
         <h2>[% l('Editing') %]</h2>
             [% IF c.user_exists %]
             <ul class="links">
@@ -62,7 +63,6 @@
                   </a>
                 </li>
  
-                [% UNLESS artist.is_special_purpose %]
                   <hr/>
 
                   <li>
@@ -88,11 +88,11 @@
                     <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
                   <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
-                [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
+        [% END %]
 
         [% IF c.user_exists && !artist.is_special_purpose %]
         <h2>[% l("Subscriptions") %]</h2>
