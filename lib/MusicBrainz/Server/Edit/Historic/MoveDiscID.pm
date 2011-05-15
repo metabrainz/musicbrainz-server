@@ -17,7 +17,10 @@ sub related_entities
 {
     my $self = shift;
     return {
-        release => $self->data->{release_ids}
+        release => [
+            @{ $self->data->{release_ids} },
+            @{ $self->data->{new_release_ids} }
+        ]
     }
 }
 

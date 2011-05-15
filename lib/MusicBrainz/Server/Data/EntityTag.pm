@@ -387,8 +387,8 @@ sub find_editor_entities
 
     my @tags = @{ $self->c->raw_sql->select_single_column_array(
         'SELECT ' . $type . ' FROM ' . $type . '_tag_raw
-          WHERE editor = ?',
-        $editor_id) };
+          WHERE editor = ? AND tag = ?',
+        $editor_id, $tag_id) };
 
     my $objs = $self->parent->get_by_ids(@tags);
     return values %$objs;

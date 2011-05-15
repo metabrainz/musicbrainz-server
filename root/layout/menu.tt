@@ -234,11 +234,6 @@
                 </a>
             </li>
             <li class="separator">
-                <a href="http://musicbrainz.uservoice.com" class="internal">
-                    [% l('Suggest a Feature') %]
-                </a>
-            </li>
-            <li>
                 <a href="http://jira.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>

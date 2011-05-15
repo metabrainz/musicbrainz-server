@@ -150,9 +150,11 @@ sub _retrieve_no_cache
 	$ua->env_proxy;
     my $response = $ua->get($url);
 
-    return undef unless $response->is_success;
-
-    if ($response->code == 202 || $response->code < 200 || $response->code > 299) {
+    if (!$response->is_success  ||
+         $response->code == 202 ||
+         $response->code < 200  ||
+         $response->code > 299  ||
+         $response->decoded_content eq 'failed to process the response') {
         return undef;
     }
 
