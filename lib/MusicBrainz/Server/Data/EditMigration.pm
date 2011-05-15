@@ -203,10 +203,7 @@ my $track_album;
 sub track_to_album
 {
     my ($self, $id) = @_;
-    $track_album ||=
-        $self->construct_map('public.albumjoin', 'track' => 'album');
-
-    return $track_album->{id};
+    return $self->c->sql->select_single_value('SELECT album FROM public.albumjoin WHERE track = ?', $id);
 }
 
 my $album_release_ids;
