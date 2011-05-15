@@ -1,6 +1,7 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? artist.name _ " - ${title}" : artist.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_artist_curi(artist)%]
+        <h2>[% l('Artist information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
                content=rdfa_sort_name(artist.sort_name)
@@ -37,6 +38,64 @@
             async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
             -%]
 
+        [% UNLESS artist.is_special_purpose %]
+        <h2>[% l('Editing') %]</h2>
+            [% IF c.user_exists %]
+            <ul class="links">
+                <li>
+                  <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
+                    [% l('Add release group') %]
+                  </a>
+                </li>
+                <li>
+                  <a href="[% c.uri_for_action('/release_editor/add', { artist = artist.gid }) %]">
+                    [% l('Add release') %]
+                  </a>
+                </li>
+                <li>
+                  <a href="[% c.uri_for_action('/recording/create', { artist = artist.gid }) %]">
+                    [% l('Add recording') %]
+                  </a>
+                </li>
+                <li>
+                  <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
+                    [% l('Add work') %]
+                  </a>
+                </li>
+ 
+                  <hr/>
+
+                  <li>
+                    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
+                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
+                    </a>
+                  </li>
+                  <li>
+                    <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
+                      [% l('Merge artist') %]
+                    </a>
+                  </li>
+
+                  <hr/>
+
+                  <li>[% use_in_relationship(artist) %]</li>
+                  <li>[% relate_to_ellipsis(artist) %]</li>
+                  <li>[% relate_to_url(artist) %]</li>
+
+                  <hr/>
+
+                  [% IF artist.edits_pending %]
+                    <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
+                  [% END %]
+                  <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
+            [% ELSE %]
+                <li>[% request_login(l('Log in to edit')) %]</li>
+            [% END %]
+        </ul>
+        [% END %]
+
+        [% IF c.user_exists && !artist.is_special_purpose %]
+        <h2>[% l("Subscriptions") %]</h2>
         <ul class="links">
             [% IF c.user_exists && !artist.is_special_purpose %]
                 [% IF subscribed %]
@@ -46,61 +105,19 @@
                 [% END %]
                 <li>[% link_entity(artist, 'subscribers', l('Subscribers')) %]</li>
             [% END %]
-            [% IF c.user_exists %]
-                [% UNLESS artist.is_special_purpose %]
-                  <li>
-                    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
-                      [% artist.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
-                    </a>
-                  </li>
-                  <li>
-                    <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
-                      [% l('Merge this artist with another') %]
-                    </a>
-                  </li>
-                  <li>[% link_entity(artist, 'edits', l('View editing history')) %]</li>
-                  [% IF artist.edits_pending %]
-                    <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
-                  [% END %]
-                  <li>[% use_in_relationship(artist) %]</li>
-                  <li>[% relate_to_ellipsis(artist) %]</li>
-                  <li>[% relate_to_url(artist) %]</li>
-                [% END %]
+            [% IF watching_artist %]
                 <li>
-                  <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
-                    [% l('Add a new release group') %]
-                  </a>
+                    [% link_entity(artist, 'stop_watching', l('Do not watch for new releases')) %]
                 </li>
-                <li>
-                  <a href="[% c.uri_for_action('/release_editor/add', { artist = artist.gid }) %]">
-                    [% l('Add a new release') %]
-                  </a>
-                </li>
-                <li>
-                  <a href="[% c.uri_for_action('/recording/create', { artist = artist.gid }) %]">
-                    [% l('Add a new standalone recording') %]
-                  </a>
-                </li>
-                <li>
-                  <a href="[% c.uri_for_action('/work/create', { artist = artist.gid }) %]">
-                    [% l('Add a work') %]
-                  </a>
-                </li>
-                [% IF watching_artist %]
-                    <li>
-                        [% link_entity(artist, 'stop_watching', l('Do not watch this artist for new releases')) %]
-                    </li>
-                [% ELSE %]
-                    <li>[% link_entity(artist, 'watch', l('Watch this artist for new releases')) %]</li>
-                [% END %]
             [% ELSE %]
-                <li>[% request_login(l('Please log in to edit this artist')) %]</li>
+                <li>[% link_entity(artist, 'watch', l('Watch for new releases')) %]</li>
             [% END %]
         </ul>
-
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
+        [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
     [% END %]
 
     <div id="content">

@@ -5,6 +5,7 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_recording_curi(recording)%]
+        <h2>[% l('Recording information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(recording.artist_credit) %]
@@ -27,35 +28,42 @@
             async = c.uri_for_action('/recording/tag_async', [ recording.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
           [% IF c.user_exists %]
+          <li>[% link_entity(recording, 'add_isrc', l('Add ISRC')) %]</li>
           <li>
             <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ recording.gid ]) %]">
-              [% recording.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+              [% recording.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
             </a>
           </li>
-          <li>[% link_entity(recording, 'delete', l('Remove this recording')) %]</li>
-          <li>[% link_entity(recording, 'edits', l('View editing history')) %]</li>
-          <li>[% link_entity(recording, 'add_isrc', l('Add ISRC')) %]</li>
-          [% IF recording.edits_pending %]
-            <li>[% link_entity(recording, 'open_edits', l('Open edits')) %]</li>
-          [% END %]
           <li>
             <a href="[% c.uri_for_action('/recording/merge_queue', { 'add-to-merge' => recording.id }) %]">
-              [% l('Merge this recording with another') %]
+              [% l('Merge recording') %]
             </a>
           </li>
+          <li>[% link_entity(recording, 'delete', l('Remove recording')) %]</li>
+
+          <hr/>
+
           <li>[% use_in_relationship(recording) %]</li>
           <li>[% relate_to_ellipsis(recording) %]</li>
           <li>[% relate_to_url(recording) %]</li>
+
+          <hr/>
+
+          [% IF recording.edits_pending %]
+            <li>[% link_entity(recording, 'open_edits', l('Open edits')) %]</li>
+          [% END %]
+          <li>[% link_entity(recording, 'edits', l('Editing history')) %]</li>
           [% ELSE %]
-          <li>[% request_login(l('Please log in to edit this recording')) %]</li>
+          <li>[% request_login(l('Log in to edit')) %]</li>
           [% END %]
         </ul>
 
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
-
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=recording -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
     [% END %]
 
     <div id="content">

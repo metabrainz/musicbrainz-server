@@ -5,6 +5,7 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+        <h2>[% l('Release group information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(rg.artist_credit) %]
@@ -19,41 +20,51 @@
             async = c.uri_for_action('/release_group/tag_async', [ rg.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
                 <li>
+                  <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">
+                    [% l('Add release') %]
+                  </a>
+                </li>
+
+                <hr/>
+
+                <li>
                   <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ rg.gid ]) %]">
-                    [% rg.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                    [% rg.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                   </a>
                 </li>
                 <li>
                   <a href="[% c.uri_for_action('/release_group/merge_queue', { 'add-to-merge' => rg.id }) %]">
-                    [% l('Merge this release group with another') %]
+                    [% l('Merge release group') %]
                   </a>
                 </li>
-                <li>[% link_entity(rg, 'edits', l('View editing history')) %]</li>
-                [% IF rg.edits_pending %]
-                    <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
-                [% END %]
                 [% IF can_delete %]
-                    <li>[% link_entity(rg, 'delete', l('Remove this release group')) %]</li>
+                    <li>[% link_entity(rg, 'delete', l('Remove release group')) %]</li>
                 [% END %]
+
+                <hr/>
+
                 <li>[% use_in_relationship(rg) %]</li>
                 <li>[% relate_to_ellipsis(rg) %]</li>
                 <li>[% relate_to_url(rg) %]</li>
-                <li>
-                  <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">
-                    [% l('Add a new release') %]
-                  </a>
-                </li>
+
+                <hr/>
+
+                [% IF rg.edits_pending %]
+                    <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
+                [% END %]
+                <li>[% link_entity(rg, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
-               <li>[% request_login(l('Please log in to edit this release group')) %]</li>
+               <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
 
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
-
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=rg -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
     [% END %]
 
     <div id="content">
