@@ -14,7 +14,7 @@ use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { l('Move Disc ID') }
+sub edit_name { l('Move disc ID') }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 
 has '+data' => (

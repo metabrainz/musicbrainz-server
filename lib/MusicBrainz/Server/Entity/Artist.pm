@@ -79,8 +79,8 @@ sub is_special_purpose {
 
 sub appearances {
     my $self = shift;
-    my @rels = $self->relationships_by_type('release', 'release_group', 'work',
-                                            'recording');
+    my @rels = @{ $self->relationships_by_type('release', 'release_group', 'work',
+                                               'recording') };
 
     my %groups;
     for my $rel (@rels) {
