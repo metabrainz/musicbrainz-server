@@ -71,7 +71,6 @@
     style="display: none" [% IF name %]id="[% name %]"[% END %]>
 
     <div class="select-recording bubble">
-
       [%- IF NOT confirmed AND name -%]
       <div class="confirm-recording">
 

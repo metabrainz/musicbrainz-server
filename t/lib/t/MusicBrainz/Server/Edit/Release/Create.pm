@@ -61,9 +61,10 @@ sub create_edit
         editor_id => 1,
         edit_type => $EDIT_RELEASE_CREATE,
         name => 'Empty Release',
-        artist_credit => [
-            { artist => 1, name => 'Foo Foo' }
-        ],
+        artist_credit => {
+            names => [
+                { artist => { id => 1, name => 'Foo Foo' }, name => 'Foo Foo' }
+            ] },
         comment => 'An empty release!',
         status_id => 1,
         release_group_id => 1,

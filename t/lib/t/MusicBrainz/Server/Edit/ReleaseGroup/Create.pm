@@ -52,9 +52,11 @@ sub create_edit
         editor_id => 1,
         edit_type => $EDIT_RELEASEGROUP_CREATE,
         name => 'Empty Release Group',
-        artist_credit => [
-        { artist => 1, name => 'Foo Foo' }
-        ],
+        artist_credit => {
+            names => [
+                { artist => { id => 1, name => 'Bar Bar'}, name => 'Foo Foo' }
+            ],
+        },
         comment => 'An empty release group!',
         type_id => 1
     );

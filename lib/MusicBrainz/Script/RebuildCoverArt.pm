@@ -25,6 +25,17 @@ has 'max_run_time' => (
     default  => sub { DateTime::Duration->new( minutes => 10 ) }
 );
 
+sub ensure_release_cover_art {
+    my ($self) = @_;
+    $self->c->sql->auto_commit;
+    $self->c->sql->do(
+        'INSERT INTO release_coverart (id)
+         SELECT id FROM release WHERE NOT EXISTS (
+             SELECT TRUE FROM release_coverart WHERE id = release.id
+         )'
+    );
+}
+
 sub run
 {
     my $self = shift;
@@ -32,6 +43,8 @@ sub run
     printf STDERR "You do not have both AWS_PUBLIC and AWS_PRIVATE defined in DBDefs.\n" .
         "You will not be able to find artwork from Amazon until these are set."
             unless (DBDefs::AWS_PUBLIC && DBDefs::AWS_PRIVATE);
+
+    $self->ensure_release_cover_art;
 
     my @releases = $self->c->model('CoverArt')->find_outdated_releases($self->since);
 

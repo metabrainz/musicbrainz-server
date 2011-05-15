@@ -41,6 +41,27 @@ sub relate : Chained('load')
     }
 }
 
+
+sub cancel_relate : Chained('load')
+{
+    my ($self, $c) = @_;
+
+    $c->session->{relationship} = undef;
+
+    if ($c->req->referer)
+    {
+        $c->response->redirect($c->req->referer);
+    }
+    else
+    {
+        $c->response->redirect(
+            $c->uri_for_action(
+                $self->action_for ('show'), [ $c->stash->{entity}->gid ]
+            ));
+    }
+}
+
+
 after 'load' => sub {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};

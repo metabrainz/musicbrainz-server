@@ -675,6 +675,9 @@ INSERT INTO statistic (value, date_collected, name)
         WHEN name ~ E'count.track.\\d+puids'
           THEN replace(name, 'track', 'recording')
 
+        WHEN name ~ E'count.release.\\d+discids'
+          THEN replace(name, 'release', 'medium')
+
         ELSE name
       END AS name
       FROM (

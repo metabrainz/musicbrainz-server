@@ -10,6 +10,7 @@ use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::Edit }
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 use aliased 'MusicBrainz::Server::Entity::Track';
@@ -82,7 +83,10 @@ sub create_edit {
                 names => [
                     ArtistCreditName->new(
                         name => 'Warp Industries',
-                        artist_id => 1
+                        artist => Artist->new(
+                            id => 1,
+                            name => 'Artist',
+                        )
                     )]),
             recording_id => 1,
             position => 1

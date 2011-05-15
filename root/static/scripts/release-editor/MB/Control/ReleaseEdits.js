@@ -78,6 +78,23 @@ MB.Control.ReleaseEdits = function ($edits) {
         return changes;
     };
 
+    self.artistCreditToDeprecatedFormat = function (ac) {
+        var ret = [];
+        $.each (ac.names, function (idx, credit) {
+            ret.push ({
+                'artist_name': credit.artist.name,
+                'gid': credit.artist.gid,
+                'id': credit.artist.id,
+                'join': credit.join_phrase,
+                'name': credit.name
+            });
+        });
+
+        ac.names = ret;
+        return ac;
+    };
+
+
     self.saveEdits = function (tracklist, tracks) {
 
         var changes = false;
@@ -102,6 +119,7 @@ MB.Control.ReleaseEdits = function ($edits) {
             {
                 from.position = '' + (idx + 1);
                 from.deleted = "0";
+                from.artist_credit = self.artistCreditToDeprecatedFormat (from.artist_credit);
             }
 
             if (!from || self.trackChanges (from, to))
