@@ -695,4 +695,13 @@ INSERT INTO statistic (value, date_collected, name)
       ) s
     WHERE name = 'count.track';
 
+INSERT INTO statistic (value, date_collected, name)
+    SELECT DISTINCT ON (name, snapshotdate) value, snapshotdate, name
+    FROM (
+           SELECT value, lastupdated::date AS snapshotdate, name FROM public.currentstat
+      UNION
+           SELECT value, snapshotdate, name FROM public.historicalstat
+      ) s
+    WHERE name ~ E'count.release.\\d+discids';
+
 COMMIT;
