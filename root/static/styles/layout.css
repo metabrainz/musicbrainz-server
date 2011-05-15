@@ -57,6 +57,11 @@ fieldset legend {
     font-weight: bold;
 }
 
+#sidebar h2 {
+    font-size: 100%;
+    margin-left: -5px;
+}
+
 h3 {
     margin-top: 1em;
     margin-bottom: 0;
@@ -353,9 +358,20 @@ div.warning img.warning {
 }
 
 #sidebar ul.links {
-    margin-left: 0em;
-    padding-left: 2em;
+    margin: 0;
+    padding-left: 1.5em;
 }
+
+#sidebar ul.links hr {
+    padding: 0;
+    margin: 3px;
+    height: 1px;
+    width: 75%;
+    border: 0;
+    color: #D3D3D3;
+    background-color: #D3D3D3;
+}
+
 
 #sidebar .cover-art {
     text-align: center;
@@ -579,7 +595,7 @@ table.details td.old {
 
 /* Sidebar properties */
 dl.properties {
-    margin-bottom: 12pt;
+    margin: 0;
 }
 
 dl.properties dt {
@@ -591,7 +607,7 @@ dl.properties dt {
 
 dl.properties dd,
 dl.properties dt {
-    line-height: 200%;
+    line-height: 175%;
 }
 
 /* Search Plugins */

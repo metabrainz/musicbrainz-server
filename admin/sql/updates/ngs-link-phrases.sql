@@ -878,8 +878,8 @@ update link_type set
 
 -- name: mix-DJ (artist-release)
 update link_type set
-	link_phrase = 'DJ-mixed', -- DJ-mixed
-	reverse_link_phrase = 'DJ-mixer' -- was DJ-mixed by
+	link_phrase = 'DJ-mixed {medium}', -- DJ-mixed
+	reverse_link_phrase = 'DJ-mixer {medium}' -- was DJ-mixed by
 	where gid = '9162dedd-790c-446c-838e-240f877dbfe2';
 
 -- name: musical relationships (artist-artist)

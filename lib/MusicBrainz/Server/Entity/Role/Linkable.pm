@@ -46,10 +46,10 @@ sub relationships_by_type
     my ($self, @types) = @_;
     my %types = map { $_ => 1 } @types;
 
-    return grep {
+    return [ grep {
         defined $_->link && defined $_->link->type &&
         exists $types{ $_->target_type };
-    } $self->all_relationships;
+    } $self->all_relationships ];
 }
 
 1;

@@ -18,6 +18,7 @@ sub related_entities
 {
     my $self = shift;
     return {
+        artist => [ $self->artist_id ],
         release => [ map {
             @{ $_->{release_ids} }
         } @{ $self->data->{changes} } ]
