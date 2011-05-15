@@ -199,6 +199,16 @@ sub label_id_from_alias
     return $label_alias->{id};
 }
 
+my $track_album;
+sub track_to_album
+{
+    my ($self, $id) = @_;
+    $track_album ||=
+        $self->construct_map('public.albumjoin', 'track' => 'album');
+
+    return $track_album->{id};
+}
+
 my $album_release_ids;
 sub album_release_ids
 {
