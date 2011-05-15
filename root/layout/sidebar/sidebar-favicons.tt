@@ -9,15 +9,17 @@
 [%- favicons = entity.relationships_by_type('url') -%]
 [%- IF favicons.size -%]
     <h2>[% l('External links') %]</h2>
-    [%- FOREACH favicon IN favicons -%]
-      [%- display_favicon(favicon.target, l('Official homepage'))
-            IF favicon.link.type.name == 'official homepage' -%]
-    [% END %]
+    <ul>
+      [%- FOREACH favicon IN favicons -%]
+        [%- display_favicon(favicon.target, l('Official homepage'))
+              IF favicon.link.type.name == 'official homepage' -%]
+      [% END %]
 
-    [%- FOREACH favicon IN favicons.sort('phrase') -%]
-      [%- display_favicon(favicon.target)
-            IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') -%]
-    [%- END -%]
+      [%- FOREACH favicon IN favicons.sort('phrase') -%]
+        [%- display_favicon(favicon.target)
+              IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') -%]
+      [%- END -%]
+    </ul>
 [%- ELSE -%]
     <p>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</p>
 [%- END -%]
