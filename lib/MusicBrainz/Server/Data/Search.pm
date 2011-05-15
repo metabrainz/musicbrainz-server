@@ -380,6 +380,35 @@ sub schema_fixup
         $data->{_extra} = \@releases;
     }
 
+    if (exists $data->{"relation-list"} &&
+        exists $data->{"relation-list"}->[0] &&
+        exists $data->{"relation-list"}->[0]->{"relation"})
+    {
+        my @relationships;
+
+        foreach my $rel_group (@{ $data->{"relation-list"} })
+        {
+            foreach my $rel (@{ $rel_group->{"relation"} })
+            {
+                my $rel_type = delete $rel->{type};
+                delete $rel->{id};
+                delete $rel->{gid};
+
+                my $entity_type = (keys %$rel)[0];
+                $rel->{$entity_type}->{gid} = delete $rel->{$entity_type}->{id};
+
+                my $entity = $c->model( type_to_model ($entity_type) )->
+                    _entity_class->new (%{ $rel->{$entity_type} });
+
+                push @relationships, MusicBrainz::Server::Entity::Relationship->new(
+                    entity1 => $entity );
+            }
+        }
+
+        $data->{relationships} = \@relationships;
+    }
+
+
     foreach my $k (keys %{$data})
     {
         if (ref($data->{$k}) eq 'HASH')
