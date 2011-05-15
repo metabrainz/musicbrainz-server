@@ -334,7 +334,8 @@ END -%]
 
 [%- MACRO use_in_relationship(entity) BLOCK;
     IF c.session.relationship.id == entity.id;
-      l('Please select another entity to relate {name} to', { name => c.session.relationship.name });
+      text = l('Cancel relate to {name}', { name => c.session.relationship.name });
+      link_entity(entity, 'cancel_relate', text);
     ELSE;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                     : l('Use in a relationship');
@@ -432,7 +433,7 @@ END -%]
     [% END %]
 [%- END -%]
 
-[%- MACRO age(datetime) BLOCK -%] 
+[%- MACRO age(datetime) BLOCK -%]
     [%- Age.format(datetime, "{age} ago") -%]
 [%- END -%]
 
@@ -510,8 +511,9 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO script_manifest(manifest) BLOCK -%]
   [%- IF server_details.developement_server -%]
+    [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script src="/static/[%- file -%]"></script>
+        <script src="/static/[%- file -%]?t=[% date.now %]"></script>
     [%- END -%]
   [%- ELSE -%]
     <script src="/static/[% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>

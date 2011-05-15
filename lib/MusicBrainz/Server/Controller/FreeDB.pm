@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Controller::FreeDB;
+
 use Moose;
+use TryCatch;
+
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -11,7 +14,14 @@ sub base : Chained('/') PathPart('freedb') CaptureArgs(0) { }
 
 sub _load {
     my ($self, $c, $category, $id) = @_;
-    return $c->model('FreeDB')->lookup($category, $id);
+
+    try {
+        return $c->model('FreeDB')->lookup($category, $id);
+    }
+    catch (MusicBrainz::Server::Exceptions::InvalidInput $e) {
+        $c->stash( message => $e->message );
+        $c->detach('/error_500');
+    }
 }
 
 sub show : Chained('load') PathPart('') {}

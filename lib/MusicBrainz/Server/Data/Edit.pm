@@ -296,7 +296,7 @@ sub preview
     }
     catch ($err) {
         use Data::Dumper;
-        croak join "\n\n", "Could not create error", Dumper(\%opts), $err;
+        croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
     my $quality = $edit->determine_quality;
@@ -342,7 +342,7 @@ sub create
     }
     catch ($err) {
         use Data::Dumper;
-        croak join "\n\n", "Could not create error", Dumper(\%opts), $err;
+        croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
     my $quality = $edit->determine_quality;

@@ -92,9 +92,14 @@ sub create_edit {
         date => {
             year => 1985, month => 4, day => 13
         },
-        artist_credit => [
-            { artist => 2, name => 'New Artist' }
-        ],
+        artist_credit => {
+            names => [
+                {
+                    artist => { id => 2, name => 'New Artist' },
+                    name => 'New Artist'
+                }
+            ],
+        },
         language_id => 1,
         script_id => 1,
     );

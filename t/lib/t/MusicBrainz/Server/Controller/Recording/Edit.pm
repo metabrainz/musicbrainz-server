@@ -24,7 +24,8 @@ my $request = POST $mech->uri, [
     'edit-recording.comment' => 'A comment!',
     'edit-recording.name' => 'Another name',
     'edit-recording.artist_credit.names.0.name' => 'Foo',
-    'edit-recording.artist_credit.names.0.artist_id' => '3',
+    'edit-recording.artist_credit.names.0.artist.name' => 'Bar',
+    'edit-recording.artist_credit.names.0.artist.id' => '3',
 ];
 
 my $response = $mech->request($request);
@@ -40,20 +41,31 @@ is_deeply($edit->data, {
         name => 'Dancing Queen'
     },
     new => {
+        artist_credit => {
+            names => [
+                {
+                    artist => { id => 3, name => 'Bar' },
+                    name => 'Foo',
+                }
+            ],
+        },
         name => 'Another name',
         comment => 'A comment!',
         length => 83000,
-        artist_credit => [
-        { artist => 3, name => 'Foo' }
-        ]
     },
     old => {
+        artist_credit => {
+            names => [
+                {
+                    artist => { id => 6, name => 'ABBA' },
+                    name => 'ABBA',
+                    join_phrase => undef,
+                }
+            ],
+        },
+        name => 'Dancing Queen',
         comment => undef,
         length => 123456,
-        name => 'Dancing Queen',
-        artist_credit => [
-        { artist => 6, name => 'ABBA' }
-        ]
     }
 });
 
