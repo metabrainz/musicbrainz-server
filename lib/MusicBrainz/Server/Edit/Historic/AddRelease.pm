@@ -168,12 +168,12 @@ sub upgrade
 
     push @{ $data->{release_ids} }, $self->album_release_ids($self->new_value->{_albumid});
 
-    $data->{release_group_ids} = uniq [
+    $data->{release_group_ids} = [ uniq (
         $self->new_value->{ReleaseGroupID},
         map {
             $self->find_release_group_id($_)
         } @{ $data->{release_ids} }
-    ];
+    )];
 
     for (my $i = 1; 1; $i++) {
         my $track_name = $self->new_value->{"Track$i"}
