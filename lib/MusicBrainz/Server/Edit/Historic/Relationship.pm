@@ -167,6 +167,7 @@ sub _expand_relationships {
             $mappings = [
                 [ 'work', 'work' ]
             ];
+            ($entity0_id, $entity1_id) = ($entity1_id, $entity0_id);
 
             if ($link_type_phrase =~ /translated/ && $link_type_phrase =~ /parody/) {
                 $link_type_phrase = 'later translated parody versions';
