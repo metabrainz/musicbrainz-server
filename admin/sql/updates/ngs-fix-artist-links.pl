@@ -48,7 +48,7 @@ try {
     }
 
     $c->sql->commit;
-    $c->raw_sql->begin;
+    $c->raw_sql->commit;
 }
 catch {
     $c->sql->rollback;
