@@ -166,7 +166,7 @@ sub upgrade
         push @{ $data->{release_ids} }, ($self->resolve_release_id($release_event_id) || ());
     }
 
-    push @{ $data->{release_ids} }, $self->album_release_ids($self->new_value->{_albumid});
+    push @{ $data->{release_ids} }, @{ $self->album_release_ids($self->new_value->{_albumid}) };
 
     $data->{release_group_ids} = [ uniq (
         $self->new_value->{ReleaseGroupID},
