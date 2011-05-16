@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
+use List::MoreUtils qw( uniq );
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Label';
 
@@ -55,7 +56,7 @@ sub related_entities
         artist    => [ $self->_artist_ids ],
         recording => [ $self->_recording_ids ],
         release   => [ $self->_release_ids ],
-        release_group => [ $self->data->{release_group_id} ],
+        release_group => $self->data->{release_group_ids},
     }
 }
 
@@ -131,7 +132,6 @@ sub upgrade
         release_events => [],
         release_ids    => [],
         tracks         => [],
-        release_group_id => $self->new_value->{ReleaseGroupID}
     };
 
     if (my $attributes = $self->new_value->{Attributes}) {
@@ -167,6 +167,13 @@ sub upgrade
     }
 
     push @{ $data->{release_ids} }, $self->album_release_ids($self->new_value->{_albumid});
+
+    $data->{release_group_ids} = uniq [
+        $self->new_value->{ReleaseGroupID},
+        map {
+            $self->find_release_group_id($_)
+        } @{ $data->{release_ids} }
+    ];
 
     for (my $i = 1; 1; $i++) {
         my $track_name = $self->new_value->{"Track$i"}
