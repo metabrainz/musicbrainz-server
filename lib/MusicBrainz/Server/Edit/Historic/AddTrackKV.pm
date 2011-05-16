@@ -74,4 +74,6 @@ sub upgrade
     return $self;
 }
 
+sub deserialize_previous_value { shift; return shift() }
+
 1;
