@@ -1306,13 +1306,12 @@ $sql->do(
     SELECT ?, id, id FROM work
      WHERE NOT EXISTS (
          SELECT TRUE FROM l_recording_work ar
-           JOIN link ON link.id = ar.link
           WHERE ar.entity1 = work.id
-            AND link.link_type = ?
+            AND link = ?
      )
 ",
     $recording_work_link_id,
-    $recording_work_link_type_id
+    $recording_work_link_id
 );
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
