@@ -27,6 +27,7 @@ try {
         @non_existant
     );
 
+    my $i = 0;
     while (my $expand = $c->raw_sql->next_row_hash_ref) {
         my @expand_to = @{
             $c->sql->select_single_column_array(
@@ -44,7 +45,9 @@ try {
             'INSERT INTO edit_artist (edit, artist)
          VALUES ' . join(',', ('(?, ?)') x @expand_to),
             map { $expand->{edit}, $_ } @expand_to
-        )
+        );
+
+        printf STDERR "\r%d/%d", $i, scalar(@non_existant);
     }
 
     $c->sql->commit;
@@ -53,4 +56,6 @@ try {
 catch {
     $c->sql->rollback;
     $c->raw_sql->rollback;
+
+    die $_;
 }
