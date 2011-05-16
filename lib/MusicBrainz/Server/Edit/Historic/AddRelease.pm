@@ -126,6 +126,7 @@ sub upgrade
     my $data = {
         name           => $self->new_value->{AlbumName},
         artist_id      => $release_artist_id,
+        artist_name    => $self->new_value->{Artist} || 'Various Artists',
         release_events => [],
         release_ids    => [],
         tracks         => []
@@ -181,6 +182,7 @@ sub upgrade
             position     => $i,
             name         => $track_name,
             artist_id    => $artist_id,
+            artist_name  => $self->new_value->{"Artist$i"},
             length       => $length,
             recording_id => $self->resolve_recording_id($track_id)
         }
