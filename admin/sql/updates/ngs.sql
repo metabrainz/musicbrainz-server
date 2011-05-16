@@ -675,6 +675,9 @@ INSERT INTO statistic (value, date_collected, name)
         WHEN name ~ E'count.track.\\d+puids'
           THEN replace(name, 'track', 'recording')
 
+        WHEN name ~ E'count.release.\\d+discids'
+          THEN replace(name, 'release', 'medium')
+
         ELSE name
       END AS name
       FROM (
@@ -691,5 +694,14 @@ INSERT INTO statistic (value, date_collected, name)
            SELECT value, snapshotdate, name FROM public.historicalstat
       ) s
     WHERE name = 'count.track';
+
+INSERT INTO statistic (value, date_collected, name)
+    SELECT DISTINCT ON (name, snapshotdate) value, snapshotdate, name
+    FROM (
+           SELECT value, lastupdated::date AS snapshotdate, name FROM public.currentstat
+      UNION
+           SELECT value, snapshotdate, name FROM public.historicalstat
+      ) s
+    WHERE name ~ E'count.release.\\d+discids';
 
 COMMIT;

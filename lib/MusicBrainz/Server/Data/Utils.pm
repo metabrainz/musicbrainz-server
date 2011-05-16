@@ -16,8 +16,8 @@ use Storable;
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
-    artist_credit_to_alternative_ref
     artist_credit_to_ref
+    artist_credit_to_edit_ref
     check_data
     check_in_use
     copy_escape
@@ -74,40 +74,66 @@ sub ref_to_type
         return $map{$_}
             if ($ref->isa("MusicBrainz::Server::Entity::$_"))
     }
-    warn "Could not resolve the type of $ref";
+
     return;
 }
 
 sub artist_credit_to_ref
 {
-    my ($artist_credit) = @_;
+    my ($artist_credit, $for_change_hash) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
-    return [ map {
-        my @credit = ( { name => $_->name, artist => $_->artist_id } );
-        push @credit, $_->join_phrase if $_->join_phrase;
+    my %ret = ( names => [] );
 
-        @credit;
-    } @{ $artist_credit->names } ];
+    for my $ac ($artist_credit->all_names)
+    {
+        my %ac_name = (
+            join_phrase => $ac->join_phrase,
+            name => $ac->name,
+            artist => {
+                name => $ac->artist->name,
+                id => $ac->artist->id,
+            }
+        );
+        $ac_name{artist}->{gid} = $ac->artist->gid if !$for_change_hash;
+
+        push @{ $ret{names} }, \%ac_name;
+    }
+
+    $ret{preview} = $artist_credit->name if !$for_change_hash;
+
+    return \%ret;
 }
 
-# FIXME: It is unfortunate that we have two different formats for storing
-# artist credits outside of objects.  These should be consolidated. --warp.
-sub artist_credit_to_alternative_ref
+# This is still needed because it is the "internal" format used
+# by root/static/scripts/release-editor/MB/Control/ReleaseEdits.js.
+# FIXME: remove the need for this function, consolidate to the
+# format used by artist_credit_to_ref.
+sub artist_credit_to_edit_ref
 {
     my ($artist_credit) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
-    return [
-        map {
+    my %ret = ( names => [] );
+
+    for ($artist_credit->all_names)
+    {
+        my %ac_name = (
+            join => $_->join_phrase,
             name => $_->name,
-            gid => $_->artist->gid,
-            id => $_->artist->id,
             artist_name => $_->artist->name,
-            join => $_->join_phrase
-        }, $artist_credit->all_names ];
+            id => $_->artist->id,
+            gid => $_->artist->gid,
+        );
+
+        push @{ $ret{names} }, \%ac_name;
+    }
+
+    $ret{preview} = $artist_credit->name;
+
+    return \%ret;
 }
 
 sub load_subobjects
@@ -204,7 +230,7 @@ sub query_to_list_limited
     my ($sql, $offset, $limit, $builder, $query, @args) = @_;
     $sql->select($query, @args);
     my @result;
-    while ($limit--) {
+    while (!defined($limit) || $limit--) {
         my $row = $sql->next_row_hash_ref or last;
         my $obj = $builder->($row);
         push @result, $obj;

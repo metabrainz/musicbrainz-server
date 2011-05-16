@@ -38,7 +38,7 @@ sub _expand {
     if (-d $path) {
         my @items;
         find(sub { push @items, $File::Find::name if $_ =~ /\.$type$/ }, $path);
-        return uniq @items;
+        return uniq sort @items;
     }
     else {
         return $path =~ /\.$type$/ ? (file($path)->absolute) : ();

@@ -10,13 +10,25 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
     'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' };
 
 my %URL_SPECIALIZATIONS = (
-    'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia.*/wiki/}i,
-    'ASIN' => qr{^http://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
-    'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/cd}i,
-    'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i,
-    'Twitter' => qr{^https?://(?:www.)?twitter.com/}i,
-    'YouTube' => qr{^https?://(?:www.)?youtube.com/(?:user/)}i,
+    'ASIN' => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
+    'BBCMusic' => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
+    'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/}i,
+    'Discogs' => qr{^https?://(?:www.)?discogs.com/}i,
+    'Facebook' => qr{^https?://(?:www.)?facebook.com/}i,
+    'IBDb' => qr{^https?://(?:www.)?ibdb.com/}i,
+    'IMDb' => qr{^https?://(?:www.)?imdb.com/}i,
+    'InternetArchive' => qr{^https?://(?:www.)?archive.org/details/}i,
+    'Jamendo' => qr{^https?://(?:www.)?jamendo.com/}i,
+    'LyricWiki' => qr{^https?://lyrics.wikia.com/}i,
+    'MetalArchives' => qr{^https?://(?:www.)?metal-archives.com/}i,
+    'MusicMoz' => qr{^https?://(?:www.)?musicmoz.org/}i,
     'MySpace' => qr{^https?://(?:www.)?myspace.com/}i,
+    'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i,
+    'PureVolume' => qr{^https?://(?:www.)?purevolume.com/}i,
+    'Twitter' => qr{^https?://(?:www.)?twitter.com/}i,
+    'VGMdb' => qr{^https?://(?:www.)?vgmdb.net/}i,
+    'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
+    'YouTube' => qr{^https?://(?:www.)?youtube.com/}i,
 );
 
 sub _gid_redirect_table

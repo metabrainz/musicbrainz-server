@@ -96,6 +96,10 @@ my %stats = (
         DESC => "Count of all unique Barcodes",
         SQL => "SELECT COUNT(distinct barcode) FROM release",
     },
+    "count.medium" => {
+        DESC => "Count of all mediums",
+        SQL => "SELECT COUNT(*) FROM medium",
+    },
     "count.puid" => {
         DESC => "Count of all PUIDs joined to recordings",
         SQL => "SELECT COUNT(*) FROM recording_puid",
@@ -185,6 +189,12 @@ my %stats = (
         DESC => "Count of media with at least one disc ID",
         SQL => "SELECT COUNT(DISTINCT medium)
                   FROM medium_cdtoc",
+    },
+    "count.release.has_discid" => {
+        DESC => "Count of releases with at least one disc ID",
+        SQL => "SELECT COUNT(DISTINCT medium.release)
+                  FROM medium_cdtoc
+                  JOIN medium ON medium_cdtoc.medium = medium.id",
     },
 
     "count.recording.has_isrc" => {
@@ -596,9 +606,10 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT c, COUNT(*) AS freq
                 FROM (
-                    SELECT medium, COUNT(*) AS c
+                    SELECT medium.release, COUNT(*) AS c
                     FROM medium_cdtoc
-                    GROUP BY medium
+                    JOIN medium ON medium_cdtoc.medium = medium.id
+                    GROUP BY medium.release
                 ) AS t
                 GROUP BY c
                 ",
@@ -620,6 +631,46 @@ my %stats = (
             +{
                 map {
                     "count.release.".$_."discids" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
+    "count.medium.Ndiscids" => {
+        DESC => "Distribution of disc IDs per medium (varying disc IDs)",
+        PREREQ => [qw[ count.medium count.medium.has_discid ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT medium, COUNT(*) AS c
+                    FROM medium_cdtoc
+                    GROUP BY medium
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            $dist{0} = $self->fetch("count.medium")
+                - $self->fetch("count.medium.has_discid");
+
+            +{
+                map {
+                    "count.medium.".$_."discids" => $dist{$_}
                 } keys %dist
             };
         },

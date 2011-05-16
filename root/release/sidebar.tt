@@ -1,4 +1,4 @@
-[%- BLOCK cover_art; %]
+[% WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release) %]
     <div class="cover-art">
         [% IF release.cover_art_url; %]
             <img src="[% release.cover_art_url %]" alt="[% l('Cover Art') %]" />
@@ -6,178 +6,142 @@
             <em>[% l('No cover image available.') %]</em>
         [% END %]
     </div>
-[% END %]
 
-[%- BLOCK other_versions; %]
-    <p>
-        <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
-            [% l('See other versions of this release') %]
-        </a>
-    </p>
-[% END -%]
+    <h2>[% l('Release information') %]</h2>
 
-[% BLOCK collections %]
-    <p><ul>
-        [% FOREACH collection IN collections %]
-            [% IF containment.${collection.id} %]
-                <li><a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
-                    [%- l('Remove from collection “{collection}”', { collection => collection.name }) %]</a></li>
-            [% ELSE %]
-                <li><a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) 
-		    %]">
-                    [%- l('Add to collection “{collection}”', {collection => collection.name }) %]</a></li>
-            [% END %]
-        [% END %]
-    </ul></p>
-[% END %]
+    [% WRAPPER 'layout/sidebar/properties.tt';
+        INCLUDE 'layout/sidebar/property.tt' label=l('Date:')
+           content=release.date.format IF release.date.format;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
+           content=release.country.name IF release.country.name;
 
-[%- MACRO editable_property(label, text, field, field_name, class, property, datatype)
-        IF field && editing;
-            IF class.defined;
-                class = class _ ' hidden';
-            ELSE;
-                class = 'hidden';
+        IF release.labels.size == 1;
+            INCLUDE 'layout/sidebar/property.tt' label=l('Label:')
+               content=rdfa_link_label(release.labels.0.label) IF release.labels.0.label;
+            INCLUDE 'layout/sidebar/property.tt' label=l('Catalog number:')
+               content=rdfa_release_catno(release.labels.0.catalog_number) IF release.labels.0.catalog_number;
+        ELSIF release.labels.size > 1;
+            FOR label=release.labels;
+                # I'm using loop.index to compare $label with the $label in the previous iteration,
+                # if they match I'm hiding the duplicated label
+                INCLUDE 'layout/sidebar/property.tt' label=l('Label:')
+                    content=rdfa_link_label(label.label) IF loop.first || label.label.id != release.labels.${loop.index}.label_id;
+                INCLUDE 'layout/sidebar/property.tt' label=l('Catalog number:')
+                    content=rdfa_release_catno(label.catalog_number) IF label.catalog_number;
             END;
-            INCLUDE 'layout/sidebar/property.tt' content=field class=class
-                label=r.label(field_name, label) property=property datatype=datatype;
-        ELSE;
-            INCLUDE 'layout/sidebar/property.tt' content=text IF text;
-        END %]
-
-[%- BLOCK release_properties;
-        WRAPPER 'layout/sidebar/properties.tt';
-            USE r = FormRenderer(form);
-
-            release_properties = [
-                {
-                    label => l('Date:'),
-                    text => release.date.format,
-                    field => r.date('date'),
-                    field_name => 'date',
-                    class => 'date',
-                },
-                {
-                    label => l('Packaging:'),
-                    text => release.packaging.name,
-                    field => r.select('packaging_id'),
-                    field_name => 'packaging_id',
-                },
-                {
-                    label => l('Status:'),
-                    text => release.status.name,
-                    field => r.select('status_id'),
-                    field_name => 'status_id',
-                },
-                {
-                    label => l('Language:'),
-                    text => release.language.name,
-                    field => r.select('language_id'),
-                    field_name => 'country_id',
-                },
-                {
-                    label => l('Script:'),
-                    text => release.script.name,
-                    field => r.select('script_id'),
-                    field_name => 'country_id',
-                },
-                {
-                    label => l('Country:'),
-                    text => release.country.name,
-                    field => r.select('country_id'),
-                    field_name => 'country_id',
-                },
-                {
-                    label => l('Format:'),
-                    text => release.combined_format_name,
-                },
-                {
-                    label => l('Quality:'),
-                    text => quality_name(release.quality),
-                },
-                {
-                    label => l('Type:'),
-                    text => release.release_group.type.name,
-                },
-            ];
-
-            editable_property(prop.label, prop.text, prop.field, prop.field_name, prop.class, prop.rdfa_property)
-                FOR prop=release_properties;
+        # ELSE Don't show labels/catnos
         END;
+
+        INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:')
+           content=release.barcode property='mo:tgin' datatype='xsd:string' IF release.barcode;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Format:')
+           content=release.combined_format_name IF release.combined_format_name;
     END %]
 
-[%- BLOCK release_label_properties;
-        WRAPPER 'layout/sidebar/properties.tt';
-            USE r = FormRenderer(form);
-            editable_property(l('Barcode:'), release.barcode, r.text('barcode'), 'barcode', '', 'mo:gtin', 'xsd:string');
-        END;
-        IF release.labels.size OR editing %]
-           <h3>[% l('Released on:') %]</h3>
-           <ul class="release-labels links">
-               [% FOR label=release.labels %]
-                   <li class="release-label">
-                     [% IF editing %]
-                       [% field = form.field('labels').field(loop.index) %]
-                       [% r.checkbox(field.field('deleted'), class => 'remove') %]
-                       [% r.hidden(field.field('label_id'), class => 'label-id') %]
-                       [% '<span class="label">' _ label.label.name _ '</span>' %]
-                       &ndash;
-                       [% r.text(form.field('labels').field(loop.index).field('catalog_number'),
-                                 size => 8, class => 'catalog-number') %]
-                     [% ELSE %]
-                       [% rdfa_link_label(label.label) %] &ndash; [% rdfa_release_catno(label.catalog_number) %]
-                     [% END %]
-                   </li>
-               [% END %]
-           </ul>
-       [% END;
-   END %]
+    <h2>[% l('Additional details') %]</h2>
+    [% WRAPPER 'layout/sidebar/properties.tt';
+        INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+           content=release.release_group.type.name IF release.release_group.type.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Packaging:')
+           content=release.packaging.name IF release.packaging.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
+           content=release.status.name IF release.status.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Language:')
+           content=release.language.name IF release.language.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Script:')
+           content=release.script.name IF release.script.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Quality:')
+           content=quality_name(release.quality) IF release.quality != -1;
+    END %]
 
-[% BLOCK links %]
+    [% UNLESS editing %]
+        [% INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group %]
+        [% INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release
+            async = c.uri_for_action('/release/tag_async', [ release.gid ])
+            tag_this_text=l('Tag release')
+        %]
+    [% END %]
+
+    <h2>[% l('Editing') %]</h2>
     <ul class="links">
       [% IF c.user_exists %]
         <li>
           <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ release.gid ]) %]">
-            [% release.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+            [% release.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
           </a>
         </li>
-        <li>
-          <a href="[% c.uri_for_action('/release/merge_queue', { 'add-to-merge' => release.id }) %]">
-            [% l('Merge this release with another') %]
-          </a>
-        </li>
-        <li>[% link_entity(release, 'delete', l('Remove this release')) %]</li>
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
+        <li>
+          <a href="[% c.uri_for_action('/release/merge_queue', { 'add-to-merge' => release.id }) %]">
+            [% l('Merge release') %]
+          </a>
+        </li>
+        <li>[% link_entity(release, 'delete', l('Remove release')) %]</li>
+
+        <hr/>
+
         <li>[% use_in_relationship(release) %]</li>
         <li>[% relate_to_ellipsis(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
+        <li>
+          <a href="[%
+            c.uri_for_action('/edit/relationship/create_batch', {
+              type => c.session.relationship.type0,
+              gid => c.session.relationship.entity0,
+              release => release.gid
+            })
+          -%]">
+            [% l('Relate {what} to recordings',
+                 { what => html_escape(c.session.relationship.name) }) %]
+          </a>
+        </li>
+
+        <hr/>
+
+        [% IF release.edits_pending %]
+          <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>
+        [% END %]
+      <li>[% link_entity(release, 'edits', l('Editing history')) %]</li>
+
       [% ELSE %]
-        <li>[% request_login(l('Please log in to edit this release')) %]</li>
-      [% END %]
-      <li>[% link_entity(release, 'edits', l('View editing history')) %]</li>
-      [% IF release.edits_pending %]
-        <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>
+        <li>[% request_login(l('Log in to edit')) %]</li>
       [% END %]
     </ul>
+
+    [% IF c.user_exists %]
+        <h2>[% l('Collections') %]</h2>
+        <ul class="links">
+        [%- IF collections.size > 0 -%]
+            [% FOREACH collection IN collections %]
+                <li>
+                [% IF containment.${collection.id} %]
+                    <a href="[% c.uri_for_action("/collection/remove", [collection.gid], { release => release.id }) %]">
+                        [%- IF collections.size == 1 -%]
+                            [%- l('Remove from my collection') -%]
+                        [%- ELSE -%]
+                            [%- l('Remove from {collection}', { collection => collection.name }) %]
+                        [%- END -%]
+                    </a>
+                [% ELSE %]
+                    <a href="[% c.uri_for_action("/collection/add", [collection.gid], { release => release.id }) %]">
+                    [%- IF collections.size == 1 -%]
+                        [%- l('Add to my collection') -%]
+                    [%- ELSE -%]
+                        [%- l('Add to {collection}', {collection => collection.name }) %]
+                    [%- END -%]
+                    </a>
+                [% END %]
+                </li>
+            [% END %]
+        [% ELSE %]
+            <li>[% l("You have no collections!") %]</li>
+        [% END %]
+            <li><a href="[% c.uri_for_action("/collection/create") %]">[% l('Create a new collection') %]</a></li>
+        </ul>
+    [% END %]
+
+    [% INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release %]
+
+    [% INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=release %]
 [% END %]
-
-[%
-WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release);
-    INCLUDE cover_art;
-    
-    INCLUDE release_properties;
-    INCLUDE release_label_properties;
-
-    UNLESS editing;
-        INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group;
-        INCLUDE 'layout/sidebar/sidebar-tags.tt' tags=top_tags more=more_tags entity=release
-        async = c.uri_for_action('/release/tag_async', [ release.gid ])
-        tag_this_text=l('Tag release');
-        INCLUDE links;
-    	INCLUDE other_versions;    
-        INCLUDE collections IF c.user_exists;
-        INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release;
-    END;
-END;
-
--%]

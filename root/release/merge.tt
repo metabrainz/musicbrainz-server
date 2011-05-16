@@ -1,7 +1,21 @@
+[% BLOCK layout_head %]
+<script type="text/javascript">
+    function updateStrategy(val) {
+        $('.merge-strategy').hide();
+        $('#merge-strategy-' + val).show();
+    }
+
+    $(function() {
+        $('#id-merge\\.merge_strategy').change(function() { updateStrategy($(this).val()) });
+        updateStrategy($('#id-merge\\.merge_strategy').val());
+    });
+</script>
+[% END %]
+
 [% WRAPPER 'layout.tt' title=l('Merge Releases') full_width=1 %]
     <h2>[% l('Merge Releases') %]</h2>
     <p>[% l('You are about to merge the following releases into a single release. Please
-             select the release group which you would like other release groups to be merged
+             select the release which you would like the other releases to be merged
              into:') %]</p>
 
     <form action="[% c.req.uri %]" method="post">
@@ -18,7 +32,51 @@
         [% USE r = FormRenderer(form) %]
         [% form_row_select(r, 'merge_strategy', l('Merge strategy:')) %]
 
+        [% form.errors %]
+
+        <div id="merge-strategy-1" class="merge-strategy">
+          <p>
+            [% l('Using this merge strategy, all mediums from all releases will be used. You may specify
+                  the new order of mediums. The order does not have to be continuous, but all medium positions
+                  must be positive, and multiple mediums cannot be in the same position') %]
+          </p>
+          <table class="tbl">
+            <tbody>
+              [% FOR medium=mediums %]
+              [% field = form.field('medium_positions').field('map').field(loop.index) %]
+              <tr class="subh">
+                <th colspan="4">
+                  <label>[% l('New position:') %]</label>
+                  [% r.text(field.field('position')) %]
+                  [% r.hidden(field.field('id')) %]
+                  [% IF medium.name %]
+                    [% l('(was medium {position}: {name})', { position => medium.position,
+                                                              name => medium.name }) %]
+                  [% ELSE %]
+                    [% l('(was medium {position})', { position => medium.position }) %]
+                  [% END %]
+                </th>
+              </tr>
+              [% FOR track=medium.tracklist.tracks %]
+              <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+                <td class="pos t">[% track.position %]</td>
+                <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
+                <td>[% artist_credit(track.artist_credit) %]</td>
+                <td class="treleases">[% track.length | format_length %]</td>
+              </tr>
+              [% END %]
+              [% END %]
+            </tbody>
+          </table>
+        </div>
+
+        <div id="merge-strategy-2">
+          <p>[% l('This merge strategy will merge all mediums together into a single set of mediums. Recordings
+                   between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
+          <p>[% l('This requires that mediums over each release have corresponding track counts.') %]</p>
+        </div>
+
         [% INCLUDE "forms/edit-note.tt" %]
-        [% enter_edit() %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel">' _ l('Cancel') _ '</button>') %]
     </form>
 [% END %]

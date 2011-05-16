@@ -131,7 +131,7 @@ sub find
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
-    $query .= ' ORDER BY id DESC OFFSET ?';
+    $query .= ' ORDER BY id DESC OFFSET ? LIMIT 500';
 
     return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -176,7 +176,7 @@ sub find_by_voter
            JOIN vote ON vote.edit = edit.id
           WHERE vote.editor = ? AND vote.superseded = FALSE
        ORDER BY id DESC
-         OFFSET ?';
+         OFFSET ? LIMIT 500';
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
@@ -296,7 +296,7 @@ sub preview
     }
     catch ($err) {
         use Data::Dumper;
-        croak join "\n\n", "Could not create error", Dumper(\%opts), $err;
+        croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
     my $quality = $edit->determine_quality;
@@ -342,7 +342,7 @@ sub create
     }
     catch ($err) {
         use Data::Dumper;
-        croak join "\n\n", "Could not create error", Dumper(\%opts), $err;
+        croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
     my $quality = $edit->determine_quality;

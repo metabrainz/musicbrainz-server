@@ -67,6 +67,10 @@ END; -%]
             l('labels');
         CASE 'track';
             l('tracks');
+        CASE 'recording';
+            l('recordings');
+        CASE 'release_group';
+            l('release groups');
         CASE 'editor';
             l('editors');
         CASE DEFAULT;
@@ -330,7 +334,8 @@ END -%]
 
 [%- MACRO use_in_relationship(entity) BLOCK;
     IF c.session.relationship.id == entity.id;
-      l('Please select another entity to relate {name} to', { name => c.session.relationship.name });
+      text = l('Cancel relate to {name}', { name => c.session.relationship.name });
+      link_entity(entity, 'cancel_relate', text);
     ELSE;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                     : l('Use in a relationship');
@@ -375,8 +380,8 @@ END -%]
 
 [%- MACRO quality_name(quality) SWITCH quality;
     CASE 0;  l('low quality level');
-    CASE 1;  l('default quality level');
-    CASE -1; l('default quality level');
+    CASE 1;  l('normal quality level');
+    CASE -1; l('normal quality level');
     CASE 2;  l('high quality level');
 END -%]
 
@@ -428,7 +433,7 @@ END -%]
     [% END %]
 [%- END -%]
 
-[%- MACRO age(datetime) BLOCK -%] 
+[%- MACRO age(datetime) BLOCK -%]
     [%- Age.format(datetime, "{age} ago") -%]
 [%- END -%]
 
@@ -477,18 +482,15 @@ END -%]
     0;
 END -%]
 
-[%- MACRO favicon_image(url)
-       IF url.url.host.search('discogs.com$'); '/static/images/favicons/discogs-32.png';
-    ELSIF url.url.host.search('wikipedia.org$'); '/static/images/favicons/wikipedia-32.png';
-    ELSIF url.url.host.search('bbc.co.uk'); '/static/images/favicons/bbc-32.gif';
-    ELSIF url.url.host.search('facebook.com'); '/static/images/favicons/facebook-32.png';
-    ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-32.png';
-    ELSIF url.url.host.search('last.fm'); '/static/images/favicons/lastfm-32.png';
-    ELSIF url.url.host.search('imdb.com'); '/static/images/favicons/imdb.png';
-    ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-32.png';
-    ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-32.png';
-    ELSE;  'http://' _ url.url.host _ '/favicon.ico';
-END -%]
+[% MACRO favicon_image(url)
+       IF url.url.host.search('amazon'); '/static/images/favicons/amazon-16.png';
+    ELSIF url.url.host.search('wikipedia.org$'); '/static/images/favicons/wikipedia-16.png';
+    ELSIF url.url.host.search('facebook.com'); '/static/images/favicons/facebook-16.png';
+    ELSIF url.url.host.search('myspace.com'); '/static/images/favicons/myspace-16.png';
+    ELSIF url.url.host.search('twitter.com'); '/static/images/favicons/twitter-16.png';
+    ELSIF url.url.host.search('youtube.com'); '/static/images/favicons/youtube-16.png';
+    ELSE; '/static/images/favicons/external-16.png';
+END %]
 
 [%- MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
@@ -509,8 +511,9 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO script_manifest(manifest) BLOCK -%]
   [%- IF server_details.developement_server -%]
+    [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script src="/static/[%- file -%]"></script>
+        <script src="/static/[%- file -%]?t=[% date.now %]"></script>
     [%- END -%]
   [%- ELSE -%]
     <script src="/static/[% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>

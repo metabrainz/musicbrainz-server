@@ -59,6 +59,15 @@ sub edit : Local RequireAuth Edit
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
     my %type_info = build_type_info($tree);
 
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $type0,
+            type1 => $type1
+        );
+        $c->detach;
+    }
+
     $c->stash(
         root => $tree,
         type_info => JSON->new->latin1->encode(\%type_info),
@@ -188,6 +197,15 @@ sub create : Local RequireAuth Edit
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
     my %type_info = build_type_info($tree);
 
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $type0,
+            type1 => $type1
+        );
+        $c->detach;
+    }
+
     $c->stash(
         root      => $tree,
         type_info => JSON->new->latin1->encode(\%type_info),
@@ -258,6 +276,115 @@ sub create : Local RequireAuth Edit
     }
 }
 
+sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
+{
+    my ($self, $c) = @_;
+
+    my $qp = $c->req->query_params;
+
+    if (!$qp->{gid}) {
+        $c->stash( template => 'edit/relationship/no-start.tt' );
+        $c->detach;
+    }
+
+    my $release_gid = $qp->{release};
+    my $type = $qp->{type};
+    my $gid = $qp->{gid};
+
+    if (!$release_gid || !$type || !$gid) {
+        $c->stash( message => l('Invalid arguments') );
+        $c->detach('/error_500');
+    }
+
+    my $model = $c->model(type_to_model($type));
+    if (!$model) {
+        $c->stash( message => l('Invalid entities') );
+        $c->detach('/error_500');
+    }
+
+    my $release = $c->model('Release')->get_by_gid($release_gid);
+    if (!$release) {
+        $c->stash( message => l('Release not found') );
+        $c->detach('/error_500');
+    }
+
+    $c->model('Medium')->load_for_releases($release);
+    $c->model('MediumFormat')->load($release->all_mediums);
+    $c->model('Track')->load_for_tracklists(map { $_->tracklist } $release->all_mediums);
+    $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
+    $c->model('Recording')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
+
+    my $dest = $model->get_by_gid($gid);
+    if (!$dest) {
+        $c->stash( message => l('Target entity not found') );
+        $c->detach('/error_500');
+    }
+
+    my $tree = $c->model('LinkType')->get_tree($type => 'recording');
+    my %type_info = build_type_info($tree);
+
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $type,
+            type1 => 'recording'
+        );
+        $c->detach;
+    }
+
+    $c->stash(
+        root      => $tree,
+        type_info => JSON->new->latin1->encode(\%type_info),
+    );
+
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree();
+    $c->stash( attr_tree => $attr_tree );
+
+    my $form = $c->form( form => 'Relationship' );
+    $c->stash(
+        release => $release,
+        dest    => $dest,
+        type    => $type
+    );
+
+    my $form = $c->form( form => 'Relationship::Recordings' );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my @attributes;
+        foreach my $attr ($attr_tree->all_children) {
+            my $value = $form->field('attrs')->field($attr->name)->value;
+            if (defined $value) {
+                if (scalar $attr->all_children) {
+                    push @attributes, @{ $value };
+                }
+                elsif ($value) {
+                    push @attributes, $attr->id;
+                }
+            }
+        }
+
+        my $req_param = $c->req->params->{recording_id};
+        my @recording_ids = ref($req_param) ? @$req_param : ($req_param);
+        for my $recording_id (@recording_ids) {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type    => $EDIT_RELATIONSHIP_CREATE,
+                type0        => $type,
+                type1        => 'recording',
+                entity0      => $dest->id,
+                entity1      => $recording_id,
+                link_type_id => $form->field('link_type_id')->value,
+                begin_date   => $form->field('begin_date')->value,
+                end_date     => $form->field('end_date')->value,
+                attributes   => \@attributes
+            );
+        }
+
+        $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ]));
+        $c->detach;
+    }
+}
+
 sub create_url : Local RequireAuth Edit
 {
     my ($self, $c) = @_;
@@ -286,6 +413,15 @@ sub create_url : Local RequireAuth Edit
 
     my $tree = $c->model('LinkType')->get_tree(@types);
     my %type_info = build_type_info($tree);
+
+    if (!%type_info) {
+        $c->stash(
+            template => 'edit/relationship/cannot_create.tt',
+            type0 => $types[0],
+            type1 => $types[1]
+        );
+        $c->detach;
+    }
 
     $c->stash(
         root      => $tree,

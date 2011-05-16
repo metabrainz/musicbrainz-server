@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010,2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -72,19 +72,25 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     self.render = function (data) {
 
-        self.$name.val (data.artist_name).removeClass('error');
+        // FIXME: use the same format everywhere.
+        var artist_name = data.artist_name !== undefined ? data.artist_name : data.artist.name;
+        var gid = data.gid !== undefined ? data.gid : data.artist.gid;
+        var id = data.id !== undefined ? data.id : data.artist.id;
+        var join = data.join !== undefined ? data.join : data.join_phrase;
+
+        self.$name.val (artist_name).removeClass('error');
         self.container.clearError (self);
         self.$sortname.val (data.sortname);
-        self.$join.val (data.join || '');
-        self.$gid.val (data.gid);
-        self.$id.val (data.id);
+        self.$join.val (join || '');
+        self.$gid.val (gid);
+        self.$id.val (id);
         self.updateLookupPerformed ();
 
-        if (data.name === '' || data.name === data.artist_name)
+        if (data.name === '' || data.name === artist_name)
         {
             self.$credit
                 .val ('')
-                .attr ('placeholder', data.artist_name)
+                .attr ('placeholder', artist_name)
                 .mb_placeholder (self.placeholder_options);
         }
         else
@@ -256,7 +262,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         var name = self.$credit.val ();
         if (name === '')
         {
-            name = self.$credit.attr ('placeholder');
+            name = self.$name.val ();
         }
 
         if (!name)

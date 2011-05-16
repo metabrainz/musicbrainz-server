@@ -2,7 +2,7 @@
     [%- INCLUDE 'browse/page_selector.tt' browse_title=l('Browse release groups') -%]
 
     [% IF index %]
-        <h2>[% l('Releases groups starting with “{index}”', { index => html_escape(index) }) %]</h2>
+        <h2>[% l('Release groups starting with “{index}”', { index => html_escape(index) }) %]</h2>
     [% END %]
 
     [%- IF release_groups.size -%]

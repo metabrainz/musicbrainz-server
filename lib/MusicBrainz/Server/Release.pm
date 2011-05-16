@@ -1338,11 +1338,11 @@ sub CanAddTrack
         $tracknum = int $tracknum;
 
         # Sanity checks on track number
-        $@ = l("$tracknum is not a valid track number"), return 0
+        $@ = l("{tracknum} is not a valid track number", { tracknum => $tracknum }), return 0
                 if $tracknum < 1;
 
         # Can't add a track if we've already got a track with that number
-        $@ = l("This release already has a track $tracknum"), return 0
+        $@ = l("This release already has a track {tracknum}", { tracknum => $tracknum }), return 0
                 if $havetracks->{$tracknum};
     }
 
@@ -1359,9 +1359,9 @@ sub CanAddTrack
     # range.
     if (defined $tracknum)
     {
-        $@ = ln("You can't add a track $tracknum - this release is meant to have exactly $fixtracks track",
-                "You can't add a track $tracknum - this release is meant to have exactly $fixtracks tracks",
-                $fixtracks),
+        $@ = ln("You can't add a track {tracknum} - this release is meant to have exactly {trackcount} track",
+                "You can't add a track {tracknum} - this release is meant to have exactly {trackcount} tracks",
+                { tracknum => $tracknum, trackcount => $fixtracks }),
                 return 0
                 if $tracknum > $fixtracks;
         
@@ -1389,7 +1389,7 @@ sub CanRemoveTrack
     my $havetracks = $self->_GetTrackNumbersHash;
 
     # Can't remove a track that's not there
-    $@ = l("There is no track $tracknum on this album"), return 0
+    $@ = l("There is no track {tracknum} on this album", { tracknum => $tracknum }), return 0
         if defined $tracknum and not $havetracks->{$tracknum};
 
     # If we have no disc ids, or if we do, but they suggest a conflicting
@@ -1405,9 +1405,9 @@ sub CanRemoveTrack
     {
         # Disallow removal of a track if it's within the TOC range, and it's not a
         # duplicate.
-        $@ = ln("You can't remove track $tracknum - this release is meant to have exactly $fixtracks track",
-                "You can't remove track $tracknum - this release is meant to have exactly $fixtracks tracks",
-                $fixtracks),
+        $@ = ln("You can't remove track {tracknum} - this release is meant to have exactly {trackcount} track",
+                "You can't remove track {tracknum} - this release is meant to have exactly {trackcount} tracks",
+                { tracknum => $tracknum, trackcount => $fixtracks }),
                 return 0
                 if $tracknum >= 1 and $tracknum <= $fixtracks
                         and $havetracks->{$tracknum} == 1;
@@ -1422,7 +1422,7 @@ sub CanRemoveTrack
     # Yes, if there's a track outside of the TOC range
     $@ = "", return 1 if grep { $_ < 1 or $_ > $fixtracks } keys %$havetracks;
     # Otherwise no
-    $@ = l("None of the tracks on this album is eligible for removal"), return 0;
+    $@ = l("None of the tracks on this album are eligible for removal"), return 0;
 }
 
 sub _GetTOCTracksHash
