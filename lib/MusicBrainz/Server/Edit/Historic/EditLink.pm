@@ -44,6 +44,7 @@ sub _upgrade
                 $self->new_value->{$prefix . 'entity1type'},
                 $self->new_value->{$prefix . 'entity1id'},
                 $self->new_value->{$prefix . 'entity1name'},
+                $self->new_value->{$prefix . 'linktypephrase'},
             )
         ],
         begin_date       => upgrade_date($hash->{$prefix . 'begindate'}),

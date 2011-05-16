@@ -256,9 +256,18 @@ sub recordings : Chained('load')
     }
     else
     {
-        $recordings = $self->_load_paged($c, sub {
+        if ($c->req->query_params->{standalone}) {
+            $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_standalone($artist->id, shift, shift);
+            });
+            $c->stash( standalone_only => 1 );
+        }
+        else {
+            $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_by_artist($artist->id, shift, shift);
             });
+        }
+
         $c->model('Recording')->load_meta(@$recordings);
 
         if ($c->user_exists) {
@@ -276,26 +285,6 @@ sub recordings : Chained('load')
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
         } @$recordings,
-    );
-}
-
-sub standalone_recordings : Chained('load') PathPart('standalone-recordings')
-{
-    my ($self, $c) = @_;
-
-    my $artist = $c->stash->{artist};
-    my $standalones = $self->_load_paged($c, sub {
-        $c->model('Recording')->find_standalone($artist->id, shift, shift);
-    });
-
-    $c->model('ISRC')->load_for_recordings(@$standalones);
-    $c->model('ArtistCredit')->load(@$standalones);
-
-    $c->stash(
-        recordings => $standalones,
-        show_artists => scalar grep {
-            $_->artist_credit->name ne $artist->name
-        } @$standalones,
     );
 }
 
