@@ -64,14 +64,6 @@
         [% END %]
 
         [% IF c.user_exists %]
-            [% IF edit.is_open AND server_details.staging_server %]
-                <h2>[% l('Testing features') %]</h2>
-                <p>[%- l('To aid in testing, the following features have been made available on testing servers:') -%]</p>
-                <ul>
-                    <li><a href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Accept edit') %]</a></li>
-                    <li><a href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject edit') %]</a></li>
-                </ul>
-            [% END %]
         [% ELSE %]
             <p>
                 [%- l('You must be logged in to vote on edits') -%]
