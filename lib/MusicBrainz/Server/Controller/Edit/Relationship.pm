@@ -132,8 +132,14 @@ sub edit : Local RequireAuth Edit
             begin_date   => $form->field('begin_date')->value,
             end_date     => $form->field('end_date')->value,
             attributes   => [uniq @attributes],
-            entity0      => $form->field('entity0.id')->value,
-            entity1      => $form->field('entity1.id')->value,
+            $form->field('direction')->value
+                # User is changing the direction
+                ? (entity0      => $form->field('entity1.id')->value,
+                   entity1      => $form->field('entity0.id')->value)
+
+                # User is not changing the direction
+                : (entity0      => $form->field('entity0.id')->value,
+                   entity1      => $form->field('entity1.id')->value)
         })) {
             $c->stash( exists => 1 );
             $c->detach;

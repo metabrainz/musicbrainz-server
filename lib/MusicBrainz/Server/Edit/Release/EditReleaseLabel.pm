@@ -71,6 +71,7 @@ sub build_display_data
 
     for (qw( new old )) {
         if (my $lbl = $self->data->{$_}{label}) {
+            next unless %$lbl;
             $data->{label}{$_} = $loaded->{Label}{ $lbl->{id} }
                 || Label->new( name => $lbl->{name} );
         }
@@ -142,10 +143,15 @@ sub initialize
 sub accept
 {
     my $self = shift;
-    $self->c->model('ReleaseLabel')->update($self->release_label_id, {
-        label_id => $self->data->{new}{label}{id},
-        catalog_number => $self->data->{new}{catalog_number},
-    });
+
+    my %args;
+    $args{label_id} = $self->data->{new}{label}{id}
+        if exists $self->data->{new}{label}{id};
+
+    $args{catalog_number} = $self->data->{new}{catalog_number}
+        if exists $self->data->{new}{catalog_number};
+
+    $self->c->model('ReleaseLabel')->update($self->release_label_id, \%args);
 }
 
 __PACKAGE__->meta->make_immutable;
