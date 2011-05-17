@@ -71,7 +71,11 @@ sub foreign_keys
 
     my %load;
 
-    $load{LinkType} = [ $self->data->{link}->{link_type_id} ];
+    $load{LinkType} = [
+        $self->data->{link}->{link_type_id},
+        $self->data->{new}->{link_type_id},
+        $self->data->{old}->{link_type_id}
+    ];
     $load{LinkAttributeType} = [
         @{ $self->data->{link}->{attributes} },
         @{ $self->data->{new}->{attributes} || [] },
@@ -102,17 +106,18 @@ sub _build_relationship
     my $model0 = type_to_model($data->{type0});
     my $model1 = type_to_model($data->{type1});
 
-    my $begin      = defined $change->{begin_date} ? $change->{begin_date} : $link->{begin_date};
-    my $end        = defined $change->{end_date}   ? $change->{end_date}   : $link->{end_date};
-    my $attributes = defined $change->{attributes} ? $change->{attributes} : $link->{attributes};
-    my $entity0    = defined $change->{entity0_id} ? $change->{entity0_id} : $link->{entity0_id};
-    my $entity1    = defined $change->{entity1_id} ? $change->{entity1_id} : $link->{entity1_id};
+    my $begin      = defined $change->{begin_date}   ? $change->{begin_date}   : $link->{begin_date};
+    my $end        = defined $change->{end_date}     ? $change->{end_date}     : $link->{end_date};
+    my $attributes = defined $change->{attributes}   ? $change->{attributes}   : $link->{attributes};
+    my $entity0    = defined $change->{entity0_id}   ? $change->{entity0_id}   : $link->{entity0_id};
+    my $entity1    = defined $change->{entity1_id}   ? $change->{entity1_id}   : $link->{entity1_id};
+    my $lt_id      = defined $change->{link_type_id} ? $change->{link_type_id} : $link->{link_type_id};
 
     return unless $entity0 && $entity1;
 
     return Relationship->new(
         link => Link->new(
-            type       => $loaded->{LinkType}{ $link->{link_type_id} },
+            type       => $loaded->{LinkType}{ $lt_id },
             begin_date => partial_date_from_row( $begin ),
             end_date   => partial_date_from_row( $end ),
             attributes => [
