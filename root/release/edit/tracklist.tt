@@ -130,14 +130,14 @@
       <ul class="tabs">
         <li class="first sel"><a class="manual" href="#manual">[% l('Manual entry') %]</a></li>
         <li><a class="tracklist" href="#tracklist">[% l('Existing tracklist') %]</a></li>
-        <li><a class="cdstub" href="#cdstub">[% l('CDStub import') %]</a></li>
+        <li><a class="cdstub" href="#cdstub">[% l('CD stub import') %]</a></li>
         <li><a class="freedb" href="#freedb">[% l('FreeDB import') %]</a></li>
       </ul>
     </div>
 
     <div class="add-disc-tab manual">
         <p>
-        [% l('To use an existing tracklist or import a disc from a cdstub or freedb, select the appropriate tab.') %]
+        [% l('To use an existing tracklist or import a disc from a CD stub or freedb, select the appropriate tab.') %]
         [% l('Alternatively, click "Add Disc" to manually enter the tracklist.') %]
         </p>
     </div>
@@ -172,7 +172,7 @@
     </div>
     <div class="add-disc-tab cdstub" style="display: none">
       <p>
-        [% l('Use the following fields to search for a cdstub.') %]
+        [% l('Use the following fields to search for a CD stub.') %]
       </p>
 
       [%- tracklist_pager -%]
