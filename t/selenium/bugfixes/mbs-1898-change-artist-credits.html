@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>mbs-1898-change-artist-credits</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">mbs-1898-change-artist-credits</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/release/d94a8330-f129-4ec0-87e1-0107836066fa/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>open-ac</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-artist_credit.names.0.name</td>
+	<td>SKC credit</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>css=input#id-change_track_artists</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href=#advanced]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>css=input.artistcolumn:eq(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.artistcolumn:eq(1)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=tr.track:eq(3) td.credits-button a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=tr.track-artist-credit.container:eq(3) tr.artist-credit-box:eq(0) input.credit</td>
+	<td>Mindscape credit</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#recording-assoc-disc-1 span.track-artist:eq(0)</td>
+	<td>Mindscape credit</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#recording-assoc-disc-1 span.track-artist:eq(1)</td>
+	<td>SKC credit</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id-next</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

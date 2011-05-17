@@ -81,13 +81,21 @@ MB.Control.ReleaseEdits = function ($edits) {
     self.artistCreditToDeprecatedFormat = function (ac) {
         var ret = [];
         $.each (ac.names, function (idx, credit) {
-            ret.push ({
-                'artist_name': credit.artist.name,
-                'gid': credit.artist.gid,
-                'id': credit.artist.id,
-                'join': credit.join_phrase,
-                'name': credit.name
-            });
+            if (credit.artist_name)
+            {
+                /* already in the deprecated format. */
+                ret.push (credit);
+            }
+            else
+            {
+                ret.push ({
+                    'artist_name': credit.artist.name,
+                    'gid': credit.artist.gid,
+                    'id': credit.artist.id,
+                    'join': credit.join_phrase,
+                    'name': credit.name
+                });
+            }
         });
 
         ac.names = ret;
