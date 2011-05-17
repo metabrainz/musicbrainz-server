@@ -111,12 +111,6 @@
 </div>
 [%- END -%]
 
-[%- MACRO artist_credit_preview_from_field(ac) BLOCK -%]
-  [%- FOR credit=ac.value.names -%]
-    [%- credit.name | html -%][%- credit.join_phrase | html -%]
-  [%- END -%]
-[%- END -%]
-
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
   [% USE w = Wizard() %]
@@ -373,7 +367,13 @@
     <h2>[% l('Preview') %]</h2>
 
     <h3>[% information.field('name').value | html %]</h3>
-    <p>by [% artist_credit_preview_from_field(release_artist) %]</p>
+    <p>
+        [%- l('by {artist}', {
+          artist => '<span class="release-artist">' _
+            artist_credit_preview_from_field(information.field('artist_credit')) _
+            '</span>' }) -%]
+    </p>
+
 
     <div style="display: none" id="discid-warning">[% warning("") %]</div>
 
