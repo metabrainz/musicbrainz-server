@@ -49,15 +49,15 @@
 
   [%- FOR ac=acfield.field('names').fields -%]
     [%- artistnum = loop.index -%]
-    [%- artist = ac.field('artist').item -%]
+    [%- artist = ac.field('artist') -%]
     <tr class="artist-credit-box">
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
-          [%- r.text (ac.field('artist').field('name'), class => 'name') -%]
+          <input type="text" class="name" value="[% artist.field('name').value | html %]" />
           <img class="search" src="/static/images/icons/search.png" />
         </span>
-        <input type="hidden" class="gid" value="[% artist.gid | html %]" />
-        [%- r.hidden (ac.field('artist').field('id'), class => 'id') -%]
+        <input type="hidden" class="gid" value="[% artist.item.gid | html %]" />
+        <input type="hidden" class="id" value="[% artist.field('id').value | html %]" />
       </td>
       <td class="artistcredit">
         <input type="text" class="credit" value="[% ac.field('name').value | html %]" />
