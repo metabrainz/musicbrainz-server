@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str );
 use MooseX::Types::Structured qw( Map );
 use String::TT qw( strip tt );
+use URI::Escape;
 use MusicBrainz::Server::Entity::Types;
 
 has 'editor' => (
@@ -111,14 +112,16 @@ sub edits_for_type {
 sub edits_for_editors {
     my $self = shift;
     my $subs = \@_;
+
+    my $escape = sub { uri_escape(shift) };
     return strip tt q{
 Changes by your subscribed editors:
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
 [%- editor = sub.subscription.subscribed_editor -%]
 [% editor.name %] ([% sub.open.size %] open, [% sub.applied.size %] applied)
-Open edits: [% self.server %]/user/[% editor.name %]/edits/open
-All edits: [% self.server %]/user/[% editor.name %]/edits
+Open edits: [% self.server %]/user/[% escape(editor.name) %]/edits/open
+All edits: [% self.server %]/user/[% escape(editor.name) %]/edits
 
 [% END %]
 };
