@@ -347,7 +347,7 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
         type    => $type
     );
 
-    my $form = $c->form( form => 'Relationship::Recordings' );
+    $form = $c->form( form => 'Relationship::Recordings' );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @attributes;
