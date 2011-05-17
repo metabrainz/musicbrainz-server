@@ -185,6 +185,28 @@ sub find_by_voter
     );
 }
 
+sub find_open_for_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query =
+        'SELECT ' . $self->_columns . '
+           FROM ' . $self->_table . '
+          WHERE status = ?
+            AND NOT EXISTS (
+                SELECT TRUE FROM vote
+                 WHERE vote.edit = edit.id
+                   AND vote.editor = ?
+                   AND vote.superseded = FALSE
+                )
+       ORDER BY id DESC
+         OFFSET ? LIMIT 500';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub { $self->_new_from_row(shift) },
+        $query, $STATUS_OPEN, $editor_id, $offset
+    );
+}
 
 sub subscribed_entity_edits
 {
