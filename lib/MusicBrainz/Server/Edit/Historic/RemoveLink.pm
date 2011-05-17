@@ -39,6 +39,7 @@ sub upgrade
                 $self->new_value->{entity1type},
                 $self->new_value->{entity1id},
                 $self->new_value->{entity1name},
+                $self->new_value->{linktypephrase}
             )
         ],
         link_type_id => $self->new_value->{linktypeid},

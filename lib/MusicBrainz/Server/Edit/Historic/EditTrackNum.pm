@@ -16,7 +16,7 @@ sub related_entities
 {
     my $self = shift;
     return {
-        recording => [ $self->data->{recording_id} ]
+        release => $self->data->{release_ids}
     }
 }
 
@@ -52,7 +52,10 @@ sub upgrade
         track_id     => $self->row_id,
         recording_id => $self->resolve_recording_id( $self->row_id ),
         old          => { position => $self->previous_value },
-        new          => { position => $self->new_value }
+        new          => { position => $self->new_value },
+        release_ids  => $self->album_release_ids(
+            $self->track_to_album( $self->row_id )
+        )
     });
 
     return $self;

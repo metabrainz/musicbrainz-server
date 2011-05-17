@@ -59,7 +59,10 @@ sub upgrade
 {
     my $self = shift;
     $self->data({
-        release_ids  => $self->album_release_ids($self->new_value->{AlbumId}),
+        # -1 means we'll turn this into a standalone recording later
+        release_ids  => $self->previous_value eq '[non-album tracks]'
+            ? [ -42 ]
+            : $self->album_release_ids($self->new_value->{AlbumId}),
         recording_id => $self->resolve_recording_id($self->row_id),
         track_id     => $self->row_id,
         artist_id    => $self->artist_id,
@@ -70,5 +73,7 @@ sub upgrade
 
     return $self;
 }
+
+sub deserialize_previous_value { shift; return shift() }
 
 1;

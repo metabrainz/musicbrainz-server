@@ -17,8 +17,8 @@
 [%- USE r = FormRenderer(form) -%]
 
 [%- MACRO relationship_entity(field, entity, type) BLOCK; -%]
+  [%- r.hidden(field.field('id')) -%]
   [%- IF type != 'url' -%]
-    [%- r.hidden(field.field('id')) -%]
     <span class="[% type %] autocomplete">
       [%- r.text(field.field('name'), class => type _ '-name') -%]
       <img class="search" src="/static/images/icons/search.png" />

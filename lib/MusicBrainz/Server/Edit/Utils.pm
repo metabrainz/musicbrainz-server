@@ -149,6 +149,11 @@ sub clean_submitted_artist_credits
         if (ref $part eq 'HASH')
         {
             push @delete, $_ unless ($part->{artist}->{id} || $part->{artist}->{name} || $part->{name});
+
+            # MBID is only used for display purposes so remove it (we
+            # use the id in edits, and that should determine if an
+            # artist changed in Edit::WithDifferences).
+            delete $part->{artist}->{gid};
         }
         elsif (! $part)
         {
@@ -160,6 +165,10 @@ sub clean_submitted_artist_credits
     {
         delete $ac->{names}->[$_];
     }
+
+    # The preview should also not be considered when comparing artists in
+    # Edit::WithDifferences.
+    delete $ac->{preview};
 
     return $ac;
 }

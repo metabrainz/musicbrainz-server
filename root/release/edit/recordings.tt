@@ -222,7 +222,10 @@
 
       <p>
         <strong>[%- information.field('name').value | html -%]</strong><br />
-        by [%- information.field('artist_credit').fif.name | html -%]
+        [%- l('by {artist}', {
+          artist => '<span class="release-artist">' _
+            artist_credit_preview_from_field(information.field('artist_credit')) _
+            '</span>' }) -%]
       </p>
 
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]

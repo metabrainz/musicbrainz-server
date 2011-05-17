@@ -363,10 +363,10 @@ eval {
         DROP INDEX tmp_release_label_idx_release;
         DROP INDEX tmp_release_idx_id;
         DROP INDEX tmp_release_name_idx_id;
-        DROP INDEX tmp_link_type_gid ON link_type (gid);
-        DROP INDEX tmp_l_artist_release ON l_artist_release (entity1);
-        DROP INDEX tmp_link_type_id ON link_type (id);
-        DROP INDEX tmp_link_lt ON link (link_type);
+        DROP INDEX tmp_link_type_gid;
+        DROP INDEX tmp_l_artist_release;
+        DROP INDEX tmp_link_type_id;
+        DROP INDEX tmp_link_lt;
     ");
     undef %link_map;
     undef %reverse_link_map;

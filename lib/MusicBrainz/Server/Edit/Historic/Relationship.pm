@@ -153,13 +153,38 @@ sub work_ids          { my $self = shift; return ( $self->resolve_work_id(shift)
 sub _expand_relationships {
     my ($self, $link_type_id,
         $entity0_type, $entity0_id, $entity0_name,
-        $entity1_type, $entity1_id, $entity1_name) = @_;
+        $entity1_type, $entity1_id, $entity1_name,
+        $link_type_phrase) = @_;
 
     my $mappings = $end_point_map{$entity0_type}{$entity1_type}{$link_type_id} ||
         [ [
             upgrade_type($entity0_type),
             upgrade_type($entity1_type)
         ] ];
+
+    if ($entity0_type eq 'track' && $entity1_type eq 'track' && $link_type_id == 5) {
+        if ($link_type_phrase =~ /translated/ || $link_type_phrase =~ /parody/) {
+            $mappings = [
+                [ 'work', 'work' ]
+            ];
+            ($entity0_id, $entity1_id) = ($entity1_id, $entity0_id);
+
+            if ($link_type_phrase =~ /translated/ && $link_type_phrase =~ /parody/) {
+                $link_type_phrase = 'later translated parody versions';
+            }
+            elsif ($link_type_phrase =~ /translated/) {
+                $link_type_phrase = 'later translated versions';
+            }
+            elsif ($link_type_phrase =~ /parody/) {
+                $link_type_phrase = 'later parody versions';
+            }
+        }
+        else {
+            $mappings = [
+                [ 'recording', 'work' ]
+            ];
+        }
+    }
 
     return map {
         my ($mapped_type0, $mapped_type1) = @$_;
@@ -170,12 +195,13 @@ sub _expand_relationships {
             map {
                 my $mapped1_id = $_;
                 +{
-                    entity0_id   => $mapped0_id,
-                    entity1_id   => $mapped1_id,
-                    entity0_type => $mapped_type0,
-                    entity1_type => $mapped_type1,
-                    entity0_name => $entity0_name,
-                    entity1_name => $entity1_name,
+                    entity0_id       => $mapped0_id,
+                    entity1_id       => $mapped1_id,
+                    entity0_type     => $mapped_type0,
+                    entity1_type     => $mapped_type1,
+                    entity0_name     => $entity0_name,
+                    entity1_name     => $entity1_name,
+                    link_type_phrase => $link_type_phrase
                 }
             } $self->$map_1($entity1_id)
         } $self->$map_0($entity0_id)
@@ -200,7 +226,7 @@ sub _display_relationships {
                     begin_date => PartialDate->new($data->{begin_date}),
                     end_date   => PartialDate->new($data->{end_date}),
                     type       => LinkType->new(
-                        link_phrase => $data->{link_type_phrase}
+                        link_phrase => $_->{link_type_phrase}
                     )
                 ),
                 direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD

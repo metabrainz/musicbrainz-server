@@ -40,7 +40,7 @@ my $fHelp;
 my $fProgress = -t STDOUT;
 my $tmpdir = "/tmp";
 my $fKeepFiles = 0;
-my $baseuri = "http://data.ngs.musicbrainz.org";
+my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
 

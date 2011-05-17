@@ -50,6 +50,8 @@ echo `date` : Fixing refcounts
 
 echo `date` : Migrating edits
 ./admin/sql/updates/ngs-migrate-edits.pl
+echo `date` : Fixing artist credit links
+./admin/sql/updates/ngs-fix-artist-links.pl
 
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
@@ -86,6 +88,8 @@ echo `date`: Cleaning up and vacuuming
 echo 'DROP TABLE tmp_recording_merge' | ./admin/psql RAWDATA
 echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
 echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
+
+./admin/psql READWRITE <./admin/sql/ReplicationSetup.sql
 
 echo "Export of temporary migration tables"
 ./admin/ExportAllTables --table=tmp_release_album --table=tmp_recording_merge --table=tmp_work_merge --table=tmp_url_merge --table=tmp_release_merge --keep-files --without-replication --nocompress

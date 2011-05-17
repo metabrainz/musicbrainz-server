@@ -38,6 +38,7 @@ sub resolve_work_id { shift->migration->resolve_work_id(@_) }
 sub artist_name { shift->migration->artist_name(@_) }
 sub label_id_from_alias { shift->migration->label_id_from_alias(@_) }
 sub resolve_annotation_id { shift->migration->resolve_annotation_id(@_) }
+sub track_to_album { shift->migration->track_to_album(@_) }
 
 sub deserialize
 {

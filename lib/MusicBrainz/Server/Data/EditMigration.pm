@@ -199,6 +199,13 @@ sub label_id_from_alias
     return $label_alias->{id};
 }
 
+my $track_album;
+sub track_to_album
+{
+    my ($self, $id) = @_;
+    return $self->c->sql->select_single_value('SELECT album FROM public.albumjoin WHERE track = ?', $id);
+}
+
 my $album_release_ids;
 sub album_release_ids
 {

@@ -533,7 +533,10 @@ sub can_merge {
             @old_ids, $new_id);
 
         return !$mediums_differ;
-    };
+    }
+    elsif ($strategy == $MERGE_APPEND) {
+        return 1;
+    }
 }
 
 sub merge
