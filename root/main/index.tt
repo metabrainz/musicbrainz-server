@@ -41,7 +41,7 @@
             </li>
             <li>
                 [% l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.',
-                    { doc => doc_link('MusicBrainz_Identification') }) %]
+                    { doc => doc_link('MusicBrainz_Identifier') }) %]
             </li>
         </ol>
 
