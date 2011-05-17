@@ -126,21 +126,22 @@ sub cookie_login : Private
     return if $c->user_exists;
 
     my ($user_name, $password, $delete_cookie);
+    my $value = decode('utf-8', $cookie->value);
 
     # Format 1: plaintext user + password
     try {
-        if ($cookie->value =~ /^1\t(.*?)\t(.*)$/) {
+        if ($value =~ /^1\t(.*?)\t(.*)$/) {
             ($user_name, $password) = ($1, $2);
         }
         # Format 2: username, sha1(password + secret), expiry time,
         # IP address mask, sha1(previous fields + secret)
-        elsif ($cookie->value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
+        elsif ($value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
         {
             $c->log->info('Found version 2 format cookie');
             ($user_name, my $pass_sha1, my $expiry, my $ipmask, my $sha1)
                 = ($1, $2, $3, $4, $5);
 
-            my $correct_sha1 = sha1_base64("2\t$1\t$2\t$3\t$4" . DBDefs::SMTP_SECRET_CHECKSUM);
+            my $correct_sha1 = _cookie_sha($1, $2, $3, $4);
             die "Invalid cookie sha1"
                 unless $sha1 eq $correct_sha1;
 
@@ -176,6 +177,14 @@ sub _clear_login_cookie
     };
 }
 
+sub _cookie_sha {
+    my ($user_name, $password_sha1, $expiry_time, $ip_mask) = @_;
+    return sha1_base64(
+        encode('utf-8', "2\t$user_name\t$password_sha1\t$expiry_time\t$ip_mask") .
+            DBDefs::SMTP_SECRET_CHECKSUM
+    );
+}
+
 sub _set_login_cookie
 {
     my ($self, $c) = @_;
@@ -187,7 +196,7 @@ sub _set_login_cookie
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
-        value => encode('utf-8', $value) . "\t" . sha1_base64(encode('utf-8', $value) . DBDefs::SMTP_SECRET_CHECKSUM)
+        value => encode('utf-8', $value . "\t" . _cookie_sha($c->user->name, $password_sha1, $expiry_time, $ip_mask))
     };
 }
 
