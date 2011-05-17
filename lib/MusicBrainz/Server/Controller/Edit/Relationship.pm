@@ -145,7 +145,7 @@ sub edit : Local RequireAuth Edit
             type0             => $type0,
             type1             => $type1,
             entity0_id        => $form->field('entity0.id')->value,
-            entity1_id        => $form->field('entity0.id')->value,
+            entity1_id        => $form->field('entity1.id')->value,
             relationship      => $rel,
             link_type_id      => $form->field('link_type_id')->value,
             begin_date        => $form->field('begin_date')->value,
