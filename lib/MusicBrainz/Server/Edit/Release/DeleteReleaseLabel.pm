@@ -62,7 +62,8 @@ sub build_display_data
     my $label = $loaded->{Label}->{ $self->data->{label} };
 
     my $data = {
-        release => $loaded->{Release}->{ $self->data->{release_id} },
+        release => $loaded->{Release}->{ $self->data->{release}{id} } ||
+            Release->new( name => $self->data->{release}{name} ),
         catalog_number => $self->data->{catalog_number},
     };
 
