@@ -9,7 +9,7 @@
 [%- favicons = entity.relationships_by_type('url') -%]
 [%- IF favicons.size -%]
     <h2>[% l('External links') %]</h2>
-    <ul>
+    <ul class="links">
       [%- FOREACH favicon IN favicons -%]
         [%- display_favicon(favicon.target, l('Official homepage'))
               IF favicon.link.type.name == 'official homepage' -%]
