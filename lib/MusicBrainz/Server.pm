@@ -208,20 +208,30 @@ sub relative_uri
 }
 
 use POSIX qw(SIGALRM);
-use IO::Handle;
+use Proc::ProcessTable;
 
-my $fh;
+my $pt;
+
+sub setup {
+	my $c = shift @_;
+	$pt = Proc::ProcessTable->new;
+	return $c->next::method(@_)
+}
 
 around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
-    unless ($fh) {
-        open($fh, ">", "/home/musicbrainz/requests/$$");
-        $fh->autoflush(1);
-    }
+    my ($process_info) = grep { $_->pid == $$ } @{ $pt->table };
+    printf STDERR "%s : \"%s %s\" pid=%d virt=%d res=%d served=%d\n",
+        time,
+        $c->req->method,
+        $c->req->uri,
+        $$,
+        $process_info->size,
+        $process_info->rss,
+        $Catalyst::COUNT;
 
-    printf $fh "%s : Serving %s\n", time, $c->req->uri;
     Translation->instance->build_languages_from_header($c->req->headers);
 
     if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
