@@ -338,8 +338,10 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     else
     {
         /* if artist name and artist credit are identical on load, render
-           the artist credit as a placeholder. */
-        if (self.$name.val () === self.$credit.val ())
+           the artist credit as a placeholder.  Also initialize the placeholder
+           if the artist credit is empty. */
+        if (self.$name.val () === self.$credit.val ()
+            || self.$credit.val () === '')
         {
             self.$credit.val ('');
             self.$credit.attr ('placeholder', self.$name.val ())
