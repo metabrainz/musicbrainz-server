@@ -26,6 +26,11 @@ is($edits->[0]->id, $edit->id);
 my $release = $c->model('Release')->get_by_id(1);
 is($release->edits_pending, 1, 'Release has edits pending');
 
+$c->model('ReleaseLabel')->load($release);
+is($release->label_count, 2, "Release now has an extra label");
+is($release->labels->[0]->id, 1, "Release label id is 1");
+is($release->labels->[1]->catalog_number, 'AVCD-51002', "Has new release label");
+
 reject_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
@@ -40,7 +45,6 @@ $release = $c->model('Release')->get_by_id(1);
 $c->model('ReleaseLabel')->load($release);
 is($release->label_count, 2, "Release has two labels after accepting edit");
 is($release->labels->[0]->id, 1, "First release label is unchanged");
-is($release->labels->[1]->id, 2, "Second release label has id 1");
 is($release->labels->[1]->label_id, 1, "Second release label has label_id 1");
 is($release->labels->[1]->catalog_number, 'AVCD-51002', "Second release label has catalog number AVCD-51002");
 

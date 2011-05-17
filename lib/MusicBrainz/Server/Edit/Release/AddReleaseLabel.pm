@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::Insert';
 
 sub edit_name { l('Add release label') }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
@@ -97,14 +98,21 @@ sub build_display_data
     return $data;
 }
 
-sub accept
+sub insert
 {
     my $self = shift;
-    $self->c->model('ReleaseLabel')->insert({
+    my $rl = $self->c->model('ReleaseLabel')->insert({
         release_id => $self->release_id,
         label_id   => $self->data->{label}{id},
         catalog_number => $self->data->{catalog_number}
     });
+    $self->entity_id($rl->id);
+}
+
+sub reject
+{
+    my $self = shift;
+    $self->c->model('ReleaseLabel')->delete($self->entity_id);
 }
 
 __PACKAGE__->meta->make_immutable;
