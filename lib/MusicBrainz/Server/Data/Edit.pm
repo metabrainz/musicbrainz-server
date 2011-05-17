@@ -227,6 +227,12 @@ sub subscribed_entity_edits
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE editor != ?
             AND status = ?
+            AND NOT EXISTS (
+                SELECT TRUE FROM vote
+                 WHERE vote.edit = edit.id
+                   AND vote.editor = ?
+                   AND vote.superseded = FALSE
+                )
             AND id IN (' .
             join(
                 ' UNION ALL ',
@@ -245,7 +251,7 @@ sub subscribed_entity_edits
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $editor_id, $STATUS_OPEN,
+        $query, $editor_id, $STATUS_OPEN, $editor_id,
         (map { @{ $subscriptions{$_} } } @filter_on),
         $offset);
 }
@@ -264,6 +270,12 @@ sub subscribed_editor_edits {
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE status = ?
             AND editor IN (' . placeholders(@editor_ids) . ')
+            AND NOT EXISTS (
+                SELECT TRUE FROM vote
+                 WHERE vote.edit = edit.id
+                   AND vote.editor = ?
+                   AND vote.superseded = FALSE
+                )
        ORDER BY id DESC
          OFFSET ?';
 
@@ -272,7 +284,7 @@ sub subscribed_editor_edits {
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, @editor_ids, $offset);
+        $query, $STATUS_OPEN, @editor_ids, $editor_id, $offset);
 }
 
 sub merge_entities
