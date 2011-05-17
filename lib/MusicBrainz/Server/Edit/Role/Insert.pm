@@ -11,7 +11,8 @@ override 'to_hash' => sub
 {
     my $self = shift;
     my $hash = super(@_);
-    die "Role::Insert used without setting entity_id!";
+    die "Role::Insert used without setting entity_id!"
+        unless $self->entity_id;
     $hash->{entity_id} = $self->entity_id;
     return $hash;
 };
