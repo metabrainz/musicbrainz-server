@@ -71,6 +71,7 @@ sub build_display_data
 
     for (qw( new old )) {
         if (my $lbl = $self->data->{$_}{label}) {
+            next unless %$lbl;
             $data->{label}{$_} = $loaded->{Label}{ $lbl->{id} }
                 || Label->new( name => $lbl->{name} );
         }
