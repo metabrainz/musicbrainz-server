@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
+use Cache::Memcached;
 use Carp qw( croak );
+
+my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
 
 has '_current' => (
     is => 'rw',
@@ -425,21 +428,30 @@ around '_current' => sub {
     return $self->$orig ($value);
 };
 
+sub _cache_key
+{
+    my ($self, $key) = @_;
+
+    my $catalyst_session_id = $self->c->sessionid;
+    my $sid = $self->_session_id;
+
+    return "wizard_session:$catalyst_session_id:$sid:$key";
+}
+
 sub _store
 {
-    my ($self, $key, $val) = @_;
+    my ($self, $key, $value) = @_;
 
-    if (!defined $self->c->session->{wizard}->{$self->_session_id})
+    if (defined $value)
     {
-        $self->c->session->{wizard}->{$self->_session_id} = {};
+        $cache->set ($self->_cache_key ($key), $value);
+    }
+    else
+    {
+        $value = $cache->get ($self->_cache_key ($key));
     }
 
-    if (defined $val)
-    {
-        $self->c->session->{wizard}->{$self->_session_id}->{$key} = $val;
-    }
-
-    return $self->c->session->{wizard}->{$self->_session_id}->{$key};
+    return $value;
 }
 
 sub _retrieve_wizard_settings
