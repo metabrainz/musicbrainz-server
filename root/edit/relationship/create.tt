@@ -50,7 +50,7 @@
                 <td colspan="2">
                     [% r.select('link_type_id', no_default => 1) %]
                     [% field_errors(form, 'link_type_id') %]
-                    [% IF relationship.link.type.entity0_type == relationship.link.type.entity1_type %]
+                    [% IF source_type == dest_type %]
                       <span id="change-direction">
                       [%- IF no_javascript -%]
                         [% r.checkbox('direction') %] [% l('Change direction') %]

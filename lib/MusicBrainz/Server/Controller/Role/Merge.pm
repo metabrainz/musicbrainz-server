@@ -142,7 +142,8 @@ role {
                 id => $_->id,
                 name => $_->name
             }, @$old ],
-            map { $_->name => $_->value } $form->edit_fields
+            (map { $_->name => $_->value } $form->edit_fields),
+            $self->_merge_parameters($c, $form, $entities)
         );
 
         $c->session->{merger} = undef;
@@ -151,6 +152,10 @@ role {
             $c->uri_for_action($self->action_for('show'), [ $new->[0]->gid ])
         );
     };
+
+    method _merge_parameters {
+        return ()
+    }
 };
 
 sub _merge_search {
