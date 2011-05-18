@@ -64,6 +64,12 @@ sub foreign_keys
     return $fks;
 }
 
+sub initialize {
+    my ($self, %opts) = @_;
+    $opts{_edit_version} = 2;
+    $self->data(\%opts);
+}
+
 override build_display_data => sub
 {
     my ($self, $loaded) = @_;
