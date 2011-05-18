@@ -318,6 +318,13 @@ sub SESSION_STORE_ARGS
 #    }
 #}
 
+# MusicBrainz::Server::Wizard saves wizard sessions in memcached,
+# seperately from the regular session store.
+sub WIZARD_MEMCACHED
+{
+    return { servers => [ "127.0.0.1:11211" ] };
+}
+
 sub USE_ETAGS { 1 }
 
 sub CATALYST_DEBUG { 1 }
