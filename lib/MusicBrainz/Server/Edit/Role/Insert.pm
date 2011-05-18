@@ -11,6 +11,8 @@ override 'to_hash' => sub
 {
     my $self = shift;
     my $hash = super(@_);
+    die "Role::Insert used without setting entity_id!"
+        unless $self->entity_id;
     $hash->{entity_id} = $self->entity_id;
     return $hash;
 };
@@ -18,7 +20,9 @@ override 'to_hash' => sub
 before 'restore' => sub
 {
     my ($self, $hash) = @_;
-    $self->entity_id(delete $hash->{entity_id});
+    # Sadly, we now have some edits (AddReleaseEdits) that didn't have an entity_id set
+    $self->entity_id(delete $hash->{entity_id})
+        if $hash->{entity_id};
 };
 
 1;

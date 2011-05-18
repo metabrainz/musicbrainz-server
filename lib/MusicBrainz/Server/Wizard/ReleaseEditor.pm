@@ -18,6 +18,7 @@ use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
@@ -696,6 +697,11 @@ sub prepare_missing_entities
             map {
                 $_ => [ $self->c->model('Artist')->find_by_name($_) ]
             } map { $_->{for} } @credits
+        },
+        possible_labels => {
+            map {
+                $_ => [ $self->c->model('Label')->find_by_name($_) ]
+            } map { $_->{for} } @labels
         }
     );
 }
@@ -912,14 +918,22 @@ sub _edit_release_labels
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
-        elsif ($new_label->{label_id} || $new_label->{catalog_number})
+        elsif (
+            $previewing ?
+                $new_label->{name} :
+                $new_label->{label_id} || $new_label->{catalog_number})
         {
             # Add ReleaseLabel
 
             $create_edit->(
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
                 release => $previewing ? undef : $self->release,
-                label => $labels->{ $new_label->{label_id} },
+                label => $previewing
+                    ? Label->new(
+                        id   => 0,
+                        name => $new_label->{name}
+                    )
+                    : $labels->{ $new_label->{label_id} },
                 catalog_number => $new_label->{catalog_number},
                 as_auto_editor => $data->{as_auto_editor},
             );
