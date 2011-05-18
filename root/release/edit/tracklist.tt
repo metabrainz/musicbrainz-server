@@ -137,7 +137,7 @@
 
     <div class="add-disc-tab manual">
         <p>
-        [% l('To use an existing tracklist or import a disc from a CD stub or freedb, select the appropriate tab.') %]
+        [% l('To use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]
         [% l('Alternatively, click "Add Disc" to manually enter the tracklist.') %]
         </p>
     </div>
@@ -179,7 +179,7 @@
     </div>
     <div class="add-disc-tab freedb" style="display: none">
       <p>
-        [% l('Use the following fields to search for a freedb.') %]
+        [% l('Use the following fields to search for a FreeDB entry.') %]
       </p>
 
       [%- tracklist_pager -%]
