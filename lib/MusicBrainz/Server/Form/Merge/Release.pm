@@ -31,11 +31,15 @@ has_field 'medium_positions.map.id' => (
     type => 'Integer',
 );
 
+has_field 'medium_positions.map.release_id' => (
+    type => 'Integer'
+);
+
 has_field 'medium_positions.map.position' => (
     type => 'Integer',
 );
 
-sub edit_field_names { qw(merge_strategy medium_positions) }
+sub edit_field_names { qw(merge_strategy) }
 
 sub options_merge_strategy {
     return [

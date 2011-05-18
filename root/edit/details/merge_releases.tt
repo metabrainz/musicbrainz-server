@@ -1,5 +1,45 @@
 <table class="details merge-releases">
+[% IF edit.data.merge_strategy == 1 %]
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td>
+      <table class="tbl">
+        [% FOR change=edit.display_data.changes %]
+        <thead>
+          <tr>
+            <th>[% descriptive_link(change.release) %]<?th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR medium=change.mediums %]
+          <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+            <td>[% l('Medium {position} is now medium {new_position}', {
+                position => medium.old_position,
+                new_position => medium.new_position,
+                }) %]</td>
+          </tr>
+          [% END %]
+        </tbody>
+        [% END %]
+      </table>
+    </td>
+  </tr>
+  [% IF edit.data.item('_edit_version') == 1 %]
+    [% INCLUDE 'edit/details/merge_common.tt' %]
+    <tr>
+      <th>Note:</th>
+      <td>[% l('The data in this edit originally came from an older version of this edit,
+                and may not display correctly') %]</td>
+    </tr>
+  [% ELSE %]
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>[% descriptive_link(edit.display_data.new) %]</td>
+  </tr>
+  [% END%]
+[% ELSIF edit.data.merge_strategy == 2 %]
   [% INCLUDE 'edit/details/merge_common.tt' %]
+[% END %]
   <tr>
     <th>[% l('Merge strategy:') %]</th>
     <td>
