@@ -153,7 +153,7 @@ role {
         );
     };
 
-    method _merge_parameters {
+    method _merge_parameters => sub {
         return ()
     }
 };
