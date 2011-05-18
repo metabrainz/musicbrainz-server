@@ -601,7 +601,6 @@ sub cancel
     Sql::run_in_transaction(sub {
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
         $self->c->raw_sql->do($query, $STATUS_TOBEDELETED, $edit->id);
-        $edit->adjust_edit_pending(-1);
    }, $self->c->sql, $self->c->raw_sql);
 }
 
