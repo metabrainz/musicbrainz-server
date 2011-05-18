@@ -184,7 +184,7 @@ sub render
 
     # hide errors if this is the first time (in this wizard session) that this
     # page is shown to the user.
-    if (! $self->shown->[$self->_current])
+    if (! $self->shown ($self->_current))
     {
         $page->clear_errors;
 
@@ -195,16 +195,16 @@ sub render
     }
 
     # mark the current page as having been shown to the user.
-    $self->shown->[$self->_current] = 1;
+    $self->shown ($self->_current, 1);
 }
 
 sub shown
 {
-    my $self = shift;
+    my ($self, $key, $val) = @_;
 
-    $self->_store->{shown} = [] unless $self->_store->{shown};
+    $self->_store ("shown_$key", $val) if $val;
 
-    return $self->_store->{shown};
+    return $self->_store ("shown_$key");
 }
 
 # returns the name of the current page.
@@ -234,10 +234,10 @@ sub _load_page
         my $form = $self->_load_form ($page, init_object => $init_object);
 
         $form->field('wizard_session_id')->value ($self->_session_id);
-        $self->_store->{"step ".$page} = $form->serialize;
+        $self->_store ("step_$page", $form->serialize);
     }
 
-    my $serialized = $self->_store->{"step ".$page} || {};
+    my $serialized = $self->_store ("step_$page") || {};
 
     return $self->_load_form ($page, serialized => $serialized);
 }
@@ -304,11 +304,9 @@ sub _post_to_page
     $params->{wizard_session_id} ||= $self->_session_id;
 
     my $page = $self->_load_form ($page_id);
+    $page->unserialize ( $self->_store ("step_$page_id"), $params );
 
-    $page->unserialize ( $self->_store->{"step $page_id"},
-                         $params );
-
-    $self->_store->{"step $page_id"} = $page->serialize;
+    $self->_store ("step_$page_id", $page->serialize);
 
     return $page;
 }
@@ -429,14 +427,19 @@ around '_current' => sub {
 
 sub _store
 {
-    my ($self) = @_;
+    my ($self, $key, $val) = @_;
 
     if (!defined $self->c->session->{wizard}->{$self->_session_id})
     {
         $self->c->session->{wizard}->{$self->_session_id} = {};
     }
 
-    return $self->c->session->{wizard}->{$self->_session_id};
+    if (defined $val)
+    {
+        $self->c->session->{wizard}->{$self->_session_id}->{$key} = $val;
+    }
+
+    return $self->c->session->{wizard}->{$self->_session_id}->{$key};
 }
 
 sub _retrieve_wizard_settings
@@ -452,20 +455,19 @@ sub _retrieve_wizard_settings
 
     $self->_session_id ($p->{wizard_session_id});
 
-    $self->_current( $self->_store->{current} ) if defined $self->_store->{current};
+    $self->_current( $self->_store ('current') ) if defined $self->_store ('current');
 }
 
 sub _new_session
 {
     my ($self) = @_;
 
-    my $session_id = rand;
-    while (defined $self->c->session->{wizard}->{$session_id})
+    $self->_session_id(rand);
+    while (defined $self->_store ('wizard'))
     {
-        $session_id = rand;
+        $self->_session_id(rand);
     }
-    $self->c->session->{wizard}->{$session_id} = {};
-    $self->_session_id( $session_id );
+    $self->_store ('wizard', 1);
 
     $self->_store_wizard_settings;
 }
@@ -474,7 +476,7 @@ sub _store_wizard_settings
 {
     my ($self) = @_;
 
-    $self->_store->{current} = $self->_current;
+    $self->_store ('current', $self->_current);
 }
 
 sub _load_form
