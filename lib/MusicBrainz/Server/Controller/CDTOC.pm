@@ -111,6 +111,10 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
         edit_args => {
             tracklist_id => $tracklist_id,
             cdtoc_id => $cdtoc->id
+        },
+        on_creation => sub {
+            $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
+            $c->detach;
         }
     );
 }
