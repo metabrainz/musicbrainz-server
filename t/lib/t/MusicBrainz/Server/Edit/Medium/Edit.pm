@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Medium::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Context';
 
@@ -71,6 +72,23 @@ EOSQL
 
     is($edit1->status, $STATUS_APPLIED, 'edit 1 applied');
     is($edit2->status, $STATUS_FAILEDDEP, 'edit 2 has a failed dependency error');
+};
+
+test 'Ignore edits that dont change the tracklist' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    {
+        my $medium = $c->model('Medium')->get_by_id(1);
+        my $edit1 = create_edit($c, $medium);
+        accept_edit($c, $edit1);
+    }
+
+    {
+        my $medium = $c->model('Medium')->get_by_id(1);
+        isa_ok exception { create_edit($c, $medium) }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
+    }
 };
 
 sub create_edit {
