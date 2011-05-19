@@ -71,7 +71,7 @@ around 'search' => sub
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
-            $c->stash->{serializer}->serialize_list('track', \@recording_puids, undef, {
+            $c->stash->{serializer}->serialize_list('track-list', \@recording_puids, undef, {
                 recording_release_map => \%recording_release_map,
                 track_map             => \%track_map
             })
