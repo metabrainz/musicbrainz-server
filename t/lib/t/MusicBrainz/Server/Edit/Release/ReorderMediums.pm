@@ -80,6 +80,20 @@ has medium_positions => (
     }
 );
 
+test 'Pending edits' => sub {
+    my $test = shift;
+    my $edit = $test->edit;
+
+    $test->clear_release;
+
+    is($test->release_to_edit->edits_pending, 1);
+    is($test->release_to_edit->mediums->[0]->edits_pending, 1); # XXX this one doesn't need to be highlighted
+    is($test->release_to_edit->mediums->[1]->edits_pending, 1);
+    is($test->release_to_edit->mediums->[2]->edits_pending, 1);
+    is($test->release_to_edit->mediums->[3]->edits_pending, 1);
+    is($test->release_to_edit->mediums->[4]->edits_pending, 1); # XXX this one doesn't need to be highlighted
+};
+
 test 'Accept edit' => sub {
     my $test = shift;
     accept_edit($test->c, $test->edit);

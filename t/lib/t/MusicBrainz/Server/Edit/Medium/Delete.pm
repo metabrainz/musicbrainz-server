@@ -24,17 +24,24 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Delete');
 my $medium = $c->model('Medium')->get_by_id(1);
 is($medium->edits_pending, 1);
 
+my $release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 1);
+
 # Test rejecting the edit
 reject_edit($c, $edit);
 $medium = $c->model('Medium')->get_by_id(1);
 ok(defined $medium);
 is($medium->edits_pending, 0);
+$release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 0);
 
 # Test accepting the edit
 $edit = _create_edit($c, );
 accept_edit($c, $edit);
 $medium = $c->model('Medium')->get_by_id(1);
 ok(!defined $medium);
+$release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 0);
 
 
 };

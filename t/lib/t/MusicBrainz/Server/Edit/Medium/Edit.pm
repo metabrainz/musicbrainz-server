@@ -33,9 +33,14 @@ $medium = $c->model('Medium')->get_by_id(1);
 is_unchanged($medium);
 is($medium->edits_pending, 1);
 
+my $release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 1);
+
 reject_edit($c, $edit);
 $medium = $medium = $c->model('Medium')->get_by_id(1);
 is($medium->edits_pending, 0);
+$release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 0);
 
 $edit = create_edit($c, $medium);
 accept_edit($c, $edit);
@@ -47,6 +52,8 @@ is($medium->format_id, 1);
 is($medium->release_id, 1);
 is($medium->position, 2);
 is($medium->edits_pending, 0);
+$release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 0);
 
 };
 
