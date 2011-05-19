@@ -339,6 +339,44 @@ sub _merge_form_arguments {
     );
 }
 
+sub _merge_parameters {
+    my ($self, $c, $form, $releases) = @_;
+    if ($form->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+        my %release_map = map {
+            $_->id => $_
+        } @$releases;
+        my %medium_changes;
+        for my $merge ($form->field('medium_positions.map')->fields) {
+            my $release = $release_map{ $merge->field('release_id')->value }
+                or die 'Couldnt find release to link with';
+
+            my ($medium) = grep { $_->id == $merge->field('id')->value }
+                $release->all_mediums
+                    or die 'Couldnt find medium';
+
+            $medium_changes{ $release->id } ||= [];
+            push @{ $medium_changes{ $release->id } },
+                { id => $merge->field('id')->value,
+                  old_position => $medium->position,
+                  new_position => $merge->field('position')->value };
+        }
+        return (
+            medium_changes => [
+                map +{
+                    release => {
+                        id => $_,
+                        name => $release_map{$_}->name
+                    },
+                    mediums => $medium_changes{$_}
+                }, keys %medium_changes
+            ]
+        )
+    }
+    else {
+        return ();
+    }
+}
+
 around _merge_submit => sub {
     my ($orig, $self, $c, $form, $entities) = @_;
     my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';

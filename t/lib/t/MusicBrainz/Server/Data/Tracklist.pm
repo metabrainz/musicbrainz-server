@@ -34,6 +34,43 @@ test 'Track count triggers' => sub {
     is ( $tc2, 9 );
 };
 
+test 'Merging tracklists' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO tracklist (id) VALUES (1), (2);
+
+INSERT INTO track_name (id, name) VALUES (1, 'King of the Mountain'), (2, 'π');
+INSERT INTO recording (id, gid, name, artist_credit, length)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720),
+           (2, '659f405b-b4ee-4033-868a-0daa27784b89', 2, 1, 369680),
+           (3, 'ae674299-2824-4500-9516-653ac1bc6f80', 3, 1, 258839);
+INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES
+    (1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 2, 2, 1, NULL),
+    (3, 2, 1, 1, 1, 1, NULL), (4, 2, 2, 3, 2, 1, NULL);
+EOSQL
+
+    $c->model('Tracklist')->merge(1, 2);
+
+    my $final_tl = $c->model('Tracklist')->get_by_id(1);
+    $c->model('Track')->load_for_tracklist($final_tl);
+    is($final_tl->tracks->[0]->id => 1);
+    is($final_tl->tracks->[0]->recording_id => 1);
+    is($final_tl->tracks->[1]->id => 2);
+    is($final_tl->tracks->[1]->recording_id => 2);
+
+    my $r1 = $c->model('Recording')->get_by_gid('ae674299-2824-4500-9516-653ac1bc6f8');
+    is($r1->id, 1, 'merged recording 3 into recording 1');
+};
+
 test all => sub {
 
 my $test = shift;

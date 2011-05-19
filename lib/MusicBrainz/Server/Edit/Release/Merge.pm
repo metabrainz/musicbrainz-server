@@ -14,6 +14,8 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
 };
 with 'MusicBrainz::Server::Edit::Release';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 has '+data' => (
     isa => Dict[
         new_entity => Dict[
@@ -25,7 +27,19 @@ has '+data' => (
             id   => Int
         ] ],
         merge_strategy => Int,
-        medium_positions => Nullable[Map[ Int, Int ]]
+        _edit_version => Int,
+        medium_changes => Nullable[
+            ArrayRef[Dict[
+                release => Dict[
+                    id => Int,
+                    name => Str
+                ],
+                mediums => ArrayRef[Dict[
+                    id           => Int,
+                    old_position => Str | Int,
+                    new_position => Int,
+                ]]
+            ]]]
     ]
 );
 
@@ -38,15 +52,41 @@ sub release_ids { @{ shift->_entity_ids } }
 sub foreign_keys
 {
     my $self = shift;
-    return {
+    my $fks = {
         Release => {
             $self->data->{new_entity}{id} => [ 'ArtistCredit' ],
             map {
                 $_->{id} => [ 'ArtistCredit' ]
             } @{ $self->data->{old_entities} }
         }
-    }
+    };
+
+    return $fks;
 }
+
+sub initialize {
+    my ($self, %opts) = @_;
+    $opts{_edit_version} = 2;
+    $self->data(\%opts);
+}
+
+override build_display_data => sub
+{
+    my ($self, $loaded) = @_;
+    my $data = super();
+
+    if ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+        $data->{changes} = [
+            map +{
+                release => $loaded->{Release}{ $_->{release}{id} }
+                    || Release->new( name => $_->{release}{name} ),
+                mediums => $_->{mediums}
+            }, @{ $self->data->{medium_changes} }
+        ];
+    }
+
+    return $data;
+};
 
 sub do_merge
 {
@@ -55,7 +95,11 @@ sub do_merge
         new_id => $self->new_entity->{id},
         old_ids => [ $self->_old_ids ],
         merge_strategy => $self->data->{merge_strategy},
-        medium_positions => $self->data->{medium_positions}
+        medium_positions => {
+            map { $_->{id} => $_->{new_position} }
+            map { @{ $_->{mediums} } }
+            @{ $self->data->{medium_changes} }
+        }
     );
 };
 
