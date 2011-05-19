@@ -1,14 +1,14 @@
 package t::MusicBrainz::Server::Controller::Artist::Merge;
 use Test::Routine;
 use Test::More;
+use Test::XPath;
+use HTML::Selector::XPath 'selector_to_xpath';
 use MusicBrainz::Server::Test qw( html_ok );
-
-with 't::Mechanize', 't::Context';
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
-test all => sub {
-
+around run_test => sub {
+    my $test_body = shift;
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -23,6 +23,17 @@ test all => sub {
 
     $mech->get_ok('/artist/merge');
     html_ok($mech->content);
+
+    $test->$test_body(@_);
+};
+
+with 't::Mechanize', 't::Context';
+
+test 'Do not rename artist credits' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
@@ -39,6 +50,45 @@ test all => sub {
         new_entity => { name => 'Test Artist', id => 3, },
         rename => 0
     });
+
+    $mech->get_ok('/edit/' . $edit->id);
+    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
+    $tx->ok(selector_to_xpath('table.merge-artists'), sub {
+        $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
+            $_->like('./td', qr/No/, 'correct display of rename data');
+        }, 'has information about renaming artist credits');
+    }, 'should have edit data');
+};
+
+test 'Rename artist credits' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    $mech->submit_form(
+        with_fields => {
+            'merge.target' => 3,
+            'merge.rename' => 1
+        }
+    );
+    ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});
+
+    my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Merge');
+
+    is_deeply($edit->data, {
+        old_entities => [ { name => 'Empty Artist', id => 4, } ],
+        new_entity => { name => 'Test Artist', id => 3, },
+        rename => 1
+    });
+
+    $mech->get_ok('/edit/' . $edit->id);
+    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
+    $tx->ok(selector_to_xpath('table.merge-artists'), sub {
+        $_->ok(selector_to_xpath('.rename-artist-credits'), sub {
+            $_->like('./td', qr/Yes/, 'correct display of rename data');
+        }, 'has information about renaming artist credits');
+    }, 'should have edit data');
 };
 
 1;
