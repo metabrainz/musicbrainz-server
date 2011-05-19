@@ -48,7 +48,8 @@ sub alter_edit_pending
 {
     my $self = shift;
     return {
-        'Medium' => [ $self->entity_id ]
+        'Medium' => [ $self->entity_id ],
+        'Release' => [ $self->data->{release}->{id} ]
     }
 }
 
