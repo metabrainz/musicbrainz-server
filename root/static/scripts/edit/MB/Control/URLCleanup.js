@@ -31,7 +31,7 @@ MB.constants.LINK_TYPES = {
         label: 217
     },
     musicmoz: {
-        release: 91,
+        release_group: 91,
         artist: 181
     },
     imdb: {
@@ -54,7 +54,7 @@ MB.constants.LINK_TYPES = {
     lyrics: {
         artist: 197,
         release_group: 93,
-        work: 272
+        work: 271
     },
     bbcmusic: {
         artist: 190
@@ -83,7 +83,7 @@ MB.constants.LINK_TYPES = {
         label: 210
     },
     youtube: {
-        artist: 192,
+        artist: 193,
         label: 225
     }
 };

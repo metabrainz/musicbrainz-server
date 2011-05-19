@@ -4,7 +4,7 @@ use aliased 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit';
 
 extends 'MusicBrainz::Server::WebService::Serializer::XML::1';
 
-use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
+use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity list_of);
 
 sub element { 'track'; }
 
@@ -23,7 +23,7 @@ sub serialize {
     push @body, ( $self->gen->duration($entity->recording->length) )
         if $entity->recording->length;
 
-    push @body, ( ArtistCredit->new->serialize($entity->recording->artist_credit) )
+    push @body, ( serialize_entity($entity->recording->artist_credit) )
         if $entity->recording->artist_credit;
 
     push @body, (
