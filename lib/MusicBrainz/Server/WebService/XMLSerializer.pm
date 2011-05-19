@@ -280,7 +280,7 @@ sub _serialize_release
     push @list, $gen->title($release->name);
     push @list, $gen->status($release->status->name) if $release->status;
     push @list, $gen->disambiguation($release->comment) if $release->comment;
-    push @list, $gen->packaging($release->packaging) if $release->packaging;
+    push @list, $gen->packaging($release->packaging->name) if $release->packaging;
 
     $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
     $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
