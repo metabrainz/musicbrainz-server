@@ -27,6 +27,7 @@ use Sub::Exporter -setup => {
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
             compare_body html_ok commandline_override
+            capture_edits
         ),
         ws_test => \&_build_ws_test,
     ],
@@ -127,6 +128,17 @@ sub get_latest_edit
     my $sql = Sql->new($c->raw_dbh);
     my $last_id = $sql->select_single_value("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
     return $ed->get_by_id($last_id);
+}
+
+sub capture_edits (&$)
+{
+    my ($code, $c) = @_;
+    my $current_max = $c->raw_sql->select_single_value('SELECT max(id) FROM edit');
+    $code->();
+    my $new_max = $c->raw_sql->select_single_value('SELECT max(id) FROM edit');
+    return values %{ $c->model('Edit')->get_by_ids(
+        $current_max..$new_max
+    ) };
 }
 
 my $Test = Test::Builder->new();
