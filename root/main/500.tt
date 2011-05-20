@@ -4,16 +4,17 @@
 
         <p><strong>[%- l('Oops, something went wrong!') -%]</strong></p>
 
-        <p>
-            <strong>[%- l('Error message: ') -%]</strong>
-            [% IF message %]
-                <code>[%- message | html -%]</code>
-            [% ELSE %]
-                <code>[%- l('(No details about this error are available)') -%]</code>
-            [% END %]
-        </p>
-
         [% IF stack_trace %]
+        <p>
+          <strong>[% ln('Error:', 'Errors:', errors.size) %]</strong>
+          [% IF errors.size > 1 %]
+          <ul>
+            [% FOR error=errors %]<li><code>[% error %]</code></li>[% END %]
+          </ul>
+          [% ELSE %]
+            <p><code>[% errors.0 %]</code></p>
+          [% END %]
+        </p>
         <p>
             <strong>[%- l('Stack trace:') -%]</strong><br />
             <ul>
@@ -21,6 +22,24 @@
               <li><code>line [% frame.line %]&#10;[% frame.pkg %]</code></li>
             [% END %]
             </ul>
+        </p>
+        <p>
+            <strong>[% l('Request data:') %]</strong>
+            <pre>
+              [%- USE Dumper; Dumper.dump({
+                  query_parameters => c.req.query_params,
+                  body_parameters => c.req.body_params
+              }) -%]
+            </pre>
+        </p>
+        [% ELSE %]
+        <p>
+            <strong>[%- l('Error message: ') -%]</strong>
+            [% IF message %]
+                <code>[%- message | html -%]</code>
+            [% ELSE %]
+                <code>[%- l('(No details about this error are available)') -%]</code>
+            [% END %]
         </p>
         [% END %]
 
@@ -32,7 +51,7 @@
                  { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1") }) -%]
         </p>
         [% IF stack_trace %]
-          <p>[% l('Please be sure to include the stack trace shown above!') %]</p>
+          <p>[% l('Please be sure to include the stack trace and request data shown above!') %]</p>
         [% END %]
     </div>
 [%- END -%]
