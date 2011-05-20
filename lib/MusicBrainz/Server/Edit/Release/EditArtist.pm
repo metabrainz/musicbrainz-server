@@ -48,7 +48,7 @@ around related_entities => sub {
         my %old = load_artist_credit_definitions($self->data->{old_artist_credit});
         push @{ $related->{artist} }, keys(%new), keys(%old);
     }
-    
+
     return $related;
 };
 
@@ -152,7 +152,7 @@ sub accept {
                         map +{
                             position => $_->position,
                             name => $_->name,
-                            artist_credit => $_->artist_credit_id == $old_ac_id
+                            artist_credit => $_->artist_credit_id != $old_ac_id
                                 ? $_->artist_credit_id : $new_ac_id,
                             recording_id => $_->recording_id,
                             length => $_->length
