@@ -106,9 +106,14 @@ sub initialize
             $self->c->model('Track')->load_for_tracklists ($entity->tracklist);
             $self->c->model('ArtistCredit')->load ($entity->tracklist->all_tracks);
 
-            $data->{old}{tracklist} = tracks_to_hash($entity->tracklist->tracks);
-            $data->{new}{tracklist} = tracks_to_hash($tracklist);
-            $data->{separate_tracklists} = $separate_tracklists;
+            my $old = tracks_to_hash($entity->tracklist->tracks);
+            my $new = tracks_to_hash($tracklist);
+
+            unless (Compare($old, $new)) {
+                $data->{old}{tracklist} = $old;
+                $data->{new}{tracklist} = $new;
+                $data->{separate_tracklists} = $separate_tracklists;
+            }
         }
 
         MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
