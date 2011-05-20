@@ -5,6 +5,7 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
+use Encode;
 
 use aliased 'MusicBrainz::Server::Translation';
 
@@ -77,6 +78,9 @@ __PACKAGE__->config(
             json => 'application/json; charset=UTF-8',
         },
         dirs => [ 'static' ],
+    },
+    stacktrace => {
+        enable => 1 # Always enable
     }
 );
 
@@ -252,6 +256,22 @@ around 'dispatch' => sub {
         $c->$orig(@_);
     }
 };
+
+sub finalize_error {
+    my $c = shift;
+
+    $c->next::method(@_);
+
+    if (!$c->debug && scalar @{ $c->error }) {
+        $c->stash->{errors} = $c->error;
+        $c->stash->{template} = 'main/500.tt';
+        $c->stash->{stack_trace} = $c->_stacktrace;
+        $c->clear_errors;
+        $c->res->{body} = 'lololo';
+        $c->view('Default')->process($c);
+        $c->res->{body} = encode('utf-8', $c->res->{body});
+    }
+}
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
