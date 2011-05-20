@@ -106,6 +106,13 @@ sub _delete_and_redirect_gids
 
     # Add redirects from GIDs of the deleted recordings to $new_id
     $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
+
+    if ($self->can('_delete_from_cache')) {
+        $self->_delete_from_cache(
+            $new_id, @old_ids,
+            @$old_gids
+        );
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
