@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
+use Algorithm::Diff qw( sdiff );
 use Data::Compare;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
@@ -16,6 +17,7 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Track qw ( format_track_length );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -169,6 +171,23 @@ sub build_display_data
 
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
+
+    $data->{tracklist_changes} =
+        sdiff(
+            [ $data->{old}{tracklist}->all_tracks ],
+            [ $data->{new}{tracklist}->all_tracks ],
+            sub {
+                my $track = shift;
+                return join(
+                    '',
+                    $track->name,
+                    format_track_length($track->length),
+                    $track->artist_credit->name,
+                    $track->position,
+                    $track->recording->id
+                );
+            }
+        );
 
     if ($self->data->{release})
     {
