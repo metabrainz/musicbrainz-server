@@ -88,7 +88,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
     my $editor = $c->model('Editor')->get_by_id($user_id);
     unless (defined $editor) {
         $c->stash(
-            message => l('A user with ID \'{user_id}\' could not be found.',
+            message => l('The user with ID \'{user_id}\' could not be found.',
                                    { user_id => $user_id }),
             template => 'account/verify_email_error.tt',
         );
@@ -212,7 +212,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     my $editor = $c->model('Editor')->get_by_id($editor_id);
     if (!defined $editor) {
         $c->stash(
-            message => l('A user with ID \'{user_id}\' could not be found',
+            message => l('The user with ID \'{user_id}\' could not be found',
                                    { user_id => $editor_id }),
             template => 'account/reset_password_error.tt',
         );
