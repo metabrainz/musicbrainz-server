@@ -5,6 +5,7 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
+use Encode;
 use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
@@ -282,6 +283,18 @@ sub _handle_param_unicode_decoding {
     catch {
         $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as utf-8 and try again.');
         $self->res->status(400);
+    };
+}
+
+sub execute {
+    my $c = shift;
+    return do {
+        local $SIG{__WARN__} = sub {
+            my $warning = shift;
+            chomp $warning;
+            $c->log->warn($c->req->method . " " . $c->req->uri . " caused a warning: " . $warning);
+        };
+        $c->next::method(@_);
     };
 }
 
