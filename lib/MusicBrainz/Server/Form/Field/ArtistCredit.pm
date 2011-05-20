@@ -89,7 +89,7 @@ around 'value' => sub {
     return $ret unless $ret && $ret->{names};
 
     my @names = @{ $ret->{names} };
-    for my $i ($#names)
+    for my $i (0 .. $#names)
     {
         $ret->{names}->[$i]->{name} = $ret->{names}->[$i]->{artist}->{name}
             if !$ret->{names}->[$i]->{name};
