@@ -22,10 +22,11 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 around related_entities => sub {
     my ($orig, $self, @args) = @_;
-    return {
-        %{ $self->$orig(@args) },
-        label => [ $self->data->{label}{id} ]
-    }
+    my %related = %{ $self->$orig(@args) };
+    $related{label} = [ $self->data->{label}{id} ]
+        if exists $self->data->{label};
+
+    return \%related;
 };
 
 has '+data' => (
@@ -101,11 +102,17 @@ sub build_display_data
 sub insert
 {
     my $self = shift;
-    my $rl = $self->c->model('ReleaseLabel')->insert({
+    my %args = (
         release_id => $self->release_id,
-        label_id   => $self->data->{label}{id},
-        catalog_number => $self->data->{catalog_number}
-    });
+    );
+
+    $args{catalog_number} = $self->data->{catalog_number}
+        if exists $self->data->{catalog_number};
+
+    $args{label_id} = $self->data->{label}{id}
+        if exists $self->data->{label};
+
+    my $rl = $self->c->model('ReleaseLabel')->insert(\%args);
     $self->entity_id($rl->id);
 }
 
