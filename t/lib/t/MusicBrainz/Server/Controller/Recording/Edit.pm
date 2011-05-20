@@ -26,6 +26,12 @@ my $request = POST $mech->uri, [
     'edit-recording.artist_credit.names.0.name' => 'Foo',
     'edit-recording.artist_credit.names.0.artist.name' => 'Bar',
     'edit-recording.artist_credit.names.0.artist.id' => '3',
+    'edit-recording.artist_credit.names.1.name' => '',
+    'edit-recording.artist_credit.names.1.artist.name' => 'Queen',
+    'edit-recording.artist_credit.names.1.artist.id' => '4',
+    'edit-recording.artist_credit.names.2.name' => '',
+    'edit-recording.artist_credit.names.2.artist.name' => 'David Bowie',
+    'edit-recording.artist_credit.names.2.artist.id' => '5',
 ];
 
 my $response = $mech->request($request);
@@ -46,6 +52,14 @@ is_deeply($edit->data, {
                 {
                     artist => { id => 3, name => 'Bar' },
                     name => 'Foo',
+                },
+                {
+                    artist => { id => 4, name => 'Queen' },
+                    name => 'Queen',
+                },
+                {
+                    artist => { id => 5, name => 'David Bowie' },
+                    name => 'David Bowie',
                 }
             ],
         },
@@ -78,6 +92,10 @@ $mech->content_contains('2:03', '..has old length');
 $mech->content_contains('A comment!', '..has new comment');
 $mech->content_contains('Foo', '..has new artist');
 $mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '...and links to artist');
+$mech->content_contains('Queen', '..has new artist 2');
+$mech->content_contains('/artist/945c079d-374e-4436-9448-da92dedef3cf', '...and links to artist 2');
+$mech->content_contains('David Bowie', '..has new artist 3');
+$mech->content_contains('/artist/5441c29d-3602-4898-b1a1-b77fa23b8e50', '...and links to artist 3');
 $mech->content_contains('ABBA', '..has old artist');
 $mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', '...and links to artist');
 
