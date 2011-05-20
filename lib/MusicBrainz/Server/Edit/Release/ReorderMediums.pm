@@ -33,6 +33,15 @@ has '+data' => (
     ]
 );
 
+sub alter_edit_pending
+{
+    my $self = shift;
+    return {
+        'Release' => [ $self->release_id ],
+        'Medium' => [ map { $_->{medium_id} } @{$self->data->{medium_positions}} ]
+    }
+}
+
 sub initialize {
     my ($self, %opts) = @_;
     my $release = delete $opts{release} or die 'Missing release argument';

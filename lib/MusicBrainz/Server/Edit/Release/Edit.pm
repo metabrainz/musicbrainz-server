@@ -146,7 +146,7 @@ sub _mapping
 {
     return (
         date => sub { partial_date_to_hash(shift->date) },
-        artist_credit => sub { artist_credit_to_ref(shift->artist_credit) }
+        artist_credit => sub { clean_submitted_artist_credits (artist_credit_to_ref(shift->artist_credit)) }
     );
 }
 

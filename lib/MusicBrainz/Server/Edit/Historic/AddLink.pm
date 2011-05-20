@@ -45,6 +45,7 @@ sub upgrade
                 $self->new_value->{entity1type},
                 $self->new_value->{entity1id},
                 $self->new_value->{entity1name},
+                $self->new_value->{linktypephrase}
             )
         ],
         begin_date       => upgrade_date($self->new_value->{begindate}),

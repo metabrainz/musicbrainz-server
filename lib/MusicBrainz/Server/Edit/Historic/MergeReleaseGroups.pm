@@ -12,7 +12,7 @@ sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Merge' }
 sub related_entities {
     my $self = shift;
     return {
-        artists => [ $self->artist_id ],
+        artist => [ $self->artist_id ],
         release_group => [
             $self->data->{new_entity}{id},
             map { $_->{id} } @{ $self->data->{old_entities} }

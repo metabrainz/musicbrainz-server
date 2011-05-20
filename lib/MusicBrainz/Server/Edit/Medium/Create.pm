@@ -39,6 +39,15 @@ has '+data' => (
     ]
 );
 
+sub alter_edit_pending
+{
+    my $self = shift;
+    return {
+        'Medium' => [ $self->entity_id ],
+        'Release' => [ $self->data->{release}->{id} ]
+    }
+}
+
 sub initialize {
     my ($self, %opts) = @_;
 

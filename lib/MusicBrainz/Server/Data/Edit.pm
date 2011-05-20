@@ -63,7 +63,8 @@ sub _new_from_row
     try {
         $edit->restore($data);
     }
-    catch {
+    catch ($err) {
+        warn $err;
         $edit->clear_data;
     }
     $edit->close_time($row->{close_time}) if defined $row->{close_time};
@@ -185,6 +186,28 @@ sub find_by_voter
     );
 }
 
+sub find_open_for_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query =
+        'SELECT ' . $self->_columns . '
+           FROM ' . $self->_table . '
+          WHERE status = ?
+            AND NOT EXISTS (
+                SELECT TRUE FROM vote
+                 WHERE vote.edit = edit.id
+                   AND vote.editor = ?
+                   AND vote.superseded = FALSE
+                )
+       ORDER BY id DESC
+         OFFSET ? LIMIT 500';
+
+    return query_to_list_limited(
+        $self->sql, $offset, $limit,
+        sub { $self->_new_from_row(shift) },
+        $query, $STATUS_OPEN, $editor_id, $offset
+    );
+}
 
 sub subscribed_entity_edits
 {
@@ -205,6 +228,12 @@ sub subscribed_entity_edits
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE editor != ?
             AND status = ?
+            AND NOT EXISTS (
+                SELECT TRUE FROM vote
+                 WHERE vote.edit = edit.id
+                   AND vote.editor = ?
+                   AND vote.superseded = FALSE
+                )
             AND id IN (' .
             join(
                 ' UNION ALL ',
@@ -223,7 +252,7 @@ sub subscribed_entity_edits
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $editor_id, $STATUS_OPEN,
+        $query, $editor_id, $STATUS_OPEN, $editor_id,
         (map { @{ $subscriptions{$_} } } @filter_on),
         $offset);
 }
@@ -242,6 +271,12 @@ sub subscribed_editor_edits {
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE status = ?
             AND editor IN (' . placeholders(@editor_ids) . ')
+            AND NOT EXISTS (
+                SELECT TRUE FROM vote
+                 WHERE vote.edit = edit.id
+                   AND vote.editor = ?
+                   AND vote.superseded = FALSE
+                )
        ORDER BY id DESC
          OFFSET ?';
 
@@ -250,7 +285,7 @@ sub subscribed_editor_edits {
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, @editor_ids, $offset);
+        $query, $STATUS_OPEN, @editor_ids, $editor_id, $offset);
 }
 
 sub merge_entities
@@ -567,7 +602,6 @@ sub cancel
     Sql::run_in_transaction(sub {
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
         $self->c->raw_sql->do($query, $STATUS_TOBEDELETED, $edit->id);
-        $edit->adjust_edit_pending(-1);
    }, $self->c->sql, $self->c->raw_sql);
 }
 

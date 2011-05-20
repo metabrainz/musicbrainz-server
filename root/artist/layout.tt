@@ -40,8 +40,8 @@
 
         [% UNLESS artist.is_special_purpose %]
         <h2>[% l('Editing') %]</h2>
+        <ul class="links">
             [% IF c.user_exists %]
-            <ul class="links">
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
                     [% l('Add release group') %]

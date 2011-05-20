@@ -82,23 +82,24 @@ sub serialize
         })) if $track;
     }
 
-    push @body, ( list_of(
-        [
-            map {
-                # Display a recording with the track's name (not the recording's)
-                Recording->meta->clone_object(
-                    $_->recording,
-                    name => $_->name,
+    if ($inc && $inc->tracks) {
+        push @body, ( list_of(
+            [
+                map {
+                    # Display a recording with the track's name (not the recording's)
+                    Recording->meta->clone_object(
+                        $_->recording,
+                        name => $_->name,
 
-                    # We only show track artists if inc=artist, and if this is a
-                    # various artist release
-                    ($inc && $inc->artist && $_->artist_credit->name ne $entity->artist_credit->name ?
-                         (artist_credit => $_->artist_credit) : ())
-                );
-            }
-                map { $_->all_tracks }
-                map { $_->tracklist } $entity->all_mediums
-        ], $inc)) if $inc && $inc->tracks;
+                        # We only show track artists if inc=artist, and if this is a
+                        # various artist release
+                        ($inc && $inc->artist && $_->artist_credit->name ne $entity->artist_credit->name ?
+                             (artist_credit => $_->artist_credit) : ())
+                    );
+                }
+                    map { $_->tracklist->all_tracks } $entity->all_mediums
+            ], $inc));
+    }
 
     if ($inc && $inc->release_events) {
         # FIXME - try and find other possible release events

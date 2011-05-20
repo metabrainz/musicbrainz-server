@@ -55,7 +55,7 @@ sub build_display_data
     my $old_artist = defined $loaded->{Artist}->{ $self->data->{old_artist_id} }
         ? Artist->meta->clone_instance(
             $loaded->{Artist}->{ $self->data->{old_artist_id} },
-            name => $self->data->{artist_name},
+            name => $self->data->{old_artist_name},
         )
         : Artist->new( name => $self->data->{old_artist_name} );
 

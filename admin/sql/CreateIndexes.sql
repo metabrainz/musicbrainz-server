@@ -19,7 +19,7 @@ CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
 
 CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
-CREATE INDEX editor_idx_name ON editor (LOWER(name));
+CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);

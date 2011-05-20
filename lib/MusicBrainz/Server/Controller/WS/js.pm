@@ -349,7 +349,8 @@ sub _recording_indexed {
 
         for my $result (@{ $response->{results} })
         {
-            my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid);
+            my $entity = $c->model('Recording')->get_by_gid ($result->{entity}->gid)
+                if $result->{entity}->gid;
 
             next unless $entity;
 
@@ -396,7 +397,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
         $tracklist->all_tracks);
 
     my $ret = { toc => "" };
-    my $ret->{tracks} = [ map {
+    $ret->{tracks} = [ map {
         length => format_track_length($_->length),
         name => $_->name,
         artist_credit => artist_credit_to_ref ($_->artist_credit),
@@ -413,7 +414,7 @@ sub freedb : Chained('root') PathPart Args(2) {
     my $response = $c->model ('FreeDB')->lookup ($category, $id);
 
     my $ret = { toc => "" };
-    my $ret->{tracks} = [ map {
+    $ret->{tracks} = [ map {
         {
             name => $_->{title},
             artist => $_->{artist},

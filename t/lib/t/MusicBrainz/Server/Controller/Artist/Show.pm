@@ -27,8 +27,8 @@ $mech->content_like(qr/United Kingdom/, 'has country');
 $mech->content_like(qr/Test annotation 1/, 'has annotation');
 $mech->content_unlike(qr/More annotation/, 'only display summary');
 
-$mech->content_like(qr/Rating:.*?3\.5<\/span>/s);
-$mech->content_like(qr/Show user ratings/);
+$mech->content_like(qr/3\.5<\/span>/s);
+$mech->content_like(qr/see all ratings/);
 $mech->content_like(qr/Last updated on 2009-07-09/);
 
 # Header links
