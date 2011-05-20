@@ -5,7 +5,8 @@ use warnings;
 
 use base 'Template::Plugin';
 
-use Algorithm::Diff qw( traverse_sequences );
+use Algorithm::Diff qw( sdiff traverse_sequences );
+use Digest::MD5 qw( md5_hex );
 use HTML::Tiny;
 use MusicBrainz::Server::Validation;
 
@@ -15,6 +16,60 @@ sub new {
 }
 
 my $TOKEN_NEW_PARA = chr(10);
+
+my %class_map = (
+    '+' => 'diff-only-b',
+    '-' => 'diff-only-a'
+);
+
+sub diff_side {
+    my ($self, $old, $new, $filter, $split) = @_;
+    $split ||= '';
+
+    my ($old_hex, $new_hex) = (md5_hex($old), md5_hex($new));
+    $old =~ s/($split)/$old_hex$1/g;
+    $new =~ s/($split)/$new_hex$1/g;
+
+    my @diffs = sdiff([ split($old_hex, $old) ], [ split($new_hex, $new) ]);
+
+    my @stack;
+    my $output;
+    for my $diff (@diffs) {
+        my ($change_type, $old, $new) = @$diff;
+
+        next unless
+            $change_type eq 'c' ||
+            $change_type eq 'u' ||
+            $change_type eq $filter;
+
+        unless ($stack[-1] && $stack[-1]->{type} eq $change_type) {
+            push @stack, { str => '', type => $change_type };
+        }
+
+        if ($change_type eq 'c') {
+            $stack[-1]->{str} .=
+                $filter eq '+'
+                    ? "$new" : "$old";
+        }
+        else {
+            $stack[-1]->{str} .= $old;
+        }
+    }
+
+    return join(
+        '',
+        map {
+            my $class =
+                $_->{type} eq 'u' ? '' :
+                $_->{type} eq 'c' ? $class_map{$filter} :
+                                    $class_map{$_->{type}};
+
+            my $text = $_->{str};
+
+            qq{<span class="$class">$text</span>};
+        } @stack
+    )
+}
 
 sub diff {
     my ($self, $old, $new) = @_;
