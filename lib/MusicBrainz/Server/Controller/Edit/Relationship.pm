@@ -371,15 +371,21 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
 
         my $req_param = $c->req->params->{recording_id};
         my @recording_ids = ref($req_param) ? @$req_param : ($req_param);
+        my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
+
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
         for my $recording_id (@recording_ids) {
             $self->_insert_edit(
                 $c, $form,
                 edit_type    => $EDIT_RELATIONSHIP_CREATE,
                 type0        => $type,
                 type1        => 'recording',
-                entity0      => $dest->id,
-                entity1      => $recording_id,
-                link_type_id => $form->field('link_type_id')->value,
+                entity0      => $dest,
+                entity1      => $recordings{$recording_id},
+                link_type    => $link_type,
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,
                 attributes   => \@attributes
