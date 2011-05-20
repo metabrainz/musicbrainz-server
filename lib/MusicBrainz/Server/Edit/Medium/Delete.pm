@@ -18,8 +18,6 @@ sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { l('Remove medium') }
 sub medium_id { shift->data->{medium_id} }
 
-sub alter_edit_pending { { Medium => [ shift->medium_id ] } }
-
 has '+data' => (
     isa => Dict[
         medium_id => Int,
@@ -30,6 +28,15 @@ has '+data' => (
         release_id => Int
     ]
 );
+
+sub alter_edit_pending
+{
+    my $self = shift;
+    return {
+        'Medium' => [ $self->medium_id ],
+        'Release' => [ $self->data->{release_id} ]
+    }
+}
 
 sub foreign_keys
 {
