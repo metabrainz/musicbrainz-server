@@ -129,6 +129,7 @@ author_requires 'Test::EOL';
 test_requires 'Env::Path';
 test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::HTML5::Sanity';
+test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'RDF::Query';
 test_requires 'RDF::RDFa::Parser';
@@ -142,6 +143,7 @@ test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
 test_requires 'Test::WWW::Selenium';
 test_requires 'Test::WWW::Selenium::Catalyst';
+test_requires 'Test::XPath';
 test_requires 'XML::Parser';
 
 catalyst;
