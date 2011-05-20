@@ -245,7 +245,6 @@ my @group_core = qw(
     release
     release_gid_redirect
     release_group
-    release_group_annotation
     release_group_gid_redirect
     release_group_type
     release_label

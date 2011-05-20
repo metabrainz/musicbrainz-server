@@ -14,6 +14,10 @@ has '_cache' => (
     is => 'ro',
     isa => 'HashRef',
     default => sub { +{} },
+    traits => [ 'Hash' ],
+    handles => {
+        _get_cache => 'get'
+    }
 );
 
 has 'default_profile' => (
@@ -51,7 +55,7 @@ sub cache
     my $profile;
     $profile = $self->_key_to_profile->{$key} if defined $key;
     $profile ||= $self->default_profile;
-    return $self->_cache->{$profile};
+    return $self->_get_cache($profile);
 }
 
 __PACKAGE__->meta->make_immutable;

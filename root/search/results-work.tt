@@ -18,10 +18,8 @@
                             <td>[%- descriptive_link(result.entity) -%]</td>
                             <td>
                               <ul>
-                              [%- FOR rel=result.entity.relationships -%]
-                                [%- IF rel.entity1.isa('MusicBrainz::Server::Entity::Artist') -%]
-                                  <li>[%- descriptive_link(rel.entity1) -%]</li>
-                                [%- END -%]
+                              [%- FOR artist=result.entity.artists -%]
+                                <li>[%- descriptive_link(artist) -%]</li>
                               [%- END -%]
                               </ul>
                             </td>

@@ -437,6 +437,12 @@ sub schema_fixup
         }
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
     }
+
+    if ($type eq 'work' && exists $data->{relationships}) {
+        $data->{artists} = [ map {
+            $_->entity1
+        } @{ $data->{relationships} } ];
+    }
 }
 
 # Escape special characters in a Lucene search query

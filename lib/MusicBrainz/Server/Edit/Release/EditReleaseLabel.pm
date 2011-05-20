@@ -87,10 +87,12 @@ around 'related_entities' => sub {
     my $self = shift;
     my $related = $self->$orig;
 
-    $related->{label} = [
-        $self->data->{new}{label}{id},
-        $self->data->{old}{label}{id},
-    ],
+    if ($self->data->{new}{label}) {
+        $related->{label} = [
+            $self->data->{new}{label}{id},
+            $self->data->{old}{label}{id},
+        ];
+    }
 
     return $related;
 };

@@ -63,7 +63,8 @@ sub _new_from_row
     try {
         $edit->restore($data);
     }
-    catch {
+    catch ($err) {
+        warn $err;
         $edit->clear_data;
     }
     $edit->close_time($row->{close_time}) if defined $row->{close_time};
