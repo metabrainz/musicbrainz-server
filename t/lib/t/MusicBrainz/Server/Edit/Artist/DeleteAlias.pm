@@ -2,6 +2,8 @@ package t::MusicBrainz::Server::Edit::Artist::DeleteAlias;
 use Test::Routine;
 use Test::More;
 
+use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::DeleteAlias }
@@ -64,13 +66,30 @@ is(@$alias_set, 1);
 
 };
 
+test 'Not an auto-edit for auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
+
+    my $alias = $c->model('Artist')->alias->get_by_id(1);
+
+    my $edit = _create_edit(
+        $c, $alias,
+        privileges => $AUTO_EDITOR_FLAG
+    );
+
+    ok($edit->is_open);
+};
+
 sub _create_edit {
-    my ($c, $alias) = @_;
+    my ($c, $alias, @args) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_DELETE_ALIAS,
         editor_id => 1,
         entity    => $c->model('Artist')->get_by_id(1),
         alias     => $alias,
+        @args
     );
 }
 
