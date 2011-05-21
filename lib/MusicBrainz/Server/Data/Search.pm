@@ -276,6 +276,9 @@ sub schema_fixup
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end}) 
             if (exists $data->{'life-span'}->{end});
     }
+    if($type eq 'artist' && exists $data->{gender}) {
+        $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => $data->{gender} );
+    }
     if ($type eq 'label' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::LabelType->new( name => $data->{type} );
