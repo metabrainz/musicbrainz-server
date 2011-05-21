@@ -4,7 +4,6 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
 use MusicBrainz::Server::Translation qw( l ln );
-use List::MoreUtils qw( uniq );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
@@ -32,9 +31,7 @@ sub recording_ids { map { $_->{recording}{id} } @{ shift->data->{puids} } }
 sub related_entities
 {
     my $self = shift;
-    return {
-        recording => [ uniq($self->recording_ids) ]
-    };
+    return { recording => [ $self->recording_ids ] };
 }
 
 sub foreign_keys
