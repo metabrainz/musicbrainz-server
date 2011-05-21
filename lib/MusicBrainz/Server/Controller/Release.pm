@@ -68,6 +68,18 @@ after 'load' => sub
     if ($c->action->name ne 'show') {
         $c->model('ArtistCredit')->load($release);
     }
+
+    $c->model('ReleaseStatus')->load($release);
+    $c->model('ReleasePackaging')->load($release);
+    $c->model('Country')->load($release);
+    $c->model('Language')->load($release);
+    $c->model('Script')->load($release);
+    $c->model('ReleaseLabel')->load($release);
+    $c->model('Label')->load($release->all_labels);
+    $c->model('ReleaseGroupType')->load($release->release_group);
+
+    $c->model('Medium')->load_for_releases($release);
+    $c->model('MediumFormat')->load($release->all_mediums);
 };
 
 sub discids : Chained('load')
@@ -109,19 +121,8 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-    $c->model('ReleaseStatus')->load($release);
-    $c->model('ReleasePackaging')->load($release);
-    $c->model('Country')->load($release);
-    $c->model('Language')->load($release);
-    $c->model('Script')->load($release);
-    $c->model('ReleaseLabel')->load($release);
-    $c->model('Label')->load(@{ $release->labels });
-    $c->model('ReleaseGroupType')->load($release->release_group);
-    $c->model('Medium')->load_for_releases($release);
 
     my @mediums = $release->all_mediums;
-    $c->model('MediumFormat')->load(@mediums);
-
     my @tracklists = grep { defined } map { $_->tracklist } @mediums;
     $c->model('Track')->load_for_tracklists(@tracklists);
 
