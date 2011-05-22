@@ -69,17 +69,19 @@ after 'load' => sub
         $c->model('ArtistCredit')->load($release);
     }
 
-    $c->model('ReleaseStatus')->load($release);
-    $c->model('ReleasePackaging')->load($release);
-    $c->model('Country')->load($release);
-    $c->model('Language')->load($release);
-    $c->model('Script')->load($release);
-    $c->model('ReleaseLabel')->load($release);
-    $c->model('Label')->load($release->all_labels);
-    $c->model('ReleaseGroupType')->load($release->release_group);
-
-    $c->model('Medium')->load_for_releases($release);
-    $c->model('MediumFormat')->load($release->all_mediums);
+    # The release editor loads this stuff on its own
+    if ($c->action->name ne 'edit') {
+        $c->model('ReleaseStatus')->load($release);
+        $c->model('ReleasePackaging')->load($release);
+        $c->model('Country')->load($release);
+        $c->model('Language')->load($release);
+        $c->model('Script')->load($release);
+        $c->model('ReleaseLabel')->load($release);
+        $c->model('Label')->load($release->all_labels);
+        $c->model('ReleaseGroupType')->load($release->release_group);
+        $c->model('Medium')->load_for_releases($release);
+        $c->model('MediumFormat')->load($release->all_mediums);
+    }
 };
 
 sub discids : Chained('load')
