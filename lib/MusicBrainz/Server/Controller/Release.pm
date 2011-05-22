@@ -329,12 +329,30 @@ sub _merge_form_arguments {
     $c->model('Recording')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
     $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
 
-    my @mediums =
-        nsort_by { $_->position }
-        map { $_->all_mediums } @releases;
+    my @mediums;
+    my %medium_by_id;
+    foreach my $release (@releases) {
+        foreach my $medium ($release->all_mediums) {
+            my $position = $medium->position;
+            if ($release->medium_count == 1 && !$medium->name) {
+                # guess position from the old release name
+                if ($medium->release->name =~ /\(disc (\d+)(?:: (.+?))?\)/) {
+                    $position = $1;
+                }
+            }
+            push @mediums, {
+                id => $medium->id,
+                release_id => $medium->release_id,
+                position => $position
+            };
+            $medium_by_id{$medium->id} = $medium;
+        }
+    }
+
+    @mediums = nsort_by { $_->{position} } @mediums;
 
     $c->stash(
-        mediums => \@mediums
+        mediums => [ map { $medium_by_id{$_->{id}} } @mediums ]
     );
 
     return (
