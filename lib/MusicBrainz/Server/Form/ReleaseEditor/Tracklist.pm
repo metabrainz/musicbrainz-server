@@ -196,9 +196,12 @@ sub _validate_edits {
 sub validate {
     my $self = shift;
 
+    my $medium_count = 0;
     for my $medium ($self->field('mediums')->fields)
     {
         next if $medium->field('deleted')->value;
+
+        $medium_count++;
 
         my $edits = $medium->field('edits')->value;
 
@@ -225,6 +228,11 @@ sub validate {
             }
         }
     }
+
+    # FIXME: is there a way to set an error on the entire form,
+    # instead of specific to a field?
+    $self->field('mediums')->fields->[0]->add_error (l('A medium is required'))
+        unless $medium_count;
 };
 
 __PACKAGE__->meta->make_immutable;
