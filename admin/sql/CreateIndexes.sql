@@ -27,6 +27,7 @@ CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor
 
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
 CREATE INDEX isrc_idx_recording ON isrc (recording);
+CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);

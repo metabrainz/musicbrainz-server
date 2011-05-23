@@ -122,6 +122,34 @@ sub insert
                  @isrcs);
 }
 
+sub filter_additions
+{
+    my ($self, @additions) = @_;
+
+    my $query =
+        'SELECT array_index
+           FROM (VALUES ' . join(', ', ('(?::int, ?::text, ?::int)') x @additions) . ')
+                  addition (array_index, isrc, recording)
+          WHERE NOT EXISTS (
+                    SELECT TRUE FROM isrc
+                     WHERE isrc.isrc = addition.isrc
+                       AND isrc.recording = addition.recording
+                           )';
+
+    my @filtered = @{
+        $self->sql->select_single_column_array(
+            $query,
+            do {
+                my $i = 0;
+                map {
+                    $i++, $_->{isrc}, $_->{recording}{id}
+                } @additions
+            }
+        )
+    };
+    return map { $additions[$_] } @filtered;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
