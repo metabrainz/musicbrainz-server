@@ -28,7 +28,12 @@ sub _xml_arguments { ForceArray => ['attributes'] }
 
 subtype 'LinkHash'
     => as Dict[
-        link_type_id => Int,
+        link_type => Dict[
+            id => Int,
+            name => Str,
+            link_phrase => Str,
+            reverse_link_phrase => Str
+        ],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
@@ -44,7 +49,12 @@ subtype 'LinkHash'
 
 subtype 'RelationshipHash'
     => as Dict[
-        link_type_id => Nullable[Int],
+        link_type => Nullable[Dict[
+            id => Int,
+            name => Str,
+            link_phrase => Str,
+            reverse_link_phrase => Str
+        ]],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
@@ -84,9 +94,9 @@ sub foreign_keys
     my %load;
 
     $load{LinkType} = [
-        $self->data->{link}->{link_type_id},
-        $self->data->{new}->{link_type_id},
-        $self->data->{old}->{link_type_id}
+        $self->data->{link}->{link_type}{id},
+        $self->data->{new}{link_type} ? $self->data->{new}{link_type}{id} : (),
+        $self->data->{old}{link_type} ? $self->data->{old}{link_type}{id} : (),
     ];
     $load{LinkAttributeType} = [
         @{ $self->data->{link}->{attributes} },
@@ -123,13 +133,13 @@ sub _build_relationship
     my $attributes = defined $change->{attributes}   ? $change->{attributes}   : $link->{attributes};
     my $entity0    = defined $change->{entity0}      ? $change->{entity0}      : $link->{entity0};
     my $entity1    = defined $change->{entity1}      ? $change->{entity1}      : $link->{entity1};
-    my $lt_id      = defined $change->{link_type_id} ? $change->{link_type_id} : $link->{link_type_id};
+    my $lt         = defined $change->{link_type}    ? $change->{link_type}    : $link->{link_type};
 
     return unless $entity0 && $entity1;
 
     return Relationship->new(
         link => Link->new(
-            type       => $loaded->{LinkType}{ $lt_id },
+            type       => $loaded->{LinkType}{ $lt } || LinkType->new( $lt ),
             begin_date => partial_date_from_row( $begin ),
             end_date   => partial_date_from_row( $end ),
             attributes => [
@@ -200,7 +210,16 @@ sub _mapping
         begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
         end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
         attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
-        link_type_id => sub { return shift->link->type_id; },
+        link_type => sub {
+            my $rel = shift;
+            my $lt = $rel->link->type;
+            return {
+                id => $lt->id,
+                name => $lt->name,
+                link_phrase => $lt->link_phrase,
+                reverse_link_phrase => $lt->reverse_link_phrase
+            };
+        },
         entity0 => sub {
             my $rel = shift;
             return { id => $rel->entity0->id, name => $rel->entity0->name };
@@ -235,6 +254,13 @@ sub initialize
         name => $opts{entity1}->name
     } if $opts{entity1};
 
+    $opts{link_type} = {
+        id => $opts{link_type}->id,
+        name => $opts{link_type}->name,
+        link_phrase => $opts{link_type}->link_phrase,
+        reverse_link_phrase => $opts{link_type}->reverse_link_phrase
+    } if $opts{link_type};
+
     if ($change_direction)
     {
         croak ("Cannot change direction unless both endpoints are the same type")
@@ -262,7 +288,12 @@ sub initialize
             begin_date => partial_date_to_hash ($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
             attributes => [ map { $_->id } $link->all_attributes ],
-            link_type_id => $link->type_id,
+            link_type => {
+                id => $link->type_id,
+                name => $link->type->name,
+                link_phrase => $link->type->link_phrase,
+                reverse_link_phrase => $link->type->reverse_link_phrase
+            },
             entity0 => {
                 id => $relationship->entity0_id,
                 name => $relationship->entity0->name
@@ -288,7 +319,7 @@ sub accept
             entity0_id   => $self->data->{new}{entity0}{id},
             entity1_id   => $self->data->{new}{entity1}{id},
             attributes   => $self->data->{new}{attributes},
-            link_type_id => $self->data->{new}{link_type_id},
+            link_type_id => $self->data->{new}{link_type}{id},
             begin_date   => $self->data->{new}{begin_date},
             end_date     => $self->data->{new}{end_date},
         },
@@ -296,7 +327,7 @@ sub accept
             entity0_id   => $self->data->{link}{entity0}{id},
             entity1_id   => $self->data->{link}{entity1}{id},
             attributes   => $self->data->{link}{attributes},
-            link_type_id => $self->data->{link}{link_type_id},
+            link_type_id => $self->data->{link}{link_type}{id},
             begin_date   => $self->data->{link}{begin_date},
             end_date     => $self->data->{link}{end_date},
         },

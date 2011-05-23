@@ -74,13 +74,16 @@ is($rel->entity0_id, 3, "... entity0 is now artist 3");
 is($rel->entity1_id, 1, "... entity1 is now artist 1");
 
 $c->sql->do('TRUNCATE artist CASCADE');
+$c->sql->do('TRUNCATE link_type CASCADE');
 $c->model('Edit')->load_all($edit);
 
 ok(defined $edit->display_data->{old});
 is($edit->display_data->{old}->entity0->name, 'Artist 1');
 is($edit->display_data->{old}->entity1->name, 'Artist 3');
+is($edit->display_data->{old}->phrase, 'support');
 is($edit->display_data->{new}->entity0->name, 'Artist 3');
 is($edit->display_data->{new}->entity1->name, 'Artist 1');
+is($edit->display_data->{new}->phrase, 'member');
 
 };
 
@@ -97,7 +100,7 @@ sub _create_edit {
         type0 => 'artist',
         type1 => 'artist',
         relationship => $rel,
-        link_type_id => 2,
+        link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
         attributes => [],
@@ -119,7 +122,7 @@ sub _create_edit_change_direction {
         type1 => 'artist',
         change_direction => 1,
         relationship => $rel,
-        link_type_id => 2,
+        link_type => $c->model('LinkType')->get_by_id(1),
         begin_date => undef,
         end_date => undef,
         attributes => [],
