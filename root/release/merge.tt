@@ -47,14 +47,18 @@
               <tr class="subh">
                 <th colspan="4">
                   <label>[% l('New position:') %]</label>
-                  [% r.text(field.field('position')) %]
+                  [% r.text(field.field('position'), size=2) %]
                   [% r.hidden(field.field('id')) %]
                   [% r.hidden(field.field('release_id')) %]
                   [% IF medium.name %]
-                    [% l('(was medium {position}: {name})', { position => medium.position,
-                                                              name => medium.name }) %]
+                    [% l('(was medium {position}: {name} on release {release})',
+                        { position => medium.position,
+                          name => medium.name,
+                          release => medium.release.name }) | html %]
                   [% ELSE %]
-                    [% l('(was medium {position})', { position => medium.position }) %]
+                    [% l('(was medium {position} on release {release})',
+                        { position => medium.position,
+                          release => medium.release.name }) | html %]
                   [% END %]
                 </th>
               </tr>

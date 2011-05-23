@@ -80,9 +80,10 @@ sub load_for_releases
     my @mediums = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     foreach my $medium (@mediums) {
-        foreach (@{ $id_to_release{$medium->release_id} })
+        foreach my $release (@{ $id_to_release{$medium->release_id} })
         {
-            $_->add_medium($medium);
+            $medium->release($release);
+            $release->add_medium($medium);
         }
     }
 }
