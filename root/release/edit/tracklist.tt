@@ -234,6 +234,7 @@
 
   <div class="half-width basic-tracklist">
     [%- r.hidden ('wizard_session_id') -%]
+    [%- r.hidden ('seeded', class => "seeded") -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
 
