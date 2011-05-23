@@ -84,7 +84,7 @@ sub recording_toplevel
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
 
-            if ($c->stash->{inc}->artists) {
+            if ($c->stash->{inc}->artist_credits) {
                 $c->model('ArtistCredit')->load(map { $_->release_group } @releases);
                 $c->model('Artist')->load(
                     map { @{ $_->release_group->artist_credit->names } } @releases);
