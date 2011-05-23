@@ -329,15 +329,21 @@ sub schema_fixup
             );
         }
         if (exists $data->{"medium-list"} && 
-            exists $data->{"medium-list"}->{medium}->[0] && 
-            exists $data->{"medium-list"}->{medium}->[0]->{"track-list"})
+            exists $data->{"medium-list"}->{medium})
         {
-            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new( 
-                track_count => $data->{"medium-list"}->{medium}->[0]->{"track-list"}->{count} 
-            );
-            $data->{mediums} = [ MusicBrainz::Server::Entity::Medium->new( 
-                "tracklist" => $tracklist
-            ) ];
+            $data->{mediums} = [];
+            for my $medium_data (@{$data->{"medium-list"}->{medium}})
+            {
+                if (exists $medium_data->{"track-list"})
+                {
+                    my $medium = MusicBrainz::Server::Entity::Medium->new(
+                        tracklist => MusicBrainz::Server::Entity::Tracklist->new(
+                            track_count => $medium_data->{"track-list"}->{count}
+                        )
+                    );
+                    push @{$data->{mediums}}, $medium;
+                }
+            }
             delete $data->{"medium-list"};
         }
     }
