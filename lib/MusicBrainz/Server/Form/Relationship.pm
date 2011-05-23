@@ -9,7 +9,11 @@ with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'ar' );
 
-has_field 'link_type_id' => ( type => 'Select' );
+has_field 'link_type_id' => (
+    type => 'Select',
+    required => 1,
+    required_message => l('Link type is required')
+);
 has_field 'direction'    => ( type => 'Checkbox' );
 
 has_field 'entity0'      => ( type => 'Compound' );
@@ -84,19 +88,20 @@ sub edit_field_names { qw() }
 after validate => sub {
     my ($self) = @_;
 
-    my $link_type_id = $self->field('link_type_id')->value;
-    my $link_type = $self->ctx->model('LinkType')->get_by_id($link_type_id);
+    if(my $link_type_id = $self->field('link_type_id')->value) {
+        my $link_type = $self->ctx->model('LinkType')->get_by_id($link_type_id);
 
-    my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
-        $link_type->all_attributes;
+        my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
+            $link_type->all_attributes;
 
-    foreach my $attr ($self->attr_tree->all_children) {
-        my $value = $self->field('attrs')->field($attr->name)->value;
-        if ($value) {
-            my @values = $attr->all_children ? @{ $value } : ($attr->id);
-            if ($required_attributes{$attr->id} && !@values) {
-                $self->field('attrs')->field($attr->name)->add_error(
-                    l('This attribute is required'));
+        foreach my $attr ($self->attr_tree->all_children) {
+            my $value = $self->field('attrs')->field($attr->name)->value;
+            if ($value) {
+                my @values = $attr->all_children ? @{ $value } : ($attr->id);
+                if ($required_attributes{$attr->id} && !@values) {
+                    $self->field('attrs')->field($attr->name)->add_error(
+                        l('This attribute is required'));
+                }
             }
         }
     }
