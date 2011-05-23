@@ -554,6 +554,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                 trk.deleted = 0;
             }
 
+            if (!trk.hasOwnProperty ('name'))
+            {
+                trk.name = "";
+            }
+
             self.getTrack (idx).render (trk);
         });
 
