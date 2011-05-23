@@ -453,6 +453,18 @@ sub create_url : Local RequireAuth Edit
         my $e0 = $types[0] eq 'url' ? $url : $entity;
         my $e1 = $types[1] eq 'url' ? $url : $entity;
 
+        if ($c->model('Relationship')->exists(@types, {
+            link_type_id => $form->field('link_type_id')->value,
+            entity0 => $e0->id,
+            entity1 => $e1->id,
+        })) {
+            $c->stash(
+                exists => 1,
+                url => $form->field('url')->value
+            );
+            $c->detach;
+        }
+
         my $link_type = $c->model('LinkType')->get_by_id(
             $form->field('link_type_id')->value
         );
