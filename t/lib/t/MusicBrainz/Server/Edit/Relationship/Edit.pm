@@ -56,20 +56,34 @@ $c->model('LinkType')->load($rel->link);
 is($rel->link->type->id, 2, "... type id 2");
 is($rel->link->begin_date->year, 1994, "... begin year 1994");
 is($rel->link->end_date->year, 1995, "... end year 1995");
+is($rel->entity0_id, 1, '... entity 0 is artist 1');
+is($rel->entity1_id, 3, '... entity 1 is artist 3');
 
 # test change direction
 $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
 ok(defined $rel, "Before accepting the edit...");
 is($rel->entity0_id, 1, "... entity0 is artist 1");
-is($rel->entity1_id, 2, "... entity1 is artist 2");
+is($rel->entity1_id, 3, "... entity1 is artist 3");
 
 $edit = _create_edit_change_direction ($c);
 accept_edit($c, $edit);
 
 $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
 ok(defined $rel, "After accepting the edit...");
-is($rel->entity0_id, 2, "... entity0 is now artist 2");
+is($rel->entity0_id, 3, "... entity0 is now artist 3");
 is($rel->entity1_id, 1, "... entity1 is now artist 1");
+
+$c->sql->do('TRUNCATE artist CASCADE');
+$c->sql->do('TRUNCATE link_type CASCADE');
+$c->model('Edit')->load_all($edit);
+
+ok(defined $edit->display_data->{old});
+is($edit->display_data->{old}->entity0->name, 'Artist 1');
+is($edit->display_data->{old}->entity1->name, 'Artist 3');
+is($edit->display_data->{old}->phrase, 'support');
+is($edit->display_data->{new}->entity0->name, 'Artist 3');
+is($edit->display_data->{new}->entity1->name, 'Artist 1');
+is($edit->display_data->{new}->phrase, 'member');
 
 };
 
@@ -86,10 +100,11 @@ sub _create_edit {
         type0 => 'artist',
         type1 => 'artist',
         relationship => $rel,
-        link_type_id => 2,
+        link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
         attributes => [],
+        entity1 => $c->model('Artist')->get_by_id(3)
     );
 }
 
@@ -107,7 +122,7 @@ sub _create_edit_change_direction {
         type1 => 'artist',
         change_direction => 1,
         relationship => $rel,
-        link_type_id => 2,
+        link_type => $c->model('LinkType')->get_by_id(1),
         begin_date => undef,
         end_date => undef,
         attributes => [],
