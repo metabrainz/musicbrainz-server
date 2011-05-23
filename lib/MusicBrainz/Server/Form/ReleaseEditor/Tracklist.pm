@@ -9,6 +9,7 @@ use Try::Tiny;
 
 extends 'MusicBrainz::Server::Form::Step';
 
+has_field 'seeded' => ( type => 'Integer' );
 has_field 'mediums' => ( type => 'Repeatable', num_when_empty => 0 );
 has_field 'mediums.id' => ( type => 'Integer' );
 has_field 'mediums.toc' => ( type => 'Text' );
@@ -49,7 +50,7 @@ sub _track_errors {
 
     return 0 if $track->{deleted};
 
-    my $name = trim $track->{name};
+    my $name = trim ($track->{name} || "");
     my $pos = trim $track->{position};
 
     if ($name eq '' && $pos eq '')

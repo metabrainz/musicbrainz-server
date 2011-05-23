@@ -576,9 +576,21 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
             var box = self.box[idx];
 
-            if (box.$gid.val () !== $(row).find ('input.gid').val () ||
+            var box_credit = box.$credit.val ();
+            if (box_credit === "")
+            {
+                box_credit = box.$name.val ();
+            }
+
+            var row_credit = $(row).find ('input.credit').val ();
+            if (row_credit === "")
+            {
+                row_credit = $(row).find ('input.name').val ();
+            }
+
+            if (box_credit !== row_credit ||
                 box.$name.val () !== $(row).find ('input.name').val () ||
-                box.$credit.val () !== $(row).find ('input.credit').val () ||
+                box.$gid.val () !== $(row).find ('input.gid').val () ||
                 box.$join.val () !== $(row).find ('input.join').val ())
             {
                 isReleaseArtist = false;
