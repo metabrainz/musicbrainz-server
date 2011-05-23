@@ -26,6 +26,12 @@ has_field 'entity1.name' => ( type => 'Text' );
 
 has attr_tree => (
     is => 'ro',
+    required => 1
+);
+
+has root => (
+    is => 'ro',
+    required => 1
 );
 
 sub trim
@@ -41,7 +47,7 @@ sub field_list
     my ($self) = @_;
 
     my @fields = ('attrs', { type => 'Compound' }),
-    my $attr_tree = $self->ctx->stash->{attr_tree};
+    my $attr_tree = $self->attr_tree;
     foreach my $attr ($attr_tree->all_children) {
         if ($attr->all_children) {
             my @options = $self->_build_options($attr, 'name', $attr->name, '');
@@ -79,7 +85,7 @@ sub options_link_type_id
 {
     my ($self) = @_;
 
-    my $root = $self->ctx->stash->{root};
+    my $root = $self->root;
     return [ $self->_build_options($root, 'link_phrase', 'ROOT', '&nbsp;') ];
 }
 
