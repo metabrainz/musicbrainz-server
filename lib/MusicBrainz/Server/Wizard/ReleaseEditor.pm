@@ -1440,7 +1440,7 @@ sub _seed_parameters {
                                 name => $_->{name},
                                 id => $_->{artist_id},
                                 join => $_->{join_phrase},
-                                artist_name => $_->{artist_name},
+                                artist_name => $_->{artist_name} || $_->{name},
                                 gid => $_->{gid}
                             }, @{$track_ac->{names}}
                         ];
