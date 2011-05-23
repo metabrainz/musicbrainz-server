@@ -136,6 +136,7 @@ sub capture_edits (&$)
     my $current_max = $c->raw_sql->select_single_value('SELECT max(id) FROM edit');
     $code->();
     my $new_max = $c->raw_sql->select_single_value('SELECT max(id) FROM edit');
+    return () if $new_max <= $current_max;
     return values %{ $c->model('Edit')->get_by_ids(
         $current_max..$new_max
     ) };

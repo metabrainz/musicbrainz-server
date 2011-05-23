@@ -68,6 +68,20 @@ after 'load' => sub
     if ($c->action->name ne 'show') {
         $c->model('ArtistCredit')->load($release);
     }
+
+    # The release editor loads this stuff on its own
+    if ($c->action->name ne 'edit') {
+        $c->model('ReleaseStatus')->load($release);
+        $c->model('ReleasePackaging')->load($release);
+        $c->model('Country')->load($release);
+        $c->model('Language')->load($release);
+        $c->model('Script')->load($release);
+        $c->model('ReleaseLabel')->load($release);
+        $c->model('Label')->load($release->all_labels);
+        $c->model('ReleaseGroupType')->load($release->release_group);
+        $c->model('Medium')->load_for_releases($release);
+        $c->model('MediumFormat')->load($release->all_mediums);
+    }
 };
 
 sub discids : Chained('load')
@@ -109,19 +123,8 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-    $c->model('ReleaseStatus')->load($release);
-    $c->model('ReleasePackaging')->load($release);
-    $c->model('Country')->load($release);
-    $c->model('Language')->load($release);
-    $c->model('Script')->load($release);
-    $c->model('ReleaseLabel')->load($release);
-    $c->model('Label')->load(@{ $release->labels });
-    $c->model('ReleaseGroupType')->load($release->release_group);
-    $c->model('Medium')->load_for_releases($release);
 
     my @mediums = $release->all_mediums;
-    $c->model('MediumFormat')->load(@mediums);
-
     my @tracklists = grep { defined } map { $_->tracklist } @mediums;
     $c->model('Track')->load_for_tracklists(@tracklists);
 
@@ -326,12 +329,30 @@ sub _merge_form_arguments {
     $c->model('Recording')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
     $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
 
-    my @mediums =
-        nsort_by { $_->position }
-        map { $_->all_mediums } @releases;
+    my @mediums;
+    my %medium_by_id;
+    foreach my $release (@releases) {
+        foreach my $medium ($release->all_mediums) {
+            my $position = $medium->position;
+            if ($release->medium_count == 1 && !$medium->name) {
+                # guess position from the old release name
+                if ($medium->release->name =~ /\(disc (\d+)(?:: (.+?))?\)/) {
+                    $position = $1;
+                }
+            }
+            push @mediums, {
+                id => $medium->id,
+                release_id => $medium->release_id,
+                position => $position
+            };
+            $medium_by_id{$medium->id} = $medium;
+        }
+    }
+
+    @mediums = nsort_by { $_->{position} } @mediums;
 
     $c->stash(
-        mediums => \@mediums
+        mediums => [ map { $medium_by_id{$_->{id}} } @mediums ]
     );
 
     return (

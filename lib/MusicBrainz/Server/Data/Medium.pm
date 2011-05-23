@@ -15,6 +15,8 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
 
+use Scalar::Util qw( weaken );
+
 sub _table
 {
     return 'medium JOIN tracklist ON medium.tracklist=tracklist.id';
@@ -80,9 +82,11 @@ sub load_for_releases
     my @mediums = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     foreach my $medium (@mediums) {
-        foreach (@{ $id_to_release{$medium->release_id} })
+        foreach my $release (@{ $id_to_release{$medium->release_id} })
         {
-            $_->add_medium($medium);
+            $medium->release($release);
+            $release->add_medium($medium);
+            weaken($medium->{release}); # XXX HACK!
         }
     }
 }

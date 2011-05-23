@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Recording::AddISRCs;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Context';
 
@@ -28,6 +29,9 @@ is($recording->edits_pending, 0);
 my @isrcs = $c->model('ISRC')->find_by_recording(1);
 is(scalar @isrcs, 1);
 is($isrcs[0]->isrc, 'DEE250800232');
+
+isa_ok exception { create_edit($c) }, 'MusicBrainz::Server::Edit::Exceptions::NoChanges',
+    'inserting the same ISRCs results in no changes';
 
 };
 
