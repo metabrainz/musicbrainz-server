@@ -182,9 +182,6 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     };
 
     self.removeDisc = function (chained) {
-        if (!chained && self.disc.isLastDisc ())
-            return;
-
         /* FIXME: remove from parent textareas. */
         self.$textarea.val ('');
         self.$textarea.addClass ('deleted');

@@ -424,8 +424,7 @@ div.warning img.warning {
 .tooltip { border-bottom: 1px dotted; } /* Useful when adding title attributes to elements */
 
 table.tbl tr.mp td,
-span.mp,
-tr.diff-changes {
+span.mp {
     background: #FD9 !important;
 }
 
@@ -577,17 +576,13 @@ table.details th {
 
 table.details td span.new,
 table.details td.new,
-div.diff .diff-only-b,
-span.diff-only-b,
-tr.diff-addition {
+div.diff .diff-only-b {
     background: #B1EBB0;
 }
 
 table.details td span.old,
 table.details td.old,
-div.diff .diff-only-a,
-span.diff-only-a,
-tr.diff-removal {
+div.diff .diff-only-a {
     background: #EBB1BA;
 }
 

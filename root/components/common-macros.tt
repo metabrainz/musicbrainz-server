@@ -492,6 +492,13 @@ END -%]
     ELSE; '/static/images/favicons/external-16.png';
 END %]
 
+[%- MACRO error(message, class) BLOCK -%]
+   <div class="warning[% ' ' _ class IF class %]">
+     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     <p>[% l('<strong>Error</strong>:') %] [% message %]</p>
+   </div>
+[%- END -%]
+
 [%- MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
      <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
@@ -530,4 +537,3 @@ http://[%- server -%]/[%- id -%]"
   [%- END -%]
 [%- END -%]
 
-[%- MACRO format_length(n) BLOCK; n | format_length; END %]

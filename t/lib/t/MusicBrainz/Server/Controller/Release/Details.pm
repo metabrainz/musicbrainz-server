@@ -21,6 +21,14 @@ $mech->content_contains('http://musicbrainz.org/release/f205627f-b70a-409d-adbe-
 $mech->content_contains('>f205627f-b70a-409d-adbe-66289b614e80</',
                         '..has mbid in plain text');
 
+$mech->content_contains('CD', 'contains medium type');
+$mech->content_contains('Official', 'contains release status');
+$mech->content_contains('Album', 'contains release group type');
+$mech->content_contains('343 960 2', 'has catalog number');
+$mech->content_contains('Warp Records', 'contains label name');
+$mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190',
+                        'has a link to the label');
+
 };
 
 1;
