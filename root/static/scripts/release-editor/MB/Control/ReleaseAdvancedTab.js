@@ -375,9 +375,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.removeDisc = function (chained) {
-        if (!chained && self.isLastDisc ())
-            return;
-
         self.edits.clearEdits ();
         self.tracklist = null;
         self.removeTracks (-1);
@@ -387,15 +384,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         self.parent.removeDisc (self);
         self.position (0);
-
-        if (!chained)
-        {
-            self.basic.removeDisc (true);
-        }
-    };
-
-    self.isLastDisc = function () {
-        return self.parent.isLastDisc (self);
     };
 
     self.isDeleted = function () {
@@ -769,10 +757,6 @@ MB.Control.ReleaseAdvancedTab = function () {
         }
 
         return true;
-    };
-
-    self.isLastDisc = function (disc) {
-        return (self.discs.length == 1);
     };
 
     self.removeDisc = function (disc) {
