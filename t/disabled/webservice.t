@@ -1,4 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+
+use warnings;
 
 # This test module is far from complete because the tests are too brittle to really make it work.
 # It was useful for testing the port of the webservice, so I'll check it in for possible use later.
