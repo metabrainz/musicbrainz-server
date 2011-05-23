@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::LinkAttributeType;
 use Moose;
 use Sql;
 use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     hash_to_row

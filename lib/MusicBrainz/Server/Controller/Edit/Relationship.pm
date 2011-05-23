@@ -113,7 +113,8 @@ sub edit : Local RequireAuth Edit
     my $form = $c->form(
         form => 'Relationship',
         init_object => $values,
-        attr_tree => $attr_tree
+        attr_tree => $attr_tree,
+        root => $tree
     );
     $form->field('link_type_id')->_load_options;
 
@@ -202,7 +203,7 @@ sub create : Local RequireAuth Edit
     my $source = $source_model->get_by_gid($source_gid);
     my $dest   = $dest_model->get_by_gid($dest_gid);
 
-    if ($source->id == $dest->id) {
+    if ($type0 eq $type1 && $source->id == $dest->id) {
         $c->stash( message => l('A relationship requires 2 different entities') );
         $c->detach('/error_500');
     }
@@ -229,7 +230,8 @@ sub create : Local RequireAuth Edit
 
     my $form = $c->form(
         form => 'Relationship',
-        attr_tree => $attr_tree
+        attr_tree => $attr_tree,
+        root => $tree
     );
     $c->stash(
         source => $source, source_type => $type0,
@@ -353,7 +355,11 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
     $c->stash( attr_tree => $attr_tree );
 
-    my $form = $c->form( form => 'Relationship' );
+    my $form = $c->form(
+        form => 'Relationship',
+        attr_tree => $attr_tree,
+        root => $tree
+    );
     $c->stash(
         release => $release,
         dest    => $dest,
@@ -447,7 +453,11 @@ sub create_url : Local RequireAuth Edit
         type_info => JSON->new->latin1->encode(\%type_info),
     );
 
-    my $form = $c->form( form => 'Relationship::URL', reverse => $types[0] eq 'url' );
+    my $form = $c->form(
+        form => 'Relationship::URL',
+        reverse => $types[0] eq 'url',
+        root => $tree
+    );
 
     $c->stash(
         entity => $entity,
