@@ -32,8 +32,14 @@ subtype 'LinkHash'
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
-        entity0_id => Nullable[Int],
-        entity1_id => Nullable[Int],
+        entity0 => Nullable[Dict[
+            id => Int,
+            name => Str,
+        ]],
+        entity1 => Nullable[Dict[
+            id => Int,
+            name => Str,
+        ]]
     ];
 
 subtype 'RelationshipHash'
@@ -42,8 +48,14 @@ subtype 'RelationshipHash'
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
-        entity0_id => Nullable[Int],
-        entity1_id => Nullable[Int],
+        entity0 => Nullable[Dict[
+            id => Int,
+            name => Str,
+        ]],
+        entity1 => Nullable[Dict[
+            id => Int,
+            name => Str,
+        ]]
     ];
 
 has '+data' => (
@@ -88,12 +100,12 @@ sub foreign_keys
     $load{$model0} = [];
     $load{$model1} = [];
 
-    push @{ $load{$model0} }, $self->data->{link}->{entity0_id};
-    push @{ $load{$model1} }, $self->data->{link}->{entity1_id};
-    push @{ $load{$model0} }, $old->{entity0_id} if $old->{entity0_id};
-    push @{ $load{$model1} }, $old->{entity1_id} if $old->{entity1_id};
-    push @{ $load{$model0} }, $new->{entity0_id} if $new->{entity0_id};
-    push @{ $load{$model1} }, $new->{entity1_id} if $new->{entity1_id};
+    push @{ $load{$model0} }, $self->data->{link}->{entity0}{id};
+    push @{ $load{$model1} }, $self->data->{link}->{entity1}{id};
+    push @{ $load{$model0} }, $old->{entity0}{id} if $old->{entity0};
+    push @{ $load{$model1} }, $old->{entity1}{id} if $old->{entity1};
+    push @{ $load{$model0} }, $new->{entity0}{id} if $new->{entity0};
+    push @{ $load{$model1} }, $new->{entity1}{id} if $new->{entity1};
 
     return \%load;
 }
@@ -109,8 +121,8 @@ sub _build_relationship
     my $begin      = defined $change->{begin_date}   ? $change->{begin_date}   : $link->{begin_date};
     my $end        = defined $change->{end_date}     ? $change->{end_date}     : $link->{end_date};
     my $attributes = defined $change->{attributes}   ? $change->{attributes}   : $link->{attributes};
-    my $entity0    = defined $change->{entity0_id}   ? $change->{entity0_id}   : $link->{entity0_id};
-    my $entity1    = defined $change->{entity1_id}   ? $change->{entity1_id}   : $link->{entity1_id};
+    my $entity0    = defined $change->{entity0}      ? $change->{entity0}      : $link->{entity0};
+    my $entity1    = defined $change->{entity1}      ? $change->{entity1}      : $link->{entity1};
     my $lt_id      = defined $change->{link_type_id} ? $change->{link_type_id} : $link->{link_type_id};
 
     return unless $entity0 && $entity1;
@@ -129,8 +141,10 @@ sub _build_relationship
                 } @$attributes
             ]
         ),
-        entity0 => $loaded->{$model0}{ $entity0 },
-        entity1 => $loaded->{$model1}{ $entity1 },
+        entity0 => $loaded->{$model0}{ $entity0->{id} } ||
+            $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
+        entity1 => $loaded->{$model1}{ $entity1->{id} } ||
+            $self->c->model($model1)->_entity_class->new( name => $entity1->{name} ),
     );
 }
 
@@ -161,12 +175,12 @@ sub related_entities
     $result{$type0} = [];
     $result{$type1} = [];
 
-    push @{ $result{$type0} }, $old->{entity0_id} if $old->{entity0_id};
-    push @{ $result{$type0} }, $new->{entity0_id} if $new->{entity0_id};
-    push @{ $result{$type0} }, $self->data->{link}{entity0_id};
-    push @{ $result{$type1} }, $old->{entity1_id} if $old->{entity1_id};
-    push @{ $result{$type1} }, $new->{entity1_id} if $new->{entity1_id};
-    push @{ $result{$type1} }, $self->data->{link}{entity1_id};
+    push @{ $result{$type0} }, $old->{entity0}{id} if $old->{entity0};
+    push @{ $result{$type0} }, $new->{entity0}{id} if $new->{entity0};
+    push @{ $result{$type0} }, $self->data->{link}{entity0}{id};
+    push @{ $result{$type1} }, $old->{entity1}{id} if $old->{entity1};
+    push @{ $result{$type1} }, $new->{entity1}{id} if $new->{entity1};
+    push @{ $result{$type1} }, $self->data->{link}{entity1}{id};
 
     return \%result;
 }
@@ -187,6 +201,14 @@ sub _mapping
         end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
         attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
         link_type_id => sub { return shift->link->type_id; },
+        entity0 => sub {
+            my $rel = shift;
+            return { id => $rel->entity0->id, name => $rel->entity0->name };
+        },
+        entity1 => sub {
+            my $rel = shift;
+            return { id => $rel->entity1->id, name => $rel->entity1->name };
+        }
     );
 }
 
@@ -199,14 +221,34 @@ sub initialize
     my $type1 = delete $opts{type1};
     my $change_direction = delete $opts{change_direction};
 
+    unless ($relationship->entity0 && $relationship->entity1) {
+        $self->c->model('Relationship')->load_entities($relationship);
+    }
+
+    $opts{entity0} = {
+        id => $opts{entity0}->id,
+        name => $opts{entity0}->name
+    } if $opts{entity0};
+
+    $opts{entity1} = {
+        id => $opts{entity1}->id,
+        name => $opts{entity1}->name
+    } if $opts{entity1};
+
     if ($change_direction)
     {
         croak ("Cannot change direction unless both endpoints are the same type")
             if ($type0 ne $type1);
 
-        $opts{entity0_id} ||= $relationship->entity0_id;
-        $opts{entity1_id} ||= $relationship->entity1_id;
-        ($opts{entity0_id}, $opts{entity1_id}) = ($opts{entity1_id}, $opts{entity0_id});
+        $opts{entity0} ||= {
+            id => $relationship->entity0_id,
+            name => $relationship->entity0->name
+        };
+        $opts{entity1} ||= {
+            id => $relationship->entity1_id,
+            name => $relationship->entity1->name
+        };
+        ($opts{entity0}, $opts{entity1}) = ($opts{entity1}, $opts{entity0});
     }
 
     my $link = $relationship->link;
@@ -221,8 +263,14 @@ sub initialize
             end_date =>   partial_date_to_hash ($link->end_date),
             attributes => [ map { $_->id } $link->all_attributes ],
             link_type_id => $link->type_id,
-            entity0_id => $relationship->entity0_id,
-            entity1_id => $relationship->entity1_id,
+            entity0 => {
+                id => $relationship->entity0_id,
+                name => $relationship->entity0->name
+            },
+            entity1 => {
+                id => $relationship->entity1_id,
+                name => $relationship->entity1->name
+            },
         },
         $self->_change_data($relationship, %opts)
     });
@@ -236,8 +284,22 @@ sub accept
         $self->data->{type0},
         $self->data->{type1},
         $self->data->{relationship_id},
-        $self->data->{new},
-        $self->data->{link},
+        {
+            entity0_id   => $self->data->{new}{entity0}{id},
+            entity1_id   => $self->data->{new}{entity1}{id},
+            attributes   => $self->data->{new}{attributes},
+            link_type_id => $self->data->{new}{link_type_id},
+            begin_date   => $self->data->{new}{begin_date},
+            end_date     => $self->data->{new}{end_date},
+        },
+        {
+            entity0_id   => $self->data->{link}{entity0}{id},
+            entity1_id   => $self->data->{link}{entity1}{id},
+            attributes   => $self->data->{link}{attributes},
+            link_type_id => $self->data->{link}{link_type_id},
+            begin_date   => $self->data->{link}{begin_date},
+            end_date     => $self->data->{link}{end_date},
+        },
     );
 }
 

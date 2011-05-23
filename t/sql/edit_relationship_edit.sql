@@ -11,11 +11,12 @@ SET client_min_messages TO 'warning';
 
 
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Name');
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1'), (2, 'Artist 2'), (3, 'Artist 3');
 
 INSERT INTO artist (id, gid, name, sort_name) VALUES
     (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-    (2, '75a40343-ff6e-45d6-a5d2-110388d34858', 1, 1);
+    (2, '75a40343-ff6e-45d6-a5d2-110388d34858', 2, 2),
+    (3, '15a40343-ff6e-45d6-a5d2-110388d34858', 3, 3);
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 
