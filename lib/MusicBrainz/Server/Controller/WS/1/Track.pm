@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
 use Function::Parameters 'f';
+use Try::Tiny;
 use aliased 'MusicBrainz::Server::Buffer';
 
 __PACKAGE__->config(
@@ -199,11 +200,20 @@ sub submit_isrc : Private
     my $buffer = Buffer->new(
         limit   => 100,
         on_full => f($contents) {
-            $c->model('Edit')->create(
-                edit_type      => $EDIT_RECORDING_ADD_ISRCS,
-                editor_id      => $c->user->id,
-                isrcs          => $contents
-            );
+            try {
+                $c->model('Edit')->create(
+                    edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                    editor_id      => $c->user->id,
+                    isrcs          => $contents
+                );
+            }
+            catch {
+                my $err = $_;
+                unless (blessed($err) && $err->isa('MusicBrainz::Server::Edit::Exceptions::NoChanges')) {
+                    # Ignore the NoChanges exception
+                    die $err;
+                }
+            };
         }
     );
 
