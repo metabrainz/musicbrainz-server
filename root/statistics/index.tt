@@ -170,7 +170,7 @@
 </tr>
 [%- FOREACH num IN [1 .. 9] -%]
 <tr>
-    <td>[% ln('PUIDs which identify exactly one recording:', 'PUIDs which identify {num} recordings:', num, { num => num }) %]</td>
+    <td>&nbsp;&nbsp;[% ln('PUIDs which identify exactly one recording:', 'PUIDs which identify {num} recordings:', num, { num => num }) %]</td>
     <td>[% stats.statistic('count.puid.' _ num _ 'recordings') %]</td>
     <td>[% l('{n}%', { n => stats.data.ratio('count.puid.' _ num _ 'recordings', 'count.puid') }) %]</td>
 </tr>
