@@ -522,8 +522,6 @@ sub associate_recordings
 sub prepare_tracklist
 {
     my ($self, $release) = @_;
-
-    $self->c->stash->{release_artist_json} = "null";
 }
 
 sub prepare_recordings
@@ -1482,6 +1480,8 @@ sub _seed_parameters {
     $params->{mediums} = [
         { position => 1 },
     ] unless @{ $params->{mediums}||[] };
+
+    $params->{seeded} = 1;
 
     return collapse_hash($params);
 };
