@@ -26,6 +26,7 @@ use MusicBrainz::Server::Constants qw(
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::Translation qw( l );
 
 =head1 NAME
 
@@ -208,8 +209,13 @@ sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
             } ]
         );
 
-        $c->response->redirect($c->uri_for_action('/recording/show', [ $recording->gid ]));
-        $c->detach;
+        if ($c->stash->{makes_no_changes}) {
+            $form->field('isrc')->add_error(l('This ISRC already exists for this recording'));
+        }
+        else {
+            $c->response->redirect($c->uri_for_action('/recording/show', [ $recording->gid ]));
+            $c->detach;
+        }
     }
 }
 
