@@ -68,6 +68,9 @@ sub edit : Local RequireAuth Edit
         $c->detach;
     }
 
+    my $model0 = $c->model(type_to_model($type0));
+    my $model1 = $c->model(type_to_model($type1));
+
     $c->stash(
         root => $tree,
         type_info => JSON->new->latin1->encode(\%type_info),
@@ -146,15 +149,19 @@ sub edit : Local RequireAuth Edit
             $c->detach;
         }
 
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
         my $values = $form->values;
         my $edit = $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_EDIT,
             type0             => $type0,
             type1             => $type1,
-            entity0_id        => $form->field('entity0.id')->value,
-            entity1_id        => $form->field('entity1.id')->value,
+            entity0           => $model0->get_by_id($form->field('entity0.id')->value),
+            entity1           => $model1->get_by_id($form->field('entity1.id')->value),
             relationship      => $rel,
-            link_type_id      => $form->field('link_type_id')->value,
+            link_type         => $link_type,
             begin_date        => $form->field('begin_date')->value,
             end_date          => $form->field('end_date')->value,
             change_direction  => $form->field('direction')->value,
