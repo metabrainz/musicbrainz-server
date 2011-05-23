@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS
                                        :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
@@ -33,6 +34,21 @@ has '+data' => (
         ]]
     ]
 );
+
+sub initialize
+{
+    my ($self, %opts) = @_;
+    my @isrcs = $self->c->model('ISRC')->filter_additions(@{ $opts{isrcs} });
+
+    if(@isrcs == 0) {
+        MusicBrainz::Server::Edit::Exceptions::NoChanges->throw;
+    }
+    else {
+        $self->data({
+            isrcs => \@isrcs
+        });
+    }
+}
 
 sub edit_conditions
 {
