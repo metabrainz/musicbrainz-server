@@ -638,7 +638,6 @@ sub xml_search
     my $type    = $options{type} or die 'type is a required parameter';
     my $version = $options{version} || 2;
 
-    $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
 
     unless ($query) {
@@ -789,6 +788,7 @@ sub xml_search
         }
     }
 
+    $query = uri_escape_utf8($query);
     my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
                                  DBDefs::LUCENE_SERVER,
                                  $version,
