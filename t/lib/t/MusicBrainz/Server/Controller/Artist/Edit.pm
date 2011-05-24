@@ -38,7 +38,7 @@ my $response = $mech->submit_form(
     }
 );
 ok($mech->success);
-ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce}, 'should redirect to artist page via gid');
+ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce$}, 'should redirect to artist page via gid');
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
@@ -105,6 +105,41 @@ $mech->content_contains ('Yet Another Test Artist',
                          '.. contains old artist comment');
 $mech->content_contains ('artist created in controller_artist.t',
                          '.. contains new artist comment');
+
+};
+
+test 'Check duplicates' => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+
+# Test editing artists
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+html_ok($mech->content);
+$mech->submit_form_ok({
+    with_fields => {
+        'edit-artist.name' => 'test artist',
+        'edit-artist.sort_name' => 'artist, test',
+    }
+});
+ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce$}, 'should redirect to artist page via gid');
+
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+html_ok($mech->content);
+$mech->submit_form_ok({
+    with_fields => {
+        'edit-artist.name' => 'Empty Artist',
+        'edit-artist.sort_name' => 'Empty Artist',
+    }
+});
+ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');
+$mech->content_contains('Possible Duplicate Artists', 'warning about duplicate artists');
 
 };
 
