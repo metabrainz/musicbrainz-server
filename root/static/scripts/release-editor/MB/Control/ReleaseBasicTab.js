@@ -242,10 +242,9 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$expand_icon = self.$basicdisc.find ('input.expand-disc');
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
-    self.$toc = self.$basicdisc.find ('input.toc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
-    self.$toc = self.$basicdisc.find ('input.toc');
     self.$various_artists = self.$basicdisc.find ('input.various-artists');
+    self.$toc = $('#id-mediums\\.'+disc.number+'\\.toc');
 
     if (!self.$tracklist_id.length)
     {
