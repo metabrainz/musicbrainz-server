@@ -1,0 +1,8 @@
+[% BLOCK layout_head %]
+  [% script_manifest('statistics.js.manifest') %]
+  <!--[if lte IE 8]>[%- script_manifest('statistics_ie.js.manifest') %]<![endif]-->
+[% END %]
+
+[%- WRAPPER "layout.tt" usesRDFa=1 title="artist.count statistics" -%]
+<!-- content will go here -->
+[% END %]

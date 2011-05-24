@@ -18,6 +18,16 @@ sub statistics : Path('')
     );
 }
 
+sub artist : Local
+{
+    my
+    ($self, $c) = @_;
+
+    $c->stash(
+        template => 'statistics/artist.tt'
+    );
+}
+
 =head1 LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.
