@@ -86,7 +86,7 @@ sub options_link_type_id
     my ($self) = @_;
 
     my $root = $self->root;
-    return [ $self->_build_options($root, 'link_phrase', 'ROOT', '&nbsp;') ];
+    return [ $self->_build_options($root, 'short_link_phrase', 'ROOT', '&nbsp;') ];
 }
 
 sub edit_field_names { qw() }
