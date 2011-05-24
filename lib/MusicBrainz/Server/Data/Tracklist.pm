@@ -133,20 +133,23 @@ sub merge
 sub find
 {
     my ($self, $tracks) = @_;
-
     my $query =
         'SELECT tracklist
            FROM (
-                    SELECT tracklist FROM track
+                    SELECT tracklist, count(track.id) AS matched_track_count
+                      FROM track
                       JOIN track_name name ON name.id = track.name
                      WHERE ' . join(' OR ', ('(
-                               name.name ILIKE ?
+                               name.name = ?
                            AND artist_credit = ?
+                           AND recording = ?
                            AND position = ?
                            )') x @$tracks) . '
+                  GROUP BY tracklist
                 ) s
-       GROUP BY tracklist
-         HAVING COUNT(tracklist) = ?';
+           JOIN tracklist ON s.tracklist = tracklist.id
+          WHERE tracklist.track_count = s.matched_track_count
+            AND tracklist.track_count = ?';
 
     return @{
         $self->sql->select_single_column_array(
@@ -154,6 +157,7 @@ sub find
             (map {
                 $_->{name},
                 $_->{artist_credit},
+                $_->{recording},
                 $_->{position}
             } @$tracks),
             scalar(@$tracks)
@@ -165,34 +169,7 @@ sub find_or_insert
 {
     my ($self, $tracks) = @_;
 
-    my $query =
-        'SELECT tracklist
-           FROM (
-                    SELECT tracklist FROM track
-                      JOIN track_name name ON name.id = track.name
-                     WHERE ' . join(' OR ', ('(
-                               name.name = ?
-                           AND artist_credit = ?
-                           AND recording = ?
-                           AND position = ?
-                           )') x @$tracks) . '
-                ) s
-       GROUP BY tracklist
-         HAVING COUNT(tracklist) = ?';
-
-    my @possible_tracklists = @{
-        $self->sql->select_single_column_array(
-            $query,
-            (map {
-                $_->{name},
-                $_->{artist_credit},
-                $_->{recording_id},
-                $_->{position}
-            } @$tracks),
-            scalar(@$tracks)
-        )
-    };
-
+    my @possible_tracklists = $self->find($tracks);
     if (@possible_tracklists == 1) {
         return $self->_entity_class->new(
             id => $possible_tracklists[0]

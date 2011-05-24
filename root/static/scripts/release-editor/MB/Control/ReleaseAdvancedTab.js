@@ -48,6 +48,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
             /* do not allow changes to track times if the disc has a TOC. */
             self.$length.val (data.length);
         }
+        data.deleted = parseInt (data.deleted, 10);
         self.$deleted.val (data.deleted);
         if (data.artist_credit)
         {
