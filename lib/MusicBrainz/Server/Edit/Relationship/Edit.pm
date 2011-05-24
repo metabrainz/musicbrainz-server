@@ -20,6 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { l("Edit relationship") }
@@ -171,7 +172,7 @@ sub build_display_data
     };
 }
 
-sub related_entities
+sub directly_related_entities
 {
     my ($self) = @_;
 

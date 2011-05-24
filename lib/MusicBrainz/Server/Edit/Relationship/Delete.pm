@@ -19,6 +19,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { l("Remove relationship") }
@@ -117,7 +118,7 @@ sub build_display_data
     }
 }
 
-sub related_entities
+sub directly_related_entities
 {
     my ($self) = @_;
 
