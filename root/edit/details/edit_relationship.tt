@@ -6,14 +6,14 @@
     <td class="old">
       [% relationship=edit.display_data.old %]
       [% link_entity(relationship.source); %]
-      [% display_relationship(relationship); %]
+      [% display_relationship(relationship, 'verbose_phrase'); %]
     </td>
   </tr>
   <tr>
     <td class="new">
       [% relationship=edit.display_data.new %]
       [% link_entity(relationship.source); %]
-      [% display_relationship(relationship); %]
+      [% display_relationship(relationship, 'verbose_phrase'); %]
     </td>
   </tr>
 </table>
