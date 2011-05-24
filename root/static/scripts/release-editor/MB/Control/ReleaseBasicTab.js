@@ -53,7 +53,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 
         $.each (self.adv.positions, function (idx, disc) {
 
-            if (!disc) { return; }
+            if (!disc || !disc.expanded) { return; }
 
             $('<h3>').text (disc.fullTitle ()).appendTo (preview);
 
