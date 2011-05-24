@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
 use Carp;
+use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -311,25 +312,27 @@ sub accept
 {
     my $self = shift;
 
+    my $data = clone($self->data);
+
     $self->c->model('Relationship')->update(
-        $self->data->{type0},
-        $self->data->{type1},
-        $self->data->{relationship_id},
+        $data->{type0},
+        $data->{type1},
+        $data->{relationship_id},
         {
-            entity0_id   => $self->data->{new}{entity0}{id},
-            entity1_id   => $self->data->{new}{entity1}{id},
-            attributes   => $self->data->{new}{attributes},
-            link_type_id => $self->data->{new}{link_type}{id},
-            begin_date   => $self->data->{new}{begin_date},
-            end_date     => $self->data->{new}{end_date},
+            entity0_id   => $data->{new}{entity0}{id},
+            entity1_id   => $data->{new}{entity1}{id},
+            attributes   => $data->{new}{attributes},
+            link_type_id => $data->{new}{link_type}{id},
+            begin_date   => $data->{new}{begin_date},
+            end_date     => $data->{new}{end_date},
         },
         {
-            entity0_id   => $self->data->{link}{entity0}{id},
-            entity1_id   => $self->data->{link}{entity1}{id},
-            attributes   => $self->data->{link}{attributes},
-            link_type_id => $self->data->{link}{link_type}{id},
-            begin_date   => $self->data->{link}{begin_date},
-            end_date     => $self->data->{link}{end_date},
+            entity0_id   => $data->{link}{entity0}{id},
+            entity1_id   => $data->{link}{entity1}{id},
+            attributes   => $data->{link}{attributes},
+            link_type_id => $data->{link}{link_type}{id},
+            begin_date   => $data->{link}{begin_date},
+            end_date     => $data->{link}{end_date},
         },
     );
 }
