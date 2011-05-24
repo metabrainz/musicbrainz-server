@@ -115,7 +115,12 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             var artist = $row.find ('td.artist').text ();
             if (artist)
             {
-                trk['artist_credit'] = { names: [ { 'artist_name': artist } ] };
+                trk['artist_credit'] = { names: [ {
+                    'artist_name': artist,
+                    'gid': '',
+                    'id': '',
+                    'join_phrase': ''
+                } ] };
             }
 
             basic_disc.disc.getTrack (idx - 1).render (trk);
