@@ -352,7 +352,8 @@ sub _merge_form_arguments {
     @mediums = nsort_by { $_->{position} } @mediums;
 
     $c->stash(
-        mediums => [ map { $medium_by_id{$_->{id}} } @mediums ]
+        mediums => [ map { $medium_by_id{$_->{id}} } @mediums ],
+        xxx_releases => \@releases
     );
 
     return (
