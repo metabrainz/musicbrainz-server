@@ -28,7 +28,12 @@ after 'validate' => sub
     # user hasn't changed the entity's name
     return if $self->init_object && $self->init_object->name eq $self->field('name')->value;
 
-    $self->duplicates([ $self->dupe_model->find_by_name($self->field('name')->value) ]);
+    # Load duplicates and filter out the currently edited entity
+    my $entity_id = $self->init_object ? $self->init_object->id : 0;
+    $self->duplicates([
+        grep { $_->id != $entity_id }
+        $self->dupe_model->find_by_name($self->field('name')->value)
+    ]);
 
     $self->field('not_dupe')->required($self->has_duplicates ? 1 : 0);
     $self->field('not_dupe')->validate_field;

@@ -356,6 +356,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             self.$fieldset.find ('div.add-track').hide ();
         }
+        else
+        {
+            self.$fieldset.find ('div.add-track').show ();
+        }
     };
 
     /* 'up' is visual, so the disc position decreases. */
@@ -717,6 +721,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         $("#id-mediums\\."+discs+"\\.tracklist_id").val('');
         $('#id-mediums\\.'+discs+'\\.deleted').val('0');
         $('#id-mediums\\.'+discs+'\\.edits').val('');
+        $('#id-mediums\\.'+discs+'\\.toc').val('');
 
         newdisc_bas.find ('textarea').empty ();
 
