@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
 use Function::Parameters 'f';
+use List::Util qw( first );
 use Try::Tiny;
 use aliased 'MusicBrainz::Server::Buffer';
 
@@ -256,8 +257,19 @@ sub lookup : Chained('load') PathPart('')
         $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
         $c->model('Script')->load(@releases);
         $c->model('Language')->load(@releases);
+        $c->model('Medium')->load_for_releases(@releases);
+        $c->model('Track')->load_for_tracklists(
+            map { $_->tracklist } map { $_->all_mediums } @releases
+        );
 
         $c->stash->{data}{releases} = \@releases;
+        $c->stash->{data}{track_map} = {
+            map {
+                $_->id => first { $_->recording_id == $track->id }
+                    map { $_->tracklist->all_tracks }
+                        map { $_->all_mediums } @releases
+            } @releases
+        };
         $c->stash->{inc}->tracklist(1);
 
         unless ($c->stash->{inc}->artist) {
