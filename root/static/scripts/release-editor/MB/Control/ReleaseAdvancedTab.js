@@ -48,6 +48,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
             /* do not allow changes to track times if the disc has a TOC. */
             self.$length.val (data.length);
         }
+        data.deleted = parseInt (data.deleted, 10);
         self.$deleted.val (data.deleted);
         if (data.artist_credit)
         {
@@ -354,6 +355,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         if (self.hasToc ())
         {
             self.$fieldset.find ('div.add-track').hide ();
+        }
+        else
+        {
+            self.$fieldset.find ('div.add-track').show ();
         }
     };
 
@@ -716,6 +721,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         $("#id-mediums\\."+discs+"\\.tracklist_id").val('');
         $('#id-mediums\\.'+discs+'\\.deleted').val('0');
         $('#id-mediums\\.'+discs+'\\.edits').val('');
+        $('#id-mediums\\.'+discs+'\\.toc').val('');
 
         newdisc_bas.find ('textarea').empty ();
 
