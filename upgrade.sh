@@ -11,6 +11,9 @@ echo `date` : Fixing broken time zones
 echo `date` : Relinking relationship edits against artists
 ./admin/sql/updates/20110524-relink-relationships.pl
 
+echo `date` : Fixing edit relationship edits
+./admin/sql/updates/20110524-fix-broken-relationship-edits.pl
+
 echo `date` : Done
 
 # eof
