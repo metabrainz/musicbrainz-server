@@ -10,7 +10,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     'release-group' => {
         method   => 'GET',
-        inc      => [ qw(artist releases) ],
+        inc      => [ qw(artist releases _relations) ],
     },
 ]);
 
