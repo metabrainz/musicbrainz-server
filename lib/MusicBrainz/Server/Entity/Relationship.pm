@@ -53,6 +53,12 @@ has 'phrase' => (
     lazy => 1
 );
 
+has 'verbose_phrase' => (
+    is => 'ro',
+    builder => '_build_verbose_phrase',
+    lazy => 1
+);
+
 sub source
 {
     my ($self) = @_;
@@ -113,9 +119,23 @@ sub _join_attrs
     return '';
 }
 
-sub _build_phrase
+sub _build_phrase {
+    my ($self) = @_;
+    $self->_interpolate(
+        $self->direction == $DIRECTION_FORWARD
+            ? $self->link->type->link_phrase
+            : $self->link->type->reverse_link_phrase
+    );
+}
+
+sub _build_verbose_phrase {
+    my ($self) = @_;
+    $self->_interpolate($self->link->type->short_link_phrase);
+}
+
+sub _interpolate
 {
-    my $self = shift;
+    my ($self, $phrase) = @_;
 
     my @attrs = $self->link->all_attributes;
     my %attrs;
@@ -129,11 +149,6 @@ sub _build_phrase
             $attrs{$name} = [ $value ];
         }
     }
-
-    my $phrase =
-        $self->direction == $DIRECTION_FORWARD
-        ? $self->link->type->link_phrase
-        : $self->link->type->reverse_link_phrase;
 
     my $replace_attrs = sub {
         my ($name, $alt) = @_;

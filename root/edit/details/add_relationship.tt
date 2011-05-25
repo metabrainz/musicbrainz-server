@@ -3,7 +3,7 @@
     <th>[% l('Relationship:') %]</th>
     <td>
       [% link_entity(edit.display_data.relationship.source) %]
-      [% display_relationship(edit.display_data.relationship) %]
+      [% display_relationship(edit.display_data.relationship, 'verbose_phrase') %]
     </td>
   </tr>
 </table>

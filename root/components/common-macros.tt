@@ -437,9 +437,10 @@ END -%]
     [%- Age.format(datetime, "{age} ago") -%]
 [%- END -%]
 
-[%- MACRO display_relationship(relationship) BLOCK; -%]
+[%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
+            [% phrase_field = phrase_field || 'phrase' %]
             [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
-            [%- relationship.phrase | html %]
+            [%- relationship.${phrase_field} | html %]
             [% IF relationship.target.artist_credit %]
                 [% l('{what} by {artist}', { what => link_entity(relationship.target),
                                              artist => artist_credit(relationship.target.artist_credit) }) -%]
