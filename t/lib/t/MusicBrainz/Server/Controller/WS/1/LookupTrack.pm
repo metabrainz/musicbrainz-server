@@ -121,11 +121,11 @@ ws_test 'lookup track with releases',
     <release-list>
       <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e" type="Single Official">
         <title>サマーれげぇ!レインボー</title><text-representation script="Jpan" language="JPN" />
-        <track-list offset="2" />
+        <track-list offset="0" />
       </release>
       <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6" type="Single Pseudo-Release">
         <title>Summer Reggae! Rainbow</title><text-representation script="Latn" language="JPN" />
-        <track-list offset="2" />
+        <track-list offset="0" />
       </release>
     </release-list>
   </track>

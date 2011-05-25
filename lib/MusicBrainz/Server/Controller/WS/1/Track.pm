@@ -248,29 +248,22 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->releases) {
-        my @releases = map { @$_ } values %{
-            {$c->model('Release')->find_by_recordings($track->id)}
-        };
+        my %recording_release_map = $c->model('Release')->find_by_recordings($track->id);
+        my @releases = map { $_->[0] } map { @$_ } values %recording_release_map;
 
         $c->model('ReleaseStatus')->load(@releases);
         $c->model('ReleaseGroup')->load(@releases);
         $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
         $c->model('Script')->load(@releases);
         $c->model('Language')->load(@releases);
-        $c->model('Medium')->load_for_releases(@releases);
-        $c->model('Track')->load_for_tracklists(
-            map { $_->tracklist } map { $_->all_mediums } @releases
-        );
 
         $c->stash->{data}{releases} = \@releases;
         $c->stash->{data}{track_map} = {
             map {
-                $_->id => first { $_->recording_id == $track->id }
-                    map { $_->tracklist->all_tracks }
-                        map { $_->all_mediums } @releases
-            } @releases
+                my ($release, $track) = @$_;
+                $release->id => $track
+            } map { @$_ } values %recording_release_map
         };
-        $c->stash->{inc}->tracklist(1);
 
         unless ($c->stash->{inc}->artist) {
             $c->model('ArtistCredit')->load($track);
