@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
+use MusicBrainz::Server::Data::Statistics::ByProperty;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub statistics : Path('')
@@ -24,7 +25,8 @@ sub artist : Local
     ($self, $c) = @_;
 
     $c->stash(
-        template => 'statistics/artist.tt'
+        template => 'statistics/artist.tt',
+	stats    => $c->model('Statistics::ByProperty')->get_statistic('count.artist')
     );
 }
 
