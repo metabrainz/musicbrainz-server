@@ -34,7 +34,8 @@ subtype 'LinkHash'
             id => Int,
             name => Str,
             link_phrase => Str,
-            reverse_link_phrase => Str
+            reverse_link_phrase => Str,
+            short_link_phrase => Str
         ],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
@@ -55,7 +56,8 @@ subtype 'RelationshipHash'
             id => Int,
             name => Str,
             link_phrase => Str,
-            reverse_link_phrase => Str
+            reverse_link_phrase => Str,
+            short_link_phrase => Str
         ]],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
@@ -141,7 +143,7 @@ sub _build_relationship
 
     return Relationship->new(
         link => Link->new(
-            type       => $loaded->{LinkType}{ $lt } || LinkType->new( $lt ),
+            type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
             begin_date => partial_date_from_row( $begin ),
             end_date   => partial_date_from_row( $end ),
             attributes => [
@@ -219,7 +221,8 @@ sub _mapping
                 id => $lt->id,
                 name => $lt->name,
                 link_phrase => $lt->link_phrase,
-                reverse_link_phrase => $lt->reverse_link_phrase
+                reverse_link_phrase => $lt->reverse_link_phrase,
+                short_link_phrase => $lt->short_link_phrase,
             };
         },
         entity0 => sub {
@@ -260,7 +263,8 @@ sub initialize
         id => $opts{link_type}->id,
         name => $opts{link_type}->name,
         link_phrase => $opts{link_type}->link_phrase,
-        reverse_link_phrase => $opts{link_type}->reverse_link_phrase
+        reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
+        short_link_phrase => $opts{link_type}->short_link_phrase
     } if $opts{link_type};
 
     if ($change_direction)
@@ -294,7 +298,8 @@ sub initialize
                 id => $link->type_id,
                 name => $link->type->name,
                 link_phrase => $link->type->link_phrase,
-                reverse_link_phrase => $link->type->reverse_link_phrase
+                reverse_link_phrase => $link->type->reverse_link_phrase,
+                short_link_phrase => $link->type->short_link_phrase
             },
             entity0 => {
                 id => $relationship->entity0_id,

@@ -8,6 +8,12 @@ eval `./admin/ShowDBDefs`
 echo `date` : Fixing broken time zones
 ./admin/psql READWRITE < ./admin/sql/updates/20110525-invalid-timezones.sql
 
+echo `date` : Rewriting short link phrases for relationships
+./admin/psql READWRITE < ./admin/sql/updates/20110524-short-link-phrases.sql
+
+echo `date` : Upgrading relationship edit types to include short link phrases
+./admin/sql/updates/20110524-short-link-phrase-edits.pl
+
 echo `date` : Relinking relationship edits against artists
 ./admin/sql/updates/20110524-relink-relationships.pl
 

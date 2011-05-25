@@ -36,7 +36,8 @@ has '+data' => (
             id => Int,
             name => Str,
             link_phrase => Str,
-            reverse_link_phrase => Str
+            reverse_link_phrase => Str,
+            short_link_phrase => Str
         ],
         attributes   => Nullable[ArrayRef[Int]],
         begin_date   => Nullable[PartialDateHash],
@@ -67,7 +68,8 @@ sub initialize
         id => $lt->id,
         name => $lt->name,
         link_phrase => $lt->link_phrase,
-        reverse_link_phrase => $lt->reverse_link_phrase
+        reverse_link_phrase => $lt->reverse_link_phrase,
+        short_link_phrase => $lt->short_link_phrase
     };
 
     $self->data({ %opts });
