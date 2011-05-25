@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -122,7 +123,7 @@ sub build_display_data
     }
 }
 
-sub related_entities
+sub directly_related_entities
 {
     my ($self) = @_;
 
