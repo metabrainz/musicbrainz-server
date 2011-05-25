@@ -5,6 +5,8 @@ use warnings;
 
 use base 'Template::Plugin';
 
+use MusicBrainz::Server::Translation qw( l );
+
 use Clone qw( clone );
 use List::Util qw( first );
 
@@ -240,9 +242,10 @@ sub date
     my ($self, $field_name) = @_;
     my $field = $self->_lookup_field($field_name) or return;
     return $self->h->span({ class => 'partial-date' }, [
-        $self->text($field->field('year'), { size => 4 }), ' - ',
-        $self->text($field->field('month'), { size => 2 }), ' - ',
-        $self->text($field->field('day'), { size => 2 }),
+        join('-',
+             $self->text($field->field('year'),  { maxlength => 4, placeholder => l('YYYY'), size => 4 }),
+             $self->text($field->field('month'), { maxlength => 2, placeholder => l('MM'), size => 2 }),
+             $self->text($field->field('day'),   { maxlength => 2, placeholder => l('DD'), size => 2 }))
     ]);
 }
 
