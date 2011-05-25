@@ -104,7 +104,6 @@ test 'WatchArtist->find_new_releases' => sub {
 
     subtest 'Find releases in the future' => sub {
         $test->sql->begin;
-        $test->sql->do('UPDATE editor_watch_preferences SET last_checked = NOW()');
         $test->sql->do("UPDATE release_meta SET date_added = NOW() + '@ 1 week'::INTERVAL");
 
         my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
@@ -130,15 +129,6 @@ test 'WatchArtist->find_new_releases' => sub {
         my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 1, 'found releases with a 1 month timeframe');
 
-        $test->sql->rollback;
-    };
-
-    subtest 'Find releases after last_checked' => sub {
-        $test->sql->begin;
-        $test->sql->do("UPDATE release_meta SET date_added = NOW() - '@ 1 week'::INTERVAL");
-
-        my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
-        is(@releases => 0, 'found no releases');
         $test->sql->rollback;
     };
 
@@ -170,21 +160,6 @@ test 'WatchArtist->find_editors_to_notify ignores editors not requesting emails'
 
     my @editors = $test->c->model('WatchArtist')->find_editors_to_notify;
     is(@editors => 0, '0 editors to notify');
-};
-
-test 'WatchArtist->update_last_checked' => sub {
-    my $test = shift;
-
-    $test->sql->auto_commit(1);
-    $test->sql->do("UPDATE editor_watch_preferences
-                 SET last_checked = NOW() - '@ 1 week'::INTERVAL");
-
-    $test->c->model('WatchArtist')->update_last_checked;
-
-    ok($test->sql->select_single_value(
-            "SELECT 1 FROM editor_watch_preferences
-              WHERE last_checked > NOW() - '@ 1 week'::INTERVAL"),
-        'last_checked has moved forward in time');
 };
 
 test 'Default preferences' => sub {
