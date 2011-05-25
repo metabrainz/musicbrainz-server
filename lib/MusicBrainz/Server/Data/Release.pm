@@ -285,7 +285,8 @@ sub find_by_recordings
     return () unless @ids;
 
     my $query =
-        "SELECT DISTINCT ON (release.id) " . $self->_columns . ", track.recording
+        "SELECT DISTINCT ON (release.id) " . $self->_columns . ",
+                track.recording, track.position
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
@@ -296,7 +297,11 @@ sub find_by_recordings
     $self->sql->select($query, @ids);
     while (my $row = $self->sql->next_row_hash_ref) {
         $map{ $row->{recording} } ||= [];
-        push @{ $map{ $row->{recording} } }, $self->_new_from_row($row)
+        push @{ $map{ $row->{recording} } },
+            [ $self->_new_from_row($row),
+              $self->c->model('Track')->_new_from_row({
+                  position => $row->{position}
+              }) ];
     }
 
     return %map;
