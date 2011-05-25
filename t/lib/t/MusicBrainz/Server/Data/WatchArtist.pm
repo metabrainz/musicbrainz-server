@@ -113,6 +113,26 @@ test 'WatchArtist->find_new_releases' => sub {
         $test->sql->rollback;
     };
 
+    subtest 'Find releases within our notification timeframe' => sub {
+        $test->sql->begin;
+        $test->sql->do(
+            "UPDATE release SET date_year = EXTRACT(YEAR FROM NOW() + '@ 3 week'),
+                                date_month = EXTRACT(MONTH FROM NOW() + '@ 3 week'),
+                                date_day = EXTRACT(MONTH FROM NOW() + '@ 3 week')");
+
+        my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
+        is(@releases => 0, 'found no releases with 1 week timeframe');
+
+        $test->sql->do(
+            "UPDATE editor_watch_preferences SET notification_timeframe = '@ 1 month'
+              WHERE editor = 1");
+
+        my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
+        is(@releases => 1, 'found releases with a 1 month timeframe');
+
+        $test->sql->rollback;
+    };
+
     subtest 'Find releases after last_checked' => sub {
         $test->sql->begin;
         $test->sql->do("UPDATE release_meta SET date_added = NOW() - '@ 1 week'::INTERVAL");

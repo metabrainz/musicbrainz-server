@@ -111,9 +111,11 @@ sub find_new_releases {
           WHERE rm.date_added > ewp.last_checked
             AND release.date_year IS NOT NULL
             AND to_timestamp(
-                date_year || '-' ||
-                COALESCE(date_month, '01') || '-' ||
-                COALESCE(date_day, '01'), 'YYYY-MM-DD') > (NOW() - ?::INTERVAL)";
+                    date_year || '-' ||
+                    COALESCE(date_month, '01') || '-' ||
+                    COALESCE(date_day, '01'), 'YYYY-MM-DD')
+                  BETWEEN (NOW() - ?::INTERVAL) AND
+                          (NOW() + ewp.notification_timeframe)";
 
     return query_to_list(
         $self->c->sql, sub { $self->c->model('Release')->_new_from_row(shift) },
