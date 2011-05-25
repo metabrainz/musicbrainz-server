@@ -8,6 +8,9 @@ eval `./admin/ShowDBDefs`
 echo `date` : Fixing broken time zones
 ./admin/psql READWRITE < ./admin/sql/updates/20110525-invalid-timezones.sql
 
+echo `date` : Relinking relationship edits against artists
+./admin/sql/updates/20110524-relink-relationships.pl
+
 echo `date` : Done
 
 # eof
