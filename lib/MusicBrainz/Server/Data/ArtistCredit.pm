@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
 
-use List::MoreUtils qw( part zip );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
@@ -79,11 +78,10 @@ sub _find
     my @positions = (0..$#names);
     my @artists = map { $_->{artist}->{id} } @names;
     my @credits = map { $_->{name} } @names;
-    my @join_phrases = map { $_->{join_phrase} }
-      grep { defined $_->{join_phrase} && $_->{join_phrase} ne '' } @names;
+    my @join_phrases = map { $_->{join_phrase} } @names;
 
     my $name = "";
-    my (@joins, @conditions);
+    my (@joins, @conditions, @args);
     for my $i (@positions) {
         my $ac_name = $names[$i];
         my $join = "JOIN artist_credit_name acn_$i ON acn_$i.artist_credit = ac.id " .
@@ -91,9 +89,11 @@ sub _find
         my $condition = "acn_$i.position = ? AND ".
                         "acn_$i.artist = ? AND ".
                         "an_$i.name = ?";
+        push @args, ($i, $artists[$i], $credits[$i]);
         if (defined $ac_name->{join_phrase} && $ac_name->{join_phrase} ne '')
         {
-            $condition .= " AND acn_$i.join_phrase = ?"
+            $condition .= " AND acn_$i.join_phrase = ?";
+            push @args, $join_phrases[$i];
         }
         else
         {
@@ -108,9 +108,6 @@ sub _find
     my $query = "SELECT ac.id FROM artist_credit ac " .
                 join(" ", @joins) .
                 " WHERE " . join(" AND ", @conditions) . " AND ac.artist_count = ?";
-
-    my @args = zip @positions, @artists, @credits, @join_phrases;
-    pop @args unless defined $join_phrases[$#credits];
 
     my $id = $self->sql->select_single_value($query, @args, scalar @credits);
 
