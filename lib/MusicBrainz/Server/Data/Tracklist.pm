@@ -164,11 +164,11 @@ sub find
 sub find_or_insert
 {
     my ($self, $tracks) = @_;
-
     my $query =
         'SELECT tracklist
            FROM (
-                    SELECT tracklist FROM track
+                    SELECT tracklist, count(track.id) AS matched_track_count
+                      FROM track
                       JOIN track_name name ON name.id = track.name
                      WHERE ' . join(' OR ', ('(
                                name.name = ?
@@ -176,9 +176,11 @@ sub find_or_insert
                            AND recording = ?
                            AND position = ?
                            )') x @$tracks) . '
+                  GROUP BY tracklist
                 ) s
-       GROUP BY tracklist
-         HAVING COUNT(tracklist) = ?';
+           JOIN tracklist ON s.tracklist = tracklist.id
+          WHERE tracklist.track_count = s.matched_track_count
+            AND tracklist.track_count = ?';
 
     my @possible_tracklists = @{
         $self->sql->select_single_column_array(
@@ -186,7 +188,7 @@ sub find_or_insert
             (map {
                 $_->{name},
                 $_->{artist_credit},
-                $_->{recording_id},
+                $_->{recording},
                 $_->{position}
             } @$tracks),
             scalar(@$tracks)

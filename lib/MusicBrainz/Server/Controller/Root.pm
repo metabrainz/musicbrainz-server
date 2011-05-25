@@ -200,6 +200,11 @@ sub begin : Private
         $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
     }
 
+    if (exists $c->action->attributes->{Edit} && DBDefs::DB_READ_ONLY) {
+        $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
+        $c->forward('/error_400');
+    }
+
     # Load current relationship
     my $rel = $c->session->{current_relationship};
     if ($rel)
