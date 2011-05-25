@@ -43,7 +43,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.render = function (data) {
         self.$position.val (data.position);
         self.$title.val (data.name);
-        if (!self.parent.hasToc ())
+        if (self.$length.val () === '?:??' || !self.parent.hasToc ())
         {
             /* do not allow changes to track times if the disc has a TOC. */
             self.$length.val (data.length);
