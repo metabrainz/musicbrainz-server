@@ -160,7 +160,10 @@ override 'prepare_tracklist' => sub {
         my @edits = @{ $json->decode ($medium->{edits}) };
         for my $edit (@edits)
         {
-            next unless $edit->{artist_credit}->{preview} eq $release_artist->name;
+            # If the track artist is not set, or identical to the release artist,
+            # use the identified release artist for all tracks.
+            next unless $edit->{artist_credit}->{preview} eq $release_artist->name
+                || $edit->{artist_credit}->{preview} eq '';
 
             $edit->{artist_credit} = artist_credit_to_edit_ref ($release_artist);
 

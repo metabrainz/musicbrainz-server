@@ -57,22 +57,22 @@ sub _track_errors {
     {
         # position should never be empty unless someone messes with
         # the javascript.
-        return l('New tracklisting contains an empty track.');
+        return l('New tracklisting contains an empty track');
     }
 
     if ($name eq '')
     {
-        return l('A track name is required on track {pos}.', { pos => $pos });
+        return l('A track name is required on track {pos}', { pos => $pos });
     }
 
     if ($pos eq '')
     {
-        return l('A position is required for "{name}".', { name => $name });
+        return l('A position is required for "{name}"', { name => $name });
     }
 
     if ($tracknumbers->[$pos])
     {
-        return l('"{name1}" and "{name2}" have the same position.',
+        return l('"{name1}" and "{name2}" have the same position',
                  {
                      name1 => $tracknumbers->[$pos],
                      name2 => $name,
@@ -85,7 +85,7 @@ sub _track_errors {
         scalar @{ $track->{artist_credit}->{names} } < 1 ||
         trim $track->{artist_credit}->{names}->[0]->{name} eq '')
     {
-        return l('An artist is required on track {pos}.', { pos => $pos });
+        return l('An artist is required on track {pos}', { pos => $pos });
     }
 
     my $error = try {

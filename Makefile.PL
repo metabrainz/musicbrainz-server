@@ -10,6 +10,7 @@ license 'gpl';
 version_from 'lib/MusicBrainz/Server.pm';
 
 # Mandatory modules
+requires 'Cache::Memcached';
 requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
