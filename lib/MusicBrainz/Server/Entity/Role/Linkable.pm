@@ -52,7 +52,7 @@ sub relationships_by_type
     } $self->all_relationships ];
 }
 
-sub relationships_by_name
+sub relationships_by_link_type_names
 {
     my ($self, @names) = @_;
     my %names = map { $_ => 1 } @names;

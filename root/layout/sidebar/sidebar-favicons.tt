@@ -7,7 +7,7 @@
 [%- END -%]
 
 [%- favicons = entity.relationships_by_type('url').sort('phrase') -%]
-[%- homepage_relationships = entity.relationships_by_name('official homepage', 'official site') -%]
+[%- homepage_relationships = entity.relationships_by_link_type_names('official homepage', 'official site') -%]
 <h2>[% l('External links') %]</h2>
 <ul class="links">
     [%- FOREACH favicon IN homepage_relationships -%]
@@ -18,7 +18,7 @@
         [%- IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') -%]
             [%- display_favicon(favicon.target) -%]
             [%- urls = 1 -%]
-         [%- END -%]
+        [%- END -%]
     [%- END -%]
 
     [%- IF not homepage_relationships.size && not urls -%]
