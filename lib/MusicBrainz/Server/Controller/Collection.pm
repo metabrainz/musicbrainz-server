@@ -34,7 +34,7 @@ sub add : Chained('load') RequireAuth
 
     $c->model('Collection')->add_releases_to_collection($collection->id, $release_id);
 
-    $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
+    $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
     $c->detach;
 }
 
@@ -49,7 +49,7 @@ sub remove : Chained('load') RequireAuth
 
     $c->model('Collection')->remove_releases_from_collection($collection->id, $release_id);
 
-    $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
+    $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
     $c->detach;
 }
 
