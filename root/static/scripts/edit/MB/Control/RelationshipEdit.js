@@ -38,7 +38,7 @@ MB.Control.RelationshipEntity = function (entity) {
             self.$name.val (data.name).removeClass ('error');
             self.$id.val (data.id);
             self.$link.html (MB.text.link).
-                attr('href', '/' + self.type + '/' + data.gid).
+                attr('href', '/' + self.type.replace('_', '-') + '/' + data.gid).
                 attr('title', data.comment);
         }
 
