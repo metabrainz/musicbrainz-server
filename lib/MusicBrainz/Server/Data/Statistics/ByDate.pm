@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::Statistics;
+package MusicBrainz::Server::Data::Statistics::ByDate;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Entity::Statistics;
+use MusicBrainz::Server::Entity::Statistics::ByDate;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -15,7 +15,7 @@ sub _table { 'statistic' }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::Statistics';
+    return 'MusicBrainz::Server::Entity::Statistics::ByDate';
 }
 
 sub fetch {
@@ -934,7 +934,7 @@ sub get_latest_statistics {
 
     $self->sql->select($query) or return;
 
-    my $stats = MusicBrainz::Server::Entity::Statistics->new();
+    my $stats = MusicBrainz::Server::Entity::Statistics::ByDate->new();
     while (1) {
         my $row = $self->sql->next_row_hash_ref or last;
         $stats->date_collected($row->{date_collected})

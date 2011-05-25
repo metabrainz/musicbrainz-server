@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Moose;
-use MusicBrainz::Server::Data::Statistics;
+use MusicBrainz::Server::Data::Statistics::ByDate;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub statistics : Path('')
@@ -14,7 +14,7 @@ sub statistics : Path('')
 
     $c->stash(
         template => 'statistics/index.tt',
-        stats    => $c->model('Statistics')->get_latest_statistics()
+        stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
     );
 }
 
