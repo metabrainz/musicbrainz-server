@@ -581,6 +581,7 @@ sub merge
             if (keys %positions != grep { exists $positions{$_} } @medium_ids);
 
         foreach my $id (@medium_ids) {
+            next unless exists $positions{$id};
             $self->sql->do('UPDATE medium SET release = ?, position = ? WHERE id = ?',
                            $new_id, $positions{$id}, $id);
         }
