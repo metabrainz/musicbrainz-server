@@ -133,6 +133,37 @@ sub merge
 sub find
 {
     my ($self, $tracks) = @_;
+
+    my $query =
+        'SELECT tracklist
+           FROM (
+                    SELECT tracklist FROM track
+                      JOIN track_name name ON name.id = track.name
+                     WHERE ' . join(' OR ', ('(
+                               name.name ILIKE ?
+                           AND artist_credit = ?
+                           AND position = ?
+                           )') x @$tracks) . '
+                ) s
+       GROUP BY tracklist
+         HAVING COUNT(tracklist) = ?';
+
+    return @{
+        $self->sql->select_single_column_array(
+            $query,
+            (map {
+                $_->{name},
+                $_->{artist_credit},
+                $_->{position}
+            } @$tracks),
+            scalar(@$tracks)
+        )
+    };
+}
+
+sub find_or_insert
+{
+    my ($self, $tracks) = @_;
     my $query =
         'SELECT tracklist
            FROM (
@@ -151,7 +182,7 @@ sub find
           WHERE tracklist.track_count = s.matched_track_count
             AND tracklist.track_count = ?';
 
-    return @{
+    my @possible_tracklists = @{
         $self->sql->select_single_column_array(
             $query,
             (map {
@@ -163,13 +194,7 @@ sub find
             scalar(@$tracks)
         )
     };
-}
 
-sub find_or_insert
-{
-    my ($self, $tracks) = @_;
-
-    my @possible_tracklists = $self->find($tracks);
     if (@possible_tracklists == 1) {
         return $self->_entity_class->new(
             id => $possible_tracklists[0]

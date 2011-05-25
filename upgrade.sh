@@ -5,6 +5,10 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
+echo `date` : Backing up data
+./admin/psql READWRITE < ./admin/sql/updates/20110525-READWRITE-backup.sql
+./admin/psql RAWDATA < ./admin/sql/updates/20110525-RAWDATA-backup.sql
+
 echo `date` : Fixing broken time zones
 ./admin/psql READWRITE < ./admin/sql/updates/20110525-invalid-timezones.sql
 
