@@ -1,8 +1,15 @@
 [% BLOCK layout_head %]
   [% script_manifest('statistics.js.manifest') %]
   <!--[if lte IE 8]>[%- script_manifest('statistics_ie.js.manifest') %]<![endif]-->
+  <script type="text/javascript">//<![CDATA[
+	$(document).ready(function () {
+	     $.plot($("#graph-container"), [ [[0, 0], [1, 1]] ], { yaxis: { max: 1 } });
+        });
+  //]]></script>
 [% END %]
 
 [%- WRAPPER "layout.tt" usesRDFa=1 title="artist.count statistics" -%]
-<!-- content will go here -->
+<div id="content">
+<div id="graph-container" style="width:800px;height:300px;"></div>
+</div>
 [% END %]
