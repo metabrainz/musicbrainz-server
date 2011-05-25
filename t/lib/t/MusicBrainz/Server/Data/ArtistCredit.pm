@@ -11,6 +11,32 @@ use MusicBrainz::Server::Test;
 
 with 't::Context';
 
+test 'Can have artist credits with no join phrase' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+artistcredit');
+
+    my $ac_id = $c->model('ArtistCredit')->find_or_insert({
+        names => [
+            {
+                artist => { id => 1, name => 'Ed Rush' },
+                name => 'Ed Rush',
+                join_phrase => undef
+            },
+            {
+                artist => { id => 2, name => 'Optical' },
+                name => 'Optical',
+                join_phrase => ''
+            }
+        ]
+    });
+
+    cmp_ok($ac_id, '>', 0);
+    my $ac = $c->model('ArtistCredit')->get_by_id($ac_id);
+    is($ac->name, 'Ed RushOptical');
+};
+
 test all => sub {
 
 my $test = shift;

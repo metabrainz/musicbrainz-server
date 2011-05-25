@@ -6,6 +6,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -35,7 +36,8 @@ has '+data' => (
             id => Int,
             name => Str,
             link_phrase => Str,
-            reverse_link_phrase => Str
+            reverse_link_phrase => Str,
+            short_link_phrase => Str
         ],
         attributes   => Nullable[ArrayRef[Int]],
         begin_date   => Nullable[PartialDateHash],
@@ -66,7 +68,8 @@ sub initialize
         id => $lt->id,
         name => $lt->name,
         link_phrase => $lt->link_phrase,
-        reverse_link_phrase => $lt->reverse_link_phrase
+        reverse_link_phrase => $lt->reverse_link_phrase,
+        short_link_phrase => $lt->short_link_phrase
     };
 
     $self->data({ %opts });
@@ -122,7 +125,7 @@ sub build_display_data
     }
 }
 
-sub related_entities
+sub directly_related_entities
 {
     my ($self) = @_;
 

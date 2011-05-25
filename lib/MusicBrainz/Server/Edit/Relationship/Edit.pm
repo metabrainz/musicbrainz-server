@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
 use Carp;
+use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -20,6 +21,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { l("Edit relationship") }
@@ -32,7 +34,8 @@ subtype 'LinkHash'
             id => Int,
             name => Str,
             link_phrase => Str,
-            reverse_link_phrase => Str
+            reverse_link_phrase => Str,
+            short_link_phrase => Str
         ],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
@@ -53,7 +56,8 @@ subtype 'RelationshipHash'
             id => Int,
             name => Str,
             link_phrase => Str,
-            reverse_link_phrase => Str
+            reverse_link_phrase => Str,
+            short_link_phrase => Str
         ]],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
@@ -139,7 +143,7 @@ sub _build_relationship
 
     return Relationship->new(
         link => Link->new(
-            type       => $loaded->{LinkType}{ $lt } || LinkType->new( $lt ),
+            type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
             begin_date => partial_date_from_row( $begin ),
             end_date   => partial_date_from_row( $end ),
             attributes => [
@@ -171,7 +175,7 @@ sub build_display_data
     };
 }
 
-sub related_entities
+sub directly_related_entities
 {
     my ($self) = @_;
 
@@ -217,7 +221,8 @@ sub _mapping
                 id => $lt->id,
                 name => $lt->name,
                 link_phrase => $lt->link_phrase,
-                reverse_link_phrase => $lt->reverse_link_phrase
+                reverse_link_phrase => $lt->reverse_link_phrase,
+                short_link_phrase => $lt->short_link_phrase,
             };
         },
         entity0 => sub {
@@ -258,7 +263,8 @@ sub initialize
         id => $opts{link_type}->id,
         name => $opts{link_type}->name,
         link_phrase => $opts{link_type}->link_phrase,
-        reverse_link_phrase => $opts{link_type}->reverse_link_phrase
+        reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
+        short_link_phrase => $opts{link_type}->short_link_phrase
     } if $opts{link_type};
 
     if ($change_direction)
@@ -292,7 +298,8 @@ sub initialize
                 id => $link->type_id,
                 name => $link->type->name,
                 link_phrase => $link->type->link_phrase,
-                reverse_link_phrase => $link->type->reverse_link_phrase
+                reverse_link_phrase => $link->type->reverse_link_phrase,
+                short_link_phrase => $link->type->short_link_phrase
             },
             entity0 => {
                 id => $relationship->entity0_id,
@@ -311,25 +318,27 @@ sub accept
 {
     my $self = shift;
 
+    my $data = clone($self->data);
+
     $self->c->model('Relationship')->update(
-        $self->data->{type0},
-        $self->data->{type1},
-        $self->data->{relationship_id},
+        $data->{type0},
+        $data->{type1},
+        $data->{relationship_id},
         {
-            entity0_id   => $self->data->{new}{entity0}{id},
-            entity1_id   => $self->data->{new}{entity1}{id},
-            attributes   => $self->data->{new}{attributes},
-            link_type_id => $self->data->{new}{link_type}{id},
-            begin_date   => $self->data->{new}{begin_date},
-            end_date     => $self->data->{new}{end_date},
+            entity0_id   => $data->{new}{entity0}{id},
+            entity1_id   => $data->{new}{entity1}{id},
+            attributes   => $data->{new}{attributes},
+            link_type_id => $data->{new}{link_type}{id},
+            begin_date   => $data->{new}{begin_date},
+            end_date     => $data->{new}{end_date},
         },
         {
-            entity0_id   => $self->data->{link}{entity0}{id},
-            entity1_id   => $self->data->{link}{entity1}{id},
-            attributes   => $self->data->{link}{attributes},
-            link_type_id => $self->data->{link}{link_type}{id},
-            begin_date   => $self->data->{link}{begin_date},
-            end_date     => $self->data->{link}{end_date},
+            entity0_id   => $data->{link}{entity0}{id},
+            entity1_id   => $data->{link}{entity1}{id},
+            attributes   => $data->{link}{attributes},
+            link_type_id => $data->{link}{link_type}{id},
+            begin_date   => $data->{link}{begin_date},
+            end_date     => $data->{link}{end_date},
         },
     );
 }
