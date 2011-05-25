@@ -103,7 +103,9 @@ sub direct : Private
             } @$results);
             my %result_map = map { $_->entity->id => $_ } @$results;
 
-            $result_map{$_}->extra($recording_releases_map{$_}) for keys %recording_releases_map;
+            $result_map{$_}->extra(
+                [ map { $_->[0] } @{ $recording_releases_map{$_} } ]
+            ) for keys %recording_releases_map;
 
             my @releases = map { @{ $_->extra } } @$results;
             $c->model('ReleaseGroup')->load(@releases);
