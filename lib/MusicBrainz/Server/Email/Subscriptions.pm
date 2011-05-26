@@ -74,11 +74,12 @@ sub text {
 
 sub header {
     my $self = shift;
+    my $escape = sub { uri_escape(shift) };
     return strip tt q{
 This is a notification that edits have been added for artists, labels and
 editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
-[% self.server %]/user/[% self.editor.name %]/subscriptions
+[% self.server %]/user/escape([% self.editor.name %])/subscriptions
 
 To see all open edits for your subscriptions, see this link:
 [% self.server %]/edit/subscribed
