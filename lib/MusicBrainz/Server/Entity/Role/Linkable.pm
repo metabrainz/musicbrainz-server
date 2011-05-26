@@ -52,6 +52,19 @@ sub relationships_by_type
     } $self->all_relationships ];
 }
 
+sub relationships_by_link_type_names
+{
+    my ($self, @names) = @_;
+    my %names = map { $_ => 1 } @names;
+
+    return [ grep {
+        defined $_->link && defined $_->link->type &&
+        defined $_->link->type->name &&
+        exists $names{ $_->link->type->name };
+    } $self->all_relationships ];
+}
+
+
 1;
 
 =head1 NAME
