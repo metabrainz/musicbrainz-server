@@ -88,18 +88,16 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         if (data.name === '' || data.name === artist_name)
         {
-            self.$credit
-                .val ('')
-                .attr ('placeholder', artist_name)
-                .mb_placeholder (self.placeholder_options);
+            self.$credit.val ('')
         }
         else
         {
-            self.$credit
-                .removeAttr ('placeholder')
-                .mb_placeholder (self.placeholder_options)
-                .val (data.name);
+            self.$credit.val (data.name);
         }
+
+        self.$credit
+            .attr ('placeholder', artist_name)
+            .mb_placeholder (self.placeholder_options);
 
         if (self.$join.val () !== '')
         {
