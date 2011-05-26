@@ -84,7 +84,7 @@ sub appearances {
 
     my %groups;
     for my $rel (@rels) {
-        my $phrase = $rel->link->type->short_link_phrase;
+        my $phrase = $rel->link->type->name;
         $groups{ $phrase } ||= [];
         push @{ $groups{$phrase} }, $rel;
     }
