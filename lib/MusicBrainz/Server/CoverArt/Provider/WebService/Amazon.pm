@@ -101,12 +101,12 @@ sub search_by_barcode
 }
 
 sub _lookup_coverart {
-    my ($self, $url) = @_;   
+    my ($self, $url) = @_;
     $url = $self->_aws_signature->addRESTSecret($url);
 
     # Respect Amazon SLA
     if ($last_request_time) {
-        my $i = 1 - tv_interval($last_request_time); 
+        my $i = 2 - tv_interval($last_request_time);
         sleep($i) if $i > 0;
     }
     $last_request_time = [ gettimeofday ];
