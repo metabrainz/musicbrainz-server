@@ -51,11 +51,13 @@ sub replace
 sub _add_tracks {
     my ($self, $id, $tracks) = @_;
     my $i = 1;
-    for (@$tracks) {
-        $_->{tracklist} = $id;
-        $_->{position} = $i++;
-    }
-    $self->c->model('Track')->insert(@$tracks);
+    $self->c->model('Track')->insert(
+        map +{
+            %$_,
+            tracklist => $id,
+            position => $i++,
+            artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit})
+        }, @$tracks);
 }
 
 sub load
@@ -153,7 +155,7 @@ sub find
             $query,
             (map {
                 $_->{name},
-                $_->{artist_credit},
+                $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
                 $_->{position}
             } @$tracks),
             scalar(@$tracks)
@@ -182,14 +184,15 @@ sub find_or_insert
           WHERE tracklist.track_count = s.matched_track_count
             AND tracklist.track_count = ?';
 
+    my $i = 1;
     my @possible_tracklists = @{
         $self->sql->select_single_column_array(
             $query,
             (map {
                 $_->{name},
-                $_->{artist_credit},
+                $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
                 $_->{recording},
-                $_->{position}
+                $i++,
             } @$tracks),
             scalar(@$tracks)
         )
