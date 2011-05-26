@@ -11,6 +11,22 @@ use MusicBrainz::Server::Test;
 
 with 't::Context';
 
+test 'Can merge with multiple recordings and the same ISRC' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+isrc');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO isrc (id, recording, isrc) VALUES (4, 3, 'DEE250800230');
+EOSQL
+
+    $c->model('ISRC')->merge_recordings(1, 2, 3);
+
+    my @isrcs = $c->model('ISRC')->find_by_recording(1);
+    is(scalar @isrcs, 2);
+};
+
 test all => sub {
 
 my $test = shift;
