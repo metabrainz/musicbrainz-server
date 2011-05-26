@@ -84,6 +84,29 @@ after 'load' => sub
     }
 };
 
+# Stuff that has the side bar and thus needs to display collection information
+after [qw( show details discids tags relationships )] => sub {
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{release};
+
+    my @collections;
+    my %containment;
+    if ($c->user_exists) {
+        # Make a list of collections and whether this release is contained in them
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+        foreach my $collection (@collections) {
+            $containment{$collection->id} = 1
+                if ($c->model('Collection')->check_release($collection->id, $release->id));
+        }
+    }
+
+    $c->stash(
+        collections => \@collections,
+        containment => \%containment,
+    );
+};
+
 sub discids : Chained('load')
 {
     my ($self, $c) = @_;
@@ -134,21 +157,7 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
-    my @collections;
-    my %containment;
-    if ($c->user_exists) {
-        # Make a list of collections and whether this release is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
-
-        foreach my $collection (@collections) {
-            $containment{$collection->id} = 1
-                if ($c->model('Collection')->check_release($collection->id, $release->id));
-        }
-    }
-
     $c->stash(
-        collections       => \@collections,
-        containment => \%containment,
         template     => 'release/index.tt',
         show_artists => $release->has_multiple_artists,
     );
