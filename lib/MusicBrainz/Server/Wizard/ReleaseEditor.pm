@@ -360,6 +360,8 @@ sub associate_recordings
         my @track_suggestions;
 
         my $trk = $tracklist->tracks->[$trk_edit->{original_position} - 1];
+        my $trk_at_pos = $tracklist->tracks->[$trk_edit->{position} - 1];
+
         my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}};
 
         # Track edit is already associated with a recording edit.
@@ -389,6 +391,14 @@ sub associate_recordings
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
+        # Track hasn't changed OR track has minor changes (case / punctuation)
+        # when compared to the track originally at this position on the disc.
+        elsif ($trk_at_pos && $self->name_is_equivalent ($trk_edit->{name}, $trk_at_pos->name))
+        {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
+        }
+
         # Track is the only track associated with this particular recording.
         elsif ($trk && $self->c->model ('Recording')->usage_count ($trk->recording_id) == 1)
         {
@@ -405,6 +415,16 @@ sub associate_recordings
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
+        # Track is identical or similar to recording associated with the track
+        # originally at this position.
+        elsif ($trk_at_pos && $trk_at_pos->recording &&
+               $self->name_is_equivalent ($trk_edit->{name}, $trk_at_pos->recording->name) &&
+               $self->name_is_equivalent ($trk_edit->{artist_credit}->{preview}, $trk_at_pos->recording->artist_credit->name))
+        {
+            push @load_recordings, $trk_at_pos->recording_id;
+            push @ret, { 'id' => $trk_at_pos->recording_id, 'confirmed' => 1 };
+        }
+
         # Track changed.
         elsif ($trk)
         {
@@ -417,6 +437,26 @@ sub associate_recordings
             $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
 
             push @track_suggestions, { 'id' => $trk->recording_id };
+            push @track_suggestions, map {
+                {
+                    'id' => $_->entity->id,
+                    'recording' => $_->entity,
+                }
+            } grep { $_ } @results;
+        }
+
+        # New track in the position of an existing track with recording association.
+        elsif ($trk_at_pos)
+        {
+            push @load_recordings, $trk_at_pos->recording_id;
+            push @ret, { 'id' => undef, 'confirmed' => 0 };
+            $self->c->stash->{confirmation_required} = 1;
+
+            # Search for similar recordings.
+            my @results = $self->_search_recordings ($trk_edit->{name}, $trk_edit->{artist_credit}, 3);
+            $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
+
+            push @track_suggestions, { 'id' => $trk_at_pos->recording_id };
             push @track_suggestions, map {
                 {
                     'id' => $_->entity->id,
