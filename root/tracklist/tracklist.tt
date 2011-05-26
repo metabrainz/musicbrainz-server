@@ -5,9 +5,9 @@
     <td class="pos t">[% rdfa_track_number(track.position) %]</td>
     <td>
       [%- IF recording.gid -%]
-        [%- rdfa_link_recording_as_track(recording, 'show', track.name) -%]
+        [%- rdfa_link_recording_as_track(recording, 'show', html_escape(track.name)) -%]
       [%- ELSE -%]
-        [%- track.name -%]
+        [%- html_escape(track.name) -%]
       [%- END -%]
     </td>
     [%- IF show_artists -%]
