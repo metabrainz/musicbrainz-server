@@ -119,7 +119,10 @@ sub _insert_hash {
     } @$tracklist);
 
     for my $track (@$tracklist) {
-        $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
+        $track->{recording_id} ||= $self->c->model('Recording')->insert({
+            %$track,
+            artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
+        })->id;
     }
 
     $data->{tracklist_id} = $self->c->model('Tracklist')->find_or_insert($tracklist)->id;

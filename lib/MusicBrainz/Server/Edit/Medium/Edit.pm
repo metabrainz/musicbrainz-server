@@ -202,7 +202,10 @@ sub accept {
 
         # Create recordings
         for my $track (@{ $data_new_tracklist }) {
-            $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
+            $track->{recording_id} ||= $self->c->model('Recording')->insert({
+                %$track,
+                artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
+            })->id;
         }
 
         # See if we need a new tracklist
