@@ -111,6 +111,10 @@ ws_test 'search for artists by name',
 
 LWP::UserAgent::Mockable->finished;
 
+my $response = $test->mech->get('/ws/1/artist/?type=xml&waffles=pancakes');
+is($response->code, 400, 'returned status 400');
+is($response->decoded_content, 'name is a required parameter');
+
 };
 
 1;
