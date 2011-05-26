@@ -372,6 +372,54 @@ div.warning img.warning {
     background-color: #D3D3D3;
 }
 
+#sidebar ul.external_links {
+    margin: 0;
+    padding-left: 0;
+}
+
+#sidebar ul.external_links {
+    list-style-image: none;
+    list-style-type: none;
+}
+
+#sidebar ul.external_links li {
+    background: url("/static/images/favicons/external-16.png") 0 2px no-repeat;
+    height: 1.5em;
+    margin-bottom: 2px;
+    padding: 4px 0 0 22px;
+}
+
+#sidebar ul.external_links li.home {
+    background-image: url("/static/images/favicons/home-16.png");
+}
+
+#sidebar ul.external_links li.amazon {
+    background-image: url("/static/images/favicons/amazon-16.png");
+}
+
+#sidebar ul.external_links li.wikipedia {
+    background-image: url("/static/images/favicons/wikipedia-16.png");
+}
+
+#sidebar ul.external_links li.facebook {
+    background-image: url("/static/images/favicons/facebook-16.png");
+}
+
+#sidebar ul.external_links li.myspace {
+    background-image: url("/static/images/favicons/myspace-16.png");
+}
+
+#sidebar ul.external_links li.twitter {
+    background-image: url("/static/images/favicons/twitter-16.png");
+}
+
+#sidebar ul.external_links li.youtube {
+    background-image: url("/static/images/favicons/youtube-16.png");
+}
+
+#sidebar ul.external_links li.discogs {
+    background-image: url("/static/images/favicons/discogs-16.png");
+}
 
 #sidebar .cover-art {
     text-align: center;
