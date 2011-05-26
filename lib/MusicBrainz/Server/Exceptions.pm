@@ -12,4 +12,8 @@ extends 'MusicBrainz::Server::Exceptions::InvalidInput';
 
 has 'duplicates' => ( is => 'ro', isa => 'ArrayRef' );
 
+package MusicBrainz::Server::Exceptions::InvalidSearchParameters;
+use Moose;
+extends 'Throwable::Error';
+
 1;

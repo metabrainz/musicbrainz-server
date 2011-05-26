@@ -16,6 +16,7 @@ use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Annotation;
+use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
@@ -632,10 +633,14 @@ sub xml_search
 {
     my ($self, %options) = @_;
 
+    my $die = sub {
+        MusicBrainz::Server::Exceptions::InvalidSearchParameters->throw( message => shift );
+    };
+
     my $query   = $options{query};
     my $limit   = $options{limit} || 25;
     my $offset  = $options{offset} || 0;
-    my $type    = $options{type} or die 'type is a required parameter';
+    my $type    = $options{type} or $die->('type is a required parameter');
     my $version = $options{version} || 2;
 
     $type =~ s/release_group/release-group/;
@@ -643,14 +648,14 @@ sub xml_search
     unless ($query) {
         switch ($type) {
             case 'artist' {
-                my $name = escape_query($options{name}) or die 'name is a required parameter';
+                my $name = escape_query($options{name}) or $die->('name is a required parameter');
                 $name =~ tr/A-Z/a-z/;
                 $name =~ s/\s*(.*?)\s*$/$1/;
                 $query = "artist:($name)(sortname:($name) alias:($name) !artist:($name))";
             }
 
             case 'label' {
-                my $term = escape_query($options{name}) or die 'name is a required parameter';
+                my $term = escape_query($options{name}) or $die->('name is a required parameter');
                 $term =~ tr/A-Z/a-z/;
                 $term =~ s/\s*(.*?)\s*$/$1/;
                 $query = "label:($term)(sortname:($term) alias:($term) !label:($term))";

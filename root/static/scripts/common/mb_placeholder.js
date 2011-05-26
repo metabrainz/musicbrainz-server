@@ -83,6 +83,13 @@
                 $elem.removeClass(classname);
             });
 
+            $elem.bind ('reset.mb_placeholder', function () {
+                if ($elem.val () !== '')
+                {
+                    $elem.removeClass (classname);
+                }
+            });
+
             $elem.parents('form:first').bind ('submit.mb_placeholder', function() {
                 var options = $elem.data ('mb_placeholder');
                 if (options && options.submit_placeholder_if_empty)
@@ -105,11 +112,18 @@
 
             if (elemdata && elemdata.bound)
             {
-                /* already bound to this element.  So only update the
-                   options, the caller may simply want to change those. */
+                /* already bound to this element.  So update the
+                 * options, the caller may simply want to change
+                 * those. */
                 $elem.data ('mb_placeholder', elemdata);
-                $elem.triggerHandler('focus');
-                $elem.triggerHandler('blur');
+
+                /* Also call reset, which is similar to the 'change'
+                 * event, except that the caller does not have to keep
+                 * track of whether a value has been set. */
+                $elem.trigger ('reset');
+                $elem.trigger ('focus');
+                $elem.trigger ('blur');
+
                 return;
             }
 

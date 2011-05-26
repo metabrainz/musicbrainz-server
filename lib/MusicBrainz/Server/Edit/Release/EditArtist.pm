@@ -143,6 +143,8 @@ sub accept {
         $self->c->model('Medium')->load_for_releases($release);
         $self->c->model('Track')->load_for_tracklists(
             map { $_->tracklist } $release->all_mediums);
+        $self->c->model('ArtistCredit')->load(
+            map { $_->tracklist->all_tracks } $release->all_mediums);
 
         for my $medium ($release->all_mediums) {
             $self->c->model('Medium')->update(
@@ -153,7 +155,8 @@ sub accept {
                             position => $_->position,
                             name => $_->name,
                             artist_credit => $_->artist_credit_id != $old_ac_id
-                                ? $_->artist_credit_id : $new_ac_id,
+                                ? artist_credit_to_ref($_->artist_credit)
+                                : $self->data->{new_artist_credit},
                             recording_id => $_->recording_id,
                             length => $_->length
                         }, $medium->tracklist->all_tracks

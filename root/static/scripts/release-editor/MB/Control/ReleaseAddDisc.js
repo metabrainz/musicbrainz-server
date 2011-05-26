@@ -393,7 +393,8 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
             my: "center top",
             at: "center top",
             of: $('#page'),
-            offset: "0 15"
+            offset: "0 15",
+            collision: "none none"
         });
 
         $('html').animate({ scrollTop: 0 }, 500);
