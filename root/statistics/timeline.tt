@@ -42,7 +42,7 @@
   //]]></script>
 [% END %]
 
-[%- WRAPPER "layout.tt" usesRDFa=1 title="artist count statistics" -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title="Timeline!" -%]
 <div id="sidebar">
     <h2>Legend</h2><div id="graph-legend"></div>
     <h2>Controls</h2><div id="graph-controls">
