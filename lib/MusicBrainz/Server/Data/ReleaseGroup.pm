@@ -31,7 +31,7 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, rg.gid, type AS type_id, name.name,
+    return 'rg.id, rg.gid, rg.type AS type_id, name.name,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated';
 }
@@ -106,13 +106,14 @@ sub find_by_artist
 
     my $where_types = $types ? 'AND type IN ('.placeholders(@$types).')' : '';
 
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
                     rgm.release_count,
                     rgm.rating_count,
-                    rgm.rating
+                    rgm.rating,
+                    musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
                         ON rgm.id = rg.id
@@ -194,13 +195,14 @@ sub find_by_track_artist
 sub filter_by_artist
 {
     my ($self, $artist_id, $type) = @_;
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
                     rgm.release_count,
                     rgm.rating_count,
-                    rgm.rating
+                    rgm.rating,
+                    musicbrainz_collate(name.name)
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
                         ON rgm.id = rg.id
