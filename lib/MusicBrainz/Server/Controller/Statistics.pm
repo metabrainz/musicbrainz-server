@@ -35,12 +35,12 @@ sub timeline : Local
     my ($self, $c) = @_;
 
     my $statistics = {};
-    $statistics->{'Artist'}  = $c->model('Statistics::ByProperty')->get_statistic('count.artist');
-    $statistics->{'Release'} = $c->model('Statistics::ByProperty')->get_statistic('count.release');
-    $statistics->{'Medium'} = $c->model('Statistics::ByProperty')->get_statistic('count.medium');
-    $statistics->{'Release Group'} = $c->model('Statistics::ByProperty')->get_statistic('count.releasegroup');
-    $statistics->{'Label'} = $c->model('Statistics::ByProperty')->get_statistic('count.label');
-    $statistics->{'Work'} = $c->model('Statistics::ByProperty')->get_statistic('count.work');
+    $statistics->{'Artist'}  = $c->model('Statistics::ByName')->get_statistic('count.artist');
+    $statistics->{'Release'} = $c->model('Statistics::ByName')->get_statistic('count.release');
+    $statistics->{'Medium'} = $c->model('Statistics::ByName')->get_statistic('count.medium');
+    $statistics->{'Release Group'} = $c->model('Statistics::ByName')->get_statistic('count.releasegroup');
+    $statistics->{'Label'} = $c->model('Statistics::ByName')->get_statistic('count.label');
+    $statistics->{'Work'} = $c->model('Statistics::ByName')->get_statistic('count.work');
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => $statistics

@@ -1,11 +1,11 @@
 [% USE date %]
 [% BLOCK graph_line -%]
-{label: "[%- label -%]",  data: [ [%- FOREACH date_collected = line.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- line.statistic(date_collected) -%] ],[%- END -%]]},
+{label: "[%- label -%]",  data: [ [%- FOREACH date_collected = line.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- line.statistic_for(date_collected) -%] ],[%- END -%]]},
 [% END %]
 
 [% BLOCK layout_head %]
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]>[%- script_manifest('statistics_ie.js.manifest') %]<![endif]-->
+  <!--[if lte IE 8]><script src="/static/lib/flot/excanvas.min.js"></script><![endif]-->
   <script type="text/javascript">//<![CDATA[
         $(document).ready(function () {
              var options = { xaxis: { mode: "time"},

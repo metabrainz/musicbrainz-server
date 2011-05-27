@@ -1,6 +1,6 @@
 [% USE date %]
 [% BLOCK graph_line %]
-{label: "[%- label -%]", data: [ [%- FOREACH date_collected = line.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- line.statistic(date_collected) -%] ],[%- END -%] ]}
+{label: "[%- label -%]", data: [ [%- FOREACH date_collected = line.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- line.statistic_for(date_collected) -%] ],[%- END -%] ]}
 [% END %]
 
 [% BLOCK layout_head %]
