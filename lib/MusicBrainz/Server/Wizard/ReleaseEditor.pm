@@ -396,8 +396,8 @@ sub associate_recordings
         # when compared to the track originally at this position on the disc.
         elsif ($trk_at_pos && $self->name_is_equivalent ($trk_edit->{name}, $trk_at_pos->name))
         {
-            push @load_recordings, $trk->recording_id;
-            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
+            push @load_recordings, $trk_at_pos->recording_id;
+            push @ret, { 'id' => $trk_at_pos->recording_id, 'confirmed' => 1 };
         }
 
         # Track is the only track associated with this particular recording.

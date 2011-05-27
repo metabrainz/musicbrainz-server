@@ -81,8 +81,7 @@ around 'search' => sub
 
             my @need_artists = (@releases, map { $_->all_tracks } @tracklists);
             $c->model('ArtistCredit')->load(@need_artists);
-            $c->model('Artist')->load(map { $_->artist_credit->names->[0] }
-                                      grep { @{ $_->artist_credit->names } == 1 } @need_artists);
+            $c->model('Artist')->load(map { $_->artist_credit->all_names } @need_artists);
 
             my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
         }

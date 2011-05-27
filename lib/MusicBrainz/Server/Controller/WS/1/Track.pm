@@ -58,8 +58,7 @@ around 'search' => sub
 
         my @tracks;
         for (@recording_puids) {
-            $c->model('Artist')->load($_->recording->artist_credit->names->[0])
-                if @{ $_->recording->artist_credit->names } == 1;
+            $c->model('Artist')->load($_->recording->artist_credit->all_names);
 
             my @releases = $c->model('Release')->find_by_recording($_->recording->id);
             $recording_release_map{$_->recording->id} = \@releases;
@@ -267,8 +266,7 @@ sub lookup : Chained('load') PathPart('')
 
         unless ($c->stash->{inc}->artist) {
             $c->model('ArtistCredit')->load($track);
-            $c->model('Artist')->load($track->artist_credit->names->[0])
-                if (@{ $track->artist_credit->names } == 1);
+            $c->model('Artist')->load($track->artist_credit->all_names);
         }
     }
 
