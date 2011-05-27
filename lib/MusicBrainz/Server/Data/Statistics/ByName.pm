@@ -1,8 +1,8 @@
-package MusicBrainz::Server::Data::Statistics::ByProperty;
+package MusicBrainz::Server::Data::Statistics::ByName;
 use Moose;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Entity::Statistics::ByProperty;
+use MusicBrainz::Server::Entity::Statistics::ByName;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -11,7 +11,7 @@ sub _table { 'statistic' }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::Statistics::ByProperty';
+    return 'MusicBrainz::Server::Entity::Statistics::ByName';
 }
 
 sub get_statistic {
@@ -26,7 +26,7 @@ sub get_statistic {
 
     $self->sql->select($query) or return;
 
-    my $stats = MusicBrainz::Server::Entity::Statistics::ByProperty->new();
+    my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new();
     while (1) {
         my $row = $self->sql->next_row_hash_ref or last;
         $stats->name($row->{name})

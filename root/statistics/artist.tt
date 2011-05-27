@@ -1,11 +1,13 @@
 [% USE date %]
 [% BLOCK layout_head %]
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]>[%- script_manifest('statistics_ie.js.manifest') %]<![endif]-->
+  <!--[if lte IE 8]><script src="/static/lib/flot/excanvas.min.js"></script><![endif]-->
   <script type="text/javascript">//<![CDATA[
         $(document).ready(function () {
              $.plot($("#graph-container"), [ [
-             [%- FOREACH date_collected = stats.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- stats.statistic(date_collected) -%] ],[%- END -%]
+                 [%- FOREACH date_collected = stats.data.keys.sort -%]
+                     [ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- stats.statistic_for(date_collected) -%] ],
+                 [%- END -%]
              ] ], { xaxis: { mode: "time" } });
         });
   //]]></script>

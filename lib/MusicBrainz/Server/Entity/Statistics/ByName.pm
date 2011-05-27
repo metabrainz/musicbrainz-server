@@ -1,18 +1,17 @@
-package MusicBrainz::Server::Entity::Statistics::ByProperty;
+package MusicBrainz::Server::Entity::Statistics::ByName;
 use Moose;
 
 use MusicBrainz::Server::Types;
 use MooseX::Types::Moose qw( Str Int );
-use MooseX::Types::DateTime qw( DateTime );
 use MooseX::Types::Structured qw( Map );
 
 has data => (
     is => 'rw',
-    isa => Map[ DateTime, Int ], # Map date to value
+    isa => Map[ Str, Int ], # Map date to value
     traits => [ 'Hash' ],
     default => sub { {} },
     handles => {
-        statistic => 'get'
+        statistic_for => 'get'
     }
 );
 
@@ -20,17 +19,6 @@ has name => (
    is => 'rw',
    isa => 'Str'
 );
-
-#sub ratio {
-#    my ($self, $num_stat, $denom_stat) = @_;
-#    my ($numerator, $denominator) = (
-#        $self->statistic($num_stat),
-#        $self->statistic($denom_stat),
-#    );
-#
-#    return unless $denominator > 0;
-#    return $numerator * 100 / $denominator;
-#}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
