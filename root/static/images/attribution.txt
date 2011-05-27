@@ -43,18 +43,8 @@ Images:
 
 ----------------------------------------------------------------------------
 
-Image set:   Gentleface Mono Icon Set
-Author:      Gentleface.com
-License:     CC-NC-ND-BY/3.0 (see: http://creativecommons.org/licenses/by-nc-nd/3.0/)
-Download:    http://gentleface.com/free_icon_set.html
-Images:
-
-    favicons/home-16.png (original: black/png/home_icon&16.png)
-
-----------------------------------------------------------------------------
-
 Source:      MediaWiki
-Author:      Unknown
+Author:      Unkown
 License:     GPL v2 or later
 Download:    http://commons.wikimedia.org/wiki/File:Icon_External_Link.png,
              http://commons.wikimedia.org/wiki/File:Bullet.gif
