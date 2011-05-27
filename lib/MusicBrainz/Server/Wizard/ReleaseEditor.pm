@@ -698,7 +698,7 @@ sub prepare_recordings
     {
         map {
             $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
-        } grep { $_ } map { @$_ } @$medium_recordings;
+        } grep { $_ } map { @$_ } grep { $_ } @$medium_recordings;
     }
 
     $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
@@ -1466,6 +1466,7 @@ sub _seed_parameters {
                 }
             }
 
+            $params->{rec_mediums}[$medium_idx]{associations} = [];
             if (my @tracks = @{ $medium->{track} || [] }) {
                 my @edits;
                 my $track_idx;
@@ -1505,14 +1506,20 @@ sub _seed_parameters {
 
                     if (my $recording_id = delete $track->{recording}) {
                         if(my $recording = $self->c->model('Recording')->get_by_gid($recording_id)) {
-                            $params->{rec_mediums}[$medium_idx]{associations} ||= [];
-                            push @{ $params->{rec_mediums}[$medium_idx]{associations} }, {
+                            $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
                                 edit_sha1 => $sha,
                                 confirmed => 1,
                                 id => $recording->id,
                                 gid => $recording->gid
                             };
                         }
+                    }
+                    else {
+                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
+                            gid => 'new',
+                            confirmed => 1,
+                            edit_sha1 => $sha
+                        };
                     }
                 }
 
