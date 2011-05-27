@@ -22,7 +22,8 @@ MB.constants.LINK_TYPES = {
     wikipedia: {
         artist: 179,
         label: 216,
-        release_group: 89
+        release_group: 89,
+        work: 279
     },
     discogs: {
         release: 76,
