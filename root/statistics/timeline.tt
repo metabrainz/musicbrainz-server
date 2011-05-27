@@ -1,0 +1,55 @@
+[% USE date %]
+[% BLOCK graph_line -%]
+{label: "[%- label -%]",  data: [ [%- FOREACH date_collected = line.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- line.statistic(date_collected) -%] ],[%- END -%]]},
+[% END %]
+
+[% BLOCK layout_head %]
+  [% script_manifest('statistics.js.manifest') %]
+  <!--[if lte IE 8]>[%- script_manifest('statistics_ie.js.manifest') %]<![endif]-->
+  <script type="text/javascript">//<![CDATA[
+        $(document).ready(function () {
+             var options = { xaxis: { mode: "time"},
+                             selection: { mode: "xy" },
+                             legend: { container: $('#graph-legend'),
+                                       labelFormatter: function(label, series) {
+                                                           return '<a href="#" id="legend-' + label + '">' + label + '</a>';
+                                                       }}};
+             var datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]"[%- dataset_key -%]": [%- INCLUDE graph_line line=stats.$dataset_key label=dataset_key -%][%- END -%]}
+             function resetPlot () {
+                 plot = $.plot($("#graph-container"), [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ], options);
+             }
+             resetPlot();
+             $('#graph-container').bind('plotselected', function (event, ranges) {
+                 // clamp the zooming to prevent eternal zoom
+                 if (ranges.xaxis.to - ranges.xaxis.from < 0.00001)
+                     ranges.xaxis.to = ranges.xaxis.from + 0.00001;
+                 if (ranges.yaxis.to - ranges.yaxis.from < 0.00001)
+                     ranges.yaxis.to = ranges.yaxis.from + 0.00001;
+        
+		 console.log(ranges.xaxis.to);
+                 // do the zooming
+                 plot = $.plot($("#graph-container"), [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ],
+                               $.extend(true, {}, options, {
+                                   xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
+                                   yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
+                               }));
+             });
+             $('#reset-graph').click(function (event) {
+                 event.preventDefault();
+                 resetPlot();
+             });
+        });
+  //]]></script>
+[% END %]
+
+[%- WRAPPER "layout.tt" usesRDFa=1 title="artist count statistics" -%]
+<div id="sidebar">
+    <h2>Legend</h2><div id="graph-legend"></div>
+    <h2>Controls</h2><div id="graph-controls">
+        <a href="#" id="reset-graph">Reset Graph</a>
+    </div>
+</div>
+<div id="content">
+<div id="graph-container" style="width:800px;height:300px;"></div>
+</div>
+[% END %]
