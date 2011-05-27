@@ -9,7 +9,7 @@
 <h2>[% l('External links') %]</h2>
 <ul class="external_links">
     [%- FOREACH favicon IN homepage_relationships -%]
-        [%- display_favicon(favicon.target, l('Official homepage'), 'home')
+        [%- display_favicon(favicon.target, l('Official homepage'), 'home') -%]
     [% END %]
 
     [%- FOREACH favicon IN favicons -%]
