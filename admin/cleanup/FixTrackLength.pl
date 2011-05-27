@@ -88,7 +88,8 @@ my $tracks_fixed = 0;
 my $tracks_set = 0;
 my $mediums_fixed = 0;
 
-my @mediums = values %{ $c->model('Medium')->get_by_ids(@medium_ids) };
+my %medium_by_id = %{ $c->model('Medium')->get_by_ids(@medium_ids) };
+my @mediums = values %medium_by_id;
 $c->model('Track')->load_for_tracklists(map { $_->tracklist } @mediums);
 $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } @mediums);
 
@@ -100,7 +101,9 @@ for my $medium (@mediums)
     my @cdtocs = $c->model('MediumCDTOC')->find_by_medium($medium->id);
     $c->model('CDTOC')->load(@cdtocs);
 
-    @cdtocs = map { $_->cdtoc } @cdtocs;
+    @cdtocs = map { $_->cdtoc }
+        grep { $medium_by_id{$_->medium_id}->tracklist->track_count == $_->cdtoc->track_count }
+            @cdtocs;
     my @tracks = $medium->tracklist->all_tracks;
 
     if ($debug) {
@@ -283,6 +286,7 @@ for my $medium (@mediums)
     printf "Don't know what to do about medium #%d\n", $medium->id;
     print " - multiple TOCs\n" if @cdtocs > 1 and keys(%c) == 1;
     print " - multiple conflicting TOCs\n" if @cdtocs > 1 and keys(%c)>1;
+    print " - no TOCs with correct track count\n" if @cdtocs == 0;
 
     if (keys(%c) == 1) {
         my $ideal_track_count = $cdtocs[0]->track_count;
