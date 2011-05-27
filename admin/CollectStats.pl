@@ -37,12 +37,12 @@ my $c = MusicBrainz::Server::Context->new;
 my $sql = Sql->new($c->dbh);
 
 $sql->begin;
-$c->model('Statistics::ByDate')->recalculate_all;
+$c->model('Statistics')->recalculate_all;
 $sql->commit;
 
 if (-t STDOUT)
 {
-    my $all = $c->model('Statistics::ByDate')->fetch;
+    my $all = $c->model('Statistics')->fetch;
     printf "%10d : %s\n", $all->{$_}, $_
         for sort keys %$all;
 }
