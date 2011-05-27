@@ -19,31 +19,17 @@ sub statistics : Path('')
     );
 }
 
-sub artist : Local
-{
-    my
-    ($self, $c) = @_;
-
-    $c->stash(
-        template => 'statistics/artist.tt',
-	stats    => $c->model('Statistics::ByName')->get_statistic('count.artist')
-    );
-}
-
 sub timeline : Local
 {
     my ($self, $c) = @_;
 
-    my $statistics = {};
-    $statistics->{'Artist'}  = $c->model('Statistics::ByName')->get_statistic('count.artist');
-    $statistics->{'Release'} = $c->model('Statistics::ByName')->get_statistic('count.release');
-    $statistics->{'Medium'} = $c->model('Statistics::ByName')->get_statistic('count.medium');
-    $statistics->{'Release Group'} = $c->model('Statistics::ByName')->get_statistic('count.releasegroup');
-    $statistics->{'Label'} = $c->model('Statistics::ByName')->get_statistic('count.label');
-    $statistics->{'Work'} = $c->model('Statistics::ByName')->get_statistic('count.work');
     $c->stash(
         template => 'statistics/timeline.tt',
-        stats => $statistics
+        stats => {
+            map {
+                substr($_, 6) => $c->model('Statistics::ByName')->get_statistic($_)
+            } qw( count.artist count.release count.medium count.releasegroup count.label count.work )
+        }
     )
 }
 

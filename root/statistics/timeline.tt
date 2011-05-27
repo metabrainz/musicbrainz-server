@@ -1,6 +1,6 @@
 [% USE date %]
-[% BLOCK graph_line -%]
-{label: "[%- label -%]",  data: [ [%- FOREACH date_collected = line.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- line.statistic_for(date_collected) -%] ],[%- END -%]]},
+[%- MACRO graph_line(label) BLOCK -%]
+{label: "[%- label -%]",  data: [ [%- FOREACH date_collected = stats.$label.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- stats.$label.statistic_for(date_collected) -%] ],[%- END -%]]},
 [% END %]
 
 [% BLOCK layout_head %]
@@ -14,7 +14,9 @@
                                        labelFormatter: function(label, series) {
                                                            return '<a href="#" id="legend-' + label + '">' + label + '</a>';
                                                        }}};
-             var datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]"[%- dataset_key -%]": [%- INCLUDE graph_line line=stats.$dataset_key label=dataset_key -%][%- END -%]}
+             var datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]
+                 "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
+                 [%- END -%]}
              function resetPlot () {
                  plot = $.plot($("#graph-container"), [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ], options);
              }
@@ -26,7 +28,6 @@
                  if (ranges.yaxis.to - ranges.yaxis.from < 0.00001)
                      ranges.yaxis.to = ranges.yaxis.from + 0.00001;
         
-		 console.log(ranges.xaxis.to);
                  // do the zooming
                  plot = $.plot($("#graph-container"), [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ],
                                $.extend(true, {}, options, {
