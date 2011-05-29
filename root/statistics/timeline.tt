@@ -36,12 +36,14 @@
                  overview = $.plot($('#overview'), graph_data(), overview_options);
              }
              resetPlot();
+
+             // Make selections zoom
              $('#graph-container').bind('plotselected', function (event, ranges) {
                  // clamp the zooming to prevent eternal zoom
-                 if (ranges.xaxis.to - ranges.xaxis.from < 0.00001)
-                     ranges.xaxis.to = ranges.xaxis.from + 0.00001;
-                 if (ranges.yaxis.to - ranges.yaxis.from < 0.00001)
-                     ranges.yaxis.to = ranges.yaxis.from + 0.00001;
+                 if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
+                     ranges.xaxis.to = ranges.xaxis.from + 86400000;
+                 if (ranges.yaxis.to - ranges.yaxis.from < 1)
+                     ranges.yaxis.to = ranges.yaxis.from + 1;
         
                  // do the zooming
                  plot = $.plot($("#graph-container"), [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ],
@@ -105,6 +107,6 @@
     </div>
 </div>
 <div id="content">
-<div id="graph-container" style="width:800px;height:300px;"></div>
+<div id="graph-container" style="width:100%;height:400px;"></div>
 </div>
 [% END %]
