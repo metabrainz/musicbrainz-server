@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use_ok 'MusicBrainz::Server::Validation', qw( is_valid_iswc format_iswc );
+use_ok 'MusicBrainz::Server::Validation', qw( is_valid_iswc format_iswc is_valid_ipi format_ipi );
 
 my $a = '  ';
 my $b = ' a ';
@@ -40,9 +40,11 @@ is(format_iswc('T-000000001.0'), 'T-000.000.001-0');
 is(format_iswc('T0000000010'), 'T-000.000.001-0');
 is(format_iswc('T- 101.914.232-4'), 'T-101.914.232-4');
 
+ok(is_valid_ipi('00014107338'));
+is(format_ipi('014107338'), '00014107338');
 
-my ($a, $b) = MusicBrainz::Server::Validation::normalise_strings ('alice', 'bob');
-is ($a, 'alice');
-is ($b, 'bob');
+my ($alice, $bob) = MusicBrainz::Server::Validation::normalise_strings ('alice', 'bob');
+is ($alice, 'alice');
+is ($bob, 'bob');
 
 done_testing;
