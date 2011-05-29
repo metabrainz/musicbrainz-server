@@ -131,6 +131,7 @@ my %stats = (
             my ($self, $sql) = @_;
             return $self->fetch("count.ipi.artist") + $self->fetch("count.ipi.label");
         },
+    },
     "count.ipi.artist" => {
         DESC => "Count of artists with an IPI code",
         SQL => "SELECT COUNT(*) FROM artist WHERE ipi_code IS NOT NULL",
