@@ -12,6 +12,7 @@
                                       timeformat: "%y/%0m",
                                       tickSize: [6, "month"]},
                              selection: { mode: "xy" },
+                             grid: { hoverable: true },
                              legend: { container: $('#graph-legend'),
                                        labelFormatter: function(label, series) {
                                                            return '<a href="#" id="legend-' + label + '">' + label + '</a>';
@@ -40,6 +41,40 @@
              $('#reset-graph').click(function (event) {
                  event.preventDefault();
                  resetPlot();
+             // Hover functionality
+             function showTooltip(x, y, contents) {
+                  $('<div id="tooltip">' + contents + '</div>').css( {
+                      position: 'absolute',
+                      display: 'none',
+                      top: y + 5,
+                      left: x + 5,
+                      border: '1px solid #fdd',
+                      padding: '2px',
+                      'background-color': '#fee',
+                      opacity: 0.80
+                  }).appendTo("body").fadeIn(200);
+             }
+             previousPoint = null;
+             $('#graph-container').bind('plothover', function (event, pos, item) { 
+                 if(item) {
+                     if (previousPoint != item.dataIndex) {
+                         previousPoint = item.dataIndex;
+
+                         $("#tooltip").remove();
+                         var x = item.datapoint[0],
+                             y = item.datapoint[1],
+                             date = new Date(parseInt(x));
+
+                         if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
+                         if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
+
+                         showTooltip(item.pageX, item.pageY,
+                                     date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
+                     }
+                 } else {
+                     $('#tooltip').remove();
+                     previousPoint = null;
+                 }
              });
         });
   //]]></script>
