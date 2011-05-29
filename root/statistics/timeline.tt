@@ -8,7 +8,9 @@
   <!--[if lte IE 8]><script src="/static/lib/flot/excanvas.min.js"></script><![endif]-->
   <script type="text/javascript">//<![CDATA[
         $(document).ready(function () {
-             var options = { xaxis: { mode: "time"},
+             var options = { xaxis: { mode: "time",
+                                      timeformat: "%y/%0m",
+                                      tickSize: [6, "month"]},
                              selection: { mode: "xy" },
                              legend: { container: $('#graph-legend'),
                                        labelFormatter: function(label, series) {
