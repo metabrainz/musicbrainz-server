@@ -80,9 +80,9 @@ sub header {
 This is a notification that edits have been added for artists, labels and
 editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
-[% self.server %]/user/escape([% self.editor.name %])/subscriptions
+[% self.server %]/user/[% escape(self.editor.name) %]/subscriptions
 
-To see all open edits for your subscriptions, see this link:
+To see all open edits for your subscribed entities, see this link:
 [% self.server %]/edit/subscribed
 };
 }
