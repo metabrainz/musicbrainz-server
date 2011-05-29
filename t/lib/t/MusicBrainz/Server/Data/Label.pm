@@ -35,7 +35,7 @@ is ( $label->end_date->day, 19, "end date, day" );
 is ( $label->edits_pending, 0, "no edits pending" );
 is ( $label->type_id, 1, "type id" );
 is ( $label->label_code, 2070, "label code" );
-is ( $label->format_label_code, 'LC-02070', "formatted label code" );
+is ( $label->format_label_code, 'LC 02070', "formatted label code" );
 is ( $label->comment, 'Sheffield based electronica label', "comment" );
 is ( $label->ipi_code, '00407982339', "ipi_code" );
 memory_cycle_ok($label_data);
