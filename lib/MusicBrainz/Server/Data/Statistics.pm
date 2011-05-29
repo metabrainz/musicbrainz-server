@@ -132,6 +132,14 @@ my %stats = (
         DESC => "Count of unique ISRCs",
         SQL => "SELECT COUNT(distinct isrc) FROM isrc",
     },
+    "count.iswc.all" => {
+        DESC => "Count of all works with an ISWC",
+        SQL => "SELECT COUNT(*) FROM work WHERE iswc IS NOT NULL",
+    },
+    "count.iswc" => {
+        DESC => "Count of unique ISWCs",
+        SQL => "SELECT COUNT(distinct iswc) FROM work WHERE iswc IS NOT NULL",
+    },
     "count.vote" => {
         DESC => "Count of all votes",
         SQL => "SELECT COUNT(*) FROM vote",
