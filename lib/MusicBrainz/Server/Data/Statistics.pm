@@ -124,6 +124,21 @@ my %stats = (
         DESC => "Count of all artist credits",
         SQL => "SELECT COUNT(*) FROM artist_credit",
     },
+    "count.ipi" => {
+        DESC => "Count of IPI codes",
+        PREREQ => [qw[ count.ipi.artist count.ipi.label ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+            return $self->fetch("count.ipi.artist") + $self->fetch("count.ipi.label");
+        },
+    "count.ipi.artist" => {
+        DESC => "Count of artists with an IPI code",
+        SQL => "SELECT COUNT(*) FROM artist WHERE ipi_code IS NOT NULL",
+    },
+    "count.ipi.label" => {
+        DESC => "Count of labels with an IPI code",
+        SQL => "SELECT COUNT(*) FROM label WHERE ipi_code IS NOT NULL",
+    },
     "count.isrc.all" => {
         DESC => "Count of all ISRCs joined to recordings",
         SQL => "SELECT COUNT(*) FROM isrc",
