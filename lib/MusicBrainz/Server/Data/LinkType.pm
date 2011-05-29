@@ -76,6 +76,16 @@ sub get_by_id
     return $obj;
 }
 
+sub get_by_gid
+{
+    my ($self, $gid) = @_;
+    my $obj = MusicBrainz::Server::Data::CoreEntity::get_by_gid($self, $gid);
+    if (defined $obj) {
+        $self->_load_attributes({ $obj->id => $obj }, $obj->id);
+    }
+    return $obj;
+}
+
 sub load
 {
     my ($self, @objs) = @_;
