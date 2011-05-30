@@ -151,7 +151,7 @@ ws_test 'label lookup with label and url relationships',
             <relation type="wikipedia">
                 <target>http://ja.wikipedia.org/wiki/Rhythm_zone</target>
             </relation>
-            <relation type="official_site">
+            <relation type="official site">
                 <target>http://rzn.jp/</target>
             </relation>
             <relation type="discogs">
