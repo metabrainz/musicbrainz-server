@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::Statistics;
+package MusicBrainz::Server::Entity::Statistics::ByDate;
 use Moose;
 
 use MusicBrainz::Server::Types;
