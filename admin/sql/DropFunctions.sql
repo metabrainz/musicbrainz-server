@@ -21,6 +21,7 @@ DROP FUNCTION b_upd_last_updated_table();
 DROP FUNCTION create_bounding_cube(durations INTEGER[], fuzzy INTEGER);
 DROP FUNCTION create_cube_from_durations(durations INTEGER[]);
 DROP FUNCTION dec_ref_count(tbl varchar, row_id integer, val integer);
+DROP FUNCTION empty_artists();
 DROP FUNCTION from_hex(t text);
 DROP FUNCTION generate_uuid_v3(namespace varchar, name varchar);
 DROP FUNCTION generate_uuid_v4();
