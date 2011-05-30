@@ -45,7 +45,7 @@ sub apply_rate_limit
         $c->detach;
     }
 
-    $r = $c->model('RateLimiter')->check_rate_limit('ws_global');
+    $r = $c->model('RateLimiter')->check_rate_limit('ws global');
     if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->content_type("text/plain; charset=utf-8");
