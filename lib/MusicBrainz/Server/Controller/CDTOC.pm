@@ -139,6 +139,12 @@ sub attach : Local RequireAuth
                      message => l('The provided medium id is not valid')
             ) unless looks_like_number ($medium_id);
 
+        $self->error(
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('This CDTOC is already attached to this medium')
+        ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
+
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
@@ -306,6 +312,12 @@ sub move : Local RequireAuth Edit
             $c->stash(template => 'cdtoc/attach_confirm.tt');
             $c->model('Medium')->load($medium_cdtoc);
             $c->model('Release')->load($medium_cdtoc->medium);
+
+            $self->error(
+                $c,
+                status => HTTP_BAD_REQUEST,
+                message => l('This CDTOC is already attached to this medium')
+            ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium->id, $cdtoc);
 
             $self->edit_action($c,
                 form        => 'Confirm',
