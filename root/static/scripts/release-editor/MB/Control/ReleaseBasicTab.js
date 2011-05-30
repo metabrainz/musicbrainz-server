@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010-2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ MB.Control.ReleasePreview = function (advancedtab) {
 
         $.each (self.adv.positions, function (idx, disc) {
 
-            if (!disc) { return; }
+            if (!disc || !disc.expanded || disc.isDeleted()) { return; }
 
             $('<h3>').text (disc.fullTitle ()).appendTo (preview);
 
@@ -182,9 +182,6 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     };
 
     self.removeDisc = function (chained) {
-        if (!chained && self.disc.isLastDisc ())
-            return;
-
         /* FIXME: remove from parent textareas. */
         self.$textarea.val ('');
         self.$textarea.addClass ('deleted');
@@ -246,8 +243,8 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
-    self.$toc = self.$basicdisc.find ('input.toc');
     self.$various_artists = self.$basicdisc.find ('input.various-artists');
+    self.$toc = $('#id-mediums\\.'+disc.number+'\\.toc');
 
     if (!self.$tracklist_id.length)
     {
@@ -371,10 +368,6 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         self.tracklist.render ();
         self.preview.render ();
         $.cookie ('tracklist_mode', 'basic', { path: '/', expires: 365 });
-    });
-
-    $("a[href=#add_disc]").click (function () {
-        self.addDisc ();
     });
 
     $("a[href=#guesscase]").click (function () {

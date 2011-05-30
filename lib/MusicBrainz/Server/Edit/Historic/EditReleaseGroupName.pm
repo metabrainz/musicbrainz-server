@@ -12,7 +12,7 @@ sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 sub related_entities {
     my $self = shift;
     return {
-        release_group => [ $self->data->{entity_id} ]
+        release_group => [ $self->data->{entity}{id} ]
     }
 }
 

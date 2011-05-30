@@ -24,7 +24,7 @@ sub do_upgrade
     my $self = shift;
     return {
         new_entity   => { id => $self->new_value->{LabelId}, name => $self->new_value->{LabelName} },
-        old_entities => [ { id => $self->row_id, name => $self->previous_value } ],
+        old_entities => [ { id => 0, name => $self->previous_value } ],
     };
 }
 

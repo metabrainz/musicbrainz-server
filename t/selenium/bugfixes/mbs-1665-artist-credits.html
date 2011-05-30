@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:3000/" />
+<title>MBS-1783-ac-test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MBS-1783-ac-test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/release-group/153f0a09-fead-3370-9b17-379ebd09446b/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>open-ac</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.icon.add-artist-credit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-edit-release-group.artist_credit.names.1.artist.name</td>
+	<td>Distance</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id-edit-release-group.artist_credit.names.1.artist.name</td>
+	<td>iamfeelinglucky</td>
+</tr>
+<tr>
+	<td>waitForValue</td>
+	<td>entity-artist</td>
+	<td>m-flo &amp; Distance</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id-edit-release-group.edit_note</td>
+	<td>MBS-1665 test.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/release-group/153f0a09-fead-3370-9b17-379ebd09446b/edits</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.edit-list div.edit-header.open h2 a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Accept edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=the Love Bug</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=p.subheader a:eq(0)</td>
+	<td>m-flo</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//div[@id='content']/div[1]/p/a[1]@resource</td>
+	<td>[mbz:artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175#_]</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=p.subheader a:eq(1)</td>
+	<td>Distance</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//div[@id='content']/div[1]/p/a[2]@resource</td>
+	<td>[mbz:artist/472bc127-8861-45e8-bc9e-31e8dd32de7a#_]</td>
+</tr>
+</tbody></table>
+</body>
+</html>

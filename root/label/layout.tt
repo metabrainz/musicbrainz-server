@@ -1,6 +1,7 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? label.name _ " - ${title}" : label.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+        <h2>[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(label.type_name)
@@ -17,6 +18,9 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                content=html_escape(label.ipi_code)
                    IF label.ipi_code -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
+               content=html_escape('LC-' _ label.label_code)
+                   IF label.label_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(label.country.name)
                    IF label.country -%]
@@ -27,6 +31,47 @@
             async = c.uri_for_action('/label/tag_async', [ label.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
+        <ul class="links">
+            [% IF c.user_exists %]
+                <li>
+                  <a href="[% c.uri_for_action('/release_editor/add', { label = label.gid }) %]">
+                    [% l('Add release') %]
+                  </a>
+                </li>
+
+                <hr/>
+
+                <li>
+                  <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ label.gid ]) %]">
+                    [% label.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
+                  </a>
+                </li>
+                <li>
+                  <a href="[% c.uri_for_action('/label/merge_queue', { 'add-to-merge' => label.id }) %]">
+                    [% l('Merge label') %]
+                  </a>
+                </li>
+                <li>[% link_entity(label, 'delete', l('Remove label')) %]</li>
+
+                <hr/>
+
+                <li>[% use_in_relationship(label) %]</li>
+                <li>[% relate_to_ellipsis(label) %]</li>
+                <li>[% relate_to_url(label) %]</li>
+
+                <hr/>
+
+                [% IF label.edits_pending %]
+                  <li>[% link_entity(label, 'open_edits', l('Open edits')) %]</li>
+                [% END %]
+                <li>[% link_entity(label, 'edits', l('Editing history')) %]</li>
+            [% ELSE %]
+                <li>[% request_login(l('Log in to edit')) %]</li>
+            [% END %]
+        </ul>
+
+        <h2>[% l('Subscriptions') %]</h2>
         <ul class="links">
         [% IF c.user_exists %]
             [% IF subscribed %]
@@ -36,38 +81,11 @@
             [% END %]
             <li>[% link_entity(label, 'subscribers', l('Subscribers')) %]</li>
         [% END %]
-            [% IF c.user_exists %]
-                <li>
-                  <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ label.gid ]) %]">
-                    [% label.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
-                  </a>
-                </li>
-                <li>[% link_entity(label, 'delete', l('Remove this label')) %]</li>
-                <li>
-                  <a href="[% c.uri_for_action('/label/merge_queue', { 'add-to-merge' => label.id }) %]">
-                    [% l('Merge this label with another') %]
-                  </a>
-                </li>
-                <li>[% use_in_relationship(label) %]</li>
-                <li>[% relate_to_ellipsis(label) %]</li>
-                <li>[% relate_to_url(label) %]</li>
-                <li>[% link_entity(label, 'edits', l('View editing history')) %]</li>
-                [% IF label.edits_pending %]
-                  <li>[% link_entity(label, 'open_edits', l('Open edits')) %]</li>
-                [% END %]
-                <li>
-                  <a href="[% c.uri_for_action('/release_editor/add', { label = label.gid }) %]">
-                    [% l('Add a new release') %]
-                  </a>
-                </li>
-            [% ELSE %]
-                <li>[% request_login(l('Please log in to edit this label')) %]</li>
-            [% END %]
         </ul>
 
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
-
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=label -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
     [% END %]
 
     <div id="content">

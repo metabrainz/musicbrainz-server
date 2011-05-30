@@ -7,7 +7,9 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::WebService::XMLSerializerV1;
+use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
     threshold => DBDefs::PROFILE_WEB_SERVICE()
@@ -77,15 +79,27 @@ sub search : Chained('root') PathPart('')
     my $offset = 0 + ($c->req->query_params->{offset} || 0);
     $offset = 0 if $offset < 0;
 
-    $c->res->body(
-        $c->model('Search')->xml_search(
+    try {
+        my $body = $c->model('Search')->xml_search(
             %{ $c->req->query_params },
 
             limit   => $limit,
             offset  => $offset,
             type    => model_to_type($self->model),
             version => 1,
-        ));
+        );
+        $c->res->body($body);
+    }
+    catch {
+        my $err = $_;
+        if (blessed($err) && $err->isa('MusicBrainz::Server::Exceptions::InvalidSearchParameters')) {
+            $c->res->body($err->message);
+            $c->res->status(HTTP_BAD_REQUEST);
+        }
+        else {
+            die $err;
+        }
+    };
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
 }

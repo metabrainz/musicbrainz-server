@@ -98,6 +98,9 @@ $(function() {
             newSelect.attr('id', 'id-' + newSelectName);
             newSelect.val('');
             selects.append(newDiv);
+            if(!newDiv.find('input.removeAttr').length) {
+                newDiv.append(MB.html.input({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove} ));
+            }
             newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
@@ -106,6 +109,11 @@ $(function() {
                 .append(MB.html.a({ href: '#', 'class': 'selectFilterPrev' }, '&#9668'))
                 .append(MB.html.input({ type: 'text', size: '7', 'class': 'selectFilter' }))
                 .append(MB.html.a({ href: '#', 'class': 'selectFilterNext' }, '&#9658;'));
+        });
+
+        selects.find('div:gt(0)').each(function() {
+            $(this).append(' ')
+                .append(MB.html.input({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove} ));
         });
     });
 
@@ -120,6 +128,10 @@ $(function() {
         $input.focus();
         filterSelect($input, 1);
         return false;
+    });
+    $('input.removeAttr').live('click', function(ev) {
+        ev.preventDefault();
+        $(this).parent('div').remove();
     });
 
     var KEY_UP = 37, KEY_LEFT = 38,

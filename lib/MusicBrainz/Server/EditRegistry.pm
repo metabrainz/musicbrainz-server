@@ -59,6 +59,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::Release::Merge
     MusicBrainz::Server::Edit::Release::Move
+    MusicBrainz::Server::Edit::Release::ReorderMediums
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
     MusicBrainz::Server::Edit::ReleaseGroup::Delete
@@ -100,7 +101,6 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MergeReleaseMAC
     MusicBrainz::Server::Edit::Historic::MoveDiscID
     MusicBrainz::Server::Edit::Historic::MoveRelease
-    MusicBrainz::Server::Edit::Historic::MoveReleaseGroup
     MusicBrainz::Server::Edit::Historic::RemoveDiscID
     MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
     MusicBrainz::Server::Edit::Historic::RemoveLink

@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010,2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -72,28 +72,32 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     self.render = function (data) {
 
-        self.$name.val (data.artist_name).removeClass('error');
+        // FIXME: use the same format everywhere.
+        var artist_name = data.artist_name !== undefined ? data.artist_name : data.artist.name;
+        var gid = data.gid !== undefined ? data.gid : data.artist.gid;
+        var id = data.id !== undefined ? data.id : data.artist.id;
+        var join = data.join !== undefined ? data.join : data.join_phrase;
+
+        self.$name.val (artist_name).removeClass('error');
         self.container.clearError (self);
         self.$sortname.val (data.sortname);
-        self.$join.val (data.join || '');
-        self.$gid.val (data.gid);
-        self.$id.val (data.id);
+        self.$join.val (join || '');
+        self.$gid.val (gid);
+        self.$id.val (id);
         self.updateLookupPerformed ();
 
-        if (data.name === '' || data.name === data.artist_name)
+        if (data.name === '' || data.name === artist_name)
         {
-            self.$credit
-                .val ('')
-                .attr ('placeholder', data.artist_name)
-                .mb_placeholder (self.placeholder_options);
+            self.$credit.val ('')
         }
         else
         {
-            self.$credit
-                .removeAttr ('placeholder')
-                .mb_placeholder (self.placeholder_options)
-                .val (data.name);
+            self.$credit.val (data.name);
         }
+
+        self.$credit
+            .attr ('placeholder', artist_name)
+            .mb_placeholder (self.placeholder_options);
 
         if (self.$join.val () !== '')
         {
@@ -256,7 +260,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         var name = self.$credit.val ();
         if (name === '')
         {
-            name = self.$credit.attr ('placeholder');
+            name = self.$name.val ();
         }
 
         if (!name)
@@ -332,8 +336,10 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     else
     {
         /* if artist name and artist credit are identical on load, render
-           the artist credit as a placeholder. */
-        if (self.$name.val () === self.$credit.val ())
+           the artist credit as a placeholder.  Also initialize the placeholder
+           if the artist credit is empty. */
+        if (self.$name.val () === self.$credit.val ()
+            || self.$credit.val () === '')
         {
             self.$credit.val ('');
             self.$credit.attr ('placeholder', self.$name.val ())
@@ -568,9 +574,21 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
             var box = self.box[idx];
 
-            if (box.$gid.val () !== $(row).find ('input.gid').val () ||
+            var box_credit = box.$credit.val ();
+            if (box_credit === "")
+            {
+                box_credit = box.$name.val ();
+            }
+
+            var row_credit = $(row).find ('input.credit').val ();
+            if (row_credit === "")
+            {
+                row_credit = $(row).find ('input.name').val ();
+            }
+
+            if (box_credit !== row_credit ||
                 box.$name.val () !== $(row).find ('input.name').val () ||
-                box.$credit.val () !== $(row).find ('input.credit').val () ||
+                box.$gid.val () !== $(row).find ('input.gid').val () ||
                 box.$join.val () !== $(row).find ('input.join').val ())
             {
                 isReleaseArtist = false;

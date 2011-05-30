@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::URL::ASIN;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 sub pretty_name
 {
@@ -14,6 +15,8 @@ sub pretty_name
 
     return $self->url->as_string;
 }
+
+sub sidebar_name { shift->pretty_name }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

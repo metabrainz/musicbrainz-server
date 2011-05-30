@@ -1,9 +1,9 @@
 [%- BLOCK layout_head -%]
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
     $('document').ready (function () {
        MB.utility.setDefaultAction ('form.release-editor', '#id-save');
     });
-  </script>
+  //]]></script>
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]

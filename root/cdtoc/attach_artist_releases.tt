@@ -35,8 +35,9 @@
       [% form_submit(l('Attach CD TOC')) %]
     </form>
   [% ELSE %]
-    <p>[% l('{artist} has no releases which have {n} tracks.', { artist => link_entity(artist),
-              n => cdtoc.track_count }) %]</p>
+    <p>[% ln('{artist} has no releases which have only {n} track.',
+             '{artist} has no releases which have {n} tracks.',
+             cdtoc.track_count, { artist => link_entity(artist), n => cdtoc.track_count }) %]</p>
   [% END %]
 
   <form action="[% c.uri_for('/release/add') %]" method="post">

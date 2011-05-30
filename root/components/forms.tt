@@ -110,7 +110,7 @@
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
           <input type="text" id="[% id %]" style="width: 262px"
-              value="[% html_escape(form.field('artist_credit').fif.name) %]" />
+              value="[% html_escape(form.field('artist_credit').item.name) %]" />
           <img class="search" src="/static/images/icons/search.png" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
@@ -194,22 +194,23 @@
       </p>
       <div class="row">
         <label>[% l('Preview') %]</label>
-        <span class="artist-credit-preview">[% artist_credit(acfield.fif) %]</span>
+        <span class="artist-credit-preview">[% artist_credit(acfield.item) %]</span>
       </div>
 
       [%- FOR ac=acfield.field('names').fields -%]
         [%- artistnum = loop.index -%]
-        [%- artist = acfield.fif.names.$artistnum.artist -%]
+
+        [%- artist = ac.field('artist').item -%]
         <div class="artist-credit-box" style="margin: 2em 0">
 
           <div class="row">
             <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
             <span class="artist autocomplete">
-              <input type="text" class="name" value="[% artist.name | html %]" />
+              [%- r.text (ac.field('artist').field('name'), class => 'name') -%]
               <img class="search" src="/static/images/icons/search.png" />
               <input type="hidden" class="gid" value="[% artist.gid | html %]" />
               <input type="hidden" class="sortname" value="[% artist.sort_name | html %]" />
-              [%- r.hidden (ac.field('artist_id'), class => 'id') -%]
+              [%- r.hidden (ac.field('artist').field('id'), class => 'id') -%]
             </span>
 
             <input type="button" class="icon remove-artist-credit"
@@ -245,4 +246,10 @@
 
     </div>
   </div>
+[%- END -%]
+
+[%- MACRO artist_credit_preview_from_field(ac) BLOCK -%]
+  [%- FOR credit=ac.value.names -%]
+    [%- credit.name | html -%][%- credit.join_phrase | html -%]
+  [%- END -%]
 [%- END -%]

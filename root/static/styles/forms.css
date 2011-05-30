@@ -1,5 +1,6 @@
 input { background: #fff; color: #000; }
-input:-moz-placeholder, .mb_placeholder { color: #aaa; }
+input:-moz-placeholder { color: #aaa; }
+input.mb_placeholder { color: #aaa ! important; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {
@@ -242,3 +243,17 @@ div.documentation div.bubble {
 div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
 div.documentation div.container { width: 100%; }
 
+table.form th,
+table.form td{
+    vertical-align: top;
+}
+
+table.form th {
+    text-align: right;
+    padding-bottom: 8pt;
+    width: 100pt;
+}
+
+table.form {
+    padding: 10pt 0;
+}

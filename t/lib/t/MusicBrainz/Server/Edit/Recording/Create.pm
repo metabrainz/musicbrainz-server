@@ -14,6 +14,8 @@ around run_test => sub {
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
+ALTER SEQUENCE artist_name_id_seq RESTART 2;
+ALTER SEQUENCE artist_id_seq RESTART 2;
 EOSQL
 
     $test->clear_edit;
@@ -31,9 +33,10 @@ has edit => (
             edit_type => $EDIT_RECORDING_CREATE,
             editor_id => 1,
             name => 'Standalone recording',
-            artist_credit => [
-                { artist => 1, name => 'Test artist' }
-            ],
+            artist_credit => {
+                names => [
+                    { artist => { id => 1 }, name => 'Test artist' }
+                ] },
             length => 12345,
             comment => 'Recording comment'
         );

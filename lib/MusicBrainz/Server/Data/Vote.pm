@@ -76,7 +76,8 @@ sub enter_votes
         # Filter votes where the user has either not voted before, or previously casted a different vote
         @votes = grep {
             !exists $current_votes{$_->{edit_id}} || $current_votes{$_->{edit_id}} != $_->{vote}
-        } @votes; 
+        } @votes;
+        @edit_ids = map { $_->{edit_id} } @votes;
 
         return unless @votes;
 

@@ -10,7 +10,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     'release-group' => {
         method   => 'GET',
-        inc      => [ qw(artist releases) ],
+        inc      => [ qw(artist releases _relations) ],
     },
 ]);
 
@@ -32,10 +32,7 @@ sub lookup : Chained('load') PathPart('')
     if ($c->stash->{inc}->artist)
     {
         $c->model('ArtistCredit')->load($rg);
-
-        # make sure sort_name is loaded if there is only one artist.
-        $c->model('Artist')->load($rg->artist_credit->names->[0])
-            if (@{$rg->artist_credit->names} == 1);
+        $c->model('Artist')->load($rg->artist_credit->all_names)
     }
 
     if ($c->stash->{inc}->releases)

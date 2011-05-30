@@ -9,6 +9,7 @@ use Try::Tiny;
 
 extends 'MusicBrainz::Server::Form::Step';
 
+has_field 'seeded' => ( type => 'Integer' );
 has_field 'mediums' => ( type => 'Repeatable', num_when_empty => 0 );
 has_field 'mediums.id' => ( type => 'Integer' );
 has_field 'mediums.toc' => ( type => 'Text' );
@@ -49,29 +50,29 @@ sub _track_errors {
 
     return 0 if $track->{deleted};
 
-    my $name = trim $track->{name};
+    my $name = trim ($track->{name} || "");
     my $pos = trim $track->{position};
 
     if ($name eq '' && $pos eq '')
     {
         # position should never be empty unless someone messes with
         # the javascript.
-        return l('New tracklisting contains an empty track.');
+        return l('New tracklisting contains an empty track');
     }
 
     if ($name eq '')
     {
-        return l('A track name is required on track {pos}.', { pos => $pos });
+        return l('A track name is required on track {pos}', { pos => $pos });
     }
 
     if ($pos eq '')
     {
-        return l('A position is required for "{name}".', { name => $name });
+        return l('A position is required for "{name}"', { name => $name });
     }
 
     if ($tracknumbers->[$pos])
     {
-        return l('"{name1}" and "{name2}" have the same position.',
+        return l('"{name1}" and "{name2}" have the same position',
                  {
                      name1 => $tracknumbers->[$pos],
                      name2 => $name,
@@ -84,7 +85,7 @@ sub _track_errors {
         scalar @{ $track->{artist_credit}->{names} } < 1 ||
         trim $track->{artist_credit}->{names}->[0]->{name} eq '')
     {
-        return l('An artist is required on track {pos}.', { pos => $pos });
+        return l('An artist is required on track {pos}', { pos => $pos });
     }
 
     my $error = try {
@@ -195,9 +196,12 @@ sub _validate_edits {
 sub validate {
     my $self = shift;
 
+    my $medium_count = 0;
     for my $medium ($self->field('mediums')->fields)
     {
         next if $medium->field('deleted')->value;
+
+        $medium_count++;
 
         my $edits = $medium->field('edits')->value;
 
@@ -224,6 +228,11 @@ sub validate {
             }
         }
     }
+
+    # FIXME: is there a way to set an error on the entire form,
+    # instead of specific to a field?
+    $self->field('mediums')->fields->[0]->add_error (l('A medium is required'))
+        unless $medium_count;
 };
 
 __PACKAGE__->meta->make_immutable;

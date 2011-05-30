@@ -199,11 +199,11 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.removeTrackNumbers = function () {
         if (self.parent.vinylNumbers ())
         {
-            self.line = self.line.replace(/^[\s\(]*[-\.０-９0-9a-z]+[\.\)\s]+/i, "");
+            self.line = self.line.replace(/^\s*[-\.０-９0-9a-z]+\.?\s+/i, "");
         }
         else if (self.parent.trackNumbers ())
         {
-            self.line = self.line.replace(/^[\s\(]*([-\.０-９0-9\.]+(-[０-９0-9]+)?)[\.\)\s]+/, "");
+            self.line = self.line.replace(/^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)\.?\s+/, "");
         }
     };
 
@@ -364,10 +364,12 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
         var map = {};
 
         $.each (self.originals, function (idx, track) {
-            if (map[track.name] === undefined) {
-                map[track.name] = [];
+            var trackname = $.trim (track.name);
+
+            if (map[trackname] === undefined) {
+                map[trackname] = [];
             }
-            map[track.name].push (idx);
+            map[trackname].push (idx);
         });
 
         var lastused = self.originals.length - 1;

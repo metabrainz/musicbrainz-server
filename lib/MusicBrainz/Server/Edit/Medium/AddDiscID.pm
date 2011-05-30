@@ -33,6 +33,8 @@ has '+data' => (
 
 method release_id { $self->data->{release}{id} }
 
+method allow_auto_edit { 1 }
+
 method alter_edit_pending
 {
     return {
@@ -46,6 +48,7 @@ sub initialize {
     if ($self->preview)
     {
        $self->entity_id(0);
+       $opts{release} = { id => 0, name => "" };
     }
     else {
         my $release = $opts{release} or die 'Missing "release" argument';

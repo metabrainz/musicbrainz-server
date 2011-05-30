@@ -4,7 +4,9 @@ use namespace::autoclean;
 
 use CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_edit_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
+use MusicBrainz::Server::Entity::ArtistCredit;
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
@@ -92,6 +94,12 @@ around _build_pages => sub {
     ];
 };
 
+sub add_medium_position {
+    my ($self, $idx, $new) = @_;
+
+    return $new->{position};
+};
+
 augment 'create_edits' => sub
 {
     my ($self, %args) = @_;
@@ -125,6 +133,54 @@ augment 'create_edits' => sub
     $release = $add_release_edit->entity;
 
     return $release;
+};
+
+override 'prepare_tracklist' => sub {
+    my ($self, $release) = @_;
+
+    $self->c->stash->{release_artist_json} = "null";
+
+    my $json = JSON::Any->new( utf8 => 1 );
+
+    return unless $self->value->{seeded};
+
+    my @tracklist_edits = @{ $self->value->{mediums} };
+
+    # If the release editor was seeded with a regular (single artist)
+    # release, a lookup for that artist may have been required on the
+    # information tab.  In that case the artist id/gid should be applied
+    # to all track artists with the same name.
+    my $release_artist = MusicBrainz::Server::Entity::ArtistCredit->from_array (
+        $self->value->{artist_credit}->{names});
+
+    for my $medium (@tracklist_edits)
+    {
+        next unless defined $medium->{edits};
+
+        my @edits = @{ $json->decode ($medium->{edits}) };
+        for my $edit (@edits)
+        {
+            # If the track artist is not set, or identical to the release artist,
+            # use the identified release artist for all tracks.
+            next unless $edit->{artist_credit}->{preview} eq $release_artist->name
+                || $edit->{artist_credit}->{preview} eq '';
+
+            $edit->{artist_credit} = artist_credit_to_edit_ref ($release_artist);
+
+            $edit->{edit_sha1} = hash_structure (
+                {
+                    name => $edit->{name},
+                    length => $edit->{length},
+                    artist_credit => $edit->{artist_credit},
+                });
+        }
+        $medium->{edits} = $json->encode (\@edits);
+    }
+
+    $self->load_page('tracklist', {
+        'seeded' => 0,
+        'mediums' => \@tracklist_edits,
+    });
 };
 
 augment 'load' => sub

@@ -4,6 +4,7 @@ use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -25,6 +26,30 @@ sub build_display_data
     my $self = shift;
     return {
         alias => $self->data->{name}
+    };
+}
+
+sub edit_conditions
+{
+    return {
+        $QUALITY_LOW => {
+            duration      => 4,
+            votes         => 1,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_NORMAL => {
+            duration      => 14,
+            votes         => 3,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_HIGH => {
+            duration      => 14,
+            votes         => 4,
+            expire_action => $EXPIRE_REJECT,
+            auto_edit     => 0,
+        },
     };
 }
 

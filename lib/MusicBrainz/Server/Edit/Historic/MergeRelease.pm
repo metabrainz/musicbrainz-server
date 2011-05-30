@@ -19,6 +19,7 @@ sub related_entities
 {
     my $self = shift;
     return {
+        artist    => [ $self->artist_id ],
         release   => [ $self->_release_ids ],
     }
 }

@@ -1,9 +1,9 @@
 [%- BLOCK layout_head -%]
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
     $('document').ready (function () {
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
     });
-  </script>
+  //]]></script>
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
@@ -30,7 +30,11 @@
               [% FOR artist=possible %]
               <li>
                 <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
-                       value="[% artist.id %]" />
+                       value="[% artist.id %]"
+                       [%- IF artist_row.field('entity_id').value == artist.id -%]
+                       checked="checked"
+                       [%- END -%]
+                        />
                 [% link_entity(artist) %]
               </li>
               [% END %]
@@ -63,7 +67,11 @@
               [% FOR label=possible %]
               <li>
                 <input type="radio" name="[% label_row.field('entity_id').html_name %]"
-                       value="[% label.id %]" />
+                       value="[% label.id %]"
+                       [%- IF label_row.field('entity_id').value == label.id -%]
+                       checked="checked"
+                       [%- END -%]
+                        />
                 [% link_entity(label) %]
               </li>
               [% END %]

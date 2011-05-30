@@ -280,7 +280,7 @@ sub _serialize_release
     push @list, $gen->title($release->name);
     push @list, $gen->status($release->status->name) if $release->status;
     push @list, $gen->disambiguation($release->comment) if $release->comment;
-    push @list, $gen->packaging($release->packaging) if $release->packaging;
+    push @list, $gen->packaging($release->packaging->name) if $release->packaging;
 
     $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
     $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
@@ -642,8 +642,7 @@ sub _serialize_relation
     my ($self, $src_entity, $data, $gen, $rel) = @_;
 
     my @list;
-    my $type = $rel->link->type->short_link_phrase;
-    $type =~ s/ /_/g;
+    my $type = $rel->link->type->name;
 
     push @list, $gen->target($rel->target_key);
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);

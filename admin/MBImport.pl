@@ -1,4 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+
+use warnings;
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
@@ -351,7 +353,6 @@ sub ImportAllTables
         artist_rating_raw
         artist_tag_raw
         cdtoc_raw
-        currentstat
         edit
         edit_artist
         edit_label
@@ -360,7 +361,6 @@ sub ImportAllTables
         edit_release
         edit_release_group
         edit_work
-        historicalstat
         label_rating_raw
         label_tag_raw
         recording_rating_raw
@@ -463,16 +463,20 @@ sub ImportAllTables
         release_name
         release_packaging
         release_status
+        release_tag
         replication_control
         script
         script_language
+        statistic
         tag
         tag_relation
         track
         track_name
         tracklist
         url
+        url_gid_redirect
         work
+        work_alias
         work_annotation
         work_gid_redirect
         work_meta

@@ -1,4 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+
+use warnings;
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -31,8 +33,6 @@ package DBDefs;
 
 # The server root, i.e. the parent directory of admin, bin, lib, root, etc.
 sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
-# The data import directory (used by some reports)
-sub DATA_IMPORT_DIR    { "/home/httpd/musicbrainz/data-import" }
 # Where static files are located
 sub STATIC_FILES_DIR { MB_SERVER_ROOT . '/root/static' }
 
@@ -107,10 +107,6 @@ sub LUCENE_SERVER    { "search.musicbrainz.org" }
 
 sub SMTP_SERVER { "localhost" }
 
-# If this is not undef, it lists a file to where all mail should be spooled
-# (instead of being sent via SMTP_SERVER)
-sub DEBUG_MAIL_SPOOL { undef }
-
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
 # passwords.  However you MUST change it from the default
@@ -162,6 +158,9 @@ sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 # Using Cache::Memory is good for a development environment, but is likely not
 # suited for production.  Use something like memcached in a production setup.
 #
+# If you want to use something such as Memcached, the settings here should be
+# the same as the settings you use for the session store.
+#
 sub PLUGIN_CACHE_OPTIONS {
     return {
 #        class => "Cache::Memory",
@@ -170,25 +169,12 @@ sub PLUGIN_CACHE_OPTIONS {
     };
 };
 
-# Show MISS, HIT, SET etc
-sub CACHE_DEBUG { 1 }
-
-# Default expiry time in seconds.  Use 0 for "never".
-sub CACHE_DEFAULT_EXPIRES { 3600 }
-
-# Default delete time in seconds.  Use 0 means allow re-insert straight away.
-sub CACHE_DEFAULT_DELETE { 4 }
-
-# XXX remove this
-# Cache::Memcached options
-our %CACHE_OPTIONS = (
-    servers => [ '127.0.0.1:11211' ],
-    debug => 0,
-);
-sub CACHE_OPTIONS { \%CACHE_OPTIONS }
-
 # Use memcached and a small in-memory cache, see below if you
 # want to disable caching
+#
+# The caching options here relate to object caching - such as caching artists,
+# releases, etc in order to speed up queries. If you are using Memcached
+# to store sessions as well this should be a *different* memcached server.
 our %CACHE_MANAGER_OPTIONS = (
     profiles => {
         memory => {
@@ -234,14 +220,6 @@ sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
 sub RATELIMIT_SERVER { undef }
 
 ################################################################################
-# Proxy settings
-################################################################################
-
-sub PROXY_ENABLE { 0 }
-sub PROXY_HOST { '' }
-sub PROXY_PORT { 8000 }
-
-################################################################################
 # Minify settings
 ################################################################################
 
@@ -277,7 +255,7 @@ EOF
 # the server version, e.g. at the foot of each web page.  Basically it can be
 # whatever you want. If you leave it blank, the current subversion revision
 # will be shown (if subversion is in use).
-sub VERSION { "TRUNK" }
+sub VERSION { "master" }
 
 # How long (in seconds) a web/rdf session can go "idle" before being timed out
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
@@ -342,6 +320,13 @@ sub SESSION_STORE_ARGS
 #    }
 #}
 
+# MusicBrainz::Server::Wizard saves wizard sessions in memcached,
+# seperately from the regular session store.
+sub WIZARD_MEMCACHED
+{
+    return { servers => [ "127.0.0.1:11211" ] };
+}
+
 sub USE_ETAGS { 1 }
 
 sub CATALYST_DEBUG { 1 }
@@ -372,6 +357,23 @@ sub PROFILE_WEB_SERVICE { 0 }
 
 # Log if a request in / (not /ws) takes more than x seconds
 sub PROFILE_SITE { 0 }
+
+# If you want the FastCGI processes to restart, configure this
+sub AUTO_RESTART {
+#    return {
+#        active => 1,
+#        check_each => 10,
+#        max_bits => 134217728,
+#        min_handled_requests => 100
+#    }
+}
+
+# The maximum amount of time a process can be serving a single request
+# If undef, the process is never killed
+# If set to a positive integer, the process can server a single request
+# for MAX_REQUEST_TIME seconds, and if it is still not done the process
+# will be killed (and log a message about the request it was serving).
+sub MAX_REQUEST_TIME { undef }
 
 1;
 # eof DBDefs.pm

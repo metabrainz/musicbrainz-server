@@ -16,6 +16,7 @@ use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Annotation;
+use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
@@ -276,6 +277,9 @@ sub schema_fixup
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end}) 
             if (exists $data->{'life-span'}->{end});
     }
+    if($type eq 'artist' && exists $data->{gender}) {
+        $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => $data->{gender} );
+    }
     if ($type eq 'label' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::LabelType->new( name => $data->{type} );
@@ -329,15 +333,21 @@ sub schema_fixup
             );
         }
         if (exists $data->{"medium-list"} && 
-            exists $data->{"medium-list"}->{medium}->[0] && 
-            exists $data->{"medium-list"}->{medium}->[0]->{"track-list"})
+            exists $data->{"medium-list"}->{medium})
         {
-            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new( 
-                track_count => $data->{"medium-list"}->{medium}->[0]->{"track-list"}->{count} 
-            );
-            $data->{mediums} = [ MusicBrainz::Server::Entity::Medium->new( 
-                "tracklist" => $tracklist
-            ) ];
+            $data->{mediums} = [];
+            for my $medium_data (@{$data->{"medium-list"}->{medium}})
+            {
+                if (exists $medium_data->{"track-list"})
+                {
+                    my $medium = MusicBrainz::Server::Entity::Medium->new(
+                        tracklist => MusicBrainz::Server::Entity::Tracklist->new(
+                            track_count => $medium_data->{"track-list"}->{count}
+                        )
+                    );
+                    push @{$data->{mediums}}, $medium;
+                }
+            }
             delete $data->{"medium-list"};
         }
     }
@@ -380,6 +390,35 @@ sub schema_fixup
         $data->{_extra} = \@releases;
     }
 
+    if (exists $data->{"relation-list"} &&
+        exists $data->{"relation-list"}->[0] &&
+        exists $data->{"relation-list"}->[0]->{"relation"})
+    {
+        my @relationships;
+
+        foreach my $rel_group (@{ $data->{"relation-list"} })
+        {
+            foreach my $rel (@{ $rel_group->{"relation"} })
+            {
+                my $rel_type = delete $rel->{type};
+                delete $rel->{id};
+                delete $rel->{gid};
+
+                my $entity_type = (keys %$rel)[0];
+                $rel->{$entity_type}->{gid} = delete $rel->{$entity_type}->{id};
+
+                my $entity = $c->model( type_to_model ($entity_type) )->
+                    _entity_class->new (%{ $rel->{$entity_type} });
+
+                push @relationships, MusicBrainz::Server::Entity::Relationship->new(
+                    entity1 => $entity );
+            }
+        }
+
+        $data->{relationships} = \@relationships;
+    }
+
+
     foreach my $k (keys %{$data})
     {
         if (ref($data->{$k}) eq 'HASH')
@@ -407,6 +446,12 @@ sub schema_fixup
                     join_phrase => $namecredit->{joinphrase} || '' } );
         }
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
+    }
+
+    if ($type eq 'work' && exists $data->{relationships}) {
+        $data->{artists} = [ map {
+            $_->entity1
+        } @{ $data->{relationships} } ];
     }
 }
 
@@ -588,26 +633,29 @@ sub xml_search
 {
     my ($self, %options) = @_;
 
+    my $die = sub {
+        MusicBrainz::Server::Exceptions::InvalidSearchParameters->throw( message => shift );
+    };
+
     my $query   = $options{query};
     my $limit   = $options{limit} || 25;
     my $offset  = $options{offset} || 0;
-    my $type    = $options{type} or die 'type is a required parameter';
+    my $type    = $options{type} or $die->('type is a required parameter');
     my $version = $options{version} || 2;
 
-    $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
 
     unless ($query) {
         switch ($type) {
             case 'artist' {
-                my $name = escape_query($options{name}) or die 'name is a required parameter';
+                my $name = escape_query($options{name}) or $die->('name is a required parameter');
                 $name =~ tr/A-Z/a-z/;
                 $name =~ s/\s*(.*?)\s*$/$1/;
                 $query = "artist:($name)(sortname:($name) alias:($name) !artist:($name))";
             }
 
             case 'label' {
-                my $term = escape_query($options{name}) or die 'name is a required parameter';
+                my $term = escape_query($options{name}) or $die->('name is a required parameter');
                 $term =~ tr/A-Z/a-z/;
                 $term =~ s/\s*(.*?)\s*$/$1/;
                 $query = "label:($term)(sortname:($term) alias:($term) !label:($term))";
@@ -745,6 +793,7 @@ sub xml_search
         }
     }
 
+    $query = uri_escape_utf8($query);
     my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
                                  DBDefs::LUCENE_SERVER,
                                  $version,

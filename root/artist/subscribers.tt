@@ -25,12 +25,12 @@
 
     [% IF subscribed %]
         <p>[% l('You are currently subscribed. {unsub|Unsubscribe}?',
-               { unsub => c.uri_for_action('/account/subscriptions/artist/remove', { id => user.id }) }) %]</p>
+               { unsub => c.uri_for_action('/account/subscriptions/artist/remove', { id => artist.id }) }) %]</p>
     [% ELSIF public_editors.size + private_editors == 0 %]
         <p>[% l("Be the first! {sub|Subscribe}?",
-               { sub => c.uri_for_action('/account/subscriptions/artist/add', { id => user.id }) }) %]</p>
+               { sub => c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) }) %]</p>
     [% ELSE %]
         <p>[% l('You are not currently subscribed. {sub|Subscribe}?',
-               { sub => c.uri_for_action('/account/subscriptions/artist/add', { id => user.id }) }) %]</p>
+               { sub => c.uri_for_action('/account/subscriptions/artist/add', { id => artist.id }) }) %]</p>
     [% END %]
 [% END %]

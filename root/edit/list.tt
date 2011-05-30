@@ -18,7 +18,7 @@
 
 [% IF search %]
     <div class="search-refine">
-        <form action="[% c.req.uri %]" method="post">
+        <form action="[% c.req.uri %]" method="get">
             [% USE r = FormRenderer(form) %]
             [% form_row_select(r, 'type', l('Type:')) %]
             [% form_row_select(r, 'status', l('Status:')) %]
@@ -32,10 +32,17 @@
 
 <div class="search-toggle c">
     <p>
-        <strong>[%- ln('Found {n} edit', 'Found {n} edits' , pager.total_entries, { n => add_commas(pager.total_entries) }) -%]</strong>
-        [% IF search %]
-            (<a href="[% c.uri_for_action('/edit/search') %]">[% l('search again') %]</a>)
-        [% END %]
+        <strong>
+          [% IF guess_search && pager.last_page > 1 %]
+            [%- ln('Found {n} edit', 'Found at least {n} edits' ,
+                    pager.total_entries,
+                    { n => add_commas(pager.total_entries) }) -%]
+          [% ELSE %]
+            [%- ln('Found {n} edit', 'Found {n} edits' ,
+                    pager.total_entries,
+                    { n => add_commas(pager.total_entries) }) -%]
+          [% END %]
+        </strong>
     </p>
 </div>
 

@@ -48,11 +48,20 @@ MB.Control.RelateTo = function () {
         self.selected_item.type = self.type ();
     };
 
+    function cleanType(type) {
+        if (type === 'release-group') {
+            return 'release_group';
+        }
+        else {
+            return type;
+        }
+    }
+
     self.createRelationship = function (event) {
         var location = '/edit/relationship/create';
         var query_string = $.param ({
-            type0: self.$type0.val (),
-            type1: self.selected_item.type,
+            type0: cleanType(self.$type0.val()),
+            type1: cleanType(self.selected_item.type),
             entity0: self.$gid0.val (),
             entity1: self.selected_item.gid
         });

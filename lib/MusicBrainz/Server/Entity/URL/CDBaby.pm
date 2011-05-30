@@ -3,8 +3,10 @@ package MusicBrainz::Server::Entity::URL::CDBaby;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub pretty_name { 'CDBaby' }
+sub pretty_name { 'CD Baby' }
+sub sidebar_name { 'CD Baby' }
 
 override url => sub {
     my $self = shift;

@@ -43,8 +43,18 @@ Images:
 
 ----------------------------------------------------------------------------
 
+Image set:   Gentleface Mono Icon Set
+Author:      Gentleface.com
+License:     CC-NC-ND-BY/3.0 (see: http://creativecommons.org/licenses/by-nc-nd/3.0/)
+Download:    http://gentleface.com/free_icon_set.html
+Images:
+
+    favicons/home-16.png (original: black/png/home_icon&16.png)
+
+----------------------------------------------------------------------------
+
 Source:      MediaWiki
-Author:      Unkown
+Author:      Unknown
 License:     GPL v2 or later
 Download:    http://commons.wikimedia.org/wiki/File:Icon_External_Link.png,
              http://commons.wikimedia.org/wiki/File:Bullet.gif
@@ -108,11 +118,21 @@ Images:
 
 ----------------------------------------------------------------------------
 
-Source:      MusicBrainz Picard
-Authors:     Carlin Mangar
-License:     CC-BY-SA/2.0/uk (see 
-             resources/img-src/Copyright.htm included with Picard)
+Source:      MusicBrainz
+License:     GPL v2 or later
+
 Images:
 
-    logos/musicbrainz-picard.png
+    icons/add_row.png
+    icons/collapse.png
+    icons/delete_row.png
+    icons/down.png
+    icons/expand.png
+    icons/guesscase.32x32.png
+    icons/guesscase.png
+    icons/help.png
+    icons/search.png
+    icons/up.png
+
+    (original .svg versions are in src/icons/*.svg)
 

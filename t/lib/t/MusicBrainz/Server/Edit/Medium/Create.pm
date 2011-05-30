@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
+use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 use aliased 'MusicBrainz::Server::Entity::Track';
@@ -28,7 +29,10 @@ my $tracklist = [
             names => [
                 ArtistCreditName->new(
                     name => 'Warp Industries',
-                    artist_id => 1
+                    artist => Artist->new(
+                        id => 1,
+                        name => 'Artist',
+                    )
                 )]),
         recording_id => 1,
         position => 1
@@ -58,10 +62,19 @@ is($edit->display_data->{format}->id, 1);
 is($edit->display_data->{release}->id, 1);
 is($edit->display_data->{release}->artist_credit->name, 'Tosca');
 
+my $medium = $c->model('Medium')->get_by_id($edit->medium_id);
+is($medium->edits_pending, 1);
+
+my $release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 1);
+
 accept_edit($c, $edit);
 
-my $medium = $c->model('Medium')->get_by_id($edit->medium_id);
+$medium = $c->model('Medium')->get_by_id($edit->medium_id);
 is($medium->edits_pending, 0);
+
+$release = $c->model('Release')->get_by_id(1);
+is($release->edits_pending, 0);
 
 ## Create a medium to reject
 $edit = $c->model('Edit')->create(

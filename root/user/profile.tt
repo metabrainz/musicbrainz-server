@@ -15,7 +15,7 @@
         [% WRAPPER property name=l("Email:") %]
             [% IF user.email %]
                 [% IF viewing_own_profile %]
-                    [%- l('{email}', { email => html_escape(user.email) }) %]
+                    [%- html_escape(user.email) %]
                 [% ELSE %]
                     [%- l('(hidden)') -%]
                 [% END %]

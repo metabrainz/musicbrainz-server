@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -37,6 +38,15 @@ has '+data' => (
         tracklist    => ArrayRef[track()]
     ]
 );
+
+sub alter_edit_pending
+{
+    my $self = shift;
+    return {
+        'Medium' => [ $self->entity_id ],
+        'Release' => [ $self->data->{release}->{id} ]
+    }
+}
 
 sub initialize {
     my ($self, %opts) = @_;
@@ -103,9 +113,16 @@ sub _insert_hash {
 
     # Create related data (artist credits and recordings)
     my $tracklist = delete $data->{tracklist};
+
+    verify_artist_credits($self->c, map {
+        $_->{artist_credit}
+    } @$tracklist);
+
     for my $track (@$tracklist) {
-        $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
-        $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
+        $track->{recording_id} ||= $self->c->model('Recording')->insert({
+            %$track,
+            artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
+        })->id;
     }
 
     $data->{tracklist_id} = $self->c->model('Tracklist')->find_or_insert($tracklist)->id;

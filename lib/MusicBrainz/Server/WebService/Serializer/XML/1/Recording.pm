@@ -30,7 +30,7 @@ sub serialize
     push @body, ( list_of([ map { $_->puid } @{ $entity->puids} ]) )
         if $inc && $inc->puids;
 
-    push @body, ( list_of($opts->{releases}) )
+    push @body, ( list_of($opts->{releases}, $inc, $opts) )
         if $inc && $inc->releases;
 
     return @body;

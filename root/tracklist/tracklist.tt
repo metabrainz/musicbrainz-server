@@ -7,7 +7,7 @@
       [%- IF recording.gid -%]
         [%- rdfa_link_recording_as_track(recording, 'show', track.name) -%]
       [%- ELSE -%]
-        [%- track.name -%]
+        [%- html_escape(track.name) -%]
       [%- END -%]
     </td>
     [%- IF show_artists -%]

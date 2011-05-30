@@ -15,6 +15,8 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'medium' };
 
+use Scalar::Util qw( weaken );
+
 sub _table
 {
     return 'medium JOIN tracklist ON medium.tracklist=tracklist.id';
@@ -80,9 +82,11 @@ sub load_for_releases
     my @mediums = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     foreach my $medium (@mediums) {
-        foreach (@{ $id_to_release{$medium->release_id} })
+        foreach my $release (@{ $id_to_release{$medium->release_id} })
         {
-            $_->add_medium($medium);
+            $medium->release($release);
+            $release->add_medium($medium);
+            weaken($medium->{release}); # XXX HACK!
         }
     }
 }
@@ -205,6 +209,38 @@ sub find_for_cdstub {
         },
         $query, $cdstub_toc->cdstub->title, 10, $cdstub_toc->track_count
     );
+}
+
+=method reorder
+
+    reorder
+
+Takes a map of medium ids to their new position, and reorders them. For example:
+
+   reorder( 91 => 1, 92 => 2 )
+
+Will move medium #91 to be in position 1 and medium #92 to be in position 2
+
+=cut
+
+sub reorder {
+    my ($self, %ordering) = @_;
+    my @medium_ids = keys %ordering;
+
+    $self->sql->do(
+        'UPDATE medium SET position = -position
+          WHERE id IN (' . placeholders(@medium_ids) . ')',
+        @medium_ids);
+
+    $self->sql->do(
+        'UPDATE medium SET position =
+                (SELECT position
+                   FROM (VALUES ' . join(', ', ('(?::INTEGER, ?::INTEGER)') x @medium_ids) . ')
+                     AS mpos (medium, position)
+                  WHERE mpos.medium = medium.id)
+          WHERE id IN (' . placeholders(@medium_ids) . ')',
+        %ordering, @medium_ids
+    )
 }
 
 __PACKAGE__->meta->make_immutable;

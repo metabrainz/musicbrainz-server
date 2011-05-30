@@ -20,7 +20,11 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, r
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
-            'performer');
+            'performer'),
+           (2, '8610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'liked',
+            'liked',
+            'is liked by',
+            'liked');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1),

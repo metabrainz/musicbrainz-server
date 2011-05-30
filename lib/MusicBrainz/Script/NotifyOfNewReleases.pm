@@ -46,8 +46,6 @@ sub run {
             editor => $editor,
             releases => \@releases);
     }
-
-    $self->c->model('WatchArtist')->update_last_checked;
 }
 
 __PACKAGE__->meta->make_immutable;

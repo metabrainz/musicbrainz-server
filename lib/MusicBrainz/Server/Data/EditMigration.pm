@@ -23,6 +23,7 @@ sub BUILD
                               MusicBrainz::Server::Edit::Historic::Artist
                               MusicBrainz::Server::Edit::Historic::Label
                               MusicBrainz::Server::Edit::Historic::Utils
+                              MusicBrainz::Server::Edit::Historic::Relationship
                        )]
     );
 
@@ -154,6 +155,17 @@ sub resolve_album_id
     return $tmp_release_album->{$id} || $id;
 }
 
+my $tmp_work_merge;
+sub resolve_work_id
+{
+    my ($self, $id) = @_;
+    $tmp_work_merge ||=
+        $self->construct_map('tmp_work_merge',
+                             'old_work' => 'new_work');
+
+    return $tmp_work_merge->{$id} || $id;
+}
+
 my $public_annotations;
 sub resolve_annotation_id
 {
@@ -185,6 +197,13 @@ sub label_id_from_alias
         $self->construct_map('public.labelalias', 'id' => 'ref');
 
     return $label_alias->{id};
+}
+
+my $track_album;
+sub track_to_album
+{
+    my ($self, $id) = @_;
+    return $self->c->sql->select_single_value('SELECT album FROM public.albumjoin WHERE track = ?', $id);
 }
 
 my $album_release_ids;

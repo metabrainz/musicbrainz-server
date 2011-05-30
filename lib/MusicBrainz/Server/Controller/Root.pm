@@ -98,6 +98,15 @@ sub error_500 : Private
     $c->detach;
 }
 
+sub error_503 : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(503);
+    $c->stash->{template} = 'main/503.tt';
+    $c->detach;
+}
+
 sub error_mirror : Private
 {
     my ($self, $c) = @_;
@@ -191,6 +200,11 @@ sub begin : Private
         $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
     }
 
+    if (exists $c->action->attributes->{Edit} && DBDefs::DB_READ_ONLY) {
+        $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
+        $c->forward('/error_400');
+    }
+
     # Load current relationship
     my $rel = $c->session->{current_relationship};
     if ($rel)
@@ -272,6 +286,15 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
+
+    if (!$c->debug && scalar @{ $c->error }) {
+        $c->stash->{errors} = $c->error;
+        for my $error ( @{ $c->error } ) {
+            $c->log->error($error);
+        }
+        $c->stash->{template} = 'main/500.tt';
+        $c->clear_errors;
+    }
 }
 
 sub chrome_frame : Local

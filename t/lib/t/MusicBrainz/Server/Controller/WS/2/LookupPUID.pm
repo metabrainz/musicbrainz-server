@@ -71,7 +71,7 @@ ws_test 'puid lookup with releases',
 </metadata>';
 
 ws_test 'puid lookup with release groups',
-    '/puid/cdec3fe2-0473-073c-3cbb-bfb0c01a87ff?inc=releases+release-groups' =>
+    '/puid/cdec3fe2-0473-073c-3cbb-bfb0c01a87ff?inc=releases+release-groups+artist-credits' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <puid id="cdec3fe2-0473-073c-3cbb-bfb0c01a87ff">
@@ -79,6 +79,13 @@ ws_test 'puid lookup with release groups',
       <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title>
         <length>296026</length>
+        <artist-credit>
+          <name-credit>
+            <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+              <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+            </artist>
+          </name-credit>
+        </artist-credit>
         <release-list count="2">
           <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
             <title>サマーれげぇ!レインボー</title>
@@ -87,8 +94,22 @@ ws_test 'puid lookup with release groups',
             <text-representation>
               <language>jpn</language><script>Jpan</script>
             </text-representation>
+            <artist-credit>
+              <name-credit>
+                <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+                  <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+                </artist>
+              </name-credit>
+            </artist-credit>
             <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
+              <artist-credit>
+                <name-credit>
+                  <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+                    <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+                  </artist>
+                </name-credit>
+              </artist-credit>
             </release-group>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
           </release>
@@ -99,8 +120,22 @@ ws_test 'puid lookup with release groups',
             <text-representation>
               <language>jpn</language><script>Latn</script>
             </text-representation>
+            <artist-credit>
+              <name-credit>
+                <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+                  <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+                </artist>
+              </name-credit>
+            </artist-credit>
             <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
+              <artist-credit>
+                <name-credit>
+                  <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+                    <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+                  </artist>
+                </name-credit>
+              </artist-credit>
             </release-group>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
           </release>

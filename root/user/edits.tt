@@ -1,5 +1,5 @@
 [% BLOCK layout_head %]
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         $(function() {
             $('.edit-list').each(function() {
                 MB.Control.EditSummary(this);
@@ -9,10 +9,10 @@
               MB.Control.EditList('#edits');
             [% END %]
         });
-    </script>
+    //]]></script>
 [% END %]
 
 [% WRAPPER 'user/profile/layout.tt' title=l('Edits') %]
    <h2>[% l('Edits by {name}', { name => html_escape(user.name) }) %]</h2>
-   [% INCLUDE 'edit/list.tt' %]
+   [% INCLUDE 'edit/list.tt' guess_search=1 %]
 [% END %]

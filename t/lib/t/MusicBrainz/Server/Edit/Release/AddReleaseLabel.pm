@@ -26,6 +26,11 @@ is($edits->[0]->id, $edit->id);
 my $release = $c->model('Release')->get_by_id(1);
 is($release->edits_pending, 1, 'Release has edits pending');
 
+$c->model('ReleaseLabel')->load($release);
+is($release->label_count, 2, "Release now has an extra label");
+is($release->labels->[0]->id, 1, "Release label id is 1");
+is($release->labels->[1]->catalog_number, 'AVCD-51002', "Has new release label");
+
 reject_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
@@ -40,10 +45,51 @@ $release = $c->model('Release')->get_by_id(1);
 $c->model('ReleaseLabel')->load($release);
 is($release->label_count, 2, "Release has two labels after accepting edit");
 is($release->labels->[0]->id, 1, "First release label is unchanged");
-is($release->labels->[1]->id, 2, "Second release label has id 1");
 is($release->labels->[1]->label_id, 1, "Second release label has label_id 1");
 is($release->labels->[1]->catalog_number, 'AVCD-51002', "Second release label has catalog number AVCD-51002");
 
+};
+
+test 'Inserting just a catalog number' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+            editor_id => 1,
+            release => $c->model('Release')->get_by_id(1),
+            catalog_number => 'AVCD-51002',
+        );
+
+        $edit = $c->model('Edit')->get_by_id_and_lock($edit->id);
+        $c->model('Edit')->reject($edit, 8);
+
+        my $release = $c->model('Release')->get_by_id(1);
+        $c->model('ReleaseLabel')->load($release);
+        is($release->label_count, 1, "Release has two labels after accepting edit");
+        is($release->labels->[0]->id, 1, "First release label is unchanged");
+    };
+
+    {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+            editor_id => 1,
+            release => $c->model('Release')->get_by_id(1),
+            catalog_number => 'AVCD-51002',
+        );
+
+        accept_edit($c, $edit);
+
+        my $release = $c->model('Release')->get_by_id(1);
+        $c->model('ReleaseLabel')->load($release);
+        is($release->label_count, 2, "Release has two labels after accepting edit");
+        is($release->labels->[0]->id, 1, "First release label is unchanged");
+        is($release->labels->[1]->label_id, undef, "Second release label no label id");
+        is($release->labels->[1]->catalog_number, 'AVCD-51002', "Second release label has catalog number AVCD-51002");
+    }
 };
 
 sub create_edit {

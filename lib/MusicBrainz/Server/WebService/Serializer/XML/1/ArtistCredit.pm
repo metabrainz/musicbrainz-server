@@ -30,7 +30,11 @@ sub serialize
         # properly in /ws/1.  The name is the combined artist name, and the ID
         # is the ID of the *first* artist.
 
-        push @body, ( $self->gen->sort_name($entity->name) );
+        push @body, ($self->gen->sort_name(
+            join('', map {
+                $_->artist->sort_name . ($_->join_phrase || '')
+            } $entity->all_names)
+        ));
     }
     else
     {

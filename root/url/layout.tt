@@ -1,13 +1,20 @@
 [% WRAPPER 'layout.tt' %]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
                 <li>[% use_in_relationship(url) %]</li>
                 <li>[% relate_to_ellipsis(url) %]</li>
-                <li>[% link_entity(url, 'edits', l('View editing history')) %]</li>
+
+                <hr/>
+
+                [% IF url.edits_pending %]
+                  <li>[% link_entity(url, 'open_edits', l('Open edits')) %]</li>
+                [% END %]
+                <li>[% link_entity(url, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
-                <li>[% request_login(l('Please log in to edit this URL')) %]</li>
+                <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
     [% END %]

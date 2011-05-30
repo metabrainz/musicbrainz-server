@@ -14,6 +14,7 @@ use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
+use Try::Tiny;
 
 my $ws_defs = Data::OptList::mkopt([
      recording => {
@@ -83,7 +84,7 @@ sub recording_toplevel
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
 
-            if ($c->stash->{inc}->artists) {
+            if ($c->stash->{inc}->artist_credits) {
                 $c->model('ArtistCredit')->load(map { $_->release_group } @releases);
                 $c->model('Artist')->load(
                     map { @{ $_->release_group->artist_credit->names } } @releases);
@@ -213,9 +214,8 @@ sub recording_submit : Private
         }
     }
 
-    my %recordings_by_id = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
-                                                                  keys %submit_isrc) };
-    my %recordings_by_gid = map { $_->gid => $_ } values %recordings_by_id;
+    my %recordings_by_gid = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
+                                                                   keys %submit_isrc) };
 
     my @submissions;
     for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
@@ -255,11 +255,20 @@ sub recording_submit : Private
     $buffer = Buffer->new(
         limit => 100,
         on_full => f($contents) {
-            $c->model('Edit')->create(
-                edit_type      => $EDIT_RECORDING_ADD_ISRCS,
-                editor_id      => $c->user->id,
-                isrcs          => $contents
-            );
+            try {
+                $c->model('Edit')->create(
+                    edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                    editor_id      => $c->user->id,
+                    isrcs          => $contents
+                );
+            }
+            catch {
+                my $err = $_;
+                unless (blessed($err) && $err->isa('MusicBrainz::Server::Edit::Exceptions::NoChanges')) {
+                    # Ignore the NoChanges exception
+                    die $err;
+                }
+            };
         }
     );
 

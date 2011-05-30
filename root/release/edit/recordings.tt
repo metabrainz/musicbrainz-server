@@ -1,7 +1,7 @@
 [%- BLOCK layout_head -%]
   [% script_manifest('edit.js.manifest') %]
   [% script_manifest('release-editor.js.manifest') %]
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
     $('document').ready (function () {
 
         MB.Control.ReleaseRecordings ();
@@ -9,7 +9,7 @@
         MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
     });
-  </script>
+  //]]></script>
 [%- END -%]
 
 [%- MACRO recording_suggestion(template, checked, name, recording) BLOCK -%]
@@ -71,7 +71,6 @@
     style="display: none" [% IF name %]id="[% name %]"[% END %]>
 
     <div class="select-recording bubble">
-
       [%- IF NOT confirmed AND name -%]
       <div class="confirm-recording">
 
@@ -140,7 +139,7 @@
             </tr>
 
             [%- addnew_is_default = 0 -%]
-            [%- IF suggestions.size -%]
+            [%- IF suggestions AND suggestions.size -%]
               [%- FOR recording = suggestions -%]
                 [%# The first entry is the the default suggestion. %]
                 [%# If it is empty "add new recording" is selected as default. %]
@@ -152,6 +151,7 @@
               [%- END -%]
             [%- ELSE -%]
               [%- recording_suggestion (1, 0, name) -%]
+              [%- addnew_is_default = 1 -%]
             [%- END -%]
 
             <tr class="addnew">
@@ -223,7 +223,10 @@
 
       <p>
         <strong>[%- information.field('name').value | html -%]</strong><br />
-        by [%- information.field('artist_credit').fif.name | html -%]
+        [%- l('by {artist}', {
+          artist => '<span class="release-artist">' _
+            artist_credit_preview_from_field(information.field('artist_credit')) _
+            '</span>' }) -%]
       </p>
 
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]
