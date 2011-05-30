@@ -243,7 +243,10 @@ sub begin : Private
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
-        $c->stash->{template} = 'main/rate_limited.tt';
+        $c->stash(
+            template => 'main/rate_limited.tt',
+            rl_response => $r
+        );
         $c->detach;
     }
 }
