@@ -319,6 +319,7 @@ sub _route
     my ($self, $page) = @_;
 
     my $p = $self->c->request->parameters;
+    my $previous = $self->_current;
     my $requested = $self->_current;
     my $allow_skip = 1;
     if (defined $p->{next})
@@ -387,6 +388,13 @@ sub _route
         # informed of this -- otherwise it may be a bit confusing.
 
         # FIXME: add notification
+    }
+
+    if ($previous == $self->_current)
+    {
+        # We haven't moved away from the current page, which means navigate_to_page
+        # hasn't been called yet for this page.
+        $page = $self->navigate_to_page;
     }
 
     return $page;

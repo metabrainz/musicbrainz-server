@@ -798,6 +798,20 @@ MB.Control.ReleaseAdvancedTab = function () {
         });
     };
 
+    /* When the page is loaded, discs may not be displayed in the correct
+       order.  MB.Control.ReleaseBasicTab will call this function after
+       it has initialized all discs to fix the displayed order. */
+    self.orderDiscs = function () {
+        if (self.positions.length > 1)
+        {
+            var prev_disc = self.positions[1];
+            $.each (self.positions.slice (2), function (pos, disc) {
+                disc.$fieldset.insertAfter (prev_disc.$fieldset);
+                disc.basic.$basicdisc.insertAfter (prev_disc.basic.$basicdisc);
+            });
+        }
+    }
+
     self.$tab = $('div.advanced-tracklist');
     self.discs = [];
     self.positions = [];
