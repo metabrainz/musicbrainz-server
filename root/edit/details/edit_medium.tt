@@ -97,7 +97,7 @@
            <tr class="[%-
                       change.0 == '+' ? 'diff-addition' :
                       change.0 == '-' ? 'diff-removal'  :
-                                        ''
+                      loop.index % 2 == 0 ? 'ev' : 'odd'
                       -%]">
              <td class="pos t">
                [% track.position %]
