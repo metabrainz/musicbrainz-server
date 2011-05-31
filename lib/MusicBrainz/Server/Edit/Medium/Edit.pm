@@ -182,8 +182,13 @@ sub build_display_data
                     '',
                     $track->name,
                     format_track_length($track->length),
-                    $track->artist_credit->name,
-                    $track->recording->id
+                    join(
+                        '',
+                        map {
+                            join('', $_->name, $_->join_phrase || '', $_->artist->id)
+                        } $track->artist_credit->all_names
+                    ),
+                    $track->recording->id || 'new'
                 );
             }
         );

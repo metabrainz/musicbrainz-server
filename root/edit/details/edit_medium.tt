@@ -43,6 +43,8 @@
            [% IF change.0 == 'c' %]
            [% old_track = change.1 %]
            [% new_track = change.2 %]
+           [% artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
+                                                                   new_track.artist_credit) %]
            <tr class="diff-changes" style="border-top: 1px solid #999">
              <td class="pos t">
                [% old_track.position %]
@@ -62,13 +64,13 @@
                      IF old_track.recording.id != new_track.recording.id %]
              </td>
              <td>
-               [% artist_credit(old_track.artist_credit) %]
+               [% artist_credit_differences.old %]
              </td>
              <td>
                [% Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-') %]
              </td>
            </tr>
-           <tr class="diff-changes" style="border-bottom: #999">>
+           <tr class="diff-changes" style="border-bottom: #999">
              <td class="pos t">
                [% new_track.position %]
              </td>
@@ -84,7 +86,7 @@
                      IF old_track.recording.id != new_track.recording.id %]
              </td>
              <td>
-               [% artist_credit(new_track.artist_credit) %]
+               [% artist_credit_differences.new %]
              </td>
              <td>
                [% Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '+') %]
