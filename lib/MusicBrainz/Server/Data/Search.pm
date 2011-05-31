@@ -15,6 +15,7 @@ use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
@@ -452,6 +453,10 @@ sub schema_fixup
         $data->{artists} = [ map {
             $_->entity1
         } @{ $data->{relationships} } ];
+    }
+
+    if($type eq 'work' && exists $data->{type}) {
+        $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
     }
 }
 
