@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
-use Algorithm::Diff qw( sdiff );
+use Algorithm::Diff qw( diff sdiff );
 use Data::Compare;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
@@ -183,7 +183,6 @@ sub build_display_data
                     $track->name,
                     format_track_length($track->length),
                     $track->artist_credit->name,
-                    $track->position,
                     $track->recording->id
                 );
             }
