@@ -127,7 +127,7 @@ sub _serialize_artist
             if $inc->works;
     }
 
-    $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->artist(\%attrs, @list);
@@ -230,7 +230,7 @@ sub _serialize_release_group
             if $inc->artist_credits;
     }
 
-    $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships) if $inc->has_rels;
+    $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships, $inc, $stash) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->release_group(\%attr, @list);
@@ -313,7 +313,7 @@ sub _serialize_release
     $self->_serialize_medium_list(\@list, $gen, $release->mediums, $inc, $stash)
         if ($release->mediums && ($inc->media || $inc->discids || $inc->recordings));
 
-    $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->release({ id => $release->gid }, @list);
@@ -356,7 +356,7 @@ sub _serialize_work
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships) if $inc->has_rels;
+    $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships, $inc, $stash) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->work(\%attrs, @list);
@@ -405,7 +405,7 @@ sub _serialize_recording
     $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);
 
-    $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->recording({ id => $recording->gid }, @list);
@@ -609,7 +609,7 @@ sub _serialize_label
             if $inc->releases;
     }
 
-    $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->label(\%attrs, @list);
@@ -617,7 +617,7 @@ sub _serialize_label
 
 sub _serialize_relation_lists
 {
-    my ($self, $src_entity, $data, $gen, $rels) = @_;
+    my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
 
     my %types = ();
     foreach my $rel (@$rels)
@@ -630,7 +630,7 @@ sub _serialize_relation_lists
         my @list;
         foreach my $rel (sort_by { $_->target_key } @{$types{$type}})
         {
-            $self->_serialize_relation($src_entity, \@list, $gen, $rel);
+            $self->_serialize_relation($src_entity, \@list, $gen, $rel, $inc, $stash);
         }
         push @$data, $gen->relation_list({ 'target-type' => $type }, @list);
     }
@@ -638,7 +638,7 @@ sub _serialize_relation_lists
 
 sub _serialize_relation
 {
-    my ($self, $src_entity, $data, $gen, $rel) = @_;
+    my ($self, $src_entity, $data, $gen, $rel, $inc, $stash) = @_;
 
     my @list;
     my $type = $rel->link->type->name;
@@ -656,7 +656,7 @@ sub _serialize_relation
     unless ($rel->target_type eq 'url')
     {
         my $method =  "_serialize_" . $rel->target_type;
-        $self->$method(\@list, $gen, $rel->target, WebServiceInc->new, WebServiceStash->new);
+        $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
     push @$data, $gen->relation({ type => $type }, @list);
