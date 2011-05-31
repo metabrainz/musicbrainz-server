@@ -9,6 +9,7 @@ use base 'Template::Plugin';
 
 use Algorithm::Diff qw( sdiff traverse_sequences );
 use Digest::MD5 qw( md5_hex );
+use Encode;
 use HTML::Tiny;
 use MusicBrainz::Server::Validation;
 
@@ -38,7 +39,7 @@ sub diff_side {
     $old ||= '';
     $new ||= '';
 
-    my ($old_hex, $new_hex) = (md5_hex($old), md5_hex($new));
+    my ($old_hex, $new_hex) = (md5_hex(encode('utf-8', $old)), md5_hex(encode('utf-8', $new)));
     $old =~ s/($split)/$old_hex$1/g;
     $new =~ s/($split)/$new_hex$1/g;
 
