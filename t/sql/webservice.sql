@@ -4199,3 +4199,9 @@ INSERT INTO link_type_attribute_type (link_type, last_updated, attribute_type, m
 INSERT INTO link_type_attribute_type (link_type, last_updated, attribute_type, min, max) VALUES (158, '2011-01-18 15:31:00.495651+00', 3, 0, NULL);
 INSERT INTO link_type_attribute_type (link_type, last_updated, attribute_type, min, max) VALUES (158, '2011-01-18 15:31:00.495651+00', 194, 0, 1);
 INSERT INTO link_type_attribute_type (link_type, last_updated, attribute_type, min, max) VALUES (4, '2011-01-18 15:31:00.495651+00', 477, 0, 1);
+
+INSERT INTO link_type (priority, last_updated, parent, name, description, short_link_phrase, link_phrase, entity_type1, entity_type0, id, reverse_link_phrase, child_order, gid) VALUES (0, '2011-01-18 15:31:00.495651+00', NULL, 'composer', 'Foo', 'composer', 'composer', 'work', 'artist', 1222, 'composer of', 3, '21d842db-81d4-4d30-a0bd-8c6cc07e1dc2');
+INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, link_type, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, NULL, '2011-01-18 15:31:00.495651+00', 1222, NULL, NULL, NULL, 1123780, NULL);
+INSERT INTO l_artist_work (link, entity1, entity0, id) VALUES
+    (1123780, (SELECT id FROM work WHERE gid='f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8'), 
+     (SELECT id FROM artist WHERE gid='472bc127-8861-45e8-bc9e-31e8dd32de7a'), 1117124);
