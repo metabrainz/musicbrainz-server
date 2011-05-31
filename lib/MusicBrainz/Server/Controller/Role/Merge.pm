@@ -78,7 +78,8 @@ role {
     method _merge_cancel => sub {
         my ($self, $c) = @_;
         delete $c->session->{merger};
-        $c->res->redirect($c->req->referer);
+        $c->res->redirect(
+            $c->req->referer || $c->uri_for('/'));
         $c->detach;
     };
 
@@ -95,7 +96,8 @@ role {
         $self->_merge_cancel($c)
             if $merger->entity_count == 0;
 
-        $c->res->redirect($c->req->referer);
+        $c->res->redirect(
+            $c->req->referer || $c->uri_for('/'));
         $c->detach;
     };
 
