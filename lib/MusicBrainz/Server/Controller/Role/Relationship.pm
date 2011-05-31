@@ -37,7 +37,8 @@ sub relate : Chained('load')
             id      => $entity->id
         };
 
-        $c->response->redirect($c->req->referer);
+        $c->response->redirect(
+            $c->req->referer || $c->uri_for_action("$type/show", [ $entity->gid ]));
     }
 }
 

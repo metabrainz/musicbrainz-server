@@ -469,7 +469,8 @@ sub watch : Chained('load') RequireAuth {
         editor_id => $c->user->id
     ) if $c->user_exists;
 
-    $c->response->redirect($c->req->referer);
+    $c->response->redirect(
+        $c->req->referer || $c->uri_for_action('/artist/show', [ $artist->gid ]));
 }
 
 sub stop_watching : Chained('load') RequireAuth {
@@ -481,7 +482,8 @@ sub stop_watching : Chained('load') RequireAuth {
         editor_id => $c->user->id
     ) if $c->user_exists;
 
-    $c->response->redirect($c->req->referer);
+    $c->response->redirect(
+        $c->req->referer || $c->uri_for_action('/artist/show', [ $artist->gid ]));
 }
 
 =head1 LICENSE
