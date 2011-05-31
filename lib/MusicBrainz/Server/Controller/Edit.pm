@@ -75,7 +75,7 @@ sub enter_votes : Local RequireAuth
         );
     }
 
-    my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open_edits');
+    my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open');
     $c->response->redirect($redir);
     $c->detach;
 }
