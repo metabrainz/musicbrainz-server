@@ -32,28 +32,92 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.old.tracklist %]
+  [% USE Diff %]
+  [% IF edit.display_data.tracklist_changes %]
   <tr>
-     <th>[% l('Old Tracklist:') %]</th>
+     <th>[% l('Tracklist:') %]</th>
      <td>
        <table class="tbl">
          <tbody>
-         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.old.tracklist
-            hide_rating=1 show_artists=1 %]
-         </tbody>
-       </table>
-     </td>
-   </tr>
-  [% END %]
-
-  [% IF edit.display_data.new.tracklist %]
-   <tr>
-     <th>[% l('New Tracklist:') %]</th>
-     <td>
-       <table class="tbl">
-         <tbody>
-         [% INCLUDE 'tracklist/tracklist.tt' tracklist=edit.display_data.new.tracklist
-            hide_rating=1 show_artists=1 %]
+         [% FOR change=edit.display_data.tracklist_changes %]
+           [% IF change.0 == 'c' %]
+           [% old_track = change.1 %]
+           [% new_track = change.2 %]
+           [% artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
+                                                                   new_track.artist_credit) %]
+           <tr class="diff-changes" style="border-top: 1px solid #999">
+             <td class="pos t">
+               [% old_track.position %]
+             </td>
+             <td>
+               [% name_diff = Diff.diff_side(old_track.name, new_track.name, '-', '\s+') %]
+               [% IF old_track.recording.gid;
+                    link_recording(
+                      old_track.recording, 'show',
+                      name_diff
+                    );
+                  ELSE;
+                    name_diff;
+                  END %]
+                [% link_recording(old_track.recording, 'show',
+                                  '<img src="/static/images/icons/external.png" />')
+                     IF old_track.recording.id != new_track.recording.id %]
+             </td>
+             <td>
+               [% artist_credit_differences.old %]
+             </td>
+             <td>
+               [% Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-') %]
+             </td>
+           </tr>
+           <tr class="diff-changes" style="border-bottom: #999">
+             <td class="pos t">
+               [% new_track.position %]
+             </td>
+             <td>
+               [% name_diff = Diff.diff_side(old_track.name, new_track.name, '+', '\s+') %]
+               [% IF new_track.recording.gid;
+                    link_recording(new_track.recording, 'show', name_diff);
+                  ELSE;
+                    name_diff;
+                  END %]
+               [% link_recording(old_track.recording, 'show',
+                                  '<img src="/static/images/icons/external.png" />')
+                     IF old_track.recording.id != new_track.recording.id %]
+             </td>
+             <td>
+               [% artist_credit_differences.new %]
+             </td>
+             <td>
+               [% Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '+') %]
+             </td>
+           </tr>
+           [% ELSE %]
+           [% track = change.0 == '+' ? change.2 : change.1 %]
+           <tr class="[%-
+                      change.0 == '+' ? 'diff-addition' :
+                      change.0 == '-' ? 'diff-removal'  :
+                      loop.index % 2 == 0 ? 'ev' : 'odd'
+                      -%]">
+             <td class="pos t">
+               [% track.position %]
+             </td>
+             <td>
+               [% IF track.recording.gid;
+                    link_recording(track.recording, 'show', track.name);
+                  ELSE;
+                    track.name;
+                  END %]
+             </td>
+             <td>
+               [% artist_credit(track.artist_credit) %]
+             </td>
+             <td>
+               [% track.length | format_length %]
+             </td>
+           </tr>
+           [% END %]
+         [% END %]
          </tbody>
        </table>
      </td>

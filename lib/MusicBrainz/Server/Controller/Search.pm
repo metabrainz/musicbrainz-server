@@ -6,6 +6,7 @@ use LWP::UserAgent;
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
+use feature 'switch';
 
 sub search : Path('')
 {
@@ -80,24 +81,23 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
-    use Switch;
-    switch($type) {
-        case 'artist' {
+    given($type) {
+        when ('artist') {
             $c->model('ArtistType')->load(@entities);
         }
-        case 'release_group' {
+        when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);
         }
-        case 'release' {
+        when ('release') {
             $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
         }
-        case 'label' {
+        when ('label') {
             $c->model('LabelType')->load(@entities);
         }
-        case 'recording' {
+        when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
                 $_->entity->id
             } @$results);
@@ -117,7 +117,7 @@ sub direct : Private
             $c->model('Recording')->load(map { $_->tracklist->all_tracks }
                                          map { $_->all_mediums } @releases);
         }
-        case 'work' {
+        when ('work') {
             $c->model('Artist')->load_for_works(@entities);
         }
     }
@@ -164,15 +164,14 @@ sub external : Private
         my $template = 'search/error/';
 
         # Switch on the response code to decide which template to provide
-        use Switch;
-        switch($ret->{code})
+        given($ret->{code})
         {
-            case 404 { $template .= 'no-results.tt'; }
-            case 403 { $template .= 'no-info.tt'; };
-            case 500 { $template .= 'internal-error.tt'; }
-            case 400 { $template .= 'invalid.tt'; }
+            when (404) { $template .= 'no-results.tt'; }
+            when (403) { $template .= 'no-info.tt'; };
+            when (500) { $template .= 'internal-error.tt'; }
+            when (400) { $template .= 'invalid.tt'; }
 
-            else { $template .= 'general.tt'; }
+            default { $template .= 'general.tt'; }
         }
 
         $c->stash->{content}  = $ret->{error};
@@ -245,7 +244,7 @@ no moderator could be found, the user is informed.
 
 =head2 external
 
-Search using an external search engine 
+Search using an external search engine
 
 =head2 filter_artist
 

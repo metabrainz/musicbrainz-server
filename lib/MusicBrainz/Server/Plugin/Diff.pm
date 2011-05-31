@@ -3,18 +3,174 @@ package MusicBrainz::Server::Plugin::Diff;
 use strict;
 use warnings;
 
+use feature 'switch';
+
 use base 'Template::Plugin';
 
-use Algorithm::Diff qw( traverse_sequences );
+use Algorithm::Diff qw( sdiff traverse_sequences );
+use Digest::MD5 qw( md5_hex );
 use HTML::Tiny;
 use MusicBrainz::Server::Validation;
 
 sub new {
     my ($class, $context) = @_;
-    return bless { }, $class;
+    return bless { c => $context }, $class;
+}
+
+sub uri_for_action {
+    my $self = shift;
+    return $self->{c}{STASH}{c}->uri_for_action(@_)->as_string;
 }
 
 my $TOKEN_NEW_PARA = chr(10);
+
+my %class_map = (
+    '+' => 'diff-only-b',
+    '-' => 'diff-only-a'
+);
+
+my $h = HTML::Tiny->new;
+
+sub diff_side {
+    my ($self, $old, $new, $filter, $split) = @_;
+    $split ||= '';
+
+    $old ||= '';
+    $new ||= '';
+
+    my ($old_hex, $new_hex) = (md5_hex($old), md5_hex($new));
+    $old =~ s/($split)/$old_hex$1/g;
+    $new =~ s/($split)/$new_hex$1/g;
+
+    my @diffs = sdiff([ split($old_hex, $old) ], [ split($new_hex, $new) ]);
+
+    my @stack;
+    my $output;
+    for my $diff (@diffs) {
+        my ($change_type, $old, $new) = @$diff;
+
+        next unless
+            $change_type eq 'c' ||
+            $change_type eq 'u' ||
+            $change_type eq $filter;
+
+        unless ($stack[-1] && $stack[-1]->{type} eq $change_type) {
+            push @stack, { str => '', type => $change_type };
+        }
+
+        if ($change_type eq 'c') {
+            $stack[-1]->{str} .=
+                $filter eq '+'
+                    ? "$new" : "$old";
+        }
+        else {
+            $stack[-1]->{str} .= $change_type eq '+' ? $new : $old;
+        }
+    }
+
+    return join(
+        '',
+        map {
+            my $class =
+                $_->{type} eq 'u' ? '' :
+                $_->{type} eq 'c' ? $class_map{$filter} :
+                                    $class_map{$_->{type}};
+
+            my $text = $_->{str};
+            $h->span({ class => $class }, $text)
+        } @stack
+    )
+}
+
+sub _link_artist_credit_name {
+    my ($self, $acn, $name) = @_;
+    return $h->a({
+        href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
+        title => $acn->artist->name
+    }, $name || $acn->name);
+}
+
+sub _link_joined {
+    my ($self, $acn) = @_;
+    return $self->_link_artist_credit_name($acn) . ($acn->join_phrase || '');
+}
+
+sub diff_artist_credits {
+    my ($self, $old, $new) = @_;
+
+    my @diffs = sdiff(
+        $old->names,
+        $new->names,
+        sub {
+            my $name = shift;
+            join(
+                '',
+                $name->artist->id,
+                $name->name,
+                $name->join_phrase || ''
+            );
+        }
+    );
+
+    my %sides = map { $_ => '' } qw( old new );
+    for my $diff (@diffs) {
+        my ($change_type, $old_name, $new_name) = @$diff;
+
+        given($change_type) {
+            when('u') {
+                my $html = $self->_link_joined($old_name);
+                $sides{old} .= $html;
+                $sides{new} .= $html;
+            };
+
+            when('c') {
+                # Diff the credited names
+                $sides{old} .= $self->_link_artist_credit_name(
+                    $old_name,
+                    $self->diff_side($old_name->name, $new_name->name, '-','\s+')
+                );
+                $sides{new} .= $self->_link_artist_credit_name(
+                    $new_name,
+                    $self->diff_side($old_name->name, $new_name->name, '+', '\s+')
+                );
+
+                # Diff the artist IDs
+                if ($old_name->artist->id != $new_name->artist->id) {
+                    $sides{old} .= ' ' . $self->_link_artist_credit_name(
+                        $old_name,
+                        $h->img({ src => '/static/images/icons/external.png',
+                                  alt => $old_name->artist->name })
+                    );
+                    $sides{new} .= ' ' . $self->_link_artist_credit_name(
+                        $new_name,
+                        $h->img({ src => '/static/images/icons/external.png',
+                                  alt => $new_name->artist->name })
+                    );
+                }
+
+                # Diff the join phrases
+                $sides{old} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '-');
+                $sides{new} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '+');
+            }
+
+            when('-') {
+                $sides{old} .= $h->span(
+                    { class => $class_map{'-'} },
+                    $self->_link_joined($old_name)
+                );
+            }
+
+            when('+') {
+                $sides{new} .= $h->span(
+                    { class => $class_map{'+'} },
+                    $self->_link_joined($new_name)
+                );
+            }
+        }
+    }
+
+    return \%sides;
+}
 
 sub diff {
     my ($self, $old, $new) = @_;

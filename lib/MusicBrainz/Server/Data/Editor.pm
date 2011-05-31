@@ -141,7 +141,7 @@ sub get_tags
 
     my $tags = {};
     my $max = 0;
-    foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
+    foreach my $entity ('artist', 'label', 'recording', 'release', 'release_group', 'work')
     {
         my $data = $self->_get_tags_for_type ($user->id, $entity);
 

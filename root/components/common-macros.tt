@@ -540,3 +540,4 @@ http://[%- server -%]/[%- id -%]"
   [%- END -%]
 [%- END -%]
 
+[%- MACRO format_length(n) BLOCK; n | format_length; END %]
