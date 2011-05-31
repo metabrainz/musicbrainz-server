@@ -642,8 +642,7 @@ sub _serialize_relation
     my ($self, $src_entity, $data, $gen, $rel) = @_;
 
     my @list;
-    my $type = $rel->link->type->short_link_phrase;
-    $type =~ s/ /_/g;
+    my $type = $rel->link->type->name;
 
     push @list, $gen->target($rel->target_key);
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);

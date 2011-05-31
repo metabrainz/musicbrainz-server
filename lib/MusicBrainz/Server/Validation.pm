@@ -167,7 +167,7 @@ sub format_ipi
 {
     my $ipi = shift;
     $ipi =~ s/\D+//g;
-    return $ipi;
+    return sprintf("%011d", $ipi)
 }
 
 sub is_valid_url
