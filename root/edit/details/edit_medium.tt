@@ -57,6 +57,9 @@
                   ELSE;
                     name_diff;
                   END %]
+                [% link_recording(old_track.recording, 'show',
+                                  '<img src="/static/images/icons/external.png" />')
+                     IF old_track.recording.id != new_track.recording.id %]
              </td>
              <td>
                [% artist_credit(old_track.artist_credit) %]
@@ -76,6 +79,9 @@
                   ELSE;
                     name_diff;
                   END %]
+               [% link_recording(old_track.recording, 'show',
+                                  '<img src="/static/images/icons/external.png" />')
+                     IF old_track.recording.id != new_track.recording.id %]
              </td>
              <td>
                [% artist_credit(new_track.artist_credit) %]
