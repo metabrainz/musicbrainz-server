@@ -129,7 +129,8 @@ sub insert
         $row->{gid} = $work->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('work', $row, 'id'),
-            gid => $row->{gid}
+            gid => $row->{gid},
+            name => $work->{name}
         );
     }
     return @works > 1 ? @created : $created[0];

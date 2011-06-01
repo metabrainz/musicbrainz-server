@@ -165,6 +165,7 @@ sub cookie_login : Private
     }
     catch {
         $c->log->error($_);
+        $self->_clear_login_cookie($c);
     };
 }
 
