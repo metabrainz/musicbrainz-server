@@ -276,8 +276,8 @@ my %stats = (
                 "count.edit.tobedeleted"    => $dist{$STATUS_TOBEDELETED}   || 0,
                 "count.edit.deleted"        => $dist{$STATUS_DELETED}       || 0,
             };
-        LABEL => "Open Edits",
         },
+        LABEL => "Open Edits",
     },
     "count.edit.applied" => {
         DESC => "Count of applied edits",
@@ -466,8 +466,8 @@ my %stats = (
                 "count.editor.votelastweek" => $voters,
                 "count.editor.activelastweek"=> $both,
             };
-        LABEL => "Active editors",
         },
+        LABEL => "Active editors",
     },
     "count.editor.votelastweek" => {
         DESC => "Count of editors who have voted on edits during the last week",
