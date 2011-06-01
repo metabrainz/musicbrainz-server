@@ -199,7 +199,7 @@ sub find_open_for_editor
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY id DESC
+       ORDER BY open_time ASC
          OFFSET ? LIMIT 500';
 
     return query_to_list_limited(
@@ -244,7 +244,7 @@ sub subscribed_entity_edits
                 } @filter_on
             ) .
          ')
-       ORDER BY id DESC
+       ORDER BY open_time ASC
          OFFSET ?';
 
     return query_to_list_limited(

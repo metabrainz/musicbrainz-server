@@ -151,7 +151,7 @@ ws_test 'label lookup with label and url relationships',
             <relation type="wikipedia">
                 <target>http://ja.wikipedia.org/wiki/Rhythm_zone</target>
             </relation>
-            <relation type="official_site">
+            <relation type="official site">
                 <target>http://rzn.jp/</target>
             </relation>
             <relation type="discogs">
@@ -177,6 +177,164 @@ ws_test 'release group lookup with url relationships',
         </relation-list>
     </release-group>
 </metadata>';
+
+ws_test 'release lookup with recording-level relationships',
+    '/release/980e0f65-930e-4743-95d3-602665c25c15?inc=recordings+artist-rels+work-rels+recording-level-rels+work-level-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="980e0f65-930e-4743-95d3-602665c25c15">
+        <title>Exogamy</title>
+        <status>Official</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>eng</language>
+            <script>Latn</script>
+        </text-representation>
+        <date>2008-04-29</date>
+        <country>US</country>
+        <barcode>844395014422</barcode>
+        <asin>B0015XAAY2</asin>
+        <medium-list count="1">
+            <medium>
+                <position>1</position>
+                <track-list count="9">
+                    <track>
+                        <position>1</position>
+                        <recording id="88d26635-cfc8-4fd9-b81e-36f7a1b3d270">
+                            <title>Reverend Charisma</title>
+                            <length>256666</length>
+                            <relation-list target-type="work">
+                                <relation type="performance">
+                                    <target>e8d55116-1ea6-339a-a059-228d71c2f27d</target>
+                                    <work id="e8d55116-1ea6-339a-a059-228d71c2f27d">
+                                        <title>Reverend Charisma</title>
+                                    </work>
+                                </relation>
+                            </relation-list>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>2</position>
+                        <recording id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
+                            <title>Dear Diary</title>
+                            <length>86666</length>
+                            <relation-list target-type="work">
+                                <relation type="performance">
+                                    <target>2cd04f80-fbd7-343f-8499-bf0028f0f530</target>
+                                    <work id="2cd04f80-fbd7-343f-8499-bf0028f0f530">
+                                        <title>Dear Diary</title>
+                                    </work>
+                                </relation>
+                            </relation-list>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>3</position>
+                        <recording id="7152d72e-c7d4-4b15-9f8e-97fabb88b1af">
+                            <title>Black Sundress</title>
+                            <length>213666</length>
+                            <relation-list target-type="work">
+                                <relation type="performance">
+                                    <target>b07e71c7-1cc7-3c6f-8c31-22be30a472dd</target>
+                                    <work id="b07e71c7-1cc7-3c6f-8c31-22be30a472dd">
+                                        <title>Black Sundress</title>
+                                    </work>
+                                </relation>
+                            </relation-list>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>4</position>
+                        <recording id="da778cae-9e88-4385-af7f-666e102b94af">
+                            <title>Allegiance?WTF?</title>
+                            <length>266666</length>
+                            <relation-list target-type="work">
+                                <relation type="performance">
+                                    <target>c4a1c334-ccd3-37df-b248-40653cefb181</target>
+                                    <work id="c4a1c334-ccd3-37df-b248-40653cefb181">
+                                        <title>Allegiance?WTF?</title>
+                                    </work>
+                                </relation>
+                            </relation-list>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>5</position>
+                        <recording id="150b8c8c-ed02-4ade-99cc-e8d673f6f5b9">
+                            <title>Maggie&amp;Heidi</title>
+                            <length>254666</length>
+                            <relation-list target-type="work">
+                                <relation type="performance">
+                                    <target>b26203e5-73cb-3579-b575-a12d8b3f8209</target>
+                                    <work id="b26203e5-73cb-3579-b575-a12d8b3f8209">
+                                        <title>Maggie&amp;Heidi</title>
+                                    </work>
+                                </relation>
+                            </relation-list>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>6</position>
+                        <recording id="9815c3e5-f842-41c2-bb5c-bcd0dd97dbe5">
+                            <title>Discopharma</title>
+                            <length>236666</length>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>7</position>
+                        <recording id="6356e37c-a44b-4218-80ce-6fb6c11a124f">
+                            <title>Still Unsatisfied</title>
+                            <length>230666</length>
+                            <relation-list target-type="work">
+                                <relation type="performance">
+                                    <target>9c38c012-9b30-30a2-a2fb-4b44afdc3973</target>
+                                    <work id="9c38c012-9b30-30a2-a2fb-4b44afdc3973">
+                                        <title>Still Unsatisfied</title>
+                                    </work>
+                                </relation>
+                            </relation-list>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>8</position>
+                        <recording id="4878bc36-7306-497a-b45a-561d9f7f8573">
+                            <title>Asseswaving</title>
+                            <length>274666</length>
+                            <relation-list target-type="work">
+                                <relation type="performance">
+                                    <target>f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8</target>
+                                    <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
+                                        <title>Asseswaving</title>
+                                        <relation-list target-type="artist">
+                                            <relation type="composer">
+                                                <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
+                                                <direction>backward</direction>
+                                                <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+                                                    <name>Distance</name>
+                                                    <sort-name>Distance</sort-name>
+                                                    <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+                                                </artist>
+                                            </relation>
+                                        </relation-list>
+                                    </work>
+                                </relation>
+                            </relation-list>
+                        </recording>
+                    </track>
+                    <track>
+                        <position>9</position>
+                        <recording id="15918f5f-20b1-4e1a-888d-8762790017a9">
+                            <title>Just Because</title>
+                            <length>249653</length>
+                        </recording>
+                    </track>
+                </track-list>
+            </medium>
+        </medium-list>
+    </release>
+</metadata>
+';
+
 
 };
 

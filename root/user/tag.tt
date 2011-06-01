@@ -2,10 +2,11 @@
 
 [% FOR section=[
     [l('Artists'), artist],
-    [l('Labels'), label],
-    [l('Recordings'), recording],
     [l('Release Groups'), release_group],
+    [l('Releases'), release],
+    [l('Recordings'), recording],
     [l('Works'), work],
+    [l('Labels'), label],
 ] %]
     [% IF section.1.size %]
         <h2>[% section.0 %]</h2>

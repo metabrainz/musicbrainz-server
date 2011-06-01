@@ -165,6 +165,7 @@ sub cookie_login : Private
     }
     catch {
         $c->log->error($_);
+        $self->_clear_login_cookie($c);
     };
 }
 
@@ -370,7 +371,7 @@ sub tag : Chained('load') PathPart('tags') Args(1)
                 $_ => [ $c->model(type_to_model($_))
                     ->tags->find_editor_entities($user->id, $tag->id)
                 ]
-            } qw( artist label recording release_group work )
+            } qw( artist label recording release release_group work )
         );
     }
 }

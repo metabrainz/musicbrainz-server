@@ -4,6 +4,7 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
+use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Replication ':replication_type';
@@ -125,17 +126,6 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
-sub js_text_strings : Path('/text.js') {
-    my ($self, $c) = @_;
-    $c->res->content_type('text/javascript');
-    $c->stash->{template} = 'scripts/text_strings.tt';
-}
-
-sub js_unit_tests : Path('/unit_tests') {
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'scripts/unit_tests.tt';
-}
-
 sub begin : Private
 {
     my ($self, $c) = @_;
@@ -233,6 +223,20 @@ sub begin : Private
                 model_to_type($merger->type) . '/merge',
             )
         );
+    }
+
+    my $r = $c->model('RateLimiter')->check_rate_limit('frontend ip=' . $c->req->address);
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->stash(
+            template => 'main/rate_limited.tt',
+            rl_response => $r
+        );
+        $c->detach;
     }
 }
 

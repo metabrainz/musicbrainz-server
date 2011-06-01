@@ -13,6 +13,7 @@
                 <th>[% relationship.key %]:</th>
                 <td>
                     [% FOR rel IN relationship.value %]
+                        <span[% IF rel.edits_pending %] class="mp"[% END %]>
                         [% IF rel.target.artist_credit AND
                               rel.target.artist_credit.name != hide_ac %]
                             [% l('{entity} by {artist}', { entity => link_entity(rel.target),
@@ -45,7 +46,7 @@
                             ]
                             </span>
                         [%- END -%]
-
+                        </span>
                         <br />
                     [% END %]
                 </td>

@@ -394,6 +394,7 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
     }
 
     self.adv.basic = self;
+    self.adv.orderDiscs ();
 
     return self;
 }
