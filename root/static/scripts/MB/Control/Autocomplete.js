@@ -78,6 +78,21 @@ MB.Control.autocomplete_formatters = {
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+    },
+
+    "release-group": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        if (item.comment)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
+        a.append ('<br /><span class="autocomplete-comment">by ' +
+                  MB.utility.escapeHTML (item.artist) + '</span>');
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     }
 };
 
