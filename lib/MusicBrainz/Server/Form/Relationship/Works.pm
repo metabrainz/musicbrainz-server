@@ -15,6 +15,24 @@ has_field 'link_type_id' => (
     required => 1
 );
 
+has_field new_works => (
+    type => '+MusicBrainz::Server::Form::Field::DynamicRepeatable',
+);
+
+has_field 'new_works.name' => (
+    type => 'Text',
+
+);
+
+has_field 'new_works.recording' => (
+    type => 'Integer',
+
+);
+
+has_field 'new_works.create' => (
+    type => 'Boolean',
+);
+
 sub field_list
 {
     my ($self) = @_;

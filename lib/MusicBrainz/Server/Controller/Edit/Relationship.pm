@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIP_EDIT
     $EDIT_RELATIONSHIP_CREATE
+    $EDIT_WORK_CREATE
     );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Relationship::Delete;
@@ -506,7 +507,7 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
             }
         }
 
-        my $req_param = $c->req->params->{work_id};
+        my $req_param = $c->req->params->{work_id} || [];
         my @work_ids = ref($req_param) ? @$req_param : ($req_param);
         my %works = %{ $c->model('Work')->get_by_ids(@work_ids) };
 
@@ -526,6 +527,41 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,
                 attributes   => \@attributes
+            );
+        }
+
+        my @create_fields = grep { $_->field('create')->value } $form->field('new_works')->fields;
+        my @recording_ids = map { $_->field('recording')->value } @create_fields;
+        my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
+
+        for my $create (@create_fields) {
+            my $work_edit = $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_WORK_CREATE,
+                name => $create->field('name')->value,
+            );
+
+            $self->_insert_edit(
+                $c, $form,
+                edit_type    => $EDIT_RELATIONSHIP_CREATE,
+                type0        => $type,
+                type1        => 'work',
+                entity0      => $dest,
+                entity1      => $work_edit->entity,
+                link_type    => $link_type,
+                begin_date   => $form->field('begin_date')->value,
+                end_date     => $form->field('end_date')->value,
+                attributes   => \@attributes
+            );
+
+            $self->_insert_edit(
+                $c, $form,
+                edit_type    => $EDIT_RELATIONSHIP_CREATE,
+                type0        => 'recording',
+                type1        => 'work',
+                entity0      => $recordings{ $create->field('recording')->value },
+                entity1      => $work_edit->entity,
+                link_type    => $c->model('LinkType')->get_by_gid('a3005666-a872-32c3-ad06-98af558e99b0')
             );
         }
 

@@ -74,15 +74,20 @@
                           </tr>
                         [% END %]
                         [% UNLESS track.recording.relationships.size %]
+                          [% field = form.field('new_works').append %]
+                          [% FOR f=field.fields; f.name; END %]
                           <tr class="[% class %]">
                             <td></td>
                             <td class="pos t">
-                              <input type="checkbox" name="recording_id"
+                              <input type="checkbox" name="[% field.field('create').html_name %]"
                                      value="[% track.recording_id %]" />
                             </td>
                             <td colspan="4">
                               <label>[% l('Create a new work:') %]</label>
-                              <input type="text" value="[% html_escape(track.recording.name) %]" />
+                              <input name="[% field.field('name').html_name %]"
+                                     type="text" value="[% html_escape(track.recording.name) %]" />
+                              <input type="hidden" name="[% field.field('recording').html_name %]"
+                                     value="[% track.recording.id %]" />
                             </td>
                           </tr>
                         [% END %]
