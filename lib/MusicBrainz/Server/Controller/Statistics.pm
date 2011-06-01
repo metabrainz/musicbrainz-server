@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Moose;
-use MusicBrainz::Server::Data::Statistics;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
