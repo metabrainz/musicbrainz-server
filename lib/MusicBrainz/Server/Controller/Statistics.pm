@@ -26,7 +26,6 @@ sub timeline : Local
 
     $c->stash(
         template => 'statistics/timeline.tt',
-        statsmap => MusicBrainz::Server::Data::Statistics->get_map(),
         stats => {
             map {
                 $_ => $c->model('Statistics::ByName')->get_statistic($_)

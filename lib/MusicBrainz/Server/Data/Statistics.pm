@@ -1021,11 +1021,10 @@ sub recalculate_all
     }
 }
 
-sub get_map
+sub statistic_label
 {
-    my $self = shift;
-    my %map = %stats;
-    return \%map;
+    my ($class, $statistic) = @_;
+    return $stats{$statistic}->{LABEL}
 }
 
 1;

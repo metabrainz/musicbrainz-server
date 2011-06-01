@@ -1,6 +1,10 @@
 [% USE date %]
-[%- MACRO graph_line(label) BLOCK -%]
-{label: "[%- statsmap.$label.LABEL -%]",  data: [ [%- FOREACH date_collected = stats.$label.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- stats.$label.statistic_for(date_collected) -%] ],[%- END -%]]},
+[%- MACRO graph_line(statistic) BLOCK -%]
+{label: "[%- statistic.format_label() -%]", 
+ data: [ 
+[%- FOREACH date_collected = statistic.data.keys.sort -%]
+[ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- statistic.statistic_for(date_collected) -%] ],
+[%- END -%]]},
 [% END %]
 
 [% BLOCK layout_head %]
@@ -24,7 +28,7 @@
                                       yaxis: {tickFormatter: function () { return '' }}, 
                                       selection: {mode: "xy"}}
              var datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]
-                 "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
+                 "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
                  [%- END -%]}
 
              function graph_data () {
