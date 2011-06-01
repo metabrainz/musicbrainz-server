@@ -53,7 +53,7 @@ sub upgrade_artist_credit {
         push @upgraded, {
             artist => {
                 id =>$artist_credit_name->{artist},
-                name => '[removed]',
+                name => $artist_credit_name->{name},
             },
             name => $artist_credit_name->{name},
             join_phrase => $join_phrase
