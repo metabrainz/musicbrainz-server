@@ -202,7 +202,7 @@ sub filter_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
                         ON rgm.id = rg.id
