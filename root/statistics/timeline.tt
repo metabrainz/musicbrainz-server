@@ -1,6 +1,6 @@
 [% USE date %]
 [%- MACRO graph_line(label) BLOCK -%]
-{label: "[%- label -%]",  data: [ [%- FOREACH date_collected = stats.$label.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- stats.$label.statistic_for(date_collected) -%] ],[%- END -%]]},
+{label: "[%- statsmap.$label.LABEL -%]",  data: [ [%- FOREACH date_collected = stats.$label.data.keys.sort -%][ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- stats.$label.statistic_for(date_collected) -%] ],[%- END -%]]},
 [% END %]
 
 [% BLOCK layout_head %]
