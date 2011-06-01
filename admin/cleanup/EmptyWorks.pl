@@ -84,7 +84,7 @@ my @works = values %{
             $c->sql->select_single_column_array(
                 "SELECT work.id
                    FROM work
-                  WHERE last_updated > NOW() - '1 day'::INTERVAL
+                  WHERE last_updated < NOW() - '1 day'::INTERVAL
                     AND work.edits_pending = 0
                     AND work.id NOT IN (
                         SELECT entity1 FROM l_artist_work
