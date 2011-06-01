@@ -10,7 +10,8 @@
         $(document).ready(function () {
              var options = { xaxis: { mode: "time",
                                       timeformat: "%y/%0m",
-                                      tickSize: [6, "month"]},
+                                      ticks: 20,
+                                      minTickSize: [1, "month"]},
                              selection: { mode: "xy" },
                              grid: { hoverable: true },
                              legend: { container: $('#graph-legend'),
