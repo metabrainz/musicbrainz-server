@@ -64,8 +64,8 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # Raw data lives in a seperate DB to avoid the main DB from balooning in size.
     RAWDATA =>
     {
-        database    => "musicbrainz_db_raw",
-        schema          => "musicbrainz",
+        database    => "musicbrainz_db",
+        schema          => "musicbrainz_raw",
         username    => "musicbrainz",
         password        => "musicbrainz",
 #       host            => "",
