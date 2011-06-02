@@ -192,7 +192,7 @@ sub find_or_insert
             (map {
                 $_->{name},
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
-                $_->{recording},
+                $_->{recording_id},
                 $i++,
             } @$tracks),
             scalar(@$tracks)
