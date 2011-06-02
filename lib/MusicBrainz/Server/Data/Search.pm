@@ -560,16 +560,6 @@ sub external_search
         {
             foreach my $result (@results)
             {
-                use Text::WikiFormat;
-                use DBDefs;
-
-                $result->{entity}->text(Text::WikiFormat::format($result->{entity}->{text}, {},
-                                        {
-                                          prefix => "http://".DBDefs::WIKITRANS_SERVER,
-                                          extended => 1,
-                                          absolute_links => 1,
-                                          implicit_links => 0
-                                        }));
                 $result->{type} = ref($result->{entity}->{parent});
                 $result->{type} =~ s/MusicBrainz::Server::Entity:://;
                 $result->{type} = lc($result->{type});
