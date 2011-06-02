@@ -182,7 +182,8 @@ sub find_or_insert
                 ) s
            JOIN tracklist ON s.tracklist = tracklist.id
           WHERE tracklist.track_count = s.matched_track_count
-            AND tracklist.track_count = ?';
+            AND tracklist.track_count = ?
+          LIMIT 1';
 
     my $i = 1;
     my @possible_tracklists = @{
@@ -191,7 +192,7 @@ sub find_or_insert
             (map {
                 $_->{name},
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
-                $_->{recording},
+                $_->{recording_id},
                 $i++,
             } @$tracks),
             scalar(@$tracks)
