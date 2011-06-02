@@ -18,10 +18,7 @@
                                       minTickSize: [1, "month"]},
                              selection: { mode: "xy" },
                              grid: { hoverable: true },
-                             legend: { container: $('#graph-legend'),
-                                       labelFormatter: function(label, series) {
-                                                           return '<a href="#" id="legend-' + label + '">' + label + '</a>';
-                                                       }}};
+                             legend: { container: $('#graph-legend') }};
              var overview_options = { legend: {show: false}, 
                                       series: {lines: {lineWidth: 1}, shadowSize: 0},
                                       xaxis: {mode: "time", tickSize: [1, "year"]}, 
