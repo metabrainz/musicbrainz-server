@@ -224,6 +224,8 @@ sub attach : Local RequireAuth
             my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
             if($stub_toc) {
                 $c->model('CDStub')->load($stub_toc);
+                $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->cdstub);
+                $cdstubtoc->update_track_lengths;
 
                 $initial_artist  ||= $stub_toc->cdstub->artist;
                 $initial_release ||= $stub_toc->cdstub->title;
@@ -231,7 +233,8 @@ sub attach : Local RequireAuth
                 my @mediums = $c->model('Medium')->find_for_cdstub($stub_toc);
                 $c->model('ArtistCredit')->load(map { $_->release } @mediums);
                 $c->stash(
-                    possible_mediums => [ @mediums  ]
+                    possible_mediums => [ @mediums  ],
+                    cdstubtoc => $stub_toc
                 );
             }
         }
