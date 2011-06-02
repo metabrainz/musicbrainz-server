@@ -15,6 +15,8 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 sub release_id { shift->data->{release}{id} }
 
 has '+data' => (
