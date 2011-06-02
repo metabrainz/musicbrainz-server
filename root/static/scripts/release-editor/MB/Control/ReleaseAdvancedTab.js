@@ -804,10 +804,18 @@ MB.Control.ReleaseAdvancedTab = function () {
     self.orderDiscs = function () {
         if (self.positions.length > 1)
         {
-            var prev_disc = self.positions[1];
-            $.each (self.positions.slice (2), function (pos, disc) {
-                disc.$fieldset.insertAfter (prev_disc.$fieldset);
-                disc.basic.$basicdisc.insertAfter (prev_disc.basic.$basicdisc);
+            var prev_disc = undefined;
+            $.each (self.positions, function (pos, disc) {
+                if (prev_disc && disc)
+                {
+                    disc.$fieldset.insertAfter (prev_disc.$fieldset);
+                    disc.basic.$basicdisc.insertAfter (prev_disc.basic.$basicdisc);
+                }
+
+                if (disc)
+                {
+                    prev_disc = disc;
+                }
             });
         }
     }
