@@ -182,7 +182,8 @@ sub find_or_insert
                 ) s
            JOIN tracklist ON s.tracklist = tracklist.id
           WHERE tracklist.track_count = s.matched_track_count
-            AND tracklist.track_count = ?';
+            AND tracklist.track_count = ?
+          LIMIT 1';
 
     my $i = 1;
     my @possible_tracklists = @{
