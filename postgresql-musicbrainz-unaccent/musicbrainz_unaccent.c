@@ -8,7 +8,7 @@
 #include "tsearch/ts_public.h"
 #include "tsearch/ts_locale.h"
 
-#include "unaccent-data.h"
+#include "musicbrainz_unaccent_data.h"
 
 PG_MODULE_MAGIC;
 

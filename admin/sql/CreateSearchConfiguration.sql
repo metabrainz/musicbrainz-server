@@ -3,17 +3,17 @@
 BEGIN;
 
 CREATE OR REPLACE FUNCTION unaccent (text) RETURNS text
-    AS '$libdir/unaccent'
+    AS '$libdir/musicbrainz_unaccent'
     LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OR REPLACE FUNCTION dunaccentdict_init(internal)
     RETURNS internal
-    AS '$libdir/unaccent'
+    AS '$libdir/musicbrainz_unaccent'
     LANGUAGE C STRICT;
 
 CREATE OR REPLACE FUNCTION dunaccentdict_lexize(internal, internal, internal, internal)
     RETURNS internal
-    AS '$libdir/unaccent'
+    AS '$libdir/musicbrainz_unaccent'
     LANGUAGE C STRICT;
 
 CREATE TEXT SEARCH TEMPLATE unaccentdict_template (
