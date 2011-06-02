@@ -152,7 +152,7 @@ sub external : Private
     my $adv = 1;
     my $ua;
 
-    my $ret = $c->model('Search')->external_search($c, $type, $query, $limit, $page, $adv);
+    my $ret = $c->model('Search')->external_search($type, $query, $limit, $page, $adv);
     if (exists $ret->{error})
     {
         if ($ret->{code} == 400 || $ret->{code} == 404)
