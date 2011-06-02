@@ -11,6 +11,16 @@
              MusicBrainz') %]</p>
   [% END %]
 
+  [% IF cdstubtoc %]
+  <h2>[% l('CD Stub found') %]</h2>
+  <p>[% l('A CD Stub was found that matches the disc ID you provided. If the below tracklist
+           appears correct, you may use it as a starting point as a new MusicBrainz release') %]</p>
+  [% INCLUDE 'cdstub/cdstub.tt' %]
+  <form action="[% c.uri_for-action('/cdstub/import', [ cdstubtoc.discid ]) %]" method="get">
+    [% form_submit(l('Import CD Stub')) %]
+  </form>
+  [% END %]
+
   [% IF possible_mediums.size %]
   <h2>[% l('Possible Mediums') %]</h2>
   <p>[% l('Based on the CD stub you selected, we found the following mediums in MusicBrainz
