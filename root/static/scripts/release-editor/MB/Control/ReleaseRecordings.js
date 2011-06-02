@@ -278,8 +278,8 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     self.load = function (data) {
         self.$nowloading.hide ();
 
-        var $table = $('table.disc-template').clone ().show ()
-            .appendTo (self.$fieldset);
+        var $table = $('table.disc-template').clone ().appendTo (self.$fieldset)
+            .show ().removeClass ('disc-template');
 
         var $track_templates = $table.find ('tr.track.template').next ('tr.template').andSelf ();
         var $select_template = $('div.select-recording-container.template');

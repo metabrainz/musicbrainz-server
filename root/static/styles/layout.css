@@ -373,7 +373,7 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links {
-    margin: 0;
+    margin: 5px 0;
     padding-left: 0;
 }
 
@@ -384,7 +384,6 @@ div.warning img.warning {
 
 #sidebar ul.external_links li {
     background: url("/static/images/favicons/external-16.png") 0 2px no-repeat;
-    height: 1.5em;
     margin-bottom: 2px;
     padding: 4px 0 0 22px;
 }
