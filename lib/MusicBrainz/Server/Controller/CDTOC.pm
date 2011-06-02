@@ -231,7 +231,8 @@ sub attach : Local RequireAuth
                 my @mediums = $c->model('Medium')->find_for_cdstub($stub_toc);
                 $c->model('ArtistCredit')->load(map { $_->release } @mediums);
                 $c->stash(
-                    possible_mediums => [ @mediums  ]
+                    possible_mediums => [ @mediums  ],
+                    cdstubtoc => $stub_toc
                 );
             }
         }
