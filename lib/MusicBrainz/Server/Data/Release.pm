@@ -120,7 +120,8 @@ sub find_by_artist
     my ($join_types, $where_types) = _where_type_in (@$types);
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        country.name AS country_name
+                        country.name AS country_name,
+                        musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
@@ -130,7 +131,7 @@ sub find_by_artist
                  $where_statuses
                  $where_types
                  ORDER BY date_year, date_month, date_day,
-                          country.name, barcode
+                          country.name, barcode, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
