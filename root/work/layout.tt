@@ -5,6 +5,8 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+        [% IF work.type || work.iswc %]
+        <h2>[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(work.type.name)
@@ -13,39 +15,47 @@
                content=html_escape(work.iswc)
                    IF work.iswc -%]
         [% END %]
+        [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags
             more=more_tags tag_this_text=l('Tag this work')
             async = c.uri_for_action('/work/tag_async', [ work.gid ])
             -%]
 
+        <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
               <li>
                 <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ work.gid ]) %]">
-                  [% work.latest_annotation.text ? l('Edit annotation') : l('Add an annotation') %]
+                  [% work.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                 </a>
               </li>
                <li>
                  <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.id }) %]">
-                   [% l('Merge this work with another') %]
+                   [% l('Merge work') %]
                  </a>
                </li>
-               <li>[% link_entity(work, 'edits', l('View editing history')) %]</li>
+
+               <hr/>
+
                <li>[% use_in_relationship(work) %]</li>
                <li>[% relate_to_ellipsis(work) %]</li>
                <li>[% relate_to_url(work) %]</li>
+
+               <hr/>
+
                [% IF work.edits_pending %]
                  <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
                [% END %]
+               <li>[% link_entity(work, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
-               <li>[% request_login(l('Please log in to edit this work')) %]</li>
+               <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
 
-        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
-
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=work -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
     [% END %]
 
 <div id="content">

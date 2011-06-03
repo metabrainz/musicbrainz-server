@@ -4,7 +4,9 @@ use strict;
 use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
+use List::MoreUtils qw( uniq );
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::Label';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
@@ -53,7 +55,8 @@ sub related_entities
     return {
         artist    => [ $self->_artist_ids ],
         recording => [ $self->_recording_ids ],
-        release   => [ $self->_release_ids ]
+        release   => [ $self->_release_ids ],
+        release_group => $self->data->{release_group_ids},
     }
 }
 
@@ -125,9 +128,10 @@ sub upgrade
     my $data = {
         name           => $self->new_value->{AlbumName},
         artist_id      => $release_artist_id,
+        artist_name    => $self->new_value->{Artist} || 'Various Artists',
         release_events => [],
         release_ids    => [],
-        tracks         => []
+        tracks         => [],
     };
 
     if (my $attributes = $self->new_value->{Attributes}) {
@@ -162,9 +166,14 @@ sub upgrade
         push @{ $data->{release_ids} }, ($self->resolve_release_id($release_event_id) || ());
     }
 
-    unless (@{ $data->{release_ids} }) {
-        $data->{release_ids} = $self->album_release_ids($self->new_value->{_albumid});
-    }
+    push @{ $data->{release_ids} }, $self->album_release_ids($self->new_value->{_albumid});
+
+    $data->{release_group_ids} = [ uniq (
+        $self->new_value->{ReleaseGroupID},
+        map {
+            $self->find_release_group_id($_)
+        } @{ $data->{release_ids} }
+    )];
 
     for (my $i = 1; 1; $i++) {
         my $track_name = $self->new_value->{"Track$i"}
@@ -180,6 +189,7 @@ sub upgrade
             position     => $i,
             name         => $track_name,
             artist_id    => $artist_id,
+            artist_name  => $self->new_value->{"Artist$i"},
             length       => $length,
             recording_id => $self->resolve_recording_id($track_id)
         }

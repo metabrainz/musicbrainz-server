@@ -14,7 +14,7 @@ sub edit_type { 46 }
 sub related_entities {
     my $self = shift;
     return {
-        recording => [ $self->data->{recording_id} ]
+        recording => [ $self->data->{recording}{id} ]
     }
 }
 
@@ -39,7 +39,7 @@ sub do_upgrade
         puid              => $self->previous_value,
         recording         => {
             id => $recording_id,
-            name => '[deleted]',
+            name => '[removed]',
         },
 
         recording_puid_id => $recording_puid_id,

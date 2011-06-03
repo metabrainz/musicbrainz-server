@@ -1,9 +1,9 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 use strict;
 use warnings;
-use Switch;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
+use feature 'switch';
 
 use Carp qw( croak );
 use DBI;
@@ -40,11 +40,11 @@ sub quote_column
 
     my $ret;
 
-   switch ($type) {
-        case (/^integer\[\]/) { $ret = "'{" . join(",", @$data) . "}'"; }
-        case (/^integer/) { $ret = $data; }
-        case (/^smallint/) { $ret = $data; }
-        else {
+   given ($type) {
+        when (/^integer\[\]/) { $ret = "'{" . join(",", @$data) . "}'"; }
+        when (/^integer/) { $ret = $data; }
+        when (/^smallint/) { $ret = $data; }
+        default {
             $data =~ s/'/''/g;
             $ret = "'$data'";
         }

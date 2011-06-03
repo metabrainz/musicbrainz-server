@@ -7,7 +7,7 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_alternative_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref artist_credit_to_edit_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -18,6 +18,7 @@ use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
+use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::SearchResult';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
@@ -32,6 +33,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_DELETERELEASELABEL
     $EDIT_RELEASE_EDITRELEASELABEL
+    $EDIT_RELEASE_REORDER_MEDIUMS
 );
 
 extends 'MusicBrainz::Server::Wizard';
@@ -143,7 +145,8 @@ sub _load_release_groups
 =method name_is_equivalent
 
 Compares two track names, considers them equivalent if there are only
-case changes or changes in punctuation between the two strings.
+case changes, changes in punctuation and/or changes in whitespace between
+the two strings.
 
 =cut
 
@@ -153,6 +156,8 @@ sub name_is_equivalent
 
     $a =~ s/\p{Punctuation}//g;
     $b =~ s/\p{Punctuation}//g;
+    $a =~ s/ //g;
+    $b =~ s/ //g;
 
     return lc($a) eq lc($b);
 }
@@ -218,30 +223,64 @@ sub recording_edits_from_tracklist
         $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
         $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
 
-        for (@{ $tracklist->{tracks} })
+        for my $trk (@{ $tracklist->{tracks} })
         {
             my $edit_sha1 = hash_structure (
                 {
-                    name => $_->name,
-                    length => format_track_length ($_->length),
-                    artist_credit => {
-                        preview => $_->artist_credit->name,
-                        names => artist_credit_to_alternative_ref (
-                            $_->artist_credit)
-                    }
+                    name => $trk->name,
+                    length => format_track_length ($trk->length),
+                    artist_credit => artist_credit_to_edit_ref ($trk->artist_credit),
                 });
 
             $recording_edits{$edit_sha1} = {
                 edit_sha1 => $edit_sha1,
                 confirmed => 1,
-                id => $_->recording->id,
-                gid => $_->recording->gid
+                id => $trk->recording->id,
+                gid => $trk->recording->gid
             };
         }
     }
 
     return %recording_edits;
 }
+
+
+=method _search_recordings
+
+Search for recordings which match the track name and artist credit preview of a
+new track.
+
+=cut
+
+sub _search_recordings
+{
+    my ($self, $track_name, $artist_credit, $limit) = @_;
+
+    my $offset = 0;
+    my $where = { artist => $artist_credit->{names}->[0]->{artist_name} };
+
+    my ($search_results, $hits) = $self->c->model ('Search')->search (
+        'recording', $track_name, $limit, $offset, $where);
+
+    return @$search_results;
+}
+
+
+=method _exact_match
+
+Compare a search_result with a track edit, return true if artist credit
+and track title match exactly.
+
+=cut
+
+sub _exact_match
+{
+    my ($self, $search_result, $trk_edit) = @_;
+
+    return $search_result->entity->name eq $trk_edit->{name} &&
+        $search_result->entity->artist_credit->name eq $trk_edit->{artist_credit}->{preview};
+}
+
 
 =method associate_recordings
 
@@ -255,78 +294,275 @@ about the suggestion and require the user to confirm our choice.
 
 sub associate_recordings
 {
-    my ($self, $edits, $tracklists, $recording_edits) = @_;
+    my ($self, $edits, $tracklist, $recording_edits) = @_;
 
     my @ret;
-    my @recording_ids;
+    my @suggestions;
+    my @load_recordings;
+    my $trk_edit;
+    my $suggested_tracklist;
 
-    my $count = 0;
-    for (@$edits)
+    # First, try to find a matching tracklist.  For this we will need
+    # to figure out artist_credit ids for all artists.
+    my $look_for_tracklist = 1;
+    TRACKLIST: for $trk_edit (@$edits)
     {
-        my $trk = $tracklists->tracks->[$_->{original_position} - 1];
-        my $rec_edit = $recording_edits->{$_->{edit_sha1}};
+        my @artist_joinphrase;
+        for (@{ $trk_edit->{artist_credit}->{names} })
+        {
+            if (!$_->{id})
+            {
+                $look_for_tracklist = 0;
+                last TRACKLIST;
+            }
+
+            push @artist_joinphrase, {
+                name => $_->{name},
+                artist => $_->{id},
+            };
+            push @artist_joinphrase, $_->{join};
+        }
+
+        pop @artist_joinphrase unless $artist_joinphrase[$#artist_joinphrase];
+
+
+        my $id = $self->c->model ('ArtistCredit')->find (@artist_joinphrase);
+        if (!$id)
+        {
+            $look_for_tracklist = 0;
+            last TRACKLIST;
+        }
+
+        $trk_edit->{artist_credit_id} = $id;
+    }
+
+    if ($look_for_tracklist)
+    {
+        my @possible_tracklists = $self->c->model ('Tracklist')->find ([
+            map {
+                {
+                    name => $_->{name},
+                    artist_credit => $_->{artist_credit_id},
+                    position => $_->{position}
+                }
+            } @$edits ]);
+
+        if (scalar @possible_tracklists)
+        {
+            $suggested_tracklist =
+                $self->c->model ('Tracklist')->get_by_id ($possible_tracklists[0]);
+            $self->c->model ('Track')->load_for_tracklists ($suggested_tracklist);
+        }
+    }
+
+    my $trackno = 0;
+    for $trk_edit (@$edits)
+    {
+        my @track_suggestions;
+
+        my $trk = $tracklist->tracks->[$trk_edit->{original_position} - 1];
+        my $trk_at_pos = $tracklist->tracks->[$trk_edit->{position} - 1];
+
+        my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}};
 
         # Track edit is already associated with a recording edit.
         if ($rec_edit)
         {
-            push @recording_ids, $rec_edit->{id} if $rec_edit->{id};
+            push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
             $self->c->stash->{confirmation_required} = 1 unless $rec_edit->{confirmed};
         }
 
-        # Track hasn't changed OR track has minor changes (case / punctuation).
-        elsif ($trk && $self->name_is_equivalent ($_->{name}, $trk->name))
+        # A tracklist is suggested.
+        elsif ($suggested_tracklist)
         {
-            push @recording_ids, $trk->recording_id;
+            my $t = $suggested_tracklist->tracks->[$trackno];
+            # if the suggested recording is the same as the previously associated
+            # recording no confirmation is neccesary.
+            my $confirmed = $trk->recording_id == $t->recording_id;
+
+            push @load_recordings, $t->recording_id;
+            push @ret, { 'id' => $t->recording_id, 'confirmed' => $confirmed };
+        }
+
+        # Track hasn't changed OR track has minor changes (case / punctuation).
+        elsif ($trk && $self->name_is_equivalent ($trk_edit->{name}, $trk->name))
+        {
+            push @load_recordings, $trk->recording_id;
             push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
         }
 
-        # Track changed significantly, but there is only one recording
-        # associated with it.  Keep the recording association, but ask
-        # for confirmation.
-        elsif ($trk && $self->c->model('Recording')->usage_count ($trk->recording_id) == 1)
+        # Track hasn't changed OR track has minor changes (case / punctuation)
+        # when compared to the track originally at this position on the disc.
+        elsif ($trk_at_pos && $self->name_is_equivalent ($trk_edit->{name}, $trk_at_pos->name))
         {
-            push @recording_ids, $trk->recording_id;
-            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
-            $self->c->stash->{confirmation_required} = 1;
+            push @load_recordings, $trk_at_pos->recording_id;
+            push @ret, { 'id' => $trk_at_pos->recording_id, 'confirmed' => 1 };
+        }
+
+        # Track is the only track associated with this particular recording.
+        elsif ($trk && $self->c->model ('Recording')->usage_count ($trk->recording_id) == 1)
+        {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
+        }
+
+        # Track is identical or similar to associated recording
+        elsif ($trk && $trk->recording &&
+               $self->name_is_equivalent ($trk_edit->{name}, $trk->recording->name) &&
+               $self->name_is_equivalent ($trk_edit->{artist_credit}->{preview}, $trk->recording->artist_credit->name))
+        {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 1 };
+        }
+
+        # Track is identical or similar to recording associated with the track
+        # originally at this position.
+        elsif ($trk_at_pos && $trk_at_pos->recording &&
+               $self->name_is_equivalent ($trk_edit->{name}, $trk_at_pos->recording->name) &&
+               $self->name_is_equivalent ($trk_edit->{artist_credit}->{preview}, $trk_at_pos->recording->artist_credit->name))
+        {
+            push @load_recordings, $trk_at_pos->recording_id;
+            push @ret, { 'id' => $trk_at_pos->recording_id, 'confirmed' => 1 };
         }
 
         # Track changed.
         elsif ($trk)
         {
+            push @load_recordings, $trk->recording_id;
             push @ret, { 'id' => undef, 'confirmed' => 0 };
             $self->c->stash->{confirmation_required} = 1;
+
+            # Search for similar recordings.
+            my @results = $self->_search_recordings ($trk_edit->{name}, $trk_edit->{artist_credit}, 3);
+            $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
+
+            push @track_suggestions, { 'id' => $trk->recording_id };
+            push @track_suggestions, map {
+                {
+                    'id' => $_->entity->id,
+                    'recording' => $_->entity,
+                }
+            } grep { $_ } @results;
+        }
+
+        # New track in the position of an existing track with recording association.
+        elsif ($trk_at_pos)
+        {
+            push @load_recordings, $trk_at_pos->recording_id;
+            push @ret, { 'id' => undef, 'confirmed' => 0 };
+            $self->c->stash->{confirmation_required} = 1;
+
+            # Search for similar recordings.
+            my @results = $self->_search_recordings ($trk_edit->{name}, $trk_edit->{artist_credit}, 3);
+            $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
+
+            push @track_suggestions, { 'id' => $trk_at_pos->recording_id };
+            push @track_suggestions, map {
+                {
+                    'id' => $_->entity->id,
+                    'recording' => $_->entity,
+                }
+            } grep { $_ } @results;
         }
 
         # Track is new.
-        # (FIXME: search for similar existing tracks, suggest those and set
-        #  "confirmed => 0" if found?)
         else
         {
-            push @ret, { 'id' => undef, 'confirmed' => 1 };
+            my @results = $self->_search_recordings ($trk_edit->{name}, $trk_edit->{artist_credit}, 3);
+            $self->c->model('ArtistCredit')->load (map { $_->entity } @results) if scalar @results;
+
+            # The new track has one matching recording in the database
+            if (scalar @results == 1)
+            {
+                # The only result is an exact match
+                if ($self->_exact_match ($results[0], $trk_edit))
+                {
+                    push @ret, { 'id' => $results[0]->entity->id, 'confirmed' => 1 };
+                }
+                # The only result is an approximate match
+                else
+                {
+                    push @ret, { 'id' => undef, 'confirmed' => 0 };
+                    $self->c->stash->{confirmation_required} = 1;
+
+                    push @track_suggestions, {
+                        'id' => $results[0]->entity->id,
+                        'recording' => $results[0]->entity
+                    };
+                }
+            }
+
+            # The new track has several matching recordings in the database
+            elsif (scalar @results > 1)
+            {
+                my $exact_match;
+                my $count = 0;
+                for my $search_result (@results)
+                {
+                    if ($self->_exact_match ($search_result, $trk_edit))
+                    {
+                        $exact_match = delete $results[$count];
+                        last;
+                    }
+
+                    $count++;
+                }
+
+                push @ret, { 'id' => undef, 'confirmed' => 0 };
+                $self->c->stash->{confirmation_required} = 1;
+
+                # One or more of the results are an exact match
+                if ($exact_match)
+                {
+                    push @track_suggestions, {
+                        'id' => $exact_match->entity->id,
+                        'recording' => $exact_match->entity,
+                    }
+                }
+
+                # Add the (remaining) exact or approximate matches
+                push @track_suggestions, map {
+                    {
+                        'id' => $_->entity->id,
+                        'recording' => $_->entity,
+                    }
+                } grep { $_ } @results;
+            }
+
+            # The new track has no matching recordings in the database
+            else
+            {
+                push @ret, { 'id' => undef, 'confirmed' => 1 };
+            }
         }
 
-        $ret[$#ret]->{'edit_sha1'} = $_->{edit_sha1};
+        $ret[$#ret]->{'edit_sha1'} = $trk_edit->{edit_sha1};
 
-        $count += 1;
+        push @suggestions, \@track_suggestions;
+
+        $trackno++;
     }
 
-    my $recordings = $self->c->model('Recording')->get_by_ids (@recording_ids);
+    # FIXME: prevent loading recordings/artist credits for those recordings
+    # already loaded.
+    my $recordings = $self->c->model('Recording')->get_by_ids (@load_recordings);
     $self->c->model('ArtistCredit')->load(values %$recordings);
 
-    for (@ret)
+    for (@ret, map { @$_ } grep { $_ } @suggestions)
     {
-        $_->{recording} = $_->{id} ? $recordings->{$_->{id}} : undef;
+        if (!defined $_->{recording})
+        {
+            $_->{recording} = $_->{id} ? $recordings->{$_->{id}} : undef;
+        }
     }
 
-    return @ret;
+    return (\@ret, \@suggestions);
 }
 
 sub prepare_tracklist
 {
     my ($self, $release) = @_;
-
-    $self->c->stash->{release_artist_json} = "null";
 }
 
 sub prepare_recordings
@@ -365,14 +601,25 @@ sub prepare_recordings
 
         if (defined $medium->{edits} && defined $medium->{tracklist_id})
         {
+            my $tracklist = $tracklists_by_id->{$medium->{tracklist_id}};
+            $self->c->model ('Recording')->load ($tracklist->all_tracks);
+            $self->c->model ('ArtistCredit')->load (map { $_->recording } $tracklist->all_tracks);
+
             # Tracks were edited, suggest which recordings should be
             # associated with the edited tracks.
-            my @recordings = $self->associate_recordings (
-                $medium->{edits},
-                $tracklists_by_id->{$medium->{tracklist_id}},
-                \%recording_edits);
+            my ($first_suggestions, $extra_suggestions) = $self->associate_recordings (
+                $medium->{edits}, $tracklist, \%recording_edits);
 
-            $suggestions[$count] = [ map { $_->{recording} } @recordings ];
+            my $trackno = 0;
+            $suggestions[$count] = [
+                map {
+                    my @suggestions;
+                    push @suggestions, $_->{recording};
+                    push @suggestions, map { $_->{recording} } @{ $extra_suggestions->[$trackno] };
+
+                    $trackno++;
+                    \@suggestions;
+                } @$first_suggestions ];
 
             # Set confirmed to undef if false, so that the 'required'
             # attribute on the field prevents the page from validating.
@@ -381,19 +628,37 @@ sub prepare_recordings
                     'gid' => ($_->{recording} ? $_->{recording}->gid : "new"),
                     'confirmed' => $_->{confirmed} ? 1 : undef,
                     'edit_sha1' => $_->{edit_sha1}
-                } } @recordings ];
+                } } @$first_suggestions ];
         }
         elsif (defined $medium->{edits})
         {
             # A new tracklist has been entered, create new recordings
             # for all these tracks by default (no recording
             # assocations are suggested).
-            $recording_edits[$count]->{associations} = [ map {
-                {
+            $recording_edits[$count]->{associations} ||= [];
+            my $edit_idx = 0;
+            for my $edit (@{ $medium->{edits} }) {
+                $recording_edits[$count]->{associations}[$edit_idx] ||= {
                     'gid' => 'new',
                     'confirmed' => 1,
-                    'edit_sha1' => $_->{edit_sha1},
-                } } @{ $medium->{edits} } ];
+                    'edit_sha1' => $edit->{edit_sha1},
+                };
+
+                # If a recording MBID is seeded it needs to be loaded from the DB.
+                my $gid = $recording_edits[$count]->{associations}[$edit_idx]->{gid};
+                if ($gid ne "new")
+                {
+                    # FIXME: collect these in a single query.
+                    $suggestions[$count][$edit_idx] = [
+                        $self->c->model ('Recording')->get_by_gid ($gid)
+                    ];
+                }
+
+                $edit_idx++;
+            }
+
+            $self->c->model('ArtistCredit')->load (
+                map { $_->[0] } grep { $_ } @{ $suggestions[$count] });
         }
         elsif ($recording_edits[$count]->{associations} &&
                scalar @{ $recording_edits[$count]->{associations} })
@@ -409,7 +674,7 @@ sub prepare_recordings
             my @recordings = map { $recordings_by_id->{$_->{id}} } @assoc;
 
             $self->c->model('ArtistCredit')->load (grep { $_ } @recordings);
-            $suggestions[$count] = \@recordings;
+            $suggestions[$count] = [ map { [ $_ ] } @recordings ];
 
             # Also load the tracklist, as tracks cannot be rendered
             # from the (non-existent) track edits.
@@ -433,7 +698,7 @@ sub prepare_recordings
     {
         map {
             $self->c->stash->{appears_on}->{$_->id} = $self->_load_release_groups ($_);
-        } grep { $_ } @$medium_recordings;
+        } grep { $_ } map { @$_ } grep { $_ } @$medium_recordings;
     }
 
     $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
@@ -444,12 +709,12 @@ sub prepare_missing_entities
     my ($self) = @_;
 
     my $data = $self->_expand_mediums(clone($self->value));
+    my @artist_credits = $self->_missing_artist_credits($data);
 
     my @credits = map +{
-            for => $_->{name},
-            name => $_->{name},
-        }, uniq_by { $_->{name} }
-            $self->_misssing_artist_credits($data);
+            for => $_->{artist}->{name},
+            name => $_->{artist}->{name},
+        }, uniq_by { $_->{artist}->{name} } @artist_credits;
 
     my @labels = map +{
             for => $_->{name},
@@ -470,6 +735,11 @@ sub prepare_missing_entities
             map {
                 $_ => [ $self->c->model('Artist')->find_by_name($_) ]
             } map { $_->{for} } @credits
+        },
+        possible_labels => {
+            map {
+                $_ => [ $self->c->model('Label')->find_by_name($_) ]
+            } map { $_->{for} } @labels
         }
     );
 }
@@ -511,19 +781,20 @@ sub _missing_labels {
         @{ $data->{labels} };
 }
 
-sub _misssing_artist_credits
+sub _missing_artist_credits
 {
     my ($self, $data) = @_;
+
     return
         (
             # Artist credit for the release itself
-            grep { !$_->{artist} } grep { ref($_) }
-            map { @{ clean_submitted_artist_credits($_) } }
-                $data->{artist_credit}
+            grep { !$_->{artist}->{id} }
+            grep { ref($_) }
+            @{ clean_submitted_artist_credits($data->{artist_credit})->{names} }
         ),
         (
             # Artist credits on new tracklists
-            grep { !$_->artist_id }
+            grep { !$_->artist || !$_->artist->id }
             map { @{ $_->artist_credit->names } }
             map { @{ $_->{tracks} } } grep { $_->{edits} }
             @{ $data->{mediums} }
@@ -544,16 +815,11 @@ sub create_edits
     my (%created) = $self->_edit_missing_entities(%args);
 
     unless ($previewing) {
-        for my $bad_ac ($self->_misssing_artist_credits($data)) {
-            my $artist = $created{artist}{ $bad_ac->{name} }
+        for my $bad_ac ($self->_missing_artist_credits($data)) {
+            my $artist = $created{artist}{ $bad_ac->{artist}->{name} }
                 or die 'No artist was created for ' . $bad_ac->{name};
 
-            # XXX Fix me
-            # Because bad_ac might refer to data in the form submisison
-            # OR an actual ArtistCredit object, we need to fill in both of these
-            # It's a horrible hack.
-            $bad_ac->{artist} = $artist;
-            $bad_ac->{artist_id} = $artist;
+            $bad_ac->{artist}->{id} = $artist;
         }
 
         for my $bad_label ($self->_missing_labels($data)) {
@@ -690,14 +956,22 @@ sub _edit_release_labels
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
-        elsif ($new_label->{label_id} || $new_label->{catalog_number})
+        elsif (
+            $previewing ?
+                $new_label->{name} :
+                $new_label->{label_id} || $new_label->{catalog_number})
         {
             # Add ReleaseLabel
 
             $create_edit->(
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
                 release => $previewing ? undef : $self->release,
-                label => $labels->{ $new_label->{label_id} },
+                label => $previewing
+                    ? Label->new(
+                        id   => 0,
+                        name => $new_label->{name}
+                    )
+                    : $labels->{ $new_label->{label_id} },
                 catalog_number => $new_label->{catalog_number},
                 as_auto_editor => $data->{as_auto_editor},
             );
@@ -711,6 +985,9 @@ sub _edit_release_track_edits
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
 
+    my @new_order;
+    my $re_order = 0;
+
     my $medium_idx = -1;
     for my $new (@{ $data->{mediums} })
     {
@@ -721,24 +998,35 @@ sub _edit_release_track_edits
         if ($new->{id})
         {
             # The medium already exists
+            my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+            $entity->release ($self->release);
 
             if ($new->{deleted})
             {
                 # Delete medium
                 $create_edit->(
                     $EDIT_MEDIUM_DELETE, $editnote,
-                    medium => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    medium => $entity,
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
             else
             {
+                my $entity = $self->c->model('Medium')->get_by_id ($new->{id});
+                $entity->release($self->release);
+
+                push @new_order, {
+                    medium_id => $entity->id,
+                    old => $entity->position,
+                    new => $new->{position},
+                };
+                $re_order ||= ($entity->position != $new->{position});
+
                 # Edit medium
                 my %opts = (
                     name => $new->{name},
                     format_id => $new->{format_id},
-                    position => $new->{position},
-                    to_edit => $self->c->model('Medium')->get_by_id ($new->{id}),
+                    to_edit => $entity,
                     separate_tracklists => 1,
                     as_auto_editor => $data->{as_auto_editor},
                 );
@@ -758,8 +1046,10 @@ sub _edit_release_track_edits
         {
             # Medium does not exist yet.
 
+            my $add_medium_position = $self->add_medium_position ($medium_idx, $new);
+
             my $opts = {
-                position => $medium_idx + 1,
+                position => $add_medium_position,
                 release => $previewing ? undef : $self->release,
                 as_auto_editor => $data->{as_auto_editor},
             };
@@ -768,12 +1058,16 @@ sub _edit_release_track_edits
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
             if ($new->{tracks}) {
+                $self->c->model('Artist')->load_for_artist_credits (
+                    map { $_->artist_credit } @{ $new->{tracks} });
                 $opts->{tracklist} = $new->{tracks};
             }
             elsif (my $tracklist_id = $new->{tracklist_id}) {
                 my $tracklist_entity = $self->c->model('Tracklist')->get_by_id($tracklist_id);
                 $self->c->model('Track')->load_for_tracklists($tracklist_entity);
                 $self->c->model('ArtistCredit')->load($tracklist_entity->all_tracks);
+                $self->c->model('Artist')->load_for_artist_credits (
+                    map { $_->artist_credit } $tracklist_entity->all_tracks);
                 $opts->{tracklist} = $tracklist_entity->tracks;
             }
             else {
@@ -783,28 +1077,35 @@ sub _edit_release_track_edits
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
 
-            if ($new->{toc}) {
+            if ($new->{toc})
+            {
                 $create_edit->(
                     $EDIT_MEDIUM_ADD_DISCID,
                     $editnote,
+                    cdtoc => $new->{toc},
+                    release => $self->release,
                     medium_id  => $previewing ? 0 : $add_medium->entity_id,
-                    release_id => $previewing ? 0 : $self->release->id,
-                    cdtoc      => $new->{toc},
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
 
-            if ($new->{position} != $medium_idx + 1)
-            {
-                # Disc was inserted at the wrong position, enter an edit to re-order it.
-                $create_edit->(
-                    $EDIT_MEDIUM_EDIT, $editnote,
-                    position => $new->{position},
-                    to_edit => $add_medium->entity,
-                    as_auto_editor => $data->{as_auto_editor},
-                );
-            }
+            push @new_order, {
+                medium_id => $add_medium->entity_id,
+                old => $add_medium_position,
+                new => $new->{position},
+            };
+            $re_order ||= ($add_medium_position != $new->{position});
         }
+    }
+
+    if ($re_order) {
+        $create_edit->(
+            $EDIT_RELEASE_REORDER_MEDIUMS,
+            $editnote,
+            release  => $self->release,
+            medium_positions => \@new_order,
+            as_auto_editor => $data->{as_auto_editor},
+        );
     }
 }
 
@@ -896,15 +1197,36 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
+    my @names = @{ $trk->{artist_credit}->{names} };
+
+    # artists may be seeded with an MBID, or selected in the release editor
+    # with just an id.
+    # FIXME: move this out of _expand_track.
+
+    my $gid_artists = $self->c->model ('Artist')->get_by_gids (
+        map { $_->{artist}->{gid} }
+        grep { $_->{artist} && $_->{artist}->{gid} } @names);
+
+    my %artists_by_gid = map { $_->gid => $_ } values %$gid_artists;
+
+    my $artists_by_id = $self->c->model ('Artist')->get_by_ids (
+        map { $_->{artist}->{id} }
+        grep { $_->{artist} && $_->{artist}->{id} } @names);
+
+    for my $i (0..$#names)
+    {
+        my $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} } ||
+            $artists_by_id->{ $names[$i]->{artist}->{id} };
+
+        $names[$i]->{artist} = $artist if $artist;
+    }
+
     my $entity = Track->new(
         length => unformat_track_length ($trk->{length}),
         name => $trk->{name},
         position => $trk->{position},
         artist_credit => ArtistCredit->from_array ([
-            map {
-                { artist => $_->{id}, name => $_->{name} },
-                $_->{join}
-            } grep { $_->{name} } @{ $trk->{artist_credit}->{names} }
+            grep { $_->{name} } @names
         ]));
 
     if ($assoc)
@@ -950,11 +1272,16 @@ sub _expand_mediums
                 $self->_expand_track ($_, $rec);
             } @{ $self->edited_tracklist($json->decode($edits)) } ];
         }
+        elsif ($disc->{deleted})
+        {
+            $disc->{tracks} = [ ];
+        }
         elsif ($tracklist_id)
         {
             my $tracklist = $self->c->model('Tracklist')->get_by_id ($tracklist_id);
             $self->c->model('Track')->load_for_tracklists ($tracklist);
             $self->c->model('ArtistCredit')->load ($tracklist->all_tracks);
+            $self->c->model('Artist')->load ($tracklist->all_tracks);
 
             my $pos = 0;
             $disc->{tracks} = [ map {
@@ -979,7 +1306,9 @@ sub _expand_mediums
 
 =method edited_tracklist
 
-Returns a list of tracks, sorted by position, with deleted tracks removed
+Returns a list of tracks, sorted by position, with deleted tracks
+removed.  It also converts artist credits to the same format used by
+'artist_credit_to_ref'.
 
 =cut
 
@@ -988,7 +1317,23 @@ sub edited_tracklist
     my ($self, $tracks) = @_;
 
     my $idx = 1;
-    map { $_->{original_position} = $idx++; } @$tracks;
+    for my $trk (@$tracks)
+    {
+        my @names = @{ $trk->{artist_credit}->{names} };
+        $trk->{artist_credit}->{names} = [ map {
+            {
+                artist => {
+                    id => $_->{id},
+                    gid => $_->{gid},
+                    name => $_->{artist_name},
+                },
+                name => $_->{name},
+                join_phrase => $_->{join},
+            }
+        } @names ];
+
+        $trk->{original_position} = $idx++;
+    }
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
@@ -1081,10 +1426,10 @@ sub _seed_parameters {
         if (my $mbid = $artist_credit->{mbid}){
             my $entity = $self->c->model('Artist')
                 ->get_by_gid($mbid);
-            $artist_credit->{artist_id} = $entity->id;
             $artist_credit->{name} ||= $entity->name;
             $artist_credit->{gid} = $entity->gid;
-            $artist_credit->{artist_name} = $entity->name;
+            $artist_credit->{artist}->{id} = $entity->id;
+            $artist_credit->{artist}->{name} = $entity->name;
         }
     }
 
@@ -1121,6 +1466,7 @@ sub _seed_parameters {
                 }
             }
 
+            $params->{rec_mediums}[$medium_idx]{associations} = [];
             if (my @tracks = @{ $medium->{track} || [] }) {
                 my @edits;
                 my $track_idx;
@@ -1133,7 +1479,7 @@ sub _seed_parameters {
                                 name => $_->{name},
                                 id => $_->{artist_id},
                                 join => $_->{join_phrase},
-                                artist_name => $_->{artist_name},
+                                artist_name => $_->{artist_name} || $_->{name},
                                 gid => $_->{gid}
                             }, @{$track_ac->{names}}
                         ];
@@ -1149,7 +1495,32 @@ sub _seed_parameters {
                             : format_track_length($length);
                     }
 
+                    my $sha = hash_structure({
+                        name => $track->{name},
+                        length => $track->{length},
+                        artist_credit => $track->{artist_credit},
+                    });
+                    $track->{edit_sha1} = $sha;
+
                     push @edits, $track;
+
+                    if (my $recording_id = delete $track->{recording}) {
+                        if(my $recording = $self->c->model('Recording')->get_by_gid($recording_id)) {
+                            $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
+                                edit_sha1 => $sha,
+                                confirmed => 1,
+                                id => $recording->id,
+                                gid => $recording->gid
+                            };
+                        }
+                    }
+                    else {
+                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
+                            gid => 'new',
+                            confirmed => 1,
+                            edit_sha1 => $sha
+                        };
+                    }
                 }
 
                 $medium->{edits} = $json->encode(\@edits);
@@ -1169,8 +1540,30 @@ sub _seed_parameters {
         { position => 1 },
     ] unless @{ $params->{mediums}||[] };
 
+    $params->{seeded} = 1;
+
     return collapse_hash($params);
 };
+
+=head1 LICENSE
+
+Copyright (C) 2011 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+=cut
 
 __PACKAGE__->meta->make_immutable;
 1;

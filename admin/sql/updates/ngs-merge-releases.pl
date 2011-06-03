@@ -1,4 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+
+use warnings;
 
 use strict;
 use FindBin;
@@ -9,11 +11,15 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Context;
+use OSSP::uuid;
 use Sql;
 open LOG, ">:utf8", "release-merge.log";
 open ERRLOG, ">:utf8", "release-merge-errors.log";
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
+my $UUID_NS_URL = OSSP::uuid->new;
+$UUID_NS_URL->load("ns:URL");
 
 my $c = MusicBrainz::Server::Context->create_script_context();
 my $sql = Sql->new($c->dbh);
@@ -119,6 +125,26 @@ eval {
         return $score;
     }
 
+    my %medium_position_attributes;
+    my %links;
+    my $uuid = OSSP::uuid->new;
+    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-attribute-type/medium/");
+
+    my $medium_position_root = $sql->select_single_value(
+        "SELECT nextval('link_attribute_type_id_seq')"
+    );
+    $sql->do(
+        'INSERT INTO link_attribute_type (id, root, gid, name)
+              VALUES (?, ?, ?, ?)',
+        $medium_position_root,
+        $medium_position_root,
+        $uuid->export('str'),
+        'medium');
+    $sql->do(
+        'INSERT INTO link_type_attribute_type (link_type, attribute_type, min)
+             SELECT id, ?, ? FROM link_type WHERE gid = ?',
+        $medium_position_root, 0, '9162dedd-790c-446c-838e-240f877dbfe2'); # dj-mixed AR
+
     $sql->do("
         CREATE TABLE tmp_release_merge (
                 old_rel INTEGER NOT NULL,
@@ -128,6 +154,10 @@ eval {
         CREATE INDEX tmp_release_label_idx_release ON release_label (release);
         CREATE INDEX tmp_release_idx_id ON release (id);
         CREATE INDEX tmp_release_name_idx_id ON release_name (id);
+        CREATE INDEX tmp_link_type_gid ON link_type (gid);
+        CREATE INDEX tmp_l_artist_release ON l_artist_release (entity1);
+        CREATE INDEX tmp_link_type_id ON link_type (id);
+        CREATE INDEX tmp_link_lt ON link (link_type);
         ANALYZE release;
         ANALYZE release_name;
         ANALYZE release_label;
@@ -203,6 +233,121 @@ eval {
                                          $discs[0], $medium->{position}, $medium->{title} || undef, $id);
                 }
 
+                # Merge medium-level ARs
+                my $medium_level_ars = $sql->select_list_of_hashes(
+                            "SELECT entity0,entity1,link_type,begin_date_year,
+                                    begin_date_month,begin_date_day
+                                    end_date_year,end_date_month,end_date_day,
+                                    link_type, l.id
+                               FROM l_artist_release l
+                               JOIN link link ON link.id = l.link
+                               JOIN link_type lt ON lt.id = link.link_type
+                              WHERE lt.gid = '9162dedd-790c-446c-838e-240f877dbfe2'
+                                AND l.entity1 IN (" .
+                                    join(',', ('?') x @discs) . ')', @discs);
+
+                # Map a link key (begin/end date) to a link definition:
+                # begin/end date fields, a list of attributes, and the artist
+                my %release_links;
+
+                # A list of all medium level ARs. Each element contains the ID of
+                # the artist end point, and a reference to the link definition
+                my @release_ars;
+
+                # Map a release ID to it's medium
+                my %release_mediums = map {
+                    $discs[$_] => $mediums[$_]
+                } ( 0..$#discs );
+
+                for my $medium_ar (@$medium_level_ars) {
+                    my $medium = $release_mediums{ $medium_ar->{entity1} };
+
+                    $medium_position_attributes{ $medium->{position} } ||=
+                        $sql->select_single_value(
+                        'INSERT INTO link_attribute_type (root, parent, gid, name, child_order)
+                             VALUES (?, ?, ?, ?, ?) RETURNING id',
+                        ($medium_position_root) x 2,
+                        do {
+                            $uuid->make("v3", $UUID_NS_URL,
+                                        "http://musicbrainz.org/link-attribute-type/medium/" .
+                                            $medium->{position});
+                            $uuid->export('str')
+                        },
+                        'Medium ' . $medium->{position},
+                        $medium->{position}
+                    );
+
+                    my $key = join(
+                        "_",
+                        join('-', map {
+                            $medium_ar->{"begin_date_$_"} || 0
+                        } qw( year month day )),
+                        join('-', map {
+                            $medium_ar->{"end_date_$_"} || 0
+                        } qw( year month day )),
+                        $medium_ar->{entity0}
+                    );
+
+                    $release_links{$key} ||= {
+                        %$medium_ar,
+                        attrs => []
+                    };
+
+                    push @{ $release_links{$key}->{attrs} },
+                        $medium_position_attributes{ $medium->{position} };
+
+                    push @release_ars, {
+                        entity0 => $medium_ar->{entity0},
+                        link => $release_links{$key}
+                    };
+
+                    $sql->do('DELETE FROM l_artist_release WHERE id = ?',
+                             $medium_ar->{id});
+                }
+
+                for my $release_link (values %release_links) {
+                    my @attrs = @{ $release_link->{attrs} };
+                    my $key = join(
+                        "_",
+                        join('-', map {
+                            $release_link->{"begin_date_$_"} || 0
+                        } qw( year month day )),
+                        join('-', map {
+                            $release_link->{"end_date_$_"} || 0
+                        } qw( year month day )),
+                        @attrs
+                    );
+                    my $link_id;
+                    if (!exists($links{$key})) {
+                        $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+                        $links{$key} = $link_id;
+                        $sql->do(
+                            "INSERT INTO link
+                                 (id, link_type, begin_date_year, begin_date_month, begin_date_day,
+                                  end_date_year, end_date_month, end_date_day, attribute_count)
+                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            $link_id,
+                            $release_link->{link_type},
+                            (map { $release_link->{"begin_date_$_"} } qw( year month day )),
+                            (map { $release_link->{"end_date_$_"} } qw( year month day )),
+                            scalar(@attrs));
+                        foreach my $attr (@attrs) {
+                            $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                                     $link_id, $attr);
+                        }
+                    }
+                    else {
+                        $link_id = $links{$key};
+                    }
+
+                    $release_link->{link_id} = $link_id;
+                }
+
+                for my $release_ar (@release_ars) {
+                    $sql->do('INSERT INTO l_artist_release (entity0,entity1,link) VALUES (?,?,?)',
+                             $release_ar->{entity0}, $discs[0], $release_ar->{link}{link_id});
+                }
+
                 # Build the temporary merge mapping table
                 my $new_id = $discs[0];
                 shift @discs;
@@ -220,6 +365,10 @@ eval {
         DROP INDEX tmp_release_label_idx_release;
         DROP INDEX tmp_release_idx_id;
         DROP INDEX tmp_release_name_idx_id;
+        DROP INDEX tmp_link_type_gid;
+        DROP INDEX tmp_l_artist_release;
+        DROP INDEX tmp_link_type_id;
+        DROP INDEX tmp_link_lt;
     ");
     undef %link_map;
     undef %reverse_link_map;

@@ -1,12 +1,7 @@
 [% BLOCK layout_head %]
-   <script type="text/javascript" src="[%-
-     c.model('FileCache').squash_scripts(
-       "scripts/MB/Control/URLCleanup.js",
-       "scripts/MB/html.js",
-       "scripts/ar.js",
-     ) -%]">
-   </script>
-   <script type="text/javascript">
+  [% script_manifest('edit.js.manifest') %]
+
+   <script type="text/javascript">//<![CDATA[
     $('document').ready(function() {
       MB.Control.URLCleanup(
         $('#id-ar\\.type').val(),
@@ -14,7 +9,7 @@
         $('#id-ar\\.url')
       );
     });
-   </script>
+   //]]></script>
 [% END %]
 
 [%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
@@ -27,20 +22,26 @@
 
     <input type="hidden" id="id-ar.type" value="[% type %]" />
 
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         var typeInfo = [% type_info %];
-    </script>
+    //]]></script>
+
+    [% IF exists %]
+        <p><strong>[% l('A relationship between {entity} and {url} already exists.',
+                        { entity => link_entity(entity),
+                          url => display_url(url) }) %]</strong></p>
+    [% END %]
 
     <fieldset>
         <legend>[% l('Relationship Details') %]</legend>
 
         <table class="form">
             <tr>
-                <td class="label">[% entity_label(type) %]</td>
+                <th class="label">[% entity_label(type) %]</th>
                 <td colspan="2">[% link_entity(entity) %]</td>
             </tr>
             <tr>
-                <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
+                <th class="label">[% r.label('link_type_id', l('Type:')) %]</th>
                 <td colspan="2">
                     [% r.select('link_type_id', no_default => 1) %]
                     [% field_errors(form, 'link_type_id') %]
@@ -48,7 +49,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">[% r.label('url', l('URL:')) %]</td>
+                <th class="label">[% r.label('url', l('URL:')) %]</th>
                 <td colspan="2">[% r.text('url', { size => 47 }) %]</td>
             </tr>
         </table>

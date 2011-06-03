@@ -109,7 +109,7 @@ override 'accept' => sub
     my $model = $self->c->model( $self->_delete_model );
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This entity cannot currently be deleted.'
+        'This entity cannot currently be deleted due to related data.'
     ) unless $model->can_delete( $self->entity_id );
 
     $model->delete($self->entity_id);

@@ -1,9 +1,3 @@
-[% BLOCK layout_head %]
-    <script src="[% c.model('FileCache').squash_scripts(
-      'scripts/MB/Control/SelectAll.js'
-    ) %]"></script>
-[% END %]
-
 [%- WRAPPER 'artist/layout.tt' title=l('Recordings') page='recordings' -%]
     <h2>[% l('Recordings') %]</h2>
     [%- IF recordings.size -%]
@@ -15,4 +9,12 @@
     [%- ELSE -%]
         <p>[%- l('No recordings found.') -%]</p>
     [%- END -%]
+
+    [% IF standalone_only %]
+        <p>[% l('Showing only standalone recordings. {show_all|Show all recordings instead}.',
+                { show_all => c.uri_for_action('/artist/recordings', [ artist.gid ], { standalone => 0 }) }) %]</p>
+    [% ELSE %]
+        <p>[% l('Showing all recordings. {show_sa|Show only standalone recordings instead}.',
+                { show_sa => c.uri_for_action('/artist/recordings', [ artist.gid ], { standalone => 1 }) }) %]</p>
+    [% END %]
 [%- END -%]

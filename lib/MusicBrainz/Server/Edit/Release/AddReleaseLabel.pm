@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::Insert';
 
 sub edit_name { l('Add release label') }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
@@ -21,10 +22,11 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 around related_entities => sub {
     my ($orig, $self, @args) = @_;
-    return {
-        %{ $self->$orig(@args) },
-        label => [ $self->data->{label}{id} ]
-    }
+    my %related = %{ $self->$orig(@args) };
+    $related{label} = [ $self->data->{label}{id} ]
+        if exists $self->data->{label};
+
+    return \%related;
 };
 
 has '+data' => (
@@ -97,14 +99,27 @@ sub build_display_data
     return $data;
 }
 
-sub accept
+sub insert
 {
     my $self = shift;
-    $self->c->model('ReleaseLabel')->insert({
+    my %args = (
         release_id => $self->release_id,
-        label_id   => $self->data->{label}{id},
-        catalog_number => $self->data->{catalog_number}
-    });
+    );
+
+    $args{catalog_number} = $self->data->{catalog_number}
+        if exists $self->data->{catalog_number};
+
+    $args{label_id} = $self->data->{label}{id}
+        if exists $self->data->{label};
+
+    my $rl = $self->c->model('ReleaseLabel')->insert(\%args);
+    $self->entity_id($rl->id);
+}
+
+sub reject
+{
+    my $self = shift;
+    $self->c->model('ReleaseLabel')->delete($self->entity_id);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -55,7 +55,18 @@ around 'search' => sub
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
 
         my @releases;
-        if (@releases = $c->model('Release')->find_by_disc_id($disc_id)) {
+        if (my @medium_cdtocs = $c->model('MediumCDTOC')->find_by_discid($disc_id)) {
+            $c->model('Medium')->load(@medium_cdtocs);
+            my @mediums = map { $_->medium } @medium_cdtocs;
+
+            $c->model('MediumCDTOC')->load_for_mediums(@mediums);
+            $c->model('Release')->load(@mediums);
+            @releases = map { $_->release } @mediums;
+
+            # Kind of weird, but this means all releases just have 1 medium - the medium
+            # with the disc id
+            $_->release->add_medium($_) for @mediums;
+
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseStatus')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
@@ -64,17 +75,13 @@ around 'search' => sub
             $c->model('Country')->load(@releases);
             $c->model('Relationship')->load_subset([ 'url' ], @releases);
 
-            $c->model('Medium')->load_for_releases(@releases);
-
-            my @mediums = map { $_->all_mediums } @releases;
             my @tracklists = grep { defined } map { $_->tracklist } @mediums;
             $c->model('Track')->load_for_tracklists(@tracklists);
             $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
 
             my @need_artists = (@releases, map { $_->all_tracks } @tracklists);
             $c->model('ArtistCredit')->load(@need_artists);
-            $c->model('Artist')->load(map { $_->artist_credit->names->[0] }
-                                      grep { @{ $_->artist_credit->names } == 1 } @need_artists);
+            $c->model('Artist')->load(map { $_->artist_credit->all_names } @need_artists);
 
             my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
         }
@@ -89,7 +96,7 @@ around 'search' => sub
             }
         }
 
-        $c->res->body($c->stash->{serializer}->serialize_list('release', \@releases, $inc, { score => 100 }));
+        $c->res->body($c->stash->{serializer}->serialize_list('release-list', \@releases, $inc, { score => 100 }));
   	}
     else {
         $self->$orig($c);
@@ -147,7 +154,7 @@ sub lookup : Chained('load') PathPart('')
             if ($c->stash->{inc}->puids);
 
         if ($c->stash->{inc}->track_level_rels) {
-            $self->load_relationships($c, $_) for @recordings;
+            $self->load_relationships($c, @recordings);
         }
     }
 

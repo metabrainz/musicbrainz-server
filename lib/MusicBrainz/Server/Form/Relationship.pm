@@ -9,7 +9,11 @@ with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'ar' );
 
-has_field 'link_type_id' => ( type => 'Select' );
+has_field 'link_type_id' => (
+    type => 'Select',
+    required => 1,
+    required_message => l('Link type is required')
+);
 has_field 'direction'    => ( type => 'Checkbox' );
 
 has_field 'entity0'      => ( type => 'Compound' );
@@ -22,6 +26,12 @@ has_field 'entity1.name' => ( type => 'Text' );
 
 has attr_tree => (
     is => 'ro',
+    required => 1
+);
+
+has root => (
+    is => 'ro',
+    required => 1
 );
 
 sub trim
@@ -37,7 +47,7 @@ sub field_list
     my ($self) = @_;
 
     my @fields = ('attrs', { type => 'Compound' }),
-    my $attr_tree = $self->ctx->stash->{attr_tree};
+    my $attr_tree = $self->attr_tree;
     foreach my $attr ($attr_tree->all_children) {
         if ($attr->all_children) {
             my @options = $self->_build_options($attr, 'name', $attr->name, '');
@@ -75,8 +85,8 @@ sub options_link_type_id
 {
     my ($self) = @_;
 
-    my $root = $self->ctx->stash->{root};
-    return [ $self->_build_options($root, 'link_phrase', 'ROOT', '&nbsp;') ];
+    my $root = $self->root;
+    return [ $self->_build_options($root, 'short_link_phrase', 'ROOT', '&nbsp;') ];
 }
 
 sub edit_field_names { qw() }
@@ -84,19 +94,20 @@ sub edit_field_names { qw() }
 after validate => sub {
     my ($self) = @_;
 
-    my $link_type_id = $self->field('link_type_id')->value;
-    my $link_type = $self->ctx->model('LinkType')->get_by_id($link_type_id);
+    if(my $link_type_id = $self->field('link_type_id')->value) {
+        my $link_type = $self->ctx->model('LinkType')->get_by_id($link_type_id);
 
-    my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
-        $link_type->all_attributes;
+        my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
+            $link_type->all_attributes;
 
-    foreach my $attr ($self->attr_tree->all_children) {
-        my $value = $self->field('attrs')->field($attr->name)->value;
-        if ($value) {
-            my @values = $attr->all_children ? @{ $value } : ($attr->id);
-            if ($required_attributes{$attr->id} && !@values) {
-                $self->field('attrs')->field($attr->name)->add_error(
-                    l('This attribute is required'));
+        foreach my $attr ($self->attr_tree->all_children) {
+            my $value = $self->field('attrs')->field($attr->name)->value;
+            if ($value) {
+                my @values = $attr->all_children ? @{ $value } : ($attr->id);
+                if ($required_attributes{$attr->id} && !@values) {
+                    $self->field('attrs')->field($attr->name)->add_error(
+                        l('This attribute is required'));
+                }
             }
         }
     }

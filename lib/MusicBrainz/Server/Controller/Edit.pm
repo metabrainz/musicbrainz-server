@@ -75,7 +75,7 @@ sub enter_votes : Local RequireAuth
         );
     }
 
-    my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open_edits');
+    my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open');
     $c->response->redirect($redir);
     $c->detach;
 }
@@ -135,7 +135,7 @@ sub open : Local RequireAuth
     my ($self, $c) = @_;
 
     my $edits = $self->_load_paged($c, sub {
-         $c->model('Edit')->find({ status => $STATUS_OPEN }, shift, shift);
+         $c->model('Edit')->find_open_for_editor($c->user->id, shift, shift);
     });
 
     $c->model('Edit')->load_all(@$edits);

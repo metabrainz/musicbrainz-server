@@ -9,18 +9,17 @@
     tag_links.join(', ');
 END -%]
 
-<script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/TagEditor.js') %]"></script>
-<script type="text/javascript">
+<script type="text/javascript">//<![CDATA[
     $(function() {
         MB.Control.TagEditor($('#sidebar-tags'), "[% async %]",
             "[% c.uri_for('/tag/') %]",
             '[% link_entity(entity, 'tags', l('more…')).replace("'", "\\'").replace('</', '<\/') %]');
     });
-</script>
+//]]></script>
 
 <div id="sidebar-tags">
+    <h2>[% l('Tags') %]</h2>
     <p>
-    <strong>[% l('Tags:') %]</strong>
     <span class="tags">
       [% tag_list(tags, more, entity) %]
       [% UNLESS tags.size %]

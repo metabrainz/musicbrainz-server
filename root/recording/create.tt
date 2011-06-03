@@ -1,28 +1,8 @@
 [%- BLOCK layout_head -%]
-  <script type="text/javascript" src="[%-
-    c.model('FileCache').squash_scripts(
-      "lib/jquery.ui/external/jquery.cookie.js",
-      "scripts/MB/utility.js",
-      "scripts/MB/GuessCase/Handler/Base.js",
-      "scripts/MB/GuessCase/Handler/Track.js",
-      "scripts/MB/GuessCase/Mode/Base.js",
-      "scripts/MB/GuessCase/Mode/Classical.js",
-      "scripts/MB/GuessCase/Mode/English.js",
-      "scripts/MB/GuessCase/Mode/French.js",
-      "scripts/MB/GuessCase/Mode/Sentence.js",
-      "scripts/MB/GuessCase/Input.js",
-      "scripts/MB/GuessCase/Output.js",
-      "scripts/MB/GuessCase/Flags.js",
-      "scripts/MB/GuessCase/Utils.js",
-      "scripts/MB/GuessCase/Modes.js",
-      "scripts/MB/GuessCase/Main.js",
-      "scripts/MB/GuessCase/Track.js",
-      "scripts/MB/Control/ArtistCredit.js",
-      "scripts/MB/Control/Autocomplete.js",
-      "scripts/MB/Control/Bubble.js",
-      "scripts/MB/Control/GuessCase.js",
-    ) -%]"></script>
-  <script type="text/javascript">
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('guess-case.js.manifest') %]
+
+  <script type="text/javascript">//<![CDATA[
     $('document').ready(function() {
 
       var bubbles = MB.Control.BubbleCollection ();
@@ -30,7 +10,7 @@
       MB.Control.initialize_guess_case (bubbles, 'recording');
 
     });
-  </script>
+  //]]></script>
 [%- END -%]
 
 [% WRAPPER 'layout.tt' title=l('Add a new recording') full_width=1 %]

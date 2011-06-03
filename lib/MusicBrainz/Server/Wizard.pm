@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
+use Cache::Memcached;
 use Carp qw( croak );
+
+my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
 
 has '_current' => (
     is => 'rw',
@@ -184,7 +187,7 @@ sub render
 
     # hide errors if this is the first time (in this wizard session) that this
     # page is shown to the user.
-    if (! $self->shown->[$self->_current])
+    if (! $self->shown ($self->_current))
     {
         $page->clear_errors;
 
@@ -195,16 +198,16 @@ sub render
     }
 
     # mark the current page as having been shown to the user.
-    $self->shown->[$self->_current] = 1;
+    $self->shown ($self->_current, 1);
 }
 
 sub shown
 {
-    my $self = shift;
+    my ($self, $key, $val) = @_;
 
-    $self->_store->{shown} = [] unless $self->_store->{shown};
+    $self->_store ("shown_$key", $val) if $val;
 
-    return $self->_store->{shown};
+    return $self->_store ("shown_$key");
 }
 
 # returns the name of the current page.
@@ -234,10 +237,10 @@ sub _load_page
         my $form = $self->_load_form ($page, init_object => $init_object);
 
         $form->field('wizard_session_id')->value ($self->_session_id);
-        $self->_store->{"step ".$page} = $form->serialize;
+        $self->_store ("step_$page", $form->serialize);
     }
 
-    my $serialized = $self->_store->{"step ".$page} || {};
+    my $serialized = $self->_store ("step_$page") || {};
 
     return $self->_load_form ($page, serialized => $serialized);
 }
@@ -304,11 +307,9 @@ sub _post_to_page
     $params->{wizard_session_id} ||= $self->_session_id;
 
     my $page = $self->_load_form ($page_id);
+    $page->unserialize ( $self->_store ("step_$page_id"), $params );
 
-    $page->unserialize ( $self->_store->{"step $page_id"},
-                         $params );
-
-    $self->_store->{"step $page_id"} = $page->serialize;
+    $self->_store ("step_$page_id", $page->serialize);
 
     return $page;
 }
@@ -318,6 +319,7 @@ sub _route
     my ($self, $page) = @_;
 
     my $p = $self->c->request->parameters;
+    my $previous = $self->_current;
     my $requested = $self->_current;
     my $allow_skip = 1;
     if (defined $p->{next})
@@ -388,6 +390,13 @@ sub _route
         # FIXME: add notification
     }
 
+    if ($previous == $self->_current)
+    {
+        # We haven't moved away from the current page, which means navigate_to_page
+        # hasn't been called yet for this page.
+        $page = $self->navigate_to_page;
+    }
+
     return $page;
 }
 
@@ -427,16 +436,30 @@ around '_current' => sub {
     return $self->$orig ($value);
 };
 
+sub _cache_key
+{
+    my ($self, $key) = @_;
+
+    my $catalyst_session_id = $self->c->sessionid;
+    my $sid = $self->_session_id;
+
+    return "wizard_session:$catalyst_session_id:$sid:$key";
+}
+
 sub _store
 {
-    my ($self) = @_;
+    my ($self, $key, $value) = @_;
 
-    if (!defined $self->c->session->{wizard}->{$self->_session_id})
+    if (defined $value)
     {
-        $self->c->session->{wizard}->{$self->_session_id} = {};
+        $cache->set ($self->_cache_key ($key), $value);
+    }
+    else
+    {
+        $value = $cache->get ($self->_cache_key ($key));
     }
 
-    return $self->c->session->{wizard}->{$self->_session_id};
+    return $value;
 }
 
 sub _retrieve_wizard_settings
@@ -452,20 +475,19 @@ sub _retrieve_wizard_settings
 
     $self->_session_id ($p->{wizard_session_id});
 
-    $self->_current( $self->_store->{current} ) if defined $self->_store->{current};
+    $self->_current( $self->_store ('current') ) if defined $self->_store ('current');
 }
 
 sub _new_session
 {
     my ($self) = @_;
 
-    my $session_id = rand;
-    while (defined $self->c->session->{wizard}->{$session_id})
+    $self->_session_id(rand);
+    while (defined $self->_store ('wizard'))
     {
-        $session_id = rand;
+        $self->_session_id(rand);
     }
-    $self->c->session->{wizard}->{$session_id} = {};
-    $self->_session_id( $session_id );
+    $self->_store ('wizard', 1);
 
     $self->_store_wizard_settings;
 }
@@ -474,7 +496,7 @@ sub _store_wizard_settings
 {
     my ($self) = @_;
 
-    $self->_store->{current} = $self->_current;
+    $self->_store ('current', $self->_current);
 }
 
 sub _load_form
@@ -498,4 +520,25 @@ sub _load_form
     return $form;
 }
 
+=head1 LICENSE
+
+Copyright (C) 2010-2011 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+=cut
+
 1;
+

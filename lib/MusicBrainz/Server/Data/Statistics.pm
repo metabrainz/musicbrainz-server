@@ -6,17 +6,10 @@ use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Entity::Statistics;
 
-extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Statistics';
-}
 
 sub fetch {
     my ($self, @names) = @_;
@@ -96,6 +89,10 @@ my %stats = (
         DESC => "Count of all unique Barcodes",
         SQL => "SELECT COUNT(distinct barcode) FROM release",
     },
+    "count.medium" => {
+        DESC => "Count of all mediums",
+        SQL => "SELECT COUNT(*) FROM medium",
+    },
     "count.puid" => {
         DESC => "Count of all PUIDs joined to recordings",
         SQL => "SELECT COUNT(*) FROM recording_puid",
@@ -120,6 +117,22 @@ my %stats = (
         DESC => "Count of all artist credits",
         SQL => "SELECT COUNT(*) FROM artist_credit",
     },
+    "count.ipi" => {
+        DESC => "Count of IPI codes",
+        PREREQ => [qw[ count.ipi.artist count.ipi.label ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+            return $self->fetch("count.ipi.artist") + $self->fetch("count.ipi.label");
+        },
+    },
+    "count.ipi.artist" => {
+        DESC => "Count of artists with an IPI code",
+        SQL => "SELECT COUNT(*) FROM artist WHERE ipi_code IS NOT NULL",
+    },
+    "count.ipi.label" => {
+        DESC => "Count of labels with an IPI code",
+        SQL => "SELECT COUNT(*) FROM label WHERE ipi_code IS NOT NULL",
+    },
     "count.isrc.all" => {
         DESC => "Count of all ISRCs joined to recordings",
         SQL => "SELECT COUNT(*) FROM isrc",
@@ -128,10 +141,49 @@ my %stats = (
         DESC => "Count of unique ISRCs",
         SQL => "SELECT COUNT(distinct isrc) FROM isrc",
     },
+    "count.iswc.all" => {
+        DESC => "Count of all works with an ISWC",
+        SQL => "SELECT COUNT(*) FROM work WHERE iswc IS NOT NULL",
+    },
+    "count.iswc" => {
+        DESC => "Count of unique ISWCs",
+        SQL => "SELECT COUNT(distinct iswc) FROM work WHERE iswc IS NOT NULL",
+    },
     "count.vote" => {
         DESC => "Count of all votes",
         SQL => "SELECT COUNT(*) FROM vote",
         DB => 'RAWDATA'
+    },
+    "count.releasegroup.Nreleases" => {
+        DESC => "Distribution of releases per releasegroup",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT release_count, COUNT(*) AS freq
+                FROM release_group_meta
+                GROUP BY release_count
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 0 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.releasegroup.".$_."releases" => $dist{$_}
+                } keys %dist
+            };
+        },
     },
     "count.release.various" => {
         DESC => "Count of all 'Various Artists' releases",
@@ -154,6 +206,12 @@ my %stats = (
         DESC => "Count of media with at least one disc ID",
         SQL => "SELECT COUNT(DISTINCT medium)
                   FROM medium_cdtoc",
+    },
+    "count.release.has_discid" => {
+        DESC => "Count of releases with at least one disc ID",
+        SQL => "SELECT COUNT(DISTINCT medium.release)
+                  FROM medium_cdtoc
+                  JOIN medium ON medium_cdtoc.medium = medium.id",
     },
 
     "count.recording.has_isrc" => {
@@ -565,9 +623,10 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT c, COUNT(*) AS freq
                 FROM (
-                    SELECT medium, COUNT(*) AS c
+                    SELECT medium.release, COUNT(*) AS c
                     FROM medium_cdtoc
-                    GROUP BY medium
+                    JOIN medium ON medium_cdtoc.medium = medium.id
+                    GROUP BY medium.release
                 ) AS t
                 GROUP BY c
                 ",
@@ -589,6 +648,46 @@ my %stats = (
             +{
                 map {
                     "count.release.".$_."discids" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
+    "count.medium.Ndiscids" => {
+        DESC => "Distribution of disc IDs per medium (varying disc IDs)",
+        PREREQ => [qw[ count.medium count.medium.has_discid ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT medium, COUNT(*) AS c
+                    FROM medium_cdtoc
+                    GROUP BY medium
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            $dist{0} = $self->fetch("count.medium")
+                - $self->fetch("count.medium.has_discid");
+
+            +{
+                map {
+                    "count.medium.".$_."discids" => $dist{$_}
                 } keys %dist
             };
         },
@@ -704,6 +803,50 @@ my %stats = (
         },
     },
 
+    "count.recording.Nreleases" => {
+        DESC => "Distribution of appearances on releases per recording",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT r.id, count(*) AS c
+                    FROM recording r
+                        JOIN track t ON t.recording = r.id
+                        JOIN tracklist tl ON tl.id = t.tracklist
+                        JOIN medium m ON tl.id = m.tracklist
+                    GROUP BY r.id 
+                    UNION
+                    SELECT r.id, 0 AS c
+                    FROM recording r
+                        LEFT JOIN track t ON t.recording = r.id
+                    WHERE t.id IS NULL
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 0 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.recording.".$_."releases" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
     "count.ar.links" => {
         DESC => "Count of all advanced relationships links",
         CALC => sub {
@@ -794,30 +937,6 @@ sub recalculate_all
         my $s = join ", ", keys %notdone;
         die "Failed to solve stats dependencies: circular dependency? ($s)";
     }
-}
-
-sub get_latest_statistics {
-
-    my $self = shift;
-    my $query = "SELECT id,
-                        date_collected,
-                        name,
-                        value
-                   FROM statistic
-                  WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
-
-    $self->sql->select($query) or return;
-
-    my $stats = MusicBrainz::Server::Entity::Statistics->new();
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
-        $stats->date_collected($row->{date_collected})
-            unless $stats->date_collected;
-        $stats->data->{$row->{name}} = $row->{value};
-    }
-    $self->sql->finish;
-
-    return $stats;
 }
 
 1;

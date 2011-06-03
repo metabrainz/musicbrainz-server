@@ -30,9 +30,11 @@ sub add : Chained('load') RequireAuth
     my $collection = $c->stash->{collection};
     my $release_id = $c->request->params->{release};
 
+    my $release = $c->model('Release')->get_by_id($release_id);
+
     $c->model('Collection')->add_releases_to_collection($collection->id, $release_id);
 
-    $c->response->redirect($c->req->referer);
+    $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
     $c->detach;
 }
 
@@ -43,9 +45,11 @@ sub remove : Chained('load') RequireAuth
     my $collection = $c->stash->{collection};
     my $release_id = $c->request->params->{release};
 
+    my $release = $c->model('Release')->get_by_id($release_id);
+
     $c->model('Collection')->remove_releases_from_collection($collection->id, $release_id);
 
-    $c->response->redirect($c->req->referer);
+    $c->response->redirect($c->req->referer || $c->uri_for_action('/release/show', [ $release->gid ]));
     $c->detach;
 }
 

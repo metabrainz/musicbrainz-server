@@ -1,7 +1,6 @@
 [% BLOCK layout_head %]
-   <script src="[% c.uri_for('/static/scripts/MB/html.js') %]" type="text/javascript"></script>
-   <script src="[% c.uri_for('/static/scripts/MB/Control/URLCleanup.js') %]"></script>
-   <script type="text/javascript">
+  [% script_manifest('edit.js.manifest') %]
+   <script type="text/javascript">//<![CDATA[
     $('document').ready(function() {
       MB.Control.URLCleanup(
         null,
@@ -9,7 +8,7 @@
         $('#id-edit-url\\.url')
       );
     });
-   </script>
+   //]]></script>
 [% END %]
 
 [% WRAPPER 'url/layout.tt' title=l('Edit URL') page='edit' full_width=1 -%]

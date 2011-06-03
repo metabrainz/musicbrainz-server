@@ -13,7 +13,7 @@ sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 sub related_entities {
     my $self = shift;
     return {
-        release_group => [ $self->data->{entity_id} ],
+        release_group => [ $self->data->{entity}{id} ],
         artist => [
             $self->data->{new}{artist_credit}[0]{id},
             $self->data->{old}{artist_credit}[0]{id}
@@ -27,7 +27,7 @@ sub do_upgrade
     return {
         entity => {
             id => $self->row_id,
-            name => '[deleted]'
+            name => '[removed]'
         },
         new => {
             artist_credit => [

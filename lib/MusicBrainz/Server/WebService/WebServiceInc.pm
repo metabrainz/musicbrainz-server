@@ -13,6 +13,7 @@ has $_ => (
           artist_rels label_rels recording_rels release_rels
           release_group_rels url_rels work_rels
           tags ratings user_tags user_ratings
+          recording_level_rels work_level_rels
 );
 
 sub has_rels

@@ -51,11 +51,13 @@ sub replace
 sub _add_tracks {
     my ($self, $id, $tracks) = @_;
     my $i = 1;
-    for (@$tracks) {
-        $_->{tracklist} = $id;
-        $_->{position} = $i++;
-    }
-    $self->c->model('Track')->insert(@$tracks);
+    $self->c->model('Track')->insert(
+        map +{
+            %$_,
+            tracklist => $id,
+            position => $i++,
+            artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit})
+        }, @$tracks);
 }
 
 sub load
@@ -116,12 +118,11 @@ sub merge
     my ($self, $new_tracklist_id, $old_tracklist_id) = @_;
     my @recording_merges = @{
         $self->sql->select_list_of_lists(
-            'SELECT newr.id AS new, oldr.id AS old
+            'SELECT newt.recording AS new, oldt.recording AS old
                FROM track oldt
                JOIN track newt ON newt.position = oldt.position
-               JOIN recording newr ON newt.recording = newr.id
-               JOIN recording oldr ON oldt.recording = oldr.id
-              WHERE newt.tracklist = ? AND oldt.tracklist = ?',
+              WHERE newt.tracklist = ? AND oldt.tracklist = ?
+                AND newt.recording != oldt.recording',
             $new_tracklist_id, $old_tracklist_id
         )
     };
@@ -131,7 +132,7 @@ sub merge
     }
 }
 
-sub find_or_insert
+sub find
 {
     my ($self, $tracks) = @_;
 
@@ -141,23 +142,57 @@ sub find_or_insert
                     SELECT tracklist FROM track
                       JOIN track_name name ON name.id = track.name
                      WHERE ' . join(' OR ', ('(
-                               name.name = ?
+                               name.name ILIKE ?
                            AND artist_credit = ?
-                           AND recording = ?
                            AND position = ?
                            )') x @$tracks) . '
                 ) s
        GROUP BY tracklist
          HAVING COUNT(tracklist) = ?';
 
+    return @{
+        $self->sql->select_single_column_array(
+            $query,
+            (map {
+                $_->{name},
+                $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
+                $_->{position}
+            } @$tracks),
+            scalar(@$tracks)
+        )
+    };
+}
+
+sub find_or_insert
+{
+    my ($self, $tracks) = @_;
+    my $query =
+        'SELECT tracklist
+           FROM (
+                    SELECT tracklist, count(track.id) AS matched_track_count
+                      FROM track
+                      JOIN track_name name ON name.id = track.name
+                     WHERE ' . join(' OR ', ('(
+                               name.name = ?
+                           AND artist_credit = ?
+                           AND recording = ?
+                           AND position = ?
+                           )') x @$tracks) . '
+                  GROUP BY tracklist
+                ) s
+           JOIN tracklist ON s.tracklist = tracklist.id
+          WHERE tracklist.track_count = s.matched_track_count
+            AND tracklist.track_count = ?';
+
+    my $i = 1;
     my @possible_tracklists = @{
         $self->sql->select_single_column_array(
             $query,
             (map {
                 $_->{name},
-                $_->{artist_credit},
-                $_->{recording_id},
-                $_->{position}
+                $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
+                $_->{recording},
+                $i++,
             } @$tracks),
             scalar(@$tracks)
         )

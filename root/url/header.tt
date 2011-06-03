@@ -5,13 +5,13 @@
 ] -%]
 
 <div class="urlheader">
-<h1><a href="[% url.url | uri %]">[% url.pretty_name | html %]</a></h1>
+<h1><a href="[% html_escape(url.url) %]">[% url.pretty_name | html %]</a></h1>
 <p class="subheader">
 <span class="prefix">~</span>
 [% IF url.description %]
      [% html_escape(url.description) %]
 [% ELSE %]
-     [% html_escape(url.url) %]
+     [% display_url(url.url) %]
 [% END %]
 </p>
 </div>

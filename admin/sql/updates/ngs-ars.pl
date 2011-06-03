@@ -1,4 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+
+use warnings;
 
 use strict;
 use FindBin;
@@ -533,7 +535,6 @@ my %track_ar_types = (
         22 => 'recording',   # live sound
         23 => 'recording',   # mix
         24 => 'recording',   # recording
-#       25 => # misc => both
         26 => 'recording',   # legal representation
         27 => 'recording',   # booking
         28 => 'recording',   # artists and repertoire
@@ -543,7 +544,6 @@ my %track_ar_types = (
         32 => 'recording',   # graphic design
         33 => 'recording',   # photography
         34 => 'recording',   # travel
-#       35 => # publishing => both
         36 => 'recording',   # merchandise
         38 => 'recording',   # compilations
         39 => 'recording',   # compiler
@@ -559,28 +559,24 @@ my %track_ar_types = (
         53 => 'work',        # writer
     },
     'label' => {
-#        2 => # publishing => both
+
     },
     'track' => {
-        #1  => # covers and versions => both
         2  => 'recording', # first track release
         3  => 'recording', # remaster
         4  => 'work',      # other version
-        5  => 'recording', # cover
+        5  => 'skip',      # cover
         6  => 'recording', # remixes
         7  => 'recording', # samples material
         8  => 'recording', # mashes up
-        #10 => # compilations => both
         11 => 'recording', # remix
         12 => 'recording', # compilation
         13 => 'recording', # DJ-mix
-        14 => 'work',      # medley
         16 => 'recording', # karaoke
     },
     'url' => {
         1  => 'recording',   # production
         2  => 'recording',   # recording studio
-#       3  => # misc => both
         4  => 'recording',   # legal representation
         5  => 'recording',   # booking
         6  => 'recording',   # artists and repertoire
@@ -590,7 +586,6 @@ my %track_ar_types = (
         10 => 'recording',   # graphic design
         11 => 'recording',   # photography
         12 => 'recording',   # travel
-#       13 => # publishing => both
         14 => 'recording',   # merchandise
         15 => 'recording',   # get the music
         16 => 'recording',   # purchase for download
@@ -603,6 +598,20 @@ my %track_ar_types = (
         26 => 'work',        # score
         27 => 'recording',   # IMDB samples
         28 => 'recording',   # streaming
+    }
+);
+
+my %duplicate_to_works = (
+    artist => {
+        25 => 1,
+        35 => 1
+    },
+    label => {
+        2 => 1,
+    },
+    url => {
+        3 => 1,
+        13 => 1
     }
 );
 
@@ -628,6 +637,7 @@ foreach my $orig_t0 (@entity_types) {
         elsif ($orig_t0 eq 'track' && $orig_t1 eq 'track') {
             push @new_t, ['recording', 'recording'];
             push @new_t, ['work', 'work'];
+            push @new_t, ['recording', 'work'];
         }
         ## XXX: will only work unless %track_ar_types has some values for 'album'
         elsif ($orig_t0 eq 'track') {
@@ -659,17 +669,18 @@ foreach my $orig_t0 (@entity_types) {
                         && exists $album_ar_types{$orig_t1}->{ $row->{id} }
                         && $album_ar_types{$orig_t1}->{ $row->{id} } ne ($reverse ? $new_t1 : $new_t0)) {
                     next;
-                } 
-                if ($orig_t0 eq "track" && exists $track_ar_types{$orig_t1}
+                }
+                elsif ($orig_t0 eq "track" && exists $track_ar_types{$orig_t1}
                         && exists $track_ar_types{$orig_t1}->{ $row->{id} }
                         && $track_ar_types{$orig_t1}->{ $row->{id} } ne ($reverse ? $new_t1 : $new_t0)) {
                     next;
-                } 
+                }
                 elsif ($orig_t1 eq "track" && exists $track_ar_types{$orig_t0}
                         && exists $track_ar_types{$orig_t0}->{ $row->{id} }
                         && $track_ar_types{$orig_t0}->{ $row->{id} } ne ($reverse ? $new_t0 : $new_t1)) {
                     next;
-                } 
+                }
+
                 my $id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
                 my $key = join("_", $new_t0, $new_t1, $row->{id});
                 $link_type_map{$key} = $id;
@@ -698,7 +709,8 @@ foreach my $orig_t0 (@entity_types) {
                 if (exists $seen_ar_type{$row->{id}}) {
                     # Generate a new UUID if we are making a copy
                     my $uuid = OSSP::uuid->new;
-                    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/$id");
+                    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/".
+                            $row->{name});
                     $gid = $uuid->export("str");
                 }
                 $seen_ar_type{$row->{id}} = 1;
@@ -727,20 +739,10 @@ foreach my $orig_t0 (@entity_types) {
     }
 }
 
-print STDERR "Initializing recording-work AR types\n";
-my $root_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
 my $uuid = OSSP::uuid->new;
-$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$root_id");
-my $gid = $uuid->export("str");
-$sql->do("INSERT INTO link_type
-    (id, gid, name, link_phrase,
-    reverse_link_phrase, short_link_phrase, entity_type0, entity_type1)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-    $root_id, $gid, "ROOT", "", "", "ROOT", "recording", "work");
-
 my $recording_work_link_type_id = $sql->select_single_value("SELECT nextval('link_type_id_seq')");
-$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/$recording_work_link_type_id");
-$gid = $uuid->export("str");
+$uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/recording-work/performance");
+my $gid = $uuid->export("str");
 $sql->do("INSERT INTO link_type
     (id, gid, name, description, link_phrase,
     reverse_link_phrase, short_link_phrase, entity_type0, entity_type1)
@@ -788,7 +790,11 @@ foreach my $orig_t0 (@entity_types) {
         print STDERR "Converting $orig_t0 <=> $orig_t1 links\n";
 
         my %attribs;
-        my $rows = $sql->select_list_of_hashes("SELECT * FROM public.link_attribute WHERE link_type='${orig_t0}_${orig_t1}'");
+        my $rows = $sql->select_list_of_hashes(
+            # Skip the cover AR as this is manually handled
+            "SELECT * FROM public.link_attribute WHERE link_type='${orig_t0}_${orig_t1}'
+                AND NOT ( link_type = 'track_track' AND link IN (5,14) )"
+        );
         foreach my $row (@$rows) {
             my $link = $row->{link};
             if (!exists($attribs{$link})) {
@@ -828,7 +834,10 @@ foreach my $orig_t0 (@entity_types) {
             close(AMAZON);
         }
         else {
-            $query = "SELECT * FROM public.l_${orig_t0}_${orig_t1}";
+            # Skip the cover AR as this is manually handled
+            $query =
+                "SELECT * FROM public.l_${orig_t0}_${orig_t1}
+                 WHERE NOT ('$orig_t0' = 'track' AND '$orig_t1' = 'track' AND link_type IN (5,14) )";
         }
 
         $rows = $sql->select_list_of_hashes($query);
@@ -855,229 +864,228 @@ foreach my $orig_t0 (@entity_types) {
                 $enddate .= "-00";
             }
 
-            my $new_t0 = $new_entity_types{$orig_t0} || $orig_t0;
-            my $new_t1 = $new_entity_types{$orig_t1} || $orig_t1;
-            if ($orig_t0 eq "album") {
-                # album-<something>
-                $new_t0 = "release";
-                if (exists $album_ar_types{$orig_t1}) {
-                    # we have a special case for this AR type
-                    $new_t0 = $album_ar_types{$orig_t1}->{ $row->{link_type} } || "release";
-                }
-                if ($orig_t1 eq "album") {
-                    # album-album
-                    $new_t1 = $new_t0;
-                }
+            my (@target, @source);
+            if ($orig_t1 eq 'track'
+                    && exists $duplicate_to_works{ $orig_t0 }
+                    && exists $duplicate_to_works{ $orig_t0 }{ $row->{link_type} }) {
+                @source = $new_entity_types{$orig_t0} || $orig_t0;
+                @target = qw( recording work );
             }
-
-            # Move Discogs master URLs the release group
-            if ($orig_t0 eq "album" && $orig_t1 eq "url" && $row->{link_type} == 24) {
-                if ($row->{url} =~ qr{/master/}) {
-                    $new_t0 = "release_group";
-                }
-            }
-
-            if ($orig_t1 eq "track" && exists $track_ar_types{$orig_t0}) {
-                $new_t1 = $track_ar_types{$orig_t0}->{ $row->{link_type} } || "recording";
-            }
-            if ($orig_t0 eq "track" && exists $track_ar_types{$orig_t1}) {
-                $new_t0 = $track_ar_types{$orig_t1}->{ $row->{link_type} } || "recording";
-            }
-
-            my $reverse = 0;
-            if ($new_t0 gt $new_t1) {
-                ($new_t0, $new_t1) = ($new_t1, $new_t0);
-                $reverse = 1;
-            }
-
-            my ($entity0, $entity1);
-            if ($reverse) {
-                $entity0 = $row->{link1};
-                $entity1 = $row->{link0};
+            elsif ($orig_t0 eq 'track'
+                    && exists $duplicate_to_works{ $orig_t1 }
+                    && exists $duplicate_to_works{ $orig_t1 }{ $row->{link_type} }) {
+                @source = qw( recording work );
+                @target = $new_entity_types{$orig_t1} || $orig_t1;
             }
             else {
-                $entity0 = $row->{link0};
-                $entity1 = $row->{link1};
-            }
+                my $new_t0 = $new_entity_types{$orig_t0} || $orig_t0;
+                my $new_t1 = $new_entity_types{$orig_t1} || $orig_t1;
 
-            my @entity0 = ( $entity0 );
-            my @entity1 = ( $entity1 );
-
-            if ($new_t0 eq "release_group") {
-                # album => release_group
-                @entity0 = ( $rg_id_map{$entity0} );
-            }
-            elsif ($new_t0 eq "release") {
-                # album => release1, release2, ...
-                @entity0 = @{ $release_id_map{$entity0} };
-            }
-
-            if ($new_t1 eq "release_group") {
-                # album -> release_group
-                @entity1 = ( $rg_id_map{$entity1} );
-            }
-            elsif ($new_t1 eq "release") {
-                # album -> release1, release2, ...
-                @entity1 = @{ $release_id_map{$entity1} };
-            }
-
-            #if (scalar(@entity0) > 1 && $orig_t0 eq "album" && $orig_t1 eq "url" && $row->{link_type} == 30) {
-            #    printf "A %d\n", $row->{link1};
-            #}
-            #if (scalar(@entity0) > 1 && $orig_t0 eq "album" && $orig_t1 eq "url" && $row->{link_type} == 24) {
-            #    printf "D %d\n", $row->{link1};
-            #}
-
-            my @new_links;
-
-            # Try to disambiguate Discogs release URLs
-            if ($new_t0 eq "release" && $new_t1 eq "url" && $row->{link_type} == 24 && scalar(@entity0) > 1 && scalar(@entity1) == 1) {
-                my $discogs_info = $discogs{$row->{link1}};
-                if (defined $discogs_info) {
-                    my %mb_info = load_release_info(@entity0);
-                    my @matches = match_discogs_catno_1($discogs_info, \%mb_info, @entity0);
-                    unless (@matches) {
-                        @matches = match_discogs_catno_2($discogs_info, \%mb_info, @entity0);
-                        unless (@matches) {
-                            @matches = match_discogs_country($discogs_info, \%mb_info, @entity0);
-                            unless (@matches) {
-                                @matches = @entity0;
-                            }
-                        }
+                if ($orig_t0 eq "album") {
+                    # album-<something>
+                    $new_t0 = "release";
+                    if (exists $album_ar_types{$orig_t1}) {
+                        # we have a special case for this AR type
+                        $new_t0 = $album_ar_types{$orig_t1}->{ $row->{link_type} } || "release";
                     }
-                    @entity0 = @matches;
+                    if ($orig_t1 eq "album") {
+                        # album-album
+                        $new_t1 = $new_t0;
+                    }
                 }
+
+                # Move Discogs master URLs the release group
+                if ($orig_t0 eq "album" && $orig_t1 eq "url" && $row->{link_type} == 24) {
+                    if ($row->{url} =~ qr{/master/}) {
+                        $new_t0 = "release_group";
+                    }
+                }
+
+                if ($orig_t1 eq "track" && exists $track_ar_types{$orig_t0}) {
+                    $new_t1 = $track_ar_types{$orig_t0}->{ $row->{link_type} } || "recording";
+                }
+                if ($orig_t0 eq "track" && exists $track_ar_types{$orig_t1}) {
+                    $new_t0 = $track_ar_types{$orig_t1}->{ $row->{link_type} } || "recording";
+                }
+
+                @source = ($new_t0);
+                @target = ($new_t1);
             }
 
-            # Try to disambiguate Amazon release URLs
-            if ($new_t0 eq "release" && $new_t1 eq "url" && $row->{link_type} == 30 && scalar(@entity0) > 1 && scalar(@entity1) == 1) {
-                my $amazon_info = $amazon{$row->{link1}};
-                if (defined $amazon_info) {
-                    my %mb_info = load_release_info(@entity0);
-                    #printf "Amazon info: @{$amazon_info}\n";
-                    #foreach my $r (keys %mb_info) {
-                    #    my %info = %{$mb_info{$r}};
-                    #    printf "MB info %s:\n", $r;
-                    #    foreach my $k (keys %info) {
-                    #        printf " %s => %s\n", $k, $info{$k};
-                    #    }
-                    #}
-                    my @matches = match_amazon_barcode($amazon_info, \%mb_info, @entity0);
-                    #printf "Barcode matches: @matches\n" if @matches;
-                    unless (@matches) {
-                        @matches = match_amazon_barcode_2($amazon_info, \%mb_info, @entity0);
-                        #printf "Barcode2 matches: @matches\n" if @matches;
-                        unless (@matches) {
-                            @matches = match_amazon_date($amazon_info, \%mb_info, @entity0);
-                            #printf "Date matches: @matches\n" if @matches;
+            for my $loop_target (@target) {
+                for my $loop_source (@source) {
+                    my ($new_t0, $new_t1) = ($loop_source, $loop_target);
+
+                    my $reverse = 0;
+                    if ($new_t0 gt $new_t1) {
+                        ($new_t0, $new_t1) = ($new_t1, $new_t0);
+                        $reverse = 1;
+                    }
+
+                    my ($entity0, $entity1);
+                    if ($reverse) {
+                        $entity0 = $row->{link1};
+                        $entity1 = $row->{link0};
+                    }
+                    else {
+                        $entity0 = $row->{link0};
+                        $entity1 = $row->{link1};
+                    }
+
+                    my @entity0 = ( $entity0 );
+                    my @entity1 = ( $entity1 );
+
+                    if ($new_t0 eq "release_group") {
+                        # album => release_group
+                        @entity0 = ( $rg_id_map{$entity0} );
+                    }
+                    elsif ($new_t0 eq "release") {
+                        # album => release1, release2, ...
+                        @entity0 = @{ $release_id_map{$entity0} };
+                    }
+
+                    if ($new_t1 eq "release_group") {
+                        # album -> release_group
+                        @entity1 = ( $rg_id_map{$entity1} );
+                    }
+                    elsif ($new_t1 eq "release") {
+                        # album -> release1, release2, ...
+                        @entity1 = @{ $release_id_map{$entity1} };
+                    }
+
+                    my @new_links;
+
+                    # Try to disambiguate Discogs release URLs
+                    if ($new_t0 eq "release" && $new_t1 eq "url" && $row->{link_type} == 24 && scalar(@entity0) > 1 && scalar(@entity1) == 1) {
+                        my $discogs_info = $discogs{$row->{link1}};
+                        if (defined $discogs_info) {
+                            my %mb_info = load_release_info(@entity0);
+                            my @matches = match_discogs_catno_1($discogs_info, \%mb_info, @entity0);
                             unless (@matches) {
-                                @matches = match_amazon_year_format($amazon_info, \%mb_info, @entity0);
-                                #printf "Year+format matches: @matches\n" if @matches;
+                                @matches = match_discogs_catno_2($discogs_info, \%mb_info, @entity0);
                                 unless (@matches) {
-                                    @matches = @entity0;
-                                    $amz_not_clean++;
-                                    #printf "No matches: @matches\n" if @matches;
+                                    @matches = match_discogs_country($discogs_info, \%mb_info, @entity0);
+                                    unless (@matches) {
+                                        @matches = @entity0;
+                                    }
                                 }
                             }
+                            @entity0 = @matches;
                         }
                     }
-                    @entity0 = @matches;
-                    #printf "---------------------------------------------------\n";
-                }
-            }
 
-            # Try to disambiguate 'part of set' and 'transliteration' ARs
-            if ($new_t0 eq "release" && $new_t1 eq "release" &&
-                ($row->{link_type} == 15 || $row->{link_type} == 17) &&
-                (scalar(@entity0) > 1 || scalar(@entity1) > 1)) {
-                #printf STDERR " ** Disambiguating %s and %s\n", join(',', @entity0), join(',', @entity1);
-                my @ids = (@entity0, @entity1);
-                my $rinfo = $sql->select_list_of_hashes('
+                    # Try to disambiguate Amazon release URLs
+                    if ($new_t0 eq "release" && $new_t1 eq "url" && $row->{link_type} == 30 && scalar(@entity0) > 1 && scalar(@entity1) == 1) {
+                        my $amazon_info = $amazon{$row->{link1}};
+                        if (defined $amazon_info) {
+                            my %mb_info = load_release_info(@entity0);
+                            my @matches = match_amazon_barcode($amazon_info, \%mb_info, @entity0);
+                            unless (@matches) {
+                                @matches = match_amazon_barcode_2($amazon_info, \%mb_info, @entity0);
+                                unless (@matches) {
+                                    @matches = match_amazon_date($amazon_info, \%mb_info, @entity0);
+                                    unless (@matches) {
+                                        @matches = match_amazon_year_format($amazon_info, \%mb_info, @entity0);
+                                        unless (@matches) {
+                                            @matches = @entity0;
+                                            $amz_not_clean++;
+                                        }
+                                    }
+                                }
+                            }
+                            @entity0 = @matches;
+                        }
+                    }
+
+                    # Try to disambiguate 'part of set' and 'transliteration' ARs
+                    if ($new_t0 eq "release" && $new_t1 eq "release" &&
+                            ($row->{link_type} == 15 || $row->{link_type} == 17) &&
+                                (scalar(@entity0) > 1 || scalar(@entity1) > 1)) {
+                        my @ids = (@entity0, @entity1);
+                        my $rinfo = $sql->select_list_of_hashes('
                     SELECT id, releasedate, country, barcode, catno, label
                     FROM public.release r
                     WHERE r.id IN ('.placeholders(@ids).')', @ids);
-                my %rinfo = map { $_->{id} => $_ } @$rinfo;
-                @new_links = match_release_events(\%rinfo, \@entity0, \@entity1);
-                if (@new_links) {
-                    #foreach my $r (@new_links) {
-                        #printf STDERR "      %d -> %d\n", $r->[0], $r->[1];
-                    #}
-                    $m_clean += 1;
-                #        printf STDERR "      CLEAN MATCH\n";
-                }
-                else {
-                    $m_not_clean += 1;
-                }
-            }
-
-            # Generate all combinations
-            if (!scalar(@new_links)) {
-                foreach $entity0 (@entity0) {
-                    foreach $entity1 (@entity1) {
-                        next if $entity0 == $entity1;
-                        push @new_links, [$entity0, $entity1];
+                        my %rinfo = map { $_->{id} => $_ } @$rinfo;
+                        @new_links = match_release_events(\%rinfo, \@entity0, \@entity1);
+                        if (@new_links) {
+                            $m_clean += 1;
+                        }
+                        else {
+                            $m_not_clean += 1;
+                        }
                     }
-                }
-            }
 
-            if ($new_t0 eq "release" && $new_t1 eq "release") {
-				foreach my $pair (@new_links) {
-					printf LOG "%d - %s\n", $pair->[0], $pair->[1];
-				}
-			}
+                    # Generate all combinations
+                    if (!scalar(@new_links)) {
+                        foreach $entity0 (@entity0) {
+                            foreach $entity1 (@entity1) {
+                                next if $entity0 == $entity1;
+                                push @new_links, [$entity0, $entity1];
+                            }
+                        }
+                    }
 
-            my $link_type_key = join("_", $new_t0, $new_t1, $row->{link_type});
-            my $link_type_id = $link_type_map{$link_type_key};
+                    if ($new_t0 eq "release" && $new_t1 eq "release") {
+                        foreach my $pair (@new_links) {
+                            printf LOG "%d - %s\n", $pair->[0], $pair->[1];
+                        }
+                    }
 
-            my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
-            my $link_id;
-            if (!exists($links{$key})) {
-                $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
-                $links{$key} = $link_id;
-                my @begindate = split(/-/, $begindate);
-                my @enddate = split(/-/, $enddate);
-                $sql->do("
+                    my $link_type_key = join("_", $new_t0, $new_t1, $row->{link_type});
+#                    warn $link_type_key;
+#                    warn $orig_t0;
+#                    warn $orig_t1;
+                    my $link_type_id = $link_type_map{$link_type_key};
+
+                    my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
+                    my $link_id;
+                    if (!exists($links{$key})) {
+                        $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+                        $links{$key} = $link_id;
+                        my @begindate = split(/-/, $begindate);
+                        my @enddate = split(/-/, $enddate);
+                        $sql->do("
                     INSERT INTO link
                         (id, link_type, begin_date_year, begin_date_month, begin_date_day,
                         end_date_year, end_date_month, end_date_day, attribute_count)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ", $link_id, $link_type_id,
-                    ($begindate[0] + 0) || undef,
-                    ($begindate[1] + 0) || undef,
-                    ($begindate[2] + 0) || undef,
-                    ($enddate[0] + 0) || undef,
-                    ($enddate[1] + 0) || undef,
-                    ($enddate[2] + 0) || undef,
-                    scalar(@attrs));
-                foreach my $attr (@attrs) {
-                    $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
-                        $link_id, $attr);
-                }
-            }
-            else {
-                $link_id = $links{$key};
-            }
+                             ($begindate[0] + 0) || undef,
+                             ($begindate[1] + 0) || undef,
+                             ($begindate[2] + 0) || undef,
+                             ($enddate[0] + 0) || undef,
+                             ($enddate[1] + 0) || undef,
+                             ($enddate[2] + 0) || undef,
+                             scalar(@attrs));
+                        foreach my $attr (@attrs) {
+                            $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                                     $link_id, $attr);
+                        }
+                    }
+                    else {
+                        $link_id = $links{$key};
+                    }
 
-            foreach my $r (@new_links) {
-                my ($entity0, $entity1) = @$r;
-                if ($i % 100 == 0) {
-                    printf STDERR " %d/%d\r", $i, $cnt;
-                }
-                $i += 1;
-                $key = join("_", $link_id, $entity0, $entity1);
-                if (!exists($l_links{$key})) {
-                    $l_links{$key} = 1;
-                    $sql->do("INSERT INTO l_${new_t0}_${new_t1}
+                    foreach my $r (@new_links) {
+                        my ($entity0, $entity1) = @$r;
+                        if ($i % 100 == 0) {
+                            printf STDERR " %d/%d\r", $i, $cnt * @target;
+                        }
+                        $i += 1;
+                        $key = join("_", $link_id, $entity0, $entity1);
+                        if (!exists($l_links{$key})) {
+                            $l_links{$key} = 1;
+                            $sql->do("INSERT INTO l_${new_t0}_$new_t1
                         (link, entity0, entity1) VALUES (?, ?, ?)",
-                        $link_id, $entity0, $entity1);
-                    $n_links++;
+                                     $link_id, $entity0, $entity1);
+                            $n_links++;
+                        }
+                    }
                 }
             }
-
         }
-
     }
-
 }
 
 # Insert default recording-work AR type
@@ -1085,10 +1093,228 @@ my $recording_work_link_id = $sql->select_single_value("SELECT nextval('link_id_
 $sql->do("INSERT INTO link (id, link_type)
    VALUES (?, ?)", $recording_work_link_id, $recording_work_link_type_id);
 
-$sql->do("INSERT INTO l_recording_work
-    (link, entity0, entity1) 
-    SELECT ?, id, id FROM work",
-    $recording_work_link_id);
+# Handle the cover AR, which depends on which attributes are present
+{
+    my %links;
+    my %attribs;
+    my $rows = $sql->select_list_of_hashes(
+        # Skip the cover AR as this is manually handled
+        "SELECT * FROM public.link_attribute
+          WHERE link_type = 'track_track'"
+    );
+    foreach my $row (@$rows) {
+        my $link = $row->{link};
+        if (!exists($attribs{$link})) {
+            $attribs{$link} = [];
+        }
+        push @{$attribs{$link}}, $row->{attribute_type};
+    }
+
+    my $TRANSLATED    = 517;
+    my $PARODY        = 511;
+    my $OTHER_VERSION = 4;
+
+    my $uuid = OSSP::uuid->new;
+    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-attribute-type/cover");
+    my $gid = $uuid->export("str");
+
+    $sql->do("SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type))");
+    my $cover_attribute_id = $sql->select_single_value("SELECT nextval('link_attribute_type_id_seq')");
+    $sql->do(
+        'INSERT INTO link_attribute_type
+         (id, root, child_order, gid, name, description) VALUES
+         (?,  ?, ?, ?, ?, ?)',
+        $cover_attribute_id, $cover_attribute_id, 0, $gid,
+        'cover', 'Indicates that one entity is a cover of another entity'
+    );
+
+    # Recording-work performance should allow 'cover' as an attribute
+    $sql->do(
+        'INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
+             VALUES (?, ?, ?, ?)',
+        $recording_work_link_type_id, $cover_attribute_id, 0, 1);
+
+    # Work-work other version should allow parody and translated as attributes
+    $sql->do(
+        "INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
+             SELECT ?, id, 0, 1 FROM link_attribute_type WHERE name IN ('parody', 'translated')",
+        $link_type_map{ join("_", 'work', 'work', $OTHER_VERSION) });
+
+    $rows = $sql->select_list_of_hashes(
+        'SELECT * FROM public.l_track_track WHERE link_type = 5'
+    );
+    for my $row (@$rows) {
+        my $id = $row->{id};
+
+        my $begindate = $row->{begindate} || "0000-00-00";
+        my $enddate = $row->{enddate} || "0000-00-00";
+        MusicBrainz::Server::Validation::TrimInPlace($begindate);
+        MusicBrainz::Server::Validation::TrimInPlace($enddate);
+        while (length($begindate) < 10) {
+            $begindate .= "-00";
+        }
+        while (length($enddate) < 10) {
+            $enddate .= "-00";
+        }
+
+        my %row_attrs;
+        my @attrs;
+        if (exists($attribs{$id})) {
+            %row_attrs = map { $_ => 1 } @{$attribs{$id}};
+            @attrs = sort keys %row_attrs;
+        }
+
+        my ($t0, $t1);
+        my ($e0, $e1);
+        my $old_type_id;
+        my $link_type_id;
+        if (exists $row_attrs{$TRANSLATED} || exists $row_attrs{$PARODY}) {
+            $t0 = 'work';
+            $t1 = 'work';
+            my $link_type_key = join("_", $t0, $t1, $OTHER_VERSION);
+            $link_type_id = $link_type_map{$link_type_key};
+            ($e0, $e1) = ($row->{link1}, $row->{link0});
+        }
+        else {
+            $t0 = 'recording';
+            $t1 = 'work';
+            $link_type_id = $recording_work_link_type_id;
+            ($e0, $e1) = ($row->{link0}, $row->{link1});
+            push @attrs, $cover_attribute_id;
+        }
+
+        my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
+        my $link_id;
+        if (!exists($links{$key})) {
+            $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+            $links{$key} = $link_id;
+            my @begindate = split(/-/, $begindate);
+            my @enddate = split(/-/, $enddate);
+            $sql->do("
+                    INSERT INTO link
+                        (id, link_type, begin_date_year, begin_date_month, begin_date_day,
+                        end_date_year, end_date_month, end_date_day, attribute_count)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ", $link_id, $link_type_id,
+                     ($begindate[0] + 0) || undef,
+                     ($begindate[1] + 0) || undef,
+                     ($begindate[2] + 0) || undef,
+                     ($enddate[0] + 0) || undef,
+                     ($enddate[1] + 0) || undef,
+                     ($enddate[2] + 0) || undef,
+                     scalar(@attrs));
+            foreach my $attr (@attrs) {
+                $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                         $link_id, $attr);
+            }
+        }
+        else {
+            $link_id = $links{$key};
+        }
+
+        $sql->do(
+            "INSERT INTO l_${t0}_${t1}
+                 (link, entity0, entity1) VALUES (?, ?, ?)",
+            $link_id, $e0, $e1);
+    }
+}
+
+# Handle the medley AR
+{
+    my %links;
+    my %attribs;
+    my $rows = $sql->select_list_of_hashes(
+        # Skip the cover AR as this is manually handled
+        "SELECT * FROM public.link_attribute
+          WHERE link_type = 'track_track'"
+    );
+    foreach my $row (@$rows) {
+        my $link = $row->{link};
+        if (!exists($attribs{$link})) {
+            $attribs{$link} = [];
+        }
+        push @{$attribs{$link}}, $row->{attribute_type};
+    }
+
+    $rows = $sql->select_list_of_hashes(
+        'SELECT * FROM public.l_track_track WHERE link_type = 14'
+    );
+    for my $row (@$rows) {
+        my $id = $row->{id};
+
+        my @attrs;
+        if (exists($attribs{$id})) {
+            my %attrs = map { $_ => 1 } @{$attribs{$id}};
+            @attrs = keys %attrs;
+            @attrs = sort @attrs;
+        }
+
+        my $begindate = $row->{begindate} || "0000-00-00";
+        my $enddate = $row->{enddate} || "0000-00-00";
+        MusicBrainz::Server::Validation::TrimInPlace($begindate);
+        MusicBrainz::Server::Validation::TrimInPlace($enddate);
+        while (length($begindate) < 10) {
+            $begindate .= "-00";
+        }
+        while (length($enddate) < 10) {
+            $enddate .= "-00";
+        }
+
+        my ($t0, $t1) = ('recording', 'work');
+
+        my $link_type_key = join('_', $t0, $t1, $row->{link_type});
+        my $link_type_id = $link_type_map{$link_type_key};
+        my $key = join("_", $link_type_id, $begindate, $enddate, @attrs);
+        my $link_id;
+        if (!exists($links{$key})) {
+            $link_id = $sql->select_single_value("SELECT nextval('link_id_seq')");
+            $links{$key} = $link_id;
+            my @begindate = split(/-/, $begindate);
+            my @enddate = split(/-/, $enddate);
+            $sql->do("
+                    INSERT INTO link
+                        (id, link_type, begin_date_year, begin_date_month, begin_date_day,
+                        end_date_year, end_date_month, end_date_day, attribute_count)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ", $link_id, $link_type_id,
+                     ($begindate[0] + 0) || undef,
+                     ($begindate[1] + 0) || undef,
+                     ($begindate[2] + 0) || undef,
+                     ($enddate[0] + 0) || undef,
+                     ($enddate[1] + 0) || undef,
+                     ($enddate[2] + 0) || undef,
+                     scalar(@attrs));
+            foreach my $attr (@attrs) {
+                $sql->do("INSERT INTO link_attribute (link, attribute_type) VALUES (?, ?)",
+                         $link_id, $attr);
+            }
+        }
+        else {
+            $link_id = $links{$key};
+        }
+
+        $sql->do(
+            "INSERT INTO l_${t0}_${t1}
+                 (link, entity0, entity1) VALUES (?, ?, ?)",
+            $link_id, $row->{link0}, $row->{link1});
+    }
+}
+
+# Migrate remaining recording-work performances
+printf STDERR "Migrating remaining recording-work performances\n";
+$sql->do(
+    "INSERT INTO l_recording_work
+    (link, entity0, entity1)
+    SELECT ?, id, id FROM work
+     WHERE NOT EXISTS (
+         SELECT TRUE FROM l_recording_work ar
+          WHERE ar.entity1 = work.id
+            AND link = ?
+     )
+",
+    $recording_work_link_id,
+    $recording_work_link_id
+);
 
 #printf STDERR "album-album disamguation: %d/%d clean\n", $m_clean, $m_clean + $m_not_clean;
 #my $amz_clean_total = 0; ($amz_clean_total += $amz_clean{$_}) for keys %amz_clean;

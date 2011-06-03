@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Moose;
-use MusicBrainz::Server::Data::Statistics;
+use MusicBrainz::Server::Data::Statistics::ByDate;
+use MusicBrainz::Server::Data::Statistics::ByName;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub statistics : Path('')
@@ -14,8 +15,22 @@ sub statistics : Path('')
 
     $c->stash(
         template => 'statistics/index.tt',
-        stats    => $c->model('Statistics')->get_latest_statistics()
+        stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
     );
+}
+
+sub timeline : Local
+{
+    my ($self, $c) = @_;
+
+    $c->stash(
+        template => 'statistics/timeline.tt',
+        stats => {
+            map {
+                substr($_, 6) => $c->model('Statistics::ByName')->get_statistic($_)
+            } qw( count.artist count.release count.medium count.releasegroup count.label count.work )
+        }
+    )
 }
 
 =head1 LICENSE

@@ -4,6 +4,8 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
 use Function::Parameters 'f';
+use List::Util qw( first );
+use Try::Tiny;
 use aliased 'MusicBrainz::Server::Buffer';
 
 __PACKAGE__->config(
@@ -56,8 +58,7 @@ around 'search' => sub
 
         my @tracks;
         for (@recording_puids) {
-            $c->model('Artist')->load($_->recording->artist_credit->names->[0])
-                if @{ $_->recording->artist_credit->names } == 1;
+            $c->model('Artist')->load($_->recording->artist_credit->all_names);
 
             my @releases = $c->model('Release')->find_by_recording($_->recording->id);
             $recording_release_map{$_->recording->id} = \@releases;
@@ -71,7 +72,7 @@ around 'search' => sub
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
-            $c->stash->{serializer}->serialize_list('track', \@recording_puids, undef, {
+            $c->stash->{serializer}->serialize_list('track-list', \@recording_puids, undef, {
                 recording_release_map => \%recording_release_map,
                 track_map             => \%track_map
             })
@@ -199,11 +200,20 @@ sub submit_isrc : Private
     my $buffer = Buffer->new(
         limit   => 100,
         on_full => f($contents) {
-            $c->model('Edit')->create(
-                edit_type      => $EDIT_RECORDING_ADD_ISRCS,
-                editor_id      => $c->user->id,
-                isrcs          => $contents
-            );
+            try {
+                $c->model('Edit')->create(
+                    edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                    editor_id      => $c->user->id,
+                    isrcs          => $contents
+                );
+            }
+            catch {
+                my $err = $_;
+                unless (blessed($err) && $err->isa('MusicBrainz::Server::Edit::Exceptions::NoChanges')) {
+                    # Ignore the NoChanges exception
+                    die $err;
+                }
+            };
         }
     );
 
@@ -237,7 +247,8 @@ sub lookup : Chained('load') PathPart('')
     }
 
     if ($c->stash->{inc}->releases) {
-        my @releases = $c->model('Release')->find_by_recording($track->id);
+        my %recording_release_map = $c->model('Release')->find_by_recordings($track->id);
+        my @releases = map { $_->[0] } map { @$_ } values %recording_release_map;
 
         $c->model('ReleaseStatus')->load(@releases);
         $c->model('ReleaseGroup')->load(@releases);
@@ -246,12 +257,16 @@ sub lookup : Chained('load') PathPart('')
         $c->model('Language')->load(@releases);
 
         $c->stash->{data}{releases} = \@releases;
-        $c->stash->{inc}->tracklist(1);
+        $c->stash->{data}{track_map} = {
+            map {
+                my ($release, $track) = @$_;
+                $release->id => $track
+            } map { @$_ } values %recording_release_map
+        };
 
         unless ($c->stash->{inc}->artist) {
             $c->model('ArtistCredit')->load($track);
-            $c->model('Artist')->load($track->artist_credit->names->[0])
-                if (@{ $track->artist_credit->names } == 1);
+            $c->model('Artist')->load($track->artist_credit->all_names);
         }
     }
 

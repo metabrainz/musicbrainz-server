@@ -15,6 +15,8 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
+use List::MoreUtils qw( part );
+use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
@@ -66,6 +68,43 @@ after 'load' => sub
     if ($c->action->name ne 'show') {
         $c->model('ArtistCredit')->load($release);
     }
+
+    # The release editor loads this stuff on its own
+    if ($c->action->name ne 'edit') {
+        $c->model('ReleaseStatus')->load($release);
+        $c->model('ReleasePackaging')->load($release);
+        $c->model('Country')->load($release);
+        $c->model('Language')->load($release);
+        $c->model('Script')->load($release);
+        $c->model('ReleaseLabel')->load($release);
+        $c->model('Label')->load($release->all_labels);
+        $c->model('ReleaseGroupType')->load($release->release_group);
+        $c->model('Medium')->load_for_releases($release);
+        $c->model('MediumFormat')->load($release->all_mediums);
+    }
+};
+
+# Stuff that has the side bar and thus needs to display collection information
+after [qw( show details discids tags relationships )] => sub {
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{release};
+
+    my @collections;
+    my %containment;
+    if ($c->user_exists) {
+        # Make a list of collections and whether this release is contained in them
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+        foreach my $collection (@collections) {
+            $containment{$collection->id} = 1
+                if ($c->model('Collection')->check_release($collection->id, $release->id));
+        }
+    }
+
+    $c->stash(
+        collections => \@collections,
+        containment => \%containment,
+    );
 };
 
 sub discids : Chained('load')
@@ -73,8 +112,6 @@ sub discids : Chained('load')
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-    $c->model('Medium')->load_for_releases($release);
-    $c->model('MediumFormat')->load($release->all_mediums);
     my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
     $c->model('CDTOC')->load(@medium_cdtocs);
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
@@ -107,19 +144,8 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-    $c->model('ReleaseStatus')->load($release);
-    $c->model('ReleasePackaging')->load($release);
-    $c->model('Country')->load($release);
-    $c->model('Language')->load($release);
-    $c->model('Script')->load($release);
-    $c->model('ReleaseLabel')->load($release);
-    $c->model('Label')->load(@{ $release->labels });
-    $c->model('ReleaseGroupType')->load($release->release_group);
-    $c->model('Medium')->load_for_releases($release);
 
     my @mediums = $release->all_mediums;
-    $c->model('MediumFormat')->load(@mediums);
-
     my @tracklists = grep { defined } map { $_->tracklist } @mediums;
     $c->model('Track')->load_for_tracklists(@tracklists);
 
@@ -131,21 +157,7 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
-    my @collections;
-    my %containment;
-    if ($c->user_exists) {
-        # Make a list of collections and whether this release is contained in them
-        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
-
-        foreach my $collection (@collections) {
-            $containment{$collection->id} = 1
-                if ($c->model('Collection')->check_release($collection->id, $release->id));
-        }
-    }
-
     $c->stash(
-        collections       => \@collections,
-        containment => \%containment,
         template     => 'release/index.tt',
         show_artists => $release->has_multiple_artists,
     );
@@ -315,6 +327,99 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     confirmation_template => 'release/merge_confirm.tt',
     search_template => 'release/merge_search.tt',
     merge_form => 'Merge::Release',
+};
+
+sub _merge_form_arguments {
+    my ($self, $c, @releases) = @_;
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('Track')->load_for_tracklists(map { $_->tracklist } map { $_->all_mediums } @releases);
+    $c->model('Recording')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
+    $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
+
+    my @mediums;
+    my %medium_by_id;
+    foreach my $release (@releases) {
+        foreach my $medium ($release->all_mediums) {
+            my $position = $medium->position;
+            if ($release->medium_count == 1 && !$medium->name) {
+                # guess position from the old release name
+                if ($medium->release->name =~ /\(disc (\d+)(?:: (.+?))?\)/) {
+                    $position = $1;
+                }
+            }
+            push @mediums, {
+                id => $medium->id,
+                release_id => $medium->release_id,
+                position => $position
+            };
+            $medium_by_id{$medium->id} = $medium;
+        }
+    }
+
+    @mediums = nsort_by { $_->{position} } @mediums;
+
+    $c->stash(
+        mediums => [ map { $medium_by_id{$_->{id}} } @mediums ],
+        xxx_releases => \@releases
+    );
+
+    return (
+        init_object => { medium_positions => { map => \@mediums } }
+    );
+}
+
+sub _merge_parameters {
+    my ($self, $c, $form, $releases) = @_;
+    if ($form->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+        my %release_map = map {
+            $_->id => $_
+        } @$releases;
+        my %medium_changes;
+        for my $merge ($form->field('medium_positions.map')->fields) {
+            my $release = $release_map{ $merge->field('release_id')->value }
+                or die 'Couldnt find release to link with';
+
+            my ($medium) = grep { $_->id == $merge->field('id')->value }
+                $release->all_mediums
+                    or die 'Couldnt find medium';
+
+            $medium_changes{ $release->id } ||= [];
+            push @{ $medium_changes{ $release->id } },
+                { id => $merge->field('id')->value,
+                  old_position => $medium->position,
+                  new_position => $merge->field('position')->value };
+        }
+        return (
+            medium_changes => [
+                map +{
+                    release => {
+                        id => $_,
+                        name => $release_map{$_}->name
+                    },
+                    mediums => $medium_changes{$_}
+                }, keys %medium_changes
+            ]
+        )
+    }
+    else {
+        return ();
+    }
+}
+
+around _merge_submit => sub {
+    my ($orig, $self, $c, $form, $entities) = @_;
+    my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
+    my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$entities;
+    if ($c->model('Release')->can_merge(
+        $form->field('merge_strategy')->value,
+        $new_id, map { $_->id } @$old)) {
+        $self->$orig($c, $form, $entities);
+    }
+    else {
+        $form->field('merge_strategy')->add_error(
+            l('This merge strategy is not applicable to the releases you have selected.')
+        );
+    }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

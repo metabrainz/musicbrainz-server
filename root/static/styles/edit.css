@@ -159,8 +159,8 @@ table.vote-tally .date {
 }
 
 .edit-list .applied { border-right: solid 10px transparent; }
-.edit-list .open { border-right: solid 10px gold; }
-.edit-list .cancelling { border-right: solid 10px #999999; }
+.edit-list .open,
+.edit-list .cancelling { border-right: solid 10px gold; }
 .edit-list .cancelled { border-right: solid 10px #999999; }
 .edit-list .failed { border-right: solid 10px #FF0000; }
 .edit-list .error { border-right: solid 10px #660000; }

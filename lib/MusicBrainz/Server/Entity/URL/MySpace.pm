@@ -3,17 +3,18 @@ package MusicBrainz::Server::Entity::URL::MySpace;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-override pretty_name => sub {
+sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^http://(?:www.)?myspace.com/([^/]+)/?$}i) {
+    if ($self->url =~ m{^https?://(?:www.)?myspace.com/([^/]+)/?$}i) {
         return $1;
     }
     else {
-        return super();
+        return "MySpace";
     }
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -1,10 +1,9 @@
 [%- BLOCK layout_head -%]
-    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditNote.js') %]"></script>
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         $(function() {
             MB.Control.EditNote($('textarea'));
         });
-    </script>
+    //]]></script>
 [%- END -%]
 
 [%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]

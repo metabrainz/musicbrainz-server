@@ -81,7 +81,7 @@ sub run {
             }
         }
 
-        printf "\n";
+        printf "\n" if $self->verbose;
     }
 
     return 0;

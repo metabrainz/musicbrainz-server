@@ -1,5 +1,6 @@
 input { background: #fff; color: #000; }
-input:-moz-placeholder, .mb_placeholder { color: #aaa; }
+input:-moz-placeholder { color: #aaa; }
+input.mb_placeholder { color: #aaa ! important; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
 fieldset {
@@ -134,7 +135,7 @@ span.autocomplete.disabled img.search { display: none; }
 span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
 
 .ui-autocomplete-loading {
-    background: white url(../lib/jquery.ui/demos/autocomplete/images/ui-anim_basic_16x16.gif) right center no-repeat;
+    background: white url(../images/icons/loading.gif) right center no-repeat;
 }
 .autocomplete-comment { font-size: smaller; color: #666; }
 button.autocomplete-pager {
@@ -242,3 +243,17 @@ div.documentation div.bubble {
 div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
 div.documentation div.container { width: 100%; }
 
+table.form th,
+table.form td{
+    vertical-align: top;
+}
+
+table.form th {
+    text-align: right;
+    padding-bottom: 8pt;
+    width: 100pt;
+}
+
+table.form {
+    padding: 10pt 0;
+}

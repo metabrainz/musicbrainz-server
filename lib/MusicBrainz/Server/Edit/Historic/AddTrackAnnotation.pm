@@ -12,7 +12,7 @@ sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddAnnotation' }
 sub related_entities {
     my $self = shift;
     return {
-        recording => [ $self->data->{entity_id} ]
+        recording => [ $self->data->{entity}{id} ]
     }
 }
 
@@ -25,7 +25,7 @@ sub do_upgrade
         changelog => $self->new_value->{ChangeLog},
         entity    => {
             id => $self->resolve_recording_id($self->row_id),
-            name => '[deleted]'
+            name => '[removed]'
         },
         editor_id => $self->editor_id,
     }

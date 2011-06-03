@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    verify_artist_credits
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Translation 'l';
@@ -47,7 +48,7 @@ around related_entities => sub {
         my %old = load_artist_credit_definitions($self->data->{old_artist_credit});
         push @{ $related->{artist} }, keys(%new), keys(%old);
     }
-    
+
     return $related;
 };
 
@@ -122,8 +123,14 @@ sub initialize {
 sub accept {
     my $self = shift;
 
+    verify_artist_credits($self->c, $self->data->{new_artist_credit});
+
+    my $old_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
+        $self->data->{old_artist_credit}
+    );
+
     my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
-        @{ $self->data->{new_artist_credit} }
+        $self->data->{new_artist_credit}
     );
 
     $self->c->model('Release')->update(
@@ -136,6 +143,8 @@ sub accept {
         $self->c->model('Medium')->load_for_releases($release);
         $self->c->model('Track')->load_for_tracklists(
             map { $_->tracklist } $release->all_mediums);
+        $self->c->model('ArtistCredit')->load(
+            map { $_->tracklist->all_tracks } $release->all_mediums);
 
         for my $medium ($release->all_mediums) {
             $self->c->model('Medium')->update(
@@ -145,7 +154,9 @@ sub accept {
                         map +{
                             position => $_->position,
                             name => $_->name,
-                            artist_credit => $new_ac_id,
+                            artist_credit => $_->artist_credit_id != $old_ac_id
+                                ? artist_credit_to_ref($_->artist_credit)
+                                : $self->data->{new_artist_credit},
                             recording_id => $_->recording_id,
                             length => $_->length
                         }, $medium->tracklist->all_tracks

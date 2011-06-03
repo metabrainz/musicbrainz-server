@@ -21,7 +21,7 @@ sub do_upgrade {
     return {
         entity    => {
             id => $self->artist_id,
-            name => '[deleted]',
+            name => '[removed]',
         },
         alias_id  => $self->row_id,
         name      => $self->previous_value

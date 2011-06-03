@@ -5,7 +5,15 @@
 <h1>“[%- rdfa_link_release_header(release) %]” [% disambiguation(release) -%]</h1>
 <p class="subheader">
     <span class="prefix">~</span>
-        [%- l('Release by {artist}', {artist = rdfa_artist_credit(release.artist_credit)})%]
+        [% l('Release by {artist}', {artist = rdfa_artist_credit(release.artist_credit)})%]
+    <span class="small">
+        [% IF release.release_group.release_count > 1 %]
+            (<a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">[% l("see other versions of this release") %]</a>)
+        [% ELSE %]
+            ([% l('{uri|see release group}', { uri => c.uri_for_action('/release_group/show', [release.release_group.gid]) }) %])
+        [% END %]
+    </span>
+
 	[%- rdfa_release_invisible_header(release) -%]
 </p>
 </div>

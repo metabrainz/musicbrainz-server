@@ -7,7 +7,7 @@
     [% END %]
     <tr>
         <th>[% l('Label:') %]</th>
-        <td>[% link_entity(edit.display_data.label) %]</td>
+        <td>[% link_entity(edit.display_data.label) IF edit.display_data.label %]</td>
     </tr>
     <tr>
         <th>[% l('Catalog number:') %]</th>

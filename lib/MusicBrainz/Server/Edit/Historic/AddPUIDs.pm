@@ -13,7 +13,7 @@ sub related_entities {
     my $self = shift;
     return {
         recording => [
-            map { $_->{recording_id} } @{ $self->data->{puids} }
+            map { $_->{recording}{id} } @{ $self->data->{puids} }
         ]
     }
 }
@@ -29,7 +29,7 @@ sub do_upgrade {
             puid         => $puid,
             recording    => {
                 id => $self->resolve_recording_id($self->new_value->{"TrackId$i"}),
-                name => '[deleted]'
+                name => '[removed]'
             }
         };
     }

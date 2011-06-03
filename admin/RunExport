@@ -72,7 +72,7 @@ then
     chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
     chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
     mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
-    /root/backup/run
+    $mb_server/bin/rsync-replication-files
 fi
 
 if [ "$WITH_FULL_EXPORT" ]
@@ -100,7 +100,6 @@ then
 
     $mb_server/bin/delete-old-fullexports -k -r "$BACKUP_DIR"/fullexport "$FTP_DATA_DIR"/fullexport
     $mb_server/bin/rsync-fullexport-files
-    /root/backup/run
 fi
 
 $mb_server/bin/rsync-replication-files

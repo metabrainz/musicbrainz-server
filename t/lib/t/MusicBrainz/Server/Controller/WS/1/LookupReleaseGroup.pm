@@ -54,6 +54,20 @@ ws_test 'release group lookup with releases',
   </release-group>
 </metadata>';
 
+ws_test 'release group lookup with relationships',
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?type=xml&inc=releases+artist-rels+release-rels+track-rels+label-rels+url-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <release-group id="22b54315-6e51-350b-bb34-e6e16f7688bd" type="Album">
+    <title>My Demons</title>
+    <release-list>
+      <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
+        <title>My Demons</title><text-representation script="Latn" language="ENG" /><track-list offset="11" />
+      </release>
+    </release-list>
+  </release-group>
+</metadata>';
+
 };
 
 1;

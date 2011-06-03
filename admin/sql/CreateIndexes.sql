@@ -19,13 +19,15 @@ CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
 
 CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
-CREATE INDEX editor_idx_name ON editor (LOWER(name));
+CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
+CREATE INDEX isrc_idx_recording ON isrc (recording);
+CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);
@@ -124,8 +126,10 @@ CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
-CREATE UNIQUE INDEX medium_idx_release ON medium (release, position);
+CREATE INDEX medium_idx_release ON medium (release);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
+
+CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 
 CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
 

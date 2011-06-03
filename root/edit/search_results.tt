@@ -1,7 +1,5 @@
 [%- BLOCK layout_head -%]
-    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditSummary.js') %]"></script>
-    <script type="text/javascript" src="[% c.uri_for('/static/scripts/MB/Control/EditList.js') %]"></script>
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
         $(function() {
             $('.edit-list').each(function() {
                 MB.Control.EditSummary(this);
@@ -18,14 +16,14 @@
               MB.Control.EditList('#edits');
             [% END %]
         });
-    </script>
+    //]]></script>
 [%- END -%]
 
 [% DEFAULT search = 1 %]
 [% WRAPPER 'layout.tt' title=l('Search for Edits') full_width=1 %]
     <div id="content">
         <h1>[% l('Search for Edits') %]</h1>
-        [% INCLUDE 'edit/list.tt' %]
+        [% INCLUDE 'edit/list.tt' guess_search=1 %]
     </div>
 [% END %]
 

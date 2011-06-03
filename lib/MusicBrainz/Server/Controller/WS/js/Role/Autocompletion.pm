@@ -96,7 +96,7 @@ sub _indexed_search {
 
         for my $result (@{ $response->{results} })
         {
-            my $entity = $model->get_by_gid ($result->{entity}->gid);
+            my $entity = $model->get_by_gid ($result->{entity}->gid) if $result->entity->{gid};
             next unless $entity;
             push @output, $entity;
         }

@@ -3,9 +3,9 @@
 [% FOR section=[
     [l('Artists'), artist_tags, artist_count, '/tag/artist'],
     [l('Release Groups'), release_group_tags, release_group_count, '/tag/release_group'],
-    [l('Releases'), release_group_tags, release_group_count, '/tag/release'],
+    [l('Releases'), release_tags, release_count, '/tag/release'],
     [l('Recordings'), recording_tags, recording_count, '/tag/recording'],
-    [l('Works'), work_tags, work_count, '/tag_work'],
+    [l('Works'), work_tags, work_count, '/tag/work'],
     [l('Labels'), label_tags, label_count, '/tag/label'],
 ] %]
     [% IF section.1.size %]

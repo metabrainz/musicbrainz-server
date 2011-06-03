@@ -13,6 +13,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -37,7 +38,7 @@ has '+data' => (
             name => Str
         ],
         separate_tracklists => Optional[Bool],
-        current_tracklist => Int,
+        current_tracklist => NullableOnPreview[Int],
         old => change_fields(),
         new => change_fields()
     ]
@@ -47,7 +48,8 @@ sub alter_edit_pending
 {
     my $self = shift;
     return {
-        'Medium' => [ $self->entity_id ]
+        'Medium' => [ $self->entity_id ],
+        'Release' => [ $self->data->{release}->{id} ]
     }
 }
 
@@ -68,34 +70,53 @@ sub initialize
     my $entity = delete $opts{to_edit};
     my $tracklist = delete $opts{tracklist};
     my $separate_tracklists = delete $opts{separate_tracklists};
-    die "You must specify the object to edit" unless defined $entity;
+    my $data;
 
-    unless ($entity->release) {
-        $self->c->model('Release')->load($entity);
+    # FIXME: really should receive an entity on preview too.
+    if ($self->preview && !defined $entity)
+    {
+        # This currently only happens when a new medium just created with
+        # an Add Medium edit needs to immediatly get an edit to change
+        # position.
+        $data->{old}{position} = 0;
+        $data->{new}{position} = delete $opts{position};
     }
+    else
+    {
+        die "You must specify the object to edit" unless defined $entity;
 
-    my $data = {
-        entity_id => $entity->id,
-        release => {
-            id => $entity->release->id,
-            name => $entity->release->name
-        },
-        current_tracklist => $entity->tracklist_id,
-        $self->_changes($entity, %opts)
-    };
+        unless ($entity->release) {
+            $self->c->model('Release')->load($entity);
+        }
 
-    if ($tracklist) {
-        $self->c->model('Tracklist')->load ($entity);
-        $self->c->model('Track')->load_for_tracklists ($entity->tracklist);
-        $self->c->model('ArtistCredit')->load ($entity->tracklist->all_tracks);
+        $data = {
+            entity_id => $entity->id,
+            release => {
+                id => $entity->release->id,
+                name => $entity->release->name
+            },
+            current_tracklist => $entity->tracklist_id,
+            $self->_changes($entity, %opts)
+        };
 
-        $data->{old}{tracklist} = tracks_to_hash($entity->tracklist->tracks);
-        $data->{new}{tracklist} = tracks_to_hash($tracklist);
-        $data->{separate_tracklists} = $separate_tracklists;
+        if ($tracklist) {
+            $self->c->model('Tracklist')->load ($entity);
+            $self->c->model('Track')->load_for_tracklists ($entity->tracklist);
+            $self->c->model('ArtistCredit')->load ($entity->tracklist->all_tracks);
+
+            my $old = tracks_to_hash($entity->tracklist->tracks);
+            my $new = tracks_to_hash($tracklist);
+
+            unless (Compare($old, $new)) {
+                $data->{old}{tracklist} = $old;
+                $data->{new}{tracklist} = $new;
+                $data->{separate_tracklists} = $separate_tracklists;
+            }
+        }
+
+        MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+            if Compare($data->{old}, $data->{new});
     }
-
-    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
-          if Compare($data->{old}, $data->{new});
 
     $self->data($data);
 }
@@ -148,8 +169,12 @@ sub build_display_data
 
     $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
     $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
-    $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
-        || Release->new( name => $self->data->{release}{name} );
+
+    if ($self->data->{release})
+    {
+        $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
+            || Release->new( name => $self->data->{release}{name} );
+    }
 
     return $data;
 }
@@ -171,10 +196,16 @@ sub accept {
                   ->throw('The tracklist has changed since this edit was created');
         }
 
-        # Create related data (artist credits and recordings)
+        verify_artist_credits($self->c, map {
+            $_->{artist_credit}
+        } @{ $data_new_tracklist });
+
+        # Create recordings
         for my $track (@{ $data_new_tracklist }) {
-            $track->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $track->{artist_credit} });
-            $track->{recording_id} ||= $self->c->model('Recording')->insert($track)->id;
+            $track->{recording_id} ||= $self->c->model('Recording')->insert({
+                %$track,
+                artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
+            })->id;
         }
 
         # See if we need a new tracklist

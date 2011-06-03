@@ -163,10 +163,10 @@ Creating the database
     as "www-user", the following configuration recipe may prove useful:
 
         # in pg_hba.conf (Note: The order of lines is important!):
-        local    musicbrainz_db    musicbrainz_user    ident    mb_map
+        local    musicbrainz_db    musicbrainz    ident    mb_map
 
         # in pg_ident.conf:
-        mb_map    www-user    musicbrainz_user
+        mb_map    www-user    musicbrainz
 
     Alternatively, if you are running a server for development purposes and
     don't require any special access permissions, the following configuration
@@ -197,8 +197,8 @@ Creating the database
 
             ftp://ftp.musicbrainz.org/pub/musicbrainz/data/ngs/
 
-        To get going, you need at least the mbdump.tar.bz2 and
-        mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit
+        To get going, you need at least the mbdump.tar.bz2, mbdump-editor.tar.bz2
+        and mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit
         your needs. Assuming the dumps have been downloaded to /tmp/dumps/ you
         can import them with:
 

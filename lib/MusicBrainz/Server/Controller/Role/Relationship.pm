@@ -37,9 +37,31 @@ sub relate : Chained('load')
             id      => $entity->id
         };
 
-        $c->response->redirect($c->req->referer);
+        $c->response->redirect(
+            $c->req->referer || $c->uri_for_action("$type/show", [ $entity->gid ]));
     }
 }
+
+
+sub cancel_relate : Chained('load')
+{
+    my ($self, $c) = @_;
+
+    $c->session->{relationship} = undef;
+
+    if ($c->req->referer)
+    {
+        $c->response->redirect($c->req->referer);
+    }
+    else
+    {
+        $c->response->redirect(
+            $c->uri_for_action(
+                $self->action_for ('show'), [ $c->stash->{entity}->gid ]
+            ));
+    }
+}
+
 
 after 'load' => sub {
     my ($self, $c) = @_;

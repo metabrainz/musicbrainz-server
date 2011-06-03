@@ -1,13 +1,17 @@
 <table class="details">
   [% FOR change=edit.display_data.changes %]
   <tr>
-    <td>
+    <th>[% l('Releases:') %]</th>
+    <td colspan="2">
       <ul>
         [% FOR release=change.releases %]
         <li>[% link_entity(release) %]</li>
         [% END %]
       </ul>
     </td>
+  </tr>
+  <tr>
+    <th>[% l('Quality:') %]</th>
     <td class="old">[% quality_name(change.quality.old) %]</td>
     <td class="new">[% quality_name(change.quality.new) %]</td>
   </tr>

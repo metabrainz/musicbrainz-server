@@ -20,6 +20,7 @@ has test_runner => (
 my $tb = Test::Builder->new;
 our %dispatch = (
     assertElementPresent => 'is_element_present_ok',
+    assertText => 'text_is',
     assertValue => 'value_is',
     check => 'check_ok',
     click => 'click_ok',
@@ -28,6 +29,10 @@ our %dispatch = (
         $sel->click_ok(@_);
         $sel->wait_for_page_to_load_ok(30000)
     },
+    echo => sub {
+        shift;
+        $tb->diag (shift);
+    },
     fireEvent => 'fire_event_ok',
     focus => 'focus_ok',
     open => 'open_ok',
@@ -35,6 +40,7 @@ our %dispatch = (
     setSpeed => 'set_speed_ok',
     type => 'type_ok',
     uncheck => 'uncheck_ok',
+    verifyAttribute => 'attribute_is',
     verifyElementNotPresent => sub {
         $tb->ok(not shift->is_element_present(@_));
     },
@@ -44,14 +50,15 @@ our %dispatch = (
         $tb->ok(not shift->is_text_present(@_));
     },
     verifyTextPresent => 'is_text_present_ok',
-    verifyNotVisible => sub {
-        $tb->ok(not shift->is_visible(@_));
-    },
-    verifyVisible => 'is_visible',
     verifyNotValue => sub {
         $tb->ok(not shift->value_is(@_));
     },
+    verifyNotVisible => sub {
+        $tb->ok(not shift->is_visible(@_));
+    },
+    verifySelectedLabel => 'selected_label_is',
     verifyValue => 'value_is',
+    verifyVisible => 'is_visible',
     waitForElementPresent => sub {
         my $sel = shift;
       WAIT: {

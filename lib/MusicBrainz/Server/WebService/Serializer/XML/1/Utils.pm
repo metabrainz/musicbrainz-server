@@ -9,7 +9,10 @@ our @EXPORT_OK = qw(
     serializer
     serialize_entity
     map_type
+    list_of
 );
+
+my %serializers;
 
 Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::AggregatedTag' => 'MusicBrainz::Server::WebService::Serializer::XML::1::AggregatedTag',
@@ -17,6 +20,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::ArtistAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit',
     'MusicBrainz::Server::Entity::CDStub' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDStub',
+    'MusicBrainz::Server::Entity::Editor' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Editor',
     'MusicBrainz::Server::Entity::ISRC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ISRC',
     'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Label',
     'MusicBrainz::Server::Entity::MediumCDTOC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDTOC',
@@ -41,13 +45,14 @@ sub serializer
 
     Class::MOP::load_class($class);
 
-    return $class;
+    $serializers{$class} ||= $class->new;
+    return $serializers{$class};
 }
 
 sub serialize_entity
 {
     return unless defined $_[0];
-    return serializer($_[0])->new->serialize(@_);
+    return serializer($_[0])->do_serialize(@_);
 }
 
 my %type_map = (
@@ -57,6 +62,26 @@ my %type_map = (
 sub map_type {
     my $type = lc shift;
     return $type_map{$type} || camelize($type);
+}
+
+use MusicBrainz::XML;
+our $gen = MusicBrainz::XML->new;
+
+sub list_of {
+    my $element = ref $_[0] eq 'SCALAR' ? ${ shift() } : undef;
+    my $attributes = (ref $_[0] eq 'HASH') ? shift : {};
+    my ($entities, $inc, $opts) = @_;
+    return unless @$entities;
+
+    $element ||= serializer($entities->[0])->element . '-list';
+
+    $opts ||= {};
+    $opts->{in_list} = 1;
+
+    return $gen->$element(
+        $attributes,
+        map { serialize_entity($_, $inc, $opts) } @$entities
+    );
 }
 
 1;

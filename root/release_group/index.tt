@@ -1,9 +1,3 @@
-[% BLOCK layout_head %]
-    <script src="[% c.model('FileCache').squash_scripts(
-      'scripts/MB/Control/SelectAll.js'
-    ) %]"></script>
-[% END %]
-
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
     [%- IF releases.size -%]
@@ -13,7 +7,7 @@
           <table class="tbl">
             <thead>
               <tr>
-                [% IF c.user_exists %]<th></th>[% END %]
+                [% IF c.user_exists %]<th><input type="checkbox" /></th>[% END %]
                 <th>[% l('Release') %]</th>
                 <th>[% l('Format') %]</th>
                 <th>[% l('Tracks') %]</th>

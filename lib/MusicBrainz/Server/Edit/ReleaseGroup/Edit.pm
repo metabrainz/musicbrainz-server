@@ -8,10 +8,11 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
+    artist_credit_from_loaded_definition
     changed_relations
     changed_display_data
     load_artist_credit_definitions
-    artist_credit_from_loaded_definition
+    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -114,8 +115,12 @@ sub build_display_data
 
 sub _mapping
 {
+    my $for_change_hash = 1;
+
     return (
-        artist_credit => sub { artist_credit_to_ref(shift->artist_credit) }
+        artist_credit => sub {
+            return artist_credit_to_ref(shift->artist_credit, $for_change_hash);
+        }
     );
 }
 
@@ -131,12 +136,16 @@ before 'initialize' => sub
 sub _edit_hash
 {
     my ($self, $data) = @_;
-    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert(@{ $data->{artist_credit} })
+    $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
     return $data;
 }
 
-sub _xml_arguments { ForceArray => ['artist_credit'] }
+before accept => sub {
+    my ($self) = @_;
+
+    verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+};
 
 sub allow_auto_edit
 {

@@ -3,7 +3,6 @@ package MusicBrainz::Server::WebService::XMLSerializer;
 use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
-use Switch;
 use List::UtilsBy qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
@@ -128,7 +127,7 @@ sub _serialize_artist
             if $inc->works;
     }
 
-    $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->artist(\%attrs, @list);
@@ -231,7 +230,7 @@ sub _serialize_release_group
             if $inc->artist_credits;
     }
 
-    $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships) if $inc->has_rels;
+    $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships, $inc, $stash) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->release_group(\%attr, @list);
@@ -280,7 +279,7 @@ sub _serialize_release
     push @list, $gen->title($release->name);
     push @list, $gen->status($release->status->name) if $release->status;
     push @list, $gen->disambiguation($release->comment) if $release->comment;
-    push @list, $gen->packaging($release->packaging) if $release->packaging;
+    push @list, $gen->packaging($release->packaging->name) if $release->packaging;
 
     $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
     $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
@@ -314,7 +313,7 @@ sub _serialize_release
     $self->_serialize_medium_list(\@list, $gen, $release->mediums, $inc, $stash)
         if ($release->mediums && ($inc->media || $inc->discids || $inc->recordings));
 
-    $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->release({ id => $release->gid }, @list);
@@ -354,21 +353,10 @@ sub _serialize_work
     push @list, $gen->title($work->name);
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
-    if ($toplevel)
-    {
-        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artists || $inc->artist_credits;
-    }
-    else
-    {
-        $self->_serialize_artist_credit(\@list, $gen, $work->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
-    }
-
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships) if $inc->has_rels;
+    $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships, $inc, $stash) if $inc->has_rels;
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->work(\%attrs, @list);
@@ -417,7 +405,7 @@ sub _serialize_recording
     $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);
 
-    $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->recording({ id => $recording->gid }, @list);
@@ -621,7 +609,7 @@ sub _serialize_label
             if $inc->releases;
     }
 
-    $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships) if ($inc->has_rels);
+    $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->label(\%attrs, @list);
@@ -629,7 +617,7 @@ sub _serialize_label
 
 sub _serialize_relation_lists
 {
-    my ($self, $src_entity, $data, $gen, $rels) = @_;
+    my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
 
     my %types = ();
     foreach my $rel (@$rels)
@@ -642,7 +630,7 @@ sub _serialize_relation_lists
         my @list;
         foreach my $rel (sort_by { $_->target_key } @{$types{$type}})
         {
-            $self->_serialize_relation($src_entity, \@list, $gen, $rel);
+            $self->_serialize_relation($src_entity, \@list, $gen, $rel, $inc, $stash);
         }
         push @$data, $gen->relation_list({ 'target-type' => $type }, @list);
     }
@@ -650,11 +638,10 @@ sub _serialize_relation_lists
 
 sub _serialize_relation
 {
-    my ($self, $src_entity, $data, $gen, $rel) = @_;
+    my ($self, $src_entity, $data, $gen, $rel, $inc, $stash) = @_;
 
     my @list;
-    my $type = $rel->link->type->short_link_phrase;
-    $type =~ s/ /_/g;
+    my $type = $rel->link->type->name;
 
     push @list, $gen->target($rel->target_key);
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
@@ -669,7 +656,7 @@ sub _serialize_relation
     unless ($rel->target_type eq 'url')
     {
         my $method =  "_serialize_" . $rel->target_type;
-        $self->$method(\@list, $gen, $rel->target, WebServiceInc->new, WebServiceStash->new);
+        $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
     push @$data, $gen->relation({ type => $type }, @list);

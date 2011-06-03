@@ -19,6 +19,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { l("Remove relationship") }
@@ -108,7 +109,7 @@ sub build_display_data
                 $self->c->model($self->model1)->_entity_class->new(
                     name => $self->data->{relationship}{entity1}{name}
                 ),
-            phrase => $self->data->{relationship}{phrase},
+            verbose_phrase => $self->data->{relationship}{phrase},
             link => MusicBrainz::Server::Entity::Link->new(
                 begin_date => partial_date_from_row($self->data->{relationship}{link}{begin_date}),
                 end_date => partial_date_from_row($self->data->{relationship}{link}{end_date}), 
@@ -117,7 +118,7 @@ sub build_display_data
     }
 }
 
-sub related_entities
+sub directly_related_entities
 {
     my ($self) = @_;
 
@@ -179,7 +180,7 @@ sub initialize
                 id => $relationship->entity1_id,
                 name => $relationship->entity1->name
             },
-            phrase => $relationship->phrase,
+            phrase => $relationship->verbose_phrase,
             link => {
                 begin_date => partial_date_to_hash($relationship->link->begin_date),
                 end_date => partial_date_to_hash($relationship->link->end_date),

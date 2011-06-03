@@ -179,7 +179,7 @@ sub combined_format_name
     foreach my $format (@formats_order) {
         my $count = $formats_count{$format};
         if ($count > 1 && $format) {
-            $format = $count . "x" . $format;
+            $format = $count . "\x{00D7}" . $format;
         }
         push @formats, $format;
     }

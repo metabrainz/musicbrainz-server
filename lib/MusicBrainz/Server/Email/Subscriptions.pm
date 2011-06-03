@@ -2,9 +2,11 @@ package MusicBrainz::Server::Email::Subscriptions;
 use Moose;
 use namespace::autoclean;
 
+use List::UtilsBy qw( sort_by );
 use MooseX::Types::Moose qw( ArrayRef Str );
 use MooseX::Types::Structured qw( Map );
 use String::TT qw( strip tt );
+use URI::Escape;
 use MusicBrainz::Server::Entity::Types;
 
 has 'editor' => (
@@ -54,16 +56,18 @@ sub text {
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed artists',
-        @{ $self->edits->{artist} }
+        [ sort_by { $_->{subscription}->artist->name } @{ $self->edits->{artist} } ],
+        'artist'
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
-        @{ $self->edits->{label} }
+        [ sort_by { $_->{subscription}->label->name } @{ $self->edits->{label} } ],
+        'label'
     ) if exists $self->edits->{label};
 
     push @sections, $self->edits_for_editors(
-        @{ $self->edits->{editor} }
+        sort_by { $_->{subscription}->subscribed_editor->name } @{ $self->edits->{editor} }
     ) if exists $self->edits->{editor};
 
     return join("\n\n", @sections);
@@ -71,13 +75,14 @@ sub text {
 
 sub header {
     my $self = shift;
+    my $escape = sub { uri_escape(shift) };
     return strip tt q{
 This is a notification that edits have been added for artists, labels and
 editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
-[% self.server %]/user/[% self.editor.name %]/subscriptions
+[% self.server %]/user/[% escape(self.editor.name) %]/subscriptions
 
-To see all open edits for your subscriptions, see this link:
+To see all open edits for your subscribed entities, see this link:
 [% self.server %]/edit/subscribed
 };
 }
@@ -91,16 +96,16 @@ Please do not reply to this message.  If you need help, please see
 }
 
 sub edits_for_type {
-    my $self = shift;
-    my $header = shift;
-    my $subs = \@_;
+    my ($self, $header, $subs, $type) = @_;
+    my $get_entity = sub { shift->$type };
+
     return strip tt q{
 [% header %]
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
-[%- artist = sub.subscription.artist -%]
-[% artist.name %] [% '(' _ artist.comment _ ') ' IF artist.comment %]([% sub.open.size %] open, [% sub.applied.size %] applied)
-[% self.server %]/artist/[% artist.gid %]/edits
+[%- entity = get_entity(sub.subscription) -%]
+[% entity.name %] [% '(' _ entity.comment _ ') ' IF entity.comment %]([% sub.open.size %] open, [% sub.applied.size %] applied)
+[% self.server %]/[% type %]/[% entity.gid %]/edits
 
 [% END %]
 };
@@ -109,14 +114,16 @@ sub edits_for_type {
 sub edits_for_editors {
     my $self = shift;
     my $subs = \@_;
+
+    my $escape = sub { uri_escape(shift) };
     return strip tt q{
 Changes by your subscribed editors:
 --------------------------------------------------------------------------------
 [% FOR sub IN subs %]
 [%- editor = sub.subscription.subscribed_editor -%]
 [% editor.name %] ([% sub.open.size %] open, [% sub.applied.size %] applied)
-Open edits: [% self.server %]/user/[% editor.name %]/edits/open
-All edits: [% self.server %]/user/[% editor.name %]/edits
+Open edits: [% self.server %]/user/[% escape(editor.name) %]/edits/open
+All edits: [% self.server %]/user/[% escape(editor.name) %]/edits
 
 [% END %]
 };

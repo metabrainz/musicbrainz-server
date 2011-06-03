@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 use strict;
 use warnings;
 use FindBin '$Bin';
@@ -12,7 +12,7 @@ my $profile = 'http://127.0.0.1:3000' . join('',@ARGV);
 print "Profiling $profile\n";
 
 # Prime the caches
-$mech->get($profile) for 1..5;
+$mech->get($profile) for 1..1;
 
 DB::enable_profile();
 $mech->get($profile)

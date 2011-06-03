@@ -1,0 +1,8 @@
+[% WRAPPER "layout.tt" title=l('Slow Down!') full_width=1 %]
+    <div id="content">
+        <h1>[%- l('Slow Down!') -%]</h1>
+        <p>[%- l("Sorry, but your requests are exceeding the allowable rate limit ({rlinfo}).",
+                 { rlinfo => rl_response.msg }) -%]</p>
+        <p>[%- l('Please slow down and then try again') -%]</p>
+    </div>
+[% END %]

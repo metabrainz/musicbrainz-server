@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 use 5.8.8;
 
 use inc::Module::Install;
@@ -10,6 +10,7 @@ license 'gpl';
 version_from 'lib/MusicBrainz/Server.pm';
 
 # Mandatory modules
+requires 'Cache::Memcached';
 requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
@@ -65,6 +66,7 @@ requires 'MooseX::Types::URI';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                 => '1.060200';
+requires 'Package::Stash'                             => '0.29';
 requires 'Readonly'                                   => '1.03';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
@@ -106,7 +108,15 @@ feature 'Developer features' =>
     'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
     ;
- 
+
+feature 'Production server' =>
+    'Digest::MD5::File' => '0.07',
+    'Catalyst::Plugin::AutoRestart' => '0.93',
+    'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
+    'FCGI' => '0',
+    'FCGI::ProcManager' => '0.19',
+    ;
+
 feature 'Fast edit migration' =>
     -default   => 1,
     'JSON::XS' => '2.27',
@@ -122,6 +132,7 @@ author_requires 'Test::EOL';
 test_requires 'Env::Path';
 test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::HTML5::Sanity';
+test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'RDF::Query';
 test_requires 'RDF::RDFa::Parser';
@@ -135,6 +146,7 @@ test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
 test_requires 'Test::WWW::Selenium';
 test_requires 'Test::WWW::Selenium::Catalyst';
+test_requires 'Test::XPath';
 test_requires 'XML::Parser';
 
 catalyst;

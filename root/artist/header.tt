@@ -2,7 +2,6 @@
     ['index', rdfa_seeAlso_link_artist(artist, 'show', l('Overview'))],
     ['releases', rdfa_seeAlso_link_artist(artist, 'releases', l('Releases'))],
     ['recordings', rdfa_seeAlso_link_artist(artist, 'recordings', l('Recordings'))],
-    ['standalone', rdfa_seeAlso_link_artist(artist, 'standalone_recordings', l('Standalone Recordings')) ],
     ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
     ['relationships', rdfa_seeAlso_link_artist(artist, 'relationships', l('Relationships'))],
     ['aliases', rdfa_seeAlso_link_artist(artist, 'aliases', l('Aliases'))],

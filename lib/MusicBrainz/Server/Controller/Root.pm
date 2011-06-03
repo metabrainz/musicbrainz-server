@@ -4,6 +4,7 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
+use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Replication ':replication_type';
@@ -98,6 +99,15 @@ sub error_500 : Private
     $c->detach;
 }
 
+sub error_503 : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(503);
+    $c->stash->{template} = 'main/503.tt';
+    $c->detach;
+}
+
 sub error_mirror : Private
 {
     my ($self, $c) = @_;
@@ -114,17 +124,6 @@ sub error_mirror_404 : Private
     $c->response->status(404);
     $c->stash->{template} = 'main/mirror_404.tt';
     $c->detach;
-}
-
-sub js_text_strings : Path('/text.js') {
-    my ($self, $c) = @_;
-    $c->res->content_type('text/javascript');
-    $c->stash->{template} = 'scripts/text_strings.tt';
-}
-
-sub js_unit_tests : Path('/unit_tests') {
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'scripts/unit_tests.tt';
 }
 
 sub begin : Private
@@ -191,6 +190,11 @@ sub begin : Private
         $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
     }
 
+    if (exists $c->action->attributes->{Edit} && DBDefs::DB_READ_ONLY) {
+        $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
+        $c->forward('/error_400');
+    }
+
     # Load current relationship
     my $rel = $c->session->{current_relationship};
     if ($rel)
@@ -220,6 +224,20 @@ sub begin : Private
             )
         );
     }
+
+    my $r = $c->model('RateLimiter')->check_rate_limit('frontend ip=' . $c->req->address);
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->stash(
+            template => 'main/rate_limited.tt',
+            rl_response => $r
+        );
+        $c->detach;
+    }
 }
 
 =head2 end
@@ -240,7 +258,8 @@ sub end : ActionClass('RenderView')
         staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
         is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
-        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED
+        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
+        developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
     # Determine which server version to display. If the DBDefs string is empty
@@ -271,6 +290,15 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
+
+    if (!$c->debug && scalar @{ $c->error }) {
+        $c->stash->{errors} = $c->error;
+        for my $error ( @{ $c->error } ) {
+            $c->log->error($error);
+        }
+        $c->stash->{template} = 'main/500.tt';
+        $c->clear_errors;
+    }
 }
 
 sub chrome_frame : Local

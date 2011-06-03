@@ -41,7 +41,7 @@
           </tbody>
       </table>
       [% END %]
-      [% form_submit(l('Attach CDTOC')) %]
+      [% form_submit(l('Attach CD TOC')) %]
       [% END %]
     [%- END -%]
   </form>

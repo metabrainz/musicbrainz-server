@@ -1,4 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+
+use warnings;
 
 use strict;
 use FindBin;
@@ -42,7 +44,6 @@ $sql->do("
     DELETE FROM artist_alias WHERE artist IN (SELECT old_ac FROM tmp_artist_credit_repl);
     DELETE FROM editor_watch_artist WHERE artist IN (SELECT old_ac FROM tmp_artist_credit_repl);
     DELETE FROM artist WHERE id IN (SELECT old_ac FROM tmp_artist_credit_repl);
-    DROP TABLE tmp_artist_credit_repl;
     ");
 
     $sql->commit;

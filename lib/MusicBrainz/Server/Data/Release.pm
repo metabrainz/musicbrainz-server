@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Release;
 
 use Moose;
 
+use Carp 'confess';
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
@@ -256,17 +257,15 @@ sub find_by_recording
     my ($join_types, $where_types) = _where_type_in (@$types);
 
     my @ids = ref $ids ? @$ids : ( $ids );
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT ON (release.id) " . $self->_columns . "
                  FROM " . $self->_table . "
                      $join_types
-                 WHERE release.id IN (
-                    SELECT release FROM medium
-                        JOIN track ON track.tracklist = medium.tracklist
-                        JOIN recording ON recording.id = track.recording
-                     WHERE recording.id IN (" . placeholders(@ids) . "))
+                     JOIN medium ON medium.release = release.id
+                     JOIN track ON track.tracklist = medium.tracklist
+                 WHERE track.recording IN (" . placeholders(@ids) . ")
                  $where_statuses
                  $where_types
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name), release.id
+                 ORDER BY release.id, date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
 
     if (!defined $limit) {
@@ -286,19 +285,23 @@ sub find_by_recordings
     return () unless @ids;
 
     my $query =
-        "SELECT DISTINCT ON (release.id) " . $self->_columns . ", recording.id AS recording
+        "SELECT DISTINCT ON (release.id) " . $self->_columns . ",
+                track.recording, track.position
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
            JOIN track ON track.tracklist = medium.tracklist
-           JOIN recording ON recording.id = track.recording
-          WHERE recording.id IN (" . placeholders(@ids) . ")";
+          WHERE track.recording IN (" . placeholders(@ids) . ")";
 
     my %map;
     $self->sql->select($query, @ids);
     while (my $row = $self->sql->next_row_hash_ref) {
         $map{ $row->{recording} } ||= [];
-        push @{ $map{ $row->{recording} } }, $self->_new_from_row($row)
+        push @{ $map{ $row->{recording} } },
+            [ $self->_new_from_row($row),
+              $self->c->model('Track')->_new_from_row({
+                  position => $row->{position}
+              }) ];
     }
 
     return %map;
@@ -513,6 +516,34 @@ sub delete
     return;
 }
 
+sub can_merge {
+    my ($self, $strategy, $new_id, @old_ids) = @_;
+
+    if ($strategy == $MERGE_MERGE) {
+        my $mediums_differ = $self->sql->select_single_value(
+            'SELECT TRUE
+               FROM (
+           SELECT medium.id, medium.position, tracklist.track_count
+             FROM medium
+             JOIN tracklist ON tracklist.id = medium.tracklist
+            WHERE release IN (' . placeholders(@old_ids) . ')
+                    ) s
+               FULL OUTER JOIN medium new_medium ON new_medium.position = s.position
+               JOIN tracklist ON tracklist.id = new_medium.tracklist
+              WHERE new_medium.release = ?
+                AND (   tracklist.track_count <> s.track_count
+                     OR new_medium.id IS NULL
+                     OR s.id IS NULL)
+               LIMIT 1',
+            @old_ids, $new_id);
+
+        return !$mediums_differ;
+    }
+    elsif ($strategy == $MERGE_APPEND) {
+        return 1;
+    }
+}
+
 sub merge
 {
     my ($self, %opts) = @_;
@@ -537,26 +568,28 @@ sub merge
         )
     );
 
-    # XXX allow actual tracklists/mediums merging
     if ($merge_strategy == $MERGE_APPEND) {
-        my $pos = $self->sql->select_single_value('
-            SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
-        my @medium_ids = @{
-            $self->sql->select_single_column_array(
-                'SELECT medium.id FROM medium
-                   JOIN release ON medium.release = release.id
-                   JOIN release_name ON release_name.id = release.name
-                  WHERE release.id IN (' . placeholders(@old_ids) . ')
-               ORDER BY musicbrainz_collate(release_name.name), medium.position',
-                @old_ids
-            );
-        };
-        foreach my $medium_id (@medium_ids) {
-            $self->sql->do('UPDATE medium SET release=?, position=? WHERE id=?',
-                     $new_id, ++$pos, $medium_id);
+        my %positions = %{ $opts{medium_positions} || {} }
+            or confess('Missing medium_positions parameter');
+
+        my @medium_ids = @{ $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release IN (' . placeholders($new_id, @old_ids) . ')',
+            $new_id, @old_ids
+        ) };
+
+        confess('medium_positions does not account for all mediums in all releases')
+            if (keys %positions != grep { exists $positions{$_} } @medium_ids);
+
+        foreach my $id (@medium_ids) {
+            next unless exists $positions{$id};
+            $self->sql->do('UPDATE medium SET release = ?, position = ? WHERE id = ?',
+                           $new_id, $positions{$id}, $id);
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
+        confess('Mediums contain differing numbers of tracks')
+            unless $self->can_merge($MERGE_MERGE, $new_id, @old_ids);
+
         my @merges = @{
             $self->sql->select_list_of_hashes(
                 'SELECT newmed.id AS new_id,
@@ -669,7 +702,9 @@ sub find_similar
     my @releases = map { $_->entity } @$results;
     $self->c->model('ArtistCredit')->load(@releases);
 
-    my %artist_ids = map { $_->{artist} => 1 } grep { ref($_) } @$artist_credit;
+    my %artist_ids = map { $_->{artist}->{id} => 1 }
+        grep { ref($_) } @{ $artist_credit->{names} };
+
     return
         # Make sure all the artists are in the artist credit
         grep {

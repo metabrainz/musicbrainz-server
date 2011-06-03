@@ -2,16 +2,19 @@ package MusicBrainz::Server::Edit::Release::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Map );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities' => {
     -excludes => 'release_ids'
 };
 with 'MusicBrainz::Server::Edit::Release';
+
+use aliased 'MusicBrainz::Server::Entity::Release';
 
 has '+data' => (
     isa => Dict[
@@ -23,7 +26,20 @@ has '+data' => (
             name => Str,
             id   => Int
         ] ],
-        merge_strategy => Int
+        merge_strategy => Int,
+        _edit_version => Int,
+        medium_changes => Nullable[
+            ArrayRef[Dict[
+                release => Dict[
+                    id => Int,
+                    name => Str
+                ],
+                mediums => ArrayRef[Dict[
+                    id           => Int,
+                    old_position => Str | Int,
+                    new_position => Int,
+                ]]
+            ]]]
     ]
 );
 
@@ -36,15 +52,41 @@ sub release_ids { @{ shift->_entity_ids } }
 sub foreign_keys
 {
     my $self = shift;
-    return {
+    my $fks = {
         Release => {
             $self->data->{new_entity}{id} => [ 'ArtistCredit' ],
             map {
                 $_->{id} => [ 'ArtistCredit' ]
             } @{ $self->data->{old_entities} }
         }
-    }
+    };
+
+    return $fks;
 }
+
+sub initialize {
+    my ($self, %opts) = @_;
+    $opts{_edit_version} = 2;
+    $self->data(\%opts);
+}
+
+override build_display_data => sub
+{
+    my ($self, $loaded) = @_;
+    my $data = super();
+
+    if ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+        $data->{changes} = [
+            map +{
+                release => $loaded->{Release}{ $_->{release}{id} }
+                    || Release->new( name => $_->{release}{name} ),
+                mediums => $_->{mediums}
+            }, @{ $self->data->{medium_changes} }
+        ];
+    }
+
+    return $data;
+};
 
 sub do_merge
 {
@@ -52,7 +94,12 @@ sub do_merge
     $self->c->model('Release')->merge(
         new_id => $self->new_entity->{id},
         old_ids => [ $self->_old_ids ],
-        merge_strategy => $self->data->{merge_strategy}
+        merge_strategy => $self->data->{merge_strategy},
+        medium_positions => {
+            map { $_->{id} => $_->{new_position} }
+            map { @{ $_->{mediums} } }
+            @{ $self->data->{medium_changes} }
+        }
     );
 };
 

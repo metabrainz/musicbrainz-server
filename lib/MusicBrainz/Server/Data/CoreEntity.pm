@@ -14,7 +14,30 @@ sub _gid_redirect_table
 sub get_by_gids
 {
     my ($self, @gids) = @_;
-    return $self->_get_by_keys('gid', @gids);
+    my %gid_map = map { $_->gid => $_ } values %{ $self->_get_by_keys('gid', @gids) };
+    my $table = $self->_gid_redirect_table;
+    return \%gid_map
+        unless defined $table;
+    my @missing_gids;
+    for my $gid (@gids) {
+        unless (exists $gid_map{$gid}) {
+            push @missing_gids, $gid;
+        }
+    }
+    if (@missing_gids) {
+        my $sql = "SELECT new_id, gid FROM $table
+            WHERE gid IN (" . placeholders(@missing_gids) . ")";
+        my $ids = $self->sql->select_list_of_lists($sql, @missing_gids);
+        my $id_map = $self->get_by_ids(map { $_->[0] } @$ids);
+        for my $row (@$ids) {
+            my $id = $row->[0];
+            if (exists $id_map->{$id}) {
+                my $obj = $id_map->{$id};
+                $gid_map{$row->[1]} = $obj;
+            }
+        }
+    }
+    return \%gid_map;
 }
 
 sub get_by_gid
@@ -83,6 +106,13 @@ sub _delete_and_redirect_gids
 
     # Add redirects from GIDs of the deleted recordings to $new_id
     $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
+
+    if ($self->can('_delete_from_cache')) {
+        $self->_delete_from_cache(
+            $new_id, @old_ids,
+            @$old_gids
+        );
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -99,9 +129,14 @@ MusicBrainz::Server::Data::CoreEntity
 
 Loads and returns a single CoreEntity instance for the specified $gid.
 
+=head2 get_by_gids (@gids)
+
+Loads and returns multiple CoreEntity instances for the specified @gids,
+the response is a GID-keyes HASH reference.
+
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2009,2011 Lukas Lalinsky
 Copyright (C) 2010 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify

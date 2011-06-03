@@ -28,15 +28,20 @@ use Sub::Exporter -setup => {
 sub tracks_to_hash
 {
     my $tracks = shift;
-    return [ map +{
+
+    my $for_change_hash = 1;
+
+    my $tmp = [ map +{
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
+        artist_credit => artist_credit_to_ref ($_->artist_credit, $for_change_hash),
         recording_id => $_->recording_id,
         position => $_->position,
 
         # Filter out sub-second differences
         length => unformat_track_length(format_track_length($_->length)),
     }, @$tracks ];
+
+    return $tmp;
 }
 
 sub tracklist_foreign_keys {
@@ -77,9 +82,9 @@ sub display_tracklist {
                 length => $_->{length},
                 artist_credit => artist_credit_preview ($loaded, $_->{artist_credit}),
                 position => $_->{position},
-                recording => $_->{recording_id} ? 
-                    $loaded->{Recording}{ $_->{recording_id} } :
-                    Recording->new( name => $_->{name} )
+                recording => !$_->{recording_id} || !$loaded->{Recording}{ $_->{recording_id} } ?
+                    Recording->new( name => $_->{name} ) : 
+                    $loaded->{Recording}{ $_->{recording_id} }
             )
         } sort { $a->{position} <=> $b->{position} } @$tracklist ]
     )

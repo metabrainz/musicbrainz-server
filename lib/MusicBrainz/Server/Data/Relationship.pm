@@ -110,7 +110,7 @@ sub _load
     foreach my $t (@types) {
         my $target_type = $type eq $t->[0] ? $t->[1] : $t->[0];
         my %objs_by_id = map { $_->id => $_ }
-            grep { $_->relationships_by_type($target_type) == 0 } @objs;
+            grep { @{ $_->relationships_by_type($target_type) } == 0 } @objs;
         my @ids = keys %objs_by_id;
         next unless @ids;
 

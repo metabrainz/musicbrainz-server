@@ -26,7 +26,8 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups aliases
                                           tags user-tags ratings user-ratings
-                                          artist-credits discids media _relations) ]
+                                          artist-credits discids media recording-level-rels
+                                          work-level-rels _relations) ]
      },
      release => {
                          method   => 'POST',
@@ -53,6 +54,8 @@ sub release_toplevel
 
     $c->model('Release')->load_meta($release);
     $self->linked_releases ($c, $stash, [ $release ]);
+
+    my @rels_entities = $release;
 
     if ($c->stash->{inc}->artists)
     {
@@ -98,14 +101,29 @@ sub release_toplevel
         my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
         $c->model('Recording')->load_meta(@recordings);
 
+        if ($c->stash->{inc}->recording_level_rels)
+        {
+            push @rels_entities, @recordings;
+        }
+
         $self->linked_recordings ($c, $stash, \@recordings);
     }
 
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $release);
+        $c->model('Relationship')->load_subset($types, @rels_entities);
+
+        if ($c->stash->{inc}->work_level_rels)
+        {
+            my @works =
+                map { $_->target }
+                grep { $_->target_type eq 'work' }
+                map { $_->all_relationships } @rels_entities;
+            $c->model('Relationship')->load_subset($types, @works);
+        }
     }
+
 }
 
 sub release: Chained('root') PathPart('release') Args(1)
@@ -225,8 +243,7 @@ sub release_submit : Private
         push @submit, { release => $id, barcode => $barcode };
     }
 
-    my %releases = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
-    my %gid_map = map { $_->gid => $_ } values %releases;
+    my %gid_map = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
 
     for my $submission (@submit) {
         my $gid = $submission->{release};

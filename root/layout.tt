@@ -11,15 +11,7 @@
           [%- END -%]
         [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        <link rel="stylesheet" type="text/css" href="[%-
-                c.model('FileCache').squash_styles(
-                    "styles/layout.css",
-                    "styles/entity.css",
-                    "styles/forms.css",
-                    "styles/edit.css",
-                    "styles/widgets.css",
-                )
-        -%]"/>
+        [% css_manifest('common.css.manifest') %]
         [% IF extra_css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
         [% END %]
@@ -30,41 +22,21 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
-        <script type="text/javascript">document.cookie = "javascript=true; path=/";</script>
+        <script type="text/javascript">//<![CDATA[
+                                       document.cookie = "javascript=true; path=/";
+                                       //]]></script>
         [%- UNLESS no_javascript -%]
-            [%- IF c.user_exists -%]
-                <script type="text/javascript" src="[%-
-                  c.model('FileCache').squash_scripts(
-                      "lib/jquery/jquery-1.5.1.js",
-                      "lib/jquery.ui/ui/jquery-ui-1.8.10.custom.js",
-                      "scripts/mb_placeholder.js",
-                      "scripts/MB.js",
-                      "scripts/global.js",
-                      "scripts/MB/utility.js",
-                      "scripts/MB/Control/Autocomplete.js",
-                      "scripts/MB/Control/RelateTo.js",
-                  )
-              -%]"></script>
-            [%- ELSE -%]
-                <script type="text/javascript" src="[%-
-                  c.model('FileCache').squash_scripts(
-                      "lib/jquery/jquery-1.5.1.js",
-                      "scripts/mb_placeholder.js",
-                      "scripts/MB.js",
-                      "scripts/global.js",
-                  )
-              -%]"></script>
-            [%- END -%]
+            [%- script_manifest('common.js.manifest') -%]
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
-        <script type="text/javascript">
+        <script type="text/javascript">//<![CDATA[
             $(document).ready (function () {
                 $("[placeholder]").mb_placeholder ();
                 [% IF c.user_exists %]
                     MB.Control.RelateTo ();
                 [%- END -%]
             });
-        </script>
+        //]]></script>
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
     </head>
@@ -142,12 +114,12 @@
             <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
 
-        [% INCLUDE 'layout/merge-helper.tt'
-           IF c.session.merger AND !hide_merge_helper %]
+        [%- INCLUDE 'layout/merge-helper.tt'
+           IF c.session.merger AND !hide_merge_helper -%]
 
         <div id="footer">
             <p class="links">
-                <a href="http://metabrainz.org/donate" class="internal">[% ('Donate') %]</a> | 
+                <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> | 
                 <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> | 
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> | 
                 <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> | 

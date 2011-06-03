@@ -248,6 +248,8 @@ sub appears_on
 {
     my ($self, $recordings, $limit) = @_;
 
+    return () unless scalar @$recordings;
+
     my @ids = map { $_->id } @$recordings;
 
     my $query =

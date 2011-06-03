@@ -40,6 +40,7 @@ sub find_by_recording
     my $self = shift;
 
     my @ids = ref $_[0] ? @{$_[0]} : @_;
+    return () unless @ids;
 
     my $query = "SELECT ".$self->_columns."
                    FROM ".$self->_table."
@@ -90,13 +91,20 @@ sub merge_recordings
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    # Delete ISRCs from @old_ids that already exist for $new_id
-    $self->sql->do('DELETE FROM isrc
-              WHERE recording IN ('.placeholders(@old_ids).') AND
-                  isrc IN (SELECT isrc FROM isrc WHERE recording = ?)',
-              @old_ids, $new_id);
+    my @ids = ($new_id, @old_ids);
 
-    # Move the rest
+    # Keep distinct ISRCs
+    $self->sql->do(
+        'DELETE FROM isrc
+          WHERE recording IN ('.placeholders(@ids).')
+            AND (isrc, recording) NOT IN (
+                    SELECT DISTINCT ON (isrc) isrc, recording
+                      FROM isrc
+                     WHERE recording IN ('.placeholders(@ids).')
+                )',
+        @ids, @ids);
+
+    # Move everything to the new recording
     $self->sql->do('UPDATE isrc SET recording = ?
               WHERE recording IN ('.placeholders(@old_ids).')',
               $new_id, @old_ids);
@@ -119,6 +127,34 @@ sub insert
                  (join ",", (("(?, ?, ?)") x @isrcs)),
              map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
                  @isrcs);
+}
+
+sub filter_additions
+{
+    my ($self, @additions) = @_;
+
+    my $query =
+        'SELECT array_index
+           FROM (VALUES ' . join(', ', ('(?::int, ?::text, ?::int)') x @additions) . ')
+                  addition (array_index, isrc, recording)
+          WHERE NOT EXISTS (
+                    SELECT TRUE FROM isrc
+                     WHERE isrc.isrc = addition.isrc
+                       AND isrc.recording = addition.recording
+                           )';
+
+    my @filtered = @{
+        $self->sql->select_single_column_array(
+            $query,
+            do {
+                my $i = 0;
+                map {
+                    $i++, $_->{isrc}, $_->{recording}{id}
+                } @additions
+            }
+        )
+    };
+    return map { $additions[$_] } @filtered;
 }
 
 __PACKAGE__->meta->make_immutable;

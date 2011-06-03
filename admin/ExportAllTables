@@ -1,4 +1,6 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
+
+use warnings;
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -31,121 +33,9 @@ use DBDefs;
 use integer;
 
 use Getopt::Long;
+use Encode qw( encode );
 
-my $fHelp;
-my $OutputDir = ".";
-my $dir = "/tmp";
-my $fCompress = 1;
-my $fKeepFiles = 0;
-my $fProgress = -t STDOUT;
-my $fDoFullExport = 1;
-my $fDoReplication = 0;
-my @tablelist;
-
-GetOptions(
-    "output-dir|d=s"    => \$OutputDir,
-    "tmp-dir|t=s"               => \$dir,
-    "compress|c!"               => \$fCompress,
-    "keep-files|k!"             => \$fKeepFiles,
-    "table=s"                   => \@tablelist,
-    "with-replication"          => sub { $fDoReplication = 1 },
-    "without-replication"       => sub { $fDoReplication = 0 },
-    "with-full-export"          => sub { $fDoFullExport = 1 },
-    "without-full-export"       => sub { $fDoFullExport = 0 },
-    "help"                              => \$fHelp,
-);
-
-sub usage
-{
-    print <<EOF;
-Usage: ExportAllTables [options]
-
-        --help            show this help
-    -d, --output-dir DIR  place the final archive files in DIR (default: ".")
-    -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
-    -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
-    -k, --keep-files      don't delete the exported files from the tmp directory
-        --table TABLE     process only these tables
-        --with[out]-replication  Do [not] produce a replication packet
-        --with[out]-full-export  Do [not] export full tables
-
-Certain combinations of options are pointless:
- * specifying --without-replication and --without-full-export
- * specifying tables (via --table) and --without-full-export
- * specifying --nocompress and omitting --keep-files
-
-If you specify --table TABLE, you won't get a complete consistent snapshot
-of the database, of course.
-
-EOF
-}
-
-usage(), exit if $fHelp;
-usage(), exit 1 if @ARGV;
-usage(), exit 1 if not $fCompress and not $fKeepFiles;
-usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
-usage(), exit 1 if not $fDoFullExport and @tablelist;
-
-my $erase_tmpdir_on_exit = 0;
-END
-{
-    if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
-    {
-        print localtime() . " : Disk space just before erasing tmp dir:\n";
-        system "/bin/df -m";
-        print localtime() . " : Erasing $dir\n";
-        system "/bin/rm", "-rf", $dir;
-    }
-}
-
-use File::Temp qw( tempdir );
-$SIG{'INT'} = sub { exit 3 };
-$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => 0);
-$erase_tmpdir_on_exit = 1;
-mkdir "$dir/mbdump" or die $!;
-print localtime() . " : Exporting to $dir\n";
-
-use MusicBrainz::Server::Context;
-use Sql;
-
-# Log in to the main DB
-my $c = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($c->dbh);
-my $dbh = $c->dbh;
-
-# Log in to the raw DB, or duplicate handles to the main DB
-my $rawsql = Sql->new($c->raw_dbh);
-my $rawdbh = $c->raw_dbh;
-
-# This hash indicates which tables may need to be pulled from a vertical DB
-my %table_db_mapping =
-(
-    'artist_rating_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'artist_tag_raw'                                            =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_group_rating_raw'                                  =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_group_tag_raw'                                     =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_tag_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
-    'recording_rating_raw'                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'recording_tag_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'label_rating_raw'                                          =>      { dbh => $rawdbh, sql => $rawsql },
-    'label_tag_raw'                                             =>      { dbh => $rawdbh, sql => $rawsql },
-    'work_rating_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
-    'work_tag_raw'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'cdtoc_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_raw'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
-    'track_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_artist'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_label'                                                        =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_note'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_recording'                                            =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_release'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_release_group'                                        =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_work'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    '_default_'                                                         =>      { dbh => $dbh, sql => $sql }
-);
+################################################################################
 
 my @tables = qw(
     artist_rating_raw
@@ -159,6 +49,7 @@ my @tables = qw(
     edit_recording
     edit_release
     edit_release_group
+    edit_url
     edit_work
     label_rating_raw
     label_tag_raw
@@ -192,6 +83,10 @@ my @tables = qw(
     editor_subscribe_artist
     editor_subscribe_editor
     editor_subscribe_label
+    editor_watch_artist
+    editor_watch_preferences
+    editor_watch_release_group_type
+    editor_watch_release_status
     gender
     isrc
     l_artist_artist
@@ -264,6 +159,7 @@ my @tables = qw(
     release_packaging
     release_status
     release_tag
+    replication_control
     script
     script_language
     tag
@@ -272,7 +168,9 @@ my @tables = qw(
     track_name
     tracklist
     url
+    url_gid_redirect
     work
+    work_alias
     work_annotation
     work_gid_redirect
     work_meta
@@ -284,6 +182,305 @@ my @tables = qw(
 my @replication_tables = qw(
     dbmirror_pending
     dbmirror_pendingdata
+);
+
+
+my @group_core = qw(
+    artist
+    artist_alias
+    artist_credit
+    artist_credit_name
+    artist_gid_redirect
+    artist_name
+    artist_type
+    cdtoc
+    clientversion
+    country
+    gender
+    isrc
+    l_artist_artist
+    l_artist_label
+    l_artist_recording
+    l_artist_release
+    l_artist_release_group
+    l_artist_url
+    l_artist_work
+    l_label_label
+    l_label_recording
+    l_label_release
+    l_label_release_group
+    l_label_url
+    l_label_work
+    l_recording_recording
+    l_recording_release
+    l_recording_release_group
+    l_recording_url
+    l_recording_work
+    l_release_group_release_group
+    l_release_group_url
+    l_release_group_work
+    l_release_release
+    l_release_release_group
+    l_release_url
+    l_release_work
+    l_url_url
+    l_url_work
+    l_work_work
+    label
+    label_alias
+    label_gid_redirect
+    label_name
+    label_type
+    language
+    link
+    link_attribute
+    link_attribute_type
+    link_type
+    link_type_attribute_type
+    medium
+    medium_cdtoc
+    medium_format
+    puid
+    recording
+    recording_gid_redirect
+    recording_puid
+    release
+    release_gid_redirect
+    release_group
+    release_group_gid_redirect
+    release_group_type
+    release_label
+    release_name
+    release_packaging
+    release_status
+    replication_control
+    script
+    script_language
+    track
+    track_name
+    tracklist
+    url
+    url_gid_redirect
+    work
+    work_alias
+    work_gid_redirect
+    work_name
+    work_type
+    );
+
+my @group_derived = qw(
+    annotation
+    artist_annotation
+    artist_meta
+    artist_tag
+    label_annotation
+    label_meta
+    label_tag
+    recording_annotation
+    recording_meta
+    recording_tag
+    release_annotation
+    release_meta
+    release_group_annotation
+    release_group_meta
+    release_group_tag
+    release_tag
+    tag
+    tag_relation
+    work_annotation
+    work_meta
+    work_tag
+    );
+
+my @group_stats = qw(
+    statistic
+);
+
+my @group_editor = qw(
+    editor_sanitised
+    );
+
+my @group_edit = qw(
+    edit
+    edit_artist
+    edit_label
+    edit_note
+    edit_recording
+    edit_release
+    edit_release_group
+    edit_url
+    edit_work
+    vote
+    );
+
+my @group_closedmoderation = qw(
+    moderation_closed
+    moderation_note_closed
+    vote_closed
+    );
+
+my @group_private = qw(
+    artist_rating_raw
+    artist_tag_raw
+    editor
+    editor_collection
+    editor_collection_release
+    editor_preference
+    editor_subscribe_artist
+    editor_subscribe_editor
+    editor_subscribe_label
+    editor_watch_artist
+    editor_watch_preferences
+    editor_watch_release_group_type
+    editor_watch_release_status
+    label_rating_raw
+    label_tag_raw
+    recording_rating_raw
+    recording_tag_raw
+    release_coverart
+    release_group_rating_raw
+    release_group_tag_raw
+    release_tag_raw
+    work_rating_raw
+    work_tag_raw
+);
+
+my @group_cdstubs = qw(
+    cdtoc_raw
+    release_raw
+    track_raw
+);
+
+my @groups = (
+    \@group_core,
+    \@group_derived,
+    \@group_stats,
+    \@group_editor,
+    \@group_edit,
+    \@group_closedmoderation,
+    \@group_private,
+    \@group_cdstubs,
+);
+
+################################################################################
+
+my $fHelp;
+my $OutputDir = ".";
+my $dir = "/tmp";
+my $fCompress = 1;
+my $fKeepFiles = 0;
+my $fProgress = -t STDOUT;
+my $fDoFullExport = 1;
+my $fDoReplication = 0;
+my $fCheckCompleteness = 0;
+my @tablelist;
+
+GetOptions(
+    "output-dir|d=s"    => \$OutputDir,
+    "tmp-dir|t=s"               => \$dir,
+    "compress|c!"               => \$fCompress,
+    "keep-files|k!"             => \$fKeepFiles,
+    "table=s"                   => \@tablelist,
+    "with-replication"          => sub { $fDoReplication = 1 },
+    "without-replication"       => sub { $fDoReplication = 0 },
+    "with-full-export"          => sub { $fDoFullExport = 1 },
+    "without-full-export"       => sub { $fDoFullExport = 0 },
+    "check-completeness"        => sub { $fCheckCompleteness = 1 },
+    "help"                              => \$fHelp,
+);
+
+sub usage
+{
+    print <<EOF;
+Usage: ExportAllTables [options]
+
+        --help            show this help
+    -d, --output-dir DIR  place the final archive files in DIR (default: ".")
+    -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+    -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
+    -k, --keep-files      don't delete the exported files from the tmp directory
+        --table TABLE     process only these tables
+        --with[out]-replication  Do [not] produce a replication packet
+        --with[out]-full-export  Do [not] export full tables
+        --check-completeness     Check that all tables from DB schema are exported
+
+Certain combinations of options are pointless:
+ * specifying --without-replication and --without-full-export
+ * specifying tables (via --table) and --without-full-export
+ * specifying --nocompress and omitting --keep-files
+
+If you specify --table TABLE, you won't get a complete consistent snapshot
+of the database, of course.
+
+EOF
+}
+
+usage(), exit if $fHelp;
+usage(), exit 1 if @ARGV;
+usage(), exit 1 if not $fCompress and not $fKeepFiles;
+usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
+usage(), exit 1 if not $fDoFullExport and @tablelist;
+check_tables_completeness(), exit if $fCheckCompleteness;
+
+my $erase_tmpdir_on_exit = 0;
+END
+{
+    if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
+    {
+        print localtime() . " : Disk space just before erasing tmp dir:\n";
+        system "/bin/df -m";
+        print localtime() . " : Erasing $dir\n";
+        system "/bin/rm", "-rf", $dir;
+    }
+}
+
+use File::Temp qw( tempdir );
+$SIG{'INT'} = sub { exit 3 };
+$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => 0);
+$erase_tmpdir_on_exit = 1;
+mkdir "$dir/mbdump" or die $!;
+print localtime() . " : Exporting to $dir\n";
+
+use MusicBrainz::Server::Context;
+use Sql;
+
+# Log in to the main DB
+my $c = MusicBrainz::Server::Context->new;
+my $sql = Sql->new($c->dbh);
+my $dbh = $c->dbh;
+
+# Log in to the raw DB, or duplicate handles to the main DB
+my $rawsql = Sql->new($c->raw_dbh);
+my $rawdbh = $c->raw_dbh;
+
+# This hash indicates which tables may need to be pulled from a vertical DB
+my %table_db_mapping =
+(
+    'artist_rating_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'artist_tag_raw'                                            =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_group_rating_raw'                                  =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_group_tag_raw'                                     =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_tag_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
+    'recording_rating_raw'                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'recording_tag_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'label_rating_raw'                                          =>      { dbh => $rawdbh, sql => $rawsql },
+    'label_tag_raw'                                             =>      { dbh => $rawdbh, sql => $rawsql },
+    'work_rating_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
+    'work_tag_raw'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'cdtoc_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'release_raw'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
+    'track_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_artist'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_label'                                                        =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_note'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_recording'                                            =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_release'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_release_group'                                        =>      { dbh => $rawdbh, sql => $rawsql },
+    'edit_work'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
+    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
+    '_default_'                                                         =>      { dbh => $dbh, sql => $sql }
 );
 
 @tables = @tablelist if @tablelist;
@@ -412,7 +609,7 @@ sub dumptable
     while ($dbh->pg_getcopydata($buffer) >= 0)
     {
         $longest = length($buffer) if length($buffer) > $longest;
-        print DUMP $buffer
+        print DUMP encode('utf-8', $buffer)
                 or die $!;
 
         ++$rows;
@@ -526,166 +723,6 @@ undef $c;
 # We can release the lock, allowing other exports to run if they wish.
 close $lockfh;
 
-my @group_core = qw(
-    artist
-    artist_alias
-    artist_credit
-    artist_credit_name
-    artist_gid_redirect
-    artist_name
-    artist_type
-    cdtoc
-    clientversion
-    country
-    gender
-    isrc
-    l_artist_artist
-    l_artist_label
-    l_artist_recording
-    l_artist_release
-    l_artist_release_group
-    l_artist_url
-    l_artist_work
-    l_label_label
-    l_label_recording
-    l_label_release
-    l_label_release_group
-    l_label_url
-    l_label_work
-    l_recording_recording
-    l_recording_release
-    l_recording_release_group
-    l_recording_url
-    l_recording_work
-    l_release_group_release_group
-    l_release_group_url
-    l_release_group_work
-    l_release_release
-    l_release_release_group
-    l_release_url
-    l_release_work
-    l_url_url
-    l_url_work
-    l_work_work
-    label
-    label_alias
-    label_gid_redirect
-    label_name
-    label_type
-    language
-    link
-    link_attribute
-    link_attribute_type
-    link_type
-    link_type_attribute_type
-    medium
-    medium_cdtoc
-    medium_format
-    puid
-    recording
-    recording_gid_redirect
-    recording_puid
-    release
-    release_gid_redirect
-    release_group
-    release_group_annotation
-    release_group_gid_redirect
-    release_group_type
-    release_label
-    release_name
-    release_packaging
-    release_status
-    replication_control
-    script
-    script_language
-    track
-    track_name
-    tracklist
-    url
-    work
-    work_gid_redirect
-    work_name
-    work_type
-    );
-
-my @group_derived = qw(
-    annotation
-    artist_annotation
-    artist_meta
-    artist_tag
-    label_annotation
-    label_meta
-    label_tag
-    recording_annotation
-    recording_meta
-    recording_tag
-    release_annotation
-    release_meta
-    release_group_annotation
-    release_group_meta
-    release_group_tag
-    release_tag
-    tag
-    tag_relation
-    work_annotation
-    work_meta
-    work_tag
-    );
-
-my @group_stats = qw(
-    statistic
-);
-
-my @group_editor = qw(
-    editor_sanitised
-    );
-
-my @group_edit = qw(
-    edit
-    edit_artist
-    edit_label
-    edit_note
-    edit_recording
-    edit_release
-    edit_release_group
-    edit_work
-    vote
-    );
-
-my @group_closedmoderation = qw(
-    moderation_closed
-    moderation_note_closed
-    vote_closed
-    );
-
-my @group_private = qw(
-    artist_rating_raw
-    artist_tag_raw
-    editor
-    editor_preference
-    editor_subscribe_artist
-    editor_subscribe_editor
-    editor_subscribe_label
-    label_rating_raw
-    label_tag_raw
-    editor_collection
-    editor_collection_release
-    recording_rating_raw
-    recording_tag_raw
-    release_coverart
-    release_group_rating_raw
-    release_group_tag_raw
-    release_tag_raw
-    work_rating_raw
-    work_tag_raw
-);
-
-my @group_cdstubs = qw(
-    cdtoc_raw
-    release_raw
-    track_raw
-);
-
 use File::Copy qw( copy );
 
 if ($fCompress and $fDoFullExport)
@@ -789,6 +826,43 @@ in a format suitable for import into a PostgreSQL database. To import
 them, you need a compatible version of the MusicBrainz server software.
 END
     writefile("README", $text);
+}
+
+sub check_tables_completeness
+{
+    my @create_tables;
+
+    open FILE, "<$FindBin::Bin/../admin/sql/CreateTables.sql";
+    my $create_tables_sql = do { local $/; <FILE> };
+    close FILE;
+    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
+        push @create_tables, $1;
+    }
+
+    open FILE, "<$FindBin::Bin/../admin/sql/vertical/rawdata/CreateTables.sql";
+    my $create_raw_tables_sql = do { local $/; <FILE> };
+    close FILE;
+    while ($create_raw_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
+        push @create_tables, $1;
+    }
+
+    my %exported_tables = map { $_ => 1 } @tables;
+    my @not_exported_tables = grep { not exists $exported_tables{$_} } @create_tables;
+    printf "Table not exported: %s\n", $_
+        for sort @not_exported_tables;
+
+    my @no_group_tables;
+    foreach my $table (@tables) {
+        my $included = 0;
+        foreach my $group (@groups) {
+            if (grep {$_ eq $table} @$group) {
+                $included = 1;
+            }
+        }
+        push @no_group_tables, $table if not $included;
+    }
+    printf "Table exported but not included in any tar: %s\n", $_
+        for sort @no_group_tables;
 }
 
 # eof ExportAllTables

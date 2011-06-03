@@ -9,7 +9,7 @@ sub related_entities {
     my $self = shift;
     return {
         recording => [
-            map { $_->{recording_id} } @{ $self->data->{isrcs} }
+            map { $_->{recording}{id} } @{ $self->data->{isrcs} }
         ]
     }
 }
@@ -32,7 +32,7 @@ sub do_upgrade {
                 id => $self->resolve_recording_id(
                     $self->new_value->{"TrackId$i"}
                 ),
-                name => '[deleted]',
+                name => '[removed]',
             }
         };
     }
