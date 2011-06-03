@@ -84,11 +84,11 @@ sub diff_side {
 }
 
 sub _link_artist_credit_name {
-    my ($self, $acn, $name) = @_;
+    my ($self, $acn) = @_;
     return $h->a({
         href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
         title => $acn->artist->name
-    }, $name || $acn->name);
+    }, $acn->name);
 }
 
 sub _link_joined {
@@ -134,20 +134,6 @@ sub diff_artist_credits {
                     $new_name,
                     $self->diff_side($old_name->name, $new_name->name, '+', '\s+')
                 );
-
-                # Diff the artist IDs
-                if ($old_name->artist->id != $new_name->artist->id) {
-                    $sides{old} .= ' ' . $self->_link_artist_credit_name(
-                        $old_name,
-                        $h->img({ src => '/static/images/icons/external.png',
-                                  alt => $old_name->artist->name })
-                    );
-                    $sides{new} .= ' ' . $self->_link_artist_credit_name(
-                        $new_name,
-                        $h->img({ src => '/static/images/icons/external.png',
-                                  alt => $new_name->artist->name })
-                    );
-                }
 
                 # Diff the join phrases
                 $sides{old} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '-');
