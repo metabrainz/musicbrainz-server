@@ -89,7 +89,7 @@
              <td>
                [% artist_credit_differences.old %]
              </td>
-             <td>
+             <td class="treleases">
                [% old_track_length %]
              </td>
            </tr>
@@ -107,7 +107,7 @@
              <td>
                [% artist_credit_differences.new UNLESS artist_credit_differences.new == artist_credit_differences.old %]
              </td>
-             <td>
+             <td class="treleases">
                [% new_track_length UNLESS new_track_length == old_track_length %]
              </td>
            </tr>
