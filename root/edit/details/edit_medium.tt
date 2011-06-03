@@ -162,8 +162,8 @@
         <thead>
           <tr>
             <th>[% l('#') %]</th>
-            <th>[% l('Old recording') %]</th>
-            <th>[% l('New recording') %]</th>
+            <th>[% l('Old Artist') %]</th>
+            <th>[% l('New Artist') %]</th>
           </tr>
         </thead>
         <tbody>
