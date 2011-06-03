@@ -454,6 +454,16 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
             map { $_->tracklist->all_tracks }
                 $release->all_mediums);
 
+    my @works =
+        map { $_->target }
+            grep { $_->target_type eq 'work' }
+                map { $_->all_relationships }
+                    map { $_->recording }
+                        map { $_->tracklist->all_tracks }
+                            $release->all_mediums; 
+
+    $c->model('Relationship')->load_subset([ 'artist' ], @works);
+
     my $dest = $model->get_by_gid($gid);
     if (!$dest) {
         $c->stash( message => l('Target entity not found') );
