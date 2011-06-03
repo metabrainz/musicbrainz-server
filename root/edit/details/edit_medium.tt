@@ -1,3 +1,17 @@
+[%- MACRO expanded_artist_credit(artist_credit) BLOCK -%]
+  <ul>
+    [% FOR name=artist_credit.names %]
+      <li>
+      [% IF name.artist.name != name.name %]
+        [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
+      [% ELSE %]
+        [% descriptive_link(name.artist) %]</li>
+      [% END %]
+      </li>
+    [% END %]
+  </ul>
+[%- END -%]
+
 <table class="details edit-medium">
   [% UNLESS edit.preview %]
   <tr>
@@ -172,20 +186,8 @@
                new_track = assoc.2 %]
                <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
                  <td class="pos t">[% new_track.position %]</td>
-                 <td>
-                   <ul>
-                     [% FOR name=old_track.artist_credit.names %]
-                     <li>[% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]</li>
-                     [% END %]
-                   </ul>
-                 </td>
-                 <td>
-                   <ul>
-                     [% FOR name=new_track.artist_credit.names %]
-                     <li>[% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]</li>
-                     [% END %]
-                   </ul>
-                 </td>
+                 <td>[% expanded_artist_credit(old_track.artist_credit) %]</td>
+                 <td>[% expanded_artist_credit(new_track.artist_credit) %]</td>
                </tr>
           [% END %]
         </tbody>
