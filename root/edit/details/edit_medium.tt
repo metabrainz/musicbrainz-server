@@ -80,7 +80,7 @@
                [% IF old_track.recording.gid;
                     link_recording(
                       old_track.recording, 'show',
-                      name_diff
+                      old_name_diff
                     );
                   ELSE;
                     name_diff;
