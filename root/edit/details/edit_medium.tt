@@ -146,5 +146,44 @@
     </td>
   </tr>
   [% END %]
+  [% IF edit.display_data.artist_credit_changes.size %]
+  <tr>
+    <th>[% l('Artist credits:') %]</th>
+    <td>
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>[% l('#') %]</th>
+            <th>[% l('Old recording') %]</th>
+            <th>[% l('New recording') %]</th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR assoc=edit.display_data.artist_credit_changes;
+               old_track = assoc.1;
+               new_track = assoc.2 %]
+               <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+                 <td class="pos t">[% new_track.position %]</td>
+                 <td>
+                   <ul>
+                     [% FOR name=old_track.artist_credit.names %]
+                     <li>[% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]</li>
+                     [% END %]
+                   </ul>
+                 </td>
+                 <td>
+                   <ul>
+                     [% FOR name=new_track.artist_credit.names %]
+                     <li>[% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]</li>
+                     [% END %]
+                   </ul>
+                 </td>
+               </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  [% END %]
   [% END %]
 </table>
