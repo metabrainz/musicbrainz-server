@@ -143,7 +143,7 @@ sub search
         }
 
         $query = "
-            SELECT
+            SELECT DISTINCT
                 entity.id,
                 entity.gid,
                 entity.comment,
