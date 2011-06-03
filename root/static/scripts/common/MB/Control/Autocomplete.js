@@ -326,6 +326,7 @@ MB.Control.Autocomplete = function (options) {
 
         self.$search.bind ('click.mb', function (event) {
             self.searchAgain ();
+            self.$input.focus ();
         });
 
         self.autocomplete._renderItem = function (ul, item) {
