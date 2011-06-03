@@ -516,6 +516,15 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
         );
 
         for my $work_id (@work_ids) {
+            next if ($c->model('Relationship')->exists($type, 'work', {
+                link_type_id => $link_type->id,
+                begin_date   => $form->field('begin_date')->value,
+                end_date     => $form->field('end_date')->value,
+                attributes   => [uniq @attributes],
+                entity0      => $dest->id,
+                entity1      => $works{$work_id}->id
+            });
+
             $self->_insert_edit(
                 $c, $form,
                 edit_type    => $EDIT_RELATIONSHIP_CREATE,
