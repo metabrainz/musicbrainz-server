@@ -84,11 +84,11 @@ sub diff_side {
 }
 
 sub _link_artist_credit_name {
-    my ($self, $acn) = @_;
+    my ($self, $acn, $name) = @_;
     return $h->a({
         href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
         title => $acn->artist->name
-    }, $acn->name);
+    }, $name || $acn->name);
 }
 
 sub _link_joined {
