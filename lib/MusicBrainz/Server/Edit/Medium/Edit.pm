@@ -200,7 +200,7 @@ sub build_display_data
                 [ $data->{new}{tracklist}->all_tracks ],
                 sub {
                     my $track = shift;
-                    return join('=', $track->name, $track->artist_credit->name)
+                    return $track->artist_credit->name;
                 }) }
         ];
 
@@ -211,7 +211,7 @@ sub build_display_data
                 [ $data->{new}{tracklist}->all_tracks ],
                 sub {
                     my $track = shift;
-                    return join('=', $track->name, $track->recording->id || 'new')
+                    return $track->recording->id || 'new';
                 }) }
         ];
     }
