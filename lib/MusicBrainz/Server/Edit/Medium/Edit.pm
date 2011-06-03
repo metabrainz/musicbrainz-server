@@ -186,10 +186,9 @@ sub build_display_data
                         join(
                             '',
                             map {
-                                join('', $_->name, $_->join_phrase || '', $_->artist->id)
+                                join('', $_->name, $_->join_phrase || '')
                             } $track->artist_credit->all_names
-                        ),
-                        $track->recording->id || 'new'
+                        )
                     );
                 }
             );
