@@ -21,12 +21,6 @@ has name => (
    isa => 'Str'
 );
 
-sub format_label
-{
-    my $self = shift;
-    return MusicBrainz::Server::Data::Statistics->statistic_label($self->name)
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
