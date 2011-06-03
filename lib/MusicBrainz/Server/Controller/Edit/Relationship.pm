@@ -523,7 +523,7 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
                 attributes   => [uniq @attributes],
                 entity0      => $dest->id,
                 entity1      => $works{$work_id}->id
-            });
+            }));
 
             $self->_insert_edit(
                 $c, $form,
