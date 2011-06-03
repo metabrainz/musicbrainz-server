@@ -169,29 +169,31 @@ sub build_display_data
         }
     }
 
-    $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
-    $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
+    if ($data->{new}{tracklist}) {
+        $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
+        $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
-    $data->{tracklist_changes} =
-        sdiff(
-            [ $data->{old}{tracklist}->all_tracks ],
-            [ $data->{new}{tracklist}->all_tracks ],
-            sub {
-                my $track = shift;
-                return join(
-                    '',
-                    $track->name,
-                    format_track_length($track->length),
-                    join(
+        $data->{tracklist_changes} =
+            sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return join(
                         '',
-                        map {
-                            join('', $_->name, $_->join_phrase || '', $_->artist->id)
-                        } $track->artist_credit->all_names
-                    ),
-                    $track->recording->id || 'new'
-                );
-            }
-        );
+                        $track->name,
+                        format_track_length($track->length),
+                        join(
+                            '',
+                            map {
+                                join('', $_->name, $_->join_phrase || '', $_->artist->id)
+                            } $track->artist_credit->all_names
+                        ),
+                        $track->recording->id || 'new'
+                    );
+                }
+            );
+    }
 
     if ($self->data->{release})
     {
