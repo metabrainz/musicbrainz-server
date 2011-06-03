@@ -119,5 +119,32 @@
        </table>
      </td>
    </tr>
+  [% IF edit.display_data.recording_changes.size %]
+  <tr>
+    <th>[% l('Recordings:') %]</th>
+    <td>
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>[% l('#') %]</th>
+            <th>[% l('Old recording') %]</th>
+            <th>[% l('New recording') %]</th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR assoc=edit.display_data.recording_changes;
+               old_track = assoc.1;
+               new_track = assoc.2 %]
+               <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+                 <td class="pos t">[% new_track.position %]</td>
+                 <td><span class="diff-only-a">[% descriptive_link(old_track.recording) %]</span></td>
+                 <td><span class="diff-only-b">[% descriptive_link(new_track.recording) %]</span></td>
+               </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  [% END %]
   [% END %]
 </table>

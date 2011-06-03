@@ -192,6 +192,17 @@ sub build_display_data
                     );
                 }
             );
+
+        $data->{recording_changes} = [
+            grep { $_->[0] eq 'c' }
+            @{ sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return join('=', $track->name, $track->recording->id || 'new')
+                }) }
+        ];
     }
 
     if ($self->data->{release})
