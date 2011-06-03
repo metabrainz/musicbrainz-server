@@ -1,6 +1,8 @@
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-{label: "[%- statistic.format_label() -%]", 
+{label: MB.text.Timeline["[%- statistic.name -%]"].Label, 
+ color: MB.text.Timeline["[%- statistic.name -%]"].Color, 
+ category: MB.text.Timeline["[%- statistic.name -%]"].Category,
  data: [ 
 [%- FOREACH date_collected = statistic.data.keys.sort -%]
 [ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- statistic.statistic_for(date_collected) -%] ],
@@ -8,8 +10,19 @@
 [% END %]
 
 [% BLOCK layout_head %]
+  <script type="text/javascript" src="[% c.uri_for('/statistics/view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
   <!--[if lte IE 8]><script src="/static/lib/flot/excanvas.min.js"></script><![endif]-->
+  <style type="text/css">
+      h2#graph-toggle-header {
+          margin-bottom: -10px;
+      }
+      #overview, #graph-container {
+          width: 100%;
+      }
+      #overview { height: 150px; }
+      #graph-container { height: 400px; }
+  </style>
   <script type="text/javascript">//<![CDATA[
         $(document).ready(function () {
              var options = { xaxis: { mode: "time",
@@ -18,26 +31,32 @@
                                       minTickSize: [1, "month"]},
                              selection: { mode: "xy" },
                              grid: { hoverable: true },
-                             legend: { container: $('#graph-legend') }};
+                             legend: { container: $('#graph-legend'),
+                                       noColumns: 2 }};
+
              var overview_options = { legend: {show: false}, 
                                       series: {lines: {lineWidth: 1}, shadowSize: 0},
                                       xaxis: {mode: "time", tickSize: [1, "year"]}, 
                                       yaxis: {tickFormatter: function () { return '' }}, 
                                       selection: {mode: "xy"}}
+
              var datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]
                  "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
                  [%- END -%]}
 
              function graph_data () {
-                 return [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ]
+                 var alldata =  [];
+                 $("#graph-lines div input").filter(":checked").each(function () { 
+                     if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
+                         alldata.push(datasets[$(this).parent('div.graph-control').attr('id').substr('graph-control-'.length)]);
+                     }
+                 });
+                 return alldata
              }
 
-             // Initialize
-             function resetPlot () {
-                 plot = $.plot($("#graph-container"), graph_data(), options);
-                 overview = $.plot($('#overview'), graph_data(), overview_options);
+             function jq(myid) { 
+                 return '#' + myid.replace(/(:|\.)/g,'\\$1');
              }
-             resetPlot();
 
              // Make selections zoom
              $('#graph-container').bind('plotselected', function (event, ranges) {
@@ -48,7 +67,7 @@
                      ranges.yaxis.to = ranges.yaxis.from + 1;
         
                  // do the zooming
-                 plot = $.plot($("#graph-container"), [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ],
+                 plot = $.plot($("#graph-container"), graph_data(), 
                                $.extend(true, {}, options, {
                                    xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
                                    yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
@@ -96,6 +115,42 @@
                      previousPoint = null;
                  }
              });
+
+             // Initialize
+             $.each(datasets, function(key, value) { 
+                 if ($(jq('graph-control-' + key)).length == 0) {
+                     if ($('#category-' + value.category).length == 0) {
+                         $('#graph-lines').append('<h2 class="toggler"><input type="checkbox" checked />' + MB.text.Timeline.Category[value.category].Label + '</h2>');
+                         $('#graph-lines').append('<div class="graph-category" id="category-' + value.category + '"></div>');
+                     }
+                     $("#graph-lines #category-" + value.category).append('<div class="graph-control" id="graph-control-' + key + '"><input type="checkbox" checked />' + value.label + '</div>'); 
+                 }
+             });
+
+             // // Toggle functionality
+             $('#graph-lines div input:checkbox').change(function () {
+                 resetPlot();
+             });
+             $('#graph-lines .toggler input:checkbox').change(function () {
+                 $(this).parent('.toggler').next().toggle('slow');
+                 resetPlot();
+             });
+
+
+             $('div.graph-category').each(function () {
+                 var category = $(this).attr('id').substr('category-'.length);
+                 if (MB.text.Timeline.Category[category].Hide) {
+                     $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
+                 }
+             });
+
+             function resetPlot () {
+                 plot = $.plot($("#graph-container"), graph_data(), options);
+                 overview = $.plot($('#overview'), graph_data(), overview_options);
+             }
+
+             resetPlot();
+
         });
   //]]></script>
 [% END %]
@@ -104,11 +159,16 @@
 <div id="sidebar">
     <h2>Legend</h2><div id="graph-legend"></div>
     <h2>Controls</h2><div id="graph-controls">
-        <p><strong>To Zoom:</strong> select a rectangle<br/><strong>To Reset:</strong> deselect</p>
-        <div id="overview" style="width: 100%; height: 150px;"></div>
+        <p><strong>To Zoom:</strong> select a rectangle
+        <br/><strong>To Reset:</strong> deselect
+        <br/><strong>To add/remove lines:</strong> Click boxes below</p>
+        <div id="overview"></div>
+    <h2 id="graph-toggle-header">Toggle Lines</h2>
+        <div id="graph-lines">
+        </div>
     </div>
 </div>
 <div id="content">
-<div id="graph-container" style="width:100%;height:400px;"></div>
+<div id="graph-container"></div>
 </div>
 [% END %]
