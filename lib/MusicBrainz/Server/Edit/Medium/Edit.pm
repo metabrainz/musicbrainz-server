@@ -169,7 +169,7 @@ sub build_display_data
         }
     }
 
-    if ($data->{new}{tracklist}) {
+    if ($self->data->{new}{tracklist}) {
         $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
         $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
