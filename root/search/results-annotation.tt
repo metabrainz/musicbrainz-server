@@ -18,7 +18,7 @@
                             <td>[% result.score %]</td>
                             <td>[% result.type %]</td>
                             <td>[% link_entity(result.entity.parent) %]</td>
-                            <td>[% result.entity.text %]</td>
+                            <td>[% result.entity.text | format_wikitext %]</td>
                         </tr>
                         [%- END -%]
                     </tbody>
