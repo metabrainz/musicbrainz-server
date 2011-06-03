@@ -38,6 +38,14 @@
      <th>[% l('Tracklist:') %]</th>
      <td>
        <table class="tbl">
+         <thead>
+           <tr>
+             <th>[% l('#') %]</th>
+             <th>[% l('Title') %]</th>
+             <th>[% l('Artist') %]</th>
+             <th>[% l('Length') %]</th>
+           </tr>
+         </thead>
          <tbody>
          [% FOR change=edit.display_data.tracklist_changes %]
            [% NEXT IF change.0 == 'u' %]
@@ -50,7 +58,7 @@
               new_name_diff = Diff.diff_side(old_track.name, new_track.name, '+', '\s+');
               old_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-');
               new_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '+') %]
-           <tr class="diff-changes" style="border-top: 1px solid #999">
+           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td class="pos t">
                [% new_track.position %]
              </td>
@@ -71,7 +79,7 @@
                [% old_track_length %]
              </td>
            </tr>
-           <tr class="diff-changes" style="border-bottom: #999">
+           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]" style="border-bottom: #999">
              <td class="pos t"></td>
              <td>
                [% IF new_name_diff != old_name_diff;
