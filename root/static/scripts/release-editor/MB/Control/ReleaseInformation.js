@@ -321,12 +321,15 @@ MB.Control.ReleaseInformation = function() {
 
     self.initialize = function () {
 
+        self.bubbles.add ($('#id-name'), $('div.guess-case.bubble'));
         self.bubbles.add ($('#help-va'), $('div.help-va'));
         self.bubbles.add ($('#help-cta'), $('div.help-cta'));
         self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
         self.bubbles.add ($('#id-annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
+
+        MB.Control.GuessCase ('release', $('#id-name'));
 
         $('#id-change_track_artists').bind ('focus.mb', function () {
             $('#help-cta').data ('bubble').show ();
