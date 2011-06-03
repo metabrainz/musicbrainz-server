@@ -2,7 +2,6 @@ package MusicBrainz::Server::Entity::Statistics::ByName;
 use Moose;
 
 use MusicBrainz::Server::Types;
-use MusicBrainz::Server::Data::Statistics;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
 
