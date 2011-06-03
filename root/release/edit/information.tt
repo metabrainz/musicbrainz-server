@@ -1,5 +1,6 @@
 [%- BLOCK layout_head -%]
   [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('guess-case.js.manifest') %]
   [% script_manifest('release-editor.js.manifest') %]
 
   <script type="text/javascript">//<![CDATA[
@@ -137,7 +138,8 @@
       </div>
     </div>
 
-    [% artist_credit_table(form) %]
+    [%- guesscase_bubble() -%]
+    [%- artist_credit_table(form) -%]
 
     <div class="date-container" style="display: none">
       <div class="date bubble">
