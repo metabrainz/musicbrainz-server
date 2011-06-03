@@ -454,6 +454,16 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
             map { $_->tracklist->all_tracks }
                 $release->all_mediums);
 
+    my @works =
+        map { $_->target }
+            grep { $_->target_type eq 'work' }
+                map { $_->all_relationships }
+                    map { $_->recording }
+                        map { $_->tracklist->all_tracks }
+                            $release->all_mediums; 
+
+    $c->model('Relationship')->load_subset([ 'artist' ], @works);
+
     my $dest = $model->get_by_gid($gid);
     if (!$dest) {
         $c->stash( message => l('Target entity not found') );
@@ -516,6 +526,15 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
         );
 
         for my $work_id (@work_ids) {
+            next if ($c->model('Relationship')->exists($type, 'work', {
+                link_type_id => $link_type->id,
+                begin_date   => $form->field('begin_date')->value,
+                end_date     => $form->field('end_date')->value,
+                attributes   => [uniq @attributes],
+                entity0      => $dest->id,
+                entity1      => $works{$work_id}->id
+            }));
+
             $self->_insert_edit(
                 $c, $form,
                 edit_type    => $EDIT_RELATIONSHIP_CREATE,

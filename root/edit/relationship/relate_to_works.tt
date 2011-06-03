@@ -69,13 +69,17 @@
                                      value="[% work.target.id %]" />
                             </td>
                             <td colspan="4">
-                              [% descriptive_link(work.target) %]
+                              [% descriptive_link(work.target) %]<br />
+                              <ul>
+                                [% FOR relationship=work.target.all_relationships %]
+                                <li>[% relationship.phrase%]: [% display_relationship_entry(relationship) %]</li>
+                                [% END %]
+                              </ul>
                             </td>
                           </tr>
                         [% END %]
                         [% UNLESS track.recording.relationships.size %]
                           [% field = form.field('new_works').append %]
-                          [% FOR f=field.fields; f.name; END %]
                           <tr class="[% class %]">
                             <td></td>
                             <td class="pos t">
