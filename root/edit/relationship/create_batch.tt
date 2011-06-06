@@ -81,6 +81,13 @@
                     [% END %]
                     [% END %]
                   </table>
+
+                  [% IF no_selection %]
+                  <ul class="errors">
+                    <li>[% l('Please select at least 1 recording to relate {entity} to.',
+                               entity => link_entity(dest)) %]</li>
+                  </ul>
+                  [% END %]
                 </td>
             </tr>
             <tr>

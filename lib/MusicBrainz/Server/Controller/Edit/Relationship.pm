@@ -382,8 +382,15 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
             }
         }
 
-        my $req_param = $c->req->params->{recording_id};
-        my @recording_ids = ref($req_param) ? @$req_param : ($req_param);
+        my @recording_ids;
+        if(my $req_param = $c->req->params->{recording_id}) {
+            @recording_ids = ref($req_param) ? @$req_param : ($req_param);
+        }
+        else {
+            $c->stash( no_selection => 1 );
+            $c->detach;
+        }
+
         my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
 
         my $link_type = $c->model('LinkType')->get_by_id(
