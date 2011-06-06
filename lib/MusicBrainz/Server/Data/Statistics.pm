@@ -73,9 +73,8 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT type, COUNT(*) AS count
+                "SELECT COALESCE(type, 99), COUNT(*) AS count
                 FROM artist
-		WHERE type IS NOT NULL
                 GROUP BY type
                 ",
             );
@@ -84,7 +83,8 @@ my %stats = (
             
             +{
                 "count.artist.type.person" => $dist{1} || 0,
-                "count.artist.type.group"  => $dist{2} || 0
+                "count.artist.type.group"  => $dist{2} || 0,
+		"count.artist.type.null" => $dist{99} || 0
             };
         },
     },
@@ -92,17 +92,17 @@ my %stats = (
         PREREQ => [qw[ count.artist.type.person ]],
         PREREQ_ONLY => 1,
     },
-    "count.artist.type.none" => {
-        SQL => "SELECT COUNT(*) FROM artist WHERE type IS NULL",
+    "count.artist.type.null" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
     },
     "count.artist.gender.male" => {
         CALC => sub {
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT gender, COUNT(*) AS count
+                "SELECT COALESCE(gender, 99), COUNT(*) AS count
                 FROM artist
-		WHERE gender IS NOT NULL
                 GROUP BY gender
                 ",
             );
@@ -113,6 +113,7 @@ my %stats = (
                 "count.artist.gender.male" => $dist{1} || 0,
                 "count.artist.gender.female"  => $dist{2} || 0,
 		"count.artist.gender.other" => $dist{3} || 0,
+		"count.artist.gender.null" => $dist{99} || 0
             };
         },
     },
@@ -124,8 +125,9 @@ my %stats = (
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
-    "count.artist.gender.none" => {
-        SQL => "SELECT COUNT(*) FROM artist WHERE gender IS NULL",
+    "cout.artist.gender.null" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
     },
     "count.label" => {
         DESC => "Count of all labels",
