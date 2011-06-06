@@ -1,5 +1,5 @@
 <div class="blankheader">
-    <h1>“[% cdstubtoc.cdstub.title %]”</h1>
+    <h1>[% cdstubtoc.cdstub.title %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
         [%= l('CD stub by {artist}', { artist => cdstubtoc.cdstub.artist || l('Various Artists') }) -%]
