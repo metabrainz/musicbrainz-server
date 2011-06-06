@@ -73,7 +73,7 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(type, 99), COUNT(*) AS count
+                "SELECT COALESCE(type::text, 'null'), COUNT(*) AS count
                 FROM artist
                 GROUP BY type
                 ",
@@ -84,7 +84,7 @@ my %stats = (
             +{
                 "count.artist.type.person" => $dist{1} || 0,
                 "count.artist.type.group"  => $dist{2} || 0,
-		"count.artist.type.null" => $dist{99} || 0
+		"count.artist.type.null" => $dist{null} || 0
             };
         },
     },
@@ -101,7 +101,7 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(gender, 99), COUNT(*) AS count
+                "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
                 GROUP BY gender
                 ",
@@ -113,7 +113,7 @@ my %stats = (
                 "count.artist.gender.male" => $dist{1} || 0,
                 "count.artist.gender.female"  => $dist{2} || 0,
 		"count.artist.gender.other" => $dist{3} || 0,
-		"count.artist.gender.null" => $dist{99} || 0
+		"count.artist.gender.null" => $dist{null} || 0
             };
         },
     },
