@@ -164,10 +164,15 @@ sub merge_artists
                 AND acn.artist IN (' . placeholders(@$old_ids) . ')',
             $new_id, @$old_ids);
     }
-    $self->sql->do(
+    my @artist_credit_ids = @{
+        $self->sql->select_single_column_array(
         'UPDATE artist_credit_name SET artist = ?
-          WHERE artist IN ('.placeholders(@$old_ids).')',
-        $new_id, @$old_ids);
+          WHERE artist IN ('.placeholders(@$old_ids).')
+      RETURNING artist_credit',
+        $new_id, @$old_ids)
+    };
+
+    $self->_delete_from_cache(@artist_credit_ids) if @artist_credit_ids;
 }
 
 __PACKAGE__->meta->make_immutable;
