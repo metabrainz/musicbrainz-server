@@ -37,6 +37,24 @@ test 'Can have artist credits with no join phrase' => sub {
     is($ac->name, 'Ed RushOptical');
 };
 
+test 'Merging clears the cache' => sub {
+    my $test = shift;
+    my $c = $test->cache_aware_c;
+    my $cache = $c->cache_manager->_get_cache('memory');
+    my $artist_credit_data = $c->model('ArtistCredit');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
+
+    $artist_credit_data->get_by_ids(1);
+    ok($cache->exists('ac:1'), 'cache contains artist credit #1');
+
+    $c->sql->begin;
+    $artist_credit_data->merge_artists(3, [ 2 ]);
+    $c->sql->commit;
+
+    ok(!$cache->exists('ac:1'), 'cache no longer contains artist credit #1');
+};
+
 test all => sub {
 
 my $test = shift;
