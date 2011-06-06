@@ -63,7 +63,8 @@ MB.Control.RelateTo = function () {
             type0: cleanType(self.$type0.val()),
             type1: cleanType(self.selected_item.type),
             entity0: self.$gid0.val (),
-            entity1: self.selected_item.gid
+            entity1: self.selected_item.gid,
+            returnto: window.location.toString()
         });
 
         window.location = location + '?' + query_string;
