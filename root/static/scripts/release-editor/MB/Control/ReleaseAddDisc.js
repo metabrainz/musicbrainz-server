@@ -331,8 +331,16 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
     };
 
     self.confirm_manual = function (event) {
-        /* add the disc and start with atleast one track. */
-        basic_tab.addDisc ().disc.addTrack ();
+        /* add the disc. */
+        adv_disc = basic_tab.emptyDisc ().disc;
+
+        /* start with atleast one track (that track may already be there,
+         * added in a previous attempt). */
+        if (adv_disc.tracks.length < 1)
+        {
+            adv_disc.addTrack ();
+        }
+
         self.close (event);
     };
 
@@ -340,7 +348,7 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         if (!self.use_tracklist.selected)
             return;
 
-        var disc = basic_tab.addDisc ();
+        var disc = basic_tab.emptyDisc ();
         disc.$tracklist_id.val (self.use_tracklist.selected.$id.val ());
         disc.collapse ();
         disc.expand ();
@@ -352,7 +360,7 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         if (!self.freedb_import.selected)
             return;
 
-        self.freedb_import.selected.renderToDisc (basic_tab.addDisc ());
+        self.freedb_import.selected.renderToDisc (basic_tab.emptyDisc ());
         self.close (event);
     };
 
@@ -360,7 +368,7 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         if (!self.cdstub_import.selected)
             return;
 
-        self.cdstub_import.selected.renderToDisc (basic_tab.addDisc ());
+        self.cdstub_import.selected.renderToDisc (basic_tab.emptyDisc ());
         self.close (event);
     };
 
