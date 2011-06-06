@@ -68,7 +68,7 @@ my %stats = (
         DESC => "Count of all artists",
         SQL => "SELECT COUNT(*) FROM artist",
     },
-    "count.artist.person" => {
+    "count.artist.type.person" => {
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -83,19 +83,19 @@ my %stats = (
             my %dist = map { @$_ } @$data;
             
             +{
-                "count.artist.person" => $dist{1} || 0,
-                "count.artist.group"  => $dist{2} || 0
+                "count.artist.type.person" => $dist{1} || 0,
+                "count.artist.type.group"  => $dist{2} || 0
             };
         },
     },
-    "count.artist.group" => {
-        PREREQ => [qw[ count.artist.person ]],
+    "count.artist.type.group" => {
+        PREREQ => [qw[ count.artist.type.person ]],
         PREREQ_ONLY => 1,
     },
-    "count.artist.notype" => {
+    "count.artist.type.none" => {
         SQL => "SELECT COUNT(*) FROM artist WHERE type IS NULL",
     },
-    "count.artist.male" => {
+    "count.artist.gender.male" => {
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -110,21 +110,21 @@ my %stats = (
             my %dist = map { @$_ } @$data;
             
             +{
-                "count.artist.male" => $dist{1} || 0,
-                "count.artist.female"  => $dist{2} || 0,
-		"count.artist.other" => $dist{3} || 0,
+                "count.artist.gender.male" => $dist{1} || 0,
+                "count.artist.gender.female"  => $dist{2} || 0,
+		"count.artist.gender.other" => $dist{3} || 0,
             };
         },
     },
-    "count.artist.female" => {
-        PREREQ => [qw[ count.artist.male ]],
+    "count.artist.gender.female" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
-    "count.artist.other" => {
-        PREREQ => [qw[ count.artist.male ]],
+    "count.artist.gender.other" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
-    "count.artist.nogender" => {
+    "count.artist.gender.none" => {
         SQL => "SELECT COUNT(*) FROM artist WHERE gender IS NULL",
     },
     "count.label" => {
