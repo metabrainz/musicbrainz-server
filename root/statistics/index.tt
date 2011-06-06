@@ -122,6 +122,9 @@
     <td>[% stats.statistic('count.artist.gender.null') %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.null', 'count.artist')) }) %]</td>
 </tr>
+<tr>
+    <td><a href="[% c.uri_for('/statistics/artist-countries') %]">[% l('Artists by country') %]</a></td>
+</tr>
 </table>
 
 <h2>[% l('Releases') %]</h2>

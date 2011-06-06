@@ -33,6 +33,27 @@ sub timeline : Local
     )
 }
 
+sub artist_countries : Path('artist-countries')
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $artist_country_prefix = 'count.artist.country.';
+    my $artist_stats = [];
+    foreach my $key 
+        (sort { $stats->statistic($b) <=> $stats->statistic($a) } (keys %{ $stats->{data} })) {
+       if (substr($key, 0, length($artist_country_prefix)) eq $artist_country_prefix) { 
+            push(@$artist_stats, ({'key' => $key, 'iso_code' => substr($key, length($artist_country_prefix)), 'count' => $stats->statistic($key)}));
+       }
+    }
+
+    $c->stash(
+        template => 'statistics/artist_countries.tt',
+        stats    => $artist_stats,
+	date_collected => $stats->{date_collected}
+    );
+}
+
 =head1 LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.

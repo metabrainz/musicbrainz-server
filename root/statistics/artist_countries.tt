@@ -1,0 +1,38 @@
+[%- MACRO country_entry(iso_code, name, count, number) BLOCK -%]
+<tr>
+    <td>[%- number -%].</td>
+    <td><a href="http://musicbrainz.org/search?query=country%3A[% iso_code %]&type=artist&limit=25&advanced=1">[% name %]</a>:</td>
+    <td>[% count %]</td>
+</tr>
+[%- END -%]
+
+[% WRAPPER 'layout.tt' title=l('Artist Country Statistics') full_width=1 %] 
+
+[% USE format %]
+[% round1 = format('%.1f') %]
+
+<h1>[% l('Artist Country Statistics') %]</h1>
+
+<p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
+
+<h2>[% l('Top Ten Countries') %]</h2>
+<table>
+[%- FOREACH country IN stats -%][%- LAST IF loop.index > 9 -%]
+[%- country_entry(country.iso_code, country.iso_code, country.count, loop.count()) -%]
+[%- END -%]
+</table>
+
+<h2>[% l('Other Countries with more than 10 artists') %]</h2>
+<table>
+[%- FOREACH country IN stats -%][%- LAST IF country.count <= 10 -%][%- IF loop.index > 9 -%]
+[%- country_entry(country.iso_code, country.iso_code, country.count, loop.count()) -%]
+[%- END -%][%- END -%]
+</table>
+
+<h2>[% l('Other Countries') %]</h2>
+<table>
+[%- FOREACH country IN stats -%][%- IF loop.index > 9 && country.count <= 10 -%]
+[%- country_entry(country.iso_code, country.iso_code, country.count, loop.count()) -%]
+[%- END -%][%- END -%]
+</table>
+[% END %]
