@@ -90,9 +90,33 @@
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.group', 'count.artist')) }) %]</td>
 </tr>
 <tr>
-    <td>&nbsp;&nbsp;[% l('with no type:') %]</td>
+    <td>&nbsp;&nbsp;[% l('with no type set:') %]</td>
     <td>[% stats.statistic('count.artist.notype') %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.notype', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>[% l('Artists:') %]</td>
+    <td>[% stats.statistic('count.artist') %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('Male:') %]</td>
+    <td>[% stats.statistic('count.artist.male') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.male', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('Female:') %]</td>
+    <td>[% stats.statistic('count.artist.female') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.female', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('Other gender:') %]</td>
+    <td>[% stats.statistic('count.artist.other') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.other', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('with no gender set:') %]</td>
+    <td>[% stats.statistic('count.artist.nogender') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.nogender', 'count.artist')) }) %]</td>
 </tr>
 </table>
 
