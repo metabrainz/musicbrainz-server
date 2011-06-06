@@ -73,6 +73,29 @@
 </tr>
 </table>
 
+<h2>[% l('Artists') %]</h2>
+<table>
+<tr>
+    <td>[% l('Artists:') %]</td>
+    <td>[% stats.statistic('count.artist') %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('of type Person:') %]</td>
+    <td>[% stats.statistic('count.artist.person') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.person', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('of type Group:') %]</td>
+    <td>[% stats.statistic('count.artist.group') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.group', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('with no type:') %]</td>
+    <td>[% stats.statistic('count.artist.notype') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.notype', 'count.artist')) }) %]</td>
+</tr>
+</table>
+
 <h2>[% l('Releases') %]</h2>
 <table>
 <tr>
