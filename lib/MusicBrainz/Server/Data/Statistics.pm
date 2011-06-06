@@ -95,6 +95,38 @@ my %stats = (
     "count.artist.notype" => {
         SQL => "SELECT COUNT(*) FROM artist WHERE type IS NULL",
     },
+    "count.artist.male" => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT gender, COUNT(*) AS count
+                FROM artist
+		WHERE gender IS NOT NULL
+                GROUP BY gender
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+            
+            +{
+                "count.artist.male" => $dist{1} || 0,
+                "count.artist.female"  => $dist{2} || 0,
+		"count.artist.other" => $dist{3} || 0,
+            };
+        },
+    },
+    "count.artist.female" => {
+        PREREQ => [qw[ count.artist.male ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.other" => {
+        PREREQ => [qw[ count.artist.male ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.nogender" => {
+        SQL => "SELECT COUNT(*) FROM artist WHERE gender IS NULL",
+    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
