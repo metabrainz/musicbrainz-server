@@ -119,7 +119,7 @@
    </tr>
 
   <tr>
-     <th>[% l(New Tracklist:') %]</th>
+     <th>[% l('New Tracklist:') %]</th>
      <td>
        <table class="tbl">
          <thead>
