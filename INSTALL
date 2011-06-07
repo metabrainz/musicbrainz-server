@@ -190,12 +190,11 @@ Creating the database
 
     b)  Import an NGS database dump
 
-        The easiest way to import the database is to use an NGS database dump.
-        These are periodic dumps of the database that are compatible with the
-        NGS format and don't require you to manually convert the data. They're
+        The easiest way to import the database is to use a database
+        dump.  These are periodic dumps of the database, they're
         available here:
 
-            ftp://ftp.musicbrainz.org/pub/musicbrainz/data/ngs/
+            ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2, mbdump-editor.tar.bz2
         and mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit
