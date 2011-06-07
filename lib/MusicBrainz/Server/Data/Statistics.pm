@@ -423,6 +423,29 @@ my %stats = (
         LABEL => "CD Stub tracks",
     },
 
+    "count.artist.country" => {
+        DESC => "Distribution of artists per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(*) AS count
+                FROM artist a, country c
+                WHERE a.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.artist.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
     "count.vote.yes" => {
         DESC => "Count of 'yes' votes",
         DB => 'RAWDATA',
