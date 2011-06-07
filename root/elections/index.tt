@@ -1,0 +1,6 @@
+[% WRAPPER 'layout.tt' title=l('Auto-editor elections') full_width=1%]
+  <h1>[% l('Auto-editor elections') %]</h1>
+  <p>[% l('Auto-editor elections are not currently being held.') %]</p>
+  <p>[% l('Keep an eye on {bug|MBS-71} to stay up to date with this feature!',
+          { bug => 'http://tickets.musicbrainz.org/browse/MBS-71' }) %]</p>
+[% END %]
