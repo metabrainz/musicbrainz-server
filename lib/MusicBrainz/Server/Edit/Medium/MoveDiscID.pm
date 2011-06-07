@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -125,9 +126,14 @@ sub initialize
 sub accept
 {
     my $self = shift;
+    my $medium = $self->c->model('Medium')->get_by_id($self->data->{new_medium}{id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The target medium no longer exists'
+        );
+
     $self->c->model('MediumCDTOC')->update(
         $self->data->{medium_cdtoc}{id},
-        { medium_id => $self->data->{new_medium}{id} }
+        { medium_id => $medium->id  }
     );
 }
 
