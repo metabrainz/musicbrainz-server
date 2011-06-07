@@ -27,7 +27,7 @@ sub timeline : Local
         template => 'statistics/timeline.tt',
         stats => {
             map {
-                substr($_, 6) => $c->model('Statistics::ByName')->get_statistic($_)
+                $_ => $c->model('Statistics::ByName')->get_statistic($_)
             } qw( count.artist count.release count.medium count.releasegroup count.label count.work )
         }
     )
