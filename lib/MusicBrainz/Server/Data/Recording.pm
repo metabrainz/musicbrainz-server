@@ -68,7 +68,8 @@ sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
+                        musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit

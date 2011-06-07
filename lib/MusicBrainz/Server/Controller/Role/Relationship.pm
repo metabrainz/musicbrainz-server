@@ -24,7 +24,8 @@ sub relate : Chained('load')
             type0 => $c->session->{relationship}->{type0},
             type1 => $type,
             entity0 => $c->session->{relationship}->{entity0},
-            entity1 => $entity->gid
+            entity1 => $entity->gid,
+            returnto => $c->req->referer
         }));
 
         delete $c->session->{relationship};

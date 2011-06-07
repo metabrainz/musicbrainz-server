@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
+use Algorithm::Diff qw( diff sdiff );
 use Data::Compare;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
@@ -16,6 +17,7 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Track qw ( format_track_length );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -43,6 +45,20 @@ has '+data' => (
         new => change_fields()
     ]
 );
+
+around related_entities => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my $related = $self->$orig(@_);
+
+    if ($self->data->{old}{tracklist}) {
+        push @{ $related->{artist} }, map {
+            map { $_->{artist}{id} } @{ $_->{artist_credit}->{names} }
+        } @{ $self->data->{old}{tracklist} },
+          @{ $self->data->{new}{tracklist} };
+    }
+
+    return $related;
+};
 
 sub alter_edit_pending
 {
@@ -167,8 +183,52 @@ sub build_display_data
         }
     }
 
-    $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
-    $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
+    if ($self->data->{new}{tracklist}) {
+        $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
+        $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
+
+        $data->{tracklist_changes} =
+            sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return join(
+                        '',
+                        $track->name,
+                        format_track_length($track->length),
+                        join(
+                            '',
+                            map {
+                                join('', $_->name, $_->join_phrase || '')
+                            } $track->artist_credit->all_names
+                        )
+                    );
+                }
+            );
+
+        $data->{artist_credit_changes} = [
+            grep { $_->[0] eq 'c' }
+            @{ sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return $track->artist_credit->name;
+                }) }
+        ];
+
+        $data->{recording_changes} = [
+            grep { $_->[0] eq 'c' }
+            @{ sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return $track->recording->id || 'new';
+                }) }
+        ];
+    }
 
     if ($self->data->{release})
     {
