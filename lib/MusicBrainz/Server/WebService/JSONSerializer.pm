@@ -34,6 +34,13 @@ sub autocomplete_generic
     ]);
 }
 
+sub generic
+{
+    my ($self, $response) = @_;
+    my $json = JSON::Any->new;
+    return $json->encode($response);
+}
+
 sub output_error
 {
     my ($self, $err) = @_;
