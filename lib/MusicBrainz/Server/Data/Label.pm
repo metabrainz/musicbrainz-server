@@ -32,6 +32,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
+with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
@@ -203,7 +204,7 @@ sub delete
     return 1;
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
