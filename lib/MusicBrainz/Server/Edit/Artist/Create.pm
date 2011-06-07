@@ -73,6 +73,16 @@ sub _insert_hash
     return $data;
 };
 
+after insert => sub {
+    my ($self) = @_;
+    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
+    $self->c->model('Editor')->load_preferences($editor);
+
+    if ($editor->preferences->subscribe_to_created_artists) {
+        $self->c->model('Artist')->subscription->subscribe($editor->id, $self->entity_id);
+    }
+};
+
 sub allow_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
