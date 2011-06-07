@@ -69,7 +69,7 @@
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
                                                                    new_track.artist_credit);
               old_name_diff = Diff.diff_side(old_track.name, new_track.name, '-', '\s+');
-              old_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-');
+              old_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-'); -%]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td class="pos t">
                [% old_track.position %]
