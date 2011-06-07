@@ -42,12 +42,14 @@ $(function() {
             message = MB.text.PleaseSelectARType;
             attrs = {};
         }
+        var has_attributes = false;
         $('#type_descr').html(message);
         $('div.ar-attr').each(function() {
             var id = this.id.substr(13);
             var attrDiv = $(this);
             if (attrs[id]) {
                 attrDiv.show();
+                has_attributes = true;
                 var attr = attrs[id];
                 var selects = attrDiv.find('.selects');
                 if (selects.length > 0) {
@@ -64,6 +66,7 @@ $(function() {
                 attrDiv.hide();
             }
         });
+        has_attributes ? $('tr.attributes-container').show() : $('tr.attributes-container').hide();
     }
 
     function filterSelect($filter, direction) {

@@ -2,61 +2,15 @@ package MusicBrainz::Server::Form::Relationship::URL;
 
 use HTML::FormHandler::Moose;
 
-extends 'MusicBrainz::Server::Form';
+extends 'MusicBrainz::Server::Form::Relationship';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
 has '+name' => ( default => 'ar' );
-
-has_field 'link_type_id' => (
-    type => 'Select',
-    required => 1
-);
 
 has_field 'url' => (
     type => '+MusicBrainz::Server::Form::Field::URL',
     required => 1,
 );
-
-has 'reverse' => (
-    isa => 'Bool',
-    is => 'ro',
-    default => 0
-);
-
-sub trim
-{
-    my $s = $_[0];
-    $s =~ s/^\s+//;
-    $s =~ s/\s+$//;
-    return $s;
-}
-
-sub _build_options
-{
-    my ($self, $root, $attr, $ignore, $indent) = @_;
-
-    my @options;
-    if ($root->id && $root->name ne $ignore) {
-        push @options, $root->id, $indent . trim($root->$attr) if $root->id;
-        $indent .= '&nbsp;&nbsp;&nbsp;';
-    }
-    foreach my $child ($root->all_children) {
-        push @options, $self->_build_options($child, $attr, $ignore, $indent);
-    }
-    return @options;
-}
-
-sub options_link_type_id
-{
-    my ($self) = @_;
-
-    my $root = $self->ctx->stash->{root};
-    return [
-        $self->_build_options(
-            $root, $self->reverse ? 'reverse_link_phrase' : 'link_phrase',
-            'ROOT', '&nbsp;')
-   ];
-}
 
 sub edit_field_names { qw() }
 
