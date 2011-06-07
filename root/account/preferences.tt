@@ -32,6 +32,14 @@
     </fieldset>
 
     <fieldset>
+        <legend>[% l('Editing') %]</legend>
+        [% form_row_checkbox(r, 'subscribe_to_created_artists',
+                             l('Automatically subscribe me to artists I create.')) %]
+        [% form_row_checkbox(r, 'subscribe_to_created_labels',
+                             l('Automatically subscribe me to labels I create.')) %]
+    </fieldset>
+
+    <fieldset>
         <legend>[% l('Watch Artists') %]</legend>
         <p>[% l('Notify me for new releases that have the following attributes:') %]</p>
         [% form_row_select(w, 'type_id', l('Release Group Type:')) %]
