@@ -285,8 +285,9 @@ sub create : Local RequireAuth Edit
             attributes   => [uniq @attributes],
         );
 
-        my $redirect = $c->controller(type_to_model($type0))->action_for('show');
-        $c->response->redirect($c->uri_for_action($redirect, [ $source_gid ]));
+        my $redirect = $c->req->params->{returnto} ||
+            $c->uri_for_action($c->controller(type_to_model($type0))->action_for('show'), [ $source_gid ]);
+        $c->response->redirect($redirect);
         $c->detach;
     }
 }
