@@ -40,7 +40,7 @@
         var placeholderNative = function ($elem) {
             $elem.parents('form:first').bind ('submit.mb_placeholder', function() {
                 var options = $elem.data ('mb_placeholder');
-                if (!options.submit_placeholder_if_empty)
+                if (!options || !options.submit_placeholder_if_empty)
                     return;
 
                 if ($elem.val () === '')
