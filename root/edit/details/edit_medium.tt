@@ -49,7 +49,7 @@
   [% USE Diff %]
   [% IF edit.display_data.tracklist_changes %]
   <tr>
-     <th>[% l('Tracklist:') %]</th>
+     <th>[% l('Old Tracklist:') %]</th>
      <td>
        <table class="tbl">
          <thead>
@@ -62,19 +62,17 @@
          </thead>
          <tbody>
          [% FOR change=edit.display_data.tracklist_changes %]
-           [% NEXT IF change.0 == 'u' %]
+           [% NEXT UNLESS change.0 == 'c' OR change.1 == '-' %]
            [% IF change.0 == 'c' %]
            [% old_track = change.1;
               new_track = change.2;
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
                                                                    new_track.artist_credit);
               old_name_diff = Diff.diff_side(old_track.name, new_track.name, '-', '\s+');
-              new_name_diff = Diff.diff_side(old_track.name, new_track.name, '+', '\s+');
-              old_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-');
-              new_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '+') %]
+              old_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-'); -%]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td class="pos t">
-               [% new_track.position %]
+               [% old_track.position %]
              </td>
              <td>
                [% IF old_track.recording.gid;
@@ -83,7 +81,7 @@
                       old_name_diff
                     );
                   ELSE;
-                    name_diff;
+                    old_name_diff;
                   END %]
              </td>
              <td>
@@ -93,31 +91,79 @@
                [% old_track_length %]
              </td>
            </tr>
-           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]" style="border-bottom: #999">
-             <td class="pos t"></td>
+           [% ELSE %]
+           [% track = change.1 %]
+           <tr class="diff-removal">
+             <td class="pos t">
+               [% track.position %]
+             </td>
              <td>
-               [% IF new_name_diff != old_name_diff;
-                    IF new_track.recording.gid;
-                      link_recording(new_track.recording, 'show', new_name_diff);
-                    ELSE;
-                      name_diff;
-                    END;
+               [% IF track.recording.gid;
+                    link_recording(track.recording, 'show', track.name);
+                  ELSE;
+                    track.name;
                   END %]
              </td>
              <td>
-               [% artist_credit_differences.new UNLESS artist_credit_differences.new == artist_credit_differences.old %]
+               [% artist_credit(track.artist_credit) %]
+             </td>
+             <td>
+               [% track.length | format_length %]
+             </td>
+           </tr>
+           [% END %]
+         [% END %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
+
+  <tr>
+     <th>[% l(New Tracklist:') %]</th>
+     <td>
+       <table class="tbl">
+         <thead>
+           <tr>
+             <th>[% l('#') %]</th>
+             <th>[% l('Title') %]</th>
+             <th>[% l('Artist') %]</th>
+             <th>[% l('Length') %]</th>
+           </tr>
+         </thead>
+         <tbody>
+         [% FOR change=edit.display_data.tracklist_changes %]
+           [% NEXT UNLESS change.0 == 'c' OR change.0 == '+' %]
+           [% IF change.0 == 'c' %]
+           [% old_track = change.1;
+              new_track = change.2;
+              artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
+                                                                   new_track.artist_credit);
+              new_name_diff = Diff.diff_side(old_track.name, new_track.name, '+', '\s+');
+              new_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '+') %]
+           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+             <td class="pos t">
+               [% new_track.position %]
+             </td>
+             <td>
+               [% IF new_track.recording.gid;
+                    link_recording(
+                      new_track.recording, 'show',
+                      new_name_diff
+                    );
+                  ELSE;
+                    new_name_diff;
+                  END %]
+             </td>
+             <td>
+               [% artist_credit_differences.new %]
              </td>
              <td class="treleases">
-               [% new_track_length UNLESS new_track_length == old_track_length %]
+               [% new_track_length %]
              </td>
            </tr>
            [% ELSE %]
-           [% track = change.0 == '-' ? change.1 : change.2 %]
-           <tr class="[%-
-                      change.0 == '+' ? 'diff-addition' :
-                      change.0 == '-' ? 'diff-removal'  :
-                      loop.index % 2 == 0 ? 'ev' : 'odd'
-                      -%]">
+           [% track = change.2 %]
+           <tr class="diff-addition">
              <td class="pos t">
                [% track.position %]
              </td>
