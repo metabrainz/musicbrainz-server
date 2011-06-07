@@ -379,10 +379,14 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.parent.moveDisc (oldpos, self);
     };
 
-    self.removeDisc = function (chained) {
+    self.clearDisc = function () {
         self.edits.clearEdits ();
-        self.tracklist = null;
+        self.tracklist = [];
         self.removeTracks (-1);
+    };
+
+    self.removeDisc = function (chained) {
+        self.clearDisc ();
 
         self.$deleted.val ("1");
         self.$fieldset.addClass ('deleted');
@@ -393,6 +397,32 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.isDeleted = function () {
         return self.$deleted.val () == "1";
+    };
+
+    self.isEmpty = function () {
+        if (self.tracks.length === 0)
+        {
+            return true;
+        }
+        else if (self.tracks.length === 1 &&
+                 self.tracks[0].$title.val () === '' &&
+                 self.tracks[0].$length.val () === '?:??')
+        {
+            /* this track was most probably added by "Add Disc" ->
+             * "Manual entry", which means this disc should still be
+             * considered empty. */
+            return true;
+        }
+        else
+        {
+            var deleted = true;
+            $.each (self.tracks, function (idx, trk) {
+                deleted = deleted && trk.isDeleted ();
+            });
+
+            /* if all tracks are deleted, the disc is empty. */
+            return deleted;
+        }
     };
 
     self.position = function (val) {
@@ -819,6 +849,23 @@ MB.Control.ReleaseAdvancedTab = function () {
             });
         }
     }
+
+    /* Returns the last disc, i.e. the disc with the highest position() which
+       has not been deleted. */
+    self.lastDisc = function () {
+        var pos = self.positions.length;
+        while (pos > 0)
+        {
+            if (self.positions[pos])
+            {
+                return self.positions[pos];
+            }
+            pos--;
+        }
+
+        return null;
+    }
+
 
     self.$tab = $('div.advanced-tracklist');
     self.discs = [];
