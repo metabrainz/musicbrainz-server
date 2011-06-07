@@ -138,6 +138,18 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{type_id}
         and $self->data->{old}{type_id} != 0;
 
+    return 0 if exists $self->data->{old}{gender_id}
+        and $self->data->{old}{gender_id} != 0;
+
+    return 0 if exists $self->data->{old}{country_id}
+        and $self->data->{old}{country_id} != 0;
+
+    if (exists $self->data->{old}{ipi_code}) {
+        my ($old_ipi, $new_ipi) = normalise_strings($self->data->{old}{ipi_code},
+                                                    $self->data->{new}{ipi_code});
+        return 0 if $new_ipi ne $old_ipi;
+    }
+
     return 1;
 }
 
