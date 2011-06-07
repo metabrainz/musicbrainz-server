@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Medium::Edit;
 use Test::Routine;
 use Test::More;
 use Test::Fatal;
+use Test::Deep qw( cmp_set );
 
 with 't::Context';
 
@@ -28,6 +29,10 @@ is_unchanged($medium);
 
 my $edit = create_edit($c, $medium);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Edit');
+
+cmp_set($edit->related_entities->{artist}, [ 1, 2 ]);
+cmp_set($edit->related_entities->{release}, [ 1 ]);
+cmp_set($edit->related_entities->{release_group}, [ 1 ]);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $medium = $c->model('Medium')->get_by_id(1);
@@ -109,7 +114,7 @@ sub create_edit {
                     ArtistCreditName->new(
                         name => 'Warp Industries',
                         artist => Artist->new(
-                            id => 1,
+                            id => 2,
                             name => 'Artist',
                         )
                     )]),

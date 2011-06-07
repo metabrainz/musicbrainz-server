@@ -3,7 +3,8 @@ SET client_min_messages TO 'warning';
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '82a72730-792f-11de-8a39-0800200c9a66', 1, 1);
+    VALUES (1, '82a72730-792f-11de-8a39-0800200c9a66', 1, 1),
+           (2, '92a72730-792f-11de-8a39-0800200c9a66', 1, 1);
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, name, artist) VALUES (1, 1, 1, 1);
