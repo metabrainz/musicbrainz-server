@@ -199,11 +199,11 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.removeTrackNumbers = function () {
         if (self.parent.vinylNumbers ())
         {
-            self.line = self.line.replace(/^\s*[-\.０-９0-9a-z]+\.?\s+/i, "");
+            self.line = self.line.replace(/^\s*[-\.０-９0-9a-z]+\.?(\s+|$)/i, "");
         }
         else if (self.parent.trackNumbers ())
         {
-            self.line = self.line.replace(/^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)\.?\s+/, "");
+            self.line = self.line.replace(/^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)\.?(\s+|$)/, "");
         }
     };
 
