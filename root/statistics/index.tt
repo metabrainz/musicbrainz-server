@@ -68,6 +68,10 @@
     <td>[% stats.statistic('count.isrc') %]</td>
 </tr>
 <tr>
+    <td>[% l('ISWCs:') %]</td>
+    <td>[% stats.statistic('count.iswc') %]</td>
+</tr>
+<tr>
     <td>[% l('Editors:') %]</td>
     <td>[% stats.statistic('count.editor') %]</td>
 </tr>
