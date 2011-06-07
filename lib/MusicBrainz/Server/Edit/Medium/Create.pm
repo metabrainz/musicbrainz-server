@@ -39,6 +39,17 @@ has '+data' => (
     ]
 );
 
+around related_entities => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my $related = $self->$orig(@_);
+
+    push @{ $related->{artist} }, map {
+        map { $_->{artist}{id} } @{ $_->{artist_credit}->{names} }
+    } @{ $self->data->{tracklist} };
+
+    return $related;
+};
+
 sub alter_edit_pending
 {
     my $self = shift;
