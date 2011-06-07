@@ -24,7 +24,7 @@ around related_entities => sub {
     my ($orig, $self, @args) = @_;
     my %related = %{ $self->$orig(@args) };
     $related{label} = [ $self->data->{label}{id} ]
-        if exists $self->data->{label};
+        if $self->data->{label};
 
     return \%related;
 };
