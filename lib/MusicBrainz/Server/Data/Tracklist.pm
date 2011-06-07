@@ -172,12 +172,14 @@ sub find_or_insert
                     SELECT tracklist, count(track.id) AS matched_track_count
                       FROM track
                       JOIN track_name name ON name.id = track.name
-                     WHERE ' . join(' OR ', ('(
-                               name.name = ?
-                           AND artist_credit = ?
-                           AND recording = ?
-                           AND position = ?
-                           )') x @$tracks) . '
+                     WHERE ' . join(' OR ',map {
+                         '(' . join(' AND ',
+                                    'name.name = ?',
+                                    'artist_credit = ?',
+                                    'recording = ?',
+                                    'position = ?',
+                                    defined($_->{length}) ? 'length = ?' : 'length IS NULL') .
+                         ')' } @$tracks) . '
                   GROUP BY tracklist
                 ) s
            JOIN tracklist ON s.tracklist = tracklist.id
@@ -193,6 +195,7 @@ sub find_or_insert
                 $_->{name},
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
                 $_->{recording_id},
+                defined($_->{length}) ? $_->{length} : (),
                 $i++,
             } @$tracks),
             scalar(@$tracks)
