@@ -119,7 +119,9 @@ sub find_by_artist
     my $where_statuses = _where_status_in (@$statuses);
     my ($join_types, $where_types) = _where_type_in (@$types);
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
+                        country.name AS country_name,
+                        musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
@@ -129,7 +131,7 @@ sub find_by_artist
                  $where_statuses
                  $where_types
                  ORDER BY date_year, date_month, date_day,
-                          country.name, barcode
+                          country.name, barcode, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -143,7 +145,7 @@ sub find_by_label
     my $where_statuses = _where_status_in (@$statuses);
     my ($join_types, $where_types) = _where_type_in (@$types);
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT " . $self->_columns . ", country.name AS country_name
                  FROM " . $self->_table . "
                      JOIN release_label
                          ON release_label.release = release.id
@@ -311,7 +313,8 @@ sub find_by_artist_track_count
 {
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTNCT " . $self->_columns . ",
+                        musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
