@@ -5,16 +5,18 @@ use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_lis
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::GetByGID';
 
 sub _gid_redirect_table
 {
     return undef;
 }
 
-sub get_by_gids
+around get_by_gids => sub
 {
-    my ($self, @gids) = @_;
-    my %gid_map = map { $_->gid => $_ } values %{ $self->_get_by_keys('gid', @gids) };
+    my ($orig, $self) = splice(@_, 0, 2);
+    my (@gids) = @_;
+    my %gid_map = %{ $self->$orig(@_) };
     my $table = $self->_gid_redirect_table;
     return \%gid_map
         unless defined $table;
@@ -38,25 +40,26 @@ sub get_by_gids
         }
     }
     return \%gid_map;
-}
+};
 
-sub get_by_gid
+around get_by_gid => sub
 {
-    my ($self, $gid) = @_;
-    return unless $gid;
-    my @result = values %{$self->_get_by_keys("gid", $gid)};
-    if (scalar(@result)) {
-        return $result[0];
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($gid) = @_;
+    if (my $obj = $self->$orig(@_)) {
+        return $obj;
     }
-    my $table = $self->_gid_redirect_table;
-    if (defined($table)) {
-        my $id = $self->sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
-        if (defined($id)) {
-            return $self->get_by_id($id);
+    else {
+        my $table = $self->_gid_redirect_table;
+        if (defined($table)) {
+            my $id = $self->sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
+            if (defined($id)) {
+                return $self->get_by_id($id);
+            }
         }
+        return undef;
     }
-    return undef;
-}
+};
 
 sub find_by_name
 {
