@@ -73,6 +73,53 @@
 </tr>
 </table>
 
+<h2>[% l('Artists') %]</h2>
+<table>
+<tr>
+    <td>[% l('Artists:') %]</td>
+    <td>[% stats.statistic('count.artist') %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('of type Person:') %]</td>
+    <td>[% stats.statistic('count.artist.type.person') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.person', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('of type Group:') %]</td>
+    <td>[% stats.statistic('count.artist.type.group') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.group', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('with no type set:') %]</td>
+    <td>[% stats.statistic('count.artist.type.null') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.null', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>[% l('Artists:') %]</td>
+    <td>[% stats.statistic('count.artist') %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('Male:') %]</td>
+    <td>[% stats.statistic('count.artist.gender.male') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.male', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('Female:') %]</td>
+    <td>[% stats.statistic('count.artist.gender.female') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.female', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('Other gender:') %]</td>
+    <td>[% stats.statistic('count.artist.gender.other') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.other', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td>&nbsp;&nbsp;[% l('with no gender set:') %]</td>
+    <td>[% stats.statistic('count.artist.gender.null') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.null', 'count.artist')) }) %]</td>
+</tr>
+</table>
+
 <h2>[% l('Releases') %]</h2>
 <table>
 <tr>
