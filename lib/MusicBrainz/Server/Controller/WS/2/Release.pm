@@ -97,6 +97,8 @@ sub release_toplevel
 
         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
         $c->model('Track')->load_for_tracklists(@tracklists);
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
+            if ($c->stash->{inc}->artist_credits);
 
         my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
         $c->model('Recording')->load_meta(@recordings);

@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Entity::Release;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use utf8;
 
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleasePackaging;
@@ -55,7 +56,7 @@ is( $release->combined_format_name, 'CD + DVD', 'Release format is CD + DVD' );
 is( $release->combined_track_count, '10 + 22' );
 
 $release->add_medium($medium1);
-is( $release->combined_format_name, '2xCD + DVD', 'Release format is 2xCD + DVD' );
+is( $release->combined_format_name, '2×CD + DVD', 'Release format is 2xCD + DVD' );
 is( $release->combined_track_count, '10 + 22 + 10' );
 
 $release = MusicBrainz::Server::Entity::Release->new(artist_credit_id => 1);
