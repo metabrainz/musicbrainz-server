@@ -476,6 +476,9 @@ sub _serialize_track
     push @track, $gen->length($track->length)
         if $track->length;
 
+    $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
+        if $inc->artist_credits;
+
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
         if ($track->recording);
 
