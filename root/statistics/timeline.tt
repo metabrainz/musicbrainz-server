@@ -31,8 +31,7 @@
                                       minTickSize: [1, "month"]},
                              selection: { mode: "xy" },
                              grid: { hoverable: true },
-                             legend: { container: $('#graph-legend'),
-                                       noColumns: 2 }};
+                             legend: { container: $('#graph-legend') }};
 
              var overview_options = { legend: {show: false}, 
                                       series: {lines: {lineWidth: 1}, shadowSize: 0},
