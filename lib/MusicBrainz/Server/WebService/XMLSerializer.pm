@@ -383,7 +383,7 @@ sub _serialize_recording
 
     my @list;
     push @list, $gen->title($recording->name);
-    push @list, $gen->length($recording->length);
+    push @list, $gen->length($recording->length) if $recording->length;
     push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
 
     if ($toplevel)
