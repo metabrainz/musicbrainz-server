@@ -3,6 +3,7 @@ use Moose;
 
 use Carp;
 use List::MoreUtils qw( uniq );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
@@ -203,6 +204,7 @@ sub update
 sub can_delete
 {
     my ($self, $artist_id) = @_;
+    return 0 if _is_special_purpose($artist_id);
     my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
@@ -230,6 +232,10 @@ sub delete
 sub merge
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
+
+    if (grep { _is_special_purpose($_) } @$old_ids) {
+        confess('Attempt to merge a special purpose artist into another artist');
+    }
 
     $self->alias->merge($new_id, @$old_ids);
     $self->tags->merge($new_id, @$old_ids);
@@ -408,6 +414,11 @@ UNION
 
         $id_to_work{ $row->{work} }->add_artist($artist);
     }
+}
+
+sub _is_special_purpose {
+    my $artist_id = shift;
+    return $artist_id == $VARTIST_ID || $artist_id == $DARTIST_ID;
 }
 
 __PACKAGE__->meta->make_immutable;
