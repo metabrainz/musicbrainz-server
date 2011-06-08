@@ -12,5 +12,7 @@
             </tr>
         [% END %]
     </table>
+    <h2>[% l("Relationships") %]</h2>
+    [%- INCLUDE "components/relationships.tt" source=url -%]
 [%- END -%]
 
