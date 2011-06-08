@@ -341,16 +341,19 @@ sub _merge_form_arguments {
     foreach my $release (@releases) {
         foreach my $medium ($release->all_mediums) {
             my $position = $medium->position;
-            if ($release->medium_count == 1 && !$medium->name) {
+            my $name = $medium->name;
+            if ($release->medium_count == 1 && !$name) {
                 # guess position from the old release name
                 if ($medium->release->name =~ /\(disc (\d+)(?:: (.+?))?\)/) {
                     $position = $1;
+                    $name = $2 || '';
                 }
             }
             push @mediums, {
                 id => $medium->id,
                 release_id => $medium->release_id,
-                position => $position
+                position => $position,
+                name => $name
             };
             $medium_by_id{$medium->id} = $medium;
         }
@@ -387,7 +390,9 @@ sub _merge_parameters {
             push @{ $medium_changes{ $release->id } },
                 { id => $merge->field('id')->value,
                   old_position => $medium->position,
-                  new_position => $merge->field('position')->value };
+                  new_position => $merge->field('position')->value,
+                  old_name => $medium->name,
+                  new_name => $merge->field('name')->value };
         }
         return (
             medium_changes => [

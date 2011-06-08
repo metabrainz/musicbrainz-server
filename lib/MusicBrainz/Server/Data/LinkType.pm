@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::GetByGID';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'linktype' };
 with 'MusicBrainz::Server::Data::Role::GetByGID';
 
@@ -76,6 +77,17 @@ sub get_by_id
     }
     return $obj;
 }
+
+around get_by_gid => sub
+{
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($gid) = @_;
+    my $obj = $self->$orig($gid);
+    if (defined $obj) {
+        $self->_load_attributes({ $obj->id => $obj }, $obj->id);
+    }
+    return $obj;
+};
 
 sub load
 {

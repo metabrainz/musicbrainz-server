@@ -12,11 +12,11 @@ sub _gid_redirect_table
     return undef;
 }
 
-around get_by_gids => sub {
+around get_by_gids => sub
+{
     my ($orig, $self) = splice(@_, 0, 2);
-    my @gids = @_;
-
-    my %gid_map = map { $_->gid => $_ } values %{ $self->$orig(@_) };
+    my (@gids) = @_;
+    my %gid_map = %{ $self->$orig(@_) };
     my $table = $self->_gid_redirect_table;
     return \%gid_map
         unless defined $table;

@@ -13,10 +13,31 @@
         <tbody>
           [% FOR medium=change.mediums %]
           <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+            [% IF edit.data.item('_edit_version') == 3 && (medium.old_name || medium.new_name) %]
+              [% IF medium.old_name %]
+                [% IF medium.new_name %]
+                  <td>[% l('Medium {position}: {name} is now medium {new_position}: {new_name}', {
+                         position => medium.old_position, name => medium.old_name,
+                         new_position => medium.new_position, new_name => medium.new_name
+                         }) | html %]</td>
+                [% ELSE %]
+                  <td>[% l('Medium {position}: {name} is now medium {new_position}', {
+                         position => medium.old_position, name => medium.old_name,
+                         new_position => medium.new_position, new_name => medium.new_name
+                         }) | html %]</td>
+                [% END %]
+              [% ELSIF medium.new_name %]
+                <td>[% l('Medium {position} is now medium {new_position}: {new_name}', {
+                       position => medium.old_position,
+                       new_position => medium.new_position, new_name => medium.new_name
+                       }) | html %]</td>
+              [% END %]
+            [% ELSE %]
             <td>[% l('Medium {position} is now medium {new_position}', {
                 position => medium.old_position,
                 new_position => medium.new_position,
-                }) %]</td>
+                }) | html %]</td>
+            [% END %]
           </tr>
           [% END %]
         </tbody>

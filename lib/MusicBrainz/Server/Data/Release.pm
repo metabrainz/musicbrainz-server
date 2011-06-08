@@ -575,6 +575,9 @@ sub merge
         my %positions = %{ $opts{medium_positions} || {} }
             or confess('Missing medium_positions parameter');
 
+        my $update_names = defined $opts{medium_names};
+        my %names = %{ $opts{medium_names} || {} };
+
         my @medium_ids = @{ $self->sql->select_single_column_array(
             'SELECT id FROM medium WHERE release IN (' . placeholders($new_id, @old_ids) . ')',
             $new_id, @old_ids
@@ -587,6 +590,14 @@ sub merge
             next unless exists $positions{$id};
             $self->sql->do('UPDATE medium SET release = ?, position = ? WHERE id = ?',
                            $new_id, $positions{$id}, $id);
+        }
+
+        if ($update_names) {
+            foreach my $id (@medium_ids) {
+                next unless exists $names{$id};
+                $self->sql->do('UPDATE medium SET name = ? WHERE id = ?',
+                               $names{$id} || undef, $id);
+            }
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {

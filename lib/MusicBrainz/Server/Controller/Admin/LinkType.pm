@@ -107,15 +107,15 @@ sub create : Chained('tree_setup') RequireAuth(relationship_editor)
 
 sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
 {
-    my ($self, $c, $id) = @_;
+    my ($self, $c, $gid) = @_;
 
-    my $link_type = $c->model('LinkType')->get_by_id($id);
+    my $link_type = $c->model('LinkType')->get_by_gid($gid);
     unless (defined $link_type) {
         $c->detach('/error_404');
     }
     $c->stash( link_type => $link_type );
 
-    my $attribs = $c->model('LinkType')->get_attribute_type_list($id);
+    my $attribs = $c->model('LinkType')->get_attribute_type_list($link_type->id);
     my %attrib_names = map { $_->{type} => $_->{name} } @$attribs;
     $c->stash( attrib_names => \%attrib_names );
 
@@ -145,7 +145,7 @@ sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
             edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
             old => $old_values,
             new => $values,
-            link_id => $id
+            link_id => $link_type->id
         );
 
         my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
@@ -156,9 +156,9 @@ sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
 
 sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
 {
-    my ($self, $c, $id) = @_;
+    my ($self, $c, $gid) = @_;
 
-    my $link_type = $c->model('LinkType')->get_by_id($id);
+    my $link_type = $c->model('LinkType')->get_by_gid($gid);
     unless (defined $link_type) {
         $c->detach('/error_404');
     }
@@ -169,7 +169,7 @@ sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE,
-            link_type_id => $id,
+            link_type_id => $link_type->id,
             types => [ $link_type->entity0_type, $link_type->entity1_type ],
             name => $link_type->name,
             link_phrase => $link_type->link_phrase,
