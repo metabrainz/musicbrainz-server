@@ -469,15 +469,15 @@ sub _serialize_track
     my @track;
     push @track, $gen->position($track->position);
 
-    if ($track->recording)
-    {
-        push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
-        $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash);
-    }
-    else
-    {
-        push @track, $gen->title($track->name);
-    }
+    push @track, $gen->title($track->name)
+        if ($track->recording && $track->name ne $track->recording->name) ||
+           (!$track->recording);
+
+    push @track, $gen->length($track->length)
+        if $track->length;
+
+    $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
+        if ($track->recording);
 
     push @$data, $gen->track(@track);
 }
