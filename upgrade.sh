@@ -14,6 +14,9 @@ echo `date` : Rewriting empty_artists()
 echo `date` : Fixing old edit label edits
 ./admin/sql/updates/20110606-fix-historic-edit-label.pl
 
+echo `date` : Fix add release label edits
+./admin/sql/updates/20110607-add-release-label.pl
+
 echo `date` : Done
 
 # eof
