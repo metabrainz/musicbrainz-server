@@ -8,6 +8,9 @@ eval `./admin/ShowDBDefs`
 echo `date` : Backing up data
 ./admin/psql RAWDATA < admin/sql/updates/RAWDATA-backup.sql
 
+echo `date` : Adding special purpose row constraints
+./admin/psql READWRITE < admin/sql/updates/20110808-special-purpose-triggers.sql
+
 echo `date` : Rewriting empty_artists()
 ./admin/psql READWRITE < admin/sql/updates/20110607-empty-artists.sql
 
