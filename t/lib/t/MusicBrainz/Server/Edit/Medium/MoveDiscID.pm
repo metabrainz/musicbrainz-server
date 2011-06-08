@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Medium::MoveDiscID;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Context';
 
@@ -45,6 +46,18 @@ is($medium_cdtoc->medium_id, 2);
 is($medium_cdtoc->edits_pending, 0);
 is($medium_cdtoc->medium->release->edits_pending, 0);
 
+};
+
+test 'Cannot move to non-existant medium' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
+
+    my $edit = create_edit($c, reload_data($c));
+    $c->model('Medium')->delete(2);
+    isa_ok exception { $edit->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
 sub create_edit {
