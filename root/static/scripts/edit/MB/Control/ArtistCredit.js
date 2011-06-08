@@ -140,6 +140,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         if (data.name)
         {
+            self.$name.data ('mb_selected_name', data.name);
             self.$name.val (data.name).removeClass ('error');
             self.container.clearError (self);
             self.$sortname.val (data.sortname);
@@ -182,6 +183,17 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.$gid.val ('');
             self.$id.val ('');
+            self.updateLookupPerformed ();
+        }
+
+        /* if the artist name was changed without performing another
+         * lookup the identifiers should be cleared. */
+        if (self.$name.data ('mb_selected_name')
+            && (self.$name.val () !== self.$name.data ('mb_selected_name')))
+        {
+            self.$gid.val ('');
+            self.$id.val ('');
+            self.$name.data ('mb_selected_name', '');
             self.updateLookupPerformed ();
         }
 
@@ -276,6 +288,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.renderPreviewHTML = function () {
+        if (self.$gid.val () === '')
+        {
+            return self.renderName ();
+        }
+
         return '<a target="_blank" href="/artist/' +
             MB.utility.escapeHTML (self.$gid.val ()) + '" title="' +
             MB.utility.escapeHTML (self.$sortname.val ()) + '">' +

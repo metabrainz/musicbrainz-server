@@ -22,6 +22,7 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
@@ -68,7 +69,8 @@ sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
+                        musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
@@ -189,7 +191,7 @@ sub load_meta
     }, @_);
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 

@@ -29,6 +29,7 @@ $mech->content_like(qr{2005-11-08}, 'release date 2');
 $mech->content_like(qr{/release/f205627f-b70a-409d-adbe-66289b614e80}, 'link to release 1');
 $mech->content_like(qr{/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b}, 'link to release 2');
 $mech->content_like(qr{/artist/4b585938-f271-45e2-b19a-91c634b5e396}, 'link to artist');
+$mech->content_like(qr{has guitar performed by}, 'relationships');
 
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce', 'fetch dancing queen recording');
 html_ok($mech->content);

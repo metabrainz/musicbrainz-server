@@ -5,30 +5,7 @@
     [% END %]
 
     <h2>[% l('Tracklist') %]</h2>
-    <table class="tbl">
-        <thead>
-            <tr>
-                <th class="pos t">[% l('#') %]</th>
-                <th>[% l('Title') %]</th>
-                [%- IF show_artists -%]
-                    <th>[% l('Artist') %]</th>
-                [%- END -%]
-                <th class="treleases">[% l('Length') %]</th>
-            </tr>
-        </thead>
-        <tbody>
-            [%- FOR track=cdstubtoc.cdstub.tracks; %]
-            <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
-                <td>[% track.sequence %]</td>
-                <td>[% track.title %]</td>
-                [%- IF show_artists -%]
-                    <td>[% track.artist %]</td>
-                [%- END -%]
-                <td>[% track.length | format_length %]</td>
-            </tr>
-            [%- END -%]
-        </tbody>
-    </table>
+    [% INCLUDE 'cdstub/cdstub.tt' %]
 
     <h2>[% l('Disc ID information') %]</h2>
     <table class="details">

@@ -18,9 +18,9 @@ sub _load_tree
 
 sub _load_link_attr_type
 {
-    my ($self, $c, $id) = @_;
+    my ($self, $c, $gid) = @_;
 
-    my $link_attr_type = $c->model('LinkAttributeType')->get_by_id($id);
+    my $link_attr_type = $c->model('LinkAttributeType')->get_by_gid($gid);
     unless (defined $link_attr_type) {
         $c->detach('/error_404');
     }
@@ -72,9 +72,9 @@ sub create : Local Args(0) RequireAuth(relationship_editor)
 
 sub edit : Local Args(1) RequireAuth(relationship_editor)
 {
-    my ($self, $c, $id) = @_;
+    my ($self, $c, $gid) = @_;
 
-    my $link_attr_type = $self->_load_link_attr_type($c, $id);
+    my $link_attr_type = $self->_load_link_attr_type($c, $gid);
     $self->_load_tree($c);
 
     my $form = $c->form( form => 'Admin::LinkAttributeType', init_object => $link_attr_type );
@@ -100,12 +100,12 @@ sub edit : Local Args(1) RequireAuth(relationship_editor)
 
 sub delete : Local Args(1) RequireAuth(relationship_editor)
 {
-    my ($self, $c, $id) = @_;
+    my ($self, $c, $gid) = @_;
 
-    my $link_attr_type = $self->_load_link_attr_type($c, $id);
+    my $link_attr_type = $self->_load_link_attr_type($c, $gid);
     my $form = $c->form( form => 'Confirm' );
 
-    if ($c->model('LinkAttributeType')->in_use($id)) {
+    if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {
         $c->stash( template => $c->namespace . '/in_use.tt');
         $c->detach;
     }

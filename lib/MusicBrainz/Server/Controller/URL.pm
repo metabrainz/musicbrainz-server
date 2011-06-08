@@ -34,6 +34,7 @@ sub base : Chained('/') PathPart('url') CaptureArgs(0) { }
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
+    $self->relationships($c);
     $c->stash->{template} = 'url/index.tt';
 }
 

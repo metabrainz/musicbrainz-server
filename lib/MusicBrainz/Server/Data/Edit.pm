@@ -413,6 +413,8 @@ sub create
             "SELECT nextval('edit_id_seq')"
         ));
 
+        my $ents = $edit->related_entities;
+
         # Automatically accept auto-edits on insert
         if ($edit->auto_edit) {
             my $st = $self->_do_accept($edit);
@@ -436,7 +438,6 @@ sub create
 
         my $edit_id = $self->c->raw_sql->insert_row('edit', $row, 'id');
 
-        my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
             $ids = [ uniq grep { defined } @$ids ];
             @$ids or next;

@@ -483,7 +483,8 @@ BEGIN
     FOR artist_row IN
         SELECT * FROM artist
         WHERE edits_pending = 0
-          AND last_updated < NOW() - '1 day'::INTERVAL
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
     LOOP
         CONTINUE WHEN
         (

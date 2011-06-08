@@ -68,6 +68,67 @@ my %stats = (
         DESC => "Count of all artists",
         SQL => "SELECT COUNT(*) FROM artist",
     },
+    "count.artist.type.person" => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type::text, 'null'), COUNT(*) AS count
+                FROM artist
+                GROUP BY type
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+            
+            +{
+                "count.artist.type.person" => $dist{1} || 0,
+                "count.artist.type.group"  => $dist{2} || 0,
+		"count.artist.type.null" => $dist{null} || 0
+            };
+        },
+    },
+    "count.artist.type.group" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.type.null" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.gender.male" => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
+                FROM artist
+                GROUP BY gender
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+            
+            +{
+                "count.artist.gender.male" => $dist{1} || 0,
+                "count.artist.gender.female"  => $dist{2} || 0,
+		"count.artist.gender.other" => $dist{3} || 0,
+		"count.artist.gender.null" => $dist{null} || 0
+            };
+        },
+    },
+    "count.artist.gender.female" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.gender.other" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
+    },
+    "cout.artist.gender.null" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
+    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
@@ -317,6 +378,29 @@ my %stats = (
         DESC => "Count of all CD Stub tracks",
         SQL => "SELECT COUNT(*) FROM track_raw",
         DB => 'RAWDATA'
+    },
+
+    "count.artist.country" => {
+        DESC => "Distribution of artists per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(*) AS count
+                FROM artist a, country c
+                WHERE a.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.artist.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
     },
 
     "count.vote.yes" => {
