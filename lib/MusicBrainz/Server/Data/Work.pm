@@ -22,6 +22,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
+with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
@@ -157,7 +158,7 @@ sub delete
     return;
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
