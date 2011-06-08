@@ -39,6 +39,10 @@ has_field 'medium_positions.map.position' => (
     type => 'Integer',
 );
 
+has_field 'medium_positions.map.name' => (
+    type => 'Text',
+);
+
 sub edit_field_names { qw(merge_strategy) }
 
 sub options_merge_strategy {
