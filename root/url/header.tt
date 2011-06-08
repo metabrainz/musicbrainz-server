@@ -1,6 +1,5 @@
 [%- info_links = [
     ['index', link_url(url, 'show', l('Overview'))],
-    ['relationships', link_url(url, 'relationships', l('Relationships'))],
     ['edit', link_url(url, 'edit', l('Edit'))],
 ] -%]
 

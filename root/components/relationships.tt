@@ -6,7 +6,6 @@
                :                                   '' %]
 
     [% FOR group=relationships.pairs %]
-        <p>
         <table class="details">
         [%- FOREACH relationship IN group.value.pairs -%]
             <tr>
@@ -40,7 +39,6 @@
             </tr>
         [%- END -%]
         </table>
-        </p>
     [% END %]
 [%- ELSE -%]
     <p>[% l('{link} has no relationships.', { link => link_entity(source) }) -%]</p>
