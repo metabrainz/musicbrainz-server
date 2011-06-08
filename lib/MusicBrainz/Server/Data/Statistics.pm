@@ -59,17 +59,14 @@ my %stats = (
     "count.release" => {
         DESC => "Count of all releases",
         SQL => "SELECT COUNT(*) FROM release",
-        LABEL => "Releases",
     },
     "count.releasegroup" => {
         DESC => "Count of all release groups",
         SQL => "SELECT COUNT(*) FROM release_group",
-        LABEL => "Release Groups",
     },
     "count.artist" => {
         DESC => "Count of all artists",
         SQL => "SELECT COUNT(*) FROM artist",
-        LABEL => "Artists",
     },
     "count.artist.type.person" => {
         CALC => sub {
@@ -135,63 +132,51 @@ my %stats = (
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
-        LABEL => "Labels",
     },
     "count.discid" => {
         DESC => "Count of all disc IDs",
         SQL => "SELECT COUNT(*) FROM cdtoc",
-        LABEL => "Disc IDs",
     },
     "count.edit" => {
         DESC => "Count of all edits",
         SQL => "SELECT COUNT(*) FROM edit",
-        DB => 'RAWDATA',
-        LABEL => "Edits",
+        DB => 'RAWDATA'
     },
     "count.editor" => {
         DESC => "Count of all editors",
         SQL => "SELECT COUNT(*) FROM editor",
-        LABEL => "Editors",
     },
     "count.barcode" => {
         DESC => "Count of all unique Barcodes",
         SQL => "SELECT COUNT(distinct barcode) FROM release",
-        LABEL => "Barcodes",
     },
     "count.medium" => {
         DESC => "Count of all mediums",
         SQL => "SELECT COUNT(*) FROM medium",
-        LABEL => "Mediums",
     },
     "count.puid" => {
         DESC => "Count of all PUIDs joined to recordings",
         SQL => "SELECT COUNT(*) FROM recording_puid",
-        LABEL => "PUIDs",
     },
     "count.puid.ids" => {
         DESC => "Count of unique PUIDs",
         SQL => "SELECT COUNT(DISTINCT puid) FROM recording_puid",
-        LABEL => "Unique PUIDs",
     },
     "count.track" => {
         DESC => "Count of all tracks",
         SQL => "SELECT COUNT(*) FROM track",
-        LABEL => "Tracks",
     },
     "count.recording" => {
         DESC => "Count of all recordings",
         SQL => "SELECT COUNT(*) FROM recording",
-        LABEL => "Recordings",
     },
     "count.work" => {
         DESC => "Count of all works",
         SQL => "SELECT COUNT(*) FROM work",
-        LABEL => "Works",
     },
     "count.artistcredit" => {
         DESC => "Count of all artist credits",
         SQL => "SELECT COUNT(*) FROM artist_credit",
-        LABEL => "Artist Credits",
     },
     "count.ipi" => {
         DESC => "Count of IPI codes",
@@ -200,43 +185,35 @@ my %stats = (
             my ($self, $sql) = @_;
             return $self->fetch("count.ipi.artist") + $self->fetch("count.ipi.label");
         },
-        LABEL => "IPI codes",
     },
     "count.ipi.artist" => {
         DESC => "Count of artists with an IPI code",
         SQL => "SELECT COUNT(*) FROM artist WHERE ipi_code IS NOT NULL",
-        LABEL => "Artists with IPI code",
     },
     "count.ipi.label" => {
         DESC => "Count of labels with an IPI code",
         SQL => "SELECT COUNT(*) FROM label WHERE ipi_code IS NOT NULL",
-        LABEL => "Labels with IPI code",
     },
     "count.isrc.all" => {
         DESC => "Count of all ISRCs joined to recordings",
         SQL => "SELECT COUNT(*) FROM isrc",
-        LABEL => "All ISRCs",
     },
     "count.isrc" => {
         DESC => "Count of unique ISRCs",
         SQL => "SELECT COUNT(distinct isrc) FROM isrc",
-        LABEL => "ISRCs",
     },
     "count.iswc.all" => {
         DESC => "Count of all works with an ISWC",
         SQL => "SELECT COUNT(*) FROM work WHERE iswc IS NOT NULL",
-        LABEL => "Works with ISWC",
     },
     "count.iswc" => {
         DESC => "Count of unique ISWCs",
         SQL => "SELECT COUNT(distinct iswc) FROM work WHERE iswc IS NOT NULL",
-        LABEL => "ISWCs",
     },
     "count.vote" => {
         DESC => "Count of all votes",
         SQL => "SELECT COUNT(*) FROM vote",
-        DB => 'RAWDATA',
-        LABEL => "Votes",
+        DB => 'RAWDATA'
     },
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
@@ -268,7 +245,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        LABEL => "Releases per Release Group",
     },
     "count.release.various" => {
         DESC => "Count of all 'Various Artists' releases",
@@ -276,7 +252,6 @@ my %stats = (
                   JOIN artist_credit ac ON ac.id = artist_credit
                   JOIN artist_credit_name acn ON acn.artist_credit = ac.id
                  WHERE artist_count = 1 AND artist = ' . $VARTIST_ID,
-        LABEL => "Various Artists Releases",
     },
     "count.release.nonvarious" => {
         DESC => "Count of all releases, other than 'Various Artists'",
@@ -287,31 +262,26 @@ my %stats = (
             $self->fetch("count.release")
                 - $self->fetch("count.release.various")
         },
-        LABEL => "Non-Various Artists Releases",
     },
     "count.medium.has_discid" => {
         DESC => "Count of media with at least one disc ID",
         SQL => "SELECT COUNT(DISTINCT medium)
                   FROM medium_cdtoc",
-        LABEL => "Mediums with Disc ID",
     },
     "count.release.has_discid" => {
         DESC => "Count of releases with at least one disc ID",
         SQL => "SELECT COUNT(DISTINCT medium.release)
                   FROM medium_cdtoc
                   JOIN medium ON medium_cdtoc.medium = medium.id",
-        LABEL => "Releases with Disc ID",
     },
 
     "count.recording.has_isrc" => {
         DESC => "Count of recordings with at least one ISRC",
         SQL => "SELECT COUNT(DISTINCT recording) FROM isrc",
-        LABEL => "Recordings with ISRC",
     },
     "count.recording.has_puid" => {
         DESC => "Count of recordings with at least one PUID",
         SQL => "SELECT COUNT(DISTINCT recording) FROM recording_puid",
-        LABEL => "Recordings with PUID",
     },
 
     "count.edit.open" => {
@@ -338,37 +308,31 @@ my %stats = (
                 "count.edit.deleted"        => $dist{$STATUS_DELETED}       || 0,
             };
         },
-        LABEL => "Open Edits",
     },
     "count.edit.applied" => {
         DESC => "Count of applied edits",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
-        LABEL => "Applied Edits",
     },
     "count.edit.failedvote" => {
         DESC => "Count of edits which were voted down",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
-        LABEL => "Voted-down Edits",
     },
     "count.edit.faileddep" => {
         DESC => "Count of edits which failed their dependency check",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
-        LABEL => "Dependency-failed Edits",
     },
     "count.edit.error" => {
         DESC => "Count of edits which failed because of an internal error",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
-        LABEL => "Internal-error Edits",
     },
     "count.edit.failedprereq" => {
         DESC => "Count of edits which failed because a prerequisitite moderation failed",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
-        LABEL => "Prerequisite-failed Edits",
     },
     "count.edit.evalnochange" => {
         DESC => "Count of evalnochange edits",
@@ -379,48 +343,41 @@ my %stats = (
         DESC => "Count of edits marked as 'to be deleted'",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
-        LABEL => "Edits to be deleted",
     },
     "count.edit.deleted" => {
         DESC => "Count of deleted edits",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
-        LABEL => "Deleted edits",
     },
     "count.edit.perday" => {
         DESC => "Count of edits per day",
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '1 day')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
-        DB => 'RAWDATA',
-        LABEL => "Edits per day",
+        DB => 'RAWDATA'
     },
     "count.edit.perweek" => {
         DESC => "Count of edits per week",
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '7 days')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
-        DB => 'RAWDATA',
-        LABEL => "Edits per week",
+        DB => 'RAWDATA'
     },
 
     "count.cdstub" => {
         DESC => "Count of all existing CD Stubs",
         SQL => "SELECT COUNT(*) FROM release_raw",
-        DB => 'RAWDATA',
-        LABEL => "Existing CD Stubs",
+        DB => 'RAWDATA'
     },
     "count.cdstub.submitted" => {
         DESC => "Count of all submitted CD Stubs",
         SQL => "SELECT MAX(id) FROM release_raw",
-        DB => 'RAWDATA',
-        LABEL => "All CD Stubs",
+        DB => 'RAWDATA'
     },
     "count.cdstub.track" => {
         DESC => "Count of all CD Stub tracks",
         SQL => "SELECT COUNT(*) FROM track_raw",
-        DB => 'RAWDATA',
-        LABEL => "CD Stub tracks",
+        DB => 'RAWDATA'
     },
 
     "count.artist.country" => {
@@ -464,19 +421,16 @@ my %stats = (
                 "count.vote.abstain"    => $dist{$VOTE_ABSTAIN} || 0,
             };
         },
-        LABEL => "Yes Votes",
     },
     "count.vote.no" => {
         DESC => "Count of 'no' votes",
         PREREQ => [qw[ count.vote.yes ]],
         PREREQ_ONLY => 1,
-        LABEL => "No Votes",
     },
     "count.vote.abstain" => {
         DESC => "Count of 'abstain' votes",
         PREREQ => [qw[ count.vote.yes ]],
         PREREQ_ONLY => 1,
-        LABEL => "Abstentions",
     },
     "count.vote.perday" => {
         DESC => "Count of votes per day",
@@ -484,7 +438,6 @@ my %stats = (
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '1 day')
                   AND vote <> ". $VOTE_ABSTAIN,
-        LABEL => "Votes per day",
     },
     "count.vote.perweek" => {
         DESC => "Count of votes per week",
@@ -492,7 +445,6 @@ my %stats = (
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '7 days')
                   AND vote <> ". $VOTE_ABSTAIN,
-        LABEL => "Votes per week",
     },
 
     # count active moderators in last week(?)
@@ -551,19 +503,16 @@ my %stats = (
                 "count.editor.activelastweek"=> $both,
             };
         },
-        LABEL => "Active editors",
     },
     "count.editor.votelastweek" => {
         DESC => "Count of editors who have voted on edits during the last week",
         PREREQ => [qw[ count.editor.editlastweek ]],
         PREREQ_ONLY => 1,
-        LABEL => "Active voters",
     },
     "count.editor.activelastweek" => {
         DESC => "Count of active editors (editing or voting) during the last week",
         PREREQ => [qw[ count.editor.editlastweek ]],
         PREREQ_ONLY => 1,
-        LABEL => "Active users",
     },
 
     # To add?
@@ -576,43 +525,36 @@ my %stats = (
     "count.tag" => {
         DESC => "Count of all tags",
         SQL => "SELECT COUNT(*) FROM tag",
-        LABEL => "Tags",
     },
     "count.tag.raw.artist" => {
         DESC => "Count of all artist raw tags",
         SQL => "SELECT COUNT(*) FROM artist_tag_raw",
-        DB => 'RAWDATA',
-        LABEL => "Raw Artist Tags",
+        DB => 'RAWDATA'
     },
     "count.tag.raw.label" => {
         DESC => "Count of all label raw tags",
         SQL => "SELECT COUNT(*) FROM label_tag_raw",
-        DB => 'RAWDATA',
-        LABEL => "Raw Label Tags",
+        DB => 'RAWDATA'
     },
     "count.tag.raw.releasegroup" => {
         DESC => "Count of all release-group raw tags",
         SQL => "SELECT COUNT(*) FROM release_group_tag_raw",
-        DB => 'RAWDATA',
-        LABEL => "Raw Release Group Tags",
+        DB => 'RAWDATA'
     },
     "count.tag.raw.release" => {
         DESC => "Count of all release raw tags",
         SQL => "SELECT COUNT(*) FROM release_tag_raw",
-        DB => 'RAWDATA',
-        LABEL => "Raw Release Tags",
+        DB => 'RAWDATA'
     },
     "count.tag.raw.recording" => {
         DESC => "Count of all recording raw tags",
         SQL => "SELECT COUNT(*) FROM recording_tag_raw",
-        DB => 'RAWDATA',
-        LABEL => "Raw Recording Tags",
+        DB => 'RAWDATA'
     },
     "count.tag.raw.work" => {
         DESC => "Count of all work raw tags",
         SQL => "SELECT COUNT(*) FROM work_tag_raw",
-        DB => 'RAWDATA',
-        LABEL => "Raw Work Tags",
+        DB => 'RAWDATA'
     },
     "count.tag.raw" => {
         DESC => "Count of all raw tags",
@@ -626,7 +568,6 @@ my %stats = (
                    $self->fetch('count.tag.raw.work') +
                    $self->fetch('count.tag.raw.recording');
         },
-        LABEL => "Raw Tags",
     },
 
     # Ratings
@@ -644,13 +585,11 @@ my %stats = (
                 "count.rating.raw.artist"   => $data->[1]   || 0,
             };
         },
-        LABEL => "Artist Ratings",
     },
     "count.rating.raw.artist" => {
         DESC => "Count of all artist raw ratings",
         PREREQ => [qw[ count.rating.artist ]],
         PREREQ_ONLY => 1,
-        LABEL => "Raw Artist Ratings",
     },
     "count.rating.releasegroup" => {
         DESC => "Count of release group ratings",
@@ -666,13 +605,11 @@ my %stats = (
                 "count.rating.raw.releasegroup" => $data->[1]   || 0,
             };
         },
-        LABEL => "Release Group Ratings",
     },
     "count.rating.raw.releasegroup" => {
         DESC => "Count of all release group raw ratings",
         PREREQ => [qw[ count.rating.releasegroup ]],
         PREREQ_ONLY => 1,
-        LABEL => "Raw Release Group Ratings",
     },
     "count.rating.recording" => {
         DESC => "Count of recording ratings",
@@ -688,13 +625,11 @@ my %stats = (
                 "count.rating.raw.recording"    => $data->[1]   || 0,
             };
         },
-        LABEL => "Recording Ratings",
     },
     "count.rating.raw.recording" => {
         DESC => "Count of all recording raw ratings",
         PREREQ => [qw[ count.rating.track ]],
         PREREQ_ONLY => 1,
-        LABEL => "Raw Recording Ratings",
     },
     "count.rating.label" => {
         DESC => "Count of label ratings",
@@ -710,13 +645,11 @@ my %stats = (
                 "count.rating.raw.label"    => $data->[1]   || 0,
             };
         },
-        LABEL => "Label Ratings",
     },
     "count.rating.raw.label" => {
         DESC => "Count of all label raw ratings",
         PREREQ => [qw[ count.rating.label ]],
         PREREQ_ONLY => 1,
-        LABEL => "Raw Label Ratings",
     },
     "count.rating.work" => {
         DESC => "Count of work ratings",
@@ -732,13 +665,11 @@ my %stats = (
                 "count.rating.raw.work"    => $data->[1]   || 0,
             };
         },
-        LABEL => "Work Ratings",
     },
     "count.rating.raw.work" => {
         DESC => "Count of all work raw ratings",
         PREREQ => [qw[ count.rating.work ]],
         PREREQ_ONLY => 1,
-        LABEL => "Raw Work Ratings",
     },
     "count.rating" => {
         DESC => "Count of all ratings",
@@ -751,7 +682,6 @@ my %stats = (
                    $self->fetch('count.rating.work') +
                    $self->fetch('count.rating.recording');
         },
-        LABEL => "Ratings",
     },
     "count.rating.raw" => {
         DESC => "Count of all raw ratings",
@@ -764,7 +694,6 @@ my %stats = (
                    $self->fetch('count.rating.raw.work') +
                    $self->fetch('count.rating.raw.recording');
         },
-        LABEL => "Raw Ratings",
     },
 
     "count.release.Ndiscids" => {
@@ -806,7 +735,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        LABEL => "Disc IDs per Release",
     },
 
     "count.medium.Ndiscids" => {
@@ -847,7 +775,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        LABEL => "Disc IDs per Medium",
     },
 
     "count.quality.release.high" => {
@@ -867,25 +794,21 @@ my %stats = (
                 "count.quality.release.unknown" => $dist{$QUALITY_UNKNOWN}  || 0,
             };
         },
-        LABEL => "High Quality Releases",
     },
     "count.quality.release.low" => {
         DESC => "Count of low quality releases",
         PREREQ => [qw[ count.quality.release.high ]],
         PREREQ_ONLY => 1,
-        LABEL => "Low Quality Releases",
     },
     "count.quality.release.normal" => {
         DESC => "Count of normal quality releases",
         PREREQ => [qw[ count.quality.release.high ]],
         PREREQ_ONLY => 1,
-        LABEL => "Normal Quality Releases",
     },
     "count.quality.release.unknown" => {
         DESC => "Count of unknow quality releases",
         PREREQ => [qw[ count.quality.release.high ]],
         PREREQ_ONLY => 1,
-        LABEL => "Unknown Quality Releases",
     },
 
     "count.puid.Nrecordings" => {
@@ -922,7 +845,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        LABEL => "Recordings per PUID",
     },
 
     "count.recording.Npuids" => {
@@ -963,7 +885,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        LABEL => "PUIDs per Recording",
     },
 
     "count.recording.Nreleases" => {
@@ -1008,7 +929,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        LABEL => "Releases per Recording",
     },
 
     "count.ar.links" => {
@@ -1028,7 +948,6 @@ my %stats = (
 
             return \%r;
         },
-        LABEL => "Advanced Relationships",
     },
 
     (
@@ -1037,8 +956,7 @@ my %stats = (
             "count.ar.links.l_${l0}_${l1}" => {
                 DESC => "Count of $l0-$l1 advanced relationship links",
                 PREREQ => [qw( count.ar.links )],
-                PREREQ_ONLY => 1,
-                LABEL => "$l0-$l1 Advanced Relationships"
+                PREREQ_ONLY => 1
             }
         } MusicBrainz::Server::Data::Relationship->all_pairs
     )
@@ -1103,12 +1021,6 @@ sub recalculate_all
         my $s = join ", ", keys %notdone;
         die "Failed to solve stats dependencies: circular dependency? ($s)";
     }
-}
-
-sub statistic_label
-{
-    my ($class, $statistic) = @_;
-    return $stats{$statistic}->{LABEL}
 }
 
 1;

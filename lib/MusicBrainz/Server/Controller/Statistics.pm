@@ -28,7 +28,7 @@ sub timeline : Local
         stats => {
             map {
                 $_ => $c->model('Statistics::ByName')->get_statistic($_)
-            } qw( count.artist count.release count.medium count.releasegroup count.label count.work )
+            } qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording )
         }
     )
 }
