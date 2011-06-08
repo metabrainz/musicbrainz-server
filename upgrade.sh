@@ -11,6 +11,9 @@ echo `date` : Backing up data
 echo `date` : Merging duplicate tracklists
 ./admin/psql READWRITE < ./admin/sql/updates/20110602-merge-duplicate-tracklists.sql
 
+echo `date` : Rewriting empty_artists()
+./admin/psql READWRITE < admin/sql/updates/20110607-empty-artists.sql
+
 echo `date` : Fixing old edit label edits
 ./admin/sql/updates/20110606-fix-historic-edit-label.pl
 
