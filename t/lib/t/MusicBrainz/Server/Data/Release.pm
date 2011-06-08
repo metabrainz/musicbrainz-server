@@ -15,6 +15,56 @@ use Sql;
 
 with 't::Context';
 
+test 'can_merge for the merge strategy' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+
+    ok(
+        $test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 7),
+        'can merge 2 discs with equal track counts'
+    );
+
+    ok(
+        $test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 7, 6),
+        'can merge 2 discs with equal track counts in opposite direction'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 3),
+        'cannot merge releases with different track counts'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 3, 6),
+        'cannot merge releases with different track counts in opposite direction'
+    );
+
+    $test->c->model('Release')->merge(
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+        new_id => 6,
+        old_ids => [ 7 ],
+        medium_positions => {
+            2 => 1,
+            3 => 2
+        }
+    );
+
+    ok(
+        $test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 8),
+        'can merge with differing medium counts as long as position/track count matches'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 3),
+        'cannot merge with differing medium counts when there is a track count mismatch'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 8, 6),
+        'cannot merge when old mediums are not accounted for'
+    );
+};
+
 test all => sub {
 
 my $test = shift;
