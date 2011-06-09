@@ -3,6 +3,8 @@ use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
+use List::UtilsBy qw( rev_nsort_by );
+
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub statistics : Path('')
@@ -39,14 +41,13 @@ sub artist_countries : Path('artist-countries')
     my ($self, $c) = @_;
 
     my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
-    my $artist_country_prefix = 'count.artist.country.';
+    my $artist_country_prefix = 'count.artist.country';
     my $artist_stats = [];
-    foreach my $key 
-        (sort { $stats->statistic($b) <=> $stats->statistic($a) } (keys %{ $stats->{data} })) {
-       if (substr($key, 0, length($artist_country_prefix)) eq $artist_country_prefix) { 
-            my $iso_code = substr($key, length($artist_country_prefix));
-            my $country = $c->model('Country')->find_by_code($iso_code);
-            push(@$artist_stats, ({'iso_code' => $iso_code, 'name' => $country->{name}, 'count' => $stats->statistic($key)}));
+    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+       if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
+            push(@$artist_stats, ({'entity' => $countries{$iso_code}, 'count' => $stats->statistic($stat_name)}));
        }
     }
 

@@ -167,6 +167,6 @@
     </div>
 [%- END -%]
 
-[%- WRAPPER "statistics/layout.tt" title=l("Timeline!") sidebar=sidebar page='timeline' -%]
+[%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]
 <div id="graph-container"></div>
 [% END %]
