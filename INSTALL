@@ -93,7 +93,8 @@ Server configuration
        Stand alone servers will need to manually download and update their WikiDoc
        transclusion table:
 
-            wget -O root/static/wikidocs/index.txt http://musicbrainz.org/generated/wikitrans-index
+            wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
+
 
 Installing Perl dependencies
 ----------------------------
