@@ -333,7 +333,7 @@ sub exists
     return $self->sql->select_single_value(
         "SELECT 1 FROM l_${type0}_${type1}
           WHERE entity0 = ? AND entity1 = ? AND link = ?",
-        $values->{entity0}, $values->{entity1},
+        $values->{entity0_id}, $values->{entity1_id},
         $self->c->model('Link')->find({
             link_type_id => $values->{link_type_id},
             begin_date => $values->{begin_date},
@@ -365,20 +365,14 @@ sub insert
 
 sub update
 {
-    my ($self, $type0, $type1, $id, $values, $link) = @_;
+    my ($self, $type0, $type1, $id, $values) = @_;
     $self->_check_types($type0, $type1);
 
-    my %link;
-    for (qw( link_type_id begin_date end_date attributes ))
-    {
-        # Because we're using a "find_or_insert" instead of an update, this link
-        # dict should be complete.  If a value isn't defined in $values in doesn't
-        # change, so take the original value as it was stored in $link.
-        $link{$_} = defined $values->{$_} ? $values->{$_} : $link->{$_};
-    }
+    my %link = map {
+        $_ => $values->{$_};
+    } qw( link_type_id begin_date end_date attributes );
 
     my $row = {};
-
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
     $row->{entity0} = $values->{entity0_id} if $values->{entity0_id};
     $row->{entity1} = $values->{entity1_id} if $values->{entity1_id};

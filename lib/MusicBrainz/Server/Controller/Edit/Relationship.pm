@@ -138,12 +138,12 @@ sub edit : Local RequireAuth Edit
             attributes   => [uniq @attributes],
             $form->field('direction')->value
                 # User is changing the direction
-                ? (entity0      => $form->field('entity1.id')->value,
-                   entity1      => $form->field('entity0.id')->value)
+                ? (entity0_id   => $form->field('entity1.id')->value,
+                   entity1_id   => $form->field('entity0.id')->value)
 
                 # User is not changing the direction
-                : (entity0      => $form->field('entity0.id')->value,
-                   entity1      => $form->field('entity1.id')->value)
+                : (entity0_id   => $form->field('entity0.id')->value,
+                   entity1_id   => $form->field('entity1.id')->value)
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -262,8 +262,8 @@ sub create : Local RequireAuth Edit
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
             attributes => [uniq @attributes],
-            entity0 => $entity0->id,
-            entity1 => $entity1->id,
+            entity0_id => $entity0->id,
+            entity1_id => $entity1->id,
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -480,8 +480,8 @@ sub create_url : Local RequireAuth Edit
 
         if ($c->model('Relationship')->exists(@types, {
             link_type_id => $form->field('link_type_id')->value,
-            entity0 => $e0->id,
-            entity1 => $e1->id,
+            entity0_id => $e0->id,
+            entity1_id => $e1->id,
         })) {
             $c->stash(
                 exists => 1,
