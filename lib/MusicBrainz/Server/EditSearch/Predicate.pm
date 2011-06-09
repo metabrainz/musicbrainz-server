@@ -26,7 +26,6 @@ has arguments => (
     isa => ArrayRef[Any],
     is => 'bare',
     required => 1,
-    init_arg => 'args',
     traits => [ 'Array' ],
     handles => {
         arguments => 'elements',
@@ -55,15 +54,16 @@ sub new_from_input {
 
     return $class->new(
         field_name => $field_name,
-        %{$input},
+        operator => $input->{operator},
+        arguments => [
+            map { $class->transform_user_input($_) } @{ $input->{args} }
+        ]
     );
 }
 
 sub sql_arguments {
     my $self = shift;
-    return [
-        map { $self->transform_user_input($_) } $self->arguments
-    ]
+    return [ $self->arguments ];
 }
 
 1;
