@@ -8,12 +8,14 @@ use Moose::Util::TypeConstraints qw( enum role_type );
 
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
+use MusicBrainz::Server::EditSearch::Predicate::Set;
 
 my %field_map = (
     id => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     open_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     close_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     expire_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
+    type => 'MusicBrainz::Server::EditSearch::Predicate::Set',
 );
 
 has negate => (
