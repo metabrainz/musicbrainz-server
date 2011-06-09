@@ -5,7 +5,7 @@ use feature 'switch';
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
-sub operator_cardinality {
+sub operator_cardinality_map {
     return (
         BETWEEN => '2',
         map { $_ => 1 } qw( = < > >= <= )
@@ -25,7 +25,7 @@ sub combine_with_query {
        }
     }
 
-    $query->add_where({ $sql => $self->sql_arguments });
+    $query->add_where([ $sql, $self->sql_arguments ]);
 }
 
 1;

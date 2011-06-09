@@ -10,13 +10,12 @@
       <p>
         Show me edits that
         <select name="negation">
-          <option value="positive">match</option>
-          <option value="negative">do not match</option>
+          <option value="0">match</option>
+          <option value="1">do not match</option>
         </select>
         <select name="combinator">
           <option value="or">any</option>
           <option value="and">all</option>
-          <option value="and">none</option>
         </select>
         of the following conditions:
       </p>
@@ -40,6 +39,7 @@
 
   <div id="fields">
     <span class="field field-id predicate-id" style="display: none">
+      <input type="hidden" name="field" value="id" />
       <select name="operator" class="operator">
         <option value="=">is</option>
         <option value=">">is after</option>
@@ -48,12 +48,12 @@
       </select>
 
       <span style="display:none" class="arg">
-        <input name="args.1" size="6" />
+        <input name="args.0" size="6" />
       </span>
 
       <span style="display:none" class="arg">
         &ndash;
-        <input name="args.2" size="6" />
+        <input name="args.1" size="6" />
       </span>
     </span>
   </div>
