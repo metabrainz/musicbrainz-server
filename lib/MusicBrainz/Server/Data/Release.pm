@@ -313,7 +313,7 @@ sub find_by_artist_track_count
 {
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
 
-    my $query = "SELECT DISTNCT " . $self->_columns . ",
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
                         musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
