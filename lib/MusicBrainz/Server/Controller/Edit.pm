@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Data::Page;
 use DBDefs;
+use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
@@ -151,6 +152,14 @@ sub open : Local RequireAuth
 sub search : Path('/search/edits') RequireAuth
 {
     my ($self, $c) = @_;
+    my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_name;
+    $c->stash(
+        edit_types => {
+            map {
+                $_ => join(',', map { $_->edit_type } @{ $grouped{$_} })
+            } keys %grouped
+        }
+    );
     return unless %{ $c->req->query_params };
 
     my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params);
