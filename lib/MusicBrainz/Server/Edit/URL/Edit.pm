@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -71,6 +72,14 @@ sub allow_auto_edit
 
     return 1;
 }
+
+before accept => sub {
+    my $self = shift;
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        l('This URL has already been merged into another URL')
+    ) unless $self->c->model('URL')->get_by_id($self->url_id);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

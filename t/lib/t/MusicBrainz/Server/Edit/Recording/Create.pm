@@ -1,5 +1,5 @@
 package t::MusicBrainz::Server::Edit::Recording::Create;
-use Test::Deep;
+use Test::Deep qw( cmp_set );
 use Test::Routine;
 use Test::More;
 
