@@ -28,6 +28,7 @@
             <option value="open_time">Created</option>
             <option value="expire_time">Expired</option>
             <option value="close_time">Closed</option>
+            <option value="status">Status</option>
             <option value="type">Type</option>
           </select>
 
@@ -89,6 +90,17 @@
       <select name="args" multiple="1">
         [% FOR edit_type=edit_types.pairs %]
         <option value="[% edit_type.value.join(',') %]">[% edit_type.key %]</option>
+        [% END %]
+      </select>
+    </span>
+
+    <span class="field field-status predicate-set" style="display:none">
+      <input type="hidden" name="field" value="status" />
+      <input type="hidden" name="operator" value="IN" />
+      is
+      <select name="args" multiple="1">
+        [% FOR status=status.pairs %]
+        <option value="[% status.key %]">[% status.value %]</option>
         [% END %]
       </select>
     </span>
