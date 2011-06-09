@@ -6,10 +6,14 @@ use MooseX::Types::Moose qw( Any ArrayRef Bool Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
 
+use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 
 my %field_map = (
-    id => 'MusicBrainz::Server::EditSearch::Predicate::ID'
+    id => 'MusicBrainz::Server::EditSearch::Predicate::ID',
+    open_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
+    close_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
+    expire_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
 );
 
 has negate => (

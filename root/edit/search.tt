@@ -25,6 +25,9 @@
           <select>
             <option>Please choose a condition</option>
             <option value="id">ID</option>
+            <option value="open_time">Created</option>
+            <option value="expire_time">Expired</option>
+            <option value="close_time">Closed</option>
           </select>
 
           <span class="field-container">
@@ -56,6 +59,27 @@
         <input name="args.1" size="6" />
       </span>
     </span>
+
+    [% FOR field_name=['open_time', 'expire_time', 'close_time'] %]
+    <span class="field field-[% field_name %] predicate-date" style="display: none">
+      <input type="hidden" name="field" value="[% field_name %]" />
+      <select name="operator" class="operator">
+        <option value="=">on</option>
+        <option value=">">after</option>
+        <option value="<">before</option>
+        <option value="BETWEEN">between</option>
+      </select>
+
+      <span style="display:none" class="arg">
+        <input name="args.0" size="8" />
+      </span>
+
+      <span style="display:none" class="arg">
+        &ndash;
+        <input name="args.1" size="8" />
+      </span>
+    </span>
+    [% END %]
   </div>
 [% END %]
 
