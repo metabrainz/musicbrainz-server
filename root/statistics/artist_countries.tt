@@ -15,24 +15,10 @@
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
 
-<h2>[% l('Top Ten Countries') %]</h2>
 <table>
-[%- FOREACH country IN stats -%][%- LAST IF loop.index > 9 -%]
-[%- country_entry(country.iso_code, country.iso_code, country.count, loop.count()) -%]
+[%- FOREACH country IN stats -%]
+[%- country_entry(country.iso_code, country.name, country.count, loop.count()) -%]
+[%- IF (loop.index() % 10) == 9 -%]<tr><td colspan="3"><hr /></td></tr>[%- END -%]
 [%- END -%]
-</table>
-
-<h2>[% l('Other Countries with more than 10 artists') %]</h2>
-<table>
-[%- FOREACH country IN stats -%][%- LAST IF country.count <= 10 -%][%- IF loop.index > 9 -%]
-[%- country_entry(country.iso_code, country.iso_code, country.count, loop.count()) -%]
-[%- END -%][%- END -%]
-</table>
-
-<h2>[% l('Other Countries') %]</h2>
-<table>
-[%- FOREACH country IN stats -%][%- IF loop.index > 9 && country.count <= 10 -%]
-[%- country_entry(country.iso_code, country.iso_code, country.count, loop.count()) -%]
-[%- END -%][%- END -%]
 </table>
 [% END %]

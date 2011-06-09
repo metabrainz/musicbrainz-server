@@ -35,6 +35,29 @@ sub find_by_code
     return $self->_get_by_key('iso_code' => $code, transform => 'lower');
 }
 
+sub get_all
+{
+    my ($self) = shift;
+    
+    my $query = "SELECT id, iso_code, name
+                 FROM country
+		 ";
+    $self->sql->select($query) or return;
+
+    my $countries = [];
+    while (1) {
+        my $country = MusicBrainz::Server::Entity::Country->new();
+        my $row = $self->sql->next_row_hash_ref or last;
+	$country->id($row->{id});
+	$country->iso_code($row->{iso_code});
+	$country->name($row->{name});
+        push(@$countries, ($country));
+    }
+    $self->sql->finish;
+
+    return $countries;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
