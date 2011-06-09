@@ -673,7 +673,7 @@ sub create_url : Local RequireAuth Edit
 
         if ($c->model('Relationship')->exists(@types, {
             link_type_id => $form->field('link_type_id')->value,
-            attributes => [uniq @attributes]
+            attributes => [uniq @attributes],
             entity0_id => $e0->id,
             entity1_id => $e1->id,
         })) {
