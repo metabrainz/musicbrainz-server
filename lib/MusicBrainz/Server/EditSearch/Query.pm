@@ -16,6 +16,7 @@ my %field_map = (
     close_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     expire_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     type => 'MusicBrainz::Server::EditSearch::Predicate::Set',
+    status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
 );
 
 has negate => (

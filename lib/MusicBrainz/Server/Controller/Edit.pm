@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::EditRegistry;
+use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
@@ -158,7 +159,8 @@ sub search : Path('/search/edits') RequireAuth
             map {
                 $_ => join(',', map { $_->edit_type } @{ $grouped{$_} })
             } keys %grouped
-        }
+        },
+        status => { status_names() }
     );
     return unless %{ $c->req->query_params };
 
