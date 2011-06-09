@@ -3,6 +3,9 @@ $(function() {
     cardinalityMap = {
         'id': {
             '=': 1, '>': 1, '<': 1, 'BETWEEN': 2
+        },
+        'date': {
+            '=': 1, '>': 1, '<': 1, 'BETWEEN': 2
         }
     };
 
@@ -33,6 +36,9 @@ $(function() {
                 $input = $(this);
                 $input.attr('name', 'conditions.' + conditionCounter + '.' + $input.attr('name'));
             });
+        }
+        else {
+            console.error('There is no field-' + val);
         }
     });
 
