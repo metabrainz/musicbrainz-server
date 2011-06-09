@@ -149,8 +149,7 @@ sub get_page
 
     $page = $self->_load_page($id, $version, $index);
 
-    my $timeout = defined $version ? $WIKI_CACHE_TIMEOUT : undef;
-    $cache->set($cache_key, $page, $timeout);
+    $cache->set($cache_key, $page, $WIKI_CACHE_TIMEOUT);
 
     return $page;
 }
