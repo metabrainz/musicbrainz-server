@@ -59,8 +59,10 @@ sub new_from_input {
         l('This operator is not supported')
     ) unless $class->supports_operator($op);
 
-    my @args = @{ $input->{args} };
-    @args = splice(@args, 0, $class->operator_cardinality($op));
+    my $cardinality = $class->operator_cardinality($op);
+    my @args = ref($input->{args}) ? @{ $input->{args} } : $input->{args};
+    @args = splice(@args, 0, $cardinality)
+        if defined $cardinality;
 
     return $class->new(
         field_name => $field_name,
