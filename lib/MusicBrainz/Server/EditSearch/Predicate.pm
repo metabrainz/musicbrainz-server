@@ -6,13 +6,19 @@ use MusicBrainz::Server::EditSearch::Exceptions;
 use MusicBrainz::Server::Translation;
 
 requires qw(
-    operator_cardinality
+    operator_cardinality_map
     combine_with_query
 );
 
+sub operator_cardinality {
+    my ($class, $operator) = @_;
+    my %operator_cardinality = $class->operator_cardinality_map;
+    return $operator_cardinality{$operator};
+}
+
 sub supports_operator {
     my ($class, $operator) = @_;
-    my %operator_cardinality = $class->operator_cardinality;
+    my %operator_cardinality = $class->operator_cardinality_map;
     return exists $operator_cardinality{$operator};
 }
 
@@ -48,15 +54,19 @@ sub cross_validate { }
 sub new_from_input {
     my ($class, $field_name, $input) = @_;
 
+    my $op = $input->{operator};
     MusicBrainz::Server::EditSearch::Exceptions::UnsupportOperator->throw(
         l('This operator is not supported')
-    ) unless $class->supports_operator($input->{operator});
+    ) unless $class->supports_operator($op);
+
+    my @args = @{ $input->{args} };
+    @args = splice(@args, 0, $class->operator_cardinality($op));
 
     return $class->new(
         field_name => $field_name,
-        operator => $input->{operator},
+        operator => $op,
         arguments => [
-            map { $class->transform_user_input($_) } @{ $input->{args} }
+            map { $class->transform_user_input($_) } @args
         ]
     );
 }
@@ -65,5 +75,7 @@ sub sql_arguments {
     my $self = shift;
     return [ $self->arguments ];
 }
+
+sub valid { 1 }
 
 1;

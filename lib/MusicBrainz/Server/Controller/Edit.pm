@@ -7,6 +7,7 @@ use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
+use MusicBrainz::Server::EditSearch::Query;
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
@@ -150,16 +151,12 @@ sub open : Local RequireAuth
 sub search : Path('/search/edits') RequireAuth
 {
     my ($self, $c) = @_;
+    return unless %{ $c->req->query_params };
 
-    my $form = $c->form( form => 'Search::Edits' );
-    if ($form->submitted_and_valid($c->req->query_params)) {
-        my @types = @{ $form->field('type')->value };
-
+    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params);
+    if ($query->valid) {
         my $edits = $self->_load_paged($c, sub {
-            return $c->model('Edit')->find({
-                type   => [ map { split /,/ } @types ],
-                status => $form->field('status')->value,
-            }, shift, shift);
+            return $c->model('Edit')->run_query($query, shift, shift);
         });
 
         $c->model('Edit')->load_all(@$edits);

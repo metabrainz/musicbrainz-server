@@ -19,7 +19,7 @@ $(function() {
 
     $('ul.conditions select.field').live('change', function() {
         var val = $(this).val();
-        var $replacement = $('#fields .field-' + val);
+        var $replacement = $('#fields .field-' + val).clone();
         if($replacement.length) {
             $(this).parent('li').find('span.field-container span.field').replaceWith($replacement);
 

@@ -71,6 +71,13 @@ sub _new_from_row
     return $edit;
 }
 
+sub run_query {
+    my ($self, $query, $limit, $offset) = @_;
+    return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
+            return $self->_new_from_row(shift);
+        }, $query->as_string, $query->arguments, $offset);
+}
+
 # Load an edit from the DB and try to get an exclusive lock on it
 sub get_by_id_and_lock
 {
