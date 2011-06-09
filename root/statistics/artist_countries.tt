@@ -6,7 +6,7 @@
 </tr>
 [%- END -%]
 
-[% WRAPPER 'layout.tt' title=l('Artist Country Statistics') full_width=1 %] 
+[% WRAPPER 'statistics/layout.tt' title=l('Artist Country Statistics') full_width=1 page='artist_countries' %] 
 
 [% USE format %]
 [% round1 = format('%.1f') %]
