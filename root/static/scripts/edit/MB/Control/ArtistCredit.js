@@ -169,20 +169,13 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.nameBlurred = function(event) {
-        /* mark the field as having an error if no lookup was
-         * performed for this artist name. */
-        if (self.$name.val() !== "" && self.$id.val() === "")
-        {
-            self.$name.addClass('error');
-            self.container.error (self);
-        }
-
         /* if the artist was cleared the user probably wants to delete it,
            make sure ids are emptied out too. */
         if (self.$name.val() === '')
         {
             self.$gid.val ('');
             self.$id.val ('');
+            self.$name.data ('mb_selected_name', '');
             self.updateLookupPerformed ();
         }
 
@@ -195,6 +188,14 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$id.val ('');
             self.$name.data ('mb_selected_name', '');
             self.updateLookupPerformed ();
+        }
+
+        /* mark the field as having an error if no lookup was
+         * performed for this artist name. */
+        if (self.$name.val() !== "" && self.$id.val() === "")
+        {
+            self.$name.addClass('error');
+            self.container.error (self);
         }
 
         /* if the artist credit is empty use the value of $name as
@@ -361,6 +362,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$credit.val ('');
             self.$credit.attr ('placeholder', self.$name.val ())
                 .mb_placeholder (self.placeholder_options);
+            self.$name.data ('mb_selected_name', self.$name.val ());
         }
 
         self.updateLookupPerformed ();
