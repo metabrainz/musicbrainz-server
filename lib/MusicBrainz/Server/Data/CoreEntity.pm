@@ -70,6 +70,31 @@ sub find_by_name
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
+sub find_by_names
+{
+    my ($self, @names) = @_;
+
+    return {} unless scalar @names;
+
+    my $query = "SELECT search.term AS search_term, " . $self->_columns .
+        " FROM " . $self->_table .
+        " INNER JOIN (VALUES " . join (",", ("(?)") x scalar @names) . ") search (term)" .
+        " ON unaccent(lower(search.term)) = unaccent(lower(name.name));";
+
+    $self->c->sql->select($query, @names);
+    my %ret;
+    while (1) {
+        my $row = $self->c->sql->next_row_hash_ref or last;
+        my $search_term = delete $row->{search_term};
+
+        $ret{$search_term} = [] unless defined $ret{$search_term};
+        push @{ $ret{$search_term} }, $self->_new_from_row ($row);
+    }
+    $self->c->sql->finish;
+
+    return \%ret;
+}
+
 sub remove_gid_redirects
 {
     my ($self, @ids) = @_;

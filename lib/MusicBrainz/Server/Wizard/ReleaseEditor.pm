@@ -731,17 +731,11 @@ sub prepare_missing_entities
 
     $self->c->stash(
         missing_entity_count => scalar @credits + scalar @labels,
-        possible_artists => {
-            map {
-                $_ => [ $self->c->model('Artist')->find_by_name($_) ]
-            } map { $_->{for} } @credits
-        },
-        possible_labels => {
-            map {
-                $_ => [ $self->c->model('Label')->find_by_name($_) ]
-            } map { $_->{for} } @labels
-        }
-    );
+        possible_artists => $self->c->model('Artist')->find_by_names (
+            map { $_->{for} } @credits),
+        possible_labels => $self->c->model('Label')->find_by_names (
+            map { $_->{for} } @labels),
+        );
 }
 
 sub skip_missing_entities
