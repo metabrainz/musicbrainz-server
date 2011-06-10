@@ -66,9 +66,10 @@ sub new_from_input {
         if defined $cardinality;
 
     return $class->new(
+        %{ $input },
         field_name => $field_name,
         operator => $op,
-        arguments => [ @args ]
+        arguments => [ @args ],
     );
 }
 

@@ -9,6 +9,7 @@ use Moose::Util::TypeConstraints qw( enum role_type );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
+use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
 
 my %field_map = (
     id => 'MusicBrainz::Server::EditSearch::Predicate::ID',
@@ -19,6 +20,10 @@ my %field_map = (
     status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
     no_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     yes_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
+
+    map {
+        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . ucfirst($_) 
+    } qw( artist label recording release release_group work )
 );
 
 has negate => (
