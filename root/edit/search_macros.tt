@@ -1,0 +1,115 @@
+[% BLOCK wfield %]
+<span class="field field-[% field %] predicate-[% predicate %]" style="display: none">
+  [%- content -%]
+</span>
+[% END %]
+
+[% BLOCK search_form %]
+<form action="[% c.req.uri %]" method="get">
+  <p>
+    Show me edits that
+    <select name="negation">
+      <option value="0">match</option>
+      <option value="1">do not match</option>
+    </select>
+    <select name="combinator">
+      <option value="or">any</option>
+      <option value="and">all</option>
+    </select>
+    of the following conditions:
+  </p>
+
+  <ul class="conditions">
+    [% content %]
+    <li id="extra-condition">
+      [% select_field() %]
+
+      <span class="field-container">
+        <span class="field" />
+      </span>
+    </li>
+  </ul>
+
+  [% form_submit('Search') %]
+</form>
+[% PROCESS template_fields %]
+[% END %]
+
+[% MACRO operators(operators, field_contents) BLOCK %]
+  <select name="operator" class="operator">
+    [% FOR operator=operators %]
+    <option
+       [% 'selected="selected"' IF field_contents.operator == operator.0 %]
+       value="[% operator.0 %]">[% operator.1 %]</option>
+    [% END %]
+  </select>
+[% END %]
+
+[% MACRO predicate_id(field, field_contents) WRAPPER wfield predicate='id' %]
+  [% operators([ [ '=', l('is') ],
+                 [ '>', l('is after') ],
+                 [ '<', l('is before') ],
+                 ['BETWEEN', l('is between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input name="args.0" size="6" value="[% field_contents.argument(0) %]" />
+  </span>
+
+  <span style="display:none" class="arg">
+    &ndash;
+    <input name="args.1" size="6" value="[% field_contents.argument(1) %]" />
+  </span>
+[% END %]
+
+[% MACRO predicate_date(field, field_contents) WRAPPER wfield predicate="date" %]
+  [% operators([ [ '=', l('on') ],
+                 [ '>', l('after') ],
+                 [ '<', l('before') ],
+                 [ 'BETWEEN', l('between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input name="args.0" size="8" value="[% field_contents.argument(0) %]" />
+  </span>
+
+  <span style="display:none" class="arg" value="[% field_contents.argument(1) %]" />
+    &ndash;
+    <input name="args.1" size="8" />
+  </span>
+[% END %]
+
+[% MACRO predicate_set(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
+  <input type="hidden" name="operator" value="IN" />
+  is
+  <select name="args" multiple="1">
+    [% FOR item=set_contents %]
+    <option value="[% item.0 %]">[% item.1 %]</option>
+    [% END %]
+  </select>
+[% END %]
+
+[% MACRO select_field(field_contents) BLOCK %]
+  <select name="field">
+    [% UNLESS field_contents %]
+      <option>Please choose a condition</option>
+    [% END %]
+    [% FOR field=[ [ 'id', l('ID') ],
+                   [ 'open_time', l('Created') ],
+                   [ 'expire_time', l('Expired') ],
+                   [ 'close_time', l('Closed') ],
+                   [ 'status', l('Status') ],
+                   [ 'type', l('Type') ] ] %]
+    <option
+       [% 'selected="selected"' IF field_contents.field_name == field.0 %]
+       value="[% field.0 %]">[% field.1 %]</option>
+    [% END %]
+  </select>
+[% END %]
+
+[% BLOCK template_fields %]
+  <div id="fields">
+    [% predicate_id('id') %]
+    [% predicate_date(field_name) FOR field_name=['open_time', 'expire_time', 'close_time'] %]
+    [% predicate_set('type', edit_types) %]
+    [% predicate_set('status', status) %]
+  </div>
+[% END %]
