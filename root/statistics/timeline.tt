@@ -1,9 +1,9 @@
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-{label: MB.text.Timeline["[%- statistic.name -%]"].Label, 
- color: MB.text.Timeline["[%- statistic.name -%]"].Color, 
+{label: MB.text.Timeline["[%- statistic.name -%]"].Label,
+ color: MB.text.Timeline["[%- statistic.name -%]"].Color,
  category: MB.text.Timeline["[%- statistic.name -%]"].Category,
- data: [ 
+ data: [
 [%- FOREACH date_collected = statistic.data.keys.sort -%]
 [ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- statistic.statistic_for(date_collected) -%] ],
 [%- END -%]]},
@@ -12,7 +12,7 @@
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[% c.uri_for('/statistics/view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]><script src="/static/lib/flot/excanvas.min.js"></script><![endif]-->
+  <!--[if lte IE 8]><script src="[% c.uri_for("/static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
@@ -23,7 +23,7 @@
       #overview { height: 150px; }
       #graph-container { height: 400px; }
   </style>
-  <script src="/static/scripts/timeline.js"></script>
+  <script src="[% c.uri_for("/static/scripts/timeline.js") %]"></script>
   <script type="text/javascript">//<![CDATA[
       $(document).ready(function () {
       setup_graphing({[%- FOREACH dataset_key = stats.keys.sort -%]
@@ -36,10 +36,10 @@
             selection: { mode: "xy" },
             grid: { hoverable: true },
             legend: { container: $('#graph-legend') }},
-          { legend: {show: false}, 
+          { legend: {show: false},
             series: {lines: {lineWidth: 1}, shadowSize: 0},
-            xaxis: {mode: "time", tickSize: [1, "year"]}, 
-            yaxis: {tickFormatter: function () { return '' }}, 
+            xaxis: {mode: "time", tickSize: [1, "year"]},
+            yaxis: {tickFormatter: function () { return '' }},
             selection: {mode: "xy"}});
       });
   //]]></script>
