@@ -1,7 +1,7 @@
 [%- MACRO country_entry(country, number) BLOCK -%]
 <tr>
     <td>[%- number -%].</td>
-    <td><a href="http://musicbrainz.org/search?query=country%3A[% country.entity.iso_code %]&type=artist&limit=25&advanced=1">[% country.entity.name %]</a>:</td>
+    <td><a href="/search?query=country%3A[% country.entity.iso_code %]&type=artist&limit=25&advanced=1">[% country.entity.name %]</a>:</td>
     <td>[% country.count %]</td>
 </tr>
 [%- END -%]
