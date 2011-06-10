@@ -47,6 +47,7 @@
 
 [% MACRO predicate_id(field, field_contents) WRAPPER wfield predicate='id' %]
   [% operators([ [ '=', l('is') ],
+                 [ '!=', l('is not') ],
                  [ '>', l('is after') ],
                  [ '<', l('is before') ],
                  ['BETWEEN', l('is between') ] ], field_contents) %]
@@ -63,6 +64,7 @@
 
 [% MACRO predicate_date(field, field_contents) WRAPPER wfield predicate="date" %]
   [% operators([ [ '=', l('on') ],
+                 [ '!=', l('is not') ],
                  [ '>', l('after') ],
                  [ '<', l('before') ],
                  [ 'BETWEEN', l('between') ] ], field_contents) %]
@@ -78,8 +80,8 @@
 [% END %]
 
 [% MACRO predicate_set(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
-  <input type="hidden" name="operator" value="IN" />
-  is
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
   <select name="args" multiple="1">
     [% FOR item=set_contents %]
     <option value="[% item.0 %]">[% item.1 %]</option>
