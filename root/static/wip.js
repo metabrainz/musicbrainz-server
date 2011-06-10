@@ -2,10 +2,13 @@ $(function() {
 
     cardinalityMap = {
         'id': {
-            '=': 1, '>': 1, '<': 1, 'BETWEEN': 2
+            '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
         },
         'date': {
-            '=': 1, '>': 1, '<': 1, 'BETWEEN': 2
+            '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
+        },
+        'set': {
+            '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
         }
     };
 
@@ -32,6 +35,7 @@ $(function() {
                 .show()
                 .find('select.operator').trigger('change');
 
+            console.log($replacement);
             $li.find(':input').each(function() {
                 $input = $(this);
                 $input.attr('name', prefixedInputName($input));

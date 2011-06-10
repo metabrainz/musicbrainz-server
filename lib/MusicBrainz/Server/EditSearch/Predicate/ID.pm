@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 sub operator_cardinality_map {
     return (
         BETWEEN => '2',
-        map { $_ => 1 } qw( = < > >= <= )
+        map { $_ => 1 } qw( = < > >= <= != )
     );
 }
 

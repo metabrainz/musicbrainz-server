@@ -9,16 +9,24 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 
 sub operator_cardinality_map {
     return (
-        IN => undef
+        '=' => undef,
+        '!=' => undef
     )
 }
 
 sub combine_with_query {
     my ($self, $query) = @_;
     $query->add_where([
-        join(' ', $self->field_name, 'IN (', placeholders($self->arguments) ,')'),
+        join(' ', $self->field_name, $self->operator, 'any(?)'),
         $self->sql_arguments
     ]) if $self->arguments > 0;
+}
+
+sub sql_arguments {
+    my $self = shift;
+    return [
+        [ map { split /,/, $_ } $self->arguments ]
+    ];
 }
 
 1;
