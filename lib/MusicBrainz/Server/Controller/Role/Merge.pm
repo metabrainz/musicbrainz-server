@@ -124,9 +124,14 @@ role {
             form => $params->merge_form,
             $self->_merge_form_arguments($c, @entities)
         );
-        if ($form->submitted_and_valid($c->req->params)) {
+        if ($self->_validate_merge($c, $form, $merger)) {
             $self->_merge_submit($c, $form, \@entities);
         }
+    };
+
+    method _validate_merge => sub {
+        my ($self, $c, $form) = @_;
+        return $form->submitted_and_valid($c->req->params);
     };
 
     method _merge_submit => sub {
