@@ -44,6 +44,9 @@
                  CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                    predicate_date(field.field_name, field);
                END %]
+            [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
+                 predicate_link(field.field_name, field);
+               END %]
             </span>
           </li>
         [% END %]

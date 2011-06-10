@@ -106,6 +106,14 @@
   </select>
 [% END %]
 
+[% MACRO predicate_link(field, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+
+  <input name="name" size="40" class="autocomplete autocomplete-[% field %]" value="[% field_contents.name %]" />
+  <input name="args.0" value="[% field_contents.argument(0) %]" class="ac-result" type="hidden" />
+[% END %]
+
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field">
     [% UNLESS field_contents %]
@@ -119,6 +127,12 @@
                    [ 'type', l('Type') ],
                    [ 'no_votes', l('No vote count') ],
                    [ 'yes_votes', l('Yes vote count') ],
+                   [ 'artist', l('Artist') ],
+                   [ 'label', l('Label') ],
+                   [ 'recording', l('Recording') ],
+                   [ 'release', l('Release') ],
+                   [ 'release_group', l('Release Group') ],
+                   [ 'work', l('Work') ],
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -135,5 +149,9 @@
     [% predicate_set('status', status) %]
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
+
+    [% FOR linked_type=['artist', 'label', 'recording', 'release_group', 'release', 'work'];
+         predicate_link(linked_type);
+       END %]
   </div>
 [% END %]

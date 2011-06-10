@@ -35,10 +35,23 @@ $(function() {
                 .show()
                 .find('select.operator').trigger('change');
 
-            console.log($replacement);
             $li.find(':input').each(function() {
                 $input = $(this);
                 $input.attr('name', prefixedInputName($input));
+            });
+
+            $li.find('input.autocomplete').each(function() {
+                var $input = $(this);
+                var type = filteredClassName($input, 'autocomplete-');
+
+                MB.Control.Autocomplete({
+                    'entity': type,
+                    'input': $input,
+                    'select': function(event, data) {
+                        $input.val(data.name);
+                        $li.find('input.ac-result').val(data.id)
+                    }
+                });
             });
 
             conditionCounter++;
@@ -55,7 +68,7 @@ $(function() {
     $('ul.conditions select.operator').live('change', function() {
         var $field = $(this).parent('span.field');
 
-        var predicate = filteredClassName($field, 'predicate');
+        var predicate = filteredClassName($field, 'predicate-');
         var cardinality = cardinalityMap[predicate][$(this).val()];
 
         $field.find('.arg').hide();
@@ -68,7 +81,7 @@ $(function() {
         var ret;
         for (i = 0; i < classList.length; i++) {
             if(classList[i].substring(0, prefix.length) === prefix) {
-                ret = classList[i].substring(10);
+                ret = classList[i].substring(prefix.length);
                 break;
             }
         }
