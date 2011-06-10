@@ -62,6 +62,23 @@
   </span>
 [% END %]
 
+[% MACRO predicate_int(field, field_contents) WRAPPER wfield predicate='id' %]
+  [% operators([ [ '=', l('is') ],
+                 [ '!=', l('is not') ],
+                 [ '>', l('is more than') ],
+                 [ '<', l('is less than') ],
+                 ['BETWEEN', l('is between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input name="args.0" size="6" value="[% field_contents.argument(0) %]" />
+  </span>
+
+  <span style="display:none" class="arg">
+    &ndash;
+    <input name="args.1" size="6" value="[% field_contents.argument(1) %]" />
+  </span>
+[% END %]
+
 [% MACRO predicate_date(field, field_contents) WRAPPER wfield predicate="date" %]
   [% operators([ [ '=', l('on') ],
                  [ '!=', l('is not') ],
@@ -99,7 +116,10 @@
                    [ 'expire_time', l('Expired') ],
                    [ 'close_time', l('Closed') ],
                    [ 'status', l('Status') ],
-                   [ 'type', l('Type') ] ] %]
+                   [ 'type', l('Type') ],
+                   [ 'no_votes', l('No vote count') ],
+                   [ 'yes_votes', l('Yes vote count') ],
+                   ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
        value="[% field.0 %]">[% field.1 %]</option>
@@ -113,5 +133,7 @@
     [% predicate_date(field_name) FOR field_name=['open_time', 'expire_time', 'close_time'] %]
     [% predicate_set('type', edit_types) %]
     [% predicate_set('status', status) %]
+    [% predicate_int('no_votes') %]
+    [% predicate_int('yes_votes') %]
   </div>
 [% END %]
