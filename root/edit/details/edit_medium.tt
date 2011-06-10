@@ -47,7 +47,7 @@
   [% END %]
 
   [% USE Diff %]
-  [% IF edit.display_data.tracklist_changes %]
+  [% IF edit.display_data.tracklist_changes.size %]
   <tr>
      <th>[% l('Old Tracklist:') %]</th>
      <td>
@@ -187,6 +187,8 @@
        </table>
      </td>
    </tr>
+   [% END %]
+
   [% IF edit.display_data.recording_changes.size %]
   <tr>
     <th>[% l('Recordings:') %]</th>
@@ -214,6 +216,7 @@
     </td>
   </tr>
   [% END %]
+
   [% IF edit.display_data.artist_credit_changes.size %]
   <tr>
     <th>[% l('Artist credits:') %]</th>
@@ -240,6 +243,5 @@
       </table>
     </td>
   </tr>
-  [% END %]
   [% END %]
 </table>

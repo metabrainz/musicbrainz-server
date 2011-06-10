@@ -187,8 +187,9 @@ sub build_display_data
         $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
         $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
-        $data->{tracklist_changes} =
-            sdiff(
+        $data->{tracklist_changes} = [
+            grep { $_->[0] ne 'u' }
+            @{ sdiff(
                 [ $data->{old}{tracklist}->all_tracks ],
                 [ $data->{new}{tracklist}->all_tracks ],
                 sub {
@@ -205,7 +206,8 @@ sub build_display_data
                         )
                     );
                 }
-            );
+            ) }
+        ];
 
         $data->{artist_credit_changes} = [
             grep { $_->[0] eq 'c' }
