@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::URL::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 around run_test => sub {
     my ($orig, $test) = splice(@_, 0, 2);
@@ -69,13 +70,25 @@ test 'Entering the same edit twice is OK' => sub {
     is($url->edits_pending, 0);
 };
 
-sub _build_edit {
+test 'Editing a URL that no longer exists fails' => sub {
     my $test = shift;
+
+    my $edit_1 = _build_edit($test, 'http://musicbrainz.org/');
+    my $edit_2 = _build_edit($test, 'http://musicbrainz.org/');
+
+    accept_edit($test->c, $edit_1);
+
+    isa_ok exception { $edit_2->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+sub _build_edit {
+    my ($test, $url) = @_;
     $test->c->model('Edit')->create(
         edit_type => $EDIT_URL_EDIT,
         editor_id => 1,
         to_edit => $test->c->model('URL')->get_by_id(2),
-        url => 'http://apple.com',
+        url => $url || 'http://apple.com',
         description => 'Possibly even more evil'
     );
 }
