@@ -98,7 +98,7 @@
                 <a href="[% doc_link('MusicBrainz_Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
             </li>
             <li class="separator">
-                <a href="[% c.uri_for('/elections') %]">[% l('Auto-editor Elections') %]</a>
+                <a href="[% c.uri_for_action('/elections/index') %]">[% l('Auto-editor Elections') %]</a>
             </li>
             <li>
                 <a href="[% c.uri_for('/privileged') %]">[% l('Privileged User Accounts') %]</a>
