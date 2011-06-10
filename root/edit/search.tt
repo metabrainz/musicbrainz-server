@@ -1,18 +1,109 @@
+[% BLOCK layout_head %]
+  <script src="/static/wip.js"></script>
+[% END %]
+
 [% WRAPPER 'layout.tt' title=l('Search for Edits') full_width=1 %]
-    <div id="content">
-        <h1>[% l('Search for Edits') %]</h1>
+  <div id="content">
+    <h1>[% l('Search for Edits') %]</h1>
 
-        [% INCLUDE 'edit/list_header.tt' search=1 %]
+    <form action="[% c.req.uri %]" method="get">
+      <p>
+        Show me edits that
+        <select name="negation">
+          <option value="0">match</option>
+          <option value="1">do not match</option>
+        </select>
+        <select name="combinator">
+          <option value="or">any</option>
+          <option value="and">all</option>
+        </select>
+        of the following conditions:
+      </p>
 
-        <form action="[% c.req.uri %]" method="get">
-            [% USE r = FormRenderer(form) %]
-            [% form_row_select(r, 'type', l('Type:')) %]
-            [% form_row_select(r, 'status', l('Status:')) %]
+      <ul class="conditions">
+        <li id="extra-condition">
+          <select>
+            <option>Please choose a condition</option>
+            <option value="id">ID</option>
+            <option value="open_time">Created</option>
+            <option value="expire_time">Expired</option>
+            <option value="close_time">Closed</option>
+            <option value="status">Status</option>
+            <option value="type">Type</option>
+          </select>
 
-            <div class="row no-label">
-                [% form_submit(l("Search")) %]
-            </div>
-        </form>
-    </div>
+          <span class="field-container">
+            <span class="field" />
+          </span>
+        </li>
+      </ul>
+
+      [% form_submit('Search') %]
+    </form>
+  </div>
+
+  <div id="fields">
+    <span class="field field-id predicate-id" style="display: none">
+      <input type="hidden" name="field" value="id" />
+      <select name="operator" class="operator">
+        <option value="=">is</option>
+        <option value=">">is after</option>
+        <option value="<">is before</option>
+        <option value="BETWEEN">is in the range</option>
+      </select>
+
+      <span style="display:none" class="arg">
+        <input name="args.0" size="6" />
+      </span>
+
+      <span style="display:none" class="arg">
+        &ndash;
+        <input name="args.1" size="6" />
+      </span>
+    </span>
+
+    [% FOR field_name=['open_time', 'expire_time', 'close_time'] %]
+    <span class="field field-[% field_name %] predicate-date" style="display: none">
+      <input type="hidden" name="field" value="[% field_name %]" />
+      <select name="operator" class="operator">
+        <option value="=">on</option>
+        <option value=">">after</option>
+        <option value="<">before</option>
+        <option value="BETWEEN">between</option>
+      </select>
+
+      <span style="display:none" class="arg">
+        <input name="args.0" size="8" />
+      </span>
+
+      <span style="display:none" class="arg">
+        &ndash;
+        <input name="args.1" size="8" />
+      </span>
+    </span>
+    [% END %]
+
+    <span class="field field-type predicate-set" style="display:none">
+      <input type="hidden" name="field" value="type" />
+      <input type="hidden" name="operator" value="IN" />
+      is
+      <select name="args" multiple="1">
+        [% FOR edit_type=edit_types.pairs %]
+        <option value="[% edit_type.value.join(',') %]">[% edit_type.key %]</option>
+        [% END %]
+      </select>
+    </span>
+
+    <span class="field field-status predicate-set" style="display:none">
+      <input type="hidden" name="field" value="status" />
+      <input type="hidden" name="operator" value="IN" />
+      is
+      <select name="args" multiple="1">
+        [% FOR status=status.pairs %]
+        <option value="[% status.key %]">[% status.value %]</option>
+        [% END %]
+      </select>
+    </span>
+  </div>
 [% END %]
 
