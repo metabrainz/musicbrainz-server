@@ -79,8 +79,8 @@ sub new_from_user_input {
 
 sub _construct_predicate {
     my ($class, $input) = @_;
-    my $class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
-    return $class->new_from_input(
+    my $predicate_class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
+    return $predicate_class->new_from_input(
         $input->{field},
         $input
     );

@@ -35,6 +35,7 @@ has arguments => (
     traits => [ 'Array' ],
     handles => {
         arguments => 'elements',
+        argument => 'get'
     }
 );
 
@@ -67,15 +68,13 @@ sub new_from_input {
     return $class->new(
         field_name => $field_name,
         operator => $op,
-        arguments => [
-            map { $class->transform_user_input($_) } @args
-        ]
+        arguments => [ @args ]
     );
 }
 
 sub sql_arguments {
     my $self = shift;
-    return [ $self->arguments ];
+    return [ map { $self->transform_user_input($_) } $self->arguments ];
 }
 
 sub valid { 1 }

@@ -155,16 +155,18 @@ sub search : Path('/search/edits') RequireAuth
     my ($self, $c) = @_;
     my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_name;
     $c->stash(
-        edit_types => {
-            map {
-                $_ => join(',', map { $_->edit_type } @{ $grouped{$_} })
-            } keys %grouped
-        },
-        status => { status_names() }
+        edit_types => [
+            map [
+                join(',', map { $_->edit_type } @{ $grouped{$_} }) => $_
+            ], sort keys %grouped
+        ],
+        status => status_names(),
     );
     return unless %{ $c->req->query_params };
 
     my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params);
+    $c->stash( query => $query );
+
     if ($query->valid) {
         my $edits = $self->_load_paged($c, sub {
             return $c->model('Edit')->run_query($query, shift, shift);

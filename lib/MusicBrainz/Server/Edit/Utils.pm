@@ -208,15 +208,19 @@ sub changed_display_data
     return $display;
 }
 
+our @STATUS_MAP = (
+    [ $STATUS_OPEN         => 'Open' ],
+    [ $STATUS_APPLIED      => 'Applied' ],
+    [ $STATUS_FAILEDVOTE   => 'Failed vote' ],
+    [ $STATUS_FAILEDDEP    => 'Failed dependency' ],
+    [ $STATUS_ERROR        => 'Error' ],
+    [ $STATUS_FAILEDPREREQ => 'Failed prerequisite' ],
+    [ $STATUS_NOVOTES      => 'No votes' ],
+    [ $STATUS_TOBEDELETED  => 'Due to be cancelled' ],
+    [ $STATUS_DELETED      => 'Cancelled' ],
+);
 our %STATUS_NAMES = (
-    $STATUS_OPEN         => 'Open',
-    $STATUS_APPLIED      => 'Applied',
-    $STATUS_FAILEDVOTE   => 'Failed vote',
-    $STATUS_FAILEDDEP    => 'Failed dependency',
-    $STATUS_ERROR        => 'Error',
-    $STATUS_FAILEDPREREQ => 'Failed prerequisite',
-    $STATUS_NOVOTES      => 'No votes',
-    $STATUS_DELETED      => 'Cancelled',
+
 );
 
 sub edit_status_name
@@ -227,7 +231,7 @@ sub edit_status_name
 
 sub status_names
 {
-    return %STATUS_NAMES
+    return \@STATUS_MAP;
 }
 
 1;
