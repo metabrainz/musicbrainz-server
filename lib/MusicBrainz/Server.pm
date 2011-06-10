@@ -127,6 +127,17 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
     }
 };
 
+# This bit is only required to load if we're running under a proxy
+# Hence, only load it if the module has been installed.
+if (eval { require Catalyst::TraitFor::Request::ProxyBase; 1}) {
+    use CatalystX::RoleApplicator;
+    __PACKAGE__->apply_request_class_roles(
+        qw/
+              Catalyst::TraitFor::Request::ProxyBase
+          /);
+}
+
+
 __PACKAGE__->config->{form} = {
     no_fillin       => 1,
     pre_load_forms  => 1,
