@@ -214,7 +214,9 @@ sub build_display_data
                 [ $data->{new}{tracklist}->all_tracks ],
                 sub {
                     my $track = shift;
-                    return $track->artist_credit->name;
+                    return join('|||', map {
+                        join(':', $_->artist->id, $_->name, $_->join_phrase)
+                    } $track->artist_credit->all_names)
                 }) }
         ];
 
