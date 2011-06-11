@@ -73,6 +73,8 @@ END; -%]
             l('release groups');
         CASE 'editor';
             l('editors');
+        CASE 'work';
+            l('works');
         CASE DEFAULT;
             l('Error: Unknown Type');
     END -%]
