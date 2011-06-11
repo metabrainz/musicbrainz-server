@@ -123,6 +123,7 @@
                 <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> | 
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> | 
                 <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> | 
+                <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a> |
                 <a href="http://www.cafepress.com/musicbrainz" class="internal">[% l('Schwag') %]</a>
             </p>
 
