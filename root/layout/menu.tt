@@ -179,6 +179,9 @@
                     <a href="[% c.uri_for('/label/create') %]">[% l('Add Label') %]</a>
                 </li>
                 <li>
+                    <a href="[% c.uri_for_action('/release_group/create') %]">[% l('Add Release Group') %]</a>
+                </li>
+                <li>
                     <a href="[% c.uri_for_action('/release_editor/add') %]">[% l('Add Release') %]</a>
                 </li>
                 <li>
