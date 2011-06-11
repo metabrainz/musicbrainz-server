@@ -7,6 +7,9 @@
 ] -%]
 
 <div class="recordingheader" [%- rdfa_about_attr(rdfa_recording_curi(recording)) %] [% rdfa_typeof(rdfa_concept_curi('recording')) -%]>
+    [%- IF c.session.tport -%]
+        [%- tagger_icon(recording) -%]
+    [%- END -%]
     <h1>[% rdfa_link_recording_header(recording) %] [% rdfa_disambiguation(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
