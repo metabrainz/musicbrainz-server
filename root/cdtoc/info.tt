@@ -2,6 +2,12 @@
 
     <table>
         <tr>
+            <th>[% l('Full TOC:') %]</th>
+            <td>1 [% cdtoc.track_count %] [% cdtoc.leadout_offset %]
+                [%- FOREACH i IN cdtoc.track_offset; i _ ' '; END %]</td>
+        </tr>
+
+        <tr>
             <th>[% l('Disc ID:') %]</th>
             <td>[% cdtoc.discid %]</td>
         </tr>
