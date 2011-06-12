@@ -50,7 +50,7 @@ sub last_track
 
 sub sectors_to_ms
 {
-    return int($_[0] / 75) * 1000;
+    return int($_[0] / 75 * 1000);
 }
 
 sub length
