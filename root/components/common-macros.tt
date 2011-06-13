@@ -102,7 +102,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
-    ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
+    ELSIF entity.isa('MusicBrainz::Server::Entity::URL') AND entity.url.search('^\w+:\/\/');
       '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a>';
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
