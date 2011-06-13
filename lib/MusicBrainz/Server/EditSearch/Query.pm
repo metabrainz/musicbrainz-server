@@ -2,7 +2,7 @@ package MusicBrainz::Server::EditSearch::Query;
 use Moose;
 
 use CGI::Expand qw( expand_hash );
-use MooseX::Types::Moose qw( Any ArrayRef Bool Int Str );
+use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
 
@@ -37,6 +37,12 @@ has combinator => (
     is => 'ro',
     required => 1,
     default => 'and'
+);
+
+has auto_edit_filter => (
+    isa => Maybe[Bool],
+    is => 'ro',
+    default => undef
 );
 
 has join => (
@@ -87,6 +93,7 @@ sub new_from_user_input {
     return $class->new(
         negate => $input->{negation},
         combinator => $input->{combinator},
+        auto_edit_filter => $input->{auto_edit_filter},
         fields => [
             map {
                 $class->_construct_predicate($_)
@@ -115,16 +122,21 @@ sub as_string {
     my $self = shift;
     $_->combine_with_query($self) for $self->fields;
     my $comb = $self->combinator;
+    my $ae_predicate = defined $self->auto_edit_filter ?
+        'autoedit = ? AND ' : '';
     return 'SELECT edit.* FROM edit ' .
         join(' ', $self->join) .
-        ' WHERE ' . ($self->negate ? 'NOT' : '') . ' (' .
+        ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ') LIMIT 500 OFFSET ?';
 }
 
 sub arguments {
     my $self = shift;
-    return map { @{$_->[1]} } $self->where;
+    return (
+        $self->auto_edit_filter // (),
+        map { @{$_->[1]} } $self->where
+    );
 }
 
 1;
