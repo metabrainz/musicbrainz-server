@@ -17,7 +17,6 @@
             [% END %]
         });
     //]]></script>
-    <script type="text/javascript" src="/static/wip.js"></script>
 [%- END -%]
 
 [% DEFAULT search = 1 %]
