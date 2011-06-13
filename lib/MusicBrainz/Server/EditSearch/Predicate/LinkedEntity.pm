@@ -3,6 +3,8 @@ use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use feature 'switch';
 
+use MooseX::Types::Moose qw( Str );
+
 parameter type => (
     required => 1
 );
@@ -13,6 +15,7 @@ role {
 
     has name => (
         is => 'ro',
+        isa => Str,
         required => 1
     );
 
@@ -25,11 +28,22 @@ role {
 
     method combine_with_query => sub {
         my ($self, $query) = @_;
+        my $join_idx = $query->inc_joins;
+        my $table = join('_', 'edit', $params->type);
+        my $column = $params->type;
+        my $alias = $table . $join_idx;
+        $query->add_join("JOIN $table $alias ON $alias.edit = edit.id");
+
         given($self->operator) {
             when('=') {
-                $query->add_join('JOIN edit_artist ON edit_artist.edit = edit.id');
                 $query->add_where([
-                    'edit_artist.artist = ?', $self->sql_arguments
+                    "$alias.$column = ?", $self->sql_arguments
+                ]);
+            }
+
+            when ('!=') {
+                $query->add_where([
+                    "$alias.$column != ?", $self->sql_arguments
                 ]);
             }
         };

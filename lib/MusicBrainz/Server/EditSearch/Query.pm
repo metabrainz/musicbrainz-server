@@ -2,7 +2,7 @@ package MusicBrainz::Server::EditSearch::Query;
 use Moose;
 
 use CGI::Expand qw( expand_hash );
-use MooseX::Types::Moose qw( Any ArrayRef Bool Str );
+use MooseX::Types::Moose qw( Any ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
 
@@ -46,6 +46,16 @@ has join => (
     handles => {
         join => 'elements',
         add_join => 'push',
+    }
+);
+
+has join_counter => (
+    isa => Int,
+    is => 'ro',
+    default => 0,
+    traits => [ 'Counter' ],
+    handles => {
+        inc_joins => 'inc',
     }
 );
 
