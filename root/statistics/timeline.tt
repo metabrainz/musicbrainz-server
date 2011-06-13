@@ -23,134 +23,25 @@
       #overview { height: 150px; }
       #graph-container { height: 400px; }
   </style>
+  <script src="/static/scripts/timeline.js"></script>
   <script type="text/javascript">//<![CDATA[
-        $(document).ready(function () {
-             var options = { xaxis: { mode: "time",
-                                      timeformat: "%y/%0m",
-                                      ticks: 20,
-                                      minTickSize: [1, "month"]},
-                             selection: { mode: "xy" },
-                             grid: { hoverable: true },
-                             legend: { container: $('#graph-legend') }};
-
-             var overview_options = { legend: {show: false}, 
-                                      series: {lines: {lineWidth: 1}, shadowSize: 0},
-                                      xaxis: {mode: "time", tickSize: [1, "year"]}, 
-                                      yaxis: {tickFormatter: function () { return '' }}, 
-                                      selection: {mode: "xy"}}
-
-             var datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]
-                 "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
-                 [%- END -%]}
-
-             function graph_data () {
-                 var alldata =  [];
-                 $("#graph-lines div input").filter(":checked").each(function () { 
-                     if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
-                         alldata.push(datasets[$(this).parent('div.graph-control').attr('id').substr('graph-control-'.length)]);
-                     }
-                 });
-                 return alldata
-             }
-
-             function jq(myid) { 
-                 return '#' + myid.replace(/(:|\.)/g,'\\$1');
-             }
-
-             // Make selections zoom
-             $('#graph-container').bind('plotselected', function (event, ranges) {
-                 // clamp the zooming to prevent eternal zoom
-                 if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
-                     ranges.xaxis.to = ranges.xaxis.from + 86400000;
-                 if (ranges.yaxis.to - ranges.yaxis.from < 1)
-                     ranges.yaxis.to = ranges.yaxis.from + 1;
-        
-                 // do the zooming
-                 plot = $.plot($("#graph-container"), graph_data(), 
-                               $.extend(true, {}, options, {
-                                   xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
-                                   yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
-                               }));
-             });
-             $('#overview').bind('plotselected', function(event, ranges) {
-                 plot.setSelection(ranges);
-             });
-
-             // "Reset Graph" functionality
-             $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(); });
-
-             // Hover functionality
-             function showTooltip(x, y, contents) {
-                  $('<div id="tooltip">' + contents + '</div>').css( {
-                      position: 'absolute',
-                      display: 'none',
-                      top: y + 5,
-                      left: x + 5,
-                      border: '1px solid #fdd',
-                      padding: '2px',
-                      'background-color': '#fee',
-                      opacity: 0.80
-                  }).appendTo("body").fadeIn(200);
-             }
-             previousPoint = null;
-             $('#graph-container').bind('plothover', function (event, pos, item) { 
-                 if(item) {
-                     if (previousPoint != item.dataIndex) {
-                         previousPoint = item.dataIndex;
-
-                         $("#tooltip").remove();
-                         var x = item.datapoint[0],
-                             y = item.datapoint[1],
-                             date = new Date(parseInt(x));
-
-                         if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
-                         if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
-
-                         showTooltip(item.pageX, item.pageY,
-                                     date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
-                     }
-                 } else {
-                     $('#tooltip').remove();
-                     previousPoint = null;
-                 }
-             });
-
-             // Initialize
-             $.each(datasets, function(key, value) { 
-                 if ($(jq('graph-control-' + key)).length == 0) {
-                     if ($('#category-' + value.category).length == 0) {
-                         $('#graph-lines').append('<h2 class="toggler"><input type="checkbox" checked />' + MB.text.Timeline.Category[value.category].Label + '</h2>');
-                         $('#graph-lines').append('<div class="graph-category" id="category-' + value.category + '"></div>');
-                     }
-                     $("#graph-lines #category-" + value.category).append('<div class="graph-control" id="graph-control-' + key + '"><input type="checkbox" checked />' + value.label + '</div>'); 
-                 }
-             });
-
-             // // Toggle functionality
-             $('#graph-lines div input:checkbox').change(function () {
-                 resetPlot();
-             });
-             $('#graph-lines .toggler input:checkbox').change(function () {
-                 $(this).parent('.toggler').next().toggle('slow');
-                 resetPlot();
-             });
-
-
-             $('div.graph-category').each(function () {
-                 var category = $(this).attr('id').substr('category-'.length);
-                 if (MB.text.Timeline.Category[category].Hide) {
-                     $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
-                 }
-             });
-
-             function resetPlot () {
-                 plot = $.plot($("#graph-container"), graph_data(), options);
-                 overview = $.plot($('#overview'), graph_data(), overview_options);
-             }
-
-             resetPlot();
-
-        });
+      $(document).ready(function () {
+      setup_graphing({[%- FOREACH dataset_key = stats.keys.sort -%]
+          "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
+          [%- END -%]},
+          { xaxis: { mode: "time",
+                     timeformat: "%y/%0m",
+                     ticks: 20,
+                     minTickSize: [1, "month"]},
+            selection: { mode: "xy" },
+            grid: { hoverable: true },
+            legend: { container: $('#graph-legend') }},
+          { legend: {show: false}, 
+            series: {lines: {lineWidth: 1}, shadowSize: 0},
+            xaxis: {mode: "time", tickSize: [1, "year"]}, 
+            yaxis: {tickFormatter: function () { return '' }}, 
+            selection: {mode: "xy"}});
+      });
   //]]></script>
 [% END %]
 
