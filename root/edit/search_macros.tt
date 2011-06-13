@@ -20,10 +20,34 @@
   </p>
 
   <ul class="conditions">
-    [% content %]
+    [% FOR field=query.predicates %]
+    <li class="condition">
+      [% select_field(field) %]
+      <span class="field-container">
+        [% SWITCH field.meta.name;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
+               predicate_id(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
+               SWITCH field.field_name;
+                 CASE 'type';
+                   predicate_set(field.field_name, edit_types, loop.index);
+                 CASE 'status';
+                   predicate_set(field.field_name, status, loop.index);
+               END;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
+               predicate_date(field.field_name, field);
+           END %]
+        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
+             predicate_link(field.field_name, field);
+            END %]
+      </span>
+      [% UNLESS field.valid %]
+        <p>[% l('Oops! It seems your search parameters are not correct, please double check your input!') %]</p>
+      [% END %]
+    </li>
+    [% END %]
     <li id="extra-condition">
       [% select_field() %]
-
       <span class="field-container">
         <span class="field" />
       </span>
