@@ -35,9 +35,15 @@ has arguments => (
     traits => [ 'Array' ],
     handles => {
         arguments => 'elements',
-        argument => 'get'
+        argument => 'get',
+        _find_argument => 'first'
     }
 );
+
+sub find_argument {
+    my ($self, $argument) = @_;
+    return $self->_find_argument(sub { $_ eq $argument });
+}
 
 has field_name => (
     isa => Str,

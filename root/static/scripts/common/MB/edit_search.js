@@ -16,11 +16,19 @@ $(function() {
 
 
     $('#extra-condition select').live('change', function() {
-        var container = $(this).parent('li');
-        container.after(container.clone());
-        container.attr('id', null);
-        container.find('select').addClass('field').find('option:first').remove();
-        container.find('select').trigger('change');
+        var newCondition = $(this).parent('li');
+
+        var append = newCondition.clone();
+        append.find('select').val('');
+
+        newCondition
+            .after(append)
+            .attr('id', null)
+            .addClass('condition');
+
+        newCondition.find('select:first')
+            .addClass('field')
+            .find('option:first').remove();
     })
 
     $('ul.conditions select.field').live('change', function() {

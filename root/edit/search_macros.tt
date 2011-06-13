@@ -7,14 +7,26 @@
 [% BLOCK search_form %]
 <form action="[% c.req.uri.path %]" method="get">
   <p>
-    Show me edits that
+    Show me
+    <select name="auto_edit_filter">
+      <option value="0" [% 'selected="selected"' IF !query.auto_edit_filter %]>edits</option>
+      <option value="1" [% 'selected="selected"' IF  query.auto_edit_filter == 1 %]>auto-edits</option>
+      <option value="0" [% 'selected="selected"' IF  query.auto_edit_filter == 0 %]>non-auto-edits</option>
+    </select>
+    that
     <select name="negation">
-      <option value="0">match</option>
-      <option value="1">do not match</option>
+      <option value="0" [% 'selected="selected"' IF !query.negate %]>match</option>
+      <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
     </select>
     <select name="combinator">
-      <option value="or">any</option>
-      <option value="and">all</option>
+      <option value="or"
+              [% 'selected="selected"' IF query.combinator == 'or' %]>
+        any
+      </option>
+      <option value="and"
+              [% 'selected="selected"' IF query.combinator == 'and' %]>
+        all
+      </option>
     </select>
     of the following conditions:
   </p>
@@ -30,9 +42,9 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
-                   predicate_set(field.field_name, edit_types, loop.index);
+                   predicate_set(field.field_name, edit_types, field);
                  CASE 'status';
-                   predicate_set(field.field_name, status, loop.index);
+                   predicate_set(field.field_name, status, field);
                END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
@@ -125,7 +137,9 @@
                  [ '!=', l('is not') ] ], field_contents) %]
   <select name="args" multiple="multiple">
     [% FOR item=set_contents %]
-    <option value="[% html_escape(item.0) %]">[% html_escape(item.1) %]</option>
+    <option value="[% html_escape(item.0) %]"
+            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
+            >[% html_escape(item.1) %]</option>
     [% END %]
   </select>
 [% END %]
