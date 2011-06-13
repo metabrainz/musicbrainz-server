@@ -2,13 +2,14 @@ package MusicBrainz::Server::EditSearch::Query;
 use Moose;
 
 use CGI::Expand qw( expand_hash );
-use MooseX::Types::Moose qw( Any ArrayRef Bool Str );
+use MooseX::Types::Moose qw( Any ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
 
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
+use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
 
 my %field_map = (
     id => 'MusicBrainz::Server::EditSearch::Predicate::ID',
@@ -17,6 +18,12 @@ my %field_map = (
     expire_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     type => 'MusicBrainz::Server::EditSearch::Predicate::Set',
     status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
+    no_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
+    yes_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
+
+    map {
+        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . ucfirst($_) 
+    } qw( artist label recording release release_group work )
 );
 
 has negate => (
@@ -28,7 +35,8 @@ has negate => (
 has combinator => (
     isa => enum([qw( or and )]),
     is => 'ro',
-    required => 1
+    required => 1,
+    default => 'and'
 );
 
 has join => (
@@ -39,6 +47,16 @@ has join => (
     handles => {
         join => 'elements',
         add_join => 'push',
+    }
+);
+
+has join_counter => (
+    isa => Int,
+    is => 'ro',
+    default => 0,
+    traits => [ 'Counter' ],
+    handles => {
+        inc_joins => 'inc',
     }
 );
 
@@ -53,13 +71,13 @@ has where => (
     }
 );
 
-has predicates => (
+has fields => (
     isa => ArrayRef[ role_type('MusicBrainz::Server::EditSearch::Predicate') ],
     is => 'bare',
     required => 1,
     traits => [ 'Array' ],
     handles => {
-        predicates => 'elements',
+        fields => 'elements',
     }
 );
 
@@ -69,7 +87,7 @@ sub new_from_user_input {
     return $class->new(
         negate => $input->{negation},
         combinator => $input->{combinator},
-        predicates => [
+        fields => [
             map {
                 $class->_construct_predicate($_)
             } grep { defined } @{ $input->{conditions} }
@@ -79,8 +97,8 @@ sub new_from_user_input {
 
 sub _construct_predicate {
     my ($class, $input) = @_;
-    my $class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
-    return $class->new_from_input(
+    my $predicate_class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
+    return $predicate_class->new_from_input(
         $input->{field},
         $input
     );
@@ -89,13 +107,13 @@ sub _construct_predicate {
 sub valid {
     my $self = shift;
     my $valid = 1;
-    $valid &&= $_->valid for $self->predicates;
+    $valid &&= $_->valid for $self->fields;
     return $valid
 }
 
 sub as_string {
     my $self = shift;
-    $_->combine_with_query($self) for $self->predicates;
+    $_->combine_with_query($self) for $self->fields;
     my $comb = $self->combinator;
     return 'SELECT edit.* FROM edit ' .
         join(' ', $self->join) .

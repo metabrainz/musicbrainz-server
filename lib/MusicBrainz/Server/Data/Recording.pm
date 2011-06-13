@@ -70,12 +70,14 @@ sub find_by_artist
     my ($self, $artist_id, $limit, $offset) = @_;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        musicbrainz_collate(name.name) AS name_collate
+                        musicbrainz_collate(name.name) AS name_collate,
+                        musicbrainz_collate(comment) AS comment_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
                  WHERE acn.artist = ?
-                 ORDER BY musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(name.name),
+                          musicbrainz_collate(comment)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },

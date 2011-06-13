@@ -3,7 +3,7 @@ use Moose::Role;
 
 use MooseX::Types::Moose qw( Any ArrayRef Str );
 use MusicBrainz::Server::EditSearch::Exceptions;
-use MusicBrainz::Server::Translation;
+use MusicBrainz::Server::Translation qw( l );
 
 requires qw(
     operator_cardinality_map
@@ -35,6 +35,7 @@ has arguments => (
     traits => [ 'Array' ],
     handles => {
         arguments => 'elements',
+        argument => 'get'
     }
 );
 
@@ -65,19 +66,27 @@ sub new_from_input {
         if defined $cardinality;
 
     return $class->new(
+        %{ $input },
         field_name => $field_name,
         operator => $op,
-        arguments => [
-            map { $class->transform_user_input($_) } @args
-        ]
+        arguments => [ @args ],
     );
 }
 
 sub sql_arguments {
     my $self = shift;
-    return [ $self->arguments ];
+    return [ map { $self->transform_user_input($_) } $self->arguments ];
 }
 
-sub valid { 1 }
+sub valid {
+    my $self = shift;
+    # Uncounted cardinality means anything is valid (or more than classes should implement this themselves)
+    my $cardinality = $self->operator_cardinality($self->operator) or return 1;
+    for my $arg_index (1..$cardinality) {
+        my $arg = $self->argument($arg_index - 1) or return;
+    }
+
+    return 1;
+}
 
 1;
