@@ -9,7 +9,7 @@
   <p>
     Show me
     <select name="auto_edit_filter">
-      <option value="0" [% 'selected="selected"' IF !query.auto_edit_filter %]>edits</option>
+      <option value="" [% 'selected="selected"'  IF !query.auto_edit_filter.defined %]>edits</option>
       <option value="1" [% 'selected="selected"' IF  query.auto_edit_filter == 1 %]>auto-edits</option>
       <option value="0" [% 'selected="selected"' IF  query.auto_edit_filter == 0 %]>non-auto-edits</option>
     </select>
