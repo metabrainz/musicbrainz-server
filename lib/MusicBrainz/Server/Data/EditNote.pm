@@ -47,7 +47,7 @@ sub load_for_edits
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE edit IN (' . placeholders(@ids) . ')' .
-                ' ORDER BY post_time, id';
+                ' ORDER BY post_time NULLS FIRST, id';
     my @notes = query_to_list($self->c->raw_sql, sub {
             my $r = shift;
             my $note = $self->_new_from_row($r);
