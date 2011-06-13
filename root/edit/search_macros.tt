@@ -9,12 +9,18 @@
   <p>
     Show me edits that
     <select name="negation">
-      <option value="0">match</option>
-      <option value="1">do not match</option>
+      <option value="0" [% 'selected="selected"' IF !query.negate %]>match</option>
+      <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
     </select>
     <select name="combinator">
-      <option value="or">any</option>
-      <option value="and">all</option>
+      <option value="or"
+              [% 'selected="selected"' IF query.combinator == 'or' %]>
+        any
+      </option>
+      <option value="and"
+              [% 'selected="selected"' IF query.combinator == 'and' %]>
+        all
+      </option>
     </select>
     of the following conditions:
   </p>
