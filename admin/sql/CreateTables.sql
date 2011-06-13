@@ -63,16 +63,16 @@ CREATE TABLE artist_tag
 
 CREATE TABLE artist_rating_raw
 (
-    artist              INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
+    artist              INTEGER NOT NULL, -- PK, references artist.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
     rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE artist_tag_raw
 (
-    artist              INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
-    tag                 INTEGER NOT NULL -- PK
+    artist              INTEGER NOT NULL, -- PK, references artist.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE artist_credit (
@@ -146,7 +146,7 @@ CREATE TABLE country (
 CREATE TABLE edit
 (
     id                  SERIAL,
-    editor              INTEGER NOT NULL, -- weakly references editor
+    editor              INTEGER NOT NULL, -- references editor.id
     type                SMALLINT NOT NULL,
     status              SMALLINT NOT NULL,
     data                TEXT NOT NULL,
@@ -163,7 +163,7 @@ CREATE TABLE edit
 CREATE TABLE edit_note
 (
     id                  SERIAL,
-    editor              INTEGER NOT NULL, -- weakly references editor
+    editor              INTEGER NOT NULL, -- references editor.id
     edit                INTEGER NOT NULL, -- references edit.id
     text                TEXT NOT NULL,
     post_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -172,43 +172,43 @@ CREATE TABLE edit_note
 CREATE TABLE edit_artist
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    artist              INTEGER NOT NULL -- PK
+    artist              INTEGER NOT NULL  -- PK, references artist.id
 );
 
 CREATE TABLE edit_label
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    label               INTEGER NOT NULL -- PK
+    label               INTEGER NOT NULL  -- PK, references label.id
 );
 
 CREATE TABLE edit_release
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    release             INTEGER NOT NULL -- PK
+    release             INTEGER NOT NULL  -- PK, references release.id
 );
 
 CREATE TABLE edit_release_group
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    release_group       INTEGER NOT NULL -- PK
+    release_group       INTEGER NOT NULL  -- PK, references release_group.id
 );
 
 CREATE TABLE edit_recording
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    recording           INTEGER NOT NULL -- PK
+    recording           INTEGER NOT NULL  -- PK, references recording.id
 );
 
 CREATE TABLE edit_work
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    work                INTEGER NOT NULL -- PK
+    work                INTEGER NOT NULL  -- PK, references work.id
 );
 
 CREATE TABLE edit_url
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    url                 INTEGER NOT NULL -- PK
+    url                 INTEGER NOT NULL  -- PK, references url.id
 );
 
 CREATE TABLE editor
@@ -584,16 +584,16 @@ CREATE TABLE label (
 
 CREATE TABLE label_rating_raw
 (
-    label               INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
+    label               INTEGER NOT NULL, -- PK, references label.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
     rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE label_tag_raw
 (
-    label               INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
-    tag                 INTEGER NOT NULL -- PK
+    label               INTEGER NOT NULL, -- PK, references label.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE label_alias
@@ -813,16 +813,16 @@ CREATE TABLE recording (
 
 CREATE TABLE recording_rating_raw
 (
-    recording           INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
+    recording           INTEGER NOT NULL, -- PK, references recording.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
     rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE recording_tag_raw
 (
-    recording           INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
-    tag                 INTEGER NOT NULL -- PK
+    recording           INTEGER NOT NULL, -- PK, references recording.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE recording_annotation
@@ -899,9 +899,9 @@ CREATE TABLE release_raw
 
 CREATE TABLE release_tag_raw
 (
-    release             INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
-    tag                 INTEGER NOT NULL -- PK
+    release             INTEGER NOT NULL, -- PK, references release.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE release_annotation
@@ -974,16 +974,16 @@ CREATE TABLE release_group (
 
 CREATE TABLE release_group_rating_raw
 (
-    release_group       INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
+    release_group       INTEGER NOT NULL, -- PK, references release_group.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
     rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE release_group_tag_raw
 (
-    release_group       INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
-    tag                 INTEGER NOT NULL -- PK
+    release_group       INTEGER NOT NULL, -- PK, references release_group.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 CREATE TABLE release_group_annotation
@@ -1131,7 +1131,7 @@ CREATE TABLE url_gid_redirect
 CREATE TABLE vote
 (
     id                  SERIAL,
-    editor              INTEGER NOT NULL, -- weakly references editor
+    editor              INTEGER NOT NULL, -- references editor.id
     edit                INTEGER NOT NULL, -- references edit.id
     vote                SMALLINT NOT NULL,
     vote_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -1152,16 +1152,16 @@ CREATE TABLE work (
 
 CREATE TABLE work_rating_raw
 (
-    work                INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
+    work                INTEGER NOT NULL, -- PK, references work.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
     rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE work_tag_raw
 (
-    work                INTEGER NOT NULL, -- PK
-    editor              INTEGER NOT NULL, -- PK
-    tag                 INTEGER NOT NULL -- PK
+    work                INTEGER NOT NULL, -- PK, references work.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
 
