@@ -140,7 +140,7 @@
 [% END %]
 
 [% MACRO select_field(field_contents) BLOCK %]
-  <select name="field">
+  <select name="field" class="field">
     [% UNLESS field_contents %]
       <option>Please choose a condition</option>
     [% END %]
