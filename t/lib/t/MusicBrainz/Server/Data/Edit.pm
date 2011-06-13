@@ -59,7 +59,7 @@ test 'Test locks on edits' => sub {
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
     my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection(
-        'RAWDATA',
+        'READWRITE',
         fresh => 1
     );
 
@@ -90,7 +90,6 @@ my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 memory_cycle_ok($edit_data);
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 
 # Find all edits
 my ($edits, $hits) = $edit_data->find({}, 10, 0);
@@ -169,11 +168,9 @@ my $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->accepted_edits, 12, "Edit not yet accepted");
 
 $sql->begin;
-$raw_sql->begin;
 $edit_data->accept($edit);
 memory_cycle_ok($edit_data);
 $sql->commit;
-$raw_sql->commit;
 
 $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->accepted_edits, 13, "Edit accepted");
@@ -185,11 +182,9 @@ $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->rejected_edits, 2, "Edit not yet rejected");
 
 $sql->begin;
-$raw_sql->begin;
 $edit_data->reject($edit, $STATUS_FAILEDVOTE);
 memory_cycle_ok($edit_data);
 $sql->commit;
-$raw_sql->commit;
 
 $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->rejected_edits, 3, "Edit rejected");
@@ -228,7 +223,6 @@ test 'Find edits by subscription' => sub {
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
     my $sql = $test->c->sql;
-    my $raw_sql = $test->c->raw_sql;
 
     my $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
     my @edits = $edit_data->find_for_subscription($sub);
@@ -261,8 +255,8 @@ test 'Find edits by subscription' => sub {
     memory_cycle_ok($edit_data);
     memory_cycle_ok(\@edits);
 
-    $raw_sql->do('UPDATE edit SET status = ? WHERE id = ?',
-                 $STATUS_ERROR, 1);
+    $sql->do('UPDATE edit SET status = ? WHERE id = ?',
+             $STATUS_ERROR, 1);
     $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
     my @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 1, 'found 1 edit');

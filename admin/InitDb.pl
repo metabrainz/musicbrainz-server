@@ -37,7 +37,6 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $READWRITE = Databases->get("READWRITE");
 my $READONLY  = Databases->get("READONLY");
-my $RAWDATA   = Databases->get("RAWDATA");
 
 # Register a new database connection as the system user, but to the MB
 # database
@@ -49,17 +48,12 @@ my $SYSMB  = $SYSTEM->meta->clone_object(
 );
 Databases->register_database("SYSMB", $SYSMB);
 
-# Check to make sure that the main and raw databases are not the same
-die "The READWRITE database and the RAWDATA database cannot be the same. Use a different name for the RAWDATA database."
-   if ($RAWDATA->database eq $READWRITE->database);
-
 my $REPTYPE = &DBDefs::REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
 my $fFixUTF8 = 0;
 my $fCreateDB;
-my $fCreateRawDBOnly;
 my $fInstallExtension;
 my $fExtensionSchema;
 
@@ -226,16 +220,11 @@ sub CreateRelations
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $READWRITE->schema));
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    $opts = $RAWDATA->shell_args;
-    $ENV{"PGPASSWORD"} = $RAWDATA->password;
-    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $RAWDATA->schema));
-    die "\nFailed to create schema\n" if ($? >> 8);
-
     InstallExtension($SYSMB, "cube.sql", $READWRITE->schema);
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $READWRITE->schema);
 
     RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
-    RunSQLScript($RAWDATA, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
+    RunSQLScript($READWRITE, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
 
     if ($import)
     {
@@ -249,21 +238,21 @@ sub CreateRelations
     }
 
     RunSQLScript($READWRITE, "CreatePrimaryKeys.sql", "Creating primary keys ...");
-    RunSQLScript($RAWDATA, "vertical/rawdata/CreatePrimaryKeys.sql", "Creating raw primary keys ...");
+    RunSQLScript($READWRITE, "vertical/rawdata/CreatePrimaryKeys.sql", "Creating raw primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
-    RunSQLScript($RAWDATA, "vertical/rawdata/CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($READWRITE, "vertical/rawdata/CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
-    RunSQLScript($RAWDATA, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
+    RunSQLScript($READWRITE, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
     RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
-    RunSQLScript($RAWDATA, "vertical/rawdata/CreateFKConstraints.sql", "Adding raw foreign key constraints ...")
+    RunSQLScript($READWRITE, "vertical/rawdata/CreateFKConstraints.sql", "Adding raw foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($READWRITE, "SetSequences.sql", "Setting raw initial sequence values ...");
-    RunSQLScript($RAWDATA, "vertical/rawdata/SetSequences.sql", "Setting raw initial sequence values ...");
+    RunSQLScript($READWRITE, "vertical/rawdata/SetSequences.sql", "Setting raw initial sequence values ...");
 
     RunSQLScript($READWRITE, "CreateViews.sql", "Creating views ...");
     RunSQLScript($READWRITE, "CreateTriggers.sql", "Creating triggers ...")
@@ -286,12 +275,6 @@ sub CreateRelations
     $ENV{"PGPASSWORD"} = $READWRITE->password;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
-
-    print localtime() . " : Optimizing rawdata database ...\n";
-    $opts = $RAWDATA->shell_args;
-    $ENV{"PGPASSWORD"} = $RAWDATA->password;
-    system("echo \"vacuum analyze\" | $psql $opts");
-    die "\nFailed to optimize rawdata database\n" if ($? >> 8);
 
     print localtime() . " : Initialized and imported data into the database.\n";
 }
@@ -326,7 +309,7 @@ sub SanityCheck
     die "The postgres psql application must be on your path for this script to work.\n"
        if not -x $psql and (`which psql` eq '');
 
-    if ($REPTYPE == RT_MASTER && !$fCreateRawDBOnly)
+    if ($REPTYPE == RT_MASTER)
     {
         defined($path_to_pending_so) or die <<EOF;
 Error: this is a master replication server, but you did not specify
@@ -395,7 +378,6 @@ my $mode = "MODE_IMPORT";
 GetOptions(
     "psql=s"              => \$psql,
     "createdb"            => \$fCreateDB,
-    "createrawonly"       => \$fCreateRawDBOnly,
     "empty-database"      => sub { $mode = "MODE_NO_TABLES" },
     "import|i"            => sub { $mode = "MODE_IMPORT" },
     "clean|c"             => sub { $mode = "MODE_NO_DATA" },
@@ -426,26 +408,18 @@ SanityCheck();
 print localtime() . " : InitDb.pl starting\n";
 my $started = 1;
 
-if ($fCreateRawDBOnly)
+if ($fCreateDB)
 {
+    Create("READWRITE");
     Create("RAWDATA");
-    GrantSelect("RAWDATA");
 }
-else
-{
-    if ($fCreateDB)
-    {
-        Create("READWRITE");
-        Create("RAWDATA");
-    }
 
-    if ($mode eq "MODE_NO_TABLES") { } # nothing to do
-    elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
-    elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
+if ($mode eq "MODE_NO_TABLES") { } # nothing to do
+elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
+elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
 
-    GrantSelect("READWRITE");
-    GrantSelect("RAWDATA");
-}
+GrantSelect("READWRITE");
+GrantSelect("RAWDATA");
 
 END {
     print localtime() . " : InitDb.pl "

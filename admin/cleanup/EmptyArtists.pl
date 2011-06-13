@@ -51,7 +51,6 @@ my $summary = 1;
 my $c = MusicBrainz::Server::Context->create_script_context();
 my $sql = Sql->new($c->dbh);
 my $sqlWrite = Sql->new($c->dbh);
-my $sqlVert = Sql->new($c->raw_dbh);
 
 GetOptions(
     "automod!"          => \$use_auto_mod,
@@ -97,13 +96,14 @@ print(STDERR "Running with --noremove --noverbose --nosummary is pointless\n"), 
 
 print localtime() . " : Finding unused artists (using artist credit/AR/edit criteria)\n";
 
+# XXX FIXME Join into 1 query
 $sql->select(
     'SELECT artist.id, name.name, sort_name.name
        FROM artist
        JOIN artist_name name ON name.id = artist.name
        JOIN artist_name sort_name ON sort_name.id = artist.sort_name
       WHERE artist.id = any(?)',
-    $c->raw_sql->select_single_column_array(
+    $c->sql->select_single_column_array(
         'SELECT artist.id
            FROM (SELECT unnest(?::INTEGER[])) artist(id)
           WHERE NOT EXISTS (

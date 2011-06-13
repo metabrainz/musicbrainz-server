@@ -49,11 +49,10 @@ ok(defined $artist);
 
 # Delete the recording and enter the edit
 my $sql = $c->sql;
-my $sql_raw = $c->raw_sql;
 Sql::run_in_transaction(
     sub {
         $c->model('Recording')->delete(1);
-    }, $sql, $sql_raw);
+    }, $sql);
 
 $edit = _create_edit($c, $artist);
 accept_edit($c, $edit);

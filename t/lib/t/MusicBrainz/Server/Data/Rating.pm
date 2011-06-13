@@ -103,11 +103,9 @@ $artist_data->load_meta($artist);
 is($artist->rating, 33);
 
 $test->c->sql->begin;
-$test->c->raw_sql->begin;
 $rating_data->delete(1);
 memory_cycle_ok($rating_data);
 $test->c->sql->commit;
-$test->c->raw_sql->commit;
 
 @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 0 );
@@ -119,12 +117,10 @@ MusicBrainz::Server::Test->prepare_raw_test_database($test->c, "
 ");
 
 $test->c->sql->begin;
-$test->c->raw_sql->begin;
 $rating_data->_update_aggregate_rating(1);
 $rating_data->_update_aggregate_rating(2);
 memory_cycle_ok($rating_data);
 $test->c->sql->commit;
-$test->c->raw_sql->commit;
 
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 $artist_data->load_meta($artist);
@@ -135,11 +131,9 @@ $artist_data->load_meta($artist);
 is($artist->rating, 65);
 
 $test->c->sql->begin;
-$test->c->raw_sql->begin;
 $rating_data->merge(1, 2);
 memory_cycle_ok($rating_data);
 $test->c->sql->commit;
-$test->c->raw_sql->commit;
 
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 $artist_data->load_meta($artist);

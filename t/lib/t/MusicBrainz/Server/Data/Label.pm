@@ -72,7 +72,6 @@ test all => sub {
     memory_cycle_ok(\%names);
 
     $test->c->sql->begin;
-    $test->c->raw_sql->begin;
 
     $label = $label_data->insert({
         name => 'RAM Records',
@@ -150,7 +149,6 @@ test all => sub {
     $label = $label_data->get_by_id(3);
     ok(defined $label, "label merged");
 
-    $test->c->raw_sql->commit;
     $test->c->sql->commit;
 
 };
