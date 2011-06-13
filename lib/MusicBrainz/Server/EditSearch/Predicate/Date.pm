@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use feature 'switch';
 
+use DateTime::Format::Natural;
 use DateTime::Format::Pg;
 
 # Happens to share the same operators as ID searches, just handles the
@@ -12,7 +13,9 @@ with 'MusicBrainz::Server::EditSearch::Predicate';
 
 sub transform_user_input {
     my ($self, $argument) = @_;
-    DateTime::Format::Pg->parse_datetime($argument);
+    my $parser = DateTime::Format::Natural->new;
+    DateTime::Format::Pg->format_datetime($parser->parse_datetime($argument));
+}
 }
 
 1;
