@@ -224,7 +224,6 @@ sub CreateRelations
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $READWRITE->schema);
 
     RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
-    RunSQLScript($READWRITE, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
 
     if ($import)
     {
@@ -238,21 +237,15 @@ sub CreateRelations
     }
 
     RunSQLScript($READWRITE, "CreatePrimaryKeys.sql", "Creating primary keys ...");
-    RunSQLScript($READWRITE, "vertical/rawdata/CreatePrimaryKeys.sql", "Creating raw primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
-    RunSQLScript($READWRITE, "vertical/rawdata/CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
-    RunSQLScript($READWRITE, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
     RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
-        unless $REPTYPE == RT_SLAVE;
-    RunSQLScript($READWRITE, "vertical/rawdata/CreateFKConstraints.sql", "Adding raw foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($READWRITE, "SetSequences.sql", "Setting raw initial sequence values ...");
-    RunSQLScript($READWRITE, "vertical/rawdata/SetSequences.sql", "Setting raw initial sequence values ...");
 
     RunSQLScript($READWRITE, "CreateViews.sql", "Creating views ...");
     RunSQLScript($READWRITE, "CreateTriggers.sql", "Creating triggers ...")
