@@ -1,6 +1,11 @@
+setup_graphing = {};
 $(document).ready(function () {
     var category_id_prefix = 'category-';
     var control_id_prefix = 'graph-control-';
+
+    var datasets = {};
+    var graph_options = {};
+    var overview_options = {};
 
     function graph_data () {
         var alldata =  [];
@@ -74,54 +79,6 @@ $(document).ready(function () {
         }
     });
 
-    // Initialize
-    $.each(datasets, function(key, value) { 
-        if ($(jq(control_id_prefix + key)).length == 0) {
-            if ($('#' + category_id_prefix + value.category).length == 0) {
-                $('#graph-lines').append('<h2 class="toggler"><input type="checkbox" checked />' + MB.text.Timeline.Category[value.category].Label + '</h2>');
-                $('#graph-lines').append('<div class="graph-category" id="category-' + value.category + '"></div>');
-            }
-            $("#graph-lines #category-" + value.category).append('<div class="graph-control" id="' + control_id_prefix + key + '"><input type="checkbox" checked />' + value.label + '</div>'); 
-        }
-    });
-
-    // // Toggle functionality
-    $('#graph-lines div input:checkbox').change(function () {
-        var minus = !$(this).attr('checked');
-        var new_hash_part = $(this).parent('div').attr('id').substr((control_id_prefix + 'count.').length);
-        var hide = (MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Hide ? true : false);
-        change_hash(minus, new_hash_part, hide);
-
-        resetPlot();
-    });
-    $('#graph-lines .toggler input:checkbox').change(function () {
-        var $this = $(this);
-
-        var category_id = $this.parent('.toggler').next('div.graph-category').attr('id');
-        var minus = !$this.attr('checked');
-        var new_hash_part = category_id.replace(/category-/, 'c-');
-        var hide = (MB.text.Timeline.Category[category_id.substr(category_id_prefix.length)].Hide ? true : false);
-        change_hash(minus, new_hash_part, hide);
-
-        $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
-        resetPlot();
-    });
-
-
-    $('div.graph-category').each(function () {
-        var category = $(this).attr('id').substr(category_id_prefix.length);
-        if (MB.text.Timeline.Category[category].Hide) {
-            $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
-        }
-    });
-
-    $('div.graph-control').each(function () {
-        var identifier = $(this).attr('id').substr(control_id_prefix.length);
-        if (MB.text.Timeline[identifier].Hide) {
-            $(this).children('input:checkbox').attr('checked', false).change();
-        }
-    });
-
     function change_hash(minus, new_hash_part, hide) {
         if (hide != minus) {
             if (location.hash.indexOf(new_hash_part) == -1) {
@@ -164,13 +121,67 @@ $(document).ready(function () {
         });
     });
 
-    $(window).hashchange();
 
     function resetPlot () {
         plot = $.plot($("#graph-container"), graph_data(), graph_options);
         overview = $.plot($('#overview'), graph_data(), overview_options);
     }
 
-    resetPlot();
+    setup_graphing = function (data, goptions, ooptions) {
+        datasets = data;
+	graph_options = goptions;
+	overview_options = ooptions;
+
+        $.each(datasets, function(key, value) { 
+            if ($(jq(control_id_prefix + key)).length == 0) {
+                if ($('#' + category_id_prefix + value.category).length == 0) {
+                    $('#graph-lines').append('<h2 class="toggler"><input type="checkbox" checked />' + MB.text.Timeline.Category[value.category].Label + '</h2>');
+                    $('#graph-lines').append('<div class="graph-category" id="category-' + value.category + '"></div>');
+                }
+                $("#graph-lines #category-" + value.category).append('<div class="graph-control" id="' + control_id_prefix + key + '"><input type="checkbox" checked />' + value.label + '</div>'); 
+            }
+        });
+        // // Toggle functionality
+        $('#graph-lines div input:checkbox').change(function () {
+            var minus = !$(this).attr('checked');
+            var new_hash_part = $(this).parent('div').attr('id').substr((control_id_prefix + 'count.').length);
+            var hide = (MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Hide ? true : false);
+            change_hash(minus, new_hash_part, hide);
+
+            resetPlot();
+        });
+        $('#graph-lines .toggler input:checkbox').change(function () {
+            var $this = $(this);
+
+            var category_id = $this.parent('.toggler').next('div.graph-category').attr('id');
+            var minus = !$this.attr('checked');
+            var new_hash_part = category_id.replace(/category-/, 'c-');
+            var hide = (MB.text.Timeline.Category[category_id.substr(category_id_prefix.length)].Hide ? true : false);
+            change_hash(minus, new_hash_part, hide);
+    
+            $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
+            resetPlot();
+        });
+
+
+        $('div.graph-category').each(function () {
+            var category = $(this).attr('id').substr(category_id_prefix.length);
+            if (MB.text.Timeline.Category[category].Hide) {
+                $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
+            }
+        });
+
+        $('div.graph-control').each(function () {
+            var identifier = $(this).attr('id').substr(control_id_prefix.length);
+            if (MB.text.Timeline[identifier].Hide) {
+                $(this).children('input:checkbox').attr('checked', false).change();
+            }
+        });
+
+
+        $(window).hashchange();
+        resetPlot();
+    }
+
 
 });

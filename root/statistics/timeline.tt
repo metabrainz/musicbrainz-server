@@ -23,28 +23,26 @@
       #overview { height: 150px; }
       #graph-container { height: 400px; }
   </style>
+  <script src="/static/scripts/timeline.js"></script>
   <script type="text/javascript">//<![CDATA[
       $(document).ready(function () {
-      graph_options = { xaxis: { mode: "time",
-                                 timeformat: "%y/%0m",
-                                 ticks: 20,
-                                 minTickSize: [1, "month"]},
-                        selection: { mode: "xy" },
-                        grid: { hoverable: true },
-                        legend: { container: $('#graph-legend') }};
-
-      overview_options = { legend: {show: false}, 
-                           series: {lines: {lineWidth: 1}, shadowSize: 0},
-                           xaxis: {mode: "time", tickSize: [1, "year"]}, 
-                           yaxis: {tickFormatter: function () { return '' }}, 
-                           selection: {mode: "xy"}}
-
-      datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]
+      setup_graphing({[%- FOREACH dataset_key = stats.keys.sort -%]
           "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
-          [%- END -%]}
+          [%- END -%]},
+          { xaxis: { mode: "time",
+                     timeformat: "%y/%0m",
+                     ticks: 20,
+                     minTickSize: [1, "month"]},
+            selection: { mode: "xy" },
+            grid: { hoverable: true },
+            legend: { container: $('#graph-legend') }},
+          { legend: {show: false}, 
+            series: {lines: {lineWidth: 1}, shadowSize: 0},
+            xaxis: {mode: "time", tickSize: [1, "year"]}, 
+            yaxis: {tickFormatter: function () { return '' }}, 
+            selection: {mode: "xy"}});
       });
   //]]></script>
-  <script src="/static/scripts/timeline.js"></script>
 [% END %]
 
 [%- WRAPPER "layout.tt" usesRDFa=1 title="Timeline!" -%]
