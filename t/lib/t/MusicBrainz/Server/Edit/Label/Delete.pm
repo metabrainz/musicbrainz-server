@@ -17,7 +17,7 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
 
-my $label = $c->model('Label')->get_by_id(1);
+my $label = $c->model('Label')->get_by_id(2);
 
 my $edit = create_edit($c, $label);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Delete');
@@ -27,16 +27,16 @@ is($hits, 1);
 is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
-$label = $c->model('Label')->get_by_id(1);
+$label = $c->model('Label')->get_by_id(2);
 is($label->edits_pending, 1);
 
 reject_edit($c, $edit);
-$label = $c->model('Label')->get_by_id(1);
+$label = $c->model('Label')->get_by_id(2);
 is($label->edits_pending, 0);
 
 $edit = create_edit($c, $label);
 accept_edit($c, $edit);
-$label = $c->model('Label')->get_by_id(1);
+$label = $c->model('Label')->get_by_id(2);
 ok(!defined $label);
 
 };
