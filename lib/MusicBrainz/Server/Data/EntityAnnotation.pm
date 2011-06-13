@@ -63,7 +63,7 @@ sub get_latest
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
                 " WHERE " . $self->type . " = ?" .
-                " ORDER BY created DESC LIMIT 1";
+                " ORDER BY created DESC, id DESC LIMIT 1";
     my $row = $self->sql->select_single_row_hash($query, $id)
         or return undef;
     return $self->_new_from_row($row);

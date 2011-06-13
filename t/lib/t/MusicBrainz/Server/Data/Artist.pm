@@ -92,7 +92,7 @@ $annotation = $artist_data->annotation->get_latest(3);
 ok(!defined $annotation);
 
 $annotation = $artist_data->annotation->get_latest(4);
-like ( $annotation->text, qr/Test annotation 1/ );
+like ( $annotation->text, qr/Test annotation 2/ );
 
 memory_cycle_ok($annotation, 'annotation entity has no cycles after get_latest annotation');
 memory_cycle_ok($artist_data, 'artist data does not leak after merging annotations');
