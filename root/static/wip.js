@@ -41,17 +41,7 @@ $(function() {
             });
 
             $li.find('input.autocomplete').each(function() {
-                var $input = $(this);
-                var type = filteredClassName($input, 'autocomplete-');
-
-                MB.Control.Autocomplete({
-                    'entity': type,
-                    'input': $input,
-                    'select': function(event, data) {
-                        $input.val(data.name);
-                        $li.find('input.ac-result').val(data.id)
-                    }
-                });
+                setupAutocomplete($(this));
             });
 
             conditionCounter++;
@@ -60,6 +50,19 @@ $(function() {
             console.error('There is no field-' + val);
         }
     });
+
+    function setupAutocomplete($input) {
+        var type = filteredClassName($input, 'autocomplete-');
+
+        MB.Control.Autocomplete({
+            'entity': type,
+            'input': $input,
+            'select': function(event, data) {
+                $input.val(data.name);
+                $input.siblings('input.ac-result').val(data.id)
+            }
+        });
+    }
 
     function prefixedInputName($element) {
         return 'conditions.' + conditionCounter + '.' + $element.attr('name')
@@ -97,5 +100,9 @@ $(function() {
             $(this).attr('name', prefixedInputName($(this)));
         });
         conditionCounter++;
+    });
+
+    $('ul.conditions input.autocomplete').each(function() {
+        setupAutocomplete($(this));
     });
 });
