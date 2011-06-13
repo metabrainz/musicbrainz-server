@@ -349,6 +349,20 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         $('div.guesscase-'+from).children().appendTo($('div.guesscase-'+to));
     };
 
+    self.emptyDisc = function () {
+        var disc = self.adv.lastDisc ();
+        if (disc && disc.isEmpty ())
+        {
+            /* currently the last disc is empty, so just re-use that. */
+            disc.clearDisc ();
+            return disc.basic;
+        }
+        else
+        {
+            return self.tracklist.newDisc (self.adv.addDisc (), true);
+        }
+    };
+
     self.addDisc = function () {
         return self.tracklist.newDisc (self.adv.addDisc (), true);
     };
