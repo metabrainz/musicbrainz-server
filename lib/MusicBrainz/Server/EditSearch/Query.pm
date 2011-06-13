@@ -119,7 +119,7 @@ sub as_string {
         join(' ', $self->join) .
         ' WHERE ' . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
-        ') OFFSET ?';
+        ') LIMIT 500 OFFSET ?';
 }
 
 sub arguments {
