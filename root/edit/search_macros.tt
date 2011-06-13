@@ -7,7 +7,13 @@
 [% BLOCK search_form %]
 <form action="[% c.req.uri.path %]" method="get">
   <p>
-    Show me edits that
+    Show me
+    <select name="auto_edit_filter">
+      <option value="0" [% 'selected="selected"' IF !query.auto_edit_filter %]>edits</option>
+      <option value="1" [% 'selected="selected"' IF  query.auto_edit_filter == 1 %]>auto-edits</option>
+      <option value="0" [% 'selected="selected"' IF  query.auto_edit_filter == 0 %]>non-auto-edits</option>
+    </select>
+    that
     <select name="negation">
       <option value="0" [% 'selected="selected"' IF !query.negate %]>match</option>
       <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
