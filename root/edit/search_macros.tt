@@ -30,9 +30,9 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
-                   predicate_set(field.field_name, edit_types, loop.index);
+                   predicate_set(field.field_name, edit_types, field);
                  CASE 'status';
-                   predicate_set(field.field_name, status, loop.index);
+                   predicate_set(field.field_name, status, field);
                END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
@@ -125,7 +125,9 @@
                  [ '!=', l('is not') ] ], field_contents) %]
   <select name="args" multiple="multiple">
     [% FOR item=set_contents %]
-    <option value="[% html_escape(item.0) %]">[% html_escape(item.1) %]</option>
+    <option value="[% html_escape(item.0) %]"
+            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
+            >[% html_escape(item.1) %]</option>
     [% END %]
   </select>
 [% END %]
