@@ -47,7 +47,8 @@ sub build_display_data
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
         artist     => $loaded->{Artist}->{ $self->entity_id } ||
-            Artist->new( name => $self->data->{name} )
+            Artist->new( name => $self->data->{name} ),
+        ipi_code   => $self->data->{ipi_code},
     };
 }
 
