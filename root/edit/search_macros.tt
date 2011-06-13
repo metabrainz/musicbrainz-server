@@ -20,7 +20,7 @@
   </p>
 
   <ul class="conditions">
-    [% FOR field=query.predicates %]
+    [% FOR field=query.fields %]
     <li class="condition">
       [% select_field(field) %]
       <span class="field-container">

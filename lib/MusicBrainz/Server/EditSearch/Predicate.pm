@@ -3,7 +3,7 @@ use Moose::Role;
 
 use MooseX::Types::Moose qw( Any ArrayRef Str );
 use MusicBrainz::Server::EditSearch::Exceptions;
-use MusicBrainz::Server::Translation;
+use MusicBrainz::Server::Translation qw( l );
 
 requires qw(
     operator_cardinality_map
