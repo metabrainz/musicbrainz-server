@@ -20,7 +20,6 @@ $(function() {
         container.after(container.clone());
         container.attr('id', null);
         container.find('select').addClass('field').find('option:first').remove();
-        container.find('select').trigger('change');
     })
 
     $('ul.conditions select.field').live('change', function() {
