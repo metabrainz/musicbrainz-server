@@ -4,7 +4,7 @@
         <tr>
             <th>[% l('Full TOC:') %]</th>
             <td>1 [% cdtoc.track_count %] [% cdtoc.leadout_offset %]
-                [%- FOREACH i IN cdtoc.track_offset; i _ ' '; END %]</td>
+                [% cdtoc.track_offset.join(' ') %]</td>
         </tr>
 
         <tr>
