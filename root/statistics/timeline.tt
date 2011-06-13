@@ -154,8 +154,7 @@
   //]]></script>
 [% END %]
 
-[%- WRAPPER "layout.tt" usesRDFa=1 title="Timeline!" -%]
-<div id="sidebar">
+[%- sidebar = BLOCK -%]
     <h2>Legend</h2><div id="graph-legend"></div>
     <h2>Controls</h2><div id="graph-controls">
         <p><strong>To Zoom:</strong> select a rectangle
@@ -166,8 +165,8 @@
         <div id="graph-lines">
         </div>
     </div>
-</div>
-<div id="content">
+[%- END -%]
+
+[%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]
 <div id="graph-container"></div>
-</div>
 [% END %]

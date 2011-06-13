@@ -85,6 +85,11 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         return false;
     };
 
+    self.clearSelection = function() {
+        self.$id.val('');
+        self.updateLookupPerformed ();
+    };
+
     self.updateLookupPerformed = function ()
     {
         if (self.$id.val ())
@@ -119,7 +124,8 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
     MB.Control.Autocomplete ({
         'input': self.$name,
         'entity': 'label',
-        'select': self.selected
+        'select': self.selected,
+        'clearSelection': self.clearSelection
     });
 
     self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });

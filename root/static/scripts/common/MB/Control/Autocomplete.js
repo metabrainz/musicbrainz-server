@@ -290,9 +290,14 @@ MB.Control.Autocomplete = function (options) {
 
     self.select = function (event, data) {
         event.preventDefault ();
-
+        self.currentSelection = data.item;
         return data.item.action ? data.item.action () : options.select (event, data.item);
     };
+
+    self.clearSelection = function() {
+        if (!options.clearSelection) return;
+        return options.clearSelection();
+    }
 
     /* iamfeelinglucky is used in selenium tests.
 
@@ -338,6 +343,12 @@ MB.Control.Autocomplete = function (options) {
             self.$input.trigger ("keydown");
         });
         self.$input.bind ('iamfeelinglucky', self.iamfeelinglucky);
+        self.$input.bind ('blur', function(event) {
+            if (!self.currentSelection) return;
+            if (self.currentSelection.name !== self.$input.val()) {
+                self.clearSelection();
+            }
+        });
 
         self.$search.bind ('click.mb', function (event) {
             self.searchAgain ();
@@ -374,6 +385,8 @@ MB.Control.Autocomplete = function (options) {
                 MB.Control.autocomplete_formatters['generic'];
         }
     };
+
+    self.currentSelection = null;
 
     self.$input = options.input;
     self.$search = self.$input.closest ('span.autocomplete').find('img.search');

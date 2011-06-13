@@ -1,0 +1,22 @@
+[%- info_links = [
+    ['index', '<span class="mp"><a href="/statistics">Overview</a></span>']
+    ['artist_countries', '<span class="mp"><a href="/statistics/artist-countries">Artist Countries</a></span>'],
+    ['timeline', '<span class="mp"><a href="/statistics/timeline">Timeline</a></span>'],
+] -%]
+
+[%- IF full_width -%]
+[%- WRAPPER "layout.tt" title="${title}" full_width=1 -%]
+        [% INCLUDE 'components/tabs.tt' list=info_links %]
+        [%- content -%]
+[%- END -%]
+[%- ELSE -%]
+[%- WRAPPER "layout.tt" title="${title}" -%]
+    <div id="sidebar">
+        [%- sidebar -%]
+    </div>
+    <div id="content">
+        [% INCLUDE 'components/tabs.tt' list=info_links %]
+        [%- content -%]
+    </div>
+[%- END -%]
+[%- END -%]
