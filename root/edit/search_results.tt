@@ -27,29 +27,7 @@
         <h1>[% l('Search for Edits') %]</h1>
 
         [% WRAPPER search_form %]
-        [% FOR field=query.predicates %]
-          <li class="condition">
-            [% select_field(field) %]
-            <span class="field-container">
-            [% SWITCH field.meta.name;
-                 CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
-                   predicate_id(field.field_name, field);
-                 CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
-                   SWITCH field.field_name;
-                     CASE 'type';
-                       predicate_set(field.field_name, edit_types, loop.index);
-                     CASE 'status';
-                       predicate_set(field.field_name, status, loop.index);
-                   END;
-                 CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
-                   predicate_date(field.field_name, field);
-               END %]
-            [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
-                 predicate_link(field.field_name, field);
-               END %]
-            </span>
-          </li>
-        [% END %]
+        
         [% END %]
 
         [% INCLUDE 'edit/list.tt' guess_search=1 %]
