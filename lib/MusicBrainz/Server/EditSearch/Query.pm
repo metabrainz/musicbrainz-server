@@ -90,10 +90,12 @@ has fields => (
 sub new_from_user_input {
     my ($class, $user_input) = @_;
     my $input = expand_hash($user_input);
+    my $ae = $input->{auto_edit_filter};
+    $ae = undef if $ae =~ /^\s*$/;
     return $class->new(
         negate => $input->{negation},
         combinator => $input->{combinator},
-        auto_edit_filter => $input->{auto_edit_filter},
+        auto_edit_filter => $ae,
         fields => [
             map {
                 $class->_construct_predicate($_)
