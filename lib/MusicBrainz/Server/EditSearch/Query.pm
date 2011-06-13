@@ -35,7 +35,8 @@ has negate => (
 has combinator => (
     isa => enum([qw( or and )]),
     is => 'ro',
-    required => 1
+    required => 1,
+    default => 'and'
 );
 
 has join => (
@@ -70,13 +71,13 @@ has where => (
     }
 );
 
-has predicates => (
+has fields => (
     isa => ArrayRef[ role_type('MusicBrainz::Server::EditSearch::Predicate') ],
     is => 'bare',
     required => 1,
     traits => [ 'Array' ],
     handles => {
-        predicates => 'elements',
+        fields => 'elements',
     }
 );
 
@@ -86,7 +87,7 @@ sub new_from_user_input {
     return $class->new(
         negate => $input->{negation},
         combinator => $input->{combinator},
-        predicates => [
+        fields => [
             map {
                 $class->_construct_predicate($_)
             } grep { defined } @{ $input->{conditions} }
@@ -106,13 +107,13 @@ sub _construct_predicate {
 sub valid {
     my $self = shift;
     my $valid = 1;
-    $valid &&= $_->valid for $self->predicates;
+    $valid &&= $_->valid for $self->fields;
     return $valid
 }
 
 sub as_string {
     my $self = shift;
-    $_->combine_with_query($self) for $self->predicates;
+    $_->combine_with_query($self) for $self->fields;
     my $comb = $self->combinator;
     return 'SELECT edit.* FROM edit ' .
         join(' ', $self->join) .
