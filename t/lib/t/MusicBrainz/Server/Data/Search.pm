@@ -114,7 +114,7 @@ is ( @{$data->{results} }, 25 );
 my $annotation = $data->{results}->[0]->{entity};
 is ( $annotation->parent->name, 'Priscilla Angelique' );
 is ( $annotation->parent->gid, 'f3834a4c-5615-429e-b74d-ab3bc400186c' );
-is ( $annotation->text, "<p>Soul Love</p>\n" );
+is ( $annotation->text, "Soul Love" );
 
 
 

@@ -33,8 +33,8 @@ memory_cycle_ok($artist_data, 'new artist data does not have memory cycles');
 # Test fetching artists:
 
 # An artist with all attributes populated
-my $artist = $artist_data->get_by_id(1);
-is ( $artist->id, 1 );
+my $artist = $artist_data->get_by_id(3);
+is ( $artist->id, 3 );
 is ( $artist->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
 is ( $artist->name, "Test Artist" );
 is ( $artist->sort_name, "Artist, Test" );
@@ -59,8 +59,8 @@ memory_cycle_ok($artist_data, 'artist data does not leak after load_meta');
 memory_cycle_ok($artist, 'artist entity has no cycles after load_meta');
 
 # An artist with the minimal set of required attributes
-$artist = $artist_data->get_by_id(2);
-is ( $artist->id, 2 );
+$artist = $artist_data->get_by_id(4);
+is ( $artist->id, 4 );
 is ( $artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
 is ( $artist->name, "Minimal Artist" );
 is ( $artist->sort_name, "Minimal Artist" );
@@ -80,19 +80,19 @@ memory_cycle_ok($artist, 'artist entity has no cycles after get_by_id');
 # Test annotations
 
 # Fetching annotations
-my $annotation = $artist_data->annotation->get_latest(1);
+my $annotation = $artist_data->annotation->get_latest(3);
 like ( $annotation->text, qr/Test annotation 1/ );
 
 memory_cycle_ok($artist_data, 'artist data does not leak after get_latest annotation');
 memory_cycle_ok($annotation, 'annotation entity has no cycles after get_latest annotation');
 
 # Merging annotations
-$artist_data->annotation->merge(2, 1);
-$annotation = $artist_data->annotation->get_latest(1);
+$artist_data->annotation->merge(4, 3);
+$annotation = $artist_data->annotation->get_latest(3);
 ok(!defined $annotation);
 
-$annotation = $artist_data->annotation->get_latest(2);
-like ( $annotation->text, qr/Test annotation 1/ );
+$annotation = $artist_data->annotation->get_latest(4);
+like ( $annotation->text, qr/Test annotation 2/ );
 
 memory_cycle_ok($annotation, 'annotation entity has no cycles after get_latest annotation');
 memory_cycle_ok($artist_data, 'artist data does not leak after merging annotations');
@@ -103,8 +103,8 @@ TODO: {
 }
 
 # Deleting annotations
-$artist_data->annotation->delete(2);
-$annotation = $artist_data->annotation->get_latest(2);
+$artist_data->annotation->delete(4);
+$annotation = $artist_data->annotation->get_latest(4);
 ok(!defined $annotation);
 
 memory_cycle_ok($artist_data, 'artist data does not leak after deleting annotations');
@@ -152,7 +152,7 @@ $artist = $artist_data->insert({
         ipi_code => '00014107339',
     });
 isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
-ok($artist->id > 2);
+ok($artist->id > 4);
 memory_cycle_ok($artist_data, 'artist data does not leak after insert');
 memory_cycle_ok($artist, 'artist entity from insert does not leak');
 
@@ -217,55 +217,55 @@ ok(!defined $artist);
 # ---
 # Gid redirections
 $artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
-is ( $artist->id, 1 );
+is ( $artist->id, 3 );
 memory_cycle_ok($artist_data, 'artist data does not leak after get_by_gid');
 memory_cycle_ok($artist, 'artist entity does not leak after get_by_gid');
 
-$artist_data->remove_gid_redirects(1);
+$artist_data->remove_gid_redirects(3);
 $artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
 ok(!defined $artist);
 memory_cycle_ok($artist_data, 'artist data does not leak after remove_gid_redirects');
 
 $artist_data->add_gid_redirects(
-    '20bb5c20-5dbf-11de-8a39-0800200c9a66' => 1,
-    '2adff2b0-5dbf-11de-8a39-0800200c9a66' => 2,
+    '20bb5c20-5dbf-11de-8a39-0800200c9a66' => 3,
+    '2adff2b0-5dbf-11de-8a39-0800200c9a66' => 4,
 );
 
 memory_cycle_ok($artist_data, 'artist data does not leak after add_gid_redirects');
 
 $artist = $artist_data->get_by_gid('20bb5c20-5dbf-11de-8a39-0800200c9a66');
-is($artist->id, 1);
+is($artist->id, 3);
 
 $artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
-is($artist->id, 2);
+is($artist->id, 4);
 
-$artist_data->update_gid_redirects(1, 2);
+$artist_data->update_gid_redirects(3, 4);
 
 memory_cycle_ok($artist_data, 'artist data does not leak after update_gid_redirects');
 
 $artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
-is($artist->id, 1);
+is($artist->id, 3);
 
-$artist_data->merge(1, [ 2 ]);
+$artist_data->merge(3, [ 4 ]);
 memory_cycle_ok($artist_data, 'artist data does not leak after merge');
-$artist = $artist_data->get_by_id(2);
+$artist = $artist_data->get_by_id(4);
 ok(!defined $artist);
 
-$artist = $artist_data->get_by_id(1);
+$artist = $artist_data->get_by_id(3);
 ok(defined $artist);
 is($artist->name, 'Test Artist');
 
 # ---
 # Checking when an artist is in use or not
 
-ok($artist_data->can_delete(1));
+ok($artist_data->can_delete(3));
 memory_cycle_ok($artist_data, 'artist data does not leak after can_delete');
 
 my $ac = $test->c->model('ArtistCredit')->find_or_insert(
     {
-        names => [ { artist => { id => 1, name => 'Calibre' }, name => 'Calibre' } ]
+        names => [ { artist => { id => 3, name => 'Calibre' }, name => 'Calibre' } ]
     });
-ok($artist_data->can_delete(1));
+ok($artist_data->can_delete(3));
 
 my $rec = $test->c->model('Recording')->insert({
     name => "Love's Too Tight Too Mention",
@@ -273,7 +273,7 @@ my $rec = $test->c->model('Recording')->insert({
     comment => 'Drum & bass track',
 });
 
-ok(!$artist_data->can_delete(1));
+ok(!$artist_data->can_delete(3));
 
 $sql->commit;
 $raw_sql->commit;

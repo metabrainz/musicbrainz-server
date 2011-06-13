@@ -42,18 +42,18 @@ my $queue;
 $c->model('Edit')->create(
     edit_type => $EDIT_ARTIST_DELETE,
     editor_id => 1,
-    to_delete => $c->model('Artist')->get_by_id(1)
+    to_delete => $c->model('Artist')->get_by_id(3)
 );
 
 $c->model('Edit')->create(
     edit_type => $EDIT_ARTIST_DELETE,
     editor_id => 1,
-    to_delete => $c->model('Artist')->get_by_id(2)
+    to_delete => $c->model('Artist')->get_by_id(4)
 );
 
 my $edit = $c->model('Edit')->get_by_id(100);
 
-my $artist = $c->model('Artist')->get_by_id(1);
+my $artist = $c->model('Artist')->get_by_id(3);
 is($artist->edits_pending, 1);
 
 $c->model('Edit')->cancel($edit);
@@ -64,7 +64,7 @@ is($edit->status, $STATUS_TOBEDELETED);
 $edit = $c->model('Edit')->get_by_id(101);
 is($edit->status, $STATUS_OPEN);
 
-$artist = $c->model('Artist')->get_by_id(2);
+$artist = $c->model('Artist')->get_by_id(4);
 is($artist->edits_pending, 1);
 
 # Close a to-be-deleted edit

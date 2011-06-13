@@ -21,21 +21,21 @@ INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
 INSERT INTO editor (id, name, password) VALUES (4, 'modbot', 'pass');
 EOSQL
 
-my $artist = $c->model('Artist')->get_by_id(1);
+my $artist = $c->model('Artist')->get_by_id(3);
 
 my $edit = _create_edit($c, $artist);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Delete');
 
-my ($edits, $hits) = $c->model('Edit')->find({ artist => 1 }, 10, 0);
+my ($edits, $hits) = $c->model('Edit')->find({ artist => 3 }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(3);
 is($artist->edits_pending, 1);
 
 # Test rejecting the edit
 reject_edit($c, $edit);
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(3);
 ok(defined $artist);
 is($artist->edits_pending, 0);
 
@@ -43,7 +43,7 @@ is($artist->edits_pending, 0);
 # This should fail as the artist has a recording linked
 $edit = _create_edit($c, $artist);
 accept_edit($c, $edit);
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(3);
 is($edit->status, $STATUS_FAILEDDEP);
 ok(defined $artist);
 
@@ -57,7 +57,7 @@ Sql::run_in_transaction(
 
 $edit = _create_edit($c, $artist);
 accept_edit($c, $edit);
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(3);
 ok(!defined $artist);
 
 };
