@@ -4,6 +4,7 @@ use Test::More;
 
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::DeleteAlias }

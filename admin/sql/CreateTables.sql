@@ -172,43 +172,43 @@ CREATE TABLE edit_note
 CREATE TABLE edit_artist
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    artist              INTEGER NOT NULL  -- PK, references artist.id
+    artist              INTEGER NOT NULL  -- PK, references artist.id CASCADE
 );
 
 CREATE TABLE edit_label
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    label               INTEGER NOT NULL  -- PK, references label.id
+    label               INTEGER NOT NULL  -- PK, references label.id CASCADE
 );
 
 CREATE TABLE edit_release
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    release             INTEGER NOT NULL  -- PK, references release.id
+    release             INTEGER NOT NULL  -- PK, references release.id CASCADE
 );
 
 CREATE TABLE edit_release_group
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    release_group       INTEGER NOT NULL  -- PK, references release_group.id
+    release_group       INTEGER NOT NULL  -- PK, references release_group.id CASCADE
 );
 
 CREATE TABLE edit_recording
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    recording           INTEGER NOT NULL  -- PK, references recording.id
+    recording           INTEGER NOT NULL  -- PK, references recording.id CASCADE
 );
 
 CREATE TABLE edit_work
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    work                INTEGER NOT NULL  -- PK, references work.id
+    work                INTEGER NOT NULL  -- PK, references work.id CASCADE
 );
 
 CREATE TABLE edit_url
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    url                 INTEGER NOT NULL  -- PK, references url.id
+    url                 INTEGER NOT NULL  -- PK, references url.id CASCADE
 );
 
 CREATE TABLE editor

@@ -137,7 +137,8 @@ ALTER TABLE edit_artist
 ALTER TABLE edit_artist
    ADD CONSTRAINT edit_artist_fk_artist
    FOREIGN KEY (artist)
-   REFERENCES artist(id);
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE edit_label
    ADD CONSTRAINT edit_label_fk_edit
@@ -147,7 +148,8 @@ ALTER TABLE edit_label
 ALTER TABLE edit_label
    ADD CONSTRAINT edit_label_fk_label
    FOREIGN KEY (label)
-   REFERENCES label(id);
+   REFERENCES label(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE edit_note
    ADD CONSTRAINT edit_note_fk_editor
@@ -167,7 +169,8 @@ ALTER TABLE edit_recording
 ALTER TABLE edit_recording
    ADD CONSTRAINT edit_recording_fk_recording
    FOREIGN KEY (recording)
-   REFERENCES recording(id);
+   REFERENCES recording(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE edit_release
    ADD CONSTRAINT edit_release_fk_edit
@@ -177,7 +180,8 @@ ALTER TABLE edit_release
 ALTER TABLE edit_release
    ADD CONSTRAINT edit_release_fk_release
    FOREIGN KEY (release)
-   REFERENCES release(id);
+   REFERENCES release(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE edit_release_group
    ADD CONSTRAINT edit_release_group_fk_edit
@@ -187,7 +191,8 @@ ALTER TABLE edit_release_group
 ALTER TABLE edit_release_group
    ADD CONSTRAINT edit_release_group_fk_release_group
    FOREIGN KEY (release_group)
-   REFERENCES release_group(id);
+   REFERENCES release_group(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE edit_url
    ADD CONSTRAINT edit_url_fk_edit
@@ -197,7 +202,8 @@ ALTER TABLE edit_url
 ALTER TABLE edit_url
    ADD CONSTRAINT edit_url_fk_url
    FOREIGN KEY (url)
-   REFERENCES url(id);
+   REFERENCES url(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE edit_work
    ADD CONSTRAINT edit_work_fk_edit
@@ -207,7 +213,8 @@ ALTER TABLE edit_work
 ALTER TABLE edit_work
    ADD CONSTRAINT edit_work_fk_work
    FOREIGN KEY (work)
-   REFERENCES work(id);
+   REFERENCES work(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE editor_collection
    ADD CONSTRAINT editor_collection_fk_editor

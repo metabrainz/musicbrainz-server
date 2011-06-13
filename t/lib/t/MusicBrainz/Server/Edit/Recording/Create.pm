@@ -23,6 +23,7 @@ EOSQL
     $test->$orig(@args);
 };
 
+with 't::Edit';
 with 't::Context';
 
 has edit => (
@@ -75,8 +76,6 @@ INSERT INTO tracklist (id) VALUES (1);
 INSERT INTO track (id, tracklist, artist_credit, name, recording, position)
     VALUES (1, 1, (SELECT id FROM artist_credit LIMIT 1),
                   (SELECT id FROM track_name LIMIT 1), ' . $edit->entity_id . ", 1);
-INSERT INTO editor (id, name, password) VALUES (1, 'Editor', 'ed1t0r');
-INSERT INTO editor (id, name, password) VALUES (4, 'ModBot', 'm0db0+');
 ");
 
     reject_edit($test->c, $edit);

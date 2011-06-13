@@ -4,6 +4,7 @@ use Test::More;
 use Test::Fatal;
 use Test::Deep qw( cmp_set );
 
+with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
@@ -67,10 +68,6 @@ test 'Edits are rejected if the tracklist has changed since edit creation' => su
     my $test = shift;
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
-INSERT INTO editor (id, name, password) VALUES (4, 'modbot', 'pass');
-EOSQL
 
     my $medium = $c->model('Medium')->get_by_id(1);
     my $edit1 = create_edit($c, $medium);
