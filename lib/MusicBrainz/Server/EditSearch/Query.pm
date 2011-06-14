@@ -5,11 +5,11 @@ use CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
-
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
+use Try::Tiny;
 
 my %field_map = (
     id => 'MusicBrainz::Server::EditSearch::Predicate::ID',
@@ -106,11 +106,13 @@ sub new_from_user_input {
 
 sub _construct_predicate {
     my ($class, $input) = @_;
-    my $predicate_class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
-    return $predicate_class->new_from_input(
-        $input->{field},
-        $input
-    );
+    return try {
+        my $predicate_class = $field_map{$input->{field}} or die 'No predicate for field ' . $input->{field};
+        $predicate_class->new_from_input(
+            $input->{field},
+            $input
+        )
+    } catch { return () };
 }
 
 sub valid {
