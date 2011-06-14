@@ -120,4 +120,6 @@ $(function() {
     $('ul.conditions input.autocomplete').each(function() {
         setupAutocomplete($(this));
     });
+
+    MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');
 });
