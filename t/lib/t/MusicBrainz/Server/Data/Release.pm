@@ -291,9 +291,7 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 
-$raw_sql->begin;
 $sql->begin;
 
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
@@ -331,7 +329,6 @@ ok(defined $release);
 $release = $release_data->get_by_id(7);
 ok(!defined $release);
 
-$raw_sql->commit;
 $sql->commit;
 
 };

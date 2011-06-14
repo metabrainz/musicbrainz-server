@@ -54,20 +54,22 @@ EOSQL
 # Acquire an exclusive lock on the edit
 test 'Test locks on edits' => sub {
     my $test = shift;
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
-    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
+    # We have to have some data present outside transactions.
     my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection(
         'READWRITE',
         fresh => 1
     );
 
-    # We have to have some data present outside transactions.
+    $foreign_connection->dbh->do("INSERT INTO editor (id, name, password)
+                                      VALUES (50, 'editor', 'password')");
     $foreign_connection->dbh->do(
         q{INSERT INTO edit (id, editor, type, status, data, expire_time)
-             VALUES (12345, 1, 123, 1, '{ "key": "value" }', NOW())}
+             VALUES (12345, 50, 123, 1, '{ "key": "value" }', NOW())}
          );
+
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
+    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
     my $sql2 = Sql->new($foreign_connection->dbh);
     $sql2->begin;
@@ -79,12 +81,12 @@ test 'Test locks on edits' => sub {
     # Release the lock
     $sql2->rollback;
     $foreign_connection->dbh->do('DELETE FROM edit WHERE id = 12345');
+    $foreign_connection->dbh->do('DELETE FROM editor WHERE id = 50');
 };
 
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 memory_cycle_ok($edit_data);
@@ -218,7 +220,6 @@ test 'Find edits by subscription' => sub {
     use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
     my $test = shift;
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 

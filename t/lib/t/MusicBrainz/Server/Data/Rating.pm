@@ -30,9 +30,12 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, "
 
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
-");
-MusicBrainz::Server::Test->prepare_raw_test_database($test->c, "
-    TRUNCATE artist_rating_raw CASCADE;
+
+    INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'password'),
+                                                   (2, 'editor2', 'password'),
+                                                   (3, 'editor3', 'password'),
+                                                   (4, 'editor4', 'password');
+
     INSERT INTO artist_rating_raw (artist, editor, rating)
         VALUES (1, 1, 50), (2, 2, 50), (1, 3, 40), (1, 4, 10);
 ");

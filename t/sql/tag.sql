@@ -3,10 +3,6 @@ SET client_min_messages TO 'WARNING';
 
 
 
-
-
-
-
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1');
 INSERT INTO artist_name (id, name) VALUES (2, 'Artist 2');
 
