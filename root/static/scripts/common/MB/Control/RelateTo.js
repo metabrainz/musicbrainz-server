@@ -31,7 +31,8 @@ MB.Control.RelateTo = function () {
     }
 
     self.$link = $('a[href=#relate_to]');
-    self.$select = self.$relate.find ('select');
+    self.$select = self.$relate.find ('select.select:first');
+    self.$endpoint = self.$relate.find('select.endpoint');
     self.$type0 = self.$relate.find ('input.type');
     self.$gid0 = self.$relate.find ('input.gid');
     self.$input = self.$relate.find ('input.entity');
@@ -58,14 +59,28 @@ MB.Control.RelateTo = function () {
     }
 
     self.createRelationship = function (event) {
-        var location = '/edit/relationship/create';
-        var query_string = $.param ({
-            type0: cleanType(self.$type0.val()),
-            type1: cleanType(self.selected_item.type),
-            entity0: self.$gid0.val (),
-            entity1: self.selected_item.gid,
-            returnto: window.location.toString()
-        });
+        var endpoint = self.$endpoint.val(),
+            location,
+            query_string;
+        if (endpoint && endpoint == 'recording') {
+            location = '/edit/relationship/create-recordings';
+            query_string = $.param ({
+                release: self.$gid0.val (),
+                type: cleanType(self.selected_item.type),
+                gid: self.selected_item.gid,
+                returnto: window.location.toString()
+            });
+        }
+        else {
+            location = '/edit/relationship/create';
+            query_string = $.param ({
+                type0: cleanType(self.$type0.val()),
+                type1: cleanType(self.selected_item.type),
+                entity0: self.$gid0.val (),
+                entity1: self.selected_item.gid,
+                returnto: window.location.toString()
+            });
+        }
 
         window.location = location + '?' + query_string;
     };

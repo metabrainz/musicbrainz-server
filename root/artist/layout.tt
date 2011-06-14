@@ -14,14 +14,24 @@
                content=html_escape(artist.gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
-                [% date_period_label = artist.type_id == 1 ? l('Born:') : l('Active:') %]
-                [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                    [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &ndash;
-                    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
-                    [% IF artist.has_age %]
-                      ([% rdfa_artist_age(display_age (artist.age)) %])
+                    [%- IF artist.begin_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
+                            [% date_period_label = artist.type_id == 1 ? l('Born:') : l('Founded:') %]
+                            [% rdfa_begin_date_artist(artist.begin_date.format) %]
+                            [% IF artist.has_age AND not artist.end_date.format %]
+                                ([% rdfa_artist_age(display_age (artist.age)) %] ago)
+                            [% END %]
+                        [% END %]
+                    [%- END -%]
+                    [% IF artist.end_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
+                            [% date_period_label = artist.type_id == 1 ? l('Died:') : l('Dissolved:') %]
+                            [% rdfa_end_date_artist(artist.end_date.format) %]
+                            [% IF artist.has_age %]
+                                ([% rdfa_artist_age(display_age (artist.age)) %])
+                            [% END %]
+                        [% END %]
                     [% END %]
-                [% END %]
             [%- END -%]
             [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
