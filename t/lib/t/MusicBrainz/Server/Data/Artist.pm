@@ -276,7 +276,6 @@ my $rec = $test->c->model('Recording')->insert({
 
 ok(!$artist_data->can_delete(3));
 
-
     # ---
     # Missing entities search
     $artist = $artist_data->insert({
@@ -294,7 +293,6 @@ ok(!$artist_data->can_delete(3));
     my @testartists = sort_by { $_->comment } @{ $found->{'Test Artist'} };
     is($testartists[0]->comment, 'J-Pop artist');
     is($testartists[1]->comment, 'Yet Another Test Artist');
-
 
 $sql->commit;
 $raw_sql->commit;

@@ -1,2 +1,3 @@
 lib/flot/jquery.flot.js
 lib/flot/jquery.flot.selection.js
+lib/jquery/jquery.ba-hashchange.js

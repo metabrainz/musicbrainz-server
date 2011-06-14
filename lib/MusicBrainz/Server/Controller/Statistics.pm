@@ -2,6 +2,9 @@ package MusicBrainz::Server::Controller::Statistics;
 use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
+use MusicBrainz::Server::Data::Country;
+use List::UtilsBy qw( rev_nsort_by );
+
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub statistics : Path('')
@@ -28,9 +31,31 @@ sub timeline : Local
         stats => {
             map {
                 $_ => $c->model('Statistics::ByName')->get_statistic($_)
-            } qw( count.artist count.release count.medium count.releasegroup count.label count.work )
+            } qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording )
         }
     )
+}
+
+sub artist_countries : Path('artist-countries')
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $artist_country_prefix = 'count.artist.country';
+    my $artist_stats = [];
+    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+       if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
+            push(@$artist_stats, ({'entity' => $countries{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+       }
+    }
+
+    $c->stash(
+        template => 'statistics/artist_countries.tt',
+        stats    => $artist_stats,
+        date_collected => $stats->{date_collected}
+    );
 }
 
 =head1 LICENSE

@@ -47,7 +47,8 @@ sub build_display_data
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
         artist     => $loaded->{Artist}->{ $self->entity_id } ||
-            Artist->new( name => $self->data->{name} )
+            Artist->new( name => $self->data->{name} ),
+        ipi_code   => $self->data->{ipi_code},
     };
 }
 
@@ -71,6 +72,16 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{sort_name} ||= $data->{name};
     return $data;
+};
+
+after insert => sub {
+    my ($self) = @_;
+    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
+    $self->c->model('Editor')->load_preferences($editor);
+
+    if ($editor->preferences->subscribe_to_created_artists) {
+        $self->c->model('Artist')->subscription->subscribe($editor->id, $self->entity_id);
+    }
 };
 
 sub allow_auto_edit { 1 }

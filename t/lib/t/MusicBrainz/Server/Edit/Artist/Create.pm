@@ -19,6 +19,8 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
     TRUNCATE artist CASCADE;
+    INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
+    INSERT INTO editor (id, name, password) VALUES (4, 'modbot', 'pass');
 SQL
 
 my $edit = $c->model('Edit')->create(

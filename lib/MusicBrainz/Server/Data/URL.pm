@@ -6,8 +6,10 @@ use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
-    'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' };
+with
+    'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
+    'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
+    'MusicBrainz::Server::Data::Role::Merge';
 
 my %URL_SPECIALIZATIONS = (
     'ASIN' => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
@@ -61,7 +63,7 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::URL';
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
@@ -76,8 +78,8 @@ sub update
 {
     my ($self, $url_id, $url_hash) = @_;
     croak '$url_id must be present and > 0' unless $url_id > 0;
-    my $query = 'SELECT id FROM url WHERE url = ?';
-    if (my $merge = $self->sql->select_single_value($query, $url_hash->{url})) {
+    my $query = 'SELECT id FROM url WHERE url = ? AND id != ?';
+    if (my $merge = $self->sql->select_single_value($query, $url_hash->{url}, $url_id)) {
         $self->merge($merge, $url_id);
     }
     else {

@@ -483,7 +483,8 @@ BEGIN
     FOR artist_row IN
         SELECT * FROM artist
         WHERE edits_pending = 0
-          AND last_updated < NOW() - '1 day'::INTERVAL
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
     LOOP
         CONTINUE WHEN
         (
@@ -530,6 +531,12 @@ BEGIN
 END
 $BODY$
 LANGUAGE 'plpgsql' ;
+
+CREATE OR REPLACE FUNCTION deny_special_purpose_deletion() RETURNS trigger AS $$
+BEGIN
+    RAISE EXCEPTION 'Attempted to delete a special purpose row';
+END;
+$$ LANGUAGE 'plpgsql';
 
 COMMIT;
 -- vi: set ts=4 sw=4 et :

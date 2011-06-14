@@ -23,18 +23,6 @@ override 'foreign_keys' => sub {
     return $data;
 };
 
-override 'accept' => sub
-{
-    my $self = shift;
-    my $model = $self->c->model( $self->_delete_model );
-
-    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This entity cannot currently be deleted due to related data.'
-    ) if $model->in_use( $self->entity_id );
-
-    $model->delete($self->entity_id);
-};
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

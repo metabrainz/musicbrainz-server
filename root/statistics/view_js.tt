@@ -1,0 +1,537 @@
+/* Copyright (C) 2011 Ian McEwen
+   Copyright (C) 2011 MetaBrainz Foundation
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+*/
+
+(function(MB) {
+    $.extend(MB.text, {
+        Timeline: {
+            Category: {
+                "core-entities" : { Label: '[% l('Core Entities') %]' }
+            },
+            "count.artist": { Label: '[% l('Artists') %]', Color: 0, Description: '[% l('Count of all artists') %]', Category: "core-entities" },
+            "count.recording": { Label: '[% l('Recordings') %]', Color: 1, Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
+            "count.work": { Label: '[% l('Works') %]', Color: 2, Description: '[% l('Count of all works') %]', Category: "core-entities"  },
+            "count.medium": { Label: '[% l('Mediums') %]', Color: 3, Description: '[% l('Count of all mediums') %]', Category: "core-entities"  },
+            "count.release": { Label: '[% l('Releases') %]', Color: 4, Description: '[% l('Count of all releases') %]', Category: "core-entities"  },
+            "count.releasegroup": { Label: '[% l('Release Groups') %]', Color: 5, Description: '[% l('Count of all release groups') %]', Category: "core-entities"  },
+            "count.label": { Label: '[% l('Labels') %]', Color: 6, Description: '[% l('Count of all labels') %]', Category: "core-entities"  }
+        }
+    });
+})(MB);
+
+/*
+my %stats = (
+    "count.discid" => {
+        DESC => "Count of all disc IDs",
+        LABEL => "Disc IDs",
+    },
+    "count.edit" => {
+        DESC => "Count of all edits",
+        LABEL => "Edits",
+    },
+    "count.editor" => {
+        DESC => "Count of all editors",
+        LABEL => "Editors",
+    },
+    "count.barcode" => {
+        DESC => "Count of all unique Barcodes",
+        LABEL => "Barcodes",
+    },
+    "count.puid" => {
+        DESC => "Count of all PUIDs joined to recordings",
+        LABEL => "PUIDs",
+    },
+    "count.puid.ids" => {
+        DESC => "Count of unique PUIDs",
+        LABEL => "Unique PUIDs",
+    },
+    "count.track" => {
+        DESC => "Count of all tracks",
+        LABEL => "Tracks",
+    },
+    "count.artistcredit" => {
+        DESC => "Count of all artist credits",
+        LABEL => "Artist Credits",
+    },
+    "count.ipi" => {
+        DESC => "Count of IPI codes",
+        LABEL => "IPI codes",
+    },
+    "count.ipi.artist" => {
+        DESC => "Count of artists with an IPI code",
+        LABEL => "Artists with IPI code",
+    },
+    "count.ipi.label" => {
+        DESC => "Count of labels with an IPI code",
+        LABEL => "Labels with IPI code",
+    },
+    "count.isrc.all" => {
+        DESC => "Count of all ISRCs joined to recordings",
+        LABEL => "All ISRCs",
+    },
+    "count.isrc" => {
+        DESC => "Count of unique ISRCs",
+        LABEL => "ISRCs",
+    },
+    "count.iswc.all" => {
+        DESC => "Count of all works with an ISWC",
+        LABEL => "Works with ISWC",
+    },
+    "count.iswc" => {
+        DESC => "Count of unique ISWCs",
+        LABEL => "ISWCs",
+    },
+    "count.vote" => {
+        DESC => "Count of all votes",
+        LABEL => "Votes",
+    },
+    "count.releasegroup.Nreleases" => {
+        DESC => "Distribution of releases per releasegroup",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT release_count, COUNT(*) AS freq
+                FROM release_group_meta
+                GROUP BY release_count
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 0 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.releasegroup.".$_."releases" => $dist{$_}
+                } keys %dist
+            };
+        },
+        LABEL => "Releases per Release Group",
+    },
+    "count.release.various" => {
+        DESC => "Count of all 'Various Artists' releases",
+        LABEL => "Various Artists Releases",
+    },
+    "count.release.nonvarious" => {
+        DESC => "Count of all releases, other than 'Various Artists'",
+        LABEL => "Non-Various Artists Releases",
+    },
+    "count.medium.has_discid" => {
+        DESC => "Count of media with at least one disc ID",
+        LABEL => "Mediums with Disc ID",
+    },
+    "count.release.has_discid" => {
+        DESC => "Count of releases with at least one disc ID",
+        LABEL => "Releases with Disc ID",
+    },
+
+    "count.recording.has_isrc" => {
+        DESC => "Count of recordings with at least one ISRC",
+        LABEL => "Recordings with ISRC",
+    },
+    "count.recording.has_puid" => {
+        DESC => "Count of recordings with at least one PUID",
+        LABEL => "Recordings with PUID",
+    },
+
+    "count.edit.open" => {
+        DESC => "Count of open edits",
+        LABEL => "Open Edits",
+    },
+    "count.edit.applied" => {
+        DESC => "Count of applied edits",
+        LABEL => "Applied Edits",
+    },
+    "count.edit.failedvote" => {
+        DESC => "Count of edits which were voted down",
+        LABEL => "Voted-down Edits",
+    },
+    "count.edit.faileddep" => {
+        DESC => "Count of edits which failed their dependency check",
+        LABEL => "Dependency-failed Edits",
+    },
+    "count.edit.error" => {
+        DESC => "Count of edits which failed because of an internal error",
+        LABEL => "Internal-error Edits",
+    },
+    "count.edit.failedprereq" => {
+        DESC => "Count of edits which failed because a prerequisitite moderation failed",
+        LABEL => "Prerequisite-failed Edits",
+    },
+    "count.edit.tobedeleted" => {
+        DESC => "Count of edits marked as 'to be deleted'",
+        LABEL => "Edits to be deleted",
+    },
+    "count.edit.deleted" => {
+        DESC => "Count of deleted edits",
+        LABEL => "Deleted edits",
+    },
+    "count.edit.perday" => {
+        DESC => "Count of edits per day",
+        LABEL => "Edits per day",
+    },
+    "count.edit.perweek" => {
+        DESC => "Count of edits per week",
+        LABEL => "Edits per week",
+    },
+
+    "count.cdstub" => {
+        DESC => "Count of all existing CD Stubs",
+        LABEL => "Existing CD Stubs",
+    },
+    "count.cdstub.submitted" => {
+        DESC => "Count of all submitted CD Stubs",
+        LABEL => "All CD Stubs",
+    },
+    "count.cdstub.track" => {
+        DESC => "Count of all CD Stub tracks",
+        LABEL => "CD Stub tracks",
+    },
+
+    "count.vote.yes" => {
+        DESC => "Count of 'yes' votes",
+        LABEL => "Yes Votes",
+    },
+    "count.vote.no" => {
+        DESC => "Count of 'no' votes",
+        LABEL => "No Votes",
+    },
+    "count.vote.abstain" => {
+        DESC => "Count of 'abstain' votes",
+        LABEL => "Abstentions",
+    },
+    "count.vote.perday" => {
+        DESC => "Count of votes per day",
+        LABEL => "Votes per day",
+    },
+    "count.vote.perweek" => {
+        DESC => "Count of votes per week",
+        LABEL => "Votes per week",
+    },
+
+    # count active moderators in last week(?)
+    # editing / voting / overall
+
+    "count.editor.editlastweek" => {
+        DESC => "Count of editors who have submitted edits during the last week",
+        LABEL => "Active editors",
+    },
+    "count.editor.votelastweek" => {
+        DESC => "Count of editors who have voted on edits during the last week",
+        LABEL => "Active voters",
+    },
+    "count.editor.activelastweek" => {
+        DESC => "Count of active editors (editing or voting) during the last week",
+        LABEL => "Active users",
+    },
+    "count.tag" => {
+        DESC => "Count of all tags",
+        LABEL => "Tags",
+    },
+    "count.tag.raw.artist" => {
+        DESC => "Count of all artist raw tags",
+        LABEL => "Raw Artist Tags",
+    },
+    "count.tag.raw.label" => {
+        DESC => "Count of all label raw tags",
+        LABEL => "Raw Label Tags",
+    },
+    "count.tag.raw.releasegroup" => {
+        DESC => "Count of all release-group raw tags",
+        LABEL => "Raw Release Group Tags",
+    },
+    "count.tag.raw.release" => {
+        DESC => "Count of all release raw tags",
+        LABEL => "Raw Release Tags",
+    },
+    "count.tag.raw.recording" => {
+        DESC => "Count of all recording raw tags",
+        LABEL => "Raw Recording Tags",
+    },
+    "count.tag.raw.work" => {
+        DESC => "Count of all work raw tags",
+        LABEL => "Raw Work Tags",
+    },
+    "count.tag.raw" => {
+        DESC => "Count of all raw tags",
+        LABEL => "Raw Tags",
+    },
+    "count.rating.artist" => {
+        DESC => "Count of artist ratings",
+        LABEL => "Artist Ratings",
+    },
+    "count.rating.raw.artist" => {
+        DESC => "Count of all artist raw ratings",
+        LABEL => "Raw Artist Ratings",
+    },
+    "count.rating.releasegroup" => {
+        DESC => "Count of release group ratings",
+        LABEL => "Release Group Ratings",
+    },
+    "count.rating.raw.releasegroup" => {
+        DESC => "Count of all release group raw ratings",
+        LABEL => "Raw Release Group Ratings",
+    },
+    "count.rating.recording" => {
+        DESC => "Count of recording ratings",
+        LABEL => "Recording Ratings",
+    },
+    "count.rating.raw.recording" => {
+        DESC => "Count of all recording raw ratings",
+        LABEL => "Raw Recording Ratings",
+    },
+    "count.rating.label" => {
+        DESC => "Count of label ratings",
+        LABEL => "Label Ratings",
+    },
+    "count.rating.raw.label" => {
+        DESC => "Count of all label raw ratings",
+        LABEL => "Raw Label Ratings",
+    },
+    "count.rating.work" => {
+        DESC => "Count of work ratings",
+        LABEL => "Work Ratings",
+    },
+    "count.rating.raw.work" => {
+        DESC => "Count of all work raw ratings",
+        LABEL => "Raw Work Ratings",
+    },
+    "count.rating" => {
+        DESC => "Count of all ratings",
+        LABEL => "Ratings",
+    },
+    "count.rating.raw" => {
+        DESC => "Count of all raw ratings",
+        LABEL => "Raw Ratings",
+    },
+
+    "count.release.Ndiscids" => {
+        DESC => "Distribution of disc IDs per release (varying disc IDs)",
+        PREREQ => [qw[ count.release count.release.has_discid ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT medium.release, COUNT(*) AS c
+                    FROM medium_cdtoc
+                    JOIN medium ON medium_cdtoc.medium = medium.id
+                    GROUP BY medium.release
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            $dist{0} = $self->fetch("count.release")
+                - $self->fetch("count.release.has_discid");
+
+            +{
+                map {
+                    "count.release.".$_."discids" => $dist{$_}
+                } keys %dist
+            };
+        },
+        LABEL => "Disc IDs per Release",
+    },
+
+    "count.medium.Ndiscids" => {
+        DESC => "Distribution of disc IDs per medium (varying disc IDs)",
+        PREREQ => [qw[ count.medium count.medium.has_discid ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT medium, COUNT(*) AS c
+                    FROM medium_cdtoc
+                    GROUP BY medium
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            $dist{0} = $self->fetch("count.medium")
+                - $self->fetch("count.medium.has_discid");
+
+            +{
+                map {
+                    "count.medium.".$_."discids" => $dist{$_}
+                } keys %dist
+            };
+        },
+        LABEL => "Disc IDs per Medium",
+    },
+
+    "count.quality.release.high" => {
+        DESC => "Count of high quality releases",
+        LABEL => "High Quality Releases",
+    },
+    "count.quality.release.low" => {
+        DESC => "Count of low quality releases",
+        LABEL => "Low Quality Releases",
+    },
+    "count.quality.release.normal" => {
+        DESC => "Count of normal quality releases",
+        LABEL => "Normal Quality Releases",
+    },
+    "count.quality.release.unknown" => {
+        DESC => "Count of unknow quality releases",
+        LABEL => "Unknown Quality Releases",
+    },
+
+    "count.puid.Nrecordings" => {
+        DESC => "Distribution of recordings per PUID (collisions)",
+        LABEL => "Recordings per PUID",
+    },
+
+    "count.recording.Npuids" => {
+        DESC => "Distribution of PUIDs per recording (varying PUIDs)",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT recording, COUNT(*) AS c
+                    FROM recording_puid
+                    GROUP BY recording
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            $dist{0} = $self->fetch("count.recording")
+                - $self->fetch("count.recording.has_puid");
+            
+            +{
+                map {
+                    "count.recording.".$_."puids" => $dist{$_}
+                } keys %dist
+            };
+        },
+        LABEL => "PUIDs per Recording",
+    },
+
+    "count.recording.Nreleases" => {
+        DESC => "Distribution of appearances on releases per recording",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 10;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT r.id, count(*) AS c
+                    FROM recording r
+                        JOIN track t ON t.recording = r.id
+                        JOIN tracklist tl ON tl.id = t.tracklist
+                        JOIN medium m ON tl.id = m.tracklist
+                    GROUP BY r.id 
+                    UNION
+                    SELECT r.id, 0 AS c
+                    FROM recording r
+                        LEFT JOIN track t ON t.recording = r.id
+                    WHERE t.id IS NULL
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 0 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.recording.".$_."releases" => $dist{$_}
+                } keys %dist
+            };
+        },
+        LABEL => "Releases per Recording",
+    },
+
+    "count.ar.links" => {
+        DESC => "Count of all advanced relationships links",
+        LABEL => "Advanced Relationships",
+    },
+
+    (
+        map {
+            my ($l0, $l1) = @$_;
+            "count.ar.links.l_${l0}_${l1}" => {
+                DESC => "Count of $l0-$l1 advanced relationship links",
+                PREREQ => [qw( count.ar.links )],
+                PREREQ_ONLY => 1,
+                LABEL => "$l0-$l1 Advanced Relationships"
+            }
+        } MusicBrainz::Server::Data::Relationship->all_pairs
+    )
+);
+*/

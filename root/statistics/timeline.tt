@@ -1,6 +1,8 @@
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-{label: "[%- statistic.format_label() -%]", 
+{label: MB.text.Timeline["[%- statistic.name -%]"].Label, 
+ color: MB.text.Timeline["[%- statistic.name -%]"].Color, 
+ category: MB.text.Timeline["[%- statistic.name -%]"].Category,
  data: [ 
 [%- FOREACH date_collected = statistic.data.keys.sort -%]
 [ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- statistic.statistic_for(date_collected) -%] ],
@@ -8,110 +10,54 @@
 [% END %]
 
 [% BLOCK layout_head %]
+  <script type="text/javascript" src="[% c.uri_for('/statistics/view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
   <!--[if lte IE 8]><script src="/static/lib/flot/excanvas.min.js"></script><![endif]-->
+  <style type="text/css">
+      h2#graph-toggle-header {
+          margin-bottom: -10px;
+      }
+      #overview, #graph-container {
+          width: 100%;
+      }
+      #overview { height: 150px; }
+      #graph-container { height: 400px; }
+  </style>
+  <script src="/static/scripts/timeline.js"></script>
   <script type="text/javascript">//<![CDATA[
-        $(document).ready(function () {
-             var options = { xaxis: { mode: "time",
-                                      timeformat: "%y/%0m",
-                                      ticks: 20,
-                                      minTickSize: [1, "month"]},
-                             selection: { mode: "xy" },
-                             grid: { hoverable: true },
-                             legend: { container: $('#graph-legend'),
-                                       labelFormatter: function(label, series) {
-                                                           return '<a href="#" id="legend-' + label + '">' + label + '</a>';
-                                                       }}};
-             var overview_options = { legend: {show: false}, 
-                                      series: {lines: {lineWidth: 1}, shadowSize: 0},
-                                      xaxis: {mode: "time", tickSize: [1, "year"]}, 
-                                      yaxis: {tickFormatter: function () { return '' }}, 
-                                      selection: {mode: "xy"}}
-             var datasets = {[%- FOREACH dataset_key = stats.keys.sort -%]
-                 "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
-                 [%- END -%]}
-
-             function graph_data () {
-                 return [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ]
-             }
-
-             // Initialize
-             function resetPlot () {
-                 plot = $.plot($("#graph-container"), graph_data(), options);
-                 overview = $.plot($('#overview'), graph_data(), overview_options);
-             }
-             resetPlot();
-
-             // Make selections zoom
-             $('#graph-container').bind('plotselected', function (event, ranges) {
-                 // clamp the zooming to prevent eternal zoom
-                 if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
-                     ranges.xaxis.to = ranges.xaxis.from + 86400000;
-                 if (ranges.yaxis.to - ranges.yaxis.from < 1)
-                     ranges.yaxis.to = ranges.yaxis.from + 1;
-        
-                 // do the zooming
-                 plot = $.plot($("#graph-container"), [ [%- FOREACH dataset_key = stats.keys.sort -%]datasets["[%- dataset_key -%]"],[%- END -%] ],
-                               $.extend(true, {}, options, {
-                                   xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
-                                   yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
-                               }));
-             });
-             $('#overview').bind('plotselected', function(event, ranges) {
-                 plot.setSelection(ranges);
-             });
-
-             // "Reset Graph" functionality
-             $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(); });
-
-             // Hover functionality
-             function showTooltip(x, y, contents) {
-                  $('<div id="tooltip">' + contents + '</div>').css( {
-                      position: 'absolute',
-                      display: 'none',
-                      top: y + 5,
-                      left: x + 5,
-                      border: '1px solid #fdd',
-                      padding: '2px',
-                      'background-color': '#fee',
-                      opacity: 0.80
-                  }).appendTo("body").fadeIn(200);
-             }
-             previousPoint = null;
-             $('#graph-container').bind('plothover', function (event, pos, item) { 
-                 if(item) {
-                     if (previousPoint != item.dataIndex) {
-                         previousPoint = item.dataIndex;
-
-                         $("#tooltip").remove();
-                         var x = item.datapoint[0],
-                             y = item.datapoint[1],
-                             date = new Date(parseInt(x));
-
-                         if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
-                         if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
-
-                         showTooltip(item.pageX, item.pageY,
-                                     date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
-                     }
-                 } else {
-                     $('#tooltip').remove();
-                     previousPoint = null;
-                 }
-             });
-        });
+      $(document).ready(function () {
+      setup_graphing({[%- FOREACH dataset_key = stats.keys.sort -%]
+          "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
+          [%- END -%]},
+          { xaxis: { mode: "time",
+                     timeformat: "%y/%0m",
+                     ticks: 20,
+                     minTickSize: [1, "month"]},
+            selection: { mode: "xy" },
+            grid: { hoverable: true },
+            legend: { container: $('#graph-legend') }},
+          { legend: {show: false}, 
+            series: {lines: {lineWidth: 1}, shadowSize: 0},
+            xaxis: {mode: "time", tickSize: [1, "year"]}, 
+            yaxis: {tickFormatter: function () { return '' }}, 
+            selection: {mode: "xy"}});
+      });
   //]]></script>
 [% END %]
 
-[%- WRAPPER "layout.tt" usesRDFa=1 title="Timeline!" -%]
-<div id="sidebar">
+[%- sidebar = BLOCK -%]
     <h2>Legend</h2><div id="graph-legend"></div>
     <h2>Controls</h2><div id="graph-controls">
-        <p><strong>To Zoom:</strong> select a rectangle<br/><strong>To Reset:</strong> deselect</p>
-        <div id="overview" style="width: 100%; height: 150px;"></div>
+        <p><strong>To Zoom:</strong> select a rectangle
+        <br/><strong>To Reset:</strong> deselect
+        <br/><strong>To add/remove lines:</strong> Click boxes below</p>
+        <div id="overview"></div>
+    <h2 id="graph-toggle-header">Toggle Lines</h2>
+        <div id="graph-lines">
+        </div>
     </div>
-</div>
-<div id="content">
-<div id="graph-container" style="width:100%;height:400px;"></div>
-</div>
+[%- END -%]
+
+[%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]
+<div id="graph-container"></div>
 [% END %]
