@@ -477,7 +477,12 @@ sub _serialize_track
         if $track->length;
 
     $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
-        if $inc->artist_credits;
+        if $inc->artist_credits &&
+            (
+                ($track->recording &&
+                     $track->recording->artist_credit->signature ne $track->artist_credit->signature)
+                || !$track->recording
+            );
 
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
         if ($track->recording);

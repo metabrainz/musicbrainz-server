@@ -24,6 +24,17 @@ has 'artist_count' => (
     isa => 'Int'
 );
 
+sub signature {
+    my $self = shift;
+    return join(':', map {
+        join('|',
+             $_->artist_id,
+             $_->name,
+             $_->join_phrase || '',
+             )
+    } $self->all_names);
+}
+
 sub name
 {
     my ($self) = @_;
