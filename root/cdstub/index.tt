@@ -30,7 +30,7 @@
         <th>[%- l('Full TOC:') -%]</th>
         <td>
             1 [% cdstubtoc.track_count %] [% cdstubtoc.leadout_offset %]
-            [% FOREACH i IN cdstubtoc.track_offset; i _ ' '; END %]
+            [% cdstubtoc.track_offset.join(' ') %]
         </td>
       </tr>
     </table>
