@@ -89,7 +89,8 @@ sub valid {
     # Uncounted cardinality means anything is valid (or more than classes should implement this themselves)
     my $cardinality = $self->operator_cardinality($self->operator) or return 1;
     for my $arg_index (1..$cardinality) {
-        my $arg = $self->argument($arg_index - 1) or return;
+        my $arg = $self->argument($arg_index - 1);
+        defined $arg or return;
     }
 
     return 1;
