@@ -5,7 +5,7 @@
 [% END %]
 
 [% BLOCK search_form %]
-<form action="[% c.req.uri.path %]" method="get">
+<form action="[% c.req.uri.path %]" method="get" id="edit-search">
   <p>
     Show me
     <select name="auto_edit_filter">
@@ -75,7 +75,7 @@
     </li>
   </ul>
 
-  [% form_submit('Search') %]
+  <span id="edit-search-submit">[% form_submit('Search') %]</span>
 </form>
 [% PROCESS template_fields %]
 [% END %]
