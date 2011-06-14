@@ -188,7 +188,7 @@
                     <a href="[% c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) %]">[% l('Add Various Artists Release') %]</a>
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/recording/create') %]">[% l('Add Recording') %]</a>
+                    <a href="[% c.uri_for_action('/recording/create') %]">[% l('Add Standalone Recording') %]</a>
                 </li>
                 <li>
                     <a href="[% c.uri_for_action('/work/create') %]">[% l('Add Work') %]</a>
