@@ -268,6 +268,8 @@ MB.Control.Autocomplete = function (options) {
 
                 data = self.resultHook (data);
 
+                /* FIXME: this shouldn't be neccesary.  figure out why
+                 * this gets cleared on page switches. */
                 if (self.$input.val () == '')
                 {
                     self.$input.val (self.page_term);
