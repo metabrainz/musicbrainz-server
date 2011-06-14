@@ -107,12 +107,14 @@ $(function() {
             newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
-        selects.find('div').each(function() {
-            $(this).append(' ')
-                .append(MB.html.a({ href: '#', 'class': 'selectFilterPrev' }, '&#9668'))
-                .append(MB.html.input({ type: 'text', size: '7', 'class': 'selectFilter' }))
-                .append(MB.html.a({ href: '#', 'class': 'selectFilterNext' }, '&#9658;'));
-        });
+        if(selects.find('option').length > 20) {
+            selects.find('div').each(function() {
+                $(this).append(' ')
+                    .append(MB.html.a({ href: '#', 'class': 'selectFilterPrev' }, '&#9668'))
+                    .append(MB.html.input({ type: 'text', size: '7', 'class': 'selectFilter' }))
+                    .append(MB.html.a({ href: '#', 'class': 'selectFilterNext' }, '&#9658;'));
+            });
+        }
 
         selects.find('div:gt(0)').each(function() {
             $(this).append(' ')

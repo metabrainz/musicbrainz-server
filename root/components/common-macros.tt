@@ -73,6 +73,8 @@ END; -%]
             l('release groups');
         CASE 'editor';
             l('editors');
+        CASE 'work';
+            l('works');
         CASE DEFAULT;
             l('Error: Unknown Type');
     END -%]
@@ -286,12 +288,19 @@ END-%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>
 [%- END -%]
 
-[%- MACRO tagger_icon(release) BLOCK -%]
-    [% USE date %]
-    <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% release.gid %]&t=[% date.now %]"
-        target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
-        <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
-    </a>
+[%- MACRO tagger_icon(entity) BLOCK -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
+        [% USE date %]
+        <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
+            target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
+        </a>
+    [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
+        <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
+            target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
+        </a>
+    [%- END -%]
 [%- END -%]
 
 [%- MACRO piped_link_list(list) BLOCK -%]
