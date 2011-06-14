@@ -39,7 +39,14 @@
       <span class="field-container">
         [% SWITCH field.meta.name;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
-               predicate_id(field.field_name, field);
+               SWITCH field.field_name;
+                 CASE 'yes_votes';
+                   predicate_int(field.field_name, field);
+                 CASE 'no_votes';
+                   predicate_int(field.field_name, field);
+                 CASE DEFAULT;
+                   predicate_id(field.field_name, field);
+               END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
