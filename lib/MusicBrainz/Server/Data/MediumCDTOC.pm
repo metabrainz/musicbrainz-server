@@ -142,6 +142,17 @@ sub merge_mediums
     );
 }
 
+sub medium_has_cdtoc {
+    my ($self, $medium_id, $cdtoc) = @_;
+    return $self->sql->select_single_value(
+        'SELECT TRUE
+         FROM medium_cdtoc
+         JOIN cdtoc ON medium_cdtoc.cdtoc = cdtoc.id
+         WHERE medium = ? AND cdtoc.discid = ?',
+        $medium_id, $cdtoc->discid
+    ) || 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

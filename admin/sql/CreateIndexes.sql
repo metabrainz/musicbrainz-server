@@ -130,6 +130,7 @@ CREATE INDEX medium_idx_release ON medium (release);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
 
 CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
+CREATE UNIQUE INDEX medium_cdtoc_idx_uniq ON medium_cdtoc (medium, cdtoc);
 
 CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
 

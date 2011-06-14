@@ -100,6 +100,7 @@ DROP INDEX link_attribute_type_idx_gid;
 DROP INDEX link_idx_type_attr;
 DROP INDEX link_type_idx_gid;
 DROP INDEX medium_cdtoc_idx_medium;
+DROP INDEX medium_cdtoc_idx_uniq;
 DROP INDEX medium_idx_release;
 DROP INDEX medium_idx_tracklist;
 DROP INDEX puid_idx_puid;
