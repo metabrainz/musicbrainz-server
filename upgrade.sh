@@ -11,6 +11,14 @@ echo `date` : Adding special purpose row constraints
 echo `date` : "Creating additional artist and label name indexes (MBS-2347)."
 ./admin/psql READWRITE < admin/sql/updates/20110613-unaccent-lower-index.sql
 
+echo `date` : Fix add release label edits
+./admin/sql/updates/20110607-add-release-label.pl
+
+echo `date` : Disambiguating Discogs release URLs
+./admin/psql READWRITE < admin/sql/updates/20110608-READWRITE-backup-before.sql
+./admin/sql/updates/20110608-disambiguate-discogs-relationships.pl
+./admin/psql READWRITE < admin/sql/updates/20110608-READWRITE-backup-after.sql
+
 echo `date` : Done
 
 # eof

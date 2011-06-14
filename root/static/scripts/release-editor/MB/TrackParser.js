@@ -208,6 +208,11 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.parseTimes = function () {
+        if (!self.parent.trackTimes ())
+        {
+            return;
+        }
+
         var tmp = self.line.replace (/\s?\(\?:\?\?\)\s?$/, '');
         self.line = tmp.replace(/\s?\(?\s?([0-9０-９]*[：，．':,.][0-9０-９]+)\s?\)?$/,
             function (str, p1) {
@@ -506,6 +511,10 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
     self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
     self.variousArtists = function () { return self.disc.isVariousArtists (); };
+    self.trackTimes = function () {
+        /* don't parse track times if the disc has a toc. */
+        return self.hasToc () ? false : self.$tracktimes.is (':checked');
+    }
     self.hasToc = function () { return self.disc.hasToc (); };
 
     /* public variables. */
