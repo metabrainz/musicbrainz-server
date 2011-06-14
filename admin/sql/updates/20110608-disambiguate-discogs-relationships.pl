@@ -195,7 +195,7 @@ my @to_fix = @{
 			JOIN url ON url.id = lru.entity1
 			JOIN (SELECT tmplru.entity1 
 				FROM l_release_url tmplru
-					JOIN link tmplink ON (tmplink.id = tmplru.link AND tmplink.link_type = 76) 
+					JOIN link tmplink ON (tmplink.id = tmplru.link AND tmplink.link_type = 76)
 				GROUP BY entity1 HAVING COUNT(*) > 1
 			) tmp ON tmp.entity1 = lru.entity1
 		GROUP BY url_id, discogs_id
@@ -247,7 +247,7 @@ for my $row (@to_fix) {
         $c->sql->do("
             DELETE FROM l_release_url 
             USING link
-            WHERE link_type = 76 AND l_release_url.link = link.id AND (" 
+            WHERE link_type = 76 AND edits_pending = 0 AND l_release_url.link = link.id AND (" 
             . join(" OR ", ('(entity0, entity1) = (?,?)') x scalar(@wrong_links))  . ")",
             map { @$_ } @wrong_links
         ) if scalar(@wrong_links);
@@ -260,8 +260,7 @@ for my $row (@to_fix) {
 
 printf "Number of relationships deleted: %d\n", $deleted;
 
-$c->sql->rollback;
-#$c->sql->commit;
+$c->sql->commit;
 
 if ($@) {
     printf STDERR "ERROR: %s\n", $@;
