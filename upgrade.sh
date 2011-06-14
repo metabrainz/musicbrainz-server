@@ -23,6 +23,8 @@ echo `date` : Disambiguating Discogs release URLs
 ./admin/sql/updates/20110608-disambiguate-discogs-relationships.pl
 ./admin/psql READWRITE < admin/sql/updates/20110608-READWRITE-backup-after.sql
 
+echo `date` : Fix edit release label edits
+./admin/sql/updates/20110610-edit-release-label.pl
 
 echo `date` : Done
 
