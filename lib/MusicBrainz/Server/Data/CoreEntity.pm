@@ -82,11 +82,11 @@ sub find_by_names
 
     $self->c->sql->select($query, @names);
     my %ret;
-    while (1) {
-        my $row = $self->c->sql->next_row_hash_ref or last;
+    while (my $row = $self->c->sql->next_row_hash_ref)
+    {
         my $search_term = delete $row->{search_term};
 
-        $ret{$search_term} = [] unless defined $ret{$search_term};
+        $ret{$search_term} ||= [];
         push @{ $ret{$search_term} }, $self->_new_from_row ($row);
     }
     $self->c->sql->finish;
