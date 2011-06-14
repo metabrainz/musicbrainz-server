@@ -6,8 +6,8 @@
     [% IF edit.display_data.label %]
     <tr>
       <th>[% l('Label:') %]</th>
-      <td class="old">[% link_entity(edit.display_data.label.old) %]</td>
-      <td class="new">[% link_entity(edit.display_data.label.new) %]</td>
+      <td class="old">[% link_entity(edit.display_data.label.old) IF edit.data.old.label %]</td>
+      <td class="new">[% link_entity(edit.display_data.label.new) IF edit.data.new.label %]</td>
     </tr>
     [% END %]
     [% IF edit.display_data.catalog_number.new ||
