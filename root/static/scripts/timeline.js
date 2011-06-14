@@ -138,7 +138,7 @@ $(document).ready(function () {
                     $('#graph-lines').append('<h2 class="toggler"><input type="checkbox" checked />' + MB.text.Timeline.Category[value.category].Label + '</h2>');
                     $('#graph-lines').append('<div class="graph-category" id="category-' + value.category + '"></div>');
                 }
-                $("#graph-lines #category-" + value.category).append('<div class="graph-control" id="' + control_id_prefix + key + '"><input type="checkbox" checked />' + value.label + '</div>'); 
+                $("#graph-lines #category-" + value.category).append('<div class="graph-control" id="' + control_id_prefix + key + '"><input name="' + control_id_prefix + key + '" type="checkbox" checked /><div class="graph-color-swatch" style="background-color: ' + MB.text.Timeline[key].Color + ';"></div><label for="' + control_id_prefix + key + '">' + value.label + '</label></div>'); 
             }
         });
         // // Toggle functionality
@@ -147,6 +147,13 @@ $(document).ready(function () {
             var new_hash_part = $(this).parent('div').attr('id').substr((control_id_prefix + 'count.').length);
             var hide = (MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Hide ? true : false);
             change_hash(minus, new_hash_part, hide);
+	    
+	    if (minus) {
+		    $(this).siblings('div.graph-color-swatch').css('background-color', '#ccc');
+	    } else {
+		    $(this).siblings('div.graph-color-swatch').css('background-color',
+			    MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Color);
+	    }
 
             resetPlot();
         });
