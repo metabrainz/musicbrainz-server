@@ -34,6 +34,7 @@
   <ul class="conditions">
     [% FOR field=query.fields %]
     <li class="condition">
+      [% PROCESS remove %]
       [% select_field(field) %]
       <span class="field-container">
         [% SWITCH field.meta.name;
@@ -59,6 +60,7 @@
     </li>
     [% END %]
     <li id="extra-condition">
+      [% PROCESS remove %]
       [% select_field() %]
       <span class="field-container">
         <span class="field"></span>
@@ -69,6 +71,12 @@
   [% form_submit('Search') %]
 </form>
 [% PROCESS template_fields %]
+[% END %]
+
+[% BLOCK remove %]
+<button class="remove">
+  <image src="/static/images/icons/delete_row.png" alt="[% l('Delete') %]" />
+</button>
 [% END %]
 
 [% MACRO operators(operators, field_contents) BLOCK %]
