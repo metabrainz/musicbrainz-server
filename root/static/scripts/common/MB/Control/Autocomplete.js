@@ -283,6 +283,11 @@ MB.Control.Autocomplete = function (options) {
 
                 data = self.resultHook (data);
 
+                if (self.$input.val () == '')
+                {
+                    self.$input.val (self.page_term);
+                }
+
                 return response (data, result, request);
             }
         }));
