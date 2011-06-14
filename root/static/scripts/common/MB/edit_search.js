@@ -29,7 +29,13 @@ $(function() {
         newCondition.find('select:first')
             .addClass('field')
             .find('option:first').remove();
+
+        newCondition.find('button.remove').show();
     })
+
+    $('ul.conditions li.condition button.remove').live('click', function() {
+        $(this).parent('li').remove();
+    });
 
     $('ul.conditions select.field').live('change', function() {
         var val = $(this).val();
@@ -102,6 +108,7 @@ $(function() {
 
     $('ul.conditions li.condition span.field').show();
     $('ul.conditions li.condition select.operator').trigger('change');
+    $('ul.conditions li.condition button.remove').show();
 
     $('ul.conditions li.condition').each(function() {
         $(this).find(':input').each(function() {
@@ -113,4 +120,6 @@ $(function() {
     $('ul.conditions input.autocomplete').each(function() {
         setupAutocomplete($(this));
     });
+
+    MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');
 });

@@ -5,7 +5,7 @@
 [% END %]
 
 [% BLOCK search_form %]
-<form action="[% c.req.uri.path %]" method="get">
+<form action="[% c.req.uri.path %]" method="get" id="edit-search">
   <p>
     Show me
     <select name="auto_edit_filter">
@@ -19,13 +19,13 @@
       <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
     </select>
     <select name="combinator">
-      <option value="or"
-              [% 'selected="selected"' IF query.combinator == 'or' %]>
-        any
-      </option>
       <option value="and"
               [% 'selected="selected"' IF query.combinator == 'and' %]>
         all
+      </option>
+      <option value="or"
+              [% 'selected="selected"' IF query.combinator == 'or' %]>
+        any
       </option>
     </select>
     of the following conditions:
@@ -34,11 +34,19 @@
   <ul class="conditions">
     [% FOR field=query.fields %]
     <li class="condition">
+      [% PROCESS remove %]
       [% select_field(field) %]
       <span class="field-container">
         [% SWITCH field.meta.name;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
-               predicate_id(field.field_name, field);
+               SWITCH field.field_name;
+                 CASE 'yes_votes';
+                   predicate_int(field.field_name, field);
+                 CASE 'no_votes';
+                   predicate_int(field.field_name, field);
+                 CASE DEFAULT;
+                   predicate_id(field.field_name, field);
+               END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
@@ -59,6 +67,7 @@
     </li>
     [% END %]
     <li id="extra-condition">
+      [% PROCESS remove %]
       [% select_field() %]
       <span class="field-container">
         <span class="field"></span>
@@ -66,9 +75,15 @@
     </li>
   </ul>
 
-  [% form_submit('Search') %]
+  <span id="edit-search-submit">[% form_submit('Search') %]</span>
 </form>
 [% PROCESS template_fields %]
+[% END %]
+
+[% BLOCK remove %]
+<button class="remove">
+  <image src="/static/images/icons/delete_row.png" alt="[% l('Delete') %]" />
+</button>
 [% END %]
 
 [% MACRO operators(operators, field_contents) BLOCK %]
