@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Release::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -101,6 +102,16 @@ sub do_merge
             @{ $self->data->{medium_changes} }
         };
     }
+
+    if (!$self->c->model('Release')->can_merge(
+        $self->data->{merge_strategy},
+        $self->new_entity->{id},
+        $self->_old_ids)) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'These releases could not be merged'
+        );
+    }
+
     $self->c->model('Release')->merge(
         new_id => $self->new_entity->{id},
         old_ids => [ $self->_old_ids ],
