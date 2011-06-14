@@ -3,6 +3,8 @@ use Moose;
 use namespace::autoclean;
 use feature 'switch';
 
+use Scalar::Util qw( looks_like_number );
+
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 sub operator_cardinality_map {
@@ -26,6 +28,18 @@ sub combine_with_query {
     }
 
     $query->add_where([ $sql, $self->sql_arguments ]);
+}
+
+sub valid {
+    my $self = shift;
+    # Uncounted cardinality means anything is valid (or more than classes should implement this themselves)
+    my $cardinality = $self->operator_cardinality($self->operator) or return 1;
+    for my $arg_index (1..$cardinality) {
+        my $arg = $self->argument($arg_index - 1);
+        looks_like_number($arg) or return;
+    }
+
+    return 1;
 }
 
 1;
