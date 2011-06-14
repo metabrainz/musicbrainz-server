@@ -7,6 +7,9 @@ CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
 CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
+    FOR EACH ROW WHEN (OLD.id IN (1, 2)) EXECUTE PROCEDURE deny_special_purpose_deletion();
+
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -105,6 +108,9 @@ CREATE TRIGGER b_upd_l_work_work BEFORE UPDATE ON l_work_work
 
 CREATE TRIGGER a_ins_label AFTER INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE a_ins_label();
+
+CREATE TRIGGER b_del_label_special BEFORE DELETE ON label
+    FOR EACH ROW WHEN (OLD.id = 1) EXECUTE PROCEDURE deny_special_purpose_deletion();
 
 CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();

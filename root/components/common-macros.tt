@@ -73,6 +73,8 @@ END; -%]
             l('release groups');
         CASE 'editor';
             l('editors');
+        CASE 'work';
+            l('works');
         CASE DEFAULT;
             l('Error: Unknown Type');
     END -%]
@@ -286,12 +288,19 @@ END-%]
 <a href="[% login_url() %]">[% text || l('Log in') %]</a>
 [%- END -%]
 
-[%- MACRO tagger_icon(release) BLOCK -%]
-    [% USE date %]
-    <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% release.gid %]&t=[% date.now %]"
-        target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
-        <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
-    </a>
+[%- MACRO tagger_icon(entity) BLOCK -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
+        [% USE date %]
+        <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
+            target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
+        </a>
+    [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
+        <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
+            target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]" />
+        </a>
+    [%- END -%]
 [%- END -%]
 
 [%- MACRO piped_link_list(list) BLOCK -%]
@@ -351,7 +360,7 @@ END -%]
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END -%]
 
-[%- MACRO relate_to_ellipsis(entity) BLOCK -%]
+[%- MACRO relate_to_ellipsis(entity, endpoints) BLOCK -%]
     <a href="#relate_to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
       <div class="relate-to" style="display: none">
@@ -369,6 +378,18 @@ END -%]
           <img class="search" src="/static/images/icons/search.png" />
           <input type="text" class="entity" value="" style="width: 170px;" />
         </span>
+        [% IF endpoints.size %]
+        <select class="endpoint">
+          [% FOR endpoint=endpoints %]
+          <option value="[% endpoint %]">
+          [% SWITCH endpoint;
+               CASE 'release'; l('Relate to release');
+               CASE 'recording'; l('Relate to recordings');
+             END %]
+          </option>
+          [% END %]
+        </select>
+        [% END %]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
           <input class="negative button cancel" type="button" value="[% l('Cancel') %]" style="float: left;" />

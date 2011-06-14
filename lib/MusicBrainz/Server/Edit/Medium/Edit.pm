@@ -51,10 +51,34 @@ around related_entities => sub {
     my $related = $self->$orig(@_);
 
     if ($self->data->{old}{tracklist}) {
-        push @{ $related->{artist} }, map {
-            map { $_->{artist}{id} } @{ $_->{artist_credit}->{names} }
-        } @{ $self->data->{old}{tracklist} },
-          @{ $self->data->{new}{tracklist} };
+        my @changes =
+            grep { $_->[0] ne 'u' }
+            @{ sdiff(
+                $self->data->{old}{tracklist},
+                $self->data->{new}{tracklist},
+                sub {
+                    my $track = shift;
+                    join(':',
+                         $track->{name},
+                         $track->{length} || '?:??',
+                         $track->{recording_id},
+                         $track->{position},
+                         join('', map {
+                             $_->{artist}{id}, $_->{name}, $_->{join_phrase} || ''
+                             } @{$track->{artist_credit}{names}})
+                     )
+                })
+           };
+
+        push @{ $related->{artist} },
+            map {
+                my ($type, $oldt, $newt) = @$_;
+                map {
+                    map { $_->{artist}{id} } @{ $_->{artist_credit}{names} }
+                } $type eq 'c' ? ($newt, $oldt)
+                : $type eq '+' ? ($newt)
+                :                ($oldt)
+            } @changes;
     }
 
     return $related;

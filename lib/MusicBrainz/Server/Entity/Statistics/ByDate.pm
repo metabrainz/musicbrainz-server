@@ -11,7 +11,8 @@ has data => (
     traits => [ 'Hash' ],
     default => sub { {} },
     handles => {
-        statistic => 'get'
+        statistic => 'get',
+        statistic_names => 'keys'
     }
 );
 

@@ -17,13 +17,13 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
 
-my $label = $c->model('Label')->get_by_id(1);
+my $label = $c->model('Label')->get_by_id(2);
 my $edit = create_full_edit($c, $label);
 
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
-$label = $c->model('Label')->get_by_id(1);
+$label = $c->model('Label')->get_by_id(2);
 is_unchanged($label);
 is($label->edits_pending, 1);
 

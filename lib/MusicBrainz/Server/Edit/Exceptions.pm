@@ -4,7 +4,8 @@ use Exception::Class (
     'MusicBrainz::Server::Edit::Exceptions::NoChanges',
     'MusicBrainz::Server::Edit::Exceptions::FailedDependency',
     'MusicBrainz::Server::Edit::Exceptions::HistoricDataCorrupt',
-    'MusicBrainz::Server::Edit::Exceptions::MustApply'
+    'MusicBrainz::Server::Edit::Exceptions::MustApply',
+    'MusicBrainz::Server::Edit::Exceptions::GeneralError'
 );
 
 1;

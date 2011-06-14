@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_REMOVE_DISCID
     $EDIT_MEDIUM_MOVE_DISCID
     $EDIT_SET_TRACK_LENGTHS
+    $EDITOR_MODBOT
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -138,6 +139,12 @@ sub attach : Local RequireAuth
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
             ) unless looks_like_number ($medium_id);
+
+        $self->error(
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('This CDTOC is already attached to this medium')
+        ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('Release')->load($medium);
@@ -310,20 +317,37 @@ sub move : Local RequireAuth Edit
             $c->model('Medium')->load($medium_cdtoc);
             $c->model('Release')->load($medium_cdtoc->medium);
 
-            $self->edit_action($c,
-                form        => 'Confirm',
-                type        => $EDIT_MEDIUM_MOVE_DISCID,
-                edit_args   => {
-                    medium_cdtoc => $medium_cdtoc,
-                    new_medium   => $medium,
-                },
-                on_creation => sub {
-                    $c->response->redirect(
-                        $c->uri_for_action('/release/discids',
-                                           [ $release->gid ]));
-                    $c->detach;
+            my $form = $c->form(form => 'Confirm');
+            if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+                if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium->id, $cdtoc)) {
+                    my $edit = $self->_insert_edit($c, $form,
+                        edit_type        => $EDIT_MEDIUM_REMOVE_DISCID,
+                        medium => $medium_cdtoc->medium,
+                        cdtoc  => $medium_cdtoc
+                    );
+
+                    $c->model('EditNote')->add_note(
+                        $edit->id,
+                        {
+                            text => l('This CDTOC cannot be moved to {release}, as it already has this CDTOC. It must instead be removed.',
+                                      { release => $release->name }),
+                            editor_id => $EDITOR_MODBOT,
+                        }
+                    );
                 }
-            )
+                else {
+                    $self->_insert_edit($c, $form,
+                        edit_type        => $EDIT_MEDIUM_MOVE_DISCID,
+                        medium_cdtoc => $medium_cdtoc,
+                        new_medium   => $medium,
+                    )
+                }
+
+                $c->response->redirect(
+                    $c->uri_for_action('/release/discids',
+                                       [ $release->gid ]));
+                $c->detach;
+            }
         }
         else {
             $c->stash(

@@ -19,6 +19,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
     SET client_min_messages TO warning;
     TRUNCATE artist CASCADE;
+    DELETE FROM medium_cdtoc WHERE id = 2;
 SQL
 
 my ($new_medium, $medium_cdtoc) = reload_data($c);

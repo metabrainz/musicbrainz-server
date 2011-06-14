@@ -145,13 +145,14 @@ sub find_by_artist
 sub find_by_track_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . ",
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
                     rgm.release_count,
                     rgm.rating_count,
-                    rgm.rating
+                    rgm.rating,
+                    musicbrainz_collate(name.name)
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
                         ON rgm.id = rg.id

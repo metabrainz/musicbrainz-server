@@ -113,7 +113,7 @@ has [qw( last_login_date email_confirmation_date )] => (
 sub is_charter
 {
     my $self = shift;
-    return !($self->registration_date);
+    return ($self->registration_date == DateTime->new(year => 2000, month => 9, day => 7));
 }
 
 sub is_newbie

@@ -81,7 +81,7 @@ p.subheader {
 p.subheader span { color: #999; }
 
 .tagger-icon img { border: 0; }
-.releaseheader .tagger-icon { margin-top: 1em; float: right; }
+.releaseheader .tagger-icon, .recordingheader .tagger-icon { margin-top: 1em; float: right; }
 
 .annotation {
     margin-top: 1em;
