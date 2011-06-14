@@ -62,7 +62,7 @@
          </thead>
          <tbody>
          [% FOR change=edit.display_data.tracklist_changes %]
-           [% NEXT UNLESS change.0 == 'c' OR change.1 == '-' %]
+           [% NEXT UNLESS change.0 == 'c' OR change.0 == '-' %]
            [% IF change.0 == 'c' %]
            [% old_track = change.1;
               new_track = change.2;
