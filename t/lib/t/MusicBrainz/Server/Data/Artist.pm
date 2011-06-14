@@ -7,6 +7,7 @@ use Test::Memory::Cycle;
 use MusicBrainz::Server::Data::Artist;
 
 use DateTime;
+use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Search;
 use MusicBrainz::Server::Test;
@@ -274,6 +275,24 @@ my $rec = $test->c->model('Recording')->insert({
 });
 
 ok(!$artist_data->can_delete(3));
+
+    # ---
+    # Missing entities search
+    $artist = $artist_data->insert({
+        name => 'Test Artist',
+        sort_name => 'Artist, Test',
+        comment => 'J-Pop artist',
+        country_id => 1,
+        type_id => 1,
+        gender_id => 1,
+    });
+    isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
+
+    my $found = $artist_data->find_by_names('Test Artist', 'Minimal Artist');
+    is (scalar @{ $found->{'Test Artist'} }, 2, 'Found two test artists');
+    my @testartists = sort_by { $_->comment } @{ $found->{'Test Artist'} };
+    is($testartists[0]->comment, 'J-Pop artist');
+    is($testartists[1]->comment, 'Yet Another Test Artist');
 
 $sql->commit;
 $raw_sql->commit;
