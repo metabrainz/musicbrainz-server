@@ -19,13 +19,13 @@
       <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
     </select>
     <select name="combinator">
-      <option value="or"
-              [% 'selected="selected"' IF query.combinator == 'or' %]>
-        any
-      </option>
       <option value="and"
               [% 'selected="selected"' IF query.combinator == 'and' %]>
         all
+      </option>
+      <option value="or"
+              [% 'selected="selected"' IF query.combinator == 'or' %]>
+        any
       </option>
     </select>
     of the following conditions:
