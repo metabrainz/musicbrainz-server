@@ -1,11 +1,7 @@
 BEGIN;
 
-SELECT * INTO TEMPORARY edit_20110606 FROM edit WHERE type = 11 AND data LIKE '%"entity_id":%';
+SELECT * INTO TEMPORARY edit_20110610 FROM edit WHERE type = 37 AND data LIKE '%"label":{}%';
 
-\copy edit_20110606 to '20110606_rawdata_edit.dat';
-
-SELECT * INTO TEMPORARY edit_20110607 FROM edit WHERE type = 34 AND data LIKE '%"label":{}%';
-
-\copy edit_20110607 to '20110607_rawdata_edit.dat';
+\copy edit_20110610 to '20110610_rawdata_edit.dat';
 
 COMMIT;

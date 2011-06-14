@@ -87,12 +87,10 @@ around 'related_entities' => sub {
     my $self = shift;
     my $related = $self->$orig;
 
-    if ($self->data->{new}{label}) {
-        $related->{label} = [
-            $self->data->{new}{label}{id},
-            $self->data->{old}{label}{id},
-        ];
-    }
+    $related->{label} = [
+        $self->data->{new}{label} ? $self->data->{new}{label}{id} : (),
+        $self->data->{old}{label} ? $self->data->{old}{label}{id} : (),
+    ];
 
     return $related;
 };
@@ -148,7 +146,7 @@ sub accept
 
     my %args;
     $args{label_id} = $self->data->{new}{label}{id}
-        if exists $self->data->{new}{label}{id};
+        if $self->data->{new}{label};
 
     $args{catalog_number} = $self->data->{new}{catalog_number}
         if exists $self->data->{new}{catalog_number};
