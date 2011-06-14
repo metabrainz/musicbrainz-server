@@ -77,7 +77,7 @@
         <hr/>
 
         <li>[% use_in_relationship(release) %]</li>
-        <li>[% relate_to_ellipsis(release) %]</li>
+        <li>[% relate_to_ellipsis(release, ['release', 'recording']) %]</li>
         <li>[% relate_to_url(release) %]</li>
         <li>
           <a href="[%
