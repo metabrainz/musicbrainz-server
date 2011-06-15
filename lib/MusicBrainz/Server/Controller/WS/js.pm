@@ -218,7 +218,7 @@ sub disc_search {
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, $type, $query, $limit, $page, 1, undef, $no_redirect);
+        $type, $query, $limit, $page, 1, undef);
 
     my @output;
 
