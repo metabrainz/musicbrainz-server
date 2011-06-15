@@ -78,6 +78,7 @@ __PACKAGE__->config(
             json => 'application/json; charset=UTF-8',
         },
         dirs => [ 'static' ],
+        no_logs => 1
     }
 );
 
@@ -172,7 +173,10 @@ if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
     warn "WARNING: Using test database schema\n";
 }
 
-__PACKAGE__->log( logger() );
+{
+    use MusicBrainz::Server::CatalystLogger;
+    __PACKAGE__->log( MusicBrainz::Server::CatalystLogger->new( dispatch => logger() ) );
+}
 
 # Start the application
 __PACKAGE__->setup(@args);
