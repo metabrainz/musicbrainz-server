@@ -4,6 +4,7 @@ use warnings;
 
 use Data::Dumper::Concise;
 use DBDefs;
+use Devel::StackTrace;
 
 use Log::Dispatch;
 my $logger;
@@ -17,7 +18,8 @@ BEGIN {
 use Sub::Exporter -setup => {
     exports => [
         'logger',
-        map { ("log_$_", "Dlog_$_") } qw(
+        map { ("log_$_") } qw(
+            assertion
             debug
             info
             notice
@@ -40,7 +42,6 @@ sub _prefix_message {
 sub _do_log {
     my ($level, $message_gen, @args) = @_;
     if ($logger->would_log($level)) {
-        my ($message_gen, @args) = @_;
         local $_ = Dumper(@args);
         $logger->log(
             level => $level,
@@ -57,5 +58,17 @@ sub log_error (&@)     { _do_log(error => @_) }
 sub log_critical (&@)  { _do_log(critical => @_) }
 sub log_alert (&@)     { _do_log(alert => @_) }
 sub log_emergency (&@) { _do_log(emergency => @_) }
+
+sub log_assertion (&$) {
+    my ($code, $message) = @_;
+    unless($code->()) {
+        my ($package, $filename, $line) = caller(0);
+        log_error { "Failed assertion: $message ($filename:$line)" };
+        log_debug {
+            "Stacktrace: " .
+                Devel::StackTrace->new( ignore_class => 'MusicBrainz::Server::Log' )->as_string
+              }
+    }
+}
 
 1;
