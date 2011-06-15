@@ -321,16 +321,23 @@ sub accept
 
     my $data = clone($self->data);
 
+    my $relationship = $self->c->model('Relationship')->get_by_id(
+        $data->{type0}, $data->{type1},
+        $data->{relationship_id}
+    );
+
+    $self->c->model('Link')->load($relationship);
+
     # Because we're using a "find_or_insert" instead of an update, this link
     # dict should be complete.  If a value isn't defined in $values in doesn't
     # change, so take the original value as it was stored in $link.
     my $values = {
-        entity0_id   => $data->{new}{entity0}{id}   // $data->{link}{entity0}{id},
-        entity1_id   => $data->{new}{entity1}{id}   // $data->{link}{entity1}{id},
-        attributes   => $data->{new}{attributes}    // $data->{link}{attributes},
-        link_type_id => $data->{new}{link_type}{id} // $data->{link}{link_type}{id},
-        begin_date   => $data->{new}{begin_date}    // $data->{link}{begin_date},
-        end_date     => $data->{new}{end_date}      // $data->{link}{end_date},
+        entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,
+        entity1_id   => $data->{new}{entity1}{id}   // $relationship->entity1_id,
+        attributes   => $data->{new}{attributes}    // $relationship->link->attributes,
+        link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
+        begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
+        end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
