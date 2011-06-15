@@ -8,7 +8,7 @@ use Test::Routine::Util;
 use Try::Tiny;
 
 my $mpo = Module::Pluggable::Object->new(
-    search_path => 't::MusicBrainz::Server::Controller');
+    search_path => 't::MusicBrainz::Server::Controller::WS::2');
 my @classes = $mpo->plugins;
 
 @classes = commandline_override ("t::MusicBrainz::Server::Controller::", @classes);
