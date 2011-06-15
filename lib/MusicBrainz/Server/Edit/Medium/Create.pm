@@ -171,7 +171,8 @@ around reject => sub {
     };
 
 
-    $self->c->model('Recording')->delete(@recordings_to_delete);
+    $self->c->model('Recording')->delete(@recordings_to_delete)
+        if @recordings_to_delete;
 };
 
 __PACKAGE__->meta->make_immutable;

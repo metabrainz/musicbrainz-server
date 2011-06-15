@@ -110,7 +110,7 @@ sub insert
         if exists $self->data->{catalog_number};
 
     $args{label_id} = $self->data->{label}{id}
-        if exists $self->data->{label};
+        if $self->data->{label};
 
     my $rl = $self->c->model('ReleaseLabel')->insert(\%args);
     $self->entity_id($rl->id);
