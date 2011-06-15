@@ -238,7 +238,7 @@ my %mapping = (
 # matches up with the data returned from the DB for easy object creation
 sub schema_fixup
 {
-    my ($self, $data, $c, $type) = @_;
+    my ($self, $data, $type) = @_;
 
     return unless (ref($data) eq 'HASH');
 
@@ -263,7 +263,7 @@ sub schema_fixup
 
     if (exists $data->{country})
     {
-        $data->{country} = $c->model('Country')->find_by_code ($data->{country});
+        $data->{country} = $self->c->model('Country')->find_by_code ($data->{country});
         delete $data->{country} unless defined $data->{country};
     }
 
@@ -298,7 +298,7 @@ sub schema_fixup
     }
     if ($type eq 'annotation' && exists $data->{entity})
     {
-        my $entity_model = $c->model( type_to_model($data->{type}) )->_entity_class;
+        my $entity_model = $self->c->model( type_to_model($data->{type}) )->_entity_class;
         $data->{parent} = $entity_model->new( { name => $data->{name}, gid => $data->{entity} });
         delete $data->{entity};
         delete $data->{type};
@@ -408,7 +408,7 @@ sub schema_fixup
                 my $entity_type = (keys %$rel)[0];
                 $rel->{$entity_type}->{gid} = delete $rel->{$entity_type}->{id};
 
-                my $entity = $c->model( type_to_model ($entity_type) )->
+                my $entity = $self->c->model( type_to_model ($entity_type) )->
                     _entity_class->new (%{ $rel->{$entity_type} });
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
@@ -424,13 +424,13 @@ sub schema_fixup
     {
         if (ref($data->{$k}) eq 'HASH')
         {
-            $self->schema_fixup($data->{$k}, $c, $type);
+            $self->schema_fixup($data->{$k}, $type);
         }
         if (ref($data->{$k}) eq 'ARRAY')
         {
             foreach my $item (@{$data->{$k}})
             {
-                $self->schema_fixup($item, $c, $type);
+                $self->schema_fixup($item, $type);
             }
         }
     }
@@ -486,9 +486,9 @@ sub alias_query
 
 sub external_search
 {
-    my ($self, $c, $type, $query, $limit, $page, $adv, $ua, $no_redirect) = @_;
+    my ($self, $type, $query, $limit, $page, $adv, $ua) = @_;
 
-    my $entity_model = $c->model( type_to_model($type) )->_entity_class;
+    my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     Class::MOP::load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
@@ -544,7 +544,7 @@ sub external_search
         my $pos = 0;
         foreach my $t (@{$data->{"$xmltype-list"}->{$xmltype}})
         {
-            $self->schema_fixup($t, $c, $type);
+            $self->schema_fixup($t, $type);
             push @results, MusicBrainz::Server::Entity::SearchResult->new(
                     position => $pos++,
                     score  => $t->{score},
@@ -564,30 +564,6 @@ sub external_search
                 $result->{type} =~ s/MusicBrainz::Server::Entity:://;
                 $result->{type} = lc($result->{type});
             }
-        }
-
-        # FIXME: this whole redirect stuff needs to be moved to a controller. --warp.
-        my $allow_redirect = !$no_redirect;
-
-        if ($allow_redirect && $total_hits == 1 && ($type eq 'artist' || $type eq 'release' ||
-            $type eq 'label' || $type eq 'release-group' || $type eq 'cdstub'))
-        {
-            my $redirect;
-
-            $type =~ s/release-group/release_group/;
-            if ($type eq 'cdstub')
-            {
-                $redirect = $results[0]->{entity}->{discid};
-            }
-            else
-            {
-                $redirect = $results[0]->{entity}->{gid};
-            }
-            my $type_controller = $c->controller(type_to_model($type));
-            my $action = $type_controller->action_for('show');
-
-            $c->res->redirect($c->uri_for($action, [ $redirect ]));
-            $c->detach;
         }
 
         my $pager = Data::Page->new;

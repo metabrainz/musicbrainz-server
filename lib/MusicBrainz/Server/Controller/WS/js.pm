@@ -183,7 +183,7 @@ sub _autocomplete_indexed {
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, $type, $query, $limit, $page, 1, undef, $no_redirect);
+        $type, $query, $limit, $page, 1, undef);
 
     my @output;
 
@@ -336,7 +336,7 @@ sub _recording_indexed {
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, 'recording', $lucene_query, $limit, $page, 1, undef, $no_redirect);
+        'recording', $lucene_query, $limit, $page, 1, undef);
 
     my @output;
     my $pager;
@@ -535,7 +535,7 @@ sub disc_search {
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $c, $type, $query, $limit, $page, 1, undef, $no_redirect);
+        $type, $query, $limit, $page, 1, undef);
 
     my @output;
 
