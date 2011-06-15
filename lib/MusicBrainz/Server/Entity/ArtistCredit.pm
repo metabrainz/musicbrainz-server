@@ -5,6 +5,10 @@ use MusicBrainz::Server::Entity::Types;
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
+use overload
+    '==' => \&is_equal,
+    '!=' => \&is_different;
+
 extends 'MusicBrainz::Server::Entity';
 
 has 'names' => (
@@ -16,6 +20,7 @@ has 'names' => (
         add_name => 'push',
         clear_names => 'clear',
         all_names => 'elements',
+        name_count => 'count',
     }
 );
 
@@ -24,16 +29,25 @@ has 'artist_count' => (
     isa => 'Int'
 );
 
-sub signature {
-    my $self = shift;
-    return join(':', map {
-        join('|',
-             $_->artist_id,
-             $_->name,
-             $_->join_phrase || '',
-             )
-    } $self->all_names);
+sub is_equal {
+    my ($a, $b) = @_;
+    return 0 unless
+        (defined($a) && defined($b)) &&
+        (ref($a) eq ref($b)) &&
+        ($a->name_count == $b->name_count);
+
+    for my $i (0 .. ($a->name_count - 1)) {
+        my ($an, $bn) = ($a->names->[$i], $b->names->[$i]);
+        return 0 unless
+            ($an->name eq $bn->name) &&
+            ($an->join_phrase || '' eq $bn->join_phrase || '') &&
+            ($an->artist_id == $bn->artist_id);
+    }
+
+    return 1;
 }
+
+sub is_different { !is_equal(@_) }
 
 sub name
 {

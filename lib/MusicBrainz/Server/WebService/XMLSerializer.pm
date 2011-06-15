@@ -480,7 +480,7 @@ sub _serialize_track
         if $inc->artist_credits &&
             (
                 ($track->recording &&
-                     $track->recording->artist_credit->signature ne $track->artist_credit->signature)
+                     $track->recording->artist_credit != $track->artist_credit)
                 || !$track->recording
             );
 
