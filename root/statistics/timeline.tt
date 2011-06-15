@@ -48,8 +48,8 @@
 [%- sidebar = BLOCK -%]
     <h2>Legend</h2><div id="graph-legend"></div>
     <h2>Controls</h2><div id="graph-controls">
-        <p><strong>To Zoom:</strong> select a rectangle
-        <br/><strong>To Reset:</strong> deselect
+        <p><strong>To Zoom:</strong> draw a rectangle on either graph
+        <br/><strong>To Reset:</strong> click to deselect
         <br/><strong>To add/remove lines:</strong> Click boxes below</p>
         <div id="overview"></div>
     <h2 id="graph-toggle-header">Toggle Lines</h2>
