@@ -5,6 +5,7 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
+use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
 
@@ -170,6 +171,8 @@ if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
     MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
     warn "WARNING: Using test database schema\n";
 }
+
+__PACKAGE__->log( logger() );
 
 # Start the application
 __PACKAGE__->setup(@args);
