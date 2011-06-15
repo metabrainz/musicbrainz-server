@@ -103,6 +103,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
+		WHERE type != 2
                 GROUP BY gender
                 ",
             );
@@ -125,9 +126,15 @@ my %stats = (
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
-    "cout.artist.gender.null" => {
+    "count.artist.gender.null" => {
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
+    },
+    "count.artist.gender.group" => {
+        SQL => "SELECT COUNT(*) FROM artist WHERE type = 2 AND gender IS NOT NULL"
+    },
+    "count.artist.gender.notype" => {
+        SQL => "SELECT COUNT(*) FROM artist WHERE type IS NULL AND gender IS NOT NULL"
     },
     "count.label" => {
         DESC => "Count of all labels",
