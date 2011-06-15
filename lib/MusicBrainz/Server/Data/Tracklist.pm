@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Tracklist;
 use Moose;
 use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
+use MusicBrainz::Server::Log qw( log_assertion );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -184,8 +185,7 @@ sub find_or_insert
                 ) s
            JOIN tracklist ON s.tracklist = tracklist.id
           WHERE tracklist.track_count = s.matched_track_count
-            AND tracklist.track_count = ?
-          LIMIT 1';
+            AND tracklist.track_count = ?';
 
     my $i = 1;
     my @possible_tracklists = @{
@@ -202,7 +202,10 @@ sub find_or_insert
         )
     };
 
-    if (@possible_tracklists == 1) {
+    if (@possible_tracklists) {
+        log_assertion { @possible_tracklists == 1 }
+            'Only finds a single matching tracklist';
+
         return $self->_entity_class->new(
             id => $possible_tracklists[0]
         );
