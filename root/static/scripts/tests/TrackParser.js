@@ -35,6 +35,20 @@ MB.tests.TrackParser.BugFixes = function() {
                 ],
                 bug: 'MBS-2511',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1 Freeman Hardy & Willis Acid\n\n" +
+                    "   Written-By – James*, Jenkinson* \n\n" +
+                    "5:42\n" +
+                    "2 Orange Romeda\n\n" +
+                    "Written-By – Eoin*, Sandison* \n\n" +
+                    "4:51 \n",
+                expected: [
+                    { title: "Freeman Hardy & Willis Acid", duration: "?:??" },
+                    { title: "Orange Romeda", duration: "?:??" },
+                ],
+                bug: 'MBS-2540',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true,
             }
         ];
 
