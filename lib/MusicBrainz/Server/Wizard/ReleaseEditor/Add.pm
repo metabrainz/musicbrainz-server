@@ -117,8 +117,9 @@ augment 'create_edits' => sub
         $add_release_args{release_group_id} = $data->{release_group_id};
     }
     else {
-        my @fields = qw( name artist_credit type_id as_auto_editor );
+        my @fields = qw( artist_credit type_id as_auto_editor );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+        $args{name} = $data->{release_group}{name} || $data->{name};
 
         my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 
