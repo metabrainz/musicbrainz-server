@@ -36,8 +36,8 @@
            </tr>
          </thead>
          <tbody>
-           [% FOR track=edit.display_data.tracklist %]
-           <tr class="[% loop.index % 2 == 0 'ev' : '' %]">
+           [% FOR track=edit.display_data.tracklist.tracks %]
+           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td>[% loop.count %]</td>
              <td>[% expanded_artist_credit(track.artist_credit) %]</td>
            </tr>
