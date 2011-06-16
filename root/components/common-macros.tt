@@ -94,6 +94,21 @@ END -%]
     [%- END -%]
 [%- END -%]
 
+[%- MACRO expanded_artist_credit(artist_credit) BLOCK -%]
+  <p>[% artist_credit(artist_credit) %]
+  <ul>
+    [% FOR name=artist_credit.names %]
+      <li>
+      [% IF name.artist.name != name.name %]
+        [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
+      [% ELSE %]
+        [% descriptive_link(name.artist) %]</li>
+      [% END %]
+      </li>
+    [% END %]
+  </ul>
+[%- END -%]
+
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
