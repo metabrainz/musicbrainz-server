@@ -147,6 +147,14 @@ sub attach : Local RequireAuth
         ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
+        $c->model('MediumFormat')->load($medium);
+
+        $self->error(
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('The selected medium cannot have disc IDs')
+        ) unless $medium->may_have_discids;
+
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
 
