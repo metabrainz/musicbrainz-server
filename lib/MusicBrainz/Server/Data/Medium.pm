@@ -194,8 +194,9 @@ sub find_for_cdstub {
                 ) AS name
            JOIN release ON name.id = release.name
            JOIN medium ON medium.release = release.id
+      LEFT JOIN medium_format ON medium.format = medium_format.id
            JOIN tracklist ON medium.tracklist = tracklist.id
-          WHERE track_count = ?
+          WHERE track_count = ? AND (medium_format.id IS NULL OR medium_format.has_discids)
        ORDER BY name.rank DESC, musicbrainz_collate(name.name),
                 release.artist_credit";
 
