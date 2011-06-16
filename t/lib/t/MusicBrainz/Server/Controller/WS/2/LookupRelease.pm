@@ -93,18 +93,21 @@ ws_test 'release lookup with labels and recordings',
                 <track-list count="3">
                     <track>
                         <position>1</position>
+                        <length>243000</length>
                         <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
                             <title>the Love Bug</title><length>242226</length>
                         </recording>
                     </track>
                     <track>
                         <position>2</position>
+                        <length>222000</length>
                         <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
                             <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
                         </recording>
                     </track>
                     <track>
                         <position>3</position>
+                        <length>333000</length>
                         <recording id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
                             <title>the Love Bug (cover)</title><length>333000</length>
                         </recording>
@@ -171,7 +174,7 @@ ws_test 'release lookup with discids and puids',
                 </disc-list>
                 <track-list count="3">
                     <track>
-                        <position>1</position><title>Summer Reggae! Rainbow</title>
+                        <position>1</position><title>Summer Reggae! Rainbow</title><length>296026</length>
                         <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
                             <title>サマーれげぇ!レインボー</title><length>296026</length>
                             <puid-list count="1">
@@ -180,7 +183,7 @@ ws_test 'release lookup with discids and puids',
                         </recording>
                     </track>
                     <track>
-                        <position>2</position><title>Hello! Mata Aou Ne (7nin Matsuri version)</title>
+                        <position>2</position><title>Hello! Mata Aou Ne (7nin Matsuri version)</title><length>213106</length>
                         <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
                             <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
                             <puid-list count="1">
@@ -189,7 +192,7 @@ ws_test 'release lookup with discids and puids',
                         </recording>
                     </track>
                     <track>
-                        <position>3</position><title>Summer Reggae! Rainbow (Instrumental)</title>
+                        <position>3</position><title>Summer Reggae! Rainbow (Instrumental)</title><length>292800</length>
                         <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
                             <title>サマーれげぇ!レインボー (instrumental)</title><length>292800</length>
                             <puid-list count="1">
