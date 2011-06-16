@@ -112,15 +112,15 @@ sub foreign_keys
     my $old = $self->data->{old};
     my $new = $self->data->{new};
 
-    $load{$model0} = [];
-    $load{$model1} = [];
+    $load{$model0} = {};
+    $load{$model1} = {};
 
-    push @{ $load{$model0} }, $self->data->{link}->{entity0}{id};
-    push @{ $load{$model1} }, $self->data->{link}->{entity1}{id};
-    push @{ $load{$model0} }, $old->{entity0}{id} if $old->{entity0};
-    push @{ $load{$model1} }, $old->{entity1}{id} if $old->{entity1};
-    push @{ $load{$model0} }, $new->{entity0}{id} if $new->{entity0};
-    push @{ $load{$model1} }, $new->{entity1}{id} if $new->{entity1};
+    $load{$model0}->{ $self->data->{link}->{entity0}{id} } = [ 'ArtistCredit' ];
+    $load{$model1}->{ $self->data->{link}->{entity1}{id} } = [ 'ArtistCredit' ];
+    $load{$model0}->{ $old->{entity0}{id} } = [ 'ArtistCredit' ] if $old->{entity0};
+    $load{$model1}->{ $old->{entity1}{id} } = [ 'ArtistCredit' ] if $old->{entity1};
+    $load{$model0}->{ $new->{entity0}{id} } = [ 'ArtistCredit' ] if $new->{entity0};
+    $load{$model1}->{ $new->{entity1}{id} } = [ 'ArtistCredit' ] if $new->{entity1};
 
     return \%load;
 }
