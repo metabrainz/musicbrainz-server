@@ -4,8 +4,17 @@ $(document).ready(function () {
     var control_id_prefix = 'graph-control-';
 
     var datasets = {};
+    var events = [];
     var graph_options = {};
     var overview_options = {};
+
+    $.get('/static/xml/mb_history.xml', function (data) {
+        $(data).find('event').each(function() {
+		$this = $(this);
+		events.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
+	});
+	resetPlot();
+    }, 'xml');
 
     function graph_data () {
         var alldata =  [];
@@ -35,6 +44,9 @@ $(document).ready(function () {
             xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
         yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
         }));
+	$.each(events, function (index, value) {
+		drawCrosshairLine(plot, value.jsDate);
+	});
     });
     $('#overview').bind('plotselected', function(event, ranges) {
         plot.setSelection(ranges);
@@ -42,6 +54,29 @@ $(document).ready(function () {
 
     // "Reset Graph" functionality
     $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(); });
+
+    function drawCrosshairLine(plot, x, color, width) {
+	if (!color) {
+		color = "rgba(170, 0, 0, 1)";
+	}
+        var plotOffset = plot.getPlotOffset();
+        var ctx = plot.getCanvas().getContext("2d");
+
+	x = plot.p2c({x: x}).left;
+
+	ctx.save();
+	ctx.translate(plotOffset.left, plotOffset.top);
+
+	ctx.strokeStyle = color;
+	ctx.lineWidth = 1;
+	ctx.lineJoin = "round";
+
+	ctx.beginPath();
+	ctx.moveTo(x, 0);
+	ctx.lineTo(x, plot.height());
+	ctx.stroke();
+	ctx.restore();
+    }
 
     // Hover functionality
     function showTooltip(x, y, contents) {
@@ -56,7 +91,18 @@ $(document).ready(function () {
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
     }
+    function getEvent(pos) {
+	    thisEvent = false;
+	    $.each(events, function (index, value) {
+		    if (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5) {
+			    thisEvent = value;
+		    }
+		    return !thisEvent;
+	    });
+	    return thisEvent;
+    }
     previousPoint = null;
+    previousEvent = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
         if(item) {
             if (previousPoint != item.dataIndex) {
@@ -64,18 +110,28 @@ $(document).ready(function () {
 
                 $("#tooltip").remove();
                 var x = item.datapoint[0],
-        y = item.datapoint[1],
-        date = new Date(parseInt(x));
+                y = item.datapoint[1],
+                date = new Date(parseInt(x));
 
-    if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
-    if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
+                if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
+                if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
 
-    showTooltip(item.pageX, item.pageY,
-        date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
+                showTooltip(item.pageX, item.pageY,
+                    date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
             }
+	} else if (getEvent(pos)) {
+		thisEvent = getEvent(pos);
+		if (previousEvent != thisEvent.jsDate) {
+			drawCrosshairLine(plot, previousEvent);
+			previousEvent = thisEvent.jsDate;
+		        drawCrosshairLine(plot, thisEvent.jsDate, "rgba(0, 170, 0, 1)");
+		        $('#event-info').text(thisEvent.description);
+		}
         } else {
+	    drawCrosshairLine(plot, previousEvent);
             $('#tooltip').remove();
             previousPoint = null;
+	    previousEvent = null;
         }
     });
 
@@ -124,6 +180,9 @@ $(document).ready(function () {
 
     function resetPlot () {
         plot = $.plot($("#graph-container"), graph_data(), graph_options);
+	$.each(events, function (index, value) {
+		drawCrosshairLine(plot, value.jsDate);
+	});
         overview = $.plot($('#overview'), graph_data(), overview_options);
     }
 
@@ -180,7 +239,6 @@ $(document).ready(function () {
 
 
         $(window).hashchange();
-        resetPlot();
     }
 
 
