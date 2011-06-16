@@ -130,12 +130,6 @@ my %stats = (
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
-    "count.artist.gender.group" => {
-        SQL => "SELECT COUNT(*) FROM artist WHERE type = 2 AND gender IS NOT NULL"
-    },
-    "count.artist.gender.notype" => {
-        SQL => "SELECT COUNT(*) FROM artist WHERE type IS NULL AND gender IS NOT NULL"
-    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
