@@ -21,7 +21,9 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'recording' }
 
-sub search : Path('/ws/js/work') {
+sub serialization_routine { 'autocomplete_recording' }
+
+sub search : Path('/ws/js/recording') {
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }
