@@ -3,6 +3,7 @@ MB.tests.TrackParser = (MB.tests.TrackParser) ? MB.tests.TrackParser : {};
 MB.tests.TrackParser.ReleaseDiscMock = function () {
     var self = MB.Object ();
 
+    self.hasToc = function () { return false; }
     self.isVariousArtists = function () { return false; }
 
     return self;
@@ -25,6 +26,14 @@ MB.tests.TrackParser.BugFixes = function() {
                     { title: "Never Can Wait",  duration: "3:24" }
                 ],
                 bug: 'MBS-1284',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1. Criminology 2.5 \n",
+                expected: [
+                    { title: "Criminology 2.5", duration: "?:??" },
+                ],
+                bug: 'MBS-2511',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];

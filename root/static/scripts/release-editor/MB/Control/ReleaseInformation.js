@@ -384,6 +384,7 @@ MB.Control.ReleaseInformation = function() {
     self.selectReleaseGroup = function(event, data) {
         $('input#id-release_group_id').val(data.id);
         self.indicateSelectedReleaseGroup();
+        $('input#id-release_group_name\\\.name').val(data.name);
     };
 
     self.indicateSelectedReleaseGroup = function() {
