@@ -32,6 +32,16 @@
       <legend>[% l('Release information') %]</legend>
       [% form_row_text (r, 'name') %]
       [% r.hidden ('release_group_id') %]
+
+      [% WRAPPER form_row %]
+        [% rg_field = form.field('release_group.name') %]
+        <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
+        <span class="autocomplete">
+          [% r.text(rg_field) %]
+          <img class="search" src="/static/images/icons/search.png" />
+        </span>
+      [% END %]
+
       <div class="row">
         [% r.label('various_artists', 'Various Artists release') %]
         <img style="float: right; margin-right: 12px;" id="help-va"

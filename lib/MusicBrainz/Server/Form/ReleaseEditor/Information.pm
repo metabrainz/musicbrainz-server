@@ -9,6 +9,9 @@ has_field 'name'             => ( type => 'Text', required => 1, label => l('Tit
 has_field 'various_artists'  => ( type => 'Checkbox'  );
 has_field 'release_group_id' => ( type => 'Hidden'    );
 
+has_field 'release_group' => ( type => 'Compound'    );
+has_field 'release_group.name' => ( type => 'Text'    );
+
 has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit', required => 1, allow_unlinked => 1 );
 has_field 'change_track_artists' => ( type => 'Checkbox'  );
 has_field 'type_id'          => ( type => 'Select'    );
