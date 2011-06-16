@@ -27,6 +27,14 @@ MB.tests.TrackParser.BugFixes = function() {
                 ],
                 bug: 'MBS-1284',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1. Criminology 2.5 \n",
+                expected: [
+                    { title: "Criminology 2.5", duration: "?:??" },
+                ],
+                bug: 'MBS-2511',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];
 
