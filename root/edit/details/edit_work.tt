@@ -37,12 +37,4 @@
     <td class="new">[% edit.display_data.type.new.name | html %]</td>
   </tr>
   [%- END -%]
-
-  [%- IF edit.display_data.artist_credit -%]
-  <tr>
-    <th>[% l('Artist:') %]</th>
-    <td class="old">[% artist_credit(edit.display_data.artist_credit.old) %]</td>
-    <td class="new">[% artist_credit(edit.display_data.artist_credit.new) %]</td>
-  </tr>
-  [%- END -%]
 </table>
