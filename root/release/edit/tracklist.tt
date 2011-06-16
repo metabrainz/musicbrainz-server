@@ -149,7 +149,7 @@
         </tr>
         <tr>
           <td><label for="import-artist">[% l('Artist:') %]</label></td>
-          <td><input type="text" id="import-artist" class="artist" value="[% release_artist.fif.name | html %]" /></td>
+          <td><input type="text" id="import-artist" class="artist" value="[% artist_credit_preview_from_field(release_artist) %]" /></td>
           <td rowspan="2" style="vertical-align: bottom;">
             <div class="buttons">
               <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
