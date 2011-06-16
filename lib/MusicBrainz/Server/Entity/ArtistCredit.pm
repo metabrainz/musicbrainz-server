@@ -7,7 +7,8 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
 use overload
     '==' => \&is_equal,
-    '!=' => \&is_different;
+    '!=' => \&is_different,
+    fallback => 1;
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -40,7 +41,7 @@ sub is_equal {
         my ($an, $bn) = ($a->names->[$i], $b->names->[$i]);
         return 0 unless
             ($an->name eq $bn->name) &&
-            ($an->join_phrase || '' eq $bn->join_phrase || '') &&
+            (($an->join_phrase || '') eq ($bn->join_phrase || '')) &&
             ($an->artist_id == $bn->artist_id);
     }
 
