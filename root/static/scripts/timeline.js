@@ -43,10 +43,7 @@ $(document).ready(function () {
         $.extend(true, {}, graph_options, {
             xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
         yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
-        }));
-	$.each(events, function (index, value) {
-		drawCrosshairLine(plot, value.jsDate);
-	});
+        }, {musicbrainz_events: { currentEvent: previousEvent, data: events }}));
     });
     $('#overview').bind('plotselected', function(event, ranges) {
         plot.setSelection(ranges);
@@ -101,8 +98,8 @@ $(document).ready(function () {
 	    });
 	    return thisEvent;
     }
-    previousPoint = null;
-    previousEvent = null;
+    var previousPoint = null;
+    var previousEvent = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
         if(item) {
             if (previousPoint != item.dataIndex) {
@@ -122,16 +119,15 @@ $(document).ready(function () {
 	} else if (getEvent(pos)) {
 		thisEvent = getEvent(pos);
 		if (previousEvent != thisEvent.jsDate) {
-			drawCrosshairLine(plot, previousEvent);
 			previousEvent = thisEvent.jsDate;
-		        drawCrosshairLine(plot, thisEvent.jsDate, "rgba(0, 170, 0, 1)");
 		        $('#event-info').text(thisEvent.description);
+			resetPlot();
 		}
         } else {
-	    drawCrosshairLine(plot, previousEvent);
             $('#tooltip').remove();
             previousPoint = null;
 	    previousEvent = null;
+	    resetPlot();
         }
     });
 
@@ -179,10 +175,8 @@ $(document).ready(function () {
 
 
     function resetPlot () {
-        plot = $.plot($("#graph-container"), graph_data(), graph_options);
-	$.each(events, function (index, value) {
-		drawCrosshairLine(plot, value.jsDate);
-	});
+        plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, {musicbrainz_events: { currentEvent: previousEvent, data: events}}));
+	plot.triggerRedrawOverlay();
         overview = $.plot($('#overview'), graph_data(), overview_options);
     }
 
