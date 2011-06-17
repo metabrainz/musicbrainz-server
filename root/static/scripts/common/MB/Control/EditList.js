@@ -26,6 +26,8 @@ MB.Control.EditList = function(container) {
         var $voteOptions = $container.find('input[type="radio"]')
             .first().parents('.voteopts').clone().addClass('overall-vote');
 
+        $voteOptions.find(':input').attr('checked', false);
+
         $voteOptions.prepend(
             $('<div>Vote on all edits:</div>')
         );
