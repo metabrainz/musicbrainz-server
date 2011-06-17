@@ -4,9 +4,18 @@ $(document).ready(function () {
     var control_id_prefix = 'graph-control-';
 
     var datasets = {};
+    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: null, data: []}}
     var graph_options = {};
     var overview_options = {};
     var graphZoomOptions = {};
+
+    $.get('/static/xml/mb_history.xml', function (data) {
+        $(data).find('event').each(function() {
+            $this = $(this);
+            musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
+        });
+        resetPlot(true);
+    }, 'xml');
 
     function graph_data () {
         var alldata =  [];
@@ -37,8 +46,7 @@ $(document).ready(function () {
 
     change_hash(false, hashPartFromGeometry(graphZoomOptions), true);
 
-    plot = $.plot($("#graph-container"), graph_data(), 
-        $.extend(true, {}, graph_options, graphZoomOptions));
+    resetPlot(true);
     });
 
     $('#overview').bind('plotselected', function(event, ranges) {
@@ -61,7 +69,17 @@ $(document).ready(function () {
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
     }
-    previousPoint = null;
+    function getEvent(pos) {
+        thisEvent = false;
+        $.each(musicbrainzEventsOptions.musicbrainzEvents.data, function (index, value) {
+                if (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5) {
+                        thisEvent = value;
+                }
+                return !thisEvent;
+        });
+        return thisEvent;
+    }
+    var previousPoint = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
         if(item) {
             if (previousPoint != item.dataIndex) {
@@ -69,29 +87,40 @@ $(document).ready(function () {
 
                 $("#tooltip").remove();
                 var x = item.datapoint[0],
-        y = item.datapoint[1],
-        date = new Date(parseInt(x));
+                y = item.datapoint[1],
+                date = new Date(parseInt(x));
 
-    if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
-    if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
+                if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
+                if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
 
-    showTooltip(item.pageX, item.pageY,
-        date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
+                showTooltip(item.pageX, item.pageY,
+                    date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
+                musicbrainzEventsOptions.musicbrainzEvents.currentEvent = null;
+                plot.changeCurrentEvent(null);
             }
+        } else if (getEvent(pos)) {
+                thisEvent = getEvent(pos);
+                if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent != thisEvent.jsDate) {
+                    musicbrainzEventsOptions.musicbrainzEvents.currentEvent = thisEvent.jsDate;
+                    $('#event-info').text(thisEvent.description);
+                    plot.changeCurrentEvent(thisEvent.jsDate);
+                }
         } else {
             $('#tooltip').remove();
             previousPoint = null;
+            musicbrainzEventsOptions.musicbrainzEvents.currentEvent = null;
+            plot.changeCurrentEvent(null);
         }
     });
 
     function hashPartFromGeometry(geometry) {
-	    var blah = 'g-' + geometry.xaxis.min + '-' + geometry.xaxis.max + '-' + geometry.yaxis.min + '-' + geometry.yaxis.max;
-	    return blah;
+        var blah = 'g-' + geometry.xaxis.min + '-' + geometry.xaxis.max + '-' + geometry.yaxis.min + '-' + geometry.yaxis.max;
+        return blah;
     }
 
     function geometryFromHashPart(hashPart){
-	    var hashParts = hashPart.substr(2).split('-');
-	    return { xaxis: { min: parseFloat(hashParts[0]), max: parseFloat(hashParts[1]) }, yaxis: { min: parseFloat(hashParts[2]), max: parseFloat(hashParts[3]) }};
+        var hashParts = hashPart.substr(2).split('-');
+        return { xaxis: { min: parseFloat(hashParts[0]), max: parseFloat(hashParts[1]) }, yaxis: { min: parseFloat(hashParts[2]), max: parseFloat(hashParts[3]) }};
     }
 
     function change_hash(minus, new_hash_part, hide) {
@@ -146,19 +175,21 @@ $(document).ready(function () {
     function resetPlot (preserveZoom) {
         if (preserveZoom) {
             plot = $.plot($("#graph-container"), graph_data(), 
-                $.extend(true, {}, graph_options, graphZoomOptions));
+                $.extend(true, {}, graph_options, graphZoomOptions, musicbrainzEventsOptions));
+            plot.triggerRedrawOverlay();
         } else {
             graphZoomOptions = {};
             remove_from_hash('g-([0-9.]+-){3}[0-9.]+');
-            plot = $.plot($("#graph-container"), graph_data(), graph_options);
+            plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, musicbrainzEventsOptions));
+            plot.triggerRedrawOverlay();
         }
         overview = $.plot($('#overview'), graph_data(), overview_options);
     }
 
     setup_graphing = function (data, goptions, ooptions) {
         datasets = data;
-	graph_options = goptions;
-	overview_options = ooptions;
+        graph_options = goptions;
+        overview_options = ooptions;
 
         $.each(datasets, function(key, value) { 
             if ($(jq(control_id_prefix + key)).length == 0) {
@@ -208,7 +239,6 @@ $(document).ready(function () {
 
 
         $(window).hashchange();
-        resetPlot(true);
     }
 
 

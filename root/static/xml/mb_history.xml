@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <event start="Jan 21 2003" title="TRM collisions" link="http://blog.musicbrainz.org/?p=4">
+	Added support for improved TRM collision handling in the classic tagger.
+    </event>
+    <event start="Mar 02 2003" title="Cleanup" link="http://blog.musicbrainz.org/?p=4">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Mar 29 2003" title="Dedicated database server" link="http://blog.musicbrainz.org/?p=5">
+	MusicBrainz gets its first dedicated database server.
+    </event>
+    <event start="Apr 05 2003" title="Improved search" link="http://blog.musicbrainz.org/?p=6">
+	Improved search/cleanup.
+    </event>
+    <event start="Jun 07 2003" title="Cleanup" link="http://blog.musicbrainz.org/?p=9">
+	Cleanup release.
+    </event>
+    <event start="Jun 15 2003" title="Cleanup" link="http://blog.musicbrainz.org/?p=10">
+	Cleanup release.
+    </event>
+    <event start="Jun 30 2003" title="Artist subscriptions" link="http://blog.musicbrainz.org/?p=11">
+	Artist subscriptions
+    </event>
+    <event start="Jun 30 2003" title="Bug fixes" link="http://blog.musicbrainz.org/?p=13">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Jul 25 2003" title="Bug fixes" link="http://blog.musicbrainz.org/?p=15">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Sep 04 2003" title="Bug fixes" link="http://blog.musicbrainz.org/?p=16">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Oct 13 2003" title="Non album tracks" link="http://blog.musicbrainz.org/?p=18">
+    Non album tracks are released.
+    </event>
+    <event start="Oct 19 2003" title="Release editor" link="http://blog.musicbrainz.org/?p=19">
+    Release editor and Guess Case released.
+    </event>
+    <event start="Nov 10 2003" title="Edit search" link="http://blog.musicbrainz.org/?p=21">
+    Link to MusicBrainz feature, release events and edit suggestions released.
+    </event>
+    <event start="Dec 28 2003" title="Linking" link="http://blog.musicbrainz.org/?p=23">
+    Link to MusicBrainz feature, release events and edit suggestions released.
+    </event>
+    <event start="Jan 17 2004" title="Inline edits" link="http://blog.musicbrainz.org/?p=24">
+    Inline edits, new reports, improved data import scripts.
+    </event>
+    <event start="Feb 24 2004" title="Amazon Coverart" link="http://blog.musicbrainz.org/?p=27">
+    Amazon coverart support released.
+    </event>
+    <event start="May 09 2004" title="Caching/bug fixes" link="http://blog.musicbrainz.org/?p=28">
+    Caching (memcached) and bugs fixed.
+    </event>
+    <event start="May 09 2004" title="Install scripts" link="http://blog.musicbrainz.org/?p=33">
+	Edit display improvements, turned off RDF dumps, new install scripts released.
+    </event>
+    <event start="Jul 24 2004" title="Improve voting" link="http://blog.musicbrainz.org/?p=35">
+	Voting logic was improved, web based autoeditor elections released.
+    </event>
+    <event start="Oct 10 2004" title="FreeDB off/Autoeditors" link="http://blog.musicbrainz.org/?p=37">
+	FreeDB auto import feature turned off and autoeditor elections released. Unused TRMs pruned from the database.
+    </event>
+    <event start="Nov 14 2004" title="Annotations" link="http://blog.musicbrainz.org/?p=65">
+	Annotation support released.
+    </event>
+    <event start="Feb 13 2005" title="User improvements" link="http://blog.musicbrainz.org/?p=91">
+        Artist subscriptions made public and various smaller user centric improvements are released.
+    </event>
+    <event start="Apr 10 2005" title="Advanced relationships" link="http://blog.musicbrainz.org/?p=100">
+	Advanced relationships that allow users to connect basic data entities is relased and unused TRMs pruned from the database. Inline editing is turned off by default, causing a drop in vorting activity.
+    </event>
+    <event start="Apr 19 2005" title="MetaBrainz launched" link="http://blog.musicbrainz.org/?p=102">
+	The MetaBrainz Foundation, the legal home for MusicBrainz is announced to the public.
+    </event>
+    <event start="May 22 2005" title="Album languages" link="http://blog.musicbrainz.org/?p=109">
+	Album languages, guess case improvements and revamps edit forms released.
+    </event>
+    <event start="Oct 23 2005" title="Menus/Client scripting" link="http://blog.musicbrainz.org/?p=126">
+	Top menu navigation improved, duplicate artists, album edit all, track time editing features
+	released.
+    </event>
+    <event start="Jan 08 2006" title="SG5 Fixes" link="http://blog.musicbrainz.org/?p=142">
+	Style Guideline 5 workaround introduced and unused TRMs pruned from the database.
+    </event>
+    <event start="Jan 20 2007" title="MetaBrainz signs first customer" link="http://blog.musicbrainz.org/?p=148">
+	Linkara Musica becomes first commercial customer of MetaBrainz.
+    </event>
+    <event start="Feb 27 2006" title="MusicBrainz Move" link="http://blog.musicbrainz.org/?p=155">
+	MusicBrainz moved to Digital West Networks in San Luis Obispo.
+    </event>
+    <event start="Mar 05 2006" title="Indexed search/XML WS" link="http://blog.musicbrainz.org/?p=159">
+	Indexes search and a new XML based Web Service are released.
+    </event>
+    <event start="Mar 12 2006" title="MusicIP PUID" link="http://blog.musicbrainz.org/?p=160">
+	MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic fingerprints. Picard becomes the official MusicBrainz tagger with PUID support, which causes edit activity to decrease.
+    </event>
+    <event start="Jul 12 2006" title="Release editor" link="http://blog.musicbrainz.org/?p=184">
+	An improved release editor and a new site design are released.
+    </event>
+    <event start="Aug 15 2006" title="Great Dispute" link="http://wiki.musicbrainz.org/GreatDispute">
+	A rift in the MusicBrainz community leads to a Great Dispute.
+    </event>
+    <event start="Dec 17 2006" title="Search improvements" link="http://blog.musicbrainz.org/?p=229">
+	The search features and web service improvements are released.
+    </event>
+    <event start="Apr 01 2007" title="Labels/data quality" link="http://blog.musicbrainz.org/?p=252">
+	Support for Labels and data quality are released.
+    </event>
+    <event start="Jun 28 2007" title="BBC partners with MetaBrainz" link="http://blog.musicbrainz.org/?p=274">
+	The BBC becomes a MetaBrainz customer and starts using MusicBrainz data.
+    </event>
+    <event start="Oct 17 2007" title="Tags" link="http://blog.musicbrainz.org/?p=287">
+	Folksonomy tagging, editor subscriptions are released.
+    </event>
+    <event start="Nov 07 2007" title="Last.fm" link="http://blog.musicbrainz.org/?p=294">
+	Last.fm signs up with MetaBrainz and starts using MusicBrainz data.
+    </event>
+    <event start="Apr 01 2008" title="MetaWeb signed" link="http://blog.musicbrainz.org/?p=316">
+	MetaWeb comes MusicBrainz data user.
+    </event>
+    <event start="Apr 21 2008" title="SoC 2008" link="http://blog.musicbrainz.org/?p=317">
+	MetaBrainz accepts three students for Google Summer of Code.
+    </event>
+    <event start="Jul 30 2008" title="BBC dynamic artist pages" link="http://blog.musicbrainz.org/?p=337">
+	BBC launches the dynamic artist pages based on MusicBrainz data.
+    </event>
+    <event start="Sep 01 2008" title="Amazon betas SoundUnwound" link="http://blog.musicbrainz.org/?p=344">
+	Amazon betas <a href="http://soundunwound.com">SoundUnwound</a> with data from MusicBrainz.
+    </event>
+    <event start="Sep 23 2008" title="MetaBrainz hires Oliver Charles" link="http://blog.musicbrainz.org/?p=346">
+	Oliver Charles becomes employee #1 of MetaBrainz Foundation.
+    </event>
+    <event start="Nov 24 2008" title="Collection, Ratings, CDStubs" link="http://blog.musicbrainz.org/?p=365">
+	Collection, Ratings, CDStubs, LastUpdate released.
+    </event>
+    <event start="May 24 2009" title="Release Groups, ISRCs, CDStub searching" link="http://blog.musicbrainz.org/?p=391">
+	Release groups, ISRC support, CDStub searching and search fixes released.
+    </event>
+    <event start="June 17 2009" title="Imported CD Baby catalog as CD Stubs" link="http://blog.musicbrainz.org/?p=394">
+	Imported the metadata from the CD Baby catalog into our CD Stubs collection.
+    </event>
+    <event start="May 18 2011" title="NGS Release" link="http://blog.musicbrainz.org/?p=873">
+        NGS is released!
+    </event>
+</data>
