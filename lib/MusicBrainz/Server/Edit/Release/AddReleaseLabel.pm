@@ -67,9 +67,9 @@ sub initialize {
 sub foreign_keys
 {
     my $self = shift;
-    my %fk = (
-        Release => { $self->release_id => ['ArtistCredit'] },
-    );
+    my %fk;
+
+    $fk{Release} = { $self->release_id => ['ArtistCredit'] } if $self->release_id;
 
     if (my $lbl = $self->data->{label}) {
         $fk{Label} = [ $lbl->{id} ]
