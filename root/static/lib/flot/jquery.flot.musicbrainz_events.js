@@ -10,27 +10,27 @@
 
     function changeCurrentEvent(to) {
         this.getOptions().musicbrainzEvents.currentEvent = to; 
-        this.triggerRedrawOverlay();	
+        this.triggerRedrawOverlay();
     }
 
     function drawCrosshairLine(plot, ctx, x, color) {
 
         var plotOffset = plot.getPlotOffset();
 
-	x = plot.p2c({x: x}).left;
+        x = plot.p2c({x: x}).left;
 
-	ctx.save();
-	ctx.translate(plotOffset.left, plotOffset.top);
+        ctx.save();
+        ctx.translate(plotOffset.left, plotOffset.top);
 
-	ctx.strokeStyle = color;
-	ctx.lineWidth = 1;
-	ctx.lineJoin = "round";
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1;
+        ctx.lineJoin = "round";
 
-	ctx.beginPath();
-	ctx.moveTo(x, 0);
-	ctx.lineTo(x, plot.height());
-	ctx.stroke();
-	ctx.restore();
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, plot.height());
+        ctx.stroke();
+        ctx.restore();
     }
 
     
@@ -40,10 +40,10 @@
         plot.hooks.drawOverlay.push(function (plot, ctx) {
             var options = plot.getOptions().musicbrainzEvents;
 
-	    $.each(options.data, function(index, value) {
-	            var color = (value.jsDate == options.currentEvent) ? options.selectColor : options.deselectColor;
-		    drawCrosshairLine(plot, ctx, value.jsDate, color);
-	    });
+            $.each(options.data, function(index, value) {
+                    var color = (value.jsDate == options.currentEvent) ? options.selectColor : options.deselectColor;
+                    drawCrosshairLine(plot, ctx, value.jsDate, color);
+            });
         });
     }
     
