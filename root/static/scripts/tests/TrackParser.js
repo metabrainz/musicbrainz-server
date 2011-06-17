@@ -11,6 +11,50 @@ MB.tests.TrackParser.ReleaseDiscMock = function () {
 
 MB.tests.TrackParser.BugFixes = function() {
     QUnit.module('Track Parser');
+    QUnit.test('Tracknumbers', function() {
+
+        var tests = [
+            {
+                input: [
+                    "a1  Kermis         02:04",
+                    "a2.  Glitch        02:51",
+                    "a3.Afrik Slang     02:11",
+                    "4 Rot Beat         01:07",
+                    "5. Pruik           02:21",
+                    "6.In Je Graff      03:21",
+                    "７ Ｈｉｌｌｗｏｏｄ   ０２：３４"
+                ].join ("\n"),
+                expected: [
+                    "Kermis",
+                    "Glitch",
+                    "Afrik Slang",
+                    "Rot Beat",
+                    "Pruik",
+                    "In Je Graff",
+                    "Ｈｉｌｌｗｏｏｄ"
+                ],
+                tracknumbers: true, vinylnumbers: true, tracktimes: true
+            }
+        ];
+
+        $.each(tests, function(idx, test) {
+            var $textarea = $('textarea.tracklist');
+            var disc = MB.tests.TrackParser.ReleaseDiscMock ();
+            var parser = MB.TrackParser.Parser (disc, $textarea);
+            parser.setOptions (test);
+
+            $textarea.val (test.input);
+            var result = parser.getTrackInput ();
+
+            $.each (test.expected, function (idx, expected) {
+                var r = result[idx];
+                QUnit.equals(r.title, expected, expected);
+            });
+        });
+
+    });
+
+
     QUnit.test('BugFixes', function() {
 
         var tests = [
