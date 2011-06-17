@@ -3,6 +3,9 @@ package MusicBrainz::Server::Controller::WS::js;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use Data::OptList;
+use Encode qw( decode encode );
+use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
@@ -15,8 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
-use Data::OptList;
-use Encode qw( decode encode );
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
@@ -171,7 +172,7 @@ sub tracklist_results {
         }
     }
 
-    return @output;
+    return uniq_by { $_->{tracklist_id} } @output;
 };
 
 sub disc_results {
