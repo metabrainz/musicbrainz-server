@@ -4,7 +4,7 @@ $(document).ready(function () {
     var control_id_prefix = 'graph-control-';
 
     var datasets = {};
-    var events = [];
+    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: null, data: []}}
     var graph_options = {};
     var overview_options = {};
     var graphZoomOptions = {};
@@ -12,9 +12,9 @@ $(document).ready(function () {
     $.get('/static/xml/mb_history.xml', function (data) {
         $(data).find('event').each(function() {
 		$this = $(this);
-		events.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
+		musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
 	});
-	resetPlot();
+	resetPlot(true);
     }, 'xml');
 
     function graph_data () {
@@ -56,29 +56,6 @@ $(document).ready(function () {
     // "Reset Graph" functionality
     $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(false); });
 
-    function drawCrosshairLine(plot, x, color, width) {
-	if (!color) {
-		color = "rgba(170, 0, 0, 1)";
-	}
-        var plotOffset = plot.getPlotOffset();
-        var ctx = plot.getCanvas().getContext("2d");
-
-	x = plot.p2c({x: x}).left;
-
-	ctx.save();
-	ctx.translate(plotOffset.left, plotOffset.top);
-
-	ctx.strokeStyle = color;
-	ctx.lineWidth = 1;
-	ctx.lineJoin = "round";
-
-	ctx.beginPath();
-	ctx.moveTo(x, 0);
-	ctx.lineTo(x, plot.height());
-	ctx.stroke();
-	ctx.restore();
-    }
-
     // Hover functionality
     function showTooltip(x, y, contents) {
         $('<div id="tooltip">' + contents + '</div>').css( {
@@ -94,7 +71,7 @@ $(document).ready(function () {
     }
     function getEvent(pos) {
 	    thisEvent = false;
-	    $.each(events, function (index, value) {
+	    $.each(musicbrainzEventsOptions.musicbrainzEvents.data, function (index, value) {
 		    if (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5) {
 			    thisEvent = value;
 		    }
@@ -103,7 +80,6 @@ $(document).ready(function () {
 	    return thisEvent;
     }
     var previousPoint = null;
-    var previousEvent = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
         if(item) {
             if (previousPoint != item.dataIndex) {
@@ -119,19 +95,21 @@ $(document).ready(function () {
 
                 showTooltip(item.pageX, item.pageY,
                     date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
+	        musicbrainzEventsOptions.musicbrainzEvents.currentEvent = null;
+                plot.changeCurrentEvent(null);
             }
 	} else if (getEvent(pos)) {
 		thisEvent = getEvent(pos);
-		if (previousEvent != thisEvent.jsDate) {
-			previousEvent = thisEvent.jsDate;
+		if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent != thisEvent.jsDate) {
+			musicbrainzEventsOptions.musicbrainzEvents.currentEvent = thisEvent.jsDate;
 		        $('#event-info').text(thisEvent.description);
-			resetPlot(true);
+                        plot.changeCurrentEvent(thisEvent.jsDate);
 		}
         } else {
             $('#tooltip').remove();
             previousPoint = null;
-	    previousEvent = null;
-	    resetPlot(true);
+	    musicbrainzEventsOptions.musicbrainzEvents.currentEvent = null;
+            plot.changeCurrentEvent(null);
         }
     });
 
@@ -197,12 +175,12 @@ $(document).ready(function () {
     function resetPlot (preserveZoom) {
         if (preserveZoom) {
             plot = $.plot($("#graph-container"), graph_data(), 
-                $.extend(true, {}, graph_options, graphZoomOptions, {musicbrainz_events: { currentEvent: previousEvent, data: events}}));
+                $.extend(true, {}, graph_options, graphZoomOptions, musicbrainzEventsOptions));
 	    plot.triggerRedrawOverlay();
         } else {
             graphZoomOptions = {};
             remove_from_hash('g-([0-9.]+-){3}[0-9.]+');
-            plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, {musicbrainz_events: { currentEvent: previousEvent, data: events}}));
+            plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, musicbrainzEventsOptions));
 	    plot.triggerRedrawOverlay();
         }
         overview = $.plot($('#overview'), graph_data(), overview_options);

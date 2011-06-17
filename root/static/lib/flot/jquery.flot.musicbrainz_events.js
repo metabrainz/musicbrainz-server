@@ -1,12 +1,17 @@
 (function ($) {
     var options = {
-        musicbrainz_events: {
-            select_color: "rgba(170, 0, 0, 0.80)",
-            deselect_color: "rgba(170, 170, 170, 0.80)",
+        musicbrainzEvents: {
+            selectColor: "rgba(170, 0, 0, 1)",
+            deselectColor: "rgba(170, 0, 0, 0.20)",
             data: [],
             currentEvent: null
         }
     };
+
+    function changeCurrentEvent(to) {
+        this.getOptions().musicbrainzEvents.currentEvent = to; 
+        this.triggerRedrawOverlay();	
+    }
 
     function drawCrosshairLine(plot, ctx, x, color) {
 
@@ -30,12 +35,13 @@
 
     
     function init(plot) {
+        plot.changeCurrentEvent = changeCurrentEvent;
 
         plot.hooks.drawOverlay.push(function (plot, ctx) {
-            var options = plot.getOptions().musicbrainz_events;
+            var options = plot.getOptions().musicbrainzEvents;
 
 	    $.each(options.data, function(index, value) {
-	            var color = (value.jsDate == options.currentEvent) ? options.select_color : options.deselect_color;
+	            var color = (value.jsDate == options.currentEvent) ? options.selectColor : options.deselectColor;
 		    drawCrosshairLine(plot, ctx, value.jsDate, color);
 	    });
         });
@@ -44,7 +50,7 @@
     $.plot.plugins.push({
         init: init,
         options: options,
-        name: 'musicbrainz_events',
+        name: 'musicbrainzEvents',
         version: '1.0'
     });
 })(jQuery);
