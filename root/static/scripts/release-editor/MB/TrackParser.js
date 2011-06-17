@@ -197,8 +197,8 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.artist = null;
 
     self.regex = {
-        vinyl: /^\s*[-\.０-９0-9a-z]+\.?(\s+|$)/i,
-        trkno: /^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)\.?(\s+|$)/,
+        vinyl: /^\s*[０-９0-9a-z]+(\.|\s|$)/i,
+        trkno: /^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/,
     }
 
     self.ignoreTrack = function () {
