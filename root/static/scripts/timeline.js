@@ -7,6 +7,7 @@ $(document).ready(function () {
     var events = [];
     var graph_options = {};
     var overview_options = {};
+    var graphZoomOptions = {};
 
     $.get('/static/xml/mb_history.xml', function (data) {
         $(data).find('event').each(function() {
@@ -39,18 +40,21 @@ $(document).ready(function () {
         ranges.yaxis.to = ranges.yaxis.from + 1;
 
     // do the zooming
-    plot = $.plot($("#graph-container"), graph_data(), 
-        $.extend(true, {}, graph_options, {
+    graphZoomOptions = {
             xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
-        yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
-        }, {musicbrainz_events: { currentEvent: previousEvent, data: events }}));
+            yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }}
+
+    change_hash(false, hashPartFromGeometry(graphZoomOptions), true);
+
+    resetPlot(true);
     });
+
     $('#overview').bind('plotselected', function(event, ranges) {
         plot.setSelection(ranges);
     });
 
     // "Reset Graph" functionality
-    $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(); });
+    $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(false); });
 
     function drawCrosshairLine(plot, x, color, width) {
 	if (!color) {
@@ -121,15 +125,25 @@ $(document).ready(function () {
 		if (previousEvent != thisEvent.jsDate) {
 			previousEvent = thisEvent.jsDate;
 		        $('#event-info').text(thisEvent.description);
-			resetPlot();
+			resetPlot(true);
 		}
         } else {
             $('#tooltip').remove();
             previousPoint = null;
 	    previousEvent = null;
-	    resetPlot();
+	    resetPlot(true);
         }
     });
+
+    function hashPartFromGeometry(geometry) {
+	    var blah = 'g-' + geometry.xaxis.min + '-' + geometry.xaxis.max + '-' + geometry.yaxis.min + '-' + geometry.yaxis.max;
+	    return blah;
+    }
+
+    function geometryFromHashPart(hashPart){
+	    var hashParts = hashPart.substr(2).split('-');
+	    return { xaxis: { min: parseFloat(hashParts[0]), max: parseFloat(hashParts[1]) }, yaxis: { min: parseFloat(hashParts[2]), max: parseFloat(hashParts[3]) }};
+    }
 
     function change_hash(minus, new_hash_part, hide) {
         if (hide != minus) {
@@ -144,7 +158,8 @@ $(document).ready(function () {
     }
 
     function remove_from_hash(to_remove) {
-        window.location.hash = location.hash.replace(new RegExp('\\+?' + to_remove), '');
+        var regex = new RegExp('\\+?' + to_remove)
+        window.location.hash = location.hash.replace(regex , '');
     }
 
     function check(name, toggle, categoryp) {
@@ -169,14 +184,27 @@ $(document).ready(function () {
             if (category) {
                 value = value.substr(2);
             }
-            check(value, !remove, category);
+            if (!(value.substr(0,2) == 'g-')) {
+                check(value, !remove, category);
+            } else if (value.substr(0,2) == 'g-') {
+                graphZoomOptions = geometryFromHashPart(value);
+                resetPlot(true);
+            }
         });
     });
 
 
-    function resetPlot () {
-        plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, {musicbrainz_events: { currentEvent: previousEvent, data: events}}));
-	plot.triggerRedrawOverlay();
+    function resetPlot (preserveZoom) {
+        if (preserveZoom) {
+            plot = $.plot($("#graph-container"), graph_data(), 
+                $.extend(true, {}, graph_options, graphZoomOptions, {musicbrainz_events: { currentEvent: previousEvent, data: events}}));
+	    plot.triggerRedrawOverlay();
+        } else {
+            graphZoomOptions = {};
+            remove_from_hash('g-([0-9.]+-){3}[0-9.]+');
+            plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, {musicbrainz_events: { currentEvent: previousEvent, data: events}}));
+	    plot.triggerRedrawOverlay();
+        }
         overview = $.plot($('#overview'), graph_data(), overview_options);
     }
 
@@ -201,7 +229,7 @@ $(document).ready(function () {
             var hide = (MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Hide ? true : false);
             change_hash(minus, new_hash_part, hide);
 
-            resetPlot();
+            resetPlot(true);
         });
         $('#graph-lines .toggler input:checkbox').change(function () {
             var $this = $(this);
@@ -213,7 +241,7 @@ $(document).ready(function () {
             change_hash(minus, new_hash_part, hide);
     
             $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
-            resetPlot();
+            resetPlot(true);
         });
 
 
