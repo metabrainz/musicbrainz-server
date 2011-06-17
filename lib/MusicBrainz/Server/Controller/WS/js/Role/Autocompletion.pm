@@ -73,7 +73,10 @@ sub _form_indexed_query {
     my ($self, $query) = @_;
     $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
     $query = escape_query ($query);
-    $query = $query.'*';
+
+    # FIXME Should be able to remove the 'OR' when Lucene 4.0 comes out
+    $query = "$query OR $query*";
+
     return $query;
 }
 
