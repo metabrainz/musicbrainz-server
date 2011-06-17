@@ -4,7 +4,7 @@
             selectColor: "rgba(170, 0, 0, 1)",
             deselectColor: "rgba(170, 0, 0, 0.20)",
             data: [],
-            currentEvent: null
+            currentEvent: {}
         }
     };
 
@@ -41,7 +41,7 @@
             var options = plot.getOptions().musicbrainzEvents;
 
             $.each(options.data, function(index, value) {
-                    var color = (value.jsDate == options.currentEvent) ? options.selectColor : options.deselectColor;
+                    var color = (value.jsDate == options.currentEvent.jsDate) ? options.selectColor : options.deselectColor;
                     drawCrosshairLine(plot, ctx, value.jsDate, color);
             });
         });

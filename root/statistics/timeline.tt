@@ -56,7 +56,6 @@
         <div id="graph-lines">
         </div>
     </div>
-    <p id="event-info"></p>
 [%- END -%]
 
 [%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]

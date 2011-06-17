@@ -4,7 +4,7 @@ $(document).ready(function () {
     var control_id_prefix = 'graph-control-';
 
     var datasets = {};
-    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: null, data: []}}
+    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: []}}
     var graph_options = {};
     var overview_options = {};
     var graphZoomOptions = {};
@@ -54,7 +54,16 @@ $(document).ready(function () {
     });
 
     // "Reset Graph" functionality
-    $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(false); });
+    $('#graph-container, #overview').bind('plotunselected', function () { 
+        if (!plot.getOptions().musicbrainzEvents.currentEvent.link) 
+        {
+            resetPlot(false);
+        } else {
+            // we're clicking on an event, should open the link instead
+            window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
+	}
+        
+    });
 
     // Hover functionality
     function showTooltip(x, y, contents) {
@@ -69,6 +78,14 @@ $(document).ready(function () {
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
     }
+    function removeTooltip() {
+        $('#tooltip').remove();
+    }
+    function changeCurrentEvent(item) {
+        musicbrainzEventsOptions.musicbrainzEvents.currentEvent = item;
+        plot.changeCurrentEvent(item);
+    }
+
     function getEvent(pos) {
         thisEvent = false;
         $.each(musicbrainzEventsOptions.musicbrainzEvents.data, function (index, value) {
@@ -95,21 +112,21 @@ $(document).ready(function () {
 
                 showTooltip(item.pageX, item.pageY,
                     date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
-                musicbrainzEventsOptions.musicbrainzEvents.currentEvent = null;
-                plot.changeCurrentEvent(null);
+                changeCurrentEvent({});
             }
         } else if (getEvent(pos)) {
                 thisEvent = getEvent(pos);
-                if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent != thisEvent.jsDate) {
-                    musicbrainzEventsOptions.musicbrainzEvents.currentEvent = thisEvent.jsDate;
-                    $('#event-info').text(thisEvent.description);
-                    plot.changeCurrentEvent(thisEvent.jsDate);
+                if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
+                    removeTooltip();
+		    showTooltip(pos.pageX, pos.pageY, thisEvent.description);
+
+                    changeCurrentEvent(thisEvent);
                 }
         } else {
-            $('#tooltip').remove();
+            removeTooltip();
             previousPoint = null;
-            musicbrainzEventsOptions.musicbrainzEvents.currentEvent = null;
-            plot.changeCurrentEvent(null);
+
+            changeCurrentEvent({});
         }
     });
 
