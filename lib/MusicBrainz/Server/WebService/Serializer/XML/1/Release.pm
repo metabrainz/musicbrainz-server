@@ -90,6 +90,7 @@ sub serialize
                     Recording->meta->clone_object(
                         $_->recording,
                         name => $_->name,
+                        length => $_->length,
 
                         # We only show track artists if inc=artist, and if this is a
                         # various artist release

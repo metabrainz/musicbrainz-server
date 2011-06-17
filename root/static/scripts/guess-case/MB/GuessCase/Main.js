@@ -197,7 +197,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessWork = function(is) {
+    self.guessWork = function(is, mode) {
 	var os, handler;
 	gc.init();
 
@@ -205,6 +205,8 @@ MB.GuessCase.Main = function () {
 	    self.workHandler = MB.GuessCase.Handler.Work ();
 	}
 	handler = self.workHandler;
+
+	self.useSelectedMode(mode);
 
 	// we need to query the handler if the input string is
 	// a special case, fetch the correct format, if the

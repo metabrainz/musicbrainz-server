@@ -298,7 +298,9 @@ sub schema_fixup
     }
     if ($type eq 'annotation' && exists $data->{entity})
     {
-        my $entity_model = $self->c->model( type_to_model($data->{type}) )->_entity_class;
+        my $parent_type = $data->{type};
+        $parent_type =~ s/-/_/g;
+        my $entity_model = $self->c->model( type_to_model($parent_type) )->_entity_class;
         $data->{parent} = $entity_model->new( { name => $data->{name}, gid => $data->{entity} });
         delete $data->{entity};
         delete $data->{type};

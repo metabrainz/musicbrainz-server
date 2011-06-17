@@ -309,7 +309,7 @@ sub find_by_recordings
     return %map;
 }
 
-sub find_by_artist_track_count
+sub find_for_cdtoc
 {
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
 
@@ -320,9 +320,12 @@ sub find_by_artist_track_count
                          ON acn.artist_credit = release.artist_credit
                      JOIN medium
                         ON medium.release = release.id
+                     LEFT JOIN medium_format
+                        ON medium_format.id = medium.format
                      JOIN tracklist
                         ON medium.tracklist = tracklist.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
+                   AND (medium_format.id IS NULL OR medium_format.has_discids)
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(

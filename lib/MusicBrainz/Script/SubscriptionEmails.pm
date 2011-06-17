@@ -155,7 +155,7 @@ sub _edits_for_subscription {
     my ($self, $sub) = @_;
     my $cache_key = ref($sub) . ': ' .
         join(', ', $sub->target_id, $sub->last_edit_sent);
-    return @{
+    return grep { $_->editor_id != $sub->editor_id } @{
         $self->cached_edits($cache_key) ||
         do {
             $self->cache_edits(

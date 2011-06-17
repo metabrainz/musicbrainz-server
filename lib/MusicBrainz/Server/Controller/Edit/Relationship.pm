@@ -400,13 +400,23 @@ sub relate_to_recordings : Path('/edit/relationship/create-recordings') RequireA
         );
 
         for my $recording_id (@recording_ids) {
+            my $target = $recordings{$recording_id};
+            next if $c->model('Relationship')->exists($type, 'recording', {
+                link_type_id => $link_type->id,
+                entity0_id   => $dest->id,
+                entity1_id   => $target->id,
+                begin_date   => $form->field('begin_date')->value,
+                end_date     => $form->field('end_date')->value,
+                attributes   => \@attributes
+            });
+
             $self->_insert_edit(
                 $c, $form,
                 edit_type    => $EDIT_RELATIONSHIP_CREATE,
                 type0        => $type,
                 type1        => 'recording',
                 entity0      => $dest,
-                entity1      => $recordings{$recording_id},
+                entity1      => $target,
                 link_type    => $link_type,
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,
