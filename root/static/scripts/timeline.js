@@ -142,10 +142,10 @@ $(document).ready(function () {
 
     function change_hash(minus, new_hash_part, hide) {
         if (hide != minus) {
-            if (location.hash.indexOf(new_hash_part) == -1) {
+            if (!new RegExp('\\+?-?' + new_hash_part + '(?=($|\\+))').test(location.hash)) {
                 window.location.hash = location.hash + (location.hash != '' ? '+' : '') + (minus ? '-' : '') + new_hash_part;
             } else {
-                window.location.hash = location.hash.replace(new RegExp('-?' + new_hash_part), (minus ? '-' : '') + new_hash_part);
+                window.location.hash = location.hash.replace(new RegExp('-?' + new_hash_part + '(?=($|\\+))'), (minus ? '-' : '') + new_hash_part);
             }
         } else {
             remove_from_hash('-?' + new_hash_part);
@@ -153,7 +153,7 @@ $(document).ready(function () {
     }
 
     function remove_from_hash(to_remove) {
-        var regex = new RegExp('\\+?' + to_remove)
+        var regex = new RegExp('\\+?' + to_remove + '(?=($|\\+))')
         window.location.hash = location.hash.replace(regex , '');
     }
 
@@ -249,14 +249,14 @@ $(document).ready(function () {
 
         $('div.graph-category').each(function () {
             var category = $(this).attr('id').substr(category_id_prefix.length);
-            if (MB.text.Timeline.Category[category].Hide) {
+            if (MB.text.Timeline.Category[category].Hide && !(new RegExp('\\+?-?c-' + category + '(?=($|\\+))').test(location.hash))) {
                 $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
             }
         });
 
         $('div.graph-control').each(function () {
             var identifier = $(this).attr('id').substr(control_id_prefix.length);
-            if (MB.text.Timeline[identifier].Hide) {
+            if (MB.text.Timeline[identifier].Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
                 $(this).children('input:checkbox').attr('checked', false).change();
             }
         });
