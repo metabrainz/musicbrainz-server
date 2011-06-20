@@ -208,7 +208,8 @@ sub disc_search {
     my $limit = $c->stash->{args}->{limit} || 10;
     my $page = $c->stash->{args}->{page} || 1;
 
-    my $title = $type eq 'release' ? "release:($query*)" : "$query*";
+    # FIXME Should be able to remove the 'OR' when Lucene 4.0 comes out
+    my $title = $type eq 'release' ? "release:($query*) OR release:($query)" : "$query* OR $query";
     my @query;
 
     push @query, $title if $query;
