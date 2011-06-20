@@ -164,7 +164,7 @@ MB.utility.rememberCheckbox = function (id, name) {
     }
     else
     {
-        $(id).removeAttr ('checked', 'checked');
+        $(id).removeAttr ('checked');
     }
 
     $(id).bind ('change.mb', function () {
