@@ -42,9 +42,13 @@ MB.GuessCase.Main = function () {
     self.CFG_UC_ROMANNUMERALS = function () { return $('#gc-roman').is(':checked'); };
     self.CFG_UC_UPPERCASED = function () { return $('#gc-keepuppercase').is(':checked'); };
 
+    /* Remember config. */
+    MB.utility.rememberCheckbox ('#gc-roman', 'guesscase_roman');
+    MB.utility.rememberCheckbox ('#gc-keepuppercase', 'guesscase_keepuppercase');
+
     // ----------------------------------------------------------------------------
     // member variables
-    // ---------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
     self.u = MB.GuessCase.Utils ();
     self.f = MB.GuessCase.Flags ();
     self.i = MB.GuessCase.Input ();

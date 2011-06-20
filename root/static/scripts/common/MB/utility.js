@@ -154,3 +154,21 @@ MB.utility.setDefaultAction = function (form, button) {
         }));
 
 };
+
+/* Remember the state of a checkbox, using a persistent cookie. */
+MB.utility.rememberCheckbox = function (id, name) {
+
+    if ($.cookie (name) === "1")
+    {
+        $(id).attr ('checked', 'checked');
+    }
+    else
+    {
+        $(id).removeAttr ('checked', 'checked');
+    }
+
+    $(id).bind ('change.mb', function () {
+        $.cookie (name, $(id).is(':checked') ? "1" : "0", { path: '/', expires: 365 });
+    });
+
+};
