@@ -595,10 +595,7 @@ sub reject
     my ($self, $edit, $status) = @_;
 
     $status ||= $STATUS_FAILEDVOTE;
-    my $expected_status = ($status == $STATUS_DELETED)
-        ? $STATUS_TOBEDELETED
-        : $STATUS_OPEN;
-    confess "The edit is not open anymore." if $edit->status != $expected_status;
+    confess "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
 
@@ -608,8 +605,7 @@ sub cancel
     my ($self, $edit) = @_;
 
     Sql::run_in_transaction(sub {
-        my $query = "UPDATE edit SET status = ? WHERE id = ?";
-        $self->c->raw_sql->do($query, $STATUS_TOBEDELETED, $edit->id);
+        $self->reject($edit, $STATUS_DELETED);
    }, $self->c->sql, $self->c->raw_sql);
 }
 
