@@ -304,7 +304,6 @@ my %stats = (
                 "count.edit.error"      => $dist{$STATUS_ERROR}         || 0,
                 "count.edit.failedprereq"   => $dist{$STATUS_FAILEDPREREQ}  || 0,
                 "count.edit.evalnochange"   => 0,
-                "count.edit.tobedeleted"    => $dist{$STATUS_TOBEDELETED}   || 0,
                 "count.edit.deleted"        => $dist{$STATUS_DELETED}       || 0,
             };
         },
@@ -336,11 +335,6 @@ my %stats = (
     },
     "count.edit.evalnochange" => {
         DESC => "Count of evalnochange edits",
-        PREREQ => [qw[ count.edit.open ]],
-        PREREQ_ONLY => 1,
-    },
-    "count.edit.tobedeleted" => {
-        DESC => "Count of edits marked as 'to be deleted'",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
     },
