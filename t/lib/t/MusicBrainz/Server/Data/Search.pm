@@ -164,8 +164,7 @@ sub load_data
 
     ok (type_to_model($type), "$type has a model");
 
-    return MusicBrainz::Server::Data::Search->new()->external_search(
-        $c,
+    return MusicBrainz::Server::Data::Search->new(c => $c)->external_search(
         $type,
         'love',  # "Love" always has tons of hits
         25,      # items per page

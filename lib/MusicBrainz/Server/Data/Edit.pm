@@ -71,6 +71,13 @@ sub _new_from_row
     return $edit;
 }
 
+sub run_query {
+    my ($self, $query, $limit, $offset) = @_;
+    return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
+            return $self->_new_from_row(shift);
+        }, $query->as_string, $query->arguments, $offset);
+}
+
 # Load an edit from the DB and try to get an exclusive lock on it
 sub get_by_id_and_lock
 {
@@ -588,10 +595,7 @@ sub reject
     my ($self, $edit, $status) = @_;
 
     $status ||= $STATUS_FAILEDVOTE;
-    my $expected_status = ($status == $STATUS_DELETED)
-        ? $STATUS_TOBEDELETED
-        : $STATUS_OPEN;
-    confess "The edit is not open anymore." if $edit->status != $expected_status;
+    confess "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
 
@@ -601,8 +605,7 @@ sub cancel
     my ($self, $edit) = @_;
 
     Sql::run_in_transaction(sub {
-        my $query = "UPDATE edit SET status = ? WHERE id = ?";
-        $self->c->raw_sql->do($query, $STATUS_TOBEDELETED, $edit->id);
+        $self->reject($edit, $STATUS_DELETED);
    }, $self->c->sql, $self->c->raw_sql);
 }
 

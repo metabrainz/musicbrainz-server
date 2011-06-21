@@ -257,3 +257,16 @@ table.form th {
 table.form {
     padding: 10pt 0;
 }
+
+ul.conditions button.remove {
+    display: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+ul.conditions button.remove img {
+    vertical-align: middle;
+}

@@ -383,7 +383,7 @@ sub _serialize_recording
 
     my @list;
     push @list, $gen->title($recording->name);
-    push @list, $gen->length($recording->length);
+    push @list, $gen->length($recording->length) if $recording->length;
     push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
 
     if ($toplevel)
@@ -469,15 +469,23 @@ sub _serialize_track
     my @track;
     push @track, $gen->position($track->position);
 
-    if ($track->recording)
-    {
-        push @track, $gen->title($track->name) if ($track->name ne $track->recording->name);
-        $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash);
-    }
-    else
-    {
-        push @track, $gen->title($track->name);
-    }
+    push @track, $gen->title($track->name)
+        if ($track->recording && $track->name ne $track->recording->name) ||
+           (!$track->recording);
+
+    push @track, $gen->length($track->length)
+        if $track->length;
+
+    $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
+        if $inc->artist_credits &&
+            (
+                ($track->recording &&
+                     $track->recording->artist_credit != $track->artist_credit)
+                || !$track->recording
+            );
+
+    $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
+        if ($track->recording);
 
     push @$data, $gen->track(@track);
 }

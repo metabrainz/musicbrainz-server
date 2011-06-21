@@ -6,6 +6,7 @@ BEGIN { extends 'Catalyst' }
 use Class::MOP;
 use DBDefs;
 use Encode;
+use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
 
@@ -78,6 +79,7 @@ __PACKAGE__->config(
             json => 'application/json; charset=UTF-8',
         },
         dirs => [ 'static' ],
+        no_logs => 1
     },
     stacktrace => {
         enable => 1 # Always enable
@@ -173,6 +175,11 @@ if ($ENV{'MUSICBRAINZ_USE_TEST_DATABASE'})
     use MusicBrainz::Server::DatabaseConnectionFactory;
     MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
     warn "WARNING: Using test database schema\n";
+}
+
+{
+    use MusicBrainz::Server::CatalystLogger;
+    __PACKAGE__->log( MusicBrainz::Server::CatalystLogger->new( dispatch => logger() ) );
 }
 
 # Start the application

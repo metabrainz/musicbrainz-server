@@ -1,6 +1,8 @@
 [%- info_links = [
     ['index', '<span class="mp"><a href="/statistics">Overview</a></span>']
     ['artist_countries', '<span class="mp"><a href="/statistics/artist-countries">Artist Countries</a></span>'],
+    ['release_countries', '<span class="mp"><a href="/statistics/release-countries">Release Countries</a></span>'],
+    ['label_countries', '<span class="mp"><a href="/statistics/label-countries">Label Countries</a></span>'],
     ['timeline', '<span class="mp"><a href="/statistics/timeline">Timeline</a></span>'],
 ] -%]
 

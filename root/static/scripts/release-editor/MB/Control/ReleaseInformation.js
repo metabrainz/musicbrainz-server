@@ -372,6 +372,29 @@ MB.Control.ReleaseInformation = function() {
         self.artistcredit = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
+
+        MB.Control.Autocomplete ({
+            'input': $('input#id-release_group\\\.name'),
+            'entity': 'release-group',
+            'select': self.selectReleaseGroup
+        });
+        self.indicateSelectedReleaseGroup();
+    };
+
+    self.selectReleaseGroup = function(event, data) {
+        $('input#id-release_group_id').val(data.id);
+        self.indicateSelectedReleaseGroup();
+        $('input#id-release_group_name\\\.name').val(data.name);
+    };
+
+    self.indicateSelectedReleaseGroup = function() {
+        if ($('input#id-release_group_id').val()) {
+            $('input#id-release_group\\\.name').addClass ('lookup-performed');
+        }
+        else
+        {
+            $('input#id-release_group\\\.name').removeClass ('lookup-performed');
+        }
     };
 
     self.addLabel = function ($row) {

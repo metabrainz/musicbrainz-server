@@ -147,6 +147,14 @@ sub attach : Local RequireAuth
         ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
+        $c->model('MediumFormat')->load($medium);
+
+        $self->error(
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('The selected medium cannot have disc IDs')
+        ) unless $medium->may_have_discids;
+
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
 
@@ -178,7 +186,7 @@ sub attach : Local RequireAuth
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
         my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_artist_track_count($artist_id, $cdtoc->track_count,shift, shift)
+            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count,shift, shift)
         });
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);

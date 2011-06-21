@@ -75,7 +75,7 @@ sub text {
 
 sub header {
     my $self = shift;
-    my $escape = sub { uri_escape(shift) };
+    my $escape = sub { uri_escape_utf8(shift) };
     return strip tt q{
 This is a notification that edits have been added for artists, labels and
 editors to whom you subscribed on the MusicBrainz web site.
@@ -115,7 +115,7 @@ sub edits_for_editors {
     my $self = shift;
     my $subs = \@_;
 
-    my $escape = sub { uri_escape(shift) };
+    my $escape = sub { uri_escape_utf8(shift) };
     return strip tt q{
 Changes by your subscribed editors:
 --------------------------------------------------------------------------------

@@ -67,9 +67,9 @@ sub initialize {
 sub foreign_keys
 {
     my $self = shift;
-    my %fk = (
-        Release => { $self->release_id => ['ArtistCredit'] },
-    );
+    my %fk;
+
+    $fk{Release} = { $self->release_id => ['ArtistCredit'] } if $self->release_id;
 
     if (my $lbl = $self->data->{label}) {
         $fk{Label} = [ $lbl->{id} ]
@@ -110,7 +110,7 @@ sub insert
         if exists $self->data->{catalog_number};
 
     $args{label_id} = $self->data->{label}{id}
-        if exists $self->data->{label};
+        if $self->data->{label};
 
     my $rl = $self->c->model('ReleaseLabel')->insert(\%args);
     $self->entity_id($rl->id);

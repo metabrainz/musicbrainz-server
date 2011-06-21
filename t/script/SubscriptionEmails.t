@@ -57,8 +57,8 @@ my $acid2 = Editor->new(
 test 'Sending edits' => sub {
     my $test = shift;
     my $spor_subscription = ArtistSubscription->new( editor => $acid2 );
-    my $open_edit = Edit->new(status => $STATUS_OPEN);
-    my $applied_edit = Edit->new(status => $STATUS_APPLIED);
+    my $open_edit = Edit->new(status => $STATUS_OPEN, editor_id => 50 );
+    my $applied_edit = Edit->new(status => $STATUS_APPLIED, editor_id => 50 );
 
     mock_subscriptions(
         max_id => 10,
@@ -148,7 +148,7 @@ test 'Handling deletes and merges' => sub {
     };
 
     subtest 'Deleted deleted and merged subscriptions from the database' => sub {
-        verify($c->model('EditorSubscriptions'))->delete(set($artist, $label));
+        verify($c->model('EditorSubscriptions'))->update_subscriptions(anything);
     }
 };
 
@@ -156,8 +156,8 @@ test 'Editor subscriptions' => sub {
     my $test = shift;
     my $editor = Editor->new( id => 2 );
     my $editor_sub = EditorSubscription->new( subscribed_editor_id => $editor->id );
-    my $open_edit = Edit->new( status => $STATUS_OPEN );
-    my $applied_edit = Edit->new( status => $STATUS_APPLIED );
+    my $open_edit = Edit->new( status => $STATUS_OPEN, editor_id => 50  );
+    my $applied_edit = Edit->new( status => $STATUS_APPLIED, editor_id => 50  );
 
     mock_subscriptions(
         editors => [ $acid2 ],
@@ -190,6 +190,28 @@ test 'Editor subscriptions' => sub {
     subtest 'Loads the editor in question' => sub {
         verify($c->model('Editor'))->get_by_id($editor->id);
     }
+};
+
+test 'Does not send an editors own edits' => sub {
+    my $test = shift;
+    my $open_edit = Edit->new( status => $STATUS_OPEN, editor_id => 1 );
+    my $artist_sub = ArtistSubscription->new( editor => $acid2, editor_id => 1 );
+
+    mock_subscriptions(
+        editors => [ $acid2 ],
+        subscriptions => {
+            $acid2->id => [ $artist_sub ]
+        },
+        edits => [
+            [ $artist_sub => [ $open_edit ] ]
+        ]
+    );
+
+    $test->script->run;
+
+    ok(!defined inspect($test->emailer)
+        ->send_subscriptions_digest(anything),
+        'did not send any emails');
 };
 
 run_me;

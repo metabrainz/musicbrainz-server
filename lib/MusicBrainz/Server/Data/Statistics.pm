@@ -103,6 +103,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
+                WHERE type = 1
                 GROUP BY gender
                 ",
             );
@@ -125,7 +126,7 @@ my %stats = (
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
-    "cout.artist.gender.null" => {
+    "count.artist.gender.null" => {
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
@@ -215,6 +216,53 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM vote",
         DB => 'RAWDATA'
     },
+
+    "count.label.country" => {
+        DESC => "Distribution of labels per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(l.country) AS count
+                FROM label l RIGHT OUTER JOIN country c
+                    ON l.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.label.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
+    "count.release.country" => {
+        DESC => "Distribution of releases per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(r.country) AS count
+                FROM release r RIGHT OUTER JOIN country c
+                    ON r.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
         CALC => sub {
@@ -304,7 +352,6 @@ my %stats = (
                 "count.edit.error"      => $dist{$STATUS_ERROR}         || 0,
                 "count.edit.failedprereq"   => $dist{$STATUS_FAILEDPREREQ}  || 0,
                 "count.edit.evalnochange"   => 0,
-                "count.edit.tobedeleted"    => $dist{$STATUS_TOBEDELETED}   || 0,
                 "count.edit.deleted"        => $dist{$STATUS_DELETED}       || 0,
             };
         },
@@ -336,11 +383,6 @@ my %stats = (
     },
     "count.edit.evalnochange" => {
         DESC => "Count of evalnochange edits",
-        PREREQ => [qw[ count.edit.open ]],
-        PREREQ_ONLY => 1,
-    },
-    "count.edit.tobedeleted" => {
-        DESC => "Count of edits marked as 'to be deleted'",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
     },
@@ -386,9 +428,9 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT c.iso_code, COUNT(*) AS count
-                FROM artist a, country c
-                WHERE a.country=c.id
+                "SELECT c.iso_code, COUNT(a.country) AS count
+                FROM artist a RIGHT OUTER JOIN country c
+                    ON a.country=c.id
                 GROUP BY c.iso_code
                 ",
             );

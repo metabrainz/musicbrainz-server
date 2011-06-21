@@ -156,7 +156,7 @@ sub external : Private
     my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
 
     my $search = $c->model('Search');
-    my $ret = $search->external_search($c, $type, $query, $limit, $page, $adv);
+    my $ret = $search->external_search($type, $query, $limit, $page, $adv);
 
     if (exists $ret->{error})
     {

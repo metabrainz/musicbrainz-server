@@ -3,6 +3,7 @@ MB.tests.TrackParser = (MB.tests.TrackParser) ? MB.tests.TrackParser : {};
 MB.tests.TrackParser.ReleaseDiscMock = function () {
     var self = MB.Object ();
 
+    self.hasToc = function () { return false; }
     self.isVariousArtists = function () { return false; }
 
     return self;
@@ -10,6 +11,50 @@ MB.tests.TrackParser.ReleaseDiscMock = function () {
 
 MB.tests.TrackParser.BugFixes = function() {
     QUnit.module('Track Parser');
+    QUnit.test('Tracknumbers', function() {
+
+        var tests = [
+            {
+                input: [
+                    "a1  Kermis         02:04",
+                    "a2.  Glitch        02:51",
+                    "a3.Afrik Slang     02:11",
+                    "4 Rot Beat         01:07",
+                    "5. Pruik           02:21",
+                    "6.In Je Graff      03:21",
+                    "７ Ｈｉｌｌｗｏｏｄ   ０２：３４"
+                ].join ("\n"),
+                expected: [
+                    "Kermis",
+                    "Glitch",
+                    "Afrik Slang",
+                    "Rot Beat",
+                    "Pruik",
+                    "In Je Graff",
+                    "Ｈｉｌｌｗｏｏｄ"
+                ],
+                tracknumbers: true, vinylnumbers: true, tracktimes: true
+            }
+        ];
+
+        $.each(tests, function(idx, test) {
+            var $textarea = $('textarea.tracklist');
+            var disc = MB.tests.TrackParser.ReleaseDiscMock ();
+            var parser = MB.TrackParser.Parser (disc, $textarea);
+            parser.setOptions (test);
+
+            $textarea.val (test.input);
+            var result = parser.getTrackInput ();
+
+            $.each (test.expected, function (idx, expected) {
+                var r = result[idx];
+                QUnit.equals(r.title, expected, expected);
+            });
+        });
+
+    });
+
+
     QUnit.test('BugFixes', function() {
 
         var tests = [
@@ -26,6 +71,28 @@ MB.tests.TrackParser.BugFixes = function() {
                 ],
                 bug: 'MBS-1284',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1. Criminology 2.5 \n",
+                expected: [
+                    { title: "Criminology 2.5", duration: "?:??" },
+                ],
+                bug: 'MBS-2511',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1 Freeman Hardy & Willis Acid\n\n" +
+                    "   Written-By – James*, Jenkinson* \n\n" +
+                    "5:42\n" +
+                    "2 Orange Romeda\n\n" +
+                    "Written-By – Eoin*, Sandison* \n\n" +
+                    "4:51 \n",
+                expected: [
+                    { title: "Freeman Hardy & Willis Acid", duration: "?:??" },
+                    { title: "Orange Romeda", duration: "?:??" },
+                ],
+                bug: 'MBS-2540',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true,
             }
         ];
 

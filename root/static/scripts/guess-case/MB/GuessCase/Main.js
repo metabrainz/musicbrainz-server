@@ -42,9 +42,13 @@ MB.GuessCase.Main = function () {
     self.CFG_UC_ROMANNUMERALS = function () { return $('#gc-roman').is(':checked'); };
     self.CFG_UC_UPPERCASED = function () { return $('#gc-keepuppercase').is(':checked'); };
 
+    /* Remember config. */
+    MB.utility.rememberCheckbox ('#gc-roman', 'guesscase_roman');
+    MB.utility.rememberCheckbox ('#gc-keepuppercase', 'guesscase_keepuppercase');
+
     // ----------------------------------------------------------------------------
     // member variables
-    // ---------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
     self.u = MB.GuessCase.Utils ();
     self.f = MB.GuessCase.Flags ();
     self.i = MB.GuessCase.Input ();
@@ -197,7 +201,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessWork = function(is) {
+    self.guessWork = function(is, mode) {
 	var os, handler;
 	gc.init();
 
@@ -205,6 +209,8 @@ MB.GuessCase.Main = function () {
 	    self.workHandler = MB.GuessCase.Handler.Work ();
 	}
 	handler = self.workHandler;
+
+	self.useSelectedMode(mode);
 
 	// we need to query the handler if the input string is
 	// a special case, fetch the correct format, if the

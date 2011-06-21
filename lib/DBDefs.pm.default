@@ -375,5 +375,13 @@ sub AUTO_RESTART {
 # will be killed (and log a message about the request it was serving).
 sub MAX_REQUEST_TIME { undef }
 
+sub LOGGER_ARGUMENTS {
+    return (
+        outputs => [
+            [ 'Screen', min_level => 'debug', newline => 1 ],
+        ],
+    )
+}
+
 1;
 # eof DBDefs.pm

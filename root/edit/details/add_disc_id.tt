@@ -9,6 +9,6 @@
   [% END %]
   <tr>
     <th>[% l('Disc ID:') %]</th>
-    <td><code>[% edit.display_data.medium_cdtoc.cdtoc.discid | html %]</code></td>
+    <td>[% link_cdtoc(edit.display_data.medium_cdtoc.cdtoc) %]</td>
   </tr>
 </table>

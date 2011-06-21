@@ -1,17 +1,3 @@
-[%- MACRO expanded_artist_credit(artist_credit) BLOCK -%]
-  <ul>
-    [% FOR name=artist_credit.names %]
-      <li>
-      [% IF name.artist.name != name.name %]
-        [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
-      [% ELSE %]
-        [% descriptive_link(name.artist) %]</li>
-      [% END %]
-      </li>
-    [% END %]
-  </ul>
-[%- END -%]
-
 <table class="details edit-medium">
   [% UNLESS edit.preview %]
   <tr>

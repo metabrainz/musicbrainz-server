@@ -16,7 +16,7 @@
   <p>[% l('A CD Stub was found that matches the disc ID you provided. If the below tracklist
            appears correct, you may use it as a starting point as a new MusicBrainz release') %]</p>
   [% INCLUDE 'cdstub/cdstub.tt' %]
-  <form action="[% c.uri_for-action('/cdstub/import', [ cdstubtoc.discid ]) %]" method="get">
+  <form action="[% c.uri_for_action('/cdstub/import', [ cdstubtoc.discid ]) %]" method="get">
     [% form_submit(l('Import CD Stub')) %]
   </form>
   [% END %]

@@ -29,6 +29,7 @@ requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
 requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Pg'                       => '0.16004';
+requires 'DateTime::Format::Natural'                  => '0.96';
 requires 'DBIx::Connector';
 requires 'DBD::Pg'                                    => '2.11.8';
 requires 'DBI'                                        => '1.607';

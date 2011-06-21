@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Wizard;
 use TryCatch;
 
@@ -951,20 +952,29 @@ sub _edit_release_labels
         }
         elsif (
             $previewing ?
-                $new_label->{name} :
+                $new_label->{name} || $new_label->{catalog_number} :
                 $new_label->{label_id} || $new_label->{catalog_number})
         {
+            my $label;
+
             # Add ReleaseLabel
+            if ($previewing)
+            {
+                $label = $new_label->{name} ?
+                    Label->new(
+                        id   => 0,
+                        name => $new_label->{name}
+                    ) : undef;
+            }
+            else
+            {
+                $label = $labels->{ $new_label->{label_id} } if $new_label->{label_id};
+            }
 
             $create_edit->(
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
                 release => $previewing ? undef : $self->release,
-                label => $previewing
-                    ? Label->new(
-                        id   => 0,
-                        name => $new_label->{name}
-                    )
-                    : $labels->{ $new_label->{label_id} },
+                label => $label,
                 catalog_number => $new_label->{catalog_number},
                 as_auto_editor => $data->{as_auto_editor},
             );
@@ -1370,12 +1380,23 @@ sub _seed_parameters {
         }
     }
 
+    if (my $release_group_mbid = delete $params->{release_group}) {
+        if(is_guid($release_group_mbid) and
+               my $release_group = $self->c->model('ReleaseGroup')
+                   ->get_by_gid($release_group_mbid)) {
+            $params->{release_group_id} = $release_group->id;
+            $params->{release_group}{name} = $release_group->name;
+        }
+    }
+
     for my $label (@{ $params->{labels} || [] }) {
         if (my $mbid = $label->{mbid}) {
-            my $entity = $self->c->model('Label')
-                ->get_by_gid($mbid);
-            $label->{label_id} = $entity->id;
-            $label->{name} = $entity->name;
+            if(is_guid($mbid) and
+                   my $entity = $self->c->model('Label')
+                       ->get_by_gid($mbid)) {
+                $label->{label_id} = $entity->id;
+                $label->{name} = $entity->name;
+            }
         }
         elsif (my $name = $label->{name}) {
             $label->{name} = $name;
