@@ -29,6 +29,13 @@ sub foreign_keys
     }
 }
 
+before build_display_data => sub {
+    my ($self, $loaded) = @_;
+    $self->c->model('ISRC')->load_for_recordings(
+        map { $loaded->{Recording}{$_} } $self->recording_ids
+    );
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

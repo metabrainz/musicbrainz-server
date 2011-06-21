@@ -1,3 +1,16 @@
 <table class="details merge-recordings">
-  [% INCLUDE 'edit/details/merge_common.tt' %]
+  <tr>
+    <th>[% l('Merge:') %]</th>
+    <td>
+      [% INCLUDE 'artist/recordings-list.tt' recordings=edit.display_data.old
+           show_artists=1 no_prefix=1 no_ratings=1 %]
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('Into:') %]</th>
+    <td>
+      [% INCLUDE 'artist/recordings-list.tt' recordings=[edit.display_data.new]
+            show_artists=1 no_prefix=1 no_ratings=1 %]
+    </td>
+  </tr>
 </table>
