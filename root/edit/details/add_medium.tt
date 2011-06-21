@@ -25,6 +25,28 @@
      </td>
    </tr>
 
+   <tr>
+     <th>[% l('Artist Credits') %]</th>
+     <td>
+       <table class="tbl">
+         <thead>
+           <tr>
+             <th>[% l('#') %]</th>
+             <th>[% l('Artist') %]</th>
+           </tr>
+         </thead>
+         <tbody>
+           [% FOR track=edit.display_data.tracklist.tracks %]
+           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+             <td>[% loop.count %]</td>
+             <td>[% expanded_artist_credit(track.artist_credit) %]</td>
+           </tr>
+           [% END %]
+         </tbody>
+       </table>
+     </td>
+   </tr>
+
    [% UNLESS edit.preview %]
    <tr>
      <th>[% l('Release:') %]</th>
