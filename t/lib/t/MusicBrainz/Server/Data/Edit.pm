@@ -104,11 +104,12 @@ is($edits->[$_]->id, 5 - $_) for (0..4);
 
 # Find edits with a certain status
 ($edits, $hits) = $edit_data->find({ status => $STATUS_OPEN }, 10, 0);
-is($hits, 3);
-is(scalar @$edits, 3, "Found all open edits");
+is($hits, 4);
+is(scalar @$edits, 4, "Found all open edits");
 is($edits->[0]->id, 5);
 is($edits->[1]->id, 3);
-is($edits->[2]->id, 1);
+is($edits->[2]->id, 2);
+is($edits->[3]->id, 1);
 memory_cycle_ok($edit_data);
 memory_cycle_ok($edits);
 
@@ -210,18 +211,6 @@ is($edit->votes->[0]->editor_id, 1);
 $edit = $edit_data->get_by_id(2);
 $edit_data->cancel($edit);
 memory_cycle_ok($edit_data);
-
-$edit = $edit_data->get_by_id(2);
-is($edit->status, $STATUS_TOBEDELETED);
-
-# Test deleting
-
-$sql->begin;
-$raw_sql->begin;
-$edit_data->reject($edit, $STATUS_DELETED);
-memory_cycle_ok($edit_data);
-$sql->commit;
-$raw_sql->commit;
 
 $edit = $edit_data->get_by_id(2);
 is($edit->status, $STATUS_DELETED);
