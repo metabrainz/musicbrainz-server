@@ -5,14 +5,14 @@
     [%# FIXME: this isn't granular enough.  only the changed bits should be highlighted as old or new. --warp. %]
     <td class="old">
       [% relationship=edit.display_data.old %]
-      [% link_entity(relationship.source); %]
+      [% descriptive_link(relationship.source); %]
       [% display_relationship(relationship, 'verbose_phrase'); %]
     </td>
   </tr>
   <tr>
     <td class="new">
       [% relationship=edit.display_data.new %]
-      [% link_entity(relationship.source); %]
+      [% descriptive_link(relationship.source); %]
       [% display_relationship(relationship, 'verbose_phrase'); %]
     </td>
   </tr>
