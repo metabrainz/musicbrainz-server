@@ -187,12 +187,12 @@ my $tracklist = $tracklist_data->find_or_insert([{
     name => 'Track 1',
     position => 1,
     artist_credit => $ac_1,
-    recording => 1
+    recording_id => 1
 }, {
     name => 'Track 2',
     position => 2,
     artist_credit => $ac_1,
-    recording => 2
+    recording_id => 2
 }]);
 
 memory_cycle_ok($tracklist_data);
@@ -232,9 +232,9 @@ subtest 'Can set tracklist times via a disc id' => sub {
 };
 
 my $tracks = [
-    { name => 'Track 1', artist_credit => $ac_1, recording => 1 },
-    { name => 'Track 2', artist_credit => $ac_1, recording => 2 },
-    { name => 'Track 3', artist_credit => $ac_1, recording => 3 }
+    { name => 'Track 1', artist_credit => $ac_1, recording_id => 1 },
+    { name => 'Track 2', artist_credit => $ac_1, recording_id => 2 },
+    { name => 'Track 3', artist_credit => $ac_1, recording_id => 3 }
 ];
 
 $tracklist = $tracklist_data->find_or_insert($tracks);
