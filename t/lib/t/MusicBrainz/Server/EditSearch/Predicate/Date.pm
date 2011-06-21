@@ -19,6 +19,10 @@ test 'operator BETWEEN' => sub {
     ok(defined $field, 'did construct a field');
     isa_ok($field, 'MusicBrainz::Server::EditSearch::Predicate::Date', 'is a date field');
     is($field->operator, 'BETWEEN', 'handles the correct operator');
+    is_deeply(
+        [ $field->arguments ],
+        [ '2010-01-01', '2011-05-01' ],
+        'has correct arguments');
 
     my $query = Query->new( fields => [ $field ] );
     $field->combine_with_query($query);
