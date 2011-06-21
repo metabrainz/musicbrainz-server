@@ -8,6 +8,7 @@ $(document).ready(function () {
     var graph_options = {};
     var overview_options = {};
     var graphZoomOptions = {};
+    var lastHash = null;
 
     $.get('/static/xml/mb_history.xml', function (data) {
         $(data).find('event').each(function() {
@@ -166,40 +167,37 @@ $(document).ready(function () {
     }
 
     $(window).hashchange(function () {
-        var hash = location.hash.replace( /^#/, '' );
-        var queries = hash.split('+');
+        if (lastHash != location.hash) {
+            lastHash = location.hash;
+            var hash = location.hash.replace( /^#/, '' );
+            var queries = hash.split('+');
 
-        $.each(queries, function (index, value) {
-            var remove = (value.substr(0,1) == '-');
-            if (remove) {
-                value = value.substr(1);
-            }
-            var category = (value.substr(0,2) == 'c-');
-            if (category) {
-                value = value.substr(2);
-            }
-            if (!(value.substr(0,2) == 'g-')) {
-                check(value, !remove, category);
-            } else if (value.substr(0,2) == 'g-') {
-                graphZoomOptions = geometryFromHashPart(value);
-                resetPlot(true);
-            }
-        });
+            $.each(queries, function (index, value) {
+                var remove = (value.substr(0,1) == '-');
+                if (remove) {
+                    value = value.substr(1);
+                }
+                var category = (value.substr(0,2) == 'c-');
+                if (category) {
+                    value = value.substr(2);
+                }
+                if (!(value.substr(0,2) == 'g-')) {
+                    check(value, !remove, category);
+                } else if (value.substr(0,2) == 'g-') {
+                    graphZoomOptions = geometryFromHashPart(value);
+                }
+            });
+        }
+        resetPlot();
     });
 
 
-    function resetPlot (preserveZoom) {
-        if (preserveZoom) {
-            plot = $.plot($("#graph-container"), graph_data(), 
-                $.extend(true, {}, graph_options, graphZoomOptions, musicbrainzEventsOptions));
-            plot.triggerRedrawOverlay();
-        } else {
-            graphZoomOptions = {};
-            remove_from_hash('g-([0-9.]+-){3}[0-9.]+');
-            plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, musicbrainzEventsOptions));
-            plot.triggerRedrawOverlay();
-        }
-        overview = $.plot($('#overview'), graph_data(), overview_options);
+    function resetPlot () {
+        var data = graph_data();
+        plot = $.plot($("#graph-container"), data, 
+            $.extend(true, {}, graph_options, graphZoomOptions, musicbrainzEventsOptions));
+        plot.triggerRedrawOverlay();
+        overview = $.plot($('#overview'), data, overview_options);
     }
 
     setup_graphing = function (data, goptions, ooptions) {
