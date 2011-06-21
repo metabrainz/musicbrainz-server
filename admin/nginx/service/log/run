@@ -1,4 +1,17 @@
 #!/bin/bash
-mkdir -p ./main
+mkdir -p ./main ./oddlog
 exec multilog t \
        +'*' s1000000 n50 ./main \
+	'+*' \
+	-'* Process memory information:*' \
+	-'* [warning] Found size is *' \
+	-'* [warning] Checking Memory Size*' \
+	-'* [warning] Process Info:*' \
+	-'* .------*' \
+	-'* | PID    | VIRT *' \
+	-'* +--------+------*' \
+	-'* |*|*|*| perl-fcgi       |' \
+	-"* '--------+---*" \
+	-"* Use of uninitialized value *" \
+	-"* Argument * isn't numeric *" \
+	./oddlog \
