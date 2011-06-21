@@ -442,10 +442,6 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     self.update = function(event, data) {
         event.preventDefault();
 
-        if(data) {
-            self.$artist_input.val(data.name);
-        }
-
         self.box[0].clear();
         self.box[0].update(event, data);
     };
