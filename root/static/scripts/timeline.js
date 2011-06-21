@@ -141,14 +141,16 @@ $(document).ready(function () {
     }
 
     function change_hash(minus, new_hash_part, hide) {
-        if (hide != minus) {
-            if (!new RegExp('\\+?-?' + new_hash_part + '(?=($|\\+))').test(location.hash)) {
+        if (!new RegExp('\\+?-?' + new_hash_part + '(?=($|\\+))').test(location.hash)) {
+            if (hide != minus) {
                 window.location.hash = location.hash + (location.hash != '' ? '+' : '') + (minus ? '-' : '') + new_hash_part;
-            } else {
-                window.location.hash = location.hash.replace(new RegExp('-?' + new_hash_part + '(?=($|\\+))'), (minus ? '-' : '') + new_hash_part);
             }
         } else {
-            remove_from_hash('-?' + new_hash_part);
+            if (hide != minus) {
+                window.location.hash = location.hash.replace(new RegExp('-?' + new_hash_part + '(?=($|\\+))'), (minus ? '-' : '') + new_hash_part);
+            } else { 
+                remove_from_hash('-?' + new_hash_part);
+            }
         }
     }
 
