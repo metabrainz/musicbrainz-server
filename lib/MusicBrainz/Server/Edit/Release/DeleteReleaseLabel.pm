@@ -41,7 +41,7 @@ around 'related_entities' => sub {
     my $self = shift;
     my $related = $self->$orig;
 
-    $related->{label} = [ $self->data->{label}{id} ],
+    $related->{label} = [ $self->data->{label}{id} ] if $self->data->{label};
 
     return $related;
 };
@@ -50,10 +50,14 @@ sub foreign_keys
 {
     my $self = shift;
 
-    return {
-        Release => { $self->release_id => [] },
-        Label => [ $self->data->{label}{id} ]
-    };
+    my %fk = ( Release => { $self->release_id => [] } );
+
+    if ($self->data->{label} && $self->data->{label}{id})
+    {
+        $fk{Label} = { $self->data->{label}{id} => [] };
+    }
+
+    return \%fk;
 };
 
 sub build_display_data
@@ -68,8 +72,14 @@ sub build_display_data
     };
 
     if (my $lbl = $self->data->{label}) {
-        $data->{label} = $loaded->{Label}{ $lbl->{id} }
-            || Label->new( name => $lbl->{name} )
+        if ($lbl->{id})
+        {
+            $data->{label} = $loaded->{Label}{ $lbl->{id} };
+        }
+        elsif ($lbl->{name})
+        {
+            $data->{label} = Label->new( name => $lbl->{name} );
+        }
     }
 
     return $data;

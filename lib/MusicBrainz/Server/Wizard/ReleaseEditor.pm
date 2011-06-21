@@ -952,20 +952,29 @@ sub _edit_release_labels
         }
         elsif (
             $previewing ?
-                $new_label->{name} :
+                $new_label->{name} || $new_label->{catalog_number} :
                 $new_label->{label_id} || $new_label->{catalog_number})
         {
+            my $label;
+
             # Add ReleaseLabel
+            if ($previewing)
+            {
+                $label = $new_label->{name} ?
+                    Label->new(
+                        id   => 0,
+                        name => $new_label->{name}
+                    ) : undef;
+            }
+            else
+            {
+                $label = $labels->{ $new_label->{label_id} } if $new_label->{label_id};
+            }
 
             $create_edit->(
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
                 release => $previewing ? undef : $self->release,
-                label => $previewing
-                    ? Label->new(
-                        id   => 0,
-                        name => $new_label->{name}
-                    )
-                    : $labels->{ $new_label->{label_id} },
+                label => $label,
                 catalog_number => $new_label->{catalog_number},
                 as_auto_editor => $data->{as_auto_editor},
             );
