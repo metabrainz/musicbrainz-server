@@ -10,6 +10,7 @@ $(document).ready(function () {
     var graphZoomOptions = {};
     var lastHash = null;
 
+    // MusicBrainz Events fetching
     $.get('/static/xml/mb_history.xml', function (data) {
         $(data).find('event').each(function() {
             $this = $(this);
@@ -61,8 +62,7 @@ $(document).ready(function () {
         } else {
             // we're clicking on an event, should open the link instead
             window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
-	}
-        
+        }
     });
 
     // Hover functionality
@@ -87,7 +87,7 @@ $(document).ready(function () {
     }
 
     function getEvent(pos) {
-        thisEvent = false;
+        var thisEvent = false;
         $.each(musicbrainzEventsOptions.musicbrainzEvents.data, function (index, value) {
                 if (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5) {
                         thisEvent = value;
@@ -102,10 +102,10 @@ $(document).ready(function () {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
 
-                $("#tooltip").remove();
+                removeTooltip();
                 var x = item.datapoint[0],
-                y = item.datapoint[1],
-                date = new Date(parseInt(x));
+                    y = item.datapoint[1],
+                    date = new Date(parseInt(x));
 
                 if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
                 if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
@@ -115,10 +115,10 @@ $(document).ready(function () {
                 changeCurrentEvent({});
             }
         } else if (getEvent(pos)) {
-                thisEvent = getEvent(pos);
+                var thisEvent = getEvent(pos);
                 if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
                     removeTooltip();
-		    showTooltip(pos.pageX, pos.pageY, thisEvent.description);
+                    showTooltip(pos.pageX, pos.pageY, '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
 
                     changeCurrentEvent(thisEvent);
                 }
@@ -218,19 +218,20 @@ $(document).ready(function () {
         });
         // // Toggle functionality
         $('#graph-lines div input:checkbox').change(function () {
-            var minus = !$(this).attr('checked');
-            var new_hash_part = $(this).parent('div').attr('id').substr((control_id_prefix + 'count.').length);
-            var hide = (MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Hide ? true : false);
+            var $this = $(this);
+            var minus = !$this.attr('checked');
+            var identifier = $this.parent('div').attr('id').substr(control_id_prefix.length);
+            var new_hash_part = identifier.substr('count.'.length);
+            var hide = (MB.text.Timeline[identifier].Hide ? true : false);
             change_hash(minus, new_hash_part, hide);
-	    
-	    if (minus) {
-		    $(this).siblings('div.graph-color-swatch').css('background-color', '#ccc');
-	    } else {
-		    $(this).siblings('div.graph-color-swatch').css('background-color',
-			    MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Color);
-	    }
+            
+            if (minus) {
+                    $this.siblings('div.graph-color-swatch').css('background-color', '#ccc');
+            } else {
+                    $this.siblings('div.graph-color-swatch').css('background-color',
+                            MB.text.Timeline[identifier].Color);
+            }
 
-            resetPlot(true);
         });
         $('#graph-lines .toggler input:checkbox').change(function () {
             var $this = $(this);
