@@ -216,7 +216,6 @@ our %STATUS_NAMES = (
     $STATUS_ERROR        => 'Error',
     $STATUS_FAILEDPREREQ => 'Failed prerequisite',
     $STATUS_NOVOTES      => 'No votes',
-    $STATUS_TOBEDELETED  => 'Due to be cancelled',
     $STATUS_DELETED      => 'Cancelled',
 );
 
