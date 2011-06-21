@@ -14,7 +14,7 @@ $(document).ready(function () {
             $this = $(this);
             musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
         });
-        resetPlot(true);
+        $(window).hashchange();
     }, 'xml');
 
     function graph_data () {
@@ -45,8 +45,6 @@ $(document).ready(function () {
             yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }}
 
     change_hash(false, hashPartFromGeometry(graphZoomOptions), true);
-
-    resetPlot(true);
     });
 
     $('#overview').bind('plotselected', function(event, ranges) {
@@ -57,7 +55,8 @@ $(document).ready(function () {
     $('#graph-container, #overview').bind('plotunselected', function () { 
         if (!plot.getOptions().musicbrainzEvents.currentEvent.link) 
         {
-            resetPlot(false);
+            graphZoomOptions = {};
+            remove_from_hash('g-([0-9.]+-){3}[0-9.]+');
         } else {
             // we're clicking on an event, should open the link instead
             window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
@@ -243,7 +242,6 @@ $(document).ready(function () {
             change_hash(minus, new_hash_part, hide);
     
             $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
-            resetPlot(true);
         });
 
 
