@@ -71,9 +71,7 @@ sub build_display_data
         catalog_number => $self->data->{catalog_number},
     };
 
-    my $lbl = $self->data->{label};
-    if ($lbl)
-    {
+    if (my $lbl = $self->data->{label}) {
         if ($lbl->{id})
         {
             $data->{label} = $loaded->{Label}{ $lbl->{id} };
