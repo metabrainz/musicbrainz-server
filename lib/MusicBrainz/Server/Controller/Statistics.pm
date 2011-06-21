@@ -58,6 +58,50 @@ sub artist_countries : Path('artist-countries')
     );
 }
 
+sub release_countries : Path('release-countries')
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $release_country_prefix = 'count.release.country';
+    my $release_stats = [];
+    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+       if (my ($iso_code) = $stat_name =~ /^$release_country_prefix\.(.*)$/) { 
+            push(@$release_stats, ({'entity' => $countries{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+       }
+    }
+
+    $c->stash(
+        template => 'statistics/release_countries.tt',
+        stats    => $release_stats,
+        date_collected => $stats->{date_collected}
+    );
+}
+
+sub label_countries : Path('label-countries')
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $label_country_prefix = 'count.label.country';
+    my $label_stats = [];
+    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+       if (my ($iso_code) = $stat_name =~ /^$label_country_prefix\.(.*)$/) { 
+            push(@$label_stats, ({'entity' => $countries{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+       }
+    }
+
+    $c->stash(
+        template => 'statistics/label_countries.tt',
+        stats    => $label_stats,
+        date_collected => $stats->{date_collected}
+    );
+}
+
 =head1 LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.

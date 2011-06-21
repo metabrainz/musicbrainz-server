@@ -215,6 +215,53 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM vote",
         DB => 'RAWDATA'
     },
+
+    "count.label.country" => {
+        DESC => "Distribution of labels per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(l.country) AS count
+                FROM label l RIGHT OUTER JOIN country c
+                    ON l.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.label.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
+    "count.release.country" => {
+        DESC => "Distribution of releases per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(r.country) AS count
+                FROM release r RIGHT OUTER JOIN country c
+                    ON r.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
         CALC => sub {
@@ -380,9 +427,9 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT c.iso_code, COUNT(*) AS count
-                FROM artist a, country c
-                WHERE a.country=c.id
+                "SELECT c.iso_code, COUNT(a.country) AS count
+                FROM artist a RIGHT OUTER JOIN country c
+                    ON a.country=c.id
                 GROUP BY c.iso_code
                 ",
             );
