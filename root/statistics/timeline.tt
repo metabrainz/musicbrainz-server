@@ -52,8 +52,8 @@
         <div id="graph-lines">
         </div>
     <h2>Controls</h2><div id="graph-controls">
-        <p><strong>To Zoom:</strong> select a rectangle
-        <br/><strong>To Reset:</strong> deselect
+        <p><strong>To Zoom:</strong> draw a rectangle on either graph
+        <br/><strong>To Reset:</strong> click to deselect
         <br/><strong>To add/remove lines:</strong> Check boxes above</p>
         <div id="overview"></div>
     </div>

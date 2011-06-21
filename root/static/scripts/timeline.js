@@ -4,8 +4,18 @@ $(document).ready(function () {
     var control_id_prefix = 'graph-control-';
 
     var datasets = {};
+    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: []}}
     var graph_options = {};
     var overview_options = {};
+    var graphZoomOptions = {};
+
+    $.get('/static/xml/mb_history.xml', function (data) {
+        $(data).find('event').each(function() {
+            $this = $(this);
+            musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
+        });
+        resetPlot(true);
+    }, 'xml');
 
     function graph_data () {
         var alldata =  [];
@@ -30,18 +40,30 @@ $(document).ready(function () {
         ranges.yaxis.to = ranges.yaxis.from + 1;
 
     // do the zooming
-    plot = $.plot($("#graph-container"), graph_data(), 
-        $.extend(true, {}, graph_options, {
+    graphZoomOptions = {
             xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
-        yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
-        }));
+            yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }}
+
+    change_hash(false, hashPartFromGeometry(graphZoomOptions), true);
+
+    resetPlot(true);
     });
+
     $('#overview').bind('plotselected', function(event, ranges) {
         plot.setSelection(ranges);
     });
 
     // "Reset Graph" functionality
-    $('#graph-container, #overview').bind('plotunselected', function () { resetPlot(); });
+    $('#graph-container, #overview').bind('plotunselected', function () { 
+        if (!plot.getOptions().musicbrainzEvents.currentEvent.link) 
+        {
+            resetPlot(false);
+        } else {
+            // we're clicking on an event, should open the link instead
+            window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
+	}
+        
+    });
 
     // Hover functionality
     function showTooltip(x, y, contents) {
@@ -56,7 +78,25 @@ $(document).ready(function () {
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
     }
-    previousPoint = null;
+    function removeTooltip() {
+        $('#tooltip').remove();
+    }
+    function changeCurrentEvent(item) {
+        musicbrainzEventsOptions.musicbrainzEvents.currentEvent = item;
+        plot.changeCurrentEvent(item);
+    }
+
+    function getEvent(pos) {
+        thisEvent = false;
+        $.each(musicbrainzEventsOptions.musicbrainzEvents.data, function (index, value) {
+                if (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5) {
+                        thisEvent = value;
+                }
+                return !thisEvent;
+        });
+        return thisEvent;
+    }
+    var previousPoint = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
         if(item) {
             if (previousPoint != item.dataIndex) {
@@ -64,20 +104,41 @@ $(document).ready(function () {
 
                 $("#tooltip").remove();
                 var x = item.datapoint[0],
-        y = item.datapoint[1],
-        date = new Date(parseInt(x));
+                y = item.datapoint[1],
+                date = new Date(parseInt(x));
 
-    if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
-    if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
+                if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
+                if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
 
-    showTooltip(item.pageX, item.pageY,
-        date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
+                showTooltip(item.pageX, item.pageY,
+                    date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
+                changeCurrentEvent({});
             }
+        } else if (getEvent(pos)) {
+                thisEvent = getEvent(pos);
+                if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
+                    removeTooltip();
+		    showTooltip(pos.pageX, pos.pageY, thisEvent.description);
+
+                    changeCurrentEvent(thisEvent);
+                }
         } else {
-            $('#tooltip').remove();
+            removeTooltip();
             previousPoint = null;
+
+            changeCurrentEvent({});
         }
     });
+
+    function hashPartFromGeometry(geometry) {
+        var blah = 'g-' + geometry.xaxis.min + '-' + geometry.xaxis.max + '-' + geometry.yaxis.min + '-' + geometry.yaxis.max;
+        return blah;
+    }
+
+    function geometryFromHashPart(hashPart){
+        var hashParts = hashPart.substr(2).split('-');
+        return { xaxis: { min: parseFloat(hashParts[0]), max: parseFloat(hashParts[1]) }, yaxis: { min: parseFloat(hashParts[2]), max: parseFloat(hashParts[3]) }};
+    }
 
     function change_hash(minus, new_hash_part, hide) {
         if (hide != minus) {
@@ -92,7 +153,8 @@ $(document).ready(function () {
     }
 
     function remove_from_hash(to_remove) {
-        window.location.hash = location.hash.replace(new RegExp('\\+?' + to_remove), '');
+        var regex = new RegExp('\\+?' + to_remove)
+        window.location.hash = location.hash.replace(regex , '');
     }
 
     function check(name, toggle, categoryp) {
@@ -117,20 +179,34 @@ $(document).ready(function () {
             if (category) {
                 value = value.substr(2);
             }
-            check(value, !remove, category);
+            if (!(value.substr(0,2) == 'g-')) {
+                check(value, !remove, category);
+            } else if (value.substr(0,2) == 'g-') {
+                graphZoomOptions = geometryFromHashPart(value);
+                resetPlot(true);
+            }
         });
     });
 
 
-    function resetPlot () {
-        plot = $.plot($("#graph-container"), graph_data(), graph_options);
+    function resetPlot (preserveZoom) {
+        if (preserveZoom) {
+            plot = $.plot($("#graph-container"), graph_data(), 
+                $.extend(true, {}, graph_options, graphZoomOptions, musicbrainzEventsOptions));
+            plot.triggerRedrawOverlay();
+        } else {
+            graphZoomOptions = {};
+            remove_from_hash('g-([0-9.]+-){3}[0-9.]+');
+            plot = $.plot($("#graph-container"), graph_data(), $.extend(true, {}, graph_options, musicbrainzEventsOptions));
+            plot.triggerRedrawOverlay();
+        }
         overview = $.plot($('#overview'), graph_data(), overview_options);
     }
 
     setup_graphing = function (data, goptions, ooptions) {
         datasets = data;
-	graph_options = goptions;
-	overview_options = ooptions;
+        graph_options = goptions;
+        overview_options = ooptions;
 
         $.each(datasets, function(key, value) { 
             if ($(jq(control_id_prefix + key)).length == 0) {
@@ -155,7 +231,7 @@ $(document).ready(function () {
 			    MB.text.Timeline[$(this).parent('div').attr('id').substr(control_id_prefix.length)].Color);
 	    }
 
-            resetPlot();
+            resetPlot(true);
         });
         $('#graph-lines .toggler input:checkbox').change(function () {
             var $this = $(this);
@@ -167,7 +243,7 @@ $(document).ready(function () {
             change_hash(minus, new_hash_part, hide);
     
             $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
-            resetPlot();
+            resetPlot(true);
         });
 
 
@@ -187,7 +263,6 @@ $(document).ready(function () {
 
 
         $(window).hashchange();
-        resetPlot();
     }
 
 
