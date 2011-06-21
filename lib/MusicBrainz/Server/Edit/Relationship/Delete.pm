@@ -86,11 +86,11 @@ sub foreign_keys
     my $self = shift;
 
     my %ids;
-    $ids{ $self->model0 } ||= [];
-    $ids{ $self->model1 } ||= [];
+    $ids{ $self->model0 } ||= {};
+    $ids{ $self->model1 } ||= {};
 
-    push @{ $ids{$self->model0} }, $self->data->{relationship}{entity0}{id};
-    push @{ $ids{$self->model1} }, $self->data->{relationship}{entity1}{id};
+    $ids{$self->model0}->{ $self->data->{relationship}{entity0}{id} } = [ 'ArtistCredit' ];
+    $ids{$self->model1}->{ $self->data->{relationship}{entity1}{id} } = [ 'ArtistCredit' ];
 
     return \%ids;
 }

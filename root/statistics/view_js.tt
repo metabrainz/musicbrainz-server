@@ -22,13 +22,13 @@
             Category: {
                 "core-entities" : { Label: '[% l('Core Entities') %]' }
             },
-            "count.artist": { Label: '[% l('Artists') %]', Color: 0, Description: '[% l('Count of all artists') %]', Category: "core-entities" },
-            "count.recording": { Label: '[% l('Recordings') %]', Color: 1, Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
-            "count.work": { Label: '[% l('Works') %]', Color: 2, Description: '[% l('Count of all works') %]', Category: "core-entities"  },
-            "count.medium": { Label: '[% l('Mediums') %]', Color: 3, Description: '[% l('Count of all mediums') %]', Category: "core-entities"  },
-            "count.release": { Label: '[% l('Releases') %]', Color: 4, Description: '[% l('Count of all releases') %]', Category: "core-entities"  },
-            "count.releasegroup": { Label: '[% l('Release Groups') %]', Color: 5, Description: '[% l('Count of all release groups') %]', Category: "core-entities"  },
-            "count.label": { Label: '[% l('Labels') %]', Color: 6, Description: '[% l('Count of all labels') %]', Category: "core-entities"  }
+            "count.artist": { Label: '[% l('Artists') %]', Color: '#ff8a00', Description: '[% l('Count of all artists') %]', Category: "core-entities" },
+            "count.recording": { Label: '[% l('Recordings') %]', Color: "#4800ff", Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
+            "count.work": { Label: '[% l('Works') %]', Color: "#00ffa8", Description: '[% l('Count of all works') %]', Category: "core-entities"  },
+            "count.medium": { Label: '[% l('Mediums') %]', Color: "#00c0ff", Description: '[% l('Count of all mediums') %]', Category: "core-entities"  },
+            "count.release": { Label: '[% l('Releases') %]', Color: "#a8ff00", Description: '[% l('Count of all releases') %]', Category: "core-entities"  },
+            "count.releasegroup": { Label: '[% l('Release Groups') %]', Color: "#ae00ff", Description: '[% l('Count of all release groups') %]', Category: "core-entities"  },
+            "count.label": { Label: '[% l('Labels') %]', Color: "#ff0096", Description: '[% l('Count of all labels') %]', Category: "core-entities"  }
         }
     });
 })(MB);

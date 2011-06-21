@@ -81,12 +81,12 @@ sub foreign_keys
     my %load = (
         LinkType                            => [ $self->data->{link_type}{id} ],
         LinkAttributeType                   => $self->data->{attributes},
-        type_to_model($self->data->{type0}) => [ $self->data->{entity0}{id} ]
+        type_to_model($self->data->{type0}) => { $self->data->{entity0}{id} => ['ArtistCredit'] },
     );
 
     # Type 1 my be equal to type 0, so we need to be careful
-    $load{ type_to_model($self->data->{type1}) } ||= [];
-    push @{ $load{ type_to_model($self->data->{type1}) } }, $self->data->{entity1}{id};
+    $load{ type_to_model($self->data->{type1}) } ||= {};
+    $load{ type_to_model($self->data->{type1}) }{$self->data->{entity1}{id}} = [ 'ArtistCredit' ];
 
     return \%load;
 }
