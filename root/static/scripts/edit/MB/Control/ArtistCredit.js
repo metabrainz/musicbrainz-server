@@ -137,7 +137,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.update = function(event, data) {
-
         if (data.name)
         {
             self.$name.data ('mb_selected_name', data.name);
@@ -442,6 +441,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
     self.update = function(event, data) {
         event.preventDefault();
+
+        self.box[0].clear();
         self.box[0].update(event, data);
     };
 
