@@ -103,7 +103,7 @@ END -%]
       [% IF name.artist.name != name.name %]
         [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
       [% ELSE %]
-        [% descriptive_link(name.artist) %]</li>
+        [% descriptive_link(name.artist) %]
       [% END %]
       </li>
     [% END %]
