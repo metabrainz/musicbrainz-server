@@ -46,6 +46,7 @@ $(document).ready(function () {
             xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
             yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }}
 
+    remove_from_hash('g-([0-9.e]+-){3}[0-9.e]+');
     change_hash(false, hashPartFromGeometry(graphZoomOptions), true);
     });
 
@@ -58,7 +59,7 @@ $(document).ready(function () {
         if (!plot.getOptions().musicbrainzEvents.currentEvent.link) 
         {
             graphZoomOptions = {};
-            remove_from_hash('g-([0-9.]+-){3}[0-9.]+');
+            remove_from_hash('g-([0-9.e]+-){3}[0-9.e]+');
         } else {
             // we're clicking on an event, should open the link instead
             window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
