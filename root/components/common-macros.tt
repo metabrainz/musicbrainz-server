@@ -96,6 +96,7 @@ END -%]
 
 [%- MACRO expanded_artist_credit(ac) BLOCK -%]
   [% artist_credit(ac) %]
+  [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 %]
   <ul>
     [% FOR name=ac.names %]
       <li>
@@ -107,6 +108,7 @@ END -%]
       </li>
     [% END %]
   </ul>
+  [% END %]
 [%- END -%]
 
 [%- MACRO link_entity(entity, action, text) BLOCK;
