@@ -59,7 +59,7 @@ is($artist->edits_pending, 1);
 $c->model('Edit')->cancel($edit);
 
 $edit = $c->model('Edit')->get_by_id(100);
-is($edit->status, $STATUS_TOBEDELETED);
+is($edit->status, $STATUS_DELETED);
 
 $edit = $c->model('Edit')->get_by_id(101);
 is($edit->status, $STATUS_OPEN);

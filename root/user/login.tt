@@ -1,11 +1,3 @@
-[% BLOCK layout_head %]
-    <script type="text/javascript">//<![CDATA[
-        $('document').ready (function () {
-            MB.utility.rememberCheckbox ('#id-remember_me', 'remember_me');
-        });
-    //]]></script>
-[% END %]
-
 [% WRAPPER "layout.tt" title=l("Log In") full_width=1 %]
 
     <h1>[% l("Log In") %]</h1>
