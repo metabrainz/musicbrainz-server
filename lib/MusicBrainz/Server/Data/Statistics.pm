@@ -834,6 +834,7 @@ my %stats = (
                 "count.quality.release.low"     => $dist{$QUALITY_LOW}      || 0,
                 "count.quality.release.normal"  => $dist{$QUALITY_NORMAL}   || 0,
                 "count.quality.release.unknown" => $dist{$QUALITY_UNKNOWN}  || 0,
+                "count.quality.release.default" => ($dist{$QUALITY_UNKNOWN} || 0) + ($dist{$QUALITY_NORMAL} || 0),
             };
         },
     },
@@ -849,6 +850,11 @@ my %stats = (
     },
     "count.quality.release.unknown" => {
         DESC => "Count of unknow quality releases",
+        PREREQ => [qw[ count.quality.release.high ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.quality.release.default" => {
+        DESC => "Count of default quality releases",
         PREREQ => [qw[ count.quality.release.high ]],
         PREREQ_ONLY => 1,
     },

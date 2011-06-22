@@ -649,6 +649,31 @@ table.details td.old {
     border: 1px solid #CCC;
 }
 
+/* Statistics overview page */
+table.database-statistics {
+    border-collapse: collapse;
+    border: 1px solid #ADB9CC;
+    margin: 1em 1em 1em 0;
+    white-space: nowrap;
+}
+
+table.database-statistics th {
+    background: #F1F1F1;
+    text-align: left;
+    padding: 3px 5px;
+}
+
+table.database-statistics thead th {
+    text-align: center;
+    border: 1px solid #ADB9CC;
+}
+
+table.database-statistics td {
+    text-align: right;
+    padding: 3px 5px 3px 10px;
+}
+
+
 /* Sidebar properties */
 dl.properties {
     margin: 0;
