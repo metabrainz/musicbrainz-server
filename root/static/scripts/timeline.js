@@ -4,7 +4,7 @@ $(document).ready(function () {
     var control_id_prefix = 'graph-control-';
 
     var datasets = {};
-    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: []}}
+    var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: [], enabled: true}}
     var graph_options = {};
     var overview_options = {};
     var graphZoomOptions = {};
@@ -96,14 +96,18 @@ $(document).ready(function () {
     function getEvent(pos) {
         var thisEvent = false;
         var options = plot.getOptions();
-        $.each(options.musicbrainzEvents.data, function (index, value) {
-                if (((!options.xaxis.min || value.jsDate > options.xaxis.min) && (!options.xaxis.max || value.jsDate < options.xaxis.max)) &&
-                    (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5)) {
-                        thisEvent = value;
-                }
-                return !thisEvent;
-        });
-        return thisEvent;
+        if (options.musicbrainzEvents.enabled) {
+            $.each(options.musicbrainzEvents.data, function (index, value) {
+                    if (((!options.xaxis.min || value.jsDate > options.xaxis.min) && (!options.xaxis.max || value.jsDate < options.xaxis.max)) &&
+                        (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5)) {
+                            thisEvent = value;
+                    }
+                    return !thisEvent;
+            });
+            return thisEvent;
+        } else {
+            return false;
+        }
     }
 
     var previousPoint = null;
@@ -258,6 +262,11 @@ $(document).ready(function () {
             $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
         });
 
+       $('#disable-events-checkbox').change(function () {
+           var $this = $(this);
+           musicbrainzEventsOptions.musicbrainzEvents.enabled = $this.attr('checked');
+	   $(window).hashchange();
+       });
 
         $('div.graph-category').each(function () {
             var category = $(this).attr('id').substr(category_id_prefix.length);

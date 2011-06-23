@@ -50,6 +50,7 @@
 [%- sidebar = BLOCK -%]
     <h2 id="graph-toggle-header">Legend</h2>
         <div id="graph-lines">
+        <h2><input type="checkbox" id="disable-events-checkbox" checked /><label for="disable-events-checkbox">MusicBrainz Events</label></h2>
         </div>
     <h2>Controls</h2><div id="graph-controls">
         <table class="timeline-controls">

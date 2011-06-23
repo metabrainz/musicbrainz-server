@@ -4,7 +4,8 @@
             selectColor: "rgba(170, 0, 0, 1)",
             deselectColor: "rgba(170, 0, 0, 0.20)",
             data: [],
-            currentEvent: {}
+            currentEvent: {},
+            enabled: true
         }
     };
 
@@ -40,12 +41,14 @@
         plot.hooks.drawOverlay.push(function (plot, ctx) {
             var options = plot.getOptions();
 
-            $.each(options.musicbrainzEvents.data, function(index, value) {
-                    var color = (value.jsDate == options.musicbrainzEvents.currentEvent.jsDate) ? options.musicbrainzEvents.selectColor : options.musicbrainzEvents.deselectColor;
-                    if ((!options.xaxis.min || value.jsDate > options.xaxis.min )&& (!options.xaxis.max || value.jsDate < options.xaxis.max)) {
-                        drawCrosshairLine(plot, ctx, value.jsDate, color);
-                    }
-            });
+	    if (options.musicbrainzEvents.enabled) {
+                $.each(options.musicbrainzEvents.data, function(index, value) {
+                        var color = (value.jsDate == options.musicbrainzEvents.currentEvent.jsDate) ? options.musicbrainzEvents.selectColor : options.musicbrainzEvents.deselectColor;
+                        if ((!options.xaxis.min || value.jsDate > options.xaxis.min )&& (!options.xaxis.max || value.jsDate < options.xaxis.max)) {
+                            drawCrosshairLine(plot, ctx, value.jsDate, color);
+                        }
+                });
+	    }
         });
     }
     
