@@ -89,14 +89,17 @@ $(document).ready(function () {
 
     function getEvent(pos) {
         var thisEvent = false;
-        $.each(musicbrainzEventsOptions.musicbrainzEvents.data, function (index, value) {
-                if (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5) {
+        var options = plot.getOptions();
+        $.each(options.musicbrainzEvents.data, function (index, value) {
+                if (((!options.xaxis.min || value.jsDate > options.xaxis.min) && (!options.xaxis.max || value.jsDate < options.xaxis.max)) &&
+                    (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5)) {
                         thisEvent = value;
                 }
                 return !thisEvent;
         });
         return thisEvent;
     }
+
     var previousPoint = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
         if(item) {

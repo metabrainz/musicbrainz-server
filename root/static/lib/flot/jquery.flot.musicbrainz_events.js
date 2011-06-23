@@ -38,11 +38,13 @@
         plot.changeCurrentEvent = changeCurrentEvent;
 
         plot.hooks.drawOverlay.push(function (plot, ctx) {
-            var options = plot.getOptions().musicbrainzEvents;
+            var options = plot.getOptions();
 
-            $.each(options.data, function(index, value) {
-                    var color = (value.jsDate == options.currentEvent.jsDate) ? options.selectColor : options.deselectColor;
-                    drawCrosshairLine(plot, ctx, value.jsDate, color);
+            $.each(options.musicbrainzEvents.data, function(index, value) {
+                    var color = (value.jsDate == options.musicbrainzEvents.currentEvent.jsDate) ? options.musicbrainzEvents.selectColor : options.musicbrainzEvents.deselectColor;
+                    if ((!options.xaxis.min || value.jsDate > options.xaxis.min )&& (!options.xaxis.max || value.jsDate < options.xaxis.max)) {
+                        drawCrosshairLine(plot, ctx, value.jsDate, color);
+                    }
             });
         });
     }
