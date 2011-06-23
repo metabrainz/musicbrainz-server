@@ -23,7 +23,7 @@
         ctx.translate(plotOffset.left, plotOffset.top);
 
         ctx.strokeStyle = color;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 2;
         ctx.lineJoin = "round";
 
         ctx.beginPath();
