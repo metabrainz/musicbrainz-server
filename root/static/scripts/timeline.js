@@ -82,6 +82,12 @@ $(document).ready(function () {
     function removeTooltip() {
         $('#tooltip').remove();
     }
+    function setCursor(type) {
+        if (!type) {
+            type = '';
+        }
+        $('body').css('cursor', type);
+    }
     function changeCurrentEvent(item) {
         musicbrainzEventsOptions.musicbrainzEvents.currentEvent = item;
         plot.changeCurrentEvent(item);
@@ -107,6 +113,7 @@ $(document).ready(function () {
                 previousPoint = item.dataIndex;
 
                 removeTooltip();
+                setCursor();
                 var x = item.datapoint[0],
                     y = item.datapoint[1],
                     date = new Date(parseInt(x));
@@ -122,11 +129,13 @@ $(document).ready(function () {
                 var thisEvent = getEvent(pos);
                 if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
                     removeTooltip();
+                    setCursor('pointer');
                     showTooltip(pos.pageX, pos.pageY, '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
 
                     changeCurrentEvent(thisEvent);
                 }
         } else {
+            setCursor();
             removeTooltip();
             previousPoint = null;
 
