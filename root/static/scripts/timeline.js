@@ -92,23 +92,6 @@ $(document).ready(function () {
         plot.changeCurrentEvent(item);
     }
 
-    function getEvent(pos) {
-        var thisEvent = false;
-        var options = plot.getOptions();
-        if (options.musicbrainzEvents.enabled) {
-            $.each(options.musicbrainzEvents.data, function (index, value) {
-                    if (((!options.xaxis.min || value.jsDate > options.xaxis.min) && (!options.xaxis.max || value.jsDate < options.xaxis.max)) &&
-                        (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5)) {
-                            thisEvent = value;
-                    }
-                    return !thisEvent;
-            });
-            return thisEvent;
-        } else {
-            return false;
-        }
-    }
-
     var previousPoint = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
         if(item) {
@@ -128,8 +111,8 @@ $(document).ready(function () {
                     date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
                 changeCurrentEvent({});
             }
-        } else if (getEvent(pos)) {
-                var thisEvent = getEvent(pos);
+        } else if (plot.getEvent(pos)) {
+                var thisEvent = plot.getEvent(pos);
                 if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
                     removeTooltip();
                     setCursor('pointer');

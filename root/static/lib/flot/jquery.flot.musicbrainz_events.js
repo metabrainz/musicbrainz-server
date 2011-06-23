@@ -14,6 +14,23 @@
         this.triggerRedrawOverlay();
     }
 
+    function getEvent(pos, plot) {
+        var plotEvent = false;
+        var options = plot.getOptions();
+        if (options.musicbrainzEvents.enabled) {
+            $.each(options.musicbrainzEvents.data, function (index, value) {
+                    if (((!options.xaxis.min || value.jsDate > options.xaxis.min) && (!options.xaxis.max || value.jsDate < options.xaxis.max)) &&
+                        (plot.p2c({x: value.jsDate}).left > plot.p2c(pos).left - 5 && plot.p2c({x: value.jsDate}).left < plot.p2c(pos).left + 5)) {
+                            plotEvent = value;
+                    }
+                    return !plotEvent;
+            });
+            return plotEvent;
+        } else {
+            return false;
+        }
+    }
+
     function drawCrosshairLine(plot, ctx, x, color) {
 
         var plotOffset = plot.getPlotOffset();
@@ -37,6 +54,7 @@
     
     function init(plot) {
         plot.changeCurrentEvent = changeCurrentEvent;
+	plot.getEvent = function(pos) { return getEvent(pos, plot) };
 
         plot.hooks.drawOverlay.push(function (plot, ctx) {
             var options = plot.getOptions();
