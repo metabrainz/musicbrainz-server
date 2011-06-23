@@ -649,15 +649,18 @@ table.details td.old {
     border: 1px solid #CCC;
 }
 
-/* Statistics overview page */
-table.database-statistics {
+/* Statistics pages */
+table.timeline-controls, table.database-statistics {
     border-collapse: collapse;
     border: 1px solid #ADB9CC;
     margin: 1em 1em 1em 0;
+}
+
+table.database-statistics {
     white-space: nowrap;
 }
 
-table.database-statistics th {
+table.database-statistics th, table.timeline-controls th {
     background: #F1F1F1;
     text-align: left;
     padding: 3px 5px;
@@ -668,9 +671,13 @@ table.database-statistics thead th {
     border: 1px solid #ADB9CC;
 }
 
-table.database-statistics td {
+table.database-statistics td, table.timeline-controls td {
     text-align: right;
     padding: 3px 5px 3px 10px;
+}
+
+table.timeline-controls td {
+    border: 1px solid #ADB9CC;
 }
 
 

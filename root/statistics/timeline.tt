@@ -52,9 +52,12 @@
         <div id="graph-lines">
         </div>
     <h2>Controls</h2><div id="graph-controls">
-        <p><strong>To Zoom:</strong> draw a rectangle on either graph
-        <br/><strong>To Reset:</strong> click to deselect
-        <br/><strong>To add/remove lines:</strong> Check boxes above</p>
+        <table class="timeline-controls">
+            <tr><th>Zoom:</th><td>Draw a rectangle on either graph</td></tr>
+            <tr><th>Reset:</th><td>Click to deselect</td></tr>
+            <tr><th>Add/remove lines:</th><td>Check boxes above</td></tr>
+            <tr><th>MusicBrainz events:</th><td>Hover and click on vertical lines</td></tr>
+        </table>
         <div id="overview"></div>
     </div>
 [%- END -%]
