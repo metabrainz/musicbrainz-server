@@ -227,10 +227,10 @@ $(document).ready(function () {
         $.each(datasets, function(key, value) { 
             if ($(jq(control_id_prefix + key)).length == 0) {
                 if ($('#' + category_id_prefix + value.category).length == 0) {
-                    $('#graph-lines').append('<h2 class="toggler"><input type="checkbox" checked />' + MB.text.Timeline.Category[value.category].Label + '</h2>');
-                    $('#graph-lines').append('<div class="graph-category" id="category-' + value.category + '"></div>');
+                    $('#graph-lines').append('<h2 class="toggler"><input id="' + category_id_prefix + 'checker-' + value.category + '" type="checkbox" checked /><label for="' + category_id_prefix + 'checker-' + value.category + '">' + MB.text.Timeline.Category[value.category].Label + '</label></h2>');
+                    $('#graph-lines').append('<div class="graph-category" id="' + category_id_prefix + value.category + '"></div>');
                 }
-                $("#graph-lines #category-" + value.category).append('<div class="graph-control" id="' + control_id_prefix + key + '"><input name="' + control_id_prefix + key + '" type="checkbox" checked /><div class="graph-color-swatch" style="background-color: ' + MB.text.Timeline[key].Color + ';"></div><label for="' + control_id_prefix + key + '">' + value.label + '</label></div>'); 
+                $("#graph-lines #" + category_id_prefix + value.category).append('<div class="graph-control" id="' + control_id_prefix + key + '"><input id="' + control_id_prefix + 'checker-' + key + '" name="' + control_id_prefix + key + '" type="checkbox" checked /><label for="' + control_id_prefix + 'checker-' + key + '"><div class="graph-color-swatch" style="background-color: ' + MB.text.Timeline[key].Color + ';"></div>' + value.label + '</label></div>'); 
             }
         });
         // // Toggle functionality
@@ -243,9 +243,9 @@ $(document).ready(function () {
             change_hash(minus, new_hash_part, hide);
             
             if (minus) {
-                    $this.siblings('div.graph-color-swatch').css('background-color', '#ccc');
+                    $this.siblings('label').children('div.graph-color-swatch').css('background-color', '#ccc');
             } else {
-                    $this.siblings('div.graph-color-swatch').css('background-color',
+                    $this.siblings('label').children('div.graph-color-swatch').css('background-color',
                             MB.text.Timeline[identifier].Color);
             }
 
@@ -255,7 +255,7 @@ $(document).ready(function () {
 
             var category_id = $this.parent('.toggler').next('div.graph-category').attr('id');
             var minus = !$this.attr('checked');
-            var new_hash_part = category_id.replace(/category-/, 'c-');
+            var new_hash_part = category_id.replace(new RegExp(category_id_prefix), 'c-');
             var hide = (MB.text.Timeline.Category[category_id.substr(category_id_prefix.length)].Hide ? true : false);
             change_hash(minus, new_hash_part, hide);
     
