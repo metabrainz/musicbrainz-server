@@ -1,12 +1,11 @@
-setup_graphing = {};
 $(document).ready(function () {
-    var category_id_prefix = 'category-';
-    var control_id_prefix = 'graph-control-';
+    var categoryIDPrefix = 'category-';
+    var controlIDPrefix = 'graph-control-';
 
     var datasets = {};
     var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: [], enabled: true}}
-    var graph_options = {};
-    var overview_options = {};
+    var graphOptions = {};
+    var overviewOptions = {};
     var graphZoomOptions = {};
     var lastHash = null;
 
@@ -19,11 +18,11 @@ $(document).ready(function () {
         $(window).hashchange();
     }, 'xml');
 
-    function graph_data () {
+    function graphData () {
         var alldata =  [];
         $("#graph-lines div input").filter(":checked").each(function () { 
             if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
-                alldata.push(datasets[$(this).parent('div.graph-control').attr('id').substr(control_id_prefix.length)]);
+                alldata.push(datasets[$(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length)]);
             }
         });
         return alldata
@@ -46,8 +45,8 @@ $(document).ready(function () {
             xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
             yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }}
 
-    remove_from_hash('g-([0-9.e]+-){3}[0-9.e]+');
-    change_hash(false, hashPartFromGeometry(graphZoomOptions), true);
+    removeFromHash('g-([0-9.e]+-){3}[0-9.e]+');
+    changeHash(false, hashPartFromGeometry(graphZoomOptions), true);
     });
 
     $('#overview').bind('plotselected', function(event, ranges) {
@@ -59,7 +58,7 @@ $(document).ready(function () {
         if (!plot.getOptions().musicbrainzEvents.currentEvent.link) 
         {
             graphZoomOptions = {};
-            remove_from_hash('g-([0-9.e]+-){3}[0-9.e]+');
+            removeFromHash('g-([0-9.e]+-){3}[0-9.e]+');
         } else {
             // we're clicking on an event, should open the link instead
             window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
@@ -157,32 +156,32 @@ $(document).ready(function () {
         return { xaxis: { min: parseFloat(hashParts[0]), max: parseFloat(hashParts[1]) }, yaxis: { min: parseFloat(hashParts[2]), max: parseFloat(hashParts[3]) }};
     }
 
-    function change_hash(minus, new_hash_part, hide) {
-        if (!new RegExp('\\+?-?' + new_hash_part + '(?=($|\\+))').test(location.hash)) {
+    function changeHash(minus, newHashPart, hide) {
+        if (!new RegExp('\\+?-?' + newHashPart + '(?=($|\\+))').test(location.hash)) {
             if (hide != minus) {
-                window.location.hash = location.hash + (location.hash != '' ? '+' : '') + (minus ? '-' : '') + new_hash_part;
+                window.location.hash = location.hash + (location.hash != '' ? '+' : '') + (minus ? '-' : '') + newHashPart;
             }
         } else {
             if (hide != minus) {
-                window.location.hash = location.hash.replace(new RegExp('-?' + new_hash_part + '(?=($|\\+))'), (minus ? '-' : '') + new_hash_part);
+                window.location.hash = location.hash.replace(new RegExp('-?' + newHashPart + '(?=($|\\+))'), (minus ? '-' : '') + newHashPart);
             } else { 
-                remove_from_hash('-?' + new_hash_part);
+                removeFromHash('-?' + newHashPart);
             }
         }
     }
 
-    function remove_from_hash(to_remove) {
-        var regex = new RegExp('\\+?' + to_remove + '(?=($|\\+))')
+    function removeFromHash(toRemove) {
+        var regex = new RegExp('\\+?' + toRemove + '(?=($|\\+))')
         window.location.hash = location.hash.replace(regex , '');
     }
 
     function check(name, toggle, categoryp) {
         if (categoryp) {
-            var $checkbox_parent = $(jq(category_id_prefix + name)).prev('.toggler');
+            var $checkboxParent = $(jq(categoryIDPrefix + name)).prev('.toggler');
         } else {
-            var $checkbox_parent = $(jq(control_id_prefix + 'count.' + name));
+            var $checkboxParent = $(jq(controlIDPrefix + 'count.' + name));
         }
-        $checkbox_parent.children('input:checkbox').attr('checked', toggle).change();
+        $checkboxParent.children('input:checkbox').attr('checked', toggle).change();
     }
 
     $(window).hashchange(function () {
@@ -212,35 +211,35 @@ $(document).ready(function () {
 
 
     function resetPlot () {
-        var data = graph_data();
+        var data = graphData();
         plot = $.plot($("#graph-container"), data, 
-            $.extend(true, {}, graph_options, graphZoomOptions, musicbrainzEventsOptions));
+            $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions));
         plot.triggerRedrawOverlay();
-        overview = $.plot($('#overview'), data, overview_options);
+        overview = $.plot($('#overview'), data, overviewOptions);
     }
 
-    setup_graphing = function (data, goptions, ooptions) {
+    MB.setupGraphing = function (data, goptions, ooptions) {
         datasets = data;
-        graph_options = goptions;
-        overview_options = ooptions;
+        graphOptions = goptions;
+        overviewOptions = ooptions;
 
         $.each(datasets, function(key, value) { 
-            if ($(jq(control_id_prefix + key)).length == 0) {
-                if ($('#' + category_id_prefix + value.category).length == 0) {
-                    $('#graph-lines').append('<h2 class="toggler"><input id="' + category_id_prefix + 'checker-' + value.category + '" type="checkbox" checked /><label for="' + category_id_prefix + 'checker-' + value.category + '">' + MB.text.Timeline.Category[value.category].Label + '</label></h2>');
-                    $('#graph-lines').append('<div class="graph-category" id="' + category_id_prefix + value.category + '"></div>');
+            if ($(jq(controlIDPrefix + key)).length == 0) {
+                if ($('#' + categoryIDPrefix + value.category).length == 0) {
+                    $('#graph-lines').append('<h2 class="toggler"><input id="' + categoryIDPrefix + 'checker-' + value.category + '" type="checkbox" checked /><label for="' + categoryIDPrefix + 'checker-' + value.category + '">' + MB.text.Timeline.Category[value.category].Label + '</label></h2>');
+                    $('#graph-lines').append('<div class="graph-category" id="' + categoryIDPrefix + value.category + '"></div>');
                 }
-                $("#graph-lines #" + category_id_prefix + value.category).append('<div class="graph-control" id="' + control_id_prefix + key + '"><input id="' + control_id_prefix + 'checker-' + key + '" name="' + control_id_prefix + key + '" type="checkbox" checked /><label for="' + control_id_prefix + 'checker-' + key + '"><div class="graph-color-swatch" style="background-color: ' + MB.text.Timeline[key].Color + ';"></div>' + value.label + '</label></div>'); 
+                $("#graph-lines #" + categoryIDPrefix + value.category).append('<div class="graph-control" id="' + controlIDPrefix + key + '"><input id="' + controlIDPrefix + 'checker-' + key + '" name="' + controlIDPrefix + key + '" type="checkbox" checked /><label for="' + controlIDPrefix + 'checker-' + key + '"><div class="graph-color-swatch" style="background-color: ' + MB.text.Timeline[key].Color + ';"></div>' + value.label + '</label></div>'); 
             }
         });
         // // Toggle functionality
         $('#graph-lines div input:checkbox').change(function () {
             var $this = $(this);
             var minus = !$this.attr('checked');
-            var identifier = $this.parent('div').attr('id').substr(control_id_prefix.length);
-            var new_hash_part = identifier.substr('count.'.length);
+            var identifier = $this.parent('div').attr('id').substr(controlIDPrefix.length);
+            var newHashPart = identifier.substr('count.'.length);
             var hide = (MB.text.Timeline[identifier].Hide ? true : false);
-            change_hash(minus, new_hash_part, hide);
+            changeHash(minus, newHashPart, hide);
             
             if (minus) {
                     $this.siblings('label').children('div.graph-color-swatch').css('background-color', '#ccc');
@@ -253,11 +252,11 @@ $(document).ready(function () {
         $('#graph-lines .toggler input:checkbox').change(function () {
             var $this = $(this);
 
-            var category_id = $this.parent('.toggler').next('div.graph-category').attr('id');
+            var categoryId = $this.parent('.toggler').next('div.graph-category').attr('id');
             var minus = !$this.attr('checked');
-            var new_hash_part = category_id.replace(new RegExp(category_id_prefix), 'c-');
-            var hide = (MB.text.Timeline.Category[category_id.substr(category_id_prefix.length)].Hide ? true : false);
-            change_hash(minus, new_hash_part, hide);
+            var newHashPart = categoryId.replace(new RegExp(categoryIDPrefix), 'c-');
+            var hide = (MB.text.Timeline.Category[categoryId.substr(categoryIDPrefix.length)].Hide ? true : false);
+            changeHash(minus, newHashPart, hide);
     
             $this.parent('.toggler').next()[minus ? 'hide' : 'show']('slow');
         });
@@ -269,14 +268,14 @@ $(document).ready(function () {
        });
 
         $('div.graph-category').each(function () {
-            var category = $(this).attr('id').substr(category_id_prefix.length);
+            var category = $(this).attr('id').substr(categoryIDPrefix.length);
             if (MB.text.Timeline.Category[category].Hide && !(new RegExp('\\+?-?c-' + category + '(?=($|\\+))').test(location.hash))) {
                 $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
             }
         });
 
         $('div.graph-control').each(function () {
-            var identifier = $(this).attr('id').substr(control_id_prefix.length);
+            var identifier = $(this).attr('id').substr(controlIDPrefix.length);
             if (MB.text.Timeline[identifier].Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
                 $(this).children('input:checkbox').attr('checked', false).change();
             }

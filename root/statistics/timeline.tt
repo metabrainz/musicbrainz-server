@@ -29,7 +29,7 @@
   <script src="/static/scripts/timeline.js"></script>
   <script type="text/javascript">//<![CDATA[
       $(document).ready(function () {
-      setup_graphing({[%- FOREACH dataset_key = stats.keys.sort -%]
+      MB.setupGraphing({[%- FOREACH dataset_key = stats.keys.sort -%]
           "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
           [%- END -%]},
           { xaxis: { mode: "time",
