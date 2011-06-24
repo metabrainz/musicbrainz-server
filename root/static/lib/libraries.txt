@@ -45,7 +45,7 @@ version:     v2.2
 author:      Paul Johnston
 url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip
 
--- flot/jquery.flot.* --
+-- flot/jquery.flot.{js, selection.js} --
 
 library:     flot
 license:     MIT
@@ -67,3 +67,11 @@ license:     MIT/GPL
 version:     v1.3
 author:      "Cowboy" Ben Alman
 url:         http://benalman.com/projects/jquery-hashchange-plugin/
+
+-- jquery/jquery.tablesorter.js --
+
+library:     jquery tablesorter
+license:     MIT/GPL
+version:     v2.0.5b
+author:      Christian Bach
+url:         http://tablesorter.com

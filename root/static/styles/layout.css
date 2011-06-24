@@ -506,6 +506,25 @@ table.tbl th {
     border-left: solid 1px #CCCCCC;
 }
 
+table.tbl thead tr .header {
+    cursor: pointer;
+}
+
+table.tbl thead tr .header .arrow {
+    background: url('/static/images/layout/bg.gif') no-repeat center right;
+    display: inline-block;
+    height: 9px;
+    width: 21px;
+}
+
+table.tbl thead tr .headerSortUp .arrow {
+    background-image: url('/static/images/layout/asc.gif');
+}
+
+table.tbl thead tr .headerSortDown .arrow {
+    background-image: url('/static/images/layout/desc.gif');
+}
+
 table.details table.tbl th {
     /* Override the table.details declarations
     /* inside an edit details template */
