@@ -31,6 +31,7 @@ has_field 'labels.label_id'  => ( type => 'Text' );
 has_field 'labels.name'      => ( type => 'Text' );
 
 has_field 'barcode'          => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
+has_field 'barcode_confirm'  => ( type => 'Checkbox'  );
 
 # Additional information
 has_field 'annotation'       => ( type => 'TextArea'  );
@@ -90,6 +91,16 @@ sub options_script_id {
     } grep { $_->{frequency} ne $skip } $self->ctx->model('Script')->get_all ];
 }
 
+sub validate {
+    my $self = shift;
+
+    return if MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value);
+
+    return if $self->field('barcode_confirm')->value == 1;
+
+    $self->field('barcode')->add_error (
+        l("This barcode is invalid, please confirm that you've entered the barcode exactly as it is printed on the release."));
+}
 
 after 'BUILD' => sub {
     my ($self) = @_;
