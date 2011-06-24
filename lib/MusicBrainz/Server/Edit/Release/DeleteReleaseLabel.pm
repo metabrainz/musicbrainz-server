@@ -6,6 +6,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::Release;
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -67,7 +68,7 @@ sub build_display_data
 
     my $data = {
         release => $loaded->{Release}->{ $self->data->{release}{id} } ||
-            Release->new( name => $self->data->{release}{name} ),
+            MusicBrainz::Server::Entity::Release->new( name => $self->data->{release}{name} ),
         catalog_number => $self->data->{catalog_number},
     };
 
