@@ -18,7 +18,7 @@ window.Canvas.Text = {
   // http://mondaybynoon.com/2007/04/02/linux-font-equivalents-to-popular-web-typefaces/
   equivalentFaces: {
     // Web popular fonts
-    'arial': ['liberation sans', 'nimbus sans l', 'freesans', 'optimer', 'dejavu sans'],
+    'arial': ['liberation sans', 'nimbus sans l', 'freesans', 'optimer', 'dejavu sans', 'bitstream vera sans'],
     'times new roman': ['liberation serif', 'helvetiker', 'linux libertine', 'freeserif'],
     'courier new': ['dejavu sans mono', 'liberation mono', 'nimbus mono l', 'freemono'],
     'georgia': ['nimbus roman no9 l', 'helvetiker'],
@@ -29,7 +29,7 @@ window.Canvas.Text = {
   genericFaces: {
     'serif': ['times new roman', 'georgia', 'garamond', 'bodoni', 'minion web', 'itc stone serif', 'bitstream cyberbit'],
     'sans-serif': ['arial', 'verdana', 'trebuchet', 'tahoma', 'helvetica', 'itc avant garde gothic', 'univers', 'futura', 
-                   'gill sans', 'akzidenz grotesk', 'attika', 'typiko new era', 'itc stone sans', 'monotype gill sans 571'],
+                   'gill sans', 'akzidenz grotesk', 'attika', 'typiko new era', 'itc stone sans', 'monotype gill sans 571', 'bitstream vera sans'],
     'monospace': ['courier', 'courier new', 'prestige', 'everson mono'],
     'cursive': ['caflisch script', 'adobe poetica', 'sanvito', 'ex ponto', 'snell roundhand', 'zapf-chancery'],
     'fantasy': ['alpha geometrique', 'critter', 'cottonwood', 'fb reactor', 'studz']
