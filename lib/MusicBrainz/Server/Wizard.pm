@@ -185,18 +185,6 @@ sub render
     $self->c->stash->{wizard} = $self;
     $self->c->stash->{steps} = \@steps;
 
-    # hide errors if this is the first time (in this wizard session) that this
-    # page is shown to the user.
-    if (! $self->shown ($self->_current))
-    {
-        $page->clear_errors;
-
-        # clear_errors doesn't clear everything, error_fields on the form still
-        # contains the error fields -- so let's set an extra flag so the template
-        # knows wether to show errors or not.
-        $self->c->stash->{hide_errors} = 1;
-    }
-
     # mark the current page as having been shown to the user.
     $self->shown ($self->_current, 1);
 }
