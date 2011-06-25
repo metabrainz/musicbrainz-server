@@ -212,7 +212,7 @@ MB.Control.ReleaseBarcode = function() {
                 MB.text.Barcode.NoCheckdigitUPC + ' ' +
                 MB.text.Barcode.CheckDigit.replace (
                     '#checkdigit#', self.checkDigit ('0' + barcode)));
-            self.confirmation_required (false);
+            self.confirmation_required (true);
         }
         else if (barcode.length === 12)
         {
