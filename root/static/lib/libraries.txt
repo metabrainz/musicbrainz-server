@@ -45,7 +45,7 @@ version:     v2.2
 author:      Paul Johnston
 url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip
 
--- flot/jquery.flot.{js, selection.js} --
+-- flot/jquery.flot.* --
 
 library:     flot
 license:     MIT
