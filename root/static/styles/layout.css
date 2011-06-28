@@ -511,18 +511,18 @@ table.tbl thead tr .header {
 }
 
 table.tbl thead tr .header .arrow {
-    background: url('/static/images/layout/bg.gif') no-repeat center right;
+    background: url('../images/layout/bg.gif') no-repeat center right;
     display: inline-block;
     height: 9px;
     width: 21px;
 }
 
 table.tbl thead tr .headerSortUp .arrow {
-    background-image: url('/static/images/layout/asc.gif');
+    background-image: url('../images/layout/asc.gif');
 }
 
 table.tbl thead tr .headerSortDown .arrow {
-    background-image: url('/static/images/layout/desc.gif');
+    background-image: url('../images/layout/desc.gif');
 }
 
 table.details table.tbl th {
