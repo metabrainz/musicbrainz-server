@@ -234,7 +234,7 @@ unsigned short *unaccent_data[] = {
         data1='\n'.join(data1_out),
         data2=',\n'.join(data2_out),
         block_shift=best_block_shift)
-    f = open("unaccent-data.h", "w")
+    f = open("musicbrainz_unaccent_data.h", "w")
     f.write(source)
 
     indexes_template = '''

@@ -1,31 +1,31 @@
 -- Adjust this setting to control where the objects get created.
 SET search_path = public;
 
--- Standalone 'unaccent' function
+-- Standalone 'musicbrainz_unaccent' function
 
-CREATE OR REPLACE FUNCTION unaccent (text) RETURNS text
+CREATE OR REPLACE FUNCTION musicbrainz_unaccent (text) RETURNS text
     AS 'MODULE_PATHNAME'
     LANGUAGE C IMMUTABLE STRICT;
 
--- New 'unaccentdict' dictionary for text search indexer
+-- New 'musicbrainz_unaccentdict' dictionary for text search indexer
 
-CREATE OR REPLACE FUNCTION dunaccentdict_init(internal)
+CREATE OR REPLACE FUNCTION musicbrainz_dunaccentdict_init(internal)
     RETURNS internal
     AS 'MODULE_PATHNAME'
     LANGUAGE C STRICT;
 
-CREATE OR REPLACE FUNCTION dunaccentdict_lexize(internal, internal, internal, internal)
+CREATE OR REPLACE FUNCTION musicbrainz_dunaccentdict_lexize(internal, internal, internal, internal)
     RETURNS internal
     AS 'MODULE_PATHNAME'
     LANGUAGE C STRICT;
 
-CREATE TEXT SEARCH TEMPLATE unaccentdict_template (
-    LEXIZE = dunaccentdict_lexize,
-    INIT   = dunaccentdict_init
+CREATE TEXT SEARCH TEMPLATE musicbrainz_unaccentdict_template (
+    LEXIZE = musicbrainz_dunaccentdict_lexize,
+    INIT   = musicbrainz_dunaccentdict_init
 );
 
-CREATE TEXT SEARCH DICTIONARY unaccentdict (
-    TEMPLATE = unaccentdict_template
+CREATE TEXT SEARCH DICTIONARY musicbrainz_unaccentdict (
+    TEMPLATE = musicbrainz_unaccentdict_template
 );
 
-COMMENT ON TEXT SEARCH DICTIONARY unaccentdict IS 'unaccenting dictionary';
+COMMENT ON TEXT SEARCH DICTIONARY musicbrainz_unaccentdict IS 'musicbrainz unaccenting dictionary';

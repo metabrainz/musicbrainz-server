@@ -12,14 +12,14 @@
 
 PG_MODULE_MAGIC;
 
-PG_FUNCTION_INFO_V1(unaccent);
-Datum       unaccent(PG_FUNCTION_ARGS);
+PG_FUNCTION_INFO_V1(musicbrainz_unaccent);
+Datum       musicbrainz_unaccent(PG_FUNCTION_ARGS);
 
-PG_FUNCTION_INFO_V1(dunaccentdict_init);
-Datum       dunaccentdict_init(PG_FUNCTION_ARGS);
+PG_FUNCTION_INFO_V1(musicbrainz_dunaccentdict_init);
+Datum       musicbrainz_dunaccentdict_init(PG_FUNCTION_ARGS);
 
-PG_FUNCTION_INFO_V1(dunaccentdict_lexize);
-Datum       dunaccentdict_lexize(PG_FUNCTION_ARGS);
+PG_FUNCTION_INFO_V1(musicbrainz_dunaccentdict_lexize);
+Datum       musicbrainz_dunaccentdict_lexize(PG_FUNCTION_ARGS);
 
 #define TextPGetCString(t) DatumGetCString(DirectFunctionCall1(textout, PointerGetDatum(t)))
 #define CStringGetTextP(c) DatumGetTextP(DirectFunctionCall1(textin, CStringGetDatum(c)))
@@ -275,7 +275,7 @@ unaccent_string(char *input)
 /* PostgreSQL functions */
 
 Datum
-unaccent(PG_FUNCTION_ARGS)
+musicbrainz_unaccent(PG_FUNCTION_ARGS)
 {
     char *output, *input;
     text *result;
@@ -292,13 +292,13 @@ unaccent(PG_FUNCTION_ARGS)
 }
 
 Datum
-dunaccentdict_init(PG_FUNCTION_ARGS)
+musicbrainz_dunaccentdict_init(PG_FUNCTION_ARGS)
 {
     PG_RETURN_POINTER(NULL);
 }
 
 Datum
-dunaccentdict_lexize(PG_FUNCTION_ARGS)
+musicbrainz_dunaccentdict_lexize(PG_FUNCTION_ARGS)
 {
     char *input, *output;
     int input_len;
