@@ -216,12 +216,9 @@ our @STATUS_MAP = (
     [ $STATUS_ERROR        => 'Error' ],
     [ $STATUS_FAILEDPREREQ => 'Failed prerequisite' ],
     [ $STATUS_NOVOTES      => 'No votes' ],
-    [ $STATUS_TOBEDELETED  => 'Due to be cancelled' ],
     [ $STATUS_DELETED      => 'Cancelled' ],
 );
-our %STATUS_NAMES = (
-
-);
+our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
 
 sub edit_status_name
 {
