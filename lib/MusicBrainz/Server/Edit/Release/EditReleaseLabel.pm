@@ -5,6 +5,7 @@ use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -150,6 +151,12 @@ sub accept
 
     $args{catalog_number} = $self->data->{new}{catalog_number}
         if exists $self->data->{new}{catalog_number};
+
+    if (my $label_id = $args{label_id}) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The new label no longer exists'
+        ) unless $self->c->model('Label')->get_by_id($label_id);
+    }
 
     $self->c->model('ReleaseLabel')->update($self->release_label_id, \%args);
 }
