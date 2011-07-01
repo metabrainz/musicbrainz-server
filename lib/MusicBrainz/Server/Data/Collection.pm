@@ -179,6 +179,7 @@ sub insert
 
 sub load_release_count {
     my ($self, @collections) = @_;
+    return unless @collections;
     my %collection_map = map { $_->id => $_ } grep { defined } @collections;
     my $query =
         'SELECT id, coalesce(

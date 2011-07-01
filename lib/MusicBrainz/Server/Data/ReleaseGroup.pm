@@ -467,6 +467,7 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->release_count($row->{release_count});
+        $obj->first_release_date(partial_date_from_row($row, 'first_release_date_'));
     }, @_);
 }
 
