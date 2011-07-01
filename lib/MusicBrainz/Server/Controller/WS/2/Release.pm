@@ -79,6 +79,7 @@ sub release_toplevel
     if ($c->stash->{inc}->release_groups)
     {
          $c->model('ReleaseGroup')->load($release);
+         $c->model('ReleaseGroup')->load_meta($release->release_group);
 
          my $rg = $release->release_group;
 

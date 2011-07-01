@@ -211,6 +211,7 @@ sub _serialize_release_group
     my %attr;
     $attr{id} = $release_group->gid;
     $attr{type} = $release_group->type->name if $release_group->type;
+    $attr{"first-release-date"} = $release_group->first_release_date->format;
 
     my @list;
     push @list, $gen->title($release_group->name);
