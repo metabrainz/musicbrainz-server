@@ -72,7 +72,11 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } $self->release_ids },
-        MediumCDTOC => { $self->data->{medium_cdtoc_id} => [ 'CDTOC' ] }
+        MediumCDTOC => { $self->data->{medium_cdtoc_id} => [ 'CDTOC' ] },
+        Medium => {
+            $self->data->{new_medium}{id} => [ 'MediumFormat', 'Release' ],
+            $self->data->{old_medium}{id} => [ 'MediumFormat', 'Release' ]
+        }
     }
 }
 
@@ -88,6 +92,8 @@ sub build_display_data
             || Release->new( name => $self->data->{old_medium}{release}{name} ),
         new_release => $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
             || Release->new( name => $self->data->{new_medium}{release}{name} ),
+        new_medium  => $loaded->{Medium}{ $self->data->{new_medium}{id} },
+        old_medium  => $loaded->{Medium}{ $self->data->{old_medium}{id} },
     }
 }
 
