@@ -56,6 +56,8 @@
                END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
+               predicate_link(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
              predicate_link(field.field_name, field);
@@ -187,6 +189,7 @@
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release Group') ],
                    [ 'work', l('Work') ],
+                   [ 'editor', l('Editor') ]
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -204,7 +207,7 @@
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
 
-    [% FOR linked_type=['artist', 'label', 'recording', 'release_group', 'release', 'work'];
+    [% FOR linked_type=['artist', 'label', 'recording', 'release_group', 'release', 'work', 'editor'3];
          predicate_link(linked_type);
        END %]
   </div>

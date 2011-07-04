@@ -9,6 +9,8 @@ use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
+use MusicBrainz::Server::EditSearch::Predicate::Editor;
+use MusicBrainz::Server::Log 'log_warning';
 use Try::Tiny;
 
 my %field_map = (
@@ -20,6 +22,7 @@ my %field_map = (
     status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
     no_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     yes_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
+    editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
 
     map {
         $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . ucfirst($_) 
@@ -112,7 +115,11 @@ sub _construct_predicate {
             $input->{field},
             $input
         )
-    } catch { return () };
+    } catch {
+        my $err = $_;
+        log_warning { "Unable to construct predicate from input ($err): $_" } $input;
+        return ()
+    };
 }
 
 sub valid {
