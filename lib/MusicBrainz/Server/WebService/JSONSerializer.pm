@@ -34,6 +34,24 @@ sub autocomplete_generic
     ]);
 }
 
+sub autocomplete_editor
+{
+    my ($self, $output, $pager) = @_;
+
+    my $json = JSON::Any->new;
+    return $json->encode([
+        (map +{
+            name => $_->name,
+            id => $_->id,
+        }, @$output),
+        {
+            pages => $pager->last_page,
+            current => $pager->current_page
+        }
+    ]);
+}
+
+
 sub generic
 {
     my ($self, $response) = @_;
