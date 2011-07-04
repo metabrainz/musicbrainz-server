@@ -26,24 +26,39 @@
     </thead>
     <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
         [%- FOR recording=recordings -%]
-        <tr [% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_recording_ns(recording) %]>
-            [% PROCESS recording_row_prefix UNLESS no_prefix %]
-            <td>
-              [% rdfa_made_recording_link(recording) %]
-              [% disambiguation(recording) %]
-            </td>
-            [%- IF show_artists -%]
-                <td>[% artist_credit(recording.artist_credit) %]</td>
-            [%- END -%]
-            <td>
-                [% FOR isrc=recording.isrcs %]
-                    [% '<br />' IF loop.index > 0 %]
-                    [% isrc.isrc %]
-                [% END %]
-            </td>
-            [% UNLESS no_ratings%]<td>[% rating_stars(recording) %]</td>[% END %]
-            <td>[% rdfa_recording_duration(recording, '[rec:]') %]</td>
-        </tr>
+          [% IF recording.gid %]
+          <tr [% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_recording_ns(recording) %]>
+              [% PROCESS recording_row_prefix UNLESS no_prefix %]
+              <td>
+                [% rdfa_made_recording_link(recording) %]
+                [% disambiguation(recording) %]
+              </td>
+              [%- IF show_artists -%]
+                  <td>[% artist_credit(recording.artist_credit) %]</td>
+              [%- END -%]
+              <td>
+                  [% FOR isrc=recording.isrcs %]
+                      [% '<br />' IF loop.index > 0 %]
+                      [% isrc.isrc %]
+                  [% END %]
+              </td>
+              [% UNLESS no_ratings%]<td>[% rating_stars(recording) %]</td>[% END %]
+              <td>[% rdfa_recording_duration(recording, '[rec:]') %]</td>
+          </tr>
+          [% ELSE %]
+          <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+              [% PROCESS recording_row_prefix UNLESS no_prefix %]
+              <td>
+                [% link_deleted(recording) %]
+              </td>
+              [%- IF show_artists -%]
+                  <td></td>
+              [%- END -%]
+              <td></td>
+              [% UNLESS no_ratings%]<td></td>[% END %]
+              <td></td>
+          </tr>
+          [% END %]
         [%- END -%]
     </tbody>
 </table>
