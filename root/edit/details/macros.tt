@@ -1,0 +1,22 @@
+[%- USE Diff -%]
+
+[%- MACRO display_diff(label, old, new, split) BLOCK -%]
+  [%- IF old != new -%]
+    [%- split = split || '' -%]
+    <tr>
+      <th>[% label %]</th>
+      <td>[% Diff.diff_side(old, new, '-', split) %]</td>
+      <td>[% Diff.diff_side(old, new, '+', split) %]</td>
+    </tr>
+  [%- END -%]
+[%- END -%]
+
+[%- MACRO display_full_change(label, old, new) BLOCK -%]
+  [%- IF old != new -%]
+    <tr>
+      <th>[% label %]</th>
+      <td class="old">[% old %]</td>
+      <td class="new">[% new %]</td>
+    </tr>
+  [%- END -%]
+[%- END -%]
