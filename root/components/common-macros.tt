@@ -574,3 +574,8 @@ http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
 [%- MACRO format_length(n) BLOCK; n | format_length; END %]
+
+[%- MACRO medium_link(medium) BLOCK -%]
+  [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
+  [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
+[%- END -%]

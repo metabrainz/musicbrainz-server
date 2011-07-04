@@ -165,6 +165,7 @@ sub foreign_keys {
     my $self = shift;
     my %fk = (
         Release => { $self->data->{release}{id} => [ 'ArtistCredit' ] },
+        Medium => { $self->data->{entity_id} => [ 'Release', 'MediumFormat' ] }
     );
 
     $fk{MediumFormat} = {};
@@ -189,7 +190,15 @@ sub foreign_keys {
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my $data = {};
+
+    my $data = { };
+    if ($self->data->{release})
+    {
+        my $release = $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
+            || Release->new( name => $self->data->{release}{name} );
+
+        $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} };
+    }
 
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
@@ -256,12 +265,6 @@ sub build_display_data
                     return $track->recording->id || 'new';
                 }) }
         ];
-    }
-
-    if ($self->data->{release})
-    {
-        $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
-            || Release->new( name => $self->data->{release}{name} );
     }
 
     return $data;
