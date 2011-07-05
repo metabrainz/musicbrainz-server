@@ -11,6 +11,9 @@
   [%- END -%]
 [%- END -%]
 
+[%- MACRO display_word_diff(label, old, new)
+       display_diff(label, old, new, '\s+') -%]
+
 [%- MACRO display_full_change(label, old, new) BLOCK -%]
   [%- IF old != new -%]
     <tr>
