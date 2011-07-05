@@ -594,6 +594,7 @@ sub reject
 {
     my ($self, $edit, $status) = @_;
 
+    $status ||= $STATUS_FAILEDVOTE;
     my $expected_status = ($status == $STATUS_DELETED)
         ? $STATUS_TOBEDELETED
         : $STATUS_OPEN;
