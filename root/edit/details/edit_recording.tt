@@ -14,7 +14,7 @@
                   html_escape(edit.display_data.name.new),
                   '\s+') %]
 
-  [% display_diff(l('Name:'),
+  [% display_diff(l('Comment:'),
                   html_escape(edit.display_data.comment.old),
                   html_escape(edit.display_data.comment.new),
                   '\s+') %]
