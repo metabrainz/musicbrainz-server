@@ -24,3 +24,55 @@
     </tr>
   [%- END -%]
 [%- END -%]
+
+[%- MACRO relationship_date_text(relationship) BLOCK;
+     IF !relationship.link.begin_date.is_empty;
+       IF !relationship.link.end_date.is_empty;
+         IF relationship.link.begin_date.format == relationship.link.end_date.format;
+           IF relationship.link.begin_date.day;
+             l('on {date}', { date => relationship.link.begin_date.format });
+           ELSE;
+             l('in {date}', { date => relationship.link.begin_date.format });
+           END;
+         ELSE;
+             l('from {begin_date} until {end_date}', {
+                  begin_date => relationship.link.begin_date.format,
+                  end_date => relationship.link.end_date.format
+              });
+         END;
+       ELSE;
+         l('from {date} to present', { date => relationship.link.begin_date.format });
+       END;
+     ELSIF !relationship.link.end_date.is_empty;
+       l('until {date}', { date => relationship.link.end_date.format });
+     END;
+   END; -%]
+
+[%- MACRO display_relationship_differences(label, old_rel, new_rel) BLOCK -%]
+  <tr>
+    <th rowspan="2">[% l('Relationship:') %]</th>
+
+    <td class="old">
+      <span class="[% 'diff-only-a' IF old_rel.source.id != new_rel.source.id %]">
+        [% descriptive_link(old_rel.source); %]
+      </span>
+      [% Diff.diff_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '-', '\s+') %]
+      <span class="[% 'diff-only-a' IF old_rel.target.id != new_rel.target.id %]">
+        [% descriptive_link(old_rel.target); %]
+      </span>
+      [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '-') %]
+    </td>
+  </tr>
+  <tr>
+    <td class="new">
+      <span class="[% 'diff-only-b' IF old_rel.source.id != new_rel.source.id %]">
+        [% descriptive_link(new_rel.source); %]
+      </span>
+      [% Diff.diff_side(old_rel.verbose_phrase, new_rel.verbose_phrase, '+', '\s+') %]
+      <span class="[% 'diff-only-b' IF old_rel.target.id != new_rel.target.id %]">
+        [% descriptive_link(new_rel.target); %]
+      </span>
+      [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '+') %]
+    </td>
+  </tr>
+[%- END -%]
