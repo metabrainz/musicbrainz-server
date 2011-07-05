@@ -593,12 +593,9 @@ sub accept
 sub reject
 {
     my ($self, $edit, $status) = @_;
-
     $status ||= $STATUS_FAILEDVOTE;
-    my $expected_status = ($status == $STATUS_DELETED)
-        ? $STATUS_TOBEDELETED
-        : $STATUS_OPEN;
-    confess "The edit is not open anymore." if $edit->status != $expected_status;
+    confess "The edit is not open anymore."
+        unless $edit->status == $STATUS_TOBEDELETED || $edit->status == $STATUS_OPEN;
 
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
