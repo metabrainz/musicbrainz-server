@@ -96,6 +96,12 @@ sub release_toplevel
 
         @mediums = $release->all_mediums;
 
+        if (!$c->stash->{inc}->discids)
+        {
+            my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
+            $c->model('CDTOC')->load (@medium_cdtocs);
+        }
+
         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
         $c->model('Track')->load_for_tracklists(@tracklists);
         $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
