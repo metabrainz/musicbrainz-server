@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-release-label">
     <tr>
         <th>[% l('Release:') %]</th>
