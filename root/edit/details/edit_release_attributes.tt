@@ -9,7 +9,7 @@
         [% END %]
       </ul>
     </td>
-    <td>
+    <td class="old">
       [% l('Type: {type}, status: {status}',
            { type => change.type.name || '?',
              status => change.status.name || '?' })
@@ -20,11 +20,11 @@
 
   <tr>
     <th>[% l('New Type:') %]</th>
-    <td>[% edit.display_data.new_type.name || '?' %]</td>
+    <td class="new" colspan="2">[% edit.display_data.new_type.name || '?' %]</td>
   </tr>
 
   <tr>
     <th>[% l('New Status:') %]</th>
-    <td>[% edit.display_data.new_status.name || '?' %]</td>
+    <td class="new" colspan="2">[% edit.display_data.new_status.name || '?' %]</td>
   </tr>
 </table>
