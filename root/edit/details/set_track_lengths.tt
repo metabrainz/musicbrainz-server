@@ -14,20 +14,19 @@
     <th>[% l('Disc ID:') %]</th>
     <td>[% link_cdtoc(edit.display_data.cdtoc) %]</td>
   </tr>
-  <tr>
-    <th>[% l('Old track lengths:') %]</th>
-    <td>
-      [% FOR length=edit.data.length.old %]
-         [% length | format_length %]
-      [% END %]
-    </td>
-  </tr>
-  <tr>
-    <th>[% l('New track lengths:') %]</th>
-    <td>
-      [% FOR length=edit.data.length.new %]
-         [% length | format_length %]
-      [% END %]
-    </td>
-  </tr>
+
+  [% old_lengths = BLOCK;
+     FOR length=edit.data.length.old;
+       length | format_length;
+       ' ';
+     END;
+     new_lengths = BLOCK;
+     FOR length=edit.data.length.new;
+       length | format_length;
+       ' ';
+     END %]
+
+  [%- display_diff(l('Old track lengths:'),
+                   old_lengths, new_lengths,
+                   '(:|\s+)') -%]
 </table>
