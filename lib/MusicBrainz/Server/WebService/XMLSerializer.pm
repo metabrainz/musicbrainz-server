@@ -65,7 +65,12 @@ sub _serialize_alias
         my @alias_list;
         foreach my $al (sort_by { $_->name } @$aliases)
         {
-            push @alias_list, $gen->alias($al->name);
+            if ($al->locale) {
+                push @alias_list, $gen->alias({ locale => $al->locale }, $al->name);
+            }
+            else {
+                push @alias_list, $gen->alias($al->name);
+            }
         }
         push @$data, $gen->alias_list(\%attr, @alias_list);
     }
@@ -211,6 +216,7 @@ sub _serialize_release_group
     my %attr;
     $attr{id} = $release_group->gid;
     $attr{type} = $release_group->type->name if $release_group->type;
+    $attr{"first-release-date"} = $release_group->first_release_date->format;
 
     my @list;
     push @list, $gen->title($release_group->name);

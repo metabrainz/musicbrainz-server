@@ -165,7 +165,7 @@ ws_test 'release group lookup with url relationships',
     '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
+    <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b" first-release-date="2004-03-17">
         <title>the Love Bug</title>
         <relation-list target-type="url">
             <relation type="wikipedia">

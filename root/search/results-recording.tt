@@ -19,7 +19,8 @@
                     <tbody>
                         [%- linenum = 0 -%]
                         [%- FOR result=results -%]
-                            [%- FOR release=result.extra -%]
+                            [% IF result.extra.size %]
+                              [%- FOR release=result.extra -%]
                                 <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
                                     [%- IF loop.count == 1 -%]
                                         <td>[% result.score %]</td>
@@ -35,7 +36,16 @@
                                     <td>[%- release.release_group.type.name -%]</td>
                                     [%- linenum = linenum + 1 -%]
                                 </tr>
-                            [%- END -%]
+                              [%- END -%]
+                            [% ELSE %]
+                              <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
+                                <td>[% result.score %]</td>
+                                <td>[% link_entity(result.entity) %]</td>
+                                <td>[% result.entity.length | format_length %]</td>
+                                <td>[% artist_credit(result.entity.artist_credit) %]</td>
+                                <td colspan="4" style="text-align: center">[% l('(standalone recording)') %]</td>
+                              </tr>
+                            [% END %]
                         [%- END -%]
                     </tbody>
                 </table>

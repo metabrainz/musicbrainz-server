@@ -19,7 +19,7 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          linked   => [ qw(artist label recording release-group) ],
-                         inc      => [ qw(artist-credits labels discids media _relations) ],
+                         inc      => [ qw(artist-credits labels recordings discids media _relations) ],
                          optional => [ qw(limit offset) ],
      },
      release => {
@@ -79,6 +79,7 @@ sub release_toplevel
     if ($c->stash->{inc}->release_groups)
     {
          $c->model('ReleaseGroup')->load($release);
+         $c->model('ReleaseGroup')->load_meta($release->release_group);
 
          my $rg = $release->release_group;
 

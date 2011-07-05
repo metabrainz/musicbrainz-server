@@ -126,10 +126,14 @@ CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);
 CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
+CREATE UNIQUE INDEX cdtoc_idx_discid ON cdtoc (discid);
+CREATE INDEX cdtoc_idx_freedb_id ON cdtoc (freedb_id);
+
 CREATE INDEX medium_idx_release ON medium (release);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
 
 CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
+CREATE INDEX medium_cdtoc_idx_cdtoc ON medium_cdtoc (cdtoc);
 CREATE UNIQUE INDEX medium_cdtoc_idx_uniq ON medium_cdtoc (medium, cdtoc);
 
 CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
