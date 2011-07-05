@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-track-length">
   [% IF edit.display_data.recording %]
   <tr>
@@ -8,9 +10,8 @@
   </tr>
   [% END %]
 
-  <tr>
-    <th>[% l('Track length:') %]</th>
-    <td class="old">[% edit.display_data.length.old | format_length %]</td>
-    <td class="new">[% edit.display_data.length.new | format_length %]</td>
-  </tr>
+  [%- display_diff(l('Track length:'),
+                   format_length(edit.display_data.length.old),
+                   format_length(edit.display_data.length.new),
+                   ':') -%]
 </table>

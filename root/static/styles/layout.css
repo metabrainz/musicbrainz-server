@@ -627,7 +627,10 @@ table.details th {
 }
 
 table.details td span.new,
-table.details td.new,
+table.details td.new {
+    background: #E8F7E8;
+}
+
 div.diff .diff-only-b,
 span.diff-only-b,
 tr.diff-addition {
@@ -635,7 +638,10 @@ tr.diff-addition {
 }
 
 table.details td span.old,
-table.details td.old,
+table.details td.old {
+    background: #F7E8E8;
+}
+
 div.diff .diff-only-a,
 span.diff-only-a,
 tr.diff-removal {

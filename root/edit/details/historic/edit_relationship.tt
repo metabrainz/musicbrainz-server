@@ -1,3 +1,6 @@
+[%- PROCESS 'edit/details/macros.tt';
+    USE Diff; -%]
+
 <table class="details">
   <tr>
     <th rowspan="2">[% l('Old relationships:') %]</th>
@@ -5,10 +8,17 @@
   <tr>
     <td>
       <ul>
-        [% FOR relationship=edit.display_data.relationship.old %]
+        [% FOR old_rel=edit.display_data.relationship.old %]
+        [%- new_rel = edit.display_data.relationship.new.${ loop.index } -%]
         <li>
-           [% link_entity(relationship.source); %]
-           [% display_relationship(relationship); %]
+          <span class="[% 'diff-only-a' IF old_rel.source.id != new_rel.source.id %]">
+            [% descriptive_link(old_rel.source); %]
+          </span>
+          [% Diff.diff_side(old_rel.phrase, new_rel.phrase, '-', '\s+') %]
+          <span class="[% 'diff-only-a' IF old_rel.target.id != new_rel.target.id %]">
+            [% descriptive_link(old_rel.target); %]
+          </span>
+          [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '-') %]
         </li>
         [% END %]
       </ul>
@@ -21,10 +31,17 @@
   <tr>
     <td>
       <ul>
-        [% FOR relationship=edit.display_data.relationship.new %]
+        [% FOR new_rel=edit.display_data.relationship.new %]
+        [%- old_rel = edit.display_data.relationship.old.${ loop.index } -%]
         <li>
-           [% link_entity(relationship.source); %]
-           [% display_relationship(relationship); %]
+          <span class="[% 'diff-only-b' IF old_rel.source.id != new_rel.source.id %]">
+            [% descriptive_link(new_rel.source); %]
+          </span>
+          [% Diff.diff_side(old_rel.phrase, new_rel.phrase, '+', '\s+') %]
+          <span class="[% 'diff-only-b' IF old_rel.target.id != new_rel.target.id %]">
+            [% descriptive_link(new_rel.target); %]
+          </span>
+          [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '+') %]
         </li>
         [% END %]
       </ul>

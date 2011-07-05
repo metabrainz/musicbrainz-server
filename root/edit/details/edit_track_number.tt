@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-track-number">
   [% IF edit.display_data.recording %]
   <tr>
@@ -8,9 +10,7 @@
   </tr>
   [% END %]
 
-  <tr>
-    <th>[% l('Track number:') %]</th>
-    <td class="old">[% edit.display_data.position.old | html %]</td>
-    <td class="new">[% edit.display_data.position.new | html %]</td>
-  </tr>
+  [%- display_word_diff(l('Track number:'),
+                        edit.display_data.position.old,
+                        edit.display_data.position.new) -%]
 </table>

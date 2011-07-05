@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 [% MACRO show_url(url) BLOCK %]
     <a href="[% url | url %]">[% url | html %]</a>
 [% END %]
@@ -11,16 +13,20 @@
   [% IF edit.display_data.uri %]
   <tr>
     <th>[% l('URL:') %]</th>
-    <td class="old">[% show_url(edit.display_data.uri.old) %]</td>
-    <td class="new">[% show_url(edit.display_data.uri.new) %]</td>
+    <td class="old">
+      <a href="[% edit.display_data.uri.old | url %]">
+        [% Diff.diff_side(edit.display_data.uri.old, edit.display_data.uri.new, '-') %]
+      </a>
+    </td>
+    <td class="new">
+      <a href="[% edit.display_data.uri.new | url %]">
+        [% Diff.diff_side(edit.display_data.uri.old, edit.display_data.uri.new, '+') %]
+      </a>
+    </td>
   </tr>
   [% END %]
 
-  [% IF edit.display_data.description %]
-  <tr>
-    <th>[% l('Description:') %]</th>
-    <td class="old">[% edit.display_data.description.old | html %]</td>
-    <td class="new">[% edit.display_data.description.new | html %]</td>
-  </tr>
-  [% END %]
+  [% display_word_diff(l('Description:'),
+                       html_escape(edit.display_data.description.old),
+                       html_escape(edit.display_data.description.new)) %]
 </table>
