@@ -65,9 +65,9 @@ override 'prepare_tracklist' => sub {
     my $json = JSON::Any->new( utf8 => 1 );
 
     my $database_artist = artist_credit_to_ref ($release->artist_credit);
-    my $submitted_artist = $self->value->{artist_credit};
+    my $submitted_artist = $self->get_value ("information", "artist_credit");
 
-    if (!$self->value->{change_track_artists} ||
+    if (!$self->get_value ("information", "change_track_artists") ||
         Compare ($database_artist, $submitted_artist))
     {
         # Just use "null" here to indicate the release artist wasn't edited.
