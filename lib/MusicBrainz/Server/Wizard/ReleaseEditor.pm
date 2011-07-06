@@ -571,8 +571,8 @@ sub prepare_recordings
 
     my $json = JSON::Any->new( utf8 => 1 );
 
-    my @recording_edits = @{ $self->value->{rec_mediums} };
-    my @tracklist_edits = @{ $self->value->{mediums} };
+    my @recording_edits = @{ $self->get_value ('recordings', 'rec_mediums') // [] };
+    my @tracklist_edits = @{ $self->get_value ('tracklist', 'mediums') // [] };
 
     my $tracklists_by_id = $self->c->model('Tracklist')->get_by_ids(
         map { $_->{tracklist_id} } grep { defined $_->{tracklist_id} }
@@ -599,7 +599,7 @@ sub prepare_recordings
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
 
-        if (defined $medium->{edits} && defined $medium->{tracklist_id})
+        if ($medium->{edits} && defined $medium->{tracklist_id})
         {
             my $tracklist = $tracklists_by_id->{$medium->{tracklist_id}};
             $self->c->model ('Recording')->load ($tracklist->all_tracks);
@@ -630,7 +630,7 @@ sub prepare_recordings
                     'edit_sha1' => $_->{edit_sha1}
                 } } @$first_suggestions ];
         }
-        elsif (defined $medium->{edits})
+        elsif ($medium->{edits})
         {
             # A new tracklist has been entered, create new recordings
             # for all these tracks by default (no recording
@@ -771,6 +771,9 @@ sub prepare_edits
 
 sub _missing_labels {
     my ($self, $data) = @_;
+
+    $data->{labels} = $self->get_value ('information', 'labels');
+
     return grep { !$_->{label_id} && $_->{name} }
         @{ $data->{labels} };
 }
@@ -778,6 +781,8 @@ sub _missing_labels {
 sub _missing_artist_credits
 {
     my ($self, $data) = @_;
+
+    $data->{artist_credit} = $self->get_value ('information', 'artist_credit');
 
     return
         (
@@ -1251,6 +1256,9 @@ sub _expand_mediums
 {
     my ($self, $data) = @_;
     my $json = JSON::Any->new( utf8 => 1 );
+
+    $data->{mediums} = $self->get_value ('tracklist', 'mediums') // [];
+    $data->{rec_mediums} = $self->get_value ('recordings', 'rec_mediums') // [];
 
     my $count = 0;
     for my $disc (@{ $data->{mediums} }) {

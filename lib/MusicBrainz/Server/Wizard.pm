@@ -2,6 +2,7 @@ package MusicBrainz::Server::Wizard;
 use Moose;
 use Cache::Memcached;
 use Carp qw( croak );
+use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params );
 
 my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
 
@@ -249,20 +250,31 @@ sub _load_page
     return $self->_load_form ($page, serialized => $serialized);
 }
 
+sub get_value
+{
+    my ($self, $page, $key) = @_;
+
+    my $serialized = $self->_store ("step_" . $self->page_number->{$page});
+
+    return expand_param ($serialized->{values}, $key);
+}
+
 sub value
 {
     my ($self) = @_;
 
-    my %ret;
-    my $max = scalar @{ $self->pages } - 1;
-    for (0..$max)
+    my %data;
+    for my $pageno (values %{ $self->page_number })
     {
-        my $value = $self->_load_page ($_)->value;
+        my $values = $self->_store ("step_$pageno")->{values};
+        my $page_data = expand_all_params ($values);
+        while (my ($key, $value) = each %$page_data)
+        {
+            $data{$key} = $value;
+        }
+    } 
 
-        @ret{keys %$value} = values %$value;
-    }
-
-    return \%ret;
+    return \%data;
 }
 
 sub _store_page_in_session
@@ -299,6 +311,9 @@ sub seed {
     for (0..$max) {
         $self->_post_to_page($_, $params);
     }
+
+    # Reload page 0 with the seeded data.
+    $self->_processed_page ($self->_load_page (0));
 }
 
 sub _post_to_page
