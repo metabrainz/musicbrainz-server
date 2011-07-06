@@ -150,7 +150,9 @@ sub initialize
     if ($init_object)
     {
         my $max = scalar @{ $self->pages } - 1;
-        for (0..$max)
+        $self->_processed_page ($self->_load_page (0, $init_object));
+
+        for (1..$max)
         {
             $self->_load_page ($_, $init_object);
         }
@@ -238,6 +240,8 @@ sub _load_page
 
         $form->field('wizard_session_id')->value ($self->_session_id);
         $self->_store ("step_$page", $form->serialize);
+
+        return $form;
     }
 
     my $serialized = $self->_store ("step_$page") || {};
