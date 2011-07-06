@@ -1,14 +1,18 @@
-use strict;
-use warnings;
-use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+package t::MusicBrainz::Server::Edit::Medium::SetTrackLengths;
+use Test::Routine;
 use Test::More;
 
-BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::SetTrackLengths' };
+with 't::Edit';
+with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
+use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
-my $c = MusicBrainz::Server::Test->create_test_context;
-MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist-truncate');
+test all => sub {
+
+my $test = shift;
+my $c = $test->c;
+
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
 
 my $edit = $c->model('Edit')->create(
@@ -31,4 +35,6 @@ is($tracklist->tracks->[4]->length, 719666);
 is($tracklist->tracks->[5]->length, 276933);
 is($tracklist->tracks->[6]->length, 94200);
 
-done_testing;
+};
+
+1;
