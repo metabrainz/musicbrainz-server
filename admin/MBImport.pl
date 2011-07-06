@@ -303,8 +303,6 @@ sub empty
 {
     my $table = shift;
 
-    my $sql = $table_db_mapping{'_default_'};
-    $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
     my $any = $sql->select_single_value(
         "SELECT 1 FROM $table LIMIT 1",
     );
