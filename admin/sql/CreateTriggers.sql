@@ -214,6 +214,9 @@ CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias
 CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_upd_edit AFTER UPDATE ON edit
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_edit();
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

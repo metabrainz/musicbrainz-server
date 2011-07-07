@@ -34,6 +34,9 @@ echo `date` : Fixing potential FK violations
 echo `date` : RAWDATA is now part of the READWRITE database.
 echo `date` : Please update your DBDefs and feel free to drop the RAWDATA database
 
+echo `date` : Materializing edit.status onto edit_artist and edit_label
+./admin/psql READWRITE < ./admin/sql/updates/20110707-materialize-status.sql
+
 echo `date` : Done
 
 # eof

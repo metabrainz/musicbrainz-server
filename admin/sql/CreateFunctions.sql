@@ -353,6 +353,16 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION a_upd_edit() RETURNS trigger AS $$
+BEGIN
+    IF NEW.status != OLD.status THEN
+       UPDATE edit_artist SET status = NEW.status WHERE edit = NEW.id;
+       UPDATE edit_label  SET status = NEW.status WHERE edit = NEW.id;
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 ------------------------
 -- CD Lookup
 ------------------------
@@ -568,7 +578,6 @@ BEGIN
     RETURN;
 END;
 $$ LANGUAGE 'plpgsql';
-
 
 COMMIT;
 -- vi: set ts=4 sw=4 et :
