@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 
+use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 parameter 'edit_type' => (
@@ -136,19 +137,26 @@ role {
 
     method _merge_submit => sub {
         my ($self, $c, $form, $entities) = @_;
+
+        my %entity_id = map { $_->id => $_ } @$entities;
+
         my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
-        my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$entities;
+        my $new = $entity_id{$new_id};
+        my @old_ids = grep { $_ != $new_id } @{ $form->field('merging')->value };
+
+        log_assertion { @old_ids >= 1 } 'Got at least 1 entity to merge';
+
         $self->_insert_edit(
             $c, $form,
             edit_type => $params->edit_type,
             new_entity => {
-                id => $new->[0]->id,
-                name => $new->[0]->name,
+                id => $new->id,
+                name => $new->name,
             },
             old_entities => [ map +{
-                id => $_->id,
-                name => $_->name
-            }, @$old ],
+                id => $entity_id{$_}->id,
+                name => $entity_id{$_}->name
+            }, @old_ids ],
             (map { $_->name => $_->value } $form->edit_fields),
             $self->_merge_parameters($c, $form, $entities)
         );
@@ -156,7 +164,7 @@ role {
         $c->session->{merger} = undef;
 
         $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $new->[0]->gid ])
+            $c->uri_for_action($self->action_for('show'), [ $new->gid ])
         );
     };
 
