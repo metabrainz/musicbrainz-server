@@ -22,6 +22,7 @@
         <ul>
             [% FOR entity=to_merge %]
             <li>
+                <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
                 <input type="radio" name="merge.target" value="[% entity.id %]" />
                 [% descriptive_link(entity) %]
             </li>
