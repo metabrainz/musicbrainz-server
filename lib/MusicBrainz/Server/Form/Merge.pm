@@ -14,4 +14,13 @@ has_field 'target' => (
     required => 1
 );
 
+has_field 'merging' => (
+    type => 'Repeatable',
+    required => 1
+);
+
+has_field 'merging.contains' => (
+    type => 'Integer'
+);
+
 1;
