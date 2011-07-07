@@ -407,7 +407,8 @@ sub can_delete
 sub delete
 {
     my ($self, @group_ids) = @_;
-    @group_ids = grep { !$self->in_use($_) } @group_ids;
+    @group_ids = grep { $self->can_delete($_) } @group_ids
+        or return;
 
     $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
     $self->annotation->delete(@group_ids);
