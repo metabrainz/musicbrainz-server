@@ -4,7 +4,10 @@
              select the recording which you would like other recordings to be merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
         [% BLOCK recording_row_prefix %]
-          <td><input type="radio" name="merge.target" value="[% recording.id %]" /></td>
+          <td>
+            <input type="hidden" name="merge.merging.[% loop.index %]" value="[% recording.id %]" />
+            <input type="radio" name="merge.target" value="[% recording.id %]" />
+          </td>
         [% END %]
         [% INCLUDE 'artist/recordings-list.tt' recordings=to_merge show_artists=1 %]
         [% field_errors(form, 'target') %]

@@ -48,6 +48,7 @@ sub _do_log {
             message => $message_gen->(@args)
         )
     }
+    @args;
 }
 
 sub log_debug (&@)     { _do_log(debug => @_) }
