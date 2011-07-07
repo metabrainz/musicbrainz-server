@@ -14,9 +14,13 @@ my $data_mpo = Module::Pluggable::Object->new(
 my $entity_mpo = Module::Pluggable::Object->new(
     search_path => 't::MusicBrainz::Server::Entity');
 
+my $form_mpo = Module::Pluggable::Object->new(
+    search_path => 't::MusicBrainz::Server::Form');
+
 my @classes = (
     $data_mpo->plugins,
-    $entity_mpo->plugins
+    $entity_mpo->plugins,
+    $form_mpo->plugins
 );
 
 @classes = commandline_override ("t::MusicBrainz::Server::", @classes);
