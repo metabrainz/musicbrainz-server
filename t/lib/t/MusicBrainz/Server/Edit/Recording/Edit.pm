@@ -50,6 +50,24 @@ is($recording->artist_credit->name, 'Foo');
 
 };
 
+test 'Case changes to recording comments are auto-edits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+    $c->model('Recording')->update(1, { comment => 'test comment' });
+    my $recording = $c->model('Recording')->get_by_id(1);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RECORDING_EDIT,
+        editor_id => 1,
+        to_edit => $recording,
+        comment => 'Test CommenT'
+    );
+
+    is($edit->status, 2);
+};
+
 sub create_edit {
     my ($c, $recording) = @_;
     return $c->model('Edit')->create(

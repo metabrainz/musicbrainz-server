@@ -160,7 +160,6 @@ sub allow_auto_edit
     return 0 if $old_comment ne $new_comment;
 
     return 0 if $self->data->{old}{length};
-    return 0 if exists $self->data->{new}{comment};
     return 0 if exists $self->data->{new}{artist_credit};
 
     return 1;
