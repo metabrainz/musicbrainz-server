@@ -23,6 +23,27 @@ with 't::Context';
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("t::Vote::MockEdit", 1);
 
+test 'Email on first no vote' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+
+    my $edit = $test->c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => 4242,
+        foo => 'bar',
+    );
+
+    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
+
+    $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
+    is(scalar @{ $email_transport->deliveries }, 0);
+
+    $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
+    is(scalar @{ $email_transport->deliveries }, 1);
+};
+
 test all => sub {
 
 {

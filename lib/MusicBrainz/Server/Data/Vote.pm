@@ -96,7 +96,7 @@ sub enter_votes
         }
 
         # Select all the edits that have not yet received a no vote
-        $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote != ?';
+        $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote = ?';
         my $emailed = $self->sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
         my %already_emailed = map { $_ => 1 } @$emailed;
 

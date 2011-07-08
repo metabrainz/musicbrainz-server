@@ -334,7 +334,9 @@ sub accept
     my $values = {
         entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,
         entity1_id   => $data->{new}{entity1}{id}   // $relationship->entity1_id,
-        attributes   => $data->{new}{attributes}    // $relationship->link->attributes,
+        attributes   => $data->{new}{attributes}    // [
+            map { $_->id } $relationship->link->all_attributes
+        ],
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
