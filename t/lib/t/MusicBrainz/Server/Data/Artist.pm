@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
+use Try::Tiny;
 
 use MusicBrainz::Server::Data::Artist;
 
@@ -11,6 +12,7 @@ use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Search;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Constants qw($DARTIST_ID $VARTIST_ID);
 use Sql;
 
 with 't::Context';
@@ -341,6 +343,34 @@ test 'Merging with a cache' => sub {
 
     $c->sql->commit;
     $c->raw_sql->commit;
+};
+
+test 'Deny delete "Various Artists" trigger' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
+
+    my $exception;
+    try {
+        $c->sql->do ("DELETE FROM artist WHERE id = $VARTIST_ID");
+    } catch {
+        $exception = $_;
+    };
+
+    like( $exception, qr/ERROR:\s*Attempted to delete a special purpose row/);
+};
+
+test 'Deny delete "Deleted Artist" trigger' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
+
+    my $exception;
+    try {
+        $c->sql->do ("DELETE FROM artist WHERE id = $DARTIST_ID");
+    } catch {
+        $exception = $_;
+    };
+
+    like( $exception, qr/ERROR:\s*Attempted to delete a special purpose row/);
 };
 
 1;
