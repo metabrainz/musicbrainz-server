@@ -301,6 +301,9 @@ sub accept {
         $self->c->model('Track')->load_for_tracklists($tracklist);
         $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
 
+        # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly
+        $_->{recording_id} //= 0 for @$data_new_tracklist;
+
         my (@merged_names, @merged_recordings, @merged_lengths, @merged_artist_credits);
         my $current_tracklist = tracks_to_hash($tracklist->tracks);
         try {
@@ -314,7 +317,7 @@ sub accept {
                 push @$container, merge (
                     track_column($property, $self->data->{old}{tracklist}),
                     track_column($property, $current_tracklist),
-                    track_column($property, $self->data->{new}{tracklist}),
+                    track_column($property, $data_new_tracklist),
                     { CONFLICT => sub { die } },
                     $key_generation // ()
                 );
