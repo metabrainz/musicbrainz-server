@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
-use Try::Tiny;
+use Test::Fatal;
 
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Search;
@@ -161,14 +161,9 @@ test 'Deny delete "Deleted Label" trigger' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
 
-    my $exception;
-    try {
-        $c->sql->do ("DELETE FROM artist WHERE id = $DLABEL_ID");
-    } catch {
-        $exception = $_;
-    };
-
-    like( $exception, qr/ERROR:\s*Attempted to delete a special purpose row/);
+    like exception {
+        $c->sql->do ("DELETE FROM artist WHERE id = $DLABEL_ID")
+    }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
 1;
