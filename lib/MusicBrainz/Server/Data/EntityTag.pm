@@ -94,7 +94,7 @@ sub find_user_tags_for_entities
                  WHERE editor = ?
                  AND $type IN (" . placeholders(@ids) . ")";
 
-    my @tags = query_to_list($self->c->raw_sql, sub {
+    my @tags = query_to_list($self->c->sql, sub {
         my $row = shift;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag},
@@ -129,7 +129,7 @@ sub delete
         DELETE FROM " . $self->tag_table . "
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
-    $self->c->raw_sql->do("
+    $self->c->sql->do("
         DELETE FROM " . $self->tag_table . "_raw
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
@@ -145,7 +145,7 @@ sub merge
     my $assoc_table_raw = $self->tag_table . '_raw';
     my @ids = ($new_id, @old_ids);
 
-    $self->c->raw_sql->do(
+    $self->c->sql->do(
         "INSERT INTO $assoc_table_raw ($entity_type, editor, tag)
              SELECT ?, s.editor, s.tag
                FROM (SELECT DISTINCT editor, tag FROM delete_tags('$entity_type', ?)) s",
@@ -153,7 +153,7 @@ sub merge
     );
 
     my @tags = @{
-        $self->c->raw_sql->select_list_of_hashes(
+        $self->c->sql->select_list_of_hashes(
             "SELECT tag, count(tag) AS count
                FROM $assoc_table_raw
               WHERE $entity_type = ?
@@ -228,14 +228,13 @@ sub update
 
     @new_tags = $self->parse_tags($input);
 
-    my $raw_sql = $self->c->raw_sql;
     Sql::run_in_transaction(sub {
 
         # Load the existing raw tag ids for this entity
 
         my %old_tag_info;
         my @old_tags;
-        my $old_tag_ids = $raw_sql->select_single_column_array("
+        my $old_tag_ids = $self->sql->select_single_column_array("
             SELECT tag
               FROM $assoc_table_raw
              WHERE $entity_type = ?
@@ -277,7 +276,7 @@ sub update
             }
 
             # Add raw tag associations
-            $raw_sql->do("INSERT INTO $assoc_table_raw ($entity_type, tag, editor) VALUES (?, ?, ?)", $entity_id, $tag_id, $user_id);
+            $self->sql->do("INSERT INTO $assoc_table_raw ($entity_type, tag, editor) VALUES (?, ?, ?)", $entity_id, $tag_id, $user_id);
 
             # Look for the association in the aggregate tags
             $count = $self->sql->select_single_value("SELECT count
@@ -305,7 +304,7 @@ sub update
             die "Cannot load tag" if (!$tag_id);
 
             # Remove the raw tag association
-            $raw_sql->do("DELETE FROM $assoc_table_raw
+            $self->sql->do("DELETE FROM $assoc_table_raw
                                 WHERE $entity_type = ?
                                   AND tag = ?
                                   AND editor = ?", $entity_id, $tag_id, $user_id);
@@ -330,7 +329,7 @@ sub update
             }
         }
 
-    }, $self->c->sql, $self->c->raw_sql);
+    }, $self->c->sql);
 }
 
 sub find_user_tags
@@ -341,7 +340,7 @@ sub find_user_tags
     my $table = $self->tag_table . '_raw';
     my $query = "SELECT tag FROM $table WHERE editor = ? AND $type = ?";
 
-    my @tags = query_to_list($self->c->raw_sql, sub {
+    my @tags = query_to_list($self->c->sql, sub {
         my $row = shift;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag},
@@ -385,7 +384,7 @@ sub find_editor_entities
     my $type = $self->type;
     my $tag_table = $self->tag_table;
 
-    my @tags = @{ $self->c->raw_sql->select_single_column_array(
+    my @tags = @{ $self->c->sql->select_single_column_array(
         'SELECT ' . $type . ' FROM ' . $type . '_tag_raw
           WHERE editor = ? AND tag = ?',
         $editor_id, $tag_id) };

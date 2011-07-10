@@ -78,7 +78,6 @@ memory_cycle_ok($rec_data);
 memory_cycle_ok($results);
 
 $test->c->sql->begin;
-$test->c->raw_sql->begin;
 
 $rec = $rec_data->insert({
         name => 'Traits',
@@ -112,7 +111,6 @@ $rec = $rec_data->get_by_id($rec->id);
 ok(!defined $rec);
 
 $test->c->sql->commit;
-$test->c->raw_sql->commit;
 
 # Both #1 and #2 are in the DB
 $rec = $rec_data->get_by_id(1);
@@ -122,11 +120,9 @@ ok(defined $rec);
 
 # Merge #2 into #1
 $test->c->sql->begin;
-$test->c->raw_sql->begin;
 $rec_data->merge(1, 2);
 memory_cycle_ok($rec_data);
 $test->c->sql->commit;
-$test->c->raw_sql->commit;
 
 # Only #1 is now in the DB
 $rec = $rec_data->get_by_id(1);

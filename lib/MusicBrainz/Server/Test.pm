@@ -101,7 +101,7 @@ sub prepare_raw_test_database
 
     $query = $class->_load_query($query, "t/sql/clean_raw_db.sql");
 
-    my $sql = Sql->new($c->raw_dbh);
+    my $sql = Sql->new($c->dbh);
     $sql->auto_commit;
     $sql->do($query);
 }
@@ -125,7 +125,7 @@ sub get_latest_edit
 {
     my ($class, $c) = @_;
     my $ed = MusicBrainz::Server::Data::Edit->new(c => $c);
-    my $sql = Sql->new($c->raw_dbh);
+    my $sql = Sql->new($c->dbh);
     my $last_id = $sql->select_single_value("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
     return $ed->get_by_id($last_id);
 }
@@ -133,9 +133,9 @@ sub get_latest_edit
 sub capture_edits (&$)
 {
     my ($code, $c) = @_;
-    my $current_max = $c->raw_sql->select_single_value('SELECT max(id) FROM edit');
+    my $current_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
     $code->();
-    my $new_max = $c->raw_sql->select_single_value('SELECT max(id) FROM edit');
+    my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
     return () if $new_max <= $current_max;
     return values %{ $c->model('Edit')->get_by_ids(
         $current_max..$new_max
@@ -198,10 +198,8 @@ sub accept_edit
     my ($c, $edit) = @_;
 
     $c->sql->begin;
-    $c->raw_sql->begin;
     $c->model('Edit')->accept($edit);
     $c->sql->commit;
-    $c->raw_sql->commit;
 }
 
 sub reject_edit
@@ -209,10 +207,8 @@ sub reject_edit
     my ($c, $edit) = @_;
 
     $c->sql->begin;
-    $c->raw_sql->begin;
     $c->model('Edit')->reject($edit);
     $c->sql->commit;
-    $c->raw_sql->commit;
 }
 
 our $mock;

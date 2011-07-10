@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Fatal;
 
+with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );

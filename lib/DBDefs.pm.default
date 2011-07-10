@@ -61,16 +61,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       host            => "",
 #       port            => "",
     },
-    # Raw data lives in a seperate DB to avoid the main DB from balooning in size.
-    RAWDATA =>
-    {
-        database    => "musicbrainz_db_raw",
-        schema          => "musicbrainz",
-        username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
-    },
     # Fill out only if RAWDATA lives on a different host from the READWRITE server.
     # RAWDATA_SYSTEM => undef,
 );

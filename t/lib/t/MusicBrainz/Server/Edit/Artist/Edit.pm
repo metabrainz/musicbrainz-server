@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Artist::Edit;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Context;
@@ -80,7 +81,7 @@ is($edit->display_data->{end_date}->{new}->format, '2000-03-20');
 # Make sure we can use NULL values where possible
 $edit = $c->model('Edit')->create(
     edit_type => $EDIT_ARTIST_EDIT,
-    editor_id => 2,
+    editor_id => 1,
     to_edit => $artist,
 
     comment => undef,
@@ -109,7 +110,7 @@ sub _create_full_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
-        editor_id => 2,
+        editor_id => 1,
         to_edit => $artist,
 
         name => 'New Name',

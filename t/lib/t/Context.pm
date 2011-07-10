@@ -49,7 +49,6 @@ around run_test => sub {
     MusicBrainz::Server::Test->prepare_test_server;
 
     $self->c->sql->begin;
-    $self->c->raw_sql->begin;
     $self->_clear_cache_aware_c;
 
     $self->$orig(@_);
@@ -60,7 +59,6 @@ around run_test => sub {
     }
 
     $self->c->sql->rollback;
-    $self->c->raw_sql->rollback;
 };
 
 1;

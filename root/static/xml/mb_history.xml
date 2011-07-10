@@ -67,7 +67,7 @@
         Artist subscriptions made public and various smaller user centric improvements are released.
     </event>
     <event start="Apr 10 2005" title="Advanced relationships" link="http://blog.musicbrainz.org/?p=100">
-	Advanced relationships that allow users to connect basic data entities is relased and unused TRMs pruned from the database. Inline editing is turned off by default, causing a drop in vorting activity.
+	Advanced relationships that allow users to connect basic data entities is relased and unused TRMs pruned from the database. Inline editing is turned off by default, causing a drop in voting activity.
     </event>
     <event start="Apr 19 2005" title="MetaBrainz launched" link="http://blog.musicbrainz.org/?p=102">
 	The MetaBrainz Foundation, the legal home for MusicBrainz is announced to the public.

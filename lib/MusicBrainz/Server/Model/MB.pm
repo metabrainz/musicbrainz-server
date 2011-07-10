@@ -9,7 +9,7 @@ has 'context' => (
     isa        => 'MusicBrainz::Server::Context',
     is         => 'rw',
     lazy_build => 1,
-    handles    => [qw( cache dbh raw_dbh )] # XXX Hack - Model::Feeds should be in Data
+    handles    => [qw( cache dbh )] # XXX Hack - Model::Feeds should be in Data
 );
 
 sub _build_context {

@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Artist::Merge;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::Merge }
@@ -16,10 +17,6 @@ test 'Non-existant merge target' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password) VALUES
-    (1, 'editor', 'password'), (4, 'ModBot', 'mod');
-EOSQL
 
     my $edit = create_edit($c);
     $c->model('Artist')->delete(4);

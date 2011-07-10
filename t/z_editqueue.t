@@ -33,7 +33,6 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+editqueue');
 MusicBrainz::Server::Test->prepare_raw_test_database($c, '+editqueue_raw');
 
 my $sql = Sql->new($c->dbh);
-my $raw_sql = Sql->new($c->raw_dbh);
 
 my $log = Log::Dispatch->new( outputs => [ [ 'Null', min_level => 'debug' ] ] );
 #my $log = Log::Dispatch->new( outputs => [ [ 'Screen', min_level => 'debug' ] ] );
@@ -78,11 +77,11 @@ is($edit->status, $STATUS_DELETED, 'deleted');
 $edit = $c->model('Edit')->get_by_id(101);
 is($edit->status, $STATUS_OPEN, 'not changed');
 
-$raw_sql->auto_commit(1);
-$raw_sql->do("UPDATE edit SET yes_votes=100 WHERE id=101");
+$sql->auto_commit(1);
+$sql->do("UPDATE edit SET yes_votes=100 WHERE id=101");
 
 # Acquire an exclusive lock on the edit
-my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('RAWDATA');
+my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('READWRITE');
 my $raw2   = MusicBrainz::Server::Test::Connector->new(database => $raw_db);
 
 my $sql2 = Sql->new($raw2->dbh);
