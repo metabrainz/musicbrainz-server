@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-release-name">
   <tr>
     <th>[% l('Releases:') %]</th>
@@ -10,9 +12,7 @@
     </td>
   </tr>
 
-  <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old %]</td>
-    <td class="new">[% edit.display_data.name.new %]</td>
-  </tr>
+  [%- display_word_diff(l('Name:'),
+                        html_escape(edit.display_data.name.old),
+                        html_escape(edit.display_data.name.new)) -%]
 </table>

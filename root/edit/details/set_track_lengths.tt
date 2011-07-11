@@ -1,7 +1,9 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details set-track-lengths">
   <tr>
     <th>[% l('Releases:') %]</th>
-    <td>
+    <td colspan="2">
       <ul>
         [% FOR release=edit.display_data.releases %]
           <li>[% descriptive_link(release) %]
@@ -12,22 +14,22 @@
   </tr>
   <tr>
     <th>[% l('Disc ID:') %]</th>
-    <td>[% link_cdtoc(edit.display_data.cdtoc) %]</td>
+    <td colspan="2">[% link_cdtoc(edit.display_data.cdtoc) %]</td>
   </tr>
-  <tr>
-    <th>[% l('Old track lengths:') %]</th>
-    <td>
-      [% FOR length=edit.data.length.old %]
-         [% length | format_length %]
-      [% END %]
-    </td>
-  </tr>
-  <tr>
-    <th>[% l('New track lengths:') %]</th>
-    <td>
-      [% FOR length=edit.data.length.new %]
-         [% length | format_length %]
-      [% END %]
-    </td>
-  </tr>
+
+  [% old_lengths = BLOCK;
+       FOR length=edit.data.length.old;
+         length | format_length;
+         ' ';
+       END;
+     END;
+     new_lengths = BLOCK;
+       FOR length=edit.data.length.new;
+         length | format_length;
+         ' ';
+       END;
+     END %]
+
+  [%- display_diff(l('Old track lengths:'),
+                   old_lengths, new_lengths) -%]
 </table>

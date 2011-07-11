@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-work">
   <tr>
     <th>[% l('Work:') %]</th>
@@ -6,35 +8,19 @@
     </td>
   </tr>
 
-  [%- IF edit.display_data.name -%]
-  <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old | html %]</td>
-    <td class="new">[% edit.display_data.name.new | html %]</td>
-  </tr>
-  [%- END -%]
+  [%- display_word_diff(l('Name:'),
+                        html_escape(edit.display_data.name.old),
+                        html_escape(edit.display_data.name.new)) -%]
 
-  [%- IF edit.display_data.comment -%]
-  <tr>
-    <th>[% l('Comment:') %]</th>
-    <td class="old">[% edit.display_data.comment.old | html %]</td>
-    <td class="new">[% edit.display_data.comment.new | html %]</td>
-  </tr>
-  [%- END -%]
+  [%- display_word_diff(l('Comment:'),
+                        html_escape(edit.display_data.comment.old),
+                        html_escape(edit.display_data.comment.new)) -%]
 
-  [%- IF edit.display_data.iswc -%]
-  <tr>
-    <th>[% l('ISWC:') %]</th>
-    <td class="old">[% edit.display_data.iswc.old | html %]</td>
-    <td class="new">[% edit.display_data.iswc.new | html %]</td>
-  </tr>
-  [%- END -%]
+  [%- display_diff(l('ISWC:'),
+                   html_escape(edit.display_data.iswc.old),
+                   html_escape(edit.display_data.iswc.new)) -%]
 
-  [%- IF edit.display_data.type -%]
-  <tr>
-    <th>[% l('Work Type:') %]</th>
-    <td class="old">[% edit.display_data.type.old.name | html %]</td>
-    <td class="new">[% edit.display_data.type.new.name | html %]</td>
-  </tr>
-  [%- END -%]
+  [%- display_full_change(l('Work type:'),
+                          html_escape(edit.display_data.type.old.name),
+                          html_escape(edit.display_data.type.old.name)) -%]
 </table>

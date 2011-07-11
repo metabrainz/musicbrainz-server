@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details set-track-lengths-from-discid">
   <tr>
     <th>[% l('Releases:') %]</th>
@@ -15,9 +17,7 @@
     <td colspan="2">[% link_cdtoc(edit.display_data.cdtoc) %]</td>
   </tr>
 
-  <tr>
-    <th>[% l('Track lengths:') %]</th>
-    <td class="old">[% edit.display_data.lengths.old %]</td>
-    <td class="new">[% edit.display_data.lengths.new %]</td>
-  </tr>
+  [% display_diff(l('Track lengths:'),
+                  edit.display_data.lengths.old,
+                  edit.display_data.lengths.new) %]
 </table>
