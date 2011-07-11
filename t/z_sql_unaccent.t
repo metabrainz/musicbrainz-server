@@ -11,28 +11,28 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 
 my $sql = Sql->new($c->dbh);
 
-my $val = $sql->select_single_value("SELECT unaccent('foo');");
+my $val = $sql->select_single_value("SELECT musicbrainz_unaccent('foo');");
 is ($val, "foo");
 
-$val = $sql->select_single_value("SELECT unaccent('fôó');");
+$val = $sql->select_single_value("SELECT musicbrainz_unaccent('fôó');");
 is ($val, "foo");
 
-$val = $sql->select_single_value("SELECT unaccent('Diyarbakır');");
+$val = $sql->select_single_value("SELECT musicbrainz_unaccent('Diyarbakır');");
 is ($val, "Diyarbakir", "turkish dotless ı converted to i");
 
-$val = $sql->select_single_value("SELECT unaccent('Ænima');");
+$val = $sql->select_single_value("SELECT musicbrainz_unaccent('Ænima');");
 is ($val, "AEnima", "Æ expanded to AE");
 
-$val = $sql->select_single_value("SELECT unaccent('Пётр');");
+$val = $sql->select_single_value("SELECT musicbrainz_unaccent('Пётр');");
 is ($val, "Петр");
 
-$val = $sql->select_single_value("SELECT ts_lexize('unaccentdict', 'Ænima');");
+$val = $sql->select_single_value("SELECT ts_lexize('musicbrainz_unaccentdict', 'Ænima');");
 is ($val->[0], "aenima");
 
-$val = $sql->select_single_value("SELECT ts_lexize('unaccentdict', 'Пётр');");
+$val = $sql->select_single_value("SELECT ts_lexize('musicbrainz_unaccentdict', 'Пётр');");
 is ($val->[0], "петр");
 
-$val = $sql->select_single_value("SELECT ts_lexize('unaccentdict', 'Hey');");
+$val = $sql->select_single_value("SELECT ts_lexize('musicbrainz_unaccentdict', 'Hey');");
 is ($val->[0], "hey");
 
 done_testing;
