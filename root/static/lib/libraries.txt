@@ -67,3 +67,17 @@ license:     MIT/GPL
 version:     v1.3
 author:      "Cowboy" Ben Alman
 url:         http://benalman.com/projects/jquery-hashchange-plugin/
+
+-- flot/canvas.text.js --
+library:     canvas-text
+license:     MIT
+version:     SVN, June 2011
+author:      Fabien Ménager
+url:         http://code.google.com/p/canvas-text/
+
+-- flot/faces/bitstream_vera_sans-normal-normal.js --
+library:     Bitstream Vera Sans (font)
+license:     custom; derivative works, redistribution
+version:     1.10
+author:      Bitstream, Inc.
+url:         http://www-old.gnome.org/fonts/
