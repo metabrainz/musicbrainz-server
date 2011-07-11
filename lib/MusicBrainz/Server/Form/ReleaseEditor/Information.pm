@@ -94,9 +94,9 @@ sub options_script_id {
 sub validate {
     my $self = shift;
 
-    return if MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value);
-
-    return if $self->field('barcode_confirm')->value == 1;
+    return if $self->field('barcode')->value == '' ||
+        MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
+        $self->field('barcode_confirm')->value == 1;
 
     $self->field('barcode')->add_error (
         l("This barcode is invalid, please confirm that you've entered the barcode exactly as it is printed on the release."));
