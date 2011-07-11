@@ -20,13 +20,14 @@ pg_dump --format=p --schema=musicbrainz --host=$MB_RAWDATA_HOST --username=$MB_R
 echo `date` : Loading RAWDATA into READWRITE
 ./admin/psql READWRITE <./admin/sql/vertical/rawdata/CreateTables.sql
 ./admin/psql READWRITE < rawdata.dump
+./admin/psql READWRITE <./admin/sql/vertical/rawdata/CreateIndexes.sql
+./admin/psql READWRITE <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql
 
 echo `date` : Fixing potential FK violations
 ./admin/psql READWRITE < ./admin/sql/updates/20110707-fk-constraints.sql
 
-./admin/psql READWRITE <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql
 ./admin/psql READWRITE <./admin/sql/vertical/rawdata/CreateFunctions.sql
-./admin/psql READWRITE <./admin/sql/vertical/rawdata/CreateIndexes.sql
+
 ./admin/psql READWRITE <./admin/sql/vertical/rawdata/CreateFKConstraints.sql
 ./admin/psql READWRITE <./admin/sql/updates/20110708-new-fks.sql
 ./admin/psql READWRITE <./admin/sql/vertical/rawdata/SetSequences.sql
