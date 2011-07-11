@@ -472,10 +472,6 @@ $sql->auto_commit;
 $sql->do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
 $sql->begin;
 
-$rawsql->auto_commit;
-$rawsql->do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-$rawsql->begin;
-
 my $now = $sql->select_single_value("SELECT NOW()");
 
 # Write the TIMESTAMP file
@@ -661,9 +657,6 @@ dumptable("replication_control");
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
 $sql->commit;
 
-# There should've been no changes on this handle, so call rollback
-$rawsql->rollback;
-
 my $dumptime = tv_interval($t0);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
     scalar localtime,
@@ -674,7 +667,6 @@ optimise_replication_tables() if $fDoReplication;
 # Now we have all the files; disconnect from the database.
 # This also drops the _sanitised temporary tables.
 undef $sql;
-undef $rawsql;
 undef $c;
 
 # We can release the lock, allowing other exports to run if they wish.
