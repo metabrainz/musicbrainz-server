@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
 use Algorithm::Diff qw( diff sdiff );
+use Algorithm::Merge qw( merge );
 use Data::Compare;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
@@ -15,9 +16,11 @@ use MusicBrainz::Server::Edit::Types qw(
     NullableOnPreview
 );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
+use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Track qw ( format_track_length );
+use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -270,6 +273,25 @@ sub build_display_data
     return $data;
 }
 
+my $UNDEF_MARKER = time();
+sub track_column {
+    my ($column, $tracklist) = @_;
+    return [ map { $_->{$column} // $UNDEF_MARKER } @$tracklist ];
+}
+
+sub hash_artist_credit {
+    my ($artist_credit) = @_;
+    return join(', ', map {
+        '[' .
+            join(',',
+                 $_->{name},
+                 $_->{artist}{id},
+                 $_->{join_phrase} || '')
+            .
+        ']'
+    } @{ $artist_credit->{names} });
+}
+
 sub accept {
     my $self = shift;
 
@@ -282,17 +304,62 @@ sub accept {
         $self->c->model('Track')->load_for_tracklists($tracklist);
         $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
 
-        unless (Compare(tracks_to_hash($tracklist->tracks), $self->data->{old}{tracklist})) {
-            MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                  ->throw('The tracklist has changed since this edit was created');
+        # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly
+        $_->{recording_id} //= 0 for @$data_new_tracklist;
+
+        my (@merged_names, @merged_recordings, @merged_lengths, @merged_artist_credits);
+        my $current_tracklist = tracks_to_hash($tracklist->tracks);
+        try {
+            for my $merge (
+                [ name => \@merged_names ],
+                [ recording_id => \@merged_recordings ],
+                [ length => \@merged_lengths ],
+                [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ]
+            ) {
+                my ($property, $container, $key_generation) = @$merge;
+                push @$container, merge (
+                    track_column($property, $self->data->{old}{tracklist}),
+                    track_column($property, $current_tracklist),
+                    track_column($property, $data_new_tracklist),
+                    { CONFLICT => sub { die } },
+                    $key_generation // ()
+                );
+            }
         }
+        catch {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('The tracklist has changed since this edit was created, and conflicts ' .
+                      'with changes made in this edit');
+        };
 
         verify_artist_credits($self->c, map {
             $_->{artist_credit}
         } @{ $data_new_tracklist });
 
+        log_assertion {
+            @merged_names == @merged_recordings &&
+            @merged_recordings == @merged_lengths &&
+            @merged_lengths == @merged_artist_credits
+        } 'Merged properties are all the same length';
+
+        # Create the final merged tracklist
+        my @final_tracklist;
+        while(1) {
+            last unless @merged_artist_credits &&
+                        @merged_lengths &&
+                        @merged_recordings &&
+                        @merged_names;
+            my $length = shift(@merged_lengths);
+            push @final_tracklist, {
+                name => shift(@merged_names),
+                length => $length eq $UNDEF_MARKER ? undef : $length,
+                recording_id => shift(@merged_recordings),
+                artist_credit => shift(@merged_artist_credits)
+            }
+        }
+
         # Create recordings
-        for my $track (@{ $data_new_tracklist }) {
+        for my $track (@final_tracklist) {
             $track->{recording_id} ||= $self->c->model('Recording')->insert({
                 %$track,
                 artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
@@ -304,7 +371,7 @@ sub accept {
                 $self->c->model('Tracklist')->usage_count($medium->tracklist_id) > 1) {
 
             my $new_tracklist = $self->c->model('Tracklist')->find_or_insert(
-                $data_new_tracklist
+                \@final_tracklist
             );
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
@@ -312,7 +379,7 @@ sub accept {
         }
         else {
             $self->c->model('Tracklist')->replace($medium->tracklist_id,
-                                                  $data_new_tracklist);
+                                                  \@final_tracklist);
         }
     }
 }
