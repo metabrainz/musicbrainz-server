@@ -11,7 +11,7 @@ my $ws_defs = Data::OptList::mkopt([
      discid => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups artist-credits
-                                          aliases puids isrcs _relations cdstubs discids) ]
+                                          aliases puids isrcs _relations cdstubs ) ]
      }
 ]);
 
@@ -29,6 +29,9 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         $c->stash->{error} = "Invalid discid.";
         $c->detach('bad_req');
     }
+
+    $c->stash->{inc}->media (1);
+    $c->stash->{inc}->discids (1);
 
     my $stash = WebServiceStash->new;
     my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
