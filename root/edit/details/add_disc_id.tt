@@ -1,9 +1,13 @@
 <table class="details add-disc-id">
   [% UNLESS edit.preview %]
   <tr>
-    <th>[% l('Release:') %]</th>
-    <td>
-      [% descriptive_link(edit.display_data.release) %]
+    <th>[% l('Medium:') %]</th>
+    <td colspan="2">
+      [% IF edit.display_data.medium %]
+        [% medium_link(edit.display_data.medium) %]
+      [% ELSE %]
+        on [% descriptive_link(edit.display_data.release) %]
+      [% END %]
     </td>
   </tr>
   [% END %]
