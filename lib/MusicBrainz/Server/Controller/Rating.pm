@@ -16,7 +16,7 @@ Handles user interaction Ratings
 
 =cut
 
-sub rate : Local RequireAuth
+sub rate : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c, $type) = @_;
 

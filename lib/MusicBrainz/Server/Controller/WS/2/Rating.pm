@@ -28,6 +28,7 @@ sub rating_submit : Private
 {
     my ($self, $c) = @_;
 
+    $self->deny_readonly($c);
     $self->_validate_post ($c);
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );

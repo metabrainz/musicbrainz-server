@@ -28,6 +28,16 @@ sub bad_req : Private
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
 }
 
+sub deny_readonly : Private
+{
+    my ($self, $c) = @_;
+    if (DBDefs::DB_READ_ONLY) {
+        $c->res->status(503);
+        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
+    }
+}
+
 sub success : Private
 {
     my ($self, $c) = @_;
