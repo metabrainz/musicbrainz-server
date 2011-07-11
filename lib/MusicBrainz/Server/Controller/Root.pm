@@ -190,7 +190,8 @@ sub begin : Private
         $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
     }
 
-    if (exists $c->action->attributes->{Edit} && DBDefs::DB_READ_ONLY) {
+    if (DBDefs::DB_READ_ONLY && (exists $c->action->attributes->{Edit} ||
+                                 exists $c->action->attributes->{DenyWhenReadonly})) {
         $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
         $c->forward('/error_400');
     }

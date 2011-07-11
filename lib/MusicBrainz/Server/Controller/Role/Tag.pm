@@ -59,7 +59,7 @@ sub tags : Chained('load') PathPart('tags')
     }
 }
 
-sub tag_async : Chained('load') PathPart('ajax/tag')
+sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
 {
     my ($self, $c) = @_;
  
