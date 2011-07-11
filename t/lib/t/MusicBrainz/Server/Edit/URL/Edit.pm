@@ -11,6 +11,7 @@ around run_test => sub {
     $test->$orig(@_);
 };
 
+with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Context;

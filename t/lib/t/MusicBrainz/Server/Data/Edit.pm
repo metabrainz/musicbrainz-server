@@ -54,20 +54,22 @@ EOSQL
 # Acquire an exclusive lock on the edit
 test 'Test locks on edits' => sub {
     my $test = shift;
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
-    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
+    # We have to have some data present outside transactions.
     my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection(
-        'RAWDATA',
+        'READWRITE',
         fresh => 1
     );
 
-    # We have to have some data present outside transactions.
+    $foreign_connection->dbh->do("INSERT INTO editor (id, name, password)
+                                      VALUES (50, 'editor', 'password')");
     $foreign_connection->dbh->do(
         q{INSERT INTO edit (id, editor, type, status, data, expire_time)
-             VALUES (12345, 1, 123, 1, '{ "key": "value" }', NOW())}
+             VALUES (12345, 50, 123, 1, '{ "key": "value" }', NOW())}
          );
+
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
+    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
     my $sql2 = Sql->new($foreign_connection->dbh);
     $sql2->begin;
@@ -79,18 +81,17 @@ test 'Test locks on edits' => sub {
     # Release the lock
     $sql2->rollback;
     $foreign_connection->dbh->do('DELETE FROM edit WHERE id = 12345');
+    $foreign_connection->dbh->do('DELETE FROM editor WHERE id = 50');
 };
 
 test all => sub {
 
 my $test = shift;
-MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 memory_cycle_ok($edit_data);
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 
 # Find all edits
 my ($edits, $hits) = $edit_data->find({}, 10, 0);
@@ -169,11 +170,9 @@ my $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->accepted_edits, 12, "Edit not yet accepted");
 
 $sql->begin;
-$raw_sql->begin;
 $edit_data->accept($edit);
 memory_cycle_ok($edit_data);
 $sql->commit;
-$raw_sql->commit;
 
 $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->accepted_edits, 13, "Edit accepted");
@@ -185,11 +184,9 @@ $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->rejected_edits, 2, "Edit not yet rejected");
 
 $sql->begin;
-$raw_sql->begin;
 $edit_data->reject($edit, $STATUS_FAILEDVOTE);
 memory_cycle_ok($edit_data);
 $sql->commit;
-$raw_sql->commit;
 
 $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->rejected_edits, 3, "Edit rejected");
@@ -223,12 +220,10 @@ test 'Find edits by subscription' => sub {
     use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
     my $test = shift;
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
     my $sql = $test->c->sql;
-    my $raw_sql = $test->c->raw_sql;
 
     my $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
     my @edits = $edit_data->find_for_subscription($sub);
@@ -261,8 +256,8 @@ test 'Find edits by subscription' => sub {
     memory_cycle_ok($edit_data);
     memory_cycle_ok(\@edits);
 
-    $raw_sql->do('UPDATE edit SET status = ? WHERE id = ?',
-                 $STATUS_ERROR, 1);
+    $sql->do('UPDATE edit SET status = ? WHERE id = ?',
+             $STATUS_ERROR, 1);
     $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
     my @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 1, 'found 1 edit');
