@@ -65,7 +65,7 @@ sub find_by_name
 {
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                  WHERE unaccent(lower(name.name)) = unaccent(lower(?))";
+                  WHERE musicbrainz_unaccent(lower(name.name)) = musicbrainz_unaccent(lower(?))";
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
@@ -78,7 +78,7 @@ sub find_by_names
     my $query = "SELECT search.term AS search_term, " . $self->_columns .
         " FROM " . $self->_table .
         " INNER JOIN (VALUES " . join (",", ("(?)") x scalar @names) . ") search (term)" .
-        " ON unaccent(lower(search.term)) = unaccent(lower(name.name));";
+        " ON musicbrainz_unaccent(lower(search.term)) = musicbrainz_unaccent(lower(name.name));";
 
     $self->c->sql->select($query, @names);
     my %ret;

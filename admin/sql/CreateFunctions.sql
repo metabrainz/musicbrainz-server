@@ -16,7 +16,7 @@ DECLARE
     i integer;
     x varchar;
 BEGIN
-    input := regexp_replace(upper(substr(unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
+    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
     res := 0;
     FOR i IN 1..6 LOOP
         x := substr(input, i, 1);
@@ -39,7 +39,7 @@ DECLARE
     i integer;
     x varchar;
 BEGIN
-    input := regexp_replace(upper(substr(unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
+    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
     res := 0;
     FOR i IN 1..6 LOOP
         x := substr(input, i, 1);

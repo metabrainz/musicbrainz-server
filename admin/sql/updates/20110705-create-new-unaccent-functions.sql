@@ -1,7 +1,11 @@
+-- This patch needs to be run after the new postgres unaccent libs have been installed
+
+-- This is a straight copy of admin/sql/CreateSearchConfiguration.sql
+-- after being amended with the renamed function names
+
 \set ON_ERROR_STOP 1
 
 BEGIN;
-
 CREATE OR REPLACE FUNCTION musicbrainz_unaccent (text) RETURNS text
     AS '$libdir/musicbrainz_unaccent'
     LANGUAGE C IMMUTABLE STRICT;

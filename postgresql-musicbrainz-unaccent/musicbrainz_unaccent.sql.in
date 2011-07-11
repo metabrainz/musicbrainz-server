@@ -1,19 +1,22 @@
-\set ON_ERROR_STOP 1
+-- Adjust this setting to control where the objects get created.
+SET search_path = public;
 
-BEGIN;
+-- Standalone 'musicbrainz_unaccent' function
 
 CREATE OR REPLACE FUNCTION musicbrainz_unaccent (text) RETURNS text
-    AS '$libdir/musicbrainz_unaccent'
+    AS 'MODULE_PATHNAME'
     LANGUAGE C IMMUTABLE STRICT;
+
+-- New 'musicbrainz_unaccentdict' dictionary for text search indexer
 
 CREATE OR REPLACE FUNCTION musicbrainz_dunaccentdict_init(internal)
     RETURNS internal
-    AS '$libdir/musicbrainz_unaccent'
+    AS 'MODULE_PATHNAME'
     LANGUAGE C STRICT;
 
 CREATE OR REPLACE FUNCTION musicbrainz_dunaccentdict_lexize(internal, internal, internal, internal)
     RETURNS internal
-    AS '$libdir/musicbrainz_unaccent'
+    AS 'MODULE_PATHNAME'
     LANGUAGE C STRICT;
 
 CREATE TEXT SEARCH TEMPLATE musicbrainz_unaccentdict_template (
@@ -26,10 +29,3 @@ CREATE TEXT SEARCH DICTIONARY musicbrainz_unaccentdict (
 );
 
 COMMENT ON TEXT SEARCH DICTIONARY musicbrainz_unaccentdict IS 'musicbrainz unaccenting dictionary';
-
-CREATE TEXT SEARCH CONFIGURATION mb_simple (COPY = pg_catalog.simple);
-ALTER TEXT SEARCH CONFIGURATION mb_simple
-    ALTER MAPPING FOR word, numword, hword, numhword, hword_part, hword_numpart
-    WITH musicbrainz_unaccentdict, simple;
-
-COMMIT;
