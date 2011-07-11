@@ -19,7 +19,7 @@ then
 elif [ $REPLICATION_TYPE == $RT_SLAVE ]
 then
     echo `date` : Importing new non-replicated data
-    curl -o new_data.tar.bz2 "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update.tar.bz2"
+    curl -O "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update.tar.bz2"
     ./admin/MBImport.pl 20110711-update.tar.bz2
     rm new_data.tar.bz2
 fi
