@@ -13,7 +13,7 @@ then
     rm mbdump*.tar.bz2
 
     echo `date` : Registering new triggers
-    ./admin/psql READWRITE < admin/sql/updates/201107011-triggers.sql
+    ./admin/psql READWRITE < admin/sql/updates/20110711-triggers.sql
 
     echo `date` : Please remember to *sync* the new data!
 elif [ $REPLICATION_TYPE == $RT_SLAVE ]
