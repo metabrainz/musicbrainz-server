@@ -449,40 +449,6 @@ my $c = MusicBrainz::Server::Context->new;
 my $sql = Sql->new($c->dbh);
 my $dbh = $c->dbh;
 
-# Log in to the raw DB, or duplicate handles to the main DB
-my $rawsql = Sql->new($c->raw_dbh);
-my $rawdbh = $c->raw_dbh;
-
-# This hash indicates which tables may need to be pulled from a vertical DB
-my %table_db_mapping =
-(
-    'artist_rating_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'artist_tag_raw'                                            =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_group_rating_raw'                                  =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_group_tag_raw'                                     =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_tag_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
-    'recording_rating_raw'                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'recording_tag_raw'                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'label_rating_raw'                                          =>      { dbh => $rawdbh, sql => $rawsql },
-    'label_tag_raw'                                             =>      { dbh => $rawdbh, sql => $rawsql },
-    'work_rating_raw'                                           =>      { dbh => $rawdbh, sql => $rawsql },
-    'work_tag_raw'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'cdtoc_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'release_raw'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
-    'track_raw'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_artist'                                                       =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_label'                                                        =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_note'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_recording'                                            =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_release'                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_release_group'                                        =>      { dbh => $rawdbh, sql => $rawsql },
-    'edit_work'                                                         =>      { dbh => $rawdbh, sql => $rawsql },
-    'vote'                                                                      =>      { dbh => $rawdbh, sql => $rawsql },
-    '_default_'                                                         =>      { dbh => $dbh, sql => $sql }
-);
-
 @tables = @tablelist if @tablelist;
 @tables = () if not $fDoFullExport;
 
@@ -563,9 +529,6 @@ sub table_rowcount
     my $table = shift;
     $table =~ s/_sanitised$//;
 
-    # Get the right sql module
-    my $sql = $table_db_mapping{'_default_'}->{'sql'};
-    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
     $sql->select_single_value(
         "SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
         $table,
@@ -575,12 +538,6 @@ sub table_rowcount
 sub dumptable
 {
     my $table = shift;
-
-    # Get the right sql/dbh module
-    my $sql = $table_db_mapping{'_default_'}->{'sql'};
-    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
-    my $dbh = $table_db_mapping{'_default_'}->{'dbh'};
-    $dbh = $table_db_mapping{$table}->{'dbh'} if (exists $table_db_mapping{$table});
 
     open(DUMP, ">$dir/mbdump/$table")
         or die $!;
