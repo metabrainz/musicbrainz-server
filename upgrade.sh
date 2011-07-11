@@ -54,6 +54,9 @@ then
     rm new_data.tar.bz2
 fi
 
+echo `date` : Materializing edit.status onto edit_artist and edit_label
+./admin/psql READWRITE < ./admin/sql/updates/20110707-materialize-status.sql
+
 echo `date` : Done
 
 # eof

@@ -172,13 +172,15 @@ CREATE TABLE edit_note
 CREATE TABLE edit_artist
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    artist              INTEGER NOT NULL  -- PK, references artist.id CASCADE
+    artist              INTEGER NOT NULL, -- PK, references artist.id CASCADE
+    status              SMALLINT NOT NULL -- materialized from edit.status
 );
 
 CREATE TABLE edit_label
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
-    label               INTEGER NOT NULL  -- PK, references label.id CASCADE
+    label               INTEGER NOT NULL, -- PK, references label.id CASCADE
+    status              SMALLINT NOT NULL -- materialized from edit.status
 );
 
 CREATE TABLE edit_release

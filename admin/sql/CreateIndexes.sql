@@ -33,7 +33,9 @@ CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
+CREATE INDEX editor_subscribe_artist_idx_artist ON editor_subscribe_artist (artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
+CREATE INDEX editor_subscribe_label_idx_label ON editor_subscribe_label (label);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
 
 CREATE INDEX edit_idx_editor ON edit (editor);
@@ -41,6 +43,10 @@ CREATE INDEX edit_idx_type ON edit (type);
 
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
+
+-- Indexes for materialized edit status
+CREATE INDEX edit_artist_idx_status ON edit_artist (status);
+CREATE INDEX edit_label_idx_status ON edit_label (status);
 
 -- Entity indexes
 CREATE INDEX edit_artist_idx ON edit_artist (artist);

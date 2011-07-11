@@ -212,49 +212,36 @@ sub find_open_for_editor
 sub subscribed_entity_edits
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my @subscribable_types = qw( artist label );
 
-    my %subscriptions = map {
-        $_ => $self->c->sql->select_single_column_array(
-            "SELECT $_ FROM editor_subscribe_$_ WHERE editor = ?",
-            $editor_id
-        )
-    } @subscribable_types;
-
-    my @filter_on = grep { @{ $subscriptions{$_} } } keys %subscriptions
-        or return;
-
-    my $query =
-        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-        ' WHERE editor != ?
-            AND status = ?
-            AND NOT EXISTS (
-                SELECT TRUE FROM vote
-                 WHERE vote.edit = edit.id
-                   AND vote.editor = ?
-                   AND vote.superseded = FALSE
-                )
-            AND id IN (' .
-            join(
-                ' UNION ALL ',
-                map {
-                    "SELECT edit FROM edit_$_ WHERE $_ IN (" .
-                        placeholders(@{ $subscriptions{$_} }) .
-                    ')'
-                } @filter_on
-            ) .
-         ')
-       ORDER BY open_time ASC
-         OFFSET ?';
+    my $columns = $self->_columns;
+    my $table = $self->_table;
+    my $query = "
+SELECT * FROM edit, (
+    SELECT edit FROM edit_artist ea
+    JOIN editor_subscribe_artist esa ON esa.artist = ea.artist
+    WHERE ea.status = ? AND esa.editor = ?
+    UNION
+    SELECT edit FROM edit_label el
+    JOIN editor_subscribe_label esl ON esl.label = el.label
+    WHERE el.status = ? AND esl.editor = ?
+) edits
+WHERE edit.id = edits.edit
+AND edit.status = ?
+AND edit.editor != ?
+AND NOT EXISTS (
+    SELECT TRUE FROM vote
+    WHERE vote.edit = edit.id
+    AND vote.editor = ?
+)
+ORDER BY open_time ASC
+OFFSET ?";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $editor_id, $STATUS_OPEN, $editor_id,
-        (map { @{ $subscriptions{$_} } } @filter_on),
-        $offset);
+        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
 }
 
 sub subscribed_editor_edits {
