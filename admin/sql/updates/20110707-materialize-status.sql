@@ -13,10 +13,10 @@ CREATE INDEX edit_artist_idx ON edit_artist (artist);
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);
 
 
-SELECT edit_label.edit, edit_label.artist, edit.status
+SELECT edit_label.edit, edit_label.label, edit.status
 INTO tmp_edit_label
 FROM edit_label
-JOIN edit ON edit_artist.edit = edit.id;
+JOIN edit ON edit_label.edit = edit.id;
 
 DROP TABLE edit_label;
 ALTER TABLE tmp_edit_label RENAME TO edit_label;
