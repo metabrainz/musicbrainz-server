@@ -116,6 +116,18 @@ sub bad_req : Private
     $c->detach;
 }
 
+sub deny_readonly : Private
+{
+    my ($self, $c) = @_;
+    if(DBDefs::DB_READ_ONLY) {
+        $c->res->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
+        $c->detach;
+    }
+}
+
+
 sub load : Chained('root') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $gid) = @_;

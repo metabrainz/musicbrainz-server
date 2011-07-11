@@ -91,6 +91,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
     } values %{ $c->model('Release')->get_by_gids(@gids) };
 
     if ($c->req->method eq 'PUT') {
+        $self->deny_readonly($c);
         $c->model('Collection')->add_releases_to_collection(
             $collection->id,
             map { $_->id } grep { defined } map { $releases{$_} } @gids
@@ -99,6 +100,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
         $c->detach('success');
     }
     elsif ($c->req->method eq 'DELETE') {
+        $self->deny_readonly($c);
         $c->model('Collection')->remove_releases_from_collection(
             $collection->id,
             map { $_->id } grep { defined } map { $releases{$_} } @gids
