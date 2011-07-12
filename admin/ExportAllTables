@@ -167,6 +167,7 @@ my @tables = qw(
     track
     track_name
     tracklist
+    tracklist_index
     url
     url_gid_redirect
     work
@@ -287,6 +288,7 @@ my @group_derived = qw(
     release_tag
     tag
     tag_relation
+    tracklist_index
     work_annotation
     work_meta
     work_tag
