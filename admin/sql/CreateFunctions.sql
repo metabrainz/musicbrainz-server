@@ -363,6 +363,13 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION b_ins_edit_materialize_status() RETURNS trigger AS $$
+BEGIN
+    NEW.status = (SELECT status FROM edit WHERE id = NEW.edit);
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 ------------------------
 -- CD Lookup
 ------------------------

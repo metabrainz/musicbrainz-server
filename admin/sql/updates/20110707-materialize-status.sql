@@ -57,7 +57,20 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION b_ins_edit_materialize_status() RETURNS trigger AS $$
+BEGIN
+    NEW.status = (SELECT status FROM edit WHERE id = NEW.edit);
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE TRIGGER a_upd_edit AFTER UPDATE ON edit
     FOR EACH ROW EXECUTE PROCEDURE a_upd_edit();
+
+CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
+    FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
+
+CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
+    FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
 
 COMMIT;

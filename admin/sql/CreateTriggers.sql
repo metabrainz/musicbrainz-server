@@ -217,6 +217,12 @@ CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
 CREATE TRIGGER a_upd_edit AFTER UPDATE ON edit
     FOR EACH ROW EXECUTE PROCEDURE a_upd_edit();
 
+CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
+    FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
+
+CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
+    FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :
