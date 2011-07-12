@@ -30,6 +30,7 @@
         </div>
     [% END %]
 
+    [% IF !server_details.read_only %]
     <div class="add-edit-note edit-note"
         [%- 'style="display: none"' IF hide -%]>
         <h3 class="owner">[% link_entity(c.user) %]</h3>
@@ -38,4 +39,5 @@
                 name="enter-vote.vote.[% index %].edit_note"></textarea>
         </div>
     </div>
+    [% END %]
 </div>
