@@ -5,6 +5,12 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
+if [ $DB_SCHEMA_SEQUENCE != 13 ]
+then
+    echo "Please set DB_SCHEMA_SEQUENCE to 13 in DBDefs.pm"
+    exit
+fi
+
 echo `date` : Dumping RAWDATA
 eval $(perl -Ilib -MString::ShellQuote -MDBDefs -MMusicBrainz::Server::DatabaseConnectionFactory -e '
     my $db = MusicBrainz::Server::DatabaseConnectionFactory->get("RAWDATA");
@@ -49,9 +55,6 @@ then
     ./admin/psql READWRITE < admin/sql/updates/20110711-triggers.sql
 
     echo `date` : Please remember to *sync* the new data!
-
-    echo `date` : Incrementing schema version, remember to update DBDefs
-    echo 'UPDATE replication_control SET current_schema_sequence = current_schema_sequence + 1' | ./admin/psql READWRITE
 elif [ $REPLICATION_TYPE == $RT_SLAVE ]
 then
     echo `date` : Importing new non-replicated data
@@ -71,6 +74,8 @@ echo `date` : Materializing edit.status onto edit_artist and edit_label
 
 echo `date` : Dropping tracklist_index.tracks
 echo 'ALTER TABLE tracklist_index DROP COLUMN tracks' | ./admin/psql READWRITE
+
+echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
 echo `date` : Done
 
