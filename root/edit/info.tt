@@ -7,6 +7,7 @@
 
     [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
 
+    [% IF !server_details.read_only %]
     <div class="cancel-edit buttons">
         [% IF c.user_exists %]
             <a class="positive edit-note-toggle">[% l('Add Note') %]</a>
@@ -20,6 +21,7 @@
             <a class="negative" href="[% c.uri_for_action('/edit/cancel', [ edit.id ], { url=c.req.uri }) %]">[% l('Cancel edit') %]</a>
         [% END %]
     </div>
+    [% END %]
 [% ELSE %]
     [%- WRAPPER 'layout/sidebar/properties.tt' class='edit-status'-%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
