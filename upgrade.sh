@@ -66,6 +66,7 @@ then
     ./admin/MBImport.pl 20110711-update.tar.bz2 201107011-update-derived.tar.bz2
     ./admin/psql READWRITE < admin/sql/updates/20110710-tracklist-index-slave-after.sql
     rm 20110711-update.tar.bz
+    rm 20110711-update-derived.tar.bz
 fi
 
 echo `date` : Materializing edit.status onto edit_artist and edit_label
