@@ -49,6 +49,9 @@ then
     ./admin/psql READWRITE < admin/sql/updates/20110711-triggers.sql
 
     echo `date` : Please remember to *sync* the new data!
+
+    echo `date` : Incrementing schema version, remember to update DBDefs
+    echo 'UPDATE replication_control SET current_schema_sequence = current_schema_sequence + 1' | ./admin/psql READWRITE
 elif [ $REPLICATION_TYPE == $RT_SLAVE ]
 then
     echo `date` : Importing new non-replicated data
@@ -57,6 +60,8 @@ then
     ./admin/MBImport.pl 20110711-update.tar.bz2
     ./admin/psql READWRITE < admin/sql/updates/20110710-tracklist-index-slave-after.sql
     rm 20110711-update.tar.bz
+
+    echo `date` : Please update DB_SCHEMA_VERSION to 13 in your DBDefs.pm configuration
 fi
 
 echo `date` : Materializing edit.status onto edit_artist and edit_label
