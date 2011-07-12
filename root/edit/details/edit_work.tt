@@ -22,5 +22,5 @@
 
   [%- display_full_change(l('Work type:'),
                           html_escape(edit.display_data.type.old.name),
-                          html_escape(edit.display_data.type.old.name)) -%]
+                          html_escape(edit.display_data.type.new.name)) -%]
 </table>
