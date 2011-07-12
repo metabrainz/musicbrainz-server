@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Deep qw( cmp_set );
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::Create; }

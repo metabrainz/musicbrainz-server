@@ -22,19 +22,6 @@ sub _build_conn {
     return DatabaseConnectionFactory->get_connection('READWRITE');
 }
 
-has 'raw_conn' => (
-    is         => 'ro',
-    handles    => {
-        raw_dbh => 'dbh',
-        raw_sql => 'sql',
-    },
-    lazy_build => 1,
-);
-
-sub _build_raw_conn {
-    return DatabaseConnectionFactory->get_connection('RAWDATA');
-}
-
 has 'models' => (
     isa     => 'HashRef',
     is      => 'ro',

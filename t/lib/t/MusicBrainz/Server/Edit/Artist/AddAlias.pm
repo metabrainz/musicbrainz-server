@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Artist::AddAlias;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::AddAlias }

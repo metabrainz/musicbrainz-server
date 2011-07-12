@@ -1,24 +1,18 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-release">
   <tr>
     <th>[% l('Release:') %]</th>
-    <td>[% descriptive_link(edit.display_data.release) %]</td>
+    <td colspan="2">[% descriptive_link(edit.display_data.release) %]</td>
   </tr>
 
-  [% IF edit.display_data.name %]
-  <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old | html %]</td>
-    <td class="new">[% edit.display_data.name.new | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_word_diff(l('Name:'),
+                        html_escape(edit.display_data.name.old),
+                        html_escape(edit.display_data.name.new)) -%]
 
-  [% IF edit.display_data.comment %]
-  <tr>
-    <th>[% l('Comment:') %]</th>
-    <td class="old">[% edit.display_data.comment.old | html %]</td>
-    <td class="new">[% edit.display_data.comment.new | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_word_diff(l('Comment:'),
+                        html_escape(edit.display_data.comment.old),
+                        html_escape(edit.display_data.comment.new)) -%]
 
   [% IF edit.display_data.artist_credit %]
   <tr>
@@ -28,59 +22,32 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.date %]
-  <tr>
-    <th>[% l('Date:') %]</th>
-    <td class="old">[% edit.display_data.date.old.format | html %]</td>
-    <td class="new">[% edit.display_data.date.new.format | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_diff(l('Name:'),
+                     html_escape(edit.display_data.date.old.format),
+                     html_escape(edit.display_data.date.new.format),
+                     '-') -%]
 
-  [% IF edit.display_data.packaging %]
-  <tr>
-    <th>[% l('Packaging:') %]</th>
-    <td class="old">[% edit.display_data.packaging.old.name | html %]</td>
-    <td class="new">[% edit.display_data.packaging.new.name | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_full_change(l('Packaging:'),
+                          edit.display_data.packaging.old.name,
+                          edit.display_data.packaging.new.name) -%]
 
-  [% IF edit.display_data.script %]
-  <tr>
-    <th>[% l('Script:') %]</th>
-    <td class="old">[% edit.display_data.script.old.name | html %]</td>
-    <td class="new">[% edit.display_data.script.new.name | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_full_change(l('Script:'),
+                          edit.display_data.script.old.name,
+                          edit.display_data.script.new.name) -%]
 
-  [% IF edit.display_data.language %]
-  <tr>
-    <th>[% l('Language:') %]</th>
-    <td class="old">[% edit.display_data.language.old.name | html %]</td>
-    <td class="new">[% edit.display_data.language.new.name | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_full_change(l('Language:'),
+                          edit.display_data.language.old.name,
+                          edit.display_data.language.new.name) -%]
 
-  [% IF edit.display_data.country %]
-  <tr>
-    <th>[% l('Country:') %]</th>
-    <td class="old">[% edit.display_data.country.old.name | html %]</td>
-    <td class="new">[% edit.display_data.country.new.name | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_full_change(l('Country:'),
+                          edit.display_data.country.old.name,
+                          edit.display_data.country.new.name) -%]
 
-  [% IF edit.display_data.status %]
-  <tr>
-    <th>[% l('Status:') %]</th>
-    <td class="old">[% edit.display_data.status.old.name | html %]</td>
-    <td class="new">[% edit.display_data.status.new.name | html %]</td>
-  </tr>
-  [% END %]
+  [%- display_full_change(l('Status:'),
+                          edit.display_data.status.old.name,
+                          edit.display_data.status.new.name) -%]
 
-  [% IF edit.display_data.barcode %]
-  <tr>
-    <th>[% l('Barcode:') %]</th>
-    <td class="old">[% edit.display_data.barcode.old %]</td>
-    <td class="new">[% edit.display_data.barcode.new %]</td>
-  </tr>
-  [% END %]
+  [%- display_diff(l('Barcode:'),
+                   html_escape(edit.display_data.barcode.old),
+                   html_escape(edit.display_data.barcode.new)) -%]
 </table>

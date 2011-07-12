@@ -49,13 +49,6 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::CDStub';
 }
 
-sub _dbh
-{
-    return shift->c->raw_dbh;
-}
-
-sub sql { return shift->c->raw_sql }
-
 sub load
 {
     my ($self, @objs) = @_;
@@ -72,7 +65,7 @@ sub load_top_cdstubs
                  OFFSET ?
                  LIMIT  ?";
     return query_to_list_limited(
-        $self->c->raw_sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $offset || 0, $LIMIT_TOP_CDSTUBS - $offset);
 }
 
@@ -90,7 +83,7 @@ sub get_by_discid
                    FROM ' . $self->_table . '
                    JOIN cdtoc_raw ON cdtoc_raw.release = release_raw.id
                   WHERE discid = ?';
-    return query_to_list($self->c->raw_sql, sub { $self->_new_from_row(shift) }, $query, $discid);
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $discid);
 }
 
 sub insert

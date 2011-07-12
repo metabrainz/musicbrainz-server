@@ -30,6 +30,9 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         $c->detach('bad_req');
     }
 
+    $c->stash->{inc}->media (1);
+    $c->stash->{inc}->discids (1);
+
     my $stash = WebServiceStash->new;
     my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
     if ($cdtoc) {

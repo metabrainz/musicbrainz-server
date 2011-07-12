@@ -1,17 +1,4 @@
-
 SET client_min_messages TO 'warning';
-
-
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO artist_name (id, name) VALUES (1, 'ABBA');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -34,8 +21,8 @@ INSERT INTO work (id, gid, name, iswc)
 
 INSERT INTO work_gid_redirect VALUES ('28e73402-5666-4d74-80ab-c3734dc699ea', 1);
 
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'password');
-INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Annotation', 'change');
+INSERT INTO editor (id, name, password) VALUES (100, 'annotation_editor', 'password');
+INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 100, 'Annotation', 'change');
 INSERT INTO work_annotation (work, annotation) VALUES (1, 1);
 
 ALTER SEQUENCE work_id_seq RESTART 3;

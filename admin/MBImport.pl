@@ -96,38 +96,6 @@ $fHelp and usage();
 my $mb = Databases->get_connection('READWRITE');
 my $sql = Sql->new($mb->dbh);
 
-# Log in to the raw DB
-my $rawmb = Databases->get_connection('RAWDATA');
-my $rawsql = Sql->new($rawmb->dbh);
-
-# This hash indicates which tables may need to be pushed to a vertical DB
-my %table_db_mapping =
-(
-    'artist_rating_raw'                                         =>      $rawsql,
-    'artist_tag_raw'                                            =>      $rawsql,
-    'release_group_rating_raw'                          =>      $rawsql,
-    'release_group_tag_raw'                                     =>      $rawsql,
-    'recording_rating_raw'                                      =>      $rawsql,
-    'recording_tag_raw'                                         =>      $rawsql,
-    'label_rating_raw'                                          =>      $rawsql,
-    'label_tag_raw'                                                     =>      $rawsql,
-    'work_rating_raw'                                           =>      $rawsql,
-    'work_tag_raw'                                                      =>      $rawsql,
-    'cdtoc_raw'                                                         =>      $rawsql,
-    'release_raw'                                                       =>      $rawsql,
-    'track_raw'                                                         =>      $rawsql,
-    'vote'                                                                      =>      $rawsql,
-    'edit'                                                                      =>      $rawsql,
-    'edit_artist'                                                       =>      $rawsql,
-    'edit_label'                                                        =>      $rawsql,
-    'edit_note'                                                         =>      $rawsql,
-    'edit_recording'                                            =>      $rawsql,
-    'edit_release'                                                      =>      $rawsql,
-    'edit_release_group'                                        =>      $rawsql,
-    'edit_work'                                                         =>      $rawsql,
-    'vote'                                                                      =>      $rawsql,
-    '_default_'                                                         =>      $sql
-);
 
 my @tar_to_extract;
 
@@ -260,9 +228,6 @@ sub ImportTable
 
     $| = 1;
 
-    my $sql = $table_db_mapping{'_default_'};
-    $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
-
     eval
     {
         # open in :bytes mode (always keep byte octets), to allow fixing of invalid
@@ -338,8 +303,6 @@ sub empty
 {
     my $table = shift;
 
-    my $sql = $table_db_mapping{'_default_'};
-    $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
     my $any = $sql->select_single_value(
         "SELECT 1 FROM $table LIMIT 1",
     );

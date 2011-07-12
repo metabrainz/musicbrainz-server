@@ -108,6 +108,7 @@ method foreign_keys
 
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
+        Medium  => { $self->data->{medium}{id} => [ 'MediumFormat', 'Release' ] },
         CDTOC   => [ $self->data->{medium_cdtoc}{cdtoc}{id} ]
     }
 }
@@ -119,6 +120,7 @@ method build_display_data ($loaded)
             Release->new(
                 $self->data->{medium}{release}
             ),
+        medium  => $loaded->{Medium}{ $self->data->{medium}{id} },
         cdtoc   => $loaded->{CDTOC}{ $self->data->{medium_cdtoc}{cdtoc}{id} }
             || CDTOC->new_from_toc($self->data->{medium_cdtoc}{cdtoc}{toc})
     }

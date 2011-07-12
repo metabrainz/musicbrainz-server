@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Release::EditArtist;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants '$EDIT_RELEASE_ARTIST';

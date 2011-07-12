@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
-use MusicBrainz::XML::Generator escape => 'always';
+use MusicBrainz::XML::Generator;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
@@ -216,11 +216,11 @@ sub _serialize_release_group
     my %attr;
     $attr{id} = $release_group->gid;
     $attr{type} = $release_group->type->name if $release_group->type;
-    $attr{"first-release-date"} = $release_group->first_release_date->format;
 
     my @list;
     push @list, $gen->title($release_group->name);
     push @list, $gen->disambiguation($release_group->comment) if $release_group->comment;
+    push @list, $gen->first_release_date($release_group->first_release_date->format);
 
     if ($toplevel)
     {
@@ -812,7 +812,8 @@ sub output_error
 {
     my ($self, $err) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new(':std');
+    my $gen = MusicBrainz::XML::Generator->new (
+        escape => 'unescaped', conformance => 'strict');
 
     return '<?xml version="1.0" encoding="UTF-8"?>' .
         $gen->error($gen->text($err), $gen->text(
@@ -823,7 +824,8 @@ sub output_success
 {
     my ($self, $msg) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new(':std');
+    my $gen = MusicBrainz::XML::Generator->new (
+        escape => 'unescaped', conformance => 'strict');
 
     $msg ||= 'OK';
 
@@ -838,7 +840,8 @@ sub serialize
     my ($self, $type, $entity, $inc, $stash) = @_;
     $inc ||= 0;
 
-    my $gen = MusicBrainz::XML::Generator->new(':std');
+    my $gen = MusicBrainz::XML::Generator->new (
+        escape => 'unescaped', conformance => 'strict');
 
     my $method = $type . "_resource";
     $method =~ s/-/_/g;

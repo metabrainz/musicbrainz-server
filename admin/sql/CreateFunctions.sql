@@ -16,7 +16,7 @@ DECLARE
     i integer;
     x varchar;
 BEGIN
-    input := regexp_replace(upper(substr(unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
+    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
     res := 0;
     FOR i IN 1..6 LOOP
         x := substr(input, i, 1);
@@ -39,7 +39,7 @@ DECLARE
     i integer;
     x varchar;
 BEGIN
-    input := regexp_replace(upper(substr(unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
+    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
     res := 0;
     FOR i IN 1..6 LOOP
         x := substr(input, i, 1);
@@ -353,6 +353,23 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION a_upd_edit() RETURNS trigger AS $$
+BEGIN
+    IF NEW.status != OLD.status THEN
+       UPDATE edit_artist SET status = NEW.status WHERE edit = NEW.id;
+       UPDATE edit_label  SET status = NEW.status WHERE edit = NEW.id;
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION b_ins_edit_materialize_status() RETURNS trigger AS $$
+BEGIN
+    NEW.status = (SELECT status FROM edit WHERE id = NEW.edit);
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 ------------------------
 -- CD Lookup
 ------------------------
@@ -535,6 +552,37 @@ LANGUAGE 'plpgsql' ;
 CREATE OR REPLACE FUNCTION deny_special_purpose_deletion() RETURNS trigger AS $$
 BEGIN
     RAISE EXCEPTION 'Attempted to delete a special purpose row';
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION delete_ratings(enttype TEXT, ids INTEGER[])
+RETURNS TABLE(editor INT, rating SMALLINT) AS $$
+DECLARE
+    tablename TEXT;
+BEGIN
+    tablename = enttype || '_rating_raw';
+    RETURN QUERY
+       EXECUTE 'DELETE FROM ' || tablename || ' WHERE ' || enttype || ' = any($1)
+                RETURNING editor, rating'
+         USING ids;
+    RETURN;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-------------------------------------------------------------------
+-- Delete tags and return them for use in sub queries
+-------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION delete_tags(enttype TEXT, ids INTEGER[])
+RETURNS TABLE(editor INT, tag INT) AS $$
+DECLARE
+    tablename TEXT;
+BEGIN
+    tablename = enttype || '_tag_raw';
+    RETURN QUERY
+       EXECUTE 'DELETE FROM ' || tablename || ' WHERE ' || enttype || ' = any($1)
+                RETURNING editor, tag'
+         USING ids;
+    RETURN;
 END;
 $$ LANGUAGE 'plpgsql';
 

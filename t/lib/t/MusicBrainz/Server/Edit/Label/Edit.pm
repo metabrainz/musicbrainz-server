@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Label::Edit;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Label::Edit }
@@ -58,7 +59,7 @@ sub create_full_edit {
     my ($c, $label) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_EDIT,
-        editor_id => 2,
+        editor_id => 1,
 
         to_edit => $label,
         name => 'Edit Name',

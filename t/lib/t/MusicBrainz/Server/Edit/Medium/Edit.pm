@@ -4,6 +4,7 @@ use Test::More;
 use Test::Fatal;
 use Test::Deep qw( cmp_set );
 
+with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
@@ -63,18 +64,44 @@ is($release->edits_pending, 0);
 
 };
 
-test 'Edits are rejected if the tracklist has changed since edit creation' => sub {
+test 'Edits are rejected if they conflict' => sub {
     my $test = shift;
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
-    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
-INSERT INTO editor (id, name, password) VALUES (4, 'modbot', 'pass');
-EOSQL
 
     my $medium = $c->model('Medium')->get_by_id(1);
-    my $edit1 = create_edit($c, $medium);
-    my $edit2 = create_edit($c, $medium);
+    my $edit1 = create_edit($c, $medium, [
+        Track->new(
+            name => 'Fluffles',
+            artist_credit => ArtistCredit->new(
+                names => [
+                    ArtistCreditName->new(
+                        name => 'Warp Industries',
+                        artist => Artist->new(
+                            id => 2,
+                            name => 'Artist',
+                        )
+                    )]),
+            recording_id => 1,
+            position => 1
+        )
+    ]);
+    my $edit2 = create_edit($c, $medium, [
+        Track->new(
+            name => 'Waffles',
+            artist_credit => ArtistCredit->new(
+                names => [
+                    ArtistCreditName->new(
+                        name => 'Warp Industries',
+                        artist => Artist->new(
+                            id => 2,
+                            name => 'Artist',
+                        )
+                    )]),
+            recording_id => 1,
+            position => 1
+        )
+    ]);
 
     accept_edit($c, $edit1);
     accept_edit($c, $edit2);
@@ -104,9 +131,9 @@ test 'Ignore edits that dont change the tracklist' => sub {
 };
 
 sub create_edit {
-    my ($c, $medium) = @_;
+    my ($c, $medium, $tracklist) = @_;
 
-    my $tracklist = [
+    $tracklist //= [
         Track->new(
             name => 'Fluffles',
             artist_credit => ArtistCredit->new(

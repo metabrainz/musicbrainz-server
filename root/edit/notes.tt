@@ -39,5 +39,5 @@
                 name="enter-vote.vote.[% index %].edit_note"></textarea>
         </div>
     </div>
-    [% END %}
+    [% END %]
 </div>
