@@ -190,8 +190,9 @@ ws_test 'artist lookup with release groups',
             <begin>1998</begin>
         </life-span>
         <release-group-list count="1">
-            <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b" first-release-date="2004-03-17">
+            <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
                 <title>the Love Bug</title>
+                <first-release-date>2004-03-17</first-release-date>
             </release-group>
         </release-group-list>
     </artist>
