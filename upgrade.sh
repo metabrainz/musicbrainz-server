@@ -56,6 +56,8 @@ elif [ $REPLICATION_TYPE == $RT_SLAVE ]
 then
     echo `date` : Importing new non-replicated data
     ./admin/psql READWRITE < admin/sql/updates/20110710-tracklist-index-slave-before.sql
+    echo 'TRUNCATE url_gid_redirect' | ./admin/psql READWRITE
+    echo 'TRUNCATE work_alias' | ./admin/psql READWRITE
     curl -O "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update.tar.bz2"
     ./admin/MBImport.pl 20110711-update.tar.bz2
     ./admin/psql READWRITE < admin/sql/updates/20110710-tracklist-index-slave-after.sql
