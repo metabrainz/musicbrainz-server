@@ -67,6 +67,9 @@ fi
 echo `date` : Materializing edit.status onto edit_artist and edit_label
 ./admin/psql READWRITE < ./admin/sql/updates/20110707-materialize-status.sql
 
+echo `date` : Dropping tracklist_index.tracks
+echo 'ALTER TABLE tracklist_index DROP COLUMN tracks' | ./admin/psql READWRITE
+
 echo `date` : Done
 
 # eof

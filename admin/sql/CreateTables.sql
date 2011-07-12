@@ -1108,7 +1108,6 @@ CREATE TABLE tracklist
 CREATE TABLE tracklist_index
 (
     tracklist           INTEGER, -- PK
-    tracks              INTEGER,
     toc                 CUBE
 );
 
