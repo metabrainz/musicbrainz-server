@@ -65,8 +65,8 @@ then
     curl -O "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update-derived.tar.bz2"
     ./admin/MBImport.pl 20110711-update.tar.bz2 20110711-update-derived.tar.bz2
     ./admin/psql READWRITE < admin/sql/updates/20110710-tracklist-index-slave-after.sql
-    rm 20110711-update.tar.bz
-    rm 20110711-update-derived.tar.bz
+    rm 20110711-update.tar.bz2
+    rm 20110711-update-derived.tar.bz2
 fi
 
 echo `date` : Materializing edit.status onto edit_artist and edit_label

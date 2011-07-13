@@ -61,11 +61,10 @@ test Cache => sub {
     my $test = shift;
     my $c = $test->cache_aware_c;
     my $cache = $c->cache_manager->_get_cache('memory');
-    my $country_data = $c->model('Country');
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+country');
 
-    my @all = $country_data->get_all;
+    my @all = $c->model('Country')->get_all;
 
     is ($all[0]->name, 'United Kingdom');
     is ($all[0]->iso_code, 'GB');
@@ -76,9 +75,10 @@ test Cache => sub {
     ok($cache->exists('c:all'), 'cache contains country list');
 
     # Clear the database connection
-    $c->{conn} = undef;
+    $c = $c->meta->clone_object($c, conn => undef, models => {});
+
     lives_ok {
-        my @all = $country_data->get_all;
+        my @all = $c->model('Country')->get_all;
 
         is ($all[0]->name, 'United Kingdom');
         is ($all[0]->iso_code, 'GB');
