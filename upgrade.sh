@@ -72,7 +72,7 @@ fi
 echo `date` : Materializing edit.status onto edit_artist and edit_label
 ./admin/psql READWRITE < ./admin/sql/updates/20110707-materialize-status.sql
 
-echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
+echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE, current_replication_sequence = 51420;" | ./admin/psql READWRITE
 
 echo `date` : Done
 
