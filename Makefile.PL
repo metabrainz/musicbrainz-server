@@ -139,6 +139,7 @@ test_requires 'RDF::Query';
 test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
 test_requires 'Test::Differences';
+test_requires 'Test::Fatal' => '0.006';
 test_requires 'Test::JSON';
 test_requires 'Test::LongString';
 test_requires 'Test::Magpie' => '0.04';
