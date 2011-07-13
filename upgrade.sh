@@ -63,7 +63,7 @@ then
     echo 'TRUNCATE work_alias' | ./admin/psql READWRITE
     curl -O "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update.tar.bz2"
     curl -O "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update-derived.tar.bz2"
-    ./admin/MBImport.pl 20110711-update.tar.bz2 201107011-update-derived.tar.bz2
+    ./admin/MBImport.pl 20110711-update.tar.bz2 20110711-update-derived.tar.bz2
     ./admin/psql READWRITE < admin/sql/updates/20110710-tracklist-index-slave-after.sql
     rm 20110711-update.tar.bz
     rm 20110711-update-derived.tar.bz
