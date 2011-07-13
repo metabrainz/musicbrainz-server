@@ -14,20 +14,18 @@ role
 
     my $params = shift;
 
-    sub _get_all_from_db
-    {
+    method '_get_all_from_db' => sub {
         my ($self, $p) = @_;
         my $query = "SELECT " . $self->_columns .
             " FROM " . $self->_table .
             " ORDER BY " . (join ", ", @{ $p->order_by });
         return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
-    }
+    };
 
-    sub _delete_all_from_cache
-    {
+    method '_delete_all_from_cache' => sub {
         my $self = shift;
         $self->c->cache->delete ($self->_id_cache_prefix . ":all");
-    }
+    };
 
     # Clear cached data if the list of all entities has changed.
     after 'insert' => sub { shift->_delete_all_from_cache; };
