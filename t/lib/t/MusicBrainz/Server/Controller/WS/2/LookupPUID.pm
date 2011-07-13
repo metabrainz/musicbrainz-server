@@ -101,8 +101,9 @@ ws_test 'puid lookup with release groups',
                 </artist>
               </name-credit>
             </artist-credit>
-            <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single" first-release-date="2001-07-04">
+            <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
+              <first-release-date>2001-07-04</first-release-date>
               <artist-credit>
                 <name-credit>
                   <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
@@ -127,8 +128,9 @@ ws_test 'puid lookup with release groups',
                 </artist>
               </name-credit>
             </artist-credit>
-            <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single" first-release-date="2001-07-04">
+            <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
+              <first-release-date>2001-07-04</first-release-date>
               <artist-credit>
                 <name-credit>
                   <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">

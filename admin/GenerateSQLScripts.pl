@@ -126,7 +126,6 @@ sub process_tables
 }
 
 process_tables("");
-process_tables("/vertical/rawdata");
 
 sub process_indexes
 {
@@ -154,7 +153,6 @@ sub process_indexes
 
 process_indexes("CreateIndexes.sql", "DropIndexes.sql");
 process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
-process_indexes("vertical/rawdata/CreateIndexes.sql", "vertical/rawdata/DropIndexes.sql");
 
 sub process_functions
 {
@@ -191,8 +189,6 @@ sub process_functions
 }
 
 process_functions("CreateFunctions.sql", "DropFunctions.sql");
-process_functions("vertical/rawdata/CreateFunctions.sql",
-                  "vertical/rawdata/DropFunctions.sql");
 
 open FILE, "<$FindBin::Bin/../admin/sql/CreateTriggers.sql";
 my $create_triggers_sql = do { local $/; <FILE> };

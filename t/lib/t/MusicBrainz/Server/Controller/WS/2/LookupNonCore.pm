@@ -45,6 +45,16 @@ ws_test 'discid lookup with artist-credits',
                 </artist-credit>
                 <date>2004-01-15</date><country>JP</country>
                 <asin>B0000YGBSG</asin>
+                <medium-list count="1">
+                  <medium>
+                    <position>1</position>
+                    <disc-list count="2">
+                      <disc id="T.epJ9O5SoDjPqAJuOJfAI9O8Nk-"><sectors>256486</sectors></disc>
+                      <disc id="afhq1hAs2MoqPcU9JENE5i_mACM-"><sectors>254650</sectors></disc>
+                    </disc-list>
+                    <track-list count="13" />
+                  </medium>
+                </medium-list>
             </release>
         </release-list>
     </disc>

@@ -91,7 +91,7 @@ sub _get_ratings_for_type
         SELECT $type AS id, rating FROM ${type}_rating_raw
         WHERE editor = ? ORDER BY rating DESC, editor";
 
-    my $results = $self->c->raw_sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->sql->select_list_of_hashes ($query, $id);
     my $entities = $self->c->model(type_to_model($type))->get_by_ids(map { $_->{id} } @$results);
 
     my $ratings = [];
@@ -142,7 +142,7 @@ sub _get_tags_for_type
         WHERE editor = ?
         GROUP BY tag";
 
-    my $results = $self->c->raw_sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->sql->select_list_of_hashes ($query, $id);
 
     return { map { $_->{tag} => $_ } @$results };
 }

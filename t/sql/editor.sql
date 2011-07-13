@@ -6,7 +6,9 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, member_since
          (2, 'Alice', 'secret1', 0, 'alice@example.com', 'http://example.com',
         'second biography', '2007-07-23', '2007-10-20', '2009-12-05', 11, 3, 41, 8),
          (3, 'kuno', 'byld', 0, 'kuno@example.com', 'http://frob.nl',
-        'donation check test user', '2010-03-25', '2010-03-25', '2010-03-25', 0, 0, 0, 0);
+        'donation check test user', '2010-03-25', '2010-03-25', '2010-03-25', 0, 0, 0, 0),
+         (4, 'ModBot', 'mb', 0, '', 'http://musicbrainz.org/doc/ModBot',
+         'See the above link for more information.', NULL, NULL, NULL, 2, 1, 99951, 3560);
 
 INSERT INTO editor_preference (editor, name, value)
     VALUES (1, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
@@ -45,4 +47,4 @@ INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 2);
 
 
-ALTER SEQUENCE editor_id_seq RESTART 4;
+ALTER SEQUENCE editor_id_seq RESTART 5;

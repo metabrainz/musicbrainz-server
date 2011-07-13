@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::PUID::Delete;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::PUID::Delete; }

@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Release::ChangeQuality;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Release::ChangeQuality };

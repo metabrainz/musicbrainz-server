@@ -46,11 +46,9 @@ memory_cycle_ok($tag_data);
 memory_cycle_ok($tags);
 
 $test->c->sql->begin;
-$test->c->raw_sql->begin;
 $tag_data->delete(4);
 memory_cycle_ok($tag_data);
 $test->c->sql->commit;
-$test->c->raw_sql->commit;
 
 @tags = $tag_data->find_top_tags(4, 2);
 is( scalar(@tags), 0 );
@@ -99,11 +97,9 @@ memory_cycle_ok($tags);
 #     (4, 4, 2)
 
 $test->c->sql->begin;
-$test->c->raw_sql->begin;
 $tag_data->merge(3, 4);
 memory_cycle_ok($tag_data);
 $test->c->sql->commit;
-$test->c->raw_sql->commit;
 
 #     (1, 3, 1)
 #     (1, 3, 2)
@@ -178,7 +174,7 @@ is( $tags[3]->count, 1 );
 is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
-$tags = $test->c->raw_sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
+$tags = $test->c->sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
 is_deeply([5], $tags);
 
 };

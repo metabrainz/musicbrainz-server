@@ -87,9 +87,7 @@ is( $results->[0]->entity->id, 1 );
 memory_cycle_ok($results);
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 $sql->begin;
-$raw_sql->begin;
 
 $rg = $rg_data->insert({
         name => 'My Demons',
@@ -134,7 +132,6 @@ ok(!defined $rg);
 $rg = $rg_data->get_by_id(1);
 ok(defined $rg);
 
-$raw_sql->commit;
 $sql->commit;
 
 };

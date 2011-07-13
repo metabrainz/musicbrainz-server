@@ -144,6 +144,7 @@ sub begin : Private
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
             is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
+            read_only      => &DBDefs::DB_READ_ONLY
         },
     );
 

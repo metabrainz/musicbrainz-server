@@ -136,8 +136,9 @@ ws_test 'release lookup with release-groups',
                 </artist>
             </name-credit>
         </artist-credit>
-        <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b" first-release-date="2004-03-17">
+        <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
             <title>the Love Bug</title>
+            <first-release-date>2004-03-17</first-release-date>
             <artist-credit>
                 <name-credit>
                     <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">

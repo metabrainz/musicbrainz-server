@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Artist::Delete;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::Delete }
@@ -16,10 +17,6 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_delete');
-MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
-INSERT INTO editor (id, name, password) VALUES (4, 'modbot', 'pass');
-EOSQL
 
 my $artist = $c->model('Artist')->get_by_id(3);
 
@@ -49,11 +46,10 @@ ok(defined $artist);
 
 # Delete the recording and enter the edit
 my $sql = $c->sql;
-my $sql_raw = $c->raw_sql;
 Sql::run_in_transaction(
     sub {
         $c->model('Recording')->delete(1);
-    }, $sql, $sql_raw);
+    }, $sql);
 
 $edit = _create_edit($c, $artist);
 accept_edit($c, $edit);

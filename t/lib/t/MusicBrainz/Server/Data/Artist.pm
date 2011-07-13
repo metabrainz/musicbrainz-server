@@ -22,9 +22,7 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_artist');
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 $sql->begin;
-$raw_sql->begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Editable');
@@ -111,7 +109,6 @@ ok(!defined $annotation);
 memory_cycle_ok($artist_data, 'artist data does not leak after deleting annotations');
 
 $sql->commit;
-$raw_sql->commit;
 
 # ---
 # Searching for artists
@@ -126,7 +123,6 @@ is( $results->[0]->entity->sort_name, "Artist, Test" );
 memory_cycle_ok($results, 'search results do not leak after searching for artists');
 
 $sql->begin;
-$raw_sql->begin;
 
 # ---
 # Find/insert artist names
@@ -295,7 +291,6 @@ ok(!$artist_data->can_delete(3));
     is($testartists[1]->comment, 'Yet Another Test Artist');
 
 $sql->commit;
-$raw_sql->commit;
 
 };
 
@@ -324,7 +319,6 @@ test 'Merging with a cache' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
     $c->sql->begin;
-    $c->raw_sql->begin;
 
     my $artist1 = $c->model('Artist')->get_by_gid('745c079d-374e-4436-9448-da92dedef3ce');
     my $artist2 = $c->model('Artist')->get_by_gid('945c079d-374e-4436-9448-da92dedef3cf');
@@ -340,7 +334,6 @@ test 'Merging with a cache' => sub {
     ok(!$cache->exists('artist:' . $artist2->id), 'artist 2 no longer in cache (by id)');
 
     $c->sql->commit;
-    $c->raw_sql->commit;
 };
 
 1;

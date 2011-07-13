@@ -93,6 +93,15 @@
             </div>
         [%- END -%]
 
+        [%- IF server_details.read_only -%]
+            <div class="server-details">
+                <p>
+                    [% l('The server is temporary in read-only mode for database maintainance.') %]
+                </p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [%- END -%]
+
         [% IF makes_no_changes %]
         <div class="warning-header">
             <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>

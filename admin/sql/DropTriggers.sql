@@ -72,3 +72,4 @@ DROP TRIGGER a_ins_work ON work;
 DROP TRIGGER b_upd_work ON work;
 DROP TRIGGER b_upd_work_alias ON work_alias;
 DROP TRIGGER b_upd_work_tag ON work_tag;
+DROP TRIGGER a_upd_edit ON edit;
