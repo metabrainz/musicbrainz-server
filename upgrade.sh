@@ -74,6 +74,9 @@ echo `date` : Materializing edit.status onto edit_artist and edit_label
 
 echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
+echo `date` : Replace special purpose triggers
+./admin/psql READWRITE < ./admin/sql/updates/20110713-special-purpose-triggers.sql
+
 echo `date` : Done
 
 # eof
