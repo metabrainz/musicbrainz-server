@@ -99,7 +99,16 @@ sub validate {
         $self->field('barcode_confirm')->value == 1;
 
     $self->field('barcode')->add_error (
-        l("This barcode is invalid, please confirm that you've entered the barcode exactly as it is printed on the release."));
+        l("This barcode is invalid, please check that you've correctly entered the barcode."));
+
+
+    unless ($self->field('barcode')->value == '' ||
+            MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
+            $self->field('barcode_confirm')->value == 1)
+    {
+        $self->field('barcode')->add_error (
+            l("This barcode is invalid, please check that you've correctly entered the barcode."));
+    }
 }
 
 after 'BUILD' => sub {
