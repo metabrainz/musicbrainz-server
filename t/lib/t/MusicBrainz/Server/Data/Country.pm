@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
+use Test::Fatal qw( lives_ok );
 
 use MusicBrainz::Server::Data::Country;
 
@@ -52,6 +53,40 @@ is($cts[1]->id, 2);
 
 memory_cycle_ok($country_data);
 memory_cycle_ok(\@cts);
+
+};
+
+test Cache => sub {
+
+    my $test = shift;
+    my $c = $test->cache_aware_c;
+    my $cache = $c->cache_manager->_get_cache('memory');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+country');
+
+    my @all = $c->model('Country')->get_all;
+
+    is ($all[0]->name, 'United Kingdom');
+    is ($all[0]->iso_code, 'GB');
+
+    is ($all[1]->name, 'United States');
+    is ($all[1]->iso_code, 'US');
+
+    ok($cache->exists('c:all'), 'cache contains country list');
+
+    # Clear the database connection
+    $c = $c->meta->clone_object($c, conn => undef, models => {});
+
+    lives_ok {
+        my @all = $c->model('Country')->get_all;
+
+        is ($all[0]->name, 'United Kingdom');
+        is ($all[0]->iso_code, 'GB');
+
+        is ($all[1]->name, 'United States');
+        is ($all[1]->iso_code, 'US');
+
+    } 'get_all served from cache, not database';
 
 };
 
