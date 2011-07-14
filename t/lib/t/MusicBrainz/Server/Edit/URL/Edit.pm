@@ -83,12 +83,33 @@ test 'Editing a URL that no longer exists fails' => sub {
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
+test 'Can edit 2 URLs into a common URL' => sub {
+    my $test = shift;
+
+    my $builder = sub {
+        my ($url_to_edit) = @_;
+        $test->c->model('Edit')->create(
+            edit_type => $EDIT_URL_EDIT,
+            editor_id => 1,
+            privileges => 1,
+            to_edit => $test->c->model('URL')->get_by_id($url_to_edit),
+            url => 'http://musicbrainz.org'
+        );
+    };
+
+    my $edit_1 = $builder->(2);
+    my $edit_2 = $builder->(3);
+
+    is $edit_1->status, $STATUS_APPLIED;
+    is $edit_2->status, $STATUS_APPLIED;
+};
+
 sub _build_edit {
-    my ($test, $url) = @_;
+    my ($test, $url, $url_to_edit) = @_;
     $test->c->model('Edit')->create(
         edit_type => $EDIT_URL_EDIT,
         editor_id => 1,
-        to_edit => $test->c->model('URL')->get_by_id(2),
+        to_edit => $test->c->model('URL')->get_by_id($url_to_edit || 2),
         url => $url || 'http://apple.com',
         description => 'Possibly even more evil'
     );
