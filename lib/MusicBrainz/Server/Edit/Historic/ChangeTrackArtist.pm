@@ -13,7 +13,7 @@ sub edit_name     { l('Change track artist') }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_TRACK_ARTIST }
 sub historic_type { 10 }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         artist    => [ $self->data->{new_artist_id}, $self->data->{old_artist_id} ],

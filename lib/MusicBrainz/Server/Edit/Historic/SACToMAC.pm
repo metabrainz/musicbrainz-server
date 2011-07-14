@@ -16,7 +16,7 @@ sub edit_name     { l('Convert release to multiple artists') }
 sub historic_type { 9 }
 sub edit_type     { $EDIT_HISTORIC_SAC_TO_MAC }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

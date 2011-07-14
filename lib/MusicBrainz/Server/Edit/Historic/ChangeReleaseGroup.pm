@@ -18,7 +18,7 @@ sub _release_group_ids
     map { $self->data->{$_}{release_group_id} } qw( old new )
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

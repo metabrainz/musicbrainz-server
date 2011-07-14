@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 requires 'c';
 
-around 'related_entities' => sub
+around '_build_related_entities' => sub
 {
     my $orig = shift;
     my $self = shift;

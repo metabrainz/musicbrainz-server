@@ -26,6 +26,7 @@ requires 'Class::MOP';
 requires 'CSS::Minifier';
 requires 'Clone';
 requires 'Data::Compare';
+requires 'Data::Dumper::Concise';
 requires 'Data::OptList';
 requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';

@@ -39,7 +39,7 @@ has '+data' => (
     ]
 );
 
-around related_entities => sub {
+around _build_related_entities => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my $related = $self->$orig(@_);
 

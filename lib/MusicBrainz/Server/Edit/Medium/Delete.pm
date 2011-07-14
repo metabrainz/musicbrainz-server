@@ -87,6 +87,11 @@ sub initialize
 sub accept
 {
     my $self = shift;
+
+    # Build related entities *before* deleting this medium, so we know which
+    # release/rg/etc to relate to.
+    $self->related_entities;
+
     $self->c->model('Medium')->delete($self->medium_id);
 }
 

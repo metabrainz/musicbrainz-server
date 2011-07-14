@@ -13,7 +13,7 @@ sub historic_type { 62 }
 sub edit_type { $EDIT_HISTORIC_REMOVE_LABEL_ALIAS }
 sub edit_template { 'historic/remove_label_alias' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return { }
 }

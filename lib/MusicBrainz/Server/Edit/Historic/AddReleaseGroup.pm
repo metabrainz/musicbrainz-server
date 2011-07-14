@@ -20,7 +20,7 @@ sub edit_name { l('Add release group') }
 sub edit_type { 66 }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Create' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         artist => [ $self->data->{artist_credit}[0]{artist} ],

@@ -14,7 +14,7 @@ sub historic_type { 63 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
 sub edit_template { 'historic/change_release_quality' }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

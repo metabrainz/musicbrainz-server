@@ -4,7 +4,11 @@
 ] -%]
 
 <div class="urlheader">
-<h1><a href="[% html_escape(url.url) %]">[% url.pretty_name | html %]</a></h1>
+<h1>
+  [% '<span class="mp">' IF url.edits_pending %]
+  <a href="[% html_escape(url.url) %]">[% url.pretty_name | html %]</a>
+  [% '</span>' IF url.edits_pending %]
+</h1>
 <p class="subheader">
 <span class="prefix">~</span>
 [% IF url.description %]
