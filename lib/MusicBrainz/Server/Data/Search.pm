@@ -39,6 +39,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
     work          => 'MusicBrainz::Server::Data::Work',
     tag           => 'MusicBrainz::Server::Data::Tag',
+    editor        => 'MusicBrainz::Server::Data::Editor'
 );
 
 use Sub::Exporter -setup => {
@@ -176,6 +177,14 @@ sub search
             ORDER BY rank DESC, tag.name
             OFFSET ?
         ";
+        $use_hard_search_limit = 0;
+    }
+    elsif ($type eq 'editor') {
+        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                  FROM editor, plainto_tsquery('mb_simple', ?) AS query
+                  WHERE to_tsvector('mb_simple', name) @@ query
+                  ORDER BY rank DESC
+                  OFFSET ?";
         $use_hard_search_limit = 0;
     }
 
