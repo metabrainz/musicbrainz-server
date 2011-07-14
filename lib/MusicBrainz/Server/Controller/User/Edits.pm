@@ -43,7 +43,8 @@ sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth Hidd
     $self->_edits($c, sub {
         return $c->model('Edit')->find({
             editor => $c->stash->{user}->id,
-            status => $STATUS_APPLIED
+            status => $STATUS_APPLIED,
+            autoedit => 0
         }, shift, shift);
     });
 }
