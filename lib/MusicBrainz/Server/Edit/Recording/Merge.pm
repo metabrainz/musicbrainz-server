@@ -33,7 +33,7 @@ before build_display_data => sub {
     my ($self, $loaded) = @_;
 
     $self->c->model('ISRC')->load_for_recordings(
-        grep { $_ } map { $loaded->{Recording}{$_} } $self->recording_ids
+        grep { $_ && !$_->all_isrcs } map { $loaded->{Recording}{$_} } $self->recording_ids
     );
 };
 
