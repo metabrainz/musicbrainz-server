@@ -10,7 +10,7 @@ sub edit_name { 'Move release group' }
 sub edit_type { 69 }
 sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         release_group => [ $self->data->{entity}{id} ],

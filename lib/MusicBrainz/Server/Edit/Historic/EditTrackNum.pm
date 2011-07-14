@@ -12,7 +12,7 @@ sub edit_name     { l('Edit track number') }
 sub historic_type { 5 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

@@ -31,7 +31,7 @@ sub edit_name { l("Edit release group") }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 
-around related_entities => sub {
+around _build_related_entities => sub {
     my ($orig, $self, @args) = @_;
     my %rel = %{ $self->$orig(@args) };
     if ($self->data->{new}{artist_credit}) {

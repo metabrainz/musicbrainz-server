@@ -9,7 +9,7 @@ sub edit_name { l('Edit artist name') }
 sub edit_type { 1 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Artist::Edit' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         artist => [ $self->artist_id ]

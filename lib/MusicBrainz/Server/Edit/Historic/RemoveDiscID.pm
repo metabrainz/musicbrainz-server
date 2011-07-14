@@ -13,7 +13,7 @@ sub historic_type { 20 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_DISCID }
 sub edit_template { 'historic/remove_disc_id' }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

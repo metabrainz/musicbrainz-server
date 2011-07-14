@@ -16,7 +16,7 @@ sub edit_template { 'historic/remove_release' }
 sub historic_type { 12 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASE }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

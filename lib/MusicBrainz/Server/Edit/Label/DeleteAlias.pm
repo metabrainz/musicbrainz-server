@@ -14,7 +14,7 @@ sub _alias_model { shift->c->model('Label')->alias }
 sub edit_name { l('Remove label alias') }
 sub edit_type { $EDIT_LABEL_DELETE_ALIAS }
 
-sub related_entities { { label => [ shift->label_id ] } }
+sub _build_related_entities { { label => [ shift->label_id ] } }
 
 sub adjust_edit_pending
 {

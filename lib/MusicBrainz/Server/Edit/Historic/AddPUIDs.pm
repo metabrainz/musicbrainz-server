@@ -9,7 +9,7 @@ sub edit_name { l('Add PUIDs') }
 sub edit_type { 47 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddPUIDs' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         recording => [

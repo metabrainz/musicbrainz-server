@@ -11,7 +11,7 @@ sub edit_name     { l('Set track lengths from discid') }
 sub historic_type { 53 }
 sub edit_type     { $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

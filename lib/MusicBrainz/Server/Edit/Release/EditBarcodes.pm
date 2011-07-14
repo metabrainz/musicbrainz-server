@@ -54,7 +54,7 @@ sub edit_conditions
 
 sub release_ids { map { $_->{release}{id} } @{ shift->data->{submissions} } }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

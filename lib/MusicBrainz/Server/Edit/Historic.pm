@@ -43,7 +43,7 @@ has [qw( new_value previous_value )] => (
     is  => 'rw',
 );
 
-sub related_entities { return {} }
+sub _build_related_entities { return {} }
 
 sub deserialize
 {

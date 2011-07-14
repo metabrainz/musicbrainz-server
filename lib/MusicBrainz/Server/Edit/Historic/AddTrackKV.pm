@@ -13,7 +13,7 @@ sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
 sub edit_template { 'historic/add_track_kv' }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {
