@@ -304,7 +304,7 @@ sub _serialize_release
     $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
 
-    push @list, $gen->date($release->date->format) if $release->date;
+    push @list, $gen->date($release->date->format) if $release->date && !$release->date->is_empty;
     push @list, $gen->country($release->country->iso_code) if $release->country;
     push @list, $gen->barcode($release->barcode) if $release->barcode;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
