@@ -135,7 +135,7 @@ sub filter_additions
     my ($self, @additions) = @_;
 
     my $query =
-        'SELECT array_index
+        'SELECT DISTINCT ON (isrc, recording) array_index
            FROM (VALUES ' . join(', ', ('(?::int, ?::text, ?::int)') x @additions) . ')
                   addition (array_index, isrc, recording)
           WHERE NOT EXISTS (
