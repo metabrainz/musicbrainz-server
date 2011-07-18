@@ -7,6 +7,7 @@ use DBDefs;
 use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 
 #
@@ -188,6 +189,7 @@ sub begin : Private
 
     if (exists $c->action->attributes->{Edit} && $c->user_exists)
     {
+        log_debug { "User attempted to edit but is not authorized: $_" } $c->user;
         $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
     }
 
