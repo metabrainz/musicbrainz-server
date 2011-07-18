@@ -57,7 +57,8 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 
     $c->model('Editor')->load($collection);
 
-    my @results = $c->model('Release')->find_by_collection($collection->id, $MAX_ITEMS);
+    my ($limit, $offset) = $self->_limit_and_offset ($c);
+    my @results = $c->model('Release')->find_by_collection($collection->id, $limit, $offset);
 
     $opts->{releases} = $self->make_list(@results);
 
