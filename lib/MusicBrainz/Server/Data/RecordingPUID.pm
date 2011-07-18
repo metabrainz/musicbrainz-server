@@ -209,7 +209,7 @@ sub filter_additions
 
     return \@additions unless @tuples;
 
-    my $query = 'SELECT v.* FROM
+    my $query = 'SELECT DISTINCT ON (v.puid, v.recording) v.* FROM
         (VALUES ' . join(', ', ('(?::integer, ?::integer, ?)') x @tuples) . ') AS v(puid, recording, name)
         LEFT JOIN recording_puid rp ON (v.recording = rp.recording AND v.puid = rp.puid)
         WHERE rp.recording IS NULL AND rp.puid IS NULL';
