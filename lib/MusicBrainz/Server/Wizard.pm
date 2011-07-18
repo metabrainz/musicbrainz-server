@@ -2,6 +2,7 @@ package MusicBrainz::Server::Wizard;
 use Moose;
 use Cache::Memcached;
 use Carp qw( croak );
+use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params );
 
 my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
 
@@ -150,7 +151,9 @@ sub initialize
     if ($init_object)
     {
         my $max = scalar @{ $self->pages } - 1;
-        for (0..$max)
+        $self->_processed_page ($self->_load_page (0, $init_object));
+
+        for (1..$max)
         {
             $self->_load_page ($_, $init_object);
         }
@@ -184,18 +187,6 @@ sub render
     $self->c->stash->{form} = $page;
     $self->c->stash->{wizard} = $self;
     $self->c->stash->{steps} = \@steps;
-
-    # hide errors if this is the first time (in this wizard session) that this
-    # page is shown to the user.
-    if (! $self->shown ($self->_current))
-    {
-        $page->clear_errors;
-
-        # clear_errors doesn't clear everything, error_fields on the form still
-        # contains the error fields -- so let's set an extra flag so the template
-        # knows wether to show errors or not.
-        $self->c->stash->{hide_errors} = 1;
-    }
 
     # mark the current page as having been shown to the user.
     $self->shown ($self->_current, 1);
@@ -238,6 +229,8 @@ sub _load_page
 
         $form->field('wizard_session_id')->value ($self->_session_id);
         $self->_store ("step_$page", $form->serialize);
+
+        return $form;
     }
 
     my $serialized = $self->_store ("step_$page") || {};
@@ -245,20 +238,31 @@ sub _load_page
     return $self->_load_form ($page, serialized => $serialized);
 }
 
+sub get_value
+{
+    my ($self, $page, $key) = @_;
+
+    my $serialized = $self->_store ("step_" . $self->page_number->{$page});
+
+    return expand_param ($serialized->{values}, $key);
+}
+
 sub value
 {
     my ($self) = @_;
 
-    my %ret;
-    my $max = scalar @{ $self->pages } - 1;
-    for (0..$max)
+    my %data;
+    for my $pageno (values %{ $self->page_number })
     {
-        my $value = $self->_load_page ($_)->value;
+        my $values = $self->_store ("step_$pageno")->{values};
+        my $page_data = expand_all_params ($values);
+        while (my ($key, $value) = each %$page_data)
+        {
+            $data{$key} = $value;
+        }
+    } 
 
-        @ret{keys %$value} = values %$value;
-    }
-
-    return \%ret;
+    return \%data;
 }
 
 sub _store_page_in_session
@@ -295,6 +299,9 @@ sub seed {
     for (0..$max) {
         $self->_post_to_page($_, $params);
     }
+
+    # Reload page 0 with the seeded data.
+    $self->_processed_page ($self->_load_page (0));
 }
 
 sub _post_to_page

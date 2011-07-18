@@ -15,6 +15,8 @@ sub search : Path('')
     $c->req->query_params->{type} = 'recording'
         if $c->req->query_params->{type} eq 'track';
 
+    $c->req->query_params->{advanced} = $c->req->query_params->{adv};
+
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
     $c->stash->{taglookup} = $c->form( query_form => 'TagLookup' );
@@ -22,17 +24,14 @@ sub search : Path('')
 
     if ($form->process( params => $c->req->query_params ))
     {
-        if ($form->field('type')->value eq 'editor') {
-            $form->field('direct')->value(1);
-            $c->forward('editor');
-        }
-        elsif ($form->field('type')->value eq 'annotation' ||
-               $form->field('type')->value eq 'freedb' ||
-               $form->field('type')->value eq 'cdstub') {
+        if ($form->field('type')->value eq 'annotation' ||
+            $form->field('type')->value eq 'freedb'     ||
+            $form->field('type')->value eq 'cdstub') {
             $form->field('direct')->value(0);
             $c->forward('external');
         }
-        elsif ($form->field('type')->value eq 'tag')
+        elsif ($form->field('type')->value eq 'tag' ||
+               $form->field('type')->value eq 'editor')
         {
             $form->field('direct')->value(1);
             $c->forward('direct');
@@ -45,25 +44,6 @@ sub search : Path('')
     {
         $c->stash( template => 'search/index.tt' );
     }
-}
-
-sub editor : Private
-{
-    my ($self, $c) = @_;
-
-    my $form = $c->stash->{form};
-
-    my $query = $form->field('query')->value;
-    my $editor = $c->model('Editor')->get_by_name($query);
-    if (defined $editor) {
-        $c->res->redirect($c->uri_for_action('/user/profile', [ $editor->name ]));
-        $c->detach;
-    }
-
-    $c->stash(
-        template => 'search/editor-not-found.tt',
-        query    => $query,
-    );
 }
 
 sub direct : Private

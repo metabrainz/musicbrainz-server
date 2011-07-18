@@ -22,7 +22,7 @@
   </tr>
   [% END %]
 
-  [%- display_diff(l('Name:'),
+  [%- display_diff(l('Date:'),
                      html_escape(edit.display_data.date.old.format),
                      html_escape(edit.display_data.date.new.format),
                      '-') -%]

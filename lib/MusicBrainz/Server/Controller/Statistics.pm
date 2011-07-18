@@ -31,73 +31,35 @@ sub timeline : Local
         stats => {
             map {
                 $_ => $c->model('Statistics::ByName')->get_statistic($_)
-            } qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording )
+            } qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek )
         }
     )
 }
 
-sub artist_countries : Path('artist-countries')
+sub countries : Local
 {
     my ($self, $c) = @_;
 
     my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $country_stats = [];
     my $artist_country_prefix = 'count.artist.country';
-    my $artist_stats = [];
+    my $release_country_prefix = 'count.release.country';
+    my $label_country_prefix = 'count.label.country';
     my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
        if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
-            push(@$artist_stats, ({'entity' => $countries{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+	    my $release_stat = $stat_name;
+	    my $label_stat = $stat_name;
+	    $release_stat =~ s/$artist_country_prefix/$release_country_prefix/;
+	    $label_stat =~ s/$artist_country_prefix/$label_country_prefix/;
+            push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
        }
     }
 
     $c->stash(
-        template => 'statistics/artist_countries.tt',
-        stats    => $artist_stats,
-        date_collected => $stats->{date_collected}
-    );
-}
-
-sub release_countries : Path('release-countries')
-{
-    my ($self, $c) = @_;
-
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
-    my $release_country_prefix = 'count.release.country';
-    my $release_stats = [];
-    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
-    foreach my $stat_name
-        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-       if (my ($iso_code) = $stat_name =~ /^$release_country_prefix\.(.*)$/) { 
-            push(@$release_stats, ({'entity' => $countries{$iso_code}, 'count' => $stats->statistic($stat_name)}));
-       }
-    }
-
-    $c->stash(
-        template => 'statistics/release_countries.tt',
-        stats    => $release_stats,
-        date_collected => $stats->{date_collected}
-    );
-}
-
-sub label_countries : Path('label-countries')
-{
-    my ($self, $c) = @_;
-
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
-    my $label_country_prefix = 'count.label.country';
-    my $label_stats = [];
-    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
-    foreach my $stat_name
-        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-       if (my ($iso_code) = $stat_name =~ /^$label_country_prefix\.(.*)$/) { 
-            push(@$label_stats, ({'entity' => $countries{$iso_code}, 'count' => $stats->statistic($stat_name)}));
-       }
-    }
-
-    $c->stash(
-        template => 'statistics/label_countries.tt',
-        stats    => $label_stats,
+        template => 'statistics/countries.tt',
+        stats    => $country_stats,
         date_collected => $stats->{date_collected}
     );
 }

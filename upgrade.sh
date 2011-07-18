@@ -62,20 +62,20 @@ then
     echo 'TRUNCATE url_gid_redirect' | ./admin/psql READWRITE
     echo 'TRUNCATE work_alias' | ./admin/psql READWRITE
     curl -O "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update.tar.bz2"
-    ./admin/MBImport.pl 20110711-update.tar.bz2
+    curl -O "ftp://data.musicbrainz.org/pub/musicbrainz/data/20110711-update-derived.tar.bz2"
+    ./admin/MBImport.pl 20110711-update.tar.bz2 20110711-update-derived.tar.bz2
     ./admin/psql READWRITE < admin/sql/updates/20110710-tracklist-index-slave-after.sql
-    rm 20110711-update.tar.bz
-
-    echo `date` : Please update DB_SCHEMA_VERSION to 13 in your DBDefs.pm configuration
+    rm 20110711-update.tar.bz2
+    rm 20110711-update-derived.tar.bz2
 fi
 
 echo `date` : Materializing edit.status onto edit_artist and edit_label
 ./admin/psql READWRITE < ./admin/sql/updates/20110707-materialize-status.sql
 
-echo `date` : Dropping tracklist_index.tracks
-echo 'ALTER TABLE tracklist_index DROP COLUMN tracks' | ./admin/psql READWRITE
+echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE, current_replication_sequence = 51420;" | ./admin/psql READWRITE
 
-echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
+echo `date` : Replace special purpose triggers
+./admin/psql READWRITE < ./admin/sql/updates/20110713-special-purpose-triggers.sql
 
 echo `date` : Done
 

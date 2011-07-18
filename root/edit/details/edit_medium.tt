@@ -58,7 +58,7 @@
               new_track = change.2;
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
                                                                    new_track.artist_credit);
-              old_name_diff = Diff.diff_side(old_track.name, new_track.name, '-', '\s+');
+              old_name_diff = Diff.diff_side(html_escape(old_track.name), html_escape(new_track.name), '-', '\s+');
               old_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-'); -%]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td class="pos t">
@@ -128,7 +128,7 @@
               new_track = change.2;
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
                                                                    new_track.artist_credit);
-              new_name_diff = Diff.diff_side(old_track.name, new_track.name, '+', '\s+');
+              new_name_diff = Diff.diff_side(html_escape(old_track.name), html_ecsape(new_track.name), '+', '\s+');
               new_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '+') %]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td class="pos t">

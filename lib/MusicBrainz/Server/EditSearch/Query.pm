@@ -132,7 +132,9 @@ sub as_string {
         join(' ', $self->join) .
         ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
-        ') LIMIT 500 OFFSET ?';
+        ')
+         ORDER BY open_time DESC
+         LIMIT 500 OFFSET ?';
 }
 
 sub arguments {

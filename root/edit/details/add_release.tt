@@ -16,6 +16,13 @@
     <td>[% expanded_artist_credit(edit.display_data.artist_credit) %]</td>
   </tr>
 
+  <tr>
+    <th>[% l('Release group:') %]</th>
+    <td>
+      [% descriptive_link(edit.display_data.release_group) %]
+    </td>
+  </tr>
+
   [% IF edit.display_data.comment %]
   <tr>
     <th>[% l('Comment:') %]</th>

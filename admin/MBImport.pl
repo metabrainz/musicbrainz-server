@@ -436,6 +436,7 @@ sub ImportAllTables
         track
         track_name
         tracklist
+	tracklist_index
         url
         url_gid_redirect
         work

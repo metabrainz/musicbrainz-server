@@ -198,7 +198,7 @@ ws_test 'release lookup with recording-level relationships',
         <medium-list count="1">
             <medium>
                 <position>1</position>
-                <track-list count="9">
+                <track-list count="9" offset="0">
                     <track>
                         <position>1</position>
                         <length>256666</length>

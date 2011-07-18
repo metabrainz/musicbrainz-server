@@ -10,6 +10,8 @@ license 'gpl';
 version_from 'lib/MusicBrainz/Server.pm';
 
 # Mandatory modules
+requires 'Algorithm::Diff';
+requires 'Algorithm::Merge';
 requires 'Cache::Memcached';
 requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
@@ -24,6 +26,7 @@ requires 'Class::MOP';
 requires 'CSS::Minifier';
 requires 'Clone';
 requires 'Data::Compare';
+requires 'Data::Dumper::Concise';
 requires 'Data::OptList';
 requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
@@ -139,6 +142,7 @@ test_requires 'RDF::Query';
 test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
 test_requires 'Test::Differences';
+test_requires 'Test::Fatal' => '0.006';
 test_requires 'Test::JSON';
 test_requires 'Test::LongString';
 test_requires 'Test::Magpie' => '0.04';

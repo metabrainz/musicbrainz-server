@@ -14,16 +14,6 @@
   //]]></script>
 [%- END -%]
 
-[%- MACRO validate_barcode(field) BLOCK -%]
-<div class="barcode bubble">
-     <p>
-        [% l('Please enter the barcode of the release you are entering, see <a href="{url}">Barcode</a> for more information.', { url => c.uri_for('/doc/Barcode') }) %]
-     </p>
-     <p class="barcode-message"></p>
-     <p class="barcode-suggestion"></p>
-</div>
-[%- END -%]
-
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
   <div class="half-width">
@@ -176,7 +166,20 @@
     [% END %]
 
     <div class="barcode-container" style="display: none">
-    [% validate_barcode(form.field('barcode')) %]
+      <div class="barcode bubble">
+       <p>
+          [% l('Please enter the barcode of the release you are entering, see <a href="{url}">Barcode</a> for more information.', { url => c.uri_for('/doc/Barcode') }) %]
+       </p>
+       <p class="barcode-message"></p>
+       <p class="barcode-confirm">
+          <label for="id-barcode_confirm">
+            <strong>
+              [%- r.checkbox('barcode_confirm') %]
+              [% l("I confirm that this is the barcode as it appears on the release.") -%]
+            </strong>
+          </label>
+       </p>
+      </div>
     </div>
 
     <div class="annotation-container" style="display: none">
