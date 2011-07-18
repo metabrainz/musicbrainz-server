@@ -463,7 +463,7 @@ sub _serialize_track_list
     }
 
     my %attr = ( count => $tracklist->track_count );
-    $attr{offset} = $min - 1 if $min > 1;
+    $attr{offset} = $min - 1 if $min > 0;
 
     push @$data, $gen->track_list(\%attr, @list);
 }

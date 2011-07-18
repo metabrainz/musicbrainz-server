@@ -90,7 +90,7 @@ ws_test 'release lookup with labels and recordings',
         <medium-list count="1">
             <medium>
                 <position>1</position>
-                <track-list count="3">
+                <track-list count="3" offset="0">
                     <track>
                         <position>1</position>
                         <length>243000</length>
@@ -173,7 +173,7 @@ ws_test 'release lookup with discids and puids',
                         <sectors>60295</sectors>
                     </disc>
                 </disc-list>
-                <track-list count="3">
+                <track-list count="3" offset="0">
                     <track>
                         <position>1</position><title>Summer Reggae! Rainbow</title><length>296026</length>
                         <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
