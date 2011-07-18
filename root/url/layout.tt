@@ -4,7 +4,8 @@
         <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
-                <li>[% use_in_relationship(url) %]</li>
+                [%# Adds <li> itself %]
+                [% use_in_relationship(url) %]
                 <li>[% relate_to_ellipsis(url) %]</li>
 
                 <hr/>
