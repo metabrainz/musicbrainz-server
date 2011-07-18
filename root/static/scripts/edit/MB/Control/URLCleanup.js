@@ -46,6 +46,12 @@ MB.constants.LINK_TYPES = {
     purevolume: {
         artist: 174
     },
+    allmusic: {
+        artist: 283,
+        release_group: 284,
+        work: 286,
+        recording: 285
+    },
     amazon: {
         release: 77
     },
@@ -135,6 +141,13 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         purevolume: {
             match: new RegExp("^(https?://)?([^/]+\.)?purevolume\.com","i"),
             type: MB.constants.LINK_TYPES.purevolume
+        },
+        allmusic: {
+            match: new RegExp("^(https?://)?([^/]+\.)?allmusic\.com","i"),
+            type: MB.constants.LINK_TYPES.allmusic,
+            clean: function(url) {
+                return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|work|song|performance)\/(?:[^\/]*-)?([prtcf][0-9]+).*/, "http://allmusic.com/$1/$2");
+            }
         },
         amazon: {
             match: new RegExp("^(https?://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn)","i"),
@@ -278,7 +291,19 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
         return $('#id-ar\\.url').val().match(/\/(release|mp3)\//) != null;
     }
-
+    // allow Allmusic page only for the correct entities
+    validationRules[ MB.constants.LINK_TYPES.allmusic.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(artist)\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/\/album\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.work ] = function() {
+        return $('#id-ar\\.url').val().match(/\/work|song\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(performance)\//) != null;
+    }
 
     self.guessType = function (sourceType, currentURL) {
         for (var group in cleanups) {
