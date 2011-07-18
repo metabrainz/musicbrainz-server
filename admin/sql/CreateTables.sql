@@ -277,7 +277,7 @@ CREATE TABLE isrc
 (
     id                  SERIAL,
     recording           INTEGER NOT NULL, -- references recording.id
-    isrc                CHAR(12) NOT NULL,
+    isrc                CHAR(12) NOT NULL CHECK (isrc ~ E'^[A-Z]{2}[A-Z0-9]{3}[0-9]{7}$'),
     source              SMALLINT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -1145,7 +1145,7 @@ CREATE TABLE work (
     name                INTEGER NOT NULL, -- references work_name.id
     artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
-    iswc                CHAR(15),
+    iswc                CHAR(15) CHECK (iswc IS NULL OR iswc ~ E'^T-?\\d{3}\.?\\d{3}\.?\\d{3}[-.]?\\d$'),
     comment             VARCHAR(255),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
