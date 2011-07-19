@@ -366,7 +366,9 @@ sub associate_recordings
         my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}};
 
         # Track edit is already associated with a recording edit.
-        if ($rec_edit)
+        # (but ignore that association if it concerns an automatically
+        #  selected "add new recording").
+        if ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
         {
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
