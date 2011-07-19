@@ -89,7 +89,7 @@ MB.constants.LINK_TYPES = {
     }
 };
 
-var MB.constants.CLEANUPS = {
+MB.constants.CLEANUPS = {
     wikipedia: {
         match: new RegExp("^(https?://)?(([^/]+\\.)?wikipedia|secure\\.wikimedia)\\.","i"),
         type: MB.constants.LINK_TYPES.wikipedia,
