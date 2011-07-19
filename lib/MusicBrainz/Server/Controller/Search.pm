@@ -15,6 +15,9 @@ sub search : Path('')
     $c->req->query_params->{type} = 'recording'
         if $c->req->query_params->{type} eq 'track';
 
+    $c->req->query_params->{advanced} = $c->req->query_params->{adv}
+        if exists $c->req->query_params->{adv};
+
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
     $c->stash->{taglookup} = $c->form( query_form => 'TagLookup' );

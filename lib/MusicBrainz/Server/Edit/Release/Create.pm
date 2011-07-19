@@ -23,6 +23,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 sub edit_name { l('Add release') }
 sub edit_type { $EDIT_RELEASE_CREATE }

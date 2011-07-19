@@ -46,7 +46,8 @@
 
           <hr/>
 
-          <li>[% use_in_relationship(recording) %]</li>
+          [%# Adds <li> itself %]
+          [% use_in_relationship(recording) %]
           <li>[% relate_to_ellipsis(recording) %]</li>
           <li>[% relate_to_url(recording) %]</li>
 

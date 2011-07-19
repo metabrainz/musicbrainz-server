@@ -91,7 +91,8 @@
                 [% UNLESS artist.is_special_purpose %]
                   <hr/>
 
-                  <li>[% use_in_relationship(artist) %]</li>
+                  [%# Adds <li> itself %]
+                  [% use_in_relationship(artist) %]
                   <li>[% relate_to_ellipsis(artist) %]</li>
                   <li>[% relate_to_url(artist) %]</li>
 

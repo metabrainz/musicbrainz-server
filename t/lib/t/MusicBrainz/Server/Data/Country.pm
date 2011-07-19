@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
-use Test::Fatal qw( lives_ok );
+use Test::Fatal qw( exception );
 
 use MusicBrainz::Server::Data::Country;
 
@@ -77,7 +77,7 @@ test Cache => sub {
     # Clear the database connection
     $c = $c->meta->clone_object($c, conn => undef, models => {});
 
-    lives_ok {
+    ok !exception {
         my @all = $c->model('Country')->get_all;
 
         is ($all[0]->name, 'United Kingdom');
@@ -86,7 +86,7 @@ test Cache => sub {
         is ($all[1]->name, 'United States');
         is ($all[1]->iso_code, 'US');
 
-    } 'get_all served from cache, not database';
+    }, 'get_all served from cache, not database';
 
 };
 
