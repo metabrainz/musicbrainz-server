@@ -355,10 +355,6 @@ MB.Control.ReleaseInformation = function() {
 
         MB.Control.GuessCase ('release', $('#id-name'));
 
-        $('#id-change_track_artists').bind ('focus.mb', function () {
-            $('#help-cta').data ('bubble').show ();
-        });
-
         $('#id-various_artists').bind ('change.mb', function () {
             if ($(this).is(':checked'))
             {
