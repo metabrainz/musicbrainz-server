@@ -77,10 +77,25 @@ sub initialize
     })
 }
 
-sub accept
+sub insert
 {
     my ($self) = @_;
     $self->c->model('RecordingPUID')->delete($self->puid_id, $self->recording_puid_id);
+}
+
+sub reject
+{
+    my ($self) = @_;
+
+    my %puid_id = $self->c->model('PUID')->find_or_insert(
+        'ModBot',
+        $self->data->{puid}
+    );
+
+    $self->c->model('RecordingPUID')->insert({
+        recording_id => $self->data->{recording}{id},
+        puid_id      => $puid_id{ $self->data->{puid} }
+    });
 }
 
 __PACKAGE__->meta->make_immutable;

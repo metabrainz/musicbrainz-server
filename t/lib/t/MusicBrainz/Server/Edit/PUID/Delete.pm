@@ -22,29 +22,23 @@ my $delete_puid = $c->model('RecordingPUID')->get_by_recording_puid(3, '134478d1
 my $edit = _create_edit($c, $delete_puid);
 isa_ok($edit, 'MusicBrainz::Server::Edit::PUID::Delete');
 
-my @puids = $c->model('RecordingPUID')->find_by_recording(3);
-is(scalar @puids, 2);
-
-my $puid = $c->model('RecordingPUID')->get_by_id(6);
-is($puid->edits_pending, 1);
-
 my ($edits, $hits) = $c->model('Edit')->find({ recording => 3 }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 
+my @puids = $c->model('RecordingPUID')->find_by_recording(3);
+is(scalar @puids, 1);
+
+my $puid = $c->model('RecordingPUID')->get_by_id(6);
+ok(!defined $puid);
+
 reject_edit($c, $edit);
 
-$puid = $c->model('RecordingPUID')->get_by_id(6);
-is($puid->edits_pending, 0);
+@puids = $c->model('RecordingPUID')->find_by_recording(3);
+is(scalar @puids, 2);
 
 $edit = _create_edit($c, $delete_puid);
 accept_edit($c, $edit);
-
-@puids = $c->model('RecordingPUID')->find_by_recording(3);
-is(scalar @puids, 1);
-
-$puid = $c->model('RecordingPUID')->get_by_id(6);
-ok(!defined $puid);
 
 };
 
