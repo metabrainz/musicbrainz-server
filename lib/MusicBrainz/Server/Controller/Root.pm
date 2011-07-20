@@ -187,10 +187,10 @@ sub begin : Private
         }
     }
 
-    if (exists $c->action->attributes->{Edit} && $c->user_exists)
+    if (exists $c->action->attributes->{Edit} && $c->user_exists && !$c->user->has_confirmed_email_address)
     {
         log_debug { "User attempted to edit but is not authorized: $_" } $c->user;
-        $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
+        $c->forward('/error_401');
     }
 
     if (DBDefs::DB_READ_ONLY && (exists $c->action->attributes->{Edit} ||
