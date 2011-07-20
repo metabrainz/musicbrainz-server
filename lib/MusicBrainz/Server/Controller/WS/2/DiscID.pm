@@ -45,17 +45,14 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type}
         );
 
-        if (@releases) {
-            $opts->{releases} = $self->make_list (\@releases);
+        $opts->{releases} = $self->make_list (\@releases);
 
-            for (@releases) {
-                $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
-            }
-
-            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-            $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
-            return
+        for (@releases) {
+            $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
         }
+
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
     }
 
     if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
