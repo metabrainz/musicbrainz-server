@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
+use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use Function::Parameters 'f';
 use List::Util qw( first );
 use Try::Tiny;
@@ -196,6 +197,22 @@ sub submit_puid : Private
 sub submit_isrc : Private
 {
     my ($self, $c, $submit, $recordings) = @_;
+
+    # Ensure that we're not a replicated server and that we were given a client version
+    my $client = $c->req->params->{client};
+    if ($client eq '') {
+        $c->stash->{error} = 'Client parameter must be given';
+        $c->detach('bad_req');
+    }
+
+    for my $isrcs (values %$submit) {
+        for my $isrc (@$isrcs) {
+            unless (is_valid_isrc($isrc)) {
+                $c->stash->{error} = 'ISRCs must be in valid ISRC format';
+                $c->detach('bad_req');
+            }
+        }
+    }
 
     my $buffer = Buffer->new(
         limit   => 100,
