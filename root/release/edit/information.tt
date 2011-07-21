@@ -63,6 +63,7 @@
          <label for="release-date">[% l('Date') %]</label>
          [% r.date('date') %]
       [% END %]
+      [% field_errors(r.form, 'date') %]
 
       [% form_row_select (r, 'country_id', 'Country') %]
       [% form_row_select (r, 'packaging_id', 'Packaging') %]
