@@ -266,7 +266,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     };
     // allow Discogs page only for the correct entities
     validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/\/artist\//) != null;
+        return $('#id-ar\\.url').val().match(/\/(artist|user)\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.label ] = function() {
         return $('#id-ar\\.url').val().match(/\/label\//) != null;
@@ -275,7 +275,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return $('#id-ar\\.url').val().match(/\/master\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
-        return $('#id-ar\\.url').val().match(/\/release\//) != null;
+        return $('#id-ar\\.url').val().match(/\/(release|mp3)\//) != null;
     }
 
 
