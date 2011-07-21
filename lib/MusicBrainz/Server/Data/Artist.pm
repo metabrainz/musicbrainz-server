@@ -25,8 +25,8 @@ use Sub::Exporter -setup => {
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
@@ -41,9 +41,15 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 
 sub _table
 {
-    return 'artist ' .
+    my $self = shift;
+    return 'artist ' . (shift() || '') . ' ' .
            'JOIN artist_name name ON artist.name=name.id ' .
            'JOIN artist_name sort_name ON artist.sort_name=sort_name.id';
+}
+
+sub _table_join_name {
+    my ($self, $join_on) = @_;
+    return $self->_table("ON artist.name = $join_on OR artist.sort_name = $join_on");
 }
 
 sub _columns

@@ -19,7 +19,7 @@ role
 {
     my $params = shift;
 
-    requires 'c', '_entity_class';
+    requires 'c', '_entity_class', '_table_join_name';
 
     has 'alias' => (
         is => 'ro',
@@ -38,7 +38,47 @@ role
             parent => $self
         );
         ensure_all_roles($alias, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
-    }
+    };
+
+    around 'find_by_names' => sub {
+        my ($orig, $self, @names) = @_;
+        return {} unless scalar @names;
+
+        my $type = $params->type;
+        my $id = $self->_id_column;
+        my $query =
+            "WITH search (term) AS (" .
+                "VALUES " . join (",", ("(?)") x scalar @names) .
+            ")" .
+                # Search once over aliases
+                "(".
+                    "SELECT search.term AS search_term, " . $self->_columns .
+                    " FROM " . $self->name_table . " search_name" .
+                    " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
+                    " JOIN " . $params->table . " alias ON alias.name = search_name.id" .
+                    " JOIN " . $self->_table("ON alias.$type = $id")  .
+                ")".
+                " UNION " .
+                # Search again over name/sort-name
+                "(".
+                    "SELECT search.term AS search_term, " . $self->_columns .
+                    " FROM " . $self->name_table . " search_name" .
+                    " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
+                    " JOIN " . $self->_table_join_name("search_name.id").
+                ")";
+
+        $self->c->sql->select($query, @names);
+        my %ret;
+        while (my $row = $self->c->sql->next_row_hash_ref) {
+            my $search_term = delete $row->{search_term};
+
+            $ret{$search_term} ||= [];
+            push @{ $ret{$search_term} }, $self->_new_from_row ($row);
+        }
+        $self->c->sql->finish;
+
+        return \%ret;
+    };
 };
 
 
