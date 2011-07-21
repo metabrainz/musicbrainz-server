@@ -898,10 +898,12 @@ MB.Control.ReleaseAdvancedTab = function () {
     self.updateDiscTitle = function () {
         var pos = self.positions.length;
         var count = 0;
+        var firstdisc = 1;
         while (pos > 0)
         {
             if (self.positions[pos])
             {
+                firstdisc = pos;
                 count++;
             }
             pos--;
@@ -909,11 +911,11 @@ MB.Control.ReleaseAdvancedTab = function () {
 
         if (count === 1)
         {
-            self.positions[1].disableDiscTitle ();
+            self.positions[firstdisc].disableDiscTitle ();
         }
         else
         {
-            self.positions[1].enableDiscTitle ();
+            self.positions[firstdisc].enableDiscTitle ();
         }
     };
 
