@@ -110,6 +110,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             match: new RegExp("^(https?://)?([^/]+\.)?discogs\.com","i"),
             type: MB.constants.LINK_TYPES.discogs,
             clean: function(url) {
+                url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
                 return url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
             }
         },
