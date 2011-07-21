@@ -26,8 +26,8 @@ sub change_fields
         priority            => Optional[Int],
         attributes          => Optional[ArrayRef[Dict[
             name => Optional[Str], # Used in old historic edits
-            min  => Int,
-            max  => Int,
+            min  => Nullable[Int],
+            max  => Nullable[Int],
             type => Optional[Int], # Used in the new edits
         ]]]
     ]

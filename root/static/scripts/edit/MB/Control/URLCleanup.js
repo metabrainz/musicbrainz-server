@@ -300,6 +300,11 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         var url = self.urlControl.val(),
             clean = self.cleanUrl(url) || url;
 
+        if (url.match(/^\w+\./)) {
+            self.urlControl.val('http://' + url);
+            return
+        }
+
         if (url !== clean)
             self.urlControl.val(clean);
 
