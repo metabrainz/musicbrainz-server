@@ -1,0 +1,50 @@
+[%- MACRO entry(entity, type) BLOCK -%]
+<tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+    <td>[% loop.count() %].</td>
+    <td>[% l(entity.entity.name) %]</td>
+    [% IF type == 'lang' %]
+    <td><a href="/search?query=[% type %]%3A[% entity.entity.iso_code_3t %]&type=release&limit=25&advanced=1">[% entity.count %]</a></td>
+    [% ELSIF type == 'script' %]
+    <td><a href="/search?query=[% type %]%3A[% entity.entity.iso_code %]&type=release&limit=25&advanced=1">[% entity.count %]</a></td>
+    [% END %]
+</tr>
+[%- END -%]
+
+[% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
+
+<p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
+
+<h2 id="languages">[%- l('Languages') -%]</h2>
+<p><a href="#scripts">[%- l('jump to script statistics') -%]</a></p>
+<table class="tbl">
+<thead>
+<tr>
+<th>[% l('Rank') %]</th>
+<th>[% l('Language') %]</th>
+<th>[% l('Releases') %]</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH language IN language_stats -%]
+[%- entry(language, 'lang') -%]
+[%- END -%]
+</tbody>
+</table>
+
+<h2 id="scripts">[%- l('Scripts') -%]</h2>
+<p><a href="#languages">[%- l('jump to language statistics') -%]</a></p>
+<table class="tbl">
+<thead>
+<tr>
+<th>[% l('Rank') %]</th>
+<th>[% l('Script') %]</th>
+<th>[% l('Releases') %]</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH script IN script_stats -%]
+[%- entry(script, 'lang') -%]
+[%- END -%]
+</tbody>
+</table>
+[% END %]
