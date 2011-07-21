@@ -1163,7 +1163,6 @@ sub _preview_edit
         %args
     ) or return;
 
-    push @{ $self->c->stash->{edits} }, $edit;
     return $edit;
 }
 
@@ -1211,6 +1210,7 @@ sub _create_edit {
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) { }
 
+    push @{ $self->c->stash->{edits} }, $edit;
     return $edit;
 }
 
