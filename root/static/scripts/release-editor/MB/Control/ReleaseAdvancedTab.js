@@ -400,6 +400,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.isEmpty = function () {
+        if (! self.expanded)
+        {
+            return false;
+        }
+
         if (self.tracks.length === 0)
         {
             return true;
