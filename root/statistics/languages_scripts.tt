@@ -43,7 +43,7 @@
 </thead>
 <tbody>
 [%- FOREACH script IN script_stats -%]
-[%- entry(script, 'lang') -%]
+[%- entry(script, 'script') -%]
 [%- END -%]
 </tbody>
 </table>
