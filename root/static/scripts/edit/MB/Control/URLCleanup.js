@@ -264,6 +264,19 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.lyrics.work ] = function() {
         return cleanups.lyrics.match.test($('#id-ar\\.url').val())
     };
+    // allow Discogs page only for the correct entities
+    validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\/artist\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.discogs.label ] = function() {
+        return $('#id-ar\\.url').val().match(/\/label\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/\/master\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
+        return $('#id-ar\\.url').val().match(/\/release\//) != null;
+    }
 
 
     self.guessType = function (sourceType, currentURL) {
