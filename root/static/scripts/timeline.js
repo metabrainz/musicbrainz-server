@@ -21,12 +21,21 @@ $(document).ready(function () {
 
     function graphData () {
         var alldata =  [];
+        var ratedata = [];
         $("#graph-lines div input").filter(":checked").each(function () { 
             if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
-                alldata.push(datasets[$(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length)]);
+                datasetId = $(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length);
+                alldata.push(datasets[datasetId]);
+                ratedata.push(rateData(datasets[datasetId]));
             }
         });
-        return alldata
+        return [alldata, ratedata]
+    }
+    
+    function rateData(dataset) {
+        var rateHash = $.extend({}, dataset);
+        rateHash.data = rateHash.rate_of_change_data;
+        return rateHash
     }
 
     function jq(myid) { 
@@ -46,7 +55,7 @@ $(document).ready(function () {
             xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
             yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }}
 
-    removeFromHash('g-([0-9.e]+-){3}[0-9.e]+');
+    removeFromHash('g-([0-9.e]+/){3}[0-9.e]+');
     changeHash(false, hashPartFromGeometry(graphZoomOptions), true);
     });
 
@@ -54,12 +63,17 @@ $(document).ready(function () {
         plot.setSelection(ranges);
     });
 
+    $('#rate-of-change-graph').bind('plotselected', function(event, ranges) {
+        var axis = plot.getAxes().yaxis;
+        plot.setSelection({xaxis: ranges.xaxis, yaxis: {from: axis.min, to: axis.max}});
+    });
+
     // "Reset Graph" functionality
-    $('#graph-container, #overview').bind('plotunselected', function () { 
+    $('#graph-container, #overview, #rate-of-change-graph').bind('plotunselected', function () { 
         if (!plot.getOptions().musicbrainzEvents.currentEvent.link) 
         {
             graphZoomOptions = {};
-            removeFromHash('g-([0-9.e]+-){3}[0-9.e]+');
+            removeFromHash('g-([0-9.e]+/){3}[0-9.e]+');
         } else {
             // we're clicking on an event, should open the link instead
             window.open(plot.getOptions().musicbrainzEvents.currentEvent.link);
@@ -90,53 +104,75 @@ $(document).ready(function () {
     function changeCurrentEvent(item) {
         musicbrainzEventsOptions.musicbrainzEvents.currentEvent = item;
         plot.changeCurrentEvent(item);
+        if (rateplot) { rateplot.changeCurrentEvent(item); }
+    }
+
+    function setItemTooltip(item, extra) {
+            if (!extra) { extra = '' };
+            removeTooltip();
+            setCursor();
+            var x = item.datapoint[0],
+                y = item.datapoint[1],
+                date = new Date(parseInt(x));
+
+            if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
+            if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
+
+            showTooltip(item.pageX, item.pageY,
+                date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
+            changeCurrentEvent({});
+    }
+
+    function setEventTooltip(plot, pos) {
+        var thisEvent = plot.getEvent(pos);
+        if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
+            removeTooltip();
+            setCursor('pointer');
+            showTooltip(pos.pageX, pos.pageY, 
+                '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
+
+            changeCurrentEvent(thisEvent);
+        }
+    }
+
+    function clearAll() {
+        setCursor();
+        removeTooltip();
+        previousPoint = null;
+        ratePreviousPoint = null;
+        changeCurrentEvent({});
     }
 
     var previousPoint = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
-        if(item) {
-            if (previousPoint != item.dataIndex) {
-                previousPoint = item.dataIndex;
-
-                removeTooltip();
-                setCursor();
-                var x = item.datapoint[0],
-                    y = item.datapoint[1],
-                    date = new Date(parseInt(x));
-
-                if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
-                if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
-
-                showTooltip(item.pageX, item.pageY,
-                    date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label);
-                changeCurrentEvent({});
-            }
-        } else if (plot.getEvent(pos)) {
-                var thisEvent = plot.getEvent(pos);
-                if (musicbrainzEventsOptions.musicbrainzEvents.currentEvent.jsDate != thisEvent.jsDate) {
-                    removeTooltip();
-                    setCursor('pointer');
-                    showTooltip(pos.pageX, pos.pageY, '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
-
-                    changeCurrentEvent(thisEvent);
-                }
-        } else {
-            setCursor();
-            removeTooltip();
-            previousPoint = null;
-
-            changeCurrentEvent({});
-        }
+        if(item && previousPoint != item.dataIndex) {
+            previousPoint = item.dataIndex;
+            setItemTooltip(item);
+        } 
+        else if (plot.getEvent(pos)) { setEventTooltip(plot, pos); } 
+        else { clearAll(); }
     });
 
-    function hashPartFromGeometry(geometry) {
-        var blah = 'g-' + geometry.xaxis.min + '-' + geometry.xaxis.max + '-' + geometry.yaxis.min + '-' + geometry.yaxis.max;
-        return blah;
-    }
+    var ratePreviousPoint = null;
+    $('#rate-of-change-graph').bind('plothover', function (event, pos, item) { 
+        if(item && ratePreviousPoint != item.dataIndex) {
+            ratePreviousPoint = item.dataIndex;
+            setItemTooltip(item, MB.text.Timeline.RateTooltipCloser);
+        } 
+        else if (rateplot.getEvent(pos)) { setEventTooltip(rateplot, pos); } 
+        else { clearAll(); }
+    });
 
+    function hashPartFromGeometry(g) {
+        return 'g-' + g.xaxis.min + '/' + g.xaxis.max + 
+                '/' + g.yaxis.min + '/' + g.yaxis.max;
+    }
     function geometryFromHashPart(hashPart){
-        var hashParts = hashPart.substr(2).split('-');
-        return { xaxis: { min: parseFloat(hashParts[0]), max: parseFloat(hashParts[1]) }, yaxis: { min: parseFloat(hashParts[2]), max: parseFloat(hashParts[3]) }};
+        var hashParts = hashPart.substr(2).split('/');
+        return { xaxis: { min: parseFloat(hashParts[0]), 
+                          max: parseFloat(hashParts[1]) }, 
+                 yaxis: { min: parseFloat(hashParts[2]), 
+                          max: parseFloat(hashParts[3]) }};
     }
 
     function changeHash(minus, newHashPart, hide) {
@@ -185,18 +221,22 @@ $(document).ready(function () {
             var queries = hash.split('+');
 
             $.each(queries, function (index, value) {
-                var remove = (value.substr(0,1) == '-');
-                if (remove) {
-                    value = value.substr(1);
-                }
-                var category = (value.substr(0,2) == 'c-');
-                if (category) {
-                    value = value.substr(2);
-                }
-                if (!(value.substr(0,2) == 'g-')) {
-                    check(value, !remove, category);
-                } else if (value.substr(0,2) == 'g-') {
+                if (value.substr(0,2) == 'g-') {
                     graphZoomOptions = geometryFromHashPart(value);
+		} else if (value.substr(0,3) == '-v-') {
+                    $('#disable-events-checkbox').attr('checked', false).change();
+		} else if (value.substr(0,2) == 'r-') {
+                    $('#show-rate-graph').attr('checked', true).change();
+                } else {
+                    var remove = (value.substr(0,1) == '-');
+                    if (remove) {
+                        value = value.substr(1);
+                    }
+                    var category = (value.substr(0,2) == 'c-');
+                    if (category) {
+                        value = value.substr(2);
+                    }
+                    check(value, !remove, category);
                 }
             });
         resetPlot();
@@ -208,7 +248,14 @@ $(document).ready(function () {
         var plot_options = $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions)
         plot = $.plot($("#graph-container"), data[0], plot_options);
         plot.triggerRedrawOverlay();
-        overview = $.plot($('#overview'), data, overviewOptions);
+
+        if ($('#show-rate-graph').attr('checked')) {
+            var rate_options = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis}, musicbrainzEventsOptions);
+            rateplot = $.plot($("#rate-of-change-graph"), data[1], rate_options);
+            rateplot.triggerRedrawOverlay();
+        } else { rateplot = null; }
+
+        overview = $.plot($('#overview'), data[0], overviewOptions);
     }
 
     MB.setupGraphing = function (data, goptions, ooptions) {
@@ -255,10 +302,18 @@ $(document).ready(function () {
         });
 
        $('#disable-events-checkbox').change(function () {
-           var $this = $(this);
-           musicbrainzEventsOptions.musicbrainzEvents.enabled = $this.attr('checked');
-	   $(window).hashchange();
+	   var minus = !$(this).attr('checked');
+           musicbrainzEventsOptions.musicbrainzEvents.enabled = !minus;
+	   changeHash(minus, 'v-', false);
        });
+
+       $('#show-rate-graph').change(function () {
+           var $graph = $('#rate-of-change-graph');
+           var $show = $(this).attr('checked');
+           $graph.css($show ? {position: 'relative', right: ''} : {position: 'absolute', right: 100000});
+           $graph.prev('h2')[$show ? 'show' : 'hide']();
+	   changeHash(!$show, 'r-', true);
+       }).attr('checked', false).change();
 
         $('div.graph-category').each(function () {
             var category = $(this).attr('id').substr(categoryIDPrefix.length);

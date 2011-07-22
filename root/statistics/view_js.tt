@@ -19,6 +19,7 @@
 (function(MB) {
     $.extend(MB.text, {
         Timeline: {
+           RateTooltipCloser: '[% l('/day') %]',
            Category: {
                 "core-entities" : { Label: '[% l('Core Entities') %]' },
                 "edit-information": { Label: '[% l('Edit Information') %]', Hide: true }
