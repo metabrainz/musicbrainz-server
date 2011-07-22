@@ -73,6 +73,6 @@
 [%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]
 <h2>[% l('Exact Values (items vs. day)') %]</h2>
 <div id="graph-container"></div>
-<h2>[% l('Rate of Change (items/day vs. day)') %]</h2>
+<h2>[% l('Rate of Change (items/week vs. day)') %]</h2>
 <div id="rate-of-change-graph"></div>
 [% END %]
