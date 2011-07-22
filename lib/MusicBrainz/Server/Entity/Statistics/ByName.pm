@@ -20,6 +20,20 @@ has name => (
    isa => 'Str'
 );
 
+sub rate_of_change {
+    my ($self) = @_;
+
+    my $last_count = undef;
+    my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new();
+    $stats->name( $self->{name} );
+    foreach my $date (sort keys %{ $self->{data} }) {
+        $stats->data->{ $date } = $self->statistic_for($date) - $last_count unless not $last_count;
+        $last_count = $self->statistic_for($date);
+    }
+
+    return $stats;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
