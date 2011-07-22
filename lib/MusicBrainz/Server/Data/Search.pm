@@ -131,9 +131,6 @@ sub search
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
-            $join_sql = "JOIN track ON r.id = track.name
-                         JOIN ${type} entity ON track.recording = entity.id";
-
             if ($where && exists $where->{artist})
             {
                 $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit"
