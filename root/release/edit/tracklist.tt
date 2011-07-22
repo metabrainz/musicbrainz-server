@@ -8,12 +8,7 @@
     $('document').ready (function () {
 
        MB.release_artist_json = [% release_artist_json %];
-       MB.medium_cdtocs = [
-       [%- FOR medium=release.mediums -%]
-           [% medium.cdtocs.size %],
-       [%- END -%]
-           null
-       ];
+       MB.medium_cdtocs = [%- medium_cdtocs_json -%];
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);

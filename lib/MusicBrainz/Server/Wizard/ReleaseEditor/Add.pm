@@ -164,6 +164,7 @@ override 'prepare_tracklist' => sub {
     my ($self, $release) = @_;
 
     $self->c->stash->{release_artist_json} = "null";
+    $self->c->stash->{medium_cdtocs_json} = "[]";
 
     my $json = JSON::Any->new( utf8 => 1 );
 
