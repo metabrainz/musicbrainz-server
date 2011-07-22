@@ -7,7 +7,8 @@ $(document).ready(function () {
     var graphOptions = {};
     var overviewOptions = {};
     var graphZoomOptions = {};
-    var lastHash = null;
+    var newHash = '';
+    var hashChangeTimeoutId = [];
 
     // MusicBrainz Events fetching
     $.get('/static/xml/mb_history.xml', function (data) {
@@ -78,15 +79,14 @@ $(document).ready(function () {
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
     }
-    function removeTooltip() {
-        $('#tooltip').remove();
-    }
+
+    function removeTooltip() { $('#tooltip').remove(); }
+
     function setCursor(type) {
-        if (!type) {
-            type = '';
-        }
+        if (!type) { type = ''; }
         $('body').css('cursor', type);
     }
+
     function changeCurrentEvent(item) {
         musicbrainzEventsOptions.musicbrainzEvents.currentEvent = item;
         plot.changeCurrentEvent(item);
@@ -140,22 +140,34 @@ $(document).ready(function () {
     }
 
     function changeHash(minus, newHashPart, hide) {
-        if (!new RegExp('\\+?-?' + newHashPart + '(?=($|\\+))').test(location.hash)) {
+        if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id); hashChangeTimeoutId.splice(i, 1); }); }
+
+        if (!new RegExp('\\+?-?' + newHashPart + '(?=($|\\+))').test(newHash)) {
             if (hide != minus) {
-                window.location.hash = location.hash + (location.hash != '' ? '+' : '') + (minus ? '-' : '') + newHashPart;
+                newHash = newHash + (newHash != '' ? '+' : '') + (minus ? '-' : '') + newHashPart;
             }
         } else {
             if (hide != minus) {
-                window.location.hash = location.hash.replace(new RegExp('-?' + newHashPart + '(?=($|\\+))'), (minus ? '-' : '') + newHashPart);
+                newHash = newHash.replace(new RegExp('-?' + newHashPart + '(?=($|\\+))'), (minus ? '-' : '') + newHashPart);
             } else { 
                 removeFromHash('-?' + newHashPart);
             }
         }
+
+        hashChangeTimeoutId.push(window.setTimeout(changeHashTimeout, 1000));
     }
 
     function removeFromHash(toRemove) {
+        if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id); hashChangeTimeoutId.splice(i, 1); }); }
         var regex = new RegExp('\\+?' + toRemove + '(?=($|\\+))')
-        window.location.hash = location.hash.replace(regex , '');
+        newHash = newHash.replace(regex , '');
+        hashChangeTimeoutId.push(window.setTimeout(changeHashTimeout, 1000));
+    }
+
+    function changeHashTimeout() {
+            if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id);  }); }
+            window.location.hash = newHash;
+            hashChangeTimeoutId = [];
     }
 
     function check(name, toggle, categoryp) {
@@ -168,8 +180,7 @@ $(document).ready(function () {
     }
 
     $(window).hashchange(function () {
-        if (lastHash != location.hash) {
-            lastHash = location.hash;
+
             var hash = location.hash.replace( /^#/, '' );
             var queries = hash.split('+');
 
@@ -188,15 +199,14 @@ $(document).ready(function () {
                     graphZoomOptions = geometryFromHashPart(value);
                 }
             });
-        }
         resetPlot();
     });
 
 
     function resetPlot () {
         var data = graphData();
-        plot = $.plot($("#graph-container"), data, 
-            $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions));
+        var plot_options = $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions)
+        plot = $.plot($("#graph-container"), data[0], plot_options);
         plot.triggerRedrawOverlay();
         overview = $.plot($('#overview'), data, overviewOptions);
     }
@@ -264,6 +274,7 @@ $(document).ready(function () {
             }
         });
 
+        newHash = location.hash;
 
         $(window).hashchange();
     }
