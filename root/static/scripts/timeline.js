@@ -145,9 +145,11 @@ $(document).ready(function () {
 
     var previousPoint = null;
     $('#graph-container').bind('plothover', function (event, pos, item) { 
-        if(item && previousPoint != item.dataIndex) {
-            previousPoint = item.dataIndex;
-            setItemTooltip(item);
+        if(item) {
+            if (previousPoint != item.dataIndex) {
+                previousPoint = item.dataIndex;
+                setItemTooltip(item);
+	    }
         } 
         else if (plot.getEvent(pos)) { setEventTooltip(plot, pos); } 
         else { clearAll(); }
@@ -155,9 +157,11 @@ $(document).ready(function () {
 
     var ratePreviousPoint = null;
     $('#rate-of-change-graph').bind('plothover', function (event, pos, item) { 
-        if(item && ratePreviousPoint != item.dataIndex) {
-            ratePreviousPoint = item.dataIndex;
-            setItemTooltip(item, MB.text.Timeline.RateTooltipCloser);
+        if(item) {
+	    if (ratePreviousPoint != item.dataIndex) {
+                ratePreviousPoint = item.dataIndex;
+                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser);
+	    }
         } 
         else if (rateplot.getEvent(pos)) { setEventTooltip(rateplot, pos); } 
         else { clearAll(); }
