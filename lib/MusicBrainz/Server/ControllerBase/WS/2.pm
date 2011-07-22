@@ -7,6 +7,7 @@ use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
+use Try::Tiny;
 
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
@@ -78,7 +79,15 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 {
     my ($self, $c) = @_;
 
-    $self->validate($c, \%serializers) or $c->detach('bad_req');
+    try {
+        $self->validate($c, \%serializers) or $c->detach('bad_req');
+    }
+    catch {
+        my $err = $_;
+        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+            $self->_error($c, $err->message);
+        }
+    };
 
     $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
 }
