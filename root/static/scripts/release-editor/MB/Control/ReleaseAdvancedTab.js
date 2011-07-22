@@ -532,13 +532,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         var use_data = function (data) {
             self.loadTracklist (data);
-            if (chained) {
-                self.basic.loadTracklist (data);
-            }
-
-            if (self.hasToc ()) {
-                self.track_count = data.length;
-            }
+            self.fixTrackCount ();
+            self.basic.loadTracklist (data);
         };
 
         self.$nowloading.show ();
@@ -605,6 +600,17 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.sort ();
         self.$table.show ();
         self.$nowloading.hide ();
+    };
+
+    /* if this medium has a toc, force the correct number of tracks
+       (adding or removing tracks as neccesary). */
+    self.fixTrackCount = function () {
+        if (!self.hasToc ())
+            return;
+
+        self.track_count = MB.medium_cdtocs[self.number];
+        self.removeTracks (self.track_count);
+        self.getTrack (self.track_count - 1);
     };
 
     self.guessCase = function () {
