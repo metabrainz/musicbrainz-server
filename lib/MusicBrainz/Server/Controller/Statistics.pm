@@ -28,11 +28,7 @@ sub timeline : Local
 
     $c->stash(
         template => 'statistics/timeline.tt',
-        stats => {
-            map {
-                $_ => $c->model('Statistics::ByName')->get_statistic($_)
-            } qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek )
-        }
+        stats => $c->model('Statistics::ByName')->get_statistics( qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek ) )
     )
 }
 
