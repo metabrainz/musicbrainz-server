@@ -24,18 +24,87 @@ $(document).ready(function () {
         var ratedata = [];
         $("#graph-lines div input").filter(":checked").each(function () { 
             if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
-                datasetId = $(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length);
+                var datasetId = $(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length);
                 alldata.push(datasets[datasetId]);
-                ratedata.push(rateData(datasets[datasetId]));
+                ratedata.push(rateData(datasetId));
             }
         });
         return [alldata, ratedata]
     }
     
-    function rateData(dataset) {
+    function rateData(datasetId) {
+        var dataset = datasets[datasetId];
         var rateHash = $.extend({}, dataset);
-        rateHash.data = rateHash.rate_of_change_data;
+        if (!dataset.rateOfChange) {
+            datasets[datasetId].rateOfChange = weeklyRate(dataset.data);
+            dataset = datasets[datasetId];
+        }
+        rateHash.data = dataset.rateOfChange.data;
+        rateHash.rateBounds = dataset.rateOfChange.bounds;
         return rateHash
+    }
+
+    function weeklyRate(data) {
+        var newData = [];
+        var dayData = [];
+        var oneWeek = 1000 * 60 * 60 * 24 * 7;
+        var oneDay = 1000 * 60 * 60 * 24;
+        var mean = 0;
+        var count = 0;
+
+        $.each(data, function(index, value) {
+            var oneDayAgoDate = value[0] - oneDay;
+            var oneDayAgoValue = null;
+            $.each(data, function(innerIndex, innerValue) {
+                if (innerValue[0] == oneDayAgoDate) {
+                    oneDayAgoValue = value[1] - innerValue[1];
+                    count++;
+                    mean = mean + oneDayAgoValue;
+                }           
+            });
+            if (oneDayAgoValue) {
+                dayData.push(oneDayAgoValue);
+            }
+        });
+        mean = mean / count;
+
+        var deviationSum = 0;
+        var deviationCount = 0;
+        $.each(dayData, function(index, value) {
+            toSquare = value - mean;
+            deviationCount++;
+            deviationSum = deviationSum + toSquare * toSquare;
+        });
+        var standardDeviation = Math.sqrt(deviationSum / deviationCount);
+        var thresholds = {min: mean - 5 * standardDeviation, 
+                          max: mean + 5 * standardDeviation};
+        var rateBounds = {min: thresholds.max, max: thresholds.min};
+        $.each(data, function(index, value) {
+            var oneWeekAgoDate = value[0] - oneWeek;
+            var oneWeekAgoValue = null;
+            $.each(data, function(innerIndex, innerValue) {
+                if (innerValue[0] == oneWeekAgoDate) {
+                    oneWeekAgoValue = value[1] - innerValue[1];
+                }           
+            });
+            if (oneWeekAgoValue) {
+                newData.push([value[0], oneWeekAgoValue]);
+                if (oneWeekAgoValue > thresholds.min && 
+                      oneWeekAgoValue < thresholds.max) {
+                    if (oneWeekAgoValue > rateBounds.max) {
+                        rateBounds.max = oneWeekAgoValue;
+                    } 
+                    if (oneWeekAgoValue < rateBounds.min) {
+                        rateBounds.min = oneWeekAgoValue;
+                    }
+                }
+            }
+        });
+        if (rateBounds.min >= rateBounds.max) {
+            rateBounds = {min: null, max: null};
+        }
+
+        return {data: newData, bounds: rateBounds};
     }
 
     function jq(myid) { 
@@ -149,7 +218,7 @@ $(document).ready(function () {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
                 setItemTooltip(item);
-	    }
+            }
         } 
         else if (plot.getEvent(pos)) { setEventTooltip(plot, pos); } 
         else { clearAll(); }
@@ -158,10 +227,10 @@ $(document).ready(function () {
     var ratePreviousPoint = null;
     $('#rate-of-change-graph').bind('plothover', function (event, pos, item) { 
         if(item) {
-	    if (ratePreviousPoint != item.dataIndex) {
+            if (ratePreviousPoint != item.dataIndex) {
                 ratePreviousPoint = item.dataIndex;
                 setItemTooltip(item, MB.text.Timeline.RateTooltipCloser);
-	    }
+            }
         } 
         else if (rateplot.getEvent(pos)) { setEventTooltip(rateplot, pos); } 
         else { clearAll(); }
@@ -227,9 +296,9 @@ $(document).ready(function () {
             $.each(queries, function (index, value) {
                 if (value.substr(0,2) == 'g-') {
                     graphZoomOptions = geometryFromHashPart(value);
-		} else if (value.substr(0,3) == '-v-') {
+                } else if (value.substr(0,3) == '-v-') {
                     $('#disable-events-checkbox').attr('checked', false).change();
-		} else if (value.substr(0,2) == 'r-') {
+                } else if (value.substr(0,2) == 'r-') {
                     $('#show-rate-graph').attr('checked', true).change();
                 } else {
                     var remove = (value.substr(0,1) == '-');
@@ -249,13 +318,28 @@ $(document).ready(function () {
 
     function resetPlot () {
         var data = graphData();
-        var plot_options = $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions)
-        plot = $.plot($("#graph-container"), data[0], plot_options);
+        var plotOptions = $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions)
+        plot = $.plot($("#graph-container"), data[0], plotOptions);
         plot.triggerRedrawOverlay();
 
         if ($('#show-rate-graph').attr('checked')) {
-            var rate_options = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis}, musicbrainzEventsOptions);
-            rateplot = $.plot($("#rate-of-change-graph"), data[1], rate_options);
+            var rateZoomOptions = {yaxis: {min: null, max: null}};
+            $.each(data[1], function(index, value) {
+               if (rateZoomOptions.yaxis.min == null || value.rateBounds.min < rateZoomOptions.yaxis.min) {
+                   rateZoomOptions.yaxis.min = value.rateBounds.min;
+               }
+               if (rateZoomOptions.yaxis.max == null || value.rateBounds.max > rateZoomOptions.yaxis.max) {
+                   rateZoomOptions.yaxis.max = value.rateBounds.max;
+               }
+            });
+            if (rateZoomOptions.yaxis.min) {
+                rateZoomOptions.yaxis.min = rateZoomOptions.yaxis.min - Math.abs(rateZoomOptions.yaxis.min * 0.10);
+            }
+            if (rateZoomOptions.yaxis.max) {
+                rateZoomOptions.yaxis.max = rateZoomOptions.yaxis.max + Math.abs(rateZoomOptions.yaxis.max * 0.10);
+            }
+            var rateOptions = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis, yaxis: rateZoomOptions.yaxis}, musicbrainzEventsOptions);
+            rateplot = $.plot($("#rate-of-change-graph"), data[1], rateOptions);
             rateplot.triggerRedrawOverlay();
         } else { rateplot = null; }
 
@@ -306,9 +390,9 @@ $(document).ready(function () {
         });
 
        $('#disable-events-checkbox').change(function () {
-	   var minus = !$(this).attr('checked');
+           var minus = !$(this).attr('checked');
            musicbrainzEventsOptions.musicbrainzEvents.enabled = !minus;
-	   changeHash(minus, 'v-', false);
+           changeHash(minus, 'v-', false);
        });
 
        $('#show-rate-graph').change(function () {
@@ -316,7 +400,7 @@ $(document).ready(function () {
            var $show = $(this).attr('checked');
            $graph.css($show ? {position: 'relative', right: ''} : {position: 'absolute', right: 100000});
            $graph.prev('h2')[$show ? 'show' : 'hide']();
-	   changeHash(!$show, 'r-', true);
+           changeHash(!$show, 'r-', true);
        }).attr('checked', false).change();
 
         $('div.graph-category').each(function () {
