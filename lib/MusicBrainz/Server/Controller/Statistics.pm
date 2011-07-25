@@ -64,6 +64,35 @@ sub countries : Local
     );
 }
 
+sub languages_scripts : Path('languages-scripts')
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $language_stats = [];
+    my $script_stats = [];
+    my $language_prefix = 'count.release.language';
+    my $script_prefix = 'count.release.script';
+    my %languages = map { $_->iso_code_3t => $_ } $c->model('Language')->get_all();
+    my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+       if (my ($iso_code_3t) = $stat_name =~ /^$language_prefix\.(.*)$/) { 
+            push(@$language_stats, ({'entity' => $languages{$iso_code_3t}, 'count' => $stats->statistic($stat_name)}));
+       }
+       if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) { 
+            push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+       }
+    }
+
+    $c->stash(
+        template => 'statistics/languages_scripts.tt',
+        language_stats  => $language_stats,
+        script_stats    => $script_stats,
+        date_collected => $stats->{date_collected}
+    );
+}
+
 =head1 LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.
