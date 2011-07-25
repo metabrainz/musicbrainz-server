@@ -78,7 +78,7 @@
           </table>
         </div>
 
-        <div id="merge-strategy-2">
+        <div id="merge-strategy-2" class="merge-strategy">
           <p>[% l('This merge strategy will merge all mediums together into a single set of mediums. Recordings
                    between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
           <p>[% l('This requires that mediums over each release have corresponding track counts.') %]</p>
