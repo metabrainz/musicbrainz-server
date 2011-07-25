@@ -81,10 +81,12 @@ sub update
     my $query = 'SELECT id FROM url WHERE url = ? AND id != ?';
     if (my $merge = $self->sql->select_single_value($query, $url_hash->{url}, $url_id)) {
         $self->merge($merge, $url_id);
+        return $merge;
     }
     else {
         my $row = $self->_hash_to_row($url_hash);
         $self->sql->update_row('url', $row, { id => $url_id });
+        return $url_id;
     }
 }
 

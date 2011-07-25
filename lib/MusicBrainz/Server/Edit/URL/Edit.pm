@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::URL::Edit;
 use Moose;
 
+use Clone qw( clone );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
@@ -73,12 +74,17 @@ sub allow_auto_edit
     return 1;
 }
 
-before accept => sub {
-    my $self = shift;
+around accept => sub {
+    my ($orig, $self) = @_;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         l('This URL has already been merged into another URL')
     ) unless $self->c->model('URL')->get_by_id($self->url_id);
+
+    my $data = $self->_edit_hash(clone($self->data->{new}));
+    my $new_id = $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
+
+    $self->data->{entity}{id} = $new_id;
 };
 
 __PACKAGE__->meta->make_immutable;

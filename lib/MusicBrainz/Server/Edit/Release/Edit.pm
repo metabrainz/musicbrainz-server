@@ -63,7 +63,7 @@ has '+data' => (
     ]
 );
 
-around related_entities => sub {
+around _build_related_entities => sub {
     my ($orig, $self) = @_;
 
     my $related = $self->$orig;
@@ -83,7 +83,6 @@ sub foreign_keys
     changed_relations($self->data, $relations, (
         ReleasePackaging => 'packaging_id',
         ReleaseStatus    => 'status_id',
-        ReleaseGroup     => 'release_group_id',
         Country          => 'country_id',
         Language         => 'language_id',
         Script           => 'script_id',
@@ -99,6 +98,11 @@ sub foreign_keys
 
     $relations->{Release} = {
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
+    };
+
+    $relations->{ReleaseGroup} = {
+        $self->data->{new}{release_group_id} => [ 'ArtistCredit' ],
+        $self->data->{old}{release_group_id} => [ 'ArtistCredit' ]
     };
 
     return $relations;

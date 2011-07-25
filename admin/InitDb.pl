@@ -404,7 +404,6 @@ my $started = 1;
 if ($fCreateDB)
 {
     Create("READWRITE");
-    Create("RAWDATA");
 }
 
 if ($mode eq "MODE_NO_TABLES") { } # nothing to do
@@ -412,7 +411,6 @@ elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
 elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
 
 GrantSelect("READWRITE");
-GrantSelect("RAWDATA");
 
 END {
     print localtime() . " : InitDb.pl "

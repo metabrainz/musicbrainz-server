@@ -39,7 +39,7 @@ has '+data' => (
     ]
 );
 
-around related_entities => sub {
+around _build_related_entities => sub {
     my ($orig, $self) = @_;
 
     my $related = $self->$orig;

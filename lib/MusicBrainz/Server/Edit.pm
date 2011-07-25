@@ -222,7 +222,12 @@ the value
 
 =cut
 
-sub related_entities { return {} }
+has related_entities => (
+    is => 'rw',
+    builder => '_build_related_entities',
+    lazy => 1
+);
+sub _build_related_entities { return {} }
 
 =head2 alter_edit_pending
 

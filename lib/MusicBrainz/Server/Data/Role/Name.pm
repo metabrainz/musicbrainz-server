@@ -39,6 +39,37 @@ role
         }
         return %found_names;
     };
+
+    method find_by_names => sub {
+        my ($self, @names) = @_;
+        return {} unless scalar @names;
+
+        my $type = $params->type;
+        my $id = $self->_id_column;
+        my $query =
+            "WITH search (term) AS (" .
+                "VALUES " . join (",", ("(?)") x scalar @names) .
+            ")" .
+                # Search over name/sort-name
+                "(".
+                    "SELECT search.term AS search_term, " . $self->_columns .
+                    " FROM " . $self->name_table . " search_name" .
+                    " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
+                    " JOIN " . $self->_table_join_name("search_name.id").
+                ")";
+
+        $self->c->sql->select($query, @names);
+        my %ret;
+        while (my $row = $self->c->sql->next_row_hash_ref) {
+            my $search_term = delete $row->{search_term};
+
+            $ret{$search_term} ||= [];
+            push @{ $ret{$search_term} }, $self->_new_from_row ($row);
+        }
+        $self->c->sql->finish;
+
+        return \%ret;
+    }
 };
 
 no Moose::Role;

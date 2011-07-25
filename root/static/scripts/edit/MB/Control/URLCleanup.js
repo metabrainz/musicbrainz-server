@@ -110,6 +110,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             match: new RegExp("^(https?://)?([^/]+\.)?discogs\.com","i"),
             type: MB.constants.LINK_TYPES.discogs,
             clean: function(url) {
+                url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
                 return url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
             }
         },
@@ -264,6 +265,19 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.lyrics.work ] = function() {
         return cleanups.lyrics.match.test($('#id-ar\\.url').val())
     };
+    // allow Discogs page only for the correct entities
+    validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(artist|user)\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.discogs.label ] = function() {
+        return $('#id-ar\\.url').val().match(/\/label\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/\/master\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(release|mp3)\//) != null;
+    }
 
 
     self.guessType = function (sourceType, currentURL) {
@@ -299,6 +313,11 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     var urlChanged = function() {
         var url = self.urlControl.val(),
             clean = self.cleanUrl(url) || url;
+
+        if (url.match(/^\w+\./)) {
+            self.urlControl.val('http://' + url);
+            return
+        }
 
         if (url !== clean)
             self.urlControl.val(clean);

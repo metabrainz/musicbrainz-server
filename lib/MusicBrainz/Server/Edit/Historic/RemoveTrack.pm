@@ -18,7 +18,7 @@ sub _release_ids
     return @{ $self->data->{release_ids} };
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

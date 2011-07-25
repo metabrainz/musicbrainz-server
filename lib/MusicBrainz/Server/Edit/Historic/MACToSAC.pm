@@ -14,7 +14,7 @@ sub edit_template { 'historic/mac_to_sac' }
 sub edit_type     { $EDIT_HISTORIC_MAC_TO_SAC }
 sub historic_type { 13 }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         artist => [ $self->data->{old_artist_id}, $self->data->{new_artist_id} ],

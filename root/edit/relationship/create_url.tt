@@ -12,9 +12,9 @@
    //]]></script>
 [% END %]
 
-[%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Add URL Relationship') full_width=1 -%]
 
-    <h1>[% l('Create Relationship') %]</h1>
+    <h1>[% l('Add URL Relationship') %]</h1>
 
     [%- USE r = FormRenderer(form) -%]
 

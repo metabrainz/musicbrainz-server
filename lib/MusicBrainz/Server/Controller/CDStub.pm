@@ -3,6 +3,10 @@ use Moose;
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use aliased 'MusicBrainz::Server::Entity::CDTOC';
+
+use MusicBrainz::Server::Translation qw( l ln );
+
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'CDStubTOC',
     entity_name => 'cdstubtoc',
@@ -39,6 +43,40 @@ sub _load
 
     $c->stash->{show_artists} = $cdstubtoc->cdstub->artist eq '';
     $c->stash->{cdstub} = $cdstubtoc;
+}
+
+sub add : Path('add') {
+    my ($self, $c) = @_;
+
+    if ($c->user_exists) {
+        $c->res->code(403);
+        $c->stash( template => 'cdstub/logged_in.tt' );
+    }
+
+    my $toc = CDTOC->new_from_toc( $c->req->query_params->{toc} );
+    if (!$toc) {
+        $c->stash( message => l('The required TOC parameter was invalid or not present') );
+        $c->detach('/error_400');
+    }
+
+    my $form = $c->form(
+        form => 'CDStub',
+        init_object => {
+            tracks => [ map +{}, (1..$toc->track_count) ]
+        }
+    );
+    $c->stash( template => 'cdstub/edit.tt' );
+    if ($form->submitted_and_valid($c->req->params)) {
+        my $form_val = $form->value;
+        $c->model('CDStub')->insert({
+            %$form_val,
+            toc => $toc->toc,
+            discid => $toc->discid
+        });
+
+        $c->response->redirect($c->uri_for_action('/cdstub/show', [ $toc->discid ]));
+        $c->detach;
+    }
 }
 
 sub show : Chained('load') PathPart('')

@@ -9,7 +9,7 @@ sub ngs_class { 'MusicBrainz::Server::Edit::ReleaseGroup::Delete' }
 sub edit_type { 68 }
 sub edit_name { l('Remove release group') }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         release_group => [ $self->data->{entity_id} ]
