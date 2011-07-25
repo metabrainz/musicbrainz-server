@@ -120,7 +120,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
     );
 }
 
-sub attach : Local RequireAuth
+sub attach : Local
 {
     my ($self, $c) = @_;
 
@@ -133,6 +133,10 @@ sub attach : Local RequireAuth
         );
 
     $c->stash( cdtoc => $cdtoc );
+
+    if ($c->form_posted) {
+        $c->forward('/user/do_login');
+    }
 
     if (my $medium_id = $c->req->query_params->{medium}) {
 
