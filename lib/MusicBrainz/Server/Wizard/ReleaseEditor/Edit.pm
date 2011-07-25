@@ -36,25 +36,16 @@ augment 'create_edits' => sub
     $args{'to_edit'} = $self->release;
     $self->c->stash->{changes} = 0;
 
-    # If the release artist will be changed by an EDIT_RELEASE_ARTIST edit, do
-    # not change the release artist in the EDIT_RELEASE_EDIT.
-    $args{artist_credit} = $data->{artist_credit} unless $data->{change_track_artists};
-
     $create_edit->($EDIT_RELEASE_EDIT, $editnote, %args);
 
     # release artist edit
     # ----------------------------------------
-    # if the 'change track artists' checkbox is checked, also enter a release
-    # artist edit.
 
-    if ($data->{change_track_artists})
-    {
-        $create_edit->(
-            $EDIT_RELEASE_ARTIST, $editnote, release => $self->release,
-            update_tracklists => 1, artist_credit => $data->{artist_credit},
-            as_auto_editor => $data->{as_auto_editor}
+    $create_edit->(
+        $EDIT_RELEASE_ARTIST, $editnote, release => $self->release,
+        update_tracklists => 1, artist_credit => $data->{artist_credit},
+        as_auto_editor => $data->{as_auto_editor}
         );
-    }
 
     return $self->release;
 };
@@ -67,11 +58,9 @@ override 'prepare_tracklist' => sub {
     my $database_artist = artist_credit_to_ref ($release->artist_credit);
     my $submitted_artist = $self->get_value ("information", "artist_credit");
 
-    if (!$self->get_value ("information", "change_track_artists") ||
-        Compare ($database_artist, $submitted_artist))
+    if (Compare ($database_artist, $submitted_artist))
     {
         # Just use "null" here to indicate the release artist wasn't edited.
-        # (or that it was edited, but the user doesn't want track artists to change).
         $self->c->stash->{release_artist_json} = "null";
     }
     else
