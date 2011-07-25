@@ -44,7 +44,7 @@ accept_edit($c, $edit);
 $work = $c->model('Work')->get_by_id(1);
 is($work->name, 'Edited name');
 is($work->comment, 'Edited comment');
-is($work->iswc, '123456789123456');
+is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
 is($work->edits_pending, 0);
 
@@ -59,7 +59,7 @@ sub create_edit {
         to_edit => $work,
         name => 'Edited name',
         comment => 'Edited comment',
-        iswc => '123456789123456',
+        iswc => 'T-000.000.001-0',
         type_id => 1,
     );
 }

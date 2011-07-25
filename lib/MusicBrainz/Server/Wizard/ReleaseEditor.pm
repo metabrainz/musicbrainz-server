@@ -770,7 +770,7 @@ sub prepare_edits
 
     $self->release(
         $self->create_edits(
-            data => clone($data),
+            data => $data,
             create_edit => $previewing
                 ? sub { $self->_preview_edit(@_) }
                 : sub { $self->_submit_edit(@_) },
@@ -1569,6 +1569,25 @@ sub _seed_parameters {
 
     return collapse_hash($params);
 };
+
+
+around 'value' => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $data = $self->$orig();
+
+    my @names = @{ $data->{artist_credit}->{names} };
+    for my $i (0 .. $#names)
+    {
+        $data->{artist_credit}->{names}->[$i]->{name} =
+            $data->{artist_credit}->{names}->[$i]->{artist}->{name}
+            if !$data->{artist_credit}->{names}->[$i]->{name};
+    }
+
+    return $data;
+};
+
 
 =head1 LICENSE
 

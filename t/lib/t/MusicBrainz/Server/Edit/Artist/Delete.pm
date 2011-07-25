@@ -58,6 +58,32 @@ ok(!defined $artist);
 
 };
 
+test 'Can be entered as an auto-edit' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_delete');
+
+    my $artist = $c->model('Artist')->get_by_id(3);
+
+    # Delete the recording and enter the edit
+    my $sql = $c->sql;
+    Sql::run_in_transaction(
+        sub {
+            $c->model('Recording')->delete(1);
+        }, $sql);
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_DELETE,
+        to_delete => $artist,
+        editor_id => 1,
+        privileges => 1
+    );
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Delete');
+
+    $artist = $c->model('Artist')->get_by_id(3);
+    ok(!defined $artist);
+};
+
 sub _create_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(

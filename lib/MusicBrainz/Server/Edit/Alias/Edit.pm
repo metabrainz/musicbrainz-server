@@ -32,6 +32,17 @@ has '+data' => (
     ]
 );
 
+has alias => (
+    is => 'ro',
+    lazy => 1,
+    builder => '_load_alias'
+);
+
+sub _load_alias {
+    my $self = shift;
+    return $self->_alias_model->get_by_id($self->alias_id);
+}
+
 sub alias_id { shift->data->{alias_id} }
 
 sub foreign_keys
