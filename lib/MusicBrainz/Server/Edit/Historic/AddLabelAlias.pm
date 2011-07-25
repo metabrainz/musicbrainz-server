@@ -9,7 +9,7 @@ sub edit_name { l('Add label alias') }
 sub edit_type { 60 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Label::AddAlias' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         label => [ $self->row_id ]

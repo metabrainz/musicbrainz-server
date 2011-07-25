@@ -12,7 +12,7 @@ with 'MusicBrainz::Server::Edit::Label';
 sub edit_name { l('Add label annotation') }
 sub edit_type { $EDIT_LABEL_ADD_ANNOTATION }
 
-sub related_entities { { label => [ shift->label_id ] } }
+sub _build_related_entities { { label => [ shift->label_id ] } }
 sub models { [qw( Label )] }
 
 sub _annotation_model { shift->c->model('Label')->annotation }

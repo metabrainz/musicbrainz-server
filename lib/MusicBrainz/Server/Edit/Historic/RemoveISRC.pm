@@ -10,7 +10,7 @@ sub edit_name { l('Remove ISRC') }
 sub edit_type { 72 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::RemoveISRC' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         recording => [ $self->data->{recording}{id} ]

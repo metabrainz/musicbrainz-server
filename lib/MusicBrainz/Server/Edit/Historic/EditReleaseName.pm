@@ -11,7 +11,7 @@ sub edit_name     { l('Edit release name') }
 sub historic_type { 3 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_NAME }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

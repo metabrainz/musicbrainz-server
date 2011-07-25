@@ -14,7 +14,7 @@ sub edit_name     { l('Edit release language') }
 sub historic_type { 44 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

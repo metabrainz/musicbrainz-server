@@ -20,7 +20,7 @@ sub alter_edit_pending { { Release => [ shift->release_id ] } }
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-around related_entities => sub {
+around _build_related_entities => sub {
     my ($orig, $self, @args) = @_;
     my %related = %{ $self->$orig(@args) };
     $related{label} = [ $self->data->{label}{id} ]

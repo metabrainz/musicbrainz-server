@@ -65,7 +65,7 @@ sub edit_conditions
     };
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

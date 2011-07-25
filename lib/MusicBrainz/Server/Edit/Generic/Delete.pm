@@ -50,7 +50,7 @@ sub alter_edit_pending
     }
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     my $model = $self->c->model( $self->_delete_model);

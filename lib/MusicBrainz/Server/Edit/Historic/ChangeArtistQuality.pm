@@ -11,7 +11,7 @@ sub edit_name     { l('Change artist quality') }
 sub historic_type { 52 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_ARTIST_QUALITY }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

@@ -28,7 +28,7 @@ has '+data' => (
 
 sub recording_ids { map { $_->{recording}{id} } @{ shift->data->{puids} } }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return { recording => [ $self->recording_ids ] };
