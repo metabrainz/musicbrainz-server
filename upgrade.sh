@@ -11,6 +11,9 @@ echo `date` : Removing entirely orphaned recordings
 echo `date` : Adding constraints for ISRCs and ISWCs
 ./admin/psql READWRITE < admin/sql/updates/20110718-isrc-validation.sql
 
+echo `date` : Fixing edits_failed column
+./admin/psql READWRITE < admin/sql/updates/20110725-rebuild-editor-stats.sql
+
 echo `date` : Done
 
 # eof
