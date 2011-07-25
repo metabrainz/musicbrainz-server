@@ -15,7 +15,7 @@ BEGIN
           FROM edit
           JOIN edit_recording ON edit.id = edit_recording.edit
           WHERE edit_recording.recording = recording_row.id
-          AND edit.type IN (71, 207, 218)
+          AND edit.type IN (71, 207, 218) -- "Add recording", "add track" and "add track KV", respectively
           LIMIT 1 ) OR
         ( SELECT TRUE
           FROM recording_puid
