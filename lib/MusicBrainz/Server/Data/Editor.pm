@@ -70,6 +70,19 @@ sub get_by_name
     return $self->_new_from_row($row);
 }
 
+sub find_by_name
+{
+    my ($self, $name, $offset, $limit) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                '  FROM ' . $self->_table .
+                " WHERE unaccent(lower(name)) LIKE unaccent(lower(?)) || '%'
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $name, $offset
+    );
+}
+
 sub _get_ratings_for_type
 {
     my ($self, $id, $type, $me) = @_;
