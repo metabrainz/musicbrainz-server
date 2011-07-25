@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     type_to_model
 );
-use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED :privileges );
+use MusicBrainz::Server::Types qw( :edit_status :privileges );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -349,6 +349,7 @@ sub credit
 {
     my ($self, $editor_id, $status, $as_autoedit) = @_;
     my $column;
+    return if $status == $STATUS_DELETED;
     $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
     $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
     $column = "auto_edits_accepted" if $status == $STATUS_APPLIED && $as_autoedit;
