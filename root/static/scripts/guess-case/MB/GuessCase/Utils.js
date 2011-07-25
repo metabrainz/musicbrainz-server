@@ -324,15 +324,22 @@ MB.GuessCase.Utils = function () {
 	    LC = os.toLowerCase(); // prepare all LC word
 	    UC = os.toUpperCase(); // prepare all UC word
 
-	    // Test if it's one of the lcWords but if gc.f.forceCaps is not set
-	    if (gc.mode.isLowerCaseWord(LC) && !forceCaps) {
+            var next_word = gc.i.getNextWord();
+            var followed_by_punctuation =
+                next_word && next_word.length == 1 && self.isPunctuationChar (next_word);
+
+	    // unless forceCaps is enabled, lowercase the word if it is not followed
+            // by punctuation.
+	    if (!forceCaps && gc.mode.isLowerCaseWord(LC) && !followed_by_punctuation) {
 		os = LC;
+	    }
 
-		// Test if it's one of the uppercase_words
-	    } else if (gc.mode.isUpperCaseWord(LC)) {
+	    // Test if it's one of the uppercase_words
+            else if (gc.mode.isUpperCaseWord(LC)) {
 		os = UC;
+	    }
 
-	    } else if (gc.f.isInsideBrackets()) {
+            else if (gc.f.isInsideBrackets()) {
 		if (gc.u.isLowerCaseBracketWord(LC)) {
 
 		    // handle special case: (disc 1: Disc x)
