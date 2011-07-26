@@ -97,6 +97,9 @@ after validate => sub {
     if(my $link_type_id = $self->field('link_type_id')->value) {
         my $link_type = $self->ctx->model('LinkType')->get_by_id($link_type_id);
 
+        my %allowed_attributes = map { $_->type_id => 1 }
+            $link_type->all_attributes;
+
         my %required_attributes = map { $_->type_id => 1 } grep { $_->min }
             $link_type->all_attributes;
 
@@ -107,6 +110,10 @@ after validate => sub {
                 if ($required_attributes{$attr->id} && !@values) {
                     $self->field('attrs')->field($attr->name)->add_error(
                         l('This attribute is required'));
+                }
+                if (@values && !$allowed_attributes{$attr->id}) {
+                    $self->field('attrs')->field($attr->name)->add_error(
+                        l('This attribute is not supported for the selected relationship type.'));
                 }
             }
         }
