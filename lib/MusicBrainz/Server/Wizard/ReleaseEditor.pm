@@ -1571,23 +1571,6 @@ sub _seed_parameters {
 };
 
 
-around 'value' => sub {
-    my $orig = shift;
-    my $self = shift;
-
-    my $data = $self->$orig();
-
-    my @names = @{ $data->{artist_credit}->{names} };
-    for my $i (0 .. $#names)
-    {
-        $data->{artist_credit}->{names}->[$i]->{name} =
-            $data->{artist_credit}->{names}->[$i]->{artist}->{name}
-            if !$data->{artist_credit}->{names}->[$i]->{name};
-    }
-
-    return $data;
-};
-
 
 =head1 LICENSE
 
