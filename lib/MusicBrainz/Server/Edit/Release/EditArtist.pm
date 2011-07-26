@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Release::EditArtist;
 use Moose;
 use namespace::autoclean;
+use Data::Compare;
 
 use List::MoreUtils qw( all pairwise );
 use MooseX::Types::Moose qw( Bool Int Str );
@@ -9,8 +10,9 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ARTIST );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
-    load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    clean_submitted_artist_credits
+    load_artist_credit_definitions
     verify_artist_credits
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -107,6 +109,12 @@ sub initialize {
     if (!$release->artist_credit) {
         $self->c->model('ArtistCredit')->load($release);
     }
+
+    my $new = clean_submitted_artist_credits ($opts{artist_credit});
+    my $old = artist_credit_to_ref($release->artist_credit);
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        unless Compare ($old, $new);
 
     $self->data({
         release => {
