@@ -33,14 +33,14 @@ sub has_age
 {
     my ($self) = @_;
 
-    return if $self->begin_date->is_empty;
+    return 0 if $self->begin_date->is_empty;
 
     my $now = DateTime->now;
     return unless $self->begin_date->has_year &&
                   $self->begin_date->year > 0 &&
-                  $self->begin_date->year       <= $now->year &&
-                  $self->begin_date->month || 1 <= $now->month &&
-                  $self->begin_date->day || 1   <= $now->day;
+                  $self->begin_date->year         <= $now->year &&
+                  ($self->begin_date->month || 1) <= $now->month &&
+                  ($self->begin_date->day || 1)   <= $now->day;
 
     return 1 if $self->end_date->is_empty;
     return $self->end_date->has_year &&
