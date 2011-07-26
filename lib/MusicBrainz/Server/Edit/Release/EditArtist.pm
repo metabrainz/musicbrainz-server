@@ -122,8 +122,8 @@ sub initialize {
             name => $release->name
         },
         update_tracklists => $opts{update_tracklists},
-        new_artist_credit => $opts{artist_credit},
-        old_artist_credit => artist_credit_to_ref($release->artist_credit)
+        new_artist_credit => $new,
+        old_artist_credit => $old,
     });
     return $self;
 }
