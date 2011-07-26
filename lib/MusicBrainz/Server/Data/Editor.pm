@@ -75,7 +75,7 @@ sub find_by_name
     my ($self, $name, $offset, $limit) = @_;
     my $query = 'SELECT ' . $self->_columns .
                 '  FROM ' . $self->_table .
-                " WHERE unaccent(lower(name)) LIKE unaccent(lower(?)) || '%'
+                " WHERE musicbrainz_unaccent(lower(name)) LIKE musicbrainz_unaccent(lower(?)) || '%'
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
