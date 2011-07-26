@@ -12,7 +12,7 @@ $(function() {
         },
         'vote': {
             '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
-        },
+        }
     };
 
     var conditionCounter = 0;
