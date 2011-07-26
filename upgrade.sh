@@ -5,11 +5,8 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
-echo `date` : Removing entirely orphaned recordings
-./admin/psql READWRITE < admin/sql/updates/20110721-orphaned-recordings.sql
-
-echo `date` : Adding constraints for ISRCs and ISWCs
-./admin/psql READWRITE < admin/sql/updates/20110718-isrc-validation.sql
+echo `date` : Removing and preventing invalid attributes on links
+./admin/psql READWRITE < ./admin/sql/updates/20110726-invalid-attributes.sql
 
 echo `date` : Done
 
