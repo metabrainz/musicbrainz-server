@@ -7,6 +7,7 @@ use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -268,6 +269,7 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
             );
         }
         catch {
+            log_debug { "Couldn't send email: $_" } $_;
             $c->flash->{message} = l('Your message could not be sent');
         };
 
