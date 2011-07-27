@@ -10,6 +10,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::URL';
 
 use DateTime::Format::Pg;
+use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
 with 'MusicBrainz::Server::Data::Role::Context';
@@ -220,26 +221,27 @@ sub cache_cover_art
 {
     my ($self, $release) = @_;
     my $cover_art;
-    if ($release->all_relationships) {
-        $cover_art =  $self->parse_from_type_url(
-            $release->relationships->[0]->link->type->name,
-            $release->relationships->[0]->entity1->url
+    for my $relationship (sort_by { $_->last_updated } $release->all_relationships) {
+        last if defined($cover_art);
+        $cover_art = $self->parse_from_type_url(
+            $relationship->link->type->name,
+            $relationship->entity1->url
         );
     }
 
     $cover_art ||= $self->parse_from_release($release);
 
-    return unless $cover_art;
-
-    my $meta_update  = $cover_art->cache_data;
     my $cover_update = {
         last_updated => DateTime->now,
-        cover_art_url  => $cover_art->image_uri
+        cover_art_url  => defined($cover_art) ? $cover_art->image_uri : undef
     };
-
-    $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
-        if keys %$meta_update;
     $self->c->sql->update_row('release_coverart', $cover_update, { id => $release->id });
+
+    if ($cover_art) {
+        my $meta_update  = $cover_art->cache_data;
+        $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
+            if keys %$meta_update;
+    }
 }
 
 sub parse_from_type_url

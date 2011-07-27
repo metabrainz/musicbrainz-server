@@ -8,6 +8,8 @@ use XML::XPath;
 
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 
+use MusicBrainz::Server::Log qw( log_error );
+
 extends 'MusicBrainz::Server::CoverArt::Provider';
 with 'MusicBrainz::Server::CoverArt::BarcodeSearch';
 
@@ -114,7 +116,10 @@ sub _lookup_coverart {
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     my $response = $lwp->get($url) or return;
-    return unless $response->is_success;
+    if (!$response->is_success) {
+        log_error { "Failed to lookup cover art: $_" } $response->decoded_content;
+        return;
+    }
     my $xp = XML::XPath->new( xml => $response->decoded_content );
 
     my $image_url = $xp->find(
