@@ -177,9 +177,11 @@
                  [ '!=', l('is not') ] ], field_contents) %]
   <input type="hidden" name="voter_id" value="[% c.user.id %]" />
   <select name="args" multiple="multiple">
-    [% FOR item=[ [  1, l('Yes') ]
-                , [  0, l('No') ]
-                , [ -1, l('Abstain') ] ] %]
+    [% FOR item=[ [  1,   l('Yes') ]
+                , [  0,   l('No') ]
+                , [ -1,   l('Abstain') ]
+                , [ 'no', l('No vote') ]
+                ] %]
     <option value="[% html_escape(item.0) %]"
             [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
             >[% html_escape(item.1) %]</option>

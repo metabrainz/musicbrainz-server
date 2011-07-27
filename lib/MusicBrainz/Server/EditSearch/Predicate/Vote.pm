@@ -2,6 +2,8 @@ package MusicBrainz::Server::EditSearch::Predicate::Vote;
 use Moose;
 use namespace::autoclean;
 use feature 'switch';
+use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Types qw( :vote );
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
@@ -28,22 +30,62 @@ sub combine_with_query {
         AND vote.edit = edit.id
     )";
 
-    my $args = [
-        $self->voter_id,
-        $self->sql_arguments
-    ];
+    my @votes = grep { looks_like_number($_) } @{ $self->sql_arguments };
+    my $no_vote_option = grep { $_ eq 'no' } @{ $self->sql_arguments };
 
     given($self->operator) {
         when('=') {
-            $query->add_where([
-                sprintf($sql, "vote.vote = any(?)"), $args
-            ]);
+            if (@votes && $no_vote_option) {
+                $query->add_where([
+                    join(' OR ',
+                         sprintf($sql, "vote.vote = any(?)"),
+                         sprintf("NOT $sql", "TRUE")
+                    ),
+                    [
+                        $self->voter_id,
+                        \@votes,
+                        $self->voter_id
+                    ]
+                ]);
+            }
+            elsif (@votes && !$no_vote_option) {
+                $query->add_where([
+                    sprintf($sql, "vote.vote = any(?)"),
+                    [
+                        $self->voter_id,
+                        \@votes,
+                    ]
+                ]);
+            }
+            elsif (!@votes && $no_vote_option) {
+                $query->add_where([
+                    sprintf("NOT $sql", "TRUE"),
+                    [
+                        $self->voter_id,
+                    ]
+                ]);
+            }
         }
 
         when ('!=') {
-            $query->add_where([
-                sprintf($sql, "vote.vote != all(?)"), $args
-            ]);
+            if (!@votes && $no_vote_option) {
+                $query->add_where([
+                    sprintf("$sql", "vote.vote = any(?)"),
+                    [
+                        $self->voter_id,
+                        $VOTE_ABSTAIN, $VOTE_NO, $VOTE_YES
+                    ]
+                ]);
+            }
+            else {
+                $query->add_where([
+                    sprintf($sql, "vote.vote != all(?)"),
+                    [
+                        $self->voter_id,
+                        \@votes,
+                    ]
+                ]);
+            }
         }
     };
 }
