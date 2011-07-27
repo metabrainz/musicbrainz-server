@@ -24,7 +24,7 @@ sub combine_with_query {
         SELECT TRUE FROM vote
         WHERE vote.editor = ?
         AND vote.superseded = FALSE
-        AND vote.vote = any(?)
+        AND %s
         AND vote.edit = edit.id
     )";
 
@@ -36,13 +36,13 @@ sub combine_with_query {
     given($self->operator) {
         when('=') {
             $query->add_where([
-                $sql, $args
+                sprintf($sql, "vote.vote = any(?)"), $args
             ]);
         }
 
         when ('!=') {
             $query->add_where([
-                "NOT $sql", $args
+                sprintf($sql, "vote.vote != all(?)"), $args
             ]);
         }
     };
