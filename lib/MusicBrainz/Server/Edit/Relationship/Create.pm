@@ -171,11 +171,6 @@ sub insert
 
     $self->entity_id($relationship->id);
     $self->entity($relationship);
-}
-
-sub accept
-{
-    my ($self) = @_;
 
     my $link_type = $self->c->model('LinkType')->get_by_id(
         $self->data->{link_type}{id}
