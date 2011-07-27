@@ -46,38 +46,37 @@ $(document).ready(function () {
 
     function weeklyRate(data) {
         var newData = [];
-        var dayData = [];
+        var weekData = [];
         var oneWeek = 1000 * 60 * 60 * 24 * 7;
-        var oneDay = 1000 * 60 * 60 * 24;
         var mean = 0;
         var count = 0;
 
         $.each(data, function(index, value) {
-            var oneDayAgoDate = value[0] - oneDay;
-            var oneDayAgoValue = null;
+            var oneWeekAgoDate = value[0] - oneWeek;
+            var oneWeekAgoValue = null;
             $.each(data, function(innerIndex, innerValue) {
-                if (innerValue[0] == oneDayAgoDate) {
-                    oneDayAgoValue = value[1] - innerValue[1];
+                if (innerValue[0] == oneWeekAgoDate) {
+                    oneWeekAgoValue = value[1] - innerValue[1];
                     count++;
-                    mean = mean + oneDayAgoValue;
+                    mean = mean + oneWeekAgoValue;
                 }           
             });
-            if (oneDayAgoValue) {
-                dayData.push(oneDayAgoValue);
+            if (oneWeekAgoValue) {
+                weekData.push(oneWeekAgoValue);
             }
         });
         mean = mean / count;
 
         var deviationSum = 0;
         var deviationCount = 0;
-        $.each(dayData, function(index, value) {
+        $.each(weekData, function(index, value) {
             toSquare = value - mean;
             deviationCount++;
             deviationSum = deviationSum + toSquare * toSquare;
         });
         var standardDeviation = Math.sqrt(deviationSum / deviationCount);
-        var thresholds = {min: mean - 5 * standardDeviation, 
-                          max: mean + 5 * standardDeviation};
+        var thresholds = {min: mean - 3 * standardDeviation, 
+                          max: mean + 3 * standardDeviation};
         var rateBounds = {min: thresholds.max, max: thresholds.min};
         $.each(data, function(index, value) {
             var oneWeekAgoDate = value[0] - oneWeek;
