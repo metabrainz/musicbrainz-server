@@ -85,6 +85,9 @@ around accept => sub {
     my $new_id = $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
 
     $self->data->{entity}{id} = $new_id;
+
+    # Check for any releases that might need updating
+    $self->c->model('CoverArt')->url_updated($new_id);
 };
 
 __PACKAGE__->meta->make_immutable;

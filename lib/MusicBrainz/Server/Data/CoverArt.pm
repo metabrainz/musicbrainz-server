@@ -274,6 +274,21 @@ sub parse_from_release
     }
 }
 
+sub url_updated {
+    my ($self, $url_id) = @_;
+    my @release_ids = @{
+        $self->c->sql->select_single_column_array(
+            'SELECT entity0 FROM l_release_url
+             WHERE entity1 = ?',
+            $url_id
+        )
+    };
+
+    my @releases = values %{ $self->c->model('Release')->get_by_ids(@release_ids) };
+    $self->c->model('Relationship')->load_subset([ 'url' ], @releases);
+    $self->cache_cover_art($_) for @releases;
+}
+
 1;
 
 =head1 COPYRIGHT
