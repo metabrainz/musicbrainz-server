@@ -146,7 +146,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             match: new RegExp("^(https?://)?([^/]+\.)?allmusic\.com","i"),
             type: MB.constants.LINK_TYPES.allmusic,
             clean: function(url) {
-                return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|work|song|performance)\/(?:[^\/]*-)?([pqrtcf][0-9]+).*/, "http://allmusic.com/$1/$2");
+                return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|work|song|performance)\/(?:[^\/]*-)?([pqrwtcf][0-9]+).*/, "http://allmusic.com/$1/$2");
             }
         },
         amazon: {
