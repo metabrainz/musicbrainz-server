@@ -233,7 +233,7 @@ sub cache_cover_art
 
     my $cover_update = {
         last_updated => DateTime->now,
-        cover_art_url  => defined($cover_art) ? $cover_art->image_uri : undef
+        cover_art_url  => $cover_art ? $cover_art->image_uri : undef
     };
     $self->c->sql->update_row('release_coverart', $cover_update, { id => $release->id });
 
