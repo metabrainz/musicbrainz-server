@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use Algorithm::Merge qw( merge );
 use JSON::Any;
+use MusicBrainz::Server::Log qw( log_debug );
 use Try::Tiny;
 
 requires 'current_instance', '_property_to_edit';
@@ -18,30 +19,58 @@ sub ancestor_data {
     return $self->data->{old};
 }
 
+my $json = JSON::Any->new( utf8 => 1 );
+sub extract_property {
+    my ($self, $property, $ancestor, $current, $new) = @_;
+    return (
+        [$json->objToJson([ $ancestor->{$property} ]), $ancestor->{$property},],
+        [$json->objToJson([ $self->_property_to_edit($current, $property) ]), $self->_property_to_edit($current, $property) ],
+        [$json->objToJson([ $new->{$property} ]), $new->{$property} ],
+    );
+}
+
 sub merge_changes {
     my ($self) = @_;
 
-    my $json = JSON::Any->new( utf8 => 1 );
     my $merged = {};
 
-    my $ancestor = $self->ancestor_data;
-    my $new = $self->new_data;
-    my $current = $self->current_instance;
+    my $ancestor_data = $self->ancestor_data;
+    my $new_data      = $self->new_data;
+    my $current_data  = $self->current_instance;
 
     try {
-        for my $name (keys %$new) {
+        for my $name (keys %$new_data) {
+            my ($ancestor, $current, $new) =
+                $self->extract_property(
+                    $name,
+                    $ancestor_data,
+                    $current_data,
+                    $new_data
+                );
+
+            # Stores a mapping of the JSON serialization to the object value
+            my %hashed = map { @$_ } ($ancestor, $current, $new);
+
+            # Attempt to merge all JSON values together
             my ($json_val) = merge(
-                [ $json->objToJson([ $ancestor->{$name} ]) ],
-                [ $json->objToJson([ $self->_property_to_edit($current, $name) ]) ],
-                [ $json->objToJson([ $new->{$name} ]) ],
-                { CONFLICT => sub { die bless({}, 'Conflict') } }
+                (map +[ $_->[0] ], ($ancestor, $current, $new)),
+                { CONFLICT => sub {
+                    die bless({
+                        property => $name,
+                        ancestor => $ancestor,
+                        current  => $current,
+                        new      => $new
+                    }, 'Conflict')
+                } }
             );
 
-            ($merged->{$name}) = @{ $json->jsonToObj($json_val) };
+            # Resolve that JSON value back to it's actual value
+            $merged->{$name} = $hashed{$json_val};
         }
     }
     catch {
         if (eval { $_->isa('Conflict') }) {
+            log_debug { "Conflict detected: $_" } $_;
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('Data has changed since this edit was created, and now conflicts ' .
                               'with changes made in this edit.');

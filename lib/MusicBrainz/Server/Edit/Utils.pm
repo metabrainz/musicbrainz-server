@@ -27,6 +27,7 @@ our @EXPORT_OK = qw(
     load_artist_credit_definitions
     status_names
     verify_artist_credits
+    hash_artist_credit
 );
 
 sub verify_artist_credits
@@ -241,6 +242,20 @@ sub edit_status_name
 sub status_names
 {
     return \@STATUS_MAP;
+}
+
+
+sub hash_artist_credit {
+    my ($artist_credit) = @_;
+    return join(', ', map {
+        '[' .
+            join(',',
+                 $_->{name},
+                 $_->{artist}{id},
+                 $_->{join_phrase} || '')
+            .
+        ']'
+    } @{ $artist_credit->{names} });
 }
 
 1;
