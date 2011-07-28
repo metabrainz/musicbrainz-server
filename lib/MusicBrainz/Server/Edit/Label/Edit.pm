@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Label';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 
@@ -142,6 +143,16 @@ sub allow_auto_edit
     }
 
     return 1;
+}
+
+sub current_instance {
+    my $self = shift;
+    $self->c->model('Label')->get_by_id($self->entity_id),
+}
+
+sub _edit_hash {
+    my ($self, $data) = @_;
+    return $self->merge_changes;
 }
 
 __PACKAGE__->meta->make_immutable;
