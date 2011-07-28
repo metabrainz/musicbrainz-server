@@ -14,6 +14,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::URL';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::URL';
 
@@ -81,11 +82,18 @@ around accept => sub {
         l('This URL has already been merged into another URL')
     ) unless $self->c->model('URL')->get_by_id($self->url_id);
 
-    my $data = $self->_edit_hash(clone($self->data->{new}));
-    my $new_id = $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
+    my $new_id = $self->c->model( $self->_edit_model )->update(
+        $self->entity_id,
+        $self->merge_changes
+    );
 
     $self->data->{entity}{id} = $new_id;
 };
+
+sub current_instance {
+    my $self = shift;
+    $self->c->model('URL')->get_by_id($self->url_id),
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
