@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Artist::Edit;
 use Moose;
 
+use Algorithm::Merge qw( merge );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Types qw( :edit_status );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
@@ -15,6 +16,8 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
+
+use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -152,6 +155,37 @@ sub allow_auto_edit
 
     return 1;
 }
+
+use JSON::Any;
+sub _edit_hash {
+    my ($self, $data) = @_;
+    my $current_artist = $self->c->model('Artist')->get_by_id($self->entity_id);
+
+    my $json = JSON::Any->new( utf8 => 1, allow_nonref => 1 );
+    my $merged = {};
+
+    try {
+        for my $name (keys %$data) {
+            my ($json_val) = merge(
+                [ $json->objToJson([ $self->data->{old}{$name} ]) ],
+                [ $json->objToJson([ $self->_property_to_edit($current_artist, $name) ]) ],
+                [ $json->objToJson([ $self->data->{new}{$name} ]) ],
+                { CONFLICT => sub { die bless({}, 'Conflict') } }
+            );
+
+            ($merged->{$name}) = @{ $json->jsonToObj($json_val) };
+        }
+    }
+    catch {
+        if (eval { $_->isa('Conflict') }) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('Data has changed since this edit was created, and now conflicts ' .
+                              'with changes made in this edit.');
+        }
+    };
+
+    return $merged;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
