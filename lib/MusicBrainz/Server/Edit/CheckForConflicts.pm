@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::CheckForConflicts;
+use 5.10.0;
 use Moose::Role;
 use namespace::autoclean;
 
@@ -79,13 +80,18 @@ The return value should be a tuple in the following format:
 
 =cut
 
-my $json = JSON::Any->new( utf8 => 1 );
+sub _prop {
+    my $v = shift;
+    state $json = JSON::Any->new( utf8 => 1, allow_blessed => 1, canonical => 1 );
+    return [ ref($v) ? $json->objToJson($v) : defined($v) ? "'$v'" : 'undef', $v ];
+}
+
 sub extract_property {
     my ($self, $property, $ancestor, $current, $new) = @_;
     return (
-        [$json->objToJson([ $ancestor->{$property} ]), $ancestor->{$property},],
-        [$json->objToJson([ $current->$property ]), $current->$property ],
-        [$json->objToJson([ $new->{$property} ]), $new->{$property} ],
+        _prop($ancestor->{$property}),
+        _prop($current->$property),
+        _prop($new->{$property})
     );
 }
 
