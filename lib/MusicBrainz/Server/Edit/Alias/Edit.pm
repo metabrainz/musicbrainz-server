@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub _alias_model { die 'Not implemented' }
 
@@ -81,7 +82,7 @@ sub accept
 {
     my $self = shift;
     my $model = $self->_alias_model;
-    $model->update($self->data->{alias_id}, clone($self->data->{new}));
+    $model->update($self->data->{alias_id}, $self->merge_changes);
 }
 
 sub initialize
@@ -107,6 +108,11 @@ sub allow_auto_edit
                                         $self->data->{new}{name});
 
     return $old eq $new;
+}
+
+sub current_instance {
+    my $self = shift;
+    $self->_load_alias;
 }
 
 __PACKAGE__->meta->make_immutable;

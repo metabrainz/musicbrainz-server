@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::Artist::Edit;
+use 5.10.0;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
@@ -9,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
     date_closure
+    merge_partial_date
 );
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -21,6 +23,7 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_name { l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
@@ -152,6 +155,34 @@ sub allow_auto_edit
 
     return 1;
 }
+
+sub current_instance {
+    my $self = shift;
+    $self->c->model('Artist')->get_by_id($self->entity_id),
+}
+
+sub _edit_hash {
+    my ($self, $data) = @_;
+    return $self->merge_changes;
+}
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('begin_date') {
+            return merge_partial_date('begin_date' => $ancestor, $current, $new);
+        }
+
+        when ('end_date') {
+            return merge_partial_date('end_date' => $ancestor, $current, $new);
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
