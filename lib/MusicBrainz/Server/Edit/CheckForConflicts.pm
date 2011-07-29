@@ -7,27 +7,102 @@ use JSON::Any;
 use MusicBrainz::Server::Log qw( log_debug );
 use Try::Tiny;
 
-requires 'current_instance', '_property_to_edit';
+=head1 NAME
+
+MusicBrainz::Server::Edit::CheckForConflicts - add conflict checking to edit
+types
+
+=head1 DESCRIPTION
+
+This role can be applied to edit types in order to add conflict checking and
+merging of properties. Merges are 3 way, combining data from the source data
+when the edit was created, the data as it is currently in the database, and the
+new data stored in this edit type. Each property is merged together, and if
+their is a conflict a L<MusicBrainz::Server::Edit::Exceptions::FailedDependency>
+exception is raised causing the edit to be rejected, and ModBot to leave a
+message.
+
+To use this class, you need to consume it and provide the C<current_instance>
+method.
+
+=cut
+
+requires 'current_instance';
+
+=method new_data
+
+Returns the 'new' data in the edit type. By default this refers to the 'new'
+element in the 'data' section of the edit.
+
+=cut
 
 sub new_data {
     my $self = shift;
     return $self->data->{new};
 }
 
+=method ancestor_data
+
+Returns the 'ancestor' data - the data as it was when the edit was created.
+By default, this returns the 'old' element in the 'data' section of the edit.
+
+=cut
+
 sub ancestor_data {
     my $self = shift;
     return $self->data->{old};
 }
+
+=method extract_property
+
+    $self->extract_property($property, $ancestor, $current, $new)
+
+Extracts a single property (named C<$property>), and returns it along with a
+corresponding hash of the value. The default implementation of this treats
+C<$ancestor> and C<$new> as hash-references, and access them with C<$property>
+as a key. It treats C<$current> as an object, and assumes C<$property> is the
+name of a method.
+
+The merge algorithm works on strings, so it's important to return a unique hash
+for the value. By default, the hash is simply the value encoded to a JSON
+string. It can be useful to override this however, if you need to do more
+complicated hashing. For example, see
+L<MusicBrainz::Server::Edit::Utils/merge_artist_credit>.
+
+The return value should be a tuple in the following format:
+
+    (
+      [ AncestorValueHashed, AncestorValue ],
+      [ CurrentValueHashed,  CurrentValue ],
+      [ NewValueHashed, NewValue ]
+    )
+
+=cut
 
 my $json = JSON::Any->new( utf8 => 1 );
 sub extract_property {
     my ($self, $property, $ancestor, $current, $new) = @_;
     return (
         [$json->objToJson([ $ancestor->{$property} ]), $ancestor->{$property},],
-        [$json->objToJson([ $self->_property_to_edit($current, $property) ]), $self->_property_to_edit($current, $property) ],
+        [$json->objToJson([ $current->$property ]), $current->$property ],
         [$json->objToJson([ $new->{$property} ]), $new->{$property} ],
     );
 }
+
+=method merge_changes
+
+Attempts to merge all the data together into a single hash-reference, in the
+same structure as that in C<new_data>. Each property in C<new_data> is merged
+against the C<ancestor_data> and C<old_data> (using L<extract_property> to
+determine exactly what the property value is).
+
+If any properties cannot be merged, a FailedDependency exception will be raised,
+and the edit will be rejected.
+
+If all merges are successful, a new hash-reference will be returned, which can
+be used to update the database.
+
+=cut
 
 sub merge_changes {
     my ($self) = @_;
