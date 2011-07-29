@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Release::Edit;
 use Moose;
+use 5.10.0;
 
 use MooseX::Types::Moose qw( Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -19,6 +20,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     clean_submitted_artist_credits
     verify_artist_credits
+    hash_artist_credit
 );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -27,6 +29,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -177,9 +180,38 @@ before 'initialize' => sub
     }
 };
 
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('artist_credit') {
+            $self->c->model('ArtistCredit')->load($current);
+            my $a = hash_artist_credit($ancestor->{artist_credit});
+            my $c = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
+            my $n = hash_artist_credit($ancestor->{artist_credit});
+            return (
+                [$a, $ancestor->{artist_credit}],
+                [$c, artist_credit_to_ref($current->artist_credit)],
+                [$n, $new->{artist_credit}]
+            );
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
+
+sub current_instance {
+    my $self = shift;
+    return $self->c->model('Release')->get_by_id($self->entity_id);
+}
+
 sub _edit_hash
 {
     my ($self, $data) = @_;
+
+    $data = $self->merge_changes;
     if ($data->{artist_credit}) {
         $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     }
