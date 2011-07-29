@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 use base 'Exporter';
 
@@ -27,6 +28,7 @@ our @EXPORT_OK = qw(
     status_names
     verify_artist_credits
     hash_artist_credit
+    merge_partial_date
     merge_artist_credit
 );
 
@@ -251,20 +253,46 @@ sub hash_artist_credit {
     } @{ $artist_credit->{names} });
 }
 
+=method merge_artist_credit
+
+Merge artist credits from ancestor, current and new data, using a canonical hash
+(which allows minor variations in data if they all really represent the same
+artist credit).
+
+=cut
+
 sub merge_artist_credit {
     my ($c, $ancestor, $current, $new) = @_;
     $c->model('ArtistCredit')->load($current)
         unless $current->artist_credit;
 
-    my $a = hash_artist_credit($ancestor->{artist_credit});
-    my $c = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
-    my $n = hash_artist_credit($new->{artist_credit});
+    my $an = hash_artist_credit($ancestor->{artist_credit});
+    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
+    my $ne = hash_artist_credit($new->{artist_credit});
     return (
-        [$a, $ancestor->{artist_credit}],
-        [$c, artist_credit_to_ref($current->artist_credit)],
-        [$n, $new->{artist_credit}]
+        [$an, $ancestor->{artist_credit}],
+        [$cu, artist_credit_to_ref($current->artist_credit)],
+        [$ne, $new->{artist_credit}]
     );
 }
+
+=method merge_partial_date
+
+Merge partial dates, using a canonical hash and allowing for slightly different
+representations of data.
+
+=cut
+
+sub merge_partial_date {
+    my ($name, $ancestor, $current, $new) = @_;
+
+    return (
+        [ PartialDate->new($ancestor->{$name})->format, $ancestor->{$name} ],
+        [ $current->$name->format, partial_date_to_hash($current->$name) ],
+        [ PartialDate->new($new->{$name})->format, $new->{$name} ],
+    );
+}
+
 
 1;
 

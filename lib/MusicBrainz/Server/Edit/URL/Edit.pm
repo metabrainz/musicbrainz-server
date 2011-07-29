@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::URL::Edit;
+use 5.10.0;
 use Moose;
 
 use Clone qw( clone );
@@ -94,6 +95,24 @@ sub current_instance {
     my $self = shift;
     $self->c->model('URL')->get_by_id($self->url_id),
 }
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('url') {
+            return (
+                [ $ancestor->{url}, $ancestor->{url} ],
+                [ $current->url->as_string, $current->url->as_string ],
+                [ $new->{url}, $new->{url} ]
+            );
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -20,6 +20,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
     verify_artist_credits
     merge_artist_credit
+    merge_partial_date
 );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -178,6 +179,10 @@ around extract_property => sub {
     given ($property) {
         when ('artist_credit') {
             return merge_artist_credit($self->c, $ancestor, $current, $new);
+        }
+
+        when ('date') {
+            return merge_partial_date('date' => $ancestor, $current, $new);
         }
 
         default {

@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::Label::Edit;
+use 5.10.0;
 use Moose;
 
 use MooseX::Types::Moose qw( Maybe Str Int );
@@ -8,7 +9,12 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
-use MusicBrainz::Server::Edit::Utils qw( date_closure changed_relations changed_display_data );
+use MusicBrainz::Server::Edit::Utils qw(
+    date_closure
+    changed_relations
+    changed_display_data
+    merge_partial_date
+);
 use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -154,6 +160,24 @@ sub _edit_hash {
     my ($self, $data) = @_;
     return $self->merge_changes;
 }
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('begin_date') {
+            return merge_partial_date('begin_date' => $ancestor, $current, $new);
+        }
+
+        when ('end_date') {
+            return merge_partial_date('end_date' => $ancestor, $current, $new);
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
