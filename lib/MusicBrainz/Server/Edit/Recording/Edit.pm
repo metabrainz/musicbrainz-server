@@ -13,7 +13,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
     verify_artist_credits
-    hash_artist_credit
+    merge_artist_credit
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -163,15 +163,7 @@ around extract_property => sub {
     my ($property, $ancestor, $current, $new) = @_;
     given ($property) {
         when ('artist_credit') {
-            $self->c->model('ArtistCredit')->load($current);
-            my $a = hash_artist_credit($ancestor->{artist_credit});
-            my $c = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
-            my $n = hash_artist_credit($ancestor->{artist_credit});
-            return (
-                [$a, $ancestor->{artist_credit}],
-                [$c, artist_credit_to_ref($current->artist_credit)],
-                [$n, $new->{artist_credit}]
-            );
+            return merge_artist_credit($self->c, $ancestor, $current, $new);
         }
 
         default {

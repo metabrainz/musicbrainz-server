@@ -75,6 +75,9 @@ sub merge_changes {
                   ->throw('Data has changed since this edit was created, and now conflicts ' .
                               'with changes made in this edit.');
         }
+        else {
+            die $_;
+        }
     };
 
     return $merged;
