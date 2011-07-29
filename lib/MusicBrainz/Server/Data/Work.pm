@@ -212,6 +212,91 @@ sub load_meta
     }, @_);
 }
 
+
+=method find_recording_artists
+
+This method will return a map with lists of artist names for recordings
+the given works are linked to. The artist names are sorted by the number
+of recordings in descending order (i.e. the top artists will be first in
+the list).
+
+=cut
+
+sub find_artists
+{
+    my ($self, $works, $limit) = @_;
+
+    my @ids = map { $_->id } @$works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_composers(\@ids, \%map);
+    $self->_find_recording_artists(\@ids, \%map);
+
+    for my $work_id (keys %map)
+    {
+        my @artists = @{$map{$work_id}};
+        $map{$work_id} = {
+            hits => scalar @artists,
+            results => scalar @artists > $limit ? [ @artists[ 0 .. ($limit-1) ] ] : \@artists,
+        }
+    }
+
+    return %map;
+}
+
+sub _find_composers
+{
+    my ($self, $ids, $map) = @_;
+
+    my $query = "
+        SELECT law.entity1 AS work, an.name
+        FROM l_artist_work law
+        JOIN link l ON law.link=l.id
+        JOIN link_type lt ON l.link_type=lt.id
+        JOIN artist a ON law.entity0=a.id
+        JOIN artist_name an ON a.name=an.id
+        WHERE law.entity1 IN (" . placeholders(@$ids) . ")
+          AND lt.gid IN ('d59d99ea-23d4-4a80-b066-edca32ee158f', -- composer
+                         '3e48faba-ec01-47fd-8e89-30e81161661c', -- lyricist
+                         'a255bca1-b157-4518-9108-7b147dc3fc68') -- writer
+        GROUP BY law.entity1, an.name
+        ORDER BY musicbrainz_collate(an.name)
+    ";
+
+    $self->sql->select($query, @$ids);
+
+    while (my $row = $self->sql->next_row_hash_ref) {
+        my $work_id = delete $row->{work};
+        $map->{$work_id} ||= [];
+        push @{ $map->{$work_id} }, $row->{name};
+    }
+}
+
+sub _find_recording_artists
+{
+    my ($self, $ids, $map) = @_;
+
+    my $query = "
+        SELECT lrw.entity1 AS work, an.name
+        FROM l_recording_work lrw
+        JOIN recording r ON lrw.entity0 = r.id
+        JOIN artist_credit_name acn ON r.artist_credit = acn.artist_credit
+        JOIN artist_name an ON anc.name = an.id
+        WHERE lrw.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY lrw.entity1, an.name
+        ORDER BY count(*) DESC
+    ";
+
+    $self->sql->select($query, @$ids);
+
+    while (my $row = $self->sql->next_row_hash_ref) {
+        my $work_id = delete $row->{work};
+        $map->{$work_id} ||= [];
+        push @{ $map->{$work_id} }, $row->{name};
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
