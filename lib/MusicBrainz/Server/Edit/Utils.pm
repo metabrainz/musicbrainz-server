@@ -27,6 +27,7 @@ our @EXPORT_OK = qw(
     status_names
     verify_artist_credits
     hash_artist_credit
+    merge_artist_credit
 );
 
 sub verify_artist_credits
@@ -248,6 +249,21 @@ sub hash_artist_credit {
             .
         ']'
     } @{ $artist_credit->{names} });
+}
+
+sub merge_artist_credit {
+    my ($c, $ancestor, $current, $new) = @_;
+    $c->model('ArtistCredit')->load($current)
+        unless $current->artist_credit;
+
+    my $a = hash_artist_credit($ancestor->{artist_credit});
+    my $c = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
+    my $n = hash_artist_credit($new->{artist_credit});
+    return (
+        [$a, $ancestor->{artist_credit}],
+        [$c, artist_credit_to_ref($current->artist_credit)],
+        [$n, $new->{artist_credit}]
+    );
 }
 
 1;
