@@ -39,7 +39,7 @@ sub _accept_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->model('MB')->dbh);
+    my $sql = $c->model('MB')->context->sql;
     Sql::run_in_transaction( sub { $c->model('Edit')->accept($edit) }, $sql );
 }
 
@@ -47,7 +47,7 @@ sub _reject_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->model('MB')->dbh);
+    my $sql = $c->model('MB')->context->sql;
     Sql::run_in_transaction( sub { $c->model('Edit')->reject($edit) }, $sql );
 }
 
