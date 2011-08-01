@@ -8,9 +8,10 @@ use Moose::Util::TypeConstraints qw( enum role_type );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
-use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
+use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
 use MusicBrainz::Server::Log 'log_warning';
+use String::CamelCase qw( camelize );
 use Try::Tiny;
 
 my %field_map = (
@@ -25,7 +26,7 @@ my %field_map = (
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
 
     map {
-        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . ucfirst($_) 
+        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_) 
     } qw( artist label recording release release_group work )
 );
 

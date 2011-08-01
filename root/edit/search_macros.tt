@@ -59,9 +59,11 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
                predicate_link(field.field_name, field);
            END %]
-        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
+        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
+             predicate_subscription(field.field_name, field);
+           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
              predicate_link(field.field_name, field);
-            END %]
+           END %]
       </span>
       [% UNLESS field.valid %]
         <p>[% l('Oops! It seems your search parameters are not correct, please double check your input!') %]</p>
@@ -170,6 +172,18 @@
   <input name="args.0" value="[% html_escape(field_contents.argument(0)) %]" class="ac-result" type="hidden" />
 [% END %]
 
+[% MACRO predicate_subscription(field, field_contents) WRAPPER wfield predicate="subscription" %]
+  [% operators([ [ '=', l('is') ]
+               , [ '!=', l('is not') ]
+               , [ 'subscribed', l('is in my subscriptions') ]
+               ], field_contents) %]
+
+  <input name="name" size="40" class="autocomplete autocomplete-[% field %] arg"
+         value="[% html_escape(field_contents.name) %]" />
+  <input name="args.0" value="[% html_escape(field_contents.argument(0)) %]" class="ac-result" type="hidden" />
+  <input name="user_id" value="[% c.user.id %]" class="ac-result" type="hidden" />
+[% END %]
+
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
@@ -207,7 +221,12 @@
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
 
-    [% FOR linked_type=['artist', 'label', 'recording', 'release_group', 'release', 'work', 'editor'3];
+
+    [% FOR linked_type=[ 'artist', 'label' ];
+         predicate_subscription(linked_type);
+       END %]
+
+    [% FOR linked_type=['recording', 'release_group', 'release', 'work', 'editor' ];
          predicate_link(linked_type);
        END %]
   </div>

@@ -9,6 +9,9 @@ $(function() {
         },
         'set': {
             '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
+        },
+        'subscription': {
+            '=': 1, '!=': 1, 'subscribed': 0
         }
     };
 
