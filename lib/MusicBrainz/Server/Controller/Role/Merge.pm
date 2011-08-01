@@ -33,32 +33,34 @@ role {
         my ($self, $c) = @_;
         my $model = $c->model( $self->{model} );
 
-        my $add = $c->req->params->{'add-to-merge'};
+        my $add = exists $c->req->params->{'add-to-merge'} ? $c->req->params->{'add-to-merge'} : [];
         my @add = ref($add) ? @$add : ($add);
-        my @loaded = values %{ $model->get_by_ids(@add) };
 
-        if (!$c->session->{merger} ||
-            $c->session->{merger}->type ne $self->{model}) {
-            $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
-                type => $self->{model},
-            );
+        if (@add) {
+            my @loaded = values %{ $model->get_by_ids(@add) };
+
+            if (!$c->session->{merger} ||
+                 $c->session->{merger}->type ne $self->{model}) {
+                $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
+                    type => $self->{model},
+                );
+            }
+
+            my $merger = $c->session->{merger};
+            $merger->add_entities(map { $_->id } @loaded);
+
+            if ($merger->ready_to_merge) {
+                $c->response->redirect(
+                    $c->uri_for_action(
+                        $self->action_for('merge')));
+                $c->detach;
+            }
         }
 
-        my $merger = $c->session->{merger};
-        $merger->add_entities(map { $_->id } @loaded);
-
-        if ($merger->ready_to_merge) {
-            $c->response->redirect(
-                $c->uri_for_action(
-                    $self->action_for('merge')));
-        }
-        else {
-            $c->response->redirect(
-                $loaded[0]
-                    ? $c->uri_for_action(
-                        $self->action_for('show'), [ $loaded[0]->gid ])
-                    : $c->uri_for_action('/search/search'));
-        }
+        $c->response->redirect(
+            $c->req->referer ||
+                $c->uri_for_action('/search/search'));
+        $c->detach;
     };
 
     method 'merge' => sub {
