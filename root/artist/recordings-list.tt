@@ -7,12 +7,16 @@
   [% END %]
 [% END %]
 
+[% select_all = 1 UNLESS select_all.defined %]
+
 <table class="tbl">
     <thead>
         <tr>
             [% IF c.user_exists && !no_prefix %]
             <th style="width: 1em">
-            <input type="checkbox" />
+              [% IF select_all %]
+                <input type="checkbox" />
+              [% END %]
             </th>
             [% END %]
             <th>[%- l('Name') -%]</th>
