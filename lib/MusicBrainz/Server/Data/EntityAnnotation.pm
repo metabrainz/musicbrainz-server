@@ -2,10 +2,20 @@ package MusicBrainz::Server::Data::EntityAnnotation;
 use Moose;
 
 use HTML::Entities qw( decode_entities );
+use MusicBrainz::Server::Constants qw(
+    $EDITOR_MODBOT
+    $EDIT_ARTIST_ADD_ANNOTATION
+    $EDIT_LABEL_ADD_ANNOTATION
+    $EDIT_RECORDING_ADD_ANNOTATION
+    $EDIT_RELEASEGROUP_ADD_ANNOTATION
+    $EDIT_RELEASE_ADD_ANNOTATION
+    $EDIT_WORK_ADD_ANNOTATION
+);
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list_limited
+    type_to_model
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -107,11 +117,46 @@ sub delete
     return 1;
 }
 
+my %ANNOTATION_TYPE_MAP = (
+    artist        => $EDIT_ARTIST_ADD_ANNOTATION,
+    label         => $EDIT_LABEL_ADD_ANNOTATION,
+    recording     => $EDIT_RECORDING_ADD_ANNOTATION,
+    release_group => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
+    release       => $EDIT_RELEASE_ADD_ANNOTATION,
+    work          => $EDIT_WORK_ADD_ANNOTATION,
+);
+
 sub merge
 {
     my ($self, $new_id, @old_ids) = @_;
     my $table = $self->table;
     my $type = $self->type;
+
+    my @ids = ($new_id, @old_ids);
+    my %entity_to_annotation = map { @$_ } @{
+        $self->sql->select_list_of_lists(
+            "SELECT $type, text
+             FROM (
+                 SELECT $type, text, row_number() OVER (PARTITION BY $type ORDER BY created DESC)
+                 FROM annotation
+                 JOIN $table ent_annotation ON ent_annotation.annotation = annotation.id
+                 WHERE $type IN (".placeholders(@ids).")
+             ) s
+             WHERE row_number = 1",
+            @ids
+        )
+    };
+
+    if (keys %entity_to_annotation > 1) {
+        $self->c->model('Edit')->create(
+            edit_type => $ANNOTATION_TYPE_MAP{$type},
+            editor_id => $EDITOR_MODBOT,
+            entity => $self->c->model(type_to_model($type))->get_by_id($new_id),
+            text => join("\n\n-------\n\n", values %entity_to_annotation),
+            changelog => "Result of $type merge"
+        );
+    }
+
     $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
