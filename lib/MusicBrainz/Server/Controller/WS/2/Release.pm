@@ -6,6 +6,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT_BARCODES
 );
+use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use TryCatch;
@@ -260,6 +261,8 @@ sub release_submit : Private
         $self->_error($c, "$gid does not match any existing releases")
             unless exists $gid_map{$gid};
     }
+
+    @submit = uniq_by { join(':', $_->{release}, $_->{barcode}) } @submit;
 
     if (@submit) {
         try {
