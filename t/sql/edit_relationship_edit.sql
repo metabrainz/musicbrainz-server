@@ -31,6 +31,8 @@ INSERT INTO link_attribute_type (id, root, gid, name)
     VALUES (1, 1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'Attribute');
 
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
+INSERT INTO link_type_attribute_type (attribute_type, link_type, min, max) VALUES (1, 1, 0, NULL);
+INSERT INTO link_type_attribute_type (attribute_type, link_type, min, max) VALUES (1, 2, 0, NULL);
 INSERT INTO link_attribute (link, attribute_type) VALUES (1, 1);
 
 INSERT INTO l_artist_artist (id, link, entity0, entity1) VALUES (1, 1, 1, 2);
