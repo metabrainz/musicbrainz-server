@@ -11,6 +11,9 @@ echo `date` : Adding label code constraints
 echo `date` : Fixing edits_failed column
 ./admin/psql READWRITE < admin/sql/updates/20110725-rebuild-editor-stats.sql
 
+echo `date` : Removing and preventing invalid attributes on links
+./admin/psql READWRITE < ./admin/sql/updates/20110726-invalid-attributes.sql
+
 echo `date` : Done
 
 # eof
