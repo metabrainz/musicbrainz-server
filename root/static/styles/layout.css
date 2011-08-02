@@ -224,10 +224,6 @@ pre code {
     z-index: 9;
 }
 
-#header-menu li:hover ul {
-    left: auto;
-}
-
 #header-menu li ul li {
     text-align: left;
     float: none;
