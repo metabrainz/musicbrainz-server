@@ -68,6 +68,9 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
             return;
         }
+        else {
+            $c->detach('not_found');
+        }
     }
     elsif (my $toc = $c->req->query_params->{toc}) {
         my $results = $c->model('DurationLookup')->lookup($toc, 10000);
