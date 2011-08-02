@@ -334,7 +334,9 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
-    out.push(link_entity(label.label)) FOR label=labels;
+    FOR label=labels;
+      out.push(link_entity(label.label)) IF label.label_id;
+    END;
     out.join(', ');
 END -%]
 
