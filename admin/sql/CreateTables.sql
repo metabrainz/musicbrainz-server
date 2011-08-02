@@ -574,7 +574,7 @@ CREATE TABLE label (
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
-    label_code          INTEGER CHECK (label_code > 0),
+    label_code          INTEGER CHECK (label_code > 0 AND label_code < 100000),
     type                INTEGER, -- references label_type.id
     country             INTEGER, -- references country.id
     comment             VARCHAR(255),
