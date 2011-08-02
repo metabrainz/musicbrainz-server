@@ -15,6 +15,7 @@ use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Constants qw($DARTIST_ID $VARTIST_ID);
 use Sql;
 
+with 't::Edit';
 with 't::Context';
 
 test all => sub {
@@ -98,10 +99,8 @@ like ( $annotation->text, qr/Test annotation 2/ );
 memory_cycle_ok($annotation, 'annotation entity has no cycles after get_latest annotation');
 memory_cycle_ok($artist_data, 'artist data does not leak after merging annotations');
 
-TODO: {
-    local $TODO = 'Merging annotations should concatenate or combine them';
-    like($annotation->text, qr/Test annotation 1.*Test annotation 7/s);
-}
+like($annotation->text, qr/Test annotation 1/, 'has annotation 1');
+like($annotation->text, qr/Test annotation 2/, 'has annotation 2');
 
 # Deleting annotations
 $artist_data->annotation->delete(4);
