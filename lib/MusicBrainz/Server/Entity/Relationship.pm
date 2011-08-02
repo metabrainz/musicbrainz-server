@@ -10,6 +10,7 @@ Readonly our $DIRECTION_BACKWARD => 2;
 
 extends 'MusicBrainz::Server::Entity';
 with  'MusicBrainz::Server::Entity::Role::Editable';
+with  'MusicBrainz::Server::Entity::Role::LastUpdate';
 
 has 'link_id' => (
     is => 'rw',
