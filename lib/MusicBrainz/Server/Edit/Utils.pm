@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_r
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Log qw( log_error );
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -47,6 +48,10 @@ sub verify_artist_credits
     my @artists = values %{ $c->model('Artist')->get_by_ids(@artist_ids) };
 
     if (@artists != uniq @artist_ids) {
+        log_error { "Mismatch verifying artist credits: $_" } +{
+            verifying => \@credits,
+            artists => \@artists
+        };
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'An artist that is used in the new artist credits has been deleted'
         )
