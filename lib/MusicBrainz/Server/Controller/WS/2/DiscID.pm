@@ -53,6 +53,7 @@ sub discid : Chained('root') PathPart('discid') Args(1)
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
+        return;
     }
 
     if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
@@ -66,6 +67,9 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
             $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
             return;
+        }
+        else {
+            $c->detach('not_found');
         }
     }
     elsif (my $toc = $c->req->query_params->{toc}) {

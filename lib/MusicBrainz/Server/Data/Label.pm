@@ -34,6 +34,8 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 
+sub browse_column { 'sort_name.name' }
+
 sub _table
 {
     my $self = shift;

@@ -23,7 +23,7 @@ has_field 'type_id' => (
 );
 
 has_field 'label_code' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::LabelCode',
     size => 5,
 );
 

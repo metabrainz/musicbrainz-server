@@ -5,16 +5,19 @@ use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 
 requires '_columns', '_table';
 
+sub browse_column { 'name.name' }
+
 sub find_by_name_prefix
 {
     my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
 
+    my $browse_on = $self->browse_column;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                 WHERE page_index(name.name) BETWEEN page_index(?) AND
-                                                     page_index_max(?)";
+                 WHERE page_index($browse_on) BETWEEN page_index(?) AND
+                                                      page_index_max(?)";
 
     $query .= " AND ($conditions)" if $conditions;
-    $query .= ' ORDER BY musicbrainz_collate(name.name) OFFSET ?';
+    $query .= " ORDER BY musicbrainz_collate($browse_on) OFFSET ?";
 
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },

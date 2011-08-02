@@ -39,6 +39,8 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 
+sub browse_column { 'sort_name.name' }
+
 sub _table
 {
     my $self = shift;

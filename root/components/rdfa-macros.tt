@@ -413,7 +413,7 @@ END -%]
 [%- MACRO rdfa_release_label_list(labels) BLOCK;
     out = [];
     FOR label=labels;
-      IF label.label;
+      IF label.label_id;
         out.push(rdfa_link_label(label.label));
       END;
     END;
