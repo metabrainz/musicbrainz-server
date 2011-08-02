@@ -129,6 +129,13 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\.)?purevolume\.com","i"),
         type: MB.constants.LINK_TYPES.purevolume
     },
+    allmusic: {
+        match: new RegExp("^(https?://)?([^/]+\.)?allmusic\.com","i"),
+        type: MB.constants.LINK_TYPES.allmusic,
+        clean: function(url) {
+            return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album|work|song|performance)\/(?:[^\/]*-)?([pqrwtcf][0-9]+).*/, "http://allmusic.com/$1/$2");
+        }
+    },
     amazon: {
         match: new RegExp("^(https?://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn)","i"),
         type: MB.constants.LINK_TYPES.amazon,
