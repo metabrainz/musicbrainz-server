@@ -66,7 +66,7 @@ $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), '"Editor 1" <foo@example.com>');
 is($e->get_header('To'), '"Editor 2" <bar@example.com>');
-is($e->get_header('BCC'), '"Editor 1" <foo@example.com>');
+is($e->get_header('BCC'), undef);
 is($e->get_header('Subject'), 'Hey');
 compare_body($e->get_body, <<EOS);
 MusicBrainz user 'Editor 1' has sent you the following message:
