@@ -16,7 +16,7 @@
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
                     [%- IF artist.begin_date.format %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% date_period_label = artist.type_id == 1 ? l('Born:') : l('Founded:') %]
+                            [% date_period_label = artist.type_id == 1 ? l('Born:') : artist.type_id == 2 ? l('Founded:') : l('Began:') %]
                             [% rdfa_begin_date_artist(artist.begin_date.format) %]
                             [% IF artist.has_age AND not artist.end_date.format %]
                                 ([% rdfa_artist_age(display_age (artist.age)) %] ago)
@@ -25,7 +25,7 @@
                     [%- END -%]
                     [% IF artist.end_date.format %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% date_period_label = artist.type_id == 1 ? l('Died:') : l('Dissolved:') %]
+                            [% date_period_label = artist.type_id == 1 ? l('Died:') : artist.type_id == 2 ? l('Dissolved:') : l('Ended:') %]
                             [% rdfa_end_date_artist(artist.end_date.format) %]
                             [% IF artist.has_age %]
                                 ([% rdfa_artist_age(display_age (artist.age)) %])
