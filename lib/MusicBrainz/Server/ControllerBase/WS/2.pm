@@ -87,6 +87,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
         if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
             $self->_error($c, $err->message);
         }
+        $c->detach;
     };
 
     $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
