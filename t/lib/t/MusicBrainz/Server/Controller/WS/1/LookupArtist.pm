@@ -423,6 +423,11 @@ ws_test 'artist lookup with ratings',
 </metadata>',
   { username => 'other editor', password => 'password' };
 
+$mech->get('/ws/1/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?type=xml&inc=coffee');
+is($mech->status, 400);
+like($mech->content, qr{coffee is not a valid inc parameter for the artist resource});
+like($mech->content, qr{For usage, please see: http://musicbrainz.org/development/mmd});
+
 };
 
 1;
