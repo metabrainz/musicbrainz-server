@@ -9,6 +9,9 @@ $(function() {
         },
         'set': {
             '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
+        },
+        'vote': {
+            '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
         }
     };
 

@@ -58,6 +58,8 @@
                predicate_date(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
                predicate_link(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Vote';
+               predicate_vote(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
              predicate_link(field.field_name, field);
@@ -170,6 +172,23 @@
   <input name="args.0" value="[% html_escape(field_contents.argument(0)) %]" class="ac-result" type="hidden" />
 [% END %]
 
+[% MACRO predicate_vote(field, field_contents) WRAPPER wfield predicate="vote" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+  <input type="hidden" name="voter_id" value="[% c.user.id %]" />
+  <select name="args" multiple="multiple">
+    [% FOR item=[ [  1,   l('Yes') ]
+                , [  0,   l('No') ]
+                , [ -1,   l('Abstain') ]
+                , [ 'no', l('No vote') ]
+                ] %]
+    <option value="[% html_escape(item.0) %]"
+            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
+            >[% html_escape(item.1) %]</option>
+    [% END %]
+  </select>
+[% END %]
+
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
@@ -189,7 +208,8 @@
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release Group') ],
                    [ 'work', l('Work') ],
-                   [ 'editor', l('Editor') ]
+                   [ 'editor', l('Editor') ],
+                   [ 'vote', l('My Vote') ]
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -207,8 +227,10 @@
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
 
-    [% FOR linked_type=['artist', 'label', 'recording', 'release_group', 'release', 'work', 'editor'3];
+    [% FOR linked_type=['artist', 'label', 'recording', 'release_group', 'release', 'work', 'editor' ];
          predicate_link(linked_type);
        END %]
+
+    [% predicate_vote('vote') %]
   </div>
 [% END %]

@@ -10,6 +10,7 @@ use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
+use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::Log 'log_warning';
 use Try::Tiny;
 
@@ -23,6 +24,7 @@ my %field_map = (
     no_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     yes_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
+    vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
 
     map {
         $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . ucfirst($_) 
