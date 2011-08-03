@@ -192,9 +192,7 @@ sub find_outdated_releases
              )
            AND ( link_type.name IN ('  . placeholders(@url_types) . ')
               OR release.barcode IS NOT NULL )
-      ORDER BY release_coverart.cover_art_url NULLS FIRST,
-               _sort_order ASC,
-               release_coverart.last_updated ASC';
+      ORDER BY release_coverart.last_updated ASC';
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
     return query_to_list($self->c->sql, sub {
