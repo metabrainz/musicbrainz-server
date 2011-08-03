@@ -60,11 +60,21 @@ sub apply_rate_limit
     }
 }
 
-sub begin : Private {
+sub begin {}
+sub auto : Private {
     my ($self, $c) = @_;
     $c->stash->{data} = {};
-    $self->validate($c, $self->serializers) or $c->detach('bad_req');
-    $self->apply_rate_limit($c);
+    try {
+        $self->validate($c, $self->serializers) or $c->detach('bad_req');
+        return 1;
+    }
+    catch {
+        my $err = $_;
+        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+            $self->bad_req($c, $err->message);
+        }
+        return 0;
+    };
 }
 
 sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }

@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::WebServiceInc;
 
 use Moose;
 with qw(MooseX::Clone);
+use MusicBrainz::Server::WebService::Exceptions;
 
 has $_ => (
     is  => 'rw',
@@ -65,7 +66,8 @@ sub BUILD
         $arg =~ s/-/_/g;
         $arg =~ s/mediums/media/;
 
-        die "Unknown inc parameter $arg" if !exists($methods{$arg});
+        MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter->throw( parameter => $arg )
+            if !exists($methods{$arg});
         $methods{$arg}->set_value($self, 1);
     }
 
