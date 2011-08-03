@@ -242,6 +242,8 @@ sub cache_cover_art
         $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
             if keys %$meta_update;
     }
+
+    return $cover_art;
 }
 
 sub parse_from_type_url
