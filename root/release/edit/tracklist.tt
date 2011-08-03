@@ -239,9 +239,6 @@
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
 
-        <input type="hidden" name="various-artists" class="various-artists"
-            value="[% information.field('various_artists').value | html %]" />
-
         <table class="basic-format">
           <tr>
             <td class="icon">
@@ -309,6 +306,9 @@
 
       <h3>[% l('Options') %]</h3>
       <p id="tracklist-options">
+      <input type="checkbox" name="trackartists" id="trackartists">
+      <label for="trackartists">[% l('Parse track artists') %]</label>
+      <br />
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
       <label for="tracknumbers">[% l('Track names start with a number') %]</label>
       <br />
