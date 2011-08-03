@@ -5,6 +5,7 @@ use Time::HiRes qw (sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
 use LWP::UserAgent;
 use XML::XPath;
+use MusicBrainz::Server::Log qw( log_info );
 
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 
@@ -68,7 +69,7 @@ sub lookup_cover_art
     my $end_point = $self->get_store_api($store);
 
     unless ($end_point) {
-        warn "$store does not have a known ECS end point";
+        log_info { "$store does not have a known ECS end point" };
         return;
     }
 
