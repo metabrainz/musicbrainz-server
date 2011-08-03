@@ -12,9 +12,4 @@
   </tr>
   [% END %]
 
-  <tr>
-    <th>[% l('Change track artists:') %]</th>
-    <td>[% edit.display_data.update_tracklists ? l('Yes') : l('No') %]</td>
-  </tr>
-
 </table>
