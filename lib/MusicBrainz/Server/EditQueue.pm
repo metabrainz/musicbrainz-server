@@ -53,7 +53,7 @@ sub process_edits
         return 0;
     }
 
-    my $sql = Sql->new($self->c->dbh);
+    my $sql = $self->c->sql;
 
     $self->log->debug("Selecting open and to-be-deleted edit IDs\n");
     my $edit_ids = $sql->select_single_column_array("
