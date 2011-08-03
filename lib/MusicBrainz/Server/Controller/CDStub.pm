@@ -59,6 +59,12 @@ sub add : Path('add') {
         $c->detach('/error_400');
     }
 
+    if(my $cdstub = $c->model('CDStub')->get_by_discid($toc->discid)) {
+        $c->response->redirect(
+            $c->uri_for_action('/cdstub/show', [ $toc->discid ]));
+        $c->detach;
+    }
+
     my $form = $c->form(
         form => 'CDStub',
         init_object => {
