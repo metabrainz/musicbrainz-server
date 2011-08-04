@@ -565,7 +565,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     };
 
     self.isVariousArtists = function () {
-        return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
+        return self.box[0].$gid.val () === MB.constants.VARTIST_GID ||
+            self.box[0].$id.val () === String (MB.constants.VARTIST_ID);
     };
 
     self.isEmpty = function () {
