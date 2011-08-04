@@ -45,6 +45,13 @@ has combinator => (
     default => 'and'
 );
 
+has order => (
+    isa => enum([qw( asc desc rand )]),
+    is => 'ro',
+    required => 1,
+    default => 'desc'
+);
+
 has auto_edit_filter => (
     isa => Maybe[Bool],
     is => 'ro',
@@ -101,6 +108,7 @@ sub new_from_user_input {
     return $class->new(
         negate => $input->{negation},
         combinator => $input->{combinator},
+        order => $input->{order},
         auto_edit_filter => $ae,
         fields => [
             map {
@@ -138,13 +146,16 @@ sub as_string {
     my $comb = $self->combinator;
     my $ae_predicate = defined $self->auto_edit_filter ?
         'autoedit = ? AND ' : '';
+    my $order = '';
+    $order = 'ORDER BY open_time ' . $self->order
+        unless $self->order eq 'rand';
     return 'SELECT edit.* FROM edit ' .
         join(' ', $self->join) .
         ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
-        ')
-         ORDER BY open_time DESC
-         LIMIT 500 OFFSET ?';
+        ")
+         $order
+         LIMIT 500 OFFSET ?";
 }
 
 sub arguments {
