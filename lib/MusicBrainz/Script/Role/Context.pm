@@ -9,7 +9,7 @@ has 'c' => (
     is         => 'ro',
     traits     => [ 'NoGetopt' ],
     lazy_build => 1,
-    handles => 'sql'
+    handles    => [qw( sql )]
 );
 
 sub _build_c

@@ -21,6 +21,9 @@ my $diff = XML::SemanticDiff->new;
 my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);
+EOSQL
 
 ws_test 'basic release lookup',
     '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6' =>
@@ -34,6 +37,24 @@ ws_test 'basic release lookup',
         </text-representation>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
+    </release>
+</metadata>';
+
+ws_test 'basic release with tags',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language><script>Latn</script>
+        </text-representation>
+        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <asin>B00005LA6G</asin>
+        <tag-list>
+          <tag count="1"><name>hello project</name></tag>
+        </tag-list>
     </release>
 </metadata>';
 
