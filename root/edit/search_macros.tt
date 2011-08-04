@@ -185,6 +185,13 @@
             [% 'selected="selected"' IF field_contents.find_argument(language.id) %]
             >[% html_escape(language.name) %]</option>
     [% END %]
+[% END %]
+
+[% MACRO predicate_link_type(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ] ], field_contents) %]
+
+  <select name="args" multiple="multiple">
+    <option value="101">catalogued</option>
   </select>
 [% END %]
 
@@ -268,6 +275,7 @@
                    [ 'release_language', l('Release Language') ],
                    [ 'artist_country', l('Artist Country') ],
                    [ 'label_country', l('Label Country') ]
+                   [ 'link_type', l('Link Type') ],
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -297,5 +305,6 @@
     [% predicate_release_language('release_language') %]
     [% predicate_country('artist_country') %]
     [% predicate_country('label_country') %]
+    [% predicate_link_type('link_type') %]
   </div>
 [% END %]
