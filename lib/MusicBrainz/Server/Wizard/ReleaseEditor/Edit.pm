@@ -94,7 +94,7 @@ override 'prepare_tracklist' => sub {
     for my $medium ($self->release->all_mediums)
     {
         $medium_cdtocs_json[$number++] =
-            $medium->cdtocs ? $medium->cdtocs->[0]->cdtoc->track_count : undef;
+            @{ $medium->cdtocs } ? $medium->cdtocs->[0]->cdtoc->track_count : undef;
     }
 
     $self->c->stash->{medium_cdtocs_json} = $json->encode (\@medium_cdtocs_json);
