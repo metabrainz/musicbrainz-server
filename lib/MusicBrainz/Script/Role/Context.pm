@@ -9,23 +9,12 @@ has 'c' => (
     is         => 'ro',
     traits     => [ 'NoGetopt' ],
     lazy_build => 1,
+    handles => 'sql'
 );
 
 sub _build_c
 {
     return MusicBrainz::Server::Context->create_script_context;
-}
-
-has 'sql' => (
-    isa        => 'Sql',
-    is         => 'ro',
-    traits     => [ 'NoGetopt' ],
-    lazy_build => 1,
-);
-
-sub _build_sql
-{
-    return Sql->new(shift->c->dbh);
 }
 
 1;
