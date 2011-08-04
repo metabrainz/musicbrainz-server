@@ -108,7 +108,7 @@ sub new_from_user_input {
     return $class->new(
         negate => $input->{negation},
         combinator => $input->{combinator},
-        order => $input->{order},
+        $input->{order} ? (order => $input->{order}) : (),
         auto_edit_filter => $ae,
         fields => [
             map {
