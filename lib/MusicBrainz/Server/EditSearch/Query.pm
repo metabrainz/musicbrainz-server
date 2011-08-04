@@ -11,6 +11,7 @@ use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
 use MusicBrainz::Server::EditSearch::Predicate::Vote;
+use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::Log 'log_warning';
 use String::CamelCase qw( camelize );
 use Try::Tiny;
@@ -26,6 +27,7 @@ my %field_map = (
     yes_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
     vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
+    link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
 
     map {
         $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_) 

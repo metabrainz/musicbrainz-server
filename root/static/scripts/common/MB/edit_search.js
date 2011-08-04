@@ -15,6 +15,9 @@ $(function() {
         },
         'subscription': {
             '=': 1, '!=': 1, 'subscribed': 0
+        },
+        'link_type': {
+            '=': 1
         }
     };
 
