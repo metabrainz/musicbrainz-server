@@ -234,13 +234,13 @@ around 'dispatch' => sub {
     my $c = shift;
 
     my ($process_info) = grep { $_->pid == $$ } @{ $pt->table };
-    printf STDERR "Process memory information: pid=%d virt=%d res=%d served=%d \"%s %s\"\n",
+    $c->log->debug(sprintf "Process memory information: pid=%d virt=%d res=%d served=%d \"%s %s\"\n",
         $$,
         $process_info->size,
         $process_info->rss,
         $Catalyst::COUNT,
         $c->req->method,
-        $c->req->uri;
+        $c->req->uri);
 
     Translation->instance->build_languages_from_header($c->req->headers);
 
