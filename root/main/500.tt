@@ -44,6 +44,11 @@
         [% END %]
 
         <p>
+          <strong>[% l("URL:") %]</strong>
+          <code>[% c.req.uri %]</code>
+        </p>
+
+        <p>
             [%- l("We're terribly sorry for this problem. Please wait a few minutes and repeat your request &mdash; the problem may go away.") %]
         </p>
         <p>
