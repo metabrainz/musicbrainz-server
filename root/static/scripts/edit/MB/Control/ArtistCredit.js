@@ -134,6 +134,24 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.$name.removeClass ('lookup-performed');
         }
+
+        if (self.$gid.val () === MB.constants.VARTIST_GID ||
+            self.$id.val () === String (MB.constants.VARTIST_ID))
+        {
+            if (!self.$name.hasClass ('various-artists'))
+            {
+                self.$name.addClass ('various-artists');
+                self.$name.trigger ('VariousArtists');
+            }
+        }
+        else
+        {
+            if (self.$name.hasClass ('various-artists'))
+            {
+                self.$name.removeClass ('various-artists');
+                self.$name.trigger ('VariousArtists');
+            }
+        }
     };
 
     self.update = function(event, data) {
