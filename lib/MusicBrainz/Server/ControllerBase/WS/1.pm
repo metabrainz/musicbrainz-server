@@ -73,10 +73,10 @@ sub search : Chained('root') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my $limit = 0 + (int($c->req->query_params->{limit}) || 25);
+    my $limit = $c->req->query_params->{limit} ? int($c->req->query_params->{limit}) : 25;
     $limit = 25 if $limit < 1 || $limit > 100;
 
-    my $offset = 0 + (int($c->req->query_params->{offset}) || 0);
+    my $offset = $c->req->query_params->{offset} ? int($c->req->query_params->{offset}) : 0;
     $offset = 0 if $offset < 0;
 
     try {
