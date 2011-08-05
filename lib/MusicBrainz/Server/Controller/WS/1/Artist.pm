@@ -61,7 +61,7 @@ sub lookup : Chained('load') PathPart('')
 
         my @releases;
         if ($c->stash->{inc}->rel_status && @rg) {
-            @releases = grep { $_->status_id == $c->stash->{inc}->rel_status } @$results;
+            @releases = grep { defined($_->status_id) && $_->status_id == $c->stash->{inc}->rel_status } @$results;
         }
         else {
             @releases = @$results;

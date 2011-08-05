@@ -331,29 +331,11 @@ sub move : Local RequireAuth Edit
 
             my $form = $c->form(form => 'Confirm');
             if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-                if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium->id, $cdtoc)) {
-                    my $edit = $self->_insert_edit($c, $form,
-                        edit_type        => $EDIT_MEDIUM_REMOVE_DISCID,
-                        medium => $medium_cdtoc->medium,
-                        cdtoc  => $medium_cdtoc
-                    );
-
-                    $c->model('EditNote')->add_note(
-                        $edit->id,
-                        {
-                            text => l('This CDTOC cannot be moved to {release}, as it already has this CDTOC. It must instead be removed.',
-                                      { release => $release->name }),
-                            editor_id => $EDITOR_MODBOT,
-                        }
-                    );
-                }
-                else {
-                    $self->_insert_edit($c, $form,
-                        edit_type        => $EDIT_MEDIUM_MOVE_DISCID,
-                        medium_cdtoc => $medium_cdtoc,
-                        new_medium   => $medium,
-                    )
-                }
+                $self->_insert_edit($c, $form,
+                    edit_type        => $EDIT_MEDIUM_MOVE_DISCID,
+                    medium_cdtoc => $medium_cdtoc,
+                    new_medium   => $medium,
+                );
 
                 $c->response->redirect(
                     $c->uri_for_action('/release/discids',
