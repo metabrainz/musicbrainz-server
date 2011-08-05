@@ -83,7 +83,7 @@ sub search
                 (
                     SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
@@ -153,7 +153,7 @@ sub search
                 (
                     SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type2}_name, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
@@ -170,7 +170,7 @@ sub search
         $query = "
             SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
             FROM tag, plainto_tsquery('mb_simple', ?) AS query
-            WHERE to_tsvector('mb_simple', name) @@ query
+            WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
             ORDER BY rank DESC, tag.name
             OFFSET ?
         ";
@@ -179,7 +179,7 @@ sub search
     elsif ($type eq 'editor') {
         $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                   FROM editor, plainto_tsquery('mb_simple', ?) AS query
-                  WHERE to_tsvector('mb_simple', name) @@ query
+                  WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                   ORDER BY rank DESC
                   OFFSET ?";
         $use_hard_search_limit = 0;
@@ -203,7 +203,7 @@ sub search
     push @query_args, @where_args;
     push @query_args, $offset;
 
-    $self->sql->select($query, $query_str, @query_args);
+    $self->sql->select($query, $query_str, $query_str, @query_args);
 
     my @result;
     my $pos = $offset + 1;
