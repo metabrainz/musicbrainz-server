@@ -19,13 +19,20 @@
         [%- END -%]
     [%- END -%]
 
+    [%- IF !homepage_relationships.size && !urls -%]
+        <li>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</li>
+    [%- END -%]
+</ul>
+
+<h2>[% l('Affiliate links') %]</h2>
+<ul class="external_links">
     [% IF soundunwound %]
     <li>
-      [% l('{uri|SoundUnwound}', { uri => soundunwound }) %]
+      [% l('{uri|Search on SoundUnwound}', { uri => soundunwound }) %]
     </li>
     [% END %]
 
-    [%- IF !homepage_relationships.size && !urls && !soundunwound -%]
+    [%- IF !soundunwound -%]
         <li>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</li>
     [%- END -%]
 </ul>
