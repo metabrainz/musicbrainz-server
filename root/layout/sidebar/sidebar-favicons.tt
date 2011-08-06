@@ -24,15 +24,11 @@
     [%- END -%]
 </ul>
 
+[% IF soundunwound %]
 <h2>[% l('Affiliate links') %]</h2>
 <ul class="external_links">
-    [% IF soundunwound %]
     <li>
       [% l('{uri|Search on SoundUnwound}', { uri => soundunwound }) %]
     </li>
-    [% END %]
-
-    [%- IF !soundunwound -%]
-        <li>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</li>
-    [%- END -%]
 </ul>
+[% END %]
