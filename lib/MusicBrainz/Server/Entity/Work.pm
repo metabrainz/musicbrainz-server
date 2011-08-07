@@ -46,6 +46,16 @@ has 'artists' => (
     }
 );
 
+has 'writers' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    default => sub { [] },
+    handles => {
+        add_writer => 'push',
+        all_writers => 'elements',
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

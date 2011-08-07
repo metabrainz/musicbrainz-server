@@ -458,9 +458,12 @@ sub schema_fixup
     }
 
     if ($type eq 'work' && exists $data->{relationships}) {
-        $data->{artists} = [ map {
-            $_->entity1
-        } @{ $data->{relationships} } ];
+        my %seen = ();
+        $data->{writers} = [
+            grep { not $seen{$_->gid}++ }
+            map { $_->entity1 }
+            @{ $data->{relationships} }
+        ];
     }
 
     if($type eq 'work' && exists $data->{type}) {
@@ -572,6 +575,13 @@ sub external_search
                 $result->{type} =~ s/MusicBrainz::Server::Entity:://;
                 $result->{type} = lc($result->{type});
             }
+        }
+
+        if ($type eq 'work')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Work')->load_ids(@entities);
+            $self->c->model('Work')->load_recording_artists(@entities);
         }
 
         my $pager = Data::Page->new;
