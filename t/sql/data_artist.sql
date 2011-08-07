@@ -41,8 +41,6 @@ UPDATE artist_meta SET rating=70, rating_count=4 WHERE id=3;
 
 
 
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
-
 INSERT INTO annotation (id, editor, text) VALUES (1, 1, 'Test annotation 1');
 INSERT INTO annotation (id, editor, text) VALUES (2, 1, 'Test annotation 2');
 
@@ -54,4 +52,5 @@ INSERT INTO artist_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 
 
 ALTER SEQUENCE artist_name_id_seq RESTART 4;
 ALTER SEQUENCE artist_id_seq RESTART 5;
+ALTER SEQUENCE annotation_id_seq RESTART 3;
 

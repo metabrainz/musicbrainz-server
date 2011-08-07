@@ -15,7 +15,7 @@ sub gather_data_from_query
     my ($self, $writer, $query, $args, $filter) = @_;
     $args ||= [];
 
-    my $sql = Sql->new($self->c->dbh);
+    my $sql = $self->c->sql;
     $sql->select($query, @$args);
     while (my $row = $sql->next_row_hash_ref) {
         next if $filter and not($row = &$filter($row));

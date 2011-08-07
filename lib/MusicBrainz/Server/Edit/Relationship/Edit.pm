@@ -356,6 +356,18 @@ sub accept
         $data->{relationship_id},
         $values
     );
+
+    my $link_type = $self->c->model('LinkType')->get_by_id(
+        $values->{link_type_id}
+    );
+
+    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
+        my $release = $self->c->model('Release')->get_by_id(
+            $values->{entity0_id}
+        );
+        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
+        $self->c->model('CoverArt')->cache_cover_art($release);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

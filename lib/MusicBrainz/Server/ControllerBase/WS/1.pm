@@ -60,11 +60,21 @@ sub apply_rate_limit
     }
 }
 
-sub begin : Private {
+sub begin {}
+sub auto : Private {
     my ($self, $c) = @_;
     $c->stash->{data} = {};
-    $self->validate($c, $self->serializers) or $c->detach('bad_req');
-    $self->apply_rate_limit($c);
+    try {
+        $self->validate($c, $self->serializers) or $c->detach('bad_req');
+        return 1;
+    }
+    catch {
+        my $err = $_;
+        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+            $self->bad_req($c, $err->message);
+        }
+        return 0;
+    };
 }
 
 sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }
@@ -73,10 +83,10 @@ sub search : Chained('root') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my $limit = 0 + ($c->req->query_params->{limit} || 25);
+    my $limit = $c->req->query_params->{limit} ? int($c->req->query_params->{limit}) : 25;
     $limit = 25 if $limit < 1 || $limit > 100;
 
-    my $offset = 0 + ($c->req->query_params->{offset} || 0);
+    my $offset = $c->req->query_params->{offset} ? int($c->req->query_params->{offset}) : 0;
     $offset = 0 if $offset < 0;
 
     try {

@@ -204,13 +204,20 @@ is($edit->votes->[0]->vote, $VOTE_YES);
 is($edit->votes->[0]->editor_id, 1);
 
 # Test canceling
-
 $edit = $edit_data->get_by_id(2);
+$editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
+
 $edit_data->cancel($edit);
 memory_cycle_ok($edit_data);
 
+my $editor_cancelled = $test->c->model('Editor')->get_by_id($edit->editor_id);
+
 $edit = $edit_data->get_by_id(2);
 is($edit->status, $STATUS_DELETED);
+
+is ($editor_cancelled->$_, $editor->$_,
+    "$_ has not changed")
+    for qw( accepted_edits rejected_edits failed_edits accepted_auto_edits );
 
 };
 

@@ -154,6 +154,10 @@ sub clean_submitted_artist_credits
             # use the id in edits, and that should determine if an
             # artist changed in Edit::WithDifferences).
             delete $part->{artist}->{gid};
+
+            # Fill in the artist credit from the artist name if no artist credit
+            # was submitted (because it is displayed as a HTML5 placeholder).
+            $part->{name} = $part->{artist}->{name} unless $part->{name};
         }
         elsif (! $part)
         {

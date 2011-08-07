@@ -71,9 +71,11 @@ sub list_of {
     my $element = ref $_[0] eq 'SCALAR' ? ${ shift() } : undef;
     my $attributes = (ref $_[0] eq 'HASH') ? shift : {};
     my ($entities, $inc, $opts) = @_;
-    return unless @$entities;
 
-    $element ||= serializer($entities->[0])->element . '-list';
+    if (!$element) {
+        return '' unless @$entities;
+        $element ||= serializer($entities->[0])->element . '-list';
+    }
 
     $opts ||= {};
     $opts->{in_list} = 1;

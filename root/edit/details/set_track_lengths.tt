@@ -30,6 +30,16 @@
        END;
      END %]
 
-  [%- display_diff(l('Old track lengths:'),
-                   old_lengths, new_lengths) -%]
+  <tr>
+    <th>[% label %]</th>
+    <td class="old">[% Diff.diff_side(old_lengths, new_lengths, '-', '') %]</td>
+    <td class="new">[% Diff.diff_side(old_lengths, new_lengths, '+', '') %]</td>
+  </tr>
+
+  [% IF old_lengths == new_lengths %]
+  <tr>
+    <th>[% l('Note:') %]</th>
+    <td colspan="2">[% l('This edit makes subsecond changes to track lengths') %]</td>
+  </tr>
+  [% END %]
 </table>

@@ -105,8 +105,11 @@ sub allow_auto_edit
     my $self = shift;
     my ($old, $new) = normalise_strings($self->data->{old}{name},
                                         $self->data->{new}{name});
+    return 0 if $old ne $new;
 
-    return $old eq $new;
+    return 0 if $self->data->{old}{locale};
+
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;

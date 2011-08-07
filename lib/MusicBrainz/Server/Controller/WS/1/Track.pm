@@ -198,13 +198,6 @@ sub submit_isrc : Private
 {
     my ($self, $c, $submit, $recordings) = @_;
 
-    # Ensure that we're not a replicated server and that we were given a client version
-    my $client = $c->req->params->{client};
-    if ($client eq '') {
-        $c->stash->{error} = 'Client parameter must be given';
-        $c->detach('bad_req');
-    }
-
     for my $isrcs (values %$submit) {
         for my $isrc (@$isrcs) {
             unless (is_valid_isrc($isrc)) {
