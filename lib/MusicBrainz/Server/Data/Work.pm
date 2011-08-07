@@ -233,9 +233,6 @@ sub load_ids
     my %map = map { $_->[0] => $_->[1] }
         @{ $self->sql->select_list_of_lists($query, @gids) };
 
-    use Data::Dumper;
-    warn Dumper(\%map);
-
     for my $work (@works) {
         $work->id($map{$work->gid}) if exists $map{$work->gid};
     }
