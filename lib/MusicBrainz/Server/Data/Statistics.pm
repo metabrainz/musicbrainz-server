@@ -84,11 +84,16 @@ my %stats = (
             +{
                 "count.artist.type.person" => $dist{1} || 0,
                 "count.artist.type.group"  => $dist{2} || 0,
+                "count.artist.type.other"  => $dist{3} || 0,
 		"count.artist.type.null" => $dist{null} || 0
             };
         },
     },
     "count.artist.type.group" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.type.other" => {
         PREREQ => [qw[ count.artist.type.person ]],
         PREREQ_ONLY => 1,
     },
