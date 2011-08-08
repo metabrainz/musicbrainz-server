@@ -32,6 +32,9 @@ DATETIME=`date +'%Y%m%d-%H%M%S'`
 echo `date`" : Removing unused artists"
 ./admin/cleanup/EmptyArtists.pl --remove --summary --noverbose
 
+echo `date`" : Removing unused URLs"
+./admin/cleanup/EmptyUrls.pl --remove --summary --noverbose
+
 echo `date`" : Removing unused works"
 ./admin/cleanup/EmptyWorks.pl --remove --summary --noverbose
 
