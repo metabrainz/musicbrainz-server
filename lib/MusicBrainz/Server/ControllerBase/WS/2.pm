@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
@@ -20,6 +21,46 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 # This defines what options are acceptable for WS calls.
 # Note that the validator will automatically add inc= arguments to the allowed list
 # based on other inc= arguments.  (puids are allowed if recordings are allowed, etc..)
+
+sub apply_rate_limit
+{
+    my ($self, $c, $key) = @_;
+    $key ||= "ws ip=" . $c->request->address;
+
+    my $r = $c->model('RateLimiter')->check_rate_limit($key);
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->body(
+            $c->stash->{serializer}->output_error(
+                "Your requests are exceeding the allowable rate limit (" . $r->msg . "). " .
+                    "Please see http://wiki.musicbrainz.org/XMLWebService for more information."
+                )
+        );
+        $c->detach;
+    }
+
+    $r = $c->model('RateLimiter')->check_rate_limit('ws global');
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->body(
+            $c->stash->{serializer}->output_error(
+                "The MusicBrainz web server is currently busy. " .
+                    "Please try again later."
+                )
+        );
+        $c->detach;
+    }
+}
 
 sub bad_req : Private
 {
@@ -90,6 +131,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
         $c->detach;
     };
 
+    $self->apply_rate_limit($c);
     $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
 }
 

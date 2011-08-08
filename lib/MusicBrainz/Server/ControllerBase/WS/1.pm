@@ -42,7 +42,7 @@ sub apply_rate_limit
             "Your requests are exceeding the allowable rate limit (" . $r->msg . ")\015\012" .
             "Please see http://wiki.musicbrainz.org/XMLWebService for more information.\015\012"
         );
-        $c->detach;
+        return 0;
     }
 
     $r = $c->model('RateLimiter')->check_rate_limit('ws global');
@@ -56,15 +56,17 @@ sub apply_rate_limit
             "The MusicBrainz web server is currently busy.\015\012" .
             "Please try again later.\015\012"
         );
-        $c->detach;
+        return 0;
     }
+
+    return 1;
 }
 
-sub begin {}
+sub begin : Private {}
 sub auto : Private {
     my ($self, $c) = @_;
     $c->stash->{data} = {};
-    try {
+    my $continue = try {
         $self->validate($c, $self->serializers) or $c->detach('bad_req');
         return 1;
     }
@@ -75,6 +77,8 @@ sub auto : Private {
         }
         return 0;
     };
+
+    return $continue && $self->apply_rate_limit($c);
 }
 
 sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }
