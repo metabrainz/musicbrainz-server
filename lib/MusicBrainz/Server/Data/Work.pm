@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Work;
 
 use Moose;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
@@ -211,6 +212,166 @@ sub load_meta
         $obj->rating_count($row->{rating_count} || 0);
         $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
+}
+
+=method load_ids
+
+Load internal IDs for work objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @works) = @_;
+
+    my @gids = map { $_->gid } @works;
+    return () unless @gids;
+
+    my $query = "
+        SELECT gid, id FROM work
+        WHERE gid IN (" . placeholders(@gids) . ")
+    ";
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $work (@works) {
+        $work->id($map{$work->gid}) if exists $map{$work->gid};
+    }
+}
+
+=method find_artists
+
+This method will return a map with lists of artist names for the given
+recordings. The names are taken both from the writers and recording artists.
+This function is meant to be used to disambiguate works (e.g. in lookup
+results).
+
+=cut
+
+sub find_artists
+{
+    my ($self, $works, $limit) = @_;
+
+    my @ids = map { $_->id } @$works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_writers(\@ids, \%map);
+    $self->_find_recording_artists(\@ids, \%map);
+
+    for my $work_id (keys %map)
+    {
+        my @artists = uniq map { $_->{entity}->name } @{ $map{$work_id} };
+        $map{$work_id} = {
+            hits => scalar @artists,
+            results => $limit && scalar @artists > $limit ? [ @artists[ 0 .. ($limit-1) ] ] : \@artists,
+        }
+    }
+    return %map;
+}
+
+=method load_writers
+
+This method will load the work's writers based on the work-artist
+relationships.
+
+=cut
+
+sub load_writers
+{
+    my ($self, @works) = @_;
+
+    my @ids = map { $_->id } @works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_writers(\@ids, \%map);
+    for my $work (@works) {
+        $work->add_writer(@{ $map{$work->id} })
+            if exists $map{$work->id};
+    }
+}
+
+sub _find_writers
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT law.entity1 AS work, law.entity0 AS artist, array_agg(lt.name) AS roles
+        FROM l_artist_work law
+        JOIN link l ON law.link = l.id
+        JOIN link_type lt ON l.link_type = lt.id
+        WHERE law.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY law.entity1, law.entity0
+        ORDER BY count(*) DESC, artist
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+
+    my @artist_ids = map { $_->[1] } @$rows;
+    my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
+
+    for my $row (@$rows) {
+        my ($work_id, $artist_id, $roles) = @$row;
+        $map->{$work_id} ||= [];
+        push @{ $map->{$work_id} }, {
+            entity => $artists->{$artist_id},
+            roles => $roles
+        }
+    }
+}
+
+=method load_recording_artists
+
+This method will load the work's artists based on the recordings the work
+is linked to. The artist credits are sorted by the number of recordings in
+descending order (i.e. the top artists will be first in the list).
+
+=cut
+
+sub load_recording_artists
+{
+    my ($self, @works) = @_;
+
+    my @ids = map { $_->id } @works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_recording_artists(\@ids, \%map);
+    for my $work (@works) {
+        $work->add_artist(map { $_->{entity} } @{ $map{$work->id} })
+            if exists $map{$work->id};
+    }
+}
+
+sub _find_recording_artists
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT lrw.entity1 AS work, r.artist_credit
+        FROM l_recording_work lrw
+        JOIN recording r ON lrw.entity0 = r.id
+        WHERE lrw.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY lrw.entity1, r.artist_credit
+        ORDER BY count(*) DESC, artist_credit
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+
+    my @artist_credit_ids = map { $_->[1] } @$rows;
+    my $artist_credits = $self->c->model('ArtistCredit')->get_by_ids(@artist_credit_ids);
+
+    my %work_acs = map { @$_ } @$rows;
+    for my $work_id (keys %work_acs) {
+        my $artist_credit_id = $work_acs{$work_id};
+        $map->{$work_id} ||= [];
+        push @{ $map->{$work_id} }, {
+            entity => $artist_credits->{$artist_credit_id}
+        }
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
