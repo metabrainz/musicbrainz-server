@@ -363,13 +363,19 @@ sub _find_recording_artists
     my @artist_credit_ids = map { $_->[1] } @$rows;
     my $artist_credits = $self->c->model('ArtistCredit')->get_by_ids(@artist_credit_ids);
 
-    my %work_acs = map { @$_ } @$rows;
+    my %work_acs;
+    for my $row (@$rows) {
+        my ($work_id, $ac_id) = @$row;
+        $work_acs{$work_id} ||= [];
+        push @{ $work_acs{$work_id} }, $ac_id
+    }
+
     for my $work_id (keys %work_acs) {
-        my $artist_credit_id = $work_acs{$work_id};
+        my $artist_credit_ids = $work_acs{$work_id};
         $map->{$work_id} ||= [];
-        push @{ $map->{$work_id} }, {
-            entity => $artist_credits->{$artist_credit_id}
-        }
+        push @{ $map->{$work_id} }, map +{
+            entity => $artist_credits->{$_}
+        }, @$artist_credit_ids
     }
 }
 
