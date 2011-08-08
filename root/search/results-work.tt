@@ -19,9 +19,11 @@
                             <td>[%- descriptive_link(result.entity) -%]</td>
                             <td>
                               <ul>
-                              [%- FOR artist=result.entity.writers -%]
-                                <li>[%- link_artist(artist) -%]</li>
-                              [%- END -%]
+                                [% FOR rel_artist=result.entity.writers %]
+                                <li>
+                                  [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                                                               roles  => rel_artist.roles.join(', ') }) %]</li>
+                                [% END %]
                               </ul>
                             </td>
                             <td>
