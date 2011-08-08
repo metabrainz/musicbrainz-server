@@ -1,0 +1,6 @@
+<table class="details remove-url">
+  <tr>
+    <th>[% l('URL:') %]</th>
+    <td>[% descriptive_link(edit.display_data.entity) %]</td>
+  </tr>
+</table>

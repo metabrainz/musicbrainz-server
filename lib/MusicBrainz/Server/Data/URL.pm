@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::URL;
 use Moose;
 
 use Carp;
-use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row placeholders );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -71,6 +71,20 @@ sub _merge_impl
     $self->c->model('Relationship')->merge_entities('url', $new_id, @old_ids);
 
     $self->_delete_and_redirect_gids('url', $new_id, @old_ids);
+    return 1;
+}
+
+sub can_delete { return 1 }
+
+sub delete
+{
+    my ($self, @url_ids) = @_;
+    @url_ids = grep { $self->can_delete($_) } @url_ids;
+
+    $self->c->model('Relationship')->delete_entities('url', @url_ids);
+    $self->remove_gid_redirects(@url_ids);
+    my $query = 'DELETE FROM url WHERE id IN (' . placeholders(@url_ids) . ')';
+    $self->sql->do($query, @url_ids);
     return 1;
 }
 

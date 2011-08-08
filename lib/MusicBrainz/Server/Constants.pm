@@ -127,6 +127,7 @@ Readonly our $EDIT_RELATIONSHIP_ADD_ATTRIBUTE => 98;
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;
+Readonly our $EDIT_URL_DELETE => 103;
 
 Readonly our $EDIT_PUID_DELETE => 113;
 
