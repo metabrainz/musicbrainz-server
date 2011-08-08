@@ -233,7 +233,7 @@ ws_test 'artist lookup with release-events',
       <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134" type="Album Official">
         <title>Repercussions</title><text-representation script="Latn" language="ENG" /><asin>B001IKWNCE</asin>
         <release-event-list>
-          <event country="GB" format="2xCD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD" />
+          <event country="GB" format="2×CD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD" />
         </release-event-list>
       </release>
       <release id="adcf7b48-086e-48ee-b420-1001f88d672f" type="Album Official">
@@ -257,7 +257,7 @@ ws_test 'artist lookup with release-events',
       <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134" type="Album Official">
         <title>Repercussions</title><text-representation script="Latn" language="ENG" /><asin>B001IKWNCE</asin>
         <release-event-list>
-          <event country="GB" format="2xCD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD">
+          <event country="GB" format="2×CD" date="2008-11-17" barcode="600116822123" catalog-number="ZIQ221CD">
             <label id="b4edce40-090f-4956-b82a-5d9d285da40b">
               <name>Planet Mu</name><sort-name>Planet Mu</sort-name><life-span begin="1995" />
             </label>
@@ -422,6 +422,11 @@ ws_test 'artist lookup with ratings',
  </artist>
 </metadata>',
   { username => 'other editor', password => 'password' };
+
+$mech->get('/ws/1/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?type=xml&inc=coffee');
+is($mech->status, 400);
+like($mech->content, qr{coffee is not a valid inc parameter for the artist resource});
+like($mech->content, qr{For usage, please see: http://musicbrainz.org/development/mmd});
 
 };
 

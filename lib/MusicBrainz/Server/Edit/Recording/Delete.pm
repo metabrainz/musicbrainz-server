@@ -13,6 +13,17 @@ sub edit_name { l('Remove recording') }
 sub _delete_model { 'Recording' }
 sub recording_id { shift->entity_id }
 
+override 'foreign_keys' => sub {
+    my $self = shift;
+    my $data = super();
+
+    $data->{Recording} = {
+        $self->recording_id => [ 'ArtistCredit' ]
+    };
+    return $data;
+};
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

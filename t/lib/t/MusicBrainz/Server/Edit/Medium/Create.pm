@@ -1,7 +1,9 @@
 package t::MusicBrainz::Server::Edit::Medium::Create;
 use Test::Routine;
 use Test::More;
+use Test::Deep qw( cmp_set );
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::Create; }
@@ -30,7 +32,7 @@ my $tracklist = [
                 ArtistCreditName->new(
                     name => 'Warp Industries',
                     artist => Artist->new(
-                        id => 1,
+                        id => 2,
                         name => 'Artist',
                     )
                 )]),
@@ -48,6 +50,10 @@ my $edit = $c->model('Edit')->create(
     release => $c->model('Release')->get_by_id(1),
     tracklist => $tracklist
 );
+
+cmp_set($edit->related_entities->{artist}, [ 1, 2 ]);
+cmp_set($edit->related_entities->{release}, [ 1 ]);
+cmp_set($edit->related_entities->{release_group}, [ 1 ]);
 
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Create');
 

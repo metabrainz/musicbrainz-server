@@ -42,10 +42,10 @@ sub apply_rate_limit
             "Your requests are exceeding the allowable rate limit (" . $r->msg . ")\015\012" .
             "Please see http://wiki.musicbrainz.org/XMLWebService for more information.\015\012"
         );
-        $c->detach;
+        return 0;
     }
 
-    $r = $c->model('RateLimiter')->check_rate_limit('ws_global');
+    $r = $c->model('RateLimiter')->check_rate_limit('ws global');
     if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->content_type("text/plain; charset=utf-8");
@@ -56,15 +56,29 @@ sub apply_rate_limit
             "The MusicBrainz web server is currently busy.\015\012" .
             "Please try again later.\015\012"
         );
-        $c->detach;
+        return 0;
     }
+
+    return 1;
 }
 
-sub begin : Private {
+sub begin : Private {}
+sub auto : Private {
     my ($self, $c) = @_;
     $c->stash->{data} = {};
-    $self->validate($c, $self->serializers) or $c->detach('bad_req');
-    $self->apply_rate_limit($c);
+    my $continue = try {
+        $self->validate($c, $self->serializers) or $c->detach('bad_req');
+        return 1;
+    }
+    catch {
+        my $err = $_;
+        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+            $self->bad_req($c, $err->message);
+        }
+        return 0;
+    };
+
+    return $continue && $self->apply_rate_limit($c);
 }
 
 sub root : Chained('/') PathPart('ws/1') CaptureArgs(0) { }
@@ -73,10 +87,10 @@ sub search : Chained('root') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my $limit = 0 + ($c->req->query_params->{limit} || 25);
+    my $limit = $c->req->query_params->{limit} ? int($c->req->query_params->{limit}) : 25;
     $limit = 25 if $limit < 1 || $limit > 100;
 
-    my $offset = 0 + ($c->req->query_params->{offset} || 0);
+    my $offset = $c->req->query_params->{offset} ? int($c->req->query_params->{offset}) : 0;
     $offset = 0 if $offset < 0;
 
     try {
@@ -115,6 +129,18 @@ sub bad_req : Private
     $c->res->body($c->stash->{serializer}->output_error($error || $c->stash->{error}));
     $c->detach;
 }
+
+sub deny_readonly : Private
+{
+    my ($self, $c) = @_;
+    if(DBDefs::DB_READ_ONLY) {
+        $c->res->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
+        $c->detach;
+    }
+}
+
 
 sub load : Chained('root') PathPart('') CaptureArgs(1)
 {

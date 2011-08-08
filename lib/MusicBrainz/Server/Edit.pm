@@ -181,6 +181,8 @@ sub allow_auto_edit
     return 0;
 }
 
+sub modbot_auto_edit { 0 }
+
 sub conditions
 {
     my $self = shift;
@@ -222,7 +224,12 @@ the value
 
 =cut
 
-sub related_entities { return {} }
+has related_entities => (
+    is => 'rw',
+    builder => '_build_related_entities',
+    lazy => 1
+);
+sub _build_related_entities { return {} }
 
 =head2 alter_edit_pending
 

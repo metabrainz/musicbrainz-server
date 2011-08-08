@@ -12,6 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Wizard;
 use TryCatch;
 
@@ -188,10 +189,13 @@ sub recording_edits_by_hash
 
     for my $medium (@edits)
     {
+        my $trkpos = 1;
         for (@{ $medium->{associations} })
         {
             $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
-            $recording_edits{$_->{edit_sha1}} = $_;
+            $recording_edits{$_->{edit_sha1}}->[$trkpos] = $_;
+
+            $trkpos++;
         }
     }
 
@@ -231,7 +235,7 @@ sub recording_edits_from_tracklist
                     artist_credit => artist_credit_to_edit_ref ($trk->artist_credit),
                 });
 
-            $recording_edits{$edit_sha1} = {
+            $recording_edits{$edit_sha1}->[$trk->position] = {
                 edit_sha1 => $edit_sha1,
                 confirmed => 1,
                 id => $trk->recording->id,
@@ -362,10 +366,21 @@ sub associate_recordings
         my $trk = $tracklist->tracks->[$trk_edit->{original_position} - 1];
         my $trk_at_pos = $tracklist->tracks->[$trk_edit->{position} - 1];
 
-        my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}};
+        my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}}->[$trk_edit->{position}];
+        if (! $rec_edit)
+        {
+            # there is no recording edit at the original track position, look for it
+            # elsewhere.
+            for $rec_edit (@{ $recording_edits->{$trk_edit->{edit_sha1}} })
+            {
+                last if $rec_edit;
+            }
+        }
 
         # Track edit is already associated with a recording edit.
-        if ($rec_edit)
+        # (but ignore that association if it concerns an automatically
+        #  selected "add new recording").
+        if ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
         {
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
@@ -570,8 +585,8 @@ sub prepare_recordings
 
     my $json = JSON::Any->new( utf8 => 1 );
 
-    my @recording_edits = @{ $self->value->{rec_mediums} };
-    my @tracklist_edits = @{ $self->value->{mediums} };
+    my @recording_edits = @{ $self->get_value ('recordings', 'rec_mediums') // [] };
+    my @tracklist_edits = @{ $self->get_value ('tracklist', 'mediums') // [] };
 
     my $tracklists_by_id = $self->c->model('Tracklist')->get_by_ids(
         map { $_->{tracklist_id} } grep { defined $_->{tracklist_id} }
@@ -598,7 +613,7 @@ sub prepare_recordings
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
 
-        if (defined $medium->{edits} && defined $medium->{tracklist_id})
+        if ($medium->{edits} && defined $medium->{tracklist_id})
         {
             my $tracklist = $tracklists_by_id->{$medium->{tracklist_id}};
             $self->c->model ('Recording')->load ($tracklist->all_tracks);
@@ -629,7 +644,7 @@ sub prepare_recordings
                     'edit_sha1' => $_->{edit_sha1}
                 } } @$first_suggestions ];
         }
-        elsif (defined $medium->{edits})
+        elsif ($medium->{edits})
         {
             # A new tracklist has been entered, create new recordings
             # for all these tracks by default (no recording
@@ -730,17 +745,11 @@ sub prepare_missing_entities
 
     $self->c->stash(
         missing_entity_count => scalar @credits + scalar @labels,
-        possible_artists => {
-            map {
-                $_ => [ $self->c->model('Artist')->find_by_name($_) ]
-            } map { $_->{for} } @credits
-        },
-        possible_labels => {
-            map {
-                $_ => [ $self->c->model('Label')->find_by_name($_) ]
-            } map { $_->{for} } @labels
-        }
-    );
+        possible_artists => $self->c->model('Artist')->find_by_names (
+            map { $_->{for} } @credits),
+        possible_labels => $self->c->model('Label')->find_by_names (
+            map { $_->{for} } @labels),
+        );
 }
 
 sub skip_missing_entities
@@ -761,7 +770,7 @@ sub prepare_edits
 
     $self->release(
         $self->create_edits(
-            data => clone($data),
+            data => $data,
             create_edit => $previewing
                 ? sub { $self->_preview_edit(@_) }
                 : sub { $self->_submit_edit(@_) },
@@ -776,6 +785,9 @@ sub prepare_edits
 
 sub _missing_labels {
     my ($self, $data) = @_;
+
+    $data->{labels} = $self->get_value ('information', 'labels');
+
     return grep { !$_->{label_id} && $_->{name} }
         @{ $data->{labels} };
 }
@@ -783,6 +795,8 @@ sub _missing_labels {
 sub _missing_artist_credits
 {
     my ($self, $data) = @_;
+
+    $data->{artist_credit} = $self->get_value ('information', 'artist_credit');
 
     return
         (
@@ -957,20 +971,29 @@ sub _edit_release_labels
         }
         elsif (
             $previewing ?
-                $new_label->{name} :
+                $new_label->{name} || $new_label->{catalog_number} :
                 $new_label->{label_id} || $new_label->{catalog_number})
         {
+            my $label;
+
             # Add ReleaseLabel
+            if ($previewing)
+            {
+                $label = $new_label->{name} ?
+                    Label->new(
+                        id   => 0,
+                        name => $new_label->{name}
+                    ) : undef;
+            }
+            else
+            {
+                $label = $labels->{ $new_label->{label_id} } if $new_label->{label_id};
+            }
 
             $create_edit->(
                 $EDIT_RELEASE_ADDRELEASELABEL, $editnote,
                 release => $previewing ? undef : $self->release,
-                label => $previewing
-                    ? Label->new(
-                        id   => 0,
-                        name => $new_label->{name}
-                    )
-                    : $labels->{ $new_label->{label_id} },
+                label => $label,
                 catalog_number => $new_label->{catalog_number},
                 as_auto_editor => $data->{as_auto_editor},
             );
@@ -1248,6 +1271,9 @@ sub _expand_mediums
     my ($self, $data) = @_;
     my $json = JSON::Any->new( utf8 => 1 );
 
+    $data->{mediums} = $self->get_value ('tracklist', 'mediums') // [];
+    $data->{rec_mediums} = $self->get_value ('recordings', 'rec_mediums') // [];
+
     my $count = 0;
     for my $disc (@{ $data->{mediums} }) {
         my $rec_medium = $data->{rec_mediums}->[$count];
@@ -1376,12 +1402,23 @@ sub _seed_parameters {
         }
     }
 
+    if (my $release_group_mbid = delete $params->{release_group}) {
+        if(is_guid($release_group_mbid) and
+               my $release_group = $self->c->model('ReleaseGroup')
+                   ->get_by_gid($release_group_mbid)) {
+            $params->{release_group_id} = $release_group->id;
+            $params->{release_group}{name} = $release_group->name;
+        }
+    }
+
     for my $label (@{ $params->{labels} || [] }) {
         if (my $mbid = $label->{mbid}) {
-            my $entity = $self->c->model('Label')
-                ->get_by_gid($mbid);
-            $label->{label_id} = $entity->id;
-            $label->{name} = $entity->name;
+            if(is_guid($mbid) and
+                   my $entity = $self->c->model('Label')
+                       ->get_by_gid($mbid)) {
+                $label->{label_id} = $entity->id;
+                $label->{name} = $entity->name;
+            }
         }
         elsif (my $name = $label->{name}) {
             $label->{name} = $name;
@@ -1532,6 +1569,8 @@ sub _seed_parameters {
 
     return collapse_hash($params);
 };
+
+
 
 =head1 LICENSE
 

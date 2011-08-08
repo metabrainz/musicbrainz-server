@@ -2,6 +2,7 @@ package MusicBrainz::Server::Email::Subscriptions;
 use Moose;
 use namespace::autoclean;
 
+use List::UtilsBy qw( sort_by );
 use MooseX::Types::Moose qw( ArrayRef Str );
 use MooseX::Types::Structured qw( Map );
 use String::TT qw( strip tt );
@@ -55,18 +56,18 @@ sub text {
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed artists',
-        $self->edits->{artist},
+        [ sort_by { $_->{subscription}->artist->sort_name } @{ $self->edits->{artist} } ],
         'artist'
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
-        $self->edits->{label},
+        [ sort_by { $_->{subscription}->label->sort_name } @{ $self->edits->{label} } ],
         'label'
     ) if exists $self->edits->{label};
 
     push @sections, $self->edits_for_editors(
-        @{ $self->edits->{editor} }
+        sort_by { $_->{subscription}->subscribed_editor->name } @{ $self->edits->{editor} }
     ) if exists $self->edits->{editor};
 
     return join("\n\n", @sections);
@@ -74,7 +75,7 @@ sub text {
 
 sub header {
     my $self = shift;
-    my $escape = sub { uri_escape(shift) };
+    my $escape = sub { uri_escape_utf8(shift) };
     return strip tt q{
 This is a notification that edits have been added for artists, labels and
 editors to whom you subscribed on the MusicBrainz web site.
@@ -114,7 +115,7 @@ sub edits_for_editors {
     my $self = shift;
     my $subs = \@_;
 
-    my $escape = sub { uri_escape(shift) };
+    my $escape = sub { uri_escape_utf8(shift) };
     return strip tt q{
 Changes by your subscribed editors:
 --------------------------------------------------------------------------------

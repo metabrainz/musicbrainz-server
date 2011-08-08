@@ -24,7 +24,8 @@ sub relate : Chained('load')
             type0 => $c->session->{relationship}->{type0},
             type1 => $type,
             entity0 => $c->session->{relationship}->{entity0},
-            entity1 => $entity->gid
+            entity1 => $entity->gid,
+            returnto => $c->req->referer
         }));
 
         delete $c->session->{relationship};
@@ -37,7 +38,8 @@ sub relate : Chained('load')
             id      => $entity->id
         };
 
-        $c->response->redirect($c->req->referer);
+        $c->response->redirect(
+            $c->req->referer || $c->uri_for_action("$type/show", [ $entity->gid ]));
     }
 }
 

@@ -1,0 +1,254 @@
+[% BLOCK wfield %]
+<span class="field field-[% field %] predicate-[% predicate %]" style="display: none">
+  [%- content -%]
+</span>
+[% END %]
+
+[% BLOCK search_form %]
+<form action="[% c.req.uri.path %]" method="get" id="edit-search">
+  <p>
+    Show me
+    <select name="auto_edit_filter">
+      <option value="" [% 'selected="selected"'  IF !query.auto_edit_filter.defined %]>edits</option>
+      <option value="1" [% 'selected="selected"' IF  query.auto_edit_filter == 1 %]>auto-edits</option>
+      <option value="0" [% 'selected="selected"' IF  query.auto_edit_filter == 0 %]>non-auto-edits</option>
+    </select>
+    that
+    <select name="negation">
+      <option value="0" [% 'selected="selected"' IF !query.negate %]>match</option>
+      <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
+    </select>
+    <select name="combinator">
+      <option value="and"
+              [% 'selected="selected"' IF query.combinator == 'and' %]>
+        all
+      </option>
+      <option value="or"
+              [% 'selected="selected"' IF query.combinator == 'or' %]>
+        any
+      </option>
+    </select>
+    of the following conditions:
+  </p>
+
+  <ul class="conditions">
+    [% FOR field=query.fields %]
+    <li class="condition">
+      [% PROCESS remove %]
+      [% select_field(field) %]
+      <span class="field-container">
+        [% SWITCH field.meta.name;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ID';
+               SWITCH field.field_name;
+                 CASE 'yes_votes';
+                   predicate_int(field.field_name, field);
+                 CASE 'no_votes';
+                   predicate_int(field.field_name, field);
+                 CASE DEFAULT;
+                   predicate_id(field.field_name, field);
+               END;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
+               SWITCH field.field_name;
+                 CASE 'type';
+                   predicate_set(field.field_name, edit_types, field);
+                 CASE 'status';
+                   predicate_set(field.field_name, status, field);
+               END;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
+               predicate_date(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
+               predicate_link(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::Vote';
+               predicate_vote(field.field_name, field);
+           END %]
+        [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
+             predicate_subscription(field.field_name, field);
+           ELSIF field.does('MusicBrainz::Server::EditSearch::Predicate::LinkedEntity');
+             predicate_link(field.field_name, field);
+           END %]
+      </span>
+      [% UNLESS field.valid %]
+        <p>[% l('Oops! It seems your search parameters are not correct, please double check your input!') %]</p>
+      [% END %]
+    </li>
+    [% END %]
+    <li id="extra-condition">
+      [% PROCESS remove %]
+      [% select_field() %]
+      <span class="field-container">
+        <span class="field"></span>
+      </span>
+    </li>
+  </ul>
+
+  <span id="edit-search-submit">[% form_submit('Search') %]</span>
+</form>
+[% PROCESS template_fields %]
+[% END %]
+
+[% BLOCK remove %]
+<button class="remove">
+  <image src="/static/images/icons/delete_row.png" alt="[% l('Delete') %]" />
+</button>
+[% END %]
+
+[% MACRO operators(operators, field_contents) BLOCK %]
+  <select name="operator" class="operator">
+    [% FOR operator=operators %]
+    <option
+       [% 'selected="selected"' IF field_contents.operator == operator.0 %]
+       value="[% html_escape(operator.0) %]">[% html_escape(operator.1) %]</option>
+    [% END %]
+  </select>
+[% END %]
+
+[% MACRO predicate_id(field, field_contents) WRAPPER wfield predicate='id' %]
+  [% operators([ [ '=', l('is') ],
+                 [ '!=', l('is not') ],
+                 [ '>', l('is after') ],
+                 [ '<', l('is before') ],
+                 ['BETWEEN', l('is between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input name="args.0" size="6" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
+
+  <span style="display:none" class="arg">
+    &ndash;
+    <input name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
+  </span>
+[% END %]
+
+[% MACRO predicate_int(field, field_contents) WRAPPER wfield predicate='id' %]
+  [% operators([ [ '=', l('is') ],
+                 [ '!=', l('is not') ],
+                 [ '>', l('is more than') ],
+                 [ '<', l('is less than') ],
+                 ['BETWEEN', l('is between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input name="args.0" size="6" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
+
+  <span style="display:none" class="arg">
+    &ndash;
+    <input name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
+  </span>
+[% END %]
+
+[% MACRO predicate_date(field, field_contents) WRAPPER wfield predicate="date" %]
+  [% operators([ [ '=', l('on') ],
+                 [ '!=', l('is not') ],
+                 [ '>', l('after') ],
+                 [ '<', l('before') ],
+                 [ 'BETWEEN', l('between') ] ], field_contents) %]
+
+  <span style="display:none" class="arg">
+    <input name="args.0" size="8" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
+
+  <span style="display:none" class="arg">
+    &ndash;
+    <input name="args.1" size="8" value="[% html_escape(field_contents.argument(1)) %]" />
+  </span>
+[% END %]
+
+[% MACRO predicate_set(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+  <select name="args" multiple="multiple">
+    [% FOR item=set_contents %]
+    <option value="[% html_escape(item.0) %]"
+            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
+            >[% html_escape(item.1) %]</option>
+    [% END %]
+  </select>
+[% END %]
+
+[% MACRO predicate_link(field, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+
+  <input name="name" size="40" class="autocomplete autocomplete-[% field %]"
+         value="[% html_escape(field_contents.name) %]" />
+  <input name="args.0" value="[% html_escape(field_contents.argument(0)) %]" class="ac-result" type="hidden" />
+[% END %]
+
+[% MACRO predicate_vote(field, field_contents) WRAPPER wfield predicate="vote" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+  <input type="hidden" name="voter_id" value="[% c.user.id %]" />
+  <select name="args" multiple="multiple">
+    [% FOR item=[ [  1,   l('Yes') ]
+                , [  0,   l('No') ]
+                , [ -1,   l('Abstain') ]
+                , [ 'no', l('No vote') ]
+                ] %]
+    <option value="[% html_escape(item.0) %]"
+            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
+            >[% html_escape(item.1) %]</option>
+    [% END %]
+  </select>
+[% END %]
+
+[% MACRO predicate_subscription(field, field_contents) WRAPPER wfield predicate="subscription" %]
+  [% operators([ [ '=', l('is') ]
+               , [ '!=', l('is not') ]
+               , [ 'subscribed', l('is in my subscriptions') ]
+               ], field_contents) %]
+
+  <input name="name" size="40" class="autocomplete autocomplete-[% field %] arg"
+         value="[% html_escape(field_contents.name) %]" />
+  <input name="args.0" value="[% html_escape(field_contents.argument(0)) %]" class="ac-result" type="hidden" />
+  <input name="user_id" value="[% c.user.id %]" class="ac-result" type="hidden" />
+[% END %]
+
+[% MACRO select_field(field_contents) BLOCK %]
+  <select name="field" class="field">
+    [% UNLESS field_contents %]
+      <option>Please choose a condition</option>
+    [% END %]
+    [% FOR field=[ [ 'id', l('ID') ],
+                   [ 'open_time', l('Created') ],
+                   [ 'expire_time', l('Expired') ],
+                   [ 'close_time', l('Closed') ],
+                   [ 'status', l('Status') ],
+                   [ 'type', l('Type') ],
+                   [ 'no_votes', l('No vote count') ],
+                   [ 'yes_votes', l('Yes vote count') ],
+                   [ 'artist', l('Artist') ],
+                   [ 'label', l('Label') ],
+                   [ 'recording', l('Recording') ],
+                   [ 'release', l('Release') ],
+                   [ 'release_group', l('Release Group') ],
+                   [ 'work', l('Work') ],
+                   [ 'editor', l('Editor') ],
+                   [ 'vote', l('My Vote') ]
+                   ] %]
+    <option
+       [% 'selected="selected"' IF field_contents.field_name == field.0 %]
+       value="[% html_escape(field.0) %]">[% html_escape(field.1) %]</option>
+    [% END %]
+  </select>
+[% END %]
+
+[% BLOCK template_fields %]
+  <div id="fields">
+    [% predicate_id('id') %]
+    [% predicate_date(field_name) FOR field_name=['open_time', 'expire_time', 'close_time'] %]
+    [% predicate_set('type', edit_types) %]
+    [% predicate_set('status', status) %]
+    [% predicate_int('no_votes') %]
+    [% predicate_int('yes_votes') %]
+
+    [% FOR linked_type=[ 'artist', 'label' ];
+         predicate_subscription(linked_type);
+       END %]
+
+    [% FOR linked_type=['recording', 'release_group', 'release', 'work', 'editor' ];
+         predicate_link(linked_type);
+       END %]
+
+    [% predicate_vote('vote') %]
+  </div>
+[% END %]

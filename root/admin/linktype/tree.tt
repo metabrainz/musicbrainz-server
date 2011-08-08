@@ -12,10 +12,11 @@
         <strong>[% l('Forward link phrase:') %]</strong> [% obj.link_phrase || l("(none)") | html %]<br />
         <strong>[% l('Reverse link phrase:') %]</strong> [% obj.reverse_link_phrase || l("(none)") | html %]<br />
         <strong>[% l('Description:') %]</strong> [% obj.description || l("(none)") %]<br />
+        <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [%- IF c.user.is_relationship_editor -%]
         [
-            <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.id) %]">[% l('Edit') %]</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.id) %]">[% l('Remove') %]</a>[% END %]
+            <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.gid) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.gid) %]">[% l('Remove') %]</a>[% END %]
         ]
         [% END %]
         </div>

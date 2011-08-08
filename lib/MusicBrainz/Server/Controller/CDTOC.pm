@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_REMOVE_DISCID
     $EDIT_MEDIUM_MOVE_DISCID
     $EDIT_SET_TRACK_LENGTHS
+    $EDITOR_MODBOT
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -119,7 +120,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
     );
 }
 
-sub attach : Local RequireAuth
+sub attach : Local
 {
     my ($self, $c) = @_;
 
@@ -133,13 +134,31 @@ sub attach : Local RequireAuth
 
     $c->stash( cdtoc => $cdtoc );
 
+    if ($c->form_posted) {
+        $c->forward('/user/do_login');
+    }
+
     if (my $medium_id = $c->req->query_params->{medium}) {
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
             ) unless looks_like_number ($medium_id);
 
+        $self->error(
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('This CDTOC is already attached to this medium')
+        ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
+
         my $medium = $c->model('Medium')->get_by_id($medium_id);
+        $c->model('MediumFormat')->load($medium);
+
+        $self->error(
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('The selected medium cannot have disc IDs')
+        ) unless $medium->may_have_discids;
+
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
 
@@ -171,7 +190,7 @@ sub attach : Local RequireAuth
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
         my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_artist_track_count($artist_id, $cdtoc->track_count,shift, shift)
+            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count,shift, shift)
         });
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
@@ -224,6 +243,8 @@ sub attach : Local RequireAuth
             my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
             if($stub_toc) {
                 $c->model('CDStub')->load($stub_toc);
+                $c->model('CDStubTrack')->load_for_cdstub($stub_toc->cdstub);
+                $stub_toc->update_track_lengths;
 
                 $initial_artist  ||= $stub_toc->cdstub->artist;
                 $initial_release ||= $stub_toc->cdstub->title;
@@ -231,7 +252,8 @@ sub attach : Local RequireAuth
                 my @mediums = $c->model('Medium')->find_for_cdstub($stub_toc);
                 $c->model('ArtistCredit')->load(map { $_->release } @mediums);
                 $c->stash(
-                    possible_mediums => [ @mediums  ]
+                    possible_mediums => [ @mediums  ],
+                    cdstubtoc => $stub_toc
                 );
             }
         }
@@ -307,20 +329,37 @@ sub move : Local RequireAuth Edit
             $c->model('Medium')->load($medium_cdtoc);
             $c->model('Release')->load($medium_cdtoc->medium);
 
-            $self->edit_action($c,
-                form        => 'Confirm',
-                type        => $EDIT_MEDIUM_MOVE_DISCID,
-                edit_args   => {
-                    medium_cdtoc => $medium_cdtoc,
-                    new_medium   => $medium,
-                },
-                on_creation => sub {
-                    $c->response->redirect(
-                        $c->uri_for_action('/release/discids',
-                                           [ $release->gid ]));
-                    $c->detach;
+            my $form = $c->form(form => 'Confirm');
+            if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+                if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium->id, $cdtoc)) {
+                    my $edit = $self->_insert_edit($c, $form,
+                        edit_type        => $EDIT_MEDIUM_REMOVE_DISCID,
+                        medium => $medium_cdtoc->medium,
+                        cdtoc  => $medium_cdtoc
+                    );
+
+                    $c->model('EditNote')->add_note(
+                        $edit->id,
+                        {
+                            text => l('This CDTOC cannot be moved to {release}, as it already has this CDTOC. It must instead be removed.',
+                                      { release => $release->name }),
+                            editor_id => $EDITOR_MODBOT,
+                        }
+                    );
                 }
-            )
+                else {
+                    $self->_insert_edit($c, $form,
+                        edit_type        => $EDIT_MEDIUM_MOVE_DISCID,
+                        medium_cdtoc => $medium_cdtoc,
+                        new_medium   => $medium,
+                    )
+                }
+
+                $c->response->redirect(
+                    $c->uri_for_action('/release/discids',
+                                       [ $release->gid ]));
+                $c->detach;
+            }
         }
         else {
             $c->stash(

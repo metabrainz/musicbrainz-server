@@ -1,0 +1,29 @@
+[%- info_links = [
+    ['index', '<span class="mp"><a href="/statistics">Overview</a></span>']
+    ['countries', '<span class="mp"><a href="/statistics/countries">Countries</a></span>'],
+    ['languages-scripts', '<span class="mp"><a href="/statistics/languages-scripts">Languages/Scripts</a></span>'],
+    ['timeline', '<span class="mp"><a href="/statistics/timeline">Timeline</a></span>'],
+] -%]
+
+[%- IF full_width -%]
+[%- WRAPPER "layout.tt" title="Database Statistics - ${title}" full_width=1 -%]
+<div class="statisticsheader">
+    <h1>[%- l('Database Statistics') -%]</h1>
+</div>
+        [% INCLUDE 'components/tabs.tt' list=info_links %]
+        [%- content -%]
+[%- END -%]
+[%- ELSE -%]
+[%- WRAPPER "layout.tt" title="Database Statistics - ${title}" -%]
+    <div id="sidebar">
+        [%- sidebar -%]
+    </div>
+    <div id="content">
+        <div class="statisticsheader">
+            <h1>[%- l('Database Statistics') -%]</h1>
+        </div>
+        [% INCLUDE 'components/tabs.tt' list=info_links %]
+        [%- content -%]
+    </div>
+[%- END -%]
+[%- END -%]

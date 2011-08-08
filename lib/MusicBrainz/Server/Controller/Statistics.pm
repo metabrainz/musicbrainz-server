@@ -1,6 +1,10 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Moose;
-use MusicBrainz::Server::Data::Statistics;
+use MusicBrainz::Server::Data::Statistics::ByDate;
+use MusicBrainz::Server::Data::Statistics::ByName;
+use MusicBrainz::Server::Data::Country;
+use List::UtilsBy qw( rev_nsort_by );
+
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub statistics : Path('')
@@ -14,7 +18,78 @@ sub statistics : Path('')
 
     $c->stash(
         template => 'statistics/index.tt',
-        stats    => $c->model('Statistics')->get_latest_statistics()
+        stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
+    );
+}
+
+sub timeline : Local
+{
+    my ($self, $c) = @_;
+
+    $c->stash(
+        template => 'statistics/timeline.tt',
+        stats => {
+            map {
+                $_ => $c->model('Statistics::ByName')->get_statistic($_)
+            } qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek )
+        }
+    )
+}
+
+sub countries : Local
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $country_stats = [];
+    my $artist_country_prefix = 'count.artist.country';
+    my $release_country_prefix = 'count.release.country';
+    my $label_country_prefix = 'count.label.country';
+    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+       if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
+	    my $release_stat = $stat_name;
+	    my $label_stat = $stat_name;
+	    $release_stat =~ s/$artist_country_prefix/$release_country_prefix/;
+	    $label_stat =~ s/$artist_country_prefix/$label_country_prefix/;
+            push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
+       }
+    }
+
+    $c->stash(
+        template => 'statistics/countries.tt',
+        stats    => $country_stats,
+        date_collected => $stats->{date_collected}
+    );
+}
+
+sub languages_scripts : Path('languages-scripts')
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $language_stats = [];
+    my $script_stats = [];
+    my $language_prefix = 'count.release.language';
+    my $script_prefix = 'count.release.script';
+    my %languages = map { $_->iso_code_3t => $_ } $c->model('Language')->get_all();
+    my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+       if (my ($iso_code_3t) = $stat_name =~ /^$language_prefix\.(.*)$/) { 
+            push(@$language_stats, ({'entity' => $languages{$iso_code_3t}, 'count' => $stats->statistic($stat_name)}));
+       }
+       if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) { 
+            push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+       }
+    }
+
+    $c->stash(
+        template => 'statistics/languages_scripts.tt',
+        language_stats  => $language_stats,
+        script_stats    => $script_stats,
+        date_collected => $stats->{date_collected}
     );
 }
 

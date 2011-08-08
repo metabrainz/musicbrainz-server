@@ -119,7 +119,9 @@ sub find_by_artist
     my $where_statuses = _where_status_in (@$statuses);
     my ($join_types, $where_types) = _where_type_in (@$types);
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
+                        country.name AS country_name,
+                        musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
@@ -129,7 +131,7 @@ sub find_by_artist
                  $where_statuses
                  $where_types
                  ORDER BY date_year, date_month, date_day,
-                          country.name, barcode
+                          country.name, barcode, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -143,7 +145,7 @@ sub find_by_label
     my $where_statuses = _where_status_in (@$statuses);
     my ($join_types, $where_types) = _where_type_in (@$types);
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT " . $self->_columns . ", country.name AS country_name
                  FROM " . $self->_table . "
                      JOIN release_label
                          ON release_label.release = release.id
@@ -307,19 +309,23 @@ sub find_by_recordings
     return %map;
 }
 
-sub find_by_artist_track_count
+sub find_for_cdtoc
 {
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
+                        musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
                      JOIN medium
                         ON medium.release = release.id
+                     LEFT JOIN medium_format
+                        ON medium_format.id = medium.format
                      JOIN tracklist
                         ON medium.tracklist = tracklist.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
+                   AND (medium_format.id IS NULL OR medium_format.has_discids)
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
@@ -413,7 +419,8 @@ sub find_by_tracklist
 sub find_by_medium
 {
     my ($self, $ids, $limit, $offset) = @_;
-    my @ids = ref $ids ? @$ids : ( $ids );
+    my @ids = ref $ids ? @$ids : ( $ids )
+        or return ();
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
@@ -522,19 +529,18 @@ sub can_merge {
     if ($strategy == $MERGE_MERGE) {
         my $mediums_differ = $self->sql->select_single_value(
             'SELECT TRUE
-               FROM (
-           SELECT medium.id, medium.position, tracklist.track_count
-             FROM medium
-             JOIN tracklist ON tracklist.id = medium.tracklist
-            WHERE release IN (' . placeholders(@old_ids) . ')
-                    ) s
-               FULL OUTER JOIN medium new_medium ON new_medium.position = s.position
-               JOIN tracklist ON tracklist.id = new_medium.tracklist
-              WHERE new_medium.release = ?
-                AND (   tracklist.track_count <> s.track_count
-                     OR new_medium.id IS NULL
-                     OR s.id IS NULL)
-               LIMIT 1',
+             FROM (
+                 SELECT medium.id, medium.position, tracklist.track_count
+                 FROM medium
+                 JOIN tracklist ON tracklist.id = medium.tracklist
+                 WHERE release IN (' . placeholders(@old_ids) . ')
+             ) s
+             LEFT JOIN medium new_medium ON
+                 (new_medium.position = s.position AND new_medium.release = ?)
+             LEFT JOIN tracklist ON tracklist.id = new_medium.tracklist
+             WHERE tracklist.track_count <> s.track_count
+                OR new_medium.id IS NULL
+             LIMIT 1',
             @old_ids, $new_id);
 
         return !$mediums_differ;
@@ -572,6 +578,9 @@ sub merge
         my %positions = %{ $opts{medium_positions} || {} }
             or confess('Missing medium_positions parameter');
 
+        my $update_names = defined $opts{medium_names};
+        my %names = %{ $opts{medium_names} || {} };
+
         my @medium_ids = @{ $self->sql->select_single_column_array(
             'SELECT id FROM medium WHERE release IN (' . placeholders($new_id, @old_ids) . ')',
             $new_id, @old_ids
@@ -584,6 +593,14 @@ sub merge
             next unless exists $positions{$id};
             $self->sql->do('UPDATE medium SET release = ?, position = ? WHERE id = ?',
                            $new_id, $positions{$id}, $id);
+        }
+
+        if ($update_names) {
+            foreach my $id (@medium_ids) {
+                next unless exists $names{$id};
+                $self->sql->do('UPDATE medium SET name = ? WHERE id = ?',
+                               $names{$id} || undef, $id);
+            }
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {

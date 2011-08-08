@@ -6,29 +6,31 @@ use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
-    'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' };
+with
+    'MusicBrainz::Server::Data::Role::Editable' => { table => 'url' },
+    'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
+    'MusicBrainz::Server::Data::Role::Merge';
 
 my %URL_SPECIALIZATIONS = (
-    'ASIN' => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
-    'BBCMusic' => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
-    'CDBaby' => qr{^https?://(?:www.)?cdbaby.com/}i,
-    'Discogs' => qr{^https?://(?:www.)?discogs.com/}i,
-    'Facebook' => qr{^https?://(?:www.)?facebook.com/}i,
-    'IBDb' => qr{^https?://(?:www.)?ibdb.com/}i,
-    'IMDb' => qr{^https?://(?:www.)?imdb.com/}i,
+    'ASIN'            => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
+    'BBCMusic'        => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
+    'CDBaby'          => qr{^https?://(?:www.)?cdbaby.com/}i,
+    'Discogs'         => qr{^https?://(?:www.)?discogs.com/}i,
+    'Facebook'        => qr{^https?://(?:www.)?facebook.com/}i,
+    'IBDb'            => qr{^https?://(?:www.)?ibdb.com/}i,
+    'IMDb'            => qr{^https?://(?:www.)?imdb.com/}i,
     'InternetArchive' => qr{^https?://(?:www.)?archive.org/details/}i,
-    'Jamendo' => qr{^https?://(?:www.)?jamendo.com/}i,
-    'LyricWiki' => qr{^https?://lyrics.wikia.com/}i,
-    'MetalArchives' => qr{^https?://(?:www.)?metal-archives.com/}i,
-    'MusicMoz' => qr{^https?://(?:www.)?musicmoz.org/}i,
-    'MySpace' => qr{^https?://(?:www.)?myspace.com/}i,
-    'Ozon' => qr{^https?://(?:www.)?ozon.ru/}i,
-    'PureVolume' => qr{^https?://(?:www.)?purevolume.com/}i,
-    'Twitter' => qr{^https?://(?:www.)?twitter.com/}i,
-    'VGMdb' => qr{^https?://(?:www.)?vgmdb.net/}i,
-    'Wikipedia' => qr{https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
-    'YouTube' => qr{^https?://(?:www.)?youtube.com/}i,
+    'Jamendo'         => qr{^https?://(?:www.)?jamendo.com/}i,
+    'LyricWiki'       => qr{^https?://lyrics.wikia.com/}i,
+    'MetalArchives'   => qr{^https?://(?:www.)?metal-archives.com/}i,
+    'MusicMoz'        => qr{^https?://(?:www.)?musicmoz.org/}i,
+    'MySpace'         => qr{^https?://(?:www.)?myspace.com/}i,
+    'Ozon'            => qr{^https?://(?:www.)?ozon.ru/}i,
+    'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
+    'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
+    'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
+    'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
+    'YouTube'         => qr{^https?://(?:www.)?youtube.com/}i,
 );
 
 sub _gid_redirect_table
@@ -61,7 +63,7 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::URL';
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
@@ -76,13 +78,15 @@ sub update
 {
     my ($self, $url_id, $url_hash) = @_;
     croak '$url_id must be present and > 0' unless $url_id > 0;
-    my $query = 'SELECT id FROM url WHERE url = ?';
-    if (my $merge = $self->sql->select_single_value($query, $url_hash->{url})) {
+    my $query = 'SELECT id FROM url WHERE url = ? AND id != ?';
+    if (my $merge = $self->sql->select_single_value($query, $url_hash->{url}, $url_id)) {
         $self->merge($merge, $url_id);
+        return $merge;
     }
     else {
         my $row = $self->_hash_to_row($url_hash);
         $self->sql->update_row('url', $row, { id => $url_id });
+        return $url_id;
     }
 }
 

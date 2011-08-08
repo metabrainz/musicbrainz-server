@@ -4,8 +4,10 @@ BEGIN { extends 'Catalyst::Controller' }
 
 # Import MusicBrainz libraries
 use DBDefs;
+use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 
 #
@@ -125,17 +127,6 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
-sub js_text_strings : Path('/text.js') {
-    my ($self, $c) = @_;
-    $c->res->content_type('text/javascript');
-    $c->stash->{template} = 'scripts/text_strings.tt';
-}
-
-sub js_unit_tests : Path('/unit_tests') {
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'scripts/unit_tests.tt';
-}
-
 sub begin : Private
 {
     my ($self, $c) = @_;
@@ -154,6 +145,7 @@ sub begin : Private
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
             is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
+            read_only      => &DBDefs::DB_READ_ONLY
         },
     );
 
@@ -195,12 +187,14 @@ sub begin : Private
         }
     }
 
-    if (exists $c->action->attributes->{Edit} && $c->user_exists)
+    if (exists $c->action->attributes->{Edit} && $c->user_exists && !$c->user->has_confirmed_email_address)
     {
-        $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
+        log_debug { "User attempted to edit but is not authorized: $_" } $c->user;
+        $c->forward('/error_401');
     }
 
-    if (exists $c->action->attributes->{Edit} && DBDefs::DB_READ_ONLY) {
+    if (DBDefs::DB_READ_ONLY && (exists $c->action->attributes->{Edit} ||
+                                 exists $c->action->attributes->{DenyWhenReadonly})) {
         $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
         $c->forward('/error_400');
     }
@@ -233,6 +227,20 @@ sub begin : Private
                 model_to_type($merger->type) . '/merge',
             )
         );
+    }
+
+    my $r = $c->model('RateLimiter')->check_rate_limit('frontend ip=' . $c->req->address);
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->stash(
+            template => 'main/rate_limited.tt',
+            rl_response => $r
+        );
+        $c->detach;
     }
 }
 

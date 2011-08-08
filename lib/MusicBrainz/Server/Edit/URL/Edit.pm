@@ -1,10 +1,12 @@
 package MusicBrainz::Server::Edit::URL::Edit;
 use Moose;
 
+use Clone qw( clone );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -71,6 +73,22 @@ sub allow_auto_edit
 
     return 1;
 }
+
+around accept => sub {
+    my ($orig, $self) = @_;
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        l('This URL has already been merged into another URL')
+    ) unless $self->c->model('URL')->get_by_id($self->url_id);
+
+    my $data = $self->_edit_hash(clone($self->data->{new}));
+    my $new_id = $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
+
+    $self->data->{entity}{id} = $new_id;
+
+    # Check for any releases that might need updating
+    $self->c->model('CoverArt')->url_updated($new_id);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

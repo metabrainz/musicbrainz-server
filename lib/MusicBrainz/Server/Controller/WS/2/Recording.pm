@@ -75,13 +75,18 @@ sub recording_toplevel
                 $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
         }
 
+        my @releases = @{$results[0]};
+
+        $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } map { $_->all_mediums } @releases)
+            if ($c->stash->{inc}->artist_credits);
+
         $self->linked_releases ($c, $stash, $results[0]);
 
         $opts->{releases} = $self->make_list (@results);
 
         if ($c->stash->{inc}->release_groups) {
-            my @releases = @{$results[0]};
             $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
 
             if ($c->stash->{inc}->artist_credits) {
@@ -179,6 +184,7 @@ sub recording_submit : Private
 {
     my ($self, $c) = @_;
 
+    $self->deny_readonly($c);
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
 

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::RecordingPUID;
-
 use Moose;
+
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
@@ -68,7 +69,7 @@ sub find_by_recording
 sub load_for_recordings
 {
     my ($self, @recordings) = @_;
-    my %id_to_recordings = object_to_ids (@recordings);
+    my %id_to_recordings = object_to_ids (uniq @recordings);
     my @ids = keys %id_to_recordings;
     return unless @ids; # nothing to do
     my @puids = $self->find_by_recording(@ids);
@@ -208,7 +209,7 @@ sub filter_additions
 
     return \@additions unless @tuples;
 
-    my $query = 'SELECT v.* FROM
+    my $query = 'SELECT DISTINCT ON (v.puid, v.recording) v.* FROM
         (VALUES ' . join(', ', ('(?::integer, ?::integer, ?)') x @tuples) . ') AS v(puid, recording, name)
         LEFT JOIN recording_puid rp ON (v.recording = rp.recording AND v.puid = rp.puid)
         WHERE rp.recording IS NULL AND rp.puid IS NULL';

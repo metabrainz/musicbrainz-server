@@ -55,7 +55,7 @@ MB.Control.autocomplete_formatters = {
         a.append ('<br /><span class="autocomplete-comment">by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
 
-        if (item.appears_on)
+        if (item.appears_on && item.appears_on.hits > 0)
         {
             var rgs = [];
             $.each (item.appears_on.results, function (idx, item) {
@@ -70,12 +70,30 @@ MB.Control.autocomplete_formatters = {
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
                       MB.utility.escapeHTML (rgs.join (", ")) + '</span>');
         }
+        else {
+            a.append ('<br /><span class="autocomplete-appears">standalone recording</span>');
+        }
 
         if (item.isrcs.length)
         {
             a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
                       MB.utility.escapeHTML (item.isrcs.join (", ")) + '</span>');
         }
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+    },
+
+    "release-group": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        if (item.comment)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
+        a.append ('<br /><span class="autocomplete-comment">by ' +
+                  MB.utility.escapeHTML (item.artist) + '</span>');
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     }
@@ -268,6 +286,13 @@ MB.Control.Autocomplete = function (options) {
 
                 data = self.resultHook (data);
 
+                /* FIXME: this shouldn't be neccesary.  figure out why
+                 * this gets cleared on page switches. */
+                if (self.$input.val () == '')
+                {
+                    self.$input.val (self.page_term);
+                }
+
                 return response (data, result, request);
             }
         }));
@@ -275,9 +300,14 @@ MB.Control.Autocomplete = function (options) {
 
     self.select = function (event, data) {
         event.preventDefault ();
-
+        self.currentSelection = data.item;
         return data.item.action ? data.item.action () : options.select (event, data.item);
     };
+
+    self.clearSelection = function() {
+        if (!options.clearSelection) return;
+        return options.clearSelection();
+    }
 
     /* iamfeelinglucky is used in selenium tests.
 
@@ -323,9 +353,16 @@ MB.Control.Autocomplete = function (options) {
             self.$input.trigger ("keydown");
         });
         self.$input.bind ('iamfeelinglucky', self.iamfeelinglucky);
+        self.$input.bind ('blur', function(event) {
+            if (!self.currentSelection) return;
+            if (self.currentSelection.name !== self.$input.val()) {
+                self.clearSelection();
+            }
+        });
 
         self.$search.bind ('click.mb', function (event) {
             self.searchAgain ();
+            self.$input.focus ();
         });
 
         self.autocomplete._renderItem = function (ul, item) {
@@ -358,6 +395,8 @@ MB.Control.Autocomplete = function (options) {
                 MB.Control.autocomplete_formatters['generic'];
         }
     };
+
+    self.currentSelection = null;
 
     self.$input = options.input;
     self.$search = self.$input.closest ('span.autocomplete').find('img.search');

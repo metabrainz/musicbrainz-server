@@ -94,6 +94,24 @@ sub insert
             $hash->{cdtoc}
         )
     );
+
+    # If all track times are undefined, then set them to the CDTOC
+    my ($tracklist_id, $set_track_lengths) = @{ $self->sql->select_single_row_array(
+        'SELECT track.tracklist, bool_and(track.length IS NULL)
+           FROM track
+           JOIN medium ON track.tracklist = medium.tracklist
+          WHERE medium.id = ?
+       GROUP BY track.tracklist',
+        $hash->{medium}
+    ) };
+
+    if ($set_track_lengths) {
+        $self->c->model('Tracklist')->set_lengths_to_cdtoc(
+            $tracklist_id,
+            $hash->{cdtoc}
+        );
+    }
+
     return $id;
 }
 
@@ -140,6 +158,17 @@ sub merge_mediums
         'UPDATE medium_cdtoc SET medium = ? WHERE medium IN ('.placeholders(@mediums).')',
         $new_medium, @mediums
     );
+}
+
+sub medium_has_cdtoc {
+    my ($self, $medium_id, $cdtoc) = @_;
+    return $self->sql->select_single_value(
+        'SELECT TRUE
+         FROM medium_cdtoc
+         JOIN cdtoc ON medium_cdtoc.cdtoc = cdtoc.id
+         WHERE medium = ? AND cdtoc.discid = ?',
+        $medium_id, $cdtoc->discid
+    ) || 0;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -1,7 +1,7 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
    Copyright (c) 2005 Stefan Kestenholz (keschte)
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010-2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -308,9 +308,9 @@ MB.GuessCase.Mode.Base = function () {
                 // Name [Parts 1] -> Name, Parts 1
                 // Name (Parts 1-2) -> Name, Parts 1-2
                 // Name (Parts x & y) -> Name, Parts x & y
-                , self.fix ("Pt -> , Part", /((,|\s|:|!)+)\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)(\s|:|$)/i, "Part $5")
-                , self.fix ("Pts -> , Parts", /((,|\s|:|!)+)\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Parts $5")
-                , self.fix ("Vol -> , Volume", /((,|\s|:|!)+)\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Volume $5")
+                , self.fix ("Pt -> , Part", /((,|\s|:|!)+)\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)(\s|:|$)/i, "Part $4")
+                , self.fix ("Pts -> , Parts", /((,|\s|:|!)+)\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Parts $4")
+                , self.fix ("Vol -> , Volume", /((,|\s|:|!)+)\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)(\s|:|$)/i, "Volume $4")
                 , self.fix ("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])(\s|:|$)/i, "Part $5")
                 , self.fix ("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])(\s|:|$)/i, "Parts $5")
                 , self.fix ("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])(\s|:|$)/i, "Volume $5")

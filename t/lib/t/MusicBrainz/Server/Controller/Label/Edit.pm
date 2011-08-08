@@ -82,18 +82,18 @@ is_deeply($edit->data, {
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
-$mech->content_contains('controller label', '..has new name');
-$mech->content_contains('Warp Records', '..has old name');
-$mech->content_contains('label, controller', '..has new sortname');
-$mech->content_contains('Warp Records', '..has old sortname');
-$mech->content_contains('Special MusicBrainz Label', '..has new type');
-$mech->content_contains('Production', '..has old type');
-$mech->content_contains('United States', '..has new country');
-$mech->content_contains('United Kingdom', '..has old country');
-$mech->content_contains('12345', '..has new label code');
-$mech->content_contains('2070', '..has old label code');
-$mech->content_like(qr/2008\D+05\D+19/, '..has new date');
-$mech->content_like(qr/1989\D+02\D+03/, '..has old date');
+$mech->text_contains('controller label', '..has new name');
+$mech->text_contains('Warp Records', '..has old name');
+$mech->text_contains('label, controller', '..has new sortname');
+$mech->text_contains('Warp Records', '..has old sortname');
+$mech->text_contains('Special MusicBrainz Label', '..has new type');
+$mech->text_contains('Production', '..has old type');
+$mech->text_contains('United States', '..has new country');
+$mech->text_contains('United Kingdom', '..has old country');
+$mech->text_contains('12345', '..has new label code');
+$mech->text_contains('2070', '..has old label code');
+$mech->text_like(qr/2008\D+05\D+19/, '..has new date');
+$mech->text_like(qr/1989\D+02\D+03/, '..has old date');
 
 };
 

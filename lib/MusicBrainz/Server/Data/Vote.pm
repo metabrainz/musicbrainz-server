@@ -13,9 +13,6 @@ use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-sub _dbh { shift->c->raw_dbh }
-sub sql { return shift->c->raw_sql }
-
 sub _columns
 {
     return 'id, editor, edit, vote_time, vote, superseded';
@@ -96,7 +93,7 @@ sub enter_votes
         }
 
         # Select all the edits that have not yet received a no vote
-        $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote != ?';
+        $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote = ?';
         my $emailed = $self->sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
         my %already_emailed = map { $_ => 1 } @$emailed;
 
@@ -148,8 +145,8 @@ sub editor_statistics
         " AND vote_time > NOW() - INTERVAL '28 day' " .
         " GROUP BY vote";
 
-    my $all_votes = map_query($self->c->raw_sql, 'vote' => 'count', $q_all_votes, $editor_id);
-    my $recent_votes = map_query($self->c->raw_sql, 'vote' => 'count', $q_recent_votes, $editor_id);
+    my $all_votes = map_query($self->c->sql, 'vote' => 'count', $q_all_votes, $editor_id);
+    my $recent_votes = map_query($self->c->sql, 'vote' => 'count', $q_recent_votes, $editor_id);
 
     my %names = (
         $VOTE_ABSTAIN => 'Abstain',
@@ -194,7 +191,7 @@ sub load_for_edits
                  FROM " . $self->_table . "
                  WHERE edit IN (" . placeholders(@ids) . ")
                  ORDER BY vote_time";
-    my @votes = query_to_list($self->c->raw_sql, sub {
+    my @votes = query_to_list($self->c->sql, sub {
             my $vote = $self->_new_from_row(@_);
             my $edit = $id_to_edit{$vote->edit_id};
             $edit->add_vote($vote);

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Release::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 
@@ -38,6 +39,8 @@ has '+data' => (
                     id           => Int,
                     old_position => Str | Int,
                     new_position => Int,
+                    old_name => Nullable[Str],
+                    new_name => Nullable[Str],
                 ]]
             ]]]
     ]
@@ -66,7 +69,7 @@ sub foreign_keys
 
 sub initialize {
     my ($self, %opts) = @_;
-    $opts{_edit_version} = 2;
+    $opts{_edit_version} = 3;
     $self->data(\%opts);
 }
 
@@ -91,6 +94,24 @@ override build_display_data => sub
 sub do_merge
 {
     my $self = shift;
+    my $medium_names;
+    if ($self->data->{_edit_version} > 2) {
+        $medium_names = {
+            map { $_->{id} => $_->{new_name} }
+            map { @{ $_->{mediums} } }
+            @{ $self->data->{medium_changes} }
+        };
+    }
+
+    if (!$self->c->model('Release')->can_merge(
+        $self->data->{merge_strategy},
+        $self->new_entity->{id},
+        $self->_old_ids)) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'These releases could not be merged'
+        );
+    }
+
     $self->c->model('Release')->merge(
         new_id => $self->new_entity->{id},
         old_ids => [ $self->_old_ids ],
@@ -99,7 +120,8 @@ sub do_merge
             map { $_->{id} => $_->{new_position} }
             map { @{ $_->{mediums} } }
             @{ $self->data->{medium_changes} }
-        }
+        },
+        medium_names => $medium_names
     );
 };
 

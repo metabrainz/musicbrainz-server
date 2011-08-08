@@ -6,6 +6,7 @@ use LWP::UserAgent;
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
+use feature 'switch';
 
 sub search : Path('')
 {
@@ -14,6 +15,9 @@ sub search : Path('')
     $c->req->query_params->{type} = 'recording'
         if $c->req->query_params->{type} eq 'track';
 
+    $c->req->query_params->{advanced} = $c->req->query_params->{adv}
+        if exists $c->req->query_params->{adv};
+
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
     $c->stash->{taglookup} = $c->form( query_form => 'TagLookup' );
@@ -21,17 +25,14 @@ sub search : Path('')
 
     if ($form->process( params => $c->req->query_params ))
     {
-        if ($form->field('type')->value eq 'editor') {
-            $form->field('direct')->value(1);
-            $c->forward('editor');
-        }
-        elsif ($form->field('type')->value eq 'annotation' ||
-               $form->field('type')->value eq 'freedb' ||
-               $form->field('type')->value eq 'cdstub') {
+        if ($form->field('type')->value eq 'annotation' ||
+            $form->field('type')->value eq 'freedb'     ||
+            $form->field('type')->value eq 'cdstub') {
             $form->field('direct')->value(0);
             $c->forward('external');
         }
-        elsif ($form->field('type')->value eq 'tag')
+        elsif ($form->field('type')->value eq 'tag' ||
+               $form->field('type')->value eq 'editor')
         {
             $form->field('direct')->value(1);
             $c->forward('direct');
@@ -44,25 +45,6 @@ sub search : Path('')
     {
         $c->stash( template => 'search/index.tt' );
     }
-}
-
-sub editor : Private
-{
-    my ($self, $c) = @_;
-
-    my $form = $c->stash->{form};
-
-    my $query = $form->field('query')->value;
-    my $editor = $c->model('Editor')->get_by_name($query);
-    if (defined $editor) {
-        $c->res->redirect($c->uri_for_action('/user/profile', [ $editor->name ]));
-        $c->detach;
-    }
-
-    $c->stash(
-        template => 'search/editor-not-found.tt',
-        query    => $query,
-    );
 }
 
 sub direct : Private
@@ -80,24 +62,23 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
-    use Switch;
-    switch($type) {
-        case 'artist' {
+    given($type) {
+        when ('artist') {
             $c->model('ArtistType')->load(@entities);
         }
-        case 'release_group' {
+        when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);
         }
-        case 'release' {
+        when ('release') {
             $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
         }
-        case 'label' {
+        when ('label') {
             $c->model('LabelType')->load(@entities);
         }
-        case 'recording' {
+        when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
                 $_->entity->id
             } @$results);
@@ -117,7 +98,7 @@ sub direct : Private
             $c->model('Recording')->load(map { $_->tracklist->all_tracks }
                                          map { $_->all_mediums } @releases);
         }
-        case 'work' {
+        when ('work') {
             $c->model('Artist')->load_for_works(@entities);
         }
     }
@@ -156,7 +137,7 @@ sub external : Private
     my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
 
     my $search = $c->model('Search');
-    my $ret = $search->external_search($c, $type, $query, $limit, $page, $adv);
+    my $ret = $search->external_search($type, $query, $limit, $page, $adv);
 
     if (exists $ret->{error})
     {
@@ -164,15 +145,14 @@ sub external : Private
         my $template = 'search/error/';
 
         # Switch on the response code to decide which template to provide
-        use Switch;
-        switch($ret->{code})
+        given($ret->{code})
         {
-            case 404 { $template .= 'no-results.tt'; }
-            case 403 { $template .= 'no-info.tt'; };
-            case 500 { $template .= 'internal-error.tt'; }
-            case 400 { $template .= 'invalid.tt'; }
+            when (404) { $template .= 'no-results.tt'; }
+            when (403) { $template .= 'no-info.tt'; };
+            when (500) { $template .= 'internal-error.tt'; }
+            when (400) { $template .= 'invalid.tt'; }
 
-            else { $template .= 'general.tt'; }
+            default { $template .= 'general.tt'; }
         }
 
         $c->stash->{content}  = $ret->{error};
@@ -245,7 +225,7 @@ no moderator could be found, the user is informed.
 
 =head2 external
 
-Search using an external search engine 
+Search using an external search engine
 
 =head2 filter_artist
 

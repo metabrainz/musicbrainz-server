@@ -6,17 +6,10 @@ use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Entity::Statistics;
 
-extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Statistics';
-}
 
 sub fetch {
     my ($self, @names) = @_;
@@ -75,6 +68,73 @@ my %stats = (
         DESC => "Count of all artists",
         SQL => "SELECT COUNT(*) FROM artist",
     },
+    "count.artist.type.person" => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type::text, 'null'), COUNT(*) AS count
+                FROM artist
+                GROUP BY type
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+            
+            +{
+                "count.artist.type.person" => $dist{1} || 0,
+                "count.artist.type.group"  => $dist{2} || 0,
+                "count.artist.type.other"  => $dist{3} || 0,
+		"count.artist.type.null" => $dist{null} || 0
+            };
+        },
+    },
+    "count.artist.type.group" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.type.other" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.type.null" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.gender.male" => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
+                FROM artist
+                WHERE type = 1
+                GROUP BY gender
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+            
+            +{
+                "count.artist.gender.male" => $dist{1} || 0,
+                "count.artist.gender.female"  => $dist{2} || 0,
+		"count.artist.gender.other" => $dist{3} || 0,
+		"count.artist.gender.null" => $dist{null} || 0
+            };
+        },
+    },
+    "count.artist.gender.female" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.gender.other" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.gender.null" => {
+        PREREQ => [qw[ count.artist.gender.male ]],
+        PREREQ_ONLY => 1,
+    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
@@ -86,7 +146,7 @@ my %stats = (
     "count.edit" => {
         DESC => "Count of all edits",
         SQL => "SELECT COUNT(*) FROM edit",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.editor" => {
         DESC => "Count of all editors",
@@ -159,7 +219,97 @@ my %stats = (
     "count.vote" => {
         DESC => "Count of all votes",
         SQL => "SELECT COUNT(*) FROM vote",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
+    },
+
+    "count.label.country" => {
+        DESC => "Distribution of labels per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(l.country) AS count
+                FROM label l RIGHT OUTER JOIN country c
+                    ON l.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.label.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
+    "count.release.country" => {
+        DESC => "Distribution of releases per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(r.country) AS count
+                FROM release r RIGHT OUTER JOIN country c
+                    ON r.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.release.language" => {
+        DESC => "Distribution of releases by language",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT l.iso_code_3t, COUNT(r.language) AS count
+                FROM release r RIGHT OUTER JOIN language l
+                    ON r.language=l.id
+                GROUP BY l.iso_code_3t
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.language.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.release.script" => {
+        DESC => "Distribution of releases by script",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT s.iso_code, COUNT(r.script) AS count
+                FROM release r RIGHT OUTER JOIN script s
+                    ON r.script=s.id
+                GROUP BY s.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.script.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
     },
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
@@ -232,7 +382,7 @@ my %stats = (
 
     "count.edit.open" => {
         DESC => "Count of open edits",
-        DB => 'RAWDATA',
+        DB => 'READWRITE',
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -250,7 +400,6 @@ my %stats = (
                 "count.edit.error"      => $dist{$STATUS_ERROR}         || 0,
                 "count.edit.failedprereq"   => $dist{$STATUS_FAILEDPREREQ}  || 0,
                 "count.edit.evalnochange"   => 0,
-                "count.edit.tobedeleted"    => $dist{$STATUS_TOBEDELETED}   || 0,
                 "count.edit.deleted"        => $dist{$STATUS_DELETED}       || 0,
             };
         },
@@ -285,11 +434,6 @@ my %stats = (
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
     },
-    "count.edit.tobedeleted" => {
-        DESC => "Count of edits marked as 'to be deleted'",
-        PREREQ => [qw[ count.edit.open ]],
-        PREREQ_ONLY => 1,
-    },
     "count.edit.deleted" => {
         DESC => "Count of deleted edits",
         PREREQ => [qw[ count.edit.open ]],
@@ -300,35 +444,58 @@ my %stats = (
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '1 day')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.edit.perweek" => {
         DESC => "Count of edits per week",
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '7 days')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
 
     "count.cdstub" => {
         DESC => "Count of all existing CD Stubs",
         SQL => "SELECT COUNT(*) FROM release_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.cdstub.submitted" => {
         DESC => "Count of all submitted CD Stubs",
         SQL => "SELECT MAX(id) FROM release_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.cdstub.track" => {
         DESC => "Count of all CD Stub tracks",
         SQL => "SELECT COUNT(*) FROM track_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
+    },
+
+    "count.artist.country" => {
+        DESC => "Distribution of artists per country",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c.iso_code, COUNT(a.country) AS count
+                FROM artist a RIGHT OUTER JOIN country c
+                    ON a.country=c.id
+                GROUP BY c.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.artist.country.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
     },
 
     "count.vote.yes" => {
         DESC => "Count of 'yes' votes",
-        DB => 'RAWDATA',
+        DB => 'READWRITE',
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -357,14 +524,14 @@ my %stats = (
     },
     "count.vote.perday" => {
         DESC => "Count of votes per day",
-        DB => 'RAWDATA',
+        DB => 'READWRITE',
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '1 day')
                   AND vote <> ". $VOTE_ABSTAIN,
     },
     "count.vote.perweek" => {
         DESC => "Count of votes per week",
-        DB => 'RAWDATA',
+        DB => 'READWRITE',
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '7 days')
                   AND vote <> ". $VOTE_ABSTAIN,
@@ -375,7 +542,7 @@ my %stats = (
 
     "count.editor.editlastweek" => {
         DESC => "Count of editors who have submitted edits during the last week",
-        DB => 'RAWDATA',
+        DB => 'READWRITE',
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -452,32 +619,32 @@ my %stats = (
     "count.tag.raw.artist" => {
         DESC => "Count of all artist raw tags",
         SQL => "SELECT COUNT(*) FROM artist_tag_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.tag.raw.label" => {
         DESC => "Count of all label raw tags",
         SQL => "SELECT COUNT(*) FROM label_tag_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.tag.raw.releasegroup" => {
         DESC => "Count of all release-group raw tags",
         SQL => "SELECT COUNT(*) FROM release_group_tag_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.tag.raw.release" => {
         DESC => "Count of all release raw tags",
         SQL => "SELECT COUNT(*) FROM release_tag_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.tag.raw.recording" => {
         DESC => "Count of all recording raw tags",
         SQL => "SELECT COUNT(*) FROM recording_tag_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.tag.raw.work" => {
         DESC => "Count of all work raw tags",
         SQL => "SELECT COUNT(*) FROM work_tag_raw",
-        DB => 'RAWDATA'
+        DB => 'READWRITE'
     },
     "count.tag.raw" => {
         DESC => "Count of all raw tags",
@@ -715,6 +882,7 @@ my %stats = (
                 "count.quality.release.low"     => $dist{$QUALITY_LOW}      || 0,
                 "count.quality.release.normal"  => $dist{$QUALITY_NORMAL}   || 0,
                 "count.quality.release.unknown" => $dist{$QUALITY_UNKNOWN}  || 0,
+                "count.quality.release.default" => ($dist{$QUALITY_UNKNOWN} || 0) + ($dist{$QUALITY_NORMAL} || 0),
             };
         },
     },
@@ -730,6 +898,11 @@ my %stats = (
     },
     "count.quality.release.unknown" => {
         DESC => "Count of unknow quality releases",
+        PREREQ => [qw[ count.quality.release.high ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.quality.release.default" => {
+        DESC => "Count of default quality releases",
         PREREQ => [qw[ count.quality.release.high ]],
         PREREQ_ONLY => 1,
     },
@@ -895,7 +1068,6 @@ sub recalculate {
 
     my $db = $definition->{DB} || 'READWRITE';
     my $sql = $db eq 'READWRITE' ? $self->sql
-            : $db eq 'RAWDATA'   ? $self->c->raw_sql
             : die "Unknown database: $db";
 
     if (my $query = $definition->{SQL}) {
@@ -944,30 +1116,6 @@ sub recalculate_all
         my $s = join ", ", keys %notdone;
         die "Failed to solve stats dependencies: circular dependency? ($s)";
     }
-}
-
-sub get_latest_statistics {
-
-    my $self = shift;
-    my $query = "SELECT id,
-                        date_collected,
-                        name,
-                        value
-                   FROM statistic
-                  WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
-
-    $self->sql->select($query) or return;
-
-    my $stats = MusicBrainz::Server::Entity::Statistics->new();
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
-        $stats->date_collected($row->{date_collected})
-            unless $stats->date_collected;
-        $stats->data->{$row->{name}} = $row->{value};
-    }
-    $self->sql->finish;
-
-    return $stats;
 }
 
 1;

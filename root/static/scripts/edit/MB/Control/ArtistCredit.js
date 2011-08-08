@@ -137,9 +137,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.update = function(event, data) {
-
         if (data.name)
         {
+            self.$name.data ('mb_selected_name', data.name);
             self.$name.val (data.name).removeClass ('error');
             self.container.clearError (self);
             self.$sortname.val (data.sortname);
@@ -182,6 +182,17 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.$gid.val ('');
             self.$id.val ('');
+            self.updateLookupPerformed ();
+        }
+
+        /* if the artist name was changed without performing another
+         * lookup the identifiers should be cleared. */
+        if (self.$name.data ('mb_selected_name')
+            && (self.$name.val () !== self.$name.data ('mb_selected_name')))
+        {
+            self.$gid.val ('');
+            self.$id.val ('');
+            self.$name.data ('mb_selected_name', '');
             self.updateLookupPerformed ();
         }
 
@@ -276,6 +287,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.renderPreviewHTML = function () {
+        if (self.$gid.val () === '')
+        {
+            return self.renderName ();
+        }
+
         return '<a target="_blank" href="/artist/' +
             MB.utility.escapeHTML (self.$gid.val ()) + '" title="' +
             MB.utility.escapeHTML (self.$sortname.val ()) + '">' +
@@ -425,6 +441,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
     self.update = function(event, data) {
         event.preventDefault();
+
+        self.box[0].clear();
         self.box[0].update(event, data);
     };
 
@@ -545,7 +563,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     };
 
     self.isVariousArtists = function () {
-        return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
+        return self.box[0].$gid.val () === MB.constants.VARTIST_GID ||
+            self.box[0].$id.val () === String (MB.constants.VARTIST_ID);
     };
 
     self.isEmpty = function () {

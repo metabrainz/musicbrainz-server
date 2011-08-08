@@ -114,7 +114,7 @@ is ( @{$data->{results} }, 25 );
 my $annotation = $data->{results}->[0]->{entity};
 is ( $annotation->parent->name, 'Priscilla Angelique' );
 is ( $annotation->parent->gid, 'f3834a4c-5615-429e-b74d-ab3bc400186c' );
-is ( $annotation->text, "<p>Soul Love</p>\n" );
+is ( $annotation->text, "Soul Love" );
 
 
 
@@ -164,8 +164,7 @@ sub load_data
 
     ok (type_to_model($type), "$type has a model");
 
-    return MusicBrainz::Server::Data::Search->new()->external_search(
-        $c,
+    return MusicBrainz::Server::Data::Search->new(c => $c)->external_search(
         $type,
         'love',  # "Love" always has tons of hits
         25,      # items per page

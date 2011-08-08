@@ -132,7 +132,7 @@ ws_test 'release with tracks & artists (single medium, VA release)',
     <track-list>
       <track id="0cf3008f-e246-428f-abc1-35f87d584d60">
         <title>the Love Bug</title>
-        <duration>242226</duration>
+        <duration>243000</duration>
         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
           <sort-name>m-flo♥BoA</sort-name><name>m-flo♥BoA</name>
         </artist>

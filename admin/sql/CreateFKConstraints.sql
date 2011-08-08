@@ -84,6 +84,16 @@ ALTER TABLE artist_meta
    REFERENCES artist(id)
    ON DELETE CASCADE;
 
+ALTER TABLE artist_rating_raw
+   ADD CONSTRAINT artist_rating_raw_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
+ALTER TABLE artist_rating_raw
+   ADD CONSTRAINT artist_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE artist_tag
    ADD CONSTRAINT artist_tag_fk_artist
    FOREIGN KEY (artist)
@@ -93,6 +103,118 @@ ALTER TABLE artist_tag
    ADD CONSTRAINT artist_tag_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE artist_tag_raw
+   ADD CONSTRAINT artist_tag_raw_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
+ALTER TABLE artist_tag_raw
+   ADD CONSTRAINT artist_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE artist_tag_raw
+   ADD CONSTRAINT artist_tag_raw_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE cdtoc_raw
+   ADD CONSTRAINT cdtoc_raw_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release_raw(id);
+
+ALTER TABLE edit
+   ADD CONSTRAINT edit_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE edit_artist
+   ADD CONSTRAINT edit_artist_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_artist
+   ADD CONSTRAINT edit_artist_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE edit_label
+   ADD CONSTRAINT edit_label_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_label
+   ADD CONSTRAINT edit_label_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE edit_note
+   ADD CONSTRAINT edit_note_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE edit_note
+   ADD CONSTRAINT edit_note_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_recording
+   ADD CONSTRAINT edit_recording_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_recording
+   ADD CONSTRAINT edit_recording_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE edit_release
+   ADD CONSTRAINT edit_release_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_release
+   ADD CONSTRAINT edit_release_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE edit_release_group
+   ADD CONSTRAINT edit_release_group_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_release_group
+   ADD CONSTRAINT edit_release_group_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE edit_url
+   ADD CONSTRAINT edit_url_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_url
+   ADD CONSTRAINT edit_url_fk_url
+   FOREIGN KEY (url)
+   REFERENCES url(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE edit_work
+   ADD CONSTRAINT edit_work_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_work
+   ADD CONSTRAINT edit_work_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE editor_collection
    ADD CONSTRAINT editor_collection_fk_editor
@@ -650,6 +772,16 @@ ALTER TABLE label_meta
    REFERENCES label(id)
    ON DELETE CASCADE;
 
+ALTER TABLE label_rating_raw
+   ADD CONSTRAINT label_rating_raw_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_rating_raw
+   ADD CONSTRAINT label_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE label_tag
    ADD CONSTRAINT label_tag_fk_label
    FOREIGN KEY (label)
@@ -657,6 +789,21 @@ ALTER TABLE label_tag
 
 ALTER TABLE label_tag
    ADD CONSTRAINT label_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE label_tag_raw
+   ADD CONSTRAINT label_tag_raw_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_tag_raw
+   ADD CONSTRAINT label_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE label_tag_raw
+   ADD CONSTRAINT label_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
@@ -776,6 +923,16 @@ ALTER TABLE recording_puid
    FOREIGN KEY (recording)
    REFERENCES recording(id);
 
+ALTER TABLE recording_rating_raw
+   ADD CONSTRAINT recording_rating_raw_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
+
+ALTER TABLE recording_rating_raw
+   ADD CONSTRAINT recording_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE recording_tag
    ADD CONSTRAINT recording_tag_fk_recording
    FOREIGN KEY (recording)
@@ -783,6 +940,21 @@ ALTER TABLE recording_tag
 
 ALTER TABLE recording_tag
    ADD CONSTRAINT recording_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE recording_tag_raw
+   ADD CONSTRAINT recording_tag_raw_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
+
+ALTER TABLE recording_tag_raw
+   ADD CONSTRAINT recording_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE recording_tag_raw
+   ADD CONSTRAINT recording_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
@@ -883,6 +1055,16 @@ ALTER TABLE release_group_meta
    REFERENCES release_group(id)
    ON DELETE CASCADE;
 
+ALTER TABLE release_group_rating_raw
+   ADD CONSTRAINT release_group_rating_raw_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_rating_raw
+   ADD CONSTRAINT release_group_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE release_group_tag
    ADD CONSTRAINT release_group_tag_fk_release_group
    FOREIGN KEY (release_group)
@@ -890,6 +1072,21 @@ ALTER TABLE release_group_tag
 
 ALTER TABLE release_group_tag
    ADD CONSTRAINT release_group_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE release_group_tag_raw
+   ADD CONSTRAINT release_group_tag_raw_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_tag_raw
+   ADD CONSTRAINT release_group_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE release_group_tag_raw
+   ADD CONSTRAINT release_group_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
@@ -916,6 +1113,21 @@ ALTER TABLE release_tag
 
 ALTER TABLE release_tag
    ADD CONSTRAINT release_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE release_tag_raw
+   ADD CONSTRAINT release_tag_raw_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_tag_raw
+   ADD CONSTRAINT release_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE release_tag_raw
+   ADD CONSTRAINT release_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
@@ -959,10 +1171,25 @@ ALTER TABLE track
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
 
+ALTER TABLE track_raw
+   ADD CONSTRAINT track_raw_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release_raw(id);
+
 ALTER TABLE url_gid_redirect
    ADD CONSTRAINT url_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
    REFERENCES url(id);
+
+ALTER TABLE vote
+   ADD CONSTRAINT vote_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE vote
+   ADD CONSTRAINT vote_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
 
 ALTER TABLE work
    ADD CONSTRAINT work_fk_name
@@ -1005,6 +1232,16 @@ ALTER TABLE work_meta
    REFERENCES work(id)
    ON DELETE CASCADE;
 
+ALTER TABLE work_rating_raw
+   ADD CONSTRAINT work_rating_raw_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_rating_raw
+   ADD CONSTRAINT work_rating_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE work_tag
    ADD CONSTRAINT work_tag_fk_work
    FOREIGN KEY (work)
@@ -1012,6 +1249,21 @@ ALTER TABLE work_tag
 
 ALTER TABLE work_tag
    ADD CONSTRAINT work_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE work_tag_raw
+   ADD CONSTRAINT work_tag_raw_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_tag_raw
+   ADD CONSTRAINT work_tag_raw_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE work_tag_raw
+   ADD CONSTRAINT work_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 

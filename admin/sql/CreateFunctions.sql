@@ -16,7 +16,7 @@ DECLARE
     i integer;
     x varchar;
 BEGIN
-    input := regexp_replace(upper(substr(unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
+    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
     res := 0;
     FOR i IN 1..6 LOOP
         x := substr(input, i, 1);
@@ -39,7 +39,7 @@ DECLARE
     i integer;
     x varchar;
 BEGIN
-    input := regexp_replace(upper(substr(unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
+    input := regexp_replace(upper(substr(musicbrainz_unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
     res := 0;
     FOR i IN 1..6 LOOP
         x := substr(input, i, 1);
@@ -353,6 +353,23 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION a_upd_edit() RETURNS trigger AS $$
+BEGIN
+    IF NEW.status != OLD.status THEN
+       UPDATE edit_artist SET status = NEW.status WHERE edit = NEW.id;
+       UPDATE edit_label  SET status = NEW.status WHERE edit = NEW.id;
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION b_ins_edit_materialize_status() RETURNS trigger AS $$
+BEGIN
+    NEW.status = (SELECT status FROM edit WHERE id = NEW.edit);
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 ------------------------
 -- CD Lookup
 ------------------------
@@ -483,6 +500,8 @@ BEGIN
     FOR artist_row IN
         SELECT * FROM artist
         WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
     LOOP
         CONTINUE WHEN
         (
@@ -530,5 +549,76 @@ END
 $BODY$
 LANGUAGE 'plpgsql' ;
 
+CREATE OR REPLACE FUNCTION deny_special_purpose_artist_deletion() RETURNS trigger AS $$
+BEGIN
+    IF OLD.id IN (1, 2) THEN
+        RAISE EXCEPTION 'Attempted to delete a special purpose row';
+    END IF;
+    RETURN OLD;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION deny_special_purpose_label_deletion() RETURNS trigger AS $$
+BEGIN
+    IF OLD.id = 1 THEN
+        RAISE EXCEPTION 'Attempted to delete a special purpose row';
+    END IF;
+    RETURN OLD;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION delete_ratings(enttype TEXT, ids INTEGER[])
+RETURNS TABLE(editor INT, rating SMALLINT) AS $$
+DECLARE
+    tablename TEXT;
+BEGIN
+    tablename = enttype || '_rating_raw';
+    RETURN QUERY
+       EXECUTE 'DELETE FROM ' || tablename || ' WHERE ' || enttype || ' = any($1)
+                RETURNING editor, rating'
+         USING ids;
+    RETURN;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-------------------------------------------------------------------
+-- Delete tags and return them for use in sub queries
+-------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION delete_tags(enttype TEXT, ids INTEGER[])
+RETURNS TABLE(editor INT, tag INT) AS $$
+DECLARE
+    tablename TEXT;
+BEGIN
+    tablename = enttype || '_tag_raw';
+    RETURN QUERY
+       EXECUTE 'DELETE FROM ' || tablename || ' WHERE ' || enttype || ' = any($1)
+                RETURNING editor, tag'
+         USING ids;
+    RETURN;
+END;
+$$ LANGUAGE 'plpgsql';
+
+-------------------------------------------------------------------
+-- Prevent link attributes being used on links that don't support them
+-------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION prevent_invalid_attributes()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT TRUE
+        FROM (VALUES (NEW.link, NEW.attribute_type)) la (link, attribute_type)
+        JOIN link l ON l.id = la.link
+        JOIN link_type lt ON l.link_type = lt.id
+        JOIN link_attribute_type lat ON lat.id = la.attribute_type
+        JOIN link_type_attribute_type ltat ON ltat.attribute_type = lat.root AND ltat.link_type = lt.id
+    ) THEN
+        RAISE EXCEPTION 'Attribute type % is invalid for link %', NEW.attribute_type, NEW.link;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 COMMIT;
 -- vi: set ts=4 sw=4 et :
+
+

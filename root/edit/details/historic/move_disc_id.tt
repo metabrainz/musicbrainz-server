@@ -1,8 +1,7 @@
-<table>
+<table class="details">
   <tr>
     <th>[% l('Disc ID:') %]</th>
-    <td>[% edit.display_data %][% link_cdtoc(edit.display_data.medium_cdtoc.cdtoc) %]</td>
-
+    <td>[% edit.display_data.cdtoc.discid %][% link_cdtoc(edit.display_data.medium_cdtoc.cdtoc) %]</td>
   </tr>
 
   <tr>

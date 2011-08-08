@@ -21,8 +21,6 @@ sub _columns
     return 'id, editor, edit, text, post_time';
 }
 
-sub sql { shift->c->raw_sql }
-
 sub _column_mapping
 {
     return {
@@ -47,8 +45,8 @@ sub load_for_edits
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE edit IN (' . placeholders(@ids) . ')' .
-                ' ORDER BY post_time, id';
-    my @notes = query_to_list($self->c->raw_sql, sub {
+                ' ORDER BY post_time NULLS FIRST, id';
+    my @notes = query_to_list($self->c->sql, sub {
             my $r = shift;
             my $note = $self->_new_from_row($r);
             my $edit = $id_to_edit{ $r->{edit} };

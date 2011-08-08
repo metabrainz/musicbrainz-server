@@ -22,6 +22,7 @@ with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
@@ -68,12 +69,15 @@ sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT DISTINCT " . $self->_columns . ",
+                        musicbrainz_collate(name.name) AS name_collate,
+                        musicbrainz_collate(comment) AS comment_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
                  WHERE acn.artist = ?
-                 ORDER BY musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(name.name),
+                          musicbrainz_collate(comment)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -184,12 +188,12 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "recording_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->rating($row->{rating} || 0);
+        $obj->rating_count($row->{rating_count} || 0);
     }, @_);
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 

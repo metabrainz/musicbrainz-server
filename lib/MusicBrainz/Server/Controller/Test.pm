@@ -39,18 +39,16 @@ sub _accept_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->model('MB')->dbh);
-    my $raw_sql = Sql->new($c->model('MB')->raw_dbh);
-    Sql::run_in_transaction( sub { $c->model('Edit')->accept($edit) }, $sql, $raw_sql );
+    my $sql = $c->model('MB')->context->sql;
+    Sql::run_in_transaction( sub { $c->model('Edit')->accept($edit) }, $sql );
 }
 
 sub _reject_edit
 {
     my ($c, $edit) = @_;
 
-    my $sql = Sql->new($c->model('MB')->dbh);
-    my $raw_sql = Sql->new($c->model('MB')->raw_dbh);
-    Sql::run_in_transaction( sub { $c->model('Edit')->reject($edit) }, $sql, $raw_sql );
+    my $sql = $c->model('MB')->context->sql;
+    Sql::run_in_transaction( sub { $c->model('Edit')->reject($edit) }, $sql );
 }
 
 __PACKAGE__->meta->make_immutable;

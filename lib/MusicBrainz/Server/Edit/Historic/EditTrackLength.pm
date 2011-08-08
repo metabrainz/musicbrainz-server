@@ -11,7 +11,7 @@ sub edit_name { l('Edit track length') }
 sub edit_type { $EDIT_HISTORIC_EDIT_TRACK_LENGTH }
 sub historic_type { 45 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

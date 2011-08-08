@@ -1,78 +1,50 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-label">
   <tr>
     <th>[% l('Label:') %]</th>
     <td>[% link_entity(edit.display_data.label) %]</td>
   </tr>
 
-  [% IF edit.display_data.name %]
-  <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old | html %]</td>
-    <td class="new">[% edit.display_data.name.new | html %]</td>
-  </tr>
-  [% END %]
+  [% display_diff(l('Name:'),
+                  html_escape(edit.display_data.name.old),
+                  html_escape(edit.display_data.name.new),
+                  '\s+') %]
 
-  [% IF edit.display_data.sort_name %]
-  <tr>
-    <th>[% l('Sort name:') %]</th>
-    <td class="old">[% edit.display_data.sort_name.old | html %]</td>
-    <td class="new">[% edit.display_data.sort_name.new | html %]</td>
-  </tr>
-  [% END %]
+  [% display_diff(l('Sort name:'),
+                  html_escape(edit.display_data.sort_name.old),
+                  html_escape(edit.display_data.sort_name.new),
+                  '\s+') %]
 
-  [% IF edit.display_data.comment %]
-  <tr>
-    <th>[% l('Comment:') %]</th>
-    <td class="old">[% edit.display_data.comment.old | html %]</td>
-    <td class="new">[% edit.display_data.comment.new | html %]</td>
-  </tr>
-  [% END %]
+  [% display_diff(l('Comment:'),
+                  html_escape(edit.display_data.comment.old),
+                  html_escape(edit.display_data.comment.new),
+                  '\s+') %]
 
-  [% IF edit.display_data.type %]
-  <tr>
-    <th>[% l('Type:') %]</th>
-    <td class="old">[% edit.display_data.type.old.name | html %]</td>
-    <td class="new">[% edit.display_data.type.new.name | html %]</td>
-  </tr>
-  [% END %]
 
-  [% IF edit.display_data.label_code %]
-  <tr>
-    <th>[% l('Label code:') %]</th>
-    <td class="old">[% edit.display_data.label_code.old %]</td>
-    <td class="new">[% edit.display_data.label_code.new %]</td>
-  </tr>
-  [% END %]
+  [% display_full_change(l('Type:'),
+                         html_escape(edit.display_data.type.old.name),
+                         html_escape(edit.display_data.type.new.name)) %]
 
-  [% IF edit.display_data.begin_date %]
-  <tr>
-    <th>[% l('Begin date:') %]</th>
-    <td class="old">[% edit.display_data.begin_date.old.format %]</td>
-    <td class="new">[% edit.display_data.begin_date.new.format %]</td>
-  </tr>
-  [% END %]
+  [% display_diff(l('Label code:'),
+                  html_escape(edit.display_data.label_code.old),
+                  html_escape(edit.display_data.label_code.new)) %]
 
-  [% IF edit.display_data.end_date %]
-  <tr>
-    <th>[% l('End date:') %]</th>
-    <td class="old">[% edit.display_data.end_date.old.format %]</td>
-    <td class="new">[% edit.display_data.end_date.new.format %]</td>
-  </tr>
-  [% END %]
+  [% display_diff(l('Begin date:'),
+                  edit.display_data.begin_date.old.format,
+                  edit.display_data.begin_date.new.format,
+                  '-') %]
 
-  [% IF edit.display_data.country %]
-  <tr>
-    <th>[% l('Country:') %]</th>
-    <td class="old">[% edit.display_data.country.old.name | html %]</td>
-    <td class="new">[% edit.display_data.country.new.name | html %]</td>
-  </tr>
-  [% END %]
+  [% display_diff(l('End date:'),
+                  edit.display_data.end_date.old.format,
+                  edit.display_data.end_date.new.format,
+                  '-') %]
 
-  [% IF edit.display_data.ipi_code %]
-  <tr>
-    <th>[% l('IPI code:') %]</th>
-    <td class="old">[% edit.display_data.ipi_code.old.name %]</td>
-    <td class="new">[% edit.display_data.ipi_code.new.name %]</td>
-  </tr>
-  [% END %]
+  [% display_full_change(l('Country:'),
+                         html_escape(edit.display_data.country.old.name),
+                         html_escape(edit.display_data.country.new.name)) %]
+
+  [% display_diff(l('IPI code:'),
+                  edit.display_data.ipi_code.old,
+                  edit.display_data.ipi_code.new) %]
 </table>

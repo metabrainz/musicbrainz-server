@@ -7,6 +7,9 @@ CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
 CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
+    FOR EACH ROW EXECUTE PROCEDURE deny_special_purpose_artist_deletion();
+
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -106,6 +109,9 @@ CREATE TRIGGER b_upd_l_work_work BEFORE UPDATE ON l_work_work
 CREATE TRIGGER a_ins_label AFTER INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE a_ins_label();
 
+CREATE TRIGGER b_del_label_special BEFORE DELETE ON label
+    FOR EACH ROW EXECUTE PROCEDURE deny_special_purpose_label_deletion();
+
 CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -114,6 +120,9 @@ CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias
 
 CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE OR INSERT ON link_attribute
+    FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
 
 CREATE TRIGGER b_upd_link_attribute_type BEFORE UPDATE ON link_attribute_type 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -207,6 +216,15 @@ CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias
 
 CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER a_upd_edit AFTER UPDATE ON edit
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_edit();
+
+CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
+    FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
+
+CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
+    FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
 
 COMMIT;
 

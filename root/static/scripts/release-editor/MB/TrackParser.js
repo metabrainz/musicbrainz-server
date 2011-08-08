@@ -196,20 +196,45 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.name = '';
     self.artist = null;
 
+    self.regex = {
+        vinyl: /^\s*[０-９0-9a-z]+(\.|\s|$)/i,
+        trkno: /^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/
+    }
+
+    self.ignoreTrack = function () {
+        if (!self.parent.trackNumbers ())
+        {
+            return false;
+        }
+        else if (self.parent.vinylNumbers ())
+        {
+            return !self.line.match (self.regex.vinyl);
+        }
+        else
+        {
+            return !self.line.match (self.regex.trkno);
+        }
+    };
+
     self.removeTrackNumbers = function () {
         if (self.parent.vinylNumbers ())
         {
-            self.line = self.line.replace(/^\s*[-\.０-９0-9a-z]+\.?\s+/i, "");
+            self.line = self.line.replace(self.regex.vinyl, "");
         }
         else if (self.parent.trackNumbers ())
         {
-            self.line = self.line.replace(/^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)\.?\s+/, "");
+            self.line = self.line.replace(self.regex.trkno, "");
         }
     };
 
     self.parseTimes = function () {
+        if (!self.parent.trackTimes ())
+        {
+            return;
+        }
+
         var tmp = self.line.replace (/\s?\(\?:\?\?\)\s?$/, '');
-        self.line = tmp.replace(/\s?\(?\s?([0-9０-９]*[：，．':,.][0-9０-９]+)\s?\)?$/,
+        self.line = tmp.replace(/\s?\(?\s?([0-9０-９]*[：，．':,.][0-9０-９][0-9０-９])\s?\)?$/,
             function (str, p1) {
                 self.duration = MB.utility.fullWidthConverter(p1);
                 return "";
@@ -332,6 +357,11 @@ MB.TrackParser.Track = function (position, line, parent) {
             .replace (/\s*,/g, ",");
     };
 
+    if (self.ignoreTrack ())
+    {
+        return null;
+    }
+
     self.removeTrackNumbers ();
     self.parseTimes ();
     self.parseArtist ();
@@ -353,7 +383,11 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
         $.each (lines, function (idx, item) {
             if (item === '')
                 return;
-            tracks.push (MB.TrackParser.Track (lineno, item, self));
+
+            var trk = MB.TrackParser.Track (lineno, item, self);
+            if (!trk)
+                return;
+            tracks.push (trk);
             lineno = lineno + 1;
         });
 
@@ -506,6 +540,10 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
     self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
     self.variousArtists = function () { return self.disc.isVariousArtists (); };
+    self.trackTimes = function () {
+        /* don't parse track times if the disc has a toc. */
+        return self.hasToc () ? false : self.$tracktimes.is (':checked');
+    }
     self.hasToc = function () { return self.disc.hasToc (); };
 
     /* public variables. */

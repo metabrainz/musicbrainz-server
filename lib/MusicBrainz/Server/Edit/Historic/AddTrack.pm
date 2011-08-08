@@ -13,7 +13,7 @@ sub historic_type { 7 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK }
 sub edit_template { 'historic/add_track_old' }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

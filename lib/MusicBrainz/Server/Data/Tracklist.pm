@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Tracklist;
 use Moose;
 use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
+use MusicBrainz::Server::Log qw( log_assertion );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -172,12 +173,14 @@ sub find_or_insert
                     SELECT tracklist, count(track.id) AS matched_track_count
                       FROM track
                       JOIN track_name name ON name.id = track.name
-                     WHERE ' . join(' OR ', ('(
-                               name.name = ?
-                           AND artist_credit = ?
-                           AND recording = ?
-                           AND position = ?
-                           )') x @$tracks) . '
+                     WHERE ' . join(' OR ',map {
+                         '(' . join(' AND ',
+                                    'name.name = ?',
+                                    'artist_credit = ?',
+                                    'recording = ?',
+                                    'position = ?',
+                                    defined($_->{length}) ? 'length = ?' : 'length IS NULL') .
+                         ')' } @$tracks) . '
                   GROUP BY tracklist
                 ) s
            JOIN tracklist ON s.tracklist = tracklist.id
@@ -191,14 +194,18 @@ sub find_or_insert
             (map {
                 $_->{name},
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
-                $_->{recording},
+                $_->{recording_id},
+                defined($_->{length}) ? $_->{length} : (),
                 $i++,
             } @$tracks),
             scalar(@$tracks)
         )
     };
 
-    if (@possible_tracklists == 1) {
+    if (@possible_tracklists) {
+        log_assertion { @possible_tracklists == 1 }
+            'Only finds a single matching tracklist';
+
         return $self->_entity_class->new(
             id => $possible_tracklists[0]
         );

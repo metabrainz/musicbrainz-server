@@ -15,17 +15,24 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'work' };
+with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
-    return 'work JOIN work_name name ON work.name=name.id';
+    my $self = shift;
+    return 'work ' . (shift() || '') . ' JOIN work_name name ON work.name=name.id';
+}
+
+sub _table_join_name {
+    my ($self, $join_on) = @_;
+    return $self->_table("ON work.name = $join_on");
 }
 
 sub _columns
@@ -143,6 +150,9 @@ sub update
     $self->sql->update_row('work', $row, { id => $work_id });
 }
 
+# Works can be unconditionally removed
+sub can_delete { 1 }
+
 sub delete
 {
     my ($self, $work_id) = @_;
@@ -156,7 +166,7 @@ sub delete
     return;
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
@@ -199,8 +209,8 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "work_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->rating($row->{rating} || 0);
+        $obj->rating_count($row->{rating_count} || 0);
         $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
 }

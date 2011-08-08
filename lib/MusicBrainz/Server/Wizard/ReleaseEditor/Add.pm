@@ -15,6 +15,30 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_CREATE
 );
 
+
+around render => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $page = $_[0];
+
+    my $page_shown = $self->shown ($self->_current);
+
+    $self->$orig (@_);
+
+    # hide errors if this is the first time (in this wizard session) that this
+    # page is shown to the user.
+    if (! $page_shown)
+    {
+        $page->clear_errors;
+
+        # clear_errors doesn't clear everything, error_fields on the form still
+        # contains the error fields -- so let's set an extra flag so the template
+        # knows wether to show errors or not.
+        $self->c->stash->{hide_errors} = 1;
+    }
+};
+
+
 sub prepare_duplicates
 {
     my $self = shift;
@@ -117,8 +141,9 @@ augment 'create_edits' => sub
         $add_release_args{release_group_id} = $data->{release_group_id};
     }
     else {
-        my @fields = qw( name artist_credit type_id as_auto_editor );
+        my @fields = qw( artist_credit type_id as_auto_editor );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+        $args{name} = $data->{release_group}{name} || $data->{name};
 
         my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 

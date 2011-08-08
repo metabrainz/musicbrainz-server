@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Relationship::Create;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Create }

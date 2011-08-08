@@ -1,14 +1,26 @@
 [% WRAPPER 'layout.tt' title=l('Lookup CD') full_width=1 %]
+
+[% IF c.user_exists %]
   <h2>[% l('Matching CDs') %]</h2>
   [% IF medium_cdtocs.size %]
   <p>[% l('We found discs matching the information you requested, listed below. If none of these
           are the release you are looking for, you may search using the form below in order to attach this
           disc to another MusicBrainz release.') %]</p>
       [% INCLUDE 'cdtoc/list.tt' edit_links=0 %]
-  [% ELSE %]
+  [% ELSIF c.user_exists %]
     <p>[% l('There are currently no discs in MusicBrainz associated with the information you provided. You can
              search for the disc you are looking for using the forms below, or you may add a new release to
              MusicBrainz') %]</p>
+  [% END %]
+
+  [% IF r.u-ecdstubtoc %]
+  <h2>[% l('CD Stub found') %]</h2>
+  <p>[% l('A CD Stub was found that matches the disc ID you provided. If the below tracklist
+           appears correct, you may use it as a starting point as a new MusicBrainz release') %]</p>
+  [% INCLUDE 'cdstub/cdstub.tt' %]
+  <form action="[% c.uri_for_action('/cdstub/import', [ cdstubtoc.discid ]) %]" method="get">
+    [% form_submit(l('Import CD Stub')) %]
+  </form>
   [% END %]
 
   [% IF possible_mediums.size %]
@@ -58,4 +70,39 @@
       [% form_submit(l('Search')) %]
     </div>
   </form>
+[% ELSE %]
+  [% IF medium_cdtocs.size %]
+  <h2>[% l('Matching CDs') %]</h2>
+  <p>[% l('We found discs matching the information you requested, listed below. If none of these
+          are the release you are looking for, please see the instructions belowe.') %]</p>
+      [% INCLUDE 'cdtoc/list.tt' edit_links=0 %]
+  [% ELSE %]
+  <h2>[% l('CD Not Found') %]</h2>
+  <p>[% l('MusicBrainz does not have any CDs with the TOC:') %]</p>
+  <pre>[% toc %]</pre>
+  <p>[% l('Please consider adding this release/CD to MusicBrainz. To add this CD, please choose one of the
+           following two methods:') %]</p>
+  <ol>
+    <li><p>[% l('Become part of MusicBrainz by creating an account and {how|reading up on our process} for submitting
+              information to MusicBrainz. Find out how we peer review entered data to create the most accurate
+              music database on the internet. If this appeals to you, please {reg|create an account} or
+              {login_url|login}.',
+              { how => doc_link('HowEditingWorks'),
+                reg => c.uri_for_action('/account/register', { uri => c.relative_uri }),
+                login_url => login_url(c.relative_uri) }) %]</p>
+        <p>[% l('Or…') %]</p>
+    </li>
+    <li><p>[% l('You can enter the data from the CD as it appears on the CD itself and not worry about becoming a
+              part of MusicBrainz. CDs entered in this method will still be available to client programs. However,
+              it won\'t be included in the main MusicBrainz database until an editor decides to take your
+              submitted information, ensures it meets our standards and inserts it into the main database.') %]</p>
+        <p>
+          <a href="[% c.uri_for_action('/cdstub/add', { toc => toc }) %]">
+            [% l('Submit this CD using the simple method.') %]
+          </a>
+        </p>
+    </li>
+  [% END %]
+[% END %]
+
 [% END %]

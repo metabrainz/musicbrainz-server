@@ -14,14 +14,24 @@
                content=html_escape(artist.gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
-                [% date_period_label = artist.type_id == 1 ? l('Born:') : l('Active:') %]
-                [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                    [% rdfa_begin_date_artist(artist.begin_date.format or l("present")) %] &ndash;
-                    [% rdfa_end_date_artist(artist.end_date.format or l("present")) %]
-                    [% IF artist.has_age %]
-                      ([% rdfa_artist_age(display_age (artist.age)) %])
+                    [%- IF artist.begin_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
+                            [% date_period_label = artist.type_id == 1 ? l('Born:') : artist.type_id == 2 ? l('Founded:') : l('Began:') %]
+                            [% rdfa_begin_date_artist(artist.begin_date.format) %]
+                            [% IF artist.has_age AND not artist.end_date.format %]
+                                ([% rdfa_artist_age(display_age (artist.age)) %] ago)
+                            [% END %]
+                        [% END %]
+                    [%- END -%]
+                    [% IF artist.end_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
+                            [% date_period_label = artist.type_id == 1 ? l('Died:') : artist.type_id == 2 ? l('Dissolved:') : l('Ended:') %]
+                            [% rdfa_end_date_artist(artist.end_date.format) %]
+                            [% IF artist.has_age %]
+                                ([% rdfa_artist_age(display_age (artist.age)) %])
+                            [% END %]
+                        [% END %]
                     [% END %]
-                [% END %]
             [%- END -%]
             [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
@@ -38,10 +48,10 @@
             async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
             -%]
 
-        [% UNLESS artist.is_special_purpose %]
         <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
+                [% UNLESS artist.is_special_purpose %]
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
                     [% l('Add release group') %]
@@ -70,15 +80,19 @@
                       [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                     </a>
                   </li>
+                [% END %]
+
                   <li>
                     <a href="[% c.uri_for_action('/artist/merge_queue', { 'add-to-merge' => artist.id }) %]">
                       [% l('Merge artist') %]
                     </a>
                   </li>
 
+                [% UNLESS artist.is_special_purpose %]
                   <hr/>
 
-                  <li>[% use_in_relationship(artist) %]</li>
+                  [%# Adds <li> itself %]
+                  [% use_in_relationship(artist) %]
                   <li>[% relate_to_ellipsis(artist) %]</li>
                   <li>[% relate_to_url(artist) %]</li>
 
@@ -88,11 +102,11 @@
                     <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   [% END %]
                   <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
+                [% END %]
             [% ELSE %]
                 <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
-        [% END %]
 
         [% IF c.user_exists && !artist.is_special_purpose %]
         <h2>[% l("Subscriptions") %]</h2>

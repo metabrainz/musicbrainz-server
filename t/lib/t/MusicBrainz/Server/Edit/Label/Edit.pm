@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Label::Edit;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Label::Edit }
@@ -17,13 +18,13 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
 
-my $label = $c->model('Label')->get_by_id(1);
+my $label = $c->model('Label')->get_by_id(2);
 my $edit = create_full_edit($c, $label);
 
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
-$label = $c->model('Label')->get_by_id(1);
+$label = $c->model('Label')->get_by_id(2);
 is_unchanged($label);
 is($label->edits_pending, 1);
 
@@ -58,7 +59,7 @@ sub create_full_edit {
     my ($c, $label) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_EDIT,
-        editor_id => 2,
+        editor_id => 1,
 
         to_edit => $label,
         name => 'Edit Name',

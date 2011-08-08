@@ -1,7 +1,9 @@
 package t::MusicBrainz::Server::Edit::Relationship::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Edit }
@@ -87,6 +89,21 @@ is($edit->display_data->{new}->phrase, 'member');
 
 };
 
+test 'Editing a relationship more than once fails subsequent edits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit_1 = _create_edit($c);
+    my $edit_2 = _create_edit($c);
+
+    accept_edit($c, $edit_1);
+
+    isa_ok exception { $edit_2->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
 sub _create_edit {
     my $c = shift;
 
@@ -103,7 +120,6 @@ sub _create_edit {
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
-        attributes => [],
         entity1 => $c->model('Artist')->get_by_id(3)
     );
 }

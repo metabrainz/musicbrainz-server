@@ -41,7 +41,7 @@ sub alter_edit_pending
     }
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {
@@ -100,8 +100,13 @@ sub initialize
 sub accept
 {
     my $self = shift;
+    my $target = $self->c->model('ReleaseGroup')->get_by_id($self->data->{new_release_group}{id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The destination release group no longer exists'
+        );
+
     $self->c->model('Release')->update($self->data->{release}{id}, {
-        release_group_id => $self->data->{new_release_group}{id}   
+        release_group_id => $target->id
     });
     unless($self->c->model('ReleaseGroup')->in_use($self->data->{old_release_group}{id})) {
         $self->c->model('ReleaseGroup')->delete($self->data->{old_release_group}{id});

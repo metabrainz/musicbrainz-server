@@ -86,11 +86,11 @@ sub foreign_keys
     my $self = shift;
 
     my %ids;
-    $ids{ $self->model0 } ||= [];
-    $ids{ $self->model1 } ||= [];
+    $ids{ $self->model0 } ||= {};
+    $ids{ $self->model1 } ||= {};
 
-    push @{ $ids{$self->model0} }, $self->data->{relationship}{entity0}{id};
-    push @{ $ids{$self->model1} }, $self->data->{relationship}{entity1}{id};
+    $ids{$self->model0}->{ $self->data->{relationship}{entity0}{id} } = [ 'ArtistCredit' ];
+    $ids{$self->model1}->{ $self->data->{relationship}{entity1}{id} } = [ 'ArtistCredit' ];
 
     return \%ids;
 }
@@ -201,6 +201,16 @@ sub accept
         $self->data->{relationship}{link}{type}{entity0_type},
         $self->data->{relationship}{link}{type}{entity1_type},
         $self->data->{relationship}{id});
+
+    if ($self->data->{relationship}{link}{type}{entity0_type} eq 'release' &&
+        $self->data->{relationship}{link}{type}{entity1_type} eq 'url')
+    {
+        my $release = $self->c->model('Release')->get_by_id(
+            $self->data->{relationship}{entity0}{id}
+        );
+        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
+        $self->c->model('CoverArt')->cache_cover_art($release);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

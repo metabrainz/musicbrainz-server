@@ -28,6 +28,7 @@ ws_test 'basic release group lookup',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Single" id="b84625af-6229-305f-9f1b-59c0185df016">
         <title>サマーれげぇ!レインボー</title>
+        <first-release-date>2001-07-04</first-release-date>
     </release-group>
 </metadata>';
 
@@ -37,6 +38,7 @@ ws_test 'release group lookup with releases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
+        <first-release-date>2008-11-17</first-release-date>
         <release-list count="1">
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>Official</status>
@@ -57,6 +59,7 @@ ws_test 'release group lookup with artists',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
+        <first-release-date>2008-11-17</first-release-date>
         <artist-credit>
             <name-credit>
                 <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
@@ -73,6 +76,7 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
+        <first-release-date>2004-03-17</first-release-date>
         <artist-credit>
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
@@ -100,6 +104,7 @@ ws_test 'release group lookup with pseudo-releases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
+        <first-release-date>2004-03-17</first-release-date>
         <artist-credit>
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">

@@ -29,6 +29,7 @@ ws_test 'browse release group via release',
     <release-group-list count="1">
         <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
             <title>My Demons</title>
+            <first-release-date>2007-01-29</first-release-date>
             <artist-credit>
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
@@ -54,6 +55,7 @@ ws_test 'browse release group via artist',
     <release-group-list count="2">
         <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
             <title>My Demons</title>
+            <first-release-date>2007-01-29</first-release-date>
             <artist-credit>
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
@@ -71,6 +73,7 @@ ws_test 'browse release group via artist',
         </release-group>
         <release-group type="Album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
             <title>Repercussions</title>
+            <first-release-date>2008-11-17</first-release-date>
             <artist-credit>
                 <name-credit>
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">

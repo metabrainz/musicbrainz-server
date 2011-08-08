@@ -13,13 +13,50 @@ sub serialize
     return $self->$type(@data);
 }
 
+sub autocomplete_generic
+{
+    my ($self, $output, $pager) = @_;
+
+    my $json = JSON::Any->new;
+    return $json->encode([
+        (map +{
+            name => $_->name,
+            id => $_->id,
+            gid => $_->gid,
+            comment => $_->comment,
+            $_->meta->has_attribute('sort_name')
+                ? (sortname => $_->sort_name) : ()
+        }, @$output),
+        {
+            pages => $pager->last_page,
+            current => $pager->current_page
+        }
+    ]);
+}
+
+sub autocomplete_editor
+{
+    my ($self, $output, $pager) = @_;
+
+    my $json = JSON::Any->new;
+    return $json->encode([
+        (map +{
+            name => $_->name,
+            id => $_->id,
+        }, @$output),
+        {
+            pages => $pager->last_page,
+            current => $pager->current_page
+        }
+    ]);
+}
+
+
 sub generic
 {
     my ($self, $response) = @_;
-
     my $json = JSON::Any->new;
-
-    return $json->encode ($response);
+    return $json->encode($response);
 }
 
 sub output_error
@@ -29,6 +66,32 @@ sub output_error
     my $json = JSON::Any->new;
 
     return $json->encode ({ error => $err });
+}
+
+sub autocomplete_release_group
+{
+    my ($self, $results, $pager) = @_;
+
+    my $json = JSON::Any->new;
+
+    my @output;
+
+    for my $item (@$results) {
+        push @output, {
+            name => $item->name,
+            id => $item->id,
+            gid => $item->gid,
+            comment => $item->comment,
+            artist => $item->artist_credit->name,
+        };
+    };
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return $json->encode (\@output);
 }
 
 sub autocomplete_recording

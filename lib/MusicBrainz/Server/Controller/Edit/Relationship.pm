@@ -138,12 +138,12 @@ sub edit : Local RequireAuth Edit
             attributes   => [uniq @attributes],
             $form->field('direction')->value
                 # User is changing the direction
-                ? (entity0      => $form->field('entity1.id')->value,
-                   entity1      => $form->field('entity0.id')->value)
+                ? (entity0_id   => $form->field('entity1.id')->value,
+                   entity1_id   => $form->field('entity0.id')->value)
 
                 # User is not changing the direction
-                : (entity0      => $form->field('entity0.id')->value,
-                   entity1      => $form->field('entity1.id')->value)
+                : (entity0_id   => $form->field('entity0.id')->value,
+                   entity1_id   => $form->field('entity1.id')->value)
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -262,8 +262,8 @@ sub create : Local RequireAuth Edit
             begin_date => $form->field('begin_date')->value,
             end_date => $form->field('end_date')->value,
             attributes => [uniq @attributes],
-            entity0 => $entity0->id,
-            entity1 => $entity1->id,
+            entity0_id => $entity0->id,
+            entity1_id => $entity1->id,
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -285,8 +285,9 @@ sub create : Local RequireAuth Edit
             attributes   => [uniq @attributes],
         );
 
-        my $redirect = $c->controller(type_to_model($type0))->action_for('show');
-        $c->response->redirect($c->uri_for_action($redirect, [ $source_gid ]));
+        my $redirect = $c->req->params->{returnto} ||
+            $c->uri_for_action($c->controller(type_to_model($type0))->action_for('show'), [ $source_gid ]);
+        $c->response->redirect($redirect);
         $c->detach;
     }
 }
@@ -382,8 +383,15 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
             }
         }
 
-        my $req_param = $c->req->params->{recording_id};
-        my @recording_ids = ref($req_param) ? @$req_param : ($req_param);
+        my @recording_ids;
+        if(my $req_param = $c->req->params->{recording_id}) {
+            @recording_ids = ref($req_param) ? @$req_param : ($req_param);
+        }
+        else {
+            $c->stash( no_selection => 1 );
+            $c->detach;
+        }
+
         my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
 
         my $link_type = $c->model('LinkType')->get_by_id(
@@ -391,13 +399,23 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
         );
 
         for my $recording_id (@recording_ids) {
+            my $target = $recordings{$recording_id};
+            next if $c->model('Relationship')->exists($type, 'recording', {
+                link_type_id => $link_type->id,
+                entity0_id   => $dest->id,
+                entity1_id   => $target->id,
+                begin_date   => $form->field('begin_date')->value,
+                end_date     => $form->field('end_date')->value,
+                attributes   => \@attributes
+            });
+
             $self->_insert_edit(
                 $c, $form,
                 edit_type    => $EDIT_RELATIONSHIP_CREATE,
                 type0        => $type,
                 type1        => 'recording',
                 entity0      => $dest,
-                entity1      => $recordings{$recording_id},
+                entity1      => $target,
                 link_type    => $link_type,
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,
@@ -453,10 +471,14 @@ sub create_url : Local RequireAuth Edit
         type_info => JSON->new->latin1->encode(\%type_info),
     );
 
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+    $c->stash( attr_tree => $attr_tree );
+
     my $form = $c->form(
         form => 'Relationship::URL',
         reverse => $types[0] eq 'url',
-        root => $tree
+        root => $tree,
+        attr_tree => $attr_tree
     );
 
     $c->stash(
@@ -465,6 +487,16 @@ sub create_url : Local RequireAuth Edit
     );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my @attributes;
+        for my $attr ($attr_tree->all_children) {
+            my $value = $form->field('attrs')->field($attr->name)->value;
+            next unless defined($value);
+
+            push @attributes, scalar($attr->all_children)
+                ? @$value
+                : $value ? $attr->id : ();
+        }
+
         my $url = $c->model('URL')->find_or_insert($form->field('url')->value);
 
         my $e0 = $types[0] eq 'url' ? $url : $entity;
@@ -472,8 +504,9 @@ sub create_url : Local RequireAuth Edit
 
         if ($c->model('Relationship')->exists(@types, {
             link_type_id => $form->field('link_type_id')->value,
-            entity0 => $e0->id,
-            entity1 => $e1->id,
+            entity0_id => $e0->id,
+            entity1_id => $e1->id,
+            attributes => [uniq @attributes]
         })) {
             $c->stash(
                 exists => 1,
@@ -493,7 +526,7 @@ sub create_url : Local RequireAuth Edit
             entity0      => $e0,
             entity1      => $e1,
             link_type    => $link_type,
-            attributes   => [],
+            attributes   => [uniq @attributes],
         );
         my $redirect = $c->controller(type_to_model($type))->action_for('show');
         $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));

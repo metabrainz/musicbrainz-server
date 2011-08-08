@@ -126,7 +126,7 @@ test 'WatchArtist->find_new_releases' => sub {
             "UPDATE editor_watch_preferences SET notification_timeframe = '@ 1 month'
               WHERE editor = 1");
 
-        my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
+        @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 1, 'found releases with a 1 month timeframe');
 
         $test->sql->rollback;

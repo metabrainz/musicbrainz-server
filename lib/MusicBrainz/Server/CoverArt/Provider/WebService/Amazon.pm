@@ -5,8 +5,11 @@ use Time::HiRes qw (sleep gettimeofday tv_interval );
 use Net::Amazon::AWSSign;
 use LWP::UserAgent;
 use XML::XPath;
+use MusicBrainz::Server::Log qw( log_info );
 
 use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
+
+use MusicBrainz::Server::Log qw( log_error );
 
 extends 'MusicBrainz::Server::CoverArt::Provider';
 with 'MusicBrainz::Server::CoverArt::BarcodeSearch';
@@ -24,13 +27,15 @@ has '_store_map' => (
     is => 'ro',
     default => sub {
         return {
-            'amazon.co.uk' => 'ecs.amazonaws.co.uk',
-            'amazon.com' => 'ecs.amazonaws.com',
+            'amazon.ca' => 'ecs.amazonaws.ca',
+            'amazon.cn' => 'webservices.amazon.cn',
             'amazon.de' => 'ecs.amazonaws.de',
+            'amazon.fr' => 'ecs.amazonaws.fr',
+            'amazon.it' => 'webservices.amazon.it',
             'amazon.jp' => 'ecs.amazonaws.jp',
             'amazon.co.jp' => 'ecs.amazonaws.jp',
-            'amazon.fr' => 'ecs.amazonaws.fr',
-            'amazon.it' => 'ecs.amazonaws.com'
+            'amazon.co.uk' => 'ecs.amazonaws.co.uk',
+            'amazon.com' => 'ecs.amazonaws.com'
         }
     },
     traits => [ 'Hash' ],
@@ -66,7 +71,7 @@ sub lookup_cover_art
     my $end_point = $self->get_store_api($store);
 
     unless ($end_point) {
-        warn "$store does not have a known ECS end point";
+        log_info { "$store does not have a known ECS end point" };
         return;
     }
 
@@ -114,7 +119,10 @@ sub _lookup_coverart {
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
     my $response = $lwp->get($url) or return;
-    return unless $response->is_success;
+    if (!$response->is_success) {
+        log_error { "Failed to lookup cover art: $_" } $response->decoded_content;
+        return;
+    }
     my $xp = XML::XPath->new( xml => $response->decoded_content );
 
     my $image_url = $xp->find(

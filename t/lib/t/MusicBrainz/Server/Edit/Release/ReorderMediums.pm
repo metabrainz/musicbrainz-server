@@ -42,6 +42,7 @@ EOSQL
     $test->$orig(@args);
 };
 
+with 't::Edit';
 with 't::Context';
 
 has release_to_edit => (

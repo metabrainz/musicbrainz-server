@@ -72,7 +72,9 @@ sub serialize
     my $tracklist = 'track-list';
     if ($inc && $inc->tracklist) {
         push @body, ( $self->gen->$tracklist({
-            offset => $entity->combined_track_count - 1,
+            offset => (sum map {
+                $_->tracklist->track_count
+            } $entity->all_mediums) - 1
         }));
     }
     elsif ($opts && $opts->{track_map}) {
@@ -90,6 +92,7 @@ sub serialize
                     Recording->meta->clone_object(
                         $_->recording,
                         name => $_->name,
+                        length => $_->length,
 
                         # We only show track artists if inc=artist, and if this is a
                         # various artist release

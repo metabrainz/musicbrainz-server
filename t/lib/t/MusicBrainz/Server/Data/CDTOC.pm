@@ -71,6 +71,11 @@ is($medium_cdtoc[1]->medium_id, 2);
 memory_cycle_ok($medium_cdtoc_data);
 memory_cycle_ok(\@medium_cdtoc);
 
+ok($medium_cdtoc_data->medium_has_cdtoc(1, $cdtoc));
+ok($medium_cdtoc_data->medium_has_cdtoc(2, $cdtoc));
+ok(!$medium_cdtoc_data->medium_has_cdtoc(3, $cdtoc));
+memory_cycle_ok($medium_cdtoc_data);
+
 @medium_cdtoc = $medium_cdtoc_data->find_by_medium(1);
 $cdtoc_data->load(@medium_cdtoc);
 is(scalar(@medium_cdtoc), 1);

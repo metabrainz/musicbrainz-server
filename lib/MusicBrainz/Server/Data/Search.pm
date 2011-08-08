@@ -15,6 +15,7 @@ use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
@@ -26,7 +27,7 @@ use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use Switch;
+use feature "switch";
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -38,6 +39,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
     work          => 'MusicBrainz::Server::Data::Work',
     tag           => 'MusicBrainz::Server::Data::Tag',
+    editor        => 'MusicBrainz::Server::Data::Editor'
 );
 
 use Sub::Exporter -setup => {
@@ -81,7 +83,7 @@ sub search
                 (
                     SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
@@ -118,7 +120,7 @@ sub search
             entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
 
-        my ($join_sql, $where_sql) 
+        my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
 
         if ($type eq 'release' && $where && exists $where->{track_count}) {
@@ -129,9 +131,6 @@ sub search
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
-            $join_sql = "JOIN track ON r.id = track.name
-                         JOIN ${type} entity ON track.recording = entity.id";
-
             if ($where && exists $where->{artist})
             {
                 $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit"
@@ -142,7 +141,7 @@ sub search
         }
 
         $query = "
-            SELECT
+            SELECT DISTINCT
                 entity.id,
                 entity.gid,
                 entity.comment,
@@ -154,7 +153,7 @@ sub search
                 (
                     SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM ${type2}_name, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
@@ -171,10 +170,18 @@ sub search
         $query = "
             SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
             FROM tag, plainto_tsquery('mb_simple', ?) AS query
-            WHERE to_tsvector('mb_simple', name) @@ query
+            WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
             ORDER BY rank DESC, tag.name
             OFFSET ?
         ";
+        $use_hard_search_limit = 0;
+    }
+    elsif ($type eq 'editor') {
+        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                  FROM editor, plainto_tsquery('mb_simple', ?) AS query
+                  WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                  ORDER BY rank DESC
+                  OFFSET ?";
         $use_hard_search_limit = 0;
     }
 
@@ -196,7 +203,7 @@ sub search
     push @query_args, @where_args;
     push @query_args, $offset;
 
-    $self->sql->select($query, $query_str, @query_args);
+    $self->sql->select($query, $query_str, $query_str, @query_args);
 
     my @result;
     my $pos = $offset + 1;
@@ -237,7 +244,7 @@ my %mapping = (
 # matches up with the data returned from the DB for easy object creation
 sub schema_fixup
 {
-    my ($self, $data, $c, $type) = @_;
+    my ($self, $data, $type) = @_;
 
     return unless (ref($data) eq 'HASH');
 
@@ -262,7 +269,7 @@ sub schema_fixup
 
     if (exists $data->{country})
     {
-        $data->{country} = $c->model('Country')->find_by_code ($data->{country});
+        $data->{country} = $self->c->model('Country')->find_by_code ($data->{country});
         delete $data->{country} unless defined $data->{country};
     }
 
@@ -272,9 +279,9 @@ sub schema_fixup
     }
     if (($type eq 'artist' || $type eq 'label') && exists $data->{'life-span'})
     {
-        $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin}) 
+        $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (exists $data->{'life-span'}->{begin});
-        $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end}) 
+        $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (exists $data->{'life-span'}->{end});
     }
     if($type eq 'artist' && exists $data->{gender}) {
@@ -297,7 +304,9 @@ sub schema_fixup
     }
     if ($type eq 'annotation' && exists $data->{entity})
     {
-        my $entity_model = $c->model( type_to_model($data->{type}) )->_entity_class;
+        my $parent_type = $data->{type};
+        $parent_type =~ s/-/_/g;
+        my $entity_model = $self->c->model( type_to_model($parent_type) )->_entity_class;
         $data->{parent} = $entity_model->new( { name => $data->{name}, gid => $data->{entity} });
         delete $data->{entity};
         delete $data->{type};
@@ -318,21 +327,21 @@ sub schema_fixup
         {
             $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
         }
-        if (exists $data->{"text-representation"} && 
+        if (exists $data->{"text-representation"} &&
             exists $data->{"text-representation"}->{language})
         {
-            $data->{language} = MusicBrainz::Server::Entity::Language->new( { 
-                iso_code_3t => $data->{"text-representation"}->{language} 
+            $data->{language} = MusicBrainz::Server::Entity::Language->new( {
+                iso_code_3t => $data->{"text-representation"}->{language}
             } );
         }
-        if (exists $data->{"text-representation"} && 
+        if (exists $data->{"text-representation"} &&
             exists $data->{"text-representation"}->{script})
         {
-            $data->{script} = MusicBrainz::Server::Entity::Script->new( 
+            $data->{script} = MusicBrainz::Server::Entity::Script->new(
                     { iso_code => $data->{"text-representation"}->{script} }
             );
         }
-        if (exists $data->{"medium-list"} && 
+        if (exists $data->{"medium-list"} &&
             exists $data->{"medium-list"}->{medium})
         {
             $data->{mediums} = [];
@@ -352,7 +361,7 @@ sub schema_fixup
         }
     }
     if ($type eq 'recording' &&
-        exists $data->{"release-list"} && 
+        exists $data->{"release-list"} &&
         exists $data->{"release-list"}->{release}->[0] &&
         exists $data->{"release-list"}->{release}->[0]->{"medium-list"} &&
         exists $data->{"release-list"}->{release}->[0]->{"medium-list"}->{medium})
@@ -361,7 +370,7 @@ sub schema_fixup
 
         foreach my $release (@{$data->{"release-list"}->{release}})
         {
-            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new(  
+            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new(
                 track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{count},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
                     position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} + 1,
@@ -370,16 +379,16 @@ sub schema_fixup
                     )
                 ) ]
             );
-            my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new( 
-                type => MusicBrainz::Server::Entity::ReleaseGroupType->new( 
+            my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
+                type => MusicBrainz::Server::Entity::ReleaseGroupType->new(
                     name => $release->{"release-group"}->{type} || ''
-                ) 
+                )
             );
-            push @releases, MusicBrainz::Server::Entity::Release->new( 
+            push @releases, MusicBrainz::Server::Entity::Release->new(
                 gid     => $release->{id},
                 name    => $release->{title},
-                mediums => [ 
-                    MusicBrainz::Server::Entity::Medium->new( 
+                mediums => [
+                    MusicBrainz::Server::Entity::Medium->new(
                          tracklist => $tracklist,
                          position  => $release->{"medium-list"}->{medium}->[0]->{"position"}
                     )
@@ -407,7 +416,7 @@ sub schema_fixup
                 my $entity_type = (keys %$rel)[0];
                 $rel->{$entity_type}->{gid} = delete $rel->{$entity_type}->{id};
 
-                my $entity = $c->model( type_to_model ($entity_type) )->
+                my $entity = $self->c->model( type_to_model ($entity_type) )->
                     _entity_class->new (%{ $rel->{$entity_type} });
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
@@ -423,13 +432,13 @@ sub schema_fixup
     {
         if (ref($data->{$k}) eq 'HASH')
         {
-            $self->schema_fixup($data->{$k}, $c, $type);
+            $self->schema_fixup($data->{$k}, $type);
         }
         if (ref($data->{$k}) eq 'ARRAY')
         {
             foreach my $item (@{$data->{$k}})
             {
-                $self->schema_fixup($item, $c, $type);
+                $self->schema_fixup($item, $type);
             }
         }
     }
@@ -452,6 +461,10 @@ sub schema_fixup
         $data->{artists} = [ map {
             $_->entity1
         } @{ $data->{relationships} } ];
+    }
+
+    if($type eq 'work' && exists $data->{type}) {
+        $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
     }
 }
 
@@ -481,9 +494,9 @@ sub alias_query
 
 sub external_search
 {
-    my ($self, $c, $type, $query, $limit, $page, $adv, $ua, $no_redirect) = @_;
+    my ($self, $type, $query, $limit, $page, $adv, $ua) = @_;
 
-    my $entity_model = $c->model( type_to_model($type) )->_entity_class;
+    my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     Class::MOP::load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
@@ -539,7 +552,7 @@ sub external_search
         my $pos = 0;
         foreach my $t (@{$data->{"$xmltype-list"}->{$xmltype}})
         {
-            $self->schema_fixup($t, $c, $type);
+            $self->schema_fixup($t, $type);
             push @results, MusicBrainz::Server::Entity::SearchResult->new(
                     position => $pos++,
                     score  => $t->{score},
@@ -555,46 +568,12 @@ sub external_search
         {
             foreach my $result (@results)
             {
-                use Text::WikiFormat;
-                use DBDefs;
-
-                $result->{entity}->text(Text::WikiFormat::format($result->{entity}->{text}, {}, 
-                                        { 
-                                          prefix => "http://".DBDefs::WIKITRANS_SERVER, 
-                                          extended => 1, 
-                                          absolute_links => 1, 
-                                          implicit_links => 0 
-                                        }));
-                $result->{type} = ref($result->{entity}->{parent}); 
+                $result->{type} = ref($result->{entity}->{parent});
                 $result->{type} =~ s/MusicBrainz::Server::Entity:://;
                 $result->{type} = lc($result->{type});
-            } 
+            }
         }
 
-        # FIXME: this whole redirect stuff needs to be moved to a controller. --warp.
-        my $allow_redirect = !$no_redirect;
-
-        if ($allow_redirect && $total_hits == 1 && ($type eq 'artist' || $type eq 'release' || 
-            $type eq 'label' || $type eq 'release-group' || $type eq 'cdstub'))
-        {
-            my $redirect;
-
-            $type =~ s/release-group/release_group/;
-            if ($type eq 'cdstub')
-            {
-                $redirect = $results[0]->{entity}->{discid};
-            }
-            else
-            {
-                $redirect = $results[0]->{entity}->{gid};
-            }
-            my $type_controller = $c->controller(type_to_model($type));
-            my $action = $type_controller->action_for('show');
-
-            $c->res->redirect($c->uri_for($action, [ $redirect ]));
-            $c->detach;
-        }
-        
         my $pager = Data::Page->new;
         $pager->current_page($page);
         $pager->entries_per_page($limit);
@@ -646,22 +625,21 @@ sub xml_search
     $type =~ s/release_group/release-group/;
 
     unless ($query) {
-        switch ($type) {
-            case 'artist' {
+        given ($type) {
+            when ('artist') {
                 my $name = escape_query($options{name}) or $die->('name is a required parameter');
                 $name =~ tr/A-Z/a-z/;
                 $name =~ s/\s*(.*?)\s*$/$1/;
                 $query = "artist:($name)(sortname:($name) alias:($name) !artist:($name))";
             }
-
-            case 'label' {
+            when ('label') {
                 my $term = escape_query($options{name}) or $die->('name is a required parameter');
                 $term =~ tr/A-Z/a-z/;
                 $term =~ s/\s*(.*?)\s*$/$1/;
                 $query = "label:($term)(sortname:($term) alias:($term) !label:($term))";
             }
 
-            case 'release' {
+            when ('release') {
                 $query = combine_rules(
                     \%options,
                     DEFAULT => {
@@ -708,7 +686,7 @@ sub xml_search
                 );
             }
 
-            case 'release-group' {
+            when ('release-group') {
                 $query = combine_rules(
                     \%options,
                     DEFAULT => {
@@ -741,7 +719,7 @@ sub xml_search
                 );
             }
 
-            case 'recording' {
+            when ('recording') {
                 $query = combine_rules(
                     \%options,
                     DEFAULT => {

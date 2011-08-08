@@ -19,6 +19,24 @@ CREATE VIEW s_artist_credit AS
     FROM artist_credit a
     JOIN artist_name n ON a.name=n.id;
 
+CREATE VIEW s_artist_credit_name AS
+    SELECT
+        a.artist_credit, a.position, a.artist, n.name,
+        a.join_phrase
+    FROM artist_credit_name a
+    JOIN artist_name n ON a.name = n.id;
+
+CREATE VIEW s_label AS
+    SELECT
+        a.id, a.gid, n.name, sn.name AS sort_name,
+        a.begin_date_year, a.begin_date_month, a.begin_date_day,
+        a.end_date_year, a.end_date_month, a.end_date_day,
+        a.type, a.country, a.comment, a.ipi_code,
+        a.edits_pending, a.last_updated
+    FROM label a
+    JOIN label_name n ON a.name = n.id
+    JOIN label_name sn ON a.sort_name = sn.id;
+
 CREATE VIEW s_recording AS
     SELECT
         r.id, gid, n.name, artist_credit,

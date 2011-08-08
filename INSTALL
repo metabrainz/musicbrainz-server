@@ -93,7 +93,8 @@ Server configuration
        Stand alone servers will need to manually download and update their WikiDoc
        transclusion table:
 
-            wget -O root/static/wikidocs/index.txt http://musicbrainz.org/generated/wikitrans-index
+            wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
+
 
 Installing Perl dependencies
 ----------------------------
@@ -133,9 +134,9 @@ Creating the database
 1)  Install PostgreSQL Extensions
 
     Before you start, you need to install the PostgreSQL Extensions on your database
-    server. To build the unaccent extension run these commands:
+    server. To build the musicbrainz_unaccent extension run these commands:
 
-        cd postgresql-unaccent
+        cd postgresql-musicbrainz-unaccent
         make
         sudo make install
         cd ..
@@ -190,12 +191,11 @@ Creating the database
 
     b)  Import an NGS database dump
 
-        The easiest way to import the database is to use an NGS database dump.
-        These are periodic dumps of the database that are compatible with the
-        NGS format and don't require you to manually convert the data. They're
+        The easiest way to import the database is to use a database
+        dump.  These are periodic dumps of the database, they're
         available here:
 
-            ftp://ftp.musicbrainz.org/pub/musicbrainz/data/ngs/
+            ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2, mbdump-editor.tar.bz2
         and mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit

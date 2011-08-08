@@ -28,6 +28,7 @@ sub tag : Path('/ws/1/tag')
     $c->authenticate({}, 'musicbrainz.org');
 
     if ($c->req->method eq 'POST') {
+        $self->deny_readonly($c);
         if (exists $c->req->params->{entity}) {
             # Looks like a single entity tag submission
             my ($id, $type, $tags) = (

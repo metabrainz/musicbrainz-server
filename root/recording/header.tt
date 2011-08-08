@@ -1,6 +1,5 @@
 [%- info_links = [
     ['index', rdfa_seeAlso_link_recording(recording, 'show', l('Releases'))],
-    ['relationships', rdfa_seeAlso_link_recording(recording, 'relationships', l('Relationships'))],
     ['tags', link_recording(recording, 'tags', l('Tags'))],
     ['puids', rdfa_seeAlso_link_recording(recording, 'puids', l('PUIDs'))],
     ['details', rdfa_seeAlso_link_recording(recording, 'details', l('Details'))],
@@ -8,7 +7,10 @@
 ] -%]
 
 <div class="recordingheader" [%- rdfa_about_attr(rdfa_recording_curi(recording)) %] [% rdfa_typeof(rdfa_concept_curi('recording')) -%]>
-    <h1>“[% rdfa_link_recording_header(recording) %]” [% rdfa_disambiguation(recording) %]</h1>
+    [%- IF c.session.tport -%]
+        [%- tagger_icon(recording) -%]
+    [%- END -%]
+    <h1>[% rdfa_link_recording_header(recording) %] [% rdfa_disambiguation(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
             [% l('Recording by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]

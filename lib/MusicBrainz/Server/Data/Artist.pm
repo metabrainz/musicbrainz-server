@@ -3,6 +3,7 @@ use Moose;
 
 use Carp;
 use List::MoreUtils qw( uniq );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
@@ -18,10 +19,14 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
 );
 
+use Sub::Exporter -setup => {
+    exports => [qw( is_special_purpose )]
+};
+
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
@@ -34,11 +39,19 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 
+sub browse_column { 'sort_name.name' }
+
 sub _table
 {
-    return 'artist ' .
+    my $self = shift;
+    return 'artist ' . (shift() || '') . ' ' .
            'JOIN artist_name name ON artist.name=name.id ' .
            'JOIN artist_name sort_name ON artist.sort_name=sort_name.id';
+}
+
+sub _table_join_name {
+    my ($self, $join_on) = @_;
+    return $self->_table("ON artist.name = $join_on OR artist.sort_name = $join_on");
 }
 
 sub _columns
@@ -203,6 +216,7 @@ sub update
 sub can_delete
 {
     my ($self, $artist_id) = @_;
+    return 0 if is_special_purpose($artist_id);
     my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
@@ -230,6 +244,10 @@ sub delete
 sub merge
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
+
+    if (grep { is_special_purpose($_) } @$old_ids) {
+        confess('Attempt to merge a special purpose artist into another artist');
+    }
 
     $self->alias->merge($new_id, @$old_ids);
     $self->tags->merge($new_id, @$old_ids);
@@ -289,8 +307,8 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "artist_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->rating($row->{rating} || 0);
+        $obj->rating_count($row->{rating_count} || 0);
     }, @_);
 }
 
@@ -408,6 +426,11 @@ UNION
 
         $id_to_work{ $row->{work} }->add_artist($artist);
     }
+}
+
+sub is_special_purpose {
+    my $artist_id = shift;
+    return $artist_id == $VARTIST_ID || $artist_id == $DARTIST_ID;
 }
 
 __PACKAGE__->meta->make_immutable;

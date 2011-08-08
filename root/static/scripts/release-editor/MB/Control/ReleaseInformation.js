@@ -85,6 +85,11 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         return false;
     };
 
+    self.clearSelection = function() {
+        self.$id.val('');
+        self.updateLookupPerformed ();
+    };
+
     self.updateLookupPerformed = function ()
     {
         if (self.$id.val ())
@@ -119,7 +124,8 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
     MB.Control.Autocomplete ({
         'input': self.$name,
         'entity': 'label',
-        'select': self.selected
+        'select': self.selected,
+        'clearSelection': self.clearSelection
     });
 
     self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
@@ -140,9 +146,9 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
 MB.Control.ReleaseBarcode = function() {
     var self = MB.Object();
 
-    self.input = $('#id-barcode');
-    self.message = $('p.barcode-message');
-    self.suggestion = $('p.barcode-suggestion');
+    self.$input = $('#id-barcode');
+    self.$message = $('p.barcode-message');
+    self.$confirm = $('p.barcode-confirm');
     self.count = 0;
 
     self.checkDigit = function (barcode) {
@@ -169,67 +175,85 @@ MB.Control.ReleaseBarcode = function() {
     };
 
     self.clean = function () {
-        var current = self.input.val ();
+        var current = self.$input.val ();
         var barcode = current.replace (/[^0-9]/g, '');
 
         if (barcode !== current)
         {
-            self.input.val (barcode);
+            self.$input.val (barcode);
         }
 
         return barcode;
     };
+
+    self.confirmation_required = function (required) {
+        if (required)
+        {
+            self.$confirm.show ();
+        }
+        else
+        {
+            self.$confirm.hide ();
+        }
+    };
+    
 
     self.update = function () {
         var barcode = self.clean ();
 
         if (barcode.length === 0)
         {
-            self.message.html ('');
-            self.suggestion.html ('');
+            self.$message.html ('');
+            self.confirmation_required (false);
         }
         else if (barcode.length === 11)
         {
-            self.message.html (MB.text.Barcode.NoCheckdigitUPC);
-            self.suggestion.html (MB.text.Barcode.CheckDigit.replace (
-                '#checkdigit#', self.checkDigit ('0' + barcode)));
+            self.$message.html (
+                MB.text.Barcode.NoCheckdigitUPC + ' ' +
+                MB.text.Barcode.CheckDigit.replace (
+                    '#checkdigit#', self.checkDigit ('0' + barcode)));
+            self.confirmation_required (true);
         }
         else if (barcode.length === 12)
         {
             if (self.validate ('0' + barcode))
             {
-                self.message.html (MB.text.Barcode.ValidUPC);
-                self.suggestion.html ('');
+                self.$message.html (MB.text.Barcode.ValidUPC);
+                self.confirmation_required (false);
             }
             else
             {
-                self.message.html (MB.text.Barcode.InvalidUPC);
-                self.suggestion.html (MB.text.Barcode.DoubleCheck + ' ' +
+                self.$message.html (
+                    MB.text.Barcode.InvalidUPC + ' ' +
+                    MB.text.Barcode.DoubleCheck + ' ' +
                     MB.text.Barcode.CheckDigit.replace (
                         '#checkdigit#', self.checkDigit (barcode)));
+                self.confirmation_required (true);
             }
         }
         else if (barcode.length === 13)
         {
             if (self.validate (barcode))
             {
-                self.message.html (MB.text.Barcode.ValidEAN);
-                self.suggestion.html ('');
+                self.$message.html (MB.text.Barcode.ValidEAN);
+                self.confirmation_required (false);
             }
             else
             {
-                self.message.html (MB.text.Barcode.InvalidEAN);
-                self.suggestion.html (MB.text.Barcode.DoubleCheck);
+                self.$message.html (MB.text.Barcode.InvalidEAN + ' ' +
+                                    MB.text.Barcode.DoubleCheck);
+                self.confirmation_required (true);
             }
         }
         else
         {
-            self.message.html (MB.text.Barcode.Invalid);
-            self.suggestion.html (MB.text.Barcode.DoubleCheck);
+            self.$message.html (MB.text.Barcode.Invalid + ' ' +
+                                MB.text.Barcode.DoubleCheck);
+            self.confirmation_required (true);
         }
     };
 
-    self.input.bind ('change keyup', self.update);
+    self.$input.bind ('change keyup', self.update);
     self.update ();
 
     return self;
@@ -321,6 +345,7 @@ MB.Control.ReleaseInformation = function() {
 
     self.initialize = function () {
 
+        self.bubbles.add ($('#id-name'), $('div.guess-case.bubble'));
         self.bubbles.add ($('#help-va'), $('div.help-va'));
         self.bubbles.add ($('#help-cta'), $('div.help-cta'));
         self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
@@ -328,9 +353,7 @@ MB.Control.ReleaseInformation = function() {
         self.bubbles.add ($('#id-annotation'), $('div.annotation'));
         self.bubbles.add ($('#id-comment'), $('div.comment'));
 
-        $('#id-change_track_artists').bind ('focus.mb', function () {
-            $('#help-cta').data ('bubble').show ();
-        });
+        MB.Control.GuessCase ('release', $('#id-name'));
 
         $('#id-various_artists').bind ('change.mb', function () {
             if ($(this).is(':checked'))
@@ -363,6 +386,29 @@ MB.Control.ReleaseInformation = function() {
         self.artistcredit = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
+
+        MB.Control.Autocomplete ({
+            'input': $('input#id-release_group\\\.name'),
+            'entity': 'release-group',
+            'select': self.selectReleaseGroup
+        });
+        self.indicateSelectedReleaseGroup();
+    };
+
+    self.selectReleaseGroup = function(event, data) {
+        $('input#id-release_group_id').val(data.id);
+        self.indicateSelectedReleaseGroup();
+        $('input#id-release_group_name\\\.name').val(data.name);
+    };
+
+    self.indicateSelectedReleaseGroup = function() {
+        if ($('input#id-release_group_id').val()) {
+            $('input#id-release_group\\\.name').addClass ('lookup-performed');
+        }
+        else
+        {
+            $('input#id-release_group\\\.name').removeClass ('lookup-performed');
+        }
     };
 
     self.addLabel = function ($row) {

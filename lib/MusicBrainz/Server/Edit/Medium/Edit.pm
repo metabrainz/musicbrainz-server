@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
+use Algorithm::Diff qw( diff sdiff );
+use Algorithm::Merge qw( merge );
 use Data::Compare;
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
@@ -14,8 +16,11 @@ use MusicBrainz::Server::Edit::Types qw(
     NullableOnPreview
 );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
+use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Track qw ( format_track_length );
+use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -43,6 +48,44 @@ has '+data' => (
         new => change_fields()
     ]
 );
+
+around _build_related_entities => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my $related = $self->$orig(@_);
+
+    if ($self->data->{old}{tracklist}) {
+        my @changes =
+            grep { $_->[0] ne 'u' }
+            @{ sdiff(
+                $self->data->{old}{tracklist},
+                $self->data->{new}{tracklist},
+                sub {
+                    my $track = shift;
+                    join(':',
+                         $track->{name},
+                         $track->{length} || '?:??',
+                         $track->{recording_id},
+                         $track->{position},
+                         join('', map {
+                             $_->{artist}{id}, $_->{name}, $_->{join_phrase} || ''
+                             } @{$track->{artist_credit}{names}})
+                     )
+                })
+           };
+
+        push @{ $related->{artist} },
+            map {
+                my ($type, $oldt, $newt) = @$_;
+                map {
+                    map { $_->{artist}{id} } @{ $_->{artist_credit}{names} }
+                } $type eq 'c' ? ($newt, $oldt)
+                : $type eq '+' ? ($newt)
+                :                ($oldt)
+            } @changes;
+    }
+
+    return $related;
+};
 
 sub alter_edit_pending
 {
@@ -125,6 +168,7 @@ sub foreign_keys {
     my $self = shift;
     my %fk = (
         Release => { $self->data->{release}{id} => [ 'ArtistCredit' ] },
+        Medium => { $self->data->{entity_id} => [ 'Release', 'MediumFormat' ] }
     );
 
     $fk{MediumFormat} = {};
@@ -149,7 +193,15 @@ sub foreign_keys {
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my $data = {};
+
+    my $data = { };
+    if ($self->data->{release})
+    {
+        my $release = $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
+            || Release->new( name => $self->data->{release}{name} );
+
+        $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} };
+    }
 
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
@@ -167,16 +219,77 @@ sub build_display_data
         }
     }
 
-    $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
-    $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
+    if ($self->data->{new}{tracklist}) {
+        $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
+        $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
-    if ($self->data->{release})
-    {
-        $data->{release} = $loaded->{Release}{ $self->data->{release}{id} }
-            || Release->new( name => $self->data->{release}{name} );
+        $data->{tracklist_changes} = [
+            grep { $_->[0] ne 'u' }
+            @{ sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return join(
+                        '',
+                        $track->name,
+                        format_track_length($track->length),
+                        join(
+                            '',
+                            map {
+                                join('', $_->name, $_->join_phrase || '')
+                            } $track->artist_credit->all_names
+                        )
+                    );
+                }
+            ) }
+        ];
+
+        $data->{artist_credit_changes} = [
+            grep { $_->[0] eq 'c' || $_->[0] eq '+' }
+            @{ sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return $track->position . join('|||', map {
+                        join(':', $_->artist->id, $_->name, $_->join_phrase || '')
+                    } $track->artist_credit->all_names)
+                }) }
+        ];
+
+        $data->{recording_changes} = [
+            grep { $_->[0] eq 'c' }
+            @{ sdiff(
+                [ $data->{old}{tracklist}->all_tracks ],
+                [ $data->{new}{tracklist}->all_tracks ],
+                sub {
+                    my $track = shift;
+                    return $track->recording->id || 'new';
+                }) }
+        ];
     }
 
     return $data;
+}
+
+my $UNDEF_MARKER = time();
+sub track_column {
+    my ($column, $tracklist) = @_;
+    return [ map { $_->{$column} // $UNDEF_MARKER } @$tracklist ];
+}
+
+sub hash_artist_credit {
+    my ($artist_credit) = @_;
+    return join(', ', map {
+        '[' .
+            join(',',
+                 $_->{name},
+                 $_->{artist}{id},
+                 $_->{join_phrase} || '')
+            .
+        ']'
+    } @{ $artist_credit->{names} });
 }
 
 sub accept {
@@ -191,17 +304,62 @@ sub accept {
         $self->c->model('Track')->load_for_tracklists($tracklist);
         $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
 
-        unless (Compare(tracks_to_hash($tracklist->tracks), $self->data->{old}{tracklist})) {
-            MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                  ->throw('The tracklist has changed since this edit was created');
+        # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly
+        $_->{recording_id} //= 0 for @$data_new_tracklist;
+
+        my (@merged_names, @merged_recordings, @merged_lengths, @merged_artist_credits);
+        my $current_tracklist = tracks_to_hash($tracklist->tracks);
+        try {
+            for my $merge (
+                [ name => \@merged_names ],
+                [ recording_id => \@merged_recordings ],
+                [ length => \@merged_lengths ],
+                [ artist_credit => \@merged_artist_credits, \&hash_artist_credit ]
+            ) {
+                my ($property, $container, $key_generation) = @$merge;
+                push @$container, merge (
+                    track_column($property, $self->data->{old}{tracklist}),
+                    track_column($property, $current_tracklist),
+                    track_column($property, $data_new_tracklist),
+                    { CONFLICT => sub { die } },
+                    $key_generation // ()
+                );
+            }
         }
+        catch {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('The tracklist has changed since this edit was created, and conflicts ' .
+                      'with changes made in this edit');
+        };
 
         verify_artist_credits($self->c, map {
             $_->{artist_credit}
         } @{ $data_new_tracklist });
 
+        log_assertion {
+            @merged_names == @merged_recordings &&
+            @merged_recordings == @merged_lengths &&
+            @merged_lengths == @merged_artist_credits
+        } 'Merged properties are all the same length';
+
+        # Create the final merged tracklist
+        my @final_tracklist;
+        while(1) {
+            last unless @merged_artist_credits &&
+                        @merged_lengths &&
+                        @merged_recordings &&
+                        @merged_names;
+            my $length = shift(@merged_lengths);
+            push @final_tracklist, {
+                name => shift(@merged_names),
+                length => $length eq $UNDEF_MARKER ? undef : $length,
+                recording_id => shift(@merged_recordings),
+                artist_credit => shift(@merged_artist_credits)
+            }
+        }
+
         # Create recordings
-        for my $track (@{ $data_new_tracklist }) {
+        for my $track (@final_tracklist) {
             $track->{recording_id} ||= $self->c->model('Recording')->insert({
                 %$track,
                 artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
@@ -213,7 +371,7 @@ sub accept {
                 $self->c->model('Tracklist')->usage_count($medium->tracklist_id) > 1) {
 
             my $new_tracklist = $self->c->model('Tracklist')->find_or_insert(
-                $data_new_tracklist
+                \@final_tracklist
             );
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
@@ -221,7 +379,7 @@ sub accept {
         }
         else {
             $self->c->model('Tracklist')->replace($medium->tracklist_id,
-                                                  $data_new_tracklist);
+                                                  \@final_tracklist);
         }
     }
 }
@@ -236,7 +394,43 @@ sub allow_auto_edit
     return 0 if $self->data->{old}{name} && $old_name ne $new_name;
     return 0 if $self->data->{old}{format_id};
     return 0 if exists $self->data->{old}{position};
-    return 0 if exists $self->data->{old}{tracklist};
+
+    if ($self->data->{old}{tracklist}) {
+        my @changes =
+            grep { $_->[0] ne 'u' }
+            @{ sdiff(
+                $self->{data}{old}{tracklist},
+                $self->{data}{new}{tracklist},
+                sub {
+                    my $track = shift;
+                    return join(
+                        '',
+                        $track->{name},
+                        format_track_length($track->{length}),
+                        join(
+                            '',
+                            map {
+                                join('', $_->{name}, $_->{join_phrase} || '')
+                            } @{ $track->{artist_credit}{names} }
+                        )
+                    );
+                }
+            ) };
+
+        # If this edit adds or removes tracks, it's not an auto-edit
+        return 0 if (grep { $_->[0] ne 'c' } @changes);
+
+        for my $change (@changes) {
+            my (undef, $old, $new) = @$change;
+
+            ($old_name, $new_name) = normalise_strings($old->{name},
+                                                       $new->{name});
+
+            return 0 if $old_name ne $new_name;
+            return 0 if $old->{length} && $old->{length} != $new->{length};
+            return 0 if hash_artist_credit($old->{artist_credit}) ne hash_artist_credit($new->{artist_credit});
+        }
+    }
 
     return 1;
 }

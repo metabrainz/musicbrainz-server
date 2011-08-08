@@ -31,6 +31,25 @@ ws_test 'direct disc id lookup',
         <title>Aerial</title>
         <quality>normal</quality>
         <date>2007</date>
+        <medium-list count="2">
+          <medium>
+            <title>A Sea of Honey</title>
+            <position>1</position>
+            <format>Format</format>
+            <disc-list count="0" />
+            <track-list count="7" />
+          </medium>
+          <medium>
+            <title>A Sky of Honey</title>
+            <position>2</position>
+            <format>Format</format>
+            <disc-list count="1">
+              <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-"><sectors>189343</sectors>
+              </disc>
+            </disc-list>
+            <track-list count="9" />
+          </medium>
+        </medium-list>
       </release>
     </release-list>
   </disc>
@@ -46,11 +65,43 @@ ws_test 'lookup via toc',
       <title>Aerial</title>
       <quality>normal</quality>
       <date>2008</date>
+      <medium-list count="2">
+        <medium>
+          <title>A Sea of Honey</title>
+          <position>1</position>
+          <format>Format</format>
+          <disc-list count="0" />
+          <track-list count="7" />
+        </medium>
+        <medium>
+          <title>A Sky of Honey</title>
+          <position>2</position>
+          <format>Format</format>
+          <disc-list count="0" />
+          <track-list count="9" />
+        </medium>
+      </medium-list>
     </release>
     <release id="f205627f-b70a-409d-adbe-66289b614e80">
       <title>Aerial</title>
       <quality>normal</quality>
       <date>2007</date>
+      <medium-list count="2">
+        <medium>
+          <title>A Sea of Honey</title>
+          <position>1</position>
+          <format>Format</format>
+          <disc-list count="0" />
+          <track-list count="7" />
+        </medium>
+        <medium>
+          <title>A Sky of Honey</title>
+          <position>2</position>
+          <format>Format</format>
+          <disc-list count="1"><disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-"><sectors>189343</sectors></disc></disc-list>
+          <track-list count="9" />
+        </medium>
+      </medium-list>
     </release>
   </release-list>
 </metadata>';

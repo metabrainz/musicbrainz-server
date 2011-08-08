@@ -43,6 +43,7 @@ after 'load' => sub
     }
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
+    $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
 };
 
 sub show : Chained('load') PathPart('')

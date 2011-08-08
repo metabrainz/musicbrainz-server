@@ -30,6 +30,9 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         $c->detach('bad_req');
     }
 
+    $c->stash->{inc}->media (1);
+    $c->stash->{inc}->discids (1);
+
     my $stash = WebServiceStash->new;
     my $cdtoc = $c->model('CDTOC')->get_by_discid($id);
     if ($cdtoc) {
@@ -42,17 +45,15 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             [ map { $_->medium_id } @mediumcdtocs ], $c->stash->{status}, $c->stash->{type}
         );
 
-        if (@releases) {
-            $opts->{releases} = $self->make_list (\@releases);
+        $opts->{releases} = $self->make_list (\@releases);
 
-            for (@releases) {
-                $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
-            }
-
-            $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-            $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
-            return
+        for (@releases) {
+            $c->controller('WS::2::Release')->release_toplevel($c, $stash, $_);
         }
+
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
+        return;
     }
 
     if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
@@ -66,6 +67,9 @@ sub discid : Chained('root') PathPart('discid') Args(1)
             $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
             $c->res->body($c->stash->{serializer}->serialize('cdstub', $cd_stub_toc, $c->stash->{inc}, $stash));
             return;
+        }
+        else {
+            $c->detach('not_found');
         }
     }
     elsif (my $toc = $c->req->query_params->{toc}) {

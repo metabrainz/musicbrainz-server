@@ -10,7 +10,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     my %rel;

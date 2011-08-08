@@ -379,10 +379,14 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.parent.moveDisc (oldpos, self);
     };
 
-    self.removeDisc = function (chained) {
+    self.clearDisc = function () {
         self.edits.clearEdits ();
-        self.tracklist = null;
+        self.tracklist = [];
         self.removeTracks (-1);
+    };
+
+    self.removeDisc = function (chained) {
+        self.clearDisc ();
 
         self.$deleted.val ("1");
         self.$fieldset.addClass ('deleted');
@@ -393,6 +397,37 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.isDeleted = function () {
         return self.$deleted.val () == "1";
+    };
+
+    self.isEmpty = function () {
+        if (! self.expanded)
+        {
+            return false;
+        }
+
+        if (self.tracks.length === 0)
+        {
+            return true;
+        }
+        else if (self.tracks.length === 1 &&
+                 self.tracks[0].$title.val () === '' &&
+                 self.tracks[0].$length.val () === '?:??')
+        {
+            /* this track was most probably added by "Add Disc" ->
+             * "Manual entry", which means this disc should still be
+             * considered empty. */
+            return true;
+        }
+        else
+        {
+            var deleted = true;
+            $.each (self.tracks, function (idx, trk) {
+                deleted = deleted && trk.isDeleted ();
+            });
+
+            /* if all tracks are deleted, the disc is empty. */
+            return deleted;
+        }
     };
 
     self.position = function (val) {
@@ -603,6 +638,25 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.basic.$various_artists.val ('1');
     };
 
+    /**
+     * Disable the disc title field if there is only one disc.
+     */
+    self.disableDiscTitle = function () {
+        if (self.$title.val () === '')
+        {
+            self.$title.attr ('disabled', 'disabled');
+            self.$title.siblings ('input.icon.guesscase-medium').hide ();
+        }
+    };
+
+    /**
+     * Enable the disc title field if there are multiple discs.
+     */
+    self.enableDiscTitle = function () {
+        self.$title.removeAttr ('disabled');
+        self.$title.siblings ('input.icon.guesscase-medium').show ();
+    };
+
     self.$table = self.$fieldset.find ('table.medium');
     self.$artist_column_checkbox = self.$table.find ('th.artist input');
 
@@ -652,6 +706,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$artist_column_checkbox.bind ('change', self.updateArtistColumn);
 
     self.updateArtistColumn ();
+    self.enableDiscTitle ();
     self.sort ();
 
     if (self.isDeleted ())
@@ -735,6 +790,8 @@ MB.Control.ReleaseAdvancedTab = function () {
         var newpos = lastdisc_adv.height () ? lastdisc_adv.height () + 12 : lastdisc_bas.height ();
         $('html').animate({ scrollTop: $('html').scrollTop () + newpos }, 500);
 
+        self.updateDiscTitle ();
+
         return new_disc;
     };
 
@@ -786,6 +843,8 @@ MB.Control.ReleaseAdvancedTab = function () {
             }
             disc.moveUp ();
         }
+
+        self.updateDiscTitle ();
     };
 
     self.guessCase = function () {
@@ -797,6 +856,69 @@ MB.Control.ReleaseAdvancedTab = function () {
             disc.submit (event);
         });
     };
+
+    /* When the page is loaded, discs may not be displayed in the correct
+       order.  MB.Control.ReleaseBasicTab will call this function after
+       it has initialized all discs to fix the displayed order. */
+    self.orderDiscs = function () {
+        if (self.positions.length > 1)
+        {
+            var prev_disc = undefined;
+            $.each (self.positions, function (pos, disc) {
+                if (prev_disc && disc)
+                {
+                    disc.$fieldset.insertAfter (prev_disc.$fieldset);
+                    disc.basic.$basicdisc.insertAfter (prev_disc.basic.$basicdisc);
+                }
+
+                if (disc)
+                {
+                    prev_disc = disc;
+                }
+            });
+        }
+    }
+
+    /* Returns the last disc, i.e. the disc with the highest position() which
+       has not been deleted. */
+    self.lastDisc = function () {
+        var pos = self.positions.length;
+        while (pos > 0)
+        {
+            if (self.positions[pos])
+            {
+                return self.positions[pos];
+            }
+            pos--;
+        }
+
+        return null;
+    }
+
+    self.updateDiscTitle = function () {
+        var pos = self.positions.length;
+        var count = 0;
+        var firstdisc = 1;
+        while (pos > 0)
+        {
+            if (self.positions[pos])
+            {
+                firstdisc = pos;
+                count++;
+            }
+            pos--;
+        }
+
+        if (count === 1)
+        {
+            self.positions[firstdisc].disableDiscTitle ();
+        }
+        else
+        {
+            self.positions[firstdisc].enableDiscTitle ();
+        }
+    };
+
 
     self.$tab = $('div.advanced-tracklist');
     self.discs = [];
@@ -810,6 +932,8 @@ MB.Control.ReleaseAdvancedTab = function () {
     });
 
     $('form.release-editor').bind ('submit.mb', self.submit);
+
+    self.updateDiscTitle ();
 
     return self;
 };

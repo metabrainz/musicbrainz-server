@@ -7,19 +7,28 @@
                content=html_escape(label.type_name)
                    IF label.type -%]
             [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
-                [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
-                    [% label.begin_date.format or l("present") %] &ndash;
-                    [% label.end_date.format or l("present") %]
-                    [% IF label.has_age %]
-                       ([% display_age (label.age) %])
+                    [%- IF label.begin_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") %]
+                            [% label.begin_date.format %]
+                            [% IF label.has_age AND not label.end_date.format %]
+                                ([% display_age (label.age) %] ago)
+                            [% END %]
+                        [% END %]
+                    [%- END -%]
+                    [% IF label.end_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") %]
+                            [% label.end_date.format %]
+                            [% IF label.has_age %]
+                                ([% display_age (label.age) %])
+                            [% END %]
+                        [% END %]
                     [% END %]
-                [% END %]
             [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                content=html_escape(label.ipi_code)
                    IF label.ipi_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
-               content=html_escape('LC-' _ label.label_code)
+               content=html_escape(label.format_label_code)
                    IF label.label_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(label.country.name)
@@ -56,7 +65,8 @@
 
                 <hr/>
 
-                <li>[% use_in_relationship(label) %]</li>
+                [%# Adds <li> itself %]
+                [% use_in_relationship(label) %]
                 <li>[% relate_to_ellipsis(label) %]</li>
                 <li>[% relate_to_url(label) %]</li>
 

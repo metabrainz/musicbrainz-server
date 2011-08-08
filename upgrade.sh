@@ -5,24 +5,17 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
-echo `date` : Backing up data
-./admin/psql READWRITE < ./admin/sql/updates/20110525-READWRITE-backup.sql
-./admin/psql RAWDATA < ./admin/sql/updates/20110525-RAWDATA-backup.sql
+echo `date` : Adding label code constraints
+./admin/psql READWRITE < admin/sql/updates/20110801-label-code-validation.sql
 
-echo `date` : Fixing broken time zones
-./admin/psql READWRITE < ./admin/sql/updates/20110525-invalid-timezones.sql
+echo `date` : Fixing edits_failed column
+./admin/psql READWRITE < admin/sql/updates/20110725-rebuild-editor-stats.sql
 
-echo `date` : Rewriting short link phrases for relationships
-./admin/psql READWRITE < ./admin/sql/updates/20110524-short-link-phrases.sql
+echo `date` : Removing and preventing invalid attributes on links
+./admin/psql READWRITE < ./admin/sql/updates/20110726-invalid-attributes.sql
 
-echo `date` : Upgrading relationship edit types to include short link phrases
-./admin/sql/updates/20110524-short-link-phrase-edits.pl
-
-echo `date` : Relinking relationship edits against artists
-./admin/sql/updates/20110524-relink-relationships.pl
-
-echo `date` : Fixing edit relationship edits
-./admin/sql/updates/20110524-fix-broken-relationship-edits.pl
+echo `date` : Fixing sbontragers ISRC submissions
+./admin/sql/updates/20110604-cleanup-sbontrager-isrc.pl
 
 echo `date` : Done
 

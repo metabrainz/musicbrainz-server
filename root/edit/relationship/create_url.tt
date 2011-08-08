@@ -12,9 +12,9 @@
    //]]></script>
 [% END %]
 
-[%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Add URL Relationship') full_width=1 -%]
 
-    <h1>[% l('Create Relationship') %]</h1>
+    <h1>[% l('Add URL Relationship') %]</h1>
 
     [%- USE r = FormRenderer(form) -%]
 
@@ -51,6 +51,31 @@
             <tr>
                 <th class="label">[% r.label('url', l('URL:')) %]</th>
                 <td colspan="2">[% r.text('url', { size => 47 }) %]</td>
+            </tr>
+            <tr class="attributes-container" style="display: hidden">
+                <th class="label">[% l('License:') %]</th>
+                <td>
+                [% FOR attr IN attr_tree.children %]
+                    <div id="attr-section-[% attr.id %]" class="ar-attr">
+                    [% field = form.field('attrs').field(attr.name) %]
+                    [% IF field.type == 'Repeatable' %]
+                        <div class="selects">
+                        [% FOR subfield IN field.fields %]
+                        <div>
+                            [% r.select(subfield) %]
+                            [% field_errors(form, subfield) %]
+                        </div>
+                        [% END %]
+                        </div>
+                        <div class="ar-descr">[% attr.description %]</div>
+                    [% ELSE %]
+                        [% r.checkbox(field) %] [% attr.name %]
+                        <div class="ar-descr">[% attr.description %]</div>
+                    [% END %]
+                    [% field_errors(form, field) %]
+                    </div>
+                [% END %]
+                </td>
             </tr>
         </table>
 

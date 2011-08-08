@@ -3,10 +3,12 @@ use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
+use Try::Tiny;
 
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
@@ -20,12 +22,62 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 # Note that the validator will automatically add inc= arguments to the allowed list
 # based on other inc= arguments.  (puids are allowed if recordings are allowed, etc..)
 
+sub apply_rate_limit
+{
+    my ($self, $c, $key) = @_;
+    $key ||= "ws ip=" . $c->request->address;
+
+    my $r = $c->model('RateLimiter')->check_rate_limit($key);
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->body(
+            $c->stash->{serializer}->output_error(
+                "Your requests are exceeding the allowable rate limit (" . $r->msg . "). " .
+                    "Please see http://wiki.musicbrainz.org/XMLWebService for more information."
+                )
+        );
+        $c->detach;
+    }
+
+    $r = $c->model('RateLimiter')->check_rate_limit('ws global');
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->body(
+            $c->stash->{serializer}->output_error(
+                "The MusicBrainz web server is currently busy. " .
+                    "Please try again later."
+                )
+        );
+        $c->detach;
+    }
+}
+
 sub bad_req : Private
 {
     my ($self, $c) = @_;
     $c->res->status(400);
     $c->res->content_type("application/xml; charset=UTF-8");
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
+}
+
+sub deny_readonly : Private
+{
+    my ($self, $c) = @_;
+    if (DBDefs::DB_READ_ONLY) {
+        $c->res->status(503);
+        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
+    }
 }
 
 sub success : Private
@@ -68,8 +120,18 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 {
     my ($self, $c) = @_;
 
-    $self->validate($c, \%serializers) or $c->detach('bad_req');
+    try {
+        $self->validate($c, \%serializers) or $c->detach('bad_req');
+    }
+    catch {
+        my $err = $_;
+        if(eval { $err->isa('MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter') }) {
+            $self->_error($c, $err->message);
+        }
+        $c->detach;
+    };
 
+    $self->apply_rate_limit($c);
     $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
 }
 

@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -58,7 +59,7 @@ sub alter_edit_pending
     };
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return { 
@@ -71,7 +72,11 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } $self->release_ids },
-        MediumCDTOC => { $self->data->{medium_cdtoc_id} => [ 'CDTOC' ] }
+        MediumCDTOC => { $self->data->{medium_cdtoc_id} => [ 'CDTOC' ] },
+        Medium => {
+            $self->data->{new_medium}{id} => [ 'MediumFormat', 'Release' ],
+            $self->data->{old_medium}{id} => [ 'MediumFormat', 'Release' ]
+        }
     }
 }
 
@@ -87,6 +92,8 @@ sub build_display_data
             || Release->new( name => $self->data->{old_medium}{release}{name} ),
         new_release => $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
             || Release->new( name => $self->data->{new_medium}{release}{name} ),
+        new_medium  => $loaded->{Medium}{ $self->data->{new_medium}{id} },
+        old_medium  => $loaded->{Medium}{ $self->data->{old_medium}{id} },
     }
 }
 
@@ -125,9 +132,20 @@ sub initialize
 sub accept
 {
     my $self = shift;
+    my $medium = $self->c->model('Medium')->get_by_id($self->data->{new_medium}{id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The target medium no longer exists'
+        );
+
+    my $medium_cdtoc = $self->c->model('MediumCDTOC')->get_by_id($self->data->{medium_cdtoc}{id});
+    $self->c->model('CDTOC')->load($medium_cdtoc);
+
     $self->c->model('MediumCDTOC')->update(
         $self->data->{medium_cdtoc}{id},
-        { medium_id => $self->data->{new_medium}{id} }
+        { medium_id => $medium->id  }
+    ) unless $self->c->model('MediumCDTOC')->medium_has_cdtoc(
+        $medium->id,
+        $medium_cdtoc->cdtoc
     );
 }
 

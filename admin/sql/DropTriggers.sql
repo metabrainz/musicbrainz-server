@@ -3,6 +3,7 @@
 
 DROP TRIGGER a_ins_artist ON artist;
 DROP TRIGGER b_upd_artist ON artist;
+DROP TRIGGER b_del_artist_special ON artist;
 DROP TRIGGER b_upd_artist_alias ON artist_alias;
 DROP TRIGGER b_upd_artist_tag ON artist_tag;
 DROP TRIGGER b_upd_editor ON editor;
@@ -36,9 +37,11 @@ DROP TRIGGER b_upd_l_url_url ON l_url_url;
 DROP TRIGGER b_upd_l_url_work ON l_url_work;
 DROP TRIGGER b_upd_l_work_work ON l_work_work;
 DROP TRIGGER a_ins_label ON label;
+DROP TRIGGER b_del_label_special ON label;
 DROP TRIGGER b_upd_label ON label;
 DROP TRIGGER b_upd_label_alias ON label_alias;
 DROP TRIGGER b_upd_label_tag ON label_tag;
+DROP TRIGGER b_upd_link_attribute ON link_attribute;
 DROP TRIGGER b_upd_link_attribute_type ON link_attribute_type;
 DROP TRIGGER b_upd_link_type ON link_type;
 DROP TRIGGER b_upd_link_type_attribute_type ON link_type_attribute_type;
@@ -70,3 +73,6 @@ DROP TRIGGER a_ins_work ON work;
 DROP TRIGGER b_upd_work ON work;
 DROP TRIGGER b_upd_work_alias ON work_alias;
 DROP TRIGGER b_upd_work_tag ON work_tag;
+DROP TRIGGER a_upd_edit ON edit;
+DROP TRIGGER a_ins_edit_artist ON edit_artist;
+DROP TRIGGER a_ins_edit_artist ON edit_label;

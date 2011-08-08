@@ -61,23 +61,13 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       host            => "",
 #       port            => "",
     },
-    # Raw data lives in a seperate DB to avoid the main DB from balooning in size.
-    RAWDATA =>
-    {
-        database    => "musicbrainz_db_raw",
-        schema          => "musicbrainz",
-        username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
-    },
     # Fill out only if RAWDATA lives on a different host from the READWRITE server.
     # RAWDATA_SYSTEM => undef,
 );
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 12 }
+sub DB_SCHEMA_SEQUENCE { 13 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -374,6 +364,14 @@ sub AUTO_RESTART {
 # for MAX_REQUEST_TIME seconds, and if it is still not done the process
 # will be killed (and log a message about the request it was serving).
 sub MAX_REQUEST_TIME { undef }
+
+sub LOGGER_ARGUMENTS {
+    return (
+        outputs => [
+            [ 'Screen', min_level => 'debug', newline => 1 ],
+        ],
+    )
+}
 
 1;
 # eof DBDefs.pm

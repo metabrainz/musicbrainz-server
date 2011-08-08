@@ -47,8 +47,8 @@
                 <div>
                     [%- USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
-                        [% sidebar.text('query', { placeholder => 'search' }) -%]
-                        [%- sidebar.select('type') %]
+                        [% sidebar.text('query', { placeholder => 'search' }) %]
+                        [% sidebar.select('type') %]
                         [% form_submit(l('Search'), "header-search") %]
                     </form>
                 </div>
@@ -93,6 +93,15 @@
             </div>
         [%- END -%]
 
+        [%- IF server_details.read_only -%]
+            <div class="server-details">
+                <p>
+                    [% l('The server is temporary in read-only mode for database maintainance.') %]
+                </p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [%- END -%]
+
         [% IF makes_no_changes %]
         <div class="warning-header">
             <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>
@@ -123,6 +132,7 @@
                 <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> | 
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> | 
                 <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> | 
+                <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a> |
                 <a href="http://www.cafepress.com/musicbrainz" class="internal">[% l('Schwag') %]</a>
             </p>
 

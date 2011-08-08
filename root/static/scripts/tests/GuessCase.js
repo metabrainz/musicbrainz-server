@@ -240,7 +240,23 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
                 expected: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
                 bug: "MBS-1318", mode: "English"
+            },
+            {
+                input: "Bad Hands, Part II (Autechre remix)",
+                expected: "Bad Hands, Part II (Autechre remix)",
+                bug: "MBS-2408", mode: "English"
+            },
+            {
+                input: "Bad Hands (Part II)",
+                expected: "Bad Hands, Part II",
+                bug: "MBS-2408", mode: "English"
+            },
+            {
+                input: "Hold on, I'm Coming",
+                expected: "Hold On, I'm Coming",
+                bug: "MBS-3013", mode: "English"
             }
+
 
             /* There is no fix for these yet.
             {

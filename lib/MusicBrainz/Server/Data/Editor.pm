@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     type_to_model
 );
-use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED :privileges );
+use MusicBrainz::Server::Types qw( :edit_status :privileges );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -70,6 +70,19 @@ sub get_by_name
     return $self->_new_from_row($row);
 }
 
+sub find_by_name
+{
+    my ($self, $name, $offset, $limit) = @_;
+    my $query = 'SELECT ' . $self->_columns .
+                '  FROM ' . $self->_table .
+                " WHERE musicbrainz_unaccent(lower(name)) LIKE musicbrainz_unaccent(lower(?)) || '%'
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $name, $offset
+    );
+}
+
 sub _get_ratings_for_type
 {
     my ($self, $id, $type, $me) = @_;
@@ -78,7 +91,7 @@ sub _get_ratings_for_type
         SELECT $type AS id, rating FROM ${type}_rating_raw
         WHERE editor = ? ORDER BY rating DESC, editor";
 
-    my $results = $self->c->raw_sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->sql->select_list_of_hashes ($query, $id);
     my $entities = $self->c->model(type_to_model($type))->get_by_ids(map { $_->{id} } @$results);
 
     my $ratings = [];
@@ -129,7 +142,7 @@ sub _get_tags_for_type
         WHERE editor = ?
         GROUP BY tag";
 
-    my $results = $self->c->raw_sql->select_list_of_hashes ($query, $id);
+    my $results = $self->c->sql->select_list_of_hashes ($query, $id);
 
     return { map { $_->{tag} => $_ } @$results };
 }
@@ -141,7 +154,7 @@ sub get_tags
 
     my $tags = {};
     my $max = 0;
-    foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
+    foreach my $entity ('artist', 'label', 'recording', 'release', 'release_group', 'work')
     {
         my $data = $self->_get_tags_for_type ($user->id, $entity);
 
@@ -349,6 +362,7 @@ sub credit
 {
     my ($self, $editor_id, $status, $as_autoedit) = @_;
     my $column;
+    return if $status == $STATUS_DELETED;
     $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
     $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
     $column = "auto_edits_accepted" if $status == $STATUS_APPLIED && $as_autoedit;

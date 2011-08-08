@@ -6,6 +6,7 @@ use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Data::Utils qw(
@@ -111,15 +112,15 @@ sub foreign_keys
     my $old = $self->data->{old};
     my $new = $self->data->{new};
 
-    $load{$model0} = [];
-    $load{$model1} = [];
+    $load{$model0} = {};
+    $load{$model1} = {};
 
-    push @{ $load{$model0} }, $self->data->{link}->{entity0}{id};
-    push @{ $load{$model1} }, $self->data->{link}->{entity1}{id};
-    push @{ $load{$model0} }, $old->{entity0}{id} if $old->{entity0};
-    push @{ $load{$model1} }, $old->{entity1}{id} if $old->{entity1};
-    push @{ $load{$model0} }, $new->{entity0}{id} if $new->{entity0};
-    push @{ $load{$model1} }, $new->{entity1}{id} if $new->{entity1};
+    $load{$model0}->{ $self->data->{link}->{entity0}{id} } = [ 'ArtistCredit' ];
+    $load{$model1}->{ $self->data->{link}->{entity1}{id} } = [ 'ArtistCredit' ];
+    $load{$model0}->{ $old->{entity0}{id} } = [ 'ArtistCredit' ] if $old->{entity0};
+    $load{$model1}->{ $old->{entity1}{id} } = [ 'ArtistCredit' ] if $old->{entity1};
+    $load{$model0}->{ $new->{entity0}{id} } = [ 'ArtistCredit' ] if $new->{entity0};
+    $load{$model1}->{ $new->{entity1}{id} } = [ 'ArtistCredit' ] if $new->{entity1};
 
     return \%load;
 }
@@ -320,27 +321,53 @@ sub accept
 
     my $data = clone($self->data);
 
+    my $relationship = $self->c->model('Relationship')->get_by_id(
+        $data->{type0}, $data->{type1},
+        $data->{relationship_id}
+    );
+
+    $self->c->model('Link')->load($relationship);
+
+    # Because we're using a "find_or_insert" instead of an update, this link
+    # dict should be complete.  If a value isn't defined in $values in doesn't
+    # change, so take the original value as it was stored in $link.
+    my $values = {
+        entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,
+        entity1_id   => $data->{new}{entity1}{id}   // $relationship->entity1_id,
+        attributes   => $data->{new}{attributes}    // [
+            map { $_->id } $relationship->link->all_attributes
+        ],
+        link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
+        begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
+        end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
+    };
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This relationship already exists'
+    ) if $self->c->model('Relationship')->exists(
+        $data->{type0},
+        $data->{type1},
+        $values
+    );
+
     $self->c->model('Relationship')->update(
         $data->{type0},
         $data->{type1},
         $data->{relationship_id},
-        {
-            entity0_id   => $data->{new}{entity0}{id},
-            entity1_id   => $data->{new}{entity1}{id},
-            attributes   => $data->{new}{attributes},
-            link_type_id => $data->{new}{link_type}{id},
-            begin_date   => $data->{new}{begin_date},
-            end_date     => $data->{new}{end_date},
-        },
-        {
-            entity0_id   => $data->{link}{entity0}{id},
-            entity1_id   => $data->{link}{entity1}{id},
-            attributes   => $data->{link}{attributes},
-            link_type_id => $data->{link}{link_type}{id},
-            begin_date   => $data->{link}{begin_date},
-            end_date     => $data->{link}{end_date},
-        },
+        $values
     );
+
+    my $link_type = $self->c->model('LinkType')->get_by_id(
+        $values->{link_type_id}
+    );
+
+    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
+        my $release = $self->c->model('Release')->get_by_id(
+            $values->{entity0_id}
+        );
+        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
+        $self->c->model('CoverArt')->cache_cover_art($release);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -39,6 +39,17 @@ has '+data' => (
     ]
 );
 
+around _build_related_entities => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my $related = $self->$orig(@_);
+
+    push @{ $related->{artist} }, map {
+        map { $_->{artist}{id} } @{ $_->{artist_credit}->{names} }
+    } @{ $self->data->{tracklist} };
+
+    return $related;
+};
+
 sub alter_edit_pending
 {
     my $self = shift;
@@ -133,9 +144,35 @@ sub _insert_hash {
     return $data;
 }
 
-after reject => sub {
-    my $self = shift;
+around reject => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+
+    # Find the medium and get its tracklist
+    my $medium = $self->c->model('Medium')->get_by_id($self->entity_id);
+    $self->c->model('Track')->load_for_tracklists($medium->tracklist);
+
+    # Now we can remove the medium and tracklist
+    $self->$orig(@_);
     $self->c->model('Tracklist')->garbage_collect;
+
+    # And now clean up any orphaned recordings
+    my $track_index = -1;
+    my @recordings_to_delete;
+    for my $track ($medium->tracklist->all_tracks) {
+        $track_index++;
+
+        # Dont delete recordings we didnt create
+        next if $self->data->{tracklist}[ $track_index ]{recording_id};
+
+        # XXX FIXME Turn n queries into 1 query
+        next unless $self->c->model('Recording')->can_delete($track->recording_id);
+
+        push @recordings_to_delete, $track->recording_id;
+    };
+
+
+    $self->c->model('Recording')->delete(@recordings_to_delete)
+        if @recordings_to_delete;
 };
 
 __PACKAGE__->meta->make_immutable;

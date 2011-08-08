@@ -47,7 +47,8 @@
 
                 <hr/>
 
-                <li>[% use_in_relationship(rg) %]</li>
+                [%# Adds <li> itself %]
+                [% use_in_relationship(rg) %]
                 <li>[% relate_to_ellipsis(rg) %]</li>
                 <li>[% relate_to_url(rg) %]</li>
 

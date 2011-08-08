@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::ReleaseGroup::Edit;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::ReleaseGroup::Edit }
@@ -48,7 +49,7 @@ sub create_edit {
     my ($c, $rg) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_RELEASEGROUP_EDIT,
-        editor_id => 2,
+        editor_id => 1,
         to_edit => $rg,
 
         artist_credit => {

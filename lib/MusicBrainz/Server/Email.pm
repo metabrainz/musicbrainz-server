@@ -8,7 +8,7 @@ use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
 use Email::Sender::Transport::SMTP;
-use URI::Escape qw( uri_escape );
+use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
 
@@ -80,7 +80,7 @@ sub _create_message_to_editor_email
     my $from_name = $from->name;
     my $contact_url = sprintf "http://%s/user/%s/contact",
                         &DBDefs::WEB_SERVER,
-                        uri_escape($from->name);
+                        uri_escape_utf8($from->name);
 
     my $body = <<EOS;
 MusicBrainz user '$from_name' has sent you the following message:
@@ -395,11 +395,24 @@ sub _send_email
     my $to = $all_to[0];
     return unless $to && $to->address;
 
-    my $args = { transport => $self->transport };
+    my $args = {
+        transport => $self->transport,
+        to => [
+            map  { $_->address               }
+            grep { defined                   }
+            map  { Email::Address->parse($_) }
+            map  { $email->header($_)        }
+                qw(to cc bcc)
+        ]
+    };
+
+    $email->header_set('BCC', undef);
+
     if ($email->header('Sender')) {
         my @sender = Email::Address->parse($email->header('Sender'));
         $args->{from} = $sender[0]->address;
     }
+
     return sendmail($email, $args);
 }
 

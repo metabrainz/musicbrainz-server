@@ -18,10 +18,12 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
+use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
+use MusicBrainz::Server::Translation qw( l );
 use Sql;
 
 =head1 NAME
@@ -417,6 +419,18 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     merge_form => 'Merge::Artist'
 };
 
+around _validate_merge => sub {
+    my ($orig, $self, $c, $form, $merger) = @_;
+    return unless $self->$orig($c, $form, $merger);
+    my $target = $form->field('target')->value;
+    if (grep { is_special_purpose($_) && $target != $_ } $merger->all_entities) {
+        $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
+        return 0;
+    }
+
+    return 1;
+};
+
 =head2 rating
 
 Rate an artist
@@ -469,7 +483,8 @@ sub watch : Chained('load') RequireAuth {
         editor_id => $c->user->id
     ) if $c->user_exists;
 
-    $c->response->redirect($c->req->referer);
+    $c->response->redirect(
+        $c->req->referer || $c->uri_for_action('/artist/show', [ $artist->gid ]));
 }
 
 sub stop_watching : Chained('load') RequireAuth {
@@ -481,7 +496,8 @@ sub stop_watching : Chained('load') RequireAuth {
         editor_id => $c->user->id
     ) if $c->user_exists;
 
-    $c->response->redirect($c->req->referer);
+    $c->response->redirect(
+        $c->req->referer || $c->uri_for_action('/artist/show', [ $artist->gid ]));
 }
 
 =head1 LICENSE

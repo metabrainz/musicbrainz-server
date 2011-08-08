@@ -19,8 +19,8 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
@@ -32,18 +32,27 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
+with 'MusicBrainz::Server::Data::Role::Merge';
+
+sub browse_column { 'sort_name.name' }
 
 sub _table
 {
-    return 'label ' .
+    my $self = shift;
+    return 'label ' . (shift() || '') . ' ' .
            'JOIN label_name name ON label.name=name.id ' .
            'JOIN label_name sort_name ON label.sort_name=sort_name.id';
+}
+
+sub _table_join_name {
+    my ($self, $join_on) = @_;
+    return $self->_table("ON label.name = $join_on OR label.sort_name = $join_on");
 }
 
 sub _columns
 {
     return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
-           'type, country, edits_pending, label_code, label.ipi_code, ' .
+           'label.type, label.country, label.edits_pending, label.label_code, label.ipi_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, comment, label.last_updated';
 }
@@ -203,7 +212,7 @@ sub delete
     return 1;
 }
 
-sub merge
+sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
@@ -255,8 +264,8 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "label_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating}) if defined $row->{rating};
-        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
+        $obj->rating($row->{rating} || 0);
+        $obj->rating_count($row->{rating_count} || 0);
     }, @_);
 }
 

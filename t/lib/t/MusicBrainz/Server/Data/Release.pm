@@ -15,6 +15,56 @@ use Sql;
 
 with 't::Context';
 
+test 'can_merge for the merge strategy' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+
+    ok(
+        $test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 7),
+        'can merge 2 discs with equal track counts'
+    );
+
+    ok(
+        $test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 7, 6),
+        'can merge 2 discs with equal track counts in opposite direction'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 3),
+        'cannot merge releases with different track counts'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 3, 6),
+        'cannot merge releases with different track counts in opposite direction'
+    );
+
+    $test->c->model('Release')->merge(
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+        new_id => 6,
+        old_ids => [ 7 ],
+        medium_positions => {
+            2 => 1,
+            3 => 2
+        }
+    );
+
+    ok(
+        $test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 8),
+        'can merge with differing medium counts as long as position/track count matches'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 6, 3),
+        'cannot merge with differing medium counts when there is a track count mismatch'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge($MusicBrainz::Server::Data::Release::MERGE_MERGE, 8, 6),
+        'cannot merge when old mediums are not accounted for'
+    );
+};
+
 test all => sub {
 
 my $test = shift;
@@ -115,7 +165,6 @@ memory_cycle_ok($release_data);
 memory_cycle_ok(\%names);
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 $sql->begin;
 $release = $release_data->insert({
         name => 'Protection',
@@ -182,7 +231,6 @@ $release = $release_data->get_by_id(2);
 ok(defined $release);
 
 # Merge #7 into #6 with append stategy
-$raw_sql->begin;
 $sql->begin;
 $release_data->merge(
     new_id => 6,
@@ -209,11 +257,9 @@ ok(defined $release);
 $release = $release_data->get_by_id(7);
 ok(!defined $release);
 
-$raw_sql->commit;
 $sql->commit;
 
 # Merge #9 into #8 with merge stategy
-$raw_sql->begin;
 $sql->begin;
 $release_data->merge(new_id => 8, old_ids => [ 9 ], merge_strategy => 2);
 $release = $release_data->get_by_id(8);
@@ -235,7 +281,54 @@ ok(defined $release);
 $release = $release_data->get_by_id(9);
 ok(!defined $release);
 
-$raw_sql->commit;
+$sql->commit;
+
+};
+
+test 'Merge and set medium names' => sub {
+
+my $test = shift;
+MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+
+my $sql = $test->c->sql;
+
+$sql->begin;
+
+my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
+memory_cycle_ok($release_data);
+
+# Merge #7 into #6 with append stategy
+$release_data->merge(
+    new_id => 6,
+    old_ids => [ 7 ],
+    medium_positions => {
+        3 => 1,
+        2 => 2
+    },
+    medium_names => {
+        3 => 'Foo',
+        2 => 'Bar'
+    }
+);
+memory_cycle_ok($release_data);
+
+my $release = $release_data->get_by_id(6);
+$test->c->model('Medium')->load_for_releases($release);
+is($release->all_mediums, 2);
+is($release->mediums->[0]->id, 3);
+is($release->mediums->[0]->position, 1);
+is($release->mediums->[0]->name, 'Foo');
+is($release->mediums->[1]->id, 2);
+is($release->mediums->[1]->position, 2);
+is($release->mediums->[1]->name, 'Bar');
+memory_cycle_ok($release);
+
+# Only #6 is now in the DB
+$release = $release_data->get_by_id(6);
+ok(defined $release);
+$release = $release_data->get_by_id(7);
+ok(!defined $release);
+
 $sql->commit;
 
 };

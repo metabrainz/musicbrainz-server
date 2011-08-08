@@ -7,6 +7,7 @@ use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
@@ -165,6 +166,7 @@ sub cookie_login : Private
     }
     catch {
         $c->log->error($_);
+        $self->_clear_login_cookie($c);
     };
 }
 
@@ -267,6 +269,7 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
             );
         }
         catch {
+            log_debug { "Couldn't send email: $_" } $_;
             $c->flash->{message} = l('Your message could not be sent');
         };
 
@@ -370,7 +373,7 @@ sub tag : Chained('load') PathPart('tags') Args(1)
                 $_ => [ $c->model(type_to_model($_))
                     ->tags->find_editor_entities($user->id, $tag->id)
                 ]
-            } qw( artist label recording release_group work )
+            } qw( artist label recording release release_group work )
         );
     }
 }

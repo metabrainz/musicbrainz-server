@@ -13,7 +13,7 @@
 
   <tr>
     <th>[% l('Artist:') %]</th>
-    <td>[% artist_credit(edit.display_data.artist_credit) %]</td>
+    <td>[% expanded_artist_credit(edit.display_data.artist_credit) %]</td>
   </tr>
 
   [% IF edit.display_data.comment %]
@@ -26,7 +26,7 @@
   [% IF edit.display_data.length %]
   <tr>
     <th>[% l('Length:') %]</td>
-    <td>[% edit.display_data.type.length | format_length %]</td>
+    <td>[% edit.display_data.length | format_length %]</td>
   </tr>
   [% END %]
 </table>
