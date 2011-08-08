@@ -103,7 +103,7 @@ sub insert
           WHERE medium.id = ?
        GROUP BY track.tracklist',
         $hash->{medium}
-    ) };
+    ) || [ undef, 0 ] };
 
     if ($set_track_lengths) {
         $self->c->model('Tracklist')->set_lengths_to_cdtoc(
