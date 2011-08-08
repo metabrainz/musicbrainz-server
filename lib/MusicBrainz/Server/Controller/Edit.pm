@@ -161,6 +161,7 @@ sub search : Path('/search/edits') RequireAuth
             ], sort keys %grouped
         ],
         status => status_names(),
+        relationship_type => [ $c->model('LinkType')->get_full_tree ]
     );
     return unless %{ $c->req->query_params };
 

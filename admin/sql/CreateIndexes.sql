@@ -44,6 +44,12 @@ CREATE INDEX edit_idx_type ON edit (type);
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
 
+-- Partial indexes for searching inside edit data
+CREATE INDEX edit_add_relationship_link_type on EDIT (extract_path_value(data, 'link_type/id')) WHERE type = 90;
+CREATE INDEX edit_edit_relationship_link_type_link on EDIT (extract_path_value(data, 'link/link_type/id')) WHERE type = 91;
+CREATE INDEX edit_edit_relationship_link_type_new on EDIT (extract_path_value(data, 'new/link_type/id')) WHERE type = 91;
+CREATE INDEX edit_edit_relationship_link_type_old on EDIT (extract_path_value(data, 'old/link_type/id')) WHERE type = 91;
+
 -- Indexes for materialized edit status
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);
 CREATE INDEX edit_label_idx_status ON edit_label (status);
