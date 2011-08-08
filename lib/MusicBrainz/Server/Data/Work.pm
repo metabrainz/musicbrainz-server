@@ -260,7 +260,7 @@ sub find_artists
 
     for my $work_id (keys %map)
     {
-        my @artists = uniq map { $_->name } @{ $map{$work_id} };
+        my @artists = uniq map { $_->{entity}->name } @{ $map{$work_id} };
         $map{$work_id} = {
             hits => scalar @artists,
             results => $limit && scalar @artists > $limit ? [ @artists[ 0 .. ($limit-1) ] ] : \@artists,
@@ -286,7 +286,7 @@ sub load_writers
     my %map;
     $self->_find_writers(\@ids, \%map);
     for my $work (@works) {
-        $work->add_writer(@{ $map{$work->id} })
+        $work->add_writer(map { $_->{entity} } @{ $map{$work->id} })
             if exists $map{$work->id};
     }
 }
@@ -297,10 +297,12 @@ sub _find_writers
     return unless @$ids;
 
     my $query = "
-        SELECT law.entity1 AS work, law.entity0 AS artist
+        SELECT law.entity1 AS work, law.entity0 AS artist, lt.name AS role
         FROM l_artist_work law
+        JOIN link l ON law.link = l.id
+        JOIN link_type lt ON l.link_type = lt.id
         WHERE law.entity1 IN (" . placeholders(@$ids) . ")
-        GROUP BY law.entity1, law.entity0
+        GROUP BY law.entity1, law.entity0, lt.name
         ORDER BY count(*) DESC, artist
     ";
 
@@ -310,9 +312,12 @@ sub _find_writers
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
 
     for my $row (@$rows) {
-        my ($work_id, $artist_id) = @$row;
+        my ($work_id, $artist_id, $role) = @$row;
         $map->{$work_id} ||= [];
-        push @{ $map->{$work_id} }, $artists->{$artist_id};
+        push @{ $map->{$work_id} }, {
+            entity => $artists->{$artist_id},
+            role => $role
+        }
     }
 }
 
@@ -334,7 +339,7 @@ sub load_recording_artists
     my %map;
     $self->_find_recording_artists(\@ids, \%map);
     for my $work (@works) {
-        $work->add_artist(@{ $map{$work->id} })
+        $work->add_artist(map { $_->{entity} } @{ $map{$work->id} })
             if exists $map{$work->id};
     }
 }
@@ -358,10 +363,13 @@ sub _find_recording_artists
     my @artist_credit_ids = map { $_->[1] } @$rows;
     my $artist_credits = $self->c->model('ArtistCredit')->get_by_ids(@artist_credit_ids);
 
-    for my $row (@$rows) {
-        my ($work_id, $artist_credit_id) = @$row;
+    my %work_acs = map { @$_ } @$rows;
+    for my $work_id (keys %work_acs) {
+        my $artist_credit_id = $work_acs{$work_id};
         $map->{$work_id} ||= [];
-        push @{ $map->{$work_id} }, $artist_credits->{$artist_credit_id};
+        push @{ $map->{$work_id} }, {
+            entity => $artist_credits->{$artist_credit_id}
+        }
     }
 }
 
