@@ -150,6 +150,9 @@ sub update
     $self->sql->update_row('work', $row, { id => $work_id });
 }
 
+# Works can be unconditionally removed
+sub can_delete { 1 }
+
 sub delete
 {
     my ($self, $work_id) = @_;

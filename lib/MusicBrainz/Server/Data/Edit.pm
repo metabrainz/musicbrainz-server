@@ -385,6 +385,10 @@ sub create
     $edit->auto_edit(0)
         if ($privs & $UNTRUSTED_FLAG);
 
+    # ModBot can override the rules sometimes
+    $edit->auto_edit(1)
+        if ($editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
+
     # Save quality level
     $edit->quality($quality);
 
