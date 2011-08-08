@@ -286,7 +286,7 @@ sub load_writers
     my %map;
     $self->_find_writers(\@ids, \%map);
     for my $work (@works) {
-        $work->add_writer(map { $_->{entity} } @{ $map{$work->id} })
+        $work->add_writer(@{ $map{$work->id} })
             if exists $map{$work->id};
     }
 }
@@ -297,12 +297,12 @@ sub _find_writers
     return unless @$ids;
 
     my $query = "
-        SELECT law.entity1 AS work, law.entity0 AS artist, lt.name AS role
+        SELECT law.entity1 AS work, law.entity0 AS artist, array_agg(lt.name) AS roles
         FROM l_artist_work law
         JOIN link l ON law.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE law.entity1 IN (" . placeholders(@$ids) . ")
-        GROUP BY law.entity1, law.entity0, lt.name
+        GROUP BY law.entity1, law.entity0
         ORDER BY count(*) DESC, artist
     ";
 
@@ -312,11 +312,11 @@ sub _find_writers
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
 
     for my $row (@$rows) {
-        my ($work_id, $artist_id, $role) = @$row;
+        my ($work_id, $artist_id, $roles) = @$row;
         $map->{$work_id} ||= [];
         push @{ $map->{$work_id} }, {
             entity => $artists->{$artist_id},
-            role => $role
+            roles => $roles
         }
     }
 }

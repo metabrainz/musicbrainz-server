@@ -44,7 +44,9 @@
                     <td>
                       <ul>
                         [% FOR rel_artist=work.writers %]
-                        <li>[% link_artist(rel_artist) %]</li>
+                        <li>
+                          [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                                                       roles  => rel_artist.roles.join(', ') }) %]</li>
                         [% END %]
                       </ul>
                     </td>

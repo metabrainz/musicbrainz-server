@@ -10,6 +10,9 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 
+use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Object Str );
+
 has 'type_id' => (
     is => 'rw',
     isa => 'Int'
@@ -49,6 +52,12 @@ has 'artists' => (
 has 'writers' => (
     traits => [ 'Array' ],
     is => 'ro',
+    isa => ArrayRef[
+        Dict[
+            roles => ArrayRef[Str],
+            entity => Object
+        ]
+    ],
     default => sub { [] },
     handles => {
         add_writer => 'push',
