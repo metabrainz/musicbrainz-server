@@ -152,7 +152,7 @@ sub language
 
 sub locale
 {
-    my $locale_name = shift;
+    my $locale_name = shift or return '';
     try {
         my $locale = DateTime::Locale->load($locale_name);
         return $locale->name

@@ -117,6 +117,9 @@ override 'accept' => sub
     $model->delete($self->entity_id);
 };
 
+# We do allow auto edits for this (as ModBot needs to insert them)
+sub modbot_auto_edit { 1 }
+
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
