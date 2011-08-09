@@ -33,12 +33,19 @@ two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
 END; -%]
-[%- MACRO display_age(age) BLOCK -%]
-    [%- IF age.0 -%][%- ln('{num} year', '{num}&nbsp;years', age.0, { num => age.0 }) -%]
-    [%- ELSIF age.1 -%][%- ln('{num} month', '{num}&nbsp;months', age.1, { num => age.1 }) -%]
-    [%- ELSE -%][%- ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 }) -%]
-    [%- END -%]
-[%- END -%]
+[%- MACRO display_age(age, person) BLOCK;
+      IF person AND age.0;
+        l('aged {num}', { num => age.0 });
+      ELSE;
+        IF age.0;
+          ln('{num} year', '{num}&nbsp;years', age.0, { num => age.0 });
+        ELSIF age.1;
+          ln('{num} month', '{num}&nbsp;months', age.1, { num => age.1 });
+        ELSE;
+          ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 });
+        END;
+      END;
+    END -%]
 
 [%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
