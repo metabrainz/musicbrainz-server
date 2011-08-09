@@ -30,13 +30,6 @@ sub _columns
             edit.autoedit, edit.status, edit.quality';
 }
 
-sub _dbh
-{
-    return shift->c->raw_dbh;
-}
-
-sub sql { return shift->c->raw_sql }
-
 sub _new_from_row
 {
     my ($self, $row) = @_;
@@ -69,6 +62,13 @@ sub _new_from_row
     }
     $edit->close_time($row->{close_time}) if defined $row->{close_time};
     return $edit;
+}
+
+sub run_query {
+    my ($self, $query, $limit, $offset) = @_;
+    return query_to_list_limited($self->c->sql, $offset, $limit, sub {
+            return $self->_new_from_row(shift);
+        }, $query->as_string, $query->arguments, $offset);
 }
 
 # Load an edit from the DB and try to get an exclusive lock on it
@@ -134,7 +134,7 @@ sub find
     $query .= ' WHERE ' . join ' AND ', map { "($_)" } @pred if @pred;
     $query .= ' ORDER BY id DESC OFFSET ? LIMIT 500';
 
-    return query_to_list_limited($self->c->raw_sql, $offset, $limit, sub {
+    return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
         }, $query, @args, $offset);
 }
@@ -147,7 +147,7 @@ sub find_for_subscription
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
         return query_to_list(
-            $self->c->raw_sql,
+            $self->c->sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
             $subscription->subscribed_editor_id,
@@ -160,7 +160,7 @@ sub find_for_subscription
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
             "   AND id > ? AND status IN (?, ?)";
         return query_to_list(
-            $self->c->raw_sql,
+            $self->c->sql,
             sub { $self->_new_from_row(shift) },
             $query, $subscription->target_id, $subscription->last_edit_sent,
             $STATUS_OPEN, $STATUS_APPLIED
@@ -212,49 +212,36 @@ sub find_open_for_editor
 sub subscribed_entity_edits
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my @subscribable_types = qw( artist label );
 
-    my %subscriptions = map {
-        $_ => $self->c->sql->select_single_column_array(
-            "SELECT $_ FROM editor_subscribe_$_ WHERE editor = ?",
-            $editor_id
-        )
-    } @subscribable_types;
-
-    my @filter_on = grep { @{ $subscriptions{$_} } } keys %subscriptions
-        or return;
-
-    my $query =
-        'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-        ' WHERE editor != ?
-            AND status = ?
-            AND NOT EXISTS (
-                SELECT TRUE FROM vote
-                 WHERE vote.edit = edit.id
-                   AND vote.editor = ?
-                   AND vote.superseded = FALSE
-                )
-            AND id IN (' .
-            join(
-                ' UNION ALL ',
-                map {
-                    "SELECT edit FROM edit_$_ WHERE $_ IN (" .
-                        placeholders(@{ $subscriptions{$_} }) .
-                    ')'
-                } @filter_on
-            ) .
-         ')
-       ORDER BY open_time ASC
-         OFFSET ?';
+    my $columns = $self->_columns;
+    my $table = $self->_table;
+    my $query = "
+SELECT * FROM edit, (
+    SELECT edit FROM edit_artist ea
+    JOIN editor_subscribe_artist esa ON esa.artist = ea.artist
+    WHERE ea.status = ? AND esa.editor = ?
+    UNION
+    SELECT edit FROM edit_label el
+    JOIN editor_subscribe_label esl ON esl.label = el.label
+    WHERE el.status = ? AND esl.editor = ?
+) edits
+WHERE edit.id = edits.edit
+AND edit.status = ?
+AND edit.editor != ?
+AND NOT EXISTS (
+    SELECT TRUE FROM vote
+    WHERE vote.edit = edit.id
+    AND vote.editor = ?
+)
+ORDER BY open_time ASC
+OFFSET ?";
 
     return query_to_list_limited(
         $self->sql, $offset, $limit,
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $editor_id, $STATUS_OPEN, $editor_id,
-        (map { @{ $subscriptions{$_} } } @filter_on),
-        $offset);
+        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
 }
 
 sub subscribed_editor_edits {
@@ -398,6 +385,10 @@ sub create
     $edit->auto_edit(0)
         if ($privs & $UNTRUSTED_FLAG);
 
+    # ModBot can override the rules sometimes
+    $edit->auto_edit(1)
+        if ($editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
+
     # Save quality level
     $edit->quality($quality);
 
@@ -412,8 +403,6 @@ sub create
         $edit->id($self->sql->select_single_value(
             "SELECT nextval('edit_id_seq')"
         ));
-
-        my $ents = $edit->related_entities;
 
         # Automatically accept auto-edits on insert
         if ($edit->auto_edit) {
@@ -436,21 +425,22 @@ sub create
             close_time => $edit->close_time
         };
 
-        my $edit_id = $self->c->raw_sql->insert_row('edit', $row, 'id');
+        my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
 
+        my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
             $ids = [ uniq grep { defined } @$ids ];
             @$ids or next;
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
             my @all_ids = ($edit_id) x @$ids;
-            $self->c->raw_sql->do($query, zip @all_ids, @$ids);
+            $self->c->sql->do($query, zip @all_ids, @$ids);
         }
 
         if ($edit->is_open) {
             $edit->adjust_edit_pending(+1);
         }
-    }, $self->c->sql, $self->c->raw_sql);
+    }, $self->c->sql);
 
     return $edit;
 }
@@ -523,7 +513,7 @@ sub approve
 
         # Apply the changes and close the edit
         $self->accept($edit);
-    }, $self->c->sql, $self->c->raw_sql);
+    }, $self->c->sql);
 }
 
 sub _do_accept
@@ -586,12 +576,10 @@ sub accept
 sub reject
 {
     my ($self, $edit, $status) = @_;
-
     $status ||= $STATUS_FAILEDVOTE;
-    my $expected_status = ($status == $STATUS_DELETED)
-        ? $STATUS_TOBEDELETED
-        : $STATUS_OPEN;
-    confess "The edit is not open anymore." if $edit->status != $expected_status;
+    confess "The edit is not open anymore."
+        unless $edit->status == $STATUS_TOBEDELETED || $edit->status == $STATUS_OPEN;
+
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
 
@@ -601,9 +589,8 @@ sub cancel
     my ($self, $edit) = @_;
 
     Sql::run_in_transaction(sub {
-        my $query = "UPDATE edit SET status = ? WHERE id = ?";
-        $self->c->raw_sql->do($query, $STATUS_TOBEDELETED, $edit->id);
-   }, $self->c->sql, $self->c->raw_sql);
+        $self->reject($edit, $STATUS_DELETED);
+   }, $self->c->sql);
 }
 
 sub _close
@@ -611,7 +598,7 @@ sub _close
     my ($self, $edit, $close_sub) = @_;
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
-    $self->c->raw_sql->do($query, $status, $edit->id);
+    $self->c->sql->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1);
     $edit->status($status);
     $self->c->model('Editor')->credit($edit->editor_id, $status);
@@ -632,7 +619,7 @@ sub insert_votes_and_notes {
                     text => $note->{edit_note},
                 });
         }
-    }, $self->c->raw_sql);
+    }, $self->c->sql);
 }
 
 __PACKAGE__->meta->make_immutable;

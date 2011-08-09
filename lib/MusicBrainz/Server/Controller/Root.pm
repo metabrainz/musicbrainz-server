@@ -7,6 +7,7 @@ use DBDefs;
 use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 
 #
@@ -144,6 +145,7 @@ sub begin : Private
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
             is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
+            read_only      => &DBDefs::DB_READ_ONLY
         },
     );
 
@@ -185,12 +187,14 @@ sub begin : Private
         }
     }
 
-    if (exists $c->action->attributes->{Edit} && $c->user_exists)
+    if (exists $c->action->attributes->{Edit} && $c->user_exists && !$c->user->has_confirmed_email_address)
     {
-        $c->forward('/error_401') unless $c->user->has_confirmed_email_address;
+        log_debug { "User attempted to edit but is not authorized: $_" } $c->user;
+        $c->forward('/error_401');
     }
 
-    if (exists $c->action->attributes->{Edit} && DBDefs::DB_READ_ONLY) {
+    if (DBDefs::DB_READ_ONLY && (exists $c->action->attributes->{Edit} ||
+                                 exists $c->action->attributes->{DenyWhenReadonly})) {
         $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
         $c->forward('/error_400');
     }

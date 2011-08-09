@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Types qw( :edit_status );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -50,11 +51,12 @@ sub alter_edit_pending
     }
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     my $model = $self->c->model( $self->_delete_model);
-    if ($model->does('MusicBrainz::Server::Data::Role::LinksToEdit')) {
+    if ($self->status != $STATUS_APPLIED &&
+            $model->does('MusicBrainz::Server::Data::Role::LinksToEdit')) {
         return {
             $model->edit_link_table => [ $self->entity_id ]
         }
@@ -114,6 +116,9 @@ override 'accept' => sub
 
     $model->delete($self->entity_id);
 };
+
+# We do allow auto edits for this (as ModBot needs to insert them)
+sub modbot_auto_edit { 1 }
 
 __PACKAGE__->meta->make_immutable;
 

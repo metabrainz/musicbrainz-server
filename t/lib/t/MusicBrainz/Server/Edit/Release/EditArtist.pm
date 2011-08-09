@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Edit::Release::EditArtist;
 use Test::Routine;
 use Test::More;
 
+with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants '$EDIT_RELEASE_ARTIST';
@@ -23,21 +24,21 @@ my $original_release = $c->model('Release')->get_by_id(1);
 my $edit = create_edit($c, $original_release);
 
 my $release = $c->model('Release')->get_by_id(1);
-is($release->edits_pending => 1);
+is($release->edits_pending => 1, "release has pending edits");
 is($release->artist_credit_id, 1);
 
 reject_edit($c, $edit);
 
 $release = load_release($c);
-is($release->edits_pending => 0);
+is($release->edits_pending => 0, "release does not have pending edits");
 is($release->artist_credit_id, 1);
 
 $edit = create_edit($c, $original_release);
 accept_edit($c, $edit);
 
 $release = load_release($c);
-is($release->edits_pending => 0);
-ok($release->artist_credit_id != 1);
+is($release->edits_pending => 0, "release does not have pending edits");
+ok($release->artist_credit_id != 1, "release artist credit was changed");
 is($release->artist_credit->names->[0]->artist_id => 2);
 is($_->artist_credit_id => 1)
     for map { $_->tracklist->all_tracks } $release->all_mediums;

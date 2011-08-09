@@ -70,9 +70,10 @@ my $removed = 0;
 my $privs = $BOT_FLAG;
 $privs |= $AUTO_EDITOR_FLAG if $use_auto_mod;
 
+# XXX FIXME Join into 1 query
 my @works = values %{
     $c->model('Work')->get_by_ids(@{
-        $c->raw_sql->select_single_column_array(
+        $c->sql->select_single_column_array(
             'SELECT work.id
                FROM (SELECT unnest(?::INTEGER[])) work(id)
                   WHERE NOT EXISTS (

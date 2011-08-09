@@ -3,12 +3,14 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
+use Test::Fatal;
 
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Constants qw($DLABEL_ID);
 use Sql;
 
 with 't::Context';
@@ -72,7 +74,6 @@ test all => sub {
     memory_cycle_ok(\%names);
 
     $test->c->sql->begin;
-    $test->c->raw_sql->begin;
 
     $label = $label_data->insert({
         name => 'RAM Records',
@@ -150,9 +151,17 @@ test all => sub {
     $label = $label_data->get_by_id(3);
     ok(defined $label, "label merged");
 
-    $test->c->raw_sql->commit;
     $test->c->sql->commit;
 
+};
+
+test 'Deny delete "Deleted Label" trigger' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
+
+    like exception {
+        $c->sql->do ("DELETE FROM artist WHERE id = $DLABEL_ID")
+    }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
 1;

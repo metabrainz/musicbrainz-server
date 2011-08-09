@@ -154,6 +154,10 @@ sub clean_submitted_artist_credits
             # use the id in edits, and that should determine if an
             # artist changed in Edit::WithDifferences).
             delete $part->{artist}->{gid};
+
+            # Fill in the artist credit from the artist name if no artist credit
+            # was submitted (because it is displayed as a HTML5 placeholder).
+            $part->{name} = $part->{artist}->{name} unless $part->{name};
         }
         elsif (! $part)
         {
@@ -208,17 +212,17 @@ sub changed_display_data
     return $display;
 }
 
-our %STATUS_NAMES = (
-    $STATUS_OPEN         => 'Open',
-    $STATUS_APPLIED      => 'Applied',
-    $STATUS_FAILEDVOTE   => 'Failed vote',
-    $STATUS_FAILEDDEP    => 'Failed dependency',
-    $STATUS_ERROR        => 'Error',
-    $STATUS_FAILEDPREREQ => 'Failed prerequisite',
-    $STATUS_NOVOTES      => 'No votes',
-    $STATUS_TOBEDELETED  => 'Due to be cancelled',
-    $STATUS_DELETED      => 'Cancelled',
+our @STATUS_MAP = (
+    [ $STATUS_OPEN         => 'Open' ],
+    [ $STATUS_APPLIED      => 'Applied' ],
+    [ $STATUS_FAILEDVOTE   => 'Failed vote' ],
+    [ $STATUS_FAILEDDEP    => 'Failed dependency' ],
+    [ $STATUS_ERROR        => 'Error' ],
+    [ $STATUS_FAILEDPREREQ => 'Failed prerequisite' ],
+    [ $STATUS_NOVOTES      => 'No votes' ],
+    [ $STATUS_DELETED      => 'Cancelled' ],
 );
+our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
 
 sub edit_status_name
 {
@@ -228,7 +232,7 @@ sub edit_status_name
 
 sub status_names
 {
-    return %STATUS_NAMES
+    return \@STATUS_MAP;
 }
 
 1;

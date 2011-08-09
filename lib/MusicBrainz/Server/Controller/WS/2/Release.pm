@@ -6,6 +6,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT_BARCODES
 );
+use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use TryCatch;
@@ -19,7 +20,7 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          linked   => [ qw(artist label recording release-group) ],
-                         inc      => [ qw(artist-credits labels discids media _relations) ],
+                         inc      => [ qw(artist-credits labels recordings discids media _relations) ],
                          optional => [ qw(limit offset) ],
      },
      release => {
@@ -79,6 +80,7 @@ sub release_toplevel
     if ($c->stash->{inc}->release_groups)
     {
          $c->model('ReleaseGroup')->load($release);
+         $c->model('ReleaseGroup')->load_meta($release->release_group);
 
          my $rg = $release->release_group;
 
@@ -94,6 +96,12 @@ sub release_toplevel
         }
 
         @mediums = $release->all_mediums;
+
+        if (!$c->stash->{inc}->discids)
+        {
+            my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
+            $c->model('CDTOC')->load (@medium_cdtocs);
+        }
 
         my @tracklists = grep { defined } map { $_->tracklist } @mediums;
         $c->model('Track')->load_for_tracklists(@tracklists);
@@ -227,6 +235,7 @@ sub release_submit : Private
 {
     my ($self, $c) = @_;
 
+    $self->deny_readonly($c);
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
     my @submit;
@@ -252,6 +261,8 @@ sub release_submit : Private
         $self->_error($c, "$gid does not match any existing releases")
             unless exists $gid_map{$gid};
     }
+
+    @submit = uniq_by { join(':', $_->{release}, $_->{barcode}) } @submit;
 
     if (@submit) {
         try {

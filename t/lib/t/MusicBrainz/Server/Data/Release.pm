@@ -165,7 +165,6 @@ memory_cycle_ok($release_data);
 memory_cycle_ok(\%names);
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 $sql->begin;
 $release = $release_data->insert({
         name => 'Protection',
@@ -232,7 +231,6 @@ $release = $release_data->get_by_id(2);
 ok(defined $release);
 
 # Merge #7 into #6 with append stategy
-$raw_sql->begin;
 $sql->begin;
 $release_data->merge(
     new_id => 6,
@@ -259,11 +257,9 @@ ok(defined $release);
 $release = $release_data->get_by_id(7);
 ok(!defined $release);
 
-$raw_sql->commit;
 $sql->commit;
 
 # Merge #9 into #8 with merge stategy
-$raw_sql->begin;
 $sql->begin;
 $release_data->merge(new_id => 8, old_ids => [ 9 ], merge_strategy => 2);
 $release = $release_data->get_by_id(8);
@@ -285,7 +281,6 @@ ok(defined $release);
 $release = $release_data->get_by_id(9);
 ok(!defined $release);
 
-$raw_sql->commit;
 $sql->commit;
 
 };
@@ -296,9 +291,7 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 
-$raw_sql->begin;
 $sql->begin;
 
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
@@ -336,7 +329,6 @@ ok(defined $release);
 $release = $release_data->get_by_id(7);
 ok(!defined $release);
 
-$raw_sql->commit;
 $sql->commit;
 
 };

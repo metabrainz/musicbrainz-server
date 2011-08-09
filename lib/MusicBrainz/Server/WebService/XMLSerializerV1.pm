@@ -2,7 +2,6 @@ package MusicBrainz::Server::WebService::XMLSerializerV1;
 
 use Moose;
 use Readonly;
-use MusicBrainz::XML::Generator;
 use MusicBrainz::Server::WebService::WebServiceIncV1;
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity list_of);
 

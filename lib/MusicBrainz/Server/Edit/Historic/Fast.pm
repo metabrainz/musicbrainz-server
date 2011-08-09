@@ -23,7 +23,7 @@ __PACKAGE__->mk_accessors(qw(
 
 sub edit_type { }
 sub historic_type { shift->edit_type }
-sub related_entities { return {} }
+sub _build_related_entities { return {} }
 
 sub to_hash { shift->data }
 

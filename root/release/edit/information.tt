@@ -14,16 +14,6 @@
   //]]></script>
 [%- END -%]
 
-[%- MACRO validate_barcode(field) BLOCK -%]
-<div class="barcode bubble">
-     <p>
-        [% l('Please enter the barcode of the release you are entering, see <a href="{url}">Barcode</a> for more information.', { url => c.uri_for('/doc/Barcode') }) %]
-     </p>
-     <p class="barcode-message"></p>
-     <p class="barcode-suggestion"></p>
-</div>
-[%- END -%]
-
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
   <div class="half-width">
@@ -50,13 +40,6 @@
       </div>
 
       [%- form_row_artist_credit(form, 'release-artist') -%]
-      <div class="row change-track-artists"
-        [%- UNLESS edit_release -%]style="display: none"[%- END -%]>
-        [% r.label('various_artists', 'Change track artists') %]
-        <img style="float: right; margin-right: 12px;" id="help-cta"
-             src="[% c.uri_for("/static/images/icons/help.png") %]" />
-        [% r.checkbox('change_track_artists') %]
-      </div>
 
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]
@@ -73,6 +56,7 @@
          <label for="release-date">[% l('Date') %]</label>
          [% r.date('date') %]
       [% END %]
+      [% field_errors(r.form, 'date') %]
 
       [% form_row_select (r, 'country_id', 'Country') %]
       [% form_row_select (r, 'packaging_id', 'Packaging') %]
@@ -135,19 +119,6 @@
       </div>
     </div>
 
-    [%# "cta" is "change track artists" %]
-    <div class="help-cta-container" style="display: none">
-      <div class="help-cta bubble">
-        [%# FIXME: this could be worded better. suggestions? --warp. %]
-        <p>
-          [% l("Check this if you want tracks to also use the artist you have just entered.") %]
-        </p>
-        <p>
-          [% l("This will only update those tracks which currently have the same artists as the entire release.") %]
-        </p>
-      </div>
-    </div>
-
     [%- guesscase_bubble() -%]
     [%- artist_credit_table(form) -%]
 
@@ -176,7 +147,20 @@
     [% END %]
 
     <div class="barcode-container" style="display: none">
-    [% validate_barcode(form.field('barcode')) %]
+      <div class="barcode bubble">
+       <p>
+          [% l('Please enter the barcode of the release you are entering, see <a href="{url}">Barcode</a> for more information.', { url => c.uri_for('/doc/Barcode') }) %]
+       </p>
+       <p class="barcode-message"></p>
+       <p class="barcode-confirm">
+          <label for="id-barcode_confirm">
+            <strong>
+              [%- r.checkbox('barcode_confirm') %]
+              [% l("I confirm that this is the barcode as it appears on the release.") -%]
+            </strong>
+          </label>
+       </p>
+      </div>
     </div>
 
     <div class="annotation-container" style="display: none">

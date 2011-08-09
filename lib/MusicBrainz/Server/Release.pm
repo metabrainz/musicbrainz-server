@@ -454,7 +454,7 @@ sub Remove
     my $rel = MusicBrainz::Server::ReleaseEvent->new($sql->{dbh});
     $rel->RemoveByRelease($album);
 
-    if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
+    if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin
                          where AlbumJoin.album = $album|))
     {
         require MusicBrainz::Server::Track;
@@ -643,7 +643,7 @@ sub LoadFromId
         . " WHERE       a.$idcol = ?",
         $idval,
     );
-    
+
     if (!$row)
     {
         return undef
@@ -651,7 +651,7 @@ sub LoadFromId
 
         my $newid = $this->CheckGlobalIdRedirect($idval, &TableBase::TABLE_RELEASE)
                 or return;
-    
+
         $row = $sql->SelectSingleRowArray(
                 "SELECT a.id, name, gid, modpending, artist, attributes, "
                 . "       language, script, modpending_lang, quality, modpending_qual"
@@ -725,7 +725,7 @@ sub LoadTracks
     my (@info, $query, $sql, @row, $track);
 
     $sql = Sql->new($this->dbh);
-  
+
     if (not wantarray)
     {
         return $sql->SelectSingleValue(
@@ -734,28 +734,28 @@ sub LoadTracks
         );
     }
 
-    $query = qq/select 
-                                Track.id, 
-                                Track.name, 
-                                Track.artist, 
-                                AlbumJoin.sequence, 
-                                Track.length, 
-                                Track.modpending, 
-                                AlbumJoin.modpending, 
-                                Artist.name, 
+    $query = qq/select
+                                Track.id,
+                                Track.name,
+                                Track.artist,
+                                AlbumJoin.sequence,
+                                Track.length,
+                                Track.modpending,
+                                AlbumJoin.modpending,
+                                Artist.name,
                                 Track.gid,
                                 AlbumJoin.album,
                     Track_meta.rating,
                     Track_meta.rating_count
-                from 
+                from
                         Track, Track_meta, AlbumJoin, Artist
-                where 
-                        AlbumJoin.track = Track.id and 
-                        AlbumJoin.album = ? and 
+                where
+                        AlbumJoin.track = Track.id and
+                        AlbumJoin.album = ? and
                         Track.Artist = Artist.id and
                 Track_meta.id = Track.id
                 order by /;
-    
+
     $query .= $this->IsNonAlbumTracks() ? " Track.name " : " AlbumJoin.sequence ";
 
     if ($sql->Select($query, $this->{id}))
@@ -836,27 +836,27 @@ sub has_multiple_track_artists
 {
     my $self = shift;
     my ($tracks, %ar);
-    
+
     unless (defined $self->{"_isva"})
     {
         # use release artist for comparison, for the unlikely
         # case that all the track artists are the same but
         # different than the release artist. we still diplay
         # the track artists in that case.
-        
+
         $ar{$self->artist} = 1;
-        
+
         # get the list of tracks and get their respective
         # artistid.
         $tracks = $self->GetTracks;
-        foreach my $t (@$tracks) 
+        foreach my $t (@$tracks)
         {
                 $ar{$t->artist->id} = 1;
         }
         $self->{"_isva"} = (keys %ar > 1);
     }
     $self->{"_isva"} || undef;
-} 
+}
 
 # Fetch PUID counts for each track of the current album.
 # Returns a reference to a hash, where the keys are track IDs and the values
@@ -889,7 +889,7 @@ sub LoadLatestTrackAnnos
 {
      my $self = shift;
     my $sql = Sql->new($self->dbh);
-    
+
     my $annos = $sql->SelectListOfLists(
         "SELECT albumjoin.track, annotation.text != ''
         FROM    albumjoin, annotation
@@ -918,7 +918,7 @@ sub MergeReleases
    my $merge_langscript = $opts->{'merge_langscript'};
 
    my ($al, $ar, $tr, @tracks, %merged, $id, $sql);
-   
+
    return undef if (scalar(@list) < 1);
 
    @tracks = $this->LoadTracks();
@@ -946,7 +946,7 @@ sub MergeReleases
 
    require MusicBrainz::Server::Release;
    $al = MusicBrainz::Server::Release->new($this->dbh);
-   
+
    require MusicBrainz::Server::Link;
    my $link = MusicBrainz::Server::Link->new($sql->{dbh});
 
@@ -970,7 +970,7 @@ sub MergeReleases
 
                         my $puid = MusicBrainz::Server::PUID->new($this->dbh);
                         $puid->merge_tracks($old, $new);
-                        
+
                         # Move relationships
                         $link->MergeTracks($old, $new);
 
@@ -998,7 +998,7 @@ sub MergeReleases
                                 $this->artist,
                                 $tr->id,
                         );
-           }                
+           }
        }
 
         $this->MergeAttributesFrom($al) if $merge_attributes;
@@ -1072,7 +1072,7 @@ sub browse_selection
     my ($this, $ind, $offset, $limit, $artist) = @_;
 
     return unless length($ind) > 0;
-    
+
     my $sql = Sql->new($this->dbh);
 
     my ($page_min, $page_max) = $this->CalculatePageIndex($ind);
@@ -1096,7 +1096,7 @@ sub browse_selection
         $query .= 'AND artist = ?';
         push @args, $artist->id;
     }
-    
+
     $query .= qq{
         ORDER BY LOWER(name)
           OFFSET ?
@@ -1111,7 +1111,7 @@ sub browse_selection
     {
         my $row = $sql->NextRowHashRef
             or last;
-        
+
         # TODO: Moose!
         my $release = MusicBrainz::Server::Release->new($this->dbh);
         $release->id($row->{id});
@@ -1123,7 +1123,7 @@ sub browse_selection
         $release->{trackcount} = $row->{tracks};
         $release->{puidcount} = $row->{puidcount};
         $release->{attrs} = $row->{attributes};
-        
+
         push @rows, $release;
     }
 
@@ -1218,7 +1218,7 @@ sub UpdateLanguageAndScript
         . "WHERE tab = 'album' AND rowid = ? AND type = ? ",
         $this->language_id || undef,
         $this->id,
-        &ModDefs::MOD_ADD_RELEASE, 
+        &ModDefs::MOD_ADD_RELEASE,
     );
 }
 
@@ -1366,7 +1366,7 @@ sub CanAddTrack
                 { tracknum => $tracknum, trackcount => $fixtracks }),
                 return 0
                 if $tracknum > $fixtracks;
-        
+
         $@ = "", return 1;
     }
 

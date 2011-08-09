@@ -54,13 +54,13 @@ is_deeply($edit->data, {
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
-$mech->content_contains('Another name', '..has new name');
-$mech->content_contains('Dancing Queen', '..has old name');
-$mech->content_contains('T-123.456.789-0', '..has new iswc');
-$mech->content_contains('T-000.000.001-0', '..has old iswc');
-$mech->content_contains('Symphony', '..has new work type');
-$mech->content_contains('Composition', '..has old work type');
-$mech->content_contains('A comment!', '..has new comment');
+$mech->text_contains('Another name', '..has new name');
+$mech->text_contains('Dancing Queen', '..has old name');
+$mech->text_contains('T-123.456.789-0', '..has new iswc');
+$mech->text_contains('T-000.000.001-0', '..has old iswc');
+$mech->text_contains('Symphony', '..has new work type');
+$mech->text_contains('Composition', '..has old work type');
+$mech->text_contains('A comment!', '..has new comment');
 
 };
 

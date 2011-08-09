@@ -30,7 +30,7 @@ sub _release_ids
         $self->_additions, $self->_removals, $self->_edits;
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

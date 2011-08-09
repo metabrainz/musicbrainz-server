@@ -31,9 +31,7 @@ memory_cycle_ok($url_data);
 memory_cycle_ok($url);
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 $sql->begin;
-$raw_sql->begin;
 
 $url_data->update($url->id, {
     url => 'http://google.com',
@@ -58,7 +56,6 @@ is($url_data->get_by_gid('9b3c5c67-572a-4822-82a3-bdd3f35cf152')->id,
 memory_cycle_ok($url_data);
 
 $sql->commit;
-$raw_sql->commit;
 
 };
 

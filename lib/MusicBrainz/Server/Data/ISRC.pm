@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::ISRC;
-
 use Moose;
+
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
@@ -53,7 +54,7 @@ sub find_by_recording
 sub load_for_recordings
 {
     my ($self, @recordings) = @_;
-    my %id_to_recordings = object_to_ids (@recordings);
+    my %id_to_recordings = object_to_ids (uniq @recordings);
     my @ids = keys %id_to_recordings;
     return unless @ids; # nothing to do
     my @isrcs = $self->find_by_recording(@ids);
@@ -134,7 +135,7 @@ sub filter_additions
     my ($self, @additions) = @_;
 
     my $query =
-        'SELECT array_index
+        'SELECT DISTINCT ON (isrc, recording) array_index
            FROM (VALUES ' . join(', ', ('(?::int, ?::text, ?::int)') x @additions) . ')
                   addition (array_index, isrc, recording)
           WHERE NOT EXISTS (

@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Fatal;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Recording::AddISRCs };

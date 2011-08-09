@@ -1,3 +1,5 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-release-group">
   <tr>
     <th>[% l('Release Group:') %]</th>
@@ -6,35 +8,23 @@
     </td>
   </tr>
 
-  [%- IF edit.display_data.name -%]
-  <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old | html %]</td>
-    <td class="new">[% edit.display_data.name.new | html %]</td>
-  </tr>
-  [%- END -%]
+  [%- display_word_diff(l('Name:'),
+                        html_escape(edit.display_data.name.old),
+                        html_escape(edit.display_data.name.new)) -%]
 
-  [%- IF edit.display_data.comment -%]
-  <tr>
-    <th>[% l('Comment:') %]</th>
-    <td class="old">[% edit.display_data.comment.old | html %]</td>
-    <td class="new">[% edit.display_data.comment.new | html %]</td>
-  </tr>
-  [%- END -%]
+  [%- display_word_diff(l('Comment:'),
+                        html_escape(edit.display_data.comment.old),
+                        html_escape(edit.display_data.comment.new)) -%]
 
-  [%- IF edit.display_data.type -%]
-  <tr>
-    <th>[% l('Release Group Type:') %]</th>
-    <td class="old">[% edit.display_data.type.old.name | html %]</td>
-    <td class="new">[% edit.display_data.type.new.name | html %]</td>
-  </tr>
-  [%- END -%]
+  [%- display_full_change(l('Type:'),
+                          html_escape(edit.display_data.type.old.name),
+                          html_escape(edit.display_data.type.new.name)) -%]
 
   [%- IF edit.display_data.artist_credit -%]
   <tr>
     <th>[% l('Artist:') %]</th>
-    <td class="old">[% artist_credit(edit.display_data.artist_credit.old) %]</td>
-    <td class="new">[% artist_credit(edit.display_data.artist_credit.new) %]</td>
+    <td class="old">[% expanded_artist_credit(edit.display_data.artist_credit.old) %]</td>
+    <td class="new">[% expanded_artist_credit(edit.display_data.artist_credit.new) %]</td>
   </tr>
   [%- END -%]
 </table>

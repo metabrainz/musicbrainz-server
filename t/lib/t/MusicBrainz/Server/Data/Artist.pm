@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
+use Test::Fatal;
 
 use MusicBrainz::Server::Data::Artist;
 
@@ -11,8 +12,10 @@ use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Search;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Constants qw($DARTIST_ID $VARTIST_ID);
 use Sql;
 
+with 't::Edit';
 with 't::Context';
 
 test all => sub {
@@ -22,9 +25,7 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+data_artist');
 
 my $sql = $test->c->sql;
-my $raw_sql = $test->c->raw_sql;
 $sql->begin;
-$raw_sql->begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Editable');
@@ -98,10 +99,8 @@ like ( $annotation->text, qr/Test annotation 2/ );
 memory_cycle_ok($annotation, 'annotation entity has no cycles after get_latest annotation');
 memory_cycle_ok($artist_data, 'artist data does not leak after merging annotations');
 
-TODO: {
-    local $TODO = 'Merging annotations should concatenate or combine them';
-    like($annotation->text, qr/Test annotation 1.*Test annotation 7/s);
-}
+like($annotation->text, qr/Test annotation 1/, 'has annotation 1');
+like($annotation->text, qr/Test annotation 2/, 'has annotation 2');
 
 # Deleting annotations
 $artist_data->annotation->delete(4);
@@ -111,7 +110,6 @@ ok(!defined $annotation);
 memory_cycle_ok($artist_data, 'artist data does not leak after deleting annotations');
 
 $sql->commit;
-$raw_sql->commit;
 
 # ---
 # Searching for artists
@@ -126,7 +124,6 @@ is( $results->[0]->entity->sort_name, "Artist, Test" );
 memory_cycle_ok($results, 'search results do not leak after searching for artists');
 
 $sql->begin;
-$raw_sql->begin;
 
 # ---
 # Find/insert artist names
@@ -295,7 +292,6 @@ ok(!$artist_data->can_delete(3));
     is($testartists[1]->comment, 'Yet Another Test Artist');
 
 $sql->commit;
-$raw_sql->commit;
 
 };
 
@@ -324,7 +320,6 @@ test 'Merging with a cache' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+data_artist');
 
     $c->sql->begin;
-    $c->raw_sql->begin;
 
     my $artist1 = $c->model('Artist')->get_by_gid('745c079d-374e-4436-9448-da92dedef3ce');
     my $artist2 = $c->model('Artist')->get_by_gid('945c079d-374e-4436-9448-da92dedef3cf');
@@ -340,7 +335,24 @@ test 'Merging with a cache' => sub {
     ok(!$cache->exists('artist:' . $artist2->id), 'artist 2 no longer in cache (by id)');
 
     $c->sql->commit;
-    $c->raw_sql->commit;
+};
+
+test 'Deny delete "Various Artists" trigger' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
+
+    like exception {
+        $c->sql->do ("DELETE FROM artist WHERE id = $VARTIST_ID")
+    }, qr/ERROR:\s*Attempted to delete a special purpose row/;
+};
+
+test 'Deny delete "Deleted Artist" trigger' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
+
+    like exception {
+        $c->sql->do ("DELETE FROM artist WHERE id = $DARTIST_ID")
+    }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
 1;

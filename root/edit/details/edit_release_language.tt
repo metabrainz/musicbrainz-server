@@ -5,7 +5,7 @@
       <table>
         [% FOR old=edit.display_data.old %]
         <tr>
-          <td>[% l('Language: {language}, script: {script}',
+          <td class="old">[% l('Language: {language}, script: {script}',
                    { language = old.language.name || '?',
                      script = old.script.name || '?' }) %]</td>
           <td>
@@ -23,11 +23,11 @@
 
   <tr>
     <th>[% l('New language:') %]</th>
-    <td>[% edit.display_data.language.name %]</td>
+    <td class="new">[% edit.display_data.language.name %]</td>
   </tr>
 
   <tr>
     <th>[% l('New script:') %]</th>
-    <td>[% edit.display_data.script.name %]</td>
+    <td class="new">[% edit.display_data.script.name %]</td>
   </tr>
 </table>

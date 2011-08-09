@@ -55,7 +55,7 @@ MB.Control.autocomplete_formatters = {
         a.append ('<br /><span class="autocomplete-comment">by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
 
-        if (item.appears_on)
+        if (item.appears_on && item.appears_on.hits > 0)
         {
             var rgs = [];
             $.each (item.appears_on.results, function (idx, item) {
@@ -69,6 +69,9 @@ MB.Control.autocomplete_formatters = {
 
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
                       MB.utility.escapeHTML (rgs.join (", ")) + '</span>');
+        }
+        else {
+            a.append ('<br /><span class="autocomplete-appears">standalone recording</span>');
         }
 
         if (item.isrcs.length)

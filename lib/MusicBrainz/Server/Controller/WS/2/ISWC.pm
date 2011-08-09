@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::WS::2::ISWC;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
+use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_valid_iswc );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -33,16 +35,15 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
     }
 
     my $stash = WebServiceStash->new;
-    my $opts = $stash->store ($iswc);
-    $opts->{works} = $self->make_list (\@works);
 
     for (@works)
     {
-        $c->controller('Work')->work_toplevel ($c, $stash, $_);
+        $c->controller('WS::2::Work')->work_toplevel ($c, $stash, $_);
     }
 
+    my $work_list = $self->make_list (\@works);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('isrc', \@works, $c->stash->{inc}, $stash));
+    $c->res->body($c->stash->{serializer}->serialize('iswc', $work_list, $c->stash->{inc}, $stash));
 }
 
 __PACKAGE__->meta->make_immutable;

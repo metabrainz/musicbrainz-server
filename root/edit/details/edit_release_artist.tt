@@ -7,14 +7,9 @@
   [% IF edit.display_data.artist_credit %]
   <tr>
     <th>[% l('Artist:') %]</th>
-    <td class="old">[% artist_credit(edit.display_data.artist_credit.old) %]</td>
-    <td class="new">[% artist_credit(edit.display_data.artist_credit.new) %]</td>
+    <td class="old">[% expanded_artist_credit(edit.display_data.artist_credit.old) %]</td>
+    <td class="new">[% expanded_artist_credit(edit.display_data.artist_credit.new) %]</td>
   </tr>
   [% END %]
-
-  <tr>
-    <th>[% l('Change track artists:') %]</th>
-    <td>[% edit.display_data.update_tracklists ? l('Yes') : l('No') %]</td>
-  </tr>
 
 </table>

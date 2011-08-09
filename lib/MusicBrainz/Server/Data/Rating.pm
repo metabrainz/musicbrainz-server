@@ -22,7 +22,7 @@ sub find_by_entity_id
         SELECT editor, rating FROM ${type}_rating_raw
         WHERE $type = ? ORDER BY rating DESC, editor";
 
-    return query_to_list($self->c->raw_sql, sub {
+    return query_to_list($self->c->sql, sub {
         my $row = $_[0];
         return MusicBrainz::Server::Entity::Rating->new(
             editor_id => $row->{editor},
@@ -44,13 +44,13 @@ sub load_user_ratings
         SELECT $type AS id, rating FROM ${type}_rating_raw
         WHERE editor = ? AND $type IN (".placeholders(@ids).")";
 
-    $self->c->raw_sql->select($query, $user_id, @ids);
+    $self->c->sql->select($query, $user_id, @ids);
     while (1) {
-        my $row = $self->c->raw_sql->next_row_hash_ref or last;
+        my $row = $self->c->sql->next_row_hash_ref or last;
         my $obj = $id_to_obj{$row->{id}};
         $obj->user_rating($row->{rating});
     }
-    $self->c->raw_sql->finish;
+    $self->c->sql->finish;
 }
 
 sub _update_aggregate_rating
@@ -62,7 +62,7 @@ sub _update_aggregate_rating
     my $table_raw = $type . '_rating_raw';
 
     # Update the aggregate rating
-    my $row = $self->c->raw_sql->select_single_row_array("
+    my $row = $self->c->sql->select_single_row_array("
         SELECT count(rating), sum(rating)
         FROM $table_raw WHERE $type = ?
         GROUP BY $type", $entity_id);
@@ -84,7 +84,7 @@ sub merge
     my $table = $type . '_meta';
     my $table_raw = $type . '_rating_raw';
 
-    my $ratings = $self->c->raw_sql->do(
+    my $ratings = $self->c->sql->do(
         "INSERT INTO $table_raw (editor, rating, $type)
              SELECT editor, max(rating), ?
                FROM delete_ratings(?, ?)
@@ -101,8 +101,7 @@ sub merge
 sub delete
 {
     my ($self, @entity_ids) = @_;
-    my $raw_sql = $self->c->raw_sql;
-    $raw_sql->do("
+    $self->c->sql->do("
         DELETE FROM " . $self->type . "_rating_raw
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
@@ -115,7 +114,7 @@ sub update
 
     my ($rating_count, $rating_sum, $rating_avg);
 
-    my $raw_sql = $self->c->raw_sql;
+    my $sql = $self->c->sql;
     Sql::run_in_transaction(sub {
 
         my $type = $self->type;
@@ -123,32 +122,32 @@ sub update
         my $table_raw = $type . '_rating_raw';
 
         # Check if user has already rated this entity
-        my $whetherrated = $raw_sql->select_single_value("
+        my $whetherrated = $sql->select_single_value("
             SELECT rating FROM $table_raw
             WHERE $type = ? AND editor = ?", $entity_id, $user_id);
         if (defined $whetherrated) {
             # Already rated - so update
             if ($rating) {
-                $raw_sql->do("UPDATE $table_raw SET rating = ?
+                $sql->do("UPDATE $table_raw SET rating = ?
                               WHERE $type = ? AND editor = ?",
                               $rating, $entity_id, $user_id);
             }
             else {
-                $raw_sql->do("DELETE FROM $table_raw
+                $sql->do("DELETE FROM $table_raw
                               WHERE $type = ? AND editor = ?",
                               $entity_id, $user_id);
             }
         }
         elsif ($rating) {
             # Not rated - so insert raw rating value, unless rating = 0
-            $raw_sql->do("INSERT INTO $table_raw (rating, $type, editor)
+            $sql->do("INSERT INTO $table_raw (rating, $type, editor)
                           VALUES (?, ?, ?)", $rating, $entity_id, $user_id);
         }
 
         # Update the aggregate rating
         ($rating_count, $rating_sum) = $self->_update_aggregate_rating($entity_id);
 
-    }, $self->c->sql, $self->c->raw_sql);
+    }, $self->c->sql);
 
     return ($rating_avg, $rating_count);
 }
@@ -165,7 +164,7 @@ MusicBrainz::Server::Data::Rating
 
 =head2 delete(@entity_ids)
 
-Delete ratings from the RAWDATA database for entities from @entity_ids.
+Delete ratings from the database for entities from @entity_ids.
 
 =head2 update($user_id, $entity_id, $rating)
 

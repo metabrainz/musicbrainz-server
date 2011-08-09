@@ -1,33 +1,19 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
 <table class="details edit-relationship-attribute">
-  [% IF edit.display_data.name %]
-  <tr>
-    <th>[% l('Name:') %]</th>
-    <td class="old">[% edit.display_data.name.old %] </td>
-    <td class="new">[% edit.display_data.name.new %] </td>
-  </tr>
-  [% END %]
+  [%- display_word_diff(l('Name:'),
+                        edit.display_data.name.old,
+                        edit.display_data.name.new) -%]
 
-  [% IF edit.display_data.description %]
-  <tr>
-    <th>[% l('Description:') %]</th>
-    <td class="old">[% edit.display_data.description.old %] </td>
-    <td class="new">[% edit.display_data.description.new %] </td>
-  </tr>
-  [% END %]
+  [%- display_word_diff(l('Description:'),
+                        edit.display_data.description.old,
+                        edit.display_data.description.new) -%]
 
-  [% IF edit.display_data.parent %]
-  <tr>
-    <th>[% l('Parent:') %]</th>
-    <td class="old">[% edit.display_data.parent.old.name %] </td>
-    <td class="new">[% edit.display_data.parent.new.name %] </td>
-  </tr>
-  [% END %]
+  [%- display_word_diff(l('Parent:'),
+                        edit.display_data.parent.old.name,
+                        edit.display_data.parent.new.name) -%]
 
-  [% IF edit.display_data.child_order %]
-  <tr>
-    <th>[% l('Child order:') %]</th>
-    <td class="old">[% edit.display_data.child_order.old %] </td>
-    <td class="new">[% edit.display_data.child_order.new %] </td>
-  </tr>
-  [% END %]
+  [%- display_diff(l('Child order:'),
+                   edit.display_data.child_order.old,
+                   edit.display_data.child_order.new) -%]
 </table>

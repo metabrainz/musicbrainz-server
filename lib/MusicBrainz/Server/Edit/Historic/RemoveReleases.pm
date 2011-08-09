@@ -12,7 +12,7 @@ sub edit_name     { l('Remove releases') }
 sub historic_type { 24 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASES }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         release => [ map { $_->{id} } @{ $self->data->{releases} } ],

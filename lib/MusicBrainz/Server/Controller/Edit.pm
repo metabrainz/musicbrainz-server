@@ -5,8 +5,11 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Data::Page;
 use DBDefs;
+use MusicBrainz::Server::EditRegistry;
+use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
+use MusicBrainz::Server::EditSearch::Query;
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
@@ -150,16 +153,23 @@ sub open : Local RequireAuth
 sub search : Path('/search/edits') RequireAuth
 {
     my ($self, $c) = @_;
+    my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_name;
+    $c->stash(
+        edit_types => [
+            map [
+                join(',', map { $_->edit_type } @{ $grouped{$_} }) => $_
+            ], sort keys %grouped
+        ],
+        status => status_names(),
+    );
+    return unless %{ $c->req->query_params };
 
-    my $form = $c->form( form => 'Search::Edits' );
-    if ($form->submitted_and_valid($c->req->query_params)) {
-        my @types = @{ $form->field('type')->value };
+    my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params);
+    $c->stash( query => $query );
 
+    if ($query->valid) {
         my $edits = $self->_load_paged($c, sub {
-            return $c->model('Edit')->find({
-                type   => [ map { split /,/ } @types ],
-                status => $form->field('status')->value,
-            }, shift, shift);
+            return $c->model('Edit')->run_query($query, shift, shift);
         });
 
         $c->model('Edit')->load_all(@$edits);

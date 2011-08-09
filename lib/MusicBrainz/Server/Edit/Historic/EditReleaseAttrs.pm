@@ -23,7 +23,7 @@ sub _release_ids
     return uniq map { @{ $_->{release_ids} } } $self->_changes
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

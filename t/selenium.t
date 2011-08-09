@@ -55,7 +55,6 @@ if ($selenium->is_success)
     my $c = MusicBrainz::Server::Test->create_test_context();
 
     $c->sql->begin;
-    $c->raw_sql->begin;
 
     try {
         MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
@@ -78,7 +77,6 @@ if ($selenium->is_success)
     }
     finally {
         $c->sql->rollback;
-        $c->raw_sql->rollback;
         die(@_) if @_;
     };
 }

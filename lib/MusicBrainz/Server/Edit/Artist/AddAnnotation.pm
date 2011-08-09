@@ -12,7 +12,7 @@ with 'MusicBrainz::Server::Edit::Artist';
 sub edit_name { l('Add artist annotation') }
 sub edit_type { $EDIT_ARTIST_ADD_ANNOTATION }
 
-sub related_entities { { artist => [ shift->artist_id ] } }
+sub _build_related_entities { { artist => [ shift->artist_id ] } }
 sub models { [qw( Artist )] }
 
 sub _annotation_model { shift->c->model('Artist')->annotation }

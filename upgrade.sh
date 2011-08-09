@@ -5,26 +5,17 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
-echo `date` : Backing up data
-./admin/psql RAWDATA < admin/sql/updates/RAWDATA-backup.sql
-./admin/psql READWRITE < admin/sql/updates/READWRITE-backup.sql
+echo `date` : Adding label code constraints
+./admin/psql READWRITE < admin/sql/updates/20110801-label-code-validation.sql
 
-echo `date` : Making medium-cdtoc pairs unique
-./admin/psql READWRITE < ./admin/sql/updates/20110530-duplicate-cdtocs.sql
+echo `date` : Fixing edits_failed column
+./admin/psql READWRITE < admin/sql/updates/20110725-rebuild-editor-stats.sql
 
-echo `date` : Adding special purpose row constraints
-./admin/psql READWRITE < admin/sql/updates/20110808-special-purpose-triggers.sql
+echo `date` : Removing and preventing invalid attributes on links
+./admin/psql READWRITE < ./admin/sql/updates/20110726-invalid-attributes.sql
 
-echo `date` : "Creating additional artist and label name indexes (MBS-2347)."
-./admin/psql READWRITE < admin/sql/updates/20110613-unaccent-lower-index.sql
-
-echo `date` : Disambiguating Discogs release URLs
-./admin/psql READWRITE < admin/sql/updates/20110608-READWRITE-backup-before.sql
-./admin/sql/updates/20110608-disambiguate-discogs-relationships.pl
-./admin/psql READWRITE < admin/sql/updates/20110608-READWRITE-backup-after.sql
-
-echo `date` : Fix edit release label edits
-./admin/sql/updates/20110610-edit-release-label.pl
+echo `date` : Fixing sbontragers ISRC submissions
+./admin/sql/updates/20110604-cleanup-sbontrager-isrc.pl
 
 echo `date` : Done
 

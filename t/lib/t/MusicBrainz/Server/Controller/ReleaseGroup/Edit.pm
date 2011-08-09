@@ -65,14 +65,14 @@ is_deeply($edit->data, {
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
-$mech->content_contains('Arrival', '..has old release group name');
-$mech->content_contains('Another name', '..has new release group name');
-$mech->content_contains('A comment!', '..has new comment');
-$mech->content_contains('Album', '..has old type');
-$mech->content_contains('Single', '..has new type');
-$mech->content_contains('Foo', '..has new artist');
+$mech->text_contains('Arrival', '..has old release group name');
+$mech->text_contains('Another name', '..has new release group name');
+$mech->text_contains('A comment!', '..has new comment');
+$mech->text_contains('Album', '..has old type');
+$mech->text_contains('Single', '..has new type');
+$mech->text_contains('Foo', '..has new artist');
 $mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '...and links to artist');
-$mech->content_contains('ABBA', '..has old artist');
+$mech->text_contains('ABBA', '..has old artist');
 $mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', '...and links to artist');
 
 };

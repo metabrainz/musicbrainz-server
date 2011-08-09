@@ -205,6 +205,7 @@ sub lookup : Chained('load') PathPart('')
 sub submit_cdstub : Private
 {
     my ($self, $c) = @_;
+    $self->deny_readonly($c);
 
     my $discid = $c->req->params->{discid};
     my $toc = $c->req->params->{toc};

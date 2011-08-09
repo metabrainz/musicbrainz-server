@@ -40,6 +40,8 @@ sub release_group_toplevel
 {
     my ($self, $c, $stash, $rg) = @_;
 
+    $c->model('ReleaseGroup')->load_meta($rg);
+
     my $opts = $stash->store ($rg);
 
     $self->linked_release_groups ($c, $stash, [ $rg ]);

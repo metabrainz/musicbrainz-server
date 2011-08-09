@@ -2,11 +2,10 @@ package MusicBrainz::Server::Edit::Work::Delete;
 use Moose;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE );
+use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE $EDITOR_MODBOT );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 extends 'MusicBrainz::Server::Edit::Generic::Delete';
-with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 
 sub edit_name { l('Remove work') }

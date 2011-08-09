@@ -53,11 +53,10 @@ sub process_edits
         return 0;
     }
 
-    my $sql = Sql->new($self->c->dbh);
-    my $raw_sql = Sql->new($self->c->raw_dbh);
+    my $sql = $self->c->sql;
 
     $self->log->debug("Selecting open and to-be-deleted edit IDs\n");
-    my $edit_ids = $raw_sql->select_single_column_array("
+    my $edit_ids = $sql->select_single_column_array("
         SELECT id FROM edit WHERE status IN (?, ?) ORDER BY id",
         $STATUS_OPEN, $STATUS_TOBEDELETED);
 
@@ -68,7 +67,7 @@ sub process_edits
         try {
             Sql::run_in_transaction(sub {
                 $action = $self->_process_edit($edit_id) || "no change"
-            }, $sql, $raw_sql);
+            }, $sql);
         }
         catch ($err) {
             $errors += 1;

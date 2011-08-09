@@ -48,6 +48,7 @@ has 'isrcs' => (
     default => sub { [] },
     handles => {
         add_isrc => 'push',
+        all_isrcs => 'elements'
     }
 );
 

@@ -15,7 +15,11 @@
         <tbody>
             [%- FOR recording=recordings -%]
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                <td>[% link_entity(recording.recording) %]</td>
+                <td>
+                  [% '<span class="mp">' IF recording.edits_pending %]
+                  [% link_entity(recording.recording) %]
+                  [% '</span>' IF recording.edits_pending %]
+                </td>
                 <td>[% artist_credit(recording.recording.artist_credit) %]</td>
                 <td>[% recording.recording.length | format_length %]</td>
             </tr>

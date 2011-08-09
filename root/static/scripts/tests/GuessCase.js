@@ -250,7 +250,13 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "Bad Hands (Part II)",
                 expected: "Bad Hands, Part II",
                 bug: "MBS-2408", mode: "English"
+            },
+            {
+                input: "Hold on, I'm Coming",
+                expected: "Hold On, I'm Coming",
+                bug: "MBS-3013", mode: "English"
             }
+
 
             /* There is no fix for these yet.
             {

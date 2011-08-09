@@ -63,11 +63,12 @@ $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce', '
 $mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', 'has link to artist');
 $mech->content_contains('ABBA', 'has artist');
 
-$mech->get_ok('/search?query=random_editor&type=editor', 'perform editor search');
+$mech->get_ok('/search?query=joe_bloggs&type=editor', 'perform editor search');
 html_ok($mech->content);
-$mech->content_contains('There is no editor with this name');
+$mech->content_lacks('qoe_bloggs');
 $mech->get_ok('/search?query=new_editor&type=editor', 'perform editor search');
-is($mech->uri->path, '/user/new_editor');
+$mech->content_contains('/user/new_editor');
+$mech->text_contains('new_editor');
 
 $mech->get_ok('/search?query=musical&type=tag&direct=on', 'perform tag search');
 html_ok($mech->content);

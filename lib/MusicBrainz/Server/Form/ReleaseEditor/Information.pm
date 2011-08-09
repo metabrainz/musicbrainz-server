@@ -13,7 +13,6 @@ has_field 'release_group' => ( type => 'Compound'    );
 has_field 'release_group.name' => ( type => 'Text'    );
 
 has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit', required => 1, allow_unlinked => 1 );
-has_field 'change_track_artists' => ( type => 'Checkbox'  );
 has_field 'type_id'          => ( type => 'Select'    );
 has_field 'status_id'        => ( type => 'Select'    );
 has_field 'language_id'      => ( type => 'Select'    );
@@ -31,6 +30,7 @@ has_field 'labels.label_id'  => ( type => 'Text' );
 has_field 'labels.name'      => ( type => 'Text' );
 
 has_field 'barcode'          => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
+has_field 'barcode_confirm'  => ( type => 'Checkbox'  );
 
 # Additional information
 has_field 'annotation'       => ( type => 'TextArea'  );
@@ -90,6 +90,18 @@ sub options_script_id {
     } grep { $_->{frequency} ne $skip } $self->ctx->model('Script')->get_all ];
 }
 
+sub validate {
+    my $self = shift;
+
+    unless (!defined $self->field('barcode')->value ||
+            $self->field('barcode')->value == '' ||
+            MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
+            $self->field('barcode_confirm')->value == 1)
+    {
+        $self->field('barcode')->add_error (
+            l("This barcode is invalid, please check that you've correctly entered the barcode."));
+    }
+}
 
 after 'BUILD' => sub {
     my ($self) = @_;

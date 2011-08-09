@@ -21,8 +21,8 @@
 MB.Control.ArtistEdit = function () {
     var self = MB.Object ();
 
-    self.$begin  = $('#label-edit-artist\\.begin_date');
-    self.$end    = $('#label-edit-artist\\.end_date');
+    self.$begin  = $('#label-id-edit-artist\\.begin_date');
+    self.$end    = $('#label-id-edit-artist\\.end_date');
     self.$type   = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
@@ -59,9 +59,11 @@ MB.Control.ArtistEdit = function () {
     };
 
     self.enableGender = function() {
-        self.$gender
-           .attr("disabled", null)
-           .val(self.old_gender);
+        if (self.$gender.attr('disabled')) {
+            self.$gender
+               .attr("disabled", null)
+               .val(self.old_gender);
+        }
     };
 
     self.disableGender = function() {

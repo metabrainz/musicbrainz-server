@@ -94,6 +94,23 @@ END -%]
     [%- END -%]
 [%- END -%]
 
+[%- MACRO expanded_artist_credit(ac) BLOCK -%]
+  [% artist_credit(ac) %]
+  [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 %]
+  <ul>
+    [% FOR name=ac.names %]
+      <li>
+      [% IF name.artist.name != name.name %]
+        [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
+      [% ELSE %]
+        [% descriptive_link(name.artist) %]
+      [% END %]
+      </li>
+    [% END %]
+  </ul>
+  [% END %]
+[%- END -%]
+
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
@@ -109,13 +126,17 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
+      link_deleted(entity);
+    END;
+    disambiguation(entity) UNLESS text;
+END -%]
+
+[%- MACRO link_deleted(entity) BLOCK;
       caption = l("This entity has been removed, and cannot be displayed correctly.");
       '<span class="deleted tooltip" title="' _ caption _ '">' _
         (html_escape(entity.name) || l('[removed]')) _
       '</span>';
-    END;
-    disambiguation(entity) UNLESS text;
-END -%]
+    END; -%]
 
 [%- MACRO descriptive_link(entity)
     IF entity.artist_credit.defined;
@@ -313,7 +334,9 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
-    out.push(link_entity(label.label)) FOR label=labels;
+    FOR label=labels;
+      out.push(link_entity(label.label)) IF label.label_id;
+    END;
     out.join(', ');
 END -%]
 
@@ -342,13 +365,14 @@ END -%]
 END -%]
 
 [%- MACRO use_in_relationship(entity) BLOCK;
-    IF c.session.relationship.id == entity.id;
-      text = l('Cancel relate to {name}', { name => c.session.relationship.name });
-      link_entity(entity, 'cancel_relate', text);
-    ELSE;
+    IF c.session.relationship.id;
+      text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
+      '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
+    END;
+    UNLESS c.session.relationship.id == entity.id;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                     : l('Use in a relationship');
-      link_entity(entity, 'relate', text);
+      '<li>' _ link_entity(entity, 'relate', text) _ '</li>';
     END;
 END -%]
 
@@ -462,12 +486,7 @@ END -%]
             [% phrase_field = phrase_field || 'phrase' %]
             [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
             [%- relationship.${phrase_field} | html %]
-            [% IF relationship.target.artist_credit %]
-                [% l('{what} by {artist}', { what => link_entity(relationship.target),
-                                             artist => artist_credit(relationship.target.artist_credit) }) -%]
-            [% ELSE %]
-                [% link_entity(relationship.target) -%]
-            [% END %]
+            [% descriptive_link(relationship.target) %]
             [%- IF !relationship.link.begin_date.is_empty -%]
                 [%- IF !relationship.link.end_date.is_empty -%]
                     [%- IF relationship.link.begin_date.format == relationship.link.end_date.format -%]
@@ -562,3 +581,8 @@ http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
 [%- MACRO format_length(n) BLOCK; n | format_length; END %]
+
+[%- MACRO medium_link(medium) BLOCK -%]
+  [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
+  [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
+[%- END -%]

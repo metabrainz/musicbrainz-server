@@ -19,16 +19,32 @@
 (function(MB) {
     $.extend(MB.text, {
         Timeline: {
-            Category: {
-                "core-entities" : { Label: '[% l('Core Entities') %]' }
+           Category: {
+                "core-entities" : { Label: '[% l('Core Entities') %]' },
+                "edit-information": { Label: '[% l('Edit Information') %]', Hide: true }
             },
-            "count.artist": { Label: '[% l('Artists') %]', Color: 0, Description: '[% l('Count of all artists') %]', Category: "core-entities" },
-            "count.recording": { Label: '[% l('Recordings') %]', Color: 1, Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
-            "count.work": { Label: '[% l('Works') %]', Color: 2, Description: '[% l('Count of all works') %]', Category: "core-entities"  },
-            "count.medium": { Label: '[% l('Mediums') %]', Color: 3, Description: '[% l('Count of all mediums') %]', Category: "core-entities"  },
-            "count.release": { Label: '[% l('Releases') %]', Color: 4, Description: '[% l('Count of all releases') %]', Category: "core-entities"  },
-            "count.releasegroup": { Label: '[% l('Release Groups') %]', Color: 5, Description: '[% l('Count of all release groups') %]', Category: "core-entities"  },
-            "count.label": { Label: '[% l('Labels') %]', Color: 6, Description: '[% l('Count of all labels') %]', Category: "core-entities"  }
+            "count.artist": { Label: '[% l('Artists') %]', Color: '#ff8a00', Description: '[% l('Count of all artists') %]', Category: "core-entities" },
+            "count.recording": { Label: '[% l('Recordings') %]', Color: "#4800ff", Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
+            "count.work": { Label: '[% l('Works') %]', Color: "#00ffa8", Description: '[% l('Count of all works') %]', Category: "core-entities"  },
+            "count.medium": { Label: '[% l('Mediums') %]', Color: "#00c0ff", Description: '[% l('Count of all mediums') %]', Category: "core-entities"  },
+            "count.release": { Label: '[% l('Releases') %]', Color: "#a8ff00", Description: '[% l('Count of all releases') %]', Category: "core-entities"  },
+            "count.releasegroup": { Label: '[% l('Release Groups') %]', Color: "#ae00ff", Description: '[% l('Count of all release groups') %]', Category: "core-entities"  },
+            "count.label": { Label: '[% l('Labels') %]', Color: "#ff0096", Description: '[% l('Count of all labels') %]', Category: "core-entities"  },
+
+            "count.edit": { Label: '[% l('Edits') %]', Color: '#ff00ff', Description: '[% l('Count of all edits') %]', Category: "edit-information", Hide: true },
+            "count.edit.open": { Label: '[% l('Open Edits') %]', Color: '#ffe400', Description: '[% l('Count of open edits') %]', Category: "edit-information" },
+            "count.edit.perday": { Label: '[% l('Edits per day') %]', Color: '#3d8100', Description: '[% l('Count of edits per day') %]', Category: "edit-information", Hide: true },
+            "count.edit.perweek": { Label: '[% l('Edits per week') %]', Color: '#78ff00', Description: '[% l('Count of edits per week') %]', Category: "edit-information" },
+
+            "count.vote": { Label: '[% l('Votes') %]', Color: '#00ffff', Description: '[% l('Count of all votes') %]', Category: "edit-information", Hide: true },
+            "count.vote.perday": { Label: '[% l('Votes per day') %]', Color: '#007681', Description: '[% l('Count of votes per day') %]', Category: "edit-information", Hide: true },
+            "count.vote.perweek": { Label: '[% l('Votes per week') %]', Color: '#00eaff', Description: '[% l('Count of votes per week') %]', Category: "edit-information" },
+
+            "count.editor": { Label: '[% l('Editors') %]', Color: '#ff0000', Description: '[% l('Count of all editors') %]', Category: "edit-information", Hide: true },
+            "count.editor.editlastweek": { Label: '[% l('Active Editors') %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last week') %]', Category: "edit-information" },
+            "count.editor.votelastweek": { Label: '[% l('Active Voters') %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last week') %]', Category: "edit-information" },
+            "count.editor.activelastweek": { Label: '[% l('Active Users') %]', Color: '#ff00cc', Description: '[% l('Count of active editors (editing or voting) during the last week') %]', Category: "edit-information" },
+
         }
     });
 })(MB);
@@ -38,14 +54,6 @@ my %stats = (
     "count.discid" => {
         DESC => "Count of all disc IDs",
         LABEL => "Disc IDs",
-    },
-    "count.edit" => {
-        DESC => "Count of all edits",
-        LABEL => "Edits",
-    },
-    "count.editor" => {
-        DESC => "Count of all editors",
-        LABEL => "Editors",
     },
     "count.barcode" => {
         DESC => "Count of all unique Barcodes",
@@ -94,10 +102,6 @@ my %stats = (
     "count.iswc" => {
         DESC => "Count of unique ISWCs",
         LABEL => "ISWCs",
-    },
-    "count.vote" => {
-        DESC => "Count of all votes",
-        LABEL => "Votes",
     },
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
@@ -156,10 +160,6 @@ my %stats = (
         LABEL => "Recordings with PUID",
     },
 
-    "count.edit.open" => {
-        DESC => "Count of open edits",
-        LABEL => "Open Edits",
-    },
     "count.edit.applied" => {
         DESC => "Count of applied edits",
         LABEL => "Applied Edits",
@@ -187,14 +187,6 @@ my %stats = (
     "count.edit.deleted" => {
         DESC => "Count of deleted edits",
         LABEL => "Deleted edits",
-    },
-    "count.edit.perday" => {
-        DESC => "Count of edits per day",
-        LABEL => "Edits per day",
-    },
-    "count.edit.perweek" => {
-        DESC => "Count of edits per week",
-        LABEL => "Edits per week",
     },
 
     "count.cdstub" => {
@@ -234,18 +226,6 @@ my %stats = (
     # count active moderators in last week(?)
     # editing / voting / overall
 
-    "count.editor.editlastweek" => {
-        DESC => "Count of editors who have submitted edits during the last week",
-        LABEL => "Active editors",
-    },
-    "count.editor.votelastweek" => {
-        DESC => "Count of editors who have voted on edits during the last week",
-        LABEL => "Active voters",
-    },
-    "count.editor.activelastweek" => {
-        DESC => "Count of active editors (editing or voting) during the last week",
-        LABEL => "Active users",
-    },
     "count.tag" => {
         DESC => "Count of all tags",
         LABEL => "Tags",

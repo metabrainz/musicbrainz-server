@@ -27,14 +27,33 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
-    return 'release_group rg JOIN release_name name ON rg.name=name.id';
+    return 'release_group rg
+            JOIN release_group_meta rgm ON rgm.id = rg.id
+            JOIN release_name name ON rg.name=name.id';
 }
 
 sub _columns
 {
     return 'rg.id, rg.gid, rg.type AS type_id, name.name,
             rg.artist_credit AS artist_credit_id,
-            rg.comment, rg.edits_pending, rg.last_updated';
+            rg.comment, rg.edits_pending, rg.last_updated,
+            rgm.first_release_date_year,
+            rgm.first_release_date_month,
+            rgm.first_release_date_day';
+}
+
+sub _column_mapping {
+    return {
+        id => 'id',
+        gid => 'gid',
+        type_id => 'type_id',
+        name => 'name',
+        artist_credit_id => 'artist_credit_id',
+        comment => 'comment',
+        edits_pending => 'edits_pending',
+        last_updated => 'last_updated',
+        first_release_date => sub { partial_date_from_row(shift, 'first_release_date_') }
+    }
 }
 
 sub _id_column
@@ -67,8 +86,6 @@ sub find_by_name_prefix
                     rgm.rating_count,
                     rgm.rating
                  FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                  WHERE page_index(name.name)
@@ -116,8 +133,6 @@ sub find_by_artist
                     rgm.rating,
                     musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                  WHERE acn.artist = ?
@@ -154,8 +169,6 @@ sub find_by_track_artist
                     rgm.rating,
                     musicbrainz_collate(name.name)
                  FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                  WHERE rg.id IN (
@@ -206,8 +219,6 @@ sub filter_by_artist
                     rgm.rating,
                     musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                  WHERE acn.artist = ?" .
@@ -242,8 +253,6 @@ sub filter_by_track_artist
                     rgm.rating_count,
                     rgm.rating
                  FROM " . $self->_table . "
-                    JOIN release_group_meta rgm
-                        ON rgm.id = rg.id
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                  WHERE rg.id IN (
@@ -285,7 +294,6 @@ sub find_by_release
                     rgm.first_release_date_day
                  FROM " . $self->_table . "
                     JOIN release ON release.release_group = rg.id
-                    JOIN release_group_meta rgm ON rgm.id = rg.id
                  WHERE release.id = ?
                  ORDER BY
                     rg.type,
@@ -313,7 +321,6 @@ sub find_by_release_gids
                     rgm.first_release_date_day
                  FROM " . $self->_table . "
                     JOIN release ON release.release_group = rg.id
-                    JOIN release_group_meta rgm ON rgm.id = rg.id
                  WHERE release.gid IN (" . placeholders (@release_gids) . ")
                  ORDER BY
                     rg.type,
@@ -407,7 +414,8 @@ sub can_delete
 sub delete
 {
     my ($self, @group_ids) = @_;
-    @group_ids = grep { !$self->in_use($_) } @group_ids;
+    @group_ids = grep { $self->can_delete($_) } @group_ids
+        or return;
 
     $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
     $self->annotation->delete(@group_ids);
@@ -467,6 +475,7 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->release_count($row->{release_count});
+        $obj->first_release_date(partial_date_from_row($row, 'first_release_date_'));
     }, @_);
 }
 

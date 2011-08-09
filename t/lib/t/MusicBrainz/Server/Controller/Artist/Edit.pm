@@ -89,22 +89,22 @@ is_deeply($edit->data, {
 # Test display of edit data
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok ($mech->content, '..xml is valid');
-$mech->content_contains ('edit artist', '.. contains old artist name');
-$mech->content_contains ('Test Artist', '.. contains new artist name');
-$mech->content_contains ('artist, controller', '.. contains old sort name');
-$mech->content_contains ('Artist, Test', '.. contains new sort name');
-$mech->content_contains ('Person', '.. contains new artist type');
-$mech->content_contains ('United States', '.. contains old country');
-$mech->content_contains ('United Kingdom', '.. contains new country');
-$mech->content_contains ('Male', '.. contains old artist gender');
-$mech->content_contains ('Female', '.. contains new artist gender');
-$mech->content_contains ('2008-01-02', '.. contains old begin date');
-$mech->content_contains ('1990-01-02', '.. contains new begin date');
-$mech->content_contains ('2009-03-04', '.. contains old end date');
-$mech->content_contains ('Yet Another Test Artist',
-                         '.. contains old artist comment');
-$mech->content_contains ('artist created in controller_artist.t',
-                         '.. contains new artist comment');
+$mech->text_contains ('edit artist', '.. contains old artist name');
+$mech->text_contains ('Test Artist', '.. contains new artist name');
+$mech->text_contains ('artist, controller', '.. contains old sort name');
+$mech->text_contains ('Artist, Test', '.. contains new sort name');
+$mech->text_contains ('Person', '.. contains new artist type');
+$mech->text_contains ('United States', '.. contains old country');
+$mech->text_contains ('United Kingdom', '.. contains new country');
+$mech->text_contains ('Male', '.. contains old artist gender');
+$mech->text_contains ('Female', '.. contains new artist gender');
+$mech->text_contains ('2008-01-02', '.. contains old begin date');
+$mech->text_contains ('1990-01-02', '.. contains new begin date');
+$mech->text_contains ('2009-03-04', '.. contains old end date');
+$mech->text_contains ('Yet Another Test Artist',
+                      '.. contains old artist comment');
+$mech->text_contains ('artist created in controller_artist.t',
+                      '.. contains new artist comment');
 
 };
 
@@ -140,6 +140,32 @@ $mech->submit_form_ok({
 });
 ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');
 $mech->content_contains('Possible Duplicate Artists', 'warning about duplicate artists');
+
+};
+
+test 'Looooooong comment' => sub {
+
+my $test = shift;
+my $mech = $test->mech;
+my $c    = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+
+# Test editing artists
+$mech->get_ok('/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+html_ok($mech->content);
+$mech->submit_form_ok({
+    with_fields => {
+        'edit-artist.name' => 'test artist',
+        'edit-artist.comment' => 'comment ' x 100,
+        'edit-artist.sort_name' => 'artist, test',
+    }
+});
+ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');
+$mech->content_contains('Field should not exceed 255 characters', 'warning about the long comment');
 
 };
 

@@ -85,18 +85,18 @@ is_deeply($edit->data, {
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
-$mech->content_contains('Another name', '..has new name');
-$mech->content_contains('Dancing Queen', '..has old name');
-$mech->content_contains('1:23', '..has new length');
-$mech->content_contains('2:03', '..has old length');
-$mech->content_contains('A comment!', '..has new comment');
-$mech->content_contains('Foo', '..has new artist');
+$mech->text_contains('Another name', '..has new name');
+$mech->text_contains('Dancing Queen', '..has old name');
+$mech->text_contains('1:23', '..has new length');
+$mech->text_contains('2:03', '..has old length');
+$mech->text_contains('A comment!', '..has new comment');
+$mech->text_contains('Foo', '..has new artist');
 $mech->content_contains('/artist/745c079d-374e-4436-9448-da92dedef3ce', '...and links to artist');
-$mech->content_contains('Queen', '..has new artist 2');
+$mech->text_contains('Queen', '..has new artist 2');
 $mech->content_contains('/artist/945c079d-374e-4436-9448-da92dedef3cf', '...and links to artist 2');
-$mech->content_contains('David Bowie', '..has new artist 3');
+$mech->text_contains('David Bowie', '..has new artist 3');
 $mech->content_contains('/artist/5441c29d-3602-4898-b1a1-b77fa23b8e50', '...and links to artist 3');
-$mech->content_contains('ABBA', '..has old artist');
+$mech->text_contains('ABBA', '..has old artist');
 $mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', '...and links to artist');
 
 };

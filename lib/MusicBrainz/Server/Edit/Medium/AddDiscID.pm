@@ -61,7 +61,7 @@ sub initialize {
     $self->data(\%opts);
 };
 
-method related_entities
+method _build_related_entities
 {
     return {
         release => [ $self->release_id ]
@@ -72,7 +72,8 @@ method foreign_keys
 {
     return {
         Release => { $self->release_id => [ 'ArtistCredit' ] },
-        MediumCDTOC => [ $self->entity_id => [ 'CDTOC' ] ]
+        MediumCDTOC => [ $self->entity_id => [ 'CDTOC' ] ],
+        Medium => { $self->data->{medium_id} => [ 'Release', 'MediumFormat' ] }
     }
 }
 
@@ -83,6 +84,7 @@ method build_display_data ($loaded)
             Release->new(
                 name => $self->data->{release}{name}
             ),
+        medium => $loaded->{Medium}{ $self->data->{medium_id} },
         medium_cdtoc => $loaded->{MediumCDTOC}{ $self->entity_id } ||
             MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{cdtoc})

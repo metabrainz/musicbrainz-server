@@ -1,11 +1,27 @@
 package MusicBrainz::Server::Controller::WS::1::Collection;
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller' }
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Validation;
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
 with 'MusicBrainz::Server::Controller::WS::1::Role::XMLGeneration';
+
+my $ws_defs = Data::OptList::mkopt([
+    collection => {
+        method   => 'GET',
+    },
+    collection => {
+        method   => 'POST',
+        optional => [qw( add remove )]
+    },
+]);
+
+with 'MusicBrainz::Server::WebService::Validator' => {
+     defs    => $ws_defs,
+     version => 1,
+};
+
 
 sub collection : Path('/ws/1/collection')
 {
@@ -48,7 +64,8 @@ sub list : Private
 sub add_remove : Private
 {
     my ($self, $c) = @_;
-    
+
+    $self->deny_readonly($c);
     if(my $collection_id = $c->model('Collection')->get_first_collection($c->user->id)) {
         my $add    = $c->req->params->{add}    || $c->req->params->{addAlbums}    || '';
         my $remove = $c->req->params->{remove} || $c->req->params->{removeAlbums} || '';

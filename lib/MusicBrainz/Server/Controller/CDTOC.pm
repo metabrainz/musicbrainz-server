@@ -120,7 +120,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
     );
 }
 
-sub attach : Local RequireAuth
+sub attach : Local
 {
     my ($self, $c) = @_;
 
@@ -133,6 +133,10 @@ sub attach : Local RequireAuth
         );
 
     $c->stash( cdtoc => $cdtoc );
+
+    if ($c->form_posted) {
+        $c->forward('/user/do_login');
+    }
 
     if (my $medium_id = $c->req->query_params->{medium}) {
 
@@ -147,6 +151,14 @@ sub attach : Local RequireAuth
         ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
+        $c->model('MediumFormat')->load($medium);
+
+        $self->error(
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('The selected medium cannot have disc IDs')
+        ) unless $medium->may_have_discids;
+
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
 

@@ -9,7 +9,7 @@ sub edit_name { l('Add track annotation') }
 sub edit_type { 64 }
 sub ngs_class { 'MusicBrainz::Server::Edit::Recording::AddAnnotation' }
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         recording => [ $self->data->{entity}{id} ]

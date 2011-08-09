@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
-use MusicBrainz::XML::Generator escape => 'always';
+use MusicBrainz::XML::Generator;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
@@ -65,7 +65,12 @@ sub _serialize_alias
         my @alias_list;
         foreach my $al (sort_by { $_->name } @$aliases)
         {
-            push @alias_list, $gen->alias($al->name);
+            if ($al->locale) {
+                push @alias_list, $gen->alias({ locale => $al->locale }, $al->name);
+            }
+            else {
+                push @alias_list, $gen->alias($al->name);
+            }
         }
         push @$data, $gen->alias_list(\%attr, @alias_list);
     }
@@ -215,6 +220,7 @@ sub _serialize_release_group
     my @list;
     push @list, $gen->title($release_group->name);
     push @list, $gen->disambiguation($release_group->comment) if $release_group->comment;
+    push @list, $gen->first_release_date($release_group->first_release_date->format);
 
     if ($toplevel)
     {
@@ -298,7 +304,7 @@ sub _serialize_release
     $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
 
-    push @list, $gen->date($release->date->format) if $release->date;
+    push @list, $gen->date($release->date->format) if $release->date && !$release->date->is_empty;
     push @list, $gen->country($release->country->iso_code) if $release->country;
     push @list, $gen->barcode($release->barcode) if $release->barcode;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
@@ -349,8 +355,8 @@ sub _serialize_work
     $attrs{type} = $work->type->name if ($work->type);
 
     my @list;
-    push @list, $gen->iswc($iswc) if $iswc;
     push @list, $gen->title($work->name);
+    push @list, $gen->iswc($iswc) if $iswc;
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
@@ -457,7 +463,7 @@ sub _serialize_track_list
     }
 
     my %attr = ( count => $tracklist->track_count );
-    $attr{offset} = $min - 1 if $min > 1;
+    $attr{offset} = $min - 1 if $min > 0;
 
     push @$data, $gen->track_list(\%attr, @list);
 }
@@ -806,7 +812,8 @@ sub output_error
 {
     my ($self, $err) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new(':std');
+    my $gen = MusicBrainz::XML::Generator->new (
+        escape => 'unescaped', conformance => 'strict');
 
     return '<?xml version="1.0" encoding="UTF-8"?>' .
         $gen->error($gen->text($err), $gen->text(
@@ -817,7 +824,8 @@ sub output_success
 {
     my ($self, $msg) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new(':std');
+    my $gen = MusicBrainz::XML::Generator->new (
+        escape => 'unescaped', conformance => 'strict');
 
     $msg ||= 'OK';
 
@@ -832,7 +840,8 @@ sub serialize
     my ($self, $type, $entity, $inc, $stash) = @_;
     $inc ||= 0;
 
-    my $gen = MusicBrainz::XML::Generator->new(':std');
+    my $gen = MusicBrainz::XML::Generator->new (
+        escape => 'unescaped', conformance => 'strict');
 
     my $method = $type . "_resource";
     $method =~ s/-/_/g;

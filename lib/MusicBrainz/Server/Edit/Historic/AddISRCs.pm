@@ -5,7 +5,7 @@ use warnings;
 use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 use MusicBrainz::Server::Translation qw ( l ln );
 
-sub related_entities {
+sub _build_related_entities {
     my $self = shift;
     return {
         recording => [

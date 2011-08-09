@@ -81,12 +81,12 @@ sub foreign_keys
     my %load = (
         LinkType                            => [ $self->data->{link_type}{id} ],
         LinkAttributeType                   => $self->data->{attributes},
-        type_to_model($self->data->{type0}) => [ $self->data->{entity0}{id} ]
+        type_to_model($self->data->{type0}) => { $self->data->{entity0}{id} => ['ArtistCredit'] },
     );
 
     # Type 1 my be equal to type 0, so we need to be careful
-    $load{ type_to_model($self->data->{type1}) } ||= [];
-    push @{ $load{ type_to_model($self->data->{type1}) } }, $self->data->{entity1}{id};
+    $load{ type_to_model($self->data->{type1}) } ||= {};
+    $load{ type_to_model($self->data->{type1}) }{$self->data->{entity1}{id}} = [ 'ArtistCredit' ];
 
     return \%load;
 }
@@ -171,30 +171,16 @@ sub insert
 
     $self->entity_id($relationship->id);
     $self->entity($relationship);
-}
-
-sub accept
-{
-    my ($self) = @_;
 
     my $link_type = $self->c->model('LinkType')->get_by_id(
-        $self->data->{link_type}{id}
+        $self->data->{link_type}{id},
     );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
         my $release = $self->c->model('Release')->get_by_id(
             $self->data->{entity0}{id}
         );
-
-        my $relationship = $self->c->model('Relationship')->get_by_id(
-            $self->data->{type0}, $self->data->{type1},
-            $self->entity_id
-        );
-        $self->c->model('Link')->load($relationship);
-        $self->c->model('LinkType')->load($relationship->link);
-        $self->c->model('Relationship')->load_entities($relationship);
-        $release->add_relationship($relationship);
-
+        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
     }
 }
@@ -207,6 +193,18 @@ sub reject
         $self->data->{type1},
         $self->entity_id
     );
+
+    my $link_type = $self->c->model('LinkType')->get_by_id(
+        $self->data->{link_type}{id},
+    );
+
+    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
+        my $release = $self->c->model('Release')->get_by_id(
+            $self->data->{entity0}{id}
+        );
+        $self->c->model('Relationship')->load_subset([ 'url' ], $release);
+        $self->c->model('CoverArt')->cache_cover_art($release);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -1,6 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l("Send Email") full_width=1 -%]
+[%- WRAPPER 'user/profile/layout.tt' title=l("Send Email") full_width=1 -%]
 
-    <h1>[% l('Send Email') %]</h1>
+    <h2>[% l('Send Email') %]</h2>
 
     [%- USE r = FormRenderer(form) -%]
 

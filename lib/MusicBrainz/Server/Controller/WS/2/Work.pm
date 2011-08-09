@@ -37,6 +37,8 @@ sub work_toplevel
 
     my $opts = $stash->store ($work);
 
+    $self->linked_works ($c, $stash, [ $work ]);
+
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();

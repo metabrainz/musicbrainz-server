@@ -30,6 +30,7 @@ sub rating : Path('/ws/1/rating')
     $c->authenticate({}, 'musicbrainz.org');
 
     if ($c->req->method eq 'POST') {
+        $self->deny_readonly($c);
         if (exists $c->req->params->{entity}) {
             # Looks like a single entity rating submission
             my ($id, $type, $rating) = (

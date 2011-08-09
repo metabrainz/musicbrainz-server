@@ -419,7 +419,8 @@ sub find_by_tracklist
 sub find_by_medium
 {
     my ($self, $ids, $limit, $offset) = @_;
-    my @ids = ref $ids ? @$ids : ( $ids );
+    my @ids = ref $ids ? @$ids : ( $ids )
+        or return ();
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (

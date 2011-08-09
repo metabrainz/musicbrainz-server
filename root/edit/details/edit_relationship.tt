@@ -1,19 +1,9 @@
-<table class="details edit-relationship">
-  <tr>
-    <th rowspan="2">[% l('Relationship:') %]</th>
+[%-
+  PROCESS 'edit/details/macros.tt';
+  old_rel = edit.display_data.old;
+  new_rel = edit.display_data.new;
+-%]
 
-    [%# FIXME: this isn't granular enough.  only the changed bits should be highlighted as old or new. --warp. %]
-    <td class="old">
-      [% relationship=edit.display_data.old %]
-      [% link_entity(relationship.source); %]
-      [% display_relationship(relationship, 'verbose_phrase'); %]
-    </td>
-  </tr>
-  <tr>
-    <td class="new">
-      [% relationship=edit.display_data.new %]
-      [% link_entity(relationship.source); %]
-      [% display_relationship(relationship, 'verbose_phrase'); %]
-    </td>
-  </tr>
+<table class="details edit-relationship">
+  [%- display_relationship_differences(l('Relationship:'), old_rel, new_rel) -%]
 </table>

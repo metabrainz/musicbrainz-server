@@ -86,6 +86,7 @@ sub recording_toplevel
 
         if ($c->stash->{inc}->release_groups) {
             $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
 
             if ($c->stash->{inc}->artist_credits) {
@@ -183,6 +184,7 @@ sub recording_submit : Private
 {
     my ($self, $c) = @_;
 
+    $self->deny_readonly($c);
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
 

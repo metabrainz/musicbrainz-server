@@ -22,11 +22,13 @@
       }
       #overview { height: 150px; }
       #graph-container { height: 400px; }
+      .graph-control input { margin-bottom: 0px; display: inline-block; }
+      .graph-color-swatch { width: 14px; height: 10px; overflow: hidden; border: 2px solid #ccc; margin: 0px 4px; display: inline-block; }
+      h2.toggler { margin-top: 0px; }
   </style>
-  <script src="[% c.uri_for("/static/scripts/timeline.js") %]"></script>
   <script type="text/javascript">//<![CDATA[
       $(document).ready(function () {
-      setup_graphing({[%- FOREACH dataset_key = stats.keys.sort -%]
+      MB.setupGraphing({[%- FOREACH dataset_key = stats.keys.sort -%]
           "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
           [%- END -%]},
           { xaxis: { mode: "time",
@@ -35,7 +37,7 @@
                      minTickSize: [1, "month"]},
             selection: { mode: "xy" },
             grid: { hoverable: true },
-            legend: { container: $('#graph-legend') }},
+            legend: { show: false }},
           { legend: {show: false},
             series: {lines: {lineWidth: 1}, shadowSize: 0},
             xaxis: {mode: "time", tickSize: [1, "year"]},
@@ -46,15 +48,18 @@
 [% END %]
 
 [%- sidebar = BLOCK -%]
-    <h2>Legend</h2><div id="graph-legend"></div>
-    <h2>Controls</h2><div id="graph-controls">
-        <p><strong>To Zoom:</strong> select a rectangle
-        <br/><strong>To Reset:</strong> deselect
-        <br/><strong>To add/remove lines:</strong> Click boxes below</p>
-        <div id="overview"></div>
-    <h2 id="graph-toggle-header">Toggle Lines</h2>
+    <h2 id="graph-toggle-header">Legend</h2>
         <div id="graph-lines">
+        <h2><input type="checkbox" id="disable-events-checkbox" checked /><label for="disable-events-checkbox">MusicBrainz Events</label></h2>
         </div>
+    <h2>Controls</h2><div id="graph-controls">
+        <table class="timeline-controls">
+            <tr><th>Zoom:</th><td>Draw a rectangle on either graph</td></tr>
+            <tr><th>Reset:</th><td>Click to deselect</td></tr>
+            <tr><th>Add/remove lines:</th><td>Check boxes above</td></tr>
+            <tr><th>MusicBrainz events:</th><td>Hover and click on vertical lines</td></tr>
+        </table>
+        <div id="overview"></div>
     </div>
 [%- END -%]
 

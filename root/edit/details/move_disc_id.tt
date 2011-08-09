@@ -7,16 +7,22 @@
   <tr>
     <th>[% l('From:') %]</th>
     <td>
-      [% release = edit.display_data.old_release %]
-      [% descriptive_link(release) %]</li>
+      [% IF edit.display_data.medium %]
+        [% medium_link(edit.display_data.old_medium) %]
+      [% ELSE %]
+        on [% descriptive_link(edit.display_data.old_release) %]
+      [% END %]
     </td>
   </tr>
 
   <tr>
     <th>[% l('To:') %]</th>
     <td>
-      [% release = edit.display_data.new_release %]
-      [% descriptive_link(release) %]</li>
+      [% IF edit.display_data.medium %]
+        [% medium_link(edit.display_data.new_medium) %]
+      [% ELSE %]
+        on [% descriptive_link(edit.display_data.new_release) %]
+      [% END %]
     </td>
   </tr>
 </table>

@@ -506,6 +506,25 @@ table.tbl th {
     border-left: solid 1px #CCCCCC;
 }
 
+table.tbl thead tr .header {
+    cursor: pointer;
+}
+
+table.tbl thead tr .header .arrow {
+    background: url('../images/layout/bg.gif') no-repeat center right;
+    display: inline-block;
+    height: 9px;
+    width: 21px;
+}
+
+table.tbl thead tr .headerSortUp .arrow {
+    background-image: url('../images/layout/asc.gif');
+}
+
+table.tbl thead tr .headerSortDown .arrow {
+    background-image: url('../images/layout/desc.gif');
+}
+
 table.details table.tbl th {
     /* Override the table.details declarations
     /* inside an edit details template */
@@ -627,7 +646,10 @@ table.details th {
 }
 
 table.details td span.new,
-table.details td.new,
+table.details td.new {
+    background: #E8F7E8;
+}
+
 div.diff .diff-only-b,
 span.diff-only-b,
 tr.diff-addition {
@@ -635,7 +657,10 @@ tr.diff-addition {
 }
 
 table.details td span.old,
-table.details td.old,
+table.details td.old {
+    background: #F7E8E8;
+}
+
 div.diff .diff-only-a,
 span.diff-only-a,
 tr.diff-removal {
@@ -648,6 +673,38 @@ table.details td.new,
 table.details td.old {
     border: 1px solid #CCC;
 }
+
+/* Statistics pages */
+table.timeline-controls, table.database-statistics {
+    border-collapse: collapse;
+    border: 1px solid #ADB9CC;
+    margin: 1em 1em 1em 0;
+}
+
+table.database-statistics {
+    white-space: nowrap;
+}
+
+table.database-statistics th, table.timeline-controls th {
+    background: #F1F1F1;
+    text-align: left;
+    padding: 3px 5px;
+}
+
+table.database-statistics thead th {
+    text-align: center;
+    border: 1px solid #ADB9CC;
+}
+
+table.database-statistics td, table.timeline-controls td {
+    text-align: right;
+    padding: 3px 5px 3px 10px;
+}
+
+table.timeline-controls td {
+    border: 1px solid #ADB9CC;
+}
+
 
 /* Sidebar properties */
 dl.properties {

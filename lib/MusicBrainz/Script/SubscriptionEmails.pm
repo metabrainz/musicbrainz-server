@@ -103,7 +103,10 @@ sub extract_subscription_data
             push @deletions, $sub;
         }
         else {
-            my @edits = $self->_edits_for_subscription($sub);
+            my $filter;
+            $filter = sub { $_->editor_id != $sub->editor_id }
+                unless $sub->isa(EditorSubscription);
+            my @edits = $self->_edits_for_subscription($sub, $filter);
 
             next unless @edits;
 
@@ -152,10 +155,10 @@ sub deleted
 }
 
 sub _edits_for_subscription {
-    my ($self, $sub) = @_;
+    my ($self, $sub, $filter) = @_;
     my $cache_key = ref($sub) . ': ' .
         join(', ', $sub->target_id, $sub->last_edit_sent);
-    return grep { $_->editor_id != $sub->editor_id } @{
+    return grep { $filter ? $filter->($_) : 1 } @{
         $self->cached_edits($cache_key) ||
         do {
             $self->cache_edits(

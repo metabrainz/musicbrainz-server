@@ -23,6 +23,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 sub edit_name { l('Add release') }
 sub edit_type { $EDIT_RELEASE_CREATE }
@@ -62,7 +63,7 @@ sub foreign_keys
         Country          => [ $self->data->{country_id} ],
         Release          => { $self->entity_id => [ 'ArtistCredit' ] },
         ReleaseStatus    => [ $self->data->{status_id} ],
-        ReleaseGroup     => [ $self->data->{release_group_id} ],
+        ReleaseGroup     => { $self->data->{release_group_id} => [ 'ArtistCredit' ] },
         ReleasePackaging => [ $self->data->{packaging_id} ],
         Script           => [ $self->data->{script_id} ],
         Language         => [ $self->data->{language_id} ],
@@ -87,6 +88,7 @@ sub build_display_data
         script        => $script ? $loaded->{Script}{ $script } : '',
         language      => $lang ? $loaded->{Language}{ $lang } : '',
         barcode       => $self->data->{barcode} || '',
+        release_group => $loaded->{ReleaseGroup}{ $self->data->{release_group_id} } || ReleaseGroup->new( name => '[removed]' ),
         release       => $loaded->{Release}{ $self->entity_id } ||
             Release->new( name => $self->data->{name} ),
         date          => PartialDate->new({

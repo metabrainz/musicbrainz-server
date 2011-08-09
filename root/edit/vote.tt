@@ -1,4 +1,4 @@
-[% IF c.user_exists && edit.editor_may_vote(c.user) %]
+[% IF !server_details.read_only && c.user_exists && edit.editor_may_vote(c.user) %]
     [% DEFAULT n = 0 %]
     [% name = "enter-vote.vote.${n}" %]
 

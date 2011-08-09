@@ -137,7 +137,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.update = function(event, data) {
-
         if (data.name)
         {
             self.$name.data ('mb_selected_name', data.name);
@@ -442,6 +441,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
     self.update = function(event, data) {
         event.preventDefault();
+
+        self.box[0].clear();
         self.box[0].update(event, data);
     };
 
@@ -562,7 +563,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     };
 
     self.isVariousArtists = function () {
-        return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
+        return self.box[0].$gid.val () === MB.constants.VARTIST_GID ||
+            self.box[0].$id.val () === String (MB.constants.VARTIST_ID);
     };
 
     self.isEmpty = function () {

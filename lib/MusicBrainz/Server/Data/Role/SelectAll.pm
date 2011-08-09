@@ -10,16 +10,43 @@ parameter 'order_by' => (
 
 role
 {
-    requires '_columns', '_table', '_dbh', '_new_from_row';
+    requires '_columns', '_table', '_dbh', '_new_from_row', '_id_cache_prefix';
 
-    my $p = shift;
+    my $params = shift;
+
+    method '_get_all_from_db' => sub {
+        my ($self, $p) = @_;
+        my $query = "SELECT " . $self->_columns .
+            " FROM " . $self->_table .
+            " ORDER BY " . (join ", ", @{ $p->order_by });
+        return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
+    };
+
+    method '_delete_all_from_cache' => sub {
+        my $self = shift;
+        $self->c->cache->delete ($self->_id_cache_prefix . ":all");
+    };
+
+    # Clear cached data if the list of all entities has changed.
+    after 'insert' => sub { shift->_delete_all_from_cache; };
+    after 'update' => sub { shift->_delete_all_from_cache; };
+    after 'delete' => sub { shift->_delete_all_from_cache; };
+    after 'merge' => sub { shift->_delete_all_from_cache; };
+
     method 'get_all' => sub
     {
         my $self = shift;
-        my $query = "SELECT " . $self->_columns . 
-                    " FROM " . $self->_table .
-                    " ORDER BY " . (join ", ", @{ $p->order_by });
-        return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
+        my $key = $self->_id_cache_prefix . ":all";
+
+        my $cache = $self->c->cache;
+        my $all = $cache->get ($key);
+
+        return @$all if $all;
+
+        my @all = $self->_get_all_from_db ($params);
+        $cache->set ($key, \@all);
+
+        return @all;
     };
 };
 
@@ -29,6 +56,7 @@ no Moose::Role;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Oliver Charles
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

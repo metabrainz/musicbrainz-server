@@ -63,6 +63,7 @@ ws_test 'release group lookup with tags and ratings',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
         <title>My Demons</title>
+        <first-release-date>2007-01-29</first-release-date>
         <tag-list>
             <tag count="2">
                 <name>dubstep</name>
@@ -90,6 +91,7 @@ ws_test 'artist lookup with release-groups, tags and ratings',
         <release-group-list count="1">
             <release-group type="Album" id="23f421e7-431e-3e1d-bcbf-b91f5f7c5e2c">
             <title>LOVE &amp; HONESTY</title>
+            <first-release-date>2004-01-15</first-release-date>
                 <tag-list>
                     <tag count="1"><name>format-dvd-video</name></tag>
                 </tag-list>
@@ -112,6 +114,7 @@ ws_test 'release lookup with release-groups, tags and ratings',
         </text-representation>
         <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
             <title>My Demons</title>
+            <first-release-date>2007-01-29</first-release-date>
             <tag-list><tag count="2"><name>dubstep</name></tag><tag count="1"><name>electronic</name></tag><tag count="1"><name>grime</name></tag></tag-list>
             <rating votes-count="1">4</rating>
         </release-group>

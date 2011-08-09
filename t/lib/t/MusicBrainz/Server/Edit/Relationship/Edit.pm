@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Fatal;
 
+with 't::Edit';
 with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Edit }
@@ -119,7 +120,6 @@ sub _create_edit {
         link_type => $c->model('LinkType')->get_by_id(2),
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
-        attributes => [],
         entity1 => $c->model('Artist')->get_by_id(3)
     );
 }
