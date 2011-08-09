@@ -31,6 +31,12 @@ is( $artist->edits_pending, 2 );
 
 ok( !$artist->has_age );
 
+$MusicBrainz::Server::Entity::Role::Age::mock_now = DateTime->new(
+    year => '2011',
+    month => 8,
+    day => 9
+);
+
 # testing ->age with exact dates
 $artist->begin_date->year  (1976);
 $artist->begin_date->month (7);
@@ -65,23 +71,25 @@ $artist->begin_date->year  (This_Year() - 24);
 is( ($artist->age)[0], 24, "Artist still alive, age 24 years" );
 
 # testing ->age with partial dates
-$artist->begin_date->year  (2011);
+$artist->begin_date->year  (2010);
 $artist->end_date->year  (2012);
 @got = $artist->age;
-is_deeply( \@got, [1, 0, 0], "Artist with partial dates, age 1 year" );
+is_deeply( \@got, [2, 0, 0], "Artist with partial dates, age 1 year" );
 
 $artist->end_date->month (12);
 @got = $artist->age;
-is_deeply( \@got, [1, 11, 0], "Artist with partial dates, age 1 year" );
+is_deeply( \@got, [2, 11, 0], "Artist with partial dates, age 1 year" );
 
+$DB::single = 1;
 $artist->begin_date->month (12);
 $artist->end_date->month (1);
 @got = $artist->age;
-is_deeply( \@got, [0, 1, 0], "Artist with partial dates, age 1 month" );
+is_deeply( \@got, [1, 1, 0], "Artist with partial dates, age 1 month" );
 
+$DB::single = 1;
 $artist->begin_date->day (31);
 @got = $artist->age;
-is_deeply ( \@got, [0, 0, 1], "Artist with partial dates, age 1 day" );
+is_deeply ( \@got, [1, 0, 1], "Artist with partial dates, age 1 day" );
 
 # testing ->age with negative years
 $artist->begin_date->year  (-551);
