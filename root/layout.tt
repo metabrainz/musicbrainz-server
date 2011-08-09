@@ -25,7 +25,11 @@
         <script type="text/javascript">//<![CDATA[
                                        document.cookie = "javascript=true; path=/";
                                        //]]></script>
-        [%- UNLESS no_javascript -%]
+        [%- IF no_javascript -%]
+            <style type="text/css">
+              #header-menu li:hover ul { left: auto; }
+            </style>
+        [%- ELSE -%]
             [%- script_manifest('common.js.manifest') -%]
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
