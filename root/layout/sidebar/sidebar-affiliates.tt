@@ -3,10 +3,12 @@
 [% END %]
 
 [% IF soundunwound %]
-<h2 id="affiliate_links">[% l('Affiliate links') %]</h2>
-<ul id="affiliate_links_list" class="external_links">
-    <li id="affiliate_links_soundunwound">
+<div id="sidebar-affiliates">
+<h2>[% l('Affiliate links') %]</h2>
+<ul class="external_links">
+    <li id="sidebar-affiliates-soundunwound">
       [% l('{uri|Search on SoundUnwound}', { uri => soundunwound }) %]
     </li>
 </ul>
+</div>
 [% END %]
