@@ -341,7 +341,7 @@ MB.Control.Autocomplete = function (options) {
 
         self.$input.autocomplete ($.extend({}, options, {
             'source': self.lookup,
-            'minLength': options.minLength ? options.minLength : 2,
+            'minLength': options.minLength ? options.minLength : 1,
             'select': self.select,
             'close': self.close,
             'open': self.open
