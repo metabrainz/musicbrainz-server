@@ -72,8 +72,6 @@ subtest 'creating cover art relationships should update the releases coverart' =
 subtest 'creating asin relationships should update the releases coverart' => sub {
     if (DBDefs::AWS_PUBLIC && DBDefs::AWS_PRIVATE)
     {
-        plan tests => 1;
-
         my $e0 = $c->model('Release')->get_by_id(2);
         my $edit = $c->model('Edit')->create(
             edit_type => $EDIT_RELATIONSHIP_CREATE,
