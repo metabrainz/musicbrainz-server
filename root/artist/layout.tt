@@ -129,9 +129,8 @@
         </ul>
         [% END %]
 
-        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist
-            soundunwound='http://www.soundunwound.com/music/' _ url_escape(artist.name) _ '/mb:' _ artist.gid -%]
-
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist -%]
+        [%- INCLUDE "layout/sidebar/sidebar-affiliates.tt" source=artist -%]
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
     [% END %]
 
