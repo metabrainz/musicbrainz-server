@@ -14,12 +14,12 @@
   <tr>
     <th>[% l('URL:') %]</th>
     <td class="old">
-      <a href="[% edit.display_data.uri.old | url %]">
+      <a href="[% edit.display_data.uri.old | html %]">
         [% Diff.diff_side(edit.display_data.uri.old, edit.display_data.uri.new, '-') %]
       </a>
     </td>
     <td class="new">
-      <a href="[% edit.display_data.uri.new | url %]">
+      <a href="[% edit.display_data.uri.new | html %]">
         [% Diff.diff_side(edit.display_data.uri.old, edit.display_data.uri.new, '+') %]
       </a>
     </td>

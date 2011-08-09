@@ -7,6 +7,7 @@ with 't::Mechanize', 't::Context';
 
 use utf8;
 use XML::SemanticDiff;
+use Test::XML::SemanticCompare;
 use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
@@ -223,6 +224,14 @@ ws_test 'single artist release lookup',
 ws_test 'various artists release lookup',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' =>
     '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name><life-span><begin>1986-11-05</begin></life-span><release-list count="1"><release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7"><title>the Love Bug</title><status>Official</status><quality>normal</quality><text-representation><language>eng</language><script>Latn</script></text-representation><date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode></release></release-list></artist></metadata>';
+
+$mech->get('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=coffee');
+is($mech->status, 400);
+is_xml_same($mech->content, q{<?xml version="1.0"?>
+<error>
+  <text>coffee is not a valid inc parameter for the artist resource.</text>
+  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+</error>});
 
 };
 

@@ -159,6 +159,12 @@
 </tr>
 <tr>
     <td></td>
+    <th colspan=2>[% l('of type Other:') %]</th>
+    <td>[% stats.statistic('count.artist.type.other') %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.other', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <td></td>
     <th colspan=2>[% l('with no type set:') %]</th>
     <td>[% stats.statistic('count.artist.type.null') %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.null', 'count.artist')) }) %]</td>

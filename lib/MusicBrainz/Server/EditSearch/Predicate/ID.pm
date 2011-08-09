@@ -23,7 +23,7 @@ sub combine_with_query {
             $sql = $self->field_name . ' BETWEEN ? AND ?';
         }
         default {
-           $sql = join(' ', $self->field_name, $self->operator, '?')
+           $sql = join(' ', 'edit.'.$self->field_name, $self->operator, '?')
        }
     }
 

@@ -266,7 +266,7 @@ test 'Find edits by subscription' => sub {
     $sql->do('UPDATE edit SET status = ? WHERE id = ?',
              $STATUS_ERROR, 1);
     $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
-    my @edits = $edit_data->find_for_subscription($sub);
+    @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 1, 'found 1 edit');
     ok(!(grep { $_->id == 1 } @edits), 'doesnt have edit #1');
     ok((grep { $_->id == 4 } @edits), 'has edit #4');

@@ -61,7 +61,9 @@ after 'load' => sub
         $c->stash->{subscribed} = $label_model->subscription->check_subscription(
             $c->user->id, $label->id);
     }
+
     $c->model('LabelType')->load($label);
+    $c->model('Country')->load($c->stash->{label});
 };
 
 =head2 relations
@@ -93,8 +95,8 @@ sub show : PathPart('') Chained('load')
 
     my @releases = map { $_->release } @$release_labels;
 
-    $c->model('Country')->load($c->stash->{label}, @releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('Country')->load(@releases);
 
     $c->stash(
         template => 'label/index.tt',
