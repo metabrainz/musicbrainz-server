@@ -229,15 +229,27 @@ Creating the database
         Please be patient!
 
 
-    NOTE: on a fresh postgresql install you may see the following error:
+    NOTE that musicbrainz requires the "plpgsql" and "plperlu" languages to be
+    installed in the database.  Make sure the appropriate contrib packages are
+    installed on your system, for example on ubuntu 11.04 you would do:
 
-        CreateFunctions.sql:33: ERROR:  language "plpgsql" does not exist
+        apt-get install postgresql-plperl-8.4 libjson-xs-perl
 
-    To resolve that login to postgresql with the "postgres" user (or
-    any other postgresql user with SUPERUSER privileges) and load the
-    "plpgsql" language into the database with the following command:
+    (the plperl function included with musicbrainz requires JSON::XS to be
+     installed in a place where plperl can find it, so we recommend you also
+     install that with your distribution's package manager).
 
-        postgres=# CREATE LANGUAGE plpgsql;
+    You can use the "createlang" command to install the languages into the musicbrainz
+    database, use an account with SUPERUSER privileges. On typical debian/ubuntu system
+    the following should work:
+
+        sudo -u postgres createlang plpgsql musicbrainz_db
+        sudo -u postgres createlang plperlu musicbrainz_db
+
+    Or if you have a separate superuser account:
+
+        createlang -U root plpgsql musicbrainz_db
+        createlang -U root plperlu musicbrainz_db
 
 
 Starting the server
