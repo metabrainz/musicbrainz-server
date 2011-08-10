@@ -93,7 +93,7 @@
 
 [% BLOCK remove %]
 <button class="remove">
-  <image src="/static/images/icons/delete_row.png" alt="[% l('Delete') %]" />
+  <image src="[% c.uri_for("/static/images/icons/delete_row.png") %]" alt="[% l('Delete') %]" />
 </button>
 [% END %]
 

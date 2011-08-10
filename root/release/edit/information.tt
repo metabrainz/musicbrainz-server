@@ -28,7 +28,7 @@
         <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
         <span class="autocomplete">
           [% r.text(rg_field) %]
-          <img class="search" src="/static/images/icons/search.png" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
       [% END %]
 
@@ -62,7 +62,7 @@
           [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
           <span class="label autocomplete">
             [%- r.text(field.field('name'), class => 'label-name') -%]
-            <img class="search" src="/static/images/icons/search.png" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
           [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
@@ -70,7 +70,7 @@
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <img src="/static/images/icons/delete_row.png" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
+              <img src="[% c.uri_for("/static/images/icons/delete_row.png") %] title="[% l('Remove Label'") %]" alt="[% l('Remove Label') %]" />
             </a>
           </span>
 
@@ -81,7 +81,7 @@
           <div class="add-label" style="text-align: right; width: 100%; ">
             <span class="add-label" style="padding: 0 1em;">[% l('Add Label') %]</span>
             <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
-              <img src="/static/images/icons/add_row.png" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
+              <img src="[% c.uri_for("/static/images/icons/add_row.png") %] title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
             </a>
           </div>
         [% END %]
