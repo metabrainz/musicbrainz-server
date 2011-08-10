@@ -303,7 +303,7 @@ sub MakeDisplayLabelCode
 sub IsValidBarcode
 {
     my $barcode = shift;
-    return $barcode =~ /[^0-9]/;
+    return $barcode =~ /^[0-9]+$/;
 }
 
 sub IsValidEAN
