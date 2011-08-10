@@ -1,0 +1,52 @@
+
+<div id="catalyst-stats-summary" [%- IF c.stats.elapsed > 1.0 -%]class="slow"[%- END -%]>
+  [%- c.stats.elapsed * 1000 -%] ms
+</div>
+
+<div id="catalyst-stats" style="display: none;">
+  <p id="catalyst-stats-header">
+    <span class="action">[%- c.action.private_path -%]</span>
+    <span class="date">
+      <small>
+        [% USE Date %]
+        [%- c.request.hostname -%], [% Date.format (Date.now, format = "%Y-%m-%d %H:%M:%S") -%]
+      </small>
+    </span>
+    <hr />
+  </p>
+  <table>
+    <thead><tr><th> </th><th>time (ms)</th></tr></thead>
+    <tbody>
+      [%- FOR row=c.stats.report -%]
+      <tr>
+        <td class="description" style="padding-left: [% row.0 %]em;">[%- row.1 -%]</td>
+        <td class="duration">[%- row.2 * 1000 -%]</td>
+      <tr>
+      [%- END -%]
+      <tr><td colspan="2"><hr /></td></tr>
+      <tr><td>total</td><td class="duration">[% c.stats.elapsed * 1000 %]</td></tr>
+    </tbody>
+  </table>
+  <script type="text/javascript">
+    if ($.cookie ('catalyst-stats-open') === "1")
+    {
+        $('#catalyst-stats').show ();
+    }
+
+    $('#catalyst-stats-summary').bind ('click.mb', function () {
+        $('#catalyst-stats').toggle ();
+        $.cookie ('catalyst-stats-open',
+            $('#catalyst-stats').is(':visible') ? "1" : "0",
+            { path: '/', expires: 365 });
+    });
+
+    $('#catalyst-stats table td.duration').each (function (idx, cell) {
+        parts = $(cell).text ().split ('.');
+        if (parts.length === 2)
+        {
+            $(cell).html (parts[0] + '.<span class="fractional">' + parts[1] + '</span>');
+        }
+    });
+  </script>
+</div>
+

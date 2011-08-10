@@ -133,6 +133,8 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
+    $c->stats->enable(1) if DBDefs::DEVELOPMENT_SERVER;
+
     # if no javascript cookie is set we don't know if javascript is enabled or not.
     my $jscookie = $c->request->cookie('javascript');
     my $js = $jscookie ? $jscookie->value : "unknown";
