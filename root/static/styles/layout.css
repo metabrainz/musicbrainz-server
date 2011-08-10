@@ -332,6 +332,7 @@ div.warning img.warning {
 
 #content {
     margin-right: 250px;
+    word-wrap: break-word;
 }
 
 #page.fullwidth #content {

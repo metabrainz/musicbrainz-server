@@ -162,6 +162,13 @@ sub _search
 
 sub _tags_and_ratings
 {
+    my $self = shift;
+    $self->_tags(@_);
+    $self->_ratings(@_);
+}
+
+sub _tags
+{
     my ($self, $c, $modelname, $entities, $stash) = @_;
 
     my %map = object_to_ids (@$entities);
@@ -193,6 +200,14 @@ sub _tags_and_ratings
             push @{ $opts->{user_tags} }, $_;
         }
     }
+}
+
+sub _ratings
+{
+    my ($self, $c, $modelname, $entities, $stash) = @_;
+
+    my %map = object_to_ids (@$entities);
+    my $model = $c->model($modelname);
 
     if ($c->stash->{inc}->ratings)
     {
@@ -378,7 +393,7 @@ sub linked_releases
         $c->model('ArtistCredit')->load(@$releases);
     }
 
-    $self->_tags_and_ratings($c, 'Release', $releases, $stash);
+    $self->_tags($c, 'Release', $releases, $stash);
 }
 
 sub linked_release_groups

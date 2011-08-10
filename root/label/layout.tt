@@ -3,6 +3,9 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2>[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
+               content=rdfa_sort_name(label.sort_name)
+                   IF label.name != label.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(label.type_name)
                    IF label.type -%]

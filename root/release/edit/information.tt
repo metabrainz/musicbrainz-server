@@ -70,7 +70,7 @@
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <img src="[% c.uri_for("/static/images/icons/delete_row.png") %] title="[% l('Remove Label'") %]" alt="[% l('Remove Label') %]" />
+              <img src="[% c.uri_for("/static/images/icons/delete_row.png") %] title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
             </a>
           </span>
 
