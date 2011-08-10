@@ -29,8 +29,8 @@ MB.TrackParser.Artist = function (track, artist) {
 
     self.addNew = function (name) {
         self.names.push ({
-            'artist_name': name,
-            'name': name,
+            'artist_name': $.trim (name),
+            'name': $.trim (name),
             'id': '',
             'gid': '',
             'join': null
