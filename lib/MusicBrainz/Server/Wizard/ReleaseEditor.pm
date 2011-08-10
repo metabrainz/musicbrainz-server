@@ -1219,7 +1219,7 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
-    my @names = @{ $trk->{artist_credit}->{names} };
+    my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
     # with just an id.
