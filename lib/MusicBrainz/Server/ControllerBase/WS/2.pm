@@ -377,6 +377,8 @@ sub linked_releases
     {
         $c->model('ArtistCredit')->load(@$releases);
     }
+
+    $self->_tags_and_ratings($c, 'Release', $releases, $stash);
 }
 
 sub linked_release_groups
