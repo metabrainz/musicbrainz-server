@@ -148,7 +148,7 @@ button.disabled { color: #aaa; }
 .star-rating a:focus,
 .star-rating .current-user-rating,
 .star-rating .current-rating {
-    background: url('/static/images/icons/rating_star.gif') left -1000px repeat-x;
+    background: url('../images/icons/rating_star.gif') left -1000px repeat-x;
 }
 
 .star-rating {
@@ -239,7 +239,7 @@ button.disabled { color: #aaa; }
 .small-star a:focus,
 .small-star .current-user-rating,
 .small-star .current-rating {
-    background-image: url('/static/images/icons/rating_star_small.gif');
+    background-image: url('../images/icons/rating_star_small.gif');
     line-height: 10px;
     height: 10px;
 }

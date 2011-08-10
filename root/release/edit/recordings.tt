@@ -110,7 +110,7 @@
           [% l('Search:') %]
           <span class="autocomplete">
             <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
-            <img class="search" src="/static/images/icons/search.png" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
         </p>
 
@@ -341,7 +341,7 @@
 
           <div style="display: none" class="recordings-loading">
             <p>
-              <img src="/static/images/icons/loading.gif" />
+              <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
               &nbsp;
               [% l('Now loading recording associations...') %]
             </p>
