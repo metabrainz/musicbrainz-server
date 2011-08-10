@@ -10,6 +10,10 @@
    [% USE r = FormRenderer(form) %]
    [% r.hidden ('wizard_session_id') %]
 
+   [%# Do not display new entities as 'deleted'. See common-macros.tt
+       (link_entity) for more information. -%]
+   [% allow_new = 1 %]
+
    <div id="form">
 
        [%- FOREACH edit=edits -%]

@@ -19,7 +19,11 @@
   <tr>
     <th>[% l('Release group:') %]</th>
     <td>
-      [% descriptive_link(edit.display_data.release_group) %]
+      [% IF !edit.display_data.release_group.gid && allow_new;
+           l('(new release group)');
+         ELSE;
+           descriptive_link(edit.display_data.release_group);
+         END %]
     </td>
   </tr>
 
