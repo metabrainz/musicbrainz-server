@@ -301,14 +301,15 @@ MB.Control.Autocomplete = function (options) {
             url: self.url,
             data: { q: request.term, page: self.current_page, direct: !self.indexed_search },
             success: function (data, result, request) {
+
+                data = self.resultHook (data);
+
                 data.push ({
                     "action": function () { self.searchAgain (true); },
                     "message": self.indexed_search ?
                         MB.text.SwitchToDirectSearch :
                         MB.text.SwitchToIndexedSearch
                 });
-
-                data = self.resultHook (data);
 
                 /* FIXME: this shouldn't be neccesary.  figure out why
                  * this gets cleared on page switches. */

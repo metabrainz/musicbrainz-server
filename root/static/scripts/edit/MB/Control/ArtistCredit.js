@@ -185,6 +185,16 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         return request;
     };
 
+    self.resultHook = function (data) {
+
+        data.push ({
+            "action": function () { self.clear () },
+            "message": MB.text.RemoveLinkedArtist
+        });
+
+        return data;
+    };
+
     self.nameBlurred = function(event) {
         /* if the artist was cleared the user probably wants to delete it,
            make sure ids are emptied out too. */
@@ -359,7 +369,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         'input': self.$name,
         'entity': 'artist',
         'select': self.update,
-        'lookupHook': self.lookupHook
+        'lookupHook': self.lookupHook,
+        'resultHook': self.resultHook
     });
 
     if (obj === null)
@@ -417,7 +428,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             'input': self.$artist_input,
             'entity': 'artist',
             'select': self.update,
-            'lookupHook': self.lookupHook
+            'lookupHook': self.lookupHook,
+            'resultHook': self.resultHook
         });
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
@@ -471,6 +483,16 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         self.$artist_input.removeClass ('error');
 
         return request;
+    };
+
+    self.resultHook = function (data) {
+
+        data.push ({
+            "action": function () { self.clear () },
+            "message": MB.text.RemoveLinkedArtist
+        });
+
+        return data;
     };
 
     self.addArtistBox = function () {
