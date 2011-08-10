@@ -318,6 +318,7 @@ div.warning {
     background: #ffffd0;
 }
 
+div.warning p,
 div.notice p { margin: 1em; }
 
 #release-editor div.changes div.notice { margin: 2em auto 0 auto; }
