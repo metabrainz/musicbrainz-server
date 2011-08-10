@@ -56,6 +56,7 @@ my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
 my $fExtensionSchema;
+my $tmp_dir;
 
 warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
     if $REPTYPE == RT_SLAVE and not $READONLY;
@@ -230,6 +231,7 @@ sub CreateRelations
         local $" = " ";
         my @opts = "--ignore-errors";
         push @opts, "--fix-broken-utf8" if ($fFixUTF8);
+        push @opts, "--tmp-dir=$tmp_dir" if ($tmp_dir);
         system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {
@@ -381,6 +383,7 @@ GetOptions(
     "fix-broken-utf8"     => \$fFixUTF8,
     "install-extension=s" => \$fInstallExtension,
     "extension-schema=s"  => \$fExtensionSchema,
+    "tmp-dir=s"           => \$tmp_dir
 ) or exit 2;
 
 if ($fInstallExtension)
