@@ -417,6 +417,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/discogs-16.png");
 }
 
+#sidebar ul.external_links li.secondhandsongs {
+    background-image: url("../images/favicons/secondhandsongs-16.png");
+}
+
 #sidebar ul.external_links li.soundcloud {
     background-image: url("../images/favicons/soundcloud-16.png");
 }
