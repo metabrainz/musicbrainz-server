@@ -44,7 +44,7 @@
         parts = $(cell).text ().split ('.');
         if (parts.length === 2)
         {
-            $(cell).html (parts[0] + '.<span class="fractional">' + parts[1] + '</span>');
+            $(cell).html (parts[0] + '.<span class="fractional">' + parts[1] + '<\/span>');
         }
     });
   //]]></script>
