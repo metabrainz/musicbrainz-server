@@ -85,7 +85,7 @@ $(function() {
     }
 
     function prefixedInputName($element) {
-        return 'conditions.' + conditionCounter + '.' + $element.attr('name')
+        return 'conditions.' + conditionCounter + '.' + $element.attr('name').replace(/conditions\.\d+\./, '');
     }
 
     $('ul.conditions select.operator').live('change', function() {
