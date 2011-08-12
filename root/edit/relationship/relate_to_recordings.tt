@@ -37,7 +37,7 @@
             <tr>
                 <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
                 <td colspan="2">
-                    [% r.select('link_type_id') %]
+                    [% r.select('link_type_id', no_default => 1) %]
                     [% field_errors(form, 'link_type_id') %]
                     <div class="ar-descr" id="type_descr"></div>
                 </td>
