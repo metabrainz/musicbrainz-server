@@ -27,7 +27,7 @@
       <tr><td>total</td><td class="duration">[% c.stats.elapsed * 1000 %]</td></tr>
     </tbody>
   </table>
-  <script type="text/javascript">
+  <script type="text/javascript">//<![CDATA[
     if ($.cookie ('catalyst-stats-open') === "1")
     {
         $('#catalyst-stats').show ();
@@ -47,6 +47,6 @@
             $(cell).html (parts[0] + '.<span class="fractional">' + parts[1] + '</span>');
         }
     });
-  </script>
+  //]]></script>
 </div>
 
