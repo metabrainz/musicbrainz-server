@@ -3,6 +3,8 @@ input:-moz-placeholder { color: #aaa; }
 input.mb_placeholder { color: #aaa ! important; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
+div.various-artists.warning { width: 50em; }
+
 fieldset {
     margin-top: 12px;
     margin-bottom: 12px;

@@ -117,16 +117,15 @@
   [% information = w.page ('information') %]
   [% release_artist = information.field('artist_credit') %]
 
-   <div class="various-artists warning" style="display: none; width: 50em;">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
-     [%- va_doc_link = '<a target="_blank" href="' _ c.uri_for('/doc/Style/Unknown_and_untitled/Special_purpose_artist') _ '#List_of_official_SPAs">Various Artists</a>' -%]
+   <div class="various-artists warning" style="display: none;">
+     [%- warning_icon %]
      <p>
        [% l('<strong>Warning</strong>:') %]
-       [% l('You have used the {valink} special purpose artist on:', { valink => va_doc_link }) %]
+       [% l('You have used the {valink|Various Artists} special purpose artist on:', { valink => va_doc_link }) %]
      </p>
      <ul> </ul>
      <p>
-       [% l('{valink} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
+       [% l('{valink|Various Artists} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
      </p>
   </div>
 

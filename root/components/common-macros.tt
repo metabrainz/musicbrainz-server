@@ -18,6 +18,11 @@ END -%]
 [%- USE UserDate(c.user.preferences) -%]
 [%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
+[%- MACRO va_doc_link BLOCK -%]
+    [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
+[%- END -%]
+
+
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
@@ -542,16 +547,20 @@ END -%]
     ELSE; '';
 END %]
 
+[%- MACRO warning_icon BLOCK -%]
+   <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+[%- END -%]
+
 [%- MACRO error(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     [%- warning_icon %]
      <p>[% l('<strong>Error</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
 
 [%- MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     [%- warning_icon %]
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
