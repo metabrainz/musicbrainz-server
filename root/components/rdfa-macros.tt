@@ -26,13 +26,13 @@
       xmlns:skos="http://www.w3.org/2004/02/skos/core#"
       xmlns:xhv="http://www.w3.org/1999/xhtml/vocab#"
       xmlns:owl="http://www.w3.org/2002/07/owl#"
-      xml:lang="en"
-      lang="en">
+      xml:lang="[%- c.language() -%]"
+      lang="[%- c.language() -%]">
 [%- ELSE -%]
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xml:lang="en"
-      lang="en">
+      xml:lang="[%- c.language() -%]"
+      lang="[%- c.language() -%]">
 [%- END -%]
 [%- END -%]
 
