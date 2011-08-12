@@ -382,6 +382,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$name.data ('mb_selected_name', self.$name.val ());
         }
 
+        if (self.$id.val () !== '')
+        {
+            self.$name.data ('mb_selected_name', self.$name.val ());
+        }
+
         self.updateLookupPerformed ();
     }
 

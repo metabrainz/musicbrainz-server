@@ -1,0 +1,76 @@
+
+#catalyst-stats-summary {
+    position: absolute;
+    width: 8em;
+    left: 50%;
+    margin-left: -1em;
+    top: 0;
+    z-index: 10;
+    padding: 0.5em 1em;
+    border: 0;
+    color: #fff;
+    text-align: center;
+    background-color: #837EB7;
+    box-shadow: 0 1px 3px #666;
+    border-radius: 0 0 12px 12px;
+}
+
+#catalyst-stats-summary.slow {
+    background-color: #E92525;
+    color: #fff;
+    font-weight: bolder;
+}
+
+#catalyst-stats {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 12;
+    padding: 1em;
+    color: #777;
+    background: #f0f0f0;
+    box-shadow: 0 1px 8px #888;
+    border: 1px solid #999;
+    border-radius: 0 0 0 12px;
+}
+
+#catalyst-stats-header { padding: 0; margin: 0; }
+
+#catalyst-stats-header span { font-size: 120%; font-weight: bolder; }
+#catalyst-stats-header span.date {
+    font-size: 120%;
+    font-weight: lighter;
+    float: right;
+    display: inline-block;
+}
+
+#catalyst-stats hr {
+    margin: 0;
+    padding: 0;
+    height: 1px;
+    border-width: 0;
+    color: #ccc;
+    background-color: #ccc;
+}
+
+#catalyst-stats table th {
+    padding: 0.5em;
+    font-size: 80%;
+    font-weight: normal;
+    color: #999;
+}
+
+#catalyst-stats table td.description { padding-right: 1em; }
+#catalyst-stats table td.duration {
+    color: #444;
+    padding-left: 1em;
+    text-align: right;
+}
+
+#catalyst-stats table td.duration span.fractional {
+    display: inline-block;
+    text-align: left;
+    width: 4em;
+}
+
