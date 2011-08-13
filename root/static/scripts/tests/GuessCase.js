@@ -255,6 +255,11 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "Hold on, I'm Coming",
                 expected: "Hold On, I'm Coming",
                 bug: "MBS-3013", mode: "English"
+            },
+            {
+                input: 'Testing 7 in, 10in, 12" vinyl sizes in mix titles',
+                expected: 'Testing 7 In, 10", 12" Vinyl Sizes in Mix Titles',
+                bug: "MBS-3032", mode: "English"
             }
 
 
