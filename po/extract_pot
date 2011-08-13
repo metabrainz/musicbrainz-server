@@ -3,10 +3,45 @@
 use strict;
 use warnings;
 
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
 use Locale::PO;
 use Data::Dumper;
 use Template::Parser;
 use File::Slurp;
+
+use Encode qw(encode decode);
+use Sql;
+
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
+### DATABASE 
+
+my $mb = Databases->get_connection('READWRITE');
+my $sql = Sql->new($mb->dbh);
+
+# Format: [table, [column1, column2], flag]
+# where applicable, flag should probably be 'perl-format' or 'perl-brace-format'
+my @DBDEFS = (
+              ['country', ['name']],
+              ['language', ['name']],
+              ['script', ['name']],
+              ['artist_type', ['name']],
+              ['label_type', ['name']],
+              ['work_type', ['name']],
+              ['release_group_type', ['name']],
+              ['medium_format', ['name']],
+              ['release_packaging', ['name']],
+              ['release_status', ['name']],
+              ['gender', ['name']],
+	      ['link_attribute_type', ['description', 'name'], 'perl-format'],
+	      ['link_type', ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'perl-format']
+             );
+
+my @database_po_objects = map { parse_db($_); } @DBDEFS;
+
+### TEMPLATES
 
 my @MARKERS = qw/l ln/;
 
@@ -23,6 +58,10 @@ if (! defined $ARGV[0]) {
     @files = @ARGV;
 }
 
+my @file_po_objects = map { parse_file($_); } @files;
+
+### GENERATE .POT
+
 my $po = new Locale::PO(-msgid=>'', -msgstr=>
                         "Project-Id-Version: PACKAGE VERSION\\n" .
                         "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\\n" .
@@ -34,11 +73,44 @@ my $po = new Locale::PO(-msgid=>'', -msgstr=>
 
 print $po->dump();
 
+my @po_objects = (@file_po_objects, @database_po_objects);
 map {
     print $_->dump();
-} map {
-    parse_file($_);
-} @files;
+} @po_objects;
+
+### HELPER FUNCTIONS
+
+sub parse_db {
+    my $dbdef = shift;
+    my @pos;
+
+    my $table = @{$dbdef}[0];
+    my $columns = @{$dbdef}[1];
+    my $flag = @{$dbdef}[2] || 0;
+
+    foreach my $column (@$columns) {
+        my $query = "SELECT $column, id from $table";
+        my $values = $sql->select_list_of_lists($query);
+
+	foreach my $value (@$values) { 
+               my $po = Locale::PO->new();
+	       my $item = shift @{$value};
+	       if ($item) {
+	           my $id = shift @{$value};
+	           $item =~ s/\r*\n/\\n/g;
+                   $po->msgid(encode('UTF-8', $item));
+                   $po->msgstr("");
+	           if ($flag) {
+	               $po->add_flag($flag);
+	           }
+                   $po->reference("DB:$table/$column:$id");
+	           push @pos, $po;
+               }
+           }
+    }
+
+    return @pos;
+}
 
 sub get_translations {
     my $data = shift;
