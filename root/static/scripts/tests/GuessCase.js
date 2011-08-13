@@ -260,8 +260,12 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: 'Testing 7 in, 10in, 12" vinyl sizes in mix titles',
                 expected: 'Testing 7 In, 10", 12" Vinyl Sizes in Mix Titles',
                 bug: "MBS-3032", mode: "English"
+            },
+            {
+                input: "I’ll do something - Johnny’s great band",
+                expected: "I’ll Do Something - Johnny’s Great Band",
+                bug: "MBS-2923", mode: "English"
             }
-
 
             /* There is no fix for these yet.
             {

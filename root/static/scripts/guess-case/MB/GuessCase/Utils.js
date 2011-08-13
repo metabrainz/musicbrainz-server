@@ -178,6 +178,13 @@ MB.GuessCase.Utils = function () {
     }; // sentencestop_chars
 
     /**
+     * Apostrophe
+     * -------------------------------------------------------
+     * warp		2011-08-13		first version
+     **/
+    self.isApostrophe = function(w) { return w == "'" || w == "’"; };
+
+    /**
      * Punctuation characters
      * -------------------------------------------------------
      * keschte		2005-05-24		first version
@@ -293,7 +300,7 @@ MB.GuessCase.Utils = function () {
 	    os = UC;
 
 	    // we got an 'x (apostrophe),keep the text lowercased
-	} else if (LC.length == 1 && gc.i.isPreviousWord("'")) {
+	} else if (LC.length == 1 && self.isApostrophe(gc.i.getPreviousWord())) {
 	    os = LC;
 
 	    // we got an 's (It is = It's), lowercased
@@ -306,17 +313,17 @@ MB.GuessCase.Utils = function () {
 	    // we got an 'til (Until = 'til), lowercase.
 	    // we got an 'way (Away = 'way), lowercase.
 	    // we got an 'round (Around = 'round), lowercased
-	} else if (gc.i.isPreviousWord("'") && LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
+	} else if (self.isApostrophe(gc.i.getPreviousWord()) && LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
 	    os = LC;
 
 	    // we got an Ev'..
 	    // Every = Ev'ry, lowercase
 	    // Everything = Ev'rything, lowercase (more cases?)
-	} else if (gc.i.isPreviousWord("'") && wordbefore == "Ev") {
+	} else if (self.isApostrophe(gc.i.getPreviousWord()) && wordbefore == "Ev") {
 	    os = LC;
 
 	    // Make it O'Titled, Y'All
-	} else if (LC.match(/^(o|y)$/i) && gc.i.isNextWord("'")) {
+	} else if (LC.match(/^(o|y)$/i) && self.isApostrophe(gc.i.getNextWord())) {
 	    os = UC;
 
 	} else {
