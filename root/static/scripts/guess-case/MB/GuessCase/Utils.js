@@ -83,11 +83,13 @@ MB.GuessCase.Utils = function () {
      * keschte		2005-07-20		added dub
      **/
     self.getPrepBracketSingleWords = function() {
-	return ["acoustic", "album", "alternate", "bonus", "clean", "club", "dance",
-		"dirty", "extended", "instrumental", "live", "original", "radio", "take",
-		"disc", "mix", "version", "feat", "cut", "vocal", "alternative", "megamix",
-		"disco", "video", "dub", "long", "short", "main", "composition", "session",
-		"rework", "reworked", "remixed", "dirty", "airplay"];
+	return ["acoustic", "airplay", "album", "alternate", "alternative",
+                "bonus", "clean", "club", "composition", "cut", "dance",
+                "dirty", "disc", "disco", "dub", "extended", "feat",
+                "instrumental", "live", "long", "main", "megamix", "mix",
+                "original", "radio", "remixed", "rework", "reworked",
+                "session", "short", "take", "trance", "version", "video",
+                "vocal" ];
     };
     self.isPrepBracketSingleWord = function(w) {
 	

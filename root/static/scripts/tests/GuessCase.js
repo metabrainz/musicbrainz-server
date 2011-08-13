@@ -265,7 +265,13 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "I’ll do something - Johnny’s great band",
                 expected: "I’ll Do Something - Johnny’s Great Band",
                 bug: "MBS-2923", mode: "English"
+            },
+            {
+                input: "10000 dB Goa Trance",
+                expected: "10000 dB Goa Trance",
+                bug: "MBS-2756", mode: "English"
             }
+
 
             /* There is no fix for these yet.
             {
