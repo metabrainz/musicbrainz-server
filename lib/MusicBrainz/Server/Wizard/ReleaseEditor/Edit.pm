@@ -76,17 +76,6 @@ override 'prepare_tracklist' => sub {
         $self->release->all_mediums);
 
     $self->c->model('CDTOC')->load(@medium_cdtocs);
-
-
-    my @medium_cdtocs_json;
-    my $number = 0;
-    for my $medium ($self->release->all_mediums)
-    {
-        $medium_cdtocs_json[$number++] =
-            @{ $medium->cdtocs } ? $medium->cdtocs->[0]->cdtoc->track_count : undef;
-    }
-
-    $self->c->stash->{medium_cdtocs_json} = $json->encode (\@medium_cdtocs_json);
 };
 
 augment 'load' => sub
