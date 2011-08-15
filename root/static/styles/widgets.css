@@ -132,6 +132,8 @@ form input[type=submit] {
     font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
     text-decoration:none;
     font-weight:bold;
+
+    margin-top: 6px;
 }
 
 input[type=button].disabled,
