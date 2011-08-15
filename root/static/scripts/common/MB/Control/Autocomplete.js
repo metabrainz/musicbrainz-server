@@ -46,6 +46,11 @@ MB.Control.autocomplete_formatters = {
     "recording": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.length && item.length !== '' && item.length !== '?:??')
+        {
+            a.prepend ('<span class="autocomplete-length">' + item.length + '</span>');
+        }
+
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
