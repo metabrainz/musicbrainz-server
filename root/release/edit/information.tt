@@ -32,13 +32,6 @@
         </span>
       [% END %]
 
-      <div class="row">
-        [% r.label('various_artists', 'Various Artists release') %]
-        <img style="float: right; margin-right: 12px;" id="help-va"
-             src="[% c.uri_for("/static/images/icons/help.png") %]" />
-        [% r.checkbox('various_artists') %]
-      </div>
-
       [%- form_row_artist_credit(form, 'release-artist') -%]
 
       [%# FIXME: should only be editable on Add Release. %]
@@ -110,14 +103,6 @@
   </div>
 
   <div class="documentation">
-
-    <div class="help-va-container" style="display: none">
-      <div class="help-va bubble">
-        <p>
-          [% l("Check this if not all tracks on this release are credited to the same artist.") %]
-        </p>
-      </div>
-    </div>
 
     [%- guesscase_bubble() -%]
     [%- artist_credit_table(form) -%]

@@ -126,9 +126,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      * track is different from the release artist.
      */
     self.updateVariousArtists = function () {
-        if (self.isDeleted () ||
-            self.parent.isVariousArtists () ||
-            self.artist_credit.isReleaseArtist ())
+        if (self.isDeleted () || self.artist_credit.isReleaseArtist ())
             return;
 
         self.parent.setVariousArtists ();
@@ -636,7 +634,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * to change this back to single artists.
      */
     self.setVariousArtists = function () {
-        self.basic.$various_artists.val ('1');
+        self.basic.various_artists = true;
     };
 
     /**
