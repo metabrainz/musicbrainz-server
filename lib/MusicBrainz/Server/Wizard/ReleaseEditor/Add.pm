@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_edit_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_edit_ref hash_structure object_to_ids );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 
@@ -43,15 +43,22 @@ sub prepare_duplicates
 {
     my $self = shift;
 
-    my $information = $self->load_page ('information');
-
-    my $name = $information->value->{name};
-    my $artist_credit = $information->value->{artist_credit};
+    my $name = $self->get_value ('information', 'name');
+    my $artist_credit = $self->get_value ('information', 'artist_credit');
+    my $rg_id = $self->get_value ('information', 'release_group_id');
 
     my @releases = $self->c->model('Release')->find_similar(
         name => $name,
         artist_credit => clean_submitted_artist_credits($artist_credit)
     );
+
+    if ($rg_id)
+    {
+        my ($more_releases, $hits) = $self->c->model('Release')->find_by_release_group ($rg_id);
+
+        my %releases = object_to_ids (@releases, @$more_releases);
+        @releases = map { $_->[0] } values %releases;
+    }
 
     $self->c->model('Medium')->load_for_releases(@releases);
     $self->c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
