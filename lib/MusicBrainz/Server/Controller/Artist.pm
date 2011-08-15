@@ -19,8 +19,16 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
+use MusicBrainz::Server::Constants qw(
+    $DARTIST_ID
+    $VARTIST_ID
+    $EDIT_ARTIST_MERGE
+    $EDIT_ARTIST_CREATE
+    $EDIT_ARTIST_EDIT
+    $EDIT_ARTIST_DELETE
+    $EDIT_ARTIST_SPLIT
+
+);
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
@@ -498,6 +506,23 @@ sub stop_watching : Chained('load') RequireAuth {
 
     $c->response->redirect(
         $c->req->referer || $c->uri_for_action('/artist/show', [ $artist->gid ]));
+}
+
+sub split : Chained('load') Edit {
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{artist};
+    $self->edit_action(
+        $c,
+        form => 'SplitArtist',
+        type => $EDIT_ARTIST_SPLIT,
+        edit_args => {
+            artist => $artist
+        },
+        on_creation => sub {
+            $c->res->redirect(
+                $c->uri_for_action('/artist/show', [ $artist->gid ]))
+        }
+    );
 }
 
 =head1 LICENSE

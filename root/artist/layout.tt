@@ -53,6 +53,10 @@
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
                 <li>
+                  [% link_artist(artist, 'split', l('Split Into Artist Credits')) %]
+                </li>
+                  <hr/>
+                <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
                     [% l('Add release group') %]
                   </a>

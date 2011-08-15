@@ -1,0 +1,37 @@
+[%- BLOCK layout_head -%]
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('guess-case.js.manifest') %]
+
+  <script type="text/javascript">//<![CDATA[
+    $('document').ready(function() {
+
+      var bubbles = MB.Control.BubbleCollection ();
+      MB.Control.initialize_artist_credit (bubbles);
+
+    });
+  //]]></script>
+[%- END -%]
+
+[% WRAPPER 'artist/layout.tt' full_width=1 title=l('Split Artist') %]
+   [%- IF no_javascript -%]
+     [%- warning( l("Javascript needs to be enabled."), "nojavascript" ) -%]
+   [%- END -%]
+
+   <form action="[% c.req.uri %]" method="post">
+     [%- USE r = FormRenderer(form) -%]
+     <div class="half-width">
+       <fieldset>
+         <legend>[% l('New Artist Credit') %]</legend>
+         [%- form_row_artist_credit(form) -%]
+       </fieldset>
+
+       [%- INCLUDE 'forms/edit-note.tt' -%]
+       [%- enter_edit() -%]
+     </div>
+
+     <div class="documentation">
+       [%- artist_credit_table(form, 1) -%]
+       [%- guesscase_bubble() -%]
+     </div>
+   </form>
+[% END %]

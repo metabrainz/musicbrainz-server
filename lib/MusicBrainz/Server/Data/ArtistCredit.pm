@@ -186,7 +186,7 @@ sub merge_artists
 sub decompose_artist_to_credits {
     my ($self, $artist_id, $artist_credit) = @_;
 
-    return if is_special_purpose($artist_id);
+    return if MusicBrainz::Server::Data::Artist::is_special_purpose($artist_id);
 
     my @old_credit_ids = @{
         $self->c->sql->select_single_column_array(

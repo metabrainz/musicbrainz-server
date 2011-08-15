@@ -58,6 +58,7 @@ Readonly our $EDIT_ARTIST_ADD_ANNOTATION => 5;
 Readonly our $EDIT_ARTIST_ADD_ALIAS => 6;
 Readonly our $EDIT_ARTIST_DELETE_ALIAS => 7;
 Readonly our $EDIT_ARTIST_EDIT_ALIAS => 8;
+Readonly our $EDIT_ARTIST_SPLIT => 9;
 
 Readonly our $EDIT_LABEL_CREATE => 10;
 Readonly our $EDIT_LABEL_EDIT => 11;
