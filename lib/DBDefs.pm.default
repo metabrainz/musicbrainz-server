@@ -82,6 +82,10 @@ sub DB_SCHEMA_SEQUENCE { 13 }
 use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
 
+# GnuPG options for signing the exported / replication data.
+# Either an array ref of command line options, or undef to skip gpg-signing.
+sub GPG_SIGNING_OPTIONS { undef }
+
 ################################################################################
 # HTTP Server Names
 ################################################################################

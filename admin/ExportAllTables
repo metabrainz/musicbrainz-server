@@ -542,7 +542,7 @@ sub dumptable
 
     my $estrows = table_rowcount($table) || 1;
 
-    $sql->do("COPY $table TO stdout");
+    $sql->do("COPY (SELECT * FROM $table LIMIT 1000) TO stdout");
     my $buffer;
     my $rows = 0;
 
@@ -593,6 +593,7 @@ sub dumptable
 my $fAnyReplicationData = 0;
 for my $table (@replication_tables)
 {
+    $fDoReplication or next;
     $fAnyReplicationData = 1
         if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
 }
@@ -690,6 +691,9 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-stats.tar.bz2",  @group_stats);
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
+
+    make_md5sums("*.tar.bz2", "md5sums");
+    gpg_sign("$OutputDir/md5sums");
 }
 
 if ($fCompress and $fDoReplication)
@@ -702,6 +706,7 @@ if ($fCompress and $fDoReplication)
         # Go for the "most restrictive" license
         copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
         make_tar($tarfile, @replication_tables);
+        gpg_sign("$OutputDir/$tarfile");
     }
 }
 
@@ -814,6 +819,39 @@ sub check_tables_completeness
     }
     printf "Table exported but not included in any tar: %s\n", $_
         for sort @no_group_tables;
+}
+
+sub make_md5sums
+{
+    my ($shellglob, $out) = @_;
+
+    defined(my $pid = fork) or die "fork: $!";
+    if (not $pid) {
+        chdir $OutputDir or die $!;
+        open(STDOUT, ">", $out) or die "open >$out: $!";
+        exec "md5sum -b $shellglob";
+    }
+    waitpid $pid, 0;
+
+    $? == 0 or die "md5sums failed (rc=$?)";
+}
+
+sub gpg_sign
+{
+    my ($file_to_be_signed) = @_;
+
+    # GPG_SIGNING_OPTIONS == undef => don't use gpg
+    return unless &DBDefs::GPG_SIGNING_OPTIONS;
+
+    system "gpg",
+        # Any other options you need passing to gpg,
+		# e.g. -u, --passphrase-*, etc.
+        @{ &DBDefs::GPG_SIGNING_OPTIONS },
+        "--detach-sign",
+        "--armor",
+        $file_to_be_signed;
+
+    $? == 0 or die "gpg signing failed (rc=$?)";
 }
 
 # eof ExportAllTables
