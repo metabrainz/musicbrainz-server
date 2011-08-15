@@ -542,7 +542,7 @@ sub dumptable
 
     my $estrows = table_rowcount($table) || 1;
 
-    $sql->do("COPY (SELECT * FROM $table LIMIT 1000) TO stdout");
+    $sql->do("COPY $table TO stdout");
     my $buffer;
     my $rows = 0;
 
@@ -593,7 +593,6 @@ sub dumptable
 my $fAnyReplicationData = 0;
 for my $table (@replication_tables)
 {
-    $fDoReplication or next;
     $fAnyReplicationData = 1
         if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
 }
