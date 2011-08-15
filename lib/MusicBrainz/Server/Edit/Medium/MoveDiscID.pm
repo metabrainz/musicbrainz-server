@@ -59,7 +59,7 @@ sub alter_edit_pending
     };
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return { 
@@ -140,13 +140,20 @@ sub accept
     my $medium_cdtoc = $self->c->model('MediumCDTOC')->get_by_id($self->data->{medium_cdtoc}{id});
     $self->c->model('CDTOC')->load($medium_cdtoc);
 
-    $self->c->model('MediumCDTOC')->update(
-        $self->data->{medium_cdtoc}{id},
-        { medium_id => $medium->id  }
-    ) unless $self->c->model('MediumCDTOC')->medium_has_cdtoc(
+    if ($self->c->model('MediumCDTOC')->medium_has_cdtoc(
         $medium->id,
         $medium_cdtoc->cdtoc
-    );
+    )) {
+        $self->c->model('MediumCDTOC')->delete(
+            $self->data->{medium_cdtoc}{id}
+        );
+    }
+    else {
+        $self->c->model('MediumCDTOC')->update(
+            $self->data->{medium_cdtoc}{id},
+            { medium_id => $medium->id  }
+        )
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

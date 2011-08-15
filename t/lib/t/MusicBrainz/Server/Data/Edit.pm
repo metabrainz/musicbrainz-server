@@ -204,13 +204,20 @@ is($edit->votes->[0]->vote, $VOTE_YES);
 is($edit->votes->[0]->editor_id, 1);
 
 # Test canceling
-
 $edit = $edit_data->get_by_id(2);
+$editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
+
 $edit_data->cancel($edit);
 memory_cycle_ok($edit_data);
 
+my $editor_cancelled = $test->c->model('Editor')->get_by_id($edit->editor_id);
+
 $edit = $edit_data->get_by_id(2);
 is($edit->status, $STATUS_DELETED);
+
+is ($editor_cancelled->$_, $editor->$_,
+    "$_ has not changed")
+    for qw( accepted_edits rejected_edits failed_edits accepted_auto_edits );
 
 };
 
@@ -259,7 +266,7 @@ test 'Find edits by subscription' => sub {
     $sql->do('UPDATE edit SET status = ? WHERE id = ?',
              $STATUS_ERROR, 1);
     $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 0 );
-    my @edits = $edit_data->find_for_subscription($sub);
+    @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 1, 'found 1 edit');
     ok(!(grep { $_->id == 1 } @edits), 'doesnt have edit #1');
     ok((grep { $_->id == 4 } @edits), 'has edit #4');

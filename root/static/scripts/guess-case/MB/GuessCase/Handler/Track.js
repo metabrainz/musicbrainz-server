@@ -111,8 +111,9 @@ MB.GuessCase.Handler.Track = function () {
      **/
     self.doWord = function() {
 
-	if (self.doFeaturingArtistStyle()) {
-	} else if (self.doVersusStyle()) {
+        if (self.doIgnoreWords ()) {
+        } else if (self.doFeaturingArtistStyle()) {
+        } else if (self.doVersusStyle()) {
 	} else if (self.doVolumeNumberStyle()) {
 	} else if (self.doPartNumberStyle()) {
 	} else if (gc.mode.doWord()) {

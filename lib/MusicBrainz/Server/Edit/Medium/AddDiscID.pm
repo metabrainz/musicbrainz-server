@@ -61,7 +61,7 @@ sub initialize {
     $self->data(\%opts);
 };
 
-method related_entities
+method _build_related_entities
 {
     return {
         release => [ $self->release_id ]

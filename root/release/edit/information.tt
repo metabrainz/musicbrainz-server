@@ -28,25 +28,11 @@
         <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
         <span class="autocomplete">
           [% r.text(rg_field) %]
-          <img class="search" src="/static/images/icons/search.png" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
       [% END %]
 
-      <div class="row">
-        [% r.label('various_artists', 'Various Artists release') %]
-        <img style="float: right; margin-right: 12px;" id="help-va"
-             src="/static/images/icons/help.png" />
-        [% r.checkbox('various_artists') %]
-      </div>
-
       [%- form_row_artist_credit(form, 'release-artist') -%]
-      <div class="row change-track-artists"
-        [%- UNLESS edit_release -%]style="display: none"[%- END -%]>
-        [% r.label('various_artists', 'Change track artists') %]
-        <img style="float: right; margin-right: 12px;" id="help-cta"
-             src="/static/images/icons/help.png" />
-        [% r.checkbox('change_track_artists') %]
-      </div>
 
       [%# FIXME: should only be editable on Add Release. %]
       [% form_row_select (r, 'type_id', 'Type') %]
@@ -76,7 +62,7 @@
           [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
           <span class="label autocomplete">
             [%- r.text(field.field('name'), class => 'label-name') -%]
-            <img class="search" src="/static/images/icons/search.png" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
           [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
@@ -84,7 +70,7 @@
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <img src="/static/images/icons/delete_row.png" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
+              <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
             </a>
           </span>
 
@@ -95,7 +81,7 @@
           <div class="add-label" style="text-align: right; width: 100%; ">
             <span class="add-label" style="padding: 0 1em;">[% l('Add Label') %]</span>
             <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
-              <img src="/static/images/icons/add_row.png" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
+              <img src="[% c.uri_for('/static/images/icons/add_row.png') %]" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
             </a>
           </div>
         [% END %]
@@ -117,27 +103,6 @@
   </div>
 
   <div class="documentation">
-
-    <div class="help-va-container" style="display: none">
-      <div class="help-va bubble">
-        <p>
-          [% l("Check this if not all tracks on this release are credited to the same artist.") %]
-        </p>
-      </div>
-    </div>
-
-    [%# "cta" is "change track artists" %]
-    <div class="help-cta-container" style="display: none">
-      <div class="help-cta bubble">
-        [%# FIXME: this could be worded better. suggestions? --warp. %]
-        <p>
-          [% l("Check this if you want tracks to also use the artist you have just entered.") %]
-        </p>
-        <p>
-          [% l("This will only update those tracks which currently have the same artists as the entire release.") %]
-        </p>
-      </div>
-    </div>
 
     [%- guesscase_bubble() -%]
     [%- artist_credit_table(form) -%]

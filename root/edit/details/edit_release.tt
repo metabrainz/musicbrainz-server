@@ -47,6 +47,10 @@
                           edit.display_data.status.old.name,
                           edit.display_data.status.new.name) -%]
 
+  [%- display_full_change(l('Release Group:'),
+                          descriptive_link(edit.display_data.group.old),
+                          descriptive_link(edit.display_data.group.new)) -%]
+
   [%- display_diff(l('Barcode:'),
                    html_escape(edit.display_data.barcode.old),
                    html_escape(edit.display_data.barcode.new)) -%]

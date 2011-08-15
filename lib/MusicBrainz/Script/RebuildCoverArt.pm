@@ -4,6 +4,7 @@ use Moose;
 use DBDefs;
 use DateTime::Duration;
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Log qw( log_debug log_warning );
 
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
@@ -52,7 +53,7 @@ sub run
     my $total = @releases;
     my $started_at = DateTime->now;
 
-    printf STDERR "There are %d releases to update\n", $total;
+    printf STDERR "There are a total of %d releases that can have cover-art\n", $total;
 
     my %seen;
 
@@ -62,7 +63,16 @@ sub run
     {
         $release = $release->();
         next if $seen{$release->id};
-        $self->c->model('CoverArt')->cache_cover_art($release);
+
+        my $art = $self->c->model('CoverArt')->cache_cover_art($release);
+
+        if ($art) {
+            log_debug { sprintf "Cover art for %d is %s", $release->id, $art->image_uri }
+        }
+        else {
+            log_warning { sprintf "Could not find cover art for %d", $release->id };
+        }
+
         $seen{$release->id} = 1;
         if ($completed++ % 10 == 0) {
             printf STDERR "%d/%d\r", $completed, $total;

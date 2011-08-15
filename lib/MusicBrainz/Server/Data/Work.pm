@@ -15,8 +15,8 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'work' };
@@ -26,7 +26,13 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
-    return 'work JOIN work_name name ON work.name=name.id';
+    my $self = shift;
+    return 'work ' . (shift() || '') . ' JOIN work_name name ON work.name=name.id';
+}
+
+sub _table_join_name {
+    my ($self, $join_on) = @_;
+    return $self->_table("ON work.name = $join_on");
 }
 
 sub _columns
@@ -143,6 +149,9 @@ sub update
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('work', $row, { id => $work_id });
 }
+
+# Works can be unconditionally removed
+sub can_delete { 1 }
 
 sub delete
 {

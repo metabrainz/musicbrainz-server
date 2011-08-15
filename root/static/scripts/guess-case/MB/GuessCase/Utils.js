@@ -1,7 +1,7 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
    Copyright (c) 2005 Stefan Kestenholz (keschte)
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010-2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -83,11 +83,13 @@ MB.GuessCase.Utils = function () {
      * keschte		2005-07-20		added dub
      **/
     self.getPrepBracketSingleWords = function() {
-	return ["acoustic", "album", "alternate", "bonus", "clean", "club", "dance",
-		"dirty", "extended", "instrumental", "live", "original", "radio", "take",
-		"disc", "mix", "version", "feat", "cut", "vocal", "alternative", "megamix",
-		"disco", "video", "dub", "long", "short", "main", "composition", "session",
-		"rework", "reworked", "remixed", "dirty", "airplay"];
+	return ["acoustic", "airplay", "album", "alternate", "alternative",
+                "bonus", "clean", "club", "composition", "cut", "dance",
+                "dirty", "disc", "disco", "dub", "extended", "feat",
+                "instrumental", "live", "long", "main", "megamix", "mix",
+                "original", "radio", "remixed", "rework", "reworked",
+                "session", "short", "take", "trance", "version", "video",
+                "vocal" ];
     };
     self.isPrepBracketSingleWord = function(w) {
 	
@@ -176,6 +178,13 @@ MB.GuessCase.Utils = function () {
 
 	return f;
     }; // sentencestop_chars
+
+    /**
+     * Apostrophe
+     * -------------------------------------------------------
+     * warp		2011-08-13		first version
+     **/
+    self.isApostrophe = function(w) { return w == "'" || w == "’"; };
 
     /**
      * Punctuation characters
@@ -293,7 +302,7 @@ MB.GuessCase.Utils = function () {
 	    os = UC;
 
 	    // we got an 'x (apostrophe),keep the text lowercased
-	} else if (LC.length == 1 && gc.i.isPreviousWord("'")) {
+	} else if (LC.length == 1 && self.isApostrophe(gc.i.getPreviousWord())) {
 	    os = LC;
 
 	    // we got an 's (It is = It's), lowercased
@@ -306,17 +315,17 @@ MB.GuessCase.Utils = function () {
 	    // we got an 'til (Until = 'til), lowercase.
 	    // we got an 'way (Away = 'way), lowercase.
 	    // we got an 'round (Around = 'round), lowercased
-	} else if (gc.i.isPreviousWord("'") && LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
+	} else if (self.isApostrophe(gc.i.getPreviousWord()) && LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
 	    os = LC;
 
 	    // we got an Ev'..
 	    // Every = Ev'ry, lowercase
 	    // Everything = Ev'rything, lowercase (more cases?)
-	} else if (gc.i.isPreviousWord("'") && wordbefore == "Ev") {
+	} else if (self.isApostrophe(gc.i.getPreviousWord()) && wordbefore == "Ev") {
 	    os = LC;
 
 	    // Make it O'Titled, Y'All
-	} else if (LC.match(/^(o|y)$/i) && gc.i.isNextWord("'")) {
+	} else if (LC.match(/^(o|y)$/i) && self.isApostrophe(gc.i.getNextWord())) {
 	    os = UC;
 
 	} else {
@@ -324,15 +333,22 @@ MB.GuessCase.Utils = function () {
 	    LC = os.toLowerCase(); // prepare all LC word
 	    UC = os.toUpperCase(); // prepare all UC word
 
-	    // Test if it's one of the lcWords but if gc.f.forceCaps is not set
-	    if (gc.mode.isLowerCaseWord(LC) && !forceCaps) {
+            var next_word = gc.i.getNextWord();
+            var followed_by_punctuation =
+                next_word && next_word.length == 1 && self.isPunctuationChar (next_word);
+
+	    // unless forceCaps is enabled, lowercase the word if it is not followed
+            // by punctuation.
+	    if (!forceCaps && gc.mode.isLowerCaseWord(LC) && !followed_by_punctuation) {
 		os = LC;
+	    }
 
-		// Test if it's one of the uppercase_words
-	    } else if (gc.mode.isUpperCaseWord(LC)) {
+	    // Test if it's one of the uppercase_words
+            else if (gc.mode.isUpperCaseWord(LC)) {
 		os = UC;
+	    }
 
-	    } else if (gc.f.isInsideBrackets()) {
+            else if (gc.f.isInsideBrackets()) {
 		if (gc.u.isLowerCaseBracketWord(LC)) {
 
 		    // handle special case: (disc 1: Disc x)

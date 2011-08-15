@@ -55,6 +55,7 @@ sub _new_from_row
         edits_pending => $row->{edits_pending},
         entity0_id => $entity0,
         entity1_id => $entity1,
+        last_updated => $row->{last_updated}
     );
 
     my $weaken;

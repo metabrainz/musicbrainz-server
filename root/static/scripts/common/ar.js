@@ -48,6 +48,7 @@ $(function() {
             var id = this.id.substr(13);
             var attrDiv = $(this);
             if (attrs[id]) {
+                attrDiv.find(':input').removeAttr('disabled');
                 attrDiv.show();
                 has_attributes = true;
                 var attr = attrs[id];
@@ -63,6 +64,7 @@ $(function() {
                 }
             }
             else {
+                attrDiv.find(':input').attr('disabled', 'disabled');
                 attrDiv.hide();
             }
         });
@@ -156,7 +158,9 @@ $(function() {
 
     var linkTypeSelect = $("select[id='id-ar.link_type_id']");
     if (linkTypeSelect.length) {
-      linkTypeSelect.change(function() { updateLinkType(this) });
+      linkTypeSelect
+            .change(function() { updateLinkType(this) })
+            .keyup(function() { updateLinkType(this) });
       updateLinkType(linkTypeSelect[0]);
     }
 

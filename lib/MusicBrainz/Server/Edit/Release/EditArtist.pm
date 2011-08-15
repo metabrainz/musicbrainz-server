@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Release::EditArtist;
 use Moose;
 use namespace::autoclean;
+use Data::Compare;
 
 use List::MoreUtils qw( all pairwise );
 use MooseX::Types::Moose qw( Bool Int Str );
@@ -9,8 +10,9 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ARTIST );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
-    load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    clean_submitted_artist_credits
+    load_artist_credit_definitions
     verify_artist_credits
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -39,7 +41,7 @@ has '+data' => (
     ]
 );
 
-around related_entities => sub {
+around _build_related_entities => sub {
     my ($orig, $self) = @_;
 
     my $related = $self->$orig;
@@ -108,14 +110,20 @@ sub initialize {
         $self->c->model('ArtistCredit')->load($release);
     }
 
+    my $new = clean_submitted_artist_credits ($opts{artist_credit});
+    my $old = clean_submitted_artist_credits (artist_credit_to_ref($release->artist_credit));
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if Compare ($old, $new);
+
     $self->data({
         release => {
             id => $release->id,
             name => $release->name
         },
         update_tracklists => $opts{update_tracklists},
-        new_artist_credit => $opts{artist_credit},
-        old_artist_credit => artist_credit_to_ref($release->artist_credit)
+        new_artist_credit => $new,
+        old_artist_credit => $old,
     });
     return $self;
 }

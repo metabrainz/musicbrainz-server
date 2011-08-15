@@ -95,6 +95,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.deleteTrack = function () {
         self.$deleted.val('1');
         self.$row.hide (); /* FIXME: need to close artist credits? */
+        self.$row.addClass ('deleted');
 
         var trackpos = 1;
 
@@ -125,9 +126,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      * track is different from the release artist.
      */
     self.updateVariousArtists = function () {
-        if (self.isDeleted () ||
-            self.parent.isVariousArtists () ||
-            self.artist_credit.isReleaseArtist ())
+        if (self.isDeleted () || self.artist_credit.isReleaseArtist ())
             return;
 
         self.parent.setVariousArtists ();
@@ -641,7 +640,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * to change this back to single artists.
      */
     self.setVariousArtists = function () {
-        self.basic.$various_artists.val ('1');
+        self.basic.various_artists = true;
     };
 
     /**
@@ -925,7 +924,43 @@ MB.Control.ReleaseAdvancedTab = function () {
         }
     };
 
+    self.variousArtistsWarning = function (event) {
+        var $va = $('.artist-credit-box input.name.various-artists');
 
+        if (!$va.length)
+        {
+            self.$va_warning.hide ();
+        }
+        else
+        {
+            var affected = {};
+
+            $va.each (function (idx, elem) {
+                var $trkrow = $(elem).parents ('tr.track-artist-credit').prevAll('*:eq(0)');
+
+                var disc = $.trim ($trkrow.parents ('fieldset.advanced-disc').find ('legend').text ());
+
+                if (!affected.hasOwnProperty (disc))
+                {
+                    affected[disc] = [];
+                }
+
+                affected[disc].push ($trkrow.find ('input.pos').val ());
+            });
+
+            var $ul = self.$va_warning.show ().find ('ul').empty ();
+
+            $.each (affected, function (discpos, tracks_with_va) {
+                $ul.append ('<li>' + discpos + ', tracks ' + tracks_with_va.join (", ") + '</li>');
+            });
+
+        }
+
+    };
+
+    $('.artist-credit-box input.name').live ('VariousArtists', self.variousArtistsWarning);
+
+    self.$va_warning = $('div.various-artists.warning');
     self.$tab = $('div.advanced-tracklist');
     self.discs = [];
     self.positions = [];

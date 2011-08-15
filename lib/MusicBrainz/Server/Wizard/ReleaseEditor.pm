@@ -189,10 +189,13 @@ sub recording_edits_by_hash
 
     for my $medium (@edits)
     {
+        my $trkpos = 1;
         for (@{ $medium->{associations} })
         {
             $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
-            $recording_edits{$_->{edit_sha1}} = $_;
+            $recording_edits{$_->{edit_sha1}}->[$trkpos] = $_;
+
+            $trkpos++;
         }
     }
 
@@ -232,7 +235,7 @@ sub recording_edits_from_tracklist
                     artist_credit => artist_credit_to_edit_ref ($trk->artist_credit),
                 });
 
-            $recording_edits{$edit_sha1} = {
+            $recording_edits{$edit_sha1}->[$trk->position] = {
                 edit_sha1 => $edit_sha1,
                 confirmed => 1,
                 id => $trk->recording->id,
@@ -363,10 +366,21 @@ sub associate_recordings
         my $trk = $tracklist->tracks->[$trk_edit->{original_position} - 1];
         my $trk_at_pos = $tracklist->tracks->[$trk_edit->{position} - 1];
 
-        my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}};
+        my $rec_edit = $recording_edits->{$trk_edit->{edit_sha1}}->[$trk_edit->{position}];
+        if (! $rec_edit)
+        {
+            # there is no recording edit at the original track position, look for it
+            # elsewhere.
+            for $rec_edit (@{ $recording_edits->{$trk_edit->{edit_sha1}} })
+            {
+                last if $rec_edit;
+            }
+        }
 
         # Track edit is already associated with a recording edit.
-        if ($rec_edit)
+        # (but ignore that association if it concerns an automatically
+        #  selected "add new recording").
+        if ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
         {
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
@@ -756,7 +770,7 @@ sub prepare_edits
 
     $self->release(
         $self->create_edits(
-            data => clone($data),
+            data => $data,
             create_edit => $previewing
                 ? sub { $self->_preview_edit(@_) }
                 : sub { $self->_submit_edit(@_) },
@@ -774,7 +788,7 @@ sub _missing_labels {
 
     $data->{labels} = $self->get_value ('information', 'labels');
 
-    return grep { !$_->{label_id} && $_->{name} }
+    return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
         @{ $data->{labels} };
 }
 
@@ -954,6 +968,10 @@ sub _edit_release_labels
 
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
+        }
+        elsif ($new_label->{'deleted'})
+        {
+            # Ignore new labels which have already been deleted.
         }
         elsif (
             $previewing ?
@@ -1205,7 +1223,7 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
-    my @names = @{ $trk->{artist_credit}->{names} };
+    my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
     # with just an id.
@@ -1555,6 +1573,8 @@ sub _seed_parameters {
 
     return collapse_hash($params);
 };
+
+
 
 =head1 LICENSE
 

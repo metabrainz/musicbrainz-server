@@ -6,14 +6,12 @@ extends 'MusicBrainz::Server::Form::Step';
 
 # Release information
 has_field 'name'             => ( type => 'Text', required => 1, label => l('Title') );
-has_field 'various_artists'  => ( type => 'Checkbox'  );
 has_field 'release_group_id' => ( type => 'Hidden'    );
 
 has_field 'release_group' => ( type => 'Compound'    );
 has_field 'release_group.name' => ( type => 'Text'    );
 
 has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit', required => 1, allow_unlinked => 1 );
-has_field 'change_track_artists' => ( type => 'Checkbox'  );
 has_field 'type_id'          => ( type => 'Select'    );
 has_field 'status_id'        => ( type => 'Select'    );
 has_field 'language_id'      => ( type => 'Select'    );
@@ -94,15 +92,8 @@ sub options_script_id {
 sub validate {
     my $self = shift;
 
-    return if $self->field('barcode')->value == '' ||
-        MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
-        $self->field('barcode_confirm')->value == 1;
-
-    $self->field('barcode')->add_error (
-        l("This barcode is invalid, please check that you've correctly entered the barcode."));
-
-
-    unless ($self->field('barcode')->value == '' ||
+    unless (!defined $self->field('barcode')->value ||
+            $self->field('barcode')->value == '' ||
             MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
             $self->field('barcode_confirm')->value == 1)
     {

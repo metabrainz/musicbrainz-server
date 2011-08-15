@@ -67,6 +67,7 @@ sub remove : Local RequireAuth
     my $medium  = $c->model('Medium')->get_by_id($medium_id);
     my $release = $c->model('Release')->get_by_id($medium->release_id);
     $c->model('ArtistCredit')->load($release);
+    $c->model('ReleaseGroup')->load($release);
 
     my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id);
     $c->model('CDTOC')->load($cdtoc);
@@ -120,7 +121,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
     );
 }
 
-sub attach : Local RequireAuth
+sub attach : Local
 {
     my ($self, $c) = @_;
 
@@ -133,6 +134,10 @@ sub attach : Local RequireAuth
         );
 
     $c->stash( cdtoc => $cdtoc );
+
+    if ($c->form_posted) {
+        $c->forward('/user/do_login');
+    }
 
     if (my $medium_id = $c->req->query_params->{medium}) {
 
@@ -327,29 +332,11 @@ sub move : Local RequireAuth Edit
 
             my $form = $c->form(form => 'Confirm');
             if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-                if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium->id, $cdtoc)) {
-                    my $edit = $self->_insert_edit($c, $form,
-                        edit_type        => $EDIT_MEDIUM_REMOVE_DISCID,
-                        medium => $medium_cdtoc->medium,
-                        cdtoc  => $medium_cdtoc
-                    );
-
-                    $c->model('EditNote')->add_note(
-                        $edit->id,
-                        {
-                            text => l('This CDTOC cannot be moved to {release}, as it already has this CDTOC. It must instead be removed.',
-                                      { release => $release->name }),
-                            editor_id => $EDITOR_MODBOT,
-                        }
-                    );
-                }
-                else {
-                    $self->_insert_edit($c, $form,
-                        edit_type        => $EDIT_MEDIUM_MOVE_DISCID,
-                        medium_cdtoc => $medium_cdtoc,
-                        new_medium   => $medium,
-                    )
-                }
+                $self->_insert_edit($c, $form,
+                    edit_type        => $EDIT_MEDIUM_MOVE_DISCID,
+                    medium_cdtoc => $medium_cdtoc,
+                    new_medium   => $medium,
+                );
 
                 $c->response->redirect(
                     $c->uri_for_action('/release/discids',

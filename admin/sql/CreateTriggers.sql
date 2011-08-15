@@ -121,6 +121,9 @@ CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias
 CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE OR INSERT ON link_attribute
+    FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
+
 CREATE TRIGGER b_upd_link_attribute_type BEFORE UPDATE ON link_attribute_type 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

@@ -49,7 +49,7 @@ sub _tracks
     return @{ $self->data->{tracks} };
 }
 
-sub related_entities
+sub _build_related_entities
 {
     my $self = shift;
     return {

@@ -355,8 +355,8 @@ sub _serialize_work
     $attrs{type} = $work->type->name if ($work->type);
 
     my @list;
-    push @list, $gen->iswc($iswc) if $iswc;
     push @list, $gen->title($work->name);
+    push @list, $gen->iswc($iswc) if $iswc;
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)

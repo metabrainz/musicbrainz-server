@@ -29,8 +29,10 @@ sub attributes {
     push @attrs, ( attributes =>
         join(' ', map {
             my $s = $_->name;
-            $s =~ s/^\s*//;
-            camelize($s)
+            $s =~ s/\s+/_/g;
+            $s = camelize($s);
+            $s =~ s/_//g;
+            $s;
         } $entity->link->all_attributes) || undef );
 
     if ($entity->target_type eq 'url')

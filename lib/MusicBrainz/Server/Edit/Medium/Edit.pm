@@ -49,7 +49,7 @@ has '+data' => (
     ]
 );
 
-around related_entities => sub {
+around _build_related_entities => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my $related = $self->$orig(@_);
 
@@ -394,7 +394,43 @@ sub allow_auto_edit
     return 0 if $self->data->{old}{name} && $old_name ne $new_name;
     return 0 if $self->data->{old}{format_id};
     return 0 if exists $self->data->{old}{position};
-    return 0 if exists $self->data->{old}{tracklist};
+
+    if ($self->data->{old}{tracklist}) {
+        my @changes =
+            grep { $_->[0] ne 'u' }
+            @{ sdiff(
+                $self->{data}{old}{tracklist},
+                $self->{data}{new}{tracklist},
+                sub {
+                    my $track = shift;
+                    return join(
+                        '',
+                        $track->{name},
+                        format_track_length($track->{length}),
+                        join(
+                            '',
+                            map {
+                                join('', $_->{name}, $_->{join_phrase} || '')
+                            } @{ $track->{artist_credit}{names} }
+                        )
+                    );
+                }
+            ) };
+
+        # If this edit adds or removes tracks, it's not an auto-edit
+        return 0 if (grep { $_->[0] ne 'c' } @changes);
+
+        for my $change (@changes) {
+            my (undef, $old, $new) = @$change;
+
+            ($old_name, $new_name) = normalise_strings($old->{name},
+                                                       $new->{name});
+
+            return 0 if $old_name ne $new_name;
+            return 0 if $old->{length} && $old->{length} != $new->{length};
+            return 0 if hash_artist_credit($old->{artist_credit}) ne hash_artist_credit($new->{artist_credit});
+        }
+    }
 
     return 1;
 }

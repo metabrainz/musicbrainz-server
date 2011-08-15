@@ -13,8 +13,11 @@
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
         [% css_manifest('common.css.manifest') %]
         [% IF extra_css %]
-            <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% extra_css %]" />
+            <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/extra/') %][% extra_css %]" />
         [% END %]
+        [%- IF c.debug -%]
+            <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
+        [%- END -%]
         [%- IF c.user_exists -%]
           <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery.ui.all.css') %]" />
         [%- END -%]
@@ -25,7 +28,11 @@
         <script type="text/javascript">//<![CDATA[
                                        document.cookie = "javascript=true; path=/";
                                        //]]></script>
-        [%- UNLESS no_javascript -%]
+        [%- IF no_javascript -%]
+            <style type="text/css">
+              #header-menu li:hover ul { left: auto; }
+            </style>
+        [%- ELSE -%]
             [%- script_manifest('common.js.manifest') -%]
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
@@ -41,6 +48,8 @@
         [%- INCLUDE layout_head -%]
     </head>
     <body>
+        [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END -%]
+
         <div id="header">
             <div id="header-logo">
                 <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
@@ -128,10 +137,10 @@
 
         <div id="footer">
             <p class="links">
-                <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> | 
-                <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> | 
-                <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> | 
-                <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> | 
+                <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> |
+                <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
+                <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> |
+                <a href="http://jira.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> |
                 <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a> |
                 <a href="http://www.cafepress.com/musicbrainz" class="internal">[% l('Schwag') %]</a>
             </p>

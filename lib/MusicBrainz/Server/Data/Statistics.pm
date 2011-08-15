@@ -84,11 +84,16 @@ my %stats = (
             +{
                 "count.artist.type.person" => $dist{1} || 0,
                 "count.artist.type.group"  => $dist{2} || 0,
+                "count.artist.type.other"  => $dist{3} || 0,
 		"count.artist.type.null" => $dist{null} || 0
             };
         },
     },
     "count.artist.type.group" => {
+        PREREQ => [qw[ count.artist.type.person ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.artist.type.other" => {
         PREREQ => [qw[ count.artist.type.person ]],
         PREREQ_ONLY => 1,
     },
@@ -262,7 +267,50 @@ my %stats = (
             };
         },
     },
+    "count.release.language" => {
+        DESC => "Distribution of releases by language",
+        CALC => sub {
+            my ($self, $sql) = @_;
 
+            my $data = $sql->select_list_of_lists(
+                "SELECT l.iso_code_3t, COUNT(r.language) AS count
+                FROM release r RIGHT OUTER JOIN language l
+                    ON r.language=l.id
+                GROUP BY l.iso_code_3t
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.language.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.release.script" => {
+        DESC => "Distribution of releases by script",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT s.iso_code, COUNT(r.script) AS count
+                FROM release r RIGHT OUTER JOIN script s
+                    ON r.script=s.id
+                GROUP BY s.iso_code
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.script.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
         CALC => sub {

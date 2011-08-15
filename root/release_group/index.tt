@@ -1,9 +1,10 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
     [%- IF releases.size -%]
-        <h2>[% rg.type.name %]</h2>
-        <form action="[% c.uri_for_action('/release/merge_queue') %]"
-              method="post">
+      <h2>[% rg.type.name %]</h2>
+      <form action="[% c.uri_for_action('/release/merge_queue') %]"
+            method="post">
+        [%- WRAPPER 'components/with-pager.tt' -%]
           <table class="tbl">
             <thead>
               <tr>
@@ -22,11 +23,11 @@
               </tr>
             </thead>
             [% IF rdfa_made %]
-            <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-              [% ELSE %]
-            <tbody>
-              [% END %]
-              [%- FOR group=releases -%]
+              <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
+            [% ELSE %]
+              <tbody>
+            [% END %]
+            [%- FOR group=releases -%]
               <tr class="subh">
                 [% IF c.user_exists %]<th></th>[% END %]
                 <th colspan="[% c.session.tport ? 10 : 9 %]">[% group.0.status_name || l('(unknown)') %]</th>
@@ -62,13 +63,14 @@
                 <td>[% rdfa_release_catno_list(release.labels) %]</td>
                 <td>[% rdfa_release_barcode(release.barcode) IF release.barcode %]</td>
                 [%- IF c.session.tport -%]
-                <td>[% tagger_icon(release) %]</td>
+                  <td>[% tagger_icon(release) %]</td>
                 [%- END -%]
-                [% END %]
               </tr>
               [% END %]
+            [% END %]
             </tbody>
           </table>
+          [% END %]
 
           [% form_submit(l('Add selected releases for merging')) WRAPPER form_row  IF c.user_exists %]
         </form>

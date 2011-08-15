@@ -17,7 +17,9 @@ sub operator_cardinality_map {
 sub combine_with_query {
     my ($self, $query) = @_;
     $query->add_where([
-        join(' ', $self->field_name, $self->operator, 'any(?)'),
+        join(' ', $self->field_name, $self->operator,
+             $self->operator eq '='  ? 'any(?)' :
+             $self->operator eq '!=' ? 'all(?)' : die 'Shouldnt get here'),
         $self->sql_arguments
     ]) if $self->arguments > 0;
 }

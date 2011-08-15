@@ -142,6 +142,12 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
         else
         {
             $row.find ('td.recording a').clone ().appendTo (self.$link.empty ());
+            var comment = $row.nextAll ('.comment:eq(0)').find ('td span.comment').text ();
+
+            if (comment !== '')
+            {
+                self.$link.append (' <span class="comment">(' + comment + ')</span>');
+            }
 
             self.$gid.val ($row.find ('input.gid').val ());
             self.$artist.text ($row.find ('td.artist').text ());

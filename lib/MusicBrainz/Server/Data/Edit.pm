@@ -385,6 +385,10 @@ sub create
     $edit->auto_edit(0)
         if ($privs & $UNTRUSTED_FLAG);
 
+    # ModBot can override the rules sometimes
+    $edit->auto_edit(1)
+        if ($editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
+
     # Save quality level
     $edit->quality($quality);
 
@@ -399,8 +403,6 @@ sub create
         $edit->id($self->sql->select_single_value(
             "SELECT nextval('edit_id_seq')"
         ));
-
-        my $ents = $edit->related_entities;
 
         # Automatically accept auto-edits on insert
         if ($edit->auto_edit) {
@@ -425,6 +427,7 @@ sub create
 
         my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
 
+        my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
             $ids = [ uniq grep { defined } @$ids ];
             @$ids or next;

@@ -1,7 +1,7 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
    Copyright (c) 2005 Stefan Kestenholz (keschte)
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010-2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -464,7 +464,7 @@ MB.GuessCase.Mode.Base = function () {
     self.runFinalChecks = function(is) {
 
         if (!gc.re.VINYL) {
-            gc.re.VINYL = /(\s+|\()((\d+)[\s|-]?(inch\b|in\b|'+|"))([^s]|$)/i;
+            gc.re.VINYL = /(\s+|\()((\d+)(inch\b|in\b|'+|"))([^s]|$)/i;
         }
         var matcher = null, os = is;
         if ((matcher = is.match(gc.re.VINYL)) != null) {

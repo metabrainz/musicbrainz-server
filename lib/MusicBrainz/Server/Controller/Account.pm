@@ -419,7 +419,11 @@ sub register : Path('/register') ForbiddenOnSlaves
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
         $c->set_authenticated($user);
 
-        $c->response->redirect($c->uri_for_action('/user/profile', [ $user->name ]));
+        my $redirect = defined $c->req->query_params->{uri}
+            ? $c->req->query_params->{uri}
+            : $c->uri_for_action('/user/profile', [ $user->name ]);
+
+        $c->response->redirect($redirect);
         $c->detach;
     }
 

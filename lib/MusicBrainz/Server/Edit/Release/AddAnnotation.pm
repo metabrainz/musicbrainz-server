@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Edit::Release';
 sub edit_name { l('Add release annotation') }
 sub edit_type { $EDIT_RELEASE_ADD_ANNOTATION }
 
-sub related_entities { { release => [ shift->release_id ] } }
+sub _build_related_entities { { release => [ shift->release_id ] } }
 sub models { [qw( Release )] }
 
 sub _annotation_model { shift->c->model('Release')->annotation }

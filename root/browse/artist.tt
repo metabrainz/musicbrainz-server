@@ -14,7 +14,7 @@
                     [% offset = pager.first %]
                     [% WHILE entities.size %]
                         <div class="column">
-                            <ol start="[% loop.index + offset %]">
+                            <ol start="[% (loop.index || 0) + offset %]">
                                 [% FOR entity IN entities %]
                                 [% LAST IF loop.index >= 50 %]
                                     <li>[% link_entity(entity) %]</li>
