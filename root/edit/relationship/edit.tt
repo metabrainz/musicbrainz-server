@@ -21,7 +21,7 @@
   [%- IF type != 'url' -%]
     <span class="[% type %] autocomplete">
       [%- r.text(field.field('name'), class => type _ '-name') -%]
-      <img class="search" src="/static/images/icons/search.png" />
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
     </span>
     <span class="link">
       [%# NOTE: do not add other classes to the <a> element below, this class is used by javascript to get the entity type. --warp. %]
@@ -117,12 +117,12 @@ var typeInfo = [% type_info %];
         </td>
     </tr>
     <tr>
-        <td class="label">[% r.label('begin_date', l('Begin date:')) %]</td>
+        <td class="label">[% r.label('begin_date', l('Begin date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('begin_date') %]
         [% field_errors(form, 'begin_date') %]</td>
     </tr>
     <tr>
-        <td class="label">[% r.label('end_date', l('End date:')) %]</td>
+        <td class="label">[% r.label('end_date', l('End date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('end_date') %]
         [% field_errors(form, 'end_date') %]</td>
     </tr>

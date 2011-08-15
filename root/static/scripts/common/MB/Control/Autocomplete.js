@@ -46,6 +46,11 @@ MB.Control.autocomplete_formatters = {
     "recording": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.length && item.length !== '' && item.length !== '?:??')
+        {
+            a.prepend ('<span class="autocomplete-length">' + item.length + '</span>');
+        }
+
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
@@ -341,7 +346,7 @@ MB.Control.Autocomplete = function (options) {
 
         self.$input.autocomplete ($.extend({}, options, {
             'source': self.lookup,
-            'minLength': options.minLength ? options.minLength : 2,
+            'minLength': options.minLength ? options.minLength : 1,
             'select': self.select,
             'close': self.close,
             'open': self.open

@@ -134,6 +134,24 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.$name.removeClass ('lookup-performed');
         }
+
+        if (self.$gid.val () === MB.constants.VARTIST_GID ||
+            self.$id.val () === String (MB.constants.VARTIST_ID))
+        {
+            if (!self.$name.hasClass ('various-artists'))
+            {
+                self.$name.addClass ('various-artists');
+                self.$name.trigger ('VariousArtists');
+            }
+        }
+        else
+        {
+            if (self.$name.hasClass ('various-artists'))
+            {
+                self.$name.removeClass ('various-artists');
+                self.$name.trigger ('VariousArtists');
+            }
+        }
     };
 
     self.update = function(event, data) {
@@ -362,6 +380,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                 .mb_placeholder (self.placeholder_options);
         }
 
+        if (self.$id.val () !== '')
+        {
+            self.$name.data ('mb_selected_name', self.$name.val ());
+        }
+
         self.updateLookupPerformed ();
     }
 
@@ -563,7 +586,8 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     };
 
     self.isVariousArtists = function () {
-        return self.box[0].$gid.val () === MB.constants.VARTIST_GID;
+        return self.box[0].$gid.val () === MB.constants.VARTIST_GID ||
+            self.box[0].$id.val () === String (MB.constants.VARTIST_ID);
     };
 
     self.isEmpty = function () {

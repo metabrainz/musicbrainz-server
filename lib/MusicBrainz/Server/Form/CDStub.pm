@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Form::CDStub;
 use HTML::FormHandler::Moose;
 
+use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Validation;
+
 extends 'MusicBrainz::Server::Form';
 
 has '+name' => ( default => 'CDStub' );
@@ -40,6 +43,13 @@ has_field 'tracks.artist' => (
 );
 
 sub default_multiple_artists { shift->field('artist')->value eq '' }
+
+sub validate_barcode {
+    my ($self, $field) = @_;
+    return unless $field->value;
+    $field->add_error(l('Must be a valid barcode'))
+        unless MusicBrainz::Server::Validation::IsValidBarcode($field->value);
+}
 
 sub validate
 {

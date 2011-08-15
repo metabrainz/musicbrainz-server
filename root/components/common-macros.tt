@@ -33,12 +33,19 @@ two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
 END; -%]
-[%- MACRO display_age(age) BLOCK -%]
-    [%- IF age.0 -%][%- ln('{num} year', '{num}&nbsp;years', age.0, { num => age.0 }) -%]
-    [%- ELSIF age.1 -%][%- ln('{num} month', '{num}&nbsp;months', age.1, { num => age.1 }) -%]
-    [%- ELSE -%][%- ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 }) -%]
-    [%- END -%]
-[%- END -%]
+[%- MACRO display_age(age, person) BLOCK;
+      IF person AND age.0;
+        l('aged {num}', { num => age.0 });
+      ELSE;
+        IF age.0;
+          ln('{num} year', '{num}&nbsp;years', age.0, { num => age.0 });
+        ELSIF age.1;
+          ln('{num} month', '{num}&nbsp;months', age.1, { num => age.1 });
+        ELSE;
+          ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 });
+        END;
+      END;
+    END -%]
 
 [%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
@@ -126,15 +133,15 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
-      link_deleted(entity);
+      link_deleted(entity, text);
     END;
     disambiguation(entity) UNLESS text;
 END -%]
 
-[%- MACRO link_deleted(entity) BLOCK;
+[%- MACRO link_deleted(entity, text) BLOCK;
       caption = l("This entity has been removed, and cannot be displayed correctly.");
       '<span class="deleted tooltip" title="' _ caption _ '">' _
-        (html_escape(entity.name) || l('[removed]')) _
+        (html_escape(entity.name) || text || l('[removed]')) _
       '</span>';
     END; -%]
 
@@ -399,7 +406,7 @@ END -%]
           <option value="work">[% l('Work') %]</option>
         </select>
         <span class="autocomplete">
-          <img class="search" src="/static/images/icons/search.png" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           <input type="text" class="entity" value="" style="width: 170px;" />
         </span>
         [% IF endpoints.size %]
@@ -563,20 +570,21 @@ http://[%- server -%]/[%- id -%]"
   [%- IF server_details.developement_server -%]
     [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script src="/static/[%- file -%]?t=[% date.now %]"></script>
+        <script src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]) %]"></script>
     [%- END -%]
   [%- ELSE -%]
-    <script src="/static/[% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
+    <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
   [%- END -%]
 [%- END -%]
 
 [%- MACRO css_manifest(manifest) BLOCK -%]
   [%- IF server_details.developement_server -%]
+    [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'css'); -%]
-        <link rel="stylesheet" type="text/css" href="/static/[%- file -%]" />
+        <link rel="stylesheet" type="text/css" href="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]" />
     [%- END -%]
   [%- ELSE -%]
-    <link rel="stylesheet" type="text/css" href="/static/styles/[% c.model('FileCache').manifest_signature(manifest, 'css') %].css" />
+    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest, 'css') %].css" />
   [%- END -%]
 [%- END -%]
 
