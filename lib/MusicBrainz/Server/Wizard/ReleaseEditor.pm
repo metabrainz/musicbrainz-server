@@ -788,7 +788,7 @@ sub _missing_labels {
 
     $data->{labels} = $self->get_value ('information', 'labels');
 
-    return grep { !$_->{label_id} && $_->{name} }
+    return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
         @{ $data->{labels} };
 }
 
@@ -968,6 +968,10 @@ sub _edit_release_labels
 
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
+        }
+        elsif ($new_label->{'deleted'})
+        {
+            # Ignore new labels which have already been deleted.
         }
         elsif (
             $previewing ?
