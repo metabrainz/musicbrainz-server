@@ -4,9 +4,8 @@ use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
 
-use MusicBrainz::Server::Data::ArtistCredit;
-
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Test;
 
 with 't::Context';
@@ -53,6 +52,39 @@ test 'Merging clears the cache' => sub {
     $c->sql->commit;
 
     ok(!$cache->exists('ac:1'), 'cache no longer contains artist credit #1');
+};
+
+test 'decompose_artist_to_credits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+decompose');
+
+    $c->model('ArtistCredit')->decompose_artist_to_credits(
+        5,
+        { names => [
+            {
+                artist => { id => 6, name => 'Ed Rush' },
+                name => 'Ed Rush',
+                join_phrase => undef
+            },
+            {
+                artist => { id => 7, name => 'Optical' },
+                name => 'Optical',
+                join_phrase => ''
+            }
+        ]}
+    );
+
+    is($c->model('ArtistCredit')->get_by_id(1)->artist_count, 0, 'has removed artist credit 1');
+
+    my @ents = (
+        $c->model('ReleaseGroup')->get_by_id(1),
+        $c->model('Release')->get_by_id(1),
+        $c->model('Recording')->get_by_id(1),
+        $c->model('Track')->get_by_id(1)
+    );
+
+    is((grep { $_->artist_credit_id == 1 } @ents), 0, 'nothing refers to artist credit 1');
 };
 
 test all => sub {

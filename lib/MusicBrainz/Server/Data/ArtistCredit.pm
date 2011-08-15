@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
 use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -155,6 +155,7 @@ sub find_or_insert
 
 sub _clean {
     my $text = shift;
+    return undef unless defined($text);
     $text =~ s/[^[:print:]]//g;
     $text =~ s/\s+/ /g;
     return $text;
@@ -180,6 +181,46 @@ sub merge_artists
     };
 
     $self->_delete_from_cache(@artist_credit_ids) if @artist_credit_ids;
+}
+
+sub decompose_artist_to_credits {
+    my ($self, $artist_id, $artist_credit) = @_;
+
+    return if is_special_purpose($artist_id);
+
+    my @old_credit_ids = @{
+        $self->c->sql->select_single_column_array(
+            'SELECT id
+             FROM artist_credit_name
+             JOIN artist_credit ON id = artist_credit
+             WHERE artist_count = 1 AND artist = ?',
+            $artist_id
+        )
+    };
+
+    my $new_credit = $self->find_or_insert($artist_credit);
+
+    for my $table (qw( recording release release_group track )) {
+        $self->c->sql->do(
+            "UPDATE $table SET artist_credit = ?
+             WHERE artist_credit IN (" . placeholders(@old_credit_ids) . ')',
+            $new_credit, @old_credit_ids
+       );
+    }
+
+    $self->c->sql->do(
+        'DELETE FROM artist_credit_name
+         WHERE artist_credit IN (' . placeholders(@old_credit_ids) . ')',
+        @old_credit_ids
+    );
+
+    $self->c->sql->do(
+        'DELETE FROM artist_credit
+         WHERE id IN (' . placeholders(@old_credit_ids) . ')',
+        @old_credit_ids
+    );
+
+    $self->_delete_from_cache(@old_credit_ids);
 }
 
 __PACKAGE__->meta->make_immutable;
