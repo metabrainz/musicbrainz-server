@@ -12,14 +12,13 @@ use Template::Parser;
 use File::Slurp;
 
 use Encode qw(encode decode);
-use Sql;
 
-use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+use MusicBrainz::Server::Context;
+my $c = MusicBrainz::Server::Context->create_script_context();
 
 ### DATABASE 
 
-my $mb = Databases->get_connection('READWRITE');
-my $sql = Sql->new($mb->dbh);
+my $sql = $c->sql;
 
 # Format: [table, [column1, column2], flag]
 # where applicable, flag should probably be 'perl-format' or 'perl-brace-format'
@@ -81,12 +80,10 @@ map {
 ### HELPER FUNCTIONS
 
 sub parse_db {
-    my $dbdef = shift;
+    my $opt = shift;
     my @pos;
 
-    my $table = @{$dbdef}[0];
-    my $columns = @{$dbdef}[1];
-    my $flag = @{$dbdef}[2] || 0;
+    my ($table, $columns, $flag) = @$opt;
 
     foreach my $column (@$columns) {
         my $query = "SELECT $column, id from $table";
