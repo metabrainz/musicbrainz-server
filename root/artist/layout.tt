@@ -52,9 +52,7 @@
         <ul class="links">
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
-                <li>
-                  [% link_artist(artist, 'split', l('Split Into Artist Credits')) %]
-                </li>
+
                   <hr/>
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
@@ -83,6 +81,9 @@
                     <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ artist.gid ]) %]">
                       [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                     </a>
+                  </li>
+                  <li>
+                    [% link_artist(artist, 'split', l('Split into separate artists')) %]
                   </li>
                 [% END %]
 
