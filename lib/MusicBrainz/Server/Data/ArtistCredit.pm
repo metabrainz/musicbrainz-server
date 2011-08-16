@@ -225,6 +225,20 @@ sub replace {
     $self->_delete_from_cache($old_credit_id);
 }
 
+sub in_use {
+    my ($self, $ac) = @_;
+    my $ac_id = $self->find($ac) or return 0;
+
+    for my $t (qw( recording release release_group track )) {
+        return 1 if $self->c->sql->select_single_value(
+            "SELECT TRUE FROM $t WHERE artist_credit = ? LIMIT 1",
+            $ac_id
+        );
+    }
+
+    return 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

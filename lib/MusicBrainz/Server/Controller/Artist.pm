@@ -522,6 +522,13 @@ sub split : Chained('load') Edit {
     }
 
     my $ac = $c->model('ArtistCredit')->find_for_artist($artist);
+
+    if (!$c->form_posted) {
+        $c->stash(
+            in_use => $c->model('ArtistCredit')->in_use($ac)
+        )
+    }
+
     my $edit = $self->edit_action(
         $c,
         form        => 'EditArtistCredit',
