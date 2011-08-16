@@ -981,7 +981,7 @@ sub _edit_release_labels
             my $label;
 
             # Add ReleaseLabel
-            if ($previewing)
+            if ($previewing && !$new_label->{label_id})
             {
                 $label = $new_label->{name} ?
                     Label->new(
