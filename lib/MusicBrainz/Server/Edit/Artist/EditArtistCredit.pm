@@ -24,6 +24,12 @@ with 'MusicBrainz::Server::Edit::Artist';
 sub edit_name { l('Edit artist credit') }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 
+sub new_artist_ids {
+    my $self = shift;
+    return map {
+        $_->{artist}{id}
+    } @{ $self->data->{new}{artist_credit}{names} };
+}
 
 sub _build_related_entities {
     my ($self) = @_;

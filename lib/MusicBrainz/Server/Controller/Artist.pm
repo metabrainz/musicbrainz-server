@@ -22,17 +22,20 @@ use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $VARTIST_ID
+    $EDITOR_MODBOT
     $EDIT_ARTIST_MERGE
     $EDIT_ARTIST_CREATE
     $EDIT_ARTIST_EDIT
     $EDIT_ARTIST_DELETE
     $EDIT_ARTIST_EDITCREDIT
-
+    $EDIT_RELATIONSHIP_DELETE
 );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
 use Sql;
+
+my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
 
 =head1 NAME
 
@@ -518,23 +521,48 @@ sub split : Chained('load') Edit {
         $c->detach;
     }
 
-    my $ac     = $c->model('ArtistCredit')->find_for_artist($artist);
-    $self->edit_action(
+    my $ac = $c->model('ArtistCredit')->find_for_artist($artist);
+    my $edit = $self->edit_action(
         $c,
         form        => 'EditArtistCredit',
         type        => $EDIT_ARTIST_EDITCREDIT,
         item        => { artist_credit => $ac },
-        edit_args   => { to_edit => $ac },
-        on_creation => sub {
-            $c->res->redirect(
-                $c->uri_for_action('/artist/show', [ $artist->gid ]))
-        }
+        edit_args   => { to_edit => $ac }
     );
+
+    if ($edit) {
+        my %artists = map { $_ => 1 } $edit->new_artist_ids;
+
+        for my $relationship (grep {
+            $_->link->type->gid == $COLLABORATION &&
+            exists $artists{$_->entity0_id} &&
+            $_->entity1_id == $artist->id
+        } $artist->all_relationships) {
+            my $rem = $c->model('Edit')->create(
+                edit_type    => $EDIT_RELATIONSHIP_DELETE,
+                editor_id    => $EDITOR_MODBOT,
+                type0        => 'artist',
+                type1        => 'artist',
+                relationship => $relationship
+            );
+
+            $c->model('EditNote')->add_note(
+                $rem->id,
+                {
+                    text => l('This collaboration has been split in edit #{id}.',
+                              { id => $edit->id }),
+                    editor_id => $EDITOR_MODBOT
+                }
+            );
+        }
+
+        $c->res->redirect(
+            $c->uri_for_action('/artist/show', [ $artist->gid ]))
+    }
 }
 
 sub can_split {
     my $artist = shift;
-    my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
     return (grep {
         $_->link->type->gid != $COLLABORATION
     } $artist->all_relationships) == 0;
