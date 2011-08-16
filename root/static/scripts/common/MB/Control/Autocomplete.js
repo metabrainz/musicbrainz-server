@@ -413,8 +413,77 @@ MB.Control.Autocomplete = function (options) {
     self.formatPager = options.formatPager || formatPager;
     self.formatMessage = options.formatMessage || formatMessage;
 
+    return self;
+};
+
+MB.Control.EntityAutocomplete = function (options) {
+    var inputs = options.inputs;
+
+    delete options.inputs;
+
+    var $name = inputs.find ('input.name');
+    var $id = inputs.find ('input.id');
+    var $gid = inputs.find ('input.gid');
+
+    options.input = $name;
+
+    var self = MB.Control.Autocomplete (options);
+
+    self.select = function (event, data) {
+        event.preventDefault ();
+        self.currentSelection = data.item;
+        if (data.item.action)
+        {
+            return data.item.action ();
+        }
+
+        $name.val (data.item.name);
+        $id.val (data.item.id);
+        $gid.val (data.item.gid);
+
+        $name.removeClass('error');
+        $name.addClass ('lookup-performed');
+
+        /* The following event will bubble up.  The caller can bind this specific input, but
+         * can also bind to whatever they assigned to options.inputs. */
+        $name.trigger ('lookup-performed', data.item);
+    };
+
+    self.clear = function (event) {
+        $name.val ('');
+        $id.val ('');
+        $gid.val ('');
+
+        if (!options.allow_empty)
+        {
+            $name.addClass('error');
+        }
+        $name.removeClass ('lookup-performed');
+        $name.trigger ('cleared');
+    };
+
+    var parent_initialize = self.initialize;
+
+    self.initialize = function () {
+        parent_initialize ();
+
+        if ($id.val () === '' && $gid.val () === '')
+        {
+            $name.removeClass ('lookup-performed');
+        }
+        else
+        {
+            $name.removeClass('error');
+            $name.addClass ('lookup-performed');
+        }
+    }
+
+    options.select = self.select;
+    options.clear = self.clear;
+    options.input = $name;
+
     self.initialize ();
 
     return self;
-};
+}
 

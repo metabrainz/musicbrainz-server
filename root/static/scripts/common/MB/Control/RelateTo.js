@@ -35,19 +35,23 @@ MB.Control.RelateTo = function () {
     self.$endpoint = self.$relate.find('select.endpoint');
     self.$type0 = self.$relate.find ('input.type');
     self.$gid0 = self.$relate.find ('input.gid');
-    self.$input = self.$relate.find ('input.entity');
     self.$cancel = self.$relate.find ('input.cancel');
     self.$create = self.$relate.find ('input.create');
+    self.$autocomplete = self.$relate.find ('span.autocomplete');
 
     self.type = function () {
         return self.$relate.find ('option:selected').val ();
     };
 
-    self.select = function (event, data) {
-        self.$input.val (data.name);
+    self.$autocomplete.bind ('lookup-performed.mb', function (event, data) {
         self.selected_item = data;
         self.selected_item.type = self.type ();
-    };
+    });
+
+    self.$autocomplete.bind ('cleared.mb', function (event) {
+        self.selected_item = null;
+        self.selected_item.type = self.type ();
+    });
 
     function cleanType(type) {
         if (type === 'release-group') {
@@ -120,10 +124,9 @@ MB.Control.RelateTo = function () {
     self.$cancel.bind ('click.mb', function (event) { self.$relate.hide (); });
     self.$create.bind ('click.mb', self.createRelationship);
 
-    self.autocomplete = MB.Control.Autocomplete ({
+    self.autocomplete = MB.Control.EntityAutocomplete ({
         'entity': self.type (),
-        'input': self.$input,
-        'select': self.select,
+        'inputs': self.$autocomplete,
         'resultHook': self.resultHook,
         'position': {
             my: "right top",

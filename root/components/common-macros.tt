@@ -407,7 +407,9 @@ END -%]
         </select>
         <span class="autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-          <input type="text" class="entity" value="" style="width: 170px;" />
+          <input type="text" class="name" value="" style="width: 170px;" />
+          <input type="hidden" class="gid" value=""  />
+          <input type="hidden" class="id" value=""  />
         </span>
         [% IF endpoints.size %]
         <select class="endpoint">
