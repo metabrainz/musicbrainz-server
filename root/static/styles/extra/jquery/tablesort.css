@@ -5,8 +5,8 @@
     cursor: pointer;
 }
 .headerSortUp {
-    background-image: url(/static/images/icon/a.gif);
+    background-image: url(../images/icon/a.gif);
 }
 .headerSortDown {
-    background-image: url(/static/images/icon/d.gif);
+    background-image: url(../images/icon/d.gif);
 }

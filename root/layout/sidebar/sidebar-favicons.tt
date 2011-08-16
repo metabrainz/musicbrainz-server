@@ -19,7 +19,7 @@
         [%- END -%]
     [%- END -%]
 
-    [%- IF not homepage_relationships.size && not urls -%]
+    [%- IF !homepage_relationships.size && !urls -%]
         <li>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</li>
     [%- END -%]
 </ul>

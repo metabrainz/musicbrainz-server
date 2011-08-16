@@ -9,6 +9,12 @@ $(function() {
         },
         'set': {
             '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
+        },
+        'vote': {
+            '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
+        },
+        'subscription': {
+            '=': 1, '!=': 1, 'subscribed': 0
         }
     };
 
@@ -79,7 +85,7 @@ $(function() {
     }
 
     function prefixedInputName($element) {
-        return 'conditions.' + conditionCounter + '.' + $element.attr('name')
+        return 'conditions.' + conditionCounter + '.' + $element.attr('name').replace(/conditions\.\d+\./, '');
     }
 
     $('ul.conditions select.operator').live('change', function() {

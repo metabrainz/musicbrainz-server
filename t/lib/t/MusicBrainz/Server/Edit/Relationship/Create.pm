@@ -7,6 +7,7 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Create }
 
+use DBDefs;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
@@ -69,21 +70,28 @@ subtest 'creating cover art relationships should update the releases coverart' =
 };
 
 subtest 'creating asin relationships should update the releases coverart' => sub {
-    my $e0 = $c->model('Release')->get_by_id(2);
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_RELATIONSHIP_CREATE,
-        editor_id => 1,
-        type0 => 'release',
-        type1 => 'url',
-        entity0 => $e0,
-        entity1 => $c->model('URL')->find_or_insert('http://www.amazon.co.jp/gp/product/B00005EIIB'),
-        link_type => $c->model('LinkType')->get_by_id(83)
-    );
-    accept_edit($c, $edit);
+    if (DBDefs::AWS_PUBLIC && DBDefs::AWS_PRIVATE)
+    {
+        my $e0 = $c->model('Release')->get_by_id(2);
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_RELATIONSHIP_CREATE,
+            editor_id => 1,
+            type0 => 'release',
+            type1 => 'url',
+            entity0 => $e0,
+            entity1 => $c->model('URL')->find_or_insert('http://www.amazon.co.jp/gp/product/B00005EIIB'),
+            link_type => $c->model('LinkType')->get_by_id(83)
+            );
+        accept_edit($c, $edit);
 
-    my $release = $c->model('Release')->get_by_id(2);
-    $c->model('Release')->load_meta($release);
-    ok($release->cover_art_url);
+        my $release = $c->model('Release')->get_by_id(2);
+        $c->model('Release')->load_meta($release);
+        ok($release->cover_art_url);
+    }
+    else
+    {
+        plan skip_all => "Amazon keys not configured";
+    }
 };
 
 };

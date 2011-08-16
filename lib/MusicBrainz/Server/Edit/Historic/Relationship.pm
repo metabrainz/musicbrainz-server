@@ -221,7 +221,7 @@ sub _display_relationships {
                 entity0 => $loaded->{ $model0 }{ $entity0_id } ||
                     $self->c->model($model0)->_entity_class->new( name => $_->{entity0_name}),
                 entity1 => $loaded->{ $model1 }{ $entity1_id } ||
-                    $self->c->model($model0)->_entity_class->new( name => $_->{entity1_name}),
+                    $self->c->model($model1)->_entity_class->new( name => $_->{entity1_name}),
                 link    => Link->new(
                     begin_date => PartialDate->new($data->{begin_date}),
                     end_date   => PartialDate->new($data->{end_date}),

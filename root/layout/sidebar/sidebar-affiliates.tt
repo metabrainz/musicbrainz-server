@@ -1,0 +1,14 @@
+[% IF entity_type(source) == 'artist' || entity_type(source) == 'release' %]
+[% soundunwound='http://www.soundunwound.com/music/' _ (entity_type(source) == 'release' ? url_escape(source.artist_credit.name) _ '/' : '') _ url_escape(source.name) _ '/mb:' _ source.gid %]
+[% END %]
+
+[% IF soundunwound %]
+<div id="sidebar-affiliates">
+<h2>[% l('Affiliate links') %]</h2>
+<ul class="external_links">
+    <li id="sidebar-affiliates-soundunwound">
+      [% l('{uri|Search on SoundUnwound}', { uri => soundunwound }) %]
+    </li>
+</ul>
+</div>
+[% END %]

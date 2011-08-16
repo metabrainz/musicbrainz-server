@@ -297,6 +297,7 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
     my ($self, $c) = @_;
 
     my $qp = $c->req->query_params;
+    delete $c->session->{relationship};
 
     if (!$qp->{gid}) {
         $c->stash( template => 'edit/relationship/no-start.tt' );

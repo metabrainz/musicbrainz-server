@@ -1058,6 +1058,25 @@ MB.GuessCase.Handler.Base = function () {
     };
 
     /**
+     * Do not change the caps of certain words
+     * ---------------------------------------------------
+     * warp		2011-08-13		first version
+     **/
+    self.doIgnoreWords = function () {
+
+        // deciBel
+        if (gc.i.getCurrentWord() === 'dB')
+        {
+	    gc.o.appendSpaceIfNeeded();
+	    gc.o.appendCurrentWord();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Detect featuring,f., ft[.], feat[.] and add parentheses as needed.
      * keschte		2005-11-10		added ^f\.$ to cases
      * 								which are added converted to feat.

@@ -28,7 +28,13 @@ MB.Control.ReleaseEdits = function ($edits) {
         $.each (to.names, function (idx, edited) {
 
             var current = from.names[idx];
-            if (current && edited)
+
+            if ((!current && edited) || (current && !edited))
+            {
+                changes = true;
+                return false;
+            }
+            else if (current && edited)
             {
                 if (parseInt (current.id) !== parseInt (edited.id))
                 {

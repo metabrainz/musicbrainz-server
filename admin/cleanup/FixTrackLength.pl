@@ -100,7 +100,7 @@ for my $medium (@mediums)
     printf "%s : Fixing medium #%d\n", scalar(localtime), $medium->id
         if $verbose;
 
-    my @cdtocs = $c->model('MediumCDTOC')->find_by_medium($medium->id);
+    my @cdtocs = grep { $_->edits_pending == 0 } $c->model('MediumCDTOC')->find_by_medium($medium->id);
     $c->model('CDTOC')->load(@cdtocs);
 
     @cdtocs = map { $_->cdtoc }

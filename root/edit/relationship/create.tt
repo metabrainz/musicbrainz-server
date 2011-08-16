@@ -84,7 +84,7 @@
                         </div>
                         <div class="ar-descr">[% attr.description %]</div>
                     [% ELSE %]
-                        [% r.checkbox(field) %] [% attr.name %]
+                        <label for="id-ar.attrs.[% attr.name %]">[% r.checkbox(field) %] [% attr.name %]</label>
                         <div class="ar-descr">[% attr.description %]</div>
                     [% END %]
                     [% field_errors(form, field) %]
@@ -93,12 +93,12 @@
                 </td>
             </tr>
             <tr>
-                <th class="label">[% r.label('begin_date', l('Begin date:')) %]</th>
+                <th class="label">[% r.label('begin_date', l('Begin date:'), fake => 1) %]</th>
                 <td colspan="2">[% r.date('begin_date') %]
                 [% field_errors(form, 'begin_date') %]</td>
             </tr>
             <tr>
-                <th class="label">[% r.label('end_date', l('End date:')) %]</th>
+                <th class="label">[% r.label('end_date', l('End date:'), fake => 1) %]</th>
                 <td colspan="2">[% r.date('end_date') %]
                 [% field_errors(form, 'end_date') %]</td>
             </tr>

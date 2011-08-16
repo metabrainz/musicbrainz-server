@@ -116,7 +116,8 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
             str += item.$position.val () + ". " + item.$title.val ();
 
-            if (self.isVariousArtists () && item.$artist.val () !== '')
+            if (MB.TrackParser.options.trackArtists ()
+                && item.$artist.val () !== '')
             {
                 str += MB.TrackParser.separator + item.$artist.val ();
             }
@@ -226,7 +227,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
      * to the release artist.
      */
     self.isVariousArtists = function () {
-        return self.$various_artists.val() == '1';
+        return self.various_artists;
     };
 
     self.hasToc = function () {
@@ -235,6 +236,7 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
 
     self.disc = disc;
     self.preview = preview;
+    self.various_artists = false;
 
     self.$basicdisc = $('#mediums\\.'+disc.number+'\\.basicdisc');
     self.$textarea = self.$basicdisc.find ('textarea.tracklist');
@@ -243,7 +245,6 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$collapse_icon = self.$basicdisc.find ('input.collapse-disc');
     self.$delete_icon = self.$basicdisc.find ('input.remove-disc');
     self.$tracklist_id = self.$basicdisc.find ('input.tracklist-id');
-    self.$various_artists = self.$basicdisc.find ('input.various-artists');
     self.$toc = $('#id-mediums\\.'+disc.number+'\\.toc');
 
     if (!self.$tracklist_id.length)
@@ -254,6 +255,12 @@ MB.Control.ReleaseTextarea = function (disc, preview) {
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
     self.$delete_icon.bind ('click.mb', function (ev) { self.removeDisc (); });
+
+    /**
+     * This is called when the "parse track artists" option in the track parser is
+     * toggled.  When it is not checked we hide track artists in the textarea.
+     */
+    $('#trackartists').bind ('change.mb', function (ev) { self.render (); });
 
     self.$textarea.bind ('keyup.mb', function () {
         var newTimeout = setTimeout (function () {

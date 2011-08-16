@@ -8,9 +8,11 @@ use Moose::Util::TypeConstraints qw( enum role_type );
 use MusicBrainz::Server::EditSearch::Predicate::Date;
 use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
-use MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
+use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
+use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::Log 'log_warning';
+use String::CamelCase qw( camelize );
 use Try::Tiny;
 
 my %field_map = (
@@ -23,9 +25,10 @@ my %field_map = (
     no_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     yes_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
+    vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
 
     map {
-        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . ucfirst($_) 
+        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_) 
     } qw( artist label recording release release_group work )
 );
 
@@ -40,6 +43,13 @@ has combinator => (
     is => 'ro',
     required => 1,
     default => 'and'
+);
+
+has order => (
+    isa => enum([qw( asc desc rand )]),
+    is => 'ro',
+    required => 1,
+    default => 'desc'
 );
 
 has auto_edit_filter => (
@@ -98,6 +108,7 @@ sub new_from_user_input {
     return $class->new(
         negate => $input->{negation},
         combinator => $input->{combinator},
+        $input->{order} ? (order => $input->{order}) : (),
         auto_edit_filter => $ae,
         fields => [
             map {
@@ -135,13 +146,16 @@ sub as_string {
     my $comb = $self->combinator;
     my $ae_predicate = defined $self->auto_edit_filter ?
         'autoedit = ? AND ' : '';
+    my $order = '';
+    $order = 'ORDER BY open_time ' . $self->order
+        unless $self->order eq 'rand';
     return 'SELECT edit.* FROM edit ' .
         join(' ', $self->join) .
         ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
-        ')
-         ORDER BY open_time DESC
-         LIMIT 500 OFFSET ?';
+        ")
+         $order
+         LIMIT 500 OFFSET ?";
 }
 
 sub arguments {

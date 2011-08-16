@@ -50,17 +50,4 @@ role {
     };
 };
 
-for my $type (qw( artist label recording release release_group work )){
-    Moose::Meta::Class->create(
-        'MusicBrainz::Server::EditSearch::Predicate::' . ucfirst($type),
-        superclasses => [ 'Moose::Object' ],
-        roles => [
-            'MusicBrainz::Server::EditSearch::Predicate::LinkedEntity' => {
-                type => $type
-            },
-            'MusicBrainz::Server::EditSearch::Predicate',
-        ]
-    )->name
-}
-
 1;
