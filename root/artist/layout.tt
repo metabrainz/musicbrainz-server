@@ -52,8 +52,6 @@
         <ul class="links">
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
-
-                  <hr/>
                 <li>
                   <a href="[% c.uri_for_action('/release_group/create', { artist = artist.gid }) %]">
                     [% l('Add release group') %]
