@@ -10,6 +10,9 @@ my @all = qw(
     BadAmazonURLs
     CollaborationRelationships
     EmptyReleaseGroups
+    FeaturingRecordings
+    FeaturingReleaseGroups
+    FeaturingReleases
     ISRCsWithManyRecordings
     MultipleASINs
     MultipleDiscogsLinks
@@ -27,6 +30,9 @@ use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::EmptyReleaseGroups;
+use MusicBrainz::Server::Report::FeaturingRecordings;
+use MusicBrainz::Server::Report::FeaturingReleaseGroups;
+use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;

@@ -1,0 +1,13 @@
+[%- WRAPPER 'layout.tt' title=l('Release groups with titles containing featuring artists') full_width=1 -%]
+
+<h1>[% l('Release groups with titles containing featuring artists') %]</h1>
+
+<ul>
+    <li>[% l('This report shows release groups with (feat. Artist) in the title.') %]</li>
+    <li>[% l('Total release groups found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- INCLUDE 'report/release_group_list.tt' -%]
+
+[%- END -%]
