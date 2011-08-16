@@ -11,6 +11,7 @@ use Algorithm::Diff qw( sdiff traverse_sequences );
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use HTML::Tiny;
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation;
 
 sub new {
@@ -85,10 +86,18 @@ sub diff_side {
 
 sub _link_artist_credit_name {
     my ($self, $acn, $name) = @_;
-    return $h->a({
-        href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-        title => $acn->artist->name
-    }, $name || $acn->name);
+    if ($acn->artist->gid) {
+        return $h->a({
+            href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
+            title => $acn->artist->name
+        }, $name || $acn->name);
+    }
+    else {
+        return $h->span({
+            class => 'deleted tooltip',
+            title => l('This entity has been removed, and cannot be displayed correctly.')
+        }, $name || $acn->name);
+    }
 }
 
 sub _link_joined {

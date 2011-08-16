@@ -111,7 +111,7 @@
         <span class="autocomplete">
           <input type="text" id="[% id %]" style="width: 262px"
               value="[% html_escape(form.field('artist_credit').item.name) %]" />
-          <img class="search" src="/static/images/icons/search.png" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
         [% field_errors(r.form, 'artist_credit') %]
@@ -207,7 +207,7 @@
             <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
             <span class="artist autocomplete">
               [%- r.text (ac.field('artist').field('name'), class => 'name') -%]
-              <img class="search" src="/static/images/icons/search.png" />
+              <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
               <input type="hidden" class="gid" value="[% artist.gid | html %]" />
               <input type="hidden" class="sortname" value="[% artist.sort_name | html %]" />
               [%- r.hidden (ac.field('artist').field('id'), class => 'id') -%]
@@ -215,7 +215,7 @@
 
             <input type="button" class="icon remove-artist-credit"
               title="[% l('Remove Artist Credit') %]" 
-              style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
+              style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
 
           </div>
 
@@ -241,7 +241,7 @@
         <span style="display: inline-block; width: 170px; text-align: right; padding-right: 10px;">[% l('Add Artist Credit') %]</span>
         <input type="button" class="icon add-artist-credit"
           title="[% l('Add Artist Credit') %]" 
-          style="background-image: url(/static/images/icons/add_row.png); width: 16px; height: 16px; border: 0;" />
+          style="background-image: url([% c.uri_for("/static/images/icons/add_row.png") %]); width: 16px; height: 16px; border: 0;" />
       </div>
 
     </div>

@@ -6,7 +6,6 @@ body {
     font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
     font-size: 12px;
     min-width: 780px;
-    max-width: 1100px;
     margin: auto;
 }
 
@@ -27,7 +26,7 @@ a>img { border: 0; }
 ** When we start using relative links for internal links, add:
 ** a[href^="http://"], a[href^="https://"], */
 a.external {
-    background: url('/static/images/icons/external.png') no-repeat right;
+    background: url('../images/icons/external.png') no-repeat right;
     padding-right: 13px;
 }
 
@@ -72,7 +71,7 @@ h3 {
 ul {
     margin-left: 0;
     padding-left: 40px;
-    list-style-image: url('/static/images/icons/bullet.gif');
+    list-style-image: url('../images/icons/bullet.gif');
     list-style-type: square;
 }
 
@@ -105,7 +104,7 @@ pre code {
 }
 
 #header-logo {
-    background: #736DAB url('/static/images/layout/sprites.png') no-repeat top left;
+    background: #736DAB url('../images/layout/sprites.png') no-repeat top left;
     height: 58px;
     color: #FFF;
 }
@@ -162,12 +161,12 @@ pre code {
 
 #header-menu div.r {
     bottom: 0; right: 0;
-    background: url('/static/images/layout/sprites.png') -7px -58px;
+    background: url('../images/layout/sprites.png') -7px -58px;
 }
 
 #header-menu div.l {
     bottom: 0; left: 0;
-    background: url('/static/images/layout/sprites.png') -0px -58px;
+    background: url('../images/layout/sprites.png') -0px -58px;
 }
 
 #header-menu ul.r {
@@ -224,10 +223,6 @@ pre code {
     z-index: 9;
 }
 
-#header-menu li:hover ul {
-    left: auto;
-}
-
 #header-menu li ul li {
     text-align: left;
     float: none;
@@ -248,7 +243,7 @@ pre code {
     margin-top: 1em;
     padding: 1em 1em 1em 1em;
     padding: 16px;
-    background: #FFF url('/static/images/layout/page-bg.gif') repeat-y top right;
+    background: #FFF url('../images/layout/page-bg.gif') repeat-y top right;
     overflow: hidden;
     position: relative;
 }
@@ -268,22 +263,22 @@ pre code {
 
 .tr {
     top: 0; right: 0;
-    background: url('/static/images/layout/sprites.png') -14px -58px;
+    background: url('../images/layout/sprites.png') -14px -58px;
 }
 
 .tl {
     top: 0; left: 0;
-    background: url('/static/images/layout/sprites.png') -23px -58px;
+    background: url('../images/layout/sprites.png') -23px -58px;
 }
 
 .br {
     bottom: 0; right: 0;
-    background: url('/static/images/layout/sprites.png') -32px -58px;
+    background: url('../images/layout/sprites.png') -32px -58px;
 }
 
 .bl {
     bottom: 0; left: 0;
-    background: url('/static/images/layout/sprites.png') -41px -58px;
+    background: url('../images/layout/sprites.png') -41px -58px;
 }
 
 .warning-header,
@@ -323,6 +318,7 @@ div.warning {
     background: #ffffd0;
 }
 
+div.warning p,
 div.notice p { margin: 1em; }
 
 #release-editor div.changes div.notice { margin: 2em auto 0 auto; }
@@ -336,6 +332,7 @@ div.warning img.warning {
 
 #content {
     margin-right: 250px;
+    word-wrap: break-word;
 }
 
 #page.fullwidth #content {
@@ -383,45 +380,45 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li {
-    background: url("/static/images/favicons/external-16.png") 0 2px no-repeat;
+    background: url("../images/favicons/external-16.png") 0 2px no-repeat;
     margin-bottom: 2px;
     padding: 4px 0 0 22px;
 }
 
 #sidebar ul.external_links li.home {
-    background-image: url("/static/images/favicons/home-16.png");
+    background-image: url("../images/favicons/home-16.png");
 }
 
 #sidebar ul.external_links li.amazon {
-    background-image: url("/static/images/favicons/amazon-16.png");
+    background-image: url("../images/favicons/amazon-16.png");
 }
 
 #sidebar ul.external_links li.wikipedia {
-    background-image: url("/static/images/favicons/wikipedia-16.png");
+    background-image: url("../images/favicons/wikipedia-16.png");
 }
 
 #sidebar ul.external_links li.facebook {
-    background-image: url("/static/images/favicons/facebook-16.png");
+    background-image: url("../images/favicons/facebook-16.png");
 }
 
 #sidebar ul.external_links li.myspace {
-    background-image: url("/static/images/favicons/myspace-16.png");
+    background-image: url("../images/favicons/myspace-16.png");
 }
 
 #sidebar ul.external_links li.twitter {
-    background-image: url("/static/images/favicons/twitter-16.png");
+    background-image: url("../images/favicons/twitter-16.png");
 }
 
 #sidebar ul.external_links li.youtube {
-    background-image: url("/static/images/favicons/youtube-16.png");
+    background-image: url("../images/favicons/youtube-16.png");
 }
 
 #sidebar ul.external_links li.discogs {
-    background-image: url("/static/images/favicons/discogs-16.png");
+    background-image: url("../images/favicons/discogs-16.png");
 }
 
 #sidebar ul.external_links li.soundcloud {
-    background-image: url("/static/images/favicons/soundcloud-16.png");
+    background-image: url("../images/favicons/soundcloud-16.png");
 }
 
 #sidebar .cover-art {
@@ -499,7 +496,7 @@ table.tbl {
 
 table.tbl th {
     font-size: 95%;
-    background: url('/static/images/layout/table-header.gif') repeat-x 0 50%;
+    background: url('../images/layout/table-header.gif') repeat-x 0 50%;
     padding: 0.2em 0.4em;
     text-align: left;
     border-bottom: solid 1px #999999;
@@ -538,7 +535,7 @@ table.details table.tbl th {
 table.tbl tr.subh td,
 table.tbl tr.subh th {
     font-size: 95%;
-    background: url('/static/images/layout/table-header-2.gif') repeat-x 0 50%;
+    background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
     font-weight: bold;
     border-top: solid 1px #999999;
     border-bottom: solid 1px #999999;

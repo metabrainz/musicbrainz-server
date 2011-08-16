@@ -304,6 +304,8 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     };
 
     self.cleanUrl = function (dirtyURL) {
+        dirtyURL = dirtyURL.replace(/^\s+/, '');
+
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
 

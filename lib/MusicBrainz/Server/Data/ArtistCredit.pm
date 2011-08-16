@@ -145,12 +145,19 @@ sub find_or_insert
                     position => $i,
                     artist => $artists->[$i],
                     name => $names_id{$credits->[$i]},
-                    join_phrase => $join_phrases->[$i],
+                    join_phrase => _clean($join_phrases->[$i]),
                 });
         }
     }
 
     return $id;
+}
+
+sub _clean {
+    my $text = shift;
+    $text =~ s/[^[:print:]]//g;
+    $text =~ s/\s+/ /g;
+    return $text;
 }
 
 sub merge_artists

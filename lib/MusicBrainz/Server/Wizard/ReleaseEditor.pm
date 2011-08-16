@@ -788,7 +788,7 @@ sub _missing_labels {
 
     $data->{labels} = $self->get_value ('information', 'labels');
 
-    return grep { !$_->{label_id} && $_->{name} }
+    return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
         @{ $data->{labels} };
 }
 
@@ -969,6 +969,10 @@ sub _edit_release_labels
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
+        elsif ($new_label->{'deleted'})
+        {
+            # Ignore new labels which have already been deleted.
+        }
         elsif (
             $previewing ?
                 $new_label->{name} || $new_label->{catalog_number} :
@@ -977,7 +981,7 @@ sub _edit_release_labels
             my $label;
 
             # Add ReleaseLabel
-            if ($previewing)
+            if ($previewing && !$new_label->{label_id})
             {
                 $label = $new_label->{name} ?
                     Label->new(
@@ -1219,7 +1223,7 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
-    my @names = @{ $trk->{artist_credit}->{names} };
+    my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
     # with just an id.

@@ -23,7 +23,7 @@
     [%- IF recording -%]
       <td class="recording">
         <input type="hidden" class="gid" value="[% recording.gid | html %]" />
-        [% link_entity (recording) %]
+        [% link_recording (recording) %]
       </td>
       <td class="artist">[% recording.artist_credit.name | html %]</td>
       <td class="length">[% recording.length | format_length %]</td>
@@ -61,7 +61,7 @@
     [%- UNLESS recording.comment %] style="display: none"[% END %]>
     <td> </td>
     <td colspan="3">
-      [%- l('comment:') %]<span class="comment">[%- recording.comment | html -%]</span>
+      [%- l('comment:') %] <span class="comment">[%- recording.comment | html -%]</span>
     </td>
   </tr>
 [%- END -%]
@@ -110,7 +110,7 @@
           [% l('Search:') %]
           <span class="autocomplete">
             <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
-            <img class="search" src="/static/images/icons/search.png" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
         </p>
 
@@ -341,7 +341,7 @@
 
           <div style="display: none" class="recordings-loading">
             <p>
-              <img src="/static/images/icons/loading.gif" />
+              <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
               &nbsp;
               [% l('Now loading recording associations...') %]
             </p>
