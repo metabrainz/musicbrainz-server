@@ -342,6 +342,12 @@ sub accept {
             @merged_lengths == @merged_artist_credits
         } 'Merged properties are all the same length';
 
+        if(values %{ $self->c->model('Recording')->get_by_ids(@merged_recordings) }
+               != @$data_new_tracklist) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('This edit changes recording IDs, but some of the recordings no longer exist.');
+        }
+
         # Create the final merged tracklist
         my @final_tracklist;
         while(1) {
@@ -412,7 +418,8 @@ sub allow_auto_edit
                             map {
                                 join('', $_->{name}, $_->{join_phrase} || '')
                             } @{ $track->{artist_credit}{names} }
-                        )
+                        ),
+                        $track->{recording_id}
                     );
                 }
             ) };
@@ -429,6 +436,7 @@ sub allow_auto_edit
             return 0 if $old_name ne $new_name;
             return 0 if $old->{length} && $old->{length} != $new->{length};
             return 0 if hash_artist_credit($old->{artist_credit}) ne hash_artist_credit($new->{artist_credit});
+            return 0 if $old->{recording_id} != $new->{recording_id};
         }
     }
 
