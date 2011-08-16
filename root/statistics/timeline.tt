@@ -7,10 +7,6 @@
  data: [
 [%- FOREACH date_collected = statistic.data.keys.sort -%]
 [ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- statistic.statistic_for(date_collected) -%] ],
-[%- END -%]],
- rate_of_change_data: [
-[%- FOREACH date_collected = rate_of_change.data.keys.sort -%]
-[ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- rate_of_change.statistic_for(date_collected) -%] ],
 [%- END -%]]
 },
 [% END %]
