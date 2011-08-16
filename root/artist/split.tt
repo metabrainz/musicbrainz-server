@@ -23,7 +23,7 @@
    <p>
      [% l('There are no recordings, release groups, releases or tracks
            credited to only {name}. If you are trying to remove {name}, please
-           instead remove all existing {rel_uri|relationships}, which will allow
+           remove all existing {rel_uri|relationships} instead, which will allow
            ModBot to automatically remove this artist in the upcoming days.', {
               name    => link_artist(artist),
               rel_uri => c.uri_for_action('/artist/relationships',
