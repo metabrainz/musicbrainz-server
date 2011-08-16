@@ -511,18 +511,33 @@ sub stop_watching : Chained('load') RequireAuth {
 sub split : Chained('load') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
+    $c->model('Relationship')->load($artist);
+
+    if (!can_split($artist)) {
+        $c->stash( template => 'artist/cannot_split.tt' );
+        $c->detach;
+    }
+
+    my $ac     = $c->model('ArtistCredit')->find_for_artist($artist);
     $self->edit_action(
         $c,
-        edit_args => {
-            artist => $artist
-        },
         form        => 'EditArtistCredit',
         type        => $EDIT_ARTIST_EDITCREDIT,
+        item        => { artist_credit => $ac },
+        edit_args   => { to_edit => $ac },
         on_creation => sub {
             $c->res->redirect(
                 $c->uri_for_action('/artist/show', [ $artist->gid ]))
         }
     );
+}
+
+sub can_split {
+    my $artist = shift;
+    my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
+    return (grep {
+        $_->link->type->gid != $COLLABORATION
+    } $artist->all_relationships) == 0;
 }
 
 =head1 LICENSE

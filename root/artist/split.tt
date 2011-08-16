@@ -20,6 +20,13 @@
    <form action="[% c.req.uri %]" method="post">
      [%- USE r = FormRenderer(form) -%]
      <div class="half-width">
+       <h2>[% l('Split Into Separate Artists') %]</h2>
+       <p>
+         [% l('This form allows you to split {artist} into separate artists.
+               When the edit is accepted, existing artist credits will be
+               updated, and collaboration relationships will be removed',
+               { artist => link_entity(artist) } ) %]
+       </p>
        <fieldset>
          <legend>[% l('New Artist Credit') %]</legend>
          [%- form_row_artist_credit(form) -%]

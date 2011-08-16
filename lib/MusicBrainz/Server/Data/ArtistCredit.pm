@@ -153,6 +153,19 @@ sub find_or_insert
     return $id;
 }
 
+sub find_for_artist {
+    my ($self, $artist) = @_;
+    return MusicBrainz::Server::Entity::ArtistCredit->new(
+        names => [
+            MusicBrainz::Server::Entity::ArtistCreditName->new(
+                name        => $artist->name,
+                artist_id   => $artist->id,
+                artist      => $artist
+            )
+        ]
+    );
+}
+
 sub _clean {
     my $text = shift;
     return undef unless defined($text);

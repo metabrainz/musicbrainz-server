@@ -6,10 +6,14 @@ use MooseX::Types::Structured qw( Dict );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
+use MusicBrainz::Server::Data::Utils qw(
+    artist_credit_to_ref
+);
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
-    load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    clean_submitted_artist_credits
+    load_artist_credit_definitions
     verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l );
@@ -20,35 +24,26 @@ with 'MusicBrainz::Server::Edit::Artist';
 sub edit_name { l('Edit artist credit') }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 
-sub alter_edit_pending
-{
-    my $self = shift;
-    return {
-        Artist => [ $self->data->{entity}{id} ]
-    }
-}
-
 
 sub _build_related_entities {
     my ($self) = @_;
+    my $related = { };
 
-    my $related = {
-        artist => [ $self->data->{entity}{id} ]
-    };
-
-    my %ac = load_artist_credit_definitions($self->data->{artist_credit});
-    push @{ $related->{artist} }, keys(%ac);
+    my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
+    my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+    push @{ $related->{artist} }, keys(%new), keys(%old);
 
     return $related;
 };
 
 has '+data' => (
     isa => Dict[
-        entity => Dict[
-            id => Int,
-            name => Str
+        old => Dict[
+            artist_credit => ArtistCreditDefinition
         ],
-        artist_credit => ArtistCreditDefinition
+        new => Dict[
+            artist_credit => ArtistCreditDefinition
+        ]
     ]
 );
 
@@ -58,8 +53,9 @@ sub foreign_keys
     my $relations = {};
 
     $relations->{Artist} = {
-        $self->data->{entity}{id} => [],
-        load_artist_credit_definitions($self->data->{artist_credit})
+        map {
+            load_artist_credit_definitions($self->data->{$_}{artist_credit})
+        } qw( new old )
     };
 
     return $relations;
@@ -69,10 +65,10 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $data = {
-        artist => $loaded->{Artist}{ $self->data->{entity}{id} } ||
-            Artist->new( name => $self->data->{entity}{id} ),
-        artist_credit => artist_credit_from_loaded_definition($loaded, $self->data->{artist_credit}),
+    my $data = {};
+    $data->{artist_credit} = {
+        new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
+        old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
     };
 
     return $data;
@@ -80,14 +76,16 @@ sub build_display_data
 
 sub initialize {
     my ($self, %opts) = @_;
-    my $artist = delete $opts{artist} or die 'Missing artist object';
+    my $old_ac = delete $opts{to_edit} or die 'Missing old artist credit object';
 
-    $opts{entity} = {
-        id => $artist->id,
-        name => $artist->name
-    };
-
-    $self->data(\%opts);
+    $self->data({
+        new => {
+            artist_credit => clean_submitted_artist_credits($opts{artist_credit})
+        },
+        old => {
+            artist_credit => clean_submitted_artist_credits(artist_credit_to_ref($old_ac))
+        }
+    });
 }
 
 sub accept {
