@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::SplitArtist;
+package MusicBrainz::Server::Form::EditArtistCredit;
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';

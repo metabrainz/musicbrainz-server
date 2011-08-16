@@ -14,7 +14,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Artist::Edit
     MusicBrainz::Server::Edit::Artist::EditAlias
     MusicBrainz::Server::Edit::Artist::Merge
-    MusicBrainz::Server::Edit::Artist::Split
+    MusicBrainz::Server::Edit::Artist::EditArtistCredit
     MusicBrainz::Server::Edit::Label::AddAlias
     MusicBrainz::Server::Edit::Label::DeleteAlias
     MusicBrainz::Server::Edit::Label::AddAnnotation

@@ -26,7 +26,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_CREATE
     $EDIT_ARTIST_EDIT
     $EDIT_ARTIST_DELETE
-    $EDIT_ARTIST_SPLIT
+    $EDIT_ARTIST_EDITCREDIT
 
 );
 use MusicBrainz::Server::Form::Artist;
@@ -513,11 +513,11 @@ sub split : Chained('load') Edit {
     my $artist = $c->stash->{artist};
     $self->edit_action(
         $c,
-        form => 'SplitArtist',
-        type => $EDIT_ARTIST_SPLIT,
         edit_args => {
             artist => $artist
         },
+        form        => 'EditArtistCredit',
+        type        => $EDIT_ARTIST_EDITCREDIT,
         on_creation => sub {
             $c->res->redirect(
                 $c->uri_for_action('/artist/show', [ $artist->gid ]))

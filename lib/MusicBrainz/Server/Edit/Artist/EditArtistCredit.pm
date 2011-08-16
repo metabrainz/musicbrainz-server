@@ -1,11 +1,11 @@
-package MusicBrainz::Server::Edit::Artist::Split;
+package MusicBrainz::Server::Edit::Artist::EditArtistCredit;
 use Moose;
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_SPLIT );
+use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
@@ -17,8 +17,8 @@ use MusicBrainz::Server::Translation qw( l );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 
-sub edit_name { l('Split artist') }
-sub edit_type { $EDIT_ARTIST_SPLIT }
+sub edit_name { l('Edit artist credit') }
+sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 
 sub alter_edit_pending
 {
