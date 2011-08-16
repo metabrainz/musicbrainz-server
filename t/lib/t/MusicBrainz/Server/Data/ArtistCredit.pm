@@ -54,13 +54,19 @@ test 'Merging clears the cache' => sub {
     ok(!$cache->exists('ac:1'), 'cache no longer contains artist credit #1');
 };
 
-test 'decompose_artist_to_credits' => sub {
+test 'Replace artist credit' => sub {
     my $test = shift;
     my $c = $test->c;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+decompose');
 
-    $c->model('ArtistCredit')->decompose_artist_to_credits(
-        5,
+    $c->model('ArtistCredit')->replace(
+        { names => [
+            {
+                artist => { id => 5, name => 'Bob & Tom' },
+                name => 'Bob & Tom',
+                join_phrase => undef
+            }
+        ] },
         { names => [
             {
                 artist => { id => 6, name => 'Ed Rush' },

@@ -91,14 +91,11 @@ sub initialize {
 sub accept {
     my $self = shift;
 
-    my $artist = $self->c->model('Artist')->get_by_id(
-        $self->data->{entity}{id});
-
     verify_artist_credits($self->c, $self->data->{artist_credit});
 
-    $self->c->model('ArtistCredit')->decompose_artist_to_credits(
-        $artist->id,
-        $self->data->{artist_credit}
+    $self->c->model('ArtistCredit')->replace(
+        $self->data->{old}{artist_credit},
+        $self->data->{new}{artist_credit}
     );
 }
 

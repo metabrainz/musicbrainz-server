@@ -196,44 +196,33 @@ sub merge_artists
     $self->_delete_from_cache(@artist_credit_ids) if @artist_credit_ids;
 }
 
-sub decompose_artist_to_credits {
-    my ($self, $artist_id, $artist_credit) = @_;
+sub replace {
+    my ($self, $old_ac, $new_ac) = @_;
 
-    return if MusicBrainz::Server::Data::Artist::is_special_purpose($artist_id);
-
-    my @old_credit_ids = @{
-        $self->c->sql->select_single_column_array(
-            'SELECT id
-             FROM artist_credit_name
-             JOIN artist_credit ON id = artist_credit
-             WHERE artist_count = 1 AND artist = ?',
-            $artist_id
-        )
-    };
-
-    my $new_credit = $self->find_or_insert($artist_credit);
+    my $old_credit_id = $self->find ($old_ac) or return;
+    my $new_credit_id = $self->find_or_insert($new_ac);
 
     for my $table (qw( recording release release_group track )) {
         $self->c->sql->do(
             "UPDATE $table SET artist_credit = ?
-             WHERE artist_credit IN (" . placeholders(@old_credit_ids) . ')',
-            $new_credit, @old_credit_ids
+             WHERE artist_credit = ?",
+            $new_credit_id, $old_credit_id
        );
     }
 
     $self->c->sql->do(
         'DELETE FROM artist_credit_name
-         WHERE artist_credit IN (' . placeholders(@old_credit_ids) . ')',
-        @old_credit_ids
+         WHERE artist_credit = ?',
+        $old_credit_id
     );
 
     $self->c->sql->do(
         'DELETE FROM artist_credit
-         WHERE id IN (' . placeholders(@old_credit_ids) . ')',
-        @old_credit_ids
+         WHERE id = ?',
+        $old_credit_id
     );
 
-    $self->_delete_from_cache(@old_credit_ids);
+    $self->_delete_from_cache($old_credit_id);
 }
 
 __PACKAGE__->meta->make_immutable;
