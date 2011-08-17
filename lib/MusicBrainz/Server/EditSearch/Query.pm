@@ -135,7 +135,7 @@ sub _construct_predicate {
 
 sub valid {
     my $self = shift;
-    my $valid = 1;
+    my $valid = $self->fields > 0;
     $valid &&= $_->valid for $self->fields;
     return $valid
 }
