@@ -17,11 +17,12 @@
 [%- USE r = FormRenderer(form) -%]
 
 [%- MACRO relationship_entity(field, entity, type) BLOCK; -%]
-  [%- r.hidden(field.field('id')) -%]
   [%- IF type != 'url' -%]
     <span class="[% type %] autocomplete">
-      [%- r.text(field.field('name'), class => type _ '-name') -%]
       <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <input type="hidden" class="gid" />
+      [%- r.hidden(field.field('id'), class => 'id') -%]
+      [%- r.text(field.field('name'), class => type _ '-name name') -%]
     </span>
     <span class="link">
       [%# NOTE: do not add other classes to the <a> element below, this class is used by javascript to get the entity type. --warp. %]
@@ -31,6 +32,7 @@
           title="[% entity.comment %]"
         [% ELSE %]
           href=""
+          style="display: none;"
         [% END %]
       >[%- l('link') -%]</a>
     </span>
