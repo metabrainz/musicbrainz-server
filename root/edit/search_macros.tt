@@ -169,9 +169,12 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
-  <input name="name" size="40" class="autocomplete autocomplete-[% field %]"
-         value="[% html_escape(field_contents.name) %]" />
-  <input name="args.0" value="[% html_escape(field_contents.argument(0)) %]" class="ac-result" type="hidden" />
+  <span class="autocomplete autocomplete-[% field %]">
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+      <input type="hidden" class="gid" />
+      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
 [% END %]
 
 [% MACRO predicate_vote(field, field_contents) WRAPPER wfield predicate="vote" %]
@@ -197,10 +200,13 @@
                , [ 'subscribed', l('is in my subscriptions') ]
                ], field_contents) %]
 
-  <input name="name" size="40" class="autocomplete autocomplete-[% field %] arg"
-         value="[% html_escape(field_contents.name) %]" />
-  <input name="args.0" value="[% html_escape(field_contents.argument(0)) %]" class="ac-result" type="hidden" />
-  <input name="user_id" value="[% c.user.id %]" class="ac-result" type="hidden" />
+  <span class="autocomplete autocomplete-[% field %]">
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
+      <input type="hidden" class="gid" />
+      <input type="hidden" class="id" name="args.0" value="[% html_escape(field_contents.argument(0)) %]"  />
+      <input type="hidden" name="user_id" value="[% c.user.id %]"  />
+  </span>
 [% END %]
 
 [% MACRO select_field(field_contents) BLOCK %]

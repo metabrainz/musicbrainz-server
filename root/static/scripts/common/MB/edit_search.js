@@ -20,7 +20,6 @@ $(function() {
 
     var conditionCounter = 0;
 
-
     $('#extra-condition select').live('change', function() {
         var newCondition = $(this).parent('li');
 
@@ -57,10 +56,13 @@ $(function() {
 
             $li.find(':input').each(function() {
                 $input = $(this);
-                $input.attr('name', prefixedInputName($input));
+                if ($input.attr('name') !== '')
+                {
+                    $input.attr('name', prefixedInputName($input));
+                }
             });
 
-            $li.find('input.autocomplete').each(function() {
+            $li.find('span.autocomplete').each(function() {
                 setupAutocomplete($(this));
             });
 
@@ -71,17 +73,10 @@ $(function() {
         }
     });
 
-    function setupAutocomplete($input) {
-        var type = filteredClassName($input, 'autocomplete-');
+    function setupAutocomplete($inputs) {
+        var type = filteredClassName($inputs, 'autocomplete-');
 
-        MB.Control.Autocomplete({
-            'entity': type,
-            'input': $input,
-            'select': function(event, data) {
-                $input.val(data.name);
-                $input.siblings('input.ac-result').val(data.id)
-            }
-        });
+        MB.Control.EntityAutocomplete({ 'entity': type, 'inputs': $inputs });
     }
 
     function prefixedInputName($element) {
@@ -123,7 +118,7 @@ $(function() {
         conditionCounter++;
     });
 
-    $('ul.conditions input.autocomplete').each(function() {
+    $('ul.conditions span.autocomplete').each(function() {
         setupAutocomplete($(this));
     });
 
