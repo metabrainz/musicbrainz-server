@@ -2,7 +2,7 @@ $(document).ready(function () {
     var categoryIDPrefix = 'category-';
     var controlIDPrefix = 'graph-control-';
 
-    datasets = {};
+    var datasets = {};
     var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: [], enabled: true}}
     var graphOptions = {};
     var overviewOptions = {};
