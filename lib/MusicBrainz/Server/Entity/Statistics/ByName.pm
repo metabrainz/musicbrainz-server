@@ -4,7 +4,6 @@ use Moose;
 use MusicBrainz::Server::Types;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
-use DateTime::Format::Pg;
 
 has data => (
     is => 'rw',
@@ -20,21 +19,6 @@ has name => (
    is => 'rw',
    isa => 'Str'
 );
-
-sub rate_of_change {
-    my ($self) = @_;
-
-    my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new();
-    $stats->name( $self->{name} );
-    foreach my $date (sort keys %{ $self->{data} }) {
-        my $one_week_ago = DateTime::Format::Pg->format_date(
-            DateTime::Format::Pg->parse_date($date)->subtract(weeks => 1));
-        $stats->data->{ $date } = 
-            $self->statistic_for($date) - ($self->statistic_for($one_week_ago) || 0);
-    }
-
-    return $stats;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

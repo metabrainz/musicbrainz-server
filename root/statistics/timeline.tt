@@ -1,13 +1,8 @@
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-[%- rate_of_change = statistic.rate_of_change -%]
-{label: MB.text.Timeline["[%- statistic.name -%]"].Label, 
- color: MB.text.Timeline["[%- statistic.name -%]"].Color, 
- category: MB.text.Timeline["[%- statistic.name -%]"].Category,
- data: [
-[%- FOREACH date_collected = statistic.data.keys.sort -%]
-[ [%- date.format("$date_collected 00:00:00", '%s') -%]000, [%- statistic.statistic_for(date_collected) -%] ],
-[%- END -%]]
+{label: MB.text.Timeline["[%- statistic -%]"].Label, 
+ color: MB.text.Timeline["[%- statistic -%]"].Color, 
+ category: MB.text.Timeline["[%- statistic -%]"].Category
 },
 [% END %]
 
@@ -30,8 +25,8 @@
   </style>
   <script type="text/javascript">//<![CDATA[
       $(document).ready(function () {
-      MB.setupGraphing({[%- FOREACH dataset_key = stats.keys.sort -%]
-          "[%- dataset_key -%]": [%- graph_line(stats.$dataset_key) -%]
+      MB.setupGraphing({[%- FOREACH dataset_key = stats -%]
+          "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
           [%- END -%]},
           { xaxis: { mode: "time",
                      timeformat: "%y/%0m",
