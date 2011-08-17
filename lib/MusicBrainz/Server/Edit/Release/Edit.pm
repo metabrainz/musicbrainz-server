@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     partial_date_from_row
 );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -183,6 +184,14 @@ before accept => sub {
     my ($self) = @_;
 
     verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+
+    if ($self->data->{new}{release_group_id} &&
+        $self->data->{new}{release_group_id} != $self->data->{old}{release_group_id} &&
+       !$self->c->model('ReleaseGroup')->get_by_id($self->data->{new}{release_group_id})) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The new release group does not exist.'
+        );
+    }
 };
 
 sub allow_auto_edit
