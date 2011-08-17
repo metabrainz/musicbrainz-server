@@ -2,7 +2,7 @@ $(document).ready(function () {
     var categoryIDPrefix = 'category-';
     var controlIDPrefix = 'graph-control-';
 
-    var datasets = {};
+    datasets = {};
     var musicbrainzEventsOptions = {musicbrainzEvents: { currentEvent: {}, data: [], enabled: true}}
     var graphOptions = {};
     var overviewOptions = {};
@@ -25,8 +25,18 @@ $(document).ready(function () {
         $("#graph-lines div input").filter(":checked").each(function () { 
             if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
                 var datasetId = $(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length);
-                alldata.push(datasets[datasetId]);
-                ratedata.push(rateData(datasetId));
+		if (!datasets[datasetId].data) {
+		   $.ajax({url: '../statistics/dataset/' + datasetId,
+		       dataType: 'json',
+		       success: function(data) {
+		           datasets[datasetId].data = data;
+			   rateData(datasetId);
+			   $(window).hashchange();
+	           }});
+		} else {
+                    alldata.push(datasets[datasetId]);
+                    ratedata.push(rateData(datasetId));
+		}
             }
         });
         return [alldata, ratedata]
