@@ -21,6 +21,7 @@ my @all = qw(
     PartOfSetRelationships
     PossibleCollaborations
     RecordingsWithEarliestReleaseRelationships
+    ReleasedTooEarly
     SeparateDiscs
 );
 
@@ -41,6 +42,7 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
+use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::SeparateDiscs;
 
 my %all = map { $_ => 1 } @all;
