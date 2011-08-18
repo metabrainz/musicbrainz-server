@@ -63,7 +63,7 @@ $(function() {
             });
 
             $li.find('span.autocomplete').each(function() {
-                setupAutocomplete($(this));
+                MB.Control.EntityAutocomplete({ 'inputs': $(this) });
             });
 
             conditionCounter++;
@@ -72,12 +72,6 @@ $(function() {
             console.error('There is no field-' + val);
         }
     });
-
-    function setupAutocomplete($inputs) {
-        var type = filteredClassName($inputs, 'autocomplete-');
-
-        MB.Control.EntityAutocomplete({ 'entity': type, 'inputs': $inputs });
-    }
 
     function prefixedInputName($element) {
         return 'conditions.' + conditionCounter + '.' + $element.attr('name')
@@ -119,7 +113,7 @@ $(function() {
     });
 
     $('ul.conditions span.autocomplete').each(function() {
-        setupAutocomplete($(this));
+        MB.Control.EntityAutocomplete({ 'inputs': $(this) });
     });
 
     MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');

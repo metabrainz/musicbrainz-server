@@ -416,6 +416,30 @@ MB.Control.Autocomplete = function (options) {
     return self;
 };
 
+
+/*
+   MB.Control.EntityAutocomplete is a helper class which simplifies using
+   Autocomplete to look up entities.  It takes care of setting 'error' and
+   'lookup-performed' classes on the search input, and setting id and gid
+   values on related hidden inputs.
+
+   It expects to see html looking like this:
+
+       <span class="ENTITY autocomplete">
+          <img class="search" src="search.png" />
+          <input type="text" class="name" />
+          <input type="hidden" class="id" />
+          <input type="hidden" class="gid" />
+       </span>
+
+   Do a lookup of the span with jQuery and pass it into EntityAutocomplete
+   as options.inputs, for example, for a release group do this:
+
+       MB.Control.EntityAutocomplete ({ inputs: $('span.release-group.autocomplete') });
+
+   The 'lookup-performed' and 'cleared' events will be triggered on the input.name
+   element (though you can just bind on the span, as events will bubble up).
+*/
 MB.Control.EntityAutocomplete = function (options) {
     var inputs = options.inputs;
 
@@ -425,12 +449,24 @@ MB.Control.EntityAutocomplete = function (options) {
     var $id = inputs.find ('input.id');
     var $gid = inputs.find ('input.gid');
 
+    if (!options.entity)
+    {
+        /* guess the entity from span classes. */
+        $.each (MB.constants.ENTITIES, function (idx, entity) {
+            if (inputs.hasClass (entity))
+            {
+                options.entity = entity;
+            }
+        });
+    }
+
     options.input = $name;
 
     var self = MB.Control.Autocomplete (options);
 
     self.select = function (event, data) {
         event.preventDefault ();
+
         self.currentSelection = data.item;
         if (data.item.action)
         {
