@@ -10,7 +10,18 @@
     [% END %]
 
     <h2>[% l('General Information') %]</h2>
+
     <dl class="profileinfo">
+        [% IF c.user.is_admin %]
+        [% WRAPPER property name=l('Admin tools:') %]
+          <form action="[% c.uri_for_action('/admin/delete_user') %]" method="get">
+            <input type="hidden" name="editor_id" value="[% user.id %]" />
+            <div class="buttons">
+              <button class="negative">[% l("Delete Editor") %]</button>
+            </div>
+          </form>
+        [% END %]
+        [% END %]
 
         [% WRAPPER property name=l("Email:") %]
             [% IF user.email %]
