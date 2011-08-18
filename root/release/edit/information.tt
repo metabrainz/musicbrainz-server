@@ -21,14 +21,15 @@
     <fieldset>
       <legend>[% l('Release information') %]</legend>
       [% form_row_text (r, 'name') %]
-      [% r.hidden ('release_group_id') %]
 
       [% WRAPPER form_row %]
         [% rg_field = form.field('release_group.name') %]
         <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
-        <span class="autocomplete">
-          [% r.text(rg_field) %]
+        <span class="release-group autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <input type="hidden" class="gid" />
+          [% r.hidden ('release_group_id', class => 'id') %]
+          [% r.text(rg_field, class => 'name') %]
         </span>
       [% END %]
 
@@ -64,12 +65,12 @@
       <div class="label-container" style="padding: 0.5em 0">
         [% FOR field=form.field('labels').fields %]
         <div class="release-label">
-          [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
-
           [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
           <span class="label autocomplete">
-            [%- r.text(field.field('name'), class => 'label-name') -%]
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="hidden" class="gid" />
+            [%- r.hidden(field.field('label_id'), class => 'id') -%]
+            [%- r.text(field.field('name'), class => 'name') -%]
           </span>
           [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]

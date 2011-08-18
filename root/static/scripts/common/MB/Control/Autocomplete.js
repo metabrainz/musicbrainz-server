@@ -305,10 +305,13 @@ MB.Control.Autocomplete = function (options) {
         return data.item.action ? data.item.action () : options.select (event, data.item);
     };
 
-    self.clearSelection = function() {
-        if (!options.clearSelection) return;
-        return options.clearSelection();
-    }
+    self.clear = function () {
+        self.currentSelection = null;
+        if (options.clear)
+        {
+            options.clear ();
+        }
+    };
 
     /* iamfeelinglucky is used in selenium tests.
 
@@ -357,7 +360,7 @@ MB.Control.Autocomplete = function (options) {
         self.$input.bind ('blur', function(event) {
             if (!self.currentSelection) return;
             if (self.currentSelection.name !== self.$input.val()) {
-                self.clearSelection();
+                self.clear ();
             }
         });
 
@@ -485,8 +488,7 @@ MB.Control.EntityAutocomplete = function (options) {
         $name.trigger ('lookup-performed', data.item);
     };
 
-    self.clear = function (event) {
-        $name.val ('');
+    self.clear = function () {
         $id.val ('');
         $gid.val ('');
 
@@ -511,6 +513,12 @@ MB.Control.EntityAutocomplete = function (options) {
         {
             $name.removeClass('error');
             $name.addClass ('lookup-performed');
+
+            self.currentSelection = {
+                name: $name.val (),
+                id: $id.val (),
+                gid: $gid.val ()
+            };
         }
     }
 
