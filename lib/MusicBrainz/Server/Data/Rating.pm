@@ -108,6 +108,21 @@ sub delete
     return 1;
 }
 
+sub clear {
+    my ($self, $editor_id) = @_;
+    my $type = $self->type;
+    my $table = $type . '_rating_raw';
+    for my $entity_id (@{
+        $self->c->sql->select_single_column_array(
+            "DELETE FROM $table WHERE editor = ?
+             RETURNING $type",
+            $editor_id
+        )
+    }) {
+        $self->_update_aggregate_rating($entity_id);
+    }
+}
+
 sub update
 {
     my ($self, $user_id, $entity_id, $rating) = @_;
