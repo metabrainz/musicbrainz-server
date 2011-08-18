@@ -16,7 +16,7 @@ sub find_user
 {
     my ($self, $authinfo, $c) = @_;
     my $editor = $c->model('Editor')->get_by_name($authinfo->{username});
-    if (defined $editor) {
+    if (defined $editor && $editor->password) {
         $c->model('Editor')->load_preferences($editor);
         my $class = Class::MOP::Class->initialize('MusicBrainz::Server::Authentication::User');
         return $class->rebless_instance($editor);
