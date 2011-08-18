@@ -2,7 +2,11 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use List::UtilsBy qw( uniq_by );
-use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_CREATE
+    $EDIT_HISTORIC_ADD_TRACK
+    $EDIT_HISTORIC_ADD_TRACK_KV
+);
 use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw(
@@ -14,6 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
 );
+use MusicBrainz::Server::Entity::Recording;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
@@ -168,6 +173,39 @@ sub delete
         @recording_ids
     );
     return;
+}
+
+=method garbage_collect_orphans
+
+Remove any recordings that do not have a corresponding 'add track', 'add track kv' or
+'add standalone recording' edit (which means they were created through the release
+editor).
+
+=cut
+
+sub garbage_collect_orphans {
+    my ($self, @possibly_orphaned_recordings) = @_;
+
+    my @orphans = @{ $self->sql->select_single_column_array(
+        'SELECT id FROM recording outer_r
+         WHERE id IN (' . placeholders(@possibly_orphaned_recordings) . ')
+         AND edits_pending = 0
+         AND NOT EXISTS (
+             SELECT TRUE
+             FROM edit JOIN edit_recording er ON edit.id = er.edit
+             WHERE er.recording = outer_r.id
+             AND type = ? OR type = ? OR type = ?
+             LIMIT 1
+         ) AND NOT EXISTS (
+             SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
+         )',
+        @possibly_orphaned_recordings,
+        $EDIT_RECORDING_CREATE,
+        $EDIT_HISTORIC_ADD_TRACK,
+        $EDIT_HISTORIC_ADD_TRACK_KV
+    ) } or return;
+
+    $self->delete(@orphans);
 }
 
 sub _hash_to_row

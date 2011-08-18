@@ -88,10 +88,17 @@ sub garbage_collect {
     };
 
     if (@orphaned_tracklists) {
-        $self->sql->do(
-            'DELETE FROM track
-              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
-            @orphaned_tracklists);
+        my @possibly_orphaned_recordings = @{
+            $self->sql->select_single_column_array(
+                'DELETE FROM track
+                 WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')
+                 RETURNING recording',
+                @orphaned_tracklists
+            )
+        };
+
+        $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
+
         $self->sql->do(
             'DELETE FROM tracklist
               WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',
