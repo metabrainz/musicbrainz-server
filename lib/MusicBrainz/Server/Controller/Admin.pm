@@ -48,14 +48,17 @@ sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth(account_
     );
 }
 
-sub delete_user : Path('/admin/user/delete') {
-    my ($self, $c) = @_;
-    my $editor = $c->model('Editor')->get_by_id($c->req->query_params->{editor_id});
-    $c->stash( editor => $editor );
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) HiddenOnSlaves {
+    my ($self, $c, $name) = @_;
+
+    my $editor = $c->model('Editor')->get_by_name($name);
+    my $id = $editor->id;
+    $c->stash( user => $editor );
+
     if ($c->form_posted) {
         $c->model('Editor')->delete($editor->id);
 
-        $editor = $c->model('Editor')->get_by_id($c->req->query_params->{editor_id});
+        $editor = $c->model('Editor')->get_by_id($id);
         $c->response->redirect(
             $c->uri_for_action('/user/profile', [ $editor->name ]));
     }
