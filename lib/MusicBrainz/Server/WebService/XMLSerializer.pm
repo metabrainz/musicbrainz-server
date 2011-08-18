@@ -813,7 +813,7 @@ sub output_error
     my ($self, $err) = @_;
 
     my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'unescaped', conformance => 'strict');
+        escape => 'always,even-entities', conformance => 'strict');
 
     return '<?xml version="1.0" encoding="UTF-8"?>' .
         $gen->error($gen->text($err), $gen->text(
@@ -825,7 +825,7 @@ sub output_success
     my ($self, $msg) = @_;
 
     my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'unescaped', conformance => 'strict');
+        escape => 'always,even-entities', conformance => 'strict');
 
     $msg ||= 'OK';
 
@@ -841,7 +841,7 @@ sub serialize
     $inc ||= 0;
 
     my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'unescaped', conformance => 'strict');
+        escape => 'always,even-entities', conformance => 'strict');
 
     my $method = $type . "_resource";
     $method =~ s/-/_/g;
