@@ -332,10 +332,6 @@ sub accept {
                       'with changes made in this edit');
         };
 
-        verify_artist_credits($self->c, map {
-            $_->{artist_credit}
-        } @{ $data_new_tracklist });
-
         log_assertion {
             @merged_names == @merged_recordings &&
             @merged_recordings == @merged_lengths &&
@@ -363,6 +359,10 @@ sub accept {
                 artist_credit => shift(@merged_artist_credits)
             }
         }
+
+        verify_artist_credits($self->c, map {
+            $_->{artist_credit}
+        } @final_tracklist);
 
         # Create recordings
         for my $track (@final_tracklist) {
