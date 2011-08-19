@@ -413,13 +413,7 @@ sub allow_auto_edit
                         '',
                         $track->{name},
                         format_track_length($track->{length}),
-                        join(
-                            '',
-                            map {
-                                join('', $_->{name}, $_->{join_phrase} || '')
-                            } @{ $track->{artist_credit}{names} }
-                        ),
-                        $track->{recording_id}
+                        hash_artist_credit($track->{artist_credit})
                     );
                 }
             ) };
