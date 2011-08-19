@@ -89,7 +89,7 @@ sub lookup
         $medium->release_id($item->{release});
         $medium->tracklist_id($item->{tracklist});
         $medium->position($item->{position});
-        $medium->format_id($item->{format});
+        $medium->format_id($item->{format}) if $item->{format};
         $medium->name($item->{name} or '');
         $medium->edits_pending($item->{edits_pending});
         $result->medium($medium);
