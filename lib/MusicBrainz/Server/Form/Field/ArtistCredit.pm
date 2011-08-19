@@ -30,7 +30,7 @@ around 'validate_field' => sub {
 
         my $artist_id = Text::Trim::trim $_->{'artist'}->{'id'};
         my $artist_name = Text::Trim::trim $_->{'artist'}->{'name'};
-        my $name = Text::Trim::trim $_->{'name'};
+        my $name = Text::Trim::trim $_->{'name'} || Text::Trim::trim $_->{'artist'}->{'name'};
 
         if ($artist_id && $name)
         {
