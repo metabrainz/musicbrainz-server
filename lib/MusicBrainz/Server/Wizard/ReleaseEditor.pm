@@ -1186,18 +1186,16 @@ sub _create_edit {
 
     delete $args{as_auto_editor};
 
-    my $edit;
     try {
-        $edit = $method->(
+        my $edit = $method->(
             edit_type => $type,
             editor_id => $user_id,
             %args,
        );
+       push @{ $self->c->stash->{edits} }, $edit;
+       return $edit;
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) { }
-
-    push @{ $self->c->stash->{edits} }, $edit;
-    return $edit;
 }
 
 
