@@ -15,12 +15,12 @@ has 'type' => (
 
 has 'min' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 has 'max' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 __PACKAGE__->meta->make_immutable;

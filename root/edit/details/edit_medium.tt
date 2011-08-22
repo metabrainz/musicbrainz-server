@@ -44,10 +44,10 @@
        <table class="tbl">
          <thead>
            <tr>
-             <th>[% l('#') %]</th>
+             <th class="pos t">[% l('#') %]</th>
              <th>[% l('Title') %]</th>
              <th>[% l('Artist') %]</th>
-             <th>[% l('Length') %]</th>
+             <th class="length">[% l('Length') %]</th>
            </tr>
          </thead>
          <tbody>
@@ -114,10 +114,10 @@
        <table class="tbl">
          <thead>
            <tr>
-             <th>[% l('#') %]</th>
+             <th class="pos t">[% l('#') %]</th>
              <th>[% l('Title') %]</th>
              <th>[% l('Artist') %]</th>
-             <th>[% l('Length') %]</th>
+             <th class="length">[% l('Length') %]</th>
            </tr>
          </thead>
          <tbody>
@@ -186,7 +186,7 @@
       <table class="tbl">
         <thead>
           <tr>
-            <th>[% l('#') %]</th>
+            <th class="pos t">[% l('#') %]</th>
             <th>[% l('Old recording') %]</th>
             <th>[% l('New recording') %]</th>
           </tr>
@@ -214,7 +214,7 @@
       <table class="tbl">
         <thead>
           <tr>
-            <th>[% l('#') %]</th>
+            <th class="pos t">[% l('#') %]</th>
             <th>[% l('Old Artist') %]</th>
             <th>[% l('New Artist') %]</th>
           </tr>

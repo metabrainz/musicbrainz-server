@@ -294,6 +294,7 @@ sub finalize_error {
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
+sub language { return $ENV{LANGUAGE} || 'en' }
 
 =head1 NAME
 

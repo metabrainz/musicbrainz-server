@@ -1,0 +1,8 @@
+[% WRAPPER 'user/profile/layout.tt' title=l('Delete Editor') full_width=1 page='delete' %]
+  <h2>[% l('Delete Editor') %]</h2>
+  <p>[% l('Are you sure you want to delete {e}?', { e => link_editor(user) }) %]</p>
+  <form action="[% c.req.uri %]" method="post">
+    <input type="submit" value="[% l('Yes, exterminate {e}', { e => user.name } ) %]"
+           style="color: red" />
+  </form>
+[% END %]

@@ -7,8 +7,12 @@ use Sql;
 use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Entity::Language;
@@ -420,7 +424,13 @@ sub schema_fixup
                     _entity_class->new (%{ $rel->{$entity_type} });
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
-                    entity1 => $entity );
+                    entity1 => $entity,
+                    link => MusicBrainz::Server::Entity::Link->new(
+                        type => MusicBrainz::Server::Entity::LinkType->new(
+                            name => $rel_type
+                        )
+                    )
+                );
             }
         }
 
@@ -458,9 +468,18 @@ sub schema_fixup
     }
 
     if ($type eq 'work' && exists $data->{relationships}) {
-        $data->{artists} = [ map {
-            $_->entity1
-        } @{ $data->{relationships} } ];
+        my %relationship_map = partition_by { $_->entity1->gid }
+            @{ $data->{relationships} };
+
+        $data->{writers} = [
+            map {
+                my @relationships = @{ $relationship_map{$_} };
+                {
+                    entity => $relationships[0]->entity1,
+                    roles  => [ map { $_->link->type->name } @relationships ]
+                }
+            } keys %relationship_map
+        ];
     }
 
     if($type eq 'work' && exists $data->{type}) {
@@ -572,6 +591,13 @@ sub external_search
                 $result->{type} =~ s/MusicBrainz::Server::Entity:://;
                 $result->{type} = lc($result->{type});
             }
+        }
+
+        if ($type eq 'work')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Work')->load_ids(@entities);
+            $self->c->model('Work')->load_recording_artists(@entities);
         }
 
         my $pager = Data::Page->new;

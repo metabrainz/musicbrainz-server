@@ -22,7 +22,7 @@ sub rate : Local RequireAuth DenyWhenReadonly
 
     my $entity_type = $c->request->params->{entity_type};
     my $entity_id = $c->request->params->{entity_id};
-    my $rating = $c->request->params->{rating};
+    my $rating = int($c->request->params->{rating});
 
     my $model = $c->model(type_to_model($entity_type));
     my @result = $model->rating->update($c->user->id, $entity_id, $rating);

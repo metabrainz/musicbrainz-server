@@ -324,6 +324,25 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         }
     };
 
+    self.setIndex = function(idx) {
+        self.boxnumber = idx;
+        var nameid = new RegExp ("artist_credit.names.[0-9]+");
+        self.$row.find ("*").each (function (idx, element) {
+            var item = $(element);
+            if (item.attr ('id'))
+            {
+                item.attr ('id', item.attr('id').
+                           replace(nameid, "artist_credit.names." + self.boxnumber));
+            }
+            if (item.attr ('name'))
+            {
+                item.attr ('name', item.attr('name').
+                           replace(nameid, "artist_credit.names." + self.boxnumber));
+            }
+        });
+    };
+
+
     /* showJoin will uncover a possibly hidden join phrase input, and if
        neccesary automatically set its value.  The pos argument should be
        the position counted from the end, so that the join phrases between
@@ -498,7 +517,9 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         self.box.splice (pos, 1);
 
-        $.each (self.box, function (idx, box) { box.boxnumber = idx; });
+        $.each (self.box, function (idx, box) {
+            box.setIndex(idx);
+        });
         self.updateJoinPhrases ();
         self.renderPreview ();
 

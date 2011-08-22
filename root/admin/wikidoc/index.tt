@@ -9,7 +9,7 @@
 
         <ul>
             <li><a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('Add a new entry') %]</a></li>
-            <li><a href="/404">[% l('View transclusion history') %]</a></li>
+            <li><a href="[% c.uri_for_action('/admin/wikidoc/history') %]">[% l('View transclusion history') %]</a></li>
         </ul>
 
         <p>

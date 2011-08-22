@@ -252,7 +252,7 @@ sub build_display_data
                 [ $data->{new}{tracklist}->all_tracks ],
                 sub {
                     my $track = shift;
-                    return $track->position . join('|||', map {
+                    return join('|||', map {
                         join(':', $_->artist->id, $_->name, $_->join_phrase || '')
                     } $track->artist_credit->all_names)
                 }) }
@@ -332,10 +332,6 @@ sub accept {
                       'with changes made in this edit');
         };
 
-        verify_artist_credits($self->c, map {
-            $_->{artist_credit}
-        } @{ $data_new_tracklist });
-
         log_assertion {
             @merged_names == @merged_recordings &&
             @merged_recordings == @merged_lengths &&
@@ -363,6 +359,10 @@ sub accept {
                 artist_credit => shift(@merged_artist_credits)
             }
         }
+
+        verify_artist_credits($self->c, map {
+            $_->{artist_credit}
+        } @final_tracklist);
 
         # Create recordings
         for my $track (@final_tracklist) {
@@ -413,13 +413,7 @@ sub allow_auto_edit
                         '',
                         $track->{name},
                         format_track_length($track->{length}),
-                        join(
-                            '',
-                            map {
-                                join('', $_->{name}, $_->{join_phrase} || '')
-                            } @{ $track->{artist_credit}{names} }
-                        ),
-                        $track->{recording_id}
+                        hash_artist_credit($track->{artist_credit})
                     );
                 }
             ) };

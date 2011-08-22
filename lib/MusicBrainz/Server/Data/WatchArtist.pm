@@ -215,5 +215,13 @@ sub load_preferences {
     );
 }
 
+sub delete_editor {
+    my ($self, $editor_id) = @_;
+    $self->sql->do('DELETE FROM editor_watch_preferences WHERE editor = ?', $editor_id);
+    $self->sql->do('DELETE FROM editor_watch_artist WHERE editor = ?', $editor_id);
+    $self->sql->do('DELETE FROM editor_watch_release_group_type WHERE editor = ?', $editor_id);
+    $self->sql->do('DELETE FROM editor_watch_release_status WHERE editor = ?', $editor_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

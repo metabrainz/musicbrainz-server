@@ -6,22 +6,22 @@
         <table class="tbl">
           <thead>
               <tr>
-                  [% IF my_collection %]<th><input type="checkbox" /></th>[% END %]
+                  [% IF my_collection %]<th class="check c"><input type="checkbox" /></th>[% END %]
                   [% sortble_table_header('title', l('Release')) %]
                   [% sortble_table_header('artist', l('Artist')) %]
-                  <th>[% l('Format') %]</th>
-                  <th>[% l('Tracks') %]</th>
-                  [% sortble_table_header('date', l('Date')) %]
-                  <th>[% l('Country') %]</th>
+                  <th class="mformat">[% l('Format') %]</th>
+                  <th class="tracks">[% l('Tracks') %]</th>
+                  [% sortble_table_header('date', l('Date'), 'date') %]
+                  <th class="country">[% l('Country') %]</th>
                   <th>[% l('Label') %]</th>
-                  <th>[% l('Catalog#') %]</th>
+                  <th class="catno">[% l('Catalog#') %]</th>
               </tr>
           </thead>
           <tbody>
               [%- FOR release=releases -%]
               <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                   [% IF my_collection %]
-                  <td>
+                  <td class="check c">
                     <input type="checkbox" name="remove" value="[% release.id %]" />
                   </td>
                   [% END %]

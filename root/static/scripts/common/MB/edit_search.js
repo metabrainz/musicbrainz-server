@@ -55,13 +55,13 @@ $(function() {
                 .show()
                 .find('select.operator').trigger('change');
 
-            $li.find(':input').each(function() {
-                $input = $(this);
-                $input.attr('name', prefixedInputName($input));
-            });
-
             $li.find('input.autocomplete').each(function() {
                 setupAutocomplete($(this));
+            });
+
+            $li.find(':input').each(function() {
+                var $input = $(this);
+                $input.attr('name', prefixedInputName($input));
             });
 
             conditionCounter++;

@@ -19,6 +19,11 @@ sub operator_cardinality_map {
     );
 };
 
+sub valid {
+    my ($self) = @_;
+    return $self->arguments > 0;
+}
+
 sub combine_with_query {
     my ($self, $query) = @_;
 
