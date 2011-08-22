@@ -125,6 +125,17 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder)
     $c->stash( page => $page, version => $version );
 }
 
+sub history : Local Args(0) RequireAuth {
+    my ($self, $c) = @_;
+
+    $c->res->redirect(
+        $c->uri_for_action('/edit/search', {
+            'conditions.0.field'    => 'type',
+            'conditions.0.operator' => '=',
+            'conditions.0.args'     => $EDIT_WIKIDOC_CHANGE
+        }));
+}
+
 no Moose;
 1;
 

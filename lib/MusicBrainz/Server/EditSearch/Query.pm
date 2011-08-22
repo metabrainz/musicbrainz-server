@@ -106,9 +106,9 @@ sub new_from_user_input {
     my $ae = $input->{auto_edit_filter};
     $ae = undef if $ae =~ /^\s*$/;
     return $class->new(
-        negate => $input->{negation},
-        combinator => $input->{combinator},
-        $input->{order} ? (order => $input->{order}) : (),
+        exists $input->{negation}   ? (negate => $input->{negation}) : (),
+        exists $input->{combinator} ? (combinator => $input->{combinator}) : (),
+        exists $input->{order}      ? (order => $input->{order}) : (),
         auto_edit_filter => $ae,
         fields => [
             map {
