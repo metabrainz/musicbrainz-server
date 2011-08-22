@@ -21,23 +21,23 @@
                         html_escape(edit.data.old.short_link_phrase),
                         html_escape(edit.data.new.short_link_phrase)) -%]
 
-  [% IF edit.data.new.attributes %]
+  [% IF edit.display_data.attributes %]
   <tr>
     <th>[% l('Attributes:') %]</th>
     <td class="old">
       <ul>
-        [% FOR attribute=edit.data.old.attributes %]
+        [% FOR attribute=edit.display_data.attributes.old %]
         <li>
-          [% attribute.name %]: [% attribute.min %]-[% attribute.max %]
+          [% attribute.type.name %]: [% attribute.min %]-[% attribute.max %]
         </li>
         [% END %]
       </ul>
     </td>
     <td class="new">
       <ul>
-        [% FOR attribute=edit.data.old.attributes %]
+        [% FOR attribute=edit.display_data.attributes.new %]
         <li>
-          [% attribute.name %]: [% attribute.min %]-[% attribute.max %]
+          [% attribute.type.name %]: [% attribute.min %]-[% attribute.max %]
         </li>
         [% END %]
       </ul>
