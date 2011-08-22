@@ -244,7 +244,7 @@ END -%]
       '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
       text = display_url(url);
-      '<a href="' _ url.url _ '">' _ text _ '</a >';
+      '<a href="' _ url.affiliate_url _ '">' _ text _ '</a >';
       '</span>' IF url.edits_pending AND action == 'show';
       ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
