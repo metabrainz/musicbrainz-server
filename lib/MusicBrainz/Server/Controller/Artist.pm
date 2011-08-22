@@ -222,7 +222,8 @@ sub works : Chained('load')
         $c->model('Work')->find_by_artist($c->stash->{artist}->id, shift, shift);
     });
     my @works = map { @{ $_->{works} } } @$grouped_works;
-    $c->model('Artist')->load_for_works(@works);
+    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_recording_artists(@works);
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, @works);
     }

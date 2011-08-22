@@ -614,6 +614,12 @@ table.tbl .discid {
     width: 25em;
 }
 
+table.tbl ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 /* Paginator */
 .pageselector a, .pageselector span {
     font-size: 90%;
