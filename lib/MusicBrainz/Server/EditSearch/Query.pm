@@ -149,7 +149,7 @@ sub as_string {
     my $order = '';
     $order = 'ORDER BY open_time ' . $self->order
         unless $self->order eq 'rand';
-    return 'SELECT edit.* FROM edit ' .
+    return 'SELECT DISTINCT edit.* FROM edit ' .
         join(' ', $self->join) .
         ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
