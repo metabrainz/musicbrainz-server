@@ -564,12 +564,55 @@ table.tbl tr.ev th {
     background: #F2F2F2;
 }
 
-table.tbl .pos { width: 1em; }
+table.tbl .pos { width: 3em; }
 table.tbl .year { width: 4em; }
 table.tbl .count { width: 2em; }
 table.tbl .rating { width: 50px; }
 table.tbl .treleases { width: 3em; }
 table.tbl .t { text-align: right; }
+table.tbl .tagger { width: 50px; }
+
+table.tbl .check {
+    width: 1em;
+}
+table.tbl .score {
+    width: 4em;
+}
+table.tbl .length {
+    width: 6em;
+}
+table.tbl .atype,
+table.tdl .language,
+table.tbl .country {
+    width: 7em;
+}
+table.tbl .releases,
+table.tbl .tracks {
+    width: 8em;
+}
+table.tbl .date,
+table.tbl .rgtype,
+table.tbl .mformat,
+table.tbl .medium,
+table.tbl .lcode {
+    width: 10em;
+}
+table.tbl .catno,
+table.tbl .iswc,
+table.tbl .isrc {
+    width: 12em;
+}
+table.tbl .entity_type,
+table.tbl .ltype,
+table.tbl .userdate {
+    width: 15em;
+}
+table.tbl .freedbid {
+    width: 16em;
+}
+table.tbl .discid {
+    width: 25em;
+}
 
 /* Paginator */
 .pageselector a, .pageselector span {

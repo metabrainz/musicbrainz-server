@@ -9,14 +9,14 @@
         <thead>
             <tr>
                 [% IF c.user_exists %]
-                <th>
+                <th class="check">
                 <input type="checkbox" />
                 </th>
                 [% END %]
                 <th>[% l('Work') %]</th>
                 <th>[% l('Artists') %]</th>
-                <th>[% l('ISWC') %]</th>
-                <th>[% l('Rating') %]</th>
+                <th class="iswc">[% l('ISWC') %]</th>
+                <th class="rating">[% l('Rating') %]</th>
             </tr>
         </thead>
           [% FOR group = grouped_works %]

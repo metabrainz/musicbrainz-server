@@ -9,11 +9,11 @@
                     <tr>
                         <th>[% l('Title') %]</th>
                         <th>[% l('Artist') %]</th>
-                        <th>[% l('Catalog #') %]</th>
-                        <th>[% l('Date') %]</th>
-                        <th>[% l('Country') %]</th>
+                        <th class="catno">[% l('Catalog #') %]</th>
+                        <th class="date">[% l('Date') %]</th>
+                        <th class="country">[% l('Country') %]</th>
                         [%- IF c.session.tport -%]
-                            <th>[% l('Tagger') %]</th>
+                            <th class="tagger">[% l('Tagger') %]</th>
                         [%- END -%]
                     </tr>
                 </thead>
