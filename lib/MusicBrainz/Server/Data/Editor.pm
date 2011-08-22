@@ -421,6 +421,47 @@ sub editors_with_subscriptions
         $query);
 }
 
+sub delete {
+    my ($self, $editor_id) = @_;
+    die "Invalid editor_id: $editor_id" unless $editor_id > 0;
+
+    $self->sql->begin;
+    $self->sql->do(
+        "UPDATE editor SET name = 'Deleted Editor #' || id,
+                           password = '',
+                           privs = 0,
+                           email = NULL,
+                           website = NULL,
+                           bio = NULL
+         WHERE id = ?",
+        $editor_id
+    );
+
+    $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
+
+    $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
+    $self->c->model('Collection')->delete_editor($editor_id);
+    $self->c->model('WatchArtist')->delete_editor($editor_id);
+
+    $self->c->model($_)->tags->clear($editor_id)
+        for qw( Artist
+                Label
+                Recording
+                Release
+                ReleaseGroup
+                Work
+          );
+
+    $self->c->model($_)->rating->clear($editor_id)
+        for qw( Artist
+                Label
+                Recording
+                ReleaseGroup
+                Work
+          );
+
+    $self->sql->commit;
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

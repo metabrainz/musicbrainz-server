@@ -216,6 +216,22 @@ sub parse_tags
     return uniq(@tags);
 }
 
+sub clear {
+    my ($self, $editor_id) = @_;
+
+    my $entity_type = $self->type;
+    my $table = $self->tag_table . '_raw';
+
+    for my $entity_id (@{
+        $self->sql->select_single_column_array(
+            "SELECT $entity_type FROM $table WHERE editor = ?",
+            $editor_id
+        )
+    }) {
+        $self->update($editor_id, $entity_id, '');
+    }
+}
+
 sub update
 {
     my ($self, $user_id, $entity_id, $input) = @_;

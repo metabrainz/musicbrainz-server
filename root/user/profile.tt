@@ -10,8 +10,8 @@
     [% END %]
 
     <h2>[% l('General Information') %]</h2>
-    <dl class="profileinfo">
 
+    <dl class="profileinfo">
         [% WRAPPER property name=l("Email:") %]
             [% IF user.email %]
                 [% IF viewing_own_profile %]

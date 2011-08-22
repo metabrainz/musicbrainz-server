@@ -167,6 +167,9 @@ subtest 'Find editors with subscriptions' => sub {
     is($editors[0]->id => 2, 'is editor #2');
 };
 
+# Test deleting editors
+$editor_data->delete(1);
+
 };
 
 1;
