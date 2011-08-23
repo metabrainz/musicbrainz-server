@@ -290,6 +290,7 @@ after create_edits => sub {
 
 sub should_approve {
     my $edit = shift;
+    return unless $edit->is_open;
     return $edit->meta->name eq 'MusicBrainz::Server::Edit::Medium::Create' ||
            $edit->meta->name eq 'MusicBrainz::Server::Edit::Release::ReorderMediums';
 }
