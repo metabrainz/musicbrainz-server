@@ -176,7 +176,15 @@ printf "%-30.30s %9s %4s %9s\n",
     "Table", "Rows", "est%", "rows/sec",
     ;
 
+# Track which tables have been successfully imported
+my %imported_tables;
+
 ImportAllTables();
+
+unless($imported_tables{editor}) {
+    print localtime() . " : ensuring editor information is present\n";
+    EnsureEditorTable();
+}
 
 print localtime() . " : import finished\n";
 
@@ -450,6 +458,7 @@ sub ImportAllTables
     )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;
+        $imported_tables{$table} = 1;
 
         if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
         {
@@ -574,6 +583,26 @@ sub validate_tar
                 exit 1;
         }
     }
+}
+
+sub EnsureEditorTable {
+    $sql->begin;
+    $sql->do(
+        "INSERT INTO editor (id, name, password)
+             SELECT DISTINCT s.editor, 'Editor #' || s.editor::text, ''
+             FROM (
+                 SELECT editor FROM annotation
+             UNION ALL
+                 SELECT editor FROM edit
+             UNION ALL
+                 SELECT editor FROM edit_note
+             UNION ALL
+                 SELECT editor FROM vote
+             ) s
+             LEFT JOIN editor ON s.editor = editor.id
+             WHERE editor.id IS NULL"
+    );
+    $sql->commit;
 }
 
 # vi: set ts=4 sw=4 :
