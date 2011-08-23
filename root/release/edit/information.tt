@@ -17,7 +17,6 @@
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
   <div class="half-width">
-    [% r.hidden ('wizard_session_id') %]
     <fieldset>
       <legend>[% l('Release information') %]</legend>
       [% form_row_text (r, 'name') %]
