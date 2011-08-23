@@ -307,6 +307,8 @@ sub accept {
         # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly
         $_->{recording_id} //= 0 for @$data_new_tracklist;
 
+        my $new_recording_count = scalar(grep { !$_->{recording_id} } @$data_new_tracklist);
+
         my (@merged_names, @merged_recordings, @merged_lengths, @merged_artist_credits);
         my $current_tracklist = tracks_to_hash($tracklist->tracks);
         try {
@@ -339,7 +341,7 @@ sub accept {
         } 'Merged properties are all the same length';
 
         if(values %{ $self->c->model('Recording')->get_by_ids(@merged_recordings) }
-               != @$data_new_tracklist) {
+               != @$data_new_tracklist - $new_recording_count) {
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('This edit changes recording IDs, but some of the recordings no longer exist.');
         }
