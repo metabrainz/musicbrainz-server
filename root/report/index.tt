@@ -39,6 +39,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'PartOfSetRelationships') %]">[% l('Releases which have part of set relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SeparateDiscs') %]">[% l('Discs entered as separate releases') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'TracksWithSequenceIssues') %]">[% l('Releases with duplicated or missing track numbers') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'SuperfluousDataTracks') %]">[% l('Releases with superfluous data tracks') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>
