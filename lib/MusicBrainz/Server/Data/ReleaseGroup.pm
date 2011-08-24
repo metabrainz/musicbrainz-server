@@ -433,7 +433,22 @@ sub clear_empty_release_groups {
     @group_ids = @{
         $self->sql->select_single_column_array(
             'SELECT id FROM release_group outer_rg
-             WHERE edits_pending = 0 AND id = any(?)',
+             WHERE edits_pending = 0 AND id = any(?)
+             AND NOT EXISTS (
+               SELECT TRUE FROM l_artist_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_label_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_recording_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_group_release_group WHERE entity0 = outer_rg.id OR entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_group_work WHERE entity0 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_group_url WHERE entity0 = outer_rg.id
+         )',
             \@group_ids
         )
     };
