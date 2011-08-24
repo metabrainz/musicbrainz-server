@@ -21,6 +21,7 @@ my @all = qw(
     SeparateDiscs
     SetInDifferentRG
     SuperfluousDataTracks
+    TracksNamedWithSequence
     TracksWithSequenceIssues
 );
 
@@ -41,6 +42,7 @@ use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
+use MusicBrainz::Server::Report::TracksNamedWithSequence;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 
 my %all = map { $_ => 1 } @all;

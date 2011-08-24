@@ -46,6 +46,7 @@
 
         <ul>
            <li><a href="[% c.uri_for_action('/report/show', 'RecordingsWithEarliestReleaseRelationships') %]">[% l('Recordings with earliest release relationships') %]</a></li>
+           <li><a href="[% c.uri_for_action('/report/show', 'TracksNamedWithSequence') %]">[% l('Tracks whose names include their sequence numbers') %]</a></li>
         </ul>
 
         <h2>[% l('ISRCs') %]</h2>
