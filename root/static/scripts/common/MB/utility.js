@@ -148,7 +148,7 @@ MB.utility.structureToString = function (obj) {
 MB.utility.setDefaultAction = function (form, button) {
 
     $(form).prepend (
-        $(button).clone ().css ({
+        $(button).clone ().removeAttr ('id').css ({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
