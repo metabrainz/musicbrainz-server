@@ -6,6 +6,8 @@
 
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
   <form action="[% c.req.uri %]" method="post" class="release-editor">
+    [%- r.hidden ('wizard_session_id') -%]
+    <input type="hidden" name="wizard_page_id" value="[% page_id %]" />
 
     <div id="release-editor">
       <ul class="tabs ui-helper-clearfix">

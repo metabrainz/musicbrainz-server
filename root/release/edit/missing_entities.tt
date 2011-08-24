@@ -9,8 +9,6 @@
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [%- USE r = FormRenderer(form) -%]
   <div class="changes">
-    [%- r.hidden ('wizard_session_id') -%]
-
     [%- USE w = Wizard() -%]
     [%- information = w.page('information') -%]
 
