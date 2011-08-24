@@ -7,6 +7,7 @@ use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_edit_ref hash_structure object_to_ids );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
+use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
@@ -56,8 +57,7 @@ sub prepare_duplicates
     {
         my ($more_releases, $hits) = $self->c->model('Release')->find_by_release_group ($rg_id);
 
-        my %releases = object_to_ids (@releases, @$more_releases);
-        @releases = map { $_->[0] } values %releases;
+        @releases = uniq_by { $_->id } @$more_releases, @releases;
     }
 
     $self->c->model('Medium')->load_for_releases(@releases);
