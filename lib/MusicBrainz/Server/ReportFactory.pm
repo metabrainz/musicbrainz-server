@@ -4,6 +4,7 @@ use DBDefs;
 use MusicBrainz::Server::PagedReport;
 
 my @all = qw(
+    DuplicateArtists
     ReleasesToConvert
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
@@ -20,6 +21,7 @@ my @all = qw(
     SeparateDiscs
 );
 
+use MusicBrainz::Server::Report::DuplicateArtists;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
