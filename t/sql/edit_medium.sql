@@ -33,4 +33,5 @@ INSERT INTO recording (id, gid, name, artist_credit)
 ALTER SEQUENCE artist_id_seq RESTART 100;
 ALTER SEQUENCE artist_credit_id_seq RESTART 100;
 ALTER SEQUENCE artist_name_id_seq RESTART 100;
-
+ALTER SEQUENCE track_name_id_seq RESTART 100;
+ALTER SEQUENCE recording_id_seq RESTART 100;

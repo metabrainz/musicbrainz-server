@@ -155,6 +155,7 @@ sub find_or_insert
 
 sub _clean {
     my $text = shift;
+    return undef unless defined($text);
     $text =~ s/[^[:print:]]//g;
     $text =~ s/\s+/ /g;
     return $text;
