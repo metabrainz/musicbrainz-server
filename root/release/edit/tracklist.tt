@@ -9,11 +9,16 @@
 
        MB.release_artist_json = [% release_artist_json %];
        MB.medium_cdtocs = [
-       [%- FOR medium=release.mediums -%]
-           [% medium.cdtocs.size %],
-       [%- END -%]
+           [%- FOR medium=release.mediums -%]
+             [%- IF medium.cdtocs.size -%]
+               [%- medium.cdtocs.0.cdtoc.track_count -%],
+             [%- ELSE -%]
+               null,
+             [%- END -%]
+           [%- END -%]
            null
        ];
+
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
