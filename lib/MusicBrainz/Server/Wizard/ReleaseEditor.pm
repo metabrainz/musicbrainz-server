@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Wizard;
+use Text::Trim qw( trim );
 use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -789,7 +790,7 @@ sub _missing_labels {
     $data->{labels} = $self->get_value ('information', 'labels');
 
     return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
-        @{ $data->{labels} };
+        map { $_->{name} = trim $_->{name}; $_ } @{ $data->{labels} };
 }
 
 sub _missing_artist_credits
