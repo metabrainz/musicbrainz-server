@@ -198,6 +198,20 @@ sub garbage_collect_orphans {
              LIMIT 1
          ) AND NOT EXISTS (
              SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
+         ) AND NOT EXISTS (
+             SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_recording WHERE entity1 = outer_r.id OR entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_release WHERE entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_release_group WHERE entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_work WHERE entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_url WHERE entity0 = outer_r.id
          )',
         @possibly_orphaned_recordings,
         $EDIT_RECORDING_CREATE,
