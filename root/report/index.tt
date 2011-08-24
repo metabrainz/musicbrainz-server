@@ -24,6 +24,7 @@
 
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'EmptyReleaseGroups') %]">[% l('Release groups which contain no releases') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'SetInDifferentRG') %]">[% l('Release groups that might need to be merged') %]</a></li>
         </ul>
 
         <h2>[% l('Releases') %]</h2>

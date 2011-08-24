@@ -19,6 +19,7 @@ my @all = qw(
     PartOfSetRelationships
     RecordingsWithEarliestReleaseRelationships
     SeparateDiscs
+    SetInDifferentRG
 );
 
 use MusicBrainz::Server::Report::DuplicateArtists;
@@ -36,6 +37,7 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::SeparateDiscs;
+use MusicBrainz::Server::Report::SetInDifferentRG;
 
 my %all = map { $_ => 1 } @all;
 
