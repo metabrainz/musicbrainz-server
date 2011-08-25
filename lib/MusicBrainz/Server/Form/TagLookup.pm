@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::TagLookup;
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';
 
-has '+html_prefix' => ( default => 0 );
+has '+name' => ( default => 'tag-lookup' );
 
 has_field 'artist'   => ( type => 'Text'    );
 has_field 'release'  => ( type => 'Text'    );
