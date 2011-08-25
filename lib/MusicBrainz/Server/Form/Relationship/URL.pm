@@ -2,8 +2,9 @@ package MusicBrainz::Server::Form::Relationship::URL;
 
 use HTML::FormHandler::Moose;
 
-extends 'MusicBrainz::Server::Form::Relationship';
+extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Relationship::LinkType';
 
 has '+name' => ( default => 'ar' );
 
