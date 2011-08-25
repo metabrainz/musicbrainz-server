@@ -46,6 +46,11 @@ MB.Control.autocomplete_formatters = {
     "recording": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.length && item.length !== '' && item.length !== '?:??')
+        {
+            a.prepend ('<span class="autocomplete-length">' + item.length + '</span>');
+        }
+
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
@@ -94,6 +99,30 @@ MB.Control.autocomplete_formatters = {
 
         a.append ('<br /><span class="autocomplete-comment">by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+    },
+
+    "work": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        if (item.comment)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
+        if (item.artists && item.artists.hits > 0)
+        {
+            var artists = item.artists.results;
+            if (item.artists.hits > item.artists.results.length)
+            {
+                artists.push ('...');
+            }
+
+            a.append ('<br /><span class="autocomplete-comment">by ' +
+                      MB.utility.escapeHTML (artists.join (", ")) + '</span>');
+        }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     }

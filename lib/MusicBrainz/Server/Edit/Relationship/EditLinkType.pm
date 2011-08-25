@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Relationship::EditLinkType;
 use Moose;
+use Data::Compare;
 use MooseX::Types::Moose qw( Int Str ArrayRef );
 use MooseX::Types::Structured qw( Dict  Optional Tuple );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT_LINK_TYPE );
@@ -55,6 +56,50 @@ sub edit_conditions
         $QUALITY_NORMAL => $conditions,
         $QUALITY_HIGH   => $conditions,
     };
+}
+
+sub foreign_keys {
+    my $self = shift;
+    return {
+        LinkAttributeType => [
+            grep { defined }
+            map { $_->{type} }
+                @{ $self->data->{old}{attributes} },
+                @{ $self->data->{new}{attributes} }
+            ]
+    }
+}
+
+sub _build_attributes {
+    my ($self, $list, $loaded) = @_;
+    return [
+        map {
+            MusicBrainz::Server::Entity::LinkTypeAttribute->new(
+                min => $_->{min},
+                max => $_->{max},
+                type => $loaded->{LinkAttributeType}{ $_->{type} } ||
+                    MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => $_->{name}
+                    )
+                  )
+          } @$list
+    ]
+}
+
+sub build_display_data {
+    my ($self, $loaded) = @_;
+    my ($old, $new) = (
+        $self->data->{old}{attributes},
+        $self->data->{new}{attributes}
+    );
+    return if Compare($old, $new);
+
+    return {
+        attributes => {
+            old => $self->_build_attributes($old, $loaded),
+            new => $self->_build_attributes($new, $loaded),
+        }
+    }
 }
 
 sub allow_auto_edit { 1 }

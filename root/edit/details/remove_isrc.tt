@@ -5,6 +5,6 @@
   </tr>
   <tr>
     <th>[% l('Recording:') %]</th>
-    <td>[% link_entity(edit.display_data.isrc.recording) %]</td>
+    <td>[% descriptive_link(edit.display_data.isrc.recording) %]</td>
   </tr>
 </table>

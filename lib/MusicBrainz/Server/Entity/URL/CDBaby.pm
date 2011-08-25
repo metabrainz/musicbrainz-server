@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub pretty_name { 'CD Baby' }
 sub sidebar_name { 'CD Baby' }
 
-override url => sub {
+override affiliate_url => sub {
     my $self = shift;
     my $url = super()->clone;
     $url->path($url->path . '/from/musicbrainz');

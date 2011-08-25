@@ -10,6 +10,7 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use Text::Trim qw( trim );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
@@ -148,6 +149,9 @@ sub clean_submitted_artist_credits
         my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
+            $part->{artist}->{name} = trim ($part->{artist}->{name}) if $part->{artist}->{name};
+            $part->{name} = trim ($part->{name}) if $part->{name};
+
             push @delete, $_ unless ($part->{artist}->{id} || $part->{artist}->{name} || $part->{name});
 
             # MBID is only used for display purposes so remove it (we

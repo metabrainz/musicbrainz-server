@@ -1,3 +1,4 @@
+[% USE dt = Class('DateTime') %]
 [% WRAPPER "layout.tt" title=l("Preferences") full_width=1 %]
 
 <h1>[% l('Preferences') %]</h1>
@@ -9,7 +10,18 @@
 
     <fieldset>
         <legend>[% l('Regional settings') %]</legend>
-        [% form_row_select(r, 'datetime_format', l('Date/time format:')) %]
+        [% WRAPPER form_row %]
+          [% r.label('datetime_format', l('Date/time format:')) %]
+          <select id="[% r._id(form.field('datetime_format')) %]"
+                  name="[% form.field('datetime_format').html_name %]">
+            [% FOR option=form.field('datetime_format').options %]
+            <option value="[% option.value %]">
+              [% dt.now( 'time_zone', c.user.preferences.timezone ).strftime(option.value) %]
+            </option>
+            [% END %]
+          </select>
+          [% field_errors(r.form, 'datetime_format') %]
+        [% END %]
         [% form_row_select(r, 'timezone', l('Timezone:')) %]
     </fieldset>
 

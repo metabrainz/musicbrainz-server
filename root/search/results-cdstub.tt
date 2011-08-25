@@ -6,10 +6,10 @@
                 <table class="tbl">
                     <thead>
                         <tr>
-                            <th>[% l('Score') %]</th>
+                            <th class="score">[% l('Score') %]</th>
                             <th>[% l('CD Stub') %]</th>
                             <th>[% l('Artist') %]</th>
-                            <th>[% l('Tracks') %]</th>
+                            <th class="tracks">[% l('Tracks') %]</th>
                         </tr>
                     </thead>
                     <tbody>

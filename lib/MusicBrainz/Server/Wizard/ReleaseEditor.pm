@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Wizard;
+use Text::Trim qw( trim );
 use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -788,8 +789,8 @@ sub _missing_labels {
 
     $data->{labels} = $self->get_value ('information', 'labels');
 
-    return grep { !$_->{label_id} && $_->{name} }
-        @{ $data->{labels} };
+    return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
+        map { $_->{name} = trim $_->{name}; $_ } @{ $data->{labels} };
 }
 
 sub _missing_artist_credits
@@ -969,6 +970,10 @@ sub _edit_release_labels
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
+        elsif ($new_label->{'deleted'})
+        {
+            # Ignore new labels which have already been deleted.
+        }
         elsif (
             $previewing ?
                 $new_label->{name} || $new_label->{catalog_number} :
@@ -977,7 +982,7 @@ sub _edit_release_labels
             my $label;
 
             # Add ReleaseLabel
-            if ($previewing)
+            if ($previewing && !$new_label->{label_id})
             {
                 $label = $new_label->{name} ?
                     Label->new(
@@ -1163,7 +1168,6 @@ sub _preview_edit
         %args
     ) or return;
 
-    push @{ $self->c->stash->{edits} }, $edit;
     return $edit;
 }
 
@@ -1201,17 +1205,16 @@ sub _create_edit {
 
     delete $args{as_auto_editor};
 
-    my $edit;
     try {
-        $edit = $method->(
+        my $edit = $method->(
             edit_type => $type,
             editor_id => $user_id,
             %args,
        );
+       push @{ $self->c->stash->{edits} }, $edit;
+       return $edit;
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) { }
-
-    return $edit;
 }
 
 
@@ -1219,7 +1222,7 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
-    my @names = @{ $trk->{artist_credit}->{names} };
+    my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
     # with just an id.

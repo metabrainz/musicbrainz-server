@@ -72,7 +72,10 @@ override 'prepare_tracklist' => sub {
     }
 
     $self->c->model('Medium')->load_for_releases($self->release);
-    $self->c->model('MediumCDTOC')->load_for_mediums($self->release->all_mediums);
+    my @medium_cdtocs = $self->c->model('MediumCDTOC')->load_for_mediums(
+        $self->release->all_mediums);
+
+    $self->c->model('CDTOC')->load(@medium_cdtocs);
 };
 
 augment 'load' => sub

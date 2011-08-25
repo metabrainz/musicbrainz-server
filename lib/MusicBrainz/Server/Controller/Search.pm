@@ -99,7 +99,8 @@ sub direct : Private
                                          map { $_->all_mediums } @releases);
         }
         when ('work') {
-            $c->model('Artist')->load_for_works(@entities);
+            $c->model('Work')->load_writers(@entities);
+            $c->model('Work')->load_recording_artists(@entities);
         }
     }
 

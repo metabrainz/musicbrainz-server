@@ -45,6 +45,13 @@ has combinator => (
     default => 'and'
 );
 
+has order => (
+    isa => enum([qw( asc desc rand )]),
+    is => 'ro',
+    required => 1,
+    default => 'desc'
+);
+
 has auto_edit_filter => (
     isa => Maybe[Bool],
     is => 'ro',
@@ -99,8 +106,9 @@ sub new_from_user_input {
     my $ae = $input->{auto_edit_filter};
     $ae = undef if $ae =~ /^\s*$/;
     return $class->new(
-        negate => $input->{negation},
-        combinator => $input->{combinator},
+        exists $input->{negation}   ? (negate => $input->{negation}) : (),
+        exists $input->{combinator} ? (combinator => $input->{combinator}) : (),
+        exists $input->{order}      ? (order => $input->{order}) : (),
         auto_edit_filter => $ae,
         fields => [
             map {
@@ -127,7 +135,7 @@ sub _construct_predicate {
 
 sub valid {
     my $self = shift;
-    my $valid = 1;
+    my $valid = $self->fields > 0;
     $valid &&= $_->valid for $self->fields;
     return $valid
 }
@@ -138,13 +146,16 @@ sub as_string {
     my $comb = $self->combinator;
     my $ae_predicate = defined $self->auto_edit_filter ?
         'autoedit = ? AND ' : '';
-    return 'SELECT edit.* FROM edit ' .
+    my $order = '';
+    $order = 'ORDER BY open_time ' . $self->order
+        unless $self->order eq 'rand';
+    return 'SELECT DISTINCT edit.* FROM edit ' .
         join(' ', $self->join) .
         ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
-        ')
-         ORDER BY open_time DESC
-         LIMIT 500 OFFSET ?';
+        ")
+         $order
+         LIMIT 500 OFFSET ?";
 }
 
 sub arguments {

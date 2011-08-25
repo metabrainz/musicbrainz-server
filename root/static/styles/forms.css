@@ -3,6 +3,8 @@ input:-moz-placeholder { color: #aaa; }
 input.mb_placeholder { color: #aaa ! important; }
 input[disabled] { background: #DCDAD5; cursor: default; }
 
+div.various-artists.warning { width: 50em; }
+
 fieldset {
     margin-top: 12px;
     margin-bottom: 12px;
@@ -137,6 +139,7 @@ span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
 .ui-autocomplete-loading {
     background: white url(../images/icons/loading.gif) right center no-repeat;
 }
+.autocomplete-length,
 .autocomplete-comment { font-size: smaller; color: #666; }
 button.autocomplete-pager {
     position: absolute;
@@ -154,6 +157,8 @@ span.autocomplete-comment {
     color: #999;
     font-size: 80%;
 }
+
+span.autocomplete-length { float:right; margin-left: 2em; }
 
 /* __________________________________
 

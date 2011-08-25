@@ -18,6 +18,11 @@ END -%]
 [%- USE UserDate(c.user.preferences) -%]
 [%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
+[%- MACRO va_doc_link BLOCK -%]
+    [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
+[%- END -%]
+
+
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
@@ -133,15 +138,17 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
-      link_deleted(entity);
+      link_deleted(entity, text);
     END;
     disambiguation(entity) UNLESS text;
 END -%]
 
-[%- MACRO link_deleted(entity) BLOCK;
-      caption = l("This entity has been removed, and cannot be displayed correctly.");
-      '<span class="deleted tooltip" title="' _ caption _ '">' _
-        (html_escape(entity.name) || l('[removed]')) _
+[%- MACRO link_deleted(entity, text) BLOCK;
+      caption = allow_new
+        ? l("This entity will be created when edits are entered.")
+        : l("This entity has been removed, and cannot be displayed correctly.");
+      '<span class="' _ (!allow_new && 'deleted') _ ' tooltip" title="' _ caption _ '">' _
+        (html_escape(entity.name) || text || l('[removed]')) _
       '</span>';
     END; -%]
 
@@ -242,7 +249,7 @@ END -%]
       '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
       text = display_url(url);
-      '<a href="' _ url.url _ '">' _ text _ '</a >';
+      '<a href="' _ url.affiliate_url _ '">' _ text _ '</a >';
       '</span>' IF url.edits_pending AND action == 'show';
       ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
@@ -353,8 +360,8 @@ END -%]
     out.join(', ');
 END -%]
 
-[%- MACRO sortble_table_header(name, label) BLOCK -%]
-    <th>
+[%- MACRO sortble_table_header(name, label, class) BLOCK -%]
+    <th [% 'class="' _ class _ '"' IF class %]>
         <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
         [%- IF order == name %]&nbsp;&#9652;[% ELSIF order == '-' _ name %]&nbsp;&#9662;[% END %]
     </th>
@@ -544,16 +551,20 @@ END -%]
     ELSE; '';
 END %]
 
+[%- MACRO warning_icon BLOCK -%]
+   <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+[%- END -%]
+
 [%- MACRO error(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     [%- warning_icon %]
      <p>[% l('<strong>Error</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
 
 [%- MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     [%- warning_icon %]
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]

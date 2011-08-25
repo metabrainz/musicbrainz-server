@@ -17,7 +17,6 @@
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
   <div class="half-width">
-    [% r.hidden ('wizard_session_id') %]
     <fieldset>
       <legend>[% l('Release information') %]</legend>
       [% form_row_text (r, 'name') %]
@@ -32,13 +31,6 @@
           [% r.text(rg_field, class => 'name') %]
         </span>
       [% END %]
-
-      <div class="row">
-        [% r.label('various_artists', 'Various Artists release') %]
-        <img style="float: right; margin-right: 12px;" id="help-va"
-             src="[% c.uri_for("/static/images/icons/help.png") %]" />
-        [% r.checkbox('various_artists') %]
-      </div>
 
       [%- form_row_artist_credit(form, 'release-artist') -%]
 
@@ -78,7 +70,7 @@
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <img src="[% c.uri_for("/static/images/icons/delete_row.png") %] title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
+              <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
             </a>
           </span>
 
@@ -89,7 +81,7 @@
           <div class="add-label" style="text-align: right; width: 100%; ">
             <span class="add-label" style="padding: 0 1em;">[% l('Add Label') %]</span>
             <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
-              <img src="[% c.uri_for("/static/images/icons/add_row.png") %] title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
+              <img src="[% c.uri_for('/static/images/icons/add_row.png') %]" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
             </a>
           </div>
         [% END %]
@@ -111,14 +103,6 @@
   </div>
 
   <div class="documentation">
-
-    <div class="help-va-container" style="display: none">
-      <div class="help-va bubble">
-        <p>
-          [% l("Check this if not all tracks on this release are credited to the same artist.") %]
-        </p>
-      </div>
-    </div>
 
     [%- guesscase_bubble() -%]
     [%- artist_credit_table(form) -%]

@@ -223,7 +223,6 @@ sub _load
 
     my $user = $c->model('Editor')->get_by_name($user_name) or return;
     $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
-    $c->stash->{show_flags}          = $c->user_exists && $c->user->is_account_admin;
 
     return $user;
 }

@@ -8,6 +8,11 @@
 <form action="[% c.req.uri.path %]" method="get" id="edit-search">
   <p>
     Show me
+    <select name="order">
+      <option [% 'selected="selected"' IF query.order == 'desc' %] value="desc">[% l('new') %]</option>
+      <option [% 'selected="selected"' IF query.order == 'asc'  %] value="asc">[% l('old') %]</option>
+      <option [% 'selected="selected"' IF query.order == 'rand' %] value="rand">[% l('random') %]</option>
+    </select>
     <select name="auto_edit_filter">
       <option value="" [% 'selected="selected"'  IF !query.auto_edit_filter.defined %]>edits</option>
       <option value="1" [% 'selected="selected"' IF  query.auto_edit_filter == 1 %]>auto-edits</option>
@@ -188,7 +193,7 @@
                 , [ 'no', l('No vote') ]
                 ] %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
+            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
             >[% html_escape(item.1) %]</option>
     [% END %]
   </select>

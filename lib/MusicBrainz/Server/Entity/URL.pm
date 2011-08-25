@@ -41,6 +41,8 @@ sub pretty_name { decode('utf-8', uri_unescape(shift->url->as_string)) }
 
 sub name { shift->url->as_string }
 
+sub affiliate_url { shift->url }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

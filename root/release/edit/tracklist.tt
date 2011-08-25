@@ -9,11 +9,16 @@
 
        MB.release_artist_json = [% release_artist_json %];
        MB.medium_cdtocs = [
-       [%- FOR medium=release.mediums -%]
-           [% medium.cdtocs.size %],
-       [%- END -%]
+           [%- FOR medium=release.mediums -%]
+             [%- IF medium.cdtocs.size -%]
+               [%- medium.cdtocs.0.cdtoc.track_count -%],
+             [%- ELSE -%]
+               null,
+             [%- END -%]
+           [%- END -%]
            null
        ];
+
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
@@ -117,16 +122,15 @@
   [% information = w.page ('information') %]
   [% release_artist = information.field('artist_credit') %]
 
-   <div class="various-artists warning" style="display: none; width: 50em;">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
-     [%- va_doc_link = '<a target="_blank" href="' _ c.uri_for('/doc/Style/Unknown_and_untitled/Special_purpose_artist') _ '#List_of_official_SPAs">Various Artists</a>' -%]
+   <div class="various-artists warning" style="display: none;">
+     [%- warning_icon %]
      <p>
        [% l('<strong>Warning</strong>:') %]
-       [% l('You have used the {valink} special purpose artist on:', { valink => va_doc_link }) %]
+       [% l('You have used the {valink|Various Artists} special purpose artist on:', { valink => va_doc_link }) %]
      </p>
      <ul> </ul>
      <p>
-       [% l('{valink} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
+       [% l('{valink|Various Artists} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
      </p>
   </div>
 
@@ -246,7 +250,6 @@
   </div>
 
   <div class="half-width basic-tracklist">
-    [%- r.hidden ('wizard_session_id') -%]
     [%- r.hidden ('seeded', class => "seeded") -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
@@ -256,9 +259,6 @@
 
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
-
-        <input type="hidden" name="various-artists" class="various-artists"
-            value="[% information.field('various_artists').value | html %]" />
 
         <table class="basic-format">
           <tr>
@@ -327,6 +327,9 @@
 
       <h3>[% l('Options') %]</h3>
       <p id="tracklist-options">
+      <input type="checkbox" name="trackartists" id="trackartists">
+      <label for="trackartists">[% l('Parse track artists') %]</label>
+      <br />
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
       <label for="tracknumbers">[% l('Track names start with a number') %]</label>
       <br />

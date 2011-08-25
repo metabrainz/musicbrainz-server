@@ -7,6 +7,7 @@ has '+html_prefix' => ( default => 0 );
 has 'skip' => ( isa => 'Bool',  is => 'rw', default => 0 );
 
 has_field 'wizard_session_id' => ( type => 'Hidden' );
+has_field 'wizard_page_id' => ( type => 'Hidden' );
 has_field 'cancel' => ( type => 'Submit' );
 has_field 'previous' => ( type => 'Submit' );
 has_field 'next' => ( type => 'Submit' );

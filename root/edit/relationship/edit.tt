@@ -119,12 +119,12 @@ var typeInfo = [% type_info %];
         </td>
     </tr>
     <tr>
-        <td class="label">[% r.label('begin_date', l('Begin date:')) %]</td>
+        <td class="label">[% r.label('begin_date', l('Begin date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('begin_date') %]
         [% field_errors(form, 'begin_date') %]</td>
     </tr>
     <tr>
-        <td class="label">[% r.label('end_date', l('End date:')) %]</td>
+        <td class="label">[% r.label('end_date', l('End date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('end_date') %]
         [% field_errors(form, 'end_date') %]</td>
     </tr>

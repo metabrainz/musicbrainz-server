@@ -54,16 +54,13 @@ $(function() {
                 .show()
                 .find('select.operator').trigger('change');
 
-            $li.find(':input').each(function() {
-                $input = $(this);
-                if ($input.attr('name') !== '')
-                {
-                    $input.attr('name', prefixedInputName($input));
-                }
+            $li.find('input.autocomplete').each(function() {
+                MB.Control.EntityAutocomplete({ 'inputs': $(this) });
             });
 
-            $li.find('span.autocomplete').each(function() {
-                MB.Control.EntityAutocomplete({ 'inputs': $(this) });
+            $li.find(':input').each(function() {
+                var $input = $(this);
+                $input.attr('name', prefixedInputName($input));
             });
 
             conditionCounter++;
@@ -74,7 +71,7 @@ $(function() {
     });
 
     function prefixedInputName($element) {
-        return 'conditions.' + conditionCounter + '.' + $element.attr('name')
+        return 'conditions.' + conditionCounter + '.' + $element.attr('name').replace(/conditions\.\d+\./, '');
     }
 
     $('ul.conditions select.operator').live('change', function() {

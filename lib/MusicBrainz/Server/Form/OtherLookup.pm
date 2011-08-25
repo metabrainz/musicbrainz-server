@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::OtherLookup;
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';
 
-has '+html_prefix'   => ( default => 0 );
+has '+name' => ( default => 'other-lookup' );
 
 has_field 'catno'    => ( type => 'Text'    );
 has_field 'barcode'  => ( type => 'Text'    );

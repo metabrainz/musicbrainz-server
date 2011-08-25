@@ -129,6 +129,32 @@ sub autocomplete_recording
     return $json->encode (\@output);
 }
 
+sub autocomplete_work
+{
+    my ($self, $results, $pager) = @_;
+
+    my $json = JSON::Any->new;
+
+    my @output;
+
+    for my $item (@$results) {
+        push @output, {
+            name => $item->{work}->name,
+            id => $item->{work}->id,
+            gid => $item->{work}->gid,
+            comment => $item->{work}->comment,
+            artists => $item->{artists},
+        };
+    };
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return $json->encode (\@output);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

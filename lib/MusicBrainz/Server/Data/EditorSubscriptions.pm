@@ -42,4 +42,13 @@ sub update_subscriptions
     $self->sql->commit;
 }
 
+sub delete_editor {
+    my ($self, $editor_id) = @_;
+    for my $table (qw( editor_subscribe_artist
+                       editor_subscribe_editor
+                       editor_subscribe_label )) {
+        $self->sql->do("DELETE FROM $table WHERE editor = ?", $editor_id);
+    }
+}
+
 1;

@@ -31,7 +31,7 @@
        <table class="tbl">
          <thead>
            <tr>
-             <th>[% l('#') %]</th>
+             <th class="pos t">[% l('#') %]</th>
              <th>[% l('Artist') %]</th>
            </tr>
          </thead>

@@ -209,6 +209,7 @@ sub update
 sub delete
 {
     my ($self, @collection_ids) = @_;
+    return unless @collection_ids;
 
     $self->sql->auto_commit;
     $self->sql->do('DELETE FROM editor_collection_release
@@ -217,6 +218,16 @@ sub delete
     $self->sql->do('DELETE FROM editor_collection
                     WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
     return;
+}
+
+sub delete_editor {
+    my ($self, $editor_id) = @_;
+    $self->delete(
+        @{ $self->sql->select_single_column_array(
+            'SELECT id FROM editor_collection WHERE editor = ?',
+            $editor_id
+        ) }
+    );
 }
 
 sub _hash_to_row

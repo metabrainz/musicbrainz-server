@@ -48,6 +48,27 @@ sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth(account_
     );
 }
 
+sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves {
+    my ($self, $c, $name) = @_;
+
+    my $editor = $c->model('Editor')->get_by_name($name);
+    my $id = $editor->id;
+
+    if ($id != $c->user->id && !$c->user->is_account_admin) {
+        $c->detach('/error_403');
+    }
+
+    $c->stash( user => $editor );
+
+    if ($c->form_posted) {
+        $c->model('Editor')->delete($editor->id);
+
+        $editor = $c->model('Editor')->get_by_id($id);
+        $c->response->redirect(
+            $c->uri_for_action('/user/profile', [ $editor->name ]));
+    }
+}
+
 1;
 
 =head1 COPYRIGHT

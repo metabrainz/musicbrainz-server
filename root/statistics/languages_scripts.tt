@@ -19,9 +19,9 @@
 <table class="tbl">
 <thead>
 <tr>
-<th>[% l('Rank') %]</th>
+<th class="score">[% l('Rank') %]</th>
 <th>[% l('Language') %]</th>
-<th>[% l('Releases') %]</th>
+<th class="releases">[% l('Releases') %]</th>
 </tr>
 </thead>
 <tbody>
@@ -36,9 +36,9 @@
 <table class="tbl">
 <thead>
 <tr>
-<th>[% l('Rank') %]</th>
+<th class="score">[% l('Rank') %]</th>
 <th>[% l('Script') %]</th>
-<th>[% l('Releases') %]</th>
+<th class="releases">[% l('Releases') %]</th>
 </tr>
 </thead>
 <tbody>

@@ -29,8 +29,8 @@ MB.TrackParser.Artist = function (track, artist) {
 
     self.addNew = function (name) {
         self.names.push ({
-            'artist_name': name,
-            'name': name,
+            'artist_name': $.trim (name),
+            'name': $.trim (name),
             'id': '',
             'gid': '',
             'join': null
@@ -186,6 +186,31 @@ MB.TrackParser.Artist = function (track, artist) {
     return self;
 };
 
+MB.TrackParser.Options = function () {
+    var self = MB.Object ();
+
+    self.$trackartists = $('#trackartists');
+    self.$tracknumbers = $('#tracknumbers');
+    self.$tracktimes   = $('#tracktimes');
+    self.$vinylnumbers = $('#vinylnumbers');
+
+    MB.utility.rememberCheckbox ('#trackartists', 'trackparser_trackartists');
+    MB.utility.rememberCheckbox ('#tracknumbers', 'trackparser_tracknumbers');
+    MB.utility.rememberCheckbox ('#tracktimes',   'trackparser_tracktimes');
+    MB.utility.rememberCheckbox ('#vinylnumbers', 'trackparser_vinylnumbers');
+
+    self.trackArtists = function () { return self.$trackartists.is (':checked'); };
+    self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
+    self.trackTimes   = function () { return self.$tracktimes.is (':checked'); };
+    self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
+
+    return self;
+};
+
+$(document).ready (function () {
+    MB.TrackParser.options = MB.TrackParser.Options ();
+});
+
 MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
@@ -202,11 +227,11 @@ MB.TrackParser.Track = function (position, line, parent) {
     }
 
     self.ignoreTrack = function () {
-        if (!self.parent.trackNumbers ())
+        if (!MB.TrackParser.options.trackNumbers ())
         {
             return false;
         }
-        else if (self.parent.vinylNumbers ())
+        else if (MB.TrackParser.options.vinylNumbers ())
         {
             return !self.line.match (self.regex.vinyl);
         }
@@ -217,11 +242,11 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.removeTrackNumbers = function () {
-        if (self.parent.vinylNumbers ())
+        if (MB.TrackParser.options.vinylNumbers ())
         {
             self.line = self.line.replace(self.regex.vinyl, "");
         }
-        else if (self.parent.trackNumbers ())
+        else if (MB.TrackParser.options.trackNumbers ())
         {
             self.line = self.line.replace(self.regex.trkno, "");
         }
@@ -281,7 +306,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.parseArtist = function () {
-        if (!self.parent.variousArtists () ||
+        if (!MB.TrackParser.options.trackArtists () ||
             self.line.indexOf (MB.TrackParser.separator) === -1)
         {
             self.title = self.line;
@@ -537,12 +562,9 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
         });
     };
 
-    self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
-    self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
-    self.variousArtists = function () { return self.disc.isVariousArtists (); };
     self.trackTimes = function () {
         /* don't parse track times if the disc has a toc. */
-        return self.hasToc () ? false : self.$tracktimes.is (':checked');
+        return self.hasToc () ? false : MB.TrackParser.options.trackTimes ();
     }
     self.hasToc = function () { return self.disc.hasToc (); };
 
@@ -550,9 +572,6 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
     self.disc = disc;
     self.textarea = textarea;
     self.originals = $.isArray (serialized) ? serialized : [];
-    self.$tracknumbers = $('#tracknumbers');
-    self.$vinylnumbers = $('#vinylnumbers');
-    self.$tracktimes = $('#tracktimes');
 
     return self;
 };
