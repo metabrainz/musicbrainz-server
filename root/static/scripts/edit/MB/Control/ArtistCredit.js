@@ -189,7 +189,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
         data.push ({
             "action": function () { self.clear () },
-            "message": MB.text.RemoveLinkedArtist
+            "message": MB.text.RemoveLinkedEntity['artist']
         });
 
         return data;
@@ -389,7 +389,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         'select': self.update,
         'lookupHook': self.lookupHook,
         'resultHook': self.resultHook
-    });
+    }).initialize ();
 
     if (obj === null)
     {
@@ -452,7 +452,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             'select': self.update,
             'lookupHook': self.lookupHook,
             'resultHook': self.resultHook
-        });
+        }).initialize ();
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
         self.$artist_input.bind ('blur.mb', self.targetBlurred);
@@ -511,7 +511,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         data.push ({
             "action": function () { self.clear () },
-            "message": MB.text.RemoveLinkedArtist
+            "message": MB.text.RemoveLinkedEntity['artist']
         });
 
         return data;

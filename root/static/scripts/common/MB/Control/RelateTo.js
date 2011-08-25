@@ -50,7 +50,6 @@ MB.Control.RelateTo = function () {
 
     self.$autocomplete.bind ('cleared.mb', function (event) {
         self.selected_item = null;
-        self.selected_item.type = self.type ();
     });
 
     function cleanType(type) {

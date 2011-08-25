@@ -309,6 +309,14 @@ MB.Control.Autocomplete = function (options) {
 
                 data = self.resultHook (data);
 
+                if (options.allow_empty)
+                {
+                    data.push ({
+                        "action": function () { self.clear () },
+                        "message": MB.text.RemoveLinkedEntity[self.entity]
+                    });
+                }
+
                 data.push ({
                     "action": function () { self.searchAgain (true); },
                     "message": self.indexed_search ?
@@ -473,19 +481,19 @@ MB.Control.Autocomplete = function (options) {
    element (though you can just bind on the span, as events will bubble up).
 */
 MB.Control.EntityAutocomplete = function (options) {
-    var inputs = options.inputs;
+    var $inputs = options.inputs;
 
     delete options.inputs;
 
-    var $name = inputs.find ('input.name');
-    var $id = inputs.find ('input.id');
-    var $gid = inputs.find ('input.gid');
+    var $name = $inputs.find ('input.name');
+    var $id = $inputs.find ('input.id');
+    var $gid = $inputs.find ('input.gid');
 
     if (!options.entity)
     {
         /* guess the entity from span classes. */
         $.each (MB.constants.ENTITIES, function (idx, entity) {
-            if (inputs.hasClass (entity))
+            if ($inputs.hasClass (entity))
             {
                 options.entity = entity;
             }
@@ -505,27 +513,34 @@ MB.Control.EntityAutocomplete = function (options) {
             return data.item.action ();
         }
 
-        $name.val (data.item.name);
-        $id.val (data.item.id);
-        $gid.val (data.item.gid);
+        $.each (data.item, function (key, value) {
+            var $elem = $inputs.find ('input.' + key);
+            if ($elem)
+            {
+                $elem.val (value);
+            }
+        });
 
         $name.removeClass('error');
         $name.addClass ('lookup-performed');
-
-        /* The following event will bubble up.  The caller can bind this specific input, but
-         * can also bind to whatever they assigned to options.inputs. */
+        $name.data ('lookup-result', data.item);
         $name.trigger ('lookup-performed', data.item);
     };
 
     self.clear = function () {
-        $id.val ('');
-        $gid.val ('');
+        $inputs.find ('input').each (function (idx, elem) {
+            if (! $(elem).hasClass ('name'))
+            {
+                $(elem).val ('');
+            }
+        });
 
         if (!options.allow_empty)
         {
             $name.addClass('error');
         }
         $name.removeClass ('lookup-performed');
+        $name.data ('lookup-result', null);
         $name.trigger ('cleared');
     };
 
