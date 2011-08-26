@@ -19,7 +19,7 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Release information') %]</legend>
-      [% form_row_text (r, 'name') %]
+      [% form_row_text (r, 'name', l('Title:')) %]
       [% r.hidden ('release_group_id') %]
 
       [% WRAPPER form_row %]
@@ -34,10 +34,10 @@
       [%- form_row_artist_credit(form, 'release-artist') -%]
 
       [%# FIXME: should only be editable on Add Release. %]
-      [% form_row_select (r, 'type_id', 'Type') %]
-      [% form_row_select (r, 'status_id', 'Status') %]
-      [% form_row_select (r, 'language_id', 'Language') %]
-      [% form_row_select (r, 'script_id', 'Script') %]
+      [% form_row_select (r, 'type_id', l('Type:')) %]
+      [% form_row_select (r, 'status_id', l('Status:')) %]
+      [% form_row_select (r, 'language_id', l('Language:')) %]
+      [% form_row_select (r, 'script_id', l('Script:')) %]
 
     </fieldset>
 
@@ -45,25 +45,25 @@
       <legend>[% l('Release event') %]</legend>
 
       [% WRAPPER form_row %]
-         <label for="release-date">[% l('Date') %]</label>
+         <label for="release-date">[% l('Date:') %]</label>
          [% r.date('date') %]
       [% END %]
       [% field_errors(r.form, 'date') %]
 
-      [% form_row_select (r, 'country_id', 'Country') %]
-      [% form_row_select (r, 'packaging_id', 'Packaging') %]
+      [% form_row_select (r, 'country_id', l('Country:')) %]
+      [% form_row_select (r, 'packaging_id', l('Packaging:')) %]
 
       <div class="label-container" style="padding: 0.5em 0">
         [% FOR field=form.field('labels').fields %]
         <div class="release-label">
           [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
 
-          [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
+          [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
           <span class="label autocomplete">
             [%- r.text(field.field('name'), class => 'label-name') -%]
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
-          [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
+          [%- r.label(field.field('catalog_number'), l('Cat.No:'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
 
           <span class="remove-label">
@@ -86,13 +86,13 @@
         [% END %]
       </div>
 
-      [% form_row_text (r, 'barcode', 'Barcode') %]
+      [% form_row_text (r, 'barcode', l('Barcode:')) %]
     </fieldset>
 
     <fieldset class="information">
       <legend>[% l('Additional information') %]</legend>
-      [% form_row_textarea(r, 'annotation', l('Annotation')) %]
-      [% form_row_text(r, 'comment', l('Comment')) %]
+      [% form_row_textarea(r, 'annotation', l('Annotation:')) %]
+      [% form_row_text(r, 'comment', l('Disambiguation:')) %]
     </fieldset>
 
     <div class="buttons ui-helper-clearfix">
