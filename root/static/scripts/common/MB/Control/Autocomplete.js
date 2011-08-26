@@ -312,7 +312,7 @@ MB.Control.Autocomplete = function (options) {
                 if (options.allow_empty)
                 {
                     data.push ({
-                        "action": function () { self.clear () },
+                        "action": function () { self.clear (true) },
                         "message": MB.text.RemoveLinkedEntity[self.entity]
                     });
                 }
@@ -342,11 +342,11 @@ MB.Control.Autocomplete = function (options) {
         return data.item.action ? data.item.action () : options.select (event, data.item);
     };
 
-    self.clear = function () {
+    self.clear = function (clearAction) {
         self.currentSelection = null;
         if (options.clear)
         {
-            options.clear ();
+            options.clear (clearAction);
         }
     };
 
@@ -397,7 +397,7 @@ MB.Control.Autocomplete = function (options) {
         self.$input.bind ('blur', function(event) {
             if (!self.currentSelection) return;
             if (self.currentSelection.name !== self.$input.val()) {
-                self.clear ();
+                self.clear (false);
             }
         });
 
@@ -489,6 +489,13 @@ MB.Control.EntityAutocomplete = function (options) {
     var $id = $inputs.find ('input.id');
     var $gid = $inputs.find ('input.gid');
 
+    if (!options.hasOwnProperty ('show_status'))
+    {
+        /* default to showing error and lookup-performed status by adding those
+           classes (red/green background) to lookup fields. */
+        options.show_status = true;
+    }
+
     if (!options.entity)
     {
         /* guess the entity from span classes. */
@@ -522,20 +529,25 @@ MB.Control.EntityAutocomplete = function (options) {
         });
 
         $name.removeClass('error');
-        $name.addClass ('lookup-performed');
+        if (options.show_status)
+        {
+            $name.addClass ('lookup-performed');
+        }
         $name.data ('lookup-result', data.item);
         $name.trigger ('lookup-performed', data.item);
     };
 
-    self.clear = function () {
+    /* if clearAction is set, also clear the autocomplete input itself,
+       otherwise only clear the lookup / selection. */
+    self.clear = function (clearAction) {
         $inputs.find ('input').each (function (idx, elem) {
-            if (! $(elem).hasClass ('name'))
+            if (! $(elem).hasClass ('name') || clearAction)
             {
                 $(elem).val ('');
             }
         });
 
-        if (!options.allow_empty)
+        if (options.show_status && $name.val () !== '')
         {
             $name.addClass('error');
         }
@@ -552,11 +564,18 @@ MB.Control.EntityAutocomplete = function (options) {
         if ($id.val () === '' && $gid.val () === '')
         {
             $name.removeClass ('lookup-performed');
+            if ($name.val () !== '' && options.show_status)
+            {
+                $name.addClass('error');
+            }
         }
         else
         {
             $name.removeClass('error');
-            $name.addClass ('lookup-performed');
+            if (options.show_status)
+            {
+                $name.addClass ('lookup-performed');
+            }
 
             self.currentSelection = {
                 name: $name.val (),
@@ -566,8 +585,6 @@ MB.Control.EntityAutocomplete = function (options) {
         }
     }
 
-    options.select = self.select;
-    options.clear = self.clear;
     options.input = $name;
 
     self.initialize ();

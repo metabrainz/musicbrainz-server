@@ -6,7 +6,7 @@
   <script type="text/javascript">//<![CDATA[
     $('document').ready (function () {
 
-       MB.Control.ReleaseInformation ();
+       MB.Control.ReleaseInformation ("[% wizard.c.action.name %]");
 
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 

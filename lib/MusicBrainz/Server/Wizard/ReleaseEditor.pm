@@ -1240,8 +1240,10 @@ sub _expand_track
 
     for my $i (0..$#names)
     {
-        my $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} } ||
-            $artists_by_id->{ $names[$i]->{artist}->{id} };
+        my $artist = $artists_by_id->{ $names[$i]->{artist}->{id} };
+
+        $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} }
+            if !$artist && $names[$i]->{artist}->{gid};
 
         $names[$i]->{artist} = $artist if $artist;
     }

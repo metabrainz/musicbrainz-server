@@ -105,7 +105,8 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
 
     MB.Control.EntityAutocomplete ({
         'inputs': self.$autocomplete,
-        'lookupHook': self.lookupHook
+        'lookupHook': self.lookupHook,
+        'show_status': false,
     });
 
     self.$autocomplete.bind ('lookup-performed', self.selected);

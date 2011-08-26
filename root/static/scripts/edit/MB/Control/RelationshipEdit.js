@@ -32,7 +32,8 @@ MB.Control.RelationshipEntity = function (entity) {
     self.$link = self.$name.closest ('span').siblings ('span.link').find ('a');
     self.type = self.$link.attr ('class');
 
-    self.$name.bind ('lookup-performed', function (event, data) {
+    self.$name.bind ('lookup-performed', function (event) {
+        var data = self.$name.data ('lookup-result');
         self.$link.show ().html (MB.text.link).
             attr('href', '/' + self.type.replace('_', '-') + '/' + data.gid).
             attr('title', data.comment);

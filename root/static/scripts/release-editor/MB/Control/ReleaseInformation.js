@@ -285,7 +285,7 @@ MB.Control.ReleaseDate = function (bubble_collection) {
     return self;
 };
 
-MB.Control.ReleaseInformation = function() {
+MB.Control.ReleaseInformation = function(action) {
     var self = MB.Object();
 
     self.bubbles = MB.Control.BubbleCollection ();
@@ -351,7 +351,7 @@ MB.Control.ReleaseInformation = function() {
 
         MB.Control.EntityAutocomplete ({
             inputs: $('span.release-group.autocomplete'),
-            allow_empty: true
+            allow_empty: (action !== 'edit')
         });
     };
 
