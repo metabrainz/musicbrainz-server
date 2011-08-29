@@ -46,6 +46,12 @@ MB.constants.LINK_TYPES = {
     purevolume: {
         artist: 174
     },
+    allmusic: {
+        artist: 283,
+        release_group: 284,
+        work: 286,
+        recording: 285
+    },
     amazon: {
         release: 77
     },
@@ -285,6 +291,19 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
         return $('#id-ar\\.url').val().match(/\/(release|mp3)\//) != null;
+    }
+    // allow Allmusic page only for the correct entities
+    validationRules[ MB.constants.LINK_TYPES.allmusic.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(artist)\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/\/album\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.work ] = function() {
+        return $('#id-ar\\.url').val().match(/\/work|song\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(performance)\//) != null;
     }
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
