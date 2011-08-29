@@ -74,6 +74,9 @@ MB.constants.LINK_TYPES = {
     review: {
         release_group: 94
     },
+    secondhandsongs: {
+        work: 280
+    },
     socialnetwork: {
         artist: 192,
         label: 218
@@ -232,6 +235,10 @@ MB.constants.CLEANUPS = {
     review: {
         match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
         type: MB.constants.LINK_TYPES.review
+    },
+    secondhandsongs: {
+        match: new RegExp("^(https?://)?([^/]+\.)?secondhandsongs\\.com/", "i"),
+        type: MB.constants.LINK_TYPES.secondhandsongs
     },
     socialnetwork: {
         match: new RegExp("^(https?://)?([^/]+\.)?facebook\\.com/", "i"),
