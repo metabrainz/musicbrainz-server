@@ -259,7 +259,7 @@ MB.TrackParser.Track = function (position, line, parent) {
         }
 
         var tmp = self.line.replace (/\s?\(\?:\?\?\)\s?$/, '');
-        self.line = tmp.replace(/\s?\(?\s?([0-9０-９]*[：，．':,.][0-9０-９][0-9０-９])\s?\)?$/,
+        self.line = tmp.replace(/\s?\(?\s?([0-9０-９]+[：，．':,.][0-9０-９][0-9０-９])\s?\)?$/,
             function (str, p1) {
                 self.duration = MB.utility.fullWidthConverter(p1);
                 return "";

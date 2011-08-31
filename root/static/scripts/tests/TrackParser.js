@@ -93,6 +93,12 @@ MB.tests.TrackParser.BugFixes = function() {
                 ],
                 bug: 'MBS-2540',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true,
+            },
+            {
+                input: "1. Love On A .45\n",
+                expected: [ { title: "Love On A .45", duration: "?:??" } ],
+                bug: 'MBS-2902',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true,
             }
         ];
 
