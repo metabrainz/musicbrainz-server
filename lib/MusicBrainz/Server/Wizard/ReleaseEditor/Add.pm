@@ -163,6 +163,8 @@ augment 'create_edits' => sub
 override 'prepare_tracklist' => sub {
     my ($self, $release) = @_;
 
+    super ();
+
     $self->c->stash->{release_artist_json} = "null";
 
     my $json = JSON::Any->new( utf8 => 1 );

@@ -578,6 +578,19 @@ sub associate_recordings
 sub prepare_tracklist
 {
     my ($self, $release) = @_;
+
+    my $submitted_ac = $self->get_value ("information", "artist_credit");
+
+    my %artist_ids;
+    map { $artist_ids{$_->{artist}->{id}} = 1 }
+    grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
+
+    my $artists = $self->c->model('Artist')->get_by_ids (keys %artist_ids);
+
+    map { $_->{artist}->{gid} = $artists->{$_->{artist}->{id}}->gid }
+    grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
+
+    $self->c->stash->{release_artist} = $submitted_ac;
 }
 
 sub prepare_recordings
