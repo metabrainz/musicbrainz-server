@@ -1249,7 +1249,7 @@ sub _expand_track
     my $entity = Track->new(
         length => unformat_track_length ($trk->{length}),
         name => $trk->{name},
-        position => $trk->{position},
+        position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
