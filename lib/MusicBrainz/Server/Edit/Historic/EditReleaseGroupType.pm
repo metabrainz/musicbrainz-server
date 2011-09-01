@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Edit::Historic::EditReleaseGroupType;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_id );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { l('Edit release group type') }
 sub edit_type { 70 }

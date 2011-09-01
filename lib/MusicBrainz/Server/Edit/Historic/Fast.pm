@@ -1,9 +1,8 @@
 package MusicBrainz::Server::Edit::Historic::Fast;
 
-use strict;
-use warnings;
+use Moose;
 
-use base 'Class::Accessor::Fast::XS';
+extends 'Class::Accessor::Fast::XS';
 
 use Class::MOP;
 use JSON::Any qw( XS JSON );

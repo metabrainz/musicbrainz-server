@@ -1,12 +1,11 @@
 package MusicBrainz::Server::Edit::Historic::AddLink;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_LINK );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Relationship';
+extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
 sub edit_name     { l('Add relationship') }
 sub edit_type     { $EDIT_HISTORIC_ADD_LINK }
