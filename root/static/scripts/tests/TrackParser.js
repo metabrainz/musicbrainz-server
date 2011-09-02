@@ -75,7 +75,7 @@ MB.tests.TrackParser.BugFixes = function() {
             {
                 input: "1. Criminology 2.5 \n",
                 expected: [
-                    { title: "Criminology 2.5", duration: "?:??" },
+                    { title: "Criminology 2.5", duration: "?:??" }
                 ],
                 bug: 'MBS-2511',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
@@ -89,16 +89,16 @@ MB.tests.TrackParser.BugFixes = function() {
                     "4:51 \n",
                 expected: [
                     { title: "Freeman Hardy & Willis Acid", duration: "?:??" },
-                    { title: "Orange Romeda", duration: "?:??" },
+                    { title: "Orange Romeda", duration: "?:??" }
                 ],
                 bug: 'MBS-2540',
-                tracknumbers: true, vinylnumbers: false, tracktimes: true,
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
             },
             {
                 input: "1. Love On A .45\n",
                 expected: [ { title: "Love On A .45", duration: "?:??" } ],
                 bug: 'MBS-2902',
-                tracknumbers: true, vinylnumbers: false, tracktimes: true,
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];
 
