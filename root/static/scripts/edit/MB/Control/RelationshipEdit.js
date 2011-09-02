@@ -45,7 +45,7 @@ MB.Control.RelationshipEntity = function (entity) {
 
     MB.Control.EntityAutocomplete ({
         'inputs': self.$name.parent (),
-        'entity': self.type,
+        'entity': self.type
     });
 
     return self;
