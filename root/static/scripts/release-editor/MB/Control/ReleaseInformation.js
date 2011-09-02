@@ -349,10 +349,35 @@ MB.Control.ReleaseInformation = function(action) {
             $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
 
+        self.initializeReleaseGroupLookups ();
+    };
+
+    self.initializeReleaseGroupLookups = function () {
+
+        var $name = $('span.release-group.autocomplete input.name');
+        var $type = $('#id-type_id');
+
         MB.Control.EntityAutocomplete ({
             inputs: $('span.release-group.autocomplete'),
             allow_empty: (action !== 'edit')
         });
+
+        $name.bind ('lookup-performed', function (event) {
+            var data = $name.data ('lookup-result');
+
+            $type.find ('option').removeAttr ('selected');
+            var $select_option = data.type ?
+                $type.find ('option[value='+data.type+']') :
+                $type.find ('option:eq(0)');
+
+            $select_option.attr ('selected', 'selected');
+            $type.attr ('disabled', 'disabled');
+        });
+
+        $name.bind ('cleared', function (event) {
+            $type.removeAttr ('disabled');
+        });
+
     };
 
     self.addLabel = function ($row) {
