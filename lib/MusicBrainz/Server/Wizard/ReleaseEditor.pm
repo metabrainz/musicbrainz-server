@@ -1247,7 +1247,7 @@ sub _expand_track
     }
 
     my $entity = Track->new(
-        length => unformat_track_length ($trk->{length}) // $assoc->length,
+        length => unformat_track_length ($trk->{length}) // ($assoc ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([
