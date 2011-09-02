@@ -797,14 +797,14 @@ sub _missing_artist_credits
 {
     my ($self, $data) = @_;
 
-    $data->{artist_credit} = $self->get_value ('information', 'artist_credit');
+    $data->{artist_credit} = clean_submitted_artist_credits($data->{artist_credit});
 
     return
         (
             # Artist credit for the release itself
             grep { !$_->{artist}->{id} }
             grep { ref($_) }
-            @{ clean_submitted_artist_credits($data->{artist_credit})->{names} }
+            @{ $data->{artist_credit}->{names} }
         ),
         (
             # Artist credits on new tracklists
@@ -821,6 +821,8 @@ sub create_edits
 
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
+
+    $data->{artist_credit} = clean_submitted_artist_credits($data->{artist_credit});
 
     $self->_expand_mediums($data);
 
