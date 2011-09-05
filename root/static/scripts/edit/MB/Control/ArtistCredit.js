@@ -285,6 +285,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                 self.$join.val () === '');
     };
 
+    self.hasCredit = function () {
+        return (self.$credit.val () !== '' &&
+                self.$credit.val () !== self.$name.val ());
+    };
+
     self.renderName = function () {
         var name = self.$credit.val ();
         if (name === '')
@@ -460,7 +465,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             self.renderPreview ();
         }
 
-        if (self.box.length > 1)
+        if (self.box.length > 1 || self.box[0].hasCredit ())
         {
             /* multiple artists, disable main artist input. */
             self.disableTarget ();
@@ -699,7 +704,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
     self.enableTarget = function () {
         /* multiple artists, do not enable main artist input. */
-        if (self.box.length > 1)
+        if (self.box.length > 1 || self.box[0].hasCredit ())
             return;
 
         $target.removeAttr ('disabled');
