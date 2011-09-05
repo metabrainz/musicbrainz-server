@@ -1430,6 +1430,11 @@ sub _seed_parameters {
         }
     }
 
+
+    $params->{mediums} = [ map {
+        defined $_ ? $_ : { position => 1 }
+    } @{ $params->{mediums} || [] } ];
+
     for my $container (
         $params,
         map { @{ $_->{track} || [] } }
@@ -1464,7 +1469,7 @@ sub _seed_parameters {
     }
 
     {
-        my $medium_idx;
+        my $medium_idx = 0;
         my $json = JSON::Any->new(utf8 => 1);
         for my $medium (@{ $params->{mediums} || [] }) {
             if (my $format = delete $medium->{format}) {
@@ -1515,7 +1520,7 @@ sub _seed_parameters {
                         ];
 
                         $track->{artist_credit}{preview} = join (
-                            "", map { $_->{name} . $_->{join_phrase}
+                            "", map { $_->{name} // "" . $_->{join_phrase} // ""
                             } @{$track_ac->{names}});
                     }
 
@@ -1565,10 +1570,6 @@ sub _seed_parameters {
     $params->{labels} = [
         { label => '', catalog_number => '' }
     ] unless @{ $params->{labels}||[] };
-
-    $params->{mediums} = [
-        { position => 1 },
-    ] unless @{ $params->{mediums}||[] };
 
     $params->{seeded} = 1;
 
