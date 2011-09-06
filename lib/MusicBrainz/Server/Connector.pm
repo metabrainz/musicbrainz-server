@@ -9,7 +9,7 @@ sub _schema { shift->database->schema }
 has 'conn' => (
     isa        => 'DBIx::Connector',
     is         => 'ro',
-    handles    => [qw( dbh )],
+#    handles    => [qw( dbh )],
     lazy_build => 1,
 );
 
@@ -22,7 +22,13 @@ has 'sql' => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        Sql->new($self->dbh)
+        $DB::single=1;
+        # Sql->new($self->dbh)
+        Sql->new(
+ #           $self->dbh,
+            $self->conn,
+        )
+
     },
     lazy => 1
 );
@@ -43,17 +49,18 @@ sub _build_conn
         PrintError        => 0,
     });
 
-    $conn->run(sub {
-        my $sql = Sql->new($_);
-        $sql->auto_commit(1);
-        $sql->do("SET TIME ZONE 'UTC'");
-        $sql->auto_commit(1);
-        $sql->do("SET CLIENT_ENCODING = 'UNICODE'");
+    $DB::single=1;
+    $conn->mode('fixup');
+    #warn "PEC TODO setting up ping";
 
-        if (my $schema = $self->_schema) {
-            $sql->auto_commit(1);
-            $sql->do("SET search_path=$schema");
-        }
+    $conn->run(sub {
+                   my $dbh = $_;
+                   $dbh->do("SET TIME ZONE 'UTC'");
+                   $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
+
+                   if (my $schema = $self->_schema) {
+                       $dbh->do("SET search_path=$schema");
+                   }
     });
 
     return $conn;

@@ -19,7 +19,9 @@ has 'conn' => (
 );
 
 sub _build_conn {
-    return DatabaseConnectionFactory->get_connection('READWRITE');
+    my $t = DatabaseConnectionFactory->get_connection('READWRITE');
+    $DB::single=1;
+    return $t;
 }
 
 has 'models' => (
