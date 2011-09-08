@@ -108,9 +108,11 @@
 
         <p>
           [% l('Search:') %]
-          <span class="autocomplete">
-            <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
+          <span class="recording autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="text" class="name" value="[% IF track %][% track.name | html %][% END %]" />
+            <input type="hidden" class="id" />
+            <input type="hidden" class="gid" />
           </span>
         </p>
 

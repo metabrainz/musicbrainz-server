@@ -24,7 +24,7 @@ h1 span {
 #release-editor tr.artist-credit-box input[type=text] { width: 200px; }
 
 #release-editor div.release-label { margin: 6px 0; }
-#release-editor div.release-label input.label-name { width: 134px; }
+#release-editor div.release-label input.name { width: 134px; }
 #release-editor div.release-label label.catno {
     text-align: right;
     display: inline-block;

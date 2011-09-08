@@ -93,7 +93,7 @@ sub validate {
     my $self = shift;
 
     unless (!defined $self->field('barcode')->value ||
-            $self->field('barcode')->value == '' ||
+            $self->field('barcode')->value eq '' ||
             MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
             $self->field('barcode_confirm')->value == 1)
     {
