@@ -84,6 +84,9 @@ MB.constants.LINK_TYPES = {
         release_group: 92,
         work: 274
     },
+    secondhandsongs: {
+        work: 280
+    },
     socialnetwork: {
         artist: 192,
         label: 218
@@ -246,6 +249,10 @@ MB.constants.CLEANUPS = {
     score: {
         match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/)", "i"),
         type: MB.constants.LINK_TYPES.score
+    },
+    secondhandsongs: {
+        match: new RegExp("^(https?://)?([^/]+\.)?secondhandsongs\\.com/", "i"),
+        type: MB.constants.LINK_TYPES.secondhandsongs
     },
     socialnetwork: {
         match: new RegExp("^(https?://)?([^/]+\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/", "i"),
