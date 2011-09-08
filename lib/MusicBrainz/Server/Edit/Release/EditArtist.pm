@@ -133,9 +133,8 @@ sub accept {
 
     verify_artist_credits($self->c, $self->data->{new_artist_credit});
 
-    my $old_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
-        $self->data->{old_artist_credit}
-    );
+    my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
+    my $old_ac_id = $release->artist_credit_id;
 
     my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
         $self->data->{new_artist_credit}
@@ -147,7 +146,6 @@ sub accept {
         });
 
     if ($self->data->{update_tracklists}) {
-        my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
         $self->c->model('Medium')->load_for_releases($release);
         $self->c->model('Track')->load_for_tracklists(
             map { $_->tracklist } $release->all_mediums);
