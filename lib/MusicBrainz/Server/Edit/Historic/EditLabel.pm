@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Edit::Historic::EditLabel;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Label';
+extends 'MusicBrainz::Server::Edit::Historic::Label';
 
 sub edit_name { l('Edit label') }
 sub edit_type { 55 }
