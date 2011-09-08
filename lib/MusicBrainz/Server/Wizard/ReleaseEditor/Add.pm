@@ -160,10 +160,8 @@ augment 'create_edits' => sub
     return $release;
 };
 
-override 'prepare_tracklist' => sub {
+after 'prepare_tracklist' => sub {
     my ($self, $release) = @_;
-
-    super ();
 
     $self->c->stash->{release_artist_json} = "null";
 

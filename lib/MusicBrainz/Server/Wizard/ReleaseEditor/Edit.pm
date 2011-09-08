@@ -50,10 +50,8 @@ augment 'create_edits' => sub
     return $self->release;
 };
 
-override 'prepare_tracklist' => sub {
+after 'prepare_tracklist' => sub {
     my ($self, $release) = @_;
-
-    super ();
 
     my $json = JSON::Any->new( utf8 => 1 );
 
