@@ -35,10 +35,10 @@ my $h = HTML::Tiny->new;
 
 sub diff_side {
     my ($self, $old, $new, $filter, $split) = @_;
-    $split ||= '';
+    $split //= '';
 
-    $old ||= '';
-    $new ||= '';
+    $old //= '';
+    $new //= '';
 
     my ($old_hex, $new_hex) = (md5_hex(encode('utf-8', $old)), md5_hex(encode('utf-8', $new)));
     $old =~ s/($split)/$old_hex$1/g;

@@ -50,7 +50,7 @@ sub _track_errors {
 
     return 0 if $track->{deleted};
 
-    my $name = trim ($track->{name} || "");
+    my $name = trim ($track->{name} // "");
     my $pos = trim $track->{position};
 
     if ($name eq '' && $pos eq '')
