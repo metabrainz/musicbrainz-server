@@ -20,7 +20,6 @@ $(function() {
 
     var conditionCounter = 0;
 
-
     $('#extra-condition select').live('change', function() {
         var newCondition = $(this).parent('li');
 
@@ -55,13 +54,16 @@ $(function() {
                 .show()
                 .find('select.operator').trigger('change');
 
-            $li.find('input.autocomplete').each(function() {
-                setupAutocomplete($(this));
+            $li.find('span.autocomplete').each(function() {
+                MB.Control.EntityAutocomplete({ 'inputs': $(this) });
             });
 
             $li.find(':input').each(function() {
                 var $input = $(this);
-                $input.attr('name', prefixedInputName($input));
+                if ($input.attr ('name'))
+                {
+                    $input.attr('name', prefixedInputName($input));
+                }
             });
 
             conditionCounter++;
@@ -70,19 +72,6 @@ $(function() {
             console.error('There is no field-' + val);
         }
     });
-
-    function setupAutocomplete($input) {
-        var type = filteredClassName($input, 'autocomplete-');
-
-        MB.Control.Autocomplete({
-            'entity': type,
-            'input': $input,
-            'select': function(event, data) {
-                $input.val(data.name);
-                $input.siblings('input.ac-result').val(data.id)
-            }
-        });
-    }
 
     function prefixedInputName($element) {
         return 'conditions.' + conditionCounter + '.' + $element.attr('name').replace(/conditions\.\d+\./, '');
@@ -123,8 +112,8 @@ $(function() {
         conditionCounter++;
     });
 
-    $('ul.conditions input.autocomplete').each(function() {
-        setupAutocomplete($(this));
+    $('ul.conditions span.autocomplete').each(function() {
+        MB.Control.EntityAutocomplete({ 'inputs': $(this) });
     });
 
     MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');

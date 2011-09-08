@@ -11,7 +11,7 @@ $(document).ready(function () {
     var hashChangeTimeoutId = [];
 
     // MusicBrainz Events fetching
-    $.get('/static/xml/mb_history.xml', function (data) {
+    $.get('../static/xml/mb_history.xml', function (data) {
         $(data).find('event').each(function() {
             $this = $(this);
             musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
@@ -25,18 +25,21 @@ $(document).ready(function () {
         $("#graph-lines div input").filter(":checked").each(function () { 
             if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
                 var datasetId = $(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length);
-		if (!datasets[datasetId].data) {
-		   $.ajax({url: '../statistics/dataset/' + datasetId,
-		       dataType: 'json',
-		       success: function(data) {
-		           datasets[datasetId].data = data;
-			   rateData(datasetId);
-			   $(window).hashchange();
-	           }});
-		} else {
+                var $this_control = $(this).parents('div.graph-control');
+                if (!datasets[datasetId].data && !$this_control.hasClass('loading')) {
+                   $this_control.addClass('loading').find('input').attr('disabled', 'disabled');
+                   $.ajax({url: '../statistics/dataset/' + datasetId,
+                       dataType: 'json',
+                       success: function(data) {
+                           datasets[datasetId].data = data;
+                           rateData(datasetId);
+                           $this_control.removeClass('loading').find('input').removeAttr('disabled');
+                           $(window).hashchange();
+                   }});
+                } else if (datasets[datasetId].data) {
                     alldata.push(datasets[datasetId]);
                     ratedata.push(rateData(datasetId));
-		}
+                }
             }
         });
         return [alldata, ratedata]
@@ -298,7 +301,6 @@ $(document).ready(function () {
     }
 
     $(window).hashchange(function () {
-
             var hash = location.hash.replace( /^#/, '' );
             var queries = hash.split('+');
 
@@ -321,38 +323,42 @@ $(document).ready(function () {
                     check(value, !remove, category);
                 }
             });
-        resetPlot();
+            resetPlot();
     });
 
 
     function resetPlot () {
-        var data = graphData();
-        var plotOptions = $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions)
-        plot = $.plot($("#graph-container"), data[0], plotOptions);
-        plot.triggerRedrawOverlay();
+        if ($('div.loading').length == 0) {
+            var data = graphData();
+            if ($('div.loading').length == 0) {
+                var plotOptions = $.extend(true, {}, graphOptions, graphZoomOptions, musicbrainzEventsOptions)
+                plot = $.plot($("#graph-container"), data[0], plotOptions);
+                plot.triggerRedrawOverlay();
 
-        if ($('#show-rate-graph').attr('checked')) {
-            var rateZoomOptions = {yaxis: {min: null, max: null}};
-            $.each(data[1], function(index, value) {
-               if (rateZoomOptions.yaxis.min == null || value.rateBounds.min < rateZoomOptions.yaxis.min) {
-                   rateZoomOptions.yaxis.min = value.rateBounds.min;
-               }
-               if (rateZoomOptions.yaxis.max == null || value.rateBounds.max > rateZoomOptions.yaxis.max) {
-                   rateZoomOptions.yaxis.max = value.rateBounds.max;
-               }
-            });
-            if (rateZoomOptions.yaxis.min) {
-                rateZoomOptions.yaxis.min = rateZoomOptions.yaxis.min - Math.abs(rateZoomOptions.yaxis.min * 0.10);
-            }
-            if (rateZoomOptions.yaxis.max) {
-                rateZoomOptions.yaxis.max = rateZoomOptions.yaxis.max + Math.abs(rateZoomOptions.yaxis.max * 0.10);
-            }
-            var rateOptions = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis, yaxis: rateZoomOptions.yaxis}, musicbrainzEventsOptions);
-            rateplot = $.plot($("#rate-of-change-graph"), data[1], rateOptions);
-            rateplot.triggerRedrawOverlay();
-        } else { rateplot = null; }
+                if ($('#show-rate-graph').attr('checked')) {
+                    var rateZoomOptions = {yaxis: {min: null, max: null}};
+                    $.each(data[1], function(index, value) {
+                       if (rateZoomOptions.yaxis.min == null || value.rateBounds.min < rateZoomOptions.yaxis.min) {
+                           rateZoomOptions.yaxis.min = value.rateBounds.min;
+                       }
+                       if (rateZoomOptions.yaxis.max == null || value.rateBounds.max > rateZoomOptions.yaxis.max) {
+                           rateZoomOptions.yaxis.max = value.rateBounds.max;
+                       }
+                    });
+                    if (rateZoomOptions.yaxis.min) {
+                        rateZoomOptions.yaxis.min = rateZoomOptions.yaxis.min - Math.abs(rateZoomOptions.yaxis.min * 0.10);
+                    }
+                    if (rateZoomOptions.yaxis.max) {
+                        rateZoomOptions.yaxis.max = rateZoomOptions.yaxis.max + Math.abs(rateZoomOptions.yaxis.max * 0.10);
+                    }
+                    var rateOptions = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis, yaxis: rateZoomOptions.yaxis}, musicbrainzEventsOptions);
+                    rateplot = $.plot($("#rate-of-change-graph"), data[1], rateOptions);
+                    rateplot.triggerRedrawOverlay();
+                } else { rateplot = null; }
 
-        overview = $.plot($('#overview'), data[0], overviewOptions);
+                overview = $.plot($('#overview'), data[0], overviewOptions);
+            }
+        } 
     }
 
     MB.setupGraphing = function (data, goptions, ooptions) {
