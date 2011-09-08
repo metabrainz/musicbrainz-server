@@ -24,7 +24,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
     self.$container = $container;
     self.artistname = artistname;
 
-    self.$search = self.$container.find ('input.recording');
+    self.$autocomplete = self.$container.find ('span.recording.autocomplete');
     self.$radio = self.$container.find ('input.clientmatch');
 
     self.$name = self.$container.find ('tr.clientmatch a.name');
@@ -66,7 +66,13 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         return rgs.results.length;
     };
 
-    self.selected = function (event, data) {
+    self.selected = function (event) {
+
+        /* this should come in through the second parameter to the
+         * function, but it's getting lost somewhere, and I have not
+         * been able to figure out why/where. --warp. */
+        var data = self.$autocomplete.find ('input.name').data ('lookup-result');
+
         self.$name.text (data.name);
         self.$name.attr ('href', '/recording/' + data.gid);
         self.$gid.val (data.gid);
@@ -97,12 +103,13 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         return request;
     };
 
-    MB.Control.Autocomplete ({
-        'entity': 'recording',
-        'input': self.$search,
-        'select': self.selected,
-        'lookupHook': self.lookupHook
+    MB.Control.EntityAutocomplete ({
+        'inputs': self.$autocomplete,
+        'lookupHook': self.lookupHook,
+        'show_status': false
     });
+
+    self.$autocomplete.bind ('lookup-performed', self.selected);
 
     return self;
 };

@@ -7,9 +7,9 @@
 [% END %]
 
 [% BLOCK layout_head %]
-  <script type="text/javascript" src="[% c.uri_for('/statistics/view.js') %]"></script>
+  <script type="text/javascript" src="[% c.uri_for('view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]><script src="[% c.uri_for("/static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
+  <!--[if lte IE 8]><script src="[% c.uri_for("../static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
@@ -20,8 +20,17 @@
       #overview { height: 150px; }
       #graph-container, #rate-of-change-graph { height: 400px; }
       .graph-control input { margin-bottom: 0px; display: inline-block; }
-      .graph-color-swatch { width: 14px; height: 10px; overflow: hidden; border: 2px solid #ccc; margin: 0px 4px; display: inline-block; }
+      .graph-color-swatch { 
+          width: 14px; height: 10px; 
+          overflow: hidden; 
+          border: 2px solid #ccc; 
+          margin: 0px 4px; display: inline-block; 
+      }
       h2.toggler, h2.collapse-top-margin { margin-top: 0px; }
+      .graph-control { padding-left: 16px; }
+      .graph-control.loading { 
+          background: url('../static/images/icons/loading.gif') no-repeat;
+      }
   </style>
   <script type="text/javascript">//<![CDATA[
       $(document).ready(function () {
@@ -47,8 +56,14 @@
 [%- sidebar = BLOCK -%]
     <h2 id="graph-toggle-header">[% l('Legend') %]</h2>
         <div id="graph-lines">
-        <h2><input type="checkbox" id="disable-events-checkbox" checked /><label for="disable-events-checkbox">[% l('MusicBrainz Events') %]</label></h2>
-        <h2 class="collapse-top-margin"><input type="checkbox" id="show-rate-graph" checked /><label for="show-rate-graph">[% l('Rate of Change Graph') %]</label></h2>
+        <h2>
+            <input type="checkbox" id="disable-events-checkbox" checked />
+            <label for="disable-events-checkbox">[% l('MusicBrainz Events') %]</label>
+        </h2>
+        <h2 class="collapse-top-margin">
+            <input type="checkbox" id="show-rate-graph" checked />
+            <label for="show-rate-graph">[% l('Rate of Change Graph') %]</label>
+        </h2>
         </div>
     <h2>Controls</h2><div id="graph-controls">
         <table class="timeline-controls">

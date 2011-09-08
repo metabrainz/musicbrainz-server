@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Edit::Historic::RemoveLinkType;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK_TYPE );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name     { l('Remove link type') }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK_TYPE }

@@ -35,8 +35,10 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         self.$catno_message.hide ();
 
         self.$row = $('div.release-label:first').clone ();
-        self.$row.find ('input.label-id').val ('');
-        self.$row.find ('input.label-name').val ('');
+        self.$label = self.$row.find ('span.label.autocomplete');
+        self.$label.find ('input.id').val ('');
+        self.$label.find ('input.gid').val ('');
+        self.$label.find ('input.name').val ('');
         self.$row.find ('input.catno').val ('');
         self.$row.find ('*').each (function (idx, element) {
             var item = $(element);
@@ -72,36 +74,6 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         return self.$deleted.val () === '1';
     };
 
-    /**
-     * selected is a callback called by autocomplete when a selection is made.
-     */
-    self.selected = function (event, data) {
-        self.$id.val(data.id);
-        self.$name.removeClass('error');
-        self.$name.val(data.name);
-        self.updateLookupPerformed ();
-
-        event.preventDefault();
-        return false;
-    };
-
-    self.clearSelection = function() {
-        self.$id.val('');
-        self.updateLookupPerformed ();
-    };
-
-    self.updateLookupPerformed = function ()
-    {
-        if (self.$id.val ())
-        {
-            self.$name.addClass ('lookup-performed');
-        }
-        else
-        {
-            self.$name.removeClass ('lookup-performed');
-        }
-    };
-
     self.catnoUpdate = function () {
 
         if (self.$catno.val ().match (/^B00[0-9A-Z]{7}$/))
@@ -114,19 +86,13 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         }
     };
 
-    self.$id = self.$row.find('input.label-id');
-    self.$name = self.$row.find('input.label-name');
+    self.$label = self.$row.find ('span.label.autocomplete');
     self.$catno = self.$row.find('input.catno');
     self.$catno_message = $('div.catno').eq(self.labelno);
     self.$deleted = self.$row.find ('span.remove-label input');
 
     self.$catno.bind ('change keyup focus', self.catnoUpdate);
-    MB.Control.Autocomplete ({
-        'input': self.$name,
-        'entity': 'label',
-        'select': self.selected,
-        'clearSelection': self.clearSelection
-    });
+    MB.Control.EntityAutocomplete ({ inputs: self.$label, allow_empty: true });
 
     self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
 
@@ -136,8 +102,6 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         // after page load.
         self.markDeleted ();
     }
-
-    self.updateLookupPerformed ();
 
     return self;
 };
@@ -196,7 +160,6 @@ MB.Control.ReleaseBarcode = function() {
             self.$confirm.hide ();
         }
     };
-    
 
     self.update = function () {
         var barcode = self.clean ();
@@ -322,7 +285,7 @@ MB.Control.ReleaseDate = function (bubble_collection) {
     return self;
 };
 
-MB.Control.ReleaseInformation = function() {
+MB.Control.ReleaseInformation = function(action) {
     var self = MB.Object();
 
     self.bubbles = MB.Control.BubbleCollection ();
@@ -386,28 +349,35 @@ MB.Control.ReleaseInformation = function() {
             $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
 
-        MB.Control.Autocomplete ({
-            'input': $('input#id-release_group\\\.name'),
-            'entity': 'release-group',
-            'select': self.selectReleaseGroup
+        self.initializeReleaseGroupLookups ();
+    };
+
+    self.initializeReleaseGroupLookups = function () {
+
+        var $name = $('span.release-group.autocomplete input.name');
+        var $type = $('#id-type_id');
+
+        MB.Control.EntityAutocomplete ({
+            inputs: $('span.release-group.autocomplete'),
+            allow_empty: (action !== 'edit')
         });
-        self.indicateSelectedReleaseGroup();
-    };
 
-    self.selectReleaseGroup = function(event, data) {
-        $('input#id-release_group_id').val(data.id);
-        self.indicateSelectedReleaseGroup();
-        $('input#id-release_group_name\\\.name').val(data.name);
-    };
+        $name.bind ('lookup-performed', function (event) {
+            var data = $name.data ('lookup-result');
 
-    self.indicateSelectedReleaseGroup = function() {
-        if ($('input#id-release_group_id').val()) {
-            $('input#id-release_group\\\.name').addClass ('lookup-performed');
-        }
-        else
-        {
-            $('input#id-release_group\\\.name').removeClass ('lookup-performed');
-        }
+            $type.find ('option').removeAttr ('selected');
+            var $select_option = data.type ?
+                $type.find ('option[value='+data.type+']') :
+                $type.find ('option:eq(0)');
+
+            $select_option.attr ('selected', 'selected');
+            $type.attr ('disabled', 'disabled');
+        });
+
+        $name.bind ('cleared', function (event) {
+            $type.removeAttr ('disabled');
+        });
+
     };
 
     self.addLabel = function ($row) {

@@ -185,6 +185,16 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         return request;
     };
 
+    self.resultHook = function (data) {
+
+        data.push ({
+            "action": function () { self.clear () },
+            "message": MB.text.RemoveLinkedEntity['artist']
+        });
+
+        return data;
+    };
+
     self.nameBlurred = function(event) {
         /* mark the field as having an error if no lookup was
          * performed for this artist name. */
@@ -285,6 +295,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                 self.$join.val () === '');
     };
 
+    self.hasCredit = function () {
+        return (self.$credit.val () !== '' &&
+                self.$credit.val () !== self.$name.val ());
+    };
+
     self.renderName = function () {
         var name = self.$credit.val ();
         if (name === '')
@@ -377,8 +392,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         'input': self.$name,
         'entity': 'artist',
         'select': self.update,
-        'lookupHook': self.lookupHook
-    });
+        'lookupHook': self.lookupHook,
+        'resultHook': self.resultHook
+    }).initialize ();
 
     if (obj === null)
     {
@@ -439,8 +455,9 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             'input': self.$artist_input,
             'entity': 'artist',
             'select': self.update,
-            'lookupHook': self.lookupHook
-        });
+            'lookupHook': self.lookupHook,
+            'resultHook': self.resultHook
+        }).initialize ();
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
         self.$artist_input.bind ('blur.mb', self.targetBlurred);
@@ -460,7 +477,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             self.renderPreview ();
         }
 
-        if (self.box.length > 1)
+        if (self.box.length > 1 || self.box[0].hasCredit ())
         {
             /* multiple artists, disable main artist input. */
             self.disableTarget ();
@@ -493,6 +510,16 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         self.$artist_input.removeClass ('error');
 
         return request;
+    };
+
+    self.resultHook = function (data) {
+
+        data.push ({
+            "action": function () { self.clear () },
+            "message": MB.text.RemoveLinkedEntity['artist']
+        });
+
+        return data;
     };
 
     self.addArtistBox = function () {
@@ -699,7 +726,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
     self.enableTarget = function () {
         /* multiple artists, do not enable main artist input. */
-        if (self.box.length > 1)
+        if (self.box.length > 1 || self.box[0].hasCredit ())
             return;
 
         $target.removeAttr ('disabled');

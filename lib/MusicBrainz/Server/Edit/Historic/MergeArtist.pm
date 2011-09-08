@@ -1,10 +1,9 @@
 package MusicBrainz::Server::Edit::Historic::MergeArtist;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { l('Merge artists') }
 sub edit_type { 6 }

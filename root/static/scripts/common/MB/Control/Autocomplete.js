@@ -306,14 +306,23 @@ MB.Control.Autocomplete = function (options) {
             url: self.url,
             data: { q: request.term, page: self.current_page, direct: !self.indexed_search },
             success: function (data, result, request) {
+
+                data = self.resultHook (data);
+
+                if (options.allow_empty)
+                {
+                    data.push ({
+                        "action": function () { self.clear (true) },
+                        "message": MB.text.RemoveLinkedEntity[self.entity]
+                    });
+                }
+
                 data.push ({
                     "action": function () { self.searchAgain (true); },
                     "message": self.indexed_search ?
                         MB.text.SwitchToDirectSearch :
                         MB.text.SwitchToIndexedSearch
                 });
-
-                data = self.resultHook (data);
 
                 /* FIXME: this shouldn't be neccesary.  figure out why
                  * this gets cleared on page switches. */
@@ -333,10 +342,13 @@ MB.Control.Autocomplete = function (options) {
         return data.item.action ? data.item.action () : options.select (event, data.item);
     };
 
-    self.clearSelection = function() {
-        if (!options.clearSelection) return;
-        return options.clearSelection();
-    }
+    self.clear = function (clearAction) {
+        self.currentSelection = null;
+        if (options.clear)
+        {
+            options.clear (clearAction);
+        }
+    };
 
     /* iamfeelinglucky is used in selenium tests.
 
@@ -385,7 +397,7 @@ MB.Control.Autocomplete = function (options) {
         self.$input.bind ('blur', function(event) {
             if (!self.currentSelection) return;
             if (self.currentSelection.name !== self.$input.val()) {
-                self.clearSelection();
+                self.clear (false);
             }
         });
 
@@ -411,7 +423,7 @@ MB.Control.Autocomplete = function (options) {
     };
 
     self.changeEntity = function (entity) {
-        self.entity = entity;
+        self.entity = entity.replace ('_', '-');
         self.url = options.url || "/ws/js/" + self.entity;
 
         if (options.formatItem)
@@ -441,8 +453,142 @@ MB.Control.Autocomplete = function (options) {
     self.formatPager = options.formatPager || formatPager;
     self.formatMessage = options.formatMessage || formatMessage;
 
+    return self;
+};
+
+
+/*
+   MB.Control.EntityAutocomplete is a helper class which simplifies using
+   Autocomplete to look up entities.  It takes care of setting 'error' and
+   'lookup-performed' classes on the search input, and setting id and gid
+   values on related hidden inputs.
+
+   It expects to see html looking like this:
+
+       <span class="ENTITY autocomplete">
+          <img class="search" src="search.png" />
+          <input type="text" class="name" />
+          <input type="hidden" class="id" />
+          <input type="hidden" class="gid" />
+       </span>
+
+   Do a lookup of the span with jQuery and pass it into EntityAutocomplete
+   as options.inputs, for example, for a release group do this:
+
+       MB.Control.EntityAutocomplete ({ inputs: $('span.release-group.autocomplete') });
+
+   The 'lookup-performed' and 'cleared' events will be triggered on the input.name
+   element (though you can just bind on the span, as events will bubble up).
+*/
+MB.Control.EntityAutocomplete = function (options) {
+    var $inputs = options.inputs;
+
+    delete options.inputs;
+
+    var $name = $inputs.find ('input.name');
+    var $id = $inputs.find ('input.id');
+    var $gid = $inputs.find ('input.gid');
+
+    if (!options.hasOwnProperty ('show_status'))
+    {
+        /* default to showing error and lookup-performed status by adding those
+           classes (red/green background) to lookup fields. */
+        options.show_status = true;
+    }
+
+    if (!options.entity)
+    {
+        /* guess the entity from span classes. */
+        $.each (MB.constants.ENTITIES, function (idx, entity) {
+            if ($inputs.hasClass (entity))
+            {
+                options.entity = entity;
+            }
+        });
+    }
+
+    options.input = $name;
+
+    var self = MB.Control.Autocomplete (options);
+
+    self.select = function (event, data) {
+        event.preventDefault ();
+
+        self.currentSelection = data.item;
+        if (data.item.action)
+        {
+            return data.item.action ();
+        }
+
+        $.each (data.item, function (key, value) {
+            var $elem = $inputs.find ('input.' + key);
+            if ($elem)
+            {
+                $elem.val (value);
+            }
+        });
+
+        $name.removeClass('error');
+        if (options.show_status)
+        {
+            $name.addClass ('lookup-performed');
+        }
+        $name.data ('lookup-result', data.item);
+        $name.trigger ('lookup-performed', data.item);
+    };
+
+    /* if clearAction is set, also clear the autocomplete input itself,
+       otherwise only clear the lookup / selection. */
+    self.clear = function (clearAction) {
+        $inputs.find ('input').each (function (idx, elem) {
+            if (! $(elem).hasClass ('name') || clearAction)
+            {
+                $(elem).val ('');
+            }
+        });
+
+        if (options.show_status && $name.val () !== '')
+        {
+            $name.addClass('error');
+        }
+        $name.removeClass ('lookup-performed');
+        $name.data ('lookup-result', null);
+        $name.trigger ('cleared');
+    };
+
+    var parent_initialize = self.initialize;
+
+    self.initialize = function () {
+        parent_initialize ();
+
+        if ($id.val () === '' && $gid.val () === '')
+        {
+            $name.removeClass ('lookup-performed');
+            if ($name.val () !== '' && options.show_status)
+            {
+                $name.addClass('error');
+            }
+        }
+        else
+        {
+            $name.removeClass('error');
+            if (options.show_status)
+            {
+                $name.addClass ('lookup-performed');
+            }
+
+            self.currentSelection = {
+                name: $name.val (),
+                id: $id.val (),
+                gid: $gid.val ()
+            };
+        }
+    }
+
+    options.input = $name;
+
     self.initialize ();
 
     return self;
-};
+}
 

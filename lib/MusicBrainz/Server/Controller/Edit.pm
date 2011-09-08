@@ -259,6 +259,8 @@ sub edit_type : Path('/doc/Edit_Types') Args(1) {
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
+    $c->detach('/error_404') unless $class;
+
     $c->stash(
         edit_type => $class,
         template => 'doc/edit_type.tt',
