@@ -56,7 +56,7 @@ sub _render_input
     return $self->h->input({
             type => $type,
             id => $self->_id($field),
-            value => $field->fif,
+            value => $field->fif || '',
             name => $field->html_name,
             class => $class . ($field->has_errors ? ' error' : ''),
             %attrs
