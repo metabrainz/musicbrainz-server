@@ -161,6 +161,7 @@ sub search : Path('/search/edits') RequireAuth
             ], sort keys %grouped
         ],
         status => status_names(),
+        languages => [ $c->model('Language')->get_all ]
     );
     return unless %{ $c->req->query_params };
 
