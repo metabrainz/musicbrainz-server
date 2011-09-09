@@ -85,7 +85,7 @@
                     <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
                       <td></td>
                       <td colspan="3">
-                        [% field = form.field('works').append %]
+                        [% field = form.field('works').field(i) || form.field('works').append %]
                         <input type="hidden" value="[% track.recording_id %]"
                                name="[% field.field('recording_id').html_name %]" />
                         <span class="autocomplete work">
