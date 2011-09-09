@@ -433,6 +433,7 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
     my ($self, $c) = @_;
 
     my $qp = $c->req->query_params;
+    delete $c->session->{relationship};
 
     if (!$qp->{gid}) {
         $c->stash( template => 'edit/relationship/no-start.tt' );
@@ -517,8 +518,6 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
         dest    => $dest,
         type    => $type
     );
-
-    $form = $c->form( form => 'Relationship::Works' );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @attributes;
