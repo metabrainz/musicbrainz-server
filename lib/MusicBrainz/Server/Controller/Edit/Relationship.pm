@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use List::MoreUtils qw( uniq );
+use List::MoreUtils qw( each_arrayref uniq );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIP_EDIT
@@ -568,43 +568,56 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
             );
         }
 
-        my @create_fields = grep { $_->field('create')->value } $form->field('new_works')->fields;
-        my @recording_ids = map { $_->field('recording')->value } @create_fields;
-        my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
-
-        for my $create (@create_fields) {
-            my $work_edit = $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_WORK_CREATE,
-                name => $create->field('name')->value,
-            );
-
-            $self->_insert_edit(
-                $c, $form,
-                edit_type    => $EDIT_RELATIONSHIP_CREATE,
-                type0        => $type,
-                type1        => 'work',
-                entity0      => $dest,
-                entity1      => $work_edit->entity,
-                link_type    => $link_type,
-                begin_date   => $form->field('begin_date')->value,
-                end_date     => $form->field('end_date')->value,
-                attributes   => \@attributes
-            );
-
-            $self->_insert_edit(
-                $c, $form,
-                edit_type    => $EDIT_RELATIONSHIP_CREATE,
-                type0        => 'recording',
-                type1        => 'work',
-                entity0      => $recordings{ $create->field('recording')->value },
-                entity1      => $work_edit->entity,
-                link_type    => $c->model('LinkType')->get_by_gid('a3005666-a872-32c3-ad06-98af558e99b0')
-            );
-        }
-
         $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ]));
         $c->detach;
+    }
+}
+
+sub create_works : Local RequireAuth Edit {
+    my ($self, $c) = @_;
+
+    my $release_gid = $c->req->query_params->{release};
+
+    if (!$release_gid) {
+        $c->stash( message => l('Invalid arguments') );
+        $c->detach('/error_500');
+    }
+
+    my $release = $c->model('Release')->get_by_gid($release_gid);
+    if (!$release) {
+        $c->stash( message => l('Release not found') );
+        $c->detach('/error_500');
+    }
+
+    $c->model('Medium')->load_for_releases($release);
+    $c->model('MediumFormat')->load($release->all_mediums);
+    $c->model('Track')->load_for_tracklists(map { $_->tracklist } $release->all_mediums);
+    $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
+    $c->model('Recording')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
+
+    my $tree = $c->model('LinkType')->get_tree('recording', 'work');
+    my %type_info = build_type_info($tree);
+
+    $c->stash(
+        root      => $tree,
+        type_info => JSON->new->latin1->encode(\%type_info),
+    );
+
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree();
+    $c->stash( attr_tree => $attr_tree );
+
+    $c->stash(
+        release => $release,
+    );
+
+    my $form = $c->form(
+        form => 'Relationship::Works',
+        attr_tree => $attr_tree,
+        root => $tree
+    );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+
     }
 }
 
