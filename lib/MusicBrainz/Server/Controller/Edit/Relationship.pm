@@ -547,8 +547,8 @@ sub relate_to_works : Path('/edit/relationship/create-works') RequireAuth Edit
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,
                 attributes   => [uniq @attributes],
-                entity0      => $dest->id,
-                entity1      => $works{$work_id}->id
+                entity0_id   => $dest->id,
+                entity1_id   => $works{$work_id}->id
             }));
 
             $self->_insert_edit(
@@ -608,13 +608,83 @@ sub create_works : Local RequireAuth Edit {
     );
 
     my $form = $c->form(
-        form => 'Relationship::Works',
+        form => 'Relationship::RecordingsWorks',
         attr_tree => $attr_tree,
         root => $tree
     );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my @attributes;
+        foreach my $attr ($attr_tree->all_children) {
+            my $value = $form->field('attrs')->field($attr->name)->value;
+            if (defined $value) {
+                if (scalar $attr->all_children) {
+                    push @attributes, @{ $value };
+                }
+                elsif ($value) {
+                    push @attributes, $attr->id;
+                }
+            }
+        }
 
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
+        for my $field ($form->field('works')->fields) {
+            next unless $field->field('id')->value || $field->field('name')->value ne '';
+
+            my $recording_id = $field->field('recording_id')->value;
+
+            if (my $work_id = $field->field('id')->value) {
+                warn $work_id;
+
+                unless ($c->model('Relationship')->exists('recording', 'work', {
+                    link_type_id => $link_type->id,
+                    begin_date   => $form->field('begin_date')->value,
+                    end_date     => $form->field('end_date')->value,
+                    attributes   => [uniq @attributes],
+                    entity0_id   => $recording_id,
+                    entity1_id   => $work_id
+                })) {
+                    $self->_insert_edit(
+                        $c, $form,
+                        edit_type    => $EDIT_RELATIONSHIP_CREATE,
+                        type0        => 'recording',
+                        type1        => 'work',
+                        entity0      => $c->model('Recording')->get_by_id($recording_id),
+                        entity1      => $c->model('Work')->get_by_id($work_id),
+                        link_type    => $link_type,
+                        begin_date   => $form->field('begin_date')->value,
+                        end_date     => $form->field('end_date')->value,
+                        attributes   => \@attributes
+                    )
+                }
+            }
+            elsif (my $name = $field->field('name')->value) {
+                my $edit = $self->_insert_edit(
+                    $c, $form,
+                    edit_type => $EDIT_WORK_CREATE,
+                    name      => $name
+                );
+
+                $self->_insert_edit(
+                    $c, $form,
+                    edit_type    => $EDIT_RELATIONSHIP_CREATE,
+                    type0        => 'recording',
+                    type1        => 'work',
+                    entity0      => $c->model('Recording')->get_by_id($recording_id),
+                    entity1      => $c->model('Work')->get_by_id($edit->entity_id),
+                    link_type    => $link_type,
+                    begin_date   => $form->field('begin_date')->value,
+                    end_date     => $form->field('end_date')->value,
+                    attributes   => \@attributes
+                );
+            }
+        }
+
+        $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ]));
+        $c->detach;
     }
 }
 

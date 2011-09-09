@@ -1,0 +1,131 @@
+[%- WRAPPER 'layout.tt' title=l('Relate Recordings to Works') full_width=1 -%]
+
+    <script>
+      $(function() {
+        $('span.autocomplete').each(function() {
+          MB.Control.EntityAutocomplete({
+            'inputs': $(this),
+            'allow_empty': true
+          })
+        });
+      });
+    </script>
+
+    <h1>[% l('Relate Recordings to Works') %]</h1>
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <form action="[% c.req.uri | html %]" method="post">
+
+    <script type="text/javascript">
+        var typeInfo = [% type_info %];
+    </script>
+
+    <fieldset>
+        <legend>[% l('Relationship Details') %]</legend>
+
+        <table class="form">
+            <tr>
+                <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
+                <td colspan="2">
+                    [% r.select('link_type_id', no_default => 1) %]
+                    [% field_errors(form, 'link_type_id') %]
+                    <div class="ar-descr" id="type_descr"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label>[% l('Attributes:') %]</label></td>
+                <td>
+                [% FOR attr IN attr_tree.children %]
+                    <div id="attr-section-[% attr.id %]" class="ar-attr">
+                    [% field = form.field('attrs').field(attr.name) %]
+                    [% IF field.type == 'Repeatable' %]
+                        <div class="selects">
+                        [% FOR subfield IN field.fields %]
+                        <div>
+                            [% r.select(subfield) %]
+                            [% field_errors(form, subfield) %]
+                        </div>
+                        [% END %]
+                        </div>
+                        <div class="ar-descr">[% attr.description %]</div>
+                    [% ELSE %]
+                        [% r.checkbox(field) %] [% attr.name %]
+                        <div class="ar-descr">[% attr.description %]</div>
+                    [% END %]
+                    [% field_errors(form, field) %]
+                    </div>
+                [% END %]
+                </td>
+            </tr>
+            <tr>
+                <td class="label">[% l('Recordings:') %]</td>
+                <td colspan="2" id="entity1">
+                  <table class="tbl">
+                    [% i = 0 %]
+                    [% FOR medium=release.all_mediums %]
+                    <tr class="subh">
+                      <th colspan="5">
+                        [%~ medium.format_name or l("Medium") | html =%]
+                        [%= medium.position ~%]
+                        [%~ IF medium.name ~%]:
+                        [%= medium.name | html ~%]
+                        [%~ END ~%]
+                      </th>
+                    </tr>
+                    [% FOR track=medium.tracklist.tracks %]
+                    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+                      <td class="pos t">
+                        [% track.position %]
+                      </td>
+                      <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
+                      <td>[% artist_credit(track.artist_credit) %]</td>
+                      <td class="length">[% track.length | format_length %]</td>
+                    </tr>
+                    <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
+                      <td></td>
+                      <td colspan="3">
+                        [% field = form.field('works').append %]
+                        <input type="hidden" value="[% track.recording_id %]"
+                               name="[% field.field('recording_id').html_name %]" />
+                        <span class="autocomplete work">
+                          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+                          [% r.text(field.field('name'), { class => 'name' }) %]
+                          <input type="hidden" class="gid" />
+                          [% r.hidden(field.field('id'), { class => 'id' }) %]
+                        </span>
+                      </td>
+                    </tr>
+                    [% i = i + 1 %]
+                    [% END %]
+                    [% END %]
+                  </table>
+
+                  [% IF no_selection %]
+                  <ul class="errors">
+                    <li>[% l('Please select at least 1 recording to relate {entity} to.',
+                               entity => link_entity(dest)) %]</li>
+                  </ul>
+                  [% END %]
+                </td>
+            </tr>
+            <tr>
+                <td class="label">[% r.label('begin_date', l('Begin date:')) %]</td>
+                <td colspan="2">[% r.date('begin_date') %]
+                [% field_errors(form, 'begin_date') %]</td>
+            </tr>
+            <tr>
+                <td class="label">[% r.label('end_date', l('End date:')) %]</td>
+                <td colspan="2">[% r.date('end_date') %]
+                [% field_errors(form, 'end_date') %]</td>
+            </tr>
+        </table>
+
+    </fieldset>
+
+    [% INCLUDE 'forms/edit-note.tt' %]
+    [% enter_edit() %]
+
+    </form>
+
+[% END %]

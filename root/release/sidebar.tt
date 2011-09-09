@@ -104,6 +104,15 @@
                  { what => html_escape(c.session.relationship.name) }) %]
           </a>
         </li>
+        <li>
+          <a href="[%
+            c.uri_for_action('/edit/relationship/create_works', {
+              release => release.gid
+            })
+          -%]">
+            [% l('Relate recordings to works') %]
+          </a>
+        </li>
 
         <hr/>
 
