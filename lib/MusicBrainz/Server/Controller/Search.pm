@@ -150,6 +150,7 @@ sub external : Private
         {
             when (404) { $template .= 'no-results.tt'; }
             when (403) { $template .= 'no-info.tt'; };
+            when (414) { $template .= 'uri-too-large.tt'; };
             when (500) { $template .= 'internal-error.tt'; }
             when (400) { $template .= 'invalid.tt'; }
 

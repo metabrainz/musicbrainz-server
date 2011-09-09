@@ -561,6 +561,17 @@ sub external_search
     {
         return { code => $response->code, error => $response->content };
     }
+    elsif ($response->status_line eq "200 Assumed OK")
+    {
+        if ($response->content =~ /<title>([0-9]{3})/)
+        {
+            return { code => $1, error => $response->content };
+        }
+        else
+        {
+            return { code => 500, error => $response->content };
+        }
+    }
     else
     {
         my $data = JSON->new->utf8->decode($response->content);

@@ -1,0 +1,5 @@
+[% WRAPPER "search/error/wrapper.tt" %]
+    <p>
+        [% l('Sorry, your query was too large.') %]
+    </p>
+[% END %]
