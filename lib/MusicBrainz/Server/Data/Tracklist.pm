@@ -128,7 +128,15 @@ sub merge
         )
     };
 
+    # We need to make sure that for each old recording, there is only 1 new recording
+    # to merge into. If there is > 1, then it's not clear what we should merge into.
+    my %target_count;
+    $target_count{ $_->[1] }++ for @recording_merges;
+
     for my $recording_merge (@recording_merges) {
+        my ($new, $old) = @$recording_merge;
+        next if $target_count{$old} > 1;
+
         $self->c->model('Recording')->merge(@$recording_merge);
     }
 }
