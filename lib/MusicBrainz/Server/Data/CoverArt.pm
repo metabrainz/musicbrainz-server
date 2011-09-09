@@ -12,6 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::URL';
 use DateTime::Format::Pg;
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::CoverArt;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
@@ -167,7 +168,7 @@ sub find_outdated_releases
     my @url_types = $self->handled_types;
 
     my $query = '
-    SELECT r_id, r_barcode, url, link_type
+    SELECT r_id, r_barcode, url, link_type, last_updated AS c_last_updated
     FROM (
         SELECT DISTINCT ON (release.id)
             release.id AS r_id, release.barcode AS r_barcode,
@@ -210,6 +211,11 @@ sub find_outdated_releases
         # Construction of these rows is slow, so this is lazy
         return sub {
             my $release = $self->c->model('Release')->_new_from_row($row, 'r_');
+            $release->cover_art(
+                MusicBrainz::Server::CoverArt->new(
+                    $row->{c_last_updated} ? (last_updated => $row->{c_last_updated}) : ()
+                )
+            );
 
             if ($row->{link_type}) {
                 $release->add_relationship(
