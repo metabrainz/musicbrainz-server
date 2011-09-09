@@ -82,13 +82,25 @@
         <li>[% relate_to_url(release) %]</li>
         <li>
           <a href="[%
-            c.uri_for_action('/edit/relationship/create_batch', {
+            c.uri_for_action('/edit/relationship/relate_to_recordings', {
               type => c.session.relationship.type0,
               gid => c.session.relationship.entity0,
               release => release.gid
             })
           -%]">
             [% l('Relate {what} to recordings',
+                 { what => html_escape(c.session.relationship.name) }) %]
+          </a>
+        </li>
+        <li>
+          <a href="[%
+            c.uri_for_action('/edit/relationship/relate_to_works', {
+              type => c.session.relationship.type0,
+              gid => c.session.relationship.entity0,
+              release => release.gid
+            })
+          -%]">
+            [% l('Relate {what} to works',
                  { what => html_escape(c.session.relationship.name) }) %]
           </a>
         </li>

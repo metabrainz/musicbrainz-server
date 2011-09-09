@@ -1,0 +1,147 @@
+[%- WRAPPER 'layout.tt' title=l('Create Relationship') full_width=1 -%]
+
+    <h1>[% l('Create Relationship') %]</h1>
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <form action="[% c.req.uri | html %]" method="post">
+
+    <script type="text/javascript">
+        var typeInfo = [% type_info %];
+    </script>
+
+    <fieldset>
+        <legend>[% l('Relationship Details') %]</legend>
+
+        <table class="form" style="width: 100%">
+            <tr>
+                <th class="label">[% entity_label(type) %]</th>
+                <td colspan="2" id="entity0">[% link_entity(dest) %]</td>
+            </tr>
+            <tr>
+                <th class="label">[% r.label('link_type_id', l('Type:')) %]</th>
+                <td colspan="2">
+                    [% r.select('link_type_id', no_default => 1) %]
+                    [% field_errors(form, 'link_type_id') %]
+                    <div class="ar-descr" id="type_descr"></div>
+                </td>
+            </tr>
+            <tr>
+                <th class="label">[% l('Works:') %]</th>
+                <td colspan="2" id="entity1">
+                  <table class="tbl">
+                    <tr>
+                      <thead>
+                        <th style="width: auto"></th>
+                        <th style="width: auto">
+                          <input type="checkbox" />
+                        </th>
+                        <th colspan="5"></th>
+                      </thead>
+                    </tr>
+                    [% FOR medium=release.all_mediums %]
+                      <tr class="subh">
+                        <th style="width: auto" colspan="2"></th>
+                        <th colspan="5">
+                          [%~ medium.format_name or l("Medium") | html =%]
+                          [%= medium.position ~%]
+                          [%~ IF medium.name ~%]:
+                          [%= medium.name | html ~%]
+                          [%~ END ~%]
+                        </th>
+                      </tr>
+                      [% FOR track=medium.tracklist.tracks %]
+                        [% class = loop.index % 2 == 0 ? 'ev' : '' %]
+                        <tr class="[% class %]">
+                          <td class="pos t">
+                            [% track.position %]
+                          </td>
+                          <td></td>
+                          <td colspan="2">[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
+                          <td>[% artist_credit(track.artist_credit) %]</td>
+                          <td class="treleases">[% track.length | format_length %]</td>
+                        </tr>
+                        [% FOR work=track.recording.relationships %]
+                          <tr class="[% class %]">
+                            <td></td>
+                            <td class="pos t">
+                              <input type="checkbox" name="work_id"
+                                     value="[% work.target.id %]" />
+                            </td>
+                            <td colspan="4">
+                              [% descriptive_link(work.target) %]<br />
+                              <ul>
+                                [% FOR relationship=work.target.all_relationships %]
+                                <li>[% relationship.phrase%]: [% display_relationship_entry(relationship) %]</li>
+                                [% END %]
+                              </ul>
+                            </td>
+                          </tr>
+                        [% END %]
+                        [% UNLESS track.recording.relationships.size %]
+                          [% field = form.field('new_works').append %]
+                          <tr class="[% class %]">
+                            <td></td>
+                            <td class="pos t">
+                              <input type="checkbox" name="[% field.field('create').html_name %]"
+                                     value="[% track.recording_id %]" />
+                            </td>
+                            <td colspan="4">
+                              <label>[% l('Create a new work:') %]</label>
+                              <input name="[% field.field('name').html_name %]"
+                                     type="text" value="[% html_escape(track.recording.name) %]" />
+                              <input type="hidden" name="[% field.field('recording').html_name %]"
+                                     value="[% track.recording.id %]" />
+                            </td>
+                          </tr>
+                        [% END %]
+                      [% END %]
+                    [% END %]
+                  </table>
+                </td>
+            </tr>
+            <tr>
+                <th class="label"><label>[% l('Attributes:') %]</label></th>
+                <td>
+                [% FOR attr IN attr_tree.children %]
+                    <div id="attr-section-[% attr.id %]" class="ar-attr">
+                    [% field = form.field('attrs').field(attr.name) %]
+                    [% IF field.type == 'Repeatable' %]
+                        <div class="selects">
+                        [% FOR subfield IN field.fields %]
+                        <div>
+                            [% r.select(subfield) %]
+                            [% field_errors(form, subfield) %]
+                        </div>
+                        [% END %]
+                        </div>
+                        <div class="ar-descr">[% attr.description %]</div>
+                    [% ELSE %]
+                        [% r.checkbox(field) %] [% attr.name %]
+                        <div class="ar-descr">[% attr.description %]</div>
+                    [% END %]
+                    [% field_errors(form, field) %]
+                    </div>
+                [% END %]
+                </td>
+            </tr>
+            <tr>
+                <th class="label">[% r.label('begin_date', l('Begin date:')) %]</th>
+                <td colspan="2">[% r.date('begin_date') %]
+                [% field_errors(form, 'begin_date') %]</td>
+            </tr>
+            <tr>
+                <th class="label">[% r.label('end_date', l('End date:')) %]</th>
+                <td colspan="2">[% r.date('end_date') %]
+                [% field_errors(form, 'end_date') %]</td>
+            </tr>
+        </table>
+
+    </fieldset>
+
+    [% INCLUDE 'forms/edit-note.tt' %]
+    [% enter_edit() %]
+
+    </form>
+
+[% END %]

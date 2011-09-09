@@ -12,6 +12,7 @@ sub _gid_redirect_table
     return undef;
 }
 
+
 around get_by_gids => sub
 {
     my ($orig, $self) = splice(@_, 0, 2);

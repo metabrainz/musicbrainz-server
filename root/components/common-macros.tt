@@ -525,6 +525,21 @@ END -%]
             [%- END -%]
 [%- END -%]
 
+[%- MACRO display_relationship_entry(rel) BLOCK -%]
+  [% IF rel.target.artist_credit AND
+        rel.target.artist_credit.name != hide_ac %]
+      [% l('{entity} by {artist}', { entity => link_entity(rel.target),
+                                     artist => artist_credit(rel.target.artist_credit) }) %]
+  [% ELSE %]
+      [% link_entity(rel.target) %]
+  [% END %]
+  [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format %]
+  ([% rel.link.begin_date.format %])
+  [% ELSIF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
+  ([% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %])
+  [% END %]
+[%- END -%]
+
 [%- MACRO trusted_domain(url) BLOCK;
     url.url.host.search('discogs.com$')   ||
     url.url.host.search('wikipedia.org$') ||
