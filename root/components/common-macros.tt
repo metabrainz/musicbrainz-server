@@ -227,7 +227,7 @@ END -%]
 [%- MACRO link_recording(recording, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
-    text = text == '' ? html_escape(recording.name) : html_escape(text);
+    text = text == '' ? html_escape(recording.name) : text;
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF recording.edits_pending AND action == 'show';
