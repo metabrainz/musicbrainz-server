@@ -359,7 +359,7 @@ sub relate_to_recordings : Path('/edit/relationship/create-recordings') RequireA
     $c->stash( attr_tree => $attr_tree );
 
     my $form = $c->form(
-        form => 'Relationship',
+        form => 'Relationship::Recordings',
         attr_tree => $attr_tree,
         root => $tree
     );
@@ -368,8 +368,6 @@ sub relate_to_recordings : Path('/edit/relationship/create-recordings') RequireA
         dest    => $dest,
         type    => $type
     );
-
-    $form = $c->form( form => 'Relationship::Recordings' );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @attributes;
