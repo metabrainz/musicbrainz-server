@@ -229,7 +229,7 @@ END -%]
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
     text = text == '' ? html_escape(recording.name) : html_escape(text);
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ 'KOEK</a>';
+    '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF recording.edits_pending AND action == 'show';
 END -%]
 
