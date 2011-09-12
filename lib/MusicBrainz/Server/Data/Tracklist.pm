@@ -119,7 +119,7 @@ sub merge
     my ($self, $new_tracklist_id, $old_tracklist_id) = @_;
     my @recording_merges = @{
         $self->sql->select_list_of_lists(
-            'SELECT newt.recording AS new, oldt.recording AS old
+            'SELECT DISTINCT newt.recording AS new, oldt.recording AS old
                FROM track oldt
                JOIN track newt ON newt.position = oldt.position
               WHERE newt.tracklist = ? AND oldt.tracklist = ?
@@ -128,7 +128,15 @@ sub merge
         )
     };
 
+    # We need to make sure that for each old recording, there is only 1 new recording
+    # to merge into. If there is > 1, then it's not clear what we should merge into.
+    my %target_count;
+    $target_count{ $_->[1] }++ for @recording_merges;
+
     for my $recording_merge (@recording_merges) {
+        my ($new, $old) = @$recording_merge;
+        next if $target_count{$old} > 1;
+
         $self->c->model('Recording')->merge(@$recording_merge);
     }
 }
