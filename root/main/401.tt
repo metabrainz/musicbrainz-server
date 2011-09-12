@@ -12,8 +12,9 @@
         [% END %]
 
         <p>
-            [%- l('If you think this is a mistake, please {report|report a bug} and include the URL of the page that lead you here.', 
-                 { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1") }) -%]
+            [%- l('If you think this is a mistake, please contact
+                   <code>support@musicbrainz.org</code>
+                   with the name of your account.') -%]
         </p>
     </div>
 [% END %]
