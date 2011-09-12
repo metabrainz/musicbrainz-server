@@ -33,7 +33,7 @@ for my $type (@types) {
     );
 
     has_field "missing.$type.entity_id" => (
-        type => 'Integer',
+        type => '+MusicBrainz::Server::Form::Field::Integer',
     );
 }
 

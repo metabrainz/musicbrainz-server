@@ -4,7 +4,7 @@ use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'name' => ( type => 'Text' );
-has_field 'id'   => ( type => 'Integer' );
+has_field 'id'   => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
 
 =head1 LICENSE
 

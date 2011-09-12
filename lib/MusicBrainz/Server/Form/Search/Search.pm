@@ -23,7 +23,7 @@ has_field 'advanced' => (
 );
 
 has_field 'limit' => (
-    type                => 'Integer',
+    type                => '+MusicBrainz::Server::Form::Field::Integer',
     input_without_param => 25,
     range_start         => 1,
     range_end           => 100,

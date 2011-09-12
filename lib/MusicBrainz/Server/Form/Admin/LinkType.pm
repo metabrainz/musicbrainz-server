@@ -17,7 +17,7 @@ has_field 'parent_id' => (
 );
 
 has_field 'child_order' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
 );
 
@@ -50,7 +50,7 @@ has_field 'description' => (
 );
 
 has_field 'priority' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
 );
 
@@ -68,11 +68,11 @@ has_field 'attributes.active' => (
 );
 
 has_field 'attributes.min' => (
-    type => 'Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer'
 );
 
 has_field 'attributes.max' => (
-    type => 'Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer'
 );
 
 sub _build_parent_id_options

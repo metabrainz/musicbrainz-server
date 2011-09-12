@@ -14,7 +14,7 @@ has_field 'parent_id' => (
 );
 
 has_field 'child_order' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
 );
 
