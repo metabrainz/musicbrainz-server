@@ -385,5 +385,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         .change(urlChanged)
         .keyup(urlChanged);
 
+    self.urlControl.parents('form').submit(urlChanged);
+
     return self;
 };
