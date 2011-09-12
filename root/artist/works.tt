@@ -1,7 +1,7 @@
 [%- WRAPPER 'artist/layout.tt' title='Works' page='works' -%]
     <h2>[% l('Works') %]</h2>
 
-    [% IF grouped_works.size %]
+    [% IF works.size %]
       [% WRAPPER 'components/with-pager.tt' %]
       <form action="[% c.uri_for_action('/work/merge_queue') %]"
             method="post">
@@ -20,49 +20,39 @@
                 <th class="rating">[% l('Rating') %]</th>
             </tr>
         </thead>
-          [% FOR group = grouped_works %]
-            [% IF group.link_type %]
-            <thead>
-                <tr class="subh">
-                    [% IF c.user_exists %]<th></th>[% END %]
-                    <th colspan="4">[% group.link_type %]</th>
-                </tr>
-            </thead>
+        <tbody>
+          [% FOR work IN works %]
+          <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+            [% IF c.user_exists %]
+            <td>
+              <input type="checkbox" name="add-to-merge"
+                     value="[% work.id %]" />
+            </td>
             [% END %]
-            <tbody>
-                [% FOR work IN group.works %]
-                <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
-                    [% IF c.user_exists %]
-                    <td>
-                      <input type="checkbox" name="add-to-merge"
-                             value="[% work.id %]" />
-                    </td>
-                    [% END %]
-                    <td>
-                        [% descriptive_link(work) %]
-                    </td>
-                    <td>
-                      <ul>
-                        [% FOR rel_artist=work.writers %]
-                        <li>
-                          [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
-                                                       roles  => rel_artist.roles.join(', ') }) %]</li>
-                        [% END %]
-                      </ul>
-                    </td>
-                    <td>
-                      <ul>
-                        [% FOR rel_artist=work.artists %]
-                        <li>[% artist_credit(rel_artist) %]</li>
-                        [% END %]
-                      </ul>
-                    </td>
-                    <td>[% work.iswc | html %]</td>
-                    <td>[% rating_stars(work) %]</td>
-                </tr>
+            <td>
+              [% descriptive_link(work) %]
+            </td>
+            <td>
+              <ul>
+                [% FOR rel_artist=work.writers %]
+                <li>
+                  [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                  roles  => rel_artist.roles.join(', ') }) %]</li>
                 [% END %]
-            </tbody>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                [% FOR rel_artist=work.artists %]
+                <li>[% artist_credit(rel_artist) %]</li>
+                [% END %]
+              </ul>
+            </td>
+            <td>[% work.iswc | html %]</td>
+            <td>[% rating_stars(work) %]</td>
+          </tr>
           [% END %]
+        </tbody>
       </table>
       [% END %]
     [% form_submit(l('Add selected works for merging')) WRAPPER form_row  IF c.user_exists %]
