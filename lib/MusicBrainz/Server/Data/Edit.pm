@@ -533,8 +533,7 @@ sub _do_accept
         return $STATUS_FAILEDDEP;
     }
     catch ($err) {
-        carp("Could not accept " . $edit->id . ": $err");
-        return $STATUS_ERROR;
+        die $err;
     };
     return $STATUS_APPLIED;
 }
