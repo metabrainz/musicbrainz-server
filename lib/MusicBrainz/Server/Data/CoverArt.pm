@@ -12,6 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::URL';
 use DateTime::Format::Pg;
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::CoverArt;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
@@ -167,32 +168,42 @@ sub find_outdated_releases
     my @url_types = $self->handled_types;
 
     my $query = '
-        SELECT release.id AS r_id, release.barcode AS r_barcode,
-               url.url, link_type.name AS link_type,
-               CASE '.
-                   join(' ',
-                        map {
-                            my $providers = $self->get_providers($_);
-                            "WHEN link_type.name = '$_' THEN " .
-                                ((grep { $_->isa(RegularExpressionProvider) } @$providers)
-                                    ? 0 : 1)
-                        } @url_types
-                    ) . '
-               END AS _sort_order
-          FROM release
-          JOIN release_coverart ON release.id = release_coverart.id
-     LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
-     LEFT JOIN link ON ( link.id = l.link )
-     LEFT JOIN link_type ON ( link_type.id = link.link_type )
-     LEFT JOIN url ON ( url.id = l.entity1 )
-         WHERE release.id IN(
-                 SELECT id FROM release_coverart
-                  WHERE last_updated IS NULL
-                     OR NOW() - last_updated > ?
-             )
-           AND ( link_type.name IN ('  . placeholders(@url_types) . ')
-              OR release.barcode IS NOT NULL )
-      ORDER BY release_coverart.last_updated ASC';
+    SELECT r_id, r_barcode, url, link_type, last_updated AS c_last_updated
+    FROM (
+        SELECT DISTINCT ON (release.id)
+            release.id AS r_id, release.barcode AS r_barcode,
+            url.url, link_type.name AS link_type,
+            release_coverart.last_updated,
+            CASE '.
+              join(' ',
+                   map {
+                       my $providers = $self->get_providers($_);
+                       "WHEN link_type.name = '$_' THEN " .
+                           ((grep { $_->isa(RegularExpressionProvider) } @$providers)
+                                ? 0 : 1)
+                       } @url_types
+                   ) . '
+            END AS _sort_order
+        FROM release
+        JOIN release_coverart ON release.id = release_coverart.id
+        LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
+        LEFT JOIN link ON ( link.id = l.link )
+        LEFT JOIN link_type ON ( link_type.id = link.link_type )
+        LEFT JOIN url ON ( url.id = l.entity1 )
+        WHERE release.id IN (
+            SELECT id FROM release_coverart
+            WHERE
+               last_updated IS NULL OR NOW() - last_updated > ?
+        ) AND (
+            link_type.name IN ('  . placeholders(@url_types) . ') OR
+            release.barcode IS NOT NULL
+        )
+        ORDER BY release.id,
+                 _sort_order DESC,
+                 l.last_updated DESC,
+                 release.barcode NULLS LAST
+    ) s
+    ORDER BY last_updated ASC';
 
     my $pg_date_formatter = DateTime::Format::Pg->new;
     return query_to_list($self->c->sql, sub {
@@ -200,6 +211,11 @@ sub find_outdated_releases
         # Construction of these rows is slow, so this is lazy
         return sub {
             my $release = $self->c->model('Release')->_new_from_row($row, 'r_');
+            $release->cover_art(
+                MusicBrainz::Server::CoverArt->new(
+                    $row->{c_last_updated} ? (last_updated => $row->{c_last_updated}) : ()
+                )
+            );
 
             if ($row->{link_type}) {
                 $release->add_relationship(

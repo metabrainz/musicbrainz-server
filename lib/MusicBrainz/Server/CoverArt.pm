@@ -2,6 +2,8 @@ package MusicBrainz::Server::CoverArt;
 use Moose;
 use namespace::autoclean;
 
+with 'MusicBrainz::Server::Entity::Role::LastUpdate';
+
 use MooseX::Types::URI qw( Uri );
 
 has 'image_uri' => (

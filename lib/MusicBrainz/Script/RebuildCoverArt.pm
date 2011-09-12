@@ -4,7 +4,7 @@ use Moose;
 use DBDefs;
 use DateTime::Duration;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Log qw( log_debug log_warning );
+use MusicBrainz::Server::Log qw( log_debug log_warning log_notice );
 
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
@@ -53,9 +53,9 @@ sub run
     my $total = @releases;
     my $started_at = DateTime->now;
 
-    printf STDERR "There are a total of %d releases that can have cover-art\n", $total;
-
     my %seen;
+
+    my ($first, $last, $seen, $updated);
 
     $self->sql->begin;
     while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
@@ -64,10 +64,15 @@ sub run
         $release = $release->();
         next if $seen{$release->id};
 
+        $seen++;
+        $first //= $release->cover_art->last_updated;
+        $last = $release->cover_art->last_updated;
+
         my $art = $self->c->model('CoverArt')->cache_cover_art($release);
 
         if ($art) {
-            log_debug { sprintf "Cover art for %d is %s", $release->id, $art->image_uri }
+            log_debug { sprintf "Cover art for %d is %s", $release->id, $art->image_uri };
+            $updated++;
         }
         else {
             log_warning { sprintf "Could not find cover art for %d", $release->id };
@@ -81,7 +86,20 @@ sub run
     $self->sql->finish;
     $self->sql->commit;
 
-    printf STDERR "Processed %d, at least %d still need to be updated\n", $completed, $total - $completed;
+    log_notice {
+        sprintf "Examined %d (%.2f%%) cover art rows, last updated between %s and %s. ".
+                "Updated %d releases.",
+                $seen,
+                ($seen / $total) * 100,
+                ($first // "(never updated)"), ($last // "(never updated)"),
+                $updated
+        };
+
+    log_notice {
+        sprintf "A complete pass of all %d releases will take up to approximately %.2f days.",
+            $total, (((($total * 2) / 60) / 60) / 24)
+        };
+
     return 0;
 }
 
