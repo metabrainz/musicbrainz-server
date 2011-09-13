@@ -101,13 +101,19 @@ sub build_display_data
             } } $self->_release_events
         ],
         tracks => [
-            map { +{
-                name      => $_->{name},
-                artist    => $loaded->{Artist}->{ $_->{artist_id} },
-                length    => $_->{length},
-                position  => $_->{position},
-                recording => $loaded->{Recording}->{ $_->{recording_id} }
-            } } sort { $a->{position} <=> $b->{position} } $self->_tracks
+            map {
+                # Stuff that had artist_name present did not actually have an artist ID
+                my $track_artist = defined ($_->{artist_name})
+                    ? Artist->new( name => $_->{artist_name} )
+                    : $loaded->{Artist}->{ $_->{artist_id} };
+
+                +{
+                    name      => $_->{name},
+                    artist    => $track_artist,
+                    length    => $_->{length},
+                    position  => $_->{position},
+                    recording => $loaded->{Recording}->{ $_->{recording_id} }
+                } } sort { $a->{position} <=> $b->{position} } $self->_tracks
         ]
     }
 }
