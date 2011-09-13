@@ -104,12 +104,6 @@ sub _insert_hash
     return $data
 }
 
-before accept => sub {
-    my ($self) = @_;
-
-    verify_artist_credits($self->c, $self->data->{artist_credit});
-};
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
