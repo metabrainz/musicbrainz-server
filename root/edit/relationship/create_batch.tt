@@ -48,7 +48,7 @@
                   <table class="tbl">
                     <tr>
                       <thead>
-                        <th class="check">
+                        <th>
                           <input type="checkbox" />
                         </th>
                         <th colspan="5"></th>
@@ -76,7 +76,7 @@
                       </td>
                       <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
                       <td>[% artist_credit(track.artist_credit) %]</td>
-                      <td class="length">[% track.length | format_length %]</td>
+                      <td class="treleases">[% track.length | format_length %]</td>
                     </tr>
                     [% END %]
                     [% END %]

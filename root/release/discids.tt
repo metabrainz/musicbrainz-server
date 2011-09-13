@@ -5,9 +5,9 @@
         <table class="tbl">
             <thead>
                 <tr>
-                    <th class="discid">[% l('Disc ID') %]</th>
-                    <th class="tracks">[% l('Tracks') %]</th>
-                    <th class="length">[% l('Length') %]</th>
+                    <th>[% l('Disc ID') %]</th>
+                    <th>[% l('Tracks') %]</th>
+                    <th>[% l('Length') %]</th>
                     [% IF c.user_exists %]
                     <th>[% l('Edit') %]</th>
                     [% END %]

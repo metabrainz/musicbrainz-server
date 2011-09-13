@@ -2,12 +2,12 @@
   <thead>
     <tr>
       <th>[% l('Release') %]</th>
-      <th class="date">[% l('Date') %]</th>
-      <th class="country">[% l('Country') %]</th>
+      <th>[% l('Date') %]</th>
+      <th>[% l('Country') %]</th>
       <th>[% l('Label') %]</th>
-      <th class="catno">[% l('Catalog number') %]</th>
-      <th class="catno">[% l('Barcode') %]</th>
-      <th class="mformat">[% l('Format') %]</th>
+      <th>[% l('Catalog number') %]</th>
+      <th>[% l('Barcode') %]</th>
+      <th>[% l('Format') %]</th>
     </tr>
   </thead>
   [% IF edit.display_data.additions.size %]

@@ -25,12 +25,12 @@ $(document).ready(function() {
 <table class="tbl">
 <thead>
 <tr>
-<th class="score">[% l('Rank') %]</th>
+<th>[% l('Rank') %]</th>
 <th>[% l('Country') %]<div class="arrow"></div></th>
-<th class="releases">[% l('Artists') %]<div class="arrow"></div></th>
-<th class="releases">[% l('Releases') %]<div class="arrow"></div></th>
-<th class="releases">[% l('Labels') %]<div class="arrow"></div></th>
-<th class="releases">[% l('Total') %]<div class="arrow"></div></th>
+<th>[% l('Artists') %]<div class="arrow"></div></th>
+<th>[% l('Releases') %]<div class="arrow"></div></th>
+<th>[% l('Labels') %]<div class="arrow"></div></th>
+<th>[% l('Total') %]<div class="arrow"></div></th>
 </tr>
 </thead>
 <tbody>

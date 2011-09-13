@@ -11,7 +11,7 @@
                     <th>[% l('Artist') %]</th>
                 [%- END -%]
                 <th class="rating c">[% l('Rating') %]</th>
-                <th class="length">[% l('Length') %]</th>
+                <th class="treleases">[% l('Length') %]</th>
             </tr>
         </thead>
         <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>

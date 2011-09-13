@@ -46,10 +46,10 @@
       <table class="tbl">
         <thead>
           <tr>
-            <th class="pos">[% l('#') %]</th>
+            <th>[% l('#') %]</th>
             <th>[% l('Name') %]</th>
             <th>[% l('Artist') %]</th>
-            <th class="length">[% l('Length') %]</th>
+            <th>[% l('Length') %]</th>
           </tr>
         </thead>
         <tbody>
@@ -72,12 +72,12 @@
       <table class="tbl">
         <thead>
           <tr>
-            <th class="date">[% l('Date') %]</th>
-            <th class="country">[% l('Country') %]</th>
+            <th>[% l('Date') %]</th>
+            <th>[% l('Country') %]</th>
             <th>[% l('Label') %]</th>
-            <th class="catno">[% l('Catalog Number') %]</th>
-            <th class="catno">[% l('Barcode') %]</th>
-            <th class="mformat">[% l('Format') %]</th>
+            <th>[% l('Catalog Number') %]</th>
+            <th>[% l('Barcode') %]</th>
+            <th>[% l('Format') %]</th>
           </tr>
         </thead>
         <tbody>

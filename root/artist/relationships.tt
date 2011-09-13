@@ -9,7 +9,7 @@
     <table class="tbl">
         <thead>
             <tr>
-                <th class="date">[% l('Date') %]</th>
+                <th>[% l('Date') %]</th>
                 <th>[% l('Title') %]</th>
                 <th>[% l('Artist') %]</th>
             </tr>

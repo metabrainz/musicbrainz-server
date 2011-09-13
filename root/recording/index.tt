@@ -6,15 +6,15 @@
             <table class="tbl">
                 <thead>
                     <tr>
-                        <th class="t pos" style="width: 5em" [% 'colspan="2"' IF clock %]>[% l('#') %]</th>
+                        <th class="t pos" [% 'colspan="2"' IF clock %]>[% l('#') %]</th>
                         <th>[% l('Title') %]</th>
-                        <th class="length">[% l('Length') %]</th>
+                        <th class="treleases">[% l('Length') %]</th>
                         <th>[% l('Release Title') %]</th>
                         <th>[% l('Release Artist') %]</th>
-                        <th class="date">[% l('Release Date') %]</th>
-                        <th class="country">[% l('Country') %]</th>
+                        <th>[% l('Release Date') %]</th>
+                        <th>[% l('Country') %]</th>
                         <th>[% l('Label') %]</th>
-                        <th class="catno">[% l('Catalog#') %]</th>
+                        <th>[% l('Catalog#') %]</th>
                     </tr>
                 </thead>
                 <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
@@ -22,7 +22,7 @@
                     [%- release=track.tracklist.medium.release -%]
                     [% rdfa_recording_hidden_published_as(track) %]
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [%= rdfa_recording_tr_about(track) =%]>
-		        <td class="t">[%- rdfa_track_number(track.position) -%]/[%- track.tracklist.track_count -%]</td>
+		        <td>[%- rdfa_track_number(track.position) -%]/[%- track.tracklist.track_count -%]</td>
                         <td>[%- rdfa_label_title(track.name) -%]</td>
                         <td>[%- rdfa_recording_duration(track) -%]</td>
                         <td>[%- rdfa_link_release_track(release, track) -%]</td>

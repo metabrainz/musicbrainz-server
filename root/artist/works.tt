@@ -9,15 +9,15 @@
         <thead>
             <tr>
                 [% IF c.user_exists %]
-                <th class="check">
+                <th>
                 <input type="checkbox" />
                 </th>
                 [% END %]
                 <th>[% l('Work') %]</th>
                 <th>[% l('Writers') %]</th>
                 <th>[% l('Artists') %]</th>
-                <th class="iswc">[% l('ISWC') %]</th>
-                <th class="rating">[% l('Rating') %]</th>
+                <th>[% l('ISWC') %]</th>
+                <th>[% l('Rating') %]</th>
             </tr>
         </thead>
         <tbody>

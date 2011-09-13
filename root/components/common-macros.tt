@@ -360,8 +360,8 @@ END -%]
     out.join(', ');
 END -%]
 
-[%- MACRO sortble_table_header(name, label, class) BLOCK -%]
-    <th [% 'class="' _ class _ '"' IF class %]>
+[%- MACRO sortble_table_header(name, label) BLOCK -%]
+    <th>
         <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
         [%- IF order == name %]&nbsp;&#9652;[% ELSIF order == '-' _ name %]&nbsp;&#9662;[% END %]
     </th>
