@@ -43,10 +43,25 @@ is($release->artist_credit->names->[0]->artist_id => 2);
 is($_->artist_credit_id => 1)
     for map { $_->tracklist->all_tracks } $release->all_mediums;
 
-$edit = create_edit($c, $original_release, 1);
+};
+
+test 'Changing track artists' => sub {
+
+my $test = shift;
+my $c = $test->c;
+
+MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
+MusicBrainz::Server::Test->prepare_test_database(
+    $c,
+    "INSERT INTO artist (id, gid, name, sort_name)
+          VALUES (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1)");
+
+my $original_release = $c->model('Release')->get_by_id(1);
+
+my $edit = create_edit($c, $original_release, 1);
 accept_edit($c, $edit);
 
-$release = load_release($c);
+my $release = load_release($c);
 for (map { $_->tracklist->all_tracks } $release->all_mediums) {
     ok($_->artist_credit_id != 1);
     is($_->artist_credit->names->[0]->artist_id => 2);
