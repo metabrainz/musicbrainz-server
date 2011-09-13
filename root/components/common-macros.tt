@@ -455,7 +455,7 @@ END -%]
 [%- MACRO edit_status_description(edit) SWITCH edit.status;
         CASE 1; l('This edit is open and awaiting votes before it can be applied.');
         CASE 2; l('This edit has been successfully applied.');
-        CASE 3; l('This edit failed because there were more "no" votes than "yes" votes.');
+        CASE 3; l('This edit failed because there were insufficient "yes" votes.');
         CASE 4; l('This edit failed either because an entity it was modifying no longer
                    exists, or the entity can not be modified in this manner anymore.');
         CASE 5; l('This edit failed due to an internal error and may need to be
