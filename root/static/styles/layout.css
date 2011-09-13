@@ -545,6 +545,8 @@ table.tbl tbody th {
     background: none;
 }
 
+table.tbl tbody th:last-child { border-right: 0; }
+
 table.tbl th a {
     color: #000;
 }
