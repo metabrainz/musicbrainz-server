@@ -33,6 +33,12 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Move');
 my ($edits) = $c->model('Edit')->find({ release => $release->id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
+is_deeply($edit->related_entities, {
+    artist => [ 1 ],
+    release => [ 1 ],
+    release_group => [ 1, 2 ],
+});
+
 $release = $c->model('Release')->get_by_id(1);
 is($release->edits_pending, 1);
 is_unchanged($release);
