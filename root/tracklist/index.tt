@@ -12,7 +12,7 @@
                         <th>[% l('Artist') %]</th>
                     [%- END -%]
                     <th class="rating c">[% l('Rating') %]</th>
-                    <th class="length">[% l('Length') %]</th>
+                    <th class="treleases">[% l('Length') %]</th>
                 </tr>
             </thead>
             <tbody about="[% rdfa_tracklist_curi(tracklist) %]" typeof="[% rdfa_concept_curi('tracklist') %]">
@@ -25,13 +25,13 @@
         <table class="tbl">
             <thead>
                 <tr>
-                    <th class="medium">[% l('Medium #') %]</th>
+                    <th>[% l('Medium #') %]</th>
                     <th>[% l('Title') %]</th>
                     <th>[% l('Artist') %]</th>
-                    <th class="date">[% l('Date') %]</th>
-                    <th class="country">[% l('Country') %]</th>
+                    <th>[% l('Date') %]</th>
+                    <th>[% l('Country') %]</th>
                     <th>[% l('Label') %]</th>
-                    <th class="catno">[% l('Catalog#') %]</th>
+                    <th>[% l('Catalog#') %]</th>
                 </tr>
             </thead>
             <tbody>

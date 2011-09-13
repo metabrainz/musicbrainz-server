@@ -50,13 +50,13 @@ augment 'create_edits' => sub
     return $self->release;
 };
 
-override 'prepare_tracklist' => sub {
+after 'prepare_tracklist' => sub {
     my ($self, $release) = @_;
 
     my $json = JSON::Any->new( utf8 => 1 );
 
     my $database_artist = artist_credit_to_ref ($release->artist_credit);
-    my $submitted_artist = $self->get_value ("information", "artist_credit");
+    my $submitted_artist = $self->c->stash->{release_artist};
 
     if (Compare ($database_artist, $submitted_artist))
     {
@@ -67,12 +67,14 @@ override 'prepare_tracklist' => sub {
     {
         # The release artist was changed, provide javascript with the original
         # release artist, so it knows which track artists to update.
-        $self->c->stash->{release_artist_json} = $json->encode (
-            artist_credit_to_ref ($release->artist_credit));
+        $self->c->stash->{release_artist_json} = $json->encode ($database_artist);
     }
 
     $self->c->model('Medium')->load_for_releases($self->release);
-    $self->c->model('MediumCDTOC')->load_for_mediums($self->release->all_mediums);
+    my @medium_cdtocs = $self->c->model('MediumCDTOC')->load_for_mediums(
+        $self->release->all_mediums);
+
+    $self->c->model('CDTOC')->load(@medium_cdtocs);
 };
 
 augment 'load' => sub

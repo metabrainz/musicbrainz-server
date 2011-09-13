@@ -108,9 +108,11 @@
 
         <p>
           [% l('Search:') %]
-          <span class="autocomplete">
-            <input type="text" class="recording" value="[% IF track %][% track.name | html %][% END %]" />
+          <span class="recording autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="text" class="name" value="[% IF track %][% track.name | html %][% END %]" />
+            <input type="hidden" class="id" />
+            <input type="hidden" class="gid" />
           </span>
         </p>
 
@@ -173,8 +175,6 @@
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [%- USE r = FormRenderer(form) -%]
   <div class="changes">
-    [%- r.hidden ('wizard_session_id') -%]
-
     [%- IF confirmation_required -%]
       [%- notice(l('Some tracks were changed, please select a recording for each of these tracks.')) -%]
     [%- END -%]

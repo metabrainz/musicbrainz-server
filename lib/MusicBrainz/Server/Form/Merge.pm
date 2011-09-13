@@ -10,7 +10,7 @@ sub edit_field_names { qw() }
 has '+name' => ( default => 'merge' );
 
 has_field 'target' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1
 );
 
@@ -20,7 +20,7 @@ has_field 'merging' => (
 );
 
 has_field 'merging.contains' => (
-    type => 'Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer'
 );
 
 1;

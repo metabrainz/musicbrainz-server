@@ -13,7 +13,7 @@
     <thead>
         <tr>
             [% IF c.user_exists && !no_prefix %]
-            <th class="check">
+            <th style="width: 1em">
               [% IF select_all %]
                 <input type="checkbox" />
               [% END %]
@@ -23,9 +23,9 @@
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
             [%- END -%]
-            <th class="isrc">[% l('ISRCs') %]</th>
+            <th>[% l('ISRCs') %]</th>
             [% UNLESS no_ratings %]<th class="rating c">[% l('Rating') %]</th>[% END %]
-            <th class="length">[%- l('Length') -%]</th>
+            <th>[%- l('Length') -%]</th>
         </tr>
     </thead>
     <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>

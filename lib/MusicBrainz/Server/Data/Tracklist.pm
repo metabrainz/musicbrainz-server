@@ -119,7 +119,7 @@ sub merge
     my ($self, $new_tracklist_id, $old_tracklist_id) = @_;
     my @recording_merges = @{
         $self->sql->select_list_of_lists(
-            'SELECT newt.recording AS new, oldt.recording AS old
+            'SELECT DISTINCT newt.recording AS new, oldt.recording AS old
                FROM track oldt
                JOIN track newt ON newt.position = oldt.position
               WHERE newt.tracklist = ? AND oldt.tracklist = ?

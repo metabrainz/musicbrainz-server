@@ -9,7 +9,7 @@
     <tr>
       <th class="pos t">[% l('#') %]</th>
       <th>[% l('Track') %]</th>
-      <th class="length">[% l('Length') %]</th>
+      <th class="treleases">[% l('Length') %]</th>
     </tr>
   </thead>
   <tbody>
@@ -62,7 +62,7 @@
       <th class="pos t">[% l('#') %]</th>
       <th>[% l('Track') %]</th>
       <th>[% l('Artist') %]</th>
-      <th class="length">[% l('Length') %]</th>
+      <th class="treleases">[% l('Length') %]</th>
     </tr>
   </thead>
   <tbody>

@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Edit::Historic::RemovePUID;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_PUID );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub ngs_class { 'MusicBrainz::Server::Edit::PUID::Delete' }
 sub edit_name { l('Remove PUID') }

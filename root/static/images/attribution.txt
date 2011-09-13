@@ -120,6 +120,7 @@ Images:
 
 Source:      MusicBrainz
 License:     GPL v2 or later
+Authors:     Contributed to the MetaBrainz Foundation by the BBC.
 
 Images:
 

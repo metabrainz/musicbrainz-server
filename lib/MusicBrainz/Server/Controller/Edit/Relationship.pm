@@ -325,6 +325,8 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
         $c->detach('/error_500');
     }
 
+    my @types = sort ('recording', $type);
+
     $c->model('Medium')->load_for_releases($release);
     $c->model('MediumFormat')->load($release->all_mediums);
     $c->model('Track')->load_for_tracklists(map { $_->tracklist } $release->all_mediums);
@@ -337,14 +339,18 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
         $c->detach('/error_500');
     }
 
-    my $tree = $c->model('LinkType')->get_tree($type => 'recording');
+    my @ents;
+    my $rec_idx = $types[0] eq 'recording' ? 0 : 1;
+    $ents[1 - $rec_idx] = $dest;
+
+    my $tree = $c->model('LinkType')->get_tree(@types);
     my %type_info = build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(
             template => 'edit/relationship/cannot_create.tt',
-            type0 => $type,
-            type1 => 'recording'
+            type0 => $types[0],
+            type1 => $types[1]
         );
         $c->detach;
     }
@@ -401,10 +407,12 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
 
         for my $recording_id (@recording_ids) {
             my $target = $recordings{$recording_id};
-            next if $c->model('Relationship')->exists($type, 'recording', {
+            $ents[ $rec_idx ] = $target;
+
+            next if $c->model('Relationship')->exists(@types, {
                 link_type_id => $link_type->id,
-                entity0_id   => $dest->id,
-                entity1_id   => $target->id,
+                entity0_id   => $ents[0]->id,
+                entity1_id   => $ents[1]->id,
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,
                 attributes   => \@attributes
@@ -413,10 +421,10 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
             $self->_insert_edit(
                 $c, $form,
                 edit_type    => $EDIT_RELATIONSHIP_CREATE,
-                type0        => $type,
-                type1        => 'recording',
-                entity0      => $dest,
-                entity1      => $target,
+                type0        => $types[0],
+                type1        => $types[1],
+                entity0      => $ents[0],
+                entity1      => $ents[1],
                 link_type    => $link_type,
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,

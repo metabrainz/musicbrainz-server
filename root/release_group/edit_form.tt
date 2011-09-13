@@ -6,7 +6,7 @@
       <legend>[% l('Release Group Details') %]</legend>
       [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
-      [%- form_row_text_long(r, 'comment', l('Comment:')) -%]
+      [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
     </fieldset>
 

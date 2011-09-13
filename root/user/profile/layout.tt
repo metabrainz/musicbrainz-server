@@ -29,9 +29,14 @@
     ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ) -%]
 
-[%- IF c.user.is_admin -%]
+[%- IF c.user.is_account_admin -%]
 [%- info_links.push (
     ['flags', generic_link(c.uri_for_action("/admin/adjust_flags", user.name), l('Adjust Flags'))],
+) -%]
+[%- END -%]
+
+[%- IF c.user.is_account_admin || c.user.id == user.id -%]
+[%- info_links.push (
     ['delete', generic_link(c.uri_for_action("/admin/delete_user", user.name), l('Delete'))],
 ) -%]
 [%- END -%]

@@ -12,9 +12,9 @@
                 <tr>
                     <th class="year c">[% l('Year') %]</th>
                     <th>[% l('Title') %]</th>
-                    <th class="rgtype">[% l('Type') %]</th>
+                    <th>[% l('Type') %]</th>
                     <th class="rating c">[% l('Rating') %]</th>
-                    <th class="releases c">[% l('Releases') %]</th>
+                    <th class="count c">[% l('Releases') %]</th>
                 </tr>
             </thead>
             <tbody>

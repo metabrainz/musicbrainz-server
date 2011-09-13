@@ -7,7 +7,7 @@
         <table class="tbl">
           <thead>
             <tr>
-              <th class="Check"></th>
+              <th style="width: 1em"></th>
               <th>[% l('Artist') %]</th>
             </tr>
           </thead>

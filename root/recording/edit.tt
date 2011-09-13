@@ -9,6 +9,22 @@
       MB.Control.initialize_artist_credit (bubbles);
       MB.Control.initialize_guess_case (bubbles, 'recording');
 
+      $('.artist-credit-box input.name').live ('VariousArtists', function (event) {
+          var $va = $('.artist-credit-box input.name.various-artists');
+
+          if (!$va.length)
+          {
+              $('div.various-artists.warning').hide ();
+          }
+          else
+          {
+              $('div.various-artists.warning').show ();
+          }
+
+      });
+
+      $('.artist-credit-box input.name').trigger ('VariousArtists');
+
     });
   //]]></script>
 [%- END -%]
@@ -18,6 +34,17 @@
    [%- IF no_javascript -%]
      [%- warning( l("Javascript needs to be enabled to edit the Artist field on this page."), "nojavascript" ) -%]
    [%- END -%]
+
+   <div class="various-artists warning" style="display: none;">
+     [%- warning_icon %]
+     <p>
+       [% l('<strong>Warning</strong>:') %]
+       [% l('You have used the {valink|Various Artists} special purpose artist on this recording.', { valink => va_doc_link }) %]
+     </p>
+     <p>
+       [% l('{valink|Various Artists} should not be used on recordings, make sure that the artists has been entered correctly.', { valink => va_doc_link }) %]
+     </p>
+   </div>
 
    [% INCLUDE 'recording/edit_form.tt' %]
 [% END %]

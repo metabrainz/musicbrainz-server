@@ -7,8 +7,7 @@
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
-  [% USE r = FormRenderer(form) %]
-  [% r.hidden ('wizard_session_id') %]
+  [%- USE r = FormRenderer(form) -%]
   <fieldset>
     <legend>[% l('Similar releases') %]</legend>
     <p>[% l('Based on the information you have provided, we have found the

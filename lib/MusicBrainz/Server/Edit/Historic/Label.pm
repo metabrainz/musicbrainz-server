@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::Label;
-use strict;
-use warnings;
+use Moose;
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 use MusicBrainz::Server::Edit::Historic::Utils
     qw(upgrade_date upgrade_id );

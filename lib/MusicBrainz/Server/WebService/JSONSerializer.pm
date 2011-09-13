@@ -83,6 +83,7 @@ sub autocomplete_release_group
             gid => $item->gid,
             comment => $item->comment,
             artist => $item->artist_credit->name,
+            type => $item->type_id,
         };
     };
 

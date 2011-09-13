@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Wizard;
+use Text::Trim qw( trim );
 use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -577,6 +578,19 @@ sub associate_recordings
 sub prepare_tracklist
 {
     my ($self, $release) = @_;
+
+    my $submitted_ac = $self->get_value ("information", "artist_credit");
+
+    my %artist_ids;
+    map { $artist_ids{$_->{artist}->{id}} = 1 }
+    grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
+
+    my $artists = $self->c->model('Artist')->get_by_ids (keys %artist_ids);
+
+    map { $_->{artist}->{gid} = $artists->{$_->{artist}->{id}}->gid }
+    grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
+
+    $self->c->stash->{release_artist} = $submitted_ac;
 }
 
 sub prepare_recordings
@@ -789,21 +803,21 @@ sub _missing_labels {
     $data->{labels} = $self->get_value ('information', 'labels');
 
     return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
-        @{ $data->{labels} };
+        map { $_->{name} = trim $_->{name}; $_ } @{ $data->{labels} };
 }
 
 sub _missing_artist_credits
 {
     my ($self, $data) = @_;
 
-    $data->{artist_credit} = $self->get_value ('information', 'artist_credit');
+    $data->{artist_credit} = clean_submitted_artist_credits($data->{artist_credit});
 
     return
         (
             # Artist credit for the release itself
             grep { !$_->{artist}->{id} }
             grep { ref($_) }
-            @{ clean_submitted_artist_credits($data->{artist_credit})->{names} }
+            @{ $data->{artist_credit}->{names} }
         ),
         (
             # Artist credits on new tracklists
@@ -820,6 +834,8 @@ sub create_edits
 
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
+
+    $data->{artist_credit} = clean_submitted_artist_credits($data->{artist_credit});
 
     $self->_expand_mediums($data);
 
@@ -1239,16 +1255,18 @@ sub _expand_track
 
     for my $i (0..$#names)
     {
-        my $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} } ||
-            $artists_by_id->{ $names[$i]->{artist}->{id} };
+        my $artist = $artists_by_id->{ $names[$i]->{artist}->{id} };
+
+        $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} }
+            if !$artist && $names[$i]->{artist}->{gid};
 
         $names[$i]->{artist} = $artist if $artist;
     }
 
     my $entity = Track->new(
-        length => unformat_track_length ($trk->{length}),
+        length => unformat_track_length ($trk->{length}) // ($assoc ? $assoc->length : undef),
         name => $trk->{name},
-        position => $trk->{position},
+        position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
@@ -1427,6 +1445,11 @@ sub _seed_parameters {
         }
     }
 
+
+    $params->{mediums} = [ map {
+        defined $_ ? $_ : { position => 1 }
+    } @{ $params->{mediums} || [] } ];
+
     for my $container (
         $params,
         map { @{ $_->{track} || [] } }
@@ -1461,7 +1484,7 @@ sub _seed_parameters {
     }
 
     {
-        my $medium_idx;
+        my $medium_idx = 0;
         my $json = JSON::Any->new(utf8 => 1);
         for my $medium (@{ $params->{mediums} || [] }) {
             if (my $format = delete $medium->{format}) {
@@ -1512,7 +1535,7 @@ sub _seed_parameters {
                         ];
 
                         $track->{artist_credit}{preview} = join (
-                            "", map { $_->{name} . $_->{join_phrase}
+                            "", map { $_->{name} // "" . $_->{join_phrase} // ""
                             } @{$track_ac->{names}});
                     }
 
@@ -1562,10 +1585,6 @@ sub _seed_parameters {
     $params->{labels} = [
         { label => '', catalog_number => '' }
     ] unless @{ $params->{labels}||[] };
-
-    $params->{mediums} = [
-        { position => 1 },
-    ] unless @{ $params->{mediums}||[] };
 
     $params->{seeded} = 1;
 

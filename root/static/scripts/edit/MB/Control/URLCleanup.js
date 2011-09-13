@@ -46,6 +46,12 @@ MB.constants.LINK_TYPES = {
     purevolume: {
         artist: 174
     },
+    allmusic: {
+        artist: 283,
+        release_group: 284,
+        work: 286,
+        recording: 285
+    },
     amazon: {
         release: 77
     },
@@ -73,6 +79,13 @@ MB.constants.LINK_TYPES = {
     },
     review: {
         release_group: 94
+    },
+    score: {
+        release_group: 92,
+        work: 274
+    },
+    secondhandsongs: {
+        work: 280
     },
     socialnetwork: {
         artist: 192,
@@ -233,11 +246,22 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
         type: MB.constants.LINK_TYPES.review
     },
+    score: {
+        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/)", "i"),
+        type: MB.constants.LINK_TYPES.score
+    },
+    secondhandsongs: {
+        match: new RegExp("^(https?://)?([^/]+\.)?secondhandsongs\\.com/", "i"),
+        type: MB.constants.LINK_TYPES.secondhandsongs
+    },
     socialnetwork: {
-        match: new RegExp("^(https?://)?([^/]+\.)?facebook\\.com/", "i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
+            url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
+            return url;
         }
     },
     vgmdb: {
@@ -285,6 +309,19 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
         return $('#id-ar\\.url').val().match(/\/(release|mp3)\//) != null;
+    }
+    // allow Allmusic page only for the correct entities
+    validationRules[ MB.constants.LINK_TYPES.allmusic.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(artist)\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/\/album\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.work ] = function() {
+        return $('#id-ar\\.url').val().match(/\/work|song\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(performance)\//) != null;
     }
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {

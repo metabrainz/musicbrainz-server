@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Edit::Historic::EditLink;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_type );
@@ -13,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
-use base 'MusicBrainz::Server::Edit::Historic::Relationship';
+extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
 sub edit_name     { l('Edit relationship (historic)') }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK }

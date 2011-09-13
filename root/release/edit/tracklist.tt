@@ -9,11 +9,16 @@
 
        MB.release_artist_json = [% release_artist_json %];
        MB.medium_cdtocs = [
-       [%- FOR medium=release.mediums -%]
-           [% medium.cdtocs.size %],
-       [%- END -%]
+           [%- FOR medium=release.mediums -%]
+             [%- IF medium.cdtocs.size -%]
+               [%- medium.cdtocs.0.cdtoc.track_count -%],
+             [%- ELSE -%]
+               null,
+             [%- END -%]
+           [%- END -%]
            null
        ];
+
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
@@ -26,14 +31,14 @@
   //]]></script>
 [%- END -%]
 
-[%- MACRO artist_credit_row(acfield) BLOCK -%]
+[%- MACRO artist_credit_row(release_artist) BLOCK -%]
 <table class="artist-credit bubble" style="width: 100%">
   <thead>
     <tr class="artist-credit-preview">
       <td colspan="4">
         <div class="row">
           <label>[% l('Preview') %]</label>
-          <span class="artist-credit-preview">[% artist_credit(acfield.item) %]</span>
+          <span class="artist-credit-preview">[% artist_credit(release_artist) %]</span>
         </div>
       </td>
     </tr>
@@ -47,23 +52,22 @@
   </thead>
   <tbody>
 
-  [%- FOR ac=acfield.field('names').fields -%]
+  [%- FOR ac=release_artist.names -%]
     [%- artistnum = loop.index -%]
-    [%- artist = ac.field('artist') -%]
     <tr class="artist-credit-box">
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
-          <input type="text" class="name" value="[% artist.field('name').value | html %]" />
+          <input type="text" class="name" value="[% ac.artist.name | html %]" />
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
-        <input type="hidden" class="gid" value="[% artist.item.gid | html %]" />
-        <input type="hidden" class="id" value="[% artist.field('id').value | html %]" />
+        <input type="hidden" class="gid" value="[% ac.artist.gid | html %]" />
+        <input type="hidden" class="id" value="[% ac.artist.id | html %]" />
       </td>
       <td class="artistcredit">
-        <input type="text" class="credit" value="[% ac.field('name').value | html %]" />
+        <input type="text" class="credit" value="[% ac.name | html %]" />
       </td>
       <td class="joinphrase">
-        <input type="text" class="join" value="[% ac.field('join_phrase').value | html %]" />
+        <input type="text" class="join" value="[% ac.join_phrase | html %]" />
       </td>
       <td class="icon">
         <input type="button" class="icon remove-artist-credit"
@@ -115,18 +119,16 @@
   [% USE r = FormRenderer(form) %]
   [% USE w = Wizard() %]
   [% information = w.page ('information') %]
-  [% release_artist = information.field('artist_credit') %]
 
-   <div class="various-artists warning" style="display: none; width: 50em;">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
-     [%- va_doc_link = '<a target="_blank" href="' _ c.uri_for('/doc/Style/Unknown_and_untitled/Special_purpose_artist') _ '#List_of_official_SPAs">Various Artists</a>' -%]
+   <div class="various-artists warning" style="display: none;">
+     [%- warning_icon %]
      <p>
        [% l('<strong>Warning</strong>:') %]
-       [% l('You have used the {valink} special purpose artist on:', { valink => va_doc_link }) %]
+       [% l('You have used the {valink|Various Artists} special purpose artist on:', { valink => va_doc_link }) %]
      </p>
      <ul> </ul>
      <p>
-       [% l('{valink} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
+       [% l('{valink|Various Artists} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
      </p>
   </div>
 
@@ -246,7 +248,6 @@
   </div>
 
   <div class="half-width basic-tracklist">
-    [%- r.hidden ('wizard_session_id') -%]
     [%- r.hidden ('seeded', class => "seeded") -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>

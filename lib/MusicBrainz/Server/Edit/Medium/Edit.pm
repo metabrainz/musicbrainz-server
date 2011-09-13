@@ -340,24 +340,27 @@ sub accept {
             @merged_lengths == @merged_artist_credits
         } 'Merged properties are all the same length';
 
-        if(values %{ $self->c->model('Recording')->get_by_ids(@merged_recordings) }
-               != @$data_new_tracklist - $new_recording_count) {
-            MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                  ->throw('This edit changes recording IDs, but some of the recordings no longer exist.');
-        }
-
         # Create the final merged tracklist
         my @final_tracklist;
+        my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
         while(1) {
             last unless @merged_artist_credits &&
                         @merged_lengths &&
                         @merged_recordings &&
                         @merged_names;
+
             my $length = shift(@merged_lengths);
+            my $recording_id = shift(@merged_recordings);
+
+            if (defined($recording_id) && $recording_id > 0 && !$existing_recordings->{$recording_id}) {
+                MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('This edit changes recording IDs, but some of the recordings no longer exist.');
+            }
+
             push @final_tracklist, {
                 name => shift(@merged_names),
                 length => $length eq $UNDEF_MARKER ? undef : $length,
-                recording_id => shift(@merged_recordings),
+                recording_id => $recording_id,
                 artist_credit => shift(@merged_artist_credits)
             }
         }

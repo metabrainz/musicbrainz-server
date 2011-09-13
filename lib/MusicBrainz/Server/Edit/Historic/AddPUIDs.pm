@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::AddPUIDs;
-use strict;
-use warnings;
+use Moose;
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 use MusicBrainz::Server::Translation qw ( l ln );
 
 sub edit_name { l('Add PUIDs') }

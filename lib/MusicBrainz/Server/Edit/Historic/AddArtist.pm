@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::AddArtist;
-use strict;
-use warnings;
+use Moose;
 
-use base 'MusicBrainz::Server::Edit::Historic::Artist';
+extends 'MusicBrainz::Server::Edit::Historic::Artist';
 use MusicBrainz::Server::Translation qw ( l ln );
 
 sub edit_name { l('Add artist') }

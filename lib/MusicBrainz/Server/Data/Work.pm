@@ -62,10 +62,10 @@ sub find_by_artist
     my ($self, $artist_id, $limit, $offset) = @_;
 
     my $query =
-        'SELECT link_type, ' . $self->_columns .'
+        'SELECT ' . $self->_columns .'
            FROM (
                     -- Select works that are related to recordings for this artist
-                    SELECT entity1 AS work, NULL as link_type
+                    SELECT entity1 AS work
                       FROM l_recording_work
                       JOIN recording ON recording.id = entity0
                       JOIN artist_credit_name acn
@@ -73,37 +73,22 @@ sub find_by_artist
                      WHERE acn.artist = ?
               UNION
                     -- Select works that this artist is related to
-                    SELECT entity1 AS work, lt.name AS link_type
+                    SELECT entity1 AS work
                       FROM l_artist_work ar
                       JOIN link ON ar.link = link.id
                       JOIN link_type lt ON lt.id = link.link_type
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY link_type NULLS FIRST, musicbrainz_collate(name.name)
+       ORDER BY musicbrainz_collate(name.name)
          OFFSET ?';
 
-    my (%grouped_works, %work_cache);
-
     # We actually use this for the side effect in the closure
-    my (undef, $hits) = query_to_list_limited(
+    return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
-            my $row = shift;
-
-            my $work = $work_cache{ $row->{id} } || do {
-                $work_cache{$row->{id}} = $self->_new_from_row($row);
-            };
-
-            my $group = $row->{link_type} || '';
-            $grouped_works{$group} ||= [];
-            push @{ $grouped_works{$group} }, $work;
+            $self->_new_from_row(shift);
         },
         $query, $artist_id, $artist_id, $offset || 0);
-
-    return ([ map +{
-        link_type => $_,
-        works => $grouped_works{$_}
-    }, sort keys %grouped_works ], $hits);
 }
 
 sub find_by_iswc

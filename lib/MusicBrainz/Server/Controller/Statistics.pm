@@ -4,6 +4,7 @@ use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
 use List::UtilsBy qw( rev_nsort_by );
+use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -37,6 +38,8 @@ sub dataset : Local Args(1)
 {
     my ($self, $c, $dataset) = @_;
 
+    my $tomorrow = Date_to_Time(Add_Delta_Days(Today(1), 1), 0, 0, 0);
+    $c->res->headers->expires($tomorrow);
     $c->stash(
         template => 'statistics/dataset.tt',
         statistic => $c->model('Statistics::ByName')->get_statistic($dataset)

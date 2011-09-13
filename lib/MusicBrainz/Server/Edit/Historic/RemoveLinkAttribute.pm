@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Edit::Historic::RemoveLinkAttribute;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK_ATTR );
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -10,7 +9,7 @@ sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK_ATTR }
 sub historic_type { 43 }
 sub ngs_class     { 'MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute' }
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub do_upgrade
 {

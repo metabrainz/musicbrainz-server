@@ -174,7 +174,7 @@ sub index : Path('')
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form( query_form => 'TagLookup' );
+    my $form = $c->form( query_form => 'TagLookup', name => 'tag-lookup' );
     $c->stash->{taglookup} = $form;
 
     $c->stash->{nag} = $self->nag_check($c);

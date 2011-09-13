@@ -311,12 +311,13 @@ sub move : Local RequireAuth Edit
             message => l('The selected medium cannot have disc IDs')
         ) unless $medium->may_have_discids;
 
-        $c->model('Release')->load($medium);
-        $c->model('ArtistCredit')->load($medium->release);
+        $c->model('Medium')->load($medium_cdtoc);
+
+        $c->model('Release')->load($medium, $medium_cdtoc->medium);
+        $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
         $c->stash( release => $medium->release );
 
-        $medium_cdtoc->medium($medium);
 
         $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,

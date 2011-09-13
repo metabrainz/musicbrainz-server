@@ -11,6 +11,8 @@ has '+maxlength' => (
     default => 255
 );
 
+my %ALLOWED_PROTOCOLS = map { $_ => 1 } qw( http https ftp );
+
 sub validate
 {
     my $self = shift;
@@ -18,12 +20,15 @@ sub validate
     return unless $self->SUPER::validate;
 
     my $url = $self->value;
-    $url = URI->new($url)->canonical->as_string;
+    $url = URI->new($url)->canonical;
 
     return $self->add_error(l('Enter a valid url e.g. "http://google.com/"'))
-        unless is_valid_url($url);
+        unless is_valid_url($url->as_string);
 
-    $self->_set_value($url);
+    return $self->add_error(l('URL protocol must be HTTP, HTTPS or FTP'))
+        unless exists $ALLOWED_PROTOCOLS{ lc($url->scheme) };
+
+    $self->_set_value($url->as_string);
 }
 
 sub deflate {
