@@ -564,7 +564,9 @@ table.tbl tr.ev th {
     background: #F2F2F2;
 }
 
-table.tbl .pos { width: 1em; }
+table.tbl .pos { width: 1em; white-space: nowrap; }
+table.tbl th { word-break: keep-all; white-space: nowrap; }
+
 table.tbl .year { width: 4em; }
 table.tbl .count { width: 2em; }
 table.tbl .rating { width: 50px; }
