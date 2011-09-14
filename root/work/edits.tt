@@ -4,7 +4,9 @@
             $('.edit-list').each(function() {
                 MB.Control.EditSummary(this);
             });
-            MB.Control.EditList('#edits');
+            [% IF c.user.is_auto_editor %]
+              MB.Control.EditList('#edits');
+            [% END %]
         });
     //]]></script>
 [% END %]
