@@ -379,10 +379,22 @@ sub accept {
 
         # Create recordings
         for my $track (@final_tracklist) {
-            $track->{recording_id} ||= $self->c->model('Recording')->insert({
-                %$track,
-                artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
-            })->id;
+            if (!$track->{recording_id}) {
+                $track->{recording_id} = $self->c->model('Recording')->insert({
+                    %$track,
+                    artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
+                })->id;
+
+                # XXX HACK - need a better way to know if the edit has been inserted or not!
+                if ($self->created_time) {
+                    # We are in the processing of closing this edit. The edit exists, so we need to add a new link
+                    $self->c->model('Edit')->add_link('recording', $track->{recording_id}, $self->id);
+                }
+                else {
+                    # This edit is being entered as an auto-edit. Add the recording to the related entites
+                    push @{ $self->related_entities->{recording} }, $track->{recording_id};
+                }
+            }
         }
 
         # See if we need a new tracklist
