@@ -36,6 +36,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Edit');
 cmp_set($edit->related_entities->{artist}, [ 1, 2 ]);
 cmp_set($edit->related_entities->{release}, [ 1 ]);
 cmp_set($edit->related_entities->{release_group}, [ 1 ]);
+cmp_set($edit->related_entities->{recording}, [ 1 ]);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $medium = $c->model('Medium')->get_by_id(1);

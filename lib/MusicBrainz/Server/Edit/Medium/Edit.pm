@@ -82,6 +82,16 @@ around _build_related_entities => sub {
                 : $type eq '+' ? ($newt)
                 :                ($oldt)
             } @changes;
+
+        push @{ $related->{recording} },
+            grep { defined }
+            map {
+                my ($type, $oldt, $newt) = @$_;
+                map { $_->{recording_id} }
+                $type eq 'c' ? ($newt, $oldt) :
+                $type eq '+' ? ($newt)
+                             : ($oldt)
+            } @changes;
     }
 
     return $related;
