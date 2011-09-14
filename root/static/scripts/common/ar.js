@@ -82,7 +82,7 @@ $(function() {
             i = select.selectedIndex + direction;
         }
         while (i >= 0 && i < select.options.length) {
-            if (select.options[i].text.toLowerCase().indexOf(filterValue) != -1) {
+            if (select.options[i].dataset['unaccented'].toLowerCase().indexOf(filterValue) != -1) {
                 select.selectedIndex = i;
                 return;
             }
