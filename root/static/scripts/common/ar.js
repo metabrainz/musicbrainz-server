@@ -86,6 +86,11 @@ $(function() {
                 select.selectedIndex = i;
                 return;
             }
+            else if (select.options[i].text.toLowerCase().indexOf(filterValue) != -1) {
+                select.selectedIndex = i;
+                return;
+            }
+
             i += direction;
         }
     }
