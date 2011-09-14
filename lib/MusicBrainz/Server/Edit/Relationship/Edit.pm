@@ -362,8 +362,13 @@ sub accept
     );
 
     if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
+        my $relationship = $self->c->model('Relationship')->get_by_id(
+            $data->{type0}, $data->{type1},
+            $data->{relationship_id}
+        );
+
         my $release = $self->c->model('Release')->get_by_id(
-            $values->{entity0_id}
+            $relationship->entity0_id
         );
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
