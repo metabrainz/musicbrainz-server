@@ -108,7 +108,7 @@ sub target_key
 
 sub _join_attrs
 {
-    my @attrs = map { lc $_ } @{$_[0]};
+    my @attrs = map { $_ } @{$_[0]};
     if (scalar(@attrs) > 1) {
         my $a = pop(@attrs);
         my $b = join(", ", @attrs);
@@ -141,8 +141,8 @@ sub _interpolate
     my @attrs = $self->link->all_attributes;
     my %attrs;
     foreach my $attr (@attrs) {
-        my $name = lc $attr->root->name;
-        my $value = lc $attr->name;
+        my $name = $attr->root->name;
+        my $value = $attr->name;
         if (exists $attrs{$name}) {
             push @{$attrs{$name}}, $value;
         }
