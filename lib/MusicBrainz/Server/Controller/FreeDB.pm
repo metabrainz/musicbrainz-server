@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Controller::FreeDB;
 
 use Moose;
+use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Validation qw( is_freedb_id );
 use TryCatch;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
@@ -15,12 +17,18 @@ sub base : Chained('/') PathPart('freedb') CaptureArgs(0) { }
 sub _load {
     my ($self, $c, $category, $id) = @_;
 
-    try {
-        return $c->model('FreeDB')->lookup($category, $id);
+    if (is_freedb_id($id)) {
+        try {
+            return $c->model('FreeDB')->lookup($category, $id);
+        }
+        catch (MusicBrainz::Server::Exceptions::InvalidInput $e) {
+            $c->stash( message => $e->message );
+            $c->detach('/error_500');
+        };
     }
-    catch (MusicBrainz::Server::Exceptions::InvalidInput $e) {
-        $c->stash( message => $e->message );
-        $c->detach('/error_500');
+    else {
+        $c->stash( message  => l("'{id}' is not a valid FreeDB ID", { id => $id }) );
+        $c->detach('/error_400');
     }
 }
 
