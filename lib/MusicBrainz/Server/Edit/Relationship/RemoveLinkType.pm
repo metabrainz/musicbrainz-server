@@ -50,6 +50,11 @@ sub allow_auto_edit { 1 }
 
 sub accept {
     my $self = shift;
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This relationship type is currently in use'
+    ) if $self->c->model('LinkType')->in_use($self->data->{link_type_id});
+
     $self->c->model('LinkType')->delete($self->data->{link_type_id});
 }
 
