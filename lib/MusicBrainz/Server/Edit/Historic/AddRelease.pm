@@ -82,22 +82,31 @@ sub build_display_data
     my ($self, $loaded) = @_;
     return {
         name           => $self->data->{name},
-        artist         => $loaded->{Artist}->{ $self->data->{artist_id} },
-        releases       => [ map { $loaded->{Release}->{ $_ } } $self->_release_ids ],
-        status         => $loaded->{ReleaseStatus}->{ $self->data->{status_id} },
-        type           => $loaded->{ReleaseGroupType}->{ $self->data->{type_id} },
-        language       => $loaded->{Language}->{ $self->data->{language_id} },
-        script         => $loaded->{Script}->{ $self->data->{script_id} },
+        artist         => defined($self->data->{artist_id}) &&
+                            $loaded->{Artist}->{ $self->data->{artist_id} },
+        releases       => [
+            map { $loaded->{Release}->{ $_ } } grep { defined } $self->_release_ids
+        ],
+        status         => defined($self->data->{status_id}) &&
+                            $loaded->{ReleaseStatus}->{ $self->data->{status_id} },
+        type           => defined($self->data->{type_id}) &&
+                            $loaded->{ReleaseGroupType}->{ $self->data->{type_id} },
+        language       => defined($self->data->{language_id}) &&
+                            $loaded->{Language}->{ $self->data->{language_id} },
+        script         => defined($self->data->{script_id}) &&
+                            $loaded->{Script}->{ $self->data->{script_id} },
         release_events => [
             map { +{
-                country        => $loaded->{Country}->{ $_->{country_id} },
+                country        => defined($_->{country_id}) &&
+                                    $loaded->{Country}->{ $_->{country_id} },
                 date           => partial_date_from_row( $_->{date} ),
                 label          => $_->{label_id}
                     ? ($loaded->{Label}->{ $_->{label_id} } || Label->new( id => $_->{label_id} ))
                     : undef,
                 catalog_number => $_->{catalog_number},
                 barcode        => $_->{barcode},
-                format         => $loaded->{MediumFormat}->{ $_->{format_id} }
+                format         => defined($_->{format_id}) &&
+                                    $loaded->{MediumFormat}->{ $_->{format_id} }
             } } $self->_release_events
         ],
         tracks => [
@@ -112,7 +121,8 @@ sub build_display_data
                     artist    => $track_artist,
                     length    => $_->{length},
                     position  => $_->{position},
-                    recording => $loaded->{Recording}->{ $_->{recording_id} }
+                    recording => defined($_->{recording_id}) &&
+                                   $loaded->{Recording}->{ $_->{recording_id} }
                 } } sort { $a->{position} <=> $b->{position} } $self->_tracks
         ]
     }
