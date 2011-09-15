@@ -13,7 +13,7 @@ sub search : Path('')
     my ($self, $c) = @_;
 
     $c->req->query_params->{type} = 'recording'
-        if $c->req->query_params->{type} eq 'track';
+        if exists $c->req->query_params->{type} && $c->req->query_params->{type} eq 'track';
 
     $c->req->query_params->{advanced} = $c->req->query_params->{adv}
         if exists $c->req->query_params->{adv};
