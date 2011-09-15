@@ -50,6 +50,8 @@ sub _escape
 {
 	my $t = $_[0];
 
+    return '' unless defined($t);
+
     # Remove control characters as they cause XML to not be parsed
     $t =~ s/[\x00-\x08\x0A-\x0C\x0E-\x1A]//g;
 
