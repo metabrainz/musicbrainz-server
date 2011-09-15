@@ -101,10 +101,12 @@ sub foreign_keys
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
-    $relations->{ReleaseGroup} = {
-        $self->data->{new}{release_group_id} => [ 'ArtistCredit' ],
-        $self->data->{old}{release_group_id} => [ 'ArtistCredit' ]
-    };
+    if ($self->data->{new}{release_group_id}) {
+        $relations->{ReleaseGroup} = {
+            $self->data->{new}{release_group_id} => [ 'ArtistCredit' ],
+            $self->data->{old}{release_group_id} => [ 'ArtistCredit' ]
+        }
+    }
 
     return $relations;
 }
