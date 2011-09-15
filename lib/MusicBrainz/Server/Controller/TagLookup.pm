@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Form::TagLookup;
-use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Search qw( alias_query escape_query );
 
 use constant LOOKUPS_PER_NAG => 5;
 
@@ -108,9 +108,9 @@ sub nag_check
 
 sub puid : Private
 {
-    my ($self, $c) = @_;
+    my ($self, $c, $form) = @_;
 
-    my $puid = $c->stash->{taglookup}->field('puid')->value();
+    my $puid = $form->field('puid')->value();
     my @releases = $c->model('Release')->find_by_puid($puid);
 
     $c->model('ArtistCredit')->load(@releases);
@@ -125,48 +125,65 @@ sub puid : Private
 
 sub external : Private
 {
-    my ($self, $c) = @_;
+    my ($self, $c, $form) = @_;
 
-    my $form = $c->stash->{taglookup};
     my @terms;
     my $parsed = _parse_filename($form->field('filename')->value());
-    my $mapping = { artist => 'artist', track => 'track', release => 'release',
-                    dur => 'duration', tnum => 'tracknum' };
+    my $term_to_field = {
+        artist => 'artist',
+        recording => 'track',
+        release => 'release',
+        dur => 'duration',
+        tnum => 'tracknum'
+    };
 
-    while (my ($term, $field) = each %$mapping)
+    # Collect all the terms we have
+    my %terms;
+    while (my ($term, $field) = each %$term_to_field)
     {
         if ($form->field($field)->value())
         {
-            push @terms, "$term:".MusicBrainz::Server::Data::Search::escape_query($form->field($field)->value());
+            $terms{$term} = $form->field($field)->value();
         }
         elsif ($parsed->{$field})
         {
-            push @terms, "$term:".MusicBrainz::Server::Data::Search::escape_query($parsed->{$field})
+            $terms{$term} = $parsed->{$field};
         }
     }
 
-    my $type = "release";
-    my $query = join (" ", @terms);
-    my $limit = 25;
-    my $page   = $c->request->query_params->{page} || 1;
-    my $adv = 1;
-    my $ua;
-
-    my $ret = $c->model('Search')->external_search($type, $query, $limit, $page, $adv);
-    if (exists $ret->{error})
-    {
-        if ($ret->{code} == 400 || $ret->{code} == 404)
-        {
-            $c->stash->{results} = [];
-            return;
+    my @search_modifiers;
+    for my $term (keys %terms) {
+        if ($term eq 'artist') {
+            push @search_modifiers, alias_query('artist', $terms{$term});
         }
-
-        $c->detach ('/error_500');
+        else {
+            push @search_modifiers, "$term:" . q{"} . escape_query($terms{$term}) . q{"};
+        }
     }
 
-    $c->stash->{pager}    = $ret->{pager};
-    $c->stash->{offset}   = $ret->{offset};
-    $c->stash->{results}  = $ret->{results};
+    # Try and find the most exact search
+    my $type;
+    if ($terms{recording} || $terms{tnum} || $terms{dur}) {
+        $type = 'recording'
+    }
+    elsif ($terms{release}) {
+        $type = 'release'
+    }
+    elsif ($terms{artist}) {
+        $type = 'artist'
+    }
+    else {
+        $c->detach('not_found');
+    }
+
+    $c->response->redirect(
+        $c->uri_for_action(
+            '/search/search', {
+                query => join(' ', @search_modifiers),
+                type => $type,
+                advanced => 1
+            }));
+    $c->detach;
 }
 
 
@@ -174,17 +191,19 @@ sub index : Path('')
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form( query_form => 'TagLookup', name => 'tag-lookup' );
-    $c->stash->{taglookup} = $form;
-
-    $c->stash->{nag} = $self->nag_check($c);
+    my $form = $c->form( tag_lookup => 'TagLookup', name => 'tag-lookup' );
+    $c->stash( nag => $self->nag_check($c) );
 
     return unless $form->submitted_and_valid( $c->req->query_params );
 
-    $c->stash->{template} = 'taglookup/results-release.tt';
+    $c->stash( template => 'taglookup/results-release.tt' );
 
-    $c->detach('puid') if ($form->field('puid')->value());
-    $c->detach('external');
+    if ($form->field('puid')->value()) {
+        $self->puid($c, $form);
+    }
+    else {
+        $self->external($c, $form);
+    }
 }
 
 1;
