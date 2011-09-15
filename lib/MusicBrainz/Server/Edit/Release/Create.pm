@@ -58,16 +58,22 @@ after 'initialize' => sub {
 sub foreign_keys
 {
     my $self = shift;
-    return {
+    my $fks = {
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
         Country          => [ $self->data->{country_id} ],
-        Release          => { $self->entity_id => [ 'ArtistCredit' ] },
         ReleaseStatus    => [ $self->data->{status_id} ],
-        ReleaseGroup     => { $self->data->{release_group_id} => [ 'ArtistCredit' ] },
         ReleasePackaging => [ $self->data->{packaging_id} ],
         Script           => [ $self->data->{script_id} ],
         Language         => [ $self->data->{language_id} ],
     };
+
+    unless ($self->preview) {
+        # May be undef if previewing and creating a new release group
+        $fks->{ReleaseGroup} = { $self->data->{release_group_id} => [ 'ArtistCredit' ] };
+        $fks->{Release} = { $self->entity_id => [ 'ArtistCredit' ] };
+    }
+
+    return $fks;
 }
 
 sub build_display_data
@@ -82,15 +88,23 @@ sub build_display_data
         artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
-        country       => $loaded->{Country}{ $self->data->{country_id} },
-        packaging     => $loaded->{ReleasePackaging}{ $self->data->{packaging_id} },
-        status        => $status ? $loaded->{ReleaseStatus}->{ $status } : '',
-        script        => $script ? $loaded->{Script}{ $script } : '',
-        language      => $lang ? $loaded->{Language}{ $lang } : '',
+        country       => defined($self->data->{country_id}) &&
+                           $loaded->{Country}{ $self->data->{country_id} },
+        packaging     => defined($self->data->{packaging_id}) &&
+                           $loaded->{ReleasePackaging}{ $self->data->{packaging_id} },
+        status        => defined($status) &&
+                           $loaded->{ReleaseStatus}->{ $status },
+        script        => defined($script) &&
+                           $loaded->{Script}{ $script },
+        language      => defined($lang) &&
+                           $loaded->{Language}{ $lang },
         barcode       => $self->data->{barcode} || '',
-        release_group => $loaded->{ReleaseGroup}{ $self->data->{release_group_id} } || ReleaseGroup->new( name => '[removed]' ),
-        release       => $loaded->{Release}{ $self->entity_id } ||
-            Release->new( name => $self->data->{name} ),
+        release_group => (defined($self->data->{release_group_id}) &&
+                           $loaded->{ReleaseGroup}{ $self->data->{release_group_id} }) ||
+                               ReleaseGroup->new( name => '[removed]' ),
+        release       => (defined($self->entity_id) &&
+                              $loaded->{Release}{ $self->entity_id }) ||
+                                  Release->new( name => $self->data->{name} ),
         date          => PartialDate->new({
             map { $_ => $self->data->{date}{$_} } qw( year month day )
         })
