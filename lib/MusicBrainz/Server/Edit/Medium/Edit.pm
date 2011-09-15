@@ -295,6 +295,12 @@ sub hash_artist_credit {
 sub accept {
     my $self = shift;
 
+    if (!$self->c->model('Medium')->get_by_id($self->entity_id)) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This edit cannot be applied, as the medium being edited no longer exists.'
+        )
+    }
+
     $self->c->model('Medium')->update($self->entity_id, $self->data->{new});
 
     if ($self->data->{new}{tracklist}) {
