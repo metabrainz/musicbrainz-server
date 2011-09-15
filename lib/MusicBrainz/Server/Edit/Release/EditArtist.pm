@@ -134,6 +134,13 @@ sub accept {
     verify_artist_credits($self->c, $self->data->{new_artist_credit});
 
     my $release = $self->c->model('Release')->get_by_id($self->data->{release}{id});
+
+    if (!$release) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            l('This edit cannot be applied, as the release being edited no longer exists.')
+        );
+    }
+
     my $old_ac_id = $release->artist_credit_id;
 
     my $new_ac_id = $self->c->model('ArtistCredit')->find_or_insert(
