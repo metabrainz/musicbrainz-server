@@ -13,7 +13,7 @@
              MusicBrainz') %]</p>
   [% END %]
 
-  [% IF r.u-ecdstubtoc %]
+  [% IF r.cdstubtoc %]
   <h2>[% l('CD Stub found') %]</h2>
   <p>[% l('A CD Stub was found that matches the disc ID you provided. If the below tracklist
            appears correct, you may use it as a starting point as a new MusicBrainz release') %]</p>
