@@ -174,10 +174,10 @@ sub foreign_keys {
     $fk{MediumFormat} = {};
 
     $fk{MediumFormat}->{$self->data->{old}{format_id}} = []
-        if exists $self->data->{old}{format_id};
+        if defined $self->data->{old}{format_id};
 
     $fk{MediumFormat}->{$self->data->{new}{format_id}} = []
-        if exists $self->data->{new}{format_id};
+        if defined $self->data->{new}{format_id};
 
     my @tracks;
     push @tracks, @{ $self->data->{old}{tracklist} }
@@ -205,8 +205,10 @@ sub build_display_data
 
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
-            new => $loaded->{MediumFormat}->{ $self->data->{new}{format_id} },
-            old => $loaded->{MediumFormat}->{ $self->data->{old}{format_id} }
+            new => defined($self->data->{new}{format_id}) &&
+                     $loaded->{MediumFormat}->{ $self->data->{new}{format_id} },
+            old => defined($self->data->{old}{format_id}) &&
+                     $loaded->{MediumFormat}->{ $self->data->{old}{format_id} }
         };
     }
 
