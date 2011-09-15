@@ -56,7 +56,7 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         return;
     }
 
-    if ($c->req->query_params->{cdstubs} eq 'yes' || !exists $c->req->query_params->{cdstubs})
+    if (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes')
     {
         my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($id);
         if ($cd_stub_toc) {
