@@ -11,10 +11,13 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Change release group') }
 sub edit_type { $EDIT_RELEASE_MOVE }
+
+sub release_id { shift->data->{release}{id} }
 
 has '+data' => (
     isa => Dict[
@@ -38,14 +41,6 @@ sub alter_edit_pending
     my $self = shift;
     return {
         Release => [ $self->data->{release}{id} ],
-    }
-}
-
-sub _build_related_entities
-{
-    my $self = shift;
-    return {
-        release => [ $self->data->{release}{id} ],
     }
 }
 
