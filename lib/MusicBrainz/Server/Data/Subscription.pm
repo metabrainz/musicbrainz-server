@@ -2,7 +2,12 @@ package MusicBrainz::Server::Data::Subscription;
 
 use Moose;
 use Sql;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw(
+    is_special_artist
+    is_special_label
+    placeholders
+    query_to_list
+);
 
 with 'MusicBrainz::Server::Data::Role::NewFromRow';
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -42,6 +47,9 @@ sub _column_mapping {
 sub subscribe
 {
     my ($self, $user_id, $id) = @_;
+
+    return if $self->column eq 'artist' && is_special_artist($id);
+    return if $self->column eq 'label'  && is_special_label($id);
 
     my $table = $self->table;
     my $column = $self->column;
@@ -145,6 +153,9 @@ sub merge_entities
 
     my $column = $self->column;
     my $table = $self->table;
+
+    return if $self->column eq 'artist' && is_special_artist($new_id);
+    return if $self->column eq 'label'  && is_special_label($new_id);
 
     $self->sql->do(
         "INSERT INTO $table (editor, $column, last_edit_sent)

@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
+use MusicBrainz::Server::Data::Utils qw( is_special_artist );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Form::Artist;
@@ -423,7 +423,7 @@ around _validate_merge => sub {
     my ($orig, $self, $c, $form, $merger) = @_;
     return unless $self->$orig($c, $form, $merger);
     my $target = $form->field('target')->value;
-    if (grep { is_special_purpose($_) && $target != $_ } $merger->all_entities) {
+    if (grep { is_special_artist($_) && $target != $_ } $merger->all_entities) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
         return 0;
     }
