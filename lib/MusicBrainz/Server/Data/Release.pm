@@ -159,7 +159,7 @@ sub find_by_label
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $label_id, $offset || 0);
+        $query, $label_id, @$statuses, @$types, $offset || 0);
 }
 
 sub find_by_disc_id
