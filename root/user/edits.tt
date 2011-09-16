@@ -12,7 +12,7 @@
     //]]></script>
 [% END %]
 
-[% WRAPPER 'user/profile/layout.tt' title=l('Edits') %]
+[% WRAPPER 'user/profile/layout.tt' title=l('Edits') page=c.action.name _ "_edits" %]
    <h2>[% l('Edits by {name}', { name => html_escape(user.name) }) %]</h2>
    [% INCLUDE 'edit/list.tt' guess_search=1 %]
 [% END %]
