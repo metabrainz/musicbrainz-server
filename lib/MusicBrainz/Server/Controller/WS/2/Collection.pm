@@ -87,9 +87,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
             unless MusicBrainz::Server::Validation::IsGUID($gid);
     }
 
-    my %releases = map {
-        $_->gid => $_
-    } values %{ $c->model('Release')->get_by_gids(@gids) };
+    my %releases = %{ $c->model('Release')->get_by_gids(@gids) };
 
     if ($c->req->method eq 'PUT') {
         $self->deny_readonly($c);
