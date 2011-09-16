@@ -10,7 +10,7 @@
         [% END %]
       </ul>
     [% ELSE %]
-      [% edit.display_data.name | html %]
+      [% link_deleted({ name => edit.display_data.name }) %]
     [% END %]
   </td>
   <tr>
