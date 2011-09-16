@@ -161,6 +161,7 @@ sub merge_entities
         "INSERT INTO $table (editor, $column, last_edit_sent)
          SELECT DISTINCT editor, ?::INTEGER, max(last_edit_sent)
            FROM $table t1
+       GROUP BY editor, $column
           WHERE $column IN (" . placeholders(@old_ids) . ")
             AND NOT EXISTS (
                 SELECT 1 FROM $table t2
