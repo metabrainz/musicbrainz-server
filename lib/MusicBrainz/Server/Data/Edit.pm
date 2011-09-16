@@ -264,7 +264,7 @@ sub subscribed_editor_edits {
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY id DESC
+       ORDER BY open_time ASC
          OFFSET ?';
 
     return query_to_list_limited(
