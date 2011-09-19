@@ -91,7 +91,7 @@ sub accept
     # Build related entities *before* deleting this medium, so we know which
     # release/rg/etc to relate to. However, this does not need to run for
     # edits that are already inserted.
-    if (!$self->open_time) {
+    if (!$self->created_time) {
         $self->related_entities;
     }
 
