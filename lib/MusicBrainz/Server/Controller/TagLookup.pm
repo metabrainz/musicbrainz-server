@@ -194,7 +194,14 @@ sub index : Path('')
     my $form = $c->form( tag_lookup => 'TagLookup', name => 'tag-lookup' );
     $c->stash( nag => $self->nag_check($c) );
 
-    return unless $form->submitted_and_valid( $c->req->query_params );
+    my $mapped_params = {
+        map {
+            ("tag-lookup.$_" => $c->req->query_params->{"tag-lookup.$_"} //
+                                $c->req->query_params->{$_})
+        } qw( artist release tracknum track duration filename puid )
+    };
+
+    return unless $form->submitted_and_valid( $mapped_params );
 
     $c->stash( template => 'taglookup/results-release.tt' );
 
