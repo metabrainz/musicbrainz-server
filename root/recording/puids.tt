@@ -10,7 +10,7 @@
                     [% IF c.user_exists %]
                         <th style="width: 5em">
                             [% l('Actions') %]
-                        </td>
+                        </th>
                     [% END %]
                 </tr>
             </thead>
