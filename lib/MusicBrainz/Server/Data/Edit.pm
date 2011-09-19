@@ -281,18 +281,18 @@ sub merge_entities
     my @ids = ($new_id, @old_ids);
     $self->sql->do(
         "DELETE FROM edit_$type
-         WHERE (edit, artist) IN (
-             SELECT edits.edit, edits.artist
+         WHERE (edit, $type) IN (
+             SELECT edits.edit, edits.$type
              FROM (
-               SELECT * FROM edit_artist
-               WHERE artist IN (" . placeholders(@ids) . ")
+               SELECT * FROM edit_$type
+               WHERE $type IN (" . placeholders(@ids) . ")
              ) edits,
              (
-               SELECT DISTINCT ON (edit) edit, artist
-               FROM edit_artist
-               WHERE artist IN (" . placeholders(@ids) . ")
+               SELECT DISTINCT ON (edit) edit, $type
+               FROM edit_$type
+               WHERE $type IN (" . placeholders(@ids) . ")
              ) keep
-             WHERE edits.edit = keep.edit AND edits.artist != keep.artist
+             WHERE edits.edit = keep.edit AND edits.$type != keep.$type
          )",
         @ids, @ids);
 
