@@ -12,8 +12,8 @@ test 'Can create a URL relationship' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+relationships');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO link_type (id, child_order, gid, entity_type0, entity_type1, name, link_phrase, short_link_phrase,
-                       reverse_link_phrase)
-    VALUES (42, 0, 'f8673e29-02a5-47b7-af61-dd4519328dd0', 'recording', 'url', 'review', 'review', 'review', 'review');
+                       reverse_link_phrase, description)
+    VALUES (42, 0, 'f8673e29-02a5-47b7-af61-dd4519328dd0', 'recording', 'url', 'review', 'review', 'review', 'review', 'desc');
 INSERT INTO
     editor ( id, name, password, privs, email, website, bio,
              email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
