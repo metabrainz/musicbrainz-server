@@ -9,6 +9,10 @@ use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
 
+use Encode;
+use Try::Tiny;
+require Encode::Detect;
+
 # Set flags and add plugins for the application
 #
 #         -Debug: activates the debug mode for very useful log messages
@@ -257,6 +261,28 @@ around 'dispatch' => sub {
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
 sub language { return $ENV{LANGUAGE} || 'en' }
+
+sub _handle_param_unicode_decoding {
+    my ( $self, $value ) = @_;
+    my $enc = $self->encoding;
+    return try {
+        Encode::is_utf8( $value ) ?
+            $value
+        : $enc->decode( $value, $Catalyst::Plugin::Unicode::Encoding::CHECK );
+    }
+    catch {
+        try {
+            decode('Detect', $value, $Catalyst::Plugin::Unicode::Encoding::CHECK );
+        }
+        catch {
+            $self->handle_unicode_encoding_exception({
+                param_value => $value,
+                error_msg => $_,
+                encoding_step => 'params',
+            });
+        }
+    };
+}
 
 =head1 NAME
 
