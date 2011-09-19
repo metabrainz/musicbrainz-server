@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Form::Relationship;
 
 use HTML::FormHandler::Moose;
+use Encode;
 use MusicBrainz::Server::Translation 'l';
+use Text::Unaccent qw( unac_string_utf16 );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -52,7 +54,14 @@ sub field_list
         if ($attr->all_children) {
             my @options = $self->_build_options($attr, 'name', $attr->name, '');
             my @opts;
-            push @opts, { value => shift @options, label => shift @options } while @options;
+            while (@options) {
+                my ($value, $label) = (shift(@options), shift(@options));
+                push @opts, {
+                    value => $value,
+                    label => $label,
+                    'data-unaccented' => decode("utf-16", unac_string_utf16(encode("utf-16", $label)))
+                };
+            }
             push @fields, 'attrs.' . $attr->name, { type => 'Repeatable' };
             push @fields, 'attrs.' . $attr->name . '.contains', {
                 type => 'Select',
