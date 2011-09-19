@@ -14,9 +14,13 @@
         }
 
         $.getJSON ('/ws/js/wikidocversion?title=' + title, function (data) {
-            $version.empty ();
+            $version.empty ().removeClass ('error');
 
-            if (parseInt (data.version) !== parseInt(oldid) ||
+            if (data.version === null)
+            {
+                $version.text ("Does not exist!").addClass ('error');
+            }
+            else if (parseInt (data.version) !== parseInt(oldid) ||
                 data.canonical !== title)
             {
                 var linkname = data.canonical === title ? 'diff' : data.canonical;
@@ -92,16 +96,7 @@
                             [% page.version %]
                         </td>
                         [% IF updates_required %]
-                            <td class="wiki-version">
-                                [% IF page.wiki_version != page.version %]
-                                    <span style="color: red;">
-                                        [%~ page.wiki_version || l('ERROR!') ~%]
-                                    </span>
-                                    [% IF page.wiki_version && (page.wiki_version != page.version) %]
-                                        (<a href="http://[% wiki_server %]/[% page.id | uri %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
-                                    [% END %]
-                                [% END %]
-                            </td>
+                            <td><span class="wiki-version">?</span></td>
                         [% END %]
                         <td class="c nowrap">
                             [

@@ -142,18 +142,11 @@ sub get_version
 
     my $doc_url = sprintf "http://%s/?title=%s", &DBDefs::WIKITRANS_SERVER, $id;
 
-    my $ua = LWP::UserAgent->new(max_redirect => 0);
+    my $ua = LWP::UserAgent->new();
     $ua->env_proxy;
     my $response = $ua->get($doc_url);
 
-    if (!$response->is_success) {
-        if ($response->is_redirect && $response->header("Location") =~ /http:\/\/(.*?)\/(.*)$/) {
-            return $self->get_version(uri_unescape($2));
-        }
-        return undef;
-    }
-
-    my $content = decode "utf-8", $response->content;
+    my $content = $response->decoded_content;
 
     my $ret = { canonical => $id, version => undef };
 
