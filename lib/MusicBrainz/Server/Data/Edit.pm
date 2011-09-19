@@ -6,7 +6,7 @@ use Data::OptList;
 use DateTime;
 use TryCatch;
 use List::MoreUtils qw( uniq zip );
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
+use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
@@ -367,7 +367,7 @@ sub create
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality;
+    my $quality = $edit->determine_quality || $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions->{$quality};
 
     # Edit conditions allow auto edit and the edit requires no votes

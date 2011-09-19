@@ -8,12 +8,12 @@ use MusicBrainz::Server::Translation qw( l ln );
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Add release annotation') }
 sub edit_type { $EDIT_RELEASE_ADD_ANNOTATION }
 
-sub _build_related_entities { { release => [ shift->release_id ] } }
 sub models { [qw( Release )] }
 
 sub _annotation_model { shift->c->model('Release')->annotation }
