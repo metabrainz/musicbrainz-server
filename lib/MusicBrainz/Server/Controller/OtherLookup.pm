@@ -2,222 +2,149 @@ package MusicBrainz::Server::Controller::OtherLookup;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use MusicBrainz::Server::Form::OtherLookup;
-use MusicBrainz::Server::Translation qw ( l ln );
-use MusicBrainz::Server::Validation qw( is_valid_isrc is_valid_iswc is_valid_discid );
-use MusicBrainz::Server::Data::Search qw( escape_query );
+use Moose::Util qw( find_meta );
+use MusicBrainz::Server::Translation qw ( l );
 
-sub _redirect
-{
-    my ($self, $c, $entity) = @_;
-    my $uri;
+sub lookup_handler {
+    my ($name, $code) = @_;
 
-    if ($entity->meta->name eq 'MusicBrainz::Server::Entity::Artist')
-    {
-        $uri = $c->uri_for_action('/artist/show', [ $entity->gid ])
-    }
-    elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::Label')
-    {
-        $uri = $c->uri_for_action('/label/show', [ $entity->gid ])
-    }
-    elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::Recording')
-    {
-        $uri = $c->uri_for_action('/recording/show', [ $entity->gid ])
-    }
-    elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::Release')
-    {
-        $uri = $c->uri_for_action('/release/show', [ $entity->gid ])
-    }
-    elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::ReleaseGroup')
-    {
-        $uri = $c->uri_for_action('/release_group/show', [ $entity->gid ])
-    }
-    elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::URL')
-    {
-        $uri = $c->uri_for_action('/url/show', [ $entity->gid ])
-    }
-    elsif ($entity->meta->name eq 'MusicBrainz::Server::Entity::Work')
-    {
-        $uri = $c->uri_for_action('/work/show', [ $entity->gid ])
-    }
+    my $method = sub {
+        my ($self, $c) = @_;
+        my $form = $c->form(other_lookup => 'OtherLookup');
+        $form->field($name)->required(1);
 
-    $c->response->redirect( $uri );
+        if ($form->submitted_and_valid($c->req->query_params)) {
+            $self->$code($c, $form->field($name)->value);
+        }
+        else {
+            $c->stash( template => 'otherlookup/index.tt' );
+        }
+    };
+
+    # Add the method
+    find_meta(__PACKAGE__)->add_method(
+        $name => $method
+    );
+
+    # Add the ':Local' attribute
+    find_meta(__PACKAGE__)->register_method_attributes($method, [qw( Local )]);
+}
+
+lookup_handler 'catno' => sub {
+    my ($self, $c, $cat_no) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'catno:' . $cat_no,
+            type => 'release',
+            advanced => '1',
+        }));
+
     $c->detach;
-}
+};
 
-# no results
-sub not_found : Private
-{
-}
+lookup_handler 'barcode' => sub {
+    my ($self, $c, $barcode) = @_;
 
-sub catno : Private
-{
-    my ($self, $c) = @_;
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'barcode:' . $barcode,
+            type => 'release',
+            advanced => '1',
+        }));
 
-    my $uri = $c->uri_for_action ('/search/search', {
-        query => 'catno:'.$c->req->query_params->{catno},
-        type => 'release',
-        advanced => '1',
-    });
-
-    $c->response->redirect( $uri );
     $c->detach;
-}
+};
 
-sub barcode : Private
-{
-    my ($self, $c) = @_;
+lookup_handler 'mbid' => sub {
+    my ($self, $c, $gid) = @_;
 
-    my $uri = $c->uri_for_action ('/search/search', {
-        query => 'barcode:'.$c->req->query_params->{barcode},
-        type => 'release',
-        advanced => '1',
-    });
-
-    $c->response->redirect( $uri );
-    $c->detach;
-}
-
-sub mbid : Private
-{
-    my ($self, $c) = @_;
-
-    my $gid =  $c->req->query_params->{mbid};
-
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->stash->{error} = l('Invalid MBID');
-        return;
-    }
-
-    my $entity;
-    my @entities = qw(Artist Label Recording Release ReleaseGroup URL Work);
-    for (@entities)
-    {
-        $entity = $c->model($_)->get_by_gid($gid);
-        $self->_redirect ($c, $entity) if $entity;
+    for my $model (qw(Artist Label Recording Release ReleaseGroup URL Work)) {
+        my $entity = $c->model($model)->get_by_gid($gid) or next;
+        $c->response->redirect(
+            $c->uri_for_action(
+                $c->controller($model)->action_for('show'),
+                [ $gid ]));
+        $c->detach;
     }
 
     $c->detach('not_found');
-}
+};
 
-sub isrc : Private
-{
-    my ($self, $c) = @_;
+lookup_handler 'isrc' => sub {
+    my ($self, $c, $isrc) = @_;
 
-    my $isrc =  $c->req->query_params->{isrc};
-
-    if (!is_valid_isrc($isrc))
-    {
-        $c->stash->{error} = l('Invalid ISRC.');
-        return;
-    }
-
-    my $uri = $c->uri_for_action('/isrc/show', [ $isrc ]);
-    $c->response->redirect( $uri );
+    $c->response->redirect($c->uri_for_action('/isrc/show', [ $isrc ]));
     $c->detach;
-}
+};
 
-sub iswc : Private
-{
-    my ($self, $c) = @_;
-
-    my $iswc =  $c->req->query_params->{iswc};
-
-    if (!is_valid_iswc($iswc))
-    {
-        $c->stash->{error} = l('Invalid ISWC.');
-        return;
-    }
+lookup_handler 'iswc' => sub {
+    my ($self, $c, $iswc) = @_;
 
     my @works = $c->model('Work')->find_by_iswc($iswc);
-    $c->detach('not_found') unless @works;
-
     if (@works == 1) {
         my $work = $works[0];
         $c->response->redirect(
-            $c->uri_for_action('/work/show', [ $work->gid ])
+            $c->uri_for_action(
+                $c->controller('Work')->action_for('show'),
+                [ $work->gid ]));
+        $c->detach;
+    }
+    elsif (@works > 1) {
+        $c->model('Work')->load_writers(@works);
+        $c->model('Work')->load_recording_artists(@works);
+        $c->stash(
+            works => \@works,
+            template => 'otherlookup/results-work.tt'
         );
     }
-
-    $c->model('ArtistCredit')->load (@works);
-    $c->stash->{results} = \@works;
-}
-
-sub puid : Private
-{
-    my ($self, $c) = @_;
-
-    my $puid =  $c->req->query_params->{puid};
-
-    if (!MusicBrainz::Server::Validation::IsGUID($puid))
-    {
-        $c->stash->{error} = l('Invalid PUID.');
-        return;
+    else {
+        $c->detach('not_found');
     }
+};
 
-    my $uri = $c->uri_for_action('/puid/show', [ $puid ]);
-    $c->response->redirect( $uri );
+lookup_handler 'puid' => sub {
+    my ($self, $c, $puid) = @_;
+
+    $c->response->redirect($c->uri_for_action('/puid/show', [ $puid ]));
     $c->detach;
-}
+};
 
-sub discid : Private
-{
-    my ($self, $c) = @_;
+lookup_handler 'discid' => sub {
+    my ($self, $c, $discid) = @_;
 
-    my $discid =  $c->req->query_params->{discid};
-
-    if (!is_valid_discid($discid))
-    {
-        $c->stash->{error} = l('Invalid disc ID.');
-        return;
-    }
-
-    my $uri = $c->uri_for_action('/cdtoc/show', [ $discid ]);
-    $c->response->redirect( $uri );
+    $c->response->redirect($c->uri_for_action('/cdtoc/show', [ $discid ]));
     $c->detach;
-}
+};
 
-sub freedbid : Private
-{
-    my ($self, $c) = @_;
-
-    my $freedbid =  $c->req->query_params->{freedbid};
+lookup_handler 'freedbid' => sub {
+    my ($self, $c, $freedbid) = @_;
 
     my @cdtocs = $c->model ('CDTOC')->find_by_freedbid (lc($freedbid));
 
-    my @medium_cdtocs;
-    for (@cdtocs)
-    {
-        push @medium_cdtocs, $c->model('MediumCDTOC')->find_by_discid($_->discid);
-    }
+    my @medium_cdtocs = map {
+        $c->model('MediumCDTOC')->find_by_discid($_->discid);
+    } @cdtocs;
 
     my @mediums = $c->model('Medium')->load(@medium_cdtocs);
     my @releases = $c->model('Release')->load(@mediums);
 
     $c->model('ArtistCredit')->load (@releases);
-    $c->stash->{results} = \@releases;
-}
+    $c->model('Country')->load(@releases);
+    $c->model('Language')->load(@releases);
+    $c->model('Script')->load(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+
+    $c->stash(
+        releases => \@releases,
+        template => 'otherlookup/results-release.tt'
+    )
+};
 
 sub index : Path('')
 {
     my ($self, $c) = @_;
-
-    my $form = $c->form( query_form => 'OtherLookup' );
-    $c->stash->{otherlookup} = $form;
-
-    return unless $form->submitted_and_valid( $c->req->query_params );
-
-    $c->stash->{template} = 'otherlookup/results.tt';
-
-    $c->detach ('catno') if $c->req->query_params->{catno};
-    $c->detach ('barcode') if $c->req->query_params->{barcode};
-    $c->detach ('mbid') if $c->req->query_params->{mbid};
-    $c->detach ('isrc') if $c->req->query_params->{isrc};
-    $c->detach ('iswc') if $c->req->query_params->{iswc};
-    $c->detach ('puid') if $c->req->query_params->{puid};
-    $c->detach ('discid') if $c->req->query_params->{discid};
-    $c->detach ('freedbid') if $c->req->query_params->{freedbid};
+    my $form = $c->form( other_lookup => 'OtherLookup' );
 }
 
 1;
