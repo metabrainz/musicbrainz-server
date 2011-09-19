@@ -67,6 +67,8 @@
                predicate_vote(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage';
                predicate_release_language(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ArtistCountry';
+               predicate_artist_country(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
@@ -228,6 +230,18 @@
   <input type="hidden" name="user_id" value="[% c.user.id %]"  />
 [% END %]
 
+[% MACRO predicate_artist_country(field, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+  <select name="args" multiple="multiple">
+    [% FOR country=countries %]
+    <option value="[% country.id %]"
+            [% 'selected="selected"' IF field_contents.find_argument(country.id) %]
+            >[% html_escape(country.name) %]</option>
+    [% END %]
+  </select>
+[% END %]
+
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
@@ -249,7 +263,8 @@
                    [ 'work', l('Work') ],
                    [ 'editor', l('Editor') ],
                    [ 'vote', l('My Vote') ]
-                   [ 'release_language', l('Release Language') ]
+                   [ 'release_language', l('Release Language') ],
+                   [ 'artist_country', l('Artist Country') ]
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -276,7 +291,7 @@
        END %]
 
     [% predicate_vote('vote') %]
-
     [% predicate_release_language('release_language') %]
+    [% predicate_artist_country('artist_country') %]
   </div>
 [% END %]
