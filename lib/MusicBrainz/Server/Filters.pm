@@ -3,13 +3,15 @@ package MusicBrainz::Server::Filters;
 use strict;
 use warnings;
 
+use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
-use URI::Escape;
-use Encode;
-use Text::WikiFormat;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Text::WikiFormat;
 use Try::Tiny;
+use URI::Escape;
+
+require Encode::Detect;
 
 sub release_date
 {
@@ -139,10 +141,7 @@ sub format_editnote
 
 sub uri_decode
 {
-    my ($uri) = @_;
-    my $dec = decode('utf-8', uri_unescape($uri));
-    Encode::_utf8_on($dec);
-    return $dec;
+    my $uri = decode('Detect', uri_unescape(shift));
 }
 
 sub language
