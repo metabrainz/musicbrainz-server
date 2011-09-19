@@ -162,6 +162,12 @@ sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     unless (defined $link_type) {
         $c->detach('/error_404');
     }
+
+    if ($c->model('LinkType')->in_use($link_type->id)) {
+        $c->stash( template => 'admin/linktype/in_use.tt' );
+        $c->detach;
+    }
+
     $c->stash( link_type => $link_type );
 
     my $form = $c->form( form => 'Confirm' );
