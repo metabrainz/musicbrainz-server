@@ -643,7 +643,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.basic.various_artists = true;
 
         /* force parsing of track artists if this is a VA disc. */
-        MB.TrackParser.Options ().forceTrackArtists ();
+        MB.TrackParser.options.forceTrackArtists ();
     };
 
     /**
