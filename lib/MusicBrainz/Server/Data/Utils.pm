@@ -7,6 +7,7 @@ use Data::Compare;
 use Digest::SHA1 qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
 use Readonly;
@@ -16,16 +17,18 @@ use Storable;
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
-    artist_credit_to_ref
     artist_credit_to_edit_ref
+    artist_credit_to_ref
     check_data
     check_in_use
     copy_escape
     defined_hash
     generate_gid
-    hash_to_row
     hash_structure
+    hash_to_row
     insert_and_create
+    is_special_artist
+    is_special_label
     load_meta
     load_subobjects
     map_query
@@ -441,6 +444,16 @@ sub merge_table_attributes {
             WHERE id = ?',
         (@all_ids, $new_id) x @columns, $new_id
     );
+}
+
+sub is_special_artist {
+    my $artist_id = shift;
+    return $artist_id == $VARTIST_ID || $artist_id == $DARTIST_ID;
+}
+
+sub is_special_label {
+    my $label_id = shift;
+    return $label_id == $DLABEL_ID;
 }
 
 1;
