@@ -60,7 +60,10 @@ sub get_history
 sub _column_mapping {
     return {
         id => 'id',
-        text => sub { decode_entities(shift->{text}) },
+        text => sub {
+            my $text = shift;
+            decode_entities($text)
+        },
         changelog => 'changelog',
         editor_id => 'editor_id',
         creation_date => 'creation_date'
