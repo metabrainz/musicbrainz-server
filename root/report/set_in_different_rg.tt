@@ -5,7 +5,7 @@
 <ul>
     <li>[% l('This report shows release groups with releases that are linked to
               releases in different release groups by part-of-set or
-              transliteration ARs. For example, if one release is in a release
+              transliteration relationships. For example, if one release is in a release
               group A and it\'s part of a multi-disc release where the next disc
               is in a release group B, both release groups will be listed in
               this report.') %]</li>
