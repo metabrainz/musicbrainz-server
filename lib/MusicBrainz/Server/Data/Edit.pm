@@ -328,7 +328,7 @@ sub preview
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality;
+    my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions->{$quality};
 
     # Edit conditions allow auto edit and the edit requires no votes
@@ -374,7 +374,7 @@ sub create
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality || $QUALITY_UNKNOWN_MAPPED;
+    my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions->{$quality};
 
     # Edit conditions allow auto edit and the edit requires no votes
