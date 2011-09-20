@@ -48,7 +48,11 @@ has_field 'tracks.artist' => (
     maxlength => 255
 );
 
-sub default_multiple_artists { shift->field('artist')->value eq '' }
+sub default_multiple_artists {
+    my $self = shift;
+    my $artist = $self->field('artist')->value;
+    return !defined($artist) || $artist eq '';
+}
 
 sub validate_barcode {
     my ($self, $field) = @_;
