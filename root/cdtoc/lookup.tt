@@ -74,7 +74,7 @@
   [% IF medium_cdtocs.size %]
   <h2>[% l('Matching CDs') %]</h2>
   <p>[% l('We found discs matching the information you requested, listed below. If none of these
-          are the release you are looking for, please see the instructions belowe.') %]</p>
+          are the release you are looking for, please see the instructions below.') %]</p>
       [% INCLUDE 'cdtoc/list.tt' edit_links=0 %]
   [% ELSE %]
   <h2>[% l('CD Not Found') %]</h2>
@@ -82,6 +82,7 @@
   <pre>[% toc %]</pre>
   <p>[% l('Please consider adding this release/CD to MusicBrainz. To add this CD, please choose one of the
            following two methods:') %]</p>
+  [% END %]
   <ol>
     <li><p>[% l('Become part of MusicBrainz by creating an account and {how|reading up on our process} for submitting
               information to MusicBrainz. Find out how we peer review entered data to create the most accurate
@@ -102,7 +103,6 @@
           </a>
         </p>
     </li>
-  [% END %]
 [% END %]
 
 [% END %]
