@@ -200,8 +200,6 @@ sub filter : Private
     $c->detach;
 }
 
-sub plugins : Local { }
-
 1;
 
 =head1 NAME
