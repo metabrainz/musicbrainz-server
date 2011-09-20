@@ -2,40 +2,27 @@ package MusicBrainz::Server::Report::TracksNamedWithSequence;
 use Moose;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Report';
+extends 'MusicBrainz::Server::Report::ReleaseReport';
 
 sub gather_data {
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, <<'EOSQL');
-SELECT DISTINCT
-  tname.name,
-  track.artist_credit AS artist_credit,
-  rname.name AS rec_name,
-  recording.gid AS rec_gid,
-  musicbrainz_collate(tname.name)
+SELECT DISTINCT release_name.name, release.id, release.gid,
+                release.artist_credit AS artist_credit_id,
+                release.edits_pending,
+                musicbrainz_collate(release_name.name)
 FROM track
-JOIN recording ON track.recording = recording.id
 JOIN track_name tname ON tname.id = track.name
-JOIN track_name rname ON rname.id = recording.name
+JOIN medium ON track.tracklist = medium.tracklist
+JOIN release ON medium.release = release.id
+JOIN release_name ON release.name = release_name.id
 WHERE tname.name ~ '^[0-9]'
 AND   tname.name ~ ('^0*' || track.position || '[^0-9]')
-ORDER BY musicbrainz_collate(tname.name)
+ORDER BY musicbrainz_collate(release_name.name)
 EOSQL
 }
 
 sub template { 'report/tracks_named_with_sequence.tt' }
-
-sub post_load {
-    my ($self, $items) = @_;
-    for my $item (@$items) {
-        $item->{track} = $self->c->model('Track')->_new_from_row($item);
-        $item->{track}->recording(
-            $self->c->model('Recording')->_new_from_row($item, 'rec_')
-        );
-    }
-
-    $self->c->model('ArtistCredit')->load(map { $_->{track} } @$items);
-}
 
 1;

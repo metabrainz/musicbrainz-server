@@ -1,12 +1,12 @@
-[%- WRAPPER 'layout.tt' title=l('Tracks names which include their track number') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Releases Where Tracks Names Start With Their Track Number') full_width=1 -%]
 
-<h1>[% l('Tracks names which include their track number') %]</h1>
+<h1>[% l('Releases Where Tracks Names Start With Their Track Number') %]</h1>
 
 <ul>
-    <li>[% l('This report aims to identify tracks whose names include their own
-              sequence number, e.g. "1) Some Name" (instead of just "Some
+    <li>[% l('This report aims to identify releases where track names include their own
+              track number, e.g. "1) Some Name" (instead of just "Some
               Name").') %]</li>
-    <li>[% l('Total tracks: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Total releases: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>
 
@@ -22,9 +22,9 @@
     <tbody>
       [% FOR item IN items %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
-        <td>[% artist_credit(item.track.artist_credit) %]</td>
+        <td>[% artist_credit(item.artist_credit) %]</td>
         <td>
-          [% link_entity(item.track.recording, show, html_escape(item.track.name)) %]
+          [% link_release(item, show, html_escape(item.name)) %]
         </td>
       </tr>
       [% END %]
