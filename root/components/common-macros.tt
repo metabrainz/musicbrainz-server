@@ -272,8 +272,10 @@ END -%]
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    '<span class="mp">' IF isrc.edits_pending AND action == 'show';
     text = text == '' ? '<code>' _ html_escape(isrc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;

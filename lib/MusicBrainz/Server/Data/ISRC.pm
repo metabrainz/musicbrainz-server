@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'isrc' };
 
 sub _table
 {
