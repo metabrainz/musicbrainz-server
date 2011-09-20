@@ -23,32 +23,39 @@ sub gather_data
     my $sql = $self->c->sql;
 
     my $artists = $sql->select_list_of_hashes(
-        'SELECT artist.gid, musicbrainz_unaccent(name.name) AS name,
-                musicbrainz_unaccent(sort_name.name) AS sort_name,
-                artist.comment, artist.type, artist.id
+        'SELECT artist.gid, name.name AS name, sort_name.name AS sort_name,
+                musicbrainz_unaccent(name.name) AS name_unac,
+                musicbrainz_unaccent(sort_name.name) AS sort_name_unac,
+                artist.comment, artist.type, artist.id,
+                (artist.comment IS NOT NULL) AS has_comment
          FROM artist
          JOIN artist_name name ON name.id = artist.name
          JOIN artist_name sort_name ON sort_name.id = artist.sort_name'
     );
 
     for my $r (@$artists) {
-        _add_artist(\%artists, $r->{name}, $r->{gid}, $r);
-        _add_artist(\%artists, $r->{sort_name}, $r->{gid}, $r);
+        _add_artist(\%artists, $r->{name_unac}, $r->{gid}, $r);
+        _add_artist(\%artists, $r->{sort_name_unac}, $r->{gid}, $r);
     }
 
     my $aliases = $sql->select_list_of_hashes(
-        "SELECT artist.gid, artist.id,
-                musicbrainz_unaccent(alias_name.name) AS name,
-                musicbrainz_unaccent('[ alias for ' || name.name || ']') AS sort_name,
-                artist.comment, artist.type
+        "SELECT artist.gid, artist.id, name.name AS name, sort_name.name AS sort_name,
+                musicbrainz_unaccent(alias_name.name) AS alias,
+                CASE
+                  WHEN artist.comment IS NULL THEN 'alias: ' || musicbrainz_unaccent(alias_name.name)
+                  ELSE artist.comment || ') (alias: ' || musicbrainz_unaccent(alias_name.name)
+                END AS comment,
+                (artist.comment IS NOT NULL) AS has_comment,
+                artist.type
          FROM artist
          JOIN artist_name name ON name.id = artist.name
          JOIN artist_alias alias ON alias.artist = artist.id
-         JOIN artist_name alias_name ON alias_name.id = alias.name"
+         JOIN artist_name alias_name ON alias_name.id = alias.name
+         JOIN artist_name sort_name ON sort_name.id = artist.sort_name"
     );
 
     for my $r (@$aliases) {
-        _add_artist(\%artists, $r->{name}, $r->{gid}, $r);
+        _add_artist(\%artists, $r->{alias}, $r->{gid}, $r);
     }
 
     while (my ($k, $v) = each %artists) {
@@ -56,7 +63,7 @@ sub gather_data
         my @dupes =values %$v;
 
         # Skip if all artists have comments
-        next if (grep { $_->{comment} } @dupes) == @dupes;
+        next if (grep { $_->{has_comment} } @dupes) == @dupes;
 
 		my $dupelist = [ values %$v ];
 
