@@ -65,7 +65,7 @@
          [% END %]
        </tr>
        <tr class="ev">
-         <th>[% l('Auto-edit') %]</th>
+         <th>[% l('Can be approved') %]</th>
          [% FOR quality=quality_levels %]
          <td>[% class.edit_conditions.${quality}.auto_edit ? l('&#10004;') : l('&#10005;') %]</td>
          [% END %]
