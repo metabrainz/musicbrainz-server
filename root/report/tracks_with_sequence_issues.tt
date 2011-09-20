@@ -3,9 +3,9 @@
 <h1>[% l('Releases with tracks numbers issues') %]</h1>
 
 <ul>
-    <li>[% l('This report lists all releases whose tracks sequences are not
+    <li>[% l('This report lists all releases where the tracks number are not
               continious (e.g. there is no "track 2"), or with duplicated
-              track sequences (e.g. there are two "track 4"s).') %]</li>
+              track numbers (e.g. there are two "track 4"s).') %]</li>
     <li>[% l('Total releases: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>
