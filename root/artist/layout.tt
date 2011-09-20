@@ -80,6 +80,9 @@
                       [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                     </a>
                   </li>
+                  <li>
+                    [% link_artist(artist, 'split', l('Split into separate artists')) %]
+                  </li>
                 [% END %]
 
                   <li>

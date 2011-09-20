@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
 use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -153,6 +153,19 @@ sub find_or_insert
     return $id;
 }
 
+sub find_for_artist {
+    my ($self, $artist) = @_;
+    return MusicBrainz::Server::Entity::ArtistCredit->new(
+        names => [
+            MusicBrainz::Server::Entity::ArtistCreditName->new(
+                name        => $artist->name,
+                artist_id   => $artist->id,
+                artist      => $artist
+            )
+        ]
+    );
+}
+
 sub _clean {
     my $text = shift;
     return undef unless defined($text);
@@ -181,6 +194,49 @@ sub merge_artists
     };
 
     $self->_delete_from_cache(@artist_credit_ids) if @artist_credit_ids;
+}
+
+sub replace {
+    my ($self, $old_ac, $new_ac) = @_;
+
+    my $old_credit_id = $self->find ($old_ac) or return;
+    my $new_credit_id = $self->find_or_insert($new_ac);
+
+    for my $table (qw( recording release release_group track )) {
+        $self->c->sql->do(
+            "UPDATE $table SET artist_credit = ?
+             WHERE artist_credit = ?",
+            $new_credit_id, $old_credit_id
+       );
+    }
+
+    $self->c->sql->do(
+        'DELETE FROM artist_credit_name
+         WHERE artist_credit = ?',
+        $old_credit_id
+    );
+
+    $self->c->sql->do(
+        'DELETE FROM artist_credit
+         WHERE id = ?',
+        $old_credit_id
+    );
+
+    $self->_delete_from_cache($old_credit_id);
+}
+
+sub in_use {
+    my ($self, $ac) = @_;
+    my $ac_id = $self->find($ac) or return 0;
+
+    for my $t (qw( recording release release_group track )) {
+        return 1 if $self->c->sql->select_single_value(
+            "SELECT TRUE FROM $t WHERE artist_credit = ? LIMIT 1",
+            $ac_id
+        );
+    }
+
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

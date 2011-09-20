@@ -134,6 +134,8 @@ sub edit_action
         );
 
         $opts{on_creation}->($edit) if $edit && exists $opts{on_creation};
+
+        return $edit;
     }
     elsif (!$c->form_posted && %{ $c->req->query_params }) {
         $form->process( params => $c->req->query_params );
