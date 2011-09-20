@@ -112,8 +112,8 @@ sub artist_credit_preview
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name} );
 
-        my $loaded_artist = $loaded->{Artist}->{ $ac_name->{artist}->{id} };
-        if ($loaded_artist)
+        if (my $loaded_artist = defined($ac_name->{artist}{id}) &&
+                                  $loaded->{Artist}->{ $ac_name->{artist}->{id} })
         {
             $ac->artist ($loaded_artist);
         }
