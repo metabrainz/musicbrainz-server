@@ -534,7 +534,7 @@ MB.Control.EntityAutocomplete = function (options) {
             $name.addClass ('lookup-performed');
         }
         $name.data ('lookup-result', data.item);
-        $name.trigger ('lookup-performed', data.item);
+        $name.trigger ('lookup-performed', [ data.item ]);
     };
 
     /* if clearAction is set, also clear the autocomplete input itself,
