@@ -28,7 +28,8 @@ has '+data' => (
             id => Int,
             name => Str
         ],
-        puid              => Str
+        puid              => Str,
+        client_version    => Maybe[Str]
     ]
 );
 
@@ -70,6 +71,7 @@ sub initialize
         recording_puid_id => $puid->id,
         puid_id => $puid->puid_id,
         puid => $puid->puid->puid,
+        client_version => $puid->puid->client_version,
         recording => {
             id => $puid->recording->id,
             name => $puid->recording->name
@@ -88,7 +90,7 @@ sub reject
     my ($self) = @_;
 
     my %puid_id = $self->c->model('PUID')->find_or_insert(
-        'ModBot',
+        $self->data->{client_version},
         $self->data->{puid}
     );
 
