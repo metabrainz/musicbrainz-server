@@ -141,7 +141,7 @@ sub _interpolate
     my @attrs = $self->link->all_attributes;
     my %attrs;
     foreach my $attr (@attrs) {
-        my $name = $attr->root->name;
+        my $name = lc $attr->root->name;
         my $value = $attr->name;
         if (exists $attrs{$name}) {
             push @{$attrs{$name}}, $value;
@@ -165,7 +165,7 @@ sub _interpolate
             return $alt1;
         }
     };
-    $phrase =~ s/{(.*?)(?::(.*?))?}/$replace_attrs->($1, $2)/eg;
+    $phrase =~ s/{(.*?)(?::(.*?))?}/$replace_attrs->(lc $1, $2)/eg;
     MusicBrainz::Server::Validation::TrimInPlace($phrase);
 
     return $phrase;

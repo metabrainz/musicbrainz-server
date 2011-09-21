@@ -168,7 +168,7 @@ is($rel->id, 100);
 is($rel->link->id, 100);
 is_deeply($rel->link->begin_date, { year => 2008, month => 2, day => 3 });
 is_deeply($rel->link->end_date, { year => 2008, month => 2, day => 8 });
-is($rel->phrase, 'performed additional guitar and string instruments on');
+is($rel->phrase, 'performed Additional guitar and string instruments on');
 
 $sql->begin;
 $rel_data->update('artist', 'recording', 100, {
