@@ -182,6 +182,8 @@ test 'Accept/failure conditions regarding links' => sub {
         $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
 
         my $track = $medium->tracklist->tracks->[0];
+        my $old_recording_id = $track->recording_id;
+
         my $edit = $c->model('Edit')->create(
             editor_id => 1,
             edit_type => $EDIT_MEDIUM_EDIT,
@@ -200,9 +202,27 @@ test 'Accept/failure conditions regarding links' => sub {
         is(@{ $edit->display_data->{artist_credit_changes} }, 0, '0 artist credit changes');
         is(@{ $edit->display_data->{recording_changes} }, 1, '1 recording change');
 
-        is($edit->display_data->{recording_changes}[0][1]->recording->id, 100, 'was recording 100');
-        is($edit->display_data->{recording_changes}[0][2]->recording->id, 1, 'now recording 1');
+        is($edit->display_data->{recording_changes}[0][1]->recording_id, 100, 'was recording 100');
+        is($edit->display_data->{recording_changes}[0][2]->recording_id, 1, 'now recording 1');
+
+        ok(!defined($c->model('Recording')->get_by_id($old_recording_id)),
+           'the recording has been garbage collected');
+
+        ok(defined($c->model('Recording')->get_by_id(1)),
+           'the new recording exists');
     };
+
+    # Creates recording 101
+    my ($merge_target, $merge_me) = $c->model('Recording')->insert(
+        {
+            name => 'Merge into me',
+            artist_credit => 1
+        },
+        {
+            name => 'Merge me away',
+            artist_credit => 1
+        }
+    );
 
     # XXX TODO You should be able to do this!
     subtest 'Cannot change to a recording if its merged away (yet)' => sub {
@@ -217,15 +237,20 @@ test 'Accept/failure conditions regarding links' => sub {
             to_edit   => $medium,
             tracklist => [
                 $track->meta->clone_object($track,
-                    recording_id => 100
+                    recording_id => $merge_me->id
                 )
             ]
         );
 
-        $c->model('Recording')->merge(1, 100);
+        $c->model('Recording')->merge($merge_target->id, $merge_me->id);
 
         isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
     };
+
+    my $new_rec = $c->model('Recording')->insert({
+        name => 'Existing recording',
+        artist_credit => 1
+    });
 
     subtest 'Adding a new recording with an existing ID is successful' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
@@ -250,7 +275,7 @@ test 'Accept/failure conditions regarding links' => sub {
                                 )
                             )]),
                     position => 2,
-                    recording_id => 1,
+                    recording_id => $new_rec->id,
                     length => undef
                 )
             ]
@@ -287,7 +312,7 @@ test 'Accept/failure conditions regarding links' => sub {
             name => 'New recording'
         });
 
-        $c->model('Recording')->merge($recording->id, 1);
+        $c->model('Recording')->merge($recording->id, $new_rec->id);
 
         $edit->accept;
 
