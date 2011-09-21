@@ -186,6 +186,8 @@ editor).
 sub garbage_collect_orphans {
     my ($self, @possibly_orphaned_recordings) = @_;
 
+    return unless @possibly_orphaned_recordings;
+
     my @orphans = @{ $self->sql->select_single_column_array(
         'SELECT id FROM recording outer_r
          WHERE id IN (' . placeholders(@possibly_orphaned_recordings) . ')
