@@ -3,13 +3,15 @@ package MusicBrainz::Server::Filters;
 use strict;
 use warnings;
 
+use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
-use URI::Escape;
-use Encode;
-use Text::WikiFormat;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Text::WikiFormat;
 use Try::Tiny;
+use URI::Escape;
+
+require Encode::Detect;
 
 sub release_date
 {
@@ -82,44 +84,48 @@ sub format_wikitext
       );
 }
 
+sub _display_trimmed {
+    my $url = shift;
+
+    # shorten url's that are longer 50 characters
+    my $encoded_url = encode_entities($url);
+    my $display_url = length($encoded_url) > 50
+        ? substr($encoded_url, 0, 48) . "&#8230;"
+        : $encoded_url;
+
+    return qq{<a href="$encoded_url">$display_url</a>};
+}
+
 sub format_editnote
 {
-    my ($text) = @_;
+    my ($html) = @_;
 
     my $is_url = 1;
     my $server = &DBDefs::WEB_SERVER;
 
-    my $html = join "", map {
-
-        # shorten url's that are longer 50 characters
-        my $encurl = encode_entities($_);
-        my $shorturl = $encurl;
-        if (length($_) > 50)
-        {
-            $shorturl = substr($_, 0, 48);
-            $shorturl = encode_entities($shorturl);
-            $shorturl .= "&#8230;";
-        }
-        ($is_url = not $is_url)
-            ? qq[<a href="$encurl" title="$encurl">$shorturl</a>]
-            : $encurl;
-    } split /
-        (
-         # Something that looks like the start of a URL
-         \b
-         (?:https?|ftp)
-         :\/\/
-         .*?
-         
-         # Stop at one of these sequences:
-         (?=
-          \z # end of string
-          | \s # any space
-          | [,\.!\?](?:\s|\z) # punctuation then space or end
-          | [\x29"'>] # any of these characters "
-          )
-         )
-         /six, $text, -1;
+    # The following taken from http://daringfireball.net/2010/07/improved_regex_for_matching_urls
+    $html =~ s{
+    \b
+    (                       # Capture 1: entire matched URL
+      (?:
+        https?://               # http or https protocol
+        |                       #   or
+        www\d{0,3}[.]           # "www.", "www1.", "www2." … "www999."
+        |                           #   or
+        [a-z0-9.\-]+[.][a-z]{2,4}/  # looks like domain name followed by a slash
+      )
+      (?:                       # One or more:
+        [^\s()<>]+                  # Run of non-space, non-()<>
+        |                           #   or
+        \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
+      )+
+      (?:                       # End with:
+        \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
+        |                               #   or
+        [^\s`!()\[\]{};:'".,<>?«»“”‘’]        # not a space or one of these punct chars
+      )
+    )
+    }{_display_trimmed($1, $2, $3, $4)}egsxi;
 
     $html =~ s[\b(?:mod(?:eration)? #?|edit[#:\s]+|edit id[#:\s]+|change[#:\s]+)(\d+)\b]
          [<a href="http://$server/edit/$1">edit #$1</a>]gi;
@@ -139,10 +145,7 @@ sub format_editnote
 
 sub uri_decode
 {
-    my ($uri) = @_;
-    my $dec = decode('utf-8', uri_unescape($uri));
-    Encode::_utf8_on($dec);
-    return $dec;
+    my $uri = decode('Detect', uri_unescape(shift));
 }
 
 sub language

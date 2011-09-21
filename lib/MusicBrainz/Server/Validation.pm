@@ -43,6 +43,7 @@ require Exporter;
         is_valid_discid
         is_guid
         normalise_strings
+        is_freedb_id
     )
 }
 
@@ -185,6 +186,11 @@ sub is_valid_url
     return 0 if $u->scheme eq '';
     return 0 unless $u->authority =~ /\./;
     return 1;
+}
+
+sub is_freedb_id {
+    my $id = shift;
+    return lc($id) =~ /^[a-f0-9]{8}$/;
 }
 
 sub is_valid_discid

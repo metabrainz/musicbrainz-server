@@ -6,7 +6,7 @@ use Data::OptList;
 use DateTime;
 use TryCatch;
 use List::MoreUtils qw( uniq zip );
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
+use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
@@ -264,7 +264,7 @@ sub subscribed_editor_edits {
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY id DESC
+       ORDER BY open_time ASC
          OFFSET ?';
 
     return query_to_list_limited(
@@ -281,12 +281,19 @@ sub merge_entities
     my @ids = ($new_id, @old_ids);
     $self->sql->do(
         "DELETE FROM edit_$type
-          WHERE $type IN (" . placeholders(@ids) . ")
-            AND (edit, $type) NOT IN (
-                   SELECT DISTINCT ON (edit) edit, $type
-                     FROM edit_$type
-                    WHERE $type IN (" . placeholders(@ids) . ")
-                )",
+         WHERE (edit, $type) IN (
+             SELECT edits.edit, edits.$type
+             FROM (
+               SELECT * FROM edit_$type
+               WHERE $type IN (" . placeholders(@ids) . ")
+             ) edits,
+             (
+               SELECT DISTINCT ON (edit) edit, $type
+               FROM edit_$type
+               WHERE $type IN (" . placeholders(@ids) . ")
+             ) keep
+             WHERE edits.edit = keep.edit AND edits.$type != keep.$type
+         )",
         @ids, @ids);
 
     $self->sql->do("UPDATE edit_$type SET $type = ?
@@ -321,7 +328,7 @@ sub preview
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality;
+    my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions->{$quality};
 
     # Edit conditions allow auto edit and the edit requires no votes
@@ -367,7 +374,7 @@ sub create
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality;
+    my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions->{$quality};
 
     # Edit conditions allow auto edit and the edit requires no votes

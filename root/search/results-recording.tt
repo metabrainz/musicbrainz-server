@@ -11,6 +11,9 @@
                             <th class="treleases">[% l('Length') %]</th>
                             <th>[% l('Artist') %]</th>
                             <th>[% l('Release') %]</th>
+                            [%- IF c.session.tport -%]
+                              <th>[% l('Tagger') %]</th>
+                            [%- END %]
                             <th class="t pos">[% l('Track') %]</th>
                             <th>[% l('Medium') %]</th>
                             <th>[% l('Type') %]</th>
@@ -31,6 +34,9 @@
                                         <td colspan="4">&nbsp;</td>
                                     [%- END -%]
                                     <td>[%- link_entity(release) -%]</td>
+                                    [%- IF c.session.tport -%]
+                                        <td>[% tagger_icon(result.entity) %]</td>
+                                    [%- END -%]
                                     <td>[%- release.find_track_for_recording(result.entity).position -%]/[%- release.combined_track_count -%]</td>
                                     <td>[%- release.find_medium_for_recording(result.entity).position -%]</td>
                                     <td>[%- release.release_group.type.name -%]</td>

@@ -7,10 +7,6 @@ use MusicBrainz::Server::Validation qw( is_valid_url );
 
 extends 'HTML::FormHandler::Field::Text';
 
-has '+maxlength' => (
-    default => 255
-);
-
 my %ALLOWED_PROTOCOLS = map { $_ => 1 } qw( http https ftp );
 
 sub validate

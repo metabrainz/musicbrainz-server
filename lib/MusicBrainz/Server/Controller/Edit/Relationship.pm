@@ -364,7 +364,7 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
     $c->stash( attr_tree => $attr_tree );
 
     my $form = $c->form(
-        form => 'Relationship',
+        form => 'Relationship::Recordings',
         attr_tree => $attr_tree,
         root => $tree
     );
@@ -373,8 +373,6 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
         dest    => $dest,
         type    => $type
     );
-
-    $form = $c->form( form => 'Relationship::Recordings' );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @attributes;

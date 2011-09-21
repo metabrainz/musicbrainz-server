@@ -745,6 +745,17 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
 /* an ArtistCreditRow is the container for all the artist credits on a track. */
 MB.Control.ArtistCreditRow = function ($target, $container, $button) {
+    var $box0 = $container.find('.artist-credit-box:eq(0)');
+
+    /* clear any various artist values before initializing the artist credit. */
+    if ($box0.find ('input.gid').val () === MB.constants.VARTIST_GID
+        || $box0.find ('input.id').val () === MB.constants.VARTIST_ID)
+    {
+        $.each ('name sortname credit join gid id'.split (' '), function (idx, cls) {
+            $box0.find ('input.' + cls).val ('');
+        });
+    }
+
     var self = MB.Control.ArtistCreditContainer ($target, $container);
 
     var $artistcolumn = $target.closest ('table.medium').find ('input.artistcolumn');

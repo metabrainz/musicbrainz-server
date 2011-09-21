@@ -163,9 +163,6 @@
             <li>
                 <a href="[% c.uri_for('/cdstub/browse') %]">[% l('Top CD Stubs') %]</a>
             </li>
-            <li class="separator">
-                 <a href="[% c.uri_for('/search/plugins') %]">[% l('Browser Search Plugins') %]</a>
-            </li>
         </ul>
     </li>
     [%- IF c.user_exists -%]

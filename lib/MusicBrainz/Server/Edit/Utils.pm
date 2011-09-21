@@ -112,8 +112,8 @@ sub artist_credit_preview
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name} );
 
-        my $loaded_artist = $loaded->{Artist}->{ $ac_name->{artist}->{id} };
-        if ($loaded_artist)
+        if (my $loaded_artist = defined($ac_name->{artist}{id}) &&
+                                  $loaded->{Artist}->{ $ac_name->{artist}->{id} })
         {
             $ac->artist ($loaded_artist);
         }
@@ -162,6 +162,10 @@ sub clean_submitted_artist_credits
             # Fill in the artist credit from the artist name if no artist credit
             # was submitted (because it is displayed as a HTML5 placeholder).
             $part->{name} = $part->{artist}->{name} unless $part->{name};
+
+            # MBS-3226, Fill in the artist name from the artist credit if the user
+            # didn't enter an artist name.
+            $part->{artist}->{name} = $part->{name} unless $part->{artist}->{name};
         }
         elsif (! $part)
         {

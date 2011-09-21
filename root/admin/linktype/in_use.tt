@@ -1,0 +1,4 @@
+[% WRAPPER 'layout.tt' full_width=1 title=l('Relationship Type In Use') %]
+   <h1>[% l('Relationship Type In Use') %]</h1>
+   <p>[% l('This relationship type is still being used by some relationships.') %]</p>
+[% END %]

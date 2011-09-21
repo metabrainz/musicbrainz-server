@@ -24,7 +24,7 @@ has 'editor' => (
 
 has 'text' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Maybe[Str]'
 );
 
 has 'changelog' => (

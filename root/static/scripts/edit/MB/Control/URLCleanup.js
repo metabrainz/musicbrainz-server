@@ -285,6 +285,8 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.urlControl = $(urlControl);
     self.sourceType = sourceType;
 
+    self.errorList = $('<ul class="errors" />').hide();
+    self.typeControl.after(self.errorList);
 
     var validationRules = { };
     // "has lyrics at" is only allowed for certain lyrics sites
@@ -332,7 +334,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.guessType = function (sourceType, currentURL) {
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
-            
+
             var cleanup = MB.constants.CLEANUPS[group];
             if(!cleanup.match.test(currentURL)) { continue; }
             return cleanup.type[sourceType];
@@ -347,18 +349,24 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
 
             var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL)) 
+            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL))
                 continue;
 
             return cleanup.clean(dirtyURL);
         }
         return dirtyURL;
     };
- 
+
     var typeChanged = function() {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
-        $('button[type="submit"]').attr('disabled',
-            !checker || checker() ? false : 'disabled');
+        if (!checker || checker()) {
+            self.errorList.hide();
+            $('button[type="submit"]').attr('disabled', false);
+        }
+        else {
+            self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type</li>');
+            $('button[type="submit"]').attr('disabled', 'disabled');
+        }
     };
 
     var urlChanged = function() {
@@ -384,6 +392,8 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.urlControl
         .change(urlChanged)
         .keyup(urlChanged);
+
+    self.urlControl.parents('form').submit(urlChanged);
 
     return self;
 };

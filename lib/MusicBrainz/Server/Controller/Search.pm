@@ -20,8 +20,8 @@ sub search : Path('')
 
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
-    $c->stash->{taglookup} = $c->form( query_form => 'TagLookup' );
-    $c->stash->{otherlookup} = $c->form( query_form => 'OtherLookup' );
+    $c->stash->{taglookup} = $c->form( tag_lookup => 'TagLookup' );
+    $c->stash->{otherlookup} = $c->form( other_lookup => 'OtherLookup' );
 
     if ($form->process( params => $c->req->query_params ))
     {
@@ -150,6 +150,7 @@ sub external : Private
         {
             when (404) { $template .= 'no-results.tt'; }
             when (403) { $template .= 'no-info.tt'; };
+            when (414) { $template .= 'uri-too-large.tt'; };
             when (500) { $template .= 'internal-error.tt'; }
             when (400) { $template .= 'invalid.tt'; }
 
@@ -198,8 +199,6 @@ sub filter : Private
 
     $c->detach;
 }
-
-sub plugins : Local { }
 
 1;
 

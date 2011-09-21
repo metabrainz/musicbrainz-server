@@ -45,8 +45,17 @@ sub delete
 sub replace
 {
     my ($self, $tracklist_id, $tracks) = @_;
-    $self->sql->do('DELETE FROM track WHERE tracklist = ?', $tracklist_id);
+    my @possibly_orphaned_recordings = @{
+        $self->sql->select_single_column_array(
+            'DELETE FROM track WHERE tracklist = ? RETURNING recording', $tracklist_id
+        )
+    };
+
     $self->_add_tracks($tracklist_id, $tracks);
+
+    # Check if any recordings are orphaned. This is done after adding tracks, as
+    # we may simply be re-ordering the tracklist.
+    $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
 }
 
 sub _add_tracks {
@@ -88,10 +97,17 @@ sub garbage_collect {
     };
 
     if (@orphaned_tracklists) {
-        $self->sql->do(
-            'DELETE FROM track
-              WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')',
-            @orphaned_tracklists);
+        my @possibly_orphaned_recordings = @{
+            $self->sql->select_single_column_array(
+                'DELETE FROM track
+                 WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')
+                 RETURNING recording',
+                @orphaned_tracklists
+            )
+        };
+
+        $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
+
         $self->sql->do(
             'DELETE FROM tracklist
               WHERE id IN ('. placeholders(@orphaned_tracklists) . ')',

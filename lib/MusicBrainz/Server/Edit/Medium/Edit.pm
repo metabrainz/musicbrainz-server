@@ -395,6 +395,7 @@ sub accept {
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
             });
+            $self->c->model('Tracklist')->garbage_collect;
         }
         else {
             $self->c->model('Tracklist')->replace($medium->tracklist_id,

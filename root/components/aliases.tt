@@ -9,7 +9,7 @@
                     [% IF c.user_exists %]
                         <th style="width: 10em">
                             [% l('Actions') %]
-                        </td>
+                        </th>
                     [% END %]
                     <th style="width: 5em">[% l('Locale') %]</th>
                 </tr>
