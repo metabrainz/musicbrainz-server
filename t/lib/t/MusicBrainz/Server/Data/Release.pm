@@ -222,6 +222,7 @@ memory_cycle_ok($release_data);
 
 $release = $release_data->get_by_id($release->id);
 ok(!defined $release);
+
 $sql->commit;
 
 # Both #1 and #2 are in the DB
@@ -280,6 +281,21 @@ $release = $release_data->get_by_id(8);
 ok(defined $release);
 $release = $release_data->get_by_id(9);
 ok(!defined $release);
+
+# Try deleting all releases
+
+my $release_group;
+$test->c->model('ReleaseGroup')->update(1, { edits_pending => 0 });
+
+for my $id (1, 2, 6, 8) {
+    $release_group = $test->c->model('ReleaseGroup')->get_by_id(1);
+    ok(defined $release_group, 'release group with releases exists');
+
+    $release_data->delete($id);
+}
+
+$release_group = $test->c->model('ReleaseGroup')->get_by_id(1);
+ok(!defined $release_group, 'deleting last release deletes release group');
 
 $sql->commit;
 

@@ -426,6 +426,36 @@ sub delete
     return;
 }
 
+sub clear_empty_release_groups {
+    my ($self, @group_ids) = @_;
+    return unless @group_ids;
+
+    @group_ids = @{
+        $self->sql->select_single_column_array(
+            'SELECT id FROM release_group outer_rg
+             WHERE edits_pending = 0 AND id = any(?)
+             AND NOT EXISTS (
+               SELECT TRUE FROM l_artist_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_label_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_recording_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_release_group WHERE entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_group_release_group WHERE entity0 = outer_rg.id OR entity1 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_group_work WHERE entity0 = outer_rg.id
+               UNION ALL
+               SELECT TRUE FROM l_release_group_url WHERE entity0 = outer_rg.id
+         )',
+            \@group_ids
+        )
+    };
+
+    $self->delete(@group_ids);
+}
+
 sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
@@ -458,7 +488,7 @@ sub _hash_to_row
     my ($self, $group, $names) = @_;
     my $row = hash_to_row($group, {
         type => 'type_id',
-        map { $_ => $_ } qw( artist_credit comment )
+        map { $_ => $_ } qw( artist_credit comment edits_pending )
     });
 
     $row->{name} = $names->{$group->{name}}

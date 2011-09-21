@@ -517,8 +517,15 @@ sub delete
 
     $self->c->model('Tracklist')->garbage_collect;
 
-    $self->sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
-             @release_ids);
+    my @release_group_ids = @{
+        $self->sql->select_single_column_array(
+            'DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')
+             RETURNING release_group',
+            @release_ids
+        )
+    };
+
+    $self->c->model('ReleaseGroup')->clear_empty_release_groups(@release_group_ids);
 
     return;
 }
