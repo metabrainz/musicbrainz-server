@@ -31,6 +31,14 @@ sub new_artist_ids {
     } @{ $self->data->{new}{artist_credit}{names} };
 }
 
+sub alter_edit_pending {
+    my ($self) = @_;
+    my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+    return {
+        Artist => [ keys(%old) ]
+    }
+}
+
 sub _build_related_entities {
     my ($self) = @_;
     my $related = { };
