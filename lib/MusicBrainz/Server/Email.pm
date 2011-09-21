@@ -407,7 +407,7 @@ sub _send_email
     };
 
     {
-        my $e = $to;
+        my $e = $to->address;
         $e =~ s/_/_5f/g;
         $e =~ s/=/_3d/g;
         $e =~ s/@/=/g;

@@ -32,7 +32,8 @@ $email->send_message_to_editor(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-bar=example.com\@musicbrainz.org/);
 my $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), '"Editor 1" <Editor 1@users.musicbrainz.org>');
@@ -61,7 +62,8 @@ $email->send_message_to_editor(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-bar=example.com\@musicbrainz.org/);
 $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), '"Editor 1" <foo@example.com>');
@@ -85,7 +87,8 @@ $email->send_email_verification(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-user=example.com\@musicbrainz.org/);
 $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
@@ -110,7 +113,8 @@ $email->send_lost_username(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-foo=example.com\@musicbrainz.org/);
 $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
@@ -138,7 +142,8 @@ $email->send_password_reset_request(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-foo=example.com\@musicbrainz.org/);
 $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
@@ -171,7 +176,8 @@ $email->send_first_no_vote(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-foo=example.com\@musicbrainz.org/);
 $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
@@ -206,7 +212,8 @@ $email->send_edit_note(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-foo=example.com\@musicbrainz.org/);
 $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), '"Editor 2" <Editor 2@users.musicbrainz.org>');
@@ -234,7 +241,8 @@ $email->send_edit_note(
 );
 
 is(scalar(@{$email->transport->deliveries}), 1);
-is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+like($email->transport->deliveries->[0]->{envelope}->{from},
+     qr/bounces-\d+-bar=example.com\@musicbrainz.org/);
 $e = $email->transport->deliveries->[0]->{email};
 $email->transport->clear_deliveries;
 is($e->get_header('From'), '"Editor 1" <Editor 1@users.musicbrainz.org>');
