@@ -30,8 +30,23 @@ sub serialize
     push @body, ( list_of([ map { $_->puid } @{ $entity->puids} ]) )
         if $inc && $inc->puids;
 
-    push @body, ( list_of($opts->{releases}, $inc, $opts) )
-        if $inc && $inc->releases;
+    # FIXME This is hackish
+    # Because a recording might appear multiple times on the same release,
+    # we have to create a new release for each track and "stuff" the offset
+    # into the release. See also Release.pm
+    push @body, (
+        list_of([
+            map {
+                my ($release_id, $offset) = @$_;
+                my $release = $opts->{releases}{$release_id};
+                my $track_release = $release->meta->clone_object(
+                    $release
+                );
+                $track_release->{track_offset} = $offset;
+                $track_release;
+            } @{ $opts->{track_map} }
+        ], $inc, $opts)
+    ) if $inc && $inc->releases;
 
     return @body;
 };

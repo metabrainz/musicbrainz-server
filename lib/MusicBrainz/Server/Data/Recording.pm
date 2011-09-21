@@ -354,6 +354,60 @@ sub editor_can_create_recordings {
       ) && $editor->accepted_edits >= 10;
 }
 
+=method find_tracklist_offsets
+
+Attempt to find all absolute offsets of when a recording appears in a releases
+tracklist, over all its mediums. For example, if a recording is the 3rd track
+on the first medium, it's offset is 2. If it's the first track on the 2nd medium
+and the first medium contains 10 tracks, it's 10.
+
+The return value is a list of (release_id, offset) tuples.
+
+=cut
+
+sub find_tracklist_offsets {
+    my ($self, $recording_id) = @_;
+
+    # This query attempts to find all offsets of a recording on various
+    # releases. It does so by:
+    #
+    # 1. `bef` CTE:
+    #   a. Select all mediums that a recording appears on.
+    #   b. Select all mediums on the same release that are *before*
+    #      the mediums found in (a).
+    #   c. Group by the containing medium (a).
+    #   d. Sum the total track count of all prior mediums (b).
+    # 2. Main query:
+    #   a. Find all tracks with this recording_id.
+    #   b. Find the corresponding `bef` count.
+    #   c. Add `bef` count to the track position, and subtract on for /ws/1
+    #      compat.
+    my $offsets = $self->sql->select_list_of_lists(<<'EOSQL', $recording_id);
+    WITH
+      r (id) AS ( SELECT ?::int ),
+      bef AS (
+        SELECT container.id AS container,
+               sum(tracklist.track_count)
+        FROM medium container
+        JOIN track ON track.tracklist = container.tracklist
+        JOIN medium bef ON (
+          container.release = bef.release AND
+          container.position > bef.position
+        )
+        JOIN tracklist ON bef.tracklist = tracklist.id
+        JOIN r ON r.id = track.recording
+        GROUP BY container.id, track.id
+      )
+      SELECT medium.release, (track.position - 1) + COALESCE(bef.sum, 0)
+      FROM track
+      JOIN r ON r.id = track.recording
+      JOIN medium ON track.tracklist = medium.tracklist
+      LEFT JOIN bef ON bef.container = medium.id;
+EOSQL
+
+    return $offsets;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
