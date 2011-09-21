@@ -161,6 +161,7 @@ sub delete
 
     $self->c->model('MediumCDTOC')->delete($_) for @tocs;
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
+    $self->c->model('Tracklist')->garbage_collect;
 }
 
 sub _create_row

@@ -515,8 +515,6 @@ sub delete
 
     $self->c->model('Medium')->delete($_) for @mediums;
 
-    $self->c->model('Tracklist')->garbage_collect;
-
     my @release_group_ids = @{
         $self->sql->select_single_column_array(
             'DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')
