@@ -328,27 +328,6 @@ sub preview
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
-    my $conditions = $edit->edit_conditions->{$quality};
-
-    # Edit conditions allow auto edit and the edit requires no votes
-    $edit->auto_edit(1)
-        if ($conditions->{auto_edit} && $conditions->{votes} == 0);
-
-    $edit->auto_edit(1)
-        if ($conditions->{auto_edit} && $edit->allow_auto_edit);
-
-    # Edit conditions allow auto edit and the user is autoeditor
-    $edit->auto_edit(1)
-        if ($conditions->{auto_edit} && ($privs & $AUTO_EDITOR_FLAG));
-
-    # Unstrusted user, always go through the edit queue
-    $edit->auto_edit(0)
-        if ($privs & $UNTRUSTED_FLAG);
-
-    # Save quality level
-    $edit->quality($quality);
-
     return $edit;
 }
 
