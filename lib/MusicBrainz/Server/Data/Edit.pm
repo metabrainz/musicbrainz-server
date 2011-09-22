@@ -607,6 +607,11 @@ sub insert_votes_and_notes {
     }, $self->c->sql);
 }
 
+sub add_link {
+    my ($self, $type, $id, $edit) = @_;
+    $self->sql->do("INSERT INTO edit_$type (edit, $type) VALUES (?, ?)", $edit, $id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
