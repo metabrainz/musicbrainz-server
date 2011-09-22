@@ -120,6 +120,7 @@ feature 'Production server' =>
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
     'FCGI' => '0',
     'FCGI::ProcManager' => '0.19',
+    'Catalyst::Engine::FastCGI',
     ;
 
 feature 'Fast edit migration' =>
