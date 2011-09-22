@@ -16,6 +16,8 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
+  [% r.hidden('id') %]
+
   <div class="half-width">
     <fieldset>
       <legend>[% l('Release information') %]</legend>
@@ -30,6 +32,7 @@
           [% r.hidden ('release_group_id', class => 'id') %]
           [% r.text(rg_field, class => 'name') %]
         </span>
+        [% field_errors(r.form, 'release_group.name') %]
       [% END %]
 
       [%- form_row_artist_credit(form, 'release-artist') -%]
