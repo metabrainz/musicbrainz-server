@@ -43,6 +43,126 @@ sub build_type_info
     return %type_info;
 }
 
+=method detach_existing
+
+Notify the user that the relationship already exists, and do not do any more
+work.
+
+=cut
+
+sub detach_existing {
+    my ($self, $c) = @_;
+    $c->stash( exists => 1 );
+    $c->detach;
+}
+
+=method try_and_edit
+
+Try and edit an existing relationship.
+
+First check if the relationship we will end up at already exists, and if so
+notify the user and do not continue. Otherwise, insert an edit to edit the
+relationship. Also takes care of some general book-keeping in regards to table
+locking and race conditions.
+
+=cut
+
+sub try_and_edit {
+    my ($self, $c, $form, $type0, $type1, $rel, %params) = @_;
+
+    $c->model('Relationship')->lock_and_do(
+        $type0, $type1,
+        sub {
+            my $attributes = [ uniq @{ $params{attributes} } ];
+            if ($c->model('Relationship')->exists($type0, $type1, {
+                link_type_id => $params{new_link_type_id},
+                begin_date   => $params{new_begin_date},
+                end_date     => $params{new_end_date},
+                attributes   => $attributes,
+                entity0_id   => $params{entity0_id},
+                entity1_id   => $params{entity1_id},
+            })) {
+                return 0;
+            }
+
+            my $link_type = $c->model('LinkType')->get_by_id(
+                $params{new_link_type_id}
+            );
+
+            my $model0 = $c->model(type_to_model($type0));
+            my $model1 = $c->model(type_to_model($type1));
+
+            my $edit = $self->_insert_edit(
+                $c, $form,
+                edit_type         => $EDIT_RELATIONSHIP_EDIT,
+                type0             => $type0,
+                type1             => $type1,
+                entity0           => $model0->get_by_id($params{entity0_id}),
+                entity1           => $model1->get_by_id($params{entity1_id}),
+                relationship      => $rel,
+                link_type         => $link_type,
+                begin_date        => $params{new_begin_date},
+                end_date          => $params{new_end_date},
+                attributes        => $attributes
+            );
+
+            return 1;
+        }
+    );
+}
+
+=method try_and_insert
+
+Try and insert a new relationship.
+
+First check if the relationship already exists, and if it does return false and
+do not continue. Otherwise, insert the new relationship and return a true value.
+
+Takes care of necessary bookkeeping such as exclusive locks on the relationship
+table.
+
+=cut
+
+sub try_and_insert {
+    my ($self, $c, $form, $type0, $type1, %params) = @_;
+
+    $c->model('Relationship')->lock_and_do(
+        $type0, $type1,
+        sub {
+            my $attributes = [ uniq @{ $params{attributes} } ];
+            if ($c->model('Relationship')->exists($type0, $type1, {
+                link_type_id => $params{link_type_id},
+                begin_date   => $params{begin_date},
+                end_date     => $params{end_date},
+                attributes   => $attributes,
+                entity0_id   => $params{entity0}->id,
+                entity1_id   => $params{entity1}->id,
+            })) {
+                return 0;
+            }
+
+            my $link_type = $c->model('LinkType')->get_by_id(
+                $params{link_type_id}
+            );
+
+            $self->_insert_edit(
+                $c, $form,
+                edit_type    => $EDIT_RELATIONSHIP_CREATE,
+                type0        => $type0,
+                type1        => $type1,
+                entity0      => $params{entity0},
+                entity1      => $params{entity1},
+                begin_date   => $params{begin_date},
+                end_date     => $params{end_date},
+                link_type    => $link_type,
+                attributes   => $attributes,
+            );
+
+            return 1;
+        }
+    );
+}
+
 sub edit : Local RequireAuth Edit
 {
     my ($self, $c) = @_;
@@ -67,9 +187,6 @@ sub edit : Local RequireAuth Edit
         );
         $c->detach;
     }
-
-    my $model0 = $c->model(type_to_model($type0));
-    my $model1 = $c->model(type_to_model($type1));
 
     $c->stash(
         root => $tree,
@@ -131,11 +248,9 @@ sub edit : Local RequireAuth Edit
                 : $value ? $attr->id : ();
         }
 
-        if ($c->model('Relationship')->exists($type0, $type1, {
-            link_type_id => $form->field('link_type_id')->value,
-            begin_date   => $form->field('begin_date')->value,
-            end_date     => $form->field('end_date')->value,
-            attributes   => [uniq @attributes],
+        $self->try_and_edit(
+            $c, $form,
+            $type0, $type1, $rel,
             $form->field('direction')->value
                 # User is changing the direction
                 ? (entity0_id   => $form->field('entity1.id')->value,
@@ -143,30 +258,13 @@ sub edit : Local RequireAuth Edit
 
                 # User is not changing the direction
                 : (entity0_id   => $form->field('entity0.id')->value,
-                   entity1_id   => $form->field('entity1.id')->value)
-        })) {
-            $c->stash( exists => 1 );
-            $c->detach;
-        }
-
-        my $link_type = $c->model('LinkType')->get_by_id(
-            $form->field('link_type_id')->value
-        );
-
-        my $values = $form->values;
-        my $edit = $self->_insert_edit($c, $form,
-            edit_type => $EDIT_RELATIONSHIP_EDIT,
-            type0             => $type0,
-            type1             => $type1,
-            entity0           => $model0->get_by_id($form->field('entity0.id')->value),
-            entity1           => $model1->get_by_id($form->field('entity1.id')->value),
-            relationship      => $rel,
-            link_type         => $link_type,
-            begin_date        => $form->field('begin_date')->value,
-            end_date          => $form->field('end_date')->value,
-            change_direction  => $form->field('direction')->value,
-            attributes        => [uniq @attributes],
-        );
+                   entity1_id   => $form->field('entity1.id')->value),
+            attributes       => \@attributes,
+            new_link_type_id => $form->field('link_type_id')->value,
+            new_begin_date   => $form->field('begin_date')->value,
+            new_end_date     => $form->field('end_date')->value,
+        ) or
+            $self->detach_existing($c);
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
         $c->response->redirect($redirect);
@@ -257,33 +355,17 @@ sub create : Local RequireAuth Edit
             ($entity0, $entity1) = ($entity1, $entity0);
         }
 
-        if ($c->model('Relationship')->exists($type0, $type1, {
-            link_type_id => $form->field('link_type_id')->value,
-            begin_date => $form->field('begin_date')->value,
-            end_date => $form->field('end_date')->value,
-            attributes => [uniq @attributes],
-            entity0_id => $entity0->id,
-            entity1_id => $entity1->id,
-        })) {
-            $c->stash( exists => 1 );
-            $c->detach;
-        }
-
-        my $link_type = $c->model('LinkType')->get_by_id(
-            $form->field('link_type_id')->value
-        );
-
-        $self->_insert_edit($c, $form,
-            edit_type    => $EDIT_RELATIONSHIP_CREATE,
-            type0        => $type0,
-            type1        => $type1,
-            entity0      => $entity0,
-            entity1      => $entity1,
+        $self->try_and_insert(
+            $c, $form,
+            $type0, $type1,
             begin_date   => $form->field('begin_date')->value,
-            end_date     => $form->field('end_date')->value,
-            link_type    => $link_type,
+            end_date     => $form->field('end_date')->value,,
             attributes   => [uniq @attributes],
-        );
+            link_type_id => $form->field('link_type_id')->value,
+            entity0      => $entity0,
+            entity1      => $entity1
+        ) or
+            $self->detach_existing($c);
 
         my $redirect = $c->req->params->{returnto} ||
             $c->uri_for_action($c->controller(type_to_model($type0))->action_for('show'), [ $source_gid ]);
@@ -398,36 +480,21 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
         }
 
         my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
-
-        my $link_type = $c->model('LinkType')->get_by_id(
-            $form->field('link_type_id')->value
-        );
-
         for my $recording_id (@recording_ids) {
             my $target = $recordings{$recording_id};
             $ents[ $rec_idx ] = $target;
 
-            next if $c->model('Relationship')->exists(@types, {
-                link_type_id => $link_type->id,
-                entity0_id   => $ents[0]->id,
-                entity1_id   => $ents[1]->id,
+            $self->try_and_insert(
+                $c, $form,
+                @types,
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,
-                attributes   => \@attributes
-            });
-
-            $self->_insert_edit(
-                $c, $form,
-                edit_type    => $EDIT_RELATIONSHIP_CREATE,
-                type0        => $types[0],
-                type1        => $types[1],
+                link_type_id => $form->field('link_type_id')->value,
                 entity0      => $ents[0],
                 entity1      => $ents[1],
-                link_type    => $link_type,
-                begin_date   => $form->field('begin_date')->value,
-                end_date     => $form->field('end_date')->value,
                 attributes   => \@attributes
-            );
+            ) or
+                next;
         }
 
         $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ]));
@@ -509,32 +576,16 @@ sub create_url : Local RequireAuth Edit
         my $e0 = $types[0] eq 'url' ? $url : $entity;
         my $e1 = $types[1] eq 'url' ? $url : $entity;
 
-        if ($c->model('Relationship')->exists(@types, {
+        $c->stash( url => $form->field('url')->value );
+        $self->try_and_insert(
+            $c, $form,
+            @types,
+            entity0 => $e0,
+            entity1 => $e1,
             link_type_id => $form->field('link_type_id')->value,
-            entity0_id => $e0->id,
-            entity1_id => $e1->id,
-            attributes => [uniq @attributes]
-        })) {
-            $c->stash(
-                exists => 1,
-                url => $form->field('url')->value
-            );
-            $c->detach;
-        }
+            attributes => \@attributes
+        ) or $self->detach_existing($c);
 
-        my $link_type = $c->model('LinkType')->get_by_id(
-            $form->field('link_type_id')->value
-        );
-
-        $self->_insert_edit($c, $form,
-            edit_type    => $EDIT_RELATIONSHIP_CREATE,
-            type0        => $types[0],
-            type1        => $types[1],
-            entity0      => $e0,
-            entity1      => $e1,
-            link_type    => $link_type,
-            attributes   => [uniq @attributes],
-        );
         my $redirect = $c->controller(type_to_model($type))->action_for('show');
         $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));
         $c->detach;
