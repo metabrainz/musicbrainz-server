@@ -12,7 +12,6 @@ use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
-    artist_credit_to_edit_ref
     hash_structure
 );
 use MusicBrainz::Server::Track qw( format_track_length );
@@ -289,7 +288,7 @@ sub associations : Chained('root') PathPart Args(1) {
         my $track = {
             name => $_->name,
             length => format_track_length($_->length),
-            artist_credit => artist_credit_to_edit_ref ($_->artist_credit),
+            artist_credit => $_->artist_credit,
         };
 
         my $data = {

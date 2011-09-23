@@ -30,22 +30,14 @@ augment 'create_edits' => sub
     # ----------------------------------------
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode date as_auto_editor release_group_id );
+                     country_id barcode date as_auto_editor release_group_id
+                     artist_credit );
     my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
 
     $args{'to_edit'} = $self->release;
     $self->c->stash->{changes} = 0;
 
     $create_edit->($EDIT_RELEASE_EDIT, $editnote, %args);
-
-    # release artist edit
-    # ----------------------------------------
-
-    $create_edit->(
-        $EDIT_RELEASE_ARTIST, $editnote, release => $self->release,
-        update_tracklists => 1, artist_credit => $data->{artist_credit},
-        as_auto_editor => $data->{as_auto_editor}
-        );
 
     return $self->release;
 };
@@ -54,6 +46,12 @@ after 'prepare_tracklist' => sub {
     my ($self, $release) = @_;
 
     my $json = JSON::Any->new( utf8 => 1 );
+
+    $self->c->model('Medium')->load_for_releases($self->release);
+    my @medium_cdtocs = $self->c->model('MediumCDTOC')->load_for_mediums(
+        $self->release->all_mediums);
+
+    $self->c->model('CDTOC')->load(@medium_cdtocs);
 
     my $database_artist = artist_credit_to_ref ($release->artist_credit);
     my $submitted_artist = $self->c->stash->{release_artist};
@@ -65,16 +63,9 @@ after 'prepare_tracklist' => sub {
     }
     else
     {
-        # The release artist was changed, provide javascript with the original
-        # release artist, so it knows which track artists to update.
-        $self->c->stash->{release_artist_json} = $json->encode ($database_artist);
+        # The release artist was changed, create or update medium edits.
+        $self->_update_medium_edits;
     }
-
-    $self->c->model('Medium')->load_for_releases($self->release);
-    my @medium_cdtocs = $self->c->model('MediumCDTOC')->load_for_mediums(
-        $self->release->all_mediums);
-
-    $self->c->model('CDTOC')->load(@medium_cdtocs);
 };
 
 augment 'load' => sub
@@ -98,6 +89,13 @@ sub _load_release
     $self->c->model('Label')->load(@{ $self->release->labels });
     $self->c->model('ReleaseGroupType')->load($self->release->release_group);
     $self->c->model('Release')->annotation->load_latest ($self->release);
+}
+
+sub _update_medium_edits
+{
+    my ($self) = @_;
+
+
 }
 
 __PACKAGE__->meta->make_immutable;

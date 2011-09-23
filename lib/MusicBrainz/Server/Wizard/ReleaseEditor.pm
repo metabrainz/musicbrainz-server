@@ -7,7 +7,7 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref artist_credit_to_edit_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -233,7 +233,7 @@ sub recording_edits_from_tracklist
                 {
                     name => $trk->name,
                     length => format_track_length ($trk->length),
-                    artist_credit => artist_credit_to_edit_ref ($trk->artist_credit),
+                    artist_credit => $trk->artist_credit,
                 });
 
             $recording_edits{$edit_sha1}->[$trk->position] = {
@@ -261,7 +261,7 @@ sub _search_recordings
     my ($self, $track_name, $artist_credit, $limit) = @_;
 
     my $offset = 0;
-    my $where = { artist => $artist_credit->{names}->[0]->{artist_name} };
+    my $where = { artist => $artist_credit->{names}->[0]->{artist}->{name} };
 
     my ($search_results, $hits) = $self->c->model ('Search')->search (
         'recording', $track_name, $limit, $offset, $where);
@@ -1361,24 +1361,8 @@ sub edited_tracklist
 {
     my ($self, $tracks) = @_;
 
-    my $idx = 1;
-    for my $trk (@$tracks)
-    {
-        my @names = @{ $trk->{artist_credit}->{names} };
-        $trk->{artist_credit}->{names} = [ map {
-            {
-                artist => {
-                    id => $_->{id},
-                    gid => $_->{gid},
-                    name => $_->{artist_name},
-                },
-                name => $_->{name},
-                join_phrase => $_->{join},
-            }
-        } @names ];
-
-        $trk->{original_position} = $idx++;
-    }
+    my $pos = 1;
+    map { $_->{original_position} = $pos++ } @$tracks;
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
@@ -1527,10 +1511,12 @@ sub _seed_parameters {
                         $track->{artist_credit}{names} = [
                             map +{
                                 name => $_->{name},
-                                id => $_->{artist_id},
                                 join => $_->{join_phrase},
-                                artist_name => $_->{artist_name} || $_->{name},
-                                gid => $_->{gid}
+                                artist => {
+                                    name => $_->{artist_name} || $_->{name},
+                                    id => $_->{artist_id},
+                                    gid => $_->{gid},
+                                }
                             }, @{$track_ac->{names}}
                         ];
 

@@ -7,7 +7,9 @@
 
     $('document').ready (function () {
 
-       MB.release_artist_json = [% release_artist_json %];
+       /* FIXME: remove. */
+       MB.release_artist_json = null;
+
        MB.medium_cdtocs = [
            [%- FOR medium=release.mediums -%]
              [%- IF medium.cdtocs.size -%]
