@@ -326,6 +326,66 @@ test 'Accept/failure conditions regarding links' => sub {
     };
 };
 
+test 'Auto-editing edit medium' => sub {
+    my $test = shift;
+    my $c    = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium;
+
+    subtest 'Adding a new recording is successful' => sub {
+        $medium = $c->model('Medium')->get_by_id(1);
+        $c->model('Track')->load_for_tracklists($medium->tracklist);
+        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+
+        ok !exception {
+            $c->model('Edit')->create(
+                editor_id  => 1,
+                privileges => 1,
+                edit_type  => $EDIT_MEDIUM_EDIT,
+                to_edit    => $medium,
+                tracklist  => [
+                    Track->new(
+                        name => 'New track 1',
+                        artist_credit => ArtistCredit->new(
+                            names => [
+                                ArtistCreditName->new(
+                                    name => 'Warp Industries',
+                                    artist => Artist->new(
+                                        id => 2,
+                                        name => 'Artist',
+                                    )
+                                )]),
+                        position => 1,
+                        length => undef
+                    )
+                ]
+            )
+        }
+    };
+
+    subtest 'Can change the recording to another existing recording' => sub {
+        $medium = $c->model('Medium')->get_by_id(1);
+        $c->model('Track')->load_for_tracklists($medium->tracklist);
+        $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+
+        my $track = $medium->tracklist->tracks->[0];
+        my $old_recording_id = $track->recording_id;
+
+        ok !exception {
+            $c->model('Edit')->create(
+                editor_id  => 1,
+                privileges => 1,
+                edit_type  => $EDIT_MEDIUM_EDIT,
+                to_edit    => $medium,
+                tracklist  => [
+                    $track->meta->clone_object($track, recording_id => 1)
+                ]
+            )
+        };
+    };
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 
