@@ -38,6 +38,7 @@
     </span>
   [%- ELSE -%]
     [%- link_entity(entity) -%]
+    [%- r.hidden(field.field('id'), class => 'id') -%]
   [%- END -%]
 [%- END -%]
 
@@ -50,8 +51,8 @@ var typeInfo = [% type_info %];
     [% IF exists %]
         <p><strong>[% l('A relationship between {entity0} and {entity1} already
                          exists with these attributes.',
-                        { entity0 => link_entity(rel.entity0),
-                          entity1 => link_entity(rel.entity1) }) %]</strong></p>
+                        { entity0 => link_entity(selected.0),
+                          entity1 => link_entity(selected.1) }) %]</strong></p>
     [% END %]
 
 <fieldset>

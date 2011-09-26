@@ -131,19 +131,29 @@ sub edit : Local RequireAuth Edit
                 : $value ? $attr->id : ();
         }
 
+        my @ids = $form->field('direction')->value
+                # User is changing the direction
+                ? ($form->field('entity1.id')->value
+                  ,$form->field('entity0.id')->value)
+
+                # User is not changing the direction
+                : ($form->field('entity0.id')->value
+                  ,$form->field('entity1.id')->value);
+
+        my @selected = (
+            $model0->get_by_id($form->field('entity0.id')->value),
+            $model1->get_by_id($form->field('entity1.id')->value)
+        );
+
+        $c->stash( selected => \@selected );
+
         if ($c->model('Relationship')->exists($type0, $type1, {
             link_type_id => $form->field('link_type_id')->value,
             begin_date   => $form->field('begin_date')->value,
             end_date     => $form->field('end_date')->value,
             attributes   => [uniq @attributes],
-            $form->field('direction')->value
-                # User is changing the direction
-                ? (entity0_id   => $form->field('entity1.id')->value,
-                   entity1_id   => $form->field('entity0.id')->value)
-
-                # User is not changing the direction
-                : (entity0_id   => $form->field('entity0.id')->value,
-                   entity1_id   => $form->field('entity1.id')->value)
+            entity0_id   => $ids[0],
+            entity1_id   => $ids[1]
         })) {
             $c->stash( exists => 1 );
             $c->detach;
@@ -158,8 +168,8 @@ sub edit : Local RequireAuth Edit
             edit_type => $EDIT_RELATIONSHIP_EDIT,
             type0             => $type0,
             type1             => $type1,
-            entity0           => $model0->get_by_id($form->field('entity0.id')->value),
-            entity1           => $model1->get_by_id($form->field('entity1.id')->value),
+            entity0           => $selected[0],
+            entity1           => $selected[1],
             relationship      => $rel,
             link_type         => $link_type,
             begin_date        => $form->field('begin_date')->value,
