@@ -13,6 +13,10 @@ use URI::Escape;
 
 require Encode::Detect;
 
+use Sub::Exporter -setup => {
+    exports => [qw( format_editnote )]
+};
+
 sub release_date
 {
     my $date = shift;
@@ -136,8 +140,10 @@ sub format_editnote
 
     $html =~ s/<\/?p[^>]*>//g;
     $html =~ s/<br[^>]*\/?>//g;
-    $html =~ s/&#39;&#39;&#39;(.*?)&#39;&#39;&#39;/<strong>$1<\/strong>/g;
-    $html =~ s/&#39;&#39;(.*?)&#39;&#39;/<em>$1<\/em>/g;
+    $html =~ s/</&lt;/g;
+    $html =~ s/>/&gt;/g;
+    $html =~ s/'''([^']+.*?)'''/<strong>$1<\/strong>/g;
+    $html =~ s/''(.*?)''/<em>$1<\/em>/g;
     $html =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
 
     return $html;
