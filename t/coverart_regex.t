@@ -24,6 +24,18 @@ subtest 'Test a valid URI' => sub {
     done_testing;
 };
 
+subtest 'Test case sensitivy' => sub {
+    my $uri = 'http://www.discogs.com/image/R-1764263-1241867480.jPeG';
+    ok($provider->handles($uri));
+
+    my $art = $provider->lookup_cover_art($uri);
+    is($art->provider->name, 'Discogs');
+    is($art->image_uri, 'http://www.discogs.com/image/R-1764263-1241867480.jpeg');
+    is($art->information_uri, 'http://www.discogs.com/release/1764263');
+
+    done_testing;
+};
+
 subtest 'Test an invalid URI' => sub {
     my $uri = 'http://gizoogle.com';
     ok(!$provider->handles($uri));
