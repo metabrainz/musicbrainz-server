@@ -653,7 +653,10 @@ sub merge
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
         confess('Mediums contain differing numbers of tracks')
-            unless $self->can_merge($MERGE_MERGE, $new_id, @old_ids);
+            unless $self->can_merge(
+                merge_strategy => $MERGE_MERGE,
+                new_id => $new_id,
+                old_ids => \@old_ids);
 
         my @merges = @{
             $self->sql->select_list_of_hashes(
