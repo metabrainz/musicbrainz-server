@@ -11,7 +11,6 @@ use aliased 'MusicBrainz::Server::Translation';
 
 use Encode;
 use Try::Tiny;
-require Encode::Detect;
 
 # Set flags and add plugins for the application
 #
@@ -271,16 +270,8 @@ sub _handle_param_unicode_decoding {
         : $enc->decode( $value, $Catalyst::Plugin::Unicode::Encoding::CHECK );
     }
     catch {
-        try {
-            decode('Detect', $value, $Catalyst::Plugin::Unicode::Encoding::CHECK );
-        }
-        catch {
-            $self->handle_unicode_encoding_exception({
-                param_value => $value,
-                error_msg => $_,
-                encoding_step => 'params',
-            });
-        }
+        $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as utf-8 and try again.');
+        $self->res->status(400);
     };
 }
 
