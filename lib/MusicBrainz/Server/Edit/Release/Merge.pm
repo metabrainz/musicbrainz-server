@@ -103,16 +103,7 @@ sub do_merge
         };
     }
 
-    if (!$self->c->model('Release')->can_merge(
-        $self->data->{merge_strategy},
-        $self->new_entity->{id},
-        $self->_old_ids)) {
-        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
-            'These releases could not be merged'
-        );
-    }
-
-    $self->c->model('Release')->merge(
+    my %opts = (
         new_id => $self->new_entity->{id},
         old_ids => [ $self->_old_ids ],
         merge_strategy => $self->data->{merge_strategy},
@@ -123,6 +114,14 @@ sub do_merge
         },
         medium_names => $medium_names
     );
+
+    if (!$self->c->model('Release')->can_merge(%opts)) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'These releases could not be merged'
+        );
+    }
+
+    $self->c->model('Release')->merge(%opts);
 };
 
 __PACKAGE__->meta->make_immutable;

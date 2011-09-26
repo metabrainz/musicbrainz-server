@@ -518,6 +518,15 @@ sub _do_accept
         );
         return $STATUS_FAILEDDEP;
     }
+    catch (MusicBrainz::Server::Edit::Exceptions::GeneralError $err) {
+        $self->c->model('EditNote')->add_note(
+            $edit->id => {
+                editor_id => $EDITOR_MODBOT,
+                text => $err->message
+            }
+        );
+        return $STATUS_ERROR;
+    }
     catch ($err) {
         die $err;
     };
