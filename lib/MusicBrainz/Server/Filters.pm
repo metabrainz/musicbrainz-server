@@ -97,7 +97,21 @@ sub _display_trimmed {
         ? substr($encoded_url, 0, 48) . "&#8230;"
         : $encoded_url;
 
+    $encoded_url = "http://$encoded_url"
+        unless $encoded_url =~ m{^http://};
+
     return qq{<a href="$encoded_url">$display_url</a>};
+}
+
+sub normalise_url {
+    my $url = shift;
+    # The regular expression in format_editnote is not clever enough to handle
+    # percent encoded parenthesis.
+
+    $url =~ s/%28/\(/g;
+    $url =~ s/%29/\)/g;
+
+    return $url;
 }
 
 sub format_editnote
@@ -106,6 +120,13 @@ sub format_editnote
 
     my $is_url = 1;
     my $server = &DBDefs::WEB_SERVER;
+
+    # Pre-pass the edit note to attempt to normalise any URLs
+    $html =~ s{(http://[^\s]+)}{normalise_url($1)}eg;
+
+    # Encode < and >
+    $html =~ s/</&lt;/g;
+    $html =~ s/>/&gt;/g;
 
     # The following taken from http://daringfireball.net/2010/07/improved_regex_for_matching_urls
     $html =~ s{
@@ -140,8 +161,6 @@ sub format_editnote
 
     $html =~ s/<\/?p[^>]*>//g;
     $html =~ s/<br[^>]*\/?>//g;
-    $html =~ s/</&lt;/g;
-    $html =~ s/>/&gt;/g;
     $html =~ s/'''([^']+.*?)'''/<strong>$1<\/strong>/g;
     $html =~ s/''(.*?)''/<em>$1<\/em>/g;
     $html =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
