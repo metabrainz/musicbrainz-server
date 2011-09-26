@@ -415,9 +415,25 @@ around _merge_submit => sub {
     my ($orig, $self, $c, $form, $entities) = @_;
     my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
     my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$entities;
-    if ($c->model('Release')->can_merge(
-        $form->field('merge_strategy')->value,
-        $new_id, map { $_->id } @$old)) {
+
+    my $strat = $form->field('merge_strategy')->value;
+    my %merge_opts = (
+        merge_strategy => $strat,
+        new_id => $new_id,
+        old_ids => [ map { $_->id } @$old ],
+    );
+
+    # XXX Ripped from Edit/Release/Merge.pm need to find a better solution.
+    if ($strat == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+        my %extra_params = $self->_merge_parameters($c, $form, $entities);
+        $merge_opts{ medium_positions } = {
+            map { $_->{id} => $_->{new_position} }
+            map { @{ $_->{mediums} } }
+                @{ $extra_params{medium_changes} }
+        };
+    }
+
+    if ($c->model('Release')->can_merge(%merge_opts)) {
         $self->$orig($c, $form, $entities);
     }
     else {
