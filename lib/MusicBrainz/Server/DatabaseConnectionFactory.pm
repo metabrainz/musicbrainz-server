@@ -31,7 +31,6 @@ sub get_connection
     my ($class, $key, %opts) = @_;
     Class::MOP::load_class($connector_class);
 
-    $DB::single=1;
     if ($opts{fresh}) {
         my $database = $databases{ $key };
         return $connector_class->new( database => $database );

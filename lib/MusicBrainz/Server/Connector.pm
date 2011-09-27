@@ -9,7 +9,7 @@ sub _schema { shift->database->schema }
 has 'conn' => (
     isa        => 'DBIx::Connector',
     is         => 'ro',
-#    handles    => [qw( dbh )],
+    handles    => [qw( dbh )],
     lazy_build => 1,
 );
 
@@ -22,13 +22,7 @@ has 'sql' => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        $DB::single=1;
-        # Sql->new($self->dbh)
-        Sql->new(
- #           $self->dbh,
-            $self->conn,
-        )
-
+        Sql->new( $self->conn )
     },
     lazy => 1
 );
@@ -49,9 +43,8 @@ sub _build_conn
         PrintError        => 0,
     });
 
-    $DB::single=1;
+    # Make sure we notice the DB going down and attempt to reconnect
     $conn->mode('fixup');
-    #warn "PEC TODO setting up ping";
 
     $conn->run(sub {
                    my $dbh = $_;

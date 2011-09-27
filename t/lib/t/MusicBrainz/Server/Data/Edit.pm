@@ -71,7 +71,7 @@ test 'Test locks on edits' => sub {
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
     my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
 
-    my $sql2 = Sql->new($foreign_connection->dbh);
+    my $sql2 = Sql->new($foreign_connection->conn);
     $sql2->begin;
     $sql2->select_single_row_array('SELECT * FROM edit WHERE id = 12345 FOR UPDATE');
 

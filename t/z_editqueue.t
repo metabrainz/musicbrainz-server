@@ -32,7 +32,7 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c, '+editqueue_raw-truncat
 MusicBrainz::Server::Test->prepare_test_database($c, '+editqueue');
 MusicBrainz::Server::Test->prepare_raw_test_database($c, '+editqueue_raw');
 
-my $sql = Sql->new($c->dbh);
+my $sql = $c->sql;
 
 my $log = Log::Dispatch->new( outputs => [ [ 'Null', min_level => 'debug' ] ] );
 #my $log = Log::Dispatch->new( outputs => [ [ 'Screen', min_level => 'debug' ] ] );
@@ -84,7 +84,7 @@ $sql->do("UPDATE edit SET yes_votes=100 WHERE id=101");
 my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('READWRITE');
 my $raw2   = MusicBrainz::Server::Test::Connector->new(database => $raw_db);
 
-my $sql2 = Sql->new($raw2->dbh);
+my $sql2 = Sql->new($raw2->conn);
 $sql2->begin;
 $sql2->select_single_row_array('SELECT * FROM edit WHERE id=101 FOR UPDATE');
 

@@ -12,16 +12,14 @@ has 'cache_manager' => (
     handles => [ 'cache' ]
 );
 
-has 'conn' => (
+has 'connector' => (
     is => 'ro',
-    handles => [ 'dbh', 'sql' ],
+    handles => [ 'dbh', 'sql', 'conn' ],
     lazy_build => 1,
 );
 
-sub _build_conn {
-    my $t = DatabaseConnectionFactory->get_connection('READWRITE');
-    $DB::single=1;
-    return $t;
+sub _build_connector {
+    return DatabaseConnectionFactory->get_connection('READWRITE');
 }
 
 has 'models' => (

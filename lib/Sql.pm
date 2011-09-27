@@ -12,13 +12,6 @@ has 'debug' => (
     default => sub { exists $ENV{SQL_DEBUG} && $ENV{SQL_DEBUG} }
 );
 
-# has 'dbh' => (
-#     is => 'ro',
-#     isa => 'DBI::db',
-#     required => 1,
-#     handles => [qw( errstr quote )],
-# );
-
 has 'conn' => (
     is => 'ro',
     isa => 'DBIx::Connector',
@@ -57,9 +50,7 @@ sub finish
 sub BUILDARGS
 {
     my ($self, $conn) = @_;
-#    croak "Missing required argument 'dbh'" unless defined $dbh;
-#    return { dbh => $dbh };
-    $DB::single=1;
+   croak "Missing required argument 'conn'" unless defined $conn;
     return { conn => $conn };
 }
 
@@ -79,9 +70,7 @@ sub is_in_transaction
 sub select
 {
     my ($self, $query, @params) = @_;
-    $DB::single=1;
     my $prepare_method = (@params ? "prepare_cached" : "prepare");
-
 
     return try {
         my $tt = Sql::Timer->new($query, \@params) if $self->debug;
@@ -89,14 +78,6 @@ sub select
         $self->sth( $self->dbh->$prepare_method($query) );
         $self->sth->execute(@params);
         return $self->sth->rows;
-        # my $sth = $self->conn2->run(fixup => sub {
-        #                          my $sth = $_->prepare($query);
-        #                          $sth->execute(@params);
-        #                          $sth;
-        #                      });
-
-
-        # return $sth->rows;
     }
     catch {
         my $err = $_;
@@ -118,7 +99,6 @@ sub do
     $self->_auto_commit(0) if $self->_auto_commit;
     return try {
         my $tt = Sql::Timer->new($query, \@params) if $self->debug;
-        $DB::single=1;
         my $sth = $self->dbh->$prepare_method($query);
         my $rows = $sth->execute(@params);
         $sth->finish;
