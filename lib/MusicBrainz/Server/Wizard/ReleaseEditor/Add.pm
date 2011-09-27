@@ -155,14 +155,16 @@ augment 'create_edits' => sub
         my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 
         # Previewing a release doesn't care about having the release group id
-        $add_release_args{release_group_id} = $edit->entity->id
+        $add_release_args{release_group_id} = $edit->entity_id
             unless $previewing;
     }
 
     # Add the release edit
     my $add_release_edit = $create_edit->(
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
-    $release = $add_release_edit->entity;
+
+    $release = $self->c->model('Release')->get_by_id($add_release_edit->entity_id)
+        unless $previewing;
 
     return $release;
 };
