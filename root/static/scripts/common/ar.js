@@ -83,6 +83,7 @@ $(function() {
         }
         while (i >= 0 && i < select.options.length) {
             if (select.options[i].dataset &&
+                select.options[i].dataset.unaccented &&
                 select.options[i].dataset.unaccented.toLowerCase().indexOf(filterValue) != -1) {
                 select.selectedIndex = i;
                 return;
