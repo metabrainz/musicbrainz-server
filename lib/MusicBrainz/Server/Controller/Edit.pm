@@ -115,16 +115,28 @@ sub approve : Chained('load') RequireAuth(auto_editor)
 sub cancel : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-
     my $edit = $c->stash->{edit};
     if (!$edit->can_cancel($c->user)) {
         $c->stash( template => 'edit/cannot_cancel.tt' );
         $c->detach;
     }
-    $c->model('Edit')->cancel($edit);
 
-    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
-    $c->detach;
+    $c->model('Edit')->load_all($edit);
+
+    my $form = $c->form(form => 'Confirm');
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('Edit')->cancel($edit);
+        $c->model('EditNote')->add_note(
+            $edit->id,
+            {
+                editor_id => $c->user->id,
+                text      => $form->field('edit_note')->value
+            }
+        );
+
+        $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
+        $c->detach;
+    }
 }
 
 =head2 open
