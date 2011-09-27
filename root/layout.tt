@@ -130,6 +130,7 @@
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
             [%- content -%]
             <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            <div style="clear: both"></div>
         </div>
 
         [%- INCLUDE 'layout/merge-helper.tt'
