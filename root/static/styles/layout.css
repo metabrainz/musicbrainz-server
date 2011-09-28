@@ -244,7 +244,7 @@ pre code {
     padding: 1em 1em 1em 1em;
     padding: 16px;
     background: #FFF url('../images/layout/page-bg.gif') repeat-y top right;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
 }
 
