@@ -10,7 +10,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::URL';
 
 use DateTime::Format::Pg;
-use List::UtilsBy qw( sort_by );
+use List::UtilsBy qw( rev_sort_by );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::CoverArt;
 
@@ -235,7 +235,7 @@ sub cache_cover_art
 {
     my ($self, $release) = @_;
     my $cover_art;
-    for my $relationship (sort_by { $_->last_updated } $release->all_relationships) {
+    for my $relationship (rev_sort_by { $_->last_updated } $release->all_relationships) {
         last if defined($cover_art);
         $cover_art = $self->parse_from_type_url(
             $relationship->link->type->name,
