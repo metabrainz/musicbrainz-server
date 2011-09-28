@@ -380,6 +380,13 @@ MB.Control.ReleaseBasicTab = function (advancedtab, serialized) {
         return self.tracklist.newDisc (self.adv.addDisc (), true);
     };
 
+    self.addExistingTracklist = function (tracklist_id) {
+        var disc = self.emptyDisc ();
+        disc.$tracklist_id.val (tracklist_id);
+        disc.collapse ();
+        disc.expand ();
+    };
+
     $("a[href=#advanced]").click (function () {
         moveFields ('basic', 'advanced');
         $('.basic-tracklist').hide ();

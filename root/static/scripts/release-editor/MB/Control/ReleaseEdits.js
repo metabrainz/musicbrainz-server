@@ -36,20 +36,27 @@ MB.Control.ReleaseEdits = function ($edits) {
             }
             else if (current && edited)
             {
-                if (parseInt (current.id) !== parseInt (edited.id))
+                if (current.id && edited.id &&
+                    parseInt (current.id) !== parseInt (edited.id))
                 {
                     changes = true;
                     return false;
                 }
 
-                var properties = [ 'artist_name', 'name', 'join', 'gid' ];
-                $.each (properties, function (idx, key) {
-                    if (!current[key])
-                    {
-                        current[key] = '';
-                    }
+                $.each ([ 'name', 'join_phrase' ], function (idx, key) {
+                    current[key] = current[key] ? current[key] : '';
 
                     if (current[key] !== edited[key])
+                    {
+                        changes = true;
+                        return false;
+                    }
+                });
+
+                $.each ([ 'name', 'gid' ], function (idx, key) {
+                    current.artist[key] = current.artist[key] ? current.artist[key] : '';
+
+                    if (current.artist[key] !== edited.artist[key])
                     {
                         changes = true;
                         return false;

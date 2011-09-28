@@ -22,9 +22,9 @@
        ];
 
 
-       var advanced_tab = MB.Control.ReleaseAdvancedTab ();
-       var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
-       MB.Control.ReleaseAddDisc (advanced_tab, basic_tab);
+       MB.advanced_tab = MB.Control.ReleaseAdvancedTab ();
+       MB.basic_tab = MB.Control.ReleaseBasicTab (MB.advanced_tab);
+       MB.Control.ReleaseAddDisc (MB.advanced_tab, MB.basic_tab);
 
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
