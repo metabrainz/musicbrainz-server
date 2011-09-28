@@ -2,7 +2,7 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Edit;
 use Moose;
 use Data::Compare;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
 use MusicBrainz::Server::Track qw( format_track_length );
 
@@ -107,27 +107,7 @@ sub _edits_from_tracklist
     $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
     $self->c->model('Artist')->load(map { @{ $_->artist_credit->names } } $tracklist->all_tracks);
 
-    return [ map { & { sub {
-        my $trk = shift;
-
-        my $edit = {
-            artist_credit => artist_credit_to_ref ($trk->artist_credit),
-            deleted => 0,
-            length => format_track_length ($trk->length),
-            name => $trk->name,
-            position => $trk->position
-        };
-
-        my $sha = hash_structure({
-            name => $edit->{name},
-            length => $edit->{length},
-            artist_credit => $edit->{artist_credit},
-        });
-
-        $edit->{edit_sha1} = $sha;
-
-        return $edit;
-    } } ($_) } $tracklist->all_tracks ];
+    return [ map { $self->track_edit_from_track ($_) } $tracklist->all_tracks ];
 }
 
 
@@ -211,17 +191,8 @@ sub _update_medium_edits
 
             if ($self->_is_same_artist ($trk->{artist_credit}, $database_artist))
             {
-                $edits->[$trk_idx]->{artist_credit} = $submitted_artist;
-
-                # FIXME: duplicated.  make DRY.
-                my $sha = hash_structure({
-                    name => $edits->[$trk_idx]->{name},
-                    length => $edits->[$trk_idx]->{length},
-                    artist_credit => $edits->[$trk_idx]->{artist_credit},
-                });
-
-                $edits->[$trk_idx]->{edit_sha1} = $sha;
-
+                $trk->{artist_credit} = $submitted_artist;
+                $edits->[$trk_idx] = $self->update_track_edit_hash ($trk);
                 $changes = 1;
             }
         }

@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( hash_structure object_to_ids );
+use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use List::UtilsBy qw( uniq_by );
@@ -190,21 +190,18 @@ after 'prepare_tracklist' => sub {
         next unless defined $medium->{edits};
 
         my @edits = @{ $json->decode ($medium->{edits}) };
-        for my $edit (@edits)
+        for my $trk_idx (0..$#edits)
         {
+            my $trk = $edits[$trk_idx];
+
             # If the track artist is not set, or identical to the release artist,
             # use the identified release artist for all tracks.
-            next unless $edit->{artist_credit}->{preview} eq $release_artist->name
-                || $edit->{artist_credit}->{preview} eq '';
+            next unless $trk->{artist_credit}->{preview} eq $release_artist->name
+                || $trk->{artist_credit}->{preview} eq '';
 
-            $edit->{artist_credit} = $release_artist;
+            $trk->{artist_credit} = $release_artist;
 
-            $edit->{edit_sha1} = hash_structure (
-                {
-                    name => $edit->{name},
-                    length => $edit->{length},
-                    artist_credit => $edit->{artist_credit},
-                });
+            $edits[$trk_idx] = hash_structure ($trk);
         }
         $medium->{edits} = $json->encode (\@edits);
     }
