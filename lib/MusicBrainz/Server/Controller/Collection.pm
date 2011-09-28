@@ -23,7 +23,15 @@ after 'load' => sub
     )
 };
 
-sub add : Chained('load') RequireAuth
+sub own_collection : Chained('load') CaptureArgs(0) {
+    my ($self, $c) = @_;
+
+    my $collection = $c->stash->{collection};
+    $c->forward('/user/do_login') if !$c->user_exists;
+    $c->detach('/error_403') if !$collection->public && $c->user->id != $collection->editor_id;
+}
+
+sub add : Chained('own_collection') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -38,7 +46,7 @@ sub add : Chained('load') RequireAuth
     $c->detach;
 }
 
-sub remove : Chained('load') RequireAuth
+sub remove : Chained('own_collection') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -68,9 +76,7 @@ sub show : Chained('load') PathPart('')
         );
     }
 
-    my $user = $collection->editor;
-    $c->detach('/error_404')
-        if ((!$c->user_exists || $c->user->id != $user->id) && !$collection->public);
+    $self->own_collection($c) if !$collection->public;
 
     my $order = $c->req->params->{order} || 'date';
 
@@ -115,14 +121,11 @@ sub create : Local RequireAuth
     }
 }
 
-sub edit : Chained('load') RequireAuth
+sub edit : Chained('own_collection') RequireAuth
 {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
-
-    my $user = $collection->editor;
-    $c->detach('/error_404') if ($c->user->id != $user->id);
 
     my $form = $c->form( form => 'Collection', init_object => $collection );
 
@@ -136,14 +139,11 @@ sub edit : Chained('load') RequireAuth
     }
 }
 
-sub delete : Chained('load') RequireAuth
+sub delete : Chained('own_collection') RequireAuth
 {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};
-
-    my $user = $collection->editor;
-    $c->detach('/error_404') if ($c->user->id != $user->id);
 
     if ($c->form_posted) {
         $c->model('Collection')->delete($collection->id);
