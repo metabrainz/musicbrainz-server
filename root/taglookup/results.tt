@@ -3,11 +3,7 @@
         <h1>[% l('Tag Lookup Results') %]</h1>
         [%- INCLUDE 'taglookup/nag.tt' -%]
 
-        [%- IF results.size -%]
-            [% INCLUDE 'components/results-release.tt' %]
-        [%- ELSE -%]
-            <p>[% l('No results found') %]</p>
-        [%- END -%]
+        [%- INCLUDE "search/lib/inline-results-${type}.tt" -%]
 
         [%- INCLUDE 'taglookup/form.tt' -%]
     </div>

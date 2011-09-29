@@ -120,7 +120,11 @@ sub puid : Private
 
     my @results = map { { entity => $_ } } @releases;
 
-    $c->stash->{results} = \@results;
+    $c->stash(
+        # A PUID search displays releases as results
+        type    => 'release',
+        results => \@results
+    );
 }
 
 sub external : Private
@@ -176,14 +180,11 @@ sub external : Private
         $c->detach('not_found');
     }
 
-    $c->response->redirect(
-        $c->uri_for_action(
-            '/search/search', {
-                query => join(' ', @search_modifiers),
-                type => $type,
-                advanced => 1
-            }));
-    $c->detach;
+    $c->stash( type => $type );
+    $c->controller('Search')->do_external_search($c,
+                                                 query    => join(' ', @search_modifiers),
+                                                 type     => $type,
+                                                 advanced => 1);
 }
 
 
@@ -203,14 +204,14 @@ sub index : Path('')
 
     return unless $form->submitted_and_valid( $mapped_params );
 
-    $c->stash( template => 'taglookup/results-release.tt' );
-
     if ($form->field('puid')->value()) {
         $self->puid($c, $form);
     }
     else {
         $self->external($c, $form);
     }
+
+    $c->stash( template => 'taglookup/results.tt' );
 }
 
 1;
