@@ -80,10 +80,19 @@ sub nag_check
 {
     my ($self, $c) = @_;
 
+    # Always nag users who are not logged in
     return 1 unless $c->user_exists;
 
-    my $session = $c->session;
+    # Editors with special privileges should not get nagged.
+    my $editor = $c->user;
+    return 0 if ($editor->is_nag_free ||
+                 $editor->is_auto_editor ||
+                 $editor->is_bot ||
+                 $editor->is_relationship_editor ||
+                 $editor->is_wiki_transcluder);
 
+    # Otherwise, do the normal nagging per LOOKUPS_PER_NAG check
+    my $session = $c->session;
     $session->{nag} = 0 unless defined $session->{nag};
 
     return 0 if ($session->{nag} == -1);
