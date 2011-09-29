@@ -202,6 +202,9 @@ sub index : Path('')
         } qw( artist release tracknum track duration filename puid )
     };
 
+    # All the fields are optional, but we shouldn't do anything unless at
+    # least one of them has a value
+    return unless grep { $_ } values %$mapped_params;
     return unless $form->submitted_and_valid( $mapped_params );
 
     if ($form->field('puid')->value()) {
