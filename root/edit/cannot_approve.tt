@@ -2,11 +2,13 @@
     <h1>[% l('Error Approving Edit') %]</h1>
     <p>[% l('There was a problem approving {edit}.',
            { edit => link_edit(edit, show, html_escape('edit #' _ edit.id)) }) %]</p>
-    [% IF !edit.auto_edit_for_editor(c.user) %]
-        <p>[% l('Only {doc|auto-editors} can approve an edit.', { doc => doc_link('Auto-Editor') }) %]</p>
+    [% IF !edit.is_open %]
+        <p>[% l('The edit has already been closed.') %]</p>
     [% ELSIF edit.status == 8 %]
         <p>[% l('The edit has been cancelled.') %]</p>
-    [% ELSIF !edit.is_open %]
-        <p>[% l('The edit has already been closed.') %]</p>
+    [% ELSIF !edit.auto_edit_for_editor(c.user) %]
+        <p>[% l('Only {doc|auto-editors} can approve an edit.', { doc => doc_link('Auto-Editor') }) %]</p>
+    [% ELSE %]
+        <p>[% l('The reason for this was unknown.') %]</p>
     [% END %]
 [% END %]
