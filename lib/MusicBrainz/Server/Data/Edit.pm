@@ -384,22 +384,7 @@ sub create
         my $now = DateTime->now;
         my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
-        # Some edits need the ID when they are accepted, and the accept code
-        # might run before edit insertion (ie, autoedits).
-        $edit->id($self->sql->select_single_value(
-            "SELECT nextval('edit_id_seq')"
-        ));
-
-        # Automatically accept auto-edits on insert
-        if ($edit->auto_edit) {
-            my $st = $self->_do_accept($edit);
-            $edit->status($st);
-            $self->c->model('Editor')->credit($edit->editor_id, $st, 1);
-            $edit->close_time($now)
-        };
-
         my $row = {
-            id => $edit->id,
             editor => $edit->editor_id,
             data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
             status => $edit->status,
@@ -412,6 +397,7 @@ sub create
         };
 
         my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
+        $edit->id($edit_id);
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
@@ -423,9 +409,15 @@ sub create
             $self->c->sql->do($query, zip @all_ids, @$ids);
         }
 
-        if ($edit->is_open) {
-            $edit->adjust_edit_pending(+1);
+        $edit->adjust_edit_pending(+1);
+
+        # Automatically accept auto-edits on insert
+        $edit = $self->get_by_id($edit->id);
+        if ($edit->auto_edit) {
+            $self->accept($edit);
         }
+
+        $edit = $self->get_by_id($edit->id);
     }, $self->c->sql);
 
     return $edit;
@@ -518,6 +510,15 @@ sub _do_accept
         );
         return $STATUS_FAILEDDEP;
     }
+    catch (MusicBrainz::Server::Edit::Exceptions::GeneralError $err) {
+        $self->c->model('EditNote')->add_note(
+            $edit->id => {
+                editor_id => $EDITOR_MODBOT,
+                text => $err->message
+            }
+        );
+        return $STATUS_ERROR;
+    }
     catch ($err) {
         die $err;
     };
@@ -605,6 +606,11 @@ sub insert_votes_and_notes {
                 });
         }
     }, $self->c->sql);
+}
+
+sub add_link {
+    my ($self, $type, $id, $edit) = @_;
+    $self->sql->do("INSERT INTO edit_$type (edit, $type) VALUES (?, ?)", $edit, $id);
 }
 
 __PACKAGE__->meta->make_immutable;

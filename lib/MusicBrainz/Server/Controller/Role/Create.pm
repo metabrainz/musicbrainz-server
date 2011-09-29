@@ -47,8 +47,11 @@ role {
             form        => $params->form,
             type        => $params->edit_type,
             on_creation => sub {
+                my $edit = shift;
+
+                my $entity = $c->model( $self->config->{model} )->get_by_id($edit->entity_id);
                 $c->response->redirect(
-                    $c->uri_for_action($self->action_for('show'), [ shift->entity->gid ]))
+                    $c->uri_for_action($self->action_for('show'), [ $entity->gid ]))
             },
             $params->edit_arguments->($self, $c)
         );

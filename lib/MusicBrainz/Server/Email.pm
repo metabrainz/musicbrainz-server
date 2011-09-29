@@ -406,15 +406,12 @@ sub _send_email
         ]
     };
 
-    {
-        my $e = $to->address;
-        $e =~ s/_/_5f/g;
-        $e =~ s/=/_3d/g;
-        $e =~ s/@/=/g;
-        $args->{from} = "bounces-".time()."-".$e.'@musicbrainz.org';
-    }
-
     $email->header_set('BCC', undef);
+
+    if ($email->header('Sender')) {
+        my @sender = Email::Address->parse($email->header('Sender'));
+        $args->{from} = $sender[0]->address;
+    }
 
     return sendmail($email, $args);
 }

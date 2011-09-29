@@ -18,22 +18,39 @@
   </tr>
 
   [% old_lengths = BLOCK;
-       FOR length=edit.data.length.old;
+       FOR length=edit.display_data.length.old;
          length | format_length;
          ' ';
        END;
      END;
      new_lengths = BLOCK;
-       FOR length=edit.data.length.new;
+       FOR length=edit.display_data.length.new;
          length | format_length;
          ' ';
        END;
      END %]
 
   <tr>
-    <th>[% label %]</th>
-    <td class="old">[% Diff.diff_side(old_lengths, new_lengths, '-', '') %]</td>
-    <td class="new">[% Diff.diff_side(old_lengths, new_lengths, '+', '') %]</td>
+    <th>[% l('Track lengths:') %]</th>
+    <td>
+      <table>
+        <tr>
+          [% FOR length = edit.display_data.length.old;
+               old_length = edit.display_data.length.old.${ loop.index } | format_length;
+               new_length = edit.display_data.length.new.${ loop.index } | format_length;
+               '<td class="old">' _ Diff.diff_side(old_length, new_length, '-', '') _ '</td>';
+             END %]
+        </tr>
+        <tr>
+          [% FOR length = edit.display_data.length.old;
+               old_length = edit.display_data.length.old.${ loop.index } | format_length;
+               new_length = edit.display_data.length.new.${ loop.index } | format_length;
+               '<td class="new">' _ Diff.diff_side(old_length, new_length, '+', '') _ '</td>';
+             END %]
+        </tr>
+      </table>
+    </td>
+
   </tr>
 
   [% IF old_lengths == new_lengths %]

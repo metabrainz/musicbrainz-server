@@ -17,6 +17,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Log qw( log_debug );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
@@ -529,7 +530,11 @@ sub delete
 }
 
 sub can_merge {
-    my ($self, $strategy, $new_id, @old_ids) = @_;
+    my ($self, %opts) = @_;
+
+    my $new_id = $opts{new_id};
+    my @old_ids = @{ $opts{old_ids} };
+    my $strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
     if ($strategy == $MERGE_MERGE) {
         my $mediums_differ = $self->sql->select_single_value(
@@ -551,6 +556,44 @@ sub can_merge {
         return !$mediums_differ;
     }
     elsif ($strategy == $MERGE_APPEND) {
+        my %positions = %{ $opts{medium_positions} || {} } or return 0;
+
+        # All mediums on the source releases must be moved
+        my @must_move_mediums = @{ $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release = any(?)',
+            \@old_ids
+        ) };
+
+        return 0 if grep { !exists $positions{$_} } @must_move_mediums;
+
+        # Make sure the new positions don't conflict with the current new medium
+        my @conflicts = @{
+            $self->sql->select_single_column_array(
+            'WITH changes (id, position) AS (
+               VALUES ' . join(', ', ('(?::integer, ?::integer)') x keys %positions) . '
+             )
+             SELECT DISTINCT position
+             FROM (
+               (
+                 SELECT id, position
+                 FROM changes
+               ) UNION
+               (
+                 SELECT all_m.id, all_m.position
+                 FROM changes
+                 JOIN medium changed_m ON changed_m.id = changes.id
+                 JOIN medium all_m ON all_m.release = changed_m.release
+                 WHERE all_m.id != changes.id
+               )
+             ) s
+             GROUP BY position
+             HAVING count(id) > 1
+             ', map { $_, $positions{$_} } keys %positions)
+        };
+
+        return 0 if @conflicts;
+
+        # If we've got this far, it must be ok to merge
         return 1;
     }
 }
@@ -610,7 +653,10 @@ sub merge
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
         confess('Mediums contain differing numbers of tracks')
-            unless $self->can_merge($MERGE_MERGE, $new_id, @old_ids);
+            unless $self->can_merge(
+                merge_strategy => $MERGE_MERGE,
+                new_id => $new_id,
+                old_ids => \@old_ids);
 
         my @merges = @{
             $self->sql->select_list_of_hashes(

@@ -82,6 +82,16 @@ around _build_related_entities => sub {
                 : $type eq '+' ? ($newt)
                 :                ($oldt)
             } @changes;
+
+        push @{ $related->{recording} },
+            grep { defined }
+            map {
+                my ($type, $oldt, $newt) = @$_;
+                map { $_->{recording_id} }
+                $type eq 'c' ? ($newt, $oldt) :
+                $type eq '+' ? ($newt)
+                             : ($oldt)
+            } @changes;
     }
 
     return $related;
@@ -377,10 +387,15 @@ sub accept {
 
         # Create recordings
         for my $track (@final_tracklist) {
-            $track->{recording_id} ||= $self->c->model('Recording')->insert({
-                %$track,
-                artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
-            })->id;
+            if (!$track->{recording_id}) {
+                $track->{recording_id} = $self->c->model('Recording')->insert({
+                    %$track,
+                    artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
+                })->id;
+
+                # We are in the processing of closing this edit. The edit exists, so we need to add a new link
+                $self->c->model('Edit')->add_link('recording', $track->{recording_id}, $self->id);
+            }
         }
 
         # See if we need a new tracklist
@@ -425,7 +440,8 @@ sub allow_auto_edit
                         '',
                         $track->{name},
                         format_track_length($track->{length}),
-                        hash_artist_credit($track->{artist_credit})
+                        hash_artist_credit($track->{artist_credit}),
+                        $track->{recording_id}
                     );
                 }
             ) };
