@@ -416,6 +416,7 @@ sub schema_fixup
                 my $rel_type = delete $rel->{type};
                 delete $rel->{id};
                 delete $rel->{gid};
+                delete $rel->{direction};
 
                 my $entity_type = (keys %$rel)[0];
                 $rel->{$entity_type}->{gid} = delete $rel->{$entity_type}->{id};
