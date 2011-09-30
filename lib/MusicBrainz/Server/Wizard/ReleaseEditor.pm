@@ -203,7 +203,7 @@ sub recording_edits_by_hash
     return %recording_edits;
 }
 
-=method recording_edits_by_hash
+=method recording_edits_from_tracklist
 
 Create no-op recording association edits for a particular tracklist
 which are confirmed and linked to the edit_sha1 hashes of unedited
@@ -1348,7 +1348,7 @@ sub _expand_mediums
 
 =method update_track_edit_hash
 
-Updates the edit_sha1 hash in a track edits.
+Updates the edit_sha1 hash in a track edit.
 
 =cut
 

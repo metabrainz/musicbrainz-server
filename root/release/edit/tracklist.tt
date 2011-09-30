@@ -7,8 +7,7 @@
 
     $('document').ready (function () {
 
-       /* FIXME: remove. */
-       MB.release_artist_json = null;
+       MB.release_artist_json = [% release_artist_json %];
 
        MB.medium_cdtocs = [
            [%- FOR medium=release.mediums -%]
@@ -22,9 +21,9 @@
        ];
 
 
-       MB.advanced_tab = MB.Control.ReleaseAdvancedTab ();
-       MB.basic_tab = MB.Control.ReleaseBasicTab (MB.advanced_tab);
-       MB.Control.ReleaseAddDisc (MB.advanced_tab, MB.basic_tab);
+       var advanced_tab = MB.Control.ReleaseAdvancedTab ();
+       var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
+       MB.Control.ReleaseAddDisc (advanced_tab, basic_tab);
 
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 

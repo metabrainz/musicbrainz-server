@@ -288,7 +288,7 @@ sub associations : Chained('root') PathPart Args(1) {
         my $track = {
             name => $_->name,
             length => format_track_length($_->length),
-            artist_credit => $_->artist_credit,
+            artist_credit => artist_credit_to_ref ($_->artist_credit),
         };
 
         my $data = {
