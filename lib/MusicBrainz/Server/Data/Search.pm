@@ -411,23 +411,24 @@ sub schema_fixup
 
         foreach my $rel_group (@{ $data->{"relation-list"} })
         {
+            my $entity_type = $rel_group->{'target-type'};
+
             foreach my $rel (@{ $rel_group->{"relation"} })
             {
-                my $rel_type = delete $rel->{type};
-                delete $rel->{id};
-                delete $rel->{gid};
+                my %entity = %{ $rel->{$entity_type} };
 
-                my $entity_type = (keys %$rel)[0];
-                $rel->{$entity_type}->{gid} = delete $rel->{$entity_type}->{id};
+                # The search server returns the MBID in the 'id' attribute, so we
+                # need to rename that.
+                $entity{gid} = delete $entity{id};
 
                 my $entity = $self->c->model( type_to_model ($entity_type) )->
-                    _entity_class->new (%{ $rel->{$entity_type} });
+                    _entity_class->new (%entity);
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
                     entity1 => $entity,
                     link => MusicBrainz::Server::Entity::Link->new(
                         type => MusicBrainz::Server::Entity::LinkType->new(
-                            name => $rel_type
+                            name => $rel->{type}
                         )
                     )
                 );
