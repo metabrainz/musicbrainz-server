@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( object_to_ids );
+use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use List::UtilsBy qw( uniq_by );
@@ -201,9 +201,9 @@ after 'prepare_tracklist' => sub {
             next unless $trk->{artist_credit}->{preview} eq $release_artist->name
                 || $trk->{artist_credit}->{preview} eq '';
 
-            $trk->{artist_credit} = $release_artist;
+            $trk->{artist_credit} = artist_credit_to_ref ($release_artist);
 
-            $edits[$trk_idx] = hash_structure ($trk);
+            $edits[$trk_idx] = $self->update_track_edit_hash ($trk);
         }
         $medium->{edits} = $json->encode (\@edits);
     }

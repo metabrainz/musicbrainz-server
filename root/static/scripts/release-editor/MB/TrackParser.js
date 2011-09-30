@@ -29,11 +29,13 @@ MB.TrackParser.Artist = function (track, artist) {
 
     self.addNew = function (name) {
         self.names.push ({
-            'artist_name': $.trim (name),
+            'artist': {
+                'name': $.trim (name),
+                'id': '',
+                'gid': '',
+            },
             'name': $.trim (name),
-            'id': '',
-            'gid': '',
-            'join': null
+            'join_phrase': null
         });
     };
 
@@ -64,12 +66,12 @@ MB.TrackParser.Artist = function (track, artist) {
 
     self.appendToArtist = function (unused) {
         var ac = self.names[self.names.length - 1];
-        ac.artist_name = ac.artist_name + unused;
+        ac.artist.name = ac.artist.name + unused;
         ac.name = ac.name + unused;
 
         /* we've changed the name, so make sure the IDs are cleared. */
-        ac.id = '';
-        ac.gid = '';
+        ac.artist.id = '';
+        ac.artist.gid = '';
     };
 
     self.addJoin = function (unused, ac) {
