@@ -119,6 +119,54 @@ sub find_or_insert
     });
 }
 
+sub garbage_collect_unused {
+    my ($self, @url_ids) = @_;
+    return unless @url_ids;
+
+    $self->sql->do(
+        'DELETE FROM url url_row
+         WHERE id = any(?)
+         AND NOT (
+          EXISTS (
+            SELECT TRUE FROM l_artist_url
+            WHERE entity1 = url_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_url
+            WHERE entity1 = url_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_recording_url
+            WHERE entity1 = url_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_release_url
+            WHERE entity1 = url_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_release_group_url
+            WHERE entity1 = url_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_url_url
+            WHERE entity0 = url_row.id OR entity1 = url_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_url_work
+            WHERE entity0 = url_row.id
+            LIMIT 1
+          )
+        )',
+        \@url_ids
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

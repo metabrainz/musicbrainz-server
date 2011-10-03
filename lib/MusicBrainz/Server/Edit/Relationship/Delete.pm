@@ -217,6 +217,15 @@ sub accept
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
     }
+
+    my @urls_to_clean;
+    push @urls_to_clean, $self->data->{relationship}{entity0}{id}
+        if ($self->data->{relationship}{link}{type}{entity0_type} eq 'url');
+
+    push @urls_to_clean, $self->data->{relationship}{entity1}{id}
+        if ($self->data->{relationship}{link}{type}{entity1_type} eq 'url');
+
+    $self->c->model('URL')->garbage_collect_unused(grep { defined } @urls_to_clean);
 }
 
 __PACKAGE__->meta->make_immutable;
