@@ -341,6 +341,58 @@ sub load_for_artist_credits {
     }
 };
 
+sub is_empty {
+    my ($self, $artist_id) = @_;
+
+    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+        SELECT TRUE
+        FROM artist artist_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM artist_credit_name
+            WHERE artist = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_recording
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_work
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_url
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_artist
+            WHERE entity0 = artist_row.id OR entity1 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_label
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_release
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_release_group WHERE entity0 = artist_row.id
+            LIMIT 1
+          )
+        )
+EOSQL
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -772,3 +772,9 @@ div.columns-5 div.column {
 
 .nagpanel .naglinkpanel { text-align: center; }
 .nagpanel .naglink { font-size: 200%; }
+
+p.cleanup {
+    text-align: center;
+    background: #FD9 !important;
+    padding: 1em;
+}
