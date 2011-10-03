@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     order_by
     partial_date_from_row
     placeholders
@@ -617,6 +618,15 @@ sub merge
         $self->sql => (
             table => 'release',
             columns => [ qw( status packaging country comment barcode script language ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
+    merge_partial_date(
+        $self->sql => (
+            table => 'release',
+            field => 'date',
             old_ids => \@old_ids,
             new_id => $new_id
         )

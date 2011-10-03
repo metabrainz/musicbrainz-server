@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     partial_date_from_row
     placeholders
     query_to_list_limited
@@ -263,6 +264,15 @@ sub merge
             new_id => $new_id
         )
     );
+
+    merge_partial_date(
+        $self->sql => (
+            table => 'artist',
+            field => $_,
+            old_ids => $old_ids,
+            new_id => $new_id
+        )
+    ) for qw( begin_date end_date );
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
