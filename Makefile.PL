@@ -38,7 +38,6 @@ requires 'DBD::Pg'                                    => '2.11.8';
 requires 'DBI'                                        => '1.607';
 requires 'Digest::MD5'                                => '2.36';
 requires 'Digest::SHA1'                               => '2.110';
-requires 'Encode::Detect'                             => '1.01';
 requires 'Email::Address';
 requires 'Email::Sender';
 requires 'Email::MIME';
