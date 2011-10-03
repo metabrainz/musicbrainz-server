@@ -927,12 +927,16 @@ sub _edit_missing_entities
     return () if $previewing;
     return (
         artist => {
-            (map { $_->entity->name => $_->entity->id } @artist_edits),
+            (map { $_->name => $_->id }
+                 values %{ $self->c->model('Artist')->get_by_ids(
+                     map { $_->entity_id } @artist_edits) }),
             (map { $_->{for} => $_->{entity_id} }
                  grep { $_->{entity_id} } @missing_artist)
         },
         label => {
-            (map { $_->entity->name => $_->entity->id } @label_edits),
+            (map { $_->name => $_->id }
+                 values %{ $self->c->model('Label')->get_by_ids(
+                     map { $_->entity_id } @label_edits) }),
             (map { $_->{for} => $_->{entity_id} }
                  grep { $_->{entity_id} } @missing_label)
         }

@@ -37,7 +37,7 @@ sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth(account_
 
         $c->model('Editor')->update_privileges($user, $form->values);
 
-        $c->response->redirect($c->uri_for_action('/user/adjustflags/view', [ $user->name ]));
+        $c->response->redirect($c->uri_for_action('/admin/adjust_flags', $user->name));
         $c->detach;
     }
 

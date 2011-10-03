@@ -63,7 +63,10 @@ sub build_display_data {
                 $loaded->{Release}{ $_->{id} } ||
                     Release->new( name => $_->{name} )
             } @{ $self->data->{affected_releases} }
-        ]
+        ],
+        length => {
+            map { $_ => $self->data->{length}{$_} } qw( old new )
+        }
     }
 }
 

@@ -372,7 +372,7 @@ MB.Control.Autocomplete = function (options) {
 
         var term = self.$input.val ();
         self.lookup ({ "term": term }, function (data, result, request) {
-            options.select (fake_event, data[0]);
+            self.select (fake_event, { item: data[0] });
         });
     };
 

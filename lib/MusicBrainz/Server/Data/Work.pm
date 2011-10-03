@@ -367,6 +367,54 @@ sub _find_recording_artists
     }
 }
 
+sub is_empty {
+    my ($self, $artist_id) = @_;
+
+    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+        SELECT TRUE
+        FROM work work_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM l_artist_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_recording_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_release_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_release_group_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_url_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_work_work
+            WHERE entity0 = work_row.id OR entity1 = work_row.id
+            LIMIT 1
+          )
+        )
+EOSQL
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

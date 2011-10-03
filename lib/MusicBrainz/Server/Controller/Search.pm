@@ -2,10 +2,12 @@ package MusicBrainz::Server::Controller::Search;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+use List::Util qw( min max );
 use LWP::UserAgent;
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
+use Scalar::Util qw( looks_like_number );
 use feature 'switch';
 
 sub search : Path('')
@@ -133,12 +135,37 @@ sub external : Private
 
     $c->detach('/search/editor') if $type eq 'editor';
 
-    my $limit  = $form->field('limit')->value;
-    my $page   = $c->request->query_params->{page} || 1;
-    my $adv    = $form->field('advanced') ? $form->field('advanced')->value : 0;
+    $self->do_external_search($c,
+                              query    => $query,
+                              type     => $type,
+                              limit    => $form->field('limit')->value,
+                              page     => $c->request->query_params->{page},
+                              advanced => $form->field('advanced'));
+
+    $c->stash->{template} ="search/results-$type.tt";
+}
+
+sub do_external_search {
+    my ($self, $c, %opts) = @_;
+
+    my $page  = looks_like_number($c->request->query_params->{page})
+                    ? $c->request->query_params->{page} : 1;
+    $page = max(1, $page);
+
+    my $limit = looks_like_number($opts{limit}) ? $opts{limit} : 25;
+    $limit = min(max(1, $limit), 100);
+
+    my $advanced = $opts{advanced} ? 1 : 0;
+
+    my $query = $opts{query};
+    my $type  = $opts{type};
 
     my $search = $c->model('Search');
-    my $ret = $search->external_search($type, $query, $limit, $page, $adv);
+    my $ret = $search->external_search($type,
+                                       $query,
+                                       $limit,
+                                       $page,
+                                       $advanced);
 
     if (exists $ret->{error})
     {
@@ -169,7 +196,6 @@ sub external : Private
         $c->stash->{pager}    = $ret->{pager};
         $c->stash->{offset}   = $ret->{offset};
         $c->stash->{results}  = $ret->{results};
-        $c->stash->{template} ="search/results-$type.tt";
     }
 }
 

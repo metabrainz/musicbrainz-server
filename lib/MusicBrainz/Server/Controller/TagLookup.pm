@@ -80,10 +80,19 @@ sub nag_check
 {
     my ($self, $c) = @_;
 
+    # Always nag users who are not logged in
     return 1 unless $c->user_exists;
 
-    my $session = $c->session;
+    # Editors with special privileges should not get nagged.
+    my $editor = $c->user;
+    return 0 if ($editor->is_nag_free ||
+                 $editor->is_auto_editor ||
+                 $editor->is_bot ||
+                 $editor->is_relationship_editor ||
+                 $editor->is_wiki_transcluder);
 
+    # Otherwise, do the normal nagging per LOOKUPS_PER_NAG check
+    my $session = $c->session;
     $session->{nag} = 0 unless defined $session->{nag};
 
     return 0 if ($session->{nag} == -1);
@@ -120,7 +129,11 @@ sub puid : Private
 
     my @results = map { { entity => $_ } } @releases;
 
-    $c->stash->{results} = \@results;
+    $c->stash(
+        # A PUID search displays releases as results
+        type    => 'release',
+        results => \@results
+    );
 }
 
 sub external : Private
@@ -176,14 +189,11 @@ sub external : Private
         $c->detach('not_found');
     }
 
-    $c->response->redirect(
-        $c->uri_for_action(
-            '/search/search', {
-                query => join(' ', @search_modifiers),
-                type => $type,
-                advanced => 1
-            }));
-    $c->detach;
+    $c->stash( type => $type );
+    $c->controller('Search')->do_external_search($c,
+                                                 query    => join(' ', @search_modifiers),
+                                                 type     => $type,
+                                                 advanced => 1);
 }
 
 
@@ -201,9 +211,10 @@ sub index : Path('')
         } qw( artist release tracknum track duration filename puid )
     };
 
+    # All the fields are optional, but we shouldn't do anything unless at
+    # least one of them has a value
+    return unless grep { $_ } values %$mapped_params;
     return unless $form->submitted_and_valid( $mapped_params );
-
-    $c->stash( template => 'taglookup/results-release.tt' );
 
     if ($form->field('puid')->value()) {
         $self->puid($c, $form);
@@ -211,6 +222,8 @@ sub index : Path('')
     else {
         $self->external($c, $form);
     }
+
+    $c->stash( template => 'taglookup/results.tt' );
 }
 
 1;

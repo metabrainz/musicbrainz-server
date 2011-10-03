@@ -43,7 +43,8 @@ sub handles
 sub lookup_cover_art
 {
     my ($self, $cover_art_uri) = @_;
-    my @captures = $cover_art_uri =~ $self->uri_expression;
+    my $expression = $self->uri_expression;
+    my @captures = $cover_art_uri =~ /$expression/i;
     return unless @captures;
 
     my $cover_art = CoverArt->new(
@@ -66,7 +67,7 @@ sub _rewrite {
     # Filter out just defined captures
     my @capture_indexes = grep { defined $captures[$_] } (1..9);
 
-    $template =~ s/\$$_/$captures[$_]/g for @capture_indexes;
+    $template =~ s/\$$_/$captures[$_]/ig for @capture_indexes;
     return $template;
 }
 

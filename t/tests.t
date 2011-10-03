@@ -20,7 +20,8 @@ my $form_mpo = Module::Pluggable::Object->new(
 my @classes = (
     $data_mpo->plugins,
     $entity_mpo->plugins,
-    $form_mpo->plugins
+    $form_mpo->plugins,
+    't::MusicBrainz::Server::Filters'
 );
 
 @classes = commandline_override ("t::MusicBrainz::Server::", @classes);
