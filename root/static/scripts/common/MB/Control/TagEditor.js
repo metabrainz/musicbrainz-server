@@ -38,7 +38,7 @@ MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
         var html = tags.length ? tags.map(function(tag) {
                 return tagTemplate.draw({
                     tag: tag,
-                    tagLink: encodeURI(tag)
+                    tagLink: encodeURIComponent(tag)
                 });
             }).join(', ') : MB.text.None;
 
