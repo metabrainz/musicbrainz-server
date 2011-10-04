@@ -529,7 +529,7 @@ sub external_search
     {
         $query = escape_query($query);
 
-        if (grep ($type eq $_, 'artist', 'label', 'work'))
+        if (grep { $type eq $_ } ('artist', 'label', 'work'))
         {
             $query = alias_query ($type, $query);
         }
