@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
-use MusicBrainz::Server::Validation qw( is_valid_isrc );
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
 use Function::Parameters 'f';
 use List::Util qw( first );
 use Try::Tiny;
@@ -41,6 +41,11 @@ around 'search' => sub
     my ($self, $c) = @_;
 
     $c->detach('submit') if $c->req->method eq 'POST';
+
+    if (my $puid = $c->req->query_params->{puid}) {
+        $self->bad_req($c, 'Invalid argument "puid": not a valid PUID')
+            unless is_guid($puid);
+    }
 
     if (exists $c->req->query_params->{puid}) {
         my $puid = $c->model('PUID')->get_by_puid($c->req->query_params->{puid});
