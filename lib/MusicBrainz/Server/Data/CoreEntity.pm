@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited musicbrainz_unaccent );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -67,6 +67,34 @@ sub find_by_name
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
                   WHERE musicbrainz_unaccent(lower(name.name)) = musicbrainz_unaccent(lower(?))";
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
+}
+
+sub find_by_names
+{
+    my $self = shift;
+    my @names = @_;
+
+    return () unless scalar @names;
+
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table
+        . " WHERE musicbrainz_unaccent(lower(name.name)) IN ("
+        . join (",", ("musicbrainz_unaccent(lower(?))") x scalar(@names))
+        .")";
+
+    my @results = query_to_list($self->c->sql, sub {
+        $self->_new_from_row (shift); }, $query, @names);
+
+    my %mapped;
+    for my $entity (@results)
+    {
+        my $key = musicbrainz_unaccent(lc($entity->name));
+
+        $mapped{$key} //= [];
+
+        push @{ $mapped{$key} }, $entity;
+    }
+
+    return %mapped;
 }
 
 sub remove_gid_redirects

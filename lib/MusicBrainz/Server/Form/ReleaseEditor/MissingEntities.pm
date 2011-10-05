@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::ReleaseEditor::MissingEntities;
 use HTML::FormHandler::Moose;
 
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_model musicbrainz_unaccent );
 
 extends 'MusicBrainz::Server::Form::Step';
 has_field 'missing' => ( type => 'Compound' );
@@ -41,6 +41,9 @@ sub validate {
     my $self = shift;
 
     for my $type (@types) {
+
+        my @comment_required;
+
         for my $field ($self->field('missing')->field($type)->fields) {
             next if $field->has_errors;
             next if $field->field('entity_id')->value;
@@ -48,12 +51,21 @@ sub validate {
             $field->field('sort_name')->required(1);
             $field->field('sort_name')->validate_field;
 
-            my @entities = $self->ctx->model(type_to_model($type))
-                ->find_by_name($field->field('name')->input)
-                    or next;
+            push @comment_required, $field;
 
-            $field->field('comment')->required(1);
-            $field->field('comment')->validate_field;
+        }
+
+        my %entities = $self->ctx->model(type_to_model($type))
+            ->find_by_names(map { $_->field('name')->input } @comment_required);
+
+        for my $field (@comment_required)
+        {
+            my $key = musicbrainz_unaccent(lc($field->field('name')->input));
+            if (exists $entities{$key})
+            {
+                $field->field('comment')->required(1);
+                $field->field('comment')->validate_field;
+            }
         }
     }
 }

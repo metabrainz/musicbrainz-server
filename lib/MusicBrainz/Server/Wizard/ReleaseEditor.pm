@@ -759,9 +759,9 @@ sub prepare_missing_entities
 
     $self->c->stash(
         missing_entity_count => scalar @credits + scalar @labels,
-        possible_artists => $self->c->model('Artist')->find_by_names (
+        possible_artists => $self->c->model('Artist')->search_by_names (
             map { $_->{for} } @credits),
-        possible_labels => $self->c->model('Label')->find_by_names (
+        possible_labels => $self->c->model('Label')->search_by_names (
             map { $_->{for} } @labels),
         );
 }

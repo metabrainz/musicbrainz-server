@@ -40,7 +40,7 @@ role
         ensure_all_roles($alias, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
     };
 
-    around 'find_by_names' => sub {
+    around 'search_by_names' => sub {
         my ($orig, $self, @names) = @_;
         return {} unless scalar @names;
 
