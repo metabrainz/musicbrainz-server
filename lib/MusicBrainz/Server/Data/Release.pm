@@ -781,7 +781,7 @@ sub find_similar
     $self->c->model('ArtistCredit')->load(@releases);
 
     my %artist_ids = map { $_->{artist}->{id} => 1 }
-        grep { ref($_) } @{ $artist_credit->{names} };
+        grep { $_->{artist}->{id} } grep { ref($_) } @{ $artist_credit->{names} };
 
     return
         # Make sure all the artists are in the artist credit
