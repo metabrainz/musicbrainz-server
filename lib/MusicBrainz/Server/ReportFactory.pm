@@ -7,8 +7,10 @@ my @all = qw(
     ReleasesToConvert
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
+    ASINsWithMultipleReleases
     BadAmazonURLs
     CollaborationRelationships
+    DiscogsLinksWithMultipleReleases
     EmptyReleaseGroups
     FeaturingRecordings
     FeaturingReleaseGroups
@@ -28,8 +30,10 @@ my @all = qw(
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
+use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CollaborationRelationships;
+use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use MusicBrainz::Server::Report::EmptyReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
