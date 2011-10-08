@@ -1,0 +1,32 @@
+[%- WRAPPER 'layout.tt' title=l('Releases With Catalog Numbers That Look Like ASINs') full_width=1 -%]
+
+<h1>[% l('Releases With Catalog Numbers That Look Like ASINs') %]</h1>
+
+<ul>
+    <li>[% l('This report shows releases which have catalog numbers that look like ASINs.') %]</li>
+    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- WRAPPER 'components/with-pager.tt' -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('Catalog Number') %]</th>
+            <th>[% l('Release') %]</th>
+            <th>[% l('Artist') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [%- FOR item IN items -%]
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <td>[% item.catalog_number %]</td>
+            <td><a href="[% c.uri_for_action('/release/show', [ item.gid ]) %]">[% item.name | html %]</a></td>
+            <td>[% artist_credit(item.artist_credit) %]</td>
+        </tr>
+        [%- END -%]
+    </tbody>
+</table>
+[%- END -%]
+
+[%- END -%]
