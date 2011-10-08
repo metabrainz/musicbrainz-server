@@ -25,6 +25,7 @@ my @all = qw(
     RecordingsWithEarliestReleaseRelationships
     ReleasedTooEarly
     SeparateDiscs
+    SomeFormatsUnset
 );
 
 use MusicBrainz::Server::Report::ReleasesToConvert;
@@ -48,6 +49,7 @@ use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::SeparateDiscs;
+use MusicBrainz::Server::Report::SomeFormatsUnset;
 
 my %all = map { $_ => 1 } @all;
 

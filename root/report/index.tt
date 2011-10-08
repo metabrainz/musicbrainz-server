@@ -42,6 +42,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'SeparateDiscs') %]">[% l('Discs entered as separate releases') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'FeaturingReleases') %]">[% l('Releases with titles containing featuring artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasedTooEarly') %]">[% l('Releases released too early') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'SomeFormatsUnset') %]">[% l('Releases where some (but not all) mediums have no format set') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>
