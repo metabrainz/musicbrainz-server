@@ -134,7 +134,8 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
-      '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a>';
+      '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a> ';
+      link_deleted(undef, '[info]');
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
