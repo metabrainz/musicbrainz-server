@@ -72,7 +72,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     self.render = function (data) {
 
-        // FIXME: use the same format everywhere.
         var artist_name = data.artist.name;
         var gid = data.artist.gid;
         var id = data.artist.id;

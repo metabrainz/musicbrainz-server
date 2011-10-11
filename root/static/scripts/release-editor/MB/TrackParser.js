@@ -43,12 +43,12 @@ MB.TrackParser.Artist = function (track, artist) {
         if (unused !== '')
         {
             if (self.names.length > 0 &&
-                (self.names[self.names.length - 1].join === null ||
-                 self.names[self.names.length - 1].join === ''))
+                (self.names[self.names.length - 1].join_phrase === null ||
+                 self.names[self.names.length - 1].join_phrase === ''))
             {
                 /* the previous entry does not have a join phrase, so the
                    unused string must be the join phrase. */
-                self.names[self.names.length - 1].join = unused;
+                self.names[self.names.length - 1].join_phrase = unused;
             }
             else
             {
@@ -61,7 +61,7 @@ MB.TrackParser.Artist = function (track, artist) {
 
     self.addArtist = function (unused, ac) {
         self.addArtistCredit (unused, ac);
-        self.names[self.names.length - 1].join = null;
+        self.names[self.names.length - 1].join_phrase = null;
     };
 
     self.appendToArtist = function (unused) {
@@ -78,8 +78,8 @@ MB.TrackParser.Artist = function (track, artist) {
         if (unused !== '')
         {
             if (self.names.length > 0 &&
-                (self.names[self.names.length - 1].join === null ||
-                 self.names[self.names.length - 1].join === ''))
+                (self.names[self.names.length - 1].join_phrase === null ||
+                 self.names[self.names.length - 1].join_phrase === ''))
             {
                 /* The previous entry is missing the join phrase and
                    we're missing the artist... let's assume the
@@ -96,14 +96,14 @@ MB.TrackParser.Artist = function (track, artist) {
             }
         }
 
-        if (self.names[self.names.length - 1].join !== null)
+        if (self.names[self.names.length - 1].join_phrase !== null)
         {
             /* the previous entry already has a join phrase, so we have to
                insert a new artist. */
             self.addNew ('');
         }
 
-        self.names[self.names.length - 1].join = ac.join;
+        self.names[self.names.length - 1].join_phrase = ac.join_phrase;
     };
 
     self.addFinal = function (unused) {
@@ -124,15 +124,15 @@ MB.TrackParser.Artist = function (track, artist) {
         */
 
         if (self.names.length > 0 &&
-            (self.names[self.names.length - 1].join === null ||
-             self.names[self.names.length - 1].join === ''))
+            (self.names[self.names.length - 1].join_phrase === null ||
+             self.names[self.names.length - 1].join_phrase === ''))
         {
             self.appendToArtist (unused);
         }
         else
         {
             self.addNew (unused);
-            self.names[self.names.length - 1].join = '';
+            self.names[self.names.length - 1].join_phrase = '';
         }
     };
 
@@ -141,7 +141,7 @@ MB.TrackParser.Artist = function (track, artist) {
         if (!track.artist_credit)
         {
             self.addNew (artist);
-            self.names[self.names.length - 1].join = '';
+            self.names[self.names.length - 1].join_phrase = '';
             return;
         }
 
@@ -151,12 +151,12 @@ MB.TrackParser.Artist = function (track, artist) {
         var index = 0;
         $.each (track.artist_credit.toData ().names, function (i, ac) {
 
-            var pos = artist.indexOf (ac.name + ac.join, index);
+            var pos = artist.indexOf (ac.name + ac.join_phrase, index);
             if (pos > -1)
             {
                 /* artist credit hasn't changed at all. */
                 self.addArtistCredit (artist.substring (index, pos), ac);
-                index = pos + ac.name.length + ac.join.length;
+                index = pos + ac.name.length + ac.join_phrase.length;
                 return;
             }
 
@@ -169,13 +169,13 @@ MB.TrackParser.Artist = function (track, artist) {
                 index = pos + ac.name.length;
             }
 
-            if (ac.join !== '')
+            if (ac.join_phrase !== '')
             {
-                pos = artist.indexOf (ac.join, index);
+                pos = artist.indexOf (ac.join_phrase, index);
                 if (pos > -1)
                 {
                     self.addJoin (artist.substring (index, pos), ac);
-                    index = pos + ac.join.length;
+                    index = pos + ac.join_phrase.length;
                 }
             }
         });
