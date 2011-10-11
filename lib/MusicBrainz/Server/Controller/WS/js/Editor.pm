@@ -27,7 +27,7 @@ sub search : Path('/ws/js/editor') {
     my $page = $c->stash->{args}->{page} || 1;
 
     my $offset = ($page - 1) * $limit;  # page is not zero based.
-    my ($editors, $hits) = $c->model('Editor')->find_by_name($query, $offset, $limit);
+    my ($editors, $hits) = $c->model('Search')->search('editor', $query, $limit, $offset);
 
     my $pager = Data::Page->new ();
     $pager->entries_per_page ($limit);
@@ -35,7 +35,8 @@ sub search : Path('/ws/js/editor') {
     $pager->total_entries ($hits);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('autocomplete_editor', $editors, $pager));
+    $c->res->body($c->stash->{serializer}->serialize(
+        'autocomplete_editor', [ map { $_->entity } @$editors ], $pager));
 }
 
 1;
