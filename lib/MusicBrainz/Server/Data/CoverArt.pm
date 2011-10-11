@@ -70,9 +70,8 @@ sub _build_providers {
         RegularExpressionProvider->new(
             name                 => 'www.ozon.ru',
             domain               => 'www.ozon.ru',
-            uri_expression       => 'http://www.ozon\.ru/context/detail/id/(\d+)',
-            image_uri_template   => '',
-            info_uri_template    => 'http://www.ozon.ru/context/detail/id/$1/?partner=musicbrainz',
+            uri_expression       => 'http://(?:www|mmedia).ozon\.ru/multimedia/(.*)',
+            image_uri_template   => 'http://mmedia.ozon.ru/multimedia/$1',
         ),
         RegularExpressionProvider->new(
             name                 => 'Encyclopédisque',
