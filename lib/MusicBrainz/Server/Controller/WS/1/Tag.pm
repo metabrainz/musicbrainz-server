@@ -22,6 +22,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
 
 our Readonly $MAX_TAGS_PER_REQUEST = 20;
 
+use MusicBrainz::Server::Validation qw( is_guid );
+
 sub tag : Path('/ws/1/tag')
 {
     my ($self, $c) = @_;
@@ -72,6 +74,9 @@ sub tag : Path('/ws/1/tag')
     }
     else {
         my ($id, $type)      = ($c->req->query_params->{id}, $c->req->query_params->{entity});
+        $self->bad_req($c, 'Invalid argument "id": not a valid MBID') unless is_guid($id);
+        $self->bad_req($c, 'Invalid argument "entity": not a valid entity type') if ref($type);
+
         my ($model, $entity) = $self->load($c, $type, $id);
 
         my @tags = $model->tags->find_user_tags($c->user->id, $entity->id);
