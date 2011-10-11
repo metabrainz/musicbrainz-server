@@ -520,13 +520,15 @@ MB.Control.EntityAutocomplete = function (options) {
             return data.item.action ();
         }
 
-        $.each (data.item, function (key, value) {
+        // We need to do this manually, rather than using $.each, due to recordings
+        // having a 'length' property.
+        for (key in data.item) {
             var $elem = $inputs.find ('input.' + key);
             if ($elem)
             {
-                $elem.val (value);
+                $elem.val (data.item[key]);
             }
-        });
+        }
 
         $name.removeClass('error');
         if (options.show_status)
