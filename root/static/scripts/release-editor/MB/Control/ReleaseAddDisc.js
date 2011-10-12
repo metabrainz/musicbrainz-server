@@ -119,7 +119,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
                     'artist': {
                         'name': artist,
                         'gid': '',
-                        'id': '',
+                        'id': ''
                     },
                     'name': artist,
                     'join_phrase': ''
