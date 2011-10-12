@@ -32,7 +32,7 @@ MB.TrackParser.Artist = function (track, artist) {
             'artist': {
                 'name': $.trim (name),
                 'id': '',
-                'gid': '',
+                'gid': ''
             },
             'name': $.trim (name),
             'join_phrase': null
