@@ -128,6 +128,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
         $ret->{tracks} = [ map {
             {
                 name => $_->title,
+                artist => $_->artist,
                 length => format_track_length($_->length),
             }
         } $cdstub_toc->cdstub->all_tracks ];

@@ -116,9 +116,12 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             if (artist)
             {
                 trk['artist_credit'] = { names: [ {
-                    'artist_name': artist,
-                    'gid': '',
-                    'id': '',
+                    'artist': {
+                        'name': artist,
+                        'gid': '',
+                        'id': '',
+                    },
+                    'name': artist,
                     'join_phrase': ''
                 } ] };
             }
