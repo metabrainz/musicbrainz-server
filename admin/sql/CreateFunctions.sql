@@ -618,6 +618,30 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+--------------------------------------------------------------------------------
+-- Remove unused link rows when a relationship is changed
+--------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION remove_unused_links()
+RETURNS TRIGGER AS $$
+DECLARE
+    other_ars_exist BOOLEAN;
+BEGIN
+    EXECUTE 'SELECT EXISTS (SELECT TRUE FROM ' || quote_ident(TG_TABLE_NAME) ||
+            ' WHERE link = $1)'
+    INTO other_ars_exist
+    USING OLD.link;
+
+    RAISE NOTICE '%', other_ars_exist;
+    IF NOT other_ars_exist THEN
+       RAISE NOTICE 'no other ARs exist';
+       DELETE FROM link_attribute WHERE link = OLD.link;
+       DELETE FROM link WHERE id = OLD.link;
+    END IF;
+
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 COMMIT;
 -- vi: set ts=4 sw=4 et :
 
