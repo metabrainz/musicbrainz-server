@@ -27,8 +27,6 @@ sub relate : Chained('load')
             entity1 => $entity->gid,
             returnto => $c->req->referer
         }));
-
-        delete $c->session->{relationship};
     }
     else {
         $c->session->{relationship} = {

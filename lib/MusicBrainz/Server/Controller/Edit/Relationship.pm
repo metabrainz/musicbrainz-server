@@ -380,6 +380,7 @@ sub create : Local RequireAuth Edit
         ) or
             $self->detach_existing($c);
 
+        delete $c->session->{relationship};
         my $redirect = $c->req->params->{returnto} ||
             $c->uri_for_action($c->controller(type_to_model($type0))->action_for('show'), [ $source_gid ]);
         $c->response->redirect($redirect);
@@ -392,7 +393,6 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
     my ($self, $c) = @_;
 
     my $qp = $c->req->query_params;
-    delete $c->session->{relationship};
 
     if (!$qp->{gid}) {
         $c->stash( template => 'edit/relationship/no-start.tt' );
@@ -510,6 +510,7 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
                 next;
         }
 
+        delete $c->session->{relationship};
         $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ]));
         $c->detach;
     }
