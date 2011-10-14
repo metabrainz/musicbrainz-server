@@ -543,6 +543,7 @@ END -%]
        IF url.url.host.search('amazon'); 'amazon';
     ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
     ELSIF url.url.host.search('facebook.com'); 'facebook';
+    ELSIF url.url.host.search('last.fm'); 'lastfm';
     ELSIF url.url.host.search('myspace.com'); 'myspace';
     ELSIF url.url.host.search('twitter.com'); 'twitter';
     ELSIF url.url.host.search('youtube.com'); 'youtube';
