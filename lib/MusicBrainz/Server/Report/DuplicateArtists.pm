@@ -12,6 +12,7 @@ sub _add_artist {
     my @words = sort $name =~ /(\w+)/g;
     my $key = "@words";
 
+    return if exists $store->{$key}{$gid};
     $store->{$key}{$gid} = $row;
 }
 
