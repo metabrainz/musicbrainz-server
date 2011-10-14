@@ -1,9 +1,21 @@
-[% WRAPPER 'user/profile/layout.tt' title=l('Delete Editor') full_width=1 page='delete' %]
-  <h2>[% l('Delete Editor') %]</h2>
-  <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
-          { e => link_editor(user) }) %]</p>
-  <form action="[% c.req.uri %]" method="post">
-    <input type="submit" value="[% l('Yes, delete {e}.', { e => user.name } ) %]"
-           style="color: red" />
-  </form>
+[% WRAPPER 'layout.tt' title=l('Remove Account') full_width=1 %]
+  <h1>[% l('Remove Account') %]</h1>
+  [% IF c.user.is_account_admin %]
+    <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
+	{ e => link_editor(user) }) %]</p>
+    <form action="[% c.req.uri %]" method="post">
+      <input type="submit" value="[% l('Yes, delete {e}', { e => user.name } ) %]"
+	   style="color: red" />
+    </form>
+  [% ELSE %]
+    <p>[% l('For information about the account removal process, please read the {uri|account FAQ}.',
+	   { uri => 'http://wiki.musicbrainz.org/Account_FAQ#How_do_I_delete_my_account.3F' }) %]
+    </p>
+
+    <p>[% l('Are you sure you want to remove your account? This cannot be undone!')%]</p>
+    <form action="[% c.req.uri %]" method="post">
+      <input type="submit" value="[% l('Yes, remove my account') %]"
+	   style="color: red" />
+    </form>
+  [% END %]
 [% END %]
