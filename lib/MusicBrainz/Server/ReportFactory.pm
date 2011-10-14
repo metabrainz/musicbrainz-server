@@ -4,6 +4,7 @@ use DBDefs;
 use MusicBrainz::Server::PagedReport;
 
 my @all = qw(
+    DuplicateArtists
     ReleasesToConvert
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
@@ -18,8 +19,13 @@ my @all = qw(
     PartOfSetRelationships
     RecordingsWithEarliestReleaseRelationships
     SeparateDiscs
+    SetInDifferentRG
+    SuperfluousDataTracks
+    TracksNamedWithSequence
+    TracksWithSequenceIssues
 );
 
+use MusicBrainz::Server::Report::DuplicateArtists;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
@@ -34,6 +40,10 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::SeparateDiscs;
+use MusicBrainz::Server::Report::SetInDifferentRG;
+use MusicBrainz::Server::Report::SuperfluousDataTracks;
+use MusicBrainz::Server::Report::TracksNamedWithSequence;
+use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 
 my %all = map { $_ => 1 } @all;
 
