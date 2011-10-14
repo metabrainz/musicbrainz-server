@@ -1,6 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Releases Where Tracks Names Start With Their Track Number') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Releases Where Track Names Start With Their Track Number') full_width=1 -%]
 
-<h1>[% l('Releases Where Tracks Names Start With Their Track Number') %]</h1>
+<h1>[% l('Releases Where Track Names Start With Their Track Number') %]</h1>
 
 <ul>
     <li>[% l('This report aims to identify releases where track names include their own
