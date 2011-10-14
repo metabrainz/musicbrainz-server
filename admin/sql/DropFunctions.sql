@@ -35,5 +35,6 @@ DROP FUNCTION inc_ref_count(tbl varchar, row_id integer, val integer);
 DROP FUNCTION page_index(txt varchar);
 DROP FUNCTION page_index_max(txt varchar);
 DROP FUNCTION prevent_invalid_attributes();
+DROP FUNCTION remove_unused_links();
 DROP FUNCTION set_release_group_first_release_date(release_group_id INTEGER);
 DROP AGGREGATE array_accum;
