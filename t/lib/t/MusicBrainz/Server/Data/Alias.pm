@@ -84,12 +84,10 @@ is(scalar @$alias_set, 0);
 $artist_data->alias->merge(1, 3);
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
-is(scalar @$alias_set, 4);
+is(scalar @$alias_set, 3);
 is($alias_set->[0]->name, 'Alias 1');
 is($alias_set->[1]->name, 'Alias 2');
 is($alias_set->[2]->name, 'Empty Artist');
-is($alias_set->[3]->name, 'Name');
-
 
 $alias_set = $artist_data->alias->find_by_entity_id(3);
 is(scalar @$alias_set, 0);
@@ -117,6 +115,46 @@ does_ok($label_data, 'MusicBrainz::Server::Data::Role::Alias');
 my $work_data = MusicBrainz::Server::Data::Work->new(c => $test->c);
 does_ok($work_data, 'MusicBrainz::Server::Data::Role::Alias');
 
+};
+
+test 'Merging should not add aliases identical to new name' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<EOSQL);
+INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 1, 1),
+           (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 2, 2);
+EOSQL
+
+    $c->model('Artist')->alias->merge(1, 2, 3);
+
+    my $aliases = $c->model('Artist')->alias->find_by_entity_id(1);
+    is(@$aliases, 1);
+    is($aliases->[0]->name, 'Old name', 'has old name alias',);
+    ok(!(grep { $_->name eq 'Name' } @$aliases), 'does not have new name alias');
+};
+
+test 'Merging should not add aliases that already exist' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<EOSQL);
+INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
+INSERT INTO artist_alias (artist, name) VALUES (1, 2);
+EOSQL
+
+    $c->model('Artist')->alias->merge(1, 2);
+
+    my $aliases = $c->model('Artist')->alias->find_by_entity_id(1);
+    is(@$aliases, 1);
+    is($aliases->[0]->name, 'Old name', 'has old name alias',);
+    ok(!(grep { $_->name eq 'Name' } @$aliases), 'does not have new name alias');
 };
 
 1;
