@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
 
-sub index : Path Args(0) RequireAuth(wiki_transcluder)
+sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
