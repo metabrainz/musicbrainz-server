@@ -240,7 +240,7 @@
                 </a>
             </li>
             <li class="separator">
-                <a href="http://jira.musicbrainz.org" class="internal">
+                <a href="http://tickets.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>
             </li>
