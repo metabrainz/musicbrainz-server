@@ -20,6 +20,16 @@ around serialize => sub
                 $relationship;
         }
 
+        # Find any relationships work level and move them to this entity
+        for my $work_rel (@{ $entity->relationships_by_type('work') }) {
+            for my $relationship (@{ $work_rel->target->relationships }) {
+                $by_type{ $relationship->target_type } or next;
+
+                push @{ $by_type{ $relationship->target_type } },
+                    $relationship;
+            }
+        }
+
         for my $type (grep { @{ $by_type{$_} } } sort keys %by_type) {
             my $relationships = $by_type{$type};
 

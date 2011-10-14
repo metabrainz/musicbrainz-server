@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title=l('Artists that may be collaborations') full_width=1 -%]
+
+<h1>[% l('Artists that may be collaborations') %]</h1>
+
+<ul>
+    <li>[% l('This report lists artists which have "&" in their names but no member or
+        collaboration relationships, and might need to be turned into artist credits.') %]</li>
+    <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- INCLUDE 'report/artist_list.tt' -%]
+
+[%- END -%]

@@ -20,7 +20,7 @@ has 'sort_name' => (
 
 has 'type_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Maybe[Int]'
 );
 
 has 'type' => (
@@ -67,7 +67,7 @@ has 'ipi_code' => (
 
 has 'comment' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Maybe[Str]'
 );
 
 sub is_special_purpose {

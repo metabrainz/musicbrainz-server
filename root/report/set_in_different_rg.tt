@@ -1,0 +1,38 @@
+[%- WRAPPER 'layout.tt' title=l('Mismatched release groups') full_width=1 -%]
+
+<h1>[% l('Mismatched release groups') %]</h1>
+
+<ul>
+    <li>[% l('This report shows release groups with releases that are linked to
+              releases in different release groups by part-of-set or
+              transliteration relationships. For example, if one release is in a release
+              group A and it\'s part of a multi-disc release where the next disc
+              is in a release group B, both release groups will be listed in
+              this report.') %]</li>
+    <li>[% l('Total release groups: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+<form action="[% c.uri_for_action('/artist/merge_queue') %]">
+  [% WRAPPER 'components/with-pager.tt' %]
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th>[% l('Artist') %]</th>
+        <th>[% l('Release Group') %]</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOR item IN items %]
+      <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+        <td>[% artist_credit(item.release_group.artist_credit) %]</td>
+        <td>
+          [% link_entity(item.release_group) %]
+        </td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
+[% END %]
+
+[%- END -%]

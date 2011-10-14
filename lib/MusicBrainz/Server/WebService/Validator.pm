@@ -184,6 +184,11 @@ sub validate_inc
 {
     my ($c, $version, $resource, $inc, $def) = @_;
 
+    if (ref($inc)) {
+        $c->stash->{error} = 'Inc arguments must be combined with a space, but you provided multiple parameters';
+        return;
+    }
+
     my @inc = split(/[+ ]/, $inc || '');
     my %acc = map { $_ => 1 } @{ $def };
 

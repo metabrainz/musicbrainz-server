@@ -140,7 +140,7 @@ sub external : Private
                               type     => $type,
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
-                              advanced => $form->field('advanced'));
+                              advanced => $form->field('advanced')->value);
 
     $c->stash->{template} ="search/results-$type.tt";
 }

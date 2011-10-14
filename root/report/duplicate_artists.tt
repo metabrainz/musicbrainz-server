@@ -1,0 +1,49 @@
+[%- WRAPPER 'layout.tt' title=l('Possibly duplicate artists') full_width=1 -%]
+
+<h1>[% l('Possibly duplicate artists') %]</h1>
+
+<ul>
+    <li>[% l('This report aims to identify artists with very similar names,
+              which might indicate that the artists need to be merged.') %]</li>
+    <li>[% l('This report does not show similarly named artists, if all artists
+              have disambiguation comments.') %]</li>
+    <li>[% l('Total duplicate groups: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+<form action="[% c.uri_for_action('/artist/merge_queue') %]">
+  [% WRAPPER 'components/with-pager.tt' %]
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th class="check"></th>
+        <th>[% l('Artist') %]</th>
+        <th>[% l('Sort name') %]<?th>
+        <th class="atype">[% l('Type') %]</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOR item IN items %]
+      <tr class="subh"><td colspan="4"></td></tr>
+      [% FOR dupe IN item %]
+      <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
+        <td>
+          <input type="checkbox" name="add-to-merge"
+                 value="[% dupe.artist.id %]" />
+        </td>
+        <td>
+          [% link_entity(dupe.artist) %]
+        </td>
+        <td>[% dupe.artist.sort_name | html %]</td>
+        <td>[% dupe.artist.type_name %]</td>
+      </tr>
+      [% END %]
+      [% END %]
+    </tbody>
+  </table>
+
+  [% form_submit(l('Add selected artists for merging')) WRAPPER form_row IF c.user_exists %]
+[% END %]
+</form>
+
+[%- END -%]
