@@ -16,8 +16,9 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBeGroups') %]">[% l('Artists that may be groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBePersons') %]">[% l('Artists that may be persons') %]</a></li>
-            <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateArtists') %]">[% l('Possibly duplicate artists') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'PossibleCollaborations') %]">[% l('Artists which look like collaborations') %]</a></li>
         </ul>
 
         <h2>[% l('Release groups') %]</h2>
@@ -25,6 +26,7 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'EmptyReleaseGroups') %]">[% l('Release groups which contain no releases') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SetInDifferentRG') %]">[% l('Release groups that might need to be merged') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'FeaturingReleaseGroups') %]">[% l('Release groups with titles containing featuring artists') %]</a></li>
         </ul>
 
         <h2>[% l('Releases') %]</h2>
@@ -36,10 +38,16 @@
             <li><a href="[% c.uri_for_action('/report/show', 'BadAmazonURLs') %]">[% l('Releases which have unexpected Amazon URLs') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'MultipleASINs') %]">[% l('Releases which have multiple ASINs') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'MultipleDiscogsLinks') %]">[% l('Releases which have multiple Discogs links') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ASINsWithMultipleReleases') %]">[% l('Amazon URLs linked to multiple releases') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleReleases') %]">[% l('Discogs URLs linked to multiple releases') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'PartOfSetRelationships') %]">[% l('Releases which have part of set relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SeparateDiscs') %]">[% l('Discs entered as separate releases') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'TracksWithSequenceIssues') %]">[% l('Releases with non-sequential track numbers') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SuperfluousDataTracks') %]">[% l('Releases with superfluous data tracks') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'FeaturingReleases') %]">[% l('Releases with titles containing featuring artists') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasedTooEarly') %]">[% l('Releases released too early') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'SomeFormatsUnset') %]">[% l('Releases where some (but not all) mediums have no format set') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'CatNoLooksLikeASIN') %]">[% l('Releases with catalog numbers that look like ASINs') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>
@@ -47,6 +55,7 @@
         <ul>
            <li><a href="[% c.uri_for_action('/report/show', 'RecordingsWithEarliestReleaseRelationships') %]">[% l('Recordings with earliest release relationships') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'TracksNamedWithSequence') %]">[% l('Tracks whose names include their sequence numbers') %]</a></li>
+           <li><a href="[% c.uri_for_action('/report/show', 'FeaturingRecordings') %]">[% l('Recordings with titles containing featuring artists') %]</a></li>
         </ul>
 
         <h2>[% l('ISRCs') %]</h2>

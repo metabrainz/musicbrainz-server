@@ -8,42 +8,60 @@ my @all = qw(
     ReleasesToConvert
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
+    ASINsWithMultipleReleases
     BadAmazonURLs
+    CatNoLooksLikeASIN
     CollaborationRelationships
+    DiscogsLinksWithMultipleReleases
     EmptyReleaseGroups
+    FeaturingRecordings
+    FeaturingReleaseGroups
+    FeaturingReleases
     ISRCsWithManyRecordings
     MultipleASINs
     MultipleDiscogsLinks
     NoLanguage
     NoScript
     PartOfSetRelationships
+    PossibleCollaborations
     RecordingsWithEarliestReleaseRelationships
+    ReleasedTooEarly
     SeparateDiscs
     SetInDifferentRG
     SuperfluousDataTracks
     TracksNamedWithSequence
     TracksWithSequenceIssues
+    SomeFormatsUnset
 );
 
 use MusicBrainz::Server::Report::DuplicateArtists;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
+use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::BadAmazonURLs;
+use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
+use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use MusicBrainz::Server::Report::EmptyReleaseGroups;
+use MusicBrainz::Server::Report::FeaturingRecordings;
+use MusicBrainz::Server::Report::FeaturingReleaseGroups;
+use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
 use MusicBrainz::Server::Report::NoLanguage;
 use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
+use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
+use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
+use MusicBrainz::Server::Report::SomeFormatsUnset;
 
 my %all = map { $_ => 1 } @all;
 
