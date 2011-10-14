@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
 use Text::Trim qw( trim );
 use TryCatch;
@@ -742,12 +742,12 @@ sub prepare_missing_entities
     my @credits = map +{
             for => $_->{artist}->{name},
             name => $_->{artist}->{name},
-        }, uniq_by { $_->{artist}->{name} } @artist_credits;
+        }, uniq_by { normalise_strings($_->{artist}->{name}) } @artist_credits;
 
     my @labels = map +{
             for => $_->{name},
             name => $_->{name}
-        }, uniq_by { $_->{name} }
+        }, uniq_by { normalise_strings($_->{name}) }
             $self->_missing_labels($data);
 
     $self->load_page('missing_entities', {
@@ -803,7 +803,7 @@ sub _missing_labels {
     $data->{labels} = $self->get_value ('information', 'labels');
 
     return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
-        map { $_->{name} = trim $_->{name}; $_ } @{ $data->{labels} };
+        @{ $data->{labels} };
 }
 
 sub _missing_artist_credits
@@ -845,14 +845,14 @@ sub create_edits
 
     unless ($previewing) {
         for my $bad_ac ($self->_missing_artist_credits($data)) {
-            my $artist = $created{artist}{ $bad_ac->{artist}->{name} }
+            my $artist = $created{artist}{ normalise_strings($bad_ac->{artist}->{name}) }
                 or die 'No artist was created for ' . $bad_ac->{name};
 
             $bad_ac->{artist}->{id} = $artist;
         }
 
         for my $bad_label ($self->_missing_labels($data)) {
-            my $label = $created{label}{ $bad_label->{name} }
+            my $label = $created{label}{ normalise_strings($bad_label->{name}) }
                 or die 'No label was created for ' . $bad_label->{name};
 
             $bad_label->{label_id} = $label;
@@ -927,14 +927,13 @@ sub _edit_missing_entities
     return () if $previewing;
     return (
         artist => {
-            (map { $_->name => $_->id }
+            (map { normalise_strings($_->name) => $_->id }
                  values %{ $self->c->model('Artist')->get_by_ids(
-                     map { $_->entity_id } @artist_edits) }),
-            (map { $_->{for} => $_->{entity_id} }
+                     map { $_->entity_id } @artist_edits) }),            (map { $_->{for} => $_->{entity_id} }
                  grep { $_->{entity_id} } @missing_artist)
         },
         label => {
-            (map { $_->name => $_->id }
+            (map { normalise_strings($_->name) => $_->id }
                  values %{ $self->c->model('Label')->get_by_ids(
                      map { $_->entity_id } @label_edits) }),
             (map { $_->{for} => $_->{entity_id} }
