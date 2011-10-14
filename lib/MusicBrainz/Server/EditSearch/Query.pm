@@ -1,7 +1,7 @@
 package MusicBrainz::Server::EditSearch::Query;
 use Moose;
 
-use CGI::Expand qw( expand_hash );
+use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );

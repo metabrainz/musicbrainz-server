@@ -2,7 +2,7 @@ package MusicBrainz::Server::Wizard::ReleaseEditor;
 use Moose;
 use namespace::autoclean;
 
-use CGI::Expand qw( collapse_hash expand_hash );
+use MusicBrainz::Server::CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
