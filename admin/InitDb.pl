@@ -29,6 +29,7 @@ use warnings;
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
+use version;
 
 use DBDefs;
 use MusicBrainz::Server::Replication ':replication_type';
@@ -68,6 +69,17 @@ my $fQuiet = 0;
 
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
+
+sub GetPostgresqlVersion
+{
+    my $mb = Databases->get_connection('READWRITE');
+    my $sql = Sql->new( $mb->dbh );
+
+    my $version = $sql->select_single_row_array ("SELECT version();")->[0];
+    $version =~ s/PostgreSQL ([0-9\.]*) .*/$1/;
+
+    return version->parse ("v".$version);
+}
 
 sub RunSQLScript
 {
@@ -223,7 +235,15 @@ sub CreateRelations
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $READWRITE->schema));
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    InstallExtension($SYSMB, "cube.sql", $READWRITE->schema);
+    if (GetPostgresqlVersion () >= version->parse ("v9.1"))
+    {
+        RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions for PostgreSQL 9.1 or newer");
+    }
+    else
+    {
+        InstallExtension($SYSMB, "cube.sql", $READWRITE->schema);
+    }
+
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $READWRITE->schema);
 
     RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
