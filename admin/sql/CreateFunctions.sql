@@ -631,9 +631,7 @@ BEGIN
     INTO other_ars_exist
     USING OLD.link;
 
-    RAISE NOTICE '%', other_ars_exist;
     IF NOT other_ars_exist THEN
-       RAISE NOTICE 'no other ARs exist';
        DELETE FROM link_attribute WHERE link = OLD.link;
        DELETE FROM link WHERE id = OLD.link;
     END IF;
