@@ -3,7 +3,7 @@
 <h1>[% l('Releases released too early') %]</h1>
 
 <ul>
-    <li>[% l('This report shows releases which have disc IDs even though they were released too early to have disc IDs, where one of the medium formats didn''t exist at the time the release was released or where a disc ID is attached to a medium whose format does not have disc IDs.') %]</li>
+    <li>[% l('This report shows releases which have disc IDs even though they were released too early to have disc IDs, where one of the medium formats didn\'t exist at the time the release was released or where a disc ID is attached to a medium whose format does not have disc IDs.') %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>

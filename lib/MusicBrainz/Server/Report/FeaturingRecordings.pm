@@ -22,7 +22,7 @@ sub gather_data
 
 sub template
 {
-    return 'report/recordings_with_earliest_release_relationships.tt';
+    return 'report/featuring_recordings.tt';
 }
 
 __PACKAGE__->meta->make_immutable;
