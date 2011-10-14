@@ -9,8 +9,12 @@ sub pretty_name
 {
     my $self = shift;
 
-    if ($self->url =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
-        return $2;
+    if ($self->url =~ m{^http://(?:www.)?(.*?\.)([a-z]+)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
+        my $country = $2;
+        $country = "US" if $country eq "com";
+        $country =~ tr/a-z/A-Z/;
+
+        return "$country: $3";
     }
 
     return $self->url->as_string;
