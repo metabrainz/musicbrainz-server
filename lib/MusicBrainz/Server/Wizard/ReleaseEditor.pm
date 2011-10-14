@@ -929,14 +929,15 @@ sub _edit_missing_entities
         artist => {
             (map { normalise_strings($_->name) => $_->id }
                  values %{ $self->c->model('Artist')->get_by_ids(
-                     map { $_->entity_id } @artist_edits) }),            (map { $_->{for} => $_->{entity_id} }
+                     map { $_->entity_id } @artist_edits) }),
+            (map { normalise_strings($_->{for}) => $_->{entity_id} }
                  grep { $_->{entity_id} } @missing_artist)
         },
         label => {
             (map { normalise_strings($_->name) => $_->id }
                  values %{ $self->c->model('Label')->get_by_ids(
                      map { $_->entity_id } @label_edits) }),
-            (map { $_->{for} => $_->{entity_id} }
+            (map { normalise_strings($_->{for}) => $_->{entity_id} }
                  grep { $_->{entity_id} } @missing_label)
         }
     )
