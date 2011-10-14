@@ -67,7 +67,7 @@ sub new_from_input {
     ) unless $class->supports_operator($op);
 
     my $cardinality = $class->operator_cardinality($op);
-    my @args = ref($input->{args}) ? @{ $input->{args} } : $input->{args};
+    my @args = grep { defined } (ref($input->{args}) ? @{ $input->{args} } : $input->{args});
     @args = splice(@args, 0, $cardinality)
         if defined $cardinality;
 

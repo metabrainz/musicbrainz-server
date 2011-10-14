@@ -28,15 +28,15 @@ has_field 'medium_positions.map' => (
 );
 
 has_field 'medium_positions.map.id' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 has_field 'medium_positions.map.release_id' => (
-    type => 'Integer'
+    type => '+MusicBrainz::Server::Form::Field::Integer'
 );
 
 has_field 'medium_positions.map.position' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 has_field 'medium_positions.map.name' => (

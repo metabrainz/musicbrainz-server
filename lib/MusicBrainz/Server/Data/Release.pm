@@ -11,12 +11,14 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     order_by
     partial_date_from_row
     placeholders
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Log qw( log_debug );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
@@ -159,7 +161,7 @@ sub find_by_label
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $label_id, $offset || 0);
+        $query, $label_id, @$statuses, @$types, $offset || 0);
 }
 
 sub find_by_disc_id
@@ -200,9 +202,14 @@ sub find_by_release_group
 
 sub find_by_track_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
+                 $join_types
                  WHERE release.id IN (
                      SELECT release FROM medium
                          JOIN track tr
@@ -215,11 +222,13 @@ sub find_by_track_artist
                        JOIN artist_credit_name acn
                          ON release.artist_credit = acn.artist_credit
                       WHERE acn.artist = ?)
+                 $where_statuses
+                 $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $artist_id, $offset || 0);
+        $query, $artist_id, $artist_id, @$statuses, @$types, $offset || 0);
 }
 
 sub find_for_various_artists
@@ -515,16 +524,25 @@ sub delete
 
     $self->c->model('Medium')->delete($_) for @mediums;
 
-    $self->c->model('Tracklist')->garbage_collect;
+    my @release_group_ids = @{
+        $self->sql->select_single_column_array(
+            'DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')
+             RETURNING release_group',
+            @release_ids
+        )
+    };
 
-    $self->sql->do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
-             @release_ids);
+    $self->c->model('ReleaseGroup')->clear_empty_release_groups(@release_group_ids);
 
     return;
 }
 
 sub can_merge {
-    my ($self, $strategy, $new_id, @old_ids) = @_;
+    my ($self, %opts) = @_;
+
+    my $new_id = $opts{new_id};
+    my @old_ids = @{ $opts{old_ids} };
+    my $strategy = $opts{merge_strategy} || $MERGE_APPEND;
 
     if ($strategy == $MERGE_MERGE) {
         my $mediums_differ = $self->sql->select_single_value(
@@ -546,6 +564,44 @@ sub can_merge {
         return !$mediums_differ;
     }
     elsif ($strategy == $MERGE_APPEND) {
+        my %positions = %{ $opts{medium_positions} || {} } or return 0;
+
+        # All mediums on the source releases must be moved
+        my @must_move_mediums = @{ $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release = any(?)',
+            \@old_ids
+        ) };
+
+        return 0 if grep { !exists $positions{$_} } @must_move_mediums;
+
+        # Make sure the new positions don't conflict with the current new medium
+        my @conflicts = @{
+            $self->sql->select_single_column_array(
+            'WITH changes (id, position) AS (
+               VALUES ' . join(', ', ('(?::integer, ?::integer)') x keys %positions) . '
+             )
+             SELECT DISTINCT position
+             FROM (
+               (
+                 SELECT id, position
+                 FROM changes
+               ) UNION
+               (
+                 SELECT all_m.id, all_m.position
+                 FROM changes
+                 JOIN medium changed_m ON changed_m.id = changes.id
+                 JOIN medium all_m ON all_m.release = changed_m.release
+                 WHERE all_m.id != changes.id
+               )
+             ) s
+             GROUP BY position
+             HAVING count(id) > 1
+             ', map { $_, $positions{$_} } keys %positions)
+        };
+
+        return 0 if @conflicts;
+
+        # If we've got this far, it must be ok to merge
         return 1;
     }
 }
@@ -569,6 +625,15 @@ sub merge
         $self->sql => (
             table => 'release',
             columns => [ qw( status packaging country comment barcode script language ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
+    merge_partial_date(
+        $self->sql => (
+            table => 'release',
+            field => 'date',
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -605,7 +670,10 @@ sub merge
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
         confess('Mediums contain differing numbers of tracks')
-            unless $self->can_merge($MERGE_MERGE, $new_id, @old_ids);
+            unless $self->can_merge(
+                merge_strategy => $MERGE_MERGE,
+                new_id => $new_id,
+                old_ids => \@old_ids);
 
         my @merges = @{
             $self->sql->select_list_of_hashes(
@@ -720,7 +788,7 @@ sub find_similar
     $self->c->model('ArtistCredit')->load(@releases);
 
     my %artist_ids = map { $_->{artist}->{id} => 1 }
-        grep { ref($_) } @{ $artist_credit->{names} };
+        grep { $_->{artist}->{id} } grep { ref($_) } @{ $artist_credit->{names} };
 
     return
         # Make sure all the artists are in the artist credit

@@ -130,6 +130,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
             {
                 name => $_->title,
                 length => format_track_length($_->length),
+                artist => $_->artist,
             }
         } $cdstub_toc->cdstub->all_tracks ];
     }
@@ -302,6 +303,7 @@ sub associations : Chained('root') PathPart Args(1) {
         $data->{recording} = {
             gid => $_->recording->gid,
             name => $_->recording->name,
+            comment => $_->recording->comment,
             length => format_track_length($_->recording->length),
             artist_credit => { preview => $_->artist_credit->name },
             appears_on => {

@@ -54,8 +54,9 @@ sub build_display_data
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
         type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',
-        release_group => $loaded->{ReleaseGroup}{ $self->entity_id }
-            || ReleaseGroup->new( name => $self->data->{name} )
+        release_group => (defined($self->entity_id) &&
+                              $loaded->{ReleaseGroup}{ $self->entity_id }) ||
+                                  ReleaseGroup->new( name => $self->data->{name} )
     };
 }
 

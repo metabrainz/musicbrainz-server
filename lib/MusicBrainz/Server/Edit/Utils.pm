@@ -10,6 +10,7 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use Text::Trim qw( trim );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
@@ -111,8 +112,8 @@ sub artist_credit_preview
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name} );
 
-        my $loaded_artist = $loaded->{Artist}->{ $ac_name->{artist}->{id} };
-        if ($loaded_artist)
+        if (my $loaded_artist = defined($ac_name->{artist}{id}) &&
+                                  $loaded->{Artist}->{ $ac_name->{artist}->{id} })
         {
             $ac->artist ($loaded_artist);
         }
@@ -148,6 +149,9 @@ sub clean_submitted_artist_credits
         my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
+            $part->{artist}->{name} = trim ($part->{artist}->{name}) if $part->{artist}->{name};
+            $part->{name} = trim ($part->{name}) if $part->{name};
+
             push @delete, $_ unless ($part->{artist}->{id} || $part->{artist}->{name} || $part->{name});
 
             # MBID is only used for display purposes so remove it (we
@@ -158,6 +162,10 @@ sub clean_submitted_artist_credits
             # Fill in the artist credit from the artist name if no artist credit
             # was submitted (because it is displayed as a HTML5 placeholder).
             $part->{name} = $part->{artist}->{name} unless $part->{name};
+
+            # MBS-3226, Fill in the artist name from the artist credit if the user
+            # didn't enter an artist name.
+            $part->{artist}->{name} = $part->{name} unless $part->{artist}->{name};
         }
         elsif (! $part)
         {

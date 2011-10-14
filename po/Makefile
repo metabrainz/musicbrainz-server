@@ -16,9 +16,9 @@ install: $(MOFILES)
 		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/mb_server.mo; \
 	done
 
-mb_server.pot: $(POTFILES) $(TT)
+mb_server.pot: $(POTFILES) $(TT) $(wildcard extract_pot)
 	@echo "Rebuilding the .pot file"; 
-	@echo "- Update templates' .pot"; 
+	@echo "- Update templates' and database strings' .pot"; 
 	@find ../root -type f -name \*.tt | sort | ./extract_pot | msguniq -s > mb_server.pot;
 	@echo "- Update code .pot"
 	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)

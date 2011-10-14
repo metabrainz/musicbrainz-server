@@ -13,6 +13,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::ReportFactory;
 use MusicBrainz::Server::PagedReport;
 use DBDefs;
+use POSIX qw(SIGALRM);
 $| = 1;
 
 @ARGV = "^" if not @ARGV;
@@ -53,8 +54,25 @@ for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
 
     print localtime() . " : Running $name (in $tempdir)\n";
     my $t0 = time;
-    eval {
-        $report->run($writer);
+    my $ONE_HOUR = 1 * 60 * 60;
+    my $exit_code = eval {
+        my $child = fork();
+        if ($child == 0) {
+            alarm($ONE_HOUR);
+            POSIX::sigaction(
+                SIGALRM, POSIX::SigAction->new(sub {
+                    exit(42)
+                }));
+
+            $report->run($writer);
+            alarm(0);
+            exit(0);
+        }
+
+        waitpid($child, 0);
+        if(($? >> 8) == 42) {
+            die "Report took over 1 hour to run";
+        }
     };
     if ($@) {
         warn "$name died with $@\n";

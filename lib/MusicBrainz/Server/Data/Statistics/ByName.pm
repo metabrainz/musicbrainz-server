@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Statistics::ByName;
 use Moose;
 use namespace::autoclean;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 use MusicBrainz::Server::Entity::Statistics::ByName;
 
@@ -37,5 +38,31 @@ sub get_statistic {
 
     return $stats;
 }
+
+sub get_statistics {
+    my ($self, @statistics) = @_;
+    my $query = "SELECT id,
+                        date_collected,
+			name,
+			value
+                   FROM statistic
+		  WHERE name IN (" . placeholders(@statistics) . ")";
+    $self->sql->select($query, @statistics) or return;
+
+    my $return = {};
+    foreach my $statistic (@statistics) {
+        $return->{$statistic} = MusicBrainz::Server::Entity::Statistics::ByName->new();
+    }
+    while (1) {
+        my $row = $self->sql->next_row_hash_ref or last;
+	my $obj = $return->{$row->{name}};
+	$obj->name($row->{name}) unless $obj->name;
+	$obj->data->{$row->{date_collected}} = $row->{value};
+    }
+    $self->sql->finish;
+
+    return $return;
+}
+
 
 1;

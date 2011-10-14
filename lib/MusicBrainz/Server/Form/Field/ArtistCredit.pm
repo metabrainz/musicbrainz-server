@@ -30,7 +30,7 @@ around 'validate_field' => sub {
 
         my $artist_id = Text::Trim::trim $_->{'artist'}->{'id'};
         my $artist_name = Text::Trim::trim $_->{'artist'}->{'name'};
-        my $name = Text::Trim::trim $_->{'name'};
+        my $name = Text::Trim::trim $_->{'name'} || Text::Trim::trim $_->{'artist'}->{'name'};
 
         if ($artist_id && $name)
         {
@@ -42,7 +42,7 @@ around 'validate_field' => sub {
                 l('Please add an artist name for {credit}',
                   { credit => $name }));
         }
-        elsif (! $artist_id && $name)
+        elsif (! $artist_id && ( $name || $artist_name ))
         {
             if ($self->allow_unlinked)
             {
@@ -52,8 +52,9 @@ around 'validate_field' => sub {
             {
                 # FIXME: better error message.
                 $self->add_error (
-                    l('Artist "{artist}" is unlinked, please select an existing artist',
-                      { artist => $name }));
+                    l('Artist "{artist}" is unlinked, please select an existing artist.
+                       You may need to add a new artist to MusicBrainz first.',
+                      { artist => ($name || $artist_name) }));
             }
         }
     }

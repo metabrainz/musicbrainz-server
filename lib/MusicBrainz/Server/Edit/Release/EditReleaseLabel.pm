@@ -11,13 +11,13 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Edit release label') }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
-sub _build_related_entities { { release => [ shift->release_id ] } }
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -80,8 +80,6 @@ sub build_display_data
 
     return $data;
 }
-
-with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 around '_build_related_entities' => sub {
     my $orig = shift;

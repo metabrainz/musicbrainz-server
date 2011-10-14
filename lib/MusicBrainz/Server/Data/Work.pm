@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Work;
 
 use Moose;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
@@ -61,10 +62,10 @@ sub find_by_artist
     my ($self, $artist_id, $limit, $offset) = @_;
 
     my $query =
-        'SELECT link_type, ' . $self->_columns .'
+        'SELECT ' . $self->_columns .'
            FROM (
                     -- Select works that are related to recordings for this artist
-                    SELECT entity1 AS work, NULL as link_type
+                    SELECT entity1 AS work
                       FROM l_recording_work
                       JOIN recording ON recording.id = entity0
                       JOIN artist_credit_name acn
@@ -72,37 +73,22 @@ sub find_by_artist
                      WHERE acn.artist = ?
               UNION
                     -- Select works that this artist is related to
-                    SELECT entity1 AS work, lt.name AS link_type
+                    SELECT entity1 AS work
                       FROM l_artist_work ar
                       JOIN link ON ar.link = link.id
                       JOIN link_type lt ON lt.id = link.link_type
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY link_type NULLS FIRST, musicbrainz_collate(name.name)
+       ORDER BY musicbrainz_collate(name.name)
          OFFSET ?';
 
-    my (%grouped_works, %work_cache);
-
     # We actually use this for the side effect in the closure
-    my (undef, $hits) = query_to_list_limited(
+    return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
-            my $row = shift;
-
-            my $work = $work_cache{ $row->{id} } || do {
-                $work_cache{$row->{id}} = $self->_new_from_row($row);
-            };
-
-            my $group = $row->{link_type} || '';
-            $grouped_works{$group} ||= [];
-            push @{ $grouped_works{$group} }, $work;
+            $self->_new_from_row(shift);
         },
         $query, $artist_id, $artist_id, $offset || 0);
-
-    return ([ map +{
-        link_type => $_,
-        works => $grouped_works{$_}
-    }, sort keys %grouped_works ], $hits);
 }
 
 sub find_by_iswc
@@ -209,10 +195,224 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "work_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating} || 0);
-        $obj->rating_count($row->{rating_count} || 0);
+        $obj->rating($row->{rating}) if defined $row->{rating};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->last_updated($row->{last_updated}) if defined $row->{last_updated};
     }, @_);
+}
+
+=method load_ids
+
+Load internal IDs for work objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @works) = @_;
+
+    my @gids = map { $_->gid } @works;
+    return () unless @gids;
+
+    my $query = "
+        SELECT gid, id FROM work
+        WHERE gid IN (" . placeholders(@gids) . ")
+    ";
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $work (@works) {
+        $work->id($map{$work->gid}) if exists $map{$work->gid};
+    }
+}
+
+=method find_artists
+
+This method will return a map with lists of artist names for the given
+recordings. The names are taken both from the writers and recording artists.
+This function is meant to be used to disambiguate works (e.g. in lookup
+results).
+
+=cut
+
+sub find_artists
+{
+    my ($self, $works, $limit) = @_;
+
+    my @ids = map { $_->id } @$works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_writers(\@ids, \%map);
+    $self->_find_recording_artists(\@ids, \%map);
+
+    for my $work_id (keys %map)
+    {
+        my @artists = uniq map { $_->{entity}->name } @{ $map{$work_id} };
+        $map{$work_id} = {
+            hits => scalar @artists,
+            results => $limit && scalar @artists > $limit ? [ @artists[ 0 .. ($limit-1) ] ] : \@artists,
+        }
+    }
+    return %map;
+}
+
+=method load_writers
+
+This method will load the work's writers based on the work-artist
+relationships.
+
+=cut
+
+sub load_writers
+{
+    my ($self, @works) = @_;
+
+    my @ids = map { $_->id } @works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_writers(\@ids, \%map);
+    for my $work (@works) {
+        $work->add_writer(@{ $map{$work->id} })
+            if exists $map{$work->id};
+    }
+}
+
+sub _find_writers
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT law.entity1 AS work, law.entity0 AS artist, array_agg(lt.name) AS roles
+        FROM l_artist_work law
+        JOIN link l ON law.link = l.id
+        JOIN link_type lt ON l.link_type = lt.id
+        WHERE law.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY law.entity1, law.entity0
+        ORDER BY count(*) DESC, artist
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+
+    my @artist_ids = map { $_->[1] } @$rows;
+    my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
+
+    for my $row (@$rows) {
+        my ($work_id, $artist_id, $roles) = @$row;
+        $map->{$work_id} ||= [];
+        push @{ $map->{$work_id} }, {
+            entity => $artists->{$artist_id},
+            roles => $roles
+        }
+    }
+}
+
+=method load_recording_artists
+
+This method will load the work's artists based on the recordings the work
+is linked to. The artist credits are sorted by the number of recordings in
+descending order (i.e. the top artists will be first in the list).
+
+=cut
+
+sub load_recording_artists
+{
+    my ($self, @works) = @_;
+
+    my @ids = map { $_->id } @works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_recording_artists(\@ids, \%map);
+    for my $work (@works) {
+        $work->add_artist(map { $_->{entity} } @{ $map{$work->id} })
+            if exists $map{$work->id};
+    }
+}
+
+sub _find_recording_artists
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = "
+        SELECT lrw.entity1 AS work, r.artist_credit
+        FROM l_recording_work lrw
+        JOIN recording r ON lrw.entity0 = r.id
+        WHERE lrw.entity1 IN (" . placeholders(@$ids) . ")
+        GROUP BY lrw.entity1, r.artist_credit
+        ORDER BY count(*) DESC, artist_credit
+    ";
+
+    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+
+    my @artist_credit_ids = map { $_->[1] } @$rows;
+    my $artist_credits = $self->c->model('ArtistCredit')->get_by_ids(@artist_credit_ids);
+
+    my %work_acs;
+    for my $row (@$rows) {
+        my ($work_id, $ac_id) = @$row;
+        $work_acs{$work_id} ||= [];
+        push @{ $work_acs{$work_id} }, $ac_id
+    }
+
+    for my $work_id (keys %work_acs) {
+        my $artist_credit_ids = $work_acs{$work_id};
+        $map->{$work_id} ||= [];
+        push @{ $map->{$work_id} }, map +{
+            entity => $artist_credits->{$_}
+        }, @$artist_credit_ids
+    }
+}
+
+sub is_empty {
+    my ($self, $artist_id) = @_;
+
+    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+        SELECT TRUE
+        FROM work work_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM l_artist_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_recording_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_release_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_release_group_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_url_work
+            WHERE entity1 = work_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_work_work
+            WHERE entity0 = work_row.id OR entity1 = work_row.id
+            LIMIT 1
+          )
+        )
+EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;

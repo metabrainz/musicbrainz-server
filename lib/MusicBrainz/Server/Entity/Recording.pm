@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Recording;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
+use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
@@ -64,7 +65,8 @@ has 'puids' => (
 
 sub related_works {
     my $self = shift;
-    return map {
+    return uniq_by { $_->id }
+    map {
         $_->entity1
     } grep {
         $_->link && $_->link->type && $_->link->type->entity1_type eq 'work'

@@ -21,6 +21,7 @@ my %URL_SPECIALIZATIONS = (
     'IMDb'            => qr{^https?://(?:www.)?imdb.com/}i,
     'InternetArchive' => qr{^https?://(?:www.)?archive.org/details/}i,
     'Jamendo'         => qr{^https?://(?:www.)?jamendo.com/}i,
+    'LastFM'          => qr{^https?://(?:www.)?last.fm/}i,
     'LyricWiki'       => qr{^https?://lyrics.wikia.com/}i,
     'MetalArchives'   => qr{^https?://(?:www.)?metal-archives.com/}i,
     'MusicMoz'        => qr{^https?://(?:www.)?musicmoz.org/}i,

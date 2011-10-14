@@ -2,11 +2,12 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Add;
 use Moose;
 use namespace::autoclean;
 
-use CGI::Expand qw( collapse_hash );
+use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_edit_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_edit_ref hash_structure object_to_ids );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
+use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
@@ -43,15 +44,21 @@ sub prepare_duplicates
 {
     my $self = shift;
 
-    my $information = $self->load_page ('information');
-
-    my $name = $information->value->{name};
-    my $artist_credit = $information->value->{artist_credit};
+    my $name = $self->get_value ('information', 'name');
+    my $artist_credit = $self->get_value ('information', 'artist_credit');
+    my $rg_id = $self->get_value ('information', 'release_group_id');
 
     my @releases = $self->c->model('Release')->find_similar(
         name => $name,
         artist_credit => clean_submitted_artist_credits($artist_credit)
     );
+
+    if ($rg_id)
+    {
+        my ($more_releases, $hits) = $self->c->model('Release')->find_by_release_group ($rg_id);
+
+        @releases = uniq_by { $_->id } @$more_releases, @releases;
+    }
 
     $self->c->model('Medium')->load_for_releases(@releases);
     $self->c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
@@ -148,19 +155,21 @@ augment 'create_edits' => sub
         my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 
         # Previewing a release doesn't care about having the release group id
-        $add_release_args{release_group_id} = $edit->entity->id
+        $add_release_args{release_group_id} = $edit->entity_id
             unless $previewing;
     }
 
     # Add the release edit
     my $add_release_edit = $create_edit->(
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
-    $release = $add_release_edit->entity;
+
+    $release = $self->c->model('Release')->get_by_id($add_release_edit->entity_id)
+        unless $previewing;
 
     return $release;
 };
 
-override 'prepare_tracklist' => sub {
+after 'prepare_tracklist' => sub {
     my ($self, $release) = @_;
 
     $self->c->stash->{release_artist_json} = "null";
@@ -268,6 +277,32 @@ augment 'load' => sub
 
     return $release;
 };
+
+# Approve edits edits that should never fail
+after create_edits => sub {
+    my ($self, %args) = @_;
+    my ($data, $create_edit, $editnote, $release, $previewing)
+        = @args{qw( data create_edit edit_note release previewing )};
+    return if $previewing;
+
+    my $c = $self->c->model('MB')->context;
+
+    $c->sql->begin;
+    my @edits = @{ $self->c->stash->{edits} };
+    for my $edit (@edits) {
+        if (should_approve($edit)) {
+            $c->model('Edit')->accept($edit);
+        }
+    }
+    $c->sql->commit;
+};
+
+sub should_approve {
+    my $edit = shift;
+    return unless $edit->is_open;
+    return $edit->meta->name eq 'MusicBrainz::Server::Edit::Medium::Create' ||
+           $edit->meta->name eq 'MusicBrainz::Server::Edit::Release::ReorderMediums';
+}
 
 __PACKAGE__->meta->make_immutable;
 1;

@@ -1,10 +1,9 @@
 package MusicBrainz::Server::Edit::Historic::MoveReleaseGroup;
-use strict;
-use warnings;
+use Moose;
 
 use namespace::autoclean;
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 sub edit_name { 'Move release group' }
 sub edit_type { 69 }

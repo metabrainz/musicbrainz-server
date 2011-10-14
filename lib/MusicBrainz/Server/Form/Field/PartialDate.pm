@@ -5,18 +5,18 @@ use Date::Calc ();
 extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'year' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
 );
 
 has_field 'month' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     range_start => 1,
     range_end => 12,
 );
 
 has_field 'day' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     range_start => 1,
     range_end => 31,
 );

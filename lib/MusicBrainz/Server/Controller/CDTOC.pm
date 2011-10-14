@@ -67,6 +67,7 @@ sub remove : Local RequireAuth
     my $medium  = $c->model('Medium')->get_by_id($medium_id);
     my $release = $c->model('Release')->get_by_id($medium->release_id);
     $c->model('ArtistCredit')->load($release);
+    $c->model('ReleaseGroup')->load($release);
 
     my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id);
     $c->model('CDTOC')->load($cdtoc);
@@ -287,86 +288,52 @@ sub move : Local RequireAuth Edit
 
     $c->stash(
         cdtoc => $cdtoc,
+        toc => $medium_cdtoc_id,
         medium_cdtoc => $medium_cdtoc
     );
 
-    if (my $release_id = $c->req->query_params->{release}) {
-        my $release = $c->model('Release')->get_by_id($release_id)
-            or $self->error(
-                $c, status => HTTP_NOT_FOUND,
-                message => l('The requested release could not be found')
-            );
-
-        $c->model('ArtistCredit')->load($release);
-        $c->stash( release => $release );
-
-        # Load the release, list mediums
-        $c->model('Medium')->load_for_releases($release);
-        $c->model('Tracklist')->load($release->all_mediums);
-        my @possible_mediums = grep {
-            $_->tracklist->track_count == $cdtoc->track_count
-            } $release->all_mediums;
+    if (my $medium_id = $c->req->query_params->{medium}) {
+        $self->error($c, status => HTTP_BAD_REQUEST,
+                     message => l('The provided medium id is not valid')
+            ) unless looks_like_number ($medium_id);
 
         $self->error(
-            $c, status => HTTP_BAD_REQUEST,
-            message => l('This release has no mediums with the specified track count')
-        ) unless @possible_mediums;
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('This CDTOC is already attached to this medium')
+        ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
 
-        my $medium_id = $c->req->query_params->{medium};
-        $medium_id = $possible_mediums[0]->id
-            if @possible_mediums == 1 && !defined $medium_id;
-
-        my $medium = first { $medium_id == $_->id } @possible_mediums;
+        my $medium = $c->model('Medium')->get_by_id($medium_id);
+        $c->model('MediumFormat')->load($medium);
         $self->error(
-            $c, status => HTTP_BAD_REQUEST,
-            message => l('The medium you are trying to attach a disc ID to belongs to a different release')
-        ) unless $medium;
+            $c,
+            status => HTTP_BAD_REQUEST,
+            message => l('The selected medium cannot have disc IDs')
+        ) unless $medium->may_have_discids;
 
-        $medium->release($release);
+        $c->model('Medium')->load($medium_cdtoc);
 
-        if ($medium) {
-            $c->stash(template => 'cdtoc/attach_confirm.tt');
-            $c->model('Medium')->load($medium_cdtoc);
-            $c->model('Release')->load($medium_cdtoc->medium);
+        $c->model('Release')->load($medium, $medium_cdtoc->medium);
+        $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
-            my $form = $c->form(form => 'Confirm');
-            if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-                if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium->id, $cdtoc)) {
-                    my $edit = $self->_insert_edit($c, $form,
-                        edit_type        => $EDIT_MEDIUM_REMOVE_DISCID,
-                        medium => $medium_cdtoc->medium,
-                        cdtoc  => $medium_cdtoc
-                    );
+        $c->stash( release => $medium->release );
 
-                    $c->model('EditNote')->add_note(
-                        $edit->id,
-                        {
-                            text => l('This CDTOC cannot be moved to {release}, as it already has this CDTOC. It must instead be removed.',
-                                      { release => $release->name }),
-                            editor_id => $EDITOR_MODBOT,
-                        }
-                    );
-                }
-                else {
-                    $self->_insert_edit($c, $form,
-                        edit_type        => $EDIT_MEDIUM_MOVE_DISCID,
-                        medium_cdtoc => $medium_cdtoc,
-                        new_medium   => $medium,
-                    )
-                }
 
+        $c->stash(template => 'cdtoc/attach_confirm.tt');
+        $self->edit_action($c,
+            form        => 'Confirm',
+            type        => $EDIT_MEDIUM_MOVE_DISCID,
+            edit_args   => {
+                medium_cdtoc => $medium_cdtoc,
+                new_medium   => $medium
+            },
+            on_creation => sub {
                 $c->response->redirect(
-                    $c->uri_for_action('/release/discids',
-                                       [ $release->gid ]));
+                    $c->uri_for_action(
+                        '/release/discids' => [ $medium->release->gid ]));
                 $c->detach;
             }
-        }
-        else {
-            $c->stash(
-                mediums => \@possible_mediums,
-                template => 'cdtoc/attach_medium.tt'
-            );
-        }
+        )
     }
     else {
         my $search_release = $c->form( query_release => 'Search::Query',
@@ -375,12 +342,21 @@ sub move : Local RequireAuth Edit
 
         if ($search_release->submitted_and_valid($c->req->query_params)) {
             my $releases = $self->_load_paged($c, sub {
-                $c->model('Search')->search(
-                    'release', $search_release->field('query')->value,
-                    shift, shift, { track_count => $cdtoc->track_count });
+                $c->model('Search')->search('release', $search_release->field('query')->value, shift, shift,
+                                            { track_count => $cdtoc->track_count });
             });
-            $c->model('ArtistCredit')->load(map { $_->entity } @$releases);
-            $c->stash( releases => $releases );
+            my @releases = map { $_->entity } @$releases;
+            $c->model('ArtistCredit')->load(@releases);
+            $c->model('Medium')->load_for_releases(@releases);
+            $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+            my @mediums = grep { !$_->format || $_->format->has_discids }
+                map { $_->all_mediums } @releases;
+            $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
+            $c->stash(
+                template => 'cdtoc/attach_filter_release.tt',
+                results => $releases
+            );
+            $c->detach;
         }
     }
 }

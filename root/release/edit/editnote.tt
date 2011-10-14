@@ -7,8 +7,11 @@
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
-   [% USE r = FormRenderer(form) %]
-   [% r.hidden ('wizard_session_id') %]
+   [%- USE r = FormRenderer(form) -%]
+
+   [%# Do not display new entities as 'deleted'. See common-macros.tt
+       (link_entity) for more information. -%]
+   [% allow_new = 1 %]
 
    <div id="form">
 

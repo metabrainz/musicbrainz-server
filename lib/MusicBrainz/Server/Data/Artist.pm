@@ -8,20 +8,18 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
+    is_special_artist
     add_partial_date_to_row
     defined_hash
     generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     partial_date_from_row
     placeholders
     query_to_list_limited
 );
-
-use Sub::Exporter -setup => {
-    exports => [qw( is_special_purpose )]
-};
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
@@ -216,7 +214,7 @@ sub update
 sub can_delete
 {
     my ($self, $artist_id) = @_;
-    return 0 if is_special_purpose($artist_id);
+    return 0 if is_special_artist($artist_id);
     my $active_credits = $self->sql->select_single_column_array(
         'SELECT ref_count FROM artist_credit, artist_credit_name name
           WHERE name.artist = ? AND name.artist_credit = id AND ref_count > 0',
@@ -245,7 +243,7 @@ sub merge
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
 
-    if (grep { is_special_purpose($_) } @$old_ids) {
+    if (grep { is_special_artist($_) } @$old_ids) {
         confess('Attempt to merge a special purpose artist into another artist');
     }
 
@@ -266,6 +264,15 @@ sub merge
             new_id => $new_id
         )
     );
+
+    merge_partial_date(
+        $self->sql => (
+            table => 'artist',
+            field => $_,
+            old_ids => $old_ids,
+            new_id => $new_id
+        )
+    ) for qw( begin_date end_date );
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
@@ -307,8 +314,8 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "artist_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating} || 0);
-        $obj->rating_count($row->{rating_count} || 0);
+        $obj->rating($row->{rating}) if defined $row->{rating};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
 }
 
@@ -334,103 +341,56 @@ sub load_for_artist_credits {
     }
 };
 
-sub load_for_works {
-    my ($self, @works) = @_;
-    return unless @works;
+sub is_empty {
+    my ($self, $artist_id) = @_;
 
-    my %id_to_work = map { $_->id => $_ } @works;
-    my @ids = keys %id_to_work;
-
-    my $cte = '
-WITH works AS (
-    SELECT work.id FROM (
-        VALUES ' .
-            join(',', ('(?::INTEGER)') x @ids)
-        . ') AS work (id)
-),
-work_recordings AS (
-    SELECT entity0 AS recording, entity1 AS work
-      FROM l_recording_work lrw
-      JOIN works ON lrw.entity1 = works.id
-), recordings AS (
-    SELECT row_number() OVER (
-               PARTITION BY work, recording
-               ORDER BY count(recording_ids.recording) DESC
-           ), work, recording
-      FROM (
-           SELECT wr.work, entity1 AS recording
-             FROM l_artist_recording
-             JOIN work_recordings wr ON wr.recording = entity1
-        UNION ALL
-           SELECT wr.work, entity1 AS recording
-             FROM l_label_recording
-             JOIN work_recordings wr ON wr.recording = entity1
-        UNION ALL
-           SELECT wr.work, entity1 AS recording
-             FROM l_recording_recording
-             JOIN work_recordings wr ON wr.recording = entity1
-        UNION ALL
-           SELECT wr.work, entity0 AS recording
-             FROM l_recording_recording
-             JOIN work_recordings wr ON wr.recording = entity0
-        UNION ALL
-           SELECT wr.work, entity0 AS recording
-             FROM l_recording_release
-             JOIN work_recordings wr ON wr.recording = entity0
-        UNION ALL
-           SELECT wr.work, entity0 AS recording
-             FROM l_recording_release_group
-             JOIN work_recordings wr ON wr.recording = entity0
-        UNION ALL
-           SELECT wr.work, entity0 AS recording
-             FROM l_recording_url
-             JOIN work_recordings wr ON wr.recording = entity0
-        UNION ALL
-           SELECT wr.work, entity0 AS recording
-             FROM l_recording_work
-             JOIN work_recordings wr ON wr.recording = entity0
-       ) recording_ids
-       GROUP BY work, recording
-),
-popular_recordings AS (
-    SELECT work, recording FROM recordings
-     WHERE row_number <= 3
-)
-';
-
-    my $subq = '(
-    SELECT entity1 AS work, entity0 AS artist
-      FROM l_artist_work
-      JOIN works ON works.id = entity1
-
-UNION
-
-    SELECT pr.work, acn.artist
-      FROM popular_recordings pr
-      JOIN recording r ON pr.recording = r.id
-      JOIN artist_credit_name acn ON r.artist_credit = acn.artist_credit
-) s';
-
-    my $query = $cte .
-        'SELECT s.work, ' . $self->_columns .
-        "  FROM $subq," . $self->_table .
-        '  WHERE s.artist = artist.id';
-
-    $self->sql->select($query, @ids);
-    my %artist_cache;
-
-    while (my $row = $self->sql->next_row_hash_ref) {
-        my $artist = $artist_cache{$row->{id}} || do {
-            $artist_cache{$row->{id}} = $self->_new_from_row($row);
-        };
-
-        $id_to_work{ $row->{work} }->add_artist($artist);
-    }
-}
-
-sub is_special_purpose {
-    my $artist_id = shift;
-    return $artist_id == $VARTIST_ID || $artist_id == $DARTIST_ID;
+    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+        SELECT TRUE
+        FROM artist artist_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM artist_credit_name
+            WHERE artist = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_recording
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_work
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_url
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_artist
+            WHERE entity0 = artist_row.id OR entity1 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_label
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_release
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_release_group WHERE entity0 = artist_row.id
+            LIMIT 1
+          )
+        )
+EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     partial_date_from_row
     placeholders
     query_to_list
@@ -234,6 +235,15 @@ sub _merge_impl
         )
     );
 
+    merge_partial_date(
+        $self->sql => (
+            table => 'label',
+            field => $_,
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    ) for qw( begin_date end_date );
+
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
     return 1;
 }
@@ -264,8 +274,8 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "label_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating} || 0);
-        $obj->rating_count($row->{rating_count} || 0);
+        $obj->rating($row->{rating}) if defined $row->{rating};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
 }
 

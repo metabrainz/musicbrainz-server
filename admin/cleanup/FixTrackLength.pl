@@ -76,11 +76,11 @@ my @medium_ids = @{ $c->sql->select_single_column_array(
     "SELECT DISTINCT m.id
        FROM medium m
        JOIN medium_cdtoc mcd ON mcd.medium = m.id
-       JOIN medium_format mf ON mf.id = m.format
+  LEFT JOIN medium_format mf ON mf.id = m.format
        JOIN tracklist tl ON tl.id = m.tracklist
        JOIN track t ON t.tracklist = tl.id
       WHERE t.length IS NULL OR t.length = 0 AND tl.track_count > 0
-        AND mf.has_discids = TRUE"
+        AND (mf.has_discids = TRUE OR mf.has_discids IS NULL)"
 ) };
 printf localtime() . " : Found %d medium%s\n",
     scalar(@medium_ids), (@medium_ids == 1 ? "" : "s")
@@ -100,7 +100,7 @@ for my $medium (@mediums)
     printf "%s : Fixing medium #%d\n", scalar(localtime), $medium->id
         if $verbose;
 
-    my @cdtocs = $c->model('MediumCDTOC')->find_by_medium($medium->id);
+    my @cdtocs = grep { $_->edits_pending == 0 } $c->model('MediumCDTOC')->find_by_medium($medium->id);
     $c->model('CDTOC')->load(@cdtocs);
 
     @cdtocs = map { $_->cdtoc }

@@ -73,6 +73,14 @@
         Pager: '[% l('page #{page} of #{total}') %]',
         SwitchToDirectSearch: '[% l('Not found? Try again with direct search.') %]',
         SwitchToIndexedSearch: '[% l('Slow? Switch back to indexed search.') %]',
+        RemoveLinkedEntity: {
+            'artist':         "[% l('Clear artist') %]",
+            'label':          "[% l('Clear label') %]",
+            'recording':      "[% l('Clear recording') %]",
+            'release':        "[% l('Clear release') %]",
+            'release-group':  "[% l('Clear release group') %]",
+            'work':           "[% l('Clear work') %]",
+        },
         link: '[% l('link') %]'
     });
 })(MB);

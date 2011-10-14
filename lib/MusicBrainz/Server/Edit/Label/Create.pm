@@ -55,9 +55,11 @@ sub build_display_data
             || Label->new( name => $self->data->{name} ),
         name       => $self->data->{name},
         sort_name  => $self->data->{sort_name},
-        type       => $loaded->{LabelType}->{ $self->data->{type_id} },
+        type       => defined($self->data->{type_id}) &&
+                        $loaded->{LabelType}->{ $self->data->{type_id} },
         label_code => $self->data->{label_code},
-        country    => $loaded->{Country}->{ $self->data->{country_id} },
+        country    => defined($self->data->{country_id}) &&
+                        $loaded->{Country}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
         ipi_code   => $self->data->{ipi_code},
         begin_date => partial_date_from_row($self->data->{begin_date}),

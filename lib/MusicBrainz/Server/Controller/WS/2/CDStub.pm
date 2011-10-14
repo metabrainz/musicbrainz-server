@@ -37,6 +37,7 @@ sub cdstub_submit : Private
     $self->deny_readonly($c);
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
+    $self->bad_req($c, 'Invalid argument "client"') if ref($client);
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
     for my $release ($xp->find('/mb:metadata/mb:release')->get_nodelist)

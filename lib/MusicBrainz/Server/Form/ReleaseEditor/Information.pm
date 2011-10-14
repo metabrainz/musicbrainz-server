@@ -4,9 +4,11 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form::Step';
 
+# Slightly hackish, but lets us know if we're editing an existing release or not
+has_field 'id'               => ( type => 'Integer' );
+
 # Release information
 has_field 'name'             => ( type => 'Text', required => 1, label => l('Title') );
-has_field 'various_artists'  => ( type => 'Checkbox'  );
 has_field 'release_group_id' => ( type => 'Hidden'    );
 
 has_field 'release_group' => ( type => 'Compound'    );
@@ -94,13 +96,20 @@ sub validate {
     my $self = shift;
 
     unless (!defined $self->field('barcode')->value ||
-            $self->field('barcode')->value == '' ||
+            $self->field('barcode')->value eq '' ||
             MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
             $self->field('barcode_confirm')->value == 1)
     {
         $self->field('barcode')->add_error (
             l("This barcode is invalid, please check that you've correctly entered the barcode."));
     }
+
+    # A release_group_id *must* be present if we're editing an existing release.
+    $self->field('release_group.name')->add_error(
+        l('You must select an existing release group. If you wish to move this release,
+           use the "change release group" action from the sidebar.')
+    ) if (!$self->field('release_group_id')->value &&
+           $self->field('id')->value);
 }
 
 after 'BUILD' => sub {

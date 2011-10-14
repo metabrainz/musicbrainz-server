@@ -7,7 +7,7 @@ with 't::Context';
 
 BEGIN { use MusicBrainz::Server::Edit::Artist::Delete }
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
+use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Types ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
@@ -75,7 +75,7 @@ test 'Can be entered as an auto-edit' => sub {
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_DELETE,
         to_delete => $artist,
-        editor_id => 1,
+        editor_id => $EDITOR_MODBOT,
         privileges => 1
     );
     isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Delete');

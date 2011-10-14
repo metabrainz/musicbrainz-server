@@ -1,4 +1,4 @@
-[%- USE r = FormRenderer(taglookup) -%]
+[%- USE r = FormRenderer(tag_lookup) -%]
 <div class="searchform">
     <form action="[% c.uri_for_action('/taglookup/index') %]" method="get">
         [% form_row_text_long(r, 'artist', l('Artist:')) %]

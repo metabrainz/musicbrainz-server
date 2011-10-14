@@ -9,16 +9,16 @@ use Try::Tiny;
 
 extends 'MusicBrainz::Server::Form::Step';
 
-has_field 'seeded' => ( type => 'Integer' );
+has_field 'seeded' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
 has_field 'mediums' => ( type => 'Repeatable', num_when_empty => 0 );
-has_field 'mediums.id' => ( type => 'Integer' );
+has_field 'mediums.id' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
 has_field 'mediums.toc' => ( type => 'Text' );
 has_field 'mediums.name' => ( type => 'Text' );
 has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
-has_field 'mediums.position' => ( type => 'Integer' );
-has_field 'mediums.tracklist_id' => ( type => 'Integer' );
-has_field 'mediums.edits' => ( type => 'Text', fif_from_value => 1 );
+has_field 'mediums.position' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
+has_field 'mediums.tracklist_id' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
+has_field 'mediums.edits' => ( type => 'Text' );
 
 sub options_mediums_format_id {
     my ($self) = @_;
@@ -50,7 +50,7 @@ sub _track_errors {
 
     return 0 if $track->{deleted};
 
-    my $name = trim ($track->{name} || "");
+    my $name = trim ($track->{name} // "");
     my $pos = trim $track->{position};
 
     if ($name eq '' && $pos eq '')

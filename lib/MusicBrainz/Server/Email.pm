@@ -29,7 +29,7 @@ sub _user_address
 
     if ($hidden) {
         # Hide the real address
-        my $email = sprintf '%s@users.musicbrainz.org', $user->name;
+        my $email = sprintf '"%s"@users.musicbrainz.org', $user->name;
         return Email::Address->new($user->name, $email)->format;
     }
 

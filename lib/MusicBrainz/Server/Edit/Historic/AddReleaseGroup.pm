@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Edit::Historic::AddReleaseGroup;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Edit::Historic::Utils 'upgrade_id';
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::NGSMigration';
+extends 'MusicBrainz::Server::Edit::Historic::NGSMigration';
 
 my $value_mapping = {
     type_id       => \&upgrade_id,

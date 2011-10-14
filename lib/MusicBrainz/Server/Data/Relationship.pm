@@ -401,6 +401,23 @@ sub adjust_edit_pending
     $self->sql->do($query, $adjust, @ids);
 }
 
+=method lock_and_do
+
+Lock the corresponding relationship table for $type0-$type in ROW EXCLUSIVE
+mode, and run a block of code.
+
+=cut
+
+sub lock_and_do {
+    my ($self, $type0, $type1, $code) = @_;
+
+    my ($t0, $t1) = sort ($type0, $type1);
+    Sql::run_in_transaction(sub {
+        $self->c->sql->do("LOCK l_${t0}_${t1} IN SHARE ROW EXCLUSIVE MODE");
+        $code->();
+    }, $self->c->sql);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

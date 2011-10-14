@@ -10,11 +10,6 @@ with 'MusicBrainz::Server::Edit::Role::Insert';
 
 requires '_create_model';
 
-has 'entity' => (
-    isa => 'Entity',
-    is  => 'rw'
-);
-
 sub alter_edit_pending
 {
     my $self = shift;
@@ -49,7 +44,6 @@ sub insert
     my $hash   = $self->_insert_hash(clone($self->data));
     my $entity = $self->c->model( $self->_create_model )->insert( $hash );
 
-    $self->entity($entity);
     $self->entity_id($entity->id);
 }
 

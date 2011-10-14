@@ -5,7 +5,7 @@ extends 'MusicBrainz::Server::Form';
 has '+name' => ( default => 'results' );
 
 has_field 'selected_id' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
 );
 

@@ -82,6 +82,16 @@ around _build_related_entities => sub {
                 : $type eq '+' ? ($newt)
                 :                ($oldt)
             } @changes;
+
+        push @{ $related->{recording} },
+            grep { defined }
+            map {
+                my ($type, $oldt, $newt) = @$_;
+                map { $_->{recording_id} }
+                $type eq 'c' ? ($newt, $oldt) :
+                $type eq '+' ? ($newt)
+                             : ($oldt)
+            } @changes;
     }
 
     return $related;
@@ -174,10 +184,10 @@ sub foreign_keys {
     $fk{MediumFormat} = {};
 
     $fk{MediumFormat}->{$self->data->{old}{format_id}} = []
-        if exists $self->data->{old}{format_id};
+        if defined $self->data->{old}{format_id};
 
     $fk{MediumFormat}->{$self->data->{new}{format_id}} = []
-        if exists $self->data->{new}{format_id};
+        if defined $self->data->{new}{format_id};
 
     my @tracks;
     push @tracks, @{ $self->data->{old}{tracklist} }
@@ -205,8 +215,10 @@ sub build_display_data
 
     if (exists $self->data->{new}{format_id}) {
         $data->{format} = {
-            new => $loaded->{MediumFormat}->{ $self->data->{new}{format_id} },
-            old => $loaded->{MediumFormat}->{ $self->data->{old}{format_id} }
+            new => defined($self->data->{new}{format_id}) &&
+                     $loaded->{MediumFormat}->{ $self->data->{new}{format_id} },
+            old => defined($self->data->{old}{format_id}) &&
+                     $loaded->{MediumFormat}->{ $self->data->{old}{format_id} }
         };
     }
 
@@ -252,7 +264,7 @@ sub build_display_data
                 [ $data->{new}{tracklist}->all_tracks ],
                 sub {
                     my $track = shift;
-                    return $track->position . join('|||', map {
+                    return join('|||', map {
                         join(':', $_->artist->id, $_->name, $_->join_phrase || '')
                     } $track->artist_credit->all_names)
                 }) }
@@ -295,6 +307,12 @@ sub hash_artist_credit {
 sub accept {
     my $self = shift;
 
+    if (!$self->c->model('Medium')->get_by_id($self->entity_id)) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This edit cannot be applied, as the medium being edited no longer exists.'
+        )
+    }
+
     $self->c->model('Medium')->update($self->entity_id, $self->data->{new});
 
     if ($self->data->{new}{tracklist}) {
@@ -332,10 +350,6 @@ sub accept {
                       'with changes made in this edit');
         };
 
-        verify_artist_credits($self->c, map {
-            $_->{artist_credit}
-        } @{ $data_new_tracklist });
-
         log_assertion {
             @merged_names == @merged_recordings &&
             @merged_recordings == @merged_lengths &&
@@ -344,26 +358,44 @@ sub accept {
 
         # Create the final merged tracklist
         my @final_tracklist;
+        my $existing_recordings = $self->c->model('Recording')->get_by_ids(@merged_recordings);
         while(1) {
             last unless @merged_artist_credits &&
                         @merged_lengths &&
                         @merged_recordings &&
                         @merged_names;
+
             my $length = shift(@merged_lengths);
+            my $recording_id = shift(@merged_recordings);
+
+            if (defined($recording_id) && $recording_id > 0 && !$existing_recordings->{$recording_id}) {
+                MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                  ->throw('This edit changes recording IDs, but some of the recordings no longer exist.');
+            }
+
             push @final_tracklist, {
                 name => shift(@merged_names),
                 length => $length eq $UNDEF_MARKER ? undef : $length,
-                recording_id => shift(@merged_recordings),
+                recording_id => $recording_id,
                 artist_credit => shift(@merged_artist_credits)
             }
         }
 
+        verify_artist_credits($self->c, map {
+            $_->{artist_credit}
+        } @final_tracklist);
+
         # Create recordings
         for my $track (@final_tracklist) {
-            $track->{recording_id} ||= $self->c->model('Recording')->insert({
-                %$track,
-                artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
-            })->id;
+            if (!$track->{recording_id}) {
+                $track->{recording_id} = $self->c->model('Recording')->insert({
+                    %$track,
+                    artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
+                })->id;
+
+                # We are in the processing of closing this edit. The edit exists, so we need to add a new link
+                $self->c->model('Edit')->add_link('recording', $track->{recording_id}, $self->id);
+            }
         }
 
         # See if we need a new tracklist
@@ -376,6 +408,7 @@ sub accept {
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
             });
+            $self->c->model('Tracklist')->garbage_collect;
         }
         else {
             $self->c->model('Tracklist')->replace($medium->tracklist_id,
@@ -407,12 +440,8 @@ sub allow_auto_edit
                         '',
                         $track->{name},
                         format_track_length($track->{length}),
-                        join(
-                            '',
-                            map {
-                                join('', $_->{name}, $_->{join_phrase} || '')
-                            } @{ $track->{artist_credit}{names} }
-                        )
+                        hash_artist_credit($track->{artist_credit}),
+                        $track->{recording_id}
                     );
                 }
             ) };
@@ -429,6 +458,7 @@ sub allow_auto_edit
             return 0 if $old_name ne $new_name;
             return 0 if $old->{length} && $old->{length} != $new->{length};
             return 0 if hash_artist_credit($old->{artist_credit}) ne hash_artist_credit($new->{artist_credit});
+            return 0 if $old->{recording_id} != $new->{recording_id};
         }
     }
 

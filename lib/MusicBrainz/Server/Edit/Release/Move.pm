@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Release::Move;
 use Moose;
 use namespace::autoclean;
 
+use List::MoreUtils qw( uniq );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );
@@ -15,6 +16,9 @@ with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Change release group') }
 sub edit_type { $EDIT_RELEASE_MOVE }
+
+sub release_id { shift->data->{release}{id} }
+sub release_ids { shift->release_id }
 
 has '+data' => (
     isa => Dict[
@@ -44,8 +48,20 @@ sub alter_edit_pending
 sub _build_related_entities
 {
     my $self = shift;
+
+    my @releases = values %{ $self->c->model('Release')->get_by_ids($self->data->{release}{id}) };
+    my @groups = values %{ $self->c->model('ReleaseGroup')->get_by_ids($self->data->{old_release_group}{id},
+                                                                       $self->data->{new_release_group}{id}) };
+
+    $self->c->model('ArtistCredit')->load(@releases, @groups);
+
     return {
-        release => [ $self->data->{release}{id} ],
+        artist => [
+            uniq map { $_->artist_id } map { @{ $_->artist_credit->names } }
+                @releases, @groups
+        ],
+        release =>       [ uniq map { $_->id } @releases ],
+        release_group => [ uniq map { $_->id } @groups ],
     }
 }
 

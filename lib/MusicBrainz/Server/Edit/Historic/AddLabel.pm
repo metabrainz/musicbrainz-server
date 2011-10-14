@@ -1,8 +1,7 @@
 package MusicBrainz::Server::Edit::Historic::AddLabel;
-use strict;
-use warnings;
+use Moose;
 
-use base 'MusicBrainz::Server::Edit::Historic::Label';
+extends 'MusicBrainz::Server::Edit::Historic::Label';
 use MusicBrainz::Server::Translation qw ( l ln );
 
 sub _build_related_entities {

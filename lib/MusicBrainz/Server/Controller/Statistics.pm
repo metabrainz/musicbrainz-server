@@ -4,6 +4,7 @@ use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
 use List::UtilsBy qw( rev_nsort_by );
+use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -26,13 +27,22 @@ sub timeline : Local
 {
     my ($self, $c) = @_;
 
+    my @stats = qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek );
     $c->stash(
         template => 'statistics/timeline.tt',
-        stats => {
-            map {
-                $_ => $c->model('Statistics::ByName')->get_statistic($_)
-            } qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek )
-        }
+        stats => \@stats
+    )
+}
+
+sub dataset : Local Args(1)
+{
+    my ($self, $c, $dataset) = @_;
+
+    my $tomorrow = Date_to_Time(Add_Delta_Days(Today(1), 1), 0, 0, 0);
+    $c->res->headers->expires($tomorrow);
+    $c->stash(
+        template => 'statistics/dataset.tt',
+        statistic => $c->model('Statistics::ByName')->get_statistic($dataset)
     )
 }
 

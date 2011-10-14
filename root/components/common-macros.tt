@@ -18,6 +18,11 @@ END -%]
 [%- USE UserDate(c.user.preferences) -%]
 [%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
+[%- MACRO va_doc_link BLOCK -%]
+    [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
+[%- END -%]
+
+
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
@@ -33,12 +38,19 @@ two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
 END; -%]
-[%- MACRO display_age(age) BLOCK -%]
-    [%- IF age.0 -%][%- ln('{num} year', '{num}&nbsp;years', age.0, { num => age.0 }) -%]
-    [%- ELSIF age.1 -%][%- ln('{num} month', '{num}&nbsp;months', age.1, { num => age.1 }) -%]
-    [%- ELSE -%][%- ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 }) -%]
-    [%- END -%]
-[%- END -%]
+[%- MACRO display_age(age, person) BLOCK;
+      IF person AND age.0;
+        l('aged {num}', { num => age.0 });
+      ELSE;
+        IF age.0;
+          ln('{num} year', '{num}&nbsp;years', age.0, { num => age.0 });
+        ELSIF age.1;
+          ln('{num} month', '{num}&nbsp;months', age.1, { num => age.1 });
+        ELSE;
+          ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 });
+        END;
+      END;
+    END -%]
 
 [%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
@@ -122,19 +134,22 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
-      '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a>';
+      '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a> ';
+      link_deleted(undef, '[info]');
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
-      link_deleted(entity);
+      link_deleted(entity, text);
     END;
     disambiguation(entity) UNLESS text;
 END -%]
 
-[%- MACRO link_deleted(entity) BLOCK;
-      caption = l("This entity has been removed, and cannot be displayed correctly.");
-      '<span class="deleted tooltip" title="' _ caption _ '">' _
-        (html_escape(entity.name) || l('[removed]')) _
+[%- MACRO link_deleted(entity, text) BLOCK;
+      caption = allow_new
+        ? l("This entity will be created when edits are entered.")
+        : l("This entity has been removed, and cannot be displayed correctly.");
+      '<span class="' _ (!allow_new && 'deleted') _ ' tooltip" title="' _ caption _ '">' _
+        (html_escape(entity.name) || text || l('[removed]')) _
       '</span>';
     END; -%]
 
@@ -161,7 +176,7 @@ END -%]
 [%- MACRO link_work(work, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/work/$action", [ work.gid ]);
-    text = text || html_escape(work.name);
+    text = text == '' ? html_escape(work.name) : text;
     '<span class="mp">' IF work.edits_pending AND action == 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF work.edits_pending AND action == 'show';
@@ -170,7 +185,7 @@ END -%]
 [%- MACRO link_label(label, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/label/$action", [ label.gid ]);
-    text = text || html_escape(label.name);
+    text = text == '' ? html_escape(label.name) : text;
     '<span class="mp">' IF label.edits_pending AND action == 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF label.edits_pending AND action == 'show';
@@ -179,7 +194,7 @@ END -%]
 [%- MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
-    text = text || html_escape(artist.name);
+    text = text == '' ? html_escape(artist.name) : text;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a href="' _ link _ '" title="' _ html_escape(artist.sort_name) _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -188,14 +203,14 @@ END -%]
 [%- MACRO link_collection(collection, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/collection/$action", [ collection.gid ]);
-    text = text || html_escape(collection.name);
+    text = text == '' ? html_escape(collection.name) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_release(release, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release/$action", [ release.gid ]);
-    text = text || html_escape(release.name);
+    text = text == '' ? html_escape(release.name) : text;
     '<span class="mp">' IF release.edits_pending AND action == 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF release.edits_pending AND action == 'show';
@@ -204,7 +219,7 @@ END -%]
 [%- MACRO link_release_group(rg, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
-    text = text || html_escape(rg.name);
+    text = text == '' ? html_escape(rg.name) : text;
     '<span class="mp">' IF rg.edits_pending AND action == 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF rg.edits_pending AND action == 'show';
@@ -213,7 +228,7 @@ END -%]
 [%- MACRO link_recording(recording, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
-    text = text || html_escape(recording.name);
+    text = text == '' ? html_escape(recording.name) : text;
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF recording.edits_pending AND action == 'show';
@@ -222,7 +237,7 @@ END -%]
 [%- MACRO link_tracklist(tracklist, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
-    text = text || html_escape(tracklist.medium.name);
+    text = text == '' ? html_escape(tracklist.medium.name) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -230,12 +245,12 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/url/$action", [ url.gid ]);
     '<span class="mp">' IF url.edits_pending AND action == 'show';
-    IF text;
+    IF text != '';
       '<a href="' _ link _ '">' _ html_escape(text) _ '</a>';
       '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
       text = display_url(url);
-      '<a href="' _ url.url _ '">' _ text _ '</a >';
+      '<a href="' _ url.affiliate_url _ '">' _ text _ '</a >';
       '</span>' IF url.edits_pending AND action == 'show';
       ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
@@ -244,56 +259,58 @@ END -%]
 [%- MACRO link_tag(tag, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/tag/$action", [ tag.name ]);
-    text = text || html_escape(tag.name);
+    text = text == '' ? html_escape(tag.name) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_puid(puid, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/puid/$action", [ puid.puid ]);
-    text = text || '<code>' _ html_escape(puid.puid) _ '</code>';
+    text = text == '' ? '<code>' _ html_escape(puid.puid) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/isrc/$action", [ isrc ]);
-    text = text || '<code>' _ html_escape(isrc) _ '</code>';
+    '<span class="mp">' IF isrc.edits_pending AND action == 'show';
+    text = text == '' ? '<code>' _ html_escape(isrc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
-    text = text || html_escape(cdtoc.discid);
+    text = text == '' ? html_escape(cdtoc.discid) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_cdstub(cdstub, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdstub/$action", [ cdstub.discid ]);
-    text = text || html_escape(cdstub.discid);
+    text = text == '' ? html_escape(cdstub.discid) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_freedb(freedb, action, text) BLOCK;
     action = action || 'import';
     link = c.uri_for_action("/freedb/$action", [ freedb.category, freedb.discid ]);
-    text = text || html_escape(freedb.discid);
+    text = text == '' ? html_escape(freedb.discid) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
-    text = text || html_escape(editor.name);
+    text = text == '' ? html_escape(editor.name) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_edit(edit, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/edit/$action", [ edit.id ]);
-    text = text || html_escape(edit.id);
+    text = text == '' ? html_escape(edit.id) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
@@ -399,8 +416,10 @@ END -%]
           <option value="work">[% l('Work') %]</option>
         </select>
         <span class="autocomplete">
-          <img class="search" src="/static/images/icons/search.png" />
-          <input type="text" class="entity" value="" style="width: 170px;" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <input type="text" class="name" value="" style="width: 170px;" />
+          <input type="hidden" class="id" value=""  />
+          <input type="hidden" class="gid" value=""  />
         </span>
         [% IF endpoints.size %]
         <select class="endpoint">
@@ -439,7 +458,7 @@ END -%]
 [%- MACRO edit_status_description(edit) SWITCH edit.status;
         CASE 1; l('This edit is open and awaiting votes before it can be applied.');
         CASE 2; l('This edit has been successfully applied.');
-        CASE 3; l('This edit failed because there were more "no" votes than "yes" votes.');
+        CASE 3; l('This edit failed because there were insufficient "yes" votes.');
         CASE 4; l('This edit failed either because an entity it was modifying no longer
                    exists, or the entity can not be modified in this manner anymore.');
         CASE 5; l('This edit failed due to an internal error and may need to be
@@ -527,6 +546,7 @@ END -%]
        IF url.url.host.search('amazon'); 'amazon';
     ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
     ELSIF url.url.host.search('facebook.com'); 'facebook';
+    ELSIF url.url.host.search('last.fm'); 'lastfm';
     ELSIF url.url.host.search('myspace.com'); 'myspace';
     ELSIF url.url.host.search('twitter.com'); 'twitter';
     ELSIF url.url.host.search('youtube.com'); 'youtube';
@@ -535,16 +555,20 @@ END -%]
     ELSE; '';
 END %]
 
+[%- MACRO warning_icon BLOCK -%]
+   <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+[%- END -%]
+
 [%- MACRO error(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     [%- warning_icon %]
      <p>[% l('<strong>Error</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
 
 [%- MACRO warning(message, class) BLOCK -%]
    <div class="warning[% ' ' _ class IF class %]">
-     <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
+     [%- warning_icon %]
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
    </div>
 [%- END -%]
@@ -563,20 +587,21 @@ http://[%- server -%]/[%- id -%]"
   [%- IF server_details.developement_server -%]
     [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script src="/static/[%- file -%]?t=[% date.now %]"></script>
+        <script src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]"></script>
     [%- END -%]
   [%- ELSE -%]
-    <script src="/static/[% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
+    <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
   [%- END -%]
 [%- END -%]
 
 [%- MACRO css_manifest(manifest) BLOCK -%]
   [%- IF server_details.developement_server -%]
+    [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'css'); -%]
-        <link rel="stylesheet" type="text/css" href="/static/[%- file -%]" />
+        <link rel="stylesheet" type="text/css" href="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]" />
     [%- END -%]
   [%- ELSE -%]
-    <link rel="stylesheet" type="text/css" href="/static/styles/[% c.model('FileCache').manifest_signature(manifest, 'css') %].css" />
+    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest, 'css') %].css" />
   [%- END -%]
 [%- END -%]
 

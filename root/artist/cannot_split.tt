@@ -1,0 +1,9 @@
+[% WRAPPER 'artist/layout.tt' %]
+   <h2>[% l('Split Into Separate Artists') %]</h2>
+   <p>[% l('This artist has relationships other than collaboration
+            relationships, and cannot be split until these are
+            removed. {relationships|View all relationships}.', {
+                relationships => c.uri_for_action('/artist/relationships',
+                                                  [ artist.gid ] )
+            }) %]</p>
+[% END %]

@@ -2,7 +2,11 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use List::UtilsBy qw( uniq_by );
-use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_CREATE
+    $EDIT_HISTORIC_ADD_TRACK
+    $EDIT_HISTORIC_ADD_TRACK_KV
+);
 use MusicBrainz::Server::Data::Track;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw(
@@ -14,6 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
 );
+use MusicBrainz::Server::Entity::Recording;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
@@ -170,6 +175,55 @@ sub delete
     return;
 }
 
+=method garbage_collect_orphans
+
+Remove any recordings that do not have a corresponding 'add track', 'add track kv' or
+'add standalone recording' edit (which means they were created through the release
+editor).
+
+=cut
+
+sub garbage_collect_orphans {
+    my ($self, @possibly_orphaned_recordings) = @_;
+
+    return unless @possibly_orphaned_recordings;
+
+    my @orphans = @{ $self->sql->select_single_column_array(
+        'SELECT id FROM recording outer_r
+         WHERE id IN (' . placeholders(@possibly_orphaned_recordings) . ')
+         AND edits_pending = 0
+         AND NOT EXISTS (
+             SELECT TRUE
+             FROM edit JOIN edit_recording er ON edit.id = er.edit
+             WHERE er.recording = outer_r.id
+             AND type = ? OR type = ? OR type = ?
+             LIMIT 1
+         ) AND NOT EXISTS (
+             SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
+         ) AND NOT EXISTS (
+             SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_recording WHERE entity1 = outer_r.id OR entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_release WHERE entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_release_group WHERE entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_work WHERE entity0 = outer_r.id
+             UNION ALL
+             SELECT TRUE FROM l_recording_url WHERE entity0 = outer_r.id
+         )',
+        @possibly_orphaned_recordings,
+        $EDIT_RECORDING_CREATE,
+        $EDIT_HISTORIC_ADD_TRACK,
+        $EDIT_HISTORIC_ADD_TRACK_KV
+    ) } or return;
+
+    $self->delete(@orphans);
+}
+
 sub _hash_to_row
 {
     my ($self, $recording, $names) = @_;
@@ -188,8 +242,8 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "recording_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating($row->{rating} || 0);
-        $obj->rating_count($row->{rating_count} || 0);
+        $obj->rating($row->{rating}) if defined $row->{rating};
+        $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
 }
 
@@ -300,6 +354,60 @@ sub editor_can_create_recordings {
         DateTime->now - $editor->registration_date,
         DateTime::Duration->new( weeks => 2 )
       ) && $editor->accepted_edits >= 10;
+}
+
+=method find_tracklist_offsets
+
+Attempt to find all absolute offsets of when a recording appears in a releases
+tracklist, over all its mediums. For example, if a recording is the 3rd track
+on the first medium, it's offset is 2. If it's the first track on the 2nd medium
+and the first medium contains 10 tracks, it's 10.
+
+The return value is a list of (release_id, offset) tuples.
+
+=cut
+
+sub find_tracklist_offsets {
+    my ($self, $recording_id) = @_;
+
+    # This query attempts to find all offsets of a recording on various
+    # releases. It does so by:
+    #
+    # 1. `bef` CTE:
+    #   a. Select all mediums that a recording appears on.
+    #   b. Select all mediums on the same release that are *before*
+    #      the mediums found in (a).
+    #   c. Group by the containing medium (a).
+    #   d. Sum the total track count of all prior mediums (b).
+    # 2. Main query:
+    #   a. Find all tracks with this recording_id.
+    #   b. Find the corresponding `bef` count.
+    #   c. Add `bef` count to the track position, and subtract on for /ws/1
+    #      compat.
+    my $offsets = $self->sql->select_list_of_lists(<<'EOSQL', $recording_id);
+    WITH
+      r (id) AS ( SELECT ?::int ),
+      bef AS (
+        SELECT container.id AS container,
+               sum(tracklist.track_count)
+        FROM medium container
+        JOIN track ON track.tracklist = container.tracklist
+        JOIN medium bef ON (
+          container.release = bef.release AND
+          container.position > bef.position
+        )
+        JOIN tracklist ON bef.tracklist = tracklist.id
+        JOIN r ON r.id = track.recording
+        GROUP BY container.id, track.id
+      )
+      SELECT medium.release, (track.position - 1) + COALESCE(bef.sum, 0)
+      FROM track
+      JOIN r ON r.id = track.recording
+      JOIN medium ON track.tracklist = medium.tracklist
+      LEFT JOIN bef ON bef.container = medium.id;
+EOSQL
+
+    return $offsets;
 }
 
 __PACKAGE__->meta->make_immutable;

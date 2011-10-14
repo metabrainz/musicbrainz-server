@@ -134,6 +134,24 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         {
             self.$name.removeClass ('lookup-performed');
         }
+
+        if (self.$gid.val () === MB.constants.VARTIST_GID ||
+            self.$id.val () === String (MB.constants.VARTIST_ID))
+        {
+            if (!self.$name.hasClass ('various-artists'))
+            {
+                self.$name.addClass ('various-artists');
+                self.$name.trigger ('VariousArtists');
+            }
+        }
+        else
+        {
+            if (self.$name.hasClass ('various-artists'))
+            {
+                self.$name.removeClass ('various-artists');
+                self.$name.trigger ('VariousArtists');
+            }
+        }
     };
 
     self.update = function(event, data) {
@@ -165,6 +183,16 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.$name.removeClass ('error');
 
         return request;
+    };
+
+    self.resultHook = function (data) {
+
+        data.push ({
+            "action": function () { self.clear () },
+            "message": MB.text.RemoveLinkedEntity['artist']
+        });
+
+        return data;
     };
 
     self.nameBlurred = function(event) {
@@ -267,6 +295,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                 self.$join.val () === '');
     };
 
+    self.hasCredit = function () {
+        return (self.$credit.val () !== '' &&
+                self.$credit.val () !== self.$name.val ());
+    };
+
     self.renderName = function () {
         var name = self.$credit.val ();
         if (name === '')
@@ -306,6 +339,25 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         }
     };
 
+    self.setIndex = function(idx) {
+        self.boxnumber = idx;
+        var nameid = new RegExp ("artist_credit.names.[0-9]+");
+        self.$row.find ("*").each (function (idx, element) {
+            var item = $(element);
+            if (item.attr ('id'))
+            {
+                item.attr ('id', item.attr('id').
+                           replace(nameid, "artist_credit.names." + self.boxnumber));
+            }
+            if (item.attr ('name'))
+            {
+                item.attr ('name', item.attr('name').
+                           replace(nameid, "artist_credit.names." + self.boxnumber));
+            }
+        });
+    };
+
+
     /* showJoin will uncover a possibly hidden join phrase input, and if
        neccesary automatically set its value.  The pos argument should be
        the position counted from the end, so that the join phrases between
@@ -340,8 +392,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         'input': self.$name,
         'entity': 'artist',
         'select': self.update,
-        'lookupHook': self.lookupHook
-    });
+        'lookupHook': self.lookupHook,
+        'resultHook': self.resultHook
+    }).initialize ();
 
     if (obj === null)
     {
@@ -360,6 +413,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.$credit.val ('');
             self.$credit.attr ('placeholder', self.$name.val ())
                 .mb_placeholder (self.placeholder_options);
+        }
+
+        if (self.$id.val () !== '')
+        {
+            self.$name.data ('mb_selected_name', self.$name.val ());
         }
 
         self.updateLookupPerformed ();
@@ -397,8 +455,9 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             'input': self.$artist_input,
             'entity': 'artist',
             'select': self.update,
-            'lookupHook': self.lookupHook
-        });
+            'lookupHook': self.lookupHook,
+            'resultHook': self.resultHook
+        }).initialize ();
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
         self.$artist_input.bind ('blur.mb', self.targetBlurred);
@@ -418,7 +477,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             self.renderPreview ();
         }
 
-        if (self.box.length > 1)
+        if (self.box.length > 1 || self.box[0].hasCredit ())
         {
             /* multiple artists, disable main artist input. */
             self.disableTarget ();
@@ -453,6 +512,16 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         return request;
     };
 
+    self.resultHook = function (data) {
+
+        data.push ({
+            "action": function () { self.clear () },
+            "message": MB.text.RemoveLinkedEntity['artist']
+        });
+
+        return data;
+    };
+
     self.addArtistBox = function () {
         var pos = self.box.length;
         var prev = self.box[pos-1];
@@ -475,7 +544,9 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         self.box.splice (pos, 1);
 
-        $.each (self.box, function (idx, box) { box.boxnumber = idx; });
+        $.each (self.box, function (idx, box) {
+            box.setIndex(idx);
+        });
         self.updateJoinPhrases ();
         self.renderPreview ();
 
@@ -655,7 +726,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
     self.enableTarget = function () {
         /* multiple artists, do not enable main artist input. */
-        if (self.box.length > 1)
+        if (self.box.length > 1 || self.box[0].hasCredit ())
             return;
 
         $target.removeAttr ('disabled');
@@ -674,6 +745,17 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
 /* an ArtistCreditRow is the container for all the artist credits on a track. */
 MB.Control.ArtistCreditRow = function ($target, $container, $button) {
+    var $box0 = $container.find('.artist-credit-box:eq(0)');
+
+    /* clear any various artist values before initializing the artist credit. */
+    if ($box0.find ('input.gid').val () === MB.constants.VARTIST_GID
+        || $box0.find ('input.id').val () === MB.constants.VARTIST_ID)
+    {
+        $.each ('name sortname credit join gid id'.split (' '), function (idx, cls) {
+            $box0.find ('input.' + cls).val ('');
+        });
+    }
+
     var self = MB.Control.ArtistCreditContainer ($target, $container);
 
     var $artistcolumn = $target.closest ('table.medium').find ('input.artistcolumn');

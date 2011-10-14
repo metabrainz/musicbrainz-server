@@ -7,6 +7,7 @@ use Data::Compare;
 use Digest::SHA1 qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
 use Readonly;
@@ -16,20 +17,23 @@ use Storable;
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
-    artist_credit_to_ref
     artist_credit_to_edit_ref
+    artist_credit_to_ref
     check_data
     check_in_use
     copy_escape
     defined_hash
     generate_gid
-    hash_to_row
     hash_structure
+    hash_to_row
     insert_and_create
+    is_special_artist
+    is_special_label
     load_meta
     load_subobjects
     map_query
     merge_table_attributes
+    merge_partial_date
     model_to_type
     object_to_ids
     order_by
@@ -441,6 +445,50 @@ sub merge_table_attributes {
             WHERE id = ?',
         (@all_ids, $new_id) x @columns, $new_id
     );
+}
+
+sub merge_partial_date {
+    my ($sql, %named_params) = @_;
+    my $table = $named_params{table} or confess 'Missing parameter $table';
+    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
+    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
+    my ($year, $month, $day) = map { join('_', $named_params{field}, $_) } qw( year month day );
+
+    $sql->do("
+    UPDATE $table SET $day = most_complete.$day,
+                      $month = most_complete.$month,
+                      $year = most_complete.$year
+    FROM (
+        SELECT $day, $month, $year,
+               (CASE WHEN $year IS NOT NULL THEN 100
+                    ELSE 0
+               END +
+               CASE WHEN $month IS NOT NULL THEN 10
+                    ELSE 0
+               END +
+               CASE WHEN $day IS NOT NULL THEN 1
+                    ELSE 0
+               END) AS weight
+        FROM $table
+        WHERE id = any(?)
+        ORDER BY weight DESC
+        LIMIT 1
+    ) most_complete
+    WHERE id = ?
+      AND $table.$day IS NULL
+      AND $table.$month IS NULL
+      AND $table.$year IS NULL",
+             \@old_ids, $new_id);
+}
+
+sub is_special_artist {
+    my $artist_id = shift;
+    return $artist_id == $VARTIST_ID || $artist_id == $DARTIST_ID;
+}
+
+sub is_special_label {
+    my $label_id = shift;
+    return $label_id == $DLABEL_ID;
 }
 
 1;

@@ -7,8 +7,12 @@ use Sql;
 use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Entity::Language;
@@ -407,20 +411,27 @@ sub schema_fixup
 
         foreach my $rel_group (@{ $data->{"relation-list"} })
         {
+            my $entity_type = $rel_group->{'target-type'};
+
             foreach my $rel (@{ $rel_group->{"relation"} })
             {
-                my $rel_type = delete $rel->{type};
-                delete $rel->{id};
-                delete $rel->{gid};
+                my %entity = %{ $rel->{$entity_type} };
 
-                my $entity_type = (keys %$rel)[0];
-                $rel->{$entity_type}->{gid} = delete $rel->{$entity_type}->{id};
+                # The search server returns the MBID in the 'id' attribute, so we
+                # need to rename that.
+                $entity{gid} = delete $entity{id};
 
                 my $entity = $self->c->model( type_to_model ($entity_type) )->
-                    _entity_class->new (%{ $rel->{$entity_type} });
+                    _entity_class->new (%entity);
 
                 push @relationships, MusicBrainz::Server::Entity::Relationship->new(
-                    entity1 => $entity );
+                    entity1 => $entity,
+                    link => MusicBrainz::Server::Entity::Link->new(
+                        type => MusicBrainz::Server::Entity::LinkType->new(
+                            name => $rel->{type}
+                        )
+                    )
+                );
             }
         }
 
@@ -458,9 +469,18 @@ sub schema_fixup
     }
 
     if ($type eq 'work' && exists $data->{relationships}) {
-        $data->{artists} = [ map {
-            $_->entity1
-        } @{ $data->{relationships} } ];
+        my %relationship_map = partition_by { $_->entity1->gid }
+            @{ $data->{relationships} };
+
+        $data->{writers} = [
+            map {
+                my @relationships = @{ $relationship_map{$_} };
+                {
+                    entity => $relationships[0]->entity1,
+                    roles  => [ map { $_->link->type->name } @relationships ]
+                }
+            } keys %relationship_map
+        ];
     }
 
     if($type eq 'work' && exists $data->{type}) {
@@ -509,7 +529,7 @@ sub external_search
     {
         $query = escape_query($query);
 
-        if (grep ($type eq $_, 'artist', 'label', 'work'))
+        if (grep { $type eq $_ } ('artist', 'label', 'work'))
         {
             $query = alias_query ($type, $query);
         }
@@ -542,6 +562,17 @@ sub external_search
     {
         return { code => $response->code, error => $response->content };
     }
+    elsif ($response->status_line eq "200 Assumed OK")
+    {
+        if ($response->content =~ /<title>([0-9]{3})/)
+        {
+            return { code => $1, error => $response->content };
+        }
+        else
+        {
+            return { code => 500, error => $response->content };
+        }
+    }
     else
     {
         my $data = JSON->new->utf8->decode($response->content);
@@ -572,6 +603,13 @@ sub external_search
                 $result->{type} =~ s/MusicBrainz::Server::Entity:://;
                 $result->{type} = lc($result->{type});
             }
+        }
+
+        if ($type eq 'work')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Work')->load_ids(@entities);
+            $self->c->model('Work')->load_recording_artists(@entities);
         }
 
         my $pager = Data::Page->new;

@@ -220,6 +220,14 @@ sub _hash_to_row
     });
 }
 
+sub in_use {
+    my ($self, $link_type_id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT TRUE FROM link WHERE link_type = ? LIMIT 1',
+        $link_type_id
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -14,7 +14,7 @@
             <input type="checkbox" />
             </th>[% END %]
             <th>[% l('Release') %]</th>
-            [% IF show_va %]
+            [% IF show_artists %]
             <th>[% l('Artist') %]</th>
             [% END %]
             <th>[% l('Format') %]</th>
@@ -48,7 +48,7 @@
             [% disambiguation(release) %]
           </td>
 	    [% END %]
-        [% IF show_va %]
+        [% IF show_artists %]
           <td>[% artist_credit(release.artist_credit) %]</td>
         [% END %]
           <td>[% rdfa_release_format(release) or "-" %]</td>

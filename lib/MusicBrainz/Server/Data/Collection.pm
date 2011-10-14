@@ -53,19 +53,16 @@ sub add_releases_to_collection
 
     $self->sql->auto_commit;
 
-    my $added = $self->sql->select_single_column_array("SELECT release FROM editor_collection_release
-       WHERE collection = ? AND release IN (" . placeholders(@release_ids) . ")",
-                             $collection_id, @release_ids);
-
-    my %added = map { $_ => 1 } @$added;
-
-    @release_ids = grep { !exists $added{$_} } @release_ids;
-
-    return unless @release_ids;
-
     my @collection_ids = ($collection_id) x @release_ids;
-    $self->sql->do("INSERT INTO editor_collection_release (collection, release) VALUES " . join(', ', ("(?, ?)") x @release_ids),
-             zip @collection_ids, @release_ids);
+    $self->sql->do("
+        INSERT INTO editor_collection_release (collection, release)
+           SELECT DISTINCT add.collection, add.release
+             FROM (VALUES " . join(', ', ("(?::integer, ?::integer)") x @release_ids) . ") add (collection, release)
+            WHERE NOT EXISTS (
+              SELECT TRUE FROM editor_collection_release
+              WHERE collection = add.collection AND release = add.release
+              LIMIT 1
+            )", zip @collection_ids, @release_ids);
 }
 
 sub remove_releases_from_collection
@@ -209,6 +206,7 @@ sub update
 sub delete
 {
     my ($self, @collection_ids) = @_;
+    return unless @collection_ids;
 
     $self->sql->auto_commit;
     $self->sql->do('DELETE FROM editor_collection_release
@@ -217,6 +215,16 @@ sub delete
     $self->sql->do('DELETE FROM editor_collection
                     WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
     return;
+}
+
+sub delete_editor {
+    my ($self, $editor_id) = @_;
+    $self->delete(
+        @{ $self->sql->select_single_column_array(
+            'SELECT id FROM editor_collection WHERE editor = ?',
+            $editor_id
+        ) }
+    );
 }
 
 sub _hash_to_row

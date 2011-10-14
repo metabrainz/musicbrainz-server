@@ -43,7 +43,7 @@ sub build_display_data
     my $new_artist = $loaded->{Artist}->{ $self->data->{new_artist_id} } ||
         Artist->new();
 
-    $new_artist = $new_artist->meta->clone_instance(
+    $new_artist = $new_artist->meta->clone_object(
         $new_artist,
         name => $self->data->{artist_name}
     );

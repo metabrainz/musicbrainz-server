@@ -10,6 +10,7 @@ use MooseX::Types::Structured qw( Dict );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -53,14 +54,6 @@ sub edit_conditions
 }
 
 sub release_ids { map { $_->{release}{id} } @{ shift->data->{submissions} } }
-
-sub _build_related_entities
-{
-    my $self = shift;
-    return {
-        release => [ $self->release_ids ],
-    };
-}
 
 sub alter_edit_pending
 {

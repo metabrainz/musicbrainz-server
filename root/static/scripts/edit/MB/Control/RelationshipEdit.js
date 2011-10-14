@@ -32,24 +32,20 @@ MB.Control.RelationshipEntity = function (entity) {
     self.$link = self.$name.closest ('span').siblings ('span.link').find ('a');
     self.type = self.$link.attr ('class');
 
-    self.selected = function (event, data) {
-        if (data.name)
-        {
-            self.$name.val (data.name).removeClass ('error');
-            self.$id.val (data.id);
-            self.$link.html (MB.text.link).
-                attr('href', '/' + self.type.replace('_', '-') + '/' + data.gid).
-                attr('title', data.comment);
-        }
+    self.$name.bind ('lookup-performed', function (event) {
+        var data = self.$name.data ('lookup-result');
+        self.$link.show ().html (MB.text.link).
+            attr('href', '/' + self.type.replace('_', '-') + '/' + data.gid).
+            attr('title', data.comment);
+    });
 
-        event.preventDefault();
-        return false;
-    };
+    self.$name.bind ('cleared', function (event, data) {
+        self.$link.hide ();
+    });
 
-    MB.Control.Autocomplete ({
-        'input': self.$name,
-        'entity': self.type.replace ("_", "-"),
-        'select': self.selected
+    MB.Control.EntityAutocomplete ({
+        'inputs': self.$name.parent (),
+        'entity': self.type
     });
 
     return self;
@@ -75,6 +71,17 @@ MB.Control.RelationshipEdit = function () {
     };
 
     $('#changedirection').bind ('click.mb', self.changeDirection);
+
+    // The user has submitted the form, and changed direction, but the form
+    // wasnt valid. In this case, we should swap the entities around again, to match
+    // the form state.
+    if (self.$direction.val() == 1) {
+        var entity0 = $('#entity0').children ().detach ();
+        var entity1 = $('#entity1').children ().detach ();
+
+        $('#entity0').append (entity1);
+        $('#entity1').append (entity0);
+    }
 
     return self;
 };

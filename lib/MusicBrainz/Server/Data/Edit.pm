@@ -6,7 +6,7 @@ use Data::OptList;
 use DateTime;
 use TryCatch;
 use List::MoreUtils qw( uniq zip );
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
+use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
@@ -264,7 +264,7 @@ sub subscribed_editor_edits {
                    AND vote.editor = ?
                    AND vote.superseded = FALSE
                 )
-       ORDER BY id DESC
+       ORDER BY open_time ASC
          OFFSET ?';
 
     return query_to_list_limited(
@@ -281,12 +281,19 @@ sub merge_entities
     my @ids = ($new_id, @old_ids);
     $self->sql->do(
         "DELETE FROM edit_$type
-          WHERE $type IN (" . placeholders(@ids) . ")
-            AND (edit, $type) NOT IN (
-                   SELECT DISTINCT ON (edit) edit, $type
-                     FROM edit_$type
-                    WHERE $type IN (" . placeholders(@ids) . ")
-                )",
+         WHERE (edit, $type) IN (
+             SELECT edits.edit, edits.$type
+             FROM (
+               SELECT * FROM edit_$type
+               WHERE $type IN (" . placeholders(@ids) . ")
+             ) edits,
+             (
+               SELECT DISTINCT ON (edit) edit, $type
+               FROM edit_$type
+               WHERE $type IN (" . placeholders(@ids) . ")
+             ) keep
+             WHERE edits.edit = keep.edit AND edits.$type != keep.$type
+         )",
         @ids, @ids);
 
     $self->sql->do("UPDATE edit_$type SET $type = ?
@@ -321,27 +328,6 @@ sub preview
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality;
-    my $conditions = $edit->edit_conditions->{$quality};
-
-    # Edit conditions allow auto edit and the edit requires no votes
-    $edit->auto_edit(1)
-        if ($conditions->{auto_edit} && $conditions->{votes} == 0);
-
-    $edit->auto_edit(1)
-        if ($conditions->{auto_edit} && $edit->allow_auto_edit);
-
-    # Edit conditions allow auto edit and the user is autoeditor
-    $edit->auto_edit(1)
-        if ($conditions->{auto_edit} && ($privs & $AUTO_EDITOR_FLAG));
-
-    # Unstrusted user, always go through the edit queue
-    $edit->auto_edit(0)
-        if ($privs & $UNTRUSTED_FLAG);
-
-    # Save quality level
-    $edit->quality($quality);
-
     return $edit;
 }
 
@@ -367,7 +353,7 @@ sub create
         croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
     }
 
-    my $quality = $edit->determine_quality;
+    my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions->{$quality};
 
     # Edit conditions allow auto edit and the edit requires no votes
@@ -398,22 +384,7 @@ sub create
         my $now = DateTime->now;
         my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
-        # Some edits need the ID when they are accepted, and the accept code
-        # might run before edit insertion (ie, autoedits).
-        $edit->id($self->sql->select_single_value(
-            "SELECT nextval('edit_id_seq')"
-        ));
-
-        # Automatically accept auto-edits on insert
-        if ($edit->auto_edit) {
-            my $st = $self->_do_accept($edit);
-            $edit->status($st);
-            $self->c->model('Editor')->credit($edit->editor_id, $st, 1);
-            $edit->close_time($now)
-        };
-
         my $row = {
-            id => $edit->id,
             editor => $edit->editor_id,
             data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
             status => $edit->status,
@@ -426,6 +397,7 @@ sub create
         };
 
         my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
+        $edit->id($edit_id);
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
@@ -437,9 +409,15 @@ sub create
             $self->c->sql->do($query, zip @all_ids, @$ids);
         }
 
-        if ($edit->is_open) {
-            $edit->adjust_edit_pending(+1);
+        $edit->adjust_edit_pending(+1);
+
+        # Automatically accept auto-edits on insert
+        $edit = $self->get_by_id($edit->id);
+        if ($edit->auto_edit) {
+            $self->accept($edit);
         }
+
+        $edit = $self->get_by_id($edit->id);
     }, $self->c->sql);
 
     return $edit;
@@ -532,9 +510,17 @@ sub _do_accept
         );
         return $STATUS_FAILEDDEP;
     }
-    catch ($err) {
-        carp("Could not accept " . $edit->id . ": $err");
+    catch (MusicBrainz::Server::Edit::Exceptions::GeneralError $err) {
+        $self->c->model('EditNote')->add_note(
+            $edit->id => {
+                editor_id => $EDITOR_MODBOT,
+                text => $err->message
+            }
+        );
         return $STATUS_ERROR;
+    }
+    catch ($err) {
+        die $err;
     };
     return $STATUS_APPLIED;
 }
@@ -620,6 +606,11 @@ sub insert_votes_and_notes {
                 });
         }
     }, $self->c->sql);
+}
+
+sub add_link {
+    my ($self, $type, $id, $edit) = @_;
+    $self->sql->do("INSERT INTO edit_$type (edit, $type) VALUES (?, ?)", $edit, $id);
 }
 
 __PACKAGE__->meta->make_immutable;

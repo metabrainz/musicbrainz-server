@@ -33,7 +33,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings
-                                          release-groups) ]
+                                          release-groups work-level-rels) ]
      },
      recording => {
                          method => 'POST'
@@ -110,6 +110,15 @@ sub recording_toplevel
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, $recording);
+
+        if ($c->stash->{inc}->work_level_rels)
+        {
+            my @works =
+                map { $_->target }
+                grep { $_->target_type eq 'work' }
+                $recording->all_relationships;
+            $c->model('Relationship')->load_subset($types, @works);
+        }
     }
 }
 
@@ -187,6 +196,7 @@ sub recording_submit : Private
     $self->deny_readonly($c);
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
+    $self->bad_req($c, 'Invalid argument "client"') if ref($client);
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 

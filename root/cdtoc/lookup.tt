@@ -13,19 +13,20 @@
              MusicBrainz') %]</p>
   [% END %]
 
-  [% IF r.u-ecdstubtoc %]
+  [% IF cdstubtoc %]
   <h2>[% l('CD Stub found') %]</h2>
   <p>[% l('A CD Stub was found that matches the disc ID you provided. If the below tracklist
            appears correct, you may use it as a starting point as a new MusicBrainz release') %]</p>
+  <h3>[% l('{artist} - {name}', { artist => cdstubtoc.cdstub.artist,
+                                  name => cdstubtoc.cdstub.title }) %]</h3>
   [% INCLUDE 'cdstub/cdstub.tt' %]
   <form action="[% c.uri_for_action('/cdstub/import', [ cdstubtoc.discid ]) %]" method="get">
-    [% form_submit(l('Import CD Stub')) %]
+    <p>[% form_submit(l('Import CD Stub')) %]</p>
   </form>
-  [% END %]
 
   [% IF possible_mediums.size %]
   <h2>[% l('Possible Mediums') %]</h2>
-  <p>[% l('Based on the CD stub you selected, we found the following mediums in MusicBrainz
+  <p>[% l('Based on the CD above CD stub, we also found the following releases in MusicBrainz
            that may be related:') %]</p>
   <form action="[% c.req.uri %]" method="GET">
     <input type="hidden" name="toc" value="[% toc %]" />
@@ -49,6 +50,7 @@
     </table>
     [% form_submit(l('Attach Disc ID')) %]
   </form>
+  [% END %]
   [% END %]
 
   <h2>[% l('Search by artist') %]</h2>
@@ -74,7 +76,7 @@
   [% IF medium_cdtocs.size %]
   <h2>[% l('Matching CDs') %]</h2>
   <p>[% l('We found discs matching the information you requested, listed below. If none of these
-          are the release you are looking for, please see the instructions belowe.') %]</p>
+          are the release you are looking for, please see the instructions below.') %]</p>
       [% INCLUDE 'cdtoc/list.tt' edit_links=0 %]
   [% ELSE %]
   <h2>[% l('CD Not Found') %]</h2>
@@ -82,6 +84,7 @@
   <pre>[% toc %]</pre>
   <p>[% l('Please consider adding this release/CD to MusicBrainz. To add this CD, please choose one of the
            following two methods:') %]</p>
+  [% END %]
   <ol>
     <li><p>[% l('Become part of MusicBrainz by creating an account and {how|reading up on our process} for submitting
               information to MusicBrainz. Find out how we peer review entered data to create the most accurate
@@ -102,7 +105,6 @@
           </a>
         </p>
     </li>
-  [% END %]
 [% END %]
 
 [% END %]

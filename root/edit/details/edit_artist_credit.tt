@@ -1,0 +1,9 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details split-artist">
+  <tr>
+    <th>[% l('Artist Credit:') %]</th>
+    <td class="old">[% expanded_artist_credit(edit.display_data.artist_credit.old) %]</td>
+    <td class="new">[% expanded_artist_credit(edit.display_data.artist_credit.new) %]</td>
+  </tr>
+</table>

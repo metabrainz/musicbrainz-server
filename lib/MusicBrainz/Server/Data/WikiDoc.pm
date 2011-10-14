@@ -136,6 +136,33 @@ sub _load_page
     return $self->_create_page($id, $version, $content, $index);
 }
 
+sub get_version
+{
+    my ($self, $id) = @_;
+
+    my $doc_url = sprintf "http://%s/?title=%s", &DBDefs::WIKITRANS_SERVER, $id;
+
+    my $ua = LWP::UserAgent->new();
+    $ua->env_proxy;
+    my $response = $ua->get($doc_url);
+
+    my $content = $response->decoded_content;
+
+    my $ret = { canonical => $id, version => undef };
+
+    if ($content =~ /var wgPageName = "(.*)"/)
+    {
+        $ret->{canonical} = $1;
+    }
+
+    if ($content =~ /var wgCurRevisionId = "([0-9]*)"/)
+    {
+        $ret->{version} = $1;
+    }
+
+    return $ret;
+}
+
 sub get_page
 {
     my ($self, $id, $version, $index) = @_;

@@ -5,6 +5,7 @@ use Encode 'decode';
 use MooseX::Types::URI qw( Uri );
 use MusicBrainz::Server::Filters;
 use URI::Escape;
+use Try::Tiny;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -25,6 +26,29 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
+=attribute utf8_decoded
+
+Returns the URL, with entities unescaped and the string decoded from utf-8 into
+a Perl string. If the decoding fails, then the URL is probably not in utf-8
+encoding, and `undef` is returned.
+
+=cut
+
+has utf8_decoded => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        try {
+            decode('utf-8', uri_unescape($self->url->as_string),
+                   Encode::FB_CROAK);
+        }
+        catch {
+            return undef;
+        }
+    },
+    lazy => 1
+);
+
 # Some things that don't know what they are constructing may try and use
 # `name' - but this really means the `url' attribute
 sub BUILDARGS {
@@ -37,9 +61,23 @@ sub BUILDARGS {
     return \%args;
 }
 
-sub pretty_name { decode('utf-8', uri_unescape(shift->url->as_string)) }
+=method pretty_name
+
+Return a human readable display of this URL. This is usually the URL with
+character entities unescaped, however we only do this if the encoding is UTF-8.
+If decoding fails, the URL is displayed as it is in the database, complete with
+character entities.
+
+=cut
+
+sub pretty_name {
+    my $self = shift;
+    return $self->utf8_decoded // $self->url->as_string;
+}
 
 sub name { shift->url->as_string }
+
+sub affiliate_url { shift->url }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

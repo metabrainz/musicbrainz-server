@@ -9,6 +9,9 @@ use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
 
+use Encode;
+use Try::Tiny;
+
 # Set flags and add plugins for the application
 #
 #         -Debug: activates the debug mode for very useful log messages
@@ -129,6 +132,18 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
     }
 };
 
+# This bit is only required to load if we're running under a proxy
+# Hence, only load it if the module has been installed.
+if (eval { require Catalyst::TraitFor::Request::ProxyBase; 1}) {
+    require CatalystX::RoleApplicator;
+    CatalystX::RoleApplicator->import();
+    __PACKAGE__->apply_request_class_roles(
+        qw/
+              Catalyst::TraitFor::Request::ProxyBase
+          /);
+}
+
+
 __PACKAGE__->config->{form} = {
     no_fillin       => 1,
     pre_load_forms  => 1,
@@ -244,6 +259,21 @@ around 'dispatch' => sub {
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
+sub language { return $ENV{LANGUAGE} || 'en' }
+
+sub _handle_param_unicode_decoding {
+    my ( $self, $value ) = @_;
+    my $enc = $self->encoding;
+    return try {
+        Encode::is_utf8( $value ) ?
+            $value
+        : $enc->decode( $value, $Catalyst::Plugin::Unicode::Encoding::CHECK );
+    }
+    catch {
+        $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as utf-8 and try again.');
+        $self->res->status(400);
+    };
+}
 
 =head1 NAME
 

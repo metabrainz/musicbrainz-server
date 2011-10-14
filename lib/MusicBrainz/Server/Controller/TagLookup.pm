@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Form::TagLookup;
-use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Search qw( alias_query escape_query );
 
 use constant LOOKUPS_PER_NAG => 5;
 
@@ -80,10 +80,19 @@ sub nag_check
 {
     my ($self, $c) = @_;
 
+    # Always nag users who are not logged in
     return 1 unless $c->user_exists;
 
-    my $session = $c->session;
+    # Editors with special privileges should not get nagged.
+    my $editor = $c->user;
+    return 0 if ($editor->is_nag_free ||
+                 $editor->is_auto_editor ||
+                 $editor->is_bot ||
+                 $editor->is_relationship_editor ||
+                 $editor->is_wiki_transcluder);
 
+    # Otherwise, do the normal nagging per LOOKUPS_PER_NAG check
+    my $session = $c->session;
     $session->{nag} = 0 unless defined $session->{nag};
 
     return 0 if ($session->{nag} == -1);
@@ -108,9 +117,9 @@ sub nag_check
 
 sub puid : Private
 {
-    my ($self, $c) = @_;
+    my ($self, $c, $form) = @_;
 
-    my $puid = $c->stash->{taglookup}->field('puid')->value();
+    my $puid = $form->field('puid')->value();
     my @releases = $c->model('Release')->find_by_puid($puid);
 
     $c->model('ArtistCredit')->load(@releases);
@@ -120,53 +129,71 @@ sub puid : Private
 
     my @results = map { { entity => $_ } } @releases;
 
-    $c->stash->{results} = \@results;
+    $c->stash(
+        # A PUID search displays releases as results
+        type    => 'release',
+        results => \@results
+    );
 }
 
 sub external : Private
 {
-    my ($self, $c) = @_;
+    my ($self, $c, $form) = @_;
 
-    my $form = $c->stash->{taglookup};
     my @terms;
     my $parsed = _parse_filename($form->field('filename')->value());
-    my $mapping = { artist => 'artist', track => 'track', release => 'release',
-                    dur => 'duration', tnum => 'tracknum' };
+    my $term_to_field = {
+        artist => 'artist',
+        recording => 'track',
+        release => 'release',
+        dur => 'duration',
+        tnum => 'tracknum'
+    };
 
-    while (my ($term, $field) = each %$mapping)
+    # Collect all the terms we have
+    my %terms;
+    while (my ($term, $field) = each %$term_to_field)
     {
         if ($form->field($field)->value())
         {
-            push @terms, "$term:".MusicBrainz::Server::Data::Search::escape_query($form->field($field)->value());
+            $terms{$term} = $form->field($field)->value();
         }
         elsif ($parsed->{$field})
         {
-            push @terms, "$term:".MusicBrainz::Server::Data::Search::escape_query($parsed->{$field})
+            $terms{$term} = $parsed->{$field};
         }
     }
 
-    my $type = "release";
-    my $query = join (" ", @terms);
-    my $limit = 25;
-    my $page   = $c->request->query_params->{page} || 1;
-    my $adv = 1;
-    my $ua;
-
-    my $ret = $c->model('Search')->external_search($type, $query, $limit, $page, $adv);
-    if (exists $ret->{error})
-    {
-        if ($ret->{code} == 400 || $ret->{code} == 404)
-        {
-            $c->stash->{results} = [];
-            return;
+    my @search_modifiers;
+    for my $term (keys %terms) {
+        if ($term eq 'artist') {
+            push @search_modifiers, alias_query('artist', $terms{$term});
         }
-
-        $c->detach ('/error_500');
+        else {
+            push @search_modifiers, "$term:" . q{"} . escape_query($terms{$term}) . q{"};
+        }
     }
 
-    $c->stash->{pager}    = $ret->{pager};
-    $c->stash->{offset}   = $ret->{offset};
-    $c->stash->{results}  = $ret->{results};
+    # Try and find the most exact search
+    my $type;
+    if ($terms{recording} || $terms{tnum} || $terms{dur}) {
+        $type = 'recording'
+    }
+    elsif ($terms{release}) {
+        $type = 'release'
+    }
+    elsif ($terms{artist}) {
+        $type = 'artist'
+    }
+    else {
+        $c->detach('not_found');
+    }
+
+    $c->stash( type => $type );
+    $c->controller('Search')->do_external_search($c,
+                                                 query    => join(' ', @search_modifiers),
+                                                 type     => $type,
+                                                 advanced => 1);
 }
 
 
@@ -174,17 +201,29 @@ sub index : Path('')
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form( query_form => 'TagLookup' );
-    $c->stash->{taglookup} = $form;
+    my $form = $c->form( tag_lookup => 'TagLookup', name => 'tag-lookup' );
+    $c->stash( nag => $self->nag_check($c) );
 
-    $c->stash->{nag} = $self->nag_check($c);
+    my $mapped_params = {
+        map {
+            ("tag-lookup.$_" => $c->req->query_params->{"tag-lookup.$_"} //
+                                $c->req->query_params->{$_})
+        } qw( artist release tracknum track duration filename puid )
+    };
 
-    return unless $form->submitted_and_valid( $c->req->query_params );
+    # All the fields are optional, but we shouldn't do anything unless at
+    # least one of them has a value
+    return unless grep { $_ } values %$mapped_params;
+    return unless $form->submitted_and_valid( $mapped_params );
 
-    $c->stash->{template} = 'taglookup/results-release.tt';
+    if ($form->field('puid')->value()) {
+        $self->puid($c, $form);
+    }
+    else {
+        $self->external($c, $form);
+    }
 
-    $c->detach('puid') if ($form->field('puid')->value());
-    $c->detach('external');
+    $c->stash( template => 'taglookup/results.tt' );
 }
 
 1;

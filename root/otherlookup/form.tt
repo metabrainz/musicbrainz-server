@@ -1,17 +1,21 @@
-[%- USE r = FormRenderer(otherlookup) -%]
+[%- USE r = FormRenderer(other_lookup) -%]
 <div class="searchform">
-    <form action="[% c.uri_for_action('/otherlookup/index') %]">
-        [% form_row_text(r, 'catno',    l('Catalog number:')) %]
-        [% form_row_text(r, 'barcode',  l('Barcode:')) %]
-        [% form_row_text(r, 'isrc',     l('ISRC:')) %]
-        [% form_row_text(r, 'iswc',     l('ISWC:')) %]
-        [% form_row_text(r, 'freedbid', l('FreeDB ID:')) %]
-        [% form_row_text_long(r, 'mbid',     l('MBID:')) %]
-        [% form_row_text_long(r, 'puid',     l('PUID:')) %]
-        [% form_row_text_long(r, 'discid',   l('Disc ID:')) %]
-
-        <div class="row no-label">
-        [% form_submit(l('Search')) %]
-        </div>
-    </form>
+    [% FOR field = [ [ 'catno', l('Catalog number:') ]
+                   , [ 'barcode', l('Barcode:') ]
+                   , [ 'isrc', l('ISRC:') ]
+                   , [ 'iswc', l('ISWC:') ]
+                   , [ 'freedbid', l('FreeDB ID:') ]
+                   , [ 'mbid', l('MBID:') ]
+                   , [ 'puid', l('PUID:') ]
+                   , [ 'discid', l('Disc ID:') ]
+                   ] %]
+      <form action="[% c.uri_for_action('/otherlookup/' _ field.0) %]">
+        [% WRAPPER form_row %]
+          [% r.label(field.0, field.1) %]
+          [% r.text(field.0, { size => 32 }) %]
+          <input type="submit" value="[% l('Search') %]" />
+          [% field_errors(other_lookup, field.0) %]
+        [% END %]
+      </form>
+    [% END %]
 </div>

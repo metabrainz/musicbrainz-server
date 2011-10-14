@@ -130,7 +130,6 @@ sub process
         $self->_retrieve_wizard_settings;
         $page = $self->_store_page_in_session;
         $page = $self->_route ($page);
-        $self->_store_wizard_settings;
     }
     else
     {
@@ -186,6 +185,7 @@ sub render
     $self->c->stash->{template} = $self->pages->[$self->_current]->{template};
     $self->c->stash->{form} = $page;
     $self->c->stash->{wizard} = $self;
+    $self->c->stash->{page_id} = $self->_current;
     $self->c->stash->{steps} = \@steps;
 
     # mark the current page as having been shown to the user.
@@ -481,8 +481,7 @@ sub _retrieve_wizard_settings
     return $self->_new_session unless $p->{wizard_session_id};
 
     $self->_session_id ($p->{wizard_session_id});
-
-    $self->_current( $self->_store ('current') ) if defined $self->_store ('current');
+    $self->_current ($p->{wizard_page_id});
 }
 
 sub _new_session
@@ -495,15 +494,7 @@ sub _new_session
         $self->_session_id(rand);
     }
     $self->_store ('wizard', 1);
-
-    $self->_store_wizard_settings;
-}
-
-sub _store_wizard_settings
-{
-    my ($self) = @_;
-
-    $self->_store ('current', $self->_current);
+    $self->_current (0);
 }
 
 sub _load_form

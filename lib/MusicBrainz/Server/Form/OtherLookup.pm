@@ -2,15 +2,38 @@ package MusicBrainz::Server::Form::OtherLookup;
 use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';
 
-has '+html_prefix'   => ( default => 0 );
+has '+name' => ( default => 'other-lookup' );
 
-has_field 'catno'    => ( type => 'Text'    );
-has_field 'barcode'  => ( type => 'Text'    );
-has_field 'mbid'     => ( type => 'Text'    );
-has_field 'isrc'     => ( type => 'Text'    );
-has_field 'iswc'     => ( type => 'Text'    );
-has_field 'puid'     => ( type => 'Text'    );
-has_field 'discid'   => ( type => 'Text'    );
-has_field 'freedbid' => ( type => 'Text'    );
+has_field 'catno' => (
+    type => 'Text'
+);
+
+has_field 'barcode'  => (
+    type => '+MusicBrainz::Server::Form::Field::Barcode',
+);
+
+has_field 'mbid'     => (
+    type => '+MusicBrainz::Server::Form::Field::GID',
+);
+
+has_field 'isrc' => (
+    type => '+MusicBrainz::Server::Form::Field::ISRC',
+);
+
+has_field 'iswc'     => (
+    type => '+MusicBrainz::Server::Form::Field::ISWC',
+);
+
+has_field 'puid' => (
+    type => '+MusicBrainz::Server::Form::Field::GID',
+);
+
+has_field 'discid' => (
+    type => '+MusicBrainz::Server::Form::Field::DiscID',
+);
+
+has_field 'freedbid' => (
+    type => '+MusicBrainz::Server::Form::Field::FreeDBID',
+);
 
 1;

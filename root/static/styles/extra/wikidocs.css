@@ -3,7 +3,7 @@
 */
 
 /* For those pesky few pages that use h1s in their content */
-* + h1 {
+.wikicontent * + h1 {
     margin-top: 1em;
 }
 

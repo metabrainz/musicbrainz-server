@@ -6,7 +6,7 @@
   <script type="text/javascript">//<![CDATA[
     $('document').ready (function () {
 
-       MB.Control.ReleaseInformation ();
+       MB.Control.ReleaseInformation ("[% wizard.c.action.name %]");
 
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
@@ -16,36 +16,32 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [% USE r = FormRenderer(form) %]
+  [% r.hidden('id') %]
+
   <div class="half-width">
-    [% r.hidden ('wizard_session_id') %]
     <fieldset>
       <legend>[% l('Release information') %]</legend>
-      [% form_row_text (r, 'name') %]
-      [% r.hidden ('release_group_id') %]
+      [% form_row_text (r, 'name', l('Title:')) %]
 
       [% WRAPPER form_row %]
         [% rg_field = form.field('release_group.name') %]
         <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
-        <span class="autocomplete">
-          [% r.text(rg_field) %]
-          <img class="search" src="/static/images/icons/search.png" />
+        <span class="release-group autocomplete">
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <input type="hidden" class="gid" />
+          [% r.hidden ('release_group_id', class => 'id') %]
+          [% r.text(rg_field, class => 'name') %]
         </span>
+        [% field_errors(r.form, 'release_group.name') %]
       [% END %]
-
-      <div class="row">
-        [% r.label('various_artists', 'Various Artists release') %]
-        <img style="float: right; margin-right: 12px;" id="help-va"
-             src="/static/images/icons/help.png" />
-        [% r.checkbox('various_artists') %]
-      </div>
 
       [%- form_row_artist_credit(form, 'release-artist') -%]
 
       [%# FIXME: should only be editable on Add Release. %]
-      [% form_row_select (r, 'type_id', 'Type') %]
-      [% form_row_select (r, 'status_id', 'Status') %]
-      [% form_row_select (r, 'language_id', 'Language') %]
-      [% form_row_select (r, 'script_id', 'Script') %]
+      [% form_row_select (r, 'type_id', l('Type:')) %]
+      [% form_row_select (r, 'status_id', l('Status:')) %]
+      [% form_row_select (r, 'language_id', l('Language:')) %]
+      [% form_row_select (r, 'script_id', l('Script:')) %]
 
     </fieldset>
 
@@ -53,31 +49,31 @@
       <legend>[% l('Release event') %]</legend>
 
       [% WRAPPER form_row %]
-         <label for="release-date">[% l('Date') %]</label>
+         <label for="release-date">[% l('Date:') %]</label>
          [% r.date('date') %]
       [% END %]
       [% field_errors(r.form, 'date') %]
 
-      [% form_row_select (r, 'country_id', 'Country') %]
-      [% form_row_select (r, 'packaging_id', 'Packaging') %]
+      [% form_row_select (r, 'country_id', l('Country:')) %]
+      [% form_row_select (r, 'packaging_id', l('Packaging:')) %]
 
       <div class="label-container" style="padding: 0.5em 0">
         [% FOR field=form.field('labels').fields %]
         <div class="release-label">
-          [%- r.hidden(field.field('label_id'), class => 'label-id') -%]
-
-          [%- r.label(field.field('name'), l('Label'), class => 'label-name') -%]
+          [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
           <span class="label autocomplete">
-            [%- r.text(field.field('name'), class => 'label-name') -%]
-            <img class="search" src="/static/images/icons/search.png" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="hidden" class="gid" />
+            [%- r.hidden(field.field('label_id'), class => 'id') -%]
+            [%- r.text(field.field('name'), class => 'name') -%]
           </span>
-          [%- r.label(field.field('catalog_number'), l('Cat.No'), class => 'catno') -%]
+          [%- r.label(field.field('catalog_number'), l('Cat.No:'), class => 'catno') -%]
           [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
 
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <img src="/static/images/icons/delete_row.png" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
+              <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
             </a>
           </span>
 
@@ -88,19 +84,19 @@
           <div class="add-label" style="text-align: right; width: 100%; ">
             <span class="add-label" style="padding: 0 1em;">[% l('Add Label') %]</span>
             <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
-              <img src="/static/images/icons/add_row.png" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
+              <img src="[% c.uri_for('/static/images/icons/add_row.png') %]" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
             </a>
           </div>
         [% END %]
       </div>
 
-      [% form_row_text (r, 'barcode', 'Barcode') %]
+      [% form_row_text (r, 'barcode', l('Barcode:')) %]
     </fieldset>
 
     <fieldset class="information">
       <legend>[% l('Additional information') %]</legend>
-      [% form_row_textarea(r, 'annotation', l('Annotation')) %]
-      [% form_row_text(r, 'comment', l('Comment')) %]
+      [% form_row_textarea(r, 'annotation', l('Annotation:')) %]
+      [% form_row_text(r, 'comment', l('Disambiguation:')) %]
     </fieldset>
 
     <div class="buttons ui-helper-clearfix">
@@ -110,14 +106,6 @@
   </div>
 
   <div class="documentation">
-
-    <div class="help-va-container" style="display: none">
-      <div class="help-va bubble">
-        <p>
-          [% l("Check this if not all tracks on this release are credited to the same artist.") %]
-        </p>
-      </div>
-    </div>
 
     [%- guesscase_bubble() -%]
     [%- artist_credit_table(form) -%]

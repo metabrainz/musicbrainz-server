@@ -83,6 +83,7 @@ sub autocomplete_release_group
             gid => $item->gid,
             comment => $item->comment,
             artist => $item->artist_credit->name,
+            type => $item->type_id,
         };
     };
 
@@ -118,6 +119,32 @@ sub autocomplete_recording
                     'gid' => $_->gid
                     } } @{ $item->{appears_on}{results} } ],
             }
+        };
+    };
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return $json->encode (\@output);
+}
+
+sub autocomplete_work
+{
+    my ($self, $results, $pager) = @_;
+
+    my $json = JSON::Any->new;
+
+    my @output;
+
+    for my $item (@$results) {
+        push @output, {
+            name => $item->{work}->name,
+            id => $item->{work}->id,
+            gid => $item->{work}->gid,
+            comment => $item->{work}->comment,
+            artists => $item->{artists},
         };
     };
 

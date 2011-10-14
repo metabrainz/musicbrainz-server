@@ -321,7 +321,7 @@
 </tbody>
 </table>
 
-<h2>[% l('Recordings and PUIDS') %]</h2>
+<h2>[% l('Recordings and PUIDs') %]</h2>
 <table class="database-statistics">
 <thead>
 <tr>
@@ -380,14 +380,14 @@
     <td></td>
     <th>[% ln('which identify 1 recording:', 'which identify {num} recordings:', num, { num => num }) %]</th>
     <td>[% stats.statistic('count.puid.' _ num _ 'recordings') %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.' _ num _ 'recordings', 'count.puid')) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.' _ num _ 'recordings', 'count.puid.ids')) }) %]</td>
 </tr>
 [%- END -%]
 <tr>
     <td></td>
     <th>[% l('which identify 10+ recordings:') %]</th>
     <td>[% stats.statistic('count.puid.10recordings') %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.10recordings', 'count.puid')) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.10recordings', 'count.puid.ids')) }) %]</td>
 </tr>
 </tbody>
 </table>

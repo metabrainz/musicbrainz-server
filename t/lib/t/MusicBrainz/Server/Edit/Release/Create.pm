@@ -15,12 +15,7 @@ test all => sub {
 my $test = shift;
 my $c = $test->c;
 
-MusicBrainz::Server::Test->prepare_test_database($c);
-MusicBrainz::Server::Test->prepare_test_database($c, '+releasestatus');
-MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
-    SET client_min_messages TO warning;
-    TRUNCATE release CASCADE;
-SQL
+prepare($c);
 
 my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Create');
@@ -45,10 +40,19 @@ reject_edit($c, $edit);
 $release = $c->model('Release')->get_by_id($edit->release_id);
 ok(!defined $release);
 
-$edit = create_edit($c);
+};
+
+test 'Can accept' => sub {
+
+my $test = shift;
+my $c = $test->c;
+
+prepare($c);
+
+my $edit = create_edit($c);
 accept_edit($c, $edit);
 
-$release = $c->model('Release')->get_by_id($edit->release_id);
+my $release = $c->model('Release')->get_by_id($edit->release_id);
 ok(defined $release);
 is($release->edits_pending, 0);
 
@@ -69,6 +73,17 @@ sub create_edit
         status_id => 1,
         release_group_id => 1,
     );
+}
+
+sub prepare {
+    my $c = shift;
+    MusicBrainz::Server::Test->prepare_test_database($c);
+    MusicBrainz::Server::Test->prepare_test_database($c, '+releasestatus');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'SQL');
+    SET client_min_messages TO warning;
+    TRUNCATE release CASCADE;
+SQL
+
 }
 
 1;

@@ -9,6 +9,7 @@ use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::WebService::XMLSerializerV1;
+use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
@@ -87,10 +88,10 @@ sub search : Chained('root') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my $limit = $c->req->query_params->{limit} ? int($c->req->query_params->{limit}) : 25;
+    my $limit = looks_like_number($c->req->query_params->{limit}) ? int($c->req->query_params->{limit}) : 25;
     $limit = 25 if $limit < 1 || $limit > 100;
 
-    my $offset = $c->req->query_params->{offset} ? int($c->req->query_params->{offset}) : 0;
+    my $offset = looks_like_number($c->req->query_params->{offset}) ? int($c->req->query_params->{offset}) : 0;
     $offset = 0 if $offset < 0;
 
     try {

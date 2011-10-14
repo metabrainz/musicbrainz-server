@@ -148,7 +148,7 @@ MB.utility.structureToString = function (obj) {
 MB.utility.setDefaultAction = function (form, button) {
 
     $(form).prepend (
-        $(button).clone ().css ({
+        $(button).clone ().removeAttr ('id').css ({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
@@ -158,11 +158,13 @@ MB.utility.setDefaultAction = function (form, button) {
 /* Remember the state of a checkbox, using a persistent cookie. */
 MB.utility.rememberCheckbox = function (id, name) {
 
+    /* only change the checkbox if the cookie is set, otherwise use the default
+       value from the html. */
     if ($.cookie (name) === "1")
     {
         $(id).attr ('checked', 'checked');
     }
-    else
+    else if ($.cookie (name) === "0")
     {
         $(id).removeAttr ('checked');
     }

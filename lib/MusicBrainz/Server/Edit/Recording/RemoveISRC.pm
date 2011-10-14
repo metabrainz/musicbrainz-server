@@ -59,7 +59,8 @@ has '+data' => (
 method alter_edit_pending
 {
     return {
-        Recording => [ $self->data->{recording}{id} ]
+        Recording => [ $self->data->{recording}{id} ],
+        ISRC      => [ $self->data->{isrc}{id} ]
     }
 }
 

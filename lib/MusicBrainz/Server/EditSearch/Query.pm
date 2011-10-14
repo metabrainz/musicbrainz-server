@@ -1,7 +1,7 @@
 package MusicBrainz::Server::EditSearch::Query;
 use Moose;
 
-use CGI::Expand qw( expand_hash );
+use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MooseX::Types::Moose qw( Any ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Map Tuple );
 use Moose::Util::TypeConstraints qw( enum role_type );
@@ -11,6 +11,8 @@ use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
 use MusicBrainz::Server::EditSearch::Predicate::Vote;
+use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
+use MusicBrainz::Server::EditSearch::Predicate::ArtistCountry;
 use MusicBrainz::Server::Log 'log_warning';
 use String::CamelCase qw( camelize );
 use Try::Tiny;
@@ -26,6 +28,8 @@ my %field_map = (
     yes_votes => 'MusicBrainz::Server::EditSearch::Predicate::ID',
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
     vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
+    release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
+    artist_country => 'MusicBrainz::Server::EditSearch::Predicate::ArtistCountry',
 
     map {
         $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_) 
@@ -43,6 +47,13 @@ has combinator => (
     is => 'ro',
     required => 1,
     default => 'and'
+);
+
+has order => (
+    isa => enum([qw( asc desc rand )]),
+    is => 'ro',
+    required => 1,
+    default => 'desc'
 );
 
 has auto_edit_filter => (
@@ -99,8 +110,9 @@ sub new_from_user_input {
     my $ae = $input->{auto_edit_filter};
     $ae = undef if $ae =~ /^\s*$/;
     return $class->new(
-        negate => $input->{negation},
-        combinator => $input->{combinator},
+        exists $input->{negation}   ? (negate => $input->{negation}) : (),
+        exists $input->{combinator} ? (combinator => $input->{combinator}) : (),
+        exists $input->{order}      ? (order => $input->{order}) : (),
         auto_edit_filter => $ae,
         fields => [
             map {
@@ -127,7 +139,7 @@ sub _construct_predicate {
 
 sub valid {
     my $self = shift;
-    my $valid = 1;
+    my $valid = $self->fields > 0;
     $valid &&= $_->valid for $self->fields;
     return $valid
 }
@@ -138,13 +150,16 @@ sub as_string {
     my $comb = $self->combinator;
     my $ae_predicate = defined $self->auto_edit_filter ?
         'autoedit = ? AND ' : '';
-    return 'SELECT edit.* FROM edit ' .
+    my $order = '';
+    $order = 'ORDER BY open_time ' . $self->order
+        unless $self->order eq 'rand';
+    return 'SELECT DISTINCT edit.* FROM edit ' .
         join(' ', $self->join) .
         ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
-        ')
-         ORDER BY open_time DESC
-         LIMIT 500 OFFSET ?';
+        ")
+         $order
+         LIMIT 500 OFFSET ?";
 }
 
 sub arguments {

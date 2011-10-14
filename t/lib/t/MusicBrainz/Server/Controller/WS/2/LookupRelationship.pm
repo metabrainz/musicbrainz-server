@@ -346,6 +346,37 @@ ws_test 'release lookup with recording-level relationships',
 ';
 
 
+ws_test 'recording lookup with work-level relationships',
+    '/recording/4878bc36-7306-497a-b45a-561d9f7f8573?inc=artist-rels+work-rels+work-level-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="4878bc36-7306-497a-b45a-561d9f7f8573">
+        <title>Asseswaving</title>
+        <length>274666</length>
+        <relation-list target-type="work">
+            <relation type="performance">
+                <target>f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8</target>
+                <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
+                    <title>Asseswaving</title>
+                    <relation-list target-type="artist">
+                        <relation type="composer">
+                            <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
+                            <direction>backward</direction>
+                            <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+                                <name>Distance</name>
+                                <sort-name>Distance</sort-name>
+                                <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+                            </artist>
+                        </relation>
+                    </relation-list>
+                </work>
+            </relation>
+        </relation-list>
+    </recording>
+</metadata>
+';
+
+
 };
 
 1;

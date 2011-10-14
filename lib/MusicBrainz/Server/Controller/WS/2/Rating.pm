@@ -33,10 +33,22 @@ sub rating_submit : Private
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
+    my %ratable = (
+        artist          => 1,
+        label           => 1,
+        recording       => 1,
+        'release-group' => 1,
+        work            => 1,
+    );
+
     my @submit;
     for my $node ($xp->find('/mb:metadata/*/*')->get_nodelist)
     {
         my $type = $node->getLocalName;
+        $self->_error ($c, "Entity type '$type' cannot have ratings. " .
+                           "Supported types are: " . join(', ', keys %ratable))
+            unless $ratable{$type};
+
         $type =~ s/-/_/;
 
         my $model = type_to_model ($type);

@@ -1,0 +1,39 @@
+[%- WRAPPER "layout.tt" title=l("Search Results") full_width=1 -%]
+    <div id="content">
+        <h1>[%- l("Search Results") -%]</h1>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>[% l('Name') %]</th>
+              <th>[% l('Artist') %]</th>
+              <th>[% l('Tracks') %]</th>
+              <th>[% l('Country') %]</th>
+              <th>[% l('Language') %]</th>
+              [%- IF c.session.tport -%]
+                <th>[% l('Tagger') %]</th>
+              [%- END -%]
+            </tr>
+          </thead>
+          <tbody>
+            [%- FOR result=releases -%]
+            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+              <td>[% link_entity(result) %]</td>
+              <td>[% artist_credit(result.artist_credit) %]</td>
+              <td>[% result.combined_track_count %]</td>
+              <td>
+                <abbr title="[% result.country.name %]">[% result.country.iso_code_for_display %]</abbr>
+              </td>
+              <td>
+                <abbr title="[% result.language.name %]">[% result.language.iso_code_3t %]</abbr>
+                [%= '/' IF result.language && result.script =%]
+                <abbr title="[% result.script.name %]">[% result.script.iso_code %]</abbr>
+              </td>
+              [%- IF c.session.tport -%]
+                <td>[% tagger_icon(result) %]</td>
+              [%- END -%]
+            </tr>
+            [%- END -%]
+          </tbody>
+        </table>
+    </div>
+[% END %]

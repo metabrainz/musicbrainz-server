@@ -464,7 +464,7 @@ MB.GuessCase.Mode.Base = function () {
     self.runFinalChecks = function(is) {
 
         if (!gc.re.VINYL) {
-            gc.re.VINYL = /(\s+|\()((\d+)[\s|-]?(inch\b|in\b|'+|"))([^s]|$)/i;
+            gc.re.VINYL = /(\s+|\()((\d+)(inch\b|in\b|'+|"))([^s]|$)/i;
         }
         var matcher = null, os = is;
         if ((matcher = is.match(gc.re.VINYL)) != null) {

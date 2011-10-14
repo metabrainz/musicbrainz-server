@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Form::CDStub;
 use HTML::FormHandler::Moose;
 
+use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Validation;
+
 extends 'MusicBrainz::Server::Form';
 
 has '+name' => ( default => 'CDStub' );
@@ -8,18 +11,22 @@ has '+name' => ( default => 'CDStub' );
 has_field 'title' => (
     required => 1,
     type => '+MusicBrainz::Server::Form::Field::Text',
+    maxlength => 255
 );
 
 has_field 'comment' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
+    maxlength => 255
 );
 
 has_field 'barcode' => (
-    type => '+MusicBrainz::Server::Form::Field::Barcode'
+    type => '+MusicBrainz::Server::Form::Field::Barcode',
+    maxlength => 255
 );
 
 has_field 'artist' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
+    maxlength => 255
 );
 
 has_field 'tracks' => (
@@ -32,14 +39,27 @@ has_field 'multiple_artists' => (
 
 has_field 'tracks.title' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1
+    required => 1,
+    maxlength => 255
 );
 
 has_field 'tracks.artist' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
+    maxlength => 255
 );
 
-sub default_multiple_artists { shift->field('artist')->value eq '' }
+sub default_multiple_artists {
+    my $self = shift;
+    my $artist = $self->field('artist')->value;
+    return !defined($artist) || $artist eq '';
+}
+
+sub validate_barcode {
+    my ($self, $field) = @_;
+    return unless $field->value;
+    $field->add_error(l('Must be a valid barcode'))
+        unless MusicBrainz::Server::Validation::IsValidBarcode($field->value);
+}
 
 sub validate
 {

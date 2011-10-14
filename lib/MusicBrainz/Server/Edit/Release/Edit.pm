@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     partial_date_from_row
 );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -73,6 +74,11 @@ around _build_related_entities => sub {
         push @{ $related->{artist} }, keys(%new), keys(%old);
     }
 
+    if ($self->data->{new}{release_group_id}) {
+        push @{ $related->{release_group} },
+            map { $self->data->{$_}{release_group_id} } qw( old new )
+    }
+
     return $related;
 };
 
@@ -100,10 +106,12 @@ sub foreign_keys
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
-    $relations->{ReleaseGroup} = {
-        $self->data->{new}{release_group_id} => [ 'ArtistCredit' ],
-        $self->data->{old}{release_group_id} => [ 'ArtistCredit' ]
-    };
+    if ($self->data->{new}{release_group_id}) {
+        $relations->{ReleaseGroup} = {
+            $self->data->{new}{release_group_id} => [ 'ArtistCredit' ],
+            $self->data->{old}{release_group_id} => [ 'ArtistCredit' ]
+        }
+    }
 
     return $relations;
 }
@@ -183,6 +191,14 @@ before accept => sub {
     my ($self) = @_;
 
     verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+
+    if ($self->data->{new}{release_group_id} &&
+        $self->data->{new}{release_group_id} != $self->data->{old}{release_group_id} &&
+       !$self->c->model('ReleaseGroup')->get_by_id($self->data->{new}{release_group_id})) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The new release group does not exist.'
+        );
+    }
 };
 
 sub allow_auto_edit

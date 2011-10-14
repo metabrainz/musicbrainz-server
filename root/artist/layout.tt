@@ -28,7 +28,7 @@
                             [% date_period_label = artist.type_id == 1 ? l('Died:') : artist.type_id == 2 ? l('Dissolved:') : l('Ended:') %]
                             [% rdfa_end_date_artist(artist.end_date.format) %]
                             [% IF artist.has_age %]
-                                ([% rdfa_artist_age(display_age (artist.age)) %])
+                                ([% rdfa_artist_age(display_age (artist.age, artist.type_id == 1)) %])
                             [% END %]
                         [% END %]
                     [% END %]
@@ -80,6 +80,9 @@
                       [% artist.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
                     </a>
                   </li>
+                  <li>
+                    [% link_artist(artist, 'split', l('Split into separate artists')) %]
+                  </li>
                 [% END %]
 
                   <li>
@@ -130,7 +133,7 @@
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=artist -%]
-
+        [%- INCLUDE "layout/sidebar/sidebar-affiliates.tt" source=artist -%]
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
     [% END %]
 

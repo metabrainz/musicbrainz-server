@@ -10,8 +10,8 @@ use MusicBrainz::Server::Entity::Release;
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
-with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { l('Remove release label') }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }

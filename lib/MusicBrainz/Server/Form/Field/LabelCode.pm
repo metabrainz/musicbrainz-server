@@ -3,7 +3,7 @@ use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Translation qw( l );
 
-extends 'HTML::FormHandler::Field::Integer';
+extends 'MusicBrainz::Server::Form::Field::Integer';
 
 apply(
     [

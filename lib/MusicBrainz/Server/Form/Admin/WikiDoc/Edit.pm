@@ -7,7 +7,7 @@ extends 'MusicBrainz::Server::Form';
 has '+name' => ( default => 'wikidoc' );
 
 has_field 'version' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
 );
 

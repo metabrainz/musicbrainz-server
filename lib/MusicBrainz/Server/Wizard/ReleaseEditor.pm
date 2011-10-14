@@ -2,7 +2,7 @@ package MusicBrainz::Server::Wizard::ReleaseEditor;
 use Moose;
 use namespace::autoclean;
 
-use CGI::Expand qw( collapse_hash expand_hash );
+use MusicBrainz::Server::CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
@@ -12,8 +12,9 @@ use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
+use Text::Trim qw( trim );
 use TryCatch;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -577,6 +578,19 @@ sub associate_recordings
 sub prepare_tracklist
 {
     my ($self, $release) = @_;
+
+    my $submitted_ac = $self->get_value ("information", "artist_credit");
+
+    my %artist_ids;
+    map { $artist_ids{$_->{artist}->{id}} = 1 }
+    grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
+
+    my $artists = $self->c->model('Artist')->get_by_ids (keys %artist_ids);
+
+    map { $_->{artist}->{gid} = $artists->{$_->{artist}->{id}}->gid }
+    grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
+
+    $self->c->stash->{release_artist} = $submitted_ac;
 }
 
 sub prepare_recordings
@@ -728,12 +742,12 @@ sub prepare_missing_entities
     my @credits = map +{
             for => $_->{artist}->{name},
             name => $_->{artist}->{name},
-        }, uniq_by { $_->{artist}->{name} } @artist_credits;
+        }, uniq_by { normalise_strings($_->{artist}->{name}) } @artist_credits;
 
     my @labels = map +{
             for => $_->{name},
             name => $_->{name}
-        }, uniq_by { $_->{name} }
+        }, uniq_by { normalise_strings($_->{name}) }
             $self->_missing_labels($data);
 
     $self->load_page('missing_entities', {
@@ -788,7 +802,7 @@ sub _missing_labels {
 
     $data->{labels} = $self->get_value ('information', 'labels');
 
-    return grep { !$_->{label_id} && $_->{name} }
+    return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
         @{ $data->{labels} };
 }
 
@@ -796,14 +810,14 @@ sub _missing_artist_credits
 {
     my ($self, $data) = @_;
 
-    $data->{artist_credit} = $self->get_value ('information', 'artist_credit');
+    $data->{artist_credit} = clean_submitted_artist_credits($data->{artist_credit});
 
     return
         (
             # Artist credit for the release itself
             grep { !$_->{artist}->{id} }
             grep { ref($_) }
-            @{ clean_submitted_artist_credits($data->{artist_credit})->{names} }
+            @{ $data->{artist_credit}->{names} }
         ),
         (
             # Artist credits on new tracklists
@@ -821,6 +835,8 @@ sub create_edits
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
 
+    $data->{artist_credit} = clean_submitted_artist_credits($data->{artist_credit});
+
     $self->_expand_mediums($data);
 
     # Artists and labels:
@@ -829,14 +845,14 @@ sub create_edits
 
     unless ($previewing) {
         for my $bad_ac ($self->_missing_artist_credits($data)) {
-            my $artist = $created{artist}{ $bad_ac->{artist}->{name} }
+            my $artist = $created{artist}{ normalise_strings($bad_ac->{artist}->{name}) }
                 or die 'No artist was created for ' . $bad_ac->{name};
 
             $bad_ac->{artist}->{id} = $artist;
         }
 
         for my $bad_label ($self->_missing_labels($data)) {
-            my $label = $created{label}{ $bad_label->{name} }
+            my $label = $created{label}{ normalise_strings($bad_label->{name}) }
                 or die 'No label was created for ' . $bad_label->{name};
 
             $bad_label->{label_id} = $label;
@@ -911,13 +927,17 @@ sub _edit_missing_entities
     return () if $previewing;
     return (
         artist => {
-            (map { $_->entity->name => $_->entity->id } @artist_edits),
-            (map { $_->{for} => $_->{entity_id} }
+            (map { normalise_strings($_->name) => $_->id }
+                 values %{ $self->c->model('Artist')->get_by_ids(
+                     map { $_->entity_id } @artist_edits) }),
+            (map { normalise_strings($_->{for}) => $_->{entity_id} }
                  grep { $_->{entity_id} } @missing_artist)
         },
         label => {
-            (map { $_->entity->name => $_->entity->id } @label_edits),
-            (map { $_->{for} => $_->{entity_id} }
+            (map { normalise_strings($_->name) => $_->id }
+                 values %{ $self->c->model('Label')->get_by_ids(
+                     map { $_->entity_id } @label_edits) }),
+            (map { normalise_strings($_->{for}) => $_->{entity_id} }
                  grep { $_->{entity_id} } @missing_label)
         }
     )
@@ -969,6 +989,10 @@ sub _edit_release_labels
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
+        elsif ($new_label->{'deleted'})
+        {
+            # Ignore new labels which have already been deleted.
+        }
         elsif (
             $previewing ?
                 $new_label->{name} || $new_label->{catalog_number} :
@@ -977,7 +1001,7 @@ sub _edit_release_labels
             my $label;
 
             # Add ReleaseLabel
-            if ($previewing)
+            if ($previewing && !$new_label->{label_id})
             {
                 $label = $new_label->{name} ?
                     Label->new(
@@ -1163,7 +1187,6 @@ sub _preview_edit
         %args
     ) or return;
 
-    push @{ $self->c->stash->{edits} }, $edit;
     return $edit;
 }
 
@@ -1201,17 +1224,16 @@ sub _create_edit {
 
     delete $args{as_auto_editor};
 
-    my $edit;
     try {
-        $edit = $method->(
+        my $edit = $method->(
             edit_type => $type,
             editor_id => $user_id,
             %args,
        );
+       push @{ $self->c->stash->{edits} }, $edit;
+       return $edit;
     }
     catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) { }
-
-    return $edit;
 }
 
 
@@ -1219,7 +1241,7 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
-    my @names = @{ $trk->{artist_credit}->{names} };
+    my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
     # with just an id.
@@ -1237,16 +1259,19 @@ sub _expand_track
 
     for my $i (0..$#names)
     {
-        my $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} } ||
-            $artists_by_id->{ $names[$i]->{artist}->{id} };
+        my $artist_id = $names[$i]->{artist}->{id};
+        my $artist = $artists_by_id->{ $artist_id } if $artist_id;
+
+        $artist = $artists_by_gid{ $names[$i]->{artist}->{gid} }
+            if !$artist && $names[$i]->{artist}->{gid};
 
         $names[$i]->{artist} = $artist if $artist;
     }
 
     my $entity = Track->new(
-        length => unformat_track_length ($trk->{length}),
+        length => unformat_track_length ($trk->{length}) // ($assoc ? $assoc->length : undef),
         name => $trk->{name},
-        position => $trk->{position},
+        position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
@@ -1425,6 +1450,11 @@ sub _seed_parameters {
         }
     }
 
+
+    $params->{mediums} = [ map {
+        defined $_ ? $_ : { position => 1 }
+    } @{ $params->{mediums} || [] } ];
+
     for my $container (
         $params,
         map { @{ $_->{track} || [] } }
@@ -1459,7 +1489,7 @@ sub _seed_parameters {
     }
 
     {
-        my $medium_idx;
+        my $medium_idx = 0;
         my $json = JSON::Any->new(utf8 => 1);
         for my $medium (@{ $params->{mediums} || [] }) {
             if (my $format = delete $medium->{format}) {
@@ -1510,7 +1540,7 @@ sub _seed_parameters {
                         ];
 
                         $track->{artist_credit}{preview} = join (
-                            "", map { $_->{name} . $_->{join_phrase}
+                            "", map { $_->{name} // "" . $_->{join_phrase} // ""
                             } @{$track_ac->{names}});
                     }
 
@@ -1560,10 +1590,6 @@ sub _seed_parameters {
     $params->{labels} = [
         { label => '', catalog_number => '' }
     ] unless @{ $params->{labels}||[] };
-
-    $params->{mediums} = [
-        { position => 1 },
-    ] unless @{ $params->{mediums}||[] };
 
     $params->{seeded} = 1;
 

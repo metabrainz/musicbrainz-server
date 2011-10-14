@@ -11,12 +11,12 @@ has_field 'vote' => (
 );
 
 has_field 'vote.edit_id' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
 );
 
 has_field 'vote.vote' => (
-    type => 'Integer',
+    type => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 has_field 'vote.edit_note' => (

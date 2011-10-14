@@ -108,7 +108,7 @@
     [% IF c.user_exists %]
         <h2>[% l('Collections') %]</h2>
         <ul class="links">
-        [%- IF collections.size > 0 -%]
+        [%- IF collections.size -%]
             [% FOREACH collection IN collections %]
                 <li>
                 [% IF containment.${collection.id} %]
@@ -138,6 +138,6 @@
     [% END %]
 
     [% INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release %]
-
+    [% INCLUDE "layout/sidebar/sidebar-affiliates.tt" source=release %]
     [% INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=release %]
 [% END %]

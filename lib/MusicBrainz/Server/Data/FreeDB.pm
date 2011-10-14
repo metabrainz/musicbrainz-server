@@ -9,6 +9,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use Carp 'confess';
 use LWP::UserAgent;
 use URI;
+use Try::Tiny;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
@@ -29,9 +30,10 @@ sub _entity_class { 'MusicBrainz::Server::Entity::FreeDB' }
 sub lookup {
     my ($self, $category, $id) = @_;
     for my $server ($self->servers) {
-        my $response = $self->read($server, $category, $id) or next;
+        my $response = try { $self->read($server, $category, $id) } or next;
         return $response;
     }
+    return undef;
 }
 
 sub read {
@@ -45,15 +47,6 @@ sub read {
 
 sub _do_read {
     my ($self, $response) = @_;
-
-    # WARNING: evil hack.  For some reason the freedb lookup will
-    # sometimes (always?) return a 500 error with a 200 OK status
-    # code, so we cannot rely on $response->is_success here.
-    if ($response->decoded_content =~ /^500 Syntax error/i)
-    {
-        MusicBrainz::Server::Exceptions::InvalidInput->throw (
-            l("Error requesting data from freedb"));
-    }
 
     # Extract all key-value pairs in the FreeDB data
     my %data = map { split /=/, $_, 2 }
@@ -160,11 +153,16 @@ sub _retrieve_no_cache
 	$ua->env_proxy;
     my $response = $ua->get($url);
 
+    # WARNING: evil hack.  For some reason the freedb lookup will
+    # sometimes (always?) return a 500 error with a 200 OK status
+    # code, so we cannot rely on $response->is_success here.
     if (!$response->is_success  ||
          $response->code == 202 ||
          $response->code < 200  ||
          $response->code > 299  ||
-         $response->decoded_content eq 'failed to process the response') {
+         $response->decoded_content eq 'failed to process the response' ||
+         $response->decoded_content =~ /^401/ ||
+         $response->decoded_content =~ /^500 Syntax error/i) {
         return undef;
     }
 

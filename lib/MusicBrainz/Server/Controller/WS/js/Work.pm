@@ -21,9 +21,23 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'work' }
 
+sub serialization_routine { 'autocomplete_work' }
+
 sub search : Path('/ws/js/work') {
     my ($self, $c) = @_;
     $self->dispatch_search($c);
+}
+
+sub _format_output {
+    my ($self, $c, @entities) = @_;
+    my %artists = $c->model('Work')->find_artists(\@entities, 3);
+
+    return map {
+        {
+            work => $_,
+            artists => $artists{$_->id}
+        }
+    } @entities;
 }
 
 1;

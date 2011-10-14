@@ -76,6 +76,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
 
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
+    $self->bad_req($c, 'Invalid argument "client"') if ref($client);
 
     my @gids = split /;/, $releases;
 
@@ -87,9 +88,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
             unless MusicBrainz::Server::Validation::IsGUID($gid);
     }
 
-    my %releases = map {
-        $_->gid => $_
-    } values %{ $c->model('Release')->get_by_gids(@gids) };
+    my %releases = %{ $c->model('Release')->get_by_gids(@gids) };
 
     if ($c->req->method eq 'PUT') {
         $self->deny_readonly($c);

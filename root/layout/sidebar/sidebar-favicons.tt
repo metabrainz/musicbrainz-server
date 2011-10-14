@@ -13,13 +13,14 @@
     [% END %]
 
     [%- FOREACH favicon IN favicons -%]
-        [%- IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') -%]
+        [%- IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') AND
+               favicon.target.show_in_sidebar -%]
             [%- display_favicon(favicon.target) -%]
             [%- urls = 1 -%]
         [%- END -%]
     [%- END -%]
 
-    [%- IF not homepage_relationships.size && not urls -%]
+    [%- IF !homepage_relationships.size && !urls -%]
         <li>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</li>
     [%- END -%]
 </ul>

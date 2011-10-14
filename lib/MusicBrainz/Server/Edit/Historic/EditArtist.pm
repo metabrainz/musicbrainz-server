@@ -1,11 +1,10 @@
 package MusicBrainz::Server::Edit::Historic::EditArtist;
-use strict;
-use warnings;
+use Moose;
 
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
 use MusicBrainz::Server::Translation qw ( l ln );
 
-use base 'MusicBrainz::Server::Edit::Historic::Artist';
+extends 'MusicBrainz::Server::Edit::Historic::Artist';
 
 sub edit_name { l('Edit artist') }
 sub edit_type { 40 }

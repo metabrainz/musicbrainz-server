@@ -9,11 +9,16 @@
 
        MB.release_artist_json = [% release_artist_json %];
        MB.medium_cdtocs = [
-       [%- FOR medium=release.mediums -%]
-           [% medium.cdtocs.size %],
-       [%- END -%]
+           [%- FOR medium=release.mediums -%]
+             [%- IF medium.cdtocs.size -%]
+               [%- medium.cdtocs.0.cdtoc.track_count -%],
+             [%- ELSE -%]
+               null,
+             [%- END -%]
+           [%- END -%]
            null
        ];
+
 
        var advanced_tab = MB.Control.ReleaseAdvancedTab ();
        var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
@@ -26,14 +31,14 @@
   //]]></script>
 [%- END -%]
 
-[%- MACRO artist_credit_row(acfield) BLOCK -%]
+[%- MACRO artist_credit_row(release_artist) BLOCK -%]
 <table class="artist-credit bubble" style="width: 100%">
   <thead>
     <tr class="artist-credit-preview">
       <td colspan="4">
         <div class="row">
           <label>[% l('Preview') %]</label>
-          <span class="artist-credit-preview">[% artist_credit(acfield.item) %]</span>
+          <span class="artist-credit-preview">[% artist_credit(release_artist) %]</span>
         </div>
       </td>
     </tr>
@@ -47,28 +52,27 @@
   </thead>
   <tbody>
 
-  [%- FOR ac=acfield.field('names').fields -%]
+  [%- FOR ac=release_artist.names -%]
     [%- artistnum = loop.index -%]
-    [%- artist = ac.field('artist') -%]
     <tr class="artist-credit-box">
       <td class="artist">
         <span class="autocomplete" style="width: 100%">
-          <input type="text" class="name" value="[% artist.field('name').value | html %]" />
-          <img class="search" src="/static/images/icons/search.png" />
+          <input type="text" class="name" value="[% ac.artist.name | html %]" />
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
-        <input type="hidden" class="gid" value="[% artist.item.gid | html %]" />
-        <input type="hidden" class="id" value="[% artist.field('id').value | html %]" />
+        <input type="hidden" class="gid" value="[% ac.artist.gid | html %]" />
+        <input type="hidden" class="id" value="[% ac.artist.id | html %]" />
       </td>
       <td class="artistcredit">
-        <input type="text" class="credit" value="[% ac.field('name').value | html %]" />
+        <input type="text" class="credit" value="[% ac.name | html %]" />
       </td>
       <td class="joinphrase">
-        <input type="text" class="join" value="[% ac.field('join_phrase').value | html %]" />
+        <input type="text" class="join" value="[% ac.join_phrase | html %]" />
       </td>
       <td class="icon">
         <input type="button" class="icon remove-artist-credit"
           title="[% l('Remove Artist Credit') %]"
-          style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
+          style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
       </td>
     </tr>
   [% END %]
@@ -80,7 +84,7 @@
       <td class="icon">
         <input type="button" class="icon add-artist-credit"
           title="[% l('Add Artist Credit') %]"
-          style="background-image: url(/static/images/icons/add_row.png); width: 16px; height: 16px; border: 0;" />
+          style="background-image: url([% c.uri_for("/static/images/icons/add_row.png") %]); width: 16px; height: 16px; border: 0;" />
       </td>
     </tr>
   </tbody>
@@ -96,7 +100,7 @@
 
 <div style="display: none;" class="tracklist-searching import-message">
   <p>
-    <img src="/static/images/icons/loading.gif" />
+    <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
     &nbsp;
     [% l('Searching...') %]
   </p>
@@ -115,7 +119,18 @@
   [% USE r = FormRenderer(form) %]
   [% USE w = Wizard() %]
   [% information = w.page ('information') %]
-  [% release_artist = information.field('artist_credit') %]
+
+   <div class="various-artists warning" style="display: none;">
+     [%- warning_icon %]
+     <p>
+       [% l('<strong>Warning</strong>:') %]
+       [% l('You have used the {valink|Various Artists} special purpose artist on:', { valink => va_doc_link }) %]
+     </p>
+     <ul> </ul>
+     <p>
+       [% l('{valink|Various Artists} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
+     </p>
+  </div>
 
   <div class="add-disc-dialog" style="display: none">
     <h1>Add Disc</h1>
@@ -217,7 +232,7 @@
 
       <div style="display: none; height: 6em; margin-top: 5em;" class="tracklist-loading">
         <p>
-          <img src="/static/images/icons/loading.gif" />
+          <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
           &nbsp;
           [% l('Now loading tracklist...') %]
         </p>
@@ -233,7 +248,6 @@
   </div>
 
   <div class="half-width basic-tracklist">
-    [%- r.hidden ('wizard_session_id') -%]
     [%- r.hidden ('seeded', class => "seeded") -%]
     <fieldset>
       <legend>[% l('Tracklist') %]</legend>
@@ -244,18 +258,15 @@
       <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
         [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
 
-        <input type="hidden" name="various-artists" class="various-artists"
-            value="[% information.field('various_artists').value | html %]" />
-
         <table class="basic-format">
           <tr>
             <td class="icon">
               <input type="button" class="icon expand-disc"
                 title="[% l('Expand Disc') %]"
-                style="background-image: url(/static/images/icons/expand.png); width: 16px; height: 16px; border: 0;" />
+                style="background-image: url([% c.uri_for("/static/images/icons/expand.png") %]); width: 16px; height: 16px; border: 0;" />
               <input type="button" class="icon collapse-disc"
                 title="[% l('Collapse Disc') %]"
-                style="display: none; background-image: url(/static/images/icons/collapse.png); width: 16px; height: 16px; border: 0;" />
+                style="display: none; background-image: url([% c.uri_for("/static/images/icons/collapse.png") %]); width: 16px; height: 16px; border: 0;" />
             </td>
             <td class="disc" >
             [% IF multidisc %]
@@ -283,7 +294,7 @@
 
                   <input type="button" class="icon guesscase-medium"
                       title="[% l('Guess case disc title') %]"
-                      style="background-image: url(/static/images/icons/guesscase.png); width: 16px; height: 16px; border: 0;" />
+                      style="background-image: url([% c.uri_for("/static/images/icons/guesscase.png") %]); width: 16px; height: 16px; border: 0;" />
 
                 </div>
               </div>
@@ -291,13 +302,13 @@
             <td class="icon">
               <input type="button" class="icon remove-disc"
                 title="[% l('Remove disc') %]"
-                style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
+                style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
             </td>
           </tr>
         </table>
         <div style="display: none" class="tracklist-loading">
           <p>
-            <img src="/static/images/icons/loading.gif" />
+            <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
             &nbsp;
             [% l('Now loading tracklist...') %]
           </p>
@@ -314,6 +325,9 @@
 
       <h3>[% l('Options') %]</h3>
       <p id="tracklist-options">
+      <input type="checkbox" name="trackartists" id="trackartists">
+      <label for="trackartists">[% l('Parse track artists') %]</label>
+      <br />
       <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
       <label for="tracknumbers">[% l('Track names start with a number') %]</label>
       <br />
@@ -334,7 +348,7 @@
         <table style="width: 100%">
           <tr>
             <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
-              <img src="/static/images/icons/guesscase.32x32.png" />
+              <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" />
             </td>
             <td class="options" style="vertical-align: top;">
               <p class="guesscase-options">
@@ -404,7 +418,7 @@
         <td class="artist autocomplete">
           <span class="autocomplete" style="width: 100%">
             <input type="text" class="track-artist" value="[% artist_credit_preview_from_field(release_artist) %]" />
-            <img class="search" src="/static/images/icons/search.png" style="top: 1px;"  />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" style="top: 1px;"  />
           </span>
         </td>
         <td class="credits-button">
@@ -416,12 +430,12 @@
         <td class="icon">
           <input type="button" class="icon guesscase-track"
             title="[% l('Guess case track') %]"
-            style="background-image: url(/static/images/icons/guesscase.png); width: 16px; height: 16px; border: 0;" />
+            style="background-image: url([% c.uri_for("/static/images/icons/guesscase.png") %]); width: 16px; height: 16px; border: 0;" />
 
           <input type="hidden" class="deleted" value="0" />
           <input type="button" class="icon remove-track"
             title="[% l('Remove track') %]"
-            style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
+            style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
         </td>
       </tr>
       <tr class="track-artist-credit container" style="display: none">
@@ -442,10 +456,10 @@
           <td class="icon">
             <input type="button" class="icon expand-disc"
               title="[% l('Expand Disc') %]"
-              style="background-image: url(/static/images/icons/expand.png); width: 16px; height: 16px; border: 0;" />
+              style="background-image: url([% c.uri_for("/static/images/icons/expand.png") %]); width: 16px; height: 16px; border: 0;" />
             <input type="button" class="icon collapse-disc"
               title="[% l('Collapse Disc') %]"
-              style="display: none; background-image: url(/static/images/icons/collapse.png); width: 16px; height: 16px; border: 0;" />
+              style="display: none; background-image: url([% c.uri_for("/static/images/icons/collapse.png") %]); width: 16px; height: 16px; border: 0;" />
           </td>
 
           <td class="format">
@@ -456,21 +470,21 @@
           <td class="icon" id="mediums.[% loop.index %].buttons" style="text-align: right;">
             <input type="button" class="icon disc-down"
               title="[% l('Move disc down') %]"
-              style="background-image: url(/static/images/icons/down.png); width: 16px; height: 16px; border: 0;" />
+              style="background-image: url([% c.uri_for("/static/images/icons/down.png") %]); width: 16px; height: 16px; border: 0;" />
             <input type="button" class="icon disc-up"
               title="[% l('Move disc up') %]"
-              style="background-image: url(/static/images/icons/up.png); width: 16px; height: 16px; border: 0;" />
+              style="background-image: url([% c.uri_for("/static/images/icons/up.png") %]); width: 16px; height: 16px; border: 0;" />
             <span class="empty-icon" style="display: inline-block; width: 16px; height: 16px;"> </span>
             <input type="button" class="icon remove-disc"
               title="[% l('Remove disc') %]"
-              style="background-image: url(/static/images/icons/delete_row.png); width: 16px; height: 16px; border: 0;" />
+              style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
           </td>
         </tr>
       </table>
 
       <div style="display: none" class="tracklist-loading">
         <p>
-          <img src="/static/images/icons/loading.gif" />
+          <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
           &nbsp;
           [% l('Now loading tracklist...') %]
         </p>
@@ -502,7 +516,7 @@
         </span>
           <input type="button" class="icon add-track"
             title="[% l('Add track(s)') %]"
-            style="background-image: url(/static/images/icons/add_row.png); width: 16px; height: 16px; border: 0;" />
+            style="background-image: url([% c.uri_for("/static/images/icons/add_row.png") %]); width: 16px; height: 16px; border: 0;" />
 
       </div>
 

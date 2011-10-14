@@ -31,6 +31,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::PUID::Delete');
 is_deeply($edit->data, {
     puid_id => 1,
     puid => 'b9c8f51f-cc9a-48fa-a415-4c91fcca80f0',
+    client_version => 'mb_client/1.0',
     recording => {
         id => 1,
         name => 'Dancing Queen'

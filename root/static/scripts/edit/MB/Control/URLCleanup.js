@@ -46,6 +46,12 @@ MB.constants.LINK_TYPES = {
     purevolume: {
         artist: 174
     },
+    allmusic: {
+        artist: 283,
+        release_group: 284,
+        work: 286,
+        recording: 285
+    },
     amazon: {
         release: 77
     },
@@ -73,6 +79,13 @@ MB.constants.LINK_TYPES = {
     },
     review: {
         release_group: 94
+    },
+    score: {
+        release_group: 92,
+        work: 274
+    },
+    secondhandsongs: {
+        work: 280
     },
     socialnetwork: {
         artist: 192,
@@ -137,7 +150,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: new RegExp("^(https?://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn)","i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)","i"),
         type: MB.constants.LINK_TYPES.amazon,
         clean: function(url) {
             // determine tld, asin from url, and build standard format [1],
@@ -150,7 +163,7 @@ MB.constants.CLEANUPS = {
             if ((m = url.match(/amazon\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
             }
-            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&#]|$)/)) != null) {
+            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) {
                 asin = m[1];
             }
             if (tld != "" && asin != "") {
@@ -203,7 +216,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com|lyricstatus\.com)", "i"),
         type: MB.constants.LINK_TYPES.lyrics
     },
     bbcmusic: {
@@ -233,11 +246,22 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
         type: MB.constants.LINK_TYPES.review
     },
+    score: {
+        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/)", "i"),
+        type: MB.constants.LINK_TYPES.score
+    },
+    secondhandsongs: {
+        match: new RegExp("^(https?://)?([^/]+\.)?secondhandsongs\\.com/", "i"),
+        type: MB.constants.LINK_TYPES.secondhandsongs
+    },
     socialnetwork: {
-        match: new RegExp("^(https?://)?([^/]+\.)?facebook\\.com/", "i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
+            url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
+            return url;
         }
     },
     vgmdb: {
@@ -261,6 +285,8 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.urlControl = $(urlControl);
     self.sourceType = sourceType;
 
+    self.errorList = $('<ul class="errors" />').hide();
+    self.typeControl.after(self.errorList);
 
     var validationRules = { };
     // "has lyrics at" is only allowed for certain lyrics sites
@@ -286,6 +312,19 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
         return $('#id-ar\\.url').val().match(/\/(release|mp3)\//) != null;
     }
+    // allow Allmusic page only for the correct entities
+    validationRules[ MB.constants.LINK_TYPES.allmusic.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(artist)\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/\/album\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.work ] = function() {
+        return $('#id-ar\\.url').val().match(/\/work|song\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
+        return $('#id-ar\\.url').val().match(/\/(performance)\//) != null;
+    }
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\.)?(archive\.org|magnatune\.com|jamendo\.com|cdbaby.(com|name)|ozon\.ru|mange-disque\.tv|encyclopedisque\.fr|thastrom\.se|universalpoplab\.com|alpinechic\.net|angelika-express\.de|fixtstore\.com|phantasma13\.com|primordialmusic\.com|transistorsounds\.com|alter-x\.net|zorchfactoryrecords\.com)/");
@@ -295,7 +334,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.guessType = function (sourceType, currentURL) {
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
-            
+
             var cleanup = MB.constants.CLEANUPS[group];
             if(!cleanup.match.test(currentURL)) { continue; }
             return cleanup.type[sourceType];
@@ -304,22 +343,30 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     };
 
     self.cleanUrl = function (dirtyURL) {
+        dirtyURL = dirtyURL.replace(/^\s+/, '');
+
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
 
             var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL)) 
+            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL))
                 continue;
 
             return cleanup.clean(dirtyURL);
         }
         return dirtyURL;
     };
- 
+
     var typeChanged = function() {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
-        $('button[type="submit"]').attr('disabled',
-            !checker || checker() ? false : 'disabled');
+        if (!checker || checker()) {
+            self.errorList.hide();
+            $('button[type="submit"]').attr('disabled', false);
+        }
+        else {
+            self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type</li>');
+            $('button[type="submit"]').attr('disabled', 'disabled');
+        }
     };
 
     var urlChanged = function() {
@@ -345,6 +392,8 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.urlControl
         .change(urlChanged)
         .keyup(urlChanged);
+
+    self.urlControl.parents('form').submit(urlChanged);
 
     return self;
 };

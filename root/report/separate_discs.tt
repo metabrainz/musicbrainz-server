@@ -4,6 +4,8 @@
 
 <ul>
     <li>[% l('This report shows releases which have (disc n) or (bonus disc) in the title.') %]</li>
+    <li>[% l('For instructions on how to fix them, please see the documentation about
+              {howto|how to merge releases}.', { howto => doc_link('How_to_Merge_Releases') }) %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>

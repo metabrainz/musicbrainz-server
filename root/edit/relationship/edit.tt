@@ -17,11 +17,12 @@
 [%- USE r = FormRenderer(form) -%]
 
 [%- MACRO relationship_entity(field, entity, type) BLOCK; -%]
-  [%- r.hidden(field.field('id')) -%]
   [%- IF type != 'url' -%]
     <span class="[% type %] autocomplete">
-      [%- r.text(field.field('name'), class => type _ '-name') -%]
-      <img class="search" src="/static/images/icons/search.png" />
+      <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+      <input type="hidden" class="gid" />
+      [%- r.hidden(field.field('id'), class => 'id') -%]
+      [%- r.text(field.field('name'), class => type _ '-name name') -%]
     </span>
     <span class="link">
       [%# NOTE: do not add other classes to the <a> element below, this class is used by javascript to get the entity type. --warp. %]
@@ -31,11 +32,13 @@
           title="[% entity.comment %]"
         [% ELSE %]
           href=""
+          style="display: none;"
         [% END %]
       >[%- l('link') -%]</a>
     </span>
   [%- ELSE -%]
     [%- link_entity(entity) -%]
+    [%- r.hidden(field.field('id'), class => 'id') -%]
   [%- END -%]
 [%- END -%]
 
@@ -48,8 +51,8 @@ var typeInfo = [% type_info %];
     [% IF exists %]
         <p><strong>[% l('A relationship between {entity0} and {entity1} already
                          exists with these attributes.',
-                        { entity0 => link_entity(rel.entity0),
-                          entity1 => link_entity(rel.entity1) }) %]</strong></p>
+                        { entity0 => link_entity(selected.0),
+                          entity1 => link_entity(selected.1) }) %]</strong></p>
     [% END %]
 
 <fieldset>
@@ -117,12 +120,12 @@ var typeInfo = [% type_info %];
         </td>
     </tr>
     <tr>
-        <td class="label">[% r.label('begin_date', l('Begin date:')) %]</td>
+        <td class="label">[% r.label('begin_date', l('Begin date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('begin_date') %]
         [% field_errors(form, 'begin_date') %]</td>
     </tr>
     <tr>
-        <td class="label">[% r.label('end_date', l('End date:')) %]</td>
+        <td class="label">[% r.label('end_date', l('End date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('end_date') %]
         [% field_errors(form, 'end_date') %]</td>
     </tr>
