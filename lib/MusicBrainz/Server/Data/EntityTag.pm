@@ -203,8 +203,8 @@ sub parse_tags
     my ($self, $input) = @_;
 
     my @tags = grep {
-        # remove non-word characters
-        $_ =~ s/[^\p{IsWord}-]+/ /sg;
+        # remove non-printable characters
+        $_ =~ s/[^[:print:]]//g;
         # combine multiple spaces into one
         $_ =~ s/\s+/ /sg;
         # remove leading and trailing whitespace
