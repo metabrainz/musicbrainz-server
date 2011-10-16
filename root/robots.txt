@@ -19,6 +19,7 @@ Disallow: /recording/
 Disallow: /release/
 Disallow: /release-group/
 Disallow: /report/
+Disallow: /reports
 Disallow: /search
 Disallow: /statistics/
 Disallow: /tag/
