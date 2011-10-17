@@ -19,7 +19,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      release => {
                          method   => 'GET',
-                         linked   => [ qw(artist label recording release-group) ],
+                         linked   => [ qw(track_artist artist label recording release-group) ],
                          inc      => [ qw(artist-credits labels recordings discids
                                           release-groups media _relations) ],
                          optional => [ qw(limit offset) ],
@@ -181,6 +181,15 @@ sub release_browse : Private
         $c->detach('not_found') unless ($artist);
 
         my @tmp = $c->model('Release')->find_by_artist (
+            $artist->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
+        $releases = $self->make_list (@tmp, $offset);
+    }
+    elsif ($resource eq 'track_artist')
+    {
+        my $artist = $c->model('Artist')->get_by_gid($id);
+        $c->detach('not_found') unless ($artist);
+
+        my @tmp = $c->model('Release')->find_by_track_artist (
             $artist->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
         $releases = $self->make_list (@tmp, $offset);
     }

@@ -163,7 +163,7 @@ MB.constants.CLEANUPS = {
             if ((m = url.match(/amazon\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
             }
-            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&#]|$)/)) != null) {
+            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) {
                 asin = m[1];
             }
             if (tld != "" && asin != "") {

@@ -17,8 +17,7 @@ sub gather_data
             JOIN release_name rn ON r.name = rn.id
         WHERE
             url ~ E'amazon\\\\.' AND
-            url !~ E'amazon\\\\.cn' AND
-            url !~ E'^http://www\\\\.amazon\\\\.(com|ca|de|fr|it|co\\\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
+            url !~ E'^http://www\\\\.amazon\\\\.(com|ca|cn|de|es|fr|it|co\\\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
         ORDER BY url.id DESC
     ");
 }
