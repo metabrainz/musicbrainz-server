@@ -130,6 +130,9 @@
                 <a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a>
             </li>
             <li class="separator">
+                <a href="[% doc_link('MusicBrainz_for_Android') %]">[% l('MusicBrainz for Android') %]</a>
+            </li>
+            <li class="separator">
                 <a href="[% doc_link('MusicBrainz_Server') %]">[% l('MusicBrainz Server') %]</a>
             </li>
             <li>
