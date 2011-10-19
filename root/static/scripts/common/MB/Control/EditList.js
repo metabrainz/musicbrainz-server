@@ -27,10 +27,11 @@ MB.Control.EditList = function(container) {
             .first().parents('.voteopts').clone().addClass('overall-vote');
 
         $voteOptions.find('label').each(function() {
-            $(this).attr('for', $(this).attr('for').replace('id-enter-vote.vote.0', 'vote-all'));
+            $(this).attr('for', $(this).attr('for').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
         });
         $voteOptions.find('input').each(function() {
-            $(this).attr('id', $(this).attr('id').replace('id-enter-vote.vote.0', 'vote-all'));
+            $(this).attr('id', $(this).attr('id').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
+            $(this).attr('name', null);
         });
 
         $voteOptions.find(':input').attr('checked', false);
