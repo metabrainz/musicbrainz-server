@@ -50,6 +50,14 @@ has [qw( propose_time open_time close_time )] => (
 has 'votes' => (
     isa  => 'ArrayRef[AutoEditorElectionVote]',
     is   => 'rw',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_votes => 'elements',
+        add_vote => 'push',
+        clear_votes => 'clear'
+    }
 );
 
 sub is_open

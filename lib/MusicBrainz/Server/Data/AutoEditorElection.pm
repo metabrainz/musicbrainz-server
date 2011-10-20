@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::AutoEditorElection;
 use Moose;
 
 use MusicBrainz::Server::Entity::AutoEditorElection;
+use MusicBrainz::Server::Entity::AutoEditorElectionVote;
 use MusicBrainz::Server::Data::Utils qw( hash_to_row query_to_list );
 use MusicBrainz::Server::Types qw( :election_status );
 
@@ -168,11 +169,12 @@ sub load_editors
 {
     my ($self, @elections) = @_;
 
-    my @ids = map {
+    my @ids = grep { defined } map {
             $_->candidate_id,
             $_->proposer_id,
             $_->seconder_1_id,
             $_->seconder_2_id,
+            map { $_->voter_id } $_->all_votes
         } @elections;
 
     my $editors = $self->c->model('Editor')->get_by_ids(@ids);
@@ -184,7 +186,32 @@ sub load_editors
             if defined $election->seconder_1_id;
         $election->seconder_2($editors->{$election->seconder_2_id})
             if defined $election->seconder_2_id;
+        for my $vote ($election->all_votes) {
+            $vote->voter($editors->{$vote->voter_id});
+        }
     }
+}
+
+sub load_votes
+{
+    my ($self, $election) = @_;
+
+    my $sql = $self->c->sql;
+    my $query = "SELECT * FROM autoeditor_election_vote
+                 WHERE autoeditor_election = ? ORDER BY vote_time";
+    $sql->select($query, $election->id);
+    while (1) {
+        my $row = $sql->next_row_hash_ref or last;
+        my $vote = MusicBrainz::Server::Entity::AutoEditorElectionVote->new({
+            election_id => $election->id,
+            election    => $election,
+            voter_id    => $row->{voter},
+            vote_time   => $row->{vote_time},
+            vote        => $row->{vote},
+        });
+        $election->add_vote($vote);
+    }
+    $sql->finish;
 }
 
 sub get_all

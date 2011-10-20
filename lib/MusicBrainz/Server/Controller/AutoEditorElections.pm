@@ -53,6 +53,7 @@ sub show : Chained('election') PathPart('') Args(0)
     my ($self, $c) = @_;
 
     my $election = $c->stash->{election};
+    $c->model('AutoEditorElection')->load_votes($election);
     $c->model('AutoEditorElection')->load_editors($election);
 }
 
