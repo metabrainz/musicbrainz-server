@@ -48,9 +48,9 @@
 
     </dl>
 
-    <h2>[% l('Voting') %]</h2>
+    [% IF c.user_exists AND c.user.is_auto_editor AND !election.is_closed %]
 
-    [% IF c.user_exists AND c.user.is_auto_editor %]
+    <h2>[% l('Voting') %]</h2>
 
     [% IF election.is_pending %]
     <p>
@@ -74,7 +74,7 @@
     </p>
     [% END %]
 
-    [% IF !election.is_closed AND election.proposer_id == c.user.id %]
+    [% IF election.proposer_id == c.user.id %]
     <p>
         <form action="[% c.uri_for_action("elections/cancel", [ election.id ]) %]" method="post">
             <span class="buttons">
