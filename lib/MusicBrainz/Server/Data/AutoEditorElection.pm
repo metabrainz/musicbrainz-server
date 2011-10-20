@@ -67,6 +67,25 @@ sub nominate
     }, $sql);
 }
 
+sub load_editors
+{
+    my ($self, $election) = @_;
+
+    my @ids = (
+        $election->candidate_id,
+        $election->proposer_id,
+        $election->seconder_1_id,
+        $election->seconder_2_id,
+    );
+    my $editors = $self->c->model('Editor')->get_by_ids(@ids);
+    $election->candidate($editors->{$election->candidate_id});
+    $election->proposer($editors->{$election->proposer_id});
+    $election->seconder_1($editors->{$election->seconder_1_id})
+        if defined $election->seconder_1_id;
+    $election->seconder_2($editors->{$election->seconder_2_id})
+        if defined $election->seconder_2_id;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -1,0 +1,53 @@
+[% WRAPPER 'layout.tt' title=l('Auto-editor election') full_width=1%]
+
+    <h1>[% l('Auto-editor election') %]</h1>
+
+    <p><a href="[% c.uri_for_action('elections/index') %]">[% l('Back to elections') %]</a></p>
+
+    <h2>[% l('Details') %]</h2>
+
+    <dl class="profileinfo">
+
+        <dt>[% l('Candidate:') %]</dt>
+        <dd>[% link_editor(election.candidate) %]</dd>
+
+        <dt>[% l('Proposer:') %]</dt>
+        <dd>[% link_editor(election.proposer) %]</dd>
+
+        <dt>[% l('1st seconder:') %]</dt>
+        <dd>[% IF election.seconder_1 %][% link_editor(election.seconder_1) %][% ELSE %]-[% END %]</dd>
+
+        <dt>[% l('2nd seconder:') %]</dt>
+        <dd>[% IF election.seconder_2 %][% link_editor(election.seconder_2) %][% ELSE %]-[% END %]</dd>
+
+        [% IF election.is_open %]
+
+        <dt>[% l('Votes for/against:') %]</dt>
+        <dd>[% l('The tally of votes cast will only be shown when the election is complete.') %]</dd>
+
+        [% ELSIF election.is_closed %]
+
+        <dt>[% l('Votes for:') %]</dt>
+        <dd>[% election.yes_votes %]</dd>
+
+        <dt>[% l('Votes against:') %]</dt>
+        <dd>[% election.yes_votes %]</dd>
+
+        [% END %]
+
+        <dt>[% l('Status:') %]</dt>
+        <dd>
+            [% IF election.is_open %]
+                [% l(election.status_name, { date => UserDate.format(election.open_time) }) | html %]
+            [% ELSIF election.is_closed %]
+                [% l(election.status_name, { date => UserDate.format(election.close_time) }) | html %]
+            [% ELSE %]
+                [% l(election.status_name) | html %]
+            [% END %]
+        </dd>
+
+    </dl>
+
+    <h2>[% l('Votes') %]</h2>
+
+[% END %]

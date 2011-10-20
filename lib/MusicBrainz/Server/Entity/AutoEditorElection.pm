@@ -44,6 +44,7 @@ has 'no_votes' => (
 has [qw( propose_time open_time close_time )] => (
     isa => 'DateTime',
     is  => 'rw',
+    coerce => 1
 );
 
 has 'votes' => (
@@ -70,6 +71,24 @@ sub is_closed
     return $self->status == $ELECTION_ACCEPTED ||
            $self->status == $ELECTION_REJECTED ||
            $self->status == $ELECTION_CANCELLED;
+}
+
+# XXX not translatable
+our @STATUS_MAP = (
+    [ $ELECTION_SECONDER_1  => 'Awaiting 1st seconder' ],
+    [ $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder' ],
+    [ $ELECTION_OPEN        => 'Voting open since {date}' ],
+    [ $ELECTION_ACCEPTED    => 'Accepted at {date}' ],
+    [ $ELECTION_REJECTED    => 'Declined at {date}' ],
+    [ $ELECTION_CANCELLED   => 'Cancelled at {date}' ],
+);
+our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
+
+sub status_name
+{
+    my ($self) = @_;
+
+    return $STATUS_NAMES{$self->status};
 }
 
 no Moose;
