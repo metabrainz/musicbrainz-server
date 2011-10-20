@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
 
+use Data::Compare;
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
@@ -198,6 +199,9 @@ sub merge_artists
 
 sub replace {
     my ($self, $old_ac, $new_ac) = @_;
+
+    return if Compare($old_ac, $new_ac);
+
 
     my $old_credit_id = $self->find ($old_ac) or return;
     my $new_credit_id = $self->find_or_insert($new_ac);
