@@ -14,6 +14,8 @@ DROP TABLE artist_rating_raw;
 DROP TABLE artist_tag;
 DROP TABLE artist_tag_raw;
 DROP TABLE artist_type;
+DROP TABLE autoeditor_election;
+DROP TABLE autoeditor_election_vote;
 DROP TABLE cdtoc;
 DROP TABLE cdtoc_raw;
 DROP TABLE clientversion;
