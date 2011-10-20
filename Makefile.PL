@@ -74,6 +74,7 @@ requires 'Net::Amazon::AWSSign';
 requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
 requires 'Net::CoverArtArchive';
 requires 'Package::Stash'                             => '0.29';
+requires 'REST::Utils'                                => '0.4';
 requires 'Readonly'                                   => '1.03';
 requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
