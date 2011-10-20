@@ -98,6 +98,72 @@ sub second
     }, $sql);
 }
 
+sub cancel
+{
+    my ($self, $election) = @_;
+
+    my $sql = $self->c->sql;
+    return Sql::run_in_transaction(sub {
+       
+        my $query = "SELECT id, status
+                     FROM autoeditor_election
+                     WHERE id = ? FOR UPDATE";
+        my $row = $sql->select_single_row_hash($query, $election->id);
+
+        if ($row->{status} != $ELECTION_SECONDER_1 &&
+            $row->{status} != $ELECTION_SECONDER_2 &&
+            $row->{status} != $ELECTION_OPEN) {
+            die 'Not open';
+        }
+
+        my %update = (
+            status      => $ELECTION_CANCELLED,
+            close_time  => DateTime->now(),
+        );
+        $self->sql->update_row($self->_table, \%update, { id => $election->id });
+
+    }, $sql);
+}
+
+sub vote
+{
+    my ($self, $election, $voter, $vote) = @_;
+
+    $vote += 0;
+    die 'Invalid vote' if ($vote < -1 || $vote > 1);
+
+    my $sql = $self->c->sql;
+    return Sql::run_in_transaction(sub {
+       
+        my $query = "SELECT id, status, seconder_1, seconder_2, yes_votes, no_votes
+                     FROM autoeditor_election
+                     WHERE id = ? FOR UPDATE";
+        my $row = $sql->select_single_row_hash($query, $election->id);
+
+        if ($row->{status} != $ELECTION_OPEN) {
+            die 'Not open';
+        }
+
+        $self->sql->insert_row("autoeditor_election_vote", {
+            autoeditor_election => $election->id,
+            voter               => $voter->id,
+            vote                => $vote,
+        });
+
+        my %update;
+        if ($vote == -1) {
+            $update{no_votes} = $row->{no_votes} + 1;
+        }
+        elsif ($vote == 1) {
+            $update{yes_votes} = $row->{yes_votes} + 1;
+        }
+        if (%update) {
+            $self->sql->update_row($self->_table, \%update, { id => $election->id });
+        }
+
+    }, $sql);
+}
+
 sub load_editors
 {
     my ($self, @elections) = @_;

@@ -72,15 +72,34 @@ sub second : Chained('election') Args(0) RequireAuth(auto_editor)
     $c->detach;
 }
 
+sub cancel : Chained('election') Args(0) RequireAuth(auto_editor)
+{
+    my ($self, $c) = @_;
+
+    my $election = $c->stash->{election};
+    $c->detach('/error_403')
+        unless $election->proposer_id == $c->user->id;
+
+    my $form = $c->form( form => 'SubmitCancel' );
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
+        $c->model('AutoEditorElection')->cancel($election);
+    }
+
+    my $url = $c->uri_for_action('/elections/show', [ $election->id ]);
+    $c->res->redirect($url);
+    $c->detach;
+}
+
 sub vote : Chained('election') Args(0) RequireAuth(auto_editor)
 {
     my ($self, $c) = @_;
 
     my $election = $c->stash->{election};
 
-    my $form = $c->form( form => 'SubmitCancel' );
+    my $form = $c->form( form => 'AutoEditorElection::Vote' );
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        $c->model('AutoEditorElection')->vote($election, $c->user);
+        $c->model('AutoEditorElection')->vote($election, $c->user,
+                                              $form->field('vote')->value);
     }
 
     my $url = $c->uri_for_action('/elections/show', [ $election->id ]);

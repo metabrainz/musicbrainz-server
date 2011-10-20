@@ -50,15 +50,41 @@
 
     <h2>[% l('Voting') %]</h2>
 
+    [% IF c.user_exists AND c.user.is_auto_editor %]
+
+    [% IF election.is_pending %]
     <p>
-    [% IF election.is_pending AND c.user_exists AND c.user.is_auto_editor %]
         <form action="[% c.uri_for_action("elections/second", [ election.id ]) %]" method="post">
             <span class="buttons">
                 <button type="submit" name="confirm.submit" value="1">[% l('Second this candidate') %]</button>
             </span>
         </form>
-    [% END %]
     </p>
+    [% END %]
+
+    [% IF election.is_open %]
+    <p>
+        <form action="[% c.uri_for_action("elections/vote", [ election.id ]) %]" method="post">
+            <span class="buttons">
+                <button type="submit" name="vote.vote" value="1">[% l('Vote YES') %]</button>
+                <button type="submit" name="vote.vote" value="-1">[% l('Vote NO') %]</button>
+                <button type="submit" name="vote.vote" value="0">[% l('Abstain') %]</button>
+            </span>
+        </form>
+    </p>
+    [% END %]
+
+    [% IF !election.is_closed AND election.proposer_id == c.user.id %]
+    <p>
+        <form action="[% c.uri_for_action("elections/cancel", [ election.id ]) %]" method="post">
+            <span class="buttons">
+                <button type="submit" name="confirm.submit" value="1" class="negative">[% l('Cancel the election') %]</button>
+            </span>
+        </form>
+    </p>
+    [% END %]
+
+    [% END %]
 
     <h2>[% l('Votes cast') %]</h2>
 
