@@ -3,6 +3,8 @@ package MusicBrainz::Server::WebService::JSONSerializer;
 use Moose;
 use JSON::Any;
 use MusicBrainz::Server::Track qw( format_track_length );
+use MusicBrainz::Server::WebService::WebServiceInc;
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serializer serialize_entity list_of);
 
 sub mime_type { 'application/json' }
 
@@ -10,7 +12,16 @@ sub serialize
 {
     my ($self, $type, @data) = @_;
 
-    return $self->$type(@data);
+    my $override = $self->meta->find_method_by_name ($type);
+    return $override->execute (@data) if $override;
+
+    my $json = JSON::Any->new;
+
+    my ($entity, $inc, $opts) = @data;
+
+    my %ret = serialize_entity($entity, $inc, $opts);
+
+    return $json->encode(\%ret);
 }
 
 sub autocomplete_generic
