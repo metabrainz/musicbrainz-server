@@ -72,6 +72,7 @@ requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'OSSP::uuid'                                 => '1.060200';
 requires 'Package::Stash'                             => '0.29';
+requires 'REST::Utils'                                => '0.4';
 requires 'Readonly'                                   => '1.03';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';

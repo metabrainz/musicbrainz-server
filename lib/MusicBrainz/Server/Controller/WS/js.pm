@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use Data::OptList;
 use Encode qw( decode encode );
 use List::UtilsBy qw( uniq_by );
+use MusicBrainz::Server::WebService::AcceptHeader;
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
@@ -38,16 +39,17 @@ my $ws_defs = Data::OptList::mkopt([
     }
 ]);
 
+with 'MusicBrainz::Server::WebService::AcceptHeader' =>
+{
+    serializers => [ 'MusicBrainz::Server::WebService::JSONSerializer' ]
+};
+
 with 'MusicBrainz::Server::WebService::Validator' =>
 {
      defs => $ws_defs,
      version => 'js',
-     default_serialization_type => 'json',
 };
 
-Readonly my %serializers => (
-    json => 'MusicBrainz::Server::WebService::JSONSerializer',
-);
 
 sub bad_req : Private
 {
@@ -68,7 +70,7 @@ sub end : Private
 sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 {
     my ($self, $c) = @_;
-    $self->validate($c, \%serializers) or $c->detach('bad_req');
+    $self->validate($c) or $c->detach('bad_req');
 }
 
 sub tracklist : Chained('root') PathPart Args(1) {
@@ -326,7 +328,7 @@ sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $serializers{$self->get_default_serialization_type}->new();
+    $c->stash->{serializer} = $self->get_serialization ($c);
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
 }
