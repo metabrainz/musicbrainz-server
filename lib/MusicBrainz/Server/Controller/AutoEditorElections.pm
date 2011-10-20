@@ -3,7 +3,15 @@ BEGIN { use Moose; extends 'MusicBrainz::Server::Controller' }
 
 __PACKAGE__->config( namespace => 'elections' );
 
-sub index : Path('') RequireAuth { }
+sub index : Path('')
+{
+    my ($self, $c) = @_;
+
+    my @elections = $c->model('AutoEditorElection')->get_all();
+    $c->model('AutoEditorElection')->load_editors(@elections);
+
+    $c->stash( elections => \@elections );
+}
 
 sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
 {
@@ -21,7 +29,7 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
         }
         else {
             my $election = $c->model('AutoEditorElection')->nominate($candidate, $c->user);
-            my $url = $c->uri_for_action('/elections/show', $election->id);
+            my $url = $c->uri_for_action('/elections/show', [ $election->id ]);
             $c->res->redirect($url);
             $c->detach;
         }
@@ -30,16 +38,54 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
     $c->stash( candidate => $candidate, form => $form );
 }
 
-sub show : Path('') Args(1) RequireAuth
+sub election : Chained('/') PartPart('election') CaptureArgs(1)
 {
     my ($self, $c, $id) = @_;
 
     my $election = $c->model('AutoEditorElection')->get_by_id($id);
     $c->detach('/error_404') unless defined $election;
 
-    $c->model('AutoEditorElection')->load_editors($election);
-
     $c->stash( election => $election );
+}
+
+sub show : Chained('election') PathPart('') Args(0)
+{
+    my ($self, $c) = @_;
+
+    my $election = $c->stash->{election};
+    $c->model('AutoEditorElection')->load_editors($election);
+}
+
+sub second : Chained('election') Args(0) RequireAuth(auto_editor)
+{
+    my ($self, $c) = @_;
+
+    my $election = $c->stash->{election};
+
+    my $form = $c->form( form => 'SubmitCancel' );
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
+        $c->model('AutoEditorElection')->second($election, $c->user);
+    }
+
+    my $url = $c->uri_for_action('/elections/show', [ $election->id ]);
+    $c->res->redirect($url);
+    $c->detach;
+}
+
+sub vote : Chained('election') Args(0) RequireAuth(auto_editor)
+{
+    my ($self, $c) = @_;
+
+    my $election = $c->stash->{election};
+
+    my $form = $c->form( form => 'SubmitCancel' );
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
+        $c->model('AutoEditorElection')->vote($election, $c->user);
+    }
+
+    my $url = $c->uri_for_action('/elections/show', [ $election->id ]);
+    $c->res->redirect($url);
+    $c->detach;
 }
 
 1;

@@ -74,21 +74,36 @@ sub is_closed
 }
 
 # XXX not translatable
-our @STATUS_MAP = (
-    [ $ELECTION_SECONDER_1  => 'Awaiting 1st seconder' ],
-    [ $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder' ],
-    [ $ELECTION_OPEN        => 'Voting open since {date}' ],
-    [ $ELECTION_ACCEPTED    => 'Accepted at {date}' ],
-    [ $ELECTION_REJECTED    => 'Declined at {date}' ],
-    [ $ELECTION_CANCELLED   => 'Cancelled at {date}' ],
+our %STATUS_NAMES = (
+    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
+    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
+    $ELECTION_OPEN        => 'Voting open since {date}',
+    $ELECTION_ACCEPTED    => 'Accepted at {date}',
+    $ELECTION_REJECTED    => 'Declined at {date}',
+    $ELECTION_CANCELLED   => 'Cancelled at {date}',
 );
-our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
+
+our %SHORT_STATUS_NAMES = (
+    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
+    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
+    $ELECTION_OPEN        => 'Voting open',
+    $ELECTION_ACCEPTED    => 'Accepted',
+    $ELECTION_REJECTED    => 'Declined',
+    $ELECTION_CANCELLED   => 'Cancelled',
+);
 
 sub status_name
 {
     my ($self) = @_;
 
     return $STATUS_NAMES{$self->status};
+}
+
+sub status_name_short
+{
+    my ($self) = @_;
+
+    return $SHORT_STATUS_NAMES{$self->status};
 }
 
 no Moose;

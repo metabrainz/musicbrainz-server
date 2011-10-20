@@ -1,6 +1,28 @@
 [% WRAPPER 'layout.tt' title=l('Auto-editor elections') full_width=1%]
-  <h1>[% l('Auto-editor elections') %]</h1>
-  <p>[% l('Auto-editor elections are not currently being held.') %]</p>
-  <p>[% l('Keep an eye on {bug|MBS-71} to stay up to date with this feature!',
-          { bug => 'http://tickets.musicbrainz.org/browse/MBS-71' }) %]</p>
+
+    <h1>[% l('Auto-editor elections') %]</h1>
+
+    <table class="tbl" style="width:auto">
+        <thead>
+            <tr>
+                <th>[% l('Candidate') %]</th>
+                <th>[% l('Status') %]</th>
+                <th>[% l('Start date') %]</th>
+                <th>[% l('End date') %]</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        [%- FOR election IN elections -%]
+            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <td>[% link_editor(election.candidate) %]</td>
+                <td>[% l(election.status_name_short) %]</td>
+                <td>[% UserDate.format(election.propose_time) %]</td>
+                <td>[% IF election.close_time %][% UserDate.format(election.close_time) %][% ELSE %]-[% END %]</td>
+                <td><a href="[% c.uri_for_action("/elections/show", [ election.id ]) %]">[% l('View details') %]</a></td>
+            </tr>
+        [%- END -%]
+        </tbody>
+    </table>
+
 [% END %]

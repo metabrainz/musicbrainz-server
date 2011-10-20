@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::AutoEditorElection;
 use Moose;
 
 use MusicBrainz::Server::Entity::AutoEditorElection;
-use MusicBrainz::Server::Data::Utils qw( hash_to_row );
+use MusicBrainz::Server::Data::Utils qw( hash_to_row query_to_list );
 use MusicBrainz::Server::Types qw( :election_status );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -67,23 +67,69 @@ sub nominate
     }, $sql);
 }
 
+sub second
+{
+    my ($self, $election, $seconder) = @_;
+
+    my $sql = $self->c->sql;
+    return Sql::run_in_transaction(sub {
+       
+        my $query = "SELECT id, status, seconder_1, seconder_2
+                     FROM autoeditor_election
+                     WHERE id = ? FOR UPDATE";
+        my $row = $sql->select_single_row_hash($query, $election->id);
+
+        my %update;
+        if ($row->{status} == $ELECTION_SECONDER_1 && !$row->{seconder_1}) {
+            $update{status} = $ELECTION_SECONDER_2;
+            $update{seconder_1} = $seconder->id;
+        }
+        elsif ($row->{status} == $ELECTION_SECONDER_2 && !$row->{seconder_2}) {
+            $update{status} = $ELECTION_OPEN;
+            $update{seconder_2} = $seconder->id;
+            $update{open_time} = DateTime->now();
+        }
+        else {
+            die 'Already seconded';
+        }
+
+        $self->sql->update_row($self->_table, \%update, { id => $election->id });
+
+    }, $sql);
+}
+
 sub load_editors
 {
-    my ($self, $election) = @_;
+    my ($self, @elections) = @_;
 
-    my @ids = (
-        $election->candidate_id,
-        $election->proposer_id,
-        $election->seconder_1_id,
-        $election->seconder_2_id,
-    );
+    my @ids = map {
+            $_->candidate_id,
+            $_->proposer_id,
+            $_->seconder_1_id,
+            $_->seconder_2_id,
+        } @elections;
+
     my $editors = $self->c->model('Editor')->get_by_ids(@ids);
-    $election->candidate($editors->{$election->candidate_id});
-    $election->proposer($editors->{$election->proposer_id});
-    $election->seconder_1($editors->{$election->seconder_1_id})
-        if defined $election->seconder_1_id;
-    $election->seconder_2($editors->{$election->seconder_2_id})
-        if defined $election->seconder_2_id;
+
+    for my $election (@elections) {
+        $election->candidate($editors->{$election->candidate_id});
+        $election->proposer($editors->{$election->proposer_id});
+        $election->seconder_1($editors->{$election->seconder_1_id})
+            if defined $election->seconder_1_id;
+        $election->seconder_2($editors->{$election->seconder_2_id})
+            if defined $election->seconder_2_id;
+    }
+}
+
+sub get_all
+{
+    my ($self) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 ORDER BY propose_time DESC";
+    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
+                         $query);
 }
 
 __PACKAGE__->meta->make_immutable;
