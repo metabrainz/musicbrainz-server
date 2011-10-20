@@ -22,7 +22,11 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(releases aliases
                                           _relations tags user-tags ratings user-ratings) ],
-     }
+     },
+     label => {
+                         method   => 'PUT',
+                         optional => [ qw(client) ],
+     },
 ]);
 
 with 'MusicBrainz::Server::WebService::Validator' =>
@@ -74,6 +78,9 @@ sub label_toplevel
 sub label : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
+
+    $c->detach('label_edit') if $c->request->method eq 'PUT';
+
     my $label = $c->stash->{entity};
 
     my $stash = WebServiceStash->new;
@@ -126,6 +133,42 @@ sub label_search : Chained('root') PathPart('label') Args(0)
 
     $c->detach('label_browse') if ($c->stash->{linked});
     $self->_search ($c, 'label');
+}
+
+sub label_edit : Private
+{
+    my ($self, $c) = @_;
+
+    my $label = $c->stash->{entity};
+
+    use JSON::Any;
+    use Data::Dumper;
+    use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
+
+    my $json = JSON::Any->new;
+    my $fh = $c->req->body;
+    my $body = $json->decode (do { local $/ = undef; <$fh> });
+
+    warn "submitted document: ".Dumper ($body)."\n";
+    warn "user: ".$c->user->name." (".$c->user->id.")\n";
+
+    my %options = (
+        name => $body->{name},
+        sort_name => $body->{sort_name},
+    );
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_EDIT,
+        editor_id => $c->user->id,
+        privileges => $c->user->privileges,
+        to_edit => $label,
+        %options
+    );
+
+    die "krak" unless $edit;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body("created edit: http://localhost:3000/edit/".$edit->id."\n");
 }
 
 __PACKAGE__->meta->make_immutable;
