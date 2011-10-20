@@ -6,6 +6,7 @@ use DBDefs;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::WebService::AcceptHeader;
 use MusicBrainz::Server::WebService::XMLSerializer;
+use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
 use Readonly;
@@ -13,7 +14,10 @@ use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::AcceptHeader' =>
 {
-    serializers => [ 'MusicBrainz::Server::WebService::XMLSerializer' ]
+    serializers => [
+        'MusicBrainz::Server::WebService::XMLSerializer',
+        'MusicBrainz::Server::WebService::JSONSerializer',
+    ]
 };
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
