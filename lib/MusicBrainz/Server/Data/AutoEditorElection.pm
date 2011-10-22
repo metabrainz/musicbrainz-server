@@ -1,12 +1,16 @@
 package MusicBrainz::Server::Data::AutoEditorElection;
 use Moose;
 
+use Readonly;
 use MusicBrainz::Server::Entity::AutoEditorElection;
 use MusicBrainz::Server::Entity::AutoEditorElectionVote;
 use MusicBrainz::Server::Data::Utils qw( hash_to_row query_to_list );
 use MusicBrainz::Server::Types qw( :election_status );
 
 extends 'MusicBrainz::Server::Data::Entity';
+
+Readonly our $PROPOSAL_TIMEOUT => '1 week';
+Readonly our $VOTING_TIMEOUT   => '1 week';
 
 sub _table
 {
@@ -163,6 +167,66 @@ sub vote
         }
 
     }, $sql);
+}
+
+sub try_to_close
+{
+    my ($self) = @_;
+
+    my $sql = $self->sql;
+    return Sql::run_in_transaction(sub {
+       
+        $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
+
+        $self->_try_to_close_timeout();
+        $self->_try_to_close_voting();
+
+    }, $sql);
+}
+
+sub _try_to_close_timeout
+{
+    my ($self) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE now() - propose_time > INTERVAL ? AND
+                       status IN (?, ?)";
+    my @elections = query_to_list($self->sql,
+        sub { $self->_new_from_row(@_) }, $query,
+        $PROPOSAL_TIMEOUT, $ELECTION_SECONDER_1,
+        $ELECTION_SECONDER_2);
+
+    for my $election (@elections) {
+        my %update = ( status => $ELECTION_REJECTED );
+        $self->sql->update_row($self->_table, \%update, { id => $election->id });
+    }
+}
+
+sub _try_to_close_voting
+{
+    my ($self) = @_;
+
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE now() - propose_time > INTERVAL ? AND
+                       status = ?";
+    my @elections = query_to_list($self->sql,
+        sub { $self->_new_from_row(@_) }, $query,
+        $VOTING_TIMEOUT, $ELECTION_OPEN);
+
+    for my $election (@elections) {
+        my %update = (
+            status      => $election->yes_votes > $election->no_votes
+                                ? $ELECTION_ACCEPTED
+                                : $ELECTION_REJECTED,
+            close_time  => DateTime->now(),
+        );
+        if ($update{status} == $ELECTION_ACCEPTED) {
+            $self->c->model('Editor')->make_autoeditor($election->candidate_id);
+        }
+        $self->sql->update_row($self->_table, \%update, { id => $election->id });
+    }
 }
 
 sub load_editors
