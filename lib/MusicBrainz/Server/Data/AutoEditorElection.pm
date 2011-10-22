@@ -10,7 +10,7 @@ use MusicBrainz::Server::Types qw( :election_status );
 extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly our $PROPOSAL_TIMEOUT => '1 week';
-Readonly our $VOTING_TIMEOUT   => '1 week';
+Readonly our $VOTING_TIMEOUT   => '1 minute';
 
 sub _table
 {
@@ -67,7 +67,14 @@ sub nominate
             proposer => $proposer->id,
         };
         $id = $self->sql->insert_row($self->_table, $row, 'id');
-        return $self->_entity_class->new( id => $id );
+
+        my $election = $self->get_by_id($id);
+        $election->candidate($candidate);
+        $election->proposer($proposer);
+
+        $self->c->model('Email')->send_election_nomination($election);
+
+        return $election;
 
     }, $sql);
 }
@@ -100,6 +107,14 @@ sub second
 
         $self->sql->update_row($self->_table, \%update, { id => $election->id });
 
+        if ($update{status} == $ELECTION_OPEN) {
+            $election = $self->get_by_id($election->id);
+            $self->load_editors($election);
+            $self->c->model('Email')->send_election_voting_open($election);
+        }
+
+        return $election;
+
     }, $sql);
 }
 
@@ -126,6 +141,9 @@ sub cancel
             close_time  => DateTime->now(),
         );
         $self->sql->update_row($self->_table, \%update, { id => $election->id });
+
+        $self->load_editors($election);
+        $self->c->model('Email')->send_election_canceled($election);
 
     }, $sql);
 }
@@ -200,6 +218,7 @@ sub _try_to_close_timeout
     for my $election (@elections) {
         my %update = ( status => $ELECTION_REJECTED );
         $self->sql->update_row($self->_table, \%update, { id => $election->id });
+        $self->c->model('Email')->send_election_timeout($election);
     }
 }
 
@@ -222,10 +241,16 @@ sub _try_to_close_voting
                                 : $ELECTION_REJECTED,
             close_time  => DateTime->now(),
         );
+        $self->sql->update_row($self->_table, \%update, { id => $election->id });
         if ($update{status} == $ELECTION_ACCEPTED) {
             $self->c->model('Editor')->make_autoeditor($election->candidate_id);
+            $self->load_editors($election);
+            $self->c->model('Email')->send_election_accepted($election);
         }
-        $self->sql->update_row($self->_table, \%update, { id => $election->id });
+        else {
+            $self->load_editors($election);
+            $self->c->model('Email')->send_election_rejected($election);
+        }
     }
 }
 
