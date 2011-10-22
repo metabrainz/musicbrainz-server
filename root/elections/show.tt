@@ -31,7 +31,7 @@
         <dd>[% election.yes_votes %]</dd>
 
         <dt>[% l('Votes against:') %]</dt>
-        <dd>[% election.yes_votes %]</dd>
+        <dd>[% election.no_votes %]</dd>
 
         [% END %]
 
@@ -52,11 +52,9 @@
 
     </dl>
 
-    [% IF c.user_exists AND c.user.is_auto_editor AND !election.is_closed %]
-
     <h2>[% l('Voting') %]</h2>
 
-    [% IF election.is_pending %]
+    [% IF can_second %]
     <p>
         <form action="[% c.uri_for_action("elections/second", [ election.id ]) %]" method="post">
             <span class="buttons">
@@ -66,8 +64,8 @@
     </p>
     [% END %]
 
-    [% IF election.is_open %]
     <p>
+    [% IF can_vote %]
         <form action="[% c.uri_for_action("elections/vote", [ election.id ]) %]" method="post">
             <span class="buttons">
                 <button type="submit" name="vote.vote" value="1">[% l('Vote YES') %]</button>
@@ -75,10 +73,24 @@
                 <button type="submit" name="vote.vote" value="0">[% l('Abstain') %]</button>
             </span>
         </form>
-    </p>
+	[% ELSE %]
+		[%- IF c.user_exists -%]
+			[%- IF !c.user.is_auto_editor -%]
+				[% l('You cannot vote for this candidate, because you are not an auto-editor.') %]
+			[%- ELSIF c.user.id == election.proposer_id OR c.user.id == election.seconder_1_id OR c.user.id == election.seconder_2_id -%]
+				[% l('You cannot vote for this candidate, because you proposed / seconded them.') %]
+			[%- ELSIF election.is_pending -%]
+				[% l('Voting is not yet open. If you would like to support this candidate, you can second their nomination. If you do not support this candidate, please note that you cannot cast a "No" vote (or abstain) until two seconders have been found.') %]
+			[%- ELSIF election.is_closed -%]
+				[% l('Voting is closed.') %]
+			[%- END -%]
+		[%- ELSE -%]
+			[% l('To find out if you can vote for this candidate, please {url|log in}.', { url => c.uri_for_action('user/login') }) %]
+		[%- END -%]
     [% END %]
+    </p>
 
-    [% IF election.proposer_id == c.user.id %]
+    [% IF can_cancel %]
     <p>
         <form action="[% c.uri_for_action("elections/cancel", [ election.id ]) %]" method="post">
             <span class="buttons">
@@ -86,8 +98,6 @@
             </span>
         </form>
     </p>
-    [% END %]
-
     [% END %]
 
     <h2>[% l('Votes cast') %]</h2>

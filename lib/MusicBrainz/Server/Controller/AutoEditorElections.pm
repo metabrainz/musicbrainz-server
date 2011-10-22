@@ -55,6 +55,22 @@ sub show : Chained('election') PathPart('') Args(0)
     my $election = $c->stash->{election};
     $c->model('AutoEditorElection')->load_votes($election);
     $c->model('AutoEditorElection')->load_editors($election);
+
+	my $can_vote = 0;
+	my $can_second = 0;
+	my $can_cancel = 0;
+
+	if ($c->user_exists) {
+		$can_vote = $election->can_vote($c->user);
+		$can_second = $election->can_second($c->user);
+		$can_cancel = $election->can_cancel($c->user);
+	}	
+
+	$c->stash(
+		can_vote => $can_vote,
+		can_second => $can_second,
+		can_cancel => $can_cancel,
+	);
 }
 
 sub second : Chained('election') Args(0) RequireAuth(auto_editor)
@@ -83,7 +99,7 @@ sub cancel : Chained('election') Args(0) RequireAuth(auto_editor)
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        $c->model('AutoEditorElection')->cancel($election);
+        $c->model('AutoEditorElection')->cancel($election, $c->user);
     }
 
     my $url = $c->uri_for_action('/elections/show', [ $election->id ]);

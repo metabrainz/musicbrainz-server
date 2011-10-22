@@ -12,6 +12,10 @@ extends 'MusicBrainz::Server::Data::Entity';
 Readonly our $PROPOSAL_TIMEOUT => '1 week';
 Readonly our $VOTING_TIMEOUT   => '1 minute';
 
+Readonly our $VOTE_NO      => -1;
+Readonly our $VOTE_ABSTAIN => 0;
+Readonly our $VOTE_YES     => 1;
+
 sub _table
 {
     return 'autoeditor_election';
@@ -49,13 +53,15 @@ sub nominate
 {
     my ($self, $candidate, $proposer) = @_;
 
+    die 'Forbidden' unless $proposer->is_auto_editor && !$candidate->is_auto_editor;
+
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
        
         $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
 
         my $id = $sql->select_single_value("
-            SELECT id FROM autoeditor_election
+            SELECT id FROM " . $self->_table . "
             WHERE candidate = ? AND status IN (?, ?, ?)",
             $candidate->id, $ELECTION_SECONDER_1, $ELECTION_SECONDER_2,
             $ELECTION_OPEN);
@@ -86,23 +92,19 @@ sub second
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
        
-        my $query = "SELECT id, status, seconder_1, seconder_2
-                     FROM autoeditor_election
-                     WHERE id = ? FOR UPDATE";
-        my $row = $sql->select_single_row_hash($query, $election->id);
+        $election = $self->get_by_id_locked($election->id);
+
+        die "Forbidden" unless $election->can_second($seconder);
 
         my %update;
-        if ($row->{status} == $ELECTION_SECONDER_1 && !$row->{seconder_1}) {
+        if ($election->status == $ELECTION_SECONDER_1) {
             $update{status} = $ELECTION_SECONDER_2;
             $update{seconder_1} = $seconder->id;
         }
-        elsif ($row->{status} == $ELECTION_SECONDER_2 && !$row->{seconder_2}) {
+        elsif ($election->status == $ELECTION_SECONDER_2) {
             $update{status} = $ELECTION_OPEN;
             $update{seconder_2} = $seconder->id;
             $update{open_time} = DateTime->now();
-        }
-        else {
-            die 'Already seconded';
         }
 
         $self->sql->update_row($self->_table, \%update, { id => $election->id });
@@ -120,21 +122,14 @@ sub second
 
 sub cancel
 {
-    my ($self, $election) = @_;
+    my ($self, $election, $proposer) = @_;
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
        
-        my $query = "SELECT id, status
-                     FROM autoeditor_election
-                     WHERE id = ? FOR UPDATE";
-        my $row = $sql->select_single_row_hash($query, $election->id);
+        $election = $self->get_by_id_locked($election->id);
 
-        if ($row->{status} != $ELECTION_SECONDER_1 &&
-            $row->{status} != $ELECTION_SECONDER_2 &&
-            $row->{status} != $ELECTION_OPEN) {
-            die 'Not open';
-        }
+        die 'Forbidden' unless $election->can_cancel($proposer);
 
         my %update = (
             status      => $ELECTION_CANCELLED,
@@ -158,28 +153,46 @@ sub vote
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
        
-        my $query = "SELECT id, status, seconder_1, seconder_2, yes_votes, no_votes
-                     FROM autoeditor_election
-                     WHERE id = ? FOR UPDATE";
-        my $row = $sql->select_single_row_hash($query, $election->id);
+        $election = $self->get_by_id_locked($election->id);
 
-        if ($row->{status} != $ELECTION_OPEN) {
-            die 'Not open';
+        die 'Forbidden' unless $election->can_vote($voter);
+
+        my $old_vote = $sql->select_single_row_hash("
+            SELECT id, vote FROM autoeditor_election_vote
+            WHERE autoeditor_election = ? AND voter = ?",
+            $election->id, $voter->id);
+
+        if (defined $old_vote && $old_vote->{vote} == $vote) {
+            return; # no change
         }
 
-        $self->sql->insert_row("autoeditor_election_vote", {
-            autoeditor_election => $election->id,
-            voter               => $voter->id,
-            vote                => $vote,
-        });
+        if (defined $old_vote) {
+            $self->sql->update_row("autoeditor_election_vote", {
+                vote                => $vote,
+                vote_time           => DateTime->now(),
+            }, { id => $old_vote->{id} });
+        }
+        else {
+            $self->sql->insert_row("autoeditor_election_vote", {
+                autoeditor_election => $election->id,
+                voter               => $voter->id,
+                vote                => $vote,
+                vote_time           => DateTime->now(),
+            });
+        }
 
-        my %update;
-        if ($vote == -1) {
-            $update{no_votes} = $row->{no_votes} + 1;
+        my %update = (
+            yes_votes   => $election->yes_votes,
+            no_votes    => $election->no_votes,
+        );
+
+        if (defined $old_vote) {
+            $update{yes_votes}-- if $old_vote->{vote} == $VOTE_YES;
+            $update{no_votes}-- if $old_vote->{vote} == $VOTE_NO;
         }
-        elsif ($vote == 1) {
-            $update{yes_votes} = $row->{yes_votes} + 1;
-        }
+        $update{yes_votes}++ if $vote == $VOTE_YES;
+        $update{no_votes}++ if $vote == $VOTE_NO;
+
         if (%update) {
             $self->sql->update_row($self->_table, \%update, { id => $election->id });
         }
