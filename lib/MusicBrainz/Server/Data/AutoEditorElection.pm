@@ -10,7 +10,7 @@ use MusicBrainz::Server::Types qw( :election_status );
 extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly our $PROPOSAL_TIMEOUT => '1 week';
-Readonly our $VOTING_TIMEOUT   => '1 minute';
+Readonly our $VOTING_TIMEOUT   => '1 week';
 
 Readonly our $VOTE_NO      => -1;
 Readonly our $VOTE_ABSTAIN => 0;
@@ -231,6 +231,7 @@ sub _try_to_close_timeout
     for my $election (@elections) {
         my %update = ( status => $ELECTION_REJECTED );
         $self->sql->update_row($self->_table, \%update, { id => $election->id });
+        $self->load_editors($election);
         $self->c->model('Email')->send_election_timeout($election);
     }
 }
