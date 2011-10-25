@@ -19,6 +19,7 @@ use List::MoreUtils qw( part );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
+use Net::CoverArtArchive;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
@@ -446,6 +447,14 @@ around _merge_submit => sub {
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
+
+sub cover_art : Chained('load') PathPart('cover-art') {
+    my ($self, $c) = @_;
+    my $release = $c->stash->{entity};
+    $c->stash(
+        cover_art => { Net::CoverArtArchive->new->find_available_artwork($release->gid) }
+    );
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
