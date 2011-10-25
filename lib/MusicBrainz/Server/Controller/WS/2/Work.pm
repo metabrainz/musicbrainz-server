@@ -15,6 +15,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(limit offset) ],
+                         linked   => [ qw( artist ) ]
      },
      work => {
                          method   => 'GET',
@@ -79,6 +80,13 @@ sub work_browse : Private
 
     my $works;
     my $total;
+    if ($resource eq 'artist') {
+        my $artist = $c->model('Artist')->get_by_gid($id);
+        $c->detach('not_fonud') unless $artist;
+
+        my @tmp = $c->model('Work')->find_by_artist($artist->id, $limit, $offset);
+        $works = $self->make_list(@tmp, $offset);
+    }
 
     my $stash = WebServiceStash->new;
 

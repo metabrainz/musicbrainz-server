@@ -202,9 +202,14 @@ sub find_by_release_group
 
 sub find_by_track_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
+                 $join_types
                  WHERE release.id IN (
                      SELECT release FROM medium
                          JOIN track tr
@@ -217,11 +222,13 @@ sub find_by_track_artist
                        JOIN artist_credit_name acn
                          ON release.artist_credit = acn.artist_credit
                       WHERE acn.artist = ?)
+                 $where_statuses
+                 $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $artist_id, $offset || 0);
+        $query, $artist_id, $artist_id, @$statuses, @$types, $offset || 0);
 }
 
 sub find_for_various_artists
@@ -584,7 +591,7 @@ sub can_merge {
                  FROM changes
                  JOIN medium changed_m ON changed_m.id = changes.id
                  JOIN medium all_m ON all_m.release = changed_m.release
-                 WHERE all_m.id != changes.id
+                 WHERE all_m.id not in (select id from changes)
                )
              ) s
              GROUP BY position

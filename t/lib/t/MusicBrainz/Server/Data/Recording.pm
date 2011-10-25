@@ -10,6 +10,9 @@ use encoding 'utf8';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE
+                                       $EDIT_HISTORIC_ADD_TRACK
+                                       $EDIT_HISTORIC_ADD_TRACK_KV );
 
 with 't::Context';
 
@@ -141,6 +144,71 @@ is (scalar @$results, 2, " ... of which two have been returned");
 is ($results->[0]->name, "Aerial", "recording 1 appears on Aerial");
 is ($results->[1]->name, "エアリアル", "recording 1 appears on エアリアル");
 
+};
+
+test 'orphaned_recordings when there is no edit history' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO track_name (id, name) VALUES (1, 'King of the Mountain');
+INSERT INTO recording (id, gid, name, artist_credit, length)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720);
+EOSQL
+
+    $test->c->model('Recording')->garbage_collect_orphans(1);
+    ok(!defined($c->model('Recording')->get_by_id(1)),
+       '"orphan" recording was collected');
+};
+
+test 'orphaned_recordings when there is edit history' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL', $EDIT_RECORDING_CREATE, $EDIT_HISTORIC_ADD_TRACK, $EDIT_HISTORIC_ADD_TRACK_KV);
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO track_name (id, name) VALUES (1, 'King of the Mountain');
+INSERT INTO recording (id, gid, name, artist_credit, length, edits_pending)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720, 0),
+           (2, '64b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720, 0),
+           (3, '74b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720, 0),
+           (4, '84b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720, 2);
+
+INSERT INTO editor (id, name, password) VALUES (1, 'Foo foo', 'password');
+INSERT INTO edit (id, type, editor, status, data, expire_time)
+    VALUES (1, ?, 1, 2, '', now()), (2, ?, 1, 2, '', now()),
+           (3, ?, 1, 1, '', now());
+INSERT INTO edit_recording (edit, recording) VALUES (1, 1), (2, 2), (3, 3);
+EOSQL
+
+    $test->c->model('Recording')->garbage_collect_orphans(1);
+    ok(defined($c->model('Recording')->get_by_id(1)),
+       '"orphan" recording was not collected');
+
+    $test->c->model('Recording')->garbage_collect_orphans(2);
+    ok(defined($c->model('Recording')->get_by_id(2)),
+       '"orphan" recording was not collected');
+
+    $test->c->model('Recording')->garbage_collect_orphans(3);
+    ok(defined($c->model('Recording')->get_by_id(3)),
+       '"orphan" recording was not collected');
+
+    $test->c->model('Recording')->garbage_collect_orphans(4);
+    ok(defined($c->model('Recording')->get_by_id(4)),
+       '"orphan" recording was not collected');
 };
 
 1;

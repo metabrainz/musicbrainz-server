@@ -134,7 +134,8 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); link_url(entity, action, text);
       END;
     ELSIF entity.isa('MusicBrainz::Server::Entity::URL');
-      '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a>';
+      '<a href="' _ url_escape(entity.url) _ '">' _ display_url(entity.url) _ '</a> ';
+      link_deleted(undef, '[info]');
     ELSIF entity.isa('MusicBrainz::Server::Entity::Editor');
       link_editor(entity, action, text);
     ELSE;
@@ -272,8 +273,10 @@ END -%]
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    '<span class="mp">' IF isrc.edits_pending AND action == 'show';
     text = text == '' ? '<code>' _ html_escape(isrc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
@@ -543,6 +546,7 @@ END -%]
        IF url.url.host.search('amazon'); 'amazon';
     ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
     ELSIF url.url.host.search('facebook.com'); 'facebook';
+    ELSIF url.url.host.search('last.fm'); 'lastfm';
     ELSIF url.url.host.search('myspace.com'); 'myspace';
     ELSIF url.url.host.search('twitter.com'); 'twitter';
     ELSIF url.url.host.search('youtube.com'); 'youtube';
