@@ -1,0 +1,32 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details add-cover-art">
+  <tr>
+    <th>[% l('Release:') %]</th>
+    <td>[% link_entity(edit.display_data.release) %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.data.cover_art_type | html %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Page:') %]</th>
+    <td>[% edit.data.cover_art_page | html %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Cover art:') %]</th>
+    <td>
+      [% IF edit.is_open %]
+        <img src="http://s3.amazonaws.com/mbid-[% edit.data.entity.mbid %]/[% edit.data.cover_art_url %]" /><br />
+        [% l('As this edit has not yet been accepted, the above image is not
+              available from the Cover Art Archive.') %]
+      [% ELSE %]
+        [% l('We are unable to display history for cover art. For a current listing
+              of cover art, please see the releases cover art page.') %]
+      [% END %]
+    </td>
+  </tr>
+</table>

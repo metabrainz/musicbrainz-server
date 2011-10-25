@@ -83,4 +83,22 @@ sub accept {
     );
 }
 
+sub foreign_keys {
+    my ($self) = @_;
+    return {
+        Release => {
+            $self->data->{entity}{id} => [ 'ArtistCredit' ]
+        }
+    };
+}
+
+sub build_display_data {
+    my ($self, $loaded) = @_;
+    return {
+        release => $loaded->{Release}{ $self->data->{entity}{id} }
+            || Release->new( name => $self->data->{entity}{name} )
+    };
+}
+
+
 1;
