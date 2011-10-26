@@ -34,7 +34,7 @@
        <tr>
          <th></th>
          [% FOR quality=quality_levels %]
-         <th>[% quality_name(quality) %]</th>
+         <th>[% make_ucfirst(quality_name(quality)) %]</th>
          [% END %]
        </tr>
      </thead>
