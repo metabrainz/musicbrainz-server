@@ -10,6 +10,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 
 use Net::Amazon::S3;
+use aliased 'Net::Amazon::S3::Request::CreateBucket';
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
 use aliased 'Net::Amazon::S3::Request::PutObject';
 
@@ -88,8 +89,8 @@ sub accept {
         $self->data->{cover_art_page}
     ) . '.jpg';
 
-    # If this is pending, we need to move it.
     my $edit_id = $self->id;
+
     # Remove the existing image
     my $res = $self->lwp->request(
         DeleteObject->new(
