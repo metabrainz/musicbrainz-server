@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Data::Vote;
 use Moose;
 
-use Moose::Util::TypeConstraints qw( find_type_constraint );
 use List::Util qw( sum );
 use MusicBrainz::Server::Data::Utils qw(
     map_query
@@ -9,7 +8,8 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
 );
 use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
+use MusicBrainz::Server::Constants qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
+use MusicBrainz::Server::Types qw( VoteOption );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -45,8 +45,7 @@ sub enter_votes
     return unless @votes;
 
     # Filter any invalid votes
-    my $vote_tc = find_type_constraint('VoteOption');
-    @votes = grep { $vote_tc->check($_->{vote}) } @votes;
+    @votes = grep { VoteOption->check($_->{vote}) } @votes;
 
     my $query;
     Sql::run_in_transaction(sub {

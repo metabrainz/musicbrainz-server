@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Release::AddCoverArt;
 use Moose;
+use namespace::autoclean;
 
 use DBDefs;
 

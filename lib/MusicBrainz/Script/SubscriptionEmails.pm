@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use List::Util qw( max );
 use Moose::Util qw( does_role );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 
 use aliased 'MusicBrainz::Server::Email';
 use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';

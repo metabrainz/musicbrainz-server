@@ -7,7 +7,7 @@ use Test::Memory::Cycle;
 BEGIN { use MusicBrainz::Server::Data::Vote }
 
 use MusicBrainz::Server::Email;
-use MusicBrainz::Server::Types qw( :vote );
+use MusicBrainz::Server::Constants qw( :vote );
 use MusicBrainz::Server::Test;
 
 with 't::Context';

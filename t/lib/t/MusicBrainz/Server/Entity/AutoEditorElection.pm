@@ -8,7 +8,7 @@ BEGIN {
     use MusicBrainz::Server::Entity::AutoEditorElectionVote;
 }
 
-use MusicBrainz::Server::Types qw( :election_status :vote );
+use MusicBrainz::Server::Constants qw( :election_status :vote );
 use MusicBrainz::Server::Entity::Editor;
 
 test all => sub {

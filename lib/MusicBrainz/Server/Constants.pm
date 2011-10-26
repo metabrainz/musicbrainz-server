@@ -18,17 +18,28 @@ sub _get
 }
 
 our %EXPORT_TAGS = (
-    edit_type     => _get(qr/^EDIT_/),
-    expire_action => _get(qr/^EXPIRE_/),
-    quality       => _get(qr/^QUALITY_/),
-    annotation    => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
-    historic      => _get(qr/^EDIT_HISTORIC/),
-    editor        => _get(qr/^EDITOR_/)
+    edit_type       => _get(qr/^EDIT_/),
+    expire_action   => _get(qr/^EXPIRE_/),
+    quality         => _get(qr/^QUALITY_/),
+    annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
+    historic        => _get(qr/^EDIT_HISTORIC/),
+    editor          => _get(qr/^EDITOR_/),
+    election_status => _get(qr/^ELECTION_/),
+    vote            => _get(qr/^VOTE_/),
+    edit_status     => _get(qr/^STATUS_/),
+    privileges      => [
+        qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
+            $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
+            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG )
+      ],
 );
 
 our @EXPORT_OK = (
-    qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR)_/) },
+    qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
+        $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
+        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
+        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG ),
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|VOTE|STATUS)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -171,6 +182,36 @@ Readonly our $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC => 253;
 Readonly our $EDIT_HISTORIC_REMOVE_LABEL_ALIAS      => 262;
 Readonly our $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY  => 263;
 Readonly our $EDIT_HISTORIC_CHANGE_RELEASE_GROUP    => 273;
+
+Readonly our $ELECTION_SECONDER_1 => 1;
+Readonly our $ELECTION_SECONDER_2 => 2;
+Readonly our $ELECTION_OPEN       => 3;
+Readonly our $ELECTION_ACCEPTED   => 4;
+Readonly our $ELECTION_REJECTED   => 5;
+Readonly our $ELECTION_CANCELLED  => 6;
+
+Readonly our $VOTE_ABSTAIN => -1;
+Readonly our $VOTE_NO      =>  0;
+Readonly our $VOTE_YES     =>  1;
+
+Readonly our $STATUS_OPEN         => 1;
+Readonly our $STATUS_APPLIED      => 2;
+Readonly our $STATUS_FAILEDVOTE   => 3;
+Readonly our $STATUS_FAILEDDEP    => 4;
+Readonly our $STATUS_ERROR        => 5;
+Readonly our $STATUS_FAILEDPREREQ => 6;
+Readonly our $STATUS_NOVOTES      => 7;
+Readonly our $STATUS_TOBEDELETED  => 8;
+Readonly our $STATUS_DELETED      => 9;
+
+Readonly our $AUTO_EDITOR_FLAG         => 1;
+Readonly our $BOT_FLAG                 => 2;
+Readonly our $UNTRUSTED_FLAG           => 4;
+Readonly our $RELATIONSHIP_EDITOR_FLAG => 8;
+Readonly our $DONT_NAG_FLAG            => 16;
+Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
+Readonly our $MBID_SUBMITTER_FLAG      => 64;
+Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
 
 =head1 NAME
 
