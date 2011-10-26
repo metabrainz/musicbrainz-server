@@ -472,6 +472,14 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit
     )
 }
 
+sub cover_art : Chained('load') PathPart('cover-art') {
+    my ($self, $c) = @_;
+    my $release = $c->stash->{entity};
+    $c->stash(
+        cover_art => { Net::CoverArtArchive->new->find_available_artwork($release->gid) }
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
