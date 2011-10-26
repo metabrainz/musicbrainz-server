@@ -56,7 +56,7 @@
     <ul class="links">
         <li><a href="[% doc_link('Voting_FAQ') %]">[% l('Voting FAQ') %]</a></li>
         <li><a href="[% doc_link('Editing_FAQ') %]">[% l('Editing FAQ') %]</a></li>
-        <li><a href="[% c.uri_for('/doc/Edit_Types') %]">[% l('Edit Conditions') %]</a></li>
+        <li><a href="[% c.uri_for('/doc/Edit_Types') %]">[% l('Edit Types') %]</a></li>
     </ul>
 [% END %]
 
