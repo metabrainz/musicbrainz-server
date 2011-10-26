@@ -19,11 +19,13 @@ use List::MoreUtils qw( part );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
+use Net::CoverArtArchive;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
     $EDIT_RELEASE_MOVE
     $EDIT_RELEASE_MERGE
+    $EDIT_RELEASE_REMOVE_COVER_ART
 );
 
 # A duration lookup has to match within this many milliseconds
@@ -446,6 +448,29 @@ around _merge_submit => sub {
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
+
+sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit RequireAuth {
+    my ($self, $c, $type, $page) = @_;
+
+    my $release = $c->stash->{entity};
+    my $artwork = Net::CoverArtArchive->new->find_artwork($release->gid, $type, $page)
+        or $c->detach('/error_404');
+
+    $c->stash( artwork => $artwork );
+
+    $self->edit_action($c,
+        form        => 'Confirm',
+        type        => $EDIT_RELEASE_REMOVE_COVER_ART,
+        edit_args   => {
+            release       => $release,
+            cover_art_url => '??'
+        },
+        on_creation => sub {
+            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
+            $c->detach;
+        }
+    )
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
