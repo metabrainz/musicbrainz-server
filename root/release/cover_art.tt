@@ -1,11 +1,44 @@
+[% BLOCK layout_head %]
+  <style>
+  div.artwork-cont {
+    border-radius: 2px;
+    background: #eee;
+    border: 1px solid #e0e0e0;
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+  }
+
+  div.artwork {
+    position: relative;
+    width: 250px;
+  }
+  div.artwork img {
+    max-width: 250px;
+  }
+  div.artwork:hover > button {
+    display: block;
+  }
+  div.artwork > button {
+    position: absolute; top: 200px; left: 125px; width: 100px; margin-left: -50px; display: none
+  }
+  </style>
+[% END %]
+
 [% WRAPPER 'release/layout.tt' page='cover_art' %]
   <h2>[% l('Cover Art') %]</h2>
+
   [% IF cover_art.size %]
     [% FOR artwork_group=cover_art.pairs %]
       <h3>[% artwork_group.key %]</h3>
       [% FOR artwork=artwork_group.value %]
-        <div>
-          <img src="[% artwork.artwork %]" />
+        <div class="artwork-cont">
+          <div style="position: relative" class="artwork">
+            <a href="#">
+              <img src="[% artwork.artwork %]" />
+            </a>
+            <button>[% l('Remove') %]</button>
+          </div>
         </div>
       [% END %]
     [% END %]
