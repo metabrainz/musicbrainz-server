@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Memory::Cycle;
+use Test::Magpie qw( mock when inspect verify );
 
 use MusicBrainz::Server::Data::Release;
 
@@ -434,6 +435,22 @@ ok(!defined $release);
 
 $sql->commit;
 
+};
+
+test 'delete deletes cover art' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+    my $caa = mock;
+    $c = $c->meta->clone_object($c, models => {
+        CoverArtArchive => $caa
+    });
+
+    $c->model('Release')->delete(
+        $c->model('Release')->get_by_gid('7a906020-72db-11de-8a39-0800200c9a66')->id);
+    verify($caa)->delete_releases('7a906020-72db-11de-8a39-0800200c9a66');
 };
 
 1;

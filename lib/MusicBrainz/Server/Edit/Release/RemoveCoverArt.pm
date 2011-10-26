@@ -1,14 +1,10 @@
 package MusicBrainz::Server::Edit::Release::RemoveCoverArt;
 use Moose;
 
-use DBDefs;
-
-use LWP::UserAgent;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
 
-use Net::Amazon::S3;
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
 
 extends 'MusicBrainz::Server::Edit';
@@ -30,23 +26,8 @@ has '+data' => (
     ]
 );
 
-has s3 => (
-    is => 'ro',
-    lazy => 1,
-    default => sub {
-        Net::Amazon::S3->new(
-            aws_access_key_id     => DBDefs::CA_PUBLIC,
-            aws_secret_access_key => DBDefs::CA_PRIVATE,
-        )
-    }
-);
-
-has lwp => (
-    is => 'ro',
-    default => sub {
-        return LWP::UserAgent->new;
-    }
-);
+sub lwp { shift->c->lwp }
+sub s3 { shift->c->model('CoverArtArchive')->s3 }
 
 has bucket_name => (
     is => 'ro',
