@@ -15,10 +15,7 @@
 
    <p>
    <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a> &gt;
-   [% class.edit_category %] &gt;
-   <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
-     [% class.edit_name %]
-   </a>
+   [% class.edit_category %] &gt; [% class.edit_name %]
    </p>
 
    [% IF page %]
