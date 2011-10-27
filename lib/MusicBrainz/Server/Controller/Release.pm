@@ -331,9 +331,6 @@ sub add_cover_art_upload_success : Chained('load') PathPart('add-cover-art-uploa
     # FIXME: remove Chained('load') ?
 
     $c->stash->{filename} = $c->req->params->{key};
-
-    use Data::Dumper;
-    warn "add_cover_art upload success!\nparams: ".Dumper ($c->req->params)."\n";
 }
 
 sub add_cover_art_iframe : Chained('load') PathPart('add-cover-art-iframe') RequireAuth
@@ -373,28 +370,14 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
 {
     my ($self, $c) = @_;
 
-    warn "add_cover_art method: " . $c->req->method . "\n";
-
     my $entity = $c->stash->{$self->{entity_name}};
     my $form = $c->form( form => 'Release::AddCoverArt' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         use Data::Dumper;
         warn "form submit, valid: ".Dumper ($c->req->params)."\n";
 
-        $c->response->redirect($c->uri_for_action('/release/cover-art', [ $entity->gid ]));
+        $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
-    }
-    else
-    {
-        use Data::Dumper;
-        if ($c->form_posted)
-        {
-            warn "form submit, not valid: ".Dumper ($c->req->params)."\n";
-        }
-        else
-        {
-            warn "add cover art for entity: ".$entity->name."\n";
-        }
     }
 }
 

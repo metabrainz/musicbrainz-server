@@ -8,17 +8,15 @@
   </head>
   <body>
     <form id="add-cover-art" action="[% form_action %]" method="post" enctype="multipart/form-data">
+      [% FOREACH field IN s3fields %]
+          <input type="hidden" id="[% field.key %]" name="[% field.key %]" value="[% field.value %]" />
+      [% END %]
       [% WRAPPER form_row %]
           <label for="file" class="required">[% l('Choose file:') %]</label>
           <input id="file" type="file" name="file" value="" />
       [% END %]
-
-      [% FOREACH field IN s3fields %]
-          <input type="hidden" id="[% field.key %]" name="[% field.key %]" value="[% field.value %]" />
-      [% END %]
        <ul id="cover-art-file-error" class="errors" style="display: none">
          <li>[% l('Choose an image') %]</li>
        </ul>
-       <input type="submit" />
     </form>
 </html>
