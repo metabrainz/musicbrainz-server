@@ -21,6 +21,8 @@ has_field 'type' => (
 
 has_field 'page' => (
     type      => '+MusicBrainz::Server::Form::Field::Integer',
+    required  => 1,
+    default => 1,
 );
 
 sub options_type  {

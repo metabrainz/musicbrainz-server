@@ -17,8 +17,9 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 
 use List::MoreUtils qw( part );
 use List::UtilsBy 'nsort_by';
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Data::CoverArtArchive;
 use Net::CoverArtArchive;
 
 use MusicBrainz::Server::Constants qw(
@@ -339,9 +340,10 @@ sub add_cover_art_iframe : Chained('load') PathPart('add-cover-art-iframe') Requ
 
     my $entity = $c->stash->{$self->{entity_name}};
 
+    my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
+
     my $aws_id = &DBDefs::INTERNET_ARCHIVE_ID;
     my $aws_key = &DBDefs::INTERNET_ARCHIVE_KEY;
-    my $bucket = "warp-test-bucket";
 
     use Net::Amazon::S3::Policy qw( starts_with );
     my $policy = Net::Amazon::S3::Policy->new(expiration => time() + 3600);
@@ -373,8 +375,17 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     my $entity = $c->stash->{$self->{entity_name}};
     my $form = $c->form( form => 'Release::AddCoverArt' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        use Data::Dumper;
-        warn "form submit, valid: ".Dumper ($c->req->params)."\n";
+
+        $self->_insert_edit(
+            $c, $form,
+            edit_type => $EDIT_RELEASE_ADD_COVER_ART,
+
+            # FIXME: rename to "to_edit"
+            release => $entity,
+            cover_art_url => $form->field ("filename")->value,
+            cover_art_type => $form->field ("type")->value,
+            cover_art_page => $form->field ("page")->value,
+        );
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;

@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
+
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 

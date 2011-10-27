@@ -52,4 +52,26 @@ sub delete_releases {
     }
 }
 
+=method initialize_release
+
+Create the bucket for this MBID.
+
+=cut
+
+sub initialize_release
+{
+    my ($self, $mbid) = @_;
+
+    my $bucket = "mbid-$mbid";
+
+    try {
+        $self->s3->add_bucket ({ bucket => $bucket, acl_short => 'public-read' });
+    }
+    catch {
+        warn "bucket $bucket exists\n";
+    }
+
+    return $bucket;
+}
+
 1;
