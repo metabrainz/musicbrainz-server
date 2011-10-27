@@ -23,12 +23,12 @@ sub _fix_html_links
     my $class = $node->attr('class') || "";
 
     # if this is not a link to _our_ wikidocs server, don't mess with it.
-    return if ($class =~ m/external/);
+    return if ($class =~ m/external/ || $class =~ m/extiw/);
 
     my $href = $node->attr('href') || "";
 
-    # Remove links to images in the wiki
-    if ($href =~ m,^http://$wiki_server/Image:,)
+    # Remove broken links & links to images in the wiki
+    if ($href =~ m,^http://$wiki_server/Image:, || $class =~ m/new/)
     {
         $node->replace_with ($node->content_list);
     }
