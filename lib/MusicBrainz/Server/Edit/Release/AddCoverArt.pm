@@ -96,7 +96,8 @@ sub accept {
             bucket  => $self->bucket_name,
             key     => $target_url,
             headers => {
-                'x-amz-copy-source' => '/' . $self->bucket_name . '/' . $self->data->{cover_art_url}
+                'x-amz-copy-source' => '/' . $self->bucket_name . '/' . $self->data->{cover_art_url},
+                'x-amz-acl' => 'public-read'
             },
             value => ''
         )->http_request

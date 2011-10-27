@@ -74,7 +74,8 @@ sub merge_releases {
                         key     => join('-', 'mbid', $target_mbid,
                                         $artwork->type, $artwork->page) . '.jpg',
                         headers => {
-                            'x-amz-copy-source' => "/$source_bucket/$source_file"
+                            'x-amz-copy-source' => "/$source_bucket/$source_file",
+                            'x-amz-acl' => 'public-read'
                         },
                         value => ''
                     )->http_request
