@@ -228,8 +228,8 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT c.iso_code, COUNT(l.country) AS count
-                FROM label l RIGHT OUTER JOIN country c
+                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(l.gid) AS count
+                FROM label l FULL OUTER JOIN country c
                     ON l.country=c.id
                 GROUP BY c.iso_code
                 ",
@@ -251,8 +251,8 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT c.iso_code, COUNT(r.country) AS count
-                FROM release r RIGHT OUTER JOIN country c
+                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(r.gid) AS count
+                FROM release r FULL OUTER JOIN country c
                     ON r.country=c.id
                 GROUP BY c.iso_code
                 ",
@@ -273,8 +273,8 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT l.iso_code_3t, COUNT(r.language) AS count
-                FROM release r RIGHT OUTER JOIN language l
+                "SELECT COALESCE(l.iso_code_3t::text, 'null'), COUNT(r.gid) AS count
+                FROM release r FULL OUTER JOIN language l
                     ON r.language=l.id
                 GROUP BY l.iso_code_3t
                 ",
@@ -295,8 +295,8 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT s.iso_code, COUNT(r.script) AS count
-                FROM release r RIGHT OUTER JOIN script s
+                "SELECT COALESCE(s.iso_code::text, 'null'), COUNT(r.gid) AS count
+                FROM release r FULL OUTER JOIN script s
                     ON r.script=s.id
                 GROUP BY s.iso_code
                 ",
@@ -476,8 +476,8 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT c.iso_code, COUNT(a.country) AS count
-                FROM artist a RIGHT OUTER JOIN country c
+                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(a.gid) AS count
+                FROM artist a FULL OUTER JOIN country c
                     ON a.country=c.id
                 GROUP BY c.iso_code
                 ",
