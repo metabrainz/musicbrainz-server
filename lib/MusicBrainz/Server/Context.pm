@@ -2,6 +2,7 @@ package MusicBrainz::Server::Context;
 use Moose;
 
 use DBDefs;
+use LWP::UserAgent;
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
@@ -47,6 +48,13 @@ sub create_script_context
     my $cache_manager = MusicBrainz::Server::CacheManager->new(&DBDefs::CACHE_MANAGER_OPTIONS);
     return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
 }
+
+has lwp => (
+    is => 'ro',
+    default => sub {
+        return LWP::UserAgent->new;
+    }
+);
 
 1;
 

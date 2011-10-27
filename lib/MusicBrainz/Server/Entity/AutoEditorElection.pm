@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Entity::AutoEditorElection;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Types qw( :election_status );
+use MusicBrainz::Server::Constants qw( :election_status );
+use MusicBrainz::Server::Types qw( DateTime AutoEditorElectionStatus );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -17,7 +19,7 @@ has [qw( candidate_id proposer_id seconder_1_id seconder_2_id)] => (
 );
 
 has 'status' => (
-    isa => 'AutoEditorElectionStatus',
+    isa => AutoEditorElectionStatus,
     is  => 'rw'
 );
 
@@ -42,7 +44,7 @@ has 'no_votes' => (
 );
 
 has [qw( propose_time open_time close_time )] => (
-    isa => 'DateTime',
+    isa => DateTime,
     is  => 'rw',
 );
 
@@ -100,7 +102,7 @@ The latter 2 may be undef.
 
 =head2 status
 
-The current status of this election, see L<MusicBrainz::Server::Types>
+The current status of this election, see L<MusicBrainz::Server::Constants>
 for possible values.
 
 =head2 yes_votes, no_votes

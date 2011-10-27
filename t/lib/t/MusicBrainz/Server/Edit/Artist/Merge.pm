@@ -9,7 +9,7 @@ BEGIN { use MusicBrainz::Server::Edit::Artist::Merge }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test 'Non-existant merge target' => sub {

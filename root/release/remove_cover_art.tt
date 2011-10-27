@@ -1,0 +1,16 @@
+[%- WRAPPER 'release/layout.tt' title=l('Remove Cover Art') full_width=1 -%]
+    <h2>[% l('Remove Cover Art') %]</h2>
+    <p>
+      [%- l('Are you sure you wish to remove the below cover art from {release} by {artist}?', {
+              release => link_entity(release),
+              artist => artist_credit(release.artist_credit) }) -%]
+    </p>
+    <p>
+      <img src="[% artwork.large_thumbnail %]" />
+    </p>
+    <form action="[% c.req.uri %]" method="post">
+      [%- USE r = FormRenderer(form) -%]
+      [%- INCLUDE 'forms/edit-note.tt' -%]
+      [% enter_edit() %]
+    </form>
+[%- END -%]

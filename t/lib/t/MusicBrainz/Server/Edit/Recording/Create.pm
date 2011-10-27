@@ -5,7 +5,7 @@ use Test::More;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $EDIT_RECORDING_CREATE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 
 around run_test => sub {
     my ($orig, $test, @args) = @_;

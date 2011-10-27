@@ -7,7 +7,9 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Types
+    DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
 
 sub edit_type { die 'Unimplemented' }
 sub edit_name { die 'Unimplemented' }
@@ -46,12 +48,12 @@ has 'language' => (
 );
 
 has 'quality' => (
-    isa => 'Quality',
+    isa => Quality,
     is => 'rw'
 );
 
 has [qw( created_time expires_time close_time )] => (
-    isa => 'DateTime',
+    isa => DateTimeType,
     is => 'rw',
     coerce => 1
 );
@@ -65,7 +67,7 @@ sub is_expired
 }
 
 has 'status' => (
-    isa => 'EditStatus',
+    isa => EditStatus,
     is => 'rw',
     default => $STATUS_OPEN,
 );

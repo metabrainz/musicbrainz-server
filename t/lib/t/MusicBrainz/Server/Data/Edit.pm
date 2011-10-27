@@ -18,7 +18,7 @@ BEGIN { use MusicBrainz::Server::Data::Edit };
 use Sql;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES );
+use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES );
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("t::Edit::MockEdit");
