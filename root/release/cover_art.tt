@@ -7,6 +7,7 @@
     display: inline-block;
     padding: 10px;
     margin: 5px;
+    text-align: center;
   }
 
   div.artwork {
@@ -16,32 +17,8 @@
   div.artwork img {
     max-width: 250px;
   }
-  div.artwork:hover > a.delete {
-    display: block;
-  }
-  a.button {
-    display: block;
-    padding: 5px;
-    text-align: center;
-    border: 1px ridge #ddd;
-    background-image: linear-gradient(bottom, rgb(166,164,165) 0%, rgb(238,238,238) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(166,164,165) 0%, rgb(238,238,238) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(166,164,165) 0%, rgb(238,238,238) 100%);
-    background-image: -webkit-linear-gradient(bottom, rgb(166,164,165) 0%, rgb(238,238,238) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(166,164,165) 0%, rgb(238,238,238) 100%);
-
-    background-image: -webkit-gradient(
-	    linear,
-	    left bottom,
-	    left top,
-	    color-stop(0, rgb(166,164,165)),
-	    color-stop(1, rgb(238,238,238))
-    );
-    color: black;
-    font-weight: bold;
-  }
-  div.artwork > a.delete {
-    position: absolute; top: 200px; left: 125px; width: 100px; margin-left: -50px; display: none
+  div.delete {
+    display: hidden !important;
   }
   </style>
 [% END %]
@@ -58,9 +35,11 @@
             <a href="#">
               <img src="[% artwork.small_thumbnail %]" />
             </a>
-            <a class="delete button" href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.type, artwork.page) %]">
-              [% l('Remove') %]
-            </a>
+          </div>
+          <div class="buttons">
+              <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.type, artwork.page) %]">
+                [% l('Remove') %]
+              </a>
           </div>
         </div>
       [% END %]
