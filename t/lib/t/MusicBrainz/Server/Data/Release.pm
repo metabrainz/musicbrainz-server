@@ -453,4 +453,34 @@ test 'delete deletes cover art' => sub {
     verify($caa)->delete_releases('7a906020-72db-11de-8a39-0800200c9a66');
 };
 
+test 'merge merges cover art' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+    my $caa = mock;
+    $c = $c->meta->clone_object($c, models => {
+        CoverArtArchive => $caa
+    });
+
+    $c->model('Release')->merge(
+        new_id => 6,
+        old_ids => [ 7 ],
+        medium_positions => {
+            3 => 1,
+            2 => 2
+        },
+        medium_names => {
+            3 => 'Foo',
+            2 => 'Bar'
+        }
+    );
+
+    verify($caa)->merge_releases(
+        '7a906020-72db-11de-8a39-0800200c9a70',
+        '7a906020-72db-11de-8a39-0800200c9a71'
+    );
+};
+
 1;

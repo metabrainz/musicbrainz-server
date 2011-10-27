@@ -97,7 +97,8 @@ sub accept {
             bucket  => $self->bucket_name,
             key     => $target_url,
             headers => {
-                'x-amz-copy-source' => '/' . $self->bucket_name . '/' . $self->data->{cover_art_url}
+                'x-amz-copy-source' => '/' . $self->bucket_name . '/' . $self->data->{cover_art_url},
+                'x-amz-acl' => 'public-read'
             },
             value => ''
         )->http_request
@@ -138,11 +139,9 @@ sub build_display_data {
     return {
         release => $loaded->{Release}{ $self->data->{entity}{id} }
             || Release->new( name => $self->data->{entity}{name} ),
-        artwork => Net::CoverArtArchive->new->find_artwork(
-            $self->data->{entity}{mbid},
-            $self->data->{cover_art_type},
-            $self->data->{cover_art_page}
-        )
+        cover_art_url =>
+            "http://s3.amazonaws.com/mbid-" . $self->{entity}{mbid} . "/"
+                . $self->{cover_art_url}
     };
 }
 

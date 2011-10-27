@@ -5,10 +5,12 @@ with 'MusicBrainz::Server::Data::Role::Context';
 
 use DBDefs;
 use Net::Amazon::S3;
+use Net::CoverArtArchive qw( find_available_artwork find_artwork );
 use XML::XPath;
 
 use aliased 'Net::Amazon::S3::Request::DeleteBucket';
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
+use aliased 'Net::Amazon::S3::Request::PutObject';
 
 has s3 => (
     is => 'ro',
@@ -20,6 +22,8 @@ has s3 => (
         )
     }
 );
+
+my $caa = Net::CoverArtArchive->new;
 
 sub delete_releases {
     my ($self, @mbids) = @_;
@@ -52,6 +56,7 @@ sub delete_releases {
     }
 }
 
+
 =method initialize_release
 
 Create the bucket for this MBID.
@@ -72,6 +77,46 @@ sub initialize_release
     }
 
     return $bucket;
+}
+
+sub merge_releases {
+    my ($self, $target_mbid, @source_mbids) = @_;
+    for my $source (@source_mbids) {
+        my %artwork = $caa->find_available_artwork($source);
+        for my $artwork (map { @$_ } values %artwork) {
+            my $source_file = join('-', 'mbid', $source, $artwork->type,
+                                   $artwork->page) . '.jpg';
+            my $source_bucket = "mbid-$source";
+
+            # If the target does not have it, copy it
+            unless ($caa->find_artwork($target_mbid, $artwork->type, $artwork->page)) {
+                $self->c->lwp->request(
+                    PutObject->new(
+                        s3      => $self->s3,
+                        bucket  => "mbid-$target_mbid",
+                        key     => join('-', 'mbid', $target_mbid,
+                                        $artwork->type, $artwork->page) . '.jpg',
+                        headers => {
+                            'x-amz-copy-source' => "/$source_bucket/$source_file",
+                            'x-amz-acl' => 'public-read'
+                        },
+                        value => ''
+                    )->http_request
+                )
+            }
+
+            # Delete this image
+            $self->c->lwp->request(
+                DeleteObject->new(
+                    s3     => $self->s3,
+                    bucket => $source_bucket,
+                    key    => $source_file
+                )->http_request
+            );
+        }
+
+        # Delete the bucket
+    }
 }
 
 1;

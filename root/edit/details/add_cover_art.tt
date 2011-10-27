@@ -20,7 +20,7 @@
     <th>[% l('Cover art:') %]</th>
     <td>
       [% IF edit.is_open %]
-        <img src="[% edit.display_data.artwork.large_thumbnail %]" /><br />
+        <img src="[% edit.display_data.cover_art_url %]" /><br />
         [% l('As this edit has not yet been accepted, the above image is not
               available from the Cover Art Archive.') %]
       [% ELSE %]
