@@ -20,7 +20,7 @@
     <th>[% l('Cover art:') %]</th>
     <td>
       [% IF edit.is_open %]
-        <img src="http://s3.amazonaws.com/mbid-[% edit.data.entity.mbid %]/[% edit.data.cover_art_url %]" /><br />
+        <img src="[% edit.display_data.artwork.large_thumbnail %]" /><br />
         [% l('As this edit has not yet been accepted, the above image is not
               available from the Cover Art Archive.') %]
       [% ELSE %]

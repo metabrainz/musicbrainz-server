@@ -4,6 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
+use Net::CoverArtArchive;
 
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
 
@@ -22,7 +23,8 @@ has '+data' => (
             name => Str,
             mbid => Str
         ],
-        cover_art_url  => Str
+        cover_art_type  => Str,
+        cover_art_page  => Int
     ]
 );
 
@@ -48,7 +50,8 @@ sub initialize {
             name => $release->name,
             mbid => $release->gid
         },
-        cover_art_url => $opts{cover_art_url},
+        cover_art_type => $opts{cover_art_type},
+        cover_art_page => $opts{cover_art_page},
     });
 }
 
@@ -59,7 +62,13 @@ sub accept {
         DeleteObject->new(
             s3     => $self->s3,
             bucket => $self->bucket_name,
-            key    => $self->data->{cover_art_url}
+            key    => join(
+                '-',
+                'mbid',
+                $release->gid,
+                $self->data->{cover_art_type},
+                $self->data->{cover_art_page},
+            ) . '.jpg'
         )->http_request
     );
 }
@@ -77,7 +86,12 @@ sub build_display_data {
     my ($self, $loaded) = @_;
     return {
         release => $loaded->{Release}{ $self->data->{entity}{id} }
-            || Release->new( name => $self->data->{entity}{name} )
+            || Release->new( name => $self->data->{entity}{name} ),
+        artwork => Net::CoverArtArchive->new->find_artwork(
+            $self->data->{entity}{mbid},
+            $self->data->{cover_art_type},
+            $self->data->{cover_art_page}
+        )
     };
 }
 

@@ -463,7 +463,8 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit
         type        => $EDIT_RELEASE_REMOVE_COVER_ART,
         edit_args   => {
             release       => $release,
-            cover_art_url => '??'
+            cover_art_type => $type,
+            cover_art_page => $page
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));

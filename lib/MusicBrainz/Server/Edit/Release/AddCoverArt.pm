@@ -10,6 +10,8 @@ use aliased 'Net::Amazon::S3::Request::CreateBucket';
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
 use aliased 'Net::Amazon::S3::Request::PutObject';
 
+use Net::CoverArtArchive;
+
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -128,7 +130,12 @@ sub build_display_data {
     my ($self, $loaded) = @_;
     return {
         release => $loaded->{Release}{ $self->data->{entity}{id} }
-            || Release->new( name => $self->data->{entity}{name} )
+            || Release->new( name => $self->data->{entity}{name} ),
+        artwork => Net::CoverArtArchive->new->find_artwork(
+            $self->data->{entity}{mbid},
+            $self->data->{cover_art_type},
+            $self->data->{cover_art_page}
+        )
     };
 }
 
