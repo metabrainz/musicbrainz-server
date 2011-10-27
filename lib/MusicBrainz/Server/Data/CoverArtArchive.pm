@@ -26,13 +26,13 @@ has s3 => (
 my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
 
 sub find_artwork { shift; return $caa->find_artwork(@_); };
-sub find_available_artwork { shift; return $caa->find_available_artwork(@_); };
+sub find_available_artwork { shift; $DB::single = 1; return $caa->find_available_artwork(@_); };
 
 sub delete_releases {
     my ($self, @mbids) = @_;
     for my $mbid (@mbids) {
         my $bucket = "mbid-$mbid";
-        my $res = $self->c->lwp->get(&DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/$mbid/");
+        my $res = $self->c->lwp->get(&DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid/");
         if ($res->is_success) {
             my $xp = XML::XPath->new( xml => $res->content );
             for my $artwork ($xp->find('/ListBucketResult/Contents')->get_nodelist) {
