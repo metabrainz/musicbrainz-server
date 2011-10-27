@@ -279,10 +279,11 @@ sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
 # internet archive private/public keys (for coverartarchive.org).
-sub INTERNET_ARCHIVE_ID { };
-sub INTERNET_ARCHIVE_KEY { };
-sub INTERNET_ARCHIVE_UPLOAD_PREFIX { };
-sub INTERNET_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org/release/" };
+sub COVER_ART_ARCHIVE_ID { };
+sub COVER_ART_ARCHIVE_KEY { };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIX { "http://s3.amazonaws.com" };
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org/release" };
+
 
 ################################################################################
 # Sessions (advanced)

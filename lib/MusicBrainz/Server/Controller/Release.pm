@@ -341,7 +341,7 @@ sub add_cover_art_iframe : Chained('load') PathPart('add-cover-art-iframe') Requ
     my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
     my $redirect = $c->uri_for_action('/release/add_cover_art_upload_success', [ $entity->gid ])->as_string ();
 
-    $c->stash->{form_action} = &DBDefs::INTERNET_ARCHIVE_UPLOAD_PREFIX."$bucket/";
+    $c->stash->{form_action} = &DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIX."/$bucket/";
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $redirect);
 }
 

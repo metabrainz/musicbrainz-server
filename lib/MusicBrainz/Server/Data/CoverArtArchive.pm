@@ -17,13 +17,13 @@ has s3 => (
     lazy => 1,
     default => sub {
         Net::Amazon::S3->new(
-            aws_access_key_id     => DBDefs::INTERNET_ARCHIVE_ID,
-            aws_secret_access_key => DBDefs::INTERNET_ARCHIVE_KEY,
+            aws_access_key_id     => DBDefs::COVER_ART_ARCHIVE_ID,
+            aws_secret_access_key => DBDefs::COVER_ART_ARCHIVE_KEY,
         )
     }
 );
 
-my $caa = Net::CoverArtArchive->new (host => &DBDefs::INTERNET_ARCHIVE_DOWNLOAD_HOST);
+my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
 
 sub find_artwork { shift; return $caa->find_artwork(@_); };
 sub find_available_artwork { shift; return $caa->find_available_artwork(@_); };
@@ -32,7 +32,7 @@ sub delete_releases {
     my ($self, @mbids) = @_;
     for my $mbid (@mbids) {
         my $bucket = "mbid-$mbid";
-        my $res = $self->c->lwp->get(&DBDefs::INTERNET_ARCHIVE_DOWNLOAD_HOST."/release/$mbid/");
+        my $res = $self->c->lwp->get(&DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/$mbid/");
         if ($res->is_success) {
             my $xp = XML::XPath->new( xml => $res->content );
             for my $artwork ($xp->find('/ListBucketResult/Contents')->get_nodelist) {
@@ -92,8 +92,8 @@ sub post_fields
 {
     my ($self, $bucket, $mbid, $redirect) = @_;
 
-    my $aws_id = &DBDefs::INTERNET_ARCHIVE_ID;
-    my $aws_key = &DBDefs::INTERNET_ARCHIVE_KEY;
+    my $aws_id = &DBDefs::COVER_ART_ARCHIVE_ID;
+    my $aws_key = &DBDefs::COVER_ART_ARCHIVE_KEY;
 
     use Net::Amazon::S3::Policy qw( starts_with );
     my $policy = Net::Amazon::S3::Policy->new(expiration => time() + 3600);
