@@ -24,10 +24,24 @@ has date_collected => (
 
 sub ratio {
     my ($self, $num_stat, $denom_stat) = @_;
-    my ($numerator, $denominator) = (
-        $self->statistic($num_stat),
-        $self->statistic($denom_stat),
-    );
+    my ($numerator, $denominator);
+    if (ref($num_stat) eq 'ARRAY') {
+        $numerator = 0;
+	foreach my $i (@{$num_stat}) {
+            $numerator += $self->statistic($i);
+	}
+    } else {
+	$numerator = $self->statistic($num_stat);
+    }
+
+    if (ref($denom_stat) eq 'ARRAY') {
+        $denominator = 0;
+	foreach my $i (@{$denom_stat}) {
+            $denominator += $self->statistic($i);
+	}
+    } else {
+	$denominator = $self->statistic($denom_stat);
+    }
 
     return unless $denominator > 0;
     return $numerator * 100 / $denominator;
