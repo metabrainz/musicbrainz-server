@@ -717,7 +717,14 @@ sub merge
         @old_ids
     );
 
+    my %releases = %{ $self->get_by_ids($new_id, @old_ids) };
+    $self->c->model('CoverArtArchive')->merge_releases(
+        $releases{$new_id}->gid,
+        map { $releases{$_}->gid } @old_ids
+    );
+
     $self->_delete_and_redirect_gids('release', $new_id, @old_ids);
+
     return 1;
 }
 
