@@ -4,6 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
+use MusicBrainz::Server::Edit::Exceptions;
 use Net::CoverArtArchive;
 
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
@@ -57,6 +58,11 @@ sub initialize {
 
 sub accept {
     my $self = shift;
+
+    my $release = $self->c->model('Release')->get_by_id($self->data->{entity}{id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This release no longer exists'
+        );
 
     $self->lwp->request(
         DeleteObject->new(

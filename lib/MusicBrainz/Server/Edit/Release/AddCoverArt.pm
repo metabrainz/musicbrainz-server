@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
+use MusicBrainz::Server::Edit::Exceptions;
 
 use aliased 'Net::Amazon::S3::Request::CreateBucket';
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
@@ -64,10 +65,15 @@ sub initialize {
 sub accept {
     my $self = shift;
 
+    my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This release no longer exists'
+        );
+
     my $target_url = join(
         '-',
         'mbid',
-        $self->data->{entity}{mbid},
+        $release->gid,
         $self->data->{cover_art_type},
         $self->data->{cover_art_page}
     ) . '.jpg';
