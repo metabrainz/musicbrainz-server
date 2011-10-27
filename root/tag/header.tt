@@ -1,7 +1,7 @@
 [%- info_links = [
     ['index', link_tag(tag, 'show', l('Overview'))],
     ['artist', link_tag(tag, 'artist', l('Artists'))],
-    ['release_group', link_tag(tag, 'release_group', l('Release groups'))],
+    ['release_group', link_tag(tag, 'release_group', l('Release Groups'))],
     ['release', link_tag(tag, 'release', l('Releases'))],
     ['recording', link_tag(tag, 'recording', l('Recordings'))],
     ['work', link_tag(tag, 'work', l('Works'))],
