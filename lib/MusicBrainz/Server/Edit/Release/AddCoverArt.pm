@@ -140,8 +140,8 @@ sub build_display_data {
         release => $loaded->{Release}{ $self->data->{entity}{id} }
             || Release->new( name => $self->data->{entity}{name} ),
         cover_art_url =>
-            "http://s3.amazonaws.com/mbid-" . $self->data->{entity}{mbid} . "/"
-                . $self->data->{cover_art_url}
+            &DBDefs::INTERNET_ARCHIVE_DOWNLOAD_HOST."release/".
+            $self->data->{entity}{mbid} . "/" . $self->data->{cover_art_url}
     };
 }
 

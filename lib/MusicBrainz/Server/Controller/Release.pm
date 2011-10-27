@@ -20,7 +20,6 @@ use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Data::CoverArtArchive;
-use Net::CoverArtArchive;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
@@ -330,7 +329,6 @@ sub add_cover_art_upload_success : Chained('load') PathPart('add-cover-art-uploa
     my ($self, $c) = @_;
 
     # FIXME: remove Chained('load') ?
-
     $c->stash->{filename} = $c->req->params->{key};
 }
 
@@ -341,31 +339,10 @@ sub add_cover_art_iframe : Chained('load') PathPart('add-cover-art-iframe') Requ
     my $entity = $c->stash->{$self->{entity_name}};
 
     my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
-
-    my $aws_id = &DBDefs::INTERNET_ARCHIVE_ID;
-    my $aws_key = &DBDefs::INTERNET_ARCHIVE_KEY;
-
-    use Net::Amazon::S3::Policy qw( starts_with );
-    my $policy = Net::Amazon::S3::Policy->new(expiration => time() + 3600);
-    my $filename = '.pending-'.time.'.jpg';
     my $redirect = $c->uri_for_action('/release/add_cover_art_upload_success', [ $entity->gid ])->as_string ();
 
-    $policy->add ({'bucket' => $bucket});
-    $policy->add ({'acl' => 'public-read'});
-    $policy->add ({'success_action_redirect' => $redirect});
-    $policy->add ('$key eq '.$filename);
-    $policy->add ('$Content-Type starts-with image/jpeg');
-
-    $c->stash->{form_action} = "http://s3.amazonaws.com/$bucket/";
-    $c->stash->{s3fields} = {
-        AWSAccessKeyId => $aws_id,
-        policy => $policy->base64(),
-        signature => $policy->signature_base64($aws_key),
-        key => $filename,
-        acl => 'public-read',
-        "content-type" => 'image/jpeg',
-        success_action_redirect => $redirect,
-    };
+    $c->stash->{form_action} = &DBDefs::INTERNET_ARCHIVE_UPLOAD_PREFIX."$bucket/";
+    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $redirect);
 }
 
 sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
@@ -521,7 +498,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit
     my ($self, $c, $type, $page) = @_;
 
     my $release = $c->stash->{entity};
-    my $artwork = Net::CoverArtArchive->new->find_artwork($release->gid, $type, $page)
+    my $artwork = $c->model ('CoverArtArchive')->find_artwork($release->gid, $type, $page)
         or $c->detach('/error_404');
 
     $c->stash( artwork => $artwork );
@@ -545,7 +522,7 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my ($self, $c) = @_;
     my $release = $c->stash->{entity};
     $c->stash(
-        cover_art => { Net::CoverArtArchive->new->find_available_artwork($release->gid) }
+        cover_art => { $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
     );
 }
 

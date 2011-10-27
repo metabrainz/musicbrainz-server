@@ -23,13 +23,16 @@ has s3 => (
     }
 );
 
-my $caa = Net::CoverArtArchive->new;
+my $caa = Net::CoverArtArchive->new (host => &DBDefs::INTERNET_ARCHIVE_DOWNLOAD_HOST);
+
+sub find_artwork { shift; return $caa->find_artwork(@_); };
+sub find_available_artwork { shift; return $caa->find_available_artwork(@_); };
 
 sub delete_releases {
     my ($self, @mbids) = @_;
     for my $mbid (@mbids) {
         my $bucket = "mbid-$mbid";
-        my $res = $self->c->lwp->get("http://s3.amazonaws.com/$bucket");
+        my $res = $self->c->lwp->get(&DBDefs::INTERNET_ARCHIVE_DOWNLOAD_HOST."/release/$mbid/");
         if ($res->is_success) {
             my $xp = XML::XPath->new( xml => $res->content );
             for my $artwork ($xp->find('/ListBucketResult/Contents')->get_nodelist) {
@@ -73,10 +76,44 @@ sub initialize_release
         $self->s3->add_bucket ({ bucket => $bucket, acl_short => 'public-read' });
     }
     catch {
-        warn "bucket $bucket exists\n";
     }
 
     return $bucket;
+}
+
+
+=method post_fields
+
+Generate the policy and form values to upload cover art.
+
+=cut
+
+sub post_fields
+{
+    my ($self, $bucket, $mbid, $redirect) = @_;
+
+    my $aws_id = &DBDefs::INTERNET_ARCHIVE_ID;
+    my $aws_key = &DBDefs::INTERNET_ARCHIVE_KEY;
+
+    use Net::Amazon::S3::Policy qw( starts_with );
+    my $policy = Net::Amazon::S3::Policy->new(expiration => time() + 3600);
+    my $filename = '.pending-'.time.'.jpg';
+
+    $policy->add ({'bucket' => $bucket});
+    $policy->add ({'acl' => 'public-read'});
+    $policy->add ({'success_action_redirect' => $redirect});
+    $policy->add ('$key eq '.$filename);
+    $policy->add ('$Content-Type starts-with image/jpeg');
+
+    return {
+        AWSAccessKeyId => $aws_id,
+        policy => $policy->base64(),
+        signature => $policy->signature_base64($aws_key),
+        key => $filename,
+        acl => 'public-read',
+        "content-type" => 'image/jpeg',
+        success_action_redirect => $redirect,
+    };
 }
 
 sub merge_releases {
