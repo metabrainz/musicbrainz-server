@@ -22,6 +22,9 @@ sub _fix_html_links
 
     my $class = $node->attr('class') || "";
 
+    # Remove the title attribute from all links
+    $node->attr('title', undef);
+
     # if this is not a link to _our_ wikidocs server, don't mess with it.
     return if ($class =~ m/external/ || $class =~ m/extiw/);
 
@@ -36,14 +39,7 @@ sub _fix_html_links
     elsif ($href =~ m,^http://$wiki_server,)
     {
         $href =~ s,^http://$wiki_server/?,http://$server/doc/,;
-        my $isWD = exists($index->{$href});
-        my $title = $isWD ? "WikiDocs" : "Wiki";
-        my $class .= $isWD ? " official" : " unofficial";
-        $class =~ s/^\s//;
-
         $node->attr('href', $href);
-        $node->attr('class', $class);
-        $node->attr('title', "$title: ".$node->attr('title'));
     }
 }
 
