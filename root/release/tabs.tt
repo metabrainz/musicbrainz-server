@@ -5,6 +5,7 @@
     ['tags', link_release(release, 'tags', l('Tags'))],
     ['details', rdfa_seeAlso_link_release(release, 'details', l('Details'))],
     ['edit', simple_link(c.uri_for_action('/release_editor/edit', [ release.gid ]), l('Edit')) ],
+    ['add_cover_art', link_release(release, 'add_cover_art', l('Add Cover Art'))],
 ] -%]
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]

@@ -1,0 +1,9 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      parent.document.getElementById ("id-add-cover-art.filename").value = "[% filename %]";
+      parent.document.getElementById ("add-cover-art").submit ();
+    </script>
+  </head>
+  <body></body>
+</html>

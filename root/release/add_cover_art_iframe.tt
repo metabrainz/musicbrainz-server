@@ -1,0 +1,14 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <form id="add-cover-art" action="[% form_action %]" method="post" enctype="multipart/form-data">
+      [% FOREACH field IN s3fields %]
+          <input type="text" id="[% field.key %]" name="[% field.key %]" value="[% field.value %]" /><br />
+      [% END %]
+
+      [%# FIXME: fill in with js. %]
+      <input type="file" name="file" value="" />
+      <input type="submit" />
+    </form>
+</html>

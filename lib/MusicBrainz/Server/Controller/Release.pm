@@ -322,6 +322,80 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
     }
 }
 
+sub add_cover_art_upload_success : Chained('load') PathPart('add-cover-art-upload-success')
+{
+    my ($self, $c) = @_;
+
+    # FIXME: remove Chained('load') ?
+
+    $c->stash->{filename} = $c->req->params->{key};
+
+    use Data::Dumper;
+    warn "add_cover_art upload success!\nparams: ".Dumper ($c->req->params)."\n";
+}
+
+sub add_cover_art_iframe : Chained('load') PathPart('add-cover-art-iframe') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $entity = $c->stash->{$self->{entity_name}};
+
+    my $aws_id = &DBDefs::INTERNET_ARCHIVE_ID;
+    my $aws_key = &DBDefs::INTERNET_ARCHIVE_KEY;
+    my $bucket = "warp-test-bucket";
+
+    use Net::Amazon::S3::Policy qw( starts_with );
+    my $policy = Net::Amazon::S3::Policy->new(expiration => time() + 3600);
+    my $filename = '.pending-'.time.'.jpg';
+    my $redirect = $c->uri_for_action('/release/add_cover_art_upload_success', [ $entity->gid ])->as_string ();
+
+    $policy->add ({'bucket' => $bucket});
+    $policy->add ({'acl' => 'public-read'});
+    $policy->add ({'success_action_redirect' => $redirect});
+    $policy->add ('$key eq '.$filename);
+    $policy->add ('$Content-Type starts-with image/jpeg');
+
+    $c->stash->{form_action} = "http://s3.amazonaws.com/$bucket/";
+    $c->stash->{s3fields} = {
+        AWSAccessKeyId => $aws_id,
+        policy => $policy->base64(),
+        signature => $policy->signature_base64($aws_key),
+        key => $filename,
+        acl => 'public-read',
+        "content-type" => 'image/jpeg',
+        success_action_redirect => $redirect,
+    };
+}
+
+sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    warn "add_cover_art method: " . $c->req->method . "\n";
+
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $form = $c->form( form => 'Release::AddCoverArt' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        use Data::Dumper;
+        warn "form submit, valid: ".Dumper ($c->req->params)."\n";
+
+        $c->response->redirect($c->uri_for_action('/release/cover-art', [ $entity->gid ]));
+        $c->detach;
+    }
+    else
+    {
+        use Data::Dumper;
+        if ($c->form_posted)
+        {
+            warn "form submit, not valid: ".Dumper ($c->req->params)."\n";
+        }
+        else
+        {
+            warn "add cover art for entity: ".$entity->name."\n";
+        }
+    }
+}
+
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
     confirmation_template => 'release/merge_confirm.tt',

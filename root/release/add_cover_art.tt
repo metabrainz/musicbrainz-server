@@ -1,0 +1,21 @@
+[% WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' %]
+<h2>[%- l('Add Cover Art') -%]</h2>
+<form id="add-cover-art" action="[% c.req.uri %]" method="post">
+      [% USE r = FormRenderer(form) %]
+
+      <iframe src="[% c.uri_for_action('/release/add_cover_art_iframe', [ entity.gid ]) %]"
+              width="600" height="200"></iframe>
+
+     [% r.hidden('filename') %]
+     [% form_row_select (r, 'type', l('Type:')) %]
+     [% form_row_text   (r, 'page', l('Page number:')) %]
+
+     [%- INCLUDE 'forms/edit-note.tt' -%]
+
+    <div class="row no-label buttons">
+        <button class="submit positive">[% l('Enter edit') %]</button>
+    </div>
+
+</form>
+
+[% END %]

@@ -70,6 +70,7 @@ requires 'MooseX::Types::Structured'                  => '0.24';
 requires 'MooseX::Types::URI';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
+requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
 requires 'OSSP::uuid'                                 => '1.060200';
 requires 'Package::Stash'                             => '0.29';
 requires 'Readonly'                                   => '1.03';

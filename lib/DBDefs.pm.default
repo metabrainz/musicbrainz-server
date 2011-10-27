@@ -278,6 +278,10 @@ sub AWS_ASSOCIATE_ID
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
+# internet archive private/public keys (for coverartarchive.org).
+sub INTERNET_ARCHIVE_KEY { };
+sub INTERNET_ARCHIVE_ID { };
+
 ################################################################################
 # Sessions (advanced)
 ################################################################################
