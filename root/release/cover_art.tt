@@ -69,4 +69,8 @@
     <p>[% l('We do not currently have any cover art for {release}.',
             { release => link_entity(entity) }) %]</p>
   [% END %]
+
+  <div class="buttons">
+    [% link_release(release, 'add_cover_art', l('Add Cover Art')) %]
+  </div>
 [% END %]

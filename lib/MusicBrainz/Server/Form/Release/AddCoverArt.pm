@@ -19,13 +19,14 @@ has_field 'type' => (
     required  => 1,
 );
 
-has_field 'page' => ( 
+has_field 'page' => (
     type      => '+MusicBrainz::Server::Form::Field::Integer',
 );
 
 sub options_type  {
     # FIXME: move.  (to MusicBrainz/Server/Constants.pm or database?).
-    return map { $_ => $_ } qw( front back inner booklet sleeve medium obi spine box other );
+    return ("" => "",
+            map { $_ => $_ } qw( front back inner booklet sleeve medium obi spine box other ));
 }
 
 no Moose;

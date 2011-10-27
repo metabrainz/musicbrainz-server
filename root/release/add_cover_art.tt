@@ -3,12 +3,21 @@
 <form id="add-cover-art" action="[% c.req.uri %]" method="post">
       [% USE r = FormRenderer(form) %]
 
+      [%# FIXME: resize height with js.  some people may have large fonts. %]
       <iframe src="[% c.uri_for_action('/release/add_cover_art_iframe', [ entity.gid ]) %]"
-              width="600" height="200"></iframe>
+              width="500" height="100" style="border: 0;"></iframe>
 
      [% r.hidden('filename') %]
-     [% form_row_select (r, 'type', l('Type:')) %]
+     [% WRAPPER form_row %]
+       [% r.label('type', l('Type:')) %]
+       [% r.select('type') %]
+       <ul id="cover-art-type-error" class="errors" style="display: none;">
+         <li>[% l('Choose a cover art type for this image') %]</li>
+       </ul>
+     [% END %]
+
      [% form_row_text   (r, 'page', l('Page number:')) %]
+
 
      [%- INCLUDE 'forms/edit-note.tt' -%]
 
@@ -17,5 +26,34 @@
     </div>
 
 </form>
+<script type="text/javascript">
+     var validate_cover_art_type = function () {
+         var $select = $('#id-add-cover-art\\.type');
+
+         var invalid = $select.find ('option:selected').val () == "";
+
+         $('#cover-art-type-error').toggle (invalid);
+         return !invalid;
+     };
+
+     var validate_cover_art_file = function () {
+         var invalid = $('iframe').contents ().find ('#file').val () == "";
+
+         $('iframe').contents ().find ('#cover-art-file-error').toggle (invalid);
+
+         return !invalid;
+     };
+
+     $('button.submit').bind ('click.mb', function (event) {
+         event.preventDefault ();
+
+         if (validate_cover_art_file () && validate_cover_art_type ())
+         {
+             $('iframe').contents ().find ('form').submit ();
+         }
+
+         return false;
+     });
+</script>
 
 [% END %]

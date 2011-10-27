@@ -15,8 +15,8 @@ has s3 => (
     lazy => 1,
     default => sub {
         Net::Amazon::S3->new(
-            aws_access_key_id     => DBDefs::CA_PUBLIC,
-            aws_secret_access_key => DBDefs::CA_PRIVATE,
+            aws_access_key_id     => DBDefs::INTERNET_ARCHIVE_ID,
+            aws_secret_access_key => DBDefs::INTERNET_ARCHIVE_KEY,
         )
     }
 );
