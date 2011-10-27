@@ -56,7 +56,7 @@
         <div class="artwork-cont">
           <div style="position: relative" class="artwork">
             <a href="#">
-              <img src="[% artwork.artwork %]" />
+              <img src="[% artwork.small_thumbnail %]" />
             </a>
             <a class="delete button" href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.type, artwork.page) %]">
               [% l('Remove') %]
