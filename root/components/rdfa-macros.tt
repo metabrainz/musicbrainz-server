@@ -198,7 +198,7 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_topic_is_artist(artist, action, text) BLOCK;
+[%- MACRO rdfa_link_artist_header(artist, action, text) BLOCK;
   IF doRDFa;
     action = action || 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
