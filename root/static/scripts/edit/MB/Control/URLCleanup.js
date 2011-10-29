@@ -91,6 +91,10 @@ MB.constants.LINK_TYPES = {
         artist: 192,
         label: 218
     },
+    soundcloud: {
+        artist:291,
+        label: 290
+    },
     vgmdb: {
         artist: 191,
         release: 86,
@@ -262,6 +266,13 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             return url;
+        }
+    },
+    soundcloud: {
+        match: new RegExp("^(https?://)?([^/]+\.)?soundcloud\.com","i"),
+        type: MB.constants.LINK_TYPES.soundcloud,
+        clean: function(url) {
+            return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
         }
     },
     vgmdb: {
