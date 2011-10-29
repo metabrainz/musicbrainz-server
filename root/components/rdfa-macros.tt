@@ -55,7 +55,7 @@ END -%]
 [%- MACRO rdfa_entity_curi(entity, action, text) BLOCK;
     type = "$entity";
     IF    type.search('Entity::Artist='); rdfa_artist_curi(entity);
-    ELSIF type.search('Entity::Work='); rdfa_work_curie(entity);
+    ELSIF type.search('Entity::Work='); rdfa_work_curi(entity);
     ELSIF type.search('Entity::Label='); rdfa_label_curi(entity);
     ELSIF type.search('Entity::Release='); rdfa_release_curi(entity);
     ELSIF type.search('Entity::ReleaseGroup='); rdfa_release_group_curi(entity);
