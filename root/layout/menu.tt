@@ -85,9 +85,6 @@
             <li>
                 <a href="[% doc_link('MusicBrainz_Bio') %]">[% l('People') %]</a>
             </li>
-            <li>
-                <a href="[% doc_link('MusicBrainz_Press') %]">[% l('In the Press') %]</a>
-            </li>
             <li class="separator">
                 <a href="[% doc_link('MusicBrainz_License') %]">[% l('Data Licenses') %]</a>
             </li>
