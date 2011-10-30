@@ -92,6 +92,66 @@ test 'can_merge for the merge strategy' => sub {
     );
 };
 
+test 'can_merge for the append strategy' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Name');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+    VALUES (1, 1, 1, 0, NULL);
+
+INSERT INTO release_name (id, name) VALUES (1, 'Release');
+ INSERT INTO release_group (id, gid, name, artist_credit)
+    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO release (id, gid, name, artist_credit, release_group)
+    VALUES (1, '1a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
+           (2, '2a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
+           (3, '3a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1);
+INSERT INTO tracklist (id) VALUES (1);
+INSERT INTO medium (id, release, position, tracklist)
+    VALUES (1, 1, 1, 1),
+           (2, 2, 1, 1),
+           (3, 3, 1, 1);
+EOSQL
+
+    ok(
+        $test->c->model('Release')->can_merge(
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+            new_id => 1,
+            old_ids => [ 3 ],
+            medium_positions => {
+                1 => 1,
+                3 => 2
+            }
+        )
+    );
+
+    $test->c->model('Release')->merge(
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+        new_id => 1,
+        old_ids => [ 3 ],
+        medium_positions => {
+            1 => 1,
+            3 => 2
+        }
+    );
+
+    ok(
+        $test->c->model('Release')->can_merge(
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+            new_id => 1,
+            old_ids => [ 2 ],
+            medium_positions => {
+                1 => 1,
+                2 => 2,
+                3 => 3,
+            }
+        )
+    );
+};
+
 test all => sub {
 
 my $test = shift;
