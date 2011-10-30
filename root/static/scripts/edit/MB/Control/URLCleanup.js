@@ -272,7 +272,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.streamingmusic,
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
-            url = url.replace(/^http:\/\/www\.youtube\.com\/(watch?v=[a-zA-Z0-9_-])&([^?]+)/, "http://www.youtube.com/$1");
+            url = url.replace(/^http:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+)&([^?]+)/, "http://www.youtube.com/$1");
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?vimeo\.com/, "http://vimeo.com");
 	    return url;
         }
