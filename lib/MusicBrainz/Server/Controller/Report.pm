@@ -7,7 +7,7 @@ use Data::Page;
 use DateTime;
 use MusicBrainz::Server::ReportFactory;
 
-sub index : Path Args(0)
+sub index : Path('/reports') Args(0)
 {
 }
 
