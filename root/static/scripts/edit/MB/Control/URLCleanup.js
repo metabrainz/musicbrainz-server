@@ -268,11 +268,16 @@ MB.constants.CLEANUPS = {
         }
     },
     streamingmusic: {
-        match: new RegExp("^(https?://)?([^/]+\.)?(youtube\\.com/|vimeo\\.com/)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?(youtube\\.com/|youtu\\.be/|vimeo\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.streamingmusic,
-        clean: function(url) {
+        clean: function(url) { 
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
-            url = url.replace(/^http:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+)&([^?]+)/, "http://www.youtube.com/$1");
+            //YouTube URL shortener
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtu\.be\/([a-zA-Z0_9_-]+)/, "http://www.youtube.com/watch?v=$1");
+            //YouTube standard watch URL
+            url = url.replace(/^http:\/\/www\.youtube\.com\/(watch\?)(?:[^?]+)(v=[a-zA-Z0-9_-]+)(?:[^?]+)/, "http://www.youtube.com/$1$2");
+            //YouTube embeds
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0_9_-]+)([^?]+)/, "http://www.youtube.com/watch?v=$1");
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?vimeo\.com/, "http://vimeo.com");
 	    return url;
         }
