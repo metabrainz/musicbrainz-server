@@ -77,6 +77,9 @@
                 <a href="[% doc_link('Social_Contract') %]">[% l('Social Contract') %]</a>
             </li>
             <li>
+                <a href="[% doc_link('Code_of_Conduct') %]">[% l('Code of Conduct') %]</a>
+            </li>
+            <li>
                 <a href="[% doc_link('MusicBrainz_Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
             </li>
             <li class="separator">

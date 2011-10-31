@@ -15,6 +15,9 @@
     ELSE; url | uri_decode | html;
 END -%]
 [%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
+[%- MACRO make_lcfirst(text) BLOCK; text | lcfirst; END -%]
+[%- MACRO make_upper(text) BLOCK; text | upper; END -%]
+[%- MACRO make_lower(text) BLOCK; text | lower; END -%]
 [%- USE UserDate(c.user.preferences) -%]
 [%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]

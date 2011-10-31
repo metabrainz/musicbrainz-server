@@ -102,7 +102,7 @@
                             [
                             <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
                             <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
-                            <a href="http://[% wiki_server %]/[% page.id | uri %]">[% l('View on wiki') %]</a>
+                            <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
                             ]
                         </td>
                     </tr>
