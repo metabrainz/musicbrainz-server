@@ -32,9 +32,9 @@
                 <li>
                     <a href="[% c.uri_for_action('/user/tags', [ c.user.name ]) %]">[% l('My Tags') %]</a>
                 </li>
-               [% # Commenting watched artists out until implemented
+               [%# Commenting watched artists out until implemented
                # <li>
-               #     <a href="[% c.uri_for_action('/watch/list') %]">[% l('My Watched Artists') %]</a>
+               #     <a href="[%# c.uri_for_action('/watch/list') %]">[%# l('My Watched Artists') %]</a>
                # </li>
                %]
                 <li class="separator">
