@@ -1,4 +1,4 @@
-re<ul class="r">
+ <ul class="r">
     [%- IF c.user_exists -%]
         <li class="account">
             [% link_entity(c.user) %]
