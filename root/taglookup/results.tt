@@ -8,9 +8,15 @@
         [%- INCLUDE 'taglookup/form.tt' -%]
 
         [%- WRAPPER 'layout/guidelines.tt' -%]
+<<<<<<< HEAD
 
             [%- create_guideline(l('Search indexes are updated every 3 hours. If you just added the content you're looking for and you can't find it here, go to {url|the Search page} and select the \"Direct database search\" option.', {url => c.uri_for('/search')})) %]
 
+=======
+	
+            [%- create_guideline(l('Search indexes are updated every 3 hours. If you just added the content you're looking for and you can't find it here, go to {url|the Search page} and select the \"Direct database search\" option.', {url => c.uri_for('/search')})) %]
+	
+>>>>>>> fc7ef6e5ee9c437f7c86e720ca795e44cc758978
         [%- END -%]
     </div>
 [% END %]
