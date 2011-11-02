@@ -16,12 +16,6 @@
     ['collections', generic_link(c.uri_for_action("/user/collections", [ user.name ]), l('Collections'))],
 ] -%]
 
-[%- IF viewing_own_profile -%]
-[%- info_links.push (
-    ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation'))],
-) -%]
-[%- END -%]
-
 [%- info_links.push (
     ['tags', generic_link(c.uri_for_action("/user/tags", [ user.name ]), l('Tags'))],
     ['ratings', generic_link(c.uri_for_action("/user/ratings", [ user.name ]), l('Ratings'))],
@@ -32,6 +26,12 @@
 [%- IF c.user.is_account_admin -%]
 [%- info_links.push (
     ['edit_user', generic_link(c.uri_for_action("/admin/edit_user", user.name), l('Edit User'))],
+) -%]
+[%- END -%]
+
+[%- IF viewing_own_profile -%]
+[%- info_links.push (
+    ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation Check))],
 ) -%]
 [%- END -%]
 
