@@ -53,12 +53,12 @@
 
 [%# To be reactivated once this is implemented
  #   <fieldset>
- #       <legend>[%# l('Watch Artists') %]</legend>
- #       <p>[%# l('Notify me for new releases that have the following attributes:') %]</p>
- #       [%# form_row_select(w, 'type_id', l('Release Group Type:')) %]
- #       [%# form_row_select(w, 'status_id', l('Release Status:')) %]
+ #       <legend>[% l('Watch Artists') %]</legend>
+ #       <p>[% l('Notify me for new releases that have the following attributes:') %]</p>
+ #       [% form_row_select(w, 'type_id', l('Release Group Type:')) %]
+ #       [% form_row_select(w, 'status_id', l('Release Status:')) %]
  #
- #       [%# form_row_select(w, 'notification_timeframe', l('How far in advance would you like to be notified?')) %]
+ #       [% form_row_select(w, 'notification_timeframe', l('How far in advance would you like to be notified?')) %]
  #   </fieldset>
  %]
     <div class="no-label row">
