@@ -102,6 +102,7 @@
                             <td><span class="wiki-version">?</span></td>
                         [% END %]
 
+                        [% IF c.user.is_wiki_transcluder %]
                         <td class="c nowrap">
                             [
                             <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
@@ -109,6 +110,7 @@
                             <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
                             ]
                         </td>
+                        [% END %]
                     </tr>
                 [% END %]
             </tbody>
