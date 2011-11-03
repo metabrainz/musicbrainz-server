@@ -1,0 +1,28 @@
+[%- WRAPPER 'components/with-pager.tt' -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('URL') %]</th>
+            <th>[% l('Release') %]</th>
+            <th>[% l('Artist') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [%- lastgid = 0 -%]
+        [%- FOR item IN items -%]
+            [%- IF lastgid != item.url_gid -%]
+                <tr class="ev">
+                    <td colspan="3"><a href="[% c.uri_for_action('/url/show', [ item.url_gid ]) %]">[% item.url | html %]</a></td>
+                </tr>
+                [% lastgid = item.url_gid %]
+            [%- END -%]
+
+            <tr>
+                <td></td>
+                <td><a href="[% c.uri_for_action('/release/show', [ item.gid ]) %]">[% item.name | html %]</a></td>
+                <td>[% artist_credit(item.artist_credit) %]</td>
+            </tr>
+        [%- END -%]
+    </tbody>
+</table>
+[%- END -%]

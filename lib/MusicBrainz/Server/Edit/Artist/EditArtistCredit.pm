@@ -5,10 +5,12 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use Data::Compare;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
 );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
@@ -92,14 +94,20 @@ sub initialize {
     my ($self, %opts) = @_;
     my $old_ac = delete $opts{to_edit} or die 'Missing old artist credit object';
 
-    $self->data({
+    my $data = {
         new => {
             artist_credit => clean_submitted_artist_credits($opts{artist_credit})
         },
         old => {
             artist_credit => clean_submitted_artist_credits(artist_credit_to_ref($old_ac))
         }
-    });
+    };
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+          if Compare($data->{new}{artist_credit},
+                     $data->{old}{artist_credit});
+
+    $self->data($data);
 }
 
 sub accept {

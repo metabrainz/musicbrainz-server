@@ -1,19 +1,11 @@
 [% BLOCK layout_head %]
-   <script type="text/javascript">//<![CDATA[
-     $(document).ready (function () {
-        var checkbox = $('#id-ar\\.direction');
-        $('#changedirection').click (function (event) {
-             event.preventDefault ();
+  [% script_manifest('edit.js.manifest') %]
 
-             var newval = checkbox.val () === "1" ? "0" : "1";
-             checkbox.val (newval);
+  <script type="text/javascript">//<![CDATA[
+    $('document').ready (function () {
 
-             var entity0 = $('#entity0').html ();
-             var entity1 = $('#entity1').html ();
+        MB.Control.RelationshipEdit ();
 
-             $('#entity0').html (entity1);
-             $('#entity1').html (entity0);
-        });
      });
    //]]></script>
 [% END %]

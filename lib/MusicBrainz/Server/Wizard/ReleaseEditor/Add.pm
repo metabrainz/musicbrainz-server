@@ -2,7 +2,7 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Add;
 use Moose;
 use namespace::autoclean;
 
-use CGI::Expand qw( collapse_hash );
+use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_edit_ref hash_structure object_to_ids );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );

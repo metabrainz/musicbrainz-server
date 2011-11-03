@@ -72,5 +72,16 @@ MB.Control.RelationshipEdit = function () {
 
     $('#changedirection').bind ('click.mb', self.changeDirection);
 
+    // The user has submitted the form, and changed direction, but the form
+    // wasnt valid. In this case, we should swap the entities around again, to match
+    // the form state.
+    if (self.$direction.val() == 1) {
+        var entity0 = $('#entity0').children ().detach ();
+        var entity1 = $('#entity1').children ().detach ();
+
+        $('#entity0').append (entity1);
+        $('#entity1').append (entity0);
+    }
+
     return self;
 };

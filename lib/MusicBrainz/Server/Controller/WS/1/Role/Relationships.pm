@@ -28,6 +28,16 @@ sub load_relationships
     $c->model('ReleaseStatus')->load(@releases);
     $c->model('Language')->load(@releases);
     $c->model('Script')->load(@releases);
-}
+
+    # Load work-artist rels
+    if (grep { $_ eq 'artist' } @$types) {
+        $c->model('Relationship')->load_subset([ 'work' ], @entities);
+        $c->model('Relationship')->load_subset(
+            $types,
+            map { $_->target }
+                map { @{ $_->relationships_by_type('work') } }
+                    @entities);
+    }
+};
 
 1;

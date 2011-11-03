@@ -12,7 +12,7 @@
                content=html_escape(work.type.name)
                    IF work.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
-               content=html_escape(work.iswc)
+               content=rdfa_work_iswc(work)
                    IF work.iswc -%]
         [% END %]
         [% END %]

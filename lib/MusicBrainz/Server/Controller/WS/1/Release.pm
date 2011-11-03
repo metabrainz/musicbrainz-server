@@ -30,6 +30,7 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 use MusicBrainz::Server::Exceptions;
+use MusicBrainz::Server::Validation qw( is_valid_discid );
 use Try::Tiny;
 
 sub root : Chained('/') PathPart('ws/1/release') CaptureArgs(0) { }
@@ -39,6 +40,16 @@ around 'search' => sub
 {
     my $orig = shift;
     my ($self, $c) = @_;
+
+    if (my $disc_id = $c->req->query_params->{discid}) {
+        $self->bad_req($c, 'Invalid argument "discid": not a valid disc ID')
+            unless is_valid_discid($disc_id);
+    }
+
+    if (my $cdstubs = $c->req->query_params->{cdstubs}) {
+        $self->bad_req($c, 'Invalid argument "cdstubs": must be "yes" or "no"')
+            unless $cdstubs eq 'yes' || $cdstubs eq 'no';
+    }
 
     if ($c->form_posted) {
         $c->forward('submit_cdstub');
@@ -50,7 +61,7 @@ around 'search' => sub
             release_events => 1,
             tracks => 1
         );
-        
+
         $c->stash->{serializer}->add_namespace('ext', 'http://musicbrainz.org/ns/ext-1.0#');
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
 
@@ -211,6 +222,8 @@ sub submit_cdstub : Private
     my $toc = $c->req->params->{toc};
     my $client = $c->req->query_params->{client} or
         $self->bad_req($c, 'Missing mandatory client query parameter');
+
+    $self->bad_req($c, 'Invalid argument: "client"') unless !ref($client);
 
     my @tracks;
     for (0..98) {

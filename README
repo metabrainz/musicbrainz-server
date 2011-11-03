@@ -1,12 +1,15 @@
 The MusicBrainz Server README
 =============================
 
-The MusicBrainz Server (musicbrainz-server) is the web frontend to the
-MusicBrainz Database, and is accessible at http://musicbrainz.org.
+The MusicBrainz Server is the web frontend to the MusicBrainz Database,
+and is accessible at http://musicbrainz.org.
 
 MusicBrainz is a user-maintained open community that collects, and makes
 available to the public, music metadata in the form of a relational database.
 For more information see http://musicbrainz.org/doc/About_MusicBrainz.
+
+The latest release notes can be found at
+http://musicbrainz.org/doc/Server_Release_Notes/20110516
 
 More information
 * http://musicbrainz.org/doc/MusicBrainz_Server

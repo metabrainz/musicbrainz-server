@@ -19,11 +19,12 @@ Disallow: /recording/
 Disallow: /release/
 Disallow: /release-group/
 Disallow: /report/
-Disallow: /search/
+Disallow: /reports
+Disallow: /search
 Disallow: /statistics/
 Disallow: /tag/
 Disallow: /tags/
-Disallow: /taglookup/
+Disallow: /taglookup
 Disallow: /test/
 Disallow: /tracklist/
 Disallow: /unit_tests/

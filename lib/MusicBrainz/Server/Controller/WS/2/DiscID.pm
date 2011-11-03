@@ -30,6 +30,16 @@ sub discid : Chained('root') PathPart('discid') Args(1)
         $c->detach('bad_req');
     }
 
+    if (my $cdstubs = $c->req->query_params->{cdstubs}) {
+        $self->bad_req($c, 'Invalid argument "cdstubs": must be "yes" or "no"')
+            unless $cdstubs eq 'yes' || $cdstubs eq 'no';
+    }
+
+    if (my $toc = $c->req->query_params->{toc}) {
+        $self->bad_req($c, 'Invalid argument "toc"')
+            if ref($toc);
+    }
+
     $c->stash->{inc}->media (1);
     $c->stash->{inc}->discids (1);
 
