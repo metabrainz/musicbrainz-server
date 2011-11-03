@@ -61,31 +61,17 @@ is($rel->link->end_date->year, 1995, "... end year 1995");
 is($rel->entity0_id, 1, '... entity 0 is artist 1');
 is($rel->entity1_id, 3, '... entity 1 is artist 3');
 
-# test change direction
-$rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-ok(defined $rel, "Before accepting the edit...");
-is($rel->entity0_id, 1, "... entity0 is artist 1");
-is($rel->entity1_id, 3, "... entity1 is artist 3");
-
-$edit = _create_edit_change_direction ($c);
-accept_edit($c, $edit);
-
-$rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
-ok(defined $rel, "After accepting the edit...");
-is($rel->entity0_id, 3, "... entity0 is now artist 3");
-is($rel->entity1_id, 1, "... entity1 is now artist 1");
-
 $c->sql->do('TRUNCATE artist CASCADE');
 $c->sql->do('TRUNCATE link_type CASCADE');
 $c->model('Edit')->load_all($edit);
 
 ok(defined $edit->display_data->{old});
 is($edit->display_data->{old}->entity0->name, 'Artist 1');
-is($edit->display_data->{old}->entity1->name, 'Artist 3');
-is($edit->display_data->{old}->phrase, 'support');
-is($edit->display_data->{new}->entity0->name, 'Artist 3');
-is($edit->display_data->{new}->entity1->name, 'Artist 1');
-is($edit->display_data->{new}->phrase, 'member');
+is($edit->display_data->{old}->entity1->name, 'Artist 2');
+is($edit->display_data->{old}->phrase, 'member');
+is($edit->display_data->{new}->entity0->name, 'Artist 1');
+is($edit->display_data->{new}->entity1->name, 'Artist 3');
+is($edit->display_data->{new}->phrase, 'support');
 
 };
 
@@ -101,6 +87,20 @@ test 'Editing a relationship more than once fails subsequent edits' => sub {
     accept_edit($c, $edit_1);
 
     isa_ok exception { $edit_2->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+test 'Editing a relationship fails if the relationship has been deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit_1 = _create_edit($c);
+
+    $c->model('Relationship')->delete('artist', 'artist', 1);
+
+    isa_ok exception { $edit_1->accept },
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 

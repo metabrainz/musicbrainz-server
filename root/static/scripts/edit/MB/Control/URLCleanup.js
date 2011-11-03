@@ -150,7 +150,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: new RegExp("^(https?://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn)","i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)","i"),
         type: MB.constants.LINK_TYPES.amazon,
         clean: function(url) {
             // determine tld, asin from url, and build standard format [1],
@@ -163,7 +163,7 @@ MB.constants.CLEANUPS = {
             if ((m = url.match(/amazon\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
             }
-            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&#]|$)/)) != null) {
+            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) {
                 asin = m[1];
             }
             if (tld != "" && asin != "") {
@@ -216,7 +216,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com|lyricstatus\.com)", "i"),
         type: MB.constants.LINK_TYPES.lyrics
     },
     bbcmusic: {

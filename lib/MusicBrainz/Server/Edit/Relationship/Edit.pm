@@ -244,7 +244,6 @@ sub initialize
     my $relationship = delete $opts{relationship};
     my $type0 = delete $opts{type0};
     my $type1 = delete $opts{type1};
-    my $change_direction = delete $opts{change_direction};
 
     unless ($relationship->entity0 && $relationship->entity1) {
         $self->c->model('Relationship')->load_entities($relationship);
@@ -267,22 +266,6 @@ sub initialize
         reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
         short_link_phrase => $opts{link_type}->short_link_phrase
     } if $opts{link_type};
-
-    if ($change_direction)
-    {
-        croak ("Cannot change direction unless both endpoints are the same type")
-            if ($type0 ne $type1);
-
-        $opts{entity0} ||= {
-            id => $relationship->entity0_id,
-            name => $relationship->entity0->name
-        };
-        $opts{entity1} ||= {
-            id => $relationship->entity1_id,
-            name => $relationship->entity1->name
-        };
-        ($opts{entity0}, $opts{entity1}) = ($opts{entity1}, $opts{entity0});
-    }
 
     my $link = $relationship->link;
 
@@ -325,6 +308,10 @@ sub accept
         $data->{type0}, $data->{type1},
         $data->{relationship_id}
     );
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This relationship has already been deleted'
+    ) if !$relationship;
 
     $self->c->model('Link')->load($relationship);
 

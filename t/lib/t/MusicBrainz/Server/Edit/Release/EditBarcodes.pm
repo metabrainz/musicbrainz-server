@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Edit::Release::EditBarcodes;
+use Test::Deep qw( cmp_set );
 use Test::Routine;
 use Test::More;
 
@@ -22,6 +23,18 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditBarcodes');
 my ($edits) = $c->model('Edit')->find({ release => [1, 2] }, 10, 0);
 is(@$edits, 1);
 is($edits->[0]->id, $edit->id);
+
+cmp_set($edit->related_entities->{artist},
+        [ 1 ],
+        'is related to the release artists');
+
+cmp_set($edit->related_entities->{release},
+        [ 1, 2 ],
+        'is related to the releases');
+
+cmp_set($edit->related_entities->{release_group},
+        [ 1 ],
+        'is related to the release groups');
 
 my $r1 = $c->model('Release')->get_by_id(1);
 my $r2 = $c->model('Release')->get_by_id(2);

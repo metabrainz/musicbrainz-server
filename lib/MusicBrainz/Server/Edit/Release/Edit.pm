@@ -74,6 +74,11 @@ around _build_related_entities => sub {
         push @{ $related->{artist} }, keys(%new), keys(%old);
     }
 
+    if ($self->data->{new}{release_group_id}) {
+        push @{ $related->{release_group} },
+            map { $self->data->{$_}{release_group_id} } qw( old new )
+    }
+
     return $related;
 };
 

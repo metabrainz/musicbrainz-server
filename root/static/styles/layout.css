@@ -400,6 +400,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/facebook-16.png");
 }
 
+#sidebar ul.external_links li.lastfm {
+    background-image: url("/static/images/favicons/lastfm-16.png");
+}
+
 #sidebar ul.external_links li.myspace {
     background-image: url("../images/favicons/myspace-16.png");
 }
@@ -772,3 +776,9 @@ div.columns-5 div.column {
 
 .nagpanel .naglinkpanel { text-align: center; }
 .nagpanel .naglink { font-size: 200%; }
+
+p.cleanup {
+    text-align: center;
+    background: #FD9 !important;
+    padding: 1em;
+}

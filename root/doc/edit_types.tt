@@ -2,6 +2,7 @@
     <div id="content" class="wikicontent">
         <h1>[%- l('Edit Types') -%]</h1>
           [% FOR category=by_category.pairs %]
+            [% NEXT IF category.key == 'Historic' %]
             <h2>[% category.key %]</h2>
               <ul>
                 [% FOR edit_type=category.value %]
@@ -14,5 +15,18 @@
                 [% END %]
               </ul>
           [% END %]
+
+          [% category = by_category.Historic %]
+          <h2>Historic</h2>
+            <ul>
+              [% FOR edit_type IN category %]
+                [% USE class = Class(edit_type) %]
+                <li>
+                  <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
+                    [% class.edit_name %]
+                  </a>
+                </li>
+              [% END %]
+            </ul>
     </div>
 [% END %]

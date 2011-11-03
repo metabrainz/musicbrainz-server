@@ -233,6 +233,46 @@ is_xml_same($mech->content, q{<?xml version="1.0"?>
   <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
 </error>});
 
+ws_test 'artist lookup with works (using l_artist_work)',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+    <name>Distance</name><sort-name>Distance</sort-name>
+    <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+    <work-list count="1">
+    <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8"><title>Asseswaving</title></work>
+    </work-list>
+  </artist>
+</metadata>';
+
+ws_test 'artist lookup with works (using l_recording_work)',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+    <name>BoA</name><sort-name>BoA</sort-name>
+    <life-span><begin>1986-11-05</begin></life-span>
+    <work-list count="15">
+      <work id="286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b"><title>Easy To Be Hard</title></work>
+      <work id="2d967c29-63dc-309d-bbc1-a2d38639aaa1"><title>心の手紙</title></work>
+      <work id="303f9bd2-152f-3145-9e09-afa34edb6a57"><title>DOUBLE</title></work>
+      <work id="46724ef1-241e-3d7f-9f3b-e51ba34e2aa1"><title>the Love Bug</title></work>
+      <work id="4b6a46c2-a904-3471-9bff-3942d4549f47"><title>SOME DAY ONE DAY )</title></work>
+      <work id="50c07b24-7ee2-31ac-ab87-f0d399011c71"><title>Milky Way 〜君の歌〜</title></work>
+      <work id="511f5124-c0ae-3386-bb76-4b6521498a68"><title>Milky Way-君の歌-</title></work>
+      <work id="53d1fbac-e60a-38cb-85ff-e5a9224c9749"><title>Be the one</title></work>
+      <work id="61ab56f0-e803-3aef-a91b-63564b7a8043"><title>Rock With You</title></work>
+      <work id="6f08d5a8-1811-3e5e-848b-35ffa77babe5"><title>Midnight Parade</title></work>
+      <work id="7981d409-8e76-33df-be27-ef625d81c501"><title>Shine We Are!</title></work>
+      <work id="7e78f281-52b4-315b-9d7b-6d215732f3d7"><title>EXPECT</title></work>
+      <work id="cd86f9e2-83ce-3192-a817-fe6c98079303"><title>Song With No Name～名前のない歌～</title></work>
+      <work id="d2f1ea1f-de2e-3d0c-b534-e96377912478"><title>OVER～across the time～</title></work>
+      <work id="f23ae726-0300-3830-b1ca-634f4362f78c"><title>LOVE &amp; HONESTY</title></work>
+    </work-list>
+  </artist>
+</metadata>';
+
 };
 
 1;

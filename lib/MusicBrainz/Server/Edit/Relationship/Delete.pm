@@ -201,7 +201,7 @@ sub accept
         $self->data->{relationship}{link}{type}{entity0_type},
         $self->data->{relationship}{link}{type}{entity1_type},
         $self->data->{relationship}{id}
-    );
+    ) or return;
 
     $self->c->model('Relationship')->delete(
         $self->data->{relationship}{link}{type}{entity0_type},

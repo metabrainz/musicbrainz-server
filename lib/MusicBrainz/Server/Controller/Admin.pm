@@ -11,7 +11,7 @@ sub index : Path Args(0) RequireAuth
         unless $c->user->is_admin;
 }
 
-sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth(account_admin) HiddenOnSlaves
+sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth(account_admin) HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
 
@@ -30,20 +30,52 @@ sub adjust_flags : Path('/admin/user/adjust-flags') Args(1) RequireAuth(account_
         },
     );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
-        # When an admin views their own flags page the account admin checkbox will be disabled,
-        # thus we need to manually insert a value here to keep the admin's privileges intact.
-        $form->values->{account_admin} = 1 if ($c->user->id == $user->id);
+    my $form2 = $c->form(
+        form => 'User::EditProfile',
+        item => {
+			email			=> $user->email,
+			website			=> $user->website,
+			biography		=> $user->biography
+        },
+    );
 
-        $c->model('Editor')->update_privileges($user, $form->values);
+    if ($c->form_posted) {
+		if ($form->submitted_and_valid ($c->req->params )) {
+			# When an admin views their own flags page the account admin checkbox will be disabled,
+			# thus we need to manually insert a value here to keep the admin's privileges intact.
+			$form->values->{account_admin} = 1 if ($c->user->id == $user->id);
+	        $c->model('Editor')->update_privileges($user, $form->values);
+		}
 
-        $c->response->redirect($c->uri_for_action('/user/adjustflags/view', [ $user->name ]));
+		if ($form2->submitted_and_valid ($c->req->params )) {
+			$c->model('Editor')->update_profile(
+				$user,
+				$form2->field('website')->value,
+				$form2->field('biography')->value
+			);
+
+			my %args = ( ok => 1 );
+			my $old_email = $user->email || '';
+			my $new_email = $form2->field('email')->value || '';
+			if ($old_email ne $new_email) {
+				if ($new_email) {
+					$c->controller('Account')->_send_confirmation_email($c, $user, $new_email);
+					$args{email} = $new_email;
+				}
+				else {
+					$c->model('Editor')->update_email($user, undef);
+				}
+			}
+		}
+
+        $c->response->redirect($c->uri_for_action('/admin/edit_user', $user->name));
         $c->detach;
     }
 
     $c->stash(
         user => $user,
         form => $form,
+        form2 => $form2,
         show_flags => 1,
     );
 }
@@ -74,6 +106,7 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth HiddenOnSlaves 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2011 Pavan Chander
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

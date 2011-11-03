@@ -19,10 +19,13 @@
         </tr>
     </thead>
     <tbody>
-        [%- FOR medium_cdtoc IN medium_cdtocs -%]
-        [%- medium=medium_cdtoc.medium -%]
-        [%- release=medium.release -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+      [%- FOR medium_cdtoc IN medium_cdtocs -%]
+        [% medium=medium_cdtoc.medium;
+           release=medium.release;
+           classes = [];
+           classes.push('ev') IF loop.count % 2 == 0;
+           classes.push('mp') IF medium_cdtoc.edits_pending > 0; %]
+        <tr class="[% classes.join(' ') %]">
             <td>[% medium.position %]/[% release.medium_count %]</td>
             <td>[% medium.format_name or "-" %]</td>
             <td>[% link_entity(release) %]</td>

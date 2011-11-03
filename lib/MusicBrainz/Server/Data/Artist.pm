@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     partial_date_from_row
     placeholders
     query_to_list_limited
@@ -100,7 +101,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(sort_name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -264,6 +265,15 @@ sub merge
         )
     );
 
+    merge_partial_date(
+        $self->sql => (
+            table => 'artist',
+            field => $_,
+            old_ids => $old_ids,
+            new_id => $new_id
+        )
+    ) for qw( begin_date end_date );
+
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
 }
@@ -330,6 +340,58 @@ sub load_for_artist_credits {
         grep { $_->artist_id } $ac->all_names;
     }
 };
+
+sub is_empty {
+    my ($self, $artist_id) = @_;
+
+    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+        SELECT TRUE
+        FROM artist artist_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM artist_credit_name
+            WHERE artist = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_recording
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_work
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_url
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_artist
+            WHERE entity0 = artist_row.id OR entity1 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_label
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_release
+            WHERE entity0 = artist_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_release_group WHERE entity0 = artist_row.id
+            LIMIT 1
+          )
+        )
+EOSQL
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
+with 'MusicBrainz::Server::Controller::Role::Cleanup';
 
 use Data::Page;
 use HTTP::Status qw( :constants );

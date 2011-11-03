@@ -78,10 +78,13 @@ sub serialize
         }));
     }
     elsif ($opts && $opts->{track_map}) {
-        my $track = $opts->{track_map}->{$entity->id};
+        # FIXME This is fairly hackish
+        # $entity->{track_offset} breaks encapsulation. It is defined in
+        # Recording.pm
+        my $offset = $entity->{track_offset};
         push @body, ( $self->gen->$tracklist({
-            offset => $track->position - 1
-        })) if $track;
+            offset => $offset
+        })) if defined($offset);
     }
 
     if ($inc && $inc->tracks) {

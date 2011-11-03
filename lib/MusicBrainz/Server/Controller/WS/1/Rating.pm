@@ -24,6 +24,8 @@ our Readonly $MIN_RATING_VALUE = 0;
 our Readonly $MAX_RATING_VALUE = 5;
 our Readonly $MAX_RATINGS_PER_REQUEST = 20;
 
+use MusicBrainz::Server::Validation qw( is_guid );
+
 sub rating : Path('/ws/1/rating')
 {
     my ($self, $c) = @_;
@@ -86,6 +88,9 @@ sub rating : Path('/ws/1/rating')
     }
     else {
         my ($id, $type)      = ($c->req->query_params->{id}, $c->req->query_params->{entity});
+        $self->bad_req($c, 'Invalid argument "id": not a valid MBID') unless is_guid($id);
+        $self->bad_req($c, 'Invalid argument "entity": not a valid entity type') if ref($type);
+
         my ($model, $entity) = $self->load($c, $type, $id);
 
         $model->rating->load_user_ratings($c->user->id, $entity);

@@ -35,6 +35,13 @@ sub xml_search
 
     if (defined $args->{query} && $args->{query} ne "")
     {
+        if (ref($args->{query})) {
+            return {
+                error => "Must specify at most 1 query argument",
+                code  => HTTP_BAD_REQUEST
+            };
+        }
+
         $query = $args->{query};
     }
     elsif ($resource eq 'artist')

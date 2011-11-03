@@ -132,7 +132,7 @@ memory_cycle_ok(\@tags);
 is( scalar(@tags), 2 );
 my %tags = map { $_ => 1 } @tags;
 ok( exists $tags{'world music'} );
-ok( exists $tags{'jazz'} );
+ok( exists $tags{'jazz!@'} );
 memory_cycle_ok($tag_data);
 memory_cycle_ok(\@tags);
 

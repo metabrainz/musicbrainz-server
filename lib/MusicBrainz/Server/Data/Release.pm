@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     order_by
     partial_date_from_row
     placeholders
@@ -201,9 +202,14 @@ sub find_by_release_group
 
 sub find_by_track_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+
+    my $where_statuses = _where_status_in (@$statuses);
+    my ($join_types, $where_types) = _where_type_in (@$types);
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
+                 $join_types
                  WHERE release.id IN (
                      SELECT release FROM medium
                          JOIN track tr
@@ -216,11 +222,13 @@ sub find_by_track_artist
                        JOIN artist_credit_name acn
                          ON release.artist_credit = acn.artist_credit
                       WHERE acn.artist = ?)
+                 $where_statuses
+                 $where_types
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $artist_id, $offset || 0);
+        $query, $artist_id, $artist_id, @$statuses, @$types, $offset || 0);
 }
 
 sub find_for_various_artists
@@ -583,7 +591,7 @@ sub can_merge {
                  FROM changes
                  JOIN medium changed_m ON changed_m.id = changes.id
                  JOIN medium all_m ON all_m.release = changed_m.release
-                 WHERE all_m.id != changes.id
+                 WHERE all_m.id not in (select id from changes)
                )
              ) s
              GROUP BY position
@@ -617,6 +625,15 @@ sub merge
         $self->sql => (
             table => 'release',
             columns => [ qw( status packaging country comment barcode script language ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
+    merge_partial_date(
+        $self->sql => (
+            table => 'release',
+            field => 'date',
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -771,7 +788,7 @@ sub find_similar
     $self->c->model('ArtistCredit')->load(@releases);
 
     my %artist_ids = map { $_->{artist}->{id} => 1 }
-        grep { ref($_) } @{ $artist_credit->{names} };
+        grep { $_->{artist}->{id} } grep { ref($_) } @{ $artist_credit->{names} };
 
     return
         # Make sure all the artists are in the artist credit

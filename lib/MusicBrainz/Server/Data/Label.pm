@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_partial_date
     partial_date_from_row
     placeholders
     query_to_list
@@ -98,7 +99,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(name.name), label.id
+                 ORDER BY musicbrainz_collate(sort_name.name), label.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -233,6 +234,15 @@ sub _merge_impl
             new_id => $new_id
         )
     );
+
+    merge_partial_date(
+        $self->sql => (
+            table => 'label',
+            field => $_,
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    ) for qw( begin_date end_date );
 
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
     return 1;

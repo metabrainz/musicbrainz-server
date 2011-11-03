@@ -93,6 +93,32 @@ test 'Replace artist credit' => sub {
     is((grep { $_->artist_credit_id == 1 } @ents), 0, 'nothing refers to artist credit 1');
 };
 
+test 'Replace artist credit identity' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+decompose');
+
+    $c->model('ArtistCredit')->replace(
+        { names => [
+            {
+                artist => { id => 5, name => 'Bob & Tom' },
+                name => 'Bob & Tom',
+                join_phrase => undef
+            }
+        ] },
+        { names => [
+            {
+                artist => { id => 5, name => 'Bob & Tom' },
+                name => 'Bob & Tom',
+                join_phrase => undef
+            }
+        ] }
+    );
+
+    is($c->model('ArtistCredit')->get_by_id(1)->artist_count, 1,
+       'artist credit still exists');
+};
+
 test all => sub {
 
 my $test = shift;

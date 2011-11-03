@@ -11,6 +11,15 @@
 [%- WRAPPER "artist/layout.tt" page='index' -%]
     [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
 
+    [% IF eligble_for_cleanup %]
+      <p class="cleanup">
+          [% l('This artist has no relationships, recordings, releases or
+                release groups, and will be removed automatically in the next
+                few days. If this is not intended, please add more data to this
+                artist.') %]
+      </p>
+    [% END %]
+
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
             <form action="[% c.uri_for_action('/release_group/merge_queue') %]"
