@@ -61,7 +61,7 @@ sub get_by_id
 sub get_by_id_locked
 {
     my ($self, $id) = @_;
-    my @result = values %{$self->_get_by_keys2($self->_id_column, 'FOR UPDATE', $id)};
+    my @result = values %{$self->_get_by_keys_append_sql($self->_id_column, 'FOR UPDATE', $id)};
     return $result[0];
 }
 

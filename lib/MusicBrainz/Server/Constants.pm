@@ -24,12 +24,11 @@ our %EXPORT_TAGS = (
     annotation    => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
     historic      => _get(qr/^EDIT_HISTORIC/),
     editor        => _get(qr/^EDITOR_/),
-    election_vote => _get(qr/^ELECTION_VOTE_/),
 );
 
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION_VOTE)_/) },
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -50,10 +49,6 @@ Readonly our $QUALITY_UNKNOWN_MAPPED => 1;
 Readonly our $QUALITY_LOW            => 0;
 Readonly our $QUALITY_NORMAL         => 1;
 Readonly our $QUALITY_HIGH           => 2;
-
-Readonly our $ELECTION_VOTE_NO      => -1;
-Readonly our $ELECTION_VOTE_ABSTAIN => 0;
-Readonly our $ELECTION_VOTE_YES     => 1;
 
 Readonly our $EDIT_ARTIST_CREATE => 1;
 Readonly our $EDIT_ARTIST_EDIT => 2;

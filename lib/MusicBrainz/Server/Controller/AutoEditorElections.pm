@@ -7,7 +7,8 @@ use TryCatch;
 __PACKAGE__->config( namespace => 'elections' );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'AutoEditorElection'
+    model => 'AutoEditorElection',
+    entity_name => 'election',
 };
 
 sub index : Path('')

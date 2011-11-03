@@ -1,25 +1,12 @@
-package MusicBrainz::Server::Email::AutoEditorElection;
-use Moose;
-use namespace::autoclean;
+package MusicBrainz::Server::Form::Submit;
 
-use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Data::AutoEditorElection;
+use HTML::FormHandler::Moose;
 
-has 'election' => (
-    isa => 'AutoEditorElection',
-    required => 1,
-    is => 'ro',
-);
+extends 'MusicBrainz::Server::Form';
 
-with 'MusicBrainz::Server::Email::Role';
+has '+name' => ( default => 'confirm' );
 
-#sub to { 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>' }
-sub to { 'lalinsky@gmail.com' }
-
-sub subject {
-    my $self = shift;
-    return 'Autoeditor Election: ' . $self->election->candidate->name;
-}
+has_field 'submit' => ( type => 'Submit' );
 
 1;
 
