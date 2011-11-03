@@ -5,16 +5,13 @@ use Readonly;
 use MusicBrainz::Server::Entity::AutoEditorElection;
 use MusicBrainz::Server::Entity::AutoEditorElectionVote;
 use MusicBrainz::Server::Data::Utils qw( hash_to_row query_to_list );
+use MusicBrainz::Server::Constants qw( :election_vote );
 use MusicBrainz::Server::Types qw( :election_status );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly our $PROPOSAL_TIMEOUT => '1 week';
 Readonly our $VOTING_TIMEOUT   => '1 week';
-
-Readonly our $VOTE_NO      => -1;
-Readonly our $VOTE_ABSTAIN => 0;
-Readonly our $VOTE_YES     => 1;
 
 sub _table
 {
@@ -187,11 +184,11 @@ sub vote
         );
 
         if (defined $old_vote) {
-            $update{yes_votes}-- if $old_vote->{vote} == $VOTE_YES;
-            $update{no_votes}-- if $old_vote->{vote} == $VOTE_NO;
+            $update{yes_votes}-- if $old_vote->{vote} == $ELECTION_VOTE_YES;
+            $update{no_votes}-- if $old_vote->{vote} == $ELECTION_VOTE_NO;
         }
-        $update{yes_votes}++ if $vote == $VOTE_YES;
-        $update{no_votes}++ if $vote == $VOTE_NO;
+        $update{yes_votes}++ if $vote == $ELECTION_VOTE_YES;
+        $update{no_votes}++ if $vote == $ELECTION_VOTE_NO;
 
         if (%update) {
             $self->sql->update_row($self->_table, \%update, { id => $election->id });

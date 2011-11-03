@@ -27,10 +27,10 @@ sub _attribute_mapping
 sub _get_by_keys
 {
     my ($self, $key, @ids) = @_;
-    return $self->_get_by_keys2($key, '', @ids);
+    return $self->_get_by_keys_append_sql($key, '', @ids);
 }
 
-sub _get_by_keys2
+sub _get_by_keys_append_sql
 {
     my ($self, $key, $extra_sql, @ids) = @_;
     @ids = grep { defined && $_ } @ids;
