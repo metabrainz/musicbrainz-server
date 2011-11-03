@@ -10,7 +10,7 @@
         [%- WRAPPER 'layout/guidelines.tt' -%]
 <<<<<<< HEAD
 
-            [%- create_guideline(l('Search indexes are updated every 3 hours. If you just added the content you're looking for and you can't find it here, go to {url|the Search page} and select the \"Direct database search\" option.', {url => c.uri_for('/search')})) %]
+            [%- create_guideline(l('Search indexes are updated every 3 hours. If you just added the content you're looking for and you can't find it here, go to {url|the search page} and select the \"direct database search\" option.', {url => c.uri_for('/search')})) %]
 
 =======
 	
