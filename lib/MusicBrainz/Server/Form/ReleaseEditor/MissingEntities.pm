@@ -42,7 +42,7 @@ sub validate {
 
     for my $type (@types) {
 
-        my @comment_required;
+        my @new_entities;
 
         for my $field ($self->field('missing')->field($type)->fields) {
             next if $field->has_errors;
@@ -51,14 +51,13 @@ sub validate {
             $field->field('sort_name')->required(1);
             $field->field('sort_name')->validate_field;
 
-            push @comment_required, $field;
-
+            push @new_entities, $field;
         }
 
         my %entities = $self->ctx->model(type_to_model($type))
-            ->find_by_names(map { $_->field('name')->input } @comment_required);
+            ->find_by_names(map { $_->field('name')->input } @new_entities);
 
-        for my $field (@comment_required)
+        for my $field (@new_entities)
         {
             if (exists $entities{$field->field('name')->input})
             {
