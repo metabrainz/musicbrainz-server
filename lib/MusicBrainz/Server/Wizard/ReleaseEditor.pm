@@ -15,7 +15,7 @@ use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
 use Text::Trim qw( trim );
-use TryCatch;
+use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
@@ -1233,7 +1233,7 @@ sub _create_edit {
        push @{ $self->c->stash->{edits} }, $edit;
        return $edit;
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) { }
+    catch { };
 }
 
 
