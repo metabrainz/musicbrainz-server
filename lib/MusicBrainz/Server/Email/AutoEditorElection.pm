@@ -13,8 +13,7 @@ has 'election' => (
 
 with 'MusicBrainz::Server::Email::Role';
 
-#sub to { 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>' }
-sub to { 'lalinsky@gmail.com' }
+sub to { 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>' }
 
 sub subject {
     my $self = shift;
