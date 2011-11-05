@@ -14,7 +14,6 @@ use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
-use Text::Unaccent qw( unac_string_utf16 );
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
@@ -36,7 +35,6 @@ our @EXPORT_OK = qw(
     merge_table_attributes
     merge_partial_date
     model_to_type
-    musicbrainz_unaccent
     object_to_ids
     order_by
     partial_date_from_row
@@ -350,20 +348,6 @@ sub model_to_type
 {
     my %map = reverse %TYPE_TO_MODEL;
     return $map{$_[0]} || undef;
-}
-
-=function musicbrainz_unaccent
-
-This function removes accents from the input string, it should match
-the postgresql-musicbrainz-unaccent function we use in postgresql.
-
-=cut
-
-sub musicbrainz_unaccent
-{
-    my $str = shift // '';
-
-    return decode("utf-16", unac_string_utf16 (encode("utf-16", $str)));
 }
 
 sub object_to_ids

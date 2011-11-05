@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited musicbrainz_unaccent );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';

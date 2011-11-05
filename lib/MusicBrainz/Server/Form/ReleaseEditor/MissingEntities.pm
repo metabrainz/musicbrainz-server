@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::ReleaseEditor::MissingEntities;
 use HTML::FormHandler::Moose;
 
-use MusicBrainz::Server::Data::Utils qw( type_to_model musicbrainz_unaccent );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 extends 'MusicBrainz::Server::Form::Step';
 has_field 'missing' => ( type => 'Compound' );
@@ -60,8 +60,7 @@ sub validate {
 
         for my $field (@comment_required)
         {
-            my $key = musicbrainz_unaccent(lc($field->field('name')->input));
-            if (exists $entities{$key})
+            if (exists $entities{$field->field('name')->input})
             {
                 $field->field('comment')->required(1);
                 $field->field('comment')->validate_field;
