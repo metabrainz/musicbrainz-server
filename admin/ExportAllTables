@@ -74,6 +74,8 @@ my @tables = qw(
     artist_name
     artist_tag
     artist_type
+    autoeditor_election
+    autoeditor_election_vote
     cdtoc
     clientversion
     country
@@ -324,6 +326,8 @@ my @group_closedmoderation = qw(
 my @group_private = qw(
     artist_rating_raw
     artist_tag_raw
+    autoeditor_election
+    autoeditor_election_vote
     editor
     editor_collection
     editor_collection_release
