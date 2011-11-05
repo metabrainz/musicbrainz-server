@@ -76,22 +76,24 @@ sub find_by_names
 
     return () unless scalar @names;
 
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table
-        . " WHERE musicbrainz_unaccent(lower(name.name)) IN ("
-        . join (",", ("musicbrainz_unaccent(lower(?))") x scalar(@names))
-        .")";
+    my $query = "SELECT " . $self->_columns . ", search_terms.term "
+        ."FROM " . $self->_table
+        . ", (VALUES "
+        .     join (",", ("(?)") x scalar(@names))
+        .    ") search_terms (term)"
+        ." WHERE musicbrainz_unaccent(lower(name.name)) = "
+        ." musicbrainz_unaccent(lower(search_terms.term));";
 
-    my @results = query_to_list($self->c->sql, sub {
-        $self->_new_from_row (shift); }, $query, @names);
+    my $results = $self->c->sql->select_list_of_hashes ($query, @names);
 
     my %mapped;
-    for my $entity (@results)
+    for my $row (@$results)
     {
-        my $key = musicbrainz_unaccent(lc($entity->name));
+        my $key = delete $row->{term};
 
         $mapped{$key} //= [];
 
-        push @{ $mapped{$key} }, $entity;
+        push @{ $mapped{$key} }, $self->_new_from_row ($row);
     }
 
     return %mapped;
