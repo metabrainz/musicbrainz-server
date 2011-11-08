@@ -275,7 +275,7 @@ MB.constants.CLEANUPS = {
             //YouTube URL shortener
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtu\.be\/([a-zA-Z0_9_-]+)/, "http://www.youtube.com/watch?v=$2");
             //YouTube standard watch URL
-            url = url.replace(/^http:\/\/www\.youtube\.com\/(?:[^?]*)(v=[a-zA-Z0-9_-]+)(?:[^?]*)/, "http://www.youtube.com/watch?$2");
+            url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "http://www.youtube.com/watch?$1");
             //YouTube embeds
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0_9_-]+)([^?]+)/, "http://www.youtube.com/watch?v=$2");
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?vimeo\.com/, "http://vimeo.com");
