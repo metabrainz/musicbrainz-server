@@ -1,17 +1,18 @@
-[% WRAPPER "user/profile/layout.tt" title=l('Adjust User Account Flags') page='flags' %]
+[% WRAPPER "user/profile/layout.tt" title=l('Adjust User Account Flags') page='edit_user' %]
     [%- USE r = FormRenderer(form) -%]
+    [%- USE t = FormRenderer(form2) -%]
     <form action="[% c.req.uri %]" method="post">
         <h2>[%- l('User permissions') -%]</h2>
         [% form_row_checkbox(r, 'auto_editor', l('Auto-editor')) %]
         [% form_row_checkbox(r, 'wiki_transcluder', l('Transclusion editor')) %]
         [% form_row_checkbox(r, 'link_editor', l('Relationship editor')) %]
 
-        <h2>[%- l('Technical') -%]</h2>
+        <h2>[%- l('Technical flags') -%]</h2>
         [% form_row_checkbox(r, 'bot', l('Bot')) %]
         [% form_row_checkbox(r, 'untrusted', l('Untrusted')) %]
         [% form_row_checkbox(r, 'no_nag', l('No nag')) %]
 
-        <h2>[%- l('Administration') -%]</h2>
+        <h2>[%- l('Administration flags') -%]</h2>
         [% form_row_checkbox(r, 'mbid_submitter', l('<abbr title="MusicBrainz Identifier">MBID</abbr> submitter')) %]
 
         [% IF c.user.id == user.id %]
@@ -26,8 +27,19 @@
             [% form_row_checkbox(r, 'account_admin', l('Account admin')) %]
         [% END %]
 
+	<h2>[%- l('Edit profile') -%]</h2>
+	[% form_row_text_long(t, 'email', l('Email:')) %]
+	[% form_row_text_long(t, 'website', l('Website:')) %]
+	[% WRAPPER form_row %]
+	    [% t.label('biography', l('Bio:')) %]
+	    [% t.textarea('biography', { cols => 80, rows => 5 }) %]
+	    [% field_errors(form2, 'biography') %]
+	[% END %]
+
         <div class="row no-label">
-            [% form_submit(l('Update Flags')) %]
+            [% form_submit(l('Edit user')) %]
         </div>
     </form>
+
+
 [%- END -%]

@@ -13,6 +13,12 @@ use DBDefs;
 use Try::Tiny;
 
 use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
+use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
+use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
+use MusicBrainz::Server::Email::AutoEditorElection::Canceled;
+use MusicBrainz::Server::Email::AutoEditorElection::Accepted;
+use MusicBrainz::Server::Email::AutoEditorElection::Rejected;
 use MusicBrainz::Server::Email::Subscriptions;
 
 has 'c' => (
@@ -352,6 +358,60 @@ sub send_subscriptions_digest
         %opts
     );
     return try { $self->_send_email($email->create_email) } catch { warn $_ };
+}
+
+sub _send_election_mail
+{
+    my ($self, $name, $election) = @_;
+
+    my $email_class = "MusicBrainz::Server::Email::AutoEditorElection::$name";
+    my $email = $email_class->new(
+        from => 'The Returning Officer <returning-officer@musicbrainz.org>',
+        election => $election,
+    );
+    return try { $self->_send_email($email->create_email) } catch { warn $_ };
+}
+
+sub send_election_nomination
+{
+    my ($self, $election) = @_;
+
+    return $self->_send_election_mail("Nomination", $election);
+}
+
+sub send_election_voting_open
+{
+    my ($self, $election) = @_;
+
+    return $self->_send_election_mail("VotingOpen", $election);
+}
+
+sub send_election_timeout
+{
+    my ($self, $election) = @_;
+
+    return $self->_send_election_mail("Timeout", $election);
+}
+
+sub send_election_canceled
+{
+    my ($self, $election) = @_;
+
+    return $self->_send_election_mail("Canceled", $election);
+}
+
+sub send_election_accepted
+{
+    my ($self, $election) = @_;
+
+    return $self->_send_election_mail("Accepted", $election);
+}
+
+sub send_election_rejected
+{
+    my ($self, $election) = @_;
+
+    return $self->_send_election_mail("Rejected", $election);
 }
 
 sub send_edit_note

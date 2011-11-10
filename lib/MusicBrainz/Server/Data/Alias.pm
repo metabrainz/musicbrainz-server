@@ -143,13 +143,13 @@ sub merge
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
     $self->sql->do(
         "INSERT INTO $table (name, $type)
-            SELECT DISTINCT ON (old.name) old.name, new.id
-              FROM $type old
-         LEFT JOIN $table alias ON alias.name = old.name
-              JOIN $type new ON (new.id = ?)
-             WHERE old.id IN (" . placeholders(@old_ids) . ")
+            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id
+              FROM $type old_entity
+         LEFT JOIN $table alias ON alias.name = old_entity.name
+              JOIN $type new_entity ON (new_entity.id = ?)
+             WHERE old_entity.id IN (" . placeholders(@old_ids) . ")
                AND alias.id IS NULL
-               AND old.name != new.name",
+               AND old_entity.name != new_entity.name",
         $new_id, @old_ids
     );
 }

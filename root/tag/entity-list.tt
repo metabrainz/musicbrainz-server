@@ -1,4 +1,4 @@
-[%- WRAPPER 'tag/layout.tt' -%]
+[%- WRAPPER 'tag/layout.tt' full_width=1 -%]
     <h2>[% heading %]</h2>
     [%- IF entity_tags.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]

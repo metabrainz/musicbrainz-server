@@ -99,7 +99,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(name.name), label.id
+                 ORDER BY musicbrainz_collate(sort_name.name), label.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
