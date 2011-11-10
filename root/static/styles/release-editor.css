@@ -55,11 +55,10 @@ h1 span {
 #release-editor fieldset span.partial-date input { width: auto; }
 #release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
 
-#release-editor fieldset div.tracklist-loading,
-#release-editor fieldset textarea.tracklist {
+div.add-disc-dialog textarea.tracklist {
     height: 250px;
-    margin: 0 10px;
-    width: 430px;
+    margin: 0;
+    width: 600px;
 }
 
 #release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
@@ -314,6 +313,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 .add-disc-dialog div.buttons { margin-top: 1em; width: 100%; }
 .add-disc-dialog div.buttons .add-disc { float: right; }
+.add-disc-dialog div.buttons .parse-tracks { float: right; }
 
 .add-disc-dialog div.tracklist-padding { padding: 0 12px 12px 12px; }
 

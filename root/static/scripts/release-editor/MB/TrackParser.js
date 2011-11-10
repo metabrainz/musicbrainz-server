@@ -399,11 +399,11 @@ MB.TrackParser.Track = function (position, line, parent) {
     return self;
 };
 
-MB.TrackParser.Parser = function (disc, textarea, serialized) {
+MB.TrackParser.Parser = function (disc, serialized) {
     var self = MB.Object ();
 
-    self.getTrackInput = function () {
-        var lines = $.trim (self.textarea.val ()).split ("\n");
+    self.getTrackInput = function (input) {
+        var lines = $.trim (input).split ("\n");
         var tracks = [];
 
         /* lineno is 1-based and ignores empty lines, it is used as
@@ -544,8 +544,8 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
         self.disc.sort ();
     };
 
-    self.run = function () {
-        self.tracks = self.getTrackInput ();
+    self.run = function (input) {
+        self.tracks = self.getTrackInput (input);
         self.fillInData ();
     };
 
@@ -574,7 +574,6 @@ MB.TrackParser.Parser = function (disc, textarea, serialized) {
 
     /* public variables. */
     self.disc = disc;
-    self.textarea = textarea;
     self.originals = $.isArray (serialized) ? serialized : [];
 
     return self;
