@@ -311,7 +311,7 @@ sub accept
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         'This relationship has already been deleted'
-    );
+    ) if !$relationship;
 
     $self->c->model('Link')->load($relationship);
 

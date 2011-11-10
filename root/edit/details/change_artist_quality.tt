@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <th>[% l('Quality:') %]</th>
-    <td class="old">[% quality_name(edit.display_data.quality.old) %]</td>
-    <td class="new">[% quality_name(edit.display_data.quality.new) %]</td>
+    <td class="old">[% make_ucfirst(quality_name(edit.display_data.quality.old)) %]</td>
+    <td class="new">[% make_ucfirst(quality_name(edit.display_data.quality.new)) %]</td>
   </tr>
 </table>

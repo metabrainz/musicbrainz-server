@@ -26,6 +26,7 @@ has [qw( election_id voter_id )] => (
 has 'vote_time' => (
     isa => DateTime,
     is  => 'rw',
+    coerce => 1,
 );
 
 has 'vote' => (

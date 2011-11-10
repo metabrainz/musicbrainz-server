@@ -107,6 +107,8 @@ sub search_by_barcode
 
 sub _lookup_coverart {
     my ($self, $url) = @_;
+
+    $url .= "&AssociateTag=" . DBDefs::AMAZON_ASSOCIATE_TAG;
     $url = $self->_aws_signature->addRESTSecret($url);
 
     # Respect Amazon SLA
