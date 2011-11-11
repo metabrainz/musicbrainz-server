@@ -547,6 +547,7 @@ END -%]
 
 [% MACRO favicon_class(url)
        IF url.url.host.search('amazon'); 'amazon';
+    ELSIF url.url.host.search('allmusic.com'); 'allmusic';
     ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
     ELSIF url.url.host.search('facebook.com'); 'facebook';
     ELSIF url.url.host.search('last.fm'); 'lastfm';

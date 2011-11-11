@@ -388,6 +388,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/home-16.png");
 }
 
+#sidebar ul.external_links li.allmusic {
+    background-image: url("/static/images/favicons/allmusic-16.png");
+}
+
 #sidebar ul.external_links li.amazon {
     background-image: url("../images/favicons/amazon-16.png");
 }

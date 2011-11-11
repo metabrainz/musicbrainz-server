@@ -12,6 +12,7 @@ with
     'MusicBrainz::Server::Data::Role::Merge';
 
 my %URL_SPECIALIZATIONS = (
+    'Allmusic'        => qr{^https?://(?:www.)?allmusic.com/}i,
     'ASIN'            => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'BBCMusic'        => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
     'CDBaby'          => qr{^https?://(?:www.)?cdbaby.com/}i,
