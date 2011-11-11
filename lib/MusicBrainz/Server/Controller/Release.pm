@@ -107,6 +107,13 @@ after [qw( show details discids tags relationships )] => sub {
     );
 };
 
+after 'relationships' => sub
+{
+    my ($self, $c) = @_;
+    my $release = $c->stash->{release};
+    $c->model('Relationship')->load($release->release_group);
+};
+
 sub discids : Chained('load')
 {
     my ($self, $c) = @_;
