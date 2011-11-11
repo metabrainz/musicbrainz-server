@@ -488,6 +488,11 @@ tr.diff-changes {
     font-style: italic;
 }
 
+.lastupdate {
+    padding-top: 1em;
+    margin-left: -5px;
+}
+
 /* The release information table */
 table.tbl {
     margin-top: 1em;
