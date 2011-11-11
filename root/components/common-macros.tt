@@ -554,6 +554,7 @@ END -%]
     ELSIF url.url.host.search('twitter.com'); 'twitter';
     ELSIF url.url.host.search('youtube.com'); 'youtube';
     ELSIF url.url.host.search('discogs.com'); 'discogs';
+    ELSIF url.url.host.search('secondhandsongs.com'); 'secondhandsongs';
     ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
     ELSE; '';
 END %]

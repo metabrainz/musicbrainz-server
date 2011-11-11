@@ -28,6 +28,7 @@ my %URL_SPECIALIZATIONS = (
     'MySpace'         => qr{^https?://(?:www.)?myspace.com/}i,
     'Ozon'            => qr{^https?://(?:www.)?ozon.ru/}i,
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
+    'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
     'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
