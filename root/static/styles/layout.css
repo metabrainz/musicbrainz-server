@@ -373,6 +373,10 @@ div.warning img.warning {
     padding-left: 0;
 }
 
+#sidebar ul.external_links_2 {
+    margin-top: 0.75em;
+}
+
 #sidebar ul.external_links {
     list-style-image: none;
     list-style-type: none;
