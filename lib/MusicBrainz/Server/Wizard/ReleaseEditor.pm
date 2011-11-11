@@ -1233,7 +1233,9 @@ sub _create_edit {
        push @{ $self->c->stash->{edits} }, $edit;
        return $edit;
     }
-    catch { };
+    catch {
+        die $_ unless ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
+    };
 }
 
 
