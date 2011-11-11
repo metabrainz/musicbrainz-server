@@ -373,6 +373,10 @@ div.warning img.warning {
     padding-left: 0;
 }
 
+#sidebar ul.external_links_2 {
+    margin-top: 0.75em;
+}
+
 #sidebar ul.external_links {
     list-style-image: none;
     list-style-type: none;
@@ -494,6 +498,11 @@ tr.diff-changes {
     font-size: 90%;
     color: #777;
     font-style: italic;
+}
+
+.lastupdate {
+    padding-top: 1em;
+    margin-left: -5px;
 }
 
 /* The release information table */
