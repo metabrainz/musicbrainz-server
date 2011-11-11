@@ -20,6 +20,7 @@ my %URL_SPECIALIZATIONS = (
     'Facebook'        => qr{^https?://(?:www.)?facebook.com/}i,
     'IBDb'            => qr{^https?://(?:www.)?ibdb.com/}i,
     'IMDb'            => qr{^https?://(?:www.)?imdb.com/}i,
+    'IMSLP'           => qr{^https?://(?:www.)?imslp.org/wiki/}i,
     'InternetArchive' => qr{^https?://(?:www.)?archive.org/details/}i,
     'Jamendo'         => qr{^https?://(?:www.)?jamendo.com/}i,
     'LastFM'          => qr{^https?://(?:www.)?last.fm/}i,
