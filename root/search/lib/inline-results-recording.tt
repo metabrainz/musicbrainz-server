@@ -32,7 +32,7 @@
               [%- END -%]
               <td>[%- link_entity(release) -%]</td>
               [%- IF c.session.tport -%]
-                <td>[% tagger_icon(result.entity) %]</td>
+                <td>[% tagger_icon(release) %]</td>
               [%- END -%]
               <td>[%- release.find_track_for_recording(result.entity).position -%]/[%- release.combined_track_count -%]</td>
               <td>[%- release.find_medium_for_recording(result.entity).position -%]</td>
