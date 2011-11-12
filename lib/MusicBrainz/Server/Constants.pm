@@ -24,14 +24,20 @@ our %EXPORT_TAGS = (
     annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
     historic        => _get(qr/^EDIT_HISTORIC/),
     editor          => _get(qr/^EDITOR_/),
-    election_status => _get(qr/^ELECTION_/),
     vote            => _get(qr/^VOTE_/),
     edit_status     => _get(qr/^STATUS_/),
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
             $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
             $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG )
-      ],
+    ],
+    election_status => [
+        qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
+            $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED )
+    ],
+    election_vote => [
+        qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN )
+    ],
 );
 
 our @EXPORT_OK = (
@@ -212,6 +218,10 @@ Readonly our $DONT_NAG_FLAG            => 16;
 Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
 Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
+
+Readonly our $ELECTION_VOTE_NO      => -1;
+Readonly our $ELECTION_VOTE_ABSTAIN => 0;
+Readonly our $ELECTION_VOTE_YES     => 1;
 
 =head1 NAME
 

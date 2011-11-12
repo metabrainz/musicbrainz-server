@@ -1,4 +1,4 @@
-[%- IF annotation.text -%]
+[%- IF annotation.text || number_of_revisions > 1 -%]
     <h2>[% l('Annotation') %]</h2>
     <div class="annotation">
         <div class="annotation-body">

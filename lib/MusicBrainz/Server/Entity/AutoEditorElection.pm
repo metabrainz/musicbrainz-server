@@ -46,11 +46,20 @@ has 'no_votes' => (
 has [qw( propose_time open_time close_time )] => (
     isa => DateTime,
     is  => 'rw',
+    coerce => 1
 );
 
 has 'votes' => (
     isa  => 'ArrayRef[AutoEditorElectionVote]',
     is   => 'rw',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_votes => 'elements',
+        add_vote => 'push',
+        clear_votes => 'clear'
+    }
 );
 
 sub is_open
@@ -72,6 +81,78 @@ sub is_closed
     return $self->status == $ELECTION_ACCEPTED ||
            $self->status == $ELECTION_REJECTED ||
            $self->status == $ELECTION_CANCELLED;
+}
+
+# XXX not translatable
+our %STATUS_NAMES = (
+    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
+    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
+    $ELECTION_OPEN        => 'Voting open since {date}',
+    $ELECTION_ACCEPTED    => 'Accepted at {date}',
+    $ELECTION_REJECTED    => 'Declined at {date}',
+    $ELECTION_CANCELLED   => 'Cancelled at {date}',
+);
+
+our %SHORT_STATUS_NAMES = (
+    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
+    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
+    $ELECTION_OPEN        => 'Voting open',
+    $ELECTION_ACCEPTED    => 'Accepted',
+    $ELECTION_REJECTED    => 'Declined',
+    $ELECTION_CANCELLED   => 'Cancelled',
+);
+
+sub status_name
+{
+    my ($self) = @_;
+
+    return $STATUS_NAMES{$self->status};
+}
+
+sub status_name_short
+{
+    my ($self) = @_;
+
+    return $SHORT_STATUS_NAMES{$self->status};
+}
+
+sub can_vote
+{
+	my ($self, $editor) = @_;
+
+    return 0 unless $self->is_open;
+	return 0 unless $editor->is_auto_editor;
+
+	return 0 if $self->candidate_id == $editor->id;
+	return 0 if $self->proposer_id == $editor->id;
+	return 0 if $self->seconder_1_id == $editor->id;
+	return 0 if $self->seconder_2_id == $editor->id;
+
+	return 1;
+}
+
+sub can_second
+{
+	my ($self, $editor) = @_;
+
+    return 0 unless $self->is_pending;
+	return 0 unless $editor->is_auto_editor;
+
+	return 0 if $self->candidate_id == $editor->id;
+	return 0 if $self->proposer_id == $editor->id;
+	return 0 if defined $self->seconder_1_id &&
+                $self->seconder_1_id == $editor->id;
+	return 0 if defined $self->seconder_2_id &&
+                $self->seconder_2_id == $editor->id;
+
+	return 1;
+}
+
+sub can_cancel
+{
+	my ($self, $editor) = @_;
+
+    return !$self->is_closed && $self->proposer_id == $editor->id;
 }
 
 no Moose;

@@ -48,7 +48,7 @@
                 [% END %]
               </ul>
             </td>
-            <td>[% work.iswc | html %]</td>
+            <td>[% rdfa_work_iswc(work) %]</td>
             <td>[% rating_stars(work) %]</td>
           </tr>
           [% END %]

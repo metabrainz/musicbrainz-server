@@ -21,8 +21,8 @@
         </p>
 
         <p>
-            [%- l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.', 
-                 { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1") }) -%]
+            [%- l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.',
+                 { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1&description=Broken+link:" _ url_escape(c.req.uri) _ "+Referer:" _ url_escape(c.req.referer)) })-%]
         </p>
     </div>
 [% END %]
