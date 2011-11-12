@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw(
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
-use TryCatch;
+use Try::Tiny;
 
 my $ws_defs = Data::OptList::mkopt([
      release => {
@@ -289,7 +289,8 @@ sub release_submit : Private
                 }, @submit ]
             );
         }
-        catch ($e) {
+        catch {
+            my $e = $_;
             $self->_error($c, "This edit could not be successfully created: $e");
         }
     }

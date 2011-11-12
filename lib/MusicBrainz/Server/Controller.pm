@@ -8,7 +8,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
-use TryCatch;
+use Try::Tiny;
 
 __PACKAGE__->config(
     form_namespace => 'MusicBrainz::Server::Form',
@@ -86,15 +86,17 @@ sub _insert_edit {
             %opts
         );
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        $c->stash( makes_no_changes => 1 );
-    }
-    catch ($e) {
-        use Data::Dumper;
-        croak "The edit could not be created.\n" .
-          "POST: " . Dumper($c->req->params) . "\n" .
-          "Exception:" . Dumper($e);
-    }
+    catch {
+        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+            $c->stash( makes_no_changes => 1 );
+        }
+        else {
+            use Data::Dumper;
+            croak "The edit could not be created.\n" .
+                "POST: " . Dumper($c->req->params) . "\n" .
+                "Exception:" . Dumper($_);
+        }
+    };
 
     if (defined $edit &&
             $form->does('MusicBrainz::Server::Form::Role::Edit') &&

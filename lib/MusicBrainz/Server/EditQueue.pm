@@ -1,7 +1,7 @@
 package MusicBrainz::Server::EditQueue;
 
 use Moose;
-use TryCatch;
+use Try::Tiny;
 use DBDefs;
 use MusicBrainz::Server::Constants qw( :expire_action :edit_status );
 
@@ -68,7 +68,8 @@ sub process_edits
                 $action = $self->_process_edit($edit_id) || "no change"
             }, $sql);
         }
-        catch ($err) {
+        catch {
+            my $err = $_;
             $errors += 1;
             $self->log->error("Error while processing edit #$edit_id: $err\n");
             next;

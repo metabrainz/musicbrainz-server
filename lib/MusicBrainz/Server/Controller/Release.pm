@@ -62,6 +62,7 @@ after 'load' => sub
     # Load release group
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
+    $c->model('Relationship')->load_subset([ 'url' ], $release->release_group);
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
@@ -107,6 +108,13 @@ after [qw( show details discids tags relationships )] => sub {
         collections => \@collections,
         containment => \%containment,
     );
+};
+
+after 'relationships' => sub
+{
+    my ($self, $c) = @_;
+    my $release = $c->stash->{release};
+    $c->model('Relationship')->load($release->release_group);
 };
 
 sub discids : Chained('load')
