@@ -40,7 +40,7 @@ role
         return %found_names;
     };
 
-    method find_by_names => sub {
+    method search_by_names => sub {
         my ($self, @names) = @_;
         return {} unless scalar @names;
 

@@ -91,14 +91,14 @@ test all => sub {
 
     # ---
     # Missing entities search
-    my $found = $label_data->find_by_names();
+    my $found = $label_data->search_by_names();
     is(scalar keys %$found, 0, "Nothing found when searching for nothing");
 
-    $found = $label_data->find_by_names('Warp Records');
+    $found = $label_data->search_by_names('Warp Records');
     isa_ok($found->{'Warp Records'}->[0], 'MusicBrainz::Server::Entity::Label');
     is($found->{'Warp Records'}->[0]->ipi_code, '00407982339', 'Found label with correct ipi');
 
-    $found = $label_data->find_by_names('RAM Records', 'Warp Records', 'Not there');
+    $found = $label_data->search_by_names('RAM Records', 'Warp Records', 'Not there');
     isa_ok($found->{'Warp Records'}->[0], 'MusicBrainz::Server::Entity::Label');
     is($found->{'Warp Records'}->[0]->ipi_code, '00407982339', 'Found label with correct ipi');
     isa_ok($found->{'RAM Records'}->[0], 'MusicBrainz::Server::Entity::Label');
