@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::AutoEditorElections;
 BEGIN { use Moose; extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Translation qw( l );
-use TryCatch;
+use Try::Tiny;
 
 __PACKAGE__->config( namespace => 'elections' );
 
@@ -55,9 +55,11 @@ sub _load {
         try {
             return $c->model('AutoEditorElection')->get_by_id($id);
         }
-        catch (MusicBrainz::Server::Exceptions::InvalidInput $e) {
-            $c->stash( message => $e->message );
-            $c->detach('/error_500');
+        catch {
+            if (ref ($_) eq 'MusicBrainz::Server::Exceptions::InvalidInput') {
+                $c->stash( message => $_->message );
+                $c->detach('/error_500');
+            }
         };
     }
     else {

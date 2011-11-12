@@ -65,7 +65,9 @@ sub cancel_relate : Chained('load')
 after 'load' => sub {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
-    $c->model('Relationship')->load_subset([ 'url' ], $entity);
+    if ($c->action->name ne 'relationships') {
+        $c->model('Relationship')->load_subset([ 'url' ], $entity);
+    }
 };
 
 no Moose::Role;
