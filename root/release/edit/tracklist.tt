@@ -5,25 +5,23 @@
 
   <script type="text/javascript">//<![CDATA[
 
+    MB.release_artist_json = [% release_artist_json %];
+    MB.medium_cdtocs = [
+      [%- FOR medium=release.mediums -%]
+        [%- IF medium.cdtocs.size -%]
+          [%- medium.cdtocs.0.cdtoc.track_count -%],
+        [%- ELSE -%]
+          null,
+        [%- END -%]
+      [%- END -%]
+      null
+    ];
+
     $('document').ready (function () {
-
-       MB.release_artist_json = [% release_artist_json %];
-       MB.medium_cdtocs = [
-           [%- FOR medium=release.mediums -%]
-             [%- IF medium.cdtocs.size -%]
-               [%- medium.cdtocs.0.cdtoc.track_count -%],
-             [%- ELSE -%]
-               null,
-             [%- END -%]
-           [%- END -%]
-           null
-       ];
-
-       MB.Control.ReleaseAddDisc (MB.Control.ReleaseTracklist ());
 
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
 
-       $('div.add-disc-dialog').draggable ();
+       $('div.dialog').draggable ();
 
     });
 
@@ -131,7 +129,24 @@
      </p>
   </div>
 
-  <div class="add-disc-dialog" style="display: none">
+  <div class="track-parser-dialog dialog" style="display: none">
+    [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
+    <h1>Track Parser</h1>
+
+    <div>
+        <p>[% l('This is placeholder text.') %]</p>
+        <textarea class="tracklist"></textarea>
+        <h3 class="track-parser-options">[% l('Options') %]</h3>
+    </div>
+
+    <div class="buttons">
+      <input style="float: right;" type="button" class="close" value="[% l('Done') %]" />
+      <input style="float: right;" type="button" class="parse-tracks" value="[% l('Parse Tracks') %]" />
+      <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
+    </div>
+  </div>
+
+  <div class="add-disc-dialog dialog" style="display: none">
     <h1>Add Disc</h1>
 
     <div class="tabs">
@@ -151,8 +166,8 @@
 
         <textarea class="tracklist"></textarea>
 
-        <h3>[% l('Options') %]</h3>
-        <p id="tracklist-options">
+        <h3 class="track-parser-options">[% l('Options') %]</h3>
+        <p id="track-parser-options">
         <input type="checkbox" name="trackartists" id="trackartists">
         <label for="trackartists">[% l('Parse track artists') %]</label>
         <br />
@@ -258,7 +273,7 @@
     </div>
 
     <div class="buttons">
-      <input type="button" class="positive add-disc" value="[% l('Add Disc') %]" />
+      <input style="float: right;" type="button" class="positive add-disc" value="[% l('Add Disc') %]" />
       <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
     </div>
 
@@ -338,7 +353,7 @@
                   [% r.label(medium_field.field('format_id'), l('Format')) %]
                   [% r.select(medium_field.field('format_id'), class => 'format') %]
                 </div>
-                <div class="row advanced-tracklist" style="display: none;">
+                <div class="row advanced-tracklist">
                   [% r.label(medium_field.field('name'), l('Disc title')) %]
                   [% r.text(medium_field.field('name')) %]
 
@@ -348,6 +363,12 @@
 
                 </div>
             </div>
+          </td>
+
+          <td class="tools" style="vertical-align: middle;">
+            <input type="button" class="track-parser"
+                title="[% l('Track Parser') %]"
+                value="[% l('Track Parser') %]" />
           </td>
 
           <td class="icon" style="text-align: right;">
@@ -436,9 +457,6 @@
     </div>
 
     <div class="buttons ui-helper-clearfix">
-      <div class="buttons-right" style="float: right; text-align: right;">
-        <a href="#basic" style="margin-right: 1px">[% l('Return to basic editor') %]</a>
-      </div>
       [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
       <a href="#add_disc">[% l('Add Disc') %]</a>
       [% r.submit ('previous', l('« Previous')) %]

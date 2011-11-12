@@ -615,10 +615,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      */
     self.setVariousArtists = function () {
         self.various_artists = true;
-
-        /* force parsing of track artists if this is a VA disc. */
-        /* FIXME: no longer neccesary. */
-        MB.TrackParser.options.forceTrackArtists ();
     };
 
     /**
@@ -630,6 +626,13 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             self.$title.attr ('disabled', 'disabled');
             self.$title.siblings ('input.icon.guesscase-medium').hide ();
         }
+    };
+
+    /**
+     * Open the trackparser.
+     */
+    self.openTrackParser = function (event) {
+        MB.Control.release_track_parser.openDialog (event, self);
     };
 
     /**
@@ -677,6 +680,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     });
 
     self.$add_track_count = self.$fieldset.find ('input.add-track-count');
+    self.$fieldset.find ('input.track-parser').bind ('click.mb', self.openTrackParser);
     self.$fieldset.find ('input.add-track').bind ('click.mb', self.addTrackEvent);
     self.$fieldset.find ('input.disc-down').bind ('click.mb', self.moveDown);
     self.$fieldset.find ('input.disc-up').bind ('click.mb', self.moveUp);
@@ -860,7 +864,6 @@ MB.Control.ReleaseTracklist = function () {
                 if (prev_disc && disc)
                 {
                     disc.$fieldset.insertAfter (prev_disc.$fieldset);
-                    disc.basic.$basicdisc.insertAfter (prev_disc.basic.$basicdisc);
                 }
 
                 if (disc)
@@ -905,7 +908,7 @@ MB.Control.ReleaseTracklist = function () {
         {
             self.positions[firstdisc].disableDiscTitle ();
         }
-        else
+        else if (self.positions[firstdisc])
         {
             self.positions[firstdisc].enableDiscTitle ();
         }
@@ -974,3 +977,8 @@ MB.Control.ReleaseTracklist = function () {
 
     return self;
 };
+
+$('document').ready (function () {
+    MB.Control.release_tracklist = MB.Control.ReleaseTracklist ();
+});
+

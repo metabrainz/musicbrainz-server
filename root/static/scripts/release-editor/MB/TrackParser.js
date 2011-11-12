@@ -204,10 +204,6 @@ MB.TrackParser.Options = function () {
     self.trackTimes   = function () { return self.$tracktimes.is (':checked'); };
     self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
 
-    self.forceTrackArtists = function () {
-        self.$trackartists.attr ('checked', 'checked').attr ('disabled', 'disabled');
-    };
-
     return self;
 };
 
