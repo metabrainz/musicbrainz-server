@@ -19,7 +19,6 @@ use List::MoreUtils qw( part );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Translation qw ( l ln );
-use MusicBrainz::Server::Data::CoverArtArchive;
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
@@ -332,7 +331,7 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
     }
 }
 
-sub add_cover_art_upload_success : Chained('load') PathPart('add-cover-art-upload-success')
+sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
 {
     my ($self, $c) = @_;
 
@@ -340,14 +339,14 @@ sub add_cover_art_upload_success : Chained('load') PathPart('add-cover-art-uploa
     $c->stash->{filename} = $c->req->params->{key};
 }
 
-sub add_cover_art_iframe : Chained('load') PathPart('add-cover-art-iframe') RequireAuth
+sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth
 {
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
 
     my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
-    my $redirect = $c->uri_for_action('/release/add_cover_art_upload_success', [ $entity->gid ])->as_string ();
+    my $redirect = $c->uri_for_action('/release/cover_art_uploaded', [ $entity->gid ])->as_string ();
 
     $c->stash->{form_action} = &DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIX."/$bucket/";
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $redirect);
