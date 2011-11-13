@@ -56,7 +56,7 @@ sub run {
     die "Usage error ($0 takes no arguments)" if @args;
 
     my $max = $self->c->model('Edit')->get_max_id;
-    my @editors = $self->c->model('Editor')->editors_with_subscriptions;
+    my @editors = $self->c->model('Editor')->editors_with_subscriptions(1);
 
     for my $editor (@editors) {
         printf "Processing subscriptions for '%s'\n", $editor->name

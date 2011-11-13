@@ -15,6 +15,7 @@ has_field 'public_tags' => ( type => 'Boolean' );
 has_field 'email_on_no_vote' => ( type => 'Boolean' );
 has_field 'email_on_notes' => ( type => 'Boolean' );
 has_field 'email_on_vote' => ( type => 'Boolean' );
+has_field 'email_subscriptions' => ( type => 'Boolean' );
 
 has_field 'subscribe_to_created_artists' => ( type => 'Boolean' );
 has_field 'subscribe_to_created_labels' => ( type => 'Boolean' );

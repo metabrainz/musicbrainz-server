@@ -30,7 +30,7 @@ sub _table
 
 sub _columns
 {
-    return 'editor.id, name, password, privs, email, website, bio,
+    return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
             edits_rejected, auto_edits_accepted, edits_failed';
 }
@@ -414,15 +414,29 @@ sub donation_check
 
 sub editors_with_subscriptions
 {
-    my $self = shift;
+    my ($self, $emails) = @_;
+
     my @tables = qw(
         editor_subscribe_artist
         editor_subscribe_editor
         editor_subscribe_label
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-        " WHERE id IN ($ids)";
+    my $query;
+
+    if ($emails) {
+        $query = "SELECT " . $self->_columns . "
+                    FROM " . $self->_table . "
+               LEFT JOIN editor_preference ep ON ep.editor = editor.id AND
+                                                 ep.name = 'email_subscriptions'
+                   WHERE editor.id IN ($ids) AND
+                         (ep.value IS NULL OR ep.value = '1')";
+    }
+    else {
+        $query = "SELECT " . $self->_columns . "
+                    FROM " . $self->_table . "
+                   WHERE id IN ($ids)";
+    }
 
     return query_to_list (
         $self->c->sql, sub { $self->_new_from_row(@_) },
