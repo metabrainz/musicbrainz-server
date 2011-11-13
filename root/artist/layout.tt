@@ -122,15 +122,6 @@
                 [% END %]
                 <li>[% link_entity(artist, 'subscribers', l('Subscribers')) %]</li>
             [% END %]
-          [%# Commenting watch artist stuff out until implemented
-          #  [% IF watching_artist %]
-          #      <li>
-          #          [% link_entity(artist, 'stop_watching', l('Do not watch for new releases')) %]
-          #      </li>
-          #  [% ELSE %]
-          #      <li>[% link_entity(artist, 'watch', l('Watch for new releases')) %]</li>
-          #  [% END %]
-          %]
         </ul>
         [% END %]
 
