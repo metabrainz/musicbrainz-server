@@ -27,11 +27,18 @@ sub _attribute_mapping
 sub _get_by_keys
 {
     my ($self, $key, @ids) = @_;
+    return $self->_get_by_keys_append_sql($key, '', @ids);
+}
+
+sub _get_by_keys_append_sql
+{
+    my ($self, $key, $extra_sql, @ids) = @_;
     @ids = grep { defined && $_ } @ids;
     return {} unless @ids;
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
-                " WHERE $key IN (" . placeholders(@ids) . ")";
+                " WHERE $key IN (" . placeholders(@ids) . ") " .
+                $extra_sql;
     my $sql = $self->sql;
     $self->sql->select($query, @ids);
     my %result;
@@ -48,6 +55,13 @@ sub get_by_id
 {
     my ($self, $id) = @_;
     my @result = values %{$self->get_by_ids($id)};
+    return $result[0];
+}
+
+sub get_by_id_locked
+{
+    my ($self, $id) = @_;
+    my @result = values %{$self->_get_by_keys_append_sql($self->_id_column, 'FOR UPDATE', $id)};
     return $result[0];
 }
 

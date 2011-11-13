@@ -14,6 +14,8 @@ ALTER TABLE artist_rating_raw DROP CONSTRAINT artist_rating_raw_pkey;
 ALTER TABLE artist_tag DROP CONSTRAINT artist_tag_pkey;
 ALTER TABLE artist_tag_raw DROP CONSTRAINT artist_tag_raw_pkey;
 ALTER TABLE artist_type DROP CONSTRAINT artist_type_pkey;
+ALTER TABLE autoeditor_election DROP CONSTRAINT autoeditor_election_pkey;
+ALTER TABLE autoeditor_election_vote DROP CONSTRAINT autoeditor_election_vote_pkey;
 ALTER TABLE cdtoc DROP CONSTRAINT cdtoc_pkey;
 ALTER TABLE cdtoc_raw DROP CONSTRAINT cdtoc_raw_pkey;
 ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;

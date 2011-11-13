@@ -53,15 +53,16 @@
     <div id="content">
         <h1>[% l('Transclusion Table') %]</h1>
         <p>
-            [% l('This page lets you add, update, and remove entries from the transclusion table.
-                  Read the {doc|WikiDocs} documentation for an overview of how transclusion works.',
+            [% l('Read the {doc|WikiDocs} documentation for an overview of how transclusion works.',
                   { doc => doc_link('WikiDocs') }) %]
         </p>
 
-        <ul>
-            <li><a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('Add a new entry') %]</a></li>
-            <li><a href="[% c.uri_for_action('/admin/wikidoc/history') %]">[% l('View transclusion history') %]</a></li>
-        </ul>
+	[% IF c.user.is_wiki_transcluder %]
+		<ul>
+		    <li><a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('Add a new entry') %]</a></li>
+		    <li><a href="[% c.uri_for_action('/admin/wikidoc/history') %]">[% l('View transclusion history') %]</a></li>
+		</ul>
+	[% END %]
 
         <p>
             [% l('<strong>Note:</strong> MediaWiki does not check to see if the version
@@ -85,7 +86,9 @@
                     [% IF updates_required %]
                         <th class="c">[% l('Wiki version') %]</th>
                     [% END %]
-                    <th class="c">[% l('Actions') %]</th>
+                    [% IF c.user.is_wiki_transcluder %]
+			<th class="c">[% l('Actions') %]</th>
+		    [% END %]
                 </tr>
             </thead>
             <tbody>
@@ -98,13 +101,16 @@
                         [% IF updates_required %]
                             <td><span class="wiki-version">?</span></td>
                         [% END %]
+
+                        [% IF c.user.is_wiki_transcluder %]
                         <td class="c nowrap">
                             [
                             <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
                             <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
-                            <a href="http://[% wiki_server %]/[% page.id | uri %]">[% l('View on wiki') %]</a>
+                            <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
                             ]
                         </td>
+                        [% END %]
                     </tr>
                 [% END %]
             </tbody>

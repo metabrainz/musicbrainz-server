@@ -26,6 +26,10 @@ OUTPUT=`
 ` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
 
 OUTPUT=`
+    ./admin/CheckElectionVotes.pl 2>&1
+` || echo "$OUTPUT"
+
+OUTPUT=`
     ./admin/RunExport 2>&1
 ` || echo "$OUTPUT"
 
