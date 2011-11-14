@@ -1234,6 +1234,8 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
+    my $infer_durations = $self->get_value ('recordings', 'rec_infer_durations') // undef;
+
     my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
@@ -1262,7 +1264,7 @@ sub _expand_track
     }
 
     my $entity = Track->new(
-        length => $trk->{length} // ($assoc ? $assoc->length : undef),
+        length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([
