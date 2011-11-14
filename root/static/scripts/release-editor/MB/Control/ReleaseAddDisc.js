@@ -116,9 +116,12 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             if (artist)
             {
                 trk['artist_credit'] = { names: [ {
-                    'artist_name': artist,
-                    'gid': '',
-                    'id': '',
+                    'artist': {
+                        'name': artist,
+                        'gid': '',
+                        'id': ''
+                    },
+                    'name': artist,
                     'join_phrase': ''
                 } ] };
             }
@@ -348,10 +351,7 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         if (!self.use_tracklist.selected)
             return;
 
-        var disc = basic_tab.emptyDisc ();
-        disc.$tracklist_id.val (self.use_tracklist.selected.$id.val ());
-        disc.collapse ();
-        disc.expand ();
+        basic_tab.addExistingTracklist (self.use_tracklist.selected.$id.val ());
 
         self.close (event);
     };
