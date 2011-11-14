@@ -108,7 +108,7 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(gender::text, 'null'), COUNT(*) AS count
                 FROM artist
-                WHERE type != 2 OR type IS NULL
+                WHERE type IS DISTINCT FROM 2
                 GROUP BY gender
                 ",
             );

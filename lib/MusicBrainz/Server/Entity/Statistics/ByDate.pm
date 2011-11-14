@@ -22,23 +22,26 @@ has date_collected => (
    coerce => 1
 );
 
+sub summed_statistics {
+    my ($self, $stats) = @_;
+    my $sum = 0;
+    foreach my $i (@{$stats}) {
+        $sum += $self->statistic($i);
+    }
+    return $sum
+}
+
 sub ratio {
     my ($self, $num_stat, $denom_stat) = @_;
     my ($numerator, $denominator);
     if (ref($num_stat) eq 'ARRAY') {
-        $numerator = 0;
-	foreach my $i (@{$num_stat}) {
-            $numerator += $self->statistic($i);
-	}
+        $numerator = $self->summed_statistics($num_stat);
     } else {
 	$numerator = $self->statistic($num_stat);
     }
 
     if (ref($denom_stat) eq 'ARRAY') {
-        $denominator = 0;
-	foreach my $i (@{$denom_stat}) {
-            $denominator += $self->statistic($i);
-	}
+        $denominator = $self->summed_statistics($denom_stat);
     } else {
 	$denominator = $self->statistic($denom_stat);
     }
