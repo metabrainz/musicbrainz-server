@@ -41,6 +41,9 @@ sub validate {
     my $self = shift;
 
     for my $type (@types) {
+
+        my @new_entities;
+
         for my $field ($self->field('missing')->field($type)->fields) {
             next if $field->has_errors;
             next if $field->field('entity_id')->value;
@@ -48,12 +51,19 @@ sub validate {
             $field->field('sort_name')->required(1);
             $field->field('sort_name')->validate_field;
 
-            my @entities = $self->ctx->model(type_to_model($type))
-                ->find_by_name($field->field('name')->input)
-                    or next;
+            push @new_entities, $field;
+        }
 
-            $field->field('comment')->required(1);
-            $field->field('comment')->validate_field;
+        my %entities = $self->ctx->model(type_to_model($type))
+            ->find_by_names(map { $_->field('name')->input } @new_entities);
+
+        for my $field (@new_entities)
+        {
+            if (exists $entities{$field->field('name')->input})
+            {
+                $field->field('comment')->required(1);
+                $field->field('comment')->validate_field;
+            }
         }
     }
 }
