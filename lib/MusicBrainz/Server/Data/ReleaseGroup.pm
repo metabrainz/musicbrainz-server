@@ -469,7 +469,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'release_group',
-            columns => [ qw( type comment ) ],
+            columns => [ qw( type ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )

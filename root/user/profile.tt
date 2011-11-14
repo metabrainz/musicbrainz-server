@@ -45,7 +45,7 @@
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
             [% IF c.user.is_auto_editor && !user.is_auto_editor %]
-                (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("nominate for auto-editor") %]</a>)
+                (<a href="[% c.uri_for_action('/elections/nominate', user.name) %]">[% l("nominate for auto-editor") %]</a>)
             [% END %]
 
 

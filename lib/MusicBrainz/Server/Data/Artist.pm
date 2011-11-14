@@ -101,7 +101,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(sort_name.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -259,7 +259,7 @@ sub merge
     merge_table_attributes(
         $self->sql => (
             table => 'artist',
-            columns => [ qw( comment ipi_code gender country type ) ],
+            columns => [ qw( ipi_code gender country type ) ],
             old_ids => $old_ids,
             new_id => $new_id
         )

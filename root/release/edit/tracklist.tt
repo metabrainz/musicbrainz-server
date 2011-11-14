@@ -8,6 +8,7 @@
     $('document').ready (function () {
 
        MB.release_artist_json = [% release_artist_json %];
+
        MB.medium_cdtocs = [
            [%- FOR medium=release.mediums -%]
              [%- IF medium.cdtocs.size -%]

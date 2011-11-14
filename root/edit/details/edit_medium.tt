@@ -89,9 +89,9 @@
              </td>
              <td>
                [% IF track.recording.gid;
-                    link_recording(track.recording, 'show', track.name);
+                    link_recording(track.recording, 'show', html_escape(track.name));
                   ELSE;
-                    track.name;
+                    html_escape(track.name);
                   END %]
              </td>
              <td>
@@ -159,9 +159,9 @@
              </td>
              <td>
                [% IF track.recording.gid;
-                    link_recording(track.recording, 'show', track.name);
+                    link_recording(track.recording, 'show', html_escape(track.name));
                   ELSE;
-                    track.name;
+                    html_escape(track.name);
                   END %]
              </td>
              <td>

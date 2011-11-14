@@ -68,7 +68,7 @@ lookup_handler 'mbid' => sub {
         $c->detach;
     }
 
-    $c->detach('not_found');
+    $self->not_found($c);
 };
 
 lookup_handler 'isrc' => sub {

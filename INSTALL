@@ -1,8 +1,8 @@
 Installing the MusicBrainz Server
 =================================
 
-The MusicBrainz Server (musicbrainz-server) is the web frontend to the
-MusicBrainz Database, and is accessible at http://musicbrainz.org.
+The MusicBrainz Server is the web frontend to the MusicBrainz Database,
+and is accessible at http://musicbrainz.org.
 
 This document explains the steps necessary to setup your own MusicBrainz Server.
 If you require any assistance with these instructions, please feel free to
@@ -191,9 +191,8 @@ Creating the database
 
     b)  Import an NGS database dump
 
-        The easiest way to import the database is to use a database
-        dump.  These are periodic dumps of the database, they're
-        available here:
+        The easiest way to import the database is to use a database dump.
+        These dumps are provided twice a week and are available here:
 
             ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
 
@@ -207,26 +206,6 @@ Creating the database
         --echo just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
         files, if they are not in /tmp/dumps/.
-
-    c)  Importing a non-NGS database dump
-
-        NOTE: This method requires the time consuming process of manually
-        converting the database from the existing schema to the NGS format, and
-        is not recommended.
-
-        Follow these instructions for a "Database only" install:
-
-            http://bugs.musicbrainz.org/browser/mb_server/branches/RELEASE_20090524-BRANCH/INSTALL
-
-        To ensure that the data imports cleanly, make sure to use a data dump
-        from 2009-06-19 or later!
-
-        Once the data has been imported, return to the NGS codebase and run:
-
-            ./upgrade.sh
-
-        This will convert the data to the NGS format and will take some time.
-        Please be patient!
 
 
     NOTE: on a fresh postgresql install you may see the following error:
@@ -258,10 +237,10 @@ Starting the server
 
 2)  Troubleshooting
 
-    If you have any difficulties, please feel free to contact aCiD2 or warp in
+    If you have any difficulties, please feel free to contact ocharles or warp in
     #musicbrainz-devel on irc.freenode.net, or email the developer mailing list
     at musicbrainz-devel [at] lists.musicbrainz.org.
 
-    If you find any bugs, please report them on http://jira.musicbrainz.org.
+    If you find any bugs, please report them on http://tickets.musicbrainz.org.
 
     Good luck, and happy hacking!

@@ -16,9 +16,11 @@
             [% END %]
             [% IF section.2 > section.1.size %]
             <li>
-              <a href="[% c.uri_for_action(section.3, [ tag.name ]) %]">
-                [%- l('More…') -%]
-              </a>
+              <em><a href="[% c.uri_for_action(section.3, [ tag.name ]) %]">
+                [%- l('See all {num} {entity}',
+                     { num => section.2,
+                       entity => make_lower(section.0) }) -%]
+              </a></em>
             </li>
             [% END %]
         </ul>

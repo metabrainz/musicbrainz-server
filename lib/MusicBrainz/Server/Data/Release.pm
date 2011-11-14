@@ -591,7 +591,7 @@ sub can_merge {
                  FROM changes
                  JOIN medium changed_m ON changed_m.id = changes.id
                  JOIN medium all_m ON all_m.release = changed_m.release
-                 WHERE all_m.id != changes.id
+                 WHERE all_m.id not in (select id from changes)
                )
              ) s
              GROUP BY position
@@ -624,7 +624,7 @@ sub merge
     merge_table_attributes(
         $self->sql => (
             table => 'release',
-            columns => [ qw( status packaging country comment barcode script language ) ],
+            columns => [ qw( status packaging country barcode script language ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )

@@ -36,6 +36,40 @@ test 'Can have artist credits with no join phrase' => sub {
     is($ac->name, 'Ed RushOptical');
 };
 
+test 'Merging updates the complete name' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $artist_credit_data = $c->model('ArtistCredit');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
+
+    $c->sql->begin;
+    $artist_credit_data->merge_artists(3, [ 2 ], rename => 1);
+    $c->sql->commit;
+
+    my $ac = $artist_credit_data->get_by_id(1);
+    is( $ac->id, 1 );
+    is( $ac->artist_count, 2, "2 artists in artist credit");
+    is( $ac->name, "Queen & Merge", "Name is Queen & Merge");
+    is( $ac->names->[0]->name, "Queen", "First artist credit is Queen");
+    is( $ac->names->[0]->artist_id, 1 );
+    is( $ac->names->[0]->artist->id, 1 );
+    is( $ac->names->[0]->artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
+    is( $ac->names->[0]->artist->name, "Queen", "First artist is Queen");
+    is( $ac->names->[0]->join_phrase, " & " );
+    is( $ac->names->[1]->name, "Merge", "Second artist credit is Merge");
+    is( $ac->names->[1]->artist_id, 3 );
+    is( $ac->names->[1]->artist->id, 3 );
+    is( $ac->names->[1]->artist->gid, "5f9913b0-7219-11de-8a39-0800200c9a66" );
+    is( $ac->names->[1]->artist->name, "Merge", "Second artist is Merge");
+    is( $ac->names->[1]->join_phrase, undef );
+
+    my $name = $c->sql->select_single_value("
+        SELECT an.name FROM artist_credit ac JOIN artist_name an ON ac.name=an.id
+        WHERE ac.id=1");
+    is( $name, "Queen & Merge", "Name is Queen & Merge" );
+};
+
 test 'Merging clears the cache' => sub {
     my $test = shift;
     my $c = $test->cache_aware_c;

@@ -1,8 +1,10 @@
 [% WRAPPER 'layout.tt' title=l('Tag Not Used') full_width=1 %]
 <h1>[% l('Tag Not Used') %]</h1>
 
-<p>[% l('No MusicBrainz entities have yet been tagged with the tag "{tag}".
-         If you wish to use this tag, please search for the entity first and
-         you may apply tags using the sidebar.',
+<p>[% l('No MusicBrainz entities have yet been tagged with "{tag}".',
          { tag => tag }) %]</p>
+
+<p>[% l('If you wish to use this tag, please {url|search} for the entity
+         first and apply the tag using the sidebar.',
+         { url => c.uri_for('/search') }) %]</p>
 [% END %]

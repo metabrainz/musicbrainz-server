@@ -196,7 +196,7 @@ sub garbage_collect_orphans {
              SELECT TRUE
              FROM edit JOIN edit_recording er ON edit.id = er.edit
              WHERE er.recording = outer_r.id
-             AND type = ? OR type = ? OR type = ?
+             AND (type = ? OR type = ? OR type = ?)
              LIMIT 1
          ) AND NOT EXISTS (
              SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
@@ -266,7 +266,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'recording',
-            columns => [ qw( length comment ) ],
+            columns => [ qw( length ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
