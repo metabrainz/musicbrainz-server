@@ -108,17 +108,50 @@ sub search
 
         $hard_search_limit = $offset * 2;
     }
-    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group" || $type eq "work") {
+    elsif ($type eq "recording") {
+        my ($join_sql, $where_sql)
+            = ("JOIN recording entity ON r.id = entity.name", '');
+
+        if ($where && exists $where->{artist}) {
+            $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit"
+                ." JOIN artist_name ON artist_credit.name = artist_name.id";
+            $where_sql = 'WHERE artist_name.name LIKE ?';
+            push @where_args, "%".$where->{artist}."%";
+        }
+
+        $query = "
+            SELECT DISTINCT
+                entity.id,
+                entity.gid,
+                entity.comment,
+                entity.artist_credit AS artist_credit_id,
+                entity.length,
+                r.name,
+                r.rank
+            FROM
+                (
+                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM track_name, plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) AS r
+                $join_sql
+                $where_sql
+            ORDER BY
+                r.rank DESC, r.name, entity.artist_credit
+            OFFSET
+                ?
+        ";
+        $hard_search_limit = int($offset * 1.2);
+    }
+    elsif ($type eq "release" || $type eq "release_group" || $type eq "work") {
         my $type2 = $type;
-        $type2 = "track" if $type eq "recording";
         $type2 = "release" if $type eq "release_group";
 
         my $extra_columns = "";
         $extra_columns .= 'entity.type AS type_id,'
             if ($type eq 'release_group');
-
-        $extra_columns = "entity.length,"
-            if ($type eq "recording");
 
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
             entity.date_year, entity.date_month, entity.date_day,'
@@ -133,15 +166,6 @@ sub search
                 JOIN tracklist ON medium.tracklist = tracklist.id';
             $where_sql = 'WHERE tracklist.track_count = ?';
             push @where_args, $where->{track_count};
-        }
-        elsif ($type eq 'recording') {
-            if ($where && exists $where->{artist})
-            {
-                $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit"
-                    ." JOIN artist_name ON artist_credit.name = artist_name.id";
-                $where_sql = 'WHERE artist_name.name LIKE ?';
-                push @where_args, "%".$where->{artist}."%";
-            }
         }
 
         $query = "
