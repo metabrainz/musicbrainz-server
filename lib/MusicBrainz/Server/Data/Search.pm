@@ -43,7 +43,8 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
     work          => 'MusicBrainz::Server::Data::Work',
     tag           => 'MusicBrainz::Server::Data::Tag',
-    editor        => 'MusicBrainz::Server::Data::Editor'
+    editor        => 'MusicBrainz::Server::Data::Editor',
+    track         => 'MusicBrainz::Server::Data::Track'
 );
 
 use Sub::Exporter -setup => {
@@ -140,6 +141,33 @@ sub search
                 $where_sql
             ORDER BY
                 r.rank DESC, r.name, entity.artist_credit
+            OFFSET
+                ?
+        ";
+        $hard_search_limit = int($offset * 1.2);
+    }
+    elsif ($type eq "track") {
+        $query = "
+            SELECT DISTINCT
+                track.id,
+                track.artist_credit,
+                track.length,
+                track.position,
+                track.recording,
+                track.tracklist,
+                r.name,
+                r.rank
+            FROM
+                (
+                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM track_name, plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) AS r
+                JOIN track ON track.name = r.id
+            ORDER BY
+                r.rank DESC, r.name, track.artist_credit
             OFFSET
                 ?
         ";

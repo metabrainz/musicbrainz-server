@@ -419,12 +419,30 @@ sub find_by_puid
 sub find_by_tracklist
 {
     my ($self, $tracklist_id) = @_;
-    my $query = 'SELECT ' . $self->_columns .
+    return @{ $self->assoc_tracklist($tracklist_id)->{$tracklist_id} };
+}
+
+sub assoc_tracklist
+{
+    my ($self, @tracklist_ids) = @_;
+    my $query = 'SELECT DISTINCT ON (medium.tracklist, release.id) ' .
+                '  medium.tracklist, ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' JOIN medium ON medium.release = release.id ' .
-                ' WHERE medium.tracklist = ?';
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                         $query, $tracklist_id);
+                ' WHERE medium.tracklist = any(?)';
+
+    my @rows = @{
+        $self->sql->select_list_of_hashes(
+            $query, \@tracklist_ids
+        )
+    };
+
+    my %ret = map { $_ => [] } @tracklist_ids;
+    for my $row (@rows) {
+        push @{ $ret{ $row->{tracklist} } }, $self->_new_from_row($row);
+    }
+
+    return \%ret;
 }
 
 sub find_by_medium

@@ -36,6 +36,7 @@ sub options_type
         'release_group' => l('Release Group'),
         'release'       => l('Release'),
         'recording'     => l('Recording'),
+        'track'         => l('Track'),
         'work'          => l('Work'),
         'label'         => l('Label'),
         'annotation'    => l('Annotation'),

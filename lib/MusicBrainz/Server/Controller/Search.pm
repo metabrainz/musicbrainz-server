@@ -14,9 +14,6 @@ sub search : Path('')
 {
     my ($self, $c) = @_;
 
-    $c->req->query_params->{type} = 'recording'
-        if exists $c->req->query_params->{type} && $c->req->query_params->{type} eq 'track';
-
     $c->req->query_params->{advanced} = $c->req->query_params->{adv}
         if exists $c->req->query_params->{adv};
 
@@ -100,13 +97,22 @@ sub direct : Private
             $c->model('Recording')->load(map { $_->tracklist->all_tracks }
                                          map { $_->all_mediums } @releases);
         }
+        when ('track') {
+            $c->model('Recording')->load(@entities);
+            my $tracklist_assoc = $c->model('Release')->assoc_tracklist(
+                map { $_->tracklist_id } @entities
+            );
+            for my $result (@$results) {
+                $result->extra( $tracklist_assoc->{ $result->entity->tracklist_id });
+            }
+        }
         when ('work') {
             $c->model('Work')->load_writers(@entities);
             $c->model('Work')->load_recording_artists(@entities);
         }
     }
 
-    if ($type =~ /(recording|release|release_group)/)
+    if ($type =~ /(recording|release|release_group|track)/)
     {
         $c->model('ArtistCredit')->load(@entities);
     }
