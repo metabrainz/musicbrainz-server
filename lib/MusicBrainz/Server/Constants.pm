@@ -23,7 +23,7 @@ our %EXPORT_TAGS = (
     quality       => _get(qr/^QUALITY_/),
     annotation    => _get(qr/^EDIT_.*_ADD_ANNOTATION/),
     historic      => _get(qr/^EDIT_HISTORIC/),
-    editor        => _get(qr/^EDITOR_/)
+    editor        => _get(qr/^EDITOR_/),
 );
 
 our @EXPORT_OK = (

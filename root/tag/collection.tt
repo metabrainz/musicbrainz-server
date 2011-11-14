@@ -1,3 +1,3 @@
 [%- INCLUDE 'tag/entity-list.tt' page='collection',
-    no_entities_text=l('No collection tagged with this tag were found.') 
-    heading=l('Appears on collections') -%]
+    no_entities_text=l('No collections with this tag were found.')
+    heading=ln('{num} collection found', '{num} collections found', entity_tags.size, { num => entity_tags.size }) -%]

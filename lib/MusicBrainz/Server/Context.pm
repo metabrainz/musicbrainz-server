@@ -34,6 +34,9 @@ sub model
     my $model = $self->models->{$name};
     if (!$model) {
         my $class_name = "MusicBrainz::Server::Data::$name";
+        if ($name eq "Email") {
+            $class_name =~ s/Data::Email/Email/;
+        }
         Class::MOP::load_class($class_name);
         $model = $class_name->new(c => $self);
         $self->models->{$name} = $model;

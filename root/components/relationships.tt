@@ -6,7 +6,7 @@
                :                                   '' %]
 
     [% FOR group=relationships.pairs %]
-        <table class="details">
+        <table class="details" style="width: 100%">
         [%- FOREACH relationship IN group.value.pairs -%]
             <tr>
                 <th>[% relationship.key %]:</th>
@@ -27,7 +27,7 @@
                         [% END %]
 
                         [%- IF c.user_exists -%]
-                            <span>
+                            <span style="float: right">
                             [
                                 <a href="[% c.uri_for_action('/edit/relationship/delete', {
                                     type0 => rel.link.type.entity0_type,

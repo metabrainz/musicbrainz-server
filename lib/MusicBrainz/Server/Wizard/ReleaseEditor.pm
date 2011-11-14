@@ -7,7 +7,7 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref artist_credit_to_edit_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -15,7 +15,7 @@ use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
 use Text::Trim qw( trim );
-use TryCatch;
+use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
@@ -203,7 +203,7 @@ sub recording_edits_by_hash
     return %recording_edits;
 }
 
-=method recording_edits_by_hash
+=method recording_edits_from_tracklist
 
 Create no-op recording association edits for a particular tracklist
 which are confirmed and linked to the edit_sha1 hashes of unedited
@@ -229,15 +229,12 @@ sub recording_edits_from_tracklist
 
         for my $trk (@{ $tracklist->{tracks} })
         {
-            my $edit_sha1 = hash_structure (
-                {
-                    name => $trk->name,
-                    length => format_track_length ($trk->length),
-                    artist_credit => artist_credit_to_edit_ref ($trk->artist_credit),
-                });
+            my $trk_edit = $self->track_edit_from_track ($trk);
 
-            $recording_edits{$edit_sha1}->[$trk->position] = {
-                edit_sha1 => $edit_sha1,
+            $recording_edits{$trk_edit->{edit_sha1}}->[$trk->position] = {
+                name => $trk_edit->{name},
+                length => $trk_edit->{length},
+                artist_credit => $trk_edit->{artist_credit},
                 confirmed => 1,
                 id => $trk->recording->id,
                 gid => $trk->recording->gid
@@ -261,7 +258,7 @@ sub _search_recordings
     my ($self, $track_name, $artist_credit, $limit) = @_;
 
     my $offset = 0;
-    my $where = { artist => $artist_credit->{names}->[0]->{artist_name} };
+    my $where = { artist => $artist_credit->{names}->[0]->{artist}->{name} };
 
     my ($search_results, $hits) = $self->c->model ('Search')->search (
         'recording', $track_name, $limit, $offset, $where);
@@ -759,9 +756,9 @@ sub prepare_missing_entities
 
     $self->c->stash(
         missing_entity_count => scalar @credits + scalar @labels,
-        possible_artists => $self->c->model('Artist')->find_by_names (
+        possible_artists => $self->c->model('Artist')->search_by_names (
             map { $_->{for} } @credits),
-        possible_labels => $self->c->model('Label')->find_by_names (
+        possible_labels => $self->c->model('Label')->search_by_names (
             map { $_->{for} } @labels),
         );
 }
@@ -1233,7 +1230,9 @@ sub _create_edit {
        push @{ $self->c->stash->{edits} }, $edit;
        return $edit;
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) { }
+    catch {
+        die $_ unless ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
+    };
 }
 
 
@@ -1354,6 +1353,45 @@ sub _expand_mediums
     return $data;
 }
 
+=method update_track_edit_hash
+
+Updates the edit_sha1 hash in a track edit.
+
+=cut
+
+sub update_track_edit_hash
+{
+    my ($self, $track) = @_;
+
+    my $sha = hash_structure({
+        name => $track->{name},
+        length => $track->{length},
+        artist_credit => $track->{artist_credit},
+    });
+    $track->{edit_sha1} = $sha;
+
+    return $track;
+}
+
+=method track_edit_from_track
+
+Generates a track edit for the tracklist page from a track instance.
+
+=cut
+sub track_edit_from_track
+{
+    my ($self, $track) = @_;
+
+    return $self->update_track_edit_hash ({
+        artist_credit => artist_credit_to_ref ($track->artist_credit),
+        deleted => 0,
+        length => format_track_length ($track->length),
+        name => $track->name,
+        position => $track->position
+    });
+}
+
+
 =method edited_tracklist
 
 Returns a list of tracks, sorted by position, with deleted tracks
@@ -1366,24 +1404,8 @@ sub edited_tracklist
 {
     my ($self, $tracks) = @_;
 
-    my $idx = 1;
-    for my $trk (@$tracks)
-    {
-        my @names = @{ $trk->{artist_credit}->{names} };
-        $trk->{artist_credit}->{names} = [ map {
-            {
-                artist => {
-                    id => $_->{id},
-                    gid => $_->{gid},
-                    name => $_->{artist_name},
-                },
-                name => $_->{name},
-                join_phrase => $_->{join},
-            }
-        } @names ];
-
-        $trk->{original_position} = $idx++;
-    }
+    my $pos = 1;
+    map { $_->{original_position} = $pos++ } @$tracks;
 
     return [ sort { $a->{position} <=> $b->{position} } grep { ! $_->{deleted} } @$tracks ];
 }
@@ -1532,10 +1554,12 @@ sub _seed_parameters {
                         $track->{artist_credit}{names} = [
                             map +{
                                 name => $_->{name},
-                                id => $_->{artist_id},
                                 join => $_->{join_phrase},
-                                artist_name => $_->{artist_name} || $_->{name},
-                                gid => $_->{gid}
+                                artist => {
+                                    name => $_->{artist_name} || $_->{name},
+                                    id => $_->{artist_id},
+                                    gid => $_->{gid},
+                                }
                             }, @{$track_ac->{names}}
                         ];
 
@@ -1550,19 +1574,14 @@ sub _seed_parameters {
                             : format_track_length($length);
                     }
 
-                    my $sha = hash_structure({
-                        name => $track->{name},
-                        length => $track->{length},
-                        artist_credit => $track->{artist_credit},
-                    });
-                    $track->{edit_sha1} = $sha;
+                    my $track = $self->update_track_edit_hash ($track);
 
                     push @edits, $track;
 
                     if (my $recording_id = delete $track->{recording}) {
                         if(my $recording = $self->c->model('Recording')->get_by_gid($recording_id)) {
                             $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
-                                edit_sha1 => $sha,
+                                edit_sha1 => $track->{edit_sha1},
                                 confirmed => 1,
                                 id => $recording->id,
                                 gid => $recording->gid
@@ -1573,7 +1592,7 @@ sub _seed_parameters {
                         $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
                             gid => 'new',
                             confirmed => 1,
-                            edit_sha1 => $sha
+                            edit_sha1 => $track->{edit_sha1}
                         };
                     }
                 }

@@ -41,15 +41,18 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $profile;
 my $system = 0;
+my $help = 0;
 
 GetOptions(
     "system"    => \$system,
-    "profile=s" => \$profile
+    "profile=s" => \$profile,
+    "help"      => \$help,
 ) or exit 2;
 
-my $key = shift;
-unless($key) {
-    die "Usage: psql <database>\n\n  database -- the DBDefs name of the database to connect to. (e.g. READWRITE)\n";
+my $key = shift // "READWRITE";
+
+if ($help) {
+    die "Usage: psql [database]\n\n  database -- the DBDefs name of the database to connect to. (default is READWRITE)\n";
 }
 
 my $db = Databases->get($key) or die "No such database '$key'\n";

@@ -72,13 +72,12 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     self.render = function (data) {
 
-        // FIXME: use the same format everywhere.
-        var artist_name = data.artist_name !== undefined ? data.artist_name : data.artist.name;
-        var gid = data.gid !== undefined ? data.gid : data.artist.gid;
-        var id = data.id !== undefined ? data.id : data.artist.id;
-        var join = data.join !== undefined ? data.join : data.join_phrase;
+        var artist_name = data.artist.name;
+        var gid = data.artist.gid;
+        var id = data.artist.id;
+        var join = data.join_phrase;
 
-        self.$name.val (artist_name).removeClass('error');
+        self.$name.val (data.artist.name).removeClass('error');
         self.container.clearError (self);
         self.$sortname.val (data.sortname);
         self.$join.val (join || '');
@@ -708,11 +707,13 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
                 item.$credit.val () : item.$credit.attr ('placeholder');
 
             ret.push({
-                'artist_name': item.$name.val (),
+                'artist': {
+                    'name': item.$name.val (),
+                    'id': item.$id.val (),
+                    'gid': item.$gid.val ()
+                },
                 'name': artistcredit,
-                'id': item.$id.val (),
-                'gid': item.$gid.val (),
-                'join': item.$join.val () || ''
+                'join_phrase': item.$join.val () || ''
             });
         });
 

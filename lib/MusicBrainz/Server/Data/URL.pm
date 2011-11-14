@@ -12,6 +12,7 @@ with
     'MusicBrainz::Server::Data::Role::Merge';
 
 my %URL_SPECIALIZATIONS = (
+    'Allmusic'        => qr{^https?://(?:www.)?allmusic.com/}i,
     'ASIN'            => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'BBCMusic'        => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
     'CDBaby'          => qr{^https?://(?:www.)?cdbaby.com/}i,
@@ -19,6 +20,7 @@ my %URL_SPECIALIZATIONS = (
     'Facebook'        => qr{^https?://(?:www.)?facebook.com/}i,
     'IBDb'            => qr{^https?://(?:www.)?ibdb.com/}i,
     'IMDb'            => qr{^https?://(?:www.)?imdb.com/}i,
+    'IMSLP'           => qr{^https?://(?:www.)?imslp.org/wiki/}i,
     'InternetArchive' => qr{^https?://(?:www.)?archive.org/details/}i,
     'Jamendo'         => qr{^https?://(?:www.)?jamendo.com/}i,
     'LastFM'          => qr{^https?://(?:www.)?last.fm/}i,
@@ -28,6 +30,7 @@ my %URL_SPECIALIZATIONS = (
     'MySpace'         => qr{^https?://(?:www.)?myspace.com/}i,
     'Ozon'            => qr{^https?://(?:www.)?ozon.ru/}i,
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
+    'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
     'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,

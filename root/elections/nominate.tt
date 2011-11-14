@@ -1,0 +1,15 @@
+[% WRAPPER 'layout.tt' title=l('Nominate a candidate for auto-editor') full_width=1%]
+
+    <h1>[% l('Nominate a candidate for auto-editor') %]</h1>
+
+    <p>[% l('Are you sure you want to nominate the editor {editor} for auto-editor status?',
+        { editor => link_editor(candidate) }) %]</p>
+
+    <form action="[% c.req.uri %]" method="post">
+        <span class="buttons">
+            <button type="submit" name="confirm.cancel" value="1" class="negative">[% l('Cancel') %]</button>
+            <button type="submit" name="confirm.submit" value="1">[% l('Yes, I am sure') %]</button>
+        </span>
+    </form>
+	
+[% END %]
