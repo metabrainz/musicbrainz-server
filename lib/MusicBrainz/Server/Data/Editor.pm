@@ -368,8 +368,9 @@ sub save_preferences
 
 sub credit
 {
-    my ($self, $editor_id, $status, $as_autoedit) = @_;
+    my ($self, $editor_id, $status, %opts) = @_;
     my $column;
+    my $as_autoedit = $opts{auto_edit} ? 1 : 0;
     return if $status == $STATUS_DELETED;
     $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
     $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
