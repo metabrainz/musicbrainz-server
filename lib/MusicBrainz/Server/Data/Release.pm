@@ -296,7 +296,7 @@ sub find_by_recordings
     return () unless @ids;
 
     my $query =
-        "SELECT DISTINCT ON (release.id) " . $self->_columns . ",
+        "SELECT " . $self->_columns . ",
                 track.recording, track.position
            FROM release
            JOIN release_name name ON name.id = release.name
