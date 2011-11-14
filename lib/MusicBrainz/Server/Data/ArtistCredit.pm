@@ -178,14 +178,40 @@ sub _clean {
 sub merge_artists
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
+
     if ($opts{rename}) {
-        $self->sql->do(
-            'UPDATE artist_credit_name acn SET name = artist.name
-               FROM artist
-              WHERE artist.id = ?
-                AND acn.artist IN (' . placeholders(@$old_ids) . ')',
-            $new_id, @$old_ids);
+        my @artist_credit_ids = @{
+            $self->sql->select_single_column_array(
+                'UPDATE artist_credit_name acn SET name = artist.name
+                   FROM artist
+                  WHERE artist.id = ?
+                    AND acn.artist IN (' . placeholders(@$old_ids) . ')
+              RETURNING artist_credit',
+                $new_id, @$old_ids);
+        };
+
+        my $partial_names = $self->sql->select_list_of_hashes(
+            'SELECT acn.artist_credit, acn.join_phrase, an.name
+               FROM artist_credit_name acn
+			   JOIN artist_name an ON acn.name = an.id
+              WHERE artist_credit IN (' . placeholders(@artist_credit_ids) . ')
+           ORDER BY artist_credit, position',
+            @artist_credit_ids);
+        my %names;
+        for my $name (@$partial_names) {
+            my $ac_id = $name->{artist_credit};
+            $names{$ac_id} ||= '';
+            $names{$ac_id} .= $name->{name};
+            $names{$ac_id} .= $name->{join_phrase} if defined $name->{join_phrase};
+        }
+
+        my %names_id = $self->c->model('Artist')->find_or_insert_names(values %names);
+        for my $ac_id (@artist_credit_ids) {
+            $self->sql->do('UPDATE artist_credit SET name = ? WHERE id = ?',
+                           $names_id{$names{$ac_id}}, $ac_id);
+        }
     }
+
     my @artist_credit_ids = @{
         $self->sql->select_single_column_array(
         'UPDATE artist_credit_name SET artist = ?

@@ -308,6 +308,14 @@ sub update_privileges
     }, $self->sql);
 }
 
+sub make_autoeditor
+{
+    my ($self, $editor_id) = @_;
+
+    $self->sql->do('UPDATE editor SET privs = privs | ? WHERE id = ?',
+                   $AUTO_EDITOR_FLAG, $editor_id);
+}
+
 sub load
 {
     my ($self, @objs) = @_;

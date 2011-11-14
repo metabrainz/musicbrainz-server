@@ -15,7 +15,7 @@ use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
 use Text::Trim qw( trim );
-use TryCatch;
+use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
@@ -756,9 +756,9 @@ sub prepare_missing_entities
 
     $self->c->stash(
         missing_entity_count => scalar @credits + scalar @labels,
-        possible_artists => $self->c->model('Artist')->find_by_names (
+        possible_artists => $self->c->model('Artist')->search_by_names (
             map { $_->{for} } @credits),
-        possible_labels => $self->c->model('Label')->find_by_names (
+        possible_labels => $self->c->model('Label')->search_by_names (
             map { $_->{for} } @labels),
         );
 }
@@ -1230,7 +1230,9 @@ sub _create_edit {
        push @{ $self->c->stash->{edits} }, $edit;
        return $edit;
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) { }
+    catch {
+        die $_ unless ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
+    };
 }
 
 
