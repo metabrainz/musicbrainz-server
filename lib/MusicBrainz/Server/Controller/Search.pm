@@ -87,10 +87,10 @@ sub direct : Private
             my %result_map = map { $_->entity->id => $_ } @$results;
 
             $result_map{$_}->extra(
-                [ map { $_->[0] } @{ $recording_releases_map{$_} } ]
+                [ map { $_ } @{ $recording_releases_map{$_} } ]
             ) for keys %recording_releases_map;
 
-            my @releases = map { @{ $_->extra } } @$results;
+            my @releases = map { $_->[0] } map { @{ $_->extra } } @$results;
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Medium')->load_for_releases(@releases);

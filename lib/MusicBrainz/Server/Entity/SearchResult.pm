@@ -20,7 +20,6 @@ has 'entity' => (
 
 has 'extra' => (
     is => 'rw',
-    isa => 'ArrayRef[Entity]',
     lazy => 1,
     default => sub { [] },
 );

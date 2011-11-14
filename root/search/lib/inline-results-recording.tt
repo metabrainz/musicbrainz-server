@@ -1,7 +1,8 @@
 [% colspan = c.session.tport ? '5' : '4' %]
 
-[%- MACRO show_release_row(recording, release) BLOCK; -%]
-  [%- track = release.find_track_for_recording(recording) -%]
+[%- MACRO show_release_row(recording, release_track) BLOCK; -%]
+  [%- release = release_track.0 -%]
+  [%- track = release_track.1 -%]
   <td>[%- track.position -%]/[%- release.combined_track_count -%]</td>
   <td>[%- track.name -%]</td>
   <td>[%- link_entity(release) -%]</td>

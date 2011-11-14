@@ -297,11 +297,12 @@ sub find_by_recordings
 
     my $query =
         "SELECT " . $self->_columns . ",
-                track.recording, track.position
+                track.recording, track.position, track_name.name AS track_name
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
            JOIN track ON track.tracklist = medium.tracklist
+           JOIN track_name ON track.name = track_name.id
           WHERE track.recording IN (" . placeholders(@ids) . ")";
 
     my %map;
@@ -311,7 +312,8 @@ sub find_by_recordings
         push @{ $map{ $row->{recording} } },
             [ $self->_new_from_row($row),
               $self->c->model('Track')->_new_from_row({
-                  position => $row->{position}
+                  position => $row->{position},
+                  name => $row->{track_name}
               }) ];
     }
 
