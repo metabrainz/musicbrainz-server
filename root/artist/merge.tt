@@ -1,5 +1,5 @@
 [% WRAPPER 'layout.tt' title=l('Merge Artists') full_width=1 %]
-    <h2>[% l('Merge Artists') %]</h2>
+    <h1>[% l('Merge Artists') %]</h1>
     <p>[% l('You are about to merge the following artists into a single artist. Please
              select the artist which you would like other artists to be merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
