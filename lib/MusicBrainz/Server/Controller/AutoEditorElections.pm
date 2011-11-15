@@ -52,8 +52,10 @@ sub _load {
     my ($self, $c, $id) = @_;
 
     if ($id =~ /^\d+$/) {
+        my $election;
+
         try {
-            return $c->model('AutoEditorElection')->get_by_id($id);
+            $election = $c->model('AutoEditorElection')->get_by_id($id);
         }
         catch {
             if (ref ($_) eq 'MusicBrainz::Server::Exceptions::InvalidInput') {
@@ -61,6 +63,8 @@ sub _load {
                 $c->detach('/error_500');
             }
         };
+
+        return $election;
     }
     else {
         $c->stash( message  => l("'{id}' is not a valid election ID", { id => $id }) );
