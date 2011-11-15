@@ -1221,18 +1221,21 @@ sub _create_edit {
 
     delete $args{as_auto_editor};
 
+    my $edit;
+
     try {
-        my $edit = $method->(
+        $edit = $method->(
             edit_type => $type,
             editor_id => $user_id,
             %args,
-       );
-       push @{ $self->c->stash->{edits} }, $edit;
-       return $edit;
+        );
+        push @{ $self->c->stash->{edits} }, $edit;
     }
     catch {
         die $_ unless ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
     };
+
+    return $edit;
 }
 
 
