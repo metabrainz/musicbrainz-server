@@ -15011,7 +15011,7 @@ msgstr ""
 
 #: ../root/artist/merge.tt:18
 #, perl-format
-msgid "Update artist credits to use the new artists name"
+msgid "Update artist credits to use the new artist's name"
 msgstr ""
 
 #: ../root/collection/edit_form.tt:13
