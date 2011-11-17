@@ -642,45 +642,52 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION delete_unused_url(ids INTEGER[])
 RETURNS VOID AS $$
+DECLARE
+  clear_up INTEGER[];
 BEGIN
-  DELETE FROM url url_row WHERE id = any(ids)
-  AND NOT (
-    EXISTS (
-      SELECT TRUE FROM l_artist_url
-      WHERE entity1 = url_row.id
-      LIMIT 1
-    ) OR
-    EXISTS (
-      SELECT TRUE FROM l_label_url
-      WHERE entity1 = url_row.id
-      LIMIT 1
-    ) OR
-    EXISTS (
-      SELECT TRUE FROM l_recording_url
-      WHERE entity1 = url_row.id
-      LIMIT 1
-    ) OR
-    EXISTS (
-      SELECT TRUE FROM l_release_url
-      WHERE entity1 = url_row.id
-      LIMIT 1
-    ) OR
-    EXISTS (
-      SELECT TRUE FROM l_release_group_url
-      WHERE entity1 = url_row.id
-      LIMIT 1
-    ) OR
-    EXISTS (
-      SELECT TRUE FROM l_url_url
-      WHERE entity0 = url_row.id OR entity1 = url_row.id
-      LIMIT 1
-    ) OR
-    EXISTS (
-      SELECT TRUE FROM l_url_work
-      WHERE entity0 = url_row.id
-      LIMIT 1
+  SELECT ARRAY(
+    SELECT id FROM url url_row WHERE id = any(ids)
+    AND NOT (
+      EXISTS (
+        SELECT TRUE FROM l_artist_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_label_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_recording_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_release_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_release_group_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_url_url
+        WHERE entity0 = url_row.id OR entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_url_work
+        WHERE entity0 = url_row.id
+        LIMIT 1
+      )
     )
-  );
+  ) INTO clear_up;
+
+  DELETE FROM url_gid_redirect WHERE new_id = any(clear_up);
+  DELETE FROM url WHERE id = any(clear_up);
 END;
 $$ LANGUAGE 'plpgsql';
 
