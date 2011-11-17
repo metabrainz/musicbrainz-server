@@ -79,7 +79,7 @@ sub barcode_type {
 
 sub barcode_formatted {
     my ($self) = @_;
-    return 'none' if length($self->barcode) > 0 and $self->barcode == 0;
+    return 'none' if $self->barcode and $self->barcode == 0;
     return $self->barcode;
 }
 
