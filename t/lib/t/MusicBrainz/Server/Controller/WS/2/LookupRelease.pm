@@ -58,6 +58,27 @@ ws_test 'basic release with tags',
     </release>
 </metadata>';
 
+ws_test 'basic release with collections',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language><script>Latn</script>
+        </text-representation>
+        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <asin>B00005LA6G</asin>
+        <collection-list>
+            <collection id="f34c079d-374e-4436-9448-da92dedef3cd">
+                <name>My Collection</name>
+                <editor>editor</editor>
+            </collection>
+        </collection-list>
+    </release>
+</metadata>';
+
 ws_test 'release lookup with artists + aliases',
     '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+aliases' =>
     '<?xml version="1.0" encoding="UTF-8"?>

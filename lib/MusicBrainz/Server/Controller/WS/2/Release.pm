@@ -27,7 +27,7 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups aliases
-                                          tags user-tags ratings user-ratings
+                                          tags user-tags ratings user-ratings collections
                                           artist-credits discids media recording-level-rels
                                           work-level-rels _relations) ]
      },
@@ -135,6 +135,16 @@ sub release_toplevel
         }
     }
 
+    if ($c->stash->{inc}->collections)
+    {
+        my @collections =
+            grep { $_->public || ($c->user_exists && $c->user->id == $_->editor_id) }
+            $c->model('Collection')->find_by_release($release->id);
+
+        $c->model('Editor')->load($_) for @collections;
+
+        $stash->store ($release)->{collections} = \@collections;
+    }
 }
 
 sub release: Chained('root') PathPart('release') Args(1)
