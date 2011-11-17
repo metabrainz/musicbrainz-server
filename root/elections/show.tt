@@ -114,7 +114,13 @@
         [%- FOR vote IN election.votes -%]
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 <td>[% link_editor(vote.voter) %]</td>
-                <td>[% l('(private)') %]</td>
+                <td>
+                [% IF c.user_exists && c.user.id == vote.voter.id %]
+                    [% l(vote.vote_name) %]
+                [% ELSE %]
+                    [% l('(private)') %]
+                [% END %]
+                </td>
                 <td>[% UserDate.format(vote.vote_time) %]</td>
             </tr>
         [%- END -%]
