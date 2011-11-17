@@ -91,7 +91,7 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('url', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('url', $new_id, @old_ids);
 
-    $self->delete(@old_ids);
+    $self->_delete(@old_ids);
 
     return 1;
 }
@@ -112,7 +112,7 @@ sub update
     }
 }
 
-sub delete {
+sub _delete {
     my ($self, @ids) = @_;
     $self->sql->do('DELETE FROM url WHERE id = any(?)', \@ids);
 }
