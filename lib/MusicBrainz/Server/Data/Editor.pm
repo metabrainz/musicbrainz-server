@@ -414,7 +414,7 @@ sub donation_check
 
 sub editors_with_subscriptions
 {
-    my ($self, $emails) = @_;
+    my ($self) = @_;
 
     my @tables = qw(
         editor_subscribe_artist
@@ -422,24 +422,20 @@ sub editors_with_subscriptions
         editor_subscribe_label
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
-    my $query;
-
-    if ($emails) {
-        $query = "SELECT " . $self->_columns . "
-                    FROM " . $self->_table . "
-               LEFT JOIN editor_preference ep ON ep.editor = editor.id AND
-                                                 ep.name = 'email_subscriptions'
-                   WHERE editor.id IN ($ids) AND
-                         (ep.value IS NULL OR ep.value = '1')";
-    }
-    else {
-        $query = "SELECT " . $self->_columns . "
-                    FROM " . $self->_table . "
-                   WHERE id IN ($ids)";
-    }
+    my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
+                   FROM " . $self->_table . "
+              LEFT JOIN editor_preference ep
+                     ON ep.editor = editor.id AND
+                        ep.name = 'subscriptions_email_period'
+                  WHERE editor.id IN ($ids)";
 
     return query_to_list (
-        $self->c->sql, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub {
+            my $editor = $self->_new_from_row(@_);
+            $editor->preferences->subscriptions_email_period($_[0]->{prefs_value})
+                if defined $_[0]->{prefs_value};
+            return $editor;
+        },
         $query);
 }
 

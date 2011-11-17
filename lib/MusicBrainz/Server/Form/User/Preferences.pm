@@ -15,10 +15,14 @@ has_field 'public_tags' => ( type => 'Boolean' );
 has_field 'email_on_no_vote' => ( type => 'Boolean' );
 has_field 'email_on_notes' => ( type => 'Boolean' );
 has_field 'email_on_vote' => ( type => 'Boolean' );
-has_field 'email_subscriptions' => ( type => 'Boolean' );
 
 has_field 'subscribe_to_created_artists' => ( type => 'Boolean' );
 has_field 'subscribe_to_created_labels' => ( type => 'Boolean' );
+
+has_field 'subscriptions_email_period' => (
+    type => 'Select',
+    required => 1,
+);
 
 has_field 'datetime_format' => (
     type => 'Select',
@@ -65,6 +69,16 @@ sub options_timezone
         push @options, $timezone, $timezone;
     }
     return \@options;
+}
+
+sub options_subscriptions_email_period
+{
+    my $options = [
+        'daily'     => 'Daily',
+        'weekly'    => 'Weekly',
+        'never'     => 'Never',
+    ];
+    return $options;
 }
 
 1;

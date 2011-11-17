@@ -167,33 +167,6 @@ subtest 'Find editors with subscriptions' => sub {
     is($editors[0]->id => 2, 'is editor #2');
 };
 
-subtest 'Find editors with subscription emails' => sub {
-    $test->c->sql->do("DELETE FROM editor_preference
-                       WHERE name = 'email_subscriptions'");
-    my @editors = $editor_data->editors_with_subscriptions(1);
-    is(@editors => 1, 'found 1 editor');
-    is($editors[0]->id => 2, 'is editor #2');
-};
-
-subtest 'Find editors with subscription emails (disabled)' => sub {
-    $test->c->sql->do("DELETE FROM editor_preference
-                       WHERE name = 'email_subscriptions'");
-    $test->c->sql->do("INSERT INTO editor_preference (editor, name, value)
-                       VALUES (2, 'email_subscriptions', '0')");
-    my @editors = $editor_data->editors_with_subscriptions(1);
-    is(@editors => 0, 'found 1 editor');
-};
-
-subtest 'Find editors with subscription emails (explicitly enabled)' => sub {
-    $test->c->sql->do("DELETE FROM editor_preference
-                       WHERE name = 'email_subscriptions'");
-    $test->c->sql->do("INSERT INTO editor_preference (editor, name, value)
-                       VALUES (2, 'email_subscriptions', '1')");
-    my @editors = $editor_data->editors_with_subscriptions(1);
-    is(@editors => 1, 'found 1 editor');
-    is($editors[0]->id => 2, 'is editor #2');
-};
-
 # Test deleting editors
 $editor_data->delete(1);
 

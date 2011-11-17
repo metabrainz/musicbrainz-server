@@ -36,7 +36,7 @@ has 'timezone' => (
     lazy => 1,
 );
 
-has [qw(email_on_no_vote email_on_notes email_on_vote email_subscriptions)] => (
+has [qw(email_on_no_vote email_on_notes email_on_vote)] => (
     isa => 'Bool',
     default => 1,
     is =>'rw',
@@ -48,6 +48,13 @@ has [qw( subscribe_to_created_artists subscribe_to_created_labels )] => (
     default => 1,
     is =>'rw',
     lazy => 1
+);
+
+has 'subscriptions_email_period' => (
+    isa => 'Str',
+    default => 'daily',
+    is => 'rw',
+    lazy => 1,
 );
 
 no Moose;
