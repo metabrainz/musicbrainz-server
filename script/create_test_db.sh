@@ -3,16 +3,13 @@
 set -o errexit
 cd `dirname $0`/..
 
+source ./admin/functions.sh
+
 echo 'DROP SCHEMA musicbrainz_test CASCADE;' | ./admin/psql READWRITE
 echo 'CREATE SCHEMA musicbrainz_test;' | ./admin/psql READWRITE
 
-PG_VERSION=$( echo "SELECT version()" | ./admin/psql READWRITE | egrep 'PostgreSQL 9.[^0].' )
-
-echo `date` : Installing extensions
-if [ -n "$PG_VERSION" ]; then
-#    ./admin/psql --profile=test READWRITE < ./admin/sql/Extensions.sql
-    true
-else
+if [ `compare_postgres_version 9.1` == "older" ]; then
+    echo `date` : Installing extensions
     ./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz_test
     ./admin/InitDb.pl --install-extension=musicbrainz_collate.sql  --extension-schema=musicbrainz_test
 fi
