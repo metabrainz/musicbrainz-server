@@ -1,9 +1,14 @@
 package MusicBrainz::Server::Form::ReleaseEditor::EditNote;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation 'l';
 
 extends 'MusicBrainz::Server::Form::Step';
 
-has_field 'edit_note'      => ( type => 'TextArea' );
+has_field 'edit_note'      => (
+    type => 'TextArea',
+    required => 1,
+    required_message => l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!'),
+);
 has_field 'as_auto_editor' => ( type => 'Checkbox' );
 
 sub default_as_auto_editor
