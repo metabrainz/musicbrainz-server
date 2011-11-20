@@ -2,7 +2,7 @@ package MusicBrainz::Server::Entity::AutoEditorElectionVote;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Types qw( :vote );
+use MusicBrainz::Server::Types qw( :election_vote );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -32,14 +32,17 @@ has 'vote' => (
     is  => 'rw'
 );
 
-sub is_yes
-{
-    return shift->vote == $VOTE_YES;
-}
+our %VOTE_NAMES = (
+    $ELECTION_VOTE_YES      => 'Yes',
+    $ELECTION_VOTE_NO       => 'No',
+    $ELECTION_VOTE_ABSTAIN  => 'Abstain',
+);
 
-sub is_no
+sub vote_name
 {
-    return shift->vote == $VOTE_NO;
+    my ($self) = @_;
+
+    return $VOTE_NAMES{$self->vote};
 }
 
 no Moose;
@@ -72,13 +75,6 @@ The vote. See L<MusicBrainz::Server::Types/VoteOption>.
 =head2 vote_time
 
 The time the vote was registered
-
-=head1 METHODS
-
-=head2 is_yes, is_no
-
-Check if the vote was a yes or no vote. Note, these may both be fault
-if the vote was an abstained vote.
 
 =head1 COPYRIGHT
 

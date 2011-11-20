@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use Data::Compare;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
 );
@@ -119,6 +120,30 @@ sub accept {
         $self->data->{old}{artist_credit},
         $self->data->{new}{artist_credit}
     );
+}
+
+sub edit_conditions
+{
+    return {
+        $QUALITY_LOW => {
+            duration      => 4,
+            votes         => 1,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_NORMAL => {
+            duration      => 14,
+            votes         => 3,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 0,
+        },
+        $QUALITY_HIGH => {
+            duration      => 14,
+            votes         => 4,
+            expire_action => $EXPIRE_REJECT,
+            auto_edit     => 0,
+        },
+    };
 }
 
 1;

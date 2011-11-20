@@ -83,7 +83,7 @@ sub _indexed_search {
     $query = join(' OR ',
                   map { "($_)" }
                       $self->_form_indexed_query("$query", $c),
-                      "$query*");
+                      escape_query ("$query") . "*");
 
     my $model = $self->model($c);
 
