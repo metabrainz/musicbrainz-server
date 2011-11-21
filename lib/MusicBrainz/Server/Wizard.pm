@@ -3,6 +3,7 @@ use Moose;
 use Cache::Memcached;
 use Carp qw( croak );
 use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
+use MusicBrainz::Server::Log qw( log_warning log_error );
 
 my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
 
@@ -493,6 +494,9 @@ sub _retrieve_wizard_settings
 
     $self->_session_id ($p->{wizard_session_id});
     $self->_current ($p->{wizard_page_id});
+
+    log_error { "wizard session, cache miss for: ".$self->_cache_key ('wizard') }
+        unless $self->_store ('wizard');
 }
 
 sub _new_session
@@ -504,8 +508,11 @@ sub _new_session
     {
         $self->_session_id(rand);
     }
+
     $self->_store ('wizard', 1);
     $self->_current (0);
+
+    log_warning { "wizard session, new key: ".$self->_cache_key ('wizard') };
 }
 
 sub _load_form
