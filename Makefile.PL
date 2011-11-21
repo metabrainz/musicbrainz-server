@@ -98,8 +98,7 @@ feature 'ETag Caching' =>
 feature 'Default caching setup' =>
     -default                 => 1,
     'Cache::Memory'          => '2.04',
-    'Cache::Memcached::Fast' => '0.16',
-    'Catalyst::Plugin::Session::Store::Memcached'
+    'Cache::Memcached::Fast' => '0.16'
     ;
 
 feature 'Default session store/state management' =>
