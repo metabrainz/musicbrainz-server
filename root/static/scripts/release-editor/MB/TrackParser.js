@@ -530,6 +530,14 @@ MB.TrackParser.Parser = function (disc, serialized) {
         /* insert newly added tracks. */
         $.each (inserted, function (idx, data) {
             data.deleted = 0;
+
+            /* use original track length for this position if disc has toc */
+            if (self.hasToc ())
+            {
+                var copy = original (data.position - 1);
+                data.length = copy.length;
+            }
+
             self.disc.getTrack (data.row).render (data);
         });
 
