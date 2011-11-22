@@ -1,5 +1,4 @@
 SET client_min_messages TO 'warning';
-SET search_path TO musicbrainz_test;
 
 TRUNCATE release_group_type CASCADE;
 TRUNCATE release_status CASCADE;
