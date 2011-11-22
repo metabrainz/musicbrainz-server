@@ -7,6 +7,8 @@ SELECT setval('artist_alias_id_seq', (SELECT MAX(id) FROM artist_alias));
 SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));
 SELECT setval('artist_name_id_seq', (SELECT MAX(id) FROM artist_name));
 SELECT setval('artist_type_id_seq', (SELECT MAX(id) FROM artist_type));
+SELECT setval('autoeditor_election_id_seq', (SELECT MAX(id) FROM autoeditor_election));
+SELECT setval('autoeditor_election_vote_id_seq', (SELECT MAX(id) FROM autoeditor_election_vote));
 SELECT setval('cdtoc_id_seq', (SELECT MAX(id) FROM cdtoc));
 SELECT setval('cdtoc_raw_id_seq', (SELECT MAX(id) FROM cdtoc_raw));
 SELECT setval('clientversion_id_seq', (SELECT MAX(id) FROM clientversion));

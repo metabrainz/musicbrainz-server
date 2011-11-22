@@ -166,7 +166,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'work',
-            columns => [ qw( type iswc comment ) ],
+            columns => [ qw( type iswc ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )

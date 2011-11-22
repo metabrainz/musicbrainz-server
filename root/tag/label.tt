@@ -1,3 +1,3 @@
 [%- INCLUDE 'tag/entity-list.tt' page='label',
-    no_entities_text=l('No labels tagged with this tag were found.') 
-    heading=l('Appears on labels') -%]
+    no_entities_text=l('No labels with this tag were found.')
+    heading=ln('{num} label found', '{num} labels found', pager.total_entries, { num => add_commas(pager.total_entries) }) -%]

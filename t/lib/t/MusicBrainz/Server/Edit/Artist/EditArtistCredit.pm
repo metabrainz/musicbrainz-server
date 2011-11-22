@@ -7,6 +7,7 @@ with 't::Context';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
+use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -54,11 +55,23 @@ ok(!artist_credits_is($c, 1));
 
 };
 
+test 'Not an auto-edit for auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+decompose');
+    my $ac = $c->model('ArtistCredit')->get_by_id(1);
+    my $edit = _create_edit($c, $ac, privileges => $AUTO_EDITOR_FLAG);
+
+    ok($edit->is_open);
+};
+
 sub _create_edit {
-    my ($c, $ac) = @_;
+    my ($c, $ac, %opts) = @_;
     return $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDITCREDIT,
         editor_id => 1,
+        %opts,
         to_edit => $ac,
         artist_credit => {
             names => [

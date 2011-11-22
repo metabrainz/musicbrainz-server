@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Utils;
 use base 'Exporter';
 use Scalar::Util qw( looks_like_number );
 
-our @EXPORT = qw( expand_param expand_all_params );
+our @EXPORT = qw( expand_param expand_all_params collapse_param );
 
 sub _expand
 {
@@ -64,6 +64,42 @@ sub expand_all_params
     }
 
     return \%ret;
+}
+
+sub collapse_param
+{
+    my ($store, $name, $new_value) = @_;
+
+    if (ref $new_value eq 'HASH')
+    {
+        while (my ($key, $value) = each %$new_value)
+        {
+            my $tmp = {};
+            collapse_param ($tmp, $key, $value);
+
+            while (my ($subkey, $subvalue) = each %$tmp)
+            {
+                $store->{"$name.$subkey"} = $subvalue;
+            }
+        }
+    }
+    elsif (ref $new_value eq 'ARRAY')
+    {
+        for my $idx (0..$#$new_value)
+        {
+            my $tmp = {};
+            collapse_param ($tmp, $idx, $new_value->[$idx]);
+
+            while (my ($subkey, $subvalue) = each %$tmp)
+            {
+                $store->{"$name.$subkey"} = $subvalue;
+            }
+        }
+    }
+    else
+    {
+        $store->{$name} = $new_value;
+    }
 }
 
 

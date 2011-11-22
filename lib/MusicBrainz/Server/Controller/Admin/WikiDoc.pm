@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
 
-sub index : Path Args(0) RequireAuth(wiki_transcluder)
+sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
@@ -55,11 +55,13 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder)
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $values = $form->values;
+        my $page = $values->{page};
+        $page =~ s/ /_/g;
         my $edit = $c->model('Edit')->create(
             edit_type    => $EDIT_WIKIDOC_CHANGE,
             editor_id    => $c->user->id,
 
-            page        => $values->{page},
+            page        => $page,
             old_version => undef,
             new_version => $values->{version},
         );
