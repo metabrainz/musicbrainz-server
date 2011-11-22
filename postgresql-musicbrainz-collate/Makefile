@@ -6,6 +6,7 @@ DOCS = README.musicbrainz_collate
 PGXS := $(shell pg_config --pgxs)
 include $(PGXS)
 
+CC = gcc-4.4
 ICU_LIBS = $(shell icu-config --ldflags-libsonly)
 
 musicbrainz_collate.so: musicbrainz_collate.o
