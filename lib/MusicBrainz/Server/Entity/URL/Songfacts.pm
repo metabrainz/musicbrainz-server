@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::YouTube;
+package MusicBrainz::Server::Entity::URL::Songfacts;
 
 use Moose;
 
@@ -8,16 +8,8 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^http://(?:www.)?youtube.com/watch\?v=([a-z0-9_-]+)/?$}i) {
-        return "Watch on YouTube";
-    }
-    elsif ($self->url =~ m{^http://(?:www.)?youtube.com/(?:user/)?([a-z0-9_-]+)/?$}i) {
-        return $1;
-    }
-    else {
-        return "YouTube";
-    }
-};
+    return "Songfacts";
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -25,7 +17,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

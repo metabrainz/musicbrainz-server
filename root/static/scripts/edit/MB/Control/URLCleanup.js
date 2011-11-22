@@ -87,6 +87,9 @@ MB.constants.LINK_TYPES = {
     secondhandsongs: {
         work: 280
     },
+    songfacts: {
+        work: 289
+    },
     socialnetwork: {
         artist: 192,
         label: 218
@@ -94,6 +97,9 @@ MB.constants.LINK_TYPES = {
     soundcloud: {
         artist:291,
         label: 290
+    },
+    streamingmusic: {
+        recording: 268
     },
     vgmdb: {
         artist: 191,
@@ -220,7 +226,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com|lyricstatus\.com|lyr\.cx|lyrics\.musixmatch\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com|lyricstatus\.com)", "i"),
         type: MB.constants.LINK_TYPES.lyrics
     },
     bbcmusic: {
@@ -258,6 +264,10 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\.)?secondhandsongs\\.com/", "i"),
         type: MB.constants.LINK_TYPES.secondhandsongs
     },
+    songfacts: {
+        match: new RegExp("^(https?://)?([^/]+\.)?songfacts\\.com/", "i"),
+        type: MB.constants.LINK_TYPES.songfacts
+    },
     socialnetwork: {
         match: new RegExp("^(https?://)?([^/]+\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
@@ -273,6 +283,21 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.soundcloud,
         clean: function(url) {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
+        }
+    },
+    streamingmusic: {
+        match: new RegExp("^(https?://)?([^/]+\.)?(youtube\\.com/|youtu\\.be/|vimeo\\.com/)", "i"),
+        type: MB.constants.LINK_TYPES.streamingmusic,
+        clean: function(url) { 
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
+            //YouTube URL shortener
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtu\.be\/([a-zA-Z0_9_-]+)/, "http://www.youtube.com/watch?v=$2");
+            //YouTube standard watch URL
+            url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "http://www.youtube.com/watch?$1");
+            //YouTube embeds
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0_9_-]+)([^?]+)/, "http://www.youtube.com/watch?v=$2");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?vimeo\.com/, "http://vimeo.com");
+	    return url;
         }
     },
     vgmdb: {

@@ -259,14 +259,22 @@ sub build_display_data
 
         $data->{artist_credit_changes} = [
             grep { $_->[0] eq 'c' || $_->[0] eq '+' }
+            grep {
+                ($_->[1] && hash_artist_credit($_->[1]->artist_credit))
+                    ne
+                ($_->[2] && hash_artist_credit($_->[2]->artist_credit))
+            }
             @{ sdiff(
                 [ $data->{old}{tracklist}->all_tracks ],
                 [ $data->{new}{tracklist}->all_tracks ],
                 sub {
                     my $track = shift;
-                    return join('|||', map {
-                        join(':', $_->artist->id, $_->name, $_->join_phrase || '')
-                    } $track->artist_credit->all_names)
+                    return join(
+                        '',
+                        $track->name,
+                        format_track_length($track->length),
+                        hash_artist_credit($track->artist_credit)
+                    );
                 }) }
         ];
 
