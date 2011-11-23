@@ -70,12 +70,12 @@ my $fQuiet = 0;
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
 
-sub GetPostgresqlVersion
+sub GetPostgreSQLVersion
 {
     my $mb = Databases->get_connection('READWRITE');
     my $sql = Sql->new( $mb->dbh );
 
-    my $version = $sql->select_single_row_array ("SELECT version();")->[0];
+    my $version = $sql->select_single_value ("SELECT version();");
     $version =~ s/PostgreSQL ([0-9\.]*) .*/$1/;
 
     return version->parse ("v".$version);
@@ -235,7 +235,7 @@ sub CreateRelations
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $READWRITE->schema));
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    if (GetPostgresqlVersion () >= version->parse ("v9.1"))
+    if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
     {
         RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions for PostgreSQL 9.1 or newer");
     }
