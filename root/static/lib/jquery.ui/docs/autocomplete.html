@@ -55,7 +55,7 @@ A simple jQuery UI Autocomplete.<br />
 &lt;html&gt;
 &lt;head&gt;
   &lt;link href=&quot;http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
-  &lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js&quot;&gt;&lt;/script&gt;
   &lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js&quot;&gt;&lt;/script&gt;
   
   &lt;script&gt;
@@ -165,6 +165,48 @@ $( ".selector" ).autocomplete( "option", "appendTo", "#someElem" );</code></pre>
 </li>
 
 
+<li class="option" id="option-autoFocus">
+  <div class="option-header">
+    <h3 class="option-name"><a href="#option-autoFocus">autoFocus</a></h3>
+    <dl>
+      <dt class="option-type-label">Type:</dt>
+        <dd class="option-type">Boolean</dd>
+      
+      <dt class="option-default-label">Default:</dt>
+        <dd class="option-default">false</dd>
+      
+    </dl>
+  </div>
+  <div class="option-description">
+    <p>If set to true the first item will be automatically focused.</p>
+  </div>
+  <div class="option-examples">
+    <h4>Code examples</h4>
+    <dl class="option-examples-list">
+    
+<dt>
+  Initialize a autocomplete with the <code>autoFocus</code> option specified.
+</dt>
+<dd>
+<pre><code>$( ".selector" ).autocomplete({ autoFocus: true });</code></pre>
+</dd>
+
+    
+<dt>
+  Get or set the <code>autoFocus</code> option, after init.
+</dt>
+<dd>
+<pre><code>//getter
+var autoFocus = $( ".selector" ).autocomplete( "option", "autoFocus" );
+//setter
+$( ".selector" ).autocomplete( "option", "autoFocus", true );</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
 <li class="option" id="option-delay">
   <div class="option-header">
     <h3 class="option-name"><a href="#option-delay">delay</a></h3>
@@ -242,6 +284,48 @@ $( ".selector" ).autocomplete( "option", "delay", 0 );</code></pre>
 var minLength = $( ".selector" ).autocomplete( "option", "minLength" );
 //setter
 $( ".selector" ).autocomplete( "option", "minLength", 0 );</code></pre>
+</dd>
+
+    </dl>
+  </div>
+</li>
+
+
+<li class="option" id="option-position">
+  <div class="option-header">
+    <h3 class="option-name"><a href="#option-position">position</a></h3>
+    <dl>
+      <dt class="option-type-label">Type:</dt>
+        <dd class="option-type">Object</dd>
+      
+      <dt class="option-default-label">Default:</dt>
+        <dd class="option-default">{ my: &quot;left top&quot;, at: &quot;left bottom&quot;, collision: &quot;none&quot; }</dd>
+      
+    </dl>
+  </div>
+  <div class="option-description">
+    <p>Identifies the position of the Autocomplete widget in relation to the associated input element. The "of" option defaults to the input element, but you can specify another element to position against. You can refer to the <a href="http://docs.jquery.com/UI/Position" class="external text" title="http://docs.jquery.com/UI/Position">jQuery UI Position</a> utility for more details about the various options.</p>
+  </div>
+  <div class="option-examples">
+    <h4>Code examples</h4>
+    <dl class="option-examples-list">
+    
+<dt>
+  Initialize a autocomplete with the <code>position</code> option specified.
+</dt>
+<dd>
+<pre><code>$( ".selector" ).autocomplete({ position: { my : &quot;right top&quot;, at: &quot;right bottom&quot; } });</code></pre>
+</dd>
+
+    
+<dt>
+  Get or set the <code>position</code> option, after init.
+</dt>
+<dd>
+<pre><code>//getter
+var position = $( ".selector" ).autocomplete( "option", "position" );
+//setter
+$( ".selector" ).autocomplete( "option", "position", { my : &quot;right top&quot;, at: &quot;right bottom&quot; } );</code></pre>
 </dd>
 
     </dl>
@@ -540,7 +624,7 @@ $( ".selector" ).autocomplete( "option", "source", [&quot;c++&quot;, &quot;java&
     </dl>
   </div>
   <div class="event-description">
-    <p>After an item was selected; ui.item refers to the selected item. Always triggered after the close event.</p>
+    <p>Triggered when the field is blurred, if the value has changed; ui.item refers to the selected item.</p>
   </div>
   <div class="event-examples">
     <h4>Code examples</h4>
@@ -760,15 +844,15 @@ $( ".selector" ).autocomplete( "option", "source", [&quot;c++&quot;, &quot;java&
 </p>
     
   <h3>Sample markup with jQuery UI CSS Framework classes</h3>
-  &lt;input class=&quot;ui-autocomplete-input&quot;/&gt;<br />
-&lt;ul class=&quot;ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all&quot;&gt;<br />
-&nbsp;&nbsp;&lt;li class=&quot;ui-menu-item&quot;&gt;<br />
+  &lt;input class=&quot;<strong>ui-autocomplete-input</strong>&quot;/&gt;<br />
+&lt;ul class=&quot;<strong>ui-autocomplete</strong> <strong>ui-menu</strong> ui-widget ui-widget-content ui-corner-all&quot;&gt;<br />
+&nbsp;&nbsp;&lt;li class=&quot;<strong>ui-menu-item</strong>&quot;&gt;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;a class=&quot;ui-corner-all&quot;&gt;item 1&lt;/a&gt;<br />
 &nbsp;&nbsp;&lt;/li&gt;<br />
-&nbsp;&nbsp;&lt;li class=&quot;ui-menu-item&quot;&gt;<br />
+&nbsp;&nbsp;&lt;li class=&quot;<strong>ui-menu-item</strong>&quot;&gt;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;a class=&quot;ui-corner-all&quot;&gt;item 2&lt;/a&gt;<br />
 &nbsp;&nbsp;&lt;/li&gt;<br />
-&nbsp;&nbsp;&lt;li class=&quot;ui-menu-item&quot;&gt;<br />
+&nbsp;&nbsp;&lt;li class=&quot;<strong>ui-menu-item</strong>&quot;&gt;<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;a class=&quot;ui-corner-all&quot;&gt;item 3&lt;/a&gt;<br />
 &nbsp;&nbsp;&lt;/li&gt;<br />
 &lt;/ul&gt;
@@ -782,10 +866,10 @@ $( ".selector" ).autocomplete( "option", "source", [&quot;c++&quot;, &quot;java&
 </div>
 
 </p><!-- 
-Pre-expand include size: 32903 bytes
-Post-expand include size: 54578 bytes
-Template argument size: 29474 bytes
+Pre-expand include size: 35982 bytes
+Post-expand include size: 61393 bytes
+Template argument size: 33841 bytes
 Maximum: 2097152 bytes
 -->
 
-<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3766-1!1!0!!en!2 and timestamp 20110221125419 -->
+<!-- Saved in parser cache with key jqdocs_docs:pcache:idhash:3766-1!1!0!!en!2 and timestamp 20110815133304 -->
