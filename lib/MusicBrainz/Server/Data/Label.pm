@@ -229,7 +229,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'label',
-            columns => [ qw( type country label_code ipi_code comment ) ],
+            columns => [ qw( type country label_code ipi_code ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )

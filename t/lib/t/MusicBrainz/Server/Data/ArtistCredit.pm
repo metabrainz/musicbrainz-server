@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Data::ArtistCredit;
 use Test::Routine;
 use Test::Moose;
+use Test::Fatal;
 use Test::More;
 use Test::Memory::Cycle;
 
@@ -9,6 +10,23 @@ use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Test;
 
 with 't::Context';
+
+test 'merge_artists with renaming works if theres nothing to rename' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Queen');
+INSERT INTO artist_name (id, name) VALUES (2, 'David Bowie');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 2, 2);
+EOSQL
+
+    ok !exception {
+        $c->model('ArtistCredit')->merge_artists(1, [2], rename => 1)
+    };
+};
 
 test 'Can have artist credits with no join phrase' => sub {
     my $test = shift;

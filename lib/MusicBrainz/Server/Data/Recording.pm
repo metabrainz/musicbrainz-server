@@ -266,7 +266,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'recording',
-            columns => [ qw( length comment ) ],
+            columns => [ qw( length ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )

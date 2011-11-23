@@ -1,6 +1,6 @@
 User-agent: *
 Disallow: /account/
-Disallow: /admin/
+Disallow: /admin
 Disallow: /ajax/
 Disallow: /artist/
 Disallow: /browse/
@@ -10,9 +10,8 @@ Disallow: /edit/
 Disallow: /freedb/
 Disallow: /isrc/
 Disallow: /label/
-Disallow: /otherlookup/
+Disallow: /otherlookup
 Disallow: /partners/
-Disallow: /privileged/
 Disallow: /puid/
 Disallow: /rating/
 Disallow: /recording/
@@ -21,9 +20,8 @@ Disallow: /release-group/
 Disallow: /report/
 Disallow: /reports
 Disallow: /search
-Disallow: /statistics/
 Disallow: /tag/
-Disallow: /tags/
+Disallow: /tags
 Disallow: /taglookup
 Disallow: /test/
 Disallow: /tracklist/
@@ -31,3 +29,4 @@ Disallow: /unit_tests/
 Disallow: /url/
 Disallow: /user/
 Disallow: /work/
+Disallow: /ws

@@ -9,19 +9,20 @@ sub gather_data
 
     $self->gather_data_from_query($writer, "
         SELECT
-            DISTINCT r.gid, rn.name, r.artist_credit AS artist_credit_id, an.name, musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
+            DISTINCT r.gid, rn.name, r.artist_credit AS artist_credit_id,
+            musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
         FROM
             release r
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
             JOIN release_name rn ON r.name = rn.id
             JOIN medium m ON m.release = r.id
-            JOIN medium_format mf ON mf.id = m.format
+            LEFT JOIN medium_format mf ON mf.id = m.format
             LEFT JOIN medium_cdtoc mcd on mcd.medium = m.id
         WHERE
             (mcd.id IS NOT NULL AND r.date_year < (select min(year) from medium_format where has_discids = 't')) OR
-            (mcd.id IS NOT NULL AND mf.has_discids = 'f') OR
-            r.date_year < mf.year
+            (mcd.id IS NOT NULL AND mf.year IS NOT NULL AND mf.has_discids = 'f') OR
+            (mf.year IS NOT NULL AND r.date_year < mf.year)
         ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
     ");
 }

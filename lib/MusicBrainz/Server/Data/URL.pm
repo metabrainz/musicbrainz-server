@@ -31,6 +31,7 @@ my %URL_SPECIALIZATIONS = (
     'Ozon'            => qr{^https?://(?:www.)?ozon.ru/}i,
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
     'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
+    'Songfacts'       => qr{^https?://(?:www.)?songfacts.com/}i,
     'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
     'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
@@ -71,10 +72,27 @@ sub _merge_impl
 {
     my ($self, $new_id, @old_ids) = @_;
 
+    # A URL is automatically deleted if it has no relationships, so we have
+    # manually do this merge. We add the GID redirect first, then merge
+    # all relationships (which will in turn delete the old URL).
+
+    my @old_gids = @{
+        $self->c->sql->select_single_column_array(
+            'SELECT gid FROM url WHERE id = any(?)', \@old_ids
+        )
+    };
+
+    # Update all GID redirects from @old_ids to $new_id
+    $self->update_gid_redirects($new_id, @old_ids);
+
+    # Add new GID redirects
+    $self->add_gid_redirects(map { $_ => $new_id } @old_gids);
+
     $self->c->model('Edit')->merge_entities('url', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('url', $new_id, @old_ids);
 
-    $self->_delete_and_redirect_gids('url', $new_id, @old_ids);
+    $self->_delete(@old_ids);
+
     return 1;
 }
 
@@ -92,6 +110,11 @@ sub update
         $self->sql->update_row('url', $row, { id => $url_id });
         return $url_id;
     }
+}
+
+sub _delete {
+    my ($self, @ids) = @_;
+    $self->sql->do('DELETE FROM url WHERE id = any(?)', \@ids);
 }
 
 sub _hash_to_row

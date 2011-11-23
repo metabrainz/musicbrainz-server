@@ -259,7 +259,7 @@ sub merge
     merge_table_attributes(
         $self->sql => (
             table => 'artist',
-            columns => [ qw( comment ipi_code gender country type ) ],
+            columns => [ qw( ipi_code gender country type ) ],
             old_ids => $old_ids,
             new_id => $new_id
         )

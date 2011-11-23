@@ -17,9 +17,12 @@ sub base : Chained('/') PathPart('freedb') CaptureArgs(0) { }
 sub _load {
     my ($self, $c, $category, $id) = @_;
 
-    if (is_freedb_id($id)) {
+    if (is_freedb_id($id))
+    {
+        my $freedb;
+
         try {
-            return $c->model('FreeDB')->lookup($category, $id);
+            $freedb = $c->model('FreeDB')->lookup($category, $id);
         }
         catch {
             if (ref($_) eq 'MusicBrainz::Server::Exceptions::InvalidInput') {
@@ -27,6 +30,8 @@ sub _load {
                 $c->detach('/error_500');
             }
         };
+
+        return $freedb;
     }
     else {
         $c->stash( message  => l("'{id}' is not a valid FreeDB ID", { id => $id }) );

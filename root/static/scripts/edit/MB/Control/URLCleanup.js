@@ -87,6 +87,9 @@ MB.constants.LINK_TYPES = {
     secondhandsongs: {
         work: 280
     },
+    songfacts: {
+        work: 289
+    },
     socialnetwork: {
         artist: 192,
         label: 218
@@ -223,7 +226,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com|lyricstatus\.com|lyr\.cx|lyrics\.musixmatch\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?(lyrics\.wikia\.com|directlyrics\.com|lyricstatus\.com)", "i"),
         type: MB.constants.LINK_TYPES.lyrics
     },
     bbcmusic: {
@@ -260,6 +263,10 @@ MB.constants.CLEANUPS = {
     secondhandsongs: {
         match: new RegExp("^(https?://)?([^/]+\.)?secondhandsongs\\.com/", "i"),
         type: MB.constants.LINK_TYPES.secondhandsongs
+    },
+    songfacts: {
+        match: new RegExp("^(https?://)?([^/]+\.)?songfacts\\.com/", "i"),
+        type: MB.constants.LINK_TYPES.songfacts
     },
     socialnetwork: {
         match: new RegExp("^(https?://)?([^/]+\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/", "i"),

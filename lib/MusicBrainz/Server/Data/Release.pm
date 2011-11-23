@@ -624,7 +624,7 @@ sub merge
     merge_table_attributes(
         $self->sql => (
             table => 'release',
-            columns => [ qw( status packaging country comment barcode script language ) ],
+            columns => [ qw( status packaging country barcode script language ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
