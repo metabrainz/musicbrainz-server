@@ -310,7 +310,7 @@ sub add_partial_date_to_row
 
 sub type_to_model
 {
-    return $TYPE_TO_MODEL{$_[0]} || undef;
+    return $TYPE_TO_MODEL{$_[0]} || die "$_[0] is not a type that has a model";
 }
 
 sub model_to_type

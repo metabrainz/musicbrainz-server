@@ -8,8 +8,10 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-        SELECT
-            r.gid, rn.name, r.artist_credit AS artist_credit_id
+        SELECT DISTINCT
+            r.gid, rn.name, r.artist_credit AS artist_credit_id,
+            musicbrainz_collate(an.name) artist_collate,
+            musicbrainz_collate(rn.name) release_collate
         FROM (
             SELECT
                 entity0 AS entity, link

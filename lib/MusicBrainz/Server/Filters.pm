@@ -96,7 +96,7 @@ sub _display_trimmed {
         : $encoded_url;
 
     $encoded_url = "http://$encoded_url"
-        unless $encoded_url =~ m{^http://};
+        unless $encoded_url =~ m{^https?://};
 
     return qq{<a href="$encoded_url">$display_url</a>};
 }

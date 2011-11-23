@@ -79,7 +79,7 @@ memory_cycle_ok($editor);
 # Test crediting
 Sql::run_in_transaction(sub {
         $editor_data->credit($editor->id, $STATUS_APPLIED);
-        $editor_data->credit($editor->id, $STATUS_APPLIED, 1);
+        $editor_data->credit($editor->id, $STATUS_APPLIED, auto_edit => 1);
         $editor_data->credit($editor->id, $STATUS_FAILEDVOTE);
         $editor_data->credit($editor->id, $STATUS_ERROR);
     }, $test->c->sql);

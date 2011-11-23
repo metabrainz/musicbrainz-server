@@ -1511,6 +1511,9 @@ sub _seed_parameters {
             $artist_credit->{artist}->{id} = $entity->id;
             $artist_credit->{artist}->{name} = $entity->name;
         }
+        else {
+            $artist_credit->{artist}->{name} ||= $artist_credit->{name};
+        }
     }
 
     {

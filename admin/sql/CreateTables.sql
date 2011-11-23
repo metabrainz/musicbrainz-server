@@ -726,8 +726,8 @@ CREATE TABLE link_type
     parent              INTEGER, -- references link_type.id
     child_order         INTEGER NOT NULL DEFAULT 0,
     gid                 UUID NOT NULL,
-    entity_type0        VARCHAR(50),
-    entity_type1        VARCHAR(50),
+    entity_type0        VARCHAR(50) NOT NULL,
+    entity_type1        VARCHAR(50) NOT NULL,
     name                VARCHAR(255) NOT NULL,
     description         TEXT,
     link_phrase         VARCHAR(255) NOT NULL,

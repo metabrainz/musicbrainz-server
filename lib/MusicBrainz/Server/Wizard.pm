@@ -360,6 +360,7 @@ sub _route
     }
     elsif (defined $p->{save})
     {
+        return $self->navigate_to_page unless $self->valid ($page);
         $self->submitted(1);
         return;
     }
