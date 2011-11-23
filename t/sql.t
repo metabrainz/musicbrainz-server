@@ -253,4 +253,10 @@ my $sql =
     } 'get_column_range in list context';
 }
 
+{
+    # Clean up!
+    $sql->auto_commit(1);
+    $sql->do('TRUNCATE tag CASCADE');
+}
+
 done_testing;
