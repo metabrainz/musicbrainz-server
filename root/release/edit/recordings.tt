@@ -181,8 +181,7 @@
 
     [%- USE w = Wizard() -%]
     [%- information = w.page('information') -%]
-    [%- mediums = w.page('tracklist').field('mediums') -%]
-    [%- multidisc = mediums.fields.size > 1 -%]
+    [%- multidisc = tracklist_edits.size > 1 -%]
 
     <div class="half-width recording-assoc">
 
@@ -231,23 +230,23 @@
 
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]
       [%- medium_idx = loop.index -%]
-      [%- medium = mediums.fields.$medium_idx -%]
+      [%- medium = tracklist_edits.$medium_idx -%]
       [%- edits = tracklist_edits.$medium_idx.edits -%]
 
       <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]"
-        [%- IF medium.field('deleted').value %] style="display: none"[% END %]>
+        [%- IF medium.deleted %] style="display: none"[% END %]>
 
         [%- r.hidden (rec_medium.field('tracklist_id'), class => 'tracklist-id' ) -%]
         <legend>
-          [%- IF medium.field('name').value -%]
+          [%- IF medium.name -%]
             [%- IF multidisc -%]
-              [%- l('Disc {num}: {title}', { num => medium.field('position').value, title => html_escape(medium.field('name').value) }) -%]
+              [%- l('Disc {num}: {title}', { num => medium.position, title => html_escape(medium.name) }) -%]
             [%- ELSE -%]
-              [%- medium.field('name').value | html -%]
+              [%- medium.name | html -%]
             [%- END -%]
           [%- ELSE -%]
             [%- IF multidisc -%]
-              [%- l('Disc {num}', { num => medium.field('position').value }) -%]
+              [%- l('Disc {num}', { num => medium.position }) -%]
             [%- ELSE -%]
               [%- l('Tracklist') -%]
             [%- END -%]
@@ -354,14 +353,12 @@
     [%- END -%]
     </div>
 
-
     <div class="documentation">
 
       [%- FOR rec_medium=form.field('rec_mediums').fields -%]
 
         [%- medium_idx = loop.index -%]
         [%- edits = tracklist_edits.$medium_idx.edits -%]
-        [%- medium = mediums.fields.$medium_idx -%]
 
         [%- FOR assoc=rec_medium.field('associations').fields -%]
           [%- track_idx = loop.index -%]
