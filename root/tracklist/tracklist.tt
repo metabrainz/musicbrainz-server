@@ -1,12 +1,13 @@
 <style>
 table.tbl td { vertical-align: top }
+div.ars { font-size: 10px; }
 dl.ars {
     padding: 0;
     margin: 0.5em 0;
     margin-left: 1em;
 }
 dl.ars dt {
-	clear: left;
+    clear: left;
     float: left;
     margin-right: 0.5em;
     color: #555;
@@ -35,6 +36,7 @@ dl.ars dd {
       [%- END -%]
       [% IF recording.relationships.size %]
         <br/>
+        <div class="ars" style="display: none;">
         [% FOR type_relationships=recording.grouped_relationships %]
           <dl class="ars">
           [% IF type_relationships.key == 'work' %]
@@ -62,6 +64,7 @@ dl.ars dd {
           [% END %]
         </dl>
         [% END %]
+        </div>
       [% END %]
     </td>
     [%- IF show_artists -%]
