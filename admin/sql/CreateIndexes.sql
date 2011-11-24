@@ -32,6 +32,8 @@ CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 
+CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (editor, name);
+
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_artist_idx_artist ON editor_subscribe_artist (artist);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
