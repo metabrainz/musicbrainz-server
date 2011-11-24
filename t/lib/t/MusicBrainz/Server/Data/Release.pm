@@ -30,6 +30,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, barcode)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, '796122009228'),
            (2, '5b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, '600116802422'),
            (3, '6b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, NULL);
+INSERT INTO release_gid_redirect (gid, new_id) VALUES ('1b4faa80-72d9-11de-8a39-0800200c9a66', 1);
 EOSQL
 
     {
@@ -90,6 +91,26 @@ EOSQL
         my @out = $test->c->model('Release')->filter_barcode_changes(@in);
 
         cmp_bag(\@out, [ $in[0] ], 'changes are only shown once');
+    }
+
+    {
+        my @in = (
+            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, [ ], 'inspects over gid redirects');
+    }
+
+    {
+        my @in = (
+            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, [
+            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' }
+        ], 'inspects over gid redirects');
     }
 };
 
