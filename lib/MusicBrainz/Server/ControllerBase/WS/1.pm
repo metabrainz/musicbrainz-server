@@ -16,6 +16,8 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
     threshold => DBDefs::PROFILE_WEB_SERVICE()
 };
 
+with 'MusicBrainz::Server::Controller::Role::CORS';
+
 has 'model' => (
     isa => 'Str',
     is  => 'ro',

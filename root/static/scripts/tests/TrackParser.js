@@ -38,13 +38,11 @@ MB.tests.TrackParser.BugFixes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            var $textarea = $('textarea.tracklist');
             var disc = MB.tests.TrackParser.ReleaseDiscMock ();
-            var parser = MB.TrackParser.Parser (disc, $textarea);
+            var parser = MB.TrackParser.Parser (disc);
             parser.setOptions (test);
 
-            $textarea.val (test.input);
-            var result = parser.getTrackInput ();
+            var result = parser.getTrackInput (test.input);
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
@@ -103,13 +101,11 @@ MB.tests.TrackParser.BugFixes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            var $textarea = $('textarea.tracklist');
             var disc = MB.tests.TrackParser.ReleaseDiscMock ();
-            var parser = MB.TrackParser.Parser (disc, $textarea);
+            var parser = MB.TrackParser.Parser (disc);
             parser.setOptions (test);
 
-            $textarea.val (test.input);
-            var result = parser.getTrackInput ();
+            var result = parser.getTrackInput (test.input);
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];

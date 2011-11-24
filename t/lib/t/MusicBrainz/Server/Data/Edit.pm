@@ -272,5 +272,25 @@ test 'Find edits by subscription' => sub {
     ok((grep { $_->id == 4 } @edits), 'has edit #4');
 };
 
+test 'Accepting auto-edits should credit editor auto-edits column' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
+
+    my $editor = $c->model('Editor')->get_by_id(1);
+    my $old_ae_count = $editor->accepted_auto_edits;
+    my $old_e_count = $editor->accepted_edits;
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => 123,
+        editor_id => 1,
+        privileges => 1
+    );
+
+    $editor = $c->model('Editor')->get_by_id(1);
+    is $editor->accepted_auto_edits, $old_ae_count + 1;
+    is $editor->accepted_edits, $old_e_count;
+};
 
 1;

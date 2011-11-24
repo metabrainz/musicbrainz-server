@@ -22,15 +22,25 @@ has date_collected => (
    coerce => 1
 );
 
+sub summed_statistics {
+    my ($self, $stats) = @_;
+    my $sum = 0;
+    if (ref($stats) eq 'ARRAY') {
+        foreach my $i (@{$stats}) {
+            $sum += $self->statistic($i);
+        }
+    } else {
+        $sum = $self->statistic($stats);
+    }
+    return $sum
+}
+
 sub ratio {
     my ($self, $num_stat, $denom_stat) = @_;
-    my ($numerator, $denominator) = (
-        $self->statistic($num_stat),
-        $self->statistic($denom_stat),
-    );
+    my $denominator = $self->summed_statistics($denom_stat);
 
     return unless $denominator > 0;
-    return $numerator * 100 / $denominator;
+    return $self->summed_statistics($num_stat) * 100 / $denominator;
 }
 
 __PACKAGE__->meta->make_immutable;

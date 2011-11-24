@@ -97,7 +97,7 @@ MB.Control.ReleaseEdits = function ($edits) {
         var edited_tracklist = [];
 
         $.each (tracks, function (idx, trk) {
-            var from = tracklist[idx];
+            var from = tracklist ? tracklist[idx] : null;
 
             var to = {
                 'name': trk.$title.val (),

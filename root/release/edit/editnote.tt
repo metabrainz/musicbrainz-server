@@ -8,6 +8,7 @@
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
    [%- USE r = FormRenderer(form) -%]
+   [% r.hidden('id') %]
 
    [%# Do not display new entities as 'deleted'. See common-macros.tt
        (link_entity) for more information. -%]

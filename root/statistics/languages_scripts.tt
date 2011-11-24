@@ -1,13 +1,19 @@
 [%- MACRO entry(entity, type) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
     <td>[% loop.count() %].</td>
-    <td>[% l(entity.entity.name) %]</td>
     [% IF type == 'lang' %]
-    <td><a href="/search?query=[% type %]%3A[% entity.entity.iso_code_3t %]&type=release&limit=25&advanced=1">[% entity.count %]</a></td>
+    <td>[% l(entity.entity.name) || l('Unknown language') %]</td>
+    <td>[%- lang_script_search_link(type, entity.entity.iso_code_3t, entity.count) -%]</td>
     [% ELSIF type == 'script' %]
-    <td><a href="/search?query=[% type %]%3A[% entity.entity.iso_code %]&type=release&limit=25&advanced=1">[% entity.count %]</a></td>
+    <td>[% l(entity.entity.name) || l('Unknown script') %]</td>
+    <td>[%- lang_script_search_link(type, entity.entity.iso_code, entity.count) -%]</td>
     [% END %]
 </tr>
+[%- END -%]
+[%- MACRO lang_script_search_link(type, code, contents) BLOCK -%]
+[%- IF code != '' -%]<a href="/search?query=[% type %]%3A[% code %]&type=release&limit=25&advanced=1">[%- END -%]
+[% contents %]
+[%- IF code != '' -%]</a>[%- END -%]
 [%- END -%]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
