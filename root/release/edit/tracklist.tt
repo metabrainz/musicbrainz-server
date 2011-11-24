@@ -354,7 +354,7 @@
                 </div>
                 <div class="row advanced-tracklist">
                   [% r.label(medium_field.field('name'), l('Disc title')) %]
-                  [% r.text(medium_field.field('name')) %]
+                  [% r.text(medium_field.field('name'), class => 'name') %]
 
                   <input type="button" class="icon guesscase-medium"
                       title="[% l('Guess case disc title') %]"
