@@ -1,20 +1,22 @@
 <style>
 table.tbl td { vertical-align: top }
-div.ars { font-size: 10px; }
-dl.ars {
+
+dl.ars, dl.ars dd, dl.ars dt {
     padding: 0;
-    margin: 0.5em 0;
-    margin-left: 1em;
+    margin: 0;
+    font-size: 11px;
 }
+
+dl.ars { margin-left: 2em; }
+dl.ars dd { margin: 0.2em 0; }
+
 dl.ars dt {
+    margin-right: 0.5em;
     clear: left;
     float: left;
-    margin-right: 0.5em;
     color: #555;
 }
-dl.ars dd {
-    margin-bottom: 0.2em;
-}
+
 </style>
 
 [% MACRO group_dd(group) BLOCK;
