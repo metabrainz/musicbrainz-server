@@ -134,7 +134,6 @@
     <h1>Track Parser</h1>
 
     <div>
-        <p>[% l('This is placeholder text.') %]</p>
         <textarea class="tracklist"></textarea>
         <h3 class="track-parser-options">[% l('Options') %]</h3>
     </div>
@@ -355,7 +354,7 @@
                 </div>
                 <div class="row advanced-tracklist">
                   [% r.label(medium_field.field('name'), l('Disc title')) %]
-                  [% r.text(medium_field.field('name')) %]
+                  [% r.text(medium_field.field('name'), class => 'name') %]
 
                   <input type="button" class="icon guesscase-medium"
                       title="[% l('Guess case disc title') %]"

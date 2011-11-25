@@ -26,6 +26,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_MERGE
 );
 
+use aliased 'MusicBrainz::Server::Entity::Work';
+
 # A duration lookup has to match within this many milliseconds
 use constant DURATION_LOOKUP_RANGE => 10000;
 
@@ -164,6 +166,11 @@ sub show : Chained('load') PathPart('')
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
     }
     $c->model('ArtistCredit')->load($release, @tracks);
+
+    $c->model('Relationship')->load(@recordings);
+    $c->model('Relationship')->load(
+        grep { $_->isa(Work) } map { $_->target }
+            map { $_->all_relationships } @recordings);
 
     $c->stash(
         template     => 'release/index.tt',

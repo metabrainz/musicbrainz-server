@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Data::Statistics;
+use Test::Fatal;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -31,6 +32,15 @@ EOSQL
     is($tc2->statistic_for('2011-03-28') => 50001);
     is($tc2->statistic_for('2011-03-29') => 50002);
     is($tc2->name => 'count.release');
+};
+
+test 'test recalculate_all' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->begin;
+    ok !exception { $c->model('Statistics')->recalculate_all };
+    $c->sql->commit;
 };
 
 1;

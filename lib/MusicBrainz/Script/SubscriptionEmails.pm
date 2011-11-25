@@ -29,6 +29,12 @@ has 'dry_run' => (
     default => 0,
 );
 
+has 'weekly' => (
+    isa => 'Bool',
+    is => 'ro',
+    default => 0,
+);
+
 has 'emailer' => (
     is => 'ro',
     required => 1,
@@ -56,29 +62,38 @@ sub run {
     die "Usage error ($0 takes no arguments)" if @args;
 
     my $max = $self->c->model('Edit')->get_max_id;
-    my @editors = $self->c->model('Editor')->editors_with_subscriptions;
+    my @editors = $self->c->model('Editor')->editors_with_subscriptions();
 
     for my $editor (@editors) {
-        printf "Processing subscriptions for '%s'\n", $editor->name
+        my $period = $editor->preferences->subscriptions_email_period;
+        printf "Processing subscriptions for '%s' (%s)\n", $editor->name, $period
             if $self->verbose;
 
-        my @subscriptions = $self->c->model('EditorSubscriptions')
-            ->get_all_subscriptions($editor->id) or next;
+        next if $period eq 'weekly' and !$self->weekly;
 
-        if(my $data = $self->extract_subscription_data(@subscriptions)) {
-            unless ($self->dry_run) {
-                if ($editor->has_confirmed_email_address) {
-                    printf "... sending email\n" if $self->verbose;
-                    $self->emailer->send_subscriptions_digest(
-                        editor => $editor,
-                        %$data
-                    );
+        unless ($period eq 'never') {
+
+            my @subscriptions = $self->c->model('EditorSubscriptions')
+                ->get_all_subscriptions($editor->id);
+
+            if (my $data = $self->extract_subscription_data(@subscriptions)) {
+                unless ($self->dry_run) {
+                    if ($editor->has_confirmed_email_address) {
+                        printf "... sending email\n" if $self->verbose;
+                        $self->emailer->send_subscriptions_digest(
+                            editor => $editor,
+                            %$data
+                        );
+                    }
                 }
-
-                printf "... updating subscriptions\n" if $self->verbose;
-                $self->c->model('EditorSubscriptions')
-                    ->update_subscriptions($max, $editor->id);
             }
+
+        }
+
+        unless ($self->dry_run) {
+            printf "... updating subscriptions\n" if $self->verbose;
+            $self->c->model('EditorSubscriptions')
+                ->update_subscriptions($max, $editor->id);
         }
 
         printf "\n" if $self->verbose;

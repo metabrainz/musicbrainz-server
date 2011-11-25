@@ -52,7 +52,7 @@ sub _build_conn
 
         if (my $schema = $self->_schema) {
             $sql->auto_commit(1);
-            $sql->do("SET search_path TO '$schema'");
+            $sql->do("SET search_path=$schema");
         }
     });
 

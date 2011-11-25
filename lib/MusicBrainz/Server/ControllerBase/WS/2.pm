@@ -18,6 +18,8 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
     threshold => DBDefs::PROFILE_WEB_SERVICE()
 };
 
+with 'MusicBrainz::Server::Controller::Role::CORS';
+
 # This defines what options are acceptable for WS calls.
 # Note that the validator will automatically add inc= arguments to the allowed list
 # based on other inc= arguments.  (puids are allowed if recordings are allowed, etc..)
