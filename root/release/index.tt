@@ -10,7 +10,7 @@
                   <span style="float: right; font-weight: normal; padding-right: 1em;">
                     <a style="display: none;" class="show-credits" href="">[% l('Show Credits') %]</a>
                     <a style="display: none;" class="hide-credits" href="">[% l('Hide Credits') %]</a>
-                    <input style="display: none;" type="checkbox" id="show-credits" />
+                    <input style="display: none;" type="checkbox" id="hide-credits" />
                   </span>
                   [% l('Title') %]
                 </th>
@@ -35,20 +35,20 @@
         </tbody>
     </table>
     <script type="text/javascript">
-      MB.utility.rememberCheckbox ("#show-credits", "show-credits");
+      MB.utility.rememberCheckbox ("#hide-credits", "hide-credits");
 
-      var $checkbox = $('#show-credits');
+      var $checkbox = $('#hide-credits');
 
       if ($('div.ars').length)
       {
           if ($checkbox.is (':checked'))
           {
-              $('div.ars').show ();
-              $('a.hide-credits').show ();
+              $('a.show-credits').show ();
           }
           else
           {
-              $('a.show-credits').show ();
+              $('div.ars').show ();
+              $('a.hide-credits').show ();
           }
       }
 
