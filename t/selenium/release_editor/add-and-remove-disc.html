@@ -23,28 +23,33 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a[href=#basic]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
 	<td>link=Add Disc</td>
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>css=input.add-disc</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
-	<td>css=textarea.tracklist:eq(1)</td>
+	<td>css=div.add-disc-tab.manual &gt; textarea.tracklist</td>
 	<td>1. I do not really want to add this disc (4:45)</td>
 </tr>
 <tr>
-	<td>fireEvent</td>
-	<td>css=textarea.tracklist:eq(1)</td>
-	<td>blur</td>
+	<td>check</td>
+	<td>id=tracknumbers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=trackartists</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=tracktimes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.positive.add-disc</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -58,7 +63,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#mediums\.1\.basicdisc input.remove-disc</td>
+	<td>//fieldset[@id='mediums.1.advanced-disc']/table/tbody/tr/td[4]/input[3]</td>
 	<td></td>
 </tr>
 <tr>

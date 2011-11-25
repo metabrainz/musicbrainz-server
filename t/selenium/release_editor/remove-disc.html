@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://bullet-bill:3000/" />
+<link rel="selenium.base" href="http://localhost:3000/" />
 <title>remove-disc</title>
 </head>
 <body>
@@ -22,33 +22,18 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>css=a[href=#basic]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyVisible</td>
-	<td>mediums.0.basicdisc</td>
-	<td></td>
-</tr>
-<tr>
 	<td>verifyText</td>
-	<td>css=div#preview h3:eq(0)</td>
+	<td>css=legend:eq(0)</td>
 	<td>Disc 1</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=table.basic-format:eq(0) input.remove-disc</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyNotVisible</td>
-	<td>mediums.0.basicdisc</td>
+	<td>css=input.icon.remove-disc</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div#preview h3:eq(0)</td>
+	<td>css=legend:eq(0)</td>
 	<td>Disc 1: Chestplate Singles</td>
 </tr>
 <tr>
