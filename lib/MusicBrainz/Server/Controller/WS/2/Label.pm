@@ -3,7 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use Carp;
 use Readonly;
+use Try::Tiny;
 
 my $ws_defs = Data::OptList::mkopt([
      label => {
@@ -135,6 +137,18 @@ sub label_search : Chained('root') PathPart('label') Args(0)
     $self->_search ($c, 'label');
 }
 
+sub no_changes : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(409);
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body(
+        $c->stash->{serializer}->output_error(
+            "The document you submitted is identical to the entity in the database."));
+    $c->detach;
+}
+
 sub label_edit : Private
 {
     my ($self, $c) = @_;
@@ -157,13 +171,27 @@ sub label_edit : Private
         sort_name => $body->{sort_name},
     );
 
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_LABEL_EDIT,
-        editor_id => $c->user->id,
-        privileges => $c->user->privileges,
-        to_edit => $label,
-        %options
-    );
+    my $edit;
+    try {
+        $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_LABEL_EDIT,
+            editor_id => $c->user->id,
+            privileges => $c->user->privileges,
+            to_edit => $label,
+            %options
+        );
+    }
+    catch {
+        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+            $c->detach('no_changes');
+        }
+        else {
+            use Data::Dumper;
+            croak "The edit could not be created.\n" .
+                "Submitted document: " . Dumper($body) . "\n" .
+                "Exception:" . Dumper($_);
+        }
+    };
 
     die "krak" unless $edit;
 
