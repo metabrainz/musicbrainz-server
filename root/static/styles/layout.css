@@ -382,10 +382,15 @@ div.warning img.warning {
     background: url("../images/favicons/external-16.png") 0 2px no-repeat;
     margin-bottom: 2px;
     padding: 4px 0 0 22px;
+    min-height: 14px;
 }
 
 #sidebar ul.external_links li.home {
     background-image: url("../images/favicons/home-16.png");
+}
+
+#sidebar ul.external_links li.allmusic {
+    background-image: url("/static/images/favicons/allmusic-16.png");
 }
 
 #sidebar ul.external_links li.amazon {
@@ -418,6 +423,14 @@ div.warning img.warning {
 
 #sidebar ul.external_links li.discogs {
     background-image: url("../images/favicons/discogs-16.png");
+}
+
+#sidebar ul.external_links li.secondhandsongs {
+    background-image: url("../images/favicons/secondhandsongs-16.png");
+}
+
+#sidebar ul.external_links li.songfacts {
+    background-image: url("../images/favicons/songfacts-16.png");
 }
 
 #sidebar ul.external_links li.soundcloud {
@@ -486,6 +499,11 @@ tr.diff-changes {
     font-size: 90%;
     color: #777;
     font-style: italic;
+}
+
+.lastupdate {
+    padding-top: 1em;
+    margin-left: -5px;
 }
 
 /* The release information table */

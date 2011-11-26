@@ -2,7 +2,7 @@ package MusicBrainz::Server::Wizard;
 use Moose;
 use Cache::Memcached;
 use Carp qw( croak );
-use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params );
+use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
 
 my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
 
@@ -247,6 +247,17 @@ sub get_value
     return expand_param ($serialized->{values}, $key);
 }
 
+sub set_value
+{
+    my ($self, $page, $key, $value) = @_;
+
+    my $serialized = $self->_store ("step_" . $self->page_number->{$page});
+
+    collapse_param ($serialized->{values}, $key, $value);
+
+    $self->_store ("step_" . $self->page_number->{$page}, $serialized);
+}
+
 sub value
 {
     my ($self) = @_;
@@ -348,6 +359,7 @@ sub _route
     }
     elsif (defined $p->{save})
     {
+        return $self->navigate_to_page unless $self->valid ($page);
         $self->submitted(1);
         return;
     }

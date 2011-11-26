@@ -5,26 +5,23 @@
 
   <script type="text/javascript">//<![CDATA[
 
+    MB.release_artist_json = [% release_artist_json %];
+    MB.medium_cdtocs = [
+      [%- FOR medium=release.mediums -%]
+        [%- IF medium.cdtocs.size -%]
+          [%- medium.cdtocs.0.cdtoc.track_count -%],
+        [%- ELSE -%]
+          null,
+        [%- END -%]
+      [%- END -%]
+      null
+    ];
+
     $('document').ready (function () {
 
-       MB.release_artist_json = [% release_artist_json %];
-       MB.medium_cdtocs = [
-           [%- FOR medium=release.mediums -%]
-             [%- IF medium.cdtocs.size -%]
-               [%- medium.cdtocs.0.cdtoc.track_count -%],
-             [%- ELSE -%]
-               null,
-             [%- END -%]
-           [%- END -%]
-           null
-       ];
-
-
-       var advanced_tab = MB.Control.ReleaseAdvancedTab ();
-       var basic_tab = MB.Control.ReleaseBasicTab (advanced_tab);
-       MB.Control.ReleaseAddDisc (advanced_tab, basic_tab);
-
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+
+       $('div.dialog').draggable ();
 
     });
 
@@ -119,6 +116,7 @@
   [% USE r = FormRenderer(form) %]
   [% USE w = Wizard() %]
   [% information = w.page ('information') %]
+  [%- r.hidden ('seeded', class => "seeded") -%]
 
    <div class="various-artists warning" style="display: none;">
      [%- warning_icon %]
@@ -132,7 +130,23 @@
      </p>
   </div>
 
-  <div class="add-disc-dialog" style="display: none">
+  <div class="track-parser-dialog dialog" style="display: none">
+    [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
+    <h1>Track Parser</h1>
+
+    <div>
+        <textarea class="tracklist"></textarea>
+        <h3 class="track-parser-options">[% l('Options') %]</h3>
+    </div>
+
+    <div class="buttons">
+      <input style="float: right;" type="button" class="close" value="[% l('Done') %]" />
+      <input style="float: right;" type="button" class="parse-tracks" value="[% l('Parse Tracks') %]" />
+      <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
+    </div>
+  </div>
+
+  <div class="add-disc-dialog dialog" style="display: none">
     <h1>Add Disc</h1>
 
     <div class="tabs">
@@ -147,8 +161,26 @@
     <div class="add-disc-tab manual">
         <p>
         [% l('To use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]
-        [% l('Alternatively, click "Add Disc" to manually enter the tracklist.') %]
+        [% l('Alternatively, enter a tracklist below:') %]
         </p>
+
+        <textarea class="tracklist"></textarea>
+
+        <h3 class="track-parser-options">[% l('Options') %]</h3>
+        <p id="track-parser-options">
+        <input type="checkbox" name="trackartists" id="trackartists">
+        <label for="trackartists">[% l('Parse track artists') %]</label>
+        <br />
+        <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
+        <label for="tracknumbers">[% l('Track names start with a number') %]</label>
+        <br />
+        <input type="checkbox" name="vinylnumbers" id="vinylnumbers">
+        <label for="vinylnumbers">[% l('Enable vinyl track numbers') %]</label>
+        <br />
+        <input type="checkbox" name="tracktimes" id="tracktimes" checked="checked">
+        <label for="tracktimes">[% l('Detect track durations') %]</label>
+        </p>
+
     </div>
 
     <div class="add-disc-tab tracklist" style="display: none">
@@ -241,169 +273,13 @@
     </div>
 
     <div class="buttons">
-      <input type="button" class="positive add-disc" value="[% l('Add Disc') %]" />
+      <input style="float: right;" type="button" class="positive add-disc" value="[% l('Add Disc') %]" />
       <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
     </div>
 
   </div>
 
-  <div class="half-width basic-tracklist">
-    [%- r.hidden ('seeded', class => "seeded") -%]
-    <fieldset>
-      <legend>[% l('Tracklist') %]</legend>
-
-      [% multidisc = form.field('mediums').fields.size > 1 %]
-      [% FOR medium_field=form.field('mediums').fields %]
-
-      <div class="basic-disc" id="mediums.[% loop.index %].basicdisc" >
-        [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
-
-        <table class="basic-format">
-          <tr>
-            <td class="icon">
-              <input type="button" class="icon expand-disc"
-                title="[% l('Expand Disc') %]"
-                style="background-image: url([% c.uri_for("/static/images/icons/expand.png") %]); width: 16px; height: 16px; border: 0;" />
-              <input type="button" class="icon collapse-disc"
-                title="[% l('Collapse Disc') %]"
-                style="display: none; background-image: url([% c.uri_for("/static/images/icons/collapse.png") %]); width: 16px; height: 16px; border: 0;" />
-            </td>
-            <td class="disc" >
-            [% IF multidisc %]
-              <h3>
-                [% l('Disc {num}', { num => '<span class="discnum">' _ medium_field.field('position').value _ '</span>' }) %]
-              </h3>
-            [% END %]
-            </td>
-            <td class="format">
-
-              <div class="basic-medium-format-and-title">
-                [% r.hidden(medium_field.field('id'), class => 'id') %]
-                [% r.hidden(medium_field.field('toc'), class => 'toc') %]
-                [% r.hidden(medium_field.field('deleted'), class => 'deleted') %]
-                [% r.hidden(medium_field.field('position'), class => 'position') %]
-                [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]
-
-                <div class="row">
-                  [% r.label(medium_field.field('format_id'), l('Format')) %]
-                  [% r.select(medium_field.field('format_id'), class => 'format') %]
-                </div>
-                <div class="row advanced-tracklist" style="display: none;">
-                  [% r.label(medium_field.field('name'), l('Disc title')) %]
-                  [% r.text(medium_field.field('name')) %]
-
-                  <input type="button" class="icon guesscase-medium"
-                      title="[% l('Guess case disc title') %]"
-                      style="background-image: url([% c.uri_for("/static/images/icons/guesscase.png") %]); width: 16px; height: 16px; border: 0;" />
-
-                </div>
-              </div>
-            </td>
-            <td class="icon">
-              <input type="button" class="icon remove-disc"
-                title="[% l('Remove disc') %]"
-                style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
-            </td>
-          </tr>
-        </table>
-        <div style="display: none" class="tracklist-loading">
-          <p>
-            <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-            &nbsp;
-            [% l('Now loading tracklist...') %]
-          </p>
-        </div>
-        <textarea style="display: none" class="tracklist"></textarea>
-        [% field_errors(form, medium_field.full_name) %]
-      </div>
-
-      [% END %]
-
-      <div style="float: right; margin: 10px;" class="buttons">
-        <a href="#add_disc">[% l('Add Disc') %]</a>
-      </div>
-
-      <h3>[% l('Options') %]</h3>
-      <p id="tracklist-options">
-      <input type="checkbox" name="trackartists" id="trackartists">
-      <label for="trackartists">[% l('Parse track artists') %]</label>
-      <br />
-      <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
-      <label for="tracknumbers">[% l('Track names start with a number') %]</label>
-      <br />
-      <input type="checkbox" name="vinylnumbers" id="vinylnumbers">
-      <label for="vinylnumbers">[% l('Enable vinyl track numbers') %]</label>
-      <br />
-      <input type="checkbox" name="tracktimes" id="tracktimes" checked="checked">
-      <label for="tracktimes">[% l('Detect track durations') %]</label>
-      </p>
-
-    </fieldset>
-
-    <div class="guesscase-basic">
-      [%#- FIXME: use guesscase() -%]
-
-      <fieldset class="guesscase">
-        <legend>[% l('Guess case') %]</legend>
-        <table style="width: 100%">
-          <tr>
-            <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
-              <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" />
-            </td>
-            <td class="options" style="vertical-align: top;">
-              <p class="guesscase-options">
-                <select name="gc-mode" id="gc-mode"> </select>
-                <br />
-                <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
-                <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
-                <br />
-                <input type="checkbox" name="gc-roman" id="gc-roman">
-                <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
-              </p>
-            </td>
-            <td class="buttons" style="margin: 10px; vertical-align: top;">
-              <a href="#guesscase" style="float: right">[% l('Guess case') %]</a>
-            </td>
-          </tr>
-        </table>
-      </fieldset>
-
-    </div>
-
-    <div class="buttons ui-helper-clearfix">
-      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-      [% r.submit ('previous', l('« Previous')) %]
-      [% r.submit ('next', l('Next »')) %]
-    </div>
-  </div>
-
-  <div class="documentation basic-tracklist">
-
-    <h2>[% l('Preview') %]</h2>
-
-    <h3>[% information.field('name').value | html %]</h3>
-    <p>
-        [%- l('by {artist}', {
-          artist => '<span class="release-artist">' _
-            artist_credit_preview_from_field(information.field('artist_credit')) _
-            '</span>' }) -%]
-    </p>
-
-
-    <div style="display: none" id="discid-warning">[% warning("") %]</div>
-
-    <div id="preview"> </div>
-
-    <div style="float: right; margin: 10px;" class="buttons">
-      <a href="#advanced">[% l('Advanced') %]</a>
-    </div>
-    <p style="margin: 10px; width: 300px;">[% l('Use the advanced tracklist editor if this preview seems incorrect.') %]</p>
-
-    <br style="clear: right;" />
-
-  </div>
-
-  <div class="advanced-tracklist" style="display: none;">
+  <div class="advanced-tracklist">
 
     [%# The following is only included so it can be cloned when adding new tracks. --warp. %]
     <table class="tracklist-template" style="display: none">
@@ -447,6 +323,8 @@
 
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
+      [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
+
       <legend>
         [% l('Disc {num}', { num => '<span class="discnum">' _ (medium_field.field('position').value) _ '</span>' }) %]
       </legend>
@@ -464,10 +342,35 @@
 
           <td class="format">
             <div class="advanced-medium-format-and-title">
+                [% r.hidden(medium_field.field('id'), class => 'id') %]
+                [% r.hidden(medium_field.field('toc'), class => 'toc') %]
+                [% r.hidden(medium_field.field('deleted'), class => 'deleted') %]
+                [% r.hidden(medium_field.field('position'), class => 'position') %]
+                [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]
+
+                <div class="row">
+                  [% r.label(medium_field.field('format_id'), l('Format')) %]
+                  [% r.select(medium_field.field('format_id'), class => 'format') %]
+                </div>
+                <div class="row advanced-tracklist">
+                  [% r.label(medium_field.field('name'), l('Disc title')) %]
+                  [% r.text(medium_field.field('name'), class => 'name') %]
+
+                  <input type="button" class="icon guesscase-medium"
+                      title="[% l('Guess case disc title') %]"
+                      style="background-image: url([% c.uri_for("/static/images/icons/guesscase.png") %]); width: 16px; height: 16px; border: 0;" />
+
+                </div>
             </div>
           </td>
 
-          <td class="icon" id="mediums.[% loop.index %].buttons" style="text-align: right;">
+          <td class="tools" style="vertical-align: middle;">
+            <input type="button" class="track-parser"
+                title="[% l('Track Parser') %]"
+                value="[% l('Track Parser') %]" />
+          </td>
+
+          <td class="icon" style="text-align: right;">
             <input type="button" class="icon disc-down"
               title="[% l('Move disc down') %]"
               style="background-image: url([% c.uri_for("/static/images/icons/down.png") %]); width: 16px; height: 16px; border: 0;" />
@@ -524,12 +427,35 @@
     [% END %]
 
     <div class="guesscase-advanced">
+      [%#- FIXME: use guesscase() -%]
+
+      <fieldset class="guesscase">
+        <legend>[% l('Guess case') %]</legend>
+        <table style="width: 100%">
+          <tr>
+            <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
+              <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" />
+            </td>
+            <td class="options" style="vertical-align: top;">
+              <p class="guesscase-options">
+                <select name="gc-mode" id="gc-mode"> </select>
+                <br />
+                <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
+                <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+                <br />
+                <input type="checkbox" name="gc-roman" id="gc-roman">
+                <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
+              </p>
+            </td>
+            <td class="buttons" style="margin: 10px; vertical-align: top;">
+              <a href="#guesscase" style="float: right">[% l('Guess case') %]</a>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
     </div>
 
     <div class="buttons ui-helper-clearfix">
-      <div class="buttons-right" style="float: right; text-align: right;">
-        <a href="#basic" style="margin-right: 1px">[% l('Return to basic editor') %]</a>
-      </div>
       [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
       <a href="#add_disc">[% l('Add Disc') %]</a>
       [% r.submit ('previous', l('« Previous')) %]

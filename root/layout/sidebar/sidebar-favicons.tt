@@ -4,10 +4,9 @@
         </li>
 [%- END -%]
 
+[%- MACRO display_favicons(entity, empty) BLOCK -%]
 [%- favicons = entity.relationships_by_type('url').sort('phrase') -%]
 [%- homepage_relationships = entity.relationships_by_link_type_names('official homepage', 'official site') -%]
-<h2>[% l('External links') %]</h2>
-<ul class="external_links">
     [%- FOREACH favicon IN homepage_relationships -%]
         [%- display_favicon(favicon.target, l('Official homepage'), 'home') -%]
     [% END %]
@@ -20,7 +19,19 @@
         [%- END -%]
     [%- END -%]
 
-    [%- IF !homepage_relationships.size && !urls -%]
+    [%- IF !homepage_relationships.size && !urls && empty -%]
         <li>[% l('{link} has no URL relationships.', { link => link_entity(source) }) -%]</li>
     [%- END -%]
+[%- END -%]
+
+<h2>[% l('External links') %]</h2>
+<ul class="external_links">
+[%- display_favicons(entity, 1) -%]
 </ul>
+[%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
+<h2>[% l('Release group external links') %]</h2>
+<ul class="external_links">
+[%- display_favicons(entity.release_group, 0); -%]
+</ul>
+[%- END -%]
+

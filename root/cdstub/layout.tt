@@ -30,7 +30,7 @@
                         query => artist _ ' ' _ release _ ' ' _ tracks _ ' ' _ barcode,
                         type => 'release',
                         advanced => 1
-                    })) %]">[% l('Search the database for this CD') %]
+                    })) %]">[% l('Search the database for this CD') %]</a>
           </li>
         </ul>
     [% END %]

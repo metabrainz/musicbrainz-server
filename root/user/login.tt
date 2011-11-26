@@ -24,7 +24,7 @@
         [% form_row_password(r, 'password', l('Password:')) %]
         [% IF server_details.staging_server && server_details.is_sanitized %]
             <div class="row no-label">
-                <span class="input-note">[% l('This is a development server; all passwords have been reset to "mb".') %]</span>
+                <span class="input-note" style="color: #f22; font-weight: bold;">[% l('This is a development server; all passwords have been reset to "mb".') %]</span>
             </div>
         [% END %]
 

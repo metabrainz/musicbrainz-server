@@ -90,6 +90,20 @@ test 'Editing a relationship more than once fails subsequent edits' => sub {
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
+test 'Editing a relationship fails if the relationship has been deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $edit_1 = _create_edit($c);
+
+    $c->model('Relationship')->delete('artist', 'artist', 1);
+
+    isa_ok exception { $edit_1->accept },
+        'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
 sub _create_edit {
     my $c = shift;
 

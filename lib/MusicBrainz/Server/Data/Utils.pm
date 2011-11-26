@@ -17,7 +17,6 @@ use Storable;
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
-    artist_credit_to_edit_ref
     artist_credit_to_ref
     check_data
     check_in_use
@@ -106,36 +105,6 @@ sub artist_credit_to_ref
     }
 
     $ret{preview} = $artist_credit->name if !$for_change_hash;
-
-    return \%ret;
-}
-
-# This is still needed because it is the "internal" format used
-# by root/static/scripts/release-editor/MB/Control/ReleaseEdits.js.
-# FIXME: remove the need for this function, consolidate to the
-# format used by artist_credit_to_ref.
-sub artist_credit_to_edit_ref
-{
-    my ($artist_credit) = @_;
-
-    return $artist_credit unless blessed $artist_credit;
-
-    my %ret = ( names => [] );
-
-    for ($artist_credit->all_names)
-    {
-        my %ac_name = (
-            join => $_->join_phrase,
-            name => $_->name,
-            artist_name => $_->artist->name,
-            id => $_->artist->id,
-            gid => $_->artist->gid,
-        );
-
-        push @{ $ret{names} }, \%ac_name;
-    }
-
-    $ret{preview} = $artist_credit->name;
 
     return \%ret;
 }
@@ -341,7 +310,7 @@ sub add_partial_date_to_row
 
 sub type_to_model
 {
-    return $TYPE_TO_MODEL{$_[0]} || undef;
+    return $TYPE_TO_MODEL{$_[0]} || die "$_[0] is not a type that has a model";
 }
 
 sub model_to_type

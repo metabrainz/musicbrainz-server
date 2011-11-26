@@ -346,21 +346,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
     };
 
-    /* This function registers the ReleaseTextarea for this disc as self.basic. */
-    self.registerBasic = function (basic) {
-        self.basic = basic;
-
-        /* the basic disc knows about tocs, so we can now call hasToc. */
-        if (self.hasToc ())
-        {
-            self.$fieldset.find ('div.add-track').hide ();
-        }
-        else
-        {
-            self.$fieldset.find ('div.add-track').show ();
-        }
-    };
-
     /* 'up' is visual, so the disc position decreases. */
     self.moveUp = function () {
         var oldpos = self.position ()
@@ -434,7 +419,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             self.$position.val (val);
             self.$fieldset.find ('span.discnum').text (val);
-            self.basic.$basicdisc.find ('span.discnum').text (val);
         }
 
         return parseInt (self.$position.val ());
@@ -444,27 +428,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         if (self.expanded)
         {
             self.edits.saveEdits (self.tracklist, self.tracks);
-        }
-    };
-
-    self.collapse = function (chained) {
-        self.expanded = false;
-        self.edits.saveEdits (self.tracklist, self.tracks);
-
-        /* Free up memory used for the tracklist.
-           FIXME: shouldn't do this immediatly, but only after N other discs
-           have been opened. */
-        self.tracklist = null;
-
-        self.$table.hide ();
-        self.removeTracks (0);
-        self.$fieldset.removeClass ('expanded');
-        self.$collapse_icon.hide ();
-        self.$expand_icon.show ();
-
-        if (!chained)
-        {
-            self.basic.collapse (true);
         }
     };
 
@@ -525,14 +488,29 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         return data;
     };
 
-    self.expand = function (chained) {
+    self.collapse = function () {
+        self.expanded = false;
+        self.edits.saveEdits (self.tracklist, self.tracks);
+
+        /* Free up memory used for the tracklist.
+           FIXME: shouldn't do this immediatly, but only after N other discs
+           have been opened. */
+        self.tracklist = null;
+
+        self.$table.hide ();
+        self.removeTracks (0);
+        self.$fieldset.removeClass ('expanded');
+        self.$collapse_icon.hide ();
+        self.$expand_icon.show ();
+    };
+
+    self.expand = function () {
         self.expanded = true;
         var data = self.edits.loadEdits ();
 
         var use_data = function (data) {
             self.loadTracklist (data);
             self.fixTrackCount ();
-            self.basic.loadTracklist (data);
         };
 
         self.$nowloading.show ();
@@ -548,7 +526,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             /* FIXME: ignore result if the disc has been collapsed in
                the meantime.  --warp. */
-            var tracklist_id = self.basic.$tracklist_id.val ();
+            var tracklist_id = self.$tracklist_id.val ();
             if (tracklist_id)
             {
                 $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, function (data) {
@@ -560,11 +538,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                 use_data ([]);
             }
         }
-
-        if (!chained)
-        {
-            self.basic.expand (true);
-        }
     };
 
     self.loadTracklist = function (data) {
@@ -574,6 +547,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
 
         self.tracklist = data;
+        self.trackparser = MB.TrackParser.Parser (self, data);
 
         self.removeTracks (data.length);
 
@@ -628,11 +602,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * to the release artist.
      */
     self.isVariousArtists = function () {
-        return self.basic.isVariousArtists ();
+        return self.various_artists;
     };
 
     self.hasToc = function () {
-        return self.basic.hasToc ();
+        return MB.medium_cdtocs[self.number] || self.$toc.val () !== '';
     };
 
     /**
@@ -640,10 +614,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * to change this back to single artists.
      */
     self.setVariousArtists = function () {
-        self.basic.various_artists = true;
-
-        /* force parsing of track artists if this is a VA disc. */
-        MB.TrackParser.options.forceTrackArtists ();
+        self.various_artists = true;
     };
 
     /**
@@ -655,6 +626,13 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             self.$title.attr ('disabled', 'disabled');
             self.$title.siblings ('input.icon.guesscase-medium').hide ();
         }
+    };
+
+    /**
+     * Open the trackparser.
+     */
+    self.openTrackParser = function (event) {
+        MB.Control.release_track_parser.openDialog (event, self);
     };
 
     /**
@@ -670,25 +648,24 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.number = parseInt (self.$fieldset.attr ('id').match ('mediums\.([0-9]+)\.advanced-disc')[1]);
 
+    self.various_artists = false;
     self.expanded = false;
     self.tracklist = null;
     self.tracks = [];
     self.sorted_tracks = [];
+    self.trackparser = MB.TrackParser.Parser (self, []);
 
-    /* the following inputs move between the fieldset and the
-     * textareas of the basic view.  Therefore we cannot rely on them
-     * being children of self.fieldset, and we need to find them based
-     * on their id attribute. */
-    self.$title = $('#id-mediums\\.'+self.number+'\\.name');
-    self.$deleted = $('#id-mediums\\.'+self.number+'\\.deleted');
-    self.$position = $('#id-mediums\\.'+self.number+'\\.position');
-    self.$format_id = $('#id-mediums\\.'+self.number+'\\.format_id');
+    var $format = self.$fieldset.find ('.advanced-medium-format-and-title');
+    self.$toc = $format.find ('input.toc');
+    self.$title = $format.find ('input.name');
+    self.$deleted = $format.find ('input.deleted');
+    self.$position = $format.find ('input.position');
+    self.$format_id = $format.find ('input.format');
+    self.$tracklist_id = $format.find ('input.tracklist-id');
 
     self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 
     self.edits = MB.Control.ReleaseEdits ($('#id-mediums\\.'+self.number+'\\.edits'));
-
-    self.$buttons = $('#mediums\\.'+self.number+'\\.buttons');
 
     self.$expand_icon = self.$fieldset.find ('input.expand-disc');
     self.$collapse_icon = self.$fieldset.find ('input.collapse-disc');
@@ -703,10 +680,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     });
 
     self.$add_track_count = self.$fieldset.find ('input.add-track-count');
+    self.$fieldset.find ('input.track-parser').bind ('click.mb', self.openTrackParser);
     self.$fieldset.find ('input.add-track').bind ('click.mb', self.addTrackEvent);
-    self.$buttons.find ('input.disc-down').bind ('click.mb', self.moveDown);
-    self.$buttons.find ('input.disc-up').bind ('click.mb', self.moveUp);
-    self.$buttons.find ('input.remove-disc')
+    self.$fieldset.find ('input.disc-down').bind ('click.mb', self.moveDown);
+    self.$fieldset.find ('input.disc-up').bind ('click.mb', self.moveUp);
+    self.$fieldset.find ('input.remove-disc')
         .bind ('click.mb', function (ev) { self.removeDisc (); });
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
@@ -726,14 +704,38 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.$fieldset.removeClass ('deleted');
     }
 
+    if (self.hasToc ())
+    {
+        self.$fieldset.find ('div.add-track').hide ();
+    }
+    else
+    {
+        self.$fieldset.find ('div.add-track').show ();
+    }
+
+
     return self;
 };
 
-MB.Control.ReleaseAdvancedTab = function () {
+MB.Control.ReleaseTracklist = function () {
     var self = MB.Object ();
 
     self.bubble_collection = MB.Control.BubbleCollection ();
     self.bubble_collection.setType (MB.Control.BubbleRow);
+
+    self.emptyDisc = function () {
+        var disc = self.lastDisc ();
+        if (disc && disc.isEmpty ())
+        {
+            /* currently the last disc is empty, so just re-use that. */
+            disc.clearDisc ();
+            return disc;
+        }
+        else
+        {
+            return self.addDisc ();
+        }
+    };
 
     self.addDisc = function () {
         var discs = self.discs.length;
@@ -749,19 +751,15 @@ MB.Control.ReleaseAdvancedTab = function () {
             }
         }
 
-        var lastdisc_bas = $('.basic-disc').last ();
-        var lastdisc_adv = $('.advanced-disc').last ();
+        var $lastdisc = $('.advanced-disc').last ();
+        var $newdisc = $lastdisc.clone ().insertAfter ($lastdisc);
 
-        var newdisc_bas = lastdisc_bas.clone ().insertAfter (lastdisc_bas);
-        var newdisc_adv = lastdisc_adv.clone ().insertAfter (lastdisc_adv);
-
-        newdisc_adv.find ('table.medium.tbl tbody').empty ();
-
-        newdisc_bas.find ("h3").find ('span.discnum').text (newposition);
-        newdisc_adv.find ("legend").find ('span.discnum').text (newposition);
+        $newdisc.find ('table.medium.tbl tbody').empty ();
+        $newdisc.find ("legend").find ('span.discnum').text (newposition);
 
         var mediumid = new RegExp ("mediums.[0-9]+");
-        var update_ids = function (idx, element) {
+
+        $newdisc.find ("*").andSelf ().each (function (idx, element) {
             var item = $(element);
             if (item.attr ('id'))
             {
@@ -771,10 +769,7 @@ MB.Control.ReleaseAdvancedTab = function () {
             {
                 item.attr ('name', item.attr('name').replace(mediumid, "mediums."+discs));
             }
-        };
-
-        newdisc_bas.find ("*").andSelf ().each (update_ids);
-        newdisc_adv.find ("*").andSelf ().each (update_ids);
+        });
 
         /* clear the cloned rowid for this medium and tracklist, so a
          * new medium and tracklist will be created. */
@@ -786,16 +781,14 @@ MB.Control.ReleaseAdvancedTab = function () {
         $('#id-mediums\\.'+discs+'\\.edits').val('');
         $('#id-mediums\\.'+discs+'\\.toc').val('');
 
-        newdisc_bas.find ('textarea').empty ();
-
-        var new_disc = MB.Control.ReleaseDisc (self, newdisc_adv);
+        var new_disc = MB.Control.ReleaseDisc (self, $newdisc);
 
         self.discs.push (new_disc);
         self.positions[new_disc.position()] = new_disc;
 
         /* and scroll down to the new position of the 'Add Disc' button if possible. */
         /* FIXME: this hardcodes the fieldset bottom margin, shouldn't do that. */
-        var newpos = lastdisc_adv.height () ? lastdisc_adv.height () + 12 : lastdisc_bas.height ();
+        var newpos = $lastdisc.height () ? $lastdisc.height () + 12 : $lastdisc.height ();
         $('html').animate({ scrollTop: $('html').scrollTop () + newpos }, 500);
 
         self.updateDiscTitle ();
@@ -821,15 +814,10 @@ MB.Control.ReleaseAdvancedTab = function () {
         if (newpos < oldpos)
         {
             disc.$fieldset.insertBefore (other.$fieldset);
-
-            /* FIXME: yes, I am aware that the variable names I've chosen
-               here could use a little improvement. --warp. */
-            disc.basic.$basicdisc.insertBefore (other.basic.$basicdisc);
         }
         else
         {
             other.$fieldset.insertBefore (disc.$fieldset);
-            other.basic.$basicdisc.insertBefore (disc.basic.$basicdisc);
         }
 
         return true;
@@ -865,9 +853,9 @@ MB.Control.ReleaseAdvancedTab = function () {
         });
     };
 
-    /* When the page is loaded, discs may not be displayed in the correct
-       order.  MB.Control.ReleaseBasicTab will call this function after
-       it has initialized all discs to fix the displayed order. */
+    /* When the page is loaded, discs may not be displayed in the
+       correct order.  This function will be called after
+       initialization to fix the displayed order. */
     self.orderDiscs = function () {
         if (self.positions.length > 1)
         {
@@ -876,7 +864,6 @@ MB.Control.ReleaseAdvancedTab = function () {
                 if (prev_disc && disc)
                 {
                     disc.$fieldset.insertAfter (prev_disc.$fieldset);
-                    disc.basic.$basicdisc.insertAfter (prev_disc.basic.$basicdisc);
                 }
 
                 if (disc)
@@ -921,7 +908,7 @@ MB.Control.ReleaseAdvancedTab = function () {
         {
             self.positions[firstdisc].disableDiscTitle ();
         }
-        else
+        else if (self.positions[firstdisc])
         {
             self.positions[firstdisc].enableDiscTitle ();
         }
@@ -961,13 +948,16 @@ MB.Control.ReleaseAdvancedTab = function () {
 
     };
 
+    $("a[href=#guesscase]").click (function () {
+        self.guessCase ();
+    });
+
     $('.artist-credit-box input.name').live ('VariousArtists', self.variousArtistsWarning);
 
     self.$va_warning = $('div.various-artists.warning');
     self.$tab = $('div.advanced-tracklist');
     self.discs = [];
     self.positions = [];
-    self.basic = null; // set by MB.Control.ReleaseBasicTab.
 
     self.$tab.find ('fieldset.advanced-disc').each (function (idx, item) {
         var disc = MB.Control.ReleaseDisc (self, $(item));
@@ -978,6 +968,17 @@ MB.Control.ReleaseAdvancedTab = function () {
     $('form.release-editor').bind ('submit.mb', self.submit);
 
     self.updateDiscTitle ();
+    self.orderDiscs ();
+
+    if (self.discs.length < 4)
+    {
+        $.each (self.discs, function (idx, disc) { disc.expand (); });
+    }
 
     return self;
 };
+
+$('document').ready (function () {
+    MB.Control.release_tracklist = MB.Control.ReleaseTracklist ();
+});
+

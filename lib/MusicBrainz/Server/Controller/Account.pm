@@ -459,9 +459,9 @@ sub _send_confirmation_email
     }
     catch {
         $c->flash->{message} = l(
-            'We were unable to send a confirmation email to you. Please confirm that you have entered a valid
-             address by editing your account settings. If the problem still persists, please contact us at
-             support@musicbrainz.org',
+            '<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid
+             address by editing your {settings|account settings}. If the problem still persists, please contact us at
+             <a href="mailto:support@musicbrainz.org">support@musicbrainz.org</a>.',
             {
                 settings => $c->uri_for_action('/account/edit')
             }

@@ -116,9 +116,12 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             if (artist)
             {
                 trk['artist_credit'] = { names: [ {
-                    'artist_name': artist,
-                    'gid': '',
-                    'id': '',
+                    'artist': {
+                        'name': artist,
+                        'gid': '',
+                        'id': ''
+                    },
+                    'name': artist,
                     'join_phrase': ''
                 } ] };
             }
@@ -175,7 +178,7 @@ MB.Control.ReleaseImport = function (parent, type) {
     self.$noresults = self.$container.find ('div.tracklist-no-results');
     self.$error = self.$container.find ('div.tracklist-error');
 
-    self.$template = parent.$add_disc_dialog.find ('div.import-template');
+    self.$template = parent.$dialog.find ('div.import-template');
 
     self.search = function (event, direction) {
 
@@ -285,15 +288,115 @@ MB.Control.ReleaseImport = function (parent, type) {
     return self;
 };
 
-
-MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
+MB.Control.ReleaseTrackParserBase = function (dialog) {
     var self = MB.Object ();
 
-    self.$add_disc_dialog = $('div.add-disc-dialog');
+    self.$dialog = $('div.' + dialog);
 
-    self.$release = self.$add_disc_dialog.find ('input.release');
-    self.$artist = self.$add_disc_dialog.find ('input.artist');
-    self.$count = self.$add_disc_dialog.find ('input.track-count');
+    self.openDialog = function (event) {
+
+        /* should render tracklist here? */
+        self.$textarea.val ('');
+
+        self.$dialog.show ().position ({
+            my: "center top",
+            at: "center top",
+            of: $('#page'),
+            offset: "0 15",
+            collision: "none none"
+        });
+
+        $('#track-parser-options').insertAfter (self.$dialog.find ('h3.track-parser-options'));
+
+        $('html').animate({ scrollTop: 0 }, 500);
+    };
+
+    self.parseTracks = function (disc) {
+        disc.trackparser.run (self.$textarea.val ());
+        disc.expanded = true;
+    };
+
+    self.close = function (event) {
+        self.$dialog.hide ();
+    };
+
+    self.$textarea = self.$dialog.find ('textarea.tracklist');
+    self.$cancel = self.$dialog.find ('input.cancel');
+
+    self.$cancel.bind ('click.mb', self.close);
+
+    return self;
+};
+
+
+MB.Control.ReleaseTrackParser = function (dialog) {
+    var self = MB.Control.ReleaseTrackParserBase ('track-parser-dialog');
+
+    self.render = function (disc) {
+        var str = "";
+
+        $.each (disc.sorted_tracks, function (idx, item) {
+            if (item.isDeleted ())
+            {
+                return;
+            }
+
+            if (MB.TrackParser.options.trackNumbers ())
+            {
+                str += item.$position.val () + ". ";
+            }
+
+            str += item.$title.val ();
+
+            if (MB.TrackParser.options.trackArtists ()
+                && item.$artist.val () !== '')
+            {
+                str += MB.TrackParser.separator + item.$artist.val ();
+            }
+
+            /* do not render a track length if:
+               - the track does not have a duration
+               - the duration cannot be changed (attached discid). */
+            var len = item.lengthOrNull ();
+            if (len && !disc.hasToc ())
+            {
+                str += " (" + len + ")";
+            }
+
+            str += "\n";
+        });
+
+        self.$textarea.val (str);
+    };
+
+    parent_openDialog = self.openDialog;
+    self.openDialog = function (event, disc) {
+        parent_openDialog ();
+
+        self.disc = disc;
+        self.render (self.disc);
+    };
+
+    self.$dialog.find ('input.parse-tracks').bind ('click.mb', function (event) {
+        self.parseTracks (self.disc);
+    });
+    self.$dialog.find ('input.close').bind ('click.mb', function (event) {
+        self.parseTracks (self.disc);
+        self.close (event);
+    });
+
+    self.disc = null;
+
+    return self;
+};
+
+
+MB.Control.ReleaseAddDisc = function () {
+    var self = MB.Control.ReleaseTrackParserBase ('add-disc-dialog');
+
+    self.$release = self.$dialog.find ('input.release');
+    self.$artist = self.$dialog.find ('input.artist');
+    self.$count = self.$dialog.find ('input.track-count');
 
     self.selectTab = function (event) {
         var tab = $(this).attr ('class');
@@ -307,7 +410,7 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
 
         if (tab === 'manual')
         {
-            self.$add_disc_dialog.find ('input.add-disc')
+            self.$dialog.find ('input.add-disc')
                 .addClass ('positive').removeClass ('disabled');
         }
         else if (tab === 'tracklist')
@@ -325,21 +428,23 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
     };
 
     self.confirm = function (event) {
-        var tab = self.$add_disc_dialog.find ('ul.tabs li.sel a').attr ('class');
+        var tab = self.$dialog.find ('ul.tabs li.sel a').attr ('class');
 
         self['confirm_' + tab] (event);
     };
 
     self.confirm_manual = function (event) {
         /* add the disc. */
-        adv_disc = basic_tab.emptyDisc ().disc;
+        disc = MB.Control.release_tracklist.emptyDisc ();
 
         /* start with atleast one track (that track may already be there,
          * added in a previous attempt). */
-        if (adv_disc.tracks.length < 1)
+        if (disc.tracks.length < 1)
         {
-            adv_disc.addTrack ();
+            disc.addTrack ();
         }
+
+        self.parseTracks (disc);
 
         self.close (event);
     };
@@ -348,7 +453,7 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         if (!self.use_tracklist.selected)
             return;
 
-        var disc = basic_tab.emptyDisc ();
+        var disc = MB.Control.release_tracklist.emptyDisc ();
         disc.$tracklist_id.val (self.use_tracklist.selected.$id.val ());
         disc.collapse ();
         disc.expand ();
@@ -360,7 +465,8 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         if (!self.freedb_import.selected)
             return;
 
-        self.freedb_import.selected.renderToDisc (basic_tab.emptyDisc ());
+        self.freedb_import.selected.renderToDisc (
+            MB.Control.release_tracklist.emptyDisc ());
         self.close (event);
     };
 
@@ -368,12 +474,9 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         if (!self.cdstub_import.selected)
             return;
 
-        self.cdstub_import.selected.renderToDisc (basic_tab.emptyDisc ());
+        self.cdstub_import.selected.renderToDisc (
+            MB.Control.release_tracklist.emptyDisc ());
         self.close (event);
-    };
-
-    self.close = function (event) {
-        self.$add_disc_dialog.hide ();
     };
 
     self.onChange = function (event) {
@@ -382,32 +485,18 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
         self.cdstub_import.onChange ();
     };
 
-    self.$add_disc_dialog.appendTo ($('body'));
-    self.$add_disc_dialog.find ('ul.tabs a').bind ('click.mb', self.selectTab);
+    self.$dialog.appendTo ($('body'));
+    self.$dialog.find ('ul.tabs a').bind ('click.mb', self.selectTab);
 
-    self.$confirm = self.$add_disc_dialog.find ('input.add-disc');
-    self.$cancel = self.$add_disc_dialog.find ('input.cancel');
+    self.$confirm = self.$dialog.find ('input.add-disc');
 
     self.$confirm.bind ('click.mb', self.confirm);
-    self.$cancel.bind ('click.mb', self.close);
 
     self.$release.bind ('change.mb', self.onChange);
     self.$artist.bind ('change.mb', self.onChange);
     self.$count.bind ('change.mb', self.onChange);
 
-    $("a[href=#add_disc]").click (function () {
-
-        self.$add_disc_dialog.show ().position ({
-            my: "center top",
-            at: "center top",
-            of: $('#page'),
-            offset: "0 15",
-            collision: "none none"
-        });
-
-        $('html').animate({ scrollTop: 0 }, 500);
-
-    });
+    $("a[href=#add_disc]").bind ('click.mb', self.openDialog);
 
     $('a[href=#import-search]').click (function (event) {
 
@@ -431,3 +520,8 @@ MB.Control.ReleaseAddDisc = function (advanced_tab, basic_tab) {
 
     return self;
 };
+
+$('document').ready (function () {
+    MB.Control.release_track_parser = MB.Control.ReleaseTrackParser ();
+    MB.Control.release_add_disc = MB.Control.ReleaseAddDisc ();
+});

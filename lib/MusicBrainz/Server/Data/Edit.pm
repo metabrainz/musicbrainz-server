@@ -4,7 +4,7 @@ use Moose;
 use Carp qw( carp croak confess );
 use Data::OptList;
 use DateTime;
-use TryCatch;
+use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
 use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
@@ -56,10 +56,11 @@ sub _new_from_row
     try {
         $edit->restore($data);
     }
-    catch ($err) {
+    catch {
+        my $err = $_;
         warn $err;
         $edit->clear_data;
-    }
+    };
     $edit->close_time($row->{close_time}) if defined $row->{close_time};
     return $edit;
 }
@@ -303,7 +304,7 @@ sub merge_entities
 sub preview
 {
     my ($self, %opts) = @_;
-    
+
     my $type = delete $opts{edit_type} or croak "edit_type required";
     my $editor_id = delete $opts{editor_id} or croak "editor_id required";
     my $privs = delete $opts{privileges} || 0;
@@ -320,13 +321,15 @@ sub preview
     try {
         $edit->initialize(%opts);
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        confess $e;
-    }
-    catch ($err) {
-        use Data::Dumper;
-        croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
-    }
+    catch {
+        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+            confess $_;
+        }
+        else {
+            use Data::Dumper;
+            croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
+        }
+    };
 
     return $edit;
 }
@@ -345,13 +348,15 @@ sub create
     try {
         $edit->initialize(%opts);
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::NoChanges $e) {
-        confess $e;
-    }
-    catch ($err) {
-        use Data::Dumper;
-        croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $err;
-    }
+    catch {
+        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+            confess $_;
+        }
+        else {
+            use Data::Dumper;
+            croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
+        }
+    };
 
     my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions->{$quality};
@@ -414,7 +419,7 @@ sub create
         # Automatically accept auto-edits on insert
         $edit = $self->get_by_id($edit->id);
         if ($edit->auto_edit) {
-            $self->accept($edit);
+            $self->accept($edit, auto_edit => 1);
         }
 
         $edit = $self->get_by_id($edit->id);
@@ -498,53 +503,62 @@ sub _do_accept
 {
     my ($self, $edit) = @_;
 
-    try {
+    my $status = try {
         $edit->accept;
+        return $STATUS_APPLIED;
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::FailedDependency $err) {
-        $self->c->model('EditNote')->add_note(
-            $edit->id => {
-                editor_id => $EDITOR_MODBOT,
-                text => $err->message
-            }
-        );
-        return $STATUS_FAILEDDEP;
-    }
-    catch (MusicBrainz::Server::Edit::Exceptions::GeneralError $err) {
-        $self->c->model('EditNote')->add_note(
-            $edit->id => {
-                editor_id => $EDITOR_MODBOT,
-                text => $err->message
-            }
-        );
-        return $STATUS_ERROR;
-    }
-    catch ($err) {
-        die $err;
+    catch {
+        my $err = $_;
+        if (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::FailedDependency') {
+            $self->c->model('EditNote')->add_note(
+                $edit->id => {
+                    editor_id => $EDITOR_MODBOT,
+                    text => $err->message
+                }
+            );
+            return $STATUS_FAILEDDEP;
+        }
+        elsif (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::GeneralError') {
+            $self->c->model('EditNote')->add_note(
+                $edit->id => {
+                    editor_id => $EDITOR_MODBOT,
+                    text => $err->message
+                }
+            );
+            return $STATUS_ERROR;
+        }
+        else {
+            die $err;
+        }
     };
-    return $STATUS_APPLIED;
+
+    return $status;
 }
 
 sub _do_reject
 {
     my ($self, $edit, $status) = @_;
 
-    try {
+    $status = try {
         $edit->reject;
+        return $status;
     }
-    catch (MusicBrainz::Server::Edit::Exceptions::MustApply $err) {
-        $self->c->model('EditNote')->add_note(
-            $edit->id,
-            {
-                editor_id => $EDITOR_MODBOT,
-                text => $err
-            }
-        );
-        return $STATUS_APPLIED;
-    }
-    catch ($err) {
-        carp("Could not reject " . $edit->id . ": $err");
-        return $STATUS_ERROR;
+    catch {
+        my $err = $_;
+        if (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::MustApply') {
+            $self->c->model('EditNote')->add_note(
+                $edit->id,
+                {
+                    editor_id => $EDITOR_MODBOT,
+                    text => $err
+                 }
+            );
+            return $STATUS_APPLIED;
+        }
+        else {
+             carp("Could not reject " . $edit->id . ": $err");
+             return $STATUS_ERROR;
+        }
     };
     return $status;
 }
@@ -552,10 +566,10 @@ sub _do_reject
 # Must be called in a transaction
 sub accept
 {
-    my ($self, $edit) = @_;
+    my ($self, $edit, %opts) = @_;
 
     confess "The edit is not open anymore." if $edit->status != $STATUS_OPEN;
-    $self->_close($edit, sub { $self->_do_accept(shift) });
+    $self->_close($edit, sub { $self->_do_accept(shift) }, %opts);
 }
 
 # Must be called in a transaction
@@ -581,13 +595,13 @@ sub cancel
 
 sub _close
 {
-    my ($self, $edit, $close_sub) = @_;
+    my ($self, $edit, $close_sub, %opts) = @_;
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
     $edit->adjust_edit_pending(-1);
     $edit->status($status);
-    $self->c->model('Editor')->credit($edit->editor_id, $status);
+    $self->c->model('Editor')->credit($edit->editor_id, $status, %opts);
 }
 
 sub insert_votes_and_notes {

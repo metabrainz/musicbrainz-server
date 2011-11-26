@@ -36,20 +36,27 @@ MB.Control.ReleaseEdits = function ($edits) {
             }
             else if (current && edited)
             {
-                if (parseInt (current.id) !== parseInt (edited.id))
+                if (current.id && edited.id &&
+                    parseInt (current.id) !== parseInt (edited.id))
                 {
                     changes = true;
                     return false;
                 }
 
-                var properties = [ 'artist_name', 'name', 'join', 'gid' ];
-                $.each (properties, function (idx, key) {
-                    if (!current[key])
-                    {
-                        current[key] = '';
-                    }
+                $.each ([ 'name', 'join_phrase' ], function (idx, key) {
+                    current[key] = current[key] ? current[key] : '';
 
                     if (current[key] !== edited[key])
+                    {
+                        changes = true;
+                        return false;
+                    }
+                });
+
+                $.each ([ 'name', 'gid' ], function (idx, key) {
+                    current.artist[key] = current.artist[key] ? current.artist[key] : '';
+
+                    if (current.artist[key] !== edited.artist[key])
                     {
                         changes = true;
                         return false;
@@ -84,38 +91,13 @@ MB.Control.ReleaseEdits = function ($edits) {
         return changes;
     };
 
-    self.artistCreditToDeprecatedFormat = function (ac) {
-        var ret = [];
-        $.each (ac.names, function (idx, credit) {
-            if (credit.artist_name)
-            {
-                /* already in the deprecated format. */
-                ret.push (credit);
-            }
-            else
-            {
-                ret.push ({
-                    'artist_name': credit.artist.name,
-                    'gid': credit.artist.gid,
-                    'id': credit.artist.id,
-                    'join': credit.join_phrase,
-                    'name': credit.name
-                });
-            }
-        });
-
-        ac.names = ret;
-        return ac;
-    };
-
-
     self.saveEdits = function (tracklist, tracks) {
 
         var changes = false;
         var edited_tracklist = [];
 
         $.each (tracks, function (idx, trk) {
-            var from = tracklist[idx];
+            var from = tracklist ? tracklist[idx] : null;
 
             var to = {
                 'name': trk.$title.val (),
@@ -133,7 +115,6 @@ MB.Control.ReleaseEdits = function ($edits) {
             {
                 from.position = '' + (idx + 1);
                 from.deleted = "0";
-                from.artist_credit = self.artistCreditToDeprecatedFormat (from.artist_credit);
             }
 
             if (!from || self.trackChanges (from, to))

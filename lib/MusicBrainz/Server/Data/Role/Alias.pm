@@ -40,32 +40,27 @@ role
         ensure_all_roles($alias, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
     };
 
-    around 'find_by_names' => sub {
+    around 'search_by_names' => sub {
         my ($orig, $self, @names) = @_;
         return {} unless scalar @names;
 
+        my $nametable = $self->name_table;
         my $type = $params->type;
         my $id = $self->_id_column;
         my $query =
-            "WITH search (term) AS (" .
-                "VALUES " . join (",", ("(?)") x scalar @names) .
-            ")" .
-                # Search once over aliases
-                "(".
-                    "SELECT search.term AS search_term, " . $self->_columns .
-                    " FROM " . $self->name_table . " search_name" .
-                    " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
-                    " JOIN " . $params->table . " alias ON alias.name = search_name.id" .
-                    " JOIN " . $self->_table("ON alias.$type = $id")  .
-                ")".
-                " UNION " .
-                # Search again over name/sort-name
-                "(".
-                    "SELECT search.term AS search_term, " . $self->_columns .
-                    " FROM " . $self->name_table . " search_name" .
-                    " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
-                    " JOIN " . $self->_table_join_name("search_name.id").
-                ")";
+            "WITH search (term) AS (".
+            "    VALUES " . join (",", ("(?)") x scalar @names) . "), ".
+            "    matching_names (term, name) AS (" .
+            "        SELECT term, $nametable.id FROM $nametable, search" .
+            "        WHERE musicbrainz_unaccent(lower(term)) = musicbrainz_unaccent(lower($nametable.name))" .
+            "    ), ".
+            "    entity_matches (term, entity) AS (" .
+            "        SELECT term, $type FROM ${type}_alias".
+            "        JOIN matching_names ON matching_names.name = ${type}_alias.name" .
+            "        UNION SELECT term, id FROM $type JOIN matching_names ON matching_names.name = $type.name " .
+            "        UNION SELECT term, id FROM $type JOIN matching_names ON matching_names.name = $type.sort_name " .
+            "    ) SELECT term AS search_term, ".$self->_columns.
+            "      FROM ".$self->_table ("JOIN entity_matches ON entity_matches.entity = $type.id");
 
         $self->c->sql->select($query, @names);
         my %ret;

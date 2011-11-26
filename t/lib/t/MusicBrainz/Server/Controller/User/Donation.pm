@@ -17,8 +17,7 @@ my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
-$ENV{ LWP_UA_MOCK } ||= 'playback';
-$ENV{ LWP_UA_MOCK_FILE } ||= $Bin.'/donation.metabrainz-nagcheck.lwp-mock';
+LWP::UserAgent::Mockable->reset(playback => $Bin.'/lwp-sessions/donation-check.lwp');
 
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
@@ -34,7 +33,6 @@ $mech->get('/account/donation');
 $mech->content_contains ("We have not received a donation from you recently");
 
 LWP::UserAgent::Mockable->finished;
-
 
 };
 

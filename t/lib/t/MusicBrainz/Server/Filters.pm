@@ -16,6 +16,9 @@ test 'Edit note syntax' => sub {
     is(format_editnote("http://musicbrainz.org"),
        '<a href="http://musicbrainz.org">http://musicbrainz.org</a>');
 
+    is(format_editnote("https://musicbrainz.org"),
+       '<a href="https://musicbrainz.org">https://musicbrainz.org</a>');
+
     is(format_editnote("www.musicbrainz.org"),
        '<a href="http://www.musicbrainz.org">www.musicbrainz.org</a>');
 

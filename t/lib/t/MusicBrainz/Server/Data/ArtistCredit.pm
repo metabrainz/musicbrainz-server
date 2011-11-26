@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Data::ArtistCredit;
 use Test::Routine;
 use Test::Moose;
+use Test::Fatal;
 use Test::More;
 use Test::Memory::Cycle;
 
@@ -9,6 +10,23 @@ use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Test;
 
 with 't::Context';
+
+test 'merge_artists with renaming works if theres nothing to rename' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Queen');
+INSERT INTO artist_name (id, name) VALUES (2, 'David Bowie');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 2, 2);
+EOSQL
+
+    ok !exception {
+        $c->model('ArtistCredit')->merge_artists(1, [2], rename => 1)
+    };
+};
 
 test 'Can have artist credits with no join phrase' => sub {
     my $test = shift;
@@ -34,6 +52,40 @@ test 'Can have artist credits with no join phrase' => sub {
     cmp_ok($ac_id, '>', 0);
     my $ac = $c->model('ArtistCredit')->get_by_id($ac_id);
     is($ac->name, 'Ed RushOptical');
+};
+
+test 'Merging updates the complete name' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $artist_credit_data = $c->model('ArtistCredit');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+artistcredit');
+
+    $c->sql->begin;
+    $artist_credit_data->merge_artists(3, [ 2 ], rename => 1);
+    $c->sql->commit;
+
+    my $ac = $artist_credit_data->get_by_id(1);
+    is( $ac->id, 1 );
+    is( $ac->artist_count, 2, "2 artists in artist credit");
+    is( $ac->name, "Queen & Merge", "Name is Queen & Merge");
+    is( $ac->names->[0]->name, "Queen", "First artist credit is Queen");
+    is( $ac->names->[0]->artist_id, 1 );
+    is( $ac->names->[0]->artist->id, 1 );
+    is( $ac->names->[0]->artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
+    is( $ac->names->[0]->artist->name, "Queen", "First artist is Queen");
+    is( $ac->names->[0]->join_phrase, " & " );
+    is( $ac->names->[1]->name, "Merge", "Second artist credit is Merge");
+    is( $ac->names->[1]->artist_id, 3 );
+    is( $ac->names->[1]->artist->id, 3 );
+    is( $ac->names->[1]->artist->gid, "5f9913b0-7219-11de-8a39-0800200c9a66" );
+    is( $ac->names->[1]->artist->name, "Merge", "Second artist is Merge");
+    is( $ac->names->[1]->join_phrase, undef );
+
+    my $name = $c->sql->select_single_value("
+        SELECT an.name FROM artist_credit ac JOIN artist_name an ON ac.name=an.id
+        WHERE ac.id=1");
+    is( $name, "Queen & Merge", "Name is Queen & Merge" );
 };
 
 test 'Merging clears the cache' => sub {
@@ -91,6 +143,32 @@ test 'Replace artist credit' => sub {
     );
 
     is((grep { $_->artist_credit_id == 1 } @ents), 0, 'nothing refers to artist credit 1');
+};
+
+test 'Replace artist credit identity' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+decompose');
+
+    $c->model('ArtistCredit')->replace(
+        { names => [
+            {
+                artist => { id => 5, name => 'Bob & Tom' },
+                name => 'Bob & Tom',
+                join_phrase => undef
+            }
+        ] },
+        { names => [
+            {
+                artist => { id => 5, name => 'Bob & Tom' },
+                name => 'Bob & Tom',
+                join_phrase => undef
+            }
+        ] }
+    );
+
+    is($c->model('ArtistCredit')->get_by_id(1)->artist_count, 1,
+       'artist credit still exists');
 };
 
 test all => sub {

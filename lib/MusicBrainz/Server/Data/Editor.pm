@@ -30,7 +30,7 @@ sub _table
 
 sub _columns
 {
-    return 'editor.id, name, password, privs, email, website, bio,
+    return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
             edits_rejected, auto_edits_accepted, edits_failed';
 }
@@ -308,6 +308,14 @@ sub update_privileges
     }, $self->sql);
 }
 
+sub make_autoeditor
+{
+    my ($self, $editor_id) = @_;
+
+    $self->sql->do('UPDATE editor SET privs = privs | ? WHERE id = ?',
+                   $AUTO_EDITOR_FLAG, $editor_id);
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -360,8 +368,9 @@ sub save_preferences
 
 sub credit
 {
-    my ($self, $editor_id, $status, $as_autoedit) = @_;
+    my ($self, $editor_id, $status, %opts) = @_;
     my $column;
+    my $as_autoedit = $opts{auto_edit} ? 1 : 0;
     return if $status == $STATUS_DELETED;
     $column = "edits_rejected" if $status == $STATUS_FAILEDVOTE;
     $column = "edits_accepted" if $status == $STATUS_APPLIED && !$as_autoedit;
@@ -406,18 +415,28 @@ sub donation_check
 
 sub editors_with_subscriptions
 {
-    my $self = shift;
+    my ($self) = @_;
+
     my @tables = qw(
         editor_subscribe_artist
         editor_subscribe_editor
         editor_subscribe_label
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-        " WHERE id IN ($ids)";
+    my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
+                   FROM " . $self->_table . "
+              LEFT JOIN editor_preference ep
+                     ON ep.editor = editor.id AND
+                        ep.name = 'subscriptions_email_period'
+                  WHERE editor.id IN ($ids)";
 
     return query_to_list (
-        $self->c->sql, sub { $self->_new_from_row(@_) },
+        $self->c->sql, sub {
+            my $editor = $self->_new_from_row(@_);
+            $editor->preferences->subscriptions_email_period($_[0]->{prefs_value})
+                if defined $_[0]->{prefs_value};
+            return $editor;
+        },
         $query);
 }
 

@@ -309,6 +309,10 @@ sub accept
         $data->{relationship_id}
     );
 
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This relationship has already been deleted'
+    ) if !$relationship;
+
     $self->c->model('Link')->load($relationship);
 
     # Because we're using a "find_or_insert" instead of an update, this link

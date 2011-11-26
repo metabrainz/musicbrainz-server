@@ -50,6 +50,13 @@ has [qw( subscribe_to_created_artists subscribe_to_created_labels )] => (
     lazy => 1
 );
 
+has 'subscriptions_email_period' => (
+    isa => 'Str',
+    default => 'daily',
+    is => 'rw',
+    lazy => 1,
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

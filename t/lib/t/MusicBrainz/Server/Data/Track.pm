@@ -15,6 +15,7 @@ test all => sub {
 
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+$test->c->sql->do('UPDATE release SET edits_pending = 2 WHERE id = 2');
 
 my $track_data = MusicBrainz::Server::Data::Track->new(c => $test->c);
 memory_cycle_ok($track_data);
@@ -59,6 +60,7 @@ is( $tracks->[1]->tracklist->medium->id, 3 );
 is( $tracks->[1]->tracklist->medium->name, "A Sea of Honey" );
 is( $tracks->[1]->tracklist->medium->position, 1 );
 is( $tracks->[1]->tracklist->medium->release->id, 2 );
+is( $tracks->[1]->tracklist->medium->release->edits_pending, 2 );
 is( $tracks->[1]->tracklist->medium->release->name, "Aerial" );
 
 my %names = $track_data->find_or_insert_names('Nocturn', 'Traits');
