@@ -4,7 +4,12 @@ use Moose;
 use JSON::Any;
 use MusicBrainz::Server::Track qw( format_track_length );
 use MusicBrainz::Server::WebService::WebServiceInc;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serializer serialize_entity list_of);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    list_of
+    serialize_entity
+    serialize_result
+    serializer
+);
 
 sub mime_type { 'application/json' }
 
@@ -22,6 +27,15 @@ sub serialize
     my %ret = serialize_entity($entity, $inc, $opts);
 
     return $json->encode(\%ret);
+}
+
+sub serialize_validation_errors
+{
+    my ($self, $result) = @_;
+
+    my $json = JSON::Any->new;
+
+    return $json->encode(serialize_result ($result));
 }
 
 sub autocomplete_generic

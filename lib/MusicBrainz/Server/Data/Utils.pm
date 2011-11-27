@@ -37,6 +37,7 @@ our @EXPORT_OK = qw(
     object_to_ids
     order_by
     partial_date_from_row
+    partial_date_from_string
     partial_date_to_hash
     placeholders
     query_to_list
@@ -167,6 +168,18 @@ sub partial_date_from_row
     $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
     $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
     return MusicBrainz::Server::Entity::PartialDate->new(%info);
+}
+
+sub partial_date_from_string
+{
+    my ($year, $month, $day) = split /-/,shift;
+
+    return MusicBrainz::Server::Entity::PartialDate->new(
+        {
+            year => $year,
+            month => $month,
+            day => $date
+        });
 }
 
 sub partial_date_to_hash

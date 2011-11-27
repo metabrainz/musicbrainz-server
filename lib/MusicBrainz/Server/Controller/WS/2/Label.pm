@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Data::Utils qw( partial_date_from_string partial_date_to_hash );
 use Carp;
 use Readonly;
 use Try::Tiny;
@@ -155,6 +156,21 @@ sub label_edit : Private
 
     my $label = $c->stash->{entity};
 
+    use Data::TreeValidator::Sugar qw( branch leaf );
+    use Data::TreeValidator::Constraints qw( required );
+    use MusicBrainz::Data::TreeValidator::Constraints qw( integer partial_date );
+    use MusicBrainz::Data::TreeValidator::Transformations qw( collapse_whitespace );
+
+    my $label_validator = branch {
+        name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
+        sort_name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
+        lifespan => branch {
+            begin => leaf( constraints => [ partial_date ] ),
+            end =>  leaf( constraints => [ partial_date ] ),
+        }
+    };
+
+
     use JSON::Any;
     use Data::Dumper;
     use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
@@ -163,13 +179,26 @@ sub label_edit : Private
     my $fh = $c->req->body;
     my $body = $json->decode (do { local $/ = undef; <$fh> });
 
-    warn "submitted document: ".Dumper ($body)."\n";
-    warn "user: ".$c->user->name." (".$c->user->id.")\n";
+    my $result = $label_validator->process($body);
+    if (!$result->valid) {
+        $c->response->status(400); # hm, is there a more specific code which is appropriate here?
+        $c->res->body($c->stash->{serializer}->serialize_validation_errors ($result));
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->detach;
+    }
 
     my %options = (
         name => $body->{name},
         sort_name => $body->{sort_name},
     );
+
+    if ($body->{lifespan})
+    {
+        $options{begin_date} = partial_date_to_hash (
+            partial_date_from_string ($body->{lifespan}->{begin})) if $body->{lifespan}->{begin};
+        $options{end_date}  = partial_date_to_hash (
+            partial_date_from_string ($body->{lifespan}->{end})) if $body->{lifespan}->{end};
+    }
 
     my $edit;
     try {

@@ -6,9 +6,10 @@ use Readonly;
 use String::CamelCase qw(camelize);
 
 our @EXPORT_OK = qw(
-    serializer
-    serialize_entity
     list_of
+    serialize_entity
+    serialize_result
+    serializer
 );
 
 my %serializers;
@@ -52,6 +53,32 @@ sub serialize_entity
 {
     return unless defined $_[0];
     return serializer($_[0])->serialize(@_);
+}
+
+sub serialize_result
+{
+    my $result = shift;
+
+    if ($result->meta->has_attribute('results'))
+    {
+        my $ret = {};
+        for my $key ($result->result_names)
+        {
+            my $field = $result->result ($key);
+
+            next if $field->valid;
+
+            $ret->{$key} = serialize_result ($field);
+        }
+
+        return $ret;
+    }
+    else
+    {
+        # FIXME: IMO TreeValidator shouldn't output filenames, remove this regex when
+        # it stops doing that. --warp.
+        return [ map { s/ at [^\s]+.pm.*//s; $_ } $result->errors ];
+    }
 }
 
 1;
