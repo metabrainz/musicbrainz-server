@@ -141,7 +141,8 @@ sub release_toplevel
             grep { $_->public || ($c->user_exists && $c->user->id == $_->editor_id) }
             $c->model('Collection')->find_by_release($release->id);
 
-        $c->model('Editor')->load($_) for @collections;
+        $c->model('Editor')->load(@collections);
+        $c->model('Collection')->load_release_count(@collections);
 
         $stash->store ($release)->{collections} = \@collections;
     }

@@ -74,6 +74,7 @@ ws_test 'basic release with collections',
             <collection id="f34c079d-374e-4436-9448-da92dedef3cd">
                 <name>My Collection</name>
                 <editor>editor</editor>
+                <release-list count="1"/>
             </collection>
         </collection-list>
     </release>
