@@ -75,9 +75,7 @@ sub serialize_result
     }
     else
     {
-        # FIXME: IMO TreeValidator shouldn't output filenames, remove this regex when
-        # it stops doing that. --warp.
-        return [ map { s/ at [^\s]+.pm.*//s; $_ } $result->errors ];
+        return [ map { $_->message } $result->errors ];
     }
 }
 

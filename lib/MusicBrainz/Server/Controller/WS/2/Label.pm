@@ -3,10 +3,8 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_string partial_date_to_hash );
-use Carp;
+use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
 use Readonly;
-use Try::Tiny;
 
 my $ws_defs = Data::OptList::mkopt([
      label => {
@@ -39,6 +37,11 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'Label'
+};
+
+with 'MusicBrainz::Server::Controller::WS::2::Role::Editable' => {
+    model => 'Label',
+    edit_type => $EDIT_LABEL_EDIT
 };
 
 Readonly our $MAX_ITEMS => 25;
@@ -138,94 +141,18 @@ sub label_search : Chained('root') PathPart('label') Args(0)
     $self->_search ($c, 'label');
 }
 
-sub no_changes : Private
-{
-    my ($self, $c) = @_;
-
-    $c->response->status(409);
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body(
-        $c->stash->{serializer}->output_error(
-            "The document you submitted is identical to the entity in the database."));
-    $c->detach;
-}
-
 sub label_edit : Private
 {
     my ($self, $c) = @_;
 
-    my $label = $c->stash->{entity};
+    $self->entity_edit ($c);
+}
 
-    use Data::TreeValidator::Sugar qw( branch leaf );
-    use Data::TreeValidator::Constraints qw( required );
-    use MusicBrainz::Data::TreeValidator::Constraints qw( integer partial_date );
-    use MusicBrainz::Data::TreeValidator::Transformations qw( collapse_whitespace );
+sub no_changes : Private
+{
+    my ($self, $c) = @_;
 
-    my $label_validator = branch {
-        name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
-        sort_name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
-        lifespan => branch {
-            begin => leaf( constraints => [ partial_date ] ),
-            end =>  leaf( constraints => [ partial_date ] ),
-        }
-    };
-
-
-    use JSON::Any;
-    use Data::Dumper;
-    use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
-
-    my $json = JSON::Any->new;
-    my $fh = $c->req->body;
-    my $body = $json->decode (do { local $/ = undef; <$fh> });
-
-    my $result = $label_validator->process($body);
-    if (!$result->valid) {
-        $c->response->status(400); # hm, is there a more specific code which is appropriate here?
-        $c->res->body($c->stash->{serializer}->serialize_validation_errors ($result));
-        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-        $c->detach;
-    }
-
-    my %options = (
-        name => $body->{name},
-        sort_name => $body->{sort_name},
-    );
-
-    if ($body->{lifespan})
-    {
-        $options{begin_date} = partial_date_to_hash (
-            partial_date_from_string ($body->{lifespan}->{begin})) if $body->{lifespan}->{begin};
-        $options{end_date}  = partial_date_to_hash (
-            partial_date_from_string ($body->{lifespan}->{end})) if $body->{lifespan}->{end};
-    }
-
-    my $edit;
-    try {
-        $edit = $c->model('Edit')->create(
-            edit_type => $EDIT_LABEL_EDIT,
-            editor_id => $c->user->id,
-            privileges => $c->user->privileges,
-            to_edit => $label,
-            %options
-        );
-    }
-    catch {
-        if (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
-            $c->detach('no_changes');
-        }
-        else {
-            use Data::Dumper;
-            croak "The edit could not be created.\n" .
-                "Submitted document: " . Dumper($body) . "\n" .
-                "Exception:" . Dumper($_);
-        }
-    };
-
-    die "krak" unless $edit;
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body("created edit: http://localhost:3000/edit/".$edit->id."\n");
+    $self->no_changes ($c);
 }
 
 __PACKAGE__->meta->make_immutable;

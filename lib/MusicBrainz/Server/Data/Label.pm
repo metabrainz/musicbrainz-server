@@ -1,6 +1,10 @@
 package MusicBrainz::Server::Data::Label;
 
 use Moose;
+use Data::TreeValidator::Sugar qw( branch leaf );
+use Data::TreeValidator::Constraints qw( required );
+use MusicBrainz::Data::TreeValidator::Constraints qw( integer partial_date );
+use MusicBrainz::Data::TreeValidator::Transformations qw( collapse_whitespace );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;
@@ -34,6 +38,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Validate';
 
 sub browse_column { 'sort_name.name' }
 
@@ -90,6 +95,18 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Label';
+}
+
+sub validator
+{
+    return branch {
+        name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
+        sort_name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
+        lifespan => branch {
+            begin => leaf( constraints => [ partial_date ] ),
+            end =>  leaf( constraints => [ partial_date ] ),
+        }
+    };
 }
 
 sub find_by_subscribed_editor
