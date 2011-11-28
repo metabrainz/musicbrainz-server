@@ -116,6 +116,7 @@
   [% USE r = FormRenderer(form) %]
   [% USE w = Wizard() %]
   [% information = w.page ('information') %]
+  [%- r.hidden ('seeded', class => "seeded") -%]
 
    <div class="various-artists warning" style="display: none;">
      [%- warning_icon %]
@@ -322,7 +323,6 @@
 
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
-      [%- r.hidden ('seeded', class => "seeded") -%]
       [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
 
       <legend>
@@ -354,7 +354,7 @@
                 </div>
                 <div class="row advanced-tracklist">
                   [% r.label(medium_field.field('name'), l('Disc title')) %]
-                  [% r.text(medium_field.field('name')) %]
+                  [% r.text(medium_field.field('name'), class => 'name') %]
 
                   <input type="button" class="icon guesscase-medium"
                       title="[% l('Guess case disc title') %]"
