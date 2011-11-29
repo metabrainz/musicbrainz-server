@@ -140,6 +140,12 @@ sub accept
     my $medium_cdtoc = $self->c->model('MediumCDTOC')->get_by_id($self->data->{medium_cdtoc}{id});
     $self->c->model('CDTOC')->load($medium_cdtoc);
 
+    if (!$medium_cdtoc || !$medium_cdtoc->cdtoc) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This disc ID no longer exists'
+        )
+    }
+
     if ($self->c->model('MediumCDTOC')->medium_has_cdtoc(
         $medium->id,
         $medium_cdtoc->cdtoc
