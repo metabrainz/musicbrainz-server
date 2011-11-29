@@ -93,7 +93,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         self.parent.updateButtons ();
     };
 
-    self.renderToDisc = function (basic_disc) {
+    self.renderToDisc = function (disc) {
 
         var data = [];
         $.each (self.$table.find ('tr.track'), function (idx, row) {
@@ -126,13 +126,11 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
                 } ] };
             }
 
-            basic_disc.disc.getTrack (idx - 1).render (trk);
+            disc.getTrack (idx - 1).render (trk);
         });
 
-        basic_disc.$toc.val (self.$toc.val ());
-        basic_disc.disc.sort ();
-        basic_disc.render ();
-        basic_disc.updatePreview ();
+        disc.$toc.val (self.$toc.val ());
+        disc.sort ();
     };
 
     self.initialize = function (type, item) {
