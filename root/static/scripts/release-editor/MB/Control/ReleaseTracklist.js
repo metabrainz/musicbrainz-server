@@ -367,6 +367,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.edits.clearEdits ();
         self.tracklist = [];
         self.removeTracks (-1);
+        self.expand ();
     };
 
     self.removeDisc = function (chained) {
@@ -537,6 +538,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             {
                 use_data ([]);
             }
+        }
+        else
+        {
+            /* empty disc, we're not loading remote data. */
+            self.$nowloading.hide ();
         }
     };
 
@@ -783,6 +789,7 @@ MB.Control.ReleaseTracklist = function () {
 
         var new_disc = MB.Control.ReleaseDisc (self, $newdisc);
 
+        new_disc.expand ();
         self.discs.push (new_disc);
         self.positions[new_disc.position()] = new_disc;
 
