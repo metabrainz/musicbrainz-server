@@ -38,6 +38,7 @@ sub dataset : Local Args(1)
 {
     my ($self, $c, $dataset) = @_;
 
+    $c->res->content_type('application/json; charset=utf-8');
     my $tomorrow = Date_to_Time(Add_Delta_Days(Today(1), 1), 0, 0, 0);
     $c->res->headers->expires($tomorrow);
     $c->stash(
