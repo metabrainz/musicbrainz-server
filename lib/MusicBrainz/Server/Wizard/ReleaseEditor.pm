@@ -1507,7 +1507,7 @@ sub _seed_parameters {
             my $entity = $self->c->model('Artist')
                 ->get_by_gid($mbid);
             $artist_credit->{name} ||= $entity->name;
-            $artist_credit->{gid} = $entity->gid;
+            $artist_credit->{artist}->{gid} = $entity->gid;
             $artist_credit->{artist}->{id} = $entity->id;
             $artist_credit->{artist}->{name} = $entity->name;
         }
@@ -1562,9 +1562,9 @@ sub _seed_parameters {
                                 name => $_->{name},
                                 join => $_->{join_phrase},
                                 artist => {
-                                    name => $_->{artist_name} || $_->{name},
-                                    id => $_->{artist_id},
-                                    gid => $_->{gid},
+                                    name => $_->{artist}->{name},
+                                    id => $_->{artist}->{id},
+                                    gid => $_->{artist}->{gid},
                                 }
                             }, @{$track_ac->{names}}
                         ];
