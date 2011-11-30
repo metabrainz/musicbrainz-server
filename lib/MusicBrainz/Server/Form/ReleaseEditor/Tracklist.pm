@@ -88,19 +88,6 @@ sub _track_errors {
         return l('An artist is required on track {pos}', { pos => $pos });
     }
 
-    my $error = try {
-        unformat_track_length ($track->{length});
-        return;
-    }
-    catch {
-        return l(
-            'Track {pos} has an invalid length. Must be in the format MM:SS',
-            { pos => $pos }
-        );
-    };
-
-    return $error if $error;
-
     if ($cdtoc)
     {
         # cdtoc present, so do not allow the user to change track lengths.
@@ -115,11 +102,12 @@ sub _track_errors {
         # caught later on... here in _track_errors we just ignore it.
         if ($details)
         {
-            my $distance = $track->{length} eq '?:??' ? 0
-                : abs ($details->length - unformat_track_length ($track->{length}));
+            my $distance = $track->{length}
+                ? abs ($details->length - $track->{length})
+                : 0;
 
             # always reset the track length.
-            $track->{length} = format_track_length ($details->length);
+            $track->{length} = $details->length;
 
             # only warn the user about this if the edited value differs more than 2 seconds.
             if ($distance > 2000)

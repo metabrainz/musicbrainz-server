@@ -219,7 +219,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.position = position;
     self.line = $.trim (line);
     self.parent = parent;
-    self.duration = '?:??';
+    self.duration = null;
     self.name = '';
     self.artist = null;
 
@@ -263,7 +263,7 @@ MB.TrackParser.Track = function (position, line, parent) {
         var tmp = self.line.replace (/\s?\(\?:\?\?\)\s?$/, '');
         self.line = tmp.replace(/\s?\(?\s?([0-9０-９]+[：，．':,.][0-9０-９][0-9０-９])\s?\)?$/,
             function (str, p1) {
-                self.duration = MB.utility.fullWidthConverter(p1);
+                self.duration = MB.utility.unformatTrackLength (MB.utility.fullWidthConverter(p1));
                 return "";
             }
         );
