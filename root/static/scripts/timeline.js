@@ -10,7 +10,7 @@ $(document).ready(function () {
     var newHash = '';
     var hashChangeTimeoutId = [];
 
-    // MusicBrainz Events fetching
+    // Get MusicBrainz Events data
     $.get('../../static/xml/mb_history.xml', function (data) {
         $(data).find('event').each(function() {
             $this = $(this);
@@ -19,6 +19,7 @@ $(document).ready(function () {
         $(window).hashchange();
     }, 'xml');
 
+    // Called whenever plot is reset
     function graphData () {
         var alldata =  [];
         var ratedata = [];
@@ -45,6 +46,7 @@ $(document).ready(function () {
         return [alldata, ratedata]
     }
     
+    // Creates the proper data object for the rate-of-change graph
     function rateData(datasetId) {
         var dataset = datasets[datasetId];
         var rateHash = $.extend({}, dataset);
@@ -57,8 +59,8 @@ $(document).ready(function () {
         return rateHash
     }
 
+    // Called once per dataset to calculate rates of change
     function weeklyRate(data) {
-        var newData = [];
         var weekData = [];
         var oneWeek = 1000 * 60 * 60 * 24 * 7;
         var mean = 0;
@@ -67,56 +69,50 @@ $(document).ready(function () {
         $.each(data, function(index, value) {
             var oneWeekAgoDate = value[0] - oneWeek;
             var oneWeekAgoValue = null;
+            var useZero = true;
             $.each(data, function(innerIndex, innerValue) {
-                if (innerValue[0] == oneWeekAgoDate) {
-                    oneWeekAgoValue = value[1] - innerValue[1];
-                    count++;
-                    mean = mean + oneWeekAgoValue;
-                }           
+		if (innerValue[0] <= oneWeekAgoDate) {
+                    var useZero = false;
+                    if ((innerValue[0] + oneWeek) > oneWeekAgoDate) {
+                        oneWeekAgoValue = value[1] - innerValue[1];
+                }}
             });
+            if (oneWeekAgoValue==null && useZero) {
+                oneWeekAgoValue = value[1] - 0;
+	    }
             if (oneWeekAgoValue) {
-                weekData.push(oneWeekAgoValue);
+                count++;
+                mean = mean + oneWeekAgoValue;
+                weekData.push([value[0], oneWeekAgoValue]);
             }
         });
         mean = mean / count;
 
         var deviationSum = 0;
-        var deviationCount = 0;
         $.each(weekData, function(index, value) {
-            toSquare = value - mean;
-            deviationCount++;
+            var toSquare = value[1] - mean;
             deviationSum = deviationSum + toSquare * toSquare;
         });
-        var standardDeviation = Math.sqrt(deviationSum / deviationCount);
+        var standardDeviation = Math.sqrt(deviationSum / count);
         var thresholds = {min: mean - 3 * standardDeviation, 
                           max: mean + 3 * standardDeviation};
         var rateBounds = {min: thresholds.max, max: thresholds.min};
-        $.each(data, function(index, value) {
-            var oneWeekAgoDate = value[0] - oneWeek;
-            var oneWeekAgoValue = null;
-            $.each(data, function(innerIndex, innerValue) {
-                if (innerValue[0] == oneWeekAgoDate) {
-                    oneWeekAgoValue = value[1] - innerValue[1];
-                }           
-            });
-            if (oneWeekAgoValue) {
-                newData.push([value[0], oneWeekAgoValue]);
-                if (oneWeekAgoValue > thresholds.min && 
-                      oneWeekAgoValue < thresholds.max) {
-                    if (oneWeekAgoValue > rateBounds.max) {
-                        rateBounds.max = oneWeekAgoValue;
+        $.each(weekData, function(index, value) {
+                if (value[1] > thresholds.min && 
+                      value[1] < thresholds.max) {
+                    if (value[1] > rateBounds.max) {
+                        rateBounds.max = value[1];
                     } 
-                    if (oneWeekAgoValue < rateBounds.min) {
-                        rateBounds.min = oneWeekAgoValue;
+                    if (value[1] < rateBounds.min) {
+                        rateBounds.min = value[1];
                     }
                 }
-            }
         });
         if (rateBounds.min >= rateBounds.max) {
             rateBounds = {min: null, max: null};
         }
 
-        return {data: newData, bounds: rateBounds};
+        return {data: weekData, bounds: rateBounds};
     }
 
     function jq(myid) { 
@@ -326,7 +322,6 @@ $(document).ready(function () {
             resetPlot();
     });
 
-
     function resetPlot () {
         if ($('div.loading').length == 0) {
             var data = graphData();
@@ -351,7 +346,7 @@ $(document).ready(function () {
                     if (rateZoomOptions.yaxis.max) {
                         rateZoomOptions.yaxis.max = rateZoomOptions.yaxis.max + Math.abs(rateZoomOptions.yaxis.max * 0.10);
                     }
-                    var rateOptions = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis, yaxis: rateZoomOptions.yaxis}, musicbrainzEventsOptions);
+                    var rateOptions = $.extend(true, {}, graphOptions, {xaxis: graphZoomOptions.xaxis, yaxis: rateZoomOptions.yaxis, selection: {mode: "x"}}, musicbrainzEventsOptions);
                     rateplot = $.plot($("#rate-of-change-graph"), data[1], rateOptions);
                     rateplot.triggerRedrawOverlay();
                 } else { rateplot = null; }
