@@ -190,8 +190,6 @@ MB.utility.formatTrackLength = function (duration)
             ("00" + String (Math.floor (length_in_secs % 60))).slice (-2);
     }
 
-    console.log ('input', duration, 'output', length_str);
-
     return length_str;
 };
 

@@ -466,10 +466,12 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         var preview = "";
         $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
             names[idx] = {
-                "artist_name": $(row).find ('input.name').val (),
+                "artist": {
+                    "name": $(row).find ('input.name').val (),
+                    "gid": $(row).find ('input.gid').val (),
+                    "id": $(row).find ('input.id').val ()
+                },
                 "name": $(row).find ('input.credit').val (),
-                "gid": $(row).find ('input.gid').val (),
-                "id": $(row).find ('input.id').val (),
                 "join": $(row).find ('input.join').val ()
             };
 
