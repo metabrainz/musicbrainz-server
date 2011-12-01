@@ -29,6 +29,9 @@
                 "release-scripts": { Label: '[% l('Release Scripts') %]' },
                 "release-languages": { Label: '[% l('Release Languages') %]' },
                 "artist-other": { Label: '[% l('Artist Types and Genders') %]' },
+                "relationships": { Label: '[% l('Relationships') %]' },
+
+                "other": { Label: '[% l('Other') %]' }
             },
             "count.artist": { Label: '[% l('Artists') %]', Color: '#ff8a00', Description: '[% l('Count of all artists') %]', Category: "core-entities" },
             "count.recording": { Label: '[% l('Recordings') %]', Color: "#4800ff", Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
@@ -43,9 +46,22 @@
             "count.edit.perday": { Label: '[% l('Edits per day') %]', Color: '#3d8100', Description: '[% l('Count of edits per day') %]', Category: "edit-information", Hide: true },
             "count.edit.perweek": { Label: '[% l('Edits per week') %]', Color: '#78ff00', Description: '[% l('Count of edits per week') %]', Category: "edit-information" },
 
+            "count.edit.tobedeleted": { Label: '[% l('To-be-cancelled edits') %]', Color: '#ff0000', Description: '[% l('Edits about to be cancelled') %]', Category: "edit-information" },
+            "count.edit.deleted": { Label: '[% l('Cancelled edits') %]', Color: '#ff0000', Description: '[% l('Cancelled edits') %]', Category: "edit-information" },
+            "count.edit.applied": { Label: '[% l('Applied edits') %]', Color: '#ff0000', Description: '[% l('All edits that have been applied') %]', Category: "edit-information" },
+            "count.edit.error": { Label: '[% l('Error edits') %]', Color: '#ff0000', Description: '[% l('All edits that have hit an error') %]', Category: "edit-information" },
+            "count.edit.faileddep": { Label: '[% l('Failed edits (dependency)') %]', Color: '#ff0000', Description: '[% l('All edits that have failed dependency checks') %]', Category: "edit-information" },
+            "count.edit.failedprereq": { Label: '[% l('Failed edits (prerequisite)') %]', Color: '#ff0000', Description: '[% l('All edits that have failed prerequisite checks') %]', Category: "edit-information" },
+            "count.edit.failedvote": { Label: '[% l('Failed edits (voted down)') %]', Color: '#ff0000', Description: '[% l('All edits that have failed by being voted down') %]', Category: "edit-information" },
+
+
             "count.vote": { Label: '[% l('Votes') %]', Color: '#00ffff', Description: '[% l('Count of all votes') %]', Category: "edit-information", Hide: true },
             "count.vote.perday": { Label: '[% l('Votes per day') %]', Color: '#007681', Description: '[% l('Count of votes per day') %]', Category: "edit-information", Hide: true },
             "count.vote.perweek": { Label: '[% l('Votes per week') %]', Color: '#00eaff', Description: '[% l('Count of votes per week') %]', Category: "edit-information" },
+
+            "count.vote.yes": { Label: '[% l('Yes Votes') %]', Color: '#00ffff', Description: '[% l('Count of all Yes votes') %]', Category: "edit-information" },
+            "count.vote.no": { Label: '[% l('No Votes') %]', Color: '#00ffff', Description: '[% l('Count of all No votes') %]', Category: "edit-information" },
+            "count.vote.abstain": { Label: '[% l('Abstentions') %]', Color: '#00ffff', Description: '[% l('Count of all Am-nais votes') %]', Category: "edit-information" },
 
             "count.editor": { Label: '[% l('Editors') %]', Color: '#ff0000', Description: '[% l('Count of all editors') %]', Category: "edit-information", Hide: true },
             "count.editor.editlastweek": { Label: '[% l('Active Editors') %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last week') %]', Category: "edit-information" },
@@ -80,6 +96,7 @@
             "count.artist.type.group": { Label: '[% l('Groups') %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') %]', Category: 'artist-other' },
             "count.artist.type.other": { Label: '[% l('Other-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type unset') %]', Category: 'artist-other' },
+
         }
     });
 })(MB);
