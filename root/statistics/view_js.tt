@@ -53,7 +53,7 @@
             "count.edit.faileddep": { Label: '[% l('Failed edits (dependency)') %]', Color: '#ff0000', Description: '[% l('All edits that have failed dependency checks') %]', Category: "edit-information" },
             "count.edit.failedprereq": { Label: '[% l('Failed edits (prerequisite)') %]', Color: '#ff0000', Description: '[% l('All edits that have failed prerequisite checks') %]', Category: "edit-information" },
             "count.edit.failedvote": { Label: '[% l('Failed edits (voted down)') %]', Color: '#ff0000', Description: '[% l('All edits that have failed by being voted down') %]', Category: "edit-information" },
-
+            "count.edit.evalnochange": { Label: '[% l('Evalnochange Edits') %]', Color: '#ff0000', Description: '[% l('Evalnochange edits') %]', Category: "edit-information" },
 
             "count.vote": { Label: '[% l('Votes') %]', Color: '#00ffff', Description: '[% l('Count of all votes') %]', Category: "edit-information", Hide: true },
             "count.vote.perday": { Label: '[% l('Votes per day') %]', Color: '#007681', Description: '[% l('Count of votes per day') %]', Category: "edit-information", Hide: true },
@@ -97,6 +97,24 @@
             "count.artist.type.other": { Label: '[% l('Other-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type unset') %]', Category: 'artist-other' },
 
+            "count.artistcredit": { Label: '[% l('Artist Credits') %]', Color: '#ff0000', Description: '[% l('Count of all Artist Credits') %]', Category: 'other'},
+            "count.barcode": { Label: '[% l('Barcodes') %]', Color: '#ff0000', Description: '[% l('Count of all Barcodes') %]', Category: 'other'},
+            "count.cdstub": { Label: '[% l('CDStubs (all)') %]', Color: '#ff0000', Description: '[% l('Count of all CDStubs') %]', Category: 'other'},
+            "count.cdstub.submitted": { Label: '[% l('CDStubs (submitted)') %]', Color: '#ff0000', Description: '[% l('Count of all CDStubs ever submitted') %]', Category: 'other'},
+            "count.cdstub.track": { Label: '[% l('CDStub tracks') %]', Color: '#ff0000', Description: '[% l('Count of all CDStub tracks') %]', Category: 'other'},
+            "count.discid": { Label: '[% l('Disc IDs') %]', Color: '#ff0000', Description: '[% l('Count of all Disc IDs') %]', Category: 'other'},
+            "count.release.has_discid": { Label: '[% l('Releases with Disc IDs') %]', Color: '#ff0000', Description: '[% l('Count of all Releases with Disc IDs') %]', Category: 'other'},
+            "count.release.nonvarious": { Label: '[% l('Releases not VA') %]', Color: '#ff0000', Description: '[% l('Count of all Releases not V.A.') %]', Category: 'other'},
+            "count.release.various": { Label: '[% l('Releases (VA)') %]', Color: '#ff0000', Description: '[% l('Count of all Releases by Various Artists') %]', Category: 'other'},
+            "count.ipi": { Label: '[% l('IPIs') %]', Color: '#ff0000', Description: '[% l('Count of all IPIs') %]', Category: 'other'},
+            "count.ipi.artist": { Label: '[% l('Artist IPIs') %]', Color: '#ff0000', Description: '[% l('Count of all IPIs for Artists') %]', Category: 'other'},
+            "count.ipi.label": { Label: '[% l('Label IPIs') %]', Color: '#ff0000', Description: '[% l('Count of all IPIs for Labels') %]', Category: 'other'},
+            "count.isrc": { Label: '[% l('ISRCs') %]', Color: '#ff0000', Description: '[% l('Count of all ISRCs') %]', Category: 'other'},
+            "count.isrc.all": { Label: '[% l('ISRCs (all)') %]', Color: '#ff0000', Description: '[% l('Count of all ISRCs') %]', Category: 'other'},
+            "count.iswc": { Label: '[% l('ISWCs') %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') %]', Category: 'other'},
+            "count.iswc.all": { Label: '[% l('ISWCs (all)') %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') %]', Category: 'other'},
+      
+            "count.ar.links": { Label: '[% l('Relationships') %]', Color: '#ff0000', Description: '[% l('Count of all Relationships') %]', Category: 'relationships'},
         }
     });
 })(MB);

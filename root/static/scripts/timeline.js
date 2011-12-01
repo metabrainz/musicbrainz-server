@@ -80,7 +80,7 @@ $(document).ready(function () {
             if (oneWeekAgoValue==null && useZero) {
                 oneWeekAgoValue = value[1] - 0;
 	    }
-            if (oneWeekAgoValue) {
+            if (oneWeekAgoValue!=null) {
                 count++;
                 mean = mean + oneWeekAgoValue;
                 weekData.push([value[0], oneWeekAgoValue]);
