@@ -45,17 +45,23 @@ sub delete
 sub replace
 {
     my ($self, $tracklist_id, $tracks) = @_;
+
+    my $new_tracklist = $self->find_or_insert($tracks);
+    return unless ($new_tracklist->id != $tracklist_id);
+
+    $self->sql->do('UPDATE medium SET tracklist = ? WHERE tracklist = ?',
+                   $new_tracklist->id, $tracklist_id);
+
+    # XXX Should go through Tracklist->delete
     my @possibly_orphaned_recordings = @{
         $self->sql->select_single_column_array(
             'DELETE FROM track WHERE tracklist = ? RETURNING recording', $tracklist_id
         )
     };
-
-    $self->_add_tracks($tracklist_id, $tracks);
-
-    # Check if any recordings are orphaned. This is done after adding tracks, as
-    # we may simply be re-ordering the tracklist.
+    $self->sql->do('DELETE FROM tracklist WHERE id = ?', $tracklist_id);
     $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
+
+    return $new_tracklist->id;
 }
 
 sub _add_tracks {
@@ -63,10 +69,12 @@ sub _add_tracks {
     my $i = 1;
     $self->c->model('Track')->insert(
         map +{
-            %$_,
-            tracklist => $id,
-            position => $i++,
-            artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit})
+            recording_id  => $_->{recording_id},
+            tracklist     => $id,
+            position      => $i++,
+            name          => $_->{name},
+            artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
+            length        => $_->{length},
         }, @$tracks);
 }
 
@@ -121,12 +129,19 @@ sub set_lengths_to_cdtoc
     my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id)
         or die "Could not load CDTOC";
 
+    my $tracklist = $self->c->model('Tracklist')->get_by_id($tracklist_id)
+        or die "Could not load tracklist";
+
+    $self->c->model('Track')->load_for_tracklists($tracklist);
+    $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
+
     my @info = @{ $cdtoc->track_details };
     for my $i (0..$#info) {
-        my $query = 'UPDATE track SET length = ? WHERE tracklist = ? AND position = ?';
-        $self->sql->do($query, $info[$i]->{length_time}, $tracklist_id, $i + 1);
+        $tracklist->tracks->[$i]->length($info[$i]->{length_time});
+        $i++;
     }
 
+    $tracklist_id = $self->replace($tracklist_id, $tracklist->tracks);
     $self->c->model('DurationLookup')->update($tracklist_id);
 }
 
@@ -202,8 +217,8 @@ sub find_or_insert
                                     'name.name = ?',
                                     'artist_credit = ?',
                                     'recording = ?',
-                                    'position = ?',
-                                    defined($_->{length}) ? 'length = ?' : 'length IS NULL') .
+                                    defined($_->{length}) ? 'length = ?' : 'length IS NULL',
+                                    'position = ?') .
                          ')' } @$tracks) . '
                   GROUP BY tracklist
                 ) s
