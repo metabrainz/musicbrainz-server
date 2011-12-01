@@ -28,6 +28,7 @@
 		"release-countries": { Label: '[% l('Release Countries') %]' },
                 "release-scripts": { Label: '[% l('Release Scripts') %]' },
                 "release-languages": { Label: '[% l('Release Languages') %]' },
+                "artist-other": { Label: '[% l('Artist Types and Genders') %]' },
             },
             "count.artist": { Label: '[% l('Artists') %]', Color: '#ff8a00', Description: '[% l('Count of all artists') %]', Category: "core-entities" },
             "count.recording": { Label: '[% l('Recordings') %]', Color: "#4800ff", Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
@@ -69,6 +70,16 @@
             [% FOREACH language IN languages %]
                 "count.release.language.[% language.key %]": { Label: "[% language.value.name %]", Color: '#ff0000', Description: "[% language.value.name %]", Category: "release-languages" },
             [% END %]
+
+            "count.artist.gender.null": { Label: '[% l('Unknown-gender Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender unset (non-group artists)') %]', Category: 'artist-other' },
+            "count.artist.gender.male": { Label: '[% l('Male Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender set to male') %]', Category: 'artist-other' },
+            "count.artist.gender.female": { Label: '[% l('Female Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender set to female') %]', Category: 'artist-other' },
+            "count.artist.gender.other": { Label: '[% l('Other-gender Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender set to other') %]', Category: 'artist-other' },
+
+            "count.artist.type.person": { Label: '[% l('Persons') %]', Color: '#ff0000', Description: '[% l('Artists with type set to person') %]', Category: 'artist-other' },
+            "count.artist.type.group": { Label: '[% l('Groups') %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') %]', Category: 'artist-other' },
+            "count.artist.type.other": { Label: '[% l('Other-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') %]', Category: 'artist-other' },
+            "count.artist.type.null": { Label: '[% l('Unknown-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type unset') %]', Category: 'artist-other' },
         }
     });
 })(MB);
