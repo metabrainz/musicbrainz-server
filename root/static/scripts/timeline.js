@@ -11,7 +11,7 @@ $(document).ready(function () {
     var hashChangeTimeoutId = [];
 
     // MusicBrainz Events fetching
-    $.get('../static/xml/mb_history.xml', function (data) {
+    $.get('../../static/xml/mb_history.xml', function (data) {
         $(data).find('event').each(function() {
             $this = $(this);
             musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
@@ -28,7 +28,7 @@ $(document).ready(function () {
                 var $this_control = $(this).parents('div.graph-control');
                 if (!datasets[datasetId].data && !$this_control.hasClass('loading')) {
                    $this_control.addClass('loading').find('input').attr('disabled', 'disabled');
-                   $.ajax({url: '../statistics/dataset/' + datasetId,
+                   $.ajax({url: '../../statistics/dataset/' + datasetId,
                        dataType: 'json',
                        success: function(data) {
                            datasets[datasetId].data = data;

@@ -22,7 +22,12 @@
            RateTooltipCloser: '[% l('/week') %]',
            Category: {
                 "core-entities" : { Label: '[% l('Core Entities') %]' },
-                "edit-information": { Label: '[% l('Edit Information') %]', Hide: true }
+                "edit-information": { Label: '[% l('Edit Information') %]', Hide: true },
+		"artist-countries": { Label: '[% l('Artist Countries') %]' },
+		"label-countries": { Label: '[% l('Label Countries') %]' },
+		"release-countries": { Label: '[% l('Release Countries') %]' },
+                "release-scripts": { Label: '[% l('Release Scripts') %]' },
+                "release-languages": { Label: '[% l('Release Languages') %]' },
             },
             "count.artist": { Label: '[% l('Artists') %]', Color: '#ff8a00', Description: '[% l('Count of all artists') %]', Category: "core-entities" },
             "count.recording": { Label: '[% l('Recordings') %]', Color: "#4800ff", Description: '[% l('Count of all recordings') %]', Category: "core-entities"  },
@@ -46,6 +51,24 @@
             "count.editor.votelastweek": { Label: '[% l('Active Voters') %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last week') %]', Category: "edit-information" },
             "count.editor.activelastweek": { Label: '[% l('Active Users') %]', Color: '#ff00cc', Description: '[% l('Count of active editors (editing or voting) during the last week') %]', Category: "edit-information" },
 
+            "count.artist.country.null": { Label: '[% l('Unknown Country') %]', Color: '#ff0000', Description: '[% l('Artists with no country set') %]', Category: "artist-countries" },
+            "count.label.country.null": { Label: '[% l('Unknown Country') %]', Color: '#ff0000', Description: '[% l('Labels with no country set') %]', Category: "label-countries" },
+            "count.release.country.null": { Label: '[% l('Unknown Country') %]', Color: '#ff0000', Description: '[% l('Releases with no country set') %]', Category: "release-countries" },
+            [% FOREACH country IN countries %]
+                 "count.artist.country.[% country.key %]": { Label: "[% country.value.name %]", Color: '#ff0000', Description: "[% country.value.name %]", Category: "artist-countries" },
+                 "count.label.country.[% country.key %]": { Label: "[% country.value.name %]", Color: '#ff0000', Description: "[% country.value.name %]", Category: "label-countries" },
+                 "count.release.country.[% country.key %]": { Label: "[% country.value.name %]", Color: '#ff0000', Description: "[% country.value.name %]", Category: "release-countries" },
+            [% END %]
+
+            "count.release.script.null": { Label: '[% l('Unknown Script') %]', Color: '#ff0000', Description: '[% l('Releases with no script set') %]', Category: "release-scripts" },
+            [% FOREACH script IN scripts %]
+                "count.release.script.[% script.key %]": { Label: "[% script.value.name %]", Color: '#ff0000', Description: "[% script.value.name %]", Category: "release-scripts" },
+            [% END %]
+
+            "count.release.language.null": { Label: '[% l('Unknown Language') %]', Color: '#ff0000', Description: '[% l('Releases with no language set') %]', Category: "release-languages" },
+            [% FOREACH language IN languages %]
+                "count.release.language.[% language.key %]": { Label: "[% language.value.name %]", Color: '#ff0000', Description: "[% language.value.name %]", Category: "release-languages" },
+            [% END %]
         }
     });
 })(MB);

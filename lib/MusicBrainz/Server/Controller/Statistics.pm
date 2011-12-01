@@ -23,11 +23,28 @@ sub statistics : Path('')
     );
 }
 
-sub timeline : Local
+sub timeline : Path('timeline/home')
 {
     my ($self, $c) = @_;
 
     my @stats = qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek );
+    $c->stash(
+        template => 'statistics/timeline.tt',
+        stats => \@stats
+    )
+}
+
+sub timeline_redirect : Path('timeline')
+{
+    my ($self, $c) = @_;
+    $c->response->redirect($c->uri_for("/statistics/timeline/home"), 303);
+}
+
+sub individual_timeline : Path('timeline') Args(1)
+{
+    my ($self, $c, $stat) = @_;
+
+    my @stats = ($stat);
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => \@stats
