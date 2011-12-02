@@ -1,19 +1,22 @@
 <style>
 table.tbl td { vertical-align: top }
-dl.ars {
+
+dl.ars, dl.ars dd, dl.ars dt {
     padding: 0;
-    margin: 0.5em 0;
-    margin-left: 1em;
+    margin: 0;
+    font-size: 11px;
 }
+
+dl.ars { margin-left: 2em; }
+dl.ars dd { margin: 0.2em 0; }
+
 dl.ars dt {
-	clear: left;
-    float: left;
     margin-right: 0.5em;
+    clear: left;
+    float: left;
     color: #555;
 }
-dl.ars dd {
-    margin-bottom: 0.2em;
-}
+
 </style>
 
 [% MACRO group_dd(group) BLOCK;
@@ -35,6 +38,7 @@ dl.ars dd {
       [%- END -%]
       [% IF recording.relationships.size %]
         <br/>
+        <div class="ars" style="display: none;">
         [% FOR type_relationships=recording.grouped_relationships %]
           <dl class="ars">
           [% IF type_relationships.key == 'work' %]
@@ -62,6 +66,7 @@ dl.ars dd {
           [% END %]
         </dl>
         [% END %]
+        </div>
       [% END %]
     </td>
     [%- IF show_artists -%]

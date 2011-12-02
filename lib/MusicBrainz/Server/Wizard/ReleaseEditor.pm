@@ -1271,7 +1271,7 @@ sub _expand_track
     }
 
     my $entity = Track->new(
-        length => unformat_track_length ($trk->{length}) // ($assoc ? $assoc->length : undef),
+        length => $trk->{length} // ($assoc ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([
@@ -1388,7 +1388,7 @@ sub track_edit_from_track
     return $self->update_track_edit_hash ({
         artist_credit => artist_credit_to_ref ($track->artist_credit),
         deleted => 0,
-        length => format_track_length ($track->length),
+        length => $track->length,
         name => $track->name,
         position => $track->position
     });
@@ -1576,8 +1576,8 @@ sub _seed_parameters {
 
                     if (my $length = $track->{length}) {
                         $track->{length} = ($length =~ /:/)
-                            ? $length
-                            : format_track_length($length);
+                            ? unformat_track_length ($length)
+                            : $length;
                     }
 
                     my $track = $self->update_track_edit_hash ($track);

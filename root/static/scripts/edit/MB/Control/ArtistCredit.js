@@ -321,7 +321,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.renderPreviewHTML = function () {
         if (self.$gid.val () === '')
         {
-            return self.renderName ();
+            return MB.utility.escapeHTML (self.renderName ()) +
+                MB.utility.escapeHTML (self.$join.val ());
         }
 
         return '<a target="_blank" href="/artist/' +

@@ -59,6 +59,8 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         $.getJSON ('/ws/js/' + self.type + '/' + self.$id.val (), function (data) {
             self.$table.find ('tr.track').eq (0).nextAll ().remove ();
 
+            self.selected_data = data;
+
             $.each (data.tracks, function (idx, item) {
                 var tr = self.$table.find ('tr.track').eq(0).clone ()
                     .appendTo (self.$table.find ('tbody'));
@@ -69,7 +71,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
                 tr.find ('td.position').text (idx + 1);
                 tr.find ('td.title').text (item.name);
                 tr.find ('td.artist').text (artist);
-                tr.find ('td.length').text (item.length);
+                tr.find ('td.length').text (MB.utility.formatTrackLength (item.length));
                 tr.show ();
             });
 
@@ -93,26 +95,21 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         self.parent.updateButtons ();
     };
 
-    self.renderToDisc = function (basic_disc) {
+    self.renderToDisc = function (disc) {
 
         var data = [];
-        $.each (self.$table.find ('tr.track'), function (idx, row) {
-
-            if (idx === 0)
-            {
-                return; /* skip template track. */
-            }
-
-            var $row = $(row);
+        $.each (self.selected_data.tracks, function (idx, item) {
 
             var trk = {
-                'position': $row.find ('td.position').text (),
-                'name': $row.find ('td.title').text (),
-                'length': $row.find ('td.length').text (),
+                'position': idx + 1,
+                'name': item.name,
+                'length': item.length,
                 'deleted': 0
             };
 
-            var artist = $row.find ('td.artist').text ();
+            var artist = item.artist ? item.artist :
+                item.artist_credit ? item.artist_credit.preview : self.disc_artist;
+
             if (artist)
             {
                 trk['artist_credit'] = { names: [ {
@@ -126,13 +123,11 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
                 } ] };
             }
 
-            basic_disc.disc.getTrack (idx - 1).render (trk);
+            disc.getTrack (idx).render (trk);
         });
 
-        basic_disc.$toc.val (self.$toc.val ());
-        basic_disc.disc.sort ();
-        basic_disc.render ();
-        basic_disc.updatePreview ();
+        disc.$toc.val (self.$toc.val ());
+        disc.sort ();
     };
 
     self.initialize = function (type, item) {
@@ -158,6 +153,8 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         self.$tracklist.find ('span.title').text (item.name);
         self.$tracklist.find ('span.artist').text (item.artist);
         self.$tracklist.find ('a.icon').bind ('click.mb', self.toggle);
+
+        self.disc_artist = item.artist;
 
         self.$tracklist.show ();
     };
