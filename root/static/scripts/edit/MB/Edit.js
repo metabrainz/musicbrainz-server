@@ -51,7 +51,9 @@ MB.Edit.Base = function(obj, boxnumber, container) {
         $.ajax ({
             "url": url,
             "type": "PUT",
-            "accepts": { "json": "application/json" },
+            "beforeSend": function(jqXHR, settings) {
+                jqXHR.setRequestHeader("Accept", "application/json");
+            },
             "contentType": "application/json",
             "data": JSON.stringify (self.getData ()),
             "statusCode": {
