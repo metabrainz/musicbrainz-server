@@ -174,3 +174,38 @@ MB.utility.rememberCheckbox = function (id, name) {
     });
 
 };
+
+MB.utility.formatTrackLength = function (duration)
+{
+    var length_str = '';
+
+    if (duration === null)
+    {
+        length_str = '?:??';
+    }
+    else
+    {
+        var length_in_secs = (duration / 1000 + 0.5);
+        length_str = String (Math.floor (length_in_secs / 60)) + ":" +
+            ("00" + String (Math.floor (length_in_secs % 60))).slice (-2);
+    }
+
+    return length_str;
+};
+
+
+MB.utility.unformatTrackLength = function (duration)
+{
+    var parts = duration.split (":");
+    if (parts.length != 2)
+    {
+        return null;
+    }
+
+    if (parts[1] == '??')
+    {
+        return null;
+    }
+
+    return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
+};
