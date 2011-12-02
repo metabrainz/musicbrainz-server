@@ -173,31 +173,25 @@ hash of the track edit.
 
 sub recording_edits_by_hash
 {
-    my ($self, @edits) = @_;
+    my ($self, $medium) = @_;
 
     my %recording_edits;
     my @recording_gids;
 
-    for my $medium (@edits)
-    {
-        push @recording_gids, map { $_->{gid} } grep {
-            $_->{gid} ne 'new' } @{ $medium->{associations} };
-    }
+    push @recording_gids, map { $_->{gid} } grep {
+        $_->{gid} ne 'new' } @{ $medium->{associations} };
 
     my %recordings_by_gid = map {
         $_->{gid} => $_
     } values %{ $self->c->model('Recording')->get_by_gids (@recording_gids) };
 
-    for my $medium (@edits)
+    my $trkpos = 1;
+    for (@{ $medium->{associations} })
     {
-        my $trkpos = 1;
-        for (@{ $medium->{associations} })
-        {
-            $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
-            $recording_edits{$_->{edit_sha1}}->[$trkpos] = $_;
+        $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
+        $recording_edits{$_->{edit_sha1}}->[$trkpos] = $_;
 
-            $trkpos++;
-        }
+        $trkpos++;
     }
 
     return %recording_edits;
@@ -218,28 +212,25 @@ method.
 
 sub recording_edits_from_tracklist
 {
-    my ($self, $tracklists_by_id) = @_;
+    my ($self, $tracklist) = @_;
 
     my %recording_edits;
 
-    for my $tracklist (values %$tracklists_by_id)
+    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+    for my $trk (@{ $tracklist->{tracks} })
     {
-        $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
-        $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+        my $trk_edit = $self->track_edit_from_track ($trk);
 
-        for my $trk (@{ $tracklist->{tracks} })
-        {
-            my $trk_edit = $self->track_edit_from_track ($trk);
-
-            $recording_edits{$trk_edit->{edit_sha1}}->[$trk->position] = {
-                name => $trk_edit->{name},
-                length => $trk_edit->{length},
-                artist_credit => $trk_edit->{artist_credit},
-                confirmed => 1,
-                id => $trk->recording->id,
-                gid => $trk->recording->gid
-            };
-        }
+        $recording_edits{$trk_edit->{edit_sha1}}->[$trk->position] = {
+            name => $trk_edit->{name},
+            length => $trk_edit->{length},
+            artist_credit => $trk_edit->{artist_credit},
+            confirmed => 1,
+            id => $trk->recording->id,
+            gid => $trk->recording->gid
+        };
     }
 
     return %recording_edits;
@@ -605,10 +596,6 @@ sub prepare_recordings
 
     $self->c->model('Track')->load_for_tracklists (values %$tracklists_by_id);
 
-    my %recording_edits = scalar @recording_edits ?
-        $self->recording_edits_by_hash (@recording_edits) :
-        $self->recording_edits_from_tracklist ($tracklists_by_id);
-
     my @suggestions;
     my @tracklists;
 
@@ -620,6 +607,10 @@ sub prepare_recordings
         $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
 
         next if $medium->{deleted};
+
+        my %recording_edits = scalar $recording_edits[$count] ?
+            $self->recording_edits_by_hash ($recording_edits[$count]) :
+            $self->recording_edits_from_tracklist ($tracklists_by_id->{$medium->{tracklist_id}});
 
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
