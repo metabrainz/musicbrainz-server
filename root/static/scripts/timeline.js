@@ -356,6 +356,27 @@ $(document).ready(function () {
         } 
     }
 
+    function controlHtml(key, label) {
+        var id = controlIDPrefix + 'checker' + key;
+	var name = controlIDPrefix + key;
+	var color = (MB.text.Timeline[key] || { 'Color': '#ff0000' })['Color'];
+        return MB.html.div( { "class": 'graph-control', "id": name }, 
+		     MB.html.input( { 'id': id, 'name': name, 'type': 'checkbox', 'checked': 'checked' }, '') +
+	             MB.html.label( { 'for': id }, 
+                                    MB.html.div({ 'class' : 'graph-color-swatch', 'style': 'background-color: ' +  color + ';' }, '') + label));
+    }
+
+    function categoryHtml(category) {
+        var id = categoryIDPrefix + 'checker-' + category;
+        var divId = categoryIDPrefix + category;
+	var label = (MB.text.Timeline.Category[category] || { Label : 'Unknown' })['Label'];
+        return '<h2 class="toggler">' +
+	       MB.html.input( { 'id': id, 'type': 'checkbox', 'checked': 'checked'}, '') +
+	       MB.html.label( { 'for': id }, label ) + 
+	       '</h2>' +
+	       MB.html.div( { 'class': 'graph-category', 'id': divId }, '' );
+    }
+
     MB.setupGraphing = function (data, goptions, ooptions) {
         datasets = data;
         graphOptions = goptions;
@@ -364,10 +385,9 @@ $(document).ready(function () {
         $.each(datasets, function(key, value) { 
             if ($(jq(controlIDPrefix + key)).length == 0) {
                 if ($('#' + categoryIDPrefix + value.category).length == 0) {
-                    $('#graph-lines').append('<h2 class="toggler"><input id="' + categoryIDPrefix + 'checker-' + value.category + '" type="checkbox" checked /><label for="' + categoryIDPrefix + 'checker-' + value.category + '">' + MB.text.Timeline.Category[value.category].Label + '</label></h2>');
-                    $('#graph-lines').append('<div class="graph-category" id="' + categoryIDPrefix + value.category + '"></div>');
+                    $('#graph-lines').append(categoryHtml(value.category));
                 }
-                $("#graph-lines #" + categoryIDPrefix + value.category).append('<div class="graph-control" id="' + controlIDPrefix + key + '"><input id="' + controlIDPrefix + 'checker-' + key + '" name="' + controlIDPrefix + key + '" type="checkbox" checked /><label for="' + controlIDPrefix + 'checker-' + key + '"><div class="graph-color-swatch" style="background-color: ' + MB.text.Timeline[key].Color + ';"></div>' + value.label + '</label></div>'); 
+                $("#graph-lines #" + categoryIDPrefix + value.category).append(controlHtml(key, value.label)); 
             }
         });
         // // Toggle functionality
