@@ -20,10 +20,8 @@ sub edit_mapping
     if ($document->{lifespan}) {
         my $lifespan = delete $document->{lifespan};
 
-        $document->{begin_date} = partial_date_to_hash (
-            partial_date_from_string ($lifespan->{begin})) if $lifespan->{begin};
-        $document->{end_date}  = partial_date_to_hash (
-            partial_date_from_string ($lifespan->{end})) if $lifespan->{end};
+        $document->{begin_date} = $lifespan->{begin} if $lifespan->{begin};
+        $document->{end_date}  = $lifespan->{end} if $lifespan->{end};
     }
 
     return %$document;

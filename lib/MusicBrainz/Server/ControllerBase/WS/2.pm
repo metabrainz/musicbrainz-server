@@ -140,7 +140,8 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     };
 
     $self->apply_rate_limit($c);
-    $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
+
+    $c->authenticate({}, 'musicbrainz.org') if $c->stash->{authorization_required} && !defined $c->user;
 }
 
 sub _error

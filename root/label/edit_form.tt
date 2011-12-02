@@ -3,46 +3,19 @@
     [%- create_guideline(l('If one or more labels with the same name already exist in the database, you will be prompted to add a {doc_comment|comment to this label} that will allow users to distinguish this entry from the other label(s) with the same name.', {doc_comment => doc_link('Label_Comment')})) %]
     [%- create_guideline(l('Please note that casing of the label is taken into account when determining the need for a comment.  The two labels <em>some name</em> and <em>Some Name</em> are not the same.')) %]
 [% END %]
-<form action="[% c.req.uri %]" method="post">
+
+  <form>
     [%- USE r = FormRenderer(form) -%]
 
-    <div class="half-width">
+    <div class="half-width edit-fields">
 
-      [% IF form.has_duplicates %]
-      <fieldset>
-          <legend>[% l('Possible Duplicate Labels') %]</legend>
-          <p>
-              <strong class='warning'>[% l('Warning:') %]</strong>
-              [% l('You are attempting to add a label which appears to be very similar, if not exactly the same, as these existing labels:') %]
-              <ul>
-                  [% FOREACH dupe=form.duplicates %]
-                  <li>[% link_entity(dupe) %]</li>
-                  [% END %]
-              </ul>
-          </p>
-
-          [%- WRAPPER 'layout/guidelines.tt' -%]
-              [%- create_guideline(l('You are required to enter a disambiguation comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
-              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish labels with the same name, and that you know what you are doing.', {doc_labelcomment => doc_link('Label_Comment')})) -%]
-          [%- END -%]
-
-          [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not duplicate, and I know what I am doing.')) %]
-      </fieldset>
-      [% END %]
+      [%# FIXME: add duplicate check. %]
 
       <fieldset>
         <legend>[% l('Label Details') %]</legend>
+        <input type="hidden" name="edit-label.id" value="[% entity.gid %]" />
         [%- form_row_text_long(r, 'name', l('Name:')) -%]
         [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
-        [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
-        [%- form_row_select(r, 'type_id', l('Type:')) -%]
-        [%- form_row_select(r, 'country_id', l('Country:')) -%]
-        [% WRAPPER form_row %]
-            [%- r.label('label_code', l('Label code:')) %]
-            LC- [% r.text('label_code', size => 5, class => "label-code") -%]
-            [%- field_errors(form, 'label_code') -%]
-        [% END %]
-        [% form_row_text(r, 'ipi_code', l('IPI code:')) %]
       </fieldset>
 
       <fieldset>
@@ -56,11 +29,12 @@
       [% INCLUDE 'forms/edit-note.tt' %]
 
       [% enter_edit() %]
-  </div>
+    </div>
+  </form>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
-    [%- sortname_bubble() -%]
+    [%#- guesscase_bubble(1) -%]
+    [%#- sortname_bubble() -%]
   </div>
 
 </form>
