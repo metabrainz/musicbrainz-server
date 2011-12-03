@@ -29,7 +29,7 @@
                 "release-scripts": { Label: '[% l('Release Scripts') %]' },
                 "release-languages": { Label: '[% l('Release Languages') %]' },
                 "artist-other": { Label: '[% l('Artist Types and Genders') %]' },
-                "relationships": { Label: '[% l('Relationships') %]' },
+                "relationships": { Label: '[% l('Relationships') %]', Hide: true },
                 "release-quality": { Label: '[% l('Release Data Quality') %]' },
                 "ratings-tags": { Label: '[% l('Ratings and Tags') %]' },
 
@@ -164,7 +164,8 @@
             "count.ar.links": { Label: '[% l('Relationships') %]', Color: '#ff0000', Description: '[% l('Count of all Relationships') %]', Category: 'relationships'},
             
             [% FOREACH rel IN relationships %]
-                "count.ar.links.l_[% rel.0 %]_[% rel.1 %]": { Label: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) %]', Color: '#ff0000', Description: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) %]' },
+                [% USE String(loop.count() * 3 ) %]
+                "count.ar.links.l_[% rel.0 %]_[% rel.1 %]": { Label: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) %]', Color: '#5[% String.format('%02d') %]F[% String.format('%02d') %]', Description: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) %]', Category: 'relationships' },
             [% END %]
         }
     });
