@@ -51,7 +51,8 @@ sub individual_timeline : Path('timeline') Args(1)
     my @stats = ($stat);
     $c->stash(
         template => 'statistics/timeline.tt',
-        stats => \@stats
+        stats => \@stats,
+        show_all => 1,
     )
 }
 

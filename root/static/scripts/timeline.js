@@ -451,7 +451,6 @@ $(document).ready(function () {
         $('div.graph-category').each(function () {
             var category = $(this).attr('id').substr(categoryIDPrefix.length);
             if (MB.text.Timeline.Category[category].Hide && !(new RegExp('\\+?-?c-' + category + '(?=($|\\+))').test(location.hash))) {
-		console.log('hiding ' + category);
                 $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
             }
         });

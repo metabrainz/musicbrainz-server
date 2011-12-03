@@ -49,6 +49,9 @@
             xaxis: {mode: "time", tickSize: [1, "year"]},
             yaxis: {tickFormatter: function () { return '' }},
             selection: {mode: "xy"}});
+          [% IF show_all %]
+          $('.toggler input:checkbox').attr('checked', true).change();
+          [% END %]
       });
   //]]></script>
 [% END %]
