@@ -23,7 +23,7 @@ sub statistics : Path('')
     );
 }
 
-sub timeline : Path('timeline/home')
+sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
@@ -37,7 +37,7 @@ sub timeline : Path('timeline/home')
 sub timeline_redirect : Path('timeline')
 {
     my ($self, $c) = @_;
-    $c->response->redirect($c->uri_for("/statistics/timeline/home"), 303);
+    $c->response->redirect($c->uri_for("/statistics/timeline/main"), 303);
 }
 
 sub individual_timeline : Path('timeline') Args(1)
