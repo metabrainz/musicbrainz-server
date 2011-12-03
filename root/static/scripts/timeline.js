@@ -261,13 +261,13 @@ $(document).ready(function () {
     function changeHash(minus, newHashPart, hide) {
         if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id); hashChangeTimeoutId.splice(i, 1); }); }
 
-        if (!new RegExp('\\+?-?' + newHashPart + '(?=($|\\+))').test(newHash)) {
+        if (!new RegExp('(\\+|#)-?' + newHashPart + '(?=($|\\+))').test(newHash)) {
             if (hide != minus) {
                 newHash = newHash + (newHash != '' ? '+' : '') + (minus ? '-' : '') + newHashPart;
             }
         } else {
             if (hide != minus) {
-                newHash = newHash.replace(new RegExp('-?' + newHashPart + '(?=($|\\+))'), (minus ? '-' : '') + newHashPart);
+                newHash = newHash.replace(new RegExp('(\\+|#)-?' + newHashPart + '(?=($|\\+))'), '+' + (minus ? '-' : '') + newHashPart);
             } else { 
                 removeFromHash('-?' + newHashPart);
             }
@@ -277,7 +277,7 @@ $(document).ready(function () {
     }
     function removeFromHash(toRemove) {
         if (hashChangeTimeoutId.length > 0 ) { $.each(hashChangeTimeoutId, function (i, Id) { window.clearTimeout(Id); hashChangeTimeoutId.splice(i, 1); }); }
-        var regex = new RegExp('\\+?' + toRemove + '(?=($|\\+))')
+        var regex = new RegExp('(\\+|#)' + toRemove + '(?=($|\\+))')
         newHash = newHash.replace(regex , '');
         hashChangeTimeoutId.push(window.setTimeout(changeHashTimeout, 1000));
     }
