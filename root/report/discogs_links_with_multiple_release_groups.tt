@@ -1,6 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Discogs URLs Linked to Multiple Release groups') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Discogs URLs Linked to Multiple Release Groups') full_width=1 -%]
 
-<h1>[% l('Discogs URLs Linked to Multiple Release groups') %]</h1>
+<h1>[% l('Discogs URLs Linked to Multiple Release Groups') %]</h1>
 
 <ul>
     <li>[% l('This report shows Discogs URLs which are linked to multiple release groups.') %]</li>
