@@ -138,7 +138,7 @@ sub capture_edits (&$)
     my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
     return () if $new_max <= $current_max;
     return values %{ $c->model('Edit')->get_by_ids(
-        $current_max..$new_max
+        ($current_max + 1)..$new_max
     ) };
 }
 
