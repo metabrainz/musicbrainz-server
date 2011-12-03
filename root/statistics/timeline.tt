@@ -50,7 +50,7 @@
             yaxis: {tickFormatter: function () { return '' }},
             selection: {mode: "xy"}});
           [% IF show_all %]
-          $('.toggler input:checkbox').attr('checked', true).change();
+          $('.toggler input:checkbox, .graph-control input:checkbox').attr('checked', true).change();
           [% END %]
       });
   //]]></script>
