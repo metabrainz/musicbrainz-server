@@ -17,11 +17,13 @@ sub statistics_js_text_strings : Path('/statistics/view.js') {
     my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
     my %languages = map { $_->iso_code_3t => $_ } $c->model('Language')->get_all();
     my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
+    my @rel_pairs = $c->model('Relationship')->all_pairs;
     $c->stash(
         template => 'statistics/view_js.tt',
 	countries => \%countries,
 	languages => \%languages,
 	scripts => \%scripts,
+        relationships => \@rel_pairs,
     );
     $c->res->content_type('text/javascript');
 }
