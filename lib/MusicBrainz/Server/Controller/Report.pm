@@ -30,6 +30,7 @@ sub show : Path Args(1)
     }
 
     my $page = $c->request->query_params->{page} || 1;
+    my $subscribed_artists = $c->request->query_params->{subscribed_artists} || 0;
     $page = 1 if $page < 1;
 
     my $limit = 50;
@@ -47,12 +48,20 @@ sub show : Path Args(1)
     }
 
     $report->post_load(\@items);
+    if ($subscribed_artists) {
+        my $sql = $c->model('MB')->context->sql;
+        my $query = "SELECT esa.artist FROM editor_subscribe_artist esa WHERE esa.editor = ?";
+        my $subscribed_artist_ids = $sql->select_single_column_array($query, $c->user->id);
+        $report->filter_by_artists(\@items, $subscribed_artist_ids);
+        $pager->total_entries(scalar @items);
+    }
 
     $c->stash(
         items     => \@items,
         pager     => $pager,
         generated => DateTime->from_epoch( epoch => $data->Time ),
         template  => $report->template,
+        subscribed_artists => $subscribed_artists,
     );
 }
 

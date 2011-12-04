@@ -35,6 +35,10 @@ sub post_load
 {
 }
 
+sub filter_by_artists
+{
+}
+
 sub template
 {
     die 'Not implemented.';

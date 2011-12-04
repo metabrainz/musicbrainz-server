@@ -1,0 +1,7 @@
+<p>
+[% IF subscribed_artists %]
+Only lists release groups from subscribed artists. <a href="[% c.req.uri_with( subscribed_artists => 0 ) | html %]">[% l('Show all release groups') %]</a>.
+[% ELSE %]
+<a href="[% c.req.uri_with( subscribed_artists => 1 ) | html %]">[% l('Show only release groups from subscribed artists') %]</a>.
+[% END %]
+</p>

@@ -16,6 +16,20 @@ sub post_load
     }
 }
 
+sub filter_by_artists
+{
+    my ($self, $items, $artists) = @_;
+    @$items =
+        grep {
+            my $item = $_;
+            grep {
+                my $ac = $_;
+                grep { $_ eq $ac->artist->id } @$artists
+            } $item->{artist_credit}->all_names
+        } @$items;
+}
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

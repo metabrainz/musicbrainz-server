@@ -17,6 +17,18 @@ sub post_load
     }
 }
 
+sub filter_by_artists
+{
+    my ($self, $items, $artists) = @_;
+    my @gids = map { $_->{gid} } @$items;
+    my $gid_artists = $self->c->model('Artist')->get_by_gids(@gids);
+    @$items = grep {
+        my $item = $_;
+        my $artist = $gid_artists->{$item->{gid}};
+        grep { $_ eq $artist->id } @$artists
+    } @$items;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

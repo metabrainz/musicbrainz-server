@@ -1,3 +1,4 @@
+[%- INCLUDE 'report/filter_artists.tt' -%]
 [%- WRAPPER 'components/with-pager.tt' -%]
 <table class="tbl">
     <thead>
