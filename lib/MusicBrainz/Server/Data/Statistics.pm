@@ -267,6 +267,48 @@ my %stats = (
             };
         },
     },
+    "count.release.format" => {
+         DESC => "Distribution of releases by format",
+         CALC => sub { 
+             my ($self, $sql) = @_;
+             my $data = $sql->select_list_of_lists(
+                 "SELECT COALESCE(medium_format.id::text, 'null'), count(DISTINCT medium.release) AS count
+                 FROM medium FULL OUTER JOIN medium_format 
+                     ON medium.format = medium_format.id 
+                 GROUP BY medium_format.id
+                 ",
+             );
+
+             my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.format.".$_ => $dist{$_}
+                } keys %dist
+            };
+         },
+    },
+    "count.medium.format" => {
+         DESC => "Distribution of mediums by format",
+         CALC => sub { 
+             my ($self, $sql) = @_;
+             my $data = $sql->select_list_of_lists(
+                 "SELECT COALESCE(medium_format.id::text, 'null'), count(DISTINCT medium.id) AS count
+                 FROM medium FULL OUTER JOIN medium_format 
+                     ON medium.format = medium_format.id 
+                 GROUP BY medium_format.id
+                 ",
+             );
+
+             my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.medium.format.".$_ => $dist{$_}
+                } keys %dist
+            };
+         },
+    },
     "count.release.language" => {
         DESC => "Distribution of releases by language",
         CALC => sub {

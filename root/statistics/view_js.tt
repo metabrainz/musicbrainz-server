@@ -32,6 +32,7 @@
                 "relationships": { Label: '[% l('Relationships') %]', Hide: true },
                 "release-quality": { Label: '[% l('Release Data Quality') %]' },
                 "ratings-tags": { Label: '[% l('Ratings and Tags') %]' },
+                "formats": { Label: '[% l('Formats') %]' },
 
                 "other": { Label: '[% l('Other') %]' }
             },
@@ -87,6 +88,13 @@
             "count.release.language.null": { Label: '[% l('Unknown Language') %]', Color: '#ff0000', Description: '[% l('Releases with no language set') %]', Category: "release-languages" },
             [% FOREACH language IN languages %]
                 "count.release.language.[% language.key %]": { Label: "[% language.value.name %]", Color: '#ff0000', Description: "[% language.value.name %]", Category: "release-languages" },
+            [% END %]
+
+            "count.release.format.null": { Label: '[% l('Unknown Format (release)') %]', Color: '#ff0000', Description: '[% l('Releases with a no-format medium') %]', Category: "formats"},
+            "count.medium.format.null": { Label: '[% l('Unknown Format (medium)') %]', Color: '#ff0000', Description: '[% l('Mediums with no format set') %]', Category: "formats"},
+            [% FOREACH format IN formats %]
+                "count.release.format.[% format.key %]": { Label: "[% l('{name} releases', { name => format.value.name }) %]", Color: "#ff0000", Description: '', Category: "formats"},
+                "count.medium.format.[% format.key %]": { Label: "[% l('{name} mediums', { name => format.value.name }) %]", Color: "#ff0000", Description: '', Category: "formats"},
             [% END %]
 
             "count.artist.gender.null": { Label: '[% l('Unknown-gender Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender unset (non-group artists)') %]', Category: 'artist-other' },

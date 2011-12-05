@@ -474,12 +474,6 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('To be cancelled:') %]</th>
-    <td>[% add_commas(stats.statistic('count.edit.tobedeleted')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.tobedeleted', 'count.edit')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
     <th colspan=2>[% l('Cancelled:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.deleted')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.deleted', 'count.edit')) }) %]</td>
