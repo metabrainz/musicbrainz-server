@@ -1,10 +1,11 @@
-[% colspan = c.session.tport ? '5' : '4' %]
+[% colspan = c.session.tport ? '6' : '5' %]
 
 [%- MACRO show_release_row(recording, release_track) BLOCK; -%]
   [%- release = release_track.0 -%]
   [%- track = release_track.1 -%]
-  <td>[%- track.position -%]/[%- track.tracklist.track_count-%]</td>
+  <td>[%- track.position -%]/[% track.tracklist.track_count-%]</td>
   <td>[%- track.name -%]</td>
+  <td>[%- track.tracklist.medium.position %]</td>
   <td>[%- link_entity(release) -%]</td>
   [%- IF c.session.tport -%]
     <td>[% tagger_icon(release) %]</td>
@@ -25,6 +26,7 @@
       </tr>
       <tr>
         <th colspan="2">[% l('Track') %]</th>
+        <th>[% l('Medium') %]</th>
         <th>[% l('Release') %]</th>
         [%- IF c.session.tport -%]
           <th>[% l('Tagger') %]</th>

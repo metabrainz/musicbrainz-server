@@ -300,7 +300,8 @@ sub find_by_recordings
     my $query =
         "SELECT " . $self->_columns . ",
                 track.recording, track.position, track_name.name AS track_name,
-                tracklist.id AS tracklist_id, tracklist.track_count
+                tracklist.id AS tracklist_id, tracklist.track_count,
+                medium.id AS medium_id, medium.position AS medium_position
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
@@ -320,7 +321,11 @@ sub find_by_recordings
                   name => $row->{track_name},
                   tracklist => MusicBrainz::Server::Entity::Tracklist->new(
                       id => $row->{tracklist_id},
-                      track_count => $row->{track_count}
+                      track_count => $row->{track_count},
+                      medium => MusicBrainz::Server::Entity::Medium->new(
+                          id => $row->{medium_id},
+                          position => $row->{medium_position}
+                      )
                   )
               ) ];
     }
