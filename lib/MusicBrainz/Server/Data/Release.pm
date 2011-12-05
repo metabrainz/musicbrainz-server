@@ -5,6 +5,8 @@ use Moose;
 use Carp 'confess';
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
+use MusicBrainz::Server::Entity::Track;
+use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     generate_gid
@@ -297,11 +299,13 @@ sub find_by_recordings
 
     my $query =
         "SELECT " . $self->_columns . ",
-                track.recording, track.position, track_name.name AS track_name
+                track.recording, track.position, track_name.name AS track_name,
+                tracklist.id AS tracklist_id, tracklist.track_count
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
-           JOIN track ON track.tracklist = medium.tracklist
+           JOIN tracklist ON tracklist.id = medium.tracklist
+           JOIN track ON track.tracklist = tracklist.id
            JOIN track_name ON track.name = track_name.id
           WHERE track.recording IN (" . placeholders(@ids) . ")";
 
@@ -311,10 +315,14 @@ sub find_by_recordings
         $map{ $row->{recording} } ||= [];
         push @{ $map{ $row->{recording} } },
             [ $self->_new_from_row($row),
-              $self->c->model('Track')->_new_from_row({
+              MusicBrainz::Server::Entity::Track->new(
                   position => $row->{position},
-                  name => $row->{track_name}
-              }) ];
+                  name => $row->{track_name},
+                  tracklist => MusicBrainz::Server::Entity::Tracklist->new(
+                      id => $row->{tracklist_id},
+                      track_count => $row->{track_count}
+                  )
+              ) ];
     }
 
     return %map;
