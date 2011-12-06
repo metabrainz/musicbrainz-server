@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::JS;
 use Moose;
-use MusicBrainz::Server::Data::Country;
 BEGIN { extends 'Catalyst::Controller' }
 
 sub begin : Private {}

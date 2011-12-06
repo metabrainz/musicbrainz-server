@@ -3,7 +3,6 @@ use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
-use Data::Dumper;
 use List::UtilsBy qw( rev_nsort_by );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
@@ -29,9 +28,6 @@ sub timeline : Path('timeline/main')
     my ($self, $c) = @_;
 
     my @stats = qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek );
-    # insane, commenting out for now
-    # push @stats, qw ( count.ar.links );
-    # push @stats, (map { my ($l0, $l1) = @$_; "count.ar.links.l_${l0}_${l1}" } MusicBrainz::Server::Data::Relationship->all_pairs);
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => \@stats
