@@ -1586,13 +1586,6 @@ sub _seed_parameters {
                             };
                         }
                     }
-                    else {
-                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
-                            gid => 'new',
-                            confirmed => 1,
-                            edit_sha1 => $track->{edit_sha1}
-                        };
-                    }
                 }
 
                 $medium->{edits} = $json->encode(\@edits);
