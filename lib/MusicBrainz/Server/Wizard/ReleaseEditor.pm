@@ -312,7 +312,7 @@ sub associate_recordings
                 name => $_->{name},
                 artist => $_->{id},
             };
-            push @artist_joinphrase, $_->{join};
+            push @artist_joinphrase, $_->{join_phrase};
         }
 
         pop @artist_joinphrase unless $artist_joinphrase[$#artist_joinphrase];
@@ -1498,7 +1498,7 @@ sub _seed_parameters {
             my $entity = $self->c->model('Artist')
                 ->get_by_gid($mbid);
             $artist_credit->{name} ||= $entity->name;
-            $artist_credit->{gid} = $entity->gid;
+            $artist_credit->{artist}->{gid} = $entity->gid;
             $artist_credit->{artist}->{id} = $entity->id;
             $artist_credit->{artist}->{name} = $entity->name;
         }
@@ -1547,21 +1547,22 @@ sub _seed_parameters {
                 for my $track (@tracks) {
                     $track->{position} = ++$track_idx;
                     my $track_ac = $track->{artist_credit} || $params->{artist_credit};
+
                     if ($track_ac->{names}) {
                         $track->{artist_credit}{names} = [
                             map +{
-                                name => $_->{name},
-                                join => $_->{join_phrase},
+                                name => $_->{name} // $_->{artist}->{name},
+                                join_phrase => $_->{join_phrase},
                                 artist => {
-                                    name => $_->{artist_name} || $_->{name},
-                                    id => $_->{artist_id},
-                                    gid => $_->{gid},
+                                    name => $_->{artist}->{name} // $_->{name},
+                                    id => $_->{artist}->{id},
+                                    gid => $_->{artist}->{gid},
                                 }
                             }, @{$track_ac->{names}}
                         ];
 
                         $track->{artist_credit}{preview} = join (
-                            "", map { $_->{name} // "" . $_->{join_phrase} // ""
+                            "", map { ($_->{name} // "") . ($_->{join_phrase} // "")
                             } @{$track_ac->{names}});
                     }
 
