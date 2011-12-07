@@ -321,7 +321,7 @@ sub associate_recordings
                 name => $_->{name},
                 artist => $_->{id},
             };
-            push @artist_joinphrase, $_->{join};
+            push @artist_joinphrase, $_->{join_phrase};
         }
 
         pop @artist_joinphrase unless $artist_joinphrase[$#artist_joinphrase];
@@ -1556,13 +1556,14 @@ sub _seed_parameters {
                 for my $track (@tracks) {
                     $track->{position} = ++$track_idx;
                     my $track_ac = $track->{artist_credit} || $params->{artist_credit};
+
                     if ($track_ac->{names}) {
                         $track->{artist_credit}{names} = [
                             map +{
-                                name => $_->{name},
-                                join => $_->{join_phrase},
+                                name => $_->{name} // $_->{artist}->{name},
+                                join_phrase => $_->{join_phrase},
                                 artist => {
-                                    name => $_->{artist}->{name},
+                                    name => $_->{artist}->{name} // $_->{name},
                                     id => $_->{artist}->{id},
                                     gid => $_->{artist}->{gid},
                                 }
@@ -1570,7 +1571,7 @@ sub _seed_parameters {
                         ];
 
                         $track->{artist_credit}{preview} = join (
-                            "", map { $_->{name} // "" . $_->{join_phrase} // ""
+                            "", map { ($_->{name} // "") . ($_->{join_phrase} // "")
                             } @{$track_ac->{names}});
                     }
 
