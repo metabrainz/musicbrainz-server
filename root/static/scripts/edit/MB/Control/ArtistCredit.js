@@ -576,7 +576,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         var lookupPerformed = true;
         $.each (self.box, function (idx, box) {
-            if (!box.$gid.val () || !box.$id.val ())
+            if (!box.$gid.val () && !box.$id.val ())
             {
                 lookupPerformed = false;
             }
