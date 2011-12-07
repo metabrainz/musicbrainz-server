@@ -84,7 +84,7 @@ sub change_page_duplicates
 {
     my ($self) = @_;
 
-    my $release_id = $self->value->{duplicate_id}
+    my $release_id = $self->get_value ('duplicates', 'duplicate_id')
         or return;
 
     my $release = $self->c->model('Release')->get_by_id($release_id);
