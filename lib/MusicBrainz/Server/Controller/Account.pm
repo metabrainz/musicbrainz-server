@@ -362,25 +362,12 @@ sub preferences : Path('/account/preferences') RequireAuth
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
     $c->model('Editor')->load_preferences($editor);
-    my $watch_prefs = $c->model('WatchArtist')->load_preferences($editor->id);
 
     my $form = $c->form( form => 'User::Preferences', item => $editor->preferences );
-    my $watch_prefs_form = $c->form(
-        watch_prefs => 'User::WatchPreferences',
-        item => {
-            notify_via_email => $watch_prefs->notify_via_email,
-            notification_timeframe => $watch_prefs->notification_timeframe->in_units('days'),
-            type_id => [ map { $_->id } $watch_prefs->all_types ],
-            status_id => [ map { $_->id } $watch_prefs->all_statuses ],
-        }
-    );
 
     if ($c->form_posted &&
-        $form->process( params => $c->req->params ) &&
-        $watch_prefs_form->process( params => $c->req->params )) {
+        $form->process( params => $c->req->params )) {
         $c->model('Editor')->save_preferences($editor, $form->values);
-        $c->model('WatchArtist')->save_preferences(
-            $editor->id, $watch_prefs_form->values);
 
         $c->user->preferences($editor->preferences);
         $c->persist_user();
