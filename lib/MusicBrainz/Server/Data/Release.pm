@@ -802,6 +802,21 @@ sub find_similar
             @releases;
 }
 
+sub filter_barcode_changes {
+    my ($self, @barcodes) = @_;
+    return unless @barcodes;
+    return @{
+        $self->c->sql->select_list_of_hashes(
+            'SELECT DISTINCT change.release, change.barcode
+             FROM (VALUES ' . join(', ', ("(?::uuid, ?)") x @barcodes) . ') change (release, barcode)
+             LEFT JOIN release_gid_redirect rgr ON rgr.gid = change.release
+             JOIN release ON (release.gid = change.release OR rgr.new_id = release.id)
+             WHERE change.barcode IS DISTINCT FROM release.barcode',
+            map { $_->{release}, $_->{barcode} } @barcodes
+        )
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

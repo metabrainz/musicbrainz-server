@@ -344,9 +344,6 @@ sub _route
     if (defined $p->{next})
     {
         return $self->navigate_to_page unless $self->valid ($page);
-        if (my $submit = $self->pages->[$self->_current]->{submit}) {
-            $submit->();
-        }
         $requested++;
     }
     elsif (defined $p->{previous})
@@ -391,6 +388,10 @@ sub _route
     }
     else
     {
+        if (my $submit = $self->pages->[$self->_current]->{submit}) {
+            $submit->();
+        }
+
         # validate each page when moving forward.
         # - if a page is not valid, stop there.
         # - if a page should be skipped, skip it.

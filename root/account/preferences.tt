@@ -41,6 +41,7 @@
         [% form_row_checkbox(r, 'email_on_vote', l('When I vote on an edit, mail me all future notes
                                                     for that edit.')) %]
         [% form_row_checkbox(w, 'notify_via_email', l('Notify me by email on new releases to my watched artists')) %]
+        [% form_row_select(r, 'subscriptions_email_period', l('Send me mails with edits to my subscriptions:')) %]
     </fieldset>
 
     <fieldset>

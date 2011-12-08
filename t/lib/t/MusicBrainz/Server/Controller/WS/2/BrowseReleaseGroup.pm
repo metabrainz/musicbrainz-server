@@ -35,6 +35,7 @@ ws_test 'browse release group via release',
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
                         <name>Distance</name>
                         <sort-name>Distance</sort-name>
+                        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -61,6 +62,7 @@ ws_test 'browse release group via artist',
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
                         <name>Distance</name>
                         <sort-name>Distance</sort-name>
+                        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -79,6 +81,7 @@ ws_test 'browse release group via artist',
                     <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
                         <name>Distance</name>
                         <sort-name>Distance</sort-name>
+                        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                     </artist>
                 </name-credit>
             </artist-credit>

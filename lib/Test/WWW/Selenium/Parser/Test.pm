@@ -36,8 +36,10 @@ sub new_from_file {
     my $xpc = XML::LibXML::XPathContext->new($dom);
 
     sub node_to_string {
+        # FIXME: do some proper html decoding here.
         return join ("", map {
             my $str = $_->toString;
+            $str =~ s,&gt;,>,g;
             $str =~ s,<br />,\n,g;
             $str
         } shift->getChildNodes);

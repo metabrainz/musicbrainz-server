@@ -3,6 +3,7 @@ package MusicBrainz::Server::Edit::Medium::Util;
 use strict;
 use warnings;
 
+use Clone qw(clone);
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -21,9 +22,25 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::Tracklist';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
-use Sub::Exporter -setup => {
-    exports => [qw( tracks_to_hash tracklist_foreign_keys track display_tracklist )],
-};
+use Sub::Exporter -setup => { exports => [qw(
+    display_tracklist
+    filter_subsecond_differences
+    track
+    tracks_to_hash
+    tracklist_foreign_keys
+)]};
+
+
+sub filter_subsecond_differences
+{
+    my $tracks = shift;
+
+    return [ map {
+        my $trk = clone ($_);
+        $trk->{length} = unformat_track_length(format_track_length($trk->{length}));
+        $trk;
+    } @$tracks ];
+}
 
 sub tracks_to_hash
 {
@@ -36,9 +53,7 @@ sub tracks_to_hash
         artist_credit => artist_credit_to_ref ($_->artist_credit, $for_change_hash),
         recording_id => $_->recording_id,
         position => $_->position,
-
-        # Filter out sub-second differences
-        length => unformat_track_length(format_track_length($_->length)),
+        length => $_->length,
     }, @$tracks ];
 
     return $tmp;

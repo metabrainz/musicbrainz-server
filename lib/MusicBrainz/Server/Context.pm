@@ -28,12 +28,18 @@ has 'models' => (
     default => sub { {} }
 );
 
+has data_prefix => (
+    isa => 'Str',
+    is => 'ro',
+    default => 'MusicBrainz::Server::Data'
+);
+
 sub model
 {
     my ($self, $name) = @_;
     my $model = $self->models->{$name};
     if (!$model) {
-        my $class_name = "MusicBrainz::Server::Data::$name";
+        my $class_name = $self->data_prefix . "::$name";
         if ($name eq "Email") {
             $class_name =~ s/Data::Email/Email/;
         }

@@ -23,32 +23,32 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a[href=#basic]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
 	<td>link=Add Disc</td>
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//input[@value='Add Disc']</td>
+	<td>check</td>
+	<td>id=trackartists</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=tracknumbers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=tracktimes</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>css=textarea.tracklist:eq(1)</td>
+	<td>css=div.add-disc-tab.manual &gt; textarea.tracklist</td>
 	<td>1. foo<br />2. bar</td>
 </tr>
 <tr>
-	<td>fireEvent</td>
-	<td>css=textarea.tracklist:eq(1)</td>
-	<td>blur</td>
-</tr>
-<tr>
-	<td>waitForElementPresent</td>
-	<td>css=#preview table.preview:eq(1) tr td.title:eq(1)</td>
+	<td>click</td>
+	<td>css=input.positive.add-disc</td>
 	<td></td>
 </tr>
 <tr>

@@ -382,6 +382,7 @@ div.warning img.warning {
     background: url("../images/favicons/external-16.png") 0 2px no-repeat;
     margin-bottom: 2px;
     padding: 4px 0 0 22px;
+    min-height: 14px;
 }
 
 #sidebar ul.external_links li.home {

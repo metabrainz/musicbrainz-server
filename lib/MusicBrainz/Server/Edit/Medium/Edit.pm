@@ -160,7 +160,9 @@ sub initialize
             my $old = tracks_to_hash($entity->tracklist->tracks);
             my $new = tracks_to_hash($tracklist);
 
-            unless (Compare($old, $new)) {
+            unless (Compare(filter_subsecond_differences ($old),
+                            filter_subsecond_differences ($new)))
+            {
                 $data->{old}{tracklist} = $old;
                 $data->{new}{tracklist} = $new;
                 $data->{separate_tracklists} = $separate_tracklists;
