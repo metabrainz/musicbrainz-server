@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' full_width=1 title=l('Watched Artists') %]
     <h1>[% l('Watched Artists') %]</h1>
     <!-- To be removed when we start supporting this -->
-    <p>[% l("The watch artist feature is currently not active."%]</p>
+    <p>[% l("The watch artist feature is currently not active.") %]</p>
     <!-- The rest should stay -->
     [% IF watching.size %]
         <p>[% l('You are currently watching the following artists for new
