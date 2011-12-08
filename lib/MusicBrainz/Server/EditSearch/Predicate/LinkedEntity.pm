@@ -2,6 +2,7 @@ package MusicBrainz::Server::EditSearch::Predicate::LinkedEntity;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use feature 'switch';
+use Scalar::Util qw( looks_like_number );
 
 use MooseX::Types::Moose qw( Str );
 
@@ -47,6 +48,12 @@ role {
                 ]);
             }
         };
+    };
+
+    method valid => sub {
+        my $self = shift;
+        my @args = @{ $self->sql_arguments };
+        return @args && looks_like_number($args[0]);
     };
 };
 

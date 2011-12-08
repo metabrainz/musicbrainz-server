@@ -354,8 +354,7 @@ MB.Control.ReleaseTrackParser = function (dialog) {
             /* do not render a track length if:
                - the track does not have a duration
                - the duration cannot be changed (attached discid). */
-            var len = item.lengthOrNull ();
-            if (len && !disc.hasToc ())
+            if (item.getDuration () !== null && !disc.hasToc ())
             {
                 str += " (" + len + ")";
             }

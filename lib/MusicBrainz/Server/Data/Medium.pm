@@ -42,7 +42,7 @@ sub _column_mapping
             my ($row, $prefix) = @_;
             my $id = $row->{$prefix . 'tracklist'};
             my $track_count = $row->{$prefix . 'track_count'};
-            return unless $id && $track_count;
+            return unless defined($id) && defined($track_count);
             return MusicBrainz::Server::Entity::Tracklist->new(
                 id          => $id,
                 track_count => $track_count,

@@ -273,6 +273,7 @@ sub release_submit : Private
     }
 
     @submit = uniq_by { join(':', $_->{release}, $_->{barcode}) } @submit;
+    @submit = $c->model('Release')->filter_barcode_changes(@submit);
 
     if (@submit) {
         try {

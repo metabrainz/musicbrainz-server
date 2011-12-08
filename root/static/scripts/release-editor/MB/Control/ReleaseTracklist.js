@@ -610,13 +610,20 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.$nowloading.hide ();
     };
 
+    self.tocTrackCount = function() {
+        var releaseTocCount = MB.medium_cdtocs[self.number],
+        parsedTocCount = self.$toc.val().split(/\s+/)[1];
+
+        return releaseTocCount || parsedTocCount || null;
+    }
+
     /* if this medium has a toc, force the correct number of tracks
        (adding or removing tracks as neccesary). */
     self.fixTrackCount = function () {
         if (!self.hasToc ())
             return;
 
-        self.track_count = MB.medium_cdtocs[self.number];
+        self.track_count = self.tocTrackCount();
         self.removeTracks (self.track_count);
         self.getTrack (self.track_count - 1);
     };

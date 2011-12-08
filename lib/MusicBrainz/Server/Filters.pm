@@ -150,7 +150,7 @@ sub format_editnote
     )
     }{_display_trimmed($1, $2, $3, $4)}egsxi;
 
-    $html =~ s[\b(?:mod(?:eration)? #?|edit[#:\s]+|edit id[#:\s]+|change[#:\s]+)(\d+)\b]
+    $html =~ s[\b(?:mod(?:eration)? #?|edit[#:\h]+|edit id[#:\h]+|change[#:\h]+)(\d+)\b]
          [<a href="http://$server/edit/$1">edit #$1</a>]gi;
 
     # links to wikidocs

@@ -23,7 +23,7 @@ sub statistics : Path('')
     );
 }
 
-sub timeline : Local
+sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
@@ -34,10 +34,29 @@ sub timeline : Local
     )
 }
 
+sub timeline_redirect : Path('timeline')
+{
+    my ($self, $c) = @_;
+    $c->response->redirect($c->uri_for("/statistics/timeline/main"), 303);
+}
+
+sub individual_timeline : Path('timeline') Args(1)
+{
+    my ($self, $c, $stat) = @_;
+
+    my @stats = ($stat);
+    $c->stash(
+        template => 'statistics/timeline.tt',
+        stats => \@stats,
+        show_all => 1,
+    )
+}
+
 sub dataset : Local Args(1)
 {
     my ($self, $c, $dataset) = @_;
 
+    $c->res->content_type('application/json; charset=utf-8');
     my $tomorrow = Date_to_Time(Add_Delta_Days(Today(1), 1), 0, 0, 0);
     $c->res->headers->expires($tomorrow);
     $c->stash(
