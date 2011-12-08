@@ -2,7 +2,7 @@
     ['index', '<span class="mp"><a href="/statistics">Overview</a></span>']
     ['countries', '<span class="mp"><a href="/statistics/countries">Countries</a></span>'],
     ['languages-scripts', '<span class="mp"><a href="/statistics/languages-scripts">Languages/Scripts</a></span>'],
-    ['timeline', '<span class="mp"><a href="/statistics/timeline">Timeline</a></span>'],
+    ['timeline', '<span class="mp"><a href="/statistics/timeline/main">Timeline</a></span>'],
 ] -%]
 
 [%- IF full_width -%]
