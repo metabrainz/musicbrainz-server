@@ -4,6 +4,7 @@
                    , [ 'barcode', l('Barcode:') ]
                    , [ 'isrc', l('ISRC:') ]
                    , [ 'iswc', l('ISWC:') ]
+                   , [ 'ipi', l('IPI:') ]
                    , [ 'freedbid', l('FreeDB ID:') ]
                    , [ 'mbid', l('MBID:') ]
                    , [ 'puid', l('PUID:') ]

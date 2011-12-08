@@ -103,6 +103,19 @@ lookup_handler 'iswc' => sub {
     }
 };
 
+lookup_handler 'ipi' => sub {
+    my ($self, $c, $ipi) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'ipi:' . $ipi,
+            type => 'artist',
+            advanced => '1',
+        }));
+
+    $c->detach;
+};
+
 lookup_handler 'puid' => sub {
     my ($self, $c, $puid) = @_;
 
