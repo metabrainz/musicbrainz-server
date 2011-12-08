@@ -360,7 +360,7 @@ sub _build_ws_test_xml {
             $mech->get_ok($end_point . $url, 'fetching');
             $validator->($mech->content, 'validating');
 
-            is_xml_same($mech->content, $expected);
+            is_xml_same($expected, $mech->content);
             $Test->note(encode('utf-8', $mech->content));
         });
     }

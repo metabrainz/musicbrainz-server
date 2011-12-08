@@ -143,6 +143,8 @@ sub set_lengths_to_cdtoc
 
     $tracklist_id = $self->replace($tracklist_id, $tracklist->tracks);
     $self->c->model('DurationLookup')->update($tracklist_id);
+
+    return $tracklist_id;
 }
 
 sub merge

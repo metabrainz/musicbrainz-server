@@ -43,7 +43,7 @@ test 'Entering a CDTOC for a medium with no track times sets them' => sub {
     my $test = shift;
     $test->create_edit;
 
-    my $tracklist = $test->c->model('Tracklist')->get_by_id(1);
+    my $tracklist = $test->c->model('Tracklist')->get_by_id(100);
     $test->c->model('Track')->load_for_tracklists($tracklist);
     is($tracklist->tracks->[0]->length, 290240);
     is($tracklist->tracks->[1]->length, 3183066);
@@ -60,7 +60,6 @@ test 'Entering a CDTOC for a medium with some track times does not set them' => 
     is($tracklist->tracks->[0]->length, 19999);
     is($tracklist->tracks->[1]->length, undef);
 };
-
 
 sub _build_edit {
     my ($test) = @_;
