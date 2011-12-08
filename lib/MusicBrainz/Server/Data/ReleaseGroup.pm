@@ -98,8 +98,8 @@ sub find_by_name_prefix
         $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row(@_);
-            $rg->rating($row->{rating} || 0);
-            $rg->rating_count($row->{rating_count} || 0);
+            $rg->rating($row->{rating}) if defined $row->{rating};
+            $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
