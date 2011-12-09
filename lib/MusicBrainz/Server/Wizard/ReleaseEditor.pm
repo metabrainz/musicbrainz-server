@@ -721,7 +721,7 @@ sub prepare_recordings
         'recordings',
         {
             'rec_mediums' => \@recording_edits,
-            'rec_infer_durations' => $self->get_value ('recordings', 'rec_infer_durations')
+            'infer_durations' => $self->get_value ('recordings', 'infer_durations')
         });
 }
 
@@ -1239,7 +1239,7 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
-    my $infer_durations = $self->get_value ('recordings', 'rec_infer_durations') // undef;
+    my $infer_durations = $self->get_value ('recordings', 'infer_durations') // undef;
 
     my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
