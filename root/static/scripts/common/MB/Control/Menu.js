@@ -22,7 +22,7 @@ MB.Control.HeaderMenu = function () {
     var self = MB.Object ();
 
     self.timeout = null;
-    self.timeout_msecs = 600;
+    self.timeout_msecs = 100;
 
     $('#header-menu > div > ul > li').bind ('mouseenter.mb', function (event) {
         if (self.timeout) {
