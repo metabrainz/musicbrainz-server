@@ -717,7 +717,12 @@ sub prepare_recordings
         } grep { $_ } map { @$_ } grep { $_ } @$medium_recordings;
     }
 
-    $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
+    $self->load_page(
+        'recordings',
+        {
+            'rec_mediums' => \@recording_edits,
+            'rec_infer_durations' => $self->get_value ('recordings', 'rec_infer_durations')
+        });
 }
 
 sub prepare_missing_entities
