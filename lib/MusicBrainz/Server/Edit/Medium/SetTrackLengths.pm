@@ -108,8 +108,18 @@ sub initialize {
 
 sub accept {
     my $self = shift;
+
+    my $tracklist_id = $self->data->{tracklist_id};
+    if (!$self->c->model('Tracklist')->get_by_id($tracklist_id)) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'The tracklist to set track times no longer exists. It may have '.
+            'been merged into another identical tracklist, or been changed '.
+            'since this edit was entered.'
+        );
+    }
+
     $self->c->model('Tracklist')->set_lengths_to_cdtoc(
-        $self->data->{tracklist_id},
+        $tracklist_id,
         $self->data->{cdtoc}{id}
     );
 }
