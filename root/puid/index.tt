@@ -10,6 +10,7 @@
                 <th>[% l('Title') %]</th>
                 <th>[% l('Artist') %]</th>
                 <th class="treleases">[% l('Length') %]</th>
+                [% IF c.user_exists %]<th>[% l('Edit') %]</th>[% END %]
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,14 @@
                 </td>
                 <td>[% artist_credit(recording.recording.artist_credit) %]</td>
                 <td>[% recording.recording.length | format_length %]</td>
+                [% IF c.user_exists %]
+                  <td>
+                    <a href="[% c.uri_for_action('/recording/delete_puid',
+                                  [ recording.recording.gid ],
+                                  { puid => puid.puid }) %]">
+                      [% l('Remove') %]</a>
+                  </td>
+                [% END %]
             </tr>
             [%- END -%]
         </tbody>
