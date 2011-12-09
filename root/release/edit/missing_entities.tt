@@ -36,6 +36,11 @@
                 [% link_entity(artist) %]
               </li>
               [% END %]
+              <li>
+                <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                        value="0" />
+                [% l('Add new artist') %]
+              </li>
             </ul>
             <p>[% l('If none of these artists match the artist you intended, you can still
                      create a new artist.') %]</p>
@@ -73,6 +78,11 @@
                 [% link_entity(label) %]
               </li>
               [% END %]
+              <li>
+                <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                        value="0" />
+                [% l('Add new label') %]
+              </li>
             </ul>
             <p>[% l('If none of these labels match the label you intended, you can still
                      create a new label.') %]</p>
