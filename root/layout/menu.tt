@@ -49,6 +49,21 @@
         [% IF c.user_exists && c.user.is_admin %]
             <li class="admin">
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
+                <ul>
+                    [% IF c.user.is_relationship_editor %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
+                        </li>
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Relationship Attributes') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_wiki_transcluder %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a>
+                        </li>
+                    [% END %]
+                </ul>
             </li>
         [% END %]
     [%- ELSE -%]
