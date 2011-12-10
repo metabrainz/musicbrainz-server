@@ -52,12 +52,14 @@ around 'text' => sub {
 
 sub create_email {
     my $self = shift;
+    my @headers = (
+        To => $self->to,
+        From => $self->from,
+        Subject => $self->subject,
+    );
+    push @headers, $self->extra_headers;
     return Email::MIME->create(
-        header => [
-            To => $self->to,
-            From => $self->from,
-            Subject => $self->subject
-        ],
+        header => \@headers,
         body => encode('utf-8', $self->body),
         attributes => {
             content_type => "text/plain",
