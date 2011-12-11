@@ -37,5 +37,11 @@
     <div class="row no-label">
       [% form_submit(confirm_label) %]
     </div>
+[% ELSE %]
+    <div class="row">
+      <div class="no-label">
+        <span class="error">[% l('No results found.') %]</span>
+      </div>
+    </div>
 [%- END -%]
 </form>
