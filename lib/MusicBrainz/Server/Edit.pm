@@ -144,6 +144,14 @@ sub editor_may_vote
                    $editor->accepted_edits >= 10;
 }
 
+sub editor_may_add_note
+{
+    my ($self, $editor) = @_;
+
+    return $self->is_open && defined $editor && $editor->email_confirmation_date &&
+                   ($editor->id == $self->editor_id || $editor->accepted_edits >= 10);
+}
+
 # Subclasses should reimplement this, if they want different edit conditions.
 #
 # Fields:
