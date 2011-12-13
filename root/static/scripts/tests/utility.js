@@ -47,9 +47,9 @@ MB.tests.utility.All = function() {
         QUnit.equal (input1sha, "aIkUXodpaNX7Q1YfttiKMkKCxB0", "SHA-1 of input1");
     });
 
-    QUnit.test('Expand Hash', function () {
+    QUnit.test('Expand and Collapse Hash', function () {
 
-        var input = {
+        var collapsed = {
             'name': 'Planet Mu',
             'lifespan.begin.year': 1995,
             'lifespan.begin.month': 11,
@@ -63,7 +63,7 @@ MB.tests.utility.All = function() {
             'medium.0.name': 'Load'
         };
 
-        var expected = {
+        var expanded = {
             'name': 'Planet Mu',
             'lifespan': {
                 'begin': {
@@ -91,7 +91,13 @@ MB.tests.utility.All = function() {
             ]
         };
 
-        QUnit.deepEqual (MB.utility.expand_hash (input), expected, "expand hash object");
+        QUnit.deepEqual (MB.utility.expand_hash (collapsed), expanded, "expand hash object");
+        QUnit.deepEqual (MB.utility.collapse_hash (expanded), collapsed, "collapse hash object");
+
+        expanded = {"lifespan":{"begin":{"month":["Not an integer"]}}};
+        collapsed = {"lifespan.begin.month":["Not an integer"]};
+
+        QUnit.deepEqual (MB.utility.collapse_hash (expanded), collapsed, "collapse hash object");
     });
 };
 

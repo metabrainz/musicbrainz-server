@@ -242,3 +242,39 @@ MB.utility.expand_hash = function (input)
     return ret;
 }
 
+
+MB.utility.collapse_hash = function (input)
+{
+    /* FIXME: check if this pollutes the global namespace. */
+    function collapse_value (target, prefix, obj)
+    {
+        if (MB.utility.isString (obj) ||
+            MB.utility.isNumber (obj) ||
+            MB.utility.isNullOrEmpty (obj))
+        {
+            target[prefix] = obj;
+        }
+        else if (MB.utility.isArray (obj) &&
+                 (MB.utility.isString (obj[0]) ||
+                  MB.utility.isNumber (obj[0]) ||
+                  MB.utility.isNullOrEmpty (obj[0])))
+        {
+            target[prefix] = obj;
+        }
+        else
+        {
+
+            var prefix = prefix === "" ? "" : prefix + ".";
+
+            $.each (obj, function (key, value) {
+                collapse_value (target, prefix + "" + key, value);
+            });
+        }
+    }
+
+    var ret = {};
+    collapse_value (ret, "", input);
+
+    return ret;
+}
+
