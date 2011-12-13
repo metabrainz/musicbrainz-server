@@ -210,3 +210,35 @@ MB.utility.unformatTrackLength = function (duration)
 
     return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
 };
+
+
+MB.utility.expand_hash = function (input)
+{
+    /* FIXME: check if this pollutes the global namespace. */
+    function set_value (target, path, value)
+    {
+        var key = path.shift ();
+        var key_no = parseInt (key, 10);
+        key = isNaN (key_no) ? key : key_no;
+
+        if (!path.length)
+        {
+            target[key] = value;
+            return;
+        }
+
+        target[key] = (target[key]) ? target[key] :
+            isNaN (parseInt (path[0], 10)) ? {} : [];
+
+        set_value (target[key], path, value);
+    };
+
+    var ret = {};
+    $.each (input, function (key, value) {
+        var parts = key.split (".");
+        set_value (ret, parts, value);
+    });
+
+    return ret;
+}
+
