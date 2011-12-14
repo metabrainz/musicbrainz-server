@@ -33,6 +33,13 @@ use Getopt::Long;
 use Log::Dispatch;
 use MusicBrainz::Server::Context;
 
+my $force = 0;
+my $dry_run = 0;
+GetOptions(
+    "dryrun|d"    => \$dry_run,
+    "force|f"     => \$force,
+) or return 2;
+
 my $c = MusicBrainz::Server::Context->create_script_context();
 my $sql = Sql->new($c->dbh);
 my $dbh = $c->dbh;
@@ -42,17 +49,30 @@ $prefix .= "%";
 
 my $editors = $c->sql->select_list_of_hashes("SELECT id, name FROM editor WHERE name ILIKE ?", $prefix);
 foreach my $ed (@{$editors}) { 
-    print "removing account '" . $ed->{name} . "'\n";
-   
+
     my $id = $ed->{id};
-    eval {
-        $c->model('Editor')->delete($id);
-        $sql->begin;
-        $sql->do("DELETE FROM edit_note WHERE editor = ?", $id);
-        $sql->do("DELETE FROM editor WHERE id = ?", $id);
-        $sql->commit;
-    };
-    if ($@) {
-        warn "Remove editor $id died with $@\n";
+    my $edit_count = $c->sql->select_single_value("SELECT count(*) FROM edit WHERE editor = ?", $id);
+    if ($edit_count > 0 && !$force)
+    {
+        print "Not removing account " . $ed->{name} . " because it has edits.\n";
+        next;
+    }
+   
+    if ($dry_run) {
+        print "removing account '" . $ed->{name} . "' (dry run)\n";
+    }
+    else
+    {
+        print "removing account '" . $ed->{name} . "'\n";
+        eval {
+            $c->model('Editor')->delete($id);
+            $sql->begin;
+            $sql->do("DELETE FROM edit_note WHERE editor = ?", $id);
+            $sql->do("DELETE FROM editor WHERE id = ?", $id);
+            $sql->commit;
+        };
+        if ($@) {
+            warn "Remove editor $id died with $@\n";
+        }
     }
 }
