@@ -5,7 +5,7 @@ use warnings;
 #
 #   MusicBrainz -- the open internet music database
 #
-#   Copyright (C) 1998 Robert Kaye
+#   Copyright (C) 2011 MetaBrainz Foundation
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -45,6 +45,10 @@ my $sql = Sql->new($c->dbh);
 my $dbh = $c->dbh;
 
 my $prefix = shift;
+if (!defined $prefix || $prefix eq '') {
+    warn "no prefix given, you dolt. Refusing to do anything.\n";
+    exit(2);
+}
 $prefix .= "%";
 
 my $editors = $c->sql->select_list_of_hashes("SELECT id, name FROM editor WHERE name ILIKE ?", $prefix);
