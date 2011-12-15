@@ -84,6 +84,8 @@ sub show : Chained('load') PathPart('') Args(0)
         can_vote => $c->user_exists && $election->can_vote($c->user),
         can_second => $c->user_exists && $election->can_second($c->user),
         can_cancel => $c->user_exists && $election->can_cancel($c->user),
+        can_see_vote_count => $c->user_exists
+            ? $election->can_see_vote_count($c->user) : undef,
     );
 }
 
