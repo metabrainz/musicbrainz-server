@@ -240,7 +240,7 @@ MB.GuessCase.Utils = function () {
 	    self.bracketPairs = t;
 	}
 	var cb = self.bracketPairs[w];
-	if (MB.utility.isNullOrEmpty(cb)) {
+	if (_.isEmpty(cb)) {
 	    return "";
 	}
 	return cb;
@@ -251,7 +251,7 @@ MB.GuessCase.Utils = function () {
      **/
     self.trim  = function(is) {
 
-	if (MB.utility.isNullOrEmpty(is)) {
+	if (_.isEmpty(is)) {
 	    is = "";
 	} else if (typeof is != 'string') {
 	    is = "";
@@ -274,7 +274,7 @@ MB.GuessCase.Utils = function () {
 
 	forceCaps = (forceCaps != null ? forceCaps : gc.f.forceCaps);
 
-	if (MB.utility.isNullOrEmpty(is)) {
+	if (_.isEmpty(is)) {
 	    return "";
 	}
 
