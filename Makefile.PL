@@ -29,6 +29,7 @@ requires 'Data::Compare';
 requires 'Data::Dumper::Concise';
 requires 'Data::OptList';
 requires 'Data::Page'                                 => '2.01';
+requires 'Data::TreeValidator'                        => '0.03';
 requires 'Date::Calc'                                 => '5.8';
 requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Pg'                       => '0.16004';
