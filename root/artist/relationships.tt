@@ -12,6 +12,7 @@
             <tr>
                 <th>[% l('Date') %]</th>
                 <th>[% l('Title') %]</th>
+                <th>[% l('Attributes') %]</th>
                 <th>[% l('Artist') %]</th>
                 [% IF c.user_exists %]
                 <th style="width: 10em">[% l('Edit') %]</th>
@@ -22,7 +23,7 @@
             <thead>
                 <tr class="subh">
                     <th></th>
-                    <th colspan="3">[% relationship.key %]</th>
+                    <th colspan="4">[% relationship.key %]</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,9 +36,17 @@
                       [% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %]
                     [% END %]
                     </td>
-                    <td>
+                    <td colspan="[% rel.link.attributes.size ? "1" : "2" %]>
                         [% link_entity(rel.target) %]
                     </td>
+                    [% IF rel.link.attributes.size %]
+                    <td>
+                      [%- FOR attr=rel.link.attributes;
+                            attr.name | html;
+                            ', ' UNLESS loop.last;
+                         END %]
+                    </td>
+                    [% END %]
                     <td>
                         [% artist_credit(rel.target.artist_credit) %]
                     </td>
