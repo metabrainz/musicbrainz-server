@@ -20,12 +20,12 @@
         <dt>[% l('2nd seconder:') %]</dt>
         <dd>[% IF election.seconder_2 %][% link_editor(election.seconder_2) %][% ELSE %]-[% END %]</dd>
 
-        [% IF election.is_open %]
+        [% IF can_see_vote_count == "later" %]
 
         <dt>[% l('Votes for/against:') %]</dt>
         <dd>[% l('The tally of votes cast will only be shown when the election is complete.') %]</dd>
 
-        [% ELSIF election.is_closed %]
+        [% ELSIF can_see_vote_count == "yes" %]
 
         <dt>[% l('Votes for:') %]</dt>
         <dd>[% election.yes_votes %]</dd>

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Email::AutoEditorElection;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Data::AutoEditorElection;
 
@@ -14,6 +15,14 @@ has 'election' => (
 with 'MusicBrainz::Server::Email::Role';
 
 sub to { 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>' }
+
+sub extra_headers {
+    my $self = shift;
+    return () unless $self->election->candidate->email;
+    return (
+        BCC => MusicBrainz::Server::Email::_user_address($self->election->candidate),
+    );
+}
 
 sub subject {
     my $self = shift;
