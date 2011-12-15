@@ -82,9 +82,6 @@
     <event start="Jan 08 2006" title="SG5 Fixes" link="http://blog.musicbrainz.org/?p=142">
 	Style Guideline 5 workaround introduced and unused TRMs pruned from the database.
     </event>
-    <event start="Jan 20 2007" title="MetaBrainz signs first customer" link="http://blog.musicbrainz.org/?p=148">
-	Linkara Musica becomes first commercial customer of MetaBrainz.
-    </event>
     <event start="Feb 27 2006" title="MusicBrainz Move" link="http://blog.musicbrainz.org/?p=155">
 	MusicBrainz moved to Digital West Networks in San Luis Obispo.
     </event>
@@ -103,6 +100,9 @@
     <event start="Dec 17 2006" title="Search improvements" link="http://blog.musicbrainz.org/?p=229">
 	The search features and web service improvements are released.
     </event>
+    <event start="Jan 20 2007" title="MetaBrainz signs first customer" link="http://blog.musicbrainz.org/?p=148">
+	Linkara Musica becomes first commercial customer of MetaBrainz.
+    </event>
     <event start="Apr 01 2007" title="Labels/data quality" link="http://blog.musicbrainz.org/?p=252">
 	Support for Labels and data quality are released.
     </event>
@@ -114,6 +114,9 @@
     </event>
     <event start="Nov 07 2007" title="Last.fm" link="http://blog.musicbrainz.org/?p=294">
 	Last.fm signs up with MetaBrainz and starts using MusicBrainz data.
+    </event>
+    <event start="Dec 07 2007" title="Track times set from DiscIDs" link="http://forums.musicbrainz.org/viewtopic.php?id=3229">
+	Editor ojnkpjg runs a script setting track times from DiscID values, creating a huge spike in edits.
     </event>
     <event start="Apr 01 2008" title="MetaWeb signed" link="http://blog.musicbrainz.org/?p=316">
 	MetaWeb comes MusicBrainz data user.
@@ -139,7 +142,22 @@
     <event start="June 17 2009" title="Imported CD Baby catalog as CD Stubs" link="http://blog.musicbrainz.org/?p=394">
 	Imported the metadata from the CD Baby catalog into our CD Stubs collection.
     </event>
+    <event start="Dec 14 2009" title="Kuno Woudt hired as full-time developer" link="http://blog.musicbrainz.org/?p=437">
+        Kuno Woudt begins working for MusicBrainz full-time.
+    </event>
+    <event start="Feb 08 2010" title="mb_server now hosted on Git" link="http://blog.musicbrainz.org/?p=452">
+	MusicBrainz Server source code moved to Git from Subversion.
+    </event>
+    <event start="June 18 2010" title="Oliver Charles joins MusicBrainz full-time" link="http://blog.musicbrainz.org/?p=577">
+	Oliver Charles begins working for MusicBrainz full-time.
+    </event>
+    <event start="May 02 2011" title="NGS Reduced Editing Phase" link="http://blog.musicbrainz.org/?p=830">
+        In preparation for NGS, editors are encouraged to avoid editing until release unless entirely necessary.
+    </event>
+    <event start="May 12 2011" title="NGS No-Editing Phase" link="http://blog.musicbrainz.org/?p=842">
+        In preparation for NGS, editing is turned off until release.
+    </event>
     <event start="May 18 2011" title="NGS Release" link="http://blog.musicbrainz.org/?p=873">
-        NGS is released!
+        NGS, a MusicBrainz major rewrite, is released!
     </event>
 </data>
