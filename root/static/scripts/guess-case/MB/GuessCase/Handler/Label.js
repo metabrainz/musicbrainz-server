@@ -165,7 +165,7 @@ MB.GuessCase.Handler.Label = function () {
 	var as = is.split(collabSplit);
 	for (var splitindex=0; splitindex<as.length; splitindex++) {
 	    var label = as[splitindex];
-	    if (!MB.utility.isNullOrEmpty(label)) {
+	    if (!_.isEmpty(label)) {
 		label = gc.u.trim(label);
 		var append = "";
 
@@ -189,7 +189,7 @@ MB.GuessCase.Handler.Label = function () {
 		var t = [];
 		for (i=0; i<words.length; i++) {
 		    var w = words[i];
-		    if (!MB.utility.isNullOrEmpty(w)) {
+		    if (!_.isEmpty(w)) {
 			// skip empty names
 			t.push(w);
 		    }
@@ -200,12 +200,12 @@ MB.GuessCase.Handler.Label = function () {
 		}
 
 		// append string
-		if (!MB.utility.isNullOrEmpty(append)) {
+		if (!_.isEmpty(append)) {
 		    t.push(append);
 		}
 		label = gc.u.trim(t.join(""));
 	    }
-	    if (!MB.utility.isNullOrEmpty(label)) {
+	    if (!_.isEmpty(label)) {
 		as[splitindex] = label;
 	    } else {
 		delete as[splitindex];

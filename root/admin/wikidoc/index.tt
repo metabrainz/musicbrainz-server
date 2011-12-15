@@ -8,7 +8,7 @@
         var title = $.trim ($row.find ('.title').text ());
         var $version = $row.find ('.wiki-version');
 
-        if (MB.utility.isNullOrEmpty (title) || MB.utility.isNullOrEmpty (oldid))
+        if (_.isEmpty (title) || _isEmpty (oldid))
         {
             return;
         }

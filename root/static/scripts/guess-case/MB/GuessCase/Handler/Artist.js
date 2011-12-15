@@ -165,7 +165,7 @@ MB.GuessCase.Handler.Artist = function () {
 	var as = is.split(collabSplit);
 	for (var splitindex=0; splitindex<as.length; splitindex++) {
 	    var artist = as[splitindex];
-	    if (!MB.utility.isNullOrEmpty(artist)) {
+	    if (!_.isEmpty(artist)) {
 		artist = gc.u.trim(artist);
 		var append = "";
 
@@ -226,7 +226,7 @@ MB.GuessCase.Handler.Artist = function () {
 				names[i+1] = names[i] + " " + names[i+1];
 				// handle St. because it belongs
 				// to the lastname
-			    } else if (!MB.utility.isNullOrEmpty(names[i])) {
+			    } else if (!_.isEmpty(names[i])) {
 				reOrderedNames[i+1] = names[i];
 			    }
 			}
@@ -242,7 +242,7 @@ MB.GuessCase.Handler.Artist = function () {
 		var t = [];
 		for (i=0; i<names.length; i++) {
 		    var w = names[i];
-		    if (!MB.utility.isNullOrEmpty(w)) {
+		    if (!_.isEmpty(w)) {
 			// skip empty names
 			t.push(w);
 		    }
@@ -253,12 +253,12 @@ MB.GuessCase.Handler.Artist = function () {
 		}
 
 		// append string
-		if (!MB.utility.isNullOrEmpty(append)) {
+		if (!_.isEmpty(append)) {
 		    t.push(append);
 		}
 		artist = gc.u.trim(t.join(""));
 	    }
-	    if (!MB.utility.isNullOrEmpty(artist)) {
+	    if (!_.isEmpty(artist)) {
 		as[splitindex] = artist;
 	    } else {
 		delete as[splitindex];

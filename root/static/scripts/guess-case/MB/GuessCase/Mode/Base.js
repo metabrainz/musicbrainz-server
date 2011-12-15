@@ -368,11 +368,11 @@ MB.GuessCase.Mode.Base = function () {
         {
             // get reference to first set of parentheses
             var a = matcher[1];
-            a = (MB.utility.isNullOrEmpty(a) ? "" : a);
+            a = (_.isEmpty(a) ? "" : a);
 
             // get reference to last set of parentheses
             var b = matcher[matcher.length-1];
-            b = (MB.utility.isNullOrEmpty(b) ? "" : b);
+            b = (_.isEmpty(b) ? "" : b);
 
             // compile replace string
             var rs = [a,fix.replace,b].join("");
