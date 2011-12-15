@@ -89,3 +89,20 @@ license:     MIT/GPL
 version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
+
+-- underscore/underscore.js --
+
+library:     Underscore.js
+license:     MIT
+version:     1.2.3
+author:      Jeremy Ashkenas
+url:         http://documentcloud.github.com/underscore
+
+-- underscore/underscore.string.js --
+
+library:     Underscore.string
+license:     MIT
+version:     2.0.0
+author:      Esa-Matti Suuronen
+url:         https://github.com/epeli/underscore.string
+
