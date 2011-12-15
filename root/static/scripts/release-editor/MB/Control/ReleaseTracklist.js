@@ -117,6 +117,9 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$position.attr ('disabled', 'disabled');
         self.$length.attr ('disabled', 'disabled');
         self.$row.find ("input.remove-track").hide ();
+        self.$position.add(self.$length)
+            .attr('title', 'This medium has one or more disc IDs which prevent this information from being changed.')
+            .addClass('disabled-hint');
     };
 
     /**
