@@ -135,6 +135,9 @@
             <li>
                 <a href="[% doc_link('MusicBrainz_Database') %]">[% l('MusicBrainz Database') %]</a>
             </li>
+            <li class="separator">
+                <a href="[% doc_link('Developer_Resources') %]">[% l('Developer Resources') %]</a>
+            </li>
             <li>
                 <a href="[% doc_link('XML_Web_Service') %]">[% l('XML Web Service') %]</a>
             </li>
