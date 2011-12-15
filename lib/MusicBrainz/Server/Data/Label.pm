@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Data::Label;
 
 use Moose;
+use aliased 'Data::TreeValidator::Branch';
 use Data::TreeValidator::Sugar qw( branch leaf );
 use Data::TreeValidator::Constraints qw( required );
-use MusicBrainz::Data::TreeValidator::Constraints qw( integer );
+use MusicBrainz::Data::TreeValidator::Constraints qw( integer partial_date );
 use MusicBrainz::Data::TreeValidator::Transformations qw( collapse_whitespace );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
@@ -103,16 +104,22 @@ sub validator
         name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
         sort_name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
         lifespan => branch {
-            begin => branch {
-                year => leaf( constraints => [ integer ] ),
-                month => leaf( constraints => [ integer ] ),
-                day => leaf( constraints => [ integer ] )
-            },
-            end => branch {
-                year => leaf( constraints => [ integer ] ),
-                month => leaf( constraints => [ integer ] ),
-                day => leaf( constraints => [ integer ] )
-            }
+            begin => Branch->new (
+                children => {
+                    year => leaf( constraints => [ integer ] ),
+                    month => leaf( constraints => [ integer ] ),
+                    day => leaf( constraints => [ integer ] )
+                },
+                cross_validator => partial_date
+            ),
+            end => Branch->new (
+                children => {
+                    year => leaf( constraints => [ integer ] ),
+                    month => leaf( constraints => [ integer ] ),
+                    day => leaf( constraints => [ integer ] )
+                },
+                cross_validator => partial_date
+            )
         }
     };
 }

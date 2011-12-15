@@ -39,6 +39,8 @@
             [% END %]
           [%- END -%]
         </ul>
+    [%- ELSE -%]
+        <ul class="errors" style="display: none"></ul>
     [%- END -%]
 [%- END -%]
 

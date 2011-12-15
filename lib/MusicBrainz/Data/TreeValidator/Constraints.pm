@@ -17,27 +17,25 @@ sub _integer {
     fail_constraint ("Not an integer") if defined $_ && !is_positive_integer ($_);
 }
 
-# sub partial_date { \&_partial_date }
-# sub _partial_date {
-#     my $date = shift;
+sub partial_date { \&_partial_date }
+sub _partial_date {
+    my $date = shift;
 
-#     return unless defined $_;
+    my $invalid = "Not a valid date";
 
-#     my $invalid = "Not a valid date";
+    my $year = $date->{year};
+    my $month = $date->{month};
+    my $day = $date->{day};
 
-#     my $year = $date->{year};
-#     my $month = $date->{month};
-#     my $day = $date->{day};
+    fail_constraint($invalid) if defined $year  && !is_positive_integer ($year);
+    fail_constraint($invalid) if defined $month && !is_positive_integer ($month);
+    fail_constraint($invalid) if defined $day   && !is_positive_integer ($day);
 
-#     fail_constraint($invalid) if defined $year  && !is_positive_integer ($year);
-#     fail_constraint($invalid) if defined $month && !is_positive_integer ($month);
-#     fail_constraint($invalid) if defined $day   && !is_positive_integer ($day);
+    # anything partial cannot be checked, and is therefore considered valid.
+    return unless ($year && $month && $day);
 
-#     # anything partial cannot be checked, and is therefore considered valid.
-#     return unless ($year && $month && $day);
-
-#     fail_constraint ($invalid) unless Date::Calc::check_date ($year, $month, $day);
-# }
+    fail_constraint ($invalid) unless Date::Calc::check_date ($year, $month, $day);
+}
 
 1;
 

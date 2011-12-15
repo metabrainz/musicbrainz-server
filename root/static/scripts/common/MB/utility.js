@@ -244,16 +244,12 @@ MB.utility.collapse_hash = function (input)
     /* FIXME: check if this pollutes the global namespace. */
     function collapse_value (target, prefix, obj)
     {
-        if (MB.utility.isString (obj) ||
-            MB.utility.isNumber (obj) ||
-            MB.utility.isNullOrEmpty (obj))
+        if (_.isString (obj) || _.isNumber (obj) || _.isEmpty (obj))
         {
             target[prefix] = obj;
         }
-        else if (MB.utility.isArray (obj) &&
-                 (MB.utility.isString (obj[0]) ||
-                  MB.utility.isNumber (obj[0]) ||
-                  MB.utility.isNullOrEmpty (obj[0])))
+        else if (_.isArray (obj) &&
+                 (_.isString (obj[0]) || _.isNumber (obj[0]) || _.isEmpty (obj[0])))
         {
             target[prefix] = obj;
         }

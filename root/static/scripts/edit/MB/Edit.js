@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010,2011 MetaBrainz Foundation
+   Copyright (C) 2011 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,33 +20,63 @@
 
 MB.Edit = (MB.Edit) ? MB.Edit : {};
 
-MB.Edit.Base = function(obj, boxnumber, container) {
+
+MB.Edit.mapping = {};
+MB.Edit.mapping.role = {};
+MB.Edit.mapping.role.age = {
+    "begin_date\\.year": "lifespan.begin.year",
+    "begin_date\\.month": "lifespan.begin.month",
+    "begin_date\\.day": "lifespan.begin.day",
+    "end_date\\.year": "lifespan.end.year",
+    "end_date\\.month": "lifespan.end.month",
+    "end_date\\.day": "lifespan.end.day"
+};
+
+MB.Edit.mapping.label = jQuery.extend ({
+    "name": "name",
+    "sort_name": "sort_name"
+}, MB.Edit.mapping.role.age);
+
+MB.Edit.Base = function(type, prefix) {
     var self = MB.Object();
 
     var $submit_button = $('button.submit.positive');
 
-    self.getData = function () {
-        return {
-            "name": $('input[name=edit-label\\.name]').val (),
-            "sort_name": $('input[name=edit-label\\.sort_name]').val (),
-            "lifespan": {
-                "begin": {
-                    "year": $('input[name=edit-label\\.begin_date\\.year]').val (),
-                    "month": $('input[name=edit-label\\.begin_date\\.month]').val (),
-                    "day": $('input[name=edit-label\\.begin_date\\.day]').val ()
-                },
-                "end": {
-                    "year": $('input[name=edit-label\\.end_date\\.year]').val (),
-                    "month": $('input[name=edit-label\\.end_date\\.month]').val (),
-                    "day": $('input[name=edit-label\\.end_date\\.day]').val ()
+    self.type = type;
+    self.prefix = prefix;
+    self.reverse_mapping = {};
+    $.each (MB.Edit.mapping[type], function (key, value) { self.reverse_mapping[value] = key; });
+
+    self.getInput = function (path) {
+        var fieldname = path.replace (/\.errors$/, "");
+
+        if (! self.reverse_mapping[fieldname])
+        {
+            $.each (MB.utility.keys (self.reverse_mapping), function (idx, key) {
+                if ( _(key).startsWith (fieldname) )
+                {
+                    fieldname = key;
+                    return false;
                 }
-            }
+            });
         }
+
+        return $('input[name=' + self.prefix + '\\.' + self.reverse_mapping[fieldname] + ']');
+    };
+
+    self.getData = function () {
+        var ret = {};
+
+        $.each (MB.Edit.mapping[self.type], function (form_field, json_field) {
+            ret[json_field] = $('input[name=' + self.prefix + '\\.' + form_field + ']').val ();
+        });
+
+        return MB.utility.expand_hash (ret);
     };
 
     self.saveEdit = function () {
-        var mbid = $('input[name=edit-label\\.id]').val ();
-        var url = 'http://localhost:3000/ws/2/label/' + mbid;
+        var mbid = $('input[name=' + self.prefix + '\\.id]').val ();
+        var url = '/ws/2/' + self.type + '/' + mbid;
 
         $.ajax ({
             "url": url,
@@ -58,16 +88,14 @@ MB.Edit.Base = function(obj, boxnumber, container) {
             "data": JSON.stringify (self.getData ()),
             "statusCode": {
                 201: self.saveEditNote,
-                400: function () { console.log ('FIXME: 400 Bad Request'); },
+                400: self.validationError,
                 409: function () { console.log ('FIXME: 409 Conflict'); },
             },
-            "error": function () { console.log ('FIXME: error') },
-            "success": function () { console.log ('FIXME: success') }
         });
     };
 
     self.saveEditNote = function (data, textStatus, jqXHR) {
-        var edit_note = $('#id-edit-label\\.edit_note').val ();
+        var edit_note = $('#id-' + self.prefix + '\\.edit_note').val ();
         var url = jqXHR.getResponseHeader ('Location');
         var edit_id = url.match (/[0-9]+$/)[0];
 
@@ -88,6 +116,24 @@ MB.Edit.Base = function(obj, boxnumber, container) {
         $form.submit ();
     };
 
+    self.validationError = function (data, textStatus, jqXHR) {
+        var data = MB.utility.collapse_hash (JSON.parse (data.responseText));
+
+        // Clear old validation errors.
+        $('ul.errors').hide ().empty ();
+
+        $.each (data, function (key, value) {
+
+            var $input = self.getInput (key);
+            var $errors = $input.closest ('div.row').find ('ul.errors').show ();
+
+            $.each (value, function (idx, message) {
+                $('<li>').text (message).appendTo ($errors);
+            });
+        });
+
+    };
+
     $submit_button.bind ('click.mb', function (event) {
         event.preventDefault ();
 
@@ -99,7 +145,13 @@ MB.Edit.Base = function(obj, boxnumber, container) {
     return self;
 };
 
+MB.Edit.Label = function () {
+    var self = MB.Edit.Base ('label', 'edit-label');
+
+    return self;
+};
+
 $(document).ready (function () {
-    MB.Edit.Base ();
+    MB.Edit.Label ();
 });
 

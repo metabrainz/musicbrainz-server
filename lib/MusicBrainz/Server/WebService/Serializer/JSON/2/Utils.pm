@@ -59,7 +59,11 @@ sub serialize_result
 {
     my $result = shift;
 
-    if ($result->meta->has_attribute('results'))
+    if ($result->errors)
+    {
+        return { errors => [ map { $_->message } $result->errors ] };
+    }
+    elsif ($result->meta->has_attribute('results'))
     {
         my $ret = {};
         for my $key ($result->result_names)
@@ -75,7 +79,7 @@ sub serialize_result
     }
     else
     {
-        return [ map { $_->message } $result->errors ];
+        return undef;
     }
 }
 

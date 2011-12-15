@@ -33,8 +33,8 @@
   </form>
 
   <div class="documentation">
-    [%#- guesscase_bubble(1) -%]
-    [%#- sortname_bubble() -%]
+    [%- guesscase_bubble(1) -%]
+    [%- sortname_bubble() -%]
   </div>
 
 </form>
