@@ -137,7 +137,7 @@
            IF c.session.merger AND !hide_merge_helper -%]
 
         <div id="footer">
-            <p class="links">
+            <p class="left">
                 <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> |
                 <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> |
@@ -146,7 +146,7 @@
                 <a href="http://www.cafepress.com/musicbrainz" class="internal">[% l('Schwag') %]</a>
             </p>
 
-            <p class="sponsors">
+            <p class="right">
                 [% l('Hosted by {host|Digital West}. Sponsored by: {url1|Google},
                       {url2|OSUOSL} and {more|others…}',
                     { host => 'http://digitalwest.net/',

@@ -465,12 +465,12 @@ div.warning img.warning {
     margin: 0;
 }
 
-#footer p.links {
+#footer p.left {
     float: left;
     margin: 0;
 }
 
-#footer p.sponsors {
+#footer p.right {
     float: right;
 }
 

@@ -7,7 +7,7 @@
         <th class="pos">[% l('New') %]</th>
         <th>[% l('Editor') %]</th>
         <th>[% l('Date') %]</th>
-        <th>[% l('Changelog') %]</th>
+        <th>[% l('Version History') %]</th>
       </tr>
     </thead>
     <tbody>
@@ -26,8 +26,9 @@
         <td>
           <a href="[% c.uri_for_action(c.controller.action_for('annotation_revision'),
                    [ entity.gid ], annotation.id) %]">
-            [% annotation.changelog || l('(no changelog)') %]
+              [% l('View this version') %]
           </a>
+          ([% annotation.changelog || l('<em>no changelog specified</em>') %])
         </td>
       </tr>
     </tbody>

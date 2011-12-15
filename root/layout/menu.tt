@@ -206,7 +206,7 @@
                 <a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners Guide') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('Official_Style_Guideline') %]">[% l('Style Guidelines') %]</a>
+                <a href="[% doc_link('Style') %]">[% l('Style Guidelines') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>

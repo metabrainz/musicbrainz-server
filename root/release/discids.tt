@@ -27,7 +27,7 @@
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>
                       [% '<span class="mp">' IF medium_cdtoc.edits_pending %]
-                        [% link_cdtoc(medium_cdtoc.cdtoc) %]
+                        <code>[% link_cdtoc(medium_cdtoc.cdtoc) %]</code>
                       [% '</span>' IF medium_cdtoc.edits_pending %]</td>
                     <td>[% medium_cdtoc.cdtoc.track_count %]</td>
                     <td>[% medium_cdtoc.cdtoc.length | format_length %]</td>
