@@ -17,6 +17,12 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+var SELECTED_CLASS = {
+    '1':  'vote-yes',
+    '0':  'vote-no',
+    '-1': 'vote-abs'
+}
+
 MB.Control.EditList = function(container) {
     var self = MB.Object();
 
@@ -50,6 +56,13 @@ MB.Control.EditList = function(container) {
                         });
             });
         });
+
+        $container.find('div.vote input[type="radio"]').change(function() {
+            $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
+            $(this).parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
+        });
+
+        $container.find('div.vote input[checked="checked"]').change();
 
         $container.before($voteOptions);
     }
