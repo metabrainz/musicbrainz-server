@@ -353,6 +353,16 @@
     [%- END -%]
     </div>
 
+    <div style="clear: both;">
+      <fieldset>
+        <legend>[% l('Options') %]</legend>
+        <p>
+          [% r.checkbox('infer_durations') %]
+          [%- r.label('infer_durations', l('Infer track durations from associated recordings')) -%]
+        </p>
+      </fieldset>
+    </div>
+
     <div class="documentation">
 
       [%- FOR rec_medium=form.field('rec_mediums').fields -%]
