@@ -75,6 +75,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      */
     self.blurLength = function (event) {
         var length = self.$length.val ();
+        length = length.replace (/([0-9]*)([0-9][0-9])/, "$1:$2");
 
         self.setDuration (MB.utility.unformatTrackLength (length));
     };
