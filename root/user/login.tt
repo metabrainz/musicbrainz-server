@@ -1,6 +1,8 @@
 [% WRAPPER "layout.tt" title=l("Log In") full_width=1 %]
 
-    <h1>[% l("Log In") %]</h1>
+   <div class="regular-login" style="border-right: 1px dotted #888; margin-right: 10px; width: 40%; float: left;">
+
+   <h1>[% l("Log In") %]</h1>
 
     [% IF required_login %]
         <p>
@@ -40,4 +42,38 @@
             { link1 => c.uri_for_action('/account/lost_username'),
               link2 => c.uri_for_action('/account/lost_password') }) %]
     </p>
+  </div>
+
+
+  <div class="browserid" style="width: 40%; float: left;">
+ 
+    <h1>[% l("Log In") %]</h1>
+
+    <p>Alternatively, sign in using <a href="http://browserid.org">BrowserID</a>.</p>
+    
+    <button id="browserid-button" style="background: transparent; border: 0;"><img src="static/images/icons/browserid-signin.png" /></button>
+
+    <form action="[% c.req.uri_with({ uri => redirect }) %]" method="post" id="browserid-form" >
+      <input type="text" id="browserid-assertion" name="assertion" />
+      <input type="submit" />
+    </form>
+
+    <script type="text/javascript" src="https://browserid.org/include.js"></script>
+    <script type="text/javascript">
+
+       $('#browserid-button').bind ('click.mb', function () {
+            navigator.id.getVerifiedEmail(function(assertion) {
+                if (assertion) {
+                     $('#browserid-assertion').val (assertion);
+                     $('#browserid-form').submit ();
+                } else {
+                     // something went wrong!  the user isn't logged in.
+                }
+            });
+      });
+    </script>
+  
+  </div>
+
+
 [% END %]

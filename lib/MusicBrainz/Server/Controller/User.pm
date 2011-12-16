@@ -61,6 +61,27 @@ sub index : Private
     $c->detach('/user/profile', [ $c->user->name ]);
 }
 
+sub verifyBrowserID
+{
+    my ($assertion, $audience) = @_;
+
+    use Data::Dumper;
+    warn Dumper ({ assertion => $assertion, audience => $audience })."\n";
+
+    use LWP::UserAgent;
+    use HTTP::Request::Common;
+    my $ua = LWP::UserAgent->new;
+    $ua->agent("musicbrainz.org");
+    my $response = $ua->request (
+        POST 'https://browserid.org/verify',[
+            assertion => $assertion, audience => $audience ]);
+
+    warn "Response: ".Dumper ($response)."\n";
+
+    return undef;
+}
+
+
 sub do_login : Private
 {
     my ($self, $c) = @_;
@@ -71,24 +92,38 @@ sub do_login : Private
         ? $c->req->query_params->{uri}
         : $c->relative_uri;
 
-    if ($c->form_posted && $form->process(params => $c->req->params))
-    {
-        if( !$c->authenticate({ username => $form->field("username")->value,
-                                password => $form->field("password")->value }) )
-        {
-            # Bad username / password combo
-            $c->log->info('Invalid username/password');
-            $c->stash( bad_login => 1 );
-        }
-        else
-        {
-            if ($form->field('remember_me')->value) {
-                $self->_set_login_cookie($c);
-            }
+    use Data::Dumper;
+    warn "req/params:".Dumper ($c->req->params)."\n";
 
-            # Logged in OK
-            $c->response->redirect($redirect);
-            $c->detach;
+    if ($c->form_posted)
+    {
+        if (defined $c->req->params->{assertion})
+        {
+            # BrowserID login.
+            my $assertion = $c->req->params->{assertion};
+            my $audience = $c->req->uri->host_port;
+
+            my $result = verifyBrowserID ($assertion, $audience);
+        }
+        elsif ($form->process(params => $c->req->params))
+        {
+            if( !$c->authenticate({ username => $form->field("username")->value,
+                                    password => $form->field("password")->value }) )
+            {
+                # Bad username / password combo
+                $c->log->info('Invalid username/password');
+                $c->stash( bad_login => 1 );
+            }
+            else
+            {
+                if ($form->field('remember_me')->value) {
+                    $self->_set_login_cookie($c);
+                }
+
+                # Logged in OK
+                $c->response->redirect($redirect);
+                $c->detach;
+            }
         }
     }
 

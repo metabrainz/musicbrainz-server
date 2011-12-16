@@ -102,6 +102,16 @@ Images:
 
 ----------------------------------------------------------------------------
 
+Authors:     Mozilla
+License:     MPL 1.1 / GPL 2.0 / LPGL 2.1
+Source:      https://github.com/mozilla/browserid.git
+Notes:       Located at resources/static/i/sign_in_blue.png in git repo.
+Images:
+
+     icons/browserid-signin.png
+
+----------------------------------------------------------------------------
+
 Source:      MusicBrainz
 Authors:     Robert Kaye, Lukáš Lalinský
 License:     GPL v2 or later
