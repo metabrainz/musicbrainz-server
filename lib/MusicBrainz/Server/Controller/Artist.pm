@@ -104,6 +104,15 @@ after 'load' => sub
     );
 };
 
+after 'aliases' => sub
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
+    $c->stash( artist_credits => $artist_credits );
+};
+
 =head2 similar
 
 Display artists similar to this artist
@@ -572,6 +581,31 @@ sub can_split {
     return (grep {
         $_->link->type->gid != $COLLABORATION
     } $artist->all_relationships) == 0;
+}
+
+sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {
+    my ($self, $c, $ac_id) = @_;
+    my $ac = $c->model('ArtistCredit')->get_by_id($ac_id)
+        or $c->detach('/error_404');
+    $c->stash( ac => $ac );
+}
+
+sub edit_credit : Chained('credit') PathPart('edit') Edit {
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{artist};
+    my $ac = $c->stash->{ac};
+
+    my $edit = $self->edit_action(
+        $c,
+        form        => 'EditArtistCredit',
+        type        => $EDIT_ARTIST_EDITCREDIT,
+        item        => { artist_credit => $ac },
+        edit_args   => { to_edit => $ac },
+        on_creation => sub {
+            $c->res->redirect(
+                $c->uri_for_action('/artist/aliases', [ $artist->gid ]));
+        }
+    );
 }
 
 =head1 LICENSE

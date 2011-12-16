@@ -3,4 +3,39 @@
         delete_path='/artist/delete_alias'
         add_path='/artist/add_alias'
         edit_path='/artist/edit_alias' -%]
+
+    [%- IF artist_credits.size > 0 -%]
+    <h2>[% l("Artist Credits") %]</h2>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>
+                        [% l('Name') %]
+                    </th>
+                    [% IF c.user_exists %]
+                    <th style="width: 5em">
+                        [% l('Actions') %]
+                    </th>
+                    [% END %]
+                </tr>
+            </thead>
+            <tbody>
+            [%- FOREACH ac IN artist_credits -%]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>
+                        [% artist_credit(ac) %]
+                    </td>
+                    [% IF c.user_exists %]
+                    <td>
+                        <a href="[% c.uri_for_action("artist/edit_credit", [ entity.gid, ac.id ]) %]">
+						[%- l('Edit') -%]
+                        </a>
+                    </td>
+                    [% END %]
+                </tr>
+            [%- END -%]
+            </tbody>
+        </table>
+    [%- END -%]
+
 [%- END -%]
