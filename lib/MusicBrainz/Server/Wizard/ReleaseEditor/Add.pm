@@ -90,8 +90,7 @@ sub change_page_duplicates
     my $release = $self->c->model('Release')->get_by_id($release_id);
     $self->c->model('Medium')->load_for_releases($release);
 
-    my $TRACKLIST_PAGE = 2;
-    $self->_post_to_page($TRACKLIST_PAGE, collapse_hash({
+    $self->_post_to_page($self->page_number->{'tracklist'}, collapse_hash({
         mediums => [
             map +{
                 tracklist_id => $_->tracklist_id,
@@ -103,6 +102,10 @@ sub change_page_duplicates
             }, $release->all_mediums
         ],
     }));
+
+    # When an existing release is selected, clear out any seeded recordings.
+    $self->_post_to_page($self->page_number->{'recordings'},
+          collapse_hash({ rec_mediums => [ ] }));
 }
 
 around _build_pages => sub {
