@@ -52,6 +52,22 @@
         [% form_row_date(r, 'begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'end_date', l('End date:')) %]
       </fieldset>
+
+      [% IF edit_artist_credits && artist_credits %]
+      <fieldset>
+        <legend>[% l('Artist Credits') %]</legend>
+        <p>
+            [%- l('Please select the artist credits that you want to rename to follow the new artist name.') -%]
+        </p>
+        <p>
+            [%- selected_acs = form.rename_artist_credit_set() -%]
+            [% FOR ac IN artist_credits %]
+            <span class="rename-artist-credit"><input type="checkbox" name="edit-artist.rename_artist_credit" value="[% ac.id %]" [% IF selected_acs.item(ac.id) %]checked="checked"[% END %] />[% artist_credit(ac) %]</span><br />
+            [% END %]
+        </p>
+      </fieldset>
+      [% END %]
+
       [% INCLUDE 'forms/edit-note.tt' %]
 
       [% enter_edit() %]
