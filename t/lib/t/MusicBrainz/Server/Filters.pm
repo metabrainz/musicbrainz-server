@@ -16,6 +16,9 @@ test 'Edit note syntax' => sub {
     is(format_editnote("http://musicbrainz.org"),
        '<a href="http://musicbrainz.org">http://musicbrainz.org</a>');
 
+    is(format_editnote("https://musicbrainz.org"),
+       '<a href="https://musicbrainz.org">https://musicbrainz.org</a>');
+
     is(format_editnote("www.musicbrainz.org"),
        '<a href="http://www.musicbrainz.org">www.musicbrainz.org</a>');
 
@@ -30,6 +33,12 @@ test 'Edit note syntax' => sub {
 
     is(format_editnote("http://www.discogs.com/artist/House+Of+Lords+(2%29"),
        '<a href="http://www.discogs.com/artist/House+Of+Lords+(2)">http://www.discogs.com/artist/House+Of+Lords+(2)</a>');
+
+    is(format_editnote("Problems with this edit\n\n1."),
+       "Problems with this edit<br/><br/>1.");
+
+    like(format_editnote("Please see edit   1"),
+         qr{Please see <a href=".*">edit #1</a>});
 };
 
 1;

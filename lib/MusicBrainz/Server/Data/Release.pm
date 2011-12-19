@@ -624,7 +624,7 @@ sub merge
     merge_table_attributes(
         $self->sql => (
             table => 'release',
-            columns => [ qw( status packaging country comment barcode script language ) ],
+            columns => [ qw( status packaging country barcode script language ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -800,6 +800,21 @@ sub find_similar
         # Make sure the artist credit has the same amount of artists
         grep { $_->artist_credit->artist_count == keys %artist_ids }
             @releases;
+}
+
+sub filter_barcode_changes {
+    my ($self, @barcodes) = @_;
+    return unless @barcodes;
+    return @{
+        $self->c->sql->select_list_of_hashes(
+            'SELECT DISTINCT change.release, change.barcode
+             FROM (VALUES ' . join(', ', ("(?::uuid, ?)") x @barcodes) . ') change (release, barcode)
+             LEFT JOIN release_gid_redirect rgr ON rgr.gid = change.release
+             JOIN release ON (release.gid = change.release OR rgr.new_id = release.id)
+             WHERE change.barcode IS DISTINCT FROM release.barcode',
+            map { $_->{release}, $_->{barcode} } @barcodes
+        )
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

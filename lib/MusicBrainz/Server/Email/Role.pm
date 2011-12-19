@@ -42,21 +42,24 @@ around 'text' => sub {
     my $next = shift;
     my ($self, @args) = @_;
 
+    my $footer = $self->footer;
     my $email = join("\n\n", map { strip($_) } grep { $_ }
         $self->header,
         $self->$next(@args),
-        '-' x 80 . "\n" . $self->footer
+        $footer ? '-' x 80 . "\n" . $footer : ''
     );
 };
 
 sub create_email {
     my $self = shift;
+    my @headers = (
+        To => $self->to,
+        From => $self->from,
+        Subject => $self->subject,
+    );
+    push @headers, $self->extra_headers;
     return Email::MIME->create(
-        header => [
-            To => $self->to,
-            From => $self->from,
-            Subject => $self->subject
-        ],
+        header => \@headers,
         body => encode('utf-8', $self->body),
         attributes => {
             content_type => "text/plain",

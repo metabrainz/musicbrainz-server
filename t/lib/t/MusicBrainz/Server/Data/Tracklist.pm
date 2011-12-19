@@ -68,7 +68,7 @@ INSERT INTO track (id, tracklist, position, recording, name, artist_credit, leng
     (1, 1, 1, 1, 1, 1, NULL);
 EOSQL
 
-    $c->model('Tracklist')->replace(
+    my $new_tracklist_id = $c->model('Tracklist')->replace(
         1,
         [
             {
@@ -79,7 +79,7 @@ EOSQL
             }
         ]);
 
-    my $tracklist = $c->model('Tracklist')->get_by_id(1);
+    my $tracklist = $c->model('Tracklist')->get_by_id($new_tracklist_id);
     $c->model('Track')->load_for_tracklists($tracklist);
 
     is($tracklist->all_tracks, 1);
@@ -246,12 +246,14 @@ memory_cycle_ok($tracklist_data);
 memory_cycle_ok($tracklist);
 
 subtest 'Can set tracklist times via a disc id' => sub {
+    my $new_tracklist_id;
+
     Sql::run_in_transaction(sub {
-        $tracklist_data->set_lengths_to_cdtoc(1, 1);
+        $new_tracklist_id = $tracklist_data->set_lengths_to_cdtoc(1, 1);
         memory_cycle_ok($tracklist_data);
     }, $test->c->sql);
 
-    $tracklist = $tracklist_data->get_by_id(1);
+    $tracklist = $tracklist_data->get_by_id($new_tracklist_id);
     $track_data->load_for_tracklists($tracklist);
     is($tracklist->tracks->[0]->length, 338640);
     is($tracklist->tracks->[1]->length, 273133);

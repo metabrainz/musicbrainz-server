@@ -99,7 +99,8 @@ sub find_by_recording
                 release.date_month AS r_date_month,
                 release.date_day AS r_date_day,
                 release.country AS r_country, release.status AS r_status,
-                release.packaging AS r_packaging
+                release.packaging AS r_packaging,
+                release.edits_pending AS r_edits_pending
         FROM
             track
             JOIN tracklist ON tracklist.id = track.tracklist
@@ -136,6 +137,7 @@ sub insert
     my $class = $self->_entity_class;
     my @created;
     for my $track_hash (@track_hashes) {
+        delete $track_hash->{id};
         my $row = $self->_create_row($track_hash, \%names);
         push @created, $class->new(
             id => $self->sql->insert_row('track', $row, 'id')

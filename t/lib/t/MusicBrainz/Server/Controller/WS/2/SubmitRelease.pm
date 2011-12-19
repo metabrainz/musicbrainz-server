@@ -10,7 +10,7 @@ use HTTP::Status qw( :constants );
 use XML::SemanticDiff;
 use XML::XPath;
 
-use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post );
+use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post capture_edits );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };
@@ -79,7 +79,7 @@ EOSQL
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release-list>
     <release id="78ad6e24-dc0a-4c20-8284-db2d44d28fb9">
-      <barcode>4942463511227</barcode>
+      <barcode>796122009228</barcode>
     </release>
   </release-list>
 </metadata>';
@@ -99,11 +99,20 @@ EOSQL
                     id => $rel->id,
                     name => $rel->name
                 },
-                barcode => '4942463511227'
+                barcode => '796122009228'
             }
         ]
     });
 
+    $next_edit->accept;
+
+    my @edits = capture_edits {
+        $req = xml_post('/ws/2/release?client=test-1.0', $content);
+        $mech->request($req);
+        is($mech->status, HTTP_OK);
+        xml_ok($mech->content);
+    } $c;
+    is(@edits => 0);
 };
 
 1;

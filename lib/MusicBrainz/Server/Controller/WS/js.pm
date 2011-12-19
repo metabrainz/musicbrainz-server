@@ -12,10 +12,8 @@ use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
-    artist_credit_to_edit_ref
     hash_structure
 );
-use MusicBrainz::Server::Track qw( format_track_length );
 use Readonly;
 use Text::Trim;
 
@@ -82,7 +80,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
 
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
-        length => format_track_length($_->length),
+        length => $_->length,
         name => $_->name,
         artist_credit => artist_credit_to_ref ($_->artist_credit),
     }, sort { $a->position <=> $b->position }
@@ -102,7 +100,7 @@ sub freedb : Chained('root') PathPart Args(2) {
         {
             name => $_->{title},
             artist => $_->{artist},
-            length => format_track_length($_->{length}),
+            length => $_->{length},
         }
     } @{ $response->tracks } ];
 
@@ -129,7 +127,8 @@ sub cdstub : Chained('root') PathPart Args(1) {
         $ret->{tracks} = [ map {
             {
                 name => $_->title,
-                length => format_track_length($_->length),
+                artist => $_->artist,
+                length => $_->length,
                 artist => $_->artist,
             }
         } $cdstub_toc->cdstub->all_tracks ];
@@ -289,12 +288,12 @@ sub associations : Chained('root') PathPart Args(1) {
     {
         my $track = {
             name => $_->name,
-            length => format_track_length($_->length),
-            artist_credit => artist_credit_to_edit_ref ($_->artist_credit),
+            length => $_->length,
+            artist_credit => artist_credit_to_ref ($_->artist_credit),
         };
 
         my $data = {
-            length => format_track_length($_->length),
+            length => $_->length,
             name => $_->name,
             artist_credit => { preview => $_->artist_credit->name },
             edit_sha1 => hash_structure ($track)
@@ -304,7 +303,7 @@ sub associations : Chained('root') PathPart Args(1) {
             gid => $_->recording->gid,
             name => $_->recording->name,
             comment => $_->recording->comment,
-            length => format_track_length($_->recording->length),
+            length => $_->recording->length,
             artist_credit => { preview => $_->artist_credit->name },
             appears_on => {
                 hits => $appears_on{$_->recording->id}{hits},

@@ -26,6 +26,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_MERGE
 );
 
+use aliased 'MusicBrainz::Server::Entity::Work';
+
 # A duration lookup has to match within this many milliseconds
 use constant DURATION_LOOKUP_RANGE => 10000;
 
@@ -60,6 +62,7 @@ after 'load' => sub
     # Load release group
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroup')->load_meta($release->release_group);
+    $c->model('Relationship')->load_subset([ 'url' ], $release->release_group);
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
@@ -105,6 +108,13 @@ after [qw( show details discids tags relationships )] => sub {
         collections => \@collections,
         containment => \%containment,
     );
+};
+
+after 'relationships' => sub
+{
+    my ($self, $c) = @_;
+    my $release = $c->stash->{release};
+    $c->model('Relationship')->load($release->release_group);
 };
 
 sub discids : Chained('load')
@@ -156,6 +166,11 @@ sub show : Chained('load') PathPart('')
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
     }
     $c->model('ArtistCredit')->load($release, @tracks);
+
+    $c->model('Relationship')->load(@recordings);
+    $c->model('Relationship')->load(
+        grep { $_->isa(Work) } map { $_->target }
+            map { $_->all_relationships } @recordings);
 
     $c->stash(
         template     => 'release/index.tt',

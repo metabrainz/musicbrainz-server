@@ -187,18 +187,21 @@ sub find_outdated_releases
         JOIN release_coverart ON release.id = release_coverart.id
         LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
         LEFT JOIN link ON ( link.id = l.link )
-        LEFT JOIN link_type ON ( link_type.id = link.link_type )
+        LEFT JOIN link_type ON (
+          link_type.id = link.link_type AND
+          link_type.name IN (' . placeholders(@url_types) . ')
+        )
         LEFT JOIN url ON ( url.id = l.entity1 )
         WHERE release.id IN (
             SELECT id FROM release_coverart
             WHERE
                last_updated IS NULL OR NOW() - last_updated > ?
         ) AND (
-            link_type.name IN ('  . placeholders(@url_types) . ') OR
+            link_type.name IS NOT NULL OR
             release.barcode IS NOT NULL
         )
         ORDER BY release.id,
-                 _sort_order DESC,
+                 _sort_order DESC NULLS LAST,
                  l.last_updated DESC,
                  release.barcode NULLS LAST
     ) s
@@ -227,7 +230,7 @@ sub find_outdated_releases
             }
             return $release;
         }
-    }, $query, $pg_date_formatter->format_duration($since), @url_types);
+    }, $query, @url_types, $pg_date_formatter->format_duration($since));
 }
 
 sub cache_cover_art

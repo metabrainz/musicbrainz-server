@@ -54,7 +54,11 @@ OUTPUT=`
 
 # Process subscriptions
 echo `date`" : Processing subscriptions"
-./admin/ProcessSubscriptions
+if date +%w | grep -q [6]
+then
+    WEEKLY="--weekly"
+fi
+./admin/ProcessSubscriptions $WEEKLY
 
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies

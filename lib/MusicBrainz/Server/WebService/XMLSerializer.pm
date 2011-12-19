@@ -644,7 +644,7 @@ sub _serialize_relation_lists
     foreach my $type (sort keys %types)
     {
         my @list;
-        foreach my $rel (sort_by { $_->target_key } @{$types{$type}})
+        foreach my $rel (sort_by { $_->target_key . $_->link->type->name } @{$types{$type}})
         {
             $self->_serialize_relation($src_entity, \@list, $gen, $rel, $inc, $stash);
         }

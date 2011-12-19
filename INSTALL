@@ -1,8 +1,8 @@
 Installing the MusicBrainz Server
 =================================
 
-The MusicBrainz Server (musicbrainz-server) is the web frontend to the
-MusicBrainz Database, and is accessible at http://musicbrainz.org.
+The MusicBrainz Server is the web frontend to the MusicBrainz Database,
+and is accessible at http://musicbrainz.org.
 
 This document explains the steps necessary to setup your own MusicBrainz Server.
 If you require any assistance with these instructions, please feel free to
@@ -99,6 +99,13 @@ Server configuration
 Installing Perl dependencies
 ----------------------------
 
+The fundamental thing that needs to happen here is all the dependency Perl modules get installed, 
+somewhere where your server can find them. There are many ways to make this happen, and the best 
+choice will be very site-dependent. This is the step of the installation which most frequently 
+goes wrong, and the one which can go wrong the most ways.
+
+One way to install these dependencies is to use make:
+
 1)  Build Makefile
 
     Some sections are marked optional, but you are encouraged to accept the
@@ -114,7 +121,8 @@ Installing Perl dependencies
 
         sudo make installdeps
 
-    NOTE: You will have to manually install some of the dependencies by running:
+    NOTE: You will have to manually install some of the dependencies by running 
+    (on Debian-derived systems):
 
         # OSSP::UUID
         sudo apt-get install libossp-uuid-perl
@@ -126,6 +134,23 @@ Installing Perl dependencies
     force their installation by running:
 
         sudo cpan -f Module::Name
+
+Some systems run into problems by this method, which sets up everything at a system level,
+and thus is subject to version issues and other conflicts with package-manager-installed 
+modules.
+
+One alternate approach is to depend as minimally as possible on system installations, using 
+instead a userspace-installed set of Perl modules. This can be done with local::lib; see 
+http://search.cpan.org/perldoc?local::lib for details on setting up this system to install 
+modules to a user-specific path. This method is frequently paired with use of cpanm (on CPAN 
+as App::cpanminus), which is designed to be a minimal, no-fuss way of installing things from CPAN. 
+For more details on cpanm (including installation), see http://search.cpan.org/perldoc?App::cpanminus
+
+OSSP::UUID and Test::WWW::Mechanize typically have to be system-installed no matter your strategy.
+
+It can't be stressed enough that this step is very dependent on the specifics of your system and
+its Perl setup. If things go wrong here, the solution *will* be to learn more about your own
+system and about Perl.
 
 
 Creating the database
@@ -191,9 +216,8 @@ Creating the database
 
     b)  Import an NGS database dump
 
-        The easiest way to import the database is to use a database
-        dump.  These are periodic dumps of the database, they're
-        available here:
+        The easiest way to import the database is to use a database dump.
+        These dumps are provided twice a week and are available here:
 
             ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
 
@@ -207,26 +231,6 @@ Creating the database
         --echo just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
         files, if they are not in /tmp/dumps/.
-
-    c)  Importing a non-NGS database dump
-
-        NOTE: This method requires the time consuming process of manually
-        converting the database from the existing schema to the NGS format, and
-        is not recommended.
-
-        Follow these instructions for a "Database only" install:
-
-            http://bugs.musicbrainz.org/browser/mb_server/branches/RELEASE_20090524-BRANCH/INSTALL
-
-        To ensure that the data imports cleanly, make sure to use a data dump
-        from 2009-06-19 or later!
-
-        Once the data has been imported, return to the NGS codebase and run:
-
-            ./upgrade.sh
-
-        This will convert the data to the NGS format and will take some time.
-        Please be patient!
 
 
     NOTE: on a fresh postgresql install you may see the following error:
@@ -258,10 +262,10 @@ Starting the server
 
 2)  Troubleshooting
 
-    If you have any difficulties, please feel free to contact aCiD2 or warp in
+    If you have any difficulties, please feel free to contact ocharles or warp in
     #musicbrainz-devel on irc.freenode.net, or email the developer mailing list
     at musicbrainz-devel [at] lists.musicbrainz.org.
 
-    If you find any bugs, please report them on http://jira.musicbrainz.org.
+    If you find any bugs, please report them on http://tickets.musicbrainz.org.
 
     Good luck, and happy hacking!

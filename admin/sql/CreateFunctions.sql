@@ -640,6 +640,72 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION delete_unused_url(ids INTEGER[])
+RETURNS VOID AS $$
+DECLARE
+  clear_up INTEGER[];
+BEGIN
+  SELECT ARRAY(
+    SELECT id FROM url url_row WHERE id = any(ids)
+    AND NOT (
+      EXISTS (
+        SELECT TRUE FROM l_artist_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_label_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_recording_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_release_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_release_group_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_url_url
+        WHERE entity0 = url_row.id OR entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_url_work
+        WHERE entity0 = url_row.id
+        LIMIT 1
+      )
+    )
+  ) INTO clear_up;
+
+  DELETE FROM url_gid_redirect WHERE new_id = any(clear_up);
+  DELETE FROM url WHERE id = any(clear_up);
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION remove_unused_url()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_TABLE_NAME LIKE 'l_url_%' THEN
+      EXECUTE delete_unused_url(ARRAY[OLD.entity0]);
+    END IF;
+
+    IF TG_TABLE_NAME LIKE 'l_%_url' THEN
+      EXECUTE delete_unused_url(ARRAY[OLD.entity1]);
+    END IF;
+
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 COMMIT;
 -- vi: set ts=4 sw=4 et :
 

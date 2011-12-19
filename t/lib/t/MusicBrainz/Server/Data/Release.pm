@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Release;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Deep qw( cmp_bag );
 use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Release;
@@ -14,6 +15,104 @@ use MusicBrainz::Server::Test;
 use Sql;
 
 with 't::Context';
+
+test 'filter_barcode_changes' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Name');
+INSERT INTO artist (id, gid, name, sort_name) VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 1, 0, NULL);
+
+INSERT INTO release_name (id, name) VALUES (1, 'R1');
+INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO release (id, gid, name, artist_credit, release_group, barcode)
+    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, '796122009228'),
+           (2, '5b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, '600116802422'),
+           (3, '6b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, NULL);
+INSERT INTO release_gid_redirect (gid, new_id) VALUES ('1b4faa80-72d9-11de-8a39-0800200c9a66', 1);
+EOSQL
+
+    {
+        my @in = ();
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+        cmp_bag(\@out, \@in, 'filtering no changes returns no changes');
+    }
+
+    {
+        my @in = (
+            { release => '3b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' },
+            { release => '5b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' },
+            { release => '6b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, \@in, 'all distinct changes are retained');
+    }
+
+    {
+        my @in = (
+            { release => '5b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' },
+            { release => '3b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' },
+            { release => '6b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(
+            \@out,
+            [ { release => '6b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' } ],
+            'no-ops are filtered out'
+        );
+    }
+
+    {
+        my @in = (
+            { release => '5b4faa80-72d9-11de-8a39-0800200c9a66', barcode => undef },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, \@in, 'can set to null');
+    }
+
+    {
+        my @in = (
+            { release => '5b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, \@in, 'can set to an empty string');
+    }
+
+    {
+        my @in = (
+            { release => '5b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '' },
+            { release => '5b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, [ $in[0] ], 'changes are only shown once');
+    }
+
+    {
+        my @in = (
+            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '796122009228' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, [ ], 'inspects over gid redirects');
+    }
+
+    {
+        my @in = (
+            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' },
+        );
+        my @out = $test->c->model('Release')->filter_barcode_changes(@in);
+
+        cmp_bag(\@out, [
+            { release => '1b4faa80-72d9-11de-8a39-0800200c9a66', barcode => '600116802422' }
+        ], 'inspects over gid redirects');
+    }
+};
 
 test 'can_merge for the merge strategy' => sub {
     my $test = shift;

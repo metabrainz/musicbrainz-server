@@ -32,9 +32,6 @@
                 <li>
                     <a href="[% c.uri_for_action('/user/tags', [ c.user.name ]) %]">[% l('My Tags') %]</a>
                 </li>
-                <li>
-                    <a href="[% c.uri_for_action('/watch/list') %]">[% l('My Watched Artists') %]</a>
-                </li>
                 <li class="separator">
                     <a href="[% c.uri_for_action('/user/edits/open', [ c.user.name ]) %]">[% l('My Open Edits') %]</a>
                 </li>
@@ -83,16 +80,16 @@
                 <a href="[% doc_link('MusicBrainz_Sponsors') %]">[% l('Sponsors') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('MusicBrainz_Bio') %]">[% l('People') %]</a>
-            </li>
-            <li>
-                <a href="[% doc_link('MusicBrainz_Press') %]">[% l('In the Press') %]</a>
+                <a href="[% doc_link('People') %]">[% l('People') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('MusicBrainz_License') %]">[% l('Data Licenses') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Social_Contract') %]">[% l('Social Contract') %]</a>
+            </li>
+            <li>
+                <a href="[% doc_link('Code_of_Conduct') %]">[% l('Code of Conduct') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('MusicBrainz_Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
@@ -130,10 +127,16 @@
                 <a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a>
             </li>
             <li class="separator">
+                <a href="[% doc_link('MusicBrainz_for_Android') %]">[% l('MusicBrainz for Android') %]</a>
+            </li>
+            <li class="separator">
                 <a href="[% doc_link('MusicBrainz_Server') %]">[% l('MusicBrainz Server') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('MusicBrainz_Database') %]">[% l('MusicBrainz Database') %]</a>
+            </li>
+            <li class="separator">
+                <a href="[% doc_link('Developer_Resources') %]">[% l('Developer Resources') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('XML_Web_Service') %]">[% l('XML Web Service') %]</a>
@@ -194,10 +197,7 @@
                     <a href="[% c.uri_for('/edit/open') %]">[% l('Vote on Edits') %]</a>
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/report/index') %]">[% l('Editing Suggestions') %]</a>
-                </li>
-                <li class="separator">
-                    <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Conditions') %]</a>
+                    <a href="[% c.uri_for_action('/report/index') %]">[% l('Reports') %]</a>
                 </li>
             </ul>
         </li>
@@ -209,12 +209,15 @@
                 <a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners Guide') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('Official_Style_Guideline') %]">[% l('Style Guidelines') %]</a>
+                <a href="[% doc_link('Style') %]">[% l('Style Guidelines') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>
             </li>
             <li class="separator">
+                <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a>
+            </li>
+            <li>
                 <a href="[% c.uri_for('/admin/linktype') %]">[% l('Relationship Types') %]</a>
             </li>
             <li>
@@ -240,7 +243,7 @@
                 </a>
             </li>
             <li class="separator">
-                <a href="http://jira.musicbrainz.org" class="internal">
+                <a href="http://tickets.musicbrainz.org" class="internal">
                     [% l('Report a Bug') %]
                 </a>
             </li>

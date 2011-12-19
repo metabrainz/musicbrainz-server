@@ -108,53 +108,18 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=a[href=#basic]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=div.documentation p</td>
-	<td>by m-flo</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=div.documentation h3</td>
-	<td>Release Editor: Add Release test</td>
-</tr>
-<tr>
-	<td>waitForVisible</td>
-	<td>css=textarea.tracklist</td>
+	<td>css=input.track-parser</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>css=textarea.tracklist</td>
-	<td>1. Add Release test (selenium version) (2:43)<br />2. Add Release test (ambient mix) (12:09)</td>
+	<td>1. Add Release test (selenium version) (2:43)<br />2. Add Release test (ambient mix) (12:09)<br /></td>
 </tr>
 <tr>
-	<td>fireEvent</td>
-	<td>css=textarea.tracklist</td>
-	<td>blur</td>
-</tr>
-<tr>
-	<td>waitForText</td>
-	<td>css=td.duration:eq(1)</td>
-	<td>12:09</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=td.duration:eq(0)</td>
-	<td>2:43</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=td.title:eq(0)</td>
-	<td>Add Release test (selenium version)</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=td.title:eq(1)</td>
-	<td>Add Release test (ambient mix)</td>
+	<td>click</td>
+	<td>css=input.close</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

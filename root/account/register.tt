@@ -1,5 +1,14 @@
+[%- BLOCK layout_head -%]
+    <script type="text/javascript" src="[% c.uri_for('/register.js') %]"></script>
+[%- END -%]
+
 [% WRAPPER "layout.tt" title=l("Create an Account") full_width=1 %]
 <div id="content">
+
+     [%- IF invalid_nonce -%]
+     [%- warning(l('An error occured while creating your account.  Make sure javascript and cookies are enabled in your browser.')) -%]
+     [%- END -%]
+
     <h1>[% l("Create an Account") %]</h1>
 
         <p>[%- l('<strong>Note that any contributions you make to MusicBrainz will be released
@@ -16,7 +25,7 @@
 
 
     [%- USE r = FormRenderer(register_form) -%]
-    <form action="[% c.req.uri %]" method="post">
+    <form class="register" action="[% c.req.uri %]" method="post">
         [% form_row_text(r, 'username', l('Username:')) %]
         <div class="row no-label">
             <span class="input-note">[% l('Your username will be publicly visible.') %]</span>

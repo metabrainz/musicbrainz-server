@@ -1,0 +1,130 @@
+[% WRAPPER 'layout.tt' title=l('Auto-editor election #{no}', { no => election.id }) full_width=1%]
+
+    <h1>[% l('Auto-editor election #{no}', { no => election.id }) %]</h1>
+
+    <p><a href="[% c.uri_for_action('elections/index') %]">[% l('Back to elections') %]</a></p>
+
+    <h2>[% l('Details') %]</h2>
+
+    <dl class="profileinfo">
+
+        <dt>[% l('Candidate:') %]</dt>
+        <dd>[% link_editor(election.candidate) %]</dd>
+
+        <dt>[% l('Proposer:') %]</dt>
+        <dd>[% link_editor(election.proposer) %]</dd>
+
+        <dt>[% l('1st seconder:') %]</dt>
+        <dd>[% IF election.seconder_1 %][% link_editor(election.seconder_1) %][% ELSE %]-[% END %]</dd>
+
+        <dt>[% l('2nd seconder:') %]</dt>
+        <dd>[% IF election.seconder_2 %][% link_editor(election.seconder_2) %][% ELSE %]-[% END %]</dd>
+
+        [% IF can_see_vote_count == "later" %]
+
+        <dt>[% l('Votes for/against:') %]</dt>
+        <dd>[% l('The tally of votes cast will only be shown when the election is complete.') %]</dd>
+
+        [% ELSIF can_see_vote_count == "yes" %]
+
+        <dt>[% l('Votes for:') %]</dt>
+        <dd>[% election.yes_votes %]</dd>
+
+        <dt>[% l('Votes against:') %]</dt>
+        <dd>[% election.no_votes %]</dd>
+
+        [% END %]
+
+        <dt>[% l('Status:') %]</dt>
+        <dd>
+            [% IF election.is_open %]
+                [% l(election.status_name, { date => UserDate.format(election.open_time) }) | html %]
+            [% ELSIF election.is_closed %]
+                [%- IF election.close_time -%]
+                    [% l(election.status_name, { date => UserDate.format(election.close_time) }) | html %]
+                [%- ELSE -%]
+                    [% l(election.status_name_short) | html %]
+                [%- END -%]
+            [% ELSE %]
+                [% l(election.status_name) | html %]
+            [% END %]
+        </dd>
+
+    </dl>
+
+    <h2>[% l('Voting') %]</h2>
+
+    [% IF can_second %]
+    <p>
+        <form action="[% c.uri_for_action("elections/second", [ election.id ]) %]" method="post">
+            <span class="buttons">
+                <button type="submit" name="confirm.submit" value="1">[% l('Second this candidate') %]</button>
+            </span>
+        </form>
+    </p>
+    [% END %]
+
+    <p>
+    [% IF can_vote %]
+        <form action="[% c.uri_for_action("elections/vote", [ election.id ]) %]" method="post">
+            <span class="buttons">
+                <button type="submit" name="vote.vote" value="1">[% l('Vote YES') %]</button>
+                <button type="submit" name="vote.vote" value="-1">[% l('Vote NO') %]</button>
+                <button type="submit" name="vote.vote" value="0">[% l('Abstain') %]</button>
+            </span>
+        </form>
+	[% ELSE %]
+		[%- IF c.user_exists -%]
+			[%- IF !c.user.is_auto_editor -%]
+				[% l('You cannot vote for this candidate, because you are not an auto-editor.') %]
+			[%- ELSIF c.user.id == election.proposer_id OR c.user.id == election.seconder_1_id OR c.user.id == election.seconder_2_id -%]
+				[% l('You cannot vote for this candidate, because you proposed / seconded them.') %]
+			[%- ELSIF election.is_pending -%]
+				[% l('Voting is not yet open. If you would like to support this candidate, you can second their nomination. If you do not support this candidate, please note that you cannot cast a "No" vote (or abstain) until two seconders have been found.') %]
+			[%- ELSIF election.is_closed -%]
+				[% l('Voting is closed.') %]
+			[%- END -%]
+		[%- ELSE -%]
+			[% l('To find out if you can vote for this candidate, please {url|log in}.', { url => c.uri_for_action('user/login') }) %]
+		[%- END -%]
+    [% END %]
+    </p>
+
+    [% IF can_cancel %]
+    <p>
+        <form action="[% c.uri_for_action("elections/cancel", [ election.id ]) %]" method="post">
+            <span class="buttons">
+                <button type="submit" name="confirm.submit" value="1" class="negative">[% l('Cancel the election') %]</button>
+            </span>
+        </form>
+    </p>
+    [% END %]
+
+    <h2>[% l('Votes cast') %]</h2>
+
+    <table class="tbl" style="width:auto">
+        <thead>
+            <tr>
+                <th>[% l('Voter') %]</th>
+                <th>[% l('Vote') %]</th>
+                <th>[% l('Date') %]</th>
+            </tr>
+        </thead>
+        <tbody>
+        [%- FOR vote IN election.votes -%]
+            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <td>[% link_editor(vote.voter) %]</td>
+                <td>
+                [% IF c.user_exists && c.user.id == vote.voter.id %]
+                    [% l(vote.vote_name) %]
+                [% ELSE %]
+                    [% l('(private)') %]
+                [% END %]
+                </td>
+                <td>[% UserDate.format(vote.vote_time) %]</td>
+            </tr>
+        [%- END -%]
+        </tbody>
+    </table>
+
+[% END %]

@@ -55,13 +55,6 @@ h1 span {
 #release-editor fieldset span.partial-date input { width: auto; }
 #release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
 
-#release-editor fieldset div.tracklist-loading,
-#release-editor fieldset textarea.tracklist {
-    height: 250px;
-    margin: 0 10px;
-    width: 430px;
-}
-
 #release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
 #release-editor fieldset div.recordings-loading,
 #release-editor fieldset div.tracklist-loading { padding: 110px 0 0 0; height: 140px; }
@@ -294,7 +287,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
        TRACKLIST TAB, ADD DISC
    __________________________________ */
 
-.add-disc-dialog {
+div.dialog {
     position: absolute;
     background: #f0f0f0;
     border: 1px solid #999;
@@ -309,11 +302,16 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     z-index: 20;
 }
 
+div.dialog textarea.tracklist {
+    height: 250px;
+    margin: 0;
+    width: 600px;
+}
+
+div.dialog div.buttons { margin-top: 1em; width: 100%; }
+
 .add-disc-dialog div.tabs li a { background: #ddd; }
 .add-disc-dialog div.tabs li.sel a { background: #f0f0f0; border-bottom: 1px solid #f0f0f0; }
-
-.add-disc-dialog div.buttons { margin-top: 1em; width: 100%; }
-.add-disc-dialog div.buttons .add-disc { float: right; }
 
 .add-disc-dialog div.tracklist-padding { padding: 0 12px 12px 12px; }
 

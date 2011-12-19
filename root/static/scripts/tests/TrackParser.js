@@ -38,13 +38,11 @@ MB.tests.TrackParser.BugFixes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            var $textarea = $('textarea.tracklist');
             var disc = MB.tests.TrackParser.ReleaseDiscMock ();
-            var parser = MB.TrackParser.Parser (disc, $textarea);
+            var parser = MB.TrackParser.Parser (disc);
             parser.setOptions (test);
 
-            $textarea.val (test.input);
-            var result = parser.getTrackInput ();
+            var result = parser.getTrackInput (test.input);
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
@@ -64,10 +62,10 @@ MB.tests.TrackParser.BugFixes = function() {
                     "  3. Private Life  3:29 \n" +
                     "4.  Never Can Wait  3:24 ",
                 expected: [
-                    { title: "Forgotten Child", duration: "3:39" },
-                    { title: "Dirty Looks",     duration: "4:34" },
-                    { title: "Private Life",    duration: "3:29" },
-                    { title: "Never Can Wait",  duration: "3:24" }
+                    { title: "Forgotten Child", duration: 219000 },
+                    { title: "Dirty Looks",     duration: 274000 },
+                    { title: "Private Life",    duration: 209000 },
+                    { title: "Never Can Wait",  duration: 204000 }
                 ],
                 bug: 'MBS-1284',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
@@ -75,7 +73,7 @@ MB.tests.TrackParser.BugFixes = function() {
             {
                 input: "1. Criminology 2.5 \n",
                 expected: [
-                    { title: "Criminology 2.5", duration: "?:??" }
+                    { title: "Criminology 2.5", duration: null }
                 ],
                 bug: 'MBS-2511',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
@@ -88,28 +86,26 @@ MB.tests.TrackParser.BugFixes = function() {
                     "Written-By – Eoin*, Sandison* \n\n" +
                     "4:51 \n",
                 expected: [
-                    { title: "Freeman Hardy & Willis Acid", duration: "?:??" },
-                    { title: "Orange Romeda", duration: "?:??" }
+                    { title: "Freeman Hardy & Willis Acid", duration: null },
+                    { title: "Orange Romeda", duration: null }
                 ],
                 bug: 'MBS-2540',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
             },
             {
                 input: "1. Love On A .45\n",
-                expected: [ { title: "Love On A .45", duration: "?:??" } ],
+                expected: [ { title: "Love On A .45", duration: null } ],
                 bug: 'MBS-2902',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];
 
         $.each(tests, function(idx, test) {
-            var $textarea = $('textarea.tracklist');
             var disc = MB.tests.TrackParser.ReleaseDiscMock ();
-            var parser = MB.TrackParser.Parser (disc, $textarea);
+            var parser = MB.TrackParser.Parser (disc);
             parser.setOptions (test);
 
-            $textarea.val (test.input);
-            var result = parser.getTrackInput ();
+            var result = parser.getTrackInput (test.input);
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];

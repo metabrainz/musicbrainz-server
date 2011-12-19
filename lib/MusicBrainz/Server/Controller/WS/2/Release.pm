@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw(
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
-use TryCatch;
+use Try::Tiny;
 
 my $ws_defs = Data::OptList::mkopt([
      release => {
@@ -273,6 +273,7 @@ sub release_submit : Private
     }
 
     @submit = uniq_by { join(':', $_->{release}, $_->{barcode}) } @submit;
+    @submit = $c->model('Release')->filter_barcode_changes(@submit);
 
     if (@submit) {
         try {
@@ -289,7 +290,8 @@ sub release_submit : Private
                 }, @submit ]
             );
         }
-        catch ($e) {
+        catch {
+            my $e = $_;
             $self->_error($c, "This edit could not be successfully created: $e");
         }
     }

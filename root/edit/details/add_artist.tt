@@ -16,7 +16,7 @@
     </tr>
     [% IF edit.display_data.comment %]
     <tr>
-        <th>[% l('Comment:') %]</th>
+        <th>[% l('Disambiguation:') %]</th>
         <td>[% edit.display_data.comment | html %]</td>
     </tr>
     [% END %]

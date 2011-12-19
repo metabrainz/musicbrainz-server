@@ -10,6 +10,9 @@ our %EXPORT_TAGS = (
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
             $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED )
     ],
+    election_vote => [
+        qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN )
+    ],
     vote => [
         qw( $VOTE_NO $VOTE_ABSTAIN $VOTE_YES )
     ],
@@ -24,7 +27,7 @@ our %EXPORT_TAGS = (
             $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG )
       ],
 );
-Exporter::export_ok_tags($_) for qw( election_status vote edit_status privileges );
+Exporter::export_ok_tags($_) for qw( election_status election_vote vote edit_status privileges );
 
 use DateTime::Format::Pg;
 use Readonly;
@@ -37,6 +40,10 @@ Readonly our $ELECTION_OPEN       => 3;
 Readonly our $ELECTION_ACCEPTED   => 4;
 Readonly our $ELECTION_REJECTED   => 5;
 Readonly our $ELECTION_CANCELLED  => 6;
+
+Readonly our $ELECTION_VOTE_NO      => -1;
+Readonly our $ELECTION_VOTE_ABSTAIN => 0;
+Readonly our $ELECTION_VOTE_YES     => 1;
 
 Readonly our $VOTE_ABSTAIN => -1;
 Readonly our $VOTE_NO      =>  0;

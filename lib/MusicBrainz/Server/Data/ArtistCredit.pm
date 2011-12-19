@@ -16,7 +16,8 @@ sub get_by_ids
     my ($self, @ids) = @_;
     my $query = "SELECT artist, artist_name.name, join_phrase, artist_credit,
                         artist.id, gid, n2.name AS artist_name,
-                        n3.name AS sort_name " .
+                        n3.name AS sort_name,
+                        comment " .
                 "FROM artist_credit_name " .
                 "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
@@ -44,7 +45,8 @@ sub get_by_ids
             id => $row->{id},
             gid => $row->{gid},
             name => $row->{artist_name},
-            sort_name => $row->{sort_name}
+            sort_name => $row->{sort_name},
+            comment => $row->{comment}
         ));
         my $id = $row->{artist_credit};
         $result{$id}->add_name($obj);
@@ -178,14 +180,42 @@ sub _clean {
 sub merge_artists
 {
     my ($self, $new_id, $old_ids, %opts) = @_;
+
     if ($opts{rename}) {
-        $self->sql->do(
-            'UPDATE artist_credit_name acn SET name = artist.name
-               FROM artist
-              WHERE artist.id = ?
-                AND acn.artist IN (' . placeholders(@$old_ids) . ')',
-            $new_id, @$old_ids);
+        my @artist_credit_ids = @{
+            $self->sql->select_single_column_array(
+                'UPDATE artist_credit_name acn SET name = artist.name
+                   FROM artist
+                  WHERE artist.id = ?
+                    AND acn.artist IN (' . placeholders(@$old_ids) . ')
+              RETURNING artist_credit',
+                $new_id, @$old_ids);
+        };
+
+        if (@artist_credit_ids) {
+            my $partial_names = $self->sql->select_list_of_hashes(
+                'SELECT acn.artist_credit, acn.join_phrase, an.name
+                   FROM artist_credit_name acn
+	               JOIN artist_name an ON acn.name = an.id
+                  WHERE artist_credit IN (' . placeholders(@artist_credit_ids) . ')
+               ORDER BY artist_credit, position',
+                @artist_credit_ids);
+            my %names;
+            for my $name (@$partial_names) {
+                my $ac_id = $name->{artist_credit};
+                $names{$ac_id} ||= '';
+                $names{$ac_id} .= $name->{name};
+                $names{$ac_id} .= $name->{join_phrase} if defined $name->{join_phrase};
+            }
+
+            my %names_id = $self->c->model('Artist')->find_or_insert_names(values %names);
+            for my $ac_id (@artist_credit_ids) {
+                $self->sql->do('UPDATE artist_credit SET name = ? WHERE id = ?',
+                               $names_id{$names{$ac_id}}, $ac_id);
+            }
+        }
     }
+
     my @artist_credit_ids = @{
         $self->sql->select_single_column_array(
         'UPDATE artist_credit_name SET artist = ?

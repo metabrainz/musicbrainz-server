@@ -5,6 +5,7 @@
     [% INCLUDE "components/relationships.tt" source=artist
         relationships=artist.grouped_relationships('artist', 'url', 'label') %]
 
+    [% IF artist.appearances.size %]
     <h2>[% l('Appearances') %]</h2>
     <table class="tbl">
         <thead>
@@ -64,4 +65,5 @@
             </tbody>
         [%- END -%]
     </table>
+    [% END %]
 [%- END -%]
