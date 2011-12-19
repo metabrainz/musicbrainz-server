@@ -1,5 +1,45 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Recordings') page='recordings' -%]
+    <div style="float:right;margin-top:1.5em;"><a href="javascript:$('#filter').toggle('fast')"><img src="/static/images/icons/filter.png?a=1" /></a> <a href="javascript:$('#filter').toggle('fast')">Filter</a></div>
     <h2>[% l('Recordings') %]</h2>
+	<div id="filter" style="margin-top: 1em; border: 1px solid #999; background: #f0f0f0; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; padding: 0.5em; ">
+		<form action="" method="get">
+		<table>
+			<tr>
+				<td>[% l('Artist:') %]</td>
+				<td>
+					<select name="artist">
+						<option>[% l('- Any -') %]</option>
+						<option>Butthole Surfers &amp; Moby</option>
+						<option>Moby</option>
+						<option>Moby &amp; Mystikal</option>
+						<option>Moby &amp; Public Enemy</option>
+						<option>Moby / Depeche Mode</option>
+						<option>Moby / Goldfrapp</option>
+						<option>Moby and Oscar the Punk</option>
+						<option>Moby feat. Debbie Harry</option>
+						<option>Moby feat. Inyang Bassey</option>
+						<option>Moby vs. Princess Superstar</option>
+						<option>Moby with Amaral</option>
+						<option>New Order featuring Moby</option>
+						<option>Robotman / Moby</option>
+						<option>Sven Väth &amp; Moby</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>[% l('Name:') %]</td>
+				<td><input type="text" name="name" size="40" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><span class="buttons">
+					<button type="submit" class="submit positive">[% l('Filter recordings') %]</button>
+					<button type="submit" class="submit negative">[% l('Cancel') %]</button>
+				</span></td>
+			</tr>
+		</table>
+		</form>
+	</div>
     [%- IF recordings.size -%]
         <form action="[% c.uri_for_action('/recording/merge_queue') %]"
             method="post">
