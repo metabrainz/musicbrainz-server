@@ -34,7 +34,29 @@ sub apply_rate_limit
     my ($self, $c, $key) = @_;
     $key ||= "ws ip=" . $c->request->address;
 
-    my $r = $c->model('RateLimiter')->check_rate_limit($key);
+    my $r;
+
+    $r = $c->model('RateLimiter')->check_rate_limit('ws ua=' . $c->req->user_agent);
+    if ($r && $r->is_over_limit) {
+        $c->response->status(HTTP_SERVICE_UNAVAILABLE);
+        $c->res->content_type("text/plain; charset=utf-8");
+        $c->res->headers->header(
+            'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
+        );
+        $c->res->body(
+            $c->stash->{serializer}->output_error(
+                "Your requests are being throttled by MusicBrainz because the ".
+                "application you are using has not identified itself.  Please ".
+                "update your application, and see ".
+                "http://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting for more".
+                "information."
+            )
+        );
+        $c->detach;
+    }
+
+
+    $r = $c->model('RateLimiter')->check_rate_limit($key);
     if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->content_type("text/plain; charset=utf-8");
