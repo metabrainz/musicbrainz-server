@@ -256,6 +256,9 @@ MB.Control.Autocomplete = function (options) {
 
     self.searchAgain = function (toggle) {
         if (toggle) {
+            // Toggling should reset the page the user is on, because both
+            // searches return different results
+            self.current_page = 1;
             self.indexed_search = ! self.indexed_search;
         }
 
