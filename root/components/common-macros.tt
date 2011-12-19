@@ -111,11 +111,11 @@ END -%]
 
 [%- MACRO expanded_artist_credit(ac) BLOCK -%]
   [% artist_credit(ac) %]
-  [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 %]
+  [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment %]
   <ul>
     [% FOR name=ac.names %]
       <li>
-      [% IF name.artist.name != name.name %]
+      [% IF name.artist.name != name.name || name.artist.comment %]
         [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
       [% ELSE %]
         [% descriptive_link(name.artist) %]
