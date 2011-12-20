@@ -43,7 +43,7 @@ sub apply_rate_limit
                 "Your requests are being throttled by MusicBrainz because the ".
                 "application you are using has not identified itself.  Please ".
                 "update your application, and see ".
-                "http://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting for more".
+                "http://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting for more ".
                 "information."
             )
         );
