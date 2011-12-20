@@ -30,9 +30,8 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
 
     if (!self.$row)
     {
-        self.$catno_message = $('div.catno-container:first').clone ();
-        self.$catno_message.insertAfter ($('div.catno-container:last'));
-        self.$catno_message.hide ();
+        $('div.catno-container:first').clone ().hide ()
+            .insertAfter ($('div.catno-container:last'));
 
         self.$row = $('div.release-label:first').clone ();
         self.$label = self.$row.find ('span.label.autocomplete');
@@ -74,24 +73,53 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         return self.$deleted.val () === '1';
     };
 
-    self.catnoUpdate = function () {
+    self.docBubbleUpdate = function () {
+        var show_bubble = false;
 
         if (self.$catno.val ().match (/^B00[0-9A-Z]{7}$/))
         {
-            self.$catno.data ('bubble').show ();
+            show_bubble = true;
+            self.$doc_bubble.find ('.catno.bubble').show ();
         }
         else
         {
-            self.$catno.data ('bubble').hide ();
+            self.$doc_bubble.find ('.catno.bubble').hide ();
         }
+
+        var gid = self.$label.find ('input.gid').val ();
+        if (gid)
+        {
+            show_bubble = true;
+            self.$doc_bubble.find ('.label.bubble').show ();
+            self.$doc_bubble.find ('a.label').attr ('href', '/label/' + gid)
+                .attr ('title', self.$label.find ('input.sortname').val ())
+                .text (self.$label.find ('input.name').val ());
+
+            var disambig = self.$label.find ('input.comment').val ();
+            if (disambig)
+            {
+                self.$doc_bubble.find ('span.label.comment').text (' (' + disambig + ')').show ();
+            }
+            else
+            {
+                self.$doc_bubble.find ('span.label.comment').text ("").hide ();
+            }
+        }
+        else
+        {
+            self.$doc_bubble.find ('.label.bubble').hide ();
+        }
+
+        self.bubble.toggle (show_bubble);
     };
 
     self.$label = self.$row.find ('span.label.autocomplete');
     self.$catno = self.$row.find('input.catno');
-    self.$catno_message = $('div.catno').eq(self.labelno);
+    self.$doc_bubble = $('div.catno-container div.bubble').eq(self.labelno);
     self.$deleted = self.$row.find ('span.remove-label input');
 
-    self.$catno.bind ('change keyup focus', self.catnoUpdate);
+    self.$label.find ('input.name').bind ('focus.mb', self.docBubbleUpdate);
+    self.$catno.bind ('change.mb keyup.mb focus.mb', self.docBubbleUpdate);
     MB.Control.EntityAutocomplete ({ inputs: self.$label, allow_empty: true });
 
     self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
@@ -102,6 +130,9 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
         // after page load.
         self.markDeleted ();
     }
+
+    self.bubble = MB.Control.BubbleDocBase (
+        self.parent.bubbles, self.$catno.closest ('div.release-label'), self.$doc_bubble);
 
     return self;
 };
@@ -385,8 +416,6 @@ MB.Control.ReleaseInformation = function(action) {
         var l = MB.Control.ReleaseLabel($row, self, labelno);
 
         self.labels.push (l);
-
-        MB.Control.BubbleDocBase (self.bubbles, l.$catno, l.$catno_message);
 
         return l;
     };

@@ -63,7 +63,11 @@
           [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
           <span class="label autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-            <input type="hidden" class="gid" />
+            [% label_id = field.field('label_id').value %]
+            [% label = labels_by_id.$label_id %]
+            <input type="hidden" class="gid" value="[% label.gid | html %]" />
+            <input type="hidden" class="comment" value="[% label.comment | html %]" />
+            <input type="hidden" class="sortname" value="[% label.sort_name | html %]" />
             [%- r.hidden(field.field('label_id'), class => 'id') -%]
             [%- r.text(field.field('name'), class => 'name') -%]
           </span>
@@ -123,11 +127,14 @@
 
     [% FOR field=form.field('labels').fields %]
     <div class="catno-container" style="display: none">
-      <div class="catno bubble">
-        <p>
+      <div class="bubble">
+        <p class="label bubble">
+          [% l('You selected {label}.', label => '<a class="label" href="" title=""></a><span class="label comment"></span>') %]
+        </p>
+        <p class="catno bubble">
           [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
         </p>
-        <p>
+        <p class="catno bubble">
           [% l('If this is an Amazon ASIN, please do not enter it in the catalog number field, but add it as a URL relationship later.') %]
         </p>
       </div>
