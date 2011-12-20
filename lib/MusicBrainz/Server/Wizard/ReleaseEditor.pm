@@ -573,7 +573,12 @@ sub prepare_information
         map { $_->{label_id} }
         @{ $self->get_value ("information", "labels") // [] });
 
-    $self->c->stash(labels_by_id => $labels);
+    my $rg_id = $self->get_value ("information", "release_group_id");
+
+    $self->c->stash(
+        labels_by_id => $labels,
+        release_group => $rg_id ? $self->c->model('ReleaseGroup')->get_by_id($rg_id) : undef
+        );
 }
 
 sub prepare_tracklist

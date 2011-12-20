@@ -28,7 +28,8 @@
         <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
         <span class="release-group autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-          <input type="hidden" class="gid" />
+          <input type="hidden" class="gid" value="[% release_group.gid | html %]" />
+          <input type="hidden" class="comment" value="[% release_group.comment | html %]" />
           [% r.hidden ('release_group_id', class => 'id') %]
           [% r.text(rg_field, class => 'name') %]
         </span>
@@ -113,6 +114,14 @@
 
     [%- guesscase_bubble() -%]
     [%- artist_credit_table(form) -%]
+
+    <div class="release-group-container" style="display: none">
+      <div class="release-group bubble">
+        <p>
+          [% l('You selected {releasegroup}.', releasegroup => '<a class="release-group" href="" title=""></a><span class="release-group comment"></span>') %]
+        </p>
+      </div>
+    </div>
 
     <div class="date-container" style="display: none">
       <div class="date bubble">

@@ -18,6 +18,67 @@
 
 */
 
+
+MB.Control.ReleaseGroup = function (action, parent) {
+    var self = MB.Object();
+
+    self.parent = parent;
+    self.$span = $('span.release-group.autocomplete');
+    self.$name = self.$span.find ('input.name');
+    self.$type = $('#id-type_id');
+
+    MB.Control.EntityAutocomplete ({
+        inputs: $('span.release-group.autocomplete'),
+        allow_empty: (action !== 'edit')
+    });
+
+    self.$name.bind ('lookup-performed', function (event) {
+        var data = self.$name.data ('lookup-result');
+
+        self.$type.find ('option').removeAttr ('selected');
+        var $select_option = data.type ?
+            self.$type.find ('option[value='+data.type+']') :
+            self.$type.find ('option:eq(0)');
+
+        $select_option.attr ('selected', 'selected');
+        self.$type.attr ('disabled', 'disabled');
+    });
+
+    self.$name.bind ('cleared.mb', function (event) {
+        self.$type.removeAttr ('disabled');
+    });
+
+    self.$name.bind ('focus.mb', function (event) {
+        var gid = self.$span.find ('input.gid').val ();
+        if (gid)
+        {
+            self.bubble.show ();
+            self.bubble.$content.find ('a.release-group')
+                .attr ('href', '/release-group/' + gid)
+                .text (self.$span.find ('input.name').val ());
+
+            var disambig = self.$span.find ('input.comment').val ();
+            if (disambig)
+            {
+                self.bubble.$content.find ('span.release-group.comment').text (' (' + disambig + ')').show ();
+            }
+            else
+            {
+                self.bubble.$content.find ('span.release-group.comment').text ("").hide ();
+            }
+        }
+        else
+        {
+            self.bubble.hide ();
+        }
+    });
+
+    self.bubble = self.parent.bubbles.add (self.$span, $('div.release-group.bubble'));
+
+    return self;
+};
+
+
 /**
  * MB.Control.ReleaseLabel keeps track of the label/catno inputs.
  */
@@ -379,36 +440,6 @@ MB.Control.ReleaseInformation = function(action) {
         self.artistcredit = MB.Control.ArtistCreditVertical (
             $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
         );
-
-        self.initializeReleaseGroupLookups ();
-    };
-
-    self.initializeReleaseGroupLookups = function () {
-
-        var $name = $('span.release-group.autocomplete input.name');
-        var $type = $('#id-type_id');
-
-        MB.Control.EntityAutocomplete ({
-            inputs: $('span.release-group.autocomplete'),
-            allow_empty: (action !== 'edit')
-        });
-
-        $name.bind ('lookup-performed', function (event) {
-            var data = $name.data ('lookup-result');
-
-            $type.find ('option').removeAttr ('selected');
-            var $select_option = data.type ?
-                $type.find ('option[value='+data.type+']') :
-                $type.find ('option:eq(0)');
-
-            $select_option.attr ('selected', 'selected');
-            $type.attr ('disabled', 'disabled');
-        });
-
-        $name.bind ('cleared', function (event) {
-            $type.removeAttr ('disabled');
-        });
-
     };
 
     self.addLabel = function ($row) {
@@ -425,6 +456,7 @@ MB.Control.ReleaseInformation = function(action) {
         $('input:disabled').removeAttr ('disabled');
     };
 
+    self.release_group = MB.Control.ReleaseGroup (action, self);
     self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
 
