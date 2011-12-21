@@ -118,8 +118,10 @@ after 'BUILD' => sub {
 
     if (defined $self->init_object)
     {
-        $self->field ('no_barcode')->value ($self->init_object->barcode eq '')
-            if defined $self->init_object->barcode;
+        $self->field ('barcode')->value ($self->init_object->barcode->code);
+
+        $self->field ('no_barcode')->value ($self->init_object->barcode->code eq '')
+            if defined $self->init_object->barcode->code;
 
         if (defined $self->init_object->release_group)
         {
