@@ -57,6 +57,12 @@ has 'barcode' => (
     isa => 'Str'
 );
 
+sub barcode_formatted {
+    my ($self) = @_;
+    return 'none' if $self->barcode and $self->barcode == 0;
+    return $self->barcode;
+}
+
 has 'comment' => (
     is => 'rw',
     isa => 'Str'

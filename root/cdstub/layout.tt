@@ -13,8 +13,8 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Modify count:')
                content=cdstubtoc.cdstub.modify_count -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:')
-               content=cdstubtoc.cdstub.barcode
-                   IF cdstubtoc.cdstub.barcode -%]
+               content=cdstubtoc.cdstub.barcode_formatted
+                   IF cdstubtoc.cdstub.barcode_formatted -%]
         [% END %]
 
         <ul class="links">

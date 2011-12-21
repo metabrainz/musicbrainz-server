@@ -77,6 +77,12 @@ sub barcode_type {
     return 'EAN' if length($self->barcode) == 13;
 }
 
+sub barcode_formatted {
+    my ($self) = @_;
+    return 'none' if $self->barcode and $self->barcode == 0;
+    return $self->barcode;
+}
+
 has 'country_id' => (
     is => 'rw',
     isa => 'Int'

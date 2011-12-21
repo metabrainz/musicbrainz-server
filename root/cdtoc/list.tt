@@ -48,7 +48,7 @@
                 catnos.push(label.catalog_number) FOR label=release.labels;
                 catnos.join(', ')
             -%]</td>
-            <td>[% release.barcode %]</td>
+            <td>[% release.barcode_formatted %]</td>
             [% IF c.session.tport %]
             <td>
               [% tagger_icon(release) %]
