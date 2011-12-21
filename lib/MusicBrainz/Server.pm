@@ -266,6 +266,7 @@ around 'dispatch' => sub {
                 $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
                                        $c->req->uri,
                                        $max_request_time));
+                $c->log->error(Devel::StackTrace->new->as_string);
                 $c->log->_flush;
                 exit(42)
             }));
