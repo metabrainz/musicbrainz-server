@@ -41,6 +41,15 @@ two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
 END; -%]
+
+[%- MACRO display_barcode (no_barcode, barcode) BLOCK;
+    IF no_barcode;
+        l('This release does not have a barcode');
+    ELSE;
+        html_escape(barcode);
+    END;
+END; -%]
+
 [%- MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });

@@ -36,6 +36,15 @@ augment 'create_edits' => sub
                      artist_credit );
     my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
 
+    if ($data->{no_barcode})
+    {
+        $args{barcode} =  '';
+    }
+    else
+    {
+        $args{barcode} = undef unless $data->{barcode};
+    }
+
     $args{'to_edit'} = $self->release;
     $self->c->stash->{changes} = 0;
 

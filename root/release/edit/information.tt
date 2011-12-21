@@ -91,6 +91,7 @@
       </div>
 
       [% form_row_text (r, 'barcode', l('Barcode:')) %]
+      [% form_row_checkbox (r, 'no_barcode', l('This release does not have a barcode')) %]
     </fieldset>
 
     <fieldset class="information">
@@ -147,6 +148,9 @@
               [% l("I confirm that this is the barcode as it appears on the release.") -%]
             </strong>
           </label>
+       </p>
+       <p>
+         [% l('If you do not know whether the release has a barcode or not, just leave this blank.') %]
        </p>
       </div>
     </div>

@@ -33,6 +33,7 @@ has_field 'labels.name'      => ( type => 'Text' );
 
 has_field 'barcode'          => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
 has_field 'barcode_confirm'  => ( type => 'Checkbox'  );
+has_field 'no_barcode'       => ( type => 'Checkbox'  ); # release doesn't have a barcode.
 
 # Additional information
 has_field 'annotation'       => ( type => 'TextArea'  );
@@ -117,6 +118,9 @@ after 'BUILD' => sub {
 
     if (defined $self->init_object)
     {
+        $self->field ('no_barcode')->value ($self->init_object->barcode eq '')
+            if defined $self->init_object->barcode;
+
         if (defined $self->init_object->release_group)
         {
             $self->field ('type_id')->value ($self->init_object->release_group->type->id)
