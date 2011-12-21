@@ -3,6 +3,7 @@ use Carp;
 use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CREATE );
 use MusicBrainz::Server::Edit::Types qw( 
     ArtistCreditDefinition
@@ -99,7 +100,7 @@ sub build_display_data
                            $loaded->{Script}{ $script },
         language      => defined($lang) &&
                            $loaded->{Language}{ $lang },
-        barcode       => $self->data->{barcode} || '',
+        barcode       => Barcode->new ($self->data->{barcode}),
         release_group => (defined($self->data->{release_group_id}) &&
                            $loaded->{ReleaseGroup}{ $self->data->{release_group_id} }) ||
                                ReleaseGroup->new( name => '[removed]' ),

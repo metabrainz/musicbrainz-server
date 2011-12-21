@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
+    barcode_from_row
     generate_gid
     hash_to_row
     load_subobjects
@@ -69,7 +70,7 @@ sub _column_mapping
         date => sub { partial_date_from_row(shift, shift() . 'date_') },
         edits_pending => 'edits_pending',
         comment => 'comment',
-        barcode => 'barcode',
+        barcode => sub { barcode_from_row (shift, shift) },
         script_id => 'script',
         language_id => 'language',
         quality => sub {
