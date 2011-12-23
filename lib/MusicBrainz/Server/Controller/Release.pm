@@ -167,8 +167,9 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
-    $c->model('Relationship')->load(@recordings);
     $c->model('Relationship')->load(
+        @recordings,
+        $release,
         grep { $_->isa(Work) } map { $_->target }
             map { $_->all_relationships } @recordings);
 

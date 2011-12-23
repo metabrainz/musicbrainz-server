@@ -68,6 +68,12 @@ sub _fix_html_markup
         $node->attr('src', $src) if ($src =~ s,/-/images,http://$wiki_server/-/images,);
     }
 
+    for my $node ($tree->findnodes ('//table')->get_nodelist)
+    {
+        my $class = $node->attr('class') || "";
+	$node->attr('class', 'wikitable ' . $class);
+    }
+
     $content = $tree->as_HTML;
 
     # Obfuscate email addresses
