@@ -31,7 +31,7 @@ sub apply_rate_limit
 
     my $r;
 
-    $r = $c->model('RateLimiter')->check_rate_limit('ws ua=' . $c->req->user_agent);
+    $r = $c->model('RateLimiter')->check_rate_limit('ws ua=' . ($c->req->user_agent || ''));
     if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->headers->header(
