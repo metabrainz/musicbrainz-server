@@ -1,5 +1,5 @@
 [%- WRAPPER 'collection/layout.tt' title=l('Remove') page='delete' full_width=1 -%]
-    <h2>[% l('Remove Collection') %]</h2>
+    <h2>[% l('Remove collection') %]</h2>
     <p>
             [%- l('Are you sure you want to remove the collection {collection}?', { collection => link_collection(collection) }) -%]
     </p>
