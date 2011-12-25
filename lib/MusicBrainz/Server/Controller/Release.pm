@@ -10,6 +10,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
+with 'MusicBrainz::Server::Controller::Role::Collection';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
@@ -88,7 +89,7 @@ after 'load' => sub
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show details discids tags relationships )] => sub {
+after [qw( show collections details discids tags relationships )] => sub {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
@@ -104,9 +105,23 @@ after [qw( show details discids tags relationships )] => sub {
         }
     }
 
+    my @all_collections = $c->model('Collection')->find_all_by_release($release->id);
+    my @public_collections;
+    my $private_collections;
+
+    foreach my $collection (@all_collections) {
+        push (@public_collections, $collection)
+            if ($collection->{'public'} == 1);
+        $private_collections++
+            if ($collection->{'public'} == 0);
+    }
+
     $c->stash(
         collections => \@collections,
         containment => \%containment,
+        all_collections => \@all_collections,
+        public_collections => \@public_collections,
+        private_collections => $private_collections,
     );
 };
 

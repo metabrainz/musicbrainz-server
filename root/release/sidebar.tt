@@ -134,6 +134,8 @@
             <li>[% l("You have no collections!") %]</li>
         [% END %]
             <li><a href="[% c.uri_for_action("/collection/create") %]">[% l('Create a new collection') %]</a></li>
+            <li>[% link_release(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
+                                                            all_collections.size, { num => all_collections.size }) ) %]</li>
         </ul>
     [% END %]
 
