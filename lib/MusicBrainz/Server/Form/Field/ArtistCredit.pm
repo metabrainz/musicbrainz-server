@@ -94,6 +94,15 @@ around 'value' => sub {
     {
         $ret->{names}->[$i]->{name} = $ret->{names}->[$i]->{artist}->{name}
             if !$ret->{names}->[$i]->{name};
+
+        if ($self->result->input)
+        {
+            # HTML::FormHandler incorrectly trims the join phrase if
+            # it is a single space, work around this by taking the
+            # join phrase directly from the input here.
+            my $join = $self->result->input->{names}->[$i]->{join_phrase};
+            $ret->{names}->[$i]->{join_phrase} = $join if $join;
+        }
     }
 
     return $ret;
