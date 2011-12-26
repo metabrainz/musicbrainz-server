@@ -367,12 +367,17 @@ sub tag : Chained('load') PathPart('tag') Args(1)
 
     if ($tag) {
         $c->stash(
-            tag => $tag,
+            tag_name => $tag_name,
             map {
                 $_ => [ $c->model(type_to_model($_))
                     ->tags->find_editor_entities($user->id, $tag->id)
                 ]
             } qw( artist label recording release release_group work )
+        );
+    } else {
+        $c->stash(
+            tag_name => $tag_name,
+            map { $_ => [ ] } qw ( artist label recording release release_group work )
         );
     }
 }

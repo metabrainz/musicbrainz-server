@@ -1,5 +1,6 @@
 [% WRAPPER 'user/profile/layout.tt' page='tags' %]
 
+[% section_count = 0 %]
 [% FOR section=[
     [l('Artists'), artist],
     [l('Release Groups'), release_group],
@@ -15,7 +16,14 @@
             <li>[% link_entity(entity) %]</li>
             [% END %]
         </ul>
+    [% ELSE %]
+        [% section_count = section_count + 1 %]
     [% END %]
+[% END %]
+
+[% IF section_count == 6 %]
+    <p>[% l("{user} has not tagged anything with '{tag}'.",
+             { user => user.name, tag => tag_name }) %]</p>
 [% END %]
 
 [% END %]
