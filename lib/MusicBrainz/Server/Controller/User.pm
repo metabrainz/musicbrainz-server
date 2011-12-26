@@ -359,7 +359,7 @@ sub tags : Chained('load') PathPart('tags')
     );
 }
 
-sub tag : Chained('load') PathPart('tags') Args(1)
+sub tag : Chained('load') PathPart('tag') Args(1)
 {
     my ($self, $c, $tag_name) = @_;
     my $user = $c->stash->{user};
