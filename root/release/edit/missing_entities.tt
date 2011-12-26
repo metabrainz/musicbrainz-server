@@ -21,7 +21,7 @@
         <a href="#copy">[% l('Copy Name') %]</a>
       </div>
       [% END %]
-      [% form_row_text_long(r, field_container.field('comment'), l('Comment:')) %]
+      [% form_row_text_long(r, field_container.field('comment'), l('Disambiguation:')) %]
       [% r.hidden(field_container.field('for'), class => 'for') %]
   </div>
 [%- END -%]
