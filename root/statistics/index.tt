@@ -110,7 +110,7 @@
 </tbody>
 </table>
 
-<h2>[% l('Artist Types and Genders') %]</h2>
+<h2>[% l('Artists') %]</h2>
 <table class="database-statistics">
 <tr>
     <th colspan=2>[% l('Artists:') %]</th>
@@ -142,9 +142,21 @@
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.null', 'count.artist')) }) %]</td>
 </tr>
 <tr>
+    <th></th>
+    <th>[% l('with appearances in artist credits:') %]</th>
+    <td>[% add_commas(stats.statistic('count.artist.has_credits')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.has_credits', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th>[% l('with no appearances in artist credits:') %]</th>
+    <td>[% add_commas(stats.statistic('count.artist.0credits')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.0credits', 'count.artist')) }) %]</td>
+</tr>
+<tr>
     <th colspan=2>[% l('Non-group artists:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.type.null') + stats.statistic('count.artist.type.person') + stats.statistic('count.artist.type.other')) %]</td>
-<td></td>
+    <td></td>
 </tr>
 <tr>
     <th></th>

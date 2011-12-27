@@ -107,6 +107,9 @@
             "count.artist.type.other": { Label: '[% l('Other-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type unset') %]', Category: 'artist-other' },
 
+            "count.artist.has_credits": { Label: '[% l('Artists in ACs') %]', Color: '#ff0000', Description: '[% l('Artists with at least one artist credit appearance') %]', Category: 'artist-other' },
+            "count.artist.0credits": { Label: '[% l('Artists not in ACs') %]', Color: '#ff0000', Description: '[% l('Artists with no appearances in artist credits') %]', Category: 'artist-other' },
+
             "count.artistcredit": { Label: '[% l('Artist Credits') %]', Color: '#ff0000', Description: '[% l('Count of all Artist Credits') %]', Category: 'other'},
             "count.barcode": { Label: '[% l('Barcodes') %]', Color: '#ff0000', Description: '[% l('Count of all Barcodes') %]', Category: 'other'},
             "count.track": { Label: '[% l('Tracks') %]', Color: '#ff0000', Description: '[% l('Count of all Tracks') %]', Category: 'other'},

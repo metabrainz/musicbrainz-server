@@ -135,6 +135,14 @@ my %stats = (
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
+    "count.artist.has_credits" => {
+        DESC => "Artists in at least one artist credit",
+	SQL => "SELECT COUNT(DISTINCT artist) FROM artist_credit_name",
+    },
+    "count.artist.0credits" => {
+        DESC => "Artists in no artist credits",
+	SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
+    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
