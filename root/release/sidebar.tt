@@ -33,8 +33,8 @@
            content=release.language.name IF release.language.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Script:')
            content=release.script.name IF release.script.name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Quality:')
-           content=make_ucfirst(quality_name(release.quality)) IF release.quality != -1;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:')
+           content=quality_name(release.quality) IF release.quality != -1;
     END %]
 
     [% IF release.labels.size %]
