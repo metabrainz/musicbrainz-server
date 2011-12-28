@@ -130,6 +130,16 @@
      </p>
   </div>
 
+  [% FOR form_error=form.form_errors %]
+  <div class="various-artists warning">
+     [%- warning_icon %]
+     <p>
+       [% l('<strong>Error</strong>:') %]
+       [% form_error %]
+     </p>
+  </div>
+  [% END %]
+
   <div class="track-parser-dialog dialog" style="display: none">
     [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
     <h1>Track Parser</h1>

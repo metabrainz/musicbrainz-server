@@ -219,7 +219,7 @@ sub validate {
 
     # FIXME: is there a way to set an error on the entire form,
     # instead of specific to a field?
-    $self->field('mediums')->fields->[0]->add_error (l('A medium is required'))
+    $self->add_form_error (l('A release must have at least one medium.'))
         unless $medium_count;
 };
 
