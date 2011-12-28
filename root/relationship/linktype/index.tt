@@ -3,7 +3,7 @@
         <h1>[% l("Relationship Types") %]</h1>
 
         <p class="buttons">
-            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
         </p>
 
         <table border="1">
@@ -20,7 +20,7 @@
                 [% FOR column IN row %]
                     <td>
                     [% IF column %]
-                        <a href="[% c.uri_for_action("/admin/linktype/tree", [ column ]) %]">[% column %]</a>
+                        <a href="[% c.uri_for_action("/relationship/linktype/tree", [ column ]) %]">[% column %]</a>
                     [% END %]
                     </td>
                 [% END %]

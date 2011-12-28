@@ -1,15 +1,15 @@
-[% PROCESS 'admin/linkattributetype/common.tt' %]
+[% PROCESS 'relationship/linkattributetype/common.tt' %]
 
 [% WRAPPER "layout.tt" title=l("Instrument Tree") full_width=1 %]
     <div id="content">
         <h1>[% l("Instrument Tree") %]</h1>
 
         <p class="buttons">
-            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('All Relationship Attributes') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('All Relationship Attributes') %]</a>
             [%- IF c.user.is_relationship_editor -%]
-            <a href="[% c.uri_for_action('/admin/linkattributetype/create') %]">[% l('New Relationship Attribute') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/create') %]">[% l('New Relationship Attribute') %]</a>
             [%- END -%]
-            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Relationship Types') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
         </p>
 
         <br/>

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::Admin::LinkAttributeType;
+package MusicBrainz::Server::Controller::Relationship::LinkAttributeType;
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
@@ -29,14 +29,14 @@ sub _load_link_attr_type
     return $link_attr_type;
 }
 
-sub index : Path Args(0)
+sub index : Path('/relationships/attributes') Args(0)
 {
     my ($self, $c) = @_;
 
     $self->_load_tree($c);
 }
 
-sub instruments : Path('/admin/linkattributetype/instruments')
+sub instruments : Path('/relationships/attributes/instruments')
 {
     my ($self, $c) = @_;
 
@@ -51,7 +51,7 @@ sub instruments : Path('/admin/linkattributetype/instruments')
     $c->stash( root => $instruments );
 }
 
-sub create : Local Args(0) RequireAuth(relationship_editor)
+sub create : Path('/relationships/attributes/create') Args(0) RequireAuth(relationship_editor)
 {
     my ($self, $c) = @_;
 
@@ -64,13 +64,13 @@ sub create : Local Args(0) RequireAuth(relationship_editor)
             map { $_->name => $_->value } $form->edit_fields
         );
 
-        my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'created' });
+        my $url = $c->uri_for_action('relationship/linkattributetype/index', { msg => 'created' });
         $c->response->redirect($url);
         $c->detach;
     }
 }
 
-sub edit : Local Args(1) RequireAuth(relationship_editor)
+sub edit : Path('/relationships/attributes/edit') Args(1) RequireAuth(relationship_editor)
 {
     my ($self, $c, $gid) = @_;
 
@@ -92,13 +92,13 @@ sub edit : Local Args(1) RequireAuth(relationship_editor)
             }
         );
 
-        my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'updated' });
+        my $url = $c->uri_for_action('/relationship/linkattributetype/index', { msg => 'updated' });
         $c->response->redirect($url);
         $c->detach;
     }
 }
 
-sub delete : Local Args(1) RequireAuth(relationship_editor)
+sub delete : Path('/relationships/attributes/delete') Args(1) RequireAuth(relationship_editor)
 {
     my ($self, $c, $gid) = @_;
 
@@ -120,7 +120,7 @@ sub delete : Local Args(1) RequireAuth(relationship_editor)
             id => $link_attr_type->id
         );
 
-        my $url = $c->uri_for_action('/admin/linkattributetype/index', { msg => 'deleted' });
+        my $url = $c->uri_for_action('/relationship/linkattributetype/index', { msg => 'deleted' });
         $c->response->redirect($url);
         $c->detach;
     }
@@ -131,6 +131,7 @@ sub delete : Local Args(1) RequireAuth(relationship_editor)
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

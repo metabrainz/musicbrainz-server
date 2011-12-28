@@ -21,8 +21,8 @@
             ([% obj.child_order %])
 
             [
-            <a href="[% c.uri_for_action('/admin/linkattributetype/edit', obj.gid) %]">[% l('Edit') %]</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.gid) %]">[% l('Remove') %]</a>[% END %]
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/edit', obj.gid) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linkattributetype/delete', obj.gid) %]">[% l('Remove') %]</a>[% END %]
             ]
         [%- ELSE -%]
             [%- IF obj.description && obj.description != obj.name -%]

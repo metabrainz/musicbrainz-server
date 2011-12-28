@@ -15,8 +15,8 @@
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [%- IF c.user.is_relationship_editor -%]
         [
-            <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.gid) %]">[% l('Edit') %]</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.gid) %]">[% l('Remove') %]</a>[% END %]
+            <a href="[% c.uri_for_action('/relationship/linktype/edit', [ types ], obj.gid) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ types ], obj.gid) %]">[% l('Remove') %]</a>[% END %]
         ]
         [% END %]
         </div>
@@ -36,13 +36,13 @@
         <h1>[% l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
 
         <p class="buttons">
-            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Relationship Types') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('All Relationship Types') %]</a>
             [%- IF c.user.is_relationship_editor -%]
-            <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Relationship Type') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linktype/create', [ types ]) %]">[% l('New Relationship Type') %]</a>
             [%- END -%]
             <a id="showAll">[% l('Expand All') %]</a>
             <a id="hideAll" style="display:none">[% l('Collapse All') %]</a>
-            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
         </p>
 
         <ul>

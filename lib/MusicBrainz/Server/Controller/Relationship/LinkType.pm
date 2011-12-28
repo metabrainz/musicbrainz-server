@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::Admin::LinkType;
+package MusicBrainz::Server::Controller::Relationship::LinkType;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
@@ -12,7 +12,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE
 );
 
-sub index : Path Args(0)
+sub index : Path('/relationships') Args(0)
 {
     my ($self, $c) = @_;
 
@@ -32,7 +32,7 @@ sub index : Path Args(0)
     );
 }
 
-sub tree_setup : Chained PathPart('admin/linktype') CaptureArgs(1)
+sub tree_setup : Chained PathPart('relationships') CaptureArgs(1)
 {
     my ($self, $c, $types) = @_;
 
@@ -96,7 +96,7 @@ sub create : Chained('tree_setup') RequireAuth(relationship_editor)
         );
 
         my $url = $c->uri_for_action(
-            '/admin/linktype/tree',
+            '/relationship/linktype/tree',
             [ $c->stash->{types} ],
             { msg => 'created' }
         );
@@ -148,7 +148,7 @@ sub edit : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
             link_id => $link_type->id
         );
 
-        my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
+        my $url = $c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
         $c->response->redirect($url);
         $c->detach;
     }
@@ -164,7 +164,7 @@ sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
     }
 
     if ($c->model('LinkType')->in_use($link_type->id)) {
-        $c->stash( template => 'admin/linktype/in_use.tt' );
+        $c->stash( template => 'relationship/linktype/in_use.tt' );
         $c->detach;
     }
 
@@ -191,7 +191,7 @@ sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
             ]
         );
 
-        my $url = $c->uri_for_action('/admin/linktype/tree', [ $c->stash->{types} ], { msg => 'deleted' });
+        my $url = $c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ], { msg => 'deleted' });
         $c->response->redirect($url);
         $c->detach;
     }
@@ -202,6 +202,7 @@ sub delete : Chained('tree_setup') Args(1) RequireAuth(relationship_editor)
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
