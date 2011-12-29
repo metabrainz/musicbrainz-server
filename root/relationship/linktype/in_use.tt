@@ -1,4 +1,7 @@
-[% WRAPPER 'layout.tt' full_width=1 title=l('Relationship Type In Use') %]
-   <h1>[% l('Relationship Type In Use') %]</h1>
-   <p>[% l('This relationship type is still being used by some relationships.') %]</p>
+[% WRAPPER 'layout.tt' title=l('Relationship Type In Use') full_width=1 %]
+    <div class="content">
+        <h1>[% l('Relationship Type In Use') %]</h1>
+        <p>[% l('The relationship type "{type}" can not be deleted because it is is still in use.',
+                { type => link_type.name }) %]</p>
+    </div>
 [% END %]

@@ -55,7 +55,7 @@
                             <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
                         </li>
                         <li>
-                            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Edit Relationship Attributes') %]</a>
+                            <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Edit Instrument Tree') %]</a>
                         </li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]
@@ -219,9 +219,6 @@
             </li>
             <li>
                 <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
-            </li>
-            <li>
-                <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
             </li>
             <li>
                 <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a>

@@ -1,0 +1,28 @@
+<div id="sidebar">
+    <h2>[% l('Navigation') %]</h2>
+    <ul class="links">
+        <li>
+            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
+        </li>
+        <li>
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
+        </li>
+        <li>
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a>
+        </li>
+    </ul>
+
+    [%- IF c.user.is_relationship_editor -%]
+        [% IF linkattributetype %]
+            <h2>[% l('Editing') %]</h2>
+            <ul class="links">
+                <li><a href="[% c.uri_for_action('/relationship/linkattributetype/create') %]">[% l('Create New Attribute') %]</a></li>
+            </ul>
+        [% ELSIF linktype %]
+            <h2>[% l('Editing') %]</h2>
+            <ul class="links">
+                <li><a href="[% c.uri_for_action('/relationship/linktype/create', [ types ]) %]">[% l('Create Relationship Type') %]</a></li>
+            </ul>
+        [% END %]
+    [%- END -%]
+</div>

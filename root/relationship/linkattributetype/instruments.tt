@@ -1,34 +1,31 @@
 [% PROCESS 'relationship/linkattributetype/common.tt' %]
 
-[% WRAPPER "layout.tt" title=l("Instrument Tree") full_width=1 %]
+[% WRAPPER "layout.tt" title=l("Instrument Tree") %]
+    [% INCLUDE 'relationship/sidebar.tt' linkattributetype=1 %]
     <div id="content">
         <h1>[% l("Instrument Tree") %]</h1>
 
-        <p class="buttons">
-            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('All Relationship Attributes') %]</a>
-            [%- IF c.user.is_relationship_editor -%]
-            <a href="[% c.uri_for_action('/relationship/linkattributetype/create') %]">[% l('New Relationship Attribute') %]</a>
-            [%- END -%]
-            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
-        </p>
+        [% IF root.children.size %]
+            <p><span style="font-weight: bold">[% l('Jump to:') %]</span><p>
 
-        <br/>
-        <span style="font-weight: bold">[% l('Jump to:') %]</span>
-        <ol>
-        [% FOR obj IN root.children %]
-            <li><a href="#[% obj.name | replace('\s+', '_') %]">[% l(obj.name) FILTER ucfirst | html %]</a></li>
-        [% END %]
-        </ol>
+            <ol>
+            [% FOR obj IN root.children %]
+                <li><a href="#[% obj.name | replace('\s+', '_') %]">[% obj.name FILTER ucfirst | html %]</a></li>
+            [% END %]
+            </ol>
 
-        [% FOR obj IN root.children %]
-            <h2 id="[% obj.name | replace('\s+', '_') %]">[% l(obj.name) FILTER ucfirst | html %]</h2>
-            [% PROCESS attribute_details obj=obj toplevel=1 %]
+            [% FOR obj IN root.children %]
+                <h2 id="[% obj.name | replace('\s+', '_') %]">[% obj.name FILTER ucfirst | html %]</h2>
+                [% PROCESS attribute_details obj=obj toplevel=1 %]
 
-            <ul>
-                [% FOR child IN obj.children %]
-                [% PROCESS attribute_tree obj=child %]
-                [% END %]
-            </ul>
+                <ul>
+                    [% FOR child IN obj.children %]
+                    [% PROCESS attribute_tree obj=child %]
+                    [% END %]
+                </ul>
+            [% END %]
+        [% ELSE %]
+            <p>[% l('No instruments found.') %]</p>
         [% END %]
     </div>
 [% END %]

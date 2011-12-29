@@ -31,18 +31,15 @@
     </li>
 [% END %]
 
-[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) full_width=1 %]
+[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) %]
+    [% INCLUDE 'relationship/sidebar.tt' linktype=1 %]
     <div id="content">
         <h1>[% l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
 
+        [% IF root.children.size %]
         <p class="buttons">
-            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('All Relationship Types') %]</a>
-            [%- IF c.user.is_relationship_editor -%]
-            <a href="[% c.uri_for_action('/relationship/linktype/create', [ types ]) %]">[% l('New Relationship Type') %]</a>
-            [%- END -%]
             <a id="showAll">[% l('Expand All') %]</a>
             <a id="hideAll" style="display:none">[% l('Collapse All') %]</a>
-            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
         </p>
 
         <ul>
@@ -50,5 +47,8 @@
                 [% PROCESS link_type obj=child %]
             [% END %]
         </ul>
+        [% ELSE %]
+            <p>[% l('No {type0}-{type1} relationship types found.', { type0 => type0_name, type1 => type1_name }) %]</p>
+        [% END %]
     </div>
 [% END %]

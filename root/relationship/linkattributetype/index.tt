@@ -1,34 +1,32 @@
 [% PROCESS 'relationship/linkattributetype/common.tt' %]
 
-[% WRAPPER "layout.tt" title=l("Relationship Attributes") full_width=1 %]
+[% WRAPPER "layout.tt" title=l("Relationship Attributes") %]
+    [% INCLUDE 'relationship/sidebar.tt' linkattributetype=1 %]
     <div id="content">
         <h1>[% l("Relationship Attributes") %]</h1>
 
-        <p class="buttons">
-            [%- IF c.user.is_relationship_editor -%]
-            <a href="[% c.uri_for_action('/relationship/linkattributetype/create') %]">[% l('New Relationship Attribute') %]</a>
-            [%- END -%]
-            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
-        </p>
+        [% IF root.children.size %]
+            [% FOR obj IN root.children %]
+                <h2 id="[% obj.name %]">[% obj.name FILTER ucfirst | html %]</h2>
+                [% PROCESS attribute_details obj=obj toplevel=1 %]
 
-        [% FOR obj IN root.children %]
-            <h2 id="[% obj.name %]">[% l(obj.name) FILTER ucfirst | html %]</h2>
-            [% PROCESS attribute_details obj=obj toplevel=1 %]
+                [%- IF obj.children.size -%]
+                <br/><br/>
+                [% l('Possible values:') %]
+                <ul>
+                [%- IF obj.name == 'instrument' -%]
+                    <li>[% l('See the {uri|full instrument tree}.', { uri => c.uri_for_action('/relationship/linkattributetype/instruments') }) %]</li>
+                [%- ELSE -%]
+                    [% FOR child IN obj.children %]
+                    [% PROCESS attribute_tree obj=child %]
+                    [% END %]
+                [%- END -%]
+                </ul>
 
-            [%- IF obj.children.size -%]
-            <br/><br/>
-            [% l('Possible values:') %]
-            <ul>
-            [%- IF obj.name == 'instrument' -%]
-                <li>[% l('See the {uri|full instrument tree}.', { uri => c.uri_for('/relationship/linkattributetype/instruments') }) %]</li>
-            [%- ELSE -%]
-                [% FOR child IN obj.children %]
-                [% PROCESS attribute_tree obj=child %]
-                [% END %]
-            [%- END -%]
-            </ul>
-
-            [%- END -%]
+                [%- END -%]
+            [% END %]
+        [% ELSE %]
+            <p>[% l('No relationship attributes found.') %]</p>
         [% END %]
     </div>
 [% END %]

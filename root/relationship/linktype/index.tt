@@ -1,10 +1,7 @@
-[% WRAPPER "layout.tt" title=l("Relationship Types") full_width=1 %]
+[% WRAPPER "layout.tt" title=l("Relationship Types") %]
+    [% INCLUDE 'relationship/sidebar.tt' %]
     <div id="content" class="wikicontent">
         <h1>[% l("Relationship Types") %]</h1>
-
-        <p class="buttons">
-            <a href="[% c.uri_for_action('/relationship/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
-        </p>
 
         <table border="1">
             <tr>
