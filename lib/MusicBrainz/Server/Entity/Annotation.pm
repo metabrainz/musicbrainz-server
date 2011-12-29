@@ -48,7 +48,7 @@ sub summary
 sub summary_is_short
 {
     my $self = shift;
-    return $self->summary ne $self->text;
+    return $self->summary && $self->text && $self->summary ne $self->text;
 }
 
 __PACKAGE__->meta->make_immutable;
