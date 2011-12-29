@@ -36,7 +36,7 @@ sub index : Path('/relationships/attributes') Args(0)
     $self->_load_tree($c);
 }
 
-sub instruments : Path('/relationships/attributes/instruments')
+sub instruments : Path('/relationships/instruments')
 {
     my ($self, $c) = @_;
 
