@@ -314,6 +314,19 @@ sub _handle_param_unicode_decoding {
     };
 }
 
+sub execute {
+    my $c = shift;
+    return do {
+        local $SIG{__WARN__} = sub {
+            my $warning = shift;
+            chomp $warning;
+            $c->log->warn($c->req->method . " " . $c->req->uri . " caused a warning: " . $warning);
+        };
+        $c->next::method(@_);
+    };
+}
+
+
 =head1 NAME
 
 MusicBrainz::Server - Catalyst-based MusicBrainz server
