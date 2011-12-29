@@ -24,6 +24,7 @@ sub show : Path('')
         return;
     }
 
+    # Create hierarchy via url, but prevent the current page from showing
     my @hierarchy_links = split('/',$id);
     @hierarchy_links = splice @hierarchy_links, 0, -1;
 
