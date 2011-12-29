@@ -58,6 +58,9 @@ MB.constants.LINK_TYPES = {
     coverart: {
         release: 78
     },
+    license: {
+        release: 301
+    },
     lyrics: {
         artist: 197,
         release_group: 93,
@@ -223,6 +226,17 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             return url.replace(/(www\.)?mange-disque\.tv\/(fstb\/tn_md_|fs\/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?/,
                 "www.mange-disque.tv/fs/md_$3.jpg");
+        }
+    },
+    license: {
+        match: new RegExp("^(https?://)?([^/]+\.)?(artlibre\.org/licence|creativecommons\.org/licenses/)", "i"),
+        type: MB.constants.LINK_TYPES.license,
+        clean: function(url) {
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, "http://creativecommons.org/");
+            url = url.replace(/^http:\/\/creativecommons\.org\/licenses\/(.+)\/((legalcode|deed)((\.|-)[a-z]+)?)?/, "http://creativecommons.org/licenses/$1/");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?artlibre\.org\//, "http://artlibre.org/");
+            url = url.replace(/^http:\/\/artlibre\.org\/licence\.php\/lal\.html/, "http://artlibre.org/licence/lal");
+            return url;
         }
     },
     lyrics: {
