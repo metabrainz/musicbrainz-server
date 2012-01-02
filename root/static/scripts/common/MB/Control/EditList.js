@@ -17,7 +17,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-var SELECTED_CLASS = {
+MB.constants.SELECTED_CLASS = {
     '1':  'vote-yes',
     '0':  'vote-no',
     '-1': 'vote-abs'
@@ -68,7 +68,7 @@ MB.Control.EditList = function(container) {
 $(function() {
     $('div.vote input[type="radio"]').change(function() {
         $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
-        $(this).parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
+        $(this).parent('.vote').addClass(MB.constants.SELECTED_CLASS[ $(this).val() ]);
     })
 
     $('div.vote input[checked="checked"]').change();
