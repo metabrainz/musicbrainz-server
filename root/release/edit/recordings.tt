@@ -344,7 +344,7 @@
             [% IF recording_track_differ %]
             <tr>
               <td colspan="3">
-                [% r.checkbox(assoc.field('update_recording')) %]
+                [% r.checkbox(assoc.field('update_recording'), { class => 'copy-to-recording' }) %]
                 [% l('Also update the recording with track changes') %]
               </td>
             </tr>
@@ -382,6 +382,12 @@
         <p>
           [% r.checkbox('infer_durations') %]
           [%- r.label('infer_durations', l('Infer track durations from associated recordings')) -%]
+        </p>
+        <p>
+          <input id="propogate-all-track-changes" type="checkbox" />
+          <label for="propogate-all-track-changes" >
+            [% l('Copy all track changes to associated recordings.') %]
+          </label>
         </p>
       </fieldset>
     </div>
