@@ -52,7 +52,8 @@ MB.Control.EditList = function(container) {
             $(this).click(function() {
                     $container.find('div.voteopts').each(function() {
                             $(this).find('input').eq(i)
-                                .attr('checked', 'checked');
+                                .attr('checked', 'checked')
+                                .change();
                         });
             });
         });
