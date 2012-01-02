@@ -24,7 +24,7 @@
         <h2>[% l('Votes') %]</h2>
         <table class="vote-tally">
             <tr class="noborder">
-                <th>[% l('Vote tally') %]</th>
+                <th>[% l('Vote tally:') %]</th>
                 <td class="vote">
                     [%- l('{yes} yes : {no} no',
                          { yes => '<strong>' _ edit.yes_votes _ '</strong>',
@@ -36,9 +36,11 @@
                     <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
                         <input type="hidden" value="[% c.req.uri %]" name="url" />
                         <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
-                        <th>[% l('My vote') %]</th>
+                        <th>[% l('My vote:') %]</th>
                         <td class="vote">
+                          <div class="voteopts">
                             [% INCLUDE 'edit/vote.tt' %]
+                          </div>
                         </td>
                     </form>
                 </tr>

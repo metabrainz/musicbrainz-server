@@ -58,16 +58,18 @@ MB.Control.EditList = function(container) {
             });
         });
 
-        $container.find('div.vote input[type="radio"]').change(function() {
-            $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
-            $(this).parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
-        });
-
-        $container.find('div.vote input[checked="checked"]').change();
-
         $container.before($voteOptions);
     }
 
     self.initialize()
     return self;
 };
+
+$(function() {
+    $('div.vote input[type="radio"]').change(function() {
+        $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
+        $(this).parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
+    })
+
+    $('div.vote input[checked="checked"]').change();
+});
