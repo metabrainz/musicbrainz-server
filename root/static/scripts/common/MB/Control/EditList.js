@@ -37,7 +37,7 @@ MB.Control.EditList = function(container) {
         });
         $voteOptions.find('input').each(function() {
             $(this).attr('id', $(this).attr('id').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
-            $(this).attr('name', null);
+            $(this).attr('name', 'vote-on-all');
         });
 
         $voteOptions.find(':input').attr('checked', false);
