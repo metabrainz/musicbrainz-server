@@ -101,13 +101,13 @@ sub _link_artist_credit_name {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
             title => html_filter($acn->artist->name)
-        }, html_filter($name || $acn->name));
+        }, $name || html_filter($acn->name));
     }
     else {
         return $h->span({
             class => 'deleted tooltip',
             title => l('This entity has been removed, and cannot be displayed correctly.')
-        }, html_filter($name || $acn->name));
+        }, $name || html_filter($acn->name));
     }
 }
 
