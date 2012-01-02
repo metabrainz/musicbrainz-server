@@ -271,7 +271,7 @@
             [%- END -%]
             [%- recording = suggestions.$medium_idx.$track_idx.0 -%]
             <tr class="track">
-              <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position | html %]</td>
+              <td rowspan="3" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position | html %]</td>
               <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">[% track.name | html %]</td>
 
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
@@ -324,6 +324,14 @@
                     [%- recording.artist_credit.name | html -%]
                   </span>
                 </span>
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td colspan="3">
+                [% r.checkbox(assoc.field('update_recording')) %]
+                [% l('Also update the recording with track changes') %]
               </td>
             </tr>
           [%- END -%]
