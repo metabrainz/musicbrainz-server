@@ -9,7 +9,7 @@
         [%- END -%]
         [% IF hierarchy_links.size > 0 %]
             <div class="hierarchy-links">
-                < 
+                &lt; 
                 [%- FOR link IN hierarchy_links -%]
                     [% IF loop.first %]
                         [%- doc = link -%]
