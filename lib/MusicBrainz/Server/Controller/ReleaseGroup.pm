@@ -71,7 +71,7 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         template => 'release_group/index.tt',
         releases => [
-            nsort_by { $_->[0]->status_id } values %grouped
+            nsort_by { $_->[0]->status_id || '100' } values %grouped
         ]
     );
 }
