@@ -183,7 +183,7 @@ sub get_page
     return $page
         if defined $page;
 
-    $page = $self->_load_page($id, $version, $index);
+    $page = $self->_load_page($id, $version, $index) or return undef;
 
     $cache->set($cache_key, $page, $WIKI_CACHE_TIMEOUT);
 
