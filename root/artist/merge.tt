@@ -18,6 +18,6 @@
         [% form_row_checkbox(r, 'rename', l("Update artist credits to use the new artist's name")) %]
 
         [% INCLUDE "forms/edit-note.tt" %]
-        [% enter_edit('<button type="submit" name="submit" value="cancel">' _ l('Cancel') _ '</button>') %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class"negative">' _ l('Cancel') _ '</button>') %]
     </form>
 [% END %]

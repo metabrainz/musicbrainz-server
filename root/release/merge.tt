@@ -85,6 +85,6 @@
         </div>
 
         [% INCLUDE "forms/edit-note.tt" %]
-        [% enter_edit('<button type="submit" name="submit" value="cancel">' _ l('Cancel') _ '</button>') %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
     </form>
 [% END %]
