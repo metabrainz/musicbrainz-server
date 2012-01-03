@@ -103,13 +103,26 @@ lookup_handler 'iswc' => sub {
     }
 };
 
-lookup_handler 'ipi' => sub {
+lookup_handler 'artist-ipi' => sub {
     my ($self, $c, $ipi) = @_;
 
     $c->response->redirect(
         $c->uri_for_action ('/search/search', {
             query => 'ipi:' . $ipi,
             type => 'artist',
+            advanced => '1',
+        }));
+
+    $c->detach;
+};
+
+lookup_handler 'label-ipi' => sub {
+    my ($self, $c, $ipi) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'ipi:' . $ipi,
+            type => 'label',
             advanced => '1',
         }));
 
