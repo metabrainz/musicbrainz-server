@@ -3,10 +3,10 @@
     <td>[% loop.count() %].</td>
     [% IF type == 'lang' %]
     <td>[% l(entity.entity.name) || l('Unknown language') %]</td>
-    <td>[%- lang_script_search_link(type, entity.entity.iso_code_3t, entity.count) -%]</td>
+    <td>[%- add_commas(lang_script_search_link(type, entity.entity.iso_code_3t, entity.count)) -%]</td>
     [% ELSIF type == 'script' %]
     <td>[% l(entity.entity.name) || l('Unknown script') %]</td>
-    <td>[%- lang_script_search_link(type, entity.entity.iso_code, entity.count) -%]</td>
+    <td>[%- add_commas(lang_script_search_link(type, entity.entity.iso_code, entity.count)) -%]</td>
     [% END %]
 </tr>
 [%- END -%]
