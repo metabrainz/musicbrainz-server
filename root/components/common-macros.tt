@@ -387,14 +387,14 @@ END -%]
 END -%]
 
 [%- MACRO use_in_relationship(entity) BLOCK;
-    IF c.session.relationship.id;
-      text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
-      '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
-    END;
     UNLESS c.session.relationship.id == entity.id;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                     : l('Use in a relationship');
       '<li>' _ link_entity(entity, 'relate', text) _ '</li>';
+    END;
+    IF c.session.relationship.id;
+      text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
+      '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
     END;
 END -%]
 
