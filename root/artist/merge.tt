@@ -1,4 +1,5 @@
 [% WRAPPER 'layout.tt' title=l('Merge Artists') full_width=1 %]
+    <div id="content">
     <h1>[% l('Merge Artists') %]</h1>
     <p>[% l('You are about to merge the following artists into a single artist. Please
              select the artist which you would like other artists to be merged into:') %]</p>
@@ -20,4 +21,5 @@
         [% INCLUDE "forms/edit-note.tt" %]
         [% enter_edit('<button type="submit" name="submit" value="cancel" class"negative">' _ l('Cancel') _ '</button>') %]
     </form>
+    </div>
 [% END %]

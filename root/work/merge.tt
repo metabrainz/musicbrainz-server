@@ -1,5 +1,6 @@
 [% WRAPPER 'layout.tt' title=l('Merge Works') full_width=1 %]
-    <h2>[% l('Merge Works') %]</h2>
+    <div id="content">
+    <h1>[% l('Merge Works') %]</h1>
     <p>[% l('You are about to merge the following works into a single work. Please
              select the work which you would like other works to be merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
@@ -17,4 +18,5 @@
         [% INCLUDE "forms/edit-note.tt" %]
         [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
     </form>
+    </div>
 [% END %]
