@@ -35,6 +35,7 @@ sub _build_conn
     $dsn .= ';host=' . $self->database->host if $self->database->host;
     $dsn .= ';port=' . $self->database->port if $self->database->port;
 
+    my $schema = $self->_schema;
     my $db = $self->database;
     my $conn = DBIx::Connector->new($dsn, $db->username, $db->password, {
         pg_enable_utf8    => 1,
@@ -47,7 +48,7 @@ sub _build_conn
                 $dbh->do("SET TIME ZONE 'UTC'");
                 $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
 
-                if (my $schema = $self->_schema) {
+                if ($schema) {
                     $dbh->do("SET search_path=$schema");
                 }
 
