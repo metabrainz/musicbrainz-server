@@ -297,7 +297,7 @@ div.relate-to {
     background: #f0f0f0;
     padding: 10px 7px 7px 10px;
     border: 1px solid #999;
-    z-index: 3;
+    z-index: 10;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;

@@ -62,6 +62,9 @@ MB.Control.RelateTo = function () {
     }
 
     self.createRelationship = function (event) {
+        if (!self.selected_item) {
+            return;
+        }
         var endpoint = self.$endpoint.val(),
             location,
             query_string;
@@ -106,21 +109,42 @@ MB.Control.RelateTo = function () {
     };
 
     self.show = function (event) {
-        self.$relate.appendTo ($('body')).show ()
+        event.stopPropagation();
+
+        self.$relate.appendTo ($('body')).show ();
 
         var o = self.$link.offset ();
         var top = o.top + self.$link.height () + 8;
         var left = o.left + self.$link.width () - self.$relate.width () + 8;
 
         self.$relate.offset ({ top: Math.round (top), left: Math.round (left) });
+
+        self.$select.focus();
+        ui_autocomplete.options.disabled = false;
+    };
+
+    self.hide = function (event) {
+        /* Normally the autocomplete menu closes on its own, but there's a
+           reproducible way to make it stay open. Just force it to close. */
+        ui_autocomplete.close();
+        // Guarantee the menu won't pop up later if a lookup was in-progress.
+        ui_autocomplete.options.disabled = true;
+        self.$relate.hide();
     };
 
     self.$select.bind ('change.mb', function (event) {
         self.autocomplete.changeEntity (self.type ());
     });
 
-    self.$link.bind ('click.mb', self.show);
-    self.$cancel.bind ('click.mb', function (event) { self.$relate.hide (); });
+    self.$link.bind ('click.mb', function (event) {
+        if (!self.$relate.is(":visible")) {
+            self.show(event);
+        } else {
+            self.hide(event);
+        }
+    });
+
+    self.$cancel.bind ('click.mb', function (event) { self.hide(event); });
     self.$create.bind ('click.mb', self.createRelationship);
 
     self.autocomplete = MB.Control.EntityAutocomplete ({
@@ -133,6 +157,38 @@ MB.Control.RelateTo = function () {
             collision: "none"
         }
     });
+
+    self.autocomplete.$input.keydown(function (event) {
+        if (event.keyCode == 13 && !event.isDefaultPrevented()) {
+            self.createRelationship(event);
+        }
+    });
+
+    var hovering = false,
+        ui_autocomplete = self.autocomplete.autocomplete;
+
+    self.$relate.hover(function () {
+        hovering = true;
+    }, function() {
+        hovering = false;
+    });
+
+    $("body").click(function (event) {
+        if (!hovering && self.$relate.is(":visible")) {
+            self.hide(event);
+        }
+    });
+
+    $(document).keyup(function (event) {
+        if (event.keyCode == 27 && self.$relate.is(":visible")) {
+            self.hide(event);
+        }
+    });
+
+    /* Opera triggers a click event whenever a select element is focused
+       and a key is pressed, for no obvious reason. Prevent the box from
+       hiding due to this. */
+    self.$relate.click(function () { event.stopPropagation(); });
 
     return self;
 };
