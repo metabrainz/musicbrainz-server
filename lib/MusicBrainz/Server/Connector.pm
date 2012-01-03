@@ -41,20 +41,23 @@ sub _build_conn
         pg_server_prepare => 0, # XXX Still necessary?
         RaiseError        => 1,
         PrintError        => 0,
+        Callbacks         => {
+            connected => sub {
+                my $dbh = shift;
+                $dbh->do("SET TIME ZONE 'UTC'");
+                $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
+
+                if (my $schema = $self->_schema) {
+                    $dbh->do("SET search_path=$schema");
+                }
+
+                return ();
+            }
+        }
     });
 
     # Make sure we notice the DB going down and attempt to reconnect
     $conn->mode('fixup');
-
-    $conn->run(sub {
-                   my $dbh = $_;
-                   $dbh->do("SET TIME ZONE 'UTC'");
-                   $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
-
-                   if (my $schema = $self->_schema) {
-                       $dbh->do("SET search_path=$schema");
-                   }
-    });
 
     return $conn;
 }
