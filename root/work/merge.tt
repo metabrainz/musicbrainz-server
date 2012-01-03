@@ -1,8 +1,7 @@
 [% WRAPPER 'layout.tt' title=l('Merge Works') full_width=1 %]
     <h1>[% l('Merge Works') %]</h1>
-    <p>[% l('You are about to merge the following {num} works together. Please
-             pick the work that you would like everything merged into:',
-             { num => to_merge.size }) %]</p>
+    <p>[% l('You are about to merge the following works into a single work. Please
+             select the work that you would like the other works merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
         <ul>
             [% FOR entity=to_merge %]
