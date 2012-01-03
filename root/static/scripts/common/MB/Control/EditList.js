@@ -17,6 +17,12 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+MB.constants.SELECTED_CLASS = {
+    '1':  'vote-yes',
+    '0':  'vote-no',
+    '-1': 'vote-abs'
+}
+
 MB.Control.EditList = function(container) {
     var self = MB.Object();
 
@@ -31,7 +37,7 @@ MB.Control.EditList = function(container) {
         });
         $voteOptions.find('input').each(function() {
             $(this).attr('id', $(this).attr('id').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
-            $(this).attr('name', null);
+            $(this).attr('name', 'vote-on-all');
         });
 
         $voteOptions.find(':input').attr('checked', false);
@@ -46,7 +52,8 @@ MB.Control.EditList = function(container) {
             $(this).click(function() {
                     $container.find('div.voteopts').each(function() {
                             $(this).find('input').eq(i)
-                                .attr('checked', 'checked');
+                                .attr('checked', 'checked')
+                                .change();
                         });
             });
         });
@@ -57,3 +64,12 @@ MB.Control.EditList = function(container) {
     self.initialize()
     return self;
 };
+
+$(function() {
+    $('div.vote input[type="radio"]').change(function() {
+        $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
+        $(this).parent('.vote').addClass(MB.constants.SELECTED_CLASS[ $(this).val() ]);
+    })
+
+    $('div.vote input[checked="checked"]').change();
+});
