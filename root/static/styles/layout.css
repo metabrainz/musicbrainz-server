@@ -714,7 +714,6 @@ table.database-statistics {
 }
 
 table.database-statistics th, table.timeline-controls th {
-    background: #F1F1F1;
     text-align: left;
     padding: 3px 5px;
 }
@@ -722,6 +721,7 @@ table.database-statistics th, table.timeline-controls th {
 table.database-statistics thead th {
     text-align: center;
     border: 1px solid #ADB9CC;
+    background: #F1F1F1;
 }
 
 table.database-statistics td, table.timeline-controls td {

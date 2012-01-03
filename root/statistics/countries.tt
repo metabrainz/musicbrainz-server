@@ -29,7 +29,7 @@ $(document).ready(function() {
 <table class="tbl">
 <thead>
 <tr>
-<th>[% l('Rank') %]</th>
+<th class="pos">[% l('Rank') %]</th>
 <th>[% l('Country') %]<div class="arrow"></div></th>
 <th>[% l('Artists') %]<div class="arrow"></div></th>
 <th>[% l('Releases') %]<div class="arrow"></div></th>
