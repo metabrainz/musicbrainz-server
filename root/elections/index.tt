@@ -2,7 +2,7 @@
 
     <h1>[% l('Auto-editor elections') %]</h1>
 
-    [% IF elections.1.candidate %]
+    [% IF elections.size %]
     <table class="tbl" style="width:auto">
         <thead>
             <tr>
