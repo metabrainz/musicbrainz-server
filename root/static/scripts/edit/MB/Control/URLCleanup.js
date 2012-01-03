@@ -188,10 +188,11 @@ MB.constants.CLEANUPS = {
         }
     },
     archive: {
-        match: new RegExp("^(https?://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
         type: MB.constants.LINK_TYPES.coverart,
         clean: function(url) { 
-            return url.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
+            url = url.replace(/\?cnt=\d+$/, "");
+            return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
         }
     },
     cdbaby: {
