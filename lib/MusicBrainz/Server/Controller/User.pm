@@ -359,20 +359,36 @@ sub tags : Chained('load') PathPart('tags')
     );
 }
 
-sub tag : Chained('load') PathPart('tags') Args(1)
+sub tag : Chained('load') PathPart('tag') Args(1)
 {
     my ($self, $c, $tag_name) = @_;
     my $user = $c->stash->{user};
     my $tag = $c->model('Tag')->get_by_name($tag_name);
 
+    # Determine whether this tag exists in the database
     if ($tag) {
         $c->stash(
-            tag => $tag,
-            map {
-                $_ => [ $c->model(type_to_model($_))
-                    ->tags->find_editor_entities($user->id, $tag->id)
-                ]
-            } qw( artist label recording release release_group work )
+            tag_name => $tag_name,
+            tags => { map {
+                        $_ => [ $c->model(type_to_model($_))
+                            ->tags->find_editor_entities($user->id, $tag->id)
+                        ]
+                    } qw( artist label recording release release_group work ) },
+        );
+
+        # Determine whether $user has used this tag
+        my $tag_in_use = 0;
+        my %tags = $c->stash->{tags};
+
+        foreach $tag (keys %tags) {
+            $tag_in_use = 1 if (scalar($tag) > 0);
+        }
+
+        $c->stash->{tag_in_use} = $tag_in_use;
+    } else {
+        $c->stash(
+            tag_name => $tag_name,
+            tag_in_use => 0,
         );
     }
 }

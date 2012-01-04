@@ -54,7 +54,7 @@
             [% form_row_text_long(r, 'title', l('Title:')) %]
             [% form_row_text_long(r, 'artist', l('Artist:')) %]
             [% form_row_text(r, 'barcode', l('Barcode:')) %]
-            [% form_row_text_long(r, 'comment', l('Comment:')) %]
+            [% form_row_text_long(r, 'comment', l('Disambiguation:')) %]
             [% form_row_checkbox(r, 'multiple_artists', l('This CD has tracks from more than one artist (e.g. a compilation CD)')) %]
         </fieldset>
         <fieldset>
