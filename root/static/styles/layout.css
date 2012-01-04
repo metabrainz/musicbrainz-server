@@ -254,6 +254,10 @@ pre code {
     background-image: none;
 }
 
+#current-editing h2 {
+    margin-top: 0; /* Remove the space above the merge-helper H2 */
+}
+
 .bl, .br, .tl, .tr {
     position: absolute;
     display: block;

@@ -1,5 +1,6 @@
 [% WRAPPER 'layout.tt' title=l('Merge Labels') full_width=1 %]
-    <h2>[% l('Merge Labels') %]</h2>
+    <div id="content">
+    <h1>[% l('Merge Labels') %]</h1>
     <p>[% l('You are about to merge the following labels into a single label. Please
              select the label which you would like other labels to be merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
@@ -15,6 +16,7 @@
         [% field_errors(form, 'target') %]
 
         [% INCLUDE "forms/edit-note.tt" %]
-        [% enter_edit('<button type="submit" name="submit" value="cancel">' _ l('Cancel') _ '</button>') %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
     </form>
+    </div>
 [% END %]
