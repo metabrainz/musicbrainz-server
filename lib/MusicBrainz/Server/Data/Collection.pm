@@ -156,6 +156,21 @@ sub find_all_by_editor
         $query, $id);
 }
 
+sub find_all_by_release
+{
+    my ($self, $release_id) = @_;
+    my $query = "SELECT editor_collection_release.collection, editor_collection_release.release,
+                 editor_collection.gid, editor_collection.name, editor_collection.public
+                 FROM editor_collection_release
+                 JOIN editor_collection ON editor_collection.id=editor_collection_release.collection
+                 WHERE editor_collection_release.release=? ";
+
+    $query .= "ORDER BY editor_collection.name";
+
+    return query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(@_) },
+        $query, $release_id);}
+
 sub insert
 {
     my ($self, $editor_id, @collections) = @_;
