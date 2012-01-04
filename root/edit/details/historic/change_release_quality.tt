@@ -11,9 +11,9 @@
     </td>
   </tr>
   <tr>
-    <th>[% l('Quality:') %]</th>
-    <td class="old">[% make_ucfirst(quality_name(change.quality.old)) %]</td>
-    <td class="new">[% make_ucfirst(quality_name(change.quality.new)) %]</td>
+    <th>[% l('Data Quality:') %]</th>
+    <td class="old">[% quality_name(change.quality.old) %]</td>
+    <td class="new">[% quality_name(change.quality.new) %]</td>
   </tr>
   [% END %]
 </table>

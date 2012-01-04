@@ -448,10 +448,10 @@ END -%]
 [%- END -%]
 
 [%- MACRO quality_name(quality) SWITCH quality;
-    CASE 0;  l('low quality level');
-    CASE 1;  l('normal quality level');
-    CASE -1; l('normal quality level');
-    CASE 2;  l('high quality level');
+    CASE 0;  l('Low');
+    CASE 1;  l('Normal');
+    CASE -1; l('Normal');
+    CASE 2;  l('High');
 END -%]
 
 [%- MACRO edit_conditions(expire_action) SWITCH expire_action;
