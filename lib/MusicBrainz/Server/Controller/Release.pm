@@ -353,7 +353,7 @@ sub collections : Chained('load') RequireAuth
 
     my @all_collections = $c->model('Collection')->find_all_by_release($c->stash->{release}->id);
     my @public_collections;
-    my $private_collections;
+    my $private_collections = 0;
 
     # Keep public collections;
     # count private collection
