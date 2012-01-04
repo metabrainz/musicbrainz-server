@@ -42,6 +42,8 @@ MB.Control.EditList = function(container) {
 
         $voteOptions.find(':input').attr('checked', false);
 
+        $voteOptions.find('.vote').attr('class', 'vote');
+
         $voteOptions.prepend(
             $('<div>Vote on all edits:</div>')
         );
