@@ -16,6 +16,7 @@ use MusicBrainz::Server::Validation;
 
 sub html_filter {
     my $text = shift;
+    return unless $text;
     for ($text) {
         s/&/&amp;/g;
         s/</&lt;/g;
