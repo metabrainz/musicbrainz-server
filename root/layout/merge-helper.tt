@@ -27,11 +27,11 @@
     [% END %]
     <div class="buttons" style="display: table-cell">
       [% IF merger.ready_to_merge %]
-        <button type="submit" name="submit" value="merge">[% l('Merge') %]</button>
+        <button type="submit" name="submit" value="merge" class="positive">[% l('Merge') %]</button>
       [% END %]
       <button type="submit" name="submit" value="remove">
         [% l('Remove selected entities') %]</button>
-      <button type="submit" name="submit" value="cancel">[% l('Cancel') %]</button>
+      <button type="submit" name="submit" value="cancel" class="negative">[% l('Cancel') %]</button>
     </div>
   </form>
   <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>

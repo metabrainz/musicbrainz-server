@@ -84,7 +84,7 @@ sub change_page_duplicates
 {
     my ($self) = @_;
 
-    my $release_id = $self->value->{duplicate_id}
+    my $release_id = $self->get_value ('duplicates', 'duplicate_id')
         or return;
 
     my $release = $self->c->model('Release')->get_by_id($release_id);
@@ -268,7 +268,11 @@ augment 'load' => sub
 
     unless(defined $release->artist_credit) {
         $release->artist_credit (MusicBrainz::Server::Entity::ArtistCredit->new);
-        $release->artist_credit->add_name (MusicBrainz::Server::Entity::ArtistCreditName->new);
+        $release->artist_credit->add_name (
+            MusicBrainz::Server::Entity::ArtistCreditName->new(
+                name => ''
+            )
+        );
         $release->artist_credit->names->[0]->artist (MusicBrainz::Server::Entity::Artist->new);
     }
 

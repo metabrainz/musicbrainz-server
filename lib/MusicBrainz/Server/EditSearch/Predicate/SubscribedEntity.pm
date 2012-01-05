@@ -52,5 +52,10 @@ role {
                 $self->$orig(@_);
             }
         }
-    }
+    };
+
+    around valid => sub {
+        my ($orig, $self) = @_;
+        return $self->operator eq 'subscribed' || $self->$orig;
+    };
 }

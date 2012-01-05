@@ -205,7 +205,7 @@ MB.Control.Autocomplete = function (options) {
     self.pagerKeyEvent = function (event) {
         var menu = self.autocomplete.menu;
 
-    if (!menu.element.is (":visible") ||
+        if (!menu.element.is (":visible") ||
             !self.pager_menu_item ||
             !self.pager_menu_item.hasClass ('ui-state-hover'))
         {
@@ -222,6 +222,10 @@ MB.Control.Autocomplete = function (options) {
         case keyCode.RIGHT:
             self.switchPage (event, 1);
             event.preventDefault ();
+            break;
+        case keyCode.ENTER:
+        case keyCode.NUMPAD_ENTER:
+            event.preventDefault();
             break;
         };
     };
@@ -256,6 +260,9 @@ MB.Control.Autocomplete = function (options) {
 
     self.searchAgain = function (toggle) {
         if (toggle) {
+            // Toggling should reset the page the user is on, because both
+            // searches return different results
+            self.current_page = 1;
             self.indexed_search = ! self.indexed_search;
         }
 
@@ -420,6 +427,12 @@ MB.Control.Autocomplete = function (options) {
 
         /* focus, idem. */
         self.autocomplete.menu.options.focus = function (event, ui) { };
+
+        /* Click events inside the menu, but outside of a relate-to box,
+           should not cause the box to close. */
+        self.autocomplete.menu.element.click(function (event) {
+            event.stopPropagation();
+        });
     };
 
     self.changeEntity = function (entity) {

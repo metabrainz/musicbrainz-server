@@ -139,7 +139,7 @@ sub release_toplevel
     {
         my @collections =
             grep { $_->public || ($c->user_exists && $c->user->id == $_->editor_id) }
-            $c->model('Collection')->find_by_release($release->id);
+            $c->model('Collection')->find_all_by_release($release->id);
 
         $c->model('Editor')->load(@collections);
         $c->model('Collection')->load_release_count(@collections);
@@ -284,6 +284,7 @@ sub release_submit : Private
     }
 
     @submit = uniq_by { join(':', $_->{release}, $_->{barcode}) } @submit;
+    @submit = $c->model('Release')->filter_barcode_changes(@submit);
 
     if (@submit) {
         try {

@@ -61,7 +61,7 @@
     [%- UNLESS recording.comment %] style="display: none"[% END %]>
     <td> </td>
     <td colspan="3">
-      [%- l('comment:') %] <span class="comment">[%- recording.comment | html -%]</span>
+      [%- l('disambiguation:') %] <span class="comment">[%- recording.comment | html -%]</span>
     </td>
   </tr>
 [%- END -%]
@@ -137,7 +137,7 @@
             </tr>
             <tr class="clientmatch comment" style="display: none">
               <td> </td>
-              <td colspan="3">[%- l('comment:') %] <span class="comment"></span></td>
+              <td colspan="3">[%- l('disambiguation:') %] <span class="comment"></span></td>
             </tr>
 
             [%- addnew_is_default = 0 -%]
@@ -351,6 +351,16 @@
       </fieldset>
 
     [%- END -%]
+    </div>
+
+    <div style="clear: both;">
+      <fieldset>
+        <legend>[% l('Options') %]</legend>
+        <p>
+          [% r.checkbox('infer_durations') %]
+          [%- r.label('infer_durations', l('Infer track durations from associated recordings')) -%]
+        </p>
+      </fieldset>
     </div>
 
     <div class="documentation">

@@ -9,7 +9,7 @@
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[% c.uri_for('view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]><script src="[% c.uri_for("../static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
+  <!--[if lte IE 8]><script src="[% c.uri_for("../../static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
@@ -29,12 +29,12 @@
       h2.toggler, h2.collapse-top-margin { margin-top: 0px; }
       .graph-control { padding-left: 16px; }
       .graph-control.loading { 
-          background: url('../static/images/icons/loading.gif') no-repeat;
+          background: url('../../static/images/icons/loading.gif') no-repeat;
       }
   </style>
   <script type="text/javascript">//<![CDATA[
       $(document).ready(function () {
-      MB.setupGraphing({[%- FOREACH dataset_key = stats -%]
+      MB.Timeline.setupGraphing({[%- FOREACH dataset_key = stats -%]
           "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
           [%- END -%]},
           { xaxis: { mode: "time",
@@ -49,6 +49,9 @@
             xaxis: {mode: "time", tickSize: [1, "year"]},
             yaxis: {tickFormatter: function () { return '' }},
             selection: {mode: "xy"}});
+          [% IF show_all %]
+          $('.toggler input:checkbox, .graph-control input:checkbox').attr('checked', true).change();
+          [% END %]
       });
   //]]></script>
 [% END %]

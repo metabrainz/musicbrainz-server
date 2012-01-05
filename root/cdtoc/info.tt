@@ -9,7 +9,7 @@
 
         <tr>
             <th>[% l('Disc ID:') %]</th>
-            <td>[% cdtoc.discid %]</td>
+            <td><code>[% cdtoc.discid %]</code></td>
         </tr>
         <tr>
             <th>[% l('FreeDB:') %]</th>

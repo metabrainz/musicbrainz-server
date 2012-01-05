@@ -173,31 +173,25 @@ hash of the track edit.
 
 sub recording_edits_by_hash
 {
-    my ($self, @edits) = @_;
+    my ($self, $medium) = @_;
 
     my %recording_edits;
     my @recording_gids;
 
-    for my $medium (@edits)
-    {
-        push @recording_gids, map { $_->{gid} } grep {
-            $_->{gid} ne 'new' } @{ $medium->{associations} };
-    }
+    push @recording_gids, map { $_->{gid} } grep {
+        $_->{gid} ne 'new' } @{ $medium->{associations} };
 
     my %recordings_by_gid = map {
         $_->{gid} => $_
     } values %{ $self->c->model('Recording')->get_by_gids (@recording_gids) };
 
-    for my $medium (@edits)
+    my $trkpos = 1;
+    for (@{ $medium->{associations} })
     {
-        my $trkpos = 1;
-        for (@{ $medium->{associations} })
-        {
-            $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
-            $recording_edits{$_->{edit_sha1}}->[$trkpos] = $_;
+        $_->{id} = $_->{gid} eq "new" ? undef : $recordings_by_gid{$_->{gid}}->id;
+        $recording_edits{$_->{edit_sha1}}->[$trkpos] = $_;
 
-            $trkpos++;
-        }
+        $trkpos++;
     }
 
     return %recording_edits;
@@ -218,28 +212,25 @@ method.
 
 sub recording_edits_from_tracklist
 {
-    my ($self, $tracklists_by_id) = @_;
+    my ($self, $tracklist) = @_;
 
     my %recording_edits;
 
-    for my $tracklist (values %$tracklists_by_id)
+    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+    for my $trk (@{ $tracklist->{tracks} })
     {
-        $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
-        $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+        my $trk_edit = $self->track_edit_from_track ($trk);
 
-        for my $trk (@{ $tracklist->{tracks} })
-        {
-            my $trk_edit = $self->track_edit_from_track ($trk);
-
-            $recording_edits{$trk_edit->{edit_sha1}}->[$trk->position] = {
-                name => $trk_edit->{name},
-                length => $trk_edit->{length},
-                artist_credit => $trk_edit->{artist_credit},
-                confirmed => 1,
-                id => $trk->recording->id,
-                gid => $trk->recording->gid
-            };
-        }
+        $recording_edits{$trk_edit->{edit_sha1}}->[$trk->position] = {
+            name => $trk_edit->{name},
+            length => $trk_edit->{length},
+            artist_credit => $trk_edit->{artist_credit},
+            confirmed => 1,
+            id => $trk->recording->id,
+            gid => $trk->recording->gid
+        };
     }
 
     return %recording_edits;
@@ -321,7 +312,7 @@ sub associate_recordings
                 name => $_->{name},
                 artist => $_->{id},
             };
-            push @artist_joinphrase, $_->{join};
+            push @artist_joinphrase, $_->{join_phrase};
         }
 
         pop @artist_joinphrase unless $artist_joinphrase[$#artist_joinphrase];
@@ -605,10 +596,6 @@ sub prepare_recordings
 
     $self->c->model('Track')->load_for_tracklists (values %$tracklists_by_id);
 
-    my %recording_edits = scalar @recording_edits ?
-        $self->recording_edits_by_hash (@recording_edits) :
-        $self->recording_edits_from_tracklist ($tracklists_by_id);
-
     my @suggestions;
     my @tracklists;
 
@@ -620,6 +607,10 @@ sub prepare_recordings
         $recording_edits[$count]->{tracklist_id} = $medium->{tracklist_id};
 
         next if $medium->{deleted};
+
+        my %recording_edits = scalar $recording_edits[$count] ?
+            $self->recording_edits_by_hash ($recording_edits[$count]) :
+            $self->recording_edits_from_tracklist ($tracklists_by_id->{$medium->{tracklist_id}});
 
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
@@ -726,7 +717,12 @@ sub prepare_recordings
         } grep { $_ } map { @$_ } grep { $_ } @$medium_recordings;
     }
 
-    $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
+    $self->load_page(
+        'recordings',
+        {
+            'rec_mediums' => \@recording_edits,
+            'infer_durations' => $self->get_value ('recordings', 'infer_durations')
+        });
 }
 
 sub prepare_missing_entities
@@ -1243,6 +1239,8 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
+    my $infer_durations = $self->get_value ('recordings', 'infer_durations') // undef;
+
     my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
@@ -1271,7 +1269,7 @@ sub _expand_track
     }
 
     my $entity = Track->new(
-        length => unformat_track_length ($trk->{length}) // ($assoc ? $assoc->length : undef),
+        length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([
@@ -1388,7 +1386,7 @@ sub track_edit_from_track
     return $self->update_track_edit_hash ({
         artist_credit => artist_credit_to_ref ($track->artist_credit),
         deleted => 0,
-        length => format_track_length ($track->length),
+        length => $track->length,
         name => $track->name,
         position => $track->position
     });
@@ -1507,7 +1505,7 @@ sub _seed_parameters {
             my $entity = $self->c->model('Artist')
                 ->get_by_gid($mbid);
             $artist_credit->{name} ||= $entity->name;
-            $artist_credit->{gid} = $entity->gid;
+            $artist_credit->{artist}->{gid} = $entity->gid;
             $artist_credit->{artist}->{id} = $entity->id;
             $artist_credit->{artist}->{name} = $entity->name;
         }
@@ -1556,28 +1554,29 @@ sub _seed_parameters {
                 for my $track (@tracks) {
                     $track->{position} = ++$track_idx;
                     my $track_ac = $track->{artist_credit} || $params->{artist_credit};
+
                     if ($track_ac->{names}) {
                         $track->{artist_credit}{names} = [
                             map +{
-                                name => $_->{name},
-                                join => $_->{join_phrase},
+                                name => $_->{name} // $_->{artist}->{name},
+                                join_phrase => $_->{join_phrase},
                                 artist => {
-                                    name => $_->{artist_name} || $_->{name},
-                                    id => $_->{artist_id},
-                                    gid => $_->{gid},
+                                    name => $_->{artist}->{name} // $_->{name},
+                                    id => $_->{artist}->{id},
+                                    gid => $_->{artist}->{gid},
                                 }
                             }, @{$track_ac->{names}}
                         ];
 
                         $track->{artist_credit}{preview} = join (
-                            "", map { $_->{name} // "" . $_->{join_phrase} // ""
+                            "", map { ($_->{name} // "") . ($_->{join_phrase} // "")
                             } @{$track_ac->{names}});
                     }
 
                     if (my $length = $track->{length}) {
                         $track->{length} = ($length =~ /:/)
-                            ? $length
-                            : format_track_length($length);
+                            ? unformat_track_length ($length)
+                            : $length;
                     }
 
                     my $track = $self->update_track_edit_hash ($track);
@@ -1593,13 +1592,6 @@ sub _seed_parameters {
                                 gid => $recording->gid
                             };
                         }
-                    }
-                    else {
-                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
-                            gid => 'new',
-                            confirmed => 1,
-                            edit_sha1 => $track->{edit_sha1}
-                        };
                     }
                 }
 

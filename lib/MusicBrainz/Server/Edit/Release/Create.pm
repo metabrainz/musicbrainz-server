@@ -67,9 +67,10 @@ sub foreign_keys
         Language         => [ $self->data->{language_id} ],
     };
 
+    $fks->{ReleaseGroup} = { $self->data->{release_group_id} => [ 'ArtistCredit' ] }
+        if $self->data->{release_group_id};
+
     unless ($self->preview) {
-        # May be undef if previewing and creating a new release group
-        $fks->{ReleaseGroup} = { $self->data->{release_group_id} => [ 'ArtistCredit' ] };
         $fks->{Release} = { $self->entity_id => [ 'ArtistCredit' ] };
     }
 

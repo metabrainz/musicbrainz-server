@@ -6,7 +6,14 @@
         <thead>
             <tr>
                 <th class="pos t">#</th>
-                <th>[% l('Title') %]</th>
+                <th>
+                  <span style="float: right; font-weight: normal; padding-right: 1em;">
+                    <a style="display: none;" class="show-credits" href="">[% l('Show Credits') %]</a>
+                    <a style="display: none;" class="hide-credits" href="">[% l('Hide Credits') %]</a>
+                    <input style="display: none;" type="checkbox" id="hide-credits" />
+                  </span>
+                  [% l('Title') %]
+                </th>
                 [%- IF show_artists -%]
                     <th>[% l('Artist') %]</th>
                 [%- END -%]
@@ -27,4 +34,35 @@
         [%- END -%]
         </tbody>
     </table>
+    <script type="text/javascript">
+      MB.utility.rememberCheckbox ("#hide-credits", "hide-credits");
+
+      var $checkbox = $('#hide-credits');
+
+      if ($('div.ars').length)
+      {
+          if ($checkbox.is (':checked'))
+          {
+              $('a.show-credits').show ();
+          }
+          else
+          {
+              $('div.ars').show ();
+              $('a.hide-credits').show ();
+          }
+      }
+
+      $('a.hide-credits').add ('a.show-credits').bind ('click.mb', function (event) {
+          $('a.hide-credits').toggle ();
+          $('a.show-credits').toggle ();
+          $('div.ars').slideToggle ("fast");
+          $checkbox.attr ('checked', !$checkbox.is(':checked')).trigger ("change");
+          event.preventDefault ();
+          return false;
+      });
+
+    </script>
+
+    <h2>[% l("Relationships") %]</h2>
+    [%- INCLUDE "components/relationships.tt" source=release -%]
 [%- END -%]

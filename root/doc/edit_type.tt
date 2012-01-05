@@ -32,9 +32,9 @@
    <table class="tbl">
      <thead>
        <tr>
-         <th></th>
+         <th>[% l('Data Quality') %]</th>
          [% FOR quality=quality_levels %]
-         <th>[% make_ucfirst(quality_name(quality)) %]</th>
+         <th>[% quality_name(quality) %]</th>
          [% END %]
        </tr>
      </thead>

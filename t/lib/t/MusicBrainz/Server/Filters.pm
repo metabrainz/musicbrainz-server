@@ -33,6 +33,12 @@ test 'Edit note syntax' => sub {
 
     is(format_editnote("http://www.discogs.com/artist/House+Of+Lords+(2%29"),
        '<a href="http://www.discogs.com/artist/House+Of+Lords+(2)">http://www.discogs.com/artist/House+Of+Lords+(2)</a>');
+
+    is(format_editnote("Problems with this edit\n\n1."),
+       "Problems with this edit<br/><br/>1.");
+
+    like(format_editnote("Please see edit   1"),
+         qr{Please see <a href=".*">edit #1</a>});
 };
 
 1;

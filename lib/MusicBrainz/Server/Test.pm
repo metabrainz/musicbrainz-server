@@ -138,7 +138,7 @@ sub capture_edits (&$)
     my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
     return () if $new_max <= $current_max;
     return values %{ $c->model('Edit')->get_by_ids(
-        $current_max..$new_max
+        ($current_max + 1)..$new_max
     ) };
 }
 
@@ -360,7 +360,7 @@ sub _build_ws_test_xml {
             $mech->get_ok($end_point . $url, 'fetching');
             $validator->($mech->content, 'validating');
 
-            is_xml_same($mech->content, $expected);
+            is_xml_same($expected, $mech->content);
             $Test->note(encode('utf-8', $mech->content));
         });
     }

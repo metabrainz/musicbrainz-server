@@ -43,10 +43,10 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.render = function (data) {
         self.$position.val (data.position);
         self.$title.val (data.name);
-        if (self.$length.val () === '?:??' || !self.parent.hasToc ())
+        if (self.getDuration () === null || !self.parent.hasToc ())
         {
             /* do not allow changes to track times if the disc has a TOC. */
-            self.$length.val (data.length);
+            self.setDuration (data.length)
         }
         data.deleted = parseInt (data.deleted, 10);
         self.$deleted.val (data.deleted);
@@ -69,16 +69,15 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     };
 
     /**
-     * parseLength adds a colon to the track length if the user omitted it.
+     * blurLength updates the internal (millisecond) representation of
+     * a track length if a user changed it, and it adds a colon to the
+     * track length if the user omitted it
      */
-    self.parseLength = function () {
+    self.blurLength = function (event) {
         var length = self.$length.val ();
+        length = length.replace (/([0-9]*)([0-9][0-9])/, "$1:$2");
 
-        if (length.match (/:/)) {
-            return;
-        }
-
-        self.$length.val (length.replace (/([0-9]*)([0-9][0-9])/, "$1:$2"));
+        self.setDuration (MB.utility.unformatTrackLength (length));
     };
 
     /**
@@ -119,6 +118,9 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$position.attr ('disabled', 'disabled');
         self.$length.attr ('disabled', 'disabled');
         self.$row.find ("input.remove-track").hide ();
+        self.$position.add(self.$length)
+            .attr('title', 'This medium has one or more disc IDs which prevent this information from being changed.')
+            .addClass('disabled-hint');
     };
 
     /**
@@ -139,15 +141,40 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         return self.$deleted.val () === '1';
     };
 
-    self.lengthOrNull = function () {
-        var l = self.$length.val ();
+    /**
+     * set track duration in ms.
+     */
+    self.setDuration = function (duration)
+    {
+        var duration_str = MB.utility.formatTrackLength (duration);
 
-        if (l.match (/[0-9]+:[0-5][0-9]/))
+        if (duration_str === self.duration_str)
+            return;
+
+        self.duration = duration;
+        self.duration_str = duration_str;
+        self.$length.val (duration_str);
+    };
+
+    /**
+     * get track duration in ms.  if original_duration is provided
+     * that value will be returned if it looks like the value wasn't
+     * changed.
+     */
+    self.getDuration = function (original_duration)
+    {
+        if (original_duration)
         {
-            return l;
-        }
+            var original_str = MB.utility.formatTrackLength (original_duration);
 
-        return null;
+            return (original_str === self.$length.val ()
+                    ? original_duration
+                    : MB.utility.unformatTrackLength (self.$length.val ()));
+        }
+        else
+        {
+            return MB.utility.unformatTrackLength (self.$length.val ());
+        }
     };
 
     /**
@@ -158,7 +185,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$acrow.remove ();
     };
 
-    self.$length.bind ('blur.mb', self.parseLength);
+    self.$length.bind ('blur.mb', self.blurLength);
     self.$row.find ("input.remove-track").bind ('click.mb', self.deleteTrack);
     self.$row.find ("input.guesscase-track").bind ('click.mb', self.guessCase);
 
@@ -166,6 +193,9 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     var $button = self.$row.find ("a[href=#credits]");
     self.bubble_collection.add ($button, self.$acrow);
     self.artist_credit = MB.Control.ArtistCreditRow ($target, self.$acrow, $button);
+
+    self.duration = null;
+    self.duration_str = '?:??';
 
     if (self.isDeleted ())
     {
@@ -367,6 +397,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.edits.clearEdits ();
         self.tracklist = [];
         self.removeTracks (-1);
+        self.expand ();
     };
 
     self.removeDisc = function (chained) {
@@ -395,7 +426,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
         else if (self.tracks.length === 1 &&
                  self.tracks[0].$title.val () === '' &&
-                 self.tracks[0].$length.val () === '?:??')
+                 self.tracks[0].getDuration () === null)
+
         {
             /* this track was most probably added by "Add Disc" ->
              * "Manual entry", which means this disc should still be
@@ -438,10 +470,12 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         var preview = "";
         $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
             names[idx] = {
-                "artist_name": $(row).find ('input.name').val (),
+                "artist": {
+                    "name": $(row).find ('input.name').val (),
+                    "gid": $(row).find ('input.gid').val (),
+                    "id": $(row).find ('input.id').val ()
+                },
                 "name": $(row).find ('input.credit').val (),
-                "gid": $(row).find ('input.gid').val (),
-                "id": $(row).find ('input.id').val (),
                 "join": $(row).find ('input.join').val ()
             };
 
@@ -538,6 +572,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                 use_data ([]);
             }
         }
+        else
+        {
+            /* empty disc, we're not loading remote data. */
+            self.$nowloading.hide ();
+        }
     };
 
     self.loadTracklist = function (data) {
@@ -575,13 +614,20 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.$nowloading.hide ();
     };
 
+    self.tocTrackCount = function() {
+        var releaseTocCount = MB.medium_cdtocs[self.number],
+        parsedTocCount = self.$toc.val().split(/\s+/)[1];
+
+        return releaseTocCount || parsedTocCount || null;
+    }
+
     /* if this medium has a toc, force the correct number of tracks
        (adding or removing tracks as neccesary). */
     self.fixTrackCount = function () {
         if (!self.hasToc ())
             return;
 
-        self.track_count = MB.medium_cdtocs[self.number];
+        self.track_count = self.tocTrackCount();
         self.removeTracks (self.track_count);
         self.getTrack (self.track_count - 1);
     };
@@ -783,6 +829,7 @@ MB.Control.ReleaseTracklist = function () {
 
         var new_disc = MB.Control.ReleaseDisc (self, $newdisc);
 
+        new_disc.expand ();
         self.discs.push (new_disc);
         self.positions[new_disc.position()] = new_disc;
 

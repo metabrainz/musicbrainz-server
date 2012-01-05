@@ -101,7 +101,7 @@ MB.Control.ReleaseEdits = function ($edits) {
 
             var to = {
                 'name': trk.$title.val (),
-                'length': trk.$length.val (),
+                'length': trk.getDuration (from ? from.length : null),
                 'artist_credit': trk.artist_credit.toData ()
             };
 

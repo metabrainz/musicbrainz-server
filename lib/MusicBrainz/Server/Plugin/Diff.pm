@@ -14,6 +14,18 @@ use HTML::Tiny;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation;
 
+sub html_filter {
+    my $text = shift;
+    return unless $text;
+    for ($text) {
+        s/&/&amp;/g;
+        s/</&lt;/g;
+        s/>/&gt;/g;
+        s/"/&quot;/g;
+    }
+    return $text;
+}
+
 sub new {
     my ($class, $context) = @_;
     return bless { c => $context }, $class;
@@ -89,20 +101,20 @@ sub _link_artist_credit_name {
     if ($acn->artist->gid) {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-            title => $acn->artist->name
-        }, $name || $acn->name);
+            title => html_filter($acn->artist->name)
+        }, $name || html_filter($acn->name));
     }
     else {
         return $h->span({
             class => 'deleted tooltip',
             title => l('This entity has been removed, and cannot be displayed correctly.')
-        }, $name || $acn->name);
+        }, $name || html_filter($acn->name));
     }
 }
 
 sub _link_joined {
     my ($self, $acn) = @_;
-    return $self->_link_artist_credit_name($acn) . ($acn->join_phrase || '');
+    return $self->_link_artist_credit_name($acn) . (html_filter($acn->join_phrase) || '');
 }
 
 sub diff_artist_credits {

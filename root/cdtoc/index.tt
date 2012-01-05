@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('Disc ID “{discid}”', { discid => cdtoc.discid }) full_width=1 -%]
 
-    <h1>[% l('Disc ID “{discid}”', { discid => link_cdtoc(cdtoc) }) %]</h1>
+    <h1>[% l('Disc ID “<code>{discid}</code>”', { discid => link_cdtoc(cdtoc) }) %]</h1>
 
     [% INCLUDE 'cdtoc/info.tt' %]
 

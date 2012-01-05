@@ -321,7 +321,8 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.renderPreviewHTML = function () {
         if (self.$gid.val () === '')
         {
-            return self.renderName ();
+            return MB.utility.escapeHTML (self.renderName ()) +
+                MB.utility.escapeHTML (self.$join.val ());
         }
 
         return '<a target="_blank" href="/artist/' +
@@ -575,7 +576,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
         var lookupPerformed = true;
         $.each (self.box, function (idx, box) {
-            if (!box.$gid.val () || !box.$id.val ())
+            if (!box.$gid.val () && !box.$id.val ())
             {
                 lookupPerformed = false;
             }

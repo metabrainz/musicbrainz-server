@@ -156,7 +156,7 @@ sub find_all_by_editor
         $query, $id);
 }
 
-sub find_by_release
+sub find_all_by_release
 {
     my ($self, $id) = @_;
     my $query = "SELECT " . $self->_columns . "

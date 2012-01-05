@@ -362,25 +362,12 @@ sub preferences : Path('/account/preferences') RequireAuth
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
     $c->model('Editor')->load_preferences($editor);
-    my $watch_prefs = $c->model('WatchArtist')->load_preferences($editor->id);
 
     my $form = $c->form( form => 'User::Preferences', item => $editor->preferences );
-    my $watch_prefs_form = $c->form(
-        watch_prefs => 'User::WatchPreferences',
-        item => {
-            notify_via_email => $watch_prefs->notify_via_email,
-            notification_timeframe => $watch_prefs->notification_timeframe->in_units('days'),
-            type_id => [ map { $_->id } $watch_prefs->all_types ],
-            status_id => [ map { $_->id } $watch_prefs->all_statuses ],
-        }
-    );
 
     if ($c->form_posted &&
-        $form->process( params => $c->req->params ) &&
-        $watch_prefs_form->process( params => $c->req->params )) {
+        $form->process( params => $c->req->params )) {
         $c->model('Editor')->save_preferences($editor, $form->values);
-        $c->model('WatchArtist')->save_preferences(
-            $editor->id, $watch_prefs_form->values);
 
         $c->user->preferences($editor->preferences);
         $c->persist_user();
@@ -406,25 +393,37 @@ sub register : Path('/register') ForbiddenOnSlaves
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
-        my $editor = $c->model('Editor')->insert({
-            name => $form->field('username')->value,
-            password => $form->field('password')->value,
-        });
+        my $valid_nonce = ($c->req->params->{data} // "") eq ($c->session->{nonce} // "invalid");
 
-        my $email = $form->field('email')->value;
-        if ($email) {
-            $self->_send_confirmation_email($c, $editor, $email);
+        # overwrite the nonce, so it is no longer valid for this session.
+        $c->session (nonce => "invalid");
+
+        if ($valid_nonce)
+        {
+            my $editor = $c->model('Editor')->insert({
+                name => $form->field('username')->value,
+                password => $form->field('password')->value,
+            });
+
+            my $email = $form->field('email')->value;
+            if ($email) {
+                $self->_send_confirmation_email($c, $editor, $email);
+            }
+
+            my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+            $c->set_authenticated($user);
+
+            my $redirect = defined $c->req->query_params->{uri}
+              ? $c->req->query_params->{uri}
+              : $c->uri_for_action('/user/profile', [ $user->name ]);
+
+            $c->response->redirect($redirect);
+            $c->detach;
         }
-
-        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
-        $c->set_authenticated($user);
-
-        my $redirect = defined $c->req->query_params->{uri}
-            ? $c->req->query_params->{uri}
-            : $c->uri_for_action('/user/profile', [ $user->name ]);
-
-        $c->response->redirect($redirect);
-        $c->detach;
+        else
+        {
+            $c->stash (invalid_nonce => 1);
+        }
     }
 
     $c->stash(
