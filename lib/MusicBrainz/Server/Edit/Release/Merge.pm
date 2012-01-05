@@ -52,6 +52,21 @@ sub _merge_model { 'Release' }
 
 sub release_ids { @{ shift->_entity_ids } }
 
+sub related_recordings
+{
+    my ($self, $releases) = @_;
+
+    my @tracks;
+    if ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+        $self->c->model('Medium')->load_for_releases(@$releases);
+        my @tracklists = map { $_->tracklist }
+                         map { $_->all_mediums } @$releases;
+        $self->c->model('Track')->load_for_tracklists(@tracklists);
+        @tracks = map { $_->all_tracks } @tracklists;
+    }
+    return $self->c->model('Recording')->load(@tracks);
+}
+
 sub foreign_keys
 {
     my $self = shift;
