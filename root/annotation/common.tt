@@ -1,16 +1,8 @@
 [%- IF annotation.text || number_of_revisions > 1 -%]
     <h2>[% l('Annotation') %]</h2>
     <div class="annotation">
-        <div class="annotation-body">
-            [% IF full_annotation %]
+        <div class="annotation-body[% IF !full_annotation %] annotation-collapse[% END %]">
                 [% annotation.text | format_wikitext  %]
-            [% ELSE %]
-                [% annotation.summary | format_wikitext  %]
-                [% IF annotation.summary_is_short %]
-                    <p><a href="[% c.uri_for(c.controller.action_for('latest_annotation'), [ entity.gid ]) %]">
-                        [%- l('Read more…') %]</a></p>
-                [% END %]
-            [% END %]
         </div>
 
         [%- IF show_change_log -%]

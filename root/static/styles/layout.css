@@ -806,3 +806,16 @@ p.cleanup {
 }
 
 .iswc { white-space: nowrap; }
+
+.annotation-toggle {
+    display: block;
+}
+
+.annotation-collapsed {
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.annotation-collapse {
+    max-height: none;
+}
