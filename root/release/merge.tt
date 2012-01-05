@@ -83,6 +83,19 @@
           <p>[% l('This merge strategy will merge all mediums together into a single set of mediums. Recordings
                    between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
           <p>[% l('This requires that mediums over each release have corresponding track counts.') %]</p>
+
+          [% IF bad_recording_merges %]
+            [% warning(l('The recording artists do not match! Perhaps you meant to use the "append mediums" merge strategy?')) %]
+            <p>[% l('If you continue with the current merge strategy, the following recordings will be merged:') %]</p>
+            [% FOR bad_recordings IN bad_recording_merges %]
+                <ul>
+                [% FOR bad_recording IN bad_recordings %]
+                    <li>[% descriptive_link(bad_recording) %]</li>
+                [% END %]
+                </ul>
+            [% END %]
+          [% END %]
+
         </div>
 
         [% INCLUDE "forms/edit-note.tt" %]

@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
-use List::MoreUtils qw( part );
+use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -386,7 +386,10 @@ sub _merge_form_arguments {
 
     my @mediums;
     my %medium_by_id;
+    my %positions;
+    my %medium_by_position;
     foreach my $release (@releases) {
+        $medium_by_position{$release->id} = {};
         foreach my $medium ($release->all_mediums) {
             my $position = $medium->position;
             my $name = $medium->name;
@@ -404,14 +407,61 @@ sub _merge_form_arguments {
                 name => $name
             };
             $medium_by_id{$medium->id} = $medium;
+            $positions{$medium->position}++;
+            $medium_by_position{$release->id}->{$medium->position} = $medium;
         }
     }
+
+    use Data::Dumper;
+    warn Dumper(\%positions);
+
+    my %recordings;
+    for my $pos (keys %positions) {
+        if ($positions{$pos} == scalar @releases) {
+            my %track_counts;
+            for my $release (@releases) {
+                my $medium = $medium_by_position{$release->id}->{$pos};
+                $track_counts{$medium->tracklist->track_count} = 1;
+            }
+            if (scalar %track_counts == 1) {
+                for my $release (@releases) {
+                    my $medium = $medium_by_position{$release->id}->{$pos};
+                    for my $tr ($medium->tracklist->all_tracks) {
+                        my $tr_pos = $tr->position;
+                        if (exists $recordings{$pos}->{$tr_pos}) {
+                            push @{ $recordings{$pos}->{$tr_pos} }, $tr->recording;
+                        }
+                        else {
+                            $recordings{$pos}->{$tr_pos} = [ $tr->recording ];
+                        }   
+                    }
+                }
+            }
+        }
+    }
+
+    my @bad_recording_merges;
+    for my $pos (sort { $a <=> $b } keys %recordings) {
+        for my $tr_pos (sort { $a <=> $b } keys %{ $recordings{$pos} }) {
+            my @ac_ids = map { $_->artist_credit_id } @{ $recordings{$pos}->{$tr_pos} };
+            if (uniq @ac_ids > 1) {
+                push @bad_recording_merges, $recordings{$pos}->{$tr_pos};
+            }
+        }
+    }
+    if (@bad_recording_merges) {
+        $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
+    }
+
+    warn Dumper(\%recordings);
+    warn Dumper(\@bad_recording_merges);
 
     @mediums = nsort_by { $_->{position} } @mediums;
 
     $c->stash(
         mediums => [ map { $medium_by_id{$_->{id}} } @mediums ],
-        xxx_releases => \@releases
+        xxx_releases => \@releases,
+        bad_recording_merges => \@bad_recording_merges,
     );
 
     return (
