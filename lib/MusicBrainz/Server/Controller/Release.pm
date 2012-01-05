@@ -528,8 +528,12 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit
 sub cover_art : Chained('load') PathPart('cover-art') {
     my ($self, $c) = @_;
     my $release = $c->stash->{entity};
+    my %cover_art = $c->model ('CoverArtArchive')->find_available_artwork($release->gid);
+    my $pending = delete $cover_art{pending};
+
     $c->stash(
-        cover_art => { $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
+        cover_art => \%cover_art,
+        pending   => $pending
     );
 }
 
