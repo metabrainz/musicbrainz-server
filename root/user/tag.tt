@@ -1,13 +1,14 @@
 [% WRAPPER 'user/profile/layout.tt' page='tags' %]
 
-[% FOR section=[
-    [l('Artists'), artist],
-    [l('Release Groups'), release_group],
-    [l('Releases'), release],
-    [l('Recordings'), recording],
-    [l('Works'), work],
-    [l('Labels'), label],
-] %]
+[% IF tag_in_use %]
+    [% FOR section=[
+        [l('Artists'), tags.artist],
+        [l('Release Groups'), tags.release_group],
+        [l('Releases'), tags.release],
+        [l('Recordings'), tags.recording],
+        [l('Works'), tags.work],
+        [l('Labels'), tags.label],
+    ] %]
     [% IF section.1.size %]
         <h2>[% section.0 %]</h2>
         <ul>
@@ -16,6 +17,10 @@
             [% END %]
         </ul>
     [% END %]
+    [% END %]
+[% ELSE %]
+    <p>[% l("{user} has not tagged anything with '{tag}'.",
+             { user => user.name, tag => tag_name }) %]</p>
 [% END %]
 
 [% END %]

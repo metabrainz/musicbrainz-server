@@ -1,15 +1,28 @@
-package MusicBrainz::Server::Form::ReleaseEditor::Recordings;
-use HTML::FormHandler::Moose;
+package MusicBrainz::Server::Report::CreativeCommonsRelationships;
+use Moose;
 
-extends 'MusicBrainz::Server::Form::Step';
+extends 'MusicBrainz::Server::Report::ReleaseReport';
 
-has_field 'rec_mediums' => ( type => 'Repeatable', num_when_empty => 0 );
-has_field 'rec_mediums.tracklist_id' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
-has_field 'rec_mediums.associations' => ( type => 'Repeatable', num_when_empty => 0 );
-has_field 'rec_mediums.associations.gid' => ( type => 'Hidden' );
-has_field 'rec_mediums.associations.confirmed' => ( type => 'Hidden', required => 1 );
-has_field 'rec_mediums.associations.edit_sha1' => ( type => 'Hidden' );
-has_field 'infer_durations' => ( type => 'Checkbox' );
+sub gather_data
+{
+    my ($self, $writer) = @_;
+
+    $self->gather_data_from_query($writer, "
+        SELECT
+            r.gid, rn.name, r.artist_credit AS artist_credit_id
+        FROM release r
+            JOIN release_name rn ON r.name = rn.id
+            JOIN l_release_url l_ru ON r.id = l_ru.entity0
+            JOIN link l ON l_ru.link = l.id
+        WHERE l.link_type = 84 AND l_ru.edits_pending = 0
+        ORDER BY r.artist_credit, r.name
+    ");
+}
+
+sub template
+{
+    return 'report/releases_with_cc_links.tt';
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -17,7 +30,8 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2011 Johannes Weißl
+Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

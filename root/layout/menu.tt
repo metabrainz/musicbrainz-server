@@ -49,6 +49,21 @@
         [% IF c.user_exists && c.user.is_admin %]
             <li class="admin">
                 <a href="[% c.uri_for_action('/admin/index') %]">[% l('Admin') %]</a>
+                <ul>
+                    [% IF c.user.is_relationship_editor %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
+                        </li>
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Relationship Attributes') %]</a>
+                        </li>
+                    [% END %]
+                    [% IF c.user.is_wiki_transcluder %]
+                        <li>
+                            <a href="[% c.uri_for_action('/admin/wikidoc/index') %]">[% l('Transclude WikiDocs') %]</a>
+                        </li>
+                    [% END %]
+                </ul>
             </li>
         [% END %]
     [%- ELSE -%]
@@ -119,6 +134,9 @@
             </li>
             <li>
                 <a href="[% doc_link('MusicBrainz_Database') %]">[% l('MusicBrainz Database') %]</a>
+            </li>
+            <li class="separator">
+                <a href="[% doc_link('Developer_Resources') %]">[% l('Developer Resources') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('XML_Web_Service') %]">[% l('XML Web Service') %]</a>
@@ -191,7 +209,7 @@
                 <a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners Guide') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('Official_Style_Guideline') %]">[% l('Style Guidelines') %]</a>
+                <a href="[% doc_link('Style') %]">[% l('Style Guidelines') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>

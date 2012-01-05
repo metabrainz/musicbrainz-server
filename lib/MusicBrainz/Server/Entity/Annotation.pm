@@ -41,6 +41,7 @@ has 'creation_date' => (
 sub summary
 {
     my $self = shift;
+    return '' unless $self->text;
     my ($summary) = split /(\r?\n){2,}/, $self->text;
     return $summary;
 }

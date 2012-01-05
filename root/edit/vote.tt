@@ -9,17 +9,17 @@
         <label for="id-[% name %]-[% label %]">[% label %]</label>
     [% END %]
     <div class="voteopts">
-        <div>
+        <div class="vote">
             [% vote_checkbox(l('Yes'), 1) %]
         </div>
-        <div>
+        <div class="vote">
             [% vote_checkbox(l('No'), 0) %]
         </div>
-        <div>
+        <div class="vote">
             [% vote_checkbox(l('Abstain'), -1) %]
         </div>
         [% IF summary %]
-            <div>
+            <div class="vote">
                 [% vote_checkbox(l('None'), -2) %]
             </div>
         [% ELSE %]

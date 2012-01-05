@@ -88,7 +88,7 @@ after 'load' => sub
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show details discids tags relationships )] => sub {
+after [qw( show collections details discids tags relationships )] => sub {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
@@ -104,9 +104,12 @@ after [qw( show details discids tags relationships )] => sub {
         }
     }
 
+    my @all_collections = $c->model('Collection')->find_all_by_release($release->id);
+
     $c->stash(
         collections => \@collections,
         containment => \%containment,
+        all_collections => \@all_collections,
     );
 };
 
@@ -167,8 +170,9 @@ sub show : Chained('load') PathPart('')
     }
     $c->model('ArtistCredit')->load($release, @tracks);
 
-    $c->model('Relationship')->load(@recordings);
     $c->model('Relationship')->load(
+        @recordings,
+        $release,
         grep { $_->isa(Work) } map { $_->target }
             map { $_->all_relationships } @recordings);
 
@@ -335,6 +339,35 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
         }
         $c->stash( template => 'release/move_search.tt' );
     }
+}
+
+=head2 collections
+
+View a list of collections that this release has been added to.
+
+=cut
+
+sub collections : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my @all_collections = $c->model('Collection')->find_all_by_release($c->stash->{release}->id);
+    my @public_collections;
+    my $private_collections = 0;
+
+    # Keep public collections;
+    # count private collection
+    foreach my $collection (@all_collections) {
+        push (@public_collections, $collection)
+            if ($collection->{'public'} == 1);
+        $private_collections++
+            if ($collection->{'public'} == 0);
+    }
+
+    $c->stash(
+        public_collections => \@public_collections,
+        private_collections => $private_collections,
+    );
 }
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {

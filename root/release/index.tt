@@ -62,4 +62,7 @@
       });
 
     </script>
+
+    <h2>[% l("Relationships") %]</h2>
+    [%- INCLUDE "components/relationships.tt" source=release -%]
 [%- END -%]

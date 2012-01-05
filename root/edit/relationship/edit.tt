@@ -60,13 +60,13 @@ var typeInfo = [% type_info %];
 
 <table class="form">
     <tr>
-        <td class="label">[% entity_label(relationship.link.type.entity0_type) %]</td>
+        <th class="label">[% entity_label(relationship.link.type.entity0_type) %]</td>
         <td colspan="2" id="entity0">
           [%- relationship_entity(form.field('entity0'), relationship.entity0, relationship.link.type.entity0_type) -%]
         </td>
     </tr>
     <tr>
-        <td class="label">[% r.label('link_type_id', l('Type:')) %]</td>
+        <th class="label">[% r.label('link_type_id', l('Type:')) %]</td>
         <td colspan="2">
             [% r.select('link_type_id', no_default => 1) %]
             [% field_errors(form, 'link_type_id') %]
@@ -83,19 +83,19 @@ var typeInfo = [% type_info %];
         </td>
     </tr>
     <tr>
-        <td class="label"> </td>
+        <th class="label"> </td>
         <td colspan="2">
             <div class="ar-descr" id="type_descr"></div>
         </td>
     </tr>
     <tr>
-        <td class="label">[% entity_label(relationship.link.type.entity1_type) %]</td>
+        <th class="label">[% entity_label(relationship.link.type.entity1_type) %]</td>
         <td colspan="2" id="entity1">
           [%- relationship_entity(form.field('entity1'), relationship.entity1, relationship.link.type.entity1_type) -%]
         </td>
     </tr>
     <tr>
-        <td class="label"><label>[% l('Attributes:') %]</label></td>
+        <th class="label"><label>[% l('Attributes:') %]</label></td>
         <td>
         [% FOR attr IN attr_tree.children %]
             <div id="attr-section-[% attr.id %]" class="ar-attr">
@@ -120,12 +120,12 @@ var typeInfo = [% type_info %];
         </td>
     </tr>
     <tr>
-        <td class="label">[% r.label('begin_date', l('Begin date:'), fake => 1) %]</td>
+        <th class="label">[% r.label('begin_date', l('Begin date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('begin_date') %]
         [% field_errors(form, 'begin_date') %]</td>
     </tr>
     <tr>
-        <td class="label">[% r.label('end_date', l('End date:'), fake => 1) %]</td>
+        <th class="label">[% r.label('end_date', l('End date:'), fake => 1) %]</td>
         <td colspan="2">[% r.date('end_date') %]
         [% field_errors(form, 'end_date') %]</td>
     </tr>

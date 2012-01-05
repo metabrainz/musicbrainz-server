@@ -60,6 +60,11 @@
 .wikicontent div.floatright p { font-style: italic; }
 .wikicontent div.floatleft p { font-style: italic; }
 
+.wikicontent .hierarchy-links {
+	margin-top: -5px;
+	font-size: 10px;
+}
+
 /*
 ** TOC
 */

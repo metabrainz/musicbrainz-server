@@ -9,7 +9,7 @@
 [%- homepage_relationships = entity.relationships_by_link_type_names('official homepage', 'official site') -%]
     [%- FOREACH favicon IN homepage_relationships -%]
         [%- display_favicon(favicon.target, l('Official homepage'), 'home') -%]
-    [% END %]
+    [%- END -%]
 
     [%- FOREACH favicon IN favicons -%]
         [%- IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') AND
@@ -29,9 +29,10 @@
 [%- display_favicons(entity, 1) -%]
 </ul>
 [%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
+[%- release_group_links = display_favicons(entity.release_group, 0); -%]
+[%- IF release_group_links -%]
 <h2>[% l('Release group external links') %]</h2>
-<ul class="external_links">
-[%- display_favicons(entity.release_group, 0); -%]
-</ul>
+<ul class="external_links">[% release_group_links %]</ul>
+[%- END -%]
 [%- END -%]
 

@@ -2,7 +2,7 @@
     [%- IF new -%]
         [%- create_guideline(l('You are about to add an artist to MusicBrainz.')) -%]
         [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('Style_Guideline')})) -%]
-        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment|add a comment to this artist}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('Artist_Comment')})) -%]
+        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment|add a disambiguation comment to this artist}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('Artist_Comment')})) -%]
     [%- END -%]
 [%- END -%]
 
@@ -52,6 +52,22 @@
         [% form_row_date(r, 'begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'end_date', l('End date:')) %]
       </fieldset>
+
+      [% IF edit_artist_credits && artist_credits %]
+      <fieldset>
+        <legend>[% l('Artist Credits') %]</legend>
+        <p>
+            [%- l('Please select the artist credits that you want to rename to follow the new artist name.') -%]
+        </p>
+        <p>
+            [%- selected_acs = form.rename_artist_credit_set() -%]
+            [% FOR ac IN artist_credits %]
+            <span class="rename-artist-credit"><input type="checkbox" name="edit-artist.rename_artist_credit" value="[% ac.id %]" [% IF selected_acs.item(ac.id) %]checked="checked"[% END %] />[% artist_credit(ac) %]</span><br />
+            [% END %]
+        </p>
+      </fieldset>
+      [% END %]
+
       [% INCLUDE 'forms/edit-note.tt' %]
 
       [% enter_edit() %]
