@@ -16,7 +16,7 @@
           <input id="file" type="file" name="file" value="" />
       [% END %]
        <ul id="cover-art-file-error" class="errors" style="display: none">
-         <li>[% l('Choose an image') %]</li>
+         <li>[% l('Please choose a valid image. Currently the Cover Art Archive only supports JPEG files.') %]</li>
        </ul>
     </form>
 </html>

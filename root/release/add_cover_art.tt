@@ -37,7 +37,9 @@
      };
 
      var validate_cover_art_file = function () {
-         var invalid = $('iframe').contents ().find ('#file').val () == "";
+         var filename = $('iframe').contents ().find ('#file').val ();
+         var invalid = filename == ""
+                    || filename.match(/\.jpe?g/) == null;
 
          $('iframe').contents ().find ('#cover-art-file-error').toggle (invalid);
 
