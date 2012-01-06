@@ -386,7 +386,6 @@ sub _merge_form_arguments {
 
     my @mediums;
     my %medium_by_id;
-    my %medium_by_position;
     foreach my $release (@releases) {
         foreach my $medium ($release->all_mediums) {
             my $position = $medium->position;
@@ -405,48 +404,15 @@ sub _merge_form_arguments {
                 name => $name
             };
             $medium_by_id{$medium->id} = $medium;
-            if (exists $medium_by_position{$medium->position}) {
-                push @{ $medium_by_position{$medium->position} }, $medium;
-			}
-            else {
-                $medium_by_position{$medium->position} = [ $medium ];
-            }
-        }
-    }
-
-    my %recordings;
-    my %recording_by_position;
-    for my $m_pos (keys %medium_by_position) {
-        # must have at least two mediums
-        warn $medium_by_position{$m_pos};
-        my @mediums = @{ $medium_by_position{$m_pos} };
-        next if @mediums <= 1;
-        # all mediums must have the same number of tracks
-        my $track_count = $mediums[0]->tracklist->track_count;
-        next if grep { $_->tracklist->track_count != $track_count } @mediums;
-        # group recordings by track position 
-        $recording_by_position{$m_pos} = {};
-        for my $medium (@mediums) {
-            for my $tr ($medium->tracklist->all_tracks) {
-                my $tr_pos = $tr->position;
-                if (exists $recording_by_position{$m_pos}->{$tr_pos}) {
-                    push @{ $recording_by_position{$m_pos}->{$tr_pos} }, $tr->recording;
-                }
-                else {
-                    $recording_by_position{$m_pos}->{$tr_pos} = [ $tr->recording ];
-                }   
-            }
         }
     }
 
     my @bad_recording_merges;
-    for my $m_pos (sort { $a <=> $b } keys %recording_by_position) {
-        for my $tr_pos (sort { $a <=> $b } keys %{ $recording_by_position{$m_pos} }) {
-            my $recordings = $recording_by_position{$m_pos}->{$tr_pos};
-            my @ac_ids = map { $_->artist_credit_id } @$recordings;
-            if (uniq @ac_ids > 1) {
-                push @bad_recording_merges, $recordings;
-            }
+    my @recording_merges = $c->model('Release')->determine_recording_merges(@releases);
+    for my $recordings (@recording_merges) {
+        my @ac_ids = map { $_->artist_credit_id } @$recordings;
+        if (uniq @ac_ids > 1) {
+            push @bad_recording_merges, $recordings;
         }
     }
     if (@bad_recording_merges) {
