@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::CoverArtArchive;
 use Moose;
 
-with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::Sql';
 
 use DBDefs;
 use Net::Amazon::S3;
@@ -153,6 +153,16 @@ sub merge_releases {
 
         # Delete the bucket
     }
+}
+
+sub update_cover_art_presence {
+    my ($self, $release_id, $present) = @_;
+    $self->sql->do(
+        'UPDATE release_meta SET cover_art_presence = ?
+         WHERE cover_art_presence != ?',
+        $present ? 'present' : 'absent',
+        'darkened'
+    );
 }
 
 1;

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Release::RemoveCoverArt;
 use Moose;
 
+use List::MoreUtils qw( any );
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
@@ -77,6 +78,16 @@ sub accept {
             ) . '.jpg'
         )->http_request
     );
+
+    # Check if the release has other cover art, and if not - remove it
+    unless (
+        any { $_->type ne 'pending' }
+            $self->c->model('CoverArtArchive')->find_available_artwork($release->gid)
+    ) {
+        $self->c->model('CoverArtArchive')->update_cover_art_presence(
+            $release->id, 0
+        );
+    }
 }
 
 sub foreign_keys {
