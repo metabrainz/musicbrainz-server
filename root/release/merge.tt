@@ -84,7 +84,7 @@
                    between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
           <p>[% l('This requires that mediums over each release have corresponding track counts.') %]</p>
 
-          [% IF bad_recording_merges %]
+          [% IF bad_recording_merges.size %]
             [% warning(l('The recording artists do not match! Perhaps you meant to use the "append mediums" merge strategy?')) %]
             <p>[% l('If you continue with the current merge strategy, the following recordings will be merged:') %]</p>
             [% FOR bad_recordings IN bad_recording_merges %]
