@@ -172,8 +172,9 @@ sub update_cover_art_presence {
     my ($self, $release_id, $present) = @_;
     $self->sql->do(
         'UPDATE release_meta SET cover_art_presence = ?
-         WHERE cover_art_presence != ?',
+         WHERE release_id = ? cover_art_presence != ?',
         $present ? 'present' : 'absent',
+        $release_id,
         'darkened'
     );
 }
