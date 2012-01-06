@@ -355,8 +355,15 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
 sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
 {
     my ($self, $c) = @_;
-
     my $entity = $c->stash->{$self->{entity_name}};
+
+    $c->model('Release')->load_meta($entity);
+
+    if (!$entity->may_have_cover_art) {
+        $c->stash( template => 'release/caa_darkened.tt' );
+        $c->detach;
+    }
+
     my $form = $c->form( form => 'Release::AddCoverArt' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
@@ -528,6 +535,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit
 sub cover_art : Chained('load') PathPart('cover-art') {
     my ($self, $c) = @_;
     my $release = $c->stash->{entity};
+    $c->model('Release')->load_meta($release);
     $c->stash(
         cover_art => { $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
     );

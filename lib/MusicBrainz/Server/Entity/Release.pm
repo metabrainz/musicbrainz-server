@@ -217,6 +217,10 @@ has 'cover_art_presence' => (
     is => 'rw'
 );
 
+sub may_have_cover_art {
+    return shift->cover_art_presence ne 'darkened';
+}
+
 sub find_medium_for_recording {
     my ($self, $recording) = @_;
     for my $medium ($self->all_mediums) {
