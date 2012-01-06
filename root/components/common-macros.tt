@@ -109,7 +109,7 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO expanded_artist_credit(ac) BLOCK -%]
+[%- MACRO expanded_artist_credit(ac) IF ac -%]
   [% artist_credit(ac) %]
   [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment %]
   <ul>
