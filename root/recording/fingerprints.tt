@@ -1,0 +1,94 @@
+[%- WRAPPER 'recording/layout.tt' page='fingerprints' %]
+
+    <h2 id="acoustids">[%- l('Associated AcoustIDs') -%]</h2>
+
+    <h2>[%- l('Associated PUIDs') -%]</h2>
+
+    [% IF puids.size %]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('PUID') %]</th>
+                    [% IF c.user_exists %]
+                        <th style="width: 5em">
+                            [% l('Actions') %]
+                        </th>
+                    [% END %]
+                </tr>
+            </thead>
+	    <tbody [% rdfa_recording_ns(recording) %]>
+            [% FOR puid IN puids %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>
+                      [% '<span class="mp">' IF puid.edits_pending %]
+                      [% rdfa_link_puid(puid.puid) %]
+                      [% '</span>' IF puid.edits_pending %]
+                    </td>
+                    [% IF c.user_exists %]
+                        <td>
+                          <a href="[% c.uri_for_action('/recording/delete_puid', [ recording.gid ], { puid => puid.puid.puid }) %]">
+                            [% l('Remove') %]</a>
+                        </td>
+                    [% END %]
+                </tr>
+            [% END %]
+	    </tbody>
+        </table>
+
+        [% UNLESS c.user_exists %]
+            <p>[% l('Please {login_url|log in} to edit these PUIDs.', { login_url => login_url() }) %]</p>
+        [% END %]
+
+    [% ELSE %]
+        <p>[% l('This recording does not have any associated PUIDs') %]</p>
+    [% END %]
+
+    <script type="text/javascript">
+
+        function buildAcoustidTable(tracks, mbid) {
+            var tbl = $('<table class="tbl"><thead><tr><th>AcoustID</th><th style="width:5em;">[% l('Actions') %]</th></tr></thead><tbody></tbody></table>');
+            tracks.sort(function(a, b) {
+                if (a.disabled && !b.disabled) return 1;
+                if (!a.disabled && b.disabled) return -1;
+                if (a.id > b.id) return 1;
+                if (a.id < b.id) return -1;
+                return 0;
+            });
+            for (var i = 0; i < tracks.length; i++) {
+                var row = $('<tr><td><code><a class="external"></a></code></td><td><a class="external"></a></td></tr>');
+                if (i % 2 == 1) {
+                    row.addClass('ev');
+                }
+                if (tracks[i].disabled) {
+                    row.find('a').first()
+                        .css('text-decoration', 'line-through')
+                        .css('opacity', '0.5');
+                }
+                var link = row.find('a').first();
+                link.attr('href', 'http://acoustid.org/track/' + tracks[i].id);
+                link.text(tracks[i].id);
+                if (mbid) {
+                    link = row.find('a').last();
+                    link.attr('href', 'http://acoustid.org/edit/toggle-track-mbid?track_gid=' + tracks[i].id + '&mbid=' + mbid + '&state=' + (tracks[i].disabled ? '0' : '1'));
+                    link.text(tracks[i].disabled ? '[% l('Link') %]' : '[% l('Unlink') %]');
+                }
+                tbl.find('tbody').append(row);
+            }
+            return tbl;
+        }
+
+        $.getJSON("http://api.acoustid.org/v2/track/list_by_mbid?format=jsonp&disabled=1&jsoncallback=?",
+            { 'mbid': '[% recording.gid %]' },
+            function(json) {
+                if (json.tracks.length) {
+                    $('#acoustids').after(buildAcoustidTable(json.tracks, '[% recording.gid %]'));
+                }
+                else {
+                    $('#acoustids').after('<p>[% l('This recording does not have any associated AcoustIDs') %]</p>');
+                }
+            }
+        );
+
+    </script>
+
+[%- END -%]
