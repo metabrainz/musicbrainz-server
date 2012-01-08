@@ -39,7 +39,13 @@
                 </table>
             [%- END -%]
         [%- ELSE -%]
-            <p>[%- l('No results found') -%]</p>
+            <p>[% l('No results found. Try refining your search query.') %]</p>
+            <p>
+              [% l('Alternatively, you may {uri|add a new work}.', {
+                    uri => c.uri_for_action('/work/create', {
+                             'edit-work.name' => query
+                           }) }) %]
+            </p>
         [%- END -%]
         [%- INCLUDE "search/form.tt" -%]
     </div>
