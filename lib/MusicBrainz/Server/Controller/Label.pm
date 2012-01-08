@@ -89,18 +89,19 @@ sub show : PathPart('') Chained('load')
 {
     my  ($self, $c) = @_;
 
-    my $release_labels = $self->_load_paged($c, sub {
-            $c->model('ReleaseLabel')->find_by_label($c->stash->{label}->id, shift, shift);
+    my $releases = $self->_load_paged($c, sub {
+            $c->model('Release')->find_by_label($c->stash->{label}->id, shift, shift);
         });
 
-    my @releases = map { $_->release } @$release_labels;
-
-    $c->model('ArtistCredit')->load(@releases);
-    $c->model('Country')->load(@releases);
-
+    $c->model('ArtistCredit')->load(@$releases);
+    $c->model('Country')->load(@$releases);
+    $c->model('Medium')->load_for_releases(@$releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
+    $c->model('ReleaseLabel')->load(@$releases);
+    $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->stash(
         template => 'label/index.tt',
-        releases => $release_labels,
+        releases => $releases,
     );
 }
 

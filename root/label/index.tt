@@ -2,45 +2,11 @@
     [%- INCLUDE 'label/annotation.tt' summary=1 -%]
 
     <h2>[% l('Releases') %]</h2>
-    [%- WRAPPER "components/with-pager.tt" %]
-        [%- IF releases.size -%]
-            <table class="tbl">
-                <thead>
-                    <tr>
-                        <th>[% l('Title') %]</th>
-                        <th>[% l('Artist') %]</th>
-                        <th>[% l('Catalog #') %]</th>
-                        <th>[% l('Date') %]</th>
-                        <th>[% l('Country') %]</th>
-                        [%- IF c.session.tport -%]
-                            <th>[% l('Tagger') %]</th>
-                        [%- END -%]
-                    </tr>
-                </thead>
-                <tbody [% rdfa_label_ns(label) %]>
-                    [%- FOREACH release=releases %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release.release) %] [% rdfa_about_attr(rdfa_release_curi(release.release)) -%]>
-                        <td>
-                          [% rdfa_label_release_link(release.release) %]
-                          [% disambiguation(release.release) %]
-                        </td>
-                        <td>[% rdfa_artist_credit(release.release.artist_credit) %]</td>
-                        <td>[% rdfa_release_catno(release.catalog_number) %]</td>
-                        <td>[% rdfa_release_event_date(release.release) %]</td>
-                        <td>
-                            [%- IF release.release.country -%]
-                                [% rdfa_release_country_abbr(release.release) %]
-                            [%- END -%]
-                        </td>
-                        [%- IF c.session.tport -%]
-                            <td>[% tagger_icon(release.release) %]</td>
-                        [%- END -%]
-                    </tr>
-                    [%- END -%]
-                </tbody>
-            </table>
-        [%- ELSE -%]
-            <p>[% l('No releases found.') %]</p>
-        [%- END -%]
+    [%- IF releases.size -%]
+      <form action="[% c.uri_for_action('/release/merge_queue') %]"
+            method="post">
+        [%- INCLUDE 'release_group/releases-list.tt' rdfa_made=1 WRAPPER 'components/with-pager.tt' -%]
+        [% form_submit(l('Add selected releases for merging')) WRAPPER form_row IF c.user_exists %]
+      </form>
     [%- END -%]
 [% END %]
