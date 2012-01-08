@@ -121,6 +121,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.wikipedia,
         clean: function(url) {
             url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "http://$1.wikipedia.org/wiki/$2");
+            url =  url.replace(/^https:\/\//, "http://");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
             return url.replace(/\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
         }
@@ -188,10 +189,11 @@ MB.constants.CLEANUPS = {
         }
     },
     archive: {
-        match: new RegExp("^(https?://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
         type: MB.constants.LINK_TYPES.coverart,
         clean: function(url) { 
-            return url.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
+            url = url.replace(/\?cnt=\d+$/, "");
+            return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
         }
     },
     cdbaby: {
