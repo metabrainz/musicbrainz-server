@@ -170,3 +170,10 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
     margin-bottom: 5px;
     font-weight: bold;
 }
+
+/* Escape clause for tables that are used just for formatting */
+.wikicontent table[border^="0"],
+.wikicontent table[border^="0"] td {
+    border: none !important;
+    background: none !important;
+}
