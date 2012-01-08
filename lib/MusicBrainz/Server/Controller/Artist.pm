@@ -257,9 +257,36 @@ browsable (not just paginated)
 
 =cut
 
+sub process_filter
+{
+    my ($self, $c, $form_class) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
+
+    my %filter;
+    my $filter_form = $c->form(filter_form => $form_class,
+                               artist_credits => $artist_credits);
+    unless (exists $c->req->params->{'filter.cancel'}) {
+        if ($filter_form->submitted_and_valid($c->req->params)) {
+            for my $name ($filter_form->filter_field_names) {
+                my $value = $filter_form->field($name)->value;
+                if ($value) {
+                    $filter{$name} = $value;
+                }
+
+            }
+        }
+    }
+
+    return \%filter;
+}
+
 sub recordings : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my %filter = %{ $self->process_filter($c, 'Filter::Recording') };
 
     my $artist = $c->stash->{artist};
     my $recordings;
@@ -287,7 +314,7 @@ sub recordings : Chained('load')
         }
         else {
             $recordings = $self->_load_paged($c, sub {
-                $c->model('Recording')->find_by_artist($artist->id, shift, shift);
+                $c->model('Recording')->find_by_artist($artist->id, shift, shift, filter => \%filter);
             });
         }
 
@@ -320,6 +347,8 @@ Shows all releases of an artist.
 sub releases : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my %filter = %{ $self->process_filter($c, 'Filter::Recording') };
 
     my $artist = $c->stash->{artist};
     my $releases;

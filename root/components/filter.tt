@@ -1,0 +1,23 @@
+<div id="filter" style="margin-top: 1em; border: 1px solid #999; background: #f0f0f0; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; padding: 0.5em; ">
+    <form action="" method="get">
+    [% USE r = FormRenderer(filter_form) %]
+    <table>
+        <tr>
+            <td>[% l('Artist credit:') %]</td>
+            <td>[% r.select('artist_credit_id') %]</td>
+        </tr>
+        <tr>
+            <td>[% l('Name:') %]</td>
+            <td>[% r.text('name', { size => 47 }) %]</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><span class="buttons">
+                <button type="submit" class="submit positive">[% l('Filter recordings') %]</button>
+                <button type="submit" name="filter.cancel" value="1" class="submit negative">[% l('Cancel') %]</button>
+            </span></td>
+        </tr>
+    </table>
+    </form>
+</div>
+

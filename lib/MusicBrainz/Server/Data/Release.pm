@@ -116,8 +116,37 @@ sub load
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+    #my ($self, $artist_id, $limit, $offset, %args) = @_;
+    my ($self, $artist_id, $limit, $offset, $types, $statuses) = @_;
 
+    #my (@where_query, @where_args);
+    
+    #push @where_query, "acn.artist = ?";
+    #push @where_args, $artist_id;
+
+    #if (exists $args{filter}) {
+    #    my %filter = %{ $args{filter} };
+    #    if (exists $filter{name}) {
+    #        push @where_query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+    #        push @where_args, $filter{name}, $filter{name};
+    #    }
+    #    if (exists $filter{artist_credit_id}) {
+    #        push @where_query, "recording.artist_credit = ?";
+    #        push @where_args, $filter{artist_credit_id};
+    #    }
+    #    if (exists $filter{statuses}) {
+    #        my @statuses = @{ $filter{statuses} };
+    #        push @where_query, _where_status_in (@statuses);
+    #        push @where_args, $statuses;
+    #    }
+    #    if (exists $filter{types}) {
+    #        my @types = @{ $filter{types} };
+    #        my ($join_types, $where_types) = _where_type_in (@types);
+    #        push @where_query
+    #        push @where_args, $types;
+    #    }
+    #}
+     
     my $where_statuses = _where_status_in (@$statuses);
     my ($join_types, $where_types) = _where_type_in (@$types);
 
