@@ -12,6 +12,11 @@ has 'title' => (
     isa => 'Str',
 );
 
+has 'hierarchy' => (
+    is => 'rw',
+    isa => 'ArrayRef',
+);
+
 has 'content' => (
     is => 'rw',
     isa => 'Str'

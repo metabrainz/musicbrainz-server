@@ -93,10 +93,13 @@ sub _create_page
 
     my $title = $id;
     $title =~ s/_/ /g;
+    # Create hierarchy for displaying in the h1
+    my @hierarchy = split('/',$title);
+    $title = $hierarchy[-1];
 
     $content = $self->_fix_html_markup($content, $index);
 
-    my %args = ( title => $title, content  => $content );
+    my %args = ( title => $title, hierarchy => \@hierarchy, content  => $content );
     if (defined $version) {
         $args{version} = $version;
     }

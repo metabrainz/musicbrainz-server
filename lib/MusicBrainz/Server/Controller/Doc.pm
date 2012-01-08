@@ -24,15 +24,10 @@ sub show : Path('')
         return;
     }
 
-    # Create hierarchy via url, but prevent the current page from showing
-    my @hierarchy_links = split('/',$id);
-    @hierarchy_links = splice @hierarchy_links, 0, -1;
-
     my $bare = $c->req->param('bare') || 0;
     $c->stash(
         id => $id,
         page => $page,
-        hierarchy_links => \@hierarchy_links,
     );
 
     if ($id =~ /^(Special|User|MetaBrainz):/i) {
