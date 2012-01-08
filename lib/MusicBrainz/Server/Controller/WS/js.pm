@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js;
 
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
 use Encode qw( decode encode );
@@ -42,32 +42,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      version => 'js',
      default_serialization_type => 'json',
 };
-
-Readonly my %serializers => (
-    json => 'MusicBrainz::Server::WebService::JSONSerializer',
-);
-
-sub bad_req : Private
-{
-    my ($self, $c) = @_;
-    $c->res->status(400);
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
-}
-
-sub begin : Private
-{
-}
-
-sub end : Private
-{
-}
-
-sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
-{
-    my ($self, $c) = @_;
-    $self->validate($c, \%serializers) or $c->detach('bad_req');
-}
 
 sub tracklist : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
@@ -325,7 +299,7 @@ sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $serializers{$self->get_default_serialization_type}->new();
+    $c->stash->{serializer} = $self->serializers->{$self->get_default_serialization_type}->new();
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
 }

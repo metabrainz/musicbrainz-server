@@ -387,6 +387,71 @@ MB.Control.Autocomplete = function (options) {
 
         self.changeEntity (options.entity);
 
+        var entity_regex = new RegExp(
+            "(?:(artist|release|release-group|recording|work|label)\/)?" +
+            "([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})");
+
+        // This needs to run before the autocomplete handler
+        self.$input.bind ('keydown.mb', function (event) {
+            var keyCode = $.ui.keyCode;
+            switch (event.keyCode) {
+            // These are handled by jquery.ui.autocomplete
+            case keyCode.PAGE_UP:
+            case keyCode.PAGE_DOWN:
+            case keyCode.UP:
+            case keyCode.DOWN:
+            case keyCode.ENTER:
+            case keyCode.NUMPAD_ENTER:
+            case keyCode.TAB:
+            case keyCode.ESCAPE:
+                return;
+                break;
+            // Otherwise assume the input event will fire
+            default:
+                event.stopImmediatePropagation();
+                break;
+            }
+        });
+
+        self.$input.bind ('input', function (event) {
+            var match = this.value.match(entity_regex);
+
+            if (match == null) {
+                $(this).trigger("keydown.autocomplete");
+                return;
+            }
+            $(this).trigger("blur.autocomplete");
+
+            var entity = match[1], mbid = match[2];
+
+            if (entity && entity != self.entity) {
+                // Only RelateTo boxes support changing the entity type
+                if (options.setEntity) {
+                    options.setEntity(entity);
+                } else {
+                    return;
+                }
+            }
+
+            $(this).attr("disabled", "disabled");
+
+            $.ajax({
+                url: self.url + "/" + mbid,
+                dataType: "json",
+                success: function (data) {
+                    self.select (event, { item: data });
+                    self.autocomplete.term = data.name;
+                    self.autocomplete.selectedItem = null;
+                },
+                error: function () {
+                    self.clear();
+                },
+                complete: function () {
+                    self.$input.removeAttr("disabled").focus();
+                }
+            });
+        });
+
         self.$input.autocomplete ($.extend({}, options, {
             'source': self.lookup,
             'minLength': options.minLength ? options.minLength : 1,
@@ -397,9 +462,6 @@ MB.Control.Autocomplete = function (options) {
 
         self.autocomplete = self.$input.data ('autocomplete');
         self.$input.bind ('keydown.mb', self.pagerKeyEvent);
-        self.$input.bind ('propertychange.mb input.mb', function (event) {
-            self.$input.trigger ("keydown");
-        });
         self.$input.bind ('iamfeelinglucky', self.iamfeelinglucky);
         self.$input.bind ('blur', function(event) {
             if (!self.currentSelection) return;

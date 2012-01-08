@@ -9,6 +9,9 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]
+    },
+    "release" => {
+        method   => 'GET'
     }
 ]);
 
@@ -19,9 +22,16 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model => 'Release'
+};
+
 sub type { 'release' }
 
-sub search : Path('/ws/js/release') {
+sub base : Chained('root') PathPart('release') CaptureArgs(0) { }
+
+sub search : Chained('root') PathPart('release') Args(0)
+{
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }

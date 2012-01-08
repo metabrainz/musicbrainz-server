@@ -40,7 +40,7 @@ MB.Control.RelateTo = function () {
     self.$autocomplete = self.$relate.find ('span.autocomplete');
 
     self.type = function () {
-        return self.$relate.find ('option:selected').val ();
+        return self.$select.find ('option:selected').val ();
     };
 
     self.$autocomplete.bind ('lookup-performed.mb', function (event, data) {
@@ -147,6 +147,10 @@ MB.Control.RelateTo = function () {
     self.$cancel.bind ('click.mb', function (event) { self.hide(event); });
     self.$create.bind ('click.mb', self.createRelationship);
 
+    function setEntity (entity) {
+        self.$select.val(entity).trigger("change.mb");
+    }
+
     self.autocomplete = MB.Control.EntityAutocomplete ({
         'entity': self.type (),
         'inputs': self.$autocomplete,
@@ -155,7 +159,8 @@ MB.Control.RelateTo = function () {
             my: "right top",
             at: "right bottom",
             collision: "none"
-        }
+        },
+        'setEntity': setEntity
     });
 
     self.autocomplete.$input.keydown(function (event) {

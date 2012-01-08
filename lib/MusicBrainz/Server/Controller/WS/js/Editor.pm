@@ -19,7 +19,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
-sub search : Path('/ws/js/editor') {
+sub search : Chained('root') PathPart('editor') Args(0)
+{
     my ($self, $c) = @_;
 
     my $query = trim $c->stash->{args}->{q};

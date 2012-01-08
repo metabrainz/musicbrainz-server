@@ -13,25 +13,43 @@ sub serialize
     return $self->$type(@data);
 }
 
+sub serialize_entity
+{
+    my ($self, $type, $data) = @_;
+
+    my $json = JSON::Any->new;
+
+    return $json->encode($self->$type($data));
+}
+
 sub autocomplete_generic
 {
     my ($self, $output, $pager) = @_;
 
     my $json = JSON::Any->new;
-    return $json->encode([
-        (map +{
-            name => $_->name,
-            id => $_->id,
-            gid => $_->gid,
-            comment => $_->comment,
-            $_->meta->has_attribute('sort_name')
-                ? (sortname => $_->sort_name) : ()
-        }, @$output),
-        {
-            pages => $pager->last_page,
-            current => $pager->current_page
-        }
-    ]);
+
+    my @output = map $self->_generic($_), @$output;
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return $json->encode (\@output);
+}
+
+sub _generic
+{
+    my ($self, $entity) = @_;
+
+    return {
+        name    => $entity->name,
+        id      => $entity->id,
+        gid     => $entity->gid,
+        comment => $entity->comment,
+        $entity->meta->has_attribute('sort_name')
+            ? (sortname => $entity->sort_name) : ()
+    };
 }
 
 sub autocomplete_editor
@@ -50,7 +68,6 @@ sub autocomplete_editor
         }
     ]);
 }
-
 
 sub generic
 {
@@ -75,17 +92,7 @@ sub autocomplete_release_group
     my $json = JSON::Any->new;
 
     my @output;
-
-    for my $item (@$results) {
-        push @output, {
-            name => $item->name,
-            id => $item->id,
-            gid => $item->gid,
-            comment => $item->comment,
-            artist => $item->artist_credit->name,
-            type => $item->type_id,
-        };
-    };
+    push @output, $self->_release_group($_) for @$results;
 
     push @output, {
         pages => $pager->last_page,
@@ -93,6 +100,20 @@ sub autocomplete_release_group
     } if $pager;
 
     return $json->encode (\@output);
+}
+
+sub _release_group
+{
+    my ($self, $item) = @_;
+
+    return {
+        name    => $item->name,
+        id      => $item->id,
+        gid     => $item->gid,
+        comment => $item->comment,
+        artist  => $item->artist_credit->name,
+        type    => $item->type_id,
+    };
 }
 
 sub autocomplete_recording
@@ -102,25 +123,7 @@ sub autocomplete_recording
     my $json = JSON::Any->new;
 
     my @output;
-
-    for my $item (@$results) {
-        push @output, {
-            name => $item->{recording}->name,
-            id => $item->{recording}->id,
-            gid => $item->{recording}->gid,
-            comment => $item->{recording}->comment,
-            length => format_track_length ($item->{recording}->length),
-            artist => $item->{recording}->artist_credit->name,
-            isrcs => [ map { $_->isrc } @{ $item->{recording}->isrcs } ],
-            appears_on => {
-                hits => $item->{appears_on}{hits},
-                results => [ map { {
-                    'name' => $_->name,
-                    'gid' => $_->gid
-                    } } @{ $item->{appears_on}{results} } ],
-            }
-        };
-    };
+    push @output, $self->_recording($_) for @$results;
 
     push @output, {
         pages => $pager->last_page,
@@ -130,6 +133,28 @@ sub autocomplete_recording
     return $json->encode (\@output);
 }
 
+sub _recording
+{
+    my ($self, $item) = @_;
+
+    return {
+        name    => $item->{recording}->name,
+        id      => $item->{recording}->id,
+        gid     => $item->{recording}->gid,
+        comment => $item->{recording}->comment,
+        length  => format_track_length ($item->{recording}->length),
+        artist  => $item->{recording}->artist_credit->name,
+        isrcs   => [ map { $_->isrc } @{ $item->{recording}->isrcs } ],
+        appears_on  => {
+            hits    => $item->{appears_on}{hits},
+            results => [ map { {
+                'name' => $_->name,
+                'gid'  => $_->gid
+            } } @{ $item->{appears_on}{results} } ],
+        }
+    };
+}
+
 sub autocomplete_work
 {
     my ($self, $results, $pager) = @_;
@@ -137,16 +162,7 @@ sub autocomplete_work
     my $json = JSON::Any->new;
 
     my @output;
-
-    for my $item (@$results) {
-        push @output, {
-            name => $item->{work}->name,
-            id => $item->{work}->id,
-            gid => $item->{work}->gid,
-            comment => $item->{work}->comment,
-            artists => $item->{artists},
-        };
-    };
+    push @output, $self->_work($_) for (@$results);
 
     push @output, {
         pages => $pager->last_page,
@@ -154,6 +170,19 @@ sub autocomplete_work
     } if $pager;
 
     return $json->encode (\@output);
+}
+
+sub _work
+{
+    my ($self, $item) = @_;
+
+    return {
+        name    => $item->{work}->name,
+        id      => $item->{work}->id,
+        gid     => $item->{work}->gid,
+        comment => $item->{work}->comment,
+        artists => $item->{artists},
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
