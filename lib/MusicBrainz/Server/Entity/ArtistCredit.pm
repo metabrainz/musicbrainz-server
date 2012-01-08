@@ -73,7 +73,7 @@ sub change_artist_name
             artist_id => $name->artist_id,
         );
         $initname{join_phrase} = $name->join_phrase if $name->join_phrase;
-        if ($name->artist_id == $artist->id && $name->name eq $artist->name) {
+        if ($name->artist_id == $artist->id) {
             $initname{name} = $new_name;
         }
         $ret->add_name(ArtistCreditName->new(%initname));

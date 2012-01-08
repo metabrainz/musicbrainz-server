@@ -441,6 +441,7 @@ sub edit : Chained('load') RequireAuth Edit {
                 for my $old_ac (@$artist_credits) {
                     next unless $rename{$old_ac->id};
                     my $ac = $old_ac->change_artist_name($artist, $name);
+                    next if $ac == $old_ac;
                     my $ac_edit = $c->model('Edit')->create(
                         edit_type     => $EDIT_ARTIST_EDITCREDIT,
                         editor_id     => $c->user->id,
