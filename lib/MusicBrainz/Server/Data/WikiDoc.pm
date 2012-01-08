@@ -71,7 +71,11 @@ sub _fix_html_markup
     for my $node ($tree->findnodes ('//table')->get_nodelist)
     {
         my $class = $node->attr('class') || "";
-	$node->attr('class', 'wikitable ' . $class);
+
+        # Special cases where we don't want this class added
+        next if ($class =~ /(\btoc\b|\btbl\b)/);
+
+        $node->attr('class', 'wikitable ' . $class);
     }
 
     $content = $tree->as_HTML;
