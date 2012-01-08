@@ -35,7 +35,7 @@ sub show : Path('')
         hierarchy_links => \@hierarchy_links,
     );
 
-    if ($id =~ /^(Special|User):/i) {
+    if ($id =~ /^(Special|User|MetaBrainz):/i) {
         $c->response->status(404);
         $c->stash->{template} = 'doc/error.tt';
         return;
