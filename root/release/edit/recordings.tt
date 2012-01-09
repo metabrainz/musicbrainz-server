@@ -384,10 +384,8 @@
           [%- r.label('infer_durations', l('Infer track durations from associated recordings')) -%]
         </p>
         <p>
-          <input id="propogate-all-track-changes" type="checkbox" />
-          <label for="propogate-all-track-changes" >
-            [% l('Copy all track changes to associated recordings.') %]
-          </label>
+          [% r.checkbox('propagate_all_track_changes') %]
+          [%- r.label('propagate_all_track_changes', l('Copy all track changes to associated recordings.')) -%]
         </p>
       </fieldset>
     </div>

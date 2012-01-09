@@ -16,7 +16,6 @@ sub new {
 
 sub compare {
     my ($self, $a, $b) = @_;
-    use Devel::Dwarn; Dwarn [$a, $b];
     return Compare($a, $b);
 }
 
