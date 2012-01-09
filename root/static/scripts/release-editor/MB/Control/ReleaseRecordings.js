@@ -370,3 +370,14 @@ MB.Control.ReleaseRecordings = function () {
 
     return self;
 };
+
+$(function() {
+    $('#propogate-all-track-changes').change(function() {
+        if ($(this).attr('checked')) {
+            $('input.copy-to-recording').attr('checked', 'checked');
+        }
+        else {
+            $('input.copy-to-recording').attr('checked', null);
+        }
+    });
+});

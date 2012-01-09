@@ -9,6 +9,7 @@ use MusicBrainz::Server::Track qw( format_track_length );
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_EDIT
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ARTIST
 );
@@ -40,6 +41,27 @@ augment 'create_edits' => sub
     $self->c->stash->{changes} = 0;
 
     $create_edit->($EDIT_RELEASE_EDIT, $editnote, %args);
+
+    my $medium_index = 0;
+    for my $medium (@{ $data->{rec_mediums} }) {
+        my $track_index = 0;
+        for my $track_association (@{ $medium->{associations} }) {
+            if ($track_association->{update_recording}) {
+                my $track = $data->{mediums}[ $medium_index ]{tracks}[ $track_index ];
+                $create_edit->(
+                    $EDIT_RECORDING_EDIT, $editnote,
+                    to_edit => $self->c->model('Recording')->get_by_gid( $track_association->{gid} ),
+                    name => $track->name,
+                    artist_credit => artist_credit_to_ref($track->artist_credit, 1),
+                    length => $track->length
+                );
+            }
+
+            $track_index++;
+        }
+
+        $medium_index++;
+    }
 
     return $self->release;
 };
