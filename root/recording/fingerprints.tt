@@ -43,7 +43,7 @@
         <p>[% l('This recording does not have any associated PUIDs') %]</p>
     [% END %]
 
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
 
         function buildAcoustidTable(tracks, mbid) {
             var tbl = $('<table class="tbl"><thead><tr><th>AcoustID</th><th style="width:5em;">[% l('Actions') %]</th></tr></thead><tbody></tbody></table>');
@@ -89,6 +89,6 @@
             }
         );
 
-    </script>
+    //]]></script>
 
 [%- END -%]
