@@ -92,7 +92,7 @@ sub artist_credit_to_ref
     for my $ac ($artist_credit->all_names)
     {
         my %ac_name = (
-            join_phrase => $ac->join_phrase,
+            join_phrase => $ac->join_phrase // '',
             name => $ac->name,
             artist => {
                 name => $ac->artist->name,
