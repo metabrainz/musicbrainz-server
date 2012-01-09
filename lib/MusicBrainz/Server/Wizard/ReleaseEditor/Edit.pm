@@ -52,7 +52,7 @@ augment 'create_edits' => sub
                     $EDIT_RECORDING_EDIT, $editnote,
                     to_edit => $self->c->model('Recording')->get_by_gid( $track_association->{gid} ),
                     name => $track->name,
-                    artist_credit => artist_credit_to_ref($track->artist_credit),
+                    artist_credit => artist_credit_to_ref($track->artist_credit, 1),
                     length => $track->length
                 );
             }
