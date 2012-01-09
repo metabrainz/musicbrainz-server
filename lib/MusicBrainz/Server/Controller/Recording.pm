@@ -243,7 +243,7 @@ sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
             },
             on_creation => sub {
                 $c->response->redirect(
-                    $c->uri_for_action('/recording/puids', [ $recording->gid ]));
+                    $c->uri_for_action('/recording/fingerprints', [ $recording->gid ]));
             }
         );
     }
