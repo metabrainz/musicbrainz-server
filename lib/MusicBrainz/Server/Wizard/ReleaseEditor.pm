@@ -721,7 +721,8 @@ sub prepare_recordings
         'recordings',
         {
             'rec_mediums' => \@recording_edits,
-            'infer_durations' => $self->get_value ('recordings', 'infer_durations')
+            'infer_durations' => $self->get_value ('recordings', 'infer_durations'),
+            'propagate_all_track_changes' => $self->get_value ('recordings', 'propagate_all_track_changes'),
         });
 }
 
