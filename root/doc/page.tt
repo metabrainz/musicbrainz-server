@@ -8,7 +8,7 @@
                     [% doc = doc _ "/" _ link %]
                 [% END %]
 
-                <a href="[%- doc_link(doc) -%]" [% 'style="font-weight:bold;"' IF loop.last %]>[%- link -%]</a>
+                <a href="[%- doc_link(doc.replace(' ', '_')) -%]" [% ' style="font-weight:bold;"' IF loop.last %]>[%- link -%]</a>
                 [% ' / ' IF !loop.last %]
             [% END %]
         </h1>
