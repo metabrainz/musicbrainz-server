@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
-use List::MoreUtils qw( part );
+use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -407,11 +407,24 @@ sub _merge_form_arguments {
         }
     }
 
+    my @bad_recording_merges;
+    my @recording_merges = $c->model('Release')->determine_recording_merges(@releases);
+    for my $recordings (@recording_merges) {
+        my @ac_ids = map { $_->artist_credit_id } @$recordings;
+        if (uniq @ac_ids > 1) {
+            push @bad_recording_merges, $recordings;
+        }
+    }
+    if (@bad_recording_merges) {
+        $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
+    }
+
     @mediums = nsort_by { $_->{position} } @mediums;
 
     $c->stash(
         mediums => [ map { $medium_by_id{$_->{id}} } @mediums ],
-        xxx_releases => \@releases
+        xxx_releases => \@releases,
+        bad_recording_merges => \@bad_recording_merges,
     );
 
     return (
