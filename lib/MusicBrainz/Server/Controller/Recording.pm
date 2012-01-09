@@ -116,7 +116,7 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-sub puids : Chained('load') PathPart('puids')
+sub fingerprints : Chained('load') PathPart('fingerprints')
 {
     my ($self, $c) = @_;
 
@@ -124,7 +124,7 @@ sub puids : Chained('load') PathPart('puids')
     my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
     $c->stash(
         puids    => \@puids,
-        template => 'recording/puids.tt',
+        template => 'recording/fingerprints.tt',
     );
 }
 
