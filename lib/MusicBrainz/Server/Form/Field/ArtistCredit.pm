@@ -100,8 +100,7 @@ around 'value' => sub {
             # HTML::FormHandler incorrectly trims the join phrase if
             # it is a single space, work around this by taking the
             # join phrase directly from the input here.
-            my $join = $self->result->input->{names}->[$i]->{join_phrase};
-            $ret->{names}->[$i]->{join_phrase} = $join if $join;
+            $ret->{names}->[$i]->{join_phrase} = $self->result->input->{names}->[$i]->{join_phrase};
         }
     }
 
