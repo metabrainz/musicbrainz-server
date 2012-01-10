@@ -86,10 +86,11 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # HTTP Server Names
 ################################################################################
 
-# The host names of the HTML / RDF parts of the server
+# The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
-sub WEB_SERVER         { "www.musicbrainz.example.com" }
-sub LUCENE_SERVER    { "search.musicbrainz.org" }
+sub WEB_SERVER                { "www.musicbrainz.example.com" }
+sub LUCENE_SERVER             { "search.musicbrainz.org" }
+sub WEB_SERVER_USED_IN_EMAIL  { WEB_SERVER }
 
 ################################################################################
 # Mail Settings
