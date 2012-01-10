@@ -166,6 +166,9 @@ sub clean_submitted_artist_credits
             # MBS-3226, Fill in the artist name from the artist credit if the user
             # didn't enter an artist name.
             $part->{artist}->{name} = $part->{name} unless $part->{artist}->{name};
+
+            # Set to empty string if join_phrase is undef.
+            $part->{join_phrase} = '' unless defined $part->{join_phrase};
         }
         elsif (! $part)
         {
