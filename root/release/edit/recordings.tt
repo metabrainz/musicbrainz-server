@@ -269,9 +269,23 @@
             [%- ELSE -%]
               [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
             [%- END -%]
-            [%- recording = suggestions.$medium_idx.$track_idx.0 -%]
+            [%- recording = suggestions.$medium_idx.$track_idx.0;
+                USE Compare;
+                recording_track_differ = !Compare.compare(
+                    { name => track.name
+                    , artist_credit => track.artist_credit
+                    },
+                    { name => recording.name
+                    , artist_credit => recording.artist_credit.to_ref
+                    }
+                )
+            -%]
             <tr class="track">
-              <td rowspan="2" class="position" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">[% track.position | html %]</td>
+              <td rowspan="[% recording_track_differ ? 3 : 2 %]"
+                  class="position"
+                  style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">
+                [% track.position | html %]
+              </td>
               <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">[% track.name | html %]</td>
 
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
@@ -326,6 +340,15 @@
                 </span>
               </td>
             </tr>
+
+            [% IF recording_track_differ %]
+            <tr>
+              <td colspan="3">
+                [% r.checkbox(assoc.field('update_recording'), { class => 'copy-to-recording' }) %]
+                [% l('Also update the recording with track changes') %]
+              </td>
+            </tr>
+            [% END %]
           [%- END -%]
           </tbody>
         </table>
@@ -359,6 +382,10 @@
         <p>
           [% r.checkbox('infer_durations') %]
           [%- r.label('infer_durations', l('Infer track durations from associated recordings')) -%]
+        </p>
+        <p>
+          [% r.checkbox('propagate_all_track_changes') %]
+          [%- r.label('propagate_all_track_changes', l('Copy all track changes to associated recordings.')) -%]
         </p>
       </fieldset>
     </div>

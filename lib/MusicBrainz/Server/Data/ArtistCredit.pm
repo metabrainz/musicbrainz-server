@@ -39,7 +39,7 @@ sub get_by_ids
             artist_id => $row->{artist},
             name => $row->{name}
         );
-        $info{join_phrase} = $row->{join_phrase} if defined $row->{join_phrase};
+        $info{join_phrase} = $row->{join_phrase} // '';
         my $obj = MusicBrainz::Server::Entity::ArtistCreditName->new(%info);
         $obj->artist(MusicBrainz::Server::Entity::Artist->new(
             id => $row->{id},

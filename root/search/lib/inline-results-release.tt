@@ -42,5 +42,5 @@
   </table>
   [% END %]
 [% ELSE %]
-  <p>[% l('No results found') %]</p>
+  <p>[% l('No results found. Try refining your search query.') %]</p>
 [% END %]
