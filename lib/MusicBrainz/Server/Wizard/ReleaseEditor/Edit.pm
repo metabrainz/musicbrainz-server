@@ -42,6 +42,9 @@ augment 'create_edits' => sub
 
     $create_edit->($EDIT_RELEASE_EDIT, $editnote, %args);
 
+    # recording edits
+    # ----------------------------------------
+
     my $medium_index = 0;
     for my $medium (@{ $data->{rec_mediums} }) {
         my $track_index = 0;
@@ -53,7 +56,8 @@ augment 'create_edits' => sub
                     to_edit => $self->c->model('Recording')->get_by_gid( $track_association->{gid} ),
                     name => $track->name,
                     artist_credit => artist_credit_to_ref($track->artist_credit, 1),
-                    length => $track->length
+                    length => $track->length,
+                    as_auto_editor => $data->{as_auto_editor},
                 );
             }
 
