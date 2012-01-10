@@ -13,13 +13,13 @@ sub serialize
     return $self->$type(@data);
 }
 
-sub serialize_entity
+sub serialize_data
 {
-    my ($self, $type, $data) = @_;
+    my ($self, $data) = @_;
 
     my $json = JSON::Any->new;
 
-    return $json->encode($self->$type($data));
+    return $json->encode($data);
 }
 
 sub autocomplete_generic

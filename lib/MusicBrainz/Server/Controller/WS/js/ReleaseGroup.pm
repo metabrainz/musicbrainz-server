@@ -9,9 +9,6 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]
-    },
-    "release-group" => {
-        method   => 'GET'
     }
 ]);
 
@@ -22,26 +19,13 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'ReleaseGroup'
-};
-
 sub type { 'release_group' }
-
-sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }
-
-around 'get' => sub
-{
-    my ($orig, $self, $c) = @_;
-    $c->model('ArtistCredit')->load($c->stash->{entity});
-    $self->$orig($c);
-};
 
 sub serialization_routine { 'autocomplete_release_group' }
 
 sub entity_routine { '_release_group' }
 
-sub search : Chained('root') PathPart('release-group') Args(0)
+sub search : Chained('root') PathPart('release-group')
 {
     my ($self, $c) = @_;
     $self->dispatch_search($c);

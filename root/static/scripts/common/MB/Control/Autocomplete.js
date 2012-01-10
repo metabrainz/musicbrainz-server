@@ -387,9 +387,7 @@ MB.Control.Autocomplete = function (options) {
 
         self.changeEntity (options.entity);
 
-        var entity_regex = new RegExp(
-            "(?:(artist|release|release-group|recording|work|label)\/)?" +
-            "([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})");
+        var entity_regex = /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/;
 
         // This needs to run before the autocomplete handler
         self.$input.bind ('keydown.mb', function (event) {
@@ -415,30 +413,29 @@ MB.Control.Autocomplete = function (options) {
 
         self.$input.bind ('input', function (event) {
             var match = this.value.match(entity_regex);
-
             if (match == null) {
                 $(this).trigger("keydown.autocomplete");
                 return;
             }
-            $(this).trigger("blur.autocomplete");
+            var mbid = match[0];
 
-            var entity = match[1], mbid = match[2];
-
-            if (entity && entity != self.entity) {
-                // Only RelateTo boxes support changing the entity type
-                if (options.setEntity) {
-                    options.setEntity(entity);
-                } else {
-                    return;
-                }
-            }
-
-            $(this).attr("disabled", "disabled");
+            $(this).trigger("blur.autocomplete")
+                   .attr("disabled", "disabled");
 
             $.ajax({
-                url: self.url + "/" + mbid,
+                url: "/ws/js/entity/" + mbid,
                 dataType: "json",
                 success: function (data) {
+                    var type = data["type"];
+                    if (type != self.entity) {
+                        // Only RelateTo boxes support changing the entity type
+                        if (options.setEntity) {
+                            options.setEntity(type);
+                        } else {
+                            self.clear();
+                            return;
+                        }
+                    }
                     self.select (event, { item: data });
                     self.autocomplete.term = data.name;
                     self.autocomplete.selectedItem = null;

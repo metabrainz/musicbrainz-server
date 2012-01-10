@@ -33,6 +33,9 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "associations" => {
         method => 'GET',
+    },
+    "entity" => {
+        method => 'GET',
     }
 ]);
 
@@ -42,6 +45,17 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      version => 'js',
      default_serialization_type => 'json',
 };
+
+sub entities {
+    return {
+        'Artist' => 'artist',
+        'Work' => 'work',
+        'Recording' => 'recording',
+        'ReleaseGroup' => 'release-group',
+        'Release' => 'release',
+        'Label' => 'label',
+    };
+}
 
 sub tracklist : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
@@ -293,6 +307,42 @@ sub associations : Chained('root') PathPart Args(1) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
+}
+
+sub entity : Chained('root') PathPart('entity') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    unless (MusicBrainz::Server::Validation::IsGUID($gid)) {
+        $c->stash->{error} = "$gid is not a valid MusicBrainz ID.";
+        $c->detach('bad_req');
+        return;
+    }
+
+    my $entity;
+    my $type;
+    for (keys %{ $self->entities }) {
+        $type = $_;
+        $entity = $c->model($type)->get_by_gid($gid);
+        last if defined $entity;
+    }
+
+    unless (defined $entity) {
+        $c->stash->{error} = "The requested entity was not found.";
+        $c->detach('not_found');
+        return;
+    }
+
+    my $jsent = "MusicBrainz::Server::Controller::WS::js::$type"->new();
+    $jsent->_load_entities($c, $entity);
+
+    my $item = ($jsent->_format_output($c, $entity))[0];
+    my $entity_routine = $jsent->entity_routine;
+    my $data = $c->stash->{serializer}->$entity_routine($item);
+    $data->{'type'} = $self->entities->{$type};
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize_data($data));
 }
 
 sub default : Path

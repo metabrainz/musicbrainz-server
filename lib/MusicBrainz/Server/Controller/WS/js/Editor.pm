@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
-sub search : Chained('root') PathPart('editor') Args(0)
+sub search : Chained('root') PathPart('editor')
 {
     my ($self, $c) = @_;
 

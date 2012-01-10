@@ -9,9 +9,6 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(a r direct limit page timestamp) ]
-    },
-    "recording" => {
-        method   => 'GET'
     }
 ]);
 
@@ -22,30 +19,13 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Recording'
-};
-
 sub type { 'recording' }
-
-sub base : Chained('root') PathPart('recording') CaptureArgs(0) { }
-
-around 'get' => sub
-{
-    my ($orig, $self, $c) = @_;
-    my $recording = $c->stash->{entity};
-    $c->model('ISRC')->load_for_recordings($recording);
-    $c->model('ArtistCredit')->load($recording);
-    my @recording = $self->_format_output($c, $recording);
-    $c->stash->{entity} = $recording[0];
-    $self->$orig($c);
-};
 
 sub serialization_routine { 'autocomplete_recording' }
 
 sub entity_routine { '_recording' }
 
-sub search : Chained('root') PathPart('recording') Args(0)
+sub search : Chained('root') PathPart('recording')
 {
     my ($self, $c) = @_;
     $self->dispatch_search($c);

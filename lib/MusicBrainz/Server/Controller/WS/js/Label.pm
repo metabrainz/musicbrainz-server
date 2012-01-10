@@ -9,9 +9,6 @@ my $ws_defs = Data::OptList::mkopt([
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]
-    },
-    "label" => {
-        method   => 'GET'
     }
 ]);
 
@@ -22,15 +19,9 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Label'
-};
-
 sub type { 'label' }
 
-sub base : Chained('root') PathPart('label') CaptureArgs(0) { }
-
-sub search : Chained('root') PathPart('label') Args(0)
+sub search : Chained('root') PathPart('label')
 {
     my ($self, $c) = @_;
     $self->dispatch_search($c);

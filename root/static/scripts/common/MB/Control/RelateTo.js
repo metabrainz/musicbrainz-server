@@ -190,10 +190,5 @@ MB.Control.RelateTo = function () {
         }
     });
 
-    /* Opera triggers a click event whenever a select element is focused
-       and a key is pressed, for no obvious reason. Prevent the box from
-       hiding due to this. */
-    self.$relate.click(function () { event.stopPropagation(); });
-
     return self;
 };
