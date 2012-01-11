@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
-use List::MoreUtils qw( part );
+use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -88,7 +88,7 @@ after 'load' => sub
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show details discids tags relationships )] => sub {
+after [qw( show collections details discids tags relationships )] => sub {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
@@ -104,9 +104,12 @@ after [qw( show details discids tags relationships )] => sub {
         }
     }
 
+    my @all_collections = $c->model('Collection')->find_all_by_release($release->id);
+
     $c->stash(
         collections => \@collections,
         containment => \%containment,
+        all_collections => \@all_collections,
     );
 };
 
@@ -169,6 +172,7 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Relationship')->load(@recordings);
     $c->model('Relationship')->load(
+        $release,
         grep { $_->isa(Work) } map { $_->target }
             map { $_->all_relationships } @recordings);
 
@@ -337,6 +341,35 @@ sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
     }
 }
 
+=head2 collections
+
+View a list of collections that this release has been added to.
+
+=cut
+
+sub collections : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my @all_collections = $c->model('Collection')->find_all_by_release($c->stash->{release}->id);
+    my @public_collections;
+    my $private_collections = 0;
+
+    # Keep public collections;
+    # count private collection
+    foreach my $collection (@all_collections) {
+        push (@public_collections, $collection)
+            if ($collection->{'public'} == 1);
+        $private_collections++
+            if ($collection->{'public'} == 0);
+    }
+
+    $c->stash(
+        public_collections => \@public_collections,
+        private_collections => $private_collections,
+    );
+}
+
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
     confirmation_template => 'release/merge_confirm.tt',
@@ -374,11 +407,24 @@ sub _merge_form_arguments {
         }
     }
 
+    my @bad_recording_merges;
+    my @recording_merges = $c->model('Release')->determine_recording_merges(@releases);
+    for my $recordings (@recording_merges) {
+        my @ac_ids = map { $_->artist_credit_id } @$recordings;
+        if (uniq @ac_ids > 1) {
+            push @bad_recording_merges, $recordings;
+        }
+    }
+    if (@bad_recording_merges) {
+        $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
+    }
+
     @mediums = nsort_by { $_->{position} } @mediums;
 
     $c->stash(
         mediums => [ map { $medium_by_id{$_->{id}} } @mediums ],
-        xxx_releases => \@releases
+        xxx_releases => \@releases,
+        bad_recording_merges => \@bad_recording_merges,
     );
 
     return (

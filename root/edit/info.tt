@@ -43,8 +43,8 @@
                 content=(edit.status == 8) ? l('<em>Cancelling</em>') : html_escape(UserDate.format(edit.close_time)) %]
         [% END %]
 
-        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Affects:')
-                content=make_ucfirst(quality_name(edit.quality)) -%]
+        [%- INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:')
+                content=quality_name(edit.quality) -%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Requires:')
                 content=ln('1 vote', '{n} unanimous votes', edit.conditions.votes,
                           { n => edit.conditions.votes }) -%]

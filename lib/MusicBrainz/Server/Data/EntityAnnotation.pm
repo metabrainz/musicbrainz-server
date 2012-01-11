@@ -62,7 +62,7 @@ sub _column_mapping {
         id => 'id',
         text => sub {
             my $row = shift;
-            decode_entities($row->{text});
+            $row->{text} && decode_entities($row->{text});
         },
         changelog => 'changelog',
         editor_id => 'editor_id',

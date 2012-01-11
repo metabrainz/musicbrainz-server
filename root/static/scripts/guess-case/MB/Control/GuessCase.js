@@ -37,15 +37,15 @@ MB.Control.GuessCase = function (type, $name) {
 };
 
 
-MB.Control.SortName = function (type, $name, $sortname) {
+MB.Control.SortName = function (type, $name, $sortname, $cont) {
     var self = MB.Object ();
 
     self.type = type;
     self.$name = $name;
     self.$sortname = $sortname;
 
-    self.$sortname_button = $('a[href=#sortname]');
-    self.$copy_button = $('a[href=#copy]');
+    self.$sortname_button = $cont.find('a[href=#sortname]');
+    self.$copy_button = $cont.find('a[href=#copy]');
 
     self.sortname = function (event) {
         self.$sortname.val (MB.GuessCase[self.type].sortname (self.$name.val ()));
@@ -68,7 +68,7 @@ MB.Control.SortName = function (type, $name, $sortname) {
 };
 
 MB.Control.ArtistSortName = function (type, $name, $sortname) {
-    var self = MB.Control.SortName (type, $name, $sortname);
+    var self = MB.Control.SortName (type, $name, $sortname, $('body'));
 
     self.$type   = $('#id-edit-artist\\.type_id');
 
@@ -106,7 +106,7 @@ MB.Control.initialize_guess_case = function (bubbles, type) {
         }
         else
         {
-            MB.Control.SortName (type, $name, $sortname).initialize ();
+            MB.Control.SortName (type, $name, $sortname, $('body')).initialize ();
         }
     }
 };

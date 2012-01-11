@@ -26,7 +26,7 @@
 
   [% IF possible_mediums.size %]
   <h2>[% l('Possible Mediums') %]</h2>
-  <p>[% l('Based on the CD above CD stub, we also found the following releases in MusicBrainz
+  <p>[% l('Based on the above CD stub, we also found the following releases in MusicBrainz
            that may be related:') %]</p>
   <form action="[% c.req.uri %]" method="GET">
     <input type="hidden" name="toc" value="[% toc %]" />

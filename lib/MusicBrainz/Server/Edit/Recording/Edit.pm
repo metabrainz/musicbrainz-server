@@ -20,6 +20,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 

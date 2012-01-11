@@ -204,6 +204,9 @@ MB.utility.unformatTrackLength = function (duration)
         return null;
     }
 
+    // MBS-3352: Handle the case of ":57"
+    parts[0] = parts[0] || 0;
+
     return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
 };
 

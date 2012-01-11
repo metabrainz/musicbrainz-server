@@ -33,7 +33,13 @@
                 </table>
             [% END %]
         [%- ELSE -%]
-            <p>[% l('No results found') %]</p>
+            <p>[% l('No results found. Try refining your search query.') %]</p>
+            <p>
+              [% l('Alternatively, you may {uri|add a new label}.', {
+                    uri => c.uri_for_action('/label/create', {
+                             'edit-label.name' => query
+                           }) }) %]
+            </p>
         [%- END -%]
         [%- INCLUDE "search/form.tt" -%]
     </div>

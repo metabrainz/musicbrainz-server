@@ -2,6 +2,7 @@
 
     <h1>[% l('Auto-editor elections') %]</h1>
 
+    [% IF elections.size %]
     <table class="tbl" style="width:auto">
         <thead>
             <tr>
@@ -24,5 +25,8 @@
         [%- END -%]
         </tbody>
     </table>
+    [% ELSE %]
+    <p>[%l('No elections found.') %]</p>
+    [% END %]
 
 [% END %]

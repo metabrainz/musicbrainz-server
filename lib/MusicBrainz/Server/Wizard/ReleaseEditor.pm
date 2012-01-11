@@ -717,7 +717,13 @@ sub prepare_recordings
         } grep { $_ } map { @$_ } grep { $_ } @$medium_recordings;
     }
 
-    $self->load_page('recordings', { 'rec_mediums' => \@recording_edits });
+    $self->load_page(
+        'recordings',
+        {
+            'rec_mediums' => \@recording_edits,
+            'infer_durations' => $self->get_value ('recordings', 'infer_durations'),
+            'propagate_all_track_changes' => $self->get_value ('recordings', 'propagate_all_track_changes'),
+        });
 }
 
 sub prepare_missing_entities
@@ -1234,6 +1240,8 @@ sub _expand_track
 {
     my ($self, $trk, $assoc) = @_;
 
+    my $infer_durations = $self->get_value ('recordings', 'infer_durations') // undef;
+
     my @names = @{ clean_submitted_artist_credits($trk->{artist_credit})->{names} };
 
     # artists may be seeded with an MBID, or selected in the release editor
@@ -1262,7 +1270,7 @@ sub _expand_track
     }
 
     my $entity = Track->new(
-        length => $trk->{length} // ($assoc ? $assoc->length : undef),
+        length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
         artist_credit => ArtistCredit->from_array ([

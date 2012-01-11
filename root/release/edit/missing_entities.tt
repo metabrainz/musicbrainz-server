@@ -1,9 +1,29 @@
 [%- BLOCK layout_head -%]
+  [% script_manifest('guess-case.js.manifest') %]
   <script type="text/javascript">//<![CDATA[
     $('document').ready (function () {
        MB.utility.setDefaultAction ('form.release-editor', '#id-next');
+
+       $('.new-entity').each(function() {
+           MB.Control.SortName('artist', $(this).find('.for'), $(this).find('.sortname'), $(this)).initialize();
+       });
     });
   //]]></script>
+[%- END -%]
+
+[%- MACRO new_entity_form(field_container) BLOCK -%]
+  <div class="new-entity">
+    [% WRAPPER form_row %]
+      [% r.label(field_container.field('sort_name'), l('Sort Name:')) %]
+      [% r.text(field_container.field('sort_name'), class => 'sortname', style => 'vertical-align: top') %]
+      <div class="buttons">
+        <a href="#sortname">[% l('Guess Sort Name') %]</a>
+        <a href="#copy">[% l('Copy Name') %]</a>
+      </div>
+      [% END %]
+      [% form_row_text_long(r, field_container.field('comment'), l('Disambiguation:')) %]
+      [% r.hidden(field_container.field('for'), class => 'for') %]
+  </div>
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
@@ -48,9 +68,7 @@
             <p>[% l("We couldn't find an artist with the name you entered. If you wish to
                      create a new artist, please fill in the fields below:") %]</p>
             [% END %]
-            [% form_row_text_long(r, artist_row.field('sort_name'), l('Sort Name:')) %]
-            [% form_row_text_long(r, artist_row.field('comment'), l('Comment:')) %]
-            [% r.hidden(artist_row.field('for')) %]
+            [% new_entity_form(artist_row) %]
           </fieldset>
         [% END %]
       [% END %]
@@ -90,9 +108,7 @@
             <p>[% l("We couldn't find an label with the name you entered. If you wish to
                      create a new label, please fill in the fields below:") %]</p>
             [% END %]
-            [% form_row_text_long(r, label_row.field('sort_name'), l('Sort Name:')) %]
-            [% form_row_text_long(r, label_row.field('comment'), l('Comment:')) %]
-            [% r.hidden(label_row.field('for')) %]
+            [% new_entity_form(label_row) %]
           </fieldset>
         [% END %]
       [% END %]

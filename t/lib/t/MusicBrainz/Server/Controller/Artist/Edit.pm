@@ -35,6 +35,7 @@ my $response = $mech->submit_form(
         'edit-artist.end_date.month' => '',
         'edit-artist.end_date.day' => '',
         'edit-artist.comment' => 'artist created in controller_artist.t',
+        'edit-artist.rename_artist_credit' => undef
     }
 );
 ok($mech->success);
@@ -126,6 +127,7 @@ $mech->submit_form_ok({
     with_fields => {
         'edit-artist.name' => 'test artist',
         'edit-artist.sort_name' => 'artist, test',
+        'edit-artist.rename_artist_credit' => undef
     }
 });
 ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce$}, 'should redirect to artist page via gid');
@@ -136,6 +138,7 @@ $mech->submit_form_ok({
     with_fields => {
         'edit-artist.name' => 'Empty Artist',
         'edit-artist.sort_name' => 'Empty Artist',
+        'edit-artist.rename_artist_credit' => undef
     }
 });
 ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');
@@ -162,6 +165,7 @@ $mech->submit_form_ok({
         'edit-artist.name' => 'test artist',
         'edit-artist.comment' => 'comment ' x 100,
         'edit-artist.sort_name' => 'artist, test',
+        'edit-artist.rename_artist_credit' => undef
     }
 });
 ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');

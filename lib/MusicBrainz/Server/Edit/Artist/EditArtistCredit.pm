@@ -114,7 +114,7 @@ sub initialize {
 sub accept {
     my $self = shift;
 
-    verify_artist_credits($self->c, $self->data->{artist_credit});
+    verify_artist_credits($self->c, $self->data->{new}{artist_credit});
 
     $self->c->model('ArtistCredit')->replace(
         $self->data->{old}{artist_credit},

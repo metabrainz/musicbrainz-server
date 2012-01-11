@@ -1,7 +1,7 @@
 <form action="[% c.req.uri %]" method="post">
     [% USE r = FormRenderer(form) %]
     <fieldset>
-        <legend>[% l('Collection Details') %]</legend>
+        <legend>[% l('Collection details') %]</legend>
         [% form_row_text_long(r, 'name', l('Name:')) %]
         [% form_row_checkbox(r, 'public', l('Allow other users to see this collection')) %]
     </fieldset>

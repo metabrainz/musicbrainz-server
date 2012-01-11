@@ -21,6 +21,7 @@
 MB.Control.ArtistEdit = function () {
     var self = MB.Object ();
 
+    self.$name   = $('#id-edit-artist\\.name');
     self.$begin  = $('#label-id-edit-artist\\.begin_date');
     self.$end    = $('#label-id-edit-artist\\.end_date');
     self.$type   = $('#id-edit-artist\\.type_id');
@@ -74,6 +75,44 @@ MB.Control.ArtistEdit = function () {
 
     self.typeChanged();
     self.$type.bind ('change.mb', self.typeChanged);
+
+    self.initializeArtistCreditPreviews = function(gid) {
+        var artist_re = new RegExp("/artist/" + gid + "$");
+        $('span.rename-artist-credit').each(function() {
+            var $ac = $(this);
+            $ac.find('input').change(function() {
+                var checked = this.checked;
+                var new_name = self.$name.val();
+                $ac.find('a').each(function() {
+                    var $link = $(this);
+                    if ($link.data('old_name')) {
+                        $link.text(checked ? new_name : $link.data('old_name'));
+                    }
+                });
+            });
+            $ac.find('a').each(function() {
+                var $link = $(this);
+                if (artist_re.test($link.attr('href'))) {
+                    $link.data('old_name', $link.text());
+                }
+            });
+        });
+        self.$name.change(function() {
+            var new_name = self.$name.val();
+            $('span.rename-artist-credit').each(function() {
+                var $ac = $(this);
+                if ($ac.find('input:checked').length) {
+                    $ac.find('a').each(function() {
+                        var $link = $(this);
+                        if ($link.data('old_name')) {
+                            $link.text(new_name);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
 
     return self;
 };

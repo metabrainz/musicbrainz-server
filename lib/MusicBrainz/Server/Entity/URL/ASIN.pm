@@ -5,6 +5,8 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
+use DBDefs;
+
 sub pretty_name
 {
     my $self = shift;
@@ -21,6 +23,19 @@ sub pretty_name
 }
 
 sub sidebar_name { shift->pretty_name }
+
+sub affiliate_url {
+    my $self = shift;
+    my $url = $self->url;
+    if ($url =~ m{^http://(?:www.)?(.*?\.)([a-z]+)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
+        my $asin = $3;
+        my $ass_id = DBDefs::AMAZON_ASSOCIATE_TAG;
+        return URI->new("http://amazon.$2/exec/obidos/ASIN/$asin/$ass_id?v=glance&s=music");
+    }
+    else {
+        return $url;
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

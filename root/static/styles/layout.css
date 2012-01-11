@@ -254,6 +254,10 @@ pre code {
     background-image: none;
 }
 
+#current-editing h2 {
+    margin-top: 0; /* Remove the space above the merge-helper H2 */
+}
+
 .bl, .br, .tl, .tr {
     position: absolute;
     display: block;
@@ -465,12 +469,12 @@ div.warning img.warning {
     margin: 0;
 }
 
-#footer p.links {
+#footer p.left {
     float: left;
     margin: 0;
 }
 
-#footer p.sponsors {
+#footer p.right {
     float: right;
 }
 
@@ -714,7 +718,6 @@ table.database-statistics {
 }
 
 table.database-statistics th, table.timeline-controls th {
-    background: #F1F1F1;
     text-align: left;
     padding: 3px 5px;
 }
@@ -722,6 +725,7 @@ table.database-statistics th, table.timeline-controls th {
 table.database-statistics thead th {
     text-align: center;
     border: 1px solid #ADB9CC;
+    background: #F1F1F1;
 }
 
 table.database-statistics td, table.timeline-controls td {

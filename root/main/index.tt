@@ -17,7 +17,7 @@
             <ul>
                 <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
                 <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
-                <li><a href="[% doc_link('Official_Style_Guidelines') %]">[% l('Style guidelines') %]</a></li>
+                <li><a href="[% doc_link('Style') %]">[% l('Style guidelines') %]</a></li>
                 <li><a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a></li>
             </ul>
         </div>

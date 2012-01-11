@@ -9,6 +9,9 @@ has_field 'rec_mediums.associations' => ( type => 'Repeatable', num_when_empty =
 has_field 'rec_mediums.associations.gid' => ( type => 'Hidden' );
 has_field 'rec_mediums.associations.confirmed' => ( type => 'Hidden', required => 1 );
 has_field 'rec_mediums.associations.edit_sha1' => ( type => 'Hidden' );
+has_field 'rec_mediums.associations.update_recording' => ( type => 'Checkbox' );
+has_field 'infer_durations' => ( type => 'Checkbox' );
+has_field 'propagate_all_track_changes' => ( type => 'Checkbox' );
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

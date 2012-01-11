@@ -43,7 +43,7 @@ table.vote-tally th {
     white-space: nowrap;
 }
 
-table.vote-tally .vote {
+table.vote-tally td.vote {
     width: 100%;
     padding: 5px 10px;
 }
@@ -61,7 +61,23 @@ table.vote-tally .date {
 .voteopts div {
     text-align: center;
     display: inline-block;
-    margin: 0 5px;
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.voteopts .vote-yes {
+    border: 1px solid #ccc;
+    background-color: #B1EBB0;
+}
+
+.voteopts .vote-no {
+    border: 1px solid #ccc;
+    background-color: #EBB1BA
+}
+
+.voteopts .vote-abs {
+    border: 1px solid #ccc;
+    background-color: #F2F0A5;
 }
 
 /*
