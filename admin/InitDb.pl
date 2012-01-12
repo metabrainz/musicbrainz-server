@@ -107,6 +107,13 @@ sub RunSQLScript
     die "Error during $file" if ($? >> 8);
 }
 
+sub HasPLPerlSupport
+{
+    my ($db) = @_;
+    my $sql = Sql->new($db->dbh);
+    return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
+}
+
 sub InstallExtension
 {
     my ($db, $ext, $schema) = @_;
@@ -264,7 +271,9 @@ sub CreateRelations
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
-    RunSQLScript($SYSMB, "CreateSystemFunctions.sql", "Creating system functions ...");
+
+    RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
+        if HasPLPerlSupport($SYSMB);
 
     RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
