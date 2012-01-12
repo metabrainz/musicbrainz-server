@@ -974,11 +974,8 @@ sub _edit_release_labels
                     release_label => $old_label,
                     catalog_number => $new_label->{catalog_number},
                     as_auto_editor => $data->{as_auto_editor},
+                    label => $new_label->{label_id} ? $labels->{ $new_label->{label_id} } : undef
                 );
-
-                my $label;
-                $label = $labels->{ $new_label->{label_id} } if $new_label->{label_id};
-                $args{label} = $label if $label;
 
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
