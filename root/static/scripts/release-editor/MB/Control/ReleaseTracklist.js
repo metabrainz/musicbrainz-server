@@ -93,7 +93,8 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      */
     self.deleteTrack = function () {
         self.$deleted.val('1');
-        self.$row.hide (); /* FIXME: need to close artist credits? */
+        self.bubble_collection.hideAll();
+        self.$row.hide ();
         self.$row.addClass ('deleted');
 
         var trackpos = 1;
