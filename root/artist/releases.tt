@@ -1,6 +1,6 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Releases') page='releases' -%]
 
-    <div style="float:right;margin-top:1.5em;"><a href="javascript:$('#filter').toggle('fast')"><img src="/static/images/icons/filter.png?a=1" /></a> <a href="javascript:$('#filter').toggle('fast')">Filter</a></div>
+    <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="/static/images/icons/filter.png?a=1" /></a> <a class="filter-button" href="#">Filter</a></div>
     <h2>[% l('Releases') %]</h2>
 
     [%- INCLUDE 'components/filter.tt' -%]

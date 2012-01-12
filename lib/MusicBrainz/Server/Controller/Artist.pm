@@ -377,13 +377,13 @@ sub releases : Chained('load')
         }
 
         $releases = $self->_load_paged($c, sub {
-                $c->model('Release')->$method($artist->id, shift, shift);
+                $c->model('Release')->$method($artist->id, shift, shift, filter => \%filter);
             });
 
         my $pager = $c->stash->{pager};
         if (!$show_va && $pager->total_entries == 0) {
             $releases = $self->_load_paged($c, sub {
-                    $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                    $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
                 });
             $c->stash(
                 va_only => 1,
