@@ -241,6 +241,14 @@ sub all_tracks
     return map { $_->all_tracks } @tracklists;
 }
 
+sub filter_labels
+{
+    my ($self, $label) = @_;
+    my @labels = $self->all_labels
+        or return ();
+    return grep { $_->label_id eq $label->id } @labels;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
