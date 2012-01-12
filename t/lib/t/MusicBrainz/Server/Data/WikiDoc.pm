@@ -15,8 +15,8 @@ with 't::Context';
 
 test all => sub {
 
-$ENV{ LWP_UA_MOCK } ||= 'playback';
-$ENV{ LWP_UA_MOCK_FILE } ||= $Bin.'/data_wikidoc.xmlwebservice-redirect.lwp-mock';
+LWP::UserAgent::Mockable->reset( playback => $Bin.'/data_wikidoc.xmlwebservice-redirect.lwp-mock' );
+LWP::UserAgent::Mockable->set_playback_validation_callback(\&basic_validation);
 
 my $test = shift;
 my $wd = $test->c->model('WikiDoc');
@@ -42,5 +42,11 @@ memory_cycle_ok($page);
 LWP::UserAgent::Mockable->finished;
 
 };
+
+sub basic_validation {
+    my ($actual, $expected) = @_;
+    is($actual->uri, $expected->uri, 'called ' . $expected->uri);
+    is($actual->method, $expected->method, 'method is ' . $expected->method);
+}
 
 1;
