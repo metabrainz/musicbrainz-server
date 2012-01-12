@@ -1515,13 +1515,16 @@ sub _seed_parameters {
                     @{ $params->{mediums} || []}
         )
     ) {
-        if (my $mbid = $artist_credit->{mbid}){
-            my $entity = $self->c->model('Artist')
-                ->get_by_gid($mbid);
-            $artist_credit->{name} ||= $entity->name;
-            $artist_credit->{artist}->{gid} = $entity->gid;
-            $artist_credit->{artist}->{id} = $entity->id;
-            $artist_credit->{artist}->{name} = $entity->name;
+        if (my $mbid = $artist_credit->{mbid})
+        {
+            my $entity = $self->c->model('Artist')->get_by_gid($mbid);
+            if ($entity)
+            {
+                $artist_credit->{name} ||= $entity->name;
+                $artist_credit->{artist}->{gid} = $entity->gid;
+                $artist_credit->{artist}->{id} = $entity->id;
+                $artist_credit->{artist}->{name} = $entity->name;
+            }
         }
         else {
             $artist_credit->{artist}->{name} ||= $artist_credit->{name};
@@ -1597,15 +1600,28 @@ sub _seed_parameters {
 
                     push @edits, $track;
 
-                    if (my $recording_id = delete $track->{recording}) {
-                        if(my $recording = $self->c->model('Recording')->get_by_gid($recording_id)) {
-                            $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
-                                edit_sha1 => $track->{edit_sha1},
-                                confirmed => 1,
-                                id => $recording->id,
-                                gid => $recording->gid
-                            };
-                        }
+                    my $recording_id = delete $track->{recording};
+                    my $recording = $self->c->model('Recording')->get_by_gid($recording_id) if $recording_id;
+
+                    if ($recording)
+                    {
+                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
+                            edit_sha1 => $track->{edit_sha1},
+                            confirmed => 1,
+                            id => $recording->id,
+                            gid => $recording->gid
+                        };
+                    }
+                    else
+                    {
+                        # Have some kind of empty default which isn't undef
+                        # at this track position, FormHandler skips undef
+                        # values when processing the init_object.
+                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
+                            edit_sha1 => $track->{edit_sha1},
+                            confirmed => 1,
+                            gid => "new"
+                        };
                     }
                 }
 
