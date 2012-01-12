@@ -37,12 +37,10 @@ around BUILDARGS => sub {
         return $class->$orig( $info );
     }
 
-    for my $key (keys %$info)
-    {
-        delete $info->{$key} unless defined $info->{$key};
-    }
+    my %info = map { $_ => $info->{$_} }
+        grep { defined($info->{$_}) } keys %$info;
 
-    return $class->$orig( $info );
+    return $class->$orig( %info );
 };
 
 
