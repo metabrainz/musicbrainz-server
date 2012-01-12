@@ -71,6 +71,33 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::ReleaseGroup';
 }
 
+sub _where_filter
+{
+	my ($filter) = @_;
+
+    my (@query, @joins, @params);
+
+    if (defined $filter) {
+        if (exists $filter->{name}) {
+            push @query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @params, $filter->{name}, $filter->{name};
+        }
+        if (exists $filter->{artist_credit_id}) {
+            push @query, "rg.artist_credit = ?";
+            push @params, $filter->{artist_credit_id};
+        }
+        if (exists $filter->{type} && $filter->{type}) {
+            my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
+			if (@types) {
+				push @query, 'rg.type IN (' . placeholders(@types) . ')';
+				push @params, @types;
+			}
+        }
+    }
+
+	return (\@query, \@joins, \@params);	
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -120,9 +147,12 @@ sub find_by_name_prefix_va
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset, $types) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my $where_types = $types ? 'AND type IN ('.placeholders(@$types).')' : '';
+	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "acn.artist = ?";
+    push @$params, $artist_id;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
@@ -135,8 +165,8 @@ sub find_by_artist
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE acn.artist = ?
-                    $where_types
+                     " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
@@ -154,7 +184,7 @@ sub find_by_artist
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, @$types, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_by_track_artist
@@ -209,7 +239,13 @@ sub find_by_track_artist
 # This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases
 sub filter_by_artist
 {
-    my ($self, $artist_id, $type) = @_;
+    my ($self, $artist_id, %args) = @_;
+
+	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "acn.artist = ?";
+    push @$params, $artist_id;
+
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -221,9 +257,9 @@ sub filter_by_artist
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE acn.artist = ?" .
-                     ($type ? " AND type = ? " : "") .
-                "ORDER BY
+                    " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
+                 ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -239,12 +275,28 @@ sub filter_by_artist
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, $type ? ($type) : ());
+        $query, @$params);
 }
 
 sub filter_by_track_artist
 {
-    my ($self, $artist_id, $type) = @_;
+    my ($self, $artist_id, %args) = @_;
+
+	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "
+                 rg.id IN (
+                     SELECT release_group FROM release
+                         JOIN medium
+                         ON medium.release = release.id
+                         JOIN track tr
+                         ON tr.tracklist = medium.tracklist
+                         JOIN artist_credit_name acn
+                         ON acn.artist_credit = tr.artist_credit
+                     WHERE acn.artist = ?
+                 )";
+    push @$params, $artist_id;
+
     my $query = "SELECT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -255,18 +307,9 @@ sub filter_by_track_artist
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE rg.id IN (
-                     SELECT release_group FROM release
-                         JOIN medium
-                         ON medium.release = release.id
-                         JOIN track tr
-                         ON tr.tracklist = medium.tracklist
-                         JOIN artist_credit_name acn
-                         ON acn.artist_credit = tr.artist_credit
-                     WHERE acn.artist = ?
-                 ) " .
-                     ($type ? " AND type = ? " : "") .
-                 "ORDER BY
+                     " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
+                 ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -282,7 +325,7 @@ sub filter_by_track_artist
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, $type ? ($type) : ());
+        $query, @$params);
 }
 
 sub find_by_release
