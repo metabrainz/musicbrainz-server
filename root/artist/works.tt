@@ -49,7 +49,7 @@
                 [% END %]
               </ul>
             </td>
-            <td>[% rdfa_work_iswc(work) %]</td>
+            <td class="iswc">[% rdfa_work_iswc(work) %]</td>
             <td>
                 [% work.type.name %]
             </td>
