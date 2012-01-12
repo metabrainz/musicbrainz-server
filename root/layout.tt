@@ -25,6 +25,7 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
         <script type="text/javascript">//<![CDATA[
                                        document.cookie = "javascript=true; path=/";
                                        //]]></script>

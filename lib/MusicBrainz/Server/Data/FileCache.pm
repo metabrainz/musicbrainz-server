@@ -25,7 +25,7 @@ sub manifest_signature {
         my $signature = md5_hex(join ',', map {
             join(':', file($_)->basename, file_md5_hex($_));
         } map { DBDefs::STATIC_FILES_DIR . "/$_" }
-            $self->manifest_files($manifest, $type));
+            @{ $self->manifest_files($manifest, $type) });
 
         $self->manifest_signatures->{$manifest} = $signature;
     }
@@ -50,7 +50,7 @@ sub manifest_files {
 
     my $relative_to = DBDefs::STATIC_FILES_DIR;
 
-    return
+    return [
         # Convert paths back to relative paths of the manifest directory
         map  { file($_)->relative($relative_to) }
 
@@ -59,7 +59,8 @@ sub manifest_files {
 
         # Ignore blank lines/comments in the manifest
         grep { !/^(#.*|\s*)$/ }
-            io("$relative_to/$manifest")->chomp->slurp;
+            io("$relative_to/$manifest")->chomp->slurp
+    ];
 }
 
 sub squash {
@@ -67,7 +68,7 @@ sub squash {
     my $input = join("\n",
         map { io($_)->all }
              map { DBDefs::STATIC_FILES_DIR . "/$_" }
-                $self->manifest_files($manifest, $type));
+                @{ $self->manifest_files($manifest, $type) });
 
     my $hash = $self->manifest_signature($manifest, $type);
 
