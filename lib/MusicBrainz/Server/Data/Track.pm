@@ -168,6 +168,10 @@ sub _create_row
 
     $row{name} = $names->{ $track_hash->{name} } if exists $track_hash->{name};
 
+    if (exists $row{length}) {
+        $row{length} = undef if $row{length} == 0;
+    }
+
     return { %row };
 }
 
