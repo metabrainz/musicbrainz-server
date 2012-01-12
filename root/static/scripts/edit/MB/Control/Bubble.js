@@ -129,8 +129,16 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
         self.visible = false;
     };
 
-    self.toggle = function () {
-        if (self.visible)
+    self.toggle = function (showOrHide) {
+        if (showOrHide === true)
+        {
+            self.show ();
+        }
+        else if (showOrHide === false)
+        {
+            self.hide ();
+        }
+        else if (self.visible)
         {
             self.hide ();
         }

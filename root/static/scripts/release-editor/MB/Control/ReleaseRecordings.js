@@ -77,7 +77,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$name.attr ('href', '/recording/' + data.gid);
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
-        self.$length.text (MB.utility.formatTrackLength (data.length));
+        self.$length.text (data.length);
         self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
 
         self.$container.find ('tr.clientmatch').show ();
