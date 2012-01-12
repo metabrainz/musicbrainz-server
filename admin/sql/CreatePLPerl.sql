@@ -1,5 +1,7 @@
 BEGIN;
 
+CREATE LANGUAGE plperlu;
+
 CREATE OR REPLACE FUNCTION extract_path_value(text, text)
 RETURNS TEXT
 AS $$
