@@ -86,10 +86,10 @@ sub build_display_data
         removals  => [ map { _build_re($_, $loaded) } $self->_removals  ],
         edits => [
             map { +{
-                release => $loaded->{Release}{ $_->{release_id} },
+                release => $_->{release_id} && $loaded->{Release}{ $_->{release_id} },
                 label   => {
-                    old => $loaded->{Label}{ $_->{old}{label_id} },
-                    new => $loaded->{Label}{ $_->{new}{label_id} },
+                    old => $_->{old}{label_id} && $loaded->{Label}{ $_->{old}{label_id} },
+                    new => $_->{new}{label_id} && $loaded->{Label}{ $_->{new}{label_id} },
                 },
                 label_id => {
                     old => $_->{old}{label_id},
@@ -104,8 +104,8 @@ sub build_display_data
                     new => $loaded->{Country}{ $_->{new}{country_id} },
                 },
                 format => {
-                    old => $loaded->{MediumFormat}{ $_->{old}{format_id} },
-                    new => $loaded->{MediumFormat}{ $_->{new}{format_id} },
+                    old => $_->{old}{format_id} && $loaded->{MediumFormat}{ $_->{old}{format_id} },
+                    new => $_->{new}{format_id} && $loaded->{MediumFormat}{ $_->{new}{format_id} },
                 },
                 barcode => {
                     old => $_->{old}{barcode},

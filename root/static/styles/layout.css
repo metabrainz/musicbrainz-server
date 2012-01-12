@@ -804,3 +804,5 @@ p.cleanup {
     background: #FD9 !important;
     padding: 1em;
 }
+
+.iswc { white-space: nowrap; }

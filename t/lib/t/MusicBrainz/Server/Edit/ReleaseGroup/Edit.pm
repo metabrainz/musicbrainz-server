@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::ReleaseGroup::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -43,6 +44,95 @@ is($rg->type_id, 1);
 is($rg->comment, 'EP');
 is($rg->name, 'We Know');
 
+};
+
+test 'Check conflicts (non-conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('ReleaseGroup')->get_by_id(1),
+        name => 'Renamed release group',
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('ReleaseGroup')->get_by_id(1),
+        artist_credit => {
+            names => [
+                {
+                    artist => {
+                        id => 1,
+                        name => 'Name',
+                    },
+                    name => 'New ac name'
+                }
+            ]
+        }
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+    $c->model('ArtistCredit')->load($rg);
+    is ($rg->name, 'Renamed release group', 'release group renamed');
+    is ($rg->artist_credit->name, 'New ac name', 'date changed');
+};
+
+test 'Check conflicts (conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('ReleaseGroup')->get_by_id(1),
+        name      => 'Renamed release group',
+        artist_credit => {
+            names => [
+                {
+                    artist => {
+                        id => 1,
+                        name => 'Name',
+                    },
+                    name => 'New ac name'
+                }
+            ]
+        }
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('ReleaseGroup')->get_by_id(1),
+        comment   => 'Comment BAR',
+        artist_credit => {
+            names => [
+                {
+                    artist => {
+                        id => 1,
+                        name => 'Name',
+                    },
+                    name => 'New ac name 2'
+                }
+            ]
+        }
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok  exception { $edit_2->accept }, 'could not accept edit 2';
+
+    my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+    $c->model('ArtistCredit')->load($rg);
+    is ($rg->name, 'Renamed release group', 'release group renamed');
+    is ($rg->comment, undef);
+    is ($rg->artist_credit->name, 'New ac name', 'date changed');
 };
 
 sub create_edit {

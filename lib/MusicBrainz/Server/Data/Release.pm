@@ -606,6 +606,56 @@ sub can_merge {
     }
 }
 
+sub determine_recording_merges
+{
+    my ($self, @releases) = @_;
+
+    my %medium_by_position;
+    foreach my $release (@releases) {
+        foreach my $medium ($release->all_mediums) {
+            if (exists $medium_by_position{$medium->position}) {
+                push @{ $medium_by_position{$medium->position} }, $medium;
+			}
+            else {
+                $medium_by_position{$medium->position} = [ $medium ];
+            }
+        }
+    }
+
+    my %recording_by_position;
+    for my $m_pos (keys %medium_by_position) {
+        # must have at least two mediums
+        my @mediums = @{ $medium_by_position{$m_pos} };
+        next if @mediums <= 1;
+        # all mediums must have the same number of tracks
+        my $track_count = $mediums[0]->tracklist->track_count;
+        next if grep { $_->tracklist->track_count != $track_count } @mediums;
+        # group recordings by track position 
+        $recording_by_position{$m_pos} = {};
+        for my $medium (@mediums) {
+            for my $tr ($medium->tracklist->all_tracks) {
+                my $tr_pos = $tr->position;
+                if (exists $recording_by_position{$m_pos}->{$tr_pos}) {
+                    push @{ $recording_by_position{$m_pos}->{$tr_pos} }, $tr->recording;
+                }
+                else {
+                    $recording_by_position{$m_pos}->{$tr_pos} = [ $tr->recording ];
+                }   
+            }
+        }
+    }
+
+    my @merges;
+    for my $m_pos (sort { $a <=> $b } keys %recording_by_position) {
+        for my $tr_pos (sort { $a <=> $b } keys %{ $recording_by_position{$m_pos} }) {
+            my $recordings = $recording_by_position{$m_pos}->{$tr_pos};
+            push @merges, $recordings if scalar @$recordings;
+        }
+    }
+
+    return @merges;
+}
+
 sub merge
 {
     my ($self, %opts) = @_;

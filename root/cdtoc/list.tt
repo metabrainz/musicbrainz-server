@@ -38,16 +38,8 @@
                 </abbr>
                 [%- END -%]
             </td>
-            <td>[%-
-                labels = [];
-                labels.push(link_entity(label.label)) FOR label=release.labels;
-                labels.join(', ')
-            -%]</td>
-            <td>[%-
-                catnos = [];
-                catnos.push(label.catalog_number) FOR label=release.labels;
-                catnos.join(', ')
-            -%]</td>
+            <td>[% rdfa_release_label_list(release.labels) %]</td>
+            <td>[% rdfa_release_catno_list(release.labels) %]</td>
             <td>[% release.barcode %]</td>
             [% IF c.session.tport %]
             <td>

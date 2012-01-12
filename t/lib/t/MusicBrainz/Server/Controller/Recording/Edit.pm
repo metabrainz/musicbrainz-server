@@ -73,7 +73,7 @@ is_deeply($edit->data, {
                 {
                     artist => { id => 6, name => 'ABBA' },
                     name => 'ABBA',
-                    join_phrase => undef,
+                    join_phrase => '',
                 }
             ],
         },

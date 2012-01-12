@@ -127,7 +127,7 @@ sub diff_artist_credits {
             my $name = shift;
             join(
                 '',
-                $name->artist->id,
+                $name->artist->id || 'deleted',
                 $name->name,
                 $name->join_phrase || ''
             );

@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Artist::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -104,6 +105,63 @@ ok($artist->end_date->is_empty);
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);
 
+};
+
+test 'Check conflicts (non-conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        name => 'Renamed artist',
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        comment   => 'Comment change'
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+    is ($artist->name, 'Renamed artist', 'artist renamed');
+    is ($artist->comment, 'Comment change', 'comment changed');
+};
+
+test 'Check conflicts (conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        name      => 'Renamed artist',
+        sort_name => 'Sort FOO'
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        comment   => 'Comment change',
+        sort_name => 'Sort BAR'
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok  exception { $edit_2->accept }, 'could not accept edit 2';
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+    is ($artist->name, 'Renamed artist', 'artist renamed');
+    is ($artist->sort_name, 'Sort FOO', 'comment changed');
+    is ($artist->comment, undef);
 };
 
 sub _create_full_edit {

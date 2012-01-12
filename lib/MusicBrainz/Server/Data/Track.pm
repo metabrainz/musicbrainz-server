@@ -168,7 +168,7 @@ sub _create_row
 
     $row{name} = $names->{ $track_hash->{name} } if exists $track_hash->{name};
 
-    if (exists $row{length}) {
+    if (exists $row{length} && defined($row{length})) {
         $row{length} = undef if $row{length} == 0;
     }
 
