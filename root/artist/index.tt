@@ -20,6 +20,10 @@
       </p>
     [% END %]
 
+    <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="/static/images/icons/filter.png?a=1" /></a> <a class="filter-button" href="#">Filter</a></div>
+
+    [%- INCLUDE 'components/filter.tt' -%]
+
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
             <form action="[% c.uri_for_action('/release_group/merge_queue') %]"

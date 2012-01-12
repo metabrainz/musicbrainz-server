@@ -170,6 +170,8 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
+    my %filter = %{ $self->process_filter($c, 'Filter::Recording') };
+
     my $artist = $c->stash->{artist};
     my $release_groups;
     if ($c->stash->{artist}->id == $VARTIST_ID)
@@ -276,7 +278,11 @@ sub process_filter
                 }
 
             }
+            $c->res->cookies->{filter} = { value => '1', expires => '100' };
         }
+    }
+    else {
+        $c->res->cookies->{filter} = { value => '', expires => '100' };
     }
 
     return \%filter;
