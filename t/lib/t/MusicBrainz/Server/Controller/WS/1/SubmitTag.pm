@@ -20,9 +20,8 @@ my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-
-ALTER SEQUENCE tag_id_seq RESTART 100;
-
+INSERT INTO editor (id, name, password)
+    VALUES (1, 'editor', 'password');
 EOSQL
 
 subtest 'Submit a single tag' => sub {
@@ -32,7 +31,7 @@ subtest 'Submit a single tag' => sub {
         'tags'   => 'musician',
     ];
 
-    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'mb');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -43,7 +42,7 @@ subtest 'Submit a single tag' => sub {
          <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
           <tag-list><tag>musician</tag></tag-list>
          </metadata>',
-        { username => 'editor', password => 'mb' };
+        { username => 'editor', password => 'password' };
 
     done_testing;
 };
@@ -58,7 +57,7 @@ subtest 'Submit a multiple tags' => sub {
         'tags.1'   => 'production',
     ];
 
-    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'mb');
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
 
     my $response = $mech->request($request);
     ok($mech->success);
@@ -69,7 +68,7 @@ subtest 'Submit a multiple tags' => sub {
          <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
           <tag-list><tag>magical</tag></tag-list>
          </metadata>',
-        { username => 'editor', password => 'mb' };
+        { username => 'editor', password => 'password' };
 
     ws_test 'check the submission' =>
         '/tag/?type=xml&entity=label&id=6bb73458-6c5f-4c26-8367-66fcef562955' =>
@@ -77,7 +76,7 @@ subtest 'Submit a multiple tags' => sub {
          <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
           <tag-list><tag>production</tag></tag-list>
          </metadata>',
-        { username => 'editor', password => 'mb' };
+        { username => 'editor', password => 'password' };
 }
 
 };

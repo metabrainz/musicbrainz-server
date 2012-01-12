@@ -74,9 +74,6 @@ UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 381;
 INSERT INTO label_tag (last_updated, count, tag, label) VALUES ('2011-01-18 15:21:33.71184+00', 1, 114, 381);
 INSERT INTO release_label (last_updated, catalog_number, label, release, id) VALUES ('2011-01-18 15:52:02.917556+00', 'EPCE-5112', 381, 49161, 127218);
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', date_added = '2005-07-09 06:10:18.57297+00', amazon_store = NULL WHERE id = 49161;
-INSERT INTO editor (id, name, password) VALUES (15412, 'editor', 'mb');
-INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE);
-INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054);
 INSERT INTO tracklist (last_updated, track_count, id) VALUES ('2011-01-18 15:21:33.71184+00', 0, 494491);
 INSERT INTO track_name (name, id) VALUES ('Summer Reggae! Rainbow', 2961251);
 INSERT INTO track_name (name, id) VALUES ('Hello! Mata Aou Ne (7nin Matsuri version)', 3234257);
@@ -4205,5 +4202,5 @@ INSERT INTO l_label_url (link, last_updated, entity1, entity0, edits_pending, id
 INSERT INTO link_type (priority, last_updated, parent, name, description, short_link_phrase, link_phrase, entity_type1, entity_type0, id, reverse_link_phrase, child_order, gid) VALUES (0, '2011-01-18 15:31:00.495651+00', NULL, 'composer', 'Foo', 'composer', 'composer', 'work', 'artist', 1222, 'composer of', 3, '21d842db-81d4-4d30-a0bd-8c6cc07e1dc2');
 INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, link_type, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, NULL, '2011-01-18 15:31:00.495651+00', 1222, NULL, NULL, NULL, 1123780, NULL);
 INSERT INTO l_artist_work (link, entity1, entity0, id) VALUES
-    (1123780, (SELECT id FROM work WHERE gid='f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8'),
+    (1123780, (SELECT id FROM work WHERE gid='f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8'), 
      (SELECT id FROM artist WHERE gid='472bc127-8861-45e8-bc9e-31e8dd32de7a'), 1117124);
