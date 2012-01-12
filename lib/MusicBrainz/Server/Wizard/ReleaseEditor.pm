@@ -1084,9 +1084,7 @@ sub _edit_release_track_edits
         }
         elsif (!$new->{deleted})
         {
-            # Medium does not exist yet.
-
-            my $add_medium_position = $self->add_medium_position ($medium_idx, $new);
+            my $add_medium_position = $new->{position};
 
             my $opts = {
                 position => $add_medium_position,
