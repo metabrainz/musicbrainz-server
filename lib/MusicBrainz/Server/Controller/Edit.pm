@@ -177,7 +177,8 @@ sub search : Path('/search/edits') RequireAuth
         ],
         status => status_names(),
         languages => [ $c->model('Language')->get_all ],
-        countries => [ $c->model('Country')->get_all ]
+        countries => [ $c->model('Country')->get_all ],
+        relationship_type => [ $c->model('LinkType')->get_full_tree ]
     );
     return unless %{ $c->req->query_params };
 
