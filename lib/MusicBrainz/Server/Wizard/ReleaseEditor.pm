@@ -52,6 +52,7 @@ sub _build_pages {
             title => l('Release Information'),
             template => 'release/edit/information.tt',
             form => 'ReleaseEditor::Information',
+            prepare => sub { $self->prepare_information ($self->release); },
         },
         {
             name => 'tracklist',
@@ -561,6 +562,23 @@ sub associate_recordings
     }
 
     return (\@ret, \@suggestions);
+}
+
+sub prepare_information
+{
+    my ($self, $release) = @_;
+
+    my $labels = $self->c->model('Label')->get_by_ids(
+        grep { $_ }
+        map { $_->{label_id} }
+        @{ $self->get_value ("information", "labels") // [] });
+
+    my $rg_id = $self->get_value ("information", "release_group_id");
+
+    $self->c->stash(
+        labels_by_id => $labels,
+        release_group => $rg_id ? $self->c->model('ReleaseGroup')->get_by_id($rg_id) : undef
+        );
 }
 
 sub prepare_tracklist

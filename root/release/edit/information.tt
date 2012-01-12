@@ -28,7 +28,8 @@
         <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
         <span class="release-group autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-          <input type="hidden" class="gid" />
+          <input type="hidden" class="gid" value="[% release_group.gid | html %]" />
+          <input type="hidden" class="comment" value="[% release_group.comment | html %]" />
           [% r.hidden ('release_group_id', class => 'id') %]
           [% r.text(rg_field, class => 'name') %]
         </span>
@@ -63,7 +64,11 @@
           [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
           <span class="label autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-            <input type="hidden" class="gid" />
+            [% label_id = field.field('label_id').value %]
+            [% label = labels_by_id.$label_id %]
+            <input type="hidden" class="gid" value="[% label.gid | html %]" />
+            <input type="hidden" class="comment" value="[% label.comment | html %]" />
+            <input type="hidden" class="sortname" value="[% label.sort_name | html %]" />
             [%- r.hidden(field.field('label_id'), class => 'id') -%]
             [%- r.text(field.field('name'), class => 'name') -%]
           </span>
@@ -110,6 +115,14 @@
     [%- guesscase_bubble() -%]
     [%- artist_credit_table(form) -%]
 
+    <div class="release-group-container" style="display: none">
+      <div class="release-group bubble">
+        <p>
+          [% l('You selected {releasegroup}.', releasegroup => '<a class="release-group" href="" title=""></a><span class="release-group comment"></span>') %]
+        </p>
+      </div>
+    </div>
+
     <div class="date-container" style="display: none">
       <div class="date bubble">
         <p class="amazon" style="display: none">
@@ -123,11 +136,14 @@
 
     [% FOR field=form.field('labels').fields %]
     <div class="catno-container" style="display: none">
-      <div class="catno bubble">
-        <p>
+      <div class="bubble">
+        <p class="label bubble">
+          [% l('You selected {label}.', label => '<a class="label" href="" title=""></a><span class="label comment"></span>') %]
+        </p>
+        <p class="catno bubble">
           [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
         </p>
-        <p>
+        <p class="catno bubble">
           [% l('If this is an Amazon ASIN, please do not enter it in the catalog number field, but add it as a URL relationship later.') %]
         </p>
       </div>
