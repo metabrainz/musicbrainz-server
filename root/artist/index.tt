@@ -21,6 +21,7 @@
     [% END %]
 
     <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="/static/images/icons/filter.png?a=1" /></a> <a class="filter-button" href="#">Filter</a></div>
+    <h2>[% l('Discography') %]</h2>
 
     [%- INCLUDE 'components/filter.tt' -%]
 
@@ -35,7 +36,7 @@
                         </tbody>
                     </table>
                     [% END %]
-                    <h2>[% rg.type.name || l('Other release groups') %]</h2>
+                    <h3>[% rg.type.name || l('Other release groups') %]</h3>
                     <table class="tbl">
                         <thead>
                             <tr>

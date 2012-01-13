@@ -1,10 +1,10 @@
-<div id="filter" style="margin-top: 1em; border: 1px solid #999; background: #f0f0f0; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; padding: 0.5em; display: none;">
+<div id="filter" style="margin-top: 0.75em; border: 1px solid #999; background: #f0f0f0; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; padding: 0.5em; display: none;">
     <form action="" method="get">
     [% USE r = FormRenderer(filter_form) %]
     <table>
         <tr>
-            <td>[% l('Artist credit:') %]</td>
-            <td>[% r.select('artist_credit_id') %]</td>
+            <td style="white-space:nowrap">[% l('Artist credit:') %]</td>
+            <td>[% r.select('artist_credit_id', { style => 'max-width: 40em' }) %]</td>
         </tr>
         <tr>
             <td>[% l('Name:') %]</td>
