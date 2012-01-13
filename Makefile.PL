@@ -110,8 +110,10 @@ feature 'Default session store/state management' =>
 feature 'Developer features' =>
     -default                           => 1,
     'Catalyst::Plugin::StackTrace'     => '0.09',
-    'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
+    'Plack'                            => '0.9985',
+    'Plack::Middleware::Debug'         => '0.14',
+    'Catalyst::Runtime'                => '5.9'
     ;
 
 feature 'Production server' =>
