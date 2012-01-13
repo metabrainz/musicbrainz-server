@@ -278,11 +278,11 @@ sub process_filter
                 }
 
             }
-            $c->res->cookies->{filter} = { value => '1', expires => '100' };
+            $c->res->cookies->{filter} = { value => '1', path => '/' };
         }
     }
     else {
-        $c->res->cookies->{filter} = { value => '', expires => '100' };
+        $c->res->cookies->{filter} = { value => '', path => '/' };
     }
 
     return \%filter;

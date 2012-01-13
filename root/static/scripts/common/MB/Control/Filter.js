@@ -33,7 +33,7 @@ MB.Control.FilterButton = function () {
             self.$filter.show ('fast');
             self.state = true;
         }
-        $.cookie ('filter', self.state ? '1' : null, { expires: 100, path: '/' });
+        $.cookie ('filter', self.state ? '1' : '', { path: '/' });
         return false;
     });
 
