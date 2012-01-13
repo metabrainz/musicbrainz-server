@@ -73,7 +73,7 @@ my $sqldir = "$FindBin::Bin/sql";
 sub GetPostgreSQLVersion
 {
     my $mb = Databases->get_connection('READWRITE');
-    my $sql = Sql->new( $mb->dbh );
+    my $sql = Sql->new( $mb->conn );
 
     my $version = $sql->select_single_value ("SELECT version();");
     $version =~ s/PostgreSQL ([0-9\.]*) .*/$1/;
@@ -110,7 +110,7 @@ sub RunSQLScript
 sub HasPLPerlSupport
 {
     my ($db) = @_;
-    my $sql = Sql->new($db->dbh);
+    my $sql = Sql->new($db->conn);
     return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
 }
 
@@ -144,7 +144,7 @@ sub CreateReplicationFunction
 {
     # Now connect to that database
     my $mb = Databases->get_connection('SYSMB');
-    my $sql = Sql->new( $mb->dbh );
+    my $sql = Sql->new( $mb->conn );
 
     $sql->auto_commit;
     $sql->do(
@@ -161,7 +161,7 @@ sub CreateReplicationFunction
     {
         my ($name) = shift;
         $mb = Databases->get_connection($name);
-        $sql = Sql->new($mb->dbh);
+        $sql = Sql->new($mb->conn);
     }
 }
 
@@ -314,7 +314,7 @@ sub GrantSelect
 
     my $mb = Databases->get_connection($name);
     my $dbh = $mb->dbh;
-    my $sql = Sql->new( $dbh );
+    my $sql = Sql->new( $mb->conn );
     $sql->auto_commit;
 
     my $username = $READONLY->username;
