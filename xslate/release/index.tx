@@ -16,7 +16,44 @@
 : }
 
 : macro link_entity -> $entity {
-  <a href="#"><: $entity.name :></a>
+:   if $entity.isa('MusicBrainz::Server::Entity::Artist') {
+      <a href="<: $c.uri_for_action('/artist/show', [ $entity.gid ]) :>">
+        <: $entity.name :>
+      </a>
+:   }
+:   else if $entity.isa('MusicBrainz::Server::Entity::Label') {
+      <a href="<: $c.uri_for_action('/label/show', [ $entity.gid ]) :>">
+        <: $entity.name :>
+      </a>
+:   }
+:   else if $entity.isa('MusicBrainz::Server::Entity::Recording') {
+      <a href="<: $c.uri_for_action('/recording/show', [ $entity.gid ]) :>">
+        <: $entity.name :>
+      </a>
+:   }
+:   else if $entity.isa('MusicBrainz::Server::Entity::Release') {
+      <a href="<: $c.uri_for_action('/release/show', [ $entity.gid ]) :>">
+        <: $entity.name :>
+      </a>
+:   }
+:   else if $entity.isa('MusicBrainz::Server::Entity::ReleaseGroup') {
+      <a href="<: $c.uri_for_action('/release_group/show', [ $entity.gid ]) :>">
+        <: $entity.name :>
+      </a>
+:   }
+:   else if $entity.isa('MusicBrainz::Server::Entity::Track') {
+      <a href="<: $c.uri_for_action('/recording/show', [ $entity.recording.gid ]) :>">
+        <: $entity.name :>
+      </a>
+:   }
+:   else if $entity.isa('MusicBrainz::Server::Entity::URL') {
+      <a href="<: $entity.url :>"><: $entity.pretty_name :></a>
+:   }
+:   else if $entity.isa('MusicBrainz::Server::Entity::Work') {
+      <a href="<: $c.uri_for_action('/work/show', [ $entity.gid ]) :>">
+        <: $entity.name :>
+      </a>
+:   }
 : }
 
 : cascade layout
@@ -52,7 +89,7 @@
       <th colspan="4"><: $medium.format_name :> <: $medium.position :></th>
     </tr>
     : for $medium.tracklist.tracks -> $track {
-    <tr>
+    <tr class="<: $~track.cycle('odd', 'ev') :>">
       <td><: $track.position :></td>
       <td>
         <: link_entity($track) :>
@@ -66,7 +103,7 @@
             :     for $group.value -> $rel {
                     <dt><: $group.key :></dt>
                     <dd>
-                      <: $rel.target.name :>
+                      <: link_entity($rel.target) :>
                       : for $rel.target.grouped_relationships('artist').kv() -> $work_rel_type {
                         <dl class="ars">
                         : for $work_rel_type.value.kv() -> $work_rel_group {
@@ -98,4 +135,28 @@
   : }
   </tbody>
 </table>
+
+<h2>Relationships</h2>
+: for $release.grouped_relationships().kv() -> $rel_group {
+<table class="details">
+  <tbody>
+    : for $rel_group.value.kv() -> $rel_type {
+    <tr>
+      <th><: $rel_type.key :>:</th>
+      <td>
+        <ul>
+          : for $rel_type.value -> $relationship {
+          <li><: link_entity($relationship.target) :></li>
+          : }
+        </ul>
+      </td>
+    </tr>
+    : }
+  </tbody>
+</table>
+: }
+: else {
+<p><: link_entity($release) :> has no relationships.</p>
+: }
+
 : }
