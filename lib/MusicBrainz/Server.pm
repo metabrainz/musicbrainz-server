@@ -21,8 +21,6 @@ use Try::Tiny;
 #                 directory
 
 my @args = qw/
-Static::Simple
-
 StackTrace
 
 Session
@@ -78,13 +76,6 @@ __PACKAGE__->config(
     },
     'Plugin::Session' => {
         expires => 36000 # 10 hours
-    },
-    static => {
-        mime_types => {
-            json => 'application/json; charset=UTF-8',
-        },
-        dirs => [ 'static' ],
-        no_logs => 1
     }
 );
 
