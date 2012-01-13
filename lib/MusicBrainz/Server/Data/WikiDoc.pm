@@ -177,7 +177,7 @@ sub get_page
     my ($self, $id, $version, $index) = @_;
 
     my $cache = $self->c->cache('wikidoc');
-    my $cache_key = defined $version ? "$id-$version" : "$id-x";
+    my $cache_key = 'wikidoc:' . defined $version ? "$id-$version" : "$id-x";
 
     my $page = $cache->get($cache_key);
     return $page
