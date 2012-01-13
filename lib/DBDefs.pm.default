@@ -141,6 +141,14 @@ sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 # Cache Settings
 ################################################################################
 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# close configuration is not required
+sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
+
+# MEMCACHED_NAMESPACE allows configuration of a global memcached namespace, if
+# more close configuration is not required
+sub MEMCACHED_NAMESPACE { return 'MB:'; };
+
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
 # in the webservice (Catalyst::Authentication::Credential::HTTP).
@@ -155,7 +163,8 @@ sub PLUGIN_CACHE_OPTIONS {
     return {
 #        class => "Cache::Memory",
         class => "Cache::Memcached::Fast",
-        servers => ['127.0.0.1:11211'],
+        servers => MEMCACHED_SERVERS(),
+        namespace => MEMCACHED_NAMESPACE(),
     };
 };
 
@@ -178,7 +187,8 @@ our %CACHE_MANAGER_OPTIONS = (
         external => {
             class => 'Cache::Memcached::Fast',
             options => {
-                servers => [ '127.0.0.1:11211' ],
+                servers => MEMCACHED_SERVERS(),
+                namespace => MEMCACHED_NAMESPACE()
             },
         },
     },
@@ -316,7 +326,7 @@ sub SESSION_STORE_ARGS
 # seperately from the regular session store.
 sub WIZARD_MEMCACHED
 {
-    return { servers => [ "127.0.0.1:11211" ] };
+    return { servers => MEMCACHED_SERVERS(), namespace => MEMCACHED_NAMESPACE() };
 }
 
 sub USE_ETAGS { 1 }
