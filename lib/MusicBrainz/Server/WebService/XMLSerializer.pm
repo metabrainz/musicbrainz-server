@@ -322,6 +322,8 @@ sub _serialize_release
 
     $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+    $self->_serialize_collection_list(\@list, $gen, $opts->{collections}, $inc, $stash, 0)
+        if ($opts->{collections} && @{ $opts->{collections} });
 
     push @$data, $gen->release({ id => $release->gid }, @list);
 }

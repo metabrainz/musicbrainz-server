@@ -53,6 +53,12 @@ ok($coll_data->check_release(1, 3), 'No exception occured when re-adding release
 
 memory_cycle_ok($coll_data);
 
+my @releases = $coll_data->find_all_by_release(3);
+is(scalar(@releases), 1);
+ok((grep { $_->id == 1 } @releases), 'found collection by release');
+
+memory_cycle_ok($coll_data);
+
 };
 
 1;

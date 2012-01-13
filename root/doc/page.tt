@@ -1,27 +1,26 @@
 [% WRAPPER "layout.tt" full_width=1 title=page.title -%]
     <div id="content" class="wikicontent">
-        <h1>[%- page.title -%]</h1>
+        <h1 class="hierarchy-links">
+            [%- FOR link IN page.hierarchy -%]
+                [% IF loop.first %]
+                    [%- doc = link -%]
+                [% ELSE %]
+                    [% doc = doc _ "/" _ link %]
+                [% END %]
+
+                <a href="[%- doc_link(doc.replace(' ', '_')) -%]" [% ' style="font-weight:bold;"' IF loop.last %]>[%- link -%]</a>
+                [% ' / ' IF !loop.last %]
+            [% END %]
+        </h1>
         [%- IF !page.version -%]
             <div class="wikidocs-header">
             [%- l("This page has not been reviewed by our documentation team ({more_info|more info}).",
                   { more_info => doc_link('WikiDocs') }) -%]
             </div>
         [%- END -%]
-        [% IF hierarchy_links.size > 0 %]
-            <div class="hierarchy-links">
-                &lt; 
-                [%- FOR link IN hierarchy_links -%]
-                    [% IF loop.first %]
-                        [%- doc = link -%]
-                    [% ELSE %]
-                        [% doc = doc _ "/" _ link %]
-                    [% END %]
-                    <a href="[%- doc_link(doc) -%]">[%- link.replace('_', ' ') -%]</a>
-                    [%- " | " IF !loop.last -%]
-                [%- END; -%]
-            </div>
-        [% END %]
+
         [%- page.content -%]
+
         [%- IF page.version -%]
             <div class="wikidocs-footer">
                 [%- l('This page is {doc|transcluded} from revision {version} of {title}.',

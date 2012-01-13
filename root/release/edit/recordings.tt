@@ -194,7 +194,9 @@
         <tbody>
           <tr class="track template">
             <td class="position" rowspan="2" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%"></td>
-            <td class="name" style="width: 40%; padding: 0.5em 0.5em 0 0;" ></td>
+            <td style="width: 40%; padding: 0.5em 0.5em 0 0;" >
+              <span class="name"> <span class="length">
+            </td>
             <td class="recording" style="width: 40%; padding: 0.5em 0 0 0;">
               <input class="gid" type="hidden" />
               <input class="confirmed" type="hidden" value="1" />
@@ -286,7 +288,10 @@
                   style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">
                 [% track.position | html %]
               </td>
-              <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">[% track.name | html %]</td>
+              <td style="width: 40%; padding: 0.5em 0.5em 0 0;" class="name">
+                <span class="name">[% track.name | html %]</span>
+                <span class="length">([% track.length | format_length %])</span>
+              </td>
 
               <td style="width: 40%; padding: 0.5em 0 0 0;" class="recording">
                 [%- r.hidden (assoc.field('gid'), class => 'gid') -%]
@@ -302,7 +307,10 @@
                 [%- END -%]
                 <span class="recording"
                   [%- UNLESS showrec -%]style="display: none"[% END %]>
-                  [%- UNLESS addnew -%][% link_entity (recording) %][%- END -%]
+                  [%- UNLESS addnew -%]
+                    [% link_entity (recording) %]
+                    <span>([% recording.length | format_length %])</span>
+                  [%- END -%]
                 </span>
                 <span class="add-recording"
                   [% UNLESS addnew %]style="display: none"[% END %]>

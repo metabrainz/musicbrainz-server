@@ -240,7 +240,11 @@
 
       <div class="row">
         <label> &nbsp; </label>
-        <span style="display: inline-block; width: 170px; text-align: right; padding-right: 10px;">[% l('Add Artist Credit') %]</span>
+        <span style="display: inline-block; width: 170px; text-align: right; padding-right: 10px;">
+            <button type="button" class="nobutton add-artist-credit">
+                [%- l('Add Artist Credit') -%]
+            </button>
+        </span>
         <input type="button" class="icon add-artist-credit"
           title="[% l('Add Artist Credit') %]" 
           style="background-image: url([% c.uri_for("/static/images/icons/add_row.png") %]); width: 16px; height: 16px; border: 0;" />

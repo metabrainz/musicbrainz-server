@@ -22,7 +22,7 @@ has 'sql' => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        Sql->new($self->dbh)
+        Sql->new( $self->conn )
     },
     lazy => 1
 );
@@ -35,26 +35,30 @@ sub _build_conn
     $dsn .= ';host=' . $self->database->host if $self->database->host;
     $dsn .= ';port=' . $self->database->port if $self->database->port;
 
+    my $schema = $self->_schema;
     my $db = $self->database;
     my $conn = DBIx::Connector->new($dsn, $db->username, $db->password, {
         pg_enable_utf8    => 1,
         pg_server_prepare => 0, # XXX Still necessary?
         RaiseError        => 1,
         PrintError        => 0,
-    });
+        Callbacks         => {
+            connected => sub {
+                my $dbh = shift;
+                $dbh->do("SET TIME ZONE 'UTC'");
+                $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
 
-    $conn->run(sub {
-        my $sql = Sql->new($_);
-        $sql->auto_commit(1);
-        $sql->do("SET TIME ZONE 'UTC'");
-        $sql->auto_commit(1);
-        $sql->do("SET CLIENT_ENCODING = 'UNICODE'");
+                if ($schema) {
+                    $dbh->do("SET search_path=$schema");
+                }
 
-        if (my $schema = $self->_schema) {
-            $sql->auto_commit(1);
-            $sql->do("SET search_path=$schema");
+                return ();
+            }
         }
     });
+
+    # Make sure we notice the DB going down and attempt to reconnect
+    $conn->mode('fixup');
 
     return $conn;
 }

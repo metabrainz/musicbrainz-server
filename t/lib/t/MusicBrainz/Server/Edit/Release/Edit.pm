@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Release::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -60,6 +61,64 @@ is($release->language_id, 1);
 is($release->comment, 'Edited comment');
 is($release->artist_credit->name, 'New Artist');
 
+};
+
+test 'Check conflicts (non-conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        name => 'Renamed release',
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        date      => { year => '1990', month => '4', day => '29' }
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $release = $c->model('Release')->get_by_id(1);
+    is ($release->name, 'Renamed release', 'release renamed');
+    is ($release->date->format, '1990-04-29', 'date changed');
+};
+
+test 'Check conflicts (conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        name      => 'Renamed release',
+        comment   => 'comment FOO',
+        date      => { year => '1990', month => '4', day => '29' }
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        comment   => 'Comment BAR',
+        date      => { year => '1990', month => '4', day => '28' }
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok  exception { $edit_2->accept }, 'could not accept edit 2';
+
+    my $release = $c->model('Release')->get_by_id(1);
+    is ($release->name, 'Renamed release', 'release renamed');
+    is ($release->comment, 'comment FOO', 'comment changed');
+    is ($release->date->format, '1990-04-29');
 };
 
 sub is_unchanged {
