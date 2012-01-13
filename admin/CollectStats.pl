@@ -34,7 +34,7 @@ use MusicBrainz::Server::Context;
 use Sql;
 
 my $c = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
 
 $sql->begin;
 $c->model('Statistics')->recalculate_all;

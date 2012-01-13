@@ -94,7 +94,7 @@ $fHelp and usage();
 @ARGV or usage();
 
 my $mb = Databases->get_connection('READWRITE');
-my $sql = Sql->new($mb->dbh);
+my $sql = Sql->new($mb->conn);
 
 
 my @tar_to_extract;
