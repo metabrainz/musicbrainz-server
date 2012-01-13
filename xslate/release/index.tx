@@ -1,0 +1,101 @@
+: macro artist_credit -> $credit {
+:   for $credit.names -> $name {
+      <a href=""><: $name.name :></a><: $name.join_phrase :>
+:   }
+: }
+
+: macro grouped_relationships -> $relationships {
+  <dd>
+    : for $relationships -> $entity {
+    :   link_entity($entity.target);
+    :   if !$~entity.is_last {
+    :     html(', ')
+    :   }
+    : }
+  </dd>
+: }
+
+: macro link_entity -> $entity {
+  <a href="#"><: $entity.name :></a>
+: }
+
+: cascade layout
+: override content -> {
+<h1>
+  <a href="<: $c.uri_for_action('/release/show', [ $release.gid ]) :>">
+    <: $release.name :>
+  </a>
+</h1>
+<p class="subheader">
+  Release by <: artist_credit($release.artist_credit) :>
+  <span class="small">
+    (<a href="">see all versions of this release,
+      <: $release.release_group.release_count :> available</a>)
+  </span>
+</p>
+
+<h2>Tracklist</h2>
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Artist</th>
+      <th>Rating</th>
+      <th>Length</th>
+    </tr>
+  </thead>
+  <tbody>
+  : for $release.mediums -> $medium {
+    <tr class="subh">
+      <th></th>
+      <th colspan="4"><: $medium.format_name :> <: $medium.position :></th>
+    </tr>
+    : for $medium.tracklist.tracks -> $track {
+    <tr>
+      <td><: $track.position :></td>
+      <td>
+        <: link_entity($track) :>
+        : if $track.recording.relationships {
+          <br />
+          <div class="ars">
+          : for $track.recording.grouped_relationships.kv() -> $rel_pair {
+            <dl class="ars">
+            : if $rel_pair.key == 'work' {
+            :   for $rel_pair.value.kv() -> $group {
+            :     for $group.value -> $rel {
+                    <dt><: $group.key :></dt>
+                    <dd>
+                      <: $rel.target.name :>
+                      : for $rel.target.grouped_relationships('artist').kv() -> $work_rel_type {
+                        <dl class="ars">
+                        : for $work_rel_type.value.kv() -> $work_rel_group {
+                          <dt><: $work_rel_group.key :></dt>
+                          <: grouped_relationships($work_rel_group.value) :>
+                        : }
+                        </dl>
+                      : }
+                    </dd>
+            :     }
+            :   }
+            : }
+            : else {
+            :  for $rel_pair.value.kv() -> $group {
+                 <dt><: $group.key :></dt>
+                 <: grouped_relationships($group.value) :>
+            :  }
+            : }
+            </dl>
+          : }
+          </div>
+        : }
+      </td>
+      <td><: artist_credit($track.artist_credit) :></td>
+      <td></td>
+      <td><: $track.length :></td>
+    </tr>
+    : }
+  : }
+  </tbody>
+</table>
+: }

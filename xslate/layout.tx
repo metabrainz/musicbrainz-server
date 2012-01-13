@@ -1,0 +1,108 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title><: l('MusicBrainz - The Open Music Encyclopedia') :></title>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="<: l('MusicBrainz: Artist') :>"
+          href="<: $c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') :>" />
+
+    <link rel="stylesheet" type="text/css" href="/static/styles/layout.css" />
+    <style>
+      body {
+          margin: 0;
+          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          font-size: 13px;
+          background: #eee;
+      }
+      body, li { color: #303030; }
+      #header {
+          box-shadow: 0px 1px 3px 1px #eee;
+          background: #736DAB;
+      }
+      #logo {
+          background: url('/static/images/layout/sprites.png') no-repeat top left;
+          height: 58px;
+          margin-left: 5em;
+      }
+      #nav {
+          background: #FFBA58;
+          overflow: hidden;
+          font-weight: bold;
+          padding: 0 5em;
+      }
+      #nav ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+      }
+      #nav ul li {
+          float: left;
+          margin: 0;
+          padding: 0;
+      }
+      #nav ul li a {
+          color: #333;
+          display: block;
+          padding: 0.4em 0.5em;
+          text-decoration: none;
+          padding: 0.4em 0.6em;
+          font-weight: bold;
+      }
+      #nav ul li:first a {
+          margin-left: -0.6em;
+      }
+      #nav ul li a:hover {
+          background: #FC6714;
+          color: #fff;
+      }
+      #content {
+          padding: 2em 5em;
+          border-bottom: 1px solid #ddd;
+          background: #fff;
+      }
+    </style>
+    <style>
+table.tbl td { vertical-align: top }
+
+dl.ars, dl.ars dd, dl.ars dt {
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+}
+
+dl.ars { margin-left: 2em; }
+dl.ars dd { margin: 0.2em 0; }
+
+dl.ars dt {
+    margin-right: 0.5em;
+    clear: left;
+    float: left;
+    color: #555;
+}
+
+</style>
+  </head>
+
+  <body>
+    <div id="header">
+      <div id="logo">
+
+      </div>
+      <div id="nav">
+        <ul>
+          <li><a href="#"><: l('About') :></a></li>
+          <li><a href="#"><: l('Blog') :></a></li>
+          <li><a href="#"><: l('Products') :></a></li>
+          <li><a href="#"><: l('Search') :></a></li>
+          <li><a href="#"><: l('Editing') :></a></li>
+          <li><a href="#"><: l('Documentation') :></a></li>
+          <li><a href="#"><: l('Contact Us') :></a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      : block content -> { }
+    </div>
+  </body>
+</html>

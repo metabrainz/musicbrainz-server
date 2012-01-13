@@ -177,7 +177,7 @@ sub show : Chained('load') PathPart('')
             map { $_->all_relationships } @recordings);
 
     $c->stash(
-        template     => 'release/index.tt',
+        template     => 'release/index.tx',
         show_artists => $release->has_multiple_artists,
     );
 }
