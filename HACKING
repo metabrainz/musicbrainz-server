@@ -9,7 +9,7 @@ directory. The preferred way to run them is to use the `prove` program from
 Test::Harness. For example, to run all tests use:
 
  $ prove -l t/
- 
+
 Or if you want to run only specific tests:
 
  $ prove -l t/entity_artist.t
@@ -45,3 +45,12 @@ Keys:
    sessions by catalyst session ID, RE (random) session ID, and other specifics
  * wt:INT -- work type by ID
 
+=======
+Debug information
+-----------------
+
+If you have CATALYST_DEBUG set to true, in DBDefs, the built in server
+(script/musicbrainz_server.pl) will run in a development environment. This will
+cause debug information to be generated on every page, and all HTML pages will
+have debug panels available to view this information. To get to these panels,
+simply click the "?" icon in the top right of each page.
