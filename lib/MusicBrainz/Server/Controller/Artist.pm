@@ -197,13 +197,13 @@ sub show : PathPart('') Chained('load')
         }
 
         $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
+                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift, filter => \%filter);
             });
 
         my $pager = $c->stash->{pager};
         if (!$show_va && $pager->total_entries == 0) {
             $release_groups = $self->_load_paged($c, sub {
-                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
                 });
             $c->stash(
                 va_only => 1
