@@ -254,7 +254,7 @@ sub ImportTable
 
         $sql->begin;
         $sql->do("COPY $table FROM stdin");
-        my $dbh = $sql->{dbh};
+        my $dbh = $sql->dbh;
 
         $p->("", "") if $fProgress;
         my $t;
