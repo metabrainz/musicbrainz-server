@@ -180,6 +180,7 @@ sub show : Chained('load') PathPart('')
         template     => 'release/index.tx',
         show_artists => $release->has_multiple_artists,
     );
+    $c->forward( $c->view('Xslate') );
 }
 
 =head2 show

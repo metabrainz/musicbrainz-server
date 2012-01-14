@@ -6,20 +6,16 @@
 
 : macro grouped_relationships -> $relationships {
   <dd>
-    : for $relationships -> $entity {
-    :   link_entity($entity.target);
-    :   if !$~entity.is_last {
-    :     html(', ')
-    :   }
-    : }
+:   for $relationships -> $entity {
+:     link_entity($entity.target);
+:     if !$~entity.is_last { html(', ') }
+:   }
   </dd>
 : }
 
 : macro link_entity -> $entity {
 :   if $entity.isa('MusicBrainz::Server::Entity::Artist') {
-      <a href="<: $c.uri_for_action('/artist/show', [ $entity.gid ]) :>">
-        <: $entity.name :>
-      </a>
+      <a href="<: $c.uri_for_action('/artist/show', [ $entity.gid ]) :>"><: $entity.name :></a>
 :   }
 :   else if $entity.isa('MusicBrainz::Server::Entity::Label') {
       <a href="<: $c.uri_for_action('/label/show', [ $entity.gid ]) :>">
@@ -57,29 +53,263 @@
 : }
 
 : cascade layout
+
+: override sidebar -> {
+      <div id="sidebar" about="[mbz:release/6254ad13-3d28-452c-b51c-84cac47d9d0e#_]">
+        
+    <div class="cover-art">
+        
+            <img src="http://ecx.images-amazon.com/images/I/518l6kgg53L.jpg" alt="Cover Art">
+        
+    </div>
+
+    <h2>Release information</h2>
+
+    <dl class="properties ">
+    <dt>Date:</dt>
+<dd>2008-10-13</dd>
+<dt>Country:</dt>
+<dd>United Kingdom</dd>
+<dt>Barcode:</dt>
+<dd property="mo:tgin" datatype="xsd:string">5060157037002</dd>
+<dt>Format:</dt>
+<dd>CD</dd>
+
+</dl>
+
+
+    <h2>Additional details</h2>
+    <dl class="properties ">
+    <dt>Type:</dt>
+<dd>Album</dd>
+<dt>Status:</dt>
+<dd>Official</dd>
+<dt>Language:</dt>
+<dd>English</dd>
+<dt>Script:</dt>
+<dd>Latin</dd>
+<dt>Data Quality:</dt>
+<dd>Normal</dd>
+
+</dl>
+
+
+    
+    <h2>Labels</h2>
+    <ul class="links">
+    
+      <li>
+        <span about="[mbz:release/6254ad13-3d28-452c-b51c-84cac47d9d0e#_]"><a rel="mo:label" resource="[mbz:label/e2d3cf14-d39f-4b1d-924b-e1ad68843f02#_]" href="http://musicbrainz.org/label/e2d3cf14-d39f-4b1d-924b-e1ad68843f02">Symmetry Recordings</a></span><br>
+        <span about="[mbz:release/6254ad13-3d28-452c-b51c-84cac47d9d0e#_]" property="mo:catalogue_number" datatype="xsd:string">SYMMCD001</span>
+      </li>
+    
+    </ul>
+    
+
+    
+        <h2>Rating</h2>
+<p>
+    <span class="inline-rating">
+    <span class="star-rating small-star">        <span class="current-user-rating" style="width:100%;">5</span>                <a href="http://musicbrainz.org/rating/rate?entity_id=773455&amp;entity_type=release_group&amp;rating=20" class="stars-1 set-rating" title="Rate: 1 star">1</a>                <a href="http://musicbrainz.org/rating/rate?entity_id=773455&amp;entity_type=release_group&amp;rating=40" class="stars-2 set-rating" title="Rate: 2 stars">2</a>                <a href="http://musicbrainz.org/rating/rate?entity_id=773455&amp;entity_type=release_group&amp;rating=60" class="stars-3 set-rating" title="Rate: 3 stars">3</a>                <a href="http://musicbrainz.org/rating/rate?entity_id=773455&amp;entity_type=release_group&amp;rating=80" class="stars-4 set-rating" title="Rate: 4 stars">4</a>                <a href="http://musicbrainz.org/rating/rate?entity_id=773455&amp;entity_type=release_group&amp;rating=0" class="stars-5 remove-rating" title="Remove your rating">5</a>    </span>
+</span>    (<a href="http://musicbrainz.org/release-group/c1126d0b-8146-3c80-bc2a-8a1cd3b397b3/ratings">see all ratings</a>)</p>
+
+        
+<script type="text/javascript">//<![CDATA[
+    $(function() {
+        MB.Control.TagEditor($('#sidebar-tags'), "http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/ajax/tag",
+            "http://musicbrainz.org/tag/",
+            '<a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/tags">more…<\/a>');
+    });
+//]]></script>
+
+<div id="sidebar-tags">
+    <h2>Tags</h2>
+    <p>
+    <span class="tags">
+      
+      (none)      
+    </span>
+    </p>
+    
+        
+            <form>
+                <input type="text" class="tag-input" value="">
+                <input type="submit" value="Tag">
+            </form>
+        
+    
+</div>
+
+    
+
+    <h2>Editing</h2>
+    <ul class="links">
+      
+        <li>
+          <a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/edit_annotation">
+            Add annotation
+          </a>
+        </li>
+        <li><a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/change-quality">Change release quality</a></li>
+        <li><a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/move">Change release group</a></li>
+        <li>
+          <a href="http://musicbrainz.org/release/merge_queue?add-to-merge=496217">
+            Merge release
+          </a>
+        </li>
+        <li><a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/delete">Remove release</a></li>
+
+        <hr>
+
+        
+        <li><a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/relate">Use in a relationship</a></li>
+        <li>    <a href="#relate_to">Relate to ...</a>
+    <div style="position: absolute;">
+      <div class="relate-to" style="display: none">
+        <input type="hidden" class="gid" value="6254ad13-3d28-452c-b51c-84cac47d9d0e">
+        <input type="hidden" class="type" value="release">
+        <select style="width: 130px; margin-right: 4px;">
+          <option value="artist">Artist</option>
+          <option value="label">Label</option>
+          <option value="recording">Recording</option>
+          <option value="release-group">Release Group</option>
+          <option value="release">Release</option>
+          <option value="work">Work</option>
+        </select>
+        <span class="autocomplete">
+          <img />
+          <input type="text" class="name ui-autocomplete-input" value="" style="width: 170px;" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+          <input type="hidden" class="id" value="">
+          <input type="hidden" class="gid" value="">
+        </span>
+        
+        <select class="endpoint">
+          
+          <option value="release">
+          Relate to release
+          </option>
+          
+          <option value="recording">
+          Relate to recordings
+          </option>
+          
+        </select>
+        
+        <br>
+        <div class="buttons" style="margin-top: 0.5em; width: 100%;">
+          <input class="negative button cancel" type="button" value="Cancel" style="float: left;">
+          <input class="positive button create" type="button" value="Create relationship" style="float: right;">
+        </div>
+      </div>
+    </div></li>
+        <li><a href="http://musicbrainz.org/edit/relationship/create_url?entity=6254ad13-3d28-452c-b51c-84cac47d9d0e&amp;type=release">Relate to URL</a></li>
+        <li>
+          <a href="http://musicbrainz.org/edit/relationship/create-recordings?release=6254ad13-3d28-452c-b51c-84cac47d9d0e&amp;type=&amp;gid=">
+            Relate  to recordings
+          </a>
+        </li>
+
+        <hr>
+
+        
+      <li><a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/edits">Editing history</a></li>
+
+      
+    </ul>
+
+    
+        <h2>Collections</h2>
+        <ul class="links">            
+                <li>
+                
+                    <a href="http://musicbrainz.org/collection/4af7dd1c-d801-4e88-9705-641f321a5df7/own_collection/add?release=496217">Add to Discover                    </a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="http://musicbrainz.org/collection/04925558-2f3b-4783-b08c-7a22f51e79ad/own_collection/add?release=496217">Add to My Collection                    </a>
+                
+                </li>
+            
+                <li>
+                
+                    <a href="http://musicbrainz.org/collection/675e1274-036b-4062-b81e-0dd967155eaa/own_collection/add?release=496217">Add to Ollie's Rad 'n' Cool Wishlist                    </a>
+                
+                </li>
+            
+        
+            <li><a href="http://musicbrainz.org/collection/create">Create a new collection</a></li>
+            <li><a href="http://musicbrainz.org/release/6254ad13-3d28-452c-b51c-84cac47d9d0e/collections">Found in 0 user collections</a></li>
+        </ul>
+    
+
+    
+<h2>External links</h2>
+<ul class="external_links">       <li class="amazon">
+          <a href="http://www.amazon.co.uk/gp/product/B001I3RWDQ">UK: B001I3RWDQ</a>
+        </li>       <li class="discogs">
+          <a href="http://www.discogs.com/release/1564045">Discogs</a>
+        </li></ul><h2>Release group external links</h2>
+<ul class="external_links">       <li class="discogs">
+          <a href="http://www.discogs.com/master/122651">Discogs</a>
+        </li></ul>
+
+    
+
+
+
+
+<div id="sidebar-affiliates">
+<h2>Affiliate links</h2>
+<ul class="external_links">
+    <li id="sidebar-affiliates-soundunwound">
+      <a href="http://www.soundunwound.com/music/Break/Symmetry/mb:6254ad13-3d28-452c-b51c-84cac47d9d0e">Search on SoundUnwound</a>
+    </li>
+</ul>
+</div>
+
+
+    
+<p class="lastupdate">Last updated on Monday November 14 2011, 14:23</p>
+
+
+
+    </div>
+: }
+
 : override content -> {
-<h1>
-  <a href="<: $c.uri_for_action('/release/show', [ $release.gid ]) :>">
-    <: $release.name :>
-  </a>
-</h1>
-<p class="subheader">
-  Release by <: artist_credit($release.artist_credit) :>
-  <span class="small">
-    (<a href="">see all versions of this release,
-      <: $release.release_group.release_count :> available</a>)
-  </span>
-</p>
+<div class="entityHeader releaseHeader">
+  <h1>
+    <a href="<: $c.uri_for_action('/release/show', [ $release.gid ]) :>">
+      <: $release.name :>
+    </a>
+  </h1>
+  <p class="subheader">
+    Release by <: artist_credit($release.artist_credit) :>
+      <span class="small">
+        (<a href="">see all versions of this release,
+          <: $release.release_group.release_count :> available</a>)
+      </span>
+  </p>
+</div>
+
+<div class="tabs">
+  <ul class="tabs">
+    <li class="sel"><a href="#">Release</a></li>
+    <li><a href="#">Relationships</a></li>
+  </ul>
+</div>
 
 <h2>Tracklist</h2>
 <table class="tbl">
   <thead>
     <tr>
-      <th>#</th>
+      <th class="trackNum">#</th>
       <th>Title</th>
       <th>Artist</th>
-      <th>Rating</th>
-      <th>Length</th>
+      <th class="rating">Rating</th>
+      <th class="trackLength">Length</th>
     </tr>
   </thead>
   <tbody>
@@ -89,8 +319,8 @@
       <th colspan="4"><: $medium.format_name :> <: $medium.position :></th>
     </tr>
     : for $medium.tracklist.tracks -> $track {
-    <tr class="<: $~track.cycle('odd', 'ev') :>">
-      <td><: $track.position :></td>
+    <tr>
+      <td class="trackNum"><: $track.position :></td>
       <td>
         <: link_entity($track) :>
         : if $track.recording.relationships {
@@ -101,13 +331,13 @@
             : if $rel_pair.key == 'work' {
             :   for $rel_pair.value.kv() -> $group {
             :     for $group.value -> $rel {
-                    <dt><: $group.key :></dt>
+                    <dt><: $group.key :>:</dt>
                     <dd>
                       <: link_entity($rel.target) :>
                       : for $rel.target.grouped_relationships('artist').kv() -> $work_rel_type {
                         <dl class="ars">
                         : for $work_rel_type.value.kv() -> $work_rel_group {
-                          <dt><: $work_rel_group.key :></dt>
+                          <dt><: $work_rel_group.key :>:</dt>
                           <: grouped_relationships($work_rel_group.value) :>
                         : }
                         </dl>
@@ -118,7 +348,7 @@
             : }
             : else {
             :  for $rel_pair.value.kv() -> $group {
-                 <dt><: $group.key :></dt>
+                 <dt><: $group.key :>:</dt>
                  <: grouped_relationships($group.value) :>
             :  }
             : }
@@ -128,8 +358,8 @@
         : }
       </td>
       <td><: artist_credit($track.artist_credit) :></td>
-      <td></td>
-      <td><: $track.length :></td>
+      <td class="rating"></td>
+      <td class="trackLength"><: $track.length :></td>
     </tr>
     : }
   : }

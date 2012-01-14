@@ -1,124 +1,39 @@
-<!DOCTYPE>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title><: l('MusicBrainz - The Open Music Encyclopedia') :></title>
-    <link rel="search" type="application/opensearchdescription+xml"
-          title="<: l('MusicBrainz: Artist') :>"
-          href="<: $c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') :>" />
+: cascade layout
+: override content -> {
+<h1><: l('Welcome to MusicBrainz!') :></h1>
+<p>
+  : l('
+  :   MusicBrainz is an open music encyclopedia that collects music metadata
+  :   and makes it available to the public.
+  : ')
+</p>
 
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+<p><: 'MusicBrainz aims to be:' | l :></p>
 
-    <style>
-      body {
-          margin: 0;
-          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-          font-size: 13px;
-          background: #eee;
-      }
-      body, li { color: #303030; }
-      #header {
-          box-shadow: 0px 1px 3px 1px #eee;
-          background: #736DAB;
-      }
-      #logo {
-          background: url('/static/images/layout/sprites.png') no-repeat top left;
-          height: 58px;
-          margin-left: 5em;
-      }
-      #nav {
-          background: #FFBA58;
-          overflow: hidden;
-          font-weight: bold;
-          padding: 0 5em;
-      }
-      #nav ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-      }
-      #nav ul li {
-          float: left;
-          margin: 0;
-          padding: 0;
-      }
-      #nav ul li a {
-          color: #333;
-          display: block;
-          padding: 0.4em 0.5em;
-          text-decoration: none;
-          padding: 0.4em 0.6em;
-          font-weight: bold;
-      }
-      #nav ul li:first a {
-          margin-left: -0.6em;
-      }
-      #nav ul li a:hover {
-          background: #FC6714;
-          color: #fff;
-      }
-      #content {
-          padding: 2em 5em;
-          border-bottom: 1px solid #ddd;
-          background: #fff;
-      }
-    </style>
-  </head>
+<ol>
+  <li>
+    : l(raw('
+    :   <strong>The ultimate source of music information</strong> by allowing
+    :   anyone to contribute and releasing the {doc|data} under
+    :   {doc2|open licenses}.
+    : '))
+  </li>
 
-  <body>
-    <div id="header">
-      <div id="logo">
+  <li>
+    : l(raw('
+    :   <strong>The universal lingua franca for music</strong> by providing
+    :   a reliable and unambiguous form of {doc|music identification},
+    :   enabling both people and machines to have meaningful conversations
+    :   about music.
+    : '))
+  </li>
+</ol>
 
-      </div>
-      <div id="nav">
-        <ul>
-          <li><a href="#"><: l('About') :></a></li>
-          <li><a href="#"><: l('Blog') :></a></li>
-          <li><a href="#"><: l('Products') :></a></li>
-          <li><a href="#"><: l('Search') :></a></li>
-          <li><a href="#"><: l('Editing') :></a></li>
-          <li><a href="#"><: l('Documentation') :></a></li>
-          <li><a href="#"><: l('Contact Us') :></a></li>
-        </ul>
-      </div>
-    </div>
-    <div id="content">
-      <h1><: l('Welcome to MusicBrainz!') :></h1>
-      <p>
-      : l('
-      :   MusicBrainz is an open music encyclopedia that collects music metadata
-      :   and makes it available to the public.
-      : ')
-      </p>
-
-      <p><: 'MusicBrainz aims to be:' | l :></p>
-
-      <ol>
-        <li>
-        : l(raw('
-        :   <strong>The ultimate source of music information</strong> by allowing
-        :   anyone to contribute and releasing the {doc|data} under
-        :   {doc2|open licenses}.
-        : '))
-        </li>
-
-        <li>
-        : l(raw('
-        :   <strong>The universal lingua franca for music</strong> by providing
-        :   a reliable and unambiguous form of {doc|music identification},
-        :   enabling both people and machines to have meaningful conversations
-        :   about music.
-        : '))
-        </li>
-      </ol>
-
-      <p>
-      : l('
-      :   Like Wikipedia, MusicBrainz is maintained by a global community of
-      :   users and we want everyone — including you — to
-      :   {doc|participate and contribute}.
-      : ')
-      </p>
-    </div>
-  </body>
-</html>
+<p>
+  : l('
+  :   Like Wikipedia, MusicBrainz is maintained by a global community of
+  :   users and we want everyone — including you — to
+  :   {doc|participate and contribute}.
+  : ')
+</p>
+: }

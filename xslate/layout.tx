@@ -7,81 +7,358 @@
           title="<: l('MusicBrainz: Artist') :>"
           href="<: $c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') :>" />
 
-    <link rel="stylesheet" type="text/css" href="/static/styles/layout.css" />
     <style>
-      body {
-          margin: 0;
-          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-          font-size: 13px;
-          background: #eee;
-      }
-      body, li { color: #303030; }
-      #header {
-          box-shadow: 0px 1px 3px 1px #eee;
-          background: #736DAB;
-      }
-      #logo {
-          background: url('/static/images/layout/sprites.png') no-repeat top left;
-          height: 58px;
-          margin-left: 5em;
-      }
-      #nav {
-          background: #FFBA58;
-          overflow: hidden;
-          font-weight: bold;
-          padding: 0 5em;
-      }
-      #nav ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-      }
-      #nav ul li {
-          float: left;
-          margin: 0;
-          padding: 0;
-      }
-      #nav ul li a {
-          color: #333;
-          display: block;
-          padding: 0.4em 0.5em;
-          text-decoration: none;
-          padding: 0.4em 0.6em;
-          font-weight: bold;
-      }
-      #nav ul li:first a {
-          margin-left: -0.6em;
-      }
-      #nav ul li a:hover {
-          background: #FC6714;
-          color: #fff;
-      }
-      #content {
-          padding: 2em 5em;
-          border-bottom: 1px solid #ddd;
-          background: #fff;
-      }
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+	    margin: 0;
+	    padding: 0;
+	    border: 0;
+	    font-size: 100%;
+	    font: inherit;
+	    vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+	    display: block;
+    }
+    body {
+	    line-height: 1;
+    }
+    ol, ul {
+	    list-style: none;
+    }
+    blockquote, q {
+	    quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+	    content: '';
+	    content: none;
+    }
+    table {
+	    border-collapse: collapse;
+	    border-spacing: 0;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        background: #eee;
+        color: #333;
+        line-height: 15px;
+    }
+    body { color: #303030; }
+    a {
+        color: #0044ff;
+        text-decoration: none;
+        line-height: inherit;
+        font-weight: inherit;
+    }
+    a:visited {
+        color: #3C5DCE;
+    }
+    a:hover {
+        color: #FC6714 !important;
+        text-decoration: underline;
+    }
+    p {
+        font-size: 13px;
+        font-weight: normal;
+        line-height: 18px;
+        margin-bottom: 9px;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: bold;
+        color: #404040;
+    }
+    h1 {
+        font-size: 150%;
+        line-height: 36px;
+    }
+    h2 {
+        font-size: 120%;
+        line-height: 36px;
+        color: #FC6714;
+    }
+    h3,
+    h4,
+    h5,
+    h6 {
+        line-height: 36px;
+    }
+    h3 {
+        font-size: 18px;
+    }
+    h4 {
+        font-size: 16px;
+    }
+    h5 {
+        font-size: 14px;
+    }
+    h6 {
+        font-size: 13px;
+        color: #bfbfbf;
+        text-transform: uppercase;
+    }
+    ul, ol {
+        margin: 0 0 18px 25px;
+    }
+    ul ul,
+    ul ol,
+    ol ol,
+    ol ul {
+        margin-bottom: 0;
+    }
+    ul {
+        list-style: disc;
+    }
+    ol {
+        list-style: decimal;
+    }
+    ul.unstyled {
+        list-style: none;
+        margin-left: 0;
+    }
+    strong {
+        font-style: inherit;
+        font-weight: bold;
+    }
+    em {
+        font-style: italic;
+        font-weight: inherit;
+        line-height: inherit;
+    }
+    code, pre {
+        padding: 0 3px 2px;
+        font-family: Monaco, Andale Mono, Courier New, monospace;
+        font-size: 12px;
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 18px;
+        padding: 0;
+        font-size: 13px;
+        border-collapse: collapse;
+        border-top: 1px solid #999;
+        border-bottom: 1px solid #999;
+    }
+    table tr:last-child td {
+        border-bottom: 1px solid #999;
+    }
+    table th, table td {
+        padding: 2px 5px 2px 5px;
+        text-align: left;
+    }
+    table th {
+        padding-bottom: 2px;
+        font-weight: bold;
+        vertical-align: middle;
+        background-image: -webkit-linear-gradient(bottom, rgb(207,207,207) 15%, rgb(232,232,232) 58%);
+    }
+    table td {
+        vertical-align: top;
+        border-bottom: 1px solid #eee;
+    }
+    table th {
+        border-bottom: 1px solid #999;
+        vertical-align: top;
+    }
+    table thead th {
+        background-image: linear-gradient(bottom, rgb(235,235,235) 15%, rgb(255,255,255) 58%);
+        background-image: -webkit-linear-gradient(bottom, rgb(235,235,235) 15%, rgb(255,255,255) 58%);
+        border-top: 1px solid #999;
+        border-bottom: 1px solid #999;
+        border-right: 1px solid #ccc;
+    }
+    table tr:nth-child(odd) {
+        background: #F2F2F2;
+    }
+
+    dl.ars, dl.ars dd, dl.ars dt {
+        padding: 0;
+        margin: 0;
+        font-size: 11px;
+    }
+
+    dl.ars { margin-left: 2em; }
+    dl.ars dd { margin: 1px 0; }
+    dl.ars dt {
+        margin-right: 0.5em;
+        clear: left;
+        float: left;
+        color: #555;
+    }
+
+    .trackNum {
+        width: 1em;
+        text-align: right;
+    }
+    .rating {
+        width: 50px;
+    }
+    .trackLength {
+        width: 50px;
+    }
+
+    div.tabs {
+        border-bottom: 1px solid #A1A1A1;
+    }
+    ul.tabs {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        top: 1px;
+        margin: 0;
+    }
+    ul.tabs li {
+        float: left;
+        padding: 0;
+    }
+    ul.tabs li a {
+        display: block;
+        padding: 0.1em 0.5em;
+        margin-left: 4px;
+        background: #F1F1F1;
+        color: black;
+        border: solid 1px #A1A1A1;
+        border-bottom: solid 1px #A1A1A1;
+        border-image: initial;
+    }
+    ul.tabs li.sel a {
+        background: white;
+        color: black;
+        font-weight: bold;
+        border-bottom: solid 1px white;
+    }
+    ul.tabs li a:hover {
+        background: #FFF;
+        color: black !important;
+        text-decoration: none;
+    }
+
+    .entityHeader p.subheader:before {
+        content: '~';
+        color: #999;
+    }
+    .entityHeader h1 { line-height: 24px; }
+    .entityHeader h1 a { color: #000 }
+    .entityHeader {
+        padding-left: 38px;
+        background: 0 4px no-repeat;
+    }
+    .releaseHeader {
+        background-image: url('/static/images/entity/release_lg.png');
+    }
+
+    #header {
+        background: #736DAB;
+    }
+    #logo {
+        background: url('/static/images/layout/sprites.png') no-repeat top left;
+        height: 58px;
+        margin-left: 2em;
+    }
+    #nav {
+        background: #FFBA58;
+        overflow: hidden;
+        font-weight: bold;
+        padding: 0 2em;
+    }
+    #nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    #nav ul li {
+        float: left;
+        margin: 0;
+        padding: 0;
+    }
+    #nav ul li a {
+        color: #333;
+        display: block;
+        padding: 0.4em 0.5em;
+        text-decoration: none;
+        padding: 0.4em 0.6em;
+        font-weight: bold;
+    }
+    #nav ul li:first a {
+        margin-left: -0.6em;
+    }
+    #nav ul li a:hover {
+        background: #FC6714;
+        color: #fff !important;
+    }
+    #page {
+        padding: 1em 2em;
+        border-bottom: 1px solid #ddd;
+        background: #fff;
+        overflow: hidden;
+    }
+    #content {
+        margin-right: 210px;
+        padding-right: 10px;
+        border-right: 1px dotted #ccc;
+    }
+
+    table.details, table.details tr th, table.details tr td, table.details tr {
+        border: none;
+        background: transparent;
+        padding: 0 2pt;
+        line-height: 18px;
+    }
+    table.details th {
+        text-align: right;
+        width: 160px;
+    }
+    table.details ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #sidebar {
+        float: right;
+        width: 200px;
+    }
+    #sidebar .cover-art {
+        text-align: center;
+    }
+    #sidebar .cover-art img {
+        max-height: 300px;
+        max-width: 218px;
+        border: 1px solid #fff;
+        border-radius: 5px;
+    }
+    #sidebar h2 {
+        font-size: 100%;
+    }
+    #sidebar dl dt {
+        clear: left;
+        float: left;
+        font-weight: bold;
+        padding-right: 5pt;
+    }
     </style>
-    <style>
-table.tbl td { vertical-align: top }
-
-dl.ars, dl.ars dd, dl.ars dt {
-    padding: 0;
-    margin: 0;
-    font-size: 11px;
-}
-
-dl.ars { margin-left: 2em; }
-dl.ars dd { margin: 0.2em 0; }
-
-dl.ars dt {
-    margin-right: 0.5em;
-    clear: left;
-    float: left;
-    color: #555;
-}
-
-</style>
   </head>
 
   <body>
@@ -101,8 +378,13 @@ dl.ars dt {
         </ul>
       </div>
     </div>
-    <div id="content">
+    <div id="page">
+      <div id="sidebar">
+      : block sidebar -> { }
+      </div>
+      <div id="content">
       : block content -> { }
+      </div>
     </div>
   </body>
 </html>
