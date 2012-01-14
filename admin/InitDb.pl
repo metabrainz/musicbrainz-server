@@ -93,7 +93,7 @@ sub RunSQLScript
     my $echo = ($fEcho ? "-e" : "");
     my $stdout = ($fQuiet ? ">/dev/null" : "");
 
-    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema;
+    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema . ",public";
     $ENV{"PGPASSWORD"} = $db->password;
     print "$psql $echo -f $path/$file $opts 2>&1 $stdout |\n";
     open(PIPE, "$psql $echo -f $path/$file $opts 2>&1 $stdout |")
@@ -109,7 +109,6 @@ sub RunSQLScript
 
 sub HasPLPerlSupport
 {
-    my ($db) = @_;
     my $mb = Databases->get_connection('READWRITE');
     my $sql = Sql->new( $mb->conn );
     return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
@@ -128,16 +127,7 @@ sub InstallExtension
 
     chomp($sharedir);
 
-    open(SCRIPT, "$sharedir/contrib/$ext") or die "Cannot open $sharedir/contrib/$ext";
-    local $/;
-    my $sql = <SCRIPT>;
-    close(SCRIPT);
-    $sql =~ s/search_path = public/search_path = $schema/;
-    open(SCRIPT, ">/tmp/ext.$$.sql") or die;
-    print SCRIPT $sql;
-    close(SCRIPT);
-
-    RunSQLScript($db, "ext.$$.sql", "Installing $ext extension ...", "/tmp");
+    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...", "/tmp");
     unlink("/tmp/ext.$$.sql");
 }
 
@@ -228,9 +218,9 @@ sub Create
     my $sys_in_thisdb = $sys_db->meta->clone_object($sys_db, database => $dbname);
     my @opts = $sys_in_thisdb->shell_args;
     splice(@opts, -1, 0, "-d");
-    push @opts, "plpgsql";
     $ENV{"PGPASSWORD"} = $sys_db->password;
-    system "createlang", @opts;
+    system "createlang", @opts, "plpgsql";
+    system "createlang", @opts, "plperlu" if HasPLPerlSupport();
     print "\nFailed to create language -- its likely to be already installed, continuing.\n" if ($? >> 8);
 }
 
@@ -274,7 +264,7 @@ sub CreateRelations
     RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
-        if HasPLPerlSupport($SYSMB);
+        if HasPLPerlSupport();
 
     RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")

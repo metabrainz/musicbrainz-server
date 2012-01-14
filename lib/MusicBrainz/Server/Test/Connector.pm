@@ -5,7 +5,7 @@ use 5.10.0;
 
 extends 'MusicBrainz::Server::Connector';
 
-sub _schema { 'musicbrainz_test,' . Databases->get("READWRITE")->schema; }
+sub _schema { 'musicbrainz_test,public' }
 
 # *DISABLE* the thread saftey guarantees that DBIx::Connector provides.
 #
