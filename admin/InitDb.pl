@@ -87,7 +87,7 @@ sub RunSQLScript
     $startmessage ||= "Running $file";
     print localtime() . " : $startmessage ($file)\n";
 
-    $path ||= $sqldir;   
+    $path //= $sqldir;
 
     my $opts = $db->shell_args;
     my $echo = ($fEcho ? "-e" : "");
@@ -127,8 +127,7 @@ sub InstallExtension
 
     chomp($sharedir);
 
-    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...", "/tmp");
-    unlink("/tmp/ext.$$.sql");
+    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...", "");
 }
 
 sub CreateReplicationFunction
