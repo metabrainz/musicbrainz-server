@@ -32,6 +32,7 @@
 </thead>
 <tbody>
 [%- FOREACH language IN language_stats -%]
+[% NEXT IF language.count == 0 %]
 [%- entry(language, 'lang') -%]
 [%- END -%]
 </tbody>
@@ -49,6 +50,7 @@
 </thead>
 <tbody>
 [%- FOREACH script IN script_stats -%]
+[% NEXT IF script.count == 0 %]
 [%- entry(script, 'script') -%]
 [%- END -%]
 </tbody>
