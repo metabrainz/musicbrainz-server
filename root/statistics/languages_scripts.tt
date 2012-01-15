@@ -20,8 +20,8 @@
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
 
-<h2 id="languages">[%- l('Languages') -%]</h2>
-<p><a href="#scripts">[%- l('Jump to script statistics') -%]</a></p>
+<div style="float:left; display:inline-block; margin-right: 50px;">
+<h2>[%- l('Languages') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>
@@ -36,9 +36,10 @@
 [%- END -%]
 </tbody>
 </table>
+</div>
 
-<h2 id="scripts">[%- l('Scripts') -%]</h2>
-<p><a href="#languages">[%- l('Jump to language statistics') -%]</a></p>
+<div style="float:left; display:inline-block;">
+<h2>[%- l('Scripts') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>
@@ -53,4 +54,5 @@
 [%- END -%]
 </tbody>
 </table>
+</div>
 [% END %]
