@@ -29,7 +29,7 @@ sub get_latest_statistics {
     my $stats = MusicBrainz::Server::Entity::Statistics::ByDate->new();
     while (1) {
         my $row = $self->sql->next_row_hash_ref or last;
-        $stats->date_collected($row->{date_collected})
+        $stats->date_collected($row->{date_collected} . ' 00:00:00.000+00')
             unless $stats->date_collected;
         $stats->data->{$row->{name}} = $row->{value};
     }
