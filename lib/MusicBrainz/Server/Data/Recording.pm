@@ -79,7 +79,8 @@ sub find_artist_credits_by_artist
                  JOIN artist_credit_name acn
                      ON acn.artist_credit = rec.artist_credit
                  WHERE acn.artist = ?";
-    return $self->sql->select_single_column_array($query, $artist_id)
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
 }
 
 sub find_by_artist

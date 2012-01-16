@@ -128,11 +128,24 @@ sub load
     return load_subobjects($self, 'release', @objs);
 }
 
+sub find_artist_credits_by_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = "SELECT DISTINCT rel.artist_credit
+                 FROM release rel
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rel.artist_credit
+                 WHERE acn.artist = ?";
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "acn.artist = ?";
     push @$params, $artist_id;

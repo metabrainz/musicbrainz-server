@@ -2,10 +2,18 @@
     <form action="" method="get">
     [% USE r = FormRenderer(filter_form) %]
     <table>
+        [% IF filter_form.field('type_id') %]
+        <tr>
+            <td style="white-space:nowrap">[% l('Type:') %]</td>
+            <td>[% r.select('type_id', { style => 'max-width: 40em' }) %]</td>
+        </tr>
+        [% END %]
+        [% IF filter_form.field('artist_credit_id') && filter_form.field('artist_credit_id').options.size > 1 %]
         <tr>
             <td style="white-space:nowrap">[% l('Artist credit:') %]</td>
             <td>[% r.select('artist_credit_id', { style => 'max-width: 40em' }) %]</td>
         </tr>
+        [% END %]
         <tr>
             <td>[% l('Name:') %]</td>
             <td>[% r.text('name', { size => 47 }) %]</td>
@@ -13,7 +21,7 @@
         <tr>
             <td></td>
             <td><span class="buttons">
-                <button type="submit" class="submit positive">[% l('Filter recordings') %]</button>
+                <button type="submit" class="submit positive">[% submit_text %]</button>
                 <button type="submit" name="filter.cancel" value="1" class="submit negative">[% l('Cancel') %]</button>
             </span></td>
         </tr>

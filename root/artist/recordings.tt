@@ -1,9 +1,9 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Recordings') page='recordings' -%]
 
-    <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="/static/images/icons/filter.png?a=1" /></a> <a class="filter-button" href="#">Filter</a></div>
-    <h2>[% l('Recordings') %]</h2>
+	[%- filter_button() -%]
+	<h2>[% l('Recordings') %]</h2>
 
-    [%- INCLUDE 'components/filter.tt' -%]
+    [%- INCLUDE 'components/filter.tt' submit_text=l('Filter recordings') -%]
 
     [%- IF recordings.size -%]
         <form action="[% c.uri_for_action('/recording/merge_queue') %]"

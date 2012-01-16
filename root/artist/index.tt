@@ -20,10 +20,10 @@
       </p>
     [% END %]
 
-    <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="/static/images/icons/filter.png?a=1" /></a> <a class="filter-button" href="#">Filter</a></div>
+	[%- filter_button() -%]
     <h2>[% l('Discography') %]</h2>
 
-    [%- INCLUDE 'components/filter.tt' -%]
+    [%- INCLUDE 'components/filter.tt' submit_text=l('Filter release groups') -%]
 
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]

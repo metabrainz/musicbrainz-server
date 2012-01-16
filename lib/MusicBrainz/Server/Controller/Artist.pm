@@ -170,8 +170,6 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    my %filter = %{ $self->process_filter($c, 'Filter::Recording') };
-
     my $artist = $c->stash->{artist};
     my $release_groups;
     if ($c->stash->{artist}->id == $VARTIST_ID)
@@ -190,6 +188,9 @@ sub show : PathPart('') Chained('load')
     }
     else
     {
+        my $artist_credits = $c->model('ReleaseGroup')->find_artist_credits_by_artist($artist->id);
+        my %filter = %{ $self->process_filter($c, 'Filter::ReleaseGroup', $artist_credits) };
+
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
         if ($show_va) {
@@ -201,7 +202,7 @@ sub show : PathPart('') Chained('load')
             });
 
         my $pager = $c->stash->{pager};
-        if (!$show_va && $pager->total_entries == 0) {
+        if (!$show_va && !%filter && $pager->total_entries == 0) {
             $release_groups = $self->_load_paged($c, sub {
                     $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
                 });
@@ -261,10 +262,7 @@ browsable (not just paginated)
 
 sub process_filter
 {
-    my ($self, $c, $form_class) = @_;
-
-    my $artist = $c->stash->{artist};
-    my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
+    my ($self, $c, $form_class, $artist_credits) = @_;
 
     my %filter;
     my $filter_form = $c->form(filter_form => $form_class,
@@ -292,8 +290,6 @@ sub recordings : Chained('load')
 {
     my ($self, $c) = @_;
 
-    my %filter = %{ $self->process_filter($c, 'Filter::Recording') };
-
     my $artist = $c->stash->{artist};
     my $recordings;
 
@@ -312,6 +308,9 @@ sub recordings : Chained('load')
     }
     else
     {
+        my $artist_credits = $c->model('Recording')->find_artist_credits_by_artist($artist->id);
+        my %filter = %{ $self->process_filter($c, 'Filter::Recording', $artist_credits) };
+
         if ($c->req->query_params->{standalone}) {
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_standalone($artist->id, shift, shift);
@@ -354,8 +353,6 @@ sub releases : Chained('load')
 {
     my ($self, $c) = @_;
 
-    my %filter = %{ $self->process_filter($c, 'Filter::Recording') };
-
     my $artist = $c->stash->{artist};
     my $releases;
 
@@ -375,6 +372,9 @@ sub releases : Chained('load')
     }
     else
     {
+        my $artist_credits = $c->model('Release')->find_artist_credits_by_artist($artist->id);
+        my %filter = %{ $self->process_filter($c, 'Filter::Recording', $artist_credits) };
+
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
         if ($show_va) {
