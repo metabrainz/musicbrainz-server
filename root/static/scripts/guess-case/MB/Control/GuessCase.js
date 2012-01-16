@@ -110,3 +110,30 @@ MB.Control.initialize_guess_case = function (bubbles, type) {
         }
     }
 };
+
+/* A variation of MB.Control.initialize_guess_case used on those
+   pages which provide editing through the webservice. */
+MB.Control.ws_edit_guess_case = function (bubbles, type) {
+
+    var $name = $('input#entity\\.name');
+    var $gcdoc = $('div.guess-case.bubble');
+
+    bubbles.add ($name, $gcdoc);
+    MB.Control.GuessCase (type, $name);
+
+    if (type === 'label' || type === 'artist')
+    {
+        var $sortname = $('input#entity\\.sort-name');
+        var $sortdoc = $('div.sortname.bubble');
+
+        bubbles.add ($sortname, $sortdoc);
+        if (type === 'artist')
+        {
+            MB.Control.ArtistSortName (type, $name, $sortname).initialize ();
+        }
+        else
+        {
+            MB.Control.SortName (type, $name, $sortname, $('body')).initialize ();
+        }
+    }
+};

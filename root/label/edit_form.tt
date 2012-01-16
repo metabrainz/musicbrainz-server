@@ -13,13 +13,13 @@
         <legend>[% l('Label Details') %]</legend>
         <div class="row">
             <label for="entity.name">[% l('Name:') %]</label>
-            <input id="entity.name" name="entity.name" />
+            <input id="entity.name" name="entity.name" type="text" />
             <ul class="errors" id="entity.name.errors">
             </ul>
         </div>
         <div class="row">
             <label for="entity.sort-name">[% l('Sort name:') %]</label>
-            <input id="entity.sort-name" name="entity.sort-name" />
+            <input id="entity.sort-name" name="entity.sort-name" type="text" />
             <ul class="errors" id="entity.sort-name.errors">
             </ul>
         </div>
