@@ -166,6 +166,22 @@ test 'Replace artist credit identity' => sub {
             }
         ] }
     );
+    $c->model('ArtistCredit')->replace(
+        { names => [
+            {
+                artist => { id => 5, name => 'Bob & Tom' },
+                name => 'Bob & Tom',
+                join_phrase => undef
+            }
+        ] },
+        { names => [
+            {
+                artist => { id => 5, name => 'Bob & Tom' },
+                name => 'Bob & Tom',
+                join_phrase => ''
+            }
+        ] }
+    );
 
     is($c->model('ArtistCredit')->get_by_id(1)->artist_count, 1,
        'artist credit still exists');
