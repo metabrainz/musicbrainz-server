@@ -110,8 +110,6 @@ MB.Edit.save_edit_note = function (data, textStatus, jqXHR) {
     var url = jqXHR.getResponseHeader ('Location');
     var edit_id = url.match (/[0-9]+$/)[0];
 
-    console.log ('save edit note:', edit_note, 'to', url, 'which is edit', edit_id);
-
     if (edit_note === '')
     {
         window.location.href = url;

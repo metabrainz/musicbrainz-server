@@ -54,7 +54,22 @@
         </div>
 
       </fieldset>
-      [% INCLUDE 'forms/edit-note.tt' %]
+
+      <fieldset class="editnote">
+          <legend>[%- l('Edit Note') -%]</legend>
+          [%- UNLESS hide_help -%]
+          <p>
+              [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit — thus making your edit get applied faster.', { note => doc_link('Edit_Note') }) %]
+          </p>
+          <p>[% l('Even just providing a URL or two is helpful!') %]</p>
+          [%- END -%]
+          <div class="row">
+              <label for="edit-note">[% l('Edit note:') %]</label>
+              <textarea id="edit-note" class="edit-note" cols="80" rows="5"></textarea>
+              <ul class="errors" id="edit-note.errors">
+              </ul>
+          </div>
+      </fieldset>
 
       [% enter_edit() %]
     </div>
