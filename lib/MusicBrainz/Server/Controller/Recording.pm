@@ -162,6 +162,9 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             $c->stash( initial_artist => $artist );
             return ( item => $rg );
         }
+        else {
+            return ();
+        }
     }
 };
 
