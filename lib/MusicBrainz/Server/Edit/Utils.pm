@@ -257,7 +257,7 @@ sub hash_artist_credit {
         '[' .
             join(',',
                  $_->{name},
-                 $_->{artist}{id},
+                 $_->{artist}{id} // -1,
                  $_->{join_phrase} || '')
             .
         ']'
