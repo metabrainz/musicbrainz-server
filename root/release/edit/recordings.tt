@@ -273,7 +273,7 @@
             [%- END -%]
             [%- recording = suggestions.$medium_idx.$track_idx.0;
                 USE Compare;
-                recording_track_differ = !Compare.compare(
+                recording_track_differ = recording && !Compare.compare(
                     { name => track.name
                     , artist_credit => track.artist_credit
                     },
@@ -283,7 +283,7 @@
                 )
             -%]
             <tr class="track">
-              <td rowspan="[% recording_track_differ ? 3 : 2 %]"
+              <td rowspan="3"
                   class="position"
                   style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">
                 [% track.position | html %]
@@ -349,14 +349,14 @@
               </td>
             </tr>
 
-            [% IF recording_track_differ %]
             <tr>
               <td colspan="3">
+                <span style="display: [% recording_track_differ ? 'visible' : 'none' %]">
                 [% r.checkbox(assoc.field('update_recording'), { class => 'copy-to-recording' }) %]
                 [% l('Also update the recording with track changes') %]
+                </span>
               </td>
             </tr>
-            [% END %]
           [%- END -%]
           </tbody>
         </table>

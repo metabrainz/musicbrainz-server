@@ -133,6 +133,7 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
     self.$use_suggested = self.$container.find ('button.use-suggested');
     self.$search_recording = self.$container.find ('button.search-recording');
     self.$add_new = self.$container.find ('button.add-new');
+    self.$update_recording = self.$row.next().next();
 
     self.change = function (event, $row) {
         if (! $row)
@@ -145,6 +146,7 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
             self.$gid.val ('new');
             self.$add_recording.show ();
             self.$use_recording.hide ();
+            self.$update_recording.find('span').hide();
         }
         else
         {
@@ -167,6 +169,8 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
 
             self.$use_recording.show ();
             self.$add_recording.hide ();
+
+            self.$update_recording.find('span').show();
         }
     };
 
