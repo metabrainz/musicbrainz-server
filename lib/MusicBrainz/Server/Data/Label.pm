@@ -101,25 +101,11 @@ sub _entity_class
 sub validator
 {
     return branch {
-        name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
-        sort_name => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
-        lifespan => branch {
-            begin => Branch->new (
-                children => {
-                    year => leaf( constraints => [ integer ] ),
-                    month => leaf( constraints => [ integer ] ),
-                    day => leaf( constraints => [ integer ] )
-                },
-                cross_validator => partial_date
-            ),
-            end => Branch->new (
-                children => {
-                    year => leaf( constraints => [ integer ] ),
-                    month => leaf( constraints => [ integer ] ),
-                    day => leaf( constraints => [ integer ] )
-                },
-                cross_validator => partial_date
-            )
+        'name' => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
+        'sort-name' => leaf( constraints => [ required ], transformations => [ collapse_whitespace ] ),
+        'life-span' => branch {
+            'begin' => leaf( constraints => [ partial_date ] ),
+            'end' => leaf( constraints => [ partial_date ] ),
         }
     };
 }

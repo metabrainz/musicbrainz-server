@@ -37,11 +37,10 @@
             <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
         [%- END -%]
         <script type="text/javascript">//<![CDATA[
+            [%# initialize underscore.string %]
+            _.mixin(_.string.exports());
+
             $(document).ready (function () {
-
-                [%# initialize underscore.string %]
-                _.mixin(_.string.exports());
-
                 $("[placeholder]").mb_placeholder ();
                 [% IF c.user_exists %]
                     MB.Control.RelateTo ();

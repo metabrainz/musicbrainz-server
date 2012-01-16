@@ -5,17 +5,24 @@
 [% END %]
 
   <form>
-    [%- USE r = FormRenderer(form) -%]
-
     <div class="half-width edit-fields">
 
       [%# FIXME: add duplicate check. %]
 
       <fieldset>
         <legend>[% l('Label Details') %]</legend>
-        <input type="hidden" name="edit-label.id" value="[% entity.gid %]" />
-        [%- form_row_text_long(r, 'name', l('Name:')) -%]
-        [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
+        <div class="row">
+            <label for="entity.name">[% l('Name:') %]</label>
+            <input id="entity.name" name="entity.name" />
+            <ul class="errors" id="entity.name.errors">
+            </ul>
+        </div>
+        <div class="row">
+            <label for="entity.sort-name">[% l('Sort name:') %]</label>
+            <input id="entity.sort-name" name="entity.sort-name" />
+            <ul class="errors" id="entity.sort-name.errors">
+            </ul>
+        </div>
       </fieldset>
 
       <fieldset>
@@ -23,8 +30,29 @@
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
-        [% form_row_date(r, 'begin_date', l('Begin date:')) %]
-        [% form_row_date(r, 'end_date', l('End date:')) %]
+
+        <div class="row">
+            <label>[% l('Begin date:') %]</label>
+            <span class="partial-date">
+                <input size="4" placeholder="YYYY" name="entity.life-span.begin.year" id="entity.life-span.begin.year" maxlength="4" />
+                <input size="2" placeholder="MM" name="entity.life-span.begin.month" id="entity.life-span.begin.month" maxlength="2" />
+                <input size="2" placeholder="DD" name="entity.life-span.begin.day" id="entity.life-span.begin.day" maxlength="2" />
+            </span>
+            <ul class="errors" id="entity.life-span.begin.errors">
+            </ul>
+        </div>
+
+        <div class="row">
+            <label>[% l('End date:') %]</label>
+            <span class="partial-date">
+                <input size="4" placeholder="YYYY" name="entity.life-span.end.year" id="entity.life-span.end.year" maxlength="4" />
+                <input size="2" placeholder="MM" name="entity.life-span.end.month" id="entity.life-span.end.month" maxlength="2" />
+                <input size="2" placeholder="DD" name="entity.life-span.end.day" id="entity.life-span.end.day" maxlength="2" />
+            </span>
+            <ul class="errors" id="entity.life-span.end.errors">
+            </ul>
+        </div>
+
       </fieldset>
       [% INCLUDE 'forms/edit-note.tt' %]
 

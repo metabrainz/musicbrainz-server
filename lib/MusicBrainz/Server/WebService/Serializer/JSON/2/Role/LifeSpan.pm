@@ -1,6 +1,5 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan;
 use Moose::Role;
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 
 sub has_lifespan
 {
@@ -19,9 +18,9 @@ around serialize => sub {
     if ($self->has_lifespan ($entity))
     {
         my %lifespan;
-        $lifespan{begin} = partial_date_to_hash ($entity->begin_date) if !$entity->begin_date->is_empty;
-        $lifespan{end} = partial_date_to_hash ($entity->end_date) if !$entity->end_date->is_empty;
-        $ret{lifespan} = \%lifespan;
+        $lifespan{'begin'} = $entity->begin_date->format if !$entity->begin_date->is_empty;
+        $lifespan{'end'} = $entity->end_date->format if !$entity->end_date->is_empty;
+        $ret{'life-span'} = \%lifespan;
     }
 
     return %ret;

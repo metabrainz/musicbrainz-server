@@ -119,7 +119,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     edit_type => $EDIT_LABEL_CREATE,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Edit' => {
+with 'MusicBrainz::Server::Controller::Role::WebServiceEdit' => {
     form           => 'Label',
     edit_type      => $EDIT_LABEL_EDIT,
 };

@@ -178,13 +178,14 @@ sub partial_date_from_string
         {
             year => $year,
             month => $month,
-            day => $date
+            day => $day
         });
 }
 
 sub partial_date_to_hash
 {
     my ($date) = @_;
+
     return {
         year => $date->year,
         month => $date->month,

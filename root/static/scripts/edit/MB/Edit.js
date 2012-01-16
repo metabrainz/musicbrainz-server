@@ -20,138 +20,171 @@
 
 MB.Edit = (MB.Edit) ? MB.Edit : {};
 
-
-MB.Edit.mapping = {};
-MB.Edit.mapping.role = {};
-MB.Edit.mapping.role.age = {
-    "begin_date\\.year": "lifespan.begin.year",
-    "begin_date\\.month": "lifespan.begin.month",
-    "begin_date\\.day": "lifespan.begin.day",
-    "end_date\\.year": "lifespan.end.year",
-    "end_date\\.month": "lifespan.end.month",
-    "end_date\\.day": "lifespan.end.day"
+MB.Edit.render_field = function (key, val) {
+    if (_(key).startsWith ('life-span.'))
+    {
+        _.each (
+            _.zip ([ "year", "month", "day"], val.split ("-")),
+            function (fv) {
+                $(
+                    MB.utility.escapeID ([ '#entity', key, fv[0]].join ('.'))
+                ).val (fv[1]);
+            }
+        );
+    }
+    else
+    {
+        $(MB.utility.escapeID ('#entity.' + key)).val (val);
+    }
 };
 
-MB.Edit.mapping.label = jQuery.extend ({
-    "name": "name",
-    "sort_name": "sort_name"
-}, MB.Edit.mapping.role.age);
 
-MB.Edit.Base = function(type, prefix) {
-    var self = MB.Object();
+MB.Edit.render_fields = function (data, textStatus, jqXHR) {
+    $.each (MB.utility.collapse_hash (data), MB.Edit.render_field);
+};
 
-    var $submit_button = $('button.submit.positive');
 
-    self.type = type;
-    self.prefix = prefix;
-    self.reverse_mapping = {};
-    $.each (MB.Edit.mapping[type], function (key, value) { self.reverse_mapping[value] = key; });
-
-    self.getInput = function (path) {
-        var fieldname = path.replace (/\.errors$/, "");
-
-        if (! self.reverse_mapping[fieldname])
-        {
-            $.each (MB.utility.keys (self.reverse_mapping), function (idx, key) {
-                if ( _(key).startsWith (fieldname) )
-                {
-                    fieldname = key;
-                    return false;
-                }
-            });
+MB.Edit.load_entity = function (url) {
+    $.ajax ({
+        "url": url,
+        "type": "GET",
+        "beforeSend": function(jqXHR, settings) {
+            jqXHR.setRequestHeader("Accept", "application/json");
+        },
+        "contentType": "application/json",
+        "statusCode": {
+            200: MB.Edit.render_fields,
+            404: function () { console.log ('FIXME: entity deleted while loading page'); }
         }
+    });
+};
 
-        return $('input[name=' + self.prefix + '\\.' + self.reverse_mapping[fieldname] + ']');
-    };
 
-    self.getData = function () {
-        var ret = {};
+MB.Edit.read_fields = function (inputs) {
+    var ret = {};
 
-        $.each (MB.Edit.mapping[self.type], function (form_field, json_field) {
-            ret[json_field] = $('input[name=' + self.prefix + '\\.' + form_field + ']').val ();
+    _.chain (inputs)
+        .filter (function (elem) {
+            return _($(elem).attr ('name')).startsWith ('entity.');
+        })
+        .each (function (elem) {
+            ret[$(elem).attr ('name').replace ('entity.', '')] = $(elem).val ();
         });
 
-        return MB.utility.expand_hash (ret);
-    };
+    return ret;
+};
 
-    self.saveEdit = function () {
-        var mbid = $('input[name=' + self.prefix + '\\.id]').val ();
-        var url = '/ws/2/' + self.type + '/' + mbid;
 
-        $.ajax ({
-            "url": url,
-            "type": "PUT",
-            "beforeSend": function(jqXHR, settings) {
-                jqXHR.setRequestHeader("Accept", "application/json");
-            },
-            "contentType": "application/json",
-            "data": JSON.stringify (self.getData ()),
-            "statusCode": {
-                201: self.saveEditNote,
-                400: self.validationError,
-                409: function () { console.log ('FIXME: 409 Conflict'); },
-            },
+MB.Edit.compact_lifespan = function (data) {
+
+    _.each (['life-span.begin', 'life-span.end'], function (prefix) {
+
+        var year  = data[prefix + '.year'];   delete data[prefix + '.year'];
+        var month = data[prefix + '.month'];  delete data[prefix + '.month'];
+        var day   = data[prefix + '.day'];    delete data[prefix + '.day'];
+
+        if (_(year).isEmpty ())
+        {
+            /* nothing. */
+        }
+        else if (_(month).isEmpty ())
+        {
+            data[prefix] = year;
+        }
+        else if (_(day).isEmpty ())
+        {
+            data[prefix] = year + "-" + month;
+        }
+        else
+        {
+            data[prefix] = year + "-" + month + "-" + day;
+        }
+    });
+
+    return data;
+};
+
+
+MB.Edit.save_edit_note = function (data, textStatus, jqXHR) {
+    var edit_note = $('textarea.edit-note').val ();
+    var url = jqXHR.getResponseHeader ('Location');
+    var edit_id = url.match (/[0-9]+$/)[0];
+
+    console.log ('save edit note:', edit_note, 'to', url, 'which is edit', edit_id);
+
+    if (edit_note === '')
+    {
+        window.location.href = url;
+        return;
+    }
+
+    /* FIXME:
+       this posts the edit note to the regular edit note
+       page.  A webservice for posting edit notes has not
+       been implemented yet.  Rewrite this function when
+       the webservice is finished.
+    */
+
+    var $form = $('<form method="post" action="/edit/enter_votes">');
+    $form
+        .append ($('<input type="hidden" name="enter-vote.vote.0.edit_id" value="' + edit_id + '">'))
+        .append ($('<input type="hidden" name="url" value="' + url + '">'))
+        .append ($('<textarea name="enter-vote.vote.0.edit_note">' + edit_note + '</textarea>'));
+
+    $('body').append ($form);
+    $form.submit ();
+};
+
+
+MB.Edit.validation_error = function (data, textStatus, jqXHR) {
+    var data = MB.utility.collapse_hash (JSON.parse (data.responseText));
+
+    // Clear old validation errors.
+    $('ul.errors').hide ().empty ();
+
+    $.each (data, function (key, value) {
+
+        var $errors = $(MB.utility.escapeID ('#entity.' + key))
+            .closest ('div.row').find ('ul.errors').show ();
+
+        $.each (value, function (idx, message) {
+            $('<li>').text (message).appendTo ($errors);
         });
-    };
+    });
+};
 
-    self.saveEditNote = function (data, textStatus, jqXHR) {
-        var edit_note = $('#id-' + self.prefix + '\\.edit_note').val ();
-        var url = jqXHR.getResponseHeader ('Location');
-        var edit_id = url.match (/[0-9]+$/)[0];
 
-        /* FIXME:
-           this posts the edit note to the regular edit note
-           page.  A webservice for posting edit notes has not
-           been implemented yet.  Rewrite this function when
-           the webservice is finished.
-        */
+MB.Edit.save_edit = function (url, data) {
+    $.ajax ({
+        "url": url,
+        "type": "PUT",
+        "beforeSend": function(jqXHR, settings) {
+            jqXHR.setRequestHeader("Accept", "application/json");
+        },
+        "contentType": "application/json",
+        "data": JSON.stringify (data),
+        "statusCode": {
+            201: MB.Edit.save_edit_note,
+            400: MB.Edit.validation_error,
+            409: function () { console.log ('FIXME: 409 Conflict'); },
+        }
+    });
+};
 
-        var $form = $('<form method="post" action="/edit/enter_votes">');
-        $form
-            .append ($('<input type="hidden" name="enter-vote.vote.0.edit_id" value="' + edit_id + '">'))
-            .append ($('<input type="hidden" name="url" value="' + url + '">'))
-            .append ($('<textarea name="enter-vote.vote.0.edit_note">' + edit_note + '</textarea>'));
 
-        $('body').append ($form);
-        $form.submit ();
-    };
+MB.Edit.initialize = function (type, gid) {
+    var url = '/ws/2/' + type + '/' + gid;
 
-    self.validationError = function (data, textStatus, jqXHR) {
-        var data = MB.utility.collapse_hash (JSON.parse (data.responseText));
+    MB.Edit.load_entity (url);
 
-        // Clear old validation errors.
-        $('ul.errors').hide ().empty ();
-
-        $.each (data, function (key, value) {
-
-            var $input = self.getInput (key);
-            var $errors = $input.closest ('div.row').find ('ul.errors').show ();
-
-            $.each (value, function (idx, message) {
-                $('<li>').text (message).appendTo ($errors);
-            });
-        });
-
-    };
-
-    $submit_button.bind ('click.mb', function (event) {
+    $('button.submit.positive').bind ('click.mb', function (event) {
         event.preventDefault ();
 
-        self.saveEdit ();
+        MB.Edit.save_edit (url, 
+                           MB.utility.expand_hash (
+                               MB.Edit.compact_lifespan (
+                                   MB.Edit.read_fields ($('input')))));
 
         return false;
     });
-
-    return self;
 };
-
-MB.Edit.Label = function () {
-    var self = MB.Edit.Base ('label', 'edit-label');
-
-    return self;
-};
-
-$(document).ready (function () {
-    MB.Edit.Label ();
-});
-

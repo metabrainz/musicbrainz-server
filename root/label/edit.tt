@@ -5,8 +5,10 @@
   <script type="text/javascript">//<![CDATA[
     $(document).ready(function() {
 
+/*
       var bubbles = MB.Control.BubbleCollection ();
       MB.Control.initialize_guess_case (bubbles, 'label');
+*/
 
     });
   //]]></script>
@@ -15,4 +17,8 @@
 [%- WRAPPER 'label/layout.tt' title=l('Edit Label') full_width=1 page='edit' -%]
       [%- INCLUDE "label/edit_form.tt" -%]
 [%- END -%]
+
+<script type="text/javascript">
+    MB.Edit.initialize ("label", "[% entity.gid %]");
+</script>
 

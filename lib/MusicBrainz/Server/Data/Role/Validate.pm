@@ -17,12 +17,16 @@ sub edit_mapping
 
     delete $document->{id};
 
-    if ($document->{lifespan}) {
-        my $lifespan = delete $document->{lifespan};
+    if ($document->{'life-span'}) {
+        my $lifespan = delete $document->{'life-span'};
 
-        $document->{begin_date} = $lifespan->{begin} if $lifespan->{begin};
-        $document->{end_date}  = $lifespan->{end} if $lifespan->{end};
+        $document->{begin_date} = partial_date_to_hash (
+            partial_date_from_string ($lifespan->{begin})) if $lifespan->{begin};
+        $document->{end_date}  = partial_date_to_hash (
+            partial_date_from_string ($lifespan->{end})) if $lifespan->{end};
     }
+
+    $document->{sort_name} = delete $document->{'sort-name'};
 
     return %$document;
 }
@@ -31,7 +35,7 @@ sub edit_mapping
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2011,2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

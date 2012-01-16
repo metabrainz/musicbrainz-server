@@ -21,11 +21,11 @@ sub partial_date { \&_partial_date }
 sub _partial_date {
     my $date = shift;
 
+    return unless $date;
+
     my $invalid = "Not a valid date";
 
-    my $year = $date->{year};
-    my $month = $date->{month};
-    my $day = $date->{day};
+    my ($year, $month, $day) = split ("-", $date);
 
     fail_constraint($invalid) if defined $year  && !is_positive_integer ($year);
     fail_constraint($invalid) if defined $month && !is_positive_integer ($month);

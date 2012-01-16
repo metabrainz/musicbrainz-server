@@ -105,7 +105,11 @@ MB.utility.escapeHTML = function (str) {
     if (!str) return '';
 
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+};
+
+MB.utility.escapeID = function (id) {
+    return id.replace (/\./g, '\\.');
+};
 
 /* structureToString renders a structure to a string.  It is similar to
    serializing a structure, but intended as input to a hash function.

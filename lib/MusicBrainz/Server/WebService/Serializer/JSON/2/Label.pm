@@ -18,11 +18,11 @@ sub serialize
     my ($self, $entity, $inc, $opts) = @_;
     my %body;
 
-    $body{name} = $entity->name;
-    $body{sort_name} = $entity->sort_name;
-    $body{label_code} = $entity->label_code if $entity->label_code;
-    $body{disambiguation} = $entity->comment if $entity->comment;
-    $body{country} = $entity->country->iso_code if $entity->country;
+    $body{'name'} = $entity->name;
+    $body{'sort-name'} = $entity->sort_name;
+    $body{'label-code'} = $entity->label_code if $entity->label_code;
+    $body{'disambiguation'} = $entity->comment if $entity->comment;
+    $body{'country'} = $entity->country->iso_code if $entity->country;
 
     return %body;
 };
