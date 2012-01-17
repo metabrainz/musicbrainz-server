@@ -32,6 +32,7 @@ has_field 'labels.label_id'  => ( type => 'Text' );
 has_field 'labels.name'      => ( type => 'Text' );
 
 has_field 'barcode'          => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
+has_field 'no_barcode'       => ( type => 'Checkbox'  );
 has_field 'barcode_confirm'  => ( type => 'Checkbox'  );
 
 # Additional information
