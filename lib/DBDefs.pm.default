@@ -125,6 +125,10 @@ sub DB_STAGING_SERVER_DESCRIPTION { "" }
 # e.g. http://test.musicbrainz.org.
 sub DB_STAGING_SERVER_SANITIZED { 1 }
 
+# Testing features enable "Accept edit" and "Reject edit" links on edits,
+# this should only be enabled on staging servers.
+sub DB_STAGING_TESTING_FEATURES { DB_STAGING_SERVER }
+
 ################################################################################
 # Documentation Server Settings
 ################################################################################
