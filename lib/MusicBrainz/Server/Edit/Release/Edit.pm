@@ -166,25 +166,10 @@ sub _mapping
     );
 }
 
-around 'initialize' => sub
+before 'initialize' => sub
 {
-    my ($orig, $self, %opts) = @_;
+    my ($self, %opts) = @_;
     my $release = $opts{to_edit} or return;
-
-    warn "edit/release before initialize\n";
-
-    if ($opts{no_barcode})
-    {
-        # It is known this release does NOT have a barcode, should be "" in the database.
-        $opts{barcode} = "";
-    }
-    elsif (! $opts{barcode})
-    {
-        # It is unknown if this release has a barcode or not, should be NULL in the database.
-        $opts{barcode} = undef;
-    }
-
-    delete $opts{no_barcode};
 
     if (exists $opts{artist_credit})
     {
@@ -194,8 +179,6 @@ around 'initialize' => sub
     if (exists $opts{artist_credit} && !$release->artist_credit) {
         $self->c->model('ArtistCredit')->load($release);
     }
-
-    $self->$orig (%opts);
 };
 
 around extract_property => sub {

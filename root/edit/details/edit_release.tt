@@ -51,13 +51,7 @@
                           descriptive_link(edit.display_data.group.old),
                           descriptive_link(edit.display_data.group.new)) -%]
 
-  [%- IF edit.display_data.barcode.old AND edit.display_data.barcode.new -%]
   [%- display_diff(l('Barcode:'),
                    html_escape(edit.display_data.barcode.old),
                    html_escape(edit.display_data.barcode.new)) -%]
-  [%- ELSE -%]
-    [%- USE Dumper -%]
-    [%- Dumper.dump_html (edit.display_data.barcode); edit.display_data.barcode.new;Dumper.dump_html (edit.display_data.barcode)  -%]
-  [%- END -%]
-
 </table>

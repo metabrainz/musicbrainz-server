@@ -144,7 +144,7 @@ augment 'create_edits' => sub
     # ----------------------------------------
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode no_barcode artist_credit date as_auto_editor );
+                     country_id barcode artist_credit date as_auto_editor );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     if ($data->{release_group_id}){

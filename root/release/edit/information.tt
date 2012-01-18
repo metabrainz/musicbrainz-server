@@ -96,12 +96,6 @@
       </div>
 
       [% form_row_text (r, 'barcode', l('Barcode:')) %]
-
-      <div class="row">
-        [% r.label('no_barcode', l('No barcode:')) %]
-        [% r.checkbox('no_barcode') %]
-        [% field_errors(r.form, field_name) %]
-      </div>
     </fieldset>
 
     <fieldset class="information">

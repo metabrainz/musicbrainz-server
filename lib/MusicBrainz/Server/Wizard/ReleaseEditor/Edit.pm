@@ -33,9 +33,8 @@ augment 'create_edits' => sub
     # ----------------------------------------
 
     my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode no_barcode date as_auto_editor
-                     release_group_id artist_credit );
-
+                     country_id barcode date as_auto_editor release_group_id
+                     artist_credit );
     my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
 
     $args{'to_edit'} = $self->release;
