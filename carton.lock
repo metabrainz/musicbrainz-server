@@ -38524,7 +38524,7 @@
          },
          "version" : "0.02"
       },
-      "libintl::perl" : {
+      "Locale::TextDomain" : {
          "dist" : "libintl-perl-1.20",
          "module" : "Locale::TextDomain",
          "mymeta" : {
@@ -38559,7 +38559,7 @@
             "x_installdirs" : "site",
             "x_version_from" : "lib/Locale/Messages.pm"
          },
-         "name" : "libintl::perl",
+         "name" : "Locale::TextDomain",
          "pathname" : "G/GU/GUIDO/libintl-perl-1.20.tar.gz",
          "provides" : {
             "Locale::Messages" : {
