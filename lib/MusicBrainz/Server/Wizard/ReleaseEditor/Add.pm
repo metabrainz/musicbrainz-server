@@ -162,6 +162,15 @@ augment 'create_edits' => sub
             unless $previewing;
     }
 
+    if ($data->{no_barcode})
+    {
+        $add_release_args{barcode} =  '';
+    }
+    else
+    {
+        $add_release_args{barcode} = undef unless $data->{barcode};
+    }
+
     # Add the release edit
     my $add_release_edit = $create_edit->(
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);

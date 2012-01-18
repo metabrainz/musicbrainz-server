@@ -5,6 +5,7 @@ use 5.10.0;
 use MooseX::Types::Moose qw( Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
@@ -132,7 +133,6 @@ sub build_display_data
         language  => [ qw( language_id Language )],
         script    => [ qw( script_id Script )],
         name      => 'name',
-        barcode   => 'barcode',
         comment   => 'comment',
     );
 
@@ -143,6 +143,13 @@ sub build_display_data
             new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
+    }
+
+    if (exists $self->data->{new}{barcode}) {
+        $data->{barcode} = {
+            new => Barcode->new($self->data->{new}{barcode}),
+            old => Barcode->new($self->data->{old}{barcode}),
+        };
     }
 
     if (exists $self->data->{new}{date}) {

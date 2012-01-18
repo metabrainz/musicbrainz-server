@@ -52,9 +52,12 @@ has 'track_count' => (
     isa => 'Int'
 );
 
+
 has 'barcode' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Barcode',
+    lazy => 1,
+    default => sub { MusicBrainz::Server::Entity::Barcode->new() },
 );
 
 has 'comment' => (
