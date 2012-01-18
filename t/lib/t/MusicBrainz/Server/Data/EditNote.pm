@@ -78,7 +78,7 @@ memory_cycle_ok($en_data);
 # Multiple edit edit_notes
 my $edit = $edit_data->get_by_id(1);
 $en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 2);
+is(@{ $edit->edit_notes }, 2, 'Edit has two edit notes');
 check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
        editor_id => 1,
        edit_id => 1,
@@ -95,7 +95,7 @@ memory_cycle_ok($edit);
 # Single edit note
 $edit = $edit_data->get_by_id(2);
 $en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 1);
+is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
 check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
        editor_id => 1,
        edit_id => 2,
@@ -104,7 +104,7 @@ check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
 # No edit edit_notes
 $edit = $edit_data->get_by_id(3);
 $en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 0);
+is(@{ $edit->edit_notes }, 0, 'Edit has no edit notes');
 
 # Insert a new edit note
 $en_data->insert($edit->id, {
@@ -115,7 +115,7 @@ $en_data->insert($edit->id, {
 memory_cycle_ok($en_data);
 
 $en_data->load_for_edits($edit);
-is(@{ $edit->edit_notes }, 1);
+is(@{ $edit->edit_notes }, 1, 'Edit has one edit note');
 check_note($edit->edit_notes->[0], 'MusicBrainz::Server::Entity::EditNote',
         editor_id => 3,
         edit_id => 3,
@@ -139,29 +139,29 @@ my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is(scalar @{ $email_transport->deliveries }, 2);
 
 my $email = $email_transport->deliveries->[1]->{email};
-is($email->get_header('Subject'), 'Note added to your edit #' . $edit->id);
-is($email->get_header('To'), '"editor1" <editor1@example.com>');
-like($email->get_body, qr{http://localhost/edit/${\ $edit->id }});
-like($email->get_body, qr{'editor3' has added});
-like($email->get_body, qr{to your edit #${\ $edit->id }});
-like($email->get_body, qr{This is my note!});
+is($email->get_header('Subject'), 'Note added to your edit #' . $edit->id, 'Subject explains a note was added to edit');
+is($email->get_header('To'), '"editor1" <editor1@example.com>', 'Email is addressed to editor1');
+like($email->get_body, qr{http://localhost/edit/${\ $edit->id }}, 'Email body contains edit url');
+like($email->get_body, qr{'editor3' has added}, 'Email body mentions editor3');
+like($email->get_body, qr{to your edit #${\ $edit->id }}, 'Email body mentions "your edit #"');
+like($email->get_body, qr{This is my note!}, 'Email body has correct edit note text');
 
 my $email2 = $email_transport->deliveries->[0]->{email};
-is($email2->get_header('Subject'), 'Note added to edit #' . $edit->id);
-is($email2->get_header('To'), '"editor2" <editor2@example.com>');
-like($email2->get_body, qr{http://localhost/edit/${\ $edit->id }});
-like($email2->get_body, qr{'editor3' has added});
-like($email2->get_body, qr{to edit #${\ $edit->id }});
-like($email2->get_body, qr{This is my note!});
+is($email2->get_header('Subject'), 'Note added to edit #' . $edit->id, 'Subject explains a note was added to edit');
+is($email2->get_header('To'), '"editor2" <editor2@example.com>', 'Email is addressed to editor2');
+like($email2->get_body, qr{http://localhost/edit/${\ $edit->id }}, 'Email body contains edit url');
+like($email2->get_body, qr{'editor3' has added}, 'Email body mentions editor3');
+like($email2->get_body, qr{to edit #${\ $edit->id }}, 'Email body mentions "edit #"');
+like($email2->get_body, qr{This is my note!}, 'Email body has correct edit note text');
 
 };
 
 sub check_note {
     my ($note, $class, %attrs) = @_;
     isa_ok($note, $class);
-    is($note->$_, $attrs{$_})
+    is($note->$_, $attrs{$_}, "check_note: $_ is ".$attrs{$_})
         for keys %attrs;
-    ok(defined $note->post_time);
+    ok(defined $note->post_time, "check_note: edit has post time");
 }
 
 1;
