@@ -1151,6 +1151,63 @@
          },
          "version" : "1.06"
       },
+      "Cache::FastMmap" : {
+         "dist" : "Cache-FastMmap-1.40",
+         "module" : "Cache::FastMmap",
+         "mymeta" : {
+            "abstract" : "Uses an mmap'ed file to act as a shared memory interprocess cache",
+            "author" : [
+               "Rob Mueller <cpan@robm.fastmail.fm>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.55_02, CPAN::Meta::Converter version 2.113640",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Cache-FastMmap",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Storable" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "1.40"
+         },
+         "name" : "Cache::FastMmap",
+         "pathname" : "R/RO/ROBM/Cache-FastMmap-1.40.tar.gz",
+         "provides" : {
+            "Cache::FastMmap" : {
+               "file" : "Cache/FastMmap.pm",
+               "version" : "1.40"
+            },
+            "Cache::FastMmap::OnLeave" : {
+               "file" : "Cache/FastMmap.pm"
+            }
+         },
+         "version" : "1.40"
+      },
       "Cache::Memcached" : {
          "dist" : "Cache-Memcached-1.29",
          "module" : "Cache::Memcached",
@@ -2485,6 +2542,65 @@
             }
          },
          "version" : "0.17"
+      },
+      "Catalyst::Plugin::Session::Store::FastMmap" : {
+         "dist" : "Catalyst-Plugin-Session-Store-FastMmap-0.14",
+         "module" : "Catalyst::Plugin::Session::Store::FastMmap",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "unknown"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.113640",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Catalyst-Plugin-Session-Store-FastMmap",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Cache::FastMmap" : "1.29",
+                     "Catalyst::Plugin::Session" : "0.27",
+                     "File::Spec" : 0,
+                     "File::Temp" : 0,
+                     "MRO::Compat" : 0,
+                     "Path::Class" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.14"
+         },
+         "name" : "Catalyst::Plugin::Session::Store::FastMmap",
+         "pathname" : "S/SS/SSCAFFIDI/Catalyst-Plugin-Session-Store-FastMmap-0.14.tar.gz",
+         "provides" : {
+            "Catalyst::Plugin::Session::Store::FastMmap" : {
+               "file" : "Catalyst/Plugin/Session/Store/FastMmap.pm",
+               "version" : "0.14"
+            }
+         },
+         "version" : "0.14"
       },
       "Catalyst::Plugin::Session::Store::File" : {
          "dist" : "Catalyst-Plugin-Session-Store-File-0.18",
