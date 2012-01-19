@@ -26,7 +26,6 @@ BEGIN {
     no warnings 'redefine';
     use DBDefs;
     *DBDefs::_RUNNING_TESTS = sub { 1 };
-    *DBDefs::WEB_SERVER = sub { "localhost" };
 }
 
 with 't::Context';
@@ -135,13 +134,14 @@ $test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 1 });
 
 $en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
 
+my $server = DBDefs::WEB_SERVER_USED_IN_EMAIL;
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is(scalar @{ $email_transport->deliveries }, 2);
 
 my $email = $email_transport->deliveries->[1]->{email};
 is($email->get_header('Subject'), 'Note added to your edit #' . $edit->id, 'Subject explains a note was added to edit');
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'Email is addressed to editor1');
-like($email->get_body, qr{http://localhost/edit/${\ $edit->id }}, 'Email body contains edit url');
+like($email->get_body, qr{http://$server/edit/${\ $edit->id }}, 'Email body contains edit url');
 like($email->get_body, qr{'editor3' has added}, 'Email body mentions editor3');
 like($email->get_body, qr{to your edit #${\ $edit->id }}, 'Email body mentions "your edit #"');
 like($email->get_body, qr{This is my note!}, 'Email body has correct edit note text');
@@ -149,7 +149,7 @@ like($email->get_body, qr{This is my note!}, 'Email body has correct edit note t
 my $email2 = $email_transport->deliveries->[0]->{email};
 is($email2->get_header('Subject'), 'Note added to edit #' . $edit->id, 'Subject explains a note was added to edit');
 is($email2->get_header('To'), '"editor2" <editor2@example.com>', 'Email is addressed to editor2');
-like($email2->get_body, qr{http://localhost/edit/${\ $edit->id }}, 'Email body contains edit url');
+like($email2->get_body, qr{http://$server/edit/${\ $edit->id }}, 'Email body contains edit url');
 like($email2->get_body, qr{'editor3' has added}, 'Email body mentions editor3');
 like($email2->get_body, qr{to edit #${\ $edit->id }}, 'Email body mentions "edit #"');
 like($email2->get_body, qr{This is my note!}, 'Email body has correct edit note text');
