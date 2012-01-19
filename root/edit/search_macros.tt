@@ -71,6 +71,8 @@
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry';
                predicate_country(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
+               predicate_link_type(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
@@ -187,20 +189,23 @@
     [% END %]
 [% END %]
 
-[% MACRO relationship_node(node, pad) BLOCK; %]
+[% MACRO relationship_node(node, pad, field_contents) BLOCK; %]
   [% FOR child=node.children %]
-    <option value="[% child.id %]">[% pad _ child.name %]</option>
-    [% relationship_node(child, pad _ '&nbsp;&nbsp;') %]
+    <option value="[% child.id %]"
+            [% 'selected="selected"' IF field_contents.find_argument(child.id) %]>
+      [%- pad _ child.name -%]</option>
+    [% relationship_node(child, pad _ '&nbsp;&nbsp;', field_contents) %]
   [% END %]
 [% END %]
 
-[% MACRO predicate_link_type(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
+[% MACRO predicate_link_type(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ] ], field_contents) %]
 
   <select name="args" multiple="multiple">
     [% FOR type_group=relationship_type %]
       <optgroup label="[% type_group.name %]">
-        [% relationship_node(top_level, '') FOR top_level=type_group.children%]
+        [% relationship_node(top_level, '', field_contents)
+             FOR top_level=type_group.children%]
       </optgroup>
     [% END %]
   </select>
