@@ -22,7 +22,7 @@ sub format
 
     return '' unless defined $self->code;
 
-    return $self->code eq '' ? l('none') : $self->code;
+    return $self->code eq '' ? l('[none]') : $self->code;
 }
 
 around BUILDARGS => sub {
