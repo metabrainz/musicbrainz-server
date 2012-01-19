@@ -20,7 +20,7 @@ Prerequisites
 
     This document will assume you are using Ubuntu for its instructions.
 
-2)  Perl (at least version 5.10.0)
+2)  Perl (at least version 5.10.1)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
@@ -118,8 +118,8 @@ Below outlines how to setup MusicBrainz server with Carton.
     development headers that will be needed when installing dependencies. Run
     the following steps as a normal user on your system.
 
-        sudo apt-get install cpanminus liblocal-lib-perl libxml2-dev libpq-dev libexpat1-dev
-        sudo cpanm Carton
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev
+        sudo cpan Carton
 
 2)  Install dependencies
 
@@ -127,16 +127,6 @@ Below outlines how to setup MusicBrainz server with Carton.
     in the MusicBrainz source code directory and run the following:
 
         carton install --deployment
-
-3)  Let Perl know about the dependencies
-
-    Perl needs to be told to look in this directory for Perl dependencies. This
-    can be done by running the following:
-
-        eval $(perl -Mlocal::lib=/path/to/musicbrainz-server/local)
-
-    Because you'll probably want to always have this, we suggest putting this in
-    your login rc script, which is usually ~/.bash.rc
 
 
 Some systems run into problems by this method, which sets up everything at a
@@ -152,8 +142,8 @@ App::cpanminus), which is designed to be a minimal, no-fuss way of installing
 things from CPAN.  For more details on cpanm (including installation), see
 http://search.cpan.org/perldoc?App::cpanminus
 
-OSSP::UUID and Test::WWW::Mechanize typically have to be system-installed no
-matter your strategy.
+Test::WWW::Mechanize typically have to be system-installed no matter your
+strategy.
 
 It can't be stressed enough that this step is very dependent on the specifics of
 your system and its Perl setup. If things go wrong here, the solution *will* be
@@ -231,7 +221,7 @@ Creating the database
 
         To use a clean database, all you need to do is run:
 
-            ./admin/InitDb.pl --createdb --clean
+            carton exec ./admin/InitDb.pl -- --createdb --clean
 
     b)  Import an NGS database dump
 
@@ -245,7 +235,7 @@ Creating the database
         grab whichever dumps suit your needs. Assuming the dumps have been
         downloaded to /tmp/dumps/ you can import them with:
 
-            ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            carton exec ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
         --echo just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
@@ -274,7 +264,7 @@ Starting the server
     output and is much more convenient than having to set up a standalone
     server. Just run:
 
-        ./script/musicbrainz_server.pl -r
+        carton exec ./script/musicbrainz_server.pl -- -r
 
     Visiting http://your.machines.ip.address:3000 should now present you with
     your own running instance of the MusicBrainz Server.
