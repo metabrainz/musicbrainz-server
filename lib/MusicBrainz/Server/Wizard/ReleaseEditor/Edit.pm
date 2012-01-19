@@ -58,6 +58,7 @@ augment 'create_edits' => sub
     for my $medium (@{ $data->{rec_mediums} }) {
         my $track_index = 0;
         for my $track_association (@{ $medium->{associations} }) {
+            next if $track_association->{gid} eq 'new';
             if ($track_association->{update_recording}) {
                 my $track = $data->{mediums}[ $medium_index ]{tracks}[ $track_index ];
                 $create_edit->(
