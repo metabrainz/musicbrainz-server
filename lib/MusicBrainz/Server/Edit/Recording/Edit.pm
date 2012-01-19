@@ -129,7 +129,8 @@ around 'initialize' => sub
                 MusicBrainz::Server::Track::FormatTrackLength($recording->length);
     }
 
-    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
+    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
+        if exists($opts{artist_credit});
 
     $self->$orig(%opts);
 };
