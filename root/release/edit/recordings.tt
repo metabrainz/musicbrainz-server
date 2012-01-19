@@ -276,9 +276,11 @@
                 recording_track_differ = !Compare.compare(
                     { name => track.name
                     , artist_credit => track.artist_credit
+                    , length => track.length
                     },
                     { name => recording.name
                     , artist_credit => recording.artist_credit.to_ref
+                    , length => recording.length
                     }
                 )
             -%]
