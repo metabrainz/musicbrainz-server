@@ -50,7 +50,6 @@ test all => sub {
     no warnings 'redefine';
     use DBDefs;
     *DBDefs::_RUNNING_TESTS = sub { 1 };
-    *DBDefs::WEB_SERVER = sub { "localhost" };
 }
 
 my $test = shift;
@@ -80,7 +79,9 @@ my $email = $email_transport->deliveries->[-1]->{email};
 is($email->get_header('Subject'), 'Someone has voted against your edit #2', 'Subject explains someone has voted against your edit');
 is($email->get_header('References'), sprintf '<edit-%d@musicbrainz.org>', $edit->id, 'References header contains edit id');
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
-like($email->get_body, qr{http://localhost/edit/${\ $edit->id }}, 'body contains link to edit');
+
+my $server = DBDefs::WEB_SERVER_USED_IN_EMAIL;
+like($email->get_body, qr{http://$server/edit/${\ $edit->id }}, 'body contains link to edit');
 like($email->get_body, qr{'editor2'}, 'body mentions editor2');
 
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
