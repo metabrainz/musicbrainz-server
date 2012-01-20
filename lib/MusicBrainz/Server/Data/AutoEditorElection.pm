@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::AutoEditorElection;
 use Moose;
+use namespace::autoclean -also => [qw( _try_to_close_timeout _try_to_close_voting )];
 
 use Readonly;
 use MusicBrainz::Server::Entity::AutoEditorElection;

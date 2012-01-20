@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
+use namespace::autoclean -also => [qw( _find _clean )];
 
 use Data::Compare;
 use MusicBrainz::Server::Entity::Artist;

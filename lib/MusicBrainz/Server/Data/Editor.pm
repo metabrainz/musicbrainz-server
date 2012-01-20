@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Editor;
 use Moose;
+use namespace::autoclean -also => [qw( _get_ratings_for_type _get_tags_for_type )];
 use LWP;
 use URI::Escape;
 

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Rating;
 
 use Moose;
+use namespace::autoclean -also => [qw( _update_aggregate_rating )];
 use Sql;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Entity::Rating;

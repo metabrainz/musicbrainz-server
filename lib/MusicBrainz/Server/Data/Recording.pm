@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Recording;
 
 use Moose;
+use namespace::autoclean;
 use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE

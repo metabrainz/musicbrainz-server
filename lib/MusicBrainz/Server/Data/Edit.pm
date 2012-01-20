@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Edit;
 use Moose;
+use namespace::autoclean -also => [qw( _do_accept _do_reject _close )];
 
 use Carp qw( carp croak confess );
 use Data::OptList;

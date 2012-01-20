@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::PUID;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use List::MoreUtils qw( part zip );

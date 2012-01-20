@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Statistics;
 use Moose;
 use namespace::autoclean;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use MusicBrainz::Server::Types qw( :edit_status :vote );

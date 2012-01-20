@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Vote;
 use Moose;
+use namespace::autoclean;
 
 use Moose::Util::TypeConstraints qw( find_type_constraint );
 use List::Util qw( sum );

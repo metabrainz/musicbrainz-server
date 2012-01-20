@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Alias;
 use Moose;
+use namespace::autoclean;
 
 use Class::MOP;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders query_to_list );
