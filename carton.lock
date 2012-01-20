@@ -15718,6 +15718,67 @@
          },
          "version" : "3.64"
       },
+      "HTML::Selector::XPath" : {
+         "dist" : "HTML-Selector-XPath-0.14",
+         "module" : "HTML::Selector::XPath",
+         "mymeta" : {
+            "abstract" : "CSS Selector to XPath compiler",
+            "author" : [
+               "Tatsuhiko Miyagawa <miyagawa@bulknews.net>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Install version 0.81, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "HTML-Selector-XPath",
+            "no_index" : {
+               "directory" : [
+                  "inc",
+                  "t"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.50"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.62",
+                     "Test::Base" : 0,
+                     "Test::More" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "0.14"
+         },
+         "name" : "HTML::Selector::XPath",
+         "pathname" : "C/CO/CORION/HTML-Selector-XPath-0.14.tar.gz",
+         "provides" : {
+            "HTML::Selector::XPath" : {
+               "file" : "HTML/Selector/XPath.pm",
+               "version" : "0.14"
+            }
+         },
+         "version" : "0.14"
+      },
       "HTML::Tagset" : {
          "dist" : "HTML-Tagset-3.20",
          "module" : "HTML::Tagset",
