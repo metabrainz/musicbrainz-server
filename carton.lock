@@ -17038,7 +17038,7 @@
       },
       "IO::All" : {
          "dist" : "IO-All-0.41",
-         "module" : "http://cpan.metacpan.org/authors/id/I/IN/INGY/IO-All-0.41.tar.gz",
+         "module" : "IO::All",
          "mymeta" : {
             "abstract" : "IO::All of it to Graham and Damian!",
             "author" : [
@@ -17128,8 +17128,7 @@
             },
             "IO::All::Temp" : {
                "file" : "IO/All/Temp.pm"
-            },
-            "http://cpan.metacpan.org/authors/id/I/IN/INGY/IO-All-0.41.tar.gz" : {}
+            }
          },
          "version" : "0.41"
       },
@@ -33388,6 +33387,85 @@
             }
          },
          "version" : "0.0303"
+      },
+      "Test::Mock::LWP" : {
+         "dist" : "Test-Mock-LWP-0.06",
+         "module" : "Test::Mock::LWP",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "Luke Closs <test-mock-lwp@awesnob.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.57_05, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Test-Mock-LWP",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Test::MockObject" : "1.08",
+                     "Test::More" : "0.42"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.06"
+         },
+         "name" : "Test::Mock::LWP",
+         "pathname" : "L/LU/LUKEC/Test-Mock-LWP-0.06.tar.gz",
+         "provides" : {
+            "HTTP::Request" : {
+               "file" : "Test/Mock/HTTP/Request.pm",
+               "version" : "0"
+            },
+            "HTTP::Response" : {
+               "file" : "Test/Mock/HTTP/Response.pm",
+               "version" : "0"
+            },
+            "LWP::UserAgent" : {
+               "file" : "Test/Mock/LWP/UserAgent.pm",
+               "version" : "0"
+            },
+            "Test::Mock::HTTP::Request" : {
+               "file" : "Test/Mock/HTTP/Request.pm",
+               "version" : "0.01"
+            },
+            "Test::Mock::HTTP::Response" : {
+               "file" : "Test/Mock/HTTP/Response.pm",
+               "version" : "0.01"
+            },
+            "Test::Mock::LWP" : {
+               "file" : "Test/Mock/LWP.pm",
+               "version" : "0.06"
+            },
+            "Test::Mock::LWP::UserAgent" : {
+               "file" : "Test/Mock/LWP/UserAgent.pm",
+               "version" : "0.01"
+            }
+         },
+         "version" : "0.06"
       },
       "Test::MockModule" : {
          "dist" : "Test-MockModule-0.05",
