@@ -203,8 +203,6 @@ sub find_by_release_group
                           country.name, barcode
                  OFFSET ?";
 
-    use Devel::Dwarn;
-    Dwarn [ \@ids, $statuses, $offset || 0 ];
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, @ids, @$statuses, $offset || 0);
