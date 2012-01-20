@@ -2937,7 +2937,7 @@
          "version" : "1.1"
       },
       "Catalyst::Runtime" : {
-         "dist" : "Catalyst-Runtime-5.80032",
+         "dist" : "Catalyst-Runtime-5.90007",
          "module" : "Catalyst",
          "mymeta" : {
             "abstract" : "The Catalyst Framework Runtime",
@@ -3033,14 +3033,14 @@
                "x_IRC" : "irc://irc.perl.org/#catalyst",
                "x_MailingList" : "http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst"
             },
-            "version" : "5.80032"
+            "version" : "5.90007"
          },
          "name" : "Catalyst::Runtime",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Runtime-5.80032.tar.gz",
+         "pathname" : "http://search.cpan.org/CPAN/authors/id/B/BO/BOBTFISH/Catalyst-Runtime-5.90007.tar.gz",
          "provides" : {
             "Catalyst" : {
                "file" : "Catalyst.pm",
-               "version" : "5.80032"
+               "version" : "5.90007"
             },
             "Catalyst::Action" : {
                "file" : "Catalyst/Action.pm"
@@ -3137,7 +3137,7 @@
             },
             "Catalyst::Runtime" : {
                "file" : "Catalyst/Runtime.pm",
-               "version" : "5.80032"
+               "version" : "5.90007"
             },
             "Catalyst::Script::CGI" : {
                "file" : "Catalyst/Script/CGI.pm"
@@ -3173,7 +3173,7 @@
                "file" : "Catalyst/View.pm"
             }
          },
-         "version" : "5.80032"
+         "version" : "5.90007"
       },
       "Catalyst::View::TT" : {
          "dist" : "Catalyst-View-TT-0.36",
