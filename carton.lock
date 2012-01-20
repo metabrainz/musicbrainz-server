@@ -34794,6 +34794,80 @@
          },
          "version" : "0.23"
       },
+      "Test::XPath" : {
+         "dist" : "Test-XPath-0.16",
+         "module" : "Test::XPath",
+         "mymeta" : {
+            "abstract" : "Test XML and HTML content and structure with XPath expressions",
+            "author" : [
+               "David E. Wheeler <david@kineticode.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Test-XPath",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "Module::Build" : "0.30",
+                     "Test::More" : "0.70"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.30"
+                  }
+               },
+               "runtime" : {
+                  "recommends" : {
+                     "HTML::Selector::XPath" : "0.06",
+                     "Test::Pod" : "1.41",
+                     "Test::Pod::Coverage" : "1.06"
+                  },
+                  "requires" : {
+                     "Test::Builder" : "0.70",
+                     "XML::LibXML" : "1.70",
+                     "perl" : "5.006002"
+                  }
+               }
+            },
+            "provides" : {
+               "Test::XPath" : {
+                  "file" : "lib/Test/XPath.pm",
+                  "version" : "0.16"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "bugtracker" : {
+                  "web" : "http://github.com/theory/test-xpath/issues/"
+               },
+               "homepage" : "http://search.cpan.org/dist/Test-XPath/",
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://github.com/theory/test-xpath/tree/"
+               }
+            },
+            "version" : "0.16"
+         },
+         "name" : "Test::XPath",
+         "pathname" : "D/DW/DWHEELER/Test-XPath-0.16.tar.gz",
+         "provides" : {
+            "Test::XPath" : {
+               "file" : "Test/XPath.pm",
+               "version" : "0.16"
+            }
+         },
+         "version" : "0.16"
+      },
       "Test::use::ok" : {
          "dist" : "Test-use-ok-0.02",
          "module" : "Test::use::ok",
