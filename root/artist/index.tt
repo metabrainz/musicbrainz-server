@@ -6,7 +6,7 @@
     [% IF artist.begin_date.format %]
         [% date_period_label = artist.type_id == 1 ? l('Born:') : artist.type_id == 2 ? l('Founded:') : l('Began:') %]
 	[% IF artist.has_age AND not artist.end_date.format %]
-	    [% meta_desc.push(date_period_label _ ' ' _ artist.begin_date.format _ ' (' _ display_age(artist.age) _ ')') %]
+	    [% meta_desc.push(date_period_label _ ' ' _ artist.begin_date.format _ ' (' _ display_age(artist.age) _ ' ago)') %]
 	[% ELSE %]
 	    [% meta_desc.push(date_period_label _ ' ' _ artist.begin_date.format) %]
 	[% END %]
