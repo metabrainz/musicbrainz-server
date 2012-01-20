@@ -45,8 +45,6 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Relationship';
 }
 
-my $i = 0;
-
 sub _new_from_row
 {
     my ($self, $row, $obj, $matching_entity_type) = @_;
@@ -78,7 +76,6 @@ sub _new_from_row
         }
     }
 
-    $i++;
     my $rel = MusicBrainz::Server::Entity::Relationship->new(%info);
     # XXX MASSIVE MASSIVE HACK.
     weaken($rel->{$weaken}) if $obj;
@@ -224,8 +221,6 @@ sub load_entities
     $self->c->model('ArtistCredit')->load(@load_ac);
 }
 
-use Time::HiRes qw( gettimeofday tv_interval );
-
 sub load_subset
 {
     my ($self, $types, @objs) = @_;
@@ -238,13 +233,10 @@ sub load_subset
         }
     }
 
-    my $t0 = [gettimeofday];
     my @rels;
     foreach my $type (keys %objs_by_type) {
         push @rels, $self->_load($type, $types, @{$objs_by_type{$type}});
     }
-    warn tv_interval($t0);
-    warn $i;
 
     $self->c->model('Link')->load(@rels);
     $self->c->model('LinkType')->load(map { $_->link } @rels);
