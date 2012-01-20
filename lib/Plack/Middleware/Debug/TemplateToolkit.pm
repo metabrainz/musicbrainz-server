@@ -66,17 +66,6 @@ sub process {
 
   unless (@stack) {
     ## top level again, time to display results
-    print STDERR "-- $template at ". localtime, ":\n";
-    printf STDERR "%3s %3s %6s %6s %6s %6s %s\n",
-      qw(cnt clk user sys cuser csys template);
-    for my $template (sort keys %totals) {
-      my @values = @{$totals{$template}};
-      printf STDERR "%3d %3d %6.2f %6.2f %6.2f %6.2f %s\n",
-        $values[5], @values[0..4], $template;
-    }
-    print STDERR "-- end\n";
-
-    ## top level again, time to display results
     push @Plack::Middleware::Debug::TemplateToolkit::output, [
         $template, scalar(localtime),
         [map {
