@@ -4,13 +4,13 @@ use base 'Exporter';
 use Carp 'confess';
 use Class::MOP;
 use Data::Compare;
+use Data::UUID::MT;
 use Digest::SHA1 qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
-use OSSP::uuid;
 use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
@@ -279,9 +279,7 @@ sub insert_and_create
 
 sub generate_gid
 {
-    my $uuid = new OSSP::uuid;
-    $uuid->make("v4");
-    return $uuid->export("str");
+    Data::UUID::MT->new( version => 4 )->create_string();
 }
 
 sub defined_hash
