@@ -354,3 +354,4 @@ td.buttons { display: table-cell; }
     text-align: right;
 }
 
+input.disabled-hint { cursor: help; }

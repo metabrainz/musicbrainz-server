@@ -50,7 +50,7 @@ sub apply_rate_limit
         $c->detach;
     }
 
-    my $r = $c->model('RateLimiter')->check_rate_limit($key);
+    $r = $c->model('RateLimiter')->check_rate_limit($key);
     if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
         $c->res->headers->header(

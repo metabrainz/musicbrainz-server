@@ -8,19 +8,21 @@ use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
-use MusicBrainz::Server::Entity::SearchResult;
+use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::Barcode;
+use MusicBrainz::Server::Entity::Gender;
+use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::Relationship;
+use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
-use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Script;
-use MusicBrainz::Server::Entity::Release;
-use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::WorkType;
-use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Label;
@@ -322,6 +324,11 @@ sub schema_fixup
     }
     if (($type eq 'cdstub' || $type eq 'freedb') && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
     {
+        if (exists $data->{barcode})
+        {
+            $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
+        }
+
         $data->{track_count} = $data->{"track-list"}->{count};
         delete $data->{"track-list"}->{count};
     }
@@ -330,6 +337,10 @@ sub schema_fixup
         if (exists $data->{date})
         {
             $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
+        }
+        if (exists $data->{barcode})
+        {
+            $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
         if (exists $data->{"text-representation"} &&
             exists $data->{"text-representation"}->{language})

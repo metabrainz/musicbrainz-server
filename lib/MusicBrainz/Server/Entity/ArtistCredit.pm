@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
 use overload
     '==' => \&is_equal,
@@ -29,6 +30,8 @@ has 'artist_count' => (
     is => 'rw',
     isa => 'Int'
 );
+
+sub to_ref { artist_credit_to_ref(shift) }
 
 sub is_equal {
     my ($a, $b) = @_;
@@ -59,6 +62,26 @@ sub name
         $result .= $name->join_phrase if $name->join_phrase;
     }
     return $result;
+}
+
+sub change_artist_name
+{
+    my ($self, $artist, $new_name) = @_;
+
+    my $ret = MusicBrainz::Server::Entity::ArtistCredit->new;
+    for my $name ($self->all_names) {
+        my %initname = (
+            name      => $name->name,
+            artist    => $name->artist,
+            artist_id => $name->artist_id,
+        );
+        $initname{join_phrase} = $name->join_phrase if $name->join_phrase;
+        if ($name->artist_id == $artist->id) {
+            $initname{name} = $new_name;
+        }
+        $ret->add_name(ArtistCreditName->new(%initname));
+    }
+    return $ret;
 }
 
 sub from_artist

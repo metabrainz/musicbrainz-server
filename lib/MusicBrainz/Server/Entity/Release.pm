@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Release;
 use Moose;
 
+use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
@@ -67,15 +68,10 @@ has 'artist_credit' => (
 
 has 'barcode' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Barcode',
+    lazy => 1,
+    default => sub { MusicBrainz::Server::Entity::Barcode->new() },
 );
-
-sub barcode_type {
-    my ($self) = @_;
-    return 'EAN' if length($self->barcode) == 8;
-    return 'UPC' if length($self->barcode) == 12;
-    return 'EAN' if length($self->barcode) == 13;
-}
 
 has 'country_id' => (
     is => 'rw',
@@ -239,6 +235,14 @@ sub all_tracks
     my @tracklists = grep { defined } map { $_->tracklist } @mediums
         or return ();
     return map { $_->all_tracks } @tracklists;
+}
+
+sub filter_labels
+{
+    my ($self, $label) = @_;
+    my @labels = $self->all_labels
+        or return ();
+    return grep { $_->label_id eq $label->id } @labels;
 }
 
 __PACKAGE__->meta->make_immutable;

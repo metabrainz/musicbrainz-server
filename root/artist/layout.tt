@@ -38,7 +38,7 @@
                content=html_escape(artist.country.name)
                    IF artist.country -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-               content=html_escape(artist.ipi_code)
+               content=rdfa_artist_ipi(artist)
                    IF artist.ipi_code -%]
         [% END %]
 

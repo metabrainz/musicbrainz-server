@@ -14,6 +14,7 @@ use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistCountry;
 use MusicBrainz::Server::EditSearch::Predicate::LabelCountry;
+use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::Log 'log_warning';
 use String::CamelCase qw( camelize );
 use Try::Tiny;
@@ -32,6 +33,7 @@ my %field_map = (
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
     artist_country => 'MusicBrainz::Server::EditSearch::Predicate::ArtistCountry',
     label_country => 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry',
+    link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
 
     map {
         $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_) 

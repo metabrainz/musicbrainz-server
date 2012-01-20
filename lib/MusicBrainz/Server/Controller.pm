@@ -135,7 +135,7 @@ sub edit_action
             %extra
         );
 
-        $opts{on_creation}->($edit) if $edit && exists $opts{on_creation};
+        $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
 
         return $edit;
     }
@@ -144,6 +144,32 @@ sub edit_action
         $form->clear_errors;
     }
 }
+
+sub _search_final_page
+{
+    my ($self, $loader, $limit, $page) = @_;
+
+    my $min = 1;
+    my $max = $page;
+
+    while (($max - $min) > 1)
+    {
+        my $middle = $min + (($max - $min) >> 1);
+
+        my ($data, $total) = $loader->($limit, ($middle - 1) * $limit);
+        if (scalar @$data > 0)
+        {
+            $min = $middle;
+        }
+        else
+        {
+            $max = $middle;
+        }
+    }
+
+    return $min;
+}
+
 
 sub _load_paged
 {
@@ -156,6 +182,20 @@ sub _load_paged
 
     my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
     my $pager = Data::Page->new;
+
+    if ($page > 1 && scalar @$data == 0)
+    {
+        my $page = $self->_search_final_page ($loader, $LIMIT, $page);
+        my $uri = $c->request->uri;
+        my %params = $uri->query_form;
+
+        $params{page} = $page;
+        $uri->query_form (\%params);
+
+        $c->response->redirect ($uri);
+        $c->detach;
+    }
+
     $pager->entries_per_page($LIMIT);
     $pager->total_entries($total);
     $pager->current_page($page);

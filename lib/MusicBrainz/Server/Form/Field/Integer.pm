@@ -10,7 +10,8 @@ apply([
         transform => sub {
             my $value = shift;
             return 0 + $value;
-        }
+        },
+        message => '',
     }
 ]);
 

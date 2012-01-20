@@ -41,6 +41,7 @@ two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
 END; -%]
+
 [%- MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
@@ -109,7 +110,7 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%- MACRO expanded_artist_credit(ac) BLOCK -%]
+[%- MACRO expanded_artist_credit(ac) IF ac -%]
   [% artist_credit(ac) %]
   [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment %]
   <ul>
@@ -199,7 +200,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text == '' ? html_escape(artist.name) : text;
     hover = html_escape(artist.sort_name);
-    IF artist.comment; hover = hover _ ', ' _ artist.comment; END;
+    IF artist.comment; hover = hover _ ', ' _ html_escape(artist.comment); END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a href="' _ link _ '" title="' _ hover _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -387,14 +388,14 @@ END -%]
 END -%]
 
 [%- MACRO use_in_relationship(entity) BLOCK;
-    IF c.session.relationship.id;
-      text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
-      '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
-    END;
     UNLESS c.session.relationship.id == entity.id;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                     : l('Use in a relationship');
       '<li>' _ link_entity(entity, 'relate', text) _ '</li>';
+    END;
+    IF c.session.relationship.id;
+      text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
+      '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
     END;
 END -%]
 
@@ -448,10 +449,10 @@ END -%]
 [%- END -%]
 
 [%- MACRO quality_name(quality) SWITCH quality;
-    CASE 0;  l('low quality level');
-    CASE 1;  l('normal quality level');
-    CASE -1; l('normal quality level');
-    CASE 2;  l('high quality level');
+    CASE 0;  l('Low');
+    CASE 1;  l('Normal');
+    CASE -1; l('Normal');
+    CASE 2;  l('High');
 END -%]
 
 [%- MACRO edit_conditions(expire_action) SWITCH expire_action;

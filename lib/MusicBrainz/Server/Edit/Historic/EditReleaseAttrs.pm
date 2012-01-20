@@ -60,11 +60,11 @@ sub build_display_data
                     Release->new(name => $_->{release_name}),
                 }
             } ],
-            status => $loaded->{ReleaseStatus}{ $_->{old_status_id} },
-            type   => $loaded->{ReleaseGroupType}{ $_->{old_type_id} },
+            status => $_->{old_status_id} && $loaded->{ReleaseStatus}{ $_->{old_status_id} },
+            type   => $_->{old_type_id}   && $loaded->{ReleaseGroupType}{ $_->{old_type_id} },
         }, $self->_changes ],
-        new_status => $loaded->{ReleaseStatus}{ $self->data->{new_status_id} },
-        new_type   => $loaded->{ReleaseGroupType}{ $self->data->{new_type_id} },
+        new_status => $self->data->{new_status_id} && $loaded->{ReleaseStatus}{ $self->data->{new_status_id} },
+        new_type   => $self->data->{new_type_id}   && $loaded->{ReleaseGroupType}{ $self->data->{new_type_id} },
     };
 }
 

@@ -84,9 +84,9 @@ my %bytable;
 
 my $c = MusicBrainz::Server::Context->new;;
 
-my $sql = Sql->new($c->dbh);
-my $sql2 = Sql->new($c->dbh);
-my $slave = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
+my $sql2 = Sql->new($c->conn);
+my $slave = Sql->new($c->conn);
 
 $sql->auto_commit;
 $sql->do("SET search_path = musicbrainz");

@@ -15,7 +15,7 @@ use MusicBrainz::Server::Edit::Types qw(
     Nullable
     NullableOnPreview
 );
-use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
 use MusicBrainz::Server::Translation qw( l ln );
@@ -299,19 +299,6 @@ my $UNDEF_MARKER = time();
 sub track_column {
     my ($column, $tracklist) = @_;
     return [ map { $_->{$column} // $UNDEF_MARKER } @$tracklist ];
-}
-
-sub hash_artist_credit {
-    my ($artist_credit) = @_;
-    return join(', ', map {
-        '[' .
-            join(',',
-                 $_->{name},
-                 $_->{artist}{id},
-                 $_->{join_phrase} || '')
-            .
-        ']'
-    } @{ $artist_credit->{names} });
 }
 
 sub accept {

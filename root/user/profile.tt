@@ -42,6 +42,9 @@
             [% types.push(l("Internal/Bot")) IF user.is_bot %]
             [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('Relationship_Editor')})) IF user.is_relationship_editor %]
             [% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('Transclusion_Editor')})) IF user.is_wiki_transcluder %]
+            [% types.push('<span class="tooltip" title="' _ l('User accounts must be more than 2 weeks old, have a confirmed email address,' _
+                           ' and more than 10 accepted edits in order to vote on others\' edits.') _ '">' _ l('Limited User') _ '</span>')
+                           IF user.is_newbie || !user.has_confirmed_email_address || user.accepted_edits < 10 %]
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
             [% IF c.user.is_auto_editor && !user.is_auto_editor %]

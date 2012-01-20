@@ -73,7 +73,7 @@ sub _id_column
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-
+    @ids = grep defined, @ids;
     return {} unless @ids;
 
     return $self->_get_by_keys($self->_id_column, uniq(@ids));

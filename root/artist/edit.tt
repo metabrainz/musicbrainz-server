@@ -4,7 +4,8 @@
   <script type="text/javascript">//<![CDATA[
     $(document).ready(function() {
 
-      MB.Control.ArtistEdit ();
+      var edit = MB.Control.ArtistEdit ();
+      edit.initializeArtistCreditPreviews ('[% artist.gid %]');
 
       var bubbles = MB.Control.BubbleCollection ();
       MB.Control.initialize_guess_case (bubbles, 'artist');
@@ -14,5 +15,5 @@
 [% END %]
 
 [% WRAPPER 'artist/layout.tt' title=l('Edit Artist') full_width=1 page='edit' %]
-    [% INCLUDE 'artist/edit_form.tt' %]
+    [% INCLUDE 'artist/edit_form.tt' edit_artist_credits=1 %]
 [% END %]

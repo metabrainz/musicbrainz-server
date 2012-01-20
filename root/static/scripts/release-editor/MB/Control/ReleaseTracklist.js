@@ -75,7 +75,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      */
     self.blurLength = function (event) {
         var length = self.$length.val ();
-        length = length.replace (/([0-9]*)([0-9][0-9])/, "$1:$2");
+        length = length.replace (/^([0-9]*)([0-9][0-9])$/, "$1:$2");
 
         self.setDuration (MB.utility.unformatTrackLength (length));
     };
@@ -93,7 +93,8 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      */
     self.deleteTrack = function () {
         self.$deleted.val('1');
-        self.$row.hide (); /* FIXME: need to close artist credits? */
+        self.bubble_collection.hideAll();
+        self.$row.hide ();
         self.$row.addClass ('deleted');
 
         var trackpos = 1;
@@ -118,6 +119,9 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$position.attr ('disabled', 'disabled');
         self.$length.attr ('disabled', 'disabled');
         self.$row.find ("input.remove-track").hide ();
+        self.$position.add(self.$length)
+            .attr('title', 'This medium has one or more disc IDs which prevent this information from being changed.')
+            .addClass('disabled-hint');
     };
 
     /**

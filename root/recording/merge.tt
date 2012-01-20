@@ -1,5 +1,6 @@
 [% WRAPPER 'layout.tt' title=l('Merge Recordings') full_width=1 %]
-    <h2>[% l('Merge Recordings') %]</h2>
+    <div id="content">
+    <h1>[% l('Merge Recordings') %]</h1>
     <p>[% l('You are about to merge the following recordings into a single recording. Please
              select the recording which you would like other recordings to be merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
@@ -13,6 +14,7 @@
         [% field_errors(form, 'target') %]
 
         [% INCLUDE "forms/edit-note.tt" %]
-        [% enter_edit('<button type="submit" name="submit" value="cancel">' _ l('Cancel') _ '</button>') %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
     </form>
+    </div>
 [% END %]

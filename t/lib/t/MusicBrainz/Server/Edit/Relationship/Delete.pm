@@ -61,67 +61,6 @@ subtest 'Test edit acception' => sub {
 
 };
 
-test 'Accepting remove URL relationships should remove the unused URL' => sub {
-    my $test = shift;
-    my $c = $test->c;
-
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
-INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (1, '9f810bfa-e051-44ed-b170-8fb9ca14fab2', 1, 1);
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
-    VALUES
-        (1, '2476be45-3090-43b3-a948-a8f972b4065c', 'artist', 'url', 'mugshot', '-', '-', '-');
-INSERT INTO url (id, gid, url) VALUES (1, 'd1410d4f-0fe3-4452-919f-b883a2a5ff2b', 'http://example.com/');
-INSERT INTO link (id, link_type) VALUES (1, 1);
-INSERT INTO l_artist_url (id, link, entity0, entity1) VALUES (1, 1, 1, 1);
-EOSQL
-
-    my $url = $c->model('URL')->find_or_insert('http://example.com/');
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_RELATIONSHIP_DELETE,
-        editor_id => 1,
-        type0 => 'artist',
-        type1 => 'url',
-        relationship => $c->model('Relationship')->get_by_id(qw( artist url ), 1)
-    );
-
-    accept_edit($c, $edit);
-
-    ok(!defined $c->model('URL')->get_by_id($url->id));
-};
-
-test 'Accepting remove URL relationships should not remove in use URLs' => sub {
-    my $test = shift;
-    my $c = $test->c;
-
-    $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
-INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (1, '9f810bfa-e051-44ed-b170-8fb9ca14fab2', 1, 1),
-    (2, '1f810bfa-e051-44ed-b170-8fb9ca14fab2', 1, 1);
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
-    VALUES
-        (1, '2476be45-3090-43b3-a948-a8f972b4065c', 'artist', 'url', 'mugshot', '-', '-', '-');
-INSERT INTO url (id, gid, url) VALUES (1, 'd1410d4f-0fe3-4452-919f-b883a2a5ff2b', 'http://example.com/');
-INSERT INTO link (id, link_type) VALUES (1, 1);
-INSERT INTO l_artist_url (id, link, entity0, entity1) VALUES (1, 1, 1, 1), (2, 1, 2, 1);
-EOSQL
-
-    my $url = $c->model('URL')->find_or_insert('http://example.com/');
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_RELATIONSHIP_DELETE,
-        editor_id => 1,
-        type0 => 'artist',
-        type1 => 'url',
-        relationship => $c->model('Relationship')->get_by_id(qw( artist url ), 1)
-    );
-
-    accept_edit($c, $edit);
-
-    ok(defined $c->model('URL')->get_by_id($url->id));
-};
-
 sub _create_edit {
     my $c = shift;
     my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);

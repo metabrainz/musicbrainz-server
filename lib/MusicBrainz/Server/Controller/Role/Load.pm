@@ -46,12 +46,11 @@ role
             return;
         }
 
-        $c->stash(
-            # First stash is more convenient for the actual controller
-            # Second is useful to roles or other places that need introspection
-            $entity_name => $entity,
-            entity       => $entity
-        );
+        # First stash is more convenient for the actual controller
+        $c->stash( $entity_name => $entity ) if $entity_name;
+
+        # Second is useful to roles or other places that need introspection
+        $c->stash( entity       => $entity );
     };
 
     method _load => sub

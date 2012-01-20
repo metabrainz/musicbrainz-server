@@ -24,6 +24,14 @@ has_field 'iswc'     => (
     type => '+MusicBrainz::Server::Form::Field::ISWC',
 );
 
+has_field 'artist-ipi'     => (
+    type => '+MusicBrainz::Server::Form::Field::IPI',
+);
+
+has_field 'label-ipi'     => (
+    type => '+MusicBrainz::Server::Form::Field::IPI',
+);
+
 has_field 'puid' => (
     type => '+MusicBrainz::Server::Form::Field::GID',
 );

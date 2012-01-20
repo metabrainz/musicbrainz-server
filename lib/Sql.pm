@@ -12,11 +12,11 @@ has 'debug' => (
     default => sub { exists $ENV{SQL_DEBUG} && $ENV{SQL_DEBUG} }
 );
 
-has 'dbh' => (
+has 'conn' => (
     is => 'ro',
-    isa => 'DBI::db',
+    isa => 'DBIx::Connector',
     required => 1,
-    handles => [qw( errstr quote )],
+    handles => [qw( dbh )],
 );
 
 has 'quiet' => (
@@ -49,9 +49,9 @@ sub finish
 
 sub BUILDARGS
 {
-    my ($self, $dbh) = @_;
-    croak "Missing required argument 'dbh'" unless defined $dbh;
-    return { dbh => $dbh };
+    my ($self, $conn) = @_;
+   croak "Missing required argument 'conn'" unless defined $conn;
+    return { conn => $conn };
 }
 
 sub auto_commit

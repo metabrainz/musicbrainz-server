@@ -71,7 +71,11 @@ sub _fix_html_markup
     for my $node ($tree->findnodes ('//table')->get_nodelist)
     {
         my $class = $node->attr('class') || "";
-	$node->attr('class', 'wikitable ' . $class);
+
+        # Special cases where we don't want this class added
+        next if ($class =~ /(\btoc\b|\btbl\b)/);
+
+        $node->attr('class', 'wikitable ' . $class);
     }
 
     $content = $tree->as_HTML;
@@ -89,10 +93,13 @@ sub _create_page
 
     my $title = $id;
     $title =~ s/_/ /g;
+    # Create hierarchy for displaying in the h1
+    my @hierarchy = split('/',$title);
+    $title = $hierarchy[-1];
 
     $content = $self->_fix_html_markup($content, $index);
 
-    my %args = ( title => $title, content  => $content );
+    my %args = ( title => $title, hierarchy => \@hierarchy, content  => $content );
     if (defined $version) {
         $args{version} = $version;
     }
@@ -169,14 +176,15 @@ sub get_page
 {
     my ($self, $id, $version, $index) = @_;
 
-    my $cache = $self->c->cache('wikidoc');
-    my $cache_key = defined $version ? "$id-$version" : "$id-x";
+    my $prefix = 'wikidoc';
+    my $cache = $self->c->cache($prefix);
+    my $cache_key = defined $version ? "$prefix:$id:$version" : "$prefix:$id:current";
 
     my $page = $cache->get($cache_key);
     return $page
         if defined $page;
 
-    $page = $self->_load_page($id, $version, $index);
+    $page = $self->_load_page($id, $version, $index) or return undef;
 
     $cache->set($cache_key, $page, $WIKI_CACHE_TIMEOUT);
 

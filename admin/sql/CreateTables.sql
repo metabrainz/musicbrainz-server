@@ -950,13 +950,16 @@ CREATE TABLE release_gid_redirect
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TYPE cover_art_presence AS ENUM ('absent', 'present', 'darkened');
+
 CREATE TABLE release_meta
 (
     id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
     date_added          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     info_url            VARCHAR(255),
     amazon_asin         VARCHAR(10),
-    amazon_store        VARCHAR(20)
+    amazon_store        VARCHAR(20),
+    cover_art_presence  cover_art_presence NOT NULL DEFAULT 'absent'
 );
 
 CREATE TABLE release_coverart
@@ -1089,7 +1092,8 @@ CREATE TABLE statistic
 CREATE TABLE tag
 (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL
+    name                VARCHAR(255) NOT NULL,
+    ref_count           INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE tag_relation
@@ -1147,6 +1151,7 @@ CREATE TABLE url
     gid                 UUID NOT NULL,
     url                 TEXT NOT NULL,
     description         TEXT,
+    ref_count           INTEGER NOT NULL DEFAULT 0,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
