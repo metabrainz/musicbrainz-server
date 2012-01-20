@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Label::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -53,6 +54,63 @@ is($label->end_date->month, 5);
 is($label->end_date->day, 30);
 is($label->edits_pending, 0);
 
+};
+
+test 'Check conflicts (non-conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Label')->get_by_id(2),
+        name => 'Renamed label',
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Label')->get_by_id(2),
+        comment   => 'Comment change'
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $label = $c->model('Label')->get_by_id(2);
+    is ($label->name, 'Renamed label', 'label renamed');
+    is ($label->comment, 'Comment change', 'comment changed');
+};
+
+test 'Check conflicts (conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_delete');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Label')->get_by_id(2),
+        name      => 'Renamed label',
+        sort_name => 'Sort FOO'
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Label')->get_by_id(2),
+        comment   => 'Comment change',
+        sort_name => 'Sort BAR'
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok  exception { $edit_2->accept }, 'could not accept edit 2';
+
+    my $label = $c->model('Label')->get_by_id(2);
+    is ($label->name, 'Renamed label', 'label renamed');
+    is ($label->sort_name, 'Sort FOO', 'comment changed');
+    is ($label->comment, undef);
 };
 
 sub create_full_edit {

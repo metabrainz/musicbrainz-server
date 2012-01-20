@@ -30,7 +30,7 @@ sub summed_statistics {
             $sum += $self->statistic($i);
         }
     } else {
-        $sum = $self->statistic($stats);
+        $sum = $self->statistic($stats) || 0;
     }
     return $sum
 }

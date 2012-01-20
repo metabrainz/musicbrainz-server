@@ -116,7 +116,7 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-sub puids : Chained('load') PathPart('puids')
+sub fingerprints : Chained('load') PathPart('fingerprints')
 {
     my ($self, $c) = @_;
 
@@ -124,7 +124,7 @@ sub puids : Chained('load') PathPart('puids')
     my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
     $c->stash(
         puids    => \@puids,
-        template => 'recording/puids.tt',
+        template => 'recording/fingerprints.tt',
     );
 }
 
@@ -161,6 +161,9 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             );
             $c->stash( initial_artist => $artist );
             return ( item => $rg );
+        }
+        else {
+            return ();
         }
     }
 };
@@ -243,7 +246,7 @@ sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
             },
             on_creation => sub {
                 $c->response->redirect(
-                    $c->uri_for_action('/recording/puids', [ $recording->gid ]));
+                    $c->uri_for_action('/recording/fingerprints', [ $recording->gid ]));
             }
         );
     }

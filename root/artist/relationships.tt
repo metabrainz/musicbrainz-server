@@ -36,7 +36,7 @@
                       [% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %]
                     [% END %]
                     </td>
-                    <td colspan="[% rel.link.attributes.size ? "1" : "2" %]>
+                    <td colspan="[% rel.link.attributes.size ? "1" : "2" %]">
                         [% link_entity(rel.target) %]
                     </td>
                     [% IF rel.link.attributes.size %]

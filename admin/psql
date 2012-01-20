@@ -63,10 +63,10 @@ if ($system) {
 }
 
 if (defined $profile && $profile eq "test") {
-    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz_test," . $db->schema;
+    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz_test,public";
 }
 else {
-    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema;
+    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema . ",public";
 }
 
 $ENV{"PGPASSWORD"} = $db->password;

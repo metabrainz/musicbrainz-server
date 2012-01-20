@@ -17,6 +17,7 @@ use aliased 'MusicBrainz::Server::Entity::Work';
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_type { $EDIT_WORK_EDIT }
 sub edit_name { l('Edit work') }
@@ -93,6 +94,16 @@ sub allow_auto_edit
 
     return 1;
 }
+
+sub current_instance {
+    my $self = shift;
+    $self->c->model('Work')->get_by_id($self->entity_id),
+}
+
+sub _edit_hash {
+    my ($self, $data) = @_;
+    return $self->merge_changes;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

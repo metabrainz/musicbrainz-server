@@ -435,7 +435,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
     self.$artist_input = $target;
     self.$container = $container;
     self.$preview = $container.find ('span.artist-credit-preview');
-    self.$add_artist = self.$container.find ('input.add-artist-credit');
+    self.$add_artist = self.$container.find ('.add-artist-credit');
     self.errors = {};
 
     self.initialize = function() {

@@ -13,7 +13,8 @@
 [% END %]
 
 [% WRAPPER 'layout.tt' title=l('Merge Releases') full_width=1 %]
-    <h2>[% l('Merge Releases') %]</h2>
+    <div id="content">
+    <h1>[% l('Merge Releases') %]</h1>
     <p>[% l('You are about to merge the following releases into a single release. Please
              select the release which you would like the other releases to be merged
              into:') %]</p>
@@ -82,9 +83,23 @@
           <p>[% l('This merge strategy will merge all mediums together into a single set of mediums. Recordings
                    between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
           <p>[% l('This requires that mediums over each release have corresponding track counts.') %]</p>
+
+          [% IF bad_recording_merges.size %]
+            [% warning(l('The recording artists do not match! Perhaps you meant to use the "append mediums" merge strategy?')) %]
+            <p>[% l('If you continue with the current merge strategy, the following recordings will be merged:') %]</p>
+            [% FOR bad_recordings IN bad_recording_merges %]
+                <ul>
+                [% FOR bad_recording IN bad_recordings %]
+                    <li>[% descriptive_link(bad_recording) %]</li>
+                [% END %]
+                </ul>
+            [% END %]
+          [% END %]
+
         </div>
 
         [% INCLUDE "forms/edit-note.tt" %]
-        [% enter_edit('<button type="submit" name="submit" value="cancel">' _ l('Cancel') _ '</button>') %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
     </form>
+    </div>
 [% END %]

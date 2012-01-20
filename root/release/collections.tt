@@ -1,0 +1,25 @@
+[%- WRAPPER 'release/layout.tt' title=l('Collections') page='collections' -%]
+    <h2>[% l('Collections') %]</h2>
+    [% IF public_collections.size || private_collections > 0 %]
+        <p>[% ln('{release} has been added to {num} collection:',
+                 '{release} has been added to {num} collections:',
+                 public_collections.size + private_collections,
+                 { release => html_escape(release.name), num => public_collections.size + private_collections }) %]</p>
+        <ul>
+            [% FOR col=public_collections %]
+                <li>[% l('{col}', { col => link_collection(col) }) %]</li>
+            [% END %]
+
+            [% IF public_collections.size && private_collections %]
+                <li>[% ln('plus {n} other private collection', 'plus {n} other private collections',
+                           private_collections, { n => private_collections }) %]</li>
+            [% ELSIF private_collections %]
+                <li>[% ln('A private collection', '{n} private collections',
+                           private_collections, { n => private_collections }) %]</li>
+            [% END %]
+        </ul>
+    [% ELSE %]
+        <p>[% l('{release} has not been added to any collections.',
+                { release => html_escape(release.name) }) %]</p>
+    [% END %]
+[%- END -%]

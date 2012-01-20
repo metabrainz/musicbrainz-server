@@ -58,6 +58,9 @@ MB.constants.LINK_TYPES = {
     coverart: {
         release: 78
     },
+    license: {
+        release: 301
+    },
     lyrics: {
         artist: 197,
         release_group: 93,
@@ -72,6 +75,16 @@ MB.constants.LINK_TYPES = {
     mailorder: {
         artist: 175,
         release: 79
+    },
+    downloadpurchase: {
+        artist: 176,
+        release: 74,
+        recording: 254
+    },
+    downloadfree: {
+        artist: 177,
+        release: 75,
+        recording: 255
     },
     microblog: {
         artist: 198,
@@ -118,6 +131,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.wikipedia,
         clean: function(url) {
             url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "http://$1.wikipedia.org/wiki/$2");
+            url =  url.replace(/^https:\/\//, "http://");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
             return url.replace(/\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
         }
@@ -135,10 +149,10 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.musicmoz
     },
     imdb: {
-        match: new RegExp("^(https?://)?([^/]+\.)?imdb\.com","i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?imdb\.","i"),
         type: MB.constants.LINK_TYPES.imdb,
         clean: function(url) {
-            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.com\/([a-z]+\/[a-z0-9]+)(\/(bio|soundtrack)?)?/, "http://www.imdb.com/$2/");
+            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/(bio|soundtrack)?)?/, "http://www.imdb.com/$3/");
         }
     },
     myspace: {
@@ -185,15 +199,15 @@ MB.constants.CLEANUPS = {
         }
     },
     archive: {
-        match: new RegExp("^(https?://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
+        match: new RegExp("^(https?://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
         type: MB.constants.LINK_TYPES.coverart,
         clean: function(url) { 
-            return url.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
+            url = url.replace(/\?cnt=\d+$/, "");
+            return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
         }
     },
     cdbaby: {
         match: new RegExp("^(https?://)?([^/]+\.)?cdbaby\.(com|name)","i"),
-        type: MB.constants.LINK_TYPES.coverart,
         clean: function(url) {
             if ((m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/)) != null)
                 url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
@@ -203,7 +217,7 @@ MB.constants.CLEANUPS = {
     },
     jamendo: {
         match: new RegExp("^(https?://)?([^/]+\.)?jamendo\.com","i"),
-        type: MB.constants.LINK_TYPES.coverart,
+        type: MB.constants.LINK_TYPES.downloadfree,
         clean: function(url) {
             url =  url.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
             url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
@@ -223,6 +237,17 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             return url.replace(/(www\.)?mange-disque\.tv\/(fstb\/tn_md_|fs\/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?/,
                 "www.mange-disque.tv/fs/md_$3.jpg");
+        }
+    },
+    license: {
+        match: new RegExp("^(https?://)?([^/]+\.)?(artlibre\.org/licence|creativecommons\.org/licenses/)", "i"),
+        type: MB.constants.LINK_TYPES.license,
+        clean: function(url) {
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, "http://creativecommons.org/");
+            url = url.replace(/^http:\/\/creativecommons\.org\/licenses\/(.+)\/((legalcode|deed)((\.|-)[A-Za-z_]+)?)?/, "http://creativecommons.org/licenses/$1/");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?artlibre\.org\//, "http://artlibre.org/");
+            url = url.replace(/^http:\/\/artlibre\.org\/licence\.php\/lal\.html/, "http://artlibre.org/licence/lal");
+            return url;
         }
     },
     lyrics: {

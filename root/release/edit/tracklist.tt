@@ -77,7 +77,11 @@
     <tr>
       <td> </td>
       <td> </td>
-      <td style="text-align: right;">[% l('Add Artist Credit') %]</td>
+      <td style="text-align: right;">
+        <button type="button" class="nobutton add-artist-credit">
+            [%- l('Add Artist Credit') -%]
+        </button>
+      </td>
       <td class="icon">
         <input type="button" class="icon add-artist-credit"
           title="[% l('Add Artist Credit') %]"
@@ -410,9 +414,9 @@
             <tr>
               <th class="position">[% l('#') %]</th>
                <th class="title">[% l('Title') %]</th>
-              <th class="artist" colspan="2">
-                <input type="checkbox" class="artistcolumn" />
-                [% l('Artist') %]
+               <th class="artist" colspan="2">
+                <input type="checkbox" id="artistcolumn" class="artistcolumn" />
+                <label for="artistcolumn">[% l('Artist') %]</label>
               </th>
               <th class="length">[% l('Length') %]</th>
               <th class="icons"></th>

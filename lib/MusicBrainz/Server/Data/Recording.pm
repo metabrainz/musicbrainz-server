@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Recording;
 
 use Moose;
-use List::UtilsBy qw( uniq_by );
+use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
     $EDIT_HISTORIC_ADD_TRACK
@@ -335,8 +335,8 @@ sub appears_on
     {
         # A crude ordering of importance.
         my @rgs = uniq_by { $_->name }
-                  sort { $a->type_id <=> $b->type_id }
-                  sort { $a->name cmp $b->name }
+                  rev_nsort_by { $_->type_id // -1 }
+                  sort_by { $_->name  }
                   @{ $map{$rec_id} };
 
         $map{$rec_id} = {

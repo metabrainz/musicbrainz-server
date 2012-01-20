@@ -22,10 +22,28 @@ MB.Control.SelectAll = function (table) {
     var self = MB.Object ();
 
     self.$table = $(table);
+    self.$checkboxes = self.$table.find('td input[type="checkbox"]');
+    self.lastChecked = null;
 
     self.$table.find('th input[type="checkbox"]').change(function() {
         var $input = $(this);
-        self.$table.find('td input[type="checkbox"]').attr('checked', $input.attr('checked'));
+        self.$checkboxes.attr('checked', $input.attr('checked'));
+    });
+
+    self.$checkboxes.click(function(event) {
+        if (event.shiftKey && self.lastChecked && self.lastChecked != this) {
+            var first = self.$checkboxes.index(self.lastChecked),
+                last = self.$checkboxes.index(this);
+
+            if (first > last) {
+                self.$checkboxes.slice(last, first + 1)
+                    .attr('checked', this.checked);
+            } else if (last > first) {
+                self.$checkboxes.slice(first, last + 1)
+                    .attr('checked', this.checked);
+            }
+        }
+        self.lastChecked = this;
     });
 
     return self;

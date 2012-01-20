@@ -40,13 +40,13 @@ sub build_display_data
     my $country = $self->data->{country_id};
 
     return {
-        ( map { $_ => $self->data->{$_} || '' } qw( name sort_name comment ipi_code ) ),
+        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ipi_code ) ),
         type       => $type ? $loaded->{ArtistType}->{$type} : '',
         gender     => $gender ? $loaded->{Gender}->{$gender} : '',
         country    => $country ? $loaded->{Country}->{$country} : '',
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
-        artist     => $loaded->{Artist}->{ $self->entity_id } ||
+        artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
         ipi_code   => $self->data->{ipi_code},
     };

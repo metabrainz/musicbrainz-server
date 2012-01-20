@@ -30,9 +30,18 @@ Keys:
  * label:UUID -- label by MBID (you need to do another lookup by ID)
  * lng:INT -- language by ID
  * lt:INT -- label type by ID
+ * link:INT -- link by ID
+ * linktype:INT -- link type by ID
+ * linkattrtype:INT -- link attribute type by ID
  * mf:INT -- medium format by ID
  * rgt:INT -- release group type by ID
  * rs:INT -- release status by ID
  * rp:INT -- release packaging by ID
  * scr:INT -- script by ID
+ * tag:INT -- tag by ID
+ * wikidoc:TEXT-INT -- wikidocs by page title and revision
+ * wikidoc-index -- wikidocs index page
+ * wizard_session:INT:INT:<MIXED> -- release editor (wizard) 
+   sessions by catalyst session ID, RE (random) session ID, and other specifics
  * wt:INT -- work type by ID
+

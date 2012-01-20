@@ -24,6 +24,7 @@ html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
         'edit-artist.name' => 'history viewing',
+        'edit-artist.rename_artist_credit' => undef
     }
 );
 

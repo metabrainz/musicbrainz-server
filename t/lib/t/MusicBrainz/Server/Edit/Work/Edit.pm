@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Work::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -48,6 +49,61 @@ is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
 is($work->edits_pending, 0);
 
+};
+
+test 'Check conflicts (non-conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_WORK_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Work')->get_by_id(1),
+        name => 'Awesome work is awesome'
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_WORK_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Work')->get_by_id(1),
+        name      => 'Awesome work'
+    );
+
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $work = $c->model('Work')->get_by_id(1);
+    is ($work->name, 'Awesome work', 'work renamed');
+};
+
+test 'Check conflicts (conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type   => $EDIT_WORK_EDIT,
+        editor_id   => 1,
+        to_edit     => $c->model('Work')->get_by_id(1),
+        name        => 'A'
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type   => $EDIT_WORK_EDIT,
+        editor_id   => 1,
+        to_edit     => $c->model('Work')->get_by_id(1),
+        name        => 'B'
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok  exception { $edit_2->accept }, 'could not accept edit 2';
+
+    my $work = $c->model('Work')->get_by_id(1);
+    is ($work->name, 'A', 'work renamed');
 };
 
 sub create_edit {
