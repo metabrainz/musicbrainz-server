@@ -61,6 +61,12 @@ END; -%]
         [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? ", " : "" -%]
     [%- END -%]
 [%- END -%]
+[%- MACRO comma_only_list(items) BLOCK -%]
+    [%- FOREACH item IN items -%]
+        [%- item -%]
+        [%- !loop.last ? ", " : "" -%]
+    [%- END -%]
+[%- END -%]
 [%- MACRO form_id(field)
     IF field.form;
         "form-" _ field.form.name _ "-" _ field.name.replace('_', '-');
