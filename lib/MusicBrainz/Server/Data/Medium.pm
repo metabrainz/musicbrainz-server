@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Medium;
 
 use Moose;
-use namespace::autoclean -also => [qw( _create_row )];
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::Tracklist;

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Collection;
 
 use Moose;
-use namespace::autoclean -also => [qw( _hash_to_row )];
+use namespace::autoclean;
 
 use Carp;
 use Sql;

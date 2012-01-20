@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Release;
 
 use Moose;
-use namespace::autoclean -also => [qw( _where_status_in _where_type_in _hash_to_row )];
+use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
 use MusicBrainz::Server::Constants qw( :quality );

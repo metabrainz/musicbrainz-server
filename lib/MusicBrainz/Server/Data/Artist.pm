@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Data::Artist;
 use Moose;
-use namespace::autoclean -also => [qw( _hash_to_row )];
+use namespace::autoclean;
 
 use Carp;
 use List::MoreUtils qw( uniq );

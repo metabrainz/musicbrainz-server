@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Data::RecordingPUID;
 use Moose;
-use namespace::autoclean -also => [qw( _create_recording_puid )];
+use namespace::autoclean;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(

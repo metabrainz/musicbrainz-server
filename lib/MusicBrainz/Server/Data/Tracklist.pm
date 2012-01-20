@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Tracklist;
 
 use Moose;
-use namespace::autoclean -also => [qw( _add_tracks _create_row )];
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders );
 use MusicBrainz::Server::Log qw( log_assertion );

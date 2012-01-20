@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Data::EditMigration;
 use Moose;
-use namespace::autoclean -also => [qw( _list_to_map )];
+use namespace::autoclean;
 
 use DateTime::Format::Pg;
 use IO::All;
