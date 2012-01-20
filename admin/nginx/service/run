@@ -5,10 +5,12 @@ set -e
 cd mb_server
 umask 022
 exec \
-	setuidgid musicbrainz perl -I/home/musicbrainz/perl5/lib/perl5 \
-            ./script/musicbrainz_fastcgi.pl \
- 		-listen 127.0.0.1:55901 \
- 		-nproc 5 \
- 		-p fcgi.pid \
-		-keeperr
+	setuidgid musicbrainz carton exec -- \
+            plackup -Ilib \
+        -s FastCGI \
+        -E deployment \
+ 		--port 55901 \
+ 		--nproc 5 \
+ 		--pid fcgi.pid \
+		--keeperr
 
