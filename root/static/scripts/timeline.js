@@ -192,13 +192,17 @@ $(document).ready(function () {
         plot.changeCurrentEvent(item);
         if (rateplot) { rateplot.changeCurrentEvent(item); }
     }
-    function setItemTooltip(item, extra) {
+    function setItemTooltip(item, extra, fixed) {
             if (!extra) { extra = '' };
             removeTooltip();
             setCursor();
             var x = item.datapoint[0],
                 y = item.datapoint[1],
                 date = new Date(parseInt(x));
+
+	    if (fixed) {
+                y = y.toFixed(fixed);
+	    }
 
             if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
             if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
@@ -236,7 +240,7 @@ $(document).ready(function () {
         if(item) {
             if (ratePreviousPoint != item.dataIndex) {
                 ratePreviousPoint = item.dataIndex;
-                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser);
+                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser, 2);
             }
         } 
         else if (rateplot.getEvent(pos)) { setEventTooltip(rateplot, pos); } 
