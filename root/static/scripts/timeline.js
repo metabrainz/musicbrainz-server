@@ -61,22 +61,34 @@ $(document).ready(function () {
     // Called once per dataset to calculate rates of change
     function weeklyRate(data) {
         var weekData = [];
+        var oneDay = 1000 * 60 * 60 * 24;
         var dataPrev = data[0][1];
+        var datePrev = data[0][0];
         var sPrev = 0;
-        var a = 0.1;
+        var a = 0.25;
 
         var mean = 0;
         var count = 0;
 
         $.each(data, function(index, value) {
             var changeValue = value[1] - dataPrev;
-            var sCurrent = a * changeValue + (1-a) * sPrev;
+            var sCurrent;
+            var days = 1;
+            
+            if (datePrev != null && value[0] > datePrev + oneDay) {
+                days = (value[0] - datePrev) / oneDay;
+                changeValue = changeValue / days
+            }
 
-            count++;
-            mean = mean + changeValue;
-            weekData.push([value[0], sCurrent]);
-            sPrev = sCurrent;
+            for (var i = 0; i < days; i++) {
+                count++;
+                mean = mean + changeValue;
+                sCurrent = a * changeValue + (1-a) * sPrev;
+                weekData.push([datePrev + i * oneDay, sCurrent]);
+                sPrev = sCurrent;
+            }
             dataPrev = value[1];
+            datePrev = value[0]
         });
         mean = mean / count;
 
