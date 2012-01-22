@@ -84,7 +84,7 @@ $(document).ready(function () {
                 count++;
                 mean = mean + changeValue;
                 sCurrent = a * changeValue + (1-a) * sPrev;
-                weekData.push([datePrev + i * oneDay, sCurrent]);
+                weekData.push([datePrev + (i+1) * oneDay, sCurrent]);
                 sPrev = sCurrent;
             }
             dataPrev = value[1];
