@@ -38,11 +38,6 @@ has '+data' => (
             id => Int,
             name => Str
         ],
-        label => Nullable[Dict[
-            id => Int,
-            name => Str,
-        ]],
-        catalog_number => Nullable[Str],
         new => find_type_constraint('ReleaseLabelHash'),
         old => find_type_constraint('ReleaseLabelHash')
     ]
@@ -59,7 +54,6 @@ sub foreign_keys
 
     $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
     $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
-    $keys->{Label}->{ $self->data->{label}{id} } = [] if $self->data->{label};
 
     return $keys;
 };
@@ -68,33 +62,24 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
 
-    my $data = { release => $loaded->{Release}->{ $self->release_id } };
-
-    if (exists $self->data->{new}{catalog_number})
-    {
-        $data->{catalog_number} = {
+    my $data = {
+        release => $loaded->{Release}->{ $self->release_id },
+        catalog_number => {
             new => $self->data->{new}{catalog_number},
-            old => $self->data->{old}{catalog_number}
-        }
-    }
-    else
-    {
-        $data->{catalog_number} = $self->data->{catalog_number};
-    }
+            old => $self->data->{old}{catalog_number},
+        },
+    };
 
-    if (exists $self->data->{new}{label})
-    {
-        for (qw( new old )) {
-            my $lbl = $self->data->{$_}{label};
+    $self->c->model ('Country')->load ($data->{release});
+    $self->c->model('Medium')->load_for_releases ($data->{release});
+    $self->c->model('MediumFormat')->load ($data->{release}->all_mediums);
+
+    for (qw( new old )) {
+        if (my $lbl = $self->data->{$_}{label}) {
+            next unless $lbl;
             $data->{label}{$_} = $loaded->{Label}{ $lbl->{id} } ||
                 Label->new( name => $lbl->{name} );
         }
-    }
-    elsif (exists ($self->data->{label}))
-    {
-        my $lbl = $self->data->{label};
-        $data->{label} = $loaded->{Label}{ $lbl->{id} } ||
-                Label->new( name => $lbl->{name} );
     }
 
     return $data;
@@ -108,7 +93,6 @@ around '_build_related_entities' => sub {
     $related->{label} = [
         $self->data->{new}{label} ? $self->data->{new}{label}{id} : (),
         $self->data->{old}{label} ? $self->data->{old}{label}{id} : (),
-        $self->data->{label} ? $self->data->{label}{id} : (),
     ];
 
     return $related;
@@ -158,13 +142,11 @@ sub initialize
         $self->_change_data($release_label, %opts),
     };
 
-    $data->{label} = {
-        id => $release_label->label->id,
-        name => $release_label->label->name,
-    } if !exists $data->{new}->{label};
-
-    $data->{catalog_number} = $release_label->catalog_number
-        if !exists $data->{new}->{catalog_number};
+    $data->{old}{catalog_number} = $release_label->catalog_number;
+    $data->{old}{label} = $release_label->label ? {
+        'name' => $release_label->label->name,
+        'id' => $release_label->label->id
+    } : undef;
 
     $self->data ($data);
 };

@@ -6,25 +6,46 @@
         <td colspan="2">[% link_entity(edit.display_data.release) %]</td>
     </tr>
 
+    [% IF edit.data.new.exists('label') || edit.data.old.defined('label') %]
     <tr>
       <th>[% l('Label:') %]</th>
-    [%- IF edit.data.new.label -%]
-      <td class="old">[% link_entity(edit.display_data.label.old) IF edit.data.old.label %]</td>
-      <td class="new">[% link_entity(edit.display_data.label.new) IF edit.data.new.label %]</td>
-    [%- ELSE -%]
-      <td colspan="2">[% link_entity(edit.display_data.label) %]</td>
-    [%- END -%]
+      [% IF edit.data.new.exists('label') %]
+        <td class="old">[% link_entity(edit.display_data.label.old) %]</td>
+        <td class="new">[% link_entity(edit.display_data.label.new) IF edit.display_data.label.new %]</td>
+      [% ELSE %]
+        <td colspan="2">[% link_entity(edit.display_data.label.old) %]</td>
+      [% END %]
     </tr>
+   [% END %]
 
-    [%- IF edit.data.new.catalog_number -%]
-    [%- display_diff(l('Catalog number:'),
-                     html_escape(edit.display_data.catalog_number.old),
-                     html_escape(edit.display_data.catalog_number.new)) -%]
-    [%- ELSE -%]
-    <tr>
-      <th>[% l('Catalog number:') %]</th>
-      <td colspan="2">[%- edit.data.catalog_number | html -%]</td>
-    </tr>
-    [%- END -%]
+   [% IF edit.data.new.exists('catalog_number') || edit.data.old.defined('catalog_number') %]
+     [% IF edit.data.new.exists('catalog_number') %]
+       [%- display_diff(l('Catalog number:'),
+                       html_escape(edit.display_data.catalog_number.old),
+                       html_escape(edit.display_data.catalog_number.new)) -%]
+     [% ELSE %]
+     <tr>
+       <th>[% l('Catalog number:') %]</th>
+       <td colspan="2">[% edit.display_data.catalog_number.old %]</td>
+     </tr>
+     [% END %]
+   [% END %]
+
+   <tr>
+     <th>[% l('Date:') %]</th>
+     <td colspan="2">[% edit.display_data.release.date.format %]</td>
+   </tr>
+   <tr>
+     <th>[% l('Country:') %]</th>
+     <td colspan="2">[% edit.display_data.release.country.name %]</td>
+   </tr>
+   <tr>
+     <th>[% l('Barcode:') %]</th>
+     <td colspan="2">[% edit.display_data.release.barcode.format %]</td>
+   </tr>
+   <tr>
+     <th>[% l('Format:') %]</th>
+     <td colspan="2">[% edit.display_data.release.combined_format_name %]</td>
+   </tr>
 
 </table>
