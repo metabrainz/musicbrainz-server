@@ -100,7 +100,7 @@ MB.Control.ReleaseEdits = function ($edits) {
             var from = tracklist ? tracklist[idx] : null;
 
             var to = {
-                'name': trk.$title.val (),
+                'name': $.trim (trk.$title.val ()),
                 'length': trk.getDuration (from ? from.length : null),
                 'artist_credit': trk.artist_credit.toData ()
             };

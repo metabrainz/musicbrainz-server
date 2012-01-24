@@ -1079,7 +1079,7 @@ sub _edit_release_track_edits
 
                 # Edit medium
                 my %opts = (
-                    name => $new->{name},
+                    name => trim ($new->{name}),
                     format_id => $new->{format_id},
                     to_edit => $entity,
                     separate_tracklists => 1,
@@ -1107,7 +1107,7 @@ sub _edit_release_track_edits
                 as_auto_editor => $data->{as_auto_editor},
             };
 
-            $opts->{name} = $new->{name} if $new->{name};
+            $opts->{name} = trim ($new->{name}) if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
             if ($new->{tracks}) {

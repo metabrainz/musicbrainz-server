@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
 use MusicBrainz::Server::Track qw( format_track_length );
+use Text::Trim qw( trim );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
@@ -32,10 +33,13 @@ augment 'create_edits' => sub
     # release edit
     # ----------------------------------------
 
-    my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode date as_auto_editor release_group_id
-                     artist_credit );
+    my @fields = qw( packaging_id status_id script_id language_id country_id
+                     date as_auto_editor release_group_id artist_credit );
     my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
+
+    map {
+        $args{$_} = trim ($data->{$_})
+    } grep { exists $data->{$_} } qw( name comment barcode );
 
     if ($data->{no_barcode})
     {

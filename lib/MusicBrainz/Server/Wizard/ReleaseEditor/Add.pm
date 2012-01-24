@@ -8,6 +8,7 @@ use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use List::UtilsBy qw( uniq_by );
+use Text::Trim qw( trim );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
@@ -143,9 +144,13 @@ augment 'create_edits' => sub
     # add release (and release group if necessary)
     # ----------------------------------------
 
-    my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode artist_credit date as_auto_editor );
+    my @fields = qw( packaging_id status_id script_id language_id country_id 
+                     artist_credit date as_auto_editor );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+    map {
+        $add_release_args{$_} = trim ($data->{$_})
+    } grep { exists $data->{$_} } qw( name comment barcode );
 
     if ($data->{release_group_id}){
         $add_release_args{release_group_id} = $data->{release_group_id};
@@ -153,7 +158,7 @@ augment 'create_edits' => sub
     else {
         my @fields = qw( artist_credit type_id as_auto_editor );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-        $args{name} = $data->{release_group}{name} || $data->{name};
+        $args{name} = trim( $data->{release_group}{name} // $data->{name} );
 
         my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 
