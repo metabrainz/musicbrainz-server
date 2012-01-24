@@ -9,11 +9,37 @@ directory. The preferred way to run them is to use the `prove` program from
 Test::Harness. For example, to run all tests use:
 
  $ prove -l t/
+
+If you're using Carton, you should instead run:
+
+ $ carton exec -Ilib -- prove t/
  
 Or if you want to run only specific tests:
 
- $ prove -l t/entity_artist.t
- $ prove -l t/entity*.t
+ $ carton exec -Ilib -- prove t/entity_artist.t
+ $ carton exec -Ilib -- prove t/entity*.t
+
+A few of the files in t/ aggregate all the tests in the t:: namespace.
+For example if you want to run a controller test such as
+t::MusicBrainz::Server::Controller::WS::2::LookupArtist you should use
+t/controllers.t like this:
+
+ $ carton exec -Ilib -- prove t/controllers.t :: --tests WS::2::LookupArtist
+
+For t::MusicBrainz::Server::Edit:: tests use t/edits.t, and for the
+remaining tests you can usually run t/tests.t.  You can specify multiple
+tests as a comma-separated list:
+
+ $ carton exec -Ilib -- prove t/tests.t :: --tests Data::URL,Entity::URL
+
+
+JavaScript and Selenium tests
+-----------------------------
+
+To run the included interface tests (t/selenium.t) and QUnit tests
+(t/qunit.t) please see the following document on our wiki:
+http://wiki.musicbrainz.org/User:kuno/Testing
+
 
 Cache
 -----
