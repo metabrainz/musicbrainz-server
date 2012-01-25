@@ -4,7 +4,6 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
