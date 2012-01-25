@@ -59,6 +59,8 @@
         </span>
         <input type="hidden" class="gid" value="[% ac.artist.gid | html %]" />
         <input type="hidden" class="id" value="[% ac.artist.id | html %]" />
+        <input type="hidden" class="sortname" value="[% ac.artist.sort_name | html %]" />
+        <input type="hidden" class="comment" value="[% ac.artist.comment | html %]" />
       </td>
       <td class="artistcredit">
         <input type="text" class="credit" value="[% ac.name | html %]" />
