@@ -1,0 +1,46 @@
+[%- MACRO entry(entity) BLOCK -%]
+<tr[% ' class="ev"' IF loop.count % 2 == 1 %]>
+    <td>[% loop.count() %].</td>
+    <td>[% IF entity.entity.id != '' %]<a href="/search?query=format%3A%22[% entity.entity.name | replace('"', '\"') | uri %]%22&type=release&advanced=on">[% END %]
+            [% l(entity.entity.name) || l('Unknown Format') %]
+        [% IF entity.entity.id != '' %]</a>[% END %]
+    </td>
+    <td>[% entity.release_count %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio(entity.release_stat, 'count.release')) }) %]</td>
+    <td>[% entity.medium_count %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio(entity.medium_stat, 'count.medium')) }) %]</td>
+</tr>
+[%- END -%]
+
+[% USE format %]
+[% round1 = format('%.2f') %]
+
+[% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %] 
+
+<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+
+<h2>[%- l('Release/Medium Formats') -%]</h2>
+<table class="tbl">
+<thead>
+<tr>
+<th>[% l('Rank') %]</th>
+<th>[% l('Format') %]</th>
+<th>[% l('Releases') %]</th>
+<th>[% l('% of total releases') %]</th>
+<th>[% l('Mediums') %]</th>
+<th>[% l('% of total mediums') %]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th></th>
+<th>[% l('(Totals)') %]</th>
+<th colspan=2>[% stats.statistic('count.release') %]</th>
+<th colspan=2>[% stats.statistic('count.medium') %]</th>
+</tr>
+[%- FOREACH format IN format_stats -%]
+[%- entry(format) -%]
+[%- END -%]
+</tbody>
+</table>
+[% END %]

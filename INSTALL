@@ -118,7 +118,7 @@ Below outlines how to setup MusicBrainz server with Carton.
     development headers that will be needed when installing dependencies. Run
     the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev
         sudo cpan Carton
 
 2)  Install dependencies
