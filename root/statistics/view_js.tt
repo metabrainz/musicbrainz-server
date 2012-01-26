@@ -76,26 +76,26 @@
             "count.label.country.null": { Label: '[% l('Unknown Country') | js %]', Color: '#ff0000', Description: '[% l('Labels with no country set') | js %]', Category: "label-countries" },
             "count.release.country.null": { Label: '[% l('Unknown Country') | js %]', Color: '#ff0000', Description: '[% l('Releases with no country set') | js %]', Category: "release-countries" },
             [% FOREACH country IN countries %]
-                 "count.artist.country.[% country.key %]": { Label: "[% country.value.name %]", Color: '#ff0000', Description: "[% country.value.name %]", Category: "artist-countries" },
-                 "count.label.country.[% country.key %]": { Label: "[% country.value.name %]", Color: '#ff0000', Description: "[% country.value.name %]", Category: "label-countries" },
-                 "count.release.country.[% country.key %]": { Label: "[% country.value.name %]", Color: '#ff0000', Description: "[% country.value.name %]", Category: "release-countries" },
+                 "count.artist.country.[% country.key | js %]": { Label: "[% country.value.name | js %]", Color: '#ff0000', Description: "[% country.value.name | js %]", Category: "artist-countries" },
+                 "count.label.country.[% country.key | js %]": { Label: "[% country.value.name | js %]", Color: '#ff0000', Description: "[% country.value.name | js %]", Category: "label-countries" },
+                 "count.release.country.[% country.key | js %]": { Label: "[% country.value.name | js %]", Color: '#ff0000', Description: "[% country.value.name | js %]", Category: "release-countries" },
             [% END %]
 
             "count.release.script.null": { Label: '[% l('Unknown Script') | js %]', Color: '#ff0000', Description: '[% l('Releases with no script set') | js %]', Category: "release-scripts" },
             [% FOREACH script IN scripts %]
-                "count.release.script.[% script.key %]": { Label: "[% script.value.name %]", Color: '#ff0000', Description: "[% script.value.name %]", Category: "release-scripts" },
+                "count.release.script.[% script.key | js %]": { Label: "[% script.value.name | js %]", Color: '#ff0000', Description: "[% script.value.name | js %]", Category: "release-scripts" },
             [% END %]
 
             "count.release.language.null": { Label: '[% l('Unknown Language') | js %]', Color: '#ff0000', Description: '[% l('Releases with no language set') | js %]', Category: "release-languages" },
             [% FOREACH language IN languages %]
-                "count.release.language.[% language.key %]": { Label: "[% language.value.name %]", Color: '#ff0000', Description: "[% language.value.name %]", Category: "release-languages" },
+                "count.release.language.[% language.key | js %]": { Label: "[% language.value.name | js %]", Color: '#ff0000', Description: "[% language.value.name | js %]", Category: "release-languages" },
             [% END %]
 
             "count.release.format.null": { Label: '[% l('Unknown Format (release)') | js %]', Color: '#ff0000', Description: '[% l('Releases with a no-format medium') | js %]', Category: "formats"},
             "count.medium.format.null": { Label: '[% l('Unknown Format (medium)') | js %]', Color: '#ff0000', Description: '[% l('Mediums with no format set') | js %]', Category: "formats"},
             [% FOREACH format IN formats %]
-                "count.release.format.[% format.key %]": { Label: "[% l('{name} releases', { name => format.value.name }) | js %]", Color: "#ff0000", Description: '', Category: "formats"},
-                "count.medium.format.[% format.key %]": { Label: "[% l('{name} mediums', { name => format.value.name }) | js %]", Color: "#ff0000", Description: '', Category: "formats"},
+                "count.release.format.[% format.key | js %]": { Label: "[% l('{name} releases', { name => format.value.name }) | js %]", Color: "#ff0000", Description: '', Category: "formats"},
+                "count.medium.format.[% format.key | js %]": { Label: "[% l('{name} mediums', { name => format.value.name }) | js %]", Color: "#ff0000", Description: '', Category: "formats"},
             [% END %]
 
             "count.artist.gender.null": { Label: '[% l('Unknown-gender Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with gender unset (non-group artists)') | js %]', Category: 'artist-other' },
