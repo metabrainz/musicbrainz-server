@@ -31367,6 +31367,10 @@
                "file" : "Template/Plugin/Iterator.pm",
                "version" : "2.68"
             },
+            "Template::Plugin::JavaScript" : {
+               "file" : "Template/Plugin/JavaScript.pm",
+               "version" : "0.02" 
+            }
             "Template::Plugin::Math" : {
                "file" : "Template/Plugin/Math.pm",
                "version" : "1.16"
