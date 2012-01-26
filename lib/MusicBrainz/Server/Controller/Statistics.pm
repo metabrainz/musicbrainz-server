@@ -122,6 +122,32 @@ sub languages_scripts : Path('languages-scripts')
     );
 }
 
+sub formats : Path('formats')
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $format_stats = [];
+    my $release_format_prefix = 'count.release.format';
+    my $medium_format_prefix = 'count.medium.format';
+    my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all();
+
+    foreach my $stat_name
+         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+        if (my ($format_id) = $stat_name =~ /^$medium_format_prefix\.(.*)$/) {
+            my $release_stat = $stat_name;
+	    $release_stat =~ s/$medium_format_prefix/$release_format_prefix/;
+            push(@$format_stats, ({'entity' => $formats{$format_id}, 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
+	}
+    }
+
+    $c->stash(
+        template => 'statistics/formats.tt',
+	format_stats => $format_stats,
+	stats => $stats
+    );
+}
+
 =head1 LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.

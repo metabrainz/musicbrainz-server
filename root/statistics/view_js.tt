@@ -32,6 +32,7 @@
                 "relationships": { Label: '[% l('Relationships') %]', Hide: true },
                 "release-quality": { Label: '[% l('Release Data Quality') %]' },
                 "ratings-tags": { Label: '[% l('Ratings and Tags') %]' },
+                "formats": { Label: '[% l('Formats') %]' },
 
                 "other": { Label: '[% l('Other') %]' }
             },
@@ -89,6 +90,13 @@
                 "count.release.language.[% language.key %]": { Label: "[% language.value.name %]", Color: '#ff0000', Description: "[% language.value.name %]", Category: "release-languages" },
             [% END %]
 
+            "count.release.format.null": { Label: '[% l('Unknown Format (release)') %]', Color: '#ff0000', Description: '[% l('Releases with a no-format medium') %]', Category: "formats"},
+            "count.medium.format.null": { Label: '[% l('Unknown Format (medium)') %]', Color: '#ff0000', Description: '[% l('Mediums with no format set') %]', Category: "formats"},
+            [% FOREACH format IN formats %]
+                "count.release.format.[% format.key %]": { Label: "[% l('{name} releases', { name => format.value.name }) %]", Color: "#ff0000", Description: '', Category: "formats"},
+                "count.medium.format.[% format.key %]": { Label: "[% l('{name} mediums', { name => format.value.name }) %]", Color: "#ff0000", Description: '', Category: "formats"},
+            [% END %]
+
             "count.artist.gender.null": { Label: '[% l('Unknown-gender Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender unset (non-group artists)') %]', Category: 'artist-other' },
             "count.artist.gender.male": { Label: '[% l('Male Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender set to male') %]', Category: 'artist-other' },
             "count.artist.gender.female": { Label: '[% l('Female Artists') %]', Color: '#ff0000', Description: '[% l('Artists with gender set to female') %]', Category: 'artist-other' },
@@ -98,6 +106,9 @@
             "count.artist.type.group": { Label: '[% l('Groups') %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') %]', Category: 'artist-other' },
             "count.artist.type.other": { Label: '[% l('Other-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') %]', Color: '#ff0000', Description: '[% l('Artists with type unset') %]', Category: 'artist-other' },
+
+            "count.artist.has_credits": { Label: '[% l('Artists in ACs') %]', Color: '#ff0000', Description: '[% l('Artists with at least one artist credit appearance') %]', Category: 'artist-other' },
+            "count.artist.0credits": { Label: '[% l('Artists not in ACs') %]', Color: '#ff0000', Description: '[% l('Artists with no appearances in artist credits') %]', Category: 'artist-other' },
 
             "count.artistcredit": { Label: '[% l('Artist Credits') %]', Color: '#ff0000', Description: '[% l('Count of all Artist Credits') %]', Category: 'other'},
             "count.barcode": { Label: '[% l('Barcodes') %]', Color: '#ff0000', Description: '[% l('Count of all Barcodes') %]', Category: 'other'},

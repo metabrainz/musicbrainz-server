@@ -135,6 +135,14 @@ my %stats = (
         PREREQ => [qw[ count.artist.gender.male ]],
         PREREQ_ONLY => 1,
     },
+    "count.artist.has_credits" => {
+        DESC => "Artists in at least one artist credit",
+	SQL => "SELECT COUNT(DISTINCT artist) FROM artist_credit_name",
+    },
+    "count.artist.0credits" => {
+        DESC => "Artists in no artist credits",
+	SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
+    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
@@ -266,6 +274,48 @@ my %stats = (
                 } keys %dist
             };
         },
+    },
+    "count.release.format" => {
+         DESC => "Distribution of releases by format",
+         CALC => sub { 
+             my ($self, $sql) = @_;
+             my $data = $sql->select_list_of_lists(
+                 "SELECT COALESCE(medium_format.id::text, 'null'), count(DISTINCT medium.release) AS count
+                 FROM medium FULL OUTER JOIN medium_format 
+                     ON medium.format = medium_format.id 
+                 GROUP BY medium_format.id
+                 ",
+             );
+
+             my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.format.".$_ => $dist{$_}
+                } keys %dist
+            };
+         },
+    },
+    "count.medium.format" => {
+         DESC => "Distribution of mediums by format",
+         CALC => sub { 
+             my ($self, $sql) = @_;
+             my $data = $sql->select_list_of_lists(
+                 "SELECT COALESCE(medium_format.id::text, 'null'), count(DISTINCT medium.id) AS count
+                 FROM medium FULL OUTER JOIN medium_format 
+                     ON medium.format = medium_format.id 
+                 GROUP BY medium_format.id
+                 ",
+             );
+
+             my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.medium.format.".$_ => $dist{$_}
+                } keys %dist
+            };
+         },
     },
     "count.release.language" => {
         DESC => "Distribution of releases by language",
