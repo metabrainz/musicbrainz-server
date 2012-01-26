@@ -19,6 +19,7 @@
 [% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
+<p>[%- l('All other available languages and scripts have 0 releases.') -%]</p>
 
 <div style="float:left; display:inline-block; margin-right: 50px;">
 <h2>[%- l('Languages') -%]</h2>
