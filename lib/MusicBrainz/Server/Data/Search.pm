@@ -518,19 +518,23 @@ sub external_search
     Class::MOP::load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
-    if ($query eq '!!!' and $type eq 'artist')
-    {
-        $query = 'chkchkchk';
-    }
-
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
+    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=true",
                                  DBDefs::LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
                                  $limit,);
+    if ( $adv )
+    {
+        my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
+                                 DBDefs::LUCENE_SERVER,
+                                 $type,
+                                 $query,
+                                 $offset,
+                                 $limit,);
+    }
 
     if (&DBDefs::_RUNNING_TESTS)
     {
