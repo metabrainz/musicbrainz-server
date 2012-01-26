@@ -14522,15 +14522,15 @@
          "version" : "1.49"
       },
       "File::ShareDir" : {
-         "dist" : "File-ShareDir-0.03",
+         "dist" : "File-ShareDir-1.03",
          "module" : "File::ShareDir",
          "mymeta" : {
             "abstract" : "Locate per-dist and per-module shared files",
             "author" : [
-               "Adam Kennedy <cpan@ali.as>, L<http://ali.as/>"
+               "Adam Kennedy <adamk@cpan.org>"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "Module::Install version 0.55, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "Module::Install version 1.00, CPAN::Meta::Converter version 2.112150",
             "license" : [
                "perl_5"
             ],
@@ -14541,14 +14541,23 @@
             "name" : "File-ShareDir",
             "no_index" : {
                "directory" : [
+                  "foo",
                   "inc",
-                  "t"
+                  "share",
+                  "t",
+                  "xt"
                ]
             },
             "prereqs" : {
                "build" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : 0
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "Test::More" : "0.47"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42"
                   }
                },
                "runtime" : {
@@ -14556,23 +14565,32 @@
                      "Carp" : 0,
                      "Class::Inspector" : "1.12",
                      "File::Spec" : "0.80",
-                     "Params::Util" : "0.07",
-                     "Test::More" : "0.47"
+                     "perl" : "5.005"
                   }
                }
             },
             "release_status" : "stable",
-            "version" : "0.03"
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://svn.ali.as/cpan/trunk/File-ShareDir"
+               },
+               "x_ChangeLog" : "http://fisheye2.atlassian.com/changelog/cpan/trunk/File-ShareDir"
+            },
+            "version" : "1.03",
+            "x_module_name" : "File::ShareDir"
          },
          "name" : "File::ShareDir",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/A/AD/ADAMK/File-ShareDir-0.03.tar.gz",
+         "pathname" : "A/AD/ADAMK/File-ShareDir-1.03.tar.gz",
          "provides" : {
             "File::ShareDir" : {
                "file" : "File/ShareDir.pm",
-               "version" : "0.03"
+               "version" : "1.03"
             }
          },
-         "version" : "0.03"
+         "version" : "1.03"
       },
       "File::ShareDir::Install" : {
          "dist" : "File-ShareDir-Install-0.04",
