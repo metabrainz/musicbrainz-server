@@ -40,7 +40,7 @@
             </td>
             <td>[% rdfa_release_label_list(release.labels) %]</td>
             <td>[% rdfa_release_catno_list(release.labels) %]</td>
-            <td>[% release.barcode %]</td>
+            <td>[% release.barcode.format %]</td>
             [% IF c.session.tport %]
             <td>
               [% tagger_icon(release) %]

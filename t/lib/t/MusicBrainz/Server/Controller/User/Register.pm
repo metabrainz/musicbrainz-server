@@ -14,8 +14,7 @@ my $c    = $test->c;
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
 $mech->get_ok('/register.js', 'Fetch registration page javascript');
-my $iamhuman = $mech->content;
-$iamhuman =~ s/^.*([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}).*$/$1/s;
+my ($iamhuman) = $mech->content =~ /([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/gi;
 $mech->get_ok('/register', 'Fetch registration page');
 $mech->form_number (2);
 $mech->set_fields (
@@ -29,8 +28,7 @@ $mech->submit;
 like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
 
 $mech->get_ok('/register.js', 'Fetch registration page javascript');
-$iamhuman = $mech->content;
-$iamhuman =~ s/^.*([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}).*$/$1/s;
+($iamhuman) = $mech->content =~ /([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/gi;
 $mech->get_ok('/register', 'Fetch registration page');
 $mech->form_number (2);
 $mech->set_fields (

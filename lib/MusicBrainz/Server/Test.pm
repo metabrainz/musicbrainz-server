@@ -283,6 +283,9 @@ sub old_edit_row
     };
 }
 
+use File::Basename;
+use Cwd;
+
 sub schema_validator
 {
     my $version = shift;
@@ -290,17 +293,11 @@ sub schema_validator
     $version = '1.4' if $version == 1;
     $version = '2.0' if $version == 2 or !$version;
 
-    my $rng_file = $ENV{'MMDFILE'};
+    my $mmd_home = $ENV{'MMDSCHEMA'} ||
+                   Cwd::realpath( File::Basename::dirname(__FILE__) ) . "/../../../../mmd-schema";
 
-    if (!$rng_file)
-    {
-        use File::Basename;
-        use Cwd;
+    my $rng_file = "$mmd_home/schema/musicbrainz_mmd-$version.rng";
 
-        my $base_dir = Cwd::realpath( File::Basename::dirname(__FILE__) );
-
-        $rng_file = "$base_dir/../../../../mmd-schema/schema/musicbrainz_mmd-$version.rng";
-    }
     my $rngschema;
     eval
     {
@@ -309,8 +306,8 @@ sub schema_validator
 
     if ($@)
     {
-        warn "Cannot find or parse RNG schema. Set environment var MMDFILE to point ".
-            "to the mmd-schema file or check out the mmd-schema in parallel to ".
+        warn "Cannot find or parse RNG schema. Set environment var MMDSCHEMA to point ".
+            "to the mmd-schema directory or check out the mmd-schema in parallel to ".
             "the mb_server source. No schema validation will happen.\n";
         undef $rngschema;
     }

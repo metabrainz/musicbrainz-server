@@ -84,7 +84,7 @@ sub autocomplete_release_group
             comment => $item->comment,
             artist => $item->artist_credit->name,
             type => $item->type_id,
-            $item->type && (typeName => $item->type->name)
+            $item->type ? (typeName => $item->type->name) : ()
         };
     };
 

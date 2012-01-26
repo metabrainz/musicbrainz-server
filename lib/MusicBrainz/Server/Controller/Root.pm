@@ -146,6 +146,7 @@ sub begin : Private
         wiki_server => &DBDefs::WIKITRANS_SERVER,
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
+            testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,
             is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
             read_only      => &DBDefs::DB_READ_ONLY
         },
@@ -262,6 +263,7 @@ sub end : ActionClass('RenderView')
     $c->stash->{server_details} = {
         staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
+        testing_features           => &DBDefs::DB_STAGING_TESTING_FEATURES,
         is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
         developement_server        => &DBDefs::DEVELOPMENT_SERVER
