@@ -49,7 +49,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
 );
 
 use Sub::Exporter -setup => {
-    exports => [qw( escape_query alias_query )]
+    exports => [qw( escape_query )]
 };
 
 sub search
@@ -510,19 +510,6 @@ sub escape_query
     return $str;
 }
 
-# add alias/sortname queries for entity
-sub alias_query
-{
-    my ($type, $query) = @_;
-
-    return "$type:\"$query\"^1.6 " .
-        "(+sortname:\"$query\"^1.6 -$type:\"$query\") " .
-        "(+alias:\"$query\" -$type:\"$query\" -sortname:\"$query\") " .
-        "(+($type:($query)^0.8) -$type:\"$query\" -sortname:\"$query\" -alias:\"$query\") " .
-        "(+(sortname:($query)^0.8) -$type:($query) -sortname:\"$query\" -alias:\"$query\") " .
-        "(+(alias:($query)^0.4) -$type:($query) -sortname:($query) -alias:\"$query\")";
-}
-
 sub external_search
 {
     my ($self, $type, $query, $limit, $page, $adv, $ua) = @_;
@@ -534,16 +521,6 @@ sub external_search
     if ($query eq '!!!' and $type eq 'artist')
     {
         $query = 'chkchkchk';
-    }
-
-    unless ($adv)
-    {
-        $query = escape_query($query);
-
-        if (grep { $type eq $_ } ('artist', 'label', 'work'))
-        {
-            $query = alias_query ($type, $query);
-        }
     }
 
     $query = uri_escape_utf8($query);
