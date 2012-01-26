@@ -397,7 +397,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
 
             var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.match.test(currentURL)) { continue; }
+            if(!cleanup.match.test(currentURL) || !cleanup.type.hasOwnProperty(sourceType)) { continue; }
             return cleanup.type[sourceType];
         }
         return;
