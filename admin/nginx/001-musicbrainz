@@ -1,53 +1,53 @@
 server {
-	listen	0.0.0.0:80;
-	include site-name.conf;
+    listen 0.0.0.0:80;
+    include site-name.conf;
 
-	access_log	/var/log/nginx/001-musicbrainz.access.log;
-	access_log	/var/log/nginx/001-musicbrainz.proxy.log proxylog;
-	error_log 	/var/log/nginx/001-musicbrainz.error.log notice;
+    access_log  /var/log/nginx/001-musicbrainz.access.log;
+    access_log  /var/log/nginx/001-musicbrainz.proxy.log proxylog;
+    error_log   /var/log/nginx/001-musicbrainz.error.log notice;
 
-	location /static/ {
-		root	/home/musicbrainz/musicbrainz-server/root;
-		expires	24h;
-		gzip  on;
-		gzip_http_version 1.0;
-		gzip_comp_level 6;
-		gzip_proxied any;
-		gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-		# make sure gzip does not lose large gzipped js or css files
-		# see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
-		gzip_buffers 16 8k;
+    location /static/ {
+        root	/home/musicbrainz/musicbrainz-server/root;
+        expires	24h;
+        gzip  on;
+        gzip_http_version 1.0;
+        gzip_comp_level 6;
+        gzip_proxied any;
+        gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+        # make sure gzip does not lose large gzipped js or css files
+        # see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
+        gzip_buffers 16 8k;
+    }
+
+    location ~* ^/static/.*\.js$ {
+        root	/home/musicbrainz/musicbrainz-server/root;
+        expires	max;
+        gzip  on;
+        gzip_http_version 1.0;
+        gzip_comp_level 6;
+        gzip_proxied any;
+        gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+        # make sure gzip does not lose large gzipped js or css files
+        # see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
+        gzip_buffers 16 8k;
+
+        charset utf-8;
+    }
+
+    location = /favicon.ico {
+        root /home/musicbrainz/musicbrainz-server/root;
+        expires	7d;
 	}
+    location = /robots.txt {
+        root /home/musicbrainz/musicbrainz-server/root;
+        expires	1h;
+    }
 
-	location ~* ^/static/.*\.js$ {
-		root	/home/musicbrainz/musicbrainz-server/root;
-		expires	max;
-		gzip  on;
-		gzip_http_version 1.0;
-		gzip_comp_level 6;
-		gzip_proxied any;
-		gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-		# make sure gzip does not lose large gzipped js or css files
-		# see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
-		gzip_buffers 16 8k;
-
-		charset utf-8;
-	}
-
-	location = /favicon.ico {
-		root	/home/musicbrainz/musicbrainz-server/root;
-		expires	7d;
-	}
-	location = /robots.txt {
-		root	/home/musicbrainz/musicbrainz-server/root;
-		expires	1h;
-	}
-
-	location / {
+    location / {
         set $script "";
         set $path_info $uri;
 
-		fastcgi_pass	127.0.0.1:55901;
+        fastcgi_pass	127.0.0.1:55901;
 
         fastcgi_param  SCRIPT_NAME      $script;
         fastcgi_param  PATH_INFO        $path_info;
@@ -64,14 +64,14 @@ server {
         fastcgi_param  SERVER_NAME      $server_name;
 
 
-		# In production, this might be found from X-MB-Remote-Addr, depending
-		# on if we have >1 layer of proxies
-		fastcgi_param  REMOTE_ADDR        $http_x_mb_remote_addr;
-		fastcgi_param  REMOTE_PORT        $remote_port;
-		fastcgi_param  SERVER_ADDR        $server_addr;
-		fastcgi_param  SERVER_PORT        $server_port;
-		fastcgi_param  SERVER_NAME        $server_name;
-	}
+        # In production, this might be found from X-MB-Remote-Addr, depending
+        # on if we have >1 layer of proxies
+        fastcgi_param  REMOTE_ADDR        $http_x_mb_remote_addr;
+        fastcgi_param  REMOTE_PORT        $remote_port;
+        fastcgi_param  SERVER_ADDR        $server_addr;
+        fastcgi_param  SERVER_PORT        $server_port;
+        fastcgi_param  SERVER_NAME        $server_name;
+    }
 
-	include /etc/nginx/mbserver-rewrites.conf;
+    include /etc/nginx/mbserver-rewrites.conf;
 }
