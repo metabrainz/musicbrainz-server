@@ -533,12 +533,14 @@ sub external_search
 
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=(!$adv)",
+    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=%s",
                                  DBDefs::LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
-                                 $limit,);
+                                 $limit,
+                                 $adv ? 'false' : 'true',
+                                 );
 
     if (&DBDefs::_RUNNING_TESTS)
     {
