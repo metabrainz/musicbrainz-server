@@ -31505,6 +31505,61 @@
          },
          "version" : "0.14"
       },
+      "Template::Plugin::JavaScript" : {
+         "dist" : "Template-Plugin-JavaScript-0.02",
+         "module" : "Template::Plugin::JavaScript",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "unknown"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.113640",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Template-Plugin-JavaScript",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Template" : 0,
+                     "Test::More" : "0.32"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.02"
+         },
+         "name" : "Template::Plugin::JavaScript",
+         "pathname" : "M/MI/MIYAGAWA/Template-Plugin-JavaScript-0.02.tar.gz",
+         "provides" : {
+            "Template::Plugin::JavaScript" : {
+               "file" : "Template/Plugin/JavaScript.pm",
+               "version" : "0.02"
+            }
+         },
+         "version" : "0.02"
+      },
       "Template::Timer" : {
          "dist" : "Template-Timer-1.00",
          "module" : "Template::Timer",
