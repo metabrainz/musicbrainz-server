@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
-use MusicBrainz::XML::Generator;
+use MusicBrainz::XML;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
@@ -816,8 +816,7 @@ sub output_error
 {
     my ($self, $err) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'always,even-entities', conformance => 'strict');
+    my $gen = MusicBrainz::XML->new;
 
     return '<?xml version="1.0" encoding="UTF-8"?>' .
         $gen->error($gen->text($err), $gen->text(
@@ -828,8 +827,7 @@ sub output_success
 {
     my ($self, $msg) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'always,even-entities', conformance => 'strict');
+    my $gen = MusicBrainz::XML->new();
 
     $msg ||= 'OK';
 
@@ -844,8 +842,7 @@ sub serialize
     my ($self, $type, $entity, $inc, $stash) = @_;
     $inc ||= 0;
 
-    my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'always,even-entities', conformance => 'strict');
+    my $gen = MusicBrainz::XML->new();
 
     my $method = $type . "_resource";
     $method =~ s/-/_/g;
