@@ -25,6 +25,11 @@ has 'extra' => (
     default => sub { [] },
 );
 
+has 'type' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

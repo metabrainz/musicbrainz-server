@@ -7,7 +7,7 @@ use Sql;
 use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
-use List::UtilsBy qw( partition_by );
+use List::UtilsBy qw( partition_by nsort_by );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
@@ -32,7 +32,7 @@ use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Tag;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_model placeholders );
 use feature "switch";
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -56,6 +56,8 @@ sub search
 {
     my ($self, $type, $query_str, $limit, $offset, $where) = @_;
     return ([], 0) unless $query_str && $type;
+
+    return $self->search_all ($type, $query_str, $limit, $offset, $where) if $type eq 'all';
 
     $offset ||= 0;
 
@@ -226,7 +228,147 @@ sub search
     $self->sql->finish;
 
     return (\@result, $hits);
+}
 
+sub search_all
+{
+    my ($self, $type, $query_str, $limit, $offset, $where) = @_;
+
+    # my @tables = qw( artist_name label_name release_name track_name work_name );
+    my @tables = qw( label_name work_name );
+
+    my @sql_query;
+    for my $table (@tables)
+    {
+        push @sql_query, "
+            SELECT id,name,'$table' as table,
+                ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+            FROM $table, plainto_tsquery('mb_simple', ?) AS query
+            WHERE to_tsvector('mb_simple', name) @@ query OR name = ?";
+    }
+
+    my $full_query = join (" UNION ", @sql_query)." ORDER BY rank DESC OFFSET ? LIMIT ?";
+
+    $self->sql->select($full_query, ($query_str) x (scalar @tables * 2), $offset, $limit);
+
+    my %results_per_table;
+    my $count = 0;
+    while (1)
+    {
+        my $row = $self->sql->next_row_hash_ref or last;
+
+        $row->{result_no} = $count++;
+
+        $results_per_table{$row->{table}}{$row->{id}} = $row;
+    }
+
+    $self->sql->finish;
+    my @results;
+
+    # Labels
+    # ======================================================================
+
+    my @label_ids = keys %{ $results_per_table{'label_name'} };
+    if (scalar @label_ids)
+    {
+        my $model = $self->c->model ('Label');
+        my %entities;
+
+        my $columns = "
+                entity.id,
+                entity.gid,
+                entity.comment,
+                aname.name AS name,
+                asort_name.name AS sort_name,
+                entity.type,
+                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day,
+                entity.label_code";
+        my $joins = "
+                JOIN label_name AS aname ON entity.name = aname.id
+                JOIN label_name AS asort_name ON entity.sort_name = asort_name.id";
+
+        my $query = "
+            SELECT label_alias.name AS result_key, $columns
+            FROM label_alias
+                JOIN label AS entity ON label_alias.label = entity.id
+                $joins
+                WHERE label_alias.name IN (".placeholders (@label_ids).")
+            UNION SELECT entity.name AS result_key, $columns
+            FROM label AS entity
+                $joins
+                WHERE entity.name IN (".placeholders (@label_ids).")";
+
+        $self->sql->select($query, @label_ids, @label_ids);
+        while (1) {
+            my $row = $self->sql->next_row_hash_ref or last;
+
+            next if exists $entities{$row->{id}};
+
+            $entities{$row->{id}} = 1;
+
+            my $ranking = $results_per_table{label_name}{$row->{result_key}};
+
+            push @results, 
+                MusicBrainz::Server::Entity::SearchResult->new(
+                    position => $ranking->{result_no},
+                    score => int(100 * $ranking->{rank}),
+                    entity => $self->c->model ('Label')->_new_from_row($row),
+                    type => 'Label'
+                );
+        }
+        $self->sql->finish;
+    }
+
+    # Works
+    # ======================================================================
+
+    my @work_ids = keys %{ $results_per_table{'work_name'} };
+    if (scalar @work_ids)
+    {
+        my $model = $self->c->model ('Work');
+        my %entities;
+
+        my $columns = "
+                entity.id,
+                entity.gid,
+                entity.comment,
+                aname.name AS name";
+        my $joins = "JOIN work_name AS aname ON entity.name = aname.id";
+
+        my $query = "
+            SELECT work_alias.name AS result_key, $columns
+            FROM work_alias
+                JOIN work AS entity ON work_alias.work = entity.id
+                $joins
+                WHERE work_alias.name IN (".placeholders (@work_ids).")
+            UNION SELECT entity.name AS result_key, $columns
+            FROM work AS entity
+                $joins
+                WHERE entity.name IN (".placeholders (@work_ids).")";
+
+        $self->sql->select($query, @work_ids, @work_ids);
+        while (1) {
+            my $row = $self->sql->next_row_hash_ref or last;
+
+            next if exists $entities{$row->{id}};
+
+            $entities{$row->{id}} = 1;
+
+            my $ranking = $results_per_table{work_name}{$row->{result_key}};
+
+            push @results, 
+                MusicBrainz::Server::Entity::SearchResult->new(
+                    position => $ranking->{result_no},
+                    score => int(100 * $ranking->{rank}),
+                    entity => $self->c->model ('Work')->_new_from_row($row),
+                    type => 'Work'
+                );
+        }
+        $self->sql->finish;
+    }
+
+    return ([ nsort_by { int ($_->position) } @results ], scalar @results);
 }
 
 # ---------------- External (Indexed) Search ----------------------

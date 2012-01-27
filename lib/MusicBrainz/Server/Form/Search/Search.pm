@@ -32,6 +32,7 @@ has_field 'limit' => (
 sub options_type
 {
     return [
+        'all'           => l('All'),
         'artist'        => l('Artist'),
         'release_group' => l('Release Group'),
         'release'       => l('Release'),
