@@ -36,11 +36,15 @@ server {
 
     location = /favicon.ico {
         root /home/musicbrainz/musicbrainz-server/root;
-        expires	7d;
-	}
+        expires 7d;
+    }
+
     location = /robots.txt {
         root /home/musicbrainz/musicbrainz-server/root;
-        expires	1h;
+
+        # on production, "ln -s root/robots.txt.production root/robots.txt"
+        try_files $uri $uri.staging
+        expires 1h;
     }
 
     location / {
