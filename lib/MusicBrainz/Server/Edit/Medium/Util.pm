@@ -46,11 +46,9 @@ sub tracks_to_hash
 {
     my $tracks = shift;
 
-    my $for_change_hash = 1;
-
     my $tmp = [ map +{
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit, $for_change_hash),
+        artist_credit => artist_credit_to_ref ($_->artist_credit, []),
         recording_id => $_->recording_id,
         position => $_->position,
         length => $_->length,
