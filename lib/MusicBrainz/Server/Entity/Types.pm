@@ -29,6 +29,9 @@ subtype 'AutoEditorElection'
 subtype 'AutoEditorElectionVote'
     => as class_type 'MusicBrainz::Server::Entity::AutoEditorElectionVote';
 
+subtype 'Barcode'
+    => as class_type 'MusicBrainz::Server::Entity::Barcode';
+
 subtype 'CDTOC'
     => as class_type 'MusicBrainz::Server::Entity::CDTOC';
 

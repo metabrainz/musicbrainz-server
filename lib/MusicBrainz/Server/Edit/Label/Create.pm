@@ -51,7 +51,7 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my $data = {
-        label      => $loaded->{Label}{ $self->entity_id }
+        label      => ($self->entity_id && $loaded->{Label}{ $self->entity_id })
             || Label->new( name => $self->data->{name} ),
         name       => $self->data->{name},
         sort_name  => $self->data->{sort_name},

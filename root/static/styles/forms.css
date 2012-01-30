@@ -4,6 +4,17 @@ input.mb_placeholder { color: #aaa ! important; }
 input[disabled].lookup-performed,
 input[disabled] { background: #DCDAD5; cursor: default; }
 
+button.nobutton {
+    background: inherit;
+    color: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
 div.various-artists.warning { width: 50em; }
 
 fieldset {

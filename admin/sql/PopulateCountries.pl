@@ -35,7 +35,7 @@ use MusicBrainz::Server::Context;
 use Sql;
 
 my $mb = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($mb->dbh);
+my $sql = Sql->new($mb->conn);
 
 use strict;
 

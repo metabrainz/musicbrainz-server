@@ -23,6 +23,9 @@ my $mech = $test->mech;
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);
+INSERT INTO editor (id, name, password) VALUES (15412, 'editor', 'mb');
+INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE);
+INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054);
 EOSQL
 
 ws_test 'basic release lookup',
@@ -55,6 +58,28 @@ ws_test 'basic release with tags',
         <tag-list>
           <tag count="1"><name>hello project</name></tag>
         </tag-list>
+    </release>
+</metadata>';
+
+ws_test 'basic release with collections',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=collections' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language><script>Latn</script>
+        </text-representation>
+        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <asin>B00005LA6G</asin>
+        <collection-list>
+            <collection id="f34c079d-374e-4436-9448-da92dedef3cd">
+                <name>My Collection</name>
+                <editor>editor</editor>
+                <release-list count="1"/>
+            </collection>
+        </collection-list>
     </release>
 </metadata>';
 

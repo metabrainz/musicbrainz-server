@@ -41,7 +41,8 @@ sub _load
     $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->cdstub);
     $cdstubtoc->update_track_lengths;
 
-    $c->stash->{show_artists} = $cdstubtoc->cdstub->artist eq '';
+    $c->stash->{show_artists} = !defined($cdstubtoc->cdstub->artist) ||
+                                $cdstubtoc->cdstub->artist eq '';
     $c->stash->{cdstub} = $cdstubtoc;
 }
 

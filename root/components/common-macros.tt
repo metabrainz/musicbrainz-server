@@ -41,6 +41,7 @@ two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
 END; -%]
+
 [%- MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
@@ -59,6 +60,12 @@ END; -%]
     [%- FOREACH item IN items -%]
         [%- item -%]
         [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? ", " : "" -%]
+    [%- END -%]
+[%- END -%]
+[%- MACRO comma_only_list(items) BLOCK -%]
+    [%- FOREACH item IN items -%]
+        [%- item -%]
+        [%- !loop.last ? ", " : "" -%]
     [%- END -%]
 [%- END -%]
 [%- MACRO form_id(field)

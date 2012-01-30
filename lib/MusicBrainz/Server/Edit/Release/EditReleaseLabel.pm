@@ -144,8 +144,10 @@ sub accept
     my $self = shift;
 
     my %args;
-    $args{label_id} = $self->data->{new}{label}{id}
-        if $self->data->{new}{label};
+    if (exists $self->data->{new}{label})
+    {
+        $args{label_id} = $self->data->{new}{label} ? $self->data->{new}{label}{id} : undef;
+    }
 
     $args{catalog_number} = $self->data->{new}{catalog_number}
         if exists $self->data->{new}{catalog_number};

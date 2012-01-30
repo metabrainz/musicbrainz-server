@@ -67,7 +67,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 13 }
+sub DB_SCHEMA_SEQUENCE { 14 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -86,10 +86,11 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # HTTP Server Names
 ################################################################################
 
-# The host names of the HTML / RDF parts of the server
+# The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
-sub WEB_SERVER         { "www.musicbrainz.example.com" }
-sub LUCENE_SERVER    { "search.musicbrainz.org" }
+sub WEB_SERVER                { "www.musicbrainz.example.com" }
+sub LUCENE_SERVER             { "search.musicbrainz.org" }
+sub WEB_SERVER_USED_IN_EMAIL  { WEB_SERVER }
 
 ################################################################################
 # Mail Settings
@@ -124,6 +125,10 @@ sub DB_STAGING_SERVER_DESCRIPTION { "" }
 # e.g. http://test.musicbrainz.org.
 sub DB_STAGING_SERVER_SANITIZED { 1 }
 
+# Testing features enable "Accept edit" and "Reject edit" links on edits,
+# this should only be enabled on staging servers.
+sub DB_STAGING_TESTING_FEATURES { DB_STAGING_SERVER }
+
 ################################################################################
 # Documentation Server Settings
 ################################################################################
@@ -141,6 +146,14 @@ sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 # Cache Settings
 ################################################################################
 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# close configuration is not required
+sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
+
+# MEMCACHED_NAMESPACE allows configuration of a global memcached namespace, if
+# more close configuration is not required
+sub MEMCACHED_NAMESPACE { return 'MB:'; };
+
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
 # in the webservice (Catalyst::Authentication::Credential::HTTP).
@@ -155,7 +168,8 @@ sub PLUGIN_CACHE_OPTIONS {
     return {
 #        class => "Cache::Memory",
         class => "Cache::Memcached::Fast",
-        servers => ['127.0.0.1:11211'],
+        servers => MEMCACHED_SERVERS(),
+        namespace => MEMCACHED_NAMESPACE(),
     };
 };
 
@@ -178,7 +192,8 @@ our %CACHE_MANAGER_OPTIONS = (
         external => {
             class => 'Cache::Memcached::Fast',
             options => {
-                servers => [ '127.0.0.1:11211' ],
+                servers => MEMCACHED_SERVERS(),
+                namespace => MEMCACHED_NAMESPACE()
             },
         },
     },
@@ -316,7 +331,7 @@ sub SESSION_STORE_ARGS
 # seperately from the regular session store.
 sub WIZARD_MEMCACHED
 {
-    return { servers => [ "127.0.0.1:11211" ] };
+    return { servers => MEMCACHED_SERVERS(), namespace => MEMCACHED_NAMESPACE() };
 }
 
 sub USE_ETAGS { 1 }

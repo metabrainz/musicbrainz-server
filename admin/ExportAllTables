@@ -452,7 +452,7 @@ use Sql;
 
 # Log in to the main DB
 my $c = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
 my $dbh = $c->dbh;
 
 @tables = @tablelist if @tablelist;

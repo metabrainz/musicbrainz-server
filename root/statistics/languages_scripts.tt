@@ -3,10 +3,10 @@
     <td>[% loop.count() %].</td>
     [% IF type == 'lang' %]
     <td>[% l(entity.entity.name) || l('Unknown language') %]</td>
-    <td>[%- add_commas(lang_script_search_link(type, entity.entity.iso_code_3t, entity.count)) -%]</td>
+    <td>[%- lang_script_search_link(type, entity.entity.iso_code_3t, add_commas(entity.count)) -%]</td>
     [% ELSIF type == 'script' %]
     <td>[% l(entity.entity.name) || l('Unknown script') %]</td>
-    <td>[%- add_commas(lang_script_search_link(type, entity.entity.iso_code, entity.count)) -%]</td>
+    <td>[%- lang_script_search_link(type, entity.entity.iso_code, add_commas(entity.count)) -%]</td>
     [% END %]
 </tr>
 [%- END -%]
@@ -19,9 +19,10 @@
 [% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
+<p>[%- l('All other available languages and scripts have 0 releases.') -%]</p>
 
-<h2 id="languages">[%- l('Languages') -%]</h2>
-<p><a href="#scripts">[%- l('Jump to script statistics') -%]</a></p>
+<div style="float:left; display:inline-block; margin-right: 50px;">
+<h2>[%- l('Languages') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>
@@ -32,13 +33,15 @@
 </thead>
 <tbody>
 [%- FOREACH language IN language_stats -%]
+[% NEXT IF language.count == 0 %]
 [%- entry(language, 'lang') -%]
 [%- END -%]
 </tbody>
 </table>
+</div>
 
-<h2 id="scripts">[%- l('Scripts') -%]</h2>
-<p><a href="#languages">[%- l('Jump to language statistics') -%]</a></p>
+<div style="float:left; display:inline-block;">
+<h2>[%- l('Scripts') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>
@@ -49,8 +52,10 @@
 </thead>
 <tbody>
 [%- FOREACH script IN script_stats -%]
+[% NEXT IF script.count == 0 %]
 [%- entry(script, 'script') -%]
 [%- END -%]
 </tbody>
 </table>
+</div>
 [% END %]

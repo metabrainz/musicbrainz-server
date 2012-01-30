@@ -97,7 +97,7 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
-        a.append ('<br /><span class="autocomplete-comment">by ' +
+        a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);

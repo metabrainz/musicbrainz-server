@@ -77,7 +77,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$name.attr ('href', '/recording/' + data.gid);
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
-        self.$length.text (MB.utility.formatTrackLength (data.length));
+        self.$length.text (data.length);
         self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
 
         self.$container.find ('tr.clientmatch').show ();
@@ -133,6 +133,7 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
     self.$use_suggested = self.$container.find ('button.use-suggested');
     self.$search_recording = self.$container.find ('button.search-recording');
     self.$add_new = self.$container.find ('button.add-new');
+    self.$update_recording = self.$row.next().next();
 
     self.change = function (event, $row) {
         if (! $row)
@@ -145,10 +146,17 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
             self.$gid.val ('new');
             self.$add_recording.show ();
             self.$use_recording.hide ();
+            self.$update_recording.find('span').hide();
         }
         else
         {
             $row.find ('td.recording a').clone ().appendTo (self.$link.empty ());
+            self.$link.append(
+                MB.html.span(
+                    {},
+                    ' (' + $row.find ('td.length').text() + ')'
+                )
+            );
             var comment = $row.nextAll ('.comment:eq(0)').find ('td span.comment').text ();
 
             if (comment !== '')
@@ -161,6 +169,8 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
 
             self.$use_recording.show ();
             self.$add_recording.hide ();
+
+            self.$update_recording.find('span').show();
         }
     };
 
@@ -269,6 +279,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
         /* track. */
         $track.find ('.position').text (idx + 1);
         $track.find ('.name').text (data.name);
+        $track.find ('.length').text('(' + MB.utility.formatTrackLength(data.length) + ')');
         $track.find ('.track-artist').text (data.artist_credit.preview);
 
         $bubble.find ('tr.servermatch.recordingmatch').show ();
@@ -277,7 +288,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
         $bubble.find ('tr.servermatch input.gid').val (data.recording.gid);
         $bubble.find ('tr.servermatch td.artist').text (data.recording.artist_credit.preview);
-        $bubble.find ('tr.servermatch td.length').text (data.length);
+        $bubble.find ('tr.servermatch td.length').text (MB.utility.formatTrackLength(data.recording.length));
 
         if (data.recording.comment)
         {

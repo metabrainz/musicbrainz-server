@@ -1,7 +1,7 @@
 [%- BLOCK layout_head -%]
 <script type="text/javascript">//<![CDATA[
 $(document).ready(function() {
-    MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}}, sortList: [[5,1]] }
+    MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}, 2: { sorter: 'fancyNumber' } , 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }, 5: { sorter: 'fancyNumber' }}, sortList: [[5,1]] }
     MB.Control.Tablesorter();
 });
 //]]></script>

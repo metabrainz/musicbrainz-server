@@ -73,7 +73,7 @@ my $sqldir = "$FindBin::Bin/sql";
 sub GetPostgreSQLVersion
 {
     my $mb = Databases->get_connection('READWRITE');
-    my $sql = Sql->new( $mb->dbh );
+    my $sql = Sql->new( $mb->conn );
 
     my $version = $sql->select_single_value ("SELECT version();");
     $version =~ s/PostgreSQL ([0-9\.]*) .*/$1/;
@@ -87,13 +87,13 @@ sub RunSQLScript
     $startmessage ||= "Running $file";
     print localtime() . " : $startmessage ($file)\n";
 
-    $path ||= $sqldir;   
+    $path //= $sqldir;
 
     my $opts = $db->shell_args;
     my $echo = ($fEcho ? "-e" : "");
     my $stdout = ($fQuiet ? ">/dev/null" : "");
 
-    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema;
+    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema . ",public";
     $ENV{"PGPASSWORD"} = $db->password;
     print "$psql $echo -f $path/$file $opts 2>&1 $stdout |\n";
     open(PIPE, "$psql $echo -f $path/$file $opts 2>&1 $stdout |")
@@ -105,6 +105,13 @@ sub RunSQLScript
     close PIPE;
 
     die "Error during $file" if ($? >> 8);
+}
+
+sub HasPLPerlSupport
+{
+    my $mb = Databases->get_connection('READWRITE');
+    my $sql = Sql->new( $mb->conn );
+    return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
 }
 
 sub InstallExtension
@@ -120,24 +127,14 @@ sub InstallExtension
 
     chomp($sharedir);
 
-    open(SCRIPT, "$sharedir/contrib/$ext") or die "Cannot open $sharedir/contrib/$ext";
-    local $/;
-    my $sql = <SCRIPT>;
-    close(SCRIPT);
-    $sql =~ s/search_path = public/search_path = $schema/;
-    open(SCRIPT, ">/tmp/ext.$$.sql") or die;
-    print SCRIPT $sql;
-    close(SCRIPT);
-
-    RunSQLScript($db, "ext.$$.sql", "Installing $ext extension ...", "/tmp");
-    unlink("/tmp/ext.$$.sql");
+    RunSQLScript($db, "$sharedir/contrib/$ext", "Installing $ext extension ...", "");
 }
 
 sub CreateReplicationFunction
 {
     # Now connect to that database
     my $mb = Databases->get_connection('SYSMB');
-    my $sql = Sql->new( $mb->dbh );
+    my $sql = Sql->new( $mb->conn );
 
     $sql->auto_commit;
     $sql->do(
@@ -154,7 +151,7 @@ sub CreateReplicationFunction
     {
         my ($name) = shift;
         $mb = Databases->get_connection($name);
-        $sql = Sql->new($mb->dbh);
+        $sql = Sql->new($mb->conn);
     }
 }
 
@@ -220,9 +217,9 @@ sub Create
     my $sys_in_thisdb = $sys_db->meta->clone_object($sys_db, database => $dbname);
     my @opts = $sys_in_thisdb->shell_args;
     splice(@opts, -1, 0, "-d");
-    push @opts, "plpgsql";
     $ENV{"PGPASSWORD"} = $sys_db->password;
-    system "createlang", @opts;
+    system "createlang", @opts, "plpgsql";
+    system "createlang", @opts, "plperlu" if HasPLPerlSupport();
     print "\nFailed to create language -- its likely to be already installed, continuing.\n" if ($? >> 8);
 }
 
@@ -265,6 +262,9 @@ sub CreateRelations
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
 
+    RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
+        if HasPLPerlSupport();
+
     RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
@@ -304,7 +304,7 @@ sub GrantSelect
 
     my $mb = Databases->get_connection($name);
     my $dbh = $mb->dbh;
-    my $sql = Sql->new( $dbh );
+    my $sql = Sql->new( $mb->conn );
     $sql->auto_commit;
 
     my $username = $READONLY->username;

@@ -71,7 +71,7 @@ $fHelp and usage();
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
 my $c = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
 
 for my $arg (@ARGV)
 {
@@ -141,7 +141,7 @@ sub ImportTable
 
         $sql->begin;
         $sql->do("COPY $table FROM stdin");
-        my $dbh = $sql->{dbh};
+        my $dbh = $sql->dbh;
 
         $p->("", "");
 

@@ -50,7 +50,6 @@ test all => sub {
     no warnings 'redefine';
     use DBDefs;
     *DBDefs::_RUNNING_TESTS = sub { 1 };
-    *DBDefs::WEB_SERVER = sub { "localhost" };
 }
 
 my $test = shift;
@@ -77,20 +76,22 @@ my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is(scalar @{ $email_transport->deliveries }, 1);
 
 my $email = $email_transport->deliveries->[-1]->{email};
-is($email->get_header('Subject'), 'Someone has voted against your edit #2');
-is($email->get_header('References'), sprintf '<edit-%d@musicbrainz.org>', $edit->id);
-is($email->get_header('To'), '"editor1" <editor1@example.com>');
-like($email->get_body, qr{http://localhost/edit/${\ $edit->id }});
-like($email->get_body, qr{'editor2'});
+is($email->get_header('Subject'), 'Someone has voted against your edit #2', 'Subject explains someone has voted against your edit');
+is($email->get_header('References'), sprintf '<edit-%d@musicbrainz.org>', $edit->id, 'References header contains edit id');
+is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
+
+my $server = DBDefs::WEB_SERVER_USED_IN_EMAIL;
+like($email->get_body, qr{http://$server/edit/${\ $edit->id }}, 'body contains link to edit');
+like($email->get_body, qr{'editor2'}, 'body mentions editor2');
 
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
 
 is(scalar @{ $edit->votes }, 4);
-is($edit->votes->[0]->vote, $VOTE_NO);
-is($edit->votes->[1]->vote, $VOTE_YES);
-is($edit->votes->[2]->vote, $VOTE_ABSTAIN);
-is($edit->votes->[3]->vote, $VOTE_YES);
+is($edit->votes->[0]->vote, $VOTE_NO, 'no vote saved correctly');
+is($edit->votes->[1]->vote, $VOTE_YES, 'yes vote saved correctly');
+is($edit->votes->[2]->vote, $VOTE_ABSTAIN, 'abstain vote saved correctly');
+is($edit->votes->[3]->vote, $VOTE_YES, 'yes vote saved correctly');
 
 is($edit->votes->[$_]->superseded, 1) for 0..2;
 is($edit->votes->[3]->superseded, 0);

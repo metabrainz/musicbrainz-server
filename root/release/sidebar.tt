@@ -16,7 +16,7 @@
            content=release.country.name IF release.country.name;
 
         INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:')
-           content=release.barcode property='mo:tgin' datatype='xsd:string' IF release.barcode;
+           content=release.barcode.format property='mo:tgin' datatype='xsd:string' IF release.barcode.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Format:')
            content=release.combined_format_name IF release.combined_format_name;
     END %]
