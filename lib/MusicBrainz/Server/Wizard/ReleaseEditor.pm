@@ -599,9 +599,11 @@ sub prepare_tracklist
     my $mediums = $self->get_value ('tracklist', 'mediums') // [];
     if (scalar @$mediums == 0)
     {
-        # This shouldn't happen, but it does.  "Add Disc" buttons use
-        # an existing disc as a template, so we need to make sure there is
-        # atleast one disc.
+        # Releases should always have one medium, but the current
+        # edit-system cannot guarantee that.  See MBS-1929.
+        #
+        # "Add Disc" buttons use an existing disc as a template, so we
+        # need to make sure there is atleast one disc.
         $self->set_value (
             'tracklist', 'mediums', [
                 {
