@@ -101,7 +101,13 @@ sub artist_credit_to_ref
                 id => $ac->artist->id,
             }
         );
-        $ac_name{artist}->{gid} = $ac->artist->gid if !$for_change_hash;
+
+        if (!$for_change_hash)
+        {
+            $ac_name{artist}->{gid} = $ac->artist->gid;
+            $ac_name{artist}->{sortname} = $ac->artist->sort_name;
+            $ac_name{artist}->{comment} = $ac->artist->comment;
+        }
 
         push @{ $ret{names} }, \%ac_name;
     }
