@@ -540,7 +540,10 @@ MB.TrackParser.Parser = function (disc, serialized) {
             if (!self.trackTimes ())
             {
                 var copy = original (data.position - 1);
-                data.length = copy.length;
+                if (copy)
+                {
+                    data.length = copy.length;
+                }
             }
 
             self.disc.getTrack (data.row).render (data);
