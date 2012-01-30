@@ -95,12 +95,15 @@ sub initialize {
     my ($self, %opts) = @_;
     my $old_ac = delete $opts{to_edit} or die 'Missing old artist credit object';
 
+    my $for_change_hash = 1;
+
     my $data = {
         new => {
             artist_credit => clean_submitted_artist_credits($opts{artist_credit})
         },
         old => {
-            artist_credit => clean_submitted_artist_credits(artist_credit_to_ref($old_ac))
+            artist_credit => clean_submitted_artist_credits(
+                artist_credit_to_ref($old_ac, $for_change_hash))
         }
     };
 

@@ -110,8 +110,10 @@ sub initialize {
         $self->c->model('ArtistCredit')->load($release);
     }
 
+    my $for_change_hash = 1;
     my $new = clean_submitted_artist_credits ($opts{artist_credit});
-    my $old = clean_submitted_artist_credits (artist_credit_to_ref($release->artist_credit));
+    my $old = clean_submitted_artist_credits (
+        artist_credit_to_ref($release->artist_credit, $for_change_hash));
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
         if Compare ($old, $new);
@@ -152,6 +154,9 @@ sub accept {
             artist_credit =>$new_ac_id
         });
 
+
+    my $for_change_hash = 1;
+
     if ($self->data->{update_tracklists}) {
         $self->c->model('Medium')->load_for_releases($release);
         $self->c->model('Track')->load_for_tracklists(
@@ -168,7 +173,7 @@ sub accept {
                             position => $_->position,
                             name => $_->name,
                             artist_credit => $_->artist_credit_id != $old_ac_id
-                                ? artist_credit_to_ref($_->artist_credit)
+                                ? artist_credit_to_ref($_->artist_credit, $for_change_hash)
                                 : $self->data->{new_artist_credit},
                             recording_id => $_->recording_id,
                             length => $_->length
