@@ -337,8 +337,8 @@ sub entity : Chained('root') PathPart('entity') Args(1)
     $jsent->_load_entities($c, $entity);
 
     my $item = ($jsent->_format_output($c, $entity))[0];
-    my $entity_routine = $jsent->entity_routine;
-    my $data = $c->stash->{serializer}->$entity_routine($item);
+    my $serialization_routine = $jsent->serialization_routine;
+    my $data = $c->stash->{serializer}->$serialization_routine($item);
     $data->{'type'} = $self->entities->{$type};
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

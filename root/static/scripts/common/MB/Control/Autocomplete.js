@@ -389,7 +389,18 @@ MB.Control.Autocomplete = function (options) {
 
         var entity_regex = /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/;
 
-        // This needs to run before the autocomplete handler
+        /* The keydown event for $input is also handled by the jQuery
+           autocomplete plugin. This needs to run before that. Entering
+           an MBID into the field would otherwise cause it to search for
+           that string, and show a menu with 0 results each time. The
+           handler below stops all input from propagating to the
+           autocomplete handler until it's verified an MBID wasn't
+           entered, at which point it triggers the autocomplete handler
+           manually.
+
+           Key codes that are only used to interact with the UI are
+           allowed to propagate.
+         */
         self.$input.bind ('keydown.mb', function (event) {
             var keyCode = $.ui.keyCode;
             switch (event.keyCode) {

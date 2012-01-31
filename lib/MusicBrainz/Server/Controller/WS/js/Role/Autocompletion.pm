@@ -10,7 +10,7 @@ use Text::Unaccent qw( unac_string_utf16 );
 
 requires 'type';
 
-sub serialization_routine { 'autocomplete_generic' }
+sub serialization_routine { '_generic' }
 
 sub model {
     my ($self, $c) = @_;
@@ -32,9 +32,10 @@ sub dispatch_search {
     my ($output, $pager) =
         $direct eq 'true' ? $self->_direct_search($c, $query, $page, $limit)
                           : $self->_indexed_search($c, $query, $page, $limit);
+    my $serialization_routine = 'autocomplete' . $self->serialization_routine;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize($self->serialization_routine, $output, $pager));
+    $c->res->body($c->stash->{serializer}->serialize($serialization_routine, $output, $pager));
 }
 
 sub _load_entities { }

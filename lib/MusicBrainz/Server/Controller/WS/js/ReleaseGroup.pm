@@ -21,9 +21,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'release_group' }
 
-sub serialization_routine { 'autocomplete_release_group' }
-
-sub entity_routine { '_release_group' }
+sub serialization_routine { '_release_group' }
 
 sub search : Chained('root') PathPart('release-group')
 {

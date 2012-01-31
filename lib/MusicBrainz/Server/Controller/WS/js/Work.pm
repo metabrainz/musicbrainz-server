@@ -21,9 +21,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'work' }
 
-sub serialization_routine { 'autocomplete_work' }
-
-sub entity_routine { '_work' }
+sub serialization_routine { '_work' }
 
 sub search : Chained('root') PathPart('work')
 {
