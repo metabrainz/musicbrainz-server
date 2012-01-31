@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-25 11:34-0500\n"
+"POT-Creation-Date: 2012-01-31 17:16-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,9 +58,19 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:217
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
 #: ../root/freedb/show.tt:62 ../root/recording/index.tt:9
-#: ../root/release/edit/tracklist.tt:252 ../root/release/edit/tracklist.tt:405
+#: ../root/release/edit/tracklist.tt:264 ../root/release/edit/tracklist.tt:417
 #, perl-format
 msgid "#"
+msgstr ""
+
+#: ../root/statistics/formats.tt:31
+#, perl-format
+msgid "% of total mediums"
+msgstr ""
+
+#: ../root/statistics/formats.tt:29
+#, perl-format
+msgid "% of total releases"
 msgstr ""
 
 #: ../root/doc/edit_type.tt:67
@@ -86,6 +96,11 @@ msgstr ""
 #: ../root/main/400.tt:12 ../root/main/500.tt:12
 #, perl-format
 msgid "(No details about this error are available)"
+msgstr ""
+
+#: ../root/statistics/formats.tt:37
+#, perl-format
+msgid "(Totals)"
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:205
@@ -141,7 +156,7 @@ msgstr ""
 #: ../root/edit/details/add_relationship_type.tt:9
 #: ../root/edit/details/historic/add_release_annotation.tt:21
 #: ../root/layout/sidebar/sidebar-tags.tt:26
-#: ../root/scripts/text_strings.tt:22 ../root/user/profile.tt:35
+#: ../root/scripts/text_strings.tt:23 ../root/user/profile.tt:35
 #: ../root/user/profile.tt:73 ../root/user/profile.tt:94
 #, perl-format
 msgid "(none)"
@@ -161,7 +176,7 @@ msgstr ""
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../root/release_group/index.tt:33
-#: ../lib/MusicBrainz/Server/Entity/Release.pm:166
+#: ../lib/MusicBrainz/Server/Entity/Release.pm:179
 #, perl-format
 msgid "(unknown)"
 msgstr ""
@@ -193,9 +208,9 @@ msgid ""
 "requested and the matches we found."
 msgstr ""
 
-#: ../root/statistics/view_js.tt:22
+#: ../root/statistics/view_js.tt:23
 #, perl-format
-msgid "/week"
+msgid "/day"
 msgstr ""
 
 #: ../root/user/profile.tt:81
@@ -284,7 +299,8 @@ msgid ""
 "granularity, you may want to {uri|search the database} instead."
 msgstr ""
 
-#: ../root/components/common-macros.tt:574
+#: ../root/components/common-macros.tt:580
+#: ../root/release/edit/tracklist.tt:143
 #, perl-format
 msgid "<strong>Error</strong>:"
 msgstr ""
@@ -308,7 +324,7 @@ msgid ""
 "updating a page!"
 msgstr ""
 
-#: ../root/components/common-macros.tt:587
+#: ../root/components/common-macros.tt:593
 #, perl-format
 msgid "<strong>Note</strong>:"
 msgstr ""
@@ -328,18 +344,18 @@ msgid ""
 "people and machines to have meaningful conversations about music."
 msgstr ""
 
-#: ../root/components/common-macros.tt:581 ../root/recording/edit.tt:41
-#: ../root/release/edit/tracklist.tt:128
+#: ../root/components/common-macros.tt:587 ../root/recording/edit.tt:41
+#: ../root/release/edit/tracklist.tt:130
 #, perl-format
 msgid "<strong>Warning</strong>:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:48
+#: ../root/scripts/text_strings.tt:49
 #, perl-format
 msgid "<strong>Warning</strong>: #{disc} has a discid, you cannot add tracks"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:49
+#: ../root/scripts/text_strings.tt:50
 #, perl-format
 msgid ""
 "<strong>Warning</strong>: #{disc} has a discid, you cannot remove tracks"
@@ -356,6 +372,14 @@ msgid ""
 "A CD Stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point as a new "
 "MusicBrainz release"
+msgstr ""
+
+#: DB:link_attribute_type/description:600
+#, perl-format
+msgid ""
+"A barrel organ is a mechanical musical instrument typically operated by a "
+"person turning a crank which turns a barrel which has music encoded onto it. "
+"(<a href=\"http://en.wikipedia.org/wiki/Barrel_organ\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:549
@@ -501,12 +525,12 @@ msgstr ""
 msgid "Abstain"
 msgstr ""
 
-#: ../root/statistics/index.tt:531
+#: ../root/statistics/index.tt:537
 #, perl-format
 msgid "Abstain:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:66
+#: ../root/statistics/view_js.tt:68
 #, perl-format
 msgid "Abstentions"
 msgstr ""
@@ -521,7 +545,7 @@ msgstr ""
 msgid "Accept edit"
 msgstr ""
 
-#: ../root/components/common-macros.tt:458
+#: ../root/components/common-macros.tt:464
 #, perl-format
 msgid "Accept upon expiration"
 msgstr ""
@@ -561,17 +585,17 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:69
+#: ../root/statistics/view_js.tt:71
 #, perl-format
 msgid "Active Editors"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:71
+#: ../root/statistics/view_js.tt:73
 #, perl-format
 msgid "Active Users"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:70
+#: ../root/statistics/view_js.tt:72
 #, perl-format
 msgid "Active Voters"
 msgstr ""
@@ -596,7 +620,7 @@ msgid "Add Artist Alias"
 msgstr ""
 
 #: ../root/components/forms.tt:243 ../root/components/forms.tt:247
-#: ../root/release/edit/tracklist.tt:82 ../root/release/edit/tracklist.tt:87
+#: ../root/release/edit/tracklist.tt:84 ../root/release/edit/tracklist.tt:89
 #, perl-format
 msgid "Add Artist Credit"
 msgstr ""
@@ -606,7 +630,7 @@ msgstr ""
 msgid "Add CD Stub"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:280 ../root/release/edit/tracklist.tt:464
+#: ../root/release/edit/tracklist.tt:292 ../root/release/edit/tracklist.tt:476
 #, perl-format
 msgid "Add Disc"
 msgstr ""
@@ -742,17 +766,17 @@ msgstr ""
 msgid "Add annotation"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:41
+#: ../root/scripts/text_strings.tt:42
 #, perl-format
 msgid "Add another"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:47
+#: ../root/scripts/text_strings.tt:48
 #, perl-format
 msgid "Add another medium"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:46
+#: ../root/scripts/text_strings.tt:47
 #, perl-format
 msgid "Add another track"
 msgstr ""
@@ -852,7 +876,7 @@ msgstr ""
 msgid "Add to {collection}"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:425
+#: ../root/release/edit/tracklist.tt:437
 #, perl-format
 msgid "Add track(s)"
 msgstr ""
@@ -869,7 +893,7 @@ msgstr ""
 msgid "Add work alias"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:422
+#: ../root/release/edit/tracklist.tt:434
 #, perl-format
 msgid "Add {num} track(s)"
 msgstr ""
@@ -929,13 +953,17 @@ msgstr ""
 msgid "Administration flags"
 msgstr ""
 
-#: ../root/statistics/index.tt:556
+#: ../root/statistics/index.tt:562
 #, perl-format
 msgid "Advanced Relationships"
 msgstr ""
 
 #: DB:language/name:6
 msgid "Adyghe"
+msgstr ""
+
+#: DB:script/name:133
+msgid "Afaka"
 msgstr ""
 
 #: DB:language/name:1
@@ -960,7 +988,7 @@ msgid "Afrikaans"
 msgstr ""
 
 #: DB:language/name:7
-msgid "Afro-Asiatic (Other)"
+msgid "Afro-Asiatic languages"
 msgstr ""
 
 #: DB:language/name:473
@@ -1054,29 +1082,34 @@ msgstr ""
 msgid "All Relationship Types"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:53
+#: ../root/statistics/view_js.tt:55
 #, perl-format
 msgid "All edits that have been applied"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:57
+#: ../root/statistics/view_js.tt:59
 #, perl-format
 msgid "All edits that have failed by being voted down"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:55
+#: ../root/statistics/view_js.tt:57
 #, perl-format
 msgid "All edits that have failed dependency checks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:56
+#: ../root/statistics/view_js.tt:58
 #, perl-format
 msgid "All edits that have failed prerequisite checks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:54
+#: ../root/statistics/view_js.tt:56
 #, perl-format
 msgid "All edits that have hit an error"
+msgstr ""
+
+#: ../root/statistics/languages_scripts.tt:22
+#, perl-format
+msgid "All other available languages and scripts have 0 releases."
 msgstr ""
 
 #: DB:link_type/link_phrase:283 DB:link_type/link_phrase:284
@@ -1111,7 +1144,7 @@ msgstr ""
 msgid "Allow other users to see this collection"
 msgstr ""
 
-#: ../root/components/common-macros.tt:502
+#: ../root/components/common-macros.tt:508
 #, perl-format
 msgid "Already expired"
 msgstr ""
@@ -1134,10 +1167,10 @@ msgid "Also update the recording with track changes"
 msgstr ""
 
 #: DB:language/name:434
-msgid "Altaic (Other)"
+msgid "Altaic languages"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:168
+#: ../root/release/edit/tracklist.tt:180
 #, perl-format
 msgid "Alternatively, enter a tracklist below:"
 msgstr ""
@@ -1231,7 +1264,7 @@ msgstr ""
 msgid "An error occured while loading this edit"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:115
+#: ../root/release/edit/tracklist.tt:117
 #, perl-format
 msgid "An error occured: "
 msgstr ""
@@ -1343,12 +1376,12 @@ msgstr ""
 msgid "Append mediums to target release"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:53
+#: ../root/statistics/view_js.tt:55
 #, perl-format
 msgid "Applied edits"
 msgstr ""
 
-#: ../root/statistics/index.tt:447
+#: ../root/statistics/index.tt:459
 #, perl-format
 msgid "Applied:"
 msgstr ""
@@ -1541,11 +1574,11 @@ msgid "Aromanian"
 msgstr ""
 
 #: ../root/artist/edits.tt:18 ../root/artist/header.tt:20
-#: ../root/artist/index.tt:42 ../root/artist/recordings-list.tt:24
+#: ../root/artist/index.tt:64 ../root/artist/recordings-list.tt:24
 #: ../root/artist/relationships.tt:16 ../root/cdstub/browse.tt:10
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:7
 #: ../root/cdtoc/lookup.tt:38 ../root/collection/index.tt:11
-#: ../root/components/common-macros.tt:417
+#: ../root/components/common-macros.tt:423
 #: ../root/components/results-generic.tt:6
 #: ../root/edit/details/add_medium.tt:35
 #: ../root/edit/details/change_track_artist.tt:8
@@ -1554,8 +1587,8 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:51
 #: ../root/edit/search_macros.tt:278 ../root/freedb/show.tt:64
 #: ../root/isrc/index.tt:17 ../root/otherlookup/results-release.tt:8
-#: ../root/puid/index.tt:11 ../root/release/edit/tracklist.tt:254
-#: ../root/release/edit/tracklist.tt:409
+#: ../root/puid/index.tt:11 ../root/release/edit/tracklist.tt:266
+#: ../root/release/edit/tracklist.tt:421
 #: ../root/release_group/releases-list.tt:18 ../root/release/index.tt:18
 #: ../root/release/lookup.tt:10 ../root/report/artist_list.tt:5
 #: ../root/report/bad_amazon_urls.tt:15
@@ -1569,7 +1602,7 @@ msgstr ""
 #: ../root/report/superfluous_data_tracks.tt:18
 #: ../root/report/tracks_named_with_sequence.tt:18
 #: ../root/report/tracks_with_sequence_issues.tt:18
-#: ../root/scripts/text_strings.tt:23
+#: ../root/scripts/text_strings.tt:24
 #: ../root/search/lib/inline-results-recording.tt:9
 #: ../root/search/lib/inline-results-release.tt:10
 #: ../root/search/results-cdstub.tt:11 ../root/search/results-freedb.tt:11
@@ -1582,7 +1615,7 @@ msgstr ""
 msgid "Artist"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:26
+#: ../root/statistics/view_js.tt:27
 #, perl-format
 msgid "Artist Countries"
 msgstr ""
@@ -1598,7 +1631,7 @@ msgid "Artist Credit:"
 msgstr ""
 
 #: ../root/artist/aliases.tt:8 ../root/artist/edit_form.tt:58
-#: ../root/edit/details/add_medium.tt:29 ../root/statistics/view_js.tt:102
+#: ../root/edit/details/add_medium.tt:29 ../root/statistics/view_js.tt:114
 #, perl-format
 msgid "Artist Credits"
 msgstr ""
@@ -1613,7 +1646,7 @@ msgstr ""
 msgid "Artist IPI:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:112
+#: ../root/statistics/view_js.tt:124
 #, perl-format
 msgid "Artist IPIs"
 msgstr ""
@@ -1623,12 +1656,12 @@ msgstr ""
 msgid "Artist Not Found"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:143
+#: ../root/statistics/view_js.tt:155
 #, perl-format
 msgid "Artist Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:149
+#: ../root/statistics/view_js.tt:161
 #, perl-format
 msgid "Artist Ratings (raw)"
 msgstr ""
@@ -1638,12 +1671,12 @@ msgstr ""
 msgid "Artist Subscriptions"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:169
 #, perl-format
 msgid "Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/index.tt:113 ../root/statistics/view_js.tt:31
+#: ../root/statistics/view_js.tt:32
 #, perl-format
 msgid "Artist Types and Genders"
 msgstr ""
@@ -1688,44 +1721,44 @@ msgstr ""
 msgid "Artist {n}:"
 msgstr ""
 
-#: ../root/statistics/index.tt:565
+#: ../root/statistics/index.tt:571
 #, perl-format
 msgid "Artist-Artist:"
 msgstr ""
 
-#: ../root/statistics/index.tt:571
+#: ../root/statistics/index.tt:577
 #, perl-format
 msgid "Artist-Label:"
 msgstr ""
 
-#: ../root/statistics/index.tt:577
+#: ../root/statistics/index.tt:583
 #, perl-format
 msgid "Artist-Recording:"
 msgstr ""
 
-#: ../root/statistics/index.tt:589
+#: ../root/statistics/index.tt:595
 #, perl-format
 msgid "Artist-Release Group:"
 msgstr ""
 
-#: ../root/statistics/index.tt:583
+#: ../root/statistics/index.tt:589
 #, perl-format
 msgid "Artist-Release:"
 msgstr ""
 
-#: ../root/statistics/index.tt:595
+#: ../root/statistics/index.tt:601
 #, perl-format
 msgid "Artist-URL:"
 msgstr ""
 
-#: ../root/statistics/index.tt:601
+#: ../root/statistics/index.tt:607
 #, perl-format
 msgid "Artist-Work:"
 msgstr ""
 
 #: ../root/cdstub/edit.tt:55 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:6 ../root/cdtoc/lookup.tt:60
-#: ../root/components/common-macros.tt:379 ../root/components/forms.tt:110
+#: ../root/components/common-macros.tt:385 ../root/components/forms.tt:110
 #: ../root/edit/details/add_artist_alias.tt:3
 #: ../root/edit/details/add_artist_annotation.tt:3
 #: ../root/edit/details/add_artist.tt:3
@@ -1747,7 +1780,7 @@ msgstr ""
 #: ../root/edit/details/move_release.tt:19
 #: ../root/edit/details/remove_artist_alias.tt:3
 #: ../root/edit/details/remove_artist.tt:3 ../root/recording/layout.tt:10
-#: ../root/release/edit/tracklist.tt:202 ../root/release_group/layout.tt:10
+#: ../root/release/edit/tracklist.tt:214 ../root/release_group/layout.tt:10
 #: ../root/taglookup/form.tt:4
 #, perl-format
 msgid "Artist:"
@@ -1756,10 +1789,20 @@ msgstr ""
 #: ../root/artist/works.tt:18 ../root/otherlookup/results-work.tt:9
 #: ../root/release/edit/missing_entities.tt:37 ../root/report/index.tt:14
 #: ../root/search/results-work.tt:12 ../root/statistics/countries.tt:34
-#: ../root/statistics/view_js.tt:38 ../root/tag/header.tt:1
-#: ../root/tag/index.tt:3 ../root/user/tag.tt:4
+#: ../root/statistics/index.tt:113 ../root/statistics/view_js.tt:40
+#: ../root/tag/header.tt:1 ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #, perl-format
 msgid "Artists"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:111
+#, perl-format
+msgid "Artists in ACs"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:112
+#, perl-format
+msgid "Artists not in ACs"
 msgstr ""
 
 #: ../root/browse/artist.tt:8
@@ -1801,47 +1844,57 @@ msgstr ""
 msgid "Artists with Collaboration Relationships"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:94
+#: ../root/statistics/view_js.tt:111
+#, perl-format
+msgid "Artists with at least one artist credit appearance"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:103
 #, perl-format
 msgid "Artists with gender set to female"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:93
+#: ../root/statistics/view_js.tt:102
 #, perl-format
 msgid "Artists with gender set to male"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:95
+#: ../root/statistics/view_js.tt:104
 #, perl-format
 msgid "Artists with gender set to other"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:92
+#: ../root/statistics/view_js.tt:101
 #, perl-format
 msgid "Artists with gender unset (non-group artists)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:73
+#: ../root/statistics/view_js.tt:112
+#, perl-format
+msgid "Artists with no appearances in artist credits"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:75
 #, perl-format
 msgid "Artists with no country set"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:98
+#: ../root/statistics/view_js.tt:107
 #, perl-format
 msgid "Artists with type set to group"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:99
+#: ../root/statistics/view_js.tt:108
 #, perl-format
 msgid "Artists with type set to other"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:97
+#: ../root/statistics/view_js.tt:106
 #, perl-format
 msgid "Artists with type set to person"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:100
+#: ../root/statistics/view_js.tt:109
 #, perl-format
 msgid "Artists with type unset"
 msgstr ""
@@ -1947,7 +2000,7 @@ msgid "Austria"
 msgstr ""
 
 #: DB:language/name:263
-msgid "Austronesian (Other)"
+msgid "Austronesian languages"
 msgstr ""
 
 #: ../root/admin/edit_user.tt:6
@@ -2087,7 +2140,7 @@ msgid "Ballet"
 msgstr ""
 
 #: DB:language/name:43
-msgid "Baltic (Other)"
+msgid "Baltic languages"
 msgstr ""
 
 #: DB:link_attribute_type/description:506 DB:link_attribute_type/name:506
@@ -2105,6 +2158,10 @@ msgstr ""
 
 #: DB:language/name:36
 msgid "Bamileke languages"
+msgstr ""
+
+#: DB:script/name:155
+msgid "Bamum"
 msgstr ""
 
 #: DB:language/name:35
@@ -2138,7 +2195,7 @@ msgid ""
 msgstr ""
 
 #: DB:language/name:55
-msgid "Bantu (Other)"
+msgid "Bantu languages"
 msgstr ""
 
 #: DB:country/name:19
@@ -2161,7 +2218,7 @@ msgstr ""
 msgid "Barcode:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:103
+#: ../root/statistics/view_js.tt:115
 #, perl-format
 msgid "Barcodes"
 msgstr ""
@@ -2222,6 +2279,10 @@ msgstr ""
 msgid "Bass recorder / F-bass recorder (Bassblockflöte)"
 msgstr ""
 
+#: DB:script/name:145
+msgid "Bassa Vah"
+msgstr ""
+
 #: DB:script/name:74
 msgid "Batak"
 msgstr ""
@@ -2266,7 +2327,8 @@ msgid ""
 "{login_url|login}."
 msgstr ""
 
-#: ../root/artist/layout.tt:19 ../root/scripts/text_strings.tt:69
+#: ../root/artist/index.tt:7 ../root/artist/layout.tt:19
+#: ../root/scripts/text_strings.tt:70
 #, perl-format
 msgid "Began:"
 msgstr ""
@@ -2343,7 +2405,7 @@ msgid "Benin"
 msgstr ""
 
 #: DB:language/name:48
-msgid "Berber (Other)"
+msgid "Berber languages"
 msgstr ""
 
 #: DB:country/name:24
@@ -2363,7 +2425,7 @@ msgid "Bhutan"
 msgstr ""
 
 #: DB:language/name:50
-msgid "Bihari"
+msgid "Bihari languages"
 msgstr ""
 
 #: DB:language/name:51
@@ -2419,7 +2481,11 @@ msgid "Boatswain's pipe or Bosun's whistle"
 msgstr ""
 
 #: DB:country/name:26
-msgid "Bolivia"
+msgid "Bolivia, Plurinational State of"
+msgstr ""
+
+#: DB:country/name:258
+msgid "Bonaire, Sint Eustatius and Saba"
 msgstr ""
 
 #: DB:script/name:123
@@ -2438,7 +2504,8 @@ msgstr ""
 msgid "Bopomofo"
 msgstr ""
 
-#: ../root/artist/layout.tt:19 ../root/scripts/text_strings.tt:70
+#: ../root/artist/index.tt:7 ../root/artist/layout.tt:19
+#: ../root/scripts/text_strings.tt:71
 #, perl-format
 msgid "Born:"
 msgstr ""
@@ -2667,7 +2734,7 @@ msgstr ""
 msgid "CD stub details"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:160
+#: ../root/release/edit/tracklist.tt:172
 #, perl-format
 msgid "CD stub import"
 msgstr ""
@@ -2689,17 +2756,17 @@ msgstr ""
 msgid "CD-R"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:107
+#: ../root/statistics/view_js.tt:119
 #, perl-format
 msgid "CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:105
+#: ../root/statistics/view_js.tt:117
 #, perl-format
 msgid "CDStubs (all)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:106
+#: ../root/statistics/view_js.tt:118
 #, perl-format
 msgid "CDStubs (submitted)"
 msgstr ""
@@ -2734,16 +2801,16 @@ msgstr ""
 msgid "Canadian Syllabics"
 msgstr ""
 
-#: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:444
+#: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:450
 #: ../root/elections/nominate.tt:10 ../root/label/merge.tt:19
 #: ../root/layout/merge-helper.tt:34 ../root/recording/merge.tt:17
 #: ../root/release/edit/duplicates.tt:34 ../root/release/edit/editnote.tt:40
 #: ../root/release/edit/information.tt:109
 #: ../root/release/edit/missing_entities.tt:118
 #: ../root/release/edit/recordings.tt:429
-#: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:281
-#: ../root/release/edit/tracklist.tt:463 ../root/release_group/merge.tt:19
-#: ../root/release/merge.tt:102 ../root/scripts/text_strings.tt:26
+#: ../root/release/edit/tracklist.tt:161 ../root/release/edit/tracklist.tt:293
+#: ../root/release/edit/tracklist.tt:475 ../root/release_group/merge.tt:19
+#: ../root/release/merge.tt:102 ../root/scripts/text_strings.tt:27
 #: ../root/work/merge.tt:19
 #, perl-format
 msgid "Cancel"
@@ -2754,7 +2821,7 @@ msgstr ""
 msgid "Cancel Edit"
 msgstr ""
 
-#: ../root/components/common-macros.tt:390
+#: ../root/components/common-macros.tt:396
 #, perl-format
 msgid "Cancel creating relationship with {name}"
 msgstr ""
@@ -2770,12 +2837,12 @@ msgstr ""
 msgid "Cancel the election"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:52
+#: ../root/statistics/view_js.tt:54
 #, perl-format
 msgid "Cancelled edits"
 msgstr ""
 
-#: ../root/statistics/index.tt:483
+#: ../root/statistics/index.tt:489
 #, perl-format
 msgid "Cancelled:"
 msgstr ""
@@ -2880,7 +2947,7 @@ msgid "Catalog#"
 msgstr ""
 
 #: DB:language/name:69
-msgid "Caucasian (Other)"
+msgid "Caucasian languages"
 msgstr ""
 
 #: DB:country/name:40
@@ -2892,7 +2959,7 @@ msgid "Cebuano"
 msgstr ""
 
 #: DB:language/name:71
-msgid "Celtic (Other)"
+msgid "Celtic languages"
 msgstr ""
 
 #: DB:country/name:41
@@ -2900,7 +2967,7 @@ msgid "Central African Republic"
 msgstr ""
 
 #: DB:language/name:66
-msgid "Central American Indian (Other)"
+msgid "Central American Indian languages"
 msgstr ""
 
 #: DB:link_attribute_type/description:412
@@ -2943,7 +3010,7 @@ msgid "Chamorro"
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:208
-#: ../root/release/edit/recordings.tt:325 ../root/scripts/text_strings.tt:27
+#: ../root/release/edit/recordings.tt:325 ../root/scripts/text_strings.tt:28
 #, perl-format
 msgid "Change"
 msgstr ""
@@ -3113,32 +3180,32 @@ msgstr ""
 msgid "Classical Syriac"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:77
+#: ../root/scripts/text_strings.tt:78
 #, perl-format
 msgid "Clear artist"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:78
+#: ../root/scripts/text_strings.tt:79
 #, perl-format
 msgid "Clear label"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:79
+#: ../root/scripts/text_strings.tt:80
 #, perl-format
 msgid "Clear recording"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:80
+#: ../root/scripts/text_strings.tt:81
 #, perl-format
 msgid "Clear release"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:81
+#: ../root/scripts/text_strings.tt:82
 #, perl-format
 msgid "Clear release group"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:82
+#: ../root/scripts/text_strings.tt:83
 #, perl-format
 msgid "Clear work"
 msgstr ""
@@ -3182,6 +3249,10 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
+#: DB:script/name:159
+msgid "Code for inherited script"
+msgstr ""
+
 #: DB:script/name:130
 msgid "Code for uncoded script"
 msgstr ""
@@ -3214,7 +3285,7 @@ msgstr ""
 msgid "Collapse All"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:343
+#: ../root/release/edit/tracklist.tt:355
 #, perl-format
 msgid "Collapse Disc"
 msgstr ""
@@ -3368,7 +3439,7 @@ msgstr ""
 msgid "Copy all track changes to associated recordings."
 msgstr ""
 
-#: ../root/statistics/index.tt:12 ../root/statistics/view_js.tt:24
+#: ../root/statistics/index.tt:12 ../root/statistics/view_js.tt:25
 #, perl-format
 msgid "Core Entities"
 msgstr ""
@@ -3390,362 +3461,362 @@ msgstr ""
 msgid "Costa Rica"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:71
+#: ../root/statistics/view_js.tt:73
 #, perl-format
 msgid "Count of active editors (editing or voting) during the last week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:66
+#: ../root/statistics/view_js.tt:68
 #, perl-format
 msgid "Count of all Am-nais votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:102
+#: ../root/statistics/view_js.tt:114
 #, perl-format
 msgid "Count of all Artist Credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:143
+#: ../root/statistics/view_js.tt:155
 #, perl-format
 msgid "Count of all Artist Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:149
+#: ../root/statistics/view_js.tt:161
 #, perl-format
 msgid "Count of all Artist Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:169
 #, perl-format
 msgid "Count of all Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:103
+#: ../root/statistics/view_js.tt:115
 #, perl-format
 msgid "Count of all Barcodes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:107
+#: ../root/statistics/view_js.tt:119
 #, perl-format
 msgid "Count of all CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:105
+#: ../root/statistics/view_js.tt:117
 #, perl-format
 msgid "Count of all CDStubs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:106
+#: ../root/statistics/view_js.tt:118
 #, perl-format
 msgid "Count of all CDStubs ever submitted"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:108
+#: ../root/statistics/view_js.tt:120
 #, perl-format
 msgid "Count of all Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:111
+#: ../root/statistics/view_js.tt:123
 #, perl-format
 msgid "Count of all IPIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:112
+#: ../root/statistics/view_js.tt:124
 #, perl-format
 msgid "Count of all IPIs for Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:113
+#: ../root/statistics/view_js.tt:125
 #, perl-format
 msgid "Count of all IPIs for Labels"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:114 ../root/statistics/view_js.tt:115
+#: ../root/statistics/view_js.tt:126 ../root/statistics/view_js.tt:127
 #, perl-format
 msgid "Count of all ISRCs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:116 ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:128 ../root/statistics/view_js.tt:129
 #, perl-format
 msgid "Count of all ISWCs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:156
 #, perl-format
 msgid "Count of all Label Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:150
+#: ../root/statistics/view_js.tt:162
 #, perl-format
 msgid "Count of all Label Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:170
 #, perl-format
 msgid "Count of all Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:134
 #, perl-format
 msgid "Count of all Mediums with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:128
+#: ../root/statistics/view_js.tt:140
 #, perl-format
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:65
+#: ../root/statistics/view_js.tt:67
 #, perl-format
 msgid "Count of all No votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:118 ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:130 ../root/statistics/view_js.tt:131
 #, perl-format
 msgid "Count of all PUIDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:141
 #, perl-format
 msgid "Count of all PUIDs with {n} Recordings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:142
+#: ../root/statistics/view_js.tt:154
 #, perl-format
 msgid "Count of all Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:160
 #, perl-format
 msgid "Count of all Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:145
+#: ../root/statistics/view_js.tt:157
 #, perl-format
 msgid "Count of all Recording Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:151
+#: ../root/statistics/view_js.tt:163
 #, perl-format
 msgid "Count of all Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:159
+#: ../root/statistics/view_js.tt:171
 #, perl-format
 msgid "Count of all Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:136
 #, perl-format
 msgid "Count of all Recordings with ISRCs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:135
 #, perl-format
 msgid "Count of all Recordings with PUIDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:142
 #, perl-format
 msgid "Count of all Recordings with {n} PUIDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:131
+#: ../root/statistics/view_js.tt:143
 #, perl-format
 msgid "Count of all Recordings with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:164
+#: ../root/statistics/view_js.tt:176
 #, perl-format
 msgid "Count of all Relationships"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:146
+#: ../root/statistics/view_js.tt:158
 #, perl-format
 msgid "Count of all Release Group Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:152
+#: ../root/statistics/view_js.tt:164
 #, perl-format
 msgid "Count of all Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:161
+#: ../root/statistics/view_js.tt:173
 #, perl-format
 msgid "Count of all Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:144
 #, perl-format
 msgid "Count of all Release Groups with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:172
 #, perl-format
 msgid "Count of all Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:136
+#: ../root/statistics/view_js.tt:148
 #, perl-format
 msgid "Count of all Releases at Default Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:139
+#: ../root/statistics/view_js.tt:151
 #, perl-format
 msgid "Count of all Releases at High Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:140
+#: ../root/statistics/view_js.tt:152
 #, perl-format
 msgid "Count of all Releases at Low Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:138
+#: ../root/statistics/view_js.tt:150
 #, perl-format
 msgid "Count of all Releases at Normal Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:137
+#: ../root/statistics/view_js.tt:149
 #, perl-format
 msgid "Count of all Releases at Unknown Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:110
+#: ../root/statistics/view_js.tt:122
 #, perl-format
 msgid "Count of all Releases by Various Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:109
+#: ../root/statistics/view_js.tt:121
 #, perl-format
 msgid "Count of all Releases not V.A."
 msgstr ""
 
-#: ../root/statistics/view_js.tt:121
+#: ../root/statistics/view_js.tt:133
 #, perl-format
 msgid "Count of all Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:139
 #, perl-format
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:155
+#: ../root/statistics/view_js.tt:167
 #, perl-format
 msgid "Count of all Tags"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:156
+#: ../root/statistics/view_js.tt:168
 #, perl-format
 msgid "Count of all Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:104
+#: ../root/statistics/view_js.tt:116
 #, perl-format
 msgid "Count of all Tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:147
+#: ../root/statistics/view_js.tt:159
 #, perl-format
 msgid "Count of all Work Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:153
+#: ../root/statistics/view_js.tt:165
 #, perl-format
 msgid "Count of all Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:162
+#: ../root/statistics/view_js.tt:174
 #, perl-format
 msgid "Count of all Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:64
+#: ../root/statistics/view_js.tt:66
 #, perl-format
 msgid "Count of all Yes votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:38
+#: ../root/statistics/view_js.tt:40
 #, perl-format
 msgid "Count of all artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:68
+#: ../root/statistics/view_js.tt:70
 #, perl-format
 msgid "Count of all editors"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:46
+#: ../root/statistics/view_js.tt:48
 #, perl-format
 msgid "Count of all edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:44
+#: ../root/statistics/view_js.tt:46
 #, perl-format
 msgid "Count of all labels"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:41
+#: ../root/statistics/view_js.tt:43
 #, perl-format
 msgid "Count of all mediums"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:39
+#: ../root/statistics/view_js.tt:41
 #, perl-format
 msgid "Count of all recordings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:43
+#: ../root/statistics/view_js.tt:45
 #, perl-format
 msgid "Count of all release groups"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:42
+#: ../root/statistics/view_js.tt:44
 #, perl-format
 msgid "Count of all releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:60
+#: ../root/statistics/view_js.tt:62
 #, perl-format
 msgid "Count of all votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:40
+#: ../root/statistics/view_js.tt:42
 #, perl-format
 msgid "Count of all works"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:69
+#: ../root/statistics/view_js.tt:71
 #, perl-format
 msgid "Count of editors who have submitted edits during the last week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:70
+#: ../root/statistics/view_js.tt:72
 #, perl-format
 msgid "Count of editors who have voted on during the last week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:48
+#: ../root/statistics/view_js.tt:50
 #, perl-format
 msgid "Count of edits per day"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:49
+#: ../root/statistics/view_js.tt:51
 #, perl-format
 msgid "Count of edits per week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:47
+#: ../root/statistics/view_js.tt:49
 #, perl-format
 msgid "Count of open edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:61
+#: ../root/statistics/view_js.tt:63
 #, perl-format
 msgid "Count of votes per day"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:62
+#: ../root/statistics/view_js.tt:64
 #, perl-format
 msgid "Count of votes per week"
 msgstr ""
@@ -3766,9 +3837,9 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: ../root/artist/edit_form.tt:43 ../root/artist/layout.tt:37
-#: ../root/edit/details/add_artist.tt:37 ../root/edit/details/add_label.tt:41
-#: ../root/edit/details/add_release.tt:67
+#: ../root/artist/edit_form.tt:43 ../root/artist/index.tt:22
+#: ../root/artist/layout.tt:37 ../root/edit/details/add_artist.tt:37
+#: ../root/edit/details/add_label.tt:41 ../root/edit/details/add_release.tt:67
 #: ../root/edit/details/edit_artist.tt:32
 #: ../root/edit/details/edit_label.tt:43
 #: ../root/edit/details/edit_release.tt:42 ../root/label/edit_form.tt:39
@@ -3815,12 +3886,12 @@ msgstr ""
 msgid "Create collection"
 msgstr ""
 
-#: ../root/components/common-macros.tt:445
+#: ../root/components/common-macros.tt:451
 #, perl-format
 msgid "Create relationship"
 msgstr ""
 
-#: ../root/components/common-macros.tt:390
+#: ../root/components/common-macros.tt:396
 #, perl-format
 msgid "Create relationship with {other}"
 msgstr ""
@@ -3877,12 +3948,12 @@ msgstr ""
 msgid "Creative Commons Sampling Plus license"
 msgstr ""
 
-#: DB:link_type/link_phrase:84 DB:link_type/link_phrase:267
+#: DB:link_type/link_phrase:267 DB:link_type/link_phrase:84
 #, perl-format
 msgid "Creative Commons {license} licensed download"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:84 DB:link_type/reverse_link_phrase:267
+#: DB:link_type/reverse_link_phrase:267 DB:link_type/reverse_link_phrase:84
 #, perl-format
 msgid "Creative Commons {license} licensed download page for"
 msgstr ""
@@ -3918,19 +3989,19 @@ msgid "Creek"
 msgstr ""
 
 #: DB:language/name:95
-msgid "Creoles and pidgins (Other)"
+msgid "Creoles and pidgins"
 msgstr ""
 
 #: DB:language/name:90
-msgid "Creoles and pidgins, English based (Other)"
+msgid "Creoles and pidgins, English based"
 msgstr ""
 
 #: DB:language/name:91
-msgid "Creoles and pidgins, French-based (Other)"
+msgid "Creoles and pidgins, French-based"
 msgstr ""
 
 #: DB:language/name:92
-msgid "Creoles and pidgins, Portuguese-based (Other)"
+msgid "Creoles and pidgins, Portuguese-based"
 msgstr ""
 
 #: DB:link_attribute_type/name:591
@@ -3963,6 +4034,10 @@ msgstr ""
 msgid "Cuneiform, Sumero-Akkadian"
 msgstr ""
 
+#: DB:country/name:259
+msgid "Curaçao"
+msgstr ""
+
 #: ../root/report/releases_to_convert.tt:8
 #, perl-format
 msgid ""
@@ -3971,7 +4046,7 @@ msgid ""
 msgstr ""
 
 #: DB:language/name:97
-msgid "Cushitic (Other)"
+msgid "Cushitic languages"
 msgstr ""
 
 #: DB:link_attribute_type/description:326
@@ -4096,7 +4171,7 @@ msgstr ""
 msgid "Data Licenses"
 msgstr ""
 
-#: ../root/doc/edit_type.tt:35 ../root/statistics/index.tt:203
+#: ../root/doc/edit_type.tt:35 ../root/statistics/index.tt:215
 #, perl-format
 msgid "Data Quality"
 msgstr ""
@@ -4110,7 +4185,7 @@ msgstr ""
 msgid "Data Quality:"
 msgstr ""
 
-#: ../root/statistics/layout.tt:11 ../root/statistics/layout.tt:23
+#: ../root/statistics/layout.tt:12 ../root/statistics/layout.tt:24
 #, perl-format
 msgid "Database Statistics"
 msgstr ""
@@ -4155,17 +4230,17 @@ msgstr ""
 msgid "Davul, turkish drum"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:70
+#: ../root/scripts/text_strings.tt:71
 #, perl-format
 msgid "Deceased:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:136
+#: ../root/statistics/view_js.tt:148
 #, perl-format
 msgid "Default Data Quality"
 msgstr ""
 
-#: ../root/statistics/index.tt:220
+#: ../root/statistics/index.tt:232
 #, perl-format
 msgid "Default Data Quality:"
 msgstr ""
@@ -4275,7 +4350,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:185
+#: ../root/release/edit/tracklist.tt:197
 #, perl-format
 msgid "Detect track durations"
 msgstr ""
@@ -4299,7 +4374,7 @@ msgstr ""
 msgid "Development"
 msgstr ""
 
-#: ../root/artist/layout.tt:28
+#: ../root/artist/index.tt:15 ../root/artist/layout.tt:28
 #, perl-format
 msgid "Died:"
 msgstr ""
@@ -4377,7 +4452,7 @@ msgid "Disc ID:"
 msgstr ""
 
 #: ../root/release/discids.tt:3 ../root/release/tabs.tt:1
-#: ../root/statistics/index.tt:247 ../root/statistics/view_js.tt:108
+#: ../root/statistics/index.tt:259 ../root/statistics/view_js.tt:120
 #, perl-format
 msgid "Disc IDs"
 msgstr ""
@@ -4387,18 +4462,18 @@ msgstr ""
 msgid "Disc IDs with superfluous data tracks"
 msgstr ""
 
-#: ../root/statistics/index.tt:99 ../root/statistics/index.tt:252
+#: ../root/statistics/index.tt:99 ../root/statistics/index.tt:264
 #, perl-format
 msgid "Disc IDs:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:360
+#: ../root/release/edit/tracklist.tt:372
 #, perl-format
 msgid "Disc title"
 msgstr ""
 
 #: ../root/cdtoc/attach_medium.tt:13 ../root/release/edit/recordings.tt:251
-#: ../root/release/edit/tracklist.tt:333
+#: ../root/release/edit/tracklist.tt:345
 #, perl-format
 msgid "Disc {num}"
 msgstr ""
@@ -4452,12 +4527,12 @@ msgstr ""
 msgid "Discs entered as separate releases"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:71
+#: ../root/scripts/text_strings.tt:72
 #, perl-format
 msgid "Dissolved"
 msgstr ""
 
-#: ../root/artist/layout.tt:28
+#: ../root/artist/index.tt:15 ../root/artist/layout.tt:28
 #, perl-format
 msgid "Dissolved:"
 msgstr ""
@@ -4526,7 +4601,7 @@ msgstr ""
 msgid "Donation Check"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:147 ../root/scripts/text_strings.tt:28
+#: ../root/release/edit/tracklist.tt:159 ../root/scripts/text_strings.tt:29
 #, perl-format
 msgid "Done"
 msgstr ""
@@ -4537,7 +4612,7 @@ msgid "Double bass (Contrabass, Acoustic upright bass, wood bass)"
 msgstr ""
 
 #: DB:language/name:109
-msgid "Dravidian (Other)"
+msgid "Dravidian languages"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:73
@@ -4566,6 +4641,10 @@ msgstr ""
 #: ../root/release/edit-links.tt:3
 #, perl-format
 msgid "Duplicate"
+msgstr ""
+
+#: DB:script/name:142
+msgid "Duployan shorthand"
 msgstr ""
 
 #: ../root/taglookup/form.tt:8
@@ -4669,7 +4748,7 @@ msgstr ""
 msgid "Edit Collection"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:25
+#: ../root/statistics/view_js.tt:26
 #, perl-format
 msgid "Edit Information"
 msgstr ""
@@ -4933,7 +5012,7 @@ msgstr ""
 msgid "Editor “{user}”"
 msgstr ""
 
-#: ../root/statistics/index.tt:400 ../root/statistics/view_js.tt:68
+#: ../root/statistics/index.tt:412 ../root/statistics/view_js.tt:70
 #, perl-format
 msgid "Editors"
 msgstr ""
@@ -4948,17 +5027,17 @@ msgstr ""
 msgid "Editors subscribed to this Label"
 msgstr ""
 
-#: ../root/statistics/index.tt:396
+#: ../root/statistics/index.tt:408
 #, perl-format
 msgid "Editors, Edits, and Votes"
 msgstr ""
 
-#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:405
+#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:417
 #, perl-format
 msgid "Editors:"
 msgstr ""
 
-#: ../root/statistics/index.tt:430 ../root/statistics/view_js.tt:46
+#: ../root/statistics/index.tt:442 ../root/statistics/view_js.tt:48
 #: ../root/user/edits.tt:15
 #, perl-format
 msgid "Edits"
@@ -4979,7 +5058,7 @@ msgstr ""
 msgid "Edits For Your Subscribed Entities"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:51
+#: ../root/statistics/view_js.tt:53
 #, perl-format
 msgid "Edits about to be cancelled"
 msgstr ""
@@ -5028,17 +5107,17 @@ msgstr ""
 msgid "Edits for “{name}”"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:48
+#: ../root/statistics/view_js.tt:50
 #, perl-format
 msgid "Edits per day"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:49
+#: ../root/statistics/view_js.tt:51
 #, perl-format
 msgid "Edits per week"
 msgstr ""
 
-#: ../root/statistics/index.tt:435 ../root/statistics/index.tt:488
+#: ../root/statistics/index.tt:447 ../root/statistics/index.tt:494
 #, perl-format
 msgid "Edits:"
 msgstr ""
@@ -5077,6 +5156,10 @@ msgstr ""
 
 #: DB:language/name:119
 msgid "Elamite"
+msgstr ""
+
+#: DB:script/name:143
+msgid "Elbasan"
 msgstr ""
 
 #: ../root/account/preferences.tt:36
@@ -5119,7 +5202,7 @@ msgstr ""
 msgid "Empty Release Groups"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:182
+#: ../root/release/edit/tracklist.tt:194
 #, perl-format
 msgid "Enable vinyl track numbers"
 msgstr ""
@@ -5150,7 +5233,8 @@ msgstr ""
 msgid "End date:"
 msgstr ""
 
-#: ../root/artist/layout.tt:28 ../root/scripts/text_strings.tt:69
+#: ../root/artist/index.tt:15 ../root/artist/layout.tt:28
+#: ../root/scripts/text_strings.tt:70
 #, perl-format
 msgid "Ended:"
 msgstr ""
@@ -5222,7 +5306,7 @@ msgstr ""
 msgid "Error Cancelling Edit"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:54
+#: ../root/statistics/view_js.tt:56
 #, perl-format
 msgid "Error edits"
 msgstr ""
@@ -5232,7 +5316,7 @@ msgstr ""
 msgid "Error message: "
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "Error: Unknown Type"
 msgstr ""
@@ -5265,12 +5349,12 @@ msgstr ""
 msgid "Europe"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:58
+#: ../root/statistics/view_js.tt:60
 #, perl-format
 msgid "Evalnochange Edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:58
+#: ../root/statistics/view_js.tt:60
 #, perl-format
 msgid "Evalnochange edits"
 msgstr ""
@@ -5293,12 +5377,12 @@ msgstr ""
 msgid "Exact Values (items vs. day)"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:159
+#: ../root/release/edit/tracklist.tt:171
 #, perl-format
 msgid "Existing tracklist"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:236
+#: ../root/release/edit/tracklist.tt:248
 #, perl-format
 msgid "Expand"
 msgstr ""
@@ -5308,7 +5392,7 @@ msgstr ""
 msgid "Expand All"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:340
+#: ../root/release/edit/tracklist.tt:352
 #, perl-format
 msgid "Expand Disc"
 msgstr ""
@@ -5323,19 +5407,19 @@ msgstr ""
 msgid "Expired"
 msgstr ""
 
-#: ../root/components/common-macros.tt:484
+#: ../root/components/common-macros.tt:490
 #, perl-format
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{days}</span>"
 msgstr ""
 
-#: ../root/components/common-macros.tt:489
+#: ../root/components/common-macros.tt:495
 #, perl-format
 msgid ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{hours}, {minutes}</"
 "span>"
 msgstr ""
 
-#: ../root/components/common-macros.tt:496
+#: ../root/components/common-macros.tt:502
 #, perl-format
 msgid ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{minutes}</span>"
@@ -5356,32 +5440,32 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: ../root/statistics/index.tt:459
+#: ../root/statistics/index.tt:471
 #, perl-format
 msgid "Failed (dependency):"
 msgstr ""
 
-#: ../root/statistics/index.tt:471
+#: ../root/statistics/index.tt:483
 #, perl-format
 msgid "Failed (internal error):"
 msgstr ""
 
-#: ../root/statistics/index.tt:465
+#: ../root/statistics/index.tt:477
 #, perl-format
 msgid "Failed (prerequisite):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:55
+#: ../root/statistics/view_js.tt:57
 #, perl-format
 msgid "Failed edits (dependency)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:56
+#: ../root/statistics/view_js.tt:58
 #, perl-format
 msgid "Failed edits (prerequisite)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:57
+#: ../root/statistics/view_js.tt:59
 #, perl-format
 msgid "Failed edits (voted down)"
 msgstr ""
@@ -5410,12 +5494,12 @@ msgstr ""
 msgid "Female"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:94
+#: ../root/statistics/view_js.tt:103
 #, perl-format
 msgid "Female Artists"
 msgstr ""
 
-#: ../root/statistics/index.tt:157
+#: ../root/statistics/index.tt:169
 #, perl-format
 msgid "Female:"
 msgstr ""
@@ -5451,7 +5535,7 @@ msgid "Finnish"
 msgstr ""
 
 #: DB:language/name:132
-msgid "Finno-Ugrian (Other)"
+msgid "Finno-Ugrian languages"
 msgstr ""
 
 #: DB:link_attribute_type/description:500
@@ -5506,8 +5590,9 @@ msgstr ""
 #: ../root/cdtoc/list.tt:5 ../root/collection/index.tt:12
 #: ../root/edit/details/edit_release_events.tt:10
 #: ../root/edit/details/historic/add_release.tt:80
-#: ../root/release/edit/tracklist.tt:356 ../root/release_group/index.tt:13
+#: ../root/release/edit/tracklist.tt:368 ../root/release_group/index.tt:13
 #: ../root/release_group/releases-list.tt:20 ../root/release/lookup.tt:12
+#: ../root/statistics/formats.tt:27
 #, perl-format
 msgid "Format"
 msgstr ""
@@ -5516,6 +5601,11 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:33 ../root/release/sidebar.tt:12
 #, perl-format
 msgid "Format:"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:36
+#, perl-format
+msgid "Formats"
 msgstr ""
 
 #: ../root/layout/menu.tt:242 ../root/layout.tt:143
@@ -5582,8 +5672,8 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/artist/layout.tt:19 ../root/label/layout.tt:14
-#: ../root/scripts/text_strings.tt:71
+#: ../root/artist/index.tt:7 ../root/artist/layout.tt:19
+#: ../root/label/layout.tt:14 ../root/scripts/text_strings.tt:72
 #, perl-format
 msgid "Founded:"
 msgstr ""
@@ -5614,7 +5704,7 @@ msgstr ""
 msgid "FreeDB ID:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:161
+#: ../root/release/edit/tracklist.tt:173
 #, perl-format
 msgid "FreeDB import"
 msgstr ""
@@ -5725,8 +5815,8 @@ msgstr ""
 msgid "Geez"
 msgstr ""
 
-#: ../root/artist/edit_form.tt:42 ../root/artist/layout.tt:12
-#: ../root/edit/details/add_artist.tt:31
+#: ../root/artist/edit_form.tt:42 ../root/artist/index.tt:5
+#: ../root/artist/layout.tt:12 ../root/edit/details/add_artist.tt:31
 #: ../root/edit/details/edit_artist.tt:28
 #, perl-format
 msgid "Gender:"
@@ -5805,7 +5895,7 @@ msgid "German/Bohemian harp"
 msgstr ""
 
 #: DB:language/name:143
-msgid "Germanic (Other)"
+msgid "Germanic languages"
 msgstr ""
 
 #: DB:country/name:81
@@ -5865,6 +5955,10 @@ msgstr ""
 msgid "Gothic"
 msgstr ""
 
+#: DB:script/name:152
+msgid "Grantha"
+msgstr ""
+
 #: DB:link_attribute_type/description:366
 #, perl-format
 msgid "Great bass recorder / C-bass recorder (Großbassblockflöte)"
@@ -5893,7 +5987,7 @@ msgid "Greek baglama"
 msgstr ""
 
 #: DB:language/name:158
-msgid "Greek, Ancient (to 1453)"
+msgid "Greek, Ancient"
 msgstr ""
 
 #: DB:country/name:85
@@ -5912,7 +6006,7 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:98
+#: ../root/statistics/view_js.tt:107
 #, perl-format
 msgid "Groups"
 msgstr ""
@@ -5943,18 +6037,18 @@ msgid "Guess Sort Name"
 msgstr ""
 
 #: ../root/components/forms.tt:123 ../root/components/forms.tt:125
-#: ../root/components/forms.tt:146 ../root/release/edit/tracklist.tt:437
-#: ../root/release/edit/tracklist.tt:455
+#: ../root/components/forms.tt:146 ../root/release/edit/tracklist.tt:449
+#: ../root/release/edit/tracklist.tt:467
 #, perl-format
 msgid "Guess case"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:364
+#: ../root/release/edit/tracklist.tt:376
 #, perl-format
 msgid "Guess case disc title"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:312
+#: ../root/release/edit/tracklist.tt:324
 #, perl-format
 msgid "Guess case track"
 msgstr ""
@@ -6083,17 +6177,17 @@ msgstr ""
 msgid "Hide Credits"
 msgstr ""
 
-#: ../root/components/common-macros.tt:451
+#: ../root/components/common-macros.tt:457
 #, perl-format
 msgid "High"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:139
+#: ../root/statistics/view_js.tt:151
 #, perl-format
 msgid "High Data Quality"
 msgstr ""
 
-#: ../root/statistics/index.tt:214
+#: ../root/statistics/index.tt:226
 #, perl-format
 msgid "High Data Quality:"
 msgstr ""
@@ -6103,7 +6197,7 @@ msgid "Hiligaynon"
 msgstr ""
 
 #: DB:language/name:170
-msgid "Himachali"
+msgid "Himachali languages"
 msgstr ""
 
 #: DB:language/name:171
@@ -6112,10 +6206,6 @@ msgstr ""
 
 #: DB:script/name:83
 msgid "Hiragana"
-msgstr ""
-
-#: DB:script/name:100
-msgid "Hiragana + Katakana"
 msgstr ""
 
 #: DB:language/name:174
@@ -6260,7 +6350,7 @@ msgstr ""
 msgid "IPI code:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:111
+#: ../root/statistics/view_js.tt:123
 #, perl-format
 msgid "IPIs"
 msgstr ""
@@ -6302,7 +6392,7 @@ msgid "ISRC:"
 msgstr ""
 
 #: ../root/artist/recordings-list.tt:26 ../root/report/index.tt:63
-#: ../root/statistics/view_js.tt:114
+#: ../root/statistics/view_js.tt:126
 #, perl-format
 msgid "ISRCs"
 msgstr ""
@@ -6312,7 +6402,7 @@ msgstr ""
 msgid "ISRCs (all / unique):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:115
+#: ../root/statistics/view_js.tt:127
 #, perl-format
 msgid "ISRCs (all)"
 msgstr ""
@@ -6335,7 +6425,7 @@ msgstr ""
 msgid "ISWC:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:116
+#: ../root/statistics/view_js.tt:128
 #, perl-format
 msgid "ISWCs"
 msgstr ""
@@ -6345,7 +6435,7 @@ msgstr ""
 msgid "ISWCs (all / unique):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:129
 #, perl-format
 msgid "ISWCs (all)"
 msgstr ""
@@ -6632,7 +6722,7 @@ msgid "Indian bamboo flutes"
 msgstr ""
 
 #: DB:language/name:188
-msgid "Indic (Other)"
+msgid "Indic languages"
 msgstr ""
 
 #: DB:link_attribute_type/description:516
@@ -7035,14 +7125,6 @@ msgid ""
 "\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:126
-#, perl-format
-msgid ""
-"Indicates that a person or agency did the travel arrangements for this "
-"track. (<a href=\"http://musicbrainz.org/doc/"
-"Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr ""
-
 #: DB:link_type/description:135
 #, perl-format
 msgid ""
@@ -7116,15 +7198,6 @@ msgstr ""
 msgid ""
 "Indicates that a track is a medley of several other songs. This means that "
 "the original tracks were rearranged to create a new track in the form of a "
-"medley. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type"
-"\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:229
-#, perl-format
-msgid ""
-"Indicates that a track is a medley of several other songs. This means that "
-"the orignial tracks were rearranged to create a new track in the form of a "
 "medley. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type"
 "\">Details</a>)"
 msgstr ""
@@ -7330,13 +7403,6 @@ msgid ""
 "doc/Librettist_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:35 DB:link_type/description:145
-#, perl-format
-msgid ""
-"Indicates the live sound engineer for this work. (<a href=\"http://"
-"musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr ""
-
 #: DB:link_type/description:56 DB:link_type/description:165
 #, perl-format
 msgid ""
@@ -7371,14 +7437,6 @@ msgstr ""
 msgid ""
 "Indicates the official homepage for an artist. (<a href=\"http://musicbrainz."
 "org/doc/Official_Homepage_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:251
-#, perl-format
-msgid ""
-"Indicates the person or agency that did the travel arrangement for this "
-"work. (<a href=\"http://musicbrainz.org/doc/"
-"Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:61
@@ -7577,7 +7635,7 @@ msgid ""
 msgstr ""
 
 #: DB:language/name:190
-msgid "Indo-European (Other)"
+msgid "Indo-European languages"
 msgstr ""
 
 #: DB:country/name:100
@@ -7662,7 +7720,7 @@ msgid "Iran, Islamic Republic of"
 msgstr ""
 
 #: DB:language/name:193
-msgid "Iranian (Other)"
+msgid "Iranian languages"
 msgstr ""
 
 #: DB:country/name:102
@@ -7749,6 +7807,10 @@ msgstr ""
 msgid "Japanese string instrument"
 msgstr ""
 
+#: DB:script/name:100
+msgid "Japanese syllabaries"
+msgstr ""
+
 #: DB:link_attribute_type/description:458
 #, perl-format
 msgid "Japanese traditional drum beaten with sticks called bachi"
@@ -7788,7 +7850,7 @@ msgid "Jing Hú / Jinghu"
 msgstr ""
 
 #: ../root/components/forms.tt:230 ../root/release/edit/tracklist.tt:46
-#: ../root/scripts/text_strings.tt:25
+#: ../root/scripts/text_strings.tt:26
 #, perl-format
 msgid "Join phrase"
 msgstr ""
@@ -7808,6 +7870,10 @@ msgstr ""
 #: ../root/admin/linkattributetype/instruments.tt:16
 #, perl-format
 msgid "Jump to:"
+msgstr ""
+
+#: DB:script/name:134
+msgid "Jurchen"
 msgstr ""
 
 #: DB:language/name:212
@@ -7911,7 +7977,7 @@ msgid "Keep me logged in"
 msgstr ""
 
 #: ../root/components/forms.tt:131 ../root/components/forms.tt:155
-#: ../root/release/edit/tracklist.tt:448
+#: ../root/release/edit/tracklist.tt:460
 #, perl-format
 msgid "Keep uppercase words uppercased"
 msgstr ""
@@ -7954,11 +8020,19 @@ msgid "Khmer, Central"
 msgstr ""
 
 #: DB:language/name:214
-msgid "Khoisan (Other)"
+msgid "Khoisan languages"
+msgstr ""
+
+#: DB:script/name:131
+msgid "Khojki"
 msgstr ""
 
 #: DB:language/name:216
 msgid "Khotanese"
+msgstr ""
+
+#: DB:script/name:144
+msgid "Khudawadi"
 msgstr ""
 
 #: DB:script/name:102
@@ -8023,7 +8097,7 @@ msgstr ""
 msgid "Kosraean"
 msgstr ""
 
-#: DB:language/name:226
+#: DB:language/name:226 DB:script/name:146
 msgid "Kpelle"
 msgstr ""
 
@@ -8060,7 +8134,7 @@ msgid "Kyrgyzstan"
 msgstr ""
 
 #: ../root/cdtoc/list.tt:10 ../root/collection/index.tt:16
-#: ../root/components/common-macros.tt:418
+#: ../root/components/common-macros.tt:424
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
 #: ../root/edit/search_macros.tt:278 ../root/label/edits.tt:19
@@ -8072,7 +8146,7 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:27
+#: ../root/statistics/view_js.tt:28
 #, perl-format
 msgid "Label Countries"
 msgstr ""
@@ -8092,7 +8166,7 @@ msgstr ""
 msgid "Label IPI:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:113
+#: ../root/statistics/view_js.tt:125
 #, perl-format
 msgid "Label IPIs"
 msgstr ""
@@ -8102,12 +8176,12 @@ msgstr ""
 msgid "Label Not Found"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:156
 #, perl-format
 msgid "Label Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:150
+#: ../root/statistics/view_js.tt:162
 #, perl-format
 msgid "Label Ratings (raw)"
 msgstr ""
@@ -8117,7 +8191,7 @@ msgstr ""
 msgid "Label Subscriptions"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:170
 #, perl-format
 msgid "Label Tags (raw)"
 msgstr ""
@@ -8138,37 +8212,37 @@ msgstr ""
 msgid "Label ratings"
 msgstr ""
 
-#: ../root/statistics/index.tt:607
+#: ../root/statistics/index.tt:613
 #, perl-format
 msgid "Label-Label:"
 msgstr ""
 
-#: ../root/statistics/index.tt:613
+#: ../root/statistics/index.tt:619
 #, perl-format
 msgid "Label-Recording:"
 msgstr ""
 
-#: ../root/statistics/index.tt:625
+#: ../root/statistics/index.tt:631
 #, perl-format
 msgid "Label-Release Group:"
 msgstr ""
 
-#: ../root/statistics/index.tt:619
+#: ../root/statistics/index.tt:625
 #, perl-format
 msgid "Label-Release:"
 msgstr ""
 
-#: ../root/statistics/index.tt:631
+#: ../root/statistics/index.tt:637
 #, perl-format
 msgid "Label-URL:"
 msgstr ""
 
-#: ../root/statistics/index.tt:637
+#: ../root/statistics/index.tt:643
 #, perl-format
 msgid "Label-Work:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:379
+#: ../root/components/common-macros.tt:385
 #: ../root/edit/details/add_label_alias.tt:3
 #: ../root/edit/details/add_label_annotation.tt:3
 #: ../root/edit/details/add_label.tt:3
@@ -8185,7 +8259,7 @@ msgid "Label:"
 msgstr ""
 
 #: ../root/release/edit/missing_entities.tt:77 ../root/release/sidebar.tt:41
-#: ../root/statistics/countries.tt:36 ../root/statistics/view_js.tt:44
+#: ../root/statistics/countries.tt:36 ../root/statistics/view_js.tt:46
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #, perl-format
 msgid "Labels"
@@ -8196,7 +8270,7 @@ msgstr ""
 msgid "Labels starting with “{index}”"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:74
+#: ../root/statistics/view_js.tt:76
 #, perl-format
 msgid "Labels with no country set"
 msgstr ""
@@ -8224,7 +8298,7 @@ msgstr ""
 
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/search/lib/inline-results-release.tt:13
-#: ../root/statistics/languages_scripts.tt:29
+#: ../root/statistics/languages_scripts.tt:30
 #, perl-format
 msgid "Language"
 msgstr ""
@@ -8242,7 +8316,7 @@ msgstr ""
 msgid "Language: {language}, script: {script}"
 msgstr ""
 
-#: ../root/statistics/languages_scripts.tt:24
+#: ../root/statistics/languages_scripts.tt:25
 #, perl-format
 msgid "Languages"
 msgstr ""
@@ -8250,10 +8324,6 @@ msgstr ""
 #: ../root/statistics/languages_scripts.tt:19
 #, perl-format
 msgid "Languages and Scripts"
-msgstr ""
-
-#: DB:script/name:117
-msgid "Lanna"
 msgstr ""
 
 #: DB:language/name:237 DB:script/name:69
@@ -8273,7 +8343,7 @@ msgstr ""
 msgid "Last 28 days"
 msgstr ""
 
-#: ../root/statistics/index.tt:494 ../root/statistics/index.tt:542
+#: ../root/statistics/index.tt:500 ../root/statistics/index.tt:548
 #, perl-format
 msgid "Last Week:"
 msgstr ""
@@ -8295,8 +8365,8 @@ msgstr ""
 msgid "Last updated:"
 msgstr ""
 
-#: ../root/statistics/countries.tt:27 ../root/statistics/index.tt:6
-#: ../root/statistics/languages_scripts.tt:21
+#: ../root/statistics/countries.tt:27 ../root/statistics/formats.tt:20
+#: ../root/statistics/index.tt:6 ../root/statistics/languages_scripts.tt:21
 #, perl-format
 msgid "Last updated: {date}"
 msgstr ""
@@ -8341,7 +8411,7 @@ msgstr ""
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
 #: ../root/freedb/show.tt:65 ../root/isrc/index.tt:18 ../root/puid/index.tt:12
 #: ../root/recording/index.tt:11 ../root/release/discids.tt:10
-#: ../root/release/edit/tracklist.tt:255 ../root/release/edit/tracklist.tt:411
+#: ../root/release/edit/tracklist.tt:267 ../root/release/edit/tracklist.tt:423
 #: ../root/release/index.tt:21 ../root/report/isrc_with_many_recordings.tt:18
 #: ../root/search/lib/inline-results-recording.tt:8
 #: ../root/tracklist/index.tt:15
@@ -8375,7 +8445,7 @@ msgid "Liberia"
 msgstr ""
 
 #: DB:country/name:121
-msgid "Libyan Arab Jamahiriya"
+msgid "Libya"
 msgstr ""
 
 #: ../root/edit/relationship/create_url.tt:56
@@ -8437,6 +8507,10 @@ msgstr ""
 msgid "Link phrase:"
 msgstr ""
 
+#: DB:script/name:157
+msgid "Lisu (Fraser)"
+msgstr ""
+
 #: DB:country/name:123
 msgid "Lithuania"
 msgstr ""
@@ -8480,7 +8554,7 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: ../root/components/common-macros.tt:332
+#: ../root/components/common-macros.tt:338
 #, perl-format
 msgid "Log in"
 msgstr ""
@@ -8495,6 +8569,10 @@ msgstr ""
 
 #: DB:language/name:197
 msgid "Lojban"
+msgstr ""
+
+#: DB:script/name:147
+msgid "Loma"
 msgstr ""
 
 #: ../root/main/400.tt:18 ../root/main/404.tt:18
@@ -8518,7 +8596,7 @@ msgid ""
 "their own right."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:44
+#: ../root/scripts/text_strings.tt:45
 #, perl-format
 msgid "Lookup"
 msgstr ""
@@ -8550,17 +8628,17 @@ msgstr ""
 msgid "Lost Username"
 msgstr ""
 
-#: ../root/components/common-macros.tt:451
+#: ../root/components/common-macros.tt:457
 #, perl-format
 msgid "Low"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:140
+#: ../root/statistics/view_js.tt:152
 #, perl-format
 msgid "Low Data Quality"
 msgstr ""
 
-#: ../root/statistics/index.tt:240
+#: ../root/statistics/index.tt:252
 #, perl-format
 msgid "Low Data Quality:"
 msgstr ""
@@ -8705,12 +8783,12 @@ msgstr ""
 msgid "Male"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:93
+#: ../root/statistics/view_js.tt:102
 #, perl-format
 msgid "Male Artists"
 msgstr ""
 
-#: ../root/statistics/index.tt:151
+#: ../root/statistics/index.tt:163
 #, perl-format
 msgid "Male:"
 msgstr ""
@@ -8732,7 +8810,7 @@ msgid "Manchu"
 msgstr ""
 
 #: DB:script/name:16
-msgid "Mandaean"
+msgid "Mandaic"
 msgstr ""
 
 #: DB:language/name:268
@@ -8755,7 +8833,7 @@ msgstr ""
 msgid "Manobo languages"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:158
+#: ../root/release/edit/tracklist.tt:170
 #, perl-format
 msgid "Manual entry"
 msgstr ""
@@ -8840,11 +8918,12 @@ msgstr ""
 
 #: DB:link_attribute_type/description:110
 #, perl-format
-msgid "Mbira, (sansa, kalimba, luvale, karimba, marimbula, matape)"
+msgid ""
+"Mbira, (sansa, kalimba, luvale, karimba, marimbula, matape, thumb piano)"
 msgstr ""
 
 #: ../root/ajax/lookup_tracklist.tt:13 ../root/cdtoc/lookup.tt:37
-#: ../root/components/common-macros.tt:620
+#: ../root/components/common-macros.tt:626
 #: ../root/components/rdfa-macros.tt:519
 #: ../root/edit/relationship/create_batch.tt:61 ../root/release/discids.tt:21
 #: ../root/search/lib/inline-results-recording.tt:15
@@ -8885,35 +8964,41 @@ msgstr ""
 msgid "Medium:"
 msgstr ""
 
-#: ../root/cdtoc/set_durations.tt:10 ../root/statistics/view_js.tt:41
+#: ../root/cdtoc/set_durations.tt:10 ../root/statistics/formats.tt:30
+#: ../root/statistics/view_js.tt:43
 #, perl-format
 msgid "Mediums"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:128
+#: ../root/statistics/view_js.tt:140
 #, perl-format
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:134
 #, perl-format
 msgid "Mediums with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/index.tt:302
+#: ../root/statistics/index.tt:314
 #, perl-format
 msgid "Mediums with at least one disc ID:"
 msgstr ""
 
-#: ../root/statistics/index.tt:296
+#: ../root/statistics/index.tt:308
 #, perl-format
 msgid "Mediums with no disc IDs:"
 msgstr ""
 
+#: ../root/statistics/view_js.tt:95
+#, perl-format
+msgid "Mediums with no format set"
+msgstr ""
+
 #: ../root/edit/details/reorder_mediums.tt:17 ../root/statistics/index.tt:29
-#: ../root/statistics/index.tt:290
+#: ../root/statistics/index.tt:302
 #, perl-format
 msgid "Mediums:"
 msgstr ""
@@ -8937,7 +9022,7 @@ msgstr ""
 msgid "Member since:"
 msgstr ""
 
-#: DB:language/name:269
+#: DB:language/name:269 DB:script/name:148
 msgid "Mende"
 msgstr ""
 
@@ -9034,7 +9119,7 @@ msgstr ""
 msgid "Merge release group"
 msgstr ""
 
-#: ../root/artist/index.tt:75
+#: ../root/artist/index.tt:97
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
 #, perl-format
 msgid "Merge release groups"
@@ -9056,8 +9141,12 @@ msgstr ""
 msgid "Merge:"
 msgstr ""
 
+#: DB:script/name:153
+msgid "Meroitic Cursive"
+msgstr ""
+
 #: DB:script/name:8
-msgid "Meroitic"
+msgid "Meroitic Hieroglyphs"
 msgstr ""
 
 #: ../root/user/contact.tt:11
@@ -9086,6 +9175,10 @@ msgstr ""
 
 #: DB:language/name:271
 msgid "Mi'kmaq"
+msgstr ""
+
+#: DB:script/name:41
+msgid "Miao"
 msgstr ""
 
 #: DB:country/name:139
@@ -9138,11 +9231,11 @@ msgid "Moldavian"
 msgstr ""
 
 #: DB:country/name:140
-msgid "Moldova"
+msgid "Moldova, Republic of"
 msgstr ""
 
 #: DB:language/name:274
-msgid "Mon-Khmer (Other)"
+msgid "Mon-Khmer languages"
 msgstr ""
 
 #: DB:country/name:141
@@ -9208,12 +9301,12 @@ msgstr ""
 msgid "Move Disc ID"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:379
+#: ../root/release/edit/tracklist.tt:391
 #, perl-format
 msgid "Move disc down"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:382
+#: ../root/release/edit/tracklist.tt:394
 #, perl-format
 msgid "Move disc up"
 msgstr ""
@@ -9231,6 +9324,10 @@ msgstr ""
 
 #: DB:country/name:145
 msgid "Mozambique"
+msgstr ""
+
+#: DB:script/name:135
+msgid "Mro, Mru"
 msgstr ""
 
 #: DB:language/name:285
@@ -9431,6 +9528,10 @@ msgstr ""
 msgid "N/A"
 msgstr ""
 
+#: DB:script/name:149
+msgid "Nabataean"
+msgstr ""
+
 #: DB:language/name:291
 msgid "Nahuatl languages"
 msgstr ""
@@ -9440,11 +9541,15 @@ msgstr ""
 msgid "Nai, Romanian Panflute"
 msgstr ""
 
+#: DB:script/name:158
+msgid "Nakhi Geba"
+msgstr ""
+
 #: ../root/artist/aliases.tt:13 ../root/artist/recordings-list.tt:22
 #: ../root/components/results-generic.tt:5
 #: ../root/edit/details/historic/add_release.tt:50
 #: ../root/otherlookup/results-release.tt:7
-#: ../root/otherlookup/results-work.tt:7 ../root/scripts/text_strings.tt:24
+#: ../root/otherlookup/results-work.tt:7 ../root/scripts/text_strings.tt:25
 #: ../root/search/lib/inline-results-artist.tt:7
 #: ../root/search/lib/inline-results-recording.tt:7
 #: ../root/search/lib/inline-results-release.tt:9
@@ -9535,7 +9640,7 @@ msgid "Netherlands"
 msgstr ""
 
 #: DB:country/name:151
-msgid "Netherlands Antilles"
+msgid "Netherlands Antilles (historical, 1954-2010)"
 msgstr ""
 
 #: ../root/annotation/history.tt:7
@@ -9579,6 +9684,10 @@ msgstr ""
 #: ../root/edit/details/edit_release_attributes.tt:27
 #, perl-format
 msgid "New Status:"
+msgstr ""
+
+#: DB:script/name:67
+msgid "New Tai Lue"
 msgstr ""
 
 #: ../root/edit/details/edit_medium.tt:112
@@ -9641,7 +9750,7 @@ msgstr ""
 msgid "New version:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:34
+#: ../root/scripts/text_strings.tt:35
 #, perl-format
 msgid "Next"
 msgstr ""
@@ -9650,7 +9759,7 @@ msgstr ""
 #: ../root/release/edit/information.tt:110
 #: ../root/release/edit/missing_entities.tt:120
 #: ../root/release/edit/recordings.tt:431
-#: ../root/release/edit/tracklist.tt:466
+#: ../root/release/edit/tracklist.tt:478
 #, perl-format
 msgid "Next »"
 msgstr ""
@@ -9668,7 +9777,7 @@ msgid "Niger"
 msgstr ""
 
 #: DB:language/name:303
-msgid "Niger-Kordofanian (Other)"
+msgid "Niger-Kordofanian languages"
 msgstr ""
 
 #: DB:country/name:156
@@ -9676,7 +9785,7 @@ msgid "Nigeria"
 msgstr ""
 
 #: DB:language/name:396
-msgid "Nilo-Saharan (Other)"
+msgid "Nilo-Saharan languages"
 msgstr ""
 
 #: DB:country/name:157
@@ -9701,7 +9810,7 @@ msgstr ""
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
 msgstr ""
 
-#: ../root/statistics/view_js.tt:65
+#: ../root/statistics/view_js.tt:67
 #, perl-format
 msgid "No Votes"
 msgstr ""
@@ -9765,7 +9874,7 @@ msgstr ""
 msgid "No recordings with this tag were found."
 msgstr ""
 
-#: ../root/artist/index.tt:84
+#: ../root/artist/index.tt:106
 #, perl-format
 msgid "No release groups found"
 msgstr ""
@@ -9800,7 +9909,7 @@ msgstr ""
 msgid "No releases with this tag were found."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:111 ../root/scripts/text_strings.tt:36
+#: ../root/release/edit/tracklist.tt:113 ../root/scripts/text_strings.tt:37
 #, perl-format
 msgid "No results"
 msgstr ""
@@ -9853,7 +9962,7 @@ msgstr ""
 msgid "No works with this tag were found."
 msgstr ""
 
-#: ../root/statistics/index.tt:525
+#: ../root/statistics/index.tt:531
 #, perl-format
 msgid "No:"
 msgstr ""
@@ -9867,7 +9976,7 @@ msgstr ""
 msgid "Nominate a candidate for auto-editor"
 msgstr ""
 
-#: ../root/statistics/index.tt:145
+#: ../root/statistics/index.tt:157
 #, perl-format
 msgid "Non-group artists:"
 msgstr ""
@@ -9882,17 +9991,17 @@ msgstr ""
 msgid "Norfolk Island"
 msgstr ""
 
-#: ../root/components/common-macros.tt:451
+#: ../root/components/common-macros.tt:457
 #, perl-format
 msgid "Normal"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:138
+#: ../root/statistics/view_js.tt:150
 #, perl-format
 msgid "Normal Data Quality"
 msgstr ""
 
-#: ../root/statistics/index.tt:227
+#: ../root/statistics/index.tt:239
 #, perl-format
 msgid "Normal Data Quality:"
 msgstr ""
@@ -9907,7 +10016,7 @@ msgid "Norse, Old"
 msgstr ""
 
 #: DB:language/name:292
-msgid "North American Indian"
+msgid "North American Indian languages"
 msgstr ""
 
 #: DB:link_attribute_type/description:402
@@ -9945,7 +10054,7 @@ msgstr ""
 msgid "Norwegian Nynorsk"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:74
+#: ../root/scripts/text_strings.tt:75
 #, perl-format
 msgid "Not found? Try again with direct search."
 msgstr ""
@@ -9980,7 +10089,7 @@ msgstr ""
 msgid "Now loading recording associations..."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:273 ../root/release/edit/tracklist.tt:396
+#: ../root/release/edit/tracklist.tt:285 ../root/release/edit/tracklist.tt:408
 #, perl-format
 msgid "Now loading tracklist..."
 msgstr ""
@@ -10003,6 +10112,10 @@ msgstr ""
 
 #: DB:language/name:317
 msgid "Nzima"
+msgstr ""
+
+#: DB:script/name:136
+msgid "Nüshu"
 msgstr ""
 
 #: DB:link_attribute_type/description:22
@@ -10062,6 +10175,10 @@ msgstr ""
 msgid "Old Italic"
 msgstr ""
 
+#: DB:script/name:150
+msgid "Old North Arabian"
+msgstr ""
+
 #: DB:script/name:34
 msgid "Old Permic"
 msgstr ""
@@ -10070,9 +10187,17 @@ msgstr ""
 msgid "Old Persian"
 msgstr ""
 
+#: DB:script/name:156
+msgid "Old South Arabian"
+msgstr ""
+
 #: ../root/edit/details/edit_medium.tt:42
 #, perl-format
 msgid "Old Tracklist:"
+msgstr ""
+
+#: DB:script/name:20
+msgid "Old Turkish"
 msgstr ""
 
 #: ../root/account/change_password.tt:10
@@ -10142,7 +10267,7 @@ msgid "Oops, something went wrong!"
 msgstr ""
 
 #: ../root/edit/open.tt:14 ../root/edit/open.tt:16
-#: ../root/statistics/view_js.tt:47 ../root/user/profile/layout.tt:19
+#: ../root/statistics/view_js.tt:49 ../root/user/profile/layout.tt:19
 #, perl-format
 msgid "Open Edits"
 msgstr ""
@@ -10155,13 +10280,13 @@ msgstr ""
 msgid "Open edits"
 msgstr ""
 
-#: ../root/components/common-macros.tt:339
-#: ../root/components/common-macros.tt:344
+#: ../root/components/common-macros.tt:345
+#: ../root/components/common-macros.tt:350
 #, perl-format
 msgid "Open in tagger"
 msgstr ""
 
-#: ../root/statistics/index.tt:441
+#: ../root/statistics/index.tt:453
 #, perl-format
 msgid "Open:"
 msgstr ""
@@ -10176,7 +10301,7 @@ msgid "Opera"
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:391
-#: ../root/release/edit/tracklist.tt:143 ../root/release/edit/tracklist.tt:173
+#: ../root/release/edit/tracklist.tt:155 ../root/release/edit/tracklist.tt:185
 #, perl-format
 msgid "Options"
 msgstr ""
@@ -10191,10 +10316,6 @@ msgstr ""
 
 #: DB:language/name:320 DB:script/name:54
 msgid "Oriya"
-msgstr ""
-
-#: DB:script/name:20
-msgid "Orkhon"
 msgstr ""
 
 #: DB:language/name:321
@@ -10218,7 +10339,7 @@ msgstr ""
 msgid "Ossetian"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:36 DB:artist_type/name:3
+#: ../root/statistics/view_js.tt:38 DB:artist_type/name:3
 #: DB:release_group_type/name:11 DB:medium_format/name:13
 #: DB:release_packaging/name:5 DB:gender/name:3
 #, perl-format
@@ -10247,7 +10368,7 @@ msgid ""
 "wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
 msgstr ""
 
-#: ../root/statistics/index.tt:163
+#: ../root/statistics/index.tt:175
 #, perl-format
 msgid "Other gender:"
 msgstr ""
@@ -10276,7 +10397,7 @@ msgid ""
 "http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
 msgstr ""
 
-#: ../root/artist/index.tt:34
+#: ../root/artist/index.tt:56
 #, perl-format
 msgid "Other release groups"
 msgstr ""
@@ -10293,12 +10414,12 @@ msgstr ""
 msgid "Other vocalizations"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:95
+#: ../root/statistics/view_js.tt:104
 #, perl-format
 msgid "Other-gender Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:99
+#: ../root/statistics/view_js.tt:108
 #, perl-format
 msgid "Other-type Artists"
 msgstr ""
@@ -10345,12 +10466,12 @@ msgstr ""
 msgid "PUID:"
 msgstr ""
 
-#: ../root/statistics/index.tt:365 ../root/statistics/view_js.tt:118
+#: ../root/statistics/index.tt:377 ../root/statistics/view_js.tt:130
 #, perl-format
 msgid "PUIDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:131
 #, perl-format
 msgid "PUIDs (IDs)"
 msgstr ""
@@ -10360,17 +10481,17 @@ msgstr ""
 msgid "PUIDs (all / unique):"
 msgstr ""
 
-#: ../root/statistics/index.tt:375
+#: ../root/statistics/index.tt:387
 #, perl-format
 msgid "PUIDs (distinct IDs):"
 msgstr ""
 
-#: ../root/statistics/index.tt:370
+#: ../root/statistics/index.tt:382
 #, perl-format
 msgid "PUIDs (on recordings):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:141
 #, perl-format
 msgid "PUIDs with 1 Recording"
 msgid_plural "PUIDs with {n} Recordings"
@@ -10449,6 +10570,10 @@ msgstr ""
 msgid "Pali"
 msgstr ""
 
+#: DB:script/name:151
+msgid "Palmyrene"
+msgstr ""
+
 #: DB:language/name:329
 msgid "Pampanga"
 msgstr ""
@@ -10479,7 +10604,7 @@ msgid "Papua New Guinea"
 msgstr ""
 
 #: DB:language/name:326
-msgid "Papuan (Other)"
+msgid "Papuan languages"
 msgstr ""
 
 #: DB:country/name:166
@@ -10498,12 +10623,12 @@ msgstr ""
 msgid "Parent:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:148
+#: ../root/release/edit/tracklist.tt:160
 #, perl-format
 msgid "Parse Tracks"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:176
+#: ../root/release/edit/tracklist.tt:188
 #, perl-format
 msgid "Parse track artists"
 msgstr ""
@@ -10527,6 +10652,11 @@ msgstr ""
 #: ../root/layout/menu.tt:83
 #, perl-format
 msgid "People"
+msgstr ""
+
+#: DB:link_attribute_type/description:610
+#, perl-format
+msgid "Percussion performed by parts of the body."
 msgstr ""
 
 #: DB:link_attribute_type/description:587
@@ -10556,7 +10686,7 @@ msgstr ""
 msgid "Person"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:97
+#: ../root/statistics/view_js.tt:106
 #, perl-format
 msgid "Persons"
 msgstr ""
@@ -10570,7 +10700,7 @@ msgid "Phags-pa"
 msgstr ""
 
 #: DB:language/name:335
-msgid "Philippine (Other)"
+msgid "Philippine languages"
 msgstr ""
 
 #: DB:country/name:168
@@ -10611,7 +10741,7 @@ msgid ""
 "other editors know a bit more about you."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:43
+#: ../root/scripts/text_strings.tt:44
 #, perl-format
 msgid "Please click lookup to search"
 msgstr ""
@@ -10623,7 +10753,7 @@ msgid ""
 "please choose one of the following two methods:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:65
+#: ../root/scripts/text_strings.tt:66
 #, perl-format
 msgid "Please double-check the barcode on the release."
 msgstr ""
@@ -10783,12 +10913,12 @@ msgstr ""
 msgid "Please search for the artist you wish to create a new release for:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:40
+#: ../root/scripts/text_strings.tt:41
 #, perl-format
 msgid "Please select a relationship type."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:39
+#: ../root/scripts/text_strings.tt:40
 #, perl-format
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
@@ -10938,10 +11068,6 @@ msgstr ""
 msgid "Polish"
 msgstr ""
 
-#: DB:script/name:41
-msgid "Pollard Phonetic"
-msgstr ""
-
 #: DB:country/name:171
 msgid "Portugal"
 msgstr ""
@@ -11009,12 +11135,12 @@ msgstr ""
 msgid "Preview:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:31
+#: ../root/scripts/text_strings.tt:32
 #, perl-format
 msgid "Preview: "
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:35
+#: ../root/scripts/text_strings.tt:36
 #, perl-format
 msgid "Previous"
 msgstr ""
@@ -11153,9 +11279,9 @@ msgstr ""
 msgid "Rajasthani"
 msgstr ""
 
-#: ../root/statistics/countries.tt:32
-#: ../root/statistics/languages_scripts.tt:28
-#: ../root/statistics/languages_scripts.tt:47
+#: ../root/statistics/countries.tt:32 ../root/statistics/formats.tt:26
+#: ../root/statistics/languages_scripts.tt:29
+#: ../root/statistics/languages_scripts.tt:48
 #, perl-format
 msgid "Rank"
 msgstr ""
@@ -11170,7 +11296,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:85
 #, perl-format
-msgid "Rate of Change (items/week vs. day)"
+msgid "Rate of Change (average items/day vs. day)"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:68
@@ -11185,7 +11311,7 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/artist/browse_various.tt:16 ../root/artist/index.tt:44
+#: ../root/artist/browse_various.tt:16 ../root/artist/index.tt:66
 #: ../root/artist/recordings-list.tt:27 ../root/artist/works.tt:21
 #: ../root/layout/sidebar/sidebar-rating.tt:1 ../root/release/index.tt:20
 #: ../root/tracklist/index.tt:14
@@ -11195,7 +11321,7 @@ msgstr ""
 
 #: ../root/artist/ratings.tt:1 ../root/components/ratings.tt:1
 #: ../root/label/ratings.tt:1 ../root/recording/ratings.tt:1
-#: ../root/release_group/ratings.tt:1 ../root/statistics/view_js.tt:142
+#: ../root/release_group/ratings.tt:1 ../root/statistics/view_js.tt:154
 #: ../root/user/profile/layout.tt:19 ../root/user/ratings.tt:1
 #: ../root/user/ratings.tt:22 ../root/work/ratings.tt:1
 #, perl-format
@@ -11207,12 +11333,12 @@ msgstr ""
 msgid "Ratings (raw / aggregated):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:160
 #, perl-format
 msgid "Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:34
+#: ../root/statistics/view_js.tt:35
 #, perl-format
 msgid "Ratings and Tags"
 msgstr ""
@@ -11234,7 +11360,7 @@ msgstr ""
 msgid "Recorder flute (Blockflöte)"
 msgstr ""
 
-#: ../root/components/common-macros.tt:419 ../root/edit/search_macros.tt:278
+#: ../root/components/common-macros.tt:425 ../root/edit/search_macros.tt:278
 #: ../root/report/isrc_with_many_recordings.tt:17
 #: ../root/report/recording_list.tt:6
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -11253,17 +11379,17 @@ msgstr ""
 msgid "Recording Not Found"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:145
+#: ../root/statistics/view_js.tt:157
 #, perl-format
 msgid "Recording Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:151
+#: ../root/statistics/view_js.tt:163
 #, perl-format
 msgid "Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:159
+#: ../root/statistics/view_js.tt:171
 #, perl-format
 msgid "Recording Tags (raw)"
 msgstr ""
@@ -11288,32 +11414,32 @@ msgstr ""
 msgid "Recording “{name}” by {artist}"
 msgstr ""
 
-#: ../root/statistics/index.tt:643
+#: ../root/statistics/index.tt:649
 #, perl-format
 msgid "Recording-Recording:"
 msgstr ""
 
-#: ../root/statistics/index.tt:655
+#: ../root/statistics/index.tt:661
 #, perl-format
 msgid "Recording-Release Group:"
 msgstr ""
 
-#: ../root/statistics/index.tt:649
+#: ../root/statistics/index.tt:655
 #, perl-format
 msgid "Recording-Release:"
 msgstr ""
 
-#: ../root/statistics/index.tt:661
+#: ../root/statistics/index.tt:667
 #, perl-format
 msgid "Recording-URL:"
 msgstr ""
 
-#: ../root/statistics/index.tt:667
+#: ../root/statistics/index.tt:673
 #, perl-format
 msgid "Recording-Work:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:379
+#: ../root/components/common-macros.tt:385
 #: ../root/edit/details/add_recording_annotation.tt:3
 #: ../root/edit/details/add_standalone_recording.tt:3
 #: ../root/edit/details/change_track_artist.tt:3
@@ -11329,14 +11455,14 @@ msgstr ""
 
 #: ../root/artist/header.tt:1 ../root/artist/recordings.tt:1
 #: ../root/artist/recordings.tt:2 ../root/report/index.tt:55
-#: ../root/statistics/index.tt:329 ../root/statistics/view_js.tt:39
+#: ../root/statistics/index.tt:341 ../root/statistics/view_js.tt:41
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #: ../lib/MusicBrainz/Server/Wizard/ReleaseEditor.pm:66
 #, perl-format
 msgid "Recordings"
 msgstr ""
 
-#: ../root/statistics/index.tt:325
+#: ../root/statistics/index.tt:337
 #, perl-format
 msgid "Recordings and PUIDs"
 msgstr ""
@@ -11346,14 +11472,14 @@ msgstr ""
 msgid "Recordings starting with “{index}”"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:142
 #, perl-format
 msgid "Recordings with 1 PUID"
 msgid_plural "Recordings with {n} PUIDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/view_js.tt:131
+#: ../root/statistics/view_js.tt:143
 #, perl-format
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
@@ -11366,17 +11492,17 @@ msgstr[1] ""
 msgid "Recordings with Earliest Release Relationships"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:136
 #, perl-format
 msgid "Recordings with ISRCs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:135
 #, perl-format
 msgid "Recordings with PUIDs"
 msgstr ""
 
-#: ../root/statistics/index.tt:344
+#: ../root/statistics/index.tt:356
 #, perl-format
 msgid "Recordings with at least one PUID:"
 msgstr ""
@@ -11386,7 +11512,7 @@ msgstr ""
 msgid "Recordings with earliest release relationships"
 msgstr ""
 
-#: ../root/statistics/index.tt:339
+#: ../root/statistics/index.tt:351
 #, perl-format
 msgid "Recordings with no PUIDs:"
 msgstr ""
@@ -11399,7 +11525,7 @@ msgstr ""
 
 #: ../root/edit/details/edit_medium.tt:184
 #: ../root/edit/relationship/create_batch.tt:46 ../root/statistics/index.tt:33
-#: ../root/statistics/index.tt:334
+#: ../root/statistics/index.tt:346
 #, perl-format
 msgid "Recordings:"
 msgstr ""
@@ -11431,7 +11557,7 @@ msgstr ""
 msgid "Reject edit"
 msgstr ""
 
-#: ../root/components/common-macros.tt:458
+#: ../root/components/common-macros.tt:464
 #, perl-format
 msgid "Reject upon expiration"
 msgstr ""
@@ -11441,7 +11567,7 @@ msgstr ""
 msgid "Rek (Oriental tambourine)"
 msgstr ""
 
-#: ../root/components/common-macros.tt:411
+#: ../root/components/common-macros.tt:417
 #, perl-format
 msgid "Relate to ..."
 msgstr ""
@@ -11451,12 +11577,12 @@ msgstr ""
 msgid "Relate to <abbr title=\"Uniform Resource Locator\">URL</abbr>"
 msgstr ""
 
-#: ../root/components/common-macros.tt:434
+#: ../root/components/common-macros.tt:440
 #, perl-format
 msgid "Relate to recordings"
 msgstr ""
 
-#: ../root/components/common-macros.tt:434
+#: ../root/components/common-macros.tt:440
 #, perl-format
 msgid "Relate to release"
 msgstr ""
@@ -11591,8 +11717,8 @@ msgstr ""
 #: ../root/release_group/header.tt:1 ../root/release_group/relationships.tt:1
 #: ../root/release_group/relationships.tt:2 ../root/release/index.tt:66
 #: ../root/release/relationships.tt:1 ../root/release/relationships.tt:2
-#: ../root/release/tabs.tt:1 ../root/statistics/view_js.tt:32
-#: ../root/statistics/view_js.tt:164 ../root/url/index.tt:15
+#: ../root/release/tabs.tt:1 ../root/statistics/view_js.tt:33
+#: ../root/statistics/view_js.tt:176 ../root/url/index.tt:15
 #: ../root/url/relationships.tt:2 ../root/work/index.tt:10
 #: ../root/work/relationships.tt:1 ../root/work/relationships.tt:3
 #, perl-format
@@ -11601,13 +11727,13 @@ msgstr ""
 
 #: ../root/edit/details/historic/add_relationship.tt:3
 #: ../root/edit/details/remove_relationship_(historic).tt:3
-#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:559
+#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:565
 #, perl-format
 msgid "Relationships:"
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:36 ../root/collection/index.tt:10
-#: ../root/components/common-macros.tt:421
+#: ../root/components/common-macros.tt:427
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/search_macros.tt:278 ../root/release_group/index.tt:12
 #: ../root/release_group/releases-list.tt:16 ../root/release/lookup.tt:9
@@ -11629,12 +11755,12 @@ msgstr ""
 msgid "Release Artist"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:28
+#: ../root/statistics/view_js.tt:29
 #, perl-format
 msgid "Release Countries"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:33
+#: ../root/statistics/view_js.tt:34
 #, perl-format
 msgid "Release Data Quality"
 msgstr ""
@@ -11649,7 +11775,7 @@ msgstr ""
 msgid "Release Events:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:420 ../root/edit/search_macros.tt:278
+#: ../root/components/common-macros.tt:426 ../root/edit/search_macros.tt:278
 #: ../root/report/release_group_list.tt:6
 #: ../root/report/set_in_different_rg.tt:22
 #: ../root/search/results-release_group.tt:10
@@ -11669,32 +11795,32 @@ msgstr ""
 msgid "Release Group Not Found"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:146
+#: ../root/statistics/view_js.tt:158
 #, perl-format
 msgid "Release Group Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:152
+#: ../root/statistics/view_js.tt:164
 #, perl-format
 msgid "Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:161
+#: ../root/statistics/view_js.tt:173
 #, perl-format
 msgid "Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/index.tt:697
+#: ../root/statistics/index.tt:703
 #, perl-format
 msgid "Release Group-Release Group:"
 msgstr ""
 
-#: ../root/statistics/index.tt:703
+#: ../root/statistics/index.tt:709
 #, perl-format
 msgid "Release Group-URL:"
 msgstr ""
 
-#: ../root/statistics/index.tt:709
+#: ../root/statistics/index.tt:715
 #, perl-format
 msgid "Release Group-Work:"
 msgstr ""
@@ -11707,13 +11833,13 @@ msgstr ""
 msgid "Release Group:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:43 ../root/tag/header.tt:1
+#: ../root/statistics/view_js.tt:45 ../root/tag/header.tt:1
 #: ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #, perl-format
 msgid "Release Groups"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:144
 #, perl-format
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
@@ -11725,7 +11851,7 @@ msgstr[1] ""
 msgid "Release Language"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:30
+#: ../root/statistics/view_js.tt:31
 #, perl-format
 msgid "Release Languages"
 msgstr ""
@@ -11735,12 +11861,12 @@ msgstr ""
 msgid "Release Not Found"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:29
+#: ../root/statistics/view_js.tt:30
 #, perl-format
 msgid "Release Scripts"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:172
 #, perl-format
 msgid "Release Tags (raw)"
 msgstr ""
@@ -11796,7 +11922,7 @@ msgstr ""
 msgid "Release group “{name}” by {artist}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:379
+#: ../root/components/common-macros.tt:385
 #: ../root/edit/details/add_release_group_annotation.tt:3
 #: ../root/edit/details/add_release.tt:20
 #: ../root/edit/details/change_release_group.tt:7
@@ -11852,27 +11978,32 @@ msgstr ""
 msgid "Release “{name}” by {artist}"
 msgstr ""
 
-#: ../root/statistics/index.tt:679
+#: ../root/statistics/index.tt:685
 #, perl-format
 msgid "Release-Release Group:"
 msgstr ""
 
-#: ../root/statistics/index.tt:673
+#: ../root/statistics/index.tt:679
 #, perl-format
 msgid "Release-Release:"
 msgstr ""
 
-#: ../root/statistics/index.tt:685
+#: ../root/statistics/index.tt:691
 #, perl-format
 msgid "Release-URL:"
 msgstr ""
 
-#: ../root/statistics/index.tt:691
+#: ../root/statistics/index.tt:697
 #, perl-format
 msgid "Release-Work:"
 msgstr ""
 
-#: ../root/cdtoc/lookup.tt:70 ../root/components/common-macros.tt:379
+#: ../root/statistics/formats.tt:18 ../root/statistics/formats.tt:22
+#, perl-format
+msgid "Release/Medium Formats"
+msgstr ""
+
+#: ../root/cdtoc/lookup.tt:70 ../root/components/common-macros.tt:385
 #: ../root/edit/details/add_medium.tt:52
 #: ../root/edit/details/add_release_annotation.tt:4
 #: ../root/edit/details/add_release_label.tt:4
@@ -11886,25 +12017,25 @@ msgstr ""
 #: ../root/edit/details/remove_release_label.tt:3
 #: ../root/edit/details/remove_release.tt:3
 #: ../root/edit/details/reorder_mediums.tt:4
-#: ../root/release/edit/tracklist.tt:197 ../root/taglookup/form.tt:5
+#: ../root/release/edit/tracklist.tt:209 ../root/taglookup/form.tt:5
 #, perl-format
 msgid "Release:"
 msgstr ""
 
 #: ../root/artist/browse_various_releases.tt:1
 #: ../root/artist/browse_various.tt:17 ../root/artist/header.tt:1
-#: ../root/artist/index.tt:45 ../root/artist/releases.tt:1
+#: ../root/artist/index.tt:67 ../root/artist/releases.tt:1
 #: ../root/label/header.tt:1 ../root/label/index.tt:4
 #: ../root/recording/header.tt:1 ../root/report/index.tt:33
-#: ../root/statistics/countries.tt:35 ../root/statistics/index.tt:179
-#: ../root/statistics/languages_scripts.tt:30
-#: ../root/statistics/languages_scripts.tt:49 ../root/statistics/view_js.tt:42
+#: ../root/statistics/countries.tt:35 ../root/statistics/formats.tt:28
+#: ../root/statistics/index.tt:191 ../root/statistics/languages_scripts.tt:31
+#: ../root/statistics/languages_scripts.tt:50 ../root/statistics/view_js.tt:44
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #, perl-format
 msgid "Releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:110
+#: ../root/statistics/view_js.tt:122
 #, perl-format
 msgid "Releases (VA)"
 msgstr ""
@@ -11943,7 +12074,7 @@ msgstr ""
 msgid "Releases by {artist}"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:109
+#: ../root/statistics/view_js.tt:121
 #, perl-format
 msgid "Releases not VA"
 msgstr ""
@@ -11990,7 +12121,7 @@ msgstr ""
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr ""
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:139
 #, perl-format
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
@@ -12003,12 +12134,17 @@ msgstr[1] ""
 msgid "Releases with Creative Commons Download relationships"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:121
+#: ../root/statistics/view_js.tt:133
 #, perl-format
 msgid "Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/index.tt:269
+#: ../root/statistics/view_js.tt:94
+#, perl-format
+msgid "Releases with a no-format medium"
+msgstr ""
+
+#: ../root/statistics/index.tt:281
 #, perl-format
 msgid "Releases with at least one disc ID:"
 msgstr ""
@@ -12018,22 +12154,22 @@ msgstr ""
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:75
+#: ../root/statistics/view_js.tt:77
 #, perl-format
 msgid "Releases with no country set"
 msgstr ""
 
-#: ../root/statistics/index.tt:263
+#: ../root/statistics/index.tt:275
 #, perl-format
 msgid "Releases with no disc IDs:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:87
+#: ../root/statistics/view_js.tt:89
 #, perl-format
 msgid "Releases with no language set"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:82
+#: ../root/statistics/view_js.tt:84
 #, perl-format
 msgid "Releases with no script set"
 msgstr ""
@@ -12072,7 +12208,7 @@ msgstr ""
 msgid "Releases without script"
 msgstr ""
 
-#: ../root/statistics/index.tt:175
+#: ../root/statistics/index.tt:187
 #, perl-format
 msgid "Releases, Data Quality, and Disc IDs"
 msgstr ""
@@ -12096,8 +12232,8 @@ msgstr ""
 #: ../root/edit/details/remove_releases.tt:3
 #: ../root/edit/details/set_track_lengths_from_discid.tt:5
 #: ../root/edit/details/set_track_lengths.tt:5 ../root/statistics/index.tt:25
-#: ../root/statistics/index.tt:184 ../root/statistics/index.tt:208
-#: ../root/statistics/index.tt:257
+#: ../root/statistics/index.tt:196 ../root/statistics/index.tt:220
+#: ../root/statistics/index.tt:269
 #, perl-format
 msgid "Releases:"
 msgstr ""
@@ -12115,7 +12251,7 @@ msgstr ""
 #: ../root/label/delete.tt:1 ../root/puid/index.tt:31
 #: ../root/recording/delete.tt:1 ../root/recording/fingerprints.tt:30
 #: ../root/release/delete.tt:1 ../root/release/discids.tt:39
-#: ../root/release/edit-links.tt:3 ../root/scripts/text_strings.tt:42
+#: ../root/release/edit-links.tt:3 ../root/scripts/text_strings.tt:43
 #: ../root/user/collections.tt:24
 #, perl-format
 msgid "Remove"
@@ -12132,7 +12268,7 @@ msgstr ""
 msgid "Remove Artist Alias"
 msgstr ""
 
-#: ../root/components/forms.tt:217 ../root/release/edit/tracklist.tt:71
+#: ../root/components/forms.tt:217 ../root/release/edit/tracklist.tt:73
 #, perl-format
 msgid "Remove Artist Credit"
 msgstr ""
@@ -12215,7 +12351,7 @@ msgstr ""
 msgid "Remove collection"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:386
+#: ../root/release/edit/tracklist.tt:398
 #, perl-format
 msgid "Remove disc"
 msgstr ""
@@ -12272,7 +12408,7 @@ msgstr ""
 msgid "Remove this collection"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:317
+#: ../root/release/edit/tracklist.tt:329
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:10
 #, perl-format
 msgid "Remove track"
@@ -12340,10 +12476,6 @@ msgstr ""
 msgid "Results:"
 msgstr ""
 
-#: DB:country/name:174
-msgid "Reunion"
-msgstr ""
-
 #: ../root/user/contact.tt:16
 #, perl-format
 msgid "Reveal my email address"
@@ -12361,7 +12493,7 @@ msgid "Rhodes piano"
 msgstr ""
 
 #: DB:language/name:348
-msgid "Romance (Other)"
+msgid "Romance languages"
 msgstr ""
 
 #: DB:country/name:175
@@ -12404,6 +12536,10 @@ msgstr ""
 msgid "Rwanda"
 msgstr ""
 
+#: DB:country/name:174
+msgid "Réunion"
+msgstr ""
+
 #: DB:medium_format/name:3
 msgid "SACD"
 msgstr ""
@@ -12417,7 +12553,7 @@ msgid "Saint Barthélemy"
 msgstr ""
 
 #: DB:country/name:196
-msgid "Saint Helena"
+msgid "Saint Helena, Ascension and Tristan da Cunha"
 msgstr ""
 
 #: DB:country/name:178
@@ -12429,7 +12565,7 @@ msgid "Saint Lucia"
 msgstr ""
 
 #: DB:country/name:256
-msgid "Saint Martin"
+msgid "Saint Martin (French part)"
 msgstr ""
 
 #: DB:country/name:197
@@ -12453,7 +12589,7 @@ msgid "Samaritan Aramaic"
 msgstr ""
 
 #: DB:language/name:381
-msgid "Sami languages (Other)"
+msgid "Sami languages"
 msgstr ""
 
 #: DB:language/name:383
@@ -12580,7 +12716,7 @@ msgstr ""
 msgid "Scottish smallpipes"
 msgstr ""
 
-#: ../root/statistics/languages_scripts.tt:48
+#: ../root/statistics/languages_scripts.tt:49
 #, perl-format
 msgid "Script"
 msgstr ""
@@ -12593,7 +12729,7 @@ msgstr ""
 msgid "Script:"
 msgstr ""
 
-#: ../root/statistics/languages_scripts.tt:43
+#: ../root/statistics/languages_scripts.tt:44
 #, perl-format
 msgid "Scripts"
 msgstr ""
@@ -12603,7 +12739,7 @@ msgstr ""
 #: ../root/cdtoc/lookup.tt:72 ../root/cdtoc/move_search.tt:15
 #: ../root/components/search.tt:11 ../root/edit/list.tt:27
 #: ../root/layout/menu.tt:153 ../root/layout.tt:61
-#: ../root/otherlookup/form.tt:18 ../root/release/edit/tracklist.tt:206
+#: ../root/otherlookup/form.tt:18 ../root/release/edit/tracklist.tt:218
 #: ../root/search/form.tt:47 ../root/search/index.tt:1
 #: ../root/search/index.tt:3 ../root/taglookup/form.tt:13
 #, perl-format
@@ -12699,12 +12835,12 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:106
+#: ../root/release/edit/tracklist.tt:108
 #, perl-format
 msgid "Searching..."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:38
+#: ../root/scripts/text_strings.tt:39
 #, perl-format
 msgid "Searching…"
 msgstr ""
@@ -12766,7 +12902,7 @@ msgid "Selkup"
 msgstr ""
 
 #: DB:language/name:368
-msgid "Semitic (Other)"
+msgid "Semitic languages"
 msgstr ""
 
 #: ../root/user/contact.tt:20
@@ -12833,6 +12969,10 @@ msgstr ""
 msgid "Shan"
 msgstr ""
 
+#: DB:script/name:138
+msgid "Sharada"
+msgstr ""
+
 #: DB:script/name:40
 msgid "Shavian"
 msgstr ""
@@ -12870,7 +13010,7 @@ msgstr ""
 msgid "Show Credits"
 msgstr ""
 
-#: ../root/artist/index.tt:94
+#: ../root/artist/index.tt:116
 #, perl-format
 msgid ""
 "Showing Various Artist release groups. {show_subset|Show release groups by "
@@ -12896,7 +13036,7 @@ msgid ""
 "Showing only standalone recordings. {show_all|Show all recordings instead}."
 msgstr ""
 
-#: ../root/artist/index.tt:91
+#: ../root/artist/index.tt:113
 #, perl-format
 msgid ""
 "Showing release groups by this artist. {show_all|Show Various Artist release "
@@ -12910,7 +13050,7 @@ msgid ""
 "instead}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:37
+#: ../root/scripts/text_strings.tt:38
 #, perl-format
 msgid ""
 "Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
@@ -12967,7 +13107,11 @@ msgid "Sinhala"
 msgstr ""
 
 #: DB:language/name:375
-msgid "Sino-Tibetan (Other)"
+msgid "Sino-Tibetan languages"
+msgstr ""
+
+#: DB:country/name:260
+msgid "Sint Maarten (Dutch part)"
 msgstr ""
 
 #: DB:language/name:374
@@ -12984,7 +13128,7 @@ msgid "Slave (Athapascan)"
 msgstr ""
 
 #: DB:language/name:376
-msgid "Slavic (Other)"
+msgid "Slavic languages"
 msgstr ""
 
 #: DB:link_attribute_type/description:268
@@ -13029,7 +13173,7 @@ msgstr ""
 msgid "Slow Down!"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:75
+#: ../root/scripts/text_strings.tt:76
 #, perl-format
 msgid "Slow? Switch back to indexed search."
 msgstr ""
@@ -13062,7 +13206,7 @@ msgid ""
 "able to be updated after FreeDB's monthly database export."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:30
+#: ../root/scripts/text_strings.tt:31
 #, perl-format
 msgid "Some artists credited with alternative names"
 msgstr ""
@@ -13108,6 +13252,10 @@ msgstr ""
 msgid "Sopranino recorder (Sopraninoblockflöte)"
 msgstr ""
 
+#: DB:script/name:137
+msgid "Sora Sompeng"
+msgstr ""
+
 #: DB:language/name:456
 msgid "Sorbian languages"
 msgstr ""
@@ -13132,7 +13280,7 @@ msgstr ""
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:45
+#: ../root/scripts/text_strings.tt:46
 #, perl-format
 msgid "Sorry, an error occurred during your search"
 msgstr ""
@@ -13389,11 +13537,15 @@ msgid "South Africa"
 msgstr ""
 
 #: DB:language/name:357
-msgid "South American Indian (Other)"
+msgid "South American Indian languages"
 msgstr ""
 
 #: DB:country/name:248
 msgid "South Georgia and the South Sandwich Islands"
+msgstr ""
+
+#: DB:country/name:257
+msgid "South Sudan"
 msgstr ""
 
 #: DB:language/name:474
@@ -13654,6 +13806,10 @@ msgstr ""
 msgid "Symbols"
 msgstr ""
 
+#: DB:work_type/name:18
+msgid "Symphonic poem"
+msgstr ""
+
 #: DB:work_type/name:16
 msgid "Symphony"
 msgstr ""
@@ -13783,8 +13939,8 @@ msgstr ""
 msgid "Tagbanwa"
 msgstr ""
 
-#: ../root/cdtoc/list.tt:14 ../root/components/common-macros.tt:340
-#: ../root/components/common-macros.tt:345
+#: ../root/cdtoc/list.tt:14 ../root/components/common-macros.tt:346
+#: ../root/components/common-macros.tt:351
 #: ../root/otherlookup/results-release.tt:13 ../root/release_group/index.tt:21
 #: ../root/release_group/releases-list.tt:30
 #: ../root/search/lib/inline-results-recording.tt:12
@@ -13800,7 +13956,7 @@ msgstr ""
 #: ../root/recording/header.tt:1 ../root/recording/tags.tt:1
 #: ../root/release_group/header.tt:1 ../root/release_group/tags.tt:1
 #: ../root/release/tabs.tt:1 ../root/release/tags.tt:1
-#: ../root/statistics/view_js.tt:155 ../root/tag/cloud.tt:1
+#: ../root/statistics/view_js.tt:167 ../root/tag/cloud.tt:1
 #: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:19
 #: ../root/user/tags.tt:1 ../root/work/header.tt:1 ../root/work/tags.tt:1
 #, perl-format
@@ -13812,7 +13968,7 @@ msgstr ""
 msgid "Tags (raw / aggregated):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:156
+#: ../root/statistics/view_js.tt:168
 #, perl-format
 msgid "Tags (raw)"
 msgstr ""
@@ -13821,20 +13977,20 @@ msgstr ""
 msgid "Tahitian"
 msgstr ""
 
-#: DB:language/name:406
-msgid "Tai (Other)"
-msgstr ""
-
 #: DB:script/name:66
 msgid "Tai Le"
 msgstr ""
 
-#: DB:script/name:67
-msgid "Tai Lue"
+#: DB:script/name:117
+msgid "Tai Tham"
 msgstr ""
 
 #: DB:script/name:127
 msgid "Tai Viet"
+msgstr ""
+
+#: DB:language/name:406
+msgid "Tai languages"
 msgstr ""
 
 #: DB:country/name:205
@@ -13847,6 +14003,10 @@ msgstr ""
 
 #: DB:country/name:206
 msgid "Tajikistan"
+msgstr ""
+
+#: DB:script/name:139
+msgid "Takri"
 msgstr ""
 
 #: DB:language/name:423
@@ -13865,6 +14025,10 @@ msgstr ""
 #: DB:link_attribute_type/description:410
 #, perl-format
 msgid "Tanbou ka or Tambu ka (a small high-pitched drum)"
+msgstr ""
+
+#: DB:script/name:140
+msgid "Tangut"
 msgstr ""
 
 #: DB:country/name:207
@@ -13967,6 +14131,14 @@ msgid ""
 "org/wiki/Saraswati_veena\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:597
+#, perl-format
+msgid ""
+"The agogô is a single or multiple bell used in samba music with origins in "
+"traditional Yoruba music. (<a href=\"http://en.wikipedia.org/wiki/Agogô"
+"\">Wikipedia</a>)"
+msgstr ""
+
 #: ../root/release/edit/information.tt:177
 #, perl-format
 msgid "The annotation field functions like a miniature wiki."
@@ -13979,34 +14151,42 @@ msgid ""
 "not make direct changes to this data."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:62
+#: DB:link_attribute_type/description:598
+#, perl-format
+msgid ""
+"The bandora is a large long-necked plucked string instrument that has been "
+"described as a kind of bass cittern. (<a href=\"http://en.wikipedia.org/wiki/"
+"Bandora_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: ../root/scripts/text_strings.tt:63
 #, perl-format
 msgid "The barcode you entered is a valid EAN code."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:60
+#: ../root/scripts/text_strings.tt:61
 #, perl-format
 msgid "The barcode you entered is a valid UPC code."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:61
+#: ../root/scripts/text_strings.tt:62
 #, perl-format
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:63
+#: ../root/scripts/text_strings.tt:64
 #, perl-format
 msgid "The barcode you entered is not a valid EAN code."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:64
+#: ../root/scripts/text_strings.tt:65
 #, perl-format
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:59
+#: ../root/scripts/text_strings.tt:60
 #, perl-format
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
@@ -14035,12 +14215,20 @@ msgstr ""
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr ""
 
+#: DB:link_attribute_type/description:599
+#, perl-format
+msgid ""
+"The caxixi is a shaker originating in Brazil which is made of a small wicker "
+"basket containing seeds or other small particles.\n"
+"(<a href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:559
 #, perl-format
 msgid "The charango is a small South American lute."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:66
+#: ../root/scripts/text_strings.tt:67
 #, perl-format
 msgid "The checkdigit is #checkdigit#."
 msgstr ""
@@ -14050,6 +14238,21 @@ msgstr ""
 msgid ""
 "The comment field is used to help users distinguish between identically "
 "named releases."
+msgstr ""
+
+#: DB:link_attribute_type/description:601
+#, perl-format
+msgid ""
+"The cuíca is a Brazilian friction drum often used in samba music. (<a href="
+"\"http://en.wikipedia.org/wiki/Cuíca\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:602
+#, perl-format
+msgid ""
+"The daegeum (Korean: 대금, also spelt taegŭm) is a large transverse flute "
+"from Korea which is made of bamboo. (<a href=\"http://en.wikipedia.org/wiki/"
+"Daegeum\">Wikipedia</a>)"
 msgstr ""
 
 #: ../root/edit/details/merge_releases.tt:52
@@ -14086,6 +14289,14 @@ msgid ""
 "The domra (Russian: домра) is a long-necked Russian string instrument of the "
 "lute family with a round body and three or four metal strings. (<a href="
 "\"http://en.wikipedia.org/wiki/Domra\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:606
+#, perl-format
+msgid ""
+"The dulcian (also called curtal) is a double reed bass woodwind instrument "
+"which is a 16th century ancestor of the bassoon. (<a href=\"http://en."
+"wikipedia.org/wiki/Dulcian\">Wikipedia</a>)"
 msgstr ""
 
 #: ../root/user/profile.tt:61
@@ -14156,6 +14367,15 @@ msgid ""
 "instrument. (<a href=\"http://en.wikipedia.org/wiki/Haegeum\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:605
+#, perl-format
+msgid ""
+"The janggu (Korean: 장구, also spelt changgu) or janggo (Korean: 장고, also "
+"spelt changgo) is a double-headed hourglass shaped drum which is the most "
+"widely used drum used in the traditional music of Korea. (<a href=\"http://"
+"en.wikipedia.org/wiki/Janggu\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:355
 #, perl-format
 msgid ""
@@ -14179,6 +14399,15 @@ msgstr ""
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia. It "
 "is known by a number of names including caval and blul."
+msgstr ""
+
+#: DB:link_attribute_type/description:608
+#, perl-format
+msgid ""
+"The kkwaenggwari (Korean: 꽹과리, also spelt ggwaenggwari) is a small flat "
+"brass gong, typically about 20cm in diameter, which is used primarily in the "
+"folk music of Korea. (<a href=\"http://en.wikipedia.org/wiki/Kkwaenggwari"
+"\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:371
@@ -14218,9 +14447,25 @@ msgid ""
 "Mridangam\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:603
+#, perl-format
+msgid ""
+"The nohkan (Japanese: 能管, nōkan) is a high-pitched bamboo transverse flute "
+"from Japan. (<a href=\"http://en.wikipedia.org/wiki/Nohkan\">Wikipedia</a>)"
+msgstr ""
+
 #: ../root/main/403.tt:5
 #, perl-format
 msgid "The page you requested is private."
+msgstr ""
+
+#: DB:link_attribute_type/description:609
+#, perl-format
+msgid ""
+"The piri (Korean: 피리, also spelt p'iri) is a Korean double reed instrument "
+"made of bamboo, used in both the folk and classical (court) music of Korea. "
+"Related to the Chinese guan and Japanese hichiriki. (<a href=\"http://en."
+"wikipedia.org/wiki/Piri\">Wikipedia</a>)"
 msgstr ""
 
 #: ../root/release/edit/information.tt:180
@@ -14274,6 +14519,15 @@ msgid ""
 "The shamisen or samisen (Japanese: 三味線), also called sangen (Japanese: 三"
 "絃), is a three-stringed instrument from Japan played with a plectrum called "
 "a bachi. (<a href=\"http://en.wikipedia.org/wiki/Shamisen\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:604
+#, perl-format
+msgid ""
+"The shehnai, shahnai, shenai or mangal vadya, is a double reed conical oboe, "
+"common in North India, West India and Pakistan, made out of wood, with a "
+"metal flare bell at the end. (http://en.wikipedia.org/wiki/Shehnai"
+"\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:564
@@ -14505,7 +14759,7 @@ msgid ""
 "with a recording, please {search_url|search for the recording} and add it."
 msgstr ""
 
-#: ../root/artist/index.tt:81
+#: ../root/artist/index.tt:103
 #, perl-format
 msgid "This artist does not have any release groups"
 msgstr ""
@@ -14515,7 +14769,7 @@ msgstr ""
 msgid "This artist does not have any releases"
 msgstr ""
 
-#: ../root/artist/index.tt:16
+#: ../root/artist/index.tt:38
 #, perl-format
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
@@ -14541,7 +14795,7 @@ msgstr ""
 msgid "This artist is not currently associated with any works."
 msgstr ""
 
-#: ../root/artist/index.tt:88
+#: ../root/artist/index.tt:110
 #, perl-format
 msgid "This artist only has release groups by various artists."
 msgstr ""
@@ -14690,14 +14944,14 @@ msgid ""
 "Label_Reissue_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid ""
 "This edit failed because the data it was changing was modified after this "
@@ -14705,30 +14959,30 @@ msgid ""
 "one will pass but the other will fail."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid "This edit failed because there were insufficient \"yes\" votes."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists, "
 "or the entity can not be modified in this manner anymore."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid "This edit has been successfully applied."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid "This edit is open and awaiting votes before it can be applied."
 msgstr ""
@@ -14745,23 +14999,23 @@ msgid ""
 "being made. Please see the official edit type documentation for more details."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid "This edit was cancelled."
 msgstr ""
 
-#: ../root/components/common-macros.tt:464
+#: ../root/components/common-macros.tt:470
 #, perl-format
 msgid "This edit was recently cancelled."
 msgstr ""
 
-#: ../root/components/common-macros.tt:151
+#: ../root/components/common-macros.tt:157
 #: ../lib/MusicBrainz/Server/Plugin/Diff.pm:110
 #, perl-format
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr ""
 
-#: ../root/components/common-macros.tt:151
+#: ../root/components/common-macros.tt:157
 #, perl-format
 msgid "This entity will be created when edits are entered."
 msgstr ""
@@ -14883,16 +15137,6 @@ msgid ""
 "\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:84
-#, perl-format
-msgid ""
-"This is used to link to a URL where the linked release is available for "
-"download under a Creative Commons license. (<a href=\"http://musicbrainz.org/"
-"doc/Creative_Commons_Licensed_Download_Relationship_Type\">Details</a>)<br/"
-">\n"
-"<strong>Note:</strong> The URL should be where the music can be downloaded."
-msgstr ""
-
 #: DB:link_type/description:267
 #, perl-format
 msgid ""
@@ -15006,6 +15250,11 @@ msgid ""
 "This links a release group and the URL of that release group's official "
 "site. (<a href=\"http://musicbrainz.org/doc/"
 "Official_Homepage_Relationship_Type\">Details</a>)"
+msgstr ""
+
+#: DB:link_type/description:301
+#, perl-format
+msgid "This links a release to a license under which it is available."
 msgstr ""
 
 #: DB:link_type/description:292
@@ -15278,6 +15527,14 @@ msgid ""
 "release with multiple discs as a single release containing multiple discs."
 msgstr ""
 
+#: DB:link_type/description:84
+#, perl-format
+msgid ""
+"This relationship type is <strong>deprecated</strong>! Please enter separate "
+"relationships using the license relationship type and either the free "
+"download or paid download relationship type."
+msgstr ""
+
 #: ../root/admin/linktype/in_use.tt:3
 #, perl-format
 msgid "This relationship type is still being used by some relationships."
@@ -15510,6 +15767,13 @@ msgid ""
 "This requires that mediums over each release have corresponding track counts."
 msgstr ""
 
+#: DB:link_attribute_type/description:596
+#, perl-format
+msgid ""
+"This should be used when an artist is credited in liner notes or a similar "
+"source as performing a solo part."
+msgstr ""
+
 #: ../root/user/profile.tt:134
 #, perl-format
 msgid "This table shows a summary of votes cast by this editor."
@@ -15596,13 +15860,17 @@ msgstr ""
 msgid "Timpani (Kettle drum)"
 msgstr ""
 
-#: ../root/artist/browse_various.tt:14 ../root/artist/index.tt:40
+#: DB:script/name:132
+msgid "Tiruta"
+msgstr ""
+
+#: ../root/artist/browse_various.tt:14 ../root/artist/index.tt:62
 #: ../root/artist/relationships.tt:14 ../root/cdstub/browse.tt:9
 #: ../root/cdstub/cdstub.tt:5 ../root/cdtoc/list.tt:6
 #: ../root/edit/details/edit_medium.tt:48
 #: ../root/edit/details/edit_medium.tt:118 ../root/isrc/index.tt:16
 #: ../root/puid/index.tt:10 ../root/recording/index.tt:10
-#: ../root/release/edit/tracklist.tt:253 ../root/release/edit/tracklist.tt:406
+#: ../root/release/edit/tracklist.tt:265 ../root/release/edit/tracklist.tt:418
 #: ../root/release/index.tt:15 ../root/search/results-freedb.tt:10
 #: ../root/tracklist/index.tt:10 ../root/tracklist/index.tt:29
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:11
@@ -15631,11 +15899,6 @@ msgid ""
 "testing servers:"
 msgstr ""
 
-#: ../root/statistics/index.tt:477
-#, perl-format
-msgid "To be cancelled:"
-msgstr ""
-
 #: ../root/artist/browse_various_recordings.tt:20
 #: ../root/artist/browse_various_releases.tt:20
 #: ../root/artist/browse_various.tt:41 ../root/browse/artist.tt:37
@@ -15650,7 +15913,7 @@ msgstr ""
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:167
+#: ../root/release/edit/tracklist.tt:179
 #, perl-format
 msgid ""
 "To use an existing tracklist or import a disc from a CD stub or FreeDB, "
@@ -15664,7 +15927,7 @@ msgid ""
 "them and select 'Watch this artist for new releases' from the sidebar."
 msgstr ""
 
-#: ../root/statistics/view_js.tt:51
+#: ../root/statistics/view_js.tt:53
 #, perl-format
 msgid "To-be-cancelled edits"
 msgstr ""
@@ -15786,12 +16049,12 @@ msgstr ""
 msgid "Track"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:373 ../root/release/edit/tracklist.tt:374
+#: ../root/release/edit/tracklist.tt:385 ../root/release/edit/tracklist.tt:386
 #, perl-format
 msgid "Track Parser"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:211
+#: ../root/release/edit/tracklist.tt:223
 #, perl-format
 msgid "Track count:"
 msgstr ""
@@ -15812,7 +16075,7 @@ msgstr ""
 msgid "Track lengths:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:179
+#: ../root/release/edit/tracklist.tt:191
 #, perl-format
 msgid "Track names start with a number"
 msgstr ""
@@ -15855,7 +16118,7 @@ msgstr ""
 #: ../root/release_group/releases-list.tt:21
 #: ../root/search/lib/inline-results-release.tt:11
 #: ../root/search/results-cdstub.tt:12 ../root/search/results-freedb.tt:12
-#: ../root/statistics/view_js.tt:104 ../root/tracklist/index.tt:5
+#: ../root/statistics/view_js.tt:116 ../root/tracklist/index.tt:5
 #, perl-format
 msgid "Tracks"
 msgstr ""
@@ -16000,8 +16263,9 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: ../root/artist/edit_form.tt:41 ../root/artist/layout.tt:9
-#: ../root/edit/details/add_artist.tt:25 ../root/edit/details/add_label.tt:48
+#: ../root/artist/edit_form.tt:41 ../root/artist/index.tt:4
+#: ../root/artist/layout.tt:9 ../root/edit/details/add_artist.tt:25
+#: ../root/edit/details/add_label.tt:48
 #: ../root/edit/details/add_release_group.tt:28
 #: ../root/edit/details/add_work.tt:30 ../root/edit/details/edit_artist.tt:24
 #: ../root/edit/details/edit_label.tt:25
@@ -16061,17 +16325,17 @@ msgstr ""
 msgid "URL Relationships"
 msgstr ""
 
-#: ../root/statistics/index.tt:715
+#: ../root/statistics/index.tt:721
 #, perl-format
 msgid "URL-URL:"
 msgstr ""
 
-#: ../root/statistics/index.tt:721
+#: ../root/statistics/index.tt:727
 #, perl-format
 msgid "URL-Work:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:379 ../root/edit/details/edit_url.tt:9
+#: ../root/components/common-macros.tt:385 ../root/edit/details/edit_url.tt:9
 #: ../root/edit/details/edit_url.tt:15
 #: ../root/edit/relationship/create_url.tt:52 ../root/url/edit.tt:18
 #: ../root/url/index.tt:5
@@ -16160,28 +16424,43 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: ../root/statistics/countries.tt:16 ../root/statistics/view_js.tt:73
-#: ../root/statistics/view_js.tt:74 ../root/statistics/view_js.tt:75
+#: ../root/statistics/countries.tt:16 ../root/statistics/view_js.tt:75
+#: ../root/statistics/view_js.tt:76 ../root/statistics/view_js.tt:77
 #, perl-format
 msgid "Unknown Country"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:137
+#: ../root/statistics/view_js.tt:149
 #, perl-format
 msgid "Unknown Data Quality"
 msgstr ""
 
-#: ../root/statistics/index.tt:234
+#: ../root/statistics/index.tt:246
 #, perl-format
 msgid "Unknown Data Quality:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:87
+#: ../root/statistics/formats.tt:5
+#, perl-format
+msgid "Unknown Format"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:95
+#, perl-format
+msgid "Unknown Format (medium)"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:94
+#, perl-format
+msgid "Unknown Format (release)"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:89
 #, perl-format
 msgid "Unknown Language"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:82
+#: ../root/statistics/view_js.tt:84
 #, perl-format
 msgid "Unknown Script"
 msgstr ""
@@ -16196,12 +16475,12 @@ msgstr ""
 msgid "Unknown script"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:92
+#: ../root/statistics/view_js.tt:101
 #, perl-format
 msgid "Unknown-gender Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:100
+#: ../root/statistics/view_js.tt:109
 #, perl-format
 msgid "Unknown-type Artists"
 msgstr ""
@@ -16263,7 +16542,7 @@ msgid "Update collection"
 msgstr ""
 
 #: ../root/components/forms.tt:134 ../root/components/forms.tt:158
-#: ../root/release/edit/tracklist.tt:451
+#: ../root/release/edit/tracklist.tt:463
 #, perl-format
 msgid "Uppercase roman numerals"
 msgstr ""
@@ -16286,7 +16565,7 @@ msgstr ""
 msgid "Usage Count"
 msgstr ""
 
-#: ../root/components/common-macros.tt:390
+#: ../root/components/common-macros.tt:396
 #, perl-format
 msgid "Use in a relationship"
 msgstr ""
@@ -16310,17 +16589,17 @@ msgid ""
 "\"{url}\">Artist Credit</a> documentation for more information."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:220
+#: ../root/release/edit/tracklist.tt:232
 #, perl-format
 msgid "Use the following fields to search for a CD stub."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:227
+#: ../root/release/edit/tracklist.tt:239
 #, perl-format
 msgid "Use the following fields to search for a FreeDB entry."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:192
+#: ../root/release/edit/tracklist.tt:204
 #, perl-format
 msgid "Use the following fields to search for an existing tracklist."
 msgstr ""
@@ -16335,8 +16614,8 @@ msgstr ""
 #, perl-format
 msgid ""
 "Use this relationship to link to lyrics hosted by lyrics.wikia.com, "
-"directlyrics.com or lyricstatus.com ONLY! (<a href=\"http://musicbrainz.org/"
-"doc/Has_Lyrics_At_Relationship_Type\">Details</a>)"
+"directlyrics.com, lyricstatus.com or kasi-time.com ONLY! (<a href=\"http://"
+"musicbrainz.org/doc/Has_Lyrics_At_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: ../root/search/form.tt:44
@@ -16452,7 +16731,7 @@ msgid "Venda"
 msgstr ""
 
 #: DB:country/name:228
-msgid "Venezuela"
+msgid "Venezuela, Bolivarian Republic of"
 msgstr ""
 
 #: DB:link_attribute_type/description:503
@@ -16588,7 +16867,7 @@ msgstr ""
 msgid "Voted down"
 msgstr ""
 
-#: ../root/statistics/index.tt:453
+#: ../root/statistics/index.tt:465
 #, perl-format
 msgid "Voted down:"
 msgstr ""
@@ -16599,7 +16878,7 @@ msgid "Voter"
 msgstr ""
 
 #: ../root/doc/edit_type.tt:49 ../root/edit/index.tt:24
-#: ../root/statistics/index.tt:508 ../root/statistics/view_js.tt:60
+#: ../root/statistics/index.tt:514 ../root/statistics/view_js.tt:62
 #, perl-format
 msgid "Votes"
 msgstr ""
@@ -16629,17 +16908,17 @@ msgstr ""
 msgid "Votes for:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:61
+#: ../root/statistics/view_js.tt:63
 #, perl-format
 msgid "Votes per day"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:62
+#: ../root/statistics/view_js.tt:64
 #, perl-format
 msgid "Votes per week"
 msgstr ""
 
-#: ../root/statistics/index.tt:513 ../root/statistics/index.tt:536
+#: ../root/statistics/index.tt:519 ../root/statistics/index.tt:542
 #, perl-format
 msgid "Votes:"
 msgstr ""
@@ -16692,6 +16971,10 @@ msgstr ""
 
 #: DB:language/name:457
 msgid "Walloon"
+msgstr ""
+
+#: DB:script/name:154
+msgid "Warang Citi"
 msgstr ""
 
 #: DB:language/name:453
@@ -16908,8 +17191,20 @@ msgstr ""
 msgid "Willow flute (seljefløyte"
 msgstr ""
 
+#: DB:link_attribute_type/description:607
+#, perl-format
+msgid ""
+"Wind chimes are chimes constructed from suspended tubes, rods, bells or "
+"other objects, designed to be hung outside and played by the wind. (<a href="
+"\"http://en.wikipedia.org/wiki/Wind_chime\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:language/name:452
 msgid "Wolaitta"
+msgstr ""
+
+#: DB:script/name:141
+msgid "Woleai"
 msgstr ""
 
 #: DB:language/name:458
@@ -16921,7 +17216,7 @@ msgstr ""
 msgid "Woodwind instrument of the late baroque and early classical era"
 msgstr ""
 
-#: ../root/artist/works.tt:16 ../root/components/common-macros.tt:422
+#: ../root/artist/works.tt:16 ../root/components/common-macros.tt:428
 #: ../root/edit/search_macros.tt:278 ../lib/MusicBrainz/Server/Edit/Work.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
 #, perl-format
@@ -16938,17 +17233,17 @@ msgstr ""
 msgid "Work Not Found"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:147
+#: ../root/statistics/view_js.tt:159
 #, perl-format
 msgid "Work Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:153
+#: ../root/statistics/view_js.tt:165
 #, perl-format
 msgid "Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:162
+#: ../root/statistics/view_js.tt:174
 #, perl-format
 msgid "Work Tags (raw)"
 msgstr ""
@@ -16968,12 +17263,12 @@ msgstr ""
 msgid "Work type:"
 msgstr ""
 
-#: ../root/statistics/index.tt:727
+#: ../root/statistics/index.tt:733
 #, perl-format
 msgid "Work-Work:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:379
+#: ../root/components/common-macros.tt:385
 #: ../root/edit/details/add_work_alias.tt:3
 #: ../root/edit/details/add_work_annotation.tt:3
 #: ../root/edit/details/add_work.tt:3
@@ -16986,7 +17281,7 @@ msgid "Work:"
 msgstr ""
 
 #: ../root/artist/header.tt:1 ../root/artist/works.tt:2
-#: ../root/statistics/view_js.tt:40 ../root/tag/header.tt:1
+#: ../root/statistics/view_js.tt:42 ../root/tag/header.tt:1
 #: ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #, perl-format
 msgid "Works"
@@ -17041,7 +17336,7 @@ msgstr ""
 msgid "Yapese"
 msgstr ""
 
-#: ../root/artist/browse_various.tt:13 ../root/artist/index.tt:39
+#: ../root/artist/browse_various.tt:13 ../root/artist/index.tt:61
 #: ../root/search/results-freedb.tt:14
 #, perl-format
 msgid "Year"
@@ -17060,7 +17355,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:64
+#: ../root/statistics/view_js.tt:66
 #, perl-format
 msgid "Yes Votes"
 msgstr ""
@@ -17091,12 +17386,12 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: ../root/statistics/index.tt:519
+#: ../root/statistics/index.tt:525
 #, perl-format
 msgid "Yes:"
 msgstr ""
 
-#: ../root/statistics/index.tt:501 ../root/statistics/index.tt:549
+#: ../root/statistics/index.tt:507 ../root/statistics/index.tt:555
 #, perl-format
 msgid "Yesterday:"
 msgstr ""
@@ -17299,7 +17594,7 @@ msgid ""
 "recording."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:129
+#: ../root/release/edit/tracklist.tt:131
 #, perl-format
 msgid "You have used the {valink|Various Artists} special purpose artist on:"
 msgstr ""
@@ -17454,6 +17749,10 @@ msgid ""
 "Persia."
 msgstr ""
 
+#: DB:work_type/name:19
+msgid "Zarzuela"
+msgstr ""
+
 #: DB:language/name:483
 msgid "Zaza"
 msgstr ""
@@ -17495,7 +17794,7 @@ msgstr ""
 msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:32
+#: ../root/scripts/text_strings.tt:33
 #, perl-format
 msgid "[ Unknown ]"
 msgstr ""
@@ -17508,11 +17807,15 @@ msgstr ""
 msgid "[Multiple languages]"
 msgstr ""
 
+#: DB:script/name:160
+msgid "[Multiple scripts]"
+msgstr ""
+
 #: DB:country/name:240
 msgid "[Worldwide]"
 msgstr ""
 
-#: ../root/components/common-macros.tt:151
+#: ../root/components/common-macros.tt:157
 #, perl-format
 msgid "[removed]"
 msgstr ""
@@ -17568,12 +17871,12 @@ msgstr ""
 msgid "acoustic guitar"
 msgstr ""
 
-#: ../root/statistics/index.tt:423
+#: ../root/statistics/index.tt:435
 #, perl-format
 msgid "active last week:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:33
+#: ../root/scripts/text_strings.tt:34
 #, perl-format
 msgid "add a disambiguation comment"
 msgstr ""
@@ -17601,6 +17904,11 @@ msgstr ""
 #: ../root/components/common-macros.tt:45
 #, perl-format
 msgid "aged {num}"
+msgstr ""
+
+#: DB:link_attribute_type/name:597
+#, perl-format
+msgid "agogô"
 msgstr ""
 
 #: DB:link_attribute_type/description:540
@@ -17706,7 +18014,7 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:43 ../root/release/edit/recordings.tt:50
 #: ../root/release/edit/recordings.tt:82
-#: ../root/release/edit/recordings.tt:136 ../root/scripts/text_strings.tt:29
+#: ../root/release/edit/recordings.tt:136 ../root/scripts/text_strings.tt:30
 #, perl-format
 msgid "appears on:"
 msgstr ""
@@ -17728,7 +18036,7 @@ msgstr ""
 msgid "artist & repertoire support"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "artists"
 msgstr ""
@@ -17813,6 +18121,11 @@ msgstr ""
 msgid "bandoneón"
 msgstr ""
 
+#: DB:link_attribute_type/name:598
+#, perl-format
+msgid "bandora"
+msgstr ""
+
 #: DB:link_attribute_type/name:475 DB:link_attribute_type/name:476
 #, perl-format
 msgid "bandura"
@@ -17856,6 +18169,11 @@ msgstr ""
 #: DB:link_attribute_type/description:37 DB:link_attribute_type/name:37
 #, perl-format
 msgid "baritone saxophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:600
+#, perl-format
+msgid "barrel organ"
 msgstr ""
 
 #: DB:link_attribute_type/description:7 DB:link_attribute_type/name:70
@@ -18019,6 +18337,11 @@ msgstr ""
 msgid "bodhrán"
 msgstr ""
 
+#: DB:link_attribute_type/name:610
+#, perl-format
+msgid "body percussion"
+msgstr ""
+
 #: DB:link_attribute_type/name:519
 #, perl-format
 msgid "bombarde"
@@ -18097,17 +18420,17 @@ msgstr ""
 #: ../root/release/edit/recordings.tt:218
 #: ../root/release/edit/recordings.tt:338
 #: ../root/release/edit/recordings.tt:346
-#: ../root/release/edit/tracklist.tt:241
+#: ../root/release/edit/tracklist.tt:253
 #, perl-format
 msgid "by"
 msgstr ""
 
-#: ../root/statistics/index.tt:196
+#: ../root/statistics/index.tt:208
 #, perl-format
 msgid "by a single artist:"
 msgstr ""
 
-#: ../root/statistics/index.tt:190
+#: ../root/statistics/index.tt:202
 #, perl-format
 msgid "by various artists:"
 msgstr ""
@@ -18160,6 +18483,11 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:201
 #, perl-format
 msgid "catalog reissued by"
+msgstr ""
+
+#: DB:link_attribute_type/name:599
+#, perl-format
+msgid "caxixi"
 msgstr ""
 
 #: DB:link_attribute_type/description:172 DB:link_attribute_type/name:172
@@ -18449,10 +18777,9 @@ msgid "covers and versions"
 msgstr ""
 
 #: DB:link_type/link_phrase:12 DB:link_type/link_phrase:4
-#: DB:link_type/link_phrase:233 DB:link_type/link_phrase:245
-#: DB:link_type/reverse_link_phrase:12 DB:link_type/reverse_link_phrase:4
-#: DB:link_type/reverse_link_phrase:233 DB:link_type/reverse_link_phrase:245
-#: DB:link_type/short_link_phrase:4 DB:link_type/short_link_phrase:233
+#: DB:link_type/link_phrase:245 DB:link_type/reverse_link_phrase:12
+#: DB:link_type/reverse_link_phrase:4 DB:link_type/reverse_link_phrase:245
+#: DB:link_type/short_link_phrase:4
 #, perl-format
 msgid "covers or other versions"
 msgstr ""
@@ -18482,7 +18809,7 @@ msgstr ""
 msgid "creative position"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:305
+#: ../root/release/edit/tracklist.tt:317
 #, perl-format
 msgid "credits"
 msgstr ""
@@ -18507,6 +18834,11 @@ msgstr ""
 msgid "cuatro"
 msgstr ""
 
+#: DB:link_attribute_type/name:601
+#, perl-format
+msgid "cuíca"
+msgstr ""
+
 #: DB:link_attribute_type/description:342 DB:link_attribute_type/name:342
 #, perl-format
 msgid "cymbals"
@@ -18520,6 +18852,11 @@ msgstr ""
 #: DB:link_attribute_type/description:495 DB:link_attribute_type/name:495
 #, perl-format
 msgid "cümbüş"
+msgstr ""
+
+#: DB:link_attribute_type/name:602
+#, perl-format
+msgid "daegeum"
 msgstr ""
 
 #: DB:link_attribute_type/name:403
@@ -18717,6 +19054,11 @@ msgstr ""
 msgid "duduk"
 msgstr ""
 
+#: DB:link_attribute_type/name:606
+#, perl-format
+msgid "dulcian"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:238
 #, perl-format
 msgid "earliest release"
@@ -18727,7 +19069,7 @@ msgstr ""
 msgid "ebow"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "editors"
 msgstr ""
@@ -18944,12 +19286,12 @@ msgstr ""
 msgid "fretless bass"
 msgstr ""
 
-#: ../root/components/common-macros.tt:524 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:530 ../root/edit/details/macros.tt:28
 #, perl-format
 msgid "from {begin_date} until {end_date}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:530 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:536 ../root/edit/details/macros.tt:28
 #, perl-format
 msgid "from {date} to present"
 msgstr ""
@@ -19374,11 +19716,6 @@ msgstr ""
 msgid "has supporting release(s)"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:251
-#, perl-format
-msgid "has travel arrangement by"
-msgstr ""
-
 #: DB:link_type/short_link_phrase:65
 #, perl-format
 msgid "has tribute album(s)"
@@ -19439,12 +19776,12 @@ msgstr ""
 msgid "import"
 msgstr ""
 
-#: ../root/components/common-macros.tt:521 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:527 ../root/edit/details/macros.tt:28
 #, perl-format
 msgid "in {date}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:250
+#: ../root/components/common-macros.tt:256
 #: ../root/components/rdfa-macros.tt:687 ../root/components/rdfa-macros.tt:700
 #, perl-format
 msgid "info"
@@ -19514,8 +19851,7 @@ msgstr ""
 msgid "is a mash-up of"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:229 DB:link_type/short_link_phrase:239
-#: DB:link_type/short_link_phrase:244
+#: DB:link_type/short_link_phrase:239 DB:link_type/short_link_phrase:244
 #, perl-format
 msgid "is a medley of"
 msgstr ""
@@ -19565,7 +19901,7 @@ msgstr ""
 msgid "is an IOBDb page for"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:84 DB:link_type/short_link_phrase:267
+#: DB:link_type/short_link_phrase:267 DB:link_type/short_link_phrase:84
 #, perl-format
 msgid ""
 "is available for download under the Creative Commons {license} license at"
@@ -19589,6 +19925,11 @@ msgstr ""
 #: ../root/edit/search_macros.tt:136
 #, perl-format
 msgid "is less than"
+msgstr ""
+
+#: DB:link_type/short_link_phrase:301
+#, perl-format
+msgid "is licensed under"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:136
@@ -19663,6 +20004,11 @@ msgstr ""
 #: DB:link_type/short_link_phrase:103
 #, perl-format
 msgid "is/was {additional:an additional|a} member of {founder:and founded|}"
+msgstr ""
+
+#: DB:link_attribute_type/name:605
+#, perl-format
+msgid "janggu"
 msgstr ""
 
 #: DB:link_attribute_type/description:104 DB:link_attribute_type/name:104
@@ -19770,6 +20116,11 @@ msgstr ""
 msgid "kithara"
 msgstr ""
 
+#: DB:link_attribute_type/name:608
+#, perl-format
+msgid "kkwaenggwari"
+msgstr ""
+
 #: DB:link_attribute_type/name:386
 #, perl-format
 msgid "koke"
@@ -19805,12 +20156,12 @@ msgstr ""
 msgid "kèn bầu"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:168
+#: ../root/statistics/view_js.tt:180
 #, perl-format
 msgid "l_{first}_{second} Relationships"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "labels"
 msgstr ""
@@ -19862,12 +20213,17 @@ msgstr ""
 msgid "legal representation for"
 msgstr ""
 
-#: DB:link_attribute_type/name:253
+#: DB:link_attribute_type/name:253 DB:link_type/link_phrase:301
 #, perl-format
 msgid "license"
 msgstr ""
 
-#: ../root/edit/relationship/edit.tt:37 ../root/scripts/text_strings.tt:84
+#: DB:link_type/reverse_link_phrase:301
+#, perl-format
+msgid "license for"
+msgstr ""
+
+#: ../root/edit/relationship/edit.tt:37 ../root/scripts/text_strings.tt:85
 #, perl-format
 msgid "link"
 msgstr ""
@@ -20035,15 +20391,9 @@ msgstr ""
 msgid "medium 9"
 msgstr ""
 
-#: DB:link_type/link_phrase:229 DB:link_type/link_phrase:239
-#: DB:link_type/link_phrase:244
+#: DB:link_type/link_phrase:239 DB:link_type/link_phrase:244
 #, perl-format
 msgid "medley of"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:229
-#, perl-format
-msgid "medleys"
 msgstr ""
 
 #: DB:link_attribute_type/description:56 DB:link_attribute_type/name:56
@@ -20187,6 +20537,11 @@ msgstr ""
 msgid "new"
 msgstr ""
 
+#: DB:link_attribute_type/name:603
+#, perl-format
+msgid "nohkan"
+msgstr ""
+
 #: ../root/user/profile.tt:51
 #, perl-format
 msgid "nominate for auto-editor"
@@ -20279,7 +20634,7 @@ msgstr ""
 msgid "on"
 msgstr ""
 
-#: ../root/components/common-macros.tt:519 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:525 ../root/edit/details/macros.tt:28
 #, perl-format
 msgid "on {date}"
 msgstr ""
@@ -20357,12 +20712,18 @@ msgstr ""
 msgid "other string instruments"
 msgstr ""
 
+#: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
+#: DB:link_type/short_link_phrase:233
+#, perl-format
+msgid "other versions"
+msgstr ""
+
 #: DB:link_attribute_type/description:304 DB:link_attribute_type/name:304
 #, perl-format
 msgid "oud"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:73
+#: ../root/scripts/text_strings.tt:74
 #, perl-format
 msgid "page #{page} of #{total}"
 msgstr ""
@@ -20414,7 +20775,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:124 DB:link_attribute_type/name:124
 #, perl-format
-msgid "percussion instruments"
+msgid "percussion"
 msgstr ""
 
 #: DB:link_type/link_phrase:34 DB:link_type/link_phrase:122
@@ -20436,12 +20797,17 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:44 DB:link_type/short_link_phrase:148
 #, perl-format
-msgid "performed {additional} {guest} {instrument} on"
+msgid "performed {additional} {guest} {solo} {instrument} on"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:60 DB:link_type/short_link_phrase:149
+#: DB:link_type/short_link_phrase:60
 #, perl-format
-msgid "performed {additional} {guest} {vocal} vocal on"
+msgid "performed {additional} {guest} {solo} {vocal} vocal on"
+msgstr ""
+
+#: DB:link_type/short_link_phrase:149
+#, perl-format
+msgid "performed {additional} {solo} {guest} {vocal} vocal on"
 msgstr ""
 
 #: DB:link_type/link_phrase:108 DB:link_type/short_link_phrase:108
@@ -20498,6 +20864,11 @@ msgstr ""
 #: DB:link_attribute_type/description:179 DB:link_attribute_type/name:179
 #, perl-format
 msgid "pipe organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:609
+#, perl-format
+msgid "piri"
 msgstr ""
 
 #: DB:link_attribute_type/description:302 DB:link_attribute_type/name:302
@@ -20583,7 +20954,7 @@ msgstr ""
 msgid "provided legal representation for"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:126 DB:link_type/short_link_phrase:61
+#: DB:link_type/short_link_phrase:61
 #, perl-format
 msgid "provided travel arrangements for"
 msgstr ""
@@ -20720,7 +21091,7 @@ msgstr ""
 msgid "recording studio"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "recordings"
 msgstr ""
@@ -20750,12 +21121,12 @@ msgstr ""
 msgid "rek"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "release groups"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "releases"
 msgstr ""
@@ -20961,6 +21332,11 @@ msgstr ""
 msgid "shawm"
 msgstr ""
 
+#: DB:link_attribute_type/name:604
+#, perl-format
+msgid "shehnai"
+msgstr ""
+
 #: DB:link_attribute_type/name:462
 #, perl-format
 msgid "shekere"
@@ -21065,6 +21441,11 @@ msgstr ""
 msgid "social networking page for"
 msgstr ""
 
+#: DB:link_attribute_type/name:596
+#, perl-format
+msgid "solo"
+msgstr ""
+
 #: DB:link_attribute_type/name:356
 #, perl-format
 msgid "song loan"
@@ -21143,7 +21524,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:69 DB:link_attribute_type/name:69
 #, perl-format
-msgid "string instruments"
+msgid "strings"
 msgstr ""
 
 #: DB:link_attribute_type/description:322 DB:link_attribute_type/name:322
@@ -21403,7 +21784,7 @@ msgstr ""
 msgid "toy piano"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "tracks"
 msgstr ""
@@ -21433,14 +21814,12 @@ msgstr ""
 msgid "transverse flute"
 msgstr ""
 
-#: DB:link_type/link_phrase:251 DB:link_type/reverse_link_phrase:126
 #: DB:link_type/reverse_link_phrase:61
 #, perl-format
 msgid "travel arrangements"
 msgstr ""
 
-#: DB:link_type/link_phrase:126 DB:link_type/link_phrase:61
-#: DB:link_type/reverse_link_phrase:251
+#: DB:link_type/link_phrase:61
 #, perl-format
 msgid "travel arrangements for"
 msgstr ""
@@ -21560,7 +21939,7 @@ msgstr ""
 msgid "unsubscribe"
 msgstr ""
 
-#: ../root/components/common-macros.tt:533 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:539 ../root/edit/details/macros.tt:28
 #, perl-format
 msgid "until {date}"
 msgstr ""
@@ -21740,14 +22119,14 @@ msgstr ""
 msgid "wavedrum"
 msgstr ""
 
-#: ../root/statistics/index.tt:382
+#: ../root/statistics/index.tt:394
 #, perl-format
 msgid "which identify 1 recording:"
 msgid_plural "which identify {num} recordings:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/index.tt:389
+#: ../root/statistics/index.tt:401
 #, perl-format
 msgid "which identify 10+ recordings:"
 msgstr ""
@@ -21762,12 +22141,12 @@ msgstr ""
 msgid "whistle"
 msgstr ""
 
-#: ../root/statistics/index.tt:411
+#: ../root/statistics/index.tt:423
 #, perl-format
 msgid "who edited last week:"
 msgstr ""
 
-#: ../root/statistics/index.tt:417
+#: ../root/statistics/index.tt:429
 #, perl-format
 msgid "who voted last week:"
 msgstr ""
@@ -21775,6 +22154,11 @@ msgstr ""
 #: DB:link_attribute_type/name:266
 #, perl-format
 msgid "willow flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:607
+#, perl-format
+msgid "wind chime"
 msgstr ""
 
 #: DB:link_attribute_type/description:15 DB:link_attribute_type/name:15
@@ -21787,17 +22171,27 @@ msgstr ""
 msgid "wire-strung harp"
 msgstr ""
 
-#: ../root/statistics/index.tt:358
+#: ../root/statistics/index.tt:370
 #, perl-format
 msgid "with 10 or more PUIDs:"
 msgstr ""
 
-#: ../root/statistics/index.tt:285 ../root/statistics/index.tt:318
+#: ../root/statistics/index.tt:297 ../root/statistics/index.tt:330
 #, perl-format
 msgid "with 10 or more disc IDs:"
 msgstr ""
 
-#: ../root/statistics/index.tt:169
+#: ../root/statistics/index.tt:146
+#, perl-format
+msgid "with appearances in artist credits:"
+msgstr ""
+
+#: ../root/statistics/index.tt:152
+#, perl-format
+msgid "with no appearances in artist credits:"
+msgstr ""
+
+#: ../root/statistics/index.tt:181
 #, perl-format
 msgid "with no gender set:"
 msgstr ""
@@ -21807,14 +22201,14 @@ msgstr ""
 msgid "with no type set:"
 msgstr ""
 
-#: ../root/statistics/index.tt:351
+#: ../root/statistics/index.tt:363
 #, perl-format
 msgid "with {num} PUID:"
 msgid_plural "with {num} PUIDs:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/index.tt:277 ../root/statistics/index.tt:310
+#: ../root/statistics/index.tt:289 ../root/statistics/index.tt:322
 #, perl-format
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
@@ -21831,7 +22225,7 @@ msgstr ""
 msgid "woodwind"
 msgstr ""
 
-#: ../root/components/common-macros.tt:76
+#: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "works"
 msgstr ""
@@ -21996,14 +22390,6 @@ msgstr ""
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
 msgstr ""
 
-#: DB:link_type/link_phrase:35 DB:link_type/link_phrase:145
-#: DB:link_type/short_link_phrase:35 DB:link_type/short_link_phrase:145
-#, perl-format
-msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}live sound "
-"engineered"
-msgstr ""
-
 #: DB:link_type/short_link_phrase:42 DB:link_type/short_link_phrase:136
 #, perl-format
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
@@ -22052,7 +22438,7 @@ msgstr ""
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/short_link_phrase:51 DB:link_type/short_link_phrase:156
 #, perl-format
-msgid "{additional:additionally} {guest} performed"
+msgid "{additional:additionally} {guest} {solo} performed"
 msgstr ""
 
 #: DB:link_type/link_phrase:282 DB:link_type/link_phrase:158
@@ -22172,11 +22558,6 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}editor"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:35 DB:link_type/reverse_link_phrase:145
-#, perl-format
-msgid "{additional} {assistant} {associate} {co:co-}live sound engineer"
-msgstr ""
-
 #: DB:link_type/link_phrase:42 DB:link_type/link_phrase:136
 #: DB:link_type/reverse_link_phrase:42 DB:link_type/reverse_link_phrase:136
 #, perl-format
@@ -22223,19 +22604,19 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 #, perl-format
-msgid "{additional} {guest} performer"
+msgid "{additional} {guest} {solo} performer"
 msgstr ""
 
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 #, perl-format
-msgid "{additional} {guest} {instrument}"
+msgid "{additional} {guest} {solo} {instrument}"
 msgstr ""
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 #, perl-format
-msgid "{additional} {guest} {vocal} vocals"
+msgid "{additional} {guest} {solo} {vocal} vocals"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
@@ -22310,7 +22691,7 @@ msgstr ""
 msgid "{artist} - {name}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:120
+#: ../root/components/common-macros.tt:126
 #, perl-format
 msgid "{artist} as {name}"
 msgstr ""
@@ -22340,6 +22721,21 @@ msgstr ""
 #: ../root/release/collections.tt:10
 #, perl-format
 msgid "{col}"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:79
+#, perl-format
+msgid "{country} artists"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:80
+#, perl-format
+msgid "{country} labels"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:81
+#, perl-format
+msgid "{country} releases"
 msgstr ""
 
 #: ../root/user/profile.tt:79
@@ -22387,12 +22783,12 @@ msgid ""
 "before you can approve it."
 msgstr ""
 
-#: ../root/components/common-macros.tt:160
+#: ../root/components/common-macros.tt:166
 #, perl-format
 msgid "{entity}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:160
+#: ../root/components/common-macros.tt:166
 #: ../root/components/relationships.tt:18
 #, perl-format
 msgid "{entity} by {artist}"
@@ -22406,6 +22802,11 @@ msgstr ""
 #: ../root/edit/details/remove_medium.tt:6
 #, perl-format
 msgid "{format} {position} {name} on {release} by {artist}"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:91
+#, perl-format
+msgid "{language} releases"
 msgstr ""
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:23
@@ -22433,6 +22834,16 @@ msgstr ""
 #: ../root/tag/entity-list.tt:10
 #, perl-format
 msgid "{name} by {artist}"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:98
+#, perl-format
+msgid "{name} mediums"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:97
+#, perl-format
+msgid "{name} releases"
 msgstr ""
 
 #: ../root/tag/artist.tt:1
@@ -22505,30 +22916,31 @@ msgid_plural "{num}&nbsp;years"
 msgstr[0] ""
 msgstr[1] ""
 
+#: ../root/statistics/formats.tt:9 ../root/statistics/formats.tt:11
 #: ../root/statistics/index.tt:124 ../root/statistics/index.tt:130
 #: ../root/statistics/index.tt:136 ../root/statistics/index.tt:142
-#: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159
+#: ../root/statistics/index.tt:148 ../root/statistics/index.tt:154
 #: ../root/statistics/index.tt:165 ../root/statistics/index.tt:171
-#: ../root/statistics/index.tt:192 ../root/statistics/index.tt:198
-#: ../root/statistics/index.tt:216 ../root/statistics/index.tt:222
-#: ../root/statistics/index.tt:229 ../root/statistics/index.tt:236
-#: ../root/statistics/index.tt:242 ../root/statistics/index.tt:265
-#: ../root/statistics/index.tt:271 ../root/statistics/index.tt:279
-#: ../root/statistics/index.tt:287 ../root/statistics/index.tt:298
-#: ../root/statistics/index.tt:304 ../root/statistics/index.tt:312
-#: ../root/statistics/index.tt:320 ../root/statistics/index.tt:341
-#: ../root/statistics/index.tt:346 ../root/statistics/index.tt:353
-#: ../root/statistics/index.tt:360 ../root/statistics/index.tt:384
-#: ../root/statistics/index.tt:391 ../root/statistics/index.tt:413
-#: ../root/statistics/index.tt:419 ../root/statistics/index.tt:425
-#: ../root/statistics/index.tt:443 ../root/statistics/index.tt:449
+#: ../root/statistics/index.tt:177 ../root/statistics/index.tt:183
+#: ../root/statistics/index.tt:204 ../root/statistics/index.tt:210
+#: ../root/statistics/index.tt:228 ../root/statistics/index.tt:234
+#: ../root/statistics/index.tt:241 ../root/statistics/index.tt:248
+#: ../root/statistics/index.tt:254 ../root/statistics/index.tt:277
+#: ../root/statistics/index.tt:283 ../root/statistics/index.tt:291
+#: ../root/statistics/index.tt:299 ../root/statistics/index.tt:310
+#: ../root/statistics/index.tt:316 ../root/statistics/index.tt:324
+#: ../root/statistics/index.tt:332 ../root/statistics/index.tt:353
+#: ../root/statistics/index.tt:358 ../root/statistics/index.tt:365
+#: ../root/statistics/index.tt:372 ../root/statistics/index.tt:396
+#: ../root/statistics/index.tt:403 ../root/statistics/index.tt:425
+#: ../root/statistics/index.tt:431 ../root/statistics/index.tt:437
 #: ../root/statistics/index.tt:455 ../root/statistics/index.tt:461
 #: ../root/statistics/index.tt:467 ../root/statistics/index.tt:473
 #: ../root/statistics/index.tt:479 ../root/statistics/index.tt:485
-#: ../root/statistics/index.tt:496 ../root/statistics/index.tt:503
-#: ../root/statistics/index.tt:521 ../root/statistics/index.tt:527
-#: ../root/statistics/index.tt:533 ../root/statistics/index.tt:544
-#: ../root/statistics/index.tt:551 ../root/statistics/index.tt:567
+#: ../root/statistics/index.tt:491 ../root/statistics/index.tt:502
+#: ../root/statistics/index.tt:509 ../root/statistics/index.tt:527
+#: ../root/statistics/index.tt:533 ../root/statistics/index.tt:539
+#: ../root/statistics/index.tt:550 ../root/statistics/index.tt:557
 #: ../root/statistics/index.tt:573 ../root/statistics/index.tt:579
 #: ../root/statistics/index.tt:585 ../root/statistics/index.tt:591
 #: ../root/statistics/index.tt:597 ../root/statistics/index.tt:603
@@ -22542,7 +22954,7 @@ msgstr[1] ""
 #: ../root/statistics/index.tt:693 ../root/statistics/index.tt:699
 #: ../root/statistics/index.tt:705 ../root/statistics/index.tt:711
 #: ../root/statistics/index.tt:717 ../root/statistics/index.tt:723
-#: ../root/statistics/index.tt:729
+#: ../root/statistics/index.tt:729 ../root/statistics/index.tt:735
 #, perl-format
 msgid "{n}%"
 msgstr ""
@@ -22585,6 +22997,11 @@ msgstr[1] ""
 msgid "{release} has not been added to any collections."
 msgstr ""
 
+#: ../root/statistics/view_js.tt:86
+#, perl-format
+msgid "{script} releases"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:15
 #, perl-format
 msgid "{translated} {parody:parodies|covers}"
@@ -22615,7 +23032,7 @@ msgstr ""
 msgid "{type} “{work}”"
 msgstr ""
 
-#: ../root/components/common-macros.tt:402
+#: ../root/components/common-macros.tt:408
 #, perl-format
 msgid "{uri|Relate to URL}"
 msgstr ""
@@ -22652,7 +23069,7 @@ msgid ""
 "the artists has been entered correctly."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:133
+#: ../root/release/edit/tracklist.tt:135
 #, perl-format
 msgid ""
 "{valink|Various Artists} should not be used on tracks, make sure that the "
@@ -22682,13 +23099,17 @@ msgstr ""
 #: ../root/release/edit/duplicates.tt:35 ../root/release/edit/editnote.tt:41
 #: ../root/release/edit/missing_entities.tt:119
 #: ../root/release/edit/recordings.tt:430
-#: ../root/release/edit/tracklist.tt:465
+#: ../root/release/edit/tracklist.tt:477
 #, perl-format
 msgid "« Previous"
 msgstr ""
 
 #: DB:country/name:250
 msgid "Åland Islands"
+msgstr ""
+
+#: DB:work_type/name:20
+msgid "Étude"
 msgstr ""
 
 #: DB:link_attribute_type/name:285
@@ -23280,7 +23701,7 @@ msgstr ""
 msgid "Add recording annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:25
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:24
 msgid "Add standalone recording"
 msgstr ""
 
@@ -23320,7 +23741,7 @@ msgstr ""
 msgid "Edit release artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:140
+#: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:142
 msgid ""
 "This edit cannot be applied, as the release being edited no longer exists."
 msgstr ""
@@ -23435,7 +23856,7 @@ msgid "URL protocol must be HTTP, HTTPS or FTP"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Merge.pm:16
-msgid "Please pick which work you want the others merged into."
+msgid "Please pick the entity you want the others merged into."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:61
@@ -23547,7 +23968,7 @@ msgid ""
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:222
-msgid "A medium is required"
+msgid "A release must have at least one medium."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/DatePeriod.pm:34
