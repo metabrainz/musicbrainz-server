@@ -58,7 +58,7 @@ sub gettext
 
     $self->_set_language;
 
-    return _expand(__($msgid), %vars);
+    return _expand(__($msgid), %vars) if $msgid;
 }
 
 sub ngettext {
