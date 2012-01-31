@@ -168,9 +168,14 @@ sub build_display_data
 
 sub _mapping
 {
+    my $for_change_hash = 1;
+
     return (
         date => sub { partial_date_to_hash(shift->date) },
-        artist_credit => sub { clean_submitted_artist_credits (artist_credit_to_ref(shift->artist_credit)) },
+        artist_credit => sub {
+            clean_submitted_artist_credits (
+                artist_credit_to_ref(shift->artist_credit, $for_change_hash))
+        },
         barcode => sub { shift->barcode->code }
     );
 }

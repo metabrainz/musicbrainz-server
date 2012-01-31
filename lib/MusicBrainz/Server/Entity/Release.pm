@@ -13,6 +13,19 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Quality';
 
+around BUILDARGS => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $args = $self->$orig(@_);
+
+    if ($args->{barcode} && !ref($args->{barcode})) {
+        $args->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $args->{barcode} );
+    }
+
+    return $args;
+};
+
 has 'status_id' => (
     is => 'rw',
     isa => 'Int'
