@@ -117,8 +117,6 @@ sub artist_credit_to_ref
         push @{ $ret{names} }, \%ac_name;
     }
 
-    $ret{preview} = $artist_credit->name if !$for_change_hash;
-
     return \%ret;
 }
 
