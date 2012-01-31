@@ -11,6 +11,7 @@ use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::WebService::XMLSerializerV1;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
+use Digest::MD5 qw( md5_hex );
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
     threshold => DBDefs::PROFILE_WEB_SERVICE()
@@ -144,7 +145,17 @@ sub search : Chained('root') PathPart('')
 }
 
 # Don't render with TT
-sub end : Private { }
+sub end : Private 
+{ 
+    my ($self, $c) = @_;
+
+    my $body = $c->response->body;
+    if ($body) {
+        utf8::encode($body)
+            if utf8::is_utf8($body);
+        $c->response->headers->etag(md5_hex($body));
+    }
+}
 
 sub bad_req : Private
 {

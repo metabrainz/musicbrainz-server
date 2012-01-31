@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
 use Try::Tiny;
+use Digest::MD5 qw( md5_hex );
 
 Readonly my %serializers => (
     xml => 'MusicBrainz::Server::WebService::XMLSerializer',
@@ -135,7 +136,17 @@ sub invalid_mbid : Private
 }
 
 sub begin : Private { }
-sub end : Private { }
+sub end : Private 
+{ 
+    my ($self, $c) = @_;
+
+    my $body = $c->response->body;
+    if ($body) {
+        utf8::encode($body)
+            if utf8::is_utf8($body);
+        $c->response->headers->etag(md5_hex($body));
+    }
+}
 
 sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
 {
