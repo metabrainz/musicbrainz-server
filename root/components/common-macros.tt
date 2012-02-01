@@ -168,7 +168,7 @@ END -%]
         l('{entity} by {artist}', { entity => link_entity(entity),
                                     artist => artist_credit(entity.artist_credit) });
     ELSE;
-        l('{entity}', { entity => link_entity(entity) });
+        link_entity(entity);
     END; -%]
 
 [%- MACRO entity_type(entity) BLOCK;
