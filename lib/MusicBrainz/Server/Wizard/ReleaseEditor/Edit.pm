@@ -2,10 +2,9 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Edit;
 use Moose;
 use Data::Compare;
 use namespace::autoclean;
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref trim );
 use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
 use MusicBrainz::Server::Track qw( format_track_length );
-use Text::Trim qw( trim );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 

@@ -213,3 +213,9 @@ MB.utility.unformatTrackLength = function (duration)
 
     return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
 };
+
+
+MB.utility.trim = function (str)
+{
+    return str.replace (/\s+/g, " ").replace (/^ /, "").replace (/ $/, "");
+}

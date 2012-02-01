@@ -30,11 +30,11 @@ MB.TrackParser.Artist = function (track, artist) {
     self.addNew = function (name) {
         self.names.push ({
             'artist': {
-                'name': $.trim (name),
+                'name': MB.utility.trim (name),
                 'id': '',
                 'gid': ''
             },
-            'name': $.trim (name),
+            'name': MB.utility.trim (name),
             'join_phrase': null
         });
     };
@@ -217,7 +217,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
     self.position = position;
-    self.line = $.trim (line);
+    self.line = MB.utility.trim (line);
     self.parent = parent;
     self.duration = null;
     self.name = '';
@@ -379,7 +379,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.clean = function () {
-        self.title = $.trim (self.title)
+        self.title = MB.utility.trim (self.title)
             .replace (/(.*),\sThe$/i, "The $1")
             .replace (/\s*,/g, ",");
     };
@@ -401,7 +401,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
     var self = MB.Object ();
 
     self.getTrackInput = function (input) {
-        var lines = $.trim (input).split ("\n");
+        var lines = MB.utility.trim (input).split ("\n");
         var tracks = [];
 
         /* lineno is 1-based and ignores empty lines, it is used as
@@ -425,7 +425,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
         var map = {};
 
         $.each (self.originals, function (idx, track) {
-            var trackname = $.trim (track.name);
+            var trackname = MB.utility.trim (track.name);
 
             if (map[trackname] === undefined) {
                 map[trackname] = [];

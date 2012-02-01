@@ -715,16 +715,16 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
             ret.push({
                 'artist': {
-                    'name': $.trim (item.$name.val ()),
+                    'name': MB.utility.trim (item.$name.val ()),
                     'id': item.$id.val (),
                     'gid': item.$gid.val ()
                 },
-                'name': $.trim (artistcredit),
+                'name': MB.utility.trim (artistcredit),
                 'join_phrase': item.$join.val () || ''
             });
         });
 
-        return { 'names': ret, 'preview': $.trim (self.$artist_input.val()) };
+        return { 'names': ret, 'preview': MB.utility.trim (self.$artist_input.val()) };
     };
 
     self.targetBlurred = function(event) {

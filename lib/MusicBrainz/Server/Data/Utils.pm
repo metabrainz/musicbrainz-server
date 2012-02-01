@@ -15,6 +15,7 @@ use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
+use Text::Trim;
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
@@ -45,6 +46,7 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     ref_to_type
     remove_equal
+    trim
     type_to_model
 );
 
@@ -319,6 +321,17 @@ sub add_partial_date_to_row
             }
         }
     }
+}
+
+sub trim
+{
+    # Remove leading and trailing space
+    my $t = Text::Trim::trim (shift);
+
+    # Compress whitespace
+    $t =~ s/\s+/ /g;
+
+    return $t;
 }
 
 sub type_to_model

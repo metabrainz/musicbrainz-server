@@ -4,11 +4,10 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref );
+use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use List::UtilsBy qw( uniq_by );
-use Text::Trim qw( trim );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
