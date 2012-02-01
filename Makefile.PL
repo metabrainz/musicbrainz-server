@@ -78,6 +78,7 @@ requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';
 requires 'Template::Plugin::Math';
 requires 'Template::Plugin::Class';
+requires 'Template::Plugin::JavaScript';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'Text::Unaccent';
 requires 'Text::Trim'                                 => '1.02';

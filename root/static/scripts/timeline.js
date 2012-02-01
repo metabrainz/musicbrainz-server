@@ -61,29 +61,34 @@ $(document).ready(function () {
     // Called once per dataset to calculate rates of change
     function weeklyRate(data) {
         var weekData = [];
-        var oneWeek = 1000 * 60 * 60 * 24 * 7;
+        var oneDay = 1000 * 60 * 60 * 24;
+        var dataPrev = data[0][1];
+        var datePrev = data[0][0];
+        var sPrev = 0;
+        var a = 0.25;
+
         var mean = 0;
         var count = 0;
 
         $.each(data, function(index, value) {
-            var oneWeekAgoDate = value[0] - oneWeek;
-            var oneWeekAgoValue = null;
-            var useZero = true;
-            $.each(data, function(innerIndex, innerValue) {
-		if (innerValue[0] <= oneWeekAgoDate) {
-                    var useZero = false;
-                    if ((innerValue[0] + oneWeek) > oneWeekAgoDate) {
-                        oneWeekAgoValue = value[1] - innerValue[1];
-                }}
-            });
-            if (oneWeekAgoValue==null && useZero) {
-                oneWeekAgoValue = value[1] - 0;
-	    }
-            if (oneWeekAgoValue!=null) {
-                count++;
-                mean = mean + oneWeekAgoValue;
-                weekData.push([value[0], oneWeekAgoValue]);
+            var changeValue = value[1] - dataPrev;
+            var sCurrent;
+            var days = 1;
+            
+            if (datePrev != null && value[0] > datePrev + oneDay) {
+                days = (value[0] - datePrev) / oneDay;
+                changeValue = changeValue / days
             }
+
+            for (var i = 0; i < days; i++) {
+                count++;
+                mean = mean + changeValue;
+                sCurrent = a * changeValue + (1-a) * sPrev;
+                weekData.push([datePrev + (i+1) * oneDay, sCurrent]);
+                sPrev = sCurrent;
+            }
+            dataPrev = value[1];
+            datePrev = value[0]
         });
         mean = mean / count;
 
@@ -187,13 +192,17 @@ $(document).ready(function () {
         plot.changeCurrentEvent(item);
         if (rateplot) { rateplot.changeCurrentEvent(item); }
     }
-    function setItemTooltip(item, extra) {
+    function setItemTooltip(item, extra, fixed) {
             if (!extra) { extra = '' };
             removeTooltip();
             setCursor();
             var x = item.datapoint[0],
                 y = item.datapoint[1],
                 date = new Date(parseInt(x));
+
+	    if (fixed) {
+                y = y.toFixed(fixed);
+	    }
 
             if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
             if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
@@ -231,7 +240,7 @@ $(document).ready(function () {
         if(item) {
             if (ratePreviousPoint != item.dataIndex) {
                 ratePreviousPoint = item.dataIndex;
-                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser);
+                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser, 2);
             }
         } 
         else if (rateplot.getEvent(pos)) { setEventTooltip(rateplot, pos); } 

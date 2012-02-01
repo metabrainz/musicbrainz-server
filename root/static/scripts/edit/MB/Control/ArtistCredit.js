@@ -51,6 +51,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     self.$name = self.$row.find ('input.name');
     self.$sortname = self.$row.find ('input.sortname');
+    self.$comment = self.$row.find ('input.comment');
     self.$credit = self.$row.find ('input.credit');
     self.$join = self.$row.find ('input.join');
     self.$gid = self.$row.find ('input.gid');
@@ -60,6 +61,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.clear = function () {
         self.$name.val ('').removeClass('error');
         self.$sortname.val ('');
+        self.$comment.val ('');
         self.$credit.val ('');
         self.$join.val ('');
         self.$gid.val ('');
@@ -73,16 +75,14 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.render = function (data) {
 
         var artist_name = data.artist.name;
-        var gid = data.artist.gid;
-        var id = data.artist.id;
-        var join = data.join_phrase;
 
         self.$name.val (data.artist.name).removeClass('error');
         self.container.clearError (self);
-        self.$sortname.val (data.sortname);
-        self.$join.val (join || '');
-        self.$gid.val (gid);
-        self.$id.val (id);
+        self.$sortname.val (data.artist.sortname);
+        self.$comment.val (data.artist.comment);
+        self.$join.val (data.join_phrase || '');
+        self.$gid.val (data.artist.gid);
+        self.$id.val (data.artist.id);
         self.updateLookupPerformed ();
 
         if (data.name === '' || data.name === artist_name)
@@ -325,9 +325,15 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                 MB.utility.escapeHTML (self.$join.val ());
         }
 
+        var hover = self.$sortname.val ();
+        if (self.$comment.val () != '')
+        {
+            hover = hover + ", " + self.$comment.val ();
+        }
+
         return '<a target="_blank" href="/artist/' +
             MB.utility.escapeHTML (self.$gid.val ()) + '" title="' +
-            MB.utility.escapeHTML (self.$sortname.val ()) + '">' +
+            MB.utility.escapeHTML (hover) + '">' +
             MB.utility.escapeHTML (self.renderName ()) + '</a>' +
             MB.utility.escapeHTML (self.$join.val ());
     };
