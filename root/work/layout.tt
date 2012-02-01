@@ -1,5 +1,5 @@
 [% main_title = l('{type} “{work}”', {
-    type => work.type_name or l('Work'),
+    type => l(work.type_name) or l('Work'),
     work => work.name
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
