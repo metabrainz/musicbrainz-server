@@ -9,7 +9,7 @@
         <h2>[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(work.type.name)
+               content=html_escape(l(work.type.name))
                    IF work.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
                content=rdfa_work_iswc(work)

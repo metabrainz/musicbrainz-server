@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
 );
 use MusicBrainz::Server::Email;
+use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -149,9 +150,9 @@ sub editor_statistics
     my $recent_votes = map_query($self->c->sql, 'vote' => 'count', $q_recent_votes, $editor_id);
 
     my %names = (
-        $VOTE_ABSTAIN => 'Abstain',
-        $VOTE_NO => 'No',
-        $VOTE_YES => 'Yes',
+        $VOTE_ABSTAIN => l('Abstain'),
+        $VOTE_NO => l('No'),
+        $VOTE_YES => l('Yes'),
     );
 
     return [
@@ -170,7 +171,7 @@ sub editor_statistics
 
         # Add totals
         {
-            name => 'Total',
+            name => l('Total'),
             recent => {
                 count      => sum(values %$recent_votes) || 0,
             },

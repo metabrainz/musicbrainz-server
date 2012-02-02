@@ -10,7 +10,7 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(rg.artist_credit) %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(rg.type_name)
+               content=html_escape(l(rg.type_name))
                    IF rg.type -%]
         [%- END -%]
 
