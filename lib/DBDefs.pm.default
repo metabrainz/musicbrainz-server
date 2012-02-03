@@ -302,30 +302,23 @@ sub AMAZON_ASSOCIATE_TAG { '' }
 # Unless you are installing an MusicBrainz server that needs to be fully r
 # redundant/load balanced, you do not need to change anything in this section.
 
-# Use this session setup for simple setups where one web server can
-# handle all the traffic.
-# XXX maybe use Session::Store::File by default?
-sub SESSION_STORE { "Session::Store::FastMmap" }
+# If you're using multiple front-end webservers make sure they all connect to
+# the same memcached server.  Also make sure enough memory is configured for
+# memcached so sessions aren't evicted from the cache.
+sub SESSION_STORE { "Session::Store::Memcached" }
 sub SESSION_STORE_ARGS
 {
     {
+        memcached_new_args => {
+            {
+                data => MEMCACHED_SERVERS(),
+                namespace => MEMCACHED_NAMESPACE(),
+                memcached_class => 'Cache::Memcached::Fast',
+            }
+        }
+        
     }
 }
-
-# For redundant front end web servers, sessions can be stored in a postgres
-# database so that all web servers have access to the same session data.
-# Note that the session database needs to be created by hand. Its not created
-# as part of the InitDb.pl process!
-#sub SESSION_STORE { "Session::Store::DBI" }
-#sub SESSION_STORE_ARGS
-#{
-#    {
-#       dbi_dsn   => "dbi:Pg:dbname=mb_sessions",
-#       dbi_user  => "musicbrainz_user",
-#       dbi_pass  => "",
-#       dbi_table => "sessions",
-#    }
-#}
 
 # MusicBrainz::Server::Wizard saves wizard sessions in memcached,
 # seperately from the regular session store.
