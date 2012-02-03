@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js;
 
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
 use Encode qw( decode encode );
@@ -33,6 +33,9 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "associations" => {
         method => 'GET',
+    },
+    "entity" => {
+        method => 'GET',
     }
 ]);
 
@@ -43,30 +46,15 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
-Readonly my %serializers => (
-    json => 'MusicBrainz::Server::WebService::JSONSerializer',
-);
-
-sub bad_req : Private
-{
-    my ($self, $c) = @_;
-    $c->res->status(400);
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
-}
-
-sub begin : Private
-{
-}
-
-sub end : Private
-{
-}
-
-sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
-{
-    my ($self, $c) = @_;
-    $self->validate($c, \%serializers) or $c->detach('bad_req');
+sub entities {
+    return {
+        'Artist' => 'artist',
+        'Work' => 'work',
+        'Recording' => 'recording',
+        'ReleaseGroup' => 'release-group',
+        'Release' => 'release',
+        'Label' => 'label',
+    };
 }
 
 sub tracklist : Chained('root') PathPart Args(1) {
@@ -321,11 +309,47 @@ sub associations : Chained('root') PathPart Args(1) {
     $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
 }
 
+sub entity : Chained('root') PathPart('entity') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    unless (MusicBrainz::Server::Validation::IsGUID($gid)) {
+        $c->stash->{error} = "$gid is not a valid MusicBrainz ID.";
+        $c->detach('bad_req');
+        return;
+    }
+
+    my $entity;
+    my $type;
+    for (keys %{ $self->entities }) {
+        $type = $_;
+        $entity = $c->model($type)->get_by_gid($gid);
+        last if defined $entity;
+    }
+
+    unless (defined $entity) {
+        $c->stash->{error} = "The requested entity was not found.";
+        $c->detach('not_found');
+        return;
+    }
+
+    my $jsent = "MusicBrainz::Server::Controller::WS::js::$type"->new();
+    $jsent->_load_entities($c, $entity);
+
+    my $item = ($jsent->_format_output($c, $entity))[0];
+    my $serialization_routine = $jsent->serialization_routine;
+    my $data = $c->stash->{serializer}->$serialization_routine($item);
+    $data->{'type'} = $self->entities->{$type};
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize_data($data));
+}
+
 sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $serializers{$self->get_default_serialization_type}->new();
+    $c->stash->{serializer} = $self->serializers->{$self->get_default_serialization_type}->new();
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
 }
