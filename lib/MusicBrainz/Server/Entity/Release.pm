@@ -176,7 +176,7 @@ sub combined_format_name
     my %formats_count;
     my @formats_order;
     foreach my $medium (@mediums) {
-        my $format_name = $medium->format_name || l('(unknown)');
+        my $format_name = l($medium->format_name) || l('(unknown)');
         if (exists $formats_count{$format_name}) {
             $formats_count{$format_name} += 1;
         }

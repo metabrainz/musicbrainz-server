@@ -4,14 +4,14 @@
 
 [% BLOCK link_type %]
     <li style="padding-top: 0.5em">
-        <span><strong>[% obj.name | html %]</strong> (<a class="toggle" style="cursor:pointer">more</a>)</span>
+        <span><strong>[% l(obj.name) | html %]</strong> (<a class="toggle" style="cursor:pointer">[% l("more") %]</a>)</span>
         <div class="reldetails" style="margin-left: 20px; padding: 3px">
         [%- IF c.user.is_relationship_editor -%]
         <strong>[% l('Child order:') %]</strong> [% obj.child_order %]<br />
         [% END %]
-        <strong>[% l('Forward link phrase:') %]</strong> [% obj.link_phrase || l("(none)") | html %]<br />
-        <strong>[% l('Reverse link phrase:') %]</strong> [% obj.reverse_link_phrase || l("(none)") | html %]<br />
-        <strong>[% l('Description:') %]</strong> [% obj.description || l("(none)") %]<br />
+        <strong>[% l('Forward link phrase:') %]</strong> [% l(obj.link_phrase) || l("(none)") | html %]<br />
+        <strong>[% l('Reverse link phrase:') %]</strong> [% l(obj.reverse_link_phrase) || l("(none)") | html %]<br />
+        <strong>[% l('Description:') %]</strong> [% l(obj.description) || l("(none)") %]<br />
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [%- IF c.user.is_relationship_editor -%]
         [

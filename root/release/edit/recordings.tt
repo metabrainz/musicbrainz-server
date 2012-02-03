@@ -74,7 +74,7 @@
       [%- IF NOT confirmed AND name -%]
       <div class="confirm-recording">
 
-        <h3 style="margin-left: 1em">Suggested recording:</h3>
+        <h3 style="margin-left: 1em">[% l('Suggested recording:') %]</h3>
         [%- recording = suggestions.0 or suggestions.1 -%]
         <p style="margin: 1em 1em 1em 3em;">
           [%- link_entity (recording) %] ([%- recording.length | format_length -%])<br />
@@ -188,7 +188,7 @@
       <table class="disc-template" style="display: none">
         <thead>
           <tr>
-            <th></th><th style="text-align: left">track</th><th style="text-align: left">recording</th><th> </th>
+            <th></th><th style="text-align: left">[% l('track') %]</th><th style="text-align: left">[% l('recording') %]</th><th> </th>
           </tr>
         </thead>
         <tbody>
@@ -259,7 +259,7 @@
         <table>
           <thead>
           <tr>
-            <th></th><th style="text-align: left">track</th><th style="text-align: left">recording</th><th> </th>
+            <th></th><th style="text-align: left">[% l('track') %]</th><th style="text-align: left">[% l('recording') %]</th><th> </th>
           </tr>
           </thead>
           <tbody>
