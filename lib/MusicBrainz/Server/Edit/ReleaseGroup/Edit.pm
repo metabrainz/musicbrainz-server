@@ -118,11 +118,9 @@ sub build_display_data
 
 sub _mapping
 {
-    my $for_change_hash = 1;
-
     return (
         artist_credit => sub {
-            return artist_credit_to_ref(shift->artist_credit, $for_change_hash);
+            return artist_credit_to_ref(shift->artist_credit, []);
         }
     );
 }

@@ -70,7 +70,8 @@ sub tracklist : Chained('root') PathPart Args(1) {
     $ret->{tracks} = [ map {
         length => $_->length,
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
+        artist_credit => artist_credit_to_ref (
+            $_->artist_credit, [ "comment", "gid", "sortname" ]),
     }, sort { $a->position <=> $b->position }
     $tracklist->all_tracks ];
 
@@ -277,7 +278,7 @@ sub associations : Chained('root') PathPart Args(1) {
         my $track = {
             name => $_->name,
             length => $_->length,
-            artist_credit => artist_credit_to_ref ($_->artist_credit),
+            artist_credit => artist_credit_to_ref ($_->artist_credit, [ "gid" ]),
         };
 
         my $data = {

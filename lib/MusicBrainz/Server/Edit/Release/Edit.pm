@@ -8,7 +8,6 @@ use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
     partial_date_to_hash
     partial_date_from_row
 );
@@ -168,13 +167,10 @@ sub build_display_data
 
 sub _mapping
 {
-    my $for_change_hash = 1;
-
     return (
         date => sub { partial_date_to_hash(shift->date) },
         artist_credit => sub {
-            clean_submitted_artist_credits (
-                artist_credit_to_ref(shift->artist_credit, $for_change_hash))
+            clean_submitted_artist_credits (shift->artist_credit)
         },
         barcode => sub { shift->barcode->code }
     );
