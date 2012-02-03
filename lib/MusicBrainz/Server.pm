@@ -82,6 +82,9 @@ __PACKAGE__->config(
         },
         dirs => [ 'static' ],
         no_logs => 1
+    },
+    stacktrace => {
+        enable => 1
     }
 );
 
@@ -278,6 +281,22 @@ sub _handle_param_unicode_decoding {
         $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as utf-8 and try again.');
         $self->res->status(400);
     };
+}
+
+sub finalize_error {
+    my $c = shift;
+
+    $c->next::method(@_);
+
+    if (!$c->debug && scalar @{ $c->error }) {
+        $c->stash->{errors} = $c->error;
+        $c->stash->{template} = 'main/500.tt';
+        $c->stash->{stack_trace} = $c->_stacktrace;
+        $c->clear_errors;
+        $c->res->{body} = 'clear';
+        $c->view('Default')->process($c);
+        $c->res->{body} = encode('utf-8', $c->res->{body});
+    }
 }
 
 =head1 NAME
