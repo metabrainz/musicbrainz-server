@@ -100,7 +100,8 @@ sub find_by_recording
                 release.date_day AS r_date_day,
                 release.country AS r_country, release.status AS r_status,
                 release.packaging AS r_packaging,
-                release.edits_pending AS r_edits_pending
+                release.edits_pending AS r_edits_pending,
+                release.comment AS r_comment
         FROM
             track
             JOIN tracklist ON tracklist.id = track.tracklist

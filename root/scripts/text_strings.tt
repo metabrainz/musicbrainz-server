@@ -36,7 +36,7 @@
         Previous:              '[% l('Previous') | js %]',
         NoResults:             '[% l('No results') | js %]',
         SearchInfoFormat:            '[% l('Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of <strong>{matches}</strong>', { matches => '#matches#', start => '#start#', end => '#end#' }) | js %]',
-        Searching:             '[% l('Searching…') | js %]',
+        Searching:             '[% l('Searching...') | js %]',
         PleaseSelectARSubtype : "[% l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.") | js %]",
         PleaseSelectARType    : "[% l("Please select a relationship type.") | js %]",
         AddAnother            : "[% l("Add another") | js %]",

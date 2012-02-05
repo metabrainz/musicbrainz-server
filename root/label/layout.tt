@@ -7,7 +7,7 @@
                content=rdfa_sort_name(label.sort_name)
                    IF label.name != label.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(label.type_name)
+               content=html_escape(l(label.type_name))
                    IF label.type -%]
             [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
                     [%- IF label.begin_date.format %]
@@ -34,7 +34,7 @@
                content=html_escape(label.format_label_code)
                    IF label.label_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=html_escape(label.country.name)
+               content=html_escape(l(label.country.name))
                    IF label.country -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]

@@ -137,11 +137,9 @@ around 'initialize' => sub
 
 sub _mapping
 {
-    my $for_change_hash = 1;
-
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit, $for_change_hash)
+            artist_credit_to_ref(shift->artist_credit, [])
         },
     );
 }

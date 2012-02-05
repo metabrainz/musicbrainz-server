@@ -21,7 +21,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'artist' }
 
-sub search : Path('/ws/js/artist') {
+sub search : Chained('root') PathPart('artist')
+{
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }

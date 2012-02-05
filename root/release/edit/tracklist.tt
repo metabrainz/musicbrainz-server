@@ -148,7 +148,7 @@
 
   <div class="track-parser-dialog dialog" style="display: none">
     [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
-    <h1>Track Parser</h1>
+    <h1>[% l('Track Parser') %]</h1>
 
     <div>
         <textarea class="tracklist"></textarea>
@@ -163,7 +163,7 @@
   </div>
 
   <div class="add-disc-dialog dialog" style="display: none">
-    <h1>Add Disc</h1>
+    <h1>[% l('Add Disc') %]</h1>
 
     <div class="tabs">
       <ul class="tabs">

@@ -73,7 +73,7 @@
 
         <p>
             <span class="buttons" style="float: right;">
-               <button id="show-wiki-versions">Get wiki versions</button>
+               <button id="show-wiki-versions">[% l('Get wiki versions') %]</button>
             </span>
             [% l('Use this button to fetch page versions from the wiki.') %]
         </p>

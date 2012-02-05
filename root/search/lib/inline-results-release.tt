@@ -26,12 +26,12 @@
           <td>[% artist_credit(result.entity.artist_credit) %]</td>
           <td>[% result.entity.combined_track_count %]</td>
           <td>
-            <abbr title="[% result.entity.country.name %]">[% result.entity.country.iso_code_for_display %]</abbr>
+            <abbr title="[% l(result.entity.country.name) %]">[% result.entity.country.iso_code_for_display %]</abbr>
           </td>
           <td>
-            <abbr title="[% result.entity.language.name %]">[% result.entity.language.iso_code_3t %]</abbr>
+            <abbr title="[% l(result.entity.language.name) %]">[% result.entity.language.iso_code_3t %]</abbr>
             [%= '/' IF result.entity.language && result.entity.script =%]
-            <abbr title="[% result.entity.script.name %]">[% result.entity.script.iso_code %]</abbr>
+            <abbr title="[% l(result.entity.script.name) %]">[% result.entity.script.iso_code %]</abbr>
           </td>
           [%- IF c.session.tport -%]
             <td>[% tagger_icon(result.entity) %]</td>
