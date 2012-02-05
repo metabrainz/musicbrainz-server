@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-31 17:16-0500\n"
+"POT-Creation-Date: 2012-02-05 00:57-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "(<strong>unverified!</strong>)"
 msgstr ""
 
-#: ../root/main/400.tt:12 ../root/main/500.tt:12
+#: ../root/main/400.tt:12 ../root/main/500.tt:41
 #, perl-format
 msgid "(No details about this error are available)"
 msgstr ""
@@ -520,7 +520,7 @@ msgid "About"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:234 ../root/edit/vote.tt:19
-#: ../root/elections/show.tt:73
+#: ../root/elections/show.tt:73 ../lib/MusicBrainz/Server/Data/Vote.pm:153
 #, perl-format
 msgid "Abstain"
 msgstr ""
@@ -630,7 +630,8 @@ msgstr ""
 msgid "Add CD Stub"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:292 ../root/release/edit/tracklist.tt:476
+#: ../root/release/edit/tracklist.tt:166 ../root/release/edit/tracklist.tt:292
+#: ../root/release/edit/tracklist.tt:476
 #, perl-format
 msgid "Add Disc"
 msgstr ""
@@ -3416,6 +3417,11 @@ msgid ""
 "(instrument)"
 msgstr ""
 
+#: ../root/statistics/timeline.tt:71
+#, perl-format
+msgid "Controls"
+msgstr ""
+
 #: DB:country/name:50
 msgid "Cook Islands"
 msgstr ""
@@ -5273,8 +5279,8 @@ msgstr ""
 msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
-"information, but it can also encourage other users to vote on your edit — "
-"thus making your edit get applied faster."
+"information, but it can also encourage other users to vote on your edit "
+"&mdash; thus making your edit get applied faster."
 msgstr ""
 
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
@@ -5311,10 +5317,17 @@ msgstr ""
 msgid "Error edits"
 msgstr ""
 
-#: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:8
+#: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 #, perl-format
 msgid "Error message: "
 msgstr ""
+
+#: ../root/main/500.tt:9
+#, perl-format
+msgid "Error:"
+msgid_plural "Errors:"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../root/components/common-macros.tt:82
 #, perl-format
@@ -5907,6 +5920,11 @@ msgstr ""
 msgid "Get Google Chrome Frame"
 msgstr ""
 
+#: ../root/admin/wikidoc/index.tt:76
+#, perl-format
+msgid "Get wiki versions"
+msgstr ""
+
 #: DB:country/name:82
 msgid "Ghana"
 msgstr ""
@@ -6212,6 +6230,11 @@ msgstr ""
 msgid "Hiri Motu"
 msgstr ""
 
+#: ../root/doc/edit_types.tt:20 ../lib/MusicBrainz/Server/Edit/Historic.pm:12
+#, perl-format
+msgid "Historic"
+msgstr ""
+
 #: DB:language/name:172
 msgid "Hittite"
 msgstr ""
@@ -6246,7 +6269,7 @@ msgstr ""
 #, perl-format
 msgid ""
 "Hosted by {host|Digital West}. Sponsored by: {url1|Google}, {url2|OSUOSL} "
-"and {more|others…}"
+"and {more|others...}"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:76
@@ -6493,7 +6516,7 @@ msgid ""
 "the same name."
 msgstr ""
 
-#: ../root/main/500.tt:20
+#: ../root/main/500.tt:55
 #, perl-format
 msgid ""
 "If the problem persists, please {report|report a bug} and include any error "
@@ -8468,7 +8491,8 @@ msgstr ""
 #, perl-format
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
-"we want everyone — including you — to {doc|participate and contribute}."
+"we want everyone &mdash; including you &mdash; to {doc|participate and "
+"contribute}."
 msgstr ""
 
 #: DB:script/name:58
@@ -8924,7 +8948,7 @@ msgstr ""
 
 #: ../root/ajax/lookup_tracklist.tt:13 ../root/cdtoc/lookup.tt:37
 #: ../root/components/common-macros.tt:626
-#: ../root/components/rdfa-macros.tt:519
+#: ../root/components/rdfa-macros.tt:520
 #: ../root/edit/relationship/create_batch.tt:61 ../root/release/discids.tt:21
 #: ../root/search/lib/inline-results-recording.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:7
@@ -9800,7 +9824,7 @@ msgstr ""
 #: ../root/edit/details/historic/merge_releases.tt:31
 #: ../root/edit/details/merge_artists.tt:5
 #: ../root/edit/details/move_release.tt:15 ../root/edit/search_macros.tt:234
-#: ../root/edit/vote.tt:16
+#: ../root/edit/vote.tt:16 ../lib/MusicBrainz/Server/Data/Vote.pm:154
 #, perl-format
 msgid "No"
 msgstr ""
@@ -10306,6 +10330,11 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
+#: ../root/cdtoc/lookup.tt:96
+#, perl-format
+msgid "Or..."
+msgstr ""
+
 #: DB:work_type/name:11
 msgid "Oratorio"
 msgstr ""
@@ -10320,11 +10349,6 @@ msgstr ""
 
 #: DB:language/name:321
 msgid "Oromo"
-msgstr ""
-
-#: ../root/cdtoc/lookup.tt:96
-#, perl-format
-msgid "Or…"
 msgstr ""
 
 #: DB:language/name:322
@@ -10342,6 +10366,8 @@ msgstr ""
 #: ../root/statistics/view_js.tt:38 DB:artist_type/name:3
 #: DB:release_group_type/name:11 DB:medium_format/name:13
 #: DB:release_packaging/name:5 DB:gender/name:3
+#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:63
+#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:86
 #, perl-format
 msgid "Other"
 msgstr ""
@@ -10739,6 +10765,11 @@ msgstr ""
 msgid ""
 "Please <a href=\"{uri}\">update your profile</a> when you get time, to let "
 "other editors know a bit more about you."
+msgstr ""
+
+#: ../root/main/500.tt:60
+#, perl-format
+msgid "Please be sure to include the stack trace and request data shown above!"
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:44
@@ -11345,7 +11376,7 @@ msgstr ""
 
 #: ../root/annotation/common.tt:11
 #, perl-format
-msgid "Read more…"
+msgid "Read more..."
 msgstr ""
 
 #: ../root/admin/wikidoc/index.tt:56
@@ -12445,6 +12476,11 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
+#: ../root/main/500.tt:27
+#, perl-format
+msgid "Request data:"
+msgstr ""
+
 #: ../root/edit/info.tt:48
 #, perl-format
 msgid "Requires:"
@@ -12835,14 +12871,9 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:108
+#: ../root/release/edit/tracklist.tt:108 ../root/scripts/text_strings.tt:39
 #, perl-format
 msgid "Searching..."
-msgstr ""
-
-#: ../root/scripts/text_strings.tt:39
-#, perl-format
-msgid "Searching…"
 msgstr ""
 
 #: ../root/elections/show.tt:61
@@ -13611,6 +13642,11 @@ msgstr ""
 msgid "Sri Lanka"
 msgstr ""
 
+#: ../root/main/500.tt:19
+#, perl-format
+msgid "Stack trace:"
+msgstr ""
+
 #: ../root/cdtoc/info.tt:32
 #, perl-format
 msgid "Start"
@@ -13725,6 +13761,11 @@ msgstr ""
 msgid "Subscribers"
 msgstr ""
 
+#: ../root/user/profile.tt:77
+#, perl-format
+msgid "Subscribers:"
+msgstr ""
+
 #: ../root/artist/layout.tt:115 ../root/label/layout.tt:87
 #: ../root/layout/menu.tt:16 ../root/user/profile/layout.tt:12
 #, perl-format
@@ -13733,6 +13774,11 @@ msgstr ""
 
 #: DB:country/name:198
 msgid "Sudan"
+msgstr ""
+
+#: ../root/release/edit/recordings.tt:77
+#, perl-format
+msgid "Suggested recording:"
 msgstr ""
 
 #: DB:work_type/name:6
@@ -15969,6 +16015,7 @@ msgid "Top CD Stubs"
 msgstr ""
 
 #: ../root/statistics/countries.tt:37
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:174
 #, perl-format
 msgid "Total"
 msgstr ""
@@ -16049,7 +16096,8 @@ msgstr ""
 msgid "Track"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:385 ../root/release/edit/tracklist.tt:386
+#: ../root/release/edit/tracklist.tt:151 ../root/release/edit/tracklist.tt:385
+#: ../root/release/edit/tracklist.tt:386
 #, perl-format
 msgid "Track Parser"
 msgstr ""
@@ -16337,8 +16385,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:385 ../root/edit/details/edit_url.tt:9
 #: ../root/edit/details/edit_url.tt:15
-#: ../root/edit/relationship/create_url.tt:52 ../root/url/edit.tt:18
-#: ../root/url/index.tt:5
+#: ../root/edit/relationship/create_url.tt:52 ../root/main/500.tt:47
+#: ../root/url/edit.tt:18 ../root/url/index.tt:5
 #, perl-format
 msgid "URL:"
 msgstr ""
@@ -17086,7 +17134,7 @@ msgid ""
 "address."
 msgstr ""
 
-#: ../root/main/500.tt:17
+#: ../root/main/500.tt:52
 #, perl-format
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
@@ -17217,7 +17265,8 @@ msgid "Woodwind instrument of the late baroque and early classical era"
 msgstr ""
 
 #: ../root/artist/works.tt:16 ../root/components/common-macros.tt:428
-#: ../root/edit/search_macros.tt:278 ../lib/MusicBrainz/Server/Edit/Work.pm:7
+#: ../root/edit/search_macros.tt:278 ../root/work/edits.tt:19
+#: ../root/work/header.tt:13 ../lib/MusicBrainz/Server/Edit/Work.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
 #, perl-format
 msgid "Work"
@@ -17350,7 +17399,7 @@ msgstr ""
 #: ../root/edit/details/historic/merge_releases.tt:31
 #: ../root/edit/details/merge_artists.tt:5
 #: ../root/edit/details/move_release.tt:15 ../root/edit/search_macros.tt:234
-#: ../root/edit/vote.tt:13
+#: ../root/edit/vote.tt:13 ../lib/MusicBrainz/Server/Data/Vote.pm:155
 #, perl-format
 msgid "Yes"
 msgstr ""
@@ -19782,7 +19831,7 @@ msgid "in {date}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:256
-#: ../root/components/rdfa-macros.tt:687 ../root/components/rdfa-macros.tt:700
+#: ../root/components/rdfa-macros.tt:688 ../root/components/rdfa-macros.tt:701
 #, perl-format
 msgid "info"
 msgstr ""
@@ -20460,10 +20509,15 @@ msgstr ""
 msgid "moon lute"
 msgstr ""
 
+#: ../root/admin/linktype/tree.tt:7
+#, perl-format
+msgid "more"
+msgstr ""
+
 #: ../root/layout/sidebar/sidebar-tags.tt:1
 #: ../root/layout/sidebar/sidebar-tags.tt:16
 #, perl-format
-msgid "more…"
+msgid "more..."
 msgstr ""
 
 #: DB:link_attribute_type/name:294
@@ -21083,6 +21137,12 @@ msgstr ""
 #: DB:link_attribute_type/name:32
 #, perl-format
 msgid "recorder"
+msgstr ""
+
+#: ../root/release/edit/recordings.tt:191
+#: ../root/release/edit/recordings.tt:262
+#, perl-format
+msgid "recording"
 msgstr ""
 
 #: DB:link_type/link_phrase:98 DB:link_type/link_phrase:260
@@ -21784,6 +21844,12 @@ msgstr ""
 msgid "toy piano"
 msgstr ""
 
+#: ../root/release/edit/recordings.tt:191
+#: ../root/release/edit/recordings.tt:262
+#, perl-format
+msgid "track"
+msgstr ""
+
 #: ../root/components/common-macros.tt:82
 #, perl-format
 msgid "tracks"
@@ -22297,7 +22363,8 @@ msgstr ""
 
 #: ../root/main/index.tt:54
 #, perl-format
-msgid "{about|More Information} — {faq|FAQs} — {contact|Contact Us}"
+msgid ""
+"{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
 msgstr ""
 
 #: DB:link_type/link_phrase:293 DB:link_type/link_phrase:295
@@ -22718,11 +22785,6 @@ msgstr ""
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
 msgstr ""
 
-#: ../root/release/collections.tt:10
-#, perl-format
-msgid "{col}"
-msgstr ""
-
 #: ../root/statistics/view_js.tt:79
 #, perl-format
 msgid "{country} artists"
@@ -22781,11 +22843,6 @@ msgstr ""
 msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
-msgstr ""
-
-#: ../root/components/common-macros.tt:166
-#, perl-format
-msgid "{entity}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:166
@@ -23020,11 +23077,6 @@ msgstr ""
 #: ../root/admin/linktype/tree.tt:34 ../root/admin/linktype/tree.tt:36
 #, perl-format
 msgid "{type0}-{type1} Relationship Types"
-msgstr ""
-
-#: ../root/work/edits.tt:19 ../root/work/header.tt:13
-#, perl-format
-msgid "{type}"
 msgstr ""
 
 #: ../root/work/layout.tt:1
@@ -23468,7 +23520,7 @@ msgstr ""
 msgid "Edit artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:27
+#: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:24
 msgid "Edit artist credit"
 msgstr ""
 
@@ -23476,10 +23528,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeArtist.pm:8
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseGroups.pm:7
 msgid "Merge artists"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Edit/Historic.pm:12
-msgid "Historic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:11
@@ -23733,7 +23781,7 @@ msgstr ""
 msgid "Remove release label"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:40
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:39
 msgid "Edit release"
 msgstr ""
 
@@ -23741,7 +23789,7 @@ msgstr ""
 msgid "Edit release artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:142
+#: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:140
 msgid ""
 "This edit cannot be applied, as the release being edited no longer exists."
 msgstr ""
@@ -23900,13 +23948,18 @@ msgid ""
 "something like “CD in hand” helps!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:105
+#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:63
+#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:86
+msgid "Frequently used"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:101
 msgid ""
 "This barcode is invalid, please check that you've correctly entered the "
 "barcode."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:110
+#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:106
 msgid ""
 "You must select an existing release group. If you wish to move this "
 "release,\n"
@@ -23985,6 +24038,18 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:20
 msgid "Invalid URL format"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:79
+msgid "Daily"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:80
+msgid "Weekly"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:81
+msgid "Never"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:43
