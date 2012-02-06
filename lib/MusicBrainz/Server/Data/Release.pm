@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Release;
 
 use Moose;
+use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
 use MusicBrainz::Server::Constants qw( :quality );
@@ -201,6 +202,7 @@ sub find_by_release_group
                  ORDER BY date_year, date_month, date_day,
                           country.name, barcode
                  OFFSET ?";
+
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, @ids, @$statuses, $offset || 0);

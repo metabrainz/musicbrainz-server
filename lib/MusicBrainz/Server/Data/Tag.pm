@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Tag;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Tag;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects query_to_list_limited );
 

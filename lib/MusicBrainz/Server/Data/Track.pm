@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Track;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Track;
 use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Medium;

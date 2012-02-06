@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Statistics::ByDate;
 use Moose;
 use namespace::autoclean;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Statistics::ByDate;
 

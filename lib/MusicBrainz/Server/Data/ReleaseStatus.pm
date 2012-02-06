@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::ReleaseStatus;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::ReleaseStatus;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
