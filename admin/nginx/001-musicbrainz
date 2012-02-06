@@ -7,8 +7,8 @@ server {
     error_log   /var/log/nginx/001-musicbrainz.error.log notice;
 
     location /static/ {
-        root	/home/musicbrainz/musicbrainz-server/root;
-        expires	24h;
+        root /home/musicbrainz/musicbrainz-server/root;
+        expires 24h;
         gzip  on;
         gzip_http_version 1.0;
         gzip_comp_level 6;
@@ -20,8 +20,8 @@ server {
     }
 
     location ~* ^/static/.*\.js$ {
-        root	/home/musicbrainz/musicbrainz-server/root;
-        expires	max;
+        root /home/musicbrainz/musicbrainz-server/root;
+        expires max;
         gzip  on;
         gzip_http_version 1.0;
         gzip_comp_level 6;
@@ -36,18 +36,22 @@ server {
 
     location = /favicon.ico {
         root /home/musicbrainz/musicbrainz-server/root;
-        expires	7d;
-	}
+        expires 7d;
+    }
+
     location = /robots.txt {
         root /home/musicbrainz/musicbrainz-server/root;
-        expires	1h;
+
+        # on production, "ln -s root/robots.txt.production root/robots.txt"
+        try_files $uri $uri.staging
+        expires 1h;
     }
 
     location / {
         set $script "";
         set $path_info $uri;
 
-        fastcgi_pass	127.0.0.1:55901;
+        fastcgi_pass 127.0.0.1:55901;
 
         fastcgi_param  SCRIPT_NAME      $script;
         fastcgi_param  PATH_INFO        $path_info;
