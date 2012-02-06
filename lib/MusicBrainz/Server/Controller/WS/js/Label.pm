@@ -21,7 +21,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'label' }
 
-sub search : Path('/ws/js/label') {
+sub search : Chained('root') PathPart('label')
+{
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }

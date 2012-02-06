@@ -16,9 +16,7 @@
         <h1>[% l('Edits for “{link}”', { link => link_entity(work) }) %]</h1>
         <p class="subheader">
             <span class="prefix">~</span>
-                [% l('{type}', {
-                    type = html_escape(work.type_name) or l('Work')
-                })%]
+                [% html_escape(l(work.type_name)) or l('Work') %]
         </p>
     </div>
     [% INCLUDE 'edit/list.tt' %]

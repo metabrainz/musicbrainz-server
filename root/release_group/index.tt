@@ -1,7 +1,7 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
     [%- IF releases.size -%]
-      <h2>[% rg.type.name %]</h2>
+      <h2>[% l(rg.type.name) %]</h2>
       <form action="[% c.uri_for_action('/release/merge_queue') %]"
             method="post">
         [%- WRAPPER 'components/with-pager.tt' -%]
@@ -30,7 +30,7 @@
             [%- FOR group=releases -%]
               <tr class="subh">
                 [% IF c.user_exists %]<th></th>[% END %]
-                <th colspan="[% c.session.tport ? 10 : 9 %]">[% group.0.status_name || l('(unknown)') %]</th>
+                <th colspan="[% c.session.tport ? 10 : 9 %]">[% l(group.0.status_name) || l('(unknown)') %]</th>
               </tr>
               [% FOR release=group %]
               <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>

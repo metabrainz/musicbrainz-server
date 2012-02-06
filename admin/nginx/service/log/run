@@ -12,6 +12,7 @@ exec multilog t \
 	-'* +--------+------*' \
 	-'* |*|*|*| perl-fcgi       |' \
 	-"* '--------+---*" \
-	-"* Use of uninitialized value *" \
-	-"* Argument * isn't numeric *" \
+    -"* FastCGI: *" \
+    -"* wizard session, *" \
+    -"* is bigger than: * exiting now...*" \
 	./oddlog \

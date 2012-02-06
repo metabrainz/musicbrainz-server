@@ -7,7 +7,7 @@
                  { release => html_escape(release.name), num => public_collections.size + private_collections }) %]</p>
         <ul>
             [% FOR col=public_collections %]
-                <li>[% l('{col}', { col => link_collection(col) }) %]</li>
+                <li>[% link_collection(col) %]</li>
             [% END %]
 
             [% IF public_collections.size && private_collections %]

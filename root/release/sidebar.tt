@@ -13,7 +13,7 @@
         INCLUDE 'layout/sidebar/property.tt' label=l('Date:')
            content=release.date.format IF release.date.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-           content=release.country.name IF release.country.name;
+           content=l(release.country.name) IF release.country.name;
 
         INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:')
            content=release.barcode.format property='mo:tgin' datatype='xsd:string' IF release.barcode.format;
@@ -24,15 +24,15 @@
     <h2>[% l('Additional details') %]</h2>
     [% WRAPPER 'layout/sidebar/properties.tt';
         INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-           content=release.release_group.type.name IF release.release_group.type.name;
+           content=l(release.release_group.type.name) IF release.release_group.type.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Packaging:')
-           content=release.packaging.name IF release.packaging.name;
+           content=l(release.packaging.name) IF release.packaging.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-           content=release.status.name IF release.status.name;
+           content=l(release.status.name) IF release.status.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Language:')
-           content=release.language.name IF release.language.name;
+           content=l(release.language.name) IF release.language.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Script:')
-           content=release.script.name IF release.script.name;
+           content=l(release.script.name) IF release.script.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:')
            content=quality_name(release.quality) IF release.quality != -1;
     END %]

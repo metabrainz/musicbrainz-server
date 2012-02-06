@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Relationship;
 
 use Moose;
+use namespace::autoclean -also => [qw( _generate_table_list )];
 use Readonly;
 use Sql;
 use Carp qw( carp croak );
@@ -231,10 +232,12 @@ sub load_subset
             push @{$objs_by_type{$type}}, $obj;
         }
     }
+
     my @rels;
     foreach my $type (keys %objs_by_type) {
         push @rels, $self->_load($type, $types, @{$objs_by_type{$type}});
     }
+
     $self->c->model('Link')->load(@rels);
     $self->c->model('LinkType')->load(map { $_->link } @rels);
     $self->load_entities(@rels);

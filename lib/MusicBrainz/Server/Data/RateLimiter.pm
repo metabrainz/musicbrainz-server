@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::RateLimiter;
 use Moose;
 use namespace::autoclean;
+use namespace::autoclean;
 
 use DBDefs ();
 use IO::Socket::INET ();

@@ -387,6 +387,79 @@ MB.Control.Autocomplete = function (options) {
 
         self.changeEntity (options.entity);
 
+        var entity_regex = /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/;
+
+        /* The keydown event for $input is also handled by the jQuery
+           autocomplete plugin. This needs to run before that. Entering
+           an MBID into the field would otherwise cause it to search for
+           that string, and show a menu with 0 results each time. The
+           handler below stops all input from propagating to the
+           autocomplete handler until it's verified an MBID wasn't
+           entered, at which point it triggers the autocomplete handler
+           manually.
+
+           Key codes that are only used to interact with the UI are
+           allowed to propagate.
+         */
+        self.$input.bind ('keydown.mb', function (event) {
+            var keyCode = $.ui.keyCode;
+            switch (event.keyCode) {
+            // These are handled by jquery.ui.autocomplete
+            case keyCode.PAGE_UP:
+            case keyCode.PAGE_DOWN:
+            case keyCode.UP:
+            case keyCode.DOWN:
+            case keyCode.ENTER:
+            case keyCode.NUMPAD_ENTER:
+            case keyCode.TAB:
+            case keyCode.ESCAPE:
+                return;
+                break;
+            // Otherwise assume the input event will fire
+            default:
+                event.stopImmediatePropagation();
+                break;
+            }
+        });
+
+        self.$input.bind ('input', function (event) {
+            var match = this.value.match(entity_regex);
+            if (match == null) {
+                $(this).trigger("keydown.autocomplete");
+                return;
+            }
+            var mbid = match[0];
+
+            $(this).trigger("blur.autocomplete")
+                   .attr("disabled", "disabled");
+
+            $.ajax({
+                url: "/ws/js/entity/" + mbid,
+                dataType: "json",
+                success: function (data) {
+                    var type = data["type"];
+                    if (type != self.entity) {
+                        // Only RelateTo boxes support changing the entity type
+                        if (options.setEntity) {
+                            options.setEntity(type);
+                        } else {
+                            self.clear();
+                            return;
+                        }
+                    }
+                    self.select (event, { item: data });
+                    self.autocomplete.term = data.name;
+                    self.autocomplete.selectedItem = null;
+                },
+                error: function () {
+                    self.clear();
+                },
+                complete: function () {
+                    self.$input.removeAttr("disabled").focus();
+                }
+            });
+        });
+
         self.$input.autocomplete ($.extend({}, options, {
             'source': self.lookup,
             'minLength': options.minLength ? options.minLength : 1,
@@ -397,9 +470,6 @@ MB.Control.Autocomplete = function (options) {
 
         self.autocomplete = self.$input.data ('autocomplete');
         self.$input.bind ('keydown.mb', self.pagerKeyEvent);
-        self.$input.bind ('propertychange.mb input.mb', function (event) {
-            self.$input.trigger ("keydown");
-        });
         self.$input.bind ('iamfeelinglucky', self.iamfeelinglucky);
         self.$input.bind ('blur', function(event) {
             if (!self.currentSelection) return;

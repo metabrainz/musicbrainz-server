@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::DurationLookup;
 use Moose;
+use namespace::autoclean -also => [qw( _parse_toc )];
 use Readonly;
 use MusicBrainz::Server::Entity::DurationLookupResult;
 use MusicBrainz::Server::Entity::Medium;

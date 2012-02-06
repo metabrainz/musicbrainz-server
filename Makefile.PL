@@ -19,7 +19,7 @@ requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
 requires 'Catalyst::Plugin::I18N'                     => '0.09';
 requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.2';
-requires 'Catalyst::Runtime'                          => '5.80021';
+requires 'Catalyst::Runtime'                          => '5.90007';
 requires 'Catalyst::View::TT'                         => '0.29';
 requires 'CGI::Expand';
 requires 'Class::MOP';
@@ -78,6 +78,7 @@ requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';
 requires 'Template::Plugin::Math';
 requires 'Template::Plugin::Class';
+requires 'Template::Plugin::JavaScript';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'Text::Unaccent';
 requires 'Text::Trim'                                 => '1.02';
@@ -110,8 +111,10 @@ feature 'Default session store/state management' =>
 feature 'Developer features' =>
     -default                           => 1,
     'Catalyst::Plugin::StackTrace'     => '0.09',
-    'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
+    'Plack'                            => '0.9985',
+    'Plack::Middleware::Debug'         => '0.14',
+    'Catalyst::Runtime'                => '5.9'
     ;
 
 feature 'Production server' =>

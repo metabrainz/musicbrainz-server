@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Entity;
 use Moose;
+use namespace::autoclean;
 
 use Class::MOP;
 use List::MoreUtils qw( uniq );

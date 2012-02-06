@@ -596,6 +596,28 @@ sub prepare_tracklist
     map { $_->{artist}->{gid} = $artists->{$_->{artist}->{id}}->gid }
     grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
 
+    my $mediums = $self->get_value ('tracklist', 'mediums') // [];
+    if (scalar @$mediums == 0)
+    {
+        # Releases should always have one medium, but the current
+        # edit-system cannot guarantee that.  See MBS-1929.
+        #
+        # "Add Disc" buttons use an existing disc as a template, so we
+        # need to make sure there is atleast one disc.
+        $self->set_value (
+            'tracklist', 'mediums', [
+                {
+                    'format_id' => undef,
+                    'position' => '1',
+                    'name' => undef,
+                    'deleted' => '0',
+                    'edits' => '[]',
+                    'toc' => undef,
+                    'tracklist_id' => undef,
+                    'id' => undef
+                }]);
+    }
+
     $self->c->stash->{release_artist} = $submitted_ac;
 }
 
@@ -1399,7 +1421,7 @@ sub track_edit_from_track
     my ($self, $track) = @_;
 
     return $self->update_track_edit_hash ({
-        artist_credit => artist_credit_to_ref ($track->artist_credit),
+        artist_credit => artist_credit_to_ref ($track->artist_credit, [ "gid" ]),
         deleted => 0,
         length => $track->length,
         name => $track->name,
@@ -1411,8 +1433,7 @@ sub track_edit_from_track
 =method edited_tracklist
 
 Returns a list of tracks, sorted by position, with deleted tracks
-removed.  It also converts artist credits to the same format used by
-'artist_credit_to_ref'.
+removed.
 
 =cut
 

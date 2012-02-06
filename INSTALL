@@ -118,7 +118,7 @@ Below outlines how to setup MusicBrainz server with Carton.
     development headers that will be needed when installing dependencies. Run
     the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached
         sudo cpan Carton
 
 2)  Install dependencies
@@ -264,9 +264,9 @@ Starting the server
     output and is much more convenient than having to set up a standalone
     server. Just run:
 
-        carton exec ./script/musicbrainz_server.pl -- -r
+        carton exec -- plackup -Ilib -r
 
-    Visiting http://your.machines.ip.address:3000 should now present you with
+    Visiting http://your.machines.ip.address:5000 should now present you with
     your own running instance of the MusicBrainz Server.
 
 2)  Troubleshooting

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::ISRC;
 use Moose;
+use namespace::autoclean;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(

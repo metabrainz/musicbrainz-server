@@ -2869,15 +2869,15 @@
          "version" : "0.29"
       },
       "Catalyst::Plugin::Unicode::Encoding" : {
-         "dist" : "Catalyst-Plugin-Unicode-Encoding-1.1",
-         "module" : "Catalyst::Plugin::Unicode::Encoding",
+         "dist" : "Catalyst-Plugin-Unicode-Encoding-1.3",
+         "module" : "http://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Unicode-Encoding-1.3.tar.gz",
          "mymeta" : {
             "abstract" : "Unicode aware Catalyst",
             "author" : [
                "Christian Hansen, C<ch@ngmedia.com>"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "Module::Install version 0.99, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "Module::Install version 1.02, CPAN::Meta::Converter version 2.112150",
             "license" : [
                "perl_5"
             ],
@@ -2923,21 +2923,22 @@
                   "url" : "http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-Plugin-Unicode-Encoding/"
                }
             },
-            "version" : "1.1",
+            "version" : "1.3",
             "x_module_name" : "Catalyst::Plugin::Unicode::Encoding"
          },
          "name" : "Catalyst::Plugin::Unicode::Encoding",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Unicode-Encoding-1.1.tar.gz",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Unicode-Encoding-1.3.tar.gz",
          "provides" : {
             "Catalyst::Plugin::Unicode::Encoding" : {
                "file" : "Catalyst/Plugin/Unicode/Encoding.pm",
-               "version" : "1.1"
-            }
+               "version" : "1.3"
+            },
+            "http://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Unicode-Encoding-1.3.tar.gz" : {}
          },
-         "version" : "1.1"
+         "version" : "1.3"
       },
       "Catalyst::Runtime" : {
-         "dist" : "Catalyst-Runtime-5.80032",
+         "dist" : "Catalyst-Runtime-5.90007",
          "module" : "Catalyst",
          "mymeta" : {
             "abstract" : "The Catalyst Framework Runtime",
@@ -3033,14 +3034,14 @@
                "x_IRC" : "irc://irc.perl.org/#catalyst",
                "x_MailingList" : "http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst"
             },
-            "version" : "5.80032"
+            "version" : "5.90007"
          },
          "name" : "Catalyst::Runtime",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Runtime-5.80032.tar.gz",
+         "pathname" : "http://search.cpan.org/CPAN/authors/id/B/BO/BOBTFISH/Catalyst-Runtime-5.90007.tar.gz",
          "provides" : {
             "Catalyst" : {
                "file" : "Catalyst.pm",
-               "version" : "5.80032"
+               "version" : "5.90007"
             },
             "Catalyst::Action" : {
                "file" : "Catalyst/Action.pm"
@@ -3137,7 +3138,7 @@
             },
             "Catalyst::Runtime" : {
                "file" : "Catalyst/Runtime.pm",
-               "version" : "5.80032"
+               "version" : "5.90007"
             },
             "Catalyst::Script::CGI" : {
                "file" : "Catalyst/Script/CGI.pm"
@@ -3173,7 +3174,7 @@
                "file" : "Catalyst/View.pm"
             }
          },
-         "version" : "5.80032"
+         "version" : "5.90007"
       },
       "Catalyst::View::TT" : {
          "dist" : "Catalyst-View-TT-0.36",
@@ -4008,6 +4009,65 @@
             }
          },
          "version" : "1.12"
+      },
+      "Class::Method::Modifiers" : {
+         "dist" : "Class-Method-Modifiers-1.08",
+         "module" : "Class::Method::Modifiers",
+         "mymeta" : {
+            "abstract" : "provides Moose-like method modifiers",
+            "author" : [
+               "Shawn M Moore, C<sartak@gmail.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Install version 1.02, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Class-Method-Modifiers",
+            "no_index" : {
+               "directory" : [
+                  "inc",
+                  "t"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "Test::Fatal" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {}
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "homepage" : "https://github.com/sartak/Class-Method-Modifiers/tree",
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "1.08"
+         },
+         "name" : "Class::Method::Modifiers",
+         "pathname" : "S/SA/SARTAK/Class-Method-Modifiers-1.08.tar.gz",
+         "provides" : {
+            "Class::Method::Modifiers" : {
+               "file" : "Class/Method/Modifiers.pm",
+               "version" : "1.08"
+            }
+         },
+         "version" : "1.08"
       },
       "Class::Singleton" : {
          "dist" : "Class-Singleton-1.4",
@@ -14463,15 +14523,15 @@
          "version" : "1.49"
       },
       "File::ShareDir" : {
-         "dist" : "File-ShareDir-0.03",
+         "dist" : "File-ShareDir-1.03",
          "module" : "File::ShareDir",
          "mymeta" : {
             "abstract" : "Locate per-dist and per-module shared files",
             "author" : [
-               "Adam Kennedy <cpan@ali.as>, L<http://ali.as/>"
+               "Adam Kennedy <adamk@cpan.org>"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "Module::Install version 0.55, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "Module::Install version 1.00, CPAN::Meta::Converter version 2.112150",
             "license" : [
                "perl_5"
             ],
@@ -14482,14 +14542,23 @@
             "name" : "File-ShareDir",
             "no_index" : {
                "directory" : [
+                  "foo",
                   "inc",
-                  "t"
+                  "share",
+                  "t",
+                  "xt"
                ]
             },
             "prereqs" : {
                "build" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : 0
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "Test::More" : "0.47"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42"
                   }
                },
                "runtime" : {
@@ -14497,23 +14566,32 @@
                      "Carp" : 0,
                      "Class::Inspector" : "1.12",
                      "File::Spec" : "0.80",
-                     "Params::Util" : "0.07",
-                     "Test::More" : "0.47"
+                     "perl" : "5.005"
                   }
                }
             },
             "release_status" : "stable",
-            "version" : "0.03"
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://svn.ali.as/cpan/trunk/File-ShareDir"
+               },
+               "x_ChangeLog" : "http://fisheye2.atlassian.com/changelog/cpan/trunk/File-ShareDir"
+            },
+            "version" : "1.03",
+            "x_module_name" : "File::ShareDir"
          },
          "name" : "File::ShareDir",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/A/AD/ADAMK/File-ShareDir-0.03.tar.gz",
+         "pathname" : "A/AD/ADAMK/File-ShareDir-1.03.tar.gz",
          "provides" : {
             "File::ShareDir" : {
                "file" : "File/ShareDir.pm",
-               "version" : "0.03"
+               "version" : "1.03"
             }
          },
-         "version" : "0.03"
+         "version" : "1.03"
       },
       "File::ShareDir::Install" : {
          "dist" : "File-ShareDir-Install-0.04",
@@ -16979,7 +17057,7 @@
       },
       "IO::All" : {
          "dist" : "IO-All-0.41",
-         "module" : "http://cpan.metacpan.org/authors/id/I/IN/INGY/IO-All-0.41.tar.gz",
+         "module" : "IO::All",
          "mymeta" : {
             "abstract" : "IO::All of it to Graham and Damian!",
             "author" : [
@@ -17069,8 +17147,7 @@
             },
             "IO::All::Temp" : {
                "file" : "IO/All/Temp.pm"
-            },
-            "http://cpan.metacpan.org/authors/id/I/IN/INGY/IO-All-0.41.tar.gz" : {}
+            }
          },
          "version" : "0.41"
       },
@@ -23655,6 +23732,51 @@
          },
          "version" : "0.01"
       },
+      "Number::Format" : {
+         "dist" : "Number-Format-1.73",
+         "module" : "Number::Format",
+         "mymeta" : {
+            "abstract" : "Perl extension for formatting numbers",
+            "author" : [
+               "William R. Ward <wrw@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.42, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Number-Format",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Carp" : 0,
+                     "POSIX" : 0,
+                     "Test::More" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "1.73"
+         },
+         "name" : "Number::Format",
+         "pathname" : "W/WR/WRW/Number-Format-1.73.tar.gz",
+         "provides" : {
+            "Number::Format" : {
+               "file" : "Number/Format.pm",
+               "version" : "1.73"
+            }
+         },
+         "version" : "1.73"
+      },
       "Object::InsideOut" : {
          "dist" : "Object-InsideOut-3.85",
          "module" : "Object::InsideOut",
@@ -28331,6 +28453,118 @@
          },
          "version" : "0.9985"
       },
+      "Plack::Middleware::Debug" : {
+         "dist" : "Plack-Middleware-Debug-0.14",
+         "module" : "Plack::Middleware::Debug",
+         "mymeta" : {
+            "abstract" : "display information about the current request/response",
+            "author" : [
+               "Marcel Grünauer, C<< <marcel@cpan.org> >>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Plack-Middleware-Debug",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "Test::More" : "0.70"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Class::Method::Modifiers" : "1.05",
+                     "Data::Dump" : 0,
+                     "Encode" : "2.23",
+                     "ExtUtils::MakeMaker" : "6.11",
+                     "File::ShareDir" : "1.00",
+                     "Plack" : 0,
+                     "Test::More" : "0.70",
+                     "Text::MicroTemplate" : "0.15",
+                     "parent" : 0,
+                     "perl" : "5.008001"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.14"
+         },
+         "name" : "Plack::Middleware::Debug",
+         "pathname" : "M/MI/MIYAGAWA/Plack-Middleware-Debug-0.14.tar.gz",
+         "provides" : {
+            "Plack::Middleware::Debug" : {
+               "file" : "Plack/Middleware/Debug.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Base" : {
+               "file" : "Plack/Middleware/Debug/Base.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::CatalystLog" : {
+               "file" : "Plack/Middleware/Debug/CatalystLog.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::DBITrace" : {
+               "file" : "Plack/Middleware/Debug/DBITrace.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Environment" : {
+               "file" : "Plack/Middleware/Debug/Environment.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Memory" : {
+               "file" : "Plack/Middleware/Debug/Memory.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::ModuleVersions" : {
+               "file" : "Plack/Middleware/Debug/ModuleVersions.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Panel" : {
+               "file" : "Plack/Middleware/Debug/Panel.pm"
+            },
+            "Plack::Middleware::Debug::Parameters" : {
+               "file" : "Plack/Middleware/Debug/Parameters.pm"
+            },
+            "Plack::Middleware::Debug::PerlConfig" : {
+               "file" : "Plack/Middleware/Debug/PerlConfig.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Response" : {
+               "file" : "Plack/Middleware/Debug/Response.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Session" : {
+               "file" : "Plack/Middleware/Debug/Session.pm"
+            },
+            "Plack::Middleware::Debug::Timer" : {
+               "file" : "Plack/Middleware/Debug/Timer.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::TrackObjects" : {
+               "file" : "Plack/Middleware/Debug/TrackObjects.pm"
+            }
+         },
+         "version" : "0.14"
+      },
       "Plack::Middleware::ReverseProxy" : {
          "dist" : "Plack-Middleware-ReverseProxy-0.11",
          "module" : "Plack::Middleware::ReverseProxy",
@@ -30186,6 +30420,104 @@
          },
          "version" : "0.2014"
       },
+      "Statistics::Basic" : {
+         "dist" : "Statistics-Basic-1.6602",
+         "module" : "Statistics::Basic",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "unknown"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.112150",
+            "keywords" : [
+               "stats",
+               "statistics",
+               "mean",
+               "average",
+               "correlation"
+            ],
+            "license" : [
+               "open_source"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Statistics-Basic",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Number::Format" : "1.42",
+                     "Scalar::Util" : 0,
+                     "perl" : "5.006"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "repository" : {
+                  "url" : "http://github.com/jettero/statistics--basic"
+               }
+            },
+            "version" : "1.6602"
+         },
+         "name" : "Statistics::Basic",
+         "pathname" : "J/JE/JETTERO/Statistics-Basic-1.6602.tar.gz",
+         "provides" : {
+            "Statistics::Basic" : {
+               "file" : "Statistics/Basic.pm",
+               "version" : "1.6602"
+            },
+            "Statistics::Basic::ComputedVector" : {
+               "file" : "Statistics/Basic/ComputedVector.pm"
+            },
+            "Statistics::Basic::Correlation" : {
+               "file" : "Statistics/Basic/Correlation.pm"
+            },
+            "Statistics::Basic::Covariance" : {
+               "file" : "Statistics/Basic/Covariance.pm"
+            },
+            "Statistics::Basic::LeastSquareFit" : {
+               "file" : "Statistics/Basic/LeastSquareFit.pm"
+            },
+            "Statistics::Basic::Mean" : {
+               "file" : "Statistics/Basic/Mean.pm"
+            },
+            "Statistics::Basic::Median" : {
+               "file" : "Statistics/Basic/Median.pm"
+            },
+            "Statistics::Basic::Mode" : {
+               "file" : "Statistics/Basic/Mode.pm"
+            },
+            "Statistics::Basic::StdDev" : {
+               "file" : "Statistics/Basic/StdDev.pm"
+            },
+            "Statistics::Basic::Variance" : {
+               "file" : "Statistics/Basic/Variance.pm"
+            },
+            "Statistics::Basic::Vector" : {
+               "file" : "Statistics/Basic/Vector.pm"
+            }
+         },
+         "version" : "1.6602"
+      },
       "String::CRC32" : {
          "dist" : "String-CRC32-1.4",
          "module" : "String::CRC32",
@@ -31504,6 +31836,61 @@
             }
          },
          "version" : "0.14"
+      },
+      "Template::Plugin::JavaScript" : {
+         "dist" : "Template-Plugin-JavaScript-0.02",
+         "module" : "Template::Plugin::JavaScript",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "unknown"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.113640",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Template-Plugin-JavaScript",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Template" : 0,
+                     "Test::More" : "0.32"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.02"
+         },
+         "name" : "Template::Plugin::JavaScript",
+         "pathname" : "M/MI/MIYAGAWA/Template-Plugin-JavaScript-0.02.tar.gz",
+         "provides" : {
+            "Template::Plugin::JavaScript" : {
+               "file" : "Template/Plugin/JavaScript.pm",
+               "version" : "0.02"
+            }
+         },
+         "version" : "0.02"
       },
       "Template::Timer" : {
          "dist" : "Template-Timer-1.00",
@@ -33074,6 +33461,85 @@
             }
          },
          "version" : "0.0303"
+      },
+      "Test::Mock::LWP" : {
+         "dist" : "Test-Mock-LWP-0.06",
+         "module" : "Test::Mock::LWP",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "Luke Closs <test-mock-lwp@awesnob.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.57_05, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Test-Mock-LWP",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Test::MockObject" : "1.08",
+                     "Test::More" : "0.42"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.06"
+         },
+         "name" : "Test::Mock::LWP",
+         "pathname" : "L/LU/LUKEC/Test-Mock-LWP-0.06.tar.gz",
+         "provides" : {
+            "HTTP::Request" : {
+               "file" : "Test/Mock/HTTP/Request.pm",
+               "version" : "0"
+            },
+            "HTTP::Response" : {
+               "file" : "Test/Mock/HTTP/Response.pm",
+               "version" : "0"
+            },
+            "LWP::UserAgent" : {
+               "file" : "Test/Mock/LWP/UserAgent.pm",
+               "version" : "0"
+            },
+            "Test::Mock::HTTP::Request" : {
+               "file" : "Test/Mock/HTTP/Request.pm",
+               "version" : "0.01"
+            },
+            "Test::Mock::HTTP::Response" : {
+               "file" : "Test/Mock/HTTP/Response.pm",
+               "version" : "0.01"
+            },
+            "Test::Mock::LWP" : {
+               "file" : "Test/Mock/LWP.pm",
+               "version" : "0.06"
+            },
+            "Test::Mock::LWP::UserAgent" : {
+               "file" : "Test/Mock/LWP/UserAgent.pm",
+               "version" : "0.01"
+            }
+         },
+         "version" : "0.06"
       },
       "Test::MockModule" : {
          "dist" : "Test-MockModule-0.05",
@@ -35226,6 +35692,73 @@
             }
          },
          "version" : "0.09"
+      },
+      "Text::MicroTemplate" : {
+         "dist" : "Text-MicroTemplate-0.18",
+         "module" : "Text::MicroTemplate",
+         "mymeta" : {
+            "abstract" : "Micro template engine with Perl5 language",
+            "author" : [
+               "Kazuho Oku <kazuhooku gmail.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Install version 0.93, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Text-MicroTemplate",
+            "no_index" : {
+               "directory" : [
+                  "inc",
+                  "t"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "File::Temp" : 0,
+                     "Test::More" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "perl" : "5.00800"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "0.18"
+         },
+         "name" : "Text::MicroTemplate",
+         "pathname" : "K/KA/KAZUHO/Text-MicroTemplate-0.18.tar.gz",
+         "provides" : {
+            "Text::MicroTemplate" : {
+               "file" : "Text/MicroTemplate.pm",
+               "version" : "0.18"
+            },
+            "Text::MicroTemplate::EncodedString" : {
+               "file" : "Text/MicroTemplate.pm"
+            },
+            "Text::MicroTemplate::File" : {
+               "file" : "Text/MicroTemplate/File.pm"
+            }
+         },
+         "version" : "0.18"
       },
       "Text::SimpleTable" : {
          "dist" : "Text-SimpleTable-2.03",

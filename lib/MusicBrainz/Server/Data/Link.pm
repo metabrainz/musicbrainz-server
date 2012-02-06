@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Link;
 
 use Moose;
+use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkAttributeType;

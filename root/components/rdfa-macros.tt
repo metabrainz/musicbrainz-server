@@ -267,7 +267,7 @@ END -%]
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(release) BLOCK;
  '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(release.country) _ '">' IF doRDFa;
- '<abbr title="' _ html_escape(release.country.name) _ '">' _ release.country.iso_code _ '</abbr>';
+ '<abbr title="' _ html_escape(l(release.country.name)) _ '">' _ release.country.iso_code _ '</abbr>';
  '</span>' IF doRDFa;
 END -%]
 
@@ -458,6 +458,7 @@ END -%]
     '<span class="mp">' IF release.edits_pending AND action == 'show';
     '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:track" resource="' _ rdfa_track_blank_node(track) _ '" typeof="' _ rdfa_concept_curi('release') _ '"></span>';
     '<a href="' _ link _ '"><span about="' _ rdfa_release_curi(release) _ '" typeof="' _ rdfa_concept_curi('release') _ '" rel="mo:release_event" resource="[evn:]" property="dct:title rdfs:label" xml:lang="">' _ text _ '</span></a>';
+    rdfa_disambiguation(release);
     '</span>' IF release.edits_pending AND action == 'show';
   ELSE;
     link_release(release, action, text);
@@ -516,7 +517,7 @@ END -%]
     <a rel="mo:record"
        [%- IF doRDFa %] resource="[%- rdfa_tracklist_curi(medium) -%]" [%- END -%]
        href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
-    [%~ medium.format_name or l("Medium") | html =%]
+    [%~ l(medium.format_name) or l("Medium") | html =%]
     [%= medium.position ~%]
     [%~ IF medium.name ~%]:
        [%= medium.name | html ~%]
