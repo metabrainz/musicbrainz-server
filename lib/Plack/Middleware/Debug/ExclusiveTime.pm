@@ -1,6 +1,7 @@
 package Plack::Middleware::Debug::ExclusiveTime;
 use strict;
 use parent qw(Plack::Middleware::Debug::Base);
+use Scalar::Util qw( blessed );
 use Statistics::Basic qw( stddev mean );
 use Time::HiRes qw( gettimeofday tv_interval );
 use List::Util qw( sum );
@@ -28,26 +29,31 @@ sub install_timing {
     my ($package, $method) = @_;
     $package->add_around_method_modifier($method->name, sub {
         my $orig = shift;
-        my $self = shift;
+        if (blessed($_[0])) {
+            my $self = shift;
 
-        my $cons_name = $package->name . '->' . $method->name;
+            my $cons_name = $package->name . '->' . $method->name;
 
-        my %retained_times = %call_times;
-        %call_times = ();
+            my %retained_times = %call_times;
+            %call_times = ();
 
-        my $t0 = [ gettimeofday ];
-        my @ret = wantarray ? $self->$orig(@_) : (scalar($self->$orig(@_)));
-        my $t = tv_interval($t0) - (sum(values %call_times) // 0);
+            my $t0 = [ gettimeofday ];
+            my @ret = wantarray ? $self->$orig(@_) : (scalar($self->$orig(@_)));
+            my $t = tv_interval($t0) - (sum(values %call_times) // 0);
 
-        $call_times{$cons_name} += $t;
+            $call_times{$cons_name} += $t;
 
-        for my $n (keys %call_times) {
-            $retained_times{$n} += $call_times{$n};
+            for my $n (keys %call_times) {
+                $retained_times{$n} += $call_times{$n};
+            }
+
+            %call_times = %retained_times;
+
+            return wantarray ? @ret : $ret[0];
         }
-
-        %call_times = %retained_times;
-
-        return wantarray ? @ret : $ret[0];
+        else {
+            $orig->(@_);
+        }
     });
 };
 

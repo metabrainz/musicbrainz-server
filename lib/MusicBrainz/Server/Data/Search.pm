@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Data::Search;
 
 use Moose;
-use namespace::autoclean;
 use Class::MOP;
 use JSON;
 use Sql;
