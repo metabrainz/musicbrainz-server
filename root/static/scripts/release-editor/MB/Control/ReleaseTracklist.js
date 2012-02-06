@@ -284,6 +284,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             self.addTrack ();
             count = count - 1;
         }
+
+        self.$add_track_count.val(1);
     };
 
 
