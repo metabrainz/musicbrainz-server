@@ -1171,6 +1171,7 @@ sub _edit_release_annotation
     my $annotation = ($self->release && $self->release->latest_annotation) ?
         $self->release->latest_annotation->text : '';
 
+    $annotation //= '';
     my $data_annotation = $data->{annotation} ? $data->{annotation} : '';
 
     if ($annotation ne $data_annotation)
