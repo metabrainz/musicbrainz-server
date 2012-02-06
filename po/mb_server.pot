@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-05 00:57-0500\n"
+"POT-Creation-Date: 2012-02-06 11:49-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -520,7 +520,7 @@ msgid "About"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:234 ../root/edit/vote.tt:19
-#: ../root/elections/show.tt:73 ../lib/MusicBrainz/Server/Data/Vote.pm:153
+#: ../root/elections/show.tt:73 ../lib/MusicBrainz/Server/Data/Vote.pm:154
 #, perl-format
 msgid "Abstain"
 msgstr ""
@@ -9824,7 +9824,7 @@ msgstr ""
 #: ../root/edit/details/historic/merge_releases.tt:31
 #: ../root/edit/details/merge_artists.tt:5
 #: ../root/edit/details/move_release.tt:15 ../root/edit/search_macros.tt:234
-#: ../root/edit/vote.tt:16 ../lib/MusicBrainz/Server/Data/Vote.pm:154
+#: ../root/edit/vote.tt:16 ../lib/MusicBrainz/Server/Data/Vote.pm:155
 #, perl-format
 msgid "No"
 msgstr ""
@@ -16015,7 +16015,7 @@ msgid "Top CD Stubs"
 msgstr ""
 
 #: ../root/statistics/countries.tt:37
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:174
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:175
 #, perl-format
 msgid "Total"
 msgstr ""
@@ -17399,7 +17399,7 @@ msgstr ""
 #: ../root/edit/details/historic/merge_releases.tt:31
 #: ../root/edit/details/merge_artists.tt:5
 #: ../root/edit/details/move_release.tt:15 ../root/edit/search_macros.tt:234
-#: ../root/edit/vote.tt:13 ../lib/MusicBrainz/Server/Data/Vote.pm:155
+#: ../root/edit/vote.tt:13 ../lib/MusicBrainz/Server/Data/Vote.pm:156
 #, perl-format
 msgid "Yes"
 msgstr ""
@@ -23442,55 +23442,55 @@ msgstr ""
 msgid "Invalid TOC"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:105
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:106
 msgid "No title provided"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:108
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:109
 msgid "No artist names provided"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:111
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:112
 msgid "Not all tracks specify an artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:114
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:115
 msgid "Not all tracks have a title"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:117
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:118
 msgid "Cannot add a CD stub with no tracks"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:120
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:121
 msgid "Incomplete TOC data"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:123
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:124
 msgid "Missing disc ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:126
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:127
 msgid "Disc ID does match parsed TOC"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:129
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:130
 msgid "Number of submitted tracks does not match track count in TOC"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:132
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:133
 msgid "Invalid barcode"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:141
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:142
 msgid "There are already MusicBrainz releases with this disc ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/CDStub.pm:148
+#: ../lib/MusicBrainz/Server/Data/CDStub.pm:149
 msgid "There is already a CD stub with this disc ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:148
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:149
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr ""
