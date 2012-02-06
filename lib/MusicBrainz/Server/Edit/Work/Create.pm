@@ -42,7 +42,7 @@ sub build_display_data
     return {
         name          => $self->data->{name},
         comment       => $self->data->{comment},
-        type          => $loaded->{WorkType}->{ $self->data->{type_id} },
+        type          => $self->data->{type_id} && $loaded->{WorkType}->{ $self->data->{type_id} },
         iswc          => $self->data->{iswc},
         work          => $loaded->{Work}{ $self->entity_id }
             || Work->new( name => $self->data->{name} )

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Edit;
 use Moose;
+use namespace::autoclean;
 
 use Carp qw( carp croak confess );
 use Data::OptList;

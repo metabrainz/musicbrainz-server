@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::ReleaseLabel;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::ReleaseLabel;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(

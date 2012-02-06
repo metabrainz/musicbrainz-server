@@ -264,9 +264,9 @@ Starting the server
     output and is much more convenient than having to set up a standalone
     server. Just run:
 
-        carton exec ./script/musicbrainz_server.pl -- -r
+        carton exec -- plackup -Ilib -r
 
-    Visiting http://your.machines.ip.address:3000 should now present you with
+    Visiting http://your.machines.ip.address:5000 should now present you with
     your own running instance of the MusicBrainz Server.
 
 2)  Troubleshooting

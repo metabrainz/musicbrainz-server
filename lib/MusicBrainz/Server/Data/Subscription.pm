@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Subscription;
 
 use Moose;
+use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Data::Utils qw(
     is_special_artist

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Script;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Script;
 
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );

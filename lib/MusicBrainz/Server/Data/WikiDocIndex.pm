@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::WikiDocIndex;
 
 use Moose;
+use namespace::autoclean;
 use Readonly;
 use LWP::Simple qw();
 use LWP::UserAgent;

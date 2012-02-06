@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::URL;
 use Moose;
+use namespace::autoclean;
 
 use Carp;
 use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
