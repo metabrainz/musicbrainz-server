@@ -121,6 +121,9 @@ Below outlines how to setup MusicBrainz server with Carton.
         sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached
         sudo cpan Carton
 
+    NOTE: This installs Carton at the system level, if you prefer to install
+    this in your home directory, use http://search.cpan.org/perldoc?local::lib .
+
 2)  Install dependencies
 
     To install the dependencies for MusicBrainz server, first make sure you are
@@ -133,24 +136,6 @@ Below outlines how to setup MusicBrainz server with Carton.
     having trouble running musicbrainz, run "rm -rf local" in the musicbrainz
     directory to remove all packages previously installed by carton, and then run
     the above step again.
-
-
-Some systems run into problems by this method, which sets up Carton at a
-system level, and thus is subject to version issues and other conflicts with
-package-manager-installed modules.
-
-One alternate approach is to depend as minimally as possible on system
-installations, using instead a userspace-installed set of Perl modules. This can
-be done with local::lib; see http://search.cpan.org/perldoc?local::lib for
-details on setting up this system to install modules to a user-specific
-path. This method is frequently paired with use of cpanm (on CPAN as
-App::cpanminus), which is designed to be a minimal, no-fuss way of installing
-things from CPAN.  For more details on cpanm (including installation), see
-http://search.cpan.org/perldoc?App::cpanminus
-
-It can't be stressed enough that this step is very dependent on the specifics of
-your system and its Perl setup. If things go wrong here, the solution *will* be
-to learn more about your own system and about Perl.
 
 
 Creating the database
