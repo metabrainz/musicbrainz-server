@@ -17,9 +17,6 @@ use Try::Tiny;
 #         -Debug: activates the debug mode for very useful log messages
 #   ConfigLoader: will load the configuration from a YAML file in the
 #                 application's home directory
-# Static::Simple: will serve static files from the application's root
-#                 directory
-
 my @args = qw/
 StackTrace
 
@@ -151,6 +148,18 @@ __PACKAGE__->config->{form} = {
 
 if (&DBDefs::_RUNNING_TESTS) {
     push @args, "Session::Store::Dummy";
+
+    # /static is usually taken care of by Plack or nginx, but not when running
+    # as part of Test::WWW::Selenium::Catalyst, so we need Static::Simple when
+    # running tests.
+    push @args, "Static::Simple";
+    __PACKAGE__->config->{'static'} = {
+        mime_types => {
+            json => 'application/json; charset=UTF-8',
+        },
+        dirs => [ 'static' ],
+        no_logs => 1
+    }
 }
 else {
     push @args, &DBDefs::SESSION_STORE;
