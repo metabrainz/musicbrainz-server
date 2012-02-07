@@ -36,7 +36,11 @@ has '+data' => (
         release_label_id => Int,
         release => Dict[
             id => Int,
-            name => Str
+            name => Str,
+            date => Str,
+            country => Str,
+            barcode => Str,
+            combined_format => Str,
         ],
         new => find_type_constraint('ReleaseLabelHash'),
         old => find_type_constraint('ReleaseLabelHash')
@@ -68,11 +72,8 @@ sub build_display_data
             new => $self->data->{new}{catalog_number},
             old => $self->data->{old}{catalog_number},
         },
+        extra => $self->data->{release}
     };
-
-    $self->c->model ('Country')->load ($data->{release});
-    $self->c->model('Medium')->load_for_releases ($data->{release});
-    $self->c->model('MediumFormat')->load ($data->{release}->all_mediums);
 
     for (qw( new old )) {
         if (my $lbl = $self->data->{$_}{label}) {
@@ -119,7 +120,10 @@ sub initialize
         unless defined $release_label;
 
     unless ($release_label->release) {
-        $self->c->model('Release')->load($release_label);
+        $self->c->model ('Release')->load ($release_label);
+        $self->c->model ('Country')->load ($release_label->release);
+        $self->c->model ('Medium')->load_for_releases ($release_label->release);
+        $self->c->model ('MediumFormat')->load ($release_label->release->all_mediums);
     }
 
     unless ($release_label->label) {
@@ -138,6 +142,10 @@ sub initialize
         release => {
             id => $release_label->release->id,
             name => $release_label->release->name,
+            date => $release_label->release->date->format,
+            country => $release_label->release->country->name,
+            barcode => $release_label->release->barcode->format,
+            combined_format => $release_label->release->combined_format_name,
         },
         $self->_change_data($release_label, %opts),
     };

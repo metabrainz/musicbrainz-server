@@ -31,21 +31,24 @@
      [% END %]
    [% END %]
 
+
+   [% IF edit.display_data.defined('extra') %]
    <tr>
      <th>[% l('Date:') %]</th>
-     <td colspan="2">[% edit.display_data.release.date.format %]</td>
+     <td colspan="2">[% edit.display_data.extra.date %]</td>
    </tr>
    <tr>
      <th>[% l('Country:') %]</th>
-     <td colspan="2">[% edit.display_data.release.country.name %]</td>
+     <td colspan="2">[% edit.display_data.extra.country  %]</td>
    </tr>
    <tr>
      <th>[% l('Barcode:') %]</th>
-     <td colspan="2">[% edit.display_data.release.barcode.format %]</td>
+     <td colspan="2">[% edit.display_data.extra.barcode %]</td>
    </tr>
    <tr>
      <th>[% l('Format:') %]</th>
-     <td colspan="2">[% edit.display_data.release.combined_format_name %]</td>
+     <td colspan="2">[% edit.display_data.extra.combined_format %]</td>
    </tr>
+   [% END %]
 
 </table>
