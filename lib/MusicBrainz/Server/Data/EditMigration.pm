@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::EditMigration;
 use Moose;
+use namespace::autoclean;
 
 use DateTime::Format::Pg;
 use IO::All;

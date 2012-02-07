@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Artist;
 use Moose;
+use namespace::autoclean;
 
 use Carp;
 use List::MoreUtils qw( uniq );

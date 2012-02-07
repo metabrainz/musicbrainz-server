@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::AutoEditorElection;
 use Moose;
+use namespace::autoclean;
 
 use Readonly;
 use MusicBrainz::Server::Entity::AutoEditorElection;

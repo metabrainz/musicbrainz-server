@@ -72,7 +72,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Release => { map { $_ => [ 'ArtistCredit' ] } $self->release_ids },
-        MediumCDTOC => { $self->data->{medium_cdtoc_id} => [ 'CDTOC' ] },
+        MediumCDTOC => { $self->data->{medium_cdtoc}{id} => [ 'CDTOC' ] },
         Medium => {
             $self->data->{new_medium}{id} => [ 'MediumFormat', 'Release' ],
             $self->data->{old_medium}{id} => [ 'MediumFormat', 'Release' ]

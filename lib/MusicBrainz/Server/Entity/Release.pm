@@ -13,6 +13,19 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Quality';
 
+around BUILDARGS => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $args = $self->$orig(@_);
+
+    if ($args->{barcode} && !ref($args->{barcode})) {
+        $args->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $args->{barcode} );
+    }
+
+    return $args;
+};
+
 has 'status_id' => (
     is => 'rw',
     isa => 'Int'
@@ -163,7 +176,7 @@ sub combined_format_name
     my %formats_count;
     my @formats_order;
     foreach my $medium (@mediums) {
-        my $format_name = $medium->format_name || l('(unknown)');
+        my $format_name = l($medium->format_name) || l('(unknown)');
         if (exists $formats_count{$format_name}) {
             $formats_count{$format_name} += 1;
         }
@@ -242,7 +255,7 @@ sub filter_labels
     my ($self, $label) = @_;
     my @labels = $self->all_labels
         or return ();
-    return grep { $_->label_id eq $label->id } @labels;
+    return grep { $_->label_id && $_->label_id == $label->id } @labels;
 }
 
 __PACKAGE__->meta->make_immutable;

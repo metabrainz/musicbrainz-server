@@ -17,7 +17,7 @@
           [% END %]
 
           [% category = by_category.Historic %]
-          <h2>Historic</h2>
+          <h2>[% l('Historic') %]</h2>
             <ul>
               [% FOR edit_type IN category %]
                 [% USE class = Class(edit_type) %]

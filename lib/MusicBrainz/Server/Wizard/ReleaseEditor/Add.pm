@@ -213,7 +213,7 @@ after 'prepare_tracklist' => sub {
             next unless $trk->{artist_credit}->{preview} eq $release_artist->name
                 || $trk->{artist_credit}->{preview} eq '';
 
-            $trk->{artist_credit} = artist_credit_to_ref ($release_artist);
+            $trk->{artist_credit} = artist_credit_to_ref ($release_artist, [ "gid" ]);
 
             $edits[$trk_idx] = $self->update_track_edit_hash ($trk);
         }

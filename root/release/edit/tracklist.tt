@@ -59,6 +59,8 @@
         </span>
         <input type="hidden" class="gid" value="[% ac.artist.gid | html %]" />
         <input type="hidden" class="id" value="[% ac.artist.id | html %]" />
+        <input type="hidden" class="sortname" value="[% ac.artist.sort_name | html %]" />
+        <input type="hidden" class="comment" value="[% ac.artist.comment | html %]" />
       </td>
       <td class="artistcredit">
         <input type="text" class="credit" value="[% ac.name | html %]" />
@@ -134,9 +136,19 @@
      </p>
   </div>
 
+  [% FOR form_error=form.form_errors %]
+  <div class="various-artists warning">
+     [%- warning_icon %]
+     <p>
+       [% l('<strong>Error</strong>:') %]
+       [% form_error %]
+     </p>
+  </div>
+  [% END %]
+
   <div class="track-parser-dialog dialog" style="display: none">
     [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
-    <h1>Track Parser</h1>
+    <h1>[% l('Track Parser') %]</h1>
 
     <div>
         <textarea class="tracklist"></textarea>
@@ -151,7 +163,7 @@
   </div>
 
   <div class="add-disc-dialog dialog" style="display: none">
-    <h1>Add Disc</h1>
+    <h1>[% l('Add Disc') %]</h1>
 
     <div class="tabs">
       <ul class="tabs">

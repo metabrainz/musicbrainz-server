@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Data::WikiDocIndex;
 use Test::Routine;
 use Test::More;
-use Test::Memory::Cycle;
 
 use File::Temp;
 use MusicBrainz::Server::Test;
@@ -31,11 +30,9 @@ my $wdi = MusicBrainz::Server::Data::WikiDocIndex->new(
     c => $test->c,
     _index_file => $test->index_filename
 );
-memory_cycle_ok($wdi);
 
 my $rev = $wdi->get_page_version('Test_Page');
 is($rev, 123);
-memory_cycle_ok($wdi);
 
 $rev = $wdi->get_page_version('Test_Page_2');
 is($rev, undef);
@@ -47,8 +44,6 @@ is($rev, 100);
 
 my $index = $wdi->get_index;
 is_deeply($index, { 'Test_Page' => 123, 'Test_Page_2' => 100 });
-memory_cycle_ok($wdi);
-memory_cycle_ok($index);
 
 $wdi->set_page_version('Test_Page', undef);
 
