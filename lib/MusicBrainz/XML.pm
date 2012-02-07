@@ -34,7 +34,7 @@ sub as_string {
         map { "$_=" . q{"} . _escape($attrs{$_}) . q{"} }
         grep { defined $attrs{$_} } keys %attrs;
 
-    if ($body) {
+    if (defined($body) && $body ne '') {
         return
             q{<} . join(' ', $tag, @attributes) . q{>} .
                 $body .
