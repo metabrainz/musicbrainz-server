@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Relationship;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Entity::Artist;
@@ -48,14 +47,10 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
 
 my $rel_data = $test->c->model('Relationship');
-memory_cycle_ok($rel_data);
 
 my $artist1 = MusicBrainz::Server::Entity::Artist->new(id => 1);
 my $artist2 = MusicBrainz::Server::Entity::Artist->new(id => 2);
 $rel_data->load($artist1, $artist2);
-memory_cycle_ok($rel_data);
-memory_cycle_ok($artist1);
-memory_cycle_ok($artist2);
 
 ok( !$rel_data->load() );
 
@@ -105,7 +100,6 @@ $sql->begin;
 $sql->do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
 # Merge ARs for artist #2 to #1
 $rel_data->merge_entities('artist', 1, 2);
-memory_cycle_ok($rel_data);
 $test->c->sql->commit;
 
 $artist1->clear_relationships;
@@ -119,7 +113,6 @@ is( scalar($artist2->all_relationships), 0 );
 $sql->begin;
 # Delete artist-recording AR with ID 4
 $rel_data->delete('artist', 'recording', 4);
-memory_cycle_ok($rel_data);
 $sql->commit;
 
 $artist1->clear_relationships;
@@ -129,7 +122,6 @@ is( scalar($artist1->all_relationships), 2 );
 $sql->begin;
 # Delete ARs for artist #2
 $rel_data->delete_entities('artist', 1);
-memory_cycle_ok($rel_data);
 $sql->commit;
 
 $artist1->clear_relationships;
@@ -145,18 +137,15 @@ $rel = $rel_data->insert('artist', 'recording', {
     entity0_id => 1,
     entity1_id => 1
 });
-memory_cycle_ok($rel_data);
 $sql->commit;
 is($rel->id, 100);
 
 $artist1->clear_relationships;
 $rel_data->load_subset([ 'artist' ], $artist1);
-memory_cycle_ok($rel_data);
 is(scalar($artist1->all_relationships), 0, 'filter to just artist rels');
 
 $artist1->clear_relationships;
 $rel_data->load_subset([ 'recording' ], $artist1);
-memory_cycle_ok($rel_data);
 is(scalar($artist1->all_relationships), 1, 'filter to just recording rels');
 
 $artist1->clear_relationships;
@@ -179,7 +168,6 @@ $rel_data->update('artist', 'recording', 100, {
     entity0_id => 1,
     entity1_id => 1
 });
-memory_cycle_ok($rel_data);
 $sql->commit;
 
 $artist1->clear_relationships;
@@ -198,7 +186,6 @@ is($rel->edits_pending, 0);
 
 $sql->begin;
 $rel_data->adjust_edit_pending('artist', 'recording', +1, 100);
-memory_cycle_ok($rel_data);
 $sql->commit;
 
 $rel = $rel_data->get_by_id('artist', 'recording', 100);

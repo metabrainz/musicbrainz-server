@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::ReleaseLabel;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::ReleaseLabel;
 
@@ -18,15 +17,12 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+releaselabel');
 
 my $rl_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $test->c);
-memory_cycle_ok($rl_data);
 
 my $rl = $rl_data->get_by_id(1);
 is( $rl->id, 1 );
 is( $rl->release_id, 1 );
 is( $rl->label_id, 1 );
 is( $rl->catalog_number, "ABC-123" );
-memory_cycle_ok($rl_data);
-memory_cycle_ok($rl);
 
 ok( !$rl_data->load() );
 
@@ -41,14 +37,11 @@ is( $rls->[2]->release->id, 1 );
 is( $rls->[2]->catalog_number, "ABC-123" );
 is( $rls->[3]->release->id, 1 );
 is( $rls->[3]->catalog_number, "ABC-123-X" );
-memory_cycle_ok($rl_data);
-memory_cycle_ok($rls);
 
 my $sql = $test->c->sql;
 $sql->begin;
 
 $rl_data->merge_labels(1, 2);
-memory_cycle_ok($rl_data);
 
 ($rls, $hits) = $rl_data->find_by_label(1, 100);
 is($hits, 4);

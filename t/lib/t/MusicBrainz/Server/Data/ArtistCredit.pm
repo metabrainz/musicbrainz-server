@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::Moose;
 use Test::Fatal;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::ArtistCredit;
@@ -194,7 +193,6 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+artistcredit');
 
 my $artist_credit_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $test->c);
-memory_cycle_ok($artist_credit_data);
 
 my $ac = $artist_credit_data->get_by_id(1);
 is ( $ac->id, 1 );
@@ -212,8 +210,6 @@ is ( $ac->names->[1]->artist->id, 2 );
 is ( $ac->names->[1]->artist->gid, "5441c29d-3602-4898-b1a1-b77fa23b8e50" );
 is ( $ac->names->[1]->artist->name, "David Bowie", "Second artist is David Bowie");
 is ( $ac->names->[1]->join_phrase, '' );
-memory_cycle_ok($artist_credit_data);
-memory_cycle_ok($ac);
 
 $ac = $artist_credit_data->find_or_insert({
     names => [
@@ -230,8 +226,6 @@ $ac = $artist_credit_data->find_or_insert({
     ] });
 
 is($ac, 1, "Found artist credit for Queen & David Bowie");
-memory_cycle_ok($artist_credit_data);
-memory_cycle_ok($ac);
 
 $test->c->sql->begin;
 $ac = $artist_credit_data->find_or_insert({
@@ -260,7 +254,6 @@ is($name, "Massive Attack and Portishead", "Artist Credit name correctly saved i
 $test->c->sql->begin;
 $artist_credit_data->merge_artists(3, [ 2 ]);
 $test->c->sql->commit;
-memory_cycle_ok($artist_credit_data);
 
 $ac = $artist_credit_data->get_by_id(1);
 is($ac->names->[0]->artist_id, 1);
