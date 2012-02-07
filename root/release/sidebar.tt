@@ -2,6 +2,12 @@
     <div class="cover-art">
         [% IF release.cover_art_url; %]
             <img src="[% release.cover_art_url %]" alt="[% l('Cover Art') %]" />
+
+            [%- IF release.info_url.match('\.amazon\.') -%]
+            <p>
+              Amazon: <a href="[% release.info_url %]">[% l('info') %]</a>
+            </p>
+            [%- END -%]
         [% ELSE %]
             <em>[% l('No cover image available.') %]</em>
         [% END %]
