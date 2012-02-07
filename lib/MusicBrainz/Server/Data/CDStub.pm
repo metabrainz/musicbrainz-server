@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::CDStub;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     check_data
     barcode_from_row

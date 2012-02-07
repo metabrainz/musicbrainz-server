@@ -724,7 +724,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             });
         });
 
-        return { 'names': ret, 'preview': MB.utility.trim (self.$artist_input.val()) };
+        return { 'names': ret };
     };
 
     self.targetBlurred = function(event) {

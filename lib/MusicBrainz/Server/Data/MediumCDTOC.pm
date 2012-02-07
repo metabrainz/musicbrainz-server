@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::MediumCDTOC;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list

@@ -68,7 +68,7 @@
             <label for="show-rate-graph">[% l('Rate of Change Graph') %]</label>
         </h2>
         </div>
-    <h2>Controls</h2><div id="graph-controls">
+    <h2>[% l('Controls') %]</h2><div id="graph-controls">
         <table class="timeline-controls">
             <tr><th>[% l('Zoom:') %]</th><td>[% l('Draw a rectangle on either graph') %]</td></tr>
             <tr><th>[% l('Reset:') %]</th><td>[% l('Click to deselect') %]</td></tr>

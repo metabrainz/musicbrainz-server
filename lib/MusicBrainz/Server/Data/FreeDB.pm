@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::FreeDB;
 use Moose;
+use namespace::autoclean;
 
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 

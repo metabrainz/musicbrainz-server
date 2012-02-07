@@ -46,12 +46,12 @@
         </ol>
 
         <p>
-            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone — including you — to {doc|participate and contribute}.',
+            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &mdash; including you &mdash; to {doc|participate and contribute}.',
                 { doc => doc_link('How_To_Contribute') }) %]
         </p>
 
         <div class="linkbar">
-            [% l('{about|More Information} — {faq|FAQs} — {contact|Contact Us}',
+            [% l('{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}',
                 { about => doc_link('About_MusicBrainz'),
                   contact => doc_link('Contact_Us'),
                   faq => doc_link('Frequently_Asked_Questions') }) %]

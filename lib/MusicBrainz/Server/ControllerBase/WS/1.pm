@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 };
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
+with 'MusicBrainz::Server::Controller::Role::ETags';
 
 has 'model' => (
     isa => 'Str',

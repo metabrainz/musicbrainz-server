@@ -31,7 +31,7 @@ has 'artist_count' => (
     isa => 'Int'
 );
 
-sub to_ref { artist_credit_to_ref(shift) }
+sub to_ref { artist_credit_to_ref(@_) }
 
 sub is_equal {
     my ($a, $b) = @_;

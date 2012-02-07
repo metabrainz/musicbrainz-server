@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Deep qw( cmp_bag );
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Release;
 
@@ -257,7 +256,6 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
-memory_cycle_ok($release_data);
 
 my $release = $release_data->get_by_id(1);
 is( $release->id, 1, 'get release 1 by id');
@@ -277,8 +275,6 @@ is( $release->barcode, "731453398122" );
 is( $release->comment, "Comment" );
 is( $release->edits_pending, 2 );
 is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
-memory_cycle_ok($release_data);
-memory_cycle_ok($release);
 
 my $release_label_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $test->c);
 $release_label_data->load($release);
@@ -287,8 +283,6 @@ is( $release->labels->[0]->label_id, 1 );
 is( $release->labels->[0]->catalog_number, "ABC-123", 'release has catalog number ABC-123');
 is( $release->labels->[1]->label_id, 1 );
 is( $release->labels->[1]->catalog_number, "ABC-123-X", 'release also has catalog number ABC-123-X' );
-memory_cycle_ok($release_label_data);
-memory_cycle_ok($release);
 
 $release = $release_data->get_by_id(2);
 is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
@@ -298,48 +292,34 @@ is( $hits, 6 );
 is( scalar(@$releases), 6 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by artist');
 ok( (grep { $_->id == 2 } @$releases), 'found release by artist');
-memory_cycle_ok($release_data);
-memory_cycle_ok($releases);
 
 ($releases, $hits) = $release_data->find_by_track_artist(3, 100);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
 ok( (grep { $_->id == 11 } @$releases), 'found release 11' );
 ok( (grep { $_->id == 10 } @$releases) == 0, 'did not find release 10' );
-memory_cycle_ok($release_data);
-memory_cycle_ok($releases);
 
 ($releases, $hits) = $release_data->find_by_recording(1, 100);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
 is( $releases->[0]->id, 3, 'found release by recording' );
-memory_cycle_ok($release_data);
-memory_cycle_ok($releases);
 
 ($releases, $hits) = $release_data->find_by_release_group(1, 100);
 is( $hits, 6 );
 is( scalar(@$releases), 6 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by release group' );
 ok( (grep { $_->id == 2 } @$releases), 'found release by release group' );
-memory_cycle_ok($release_data);
-memory_cycle_ok($releases);
 
 my @releases = $release_data->find_by_medium(1, 100);
 is( $releases[0]->id, 3 );
-memory_cycle_ok($release_data);
-memory_cycle_ok(\@releases);
 
 my $annotation = $release_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );
 
-memory_cycle_ok($release_data);
-memory_cycle_ok($annotation);
 
 $release = $release_data->get_by_gid('71dc55d8-0fc6-41c1-94e0-85ff2404997d');
 is ( $release->id, 1, 'get release by gid' );
 
-memory_cycle_ok($release_data);
-memory_cycle_ok($release);
 
 my %names = $release_data->find_or_insert_names('Arrival', 'Release #2', 'Protection');
 is(keys %names, 3);
@@ -347,8 +327,6 @@ is($names{'Arrival'}, 1);
 is($names{'Release #2'}, 2);
 ok($names{'Protection'} > 2);
 
-memory_cycle_ok($release_data);
-memory_cycle_ok(\%names);
 
 my $sql = $test->c->sql;
 $sql->begin;
@@ -365,7 +343,6 @@ $release = $release_data->insert({
         language_id => 1,
         comment => 'A comment',
     });
-memory_cycle_ok($release_data);
 
 $release = $release_data->get_by_id($release->id);
 ok(defined $release, 'get release by id');
@@ -388,7 +365,6 @@ $release_data->update($release->id, {
         country_id => 1,
         date => { year => 2002 },
     });
-memory_cycle_ok($release_data);
 
 $release = $release_data->get_by_id($release->id);
 ok(defined $release);
@@ -404,7 +380,6 @@ is($release->date->day, 15);
 is($release->country_id, 1);
 
 $release_data->delete($release->id);
-memory_cycle_ok($release_data);
 
 $release = $release_data->get_by_id($release->id);
 ok(!defined $release);
@@ -427,7 +402,6 @@ $release_data->merge(
         2 => 2
     }
 );
-memory_cycle_ok($release_data);
 
 $release = $release_data->get_by_id(6);
 $test->c->model('Medium')->load_for_releases($release);
@@ -436,7 +410,6 @@ is($release->mediums->[0]->id, 3);
 is($release->mediums->[0]->position, 1);
 is($release->mediums->[1]->id, 2);
 is($release->mediums->[1]->position, 2);
-memory_cycle_ok($release);
 
 # Only #6 is now in the DB
 $release = $release_data->get_by_id(6);
@@ -454,7 +427,6 @@ $test->c->model('Medium')->load_for_releases($release);
 is($release->all_mediums, 1);
 is($release->mediums->[0]->id, 4);
 is($release->mediums->[0]->position, 1);
-memory_cycle_ok($release);
 
 # Make sure it merged the recordings
 is(
@@ -497,7 +469,6 @@ my $sql = $test->c->sql;
 $sql->begin;
 
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $test->c);
-memory_cycle_ok($release_data);
 
 # Merge #7 into #6 with append stategy
 $release_data->merge(
@@ -512,7 +483,6 @@ $release_data->merge(
         2 => 'Bar'
     }
 );
-memory_cycle_ok($release_data);
 
 my $release = $release_data->get_by_id(6);
 $test->c->model('Medium')->load_for_releases($release);
@@ -523,7 +493,6 @@ is($release->mediums->[0]->name, 'Foo');
 is($release->mediums->[1]->id, 2);
 is($release->mediums->[1]->position, 2);
 is($release->mediums->[1]->name, 'Bar');
-memory_cycle_ok($release);
 
 # Only #6 is now in the DB
 $release = $release_data->get_by_id(6);

@@ -18,7 +18,7 @@
                             <td>[% result.score %]</td>
                             <td>[% link_entity(result.entity) %]</td>
                             <td>[% artist_credit(result.entity.artist_credit) %]</td>
-                            <td>[% result.entity.type.name %]</td>
+                            <td>[% l(result.entity.type.name) %]</td>
                         </tr>
                         [%- END -%]
                     </tbody>

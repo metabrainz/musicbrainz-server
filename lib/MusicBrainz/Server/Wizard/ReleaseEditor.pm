@@ -1193,6 +1193,7 @@ sub _edit_release_annotation
     my $annotation = ($self->release && $self->release->latest_annotation) ?
         $self->release->latest_annotation->text : '';
 
+    $annotation //= '';
     my $data_annotation = $data->{annotation} ? $data->{annotation} : '';
 
     if ($annotation ne $data_annotation)
@@ -1420,7 +1421,7 @@ sub track_edit_from_track
     my ($self, $track) = @_;
 
     return $self->update_track_edit_hash ({
-        artist_credit => artist_credit_to_ref ($track->artist_credit),
+        artist_credit => artist_credit_to_ref ($track->artist_credit, [ "gid" ]),
         deleted => 0,
         length => $track->length,
         name => $track->name,
@@ -1432,8 +1433,7 @@ sub track_edit_from_track
 =method edited_tracklist
 
 Returns a list of tracks, sorted by position, with deleted tracks
-removed.  It also converts artist credits to the same format used by
-'artist_credit_to_ref'.
+removed.
 
 =cut
 

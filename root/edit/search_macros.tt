@@ -187,6 +187,7 @@
             [% 'selected="selected"' IF field_contents.find_argument(language.id) %]
             >[% html_escape(language.name) %]</option>
     [% END %]
+  </select>
 [% END %]
 
 [% MACRO relationship_node(node, pad, field_contents) BLOCK; %]

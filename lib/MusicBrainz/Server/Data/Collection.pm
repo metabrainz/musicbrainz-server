@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Collection;
 
 use Moose;
+use namespace::autoclean;
 
 use Carp;
 use Sql;

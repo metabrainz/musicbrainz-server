@@ -87,7 +87,7 @@ sub ref_to_type
 
 sub artist_credit_to_ref
 {
-    my ($artist_credit, $for_change_hash) = @_;
+    my ($artist_credit, $extra_keys) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
@@ -104,17 +104,20 @@ sub artist_credit_to_ref
             }
         );
 
-        if (!$for_change_hash)
+        for my $key (@$extra_keys)
         {
-            $ac_name{artist}->{gid} = $ac->artist->gid;
-            $ac_name{artist}->{sortname} = $ac->artist->sort_name;
-            $ac_name{artist}->{comment} = $ac->artist->comment;
+            if ($key eq "sortname")
+            {
+                $ac_name{artist}->{sortname} = $ac->artist->sort_name;
+            }
+            else
+            {
+                $ac_name{artist}->{$key} = $ac->artist->{$key};
+            }
         }
 
         push @{ $ret{names} }, \%ac_name;
     }
-
-    $ret{preview} = $artist_credit->name if !$for_change_hash;
 
     return \%ret;
 }

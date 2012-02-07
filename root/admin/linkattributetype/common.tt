@@ -1,6 +1,6 @@
 [% BLOCK attribute_tree %]
     <li style="margin-top:0.25em">
-        <strong>[% obj.name FILTER ucfirst | html %]</strong>
+        <strong>[% l(obj.name) FILTER ucfirst | html %]</strong>
         [% PROCESS attribute_details obj=obj toplevel=0 %]
 
         [%- IF obj.children.size -%]
@@ -16,7 +16,7 @@
 [% BLOCK attribute_details %]
         [%- IF c.user.is_relationship_editor -%]
             [%- IF !toplevel %]([% END -%]
-            [%- obj.description || l('none') -%]
+            [%- l(obj.description) || l('none') -%]
             [%- IF !toplevel -%])[%- END -%]
             ([% obj.child_order %])
 
@@ -27,7 +27,7 @@
         [%- ELSE -%]
             [%- IF obj.description && obj.description != obj.name -%]
                 [%- IF !toplevel %]([% END -%]
-                [%- obj.description -%]
+                [%- l(obj.description) -%]
                 [%- IF !toplevel -%])[%- END -%]
             [%- END -%]
         [% END %]

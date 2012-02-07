@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::LinkAttributeType;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::LinkType;
 
@@ -22,12 +21,9 @@ is($link_attr_type->id, 1);
 is($link_attr_type->parent_id, undef);
 is($link_attr_type->name, 'Additional');
 
-memory_cycle_ok($lat_data);
-memory_cycle_ok($link_attr_type);
 
 $test->c->sql->begin;
 $lat_data->update(1, { name => 'Additional test' });
-memory_cycle_ok($lat_data);
 $test->c->sql->commit;
 
 $link_attr_type = $lat_data->get_by_id(1);
@@ -40,7 +36,6 @@ $link_attr_type = $lat_data->insert({
     parent_id => 2,
     name => 'Piano',
 });
-memory_cycle_ok($lat_data);
 $test->c->sql->commit;
 
 is($link_attr_type->id, 100);
@@ -56,7 +51,6 @@ is($root_id, 1);
 
 $test->c->sql->begin;
 $link_attr_type = $lat_data->delete(100);
-memory_cycle_ok($lat_data);
 $test->c->sql->commit;
 
 $link_attr_type = $lat_data->get_by_id(100);

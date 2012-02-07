@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Link;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Link;
 
@@ -20,7 +19,6 @@ my $link_id = $test->c->model('Link')->find_or_insert({
     attributes => [ 4 ],
 });
 is($link_id, 1);
-memory_cycle_ok($test->c->model('Link'));
 
 $link_id = $test->c->model('Link')->find_or_insert({
     link_type_id => 1,
@@ -45,8 +43,6 @@ $test->c->sql->commit;
 is($link_id, 100);
 
 my $link = $test->c->model('Link')->get_by_id(100);
-memory_cycle_ok($test->c->model('Link'));
-memory_cycle_ok($link);
 is_deeply($link->begin_date, { year => 2009 });
 is_deeply($link->end_date, { year => 2010 });
 

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Editor;
 use Moose;
+use namespace::autoclean;
 use LWP;
 use URI::Escape;
 

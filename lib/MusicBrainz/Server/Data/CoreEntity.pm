@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use Sql;
 
