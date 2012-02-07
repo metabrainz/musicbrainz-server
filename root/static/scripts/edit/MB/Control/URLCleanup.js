@@ -141,6 +141,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.discogs,
         clean: function(url) {
             url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
+            url = url.split("?")[0];
             return url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
         }
     },
