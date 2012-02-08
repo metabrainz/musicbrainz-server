@@ -85,7 +85,7 @@ sub _create_message_to_editor_email
 
     my $from_name = $from->name;
     my $contact_url = sprintf "http://%s/user/%s/contact",
-                        &DBDefs::WEB_SERVER,
+                        &DBDefs::WEB_SERVER_USED_IN_EMAIL,
                         uri_escape_utf8($from->name);
 
     my $body = <<EOS;
@@ -157,7 +157,7 @@ sub _create_lost_username_email
     );
 
     my $user_name = $opts{user}->name;
-    my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER;
+    my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 Someone, probably you, asked to look up the username of the
@@ -194,8 +194,8 @@ sub _create_no_vote_email
         'Subject' => "Someone has voted against your edit #$edit_id",
     );
 
-    my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER, $edit_id;
-    my $prefs_url = sprintf 'http://%s/account/preferences', &DBDefs::WEB_SERVER;
+    my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER_USED_IN_EMAIL, $edit_id;
+    my $prefs_url = sprintf 'http://%s/account/preferences', &DBDefs::WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 '${\ $voter->name }' has voted against your edit #$edit_id.
@@ -231,7 +231,7 @@ sub _create_password_reset_request_email
     );
 
     my $reset_password_link = $opts{reset_password_link};
-    my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER;
+    my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 Someone, probably you, asked that your MusicBrainz password be reset.
@@ -273,7 +273,7 @@ sub _create_edit_note_email
     );
 
     my $from = $from_editor->name;
-    my $respond = sprintf "http://%s/edit/%d", &DBDefs::WEB_SERVER, $edit_id;
+    my $respond = sprintf "http://%s/edit/%d", &DBDefs::WEB_SERVER_USED_IN_EMAIL, $edit_id;
     my $body;
 
     if ($own_edit) {

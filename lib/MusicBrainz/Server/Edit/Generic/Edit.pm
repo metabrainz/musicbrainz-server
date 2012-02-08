@@ -6,6 +6,8 @@ use Clone qw( clone );
 use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
 
+use MusicBrainz::Server::Edit::Exceptions;
+
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 requires 'change_fields', '_edit_model';
 
@@ -55,6 +57,13 @@ sub initialize
 override 'accept' => sub
 {
     my $self = shift;
+
+    if (!$self->c->model($self->_edit_model)->get_by_id($self->entity_id)) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This entity no longer exists'
+        )
+    }
+
     my $data = $self->_edit_hash(clone($self->data->{new}));
     $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
 };

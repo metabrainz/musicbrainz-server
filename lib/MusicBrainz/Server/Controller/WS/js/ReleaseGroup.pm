@@ -21,12 +21,18 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'release_group' }
 
-sub serialization_routine { 'autocomplete_release_group' }
+sub serialization_routine { '_release_group' }
 
-sub search : Path('/ws/js/release-group') {
+sub search : Chained('root') PathPart('release-group')
+{
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }
+
+after _load_entities => sub {
+    my ($self, $c, @entities) = @_;
+    $c->model ('ReleaseGroupType')->load (@entities);
+};
 
 1;
 

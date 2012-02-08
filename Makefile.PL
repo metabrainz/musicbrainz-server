@@ -19,7 +19,7 @@ requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
 requires 'Catalyst::Plugin::I18N'                     => '0.09';
 requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.2';
-requires 'Catalyst::Runtime'                          => '5.80021';
+requires 'Catalyst::Runtime'                          => '5.90007';
 requires 'Catalyst::View::TT'                         => '0.29';
 requires 'CGI::Expand';
 requires 'Class::MOP';
@@ -30,6 +30,7 @@ requires 'Data::Dumper::Concise';
 requires 'Data::OptList';
 requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
+requires 'Data::UUID::MT'                             => '0.004';
 requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Pg'                       => '0.16004';
 requires 'DateTime::Format::Natural'                  => '0.96';
@@ -46,7 +47,7 @@ requires 'Email::Valid';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.29';
 requires 'Function::Parameters';
-requires 'HTML::FormHandler'                          => '0.30002';
+requires 'HTML::FormHandler'                          => '0.36002';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath';
 requires 'IO::All';
@@ -57,7 +58,7 @@ requires 'List::UtilsBy'                              => '0.06';
 requires 'List::MoreUtils'                            => '0.22';
 requires 'Method::Signatures::Simple';
 requires 'Module::Pluggable'                          => '3.9';
-requires 'Moose'                                      => '0.87';
+requires 'Moose'                                      => '2.0402';
 requires 'MooseX::ABC'                                => '0.05';
 requires 'MooseX::Clone';
 requires 'MooseX::Getopt';
@@ -70,7 +71,6 @@ requires 'MooseX::Types::Structured'                  => '0.24';
 requires 'MooseX::Types::URI';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
-requires 'OSSP::uuid'                                 => '1.060200';
 requires 'Package::Stash'                             => '0.29';
 requires 'Readonly'                                   => '1.03';
 requires 'String::CamelCase';
@@ -78,6 +78,7 @@ requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';
 requires 'Template::Plugin::Math';
 requires 'Template::Plugin::Class';
+requires 'Template::Plugin::JavaScript';
 requires 'Text::WikiFormat'                           => '0.790';
 requires 'Text::Unaccent';
 requires 'Text::Trim'                                 => '1.02';
@@ -110,8 +111,10 @@ feature 'Default session store/state management' =>
 feature 'Developer features' =>
     -default                           => 1,
     'Catalyst::Plugin::StackTrace'     => '0.09',
-    'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
+    'Plack'                            => '0.9985',
+    'Plack::Middleware::Debug'         => '0.14',
+    'Catalyst::Runtime'                => '5.9'
     ;
 
 feature 'Production server' =>

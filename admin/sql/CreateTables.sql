@@ -950,13 +950,16 @@ CREATE TABLE release_gid_redirect
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TYPE cover_art_presence AS ENUM ('absent', 'present', 'darkened');
+
 CREATE TABLE release_meta
 (
     id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
     date_added          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     info_url            VARCHAR(255),
     amazon_asin         VARCHAR(10),
-    amazon_store        VARCHAR(20)
+    amazon_store        VARCHAR(20),
+    cover_art_presence  cover_art_presence NOT NULL DEFAULT 'absent'
 );
 
 CREATE TABLE release_coverart

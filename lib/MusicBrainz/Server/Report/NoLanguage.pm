@@ -12,7 +12,7 @@ sub gather_data
             r.gid, rn.name, r.artist_credit AS artist_credit_id
         FROM release r
             JOIN release_name rn ON r.name = rn.id
-        WHERE script IS NOT NULL AND language IS NULL
+        WHERE language IS NULL
         ORDER BY r.artist_credit, r.name
     ");
 }

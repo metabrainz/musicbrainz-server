@@ -90,8 +90,7 @@ sub change_page_duplicates
     my $release = $self->c->model('Release')->get_by_id($release_id);
     $self->c->model('Medium')->load_for_releases($release);
 
-    my $TRACKLIST_PAGE = 2;
-    $self->_post_to_page($TRACKLIST_PAGE, collapse_hash({
+    $self->_post_to_page($self->page_number->{'tracklist'}, collapse_hash({
         mediums => [
             map +{
                 tracklist_id => $_->tracklist_id,
@@ -103,6 +102,10 @@ sub change_page_duplicates
             }, $release->all_mediums
         ],
     }));
+
+    # When an existing release is selected, clear out any seeded recordings.
+    $self->_post_to_page($self->page_number->{'recordings'},
+          collapse_hash({ rec_mediums => [ ] }));
 }
 
 around _build_pages => sub {
@@ -159,6 +162,15 @@ augment 'create_edits' => sub
             unless $previewing;
     }
 
+    if ($data->{no_barcode})
+    {
+        $add_release_args{barcode} =  '';
+    }
+    else
+    {
+        $add_release_args{barcode} = undef unless $data->{barcode};
+    }
+
     # Add the release edit
     my $add_release_edit = $create_edit->(
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
@@ -201,7 +213,7 @@ after 'prepare_tracklist' => sub {
             next unless $trk->{artist_credit}->{preview} eq $release_artist->name
                 || $trk->{artist_credit}->{preview} eq '';
 
-            $trk->{artist_credit} = artist_credit_to_ref ($release_artist);
+            $trk->{artist_credit} = artist_credit_to_ref ($release_artist, [ "gid" ]);
 
             $edits[$trk_idx] = $self->update_track_edit_hash ($trk);
         }

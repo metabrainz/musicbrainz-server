@@ -490,8 +490,9 @@ MB.TrackParser.Parser = function (disc, serialized) {
             var copy = original (data.row);
             copy.deleted = 0;
 
-            /* only override the original track length if there is no cdtoc. */
-            if (!self.hasToc ())
+            /* only override the original track length if there is no cdtoc and
+               "detect track durations" is enabled. */
+            if (self.trackTimes ())
             {
                 copy.length = data.length;
             }
@@ -509,8 +510,9 @@ MB.TrackParser.Parser = function (disc, serialized) {
             copy.deleted = 0;
             copy.position = data.position;
 
-            /* only override the original track length if there is no cdtoc. */
-            if (!self.hasToc ())
+            /* only override the original track length if there is no cdtoc and
+               "detect track durations" is enabled. */
+            if (self.trackTimes ())
             {
                 copy.length = data.length;
             }
@@ -533,11 +535,15 @@ MB.TrackParser.Parser = function (disc, serialized) {
         $.each (inserted, function (idx, data) {
             data.deleted = 0;
 
-            /* use original track length for this position if disc has toc */
-            if (self.hasToc ())
+            /* use the original track length if there is no cdtoc or
+               "detect track durations" is disabled. */
+            if (!self.trackTimes ())
             {
                 var copy = original (data.position - 1);
-                data.length = copy.length;
+                if (copy)
+                {
+                    data.length = copy.length;
+                }
             }
 
             self.disc.getTrack (data.row).render (data);
@@ -573,8 +579,9 @@ MB.TrackParser.Parser = function (disc, serialized) {
     };
 
     self.trackTimes = function () {
-        /* don't parse track times if the disc has a toc. */
-        return self.hasToc () ? false : MB.TrackParser.options.trackTimes ();
+        /* don't parse track times if the disc has a toc or if it has been disabled. */
+        return !self.hasToc () && MB.TrackParser.options.trackTimes ();
+
     }
     self.hasToc = function () { return self.disc.hasToc (); };
 

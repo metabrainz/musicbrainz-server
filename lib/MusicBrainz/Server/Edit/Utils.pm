@@ -13,6 +13,8 @@ use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 use Text::Trim qw( trim );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 
 use base 'Exporter';
 
@@ -24,6 +26,10 @@ our @EXPORT_OK = qw(
     clean_submitted_artist_credits
     date_closure
     edit_status_name
+    hash_artist_credit
+    merge_artist_credit
+    merge_barcode
+    merge_partial_date
     load_artist_credit_definitions
     status_names
     verify_artist_credits
@@ -138,7 +144,7 @@ sub clean_submitted_artist_credits
 {
     my $ac = shift;
 
-    return artist_credit_to_ref ($ac)
+    $ac = artist_credit_to_ref ($ac)
         if ref $ac eq 'MusicBrainz::Server::Entity::ArtistCredit';
 
     # Remove empty artist credits.
@@ -166,6 +172,9 @@ sub clean_submitted_artist_credits
             # MBS-3226, Fill in the artist name from the artist credit if the user
             # didn't enter an artist name.
             $part->{artist}->{name} = $part->{name} unless $part->{artist}->{name};
+
+            # Set to empty string if join_phrase is undef.
+            $part->{join_phrase} = '' unless defined $part->{join_phrase};
         }
         elsif (! $part)
         {
@@ -242,6 +251,78 @@ sub status_names
 {
     return \@STATUS_MAP;
 }
+
+
+sub hash_artist_credit {
+    my ($artist_credit) = @_;
+    return join(', ', map {
+        '[' .
+            join(',',
+                 $_->{name},
+                 $_->{artist}{id} // -1,
+                 $_->{join_phrase} || '')
+            .
+        ']'
+    } @{ $artist_credit->{names} });
+}
+
+=method merge_artist_credit
+
+Merge artist credits from ancestor, current and new data, using a canonical hash
+(which allows minor variations in data if they all really represent the same
+artist credit).
+
+=cut
+
+sub merge_artist_credit {
+    my ($c, $ancestor, $current, $new) = @_;
+    $c->model('ArtistCredit')->load($current)
+        unless $current->artist_credit;
+
+    my $an = hash_artist_credit($ancestor->{artist_credit});
+    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit, []));
+    my $ne = hash_artist_credit($new->{artist_credit});
+    return (
+        [$an, $ancestor->{artist_credit}],
+        [$cu, artist_credit_to_ref($current->artist_credit, [])],
+        [$ne, $new->{artist_credit}]
+    );
+}
+
+=method merge_partial_date
+
+Merge partial dates, using a canonical hash and allowing for slightly different
+representations of data.
+
+=cut
+
+sub merge_partial_date {
+    my ($name, $ancestor, $current, $new) = @_;
+
+    return (
+        [ PartialDate->new($ancestor->{$name})->format, $ancestor->{$name} ],
+        [ $current->$name->format, partial_date_to_hash($current->$name) ],
+        [ PartialDate->new($new->{$name})->format, $new->{$name} ],
+    );
+}
+
+
+=method merge_barcode
+
+Merge barcodes, using the formatted representation as the hash key.
+
+=cut
+
+sub merge_barcode {
+    my ($ancestor, $current, $new) = @_;
+
+    return (
+        [ Barcode->new ($ancestor->{barcode})->format, $ancestor->{barcode} ],
+        [ $current->barcode->format, $current->barcode->code ],
+        [ Barcode->new ($new->{barcode})->format, $new->{barcode} ],
+    );
+}
+
 
 1;
 

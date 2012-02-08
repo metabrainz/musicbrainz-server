@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::LinkType;
 
 use Moose;
+use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkTypeAttribute;
@@ -10,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_gid
     placeholders
 );
+use MusicBrainz::Server::Translation;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID';
@@ -120,6 +122,39 @@ sub get_tree
     }
 
     return $root;
+}
+
+sub get_full_tree
+{
+    my ($self) = @_;
+
+    $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+                  ORDER BY entity_type0, entity_type1, child_order, id');
+    my %id_to_obj;
+    my @objs;
+    while (1) {
+        my $row = $self->sql->next_row_hash_ref or last;
+        my $obj = $self->_new_from_row($row);
+        $id_to_obj{$obj->id} = $obj;
+        push @objs, $obj;
+    }
+    $self->sql->finish;
+
+    $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
+
+    my %roots;
+    foreach my $obj (@objs) {
+        my $type_key = join('-', $obj->entity0_type, $obj->entity1_type);
+        $roots{ $type_key } ||= MusicBrainz::Server::Entity::LinkType->new(
+            name => l('{t0}-{t1} relationships', { t0 => $obj->entity0_type,
+                                                   t1 => $obj->entity1_type })
+        );
+
+        my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $roots{ $type_key };
+        $parent->add_child($obj);
+    }
+
+    return grep { $_->all_children != 0 } map { $roots{$_} } sort keys %roots;
 }
 
 sub get_attribute_type_list

@@ -36,7 +36,7 @@
               [%- END -%]
               <td>[%- release.find_track_for_recording(result.entity).position -%]/[%- release.combined_track_count -%]</td>
               <td>[%- release.find_medium_for_recording(result.entity).position -%]</td>
-              <td>[%- release.release_group.type.name -%]</td>
+              <td>[%- l(release.release_group.type.name) -%]</td>
               [%- linenum = linenum + 1 -%]
             </tr>
           [%- END -%]
@@ -59,5 +59,5 @@
   </table>
   [% END %]
 [%- ELSE -%]
-  <p>[% l('No results found') %]</p>
+  <p>[% l('No results found. Try refining your search query.') %]</p>
 [%- END -%]

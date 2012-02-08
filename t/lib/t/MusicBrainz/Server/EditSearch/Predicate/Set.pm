@@ -28,7 +28,7 @@ test 'operator BETWEEN' => sub {
     is_deeply([$query->join], [], 'doesnt add any new joins');
     my ($where_clause) = $query->where;
     my ($sql, $arglist) = @$where_clause;
-    is($sql, 'type = any(?)');
+    is($sql, 'edit.type = any(?)');
 
     my @args = @$arglist;
     cmp_set($args[0], [1, 2, 3, 4, 5]);

@@ -12,18 +12,23 @@ sub _mapping { }
 sub _change_hash
 {
     my ($self, $instance, @keys) = @_;
-    my %mapping = $self->_mapping;
     my %old = map {
-        my $mapped = exists $mapping{$_} ? $mapping{$_} : $_;
-        if (ref $mapped eq 'CODE') {
-            $_ => $mapped->($instance)
-        }
-        else {
-            my $value = $instance->$mapped;
-            $_ => defined($value) ? "$value" : undef;
-        }
+        $_ => $self->_property_to_edit($instance, $_);
     } @keys;
     return \%old;
+}
+
+sub _property_to_edit {
+    my ($self, $instance, $property) = @_;
+    my %mapping = $self->_mapping;
+    my $mapped = exists $mapping{$property} ? $mapping{$property} : $property;
+    if (ref $mapped eq 'CODE') {
+        return $mapped->($instance)
+    }
+    else {
+        my $value = $instance->$mapped;
+        return defined($value) ? "$value" : undef;
+    }
 }
 
 sub _changes {

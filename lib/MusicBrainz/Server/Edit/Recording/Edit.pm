@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Recording::Edit;
 use Moose;
+use 5.10.0;
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -7,11 +8,13 @@ use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
+    clean_submitted_artist_credits
     changed_relations
     changed_display_data
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
     verify_artist_credits
+    merge_artist_credit
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -20,6 +23,8 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
+with 'MusicBrainz::Server::Edit::Role::Preview';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
@@ -60,6 +65,11 @@ has '+data' => (
         new => change_fields(),
     ]
 );
+
+sub current_instance {
+    my $self = shift;
+    return $self->c->model('Recording')->get_by_id($self->entity_id);
+}
 
 sub foreign_keys
 {
@@ -119,16 +129,17 @@ around 'initialize' => sub
                 MusicBrainz::Server::Track::FormatTrackLength($recording->length);
     }
 
+    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
+        if exists($opts{artist_credit});
+
     $self->$orig(%opts);
 };
 
 sub _mapping
 {
-    my $for_change_hash = 1;
-
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit, $for_change_hash)
+            artist_credit_to_ref(shift->artist_credit, [])
         },
     );
 }
@@ -136,6 +147,9 @@ sub _mapping
 sub _edit_hash
 {
     my ($self, $data) = @_;
+
+    $data = $self->merge_changes;
+
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
     return $data;
@@ -145,6 +159,20 @@ before accept => sub {
     my ($self) = @_;
 
     verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+};
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('artist_credit') {
+            return merge_artist_credit($self->c, $ancestor, $current, $new);
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
 };
 
 sub allow_auto_edit

@@ -11,22 +11,22 @@ my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+tag-truncate');
 MusicBrainz::Server::Test->prepare_test_database($c, '+tag');
 
-throws_ok { Sql->new } qr/Missing required argument 'dbh'/,
-  'cannot create an Sql object with a database handle';
+throws_ok { Sql->new } qr/Missing required argument 'conn'/,
+  'cannot create a Sql object without a database connector';
 
 # Test
 my $sql =
-  new_ok('Sql', [ $c->dbh ], 'can create an Sql object with a database handle');
+  new_ok('Sql', [ $c->conn ], 'can create an Sql object with a connector');
 
 {
     # Check defaults
-    has_attribute_ok($sql, 'dbh', 'dbh attribute');
+    has_attribute_ok($sql, 'conn', 'conn attribute');
     has_attribute_ok($sql, 'quiet', 'quiet attribute');
-    can_ok($sql, qw( errstr quote finish row_count next_row next_row_ref next_row_hash_ref ));
+    can_ok($sql, qw( finish row_count next_row next_row_ref next_row_hash_ref ));
     is($sql->quiet, 0, 'not quiet by default');
-    is($sql->dbh, $c->dbh, 'make sure dbh is the same as whatever was passed in new');
+    is($sql->conn, $c->conn, 'make sure dbh is the same as whatever was passed in new');
     is($sql->_auto_commit, 0, 'dont autocommit by default');
-    throws_ok { $sql->dbh('Blah') } qr/Cannot assign a value to a read-only accessor/, 'cannot change dbh';
+    throws_ok { $sql->conn('Blah') } qr/Cannot assign a value to a read-only accessor/, 'cannot change dbh';
     ok(!$sql->is_in_transaction, 'shouldnt be in a transaction');
 }
 

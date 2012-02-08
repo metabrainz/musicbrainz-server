@@ -9,7 +9,7 @@ use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 
-my $sql = Sql->new($c->dbh);
+my $sql = $c->sql;
 
 my $val = $sql->select_single_value("SELECT musicbrainz_unaccent('foo');");
 is ($val, "foo");

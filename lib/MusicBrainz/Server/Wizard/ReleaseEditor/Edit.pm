@@ -9,6 +9,7 @@ use MusicBrainz::Server::Track qw( format_track_length );
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 
 use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_EDIT
     $EDIT_RELEASE_EDIT
     $EDIT_RELEASE_ARTIST
 );
@@ -36,10 +37,45 @@ augment 'create_edits' => sub
                      artist_credit );
     my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
 
+    if ($data->{no_barcode})
+    {
+        $args{barcode} =  '';
+    }
+    else
+    {
+        $args{barcode} = undef unless $data->{barcode};
+    }
+
     $args{'to_edit'} = $self->release;
     $self->c->stash->{changes} = 0;
 
     $create_edit->($EDIT_RELEASE_EDIT, $editnote, %args);
+
+    # recording edits
+    # ----------------------------------------
+
+    my $medium_index = 0;
+    for my $medium (@{ $data->{rec_mediums} }) {
+        my $track_index = 0;
+        for my $track_association (@{ $medium->{associations} }) {
+            next if $track_association->{gid} eq 'new';
+            if ($track_association->{update_recording}) {
+                my $track = $data->{mediums}[ $medium_index ]{tracks}[ $track_index ];
+                $create_edit->(
+                    $EDIT_RECORDING_EDIT, $editnote,
+                    to_edit => $self->c->model('Recording')->get_by_gid( $track_association->{gid} ),
+                    name => $track->name,
+                    artist_credit => artist_credit_to_ref($track->artist_credit, [ "gid" ]),
+                    length => $track->length,
+                    as_auto_editor => $data->{as_auto_editor},
+                );
+            }
+
+            $track_index++;
+        }
+
+        $medium_index++;
+    }
 
     return $self->release;
 };
@@ -55,7 +91,7 @@ after 'prepare_tracklist' => sub {
 
     $self->c->model('CDTOC')->load(@medium_cdtocs);
 
-    my $database_artist = artist_credit_to_ref ($release->artist_credit);
+    my $database_artist = artist_credit_to_ref ($release->artist_credit, [ "gid" ]);
     my $submitted_artist = $self->c->stash->{release_artist};
 
     if ($self->_is_same_artist ($database_artist, $submitted_artist))

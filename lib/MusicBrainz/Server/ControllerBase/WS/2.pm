@@ -19,6 +19,7 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 };
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
+with 'MusicBrainz::Server::Controller::Role::ETags';
 
 # This defines what options are acceptable for WS calls.
 # Note that the validator will automatically add inc= arguments to the allowed list

@@ -143,7 +143,7 @@ sub cookie_login : Private
                 = ($1, $2, $3, $4, $5);
 
             my $correct_sha1 = _cookie_sha($1, $2, $3, $4);
-            die "Invalid cookie sha1"
+            die "Invalid cookie sha1 - got $sha1, expected $correct_sha1"
                 unless $sha1 eq $correct_sha1;
 
             die "Expired"

@@ -3,7 +3,6 @@ use Test::Fatal;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Statistics::ByName;
 

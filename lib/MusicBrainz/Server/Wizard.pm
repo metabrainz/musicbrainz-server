@@ -1,10 +1,10 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
-use Cache::Memcached;
+use Cache::Memcached::Fast;
 use Carp qw( croak );
 use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
 
-my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
+my $cache = new Cache::Memcached::Fast (&DBDefs::WIZARD_MEMCACHED);
 
 has '_current' => (
     is => 'rw',

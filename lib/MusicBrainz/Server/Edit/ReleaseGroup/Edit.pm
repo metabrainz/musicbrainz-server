@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::ReleaseGroup::Edit;
+use 5.10.0;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_EDIT );
@@ -13,6 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     load_artist_credit_definitions
     verify_artist_credits
+    merge_artist_credit
 );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -25,6 +27,7 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { l("Edit release group") }
@@ -115,11 +118,9 @@ sub build_display_data
 
 sub _mapping
 {
-    my $for_change_hash = 1;
-
     return (
         artist_credit => sub {
-            return artist_credit_to_ref(shift->artist_credit, $for_change_hash);
+            return artist_credit_to_ref(shift->artist_credit, []);
         }
     );
 }
@@ -133,9 +134,28 @@ before 'initialize' => sub
     }
 };
 
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('artist_credit') {
+            return merge_artist_credit($self->c, $ancestor, $current, $new);
+        }
+        default {
+            return $self->$orig(@_);
+        }
+    }
+};
+
+sub current_instance {
+    my $self = shift;
+    return $self->c->model('ReleaseGroup')->get_by_id($self->entity_id);
+}
+
 sub _edit_hash
 {
     my ($self, $data) = @_;
+    $data = $self->merge_changes;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
     return $data;

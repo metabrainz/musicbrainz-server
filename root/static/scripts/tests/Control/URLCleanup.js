@@ -3,8 +3,8 @@ MB.tests.URLCleanup = (MB.tests.URLCleanup) ? MB.tests.URLCleanup : {};
 MB.tests.URLCleanup.GuessType = function() {
     QUnit.module('URL Cleanup');
     QUnit.test('Guess type', function() {
-        var control = MB.Control.URLCleanup(),
-            tests = [
+        var control = MB.Control.URLCleanup();
+        var tests = [
                 [
                     'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
                     MB.constants.LINK_TYPES.wikipedia.artist
@@ -78,13 +78,8 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
 
                 [
-                    'release', 'http://cdbaby.name/c/h/christhayer.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
-                ],
-
-                [
                     'release', 'http://www.jamendo.com/album/16090',
-                    MB.constants.LINK_TYPES.coverart.release
+                    MB.constants.LINK_TYPES.downloadfree.release
                 ],
 
                 [

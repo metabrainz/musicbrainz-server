@@ -146,6 +146,7 @@ sub begin : Private
         wiki_server => &DBDefs::WIKITRANS_SERVER,
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
+            testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,
             is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
             read_only      => &DBDefs::DB_READ_ONLY
         },
@@ -234,7 +235,6 @@ sub begin : Private
     my $r = $c->model('RateLimiter')->check_rate_limit('frontend ip=' . $c->req->address);
     if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->content_type("text/plain; charset=utf-8");
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
@@ -263,6 +263,7 @@ sub end : ActionClass('RenderView')
     $c->stash->{server_details} = {
         staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
+        testing_features           => &DBDefs::DB_STAGING_TESTING_FEATURES,
         is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
         developement_server        => &DBDefs::DEVELOPMENT_SERVER
@@ -296,15 +297,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
-
-    if (!$c->debug && scalar @{ $c->error }) {
-        $c->stash->{errors} = $c->error;
-        for my $error ( @{ $c->error } ) {
-            $c->log->error($error);
-        }
-        $c->stash->{template} = 'main/500.tt';
-        $c->clear_errors;
-    }
 }
 
 sub chrome_frame : Local

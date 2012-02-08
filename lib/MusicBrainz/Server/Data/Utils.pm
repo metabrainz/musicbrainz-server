@@ -4,12 +4,13 @@ use base 'Exporter';
 use Carp 'confess';
 use Class::MOP;
 use Data::Compare;
+use Data::UUID::MT;
 use Digest::SHA1 qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
+use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
-use OSSP::uuid;
 use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
@@ -18,6 +19,7 @@ use Storable;
 our @EXPORT_OK = qw(
     add_partial_date_to_row
     artist_credit_to_ref
+    barcode_from_row
     check_data
     check_in_use
     copy_escape
@@ -83,7 +85,7 @@ sub ref_to_type
 
 sub artist_credit_to_ref
 {
-    my ($artist_credit, $for_change_hash) = @_;
+    my ($artist_credit, $extra_keys) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
@@ -92,19 +94,28 @@ sub artist_credit_to_ref
     for my $ac ($artist_credit->all_names)
     {
         my %ac_name = (
-            join_phrase => $ac->join_phrase,
+            join_phrase => $ac->join_phrase // '',
             name => $ac->name,
             artist => {
                 name => $ac->artist->name,
                 id => $ac->artist->id,
             }
         );
-        $ac_name{artist}->{gid} = $ac->artist->gid if !$for_change_hash;
+
+        for my $key (@$extra_keys)
+        {
+            if ($key eq "sortname")
+            {
+                $ac_name{artist}->{sortname} = $ac->artist->sort_name;
+            }
+            else
+            {
+                $ac_name{artist}->{$key} = $ac->artist->{$key};
+            }
+        }
 
         push @{ $ret{names} }, \%ac_name;
     }
-
-    $ret{preview} = $artist_credit->name if !$for_change_hash;
 
     return \%ret;
 }
@@ -157,6 +168,13 @@ sub check_in_use
     my $query = join ' UNION ', map { "SELECT 1 FROM $_" } @queries;
     return 1 if $sql->select_single_value($query, map { @{$queries{$_}} } @queries );
     return;
+}
+
+sub barcode_from_row
+{
+    my ($row, $prefix) = @_;
+
+    return MusicBrainz::Server::Entity::Barcode->new($row->{$prefix."barcode"});
 }
 
 sub partial_date_from_row
@@ -270,9 +288,7 @@ sub insert_and_create
 
 sub generate_gid
 {
-    my $uuid = new OSSP::uuid;
-    $uuid->make("v4");
-    return $uuid->export("str");
+    Data::UUID::MT->new( version => 4 )->create_string();
 }
 
 sub defined_hash

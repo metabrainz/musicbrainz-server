@@ -60,12 +60,8 @@
 .wikicontent div.floatright p { font-style: italic; }
 .wikicontent div.floatleft p { font-style: italic; }
 
-.wikicontent .hierarchy-links {
-	font-size: 10px;
-}
-
-.wikidocs-header + .hierarchy-links {
-	margin-top: -5px;
+.wikicontent h1.hierarchy-links {
+	font-weight: normal;
 }
 
 /*
@@ -74,7 +70,7 @@
 .wikicontent #toc,
 .wikicontent .toc {
     background-color: #F9F9F9;
-    border: 1px solid #AAAAAA;
+    border: 1px solid #ADB9CC;
     font-size: 95%;
     padding: 5px;
     float:right;
@@ -169,4 +165,11 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 .wikicontent .wikitable caption {
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+/* Escape clause for tables that are used just for formatting */
+.wikicontent table[border^="0"],
+.wikicontent table[border^="0"] td {
+    border: none !important;
+    background: none !important;
 }

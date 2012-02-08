@@ -18,14 +18,20 @@
                             <td>[% result.score %]</td>
                             <td>[% link_entity(result.entity) %]</td>
                             <td>[% artist_credit(result.entity.artist_credit) %]</td>
-                            <td>[% result.entity.type.name %]</td>
+                            <td>[% l(result.entity.type.name) %]</td>
                         </tr>
                         [%- END -%]
                     </tbody>
                 </table>
             [% END %]
         [%- ELSE -%]
-            <p>[% l('No results found') %]</p>
+            <p>[% l('No results found. Try refining your search query.') %]</p>
+            <p>
+              [% l('Alternatively, you may {uri|add a new release group}.', {
+                    uri => c.uri_for_action('/release_group/create', {
+                             'edit-release-group.name' => query
+                           }) }) %]
+            </p>
         [%- END -%]
         [%- INCLUDE "search/form.tt" -%]
     </div>

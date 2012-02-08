@@ -17,6 +17,7 @@
                 <th>[% l('Writers') %]</th>
                 <th>[% l('Artists') %]</th>
                 <th>[% l('ISWC') %]</th>
+                <th>[% l('Type') %]</th>
                 <th>[% l('Rating') %]</th>
             </tr>
         </thead>
@@ -48,7 +49,10 @@
                 [% END %]
               </ul>
             </td>
-            <td>[% rdfa_work_iswc(work) %]</td>
+            <td class="iswc">[% rdfa_work_iswc(work) %]</td>
+            <td>
+                [% l(work.type.name) %]
+            </td>
             <td>[% rating_stars(work) %]</td>
           </tr>
           [% END %]

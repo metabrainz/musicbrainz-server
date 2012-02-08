@@ -1,23 +1,27 @@
 package MusicBrainz::Server::Edit::Release::Edit;
 use Moose;
+use 5.10.0;
 
 use MooseX::Types::Moose qw( Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
     partial_date_to_hash
     partial_date_from_row
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
+    artist_credit_from_loaded_definition
     changed_relations
     changed_display_data
-    load_artist_credit_definitions
-    artist_credit_from_loaded_definition
     clean_submitted_artist_credits
+    load_artist_credit_definitions
+    merge_artist_credit
+    merge_barcode
+    merge_partial_date
     verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -27,6 +31,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -128,7 +133,6 @@ sub build_display_data
         language  => [ qw( language_id Language )],
         script    => [ qw( script_id Script )],
         name      => 'name',
-        barcode   => 'barcode',
         comment   => 'comment',
     );
 
@@ -139,6 +143,13 @@ sub build_display_data
             new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
+    }
+
+    if (exists $self->data->{new}{barcode}) {
+        $data->{barcode} = {
+            new => Barcode->new($self->data->{new}{barcode}),
+            old => Barcode->new($self->data->{old}{barcode}),
+        };
     }
 
     if (exists $self->data->{new}{date}) {
@@ -158,7 +169,10 @@ sub _mapping
 {
     return (
         date => sub { partial_date_to_hash(shift->date) },
-        artist_credit => sub { clean_submitted_artist_credits (artist_credit_to_ref(shift->artist_credit)) }
+        artist_credit => sub {
+            clean_submitted_artist_credits (shift->artist_credit)
+        },
+        barcode => sub { shift->barcode->code }
     );
 }
 
@@ -177,9 +191,38 @@ before 'initialize' => sub
     }
 };
 
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('artist_credit') {
+            return merge_artist_credit($self->c, $ancestor, $current, $new);
+        }
+
+        when ('date') {
+            return merge_partial_date('date' => $ancestor, $current, $new);
+        }
+
+        when ('barcode') {
+            return merge_barcode ($ancestor, $current, $new);
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
+
+sub current_instance {
+    my $self = shift;
+    return $self->c->model('Release')->get_by_id($self->entity_id);
+}
+
 sub _edit_hash
 {
     my ($self, $data) = @_;
+
+    $data = $self->merge_changes;
     if ($data->{artist_credit}) {
         $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     }

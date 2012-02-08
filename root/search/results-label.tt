@@ -23,7 +23,7 @@
                                 [% link_entity(result.entity) %]
                             </td>
                             <td>[% result.entity.sort_name %]</td>
-                            <td>[% result.entity.type_name  %]</td>
+                            <td>[% l(result.entity.type_name)  %]</td>
                             <td>[% result.entity.format_label_code %]</td>
                             <td>[% result.entity.begin_date.format %]</td>
                             <td>[% result.entity.end_date.format %]</td>
@@ -33,7 +33,13 @@
                 </table>
             [% END %]
         [%- ELSE -%]
-            <p>[% l('No results found') %]</p>
+            <p>[% l('No results found. Try refining your search query.') %]</p>
+            <p>
+              [% l('Alternatively, you may {uri|add a new label}.', {
+                    uri => c.uri_for_action('/label/create', {
+                             'edit-label.name' => query
+                           }) }) %]
+            </p>
         [%- END -%]
         [%- INCLUDE "search/form.tt" -%]
     </div>

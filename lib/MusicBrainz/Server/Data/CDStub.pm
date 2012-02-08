@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Data::CDStub;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     check_data
+    barcode_from_row
     load_subobjects
     query_to_list
     query_to_list_limited
@@ -38,7 +40,7 @@ sub _column_mapping
         lookup_count => 'lookup_count',
         modify_count => 'modify_count',
         source => 'source',
-        barcode => 'barcode',
+        barcode => sub { barcode_from_row (shift, shift) },
         comment => 'comment',
         discid => 'discid',
     };

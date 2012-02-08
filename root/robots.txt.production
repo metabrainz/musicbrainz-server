@@ -1,0 +1,142 @@
+User-agent: *
+Allow: /artist/83d91898-7763-47d7-b03b-b92132375c47 # Pink Floyd
+Allow: /artist/65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab # Metallica
+Allow: /artist/b7ffd2af-418f-4be2-bdd1-22f8b48613da # Nine Inch Nails
+Allow: /artist/b2d122f9-eadb-4930-a196-8f221eeb0c66 # Rammstein
+Allow: /artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d # The Beatles
+Allow: /artist/a74b1b7f-71a5-4011-9441-d0b5e4122711 # Radiohead
+Allow: /artist/66fc5bf8-daa4-4241-b378-9bc9077939d2 # Tool
+Allow: /artist/87c5dedd-371d-4a53-9f7f-80522fb7f3cb # Björk
+Allow: /artist/8538e728-ca0b-4321-b7e5-cff6565dd4c0 # Depeche Mode
+Allow: /artist/9c9f1380-2516-4fc9-a3e6-f9f61941d090 # Muse
+Allow: /artist/0383dadf-2a4e-4d10-a46a-e9e041da8eb3 # Queen
+Allow: /artist/a3cb23fc-acd3-4ce0-8f36-1e5aa6a18432 # U2
+Allow: /artist/8f6bd1e4-fbe1-4f50-aa9b-94c450ec0f11 # Portishead
+Allow: /artist/00a9f935-ba93-4fc8-a33a-993abe9c936b # Nightwish
+Allow: /artist/084308bd-1654-436f-ba03-df6697104e19 # Green Day
+Allow: /artist/678d88b2-87b0-403b-b63d-5da7465aecc3 # Led Zeppelin
+Allow: /artist/c14b4180-dc87-481e-b17a-64e4150f90f6 # Opeth
+Allow: /artist/ca891d65-d9b0-4258-89f7-e6ba29d83767 # Iron Maiden
+Allow: /artist/28503ab7-8bf2-4666-a7bd-2644bfc7cb1d # Dream Theater
+Allow: /artist/c0b2500e-0cef-4130-869d-732b23ed9df5 # Tori Amos
+Allow: /artist/5441c29d-3602-4898-b1a1-b77fa23b8e50 # David Bowie
+Allow: /artist/cc0b7089-c08d-4c10-b6b0-873582c17fd6 # System of a Down
+Allow: /artist/7746d775-9550-4360-b8d5-c37bd448ce01 # “Weird Al” Yankovic
+Allow: /artist/5b11f4ce-a62d-471e-81fc-a69a8278c7da # Nirvana
+Allow: /artist/8e3fcd7d-bda1-4ca0-b987-b8528d2ee74e # Genesis
+Allow: /artist/69ee3720-a7cb-4402-b48d-a02c366f2bcf # The Cure
+Allow: /artist/7fa7fc04-1011-4876-8095-ecd232edea87 # Blind Guardian
+Allow: /artist/5182c1d9-c7d2-4dad-afa0-ccfeada921a8 # Black Sabbath
+Allow: /artist/cc197bad-dc9c-440d-a5b5-d52ba2e14234 # Coldplay
+Allow: /artist/4a4ee089-93b1-4470-af9a-6ff575d32704 # The Prodigy
+Allow: /artist/f9ef7a22-4262-4596-a2a8-1d19345b8e50 # Garbage
+Allow: /artist/614e3804-7d34-41ba-857f-811bad7c2b7a # Dire Straits
+Allow: /artist/83b9cbe7-9857-49e2-ab8e-b57b01038103 # Pearl Jam
+Allow: /artist/078a9376-3c04-4280-b7d7-b20e158f345d # A Perfect Circle
+Allow: /artist/f57e14e4-b030-467c-b202-539453f504ec # Children of Bodom
+Allow: /artist/ece57992-dc2e-4f67-a269-fa43626c1a3d # Jethro Tull
+Allow: /artist/a9044915-8be3-4c7e-b11f-9e2d2ea0a91e # Megadeth
+Allow: /artist/52074ba6-e495-4ef3-9bb4-0703888a9f68 # Arcade Fire
+Allow: /artist/172e1f1a-504d-4488-b053-6344ba63e6d0 # Nick Cave & The Bad Seeds
+Allow: /artist/10adbe5e-a2c0-4bf3-8249-2b4cbf6e6ca8 # Massive Attack
+Allow: /artist/8970d868-0723-483b-a75b-51088913d3d4 # Moby
+Allow: /artist/6fe07aa5-fec0-4eca-a456-f29bff451b04 # Weezer
+Allow: /artist/31745282-b1ea-4d62-939f-226b14d68e7c # In Flames
+Allow: /artist/e5c7b94f-e264-473c-bb0f-37c85d4d5c70 # Belle and Sebastian
+Allow: /artist/11ae9fbb-f3d7-4a47-936f-4c0a04d3b3b5 # The White Stripes
+Allow: /artist/ba853904-ae25-4ebb-89d6-c44cfbd71bd2 # Blur
+Allow: /artist/86e2e2ad-6d1b-44fd-9463-b6683718a1cc # Jean Michel Jarre
+Allow: /artist/cb67438a-7f50-4f2b-a6f1-2bb2729fd538 # Air
+Allow: /artist/e21857d5-3256-4547-afb3-4b6ded592596 # Gorillaz
+Allow: /artist/309c62ba-7a22-4277-9f67-4a162526d18a # Beck
+Allow: /artist/8a0e10a9-80c7-40e0-bf5b-89f1d57f9537 # Iced Earth
+Allow: /artist/788ad31c-bf0c-4a31-83f8-b8b130d79c76 # Apocalyptica
+Allow: /artist/b6b2bb8d-54a9-491f-9607-7b546023b433 # Pixies
+Allow: /artist/5700dcd4-c139-4f31-aa3e-6382b9af9032 # Kraftwerk
+Allow: /artist/4967c0a1-b9f3-465e-8440-4598fd9fc33c # Enya
+Allow: /artist/f1106b17-dcbb-45f6-b938-199ccfab50cc # New Order
+Allow: /artist/ea4dfa26-f633-4da6-a52a-f49ea4897b58 # R.E.M.
+Allow: /artist/f6f2326f-6b25-4170-b89d-e235b25508e8 # Sigur Rós
+Allow: /artist/72c536dc-7137-4477-a521-567eeb840fa8 # Bob Dylan
+Allow: /artist/f22942a1-6f70-4f48-866e-238cb2308fbd # Aphex Twin
+Allow: /artist/847e8284-8582-4b0e-9c26-b042a4f49e57 # Placebo
+Allow: /artist/f59c5520-5f46-4d2c-b2c4-822eabf53419 # Linkin Park
+Allow: /artist/69158f97-4c07-4c4e-baf8-4e4ab1ed666e # Boards of Canada
+Allow: /artist/66c662b6-6e2f-4930-8610-912e24c63ed1 # AC/DC
+Allow: /artist/4b585938-f271-45e2-b19a-91c634b5e396 # Kate Bush
+Allow: /artist/3d2b98e5-556f-4451-a3ff-c50ea18d57cb # Aerosmith
+Allow: /artist/5b687684-ad34-4a9f-b425-0e7aa81fbd38 # Amon Amarth
+Allow: /artist/8bfac288-ccc5-448d-9573-c33ea2aa5c30 # Red Hot Chili Peppers
+Allow: /artist/c3aeb863-7b26-4388-94e8-5a240f2be21b # Tom Waits
+Allow: /artist/39ab1aed-75e0-4140-bd47-540276886b60 # Oasis
+Allow: /artist/b38225b8-8e5f-42aa-bcdc-7bae5b5bdab3 # King Crimson
+Allow: /artist/534ee493-bfac-4575-a44a-0ae41e2c3fe4 # Rush
+Allow: /artist/79239441-bfd5-4981-a70c-55c3f15c1287 # Madonna
+Allow: /artist/efaefde1-e09b-4d49-9d8e-b1304d2ece8d # Amorphis
+Allow: /artist/9beb62b2-88db-4cea-801e-162cd344ee53 # Beastie Boys
+Allow: /artist/4bd95eea-b9f6-4d70-a36c-cfea77431553 # Alice in Chains
+Allow: /artist/319b1175-ced9-438f-986b-9239c3edd92d # Sonata Arctica
+Allow: /artist/67f66c07-6e61-4026-ade5-7e782fad3a5d # Foo Fighters
+Allow: /artist/40f5d9e4-2de7-4f2d-ad41-e31a9a9fea27 # The Smiths
+Allow: /artist/b95ce3ff-3d05-4e87-9e01-c97b66af13d4 # Eminem
+Allow: /artist/23a03e33-a603-404e-bcbf-2c00159d7067 # The Offspring
+Allow: /artist/5cbef01b-cc35-4f52-af7b-d0df0c4f61b9 # Sonic Youth
+Allow: /artist/9a58fda3-f4ed-4080-a3a5-f457aac9fcdd # Joy Division
+Allow: /artist/3648db01-b29d-4ab9-835c-83f6a5068fe4 # Godspeed You! Black Emperor
+Allow: /artist/78f797e3-4913-4026-aad0-1cd858bd735b # Bright Eyes
+Allow: /artist/ccda046a-2674-4f7d-97e6-f23d6c156432 # Dead Can Dance
+Allow: /artist/8f92558c-2baa-4758-8c38-615519e9deda # The Clash
+Allow: /artist/d87e52c5-bb8d-4da8-b941-9f4928627dc8 # ABBA
+Allow: /artist/e20747e7-55a4-452e-8766-7b985585082d # Frank Zappa
+Allow: /artist/0039c7ae-e1a7-4a7d-9b49-0cbc716821a6 # Death Cab for Cutie
+Allow: /artist/169c4c28-858e-497b-81a4-8bc15e0026ea # Porcupine Tree
+Allow: /artist/e631bb92-3e2b-43e3-a2cb-b605e2fb53bd # Arch Enemy
+Allow: /artist/d700b3f5-45af-4d02-95ed-57d301bda93e # Mogwai
+Allow: /artist/c6b0db5a-d750-4ed8-9caa-ddcfb75dcb0a # Therion
+Allow: /artist/e795e03d-b5d5-4a5f-834d-162cfb308a2c # PJ Harvey
+Allow: /artist/3798b104-01cb-484c-a3b0-56adc6399b80 # Rage Against the Machine
+Allow: /artist/ba0d6274-db14-4ef5-b28d-657ebde1a396 # The Smashing Pumpkins
+Allow: /artist/ce58d854-7430-4231-aa44-97f0144b3372 # Sarah McLachlan
+Allow: /artist/c1d4f2ba-cf39-460c-9528-6b827d3417a1 # Yes
+Allow: /artist/f2fb0ff0-5679-42ec-a55c-15109ce6e320 # Die Ärzte
+Allow: /artist/0743b15a-3c32-48c8-ad58-cb325350befa # blink-182
+Allow: /artist/4bdcee62-4902-4773-8cd1-e252e2e31225 # Alanis Morissette
+Allow: /artist/5d02f264-e225-41ff-83f7-d9b1f0b1874a # Simon & Garfunkel
+Allow: /artist/1946a82a-f927-40c2-8235-38d64f50d043 # The Chemical Brothers
+Allow: /artist/bdacc37b-8633-4bf8-9dd5-4662ee651aec # Slayer
+Allow: /artist/183d6ef6-e161-47ff-9085-063c8b897e97 # They Might Be Giants
+Allow: /artist/b45335d1-5219-4262-a44d-936aa36eeaed # Ladytron
+Allow: /artist/eace2373-31c8-4aba-9a5c-7bce22dd140a # Within Temptation
+Allow: /artist/b23e8a63-8f47-4882-b55b-df2c92ef400e # Interpol
+Allow: /artist/aa7a2827-f74b-473c-bd79-03d065835cf7 # Franz Ferdinand
+Disallow: /account/
+Disallow: /admin
+Disallow: /ajax/
+Disallow: /artist/
+Disallow: /browse/
+Disallow: /cdstub/
+Disallow: /cdtoc/
+Disallow: /edit/
+Disallow: /freedb/
+Disallow: /isrc/
+Disallow: /label/
+Disallow: /otherlookup
+Disallow: /partners/
+Disallow: /puid/
+Disallow: /rating/
+Disallow: /recording/
+Disallow: /release/
+Disallow: /release-group/
+Disallow: /report/
+Disallow: /reports
+Disallow: /search
+Disallow: /tag/
+Disallow: /tags
+Disallow: /taglookup
+Disallow: /test/
+Disallow: /tracklist/
+Disallow: /unit_tests/
+Disallow: /url/
+Disallow: /user/
+Disallow: /work/
+Disallow: /ws

@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Data::Role::Sql;
 use Moose::Role;
-use namespace::autoclean;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
