@@ -1,4 +1,4 @@
-<div id="filter" style="margin-top: 0.75em; border: 1px solid #999; background: #f0f0f0; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; padding: 0.5em; display: none;">
+<div id="filter">
     <form action="" method="get">
     [% INCLUDE "components/filter-form.tt" IF filter_form.defined %]
 	<input type="hidden" id="filter_ajax_form_url" disabled="disabled" value="[% ajax_form_url | html %]" />

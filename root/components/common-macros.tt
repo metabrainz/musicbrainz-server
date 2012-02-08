@@ -628,6 +628,6 @@ http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
 [%- MACRO filter_button BLOCK -%]
-  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="/static/images/icons/filter.png" /></a> <a class="filter-button" href="#">Filter</a></div>
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">Filter</a></div>
 [%- END -%]
 
