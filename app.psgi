@@ -26,6 +26,9 @@ builder {
     if (DBDefs::CATALYST_DEBUG) {
         enable 'Debug', panels => [ qw( Memory Session Timer DAOLogger ExclusiveTime TemplateToolkit Parameters ) ];
     }
+    if ($ENV{'MUSICBRAINZ_USE_PROXY'}) {
+        enable 'Plack::Middleware::ReverseProxy';
+    }
 
     enable 'Static', path => qr{^/static/}, root => 'root';
     MusicBrainz::Server->psgi_app;
