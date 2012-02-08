@@ -34,6 +34,11 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::FilterUtils qw(
+    create_artist_release_groups_form
+    create_artist_releases_form
+    create_artist_recordings_form
+);
 use Sql;
 
 my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
@@ -188,8 +193,9 @@ sub show : PathPart('') Chained('load')
     }
     else
     {
-        my $artist_credits = $c->model('ReleaseGroup')->find_artist_credits_by_artist($artist->id);
-        my %filter = %{ $self->process_filter($c, 'Filter::ReleaseGroup', $artist_credits) };
+        my %filter = %{ $self->process_filter($c, sub {
+	        return create_artist_release_groups_form($c, $artist->id);
+        }) };
 
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
@@ -260,32 +266,6 @@ browsable (not just paginated)
 
 =cut
 
-sub process_filter
-{
-    my ($self, $c, $form_class, $artist_credits) = @_;
-
-    my %filter;
-    my $filter_form = $c->form(filter_form => $form_class,
-                               artist_credits => $artist_credits);
-    unless (exists $c->req->params->{'filter.cancel'}) {
-        if ($filter_form->submitted_and_valid($c->req->params)) {
-            for my $name ($filter_form->filter_field_names) {
-                my $value = $filter_form->field($name)->value;
-                if ($value) {
-                    $filter{$name} = $value;
-                }
-
-            }
-            $c->res->cookies->{filter} = { value => '1', path => '/' };
-        }
-    }
-    else {
-        $c->res->cookies->{filter} = { value => '', path => '/' };
-    }
-
-    return \%filter;
-}
-
 sub recordings : Chained('load')
 {
     my ($self, $c) = @_;
@@ -308,8 +288,9 @@ sub recordings : Chained('load')
     }
     else
     {
-        my $artist_credits = $c->model('Recording')->find_artist_credits_by_artist($artist->id);
-        my %filter = %{ $self->process_filter($c, 'Filter::Recording', $artist_credits) };
+        my %filter = %{ $self->process_filter($c, sub {
+	        return create_artist_recordings_form($c, $artist->id);
+        }) };
 
         if ($c->req->query_params->{standalone}) {
             $recordings = $self->_load_paged($c, sub {
@@ -372,8 +353,9 @@ sub releases : Chained('load')
     }
     else
     {
-        my $artist_credits = $c->model('Release')->find_artist_credits_by_artist($artist->id);
-        my %filter = %{ $self->process_filter($c, 'Filter::Recording', $artist_credits) };
+        my %filter = %{ $self->process_filter($c, sub {
+	        return create_artist_releases_form($c, $artist->id);
+        }) };
 
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
@@ -690,6 +672,41 @@ sub edit_credit : Chained('credit') PathPart('edit') RequireAuth Edit {
                 $c->uri_for_action('/artist/aliases', [ $artist->gid ]));
         }
     );
+}
+
+=head2 process_filter
+
+Utility function for dynamically loading the filter form.
+
+=cut
+
+sub process_filter
+{
+    my ($self, $c, $create_form) = @_;
+
+    my %filter;
+    unless (exists $c->req->params->{'filter.cancel'}) {
+        my $cookie = $c->req->cookies->{filter};
+        my $has_filter_params = grep(/^filter\./, keys %{ $c->req->params });
+        if ($has_filter_params || (defined($cookie) && $cookie->value eq '1')) {
+            my $filter_form = $create_form->();
+            if ($filter_form->submitted_and_valid($c->req->params)) {
+                for my $name ($filter_form->filter_field_names) {
+                    my $value = $filter_form->field($name)->value;
+                    if ($value) {
+                        $filter{$name} = $value;
+                    }
+
+                }
+                $c->res->cookies->{filter} = { value => '1', path => '/' };
+            }
+        }
+    }
+    else {
+        $c->res->cookies->{filter} = { value => '', path => '/' };
+    }
+
+    return \%filter;
 }
 
 =head1 LICENSE

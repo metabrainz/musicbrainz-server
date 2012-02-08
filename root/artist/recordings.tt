@@ -3,7 +3,8 @@
 	[%- filter_button() -%]
 	<h2>[% l('Recordings') %]</h2>
 
-    [%- INCLUDE 'components/filter.tt' submit_text=l('Filter recordings') -%]
+    [%- INCLUDE 'components/filter.tt'
+        ajax_form_url=c.uri_for_action('/ajax/filter_artist_recordings_form', { artist_id => artist.id }) -%]
 
     [%- IF recordings.size -%]
         <form action="[% c.uri_for_action('/recording/merge_queue') %]"

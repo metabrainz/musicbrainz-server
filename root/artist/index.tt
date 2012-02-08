@@ -23,7 +23,8 @@
 	[%- filter_button() -%]
     <h2>[% l('Discography') %]</h2>
 
-    [%- INCLUDE 'components/filter.tt' submit_text=l('Filter release groups') -%]
+    [%- INCLUDE 'components/filter.tt'
+        ajax_form_url=c.uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => artist.id }) -%]
 
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]

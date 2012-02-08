@@ -16,7 +16,7 @@ sub new
     my $self = $class->next::method($c);
     # we are not using properly encoded unicode strings and the JSON
     # module expects them, so we need to cheat here a little
-    $self->encoder(JSON->new->latin1);
+    $self->encoder(JSON->new->utf8);
 
     return $self;
 }
