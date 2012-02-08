@@ -89,7 +89,7 @@ sub find_by_artist
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
     my (@where_query, @where_args);
-    
+   
     push @where_query, "acn.artist = ?";
     push @where_args, $artist_id;
 

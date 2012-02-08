@@ -91,7 +91,7 @@ sub _entity_class
 
 sub _where_filter
 {
-	my ($filter) = @_;
+    my ($filter) = @_;
 
     my (@query, @joins, @params);
 
@@ -106,22 +106,22 @@ sub _where_filter
         }
         if (exists $filter->{status} && $filter->{status}) {
             my @statuses = ref($filter->{status}) ? @{ $filter->{status} } : ( $filter->{status} );
-			if (@statuses) {
-				push @query, 'status IN (' . placeholders(@statuses) . ')';
-				push @params, @statuses;
-			}
+            if (@statuses) {
+                push @query, 'status IN (' . placeholders(@statuses) . ')';
+                push @params, @statuses;
+            }
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
-			if (@types) {
-				push @query, 'release_group.type IN (' . placeholders(@types) . ')';
-				push @joins, 'JOIN release_group ON release.release_group = release_group.id';
-				push @params, @types;
-			}
+            if (@types) {
+                push @query, 'release_group.type IN (' . placeholders(@types) . ')';
+                push @joins, 'JOIN release_group ON release.release_group = release_group.id';
+                push @params, @types;
+            }
         }
     }
 
-	return (\@query, \@joins, \@params);	
+    return (\@query, \@joins, \@params);
 }
 
 sub load
@@ -173,7 +173,7 @@ sub find_by_label
 {
     my ($self, $label_id, $limit, $offset, %args) = @_;
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "release_label.label = ?";
     push @$params, $label_id;
@@ -219,7 +219,7 @@ sub find_by_release_group
     my ($self, $ids, $limit, $offset, %args) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "release_group IN (" . placeholders(@ids) . ")";
     push @$params, @ids;
@@ -242,7 +242,7 @@ sub find_by_track_artist
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "
         release.id IN (
@@ -305,7 +305,7 @@ sub find_by_recording
     my ($self, $ids, $limit, $offset, %args) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "track.recording IN (" . placeholders(@ids) . ")";
     push @$params, @ids;
@@ -386,7 +386,7 @@ sub load_with_tracklist_for_recording
 {
     my ($self, $recording_id, $limit, $offset, %args) = @_;
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "track.recording = ?";
     push @$params, $recording_id;

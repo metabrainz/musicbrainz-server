@@ -194,7 +194,7 @@ sub show : PathPart('') Chained('load')
     else
     {
         my %filter = %{ $self->process_filter($c, sub {
-	        return create_artist_release_groups_form($c, $artist->id);
+            return create_artist_release_groups_form($c, $artist->id);
         }) };
 
         my $method = 'find_by_artist';
@@ -290,7 +290,7 @@ sub recordings : Chained('load')
     else
     {
         my %filter = %{ $self->process_filter($c, sub {
-	        return create_artist_recordings_form($c, $artist->id);
+            return create_artist_recordings_form($c, $artist->id);
         }) };
 
         if ($c->req->query_params->{standalone}) {
@@ -355,7 +355,7 @@ sub releases : Chained('load')
     else
     {
         my %filter = %{ $self->process_filter($c, sub {
-	        return create_artist_releases_form($c, $artist->id);
+            return create_artist_releases_form($c, $artist->id);
         }) };
 
         my $method = 'find_by_artist';

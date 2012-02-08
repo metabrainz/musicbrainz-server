@@ -1,7 +1,7 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Recordings') page='recordings' -%]
 
-	[%- filter_button() -%]
-	<h2>[% l('Recordings') %]</h2>
+    [%- filter_button() -%]
+    <h2>[% l('Recordings') %]</h2>
 
     [%- INCLUDE 'components/filter.tt'
         ajax_form_url=c.uri_for_action('/ajax/filter_artist_recordings_form', { artist_id => artist.id }) -%]

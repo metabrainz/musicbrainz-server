@@ -259,7 +259,7 @@ sub filter_by_artist
 {
     my ($self, $artist_id, %args) = @_;
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "acn.artist = ?";
     push @$params, $artist_id;
@@ -300,7 +300,7 @@ sub filter_by_track_artist
 {
     my ($self, $artist_id, %args) = @_;
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "
                  rg.id IN (

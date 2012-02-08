@@ -42,7 +42,7 @@
       </p>
     [% END %]
 
-	[%- filter_button() -%]
+    [%- filter_button() -%]
     <h2>[% l('Discography') %]</h2>
 
     [%- INCLUDE 'components/filter.tt'

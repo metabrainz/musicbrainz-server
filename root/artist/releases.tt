@@ -1,6 +1,6 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Releases') page='releases' -%]
 
-	[%- filter_button() -%]
+    [%- filter_button() -%]
     <h2>[% l('Releases') %]</h2>
 
     [%- INCLUDE 'components/filter.tt'
