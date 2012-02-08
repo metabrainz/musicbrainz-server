@@ -143,7 +143,10 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
             url = url.split("?")[0];
-            return url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
+            url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?/, "http://www.discogs.com/$3");
+            if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
+                url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
+            return url;
         }
     },
     musicmoz: {
