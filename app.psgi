@@ -4,6 +4,8 @@ use warnings;
 
 use DBDefs;
 use Moose::Util qw( ensure_all_roles );
+use Plack::App::Cascade;
+use Plack::App::URLMap;
 use Plack::Builder;
 use Plack::Middleware::Debug::DAOLogger;
 use Plack::Middleware::Debug::ExclusiveTime;
@@ -19,6 +21,7 @@ BEGIN {
 }
 
 use MusicBrainz::Server;
+use MusicBrainz::WebService;
 
 debug_method_calls() if DBDefs::CATALYST_DEBUG;
 
@@ -31,7 +34,14 @@ builder {
     }
 
     enable 'Static', path => qr{^/static/}, root => 'root';
-    MusicBrainz::Server->psgi_app;
+
+    my $sloth_ws = Plack::App::URLMap->new;
+    $sloth_ws->map('/ws/2/', MusicBrainz::WebService->new);
+
+    my $app_stack = Plack::App::Cascade->new;
+    $app_stack->add($sloth_ws);
+    $app_stack->add(MusicBrainz::Server->psgi_app);
+    return $app_stack;
 };
 
 sub debug_method_calls {
