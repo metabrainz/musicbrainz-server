@@ -5,23 +5,24 @@ use 5.10.0;
 use MooseX::Types::Moose qw( Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
     partial_date_to_hash
     partial_date_from_row
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
+    artist_credit_from_loaded_definition
     changed_relations
     changed_display_data
-    load_artist_credit_definitions
-    artist_credit_from_loaded_definition
     clean_submitted_artist_credits
-    verify_artist_credits
+    load_artist_credit_definitions
     merge_artist_credit
+    merge_barcode
     merge_partial_date
+    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -132,7 +133,6 @@ sub build_display_data
         language  => [ qw( language_id Language )],
         script    => [ qw( script_id Script )],
         name      => 'name',
-        barcode   => 'barcode',
         comment   => 'comment',
     );
 
@@ -143,6 +143,13 @@ sub build_display_data
             new => artist_credit_from_loaded_definition($loaded, $self->data->{new}{artist_credit}),
             old => artist_credit_from_loaded_definition($loaded, $self->data->{old}{artist_credit})
         }
+    }
+
+    if (exists $self->data->{new}{barcode}) {
+        $data->{barcode} = {
+            new => Barcode->new($self->data->{new}{barcode}),
+            old => Barcode->new($self->data->{old}{barcode}),
+        };
     }
 
     if (exists $self->data->{new}{date}) {
@@ -162,7 +169,10 @@ sub _mapping
 {
     return (
         date => sub { partial_date_to_hash(shift->date) },
-        artist_credit => sub { clean_submitted_artist_credits (artist_credit_to_ref(shift->artist_credit)) }
+        artist_credit => sub {
+            clean_submitted_artist_credits (shift->artist_credit)
+        },
+        barcode => sub { shift->barcode->code }
     );
 }
 
@@ -191,6 +201,10 @@ around extract_property => sub {
 
         when ('date') {
             return merge_partial_date('date' => $ancestor, $current, $new);
+        }
+
+        when ('barcode') {
+            return merge_barcode ($ancestor, $current, $new);
         }
 
         default {

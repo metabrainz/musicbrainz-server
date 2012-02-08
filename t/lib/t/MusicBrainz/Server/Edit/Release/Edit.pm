@@ -24,23 +24,23 @@ my $release = $c->model('Release')->get_by_id(1);
 $c->model('ArtistCredit')->load($release);
 
 is_unchanged($release);
-is($release->edits_pending, 0);
+is($release->edits_pending, 0, 'release has no pending edits');
 
 # Test editing all possible fields
 my $edit = create_edit($c, $release);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit');
 
 my ($edits) = $c->model('Edit')->find({ release => $release->id }, 10, 0);
-is($edits->[0]->id, $edit->id);
+is($edits->[0]->id, $edit->id, 'found new edit among release edits');
 
 $release = $c->model('Release')->get_by_id(1);
-is($release->edits_pending, 1);
+is($release->edits_pending, 1, 'release now has a pending edit');
 is_unchanged($release);
 
 reject_edit($c, $edit);
 $release = $c->model('Release')->get_by_id(1);
 is_unchanged($release);
-is($release->edits_pending, 0);
+is($release->edits_pending, 0, 'release has no pending edits after rejecting the edit');
 
 # Accept the edit
 $edit = create_edit($c, $release);
@@ -48,18 +48,18 @@ accept_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
 $c->model('ArtistCredit')->load($release);
-is($release->name, 'Edited name');
-is($release->packaging_id, 1);
-is($release->script_id, 1);
-is($release->release_group_id, 2);
-is($release->barcode, 'BARCODE');
-is($release->country_id, 1);
-is($release->date->year, 1985);
-is($release->date->month, 4);
-is($release->date->day, 13);
-is($release->language_id, 1);
-is($release->comment, 'Edited comment');
-is($release->artist_credit->name, 'New Artist');
+is($release->name, 'Edited name', 'release name is Edited name');
+is($release->packaging_id, 1, 'packaging id is 1');
+is($release->script_id, 1, 'script id is 1');
+is($release->release_group_id, 2, 'release_group id is 2');
+is($release->barcode->format, 'BARCODE', 'barcode is BARCODE');
+is($release->country_id, 1, 'country id is 1');
+is($release->date->year, 1985, 'year is 1985');
+is($release->date->month, 4, 'month is 4');
+is($release->date->day, 13, 'day is 13');
+is($release->language_id, 1, 'language is 1');
+is($release->comment, 'Edited comment', 'disambiguation comment is Edited comment');
+is($release->artist_credit->name, 'New Artist', 'artist credit is New Artist');
 
 };
 
@@ -123,16 +123,16 @@ test 'Check conflicts (conflicting edits)' => sub {
 
 sub is_unchanged {
     my ($release) = @_;
-    is($release->packaging_id, undef);
-    is($release->script_id, undef);
-    is($release->barcode, undef);
-    is($release->country_id, undef);
-    ok($release->date->is_empty);
-    is($release->language_id, undef);
-    is($release->comment, undef);
-    is($release->release_group_id, 1);
-    is($release->name, 'Release');
-    is($release->artist_credit_id, 1);
+    is($release->packaging_id, undef, 'is_unchanged: packaging is undef');
+    is($release->script_id, undef,    'is_unchanged: script is undef');
+    is($release->barcode->format, '', 'is_unchanged: barcode is empty');
+    is($release->country_id, undef,   'is_unchanged: country is undef');
+    ok($release->date->is_empty,      'is_unchanged: date is empty');
+    is($release->language_id, undef,  'is_unchanged: language is undef');
+    is($release->comment, undef,      'is_unchanged: disambiguation comment is undef');
+    is($release->release_group_id, 1, 'is_unchanged: release_group id is 1');
+    is($release->name, 'Release',     'is_unchanged: release name is Release');
+    is($release->artist_credit_id, 1, 'is_unchanged: artist credit is 1');
 }
 
 sub create_edit {

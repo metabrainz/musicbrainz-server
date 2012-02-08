@@ -14,6 +14,7 @@ use Text::Trim qw( trim );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 
 use base 'Exporter';
 
@@ -25,12 +26,13 @@ our @EXPORT_OK = qw(
     clean_submitted_artist_credits
     date_closure
     edit_status_name
+    hash_artist_credit
+    merge_artist_credit
+    merge_barcode
+    merge_partial_date
     load_artist_credit_definitions
     status_names
     verify_artist_credits
-    hash_artist_credit
-    merge_partial_date
-    merge_artist_credit
 );
 
 sub verify_artist_credits
@@ -142,7 +144,7 @@ sub clean_submitted_artist_credits
 {
     my $ac = shift;
 
-    return artist_credit_to_ref ($ac)
+    $ac = artist_credit_to_ref ($ac)
         if ref $ac eq 'MusicBrainz::Server::Entity::ArtistCredit';
 
     # Remove empty artist credits.
@@ -257,7 +259,7 @@ sub hash_artist_credit {
         '[' .
             join(',',
                  $_->{name},
-                 $_->{artist}{id},
+                 $_->{artist}{id} // -1,
                  $_->{join_phrase} || '')
             .
         ']'
@@ -278,11 +280,11 @@ sub merge_artist_credit {
         unless $current->artist_credit;
 
     my $an = hash_artist_credit($ancestor->{artist_credit});
-    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
+    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit, []));
     my $ne = hash_artist_credit($new->{artist_credit});
     return (
         [$an, $ancestor->{artist_credit}],
-        [$cu, artist_credit_to_ref($current->artist_credit)],
+        [$cu, artist_credit_to_ref($current->artist_credit, [])],
         [$ne, $new->{artist_credit}]
     );
 }
@@ -301,6 +303,23 @@ sub merge_partial_date {
         [ PartialDate->new($ancestor->{$name})->format, $ancestor->{$name} ],
         [ $current->$name->format, partial_date_to_hash($current->$name) ],
         [ PartialDate->new($new->{$name})->format, $new->{$name} ],
+    );
+}
+
+
+=method merge_barcode
+
+Merge barcodes, using the formatted representation as the hash key.
+
+=cut
+
+sub merge_barcode {
+    my ($ancestor, $current, $new) = @_;
+
+    return (
+        [ Barcode->new ($ancestor->{barcode})->format, $ancestor->{barcode} ],
+        [ $current->barcode->format, $current->barcode->code ],
+        [ Barcode->new ($new->{barcode})->format, $new->{barcode} ],
     );
 }
 

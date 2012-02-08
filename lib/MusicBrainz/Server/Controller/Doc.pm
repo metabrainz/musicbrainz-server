@@ -30,7 +30,7 @@ sub show : Path('')
         page => $page,
     );
 
-    if ($id =~ /^(Special|User|MetaBrainz):/i) {
+    if ($id =~ /^(Special|User|MetaBrainz|Proposal):/i) {
         $c->response->status(404);
         $c->stash->{template} = 'doc/error.tt';
         return;

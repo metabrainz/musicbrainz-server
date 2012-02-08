@@ -162,6 +162,15 @@ augment 'create_edits' => sub
             unless $previewing;
     }
 
+    if ($data->{no_barcode})
+    {
+        $add_release_args{barcode} =  '';
+    }
+    else
+    {
+        $add_release_args{barcode} = undef unless $data->{barcode};
+    }
+
     # Add the release edit
     my $add_release_edit = $create_edit->(
         $EDIT_RELEASE_CREATE, $editnote, %add_release_args);
@@ -204,7 +213,7 @@ after 'prepare_tracklist' => sub {
             next unless $trk->{artist_credit}->{preview} eq $release_artist->name
                 || $trk->{artist_credit}->{preview} eq '';
 
-            $trk->{artist_credit} = artist_credit_to_ref ($release_artist);
+            $trk->{artist_credit} = artist_credit_to_ref ($release_artist, [ "gid" ]);
 
             $edits[$trk_idx] = $self->update_track_edit_hash ($trk);
         }

@@ -94,7 +94,7 @@ $fHelp and usage();
 @ARGV or usage();
 
 my $mb = Databases->get_connection('READWRITE');
-my $sql = Sql->new($mb->dbh);
+my $sql = Sql->new($mb->conn);
 
 
 my @tar_to_extract;
@@ -254,7 +254,7 @@ sub ImportTable
 
         $sql->begin;
         $sql->do("COPY $table FROM stdin");
-        my $dbh = $sql->{dbh};
+        my $dbh = $sql->dbh;
 
         $p->("", "") if $fProgress;
         my $t;

@@ -33,6 +33,7 @@ has_field 'labels.name'      => ( type => 'Text' );
 
 has_field 'barcode'          => ( type => '+MusicBrainz::Server::Form::Field::Barcode' );
 has_field 'barcode_confirm'  => ( type => 'Checkbox'  );
+has_field 'no_barcode'       => ( type => 'Checkbox'  ); # release doesn't have a barcode.
 
 # Additional information
 has_field 'annotation'       => ( type => 'TextArea'  );
@@ -51,8 +52,6 @@ sub options_language_id {
     # most frequently used languages have hardcoded value 2.
     # languages which shouldn't be shown have hardcoded value 0.
 
-    # FIXME: optgroups need to go through gettext. --warp.
-
     my $frequent = 2;
     my $skip = 0;
 
@@ -61,7 +60,7 @@ sub options_language_id {
             'value' => $_->id,
             'label' => $_->{name},
             'class' => 'language',
-            'optgroup' => $_->{frequency} eq $frequent ? 'Frequently used' : 'Other',
+            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
     } grep { $_->{frequency} ne $skip } $self->ctx->model('Language')->get_all;
@@ -76,8 +75,6 @@ sub options_script_id {
     # most frequently used scripts have hardcoded value 4.
     # scripts which shouldn't be shown have hardcoded value 1.
 
-    # FIXME: optgroups need to go through gettext. --warp.
-
     my $frequent = 4;
     my $skip = 1;
 
@@ -86,7 +83,7 @@ sub options_script_id {
             'value' => $_->id,
             'label' => $_->{name},
             'class' => 'script',
-            'optgroup' => $_->{frequency} eq $frequent ? 'Frequently used' : 'Other',
+            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
     } grep { $_->{frequency} ne $skip } $self->ctx->model('Script')->get_all ];
@@ -117,6 +114,11 @@ after 'BUILD' => sub {
 
     if (defined $self->init_object)
     {
+        $self->field ('barcode')->value ($self->init_object->barcode->code);
+
+        $self->field ('no_barcode')->value ($self->init_object->barcode->code eq '')
+            if defined $self->init_object->barcode->code;
+
         if (defined $self->init_object->release_group)
         {
             $self->field ('type_id')->value ($self->init_object->release_group->type->id)

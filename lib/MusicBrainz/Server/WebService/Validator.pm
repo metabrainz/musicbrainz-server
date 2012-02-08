@@ -104,9 +104,6 @@ sub validate_type
         }
         else
         {
-            use Data::Dumper;
-            warn Dumper (keys %types)."\n";
-
             $c->stash->{error} = "$_ is not a recognized release-group type.";
             $c->detach('bad_req');
         }

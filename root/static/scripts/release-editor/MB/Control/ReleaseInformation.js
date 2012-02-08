@@ -205,6 +205,7 @@ MB.Control.ReleaseBarcode = function() {
     self.$input = $('#id-barcode');
     self.$message = $('p.barcode-message');
     self.$confirm = $('p.barcode-confirm');
+    self.$no_barcode = $('#id-no_barcode');
     self.count = 0;
 
     self.checkDigit = function (barcode) {
@@ -254,8 +255,17 @@ MB.Control.ReleaseBarcode = function() {
     };
 
     self.update = function () {
-        var barcode = self.clean ();
+        if (self.$no_barcode.is (':checked'))
+        {
+            self.$input.val ("");
+            self.$input.attr ('disabled', 'disabled');
+        }
+        else
+        {
+            self.$input.removeAttr ('disabled', 'disabled');
+        }
 
+        var barcode = self.clean ();
         if (barcode.length === 0)
         {
             self.$message.html ('');
@@ -309,6 +319,7 @@ MB.Control.ReleaseBarcode = function() {
     };
 
     self.$input.bind ('change keyup', self.update);
+    self.$no_barcode.bind ('change blur', self.update);
     self.update ();
 
     return self;

@@ -1,4 +1,26 @@
 [% BLOCK layout_head %]
+    [% meta_desc = [] %]
+    [% meta_desc.push(html_escape(artist.comment)) IF artist.comment %]
+    [% meta_desc.push(l('Type:') _ ' ' _ html_escape(artist.type_name)) IF artist.type %]
+    [% meta_desc.push(l('Gender:') _ ' ' _ html_escape(artist.gender_name)) IF artist.gender %]
+    [% IF artist.begin_date.format %]
+        [% date_period_label = artist.type_id == 1 ? l('Born:') : artist.type_id == 2 ? l('Founded:') : l('Began:') %]
+	[% IF artist.has_age AND not artist.end_date.format %]
+	    [% meta_desc.push(date_period_label _ ' ' _ artist.begin_date.format _ ' (' _ display_age(artist.age) _ ' ago)') %]
+	[% ELSE %]
+	    [% meta_desc.push(date_period_label _ ' ' _ artist.begin_date.format) %]
+	[% END %]
+    [% END %]
+    [% IF artist.end_date.format %]
+        [% date_period_label = artist.type_id == 1 ? l('Died:') : artist.type_id == 2 ? l('Dissolved:') : l('Ended:') %]
+        [% IF artist.has_age %]
+            [% meta_desc.push(date_period_label _ ' ' _ artist.end_date.format _ ' (' _ display_age(artist.age) _ ')') %]
+        [% ELSE %]
+            [% meta_desc.push(date_period_label _ ' ' _ artist.end_date.format) %]
+        [% END %]
+    [% END %]
+    [% meta_desc.push(l('Country:') _ ' ' _ html_escape(artist.country.name)) IF artist.country %]
+    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
     <script type="text/javascript">//<![CDATA[
         $(function() {
             MB.Control.TagEditor($('#sidebar-tags'),
@@ -31,7 +53,7 @@
                         </tbody>
                     </table>
                     [% END %]
-                    <h2>[% rg.type.name || l('Other release groups') %]</h2>
+                    <h2>[% l(rg.type.name) || l('Other release groups') %]</h2>
                     <table class="tbl">
                         <thead>
                             <tr>

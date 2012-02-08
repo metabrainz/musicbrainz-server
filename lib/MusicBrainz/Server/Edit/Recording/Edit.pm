@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
+    clean_submitted_artist_credits
     changed_relations
     changed_display_data
     load_artist_credit_definitions
@@ -128,16 +129,17 @@ around 'initialize' => sub
                 MusicBrainz::Server::Track::FormatTrackLength($recording->length);
     }
 
+    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
+        if exists($opts{artist_credit});
+
     $self->$orig(%opts);
 };
 
 sub _mapping
 {
-    my $for_change_hash = 1;
-
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit, $for_change_hash)
+            artist_credit_to_ref(shift->artist_credit, [])
         },
     );
 }

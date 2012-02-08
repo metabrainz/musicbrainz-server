@@ -49,7 +49,7 @@ sub _build_conn
                 $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
 
                 if ($schema) {
-                    $dbh->do("SET search_path=$schema");
+                    $dbh->do("SET search_path=$schema,public");
                 }
 
                 return ();

@@ -7,7 +7,12 @@ use I18N::LangTags::Detect;
 use Locale::TextDomain q/mb_server/;
 use DBDefs;
 
-use Sub::Exporter -setup => { exports => [qw( l ln )] };
+use Sub::Exporter -setup => {
+    exports => [qw( l ln )],
+    groups => {
+        default => [qw( l ln )]
+    }
+};
 
 has 'languages' => (
     isa => 'ArrayRef',
@@ -53,7 +58,9 @@ sub gettext
 
     $self->_set_language;
 
-    return _expand(__($msgid), %vars);
+    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
+
+    return _expand(__($msgid), %vars) if $msgid;
 }
 
 sub ngettext {
@@ -62,6 +69,8 @@ sub ngettext {
     my %vars = %$vars if (ref $vars eq "HASH");
 
     $self->_set_language;
+
+    $msgid =~ s/\r*\n\s*/ /xmsg;
 
     return _expand(__n($msgid, $msgid_plural, $n), %vars);
 }

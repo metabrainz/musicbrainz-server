@@ -71,6 +71,8 @@
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry';
                predicate_country(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
+               predicate_link_type(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
@@ -188,6 +190,31 @@
   </select>
 [% END %]
 
+[% MACRO relationship_node(node, pad, field_contents) BLOCK; %]
+  [% FOR child=node.children %]
+    <option value="[% child.id %]"
+            [% 'selected="selected"' IF field_contents.find_argument(child.id) %]>
+      [%- pad _ child.name -%]</option>
+    [% relationship_node(child, pad _ '&nbsp;&nbsp;', field_contents) %]
+  [% END %]
+[% END %]
+
+[% MACRO predicate_link_type(field, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ] ], field_contents) %]
+
+  <select name="args" multiple="multiple">
+    [% FOR type_group=relationship_type %]
+      <optgroup label="[% type_group.name %]">
+        [% relationship_node(top_level, '', field_contents)
+             FOR top_level=type_group.children%]
+      </optgroup>
+    [% END %]
+  </select>
+
+  <br />
+  <p>[% l('Note: this currently only searches edits that add or edit relationships, created after 2011-05-16') %]</p>
+[% END %]
+
 [% MACRO predicate_link(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
@@ -268,6 +295,7 @@
                    [ 'release_language', l('Release Language') ],
                    [ 'artist_country', l('Artist Country') ],
                    [ 'label_country', l('Label Country') ]
+                   [ 'link_type', l('Relationship Type') ],
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -297,5 +325,6 @@
     [% predicate_release_language('release_language') %]
     [% predicate_country('artist_country') %]
     [% predicate_country('label_country') %]
+    [% predicate_link_type('link_type') %]
   </div>
 [% END %]

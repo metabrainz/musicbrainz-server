@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::CoverArt;
 use Moose;
+use namespace::autoclean;
 
 use aliased 'MusicBrainz::Server::CoverArt::Provider::RegularExpression'  => 'RegularExpressionProvider';
 use aliased 'MusicBrainz::Server::CoverArt::Provider::WebService::Amazon' => 'AmazonProvider';

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js;
 
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
 use Encode qw( decode encode );
@@ -34,6 +34,9 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "associations" => {
         method => 'GET',
+    },
+    "entity" => {
+        method => 'GET',
     }
 ]);
 
@@ -47,7 +50,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
      version => 'js',
 };
-
 
 sub bad_req : Private
 {
@@ -71,6 +73,17 @@ sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
     $self->validate($c) or $c->detach('bad_req');
 }
 
+sub entities {
+    return {
+        'Artist' => 'artist',
+        'Work' => 'work',
+        'Recording' => 'recording',
+        'ReleaseGroup' => 'release-group',
+        'Release' => 'release',
+        'Label' => 'label',
+    };
+}
+
 sub tracklist : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
@@ -84,7 +97,8 @@ sub tracklist : Chained('root') PathPart Args(1) {
     $ret->{tracks} = [ map {
         length => $_->length,
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
+        artist_credit => artist_credit_to_ref (
+            $_->artist_credit, [ "comment", "gid", "sortname" ]),
     }, sort { $a->position <=> $b->position }
     $tracklist->all_tracks ];
 
@@ -291,7 +305,7 @@ sub associations : Chained('root') PathPart Args(1) {
         my $track = {
             name => $_->name,
             length => $_->length,
-            artist_credit => artist_credit_to_ref ($_->artist_credit),
+            artist_credit => artist_credit_to_ref ($_->artist_credit, [ "gid" ]),
         };
 
         my $data = {
@@ -321,6 +335,42 @@ sub associations : Chained('root') PathPart Args(1) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
+}
+
+sub entity : Chained('root') PathPart('entity') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    unless (MusicBrainz::Server::Validation::IsGUID($gid)) {
+        $c->stash->{error} = "$gid is not a valid MusicBrainz ID.";
+        $c->detach('bad_req');
+        return;
+    }
+
+    my $entity;
+    my $type;
+    for (keys %{ $self->entities }) {
+        $type = $_;
+        $entity = $c->model($type)->get_by_gid($gid);
+        last if defined $entity;
+    }
+
+    unless (defined $entity) {
+        $c->stash->{error} = "The requested entity was not found.";
+        $c->detach('not_found');
+        return;
+    }
+
+    my $jsent = "MusicBrainz::Server::Controller::WS::js::$type"->new();
+    $jsent->_load_entities($c, $entity);
+
+    my $item = ($jsent->_format_output($c, $entity))[0];
+    my $serialization_routine = $jsent->serialization_routine;
+    my $data = $c->stash->{serializer}->$serialization_routine($item);
+    $data->{'type'} = $self->entities->{$type};
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize_data($data));
 }
 
 sub default : Path

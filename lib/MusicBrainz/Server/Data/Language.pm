@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Language;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Language;
 
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );

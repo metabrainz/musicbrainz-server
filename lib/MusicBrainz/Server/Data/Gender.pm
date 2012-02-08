@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Gender;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Data::Utils qw(

@@ -151,7 +151,7 @@
 
             <p class="right">
                 [% l('Hosted by {host|Digital West}. Sponsored by: {url1|Google},
-                      {url2|OSUOSL} and {more|others…}',
+                      {url2|OSUOSL} and {more|others...}',
                     { host => 'http://digitalwest.net/',
                       url1 => 'http://www.google.com/',
                       url2 => 'http://osuosl.org/',

@@ -66,11 +66,11 @@ sub foreign_keys
 sub _build_re {
     my ($re, $loaded) = @_;
     return {
-        release        => $loaded->{Release}{ $re->{release_id} },
-        country        => $loaded->{Country}{ $re->{country_id} },
-        label          => $loaded->{Label}{ $re->{label_id} },
+        release        => $re->{release_id} && $loaded->{Release}{ $re->{release_id} },
+        country        => $re->{country_id} && $loaded->{Country}{ $re->{country_id} },
+        label          => $re->{label_id}   && $loaded->{Label}{ $re->{label_id} },
+        format         => $re->{format_id}  && $loaded->{MediumFormat}{ $re->{format_id} },
         label_id       => $re->{label_id},
-        format         => $loaded->{MediumFormat}{ $re->{format_id} },
         catalog_number => $re->{catalog_number},
         barcode        => $re->{barcode},
         date           => partial_date_from_row( $re->{date} )

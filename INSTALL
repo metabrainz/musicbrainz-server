@@ -1,8 +1,8 @@
 Installing the MusicBrainz Server
 =================================
 
-The MusicBrainz Server is the web frontend to the MusicBrainz Database,
-and is accessible at http://musicbrainz.org.
+The MusicBrainz Server is the web frontend to the MusicBrainz Database, and is
+accessible at http://musicbrainz.org.
 
 This document explains the steps necessary to setup your own MusicBrainz Server.
 If you require any assistance with these instructions, please feel free to
@@ -13,34 +13,31 @@ Prerequisites
 
 1)  A Unix based operating system
 
-    The MusicBrainz development team uses a mix of Ubuntu and Debian, but
-    Mac OS X will work just fine. If you are running Windows we recommend you
-    set up a Debian or Ubuntu virtual machine.
+    The MusicBrainz development team uses a mix of Ubuntu and Debian, but Mac OS
+    X will work just fine, if you're prepared to potentially jump through some
+    hoops. If you are running Windows we recommend you set up a Ubuntu virtual
+    machine.
 
     This document will assume you are using Ubuntu for its instructions.
 
-2)  Perl (at least version 5.8.0)
-
-    Perl 5.10.0 is acceptable, but be aware that it has some quirks in handling
-    subroutine attributes which can make debugging difficult in a few cases.
-    However, these issues were fixed in Perl 5.10.1.
+2)  Perl (at least version 5.10.1)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
 
         perl -v
 
-3)  PostgreSQL (at least version 8.3)
+3)  PostgreSQL (at least version 8.4)
 
     PostgreSQL is required, along with its development libraries. To install
     using packages run the following, replacing 8.x with the latest version.
 
         sudo apt-get install postgresql-8.x postgresql-server-dev-8.x postgresql-contrib
 
-    Alternatively, you may compile PostgreSQL from source, but then make sure
-    to also compile the cube extension found in contrib/cube. The database
-    import script will take care of installing that extension into the database
-    when it creates the database for you.
+    Alternatively, you may compile PostgreSQL from source, but then make sure to
+    also compile the cube extension found in contrib/cube. The database import
+    script will take care of installing that extension into the database when it
+    creates the database for you.
 
 4)  Git
 
@@ -52,9 +49,9 @@ Prerequisites
 
 5)  Memcached
 
-    By default the MusicBrainz server requires a Memcached server running on
-    the same server with default settings.  You can change the memcached server
-    name and port or configure other datastores in lib/DBDefs.pm.
+    By default the MusicBrainz server requires a Memcached server running on the
+    same server with default settings.  You can change the memcached server name
+    and port or configure other datastores in lib/DBDefs.pm.
 
 
 Server configuration
@@ -72,26 +69,30 @@ Server configuration
     Fill in the appropriate values for MB_SERVER_ROOT and WEB_SERVER.
 
     Determine what type of server this will be using REPLICATION_TYPE:
+
     a) RT_SLAVE (mirror server)
+
        A mirror server will always be in sync with the master database at
-       http://musicbrainz.org by way of an hourly replication packet. Mirror servers
-       do not allow any local editing, after the initial data import the only changes
-       allowed will be to load the next replication packet in turn.
+       http://musicbrainz.org by way of an hourly replication packet. Mirror
+       servers do not allow any local editing, after the initial data import the
+       only changes allowed will be to load the next replication packet in turn.
 
        Mirror servers will have their WikiDocs automatically kept up to date.
 
-       If you are not setting up a mirror server for development purposes, make sure
-       to set DB_STAGING_SERVER to 0.
+       If you are not setting up a mirror server for development purposes, make
+       sure to set DB_STAGING_SERVER to 0.
 
     b) RT_STANDALONE
-       A stand alone server is recommended if you are setting up a server for development
-       purposes. They do not accept the replication packets and will require manually
-       importing a new database dump in order to bring it up to date with the master database.
-       Local editing is available, but keep in mind that none of your changes will be pushed
-       up to http://musicbrainz.org.
 
-       Stand alone servers will need to manually download and update their WikiDoc
-       transclusion table:
+       A stand alone server is recommended if you are setting up a server for
+       development purposes. They do not accept the replication packets and will
+       require manually importing a new database dump in order to bring it up to
+       date with the master database.  Local editing is available, but keep in
+       mind that none of your changes will be pushed up to
+       http://musicbrainz.org.
+
+       Stand alone servers will need to manually download and update their
+       WikiDoc transclusion table:
 
             wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
 
@@ -99,58 +100,42 @@ Server configuration
 Installing Perl dependencies
 ----------------------------
 
-The fundamental thing that needs to happen here is all the dependency Perl modules get installed, 
-somewhere where your server can find them. There are many ways to make this happen, and the best 
-choice will be very site-dependent. This is the step of the installation which most frequently 
-goes wrong, and the one which can go wrong the most ways.
+The fundamental thing that needs to happen here is all the dependency Perl
+modules get installed, somewhere where your server can find them. There are many
+ways to make this happen, and the best choice will be very
+site-dependent. MusicBrainz ships with support for Carton, a Perl package
+manager, which will allow you to have the exact same dependencies as our
+production servers. Carton also manages everything for you, and lets you avoid
+polluting your system installation with these dependencies.
 
-One way to install these dependencies is to use make:
+Below outlines how to setup MusicBrainz server with Carton.
 
-1)  Build Makefile
 
-    Some sections are marked optional, but you are encouraged to accept the
-    defaults and install everything. Optional sections are generally there for
-    the convenience of the master server which uses a slightly different stack.
+1)  Prerequisities
 
-        perl ./Makefile.PL
+    Before you get started you will actually need to have Carton installed as
+    MusicBrainz does not yet ship with an executable. There are also a few
+    development headers that will be needed when installing dependencies. Run
+    the following steps as a normal user on your system.
+
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached
+        sudo cpan Carton
+
+    NOTE: This installs Carton at the system level, if you prefer to install
+    this in your home directory, use http://search.cpan.org/perldoc?local::lib .
 
 2)  Install dependencies
 
-    This above will have generated a standard Makefile which you can use to
-    automatically install dependencies by running:
+    To install the dependencies for MusicBrainz server, first make sure you are
+    in the MusicBrainz source code directory and run the following:
 
-        sudo make installdeps
+        carton install --deployment
 
-    NOTE: You will have to manually install some of the dependencies by running 
-    (on Debian-derived systems):
-
-        # OSSP::UUID
-        sudo apt-get install libossp-uuid-perl
-
-        # Test::WWW::Mechanize
-        sudo apt-get install libtest-www-mechanize-perl
-
-    If you have trouble installing any of the dependencies you may have to
-    force their installation by running:
-
-        sudo cpan -f Module::Name
-
-Some systems run into problems by this method, which sets up everything at a system level,
-and thus is subject to version issues and other conflicts with package-manager-installed 
-modules.
-
-One alternate approach is to depend as minimally as possible on system installations, using 
-instead a userspace-installed set of Perl modules. This can be done with local::lib; see 
-http://search.cpan.org/perldoc?local::lib for details on setting up this system to install 
-modules to a user-specific path. This method is frequently paired with use of cpanm (on CPAN 
-as App::cpanminus), which is designed to be a minimal, no-fuss way of installing things from CPAN. 
-For more details on cpanm (including installation), see http://search.cpan.org/perldoc?App::cpanminus
-
-OSSP::UUID and Test::WWW::Mechanize typically have to be system-installed no matter your strategy.
-
-It can't be stressed enough that this step is very dependent on the specifics of your system and
-its Perl setup. If things go wrong here, the solution *will* be to learn more about your own
-system and about Perl.
+    Note that if you've previously used this command in the musicbrainz folder it
+    will not always upgrade all packages to their correct version.  If you're
+    having trouble running musicbrainz, run "rm -rf local" in the musicbrainz
+    directory to remove all packages previously installed by carton, and then run
+    the above step again.
 
 
 Creating the database
@@ -158,20 +143,22 @@ Creating the database
 
 1)  Install PostgreSQL Extensions
 
-    Before you start, you need to install the PostgreSQL Extensions on your database
-    server. To build the musicbrainz_unaccent extension run these commands:
+    Before you start, you need to install the PostgreSQL Extensions on your
+    database server. To build the musicbrainz_unaccent extension run these
+    commands:
 
         cd postgresql-musicbrainz-unaccent
         make
         sudo make install
         cd ..
 
-    To build our collate extension you will need libicu and it's development files,
-    to install these run:
+    To build our collate extension you will need libicu and it's development
+    files, to install these run:
 
         sudo apt-get install libicu-dev
 
-    With libicu installed, you can build and install the collate extension by running:
+    With libicu installed, you can build and install the collate extension by
+    running:
 
         cd postgresql-musicbrainz-collate
         make
@@ -180,7 +167,8 @@ Creating the database
 
     Note: If you are using Ubuntu 11.10, the collate extension currently does
     not work with gcc 4.6 and needs to be built with an older version such as
-    gcc 4.4. To do this, run "sudo apt-get install gcc-4.4" and then run the following:
+    gcc 4.4. To do this, run "sudo apt-get install gcc-4.4" and then run the
+    following:
 
         cd postgresql-musicbrainz-collate
         CC=gcc-4.4 make -e
@@ -193,9 +181,9 @@ Creating the database
     For normal operation, the server only needs to connect from one or two OS
     users (whoever your web server / crontabs run as), to one database (the
     MusicBrainz Database), as one PostgreSQL user. The PostgreSQL database name
-    and user name are given in DBDefs.pm (look for the "READWRITE" key).
-    For example, if you run your web server and crontabs
-    as "www-user", the following configuration recipe may prove useful:
+    and user name are given in DBDefs.pm (look for the "READWRITE" key).  For
+    example, if you run your web server and crontabs as "www-user", the
+    following configuration recipe may prove useful:
 
         # in pg_hba.conf (Note: The order of lines is important!):
         local    musicbrainz_db    musicbrainz    ident    mb_map
@@ -204,8 +192,8 @@ Creating the database
         mb_map    www-user    musicbrainz
 
     Alternatively, if you are running a server for development purposes and
-    don't require any special access permissions, the following configuration
-    in pg_hba.conf will suffice (make sure to insert this line before any other
+    don't require any special access permissions, the following configuration in
+    pg_hba.conf will suffice (make sure to insert this line before any other
     permissions):
 
         local   all    all    trust
@@ -214,28 +202,28 @@ Creating the database
 3)  Create the databases
 
     You have two options when it comes to databases. You can either opt for a
-    clean database with just the schema (useful for developers with limited
-    disk space), or you can import a full database dump.
+    clean database with just the schema (useful for developers with limited disk
+    space), or you can import a full database dump.
 
     a)  Use a clean database
 
         To use a clean database, all you need to do is run:
 
-            ./admin/InitDb.pl --createdb --clean
+            carton exec ./admin/InitDb.pl -- --createdb --clean
 
     b)  Import an NGS database dump
 
-        The easiest way to import the database is to use a database dump.
-        These dumps are provided twice a week and are available here:
+        The easiest way to import the database is to use a database dump.  These
+        dumps are provided twice a week and are available here:
 
             ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
 
-        To get going, you need at least the mbdump.tar.bz2, mbdump-editor.tar.bz2
-        and mbdump-derived.tar.bz2 archives, but you can grab whichever dumps suit
-        your needs. Assuming the dumps have been downloaded to /tmp/dumps/ you
-        can import them with:
+        To get going, you need at least the mbdump.tar.bz2,
+        mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
+        grab whichever dumps suit your needs. Assuming the dumps have been
+        downloaded to /tmp/dumps/ you can import them with:
 
-            ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            carton exec ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
         --echo just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
@@ -246,9 +234,9 @@ Creating the database
 
         CreateFunctions.sql:33: ERROR:  language "plpgsql" does not exist
 
-    To resolve that login to postgresql with the "postgres" user (or
-    any other postgresql user with SUPERUSER privileges) and load the
-    "plpgsql" language into the database with the following command:
+    To resolve that login to postgresql with the "postgres" user (or any other
+    postgresql user with SUPERUSER privileges) and load the "plpgsql" language
+    into the database with the following command:
 
         postgres=# CREATE LANGUAGE plpgsql;
 
@@ -264,16 +252,16 @@ Starting the server
     output and is much more convenient than having to set up a standalone
     server. Just run:
 
-        ./script/musicbrainz_server.pl -r
+        carton exec -- plackup -Ilib -r
 
-    Visiting http://your.machines.ip.address:3000 should now present you with
+    Visiting http://your.machines.ip.address:5000 should now present you with
     your own running instance of the MusicBrainz Server.
 
 2)  Troubleshooting
 
-    If you have any difficulties, please feel free to contact ocharles or warp in
-    #musicbrainz-devel on irc.freenode.net, or email the developer mailing list
-    at musicbrainz-devel [at] lists.musicbrainz.org.
+    If you have any difficulties, please feel free to contact ocharles or warp
+    in #musicbrainz-devel on irc.freenode.net, or email the developer mailing
+    list at musicbrainz-devel [at] lists.musicbrainz.org.
 
     If you find any bugs, please report them on http://tickets.musicbrainz.org.
 

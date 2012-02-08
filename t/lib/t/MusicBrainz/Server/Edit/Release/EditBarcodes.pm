@@ -39,9 +39,9 @@ cmp_set($edit->related_entities->{release_group},
 my $r1 = $c->model('Release')->get_by_id(1);
 my $r2 = $c->model('Release')->get_by_id(2);
 is($r1->edits_pending, 3);
-is($r1->barcode, '731453398122');
+is($r1->barcode->format, '731453398122');
 is($r2->edits_pending, 1);
-is($r2->barcode, undef);
+is($r2->barcode->format, '');
 
 reject_edit($c, $edit);
 
@@ -51,9 +51,9 @@ accept_edit($c, $edit);
 $r1 = $c->model('Release')->get_by_id(1);
 $r2 = $c->model('Release')->get_by_id(2);
 is($r1->edits_pending, 2);
-is($r1->barcode, '5099703257021');
+is($r1->barcode->format, '5099703257021');
 is($r2->edits_pending, 0);
-is($r2->barcode, '5199703257021');
+is($r2->barcode->format, '5199703257021');
 
 };
 

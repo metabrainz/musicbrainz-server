@@ -411,7 +411,7 @@ sub _merge_form_arguments {
     my @recording_merges = $c->model('Release')->determine_recording_merges(@releases);
     for my $recordings (@recording_merges) {
         my @ac_ids = map { $_->artist_credit_id } @$recordings;
-        if (uniq @ac_ids > 1) {
+        if (uniq(@ac_ids) > 1) {
             push @bad_recording_merges, $recordings;
         }
     }

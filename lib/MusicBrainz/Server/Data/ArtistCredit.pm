@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
+use namespace::autoclean -also => [qw( _clean )];
 
 use Data::Compare;
 use MusicBrainz::Server::Entity::Artist;
@@ -244,9 +245,9 @@ sub replace {
 
     return if Compare($old_ac, $new_ac);
 
-
     my $old_credit_id = $self->find ($old_ac) or return;
     my $new_credit_id = $self->find_or_insert($new_ac);
+    return if $old_credit_id == $new_credit_id;
 
     for my $table (qw( recording release release_group track )) {
         $self->c->sql->do(

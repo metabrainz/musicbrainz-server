@@ -74,7 +74,7 @@
       [%- IF NOT confirmed AND name -%]
       <div class="confirm-recording">
 
-        <h3 style="margin-left: 1em">Suggested recording:</h3>
+        <h3 style="margin-left: 1em">[% l('Suggested recording:') %]</h3>
         [%- recording = suggestions.0 or suggestions.1 -%]
         <p style="margin: 1em 1em 1em 3em;">
           [%- link_entity (recording) %] ([%- recording.length | format_length -%])<br />
@@ -188,7 +188,7 @@
       <table class="disc-template" style="display: none">
         <thead>
           <tr>
-            <th></th><th style="text-align: left">track</th><th style="text-align: left">recording</th><th> </th>
+            <th></th><th style="text-align: left">[% l('track') %]</th><th style="text-align: left">[% l('recording') %]</th><th> </th>
           </tr>
         </thead>
         <tbody>
@@ -259,7 +259,7 @@
         <table>
           <thead>
           <tr>
-            <th></th><th style="text-align: left">track</th><th style="text-align: left">recording</th><th> </th>
+            <th></th><th style="text-align: left">[% l('track') %]</th><th style="text-align: left">[% l('recording') %]</th><th> </th>
           </tr>
           </thead>
           <tbody>
@@ -273,17 +273,19 @@
             [%- END -%]
             [%- recording = suggestions.$medium_idx.$track_idx.0;
                 USE Compare;
-                recording_track_differ = !Compare.compare(
+                recording_track_differ = recording && !Compare.compare(
                     { name => track.name
                     , artist_credit => track.artist_credit
+                    , length => track.length
                     },
                     { name => recording.name
                     , artist_credit => recording.artist_credit.to_ref
+                    , length => recording.length
                     }
                 )
             -%]
             <tr class="track">
-              <td rowspan="[% recording_track_differ ? 3 : 2 %]"
+              <td rowspan="3"
                   class="position"
                   style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%">
                 [% track.position | html %]
@@ -349,14 +351,14 @@
               </td>
             </tr>
 
-            [% IF recording_track_differ %]
             <tr>
               <td colspan="3">
+                <span style="display: [% recording_track_differ ? 'visible' : 'none' %]">
                 [% r.checkbox(assoc.field('update_recording'), { class => 'copy-to-recording' }) %]
                 [% l('Also update the recording with track changes') %]
+                </span>
               </td>
             </tr>
-            [% END %]
           [%- END -%]
           </tbody>
         </table>

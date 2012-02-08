@@ -6,6 +6,7 @@ use Data::TreeValidator::Sugar qw( branch leaf );
 use Data::TreeValidator::Constraints qw( required );
 use MusicBrainz::Data::TreeValidator::Constraints qw( integer partial_date );
 use MusicBrainz::Data::TreeValidator::Transformations qw( collapse_whitespace );
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;

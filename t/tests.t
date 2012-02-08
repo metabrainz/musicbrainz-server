@@ -8,20 +8,16 @@ use Test::Routine::Util;
 
 use MusicBrainz::Server::Test qw( commandline_override );
 
-my $data_mpo = Module::Pluggable::Object->new(
-    search_path => 't::MusicBrainz::Server::Data');
-
-my $entity_mpo = Module::Pluggable::Object->new(
-    search_path => 't::MusicBrainz::Server::Entity');
-
-my $form_mpo = Module::Pluggable::Object->new(
-    search_path => 't::MusicBrainz::Server::Form');
-
 my @classes = (
-    $data_mpo->plugins,
-    $entity_mpo->plugins,
-    $form_mpo->plugins,
-    't::MusicBrainz::Server::Filters'
+    't::MusicBrainz::Server::Filters',
+    map {
+        Module::Pluggable::Object->new( search_path => $_ )->plugins
+    } (
+        't::MusicBrainz::Server::Data',
+        't::MusicBrainz::Server::EditSearch',
+        't::MusicBrainz::Server::Entity',
+        't::MusicBrainz::Server::Form',
+    )
 );
 
 @classes = commandline_override ("t::MusicBrainz::Server::", @classes);

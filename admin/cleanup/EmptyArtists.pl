@@ -49,8 +49,8 @@ my $verbose;
 my $summary = 1;
 
 my $c = MusicBrainz::Server::Context->create_script_context();
-my $sql = Sql->new($c->dbh);
-my $sqlWrite = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
+my $sqlWrite = Sql->new($c->conn);
 
 GetOptions(
     "automod!"          => \$use_auto_mod,

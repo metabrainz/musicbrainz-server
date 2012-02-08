@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::FreeDB;
 use Moose;
+use namespace::autoclean;
 
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
@@ -130,7 +131,8 @@ sub _cached_command
             $r = $self->$response_parser($response);
         }
 
-        $cache->set($cache_key => $r);
+        $cache->set($cache_key => $r) if $r;
+
         return $r;
     }
 }
