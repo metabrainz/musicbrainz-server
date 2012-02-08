@@ -73,6 +73,7 @@ requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'Package::Stash'                             => '0.29';
 requires 'Readonly'                                   => '1.03';
+requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';

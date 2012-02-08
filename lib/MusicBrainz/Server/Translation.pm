@@ -58,7 +58,7 @@ sub gettext
 
     $self->_set_language;
 
-    $msgid =~ s/\r*\n\s*/ /xmsg;
+    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
     return _expand(__($msgid), %vars) if $msgid;
 }
