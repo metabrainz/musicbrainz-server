@@ -9,7 +9,6 @@
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[% c.uri_for('view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]><script src="[% c.uri_for("../../static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
