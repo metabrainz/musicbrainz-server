@@ -313,10 +313,10 @@ MB.constants.CLEANUPS = {
     streamingmusic: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/|vimeo\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.streamingmusic,
-        clean: function(url) { 
+        clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
             //YouTube URL shortener
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtu\.be\/([a-zA-Z0_9_-]+)/, "http://www.youtube.com/watch?v=$2");
+            url = url.replace(/^youtu\.be\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
             //YouTube standard watch URL
             url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "http://www.youtube.com/watch?$1");
             //YouTube embeds
