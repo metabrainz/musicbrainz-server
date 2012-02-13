@@ -228,12 +228,16 @@ sub attach : Local
                                             { track_count => $cdtoc->track_count });
             });
             my @releases = map { $_->entity } @$releases;
-            $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
+
+            my @tracks = map { $_->all_tracks } map { $_->tracklist } @mediums;
+            $c->model('Recording')->load(@tracks);
+            $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
+
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 results => $releases
