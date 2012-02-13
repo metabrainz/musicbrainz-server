@@ -33,6 +33,7 @@ my @all = qw(
     SuperfluousDataTracks
     TracksNamedWithSequence
     TracksWithSequenceIssues
+    UnlinkedPseudoReleases
     SomeFormatsUnset
 );
 
@@ -65,6 +66,7 @@ use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
+use MusicBrainz::Server::Report::UnlinkedPseudoReleases;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 
 my %all = map { $_ => 1 } @all;
