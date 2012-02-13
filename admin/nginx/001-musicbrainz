@@ -75,6 +75,15 @@ server {
         fastcgi_param  SERVER_ADDR        $server_addr;
         fastcgi_param  SERVER_PORT        $server_port;
         fastcgi_param  SERVER_NAME        $server_name;
+
+        gzip  on;
+        gzip_http_version 1.0;
+        gzip_comp_level 6;
+        gzip_proxied any;
+        gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+        # make sure gzip does not lose large gzipped js or css files
+        # see http://blog.leetsoft.com/2007/7/25/nginx-gzip-ssl
+        gzip_buffers 16 8k;
     }
 
     include /etc/nginx/mbserver-rewrites.conf;
