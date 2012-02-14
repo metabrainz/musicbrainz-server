@@ -18,12 +18,14 @@ FROM release r
                 FROM link_type lt
                 WHERE lt.name='transl-tracklisting'
         )
+        JOIN artist_credit ac ON r.artist_credit = ac.id
+        JOIN artist_name an ON ac.name = an.id
 WHERE r.status IN (
         SELECT rs.id
         FROM release_status rs
         WHERE rs.name = 'Pseudo-Release'
 ) AND lrr.link IS NULL
-ORDER BY r.artist_credit, r.name;
+ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name);
     ");
 }
 
