@@ -817,6 +817,25 @@ my %stats = (
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
         DB => 'READWRITE'
     },
+    "count.edit.type" => {
+	DESC => "Count of edits by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+	    my $data = $sql->select_list_of_lists(
+                "SELECT type, count(id) AS count 
+		FROM edit GROUP BY type",
+	    );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.edit.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+	}
+    },
 
     "count.cdstub" => {
         DESC => "Count of all existing CD Stubs",
