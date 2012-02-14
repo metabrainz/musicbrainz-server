@@ -225,7 +225,8 @@ MB.TrackParser.Track = function (position, line, parent) {
 
     self.regex = {
         vinyl: /^\s*[０-９0-9a-z]+(\.|\s|$)/i,
-        trkno: /^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/
+        // Leading "M." is for Japanese releases. MBS-3398
+        trkno: /^\s*(M.)?([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/
     }
 
     self.ignoreTrack = function () {
