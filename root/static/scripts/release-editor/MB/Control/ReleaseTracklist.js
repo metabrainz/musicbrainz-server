@@ -186,9 +186,52 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$acrow.remove ();
     };
 
+
+    /**
+     * set or read track position.
+     */
+    self.position = function (val) {
+        if (val !== undefined)
+        {
+            self.$position.val (val);
+        }
+
+        return parseInt (self.$position.val (), 10);
+    };
+
+
+    /**
+     * move the track up/down.
+     */
+    self.moveUp = function ()
+    {
+        var pos = self.position ();
+        if (pos > 1)
+        {
+            self.position (pos - 1);
+            // sorted_tracks is zero-based.
+            self.parent.sorted_tracks[pos - 2].position (pos);
+        }
+
+        self.parent.sort ();
+    };
+
+    self.moveDown = function ()
+    {
+        // sorted_tracks is zero-based.
+        var trk = self.parent.sorted_tracks[self.position ()];
+        if (trk)
+        {
+            trk.moveUp ();
+        }
+    }
+
     self.$length.bind ('blur.mb', self.blurLength);
     self.$row.find ("input.remove-track").bind ('click.mb', self.deleteTrack);
     self.$row.find ("input.guesscase-track").bind ('click.mb', self.guessCase);
+
+    self.$row.find ("input.track-down").bind ('click.mb', self.moveDown);
+    self.$row.find ("input.track-up").bind ('click.mb', self.moveUp);
 
     var $target = self.$row.find ("td.artist input");
     var $button = self.$row.find ("a[href=#credits]");
@@ -238,7 +281,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             if (item.isDeleted ())
                 return;
 
-            var pos = parseInt (item.$position.val ());
+            var pos = parseInt (item.$position.val (), 10);
             if (pos > trackno)
             {
                 trackno = pos;
@@ -272,7 +315,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.addTrackEvent = function (event) {
-        var count = parseInt (self.$add_track_count.val ());
+        var count = parseInt (self.$add_track_count.val (), 10);
 
         if (!count || count < 1)
         {
@@ -305,7 +348,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         var ret = [];
         $.each (self.tracks, function (idx, item) {
-            if (parseInt (item.$position.val ()) === pos)
+            if (parseInt (item.$position.val (), 10) === pos)
             {
                 ret.push (item);
             }
@@ -338,7 +381,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         $.each (self.tracks, function (idx, item) { self.sorted_tracks.push (item); });
 
         self.sorted_tracks.sort (function (a, b) {
-            return parseInt (a.$position.val ()) - parseInt (b.$position.val ());
+            return parseInt (a.$position.val (), 10) - parseInt (b.$position.val (), 10);
         });
 
         $.each (self.sorted_tracks, function (idx, track) {
@@ -454,7 +497,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             self.$fieldset.find ('span.discnum').text (val);
         }
 
-        return parseInt (self.$position.val ());
+        return parseInt (self.$position.val (), 10);
     };
 
     self.submit = function () {
@@ -693,7 +736,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$table = self.$fieldset.find ('table.medium');
     self.$artist_column_checkbox = self.$table.find ('th.artist input');
 
-    self.number = parseInt (self.$fieldset.attr ('id').match ('mediums\.([0-9]+)\.advanced-disc')[1]);
+    self.number = parseInt (self.$fieldset.attr ('id').match ('mediums\.([0-9]+)\.advanced-disc')[1], 10);
 
     self.various_artists = false;
     self.expanded = false;
