@@ -35,6 +35,7 @@ my @all = qw(
     TracksWithSequenceIssues
     UnlinkedPseudoReleases
     SomeFormatsUnset
+    MediumsWithSequenceIssues
 );
 
 use MusicBrainz::Server::Report::DuplicateArtists;
@@ -53,6 +54,7 @@ use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
+use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;
 use MusicBrainz::Server::Report::NoLanguage;
