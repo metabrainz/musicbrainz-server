@@ -57,7 +57,6 @@ sub run
 
     my ($first, $last, $seen, $updated);
 
-    $self->sql->begin;
     while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
                (my $release = shift @releases))
     {
@@ -68,7 +67,9 @@ sub run
         $first //= $release->cover_art->last_updated;
         $last = $release->cover_art->last_updated;
 
+        $self->sql->begin;
         my $art = $self->c->model('CoverArt')->cache_cover_art($release);
+        $self->sql->commit;
 
         if ($art) {
             log_debug { sprintf "Cover art for %d is %s", $release->id, $art->image_uri };
@@ -84,7 +85,6 @@ sub run
         }
     }
     $self->sql->finish;
-    $self->sql->commit;
 
     log_notice {
         sprintf "Examined %d (%.2f%%) cover art rows, last updated between %s and %s. ".
