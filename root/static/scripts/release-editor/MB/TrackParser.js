@@ -21,8 +21,8 @@
 MB.TrackParser = (MB.TrackParser) ? MB.TrackParser : {};
 
 // These are all different types of dash
-MB.TrackParser.separatorRegex = /\s+[\-‒–—―]\s+/;
-MB.TrackParser.separators = ['-', '‒', '–', '—', '―'];
+MB.TrackParser.separatorRegex = /\s+[\-‒–—―\t]\s+/;
+MB.TrackParser.separators = ['-', '‒', '–', '—', '―', "\t"];
 
 MB.TrackParser.Artist = function (track, artist) {
     var self = MB.Object ();
