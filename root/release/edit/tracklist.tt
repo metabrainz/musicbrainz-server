@@ -164,6 +164,7 @@
 
   <div class="add-disc-dialog dialog" style="display: none">
     <h1>[% l('Add Disc') %]</h1>
+    [% l('To create a new tracklist, use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]
 
     <div class="tabs">
       <ul class="tabs">
@@ -176,8 +177,7 @@
 
     <div class="add-disc-tab manual">
         <p>
-        [% l('To use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]
-        [% l('Alternatively, enter a tracklist below:') %]
+        [% l('Enter a tracklist below:') %]
         </p>
 
         <textarea class="tracklist"></textarea>
