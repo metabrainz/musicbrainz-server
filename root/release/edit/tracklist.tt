@@ -96,6 +96,7 @@
 
 [%- MACRO tracklist_pager BLOCK -%]
 <div class="pager" style="width: 100%; text-align: right; display: none;">
+  <p style="text-align: left">[% l('Select a disc from the search results below and then click "Add Disc".') %]</p>
   <a href="#prev">&lt;&lt;</a>
   <span class="pager"></span>
   <a href="#next">&gt;&gt;</a>
