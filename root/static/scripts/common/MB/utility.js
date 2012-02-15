@@ -213,3 +213,12 @@ MB.utility.unformatTrackLength = function (duration)
 
     return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
 };
+
+MB.utility.renderArtistCredit = function (ac) {
+    var html = '';
+    $.each(ac.names, function(name) {
+        html += this.name + this.join_phrase
+    });
+
+    return html;
+}
