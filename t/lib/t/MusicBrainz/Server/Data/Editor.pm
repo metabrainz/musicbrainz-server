@@ -6,7 +6,7 @@ use Test::More;
 use DateTime;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
+use MusicBrainz::Server::Constants qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
 use Sql;
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }

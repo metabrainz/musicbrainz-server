@@ -4,7 +4,7 @@ use namespace::autoclean;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-use MusicBrainz::Server::Types qw( :edit_status :vote );
+use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
 

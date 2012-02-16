@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Entity::AutoEditorElectionVote;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Types qw( :election_vote );
+use MusicBrainz::Server::Constants qw( :election_vote );
+use MusicBrainz::Server::Types qw( VoteOption DateTime );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -22,13 +24,13 @@ has [qw( election_id voter_id )] => (
 );
 
 has 'vote_time' => (
-    isa => 'DateTime',
+    isa => DateTime,
     is  => 'rw',
     coerce => 1,
 );
 
 has 'vote' => (
-    isa => 'VoteOption',
+    isa => VoteOption,
     is  => 'rw'
 );
 
@@ -70,7 +72,7 @@ The editor who cast the vote
 
 =head2 vote
 
-The vote. See L<MusicBrainz::Server::Types/VoteOption>.
+The vote. See L<MusicBrainz::Server::Constants/VoteOption>.
 
 =head2 vote_time
 

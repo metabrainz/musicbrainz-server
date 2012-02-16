@@ -16,7 +16,7 @@ with 't::Context';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 has edit => (

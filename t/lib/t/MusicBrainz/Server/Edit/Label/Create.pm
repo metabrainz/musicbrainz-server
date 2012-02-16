@@ -7,7 +7,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Label::Create; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {

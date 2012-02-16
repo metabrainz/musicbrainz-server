@@ -17,13 +17,14 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETE $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Translation qw ( l ln );
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CHANGE_QUALITY
     $EDIT_RELEASE_MOVE
     $EDIT_RELEASE_MERGE
+    $EDIT_RELEASE_REMOVE_COVER_ART
 );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -370,6 +371,51 @@ sub collections : Chained('load') RequireAuth
     );
 }
 
+sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
+{
+    my ($self, $c) = @_;
+
+    # FIXME: remove Chained('load') ?
+    $c->stash->{filename} = $c->req->params->{key};
+}
+
+sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $entity = $c->stash->{$self->{entity_name}};
+
+    my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
+    my $redirect = $c->uri_for_action('/release/cover_art_uploaded', [ $entity->gid ])->as_string ();
+
+    $c->stash->{form_action} = &DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIX."/$bucket/";
+    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $redirect);
+}
+
+sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $form = $c->form( form => 'Release::AddCoverArt' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+
+        $self->_insert_edit(
+            $c, $form,
+            edit_type => $EDIT_RELEASE_ADD_COVER_ART,
+
+            # FIXME: rename to "to_edit"
+            release => $entity,
+            cover_art_url => $form->field ("filename")->value,
+            cover_art_type => $form->field ("type")->value,
+            cover_art_page => $form->field ("page")->value,
+        );
+
+        $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
+        $c->detach;
+    }
+}
+
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
     confirmation_template => 'release/merge_confirm.tt',
@@ -507,6 +553,38 @@ around _merge_submit => sub {
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
+
+sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit RequireAuth {
+    my ($self, $c, $type, $page) = @_;
+
+    my $release = $c->stash->{entity};
+    my $artwork = $c->model ('CoverArtArchive')->find_artwork($release->gid, $type, $page)
+        or $c->detach('/error_404');
+
+    $c->stash( artwork => $artwork );
+
+    $self->edit_action($c,
+        form        => 'Confirm',
+        type        => $EDIT_RELEASE_REMOVE_COVER_ART,
+        edit_args   => {
+            release       => $release,
+            cover_art_type => $type,
+            cover_art_page => $page
+        },
+        on_creation => sub {
+            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
+            $c->detach;
+        }
+    )
+}
+
+sub cover_art : Chained('load') PathPart('cover-art') {
+    my ($self, $c) = @_;
+    my $release = $c->stash->{entity};
+    $c->stash(
+        cover_art => { $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
+    );
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

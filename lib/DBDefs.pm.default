@@ -295,6 +295,12 @@ sub AWS_PUBLIC { '' }
 
 sub AMAZON_ASSOCIATE_TAG { '' }
 
+# internet archive private/public keys (for coverartarchive.org).
+sub COVER_ART_ARCHIVE_ID { };
+sub COVER_ART_ARCHIVE_KEY { };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIX { "http://s3.amazonaws.com" };
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
+
 ################################################################################
 # Sessions (advanced)
 ################################################################################

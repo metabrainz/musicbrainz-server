@@ -8,7 +8,7 @@ use Test::Fatal;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Types qw( :election_status :election_vote );
+use MusicBrainz::Server::Constants qw( :election_status :election_vote );
 use Sql;
 
 with 't::Context';

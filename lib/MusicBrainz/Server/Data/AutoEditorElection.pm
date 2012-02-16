@@ -6,7 +6,7 @@ use Readonly;
 use MusicBrainz::Server::Entity::AutoEditorElection;
 use MusicBrainz::Server::Entity::AutoEditorElectionVote;
 use MusicBrainz::Server::Data::Utils qw( hash_to_row query_to_list );
-use MusicBrainz::Server::Types qw( :election_status :election_vote );
+use MusicBrainz::Server::Constants qw( :election_status :election_vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
 

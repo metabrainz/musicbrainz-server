@@ -15,7 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     type_to_model
 );
-use MusicBrainz::Server::Types qw( :edit_status :privileges );
+use MusicBrainz::Server::Constants qw( :edit_status :privileges );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {

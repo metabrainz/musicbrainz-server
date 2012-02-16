@@ -1,0 +1,20 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details remove-cover-art">
+  <tr>
+    <th>[% l('Release:') %]</th>
+    <td>[% link_entity(edit.display_data.release) %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Cover art:') %]</th>
+    <td>
+      [% IF edit.is_open %]
+        <img src="[% edit.display_data.artwork.artwork %]" /><br />
+      [% ELSE %]
+        [% l('We are unable to display history for cover art. For a current listing
+              of cover art, please see the releases cover art page.') %]
+      [% END %]
+    </td>
+  </tr>
+</table>

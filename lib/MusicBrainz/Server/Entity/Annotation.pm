@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Entity::Annotation;
 
 use Moose;
-use MusicBrainz::Server::Types;
+use MusicBrainz::Server::Types qw( DateTime );
 use MusicBrainz::Server::Entity::Types;
+
+use namespace::autoclean;
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
@@ -34,7 +36,7 @@ has 'changelog' => (
 
 has 'creation_date' => (
     is => 'rw',
-    isa => 'DateTime',
+    isa => DateTime,
     coerce => 1
 );
 

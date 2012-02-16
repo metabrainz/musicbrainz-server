@@ -19,7 +19,7 @@ with 't::Context';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED $STATUS_FAILEDVOTE);
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED $STATUS_FAILEDVOTE);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 has edit => (

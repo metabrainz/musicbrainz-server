@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::Role::EditListing;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 
 requires '_load_paged';
 
