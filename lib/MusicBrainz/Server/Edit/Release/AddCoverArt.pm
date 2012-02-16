@@ -106,6 +106,11 @@ sub accept {
 
     # Remove the pending stuff
     $self->cleanup;
+
+    # Mark that we now have cover art for this release
+    $self->c->model('CoverArtArchive')->update_cover_art_presence(
+        $release->id, 1
+    );
 }
 
 sub reject {

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::CoverArtArchive;
 use Moose;
 
-with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::Sql';
 
 use DBDefs;
 use Net::Amazon::S3;
@@ -153,6 +153,30 @@ sub merge_releases {
 
         # Delete the bucket
     }
+
+    # Update the target release_meta
+    my %gid_map = %{ $self->c->model('Release')->get_by_gids($target_mbid, @source_mbids) };
+    $self->c->model('Release')->load_meta(values %gid_map);
+
+    my %states;
+    $states{$_} = $_ for map { $_->cover_art_presence } values %gid_map;
+
+    $self->sql->do(
+        'UPDATE release_meta SET cover_art_presence = ? WHERE id = ?',
+        $states{darkened} || $states{present} || 'absent',
+        $gid_map{$target_mbid}->id
+    );
+}
+
+sub update_cover_art_presence {
+    my ($self, $release_id, $present) = @_;
+    $self->sql->do(
+        'UPDATE release_meta SET cover_art_presence = ?
+         WHERE release_id = ? cover_art_presence != ?',
+        $present ? 'present' : 'absent',
+        $release_id,
+        'darkened'
+    );
 }
 
 1;

@@ -221,6 +221,15 @@ has 'cover_art' => (
     predicate => 'has_cover_art',
 );
 
+has 'cover_art_presence' => (
+    isa => 'Str',
+    is => 'rw'
+);
+
+sub may_have_cover_art {
+    return shift->cover_art_presence ne 'darkened';
+}
+
 sub find_medium_for_recording {
     my ($self, $recording) = @_;
     for my $medium ($self->all_mediums) {
