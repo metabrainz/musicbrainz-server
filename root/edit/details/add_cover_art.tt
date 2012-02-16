@@ -23,7 +23,8 @@
         <img src="[% edit.display_data.cover_art_url %]" />
       [% ELSE %]
         [% l('We are unable to display history for cover art. For a current listing
-              of cover art, please see the releases cover art page.') %]
+              of cover art, please see the {coverart|releases cover art page}.',
+              { coverart => c.uri_for_action('/release/cover_art/', [ edit.display_data.release.gid ]) }) %]
       [% END %]
     </td>
   </tr>
