@@ -493,6 +493,7 @@ div.warning img.warning {
 
 table.tbl tr.mp td,
 span.mp,
+div.mp,
 tr.diff-changes {
     background: #FD9 !important;
 }
