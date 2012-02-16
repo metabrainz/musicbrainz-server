@@ -71,42 +71,6 @@ sub accept {
             'This release no longer exists'
         );
 
-    my $target_url = join(
-        '-',
-        'mbid',
-        $release->gid,
-        $self->data->{cover_art_type},
-        $self->data->{cover_art_page}
-    ) . '.jpg';
-
-    my $edit_id = $self->id;
-
-    # Remove the existing image
-    my $res = $self->lwp->request(
-        DeleteObject->new(
-            s3     => $self->s3,
-            bucket => $self->bucket_name,
-            key    => $target_url
-        )->http_request
-    );
-
-    # Move this cover art to replace it
-    $res = $self->lwp->request(
-        PutObject->new(
-            s3      => $self->s3,
-            bucket  => $self->bucket_name,
-            key     => $target_url,
-            headers => {
-                'x-amz-copy-source' => '/' . $self->bucket_name . '/' . $self->data->{cover_art_url},
-                'x-amz-acl' => 'public-read'
-            },
-            value => ''
-        )->http_request
-    );
-
-    # Remove the pending stuff
-    $self->cleanup;
-
     # Mark that we now have cover art for this release
     $self->c->model('CoverArtArchive')->update_cover_art_presence(
         $release->id, 1
@@ -114,10 +78,6 @@ sub accept {
 }
 
 sub reject {
-    shift->cleanup;
-}
-
-sub cleanup {
     my $self = shift;
 
     # Remove the pending stuff

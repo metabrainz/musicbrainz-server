@@ -561,11 +561,11 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
 
-sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit RequireAuth {
-    my ($self, $c, $type, $page) = @_;
+sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit RequireAuth {
+    my ($self, $c, $id) = @_;
 
     my $release = $c->stash->{entity};
-    my $artwork = $c->model ('CoverArtArchive')->find_artwork($release->gid, $type, $page)
+    my $artwork = $c->model ('CoverArtArchive')->find_artwork($release->gid, $id)
         or $c->detach('/error_404');
 
     $c->stash( artwork => $artwork );
@@ -575,8 +575,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit
         type        => $EDIT_RELEASE_REMOVE_COVER_ART,
         edit_args   => {
             release       => $release,
-            cover_art_type => $type,
-            cover_art_page => $page
+            cover_art_id  => $id
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));

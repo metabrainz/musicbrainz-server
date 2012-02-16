@@ -7,6 +7,7 @@ use DBDefs;
 use Net::Amazon::S3;
 use Net::CoverArtArchive qw( find_available_artwork find_artwork );
 use XML::XPath;
+use Time::HiRes qw( time );
 use Try::Tiny;
 
 use aliased 'Net::Amazon::S3::Request::DeleteBucket';
@@ -96,7 +97,7 @@ sub post_fields
 
     use Net::Amazon::S3::Policy qw( starts_with );
     my $policy = Net::Amazon::S3::Policy->new(expiration => time() + 3600);
-    my $filename = '.pending-'.time.'.jpg';
+    my $filename = "mbid-$mbid-" . int((time() - 1327528905) * 100) . 'jpg';
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
@@ -125,13 +126,13 @@ sub merge_releases {
             my $source_bucket = "mbid-$source";
 
             # If the target does not have it, copy it
-            unless ($caa->find_artwork($target_mbid, $artwork->type, $artwork->page)) {
+            unless ($caa->find_artwork($target_mbid, $artwork->id)) {
                 $self->c->lwp->request(
                     PutObject->new(
                         s3      => $self->s3,
                         bucket  => "mbid-$target_mbid",
                         key     => join('-', 'mbid', $target_mbid,
-                                        $artwork->type, $artwork->page) . '.jpg',
+                                        $artwork->id) . '.jpg',
                         headers => {
                             'x-amz-copy-source' => "/$source_bucket/$source_file",
                             'x-amz-acl' => 'public-read'

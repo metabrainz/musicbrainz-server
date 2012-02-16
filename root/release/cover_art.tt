@@ -37,7 +37,7 @@
             </a>
           </div>
           <div class="buttons">
-              <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.type, artwork.page) %]">
+              <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
                 [% l('Remove') %]
               </a>
           </div>
