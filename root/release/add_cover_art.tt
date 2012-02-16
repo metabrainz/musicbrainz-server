@@ -39,7 +39,7 @@
      var validate_cover_art_file = function () {
          var filename = $('iframe').contents ().find ('#file').val ();
          var invalid = filename == ""
-                    || filename.match(/\.jpe?g/i) == null;
+                    || filename.match(/\.j(peg|pg|pe|fif|if)$/i) == null;
 
          $('iframe').contents ().find ('#cover-art-file-error').toggle (invalid);
 
