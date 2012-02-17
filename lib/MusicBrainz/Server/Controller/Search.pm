@@ -30,17 +30,18 @@ sub search : Path('')
         if ($form->field('type')->value eq 'annotation' ||
             $form->field('type')->value eq 'freedb'     ||
             $form->field('type')->value eq 'cdstub') {
-            $form->field('direct')->value(0);
+            $form->field('method')->value('indexed')
+                if $form->field('method')->value eq 'direct';
             $c->forward('external');
         }
         elsif ($form->field('type')->value eq 'tag' ||
                $form->field('type')->value eq 'editor')
         {
-            $form->field('direct')->value(1);
+            $form->field('method')->value('direct');
             $c->forward('direct');
         }
         else {
-            $c->forward($form->field('direct')->value ? 'direct' : 'external');
+            $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
     }
     else
@@ -140,7 +141,7 @@ sub external : Private
                               type     => $type,
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
-                              advanced => $form->field('advanced')->value);
+                              advanced => $form->field('method')->value eq 'advanced');
 
     $c->stash->{template} ="search/results-$type.tt";
 }
