@@ -197,7 +197,7 @@ MB.utility.formatTrackLength = function (duration)
 
 MB.utility.unformatTrackLength = function (duration)
 {
-    var parts = duration.replace(/[:.]/, ':').split (":");
+    var parts = duration.replace(/[:\.]/, ':').split (":");
     if (parts.length != 2)
     {
         return null;
