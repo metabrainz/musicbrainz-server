@@ -289,7 +289,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 div.dialog {
     position: absolute;
-    background: #f0f0f0;
+    background: #fafafa;
     border: 1px solid #999;
     padding: 1em;
     width: 600px;
