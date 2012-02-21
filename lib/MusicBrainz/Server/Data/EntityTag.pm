@@ -16,7 +16,7 @@ use Sql;
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 has parent => (
-    isa => 'Object',
+    does => 'MusicBrainz::Server::Data::Role::Tag',
     is => 'ro',
     weak_ref => 1
 );
@@ -406,8 +406,8 @@ sub find_editor_entities
           WHERE editor = ? AND tag = ?',
         $editor_id, $tag_id) };
 
-    my $objs = $self->parent->get_by_ids(@tags);
-    return values %$objs;
+    my $objs = $self->parent->get_by_ids_sorted(@tags);
+    return @$objs;
 }
 
 no Moose;
