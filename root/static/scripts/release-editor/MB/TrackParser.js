@@ -275,14 +275,17 @@ MB.TrackParser.Track = function (position, line, parent) {
         var end = self.parts.length - 1;
         while (end > 0)
         {
-            for (var separator in MB.TrackParser.separators) {
-                var attempt = self.parts.slice (0, end).join (separator);
-                if (attempt === name)
-                {
-                    return {
-                        'track': attempt,
-                        'artist': self.parts.slice (end).join (separator)
-                    };
+            for (var i in MB.TrackParser.separators) {
+                if (MB.TrackParser.separators.hasOwnProperty(i)) {
+                    var separators = MB.TrackParser.separators[i];
+                    var attempt = self.parts.slice (0, end).join (separator);
+                    if (attempt === name)
+                    {
+                        return {
+                            'track': attempt,
+                            'artist': self.parts.slice (end).join (separator)
+                        };
+                    }
                 }
             }
 
