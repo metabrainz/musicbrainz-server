@@ -301,12 +301,6 @@ sub move : Local RequireAuth Edit
                      message => l('The provided medium id is not valid')
             ) unless looks_like_number ($medium_id);
 
-        $self->error(
-            $c,
-            status => HTTP_BAD_REQUEST,
-            message => l('This CDTOC is already attached to this medium')
-        ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
-
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('MediumFormat')->load($medium);
         $self->error(
