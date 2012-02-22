@@ -388,7 +388,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
     my $redirect = $c->uri_for_action('/release/cover_art_uploaded', [ $entity->gid ])->as_string ();
 
-    $c->stash->{form_action} = &DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIX."/$bucket/";
+    $c->stash->{form_action} = DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $redirect);
 }
 

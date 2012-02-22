@@ -103,7 +103,7 @@ sub post_fields
     $policy->add ({'acl' => 'public-read'});
     $policy->add ({'success_action_redirect' => $redirect});
     $policy->add ('$key eq '.$filename);
-    $policy->add ('$Content-Type starts-with image/jpeg');
+    $policy->add ('$content-type starts-with image/jpeg');
 
     return {
         AWSAccessKeyId => $aws_id,
