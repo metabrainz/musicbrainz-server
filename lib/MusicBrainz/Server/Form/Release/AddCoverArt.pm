@@ -14,19 +14,24 @@ has_field 'filename' => (
     required  => 1,
 );
 
-has_field 'type' => (
-    type      => 'Select',
+has_field 'comment' => (
+    type      => 'Text',
     required  => 1,
 );
 
-has_field 'page' => (
+has_field 'type' => (
+    type      => 'Multiple',
+    required  => 1,
+);
+
+has_field 'position' => (
     type      => '+MusicBrainz::Server::Form::Field::Integer',
     required  => 1,
     default => 1,
 );
 
 sub options_type  {
-    # FIXME: move.  (to MusicBrainz/Server/Constants.pm or database?).
+    # FIXME: get from database.
     return ("" => "",
             map { $_ => $_ } qw( front back inner booklet sleeve medium obi spine box other ));
 }
