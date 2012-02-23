@@ -7,6 +7,7 @@ use DBDefs;
 use Net::Amazon::S3;
 use Net::CoverArtArchive qw( find_available_artwork find_artwork );
 use XML::XPath;
+use Time::HiRes qw( time );
 use Try::Tiny;
 
 use aliased 'Net::Amazon::S3::Request::DeleteBucket';
@@ -80,6 +81,9 @@ sub initialize_release
     return $bucket;
 }
 
+sub fresh_id {
+    return int((time() - 1327528905) * 100);
+}
 
 =method post_fields
 
@@ -89,20 +93,21 @@ Generate the policy and form values to upload cover art.
 
 sub post_fields
 {
-    my ($self, $bucket, $mbid, $redirect) = @_;
+    my ($self, $bucket, $mbid, $id, $redirect) = @_;
 
     my $aws_id = &DBDefs::COVER_ART_ARCHIVE_ID;
     my $aws_key = &DBDefs::COVER_ART_ARCHIVE_KEY;
 
     use Net::Amazon::S3::Policy qw( starts_with );
-    my $policy = Net::Amazon::S3::Policy->new(expiration => time() + 3600);
-    my $filename = '.pending-'.time.'.jpg';
+    my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
+    my $filename = "mbid-$mbid-" . $id . '.jpg';
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
     $policy->add ({'success_action_redirect' => $redirect});
     $policy->add ('$key eq '.$filename);
-    $policy->add ('$Content-Type starts-with image/jpeg');
+    $policy->add ('$content-type starts-with image/jpeg');
+    $policy->add ('x-archive-auto-make-bucket eq 1');
 
     return {
         AWSAccessKeyId => $aws_id,
@@ -112,6 +117,7 @@ sub post_fields
         acl => 'public-read',
         "content-type" => 'image/jpeg',
         success_action_redirect => $redirect,
+        "x-archive-auto-make-bucket" => 1
     };
 }
 
@@ -125,13 +131,13 @@ sub merge_releases {
             my $source_bucket = "mbid-$source";
 
             # If the target does not have it, copy it
-            unless ($caa->find_artwork($target_mbid, $artwork->type, $artwork->page)) {
+            unless ($caa->find_artwork($target_mbid, $artwork->id)) {
                 $self->c->lwp->request(
                     PutObject->new(
                         s3      => $self->s3,
                         bucket  => "mbid-$target_mbid",
                         key     => join('-', 'mbid', $target_mbid,
-                                        $artwork->type, $artwork->page) . '.jpg',
+                                        $artwork->id) . '.jpg',
                         headers => {
                             'x-amz-copy-source' => "/$source_bucket/$source_file",
                             'x-amz-acl' => 'public-read'
@@ -176,6 +182,15 @@ sub update_cover_art_presence {
         $present ? 'present' : 'absent',
         $release_id,
         'darkened'
+    );
+}
+
+sub insert_cover_art {
+    my ($self, $release_id, $id, $edit) = @_;
+    $self->sql->do(
+        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id)
+         VALUES (?, ?, ?, ?)',
+        $release_id, $edit, int(time()), $id
     );
 }
 

@@ -384,12 +384,15 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
+    my $id = $c->req->query_params->{id} or die "Need destination ID";
 
     my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
-    my $redirect = $c->uri_for_action('/release/cover_art_uploaded', [ $entity->gid ])->as_string ();
+    my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
+                                      [ $entity->gid ],
+                                      { id => $id })->as_string ();
 
-    $c->stash->{form_action} = &DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIX."/$bucket/";
-    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $redirect);
+    $c->stash->{form_action} = DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
+    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
 sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
@@ -404,7 +407,15 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         $c->detach;
     }
 
-    my $form = $c->form( form => 'Release::AddCoverArt' );
+    my $id = $c->model('CoverArtArchive')->fresh_id;
+    $c->stash( id => $id );
+
+    my $form = $c->form(
+        form => 'Release::AddCoverArt',
+        item => {
+            id => $id
+        }
+    );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
         $self->_insert_edit(
@@ -416,6 +427,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             cover_art_url => $form->field ("filename")->value,
             cover_art_type => $form->field ("type")->value,
             cover_art_page => $form->field ("page")->value,
+            cover_art_id => $form->field('id')->value
         );
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
@@ -561,11 +573,11 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
 
-sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit RequireAuth {
-    my ($self, $c, $type, $page) = @_;
+sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit RequireAuth {
+    my ($self, $c, $id) = @_;
 
     my $release = $c->stash->{entity};
-    my $artwork = $c->model ('CoverArtArchive')->find_artwork($release->gid, $type, $page)
+    my $artwork = $c->model ('CoverArtArchive')->find_artwork($release->gid, $id)
         or $c->detach('/error_404');
 
     $c->stash( artwork => $artwork );
@@ -575,8 +587,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(2) Edit
         type        => $EDIT_RELEASE_REMOVE_COVER_ART,
         edit_args   => {
             release       => $release,
-            cover_art_type => $type,
-            cover_art_page => $page
+            cover_art_id  => $id
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
@@ -590,12 +601,8 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    my %cover_art = $c->model ('CoverArtArchive')->find_available_artwork($release->gid);
-    my $pending = delete $cover_art{pending};
-
     $c->stash(
-        cover_art => \%cover_art,
-        pending   => $pending
+        cover_art => $c->model('CoverArtArchive')->find_available_artwork($release->gid)
     );
 }
 

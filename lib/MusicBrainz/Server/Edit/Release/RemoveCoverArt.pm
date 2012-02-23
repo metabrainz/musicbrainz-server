@@ -25,8 +25,7 @@ has '+data' => (
             name => Str,
             mbid => Str
         ],
-        cover_art_type  => Str,
-        cover_art_page  => Int
+        cover_art_id => Int
     ]
 );
 
@@ -73,8 +72,7 @@ sub accept {
                 '-',
                 'mbid',
                 $release->gid,
-                $self->data->{cover_art_type},
-                $self->data->{cover_art_page},
+                $self->data->{cover_art_id}
             ) . '.jpg'
         )->http_request
     );
