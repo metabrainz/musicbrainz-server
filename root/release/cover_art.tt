@@ -21,6 +21,11 @@
     display: hidden !important;
   }
   </style>
+  <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/lib/thickbox/thickbox.css') %]" />
+  <script type="text/javascript" src="[% c.uri_for('/static/lib/thickbox/thickbox.js') %]"></script>
+  <script type="text/javascript">
+    $(function() { $('a[rel*=zoomer]').fancyZoom() });
+  </script>
 [% END %]
 
 [% WRAPPER 'release/layout.tt' page='cover_art' %]
@@ -28,9 +33,9 @@
 
   [% IF cover_art.size %]
     [% FOR artwork=cover_art %]
-      <div class="artwork-cont">
+      <div class="artwork-cont[% ' mp' IF !artwork.approved %]">
         <div style="position: relative" class="artwork">
-          <a href="#">
+          <a href="[% artwork.image %]" class="thickbox">
             <img src="[% artwork.small_thumbnail %]" />
           </a>
         </div>
