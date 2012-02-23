@@ -70,10 +70,18 @@ sub accept {
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'This release no longer exists'
         );
+}
+
+sub insert {
+    my $self = shift;
+
+    my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid});
 
     # Mark that we now have cover art for this release
-    $self->c->model('CoverArtArchive')->update_cover_art_presence(
-        $release->id, 1
+    $self->c->model('CoverArtArchive')->insert_cover_art(
+        $release->id,
+        $self->data->{cover_art_url},
+        $self->id
     );
 }
 

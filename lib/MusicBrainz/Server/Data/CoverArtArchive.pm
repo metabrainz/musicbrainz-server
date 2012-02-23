@@ -180,6 +180,15 @@ sub update_cover_art_presence {
     );
 }
 
+sub insert_cover_art {
+    my ($self, $release_id, $url, $edit) = @_;
+    $self->sql->do(
+        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, url)
+         VALUES (?, ?, ?, ?)',
+        $release_id, $edit, int(time()), $url
+    );
+}
+
 1;
 
 =head1 COPYRIGHT
