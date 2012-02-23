@@ -14,19 +14,18 @@ CREATE TABLE cover_art (
     comment TEXT NOT NULL DEFAULT '',
     edit INTEGER NOT NULL REFERENCES musicbrainz.edit (id),
     ordering INTEGER NOT NULL CHECK (ordering > 0),
-    url TEXT NOT NULL
+    url TEXT NOT NULL,
+    is_front BOOLEAN NOT NULL DEFAULT FALSE,
+    is_back BOOLEAN NOT NULL DEFAULT FALSE,
 );
+
+CREATE UNIQUE INDEX cover_art_unique_front_constraint ON cover_art (release, is_front) WHERE is_front;
+CREATE UNIQUE INDEX cover_art_unique_back_constraint ON cover_art (release, is_back) WHERE is_back;
 
 CREATE TABLE cover_art_type (
     id INTEGER NOT NULL REFERENCES cover_art (id) ON DELETE CASCADE,
     type_id INTEGER NOT NULL REFERENCES art_type (id),
     PRIMARY KEY (id, type_id)
-);
-
-CREATE TABLE release (
-    release INTEGER NOT NULL REFERENCES musicbrainz.release (id) ON DELETE CASCADE PRIMARY KEY,
-    front_image INTEGER REFERENCES cover_art (id),
-    back_image INTEGER REFERENCES cover_art (id)
 );
 
 COMMIT;
