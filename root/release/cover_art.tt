@@ -26,41 +26,20 @@
 [% WRAPPER 'release/layout.tt' page='cover_art' %]
   <h2>[% l('Cover Art') %]</h2>
 
-  [% IF cover_art.size || pending.size %]
-    [% FOR artwork_group=cover_art.pairs %]
-      <h3>[% artwork_group.key %]</h3>
-      [% FOR artwork=artwork_group.value %]
-        <div class="artwork-cont">
-          <div style="position: relative" class="artwork">
-            <a href="#">
-              <img src="[% artwork.small_thumbnail %]" />
-            </a>
-          </div>
-          <div class="buttons">
-              <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
-                [% l('Remove') %]
-              </a>
-          </div>
+  [% IF cover_art.size %]
+    [% FOR artwork=cover_art %]
+      <div class="artwork-cont">
+        <div style="position: relative" class="artwork">
+          <a href="#">
+            <img src="[% artwork.small_thumbnail %]" />
+          </a>
         </div>
-      [% END %]
-    [% END %]
-
-    [% IF pending.size %]
-      <h3>[% l('Pending Cover Art') %]</h3>
-      <p>[%
-        l('The following cover art have not been approved by the MusicBrainz
-           community yet. To vote on these images, please see the {queue|open edit list}.',
-          { queue => c.uri_for_action('/release/open_edits', [ release.gid ]) }) %]
-      </p>
-      [% FOR artwork=pending %]
-        <div class="artwork-cont mp">
-          <div style="position: relative" class="artwork">
-            <a href="#">
-              <img src="[% artwork.small_thumbnail %]" />
-            </a>
-          </div>
+        <div class="buttons">
+          <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
+            [% l('Remove') %]
+          </a>
         </div>
-      [% END %]
+      </div>
     [% END %]
   [% ELSE %]
     <p>[% l('We do not currently have any cover art for {release}.',

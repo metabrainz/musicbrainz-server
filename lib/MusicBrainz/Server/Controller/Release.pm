@@ -589,12 +589,8 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    my %cover_art = $c->model ('CoverArtArchive')->find_available_artwork($release->gid);
-    my $pending = delete $cover_art{pending};
-
     $c->stash(
-        cover_art => \%cover_art,
-        pending   => $pending
+        cover_art => $c->model('CoverArtArchive')->find_available_artwork($release->gid)
     );
 }
 
