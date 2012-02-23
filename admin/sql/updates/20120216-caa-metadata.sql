@@ -28,4 +28,43 @@ CREATE TABLE cover_art_type (
     PRIMARY KEY (id, type_id)
 );
 
+CREATE OR REPLACE FUNCTION materialize_caa_presence() RETURNS trigger AS $$
+    BEGIN
+        -- On delete, set the presence flag to 'absent' if there's no more
+        -- cover art
+        IF TG_OP = 'DELETE' THEN
+            IF NOT EXISTS (
+                SELECT TRUE FROM cover_art_archive.cover_art
+                WHERE release = OLD.release
+            ) THEN
+                UPDATE musicbrainz.release_meta
+                SET cover_art_presence = 'absent'
+                WHERE id = OLD.release;
+            END IF;
+        END IF;
+
+        -- On insert, set the presence flag to 'present' if it was previously
+        -- 'absent'
+        IF TG_OP = 'INSERT' THEN
+            CASE (
+                SELECT cover_art_presence FROM musicbrainz.release_meta
+                WHERE id = NEW.release
+            )
+                WHEN 'absent' THEN
+                    UPDATE musicbrainz.release_meta
+                    SET cover_art_presence = 'present'
+                    WHERE id = NEW.release;
+                WHEN 'darkened' THEN
+                    RAISE EXCEPTION 'This release has been darkened and cannot have new cover art';
+            END CASE;
+        END IF;
+
+        RETURN NULL;
+    END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER update_release_coverart AFTER INSERT OR DELETE
+ON cover_art_archive.cover_art
+FOR EACH ROW EXECUTE PROCEDURE materialize_caa_presence();
+
 COMMIT;
