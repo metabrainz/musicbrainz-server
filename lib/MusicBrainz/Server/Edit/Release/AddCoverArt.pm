@@ -31,7 +31,8 @@ has '+data' => (
         ],
         cover_art_type => Str,
         cover_art_page => Int,
-        cover_art_url  => Str
+        cover_art_url  => Str,
+        cover_art_id   => Int
     ]
 );
 
@@ -60,6 +61,7 @@ sub initialize {
         cover_art_url => $opts{cover_art_url},
         cover_art_type => $opts{cover_art_type},
         cover_art_page => $opts{cover_art_page},
+        cover_art_id => $opts{cover_art_id}
     });
 }
 
@@ -80,7 +82,7 @@ sub insert {
     # Mark that we now have cover art for this release
     $self->c->model('CoverArtArchive')->insert_cover_art(
         $release->id,
-        $self->data->{cover_art_url},
+        $self->data->{cover_art_id},
         $self->id
     );
 }

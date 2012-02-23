@@ -384,12 +384,15 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
+    my $id = $c->req->query_params->{id} or die "Need destination ID";
 
     my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
-    my $redirect = $c->uri_for_action('/release/cover_art_uploaded', [ $entity->gid ])->as_string ();
+    my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
+                                      [ $entity->gid ],
+                                      { id => $id })->as_string ();
 
     $c->stash->{form_action} = DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
-    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $redirect);
+    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
 sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
@@ -404,7 +407,15 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         $c->detach;
     }
 
-    my $form = $c->form( form => 'Release::AddCoverArt' );
+    my $id = $c->model('CoverArtArchive')->fresh_id;
+    $c->stash( id => $id );
+
+    my $form = $c->form(
+        form => 'Release::AddCoverArt',
+        item => {
+            id => $id
+        }
+    );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
         $self->_insert_edit(
@@ -416,6 +427,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             cover_art_url => $form->field ("filename")->value,
             cover_art_type => $form->field ("type")->value,
             cover_art_page => $form->field ("page")->value,
+            cover_art_id => $form->field('id')->value
         );
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));

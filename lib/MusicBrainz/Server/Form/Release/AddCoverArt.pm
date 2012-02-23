@@ -25,6 +25,11 @@ has_field 'page' => (
     default => 1,
 );
 
+has_field 'id' => (
+    type      => '+MusicBrainz::Server::Form::Field::Integer',
+    required  => 1,
+);
+
 sub options_type  {
     # FIXME: move.  (to MusicBrainz/Server/Constants.pm or database?).
     return ("" => "",
