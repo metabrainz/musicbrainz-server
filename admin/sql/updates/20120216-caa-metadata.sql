@@ -9,14 +9,14 @@ CREATE TABLE art_type (
 );
 
 CREATE TABLE cover_art (
-    id SERIAL NOT NULL PRIMARY KEY,
     release INTEGER NOT NULL REFERENCES musicbrainz.release (id) ON DELETE CASCADE,
     comment TEXT NOT NULL DEFAULT '',
     edit INTEGER NOT NULL REFERENCES musicbrainz.edit (id),
     ordering INTEGER NOT NULL CHECK (ordering > 0),
-    url TEXT NOT NULL,
+    url TEXT NOT NULL PRIMARY KEY,
     is_front BOOLEAN NOT NULL DEFAULT FALSE,
     is_back BOOLEAN NOT NULL DEFAULT FALSE,
+    date_uploaded TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL
 );
 
 CREATE UNIQUE INDEX cover_art_unique_front_constraint ON cover_art (release, is_front) WHERE is_front;
