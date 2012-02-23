@@ -97,7 +97,7 @@ sub post_fields
 
     use Net::Amazon::S3::Policy qw( starts_with );
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
-    my $filename = "mbid-$mbid-" . int((time() - 1327528905) * 100) . 'jpg';
+    my $filename = "mbid-$mbid-" . int((time() - 1327528905) * 100) . '.jpg';
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
