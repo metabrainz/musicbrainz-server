@@ -59,7 +59,8 @@ MB.constants.LINK_TYPES = {
         release: 78
     },
     license: {
-        release: 301
+        release: 301,
+        recording: 302
     },
     lyrics: {
         artist: 197,
