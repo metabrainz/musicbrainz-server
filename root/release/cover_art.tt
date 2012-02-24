@@ -21,11 +21,6 @@
     display: hidden !important;
   }
   </style>
-  <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/lib/thickbox/thickbox.css') %]" />
-  <script type="text/javascript" src="[% c.uri_for('/static/lib/thickbox/thickbox.js') %]"></script>
-  <script type="text/javascript">
-    $(function() { $('a[rel*=zoomer]').fancyZoom() });
-  </script>
 [% END %]
 
 [% WRAPPER 'release/layout.tt' page='cover_art' %]
