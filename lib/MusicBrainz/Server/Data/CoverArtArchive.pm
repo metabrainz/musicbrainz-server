@@ -186,19 +186,44 @@ sub update_cover_art_presence {
 }
 
 sub insert_cover_art {
-    my ($self, $release_id, $id, $edit) = @_;
+    my ($self, $release_id, $edit, $cover_art_id, $position, $types) = @_;
+
+    my $is_front = 0;
+    my $is_back = 0;
+
+    # make sure the $cover_art_position slot is available.
     $self->sql->do(
-        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id)
-         VALUES (?, ?, ?, ?)',
-        $release_id, $edit, int(time()), $id
+        ' UPDATE cover_art_archive.cover_art
+             SET ordering = ordering + 1
+           WHERE release = ? and ordering >= ?;',
+        $release_id, $position
     );
+
+    for my $type_id (@$types)
+    {
+        $is_front = 1 if $type_id == $COVERART_FRONT_TYPE;
+        $is_back = 1 if $type_id == $COVERART_BACK_TYPE;
+    }
+
+    $self->sql->do(
+        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, is_front, is_back)
+         VALUES (?, ?, ?, ?, ?, ?)',
+        $release_id, $edit, $position, $cover_art_id, $is_front, $is_back
+    );
+
+    for my $type_id (@$types)
+    {
+        $self->sql->do(
+            'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
+            $cover_art_id, $type_id);
+    };
 }
 
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2011,2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

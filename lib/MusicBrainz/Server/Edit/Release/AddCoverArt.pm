@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Release::AddCoverArt;
 use Moose;
 use namespace::autoclean;
 
-use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
@@ -29,8 +29,8 @@ has '+data' => (
             name => Str,
             mbid => Str
         ],
-        cover_art_type => Str,
-        cover_art_page => Int,
+        cover_art_types => ArrayRef[Int],
+        cover_art_position => Int,
         cover_art_url  => Str,
         cover_art_id   => Int
     ]
@@ -59,8 +59,8 @@ sub initialize {
             mbid => $release->gid
         },
         cover_art_url => $opts{cover_art_url},
-        cover_art_type => $opts{cover_art_type},
-        cover_art_page => $opts{cover_art_page},
+        cover_art_types => $opts{cover_art_types},
+        cover_art_position => $opts{cover_art_position},
         cover_art_id => $opts{cover_art_id}
     });
 }
@@ -82,8 +82,10 @@ sub insert {
     # Mark that we now have cover art for this release
     $self->c->model('CoverArtArchive')->insert_cover_art(
         $release->id,
+        $self->id,
         $self->data->{cover_art_id},
-        $self->id
+        $self->data->{cover_art_position},
+        $self->data->{cover_art_types}
     );
 }
 

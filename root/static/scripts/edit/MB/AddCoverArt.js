@@ -42,49 +42,7 @@ MB.AddCoverArt.validate_cover_art_file = function () {
     return !invalid;
 };
 
-MB.AddCoverArt.validate_existing = function() {
-    var type = $('#id-add-cover-art\\.type option:selected').text();
-    var index = $('#id-add-cover-art\\.page').val();
-
-    if (lastCheck === undefined || !(lastCheck[0] == type && lastCheck[1] == index))
-    {
-        $.ajax({
-            async: false,
-            complete: function(xhr, status) {
-                if (xhr.status != 404) {
-                    $('#confirmer').show();
-                    $('#confirm-preview').attr(
-                        'src',
-                        'http://coverartarchive.org/release/[% release.gid %]/' +
-                            [ type, index ].join('-') + '.jpg'
-                    );
-                    $('#confirmed').attr('checked', null);
-                }
-                else {
-                    $('#confirmed').attr('checked', 'checked');
-                    $('#confirmer').hide();
-                }
-            },
-            data: {
-                mbid: '[% release.gid %]',
-                type: type,
-                index: index
-            },
-            type: 'HEAD',
-            url: '/ws/js/caa/exists'
-        });
-
-        lastCheck = [ type, index ];
-    }
-
-    return $('#confirmed').is(':checked');
-};
-
-MB.AddCoverArt.image_position = function (gid) {
-
-    /* FIXME: replace with coverartarchive urls. */
-    var url = "http://s3.us.archive.org/mbid-" + gid + "/";
-    var image_prefix = url + "mbid-" + gid + "-";
+MB.AddCoverArt.image_position = function (url) {
     var $pos = $('#id-add-cover-art\\.position');
 
     $('div.newimage button.left').bind ('click.mb', function (event) {
@@ -95,7 +53,6 @@ MB.AddCoverArt.image_position = function (gid) {
             $pos.val (parseInt ($pos.val (), 10) - 1);
         }
 
-        console.log ('pos val:', $pos.val ());
         event.preventDefault ();
         return false;
     });
@@ -108,12 +65,11 @@ MB.AddCoverArt.image_position = function (gid) {
             $pos.val (parseInt ($pos.val (), 10) + 1);
         }
 
-        console.log ('pos val:', $pos.val ());
         event.preventDefault ();
         return false;
     });
 
-    $.getJSON (url + "index.json", function (data, textStatus, jqXHR) {
+    $.getJSON (url, function (data, textStatus, jqXHR) {
         if (data.images.length > 0)
         {
             $('#cover-art-position-row').show ();
@@ -124,9 +80,9 @@ MB.AddCoverArt.image_position = function (gid) {
             var div = $('<div>').addClass ("thumb-position").insertBefore ($("div.newimage"));
             $('<img />')
                 .bind ("error.mb", function (event) {
-                    if ($(this).attr ("src") !== (image_prefix + image.image))
+                    if ($(this).attr ("src") !== image.image)
                     {
-                        $(this).attr ("src", image_prefix + image.image)
+                        $(this).attr ("src", image.image)
                     }
                     else
                     {
@@ -137,7 +93,7 @@ MB.AddCoverArt.image_position = function (gid) {
                         $(this).closest ('div').hide ();
                     }
                 })
-                .attr ("src", image_prefix + image.thumbnails.small)
+                .attr ("src", image.thumbnails.small)
                 .appendTo (div);
 
             $('<div>' + image.types.join (", ") + '</div>').appendTo (div);
@@ -146,18 +102,12 @@ MB.AddCoverArt.image_position = function (gid) {
 };
 
 
-MB.AddCoverArt.hideConfirmer = function() {
-    $('#confirmer').hide();
-    lastCheck = undefined;
-};
-
 $(document).ready (function () {
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();
     
         var valid = MB.AddCoverArt.validate_cover_art_file () &&
-            MB.AddCoverArt.validate_cover_art_type () &&
-            MB.AddCoverArt.validate_existing();
+            MB.AddCoverArt.validate_cover_art_type ();
 
         if (valid)
         {
@@ -170,6 +120,3 @@ $(document).ready (function () {
     $('#id-add-cover-art\\.type').change(MB.AddCoverArt.hideConfirmer);
     $('#id-add-cover-art\\.page').change(MB.AddCoverArt.hideConfirmer);
 });
-
-
-

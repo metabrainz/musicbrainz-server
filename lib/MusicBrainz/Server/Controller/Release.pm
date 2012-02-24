@@ -409,6 +409,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
 
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash( id => $id );
+    $c->stash( index_url => (DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/") );
 
     my $form = $c->form(
         form => 'Release::AddCoverArt',
@@ -425,8 +426,8 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             # FIXME: rename to "to_edit"
             release => $entity,
             cover_art_url => $form->field ("filename")->value,
-            cover_art_type => $form->field ("type")->value,
-            cover_art_page => $form->field ("page")->value,
+            cover_art_types => $form->field ("type_id")->value,
+            cover_art_position => $form->field ("position")->value,
             cover_art_id => $form->field('id')->value
         );
 
