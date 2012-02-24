@@ -19,6 +19,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateArtists') %]">[% l('Possibly duplicate artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'PossibleCollaborations') %]">[% l('Artists which look like collaborations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsContainingDisambiguationComments') %]">[% l('Artists containing disambiguation comments in their name') %]</a></li>
         </ul>
 
         <h2>[% l('Release groups') %]</h2>
