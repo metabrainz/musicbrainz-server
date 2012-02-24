@@ -51,8 +51,7 @@ sub initialize {
             name => $release->name,
             mbid => $release->gid
         },
-        cover_art_type => $opts{cover_art_type},
-        cover_art_page => $opts{cover_art_page},
+        cover_art_id => $opts{cover_art_id},
     });
 }
 
@@ -64,28 +63,7 @@ sub accept {
             'This release no longer exists'
         );
 
-    $self->lwp->request(
-        DeleteObject->new(
-            s3     => $self->s3,
-            bucket => $self->bucket_name,
-            key    => join(
-                '-',
-                'mbid',
-                $release->gid,
-                $self->data->{cover_art_id}
-            ) . '.jpg'
-        )->http_request
-    );
-
-    # Check if the release has other cover art, and if not - remove it
-    unless (
-        any { $_->type ne 'pending' }
-            $self->c->model('CoverArtArchive')->find_available_artwork($release->gid)
-    ) {
-        $self->c->model('CoverArtArchive')->update_cover_art_presence(
-            $release->id, 0
-        );
-    }
+    $self->c->model('CoverArtArchive')->delete($self->data->{cover_art_id});
 }
 
 sub foreign_keys {
@@ -102,11 +80,6 @@ sub build_display_data {
     return {
         release => $loaded->{Release}{ $self->data->{entity}{id} }
             || Release->new( name => $self->data->{entity}{name} ),
-        artwork => Net::CoverArtArchive->new->find_artwork(
-            $self->data->{entity}{mbid},
-            $self->data->{cover_art_type},
-            $self->data->{cover_art_page}
-        )
     };
 }
 

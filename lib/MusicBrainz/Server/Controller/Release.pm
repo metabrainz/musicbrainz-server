@@ -577,8 +577,9 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
     my ($self, $c, $id) = @_;
 
     my $release = $c->stash->{entity};
-    my $artwork = $c->model ('CoverArtArchive')->find_artwork($release->gid, $id)
-        or $c->detach('/error_404');
+    my ($artwork) = grep { $_->id == $id }
+        @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid, $id) }
+            or $c->detach('/error_404');
 
     $c->stash( artwork => $artwork );
 

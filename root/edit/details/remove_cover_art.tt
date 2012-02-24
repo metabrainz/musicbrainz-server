@@ -10,7 +10,7 @@
     <th>[% l('Cover art:') %]</th>
     <td>
       [% IF edit.is_open %]
-        <img src="[% edit.display_data.artwork.artwork %]" /><br />
+        <img src="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %].jpg" /><br />
       [% ELSE %]
         [% l('We are unable to display history for cover art. For a current listing
               of cover art, please see the releases cover art page.') %]
