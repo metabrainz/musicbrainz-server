@@ -16,10 +16,10 @@ has_field 'filename' => (
 
 has_field 'comment' => (
     type      => 'Text',
-    required  => 1,
+    required  => 0,
 );
 
-has_field 'type' => (
+has_field 'type_id' => (
     type      => 'Multiple',
     required  => 1,
 );
@@ -35,11 +35,7 @@ has_field 'id' => (
     required  => 1,
 );
 
-sub options_type  {
-    # FIXME: get from database.
-    return ("" => "",
-            map { $_ => $_ } qw( front back inner booklet sleeve medium obi spine box other ));
-}
+sub options_type_id { shift->_select_all('CoverArtType') }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

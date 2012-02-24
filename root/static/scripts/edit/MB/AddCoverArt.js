@@ -24,9 +24,9 @@ MB.AddCoverArt = {};
 MB.AddCoverArt.lastCheck;
 
 MB.AddCoverArt.validate_cover_art_type = function () {
-    var $select = $('#id-add-cover-art\\.type');
+    var $select = $('#id-add-cover-art\\.type_id');
 
-    var invalid = $select.find ('option:selected').val () == "";
+    var invalid = $select.find ('option:selected').length < 1;
 
     $('#cover-art-type-error').toggle (invalid);
     return !invalid;

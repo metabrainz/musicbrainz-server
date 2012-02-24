@@ -2,13 +2,13 @@ package MusicBrainz::Server::Data::CoverArtArchive;
 use Moose;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
-
 use DBDefs;
 use Net::Amazon::S3;
 use Net::CoverArtArchive qw( find_available_artwork find_artwork );
 use XML::XPath;
 use Time::HiRes qw( time );
 use Try::Tiny;
+use MusicBrainz::Server::Constants qw( $COVERART_FRONT_TYPE $COVERART_BACK_TYPE );
 
 use aliased 'Net::Amazon::S3::Request::DeleteBucket';
 use aliased 'Net::Amazon::S3::Request::DeleteObject';
