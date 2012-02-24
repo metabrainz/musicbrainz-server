@@ -108,6 +108,8 @@ sub post_fields
     $policy->add ('$key eq '.$filename);
     $policy->add ('$content-type starts-with image/jpeg');
     $policy->add ('x-archive-auto-make-bucket eq 1');
+    $policy->add ('x-archive-meta-collection eq coverartarchive');
+    $policy->add ('x-archive-meta-mediatype eq images');
 
     return {
         AWSAccessKeyId => $aws_id,
@@ -117,7 +119,9 @@ sub post_fields
         acl => 'public-read',
         "content-type" => 'image/jpeg',
         success_action_redirect => $redirect,
-        "x-archive-auto-make-bucket" => 1
+        "x-archive-auto-make-bucket" => 1,
+        "x-archive-meta-collection" => 'coverartarchive',
+        "x-archive-meta-mediatype" => 'images',
     };
 }
 
