@@ -198,6 +198,11 @@ sub insert_cover_art {
     );
 }
 
+sub delete {
+    my ($self, $id) = @_;
+    $self->sql->do('DELETE FROM cover_art_archive.cover_art WHERE id = ?', $id);
+}
+
 1;
 
 =head1 COPYRIGHT

@@ -91,13 +91,7 @@ sub reject {
     my $self = shift;
 
     # Remove the pending stuff
-    $self->lwp->request(
-        DeleteObject->new(
-            s3     => $self->s3,
-            bucket => $self->bucket_name,
-            key    => $self->data->{cover_art_url}
-        )->http_request
-    );
+    $self->c->model('CoverArtArchive')->delete($self->data->{cover_art_id});
 }
 
 sub foreign_keys {
