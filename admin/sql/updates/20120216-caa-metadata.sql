@@ -56,6 +56,7 @@ CREATE OR REPLACE FUNCTION materialize_caa_presence() RETURNS trigger AS $$
                     WHERE id = NEW.release;
                 WHEN 'darkened' THEN
                     RAISE EXCEPTION 'This release has been darkened and cannot have new cover art';
+                ELSE
             END CASE;
         END IF;
 
