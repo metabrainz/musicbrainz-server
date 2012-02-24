@@ -247,3 +247,26 @@ table.vote-tally .date {
 .search-help dl.properties dt {
     width: 90px
 }
+
+/*
+  Add / Edit Cover Art
+  ================================================
+*/
+
+div.image-position { margin: 2em 0; overflow: hidden; }
+
+div.thumb-position {
+    width: 125px;
+    height: 150px;
+    margin: 3px;
+    padding: 5px;
+    float: left;
+    border: 1px solid #e0e0e0;
+    background: #eee;
+    border-radius: 2px;
+}
+
+div.thumb-position img {
+    max-width: 125px;
+    max-height: 125px;
+}
