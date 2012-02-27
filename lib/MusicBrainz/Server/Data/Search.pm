@@ -12,6 +12,7 @@ use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
+use MusicBrainz::Server::Entity::ISRC;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
@@ -125,6 +126,9 @@ sub search
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
             entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
+
+        $extra_columns .= 'entity.iswc,'
+            if ($type eq 'work');
 
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
@@ -412,6 +416,12 @@ sub schema_fixup
             );
         }
         $data->{_extra} = \@releases;
+    }
+
+    if ($type eq 'recording' && exists $data->{'isrc-list'}) {
+        $data->{isrcs} = [
+            map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrc-list'}{'isrc'} }
+        ];
     }
 
     if (exists $data->{"relation-list"} &&
