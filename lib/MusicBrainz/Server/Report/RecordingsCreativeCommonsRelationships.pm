@@ -8,14 +8,17 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-        SELECT DISTINCT
+        SELECT
             r.gid, rn.name, r.artist_credit AS artist_credit_id
         FROM recording r
-            JOIN track_name rn ON r.name = rn.id
             JOIN l_recording_url l_ru ON r.id = l_ru.entity0
             JOIN link l ON l_ru.link = l.id
+            JOIN track_name rn ON r.name = rn.id
+            JOIN artist_credit ac ON r.artist_credit = ac.id
+            JOIN artist_name an ON ac.name = an.id
         WHERE l.link_type = 267 AND l_ru.edits_pending = 0
-        ORDER BY r.artist_credit, rn.name
+        GROUP BY r.gid, rn.name, r.artist_credit, an.name
+        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
     ");
 }
 
