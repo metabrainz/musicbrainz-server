@@ -6,6 +6,7 @@ use MusicBrainz::Server::PagedReport;
 my @all = qw(
     DuplicateArtists
     ReleasesToConvert
+    ArtistsContainingDisambiguationComments
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
     ASINsWithMultipleReleases
@@ -39,6 +40,7 @@ my @all = qw(
     MediumsWithSequenceIssues
 );
 
+use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::DuplicateArtists;
 use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
