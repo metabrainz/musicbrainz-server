@@ -99,6 +99,7 @@ sub direct : Private
                                                     map { $_->all_mediums } @releases);
             $c->model('Recording')->load(map { $_->tracklist->all_tracks }
                                          map { $_->all_mediums } @releases);
+            $c->model('ISRC')->load_for_recordings(map { $_->entity } @$results);
         }
         when ('work') {
             $c->model('Work')->load_writers(@entities);

@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Label;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 use Test::Fatal;
 
 use MusicBrainz::Server::Data::Label;
@@ -21,7 +20,6 @@ test all => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+label');
 
     my $label_data = MusicBrainz::Server::Data::Label->new(c => $test->c);
-    memory_cycle_ok($label_data);
 
     my $label = $label_data->get_by_id(3);
     is ( $label->id, 3, "id");
@@ -40,20 +38,14 @@ test all => sub {
     is ( $label->format_label_code, 'LC 02070', "formatted label code" );
     is ( $label->comment, 'Sheffield based electronica label', "comment" );
     is ( $label->ipi_code, '00407982339', "ipi_code" );
-    memory_cycle_ok($label_data);
-    memory_cycle_ok($label);
 
     my $annotation = $label_data->annotation->get_latest(3);
     is ( $annotation->text, "Label Annotation", "annotation" );
 
-    memory_cycle_ok($label_data);
-    memory_cycle_ok($annotation);
 
     $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
     is ( $label->id, 3, "get label by gid" );
 
-    memory_cycle_ok($label_data);
-    memory_cycle_ok($label);
 
     my $search = MusicBrainz::Server::Data::Search->new(c => $test->c);
     my ($results, $hits) = $search->search("label", "Warp", 10);
@@ -62,16 +54,12 @@ test all => sub {
     is( $results->[0]->position, 1 );
     is( $results->[0]->entity->name, "Warp Records", "Found Warp Records");
     is( $results->[0]->entity->sort_name, "Warp Records", "Found Warp Records");
-    memory_cycle_ok($label_data);
-    memory_cycle_ok($results);
 
     my %names = $label_data->find_or_insert_names('Warp Records', 'RAM Records');
     is(keys %names, 2);
     is($names{'Warp Records'}, 1);
     ok($names{'RAM Records'} > 1);
 
-    memory_cycle_ok($label_data);
-    memory_cycle_ok(\%names);
 
     $test->c->sql->begin;
 
@@ -85,8 +73,6 @@ test all => sub {
                                  });
     isa_ok($label, 'MusicBrainz::Server::Entity::Label');
     ok($label->id > 1);
-    memory_cycle_ok($label_data);
-    memory_cycle_ok($label);
 
 
     # ---
@@ -107,7 +93,6 @@ test all => sub {
 
 
     ok(!$test->c->model('Label')->in_use($label->id));
-    memory_cycle_ok($label_data);
 
     $label = $label_data->get_by_id($label->id);
     is($label->name, 'RAM Records', "name");
@@ -125,7 +110,6 @@ test all => sub {
         ipi_code => '00407982341',
         comment => 'Drum & bass label'
                         });
-    memory_cycle_ok($label_data);
 
     $label = $label_data->get_by_id($label->id);
     is($label->name, 'RAM Records', "name hasn't changed");
@@ -139,12 +123,10 @@ test all => sub {
     is($label->ipi_code, '00407982341', "ipi_code updated");
 
     $label_data->delete($label->id);
-    memory_cycle_ok($label_data);
     $label = $label_data->get_by_id($label->id);
     ok(!defined $label, "label deleted");
 
     $label_data->merge(3, 2);
-    memory_cycle_ok($label_data);
     $label = $label_data->get_by_id(2);
     ok(!defined $label, "label merged");
 

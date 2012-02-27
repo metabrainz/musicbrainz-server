@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
-use Test::Memory::Cycle;
 
 BEGIN { use MusicBrainz::Server::Data::Edit };
 
@@ -89,7 +88,6 @@ test all => sub {
 my $test = shift;
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+edit');
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $test->c);
-memory_cycle_ok($edit_data);
 
 my $sql = $test->c->sql;
 
@@ -97,8 +95,6 @@ my $sql = $test->c->sql;
 my ($edits, $hits) = $edit_data->find({}, 10, 0);
 is($hits, 5);
 is(scalar @$edits, 5, "Found all edits");
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 # Check we get the edits in descending ID order
 is($edits->[$_]->id, 5 - $_) for (0..4);
@@ -111,8 +107,6 @@ is($edits->[0]->id, 5);
 is($edits->[1]->id, 3);
 is($edits->[2]->id, 2);
 is($edits->[3]->id, 1);
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 # Find edits by a specific editor
 ($edits, $hits) = $edit_data->find({ editor => 1 }, 10, 0);
@@ -120,8 +114,6 @@ is($hits, 2);
 is(scalar @$edits, 2, "Found edits by a specific editor");
 is($edits->[0]->id, 3);
 is($edits->[1]->id, 1);
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 # Find edits by a specific editor with a certain status
 ($edits, $hits) = $edit_data->find({ editor => 1, status => $STATUS_OPEN }, 10, 0);
@@ -129,15 +121,11 @@ is($hits, 2);
 is(scalar @$edits, 2, "Found all open edits by a specific editor");
 is($edits->[0]->id, 3);
 is($edits->[1]->id, 1);
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 # Find edits with 0 results
 ($edits, $hits) = $edit_data->find({ editor => 122 }, 10, 0);
 is($hits, 0);
 is(scalar @$edits, 0, "Found no edits for a specific editor");
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 # Find edits by a certain artist
 ($edits, $hits) = $edit_data->find({ artist => 1 }, 10, 0);
@@ -145,23 +133,17 @@ is($hits, 2);
 is(scalar @$edits, 2, "Found edits by a certain artist");
 is($edits->[0]->id, 4);
 is($edits->[1]->id, 1);
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 ($edits, $hits) = $edit_data->find({ artist => 1, status => $STATUS_APPLIED }, 10, 0);
 is($hits, 1);
 is(scalar @$edits, 1, "Found applied edits by a certain artist");
 is($edits->[0]->id, 4);
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 # Find edits over multiple entities
 ($edits, $hits) = $edit_data->find({ artist => [1,2] }, 10, 0);
 is($hits, 1);
 is(scalar @$edits, 1, "Found edits over multiple entities");
 is($edits->[0]->id, 4);
-memory_cycle_ok($edit_data);
-memory_cycle_ok($edits);
 
 # Test accepting edits
 my $edit = $edit_data->get_by_id(1);
@@ -171,7 +153,6 @@ is($editor->accepted_edits, 12, "Edit not yet accepted");
 
 $sql->begin;
 $edit_data->accept($edit);
-memory_cycle_ok($edit_data);
 $sql->commit;
 
 $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
@@ -185,7 +166,6 @@ is($editor->rejected_edits, 2, "Edit not yet rejected");
 
 $sql->begin;
 $edit_data->reject($edit, $STATUS_FAILEDVOTE);
-memory_cycle_ok($edit_data);
 $sql->commit;
 
 $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
@@ -194,7 +174,6 @@ is($editor->rejected_edits, 3, "Edit rejected");
 # Test approving edits, successfully this time
 $edit = $edit_data->get_by_id(5);
 $edit_data->approve($edit, 1);
-memory_cycle_ok($edit_data);
 
 $edit = $edit_data->get_by_id(5);
 is($edit->status, $STATUS_APPLIED);
@@ -208,7 +187,6 @@ $edit = $edit_data->get_by_id(2);
 $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 
 $edit_data->cancel($edit);
-memory_cycle_ok($edit_data);
 
 my $editor_cancelled = $test->c->model('Editor')->get_by_id($edit->editor_id);
 
@@ -237,31 +215,23 @@ test 'Find edits by subscription' => sub {
     is(@edits => 2, 'found 2 edits');
     ok((grep { $_->id == 1 } @edits), 'has edit #1');
     ok((grep { $_->id == 4 } @edits), 'has edit #4');
-    memory_cycle_ok($edit_data);
-    memory_cycle_ok(\@edits);
 
     $sub = ArtistSubscription->new( artist_id => 1, last_edit_sent => 1 );
     @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 1, 'found 1 edits');
     ok(!(grep { $_->id == 1 } @edits), 'does not have edit #1');
     ok((grep { $_->id == 4 } @edits), 'has edit #4');
-    memory_cycle_ok($edit_data);
-    memory_cycle_ok(\@edits);
 
     $sub = EditorSubscription->new( subscribed_editor_id => 2, last_edit_sent => 0 );
     @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 2, 'found 1 edits');
     ok((grep { $_->id == 2 } @edits), 'has edit #2');
     ok((grep { $_->id == 4 } @edits), 'has edit #4');
-    memory_cycle_ok($edit_data);
-    memory_cycle_ok(\@edits);
 
     $sub = LabelSubscription->new( label_id => 1, last_edit_sent => 0 );
     @edits = $edit_data->find_for_subscription($sub);
     is(@edits => 1, 'found 1 edits');
     ok((grep { $_->id == 2 } @edits), 'has edit #2');
-    memory_cycle_ok($edit_data);
-    memory_cycle_ok(\@edits);
 
     $sql->do('UPDATE edit SET status = ? WHERE id = ?',
              $STATUS_ERROR, 1);

@@ -97,7 +97,7 @@
               </li>
               [% END %]
               <li>
-                <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                <input type="radio" name="[% label_row.field('entity_id').html_name %]"
                         value="0" />
                 [% l('Add new label') %]
               </li>

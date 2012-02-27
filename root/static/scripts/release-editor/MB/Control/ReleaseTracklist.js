@@ -546,6 +546,22 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         var use_data = function (data) {
             self.loadTracklist (data);
             self.fixTrackCount ();
+
+            var vaTracklist = false;
+            $.each(data, function(idx, track) {
+                var thisArtistStr = MB.utility.structureToString(track.artist_credit);
+                if (idx > 0 && lastArtistStr != thisArtistStr) {
+                    vaTracklist = true;
+                    return false;
+                }
+
+                lastArtistStr = thisArtistStr;
+                return true;
+            });
+
+            if (vaTracklist) {
+                self.$fieldset.find('input.artistcolumn').click().trigger('change');
+            }
         };
 
         self.$nowloading.show ();

@@ -22,7 +22,11 @@
         [% END %]
 
         <h2>[% l('Votes') %]</h2>
-        <table class="vote-tally">
+        <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
+          <input type="hidden" value="[% c.req.uri %]" name="url" />
+          <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
+
+          <table class="vote-tally">
             <tr class="noborder">
                 <th>[% l('Vote tally:') %]</th>
                 <td class="vote">
@@ -33,16 +37,12 @@
             </tr>
             [% IF edit.editor_may_vote(c.user) %]
                 <tr class="noborder">
-                    <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
-                        <input type="hidden" value="[% c.req.uri %]" name="url" />
-                        <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
                         <th>[% l('My vote:') %]</th>
                         <td class="vote">
                           <div class="voteopts">
                             [% INCLUDE 'edit/vote.tt' %]
                           </div>
                         </td>
-                    </form>
                 </tr>
             [% END %]
             [% FOR vote=edit.votes %]
@@ -73,12 +73,9 @@
             </p>
         [% END %]
 
-        <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
             <h2>[% l('Edit notes') %]</h2>
-            <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
-            <input type="hidden" value="[% c.req.uri %]" name="url" />
             [% INCLUDE 'edit/notes.tt' %]
-            [% form_submit(l('Add note')) %]
+            [% form_submit(l('Add note and votes')) %]
         </form>
     </div>
 [%- END -%]

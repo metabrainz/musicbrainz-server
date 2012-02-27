@@ -1,4 +1,18 @@
  <table class="details add-medium">
+   [% UNLESS edit.preview %]
+   <tr>
+     <th>[% l('Release:') %]</th>
+     <td>
+       [% descriptive_link(edit.display_data.release) %]
+     </td>
+   </tr>
+   [% END %]
+
+   <tr>
+     <th>[% l('Position:') %]</th>
+     <td>[% edit.display_data.position %]</td>
+   </tr>
+
    [%- IF edit.display_data.name -%]
    <tr>
      <th>[% l('Name:') %]</th>
@@ -45,19 +59,5 @@
          </tbody>
        </table>
      </td>
-   </tr>
-
-   [% UNLESS edit.preview %]
-   <tr>
-     <th>[% l('Release:') %]</th>
-     <td>
-       [% descriptive_link(edit.display_data.release) %]
-     </td>
-   </tr>
-   [% END %]
-
-   <tr>
-     <th>[% l('Position:') %]</th>
-     <td>[% edit.display_data.position %]</td>
    </tr>
  </table>

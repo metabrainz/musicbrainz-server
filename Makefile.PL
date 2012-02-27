@@ -47,7 +47,7 @@ requires 'Email::Valid';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.29';
 requires 'Function::Parameters';
-requires 'HTML::FormHandler'                          => '0.30002';
+requires 'HTML::FormHandler'                          => '0.36002';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath';
 requires 'IO::All';
@@ -58,7 +58,7 @@ requires 'List::UtilsBy'                              => '0.06';
 requires 'List::MoreUtils'                            => '0.22';
 requires 'Method::Signatures::Simple';
 requires 'Module::Pluggable'                          => '3.9';
-requires 'Moose'                                      => '0.87';
+requires 'Moose'                                      => '2.0402';
 requires 'MooseX::ABC'                                => '0.05';
 requires 'MooseX::Clone';
 requires 'MooseX::Getopt';
@@ -68,11 +68,12 @@ requires 'MooseX::Runnable';
 requires 'MooseX::Singleton';
 requires 'MooseX::Types'                              => '0.16';
 requires 'MooseX::Types::Structured'                  => '0.24';
-requires 'MooseX::Types::URI';
+requires 'MooseX::Types::URI'                         => '0.03';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'Package::Stash'                             => '0.29';
 requires 'Readonly'                                   => '1.03';
+requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';
@@ -123,7 +124,6 @@ feature 'Production server' =>
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
     'FCGI' => '0',
     'FCGI::ProcManager' => '0.19',
-    'Catalyst::Engine::FastCGI',
     ;
 
 feature 'Fast edit migration' =>

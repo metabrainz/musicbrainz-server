@@ -337,7 +337,7 @@
               <td style="padding: 0 0.5em 0.5em 0;" class="artist">
                 [% l('by') %]
                 <span class="track-artist">
-                  [%- track.artist_credit.preview || track.artist_credit.name | html -%]
+                  [%- artist_credit(track.artist_credit) || html(track.artist_credit.name) -%]
                 </span>
               </td>
               <td style="padding: 0 0 0.5em 0;" >

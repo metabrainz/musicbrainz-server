@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Rating;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Rating;
 
@@ -43,7 +42,6 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, "
 my $rating_data = MusicBrainz::Server::Data::Rating->new(
     c => $test->c, type => 'artist');
 
-memory_cycle_ok($rating_data);
 
 my @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 3 );
@@ -54,12 +52,9 @@ is( $ratings[1]->rating, 40 );
 is( $ratings[2]->editor_id, 4 );
 is( $ratings[2]->rating, 10 );
 
-memory_cycle_ok($rating_data);
-memory_cycle_ok(\@ratings);
 
 # Check that it doesn't fail on an empty list
 $rating_data->load_user_ratings(1);
-memory_cycle_ok($rating_data);
 
 my $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 is($artist->user_rating, undef);
@@ -67,14 +62,11 @@ $rating_data->load_user_ratings(1, $artist);
 is($artist->user_rating, 50);
 $rating_data->load_user_ratings(3, $artist);
 is($artist->user_rating, 40);
-memory_cycle_ok($rating_data);
-memory_cycle_ok($artist);
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 
 # Update rating on artist with only one rating
 $rating_data->update(2, 2, 40);
-memory_cycle_ok($rating_data);
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 2 );
 $rating_data->load_user_ratings(2, $artist);
 is($artist->user_rating, 40);
@@ -107,7 +99,6 @@ is($artist->rating, 33);
 
 $test->c->sql->begin;
 $rating_data->delete(1);
-memory_cycle_ok($rating_data);
 $test->c->sql->commit;
 
 @ratings = $rating_data->find_by_entity_id(1);
@@ -122,7 +113,6 @@ MusicBrainz::Server::Test->prepare_raw_test_database($test->c, "
 $test->c->sql->begin;
 $rating_data->_update_aggregate_rating(1);
 $rating_data->_update_aggregate_rating(2);
-memory_cycle_ok($rating_data);
 $test->c->sql->commit;
 
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
@@ -135,7 +125,6 @@ is($artist->rating, 65);
 
 $test->c->sql->begin;
 $rating_data->merge(1, 2);
-memory_cycle_ok($rating_data);
 $test->c->sql->commit;
 
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );

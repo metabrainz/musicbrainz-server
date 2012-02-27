@@ -66,12 +66,20 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
                     .appendTo (self.$table.find ('tbody'));
 
                 var artist = item.artist ? item.artist :
-                    item.artist_credit ? item.artist_credit.preview : "";
+                    item.artist_credit ? MB.utility.renderArtistCredit(item.artist_credit) : "";
 
                 tr.find ('td.position').text (idx + 1);
                 tr.find ('td.title').text (item.name);
                 tr.find ('td.artist').text (artist);
                 tr.find ('td.length').text (MB.utility.formatTrackLength (item.length));
+
+                if (idx % 2 == 0) {
+                    tr.addClass('ev');
+                }
+                else {
+                    tr.addClass('odd');
+                }
+
                 tr.show ();
             });
 

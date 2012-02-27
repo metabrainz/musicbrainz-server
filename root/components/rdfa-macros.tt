@@ -420,9 +420,11 @@ END -%]
 
 [%- MACRO rdfa_release_label_list(labels) BLOCK;
     out = [];
+    seen = {};
     FOR label=labels;
-      IF label.label_id;
+      IF label.label_id AND !seen.${ label.label_id };
         out.push(rdfa_link_label(label.label));
+        seen.${ label.label_id } = 1;
       END;
     END;
     out.join(', ');
@@ -430,9 +432,11 @@ END -%]
 
 [%- MACRO rdfa_release_catno_list(labels) BLOCK;
     out = [];
+    seen = {};
     FOR label=labels;
-      IF label.catalog_number;
+      IF label.catalog_number AND !seen.${ label.catalog_number };
         out.push(rdfa_release_catno(label.catalog_number));
+        seen.${ label.catolog_number } = 1;
       END;
     END;
     out.join(', ');

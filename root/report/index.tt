@@ -19,6 +19,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateArtists') %]">[% l('Possibly duplicate artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'PossibleCollaborations') %]">[% l('Artists which look like collaborations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsContainingDisambiguationComments') %]">[% l('Artists containing disambiguation comments in their name') %]</a></li>
         </ul>
 
         <h2>[% l('Release groups') %]</h2>
@@ -50,11 +51,14 @@
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasedTooEarly') %]">[% l('Releases released too early') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SomeFormatsUnset') %]">[% l('Releases where some (but not all) mediums have no format set') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'CatNoLooksLikeASIN') %]">[% l('Releases with catalog numbers that look like ASINs') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'UnlinkedPseudoReleases') %]">[% l('Translated/Transliterated Pseudo-Releases not linked to an original version') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'MediumsWithSequenceIssues') %]">[% l('Releases with non-sequential mediums') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>
 
         <ul>
+           <li><a href="[% c.uri_for_action('/report/show', 'RecordingsCreativeCommonsRelationships') %]">[% l('Recordings with Creative Commons Download relationships') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'RecordingsWithEarliestReleaseRelationships') %]">[% l('Recordings with earliest release relationships') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'TracksNamedWithSequence') %]">[% l('Tracks whose names include their sequence numbers') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'FeaturingRecordings') %]">[% l('Recordings with titles containing featuring artists') %]</a></li>

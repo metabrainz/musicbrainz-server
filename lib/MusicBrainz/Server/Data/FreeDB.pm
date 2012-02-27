@@ -131,7 +131,8 @@ sub _cached_command
             $r = $self->$response_parser($response);
         }
 
-        $cache->set($cache_key => $r);
+        $cache->set($cache_key => $r) if $r;
+
         return $r;
     }
 }
