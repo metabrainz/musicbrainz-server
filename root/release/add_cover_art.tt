@@ -1,3 +1,7 @@
+[%- BLOCK layout_head -%]
+  [%- script_manifest('edit.js.manifest') -%]
+[%- END -%]
+
 [% WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' %]
 <h2>[%- l('Add Cover Art') -%]</h2>
 <form id="add-cover-art" action="[% c.req.uri %]" method="post">
@@ -7,18 +11,34 @@
       <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
               width="500" height="100" style="border: 0;"></iframe>
 
-     [% r.hidden('filename') %]
-     [% r.hidden('id') %]
+      [%- r.hidden('id')       -%]
+      [%- r.hidden('filename') -%]
+      [%- r.hidden('position') -%]
+      [%- WRAPPER form_row -%]
+        [%- r.label('type_id', l('Type:')) -%]
+        [%- r.select('type_id') -%]
+        <ul id="cover-art-type-error" class="errors" style="display: none;">
+          <li>[% l('Choose one or more cover art types for this image') %]</li>
+        </ul>
+     [%- END -%]
+     [%- form_row_text(r, 'comment', l('Comment:')) -%]
 
-     [% WRAPPER form_row %]
-       [% r.label('type', l('Type:')) %]
-       [% r.select('type') %]
-       <ul id="cover-art-type-error" class="errors" style="display: none;">
-         <li>[% l('Choose a cover art type for this image') %]</li>
-       </ul>
-     [% END %]
+     <div class="row" id="cover-art-position-row" style="display: none;">
+       <label id="cover-art-position-label" class="required">Position:</label>
 
-     [% form_row_text   (r, 'page', l('Page number:')) %]
+       <div class="image-position">
+         <div class="newimage thumb-position">
+           <img class="newimage" src="[% c.uri_for('/static/images/newimagegoeshere-125.png') %]" /><br />
+           <button class="left">&larr;</button>
+           <button class="right" style="float: right;">&rarr;</button>
+         </div>
+       </div>
+       <script type="text/javascript">
+           MB.AddCoverArt.image_position ("[% index_url %]");
+       </script>
+     </div>
+
+     <div style="clear: left;"> </div>
 
      <div id="confirmer" style="display: none">
        <h2>[% l('Existing artwork found') %]</h2>
@@ -40,87 +60,4 @@
     </div>
 
 </form>
-<script type="text/javascript">
-    var lastCheck;
-
-     var validate_cover_art_type = function () {
-         var $select = $('#id-add-cover-art\\.type');
-
-         var invalid = $select.find ('option:selected').val () == "";
-
-         $('#cover-art-type-error').toggle (invalid);
-         return !invalid;
-     };
-
-     var validate_cover_art_file = function () {
-         var filename = $('iframe').contents ().find ('#file').val ();
-         var invalid = filename == ""
-                    || filename.match(/\.j(peg|pg|pe|fif|if)$/i) == null;
-
-         $('iframe').contents ().find ('#cover-art-file-error').toggle (invalid);
-
-         return !invalid;
-     };
-
-     var validate_existing = function() {
-         var type = $('#id-add-cover-art\\.type option:selected').text(),
-             index = $('#id-add-cover-art\\.page').val();
-
-         if (lastCheck === undefined || !(lastCheck[0] == type && lastCheck[1] == index)) {
-             $.ajax({
-                 async: false,
-                 complete: function(xhr, status) {
-                     if (xhr.status != 404) {
-                         $('#confirmer').show();
-                         $('#confirm-preview').attr(
-                             'src',
-                             'http://coverartarchive.org/release/[% release.gid %]/' +
-                                 [ type, index ].join('-') + '.jpg'
-                         );
-                         $('#confirmed').attr('checked', null);
-                     }
-                     else {
-                         $('#confirmed').attr('checked', 'checked');
-                         $('#confirmer').hide();
-                     }
-                 },
-                 data: {
-                     mbid: '[% release.gid %]',
-                     type: type,
-                     index: index
-                 },
-                 type: 'HEAD',
-                 url: '/ws/js/caa/exists'
-             });
-
-             lastCheck = [ type, index ];
-         }
-
-         return $('#confirmed').is(':checked');
-     };
-
-     var hideConfirmer = function() {
-         $('#confirmer').hide();
-         lastCheck = undefined;
-     };
-
-     $('#id-add-cover-art\\.type').change(hideConfirmer);
-     $('#id-add-cover-art\\.page').change(hideConfirmer);
-
-     $('button.submit').bind ('click.mb', function (event) {
-         event.preventDefault ();
-
-         var valid = validate_cover_art_file () &&
-                     validate_cover_art_type () &&
-                     validate_existing();
-
-         if (valid)
-         {
-             $('iframe').contents ().find ('form').submit ();
-         }
-
-         return false;
-     });
-</script>
-
 [% END %]
