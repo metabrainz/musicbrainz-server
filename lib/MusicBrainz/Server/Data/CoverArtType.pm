@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::CoverArtType;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::CoverArtType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
