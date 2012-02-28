@@ -192,9 +192,6 @@ sub update_cover_art_presence {
 sub insert_cover_art {
     my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
 
-    my $is_front = 0;
-    my $is_back = 0;
-
     # make sure the $cover_art_position slot is available.
     $self->sql->do(
         ' UPDATE cover_art_archive.cover_art
@@ -203,15 +200,15 @@ sub insert_cover_art {
         $release_id, $position
     );
 
-    for my $type_id (@$types)
-    {
-        $is_front = 1 if $type_id == $COVERART_FRONT_TYPE;
-        $is_back = 1 if $type_id == $COVERART_BACK_TYPE;
-    }
+    # Make sure there isn't already a front or back
+    $self->sql->do(
+        'UPDATE cover_art_archive.cover_art SET is_front = FALSE
+         WHERE release = ?', $release_id
+    ) if $is_front;
 
     $self->sql->do(
-        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, is_front, is_back, comment)
-         VALUES (?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, comment)
+         VALUES (?, ?, ?, ?, ?)',
         $release_id, $edit, $position, $cover_art_id, $is_front, $is_back, $comment
     );
 
