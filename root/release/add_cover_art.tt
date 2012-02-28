@@ -9,7 +9,7 @@
 
       [%# FIXME: resize height with js.  some people may have large fonts. %]
       <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
-              width="500" height="100" style="border: 0;"></iframe>
+              width="500" height="40" style="border: 0;"></iframe>
 
       [%- r.hidden('id')       -%]
       [%- r.hidden('filename') -%]
