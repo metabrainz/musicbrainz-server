@@ -429,7 +429,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             cover_art_types => $form->field ("type_id")->value,
             cover_art_position => $form->field ("position")->value,
             cover_art_id => $form->field('id')->value,
-            cover_art_comment => $form->field('comment')->value
+            cover_art_comment => $form->field('comment')->value || ''
         );
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
