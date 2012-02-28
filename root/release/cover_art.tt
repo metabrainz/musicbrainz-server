@@ -35,6 +35,14 @@
             <img src="[% artwork.small_thumbnail %]" />
           </a>
         </div>
+        <p>
+          Types: [% comma_list(artwork.types) || '-' %]
+        </p>
+        [% IF artwork.comment %]
+        <p>
+          [% artwork.comment | html %]
+        </p>
+        [% END %]
         <div class="buttons">
           <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
             [% l('Remove') %]
