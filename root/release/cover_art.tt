@@ -43,11 +43,13 @@
           [% artwork.comment | html %]
         </p>
         [% END %]
-        <div class="buttons">
-          <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
-            [% l('Remove') %]
-          </a>
-        </div>
+        [% IF c.user_exists %]
+          <div class="buttons">
+            <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
+              [% l('Remove') %]
+            </a>
+          </div>
+        [% END %]
       </div>
     [% END %]
 
@@ -60,13 +62,17 @@
             { release => link_entity(entity) }) %]</p>
   [% END %]
 
-  [% IF release.may_have_cover_art %]
-  <div class="buttons ui-helper-clearfix">
-    [% link_release(release, 'add_cover_art', l('Add Cover Art')) %]
-  </div>
+  [% IF c.user_exists %]
+    [% IF release.may_have_cover_art %]
+    <div class="buttons ui-helper-clearfix">
+      [% link_release(release, 'add_cover_art', l('Add Cover Art')) %]
+    </div>
+    [% ELSE %]
+      <h2>[%- l('Cannot Add Cover Art') -%]</h2>
+      <p>[% l('The Cover Art Archive has had a take down request in the past for
+               this release, so we are unable to allow any more uploads.') %]</p>
+    [% END %]
   [% ELSE %]
-    <h2>[%- l('Cannot Add Cover Art') -%]</h2>
-    <p>[% l('The Cover Art Archive has had a take down request in the past for
-             this release, so we are unable to allow any more uploads.') %]</p>
+    <p>[% request_login(l('Log in to upload cover art')) %]</p>
   [% END %]
 [% END %]
