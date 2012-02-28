@@ -200,16 +200,10 @@ sub insert_cover_art {
         $release_id, $position
     );
 
-    # Make sure there isn't already a front or back
-    $self->sql->do(
-        'UPDATE cover_art_archive.cover_art SET is_front = FALSE
-         WHERE release = ?', $release_id
-    ) if $is_front;
-
     $self->sql->do(
         'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, comment)
          VALUES (?, ?, ?, ?, ?)',
-        $release_id, $edit, $position, $cover_art_id, $is_front, $is_back, $comment
+        $release_id, $edit, $position, $cover_art_id, $comment
     );
 
     for my $type_id (@$types)
