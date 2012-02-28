@@ -190,7 +190,7 @@ sub update_cover_art_presence {
 }
 
 sub insert_cover_art {
-    my ($self, $release_id, $edit, $cover_art_id, $position, $types) = @_;
+    my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
 
     my $is_front = 0;
     my $is_back = 0;
@@ -210,9 +210,9 @@ sub insert_cover_art {
     }
 
     $self->sql->do(
-        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, is_front, is_back)
-         VALUES (?, ?, ?, ?, ?, ?)',
-        $release_id, $edit, $position, $cover_art_id, $is_front, $is_back
+        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, is_front, is_back, comment)
+         VALUES (?, ?, ?, ?, ?, ?, ?)',
+        $release_id, $edit, $position, $cover_art_id, $is_front, $is_back, $comment
     );
 
     for my $type_id (@$types)

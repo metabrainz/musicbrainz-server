@@ -6,6 +6,13 @@
     <td>[% link_entity(edit.display_data.release) %]</td>
   </tr>
 
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Comment:') %]</th>
+    <td>[% edit.display_data.comment | html %]</td>
+  </tr>
+  [% END %]
+
   [% IF edit.display_data.types %]
   <tr>
     <th>[% l('Types:') %]</th>
