@@ -85,6 +85,12 @@ ol ol, ol ul {
     padding-left: 20px;
 }
 
+ul.inline {
+    padding-left: 0;
+    list-style-type: none;
+    list-style-image: none;
+}
+
 /* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
 pre code {
     overflow-x: auto;

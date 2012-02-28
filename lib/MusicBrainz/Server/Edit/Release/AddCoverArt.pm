@@ -109,7 +109,8 @@ sub foreign_keys {
     return {
         Release => {
             $self->data->{entity}{id} => [ 'ArtistCredit' ]
-        }
+        },
+        CoverArtType => $self->data->{cover_art_types}
     };
 }
 
@@ -120,7 +121,8 @@ sub build_display_data {
             || Release->new( name => $self->data->{entity}{name} ),
         cover_art_url =>
             &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" .
-            $self->data->{entity}{mbid} . "/" . $self->data->{cover_art_url}
+            $self->data->{entity}{mbid} . "/" . $self->data->{cover_art_url},
+        types => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{cover_art_types} } ]
     };
 }
 

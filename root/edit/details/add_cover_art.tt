@@ -6,22 +6,25 @@
     <td>[% link_entity(edit.display_data.release) %]</td>
   </tr>
 
+  [% IF edit.display_data.types %]
   <tr>
-    <th>[% l('Type:') %]</th>
-    <td>[% edit.data.cover_art_type | html %]</td>
+    <th>[% l('Types:') %]</th>
+    <td>
+      <ul class="inline">
+        [% FOR type=edit.display_data.types %]
+        <li>[% type.name | html %]</li>
+        [% END %]
+      </ul>
+    </td>
   </tr>
-
-  <tr>
-    <th>[% l('Page:') %]</th>
-    <td>[% edit.data.cover_art_page | html %]</td>
-  </tr>
+  [% END %]
 
   <tr>
     <th>[% l('Cover art:') %]</th>
     <td>
       [% IF edit.is_open %]
         <a href="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %].jpg" class="thickbox">
-          <img src="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %].jpg" />
+          <img src="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %]-250.jpg" />
         </a>
       [% ELSE %]
         [% l('We are unable to display history for cover art. For a current listing
