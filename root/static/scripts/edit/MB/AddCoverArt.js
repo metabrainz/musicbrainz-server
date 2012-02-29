@@ -19,11 +19,11 @@
 */
 
 
-MB.AddCoverArt = {};
+MB.CoverArt = {};
 
-MB.AddCoverArt.lastCheck;
+MB.CoverArt.lastCheck;
 
-MB.AddCoverArt.validate_cover_art_type = function () {
+MB.CoverArt.validate_cover_art_type = function () {
     var $select = $('#id-add-cover-art\\.type_id');
 
     var invalid = $select.find ('option:selected').length < 1;
@@ -32,7 +32,7 @@ MB.AddCoverArt.validate_cover_art_type = function () {
     return !invalid;
 };
 
-MB.AddCoverArt.validate_cover_art_file = function () {
+MB.CoverArt.validate_cover_art_file = function () {
     var filename = $('iframe').contents ().find ('#file').val ();
     var invalid = (filename == ""
                    || filename.match(/\.j(peg|pg|pe|fif|if)$/i) == null);
@@ -42,14 +42,30 @@ MB.AddCoverArt.validate_cover_art_file = function () {
     return !invalid;
 };
 
-MB.AddCoverArt.image_position = function (url) {
-    var $pos = $('#id-add-cover-art\\.position');
+MB.CoverArt.image_error = function ($img, image) {
+    if ($img.attr ("src") !== image.image)
+    {
+        $img.attr ("src", image.image)
+    }
+    else
+    {
+        /* image doesn't exist at all, perhaps it was removed 
+           between requesting the index and loading the image.
+           FIXME: start over if this happens?  obviously the
+           data in the index is incorrect. */
+        $img.closest ('div').hide ();
+    }
+};
 
-    $('div.newimage button.left').bind ('click.mb', function (event) {
-        var $prev = $('div.newimage').prev ();
+MB.CoverArt.image_position = function (url, image_id) {
+    var $pos = $('#id-add-cover-art\\.position');
+    var $editimage = $('div.editimage');
+
+    $('div.editimage button.left').bind ('click.mb', function (event) {
+        var $prev = $editimage.prev ();
         if ($prev.length)
         {
-            $('div.newimage').insertBefore ($prev);
+            $editimage.insertBefore ($prev);
             $pos.val (parseInt ($pos.val (), 10) - 1);
         }
 
@@ -57,11 +73,11 @@ MB.AddCoverArt.image_position = function (url) {
         return false;
     });
 
-    $('div.newimage button.right').bind ('click.mb', function (event) {
-        var $next = $('div.newimage').next ();
+    $('div.editimage button.right').bind ('click.mb', function (event) {
+        var $next = $editimage.next ();
         if ($next.length)
         {
-            $('div.newimage').insertAfter ($next);
+            $editimage.insertAfter ($next);
             $pos.val (parseInt ($pos.val (), 10) + 1);
         }
 
@@ -69,45 +85,56 @@ MB.AddCoverArt.image_position = function (url) {
         return false;
     });
 
-    $.getJSON (url, function (data, textStatus, jqXHR) {
-        if (data.images.length > 0)
-        {
-            $('#cover-art-position-row').show ();
-            $pos.val (data.images.length + 1);
+    $.ajax (url, {
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            if (data.images.length > 0)
+            {
+                $('#cover-art-position-row').show ();
+                $pos.val (data.images.length + 1);
+            }
+
+            $.each (data.images, function (idx, image) {
+                if (image.id == image_id)
+                {
+                    $editimage.appendTo ($('div.image-position'))
+                        .find ("img")
+                        .bind ("error.mb", function () { MB.CoverArt.image_error ($(this), image); })
+                        .attr ("src", image.thumbnails.small);
+                }
+                else
+                {
+                    var div = $('<div>').addClass ('thumb-position').appendTo ($('div.image-position'));
+                    $('<img />')
+                        .bind ("error.mb", function () { MB.CoverArt.image_error ($(this), image); })
+                        .attr ("src", image.thumbnails.small)
+                        .appendTo (div);
+
+                    $('<div>' + image.types.join (", ") + '</div>').appendTo (div);
+                }
+            });
+
+            if (MB.utility.isNullOrEmpty (image_id))
+            {
+                $editimage.appendTo ($('div.image-position'));
+            }
+
+            $('.image-position-loading').hide ();
+            $('.image-position').show ();
+        },
+        error: function (jqXHR, textStatus, error) {
+            $('.image-position-loading').hide ();
+            $('.image-position-only').show ();
         }
-
-        $.each (data.images, function (idx, image) {
-            var div = $('<div>').addClass ("thumb-position").insertBefore ($("div.newimage"));
-            $('<img />')
-                .bind ("error.mb", function (event) {
-                    if ($(this).attr ("src") !== image.image)
-                    {
-                        $(this).attr ("src", image.image)
-                    }
-                    else
-                    {
-                        /* image doesn't exist at all, perhaps it was removed 
-                           between requesting the index and loading the image.
-                           FIXME: start over if this happens?  obviously the
-                           data in the index is incorrect. */
-                        $(this).closest ('div').hide ();
-                    }
-                })
-                .attr ("src", image.thumbnails.small)
-                .appendTo (div);
-
-            $('<div>' + image.types.join (", ") + '</div>').appendTo (div);
-        });
     });
 };
 
-
-$(document).ready (function () {
+MB.CoverArt.add_cover_art = function () {
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();
     
-        var valid = MB.AddCoverArt.validate_cover_art_file () &&
-            MB.AddCoverArt.validate_cover_art_type ();
+        var valid = MB.CoverArt.validate_cover_art_file () &&
+            MB.CoverArt.validate_cover_art_type ();
 
         if (valid)
         {
@@ -116,7 +143,4 @@ $(document).ready (function () {
 
         return false;
     });
-
-    $('#id-add-cover-art\\.type').change(MB.AddCoverArt.hideConfirmer);
-    $('#id-add-cover-art\\.page').change(MB.AddCoverArt.hideConfirmer);
-});
+};

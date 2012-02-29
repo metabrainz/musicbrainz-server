@@ -3,61 +3,9 @@
 [%- END -%]
 
 [% WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' %]
-<h2>[%- l('Add Cover Art') -%]</h2>
-<form id="add-cover-art" action="[% c.req.uri %]" method="post">
-      [% USE r = FormRenderer(form) %]
-
-      [%# FIXME: resize height with js.  some people may have large fonts. %]
-      <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
-              width="500" height="100" style="border: 0;"></iframe>
-
-      [%- r.hidden('id')       -%]
-      [%- r.hidden('filename') -%]
-      [%- r.hidden('position') -%]
-      [%- WRAPPER form_row -%]
-        [%- r.label('type_id', l('Type:')) -%]
-        [%- r.select('type_id') -%]
-        <ul id="cover-art-type-error" class="errors" style="display: none;">
-          <li>[% l('Choose one or more cover art types for this image') %]</li>
-        </ul>
-     [%- END -%]
-     [%- form_row_text(r, 'comment', l('Comment:')) -%]
-
-     <div class="row" id="cover-art-position-row" style="display: none;">
-       <label id="cover-art-position-label" class="required">Position:</label>
-
-       <div class="image-position">
-         <div class="newimage thumb-position">
-           <img class="newimage" src="[% c.uri_for('/static/images/newimagegoeshere-125.png') %]" /><br />
-           <button class="left">&larr;</button>
-           <button class="right" style="float: right;">&rarr;</button>
-         </div>
-       </div>
-       <script type="text/javascript">
-           MB.AddCoverArt.image_position ("[% index_url %]");
-       </script>
-     </div>
-
-     <div style="clear: left;"> </div>
-
-     <div id="confirmer" style="display: none">
-       <h2>[% l('Existing artwork found') %]</h2>
-       <p>[% l('Uploading this artwork will replace the below artwork. If this
-                is correct, please confirm this upload using the checkbox below') %]</p>
-
-       <p><img id="confirm-preview" src="" /></p>
-
-       <label>
-         <input type="checkbox" id="confirmed" />
-         [% l('Yes, I want to replace this artwork.') %]
-       </label>
-     </div>
-
-     [%- INCLUDE 'forms/edit-note.tt' -%]
-
-    <div class="row no-label buttons">
-        <button class="submit positive">[% l('Enter edit') %]</button>
-    </div>
-
-</form>
+  <h2>[%- l('Add Cover Art') -%]</h2>
+  [%- INCLUDE 'release/cover_art_form.tt' new=1 -%]
+  <script>
+    MB.CoverArt.add_cover_art ();
+  </script>
 [% END %]
