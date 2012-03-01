@@ -192,19 +192,54 @@ sub update_cover_art_presence {
 sub insert_cover_art {
     my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
 
+    # FIXME: all of this should probably run in a transaction.
+
     # make sure the $cover_art_position slot is available.
     $self->sql->do(
         ' UPDATE cover_art_archive.cover_art
              SET ordering = ordering + 1
            WHERE release = ? and ordering >= ?;',
-        $release_id, $position
-    );
+        $release_id, $position);
 
     $self->sql->do(
         'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, comment)
          VALUES (?, ?, ?, ?, ?)',
-        $release_id, $edit, $position, $cover_art_id, $comment
-    );
+        $release_id, $edit, $position, $cover_art_id, $comment);
+
+    for my $type_id (@$types)
+    {
+        $self->sql->do(
+            'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
+            $cover_art_id, $type_id);
+    };
+}
+
+sub update_cover_art {
+    my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
+
+    # FIXME: all of this should probably run in a transaction.
+
+    my $current_position = $self->sql->select_single_value (
+        'SELECT ordering FROM cover_art_archive.cover_art WHERE id = ?', $cover_art_id);
+
+    if ($current_position != $position)
+    {
+        # make sure the $cover_art_position slot is available.
+        $self->sql->do(
+            ' UPDATE cover_art_archive.cover_art
+                 SET ordering = ordering + 1
+               WHERE release = ? and ordering >= ?;',
+            $release_id, $position);
+    }
+
+    $self->sql->do(
+        'UPDATE cover_art_archive.cover_art
+            SET comment = ?, ordering = ?
+          WHERE id = ?', $comment, $position, $cover_art_id);
+
+    $self->sql->do(
+        'DELETE FROM cover_art_archive.cover_art_type WHERE id = ?',
+        $cover_art_id);
 
     for my $type_id (@$types)
     {

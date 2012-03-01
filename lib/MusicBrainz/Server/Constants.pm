@@ -108,6 +108,7 @@ Readonly our $EDIT_RELEASE_ARTIST => 312;
 Readonly our $EDIT_RELEASE_REORDER_MEDIUMS => 313;
 Readonly our $EDIT_RELEASE_ADD_COVER_ART => 314;
 Readonly our $EDIT_RELEASE_REMOVE_COVER_ART => 315;
+Readonly our $EDIT_RELEASE_EDIT_COVER_ART => 316;
 
 Readonly our $EDIT_WORK_CREATE => 41;
 Readonly our $EDIT_WORK_EDIT => 42;

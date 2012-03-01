@@ -126,7 +126,8 @@ sub build_display_data {
             &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" .
             $self->data->{entity}{mbid} . "/" . $self->data->{cover_art_url},
         types => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{cover_art_types} } ],
-        comment => $self->data->{cover_art_comment}
+        comment => $self->data->{cover_art_comment},
+        position => $self->data->{cover_art_position}
     };
 }
 
@@ -134,7 +135,7 @@ sub build_display_data {
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

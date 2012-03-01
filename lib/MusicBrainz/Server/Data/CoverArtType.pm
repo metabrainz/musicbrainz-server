@@ -30,6 +30,15 @@ sub load
     load_subobjects($self, 'type', @objs);
 }
 
+sub get_by_name
+{
+    my ($self, @names) = @_;
+
+    my %types_by_name = map { $_->name => $_ } $self->get_all ();
+
+    return map { $types_by_name{$_} } @names;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
