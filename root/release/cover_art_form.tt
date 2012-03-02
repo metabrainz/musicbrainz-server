@@ -1,4 +1,9 @@
-<form id="add-cover-art" action="[% c.req.uri %]" method="post">
+[%- IF new -%]
+  <form id="add-cover-art" action="[% c.req.uri %]" method="post">
+[%- ELSE -%]
+  <form id="edit-cover-art" action="[% c.req.uri %]" method="post">
+[%- END -%]
+
     [%- USE r = FormRenderer(form) -%]
 
     [%- IF new -%]
