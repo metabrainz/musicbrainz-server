@@ -22,8 +22,8 @@
     <th>[% l('Cover art:') %]</th>
     <td>
       [% IF edit.is_open %]
-        <a href="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %].jpg" class="thickbox">
-          <img src="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %]-250.jpg" />
+        <a href="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.id %].jpg" class="thickbox">
+          <img src="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.id %]-250.jpg" />
         </a>
       [% ELSE %]
         [% l('We are unable to display history for cover art. For a current listing

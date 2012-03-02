@@ -48,7 +48,6 @@ has '+data' => (
 sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
-    my $id = $opts{artwork_id};
 
     my %old = (
         types => $opts{old_types},
@@ -68,7 +67,7 @@ sub initialize {
             name => $release->name,
             mbid => $release->gid
         },
-        id => $id,
+        id => $opts{artwork_id},
         $self->_change_data (\%old, %new)
     });
 }
@@ -80,6 +79,15 @@ sub accept {
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'This release no longer exists'
         );
+
+    $self->c->model('CoverArtArchive')->update_cover_art(
+        $release->id,
+        $self->id,
+        $self->data->{id},
+        $self->data->{new}->{position},
+        $self->data->{new}->{types},
+        $self->data->{new}->{comment}
+    );
 }
 
 sub foreign_keys {
@@ -134,10 +142,6 @@ sub build_display_data {
 
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
-
-    $data{cover_art_url} =
-        &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" .
-        $self->data->{entity}{mbid} . "/" . $self->data->{cover_art_url};
 
     return \%data;
 }

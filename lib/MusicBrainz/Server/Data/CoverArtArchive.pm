@@ -219,10 +219,9 @@ sub update_cover_art {
 
     # FIXME: all of this should probably run in a transaction.
 
-    my $current_position = $self->sql->select_single_value (
-        'SELECT ordering FROM cover_art_archive.cover_art WHERE id = ?', $cover_art_id);
+    # What to do with the edit?  it shouldn't replace the current edit should it?
 
-    if ($current_position != $position)
+    if (defined $position)
     {
         # make sure the $cover_art_position slot is available.
         $self->sql->do(
@@ -232,21 +231,35 @@ sub update_cover_art {
             $release_id, $position);
     }
 
-    $self->sql->do(
-        'UPDATE cover_art_archive.cover_art
-            SET comment = ?, ordering = ?
-          WHERE id = ?', $comment, $position, $cover_art_id);
+    my @update_columns;
+    push @update_columns, 'ordering' if defined $position;
+    push @update_columns, 'comment' if defined $comment;
 
-    $self->sql->do(
-        'DELETE FROM cover_art_archive.cover_art_type WHERE id = ?',
-        $cover_art_id);
+    my @update_values;
+    push @update_values, $position if defined $position;
+    push @update_values, $comment if defined $comment;
 
-    for my $type_id (@$types)
+    if (scalar @update_columns)
     {
         $self->sql->do(
-            'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
-            $cover_art_id, $type_id);
-    };
+            'UPDATE cover_art_archive.cover_art SET ' .
+            join (", ", map { $_ . " = ?" } @update_columns) .
+            'WHERE id = ?', @update_values, $cover_art_id);
+    }
+
+    if (defined $types)
+    {
+        $self->sql->do(
+            'DELETE FROM cover_art_archive.cover_art_type WHERE id = ?',
+            $cover_art_id);
+
+        for my $type_id (@$types)
+        {
+            $self->sql->do(
+                'INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (?, ?)',
+                $cover_art_id, $type_id);
+        };
+    }
 }
 
 sub delete {

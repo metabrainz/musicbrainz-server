@@ -587,7 +587,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
         $c->model ('CoverArtArchive')->find_available_artwork($entity->gid, $id)
     } or $c->detach('/error_404');
 
-    my ($artwork_position) = grep { $artwork[$_]->id == $id } 0..$#artwork;
+    my ($artwork_position) = 1 + grep { $artwork[$_]->id == $id } 0..$#artwork;
     my ($artwork) = grep { $_->id == $id } @artwork;
 
     $c->stash( index_url => (DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/") );
