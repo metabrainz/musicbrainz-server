@@ -32,7 +32,14 @@
               <tr class="subh">
                 <th colspan="4">
                   <input type="radio" name="medium" value="[% medium.id %]" />
-                  [% medium.format_name %] [% medium.position %]
+                  <a rel="mo:record"
+                     href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
+                    [%~ l(medium.format_name) or l("Medium") | html =%]
+                    [%= medium.position ~%]
+                    [%~ IF medium.name ~%]:
+                    [%= medium.name | html ~%]
+                    [%~ END ~%]
+                  </a>
                 </tr>
               </tr>
               [% INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist
