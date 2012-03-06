@@ -27,8 +27,46 @@ has s3 => (
 
 my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
 
+sub bytype
+{
+    # sort front first.
+    return -1 if $a->is_front;
+    return  1 if $b->is_front;
+
+    my $a_has_front = (grep { lc ($_) eq "front" } @{ $a->{types} });
+    my $b_has_front = (grep { lc ($_) eq "front" } @{ $b->{types} });
+
+    return -1 if $a_has_front && !$b_has_front;
+    return  1 if !$a_has_front && $b_has_front;
+
+    # sort back after front.
+    return -1 if $a->is_back;
+    return  1 if $b->is_back;
+
+    my $a_has_back = (grep { lc ($_) eq "back" } @{ $a->{types} });
+    my $b_has_back = (grep { lc ($_) eq "back" } @{ $b->{types} });
+
+    return -1 if $a_has_back && !$b_has_back;
+    return  1 if !$a_has_back && $b_has_back;
+
+    my $a_has_other = (grep { lc ($_) eq "other" } @{ $a->{types} });
+    my $b_has_other = (grep { lc ($_) eq "other" } @{ $b->{types} });
+
+    # sort other at the end.
+    return  1 if $a_has_other && !$b_has_other;
+    return -1 if !$a_has_other && $b_has_other;
+
+    # none of the special cases match, so use the existing position.
+    return 0;
+}
+
 sub find_artwork { shift; return $caa->find_artwork(@_); };
-sub find_available_artwork { shift; return $caa->find_available_artwork(@_); };
+sub find_available_artwork {
+    my $self = shift;
+    my $artwork = $caa->find_available_artwork(@_);
+
+    return [ sort bytype @$artwork ];
+};
 
 sub delete_releases {
     my ($self, @mbids) = @_;

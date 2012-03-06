@@ -1,24 +1,47 @@
-package MusicBrainz::Server::Form::Release::AddCoverArt;
-
+package MusicBrainz::Server::Form::CoverArt;
 use HTML::FormHandler::Moose;
-extends 'MusicBrainz::Server::Form::CoverArt';
-with 'MusicBrainz::Server::Form::Role::Edit';
+use MusicBrainz::Server::Translation qw( l );
 
-has '+name' => ( default => 'add-cover-art' );
+extends 'MusicBrainz::Server::Form';
 
-has_field 'filename' => (
+sub edit_field_names { qw( type page ) }
+
+has_field 'comment' => (
     type      => 'Text',
-    required  => 1,
+    required  => 0,
 );
 
-has_field 'id' => (
+has_field 'type_id' => (
+    type      => 'Select',
+    required  => 1,
+    multiple  => 1,
+);
+
+has_field 'position' => (
     type      => '+MusicBrainz::Server::Form::Field::Integer',
     required  => 1,
+    default => 1,
 );
+
+sub options_type_id { 
+    my $self = shift;
+
+    my %types_by_name = map { $_->name => $_ } $self->ctx->model('CoverArtType')->get_all ();
+
+    my $front = delete $types_by_name{Front};
+    my $back = delete $types_by_name{Back};
+    my $other = delete $types_by_name{Other};
+
+    my $ret = [
+        map {
+            $_->id => l($_->name)
+        } ($front, $back, values %types_by_name, $other) ];
+
+    return $ret;
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
-
 
 =head1 COPYRIGHT
 
