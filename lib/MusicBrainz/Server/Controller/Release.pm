@@ -590,8 +590,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
     } or $c->detach('/error_404');
 
     my $artwork = first { $_->id == $id } @artwork;
-    my ($artwork_position) = grep { $artwork[$_]->id == $id } 0..$#artwork;
-    $artwork_position++;
+    my $artwork_position = 1 + first { $artwork[$_]->id == $id } 0..$#artwork;
 
     $c->stash({
         artwork => $artwork,
