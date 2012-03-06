@@ -376,7 +376,6 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
 {
     my ($self, $c) = @_;
 
-    # FIXME: remove Chained('load') ?
     $c->stash->{filename} = $c->req->params->{key};
 }
 
