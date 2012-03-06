@@ -230,8 +230,6 @@ sub update_cover_art_presence {
 sub insert_cover_art {
     my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
 
-    # FIXME: all of this should probably run in a transaction.
-
     # make sure the $cover_art_position slot is available.
     $self->sql->do(
         ' UPDATE cover_art_archive.cover_art
@@ -254,8 +252,6 @@ sub insert_cover_art {
 
 sub update_cover_art {
     my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
-
-    # FIXME: all of this should probably run in a transaction.
 
     # What to do with the edit?  it shouldn't replace the current edit should it?
 

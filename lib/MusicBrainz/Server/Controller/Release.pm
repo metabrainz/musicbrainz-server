@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
+use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -408,8 +409,10 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     }
 
     my $id = $c->model('CoverArtArchive')->fresh_id;
-    $c->stash( id => $id );
-    $c->stash( index_url => (DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/") );
+    $c->stash({
+        id => $id,
+        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
+    });
 
     my $form = $c->form(
         form => 'Release::AddCoverArt',
@@ -583,14 +586,17 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
     # integrate the two.
 
     my @artwork = @{
-        $c->model ('CoverArtArchive')->find_available_artwork($entity->gid, $id)
+        $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
     } or $c->detach('/error_404');
 
-    my ($artwork_position) = 1 + grep { $artwork[$_]->id == $id } 0..$#artwork;
-    my ($artwork) = grep { $_->id == $id } @artwork;
+    my $artwork = first { $_->id == $id } @artwork;
+    my ($artwork_position) = grep { $artwork[$_]->id == $id } 0..$#artwork;
+    $artwork_position++;
 
-    $c->stash( index_url => (DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/") );
-    $c->stash( artwork => $artwork );
+    $c->stash({
+        artwork => $artwork,
+        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
+    });
 
     my @type_ids = map { $_->id } $c->model ('CoverArtType')->get_by_name (@{ $artwork->types });
 
@@ -602,16 +608,8 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
             comment => $artwork->comment,
         }
     );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
-        use Data::Dumper;
-        warn "Enter edit. ".Dumper ({
-            cover_art_types => $form->field ("type_id")->value,
-            cover_art_position => $form->field ("position")->value,
-            cover_art_id => $id,
-            cover_art_comment => $form->field('comment')->value || ''
-        });
-
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
+    {
         $self->_insert_edit(
             $c, $form,
             edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
@@ -634,8 +632,8 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
     my ($self, $c, $id) = @_;
 
     my $release = $c->stash->{entity};
-    my ($artwork) = grep { $_->id == $id }
-        @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid, $id) }
+    my $artwork = first { $_->id == $id }
+        @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
             or $c->detach('/error_404');
 
     $c->stash( artwork => $artwork );
