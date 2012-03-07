@@ -278,7 +278,7 @@ MB.TrackParser.Track = function (position, line, parent) {
         {
             for (var i in MB.TrackParser.separators) {
                 if (MB.TrackParser.separators.hasOwnProperty(i)) {
-                    var separators = MB.TrackParser.separators[i];
+                    var separator = MB.TrackParser.separators[i];
                     var attempt = self.parts.slice (0, end).join (separator);
                     if (attempt === name)
                     {
@@ -300,14 +300,17 @@ MB.TrackParser.Track = function (position, line, parent) {
         var start = self.parts.length - 1;
         while (start > 0)
         {
-            for (var separator in MB.TrackParser.separators) {
-                var attempt = self.parts.slice (start).join (separator);
-                if (attempt === name)
-                {
-                    return {
-                        'track': self.parts.slice (0, start).join (separator),
-                        'artist': attempt
-                    };
+            for (var i in MB.TrackParser.separators) {
+                if (MB.TrackParser.separators.hasOwnProperty(i)) {
+                    var separator = MB.TrackParser.separators[i];
+                    var attempt = self.parts.slice (start).join (separator);
+                    if (attempt === name)
+                    {
+                        return {
+                            'track': self.parts.slice (0, start).join (separator),
+                            'artist': attempt
+                        };
+                    }
                 }
             }
 
