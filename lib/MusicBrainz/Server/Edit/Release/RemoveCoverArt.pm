@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Release::RemoveCoverArt;
 use Moose;
 
 use List::MoreUtils qw( any );
-use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
@@ -26,7 +26,9 @@ has '+data' => (
             name => Str,
             mbid => Str
         ],
-        cover_art_id => Int
+        cover_art_id => Int,
+        cover_art_types => ArrayRef[Int],
+        cover_art_comment => Str,
     ]
 );
 
@@ -69,6 +71,10 @@ sub edit_conditions
 sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
+    my $cover_art = $opts{to_delete} or die "Required 'to_delete' object";
+
+    my %type_map = map { $_->name => $_ }
+        $self->c->model ('CoverArtType')->get_by_name(@{ $cover_art->types });
 
     $self->data({
         entity => {
@@ -76,7 +82,11 @@ sub initialize {
             name => $release->name,
             mbid => $release->gid
         },
-        cover_art_id => $opts{cover_art_id},
+        cover_art_id => $cover_art->id,
+        cover_art_comment => $cover_art->comment,
+        cover_art_types => [
+            grep defined, map { $type_map{$_}->id } @{ $cover_art->types }
+        ]
     });
 }
 
@@ -96,7 +106,8 @@ sub foreign_keys {
     return {
         Release => {
             $self->data->{entity}{id} => [ 'ArtistCredit' ]
-        }
+        },
+        CoverArtType => $self->data->{cover_art_types}
     };
 }
 
@@ -105,6 +116,10 @@ sub build_display_data {
     return {
         release => $loaded->{Release}{ $self->data->{entity}{id} }
             || Release->new( name => $self->data->{entity}{name} ),
+        types => [
+            map { $loaded->{CoverArtType}{ $_ } } @{ $self->data->{cover_art_types} }
+        ],
+        comment => $self->data->{cover_art_comment}
     };
 }
 

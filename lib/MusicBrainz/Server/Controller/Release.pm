@@ -641,8 +641,8 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
         form        => 'Confirm',
         type        => $EDIT_RELEASE_REMOVE_COVER_ART,
         edit_args   => {
-            release       => $release,
-            cover_art_id  => $id
+            release   => $release,
+            to_delete => $artwork
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));

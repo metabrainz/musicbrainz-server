@@ -19,4 +19,20 @@
       [% END %]
     </td>
   </tr>
+
+  <tr>
+    <th>[% l('Types:') %]</th>
+    <td>
+      <ul class="inline">
+      [% FOR type=edit.display_data.types %]
+      <li>[% type.name | html %]</li>
+      [% END %]
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Comment:') %]</th>
+    <td>[% edit.display_data.comment %]</td>
+  </tr>
 </table>
