@@ -22,6 +22,31 @@
     display: hidden !important;
   }
   </style>
+  <script>
+    $(document).ready (function () {
+        var image_error = function ($img) {
+            thumbnail = /-[0-9][0-9][0-9].jpg$/;
+            if ($img.attr ("src").match (thumbnail))
+            {
+                $img.attr ("src", $img.closest ("a").attr ("href"));
+            }
+        };
+
+        /* when an error event fires for an image, replace the thumbnail with the original. */
+        $('div.artwork img').bind ('error.mb', function () {
+            image_error ($(this));
+        });
+
+        /* if the image already failed to load before we bound the error event, replace
+           the thumbnail with the original. */
+        $('div.artwork img').each (function () {
+            if (this.naturalHeight == 0)
+            {
+                image_error ($(this));
+            }
+        });
+    });
+  </script>
 [% END %]
 
 [% WRAPPER 'release/layout.tt' page='cover_art' %]
