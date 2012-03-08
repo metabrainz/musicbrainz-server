@@ -170,6 +170,24 @@ sub delete {
     $self->sql->do('DELETE FROM cover_art_archive.cover_art WHERE id = ?', $id);
 }
 
+sub merge_releases {
+    my ($self, $new_release, @old_releases) = @_;
+
+    for my $old_release (@old_releases) {
+        $self->sql->do(
+            'UPDATE cover_art_archive.cover_art
+             SET release = ?,
+               ordering = ordering +
+                 coalesce((SELECT max(ordering)
+                   FROM cover_art_archive.cover_art
+                   WHERE release = ?), 0)
+             WHERE release = ?',
+            $new_release,
+            $new_release,
+            $old_release);
+    }
+}
+
 1;
 
 =head1 COPYRIGHT
