@@ -387,7 +387,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     my $entity = $c->stash->{$self->{entity_name}};
     my $id = $c->req->query_params->{id} or die "Need destination ID";
 
-    my $bucket = $c->model ('CoverArtArchive')->initialize_release ($entity->gid);
+    my $bucket = 'mbid-' . $entity->gid;
     my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
                                       [ $entity->gid ],
                                       { id => $id })->as_string ();

@@ -8,10 +8,6 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 
-use aliased 'Net::Amazon::S3::Request::CreateBucket';
-use aliased 'Net::Amazon::S3::Request::DeleteObject';
-use aliased 'Net::Amazon::S3::Request::PutObject';
-
 use Net::CoverArtArchive;
 
 extends 'MusicBrainz::Server::Edit';
@@ -43,18 +39,6 @@ has '+data' => (
         cover_art_id   => Int,
         cover_art_comment => Str,
     ]
-);
-
-sub lwp { shift->c->lwp }
-sub s3 { shift->c->model('CoverArtArchive')->s3 }
-
-has bucket_name => (
-    is => 'ro',
-    lazy => 1,
-    default => sub {
-        my $self = shift;
-        return 'mbid-' . $self->data->{entity}{mbid};
-    }
 );
 
 sub initialize {

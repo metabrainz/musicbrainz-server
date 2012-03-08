@@ -9,8 +9,6 @@ use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Exceptions;
 use Net::CoverArtArchive;
 
-use aliased 'Net::Amazon::S3::Request::DeleteObject';
-
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -30,18 +28,6 @@ has '+data' => (
         cover_art_types => ArrayRef[Int],
         cover_art_comment => Str,
     ]
-);
-
-sub lwp { shift->c->lwp }
-sub s3 { shift->c->model('CoverArtArchive')->s3 }
-
-has bucket_name => (
-    is => 'ro',
-    lazy => 1,
-    default => sub {
-        my $self = shift;
-        return 'mbid-' . $self->data->{entity}{mbid};
-    }
 );
 
 sub edit_conditions

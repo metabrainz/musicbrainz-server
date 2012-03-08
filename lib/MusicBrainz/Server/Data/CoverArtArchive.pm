@@ -68,57 +68,6 @@ sub find_available_artwork {
     return [ sort bytype @$artwork ];
 };
 
-sub delete_releases {
-    my ($self, @mbids) = @_;
-    for my $mbid (@mbids) {
-        my $bucket = "mbid-$mbid";
-        my $res = $self->c->lwp->get(&DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIX."/release/$mbid/");
-        if ($res->is_success) {
-            my $xp = XML::XPath->new( xml => $res->content );
-            for my $artwork ($xp->find('/ListBucketResult/Contents')->get_nodelist) {
-                my $key = $xp->find('Key', $artwork);
-
-                my $req = DeleteObject->new(
-                        s3     => $self->s3,
-                        bucket => $bucket,
-                        key    => $key->string_value
-                    )->http_request;
-
-                $res = $self->c->lwp->request(
-                    $req
-                );
-            }
-
-            $res = $self->c->lwp->request(
-                DeleteBucket->new(
-                    s3     => $self->s3,
-                    bucket => $bucket
-                )->http_request
-            );
-        }
-    }
-}
-
-
-=method initialize_release
-
-Create the bucket for this MBID.
-
-=cut
-
-sub initialize_release
-{
-    my ($self, $mbid) = @_;
-
-    my $bucket = "mbid-$mbid";
-
-    try {
-        $self->s3->add_bucket ({ bucket => $bucket, acl_short => 'public-read' });
-    };
-
-    return $bucket;
-}
-
 sub fresh_id {
     return int((time() - 1327528905) * 100);
 }
@@ -161,70 +110,6 @@ sub post_fields
         "x-archive-meta-collection" => 'coverartarchive',
         "x-archive-meta-mediatype" => 'images',
     };
-}
-
-sub merge_releases {
-    my ($self, $target_mbid, @source_mbids) = @_;
-    for my $source (@source_mbids) {
-        my %artwork = $caa->find_available_artwork($source);
-        for my $artwork (map { @$_ } values %artwork) {
-            my $source_file = join('-', 'mbid', $source, $artwork->type,
-                                   $artwork->page) . '.jpg';
-            my $source_bucket = "mbid-$source";
-
-            # If the target does not have it, copy it
-            unless ($caa->find_artwork($target_mbid, $artwork->id)) {
-                $self->c->lwp->request(
-                    PutObject->new(
-                        s3      => $self->s3,
-                        bucket  => "mbid-$target_mbid",
-                        key     => join('-', 'mbid', $target_mbid,
-                                        $artwork->id) . '.jpg',
-                        headers => {
-                            'x-amz-copy-source' => "/$source_bucket/$source_file",
-                            'x-amz-acl' => 'public-read'
-                        },
-                        value => ''
-                    )->http_request
-                )
-            }
-
-            # Delete this image
-            $self->c->lwp->request(
-                DeleteObject->new(
-                    s3     => $self->s3,
-                    bucket => $source_bucket,
-                    key    => $source_file
-                )->http_request
-            );
-        }
-
-        # Delete the bucket
-    }
-
-    # Update the target release_meta
-    my %gid_map = %{ $self->c->model('Release')->get_by_gids($target_mbid, @source_mbids) };
-    $self->c->model('Release')->load_meta(values %gid_map);
-
-    my %states;
-    $states{$_} = $_ for map { $_->cover_art_presence } values %gid_map;
-
-    $self->sql->do(
-        'UPDATE release_meta SET cover_art_presence = ? WHERE id = ?',
-        $states{darkened} || $states{present} || 'absent',
-        $gid_map{$target_mbid}->id
-    );
-}
-
-sub update_cover_art_presence {
-    my ($self, $release_id, $present) = @_;
-    $self->sql->do(
-        'UPDATE release_meta SET cover_art_presence = ?
-         WHERE release_id = ? cover_art_presence != ?',
-        $present ? 'present' : 'absent',
-        $release_id,
-        'darkened'
-    );
 }
 
 sub insert_cover_art {

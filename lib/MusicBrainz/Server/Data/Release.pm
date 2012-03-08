@@ -532,20 +532,15 @@ sub delete
 
     $self->c->model('Medium')->delete($_) for @mediums;
 
-    my @deleted = @{
-        $self->sql->select_list_of_hashes(
+    my @release_group_ids = @{
+        $self->sql->select_single_column_array(
             'DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')
-             RETURNING release_group, gid',
+             RETURNING release_group',
             @release_ids
         )
     };
 
-    $self->c->model('ReleaseGroup')->clear_empty_release_groups(
-        map { $_->{release_group } } @deleted
-    );
-
-    $self->c->model('CoverArtArchive')->delete_releases(
-        map { $_->{gid} } @deleted);
+    $self->c->model('ReleaseGroup')->clear_empty_release_groups(@release_group_ids);
 
     return;
 }
@@ -775,14 +770,7 @@ sub merge
         @old_ids
     );
 
-    my %releases = %{ $self->get_by_ids($new_id, @old_ids) };
-    $self->c->model('CoverArtArchive')->merge_releases(
-        $releases{$new_id}->gid,
-        map { $releases{$_}->gid } @old_ids
-    );
-
     $self->_delete_and_redirect_gids('release', $new_id, @old_ids);
-
     return 1;
 }
 
