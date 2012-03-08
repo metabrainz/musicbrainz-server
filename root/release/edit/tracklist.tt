@@ -301,7 +301,7 @@
     <table class="tracklist-template" style="display: none">
       <tr class="track">
         <td class="position">
-          <input class="pos" type="text">
+          <span class="pos"></span>
         </td>
         <td class="reorder">
             <input type="button" class="icon track-down"
