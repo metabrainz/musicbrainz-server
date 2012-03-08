@@ -3,27 +3,12 @@ use Moose;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;
-use Net::Amazon::S3;
+use Net::Amazon::S3::Policy qw( starts_with );
 use Net::CoverArtArchive qw( find_available_artwork find_artwork );
 use XML::XPath;
 use Time::HiRes qw( time );
 use Try::Tiny;
 use MusicBrainz::Server::Constants qw( $COVERART_FRONT_TYPE $COVERART_BACK_TYPE );
-
-use aliased 'Net::Amazon::S3::Request::DeleteBucket';
-use aliased 'Net::Amazon::S3::Request::DeleteObject';
-use aliased 'Net::Amazon::S3::Request::PutObject';
-
-has s3 => (
-    is => 'ro',
-    lazy => 1,
-    default => sub {
-        Net::Amazon::S3->new(
-            aws_access_key_id     => DBDefs::COVER_ART_ARCHIVE_ID,
-            aws_secret_access_key => DBDefs::COVER_ART_ARCHIVE_KEY,
-        )
-    }
-);
 
 my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
 
@@ -85,7 +70,6 @@ sub post_fields
     my $aws_id = &DBDefs::COVER_ART_ARCHIVE_ID;
     my $aws_key = &DBDefs::COVER_ART_ARCHIVE_KEY;
 
-    use Net::Amazon::S3::Policy qw( starts_with );
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
     my $filename = "mbid-$mbid-" . $id . '.jpg';
 
