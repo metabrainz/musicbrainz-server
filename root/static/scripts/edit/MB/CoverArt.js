@@ -53,7 +53,7 @@ MB.CoverArt.image_error = function ($img, image) {
            between requesting the index and loading the image.
            FIXME: start over if this happens?  obviously the
            data in the index is incorrect. */
-        $img.closest ('div').hide ();
+        $img.attr ("src", "/static/images/image404-125.png")
     }
 };
 
@@ -85,8 +85,9 @@ MB.CoverArt.image_position = function (url, image_id) {
         return false;
     });
 
-    $.ajax (url, {
-        dataType: "json",
+    $.ajax (url + '?jsonp=parseResponse', {
+        dataType: "jsonp",
+        jsonpCallback: 'parseResponse',
         success: function (data, textStatus, jqXHR) {
             if (data.images.length > 0)
             {
