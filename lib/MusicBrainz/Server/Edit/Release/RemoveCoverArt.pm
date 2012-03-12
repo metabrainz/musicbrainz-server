@@ -9,6 +9,8 @@ use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Exceptions;
 use Net::CoverArtArchive;
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';

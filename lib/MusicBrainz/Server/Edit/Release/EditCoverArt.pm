@@ -11,6 +11,8 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 
 use Net::CoverArtArchive;
 
+use aliased 'MusicBrainz::Server::Entity::Release';
+
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
