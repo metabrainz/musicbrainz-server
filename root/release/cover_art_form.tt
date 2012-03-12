@@ -1,7 +1,7 @@
 [%- IF new -%]
-  <form id="add-cover-art" action="[% c.req.uri %]" method="post">
+  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
 [%- ELSE -%]
-  <form id="edit-cover-art" action="[% c.req.uri %]" method="post">
+  <form id="edit-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
 [%- END -%]
 
     [%- USE r = FormRenderer(form) -%]
@@ -51,9 +51,12 @@
     <div style="clear: left;"> </div>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
-
     <div class="row no-label buttons">
       <button class="submit positive">[% l('Enter edit') %]</button>
     </div>
 
 </form>
+<script type="text/javascript">
+  MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
+</script>
+
