@@ -89,11 +89,16 @@ MB.CoverArt.image_position = function (url, image_id) {
         dataType: "jsonp",
         jsonpCallback: 'parseResponse',
         success: function (data, textStatus, jqXHR) {
-            if (data.images.length > 0)
+            $pos.val (data.images.length + 1);
+
+            if (data.images.length === 0)
             {
-                $('#cover-art-position-row').show ();
-                $pos.val (data.images.length + 1);
+                $('.image-position-loading').hide ();
+                $('.image-position-only').show ();
+                return;
             }
+
+            $('#cover-art-position-row').show ();
 
             $.each (data.images, function (idx, image) {
                 if (image.id == image_id)
