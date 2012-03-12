@@ -112,6 +112,8 @@ MB.CoverArt.image_position = function (url, image_id) {
                 {
                     var div = $('<div>').addClass ('thumb-position').appendTo ($('div.image-position'));
                     var a = $('<a>').addClass('thickbox').attr("href", image.image).appendTo(div);
+                    tb_init(a);
+
                     $('<img />')
                         .bind ("error.mb", function () { MB.CoverArt.image_error ($(this), image); })
                         .attr ("src", image.thumbnails.small)
