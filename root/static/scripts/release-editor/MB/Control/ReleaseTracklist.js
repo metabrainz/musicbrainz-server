@@ -120,12 +120,17 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         if (!self.parent.hasToc ())
             return;
 
+        self.$moveDown.unbind ('click.mb');
+        self.$moveUp.unbind ('click.mb');
+
         console.log ("fix these for up/down arrows.");
         // self.$position.attr ('disabled', 'disabled');
         self.$length.attr ('disabled', 'disabled');
         self.$row.find ("input.remove-track").hide ();
 
         self.$position.add(self.$length)
+            .add (self.$moveDown)
+            .add (self.$moveUp)
             .attr('title', MB.text.DoNotChangeTracks)
             .addClass('disabled-hint');
     };
