@@ -23,11 +23,15 @@
   <tr>
     <th>[% l('Types:') %]</th>
     <td>
-      <ul class="inline">
-      [% FOR type=edit.display_data.types %]
-      <li>[% type.name | html %]</li>
+      [% IF edit.display_data.types.size %]
+        <ul class="inline">
+        [% FOR type=edit.display_data.types %]
+          <li>[% type.name | html %]</li>
+        [% END %]
+        </ul>
+      [% ELSE %]
+        [% l('(none)') %]
       [% END %]
-      </ul>
     </td>
   </tr>
 
