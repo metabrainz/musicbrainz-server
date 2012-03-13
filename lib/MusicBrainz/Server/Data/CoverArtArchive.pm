@@ -5,6 +5,7 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;
 use Net::Amazon::S3::Policy qw( starts_with );
 use Net::CoverArtArchive qw( find_available_artwork find_artwork );
+use Net::CoverArtArchive::CoverArt;
 use XML::XPath;
 use Time::HiRes qw( time );
 use Try::Tiny;
@@ -47,8 +48,30 @@ sub bytype
 
 sub find_artwork { shift; return $caa->find_artwork(@_); };
 sub find_available_artwork {
-    my $self = shift;
-    my $artwork = $caa->find_available_artwork(@_);
+    my ($self, $mbid) = @_;
+
+    my $artwork = [
+        map {
+            Net::CoverArtArchive::CoverArt->new(
+                %$_,
+                image => sprintf('http://coverartarchive.org/release/%s/%s.jpg',
+                                 $_->{gid}, $_->{id}),
+                large_thumbnail =>
+                    sprintf('http://coverartarchive.org/release/%s/%s-500.jpg',
+                            $_->{gid}, $_->{id}),
+                small_thumbnail =>
+                    sprintf('http://coverartarchive.org/release/%s/%s-250.jpg',
+                            $_->{gid}, $_->{id}),
+            );
+        }
+        @{ $self->sql->select_list_of_hashes(
+            'SELECT index_listing.*, release.gid
+             FROM cover_art_archive.index_listing
+             JOIN musicbrainz.release ON index_listing.release = release.id
+             WHERE release.gid = ?',
+            $mbid
+        ) }
+    ];
 
     return [ sort bytype @$artwork ];
 };
