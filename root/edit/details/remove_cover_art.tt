@@ -37,6 +37,6 @@
 
   <tr>
     <th>[% l('Comment:') %]</th>
-    <td>[% edit.display_data.comment %]</td>
+    <td>[% html_escape(edit.display_data.comment) || l('(none)') %]</td>
   </tr>
 </table>
