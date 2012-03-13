@@ -57,7 +57,7 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
-MB.CoverArt.image_position = function (url, image_id) {
+MB.CoverArt.image_position = function () {
     var $pos = $('#id-add-cover-art\\.position');
     var $editimage = $('div.editimage');
 
@@ -83,58 +83,6 @@ MB.CoverArt.image_position = function (url, image_id) {
 
         event.preventDefault ();
         return false;
-    });
-
-    $.ajax (url + '?jsonp=parseResponse', {
-        dataType: "jsonp",
-        jsonpCallback: 'parseResponse',
-        success: function (data, textStatus, jqXHR) {
-            $pos.val (data.images.length + 1);
-
-            if (data.images.length === 0)
-            {
-                $('.image-position-loading').hide ();
-                $('.image-position-only').show ();
-                return;
-            }
-
-            $('#cover-art-position-row').show ();
-
-            $.each (data.images, function (idx, image) {
-                if (image.id == image_id)
-                {
-                    $editimage.appendTo ($('div.image-position'))
-                        .find ("img")
-                        .bind ("error.mb", function () { MB.CoverArt.image_error ($(this), image); })
-                        .attr ("src", image.thumbnails.small);
-                }
-                else
-                {
-                    var div = $('<div>').addClass ('thumb-position').appendTo ($('div.image-position'));
-                    var a = $('<a>').addClass('thickbox').attr("href", image.image).appendTo(div);
-                    tb_init(a);
-
-                    $('<img />')
-                        .bind ("error.mb", function () { MB.CoverArt.image_error ($(this), image); })
-                        .attr ("src", image.thumbnails.small)
-                        .appendTo (a);
-
-                    $('<div>' + image.types.join (", ") + '</div>').appendTo (div);
-                }
-            });
-
-            if (MB.utility.isNullOrEmpty (image_id))
-            {
-                $editimage.appendTo ($('div.image-position'));
-            }
-
-            $('.image-position-loading').hide ();
-            $('.image-position').show ();
-        },
-        error: function (jqXHR, textStatus, error) {
-            $('.image-position-loading').hide ();
-            $('.image-position-only').show ();
-        }
     });
 };
 
