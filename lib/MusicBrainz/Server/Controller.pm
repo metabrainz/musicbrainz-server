@@ -74,7 +74,9 @@ sub _insert_edit {
     my ($self, $c, $form, %opts) = @_;
 
     my $privs   = $c->user->privileges;
-    if ($c->user->is_auto_editor && !$form->field('as_auto_editor')->value) {
+    if ($c->user->is_auto_editor &&
+        $form->field('as_auto_editor') &&
+        !$form->field('as_auto_editor')->value) {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
