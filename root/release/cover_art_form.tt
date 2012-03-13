@@ -51,9 +51,7 @@
     <div style="clear: left;"> </div>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
-    <div class="row no-label buttons">
-      <button class="submit positive">[% l('Enter edit') %]</button>
-    </div>
+    [% enter_edit() %]
 
 </form>
 <script type="text/javascript">
