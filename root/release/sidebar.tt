@@ -1,6 +1,5 @@
 [% WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release) %]
     <div class="cover-art">
-        [%# FIXME: controller doesn't set release_artwork yet. %]
         [%- display_artwork (release_artwork, release.cover_art_url, l("No cover image available.")) -%]
     </div>
 

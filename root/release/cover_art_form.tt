@@ -12,6 +12,11 @@
 
         [%- r.hidden('id')       -%]
         [%- r.hidden('filename') -%]
+    [%- ELSE -%]
+    <div class="edit-cover-art" style="float: right;">
+        [%- display_artwork (release_artwork, release.cover_art_url, l("No cover image available.")) -%]
+    </div>
+
     [%- END -%]
 
     [%- r.hidden('position') -%]
