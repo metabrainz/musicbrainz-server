@@ -56,6 +56,24 @@ END; -%]
       END;
     END -%]
 
+[%- MACRO display_artwork(artwork) BLOCK -%]
+    <a href="[% artwork.image %]" class="thickbox">
+    [%- IF no_javascript -%]
+        <img src="[% artwork.small_thumbnail %]" />
+    [%- ELSE -%]
+        <img />
+        <script>
+          $('img').last ().bind ('error', function (event) {
+              if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
+              {
+                  $(this).attr ("src", "[% artwork.image %]");
+              }
+          }).attr ("src", "[% artwork.small_thumbnail %]");
+        </script>
+    [%- END -%]
+    </a>
+[%- END -%]
+
 [%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
         [%- item -%]
