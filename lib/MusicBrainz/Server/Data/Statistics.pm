@@ -144,6 +144,10 @@ my %stats = (
         DESC => "Artists in no artist credits",
 	SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.coverart" => {
+        DESC => 'Count of all cover art images',
+        SQL => 'SELECT count(*) FROM cover_art_archive.cover_art',
+    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
@@ -420,6 +424,10 @@ my %stats = (
         SQL => "SELECT COUNT(DISTINCT medium.release)
                   FROM medium_cdtoc
                   JOIN medium ON medium_cdtoc.medium = medium.id",
+    },
+    "count.release.has_caa" => {
+        DESC => 'Count of releases that have cover art at the Cover Art Archive',
+        SQL => 'SELECT count(DISTINCT release) FROM cover_art_archive.cover_art'
     },
 
     "count.recording.has_isrc" => {
