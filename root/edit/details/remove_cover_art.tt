@@ -36,6 +36,11 @@
   </tr>
 
   <tr>
+    <th>[% l('Filename:') %]</th>
+    <td><code>mbid-[% edit.data.entity.mbid %]-[% edit.data.cover_art_id %].jpg</code></td>
+  </tr>
+
+  <tr>
     <th>[% l('Comment:') %]</th>
     <td>[% html_escape(edit.display_data.comment) || l('(none)') %]</td>
   </tr>
