@@ -56,7 +56,7 @@ END; -%]
       END;
     END -%]
 
-[%- MACRO display_artwork(artwork) BLOCK -%]
+[%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
     <a href="[% artwork.image %]" class="thickbox">
     [%- IF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
@@ -68,6 +68,19 @@ END; -%]
               {
                   $(this).attr ("src", "[% artwork.image %]");
               }
+         [%- IF fallback -%]
+              else if ($(this).attr ("src") === "[% artwork.image %]")
+              {
+                  console.log ("trying", "[% fallback %]");
+                  $(this).attr ("src", "[% fallback %]");
+              }
+         [%- END -%]
+         [%- IF message -%]
+              else
+              {
+                  $(this).closest ('a').replaceWith ('<em>[% message %]</em>');
+              }
+         [%- END -%]
           }).attr ("src", "[% artwork.small_thumbnail %]");
         </script>
     [%- END -%]
