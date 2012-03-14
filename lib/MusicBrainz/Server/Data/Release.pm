@@ -710,7 +710,7 @@ sub merge
         ) };
 
         confess('medium_positions does not account for all mediums in all releases')
-            if (keys %positions != grep { exists $positions{$_} } @medium_ids);
+            if (grep { !exists $positions{$_} } @medium_ids);
 
         foreach my $id (@medium_ids) {
             next unless exists $positions{$id};
