@@ -271,7 +271,8 @@ div.thumb-position img {
     max-height: 125px;
 }
 
-div.edit-cover-art img {
+.edit-cover-art img {
     max-width: 250px;
-    max-height: 250x;
+    max-height: 250px;
 }
+
