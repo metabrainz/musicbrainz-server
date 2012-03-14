@@ -18,5 +18,5 @@
                   html_escape(edit.display_data.comment.old),
                   html_escape(edit.display_data.comment.new)) %]
 
-  [%- display_edit_artwork(edit.display_data.artwork) -%]
+  [%- display_edit_artwork(edit.display_data.artwork, edit.display_data.release) -%]
 </table>
