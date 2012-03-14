@@ -85,6 +85,7 @@ test all => sub {
                 },
                 mediums => [
                     { id => 2, old_position => 1, new_position => 1 }
+                    { id => 3, old_position => 2, new_position => 2 }
                 ]
             },
             {
