@@ -30,18 +30,22 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.$row = $track;
     self.$acrow = $artistcredit;
 
-    self.$position = $track.find ('td.position input');
+    self.$position = $track.find ('td.position span');
     self.$title = $track.find ('td.title input.track-name');
     self.$id = $track.find ('td.title input[type=hidden]');
     self.$artist = $track.find ('td.artist input');
     self.$length = $track.find ('td.length input');
     self.$deleted = $track.find ('td input.deleted');
 
+    self.$moveDown = self.$row.find ("input.track-down");
+    self.$moveUp = self.$row.find ("input.track-up");
+
     /**
      * render enters the supplied data into the form fields for this track.
      */
     self.render = function (data) {
-        self.$position.val (data.position);
+        self.position (data.position);
+
         self.$title.val (data.name);
         if (self.getDuration () === null || !self.parent.hasToc ())
         {
@@ -116,11 +120,18 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         if (!self.parent.hasToc ())
             return;
 
-        self.$position.attr ('disabled', 'disabled');
+        self.$moveDown.unbind ('click.mb');
+        self.$moveUp.unbind ('click.mb');
+
+        console.log ("fix these for up/down arrows.");
+        // self.$position.attr ('disabled', 'disabled');
         self.$length.attr ('disabled', 'disabled');
         self.$row.find ("input.remove-track").hide ();
+
         self.$position.add(self.$length)
-            .attr('title', 'This medium has one or more disc IDs which prevent this information from being changed.')
+            .add (self.$moveDown)
+            .add (self.$moveUp)
+            .attr('title', MB.text.DoNotChangeTracks)
             .addClass('disabled-hint');
     };
 
@@ -193,10 +204,10 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.position = function (val) {
         if (val !== undefined)
         {
-            self.$position.val (val);
+            self.$position.text (val);
         }
 
-        return parseInt (self.$position.val (), 10);
+        return parseInt (self.$position.text (), 10);
     };
 
 
@@ -230,8 +241,8 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.$row.find ("input.remove-track").bind ('click.mb', self.deleteTrack);
     self.$row.find ("input.guesscase-track").bind ('click.mb', self.guessCase);
 
-    self.$row.find ("input.track-down").bind ('click.mb', self.moveDown);
-    self.$row.find ("input.track-up").bind ('click.mb', self.moveUp);
+    self.$moveDown.bind ('click.mb', self.moveDown);
+    self.$moveUp.bind ('click.mb', self.moveUp);
 
     var $target = self.$row.find ("td.artist input");
     var $button = self.$row.find ("a[href=#credits]");
@@ -281,7 +292,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             if (item.isDeleted ())
                 return;
 
-            var pos = parseInt (item.$position.val (), 10);
+            var pos = item.position ()
             if (pos > trackno)
             {
                 trackno = pos;
@@ -300,7 +311,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.$table.append ($row).append ($acrow);
 
         var trk = MB.Control.ReleaseTrack (self, $row, $acrow);
-        trk.$position.val (trackno + 1);
+        trk.position (trackno + 1);
 
         self.tracks.push (trk);
         self.sorted_tracks.push (trk);
@@ -348,7 +359,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         var ret = [];
         $.each (self.tracks, function (idx, item) {
-            if (parseInt (item.$position.val (), 10) === pos)
+            if (item.position () === pos)
             {
                 ret.push (item);
             }
@@ -381,7 +392,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         $.each (self.tracks, function (idx, item) { self.sorted_tracks.push (item); });
 
         self.sorted_tracks.sort (function (a, b) {
-            return parseInt (a.$position.val (), 10) - parseInt (b.$position.val (), 10);
+            return a.position () - b.position ();
         });
 
         $.each (self.sorted_tracks, function (idx, track) {
