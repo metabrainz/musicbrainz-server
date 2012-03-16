@@ -6,6 +6,8 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 
 has '+name' => ( default => 'add-cover-art' );
 
+sub edit_field_names { qw( id ) }
+
 has_field 'id' => (
     type      => '+MusicBrainz::Server::Form::Field::Integer',
     required  => 1,
