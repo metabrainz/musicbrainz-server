@@ -1,26 +1,6 @@
 [% WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release) %]
     <div class="cover-art">
-        <a href="http://coverartarchive.org/release/[% release.gid %]/front" class="thickbox">
-          <img id="front-cover-art"
-               src="http://coverartarchive.org/release/[% release.gid %]/front-250"
-               alt="[% l('Front cover art') %]" />
-        </a>
-
-        <span id="fallback-cover-art" style="display: none">
-        [% IF release.cover_art_url; %]
-            <img src="[% release.cover_art_url %]" alt="[% l('Cover Art') %]"
-                 style="display: none"
-                 id="fallback-cover-art" />
-        [% ELSE %]
-          <em>[% l('No cover image available.') %]</em>
-        [% END %]
-
-        <script>
-          $('#front-cover-art').error(function() {
-            $(this).hide();
-            $('#fallback-cover-art').show();
-          });
-        </script>
+        [%- display_artwork (release_artwork, release.cover_art_url, l("No cover image available.")) -%]
     </div>
 
     <h2>[% l('Release information') %]</h2>

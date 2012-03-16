@@ -101,13 +101,20 @@ sub foreign_keys {
 
 sub build_display_data {
     my ($self, $loaded) = @_;
+
+    my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
+        Release->new( name => $self->data->{entity}{name} );
+
+    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt object.
+    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
+    my $artwork = {
+        image => $prefix.$self->data->{cover_art_id}.'.jpg',
+        small_thumbnail => $prefix.$self->data->{cover_art_id}.'-250.jpg',
+    };
+
     return {
-        release => $loaded->{Release}{ $self->data->{entity}{id} }
-            || Release->new( name => $self->data->{entity}{name} ),
-        cover_art_url => sprintf("%s/release/%s/%s.jpg",
-                                 &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX,
-                                 $self->data->{entity}{mbid},
-                                 $self->data->{cover_art_id}),
+        release => $release,
+        artwork => $artwork,
         types => [ map { $loaded->{CoverArtType}{$_} }
                        @{ $self->data->{cover_art_types} } ],
         comment => $self->data->{cover_art_comment},

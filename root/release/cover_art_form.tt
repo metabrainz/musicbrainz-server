@@ -11,6 +11,10 @@
                 width="500" height="100" style="border: 0;"></iframe>
 
         [%- r.hidden('id')       -%]
+    [%- ELSE -%]
+    <div class="edit-cover-art" style="float: right;">
+        [%- display_artwork (artwork) -%]
+    </div>
     [%- END -%]
 
     [%- r.hidden('position') -%]

@@ -6,9 +6,7 @@
               artist => artist_credit(release.artist_credit) }) -%]
     </p>
     <p>
-      <a href="[% artwork.image %]" class="thickbox">
-        <img src="[% artwork.large_thumbnail %]" />
-      </a>
+      [%- display_artwork(artwork) -%]
     </p>
     <form action="[% c.req.uri %]" method="post">
       [%- USE r = FormRenderer(form) -%]

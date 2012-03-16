@@ -7,20 +7,6 @@
   </tr>
 
   <tr>
-    <th>[% l('Cover art:') %]</th>
-    <td>
-      [% IF edit.is_open %]
-        <a href="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %].jpg" class="thickbox"/>
-          <img src="http://coverartarchive.org/release/[% edit.display_data.release.gid %]/[% edit.data.cover_art_id %]-250.jpg" />
-        </a>
-      [% ELSE %]
-        [% l('We are unable to display history for cover art. For a current listing
-              of cover art, please see the releases cover art page.') %]
-      [% END %]
-    </td>
-  </tr>
-
-  <tr>
     <th>[% l('Types:') %]</th>
     <td>
       [% IF edit.display_data.types.size %]
@@ -44,4 +30,6 @@
     <th>[% l('Comment:') %]</th>
     <td>[% html_escape(edit.display_data.comment) || l('(none)') %]</td>
   </tr>
+
+  [%- display_edit_artwork(edit.display_data.artwork, edit.display_data.release) -%]
 </table>
