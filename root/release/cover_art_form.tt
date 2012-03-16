@@ -11,7 +11,6 @@
                 width="500" height="100" style="border: 0;"></iframe>
 
         [%- r.hidden('id')       -%]
-        [%- r.hidden('filename') -%]
     [%- END -%]
 
     [%- r.hidden('position') -%]

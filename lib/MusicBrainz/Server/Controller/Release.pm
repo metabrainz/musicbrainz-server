@@ -426,7 +426,6 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             $c, $form,
             edit_type => $EDIT_RELEASE_ADD_COVER_ART,
             release => $entity,
-            cover_art_url => $form->field ("filename")->value,
             cover_art_types => $form->field ("type_id")->value,
             cover_art_position => $form->field ("position")->value,
             cover_art_id => $form->field('id')->value,

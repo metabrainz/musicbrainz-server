@@ -37,7 +37,6 @@ has '+data' => (
         ],
         cover_art_types => ArrayRef[Int],
         cover_art_position => Int,
-        cover_art_url  => Str,
         cover_art_id   => Int,
         cover_art_comment => Str,
     ]
@@ -53,7 +52,6 @@ sub initialize {
             name => $release->name,
             mbid => $release->gid
         },
-        cover_art_url => $opts{cover_art_url},
         cover_art_types => $opts{cover_art_types},
         cover_art_position => $opts{cover_art_position},
         cover_art_id => $opts{cover_art_id},
@@ -108,10 +106,12 @@ sub build_display_data {
     return {
         release => $loaded->{Release}{ $self->data->{entity}{id} }
             || Release->new( name => $self->data->{entity}{name} ),
-        cover_art_url =>
-            &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" .
-            $self->data->{entity}{mbid} . "/" . $self->data->{cover_art_url},
-        types => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{cover_art_types} } ],
+        cover_art_url => sprintf("%s/release/%s/%s.jpg",
+                                 &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX,
+                                 $self->data->{entity}{mbid},
+                                 $self->data->{cover_art_id}),
+        types => [ map { $loaded->{CoverArtType}{$_} }
+                       @{ $self->data->{cover_art_types} } ],
         comment => $self->data->{cover_art_comment},
         position => $self->data->{cover_art_position}
     };
