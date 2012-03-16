@@ -80,7 +80,6 @@ sub accept {
 
     $self->c->model('CoverArtArchive')->update_cover_art(
         $release->id,
-        $self->id,
         $self->data->{id},
         $self->data->{new}->{position},
         $self->data->{new}->{types},
