@@ -71,7 +71,6 @@ requires 'MooseX::Types::Structured'                  => '0.24';
 requires 'MooseX::Types::URI'                         => '0.03';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
-requires 'Net::Amazon::S3'                            => '0.54';
 requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
 requires 'Package::Stash'                             => '0.29';
 requires 'Readonly'                                   => '1.03';
