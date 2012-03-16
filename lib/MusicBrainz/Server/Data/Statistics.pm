@@ -148,6 +148,27 @@ my %stats = (
         DESC => 'Count of all cover art images',
         SQL => 'SELECT count(*) FROM cover_art_archive.cover_art',
     },
+    "count.coverart.type" => {
+        DESC => "Distribution of cover art by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT art_type.name, COUNT(cover_art_type.id) AS count
+                 FROM cover_art_archive.cover_art_type
+                 JOIN cover_art_archive.art_type ON art_type.id = cover_art_type.type_id
+                 GROUP BY art_type.name",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.coverart.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
