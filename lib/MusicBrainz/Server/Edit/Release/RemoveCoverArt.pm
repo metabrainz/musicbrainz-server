@@ -1,13 +1,11 @@
 package MusicBrainz::Server::Edit::Release::RemoveCoverArt;
 use Moose;
 
-use List::MoreUtils qw( any );
 use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Exceptions;
-use Net::CoverArtArchive;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 

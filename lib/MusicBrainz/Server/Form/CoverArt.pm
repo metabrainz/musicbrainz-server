@@ -4,8 +4,6 @@ use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 
-sub edit_field_names { qw( type page ) }
-
 has_field 'comment' => (
     type      => 'Text',
     required  => 0,
