@@ -13,7 +13,6 @@ has_field 'comment' => (
 
 has_field 'type_id' => (
     type      => 'Select',
-    required  => 1,
     multiple  => 1,
 );
 
