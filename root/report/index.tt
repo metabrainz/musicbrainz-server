@@ -53,6 +53,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'CatNoLooksLikeASIN') %]">[% l('Releases with catalog numbers that look like ASINs') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'UnlinkedPseudoReleases') %]">[% l('Translated/Transliterated Pseudo-Releases not linked to an original version') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'MediumsWithSequenceIssues') %]">[% l('Releases with non-sequential mediums') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithUnlikelyLanguageScript') %]">[% l('Releases with unlikely language/script pairs') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>
