@@ -169,6 +169,42 @@ my %stats = (
             };
         },
     },
+    "count.coverart.per_release.Nimages" => {
+        DESC => "Distribution of cover art images per release",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 30;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT release, COUNT(*) AS c
+                    FROM cover_art_archive.cover_art
+                    GROUP BY release
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.coverart.per_release.".$_."images" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
