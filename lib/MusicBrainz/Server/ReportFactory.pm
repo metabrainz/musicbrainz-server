@@ -29,6 +29,7 @@ my @all = qw(
     PossibleCollaborations
     RecordingsCreativeCommonsRelationships
     RecordingsWithEarliestReleaseRelationships
+    ReleasesWithUnlikelyLanguageScript
     ReleasedTooEarly
     SeparateDiscs
     SetInDifferentRG
@@ -66,6 +67,7 @@ use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsCreativeCommonsRelationships;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
+use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
