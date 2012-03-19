@@ -28,6 +28,7 @@ my @all = qw(
     PossibleCollaborations
     RecordingsWithEarliestReleaseRelationships
     ReleasedTooEarly
+    ReleasesInCAAWithCoverArtRelationships
     SeparateDiscs
     SetInDifferentRG
     SuperfluousDataTracks
@@ -61,6 +62,7 @@ use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
+use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
