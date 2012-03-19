@@ -20,7 +20,7 @@
     [%- r.hidden('position') -%]
     [%- WRAPPER form_row -%]
         [%- r.label('type_id', l('Type:')) -%]
-        [%- r.select('type_id') -%]
+        [%- r.select('type_id', { style => 'width: 10em', size => 5 }) -%]
         <ul id="cover-art-type-error" class="errors" style="display: none;">
             <li>[% l('Choose one or more cover art types for this image') %]</li>
         </ul>
