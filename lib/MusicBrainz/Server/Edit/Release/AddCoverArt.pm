@@ -8,8 +8,6 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 
-use Net::CoverArtArchive;
-
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit';
@@ -37,7 +35,6 @@ has '+data' => (
         ],
         cover_art_types => ArrayRef[Int],
         cover_art_position => Int,
-        cover_art_url  => Str,
         cover_art_id   => Int,
         cover_art_comment => Str,
     ]
@@ -53,7 +50,6 @@ sub initialize {
             name => $release->name,
             mbid => $release->gid
         },
-        cover_art_url => $opts{cover_art_url},
         cover_art_types => $opts{cover_art_types},
         cover_art_position => $opts{cover_art_position},
         cover_art_id => $opts{cover_art_id},
@@ -119,7 +115,8 @@ sub build_display_data {
     return {
         release => $release,
         artwork => $artwork,
-        types => [ map { $loaded->{CoverArtType}{$_} } @{ $self->data->{cover_art_types} } ],
+        types => [ map { $loaded->{CoverArtType}{$_} }
+                       @{ $self->data->{cover_art_types} } ],
         comment => $self->data->{cover_art_comment},
         position => $self->data->{cover_art_position}
     };

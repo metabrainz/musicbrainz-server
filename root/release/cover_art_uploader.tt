@@ -13,7 +13,7 @@
       [% END %]
       [% WRAPPER form_row %]
           <label for="file" class="required">[% l('Choose file:') %]</label>
-          <input id="file" type="file" name="file" value="" />
+          <input id="file" type="file" name="file" value="" accept="image/jpeg" />
       [% END %]
        <ul id="cover-art-file-error" class="errors" style="display: none">
          <li>[% l('Please choose a valid image. Currently the Cover Art Archive only supports JPEG files.') %]</li>

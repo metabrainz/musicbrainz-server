@@ -29,6 +29,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_REMOVE_COVER_ART
     $EDIT_RELEASE_REORDER_COVER_ART
 );
+use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -419,7 +420,8 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash({
         id => $id,
-        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
+        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
+        images => $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
     });
 
     my $form = $c->form(
@@ -434,8 +436,10 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             $c, $form,
             edit_type => $EDIT_RELEASE_ADD_COVER_ART,
             release => $entity,
-            cover_art_url => $form->field ("filename")->value,
-            cover_art_types => $form->field ("type_id")->value,
+            cover_art_types => [
+                grep { defined $_ && looks_like_number($_) }
+                    @{ $form->field ("type_id")->value }
+            ],
             cover_art_position => $form->field ("position")->value,
             cover_art_id => $form->field('id')->value,
             cover_art_comment => $form->field('comment')->value || ''

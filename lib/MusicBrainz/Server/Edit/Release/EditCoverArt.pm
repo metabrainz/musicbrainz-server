@@ -9,8 +9,6 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 
-use Net::CoverArtArchive;
-
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -77,7 +75,6 @@ sub accept {
 
     $self->c->model('CoverArtArchive')->update_cover_art(
         $release->id,
-        $self->id,
         $self->data->{id},
         $self->data->{new}->{types},
         $self->data->{new}->{comment}

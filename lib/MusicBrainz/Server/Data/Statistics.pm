@@ -144,6 +144,67 @@ my %stats = (
         DESC => "Artists in no artist credits",
 	SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.coverart" => {
+        DESC => 'Count of all cover art images',
+        SQL => 'SELECT count(*) FROM cover_art_archive.cover_art',
+    },
+    "count.coverart.type" => {
+        DESC => "Distribution of cover art by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT art_type.name, COUNT(cover_art_type.id) AS count
+                 FROM cover_art_archive.cover_art_type
+                 JOIN cover_art_archive.art_type ON art_type.id = cover_art_type.type_id
+                 GROUP BY art_type.name",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.coverart.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.coverart.per_release.Nimages" => {
+        DESC => "Distribution of cover art images per release",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 30;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT release, COUNT(*) AS c
+                    FROM cover_art_archive.cover_art
+                    GROUP BY release
+                ) AS t
+                GROUP BY c
+                ",
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    "count.coverart.per_release.".$_."images" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+
     "count.label" => {
         DESC => "Count of all labels",
         SQL => "SELECT COUNT(*) FROM label",
@@ -420,6 +481,10 @@ my %stats = (
         SQL => "SELECT COUNT(DISTINCT medium.release)
                   FROM medium_cdtoc
                   JOIN medium ON medium_cdtoc.medium = medium.id",
+    },
+    "count.release.has_caa" => {
+        DESC => 'Count of releases that have cover art at the Cover Art Archive',
+        SQL => 'SELECT count(DISTINCT release) FROM cover_art_archive.cover_art'
     },
 
     "count.recording.has_isrc" => {

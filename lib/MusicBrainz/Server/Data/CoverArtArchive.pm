@@ -4,12 +4,9 @@ use Moose;
 with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;
 use Net::Amazon::S3::Policy qw( starts_with );
-use Net::CoverArtArchive qw( find_available_artwork find_artwork );
+use Net::CoverArtArchive qw( find_available_artwork );
 use Net::CoverArtArchive::CoverArt;
-use XML::XPath;
 use Time::HiRes qw( time );
-use Try::Tiny;
-use MusicBrainz::Server::Constants qw( $COVERART_FRONT_TYPE $COVERART_BACK_TYPE );
 
 my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
 
@@ -46,7 +43,6 @@ sub bytype
     return 0;
 }
 
-sub find_artwork { shift; return $caa->find_artwork(@_); };
 sub find_available_artwork {
     my ($self, $mbid) = @_;
 
@@ -140,9 +136,8 @@ sub insert_cover_art {
 }
 
 sub update_cover_art {
-    my ($self, $release_id, $edit, $cover_art_id, $types, $comment) = @_;
+    my ($self, $release_id, $cover_art_id, $types, $comment) = @_;
 
-    # What to do with the edit?  it shouldn't replace the current edit should it?
 
     if (defined $comment)
     {

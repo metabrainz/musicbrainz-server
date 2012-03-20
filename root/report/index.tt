@@ -51,6 +51,8 @@
             <li><a href="[% c.uri_for_action('/report/show', 'SomeFormatsUnset') %]">[% l('Releases where some (but not all) mediums have no format set') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'CatNoLooksLikeASIN') %]">[% l('Releases with catalog numbers that look like ASINs') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'UnlinkedPseudoReleases') %]">[% l('Translated/Transliterated Pseudo-Releases not linked to an original version') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesInCAAWithCoverArtRelationships') %]">
+              [% l('Releases in the Cover Art Archive that still have cover art relationships') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>
