@@ -399,6 +399,16 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return sites.test($('#id-ar\\.url').val())
     };
 
+    var validateFacebook = function() {
+        var url = $('#id-ar\\.url').val();
+        if (url.match(/facebook.com\/pages\//)) {
+            return url.match(/\/pages\/[^\/?#]+\/\d+/);
+        }
+        return true;
+    };
+    validationRules[ MB.constants.LINK_TYPES.socialnetwork.artist ] = validateFacebook;
+    validationRules[ MB.constants.LINK_TYPES.socialnetwork.label ] = validateFacebook;
+
     self.guessType = function (sourceType, currentURL) {
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
@@ -432,7 +442,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             $('button[type="submit"]').attr('disabled', false);
         }
         else {
-            self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type</li>');
+            self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
             $('button[type="submit"]').attr('disabled', 'disabled');
         }
     };
