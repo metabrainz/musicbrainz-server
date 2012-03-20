@@ -9,10 +9,13 @@
   <tr>
     <th>[% l('New positions:') %]</th>
     <td>
+      [%- SET count = 0 -%]
       [%- FOR art=edit.display_data.new -%]
-        <div class="thumb-position">
+        <div class="thumb-position
+        [%- IF art.id != edit.display_data.old.$count.id %] moved[% END -%]">
           [%- display_artwork (art) -%]
         </div>
+        [%- SET count = count + 1 -%]
       [%- END -%]
     </td>
   </tr>

@@ -280,3 +280,6 @@ div.thumb-position img {
     max-height: 250px;
 }
 
+div.thumb-position.moved {
+    background: #B1EBB0;
+}
