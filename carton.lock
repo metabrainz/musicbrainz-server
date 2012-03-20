@@ -35879,7 +35879,7 @@
             "Test::WWW::Mechanize::Catalyst" : {
                "file" : "Test/WWW/Mechanize/Catalyst.pm",
                "version" : "0.56"
-            },
+            }
          },
          "version" : "0.56"
       },
