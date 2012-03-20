@@ -81,6 +81,9 @@ EOSQL
   <release-list>
     <release id="78ad6e24-dc0a-4c20-8284-db2d44d28fb9">
       <barcode>796122009228</barcode>
+      <edit-detail>
+        <edit-note>Sourced from my original CD</edit-note>
+      </edit-detail>
     </release>
   </release-list>
 </metadata>';
@@ -105,6 +108,13 @@ EOSQL
             barcode => '796122009228'
         }
     });
+
+    $c->model('EditNote')->load_for_edits($next_edit);
+    is(scalar($next_edit->all_edit_notes), 1, 'has an edit note');
+    is($next_edit->edit_notes->[0]->text, 'Sourced from my original CD',
+       'has correct edit note contents');
+    is($next_edit->edit_notes->[0]->editor_id, 1,
+       'attributed to the correct editor');
 
     $next_edit->accept;
 
