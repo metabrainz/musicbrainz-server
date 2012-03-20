@@ -4,7 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_EDIT_BARCODES
+    $EDIT_RELEASE_EDIT
 );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
@@ -272,7 +272,11 @@ sub release_submit : Private
         $self->_error($c, "$barcode is not a valid barcode")
             unless MusicBrainz::Server::Validation::IsValidEAN($barcode);
 
-        push @submit, { release => $id, barcode => $barcode };
+        push @submit, {
+            release => $id,
+            barcode => $barcode,
+            edit_note => $xp->find('mb:edit-detail/mb:edit-note', $node)->string_value
+        };
     }
 
     my %gid_map = %{ $c->model('Release')->get_by_gids(map { $_->{release} } @submit) };
@@ -287,23 +291,30 @@ sub release_submit : Private
     @submit = $c->model('Release')->filter_barcode_changes(@submit);
 
     if (@submit) {
-        try {
-            $c->model('Edit')->create(
-                editor_id => $c->user->id,
-                privileges => $c->user->privileges,
-                edit_type => $EDIT_RELEASE_EDIT_BARCODES,
-                submissions => [ map +{
-                    release => {
-                        id => $gid_map{ $_->{release} }->id,
-                        name => $gid_map{ $_->{release} }->name
-                    },
-                    barcode => $_->{barcode}
-                }, @submit ]
-            );
-        }
-        catch {
-            my $e = $_;
-            $self->_error($c, "This edit could not be successfully created: $e");
+        for my $submission (@submit) {
+            try {
+                my $edit = $c->model('Edit')->create(
+                    editor_id => $c->user->id,
+                    privileges => $c->user->privileges,
+                    edit_type => $EDIT_RELEASE_EDIT,
+                    to_edit => $gid_map{ $submission->{release} },
+                    barcode => $submission->{barcode}
+                );
+
+                if (my $note = $submission->{edit_note}) {
+                    $c->model('EditNote')->add_note(
+                        $edit->id,
+                        {
+                            editor_id => $c->user->id,
+                            text => $note
+                        }
+                    );
+                }
+            }
+            catch {
+                my $e = $_;
+                $self->_error($c, "This edit could not be successfully created: $e");
+            };
         }
     }
 

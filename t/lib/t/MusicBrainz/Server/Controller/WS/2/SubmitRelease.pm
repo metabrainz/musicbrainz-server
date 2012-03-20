@@ -49,17 +49,18 @@ EOSQL
     xml_ok($mech->content);
 
     my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditBarcodes');
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit');
     is_deeply($edit->data, {
-        submissions => [
-            {
-                release => {
-                    id => 243064,
-                    name => 'For Beginner Piano'
-                },
-                barcode => '5021603064126'
-            }
-        ]
+        entity => {
+            id => 243064,
+            name => 'For Beginner Piano'
+        },
+        new => {
+            barcode => '5021603064126'
+        },
+        old => {
+            barcode => undef,
+        }
     });
 
     $content = '<?xml version="1.0" encoding="UTF-8"?>
@@ -91,17 +92,18 @@ EOSQL
 
     $next_edit = MusicBrainz::Server::Test->get_latest_edit($c);
     my $rel = $c->model('Release')->get_by_gid('0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e');
-    isa_ok($next_edit, 'MusicBrainz::Server::Edit::Release::EditBarcodes');
+    isa_ok($next_edit, 'MusicBrainz::Server::Edit::Release::Edit');
     is_deeply($next_edit->data, {
-        submissions => [
-            {
-                release => {
-                    id => $rel->id,
-                    name => $rel->name
-                },
-                barcode => '796122009228'
-            }
-        ]
+        entity => {
+            id => $rel->id,
+            name => $rel->name
+        },
+        old => {
+            barcode => '4942463511227',
+        },
+        new => {
+            barcode => '796122009228'
+        }
     });
 
     $next_edit->accept;
