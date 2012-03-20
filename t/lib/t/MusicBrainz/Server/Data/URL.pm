@@ -24,7 +24,6 @@ is ( $url->gid, "9201840b-d810-4e0f-bb75-c791205f5b24" );
 is ( $url->url, "http://musicbrainz.org/" );
 is ( $url->description, "MusicBrainz" );
 is ( $url->edits_pending, 0 );
-is ( $url->reference_count, 2 );
 
 my $sql = $test->c->sql;
 $sql->begin;
