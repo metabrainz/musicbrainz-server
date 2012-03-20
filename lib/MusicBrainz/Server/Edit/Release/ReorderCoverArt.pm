@@ -1,15 +1,16 @@
-package MusicBrainz::Server::Edit::Release::EditCoverArt;
+package MusicBrainz::Server::Edit::Release::ReorderCoverArt;
 use Moose;
 use namespace::autoclean;
 
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 
 use Net::CoverArtArchive;
+use List::UtilsBy 'nsort_by';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -17,17 +18,9 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
-sub edit_name { 'Edit cover art' }
-sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
+sub edit_name { 'Reorder cover art' }
+sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
-
-sub change_fields
-{
-    Dict[
-        types => Optional[ArrayRef[Int]],
-        comment => Optional[Str],
-    ];
-}
 
 has '+data' => (
     isa => Dict[
@@ -36,9 +29,8 @@ has '+data' => (
             name => Str,
             mbid => Str
         ],
-        id => Int,
-        old => change_fields(),
-        new => change_fields(),
+        old => ArrayRef[Dict[ id => Int, position => Int ]],
+        new => ArrayRef[Dict[ id => Int, position => Int ]],
     ]
 );
 
@@ -46,24 +38,14 @@ sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
 
-    my %old = (
-        types => $opts{old_types},
-        comment => $opts{old_comment},,
-    );
-
-    my %new = (
-        types => $opts{new_types},
-        comment => $opts{new_comment},
-        );
-
     $self->data({
         entity => {
             id => $release->id,
             name => $release->name,
             mbid => $release->gid
         },
-        id => $opts{artwork_id},
-        $self->_change_data (\%old, %new)
+        old => $opts{old},
+        new => $opts{new},
     });
 }
 
@@ -75,13 +57,22 @@ sub accept {
             'This release no longer exists'
         );
 
-    $self->c->model('CoverArtArchive')->update_cover_art(
-        $release->id,
-        $self->id,
-        $self->data->{id},
-        $self->data->{new}->{types},
-        $self->data->{new}->{comment}
-    );
+
+    my $current = $self->c->model ('CoverArtArchive')->find_available_artwork ($release->gid);
+
+    my @current_ids = sort (map { $_->id } @$current);
+    my @edit_ids = sort (map { $_->{id} } @{ $self->data->{old} });
+
+    if (join(",", @current_ids) ne join (",", @edit_ids))
+    {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency
+            ->throw('Cover art has been added or removed since this edit was created, which conflicts ' .
+                    'with changes made in this edit.');
+    }
+
+    my %position = map { $_->{id} => $_->{position} } @{ $self->data->{new} };
+
+    $self->c->model('CoverArtArchive')->reorder_cover_art($release->id, \%position);
 }
 
 sub foreign_keys {
@@ -93,21 +84,7 @@ sub foreign_keys {
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
-    $fk{CoverArtType} = [
-        @{ $self->data->{new}->{types} },
-        @{ $self->data->{old}->{types} }
-    ] if defined $self->data->{new}->{types};
-        
     return \%fk;
-}
-
-sub display_cover_art_types
-{
-    my ($loaded, $types) = @_;
-
-    # FIXME: sort these.
-    # hardcode (front, back, alphabetical) sorting in CoverArtType somehow?
-    return join (", ", map { $loaded->{CoverArtType}->{$_}->name } @$types);
 }
 
 sub build_display_data {
@@ -118,28 +95,15 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt object.
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $data{release}->gid . "/";
-    $data{artwork} = {
-        image => $prefix.$self->data->{id}.'.jpg',
-        small_thumbnail => $prefix.$self->data->{id}.'-250.jpg',
-    };
+    my $artwork = $self->c->model('CoverArtArchive')->find_available_artwork ($data{release}->gid);
 
-    if ($self->data->{old}->{types})
-    {
-        $data{types} = {
-            old => display_cover_art_types ($loaded, $self->data->{old}->{types}),
-            new => display_cover_art_types ($loaded, $self->data->{new}->{types}),
-        }
-    }
+    my %artwork_by_id = map { $_->id => $_ } @$artwork;
 
-    if (exists $self->data->{old}->{comment})
-    {
-        $data{comment} = {
-            old => $self->data->{old}->{comment},
-            new => $self->data->{new}->{comment}
-        }
-    }
+    my @old = nsort_by { $_->{position} } @{ $self->data->{old} };
+    my @new = nsort_by { $_->{position} } @{ $self->data->{new} };
+
+    $data{old} = [ map { $artwork_by_id{$_->{id}} } @old ];
+    $data{new} = [ map { $artwork_by_id{$_->{id}} } @new ];
 
     return \%data;
 }

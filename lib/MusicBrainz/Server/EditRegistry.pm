@@ -62,8 +62,9 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::Release::Merge
     MusicBrainz::Server::Edit::Release::Move
-    MusicBrainz::Server::Edit::Release::ReorderMediums
     MusicBrainz::Server::Edit::Release::RemoveCoverArt
+    MusicBrainz::Server::Edit::Release::ReorderCoverArt
+    MusicBrainz::Server::Edit::Release::ReorderMediums
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
     MusicBrainz::Server::Edit::ReleaseGroup::Delete

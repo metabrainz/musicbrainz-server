@@ -50,25 +50,22 @@ sub find_artwork { shift; return $caa->find_artwork(@_); };
 sub find_available_artwork {
     my ($self, $mbid) = @_;
 
+    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid/";
+
     my $artwork = [
         map {
             Net::CoverArtArchive::CoverArt->new(
                 %$_,
-                image => sprintf('http://coverartarchive.org/release/%s/%s.jpg',
-                                 $_->{gid}, $_->{id}),
-                large_thumbnail =>
-                    sprintf('http://coverartarchive.org/release/%s/%s-500.jpg',
-                            $_->{gid}, $_->{id}),
-                small_thumbnail =>
-                    sprintf('http://coverartarchive.org/release/%s/%s-250.jpg',
-                            $_->{gid}, $_->{id}),
+                image => sprintf('%s/%s.jpg', $prefix, $_->{id}),
+                large_thumbnail => sprintf('%s/%s-500.jpg', $prefix, $_->{id}),
+                small_thumbnail => sprintf('%s/%s-250.jpg', $prefix, $_->{id}),
             );
         }
         @{ $self->sql->select_list_of_hashes(
             'SELECT index_listing.*, release.gid
              FROM cover_art_archive.index_listing
              JOIN musicbrainz.release ON index_listing.release = release.id
-             WHERE release.gid = ?',
+             WHERE release.gid = ? ORDER BY ordering',
             $mbid
         ) }
     ];
@@ -143,34 +140,15 @@ sub insert_cover_art {
 }
 
 sub update_cover_art {
-    my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
+    my ($self, $release_id, $edit, $cover_art_id, $types, $comment) = @_;
 
     # What to do with the edit?  it shouldn't replace the current edit should it?
 
-    if (defined $position)
-    {
-        # make sure the $cover_art_position slot is available.
-        $self->sql->do(
-            ' UPDATE cover_art_archive.cover_art
-                 SET ordering = ordering + 1
-               WHERE release = ? and ordering >= ?;',
-            $release_id, $position);
-    }
-
-    my @update_columns;
-    push @update_columns, 'ordering' if defined $position;
-    push @update_columns, 'comment' if defined $comment;
-
-    my @update_values;
-    push @update_values, $position if defined $position;
-    push @update_values, $comment if defined $comment;
-
-    if (scalar @update_columns)
+    if (defined $comment)
     {
         $self->sql->do(
-            'UPDATE cover_art_archive.cover_art SET ' .
-            join (", ", map { $_ . " = ?" } @update_columns) .
-            'WHERE id = ?', @update_values, $cover_art_id);
+            'UPDATE cover_art_archive.cover_art SET comment = ? WHERE id = ?',
+            $comment, $cover_art_id);
     }
 
     if (defined $types)
@@ -186,6 +164,15 @@ sub update_cover_art {
                 $cover_art_id, $type_id);
         };
     }
+}
+
+sub reorder_cover_art {
+    my ($self, $release_id, $positions) = @_;
+
+    $self->sql->do(
+        'UPDATE cover_art_archive.cover_art SET ordering = position.ordering ' .
+        'FROM (VALUES '. (join ", ", (("(?::bigint, ?::integer)") x (keys %$positions))) . ') ' .
+        'AS position (id, ordering) WHERE cover_art.id = position.id', %$positions);
 }
 
 sub delete {

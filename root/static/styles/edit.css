@@ -266,6 +266,10 @@ div.thumb-position {
     border-radius: 2px;
 }
 
+table.reorder-cover-art div.thumb-position {
+    height: 125px;
+}
+
 div.thumb-position img {
     max-width: 125px;
     max-height: 125px;

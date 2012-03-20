@@ -1,28 +1,3 @@
-[% BLOCK layout_head %]
-  <style>
-  div.artwork-cont {
-    border-radius: 2px;
-    background: #eee;
-    border: 1px solid #e0e0e0;
-    display: inline-block;
-    padding: 10px;
-    margin: 5px;
-    text-align: center;
-  }
-
-  div.artwork {
-    position: relative;
-    width: 250px;
-  }
-  div.artwork img {
-    max-width: 250px;
-    max-height: 250px;
-  }
-  div.delete {
-    display: hidden !important;
-  }
-  </style>
-[% END %]
 
 [% WRAPPER 'release/layout.tt' page='cover_art' %]
   <h2>[% l('Cover Art') %]</h2>
@@ -67,6 +42,7 @@
   [% IF c.user_exists %]
     [% IF release.may_have_cover_art %]
     <div class="buttons ui-helper-clearfix">
+      [% link_release(release, 'reorder_cover_art', l('Reorder Cover Art')) %]
       [% link_release(release, 'add_cover_art', l('Add Cover Art')) %]
     </div>
     [% ELSE %]

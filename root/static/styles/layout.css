@@ -813,3 +813,25 @@ p.cleanup {
 }
 
 .iswc { white-space: nowrap; }
+
+
+
+/*
+  Cover Art
+  ================================================
+*/
+
+div.artwork-cont {
+    border-radius: 2px;
+    background: #eee;
+    border: 1px solid #e0e0e0;
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+}
+
+div.artwork { position: relative; width: 250px; }
+div.artwork img { max-width: 250px; max-height: 250px; }
+div.delete { display: hidden !important; }
+

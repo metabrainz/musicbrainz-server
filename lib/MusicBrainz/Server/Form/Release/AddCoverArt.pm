@@ -16,6 +16,12 @@ has_field 'id' => (
     required  => 1,
 );
 
+has_field 'position' => (
+    type      => '+MusicBrainz::Server::Form::Field::Integer',
+    required  => 1,
+    default => 1,
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

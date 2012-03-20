@@ -86,6 +86,40 @@ MB.CoverArt.image_position = function () {
     });
 };
 
+MB.CoverArt.reorder_position = function () {
+    var swap_values = function ($a, $b) {
+        var otherval = $a.val ();
+        $a.val ($b.val ());
+        $b.val (otherval);
+    };
+
+    $('div.editimage button.left').bind ('click.mb', function (event) {
+        var $editimage = $(this).closest ('div.editimage');
+        var $prev = $editimage.prev ();
+        if ($prev.length)
+        {
+            $editimage.insertBefore ($prev);
+            swap_values ($prev.find ('input.position'), $editimage.find ('input.position'));
+        }
+
+        event.preventDefault ();
+        return false;
+    });
+
+    $('div.editimage button.right').bind ('click.mb', function (event) {
+        var $editimage = $(this).closest ('div.editimage');
+        var $next = $editimage.next ();
+        if ($next.length)
+        {
+            $editimage.insertAfter ($next);
+            swap_values ($next.find ('input.position'), $editimage.find ('input.position'));
+        }
+
+        event.preventDefault ();
+        return false;
+    });
+};
+
 MB.CoverArt.add_cover_art = function () {
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();

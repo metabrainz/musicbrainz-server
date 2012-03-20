@@ -1,41 +1,20 @@
-package MusicBrainz::Server::Form::CoverArt;
+package MusicBrainz::Server::Form::Release::ReorderCoverArt;
+
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l );
-
 extends 'MusicBrainz::Server::Form';
+with 'MusicBrainz::Server::Form::Role::Edit';
 
-sub edit_field_names { qw( type page ) }
+has '+name' => ( default => 'reorder-cover-art' );
 
-has_field 'comment' => (
-    type      => 'Text',
-    required  => 0,
-);
+has_field 'artwork' => ( type => 'Repeatable' );
+has_field 'artwork.id' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
+has_field 'artwork.position' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
 
-has_field 'type_id' => (
-    type      => 'Select',
-    required  => 1,
-    multiple  => 1,
-);
-
-sub options_type_id { 
-    my $self = shift;
-
-    my %types_by_name = map { $_->name => $_ } $self->ctx->model('CoverArtType')->get_all ();
-
-    my $front = delete $types_by_name{Front};
-    my $back = delete $types_by_name{Back};
-    my $other = delete $types_by_name{Other};
-
-    my $ret = [
-        map {
-            $_->id => l($_->name)
-        } ($front, $back, values %types_by_name, $other) ];
-
-    return $ret;
-};
+sub edit_field_names { qw( artwork ) }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+
 
 =head1 COPYRIGHT
 

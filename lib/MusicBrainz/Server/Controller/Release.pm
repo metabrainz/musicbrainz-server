@@ -27,6 +27,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_MERGE
     $EDIT_RELEASE_MOVE
     $EDIT_RELEASE_REMOVE_COVER_ART
+    $EDIT_RELEASE_REORDER_COVER_ART
 );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -445,6 +446,48 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     }
 }
 
+sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $entity = $c->stash->{$self->{entity_name}};
+
+    $c->model('Release')->load_meta($entity);
+
+    if (!$entity->may_have_cover_art) {
+        $c->stash( template => 'release/caa_darkened.tt' );
+        $c->detach;
+    }
+
+    my @artwork = @{
+        $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
+    } or $c->detach('/error_404');
+
+    $c->stash( images => \@artwork );
+
+    my $count = 1;
+    my @positions = map {
+        { id => $_->id, position => $count++ }
+    } @artwork;
+
+    my $form = $c->form(
+        form => 'Release::ReorderCoverArt',
+        init_object => { artwork => \@positions }
+    );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+
+        $self->_insert_edit(
+            $c, $form,
+            edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
+            release => $entity,
+            old => \@positions,
+            new => $form->field ("artwork")->value
+        );
+
+        $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
+        $c->detach;
+    };
+}
+
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
     confirmation_template => 'release/merge_confirm.tt',
@@ -594,7 +637,6 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
     } or $c->detach('/error_404');
 
     my $artwork = first { $_->id == $id } @artwork;
-    my $artwork_position = 1 + first { $artwork[$_]->id == $id } 0..$#artwork;
 
     $c->stash({
         artwork => $artwork,
@@ -621,10 +663,8 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
             artwork_id => $artwork->id,
             old_types => [ @type_ids ],
             old_comment => $artwork->comment,
-            old_position => $artwork_position,
             new_types => $form->field ("type_id")->value,
             new_comment => $form->field('comment')->value || '',
-            new_position => $form->field ("position")->value
         );
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
