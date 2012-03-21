@@ -15,15 +15,18 @@
       [%- SET count = 0 -%]
       [% FOR image = images %]
         <div class="editimage thumb-position">
-          <img class="editimage" src="[% image.image %]" />
-          <button class="left">&larr;</button>
-          <button class="right" style="float: right;">&rarr;</button>
+          [%- display_artwork(image) -%]
+          <div>
+            <button class="left">&larr;</button>
+            <button class="right" style="float: right;">&rarr;</button>
+          </div>
           <input type="hidden" value="[% image.id %]" class="id"
                  name="reorder-cover-art.artwork.[% count %].id"
                  id="id-reorder-cover-art.artwork.[% count %].id">
           <input type="hidden" value="[% count + 1 %]" class="position"
                  name="reorder-cover-art.artwork.[% count %].position"
                  id="id-reorder-cover-art.artwork.[% count %].position">
+
         </div>
         [%- SET count = count + 1 -%]
       [% END %]

@@ -24,24 +24,18 @@
       [%- ELSE -%]
         <div class="image-position">
         [%- FOR image = images -%]
-          [%- IF image.id == artwork.id -%]
-            <div class="editimage thumb-position">
-              <img class="editimage" src="[% image.image %]" />
-              <button class="left">&larr;</button>
-              <button class="right" style="float: right;">&rarr;</button>
-            </div>
-          [%- ELSE -%]
-            <div class="thumb-position">
-              <img class="editimage" src="[% image.image %]" />
-            </div>
-          [%- END -%]
+          <div class="thumb-position">
+            [%- display_artwork(image) -%]
+          </div>
         [%- END -%]
 
         [%- IF !artwork.id -%]
           <div class="editimage thumb-position">
-            <img class="editimage" src="[% c.uri_for('/static/images/newimagegoeshere-125.png') %]" /><br />
-            <button class="left">&larr;</button>
-            <button class="right" style="float: right;">&rarr;</button>
+            <img class="editimage" src="[% c.uri_for('/static/images/newimagegoeshere-125.png') %]" />
+            <div>
+              <button class="left">&larr;</button>
+              <button class="right" style="float: right;">&rarr;</button>
+            </div>
           </div>
         [%- END -%]
         </div>
