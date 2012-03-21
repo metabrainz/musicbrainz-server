@@ -2,10 +2,65 @@
   [%- script_manifest('edit.js.manifest') -%]
 [%- END -%]
 
-[% WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' %]
+[%- WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' -%]
   <h2>[%- l('Add Cover Art') -%]</h2>
-  [%- INCLUDE 'release/cover_art_form.tt' new=1 -%]
-  <script>
+
+  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
+
+    <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
+                width="500" height="100" style="border: 0;"></iframe>
+    [%- r.hidden('id') -%]
+
+    [%- INCLUDE 'release/cover_art_fields.tt' -%]
+
+    <div class="row" id="cover-art-position-row">
+      <label id="cover-art-position-label" class="required">Position:</label>
+
+      [%- IF images.size == 0 -%]
+        <div class="image-position-only">
+          [%- l('(no other cover art)') -%]
+        </div>
+      [%- ELSE -%]
+        <div class="image-position">
+        [%- FOR image = images -%]
+          [%- IF image.id == artwork.id -%]
+            <div class="editimage thumb-position">
+              <img class="editimage" src="[% image.image %]" />
+              <button class="left">&larr;</button>
+              <button class="right" style="float: right;">&rarr;</button>
+            </div>
+          [%- ELSE -%]
+            <div class="thumb-position">
+              <img class="editimage" src="[% image.image %]" />
+            </div>
+          [%- END -%]
+        [%- END -%]
+
+        [%- IF !artwork.id -%]
+          <div class="editimage thumb-position">
+            <img class="editimage" src="[% c.uri_for('/static/images/newimagegoeshere-125.png') %]" /><br />
+            <button class="left">&larr;</button>
+            <button class="right" style="float: right;">&rarr;</button>
+          </div>
+        [%- END -%]
+        </div>
+
+        <script type="text/javascript">
+            MB.CoverArt.image_position ("[% index_url %]", "[% artwork.id %]");
+        </script>
+      [%- END -%]
+    </div>
+
+    <div style="clear: left;"> </div>
+
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [%- enter_edit() -%]
+
+  </form>
+  <script type="text/javascript">
     MB.CoverArt.add_cover_art ();
+    MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
   </script>
-[% END %]
+[%- END -%]
+
