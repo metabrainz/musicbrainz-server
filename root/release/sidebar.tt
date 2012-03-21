@@ -1,6 +1,6 @@
 [% WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release) %]
     <div class="cover-art">
-        [%- display_artwork (release_artwork, release.cover_art_url, l("No cover image available.")) -%]
+        [%- display_artwork (release_artwork, release.cover_art_url, l("No front cover image available.")) -%]
     </div>
 
     <h2>[% l('Release information') %]</h2>
