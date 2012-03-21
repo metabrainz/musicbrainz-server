@@ -42,10 +42,10 @@
   [%- IF c.user_exists -%]
     [%- IF release.may_have_cover_art -%]
     <div class="buttons ui-helper-clearfix">
+      [%- link_release(release, 'add_cover_art', l('Add Cover Art')) -%]
       [%- IF cover_art.size > 1 -%]
         [%- link_release(release, 'reorder_cover_art', l('Reorder Cover Art')) -%]
       [%- END -%]
-      [%- link_release(release, 'add_cover_art', l('Add Cover Art')) -%]
     </div>
     [%- ELSE -%]
       <h2>[%- l('Cannot Add Cover Art') -%]</h2>
