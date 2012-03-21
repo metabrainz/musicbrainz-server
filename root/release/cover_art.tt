@@ -1,9 +1,9 @@
 
-[% WRAPPER 'release/layout.tt' page='cover_art' %]
+[%- WRAPPER 'release/layout.tt' page='cover_art' -%]
   <h2>[% l('Cover Art') %]</h2>
 
-  [% IF cover_art.size %]
-    [% FOR artwork=cover_art %]
+  [%- IF cover_art.size -%]
+    [%- FOR artwork=cover_art -%]
 
       <div class="artwork-cont[% ' mp' IF !artwork.approved %]">
         <div style="position: relative" class="artwork">
@@ -12,45 +12,47 @@
         <p>
           Types: [% comma_list(artwork.types) || '-' %]
         </p>
-        [% IF artwork.comment %]
+        [%- IF artwork.comment -%]
         <p>
-          [% artwork.comment | html %]
+          [%- artwork.comment | html -%]
         </p>
-        [% END %]
-        [% IF c.user_exists %]
+        [%- END -%]
+        [%- IF c.user_exists -%]
           <div class="buttons">
             <a href="[% c.uri_for_action('/release/edit_cover_art', [ release.gid ], artwork.id) %]">
-              [% l('Edit') %]
+              [%- l('Edit') -%]
             </a>
             <a href="[% c.uri_for_action('/release/remove_cover_art', [ release.gid ], artwork.id) %]">
-              [% l('Remove') %]
+              [%- l('Remove') -%]
             </a>
           </div>
-        [% END %]
+        [%- END -%]
       </div>
-    [% END %]
+    [%- END -%]
 
     <p>
       [% l('All artwork is provided by the {caa|Cover Art Archive}.',
            { caa => 'http://coverartarchive.org' }) %]
     </p>
-  [% ELSE %]
+  [%- ELSE -%]
     <p>[% l('We do not currently have any cover art for {release}.',
             { release => link_entity(entity) }) %]</p>
-  [% END %]
+  [%- END -%]
 
-  [% IF c.user_exists %]
-    [% IF release.may_have_cover_art %]
+  [%- IF c.user_exists -%]
+    [%- IF release.may_have_cover_art -%]
     <div class="buttons ui-helper-clearfix">
-      [% link_release(release, 'reorder_cover_art', l('Reorder Cover Art')) %]
-      [% link_release(release, 'add_cover_art', l('Add Cover Art')) %]
+      [%- IF cover_art.size > 1 -%]
+        [%- link_release(release, 'reorder_cover_art', l('Reorder Cover Art')) -%]
+      [%- END -%]
+      [%- link_release(release, 'add_cover_art', l('Add Cover Art')) -%]
     </div>
-    [% ELSE %]
+    [%- ELSE -%]
       <h2>[%- l('Cannot Add Cover Art') -%]</h2>
       <p>[% l('The Cover Art Archive has had a take down request in the past for
                this release, so we are unable to allow any more uploads.') %]</p>
-    [% END %]
-  [% ELSE %]
-    <p>[% request_login(l('Log in to upload cover art')) %]</p>
-  [% END %]
-[% END %]
+    [%- END -%]
+  [%- ELSE -%]
+    <p>[%- request_login(l('Log in to upload cover art')) -%]</p>
+  [%- END -%]
+[%- END -%]
