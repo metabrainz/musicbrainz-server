@@ -541,29 +541,16 @@ sub external_search
     Class::MOP::load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
-    if ($query eq '!!!' and $type eq 'artist')
-    {
-        $query = 'chkchkchk';
-    }
-
-    unless ($adv)
-    {
-        $query = escape_query($query);
-
-        if (grep { $type eq $_ } ('artist', 'label', 'work'))
-        {
-            $query = alias_query ($type, $query);
-        }
-    }
-
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
+    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=%s",
                                  DBDefs::LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
-                                 $limit,);
+                                 $limit,
+                                 $adv ? 'false' : 'true',
+                                 );
 
     if (&DBDefs::_RUNNING_TESTS)
     {
