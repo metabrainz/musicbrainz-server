@@ -388,21 +388,26 @@ sub create
         my $now = DateTime->now;
         my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
-        my $row = {
-            editor => $edit->editor_id,
-            data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
-            status => $edit->status,
-            type => $edit->edit_type,
-            open_time => $now,
-            expire_time => $now + $duration,
-            autoedit => $edit->auto_edit,
-            quality => $edit->quality,
-            close_time => $edit->close_time
-        };
-
-        my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
+        my $edit_id = $self->c->sql->select_single_value(
+            "SELECT nextval('edit_id_seq')"
+        );
         $edit->id($edit_id);
         $edit->insert;
+
+        $self->c->sql->insert_row(
+            'edit' => {
+                id => $edit_id,
+                editor => $edit->editor_id,
+                data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
+                status => $edit->status,
+                type => $edit->edit_type,
+                open_time => $now,
+                expire_time => $now + $duration,
+                autoedit => $edit->auto_edit,
+                quality => $edit->quality,
+                close_time => $edit->close_time
+            }
+        );
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
