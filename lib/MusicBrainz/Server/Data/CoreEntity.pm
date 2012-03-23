@@ -70,7 +70,7 @@ sub find_by_name
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
-sub get_by_ids_sorted
+sub get_by_ids_sorted_by_name
 {
     my ($self, @ids) = @_;
     @ids = grep { defined && $_ } @ids;

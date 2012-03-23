@@ -406,7 +406,7 @@ sub find_editor_entities
           WHERE editor = ? AND tag = ?',
         $editor_id, $tag_id) };
 
-    my $objs = $self->parent->get_by_ids_sorted(@tags);
+    my $objs = $self->parent->get_by_ids_sorted_by_name(@tags);
     return @$objs;
 }
 

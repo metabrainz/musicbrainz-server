@@ -18,7 +18,7 @@ role
 {
     my $params = shift;
 
-    requires 'c', '_columns', '_id_column', '_new_from_row', 'get_by_ids_sorted';
+    requires 'c', '_columns', '_id_column', '_new_from_row', 'get_by_ids_sorted_by_name';
 
     has 'tags' => (
         is => 'ro',
