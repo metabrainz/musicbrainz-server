@@ -20,6 +20,10 @@ sub search : Path('')
     $c->req->query_params->{advanced} = $c->req->query_params->{adv}
         if exists $c->req->query_params->{adv};
 
+    # The form should really be responsible for this, but I can't see a way
+    # to make the field optional, but always have a value
+    $c->req->query_params->{method} ||= 'indexed';
+
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
     $c->stash->{taglookup} = $c->form( tag_lookup => 'TagLookup' );
