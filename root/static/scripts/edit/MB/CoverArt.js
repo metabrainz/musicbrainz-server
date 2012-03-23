@@ -23,15 +23,6 @@ MB.CoverArt = {};
 
 MB.CoverArt.lastCheck;
 
-MB.CoverArt.validate_cover_art_type = function () {
-    var $select = $('#id-add-cover-art\\.type_id');
-
-    var invalid = $select.find ('option:selected').length < 1;
-
-    $('#cover-art-type-error').toggle (invalid);
-    return !invalid;
-};
-
 MB.CoverArt.validate_cover_art_file = function () {
     var filename = $('iframe').contents ().find ('#file').val ();
     var invalid = (filename == ""
@@ -123,9 +114,8 @@ MB.CoverArt.reorder_position = function () {
 MB.CoverArt.add_cover_art = function () {
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();
-    
-        var valid = MB.CoverArt.validate_cover_art_file () &&
-            MB.CoverArt.validate_cover_art_type ();
+
+        var valid = MB.CoverArt.validate_cover_art_file ();
 
         if (valid)
         {
