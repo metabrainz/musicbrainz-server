@@ -302,6 +302,7 @@
       <tr class="track">
         <td class="position">
           <span class="pos"></span>
+          <input class="pos" type="text" />
         </td>
         <td class="reorder">
             <input type="button" class="icon track-down"

@@ -9,7 +9,13 @@ use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Medium::Util ':all';
+use MusicBrainz::Server::Edit::Medium::Util qw(
+    display_tracklist
+    filter_subsecond_differences
+    track
+    tracks_to_hash
+    tracklist_foreign_keys
+);
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
     Nullable
@@ -246,6 +252,7 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
+                        $track->number // $track->position, # FIXME: remove // when database is updated.
                         $track->name,
                         format_track_length($track->length),
                         join(

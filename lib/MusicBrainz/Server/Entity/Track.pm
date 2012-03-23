@@ -33,6 +33,11 @@ has 'position' => (
     isa => 'Int'
 );
 
+has 'number' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
 has 'name' => (
     is => 'rw',
     isa => 'Str'

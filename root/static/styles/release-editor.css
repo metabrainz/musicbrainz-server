@@ -153,7 +153,7 @@ div.guesscase-options,
 
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
 table.medium.tbl tr.deleted { display: none; }
-table.medium.tbl td.position  { width: 2em; }
+table.medium.tbl td.position  { width: 4em; }
 table.medium.tbl td.reorder  { width: 38px; }
 table.medium.tbl td.credits-button { width: 4em; text-align: right; }
 table.medium.tbl td.length    { width: 5em; }

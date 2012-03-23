@@ -51,6 +51,7 @@ sub tracks_to_hash
         artist_credit => artist_credit_to_ref ($_->artist_credit, []),
         recording_id => $_->recording_id,
         position => $_->position,
+        number => $_->number,
         length => $_->length,
     }, @$tracks ];
 
@@ -80,6 +81,7 @@ sub track {
         length => Nullable[Int],
         recording_id => NullableOnPreview[Int],
         position => Int,
+        number => Nullable[Str],
     ];
 }
 
@@ -94,6 +96,7 @@ sub display_tracklist {
                 length => $_->{length},
                 artist_credit => artist_credit_preview ($loaded, $_->{artist_credit}),
                 position => $_->{position},
+                number => $_->{number} // $_->{position},
                 recording => !$_->{recording_id} || !$loaded->{Recording}{ $_->{recording_id} } ?
                     Recording->new( name => $_->{name} ) : 
                     $loaded->{Recording}{ $_->{recording_id} },
