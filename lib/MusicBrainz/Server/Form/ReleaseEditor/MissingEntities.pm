@@ -34,6 +34,7 @@ for my $type (@types) {
 
     has_field "missing.$type.entity_id" => (
         type => '+MusicBrainz::Server::Form::Field::Integer',
+        required => 1
     );
 }
 
@@ -46,12 +47,13 @@ sub validate {
 
         for my $field ($self->field('missing')->field($type)->fields) {
             next if $field->has_errors;
-            next if $field->field('entity_id')->value;
+            next if !defined $field->field('entity_id')->value;
 
-            $field->field('sort_name')->required(1);
-            $field->field('sort_name')->validate_field;
-
-            push @new_entities, $field;
+            unless ($field->field('entity_id')->value > 0) {
+                $field->field('sort_name')->required(1);
+                $field->field('sort_name')->validate_field;
+                push @new_entities, $field;
+            }
         }
 
         my %entities = $self->ctx->model(type_to_model($type))
