@@ -93,6 +93,10 @@ table.vote-tally .date {
     padding-left: 1em;
 }
 
+.edit-notes .modbot {
+    color: #999;
+}
+
 .edit-notes .edit-note h3 {
     font-weight: normal;
     background-image: url('../images/icons/user.png');
