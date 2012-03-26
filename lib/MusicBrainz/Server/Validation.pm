@@ -128,7 +128,7 @@ sub IsValidURL
         or return 0;
 
     return 0 if $u->scheme eq '';
-    return 0 unless $u->authority =~ /\./;
+    return 0 if $u->can('authority') && !($u->authority =~ /\./);
     return 1;
 }
 
@@ -184,7 +184,7 @@ sub is_valid_url
         or return 0;
 
     return 0 if $u->scheme eq '';
-    return 0 unless $u->authority =~ /\./;
+    return 0 if $u->can('authority') && !($u->authority =~ /\./);
     return 1;
 }
 

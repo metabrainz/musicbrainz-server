@@ -96,6 +96,7 @@
 
 [%- MACRO tracklist_pager BLOCK -%]
 <div class="pager" style="width: 100%; text-align: right; display: none;">
+  <p style="text-align: left">[% l('Select a disc from the search results below and then click "Add Disc".') %]</p>
   <a href="#prev">&lt;&lt;</a>
   <span class="pager"></span>
   <a href="#next">&gt;&gt;</a>
@@ -164,6 +165,7 @@
 
   <div class="add-disc-dialog dialog" style="display: none">
     <h1>[% l('Add Disc') %]</h1>
+    [% l('To create a new tracklist, use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]
 
     <div class="tabs">
       <ul class="tabs">
@@ -176,8 +178,7 @@
 
     <div class="add-disc-tab manual">
         <p>
-        [% l('To use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]
-        [% l('Alternatively, enter a tracklist below:') %]
+        [% l('Enter a tracklist below:') %]
         </p>
 
         <textarea class="tracklist"></textarea>
@@ -208,20 +209,20 @@
         <tr>
           <td><label for="import-release">[% l('Release:') %]</label></td>
           <td><input type="text" id="import-release" class="release" value="[% information.field('name').value | html %]" /></td>
-          <td> </td>
+          <td rowspan="2"></td>
         </tr>
         <tr>
           <td><label for="import-artist">[% l('Artist:') %]</label></td>
           <td><input type="text" id="import-artist" class="artist" value="[% artist_credit_preview_from_field(release_artist) %]" /></td>
-          <td rowspan="2" style="vertical-align: bottom;">
-            <div class="buttons">
-              <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
-            </div>
-          </td>
         </tr>
         <tr>
           <td><label for="track-count">[% l('Track count:') %]</label></td>
           <td><input type="text" id="track-count" class="track-count" value="" /></td>
+          <td>
+            <div class="buttons">
+              <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
+            </div>
+          </td>
         </tr>
       </table>
 

@@ -364,6 +364,8 @@ sub collections : Chained('load') RequireAuth
             if ($collection->{'public'} == 0);
     }
 
+    $c->model('Editor')->load(@public_collections);
+
     $c->stash(
         public_collections => \@public_collections,
         private_collections => $private_collections,

@@ -46,12 +46,12 @@ is($alias->artist->id, $alias->artist_id, 'loaded artist id');
 # Find all aliases for an artist
 my $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 2);
-is($alias_set->[0]->name, 'Alias 1');
+is($alias_set->[0]->name, 'Alias 2');
 is($alias_set->[0]->artist_id, 1);
-is($alias_set->[0]->locale, undef);
-is($alias_set->[1]->name, 'Alias 2');
+is($alias_set->[0]->locale, 'en_GB');
+is($alias_set->[1]->name, 'Alias 1');
 is($alias_set->[1]->artist_id, 1);
-is($alias_set->[1]->locale, 'en_GB');
+is($alias_set->[1]->locale, undef);
 
 # Attempt finding aliases for an artist with no aliases
 $alias_set = $artist_data->alias->find_by_entity_id(2);
@@ -65,8 +65,8 @@ $artist_data->alias->merge(1, 2);
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 3);
-is($alias_set->[0]->name, 'Alias 1');
-is($alias_set->[1]->name, 'Alias 2');
+is($alias_set->[0]->name, 'Alias 2');
+is($alias_set->[1]->name, 'Alias 1');
 is($alias_set->[2]->name, 'Empty Artist',
    'has the old artist as an alias');
 
@@ -78,8 +78,8 @@ $artist_data->alias->merge(1, 3);
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 3);
-is($alias_set->[0]->name, 'Alias 1');
-is($alias_set->[1]->name, 'Alias 2');
+is($alias_set->[0]->name, 'Alias 2');
+is($alias_set->[1]->name, 'Alias 1');
 is($alias_set->[2]->name, 'Empty Artist');
 
 $alias_set = $artist_data->alias->find_by_entity_id(3);

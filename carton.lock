@@ -35812,8 +35812,8 @@
          "version" : "1.30"
       },
       "Test::WWW::Mechanize::Catalyst" : {
-         "dist" : "Test-WWW-Mechanize-Catalyst-0.53",
-         "module" : "Test::WWW::Mechanize::Catalyst",
+         "dist" : "Test-WWW-Mechanize-Catalyst-0.56",
+         "module" : "http://cpan.metacpan.org/authors/id/E/ED/EDENC/Test-WWW-Mechanize-Catalyst-0.56.tar.gz",
          "mymeta" : {
             "abstract" : "Test::WWW::Mechanize for Catalyst",
             "author" : [
@@ -35857,7 +35857,8 @@
                      "Moose" : "0.67",
                      "Test::WWW::Mechanize" : "1.14",
                      "WWW::Mechanize" : "1.54",
-                     "namespace::clean" : "0.09"
+                     "namespace::clean" : "0.09",
+                     "perl" : "5.008004"
                   }
                }
             },
@@ -35870,17 +35871,17 @@
                   "url" : "http://dev.catalyst.perl.org/repos/Catalyst/Test-WWW-Mechanize-Catalyst/trunk/"
                }
             },
-            "version" : "0.53"
+            "version" : "0.56"
          },
          "name" : "Test::WWW::Mechanize::Catalyst",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Test-WWW-Mechanize-Catalyst-0.53.tar.gz",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/E/ED/EDENC/Test-WWW-Mechanize-Catalyst-0.56.tar.gz",
          "provides" : {
             "Test::WWW::Mechanize::Catalyst" : {
                "file" : "Test/WWW/Mechanize/Catalyst.pm",
-               "version" : "0.53"
+               "version" : "0.56"
             }
          },
-         "version" : "0.53"
+         "version" : "0.56"
       },
       "Test::WWW::Selenium" : {
          "dist" : "Test-WWW-Selenium-1.24",
