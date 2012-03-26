@@ -119,8 +119,10 @@ sub is_charter
 sub is_newbie
 {
     my $self = shift;
-    my $date = (DateTime->now - DateTime::Duration->new(weeks => 2));
-    return $self->registration_date > $date;
+    return DateTime::Duration->compare(
+        DateTime->now - $self->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) == -1;
 }
 
 sub is_admin
@@ -135,6 +137,14 @@ has 'preferences' => (
     default => sub { MusicBrainz::Server::Entity::Preferences->new }
 );
 
+sub is_limited
+{
+    my ($self, $editor) = @_;
+    return
+        !$editor->email_confirmation_date ||
+        $editor->is_newbie ||
+        $editor->accepted_edits < 10;
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
