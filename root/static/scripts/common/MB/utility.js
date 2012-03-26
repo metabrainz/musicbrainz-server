@@ -148,8 +148,9 @@ MB.utility.structureToString = function (obj) {
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
 
+    var withDataAndEvents = true;
     $(form).prepend (
-        $(button).clone ().removeAttr ('id').css ({
+        $(button).clone (withDataAndEvents).removeAttr ('id').css ({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
