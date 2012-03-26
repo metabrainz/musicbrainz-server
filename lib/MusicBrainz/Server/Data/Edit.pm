@@ -385,6 +385,8 @@ sub create
     $edit->quality($quality);
 
     Sql::run_in_transaction(sub {
+        $edit->insert;
+
         my $now = DateTime->now;
         my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
@@ -402,7 +404,6 @@ sub create
 
         my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
         $edit->id($edit_id);
-        $edit->insert;
 
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
