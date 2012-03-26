@@ -66,7 +66,7 @@ sub accept {
         );
 }
 
-sub insert {
+sub post_insert {
     my $self = shift;
 
     my $release = $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid});

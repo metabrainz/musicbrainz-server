@@ -405,6 +405,15 @@ sub create
         my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
         $edit->id($edit_id);
 
+        $edit->post_insert;
+        my $post_insert_update = {
+            data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
+            status => $edit->status,
+            type => $edit->edit_type,
+        };
+
+        $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
+
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
             $ids = [ uniq grep { defined } @$ids ];

@@ -276,6 +276,7 @@ sub build_display_data
 sub accept { }
 sub reject { }
 sub insert { }
+sub post_insert { }
 
 sub to_hash { shift->data }
 sub restore { shift->data(shift) }
