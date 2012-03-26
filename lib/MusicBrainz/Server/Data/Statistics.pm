@@ -169,6 +169,84 @@ my %stats = (
             };
         },
     },
+    "count.release.status.statname.has_coverart" => {
+        DESC => "Count of releases with cover art, by status",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT
+                   coalesce(release_status.name, 'null'),
+                   count(DISTINCT cover_art.release)
+                 FROM cover_art_archive.cover_art
+                 JOIN musicbrainz.release ON release.id = cover_art.release
+                 FULL OUTER JOIN musicbrainz.release_status
+                   ON release_status.id = release.status
+                 GROUP BY coalesce(release_status.name, 'null')",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.status.".$_.".has_coverart" => $dist{$_}
+                } keys %dist
+            };
+        }
+    },
+    "count.release.type.typename.has_coverart" => {
+        DESC => "Count of releases with cover art, by release group type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT
+                   coalesce(release_group_type.name, 'null'),
+                   count(DISTINCT cover_art.release)
+                 FROM cover_art_archive.cover_art
+                 JOIN musicbrainz.release ON release.id = cover_art.release
+                 JOIN musicbrainz.release_group
+                   ON release.release_group = release_group.id
+                 FULL OUTER JOIN musicbrainz.release_group_type
+                   ON release_group_type.id = release_group.type
+                 GROUP BY coalesce(release_group_type.name, 'null')"
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.type.".$_.".has_coverart" => $dist{$_}
+                } keys %dist
+            };
+        }
+    },
+    "count.release.format.fname.has_coverart" => {
+        DESC => "Count of releases with cover art, by medium format",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT
+                   coalesce(medium_format.name, 'null'),
+                   count(DISTINCT cover_art.release)
+                 FROM cover_art_archive.cover_art
+                 JOIN musicbrainz.release ON release.id = cover_art.release
+                 JOIN musicbrainz.medium ON medium.release = release.id
+                 FULL OUTER JOIN musicbrainz.medium_format
+                   ON medium_format.id = medium.format
+                 GROUP BY coalesce(medium_format.name, 'null')",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.format.".$_.".has_coverart" => $dist{$_}
+                } keys %dist
+            };
+        }
+    },
     "count.coverart.per_release.Nimages" => {
         DESC => "Distribution of cover art images per release",
         CALC => sub {
