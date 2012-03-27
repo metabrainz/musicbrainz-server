@@ -60,10 +60,10 @@ $email->send_message_to_editor(
     send_to_self => 1,
 );
 
-is(scalar(@{$email->transport->deliveries}), 1);
+is(scalar(@{$email->transport->deliveries}), 2);
+
 is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
 $e = $email->transport->deliveries->[0]->{email};
-$email->transport->clear_deliveries;
 is($e->get_header('From'), '"Editor 1" <foo@example.com>');
 is($e->get_header('To'), '"Editor 2" <bar@example.com>');
 is($e->get_header('BCC'), undef);
@@ -77,6 +77,21 @@ If you would like to respond, please reply to this message or visit
 http://localhost/user/Editor\%201/contact to send 'Editor 1' an email.
 
 -- The MusicBrainz Team
+EOS
+
+is($email->transport->deliveries->[1]->{envelope}->{from}, 'noreply@musicbrainz.org');
+$e = $email->transport->deliveries->[1]->{email};
+$email->transport->clear_deliveries;
+is($e->get_header('From'), '"Editor 1" <foo@example.com>');
+is($e->get_header('To'), '"Editor 1" <foo@example.com>');
+is($e->get_header('BCC'), undef);
+is($e->get_header('Subject'), 'Hey');
+compare_body($e->get_body, <<EOS);
+This is a copy of the message you sent to MusicBrainz editor 'Editor 2':
+------------------------------------------------------------------------
+Hello!
+------------------------------------------------------------------------
+Please do not respond to this e-mail.
 EOS
 
 $email->send_email_verification(

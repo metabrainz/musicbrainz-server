@@ -79,10 +79,6 @@ sub _create_message_to_editor_email
         push @headers, 'Reply-To', $NOREPLY_ADDRESS;
     }
 
-    if ($opts{send_to_self}) {
-        push @headers, 'BCC', _user_address($from);
-    }
-
     my $from_name = $from->name;
     my $contact_url = sprintf "http://%s/user/%s/contact",
                         &DBDefs::WEB_SERVER_USED_IN_EMAIL,
@@ -324,8 +320,27 @@ sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
-    my $email = $self->_create_message_to_editor_email(%opts);
-    return $self->_send_email($email);
+    {
+        my $email = $self->_create_message_to_editor_email(%opts);
+        $self->_send_email($email);
+    }
+
+    if ($opts{send_to_self}) {
+        my $copy = $self->_create_message_to_editor_email(%opts);
+        my $toname = $opts{to}->name;
+        my $message = $opts{message};
+
+        $copy->header_str_set( To => _user_address($opts{from}) );
+        $copy->body_str_set(<<EOF);
+This is a copy of the message you sent to MusicBrainz editor '$toname':
+------------------------------------------------------------------------
+$message
+------------------------------------------------------------------------
+Please do not respond to this e-mail.
+EOF
+
+        $self->_send_email($copy);
+    }
 }
 
 sub send_email_verification
