@@ -1,9 +1,12 @@
 [% PROCESS 'relationship/linkattributetype/common.tt' %]
 
-[% WRAPPER "layout.tt" title=l("Instrument Tree") %]
-    [% INCLUDE 'relationship/sidebar.tt' linkattributetype=1 %]
+[% WRAPPER "layout.tt" title=l("Instrument Tree") full_width=1 %]
     <div id="content">
-        <h1>[% l("Instrument Tree") %]</h1>
+        [%- INCLUDE 'relationship/header.tt' page='instruments' %]
+
+        [%- IF c.user.is_relationship_editor -%]
+            <p><a href="[% c.uri_for_action('/relationship/linkattributetype/create') %]">[% l('Create a new instrument') %]</a></p>
+        [%- END -%]
 
         [% IF root.children.size %]
             <p><span style="font-weight: bold">[% l('Jump to:') %]</span><p>

@@ -1,7 +1,6 @@
-[% WRAPPER "layout.tt" title=l("Relationship Types") %]
-    [% INCLUDE 'relationship/sidebar.tt' %]
+[% WRAPPER "layout.tt" title=l("Relationship Types") full_width=1 %]
     <div id="content" class="wikicontent">
-        <h1>[% l("Relationship Types") %]</h1>
+        [%- INCLUDE 'relationship/header.tt' page='index' %]
 
         <table border="1">
             <tr>
