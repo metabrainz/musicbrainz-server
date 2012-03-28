@@ -348,7 +348,7 @@ MB.Control.ReleaseTrackParser = function (dialog) {
 
             if (MB.TrackParser.options.trackNumbers ())
             {
-                str += item.$position.val () + ". ";
+                str += item.position () + ". ";
             }
 
             str += item.$title.val ();
