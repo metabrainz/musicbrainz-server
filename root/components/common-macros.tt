@@ -71,7 +71,6 @@ END; -%]
          [%- IF fallback -%]
               else if ($(this).attr ("src") === "[% artwork.image %]")
               {
-                  console.log ("trying", "[% fallback %]");
                   $(this).attr ("src", "[% fallback %]");
               }
          [%- END -%]
