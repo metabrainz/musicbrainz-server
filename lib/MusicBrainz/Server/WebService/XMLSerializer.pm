@@ -477,6 +477,7 @@ sub _serialize_track
 
     my @track;
     push @track, $gen->position($track->position);
+    push @track, $gen->number($track->number);
 
     push @track, $gen->title($track->name)
         if ($track->recording && $track->name ne $track->recording->name) ||
