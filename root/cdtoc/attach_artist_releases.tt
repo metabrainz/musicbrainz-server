@@ -1,3 +1,24 @@
+[% BLOCK layout_head %]
+<script>
+$(document).ready (function () {
+
+    $(".tracklist").hide();
+
+    $(".toggle").click(function() {
+
+        $(this).closest('tr').next('.tracklist').toggle();
+
+        if ( $(this).closest('tr').next('.tracklist').is(':hidden') ) {
+            $(this).text("show tracklist");
+        } else {
+            $(this).text("hide tracklist");
+        }
+
+    });
+});
+</script>
+[% END %]
+
 [% WRAPPER 'layout.tt' l('Attach CD TOC') full_width=1 %]
   <h2>[% l('Releases by {artist}', { artist => link_entity(artist) }) %]</h2>
   [% IF releases.size %]
@@ -50,9 +71,22 @@
                       <td class="pos"></td>
                       <td>
                         <input type="radio" name="medium" value="[% medium.id %]" />
-                        [% medium.format_name or l('Medium') %] [% medium.position %]
+                        [% medium.format_name %] [% medium.position %]
+                        [%~ IF medium.name %]:
+                           [% medium.name | html %]
+                        [% END %]
+                        <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
                       </td>
                       <td colspan="6"></td>
+                    </tr>
+                    <tr class="tracklist" style="display:none">
+                      <td></td>
+                      <td colspan="7">
+                        <table>
+                        [% INCLUDE 'tracklist/tracklist.tt'
+                            tracklist=medium.tracklist hide_rating = 1%]
+                        </table>
+                      </td>
                     </tr>
                   </tr>
                 [% END %]
