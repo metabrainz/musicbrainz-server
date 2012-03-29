@@ -69,6 +69,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
         length => $_->length,
+        number => $_->number,
         name => $_->name,
         artist_credit => artist_credit_to_ref (
             $_->artist_credit, [ "comment", "gid", "sortname" ]),

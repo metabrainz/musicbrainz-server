@@ -45,7 +45,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      * render enters the supplied data into the form fields for this track.
      */
     self.render = function (data) {
-        self.position (data.position);
+        self.$position.val (data.position);
         if (data.number)
         {
             self.$number.val (data.number);
