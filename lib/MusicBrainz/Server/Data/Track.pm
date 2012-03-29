@@ -25,7 +25,7 @@ sub _table
 
 sub _columns
 {
-    return 'track.id, name.name, recording, tracklist, position, length,
+    return 'track.id, name.name, recording, tracklist, number, position, length,
             artist_credit, edits_pending';
 }
 
@@ -36,6 +36,7 @@ sub _column_mapping
         name             => 'name',
         recording_id     => 'recording',
         tracklist_id     => 'tracklist',
+        number           => 'number',
         position         => 'position',
         length           => 'length',
         artist_credit_id => 'artist_credit',
