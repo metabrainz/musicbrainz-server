@@ -19,10 +19,12 @@ $(document).ready (function () {
 </script>
 [% END %]
 
-[% WRAPPER 'layout.tt' l('Attach CD TOC') full_width=1 %]
-  <h2>[% l('Releases by {artist}', { artist => link_entity(artist) }) %]</h2>
+
+[% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
+  <h1>[% l('Attach CD TOC') %]</h1>
+  <p>[% l('You are viewing releases by {artist}.', { artist => link_entity(artist) }) %]</p>
   [% IF releases.size %]
-    <p>[% l('Please select the medium you wish to attach the CD TOC to') %]</p>
+    <p>[% l('Please select the medium you wish to attach this CD TOC to.') %]</p>
     <form action="[% c.req.uri %]" method="get">
       <input type="hidden" name="toc" value="[% toc %]" />
       <input type="hidden" name="artist" value="[% c.req.query_params.artist %]" />
@@ -94,14 +96,16 @@ $(document).ready (function () {
             </tbody>
           </table>
       [% END %]
-      [% form_submit(l('Attach CD TOC')) %]
+      <div style="margin-top: 1em;">
+        [% form_submit(l('Attach CD TOC')) %]
+      </div>
     </form>
   [% ELSE %]
     <p>[% ln('{artist} has no releases which have only {n} track.',
              '{artist} has no releases which have {n} tracks.',
              cdtoc.track_count, { artist => link_entity(artist), n => cdtoc.track_count }) %]</p>
   [% END %]
-
+<p>[% l("If you can't find what you're looking for, you can add a new release:") %]</p>
   <form action="[% c.uri_for('/release/add') %]" method="post">
     <input type="hidden" name="artist_credit.names.0.mbid"
            value="[% artist.gid %]" />

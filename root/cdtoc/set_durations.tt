@@ -1,5 +1,5 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
-  <h2>[% l('Set tracklist durations based on disc id') %]</h2>
+[% WRAPPER 'layout.tt' title=l('Set Tracklist Durations') full_width=1 %]
+  <h1>[% l('Set Tracklist Durations') %]</h1>
   <p>
     [% l('You are about to enter an edit that will change the durations of tracks
           to match that of the below disc ID.') %]

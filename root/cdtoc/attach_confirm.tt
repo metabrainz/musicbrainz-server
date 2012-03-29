@@ -1,6 +1,6 @@
 [% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
-  <h2>[% l('Attach CD TOC') %]</h2>
-  <p>[% l('Are you sure that you wish to attach the disc ID <code>{discid}</code> to {format} {pos} on
+  <h1>[% l('Attach CD TOC') %]</h1>
+  <p>[% l('Are you sure that you wish to attach the disc ID <code>{discid}</code> to {format} {pos} of
         {release} by {artist}?', { discid => cdtoc.discid, format => medium.format_name,
                                    pos => medium.position, release => link_entity(medium.release),
                                    artist => artist_credit(medium.release.artist_credit) }) -%]</p>
