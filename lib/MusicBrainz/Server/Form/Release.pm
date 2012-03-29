@@ -41,7 +41,7 @@ has_field 'script_id' => (
 );
 
 has_field 'comment' => (
-    type      => 'Text',
+    type      => '+MusicBrainz::Server::Form::Field::Comment',
     maxlength => 255
 );
 
