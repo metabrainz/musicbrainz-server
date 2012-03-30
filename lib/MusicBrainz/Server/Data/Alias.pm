@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Alias;
 use Moose;
+use namespace::autoclean;
 
 use Class::MOP;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders query_to_list );
@@ -67,7 +68,7 @@ sub find_by_entity_id
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY musicbrainz_collate(name.name)";
+                 ORDER BY locale NULLS LAST, musicbrainz_collate(name.name)";
 
     return [ query_to_list($self->c->sql, sub {
         $self->_new_from_row(@_)

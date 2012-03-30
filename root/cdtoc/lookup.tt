@@ -93,7 +93,7 @@
               { how => doc_link('HowEditingWorks'),
                 reg => c.uri_for_action('/account/register', { uri => c.relative_uri }),
                 login_url => login_url(c.relative_uri) }) %]</p>
-        <p>[% l('Or…') %]</p>
+        <p>[% l('Or...') %]</p>
     </li>
     <li><p>[% l('You can enter the data from the CD as it appears on the CD itself and not worry about becoming a
               part of MusicBrainz. CDs entered in this method will still be available to client programs. However,

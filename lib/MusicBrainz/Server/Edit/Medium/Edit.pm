@@ -438,7 +438,7 @@ sub allow_auto_edit
                         $track->{name},
                         format_track_length($track->{length}),
                         hash_artist_credit($track->{artist_credit}),
-                        $track->{recording_id}
+                        $track->{recording_id} // 'new'
                     );
                 }
             ) };

@@ -65,7 +65,7 @@ augment 'create_edits' => sub
                     $EDIT_RECORDING_EDIT, $editnote,
                     to_edit => $self->c->model('Recording')->get_by_gid( $track_association->{gid} ),
                     name => $track->name,
-                    artist_credit => artist_credit_to_ref($track->artist_credit, 1),
+                    artist_credit => artist_credit_to_ref($track->artist_credit, [ "gid" ]),
                     length => $track->length,
                     as_auto_editor => $data->{as_auto_editor},
                 );
@@ -91,7 +91,7 @@ after 'prepare_tracklist' => sub {
 
     $self->c->model('CDTOC')->load(@medium_cdtocs);
 
-    my $database_artist = artist_credit_to_ref ($release->artist_credit);
+    my $database_artist = artist_credit_to_ref ($release->artist_credit, [ "gid" ]);
     my $submitted_artist = $self->c->stash->{release_artist};
 
     if ($self->_is_same_artist ($database_artist, $submitted_artist))

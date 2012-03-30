@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Releases with unlikely language/script pairs') full_width=1 -%]
+
+<h1>[% l('Releases with unlikely language/script pairs') %]</h1>
+
+<ul>
+  <li>[% l('This report shows releases that have an unlikely combination of
+    language and script properties, such as a 'Ethiopic German'.') %]</li>
+  <li>[% l('Total releases
+    found: {count}', { count => pager.total_entries }) %]</li>
+  <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]

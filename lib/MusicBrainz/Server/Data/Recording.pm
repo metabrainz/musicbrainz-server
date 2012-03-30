@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Recording;
 
 use Moose;
+use namespace::autoclean;
 use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -70,9 +71,39 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Recording';
 }
 
+sub find_artist_credits_by_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = "SELECT DISTINCT rec.artist_credit
+                 FROM recording rec
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rec.artist_credit
+                 WHERE acn.artist = ?";
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
+
+    my (@where_query, @where_args);
+   
+    push @where_query, "acn.artist = ?";
+    push @where_args, $artist_id;
+
+    if (exists $args{filter}) {
+        my %filter = %{ $args{filter} };
+        if (exists $filter{name}) {
+            push @where_query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @where_args, $filter{name}, $filter{name};
+        }
+        if (exists $filter{artist_credit_id}) {
+            push @where_query, "recording.artist_credit = ?";
+            push @where_args, $filter{artist_credit_id};
+        }
+    }
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                         musicbrainz_collate(name.name) AS name_collate,
@@ -80,13 +111,13 @@ sub find_by_artist
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
-                 WHERE acn.artist = ?
+                 WHERE " . join(" AND ", @where_query) . "
                  ORDER BY musicbrainz_collate(name.name),
                           musicbrainz_collate(comment)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
+        $query, @where_args, $offset || 0);
 }
 
 sub find_by_release

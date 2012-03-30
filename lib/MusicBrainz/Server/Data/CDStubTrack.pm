@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::CDStubTrack;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders

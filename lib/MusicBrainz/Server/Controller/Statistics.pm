@@ -71,19 +71,21 @@ sub countries : Local
 
     my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
     my $country_stats = [];
-    my $artist_country_prefix = 'count.artist.country';
-    my $release_country_prefix = 'count.release.country';
-    my $label_country_prefix = 'count.label.country';
-    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
-    foreach my $stat_name
-        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-       if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
-	    my $release_stat = $stat_name;
-	    my $label_stat = $stat_name;
-	    $release_stat =~ s/$artist_country_prefix/$release_country_prefix/;
-	    $label_stat =~ s/$artist_country_prefix/$label_country_prefix/;
+    if (defined $stats) {
+        my $artist_country_prefix = 'count.artist.country';
+        my $release_country_prefix = 'count.release.country';
+        my $label_country_prefix = 'count.label.country';
+        my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+        foreach my $stat_name
+                (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+           if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
+            my $release_stat = $stat_name;
+            my $label_stat = $stat_name;
+            $release_stat =~ s/$artist_country_prefix/$release_country_prefix/;
+            $label_stat =~ s/$artist_country_prefix/$label_country_prefix/;
             push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
-       }
+           }
+        }
     }
 
     $c->stash(
@@ -100,18 +102,20 @@ sub languages_scripts : Path('languages-scripts')
     my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
     my $language_stats = [];
     my $script_stats = [];
-    my $language_prefix = 'count.release.language';
-    my $script_prefix = 'count.release.script';
-    my %languages = map { $_->iso_code_3t => $_ } $c->model('Language')->get_all();
-    my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
-    foreach my $stat_name
-        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-       if (my ($iso_code_3t) = $stat_name =~ /^$language_prefix\.(.*)$/) { 
-            push(@$language_stats, ({'entity' => $languages{$iso_code_3t}, 'count' => $stats->statistic($stat_name)}));
-       }
-       if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) { 
-            push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
-       }
+    if (defined $stats) {
+        my $language_prefix = 'count.release.language';
+        my $script_prefix = 'count.release.script';
+        my %languages = map { $_->iso_code_3t => $_ } $c->model('Language')->get_all();
+        my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
+        foreach my $stat_name
+            (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+           if (my ($iso_code_3t) = $stat_name =~ /^$language_prefix\.(.*)$/) { 
+                push(@$language_stats, ({'entity' => $languages{$iso_code_3t}, 'count' => $stats->statistic($stat_name)}));
+           }
+           if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) { 
+                push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
+           }
+        }
     }
 
     $c->stash(
@@ -128,23 +132,25 @@ sub formats : Path('formats')
 
     my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
     my $format_stats = [];
-    my $release_format_prefix = 'count.release.format';
-    my $medium_format_prefix = 'count.medium.format';
-    my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all();
+    if (defined $stats) {
+        my $release_format_prefix = 'count.release.format';
+        my $medium_format_prefix = 'count.medium.format';
+        my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all();
 
-    foreach my $stat_name
-         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-        if (my ($format_id) = $stat_name =~ /^$medium_format_prefix\.(.*)$/) {
-            my $release_stat = $stat_name;
-	    $release_stat =~ s/$medium_format_prefix/$release_format_prefix/;
-            push(@$format_stats, ({'entity' => $formats{$format_id}, 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
-	}
+        foreach my $stat_name
+             (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+            if (my ($format_id) = $stat_name =~ /^$medium_format_prefix\.(.*)$/) {
+                my $release_stat = $stat_name;
+                $release_stat =~ s/$medium_format_prefix/$release_format_prefix/;
+                push(@$format_stats, ({'entity' => $formats{$format_id}, 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
+            }
+        }
     }
 
     $c->stash(
         template => 'statistics/formats.tt',
-	format_stats => $format_stats,
-	stats => $stats
+        format_stats => $format_stats,
+        stats => $stats
     );
 }
 

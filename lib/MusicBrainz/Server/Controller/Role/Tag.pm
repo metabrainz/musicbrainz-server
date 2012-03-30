@@ -62,7 +62,13 @@ sub tags : Chained('load') PathPart('tags')
 sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
 {
     my ($self, $c) = @_;
- 
+
+    if (!$c->user_exists) {
+        $c->res->status(401);
+        $c->res->body('{}');
+        $c->detach;
+    }
+
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
     $tags_model->update($c->user->id, $entity->id, $c->req->params->{tags});

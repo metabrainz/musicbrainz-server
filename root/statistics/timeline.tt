@@ -9,7 +9,6 @@
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[% c.uri_for('view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]><script src="[% c.uri_for("../../static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
@@ -68,7 +67,7 @@
             <label for="show-rate-graph">[% l('Rate of Change Graph') %]</label>
         </h2>
         </div>
-    <h2>Controls</h2><div id="graph-controls">
+    <h2>[% l('Controls') %]</h2><div id="graph-controls">
         <table class="timeline-controls">
             <tr><th>[% l('Zoom:') %]</th><td>[% l('Draw a rectangle on either graph') %]</td></tr>
             <tr><th>[% l('Reset:') %]</th><td>[% l('Click to deselect') %]</td></tr>

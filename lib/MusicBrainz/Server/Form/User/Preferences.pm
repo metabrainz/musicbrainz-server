@@ -4,6 +4,8 @@ use HTML::FormHandler::Moose;
 use DateTime;
 use DateTime::TimeZone;
 
+use MusicBrainz::Server::Translation qw( l ln );
+
 extends 'MusicBrainz::Server::Form';
 
 has '+name' => ( default => 'prefs' );
@@ -74,9 +76,9 @@ sub options_timezone
 sub options_subscriptions_email_period
 {
     my $options = [
-        'daily'     => 'Daily',
-        'weekly'    => 'Weekly',
-        'never'     => 'Never',
+        'daily'     => l('Daily'),
+        'weekly'    => l('Weekly'),
+        'never'     => l('Never'),
     ];
     return $options;
 }

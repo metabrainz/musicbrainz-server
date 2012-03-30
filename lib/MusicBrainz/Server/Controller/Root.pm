@@ -297,15 +297,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
-
-    if (!$c->debug && scalar @{ $c->error }) {
-        $c->stash->{errors} = $c->error;
-        for my $error ( @{ $c->error } ) {
-            $c->log->error($error);
-        }
-        $c->stash->{template} = 'main/500.tt';
-        $c->clear_errors;
-    }
 }
 
 sub chrome_frame : Local

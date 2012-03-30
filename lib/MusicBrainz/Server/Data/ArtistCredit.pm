@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
+use namespace::autoclean -also => [qw( _clean )];
 
 use Data::Compare;
 use MusicBrainz::Server::Entity::Artist;
@@ -65,16 +66,22 @@ sub load
     load_subobjects($self, 'artist_credit', @objs);
 }
 
+sub find_by_ids
+{
+    my ($self, $ids) = @_;
+
+    my @artist_credits = sort { $a->name cmp $b->name }
+                         values %{ $self->get_by_ids(@$ids) };
+    return \@artist_credits;
+}
+
 sub find_by_artist_id
 {
     my ($self, $artist_id) = @_;
 
     my $query = 'SELECT artist_credit FROM artist_credit_name WHERE artist = ?';
-    my @ids = @{ $self->sql->select_single_column_array($query, $artist_id) };
-
-    my @artist_credits = sort { $a->name cmp $b->name }
-                         values %{ $self->get_by_ids(@ids) };
-    return \@artist_credits;
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->find_by_ids($ids);
 }
 
 sub _find

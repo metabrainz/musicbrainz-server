@@ -49,7 +49,7 @@ sub release_group_toplevel
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_release_group(
-            $rg->id, $MAX_ITEMS, 0, $c->stash->{status});
+            $rg->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status} });
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
@@ -107,7 +107,7 @@ sub release_group_browse : Private
         $c->detach('not_found') unless ($artist);
 
         my @tmp = $c->model('ReleaseGroup')->find_by_artist (
-            $artist->id, $limit, $offset, $c->stash->{type});
+            $artist->id, $limit, $offset, filter => { type => $c->stash->{type} });
         $rgs = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release')

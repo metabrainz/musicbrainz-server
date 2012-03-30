@@ -53,13 +53,6 @@ version:     v0.7
 author:      IOLA and Ole Laursen
 url:         http://code.google.com/p/flot/
 
--- flot/excanvas.min.js --
-
-library:     excanvas
-license:     apache 2.0
-author:      Google Inc.
-url:         http://code.google.com/p/explorercanvas/
-
 -- jquery/jquery.ba-hashchange.js --
 
 library:     jquery hashchange

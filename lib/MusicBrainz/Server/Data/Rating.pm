@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Rating;
 
 use Moose;
+use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Entity::Rating;

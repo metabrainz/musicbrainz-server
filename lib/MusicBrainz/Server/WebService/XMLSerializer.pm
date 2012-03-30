@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
-use MusicBrainz::XML::Generator;
+use MusicBrainz::XML;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
@@ -609,6 +609,7 @@ sub _serialize_label
     my @list;
     push @list, $gen->name($label->name);
     push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
+    push @list, $gen->disambiguation($label->comment) if $label->comment;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
     push @list, $gen->ipi($label->ipi_code) if ($label->ipi_code);
 
@@ -816,8 +817,7 @@ sub output_error
 {
     my ($self, $err) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'always,even-entities', conformance => 'strict');
+    my $gen = MusicBrainz::XML->new;
 
     return '<?xml version="1.0" encoding="UTF-8"?>' .
         $gen->error($gen->text($err), $gen->text(
@@ -828,8 +828,7 @@ sub output_success
 {
     my ($self, $msg) = @_;
 
-    my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'always,even-entities', conformance => 'strict');
+    my $gen = MusicBrainz::XML->new();
 
     $msg ||= 'OK';
 
@@ -844,8 +843,7 @@ sub serialize
     my ($self, $type, $entity, $inc, $stash) = @_;
     $inc ||= 0;
 
-    my $gen = MusicBrainz::XML::Generator->new (
-        escape => 'always,even-entities', conformance => 'strict');
+    my $gen = MusicBrainz::XML->new();
 
     my $method = $type . "_resource";
     $method =~ s/-/_/g;

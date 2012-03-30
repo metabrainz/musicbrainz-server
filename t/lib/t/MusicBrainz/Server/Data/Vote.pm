@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Vote;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 BEGIN { use MusicBrainz::Server::Data::Vote }
 
@@ -57,7 +56,6 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+vote_stats');
 
 my $vote_data = $test->c->model('Vote');
-memory_cycle_ok($vote_data);
 
 my $edit = $test->c->model('Edit')->create(
     editor_id => 1,
@@ -70,7 +68,6 @@ $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
-memory_cycle_ok($vote_data);
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is(scalar @{ $email_transport->deliveries }, 1);
@@ -103,8 +100,6 @@ $edit = $test->c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
 is(scalar @{ $email_transport->deliveries }, 1);
 is($email_transport->deliveries->[-1]->{email}, $email);
-memory_cycle_ok($vote_data);
-memory_cycle_ok($edit);
 
 is(scalar @{ $edit->votes }, 5);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
@@ -133,8 +128,6 @@ is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
 
 # Check the voting statistics
 my $stats = $vote_data->editor_statistics(1);
-memory_cycle_ok($stats);
-memory_cycle_ok($vote_data);
 is_deeply($stats, [
     {
         name   => 'Yes',

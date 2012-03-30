@@ -7,6 +7,7 @@
         <th>[% l('Name') %]</th>
         <th class="treleases">[% l('Length') %]</th>
         <th>[% l('Artist') %]</th>
+        <th>[% l('ISRCs') %]</th>
         <th>[% l('Release') %]</th>
         [%- IF c.session.tport -%]
           <th>[% l('Tagger') %]</th>
@@ -27,8 +28,13 @@
                 <td>[% link_entity(result.entity) %]</td>
                 <td>[% result.entity.length | format_length %]</td>
                 <td>[% artist_credit(result.entity.artist_credit) %]</td>
+                <td>
+                  [% FOR isrc=result.entity.isrcs %]
+                    [% link_isrc(isrc.isrc) %]<br />
+                  [% END %]
+                </td>
               [%- ELSE -%]
-                <td colspan="4">&nbsp;</td>
+                <td colspan="5">&nbsp;</td>
               [%- END -%]
               <td>[%- link_entity(release) -%]</td>
               [%- IF c.session.tport -%]
@@ -36,7 +42,7 @@
               [%- END -%]
               <td>[%- release.find_track_for_recording(result.entity).position -%]/[%- release.combined_track_count -%]</td>
               <td>[%- release.find_medium_for_recording(result.entity).position -%]</td>
-              <td>[%- release.release_group.type.name -%]</td>
+              <td>[%- l(release.release_group.type.name) -%]</td>
               [%- linenum = linenum + 1 -%]
             </tr>
           [%- END -%]
@@ -46,11 +52,16 @@
             <td>[% link_entity(result.entity) %]</td>
             <td>[% result.entity.length | format_length %]</td>
             <td>[% artist_credit(result.entity.artist_credit) %]</td>
+            <td>
+              [% FOR isrc=result.entity.isrcs %]
+                [% link_isrc(isrc.isrc) %]<br />
+              [% END %]
+            </td>
             <td>[% l('(standalone recording)') %]</td>
             [%- IF c.session.tport -%]
               <td>[% tagger_icon(result.entity) %]</td>
             [%- END -%]
-            <td colspan="3">&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
             [%- linenum = linenum + 1 -%]
           </tr>
         [% END %]

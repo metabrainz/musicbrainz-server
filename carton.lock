@@ -2870,7 +2870,7 @@
       },
       "Catalyst::Plugin::Unicode::Encoding" : {
          "dist" : "Catalyst-Plugin-Unicode-Encoding-1.3",
-         "module" : "http://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Unicode-Encoding-1.3.tar.gz",
+         "module" : "Catalyst::Plugin::Unicode::Encoding",
          "mymeta" : {
             "abstract" : "Unicode aware Catalyst",
             "author" : [
@@ -2896,6 +2896,7 @@
                "build" : {
                   "requires" : {
                      "ExtUtils::MakeMaker" : "6.42",
+                     "HTTP::Status" : 0,
                      "IO::Scalar" : 0,
                      "Test::More" : "0.88"
                   }
@@ -2908,8 +2909,10 @@
                "runtime" : {
                   "requires" : {
                      "Catalyst" : "5.80",
+                     "Class::Data::Inheritable" : 0,
                      "Encode" : "2.21",
-                     "LWP" : "5.828",
+                     "LWP" : "5.837",
+                     "Try::Tiny" : 0,
                      "URI" : "1.36"
                   }
                }
@@ -2932,18 +2935,17 @@
             "Catalyst::Plugin::Unicode::Encoding" : {
                "file" : "Catalyst/Plugin/Unicode/Encoding.pm",
                "version" : "1.3"
-            },
-            "http://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Unicode-Encoding-1.3.tar.gz" : {}
+            }
          },
          "version" : "1.3"
       },
       "Catalyst::Runtime" : {
-         "dist" : "Catalyst-Runtime-5.80032",
+         "dist" : "Catalyst-Runtime-5.90007",
          "module" : "Catalyst",
          "mymeta" : {
             "abstract" : "The Catalyst Framework Runtime",
             "author" : [
-               "Catalyst Contributors, see Catalyst.pm"
+               "& COPYRIGHT"
             ],
             "dynamic_config" : 0,
             "generated_by" : "Module::Install version 0.99, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
@@ -2965,7 +2967,9 @@
                "build" : {
                   "requires" : {
                      "Class::Data::Inheritable" : 0,
+                     "Data::Dump" : 0,
                      "ExtUtils::MakeMaker" : "6.42",
+                     "HTTP::Request::Common" : 0,
                      "Test::Exception" : 0,
                      "Test::More" : "0.88"
                   }
@@ -2982,6 +2986,7 @@
                      "Carp" : 0,
                      "Class::C3::Adopt::NEXT" : "0.07",
                      "Class::Data::Inheritable" : 0,
+                     "Class::Load" : "0.12",
                      "Class::MOP" : "0.95",
                      "Data::Dump" : 0,
                      "Data::OptList" : 0,
@@ -2991,6 +2996,7 @@
                      "HTTP::Headers" : "1.64",
                      "HTTP::Request" : "5.814",
                      "HTTP::Request::AsCGI" : "1.0",
+                     "HTTP::Request::Common" : 0,
                      "HTTP::Response" : "5.813",
                      "LWP::UserAgent" : 0,
                      "List::MoreUtils" : 0,
@@ -3003,7 +3009,11 @@
                      "MooseX::Role::WithOverloading" : "0.09",
                      "MooseX::Types" : 0,
                      "MooseX::Types::Common::Numeric" : 0,
+                     "MooseX::Types::LoadableClass" : "0.003",
                      "Path::Class" : "0.09",
+                     "Plack" : "0.9974",
+                     "Plack::Middleware::ReverseProxy" : "0.04",
+                     "Plack::Test::ExternalServer" : 0,
                      "Scalar::Util" : 0,
                      "String::RewritePrefix" : "0.004",
                      "Sub::Exporter" : 0,
@@ -3015,6 +3025,7 @@
                      "Time::HiRes" : 0,
                      "Tree::Simple" : "1.15",
                      "Tree::Simple::Visitor::FindByPath" : 0,
+                     "Try::Tiny" : 0,
                      "URI" : "1.35",
                      "namespace::autoclean" : "0.09",
                      "namespace::clean" : "0.13",
@@ -3029,19 +3040,20 @@
                   "http://dev.perl.org/licenses/"
                ],
                "repository" : {
-                  "url" : "http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-Runtime/"
+                  "type" : "git",
+                  "url" : "git://git.shadowcat.co.uk/catagits/Catalyst-Runtime.git"
                },
                "x_IRC" : "irc://irc.perl.org/#catalyst",
                "x_MailingList" : "http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst"
             },
-            "version" : "5.80032"
+            "version" : "5.90007"
          },
          "name" : "Catalyst::Runtime",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Runtime-5.80032.tar.gz",
+         "pathname" : "http://search.cpan.org/CPAN/authors/id/B/BO/BOBTFISH/Catalyst-Runtime-5.90007.tar.gz",
          "provides" : {
             "Catalyst" : {
                "file" : "Catalyst.pm",
-               "version" : "5.80032"
+               "version" : "5.90007"
             },
             "Catalyst::Action" : {
                "file" : "Catalyst/Action.pm"
@@ -3094,14 +3106,8 @@
             "Catalyst::Engine" : {
                "file" : "Catalyst/Engine.pm"
             },
-            "Catalyst::Engine::CGI" : {
-               "file" : "Catalyst/Engine/CGI.pm"
-            },
-            "Catalyst::Engine::FastCGI" : {
-               "file" : "Catalyst/Engine/FastCGI.pm"
-            },
-            "Catalyst::Engine::HTTP" : {
-               "file" : "Catalyst/Engine/HTTP.pm"
+            "Catalyst::EngineLoader" : {
+               "file" : "Catalyst/EngineLoader.pm"
             },
             "Catalyst::Exception" : {
                "file" : "Catalyst/Exception.pm"
@@ -3138,7 +3144,7 @@
             },
             "Catalyst::Runtime" : {
                "file" : "Catalyst/Runtime.pm",
-               "version" : "5.80032"
+               "version" : "5.90007"
             },
             "Catalyst::Script::CGI" : {
                "file" : "Catalyst/Script/CGI.pm"
@@ -3174,7 +3180,7 @@
                "file" : "Catalyst/View.pm"
             }
          },
-         "version" : "5.80032"
+         "version" : "5.90007"
       },
       "Catalyst::View::TT" : {
          "dist" : "Catalyst-View-TT-0.36",
@@ -3845,6 +3851,66 @@
          },
          "version" : "0.13"
       },
+      "Class::Load::XS" : {
+         "dist" : "Class-Load-XS-0.03",
+         "module" : "Class::Load::XS",
+         "mymeta" : {
+            "abstract" : "XS implementation of parts of Class::Load",
+            "author" : [
+               "Dave Rolsky <autarch@urth.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "artistic_2"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Class-Load-XS",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::CBuilder" : 0,
+                     "Module::Build" : "0.3601",
+                     "Test::Fatal" : 0,
+                     "Test::More" : "0.88"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.3601"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Class::Load" : "0.11"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "bugtracker" : {
+                  "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=Class-Load-XS"
+               },
+               "repository" : {
+                  "type" : "git",
+                  "url" : "git://git.urth.org/Class-Load-XS.git"
+               }
+            },
+            "version" : "0.03"
+         },
+         "name" : "Class::Load::XS",
+         "pathname" : "D/DR/DROLSKY/Class-Load-XS-0.03.tar.gz",
+         "provides" : {
+            "Class::Load::XS" : {
+               "file" : "Class/Load/XS.pm",
+               "version" : "0.03"
+            }
+         },
+         "version" : "0.03"
+      },
       "Class::MOP" : {
          "dist" : "Class-MOP-1.12",
          "module" : "Class::MOP",
@@ -4009,6 +4075,65 @@
             }
          },
          "version" : "1.12"
+      },
+      "Class::Method::Modifiers" : {
+         "dist" : "Class-Method-Modifiers-1.08",
+         "module" : "Class::Method::Modifiers",
+         "mymeta" : {
+            "abstract" : "provides Moose-like method modifiers",
+            "author" : [
+               "Shawn M Moore, C<sartak@gmail.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Install version 1.02, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Class-Method-Modifiers",
+            "no_index" : {
+               "directory" : [
+                  "inc",
+                  "t"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "Test::Fatal" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {}
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "homepage" : "https://github.com/sartak/Class-Method-Modifiers/tree",
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "1.08"
+         },
+         "name" : "Class::Method::Modifiers",
+         "pathname" : "S/SA/SARTAK/Class-Method-Modifiers-1.08.tar.gz",
+         "provides" : {
+            "Class::Method::Modifiers" : {
+               "file" : "Class/Method/Modifiers.pm",
+               "version" : "1.08"
+            }
+         },
+         "version" : "1.08"
       },
       "Class::Singleton" : {
          "dist" : "Class-Singleton-1.4",
@@ -5227,15 +5352,15 @@
          "version" : "2.020"
       },
       "Data::OptList" : {
-         "dist" : "Data-OptList-0.104",
+         "dist" : "Data-OptList-0.107",
          "module" : "Data::OptList",
          "mymeta" : {
-            "abstract" : "unknown",
+            "abstract" : "parse and validate simple name/value option pairs",
             "author" : [
-               "Ricardo SIGNES <rjbs@cpan.org>"
+               "Ricardo Signes <rjbs@cpan.org>"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "Module::Install version 0.77, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930, CPAN::Meta::Converter version 2.112150",
             "license" : [
                "perl_5"
             ],
@@ -5244,47 +5369,240 @@
                "version" : "2"
             },
             "name" : "Data-OptList",
-            "no_index" : {
-               "directory" : [
-                  "inc",
-                  "t"
-               ]
-            },
             "prereqs" : {
                "build" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : 0
+                     "Test::More" : "0.96"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.30"
                   }
                },
                "runtime" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : "6.62",
                      "List::Util" : 0,
-                     "Params::Util" : "0.14",
-                     "Sub::Install" : "0.92"
+                     "Params::Util" : 0,
+                     "Sub::Install" : "0.921"
                   }
                }
             },
             "release_status" : "stable",
             "resources" : {
-               "license" : [
-                  "http://dev.perl.org/licenses/"
-               ],
+               "homepage" : "http://github.com/rjbs/data-optlist",
                "repository" : {
                   "url" : "http://github.com/rjbs/data-optlist"
                }
             },
-            "version" : "0.104"
+            "version" : "0.107",
+            "x_Dist_Zilla" : {
+               "plugins" : [
+                  {
+                     "class" : "Dist::Zilla::Plugin::CheckPrereqsIndexed",
+                     "name" : "@RJBS/CheckPrereqsIndexed",
+                     "version" : "0.002"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::GatherDir",
+                     "name" : "@RJBS/@Basic/GatherDir",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PruneCruft",
+                     "name" : "@RJBS/@Basic/PruneCruft",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ManifestSkip",
+                     "name" : "@RJBS/@Basic/ManifestSkip",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MetaYAML",
+                     "name" : "@RJBS/@Basic/MetaYAML",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::License",
+                     "name" : "@RJBS/@Basic/License",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Readme",
+                     "name" : "@RJBS/@Basic/Readme",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ExtraTests",
+                     "name" : "@RJBS/@Basic/ExtraTests",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ExecDir",
+                     "name" : "@RJBS/@Basic/ExecDir",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ShareDir",
+                     "name" : "@RJBS/@Basic/ShareDir",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MakeMaker",
+                     "name" : "@RJBS/@Basic/MakeMaker",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Manifest",
+                     "name" : "@RJBS/@Basic/Manifest",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::TestRelease",
+                     "name" : "@RJBS/@Basic/TestRelease",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ConfirmRelease",
+                     "name" : "@RJBS/@Basic/ConfirmRelease",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::UploadToCPAN",
+                     "name" : "@RJBS/@Basic/UploadToCPAN",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::AutoPrereqs",
+                     "name" : "@RJBS/AutoPrereqs",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::NextVersion",
+                     "name" : "@RJBS/Git::NextVersion",
+                     "version" : "1.110500"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PkgVersion",
+                     "name" : "@RJBS/PkgVersion",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MetaConfig",
+                     "name" : "@RJBS/MetaConfig",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MetaJSON",
+                     "name" : "@RJBS/MetaJSON",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::NextRelease",
+                     "name" : "@RJBS/NextRelease",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
+                     "name" : "@RJBS/PodSyntaxTests",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Repository",
+                     "name" : "@RJBS/Repository",
+                     "version" : "0.18"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Prereqs",
+                     "config" : {
+                        "Dist::Zilla::Plugin::Prereqs" : {
+                           "phase" : "test",
+                           "type" : "requires"
+                        }
+                     },
+                     "name" : "@RJBS/TestMoreWithSubtests",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PodWeaver",
+                     "name" : "@RJBS/PodWeaver",
+                     "version" : "3.101641"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::GithubMeta",
+                     "name" : "@RJBS/GithubMeta",
+                     "version" : "0.12"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::Check",
+                     "name" : "@RJBS/@Git/Check",
+                     "version" : "1.110500"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::Commit",
+                     "name" : "@RJBS/@Git/Commit",
+                     "version" : "1.110500"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::Tag",
+                     "name" : "@RJBS/@Git/Tag",
+                     "version" : "1.110500"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::Push",
+                     "name" : "@RJBS/@Git/Push",
+                     "version" : "1.110500"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":InstallModules",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":IncModules",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":TestFiles",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":ExecFiles",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":ShareFiles",
+                     "version" : "4.200006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":MainModule",
+                     "version" : "4.200006"
+                  }
+               ],
+               "zilla" : {
+                  "class" : "Dist::Zilla::Dist::Builder",
+                  "config" : {
+                     "is_trial" : 0
+                  },
+                  "version" : "4.200006"
+               }
+            }
          },
          "name" : "Data::OptList",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/R/RJ/RJBS/Data-OptList-0.104.tar.gz",
+         "pathname" : "R/RJ/RJBS/Data-OptList-0.107.tar.gz",
          "provides" : {
             "Data::OptList" : {
                "file" : "Data/OptList.pm",
-               "version" : "0.104"
+               "version" : "0.107"
             }
          },
-         "version" : "0.104"
+         "version" : "0.107"
       },
       "Data::Page" : {
          "dist" : "Data-Page-2.02",
@@ -13302,6 +13620,297 @@
          },
          "version" : "0.17010"
       },
+      "Eval::Closure" : {
+         "dist" : "Eval-Closure-0.07",
+         "module" : "Eval::Closure",
+         "mymeta" : {
+            "abstract" : "safely and cleanly create closures via string eval",
+            "author" : [
+               "Jesse Luehrs <doy at tozt dot net>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Eval-Closure",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "Test::Fatal" : 0,
+                     "Test::More" : "0.88",
+                     "Test::Requires" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.30"
+                  }
+               },
+               "runtime" : {
+                  "recommends" : {
+                     "Perl::Tidy" : 0
+                  },
+                  "requires" : {
+                     "Scalar::Util" : 0,
+                     "Sub::Exporter" : 0,
+                     "Try::Tiny" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "repository" : {
+                  "type" : "git",
+                  "url" : "git://github.com/doy/eval-closure.git"
+               }
+            },
+            "version" : "0.07",
+            "x_Dist_Zilla" : {
+               "plugins" : [
+                  {
+                     "class" : "Dist::Zilla::Plugin::Prereqs",
+                     "config" : {
+                        "Dist::Zilla::Plugin::Prereqs" : {
+                           "phase" : "test",
+                           "type" : "requires"
+                        }
+                     },
+                     "name" : "@DOY/TestMoreDoneTesting",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::GatherDir",
+                     "name" : "@DOY/GatherDir",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PruneCruft",
+                     "name" : "@DOY/PruneCruft",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ManifestSkip",
+                     "name" : "@DOY/ManifestSkip",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MetaYAML",
+                     "name" : "@DOY/MetaYAML",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::License",
+                     "name" : "@DOY/License",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Readme",
+                     "name" : "@DOY/Readme",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ExtraTests",
+                     "name" : "@DOY/ExtraTests",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ExecDir",
+                     "name" : "@DOY/ExecDir",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ShareDir",
+                     "name" : "@DOY/ShareDir",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MakeMaker",
+                     "name" : "@DOY/MakeMaker",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Manifest",
+                     "name" : "@DOY/Manifest",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::TestRelease",
+                     "name" : "@DOY/TestRelease",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::ConfirmRelease",
+                     "name" : "@DOY/ConfirmRelease",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MetaConfig",
+                     "name" : "@DOY/MetaConfig",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::MetaJSON",
+                     "name" : "@DOY/MetaJSON",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::NextRelease",
+                     "name" : "@DOY/NextRelease",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::CheckChangesHasContent",
+                     "name" : "@DOY/CheckChangesHasContent",
+                     "version" : "0.003"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PkgVersion",
+                     "name" : "@DOY/PkgVersion",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PodCoverageTests",
+                     "name" : "@DOY/PodCoverageTests",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
+                     "name" : "@DOY/PodSyntaxTests",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::NoTabsTests",
+                     "name" : "@DOY/NoTabsTests",
+                     "version" : "0.01"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::EOLTests",
+                     "name" : "@DOY/EOLTests",
+                     "version" : "0.02"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::CompileTests",
+                     "name" : "@DOY/CompileTests",
+                     "version" : "1.112400"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Repository",
+                     "name" : "@DOY/Repository",
+                     "version" : "0.18"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::Check",
+                     "name" : "@DOY/Git::Check",
+                     "version" : "1.112440"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::Tag",
+                     "name" : "@DOY/Git::Tag",
+                     "version" : "1.112440"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Git::NextVersion",
+                     "name" : "@DOY/Git::NextVersion",
+                     "version" : "1.112440"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::PodWeaver",
+                     "name" : "@DOY/PodWeaver",
+                     "version" : "3.101641"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::UploadToCPAN",
+                     "name" : "@DOY/UploadToCPAN",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Prereqs",
+                     "config" : {
+                        "Dist::Zilla::Plugin::Prereqs" : {
+                           "phase" : "runtime",
+                           "type" : "requires"
+                        }
+                     },
+                     "name" : "Prereqs",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Prereqs",
+                     "config" : {
+                        "Dist::Zilla::Plugin::Prereqs" : {
+                           "phase" : "test",
+                           "type" : "requires"
+                        }
+                     },
+                     "name" : "TestRequires",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::Prereqs",
+                     "config" : {
+                        "Dist::Zilla::Plugin::Prereqs" : {
+                           "phase" : "runtime",
+                           "type" : "recommends"
+                        }
+                     },
+                     "name" : "RuntimeRecommends",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":InstallModules",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":IncModules",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":TestFiles",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":ExecFiles",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":ShareFiles",
+                     "version" : "4.300006"
+                  },
+                  {
+                     "class" : "Dist::Zilla::Plugin::FinderCode",
+                     "name" : ":MainModule",
+                     "version" : "4.300006"
+                  }
+               ],
+               "zilla" : {
+                  "class" : "Dist::Zilla::Dist::Builder",
+                  "config" : {
+                     "is_trial" : "0"
+                  },
+                  "version" : "4.300006"
+               }
+            }
+         },
+         "name" : "Eval::Closure",
+         "pathname" : "D/DO/DOY/Eval-Closure-0.07.tar.gz",
+         "provides" : {
+            "Eval::Closure" : {
+               "file" : "Eval/Closure.pm",
+               "version" : "0.07"
+            }
+         },
+         "version" : "0.07"
+      },
       "Exception::Base" : {
          "dist" : "Exception-Base-0.2401",
          "module" : "Exception::Base",
@@ -14464,15 +15073,15 @@
          "version" : "1.49"
       },
       "File::ShareDir" : {
-         "dist" : "File-ShareDir-0.03",
+         "dist" : "File-ShareDir-1.03",
          "module" : "File::ShareDir",
          "mymeta" : {
             "abstract" : "Locate per-dist and per-module shared files",
             "author" : [
-               "Adam Kennedy <cpan@ali.as>, L<http://ali.as/>"
+               "Adam Kennedy <adamk@cpan.org>"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "Module::Install version 0.55, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "Module::Install version 1.00, CPAN::Meta::Converter version 2.112150",
             "license" : [
                "perl_5"
             ],
@@ -14483,14 +15092,23 @@
             "name" : "File-ShareDir",
             "no_index" : {
                "directory" : [
+                  "foo",
                   "inc",
-                  "t"
+                  "share",
+                  "t",
+                  "xt"
                ]
             },
             "prereqs" : {
                "build" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : 0
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "Test::More" : "0.47"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42"
                   }
                },
                "runtime" : {
@@ -14498,23 +15116,32 @@
                      "Carp" : 0,
                      "Class::Inspector" : "1.12",
                      "File::Spec" : "0.80",
-                     "Params::Util" : "0.07",
-                     "Test::More" : "0.47"
+                     "perl" : "5.005"
                   }
                }
             },
             "release_status" : "stable",
-            "version" : "0.03"
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://svn.ali.as/cpan/trunk/File-ShareDir"
+               },
+               "x_ChangeLog" : "http://fisheye2.atlassian.com/changelog/cpan/trunk/File-ShareDir"
+            },
+            "version" : "1.03",
+            "x_module_name" : "File::ShareDir"
          },
          "name" : "File::ShareDir",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/A/AD/ADAMK/File-ShareDir-0.03.tar.gz",
+         "pathname" : "A/AD/ADAMK/File-ShareDir-1.03.tar.gz",
          "provides" : {
             "File::ShareDir" : {
                "file" : "File/ShareDir.pm",
-               "version" : "0.03"
+               "version" : "1.03"
             }
          },
-         "version" : "0.03"
+         "version" : "1.03"
       },
       "File::ShareDir::Install" : {
          "dist" : "File-ShareDir-Install-0.04",
@@ -15018,8 +15645,8 @@
          "version" : "6.00"
       },
       "HTML::FormHandler" : {
-         "dist" : "HTML-FormHandler-0.33002",
-         "module" : "HTML::FormHandler",
+         "dist" : "HTML-FormHandler-0.36002",
+         "module" : "http://cpan.metacpan.org/authors/id/G/GS/GSHANK/HTML-FormHandler-0.36002.tar.gz",
          "mymeta" : {
             "abstract" : "HTML forms using Moose",
             "author" : [
@@ -15038,30 +15665,35 @@
             "prereqs" : {
                "build" : {
                   "requires" : {
+                     "HTML::TreeBuilder" : "3.23",
                      "Test::Differences" : 0,
                      "Test::Exception" : 0,
+                     "Test::Memory::Cycle" : "1.04",
                      "Test::More" : "0.94"
                   }
                },
                "configure" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : "6.31",
+                     "ExtUtils::MakeMaker" : "6.30",
                      "File::ShareDir::Install" : "0.03"
                   }
                },
                "runtime" : {
                   "requires" : {
                      "Carp" : 0,
+                     "Class::Load" : "0.06",
                      "DateTime" : 0,
                      "DateTime::Format::Strptime" : 0,
                      "Email::Valid" : 0,
                      "File::ShareDir" : 0,
                      "File::Spec" : 0,
                      "Locale::Maketext" : "1.09",
-                     "Moose" : "0.90",
+                     "Moose" : "2.0007",
                      "MooseX::Getopt" : "0.16",
                      "MooseX::Types" : "0.20",
                      "MooseX::Types::Common" : 0,
+                     "MooseX::Types::LoadableClass" : "0.006",
+                     "Sub::Exporter" : 0,
                      "Try::Tiny" : 0,
                      "aliased" : 0,
                      "namespace::autoclean" : "0.09"
@@ -15078,14 +15710,14 @@
                   "url" : "git://github.com/gshank/html-formhandler.git"
                }
             },
-            "version" : "0.33002"
+            "version" : "0.36002"
          },
          "name" : "HTML::FormHandler",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/G/GS/GSHANK/HTML-FormHandler-0.33002.tar.gz",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/G/GS/GSHANK/HTML-FormHandler-0.36002.tar.gz",
          "provides" : {
             "HTML::FormHandler" : {
                "file" : "HTML/FormHandler.pm",
-               "version" : "0.33002"
+               "version" : "0.36002"
             },
             "HTML::FormHandler::Base" : {
                "file" : "HTML/FormHandler/Base.pm"
@@ -15137,6 +15769,10 @@
             },
             "HTML::FormHandler::Field::Email" : {
                "file" : "HTML/FormHandler/Field/Email.pm",
+               "version" : "0.02"
+            },
+            "HTML::FormHandler::Field::Float" : {
+               "file" : "HTML/FormHandler/Field/Float.pm",
                "version" : "0.02"
             },
             "HTML::FormHandler::Field::Hidden" : {
@@ -15230,7 +15866,7 @@
             },
             "HTML::FormHandler::Field::TextArea" : {
                "file" : "HTML/FormHandler/Field/TextArea.pm",
-               "version" : "0.01"
+               "version" : "0.02"
             },
             "HTML::FormHandler::Field::Upload" : {
                "file" : "HTML/FormHandler/Field/Upload.pm",
@@ -15247,6 +15883,9 @@
             "HTML::FormHandler::Fields" : {
                "file" : "HTML/FormHandler/Fields.pm"
             },
+            "HTML::FormHandler::Foo" : {
+               "file" : "HTML/FormHandler/Foo.pm"
+            },
             "HTML::FormHandler::I18N" : {
                "file" : "HTML/FormHandler/I18N.pm"
             },
@@ -15259,8 +15898,14 @@
             "HTML::FormHandler::I18N::hu_hu" : {
                "file" : "HTML/FormHandler/I18N/hu_hu.pm"
             },
+            "HTML::FormHandler::I18N::ja_jp" : {
+               "file" : "HTML/FormHandler/I18N/ja_jp.pm"
+            },
             "HTML::FormHandler::I18N::ru_ru" : {
                "file" : "HTML/FormHandler/I18N/ru_ru.pm"
+            },
+            "HTML::FormHandler::I18N::sv_se" : {
+               "file" : "HTML/FormHandler/I18N/sv_se.pm"
             },
             "HTML::FormHandler::I18N::tr_tr" : {
                "file" : "HTML/FormHandler/I18N/tr_tr.pm"
@@ -15299,6 +15944,9 @@
             "HTML::FormHandler::Render::Table" : {
                "file" : "HTML/FormHandler/Render/Table.pm"
             },
+            "HTML::FormHandler::Render::Util" : {
+               "file" : "HTML/FormHandler/Render/Util.pm"
+            },
             "HTML::FormHandler::Render::WithTT" : {
                "file" : "HTML/FormHandler/Render/WithTT.pm"
             },
@@ -15313,6 +15961,9 @@
             },
             "HTML::FormHandler::TraitFor::I18N" : {
                "file" : "HTML/FormHandler/TraitFor/I18N.pm"
+            },
+            "HTML::FormHandler::TraitFor::Types" : {
+               "file" : "HTML/FormHandler/TraitFor/Types.pm"
             },
             "HTML::FormHandler::Traits" : {
                "file" : "HTML/FormHandler/Traits.pm"
@@ -15329,6 +15980,9 @@
             },
             "HTML::FormHandler::Widget::Field::Button" : {
                "file" : "HTML/FormHandler/Widget/Field/Button.pm"
+            },
+            "HTML::FormHandler::Widget::Field::Captcha" : {
+               "file" : "HTML/FormHandler/Widget/Field/Captcha.pm"
             },
             "HTML::FormHandler::Widget::Field::Checkbox" : {
                "file" : "HTML/FormHandler/Widget/Field/Checkbox.pm"
@@ -15400,14 +16054,21 @@
             "HTML::FormHandler::Widget::Wrapper::Simple" : {
                "file" : "HTML/FormHandler/Widget/Wrapper/Simple.pm"
             },
+            "HTML::FormHandler::Widget::Wrapper::SimpleInline" : {
+               "file" : "HTML/FormHandler/Widget/Wrapper/SimpleInline.pm"
+            },
             "HTML::FormHandler::Widget::Wrapper::Table" : {
                "file" : "HTML/FormHandler/Widget/Wrapper/Table.pm"
             },
+            "HTML::FormHandler::Widget::Wrapper::TableInline" : {
+               "file" : "HTML/FormHandler/Widget/Wrapper/TableInline.pm"
+            },
             "HTML::FormHandler::Wizard" : {
                "file" : "HTML/FormHandler/Wizard.pm"
-            }
+            },
+            "http://cpan.metacpan.org/authors/id/G/GS/GSHANK/HTML-FormHandler-0.36002.tar.gz" : {}
          },
-         "version" : "0.33002"
+         "version" : "0.36002"
       },
       "HTML::HTML5::Parser" : {
          "dist" : "HTML-HTML5-Parser-0.103",
@@ -16980,7 +17641,7 @@
       },
       "IO::All" : {
          "dist" : "IO-All-0.41",
-         "module" : "http://cpan.metacpan.org/authors/id/I/IN/INGY/IO-All-0.41.tar.gz",
+         "module" : "IO::All",
          "mymeta" : {
             "abstract" : "IO::All of it to Graham and Damian!",
             "author" : [
@@ -17070,8 +17731,7 @@
             },
             "IO::All::Temp" : {
                "file" : "IO/All/Temp.pm"
-            },
-            "http://cpan.metacpan.org/authors/id/I/IN/INGY/IO-All-0.41.tar.gz" : {}
+            }
          },
          "version" : "0.41"
       },
@@ -18036,7 +18696,7 @@
          "version" : "0.02"
       },
       "List::MoreUtils" : {
-         "dist" : "List-MoreUtils-0.25_02",
+         "dist" : "List-MoreUtils-0.33",
          "module" : "List::MoreUtils",
          "mymeta" : {
             "abstract" : "Provide the stuff missing in List::Util",
@@ -18044,9 +18704,9 @@
                "Tassilo von Parseval <tassilo.von.parseval@rwth-aachen.de>"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "ExtUtils::MakeMaker version 6.50, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.112150",
             "license" : [
-               "unknown"
+               "perl_5"
             ],
             "meta-spec" : {
                "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -18062,30 +18722,34 @@
             "prereqs" : {
                "build" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : 0
+                     "Test::More" : "0.42"
                   }
                },
                "configure" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : 0
+                     "ExtUtils::CBuilder" : "0.27",
+                     "ExtUtils::MakeMaker" : "6.52"
                   }
                },
                "runtime" : {
-                  "requires" : {}
+                  "requires" : {
+                     "Test::More" : "0.82",
+                     "perl" : "5.00503"
+                  }
                }
             },
-            "release_status" : "testing",
-            "version" : "0.25_02"
+            "release_status" : "stable",
+            "version" : "0.33"
          },
          "name" : "List::MoreUtils",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/V/VP/VPARSEVAL/List-MoreUtils-0.25_02.tar.gz",
+         "pathname" : "A/AD/ADAMK/List-MoreUtils-0.33.tar.gz",
          "provides" : {
             "List::MoreUtils" : {
                "file" : "List/MoreUtils.pm",
-               "version" : "0.25_02"
+               "version" : "0.33"
             }
          },
-         "version" : "0.25_02"
+         "version" : "0.33"
       },
       "List::Util" : {
          "dist" : "Scalar-List-Utils-1.23",
@@ -19796,15 +20460,15 @@
          "version" : "1.07"
       },
       "Moose" : {
-         "dist" : "Moose-1.24",
+         "dist" : "Moose-2.0402",
          "module" : "Moose",
          "mymeta" : {
             "abstract" : "A postmodern object system for Perl 5",
             "author" : [
-               "Moose is an open project, there are at this point dozens of people who have"
+               "Moose is maintained by the Moose Cabal, along with the help of many contributors. See L<Moose/CABAL> and L<Moose/CONTRIBUTORS> for details."
             ],
             "dynamic_config" : 0,
-            "generated_by" : "Module::Install version 1.00, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
             "license" : [
                "perl_5"
             ],
@@ -19815,19 +20479,31 @@
             "name" : "Moose",
             "no_index" : {
                "directory" : [
-                  "inc",
-                  "lib/Moose/Meta/Method/Accessor/Native",
-                  "t",
-                  "xt"
+                  "benchmarks"
                ],
-               "x_files" : [
-                  "lib/Moose/Meta/Method/Accessor/Native.pm"
+               "namespace" : [
+                  "Class::MOP::Mixin",
+                  "Moose::Meta::Method::Accessor::Native",
+                  "Moose::Meta::Mixin"
+               ],
+               "package" : [
+                  "Class::MOP::Class::Immutable::Trait",
+                  "Class::MOP::Deprecated",
+                  "Class::MOP::MiniTrait",
+                  "Class::MOP::Mixin",
+                  "Moose::Deprecated",
+                  "Moose::Error::Util",
+                  "Moose::Meta::Attribute::Native::Trait",
+                  "Moose::Meta::Class::Immutable::Trait",
+                  "Moose::Meta::Method::Accessor::Native",
+                  "Moose::Meta::Object::Trait",
+                  "Moose::Util::TypeConstraints::OptimizedConstraints",
+                  "Moose::Util::TypeConstraints::Builtins"
                ]
             },
             "prereqs" : {
                "build" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : "6.42",
                      "Test::Fatal" : "0.001",
                      "Test::More" : "0.88",
                      "Test::Requires" : "0.05"
@@ -19835,575 +20511,733 @@
                },
                "configure" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : "6.42"
+                     "Dist::CheckConflicts" : "0.02",
+                     "ExtUtils::MakeMaker" : "6.30"
                   }
                },
                "runtime" : {
+                  "recommends" : {
+                     "Devel::PartialDump" : "0.14"
+                  },
                   "requires" : {
-                     "Carp" : 0,
-                     "Class::MOP" : "1.11",
-                     "Data::OptList" : 0,
-                     "List::MoreUtils" : "0.12",
-                     "Package::DeprecationManager" : "0.10",
+                     "Class::Load" : "0.09",
+                     "Class::Load::XS" : "0.01",
+                     "Data::OptList" : "0.107",
+                     "Devel::GlobalDestruction" : 0,
+                     "Dist::CheckConflicts" : "0.02",
+                     "Eval::Closure" : "0.04",
+                     "List::MoreUtils" : "0.28",
+                     "MRO::Compat" : "0.05",
+                     "Package::DeprecationManager" : "0.11",
+                     "Package::Stash" : "0.32",
+                     "Package::Stash::XS" : "0.24",
                      "Params::Util" : "1.00",
                      "Scalar::Util" : "1.19",
                      "Sub::Exporter" : "0.980",
-                     "Sub::Name" : 0,
+                     "Sub::Name" : "0.05",
                      "Task::Weaken" : 0,
-                     "Try::Tiny" : "0.02",
-                     "perl" : "5.008003"
+                     "Try::Tiny" : "0.02"
                   }
                }
             },
             "release_status" : "stable",
             "resources" : {
-               "license" : [
-                  "http://dev.perl.org/licenses/"
-               ],
+               "bugtracker" : {
+                  "web" : "http://rt.cpan.org/NoAuth/Bugs.html?Dist=Moose"
+               },
                "repository" : {
                   "type" : "git",
                   "url" : "git://git.moose.perl.org/Moose.git"
                }
             },
-            "version" : "1.24",
-            "x_authority" : "cpan:STEVAN"
+            "version" : "2.0402",
+            "x_authority" : "cpan:STEVAN",
+            "x_conflicts" : {
+               "Catalyst" : "5.80028",
+               "Devel::REPL" : "1.003008",
+               "Fey" : "0.36",
+               "Fey::ORM" : "0.42",
+               "File::ChangeNotify" : "0.15",
+               "KiokuDB" : "0.51",
+               "Markdent" : "0.16",
+               "MooseX::Aliases" : "0.08",
+               "MooseX::AlwaysCoerce" : "0.13",
+               "MooseX::Attribute::Deflator" : "2.1.7",
+               "MooseX::Attribute::Dependent" : "1.1.0",
+               "MooseX::Attribute::Prototype" : "0.10",
+               "MooseX::AttributeHelpers" : "0.22",
+               "MooseX::AttributeIndexes" : "1.0.0",
+               "MooseX::AttributeInflate" : "0.02",
+               "MooseX::CascadeClearing" : "0.03",
+               "MooseX::ClassAttribute" : "0.25",
+               "MooseX::Constructor::AllErrors" : "0.012",
+               "MooseX::FollowPBP" : "0.02",
+               "MooseX::HasDefaults" : "0.02",
+               "MooseX::InstanceTracking" : "0.04",
+               "MooseX::LazyRequire" : "0.06",
+               "MooseX::Meta::Attribute::Index" : "0.04",
+               "MooseX::Meta::Attribute::Lvalue" : "0.05",
+               "MooseX::MethodAttributes" : "0.22",
+               "MooseX::NonMoose" : "0.17",
+               "MooseX::POE" : "0.211",
+               "MooseX::Params::Validate" : "0.05",
+               "MooseX::PrivateSetters" : "0.03",
+               "MooseX::Role::Cmd" : "0.06",
+               "MooseX::Role::Parameterized" : "0.23",
+               "MooseX::Role::WithOverloading" : "0.07",
+               "MooseX::SemiAffordanceAccessor" : "0.05",
+               "MooseX::SetOnce" : "0.100473",
+               "MooseX::Singleton" : "0.25",
+               "MooseX::SlurpyConstructor" : "1.1",
+               "MooseX::StrictConstructor" : "0.12",
+               "MooseX::Types" : "0.19",
+               "MooseX::Types::Parameterizable" : "0.05",
+               "MooseX::Types::Signal" : "1.101930",
+               "MooseX::UndefTolerant" : "0.11",
+               "PRANG" : "0.14",
+               "Pod::Elemental" : "0.093280",
+               "Reaction" : "0.002003",
+               "Test::Able" : "0.10",
+               "namespace::autoclean" : "0.08"
+            }
          },
          "name" : "Moose",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/D/DR/DROLSKY/Moose-1.24.tar.gz",
+         "pathname" : "D/DO/DOY/Moose-2.0402.tar.gz",
          "provides" : {
+            "Class::MOP" : {
+               "file" : "Class/MOP.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Attribute" : {
+               "file" : "Class/MOP/Attribute.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Class" : {
+               "file" : "Class/MOP/Class.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Class::Immutable::Trait" : {
+               "file" : "Class/MOP/Class/Immutable/Trait.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Deprecated" : {
+               "file" : "Class/MOP/Deprecated.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Instance" : {
+               "file" : "Class/MOP/Instance.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Method" : {
+               "file" : "Class/MOP/Method.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Method::Accessor" : {
+               "file" : "Class/MOP/Method/Accessor.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Method::Constructor" : {
+               "file" : "Class/MOP/Method/Constructor.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Method::Generated" : {
+               "file" : "Class/MOP/Method/Generated.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Method::Inlined" : {
+               "file" : "Class/MOP/Method/Inlined.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Method::Meta" : {
+               "file" : "Class/MOP/Method/Meta.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Method::Wrapped" : {
+               "file" : "Class/MOP/Method/Wrapped.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::MiniTrait" : {
+               "file" : "Class/MOP/MiniTrait.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Mixin" : {
+               "file" : "Class/MOP/Mixin.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Mixin::AttributeCore" : {
+               "file" : "Class/MOP/Mixin/AttributeCore.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Mixin::HasAttributes" : {
+               "file" : "Class/MOP/Mixin/HasAttributes.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Mixin::HasMethods" : {
+               "file" : "Class/MOP/Mixin/HasMethods.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Module" : {
+               "file" : "Class/MOP/Module.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Object" : {
+               "file" : "Class/MOP/Object.pm",
+               "version" : "2.0402"
+            },
+            "Class::MOP::Package" : {
+               "file" : "Class/MOP/Package.pm",
+               "version" : "2.0402"
+            },
             "Moose" : {
                "file" : "Moose.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Deprecated" : {
                "file" : "Moose/Deprecated.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Error::Confess" : {
                "file" : "Moose/Error/Confess.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Error::Croak" : {
                "file" : "Moose/Error/Croak.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Error::Default" : {
                "file" : "Moose/Error/Default.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Exporter" : {
                "file" : "Moose/Exporter.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute" : {
                "file" : "Moose/Meta/Attribute.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Custom::Moose" : {
-               "file" : "Moose/Meta/Attribute.pm"
+               "file" : "Moose/Meta/Attribute.pm",
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native" : {
                "file" : "Moose/Meta/Attribute/Native.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait" : {
                "file" : "Moose/Meta/Attribute/Native/Trait.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait::Array" : {
                "file" : "Moose/Meta/Attribute/Native/Trait/Array.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait::Bool" : {
                "file" : "Moose/Meta/Attribute/Native/Trait/Bool.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait::Code" : {
                "file" : "Moose/Meta/Attribute/Native/Trait/Code.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait::Counter" : {
                "file" : "Moose/Meta/Attribute/Native/Trait/Counter.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait::Hash" : {
                "file" : "Moose/Meta/Attribute/Native/Trait/Hash.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait::Number" : {
                "file" : "Moose/Meta/Attribute/Native/Trait/Number.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Attribute::Native::Trait::String" : {
                "file" : "Moose/Meta/Attribute/Native/Trait/String.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Class" : {
                "file" : "Moose/Meta/Class.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Class::Immutable::Trait" : {
                "file" : "Moose/Meta/Class/Immutable/Trait.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Instance" : {
                "file" : "Moose/Meta/Instance.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method" : {
                "file" : "Moose/Meta/Method.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor" : {
                "file" : "Moose/Meta/Method/Accessor.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native" : {
                "file" : "Moose/Meta/Method/Accessor/Native.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::Writer" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/Writer.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::accessor" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/accessor.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::clear" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/clear.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::count" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/count.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::delete" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/delete.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::elements" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/elements.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::first" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/first.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
+            },
+            "Moose::Meta::Method::Accessor::Native::Array::first_index" : {
+               "file" : "Moose/Meta/Method/Accessor/Native/Array/first_index.pm",
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::get" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/get.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::grep" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/grep.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::insert" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/insert.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::is_empty" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/is_empty.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::join" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/join.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::map" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/map.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::natatime" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/natatime.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::pop" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/pop.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::push" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/push.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::reduce" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/reduce.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::set" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/set.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
+            },
+            "Moose::Meta::Method::Accessor::Native::Array::shallow_clone" : {
+               "file" : "Moose/Meta/Method/Accessor/Native/Array/shallow_clone.pm",
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::shift" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/shift.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::shuffle" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/shuffle.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::sort" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/sort.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::sort_in_place" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/sort_in_place.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::splice" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/splice.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::uniq" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/uniq.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Array::unshift" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Array/unshift.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Bool::not" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Bool/not.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Bool::set" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Bool/set.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Bool::toggle" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Bool/toggle.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Bool::unset" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Bool/unset.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Code::execute" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Code/execute.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Code::execute_method" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Code/execute_method.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Collection" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Collection.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Counter::Writer" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Counter/Writer.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Counter::dec" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Counter/dec.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Counter::inc" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Counter/inc.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Counter::reset" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Counter/reset.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Counter::set" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Counter/set.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::Writer" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/Writer.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::accessor" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/accessor.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::clear" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/clear.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::count" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/count.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::defined" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/defined.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::delete" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/delete.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::elements" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/elements.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::exists" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/exists.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::get" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/get.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::is_empty" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/is_empty.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::keys" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/keys.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::kv" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/kv.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::set" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/set.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
+            },
+            "Moose::Meta::Method::Accessor::Native::Hash::shallow_clone" : {
+               "file" : "Moose/Meta/Method/Accessor/Native/Hash/shallow_clone.pm",
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Hash::values" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Hash/values.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Number::abs" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Number/abs.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Number::add" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Number/add.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Number::div" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Number/div.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Number::mod" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Number/mod.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Number::mul" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Number/mul.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Number::set" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Number/set.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Number::sub" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Number/sub.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Reader" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Reader.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::append" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/append.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::chomp" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/chomp.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::chop" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/chop.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::clear" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/clear.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::inc" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/inc.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::length" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/length.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::match" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/match.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::prepend" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/prepend.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::replace" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/replace.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::String::substr" : {
                "file" : "Moose/Meta/Method/Accessor/Native/String/substr.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Accessor::Native::Writer" : {
                "file" : "Moose/Meta/Method/Accessor/Native/Writer.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Augmented" : {
                "file" : "Moose/Meta/Method/Augmented.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Constructor" : {
                "file" : "Moose/Meta/Method/Constructor.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Delegation" : {
                "file" : "Moose/Meta/Method/Delegation.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Destructor" : {
                "file" : "Moose/Meta/Method/Destructor.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Meta" : {
                "file" : "Moose/Meta/Method/Meta.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Method::Overridden" : {
                "file" : "Moose/Meta/Method/Overridden.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Mixin::AttributeCore" : {
                "file" : "Moose/Meta/Mixin/AttributeCore.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Object::Trait" : {
                "file" : "Moose/Meta/Object/Trait.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role" : {
                "file" : "Moose/Meta/Role.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Application" : {
                "file" : "Moose/Meta/Role/Application.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Application::RoleSummation" : {
                "file" : "Moose/Meta/Role/Application/RoleSummation.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Application::ToClass" : {
                "file" : "Moose/Meta/Role/Application/ToClass.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Application::ToInstance" : {
                "file" : "Moose/Meta/Role/Application/ToInstance.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Application::ToRole" : {
                "file" : "Moose/Meta/Role/Application/ToRole.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Attribute" : {
                "file" : "Moose/Meta/Role/Attribute.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Composite" : {
                "file" : "Moose/Meta/Role/Composite.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Method" : {
                "file" : "Moose/Meta/Role/Method.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Method::Conflicting" : {
                "file" : "Moose/Meta/Role/Method/Conflicting.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::Role::Method::Required" : {
                "file" : "Moose/Meta/Role/Method/Required.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeCoercion" : {
                "file" : "Moose/Meta/TypeCoercion.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeCoercion::Union" : {
                "file" : "Moose/Meta/TypeCoercion/Union.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint" : {
                "file" : "Moose/Meta/TypeConstraint.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::Class" : {
                "file" : "Moose/Meta/TypeConstraint/Class.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::DuckType" : {
                "file" : "Moose/Meta/TypeConstraint/DuckType.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::Enum" : {
                "file" : "Moose/Meta/TypeConstraint/Enum.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::Parameterizable" : {
                "file" : "Moose/Meta/TypeConstraint/Parameterizable.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::Parameterized" : {
                "file" : "Moose/Meta/TypeConstraint/Parameterized.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::Registry" : {
                "file" : "Moose/Meta/TypeConstraint/Registry.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::Role" : {
                "file" : "Moose/Meta/TypeConstraint/Role.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Meta::TypeConstraint::Union" : {
                "file" : "Moose/Meta/TypeConstraint/Union.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Object" : {
                "file" : "Moose/Object.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Role" : {
                "file" : "Moose/Role.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Util" : {
                "file" : "Moose/Util.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Util::MetaRole" : {
                "file" : "Moose/Util/MetaRole.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
             "Moose::Util::TypeConstraints" : {
                "file" : "Moose/Util/TypeConstraints.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             },
-            "Moose::Util::TypeConstraints::OptimizedConstraints" : {
-               "file" : "Moose/Util/TypeConstraints/OptimizedConstraints.pm",
-               "version" : "1.24"
+            "Moose::Util::TypeConstraints::Builtins" : {
+               "file" : "Moose/Util/TypeConstraints/Builtins.pm",
+               "version" : "2.0402"
             },
             "Test::Moose" : {
                "file" : "Test/Moose.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
+            },
+            "metaclass" : {
+               "file" : "metaclass.pm",
+               "version" : "2.0402"
             },
             "oose" : {
                "file" : "oose.pm",
-               "version" : "1.24"
+               "version" : "2.0402"
             }
          },
-         "version" : "1.24"
+         "version" : "2.0402"
       },
       "MooseX::ABC" : {
          "dist" : "MooseX-ABC-0.05",
@@ -22880,8 +23714,8 @@
          "version" : "0.26"
       },
       "MooseX::Types::URI" : {
-         "dist" : "MooseX-Types-URI-0.02",
-         "module" : "MooseX::Types::URI",
+         "dist" : "MooseX-Types-URI-0.03",
+         "module" : "http://cpan.metacpan.org/authors/id/F/FL/FLORA/MooseX-Types-URI-0.03.tar.gz",
          "mymeta" : {
             "abstract" : "unknown",
             "author" : [
@@ -22927,17 +23761,18 @@
                }
             },
             "release_status" : "stable",
-            "version" : "0.02"
+            "version" : "0.03"
          },
          "name" : "MooseX::Types::URI",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/F/FL/FLORA/MooseX-Types-URI-0.02.tar.gz",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/F/FL/FLORA/MooseX-Types-URI-0.03.tar.gz",
          "provides" : {
             "MooseX::Types::URI" : {
                "file" : "MooseX/Types/URI.pm",
-               "version" : "0.02"
-            }
+               "version" : "0.03"
+            },
+            "http://cpan.metacpan.org/authors/id/F/FL/FLORA/MooseX-Types-URI-0.03.tar.gz" : {}
          },
-         "version" : "0.02"
+         "version" : "0.03"
       },
       "Net::Amazon::AWSSign" : {
          "dist" : "Net-Amazon-AWSSign-0.09",
@@ -23655,6 +24490,51 @@
             }
          },
          "version" : "0.01"
+      },
+      "Number::Format" : {
+         "dist" : "Number-Format-1.73",
+         "module" : "Number::Format",
+         "mymeta" : {
+            "abstract" : "Perl extension for formatting numbers",
+            "author" : [
+               "William R. Ward <wrw@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.42, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Number-Format",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Carp" : 0,
+                     "POSIX" : 0,
+                     "Test::More" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "1.73"
+         },
+         "name" : "Number::Format",
+         "pathname" : "W/WR/WRW/Number-Format-1.73.tar.gz",
+         "provides" : {
+            "Number::Format" : {
+               "file" : "Number/Format.pm",
+               "version" : "1.73"
+            }
+         },
+         "version" : "1.73"
       },
       "Object::InsideOut" : {
          "dist" : "Object-InsideOut-3.85",
@@ -24956,7 +25836,7 @@
          "version" : "1.001000"
       },
       "Package::DeprecationManager" : {
-         "dist" : "Package-DeprecationManager-0.10",
+         "dist" : "Package-DeprecationManager-0.11",
          "module" : "Package::DeprecationManager",
          "mymeta" : {
             "abstract" : "Manage deprecation warnings for your distribution",
@@ -24964,7 +25844,7 @@
                "Dave Rolsky <autarch@urth.org>"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "Dist::Zilla version 4.102342, CPAN::Meta::Converter version 2.101670, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930, CPAN::Meta::Converter version 2.112150",
             "license" : [
                "artistic_2"
             ],
@@ -24983,7 +25863,7 @@
                },
                "configure" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : "6.31"
+                     "ExtUtils::MakeMaker" : "6.30"
                   }
                },
                "runtime" : {
@@ -25005,17 +25885,17 @@
                   "url" : "git://git.moose.perl.org/Package-DeprecationManager.git"
                }
             },
-            "version" : "0.10"
+            "version" : "0.11"
          },
          "name" : "Package::DeprecationManager",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/D/DR/DROLSKY/Package-DeprecationManager-0.10.tar.gz",
+         "pathname" : "D/DR/DROLSKY/Package-DeprecationManager-0.11.tar.gz",
          "provides" : {
             "Package::DeprecationManager" : {
                "file" : "Package/DeprecationManager.pm",
-               "version" : "0.10"
+               "version" : "0.11"
             }
          },
-         "version" : "0.10"
+         "version" : "0.11"
       },
       "Package::Stash" : {
          "dist" : "Package-Stash-0.33",
@@ -28332,6 +29212,118 @@
          },
          "version" : "0.9985"
       },
+      "Plack::Middleware::Debug" : {
+         "dist" : "Plack-Middleware-Debug-0.14",
+         "module" : "Plack::Middleware::Debug",
+         "mymeta" : {
+            "abstract" : "display information about the current request/response",
+            "author" : [
+               "Marcel Grünauer, C<< <marcel@cpan.org> >>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Plack-Middleware-Debug",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "Test::More" : "0.70"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Class::Method::Modifiers" : "1.05",
+                     "Data::Dump" : 0,
+                     "Encode" : "2.23",
+                     "ExtUtils::MakeMaker" : "6.11",
+                     "File::ShareDir" : "1.00",
+                     "Plack" : 0,
+                     "Test::More" : "0.70",
+                     "Text::MicroTemplate" : "0.15",
+                     "parent" : 0,
+                     "perl" : "5.008001"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.14"
+         },
+         "name" : "Plack::Middleware::Debug",
+         "pathname" : "M/MI/MIYAGAWA/Plack-Middleware-Debug-0.14.tar.gz",
+         "provides" : {
+            "Plack::Middleware::Debug" : {
+               "file" : "Plack/Middleware/Debug.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Base" : {
+               "file" : "Plack/Middleware/Debug/Base.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::CatalystLog" : {
+               "file" : "Plack/Middleware/Debug/CatalystLog.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::DBITrace" : {
+               "file" : "Plack/Middleware/Debug/DBITrace.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Environment" : {
+               "file" : "Plack/Middleware/Debug/Environment.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Memory" : {
+               "file" : "Plack/Middleware/Debug/Memory.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::ModuleVersions" : {
+               "file" : "Plack/Middleware/Debug/ModuleVersions.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Panel" : {
+               "file" : "Plack/Middleware/Debug/Panel.pm"
+            },
+            "Plack::Middleware::Debug::Parameters" : {
+               "file" : "Plack/Middleware/Debug/Parameters.pm"
+            },
+            "Plack::Middleware::Debug::PerlConfig" : {
+               "file" : "Plack/Middleware/Debug/PerlConfig.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Response" : {
+               "file" : "Plack/Middleware/Debug/Response.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::Session" : {
+               "file" : "Plack/Middleware/Debug/Session.pm"
+            },
+            "Plack::Middleware::Debug::Timer" : {
+               "file" : "Plack/Middleware/Debug/Timer.pm",
+               "version" : "0.14"
+            },
+            "Plack::Middleware::Debug::TrackObjects" : {
+               "file" : "Plack/Middleware/Debug/TrackObjects.pm"
+            }
+         },
+         "version" : "0.14"
+      },
       "Plack::Middleware::ReverseProxy" : {
          "dist" : "Plack-Middleware-ReverseProxy-0.11",
          "module" : "Plack::Middleware::ReverseProxy",
@@ -30187,6 +31179,104 @@
          },
          "version" : "0.2014"
       },
+      "Statistics::Basic" : {
+         "dist" : "Statistics-Basic-1.6602",
+         "module" : "Statistics::Basic",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "unknown"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.112150",
+            "keywords" : [
+               "stats",
+               "statistics",
+               "mean",
+               "average",
+               "correlation"
+            ],
+            "license" : [
+               "open_source"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Statistics-Basic",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Number::Format" : "1.42",
+                     "Scalar::Util" : 0,
+                     "perl" : "5.006"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "repository" : {
+                  "url" : "http://github.com/jettero/statistics--basic"
+               }
+            },
+            "version" : "1.6602"
+         },
+         "name" : "Statistics::Basic",
+         "pathname" : "J/JE/JETTERO/Statistics-Basic-1.6602.tar.gz",
+         "provides" : {
+            "Statistics::Basic" : {
+               "file" : "Statistics/Basic.pm",
+               "version" : "1.6602"
+            },
+            "Statistics::Basic::ComputedVector" : {
+               "file" : "Statistics/Basic/ComputedVector.pm"
+            },
+            "Statistics::Basic::Correlation" : {
+               "file" : "Statistics/Basic/Correlation.pm"
+            },
+            "Statistics::Basic::Covariance" : {
+               "file" : "Statistics/Basic/Covariance.pm"
+            },
+            "Statistics::Basic::LeastSquareFit" : {
+               "file" : "Statistics/Basic/LeastSquareFit.pm"
+            },
+            "Statistics::Basic::Mean" : {
+               "file" : "Statistics/Basic/Mean.pm"
+            },
+            "Statistics::Basic::Median" : {
+               "file" : "Statistics/Basic/Median.pm"
+            },
+            "Statistics::Basic::Mode" : {
+               "file" : "Statistics/Basic/Mode.pm"
+            },
+            "Statistics::Basic::StdDev" : {
+               "file" : "Statistics/Basic/StdDev.pm"
+            },
+            "Statistics::Basic::Variance" : {
+               "file" : "Statistics/Basic/Variance.pm"
+            },
+            "Statistics::Basic::Vector" : {
+               "file" : "Statistics/Basic/Vector.pm"
+            }
+         },
+         "version" : "1.6602"
+      },
       "String::CRC32" : {
          "dist" : "String-CRC32-1.4",
          "module" : "String::CRC32",
@@ -30905,7 +31995,7 @@
          "version" : "0.924"
       },
       "Sub::Name" : {
-         "dist" : "Sub-Name-0.04",
+         "dist" : "Sub-Name-0.05",
          "module" : "Sub::Name",
          "mymeta" : {
             "abstract" : "(re)name a sub",
@@ -30922,8 +32012,19 @@
                "version" : "2"
             },
             "name" : "Sub-Name",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
             "prereqs" : {
                "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
                   "requires" : {
                      "ExtUtils::MakeMaker" : 0
                   }
@@ -30933,17 +32034,17 @@
                }
             },
             "release_status" : "stable",
-            "version" : "0.04"
+            "version" : "0.05"
          },
          "name" : "Sub::Name",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/X/XM/XMATH/Sub-Name-0.04.tar.gz",
+         "pathname" : "F/FL/FLORA/Sub-Name-0.05.tar.gz",
          "provides" : {
             "Sub::Name" : {
                "file" : "Sub/Name.pm",
-               "version" : "0.04"
+               "version" : "0.05"
             }
          },
-         "version" : "0.04"
+         "version" : "0.05"
       },
       "Sub::Override" : {
          "dist" : "Sub-Override-0.08",
@@ -33131,6 +34232,85 @@
          },
          "version" : "0.0303"
       },
+      "Test::Mock::LWP" : {
+         "dist" : "Test-Mock-LWP-0.06",
+         "module" : "Test::Mock::LWP",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "Luke Closs <test-mock-lwp@awesnob.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.57_05, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Test-Mock-LWP",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Test::MockObject" : "1.08",
+                     "Test::More" : "0.42"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.06"
+         },
+         "name" : "Test::Mock::LWP",
+         "pathname" : "L/LU/LUKEC/Test-Mock-LWP-0.06.tar.gz",
+         "provides" : {
+            "HTTP::Request" : {
+               "file" : "Test/Mock/HTTP/Request.pm",
+               "version" : "0"
+            },
+            "HTTP::Response" : {
+               "file" : "Test/Mock/HTTP/Response.pm",
+               "version" : "0"
+            },
+            "LWP::UserAgent" : {
+               "file" : "Test/Mock/LWP/UserAgent.pm",
+               "version" : "0"
+            },
+            "Test::Mock::HTTP::Request" : {
+               "file" : "Test/Mock/HTTP/Request.pm",
+               "version" : "0.01"
+            },
+            "Test::Mock::HTTP::Response" : {
+               "file" : "Test/Mock/HTTP/Response.pm",
+               "version" : "0.01"
+            },
+            "Test::Mock::LWP" : {
+               "file" : "Test/Mock/LWP.pm",
+               "version" : "0.06"
+            },
+            "Test::Mock::LWP::UserAgent" : {
+               "file" : "Test/Mock/LWP/UserAgent.pm",
+               "version" : "0.01"
+            }
+         },
+         "version" : "0.06"
+      },
       "Test::MockModule" : {
          "dist" : "Test-MockModule-0.05",
          "module" : "Test::MockModule",
@@ -34632,8 +35812,8 @@
          "version" : "1.30"
       },
       "Test::WWW::Mechanize::Catalyst" : {
-         "dist" : "Test-WWW-Mechanize-Catalyst-0.53",
-         "module" : "Test::WWW::Mechanize::Catalyst",
+         "dist" : "Test-WWW-Mechanize-Catalyst-0.56",
+         "module" : "http://cpan.metacpan.org/authors/id/E/ED/EDENC/Test-WWW-Mechanize-Catalyst-0.56.tar.gz",
          "mymeta" : {
             "abstract" : "Test::WWW::Mechanize for Catalyst",
             "author" : [
@@ -34677,7 +35857,8 @@
                      "Moose" : "0.67",
                      "Test::WWW::Mechanize" : "1.14",
                      "WWW::Mechanize" : "1.54",
-                     "namespace::clean" : "0.09"
+                     "namespace::clean" : "0.09",
+                     "perl" : "5.008004"
                   }
                }
             },
@@ -34690,17 +35871,17 @@
                   "url" : "http://dev.catalyst.perl.org/repos/Catalyst/Test-WWW-Mechanize-Catalyst/trunk/"
                }
             },
-            "version" : "0.53"
+            "version" : "0.56"
          },
          "name" : "Test::WWW::Mechanize::Catalyst",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Test-WWW-Mechanize-Catalyst-0.53.tar.gz",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/E/ED/EDENC/Test-WWW-Mechanize-Catalyst-0.56.tar.gz",
          "provides" : {
             "Test::WWW::Mechanize::Catalyst" : {
                "file" : "Test/WWW/Mechanize/Catalyst.pm",
-               "version" : "0.53"
+               "version" : "0.56"
             }
          },
-         "version" : "0.53"
+         "version" : "0.56"
       },
       "Test::WWW::Selenium" : {
          "dist" : "Test-WWW-Selenium-1.24",
@@ -35282,6 +36463,73 @@
             }
          },
          "version" : "0.09"
+      },
+      "Text::MicroTemplate" : {
+         "dist" : "Text-MicroTemplate-0.18",
+         "module" : "Text::MicroTemplate",
+         "mymeta" : {
+            "abstract" : "Micro template engine with Perl5 language",
+            "author" : [
+               "Kazuho Oku <kazuhooku gmail.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Install version 0.93, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Text-MicroTemplate",
+            "no_index" : {
+               "directory" : [
+                  "inc",
+                  "t"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42",
+                     "File::Temp" : 0,
+                     "Test::More" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.42"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "perl" : "5.00800"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "0.18"
+         },
+         "name" : "Text::MicroTemplate",
+         "pathname" : "K/KA/KAZUHO/Text-MicroTemplate-0.18.tar.gz",
+         "provides" : {
+            "Text::MicroTemplate" : {
+               "file" : "Text/MicroTemplate.pm",
+               "version" : "0.18"
+            },
+            "Text::MicroTemplate::EncodedString" : {
+               "file" : "Text/MicroTemplate.pm"
+            },
+            "Text::MicroTemplate::File" : {
+               "file" : "Text/MicroTemplate/File.pm"
+            }
+         },
+         "version" : "0.18"
       },
       "Text::SimpleTable" : {
          "dist" : "Text-SimpleTable-2.03",

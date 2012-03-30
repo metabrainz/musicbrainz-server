@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::WikiDoc;
 use Moose;
+use namespace::autoclean;
 
 use Carp;
 use Readonly;

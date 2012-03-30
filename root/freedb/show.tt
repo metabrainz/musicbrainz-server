@@ -35,10 +35,10 @@
     <input type="hidden" name="artist_credit.names.0.name" value="[% entity.artist %]" />
     [% FOR track=entity.tracks %]
       <input type="hidden" name="mediums.0.track.[% loop.index %].name"
-             value="[% track.freedb_title %]" />
+             value="[% track.freedb_title | html %]" />
       <input type="hidden"
              name="mediums.0.track.[% loop.index %].artist_credit.names.0.name"
-             value="[% release.artist %]" />
+             value="[% release.artist | html %]" />
       <input type="hidden" name="mediums.0.track.[% loop.index %].length"
                value="[% track.length %]" />
     [% END %]

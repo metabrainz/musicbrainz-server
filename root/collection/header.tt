@@ -11,7 +11,8 @@
     <h1>[% link_collection(collection) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-        [% collection.public ? l('Public collection') : l('Private collection') %]
+        [% collection.public ? l('Public collection by {owner}', { owner => link_editor(collection.editor) })
+                             : l('Private collection') %]
     </p>
 </div>
 

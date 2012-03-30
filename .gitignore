@@ -3,6 +3,7 @@
 /admin/apache/vh_mb_backend.conf
 /admin/apache/vh_mb_frontend.conf
 /admin/apache/startup.pl
+/root/robots.txt
 /blib
 /inc
 /lib/DBDefs.pm
@@ -22,3 +23,6 @@ root/static/styles/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0
 # Ignore carton local::lib
 /local
 /.carton
+
+# If there's at least one person using a mac
+.DS_Store

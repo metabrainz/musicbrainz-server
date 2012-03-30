@@ -23,7 +23,7 @@
             <thead>
                 <tr class="subh">
                     <th></th>
-                    <th colspan="4">[% relationship.key %]</th>
+                    <th colspan="4">[% l(relationship.key) %]</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,7 +42,7 @@
                     [% IF rel.link.attributes.size %]
                     <td>
                       [%- FOR attr=rel.link.attributes;
-                            attr.name | html;
+                            l(attr.name) | html;
                             ', ' UNLESS loop.last;
                          END %]
                     </td>

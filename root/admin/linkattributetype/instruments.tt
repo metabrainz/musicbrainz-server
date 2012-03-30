@@ -16,12 +16,12 @@
         <span style="font-weight: bold">[% l('Jump to:') %]</span>
         <ol>
         [% FOR obj IN root.children %]
-            <li><a href="#[% obj.name | replace('\s+', '_') %]">[% obj.name FILTER ucfirst | html %]</a></li>
+            <li><a href="#[% obj.name | replace('\s+', '_') %]">[% l(obj.name) FILTER ucfirst | html %]</a></li>
         [% END %]
         </ol>
 
         [% FOR obj IN root.children %]
-            <h2 id="[% obj.name | replace('\s+', '_') %]">[% obj.name FILTER ucfirst | html %]</h2>
+            <h2 id="[% obj.name | replace('\s+', '_') %]">[% l(obj.name) FILTER ucfirst | html %]</h2>
             [% PROCESS attribute_details obj=obj toplevel=1 %]
 
             <ul>

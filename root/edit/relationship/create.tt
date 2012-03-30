@@ -35,7 +35,9 @@
         <table class="form">
             <tr>
                 <th class="label">[% entity_label(source_type) %]</th>
-                <td colspan="2" id="entity0">[% link_entity(source) %]</td>
+                <td colspan="2" id="entity0">
+                  <span>[% link_entity(source) %]</span>
+                </td>
             </tr>
             <tr>
                 <th class="label">[% r.label('link_type_id', l('Type:')) %]</th>
@@ -57,7 +59,9 @@
             </tr>
             <tr>
                 <th class="label">[% entity_label(dest_type) %]</th>
-                <td colspan="2" id="entity1">[% link_entity(dest) %]</td>
+                <td colspan="2" id="entity1">
+                  <span>[% link_entity(dest) %]</span>
+                </td>
             </tr>
             <tr>
                 <th class="label">[% l('Attributes:') %]</th>

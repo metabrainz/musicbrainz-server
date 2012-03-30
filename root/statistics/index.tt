@@ -420,21 +420,23 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('who edited last week:') %]</th>
-    <td>[% add_commas(stats.statistic('count.editor.activelastweek')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.activelastweek', 'count.editor')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th colspan=2>[% l('who voted last week:') %]</th>
-    <td>[% add_commas(stats.statistic('count.editor.votelastweek')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.votelastweek', 'count.editor')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
     <th colspan=2>[% l('active last week:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.activelastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.activelastweek', 'count.editor')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th></th>
+    <th>[% l('who edited last week:') %]</th>
+    <td>[% add_commas(stats.statistic('count.editor.editlastweek')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.editlastweek', 'count.editor.activelastweek')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th></th>
+    <th>[% l('who voted last week:') %]</th>
+    <td>[% add_commas(stats.statistic('count.editor.votelastweek')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.votelastweek', 'count.editor.activelastweek')) }) %]</td>
 </tr>
 </tbody>
 <thead>
