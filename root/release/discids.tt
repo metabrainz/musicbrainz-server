@@ -18,7 +18,7 @@
                 <tr class="subh">
                     <td colspan="[% c.user_exists ? 4 : 3 %]">
                         <a href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
-                            [% l(medium.format_name) | html %] [% medium.position %][% IF medium.name %]:
+                            [% medium_format_name(medium) %] [% medium.position %][% IF medium.name %]:
                             [% medium.name | html %][% END %]
                         </a>
                     </td>

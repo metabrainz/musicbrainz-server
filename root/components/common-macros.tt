@@ -622,8 +622,12 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO format_length(n) BLOCK; n | format_length; END %]
 
+[%- MACRO medium_format_name(medium) BLOCK -%]
+    [% medium.format_name or l("Medium") | html %]
+[%- END -%]
+
 [%- MACRO medium_link(medium) BLOCK -%]
-  [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
+  [% medium_format_name(medium) %] [% medium.position %][% IF medium.name %]:
   [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
 [%- END -%]
 

@@ -2,7 +2,6 @@ package MusicBrainz::Server::Entity::Medium;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
@@ -50,7 +49,7 @@ has 'format' => (
 sub format_name
 {
     my ($self) = @_;
-    return $self->format ? $self->format->name : l('Medium');
+    return $self->format ? $self->format->name : undef;
 }
 
 has 'cdtocs' => (

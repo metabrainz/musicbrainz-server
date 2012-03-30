@@ -10,7 +10,7 @@
         <thead>
           <tr>
             <th class="name" colspan="4">
-              [% medium.format_name | html %]
+              [% medium_format_name(medium) %]
               [% medium.position %]
               [% IF medium.name %]
                   :[% medium.name | html %]
