@@ -340,11 +340,8 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?youtube\\.com/", "i"),
         type: MB.constants.LINK_TYPES.youtube,
         clean: function(url) {
-            url = url.replace(/[\?#].*$/, '');
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
-            if (!url.match(/\/user\//)) {
-                url = url.replace(/^http:\/\/www\.youtube\.com\/([^?#\/]+).*$/, "http://www.youtube.com/user/$1");
-            }
+            url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
             return url;
         }
     }
