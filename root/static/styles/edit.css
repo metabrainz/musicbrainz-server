@@ -94,6 +94,10 @@ table.vote-tally .date {
 }
 
 .edit-notes .modbot {
+    color: #666;
+}
+
+.edit-notes .modbot a {
     color: #999;
 }
 
