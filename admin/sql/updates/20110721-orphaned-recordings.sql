@@ -31,7 +31,8 @@ BEGIN
         ( SELECT TRUE FROM l_recording_url           WHERE entity0 = recording_row.id LIMIT 1) OR
         ( SELECT TRUE FROM recording_tag             WHERE recording = recording_row.id LIMIT 1) OR
         ( SELECT TRUE FROM recording_gid_redirect    WHERE new_id = recording_row.id LIMIT 1) OR
-        ( SELECT TRUE FROM isrc                      WHERE recording = recording_row.id LIMIT 1);
+        ( SELECT TRUE FROM isrc                      WHERE recording = recording_row.id LIMIT 1) OR
+        ( SELECT TRUE FROM recording_annotation      WHERE recording = recording_row.id LIMIT 1)
         RETURN NEXT recording_row;
     END LOOP;
 END;
