@@ -33,7 +33,7 @@ BEGIN
         ( SELECT TRUE FROM isrc                      WHERE recording = recording_row.id LIMIT 1) OR
         ( SELECT TRUE FROM recording_annotation      WHERE recording = recording_row.id LIMIT 1) OR
         ( SELECT TRUE FROM recording_rating_raw      WHERE recording = recording_row.id LIMIT 1) OR
-        ( SELECT TRUE FROM recording_puid            WHERE recording = recording_row.id LIMIT 1)
+        ( SELECT TRUE FROM recording_puid            WHERE recording = recording_row.id LIMIT 1);
         RETURN NEXT recording_row;
     END LOOP;
 END;
