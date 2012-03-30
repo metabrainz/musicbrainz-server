@@ -30,15 +30,20 @@ BEGIN
         ( SELECT TRUE FROM l_recording_work          WHERE entity0 = recording_row.id LIMIT 1) OR
         ( SELECT TRUE FROM l_recording_url           WHERE entity0 = recording_row.id LIMIT 1) OR
         ( SELECT TRUE FROM recording_tag             WHERE recording = recording_row.id LIMIT 1) OR
-        ( SELECT TRUE FROM recording_gid_redirect    WHERE new_id = recording_row.id LIMIT 1) OR
         ( SELECT TRUE FROM isrc                      WHERE recording = recording_row.id LIMIT 1) OR
-        ( SELECT TRUE FROM recording_annotation      WHERE recording = recording_row.id LIMIT 1)
+        ( SELECT TRUE FROM recording_annotation      WHERE recording = recording_row.id LIMIT 1) OR
+        ( SELECT TRUE FROM recording_rating_raw      WHERE recording = recording_row.id LIMIT 1) OR
+        ( SELECT TRUE FROM recording_puid            WHERE recording = recording_row.id LIMIT 1)
         RETURN NEXT recording_row;
     END LOOP;
 END;
 $$ LANGUAGE 'plpgsql';
 
-DELETE FROM recording USING orphaned_recordings() s WHERE recording.id = s.id;
+SELECT * INTO TEMPORARY tmp_orphans FROM orphaned_recordings();
+
+DELETE FROM recording_gid_redirect USING tmp_orphans s WHERE new_id = s.id;
+DELETE FROM recording_meta USING tmp_orphans s WHERE recording_meta.id = s.id;
+DELETE FROM recording USING tmp_orphans s WHERE recording.id = s.id;
 
 DROP FUNCTION orphaned_recordings();
 
