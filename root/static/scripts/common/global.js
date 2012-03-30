@@ -51,10 +51,10 @@ $(document).ready (function() {
     });
 
     $('.annotation-collapse').each(function(){
-        if ($(this).height() > 400) {
+        if ($(this).height() > 100) {
             $(this).removeClass('annotation-collapse');
             $(this).addClass('annotation-collapsed');
-            $(this).after('<div><a href="javascript:void(0)" class="annotation-toggle">Show more...</a></div>');
+            $(this).after('<p><a href="javascript:void(0)" class="annotation-toggle">Show more...</a></p>');
         }
     });
 
