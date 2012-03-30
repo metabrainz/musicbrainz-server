@@ -140,6 +140,7 @@ sub attach : Local
     }
 
     if (my $medium_id = $c->req->query_params->{medium}) {
+        $c->forward('/user/do_login');
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
