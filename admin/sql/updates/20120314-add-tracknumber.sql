@@ -2,7 +2,7 @@
 
 BEGIN;
 
-ALTER TABLE track ADD COLUMN number VARCHAR(255);
+ALTER TABLE track ADD COLUMN number TEXT;
 UPDATE track SET number = position;
 ALTER TABLE track ALTER COLUMN number SET NOT NULL;
 

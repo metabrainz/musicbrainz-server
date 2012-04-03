@@ -1111,6 +1111,7 @@ CREATE TABLE track
     recording           INTEGER NOT NULL, -- references recording.id
     tracklist           INTEGER NOT NULL, -- references tracklist.id
     position            INTEGER NOT NULL,
+    number              TEXT NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
