@@ -113,7 +113,7 @@ MB.Control.ReleaseEdits = function ($edits) {
 
             if (from)
             {
-                from.position = '' + (idx + 1);
+                from.position = idx + 1;
                 from.deleted = "0";
             }
 
