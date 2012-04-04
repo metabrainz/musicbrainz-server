@@ -37,10 +37,10 @@ has '+data' => (
         release => Dict[
             id => Int,
             name => Str,
-            date => Str,
-            country => Str,
-            barcode => Str,
-            combined_format => Str,
+            date => Nullable[Str],
+            country => Nullable[Str],
+            barcode => Nullable[Str],
+            combined_format => Nullable[Str],
         ],
         new => find_type_constraint('ReleaseLabelHash'),
         old => find_type_constraint('ReleaseLabelHash')
@@ -77,7 +77,7 @@ sub build_display_data
 
     for (qw( new old )) {
         if (my $lbl = $self->data->{$_}{label}) {
-            next unless $lbl;
+            next unless %$lbl;
             $data->{label}{$_} = $loaded->{Label}{ $lbl->{id} } ||
                 Label->new( name => $lbl->{name} );
         }
@@ -142,13 +142,19 @@ sub initialize
         release => {
             id => $release_label->release->id,
             name => $release_label->release->name,
-            date => $release_label->release->date->format,
-            country => $release_label->release->country->name,
-            barcode => $release_label->release->barcode->format,
             combined_format => $release_label->release->combined_format_name,
         },
         $self->_change_data($release_label, %opts),
     };
+
+    $data{release}{date} = $release_label->release->date->format
+        if $release_label->release->date;
+
+    $data{release}{country} = $release_label->release->country->name
+        if $release_label->release->country;
+
+    $data{release}{barcode} = $release_label->release->barcode->format
+        if $release_label->release->barcode;
 
     $data->{old}{catalog_number} = $release_label->catalog_number;
     $data->{old}{label} = $release_label->label ? {
