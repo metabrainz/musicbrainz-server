@@ -13,7 +13,9 @@ sub AUTOLOAD {
         tag => $tag,
         attrs => \%attrs,
         body => [ map {
-            ref($_) ? $_ : bless(\$_, 'MusicBrainz::XML::Text')
+            ref($_) eq 'MusicBrainz::XML::Element'
+                ? $_
+                : bless(\"$_", 'MusicBrainz::XML::Text')
         } @_ ]
     }, 'MusicBrainz::XML::Element';
 }

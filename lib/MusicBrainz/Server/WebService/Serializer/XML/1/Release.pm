@@ -42,7 +42,7 @@ sub serialize
     push @body, ( $self->gen->title($entity->name) );
 
     my %lang_script;
-    $lang_script{language} = uc($entity->language->iso_code_3b)
+    $lang_script{language} = uc($entity->language->iso_code_3t)
         if $entity->language;
     $lang_script{script} = $entity->script->iso_code
         if $entity->script;

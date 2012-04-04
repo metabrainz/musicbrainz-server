@@ -1,0 +1,13 @@
+[%- WRAPPER 'layout.tt' title=l('Recordings with Creative Commons Download relationships') full_width=1 -%]
+
+<h1>[% l('Recordings with Creative Commons Download relationships') %]</h1>
+
+<ul>
+    <li>[% l('This report shows recordings that still have Creative Commons Download relationships.') %]</li>
+    <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- INCLUDE 'report/recording_list.tt' -%]
+
+[%- END -%]

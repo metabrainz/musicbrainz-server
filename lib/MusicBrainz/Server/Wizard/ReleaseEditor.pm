@@ -1616,6 +1616,7 @@ sub _seed_parameters {
                         $track->{length} = ($length =~ /:/)
                             ? unformat_track_length ($length)
                             : $length;
+                        $track->{length} = defined $track->{length} ? int($track->{length}) : undef;
                     }
 
                     my $track = $self->update_track_edit_hash ($track);

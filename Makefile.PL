@@ -68,11 +68,12 @@ requires 'MooseX::Runnable';
 requires 'MooseX::Singleton';
 requires 'MooseX::Types'                              => '0.16';
 requires 'MooseX::Types::Structured'                  => '0.24';
-requires 'MooseX::Types::URI';
+requires 'MooseX::Types::URI'                         => '0.03';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'Package::Stash'                             => '0.29';
 requires 'Readonly'                                   => '1.03';
+requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';
@@ -123,7 +124,6 @@ feature 'Production server' =>
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
     'FCGI' => '0',
     'FCGI::ProcManager' => '0.19',
-    'Catalyst::Engine::FastCGI',
     ;
 
 feature 'Fast edit migration' =>

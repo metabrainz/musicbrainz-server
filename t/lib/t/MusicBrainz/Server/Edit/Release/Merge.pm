@@ -84,7 +84,8 @@ test all => sub {
                     name => 'Release 1',
                 },
                 mediums => [
-                    { id => 2, old_position => 1, new_position => 1 }
+                    { id => 2, old_position => 1, new_position => 1 },
+                    { id => 3, old_position => 2, new_position => 2 }
                 ]
             },
             {

@@ -206,7 +206,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text == '' ? html_escape(artist.name) : text;
     hover = html_escape(artist.sort_name);
-    IF artist.comment; hover = hover _ ', ' _ html_escape(artist.comment); END;
+    IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a href="' _ link _ '" title="' _ hover _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -626,3 +626,8 @@ http://[%- server -%]/[%- id -%]"
   [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
   [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
 [%- END -%]
+
+[%- MACRO filter_button BLOCK -%]
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">Filter</a></div>
+[%- END -%]
+

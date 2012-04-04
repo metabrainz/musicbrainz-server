@@ -609,6 +609,7 @@ sub _serialize_label
     my @list;
     push @list, $gen->name($label->name);
     push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
+    push @list, $gen->disambiguation($label->comment) if $label->comment;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
     push @list, $gen->ipi($label->ipi_code) if ($label->ipi_code);
 

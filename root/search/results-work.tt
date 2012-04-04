@@ -10,6 +10,7 @@
                             <th>[%- l('Name') -%]</th>
                             <th>[%- l('Writers') -%]</th>
                             <th>[%- l('Artists') -%]</th>
+                            <th>[%- l('ISWC') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@
                               [%- END -%]
                               </ul>
                             </td>
+                            <td>[% result.entity.iswc %]</td>
                         </tr>
                         [%- END -%]
                     </tbody>
