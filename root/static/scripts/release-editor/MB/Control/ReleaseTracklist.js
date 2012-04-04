@@ -122,8 +122,6 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$moveDown.unbind ('click.mb');
         self.$moveUp.unbind ('click.mb');
 
-        console.log ("fix these for up/down arrows.");
-        // self.$position.attr ('disabled', 'disabled');
         self.$length.attr ('disabled', 'disabled');
         self.$row.find ("input.remove-track").hide ();
 
