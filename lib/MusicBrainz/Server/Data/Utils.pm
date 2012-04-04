@@ -334,6 +334,9 @@ sub trim
     # Compress whitespace
     $t =~ s/\s+/ /g;
 
+    # Remove non-printable characters.
+    $t =~ s/[^[:print:]]//g;
+
     return $t;
 }
 
