@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 [%- MACRO country_entry(country) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-    <td>[% loop.count() %].</td>
+    <td>[% loop.count %]</td>
     [%- IF country.entity.iso_code != '' -%]
     <td>[% l(country.entity.name) %]</td>
     [%- ELSE -%]

@@ -1,6 +1,6 @@
 [%- MACRO entry(entity, type) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-    <td>[% loop.count() %].</td>
+    <td>[% loop.count %]</td>
     [% IF type == 'lang' %]
     <td>[% l(entity.entity.name) || l('Unknown language') %]</td>
     <td>[%- lang_script_search_link(type, entity.entity.iso_code_3t, add_commas(entity.count)) -%]</td>
