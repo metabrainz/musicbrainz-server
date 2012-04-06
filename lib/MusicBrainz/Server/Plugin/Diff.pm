@@ -101,7 +101,7 @@ sub _link_artist_credit_name {
     if ($acn->artist->gid) {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-            title => html_filter($acn->artist->name)
+            title => html_filter($acn->artist->sort_name)
         }, $name || html_filter($acn->name));
     }
     else {
