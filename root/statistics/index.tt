@@ -544,11 +544,11 @@
 </tbody>
 </table>
 
-<h2>[% l('Advanced Relationships') %]</h2>
+<h2>[% l('Relationships') %]</h2>
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('Advanced Relationships') %]</th>
+    <th colspan=4>[% l('Relationships') %]</th>
 </tr>
 <tr>
     <th colspan=2>[% l('Relationships:') %]</th>
