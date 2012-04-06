@@ -22,7 +22,7 @@
 <p>[%- l('All other available languages and scripts have 0 releases.') -%]</p>
 
 <div style="float:left; display:inline-block; margin-right: 50px;">
-<h2>[%- l('Languages') -%]</h2>
+<h2 style="margin-top:0;">[%- l('Languages') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>
@@ -41,7 +41,7 @@
 </div>
 
 <div style="float:left; display:inline-block;">
-<h2>[%- l('Scripts') -%]</h2>
+<h2 style="margin-top:0;">[%- l('Scripts') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>
