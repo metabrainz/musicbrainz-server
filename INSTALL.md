@@ -1,33 +1,31 @@
-Installing the MusicBrainz Server
-=================================
+Installing MusicBrainz Server
+=============================
 
-The MusicBrainz Server is the web frontend to the MusicBrainz Database, and is
-accessible at http://musicbrainz.org.
+The easiest method of installing a local MusicBrainz Server is to download the 
+[pre-configured virtual machine](http://musicbrainz.org/doc/MusicBrainz_Server/Setup).
 
-This document explains the steps necessary to setup your own MusicBrainz Server.
-If you require any assistance with these instructions, please feel free to
-contact us via the information given at the bottom of this document.
+If you want to manually set up MusicBrainz Server from source, read on!
 
 Prerequisites
 -------------
 
-1)  A Unix based operating system
+1.  A Unix based operating system
 
     The MusicBrainz development team uses a mix of Ubuntu and Debian, but Mac OS
     X will work just fine, if you're prepared to potentially jump through some
     hoops. If you are running Windows we recommend you set up a Ubuntu virtual
     machine.
 
-    This document will assume you are using Ubuntu for its instructions.
+    **This document will assume you are using Ubuntu for its instructions.**
 
-2)  Perl (at least version 5.10.1)
+2.  Perl (at least version 5.10.1)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
 
         perl -v
 
-3)  PostgreSQL (at least version 8.4)
+3.  PostgreSQL (at least version 8.4)
 
     PostgreSQL is required, along with its development libraries. To install
     using packages run the following, replacing 8.x with the latest version.
@@ -39,7 +37,7 @@ Prerequisites
     script will take care of installing that extension into the database when it
     creates the database for you.
 
-4)  Git
+4.  Git
 
     The MusicBrainz development team uses Git for their DVCS. To install Git,
     run the following:
@@ -47,52 +45,51 @@ Prerequisites
         sudo apt-get install git-core
 
 
-5)  Memcached
+5.  Memcached
 
     By default the MusicBrainz server requires a Memcached server running on the
-    same server with default settings.  You can change the memcached server name
+    same server with default settings. You can change the memcached server name
     and port or configure other datastores in lib/DBDefs.pm.
 
 
 Server configuration
 --------------------
 
-1)  Download the source code.
+1.  Download the source code.
 
         git clone git://git.musicbrainz.org/musicbrainz-server.git
         cd musicbrainz-server
 
-2)  Modify the server configuration file.
+2.  Modify the server configuration file.
 
         cp lib/DBDefs.pm.default lib/DBDefs.pm
 
-    Fill in the appropriate values for MB_SERVER_ROOT and WEB_SERVER.
+    Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
 
-    Determine what type of server this will be using REPLICATION_TYPE:
+    Determine what type of server this will be and set `REPLICATION_TYPE` accordingly:
 
-    a) RT_SLAVE (mirror server)
+    1.  `RT_SLAVE` (mirror server)
 
-       A mirror server will always be in sync with the master database at
-       http://musicbrainz.org by way of an hourly replication packet. Mirror
-       servers do not allow any local editing, after the initial data import the
-       only changes allowed will be to load the next replication packet in turn.
+        A mirror server will always be in sync with the master database at
+        http://musicbrainz.org by way of an hourly replication packet. Mirror
+        servers do not allow any local editing. After the initial data import, the
+        only changes allowed will be to load the next replication packet in turn.
 
-       Mirror servers will have their WikiDocs automatically kept up to date.
+        Mirror servers will have their WikiDocs automatically kept up to date.
 
-       If you are not setting up a mirror server for development purposes, make
-       sure to set DB_STAGING_SERVER to 0.
+        If you are not setting up a mirror server for development purposes, make
+        sure to set `DB_STAGING_SERVER` to 0.
 
-    b) RT_STANDALONE
+    2.  `RT_STANDALONE`
 
-       A stand alone server is recommended if you are setting up a server for
-       development purposes. They do not accept the replication packets and will
-       require manually importing a new database dump in order to bring it up to
-       date with the master database.  Local editing is available, but keep in
-       mind that none of your changes will be pushed up to
-       http://musicbrainz.org.
+        A stand alone server is recommended if you are setting up a server for
+        development purposes. They do not accept the replication packets and will
+        require manually importing a new database dump in order to bring it up to
+        date with the master database. Local editing is available, but keep in
+        mind that none of your changes will be pushed up to http://musicbrainz.org.
 
-       Stand alone servers will need to manually download and update their
-       WikiDoc transclusion table:
+        Stand alone servers will need to manually download and update their
+        WikiDoc transclusion table:
 
             wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
 
@@ -111,7 +108,7 @@ polluting your system installation with these dependencies.
 Below outlines how to setup MusicBrainz server with Carton.
 
 
-1)  Prerequisities
+1.  Prerequisities
 
     Before you get started you will actually need to have Carton installed as
     MusicBrainz does not yet ship with an executable. There are also a few
@@ -122,9 +119,9 @@ Below outlines how to setup MusicBrainz server with Carton.
         sudo cpan Carton
 
     NOTE: This installs Carton at the system level, if you prefer to install
-    this in your home directory, use http://search.cpan.org/perldoc?local::lib .
+    this in your home directory, use [local::lib](http://search.cpan.org/perldoc?local::lib).
 
-2)  Install dependencies
+2.  Install dependencies
 
     To install the dependencies for MusicBrainz server, first make sure you are
     in the MusicBrainz source code directory and run the following:
@@ -141,7 +138,7 @@ Below outlines how to setup MusicBrainz server with Carton.
 Creating the database
 ---------------------
 
-1)  Install PostgreSQL Extensions
+1.  Install PostgreSQL Extensions
 
     Before you start, you need to install the PostgreSQL Extensions on your
     database server. To build the musicbrainz_unaccent extension run these
@@ -167,21 +164,21 @@ Creating the database
 
     Note: If you are using Ubuntu 11.10, the collate extension currently does
     not work with gcc 4.6 and needs to be built with an older version such as
-    gcc 4.4. To do this, run "sudo apt-get install gcc-4.4" and then run the
-    following:
+    gcc 4.4. To do this, run the following:
 
+        sudo apt-get install gcc-4.4
         cd postgresql-musicbrainz-collate
         CC=gcc-4.4 make -e
         sudo make install
         cd ..
 
 
-2)  Setup PostgreSQL authentication
+2.  Setup PostgreSQL authentication
 
     For normal operation, the server only needs to connect from one or two OS
     users (whoever your web server / crontabs run as), to one database (the
     MusicBrainz Database), as one PostgreSQL user. The PostgreSQL database name
-    and user name are given in DBDefs.pm (look for the "READWRITE" key).  For
+    and user name are given in DBDefs.pm (look for the `READWRITE` key).  For
     example, if you run your web server and crontabs as "www-user", the
     following configuration recipe may prove useful:
 
@@ -199,24 +196,22 @@ Creating the database
         local   all    all    trust
 
 
-3)  Create the databases
+3.  Create the database
 
-    You have two options when it comes to databases. You can either opt for a
+    You have two options when it comes to the database. You can either opt for a
     clean database with just the schema (useful for developers with limited disk
     space), or you can import a full database dump.
 
-    a)  Use a clean database
+    1.  Use a clean database
 
         To use a clean database, all you need to do is run:
 
             carton exec ./admin/InitDb.pl -- --createdb --clean
 
-    b)  Import an NGS database dump
+    2.  Import a database dump
 
-        The easiest way to import the database is to use a database dump.  These
-        dumps are provided twice a week and are available here:
-
-            ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
+        Our database dumps are provided twice a week and can be downloaded from
+        ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
@@ -225,7 +220,7 @@ Creating the database
 
             carton exec ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
-        --echo just gives us a bit more feedback in case this goes wrong, you
+        `--echo` just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
         files, if they are not in /tmp/dumps/.
 
@@ -244,25 +239,24 @@ Creating the database
 Starting the server
 ------------------
 
-1)  Start the development server
+You should now have everything ready to run the development server!
 
-    You should now have everything ready to run the development server!
+The development server is a lightweight HTTP server that gives good debug
+output and is much more convenient than having to set up a standalone
+server. Just run:
 
-    The development server is a lightweight HTTP server that gives good debug
-    output and is much more convenient than having to set up a standalone
-    server. Just run:
+    carton exec -- plackup -Ilib -r
 
-        carton exec -- plackup -Ilib -r
+Visiting http://your.machines.ip.address:5000 should now present you with
+your own running instance of the MusicBrainz Server.
 
-    Visiting http://your.machines.ip.address:5000 should now present you with
-    your own running instance of the MusicBrainz Server.
+Troubleshooting
+---------------
 
-2)  Troubleshooting
+If you have any difficulties, please feel free to contact ocharles or warp
+in #musicbrainz-devel on irc.freenode.net, or email the developer mailing
+list at musicbrainz-devel [at] lists.musicbrainz.org.
 
-    If you have any difficulties, please feel free to contact ocharles or warp
-    in #musicbrainz-devel on irc.freenode.net, or email the developer mailing
-    list at musicbrainz-devel [at] lists.musicbrainz.org.
+Please report any issues on our [bug tracker](http://tickets.musicbrainz.org).
 
-    If you find any bugs, please report them on http://tickets.musicbrainz.org.
-
-    Good luck, and happy hacking!
+Good luck, and happy hacking!
