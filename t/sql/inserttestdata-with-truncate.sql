@@ -129,9 +129,9 @@ INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
 
 TRUNCATE language CASCADE;
 
-INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name, frequency)
-    VALUES (1, 'deu', 'ger', 'de', 'German', 2),
-           (2, 'lit', 'lit', 'lt', 'Lithuanian', 1);
+INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name, frequency)
+    VALUES (1, 'deu', 'ger', 'de', 'due', 'German', 2),
+           (2, 'lit', 'lit', 'lt', 'lit', 'Lithuanian', 1);
 
 TRUNCATE script CASCADE;
 

@@ -105,12 +105,13 @@ sub languages_scripts : Path('languages-scripts')
     if (defined $stats) {
         my $language_prefix = 'count.release.language';
         my $script_prefix = 'count.release.script';
-        my %languages = map { $_->iso_code_3t => $_ } $c->model('Language')->get_all();
+        my %languages = map { $_->iso_code_3 => $_ }
+           grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
         my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
         foreach my $stat_name
             (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-           if (my ($iso_code_3t) = $stat_name =~ /^$language_prefix\.(.*)$/) { 
-                push(@$language_stats, ({'entity' => $languages{$iso_code_3t}, 'count' => $stats->statistic($stat_name)}));
+           if (my ($iso_code_3) = $stat_name =~ /^$language_prefix\.(.*)$/) { 
+                push(@$language_stats, ({'entity' => $languages{$iso_code_3}, 'count' => $stats->statistic($stat_name)}));
            }
            if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) { 
                 push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));

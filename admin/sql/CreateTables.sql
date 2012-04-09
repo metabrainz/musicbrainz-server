@@ -680,9 +680,10 @@ CREATE TABLE label_type (
 CREATE TABLE language
 (
     id                  SERIAL,
-    iso_code_3t         CHAR(3) NOT NULL, -- ISO 639-2 (T)
-    iso_code_3b         CHAR(3) NOT NULL, -- ISO 639-2 (B)
-    iso_code_2          CHAR(2), -- ISO 639
+    iso_code_3          CHAR(3), -- ISO 639-3
+    iso_code_2t         CHAR(3) NOT NULL, -- ISO 639-2 (T)
+    iso_code_2b         CHAR(3) NOT NULL, -- ISO 639-2 (B)
+    iso_code_1          CHAR(2), -- ISO 639
     name                VARCHAR(100) NOT NULL,
     frequency           INTEGER NOT NULL DEFAULT 0
 );

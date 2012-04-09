@@ -24,7 +24,7 @@
                 <abbr title="[% result.country.name %]">[% result.country.iso_code_for_display %]</abbr>
               </td>
               <td>
-                <abbr title="[% result.language.name %]">[% result.language.iso_code_3t %]</abbr>
+                <abbr title="[% result.language.name %]">[% result.language.iso_code_3 %]</abbr>
                 [%= '/' IF result.language && result.script =%]
                 <abbr title="[% result.script.name %]">[% result.script.iso_code %]</abbr>
               </td>

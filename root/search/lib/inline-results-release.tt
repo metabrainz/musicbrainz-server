@@ -29,7 +29,7 @@
             <abbr title="[% l(result.entity.country.name) %]">[% result.entity.country.iso_code_for_display %]</abbr>
           </td>
           <td>
-            <abbr title="[% l(result.entity.language.name) %]">[% result.entity.language.iso_code_3t %]</abbr>
+            <abbr title="[% l(result.entity.language.name) %]">[% result.entity.language.iso_code_3 %]</abbr>
             [%= '/' IF result.entity.language && result.entity.script =%]
             <abbr title="[% l(result.entity.script.name) %]">[% result.entity.script.iso_code %]</abbr>
           </td>

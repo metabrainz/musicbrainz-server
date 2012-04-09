@@ -49,7 +49,8 @@ sub _serialize_text_representation
     if ($entity->language || $entity->script)
     {
         my @tr;
-        push @tr, $gen->language($entity->language->iso_code_3t) if $entity->language;
+        push @tr, $gen->language($entity->language->iso_code_3 // $entity->language->iso_code_2t)
+            if $entity->language;
         push @tr, $gen->script($entity->script->iso_code) if $entity->script;
         push @$data, $gen->text_representation(@tr);
     }

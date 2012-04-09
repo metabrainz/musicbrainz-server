@@ -162,9 +162,9 @@ CREATE INDEX label_rating_raw_idx_label ON label_rating_raw (label);
 CREATE INDEX label_rating_raw_idx_editor ON label_rating_raw (editor);
 
 
-CREATE UNIQUE INDEX language_idx_iso_code_3b ON language (iso_code_3b);
-CREATE UNIQUE INDEX language_idx_iso_code_3t ON language (iso_code_3t);
-CREATE UNIQUE INDEX language_idx_iso_code_2 ON language (iso_code_2);
+CREATE UNIQUE INDEX language_idx_iso_code_2b ON language (iso_code_2b);
+CREATE UNIQUE INDEX language_idx_iso_code_2t ON language (iso_code_2t);
+CREATE UNIQUE INDEX language_idx_iso_code_1 ON language (iso_code_1);
 
 CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);

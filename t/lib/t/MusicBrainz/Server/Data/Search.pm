@@ -56,7 +56,7 @@ my $release = $data->{results}->[0]->{entity};
 is ( $release->name, 'LOVE' );
 is ( $release->gid, '64ea1dca-db9a-4945-ae68-78e02a27b158' );
 is ( $release->script->iso_code, 'latn' );
-is ( $release->language->iso_code_3t, 'eng' );
+is ( $release->language->iso_code_3, 'eng' );
 is ( $release->artist_credit->names->[0]->artist->name, 'HOUND DOG' );
 is ( $release->artist_credit->names->[0]->artist->sort_name, 'HOUND DOG' );
 is ( $release->artist_credit->names->[0]->artist->gid, 'bd21b7a2-c6b5-45d6-bdb7-18e5de8bfa75' );
