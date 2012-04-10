@@ -39,8 +39,8 @@ sub _table_join_name {
 
 sub _columns
 {
-    return 'work.id, work.gid, work.type AS type_id, name.name,
-            work.iswc, work.comment, work.edits_pending, work.last_updated';
+    return 'work.id, work.gid, work.type AS type_id, name.name, work.comment,
+            work.edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -164,10 +164,13 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
 
+    # FIXME
+    $self->c->sql->do('DELETE FROM iswc WHERE work = any(?)', \@old_ids);
+
     merge_table_attributes(
         $self->sql => (
             table => 'work',
-            columns => [ qw( type iswc ) ],
+            columns => [ qw( type ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -182,7 +185,7 @@ sub _hash_to_row
     my ($self, $work, $names) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
-        map { $_ => $_ } qw( iswc comment )
+        map { $_ => $_ } qw( comment )
     });
 
     $row->{name} = $names->{$work->{name}}
