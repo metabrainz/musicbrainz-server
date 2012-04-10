@@ -422,7 +422,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return;
     };
 
-    self.cleanUrl = function (dirtyURL) {
+    self.cleanUrl = function (sourceType, dirtyURL) {
         dirtyURL = dirtyURL.replace(/^\s+/, '');
 
         for (var group in MB.constants.CLEANUPS) {
@@ -451,7 +451,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     var urlChanged = function() {
         var url = self.urlControl.val(),
-            clean = self.cleanUrl(url) || url;
+            clean = self.cleanUrl(self.sourceType, url) || url;
 
         if (url.match(/^\w+\./)) {
             self.urlControl.val('http://' + url);
