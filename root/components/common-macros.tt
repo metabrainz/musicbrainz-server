@@ -122,7 +122,7 @@ END -%]
   <ul>
     [% FOR name=ac.names %]
       <li>
-      [% IF name.artist.name != name.name || name.artist.comment %]
+      [% IF name.artist.name != name.name %]
         [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
       [% ELSE %]
         [% descriptive_link(name.artist) %]
