@@ -14,6 +14,10 @@ sub search : Path('')
 {
     my ($self, $c) = @_;
 
+    # Backwards compatibility with existing URLs
+    $c->req->query_params->{method} = 'direct'
+        if ($c->req->query_params->{direct} // '') eq 'on';
+
     $c->req->query_params->{type} = 'recording'
         if exists $c->req->query_params->{type} && $c->req->query_params->{type} eq 'track';
 
