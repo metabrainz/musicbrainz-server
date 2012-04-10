@@ -127,9 +127,6 @@ sub search
             entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
 
-        $extra_columns .= 'entity.iswc,'
-            if ($type eq 'work');
-
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
 
