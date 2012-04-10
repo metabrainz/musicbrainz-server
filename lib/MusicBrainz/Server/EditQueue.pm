@@ -195,6 +195,10 @@ sub _determine_new_status
             $self->log->debug("Expired and implicitly accepted\n");
             return $STATUS_APPLIED;
         }
+        if ($conditions->{expire_action} == $EXPIRE_REJECT &&
+                $yes_votes + $no_votes == 0) {
+            return $STATUS_NOVOTES;
+        }
         if ($conditions->{expire_action} == $EXPIRE_REJECT) {
             $self->log->debug("Expired and implicitly rejected\n");
             return $STATUS_FAILEDVOTE;
