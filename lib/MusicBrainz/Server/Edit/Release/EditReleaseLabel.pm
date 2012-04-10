@@ -147,13 +147,13 @@ sub initialize
         $self->_change_data($release_label, %opts),
     };
 
-    $data{release}{date} = $release_label->release->date->format
+    $data->{release}{date} = $release_label->release->date->format
         if $release_label->release->date;
 
-    $data{release}{country} = $release_label->release->country->name
+    $data->{release}{country} = $release_label->release->country->name
         if $release_label->release->country;
 
-    $data{release}{barcode} = $release_label->release->barcode->format
+    $data->{release}{barcode} = $release_label->release->barcode->format
         if $release_label->release->barcode;
 
     $data->{old}{catalog_number} = $release_label->catalog_number;
