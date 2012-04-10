@@ -715,11 +715,11 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
             ret.push({
                 'artist': {
-                    'name': item.$name.val (),
+                    'name': MB.utility.trim (item.$name.val ()),
                     'id': item.$id.val (),
                     'gid': item.$gid.val ()
                 },
-                'name': artistcredit,
+                'name': MB.utility.trim (artistcredit),
                 'join_phrase': item.$join.val () || ''
             });
         });
