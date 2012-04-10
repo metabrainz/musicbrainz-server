@@ -139,9 +139,8 @@ sub editor_may_vote
 {
     my ($self, $editor) = @_;
     return $self->is_open &&
-                   defined $editor && $editor->id != $self->editor_id &&
-                   $editor->email_confirmation_date &&
-                   $editor->accepted_edits >= 10;
+           defined $editor && $editor->id != $self->editor_id &&
+           !$editor->is_limited;
 }
 
 sub editor_may_add_note
@@ -149,7 +148,7 @@ sub editor_may_add_note
     my ($self, $editor) = @_;
 
     return defined $editor && $editor->email_confirmation_date &&
-        ($editor->id == $self->editor_id || $editor->accepted_edits >= 10);
+        ($editor->id == $self->editor_id || !$editor->is_limited);
 }
 
 # Subclasses should reimplement this, if they want different edit conditions.
