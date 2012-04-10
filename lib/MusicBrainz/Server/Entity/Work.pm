@@ -29,11 +29,6 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
-has 'iswc' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'comment' => (
     is => 'rw',
     isa => 'Str'
