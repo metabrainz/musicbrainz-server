@@ -139,11 +139,11 @@ has 'preferences' => (
 
 sub is_limited
 {
-    my ($self, $editor) = @_;
+    my $self = shift;
     return
-        !$editor->email_confirmation_date ||
-        $editor->is_newbie ||
-        $editor->accepted_edits < 10;
+        !$self->email_confirmation_date ||
+        $self->is_newbie ||
+        $self->accepted_edits < 10;
 }
 
 no Moose;
