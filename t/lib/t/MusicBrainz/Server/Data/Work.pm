@@ -13,7 +13,24 @@ with 't::Context';
 
 test 'Test find_by_iswc' => sub {
     my $test = shift;
-    fail();
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+
+    {
+        my @works = $test->c->model('Work')->find_by_iswc('T-000.000.001-0');
+        is(@works, 1, 'Found 1 work');
+        is($works[0]->id, 1, 'Found work with ID 1');
+    }
+
+    {
+        my @works = $test->c->model('Work')->find_by_iswc('T-000.000.002-0');
+        is(@works, 1, 'Found 1 work');
+        is($works[0]->id, 2, 'Found work with ID 1');
+    }
+
+    {
+        my @works = $test->c->model('Work')->find_by_iswc('T-123.321.002-0');
+        is(@works, 0, 'Found 0 works with unknown ISWC');
+    }
 };
 
 test all => sub {

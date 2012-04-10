@@ -353,11 +353,12 @@ sub model_to_type
 
 sub object_to_ids
 {
+    my @objects = @_;
     my %ret;
-    foreach (@_)
+    foreach my $object (@objects)
     {
-        $ret{$_->id} = [] unless $ret{$_->id};
-        push @{ $ret{$_->id} }, $_;
+        $ret{$object->id} = [] unless $ret{$object->id};
+        push @{ $ret{$object->id} }, $object;
     }
 
     return %ret;

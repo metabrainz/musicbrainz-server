@@ -92,12 +92,22 @@ sub find_by_artist
         $query, $artist_id, $artist_id, $offset || 0);
 }
 
+=method find_by_iswc
+
+    find_by_iswc($iswc : Text)
+
+Find works by their ISWC. Returns an array of
+L<MusicBrainz::Server::Entity::Work> objects.
+
+=cut
+
 sub find_by_iswc
 {
     my ($self, $iswc) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE iswc = ?
+                 JOIN iswc ON work.id = iswc.work
+                 WHERE iswc.iswc = ?
                  ORDER BY musicbrainz_collate(name.name)";
 
     return query_to_list(
@@ -425,6 +435,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify

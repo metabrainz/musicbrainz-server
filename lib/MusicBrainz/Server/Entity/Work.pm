@@ -60,6 +60,17 @@ has 'writers' => (
     }
 );
 
+has 'iswcs' => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        all_iswcs => 'elements',
+        add_iswc => 'push'
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
