@@ -340,7 +340,9 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?youtube\\.com/", "i"),
         type: MB.constants.LINK_TYPES.youtube,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
+            url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
+            return url;
         }
     }
 };
@@ -427,7 +429,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
 
             var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL))
+            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL) || !cleanup.type.hasOwnProperty(sourceType))
                 continue;
 
             return cleanup.clean(dirtyURL);
