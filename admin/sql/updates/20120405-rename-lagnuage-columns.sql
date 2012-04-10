@@ -11,3 +11,4 @@ ALTER INDEX language_idx_iso_code_3t RENAME TO language_idx_iso_code_2t;
 ALTER TABLE language ALTER COLUMN iso_code_2b DROP NOT NULL;
 ALTER TABLE language ALTER COLUMN iso_code_2t DROP NOT NULL;
 
+UPDATE language SET iso_code_3 = 'qaa' WHERE iso_code_2b = 'art';
