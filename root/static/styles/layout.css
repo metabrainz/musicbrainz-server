@@ -547,6 +547,10 @@ table.tbl thead tr .headerSortDown .arrow {
     background-image: url('../images/layout/desc.gif');
 }
 
+table.details table.tbl {
+    margin-top: 0;
+}
+
 table.details table.tbl th {
     /* Override the table.details declarations
     /* inside an edit details template */
