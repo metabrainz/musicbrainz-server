@@ -58,6 +58,7 @@
                     <form action="[% c.uri_for('/search') %]" method="get">
                         [% sidebar.text('query', { placeholder => 'search' }) %]
                         [% sidebar.select('type') %]
+                        [% sidebar.hidden('method', { value => 'indexed' }) %]
                         [% form_submit(l('Search'), "header-search") %]
                     </form>
                 </div>
