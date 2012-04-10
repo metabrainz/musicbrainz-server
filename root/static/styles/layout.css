@@ -13,9 +13,9 @@ body {
     font-size: 12px;
 }*/
 
-a, .homepage a:visited { color:#002BBA; text-decoration: none; }
-a:visited { color:#3C5DCE; }
-a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
+a { color:#002BBA; text-decoration: none; }
+a:visited { color:#632D9B; }
+a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
 a.icon:hover { text-decoration: none; }
