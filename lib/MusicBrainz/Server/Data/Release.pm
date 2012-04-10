@@ -375,7 +375,7 @@ sub find_for_cdtoc
                         ON medium.tracklist = tracklist.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
                    AND (medium_format.id IS NULL OR medium_format.has_discids)
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(name.name), date_year, date_month, date_day
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
