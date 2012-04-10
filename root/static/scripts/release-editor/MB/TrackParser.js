@@ -415,13 +415,14 @@ MB.TrackParser.Parser = function (disc, serialized) {
     var self = MB.Object ();
 
     self.getTrackInput = function (input) {
-        var lines = MB.utility.trim (input).split ("\n");
+        var lines = input.split ("\n");
         var tracks = [];
 
         /* lineno is 1-based and ignores empty lines, it is used as
          * track position. */
         var lineno = 1;
         $.each (lines, function (idx, item) {
+            item = MB.utility.trim (item);
             if (item === '')
                 return;
 
