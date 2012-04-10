@@ -726,7 +726,7 @@ table.database-statistics th, table.timeline-controls th {
     padding: 3px 5px;
 }
 
-table.database-statistics thead th {
+table.database-statistics tr.thead th {
     text-align: center;
     border: 1px solid #ADB9CC;
     background: #F1F1F1;
