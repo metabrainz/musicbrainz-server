@@ -51,6 +51,8 @@ DROP INDEX editor_subscribe_label_idx_uniq;
 DROP INDEX isrc_idx_isrc;
 DROP INDEX isrc_idx_isrc_recording;
 DROP INDEX isrc_idx_recording;
+DROP INDEX iswc_idx_iswc;
+DROP INDEX iswc_idx_work;
 DROP INDEX l_artist_artist_idx_entity1;
 DROP INDEX l_artist_artist_idx_uniq;
 DROP INDEX l_artist_label_idx_entity1;

@@ -64,6 +64,7 @@ ALTER TABLE editor_watch_release_group_type DROP CONSTRAINT editor_watch_release
 ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_status_fk_editor;
 ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_status_fk_release_status;
 ALTER TABLE isrc DROP CONSTRAINT isrc_fk_recording;
+ALTER TABLE iswc DROP CONSTRAINT iswc_fk_work;
 ALTER TABLE l_artist_artist DROP CONSTRAINT l_artist_artist_fk_link;
 ALTER TABLE l_artist_artist DROP CONSTRAINT l_artist_artist_fk_entity0;
 ALTER TABLE l_artist_artist DROP CONSTRAINT l_artist_artist_fk_entity1;

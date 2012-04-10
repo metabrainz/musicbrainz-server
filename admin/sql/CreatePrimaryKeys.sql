@@ -42,6 +42,7 @@ ALTER TABLE editor_watch_release_group_type ADD CONSTRAINT editor_watch_release_
 ALTER TABLE editor_watch_release_status ADD CONSTRAINT editor_watch_release_status_pkey PRIMARY KEY (editor, release_status);
 ALTER TABLE gender ADD CONSTRAINT gender_pkey PRIMARY KEY (id);
 ALTER TABLE isrc ADD CONSTRAINT isrc_pkey PRIMARY KEY (id);
+ALTER TABLE iswc ADD CONSTRAINT iswc_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_artist ADD CONSTRAINT l_artist_artist_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_label ADD CONSTRAINT l_artist_label_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_recording ADD CONSTRAINT l_artist_recording_pkey PRIMARY KEY (id);

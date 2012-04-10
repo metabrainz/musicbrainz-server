@@ -42,6 +42,7 @@ DROP TABLE editor_watch_release_group_type;
 DROP TABLE editor_watch_release_status;
 DROP TABLE gender;
 DROP TABLE isrc;
+DROP TABLE iswc;
 DROP TABLE l_artist_artist;
 DROP TABLE l_artist_label;
 DROP TABLE l_artist_recording;

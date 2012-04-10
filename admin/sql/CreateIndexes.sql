@@ -65,6 +65,9 @@ CREATE INDEX isrc_idx_isrc ON isrc (isrc);
 CREATE INDEX isrc_idx_recording ON isrc (recording);
 CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
 
+CREATE INDEX iswc_idx_work ON iswc (work);
+CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
+
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_recording_idx_uniq ON l_artist_recording (entity0, entity1, link);

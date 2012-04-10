@@ -331,6 +331,11 @@ ALTER TABLE isrc
    FOREIGN KEY (recording)
    REFERENCES recording(id);
 
+ALTER TABLE iswc
+   ADD CONSTRAINT iswc_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
 ALTER TABLE l_artist_artist
    ADD CONSTRAINT l_artist_artist_fk_link
    FOREIGN KEY (link)

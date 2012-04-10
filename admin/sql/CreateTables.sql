@@ -314,6 +314,15 @@ CREATE TABLE isrc
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE iswc (
+    id SERIAL NOT NULL,
+    work INTEGER NOT NULL, -- references work.id
+    iswc CHARACTER(15) CHECK (iswc ~ '^T-?\d{3}.?\d{3}.?\d{3}[-.]?\d$'),
+    source SMALLINT,
+    edits_pending INTEGER NOT NULL DEFAULT 0,
+    created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
 CREATE TABLE l_artist_artist
 (
     id                  SERIAL,
@@ -1179,7 +1188,6 @@ CREATE TABLE work (
     name                INTEGER NOT NULL, -- references work_name.id
     artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
-    iswc                CHAR(15) CHECK (iswc IS NULL OR iswc ~ E'^T-?\\d{3}\.?\\d{3}\.?\\d{3}[-.]?\\d$'),
     comment             VARCHAR(255),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
