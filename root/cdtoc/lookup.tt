@@ -1,5 +1,5 @@
 [% WRAPPER 'layout.tt' title=l('Lookup CD') full_width=1 %]
-
+<h1>[% l('Lookup CD') %]</h1>
 [% IF c.user_exists %]
   <h2>[% l('Matching CDs') %]</h2>
   [% IF medium_cdtocs.size %]
@@ -48,7 +48,7 @@
         [% END %]
       </tbody>
     </table>
-    [% form_submit(l('Attach Disc ID')) %]
+    <p>[% form_submit(l('Attach Disc ID')) %]</p>
   </form>
   [% END %]
   [% END %]

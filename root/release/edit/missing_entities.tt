@@ -62,6 +62,12 @@
                 [% l('Add new artist') %]
               </li>
             </ul>
+            [% IF artist_row.field('entity_id').has_errors %]
+            <ul class="errors">
+              <li>[% l('Please make a selection') %]</li>
+            </ul>
+            [% END %]
+
             <p>[% l('If none of these artists match the artist you intended, you can still
                      create a new artist.') %]</p>
             [% ELSE %]
@@ -102,6 +108,12 @@
                 [% l('Add new label') %]
               </li>
             </ul>
+            [% IF label_row.field('entity_id').has_errors %]
+            <ul class="errors">
+              <li>[% l('Please make a selection') %]</li>
+            </ul>
+            [% END %]
+
             <p>[% l('If none of these labels match the label you intended, you can still
                      create a new label.') %]</p>
             [% ELSE %]

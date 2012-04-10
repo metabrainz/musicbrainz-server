@@ -98,10 +98,18 @@ sub diff_side {
 
 sub _link_artist_credit_name {
     my ($self, $acn, $name) = @_;
+    my $comment;
+    if ($acn->artist->comment) {
+        $comment = ' (' . $acn->artist->comment . ')';
+    }
+    else {
+        $comment = undef;
+    }
+
     if ($acn->artist->gid) {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-            title => html_filter($acn->artist->name)
+            title => html_filter($acn->artist->sort_name . $comment)
         }, $name || html_filter($acn->name));
     }
     else {

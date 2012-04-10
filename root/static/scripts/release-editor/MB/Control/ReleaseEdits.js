@@ -106,14 +106,14 @@ MB.Control.ReleaseEdits = function ($edits) {
             };
 
             to['edit_sha1'] = b64_sha1 (MB.utility.structureToString (to));
-            to['position'] = trk.$position.val ();
+            to['position'] = trk.position ();
             to['deleted'] = trk.$deleted.val ();
 
             edited_tracklist.push (to);
 
             if (from)
             {
-                from.position = '' + (idx + 1);
+                from.position = idx + 1;
                 from.deleted = "0";
             }
 

@@ -14,12 +14,10 @@ has_field 'type' => (
     required => 1
 );
 
-has_field 'direct' => (
-    type => 'Boolean',
-);
-
-has_field 'advanced' => (
-    type => 'Boolean',
+has_field 'method' => (
+    type => 'Select',
+    required => 1,
+    default => 'indexed'
 );
 
 has_field 'limit' => (
@@ -44,6 +42,15 @@ sub options_type
         'freedb'        => l('FreeDB'),
         'tag'           => l('Tag'),
     ];
+}
+
+sub options_method
+{
+    return [
+        'indexed' => l('Indexed search'),
+        'advanced' => l('Advanced search'),
+        'direct' => l('Direct database search')
+    ]
 }
 
 1;
