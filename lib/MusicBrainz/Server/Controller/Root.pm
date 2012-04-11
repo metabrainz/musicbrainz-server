@@ -9,6 +9,8 @@ use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
+use XML::RSS::Parser::Lite;
+use LWP::Simple;
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -41,6 +43,11 @@ sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
+    my $xml = get(&DBDefs::BLOG_ADDRESS);
+    my $rp = new XML::RSS::Parser::Lite;
+    $rp->parse($xml);
+
+    $c->stash->{blog} = $rp;
     $c->stash->{template} = 'main/index.tt';
 }
 

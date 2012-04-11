@@ -88,6 +88,8 @@ requires 'Throwable';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
+requires 'XML::Parser::Lite'                          => '0.714';
+requires 'XML::RSS::Parser::Lite'                     => '0.10';
 requires 'XML::SemanticDiff'                          => '1.0000';
 requires 'XML::Simple'                                => '2.14';
 requires 'XML::XPath';
