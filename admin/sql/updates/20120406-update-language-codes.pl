@@ -18,7 +18,7 @@ $c->sql->begin;
 
 my $row = $c->sql->select_single_row_hash ("SELECT * FROM language LIMIT 1");
 
-die "run 20120405-rename-lagnuage-columns.sql first.\n" unless exists $row->{iso_code_3};
+die "run 20120405-rename-language-columns.sql first.\n" unless exists $row->{iso_code_3};
 
 my $count = 0;
 while (<$import>)
