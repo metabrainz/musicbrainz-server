@@ -11,6 +11,7 @@
       <th>[% l('Artists') %]</th>
       <th>[% l('ISWC') %]</th>
       <th>[% l('Type') %]</th>
+      <th>[% l('Language') %]</th>
       [% UNLESS no_ratings %]
       <th>[% l('Rating') %]</th>
       [% END %]
@@ -48,6 +49,9 @@
       <td class="iswc">[% rdfa_work_iswc(work) %]</td>
       <td>
         [% l(work.type.name) %]
+      </td>
+      <td>
+        [% l(work.language.iso_code_3) %]
       </td>
       [% UNLESS no_ratings %]
       <td>[% rating_stars(work) %]</td>

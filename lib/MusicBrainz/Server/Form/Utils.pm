@@ -2,8 +2,15 @@ package MusicBrainz::Server::Form::Utils;
 
 use base 'Exporter';
 use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Translation qw( l ln );
 
-our @EXPORT = qw( expand_param expand_all_params collapse_param );
+our @EXPORT = qw(
+    collapse_param
+    expand_all_params
+    expand_param
+    language_options
+    script_options
+);
 
 sub _expand
 {
@@ -102,6 +109,49 @@ sub collapse_param
     }
 }
 
+sub language_options {
+    my $c = shift;
+
+    # group list of languages in <optgroups>.
+    # most frequently used languages have hardcoded value 2.
+    # languages which shouldn't be shown have hardcoded value 0.
+
+    my $frequent = 2;
+    my $skip = 0;
+
+    my @sorted = sort { $a->{label} cmp $b->{label} } map {
+        {
+            'value' => $_->id,
+            'label' => $_->{name},
+            'class' => 'language',
+            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
+            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
+        }
+    } grep { $_->{frequency} ne $skip } $c->model('Language')->get_all;
+
+    return \@sorted;
+}
+
+sub script_options {
+    my $c = shift;
+
+    # group list of scripts in <optgroups>.
+    # most frequently used scripts have hardcoded value 4.
+    # scripts which shouldn't be shown have hardcoded value 1.
+
+    my $frequent = 4;
+    my $skip = 1;
+
+    return [ map {
+        {
+            'value' => $_->id,
+            'label' => $_->{name},
+            'class' => 'script',
+            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
+            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
+        }
+    } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all ];
+}
 
 1;
 

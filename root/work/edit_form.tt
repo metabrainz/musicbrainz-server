@@ -8,6 +8,7 @@
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_text_long(r, 'iswc', l('ISWC:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
+      [%- form_row_select(r, 'language_id', l('Language:')) -%]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]

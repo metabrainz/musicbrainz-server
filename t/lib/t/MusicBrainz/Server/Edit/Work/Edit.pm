@@ -17,6 +17,7 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
+MusicBrainz::Server::Test->prepare_test_database($c, '+language');
 
 my $work = $c->model('Work')->get_by_id(1);
 is_unchanged($work);
@@ -47,6 +48,7 @@ is($work->name, 'Edited name');
 is($work->comment, 'Edited comment');
 is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
+is($work->language_id, 1);
 is($work->edits_pending, 0);
 
 };
@@ -117,6 +119,7 @@ sub create_edit {
         comment => 'Edited comment',
         iswc => 'T-000.000.001-0',
         type_id => 1,
+        language_id => 1,
     );
 }
 

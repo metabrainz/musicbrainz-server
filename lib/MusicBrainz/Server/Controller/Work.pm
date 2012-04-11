@@ -43,6 +43,7 @@ sub show : PathPart('') Chained('load')
 
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
+    $c->model('Language')->load($work);
 
     # need to call relationships for overview page
     $self->relationships($c);

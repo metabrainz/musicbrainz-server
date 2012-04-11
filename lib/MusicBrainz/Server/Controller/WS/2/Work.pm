@@ -47,6 +47,7 @@ sub work_toplevel
     }
 
     $c->model('WorkType')->load($work);
+    $c->model('Language')->load($work);
 }
 
 sub base : Chained('root') PathPart('work') CaptureArgs(0) { }

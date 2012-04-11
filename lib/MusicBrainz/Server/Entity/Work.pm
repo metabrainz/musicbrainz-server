@@ -29,6 +29,16 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
+has 'language_id' => (
+    is => 'rw',
+    isa => 'Int'
+    );
+
+has 'language' => (
+    is => 'rw',
+    isa => 'Language'
+);
+
 has 'iswc' => (
     is => 'rw',
     isa => 'Str'

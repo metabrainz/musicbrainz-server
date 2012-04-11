@@ -36,6 +36,7 @@ is_deeply($edit->data, {
     name          => 'Enchanted',
     comment       => 'A comment!',
     type_id       => 1,
+    language_id   => undef,
     iswc          => 'T-000.000.001-0',
 });
 

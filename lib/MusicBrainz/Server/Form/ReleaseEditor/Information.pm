@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Form::ReleaseEditor::Information;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Form::Utils qw( language_options script_options );
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -45,49 +45,8 @@ sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
 sub options_country_id        { shift->_select_all('Country') }
 
-sub options_language_id {
-    my ($self) = @_;
-
-    # group list of languages in <optgroups>.
-    # most frequently used languages have hardcoded value 2.
-    # languages which shouldn't be shown have hardcoded value 0.
-
-    my $frequent = 2;
-    my $skip = 0;
-
-    my @sorted = sort { $a->{label} cmp $b->{label} } map {
-        {
-            'value' => $_->id,
-            'label' => $_->{name},
-            'class' => 'language',
-            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
-            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
-        }
-    } grep { $_->{frequency} ne $skip } $self->ctx->model('Language')->get_all;
-
-    return \@sorted;
-}
-
-sub options_script_id {
-    my ($self) = @_;
-
-    # group list of scripts in <optgroups>.
-    # most frequently used scripts have hardcoded value 4.
-    # scripts which shouldn't be shown have hardcoded value 1.
-
-    my $frequent = 4;
-    my $skip = 1;
-
-    return [ map {
-        {
-            'value' => $_->id,
-            'label' => $_->{name},
-            'class' => 'script',
-            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
-            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
-        }
-    } grep { $_->{frequency} ne $skip } $self->ctx->model('Script')->get_all ];
-}
+sub options_language_id       { return language_options (shift->ctx); }
+sub options_script_id         { return script_options (shift->ctx); }
 
 sub validate {
     my $self = shift;

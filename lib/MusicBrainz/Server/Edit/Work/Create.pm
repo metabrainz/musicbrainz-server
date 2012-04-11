@@ -20,9 +20,10 @@ sub work_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
-        type_id       => Nullable[Int],
         name          => Str,
         comment       => Nullable[Str],
+        type_id       => Nullable[Int],
+        language_id   => Nullable[Int],
         iswc          => Nullable[Str],
     ]
 );
@@ -32,7 +33,8 @@ sub foreign_keys
     my $self = shift;
     return {
         Work => [ $self->entity_id ],
-        WorkType => [ $self->data->{type_id} ]
+        WorkType => [ $self->data->{type_id} ],
+        Language => [ $self->data->{language_id} ]
     };
 }
 
@@ -43,6 +45,7 @@ sub build_display_data
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         type          => $self->data->{type_id} && $loaded->{WorkType}->{ $self->data->{type_id} },
+        language      => $self->data->{language_id} && $loaded->{Language}->{ $self->data->{language_id} },
         iswc          => $self->data->{iswc},
         work          => $loaded->{Work}{ $self->entity_id }
             || Work->new( name => $self->data->{name} )

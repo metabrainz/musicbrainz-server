@@ -254,6 +254,7 @@ sub works : Chained('load')
     $c->model('Work')->load_writers(@$works);
     $c->model('Work')->load_recording_artists(@$works);
     $c->model('WorkType')->load(@$works);
+    $c->model('Language')->load(@$works);
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
     }

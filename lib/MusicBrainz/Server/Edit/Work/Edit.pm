@@ -27,10 +27,11 @@ sub work_id { shift->entity_id }
 sub change_fields
 {
     return Dict[
-        name => Optional[Str],
-        comment => Nullable[Str],
-        type_id => Nullable[Str],
-        iswc => Nullable[Str]
+        name          => Optional[Str],
+        comment       => Nullable[Str],
+        type_id       => Nullable[Str],
+        language_id   => Nullable[Int],
+        iswc          => Nullable[Str]
     ];
 }
 
@@ -51,6 +52,7 @@ sub foreign_keys
     my $relations = {};
     changed_relations($self->data, $relations,
         WorkType => 'type_id',
+        Language => 'language_id',
     );
 
     $relations->{Work} = [ $self->entity_id ];
@@ -63,10 +65,11 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     my %map = (
-        name    => 'name',
-        comment => 'comment',
-        type    => [ qw( type_id WorkType ) ],
-        iswc    => 'iswc',
+        name      => 'name',
+        comment   => 'comment',
+        type      => [ qw( type_id WorkType ) ],
+        language  => [ qw( language_id Language ) ],
+        iswc      => 'iswc',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);

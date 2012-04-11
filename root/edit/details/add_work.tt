@@ -31,4 +31,11 @@
     <td>[% edit.display_data.type.name | html%]</td>
   </tr>
   [% END %]
+
+  [% IF edit.display_data.language %]
+  <tr>
+    <th>[% l('Language:') %]</th>
+    <td>[% edit.display_data.language.name | html%]</td>
+  </tr>
+  [% END %]
 </table>

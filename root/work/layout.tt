@@ -8,6 +8,9 @@
         [% IF work.type || work.iswc %]
         <h2>[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Language:')
+               content=html_escape(l(work.language.name))
+                   IF work.language -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(l(work.type.name))
                    IF work.type -%]
