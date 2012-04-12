@@ -25,7 +25,6 @@ CREATE TABLE artist (
     country             INTEGER, -- references country.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255),
-    ipi_code            VARCHAR(11),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -44,6 +43,14 @@ CREATE TABLE artist_annotation
 (
     artist              INTEGER NOT NULL, -- PK, references artist.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE artist_ipi
+(
+    artist              INTEGER NOT NULL REFERENCES artist (id),
+    ipi                 VARCHAR(11) NOT NULL,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artist_meta
@@ -609,7 +616,6 @@ CREATE TABLE label (
     type                INTEGER, -- references label_type.id
     country             INTEGER, -- references country.id
     comment             VARCHAR(255),
-    ipi_code            VARCHAR(11),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -643,6 +649,14 @@ CREATE TABLE label_annotation
 (
     label               INTEGER NOT NULL, -- PK, references label.id
     annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE label_ipi
+(
+    label               INTEGER NOT NULL REFERENCES label (id),
+    ipi                 VARCHAR(11) NOT NULL,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_meta
