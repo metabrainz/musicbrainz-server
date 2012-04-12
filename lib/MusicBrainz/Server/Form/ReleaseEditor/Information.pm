@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::ReleaseEditor::Information;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( language_options script_options );
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form::Step';
 
