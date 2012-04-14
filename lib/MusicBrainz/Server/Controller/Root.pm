@@ -269,11 +269,10 @@ sub end : ActionClass('RenderView')
         developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
-    # Determine which server version to display. If the DBDefs string is empty
-    # attempt to display the current subversion revision
-    if (&DBDefs::VERSION)
+    # Display which git branch is active (on dev servers)
+    if (&DBDefs::GIT_BRANCH)
     {
-        $c->stash->{server_details}->{version} = &DBDefs::VERSION;
+        $c->stash->{server_details}->{git_branch} = &DBDefs::GIT_BRANCH;
     }
 
     # For displaying release attributes

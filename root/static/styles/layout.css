@@ -116,6 +116,12 @@ pre code {
     padding-right: 1em;
 }
 
+#header-logo div.git-branch {
+    position: absolute;
+    top: 2px;
+    right: 18px;
+}
+
 #header-logo #id-type {
     margin-right: 4px;
     margin-left: 10px;

@@ -62,6 +62,11 @@
                         [% form_submit(l('Search'), "header-search") %]
                     </form>
                 </div>
+                [%- IF server_details.git_branch -%]
+                  <div class="git-branch">
+                    [%- l('Development branch: {branch}', { branch => server_details.git_branch }) -%]
+                  </div>
+                [%- END -%]
             </div>
             <div id="header-menu">
                 <div>
