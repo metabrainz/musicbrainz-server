@@ -37,7 +37,7 @@
                             <td>
                               <ul>
                                 [% FOR iswc=result.entity.iswcs %]
-                                  [% link_iswc(iswc) %]
+                                  [% link_iswc(iswc.iswc) %]
                                 [% END %]
                               </ul>
                             </td>
