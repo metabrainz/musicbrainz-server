@@ -69,7 +69,7 @@ CREATE VIEW s_track AS
 CREATE VIEW s_work AS
     SELECT
         w.id, gid, n.name, artist_credit,
-        type, iswc, comment, edits_pending, last_updated
+        type, comment, edits_pending, last_updated
     FROM work w
     JOIN work_name n ON w.name=n.id;
 
