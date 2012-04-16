@@ -23,8 +23,7 @@ html_ok($mech->content);
 my $request = POST $mech->uri, [
     'edit-work.comment' => 'A comment!',
     'edit-work.type_id' => 1,
-    'edit-work.name' => 'Enchanted',
-    'edit-work.iswc' => 'T-000.000.001-0',
+    'edit-work.name' => 'Enchanted'
 ];
 
 my $response = $mech->request($request);
@@ -35,8 +34,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Create');
 is_deeply($edit->data, {
     name          => 'Enchanted',
     comment       => 'A comment!',
-    type_id       => 1,
-    iswc          => 'T-000.000.001-0',
+    type_id       => 1
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
