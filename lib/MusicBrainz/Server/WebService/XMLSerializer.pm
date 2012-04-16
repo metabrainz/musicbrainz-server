@@ -346,20 +346,18 @@ sub _serialize_work
 
     my $opts = $stash->store ($work);
 
-    my $iswc = $work->iswc;
-    if ($iswc)
-    {
-        $iswc =~ s/^\s+//;
-        $iswc =~ s/\s+$//;
-    }
-
     my %attrs;
     $attrs{id} = $work->gid;
     $attrs{type} = $work->type->name if ($work->type);
 
     my @list;
     push @list, $gen->title($work->name);
-    push @list, $gen->iswc($iswc) if $iswc;
+    if ($work->all_iswcs) {
+        push @list, $gen->iswc_list(map {
+            $gen->iswc($_->iswc);
+        } $work->all_iswcs);
+    }
+
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
