@@ -486,12 +486,6 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_work_iswc(work) BLOCK -%]
-    [%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%]
-        [%- html_escape(work.iswc) -%]
-    [%- IF doRDFa -%]</span>[%- END -%]
-[%- END -%]
-
 [%-###########-%]
 [%-# Release #-%]
 [%-###########-%]
