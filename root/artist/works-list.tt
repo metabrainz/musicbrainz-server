@@ -45,7 +45,13 @@
           [% END %]
         </ul>
       </td>
-      <td class="iswc">[% rdfa_work_iswc(work) %]</td>
+      <td class="iswc">
+        <ul>
+          [% FOR iswc=work.iswcs %]
+            <li>[% rdfa_work_iswc(work, iswc) %]</li>
+          [% END %]
+        </ul>
+      </td>
       <td>
         [% l(work.type.name) %]
       </td>
