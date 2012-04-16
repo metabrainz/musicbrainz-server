@@ -103,7 +103,7 @@ sub _link_artist_credit_name {
         $comment = ' (' . $acn->artist->comment . ')';
     }
     else {
-        $comment = undef;
+        $comment = '';
     }
 
     if ($acn->artist->gid) {
