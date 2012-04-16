@@ -65,8 +65,7 @@ sub build_display_data
     my %map = (
         name    => 'name',
         comment => 'comment',
-        type    => [ qw( type_id WorkType ) ],
-        iswc    => 'iswc',
+        type    => [ qw( type_id WorkType ) ]
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -90,7 +89,6 @@ sub allow_auto_edit
     return 0 if $old_comment ne $new_comment;
 
     return 0 if defined $self->data->{old}{type_id};
-    return 0 if defined $self->data->{old}{iswc};
 
     return 1;
 }
