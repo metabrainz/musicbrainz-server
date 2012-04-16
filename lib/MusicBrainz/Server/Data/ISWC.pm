@@ -192,6 +192,45 @@ sub insert
              map { $_->{work_id}, $_->{iswc} } @iswcs);
 }
 
+=method filter_additions
+
+    fiter_additions(@iswcs : Array[IswcEditHash])
+
+Filter a list of insertions down to unique and new additions, ready for
+inserting via an AddISWCs edit. C<IswcEditHash> is the data passed in to the
+edit.
+
+=cut
+
+sub filter_additions
+{
+    my ($self, @additions) = @_;
+    return unless @additions;
+
+    my $query =
+        'SELECT DISTINCT ON (iswc, work) array_index
+           FROM (VALUES ' . join(', ', ('(?::int, ?::text, ?::int)') x @additions) . ')
+                  addition (array_index, iswc, work)
+          WHERE NOT EXISTS (
+                    SELECT TRUE FROM iswc
+                     WHERE iswc.iswc = addition.iswc
+                       AND iswc.work = addition.work
+                           )';
+
+    my @filtered = @{
+        $self->sql->select_single_column_array(
+            $query,
+            do {
+                my $i = 0;
+                map {
+                    $i++, $_->{iswc}, $_->{work}{id}
+                } @additions
+            }
+        )
+    };
+    return map { $additions[$_] } @filtered;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

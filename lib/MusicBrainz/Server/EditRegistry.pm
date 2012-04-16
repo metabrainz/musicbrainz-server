@@ -70,6 +70,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
     MusicBrainz::Server::Edit::Work::AddAnnotation
+    MusicBrainz::Server::Edit::Work::AddISWCs
     MusicBrainz::Server::Edit::Work::Create
     MusicBrainz::Server::Edit::Work::Delete
     MusicBrainz::Server::Edit::Work::DeleteAlias
