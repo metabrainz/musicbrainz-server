@@ -269,11 +269,8 @@ sub end : ActionClass('RenderView')
         developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
-    # Display which git branch is active (on dev servers)
-    if (&DBDefs::GIT_BRANCH)
-    {
-        $c->stash->{server_details}->{git_branch} = &DBDefs::GIT_BRANCH;
-    }
+    # Display which git branch is active (only on dev servers)
+    $c->stash->{server_details}->{git_branch} = &DBDefs::GIT_BRANCH;
 
     # For displaying release attributes
     $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;
