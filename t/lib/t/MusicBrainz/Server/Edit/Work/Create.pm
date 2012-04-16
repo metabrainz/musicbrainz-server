@@ -32,7 +32,6 @@ ok(defined $work);
 is($work->name, 'Mrs. Bongo');
 is($work->comment => 'Work comment');
 is($work->type_id, 1);
-is($work->iswc, 'T-000.000.001-0');
 
 is($work->edits_pending, 0);
 is($edit->status, $STATUS_APPLIED, 'add work edits should be autoedits');
@@ -47,8 +46,7 @@ sub create_edit
         edit_type => $EDIT_WORK_CREATE,
         name => 'Mrs. Bongo',
         comment => 'Work comment',
-        type_id => 1,
-        iswc => 'T-000.000.001-0'
+        type_id => 1
     );
 }
 
