@@ -1,0 +1,17 @@
+<table class="details add-iswcs">
+  <tr>
+    <th>[% l('Additions:') %]</th>
+    <td>
+      <ul>
+        [% FOR addition=edit.display_data.additions %]
+        <li>
+          [% l('ISWC {iswc} to {work}',
+               { iswc => link_iswc(addition.iswc),
+                 work => link_entity(addition.work) });
+          %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table>

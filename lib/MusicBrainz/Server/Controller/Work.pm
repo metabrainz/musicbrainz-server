@@ -7,6 +7,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $EDIT_WORK_EDIT
     $EDIT_WORK_MERGE
+    $EDIT_WORK_ADD_ISWCS
 );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -52,15 +53,13 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-for my $action (qw( relationships aliases tags details )) {
+for my $action (qw( relationships aliases tags details add_iswc )) {
     after $action => sub {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
     };
 }
-
-
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Work',
@@ -84,6 +83,35 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',
     edit_type => $EDIT_WORK_CREATE,
 };
+
+sub add_iswc : Chained('load') PathPart('add-iswc') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $work = $c->stash->{work};
+    my $form = $c->form(form => 'AddISWC');
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $self->_insert_edit(
+            $c, $form,
+            edit_type => $EDIT_WORK_ADD_ISWCS,
+            iswcs => [ {
+                iswc => $form->field('iswc')->value,
+                work => {
+                    id => $work->id,
+                    name => $work->name
+                }
+            } ]
+        );
+
+        if ($c->stash->{makes_no_changes}) {
+            $form->field('iswc')->add_error(l('This ISWC already exists for this work'));
+        }
+        else {
+            $c->response->redirect($c->uri_for_action('/work/show', [ $work->gid ]));
+            $c->detach;
+        }
+    }
+}
 
 1;
 

@@ -36,6 +36,10 @@ sub show : Chained('load') PathPart('')
     #);
 }
 
+sub delete : Chained('load') PatHPart {
+
+}
+
 1;
 
 =head1 COPYRIGHT
