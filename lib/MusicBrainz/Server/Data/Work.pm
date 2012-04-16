@@ -174,9 +174,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
-
-    # FIXME
-    $self->c->sql->do('DELETE FROM iswc WHERE work = any(?)', \@old_ids);
+    $self->c->model('ISWC')->merge_works($new_id, @old_ids);
 
     merge_table_attributes(
         $self->sql => (
