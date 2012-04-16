@@ -54,7 +54,9 @@ $(document).ready (function() {
         if ($(this).height() > 100) {
             $(this).removeClass('annotation-collapse');
             $(this).addClass('annotation-collapsed');
-            $(this).after('<p><a href="javascript:void(0)" class="annotation-toggle">Show more...</a></p>');
+            $(this).after('<p><a href="javascript:void(0)" class="annotation-toggle">' +
+                          MB.text.ShowMore +
+                          '</a></p>');
         }
     });
 
@@ -62,11 +64,11 @@ $(document).ready (function() {
         if ($(this).parent().prev().hasClass('annotation-collapsed')) {
             $(this).parent().prev().removeClass('annotation-collapsed');
             $(this).parent().prev().addClass('annotation-collapse');
-            $(this).text('Show less...');
+            $(this).text(MB.text.ShowLess);
         } else {
             $(this).parent().prev().removeClass('annotation-collapse');
             $(this).parent().prev().addClass('annotation-collapsed');
-            $(this).text('Show more...');
+            $(this).text(MB.text.ShowMore);
         }
     });
 });

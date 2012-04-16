@@ -83,6 +83,8 @@
             'release-group':  "[% l('Clear release group') | js %]",
             'work':           "[% l('Clear work') | js %]",
         },
-        link: '[% l('link') | js %]'
+        link: '[% l('link') | js %]',
+        ShowMore: '[% l('Show more...') | js %]',
+        ShowLess: '[% l('Show less...') | js %]'
     });
 })(MB);
