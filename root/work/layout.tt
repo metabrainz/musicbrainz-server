@@ -11,9 +11,15 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(l(work.type.name))
                    IF work.type -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
-               content=rdfa_work_iswc(work)
-                   IF work.iswc -%]
+            [%- FOR iswc IN work.iswcs -%]
+                [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') %]
+                [% rdfa_work_iswc(work, iswc) %]
+                [% IF c.user_exists %]
+                [% l('({delete_uri|remove})', {
+                       delete_uri => c.uri_for_action('/iswc/delete', { iswc_id => iswc.id }) }) %]
+                [% END %]
+                [% END %]
+            [%- END -%]
         [% END %]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
