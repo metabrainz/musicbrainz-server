@@ -41,7 +41,7 @@ server {
 
     location = /robots.txt {
         root /home/musicbrainz/musicbrainz-server/root;
-
+	default_type text/plain;
         # on production, "ln -s root/robots.txt.production root/robots.txt"
         try_files $uri $uri.staging
         expires 1h;
