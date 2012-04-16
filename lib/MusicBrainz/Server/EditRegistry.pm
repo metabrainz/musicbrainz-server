@@ -77,6 +77,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
     MusicBrainz::Server::Edit::Work::Merge
+    MusicBrainz::Server::Edit::Work::RemoveISWC
 
     MusicBrainz::Server::Edit::Historic::AddDiscID
     MusicBrainz::Server::Edit::Historic::AddLink
