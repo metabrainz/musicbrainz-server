@@ -291,6 +291,15 @@ END -%]
     '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_iswc(iswc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/iswc/$action", [ iswc ]);
+    '<span class="mp">' IF iswc.edits_pending AND action == 'show';
+    text = text == '' ? '<code>' _ html_escape(iswc) _ '</code>' : text;
+    '<a href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF iswc.edits_pending AND action == 'show';
+END -%]
+
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);

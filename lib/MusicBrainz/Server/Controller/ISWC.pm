@@ -1,42 +1,45 @@
 package MusicBrainz::Server::Controller::ISWC;
 use Moose;
+use MusicBrainz::Server::Validation qw( is_valid_iswc );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'ISRC',
+    model => 'ISWC',
 };
 
-sub base : Chained('/') PathPart('isrc') CaptureArgs(0) { }
+sub base : Chained('/') PathPart('iswc') CaptureArgs(0) { }
 
-sub _load : Chained('/') PathPart('isrc') CaptureArgs(1)
+sub _load : Chained('/') PathPart('iswc') CaptureArgs(1)
 {
-    #my ($self, $c, $isrc) = @_;
-    #return unless (is_valid_isrc($isrc));
+    my ($self, $c, $iswc) = @_;
+    return unless (is_valid_iswc($iswc));
 
-    #my @isrcs = $c->model('ISRC')->find_by_isrc($isrc)
-    #  or return;
+    my @iswcs = $c->model('ISWC')->find_by_iswc($iswc)
+        or return;
 
-    #$c->stash(
-    #    isrcs => \@isrcs,
-    #    isrc => $isrc,
-    #);
+    $c->stash(
+        iswcs => \@iswcs,
+        iswc => $iswc,
+    );
 }
 
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
 
-    #my $isrcs = $c->stash->{isrcs};
-    #my @recordings = $c->model('Recording')->load(@$isrcs);
-    #$c->model('ArtistCredit')->load(@recordings);
-    #$c->stash(
-    #    recordings => \@recordings,
-    #    template   => 'isrc/index.tt',
-    #);
+    my $iswcs = $c->stash->{iswcs};
+    my @works = $c->model('Work')->load(@$iswcs);
+    $c->model('WorkType')->load(@works);
+    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_recording_artists(@works);
+    $c->stash(
+        works => \@works,
+        template => 'iswc/index.tt',
+    );
 }
 
-sub delete : Chained('load') PatHPart {
+sub delete : Chained('load') PathPart {
 
 }
 

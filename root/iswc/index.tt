@@ -1,0 +1,59 @@
+[%- WRAPPER 'layout.tt' title=l('ISWC “{iswc}”', { iswc => iswc }) full_width=1 -%]
+
+    <h1>[% l('ISWC “{iswc}”', { iswc => link_iswc(iswc) }) %]</h1>
+
+    <h2>[% ln('Associated with {num} work', 'Associated with {num} works', works.size, { num => works.size }) %]</h2>
+
+    <form action="[% c.uri_for_action('/work/merge_queue') %]" method="post">
+      <table class="tbl">
+        <thead>
+            <tr>
+                [% IF c.user_exists %]
+                <th style="width: 1em">
+                  <input type="checkbox" />
+                </th>
+                [% END %]
+                <th>[% l('Title') %]</th>
+                <th>[% l('Writers') %]</th>
+                <th>[% l('Artists') %]</th>
+                <th>[% l('Type') %]</th>
+            </tr>
+        </thead>
+        <tbody>
+            [%- FOR work=works -%]
+            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                [% IF c.user_exists %]
+                <td>
+                  <input type="checkbox" name="add-to-merge"
+                         value="[% work.id %]" />
+                </td>
+                [% END %]
+                <td>[% link_entity(work) %]</td>
+                <td>
+                  <ul>
+                    [% FOR rel_artist=work.writers %]
+                    <li>
+                      [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                      roles  => rel_artist.roles.join(', ') }) %]
+                    </li>
+                    [% END %]
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    [% FOR rel_artist=work.artists %]
+                    <li>[% artist_credit(rel_artist) %]</li>
+                    [% END %]
+                  </ul>
+                </td>
+                <td>
+                  [% l(work.type.name) %]
+                </td>
+            </tr>
+            [%- END -%]
+        </tbody>
+      </table>
+      [% form_submit(l('Add selected works for merging')) WRAPPER form_row IF c.user_exists %]
+    </form>
+
+[%- END -%]
