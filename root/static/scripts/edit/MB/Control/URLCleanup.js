@@ -329,21 +329,13 @@ MB.constants.CLEANUPS = {
             //YouTube embeds
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0_9_-]+)([^?]+)/, "http://www.youtube.com/watch?v=$1");
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
+            url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
 	    return url;
         }
     },
     vgmdb: {
         match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
         type: MB.constants.LINK_TYPES.vgmdb
-    },
-    youtube: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?youtube\\.com/", "i"),
-        type: MB.constants.LINK_TYPES.youtube,
-        clean: function(url) {
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
-            url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
-            return url;
-        }
     }
 };
 
@@ -429,7 +421,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
 
             var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL) || !cleanup.type.hasOwnProperty(sourceType))
+            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL))
                 continue;
 
             return cleanup.clean(dirtyURL);
