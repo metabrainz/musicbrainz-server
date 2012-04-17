@@ -4,7 +4,8 @@
         [%- CASE 'absent' -%]
           [%- SET cover_art_message = l("No cover art available.") -%]
         [%- CASE 'present' -%]
-          [%- SET cover_art_message = l("No front cover image available.") -%]
+          [%- SET cover_art_message = l("No front cover image available.<br/>{all|View all artwork}.",
+                                        { all => c.uri_for_action('/release/cover_art', [ release.gid ]) }) -%]
         [%- CASE 'darkened' -%]
           [%- SET cover_art_message = l("No cover art available.") -%]
         [%- END -%]
