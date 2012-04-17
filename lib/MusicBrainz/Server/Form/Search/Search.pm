@@ -48,7 +48,7 @@ sub options_method
 {
     return [
         'indexed' => l('Indexed search'),
-        'advanced' => l('Advanced search'),
+        'advanced' => l('Indexed search with advanced query syntax'),
         'direct' => l('Direct database search')
     ]
 }

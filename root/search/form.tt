@@ -19,13 +19,21 @@
         [% WRAPPER form_row %]
             [% search.label('method', l('Search method:'), { fake => 1 }) %]
             <div class="no-label">
-            [% FOR option=form.field('method').options %]
                 <label class="inline">
-                  [% search.radio('method', loop.index) %]
-                  [% option.label %]
+                  [% search.radio('method', 0) %]
+                  [% l('Indexed search') %]
                 </label>
-                [% '<br />' UNLESS loop.last %]
-            [% END %]
+                <br />
+                <label class="inline">
+                  [% search.radio('method', 1) %]
+                  [% l('Indexed search with {doc|advanced query syntax}',
+                        { doc => doc_link('Text_Search_Syntax') }) %]
+                </label>
+                <br />
+                <label class="inline">
+                  [% search.radio('method', 2) %]
+                  [% l('Direct database search') %]
+                </label>
             </div>
         [% END %]
         [% form_row_radio(search, 'method', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
