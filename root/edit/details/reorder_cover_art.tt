@@ -7,6 +7,18 @@
   </tr>
 
   <tr>
+    <th>[% l('Old positions:') %]</th>
+    <td>
+      [%- FOR art=edit.display_data.old -%]
+        <div class="thumb-position">
+          [%- display_artwork (art) -%]
+        </div>
+      [%- END -%]
+    </td>
+  </tr>
+
+
+  <tr>
     <th>[% l('New positions:') %]</th>
     <td>
       [%- SET count = 0 -%]
@@ -16,17 +28,6 @@
           [%- display_artwork (art) -%]
         </div>
         [%- SET count = count + 1 -%]
-      [%- END -%]
-    </td>
-  </tr>
-
-  <tr>
-    <th>[% l('Old positions:') %]</th>
-    <td>
-      [%- FOR art=edit.display_data.old -%]
-        <div class="thumb-position">
-          [%- display_artwork (art) -%]
-        </div>
       [%- END -%]
     </td>
   </tr>
