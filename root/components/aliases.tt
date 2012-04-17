@@ -6,6 +6,8 @@
                     <th>
                         [% l('Alias') %]
                     </th>
+                    <th>[% l('Begin Date') %]</th>
+                    <th>[% l('End Date') %]</th>
                     [% IF c.user_exists %]
                         <th style="width: 10em">
                             [% l('Actions') %]
@@ -22,6 +24,8 @@
                         [% rdfa_alias(alias.name, entity) %]
                         [% '</span>' IF alias.edits_pending %]
                     </td>
+                    <td>[% alias.begin_date.format %]</td>
+                    <td>[% alias.end_date.format %]</td>
                     [% IF c.user_exists %]
                         <td>
                             <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">

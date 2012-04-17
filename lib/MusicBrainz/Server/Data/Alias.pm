@@ -3,7 +3,12 @@ use Moose;
 use namespace::autoclean;
 
 use Class::MOP;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw(
+    load_subobjects
+    partial_date_from_row
+    placeholders
+    query_to_list
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -32,7 +37,10 @@ sub _table
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s.id, name.name, sort_name.name AS sort_name, %s, locale, edits_pending',
+    return sprintf '%s.id, name.name, sort_name.name AS sort_name, %s, locale,
+                    edits_pending, begin_date_year, begin_date_month,
+                    begin_date_day, end_date_year, end_date_month,
+                    end_date_day',
         $self->table, $self->type;
 }
 
@@ -45,7 +53,9 @@ sub _column_mapping
         sort_name           => 'sort_name',
         $self->type . '_id' => $self->type,
         edits_pending       => 'edits_pending',
-        locale              => 'locale'
+        locale              => 'locale',
+        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
     };
 }
 

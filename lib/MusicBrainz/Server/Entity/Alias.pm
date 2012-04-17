@@ -4,6 +4,7 @@ use Moose;
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
+with 'MusicBrainz::Server::Entity::Role::Age';
 
 has 'name' => (
     is => 'rw',
