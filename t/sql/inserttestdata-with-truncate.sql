@@ -229,17 +229,17 @@ INSERT INTO editor_preference (editor, name, value) VALUES (1, 'public_ratings',
 TRUNCATE artist_alias CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (8, 'Test Alias');
-INSERT INTO artist_alias (id, name, artist, edits_pending)
-    VALUES (1, 8, 4, 2);
+INSERT INTO artist_alias (id, name, sort_name, artist, edits_pending)
+    VALUES (1, 8, 8, 4, 2);
 
-INSERT INTO artist_alias (id, name, artist)
-    VALUES (2, 8, 5);
+INSERT INTO artist_alias (id, name, sort_name, artist)
+    VALUES (2, 8, 8, 5);
 
 TRUNCATE label_alias CASCADE;
 
 INSERT INTO label_name (id, name) VALUES (3, 'Test Label Alias');
-INSERT INTO label_alias (id, name, label, edits_pending)
-    VALUES (1, 3, 2, 2);
+INSERT INTO label_alias (id, name, sort_name, label, edits_pending)
+    VALUES (1, 3, 3, 2, 2);
 
 
 INSERT INTO artist_name (id, name) VALUES (9, 'Kate Bush');
