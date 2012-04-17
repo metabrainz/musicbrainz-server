@@ -25,14 +25,14 @@ has [qw( table type entity )] => (
 sub _table
 {
     my $self = shift;
-    return sprintf '%s JOIN %s name ON %s.name=name.id',
-        $self->table, $self->parent->name_table, $self->table
+    return sprintf '%s JOIN %s name ON %s.name=name.id JOIN %s sort_name ON %s.sort_name=sort_name.id',
+        $self->table, $self->parent->name_table, $self->table, $self->parent->name_table, $self->table;
 }
 
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s.id, name.name, %s, locale, edits_pending',
+    return sprintf '%s.id, name.name, sort_name.name AS sort_name, %s, locale, edits_pending',
         $self->table, $self->type;
 }
 
@@ -42,6 +42,7 @@ sub _column_mapping
     return {
         id                  => 'id',
         name                => 'name',
+        sort_name           => 'sort_name',
         $self->type . '_id' => $self->type,
         edits_pending       => 'edits_pending',
         locale              => 'locale'

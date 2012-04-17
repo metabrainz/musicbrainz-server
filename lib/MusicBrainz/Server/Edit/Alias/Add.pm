@@ -33,8 +33,9 @@ sub build_display_data
     my $self = shift;
 
     return {
-        alias  => $self->data->{name},
-        locale => $self->data->{locale}
+        alias => $self->data->{name},
+        locale => $self->data->{locale},
+        sort_name => $self->data->{sort_name}
     };
 }
 

@@ -14,6 +14,11 @@ has_field 'name' => (
     required => 1
 );
 
+has_field 'sort_name' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+    required => 1
+);
+
 has_field 'locale' => (
     type     => 'Select',
     required => 0
@@ -36,7 +41,7 @@ has 'alias_model' => (
     required => 1
 );
 
-sub edit_field_names { qw(name locale) }
+sub edit_field_names { qw(name locale sort_name) }
 
 sub validate_locale {
     my ($self, $field) = @_;

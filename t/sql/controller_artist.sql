@@ -28,8 +28,8 @@ UPDATE artist_meta SET rating=70, rating_count=4 WHERE id = 3;
 INSERT INTO artist (id, gid, name, sort_name) VALUES
     (4, '60e5d080-c964-11de-8a39-0800200c9a66', 3, 3);
 
-INSERT INTO artist_alias (id, name, artist, edits_pending)
-    VALUES (1, 4, 3, 2);
+INSERT INTO artist_alias (id, name, sort_name, artist, edits_pending)
+    VALUES (1, 4, 4, 3, 2);
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 1, NULL);

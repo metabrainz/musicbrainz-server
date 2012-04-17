@@ -18,7 +18,8 @@ sub _alias_model { die 'Not implemented' }
 
 subtype 'AliasHash'
     => as Dict[
-        name   => Optional[Str],
+        name => Optional[Str],
+        sort_name => Optional[Str],
         locale => Nullable[Str]
     ];
 

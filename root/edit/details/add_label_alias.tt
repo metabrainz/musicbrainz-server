@@ -7,6 +7,10 @@
     <th>[% l('Alias:') %]</th>
     <td>[% edit.display_data.alias | html %]</td>
   </tr>
+  <tr>
+    <th>[% l('Alias sort name:') %]</th>
+    <td>[% edit.display_data.sort_name | html %]</td>
+  </tr>
   [% IF edit.display_data.locale %]
   <tr>
     <th>[% l('Locale:') %]</th>

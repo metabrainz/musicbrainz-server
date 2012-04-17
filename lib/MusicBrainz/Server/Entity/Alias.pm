@@ -10,6 +10,11 @@ has 'name' => (
     isa => 'Str'
 );
 
+has 'sort_name' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
 has 'locale' => (
     is  => 'rw',
     isa => 'Str',
