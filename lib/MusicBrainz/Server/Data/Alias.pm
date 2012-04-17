@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use Class::MOP;
 use MusicBrainz::Server::Data::Utils qw(
+    add_partial_date_to_row
     load_subobjects
     partial_date_from_row
     placeholders
@@ -134,13 +135,17 @@ sub insert
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
-        push @created, $class->new(
-            id => $self->sql->insert_row($table, {
-                $type => $hash->{$type . '_id'},
-                name => $names{ $hash->{name} },
-                locale => $hash->{locale},
-                sort_name => $names{ $hash->{sort_name} }
-            }, 'id'));
+        my $row = {
+            $type => $hash->{$type . '_id'},
+            name => $names{ $hash->{name} },
+            locale => $hash->{locale},
+            sort_name => $names{ $hash->{sort_name} }
+        };
+
+        add_partial_date_to_row($row, $hash->{begin_date}, "begin_date");
+        add_partial_date_to_row($row, $hash->{end_date}, "end_date");
+
+        push @created, $class->new(id => $self->sql->insert_row($table, $row, 'id'));
     }
     return wantarray ? @created : $created[0];
 }
@@ -173,11 +178,20 @@ sub update
     my ($self, $alias_id, $alias_hash) = @_;
     my $table = $self->table;
     my $type = $self->type;
+
+    my %row = %$alias_hash;
+    delete @row{qw( name begin_date end_date )};
+
     if (exists $alias_hash->{name}) {
         my %names = $self->parent->find_or_insert_names($alias_hash->{name});
-        $alias_hash->{name} = $names{ $alias_hash->{name} };
+        $row{name} = $names{ $alias_hash->{name} };
     }
-    $self->sql->update_row($table, $alias_hash, { id => $alias_id });
+    add_partial_date_to_row(\%row, $alias_hash->{begin_date}, "begin_date")
+        if exists $alias_hash->{begin_date};
+    add_partial_date_to_row(\%row, $alias_hash->{end_date}, "end_date")
+        if exists $alias_hash->{end_date};
+
+    $self->sql->update_row($table, \%row, { id => $alias_id });
 }
 
 no Moose;

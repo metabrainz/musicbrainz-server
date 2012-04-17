@@ -6,6 +6,7 @@ use List::UtilsBy 'sort_by';
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'edit-alias' );
 
@@ -41,7 +42,7 @@ has 'alias_model' => (
     required => 1
 );
 
-sub edit_field_names { qw(name locale sort_name) }
+sub edit_field_names { qw(name locale sort_name begin_date end_date ) }
 
 sub validate_locale {
     my ($self, $field) = @_;

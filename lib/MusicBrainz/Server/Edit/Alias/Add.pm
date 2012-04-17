@@ -4,7 +4,7 @@ use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -18,7 +18,9 @@ has '+data' => (
             id   => Int,
             name => Str
         ],
-        locale => Nullable[Str]
+        locale => Nullable[Str],
+        begin_date => Nullable[PartialDateHash],
+        end_date   => Nullable[PartialDateHash],
     ]
 );
 
@@ -62,7 +64,9 @@ sub insert
             $model->type . '_id' => $data{entity}{id},
             name => $data{name},
             locale => $data{locale},
-            sort_name => $data{sort_name}
+            sort_name => $data{sort_name},
+            begin_date => $data{begin_date},
+            end_date => $data{end_date},
         })->id
     );
 }

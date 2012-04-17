@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::Alias::Edit;
+use 5.10.0;
 use Moose;
 use MooseX::ABC;
 
@@ -8,7 +9,11 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Edit::Utils qw(
+    date_closure
+    merge_partial_date
+);
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -20,7 +25,9 @@ subtype 'AliasHash'
     => as Dict[
         name => Optional[Str],
         sort_name => Optional[Str],
-        locale => Nullable[Str]
+        locale => Nullable[Str],
+        begin_date => Nullable[PartialDateHash],
+        end_date   => Nullable[PartialDateHash],
     ];
 
 has '+data' => (
@@ -79,6 +86,32 @@ sub build_display_data
             )
     };
 }
+
+sub _mapping
+{
+    return (
+        begin_date => date_closure('begin_date'),
+        end_date => date_closure('end_date'),
+    );
+}
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('begin_date') {
+            return merge_partial_date('begin_date' => $ancestor, $current, $new);
+        }
+
+        when ('end_date') {
+            return merge_partial_date('end_date' => $ancestor, $current, $new);
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
 
 sub accept
 {

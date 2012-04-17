@@ -4,6 +4,16 @@
     [% form_row_text_long(r, 'sort_name', l('Sort name:')) %]
     [% form_row_select(r, 'locale', l('Locale:')) %]
 
+    <fieldset>
+      <legend>[% l('Date Period') %]</legend>
+      <p>
+        [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM
+               or just YYYY are OK, or you can omit the date entirely.') -%]
+      </p>
+      [% form_row_date(r, 'begin_date', l('Begin date:')) %]
+      [% form_row_date(r, 'end_date', l('End date:')) %]
+    </fieldset>
+
     [% INCLUDE 'forms/edit-note.tt' %]
     [% enter_edit() %]
 </form>
