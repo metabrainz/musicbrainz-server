@@ -1,6 +1,15 @@
 [% WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release) %]
     <div class="cover-art">
-        [%- display_artwork (release_artwork, release.cover_art_url, l("No front cover image available.")) -%]
+        [%- SWITCH release.cover_art_presence -%]
+        [%- CASE 'absent' -%]
+          [%- SET cover_art_message = l("No cover art available.") -%]
+        [%- CASE 'present' -%]
+          [%- SET cover_art_message = l("No front cover image available.") -%]
+        [%- CASE 'darkened' -%]
+          [%- SET cover_art_message = l("No cover art available.") -%]
+        [%- END -%]
+
+        [%- display_artwork (release_artwork, release.cover_art_url, cover_art_message) -%]
     </div>
 
     <h2>[% l('Release information') %]</h2>

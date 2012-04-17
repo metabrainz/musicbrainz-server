@@ -13,7 +13,7 @@ CREATE TABLE cover_art (
     release INTEGER NOT NULL REFERENCES musicbrainz.release (id) ON DELETE CASCADE,
     comment TEXT NOT NULL DEFAULT '',
     edit INTEGER NOT NULL REFERENCES musicbrainz.edit (id),
-    ordering INTEGER NOT NULL CHECK (ordering > 0),
+    ordering INTEGER NOT NULL CHECK (ordering >= 0),
     date_uploaded TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL
 );
 

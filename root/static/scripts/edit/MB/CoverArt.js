@@ -109,6 +109,11 @@ MB.CoverArt.reorder_position = function () {
         event.preventDefault ();
         return false;
     });
+
+    /* moving <script> elements around with insertBefore() and
+     * insertAfter() will rerun them.  The script bits for these
+     * images should NOT be ran again, so remove those nodes. */
+    $('div.editimage script').remove ();
 };
 
 MB.CoverArt.add_cover_art = function () {
