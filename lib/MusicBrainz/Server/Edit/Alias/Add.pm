@@ -10,6 +10,8 @@ extends 'MusicBrainz::Server::Edit';
 
 sub _alias_model { die 'Not implemented' }
 
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
+
 has '+data' => (
     isa => Dict[
         name => Str,
@@ -38,7 +40,10 @@ sub build_display_data
     return {
         alias => $self->data->{name},
         locale => $self->data->{locale},
-        sort_name => $self->data->{sort_name}
+        sort_name => $self->data->{sort_name},
+        type => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
+        begin_date => PartialDate->new($self->data->{begin_date}),
+        end_date => PartialDate->new($self->data->{end_date}),
     };
 }
 

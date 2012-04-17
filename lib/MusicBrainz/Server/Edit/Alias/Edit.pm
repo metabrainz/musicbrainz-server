@@ -7,7 +7,10 @@ use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    partial_date_from_row
+    type_to_model
+);
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -77,6 +80,10 @@ sub build_display_data
             new => $self->data->{new}{name},
             old => $self->data->{old}{name}
         },
+        sort_name => {
+            new => $self->data->{new}{sort_name},
+            old => $self->data->{old}{sort_name}
+        },
         locale => {
             new => $self->data->{new}{locale},
             old => $self->data->{old}{locale}
@@ -84,7 +91,15 @@ sub build_display_data
         $type => $loaded->{$model}{ $self->data->{entity}{id} }
             || $self->c->model($model)->_entity_class->new(
                 name => $self->data->{entity}{name}
-            )
+            ),
+        type => {
+            new => $self->_alias_model->parent->alias_type->get_by_id($self->data->{new}{type_id}),
+            old => $self->_alias_model->parent->alias_type->get_by_id($self->data->{old}{type_id}),
+        },
+        begin_date => {
+            new => partial_date_from_row($self->data->{new}{begin_date}),
+            old => partial_date_from_row($self->data->{old}{begin_date}),
+        }
     };
 }
 

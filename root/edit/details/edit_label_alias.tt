@@ -19,7 +19,26 @@
                   html_escape(edit.display_data.alias.new),
                   '\s+') %]
 
+  [% display_diff(l('Sort name:'),
+                  html_escape(edit.display_data.sort_name.old),
+                  html_escape(edit.display_data.sort_name.new),
+                  '\s+') %]
+
   [% display_full_change(l('Locale:'),
                          show_locale(edit.display_data.locale.old),
                          show_locale(edit.display_data.locale.new)) %]
+
+  [% display_full_change(l('Type:'),
+                         html_escape(edit.display_data.type.old.name),
+                         html_escape(edit.display_data.type.new.name)) %]
+
+  [% display_diff(l('Begin date:'),
+                  html_escape(edit.display_data.begin_date.old.format),
+                  html_escape(edit.display_data.begin_date.new.format),
+                  '\s+') %]
+
+  [% display_diff(l('End date:'),
+                  html_escape(edit.display_data.end_date.old.format),
+                  html_escape(edit.display_data.end_date.new.format),
+                  '\s+') %]
 </table>
