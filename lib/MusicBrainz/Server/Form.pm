@@ -17,9 +17,11 @@ sub _select_all
 {
     my ($self, $model, $accessor) = @_;
     $accessor ||= 'name';
+
+    my $model_ref = ref($model) ? $model : $self->ctx->model($model);
     return [ map {
         $_->id => l($_->$accessor)
-    } $self->ctx->model($model)->get_all ];
+    } $model_ref->get_all ];
 }
 
 # Modified copy from HTML/FormHandler.pm (including a bug fix for

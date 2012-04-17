@@ -25,6 +25,11 @@ has_field 'locale' => (
     required => 0
 );
 
+has_field 'type_id' => (
+    type => 'Select',
+    required => 0
+);
+
 has 'id' => (
     isa => 'Int',
     is  => 'rw',
@@ -42,7 +47,7 @@ has 'alias_model' => (
     required => 1
 );
 
-sub edit_field_names { qw(name locale sort_name begin_date end_date ) }
+sub edit_field_names { qw( name locale sort_name begin_date end_date type_id ) }
 
 sub validate_locale {
     my ($self, $field) = @_;
@@ -59,6 +64,11 @@ sub options_locale {
             sort_by { $_->name }
                 map { DateTime::Locale->load($_) } DateTime::Locale->ids
     ];
+}
+
+sub options_type_id {
+    my $self = shift;
+    $self->_select_all($self->alias_model->parent->alias_type);
 }
 
 1;

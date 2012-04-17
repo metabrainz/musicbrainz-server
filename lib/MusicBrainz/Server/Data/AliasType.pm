@@ -6,6 +6,7 @@ use MusicBrainz::Server::Entity::AliasType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 has [qw( table type )] => (
     isa      => 'Str',
@@ -30,6 +31,8 @@ sub load
     my ($self, @objs) = @_;
     load_subobjects($self, 'type', @objs);
 }
+
+sub _id_cache_prefix { shift->table }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

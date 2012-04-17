@@ -190,6 +190,8 @@ sub update
         if exists $alias_hash->{begin_date};
     add_partial_date_to_row(\%row, $alias_hash->{end_date}, "end_date")
         if exists $alias_hash->{end_date};
+    $row{type} = delete $row{type_id}
+        if exists $row{type_id};
 
     $self->sql->update_row($table, \%row, { id => $alias_id });
 }
