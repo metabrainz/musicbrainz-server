@@ -4,6 +4,7 @@
 ALTER TABLE annotation ADD CONSTRAINT annotation_pkey PRIMARY KEY (id);
 ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);
 ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_pkey PRIMARY KEY (id);
+ALTER TABLE artist_alias_type ADD CONSTRAINT artist_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE artist_annotation ADD CONSTRAINT artist_annotation_pkey PRIMARY KEY (artist, annotation);
 ALTER TABLE artist_credit ADD CONSTRAINT artist_credit_pkey PRIMARY KEY (id);
 ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_pkey PRIMARY KEY (artist_credit, position);
@@ -72,6 +73,7 @@ ALTER TABLE l_url_work ADD CONSTRAINT l_url_work_pkey PRIMARY KEY (id);
 ALTER TABLE l_work_work ADD CONSTRAINT l_work_work_pkey PRIMARY KEY (id);
 ALTER TABLE label ADD CONSTRAINT label_pkey PRIMARY KEY (id);
 ALTER TABLE label_alias ADD CONSTRAINT label_alias_pkey PRIMARY KEY (id);
+ALTER TABLE label_alias_type ADD CONSTRAINT label_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE label_annotation ADD CONSTRAINT label_annotation_pkey PRIMARY KEY (label, annotation);
 ALTER TABLE label_gid_redirect ADD CONSTRAINT label_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE label_meta ADD CONSTRAINT label_meta_pkey PRIMARY KEY (id);
@@ -134,6 +136,7 @@ ALTER TABLE url_gid_redirect ADD CONSTRAINT url_gid_redirect_pkey PRIMARY KEY (g
 ALTER TABLE vote ADD CONSTRAINT vote_pkey PRIMARY KEY (id);
 ALTER TABLE work ADD CONSTRAINT work_pkey PRIMARY KEY (id);
 ALTER TABLE work_alias ADD CONSTRAINT work_alias_pkey PRIMARY KEY (id);
+ALTER TABLE work_alias_type ADD CONSTRAINT work_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE work_annotation ADD CONSTRAINT work_annotation_pkey PRIMARY KEY (work, annotation);
 ALTER TABLE work_gid_redirect ADD CONSTRAINT work_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE work_meta ADD CONSTRAINT work_meta_pkey PRIMARY KEY (id);

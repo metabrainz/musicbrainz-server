@@ -3,6 +3,7 @@
 
 SELECT setval('annotation_id_seq', (SELECT MAX(id) FROM annotation));
 SELECT setval('artist_id_seq', (SELECT MAX(id) FROM artist));
+SELECT setval('artist_alias_type_id_seq', (SELECT MAX(id) FROM artist_alias_type));
 SELECT setval('artist_alias_id_seq', (SELECT MAX(id) FROM artist_alias));
 SELECT setval('artist_credit_id_seq', (SELECT MAX(id) FROM artist_credit));
 SELECT setval('artist_name_id_seq', (SELECT MAX(id) FROM artist_name));
@@ -51,6 +52,7 @@ SELECT setval('l_url_url_id_seq', (SELECT MAX(id) FROM l_url_url));
 SELECT setval('l_url_work_id_seq', (SELECT MAX(id) FROM l_url_work));
 SELECT setval('l_work_work_id_seq', (SELECT MAX(id) FROM l_work_work));
 SELECT setval('label_id_seq', (SELECT MAX(id) FROM label));
+SELECT setval('label_alias_type_id_seq', (SELECT MAX(id) FROM label_alias_type));
 SELECT setval('label_alias_id_seq', (SELECT MAX(id) FROM label_alias));
 SELECT setval('label_name_id_seq', (SELECT MAX(id) FROM label_name));
 SELECT setval('label_type_id_seq', (SELECT MAX(id) FROM label_type));
@@ -85,6 +87,7 @@ SELECT setval('tracklist_id_seq', (SELECT MAX(id) FROM tracklist));
 SELECT setval('url_id_seq', (SELECT MAX(id) FROM url));
 SELECT setval('vote_id_seq', (SELECT MAX(id) FROM vote));
 SELECT setval('work_id_seq', (SELECT MAX(id) FROM work));
+SELECT setval('work_alias_type_id_seq', (SELECT MAX(id) FROM work_alias_type));
 SELECT setval('work_alias_id_seq', (SELECT MAX(id) FROM work_alias));
 SELECT setval('work_name_id_seq', (SELECT MAX(id) FROM work_name));
 SELECT setval('work_type_id_seq', (SELECT MAX(id) FROM work_type));

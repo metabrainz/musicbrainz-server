@@ -41,6 +41,16 @@ ALTER TABLE artist_alias
    FOREIGN KEY (name)
    REFERENCES artist_name(id);
 
+ALTER TABLE artist_alias
+   ADD CONSTRAINT artist_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES artist_name(id);
+
+ALTER TABLE artist_alias
+   ADD CONSTRAINT artist_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES artist_alias_type(id);
+
 ALTER TABLE artist_annotation
    ADD CONSTRAINT artist_annotation_fk_artist
    FOREIGN KEY (artist)
@@ -781,6 +791,16 @@ ALTER TABLE label_alias
    FOREIGN KEY (name)
    REFERENCES label_name(id);
 
+ALTER TABLE label_alias
+   ADD CONSTRAINT label_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES label_name(id);
+
+ALTER TABLE label_alias
+   ADD CONSTRAINT label_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES label_alias_type(id);
+
 ALTER TABLE label_annotation
    ADD CONSTRAINT label_annotation_fk_label
    FOREIGN KEY (label)
@@ -1240,6 +1260,16 @@ ALTER TABLE work_alias
    ADD CONSTRAINT work_alias_fk_name
    FOREIGN KEY (name)
    REFERENCES work_name(id);
+
+ALTER TABLE work_alias
+   ADD CONSTRAINT work_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES work_name(id);
+
+ALTER TABLE work_alias
+   ADD CONSTRAINT work_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES work_alias_type(id);
 
 ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_work

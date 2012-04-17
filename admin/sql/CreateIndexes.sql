@@ -7,7 +7,7 @@ CREATE INDEX artist_idx_sort_name ON artist (sort_name);
 CREATE INDEX artist_idx_ipi_code ON artist (ipi_code);
 
 CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
-CREATE UNIQUE INDEX artist_alias_idx_locale_artist ON artist_alias (artist, locale);
+CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
 
@@ -146,7 +146,7 @@ CREATE INDEX label_idx_sort_name ON label (sort_name);
 CREATE INDEX label_idx_ipi_code ON label (ipi_code);
 
 CREATE INDEX label_alias_idx_label ON label_alias (label);
-CREATE UNIQUE INDEX label_alias_idx_locale_label ON label_alias (label, locale);
+CREATE UNIQUE INDEX label_alias_idx_primary ON label_alias (label, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE UNIQUE INDEX label_name_idx_name ON label_name (name);
 CREATE INDEX label_name_idx_page ON label_name (page_index(name));
@@ -265,7 +265,7 @@ CREATE INDEX work_idx_name ON work (name);
 CREATE INDEX work_idx_artist_credit ON work (artist_credit);
 
 CREATE INDEX work_alias_idx_work ON work_alias (work);
-CREATE UNIQUE INDEX work_alias_idx_locale_work ON work_alias (work, locale);
+CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE UNIQUE INDEX work_name_idx_name ON work_name (name);
 CREATE INDEX work_name_idx_page ON work_name (page_index(name));

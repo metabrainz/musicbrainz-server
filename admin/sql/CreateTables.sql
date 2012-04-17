@@ -30,14 +30,29 @@ CREATE TABLE artist (
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE artist_alias_type (
+    id SERIAL,
+    name TEXT NOT NULL
+);
+
 CREATE TABLE artist_alias
 (
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist.id
     name                INTEGER NOT NULL, -- references artist_name.id
+    sort_name           INTEGER NOT NULL, -- references artist_name.id
+    type                INTEGER, -- references artist_alias_type.id
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
 );
 
 CREATE TABLE artist_annotation
@@ -629,14 +644,29 @@ CREATE TABLE label_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
+CREATE TABLE label_alias_type (
+    id SERIAL,
+    name TEXT NOT NULL
+);
+
 CREATE TABLE label_alias
 (
     id                  SERIAL,
     label               INTEGER NOT NULL, -- references label.id
     name                INTEGER NOT NULL, -- references label_name.id
+    sort_name           INTEGER NOT NULL, -- references label_name.id
+    type                INTEGER, -- references label_alias_type.id
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
 );
 
 CREATE TABLE label_annotation
@@ -1199,15 +1229,29 @@ CREATE TABLE work_tag_raw
     tag                 INTEGER NOT NULL -- PK, references tag.id
 );
 
+CREATE TABLE work_alias_type (
+    id SERIAL,
+    name TEXT NOT NULL
+);
 
 CREATE TABLE work_alias
 (
     id                  SERIAL,
     work                INTEGER NOT NULL, -- references work.id
     name                INTEGER NOT NULL, -- references work_name.id
+    sort_name           INTEGER NOT NULL, -- references work_name.id
+    type                INTEGER, -- references work_alias_type.id
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
 );
 
 CREATE TABLE work_annotation
