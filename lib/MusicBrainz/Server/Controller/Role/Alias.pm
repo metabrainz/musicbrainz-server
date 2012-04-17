@@ -32,7 +32,9 @@ sub aliases : Chained('load') PathPart('aliases')
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
-    my $aliases = $c->model($self->{model})->alias->find_by_entity_id($entity->id);
+    my $m = $c->model($self->{model});
+    my $aliases = $m->alias->find_by_entity_id($entity->id);
+    $m->alias_type->load(@$aliases);
     $c->stash(
         aliases => $aliases,
     );

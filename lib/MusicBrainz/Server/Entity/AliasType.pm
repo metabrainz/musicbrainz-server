@@ -1,39 +1,13 @@
-package MusicBrainz::Server::Entity::Alias;
+package MusicBrainz::Server::Entity::AliasType;
 
 use Moose;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
-with 'MusicBrainz::Server::Entity::Role::Age';
 
 has 'name' => (
     is => 'rw',
     isa => 'Str'
 );
-
-has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'locale' => (
-    is  => 'rw',
-    isa => 'Str',
-);
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'type' => (
-    is => 'rw',
-);
-
-sub type_name {
-    my $self = shift;
-    return defined $self->type ? $self->type->name : undef;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -41,8 +15,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
