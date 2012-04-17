@@ -62,6 +62,7 @@ sub _create_edit {
         editor_id => 1,
         entity => $c->model('Work')->get_by_id(1),
         name => 'Another alias',
+        sort_name => 'Another alias sort name',
     );
 }
 

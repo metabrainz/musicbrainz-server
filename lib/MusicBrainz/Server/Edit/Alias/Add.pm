@@ -12,7 +12,8 @@ sub _alias_model { die 'Not implemented' }
 
 has '+data' => (
     isa => Dict[
-        name   => Str,
+        name => Str,
+        sort_name => Str,
         entity => Dict[
             id   => Int,
             name => Str
@@ -59,7 +60,8 @@ sub insert
             # for example, not 'entity_id'
             $model->type . '_id' => $data{entity}{id},
             name => $data{name},
-            locale => $data{locale}
+            locale => $data{locale},
+            sort_name => $data{sort_name}
         })->id
     );
 }

@@ -19,9 +19,9 @@ INSERT INTO label (id, gid, name, sort_name)
 INSERT INTO label (id, gid, name, sort_name)
     VALUES (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO label_alias (id, label, name) VALUES (1, 1, 3);
-INSERT INTO label_alias (id, label, name) VALUES (2, 1, 4);
-INSERT INTO label_alias (id, label, name) VALUES (3, 3, 4);
+INSERT INTO label_alias (id, label, name, sort_name) VALUES (1, 1, 3, 3);
+INSERT INTO label_alias (id, label, name, sort_name) VALUES (2, 1, 4, 4);
+INSERT INTO label_alias (id, label, name, sort_name) VALUES (3, 3, 4, 4);
 
 ALTER SEQUENCE label_name_id_seq RESTART 5;
 ALTER SEQUENCE label_alias_id_seq RESTART 4;
