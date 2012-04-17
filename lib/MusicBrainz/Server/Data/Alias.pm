@@ -118,15 +118,16 @@ sub insert
 {
     my ($self, @alias_hashes) = @_;
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-    my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
+    my %names = $self->parent->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @alias_hashes);
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         push @created, $class->new(
             id => $self->sql->insert_row($table, {
-                $type  => $hash->{$type . '_id'},
-                name   => $names{ $hash->{name} },
-                locale => $hash->{locale}
+                $type => $hash->{$type . '_id'},
+                name => $names{ $hash->{name} },
+                locale => $hash->{locale},
+                sort_name => $names{ $hash->{sort_name} }
             }, 'id'));
     }
     return wantarray ? @created : $created[0];
@@ -143,8 +144,8 @@ sub merge
     $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
     $self->sql->do(
-        "INSERT INTO $table (name, $type)
-            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id
+        "INSERT INTO $table (name, $type, sort_name)
+            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.name -- TODO: Use old_entity.sort_name, but works don't have this...
               FROM $type old_entity
          LEFT JOIN $table alias ON alias.name = old_entity.name
               JOIN $type new_entity ON (new_entity.id = ?)

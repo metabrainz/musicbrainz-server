@@ -91,7 +91,12 @@ $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
 # Test inserting new aliases
-$artist_data->alias->insert({ artist_id => 1, name => 'New alias', locale => 'en_AU' });
+$artist_data->alias->insert({
+    artist_id => 1,
+    name => 'New alias',
+    sort_name => 'New sort name',
+    locale => 'en_AU'
+});
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 1);
@@ -138,7 +143,7 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
            (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_alias (artist, name) VALUES (1, 2);
+INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 2, 2);
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2);
