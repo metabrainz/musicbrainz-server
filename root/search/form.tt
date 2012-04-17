@@ -1,30 +1,5 @@
 [%- USE search = FormRenderer(form) -%]
 <div class="searchform">
-    <script type="text/javascript">//<![CDATA[
-      $(document).ready (function () {
-
-        var advanced = $('#id-advanced');
-        var direct = $('#id-direct');
-        var label = $('#label-direct');
-
-        advanced.bind ('change', function () {
-            if (advanced.is (':checked'))
-            {
-                direct.data ('checked', direct.attr ('checked'))
-                   .removeAttr ('checked').attr ('disabled', true);
-                label.data ('color', label.css ('color'))
-                   .css ('color', '#888');
-            }
-            else
-            {
-                direct.removeAttr ('disabled')
-                   .attr ('checked', direct.data ('checked'));
-                label.css ('color', label.data ('color'));
-            }
-        });
-      });
-    //]]></script>
-
     <form action="[% c.uri_for_action('/search/direct') %]" method="get">
         [% form_row_text_long(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
@@ -41,7 +16,19 @@
             </select>
             [% field_errors(search.form, 'limit') %]
         [% END %]
-        [% form_row_checkbox(search, 'advanced', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
+        [% WRAPPER form_row %]
+            [% search.label('method', l('Search method:'), { fake => 1 }) %]
+            <div class="no-label">
+            [% FOR option=form.field('method').options %]
+                <label class="inline">
+                  [% search.radio('method', loop.index) %]
+                  [% option.label %]
+                </label>
+                [% '<br />' UNLESS loop.last %]
+            [% END %]
+            </div>
+        [% END %]
+        [% form_row_radio(search, 'method', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
         [% form_row_checkbox(search, 'direct', l('Direct database search')) %]
         <div class="row no-label">
         [% form_submit(l('Search')) %]

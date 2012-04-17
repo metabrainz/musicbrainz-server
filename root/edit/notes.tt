@@ -19,7 +19,7 @@
                     [%- link_entity(note.editor) -%]
                     <span class="date">[%- UserDate.format(note.post_time) -%]</span>
                 </h3>
-                <div class="edit-note-text">
+                <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
                     [%- note.text | format_editnote -%]
                 </div>
             </div>

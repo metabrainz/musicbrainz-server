@@ -1,12 +1,12 @@
 [%- MACRO entry(entity, type) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-    <td>[% loop.count() %].</td>
+    <td class="t">[% loop.count %]</td>
     [% IF type == 'lang' %]
     <td>[% l(entity.entity.name) || l('Unknown language') %]</td>
-    <td>[%- lang_script_search_link(type, entity.entity.iso_code_3t, add_commas(entity.count)) -%]</td>
+    <td class="t">[%- lang_script_search_link(type, entity.entity.iso_code_3t, add_commas(entity.count)) -%]</td>
     [% ELSIF type == 'script' %]
     <td>[% l(entity.entity.name) || l('Unknown script') %]</td>
-    <td>[%- lang_script_search_link(type, entity.entity.iso_code, add_commas(entity.count)) -%]</td>
+    <td class="t">[%- lang_script_search_link(type, entity.entity.iso_code, add_commas(entity.count)) -%]</td>
     [% END %]
 </tr>
 [%- END -%]
@@ -22,7 +22,7 @@
 <p>[%- l('All other available languages and scripts have 0 releases.') -%]</p>
 
 <div style="float:left; display:inline-block; margin-right: 50px;">
-<h2>[%- l('Languages') -%]</h2>
+<h2 style="margin-top:0;">[%- l('Languages') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>
@@ -41,7 +41,7 @@
 </div>
 
 <div style="float:left; display:inline-block;">
-<h2>[%- l('Scripts') -%]</h2>
+<h2 style="margin-top:0;">[%- l('Scripts') -%]</h2>
 <table class="tbl">
 <thead>
 <tr>

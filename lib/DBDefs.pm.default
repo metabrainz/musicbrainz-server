@@ -256,11 +256,16 @@ This server is temporarily in read-only mode
 for database maintainance.
 EOF
 
-# This defines the version of the server.  Only used by things which display
-# the server version, e.g. at the foot of each web page.  Basically it can be
-# whatever you want. If you leave it blank, the current subversion revision
-# will be shown (if subversion is in use).
-sub VERSION { "master" }
+# Development server feature.
+# Used to display which git branch is currently active.
+sub GIT_BRANCH
+{
+  if (DB_STAGING_SERVER) {
+    my $git_branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
+    $git_branch =~ s/\* (.+)/$1/;
+    return $git_branch;
+  }
+}
 
 # How long (in seconds) a web/rdf session can go "idle" before being timed out
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }

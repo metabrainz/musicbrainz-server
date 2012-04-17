@@ -170,7 +170,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 
 around create => sub {
     my ($orig, $self, $c, @args) = @_;
-    if ($c->user_exists && !$c->model('Recording')->editor_can_create_recordings($c->user)) {
+    if ($c->user_exists && $c->user->is_limited) {
         $c->stash( template => 'recording/cannot_add.tt' );
         $c->detach;
     }

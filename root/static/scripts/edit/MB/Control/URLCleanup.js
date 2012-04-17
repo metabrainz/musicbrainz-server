@@ -340,7 +340,9 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?youtube\\.com/", "i"),
         type: MB.constants.LINK_TYPES.youtube,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
+            url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
+            return url;
         }
     }
 };
@@ -399,6 +401,16 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return sites.test($('#id-ar\\.url').val())
     };
 
+    var validateFacebook = function() {
+        var url = $('#id-ar\\.url').val();
+        if (url.match(/facebook.com\/pages\//)) {
+            return url.match(/\/pages\/[^\/?#]+\/\d+/);
+        }
+        return true;
+    };
+    validationRules[ MB.constants.LINK_TYPES.socialnetwork.artist ] = validateFacebook;
+    validationRules[ MB.constants.LINK_TYPES.socialnetwork.label ] = validateFacebook;
+
     self.guessType = function (sourceType, currentURL) {
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
@@ -410,14 +422,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return;
     };
 
-    self.cleanUrl = function (dirtyURL) {
+    self.cleanUrl = function (sourceType, dirtyURL) {
         dirtyURL = dirtyURL.replace(/^\s+/, '');
 
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
 
             var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL))
+            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL) || !cleanup.type.hasOwnProperty(sourceType))
                 continue;
 
             return cleanup.clean(dirtyURL);
@@ -432,14 +444,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             $('button[type="submit"]').attr('disabled', false);
         }
         else {
-            self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type</li>');
+            self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
             $('button[type="submit"]').attr('disabled', 'disabled');
         }
     };
 
     var urlChanged = function() {
         var url = self.urlControl.val(),
-            clean = self.cleanUrl(url) || url;
+            clean = self.cleanUrl(self.sourceType, url) || url;
 
         if (url.match(/^\w+\./)) {
             self.urlControl.val('http://' + url);

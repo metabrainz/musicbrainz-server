@@ -48,6 +48,7 @@
         AddAnotherMedium      : "[% l('Add another medium') | js %]",
         DoNotAddTracks: "[% l('<strong>Warning</strong>: #{disc} has a discid, you cannot add tracks') | js %]",
         DoNotRemoveTracks: "[% l('<strong>Warning</strong>: #{disc} has a discid, you cannot remove tracks') | js %]",
+        DoNotChangeTracks: "[% l('This medium has one or more discids which prevent this information from being changed.') %]",
         RatingTitles: [
               "[% rating_tooltip(0) | js %]",
               "[% rating_tooltip(1) | js %]",

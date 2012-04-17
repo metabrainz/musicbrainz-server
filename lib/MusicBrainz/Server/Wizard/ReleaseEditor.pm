@@ -7,14 +7,13 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure trim );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
-use Text::Trim qw( trim );
 use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -774,13 +773,13 @@ sub prepare_missing_entities
     my @artist_credits = $self->_missing_artist_credits($data);
 
     my @credits = map +{
-            for => $_->{artist}->{name},
-            name => $_->{artist}->{name},
+            for => trim ($_->{artist}->{name}),
+            name => trim ($_->{artist}->{name}),
         }, uniq_by { normalise_strings($_->{artist}->{name}) } @artist_credits;
 
     my @labels = map +{
-            for => $_->{name},
-            name => $_->{name}
+            for => trim ($_->{name}),
+            name => trim ($_->{name})
         }, uniq_by { normalise_strings($_->{name}) }
             $self->_missing_labels($data);
 
@@ -934,8 +933,6 @@ sub _edit_missing_entities
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
 
-    my %created;
-
     my @missing_artist = @{ $data->{missing}{artist} || [] };
     my @artist_edits = map {
         my $artist = $_;
@@ -995,6 +992,9 @@ sub _edit_release_labels
     {
         my $new_label = $data->{'labels'}->[$_];
         my $old_label = $self->release->labels->[$_] if $self->release;
+
+        $new_label->{name} = trim ($new_label->{name}) if $new_label->{name};
+        $new_label->{catalog_number} = trim ($new_label->{catalog_number}) if $new_label->{catalog_number};
 
         if ($old_label)
         {
@@ -1101,7 +1101,7 @@ sub _edit_release_track_edits
 
                 # Edit medium
                 my %opts = (
-                    name => $new->{name},
+                    name => trim ($new->{name}),
                     format_id => $new->{format_id},
                     to_edit => $entity,
                     separate_tracklists => 1,
@@ -1129,7 +1129,7 @@ sub _edit_release_track_edits
                 as_auto_editor => $data->{as_auto_editor},
             };
 
-            $opts->{name} = $new->{name} if $new->{name};
+            $opts->{name} = trim ($new->{name}) if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
             if ($new->{tracks}) {

@@ -13,9 +13,9 @@ body {
     font-size: 12px;
 }*/
 
-a, .homepage a:visited { color:#002BBA; text-decoration: none; }
-a:visited { color:#3C5DCE; }
-a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
+a { color:#002BBA; text-decoration: none; }
+a:visited { color:#632D9B; }
+a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
 a.icon:hover { text-decoration: none; }
@@ -114,6 +114,12 @@ pre code {
     top: 17px;
     float: right;
     padding-right: 1em;
+}
+
+#header-logo div.git-branch {
+    position: absolute;
+    top: 2px;
+    right: 18px;
 }
 
 #header-logo #id-type {
@@ -547,6 +553,10 @@ table.tbl thead tr .headerSortDown .arrow {
     background-image: url('../images/layout/desc.gif');
 }
 
+table.details table.tbl {
+    margin-top: 0;
+}
+
 table.details table.tbl th {
     /* Override the table.details declarations
     /* inside an edit details template */
@@ -722,7 +732,7 @@ table.database-statistics th, table.timeline-controls th {
     padding: 3px 5px;
 }
 
-table.database-statistics thead th {
+table.database-statistics tr.thead th {
     text-align: center;
     border: 1px solid #ADB9CC;
     background: #F1F1F1;
