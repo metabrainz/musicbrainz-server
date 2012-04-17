@@ -7,4 +7,26 @@
     <th>[% l('Alias:') %]</th>
     <td>[% edit.display_data.alias | html %]</td>
   </tr>
+  [% IF edit.display_data.sort_name %]
+  <tr>
+    <th>[% l('Sort name:') %]</th>
+    <td>[% (edit.display_data.sort_name) | html %]</td>
+  </tr>
+  [% END %]
+  <tr>
+    <th>[% l('Locale:') %]</th>
+    <td>[% edit.display_data.locale | locale %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name | html %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Begin date:') %]</th>
+    <td>[% edit.display_data.begin_date.format | html %]</td>
+  </tr>
+  <tr>
+    <th>[% l('End date:') %]</th>
+    <td>[% edit.display_data.end_date.format | html %]</td>
+  </tr>
 </table>

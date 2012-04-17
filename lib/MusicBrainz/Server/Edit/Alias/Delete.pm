@@ -3,12 +3,16 @@ use Moose;
 use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 
 extends 'MusicBrainz::Server::Edit';
 
 sub _alias_model { die 'Not implemented' }
+
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 has '+data' => (
     isa => Dict[
@@ -18,6 +22,11 @@ has '+data' => (
             name => Str
         ],
         name      => Str,
+        sort_name => Optional[Str],
+        locale => Nullable[Str],
+        begin_date => Nullable[PartialDateHash],
+        end_date => Nullable[PartialDateHash],
+        type_id => Nullable[Int]
     ]
 );
 
@@ -25,7 +34,12 @@ sub build_display_data
 {
     my $self = shift;
     return {
-        alias => $self->data->{name}
+        alias => $self->data->{name},
+        locale => $self->data->{locale},
+        sort_name => $self->data->{sort_name},
+        type => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
+        begin_date => PartialDate->new($self->data->{begin_date}),
+        end_date => PartialDate->new($self->data->{end_date}),
     };
 }
 
@@ -84,6 +98,11 @@ sub initialize
         },
         alias_id  => $alias->id,
         name      => $alias->name,
+        sort_name => $alias->sort_name,
+        locale => $alias->locale,
+        begin_date => partial_date_to_hash($alias->begin_date),
+        end_date => partial_date_to_hash($alias->end_date),
+        type_id => $alias->type_id
     });
 }
 
