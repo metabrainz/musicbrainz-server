@@ -3,7 +3,7 @@ use Moose;
 use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 
 extends 'MusicBrainz::Server::Edit';
@@ -13,7 +13,7 @@ sub _alias_model { die 'Not implemented' }
 has '+data' => (
     isa => Dict[
         name => Str,
-        sort_name => Str,
+        sort_name => Optional[Str],
         entity => Dict[
             id   => Int,
             name => Str
