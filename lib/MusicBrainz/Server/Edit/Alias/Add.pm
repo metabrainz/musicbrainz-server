@@ -73,6 +73,7 @@ sub insert
             sort_name => $data{sort_name},
             begin_date => $data{begin_date},
             end_date => $data{end_date},
+            type_id => $data{type_id}
         })->id
     );
 }
