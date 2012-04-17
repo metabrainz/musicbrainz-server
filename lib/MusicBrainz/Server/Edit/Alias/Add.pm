@@ -21,6 +21,7 @@ has '+data' => (
         locale => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
+        type_id => Nullable[Int]
     ]
 );
 
