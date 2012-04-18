@@ -3,7 +3,7 @@
 */
 
 /* For those pesky few pages that use h1s in their content */
-.wikicontent * + h1 {
+.wikicontent h1.hierarchy-links * + h1 {
     margin-top: 1em;
 }
 
@@ -172,4 +172,18 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 .wikicontent table[border^="0"] td {
     border: none !important;
     background: none !important;
+}
+
+/*
+** Search Box
+*/
+.wikicontent .wikidoc-search {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.wikicontent .wikidoc-search input {
+    width: 175px;
+    margin: 0;
 }

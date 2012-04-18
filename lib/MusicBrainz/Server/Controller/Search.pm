@@ -49,6 +49,10 @@ sub search : Path('')
             $form->field('method')->value('direct');
             $c->forward('direct');
         }
+        elsif ($form->field('type')->value eq 'doc')
+        {
+            $c->forward('doc');
+        }
         else {
             $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
@@ -58,6 +62,17 @@ sub search : Path('')
         $c->stash( template => 'search/index.tt' );
     }
 }
+
+sub doc : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash(
+      google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
+      template             => 'search/results-doc.tt'
+    );
+}
+
 
 sub direct : Private
 {
@@ -295,6 +310,7 @@ C<state> method of the current context. For example:
 =head1 LICENSE
 
 Copyright (C) 2009 Oliver Charles
+Copyright (C) 2012 Pavan Chander
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,

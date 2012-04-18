@@ -29,7 +29,7 @@ has_field 'limit' => (
 
 sub options_type
 {
-    return [
+    my @options = (
         'artist'        => l('Artist'),
         'release_group' => l('Release Group'),
         'release'       => l('Release'),
@@ -41,7 +41,11 @@ sub options_type
         'editor'        => l('Editor'),
         'freedb'        => l('FreeDB'),
         'tag'           => l('Tag'),
-    ];
+    );
+
+    push @options, ( 'doc' => l('Documentation') ) if &DBDefs::GOOGLE_CUSTOM_SEARCH;
+
+    return @options;
 }
 
 sub options_method

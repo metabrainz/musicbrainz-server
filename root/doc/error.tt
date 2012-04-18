@@ -2,6 +2,15 @@
     <div id="content" class="wikicontent">
         <h1>[%- l('Page Not Found') -%]</h1>
 
+        [%- IF google_custom_search -%]
+          <div class="wikidoc-search">
+            <form action="[% c.uri_for('/search') | html %]" method="get">
+              <input type="hidden" name="type" value="doc" />
+              <input type="text" name="query" placeholder="Search the documentation..." />
+            </form>
+          </div>
+        [%- END -%]
+
         <p>
             <strong>
                 [%- l('Sorry, “{id}” is not a valid documentation page.',
@@ -10,11 +19,9 @@
         </p>
 
         <p>
-            [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.
-                   Alternatively, you may find the page you\'re looking for by <a href="{wiki}" class="external">searching for it</a> on our wiki.',
+            [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
                  { doc => doc_link('MusicBrainz_Documentation'),
-                   faq => doc_link('FAQ'),
-                   wiki => 'http://' _ wiki_server _ '/Special:Search?search=' _ replace(id, '_', '+') }) -%]
+                   faq => doc_link('FAQ') }) -%]
         </p>
 
         <p>

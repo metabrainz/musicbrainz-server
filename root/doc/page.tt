@@ -1,5 +1,14 @@
 [% WRAPPER "layout.tt" full_width=1 title=page.title -%]
     <div id="content" class="wikicontent">
+        [%- IF google_custom_search -%]
+          <div class="wikidoc-search">
+            <form action="[% c.uri_for('/search') | html %]" method="get">
+              <input type="hidden" name="type" value="doc" />
+              <input type="text" name="query" placeholder="[% l('Search the documentation...')  %]" />
+            </form>
+          </div>
+        [%- END -%]
+
         <h1 class="hierarchy-links">
             [%- FOR link IN page.hierarchy -%]
                 [% IF loop.first %]
@@ -12,6 +21,7 @@
                 [% ' / ' IF !loop.last %]
             [% END %]
         </h1>
+
         [%- IF !page.version -%]
             <div class="wikidocs-header">
             [%- l("This page has not been reviewed by our documentation team ({more_info|more info}).",
