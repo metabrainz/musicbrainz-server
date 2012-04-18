@@ -96,7 +96,9 @@ sub _create_page
     $title =~ s/_/ /g;
     # Create hierarchy for displaying in the h1
     my @hierarchy = split('/',$title);
-    $title = $hierarchy[-1];
+
+    # Format nicely for <title>
+    $title =~ s,/, / ,g;
 
     $content = $self->_fix_html_markup($content, $index);
 
