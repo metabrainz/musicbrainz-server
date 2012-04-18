@@ -60,9 +60,15 @@ has 'country' => (
     isa => 'Country'
 );
 
-has 'ipi_code' => (
-    isa => 'Str',
-    is  => 'rw',
+has 'ipi_codes' => (
+    isa     => 'ArrayRef',
+    is      => 'ro',
+    traits  => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        add_ipi => 'push',
+        all_ipis => 'elements'
+    }
 );
 
 has 'comment' => (

@@ -35,9 +35,9 @@ has_field 'comment' => (
     maxlength => 255
 );
 
-has_field 'ipi_code' => (
-    type => '+MusicBrainz::Server::Form::Field::IPI',
-);
+has_field 'ipi_codes'          => ( type => 'Repeatable', num_when_empty => 1 );
+has_field 'ipi_codes.code'     => ( type => '+MusicBrainz::Server::Form::Field::IPI' );
+has_field 'ipi_codes.deleted'  => ( type => 'Checkbox' );
 
 sub edit_field_names
 {
@@ -61,5 +61,20 @@ sub validate {
         }
     }
 }
+
+after 'BUILD' => sub {
+    my ($self) = @_;
+
+    if (defined $self->init_object)
+    {
+        my $max = @{ $self->init_object->ipi_codes } - 1;
+        for (0..$max)
+        {
+            $self->field ('ipi_codes')->fields->[$_]->field ('code')->value (
+                $self->init_object->ipi_codes->[$_]->ipi);
+        }
+
+    }
+};
 
 1;
