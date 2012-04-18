@@ -66,9 +66,14 @@ div.tabs ul li a:hover {
 h1 span.prefix,
 span.comment
 {
-    font-size: 12px;
+    font-size: 80%;
     font-weight: normal;
     color: #666;
+}
+
+.releaseheader .prefix,
+h1 span.prefix {
+    font-size: 12px;
 }
 
 p.subheader {
