@@ -11,7 +11,7 @@
           [% END %]
         </ul>
         <p style="margin: 1em 0; text-align: right;">
-          <strong><a href="http://blog.musicbraiz.org">[% l('Read more »') %]</a></strong>
+          <strong><a href="http://blog.musicbraiz.org">[% l('Read more &raquo;') %]</a></strong>
         </p>
       </div>
 
