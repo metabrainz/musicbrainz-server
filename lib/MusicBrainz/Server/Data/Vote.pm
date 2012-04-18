@@ -11,7 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
+use MusicBrainz::Server::Types qw( :vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
