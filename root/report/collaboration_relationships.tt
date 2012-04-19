@@ -25,14 +25,14 @@
         [%- FOR item IN items -%]
         [% IF lastgid != item.gid1 %]
             <tr class="ev">
-                <td colspan="2"><a href="[% c.uri_for_action('/artist/show', [ item.gid1 ]) %]">[% item.name1 | html %]</a></td>
+                <td colspan="2">[% link_entity(item.artist1) %]</td>
             </tr>
             [% lastgid = item.gid1 %]
         [% END %]
 
         <tr>
             <td></td>
-            <td><a href="[% c.uri_for_action('/artist/show', [ item.gid0 ]) %]">[% item.name0 | html %]</a></td>
+            <td>[% link_entity(item.artist0) %]</td>
         </tr>
         [%- END -%]
     </tbody>

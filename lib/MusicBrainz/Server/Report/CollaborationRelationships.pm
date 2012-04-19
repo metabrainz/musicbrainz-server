@@ -26,6 +26,16 @@ sub gather_data
     ");
 }
 
+sub post_load
+{
+    my ($self, $items) = @_;
+
+    foreach my $item (@$items) {
+        $item->{artist0} = $self->c->model('Artist')->get_by_gid($item->{gid0});
+        $item->{artist1} = $self->c->model('Artist')->get_by_gid($item->{gid1});
+    }
+}
+
 sub template
 {
     return 'report/collaboration_relationships.tt';
