@@ -546,38 +546,23 @@ my %stats = (
 
     "count.vote.yes" => {
         DESC => "Count of 'yes' votes",
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_YES'
         DB => 'READWRITE',
-        CALC => sub {
-            my ($self, $sql) = @_;
-
-            my $data = $sql->select_list_of_lists(
-                "SELECT vote, COUNT(*) FROM vote GROUP BY vote",
-            );
-
-            my %dist = map { @$_ } @$data;
-
-            +{
-                "count.vote.yes"        => $dist{$VOTE_YES} || 0,
-                "count.vote.approve"    => $dist{$VOTE_APPROVE} || 0,
-                "count.vote.no"         => $dist{$VOTE_NO}  || 0,
-                "count.vote.abstain"    => $dist{$VOTE_ABSTAIN} || 0,
-            };
-        },
     },
-    "coute.vote.approve" => {
+    "count.vote.approve" => {
         DESC => "Count of 'approve' votes",
-        PREREQ => [qw[ count.vote.yes ]],
-        PREREQ_ONLY => 1,
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_APPROVE'
+        DB => 'READWRITE',
     },
     "count.vote.no" => {
         DESC => "Count of 'no' votes",
-        PREREQ => [qw[ count.vote.yes ]],
-        PREREQ_ONLY => 1,
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_NO'
+        DB => 'READWRITE',
     },
     "count.vote.abstain" => {
         DESC => "Count of 'abstain' votes",
-        PREREQ => [qw[ count.vote.yes ]],
-        PREREQ_ONLY => 1,
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_ABSTAIN'
+        DB => 'READWRITE',
     },
     "count.vote.perday" => {
         DESC => "Count of votes per day",
