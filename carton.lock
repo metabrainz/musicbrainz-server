@@ -30782,6 +30782,377 @@
          },
          "version" : "1.03"
       },
+      "SOAP::Lite" : {
+         "dist" : "SOAP-Lite-0.714",
+         "module" : "XML::Parser::Lite",
+         "mymeta" : {
+            "abstract" : "Perl's Web Services Toolkit",
+            "author" : [
+               "Pavel Kulchenko, Randy J Ray, Byrne Reese, Martin Kutter (MKUTTER@cpan.org)"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.55_02, CPAN::Meta::Converter version 2.120351",
+            "keywords" : [
+               "SOAP",
+               "SOAP client",
+               "SOAP server"
+            ],
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "SOAP-Lite",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Class::Inspector" : "0",
+                     "Compress::Zlib" : "0",
+                     "FCGI" : "0",
+                     "HTTP::Daemon" : "0",
+                     "IO::File" : "0",
+                     "IO::Socket::SSL" : "0",
+                     "LWP::UserAgent" : "0",
+                     "MIME::Base64" : "0",
+                     "MIME::Lite" : "0",
+                     "Scalar::Util" : "0",
+                     "Task::Weaken" : "0",
+                     "Test::More" : "0",
+                     "URI" : "0",
+                     "XML::Parser" : "2.23",
+                     "constant" : "0",
+                     "perl" : "5.006"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "repository" : {
+                  "url" : "https://soaplite.svn.sourceforge.net/svnroot/soaplite/branches/0.71"
+               }
+            },
+            "version" : "0.714",
+            "x_bugtracker" : "https://sourceforge.net/tracker/?group_id=66000&atid=513017"
+         },
+         "name" : "SOAP::Lite",
+         "pathname" : "M/MK/MKUTTER/SOAP-Lite-0.714.tar.gz",
+         "provides" : {
+            "Apache::SOAP" : {
+               "file" : "Apache/SOAP.pm",
+               "version" : "0.714"
+            },
+            "Apache::XMLRPC::Lite" : {
+               "file" : "Apache/XMLRPC/Lite.pm",
+               "version" : "0.714"
+            },
+            "IO::SessionData" : {
+               "file" : "IO/SessionData.pm",
+               "version" : "1.02"
+            },
+            "IO::SessionSet" : {
+               "file" : "IO/SessionSet.pm"
+            },
+            "LWP::Protocol" : {
+               "file" : "SOAP/Transport/HTTP.pm"
+            },
+            "My::PingPong" : {
+               "file" : "SOAP/Test.pm"
+            },
+            "SOAP" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Client" : {
+               "file" : "SOAP/Lite.pm",
+               "version" : "0"
+            },
+            "SOAP::Cloneable" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Constants" : {
+               "file" : "SOAP/Constants.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Custom::XML::Data" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Custom::XML::Deserializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Data" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Deserializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Fault" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Header" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Lite" : {
+               "file" : "SOAP/Lite.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Lite::COM" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Lite::Deserializer::XMLSchema1999" : {
+               "file" : "SOAP/Lite/Deserializer/XMLSchema1999.pm"
+            },
+            "SOAP::Lite::Deserializer::XMLSchema2001" : {
+               "file" : "SOAP/Lite/Deserializer/XMLSchema2001.pm"
+            },
+            "SOAP::Lite::Deserializer::XMLSchemaSOAP1_1" : {
+               "file" : "SOAP/Lite/Deserializer/XMLSchemaSOAP1_1.pm"
+            },
+            "SOAP::Lite::Deserializer::XMLSchemaSOAP1_2" : {
+               "file" : "SOAP/Lite/Deserializer/XMLSchemaSOAP1_2.pm"
+            },
+            "SOAP::Lite::Packager" : {
+               "file" : "SOAP/Lite/Packager.pm"
+            },
+            "SOAP::Lite::Packager::DIME" : {
+               "file" : "SOAP/Lite/Packager.pm"
+            },
+            "SOAP::Lite::Packager::MIME" : {
+               "file" : "SOAP/Lite/Packager.pm"
+            },
+            "SOAP::Lite::Utils" : {
+               "file" : "SOAP/Lite/Utils.pm"
+            },
+            "SOAP::Packager" : {
+               "file" : "SOAP/Packager.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Packager::DIME" : {
+               "file" : "SOAP/Packager.pm"
+            },
+            "SOAP::Packager::MIME" : {
+               "file" : "SOAP/Packager.pm"
+            },
+            "SOAP::Parser" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::SOM" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Schema" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Schema::Deserializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Schema::WSDL" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Serializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Server" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Server::Object" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Server::Parameters" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Test" : {
+               "file" : "SOAP/Test.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Test::Server" : {
+               "file" : "SOAP/Test.pm"
+            },
+            "SOAP::Trace" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Transport" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::Transport::HTTP" : {
+               "file" : "SOAP/Transport/HTTP.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Transport::HTTP::Apache" : {
+               "file" : "SOAP/Transport/HTTP.pm"
+            },
+            "SOAP::Transport::HTTP::CGI" : {
+               "file" : "SOAP/Transport/HTTP.pm"
+            },
+            "SOAP::Transport::HTTP::Client" : {
+               "file" : "SOAP/Transport/HTTP.pm"
+            },
+            "SOAP::Transport::HTTP::Daemon" : {
+               "file" : "SOAP/Transport/HTTP.pm"
+            },
+            "SOAP::Transport::HTTP::FCGI" : {
+               "file" : "SOAP/Transport/HTTP.pm"
+            },
+            "SOAP::Transport::HTTP::Server" : {
+               "file" : "SOAP/Transport/HTTP.pm"
+            },
+            "SOAP::Transport::IO" : {
+               "file" : "SOAP/Transport/IO.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Transport::IO::Server" : {
+               "file" : "SOAP/Transport/IO.pm"
+            },
+            "SOAP::Transport::LOCAL" : {
+               "file" : "SOAP/Transport/LOCAL.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Transport::LOCAL::Client" : {
+               "file" : "SOAP/Transport/LOCAL.pm"
+            },
+            "SOAP::Transport::LOOPBACK" : {
+               "file" : "SOAP/Transport/LOOPBACK.pm"
+            },
+            "SOAP::Transport::LOOPBACK::Client" : {
+               "file" : "SOAP/Transport/LOOPBACK.pm"
+            },
+            "SOAP::Transport::MAILTO" : {
+               "file" : "SOAP/Transport/MAILTO.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Transport::MAILTO::Client" : {
+               "file" : "SOAP/Transport/MAILTO.pm"
+            },
+            "SOAP::Transport::POP3" : {
+               "file" : "SOAP/Transport/POP3.pm",
+               "version" : "0.714"
+            },
+            "SOAP::Transport::POP3::Server" : {
+               "file" : "SOAP/Transport/POP3.pm"
+            },
+            "SOAP::Utils" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::XMLSchema1999::Serializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::XMLSchema2001::Serializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::XMLSchema::Serializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "SOAP::XMLSchemaApacheSOAP::Deserializer" : {
+               "file" : "SOAP/Lite.pm"
+            },
+            "UDDI::Constants" : {
+               "file" : "UDDI/Lite.pm",
+               "version" : "0.714"
+            },
+            "UDDI::Data" : {
+               "file" : "UDDI/Lite.pm",
+               "version" : "0.714"
+            },
+            "UDDI::Deserializer" : {
+               "file" : "UDDI/Lite.pm",
+               "version" : "0.714"
+            },
+            "UDDI::Lite" : {
+               "file" : "UDDI/Lite.pm",
+               "version" : "0.714"
+            },
+            "UDDI::SOM" : {
+               "file" : "UDDI/Lite.pm",
+               "version" : "0.714"
+            },
+            "UDDI::Serializer" : {
+               "file" : "UDDI/Lite.pm",
+               "version" : "0.714"
+            },
+            "XML::Parser::Lite" : {
+               "file" : "XML/Parser/Lite.pm",
+               "version" : "0.714"
+            },
+            "XMLRPC" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Constants" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Data" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Deserializer" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Lite" : {
+               "file" : "XMLRPC/Lite.pm",
+               "version" : "0.714"
+            },
+            "XMLRPC::SOM" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Serializer" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Server" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Server::Parameters" : {
+               "file" : "XMLRPC/Lite.pm"
+            },
+            "XMLRPC::Test" : {
+               "file" : "XMLRPC/Test.pm",
+               "version" : "0.714"
+            },
+            "XMLRPC::Test::Server" : {
+               "file" : "XMLRPC/Test.pm"
+            },
+            "XMLRPC::Transport::HTTP" : {
+               "file" : "XMLRPC/Transport/HTTP.pm",
+               "version" : "0.714"
+            },
+            "XMLRPC::Transport::HTTP::Apache" : {
+               "file" : "XMLRPC/Transport/HTTP.pm"
+            },
+            "XMLRPC::Transport::HTTP::CGI" : {
+               "file" : "XMLRPC/Transport/HTTP.pm"
+            },
+            "XMLRPC::Transport::HTTP::Daemon" : {
+               "file" : "XMLRPC/Transport/HTTP.pm"
+            },
+            "XMLRPC::Transport::POP3" : {
+               "file" : "XMLRPC/Transport/POP3.pm",
+               "version" : "0.714"
+            },
+            "XMLRPC::Transport::POP3::Server" : {
+               "file" : "XMLRPC/Transport/POP3.pm"
+            },
+            "XMLRPC::Transport::TCP" : {
+               "file" : "XMLRPC/Transport/TCP.pm",
+               "version" : "0.714"
+            },
+            "XMLRPC::Transport::TCP::Server" : {
+               "file" : "XMLRPC/Transport/TCP.pm"
+            }
+         },
+         "version" : "0.714"
+      },
       "Scope::Guard" : {
          "dist" : "Scope-Guard-0.20",
          "module" : "Scope::Guard",
@@ -39053,6 +39424,62 @@
             }
          },
          "version" : "2.36"
+      },
+      "XML::RSS::Parser::Lite" : {
+         "dist" : "RSS-Parser-Lite-0.10",
+         "module" : "XML::RSS::Parser::Lite",
+         "mymeta" : {
+            "abstract" : "unknown",
+            "author" : [
+               "unknown"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120351",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "XML-RSS-Parser-Lite",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {}
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.10"
+         },
+         "name" : "XML::RSS::Parser::Lite",
+         "pathname" : "E/EB/EBOSRUP/RSS-Parser-Lite-0.10.tar.gz",
+         "provides" : {
+            "XML::RSS::Parser::Lite" : {
+               "file" : "XML/RSS/Parser/Lite.pm",
+               "version" : "0.10"
+            },
+            "XML::RSS::Parser::Lite::Item" : {
+               "file" : "XML/RSS/Parser/Lite.pm",
+               "version" : "0.10"
+            }
+         },
+         "version" : "0.10"
       },
       "XML::RegExp" : {
          "dist" : "XML-RegExp-0.03",
