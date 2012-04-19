@@ -45,6 +45,7 @@ sub vote_name
         $VOTE_ABSTAIN => 'Abstain',
         $VOTE_NO => 'No',
         $VOTE_YES => 'Yes',
+        $VOTE_APPROVE => 'Approve',
     );
     return $names{$self->vote};
 }
