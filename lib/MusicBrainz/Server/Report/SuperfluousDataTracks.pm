@@ -26,7 +26,7 @@ AND NOT EXISTS (
    SELECT TRUE FROM medium_cdtoc WHERE medium_cdtoc.medium = medium.id
    LIMIT 1
 )
-ORDER BY musicbrainz_collate(release_name.name)
+ORDER BY release.id
 EOSQL
 }
 
