@@ -4,7 +4,7 @@
 
 <ul>
   <li>[% l('This report shows releases that have an unlikely combination of
-    language and script properties, such as a 'Ethiopic German'.') %]</li>
+    language and script properties, such as German and Ethiopic.') %]</li>
   <li>[% l('Total releases
     found: {count}', { count => pager.total_entries }) %]</li>
   <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
