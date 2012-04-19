@@ -19,7 +19,7 @@
 
             <tr>
                 <td></td>
-                <td><a href="[% c.uri_for_action('/release/show', [ item.gid ]) %]">[% item.name | html %]</a></td>
+                <td>[% link_entity(item.release) %]</td>
                 <td>[% artist_credit(item.artist_credit) %]</td>
             </tr>
         [%- END -%]

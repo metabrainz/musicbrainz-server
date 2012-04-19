@@ -8,7 +8,7 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-        SELECT release.gid, release.artist_credit AS artist_credit_id,
+        SELECT release.gid AS release_gid, release.artist_credit AS artist_credit_id,
                release_name.name, tracklist.id, tracklist.track_count, COUNT(*)
         FROM track_name 
         JOIN track ON track.name = track_name.id

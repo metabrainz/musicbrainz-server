@@ -2,14 +2,14 @@ package MusicBrainz::Server::Report::SuperfluousDataTracks;
 use Moose;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Report';
+extends 'MusicBrainz::Server::Report::ReleaseReport';
 
 sub gather_data {
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, <<'EOSQL');
 SELECT DISTINCT
-  release.id, release.gid, release_name.name AS name,
+  release.id, release.gid AS release_gid, release_name.name AS name,
   release.artist_credit AS artist_credit_id,
   musicbrainz_collate(release_name.name)
 FROM release
@@ -31,14 +31,5 @@ EOSQL
 }
 
 sub template { 'report/superfluous_data_tracks.tt' }
-
-sub post_load {
-    my ($self, $items) = @_;
-    for my $item (@$items) {
-        $item->{release} = MusicBrainz::Server::Data::Release->_new_from_row($item)
-    }
-
-    $self->c->model('ArtistCredit')->load(map { $_->{release} } @$items);
-}
 
 1;

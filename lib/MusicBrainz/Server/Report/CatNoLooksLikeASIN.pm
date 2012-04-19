@@ -9,7 +9,7 @@ sub gather_data
 
     $self->gather_data_from_query($writer, "
         SELECT
-            r.gid, rn.name, r.artist_credit AS artist_credit_id, rl.catalog_number
+            r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id, rl.catalog_number
         FROM
             release_label rl
             JOIN release r

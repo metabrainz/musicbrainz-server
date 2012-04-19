@@ -8,7 +8,7 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-SELECT r.gid, rn.name, r.artist_credit AS artist_credit_id
+SELECT r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id
 FROM release r
         JOIN release_name rn ON r.name = rn.id
         JOIN release_status rs ON r.status = rs.id

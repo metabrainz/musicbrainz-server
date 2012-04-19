@@ -9,7 +9,7 @@ sub gather_data
 
     $self->gather_data_from_query($writer, "
         SELECT
-            url, url.gid AS urlgid, r.gid, rn.name, r.artist_credit AS artist_credit_id
+            url, url.gid AS urlgid, r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id
         FROM
             l_release_url lru
             JOIN url ON lru.entity1 = url.id 
