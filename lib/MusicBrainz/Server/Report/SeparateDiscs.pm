@@ -15,8 +15,10 @@ sub gather_data
             JOIN release_name rn ON r.name = rn.id
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
+            JOIN release_group rg on rg.id = r.release_group
         WHERE
             rn.name ~ E'\((disc [0-9]+|bonus disc)(: .*)?\)'
+            AND NOT (rg.type = 2 AND r.country = 221)
         ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
     ");
 }
