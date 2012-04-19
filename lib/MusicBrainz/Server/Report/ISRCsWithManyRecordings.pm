@@ -17,7 +17,7 @@ sub gather_data
             FROM isrc
             GROUP BY isrc HAVING count(*) > 1
           ) t ON t.isrc = i.isrc
-        ORDER BY recordingcount DESC, i.isrc
+        ORDER BY i.isrc
     ");
 }
 
