@@ -31,7 +31,7 @@
         <tr>
             <td></td>
             <td>[% artist_credit(item.artist_credit) %]</td>
-            <td><a href="[% c.uri_for_action('/recording/show', [ item.gid ]) %]">[% item.name %]</a></td>
+            <td>[% link_entity(item.recording) %]</td>
             <td>[% item.length | format_length %]</td>
         </tr>
         [%- END -%]

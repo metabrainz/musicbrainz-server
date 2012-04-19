@@ -8,7 +8,7 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-        SELECT i.isrc, recordingcount, r.gid, tn.name, r.length, r.artist_credit AS artist_credit_id
+        SELECT i.isrc, recordingcount, r.gid as recording_gid, tn.name, r.length, r.artist_credit AS artist_credit_id
         FROM isrc i
           JOIN recording r ON (r.id = i.recording)
           JOIN track_name tn ON (r.name = tn.id)
@@ -27,8 +27,13 @@ sub post_load
 
     my @ids = map { $_->{artist_credit_id} } @$items;
     my $acs = $self->c->model('ArtistCredit')->get_by_ids(@ids);
+
+    my @recordingids = map { $_->{recording_gid} } @$items;
+    my $recordings = $self->c->model('Recording')->get_by_gids(@recordingids);
+
     foreach my $item (@$items) {
         $item->{artist_credit} = $acs->{$item->{artist_credit_id}};
+        $item->{recording} = $recordings->{$item->{recording_gid}};
     }
 }
 
