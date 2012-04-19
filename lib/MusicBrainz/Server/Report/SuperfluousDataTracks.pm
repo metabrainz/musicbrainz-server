@@ -26,7 +26,7 @@ AND NOT EXISTS (
    SELECT TRUE FROM medium_cdtoc WHERE medium_cdtoc.medium = medium.id
    LIMIT 1
 )
-ORDER BY release.id
+ORDER BY release.id DESC
 EOSQL
 }
 
