@@ -13,6 +13,9 @@ sub post_load
     my $acs = $self->c->model('ArtistCredit')->get_by_ids(@ids);
     foreach my $item (@$items) {
         $item->{artist_credit} = $acs->{$item->{artist_credit_id}};
+        $item->{release_group} = $self->c->model('ReleaseGroup')->get_by_gid($item->{release_group_gid});
+
+        $item->{urlentity} = $self->c->model('URL')->get_by_gid($item->{url_gid}) if $item->{url_gid};
     }
 }
 
