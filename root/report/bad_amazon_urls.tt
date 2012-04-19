@@ -22,7 +22,7 @@
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% artist_credit(item.artist_credit) %]</td>
             <td>[% link_entity(item.release) %]</td>
-            <td><a href="[% c.uri_for_action('/url/show', [ item.urlgid ]) %]">[% item.url %]</a></td>
+            <td>[% link_entity(item.urlentity, 'show', item.url) %]</td>
         </tr>
         [%- END -%]
     </tbody>

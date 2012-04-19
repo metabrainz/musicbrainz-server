@@ -12,7 +12,7 @@
         [%- FOR item IN items -%]
             [%- IF lastgid != item.url_gid -%]
                 <tr class="ev">
-                    <td colspan="3"><a href="[% c.uri_for_action('/url/show', [ item.url_gid ]) %]">[% item.url | html %]</a></td>
+                    <td colspan="3">[% link_entity(item.urlentity, 'show', item.url) %]</a></td>
                 </tr>
                 [% lastgid = item.url_gid %]
             [%- END -%]
