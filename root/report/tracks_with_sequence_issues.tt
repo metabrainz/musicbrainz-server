@@ -1,10 +1,10 @@
-[%- WRAPPER 'layout.tt' title=l('Releases with track numbers issues') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Releases with track number issues') full_width=1 -%]
 
-<h1>[% l('Releases with track numbers issues') %]</h1>
+<h1>[% l('Releases with track number issues') %]</h1>
 
 <ul>
-    <li>[% l('This report lists all releases where the track number are not
-              continious (e.g. there is no "track 2"), or with duplicated
+    <li>[% l('This report lists all releases where the track numbers are not
+              continuous (e.g. there is no "track 2"), or with duplicated
               track numbers (e.g. there are two "track 4"s).') %]</li>
     <li>[% l('Total releases: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>

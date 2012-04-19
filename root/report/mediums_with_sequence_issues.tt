@@ -1,6 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Releases with medium numbers issues') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Releases with medium number issues') full_width=1 -%]
 
-<h1>[% l('Releases with medium numbers issues') %]</h1>
+<h1>[% l('Releases with medium number issues') %]</h1>
 
 <ul>
     <li>[% l('This report lists all releases where the mediums are not
