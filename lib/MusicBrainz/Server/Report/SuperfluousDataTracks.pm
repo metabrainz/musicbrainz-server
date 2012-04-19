@@ -21,7 +21,7 @@ JOIN track ON tracklist.id = track.tracklist
 JOIN track_name ON track_name.id = track.name
 WHERE (medium_format.has_discids = TRUE OR medium_format.has_discids IS NULL)
 AND track.position = tracklist.track_count
-AND track_name.name ~* '([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)'
+AND track_name.name ~* E'([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)'
 AND NOT EXISTS (
    SELECT TRUE FROM medium_cdtoc WHERE medium_cdtoc.medium = medium.id
    LIMIT 1
