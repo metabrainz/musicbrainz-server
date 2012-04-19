@@ -546,22 +546,22 @@ my %stats = (
 
     "count.vote.yes" => {
         DESC => "Count of 'yes' votes",
-        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_YES'
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_YES',
         DB => 'READWRITE',
     },
     "count.vote.approve" => {
         DESC => "Count of 'approve' votes",
-        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_APPROVE'
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_APPROVE',
         DB => 'READWRITE',
     },
     "count.vote.no" => {
         DESC => "Count of 'no' votes",
-        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_NO'
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_NO',
         DB => 'READWRITE',
     },
     "count.vote.abstain" => {
         DESC => "Count of 'abstain' votes",
-        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_ABSTAIN'
+        SQL  => 'SELECT COUNT(*) FROM vote WHERE vote=$VOTE_ABSTAIN',
         DB => 'READWRITE',
     },
     "count.vote.perday" => {
