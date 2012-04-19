@@ -78,7 +78,7 @@ sub post_load
     my @artists;
     for my $dupes (@$dupe_sets) {
         for my $dupe (@$dupes) {
-            $dupe->{artist} = MusicBrainz::Server::Data::Artist->_new_from_row($dupe);
+            $dupe->{artist} = $self->c->model('Artist')->get_by_gid($dupe->{gid});
             push @artists, $dupe->{artist};
         }
     }
