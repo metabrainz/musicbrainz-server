@@ -8,7 +8,7 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-        SELECT artist.gid, name.name
+        SELECT artist.gid AS artist_gid, name.name
         FROM
             artist
             LEFT JOIN l_artist_artist ON l_artist_artist.entity1=artist.id

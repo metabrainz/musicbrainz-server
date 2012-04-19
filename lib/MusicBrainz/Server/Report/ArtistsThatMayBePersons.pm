@@ -8,7 +8,7 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-        SELECT DISTINCT ON(name.name, artist.id) artist.gid, name.name, artist.type
+        SELECT DISTINCT ON(name.name, artist.id) artist.gid AS artist_gid, name.name, artist.type
         FROM
             artist
             JOIN l_artist_artist ON l_artist_artist.entity0=artist.id
