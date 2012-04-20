@@ -41,7 +41,7 @@ sub _columns
     return sprintf '%s.id, name.name, sort_name.name AS sort_name, %s, locale,
                     edits_pending, begin_date_year, begin_date_month,
                     begin_date_day, end_date_year, end_date_month,
-                    end_date_day, type AS type_id',
+                    end_date_day, type AS type_id, primary_for_locale',
         $self->table, $self->type;
 }
 
@@ -58,6 +58,7 @@ sub _column_mapping
         type_id             => 'type_id',
         begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        primary_for_locale  => 'primary_for_locale'
     };
 }
 
