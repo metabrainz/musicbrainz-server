@@ -54,12 +54,6 @@ has 'alias_model' => (
 
 sub edit_field_names { qw( name locale sort_name begin_date end_date type_id primary_for_locale ) }
 
-sub validate_locale {
-    my ($self, $field) = @_;
-    $field->add_error('An alias for this locale has already been added')
-        if $self->alias_model->has_locale( $self->parent_id, $field->value, $self->id );
-}
-
 sub options_locale {
     my ($self, $field) = @_;
     return [
