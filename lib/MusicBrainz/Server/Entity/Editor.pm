@@ -177,6 +177,16 @@ sub age {
     return (DateTime->now - $self->birth_date)->in_units('years');
 }
 
+has languages => (
+    isa => 'ArrayRef',
+    is => 'rw',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_language => 'push',
+    }
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
