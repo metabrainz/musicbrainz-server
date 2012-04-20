@@ -300,6 +300,9 @@ sub AWS_PUBLIC { '' }
 
 sub AMAZON_ASSOCIATE_TAG { '' }
 
+# Add a Google Analytics tracking code to enable Google Analytics tracking.
+sub GOOGLE_ANALYTICS_CODE { '' }
+
 ################################################################################
 # Sessions (advanced)
 ################################################################################
