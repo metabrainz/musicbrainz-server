@@ -91,7 +91,6 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 sub WEB_SERVER                { "www.musicbrainz.example.com" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
 sub WEB_SERVER_USED_IN_EMAIL  { WEB_SERVER }
-sub BLOG_ADDRESS              { "http://blog.musicbrainz.org/?feed=rss2" }
 
 ################################################################################
 # Mail Settings

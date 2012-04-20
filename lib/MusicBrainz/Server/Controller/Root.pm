@@ -43,7 +43,7 @@ sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
-    my $xml = get(&DBDefs::BLOG_ADDRESS);
+    my $xml = get("http://blog.musicbrainz.org/?feed=rss2");
     my $rp = new XML::RSS::Parser::Lite;
     $rp->parse($xml);
 
