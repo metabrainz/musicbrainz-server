@@ -8,6 +8,7 @@ use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     load_subobjects
     placeholders
     query_to_list
@@ -33,7 +34,8 @@ sub _columns
 {
     return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
-            edits_rejected, auto_edits_accepted, edits_failed';
+            edits_rejected, auto_edits_accepted, edits_failed, gender, country,
+            birth_date';
 }
 
 sub _column_mapping
@@ -53,6 +55,9 @@ sub _column_mapping
         email_confirmation_date => 'email_confirm_date',
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
+        gender_id               => 'gender',
+        country_id              => 'country',
+        birth_date              => 'birth_date'
     };
 }
 
@@ -282,11 +287,25 @@ sub update_password
 
 sub update_profile
 {
-    my ($self, $editor, $website, $bio) = @_;
+    my ($self, $editor, $update) = @_;
+
+    my $row = hash_to_row(
+        $update,
+        {
+            bio => 'biography',
+            country => 'country_id',
+            gender => 'gender_id',
+            website => 'website',
+            birth_date => 'birth_date',
+        }
+    );
+
+    if (my $date = delete $row->{birth_date}) {
+        $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day );
+    }
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
-                 $website || undef, $bio || undef, $editor->id);
+        $self->sql->update_row('editor', $row, { id => $editor->id });
     }, $self->sql);
 }
 

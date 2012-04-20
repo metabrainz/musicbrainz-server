@@ -12,6 +12,9 @@
     <form action="[% c.req.uri %]" method="post">
       [% form_row_text_long(r, 'email', l('Email:')) %]
       [% form_row_text_long(r, 'website', l('Website:')) %]
+      [% form_row_select(r, 'gender_id', l('Gender:')) %]
+      [% form_row_select(r, 'country_id', l('Country:')) %]
+      [% form_row_date(r, 'birth_date', l('Birth date:')) %]
       [% WRAPPER form_row %]
         [% r.label('biography', l('Bio:')) %]
         [% r.textarea('biography', { cols => 80, rows => 5 }) %]

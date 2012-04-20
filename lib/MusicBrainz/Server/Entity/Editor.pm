@@ -146,6 +146,30 @@ sub is_limited
         $self->accepted_edits < 10;
 }
 
+has birth_date => (
+   is => 'rw',
+   isa => 'DateTime',
+   coerce => 1
+);
+
+has gender_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has gender => (
+    is => 'rw',
+);
+
+has country_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has country => (
+    is => 'rw',
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

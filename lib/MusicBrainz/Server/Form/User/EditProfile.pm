@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::User::EditProfile;
 
 use HTML::FormHandler::Moose;
+use List::MoreUtils qw( any all );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 
@@ -24,6 +25,30 @@ has_field 'website' => (
 has_field 'email' => (
     type => 'Email',
 );
+
+has_field 'gender_id' => (
+    type => 'Select',
+);
+
+has_field 'country_id' => (
+    type => 'Select',
+);
+
+has_field 'birth_date' => (
+    type => '+MusicBrainz::Server::Form::Field::PartialDate'
+);
+
+sub options_gender_id { shift->_select_all('Gender') }
+sub options_country_id { shift->_select_all('Country') }
+
+sub validate_birth_date {
+    my ($self, $field) = @_;
+    my @date_components = values %{ $field->value };
+    if ((any { defined } @date_components) &&
+            !(all { defined } @date_components)) {
+        return $field->add_error(l('You must supply a complete birth date'));
+    }
+}
 
 1;
 

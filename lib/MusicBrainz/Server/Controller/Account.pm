@@ -294,9 +294,10 @@ sub edit : Local RequireAuth
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
 
-        $c->model('Editor')->update_profile($editor,
-                                            $form->field('website')->value,
-                                            $form->field('biography')->value);
+        $c->model('Editor')->update_profile(
+            $editor,
+            $form->value
+        );
 
         my %args = ( ok => 1 );
         my $old_email = $editor->email || '';

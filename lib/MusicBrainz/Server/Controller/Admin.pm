@@ -50,8 +50,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth(account_admin) Hidd
 		if ($form2->submitted_and_valid ($c->req->params )) {
 			$c->model('Editor')->update_profile(
 				$user,
-				$form2->field('website')->value,
-				$form2->field('biography')->value
+                $form2->value
 			);
 
 			my %args = ( ok => 1 );
