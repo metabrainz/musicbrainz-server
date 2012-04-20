@@ -3,7 +3,9 @@
     [% form_row_text_long(r, 'name', l('Alias name:')) %]
     [% form_row_text_long(r, 'sort_name', l('Sort name:')) %]
     [% form_row_select(r, 'locale', l('Locale:')) %]
-    [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
+    <span id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">
+      [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
+    </span>
     [% form_row_select(r, 'type_id', l('Type:')) %]
 
     <fieldset>
@@ -19,3 +21,21 @@
     [% INCLUDE 'forms/edit-note.tt' %]
     [% enter_edit() %]
 </form>
+
+<script>
+    function togglePrimaryForLocale() {
+        var allowed = $('#id-edit-alias\\\.locale').val() != '';
+        $('#allow_primary_for_locale').toggle(allowed);
+        if (allowed) {
+            $('#allow_primary_for_locale input').removeAttr('disabled');
+        }
+        else {
+            $('#allow_primary_for_locale input').attr('disabled', true);
+        }
+    }
+
+    $(function() {
+        $('#id-edit-alias\\\.locale').keyup(togglePrimaryForLocale).change(togglePrimaryForLocale);
+        togglePrimaryForLocale();
+    });
+</script>
