@@ -278,12 +278,6 @@ request is received), update the profile data in the database.
 sub edit : Local RequireAuth
 {
     my ($self, $c) = @_;
-    
-    if (DBDefs::DB_STAGING_TESTING_FEATURES) {
-        $c->flash->{message} = l(
-            '<strong>WARNING!</strong> This is a development server. Your email address is not private or secure. Proceed with caution!'
-        );
-    }
 
     if (exists $c->request->params->{ok}) {
         $c->stash(
