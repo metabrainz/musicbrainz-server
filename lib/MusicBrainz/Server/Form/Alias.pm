@@ -3,6 +3,7 @@ use HTML::FormHandler::Moose;
 
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -73,6 +74,14 @@ sub options_locale {
 sub options_type_id {
     my $self = shift;
     $self->_select_all($self->alias_model->parent->alias_type);
+}
+
+sub validate_primary_for_locale {
+    my $self = shift;
+    if ($self->field('primary_for_locale')->value && !$self->field('locale')->value) {
+        return $self->field('primary_for_locale')->add_error(
+            l('This alias can only be a primary alias if a locale is selected'));
+    }
 }
 
 1;
