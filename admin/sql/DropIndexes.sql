@@ -42,6 +42,7 @@ DROP INDEX editor_collection_idx_editor;
 DROP INDEX editor_collection_idx_gid;
 DROP INDEX editor_collection_idx_name;
 DROP INDEX editor_idx_name;
+DROP INDEX editor_language_idx_language;
 DROP INDEX editor_preference_idx_editor_name;
 DROP INDEX editor_subscribe_artist_idx_artist;
 DROP INDEX editor_subscribe_artist_idx_uniq;

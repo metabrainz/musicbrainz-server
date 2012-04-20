@@ -32,6 +32,7 @@ ALTER TABLE edit_work DROP CONSTRAINT edit_work_pkey;
 ALTER TABLE editor DROP CONSTRAINT editor_pkey;
 ALTER TABLE editor_collection DROP CONSTRAINT editor_collection_pkey;
 ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_pkey;
+ALTER TABLE editor_language DROP CONSTRAINT editor_language_pkey;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_pkey;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_pkey;
 ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editor_subscribe_editor_pkey;

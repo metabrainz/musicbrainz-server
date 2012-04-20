@@ -31,6 +31,7 @@ CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, tra
 CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
+CREATE INDEX editor_language_idx_language ON editor_language (language);
 
 CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (editor, name);
 

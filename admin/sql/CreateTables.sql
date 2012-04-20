@@ -258,9 +258,20 @@ CREATE TABLE editor
     last_login_date     TIMESTAMP WITH TIME ZONE,
     edits_accepted      INTEGER DEFAULT 0,
     edits_rejected      INTEGER DEFAULT 0,
-    auto_edits_accepted  INTEGER DEFAULT 0,
+    auto_edits_accepted INTEGER DEFAULT 0,
     edits_failed        INTEGER DEFAULT 0,
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    birth_date          DATE,
+    gender              INTEGER, -- references gender.id
+    country             INTEGER, -- references country.id
+);
+
+CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
+
+CREATE TABLE editor_language (
+    editor   INTEGER NOT NULL,  -- PK, references editor.id
+    language INTEGER NOT NULL,  -- PK, references language.id
+    fluency  FLUENCY NOT NULL
 );
 
 CREATE TABLE editor_preference
