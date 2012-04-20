@@ -13,6 +13,9 @@ CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON artist_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary('artist_alias');
+
 CREATE TRIGGER b_upd_artist_tag BEFORE UPDATE ON artist_tag 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -118,6 +121,9 @@ CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
 CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON label_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary('label_alias');
+
 CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -213,6 +219,9 @@ CREATE TRIGGER b_upd_work BEFORE UPDATE ON work
 
 CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON work_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary('work_alias');
 
 CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();

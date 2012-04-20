@@ -39,4 +39,5 @@ DROP FUNCTION prevent_invalid_attributes();
 DROP FUNCTION remove_unused_links();
 DROP FUNCTION remove_unused_url();
 DROP FUNCTION set_release_group_first_release_date(release_group_id INTEGER);
+DROP FUNCTION unique_primary();
 DROP AGGREGATE array_accum;

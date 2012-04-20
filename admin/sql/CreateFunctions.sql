@@ -706,6 +706,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION unique_primary()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+        EXECUTE 'UPDATE ' || quote_ident(TG_ARGV[0]) || ' SET primary_for_locale = FALSE WHERE locale = $1'
+        USING NEW.locale;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+
 COMMIT;
 -- vi: set ts=4 sw=4 et :
 
