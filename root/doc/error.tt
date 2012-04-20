@@ -1,15 +1,10 @@
 [% WRAPPER "layout.tt" title=l('Page Not Found') full_width=1 %]
     <div id="content" class="wikicontent">
-        <h1>[%- l('Page Not Found') -%]</h1>
-
         [%- IF google_custom_search -%]
-          <div class="wikidoc-search">
-            <form action="[% c.uri_for('/search') | html %]" method="get">
-              <input type="hidden" name="type" value="doc" />
-              <input type="text" name="query" placeholder="Search the documentation..." />
-            </form>
-          </div>
+          [%- wikidoc_search_box -%]
         [%- END -%]
+
+        <h1>[%- l('Page Not Found') -%]</h1>
 
         <p>
             <strong>
