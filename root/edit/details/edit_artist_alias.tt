@@ -41,4 +41,9 @@
                   html_escape(edit.display_data.end_date.old.format),
                   html_escape(edit.display_data.end_date.new.format),
                   '\s+') %]
+
+  [% display_full_change(l('Primary for locale:'),
+                         edit.display_data.primary_for_locale.old ? l('Yes') : l('No'),
+                         edit.display_data.primary_for_locale.new ? l('Yes') : l('No')) %]
+
 </table>

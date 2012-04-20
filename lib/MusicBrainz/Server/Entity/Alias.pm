@@ -30,6 +30,11 @@ has 'type' => (
     is => 'rw',
 );
 
+has 'primary_for_locale' => (
+    isa => 'Bool',
+    is => 'rw',
+);
+
 sub type_name {
     my $self = shift;
     return defined $self->type ? $self->type->name : undef;

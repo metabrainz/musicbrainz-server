@@ -5,7 +5,7 @@ use MooseX::ABC;
 
 use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
@@ -31,7 +31,8 @@ subtype 'AliasHash'
         locale => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        type_id => Nullable[Int]
+        type_id => Nullable[Int],
+        primary_for_locale => Nullable[Bool]
     ];
 
 has '+data' => (
@@ -99,6 +100,10 @@ sub build_display_data
         begin_date => {
             new => partial_date_from_row($self->data->{new}{begin_date}),
             old => partial_date_from_row($self->data->{old}{begin_date}),
+        },
+        primary_for_locale => {
+            new => $self->data->{new}{primary_for_locale},
+            old => $self->data->{old}{primary_for_locale},
         }
     };
 }

@@ -30,6 +30,10 @@ has_field 'type_id' => (
     required => 0
 );
 
+has_field 'primary_for_locale' => (
+    type => 'Checkbox'
+);
+
 has 'id' => (
     isa => 'Int',
     is  => 'rw',
@@ -47,7 +51,7 @@ has 'alias_model' => (
     required => 1
 );
 
-sub edit_field_names { qw( name locale sort_name begin_date end_date type_id ) }
+sub edit_field_names { qw( name locale sort_name begin_date end_date type_id primary_for_locale ) }
 
 sub validate_locale {
     my ($self, $field) = @_;

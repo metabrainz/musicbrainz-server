@@ -3,6 +3,7 @@
     [% form_row_text_long(r, 'name', l('Alias name:')) %]
     [% form_row_text_long(r, 'sort_name', l('Sort name:')) %]
     [% form_row_select(r, 'locale', l('Locale:')) %]
+    [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
     [% form_row_select(r, 'type_id', l('Type:')) %]
 
     <fieldset>
