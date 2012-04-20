@@ -28,6 +28,10 @@
                          show_locale(edit.display_data.locale.old),
                          show_locale(edit.display_data.locale.new)) %]
 
+  [% display_full_change(l('Primary for locale:'),
+                         edit.display_data.primary_for_locale.old ? l('Yes') : l('No'),
+                         edit.display_data.primary_for_locale.new ? l('Yes') : l('No')) %]
+
   [% display_full_change(l('Type:'),
                          html_escape(edit.display_data.type.old.name),
                          html_escape(edit.display_data.type.new.name)) %]

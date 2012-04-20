@@ -18,6 +18,10 @@
     <td>[% edit.display_data.locale | locale %]</td>
   </tr>
   <tr>
+    <th>[% l('Primary for locale:') %]</th>
+    <td>[% edit.display_data.primary_for_locale ? l('Yes') : l('No') %]</td>
+  </tr>
+  <tr>
     <th>[% l('Type:') %]</th>
     <td>[% edit.display_data.type.name | html %]</td>
   </tr>

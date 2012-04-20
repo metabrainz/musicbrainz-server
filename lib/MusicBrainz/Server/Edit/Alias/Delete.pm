@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Alias::Delete;
 use Moose;
 use MooseX::ABC;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
@@ -26,7 +26,8 @@ has '+data' => (
         locale => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
-        type_id => Nullable[Int]
+        type_id => Nullable[Int],
+        primary_for_locale => Nullable[Bool]
     ]
 );
 
@@ -40,6 +41,7 @@ sub build_display_data
         type => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date => PartialDate->new($self->data->{end_date}),
+        primary_for_locale => $self->data->{primary_for_locale}
     };
 }
 
@@ -102,7 +104,8 @@ sub initialize
         locale => $alias->locale,
         begin_date => partial_date_to_hash($alias->begin_date),
         end_date => partial_date_to_hash($alias->end_date),
-        type_id => $alias->type_id
+        type_id => $alias->type_id,
+        primary_for_locale => $alias->primary_for_locale
     });
 }
 
