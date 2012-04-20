@@ -140,7 +140,8 @@ sub insert
             $type => $hash->{$type . '_id'},
             name => $names{ $hash->{name} },
             locale => $hash->{locale},
-            sort_name => $names{ $hash->{sort_name} }
+            sort_name => $names{ $hash->{sort_name} },
+            primary_for_locale => $hash->{primary_for_locale}
         };
 
         add_partial_date_to_row($row, $hash->{begin_date}, "begin_date");

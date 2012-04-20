@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Alias::Add;
 use Moose;
 use MooseX::ABC;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 
@@ -23,7 +23,8 @@ has '+data' => (
         locale => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        type_id => Nullable[Int]
+        type_id => Nullable[Int],
+        primary_for_locale => Nullable[Bool]
     ]
 );
 
@@ -44,6 +45,7 @@ sub build_display_data
         type => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date => PartialDate->new($self->data->{end_date}),
+        primary_for_locale => $self->data->{primary_for_locale},
     };
 }
 
@@ -73,7 +75,8 @@ sub insert
             sort_name => $data{sort_name},
             begin_date => $data{begin_date},
             end_date => $data{end_date},
-            type_id => $data{type_id}
+            type_id => $data{type_id},
+            primary_for_locale => $data{primary_for_locale}
         })->id
     );
 }
