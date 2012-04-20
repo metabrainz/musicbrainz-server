@@ -54,6 +54,24 @@
 
         [% END %]
 
+        [% IF user.age;
+             WRAPPER property name=l('Age:');
+              user.age;
+             END;
+           END; %]
+
+        [% IF user.gender;
+             WRAPPER property name=l('Gender:');
+              user.gender.name;
+             END;
+           END; %]
+
+        [% IF user.country;
+             WRAPPER property name=l('Country:');
+              user.country.name;
+             END;
+           END; %]
+
         [% WRAPPER property name=l("Member since:") %]
             [% IF user.name == "rob" %]
                 [% l('The Dawn of the Project') %]

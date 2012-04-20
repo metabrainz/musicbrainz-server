@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Editor;
 use Moose;
 
+use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Types qw( :privileges );
 
@@ -169,6 +170,12 @@ has country_id => (
 has country => (
     is => 'rw',
 );
+
+sub age {
+    my $self = shift;
+    return unless $self->birth_date;
+    return (DateTime->now - $self->birth_date)->in_units('years');
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
