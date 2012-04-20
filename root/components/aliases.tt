@@ -8,6 +8,7 @@
                     </th>
                     <th>[% l('Begin Date') %]</th>
                     <th>[% l('End Date') %]</th>
+                    <th>[% l('Type') %]</th>
                     <th>[% l('Locale') %]</th>
                     [% IF c.user_exists %]
                         <th style="width: 10em">
@@ -18,12 +19,6 @@
             </thead>
             <tbody about="[% rdfa_entity_curi(entity) %]">
             [%- FOREACH alias IN aliases -%]
-              [% IF alias.type_name != last_alias_type %]
-                <tr class="subh">
-                  <th colspan="[% c.user_exists ? 5 : 4 %]">[% l(alias.type_name) || l('(unknown)') %]</th>
-                </tr>
-                [% last_alias_type = alias.type_name %]
-              [% END %]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>
                         [% '<span class="mp">' IF alias.edits_pending %]
@@ -32,6 +27,7 @@
                     </td>
                     <td>[% alias.begin_date.format %]</td>
                     <td>[% alias.end_date.format %]</td>
+                    <td>[% alias.type_name %]</td>
                     <td>
                       [% IF alias.locale %]
                         [% alias.locale | locale %]

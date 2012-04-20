@@ -82,7 +82,7 @@ sub find_by_entity_id
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY type_id NULLS LAST, locale NULLS LAST, musicbrainz_collate(sort_name.name), musicbrainz_collate(name.name)";
+                 ORDER BY locale NULLS LAST, musicbrainz_collate(name.name)";
 
     return [ query_to_list($self->c->sql, sub {
         $self->_new_from_row(@_)
