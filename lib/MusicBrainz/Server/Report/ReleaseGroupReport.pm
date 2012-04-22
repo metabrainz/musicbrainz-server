@@ -11,11 +11,18 @@ sub post_load
 
     my @ids = map { $_->{artist_credit_id} } @$items;
     my $acs = $self->c->model('ArtistCredit')->get_by_ids(@ids);
+
+    my @releasegroupgids = map { $_->{release_group_gid} } @$items;
+    my $releasegroups = $self->c->model('ReleaseGroup')->get_by_gids(@releasegroupgids);
+
+    my @urlgids = map { $_->{url_gid} } @$items;
+    my $urls = $self->c->model('URL')->get_by_gids(@urlgids);
+
     foreach my $item (@$items) {
         $item->{artist_credit} = $acs->{$item->{artist_credit_id}};
-        $item->{release_group} = $self->c->model('ReleaseGroup')->get_by_gid($item->{release_group_gid});
+        $item->{release_group} = $releasegroups->{$item->{release_group_gid}};
 
-        $item->{urlentity} = $self->c->model('URL')->get_by_gid($item->{url_gid}) if $item->{url_gid};
+        $item->{urlentity} = $urls->{$item->{url_gid}} if $item->{url_gid};
     }
 }
 
