@@ -45,7 +45,7 @@ sub options_type
 
     push @options, ( 'doc' => l('Documentation') ) if &DBDefs::GOOGLE_CUSTOM_SEARCH;
 
-    return @options;
+    return \@options;
 }
 
 sub options_method
