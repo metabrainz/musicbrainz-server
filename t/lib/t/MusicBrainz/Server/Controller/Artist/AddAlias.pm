@@ -20,7 +20,8 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/add-alias');
 my $response = $mech->submit_form(
     with_fields => {
-        'edit-alias.name' => 'An alias'
+        'edit-alias.name' => 'An alias',
+        'edit-alias.sort_name' => 'Artist, Test'
     });
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
@@ -32,7 +33,19 @@ is_deeply($edit->data, {
         name => 'Test Artist'
     },
     name => 'An alias',
-    sort_name => 'Artist, Test'
+    sort_name => 'Artist, Test',
+    primary_for_locale => 0,
+    begin_date => {
+        year => undef,
+        month => undef,
+        day => undef
+    },
+    end_date => {
+        year => undef,
+        month => undef,
+        day => undef
+    },
+    type_id => undef
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
