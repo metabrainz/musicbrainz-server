@@ -42,13 +42,10 @@ other than the blog feed.
 sub index : Path Args(0)
 {
     my ($self, $c) = @_;
-
-    my $xml = get("http://blog.musicbrainz.org/?feed=rss2");
-    my $rp = new XML::RSS::Parser::Lite;
-    $rp->parse($xml);
-
-    $c->stash->{blog} = $rp;
-    $c->stash->{template} = 'main/index.tt';
+    $c->stash(
+        blog => $c->model('Blog')->get_latest_entries,
+        template => 'main/index.tt'
+    );
 }
 
 =head2 default
