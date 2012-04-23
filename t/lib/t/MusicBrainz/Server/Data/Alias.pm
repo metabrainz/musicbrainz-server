@@ -95,7 +95,8 @@ $artist_data->alias->insert({
     artist_id => 1,
     name => 'New alias',
     sort_name => 'New sort name',
-    locale => 'en_AU'
+    locale => 'en_AU',
+    primary_for_locale => 0
 });
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
@@ -103,6 +104,7 @@ is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
 is($alias_set->[0]->locale, 'en_AU');
 is($alias_set->[0]->sort_name, 'New sort name');
+is($alias_set->[0]->primary_for_locale, 0);
 
 $test->c->sql->commit;
 

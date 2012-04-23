@@ -63,6 +63,7 @@ sub _create_edit {
         entity => $c->model('Work')->get_by_id(1),
         name => 'Another alias',
         sort_name => 'Another alias sort name',
+        primary_for_locale => 0
     );
 }
 

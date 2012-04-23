@@ -62,7 +62,8 @@ sub _create_edit {
         editor_id => 1,
         entity    => $c->model('Artist')->get_by_id(1),
         name => 'Another alias',
-        sort_name => 'Another alias sort name'
+        sort_name => 'Another alias sort name',
+        primary_for_locale => 0
     );
 }
 
