@@ -76,9 +76,12 @@ sub post_load
 {
     my ($self, $dupe_sets) = @_;
     my @artists;
+
+    my $artists = $self->c->model('Artist')->get_by_gids(map { $_->{gid} } map { @$_ } @$dupe_sets);
+
     for my $dupes (@$dupe_sets) {
         for my $dupe (@$dupes) {
-            $dupe->{artist} = $self->c->model('Artist')->get_by_gid($dupe->{gid});
+            $dupe->{artist} = $artists->{$dupe->{gid}};
             push @artists, $dupe->{artist};
         }
     }
