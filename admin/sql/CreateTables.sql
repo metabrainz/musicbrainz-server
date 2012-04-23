@@ -263,7 +263,7 @@ CREATE TABLE editor
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     birth_date          DATE,
     gender              INTEGER, -- references gender.id
-    country             INTEGER, -- references country.id
+    country             INTEGER -- references country.id
 );
 
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
