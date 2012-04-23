@@ -25,7 +25,7 @@ $mech->content_like(qr/Person/, 'has artist type');
 $mech->content_like(qr/Male/, 'has gender');
 $mech->content_like(qr/United Kingdom/, 'has country');
 $mech->content_like(qr/Test annotation 1/, 'has annotation');
-$mech->content_unlike(qr/More annotation/, 'only display summary');
+$mech->content_like(qr/More annotation/, 'displays the full annotation');
 
 $mech->content_like(qr/3\.5<\/span>/s);
 $mech->content_like(qr/see all ratings/);
