@@ -98,12 +98,12 @@ ws_test 'release lookup with artists + aliases',
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                     <alias-list count="6">
-                        <alias>m-flow</alias>
-                        <alias>mediarite-flow crew</alias>
-                        <alias>meteorite-flow crew</alias>
-                        <alias>mflo</alias>
-                        <alias>えむふろう</alias>
-                        <alias>エムフロウ</alias>
+                        <alias sort-name="m-flow">m-flow</alias>
+                        <alias sort-name="mediarite-flow crew">mediarite-flow crew</alias>
+                        <alias sort-name="meteorite-flow crew">meteorite-flow crew</alias>
+                        <alias sort-name="mflo">mflo</alias>
+                        <alias sort-name="えむふろう">えむふろう</alias>
+                        <alias sort-name="エムフロウ">エムフロウ</alias>
                     </alias-list>
                 </artist>
             </name-credit>

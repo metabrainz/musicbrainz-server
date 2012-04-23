@@ -65,12 +65,12 @@ sub _serialize_alias
         my @alias_list;
         foreach my $al (sort_by { $_->name } @$aliases)
         {
-            if ($al->locale) {
-                push @alias_list, $gen->alias({ locale => $al->locale }, $al->name);
-            }
-            else {
-                push @alias_list, $gen->alias($al->name);
-            }
+            push @alias_list, $gen->alias({
+                $al->locale ? ( locale => $al->locale ) : (),
+                'sort-name' => $al->sort_name,
+                $al->type ? ( type => $al->type_name ) : (),
+                $al->primary_for_locale ? (primary => 'primary') : ()
+            }, $al->name);
         }
         push @$data, $gen->alias_list(\%attr, @alias_list);
     }

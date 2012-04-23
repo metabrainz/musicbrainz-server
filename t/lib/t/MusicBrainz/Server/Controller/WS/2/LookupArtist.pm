@@ -43,7 +43,11 @@ ws_test 'artist lookup, inc=aliases',
             <begin>1986-11-05</begin>
         </life-span>
         <alias-list count="5">
-            <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>ボア</alias><alias>보아</alias>
+            <alias sort-name="Beat of Angel">Beat of Angel</alias>
+            <alias sort-name="BoA Kwon">BoA Kwon</alias>
+            <alias sort-name="Kwon BoA">Kwon BoA</alias>
+            <alias sort-name="ボア">ボア</alias>
+            <alias sort-name="보아">보아</alias>
         </alias-list>
     </artist>
 </metadata>';

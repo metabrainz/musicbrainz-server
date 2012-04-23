@@ -41,7 +41,7 @@ ws_test 'label lookup, inc=aliases',
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
-        <alias-list count="1"><alias>Planet µ</alias></alias-list>
+        <alias-list count="1"><alias sort-name="Planet µ">Planet µ</alias></alias-list>
     </label>
 </metadata>';
 
