@@ -252,7 +252,7 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
-                        $track->number // $track->position, # FIXME: remove // when database is updated.
+                        $track->number // $track->position,
                         $track->name,
                         format_track_length($track->length),
                         join(
