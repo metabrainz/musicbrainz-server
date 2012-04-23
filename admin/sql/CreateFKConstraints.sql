@@ -313,7 +313,7 @@ ALTER TABLE editor_watch_release_group_type
 ALTER TABLE editor_watch_release_group_type
    ADD CONSTRAINT editor_watch_release_group_type_fk_release_group_type
    FOREIGN KEY (release_group_type)
-   REFERENCES release_group_type(id);
+   REFERENCES release_group_primary_type(id);
 
 ALTER TABLE editor_watch_release_status
    ADD CONSTRAINT editor_watch_release_status_fk_editor
@@ -1062,7 +1062,7 @@ ALTER TABLE release_group
 ALTER TABLE release_group
    ADD CONSTRAINT release_group_fk_type
    FOREIGN KEY (type)
-   REFERENCES release_group_type(id);
+   REFERENCES release_group_primary_type(id);
 
 ALTER TABLE release_group_annotation
    ADD CONSTRAINT release_group_annotation_fk_release_group

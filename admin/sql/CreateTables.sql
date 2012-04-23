@@ -778,7 +778,7 @@ CREATE TABLE editor_watch_artist
 CREATE TABLE editor_watch_release_group_type
 (
     editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
-    release_group_type INTEGER NOT NULL -- PK, references release_group_type.id
+    release_group_type INTEGER NOT NULL -- PK, references release_group_primary_type.id
 );
 
 CREATE TABLE editor_watch_release_status
@@ -1002,7 +1002,7 @@ CREATE TABLE release_group (
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references release_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
-    type                INTEGER, -- references release_group_type.id
+    type                INTEGER, -- references release_group_primary_type.id
     comment             VARCHAR(255),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -1054,7 +1054,7 @@ CREATE TABLE release_group_tag
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE release_group_type (
+CREATE TABLE release_group_primary_type (
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL
 );
