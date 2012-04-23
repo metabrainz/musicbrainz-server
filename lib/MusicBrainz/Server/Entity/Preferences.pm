@@ -57,6 +57,13 @@ has 'subscriptions_email_period' => (
     lazy => 1,
 );
 
+has 'show_gravatar' => (
+    isa => 'Bool',
+    default => 1,
+    is => 'rw',
+    lazy => 1
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

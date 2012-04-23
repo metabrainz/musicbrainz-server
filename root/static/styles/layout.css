@@ -103,6 +103,21 @@ pre code {
     width: 100%;
 }
 
+#header img.gravatar { display: none; }
+
+img.gravatar {
+    display: inline;
+    max-height: 1em;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    padding: 1px;
+    background: #fff
+}
+
+h1 img.gravatar {
+    max-height: 3em;
+}
+
 #header-logo {
     background: #736DAB url('../images/layout/sprites.png') no-repeat top left;
     height: 58px;

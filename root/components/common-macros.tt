@@ -312,11 +312,20 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO gravatar(email) FILTER gravatar; email; END %]
+
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text == '' ? html_escape(editor.name) : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '">';
+    IF editor.preferences.show_gravatar;
+      '<img src="' _ gravatar(editor.email) _ '" class="gravatar">&nbsp;';
+    ELSE;
+      '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">&nbsp;';
+    END;
+    text;
+    '</a>';
 END -%]
 
 [%- MACRO link_edit(edit, action, text) BLOCK;

@@ -103,21 +103,10 @@ table.vote-tally .date {
 
 .edit-notes .edit-note h3 {
     font-weight: normal;
-    background-image: url('../images/icons/user.png');
-    background-repeat: no-repeat;
-    background-position: 5px 50%;
     background-color: #EAEAEA;
     height: 16px;
     margin: 0 0 10px;
-    padding: 5px 10px 5px 26px;
-}
-
-.edit-notes .edit-note h3.Yes {
-    background-image: url('../images/icons/user_add.png');
-}
-
-.edit-notes .edit-note h3.No {
-    background-image: url('../images/icons/user_delete.png');
+    padding: 5px 10px 5px 10px;
 }
 
 .edit-notes .edit-note h3.owner {
