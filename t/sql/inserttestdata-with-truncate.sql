@@ -75,7 +75,7 @@ TRUNCATE recording CASCADE;
 TRUNCATE track_name CASCADE;
 
 TRUNCATE release_group CASCADE;
-TRUNCATE release_group_type CASCADE;
+TRUNCATE release_group_primary_type CASCADE;
 TRUNCATE release_name CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (7, 'ABBA');
@@ -88,8 +88,8 @@ INSERT INTO track_name (id, name) VALUES (1, 'Dancing Queen');
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (1, '123c079d-374e-4436-9448-da92dedef3ce', 1, 2, 123456);
 
-INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
-INSERT INTO release_group_type (id, name) VALUES (2, 'Single');
+INSERT INTO release_group_primary_type (id, name) VALUES (1, 'Album');
+INSERT INTO release_group_primary_type (id, name) VALUES (2, 'Single');
 INSERT INTO release_name (id, name) VALUES (1, 'Arrival');
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (1, '234c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1);

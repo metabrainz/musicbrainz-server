@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
 {
-    return 'release_group_type';
+    return 'release_group_primary_type';
 }
 
 sub _columns

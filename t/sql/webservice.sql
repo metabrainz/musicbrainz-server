@@ -1,9 +1,9 @@
 SET client_min_messages TO 'warning';
 
-TRUNCATE release_group_type CASCADE;
+TRUNCATE release_group_primary_type CASCADE;
 TRUNCATE release_status CASCADE;
 
-INSERT INTO release_group_type (name, id) VALUES ('Single', 2);
+INSERT INTO release_group_primary_type (name, id) VALUES ('Single', 2);
 INSERT INTO release_name (name, id) VALUES ('サマーれげぇ!レインボー', 437020);
 INSERT INTO artist_name (name, id) VALUES ('7人祭', 108545);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 108545, 20, 1, 265420);
@@ -87,7 +87,7 @@ INSERT INTO release_label (last_updated, catalog_number, label, release, id) VAL
 UPDATE release_meta SET amazon_asin = 'B00005LA6G', info_url = 'http://www.amazon.co.jp/gp/product/B00005LA6G', date_added = '2006-03-18 07:45:41.990026+00', amazon_store = NULL WHERE id = 123054;
 UPDATE release_group_meta SET first_release_date_month = 7, rating_count = NULL, first_release_date_year = 2001, release_count = 2, rating = NULL, first_release_date_day = 4 WHERE id = 377462;
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 377462, 114);
-INSERT INTO release_group_type (name, id) VALUES ('Album', 1);
+INSERT INTO release_group_primary_type (name, id) VALUES ('Album', 1);
 INSERT INTO release_name (name, id) VALUES ('For Beginner Piano', 694423);
 INSERT INTO artist_name (name, id) VALUES ('Plone', 602704);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 602704, 91, 1, 11545);
@@ -2543,7 +2543,7 @@ INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES (
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 47743, 7);
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 47743, 88);
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 47743, 1566);
-INSERT INTO release_group_type (name, id) VALUES ('EP', 3);
+INSERT INTO release_group_primary_type (name, id) VALUES ('EP', 3);
 INSERT INTO release_name (name, id) VALUES ('The Future Sound of Budapest', 28049);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 393472, 140, 1, 100300);
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES (NULL, 100300, 393472, 0, 100300);
@@ -2597,7 +2597,7 @@ UPDATE release_meta SET amazon_asin = NULL, info_url = NULL, date_added = '2007-
 UPDATE release_group_meta SET first_release_date_month = 11, rating_count = NULL, first_release_date_year = 2005, release_count = 1, rating = NULL, first_release_date_day = 28 WHERE id = 666173;
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 666173, 11);
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 666173, 26);
-INSERT INTO release_group_type (name, id) VALUES ('Live', 9);
+INSERT INTO release_group_primary_type (name, id) VALUES ('Live', 9);
 INSERT INTO release_name (name, id) VALUES ('Live at the Regal', 515260);
 INSERT INTO artist_name (name, id) VALUES ('B.B. King', 957839);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 957839, 7222, 1, 22492);
@@ -3166,7 +3166,7 @@ INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES (
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 703316, 3878);
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 703316, 3874);
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 703316, 3875);
-INSERT INTO release_group_type (name, id) VALUES ('Spokenword', 6);
+INSERT INTO release_group_primary_type (name, id) VALUES ('Spokenword', 6);
 INSERT INTO release_name (name, id) VALUES ('An Inextricable Tale Audiobook', 509348);
 INSERT INTO artist_name (name, id) VALUES ('Paul Allgood', 630799);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 630799, 36, 1, 398598);
