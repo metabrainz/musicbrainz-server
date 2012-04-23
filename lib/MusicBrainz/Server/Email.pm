@@ -65,10 +65,14 @@ sub _create_message_to_editor_email
     my $subject = $opts{subject} or die "Missing 'subject' argument";
     my $message = $opts{message} or die "Missing 'message' argument";
 
+    my $time = time();
+
     my @headers = (
         'To'      => _user_address($to),
         'Sender'  => $NOREPLY_ADDRESS,
         'Subject' => $subject,
+        'References' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
+        'In-Reply-To' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
     );
 
     if ($opts{reveal_address}) {
