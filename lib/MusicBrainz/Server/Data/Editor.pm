@@ -301,7 +301,12 @@ sub update_profile
     );
 
     if (my $date = delete $row->{birth_date}) {
-        $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day );
+        if (%$date) { # if date is given but all NULL, it will be an empty hash.
+            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day )
+        }
+        else {
+            $row->{birth_date} = undef;
+        }
     }
 
     Sql::run_in_transaction(sub {
