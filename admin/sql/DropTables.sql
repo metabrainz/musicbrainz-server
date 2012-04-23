@@ -107,6 +107,8 @@ DROP TABLE release_group_annotation;
 DROP TABLE release_group_gid_redirect;
 DROP TABLE release_group_meta;
 DROP TABLE release_group_rating_raw;
+DROP TABLE release_group_secondary_type;
+DROP TABLE release_group_secondary_type_join;
 DROP TABLE release_group_tag;
 DROP TABLE release_group_tag_raw;
 DROP TABLE release_group_type;

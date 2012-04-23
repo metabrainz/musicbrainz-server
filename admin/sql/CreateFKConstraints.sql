@@ -1095,6 +1095,16 @@ ALTER TABLE release_group_rating_raw
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE release_group_secondary_type_join
+   ADD CONSTRAINT release_group_secondary_type_join_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_secondary_type_join
+   ADD CONSTRAINT release_group_secondary_type_join_fk_secondary_type
+   FOREIGN KEY (secondary_type)
+   REFERENCES release_group_secondary_type(id);
+
 ALTER TABLE release_group_tag
    ADD CONSTRAINT release_group_tag_fk_release_group
    FOREIGN KEY (release_group)

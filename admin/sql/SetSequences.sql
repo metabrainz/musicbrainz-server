@@ -73,6 +73,7 @@ SELECT setval('release_packaging_id_seq', (SELECT MAX(id) FROM release_packaging
 SELECT setval('release_status_id_seq', (SELECT MAX(id) FROM release_status));
 SELECT setval('release_group_id_seq', (SELECT MAX(id) FROM release_group));
 SELECT setval('release_group_type_id_seq', (SELECT MAX(id) FROM release_group_type));
+SELECT setval('release_group_secondary_type_id_seq', (SELECT MAX(id) FROM release_group_secondary_type));
 SELECT setval('release_name_id_seq', (SELECT MAX(id) FROM release_name));
 SELECT setval('script_id_seq', (SELECT MAX(id) FROM script));
 SELECT setval('script_language_id_seq', (SELECT MAX(id) FROM script_language));

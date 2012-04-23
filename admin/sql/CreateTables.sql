@@ -1059,6 +1059,16 @@ CREATE TABLE release_group_type (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE release_group_secondary_type (
+    id SERIAL NOT NULL, -- pk
+    name TEXT NOT NULL
+);
+
+CREATE TABLE release_group_secondary_type_join (
+    release_group INTEGER NOT NULL, -- PK, references release_group.id,
+    secondary_type INTEGER NOT NULL -- PK, references release_group_secondary_type.id
+);
+
 CREATE TABLE release_name (
     id                  SERIAL,
     name                VARCHAR NOT NULL

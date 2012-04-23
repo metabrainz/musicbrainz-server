@@ -107,6 +107,8 @@ ALTER TABLE release_group_annotation DROP CONSTRAINT release_group_annotation_pk
 ALTER TABLE release_group_gid_redirect DROP CONSTRAINT release_group_gid_redirect_pkey;
 ALTER TABLE release_group_meta DROP CONSTRAINT release_group_meta_pkey;
 ALTER TABLE release_group_rating_raw DROP CONSTRAINT release_group_rating_raw_pkey;
+ALTER TABLE release_group_secondary_type DROP CONSTRAINT release_group_secondary_type_pkey;
+ALTER TABLE release_group_secondary_type_join DROP CONSTRAINT release_group_secondary_type_join_pkey;
 ALTER TABLE release_group_tag DROP CONSTRAINT release_group_tag_pkey;
 ALTER TABLE release_group_tag_raw DROP CONSTRAINT release_group_tag_raw_pkey;
 ALTER TABLE release_group_type DROP CONSTRAINT release_group_type_pkey;
