@@ -10,6 +10,9 @@
     [%- USE r = FormRenderer(form) -%]
 
     <form action="[% c.req.uri %]" method="post">
+      [%- IF server_details.testing_features -%]
+        [%- warning(l('This is a development server. Your email address is not private or secure. Proceed with caution!')) -%]
+      [%- END -%]
       [% form_row_text_long(r, 'email', l('Email:')) %]
       [% form_row_text_long(r, 'website', l('Website:')) %]
       [% form_row_select(r, 'gender_id', l('Gender:')) %]

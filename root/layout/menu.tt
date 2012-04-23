@@ -74,16 +74,16 @@
 
 <ul>
     <li class="about">
-        <a href="[% doc_link('About_MusicBrainz') %]">[% l('About') %]</a>
+        <a href="[% doc_link('About') %]">[% l('About') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('MusicBrainz_Sponsors') %]">[% l('Sponsors') %]</a>
+                <a href="[% doc_link('About/Sponsors') %]">[% l('Sponsors') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('People') %]">[% l('People') %]</a>
+                <a href="[% doc_link('About/Team') %]">[% l('Team') %]</a>
             </li>
             <li class="separator">
-                <a href="[% doc_link('MusicBrainz_License') %]">[% l('Data Licenses') %]</a>
+                <a href="[% doc_link('About/Data_License') %]">[% l('Data Licenses') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Social_Contract') %]">[% l('Social Contract') %]</a>
@@ -92,7 +92,7 @@
                 <a href="[% doc_link('Code_of_Conduct') %]">[% l('Code of Conduct') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('MusicBrainz_Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
+                <a href="[% doc_link('About/Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
             </li>
             <li class="separator">
                 <a href="[% c.uri_for_action('/elections/index') %]">[% l('Auto-editor Elections') %]</a>
