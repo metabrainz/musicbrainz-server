@@ -38,8 +38,31 @@ has_field 'birth_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate'
 );
 
+has_field 'languages' => (
+    type => 'Repeatable'
+);
+
+has_field 'languages.language_id' => (
+    type => 'Select',
+    required => 1
+);
+
+has_field 'languages.fluency' => (
+    type => 'Select',
+    required => 1
+);
+
 sub options_gender_id { shift->_select_all('Gender') }
 sub options_country_id { shift->_select_all('Country') }
+sub options_languages_language_id { shift->_select_all('Language') }
+sub options_languages_fluency {
+    return [
+        'basic', l('Basic'),
+        'intermediate', l('Intermediate'),
+        'advanced', l('Advanced'),
+        'native', l('Native')
+    ]
+}
 
 sub validate_birth_date {
     my ($self, $field) = @_;

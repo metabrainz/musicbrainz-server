@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::EditorLanguage;
 
 use Moose;
 use namespace::autoclean;
+use List::UtilsBy qw( rev_nsort_by uniq_by );
 use MusicBrainz::Server::Entity::EditorLanguage;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
@@ -47,6 +48,48 @@ sub load_for_editor {
     );
 
     $editor->add_language($_) for @languages;
+}
+
+sub set_languages {
+    my ($self, $editor_id, $languages) = @_;
+
+    my %fluency_order = (
+        'basic' => 1,
+        'intermediate' => 2,
+        'advanced' => 3,
+        'native' => 4,
+    );
+
+    # The $languages map might have a language multiple times (ie, English-basic
+    # and English-advanced), which does make sense and violates the unique
+    # constraint in the database.
+    #
+    # For each language, we find all possible fluencys a user has specified, and
+    # take the highest fluency, where the ordering of fluencys is given by the
+    # %fluency_order mapping.
+
+    my %language_fluencys;
+    for my $language (@$languages) {
+        $language_fluencys{$language->{language_id}} ||= [];
+        push @{ $language_fluencys{$language->{language_id}} }, $language->{fluency}
+    }
+
+    for my $language_id (keys %language_fluencys) {
+        my @fluencys = @{ $language_fluencys{$language_id} };
+        ($language_fluencys{ $language_id }) = rev_nsort_by { $fluency_order{$_} } @fluencys;
+    }
+
+    $self->c->sql->begin;
+    $self->c->sql->do('DELETE FROM editor_language WHERE editor = ?', $editor_id);
+    $self->c->sql->do(
+        'DELETE FROM editor_language WHERE editor = ?', $editor_id
+    );
+    $self->c->sql->do(
+        'INSERT INTO editor_language (editor, language, fluency)
+         VALUES ' . join(', ', ('(?, ?, ?)') x scalar(keys %language_fluencys)),
+        map { $editor_id, $_, $language_fluencys{$_} } keys %language_fluencys
+    );
+    $self->c->sql->commit;
 }
 
 __PACKAGE__->meta->make_immutable;

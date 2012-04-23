@@ -20,6 +20,58 @@
         [% r.textarea('biography', { cols => 80, rows => 5 }) %]
         [% field_errors(form, 'biography') %]
       [% END %]
+
+      [% WRAPPER form_row %]
+        [% r.label('languages', l('Languages Known:'), fake => 1) %]
+        <div style="display: block; overflow: auto">
+          <ul>
+            [% FOR language=form.field('languages').fields %]
+            <li class="language">
+              [% r.select(language.field('language_id')) %]
+              [% r.select(language.field('fluency')) %]
+              <button class="remove">[% l('Remove') %]</button>
+            </li>
+            [% END %]
+            <li>
+              <button class="another">[% l('Add a language') %]</button>
+              [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
+              <span id="add-language-template" style="display: none">
+    [% r.select(extra_field.field('language_id'), name => '', id => '', class => 'language_id',) %]
+[% r.select(extra_field.field('fluency'), name => '', id => '', class => 'fluency') %]
+                <button class="remove">[% l('Remove') %]</button>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        [% FOR error=form.errors %]
+          [% error %]
+        [% END %]
+      [% END %]
+
+      <script>
+      $(function() {
+          var languageCount = $('li.language').size();
+          $('button.remove').live('click', function(event) {
+              event.preventDefault();
+              $(this).parent('li').remove();
+          });
+          $('button.another').click(function(event) {
+              event.preventDefault();
+
+              languageCount++;
+
+              var newLanguage = $('<li>').append($('#add-language-template').clone().contents());
+              newLanguage.find('select.language_id').attr('name',
+                                                          'profile.languages.' + languageCount + '.language_id');
+              newLanguage.find('select.fluency').attr('name',
+                                                      'profile.languages.' + languageCount + '.fluency');
+
+              $(this).parent('li').before(newLanguage);
+          });
+      });
+      </script>
+
       <div class="row no-label">
       [% form_submit(l('Save')) %]
       </div>

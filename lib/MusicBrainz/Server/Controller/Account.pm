@@ -289,8 +289,9 @@ sub edit : Local RequireAuth
     }
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
+    $c->model('EditorLanguage')->load_for_editor($editor);
 
-    my $form = $c->form( form => 'User::EditProfile', item => $editor );
+    my $form = $c->form( form => 'User::EditProfile', init_object => $editor );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
 
@@ -311,6 +312,11 @@ sub edit : Local RequireAuth
                 $c->model('Editor')->update_email($editor, undef);
             }
         }
+
+        $c->model('EditorLanguage')->set_languages(
+            $c->user->id,
+            $form->field('languages')->value
+        );
 
         $c->response->redirect($c->uri_for_action('/account/edit', \%args));
         $c->detach;
