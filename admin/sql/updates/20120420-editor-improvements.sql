@@ -18,4 +18,6 @@ CREATE TABLE editor_language (
 
 CREATE INDEX editor_language_idx_language ON editor_language (language);
 
+INSERT INTO editor_preference (editor, name, value) SELECT id, 'show_gravatar', 0 FROM editor;
+
 COMMIT;
