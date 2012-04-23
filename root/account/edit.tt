@@ -9,7 +9,7 @@
 
     [%- USE r = FormRenderer(form) -%]
 
-    <form action="[% c.req.uri %]" method="post">
+    <form action="[% c.req.uri %]" method="post" id="edit-profile-form">
       [%- IF server_details.testing_features -%]
         [%- warning(l('This is a development server. Your email address is not private or secure. Proceed with caution!')) -%]
       [%- END -%]
@@ -72,10 +72,11 @@
 
               $(this).parent('li').before(newLanguage);
           });
+          MB.utility.setDefaultAction('#edit-profile-form', '#edit-profile-submit button');
       });
       </script>
 
-      <div class="row no-label">
+      <div class="row no-label" id="edit-profile-submit">
       [% form_submit(l('Save')) %]
       </div>
       <p class="row no-label">[% l('If you would like to delete your account, you may {uri|do so here}.', { uri => c.uri_for_action("/admin/delete_user", user.name) })%]</p>
