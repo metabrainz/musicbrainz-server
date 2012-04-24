@@ -39,6 +39,9 @@ ws_test 'release group lookup with releases',
     <release-group type="Album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
         <first-release-date>2008-11-17</first-release-date>
+        <secondary-type-list>
+          <secondary-type>Remix</secondary-type>
+        </secondary-type-list>
         <release-list count="1">
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title><status>Official</status>
@@ -60,6 +63,9 @@ ws_test 'release group lookup with artists',
     <release-group type="Album" id="56683a0b-45b8-3664-a231-5b68efe2e7e2">
         <title>Repercussions</title>
         <first-release-date>2008-11-17</first-release-date>
+        <secondary-type-list>
+          <secondary-type>Remix</secondary-type>
+        </secondary-type-list>
         <artist-credit>
             <name-credit>
                 <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a">

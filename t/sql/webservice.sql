@@ -356,7 +356,9 @@ INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES (
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 1, 597897, 1522);
 INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES ('2011-01-18 15:46:28.148085+00', 2, 597897, 30);
 INSERT INTO release_name (name, id) VALUES ('Repercussions', 256671);
+INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'Remix');
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', NULL, 256671, 0, 1, 427385, 761939, '56683a0b-45b8-3664-a231-5b68efe2e7e2');
+INSERT INTO release_group_secondary_type_join (release_group, secondary_type) VALUES (761939, 1);
 INSERT INTO release (date_day, status, release_group, edits_pending, packaging, id, quality, country, last_updated, script, language, name, artist_credit, barcode, comment, date_year, date_month, gid) VALUES (17, 1, 761939, 0, NULL, 446581, -1, 221, '2010-06-02 13:25:54.789939+00', 28, 120, 256671, 427385, '600116822123', NULL, 2008, 11, '3b3d130a-87a8-4a47-b9fb-920f2530d134');
 INSERT INTO tracklist (last_updated, track_count, id) VALUES ('2011-01-18 15:21:33.71184+00', 0, 761939);
 INSERT INTO track_name (name, id) VALUES ('Magnesium', 2963260);
