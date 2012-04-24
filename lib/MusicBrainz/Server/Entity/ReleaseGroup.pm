@@ -21,10 +21,24 @@ has 'primary_type' => (
     isa => 'ReleaseGroupType'
 );
 
+has 'secondary_types' => (
+    isa => 'ArrayRef',
+    is => 'ro',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_secondary_type => 'push',
+        all_secondary_types => 'elements'
+    }
+);
+
 sub type_name
 {
     my ($self) = @_;
-    return $self->primary_type ? $self->primary_type->name : undef;
+    return join(' + ',
+                ($self->primary_type ? $self->primary_type->name : undef),
+                map { $_->name } $self->all_secondary_types
+            );
 }
 
 has 'artist_credit_id' => (

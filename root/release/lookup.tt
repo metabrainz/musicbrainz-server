@@ -22,7 +22,7 @@
                     <td>[% artist_credit(result.medium.release.artist_credit) %]</td>
                     <td>[% result.medium.release.date.format %]</td>
                     <td>[% result.medium.format_name %]</td>
-                    <td>[% result.medium.release.release_group.primary_type_name or "-" %]</td>
+                    <td>[% result.medium.release.release_group.type_name or "-" %]</td>
                     <td>[% result.medium.release.status_name or "-" %]</td>
                 </tr>
             [% END %]
