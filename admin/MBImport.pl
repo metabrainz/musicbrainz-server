@@ -358,6 +358,7 @@ sub ImportAllTables
         clientversion
         country
         editor
+        editor_language
         editor_preference
         editor_sanitised
         editor_subscribe_artist

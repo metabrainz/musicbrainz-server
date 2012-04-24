@@ -81,6 +81,7 @@ my @tables = qw(
     country
     editor
     editor_preference
+    editor_language
     editor_sanitised
     editor_subscribe_artist
     editor_subscribe_editor
@@ -302,6 +303,7 @@ my @group_stats = qw(
 
 my @group_editor = qw(
     editor_sanitised
+    editor_language
     );
 
 my @group_edit = qw(
