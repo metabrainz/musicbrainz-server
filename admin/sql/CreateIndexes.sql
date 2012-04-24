@@ -165,6 +165,7 @@ CREATE INDEX label_rating_raw_idx_editor ON label_rating_raw (editor);
 CREATE UNIQUE INDEX language_idx_iso_code_2b ON language (iso_code_2b);
 CREATE UNIQUE INDEX language_idx_iso_code_2t ON language (iso_code_2t);
 CREATE UNIQUE INDEX language_idx_iso_code_1 ON language (iso_code_1);
+CREATE UNIQUE INDEX language_idx_iso_code_3 ON language (iso_code_3);
 
 CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);

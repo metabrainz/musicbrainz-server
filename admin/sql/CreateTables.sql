@@ -688,6 +688,10 @@ CREATE TABLE language
     frequency           INTEGER NOT NULL DEFAULT 0
 );
 
+ALTER TABLE language
+      ADD CONSTRAINT iso_code_check
+      CHECK (iso_code_2t IS NOT NULL OR iso_code_3  IS NOT NULL);
+
 CREATE TABLE link
 (
     id                  SERIAL,
