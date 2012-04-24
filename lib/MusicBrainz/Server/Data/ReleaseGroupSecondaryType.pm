@@ -47,6 +47,17 @@ sub load_for_release_groups {
     }
 }
 
+sub set_types {
+    my ($self, $group_id, $types) = @_;
+
+    my @types = uniq @$types;
+    $self->sql->do('DELETE FROM release_group_secondary_type_join WHERE release_group = ?',
+                   $group_id);
+    $self->sql->do('INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
+                    VALUES ' . join(', ', ('(?, ?)') x @types),
+                   map { $group_id, $_ } @types);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

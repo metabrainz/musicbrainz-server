@@ -447,6 +447,8 @@ sub update
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('release_group', $row, { id => $group_id });
+    $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
+        if exists $update->{secondary_type_ids};
 }
 
 sub in_use
