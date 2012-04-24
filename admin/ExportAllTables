@@ -91,6 +91,7 @@ my @tables = qw(
     editor_watch_release_status
     gender
     isrc
+    iswc
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -201,6 +202,7 @@ my @group_core = qw(
     country
     gender
     isrc
+    iswc
     l_artist_artist
     l_artist_label
     l_artist_recording
