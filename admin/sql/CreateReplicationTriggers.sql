@@ -336,8 +336,12 @@ CREATE TRIGGER "reptg_release_group_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_release_group_type"
-AFTER INSERT OR DELETE OR UPDATE ON "release_group_type"
+CREATE TRIGGER "reptg_release_group_primary_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_primary_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_secondary_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_secondary_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_name"
