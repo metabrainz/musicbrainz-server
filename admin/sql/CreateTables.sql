@@ -52,7 +52,16 @@ CREATE TABLE artist_alias
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
-    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+    CONSTRAINT search_hints_are_empty
+      CHECK (
+        (type <> 3) OR (
+          type = 3 AND sort_name = name AND
+          begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+          end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+          primary_for_locale IS FALSE AND locale IS NULL
+        )
+      )
 );
 
 CREATE TABLE artist_annotation
@@ -666,7 +675,16 @@ CREATE TABLE label_alias
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
-    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+    CONSTRAINT search_hints_are_empty
+      CHECK (
+        (type <> 2) OR (
+          type = 2 AND sort_name = name AND
+          begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+          end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+          primary_for_locale IS FALSE AND locale IS NULL
+        )
+      )
 );
 
 CREATE TABLE label_annotation
@@ -1251,7 +1269,16 @@ CREATE TABLE work_alias
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
-    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+    CONSTRAINT search_hints_are_empty
+      CHECK (
+        (type <> 2) OR (
+          type = 2 AND sort_name = name AND
+          begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+          end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+          primary_for_locale IS FALSE AND locale IS NULL
+        )
+      )
 );
 
 CREATE TABLE work_annotation
