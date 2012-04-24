@@ -25,8 +25,24 @@ has_field 'artist_credit' => (
     required => 1
 );
 
+has_field 'secondary_type_ids' => (
+    type => 'Select',
+    multiple => 1
+);
+
 sub options_type_id { shift->_select_all('ReleaseGroupType') }
+sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }
 
 sub edit_field_names { qw( type_id name comment artist_credit ) }
+
+after BUILD => sub {
+    my $self = shift;
+
+    if (defined $self->init_object) {
+        $self->field('secondary_type_ids')->value(
+            [ map { $_->id } $self->init_object->all_secondary_types ]
+        );
+    }
+};
 
 1;
