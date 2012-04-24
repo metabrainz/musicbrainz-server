@@ -29,4 +29,9 @@
     <td>[% edit.display_data.type.name %]</td>
   </tr>
   [% END %]
+
+  <tr>
+    <th>[% l('Secondary Types:') %]</td>
+    <td>[% edit.display_data.secondary_types %]</td>
+  </tr>
 </table>

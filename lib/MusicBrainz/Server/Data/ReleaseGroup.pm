@@ -432,10 +432,13 @@ sub insert
     {
         my $row = $self->_hash_to_row($group, \%names);
         $row->{gid} = $group->{gid} || generate_gid();
-        push @created, $class->new(
+        my $new = $class->new(
             id => $self->sql->insert_row('release_group', $row, 'id'),
             gid => $row->{gid}
         );
+        push @created, $new;
+
+        $self->c->model('ReleaseGroupSecondaryType')->set_types($new->id, $group->{secondary_type_ids})
     }
     return @groups > 1 ? @created : $created[0];
 }
