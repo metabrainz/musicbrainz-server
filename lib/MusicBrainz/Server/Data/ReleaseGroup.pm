@@ -35,7 +35,7 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS type_id, name.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, name.name,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,
@@ -47,7 +47,7 @@ sub _column_mapping {
     return {
         id => 'id',
         gid => 'gid',
-        type_id => 'type_id',
+        primary_type_id => 'primary_type_id',
         name => 'name',
         artist_credit_id => 'artist_credit_id',
         comment => 'comment',
@@ -548,7 +548,7 @@ sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
     my $row = hash_to_row($group, {
-        type => 'type_id',
+        type => 'primary_type_id',
         map { $_ => $_ } qw( artist_credit comment edits_pending )
     });
 

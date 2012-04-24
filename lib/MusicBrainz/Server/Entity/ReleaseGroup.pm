@@ -11,12 +11,12 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 
-has 'type_id' => (
+has 'primary_type_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'type' => (
+has 'primary_type' => (
     is => 'rw',
     isa => 'ReleaseGroupType'
 );
@@ -24,7 +24,7 @@ has 'type' => (
 sub type_name
 {
     my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
+    return $self->primary_type ? $self->primary_type->name : undef;
 }
 
 has 'artist_credit_id' => (

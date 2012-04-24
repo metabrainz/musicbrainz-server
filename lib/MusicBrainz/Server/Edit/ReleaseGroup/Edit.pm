@@ -121,7 +121,8 @@ sub _mapping
     return (
         artist_credit => sub {
             return artist_credit_to_ref(shift->artist_credit, []);
-        }
+        },
+        type_id => 'primary_type_id'
     );
 }
 
@@ -141,6 +142,13 @@ around extract_property => sub {
         when ('artist_credit') {
             return merge_artist_credit($self->c, $ancestor, $current, $new);
         }
+        when ('type_id') {
+            return (
+                [ $ancestor->{type_id}, $ancestor->{type_id} ],
+                [ $current->primary_type_id, $current->primary_type_id ],
+                [ $new->{type_id}, $new->{type_id} ]
+            )
+        }
         default {
             return $self->$orig(@_);
         }
@@ -158,6 +166,7 @@ sub _edit_hash
     $data = $self->merge_changes;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
+    $data->{primary_type_id} = delete $data->{type_id};
     return $data;
 }
 

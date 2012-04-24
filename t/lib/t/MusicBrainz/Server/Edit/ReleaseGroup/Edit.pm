@@ -40,7 +40,7 @@ $rg = $c->model('ReleaseGroup')->get_by_id(1);
 $c->model('ArtistCredit')->load($rg);
 is($rg->edits_pending, 0);
 is($rg->artist_credit->name, 'Break & Silent Witness');
-is($rg->type_id, 1);
+is($rg->primary_type_id, 1);
 is($rg->comment, 'EP');
 is($rg->name, 'We Know');
 
@@ -164,7 +164,7 @@ sub create_edit {
 sub is_unchanged {
     my $rg = shift;
     is($rg->name, 'Release Name');
-    is($rg->type_id, undef);
+    is($rg->primary_type_id, undef);
     is($rg->comment, undef);
     is($rg->artist_credit_id, 1);
 }

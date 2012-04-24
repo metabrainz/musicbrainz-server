@@ -39,7 +39,7 @@ my $release_group = $data->{results}->[0]->{entity};
 ok ( defined $release_group->name );
 is ( $release_group->name, 'Love' );
 is ( $release_group->gid, '1b545f10-b62e-370b-80fc-dba87834836b' );
-is ( $release_group->type->name, 'single' );
+is ( $release_group->primary_type->name, 'single' );
 is ( $release_group->artist_credit->names->[0]->artist->name, 'Anouk' );
 is ( $release_group->artist_credit->names->[0]->artist->sort_name, 'Anouk' );
 is ( $release_group->artist_credit->names->[0]->artist->gid, '5e8da504-c75b-4bf5-9dfc-119057c1a9c0' );
@@ -81,7 +81,7 @@ is ( $recording->artist_credit->names->[0]->artist->gid, 'c2c70ed6-5f10-445c-969
 
 ok ( defined $extra );
 is ( @{$extra}, 3 );
-is ( $extra->[0]->release_group->type->name, "album" );
+is ( $extra->[0]->release_group->primary_type->name, "album" );
 is ( $extra->[0]->name, "Sixpence None the Richer" );
 is ( $extra->[0]->gid, "24efdbe1-a15d-4cc0-a6d7-59bd1ebbdcc3" );
 is ( $extra->[0]->mediums->[0]->tracklist->tracks->[0]->position, 11 );

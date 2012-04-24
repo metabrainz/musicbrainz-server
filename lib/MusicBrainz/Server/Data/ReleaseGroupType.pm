@@ -27,7 +27,7 @@ sub _entity_class
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
+    load_subobjects($self, 'primary_type', @objs);
 }
 
 sub find_by_name

@@ -1,7 +1,7 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
     [%- IF releases.size -%]
-      <h2>[% l(rg.type.name) %]</h2>
+      <h2>[% l(rg.primary_type.name) %]</h2>
       <form action="[% c.uri_for_action('/release/merge_queue') %]"
             method="post">
         [%- WRAPPER 'components/with-pager.tt' -%]
