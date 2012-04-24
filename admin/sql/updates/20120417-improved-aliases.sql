@@ -62,6 +62,16 @@ ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_fk_sort_name FOREIGN KEY (s
 ALTER TABLE artist_alias ADD CONSTRAINT primary_check
 CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL));
 
+ALTER TABLE artist_alias ADD CONSTRAINT search_hints_are_empty
+CHECK (
+    (type <> 3) OR (
+      type = 3 AND sort_name = name AND
+      begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+      end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+      primary_for_locale IS FALSE AND locale IS NULL
+    )
+);
+
 DROP INDEX artist_alias_idx_locale_artist;
 
 CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
@@ -113,6 +123,16 @@ FOR EACH ROW EXECUTE PROCEDURE unique_primary('label_alias');
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON label_alias
 FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
+ALTER TABLE label_alias ADD CONSTRAINT search_hints_are_empty
+CHECK (
+    (type <> 2) OR (
+      type = 2 AND sort_name = name AND
+      begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+      end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+      primary_for_locale IS FALSE AND locale IS NULL
+    )
+);
+
 --------------------------------------------------------------------------------
 
 CREATE TABLE work_alias_type (
@@ -153,5 +173,15 @@ FOR EACH ROW EXECUTE PROCEDURE unique_primary('work_alias');
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON work_alias
 FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
+ALTER TABLE work_alias ADD CONSTRAINT search_hints_are_empty
+CHECK (
+    (type <> 2) OR (
+      type = 2 AND sort_name = name AND
+      begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+      end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+      primary_for_locale IS FALSE AND locale IS NULL
+    )
+);
 
 COMMIT;
