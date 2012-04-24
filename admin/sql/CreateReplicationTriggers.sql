@@ -17,6 +17,10 @@ CREATE TRIGGER "reptg_artist_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_alias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_artist_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_artist_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -198,6 +202,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "label_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_label_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "label_alias_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_annotation"
@@ -394,6 +402,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "work_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "work_alias_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_annotation"

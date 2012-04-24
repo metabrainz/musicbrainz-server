@@ -66,6 +66,7 @@ my @tables = qw(
     annotation
     artist
     artist_alias
+    artist_alias_type
     artist_annotation
     artist_credit
     artist_credit_name
@@ -121,6 +122,7 @@ my @tables = qw(
     l_work_work
     label
     label_alias
+    label_alias_type
     label_annotation
     label_gid_redirect
     label_meta
@@ -174,6 +176,7 @@ my @tables = qw(
     url_gid_redirect
     work
     work_alias
+    work_alias_type
     work_annotation
     work_gid_redirect
     work_meta
@@ -191,6 +194,7 @@ my @replication_tables = qw(
 my @group_core = qw(
     artist
     artist_alias
+    artist_alias_type
     artist_credit
     artist_credit_name
     artist_gid_redirect
@@ -231,6 +235,7 @@ my @group_core = qw(
     l_work_work
     label
     label_alias
+    label_alias_type
     label_gid_redirect
     label_name
     label_type
@@ -266,6 +271,7 @@ my @group_core = qw(
     url_gid_redirect
     work
     work_alias
+    work_alias_type
     work_gid_redirect
     work_name
     work_type
