@@ -34,8 +34,25 @@
         }
     }
 
+    function denyDataForSearchHints() {
+        var conditionalFields = $('#id-edit-alias\\\.sort_name')
+            .add('#id-edit-alias\\\.locale')
+            .add('#id-edit-alias\\\.primary_for_locale')
+            .add('.partial-date input');
+
+        if ($('#id-edit-alias\\\.type_id').val() == [% search_hint_type_id %]) {
+            conditionalFields.attr('disabled', true);
+        }
+        else {
+            conditionalFields.removeAttr('disabled');
+        }
+    }
+
     $(function() {
         $('#id-edit-alias\\\.locale').keyup(togglePrimaryForLocale).change(togglePrimaryForLocale);
         togglePrimaryForLocale();
+
+        $('#id-edit-alias\\\.type_id').keyup(denyDataForSearchHints).change(denyDataForSearchHints);
+        denyDataForSearchHints();
     });
 </script>

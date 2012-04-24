@@ -17,8 +17,7 @@ has_field 'name' => (
 );
 
 has_field 'sort_name' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1
+    type => '+MusicBrainz::Server::Form::Field::Text'
 );
 
 has_field 'locale' => (
@@ -52,6 +51,12 @@ has 'alias_model' => (
     required => 1
 );
 
+has search_hint_type_id => (
+    isa => 'Int',
+    is => 'ro',
+    required => 1
+);
+
 sub edit_field_names { qw( name locale sort_name begin_date end_date type_id primary_for_locale ) }
 
 sub options_locale {
@@ -77,5 +82,16 @@ sub validate_primary_for_locale {
             l('This alias can only be a primary alias if a locale is selected'));
     }
 }
+
+after validate => sub {
+    my $self = shift;
+    my $type_id = $self->field('type_id')->value;
+
+    if (!$type_id || $type_id != $self->search_hint_type_id) {
+        my $sort_name_field = $self->field('sort_name');
+        $sort_name_field->required(1);
+        $sort_name_field->validate_field;
+    }
+};
 
 1;
