@@ -1,5 +1,25 @@
 BEGIN;
 
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION simplify_search_hints()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.type::int = TG_ARGV[0]::int THEN
+        NEW.sort_name := NEW.name;
+        NEW.begin_date_year := NULL;
+        NEW.begin_date_month := NULL;
+        NEW.begin_date_day := NULL;
+        NEW.end_date_year := NULL;
+        NEW.end_date_month := NULL;
+        NEW.end_date_day := NULL;
+        NEW.end_date_day := NULL;
+        NEW.locale := NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION unique_primary()
 RETURNS trigger AS $$
 BEGIN
@@ -11,10 +31,17 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+--------------------------------------------------------------------------------
+
 CREATE TABLE artist_alias_type (
     id SERIAL NOT NULL PRIMARY KEY,
     name TEXT NOT NULL
 );
+
+INSERT INTO artist_alias_type (id, name)
+VALUES (1, 'Artist name'), (2, 'Legal name'), (3, 'Search hint');
+
+SELECT setval('artist_alias_type_id_seq', (SELECT MAX(id) FROM artist_alias_type));
 
 ALTER TABLE artist_alias ADD COLUMN type INTEGER;
 ALTER TABLE artist_alias ADD COLUMN sort_name INTEGER;
@@ -42,10 +69,20 @@ CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WH
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON artist_alias
 FOR EACH ROW EXECUTE PROCEDURE unique_primary('artist_alias');
 
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON artist_alias
+FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
+
+--------------------------------------------------------------------------------
+
 CREATE TABLE label_alias_type (
     id SERIAL NOT NULL PRIMARY KEY,
     name TEXT NOT NULL
 );
+
+INSERT INTO label_alias_type (id, name)
+VALUES (1, 'Label name'), (2, 'Search hint');
+
+SELECT setval('label_alias_type_id_seq', (SELECT MAX(id) FROM label_alias_type));
 
 ALTER TABLE label_alias ADD COLUMN type INTEGER;
 ALTER TABLE label_alias ADD COLUMN sort_name INTEGER;
@@ -73,10 +110,20 @@ CREATE UNIQUE INDEX label_alias_idx_primary ON label_alias (label, locale) WHERE
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON label_alias
 FOR EACH ROW EXECUTE PROCEDURE unique_primary('label_alias');
 
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON label_alias
+FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
+--------------------------------------------------------------------------------
+
 CREATE TABLE work_alias_type (
     id SERIAL NOT NULL PRIMARY KEY,
     name TEXT NOT NULL
 );
+
+INSERT INTO work_alias_type (id, name)
+VALUES (1, 'Work name'), (2, 'Search hint');
+
+SELECT setval('work_alias_type_id_seq', (SELECT MAX(id) FROM work_alias_type));
 
 ALTER TABLE work_alias ADD COLUMN type INTEGER;
 ALTER TABLE work_alias ADD COLUMN sort_name INTEGER;
@@ -103,5 +150,8 @@ CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE pr
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON work_alias
 FOR EACH ROW EXECUTE PROCEDURE unique_primary('work_alias');
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON work_alias
+FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
 COMMIT;

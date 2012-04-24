@@ -717,6 +717,23 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION simplify_search_hints()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.type::int = TG_ARGV[0]::int THEN
+        NEW.sort_name := NEW.name;
+        NEW.begin_date_year := NULL;
+        NEW.begin_date_month := NULL;
+        NEW.begin_date_day := NULL;
+        NEW.end_date_year := NULL;
+        NEW.end_date_month := NULL;
+        NEW.end_date_day := NULL;
+        NEW.end_date_day := NULL;
+        NEW.locale := NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
 
 COMMIT;
 -- vi: set ts=4 sw=4 et :
