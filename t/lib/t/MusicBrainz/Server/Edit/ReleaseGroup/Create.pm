@@ -58,7 +58,7 @@ sub create_edit
             ],
         },
         comment => 'An empty release group!',
-        type_id => 1
+        primary_type_id => 1
     );
 }
 

@@ -157,7 +157,7 @@ sub create_edit {
             ] },
         name => 'We Know',
         comment => 'EP',
-        type_id => 1,
+        primary_type_id => 1,
     );
 }
 

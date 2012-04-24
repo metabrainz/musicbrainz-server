@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Entity::ReleaseGroup;
 
 use Moose;
+
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -35,6 +37,7 @@ has 'secondary_types' => (
 sub type_name
 {
     my ($self) = @_;
+    return undef unless any { defined } ($self->primary_type, $self->all_secondary_types);
     return join(' + ',
                 ($self->primary_type ? $self->primary_type->name : undef),
                 map { $_->name } $self->all_secondary_types
