@@ -10,7 +10,10 @@ sub sidebar_name {
     my $self = shift;
 
     my $name = $self->url->path;
+    # e.g. "/someartist/somesong" -> "someartist/somesong"
     $name =~ s{^/}{};
+    # only show "SoundCloud" for URI parts containing slashes (e.g. songs),
+    # since they are too long for the sidebar
     return "SoundCloud" if $name =~ /\//;
 
     return MusicBrainz::Server::Filters::uri_decode($name);
