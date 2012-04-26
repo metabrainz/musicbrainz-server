@@ -60,17 +60,6 @@ has 'country' => (
     isa => 'Country'
 );
 
-has 'ipi_codes' => (
-    isa     => 'ArrayRef',
-    is      => 'ro',
-    traits  => [ 'Array' ],
-    default => sub { [] },
-    handles => {
-        add_ipi => 'push',
-        all_ipis => 'elements'
-    }
-);
-
 has 'comment' => (
     is => 'rw',
     isa => 'Maybe[Str]'

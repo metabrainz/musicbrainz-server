@@ -54,7 +54,7 @@ sub _table_join_name {
 sub _columns
 {
     return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
-           'label.type, label.country, label.edits_pending, label.label_code, label.ipi_code, ' .
+           'label.type, label.country, label.edits_pending, label.label_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, comment, label.last_updated';
 }
@@ -83,7 +83,6 @@ sub _column_mapping
         end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
         edits_pending => 'edits_pending',
         comment => 'comment',
-        ipi_code => 'ipi_code',
         last_updated => 'last_updated',
     };
 }
@@ -230,7 +229,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'label',
-            columns => [ qw( type country label_code ipi_code ) ],
+            columns => [ qw( type country label_code ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -255,7 +254,7 @@ sub _hash_to_row
     my $row = hash_to_row($label, {
         country => 'country_id',
         type => 'type_id',
-        map { $_ => $_ } qw( ipi_code label_code comment )
+        map { $_ => $_ } qw( label_code comment )
     });
 
     add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');

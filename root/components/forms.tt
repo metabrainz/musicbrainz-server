@@ -102,7 +102,6 @@
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              [%# name="edit-artist.ipi_codes.0.code" id="id-edit-artist.ipi_codes.0.code" %]
               <input type="text" value="" name="" id="" class="value">
               <input type="hidden" value="" name="" id="" class="deleted">
               <button class="nobutton icon remove" href="#remove_row">
@@ -112,7 +111,7 @@
               </button>
           </div>
           <div style="text-align: right; width: 100%; ">
-            <button class="nobutton add" style="margin-right: 14px;">
+            <button class="nobutton add" style="margin-right: 8px;">
               <span class="add-row" style="padding: 0 1em;">[% l('Add {item}', item => item_name) %]</span>
               <img src="[% c.uri_for('/static/images/icons/add_row.png') %]" />
             </button>

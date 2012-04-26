@@ -67,11 +67,20 @@ after 'BUILD' => sub {
 
     if (defined $self->init_object)
     {
-        my $max = @{ $self->init_object->ipi_codes } - 1;
+        my $ipi_codes = $self->ctx->model ('Artist')->ipi->find_by_entity_id ($self->init_object->id);
+
+        my $max = @$ipi_codes - 1;
         for (0..$max)
         {
-            $self->field ('ipi_codes')->fields->[$_]->field ('code')->value (
-                $self->init_object->ipi_codes->[$_]->ipi);
+            my $ipi_field = $self->field ('ipi_codes')->fields->[$_];
+
+            unless (defined $ipi_field)
+            {
+                $self->field ('ipi_codes')->add_extra (1);
+                $ipi_field = $self->field ('ipi_codes')->fields->[$_];
+            }
+
+            $ipi_field->field ('code')->value ($ipi_codes->[$_]->ipi);
         }
 
     }
