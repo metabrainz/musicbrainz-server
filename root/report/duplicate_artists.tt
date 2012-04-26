@@ -32,7 +32,7 @@
                  value="[% dupe.artist.id %]" />
         </td>
         <td>
-          [% link_entity(dupe.artist) %]
+          [% link_entity(dupe.artist) %][% IF dupe.alias %] (alias: [% dupe.alias %])[% END %]
         </td>
         <td>[% dupe.artist.sort_name | html %]</td>
         <td>[% dupe.artist.type_name %]</td>

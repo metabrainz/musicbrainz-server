@@ -17,7 +17,7 @@ BEGIN { use MusicBrainz::Server::Data::Edit };
 use Sql;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES );
+use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $VOTE_APPROVE );
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("t::Edit::MockEdit");
@@ -179,7 +179,7 @@ $edit = $edit_data->get_by_id(5);
 is($edit->status, $STATUS_APPLIED);
 
 $test->c->model('Vote')->load_for_edits($edit);
-is($edit->votes->[0]->vote, $VOTE_YES);
+is($edit->votes->[0]->vote, $VOTE_APPROVE);
 is($edit->votes->[0]->editor_id, 1);
 
 # Test canceling

@@ -12,7 +12,7 @@ sub sidebar_name {
         return $1;
     }
     else {
-        return "MySpace";
+        return "Myspace";
     }
 }
 

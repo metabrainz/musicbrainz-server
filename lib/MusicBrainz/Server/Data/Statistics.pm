@@ -560,6 +560,7 @@ my %stats = (
                 "count.vote.yes"        => $dist{$VOTE_YES} || 0,
                 "count.vote.no"         => $dist{$VOTE_NO}  || 0,
                 "count.vote.abstain"    => $dist{$VOTE_ABSTAIN} || 0,
+                "count.vote.approve"    => $dist{$VOTE_APPROVE} || 0,
             };
         },
     },
@@ -570,6 +571,11 @@ my %stats = (
     },
     "count.vote.abstain" => {
         DESC => "Count of 'abstain' votes",
+        PREREQ => [qw[ count.vote.yes ]],
+        PREREQ_ONLY => 1,
+    },
+    "count.vote.approve" => {
+        DESC => "Count of auto-editor approvals",
         PREREQ => [qw[ count.vote.yes ]],
         PREREQ_ONLY => 1,
     },

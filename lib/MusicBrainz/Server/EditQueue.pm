@@ -3,7 +3,7 @@ package MusicBrainz::Server::EditQueue;
 use Moose;
 use Try::Tiny;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( :expire_action );
+use MusicBrainz::Server::Constants qw( :expire_action :editor );
 use MusicBrainz::Server::Types qw( :edit_status );
 
 has 'c' => (
@@ -63,11 +63,12 @@ sub process_edits
     my %stats;
     my $errors = 0;
     foreach my $edit_id (@$edit_ids) {
-        my $action;
         try {
+            my $action;
             Sql::run_in_transaction(sub {
                 $action = $self->_process_edit($edit_id) || "no change"
             }, $sql);
+            $stats{$action} += 1;
         }
         catch {
             my $err = $_;
@@ -75,7 +76,6 @@ sub process_edits
             $self->log->error("Error while processing edit #$edit_id: $err\n");
             next;
         };
-        $stats{$action} += 1;
     }
 
     if ($self->summary) {
@@ -157,6 +157,19 @@ sub _process_open_edit
             $self->c->model('Edit')->reject($edit, $status);
         }
     }
+    elsif ($status == $STATUS_NOVOTES) {
+        $self->log->debug("Denying edit #$edit_id for no votes\n");
+        unless ($self->dry_run) {
+            $self->c->model('EditNote')->add_note(
+                $edit->id,
+                {
+                    editor_id => $EDITOR_MODBOT,
+                    text => "This edit failed because it affected high quality data and did not receive any votes."
+                }
+            );
+            $self->c->model('Edit')->reject($edit, $status);
+        }
+    }
     else {
         die "Unknown status returned ($status), don't know what to do.";
     }
@@ -197,6 +210,7 @@ sub _determine_new_status
         }
         if ($conditions->{expire_action} == $EXPIRE_REJECT &&
                 $yes_votes + $no_votes == 0) {
+            $self->log->debug("Expired and rejected because of no votes\n");
             return $STATUS_NOVOTES;
         }
         if ($conditions->{expire_action} == $EXPIRE_REJECT) {
