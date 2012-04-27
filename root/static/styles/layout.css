@@ -850,3 +850,10 @@ p.cleanup {
 .annotation-collapse {
     max-height: none;
 }
+
+span.release-group-type {
+    background: #589DFF;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0 3px;
+}
