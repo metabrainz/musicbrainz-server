@@ -69,7 +69,9 @@ sub _serialize_alias
                 $al->locale ? ( locale => $al->locale ) : (),
                 'sort-name' => $al->sort_name,
                 $al->type ? ( type => $al->type_name ) : (),
-                $al->primary_for_locale ? (primary => 'primary') : ()
+                $al->primary_for_locale ? (primary => 'primary') : (),
+                !$al->begin_date->is_empty ? ( 'begin-date' => $rel->link->begin_date->format ) : (),
+                !$al->end_date->is_empty ? ( 'end-date' => $rel->link->end_date->format ) : ()
             }, $al->name);
         }
         push @$data, $gen->alias_list(\%attr, @alias_list);
