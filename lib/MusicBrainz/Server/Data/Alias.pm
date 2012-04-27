@@ -137,6 +137,16 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
     my $table = $self->table;
     my $type = $self->type;
+
+    # Keep locales in the target merge, as there can only be one alias per locale
+    $self->sql->do(
+        "DELETE FROM $table WHERE $type = any(?) AND locale IS NOT NULL
+         AND (locale) IN (
+             SELECT locale FROM $table WHERE $type = ? AND locale IS NOT NULL
+         )",
+        \@old_ids, $new_id
+    );
+
     $self->sql->do(
         "DELETE FROM $table
          WHERE $type = any(?) AND
