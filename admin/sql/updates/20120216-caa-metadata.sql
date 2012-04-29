@@ -81,21 +81,21 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION resequence_cover_art_trigger() RETURNS trigger AS $$
     BEGIN
         IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
-            PERFORM resequence_positions(NEW.release);
+            PERFORM cover_art_archive.resequence_positions(NEW.release);
         END IF;
 
         IF (TG_OP = 'DELETE') OR
            (TG_OP = 'UPDATE' AND NEW.release != OLD.release)
         THEN
-            PERFORM resequence_positions(OLD.release);
+            PERFORM cover_art_archive.resequence_positions(OLD.release);
         END IF;
 
         RETURN NULL;
     END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER resquence_cover_art AFTER INSERT OR UPDATE OR DELETE
-ON cover_art_archive.cover_art
+CREATE CONSTRAINT TRIGGER resquence_cover_art AFTER INSERT OR UPDATE OR DELETE
+ON cover_art_archive.cover_art DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE resequence_cover_art_trigger();
 
 COMMIT;
