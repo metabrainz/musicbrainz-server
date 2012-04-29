@@ -63,4 +63,39 @@ CREATE TRIGGER update_release_coverart AFTER INSERT OR DELETE
 ON cover_art_archive.cover_art
 FOR EACH ROW EXECUTE PROCEDURE materialize_caa_presence();
 
+CREATE OR REPLACE FUNCTION resequence_positions(release_id INT) RETURNS void AS $$
+    BEGIN
+        UPDATE cover_art_archive.cover_art
+        SET ordering = recalculated.row_number
+        FROM (
+            SELECT *,
+              row_number() OVER (PARTITION BY release ORDER BY ordering ASC)
+            FROM cover_art_archive.cover_art
+            WHERE cover_art.release = release_id
+        ) recalculated
+        WHERE recalculated.id = cover_art.id AND
+          recalculated.row_number != cover_art.ordering;
+   END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION resequence_cover_art_trigger() RETURNS trigger AS $$
+    BEGIN
+        IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+            PERFORM resequence_positions(NEW.release);
+        END IF;
+
+        IF (TG_OP = 'DELETE') OR
+           (TG_OP = 'UPDATE' AND NEW.release != OLD.release)
+        THEN
+            PERFORM resequence_positions(OLD.release);
+        END IF;
+
+        RETURN NULL;
+    END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER resquence_cover_art AFTER INSERT OR UPDATE OR DELETE
+ON cover_art_archive.cover_art
+FOR EACH ROW EXECUTE PROCEDURE resequence_cover_art_trigger();
+
 COMMIT;

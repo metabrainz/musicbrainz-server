@@ -417,17 +417,25 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         $c->detach;
     }
 
+    my @artwork = @{ $c->model ('CoverArtArchive')->find_available_artwork($entity->gid) };
+
+    my $count = 1;
+    my @positions = map {
+        { id => $_->id, position => $count++ }
+    } @artwork;
+
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash({
         id => $id,
         index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
-        images => $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
+        images => \@artwork
     });
 
     my $form = $c->form(
         form => 'Release::AddCoverArt',
         item => {
-            id => $id
+            id => $id,
+            position => $count
         }
     );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
