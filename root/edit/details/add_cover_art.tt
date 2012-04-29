@@ -13,7 +13,7 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.types %]
+  [% IF edit.display_data.types.size %]
   <tr>
     <th>[% l('Types:') %]</th>
     <td>
