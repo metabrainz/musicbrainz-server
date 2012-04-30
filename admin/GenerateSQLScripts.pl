@@ -7,11 +7,13 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+my $dir = shift() || "$FindBin::Bin/../admin/sql";
+
+print "Regenerating SQL scripts in $dir...\n";
+
 sub process_tables
 {
-    my ($dir) = @_;
-
-    open FILE, "<$FindBin::Bin/../admin/sql$dir/CreateTables.sql";
+    open FILE, "<$dir/CreateTables.sql";
     my $create_tables_sql = do { local $/; <FILE> };
     close FILE;
 
@@ -49,7 +51,7 @@ sub process_tables
     }
     @tables = sort(@tables);
 
-    open OUT, ">$FindBin::Bin/../admin/sql$dir/DropTables.sql";
+    open OUT, ">$dir/DropTables.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $table (@tables) {
@@ -57,7 +59,7 @@ sub process_tables
     }
     close OUT;
 
-    open OUT, ">$FindBin::Bin/../admin/sql$dir/SetSequences.sql";
+    open OUT, ">$dir/SetSequences.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $row (@sequences) {
@@ -66,7 +68,7 @@ sub process_tables
     }
     close OUT;
 
-    open OUT, ">$FindBin::Bin/../admin/sql$dir/CreateFKConstraints.sql";
+    open OUT, ">$dir/CreateFKConstraints.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\set ON_ERROR_STOP 1\n\n";
     foreach my $table (@tables) {
@@ -90,7 +92,7 @@ sub process_tables
     }
     close OUT;
 
-    open OUT, ">$FindBin::Bin/../admin/sql$dir/DropFKConstraints.sql";
+    open OUT, ">$dir/DropFKConstraints.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $table (@tables) {
@@ -103,7 +105,7 @@ sub process_tables
     }
     close OUT;
 
-    open OUT, ">$FindBin::Bin/../admin/sql$dir/CreatePrimaryKeys.sql";
+    open OUT, ">$dir/CreatePrimaryKeys.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\set ON_ERROR_STOP 1\n\n";
     foreach my $table (@tables) {
@@ -115,7 +117,7 @@ sub process_tables
     }
     close OUT;
 
-    open OUT, ">$FindBin::Bin/../admin/sql$dir/DropPrimaryKeys.sql";
+    open OUT, ">$dir/DropPrimaryKeys.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $table (@tables) {
@@ -158,7 +160,7 @@ sub process_functions
 {
     my ($infile, $outfile) = @_;
 
-    open FILE, "<$FindBin::Bin/../admin/sql/$infile";
+    open FILE, "<$dir/$infile";
     my $create_functions_sql = do { local $/; <FILE> };
     close FILE;
 
@@ -176,7 +178,7 @@ sub process_functions
     }
     @aggregates = sort(@aggregates);
 
-    open OUT, ">$FindBin::Bin/../admin/sql/$outfile";
+    open OUT, ">$dir/$outfile";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $func (@functions) {
@@ -190,7 +192,7 @@ sub process_functions
 
 process_functions("CreateFunctions.sql", "DropFunctions.sql");
 
-open FILE, "<$FindBin::Bin/../admin/sql/CreateTriggers.sql";
+open FILE, "<$dir/CreateTriggers.sql";
 my $create_triggers_sql = do { local $/; <FILE> };
 close FILE;
 
@@ -199,7 +201,7 @@ while ($create_triggers_sql =~ m/CREATE TRIGGER\s+([a-z0-9_]+)\s+.*?\s+ON\s+([a-
     push @triggers, [$1, $2];
 }
 
-open OUT, ">$FindBin::Bin/../admin/sql/DropTriggers.sql";
+open OUT, ">$dir/DropTriggers.sql";
 print OUT "-- Automatically generated, do not edit.\n";
 print OUT "\\unset ON_ERROR_STOP\n\n";
 foreach my $trigger (@triggers) {
