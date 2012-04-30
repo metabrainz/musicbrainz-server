@@ -14,8 +14,7 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Test::Connector;
 use MusicBrainz::Server::Edit;
-use MusicBrainz::Server::Constants qw( :edit_type :quality );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_type :quality :edit_status );
 
 {
     package MockEdit;
