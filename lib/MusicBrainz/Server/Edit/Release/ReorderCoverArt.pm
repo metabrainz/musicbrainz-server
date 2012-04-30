@@ -22,6 +22,12 @@ sub edit_name { 'Reorder cover art' }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 
+sub alter_edit_pending {
+    return {
+        Release => [ $self->release_ids ],
+    }
+}
+
 has '+data' => (
     isa => Dict[
         entity => Dict[
