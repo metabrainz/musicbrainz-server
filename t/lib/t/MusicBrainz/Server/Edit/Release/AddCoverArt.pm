@@ -17,18 +17,7 @@ test 'Accepting replaces current art' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
 
-    LWP::UserAgent::Mockable->reset('playback', $Bin.'/lwp-sessions/cover-art-archive-accept.lwp');
-    LWP::UserAgent::Mockable->set_playback_validation_callback(\&basic_validation);
-
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_RELEASE_ADD_COVER_ART,
-        editor_id => 1,
-
-        release => $c->model('Release')->get_by_id(1),
-        cover_art_url => 'pending-1234.jpg',
-        cover_art_type => 'cover',
-        cover_art_page => 2
-    );
+    my $edit = create_edit($c);
 
     accept_edit($c, $edit);
 
@@ -43,18 +32,7 @@ test 'Rejecting cleans up pending artwork' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
 
-    LWP::UserAgent::Mockable->reset('playback', $Bin.'/lwp-sessions/cover-art-archive-reject.lwp');
-    LWP::UserAgent::Mockable->set_playback_validation_callback(\&basic_validation);
-
-    my $edit = $c->model('Edit')->create(
-        edit_type => $EDIT_RELEASE_ADD_COVER_ART,
-        editor_id => 1,
-
-        release => $c->model('Release')->get_by_id(1),
-        cover_art_url => 'pending-1234.jpg',
-        cover_art_type => 'cover',
-        cover_art_page => 2
-    );
+    my $edit = _create_edit($c);
 
     reject_edit($c, $edit);
 
@@ -63,10 +41,18 @@ test 'Rejecting cleans up pending artwork' => sub {
     };
 };
 
-sub basic_validation {
-    my ($actual, $expected) = @_;
-    is($actual->uri, $expected->uri, 'called ' . $expected->uri);
-    is($actual->method, $expected->method, 'method is ' . $expected->method);
+sub create_edit {
+    my $c = shift;
+    $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_ADD_COVER_ART,
+        editor_id => 1,
+
+        release => $c->model('Release')->get_by_id(1),
+        cover_art_id => '1234',
+        cover_art_types => [ 1 ],
+        cover_art_position => 1,
+        cover_art_comment => ''
+    );
 }
 
 1;
