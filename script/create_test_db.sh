@@ -29,6 +29,7 @@ fi
 ./admin/psql TEST <./admin/sql/CreateSearchIndexes.sql
 
 ./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateTables.sql
+./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateViews.sql
 ./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateFunctions.sql
 ./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreatePrimaryKeys.sql
 ./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateFKConstraints.sql

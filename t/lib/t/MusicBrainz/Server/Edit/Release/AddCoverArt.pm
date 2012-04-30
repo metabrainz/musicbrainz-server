@@ -16,6 +16,9 @@ test 'Accepting replaces current art' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
+EOSQL
 
     my $edit = create_edit($c);
 
@@ -31,8 +34,11 @@ test 'Rejecting cleans up pending artwork' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
+EOSQL
 
-    my $edit = _create_edit($c);
+    my $edit = create_edit($c);
 
     reject_edit($c, $edit);
 

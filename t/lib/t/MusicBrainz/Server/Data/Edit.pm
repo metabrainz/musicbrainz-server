@@ -56,7 +56,7 @@ test 'Test locks on edits' => sub {
 
     # We have to have some data present outside transactions.
     my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection(
-        'READWRITE',
+        'TEST',
         fresh => 1
     );
 

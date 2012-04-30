@@ -80,7 +80,7 @@ $sql->auto_commit(1);
 $sql->do("UPDATE edit SET yes_votes=100 WHERE id=101");
 
 # Acquire an exclusive lock on the edit
-my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('READWRITE');
+my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('TEST');
 my $raw2   = MusicBrainz::Server::Test::Connector->new(database => $raw_db);
 
 my $sql2 = Sql->new($raw2->conn);
