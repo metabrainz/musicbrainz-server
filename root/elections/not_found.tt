@@ -1,0 +1,6 @@
+[% WRAPPER 'layout.tt' title=l('Election Not Found') full_width=1 %]
+<h1>[% l('Election Not Found') %]</h1>
+
+<p>[% l('Sorry, we could not find this election.') %]</p>
+<p><a href="[% c.uri_for_action('elections/index') %]">[% l('Back to all elections.') %]</a></p>
+[% END %]

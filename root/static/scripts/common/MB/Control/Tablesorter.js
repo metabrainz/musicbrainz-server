@@ -3,7 +3,7 @@ $(document).ready(function() {
         id: "indexFirstColumn",
         format: function(table) {                               
             $('tbody tr', table).each(function (index) {
-                $(this).find('td:first').html((index + 1) + '.');
+                $(this).find('td:first').html((index + 1));
             });
         }
     });

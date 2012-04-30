@@ -41,11 +41,11 @@ sub lookup : Chained('load') PathPart('')
     if ($c->stash->{inc}->rg_type || $c->stash->{inc}->rel_status) {
         if ($c->stash->{inc}->various_artists)
         {
-            @rg = $c->model('ReleaseGroup')->filter_by_track_artist($artist->id, $c->stash->{inc}->rg_type);
+            @rg = $c->model('ReleaseGroup')->filter_by_track_artist($artist->id, filter => { type => $c->stash->{inc}->rg_type });
         }
         else
         {
-            @rg = $c->model('ReleaseGroup')->filter_by_artist($artist->id, $c->stash->{inc}->rg_type);
+            @rg = $c->model('ReleaseGroup')->filter_by_artist($artist->id, filtr => { type => $c->stash->{inc}->rg_type });
         }
     }
 

@@ -30,3 +30,37 @@
     [% preview = PROCESS preview_button;
        enter_edit(preview) %]
 </form>
+
+<h3>[% l('Annotation Formatting') %]</h3>
+<p>[% l('Annotations support a limited set of wiki formatting options:') %]</p>
+<table class="details">
+  <tbody>
+    <tr>
+	  <th>Emphasis:</th>
+	  <td>''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule</td>
+	</tr>
+	<tr>
+	  <th>Headings:</th>
+	  <td>
+		=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; ===&nbsp;Title&nbsp;3&nbsp;===</td>
+	</tr>
+	<tr>
+	  <th>Lists:</th>
+	  <td>
+		tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces alone indent</td>
+	</tr>
+	<tr>
+	  <th>Links:</th>
+	  <td>
+		url; [url]; [url|label]</td>
+	</tr>
+  </tbody>
+</table>
+
+<p>Because square brackets [] are used to create hyperlinks, you have to use the
+  encoded html equivalents (<code>&amp;#91;</code> for [&quot;) and
+  (<code>&amp;#93;</code> for ]) if you want them not be converted into
+  hyperlinks. Example: If you want to use [unknown] in the annotation,
+  you'll have to write
+  <code>&amp;#91;unknown&amp;#93;</code> then it will appear the way you
+  intended it to show.</p>

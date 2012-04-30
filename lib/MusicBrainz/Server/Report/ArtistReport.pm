@@ -9,11 +9,16 @@ sub post_load
 
     my @ids = grep { $_ } map { $_->{type} } @$items;
     my $types = $self->c->model('ArtistType')->get_by_ids(@ids);
+
+    my @artistids = map { $_->{artist_gid} } @$items;
+    my $artists = $self->c->model('Artist')->get_by_gids(@artistids);
+
     foreach my $item (@$items) {
         if (defined $item->{type}) {
             $item->{type_id} = $item->{type};
             $item->{type} = $types->{$item->{type_id}};
         }
+        $item->{artist} = $artists->{$item->{artist_gid}};
     }
 }
 

@@ -125,7 +125,7 @@ $edit->yes_votes(0);
 $edit->no_votes(0);
 $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
 $status = $queue->_determine_new_status($edit);
-is($status, $STATUS_FAILEDVOTE);
+is($status, $STATUS_NOVOTES);
 
 # Expired one day ago, 1 no vote, 0 yes votes
 $edit = MockEdit->new();

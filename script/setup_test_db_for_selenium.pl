@@ -13,7 +13,7 @@ echo "===================================================================="
 echo " "
 echo "  To develop and debug selenium tests using Selenium IDE, run:      "
 echo " "
-echo "  MUSICBRAINZ_USE_TEST_DATABASE=1 script/musicbrainz_server.pl -r   "
+echo "  MUSICBRAINZ_USE_TEST_DATABASE=1 carton exec -Ilib -- plackup -r   "
 echo " "
 echo "===================================================================="
 

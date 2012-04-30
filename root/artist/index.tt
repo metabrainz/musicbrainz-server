@@ -42,6 +42,12 @@
       </p>
     [% END %]
 
+    [%- filter_button() -%]
+    <h2>[% l('Discography') %]</h2>
+
+    [%- INCLUDE 'components/filter.tt'
+        ajax_form_url=c.uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => artist.id }) -%]
+
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
             <form action="[% c.uri_for_action('/release_group/merge_queue') %]"
@@ -53,7 +59,7 @@
                         </tbody>
                     </table>
                     [% END %]
-                    <h2>[% l(rg.type.name) || l('Other release groups') %]</h2>
+                    <h3>[% l(rg.type.name) || l('Other release groups') %]</h3>
                     <table class="tbl">
                         <thead>
                             <tr>

@@ -337,6 +337,11 @@ sub accept
         $values
     );
 
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'One of the end points of this relationship no longer exists'
+    ) if !$self->c->model(type_to_model($data->{type0}))->get_by_id($values->{entity0_id}) ||
+         !$self->c->model(type_to_model($data->{type1}))->get_by_id($values->{entity1_id});
+
     $self->c->model('Relationship')->update(
         $data->{type0},
         $data->{type1},

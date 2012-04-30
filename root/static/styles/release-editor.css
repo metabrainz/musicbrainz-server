@@ -154,6 +154,7 @@ div.guesscase-options,
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
 table.medium.tbl tr.deleted { display: none; }
 table.medium.tbl td.position  { width: 2em; }
+table.medium.tbl td.reorder  { width: 38px; }
 table.medium.tbl td.credits-button { width: 4em; text-align: right; }
 table.medium.tbl td.length    { width: 5em; }
 table.medium.tbl td.icon      { width: 38px; text-align; right; }
@@ -179,7 +180,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     width: 100%;
 }
 
-#release-editor .medium.tbl td input[type=text].lookup-performed { background: #bfb; }
+#release-editor .medium.tbl td input[type=text].lookup-performed { background: #bfb; color: #000; }
 #release-editor .medium.tbl td input[type=text].column-disabled.lookup-performed { background: #fff; }
 
 #release-editor .medium.tbl td.position input { text-align: right; }
@@ -289,7 +290,7 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 div.dialog {
     position: absolute;
-    background: #f0f0f0;
+    background: #fafafa;
     border: 1px solid #999;
     padding: 1em;
     width: 600px;

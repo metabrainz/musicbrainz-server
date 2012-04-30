@@ -1,0 +1,35 @@
+[% PROCESS 'relationship/linkattributetype/common.tt' %]
+
+[% WRAPPER "layout.tt" title=l("Relationship Attributes") full_width=1 %]
+    <div id="content">
+        [%- INCLUDE 'relationship/header.tt' page='attributes' %]
+
+        [%- IF c.user.is_relationship_editor -%]
+            <p><a href="[% c.uri_for_action('/relationship/linkattributetype/create') %]">[% l('Create a new relationship attribute') %]</a></p>
+        [%- END -%]
+
+        [% IF root.children.size %]
+            [% FOR obj IN root.children %]
+                <h2 id="[% obj.name %]">[% obj.name FILTER ucfirst | html %]</h2>
+                [% PROCESS attribute_details obj=obj toplevel=1 %]
+
+                [%- IF obj.children.size -%]
+                <br/><br/>
+                [% l('Possible values:') %]
+                <ul>
+                [%- IF obj.name == 'instrument' -%]
+                    <li>[% l('See the {uri|full instrument tree}.', { uri => c.uri_for_action('/relationship/linkattributetype/instruments') }) %]</li>
+                [%- ELSE -%]
+                    [% FOR child IN obj.children %]
+                    [% PROCESS attribute_tree obj=child %]
+                    [% END %]
+                [%- END -%]
+                </ul>
+
+                [%- END -%]
+            [% END %]
+        [% ELSE %]
+            <p>[% l('No relationship attributes found.') %]</p>
+        [% END %]
+    </div>
+[% END %]

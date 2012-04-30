@@ -79,12 +79,12 @@ sub artist_toplevel
         if ($c->stash->{inc}->various_artists)
         {
             @results = $c->model('Release')->find_for_various_artists(
-                $artist->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
+                $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
         }
         else
         {
             @results = $c->model('Release')->find_by_artist(
-                $artist->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
+                $artist->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type}});
         }
 
         $opts->{releases} = $self->make_list (@results);
@@ -95,7 +95,7 @@ sub artist_toplevel
     if ($c->stash->{inc}->release_groups)
     {
         my @results = $c->model('ReleaseGroup')->find_by_artist(
-            $artist->id, $MAX_ITEMS, 0, $c->stash->{type});
+            $artist->id, $MAX_ITEMS, 0, filter => { type => $c->stash->{type} });
         $opts->{release_groups} = $self->make_list (@results);
 
         $self->linked_release_groups ($c, $stash, $opts->{release_groups}->{items});

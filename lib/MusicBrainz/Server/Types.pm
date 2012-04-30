@@ -29,7 +29,7 @@ subtype AutoEditorElectionStatus,
 
 subtype VoteOption,
     as Int,
-    where { $_ >= $VOTE_ABSTAIN && $_ <= $VOTE_YES };
+    where { $_ >= $VOTE_ABSTAIN && $_ <= $VOTE_APPROVE };
 
 subtype EditStatus,
     as Int,

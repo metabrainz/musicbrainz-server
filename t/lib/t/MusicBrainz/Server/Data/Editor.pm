@@ -78,10 +78,10 @@ Sql::run_in_transaction(sub {
 
 
 $editor = $editor_data->get_by_id($editor->id);
-is($editor->accepted_edits, 13);
-is($editor->rejected_edits, 3);
-is($editor->failed_edits, 10);
-is($editor->accepted_auto_edits, 60);
+is($editor->accepted_edits, 13, "editor has 13 accepted edits");
+is($editor->rejected_edits, 3, "editor has 3 rejected edits");
+is($editor->failed_edits, 10, "editor has 10 failed edits");
+is($editor->accepted_auto_edits, 60, "editor has 60 accepted auto edits");
 
 my $alice = $editor_data->get_by_name('alice');
 # Test preferences
@@ -97,9 +97,9 @@ my $new_editor_2 = $editor_data->insert({
     password => 'password',
 });
 ok($new_editor_2->id > $editor->id);
-is($new_editor_2->name, 'new_editor_2');
-is($new_editor_2->password, 'password');
-is($new_editor_2->accepted_edits, 0);
+is($new_editor_2->name, 'new_editor_2', 'new editor 2 has name new_editor_2');
+is($new_editor_2->password, 'password', 'new editor 2 has correct password');
+is($new_editor_2->accepted_edits, 0, 'new editor 2 has no accepted edits');
 
 
 $editor = $editor_data->get_by_id($new_editor_2->id);
@@ -110,8 +110,8 @@ my $now = DateTime->now;
 $editor_data->update_email($new_editor_2, 'editor@example.com');
 
 $editor = $editor_data->get_by_id($new_editor_2->id);
-is($editor->email, 'editor@example.com');
-ok($now <= $editor->email_confirmation_date);
+is($editor->email, 'editor@example.com', 'editor has correct e-mail address');
+ok($now <= $editor->email_confirmation_date, 'email confirmation date updated correctly');
 is($new_editor_2->email_confirmation_date, $editor->email_confirmation_date);
 
 $editor_data->update_password($new_editor_2, 'password2');

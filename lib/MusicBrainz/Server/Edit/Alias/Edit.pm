@@ -7,6 +7,7 @@ use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -82,6 +83,11 @@ sub accept
 {
     my $self = shift;
     my $model = $self->_alias_model;
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This alias no longer exists'
+    ) unless $self->_load_alias;
+
     $model->update($self->data->{alias_id}, $self->merge_changes);
 }
 

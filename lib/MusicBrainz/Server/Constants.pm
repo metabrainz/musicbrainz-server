@@ -38,6 +38,9 @@ our %EXPORT_TAGS = (
     election_vote => [
         qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN )
     ],
+    vote => [
+        qw( $VOTE_NO $VOTE_ABSTAIN $VOTE_YES $VOTE_APPROVE )
+    ],
 );
 
 our @EXPORT_OK = (
@@ -202,6 +205,7 @@ Readonly our $ELECTION_CANCELLED  => 6;
 Readonly our $VOTE_ABSTAIN => -1;
 Readonly our $VOTE_NO      =>  0;
 Readonly our $VOTE_YES     =>  1;
+Readonly our $VOTE_APPROVE =>  2;
 
 Readonly our $STATUS_OPEN         => 1;
 Readonly our $STATUS_APPLIED      => 2;

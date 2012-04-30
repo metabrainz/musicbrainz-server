@@ -15,8 +15,8 @@
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [%- IF c.user.is_relationship_editor -%]
         [
-            <a href="[% c.uri_for_action('/admin/linktype/edit', [ types ], obj.gid) %]">[% l('Edit') %]</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linktype/delete', [ types ], obj.gid) %]">[% l('Remove') %]</a>[% END %]
+            <a href="[% c.uri_for_action('/relationship/linktype/edit', [ types ], obj.gid) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ types ], obj.gid) %]">[% l('Remove') %]</a>[% END %]
         ]
         [% END %]
         </div>
@@ -33,16 +33,20 @@
 
 [% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) full_width=1 %]
     <div id="content">
-        <h1>[% l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) %]</h1>
+        [%- INCLUDE 'relationship/header.tt' %]
 
-        <p class="buttons">
-            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('All Relationship Types') %]</a>
-            [%- IF c.user.is_relationship_editor -%]
-            <a href="[% c.uri_for_action('/admin/linktype/create', [ types ]) %]">[% l('New Relationship Type') %]</a>
-            [%- END -%]
-            <a id="showAll">[% l('Expand All') %]</a>
-            <a id="hideAll" style="display:none">[% l('Collapse All') %]</a>
-            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Relationship Attributes') %]</a>
+        <p><small><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[%- l('< Back to all relationship types') -%]</a></small></p>
+
+        <h2>[% l("{type0}-{type1} relationship types", { type0 => type0_name, type1 => make_lower(type1_name) }) %]</h2>
+
+        [%- IF c.user.is_relationship_editor -%]
+            <p><a href="[% c.uri_for_action('/relationship/linktype/create') %]">[% l('Create a new {type0}-{type1} relationship', { type0 => make_lower(type0_name), type1 => make_lower(type1_name) }) %]</a></p>
+        [%- END -%]
+
+        [% IF root.children.size %]
+        <p>
+            <a id="showAll" href="#">[% l('Expand all descriptions') %]</a>
+            <a id="hideAll" href="#" style="display:none">[% l('Collapse all descriptions') %]</a>
         </p>
 
         <ul>
@@ -50,5 +54,8 @@
                 [% PROCESS link_type obj=child %]
             [% END %]
         </ul>
+        [% ELSE %]
+            <p>[% l('No {type0}-{type1} relationship types found.', { type0 => type0_name, type1 => type1_name }) %]</p>
+        [% END %]
     </div>
 [% END %]

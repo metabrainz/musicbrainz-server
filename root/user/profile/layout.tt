@@ -23,7 +23,7 @@
     ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ) -%]
 
-[%- IF c.user.is_account_admin -%]
+[%- IF c.user.is_account_admin || (server_details.testing_features && c.user_exists)-%]
 [%- info_links.push (
     ['edit_user', generic_link(c.uri_for_action("/admin/edit_user", user.name), l('Edit User'))],
 ) -%]

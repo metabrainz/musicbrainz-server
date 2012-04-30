@@ -13,9 +13,9 @@ body {
     font-size: 12px;
 }*/
 
-a, .homepage a:visited { color:#002BBA; text-decoration: none; }
-a:visited { color:#3C5DCE; }
-a:hover, .homepage a:hover { color:#FC6714; text-decoration: underline; }
+a { color:#002BBA; text-decoration: none; }
+a:visited { color:#632D9B; }
+a:hover { color:#FC6714; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
 a.icon:hover { text-decoration: none; }
@@ -120,6 +120,12 @@ pre code {
     top: 17px;
     float: right;
     padding-right: 1em;
+}
+
+#header-logo div.git-branch {
+    position: absolute;
+    top: 2px;
+    right: 18px;
 }
 
 #header-logo #id-type {
@@ -395,6 +401,10 @@ div.warning img.warning {
     min-height: 14px;
 }
 
+#sidebar ul.external_links li.all-relationships {
+	background-image: none;
+}
+
 #sidebar ul.external_links li.home {
     background-image: url("../images/favicons/home-16.png");
 }
@@ -552,6 +562,10 @@ table.tbl thead tr .headerSortUp .arrow {
 
 table.tbl thead tr .headerSortDown .arrow {
     background-image: url('../images/layout/desc.gif');
+}
+
+table.details table.tbl {
+    margin-top: 0;
 }
 
 table.details table.tbl th {
@@ -729,7 +743,7 @@ table.database-statistics th, table.timeline-controls th {
     padding: 3px 5px;
 }
 
-table.database-statistics thead th {
+table.database-statistics tr.thead th {
     text-align: center;
     border: 1px solid #ADB9CC;
     background: #F1F1F1;
@@ -814,8 +828,6 @@ p.cleanup {
 
 .iswc { white-space: nowrap; }
 
-
-
 /*
   Cover Art
   ================================================
@@ -835,3 +847,36 @@ div.artwork { position: relative; width: 250px; }
 div.artwork img { max-width: 250px; max-height: 250px; }
 div.delete { display: hidden !important; }
 
+.annotation-toggle {
+    display: block;
+}
+
+.annotation-body {
+    position: relative;
+    overflow: auto;
+}
+
+.annotation-collapsed {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.annotation-collapsed:after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    content: "  ";
+    height: 20px;
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+    background: linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.annotation-collapse {
+    max-height: none;
+}

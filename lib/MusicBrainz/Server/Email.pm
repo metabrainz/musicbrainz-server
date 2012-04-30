@@ -191,6 +191,7 @@ sub _create_no_vote_email
         'From' => $NOREPLY_ADDRESS,
         'Reply-To' => $SUPPORT_ADDRESS,
         'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
+        'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
         'Subject' => "Someone has voted against your edit #$edit_id",
     );
 
@@ -270,6 +271,8 @@ sub _create_edit_note_email
         'To'       => _user_address($editor),
         'From'     => _user_address($from_editor, 1),
         'Sender'   => $NOREPLY_ADDRESS,
+        'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
+        'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
     );
 
     my $from = $from_editor->name;

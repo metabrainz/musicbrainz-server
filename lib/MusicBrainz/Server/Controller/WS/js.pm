@@ -180,7 +180,7 @@ sub disc_results {
         $result{category} = $_->entity->category if $type eq 'freedb';
 
         $result{comment} = $_->entity->comment if $type eq 'cdstub';
-        $result{barcode} = $_->entity->barcode if $type eq 'cdstub';
+        $result{barcode} = $_->entity->barcode->format if $type eq 'cdstub';
 
         push @output, \%result;
     }
