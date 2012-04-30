@@ -26,8 +26,8 @@ sub process_tables
         my @lines = split /\n/, $2;
         my @fks;
         foreach my $line (@lines) {
-            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?references ([a-z0-9_]+)\.([a-z0-9_]+)/i) {
-                my @fk = ($1, $2, $3);
+            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
+                my @fk = ($1, ($2 || '') . $3, $4);
                 my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
                 push @fks, [@fk, $cascade];
             }
@@ -56,6 +56,25 @@ sub process_tables
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $table (@tables) {
         print OUT "DROP TABLE $table;\n";
+    }
+    close OUT;
+
+    open FILE, "<$dir/CreateViews.sql";
+    my $create_views_sql = do { local $/; <FILE> };
+    close FILE;
+
+    my @views;
+    while ($create_views_sql =~ m/CREATE (?:OR REPLACE )?VIEW\s+([a-z0-9_]+)(.*?);/gsi) {
+        my $name = $1;
+        push @views, $name;
+    }
+    @views = sort(@views);
+
+    open OUT, ">$dir/DropViews.sql";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $view (@views) {
+        print OUT "DROP VIEW $view;\n";
     }
     close OUT;
 
@@ -133,7 +152,7 @@ sub process_indexes
 {
     my ($infile, $outfile) = @_;
 
-    open FILE, "<$FindBin::Bin/../admin/sql/$infile";
+    open FILE, "<$dir/$infile";
     my $create_indexes_sql = do { local $/; <FILE> };
     close FILE;
 
@@ -144,7 +163,7 @@ sub process_indexes
     }
     @indexes = sort(@indexes);
 
-    open OUT, ">$FindBin::Bin/../admin/sql/$outfile";
+    open OUT, ">$dir/$outfile";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $index (@indexes) {
@@ -159,6 +178,10 @@ process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
 sub process_functions
 {
     my ($infile, $outfile) = @_;
+
+    unless (-e "$dir/$infile") {
+        print "Could not find $infile, skipping\n";
+    }
 
     open FILE, "<$dir/$infile";
     my $create_functions_sql = do { local $/; <FILE> };
