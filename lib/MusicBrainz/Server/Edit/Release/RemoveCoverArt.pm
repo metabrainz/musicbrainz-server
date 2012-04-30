@@ -19,7 +19,7 @@ sub release_ids { shift->data->{entity}{id} }
 
 sub alter_edit_pending {
     return {
-        Release => [ $self->release_ids ],
+        Release => [ shift->release_ids ],
     }
 }
 
