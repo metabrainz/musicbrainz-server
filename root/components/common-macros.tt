@@ -74,12 +74,12 @@ END; -%]
                   $(this).attr ("src", "[% fallback %]");
               }
          [%- END -%]
-         [%- IF message -%]
               else
               {
-                  $(this).closest ('a').replaceWith ('<em>[% message %]<\/em>');
+                  $(this).closest ('a').replaceWith ('<em>
+                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
+                  <\/em>');
               }
-         [%- END -%]
           }).attr ("src", "[% artwork.small_thumbnail %]");
         </script>
     [%- END -%]
