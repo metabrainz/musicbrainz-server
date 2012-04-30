@@ -76,3 +76,22 @@
     </td>
   </tr>
 [%- END -%]
+
+[%- MACRO display_edit_artwork(artwork, release) BLOCK -%]
+  <tr>
+    <th>[% l('Cover art:') %]</th>
+    <td class="edit-cover-art">
+      [%- SET history_message = l('We are unable to display history for cover
+          art. For a current listing of cover art, please see the
+          {coverart|releases cover art page}.',
+          { coverart => c.uri_for_action('/release/cover_art', [ release.gid ]) }) %]
+
+
+      [% IF edit.is_open || !no_javascript %]
+        [%- display_artwork(edit.display_data.artwork, undef, history_message) -%]
+      [% ELSE %]
+        [%- history_message -%]
+      [% END %]
+    </td>
+  </tr>
+[%- END -%]

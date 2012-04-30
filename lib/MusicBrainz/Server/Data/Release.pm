@@ -709,6 +709,7 @@ sub merge
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->c->model('CoverArtArchive')->merge_releases($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
 
     merge_table_attributes(
@@ -840,6 +841,7 @@ sub load_meta
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
         $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};
+        $obj->cover_art_presence($row->{cover_art_presence});
     }, @objs);
 
     my @ids = keys %id_to_obj;

@@ -7,7 +7,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Artist::Create }
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test;
 
 test all => sub {

@@ -26,6 +26,20 @@ sub gather_data
     ");
 }
 
+sub post_load
+{
+    my ($self, $items) = @_;
+
+    my @gid0s = map { $_->{gid0} } @$items;
+    my @gid1s = map { $_->{gid1} } @$items;
+    my $artists = $self->c->model('Artist')->get_by_gids(@gid0s, @gid1s);
+
+    foreach my $item (@$items) {
+        $item->{artist0} = $artists->{$item->{gid0}};
+        $item->{artist1} = $artists->{$item->{gid1}};
+    }
+}
+
 sub template
 {
     return 'report/collaboration_relationships.tt';

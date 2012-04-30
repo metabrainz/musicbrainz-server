@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Entity::Statistics::ByDate;
 use Moose;
+use namespace::autoclean;
 
-use MusicBrainz::Server::Types;
+use MusicBrainz::Server::Types qw( DateTime );
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Map );
 
@@ -18,7 +19,7 @@ has data => (
 
 has date_collected => (
    is => 'rw',
-   isa => 'DateTime',
+   isa => DateTime,
    coerce => 1
 );
 
