@@ -5,7 +5,7 @@ use 5.10.0;
 
 extends 'MusicBrainz::Server::Connector';
 
-sub _schema { 'musicbrainz_test,public' }
+sub _schema { shift->database->schema . '_test,public' }
 
 # *DISABLE* the thread saftey guarantees that DBIx::Connector provides.
 #
@@ -49,4 +49,3 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
-
