@@ -179,8 +179,8 @@ my %stats = (
                    coalesce(release_status.name, 'null'),
                    count(DISTINCT cover_art.release)
                  FROM cover_art_archive.cover_art
-                 JOIN musicbrainz.release ON release.id = cover_art.release
-                 FULL OUTER JOIN musicbrainz.release_status
+                 JOIN release ON release.id = cover_art.release
+                 FULL OUTER JOIN release_status
                    ON release_status.id = release.status
                  GROUP BY coalesce(release_status.name, 'null')",
             );
@@ -204,10 +204,10 @@ my %stats = (
                    coalesce(release_group_type.name, 'null'),
                    count(DISTINCT cover_art.release)
                  FROM cover_art_archive.cover_art
-                 JOIN musicbrainz.release ON release.id = cover_art.release
-                 JOIN musicbrainz.release_group
+                 JOIN release ON release.id = cover_art.release
+                 JOIN release_group
                    ON release.release_group = release_group.id
-                 FULL OUTER JOIN musicbrainz.release_group_type
+                 FULL OUTER JOIN release_group_type
                    ON release_group_type.id = release_group.type
                  GROUP BY coalesce(release_group_type.name, 'null')"
             );
@@ -231,9 +231,9 @@ my %stats = (
                    coalesce(medium_format.name, 'null'),
                    count(DISTINCT cover_art.release)
                  FROM cover_art_archive.cover_art
-                 JOIN musicbrainz.release ON release.id = cover_art.release
-                 JOIN musicbrainz.medium ON medium.release = release.id
-                 FULL OUTER JOIN musicbrainz.medium_format
+                 JOIN release ON release.id = cover_art.release
+                 JOIN medium ON medium.release = release.id
+                 FULL OUTER JOIN medium_format
                    ON medium_format.id = medium.format
                  GROUP BY coalesce(medium_format.name, 'null')",
             );
