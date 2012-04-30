@@ -1089,6 +1089,13 @@ CREATE TABLE statistic
     date_collected      date NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE statistic_event (
+    date DATE NOT NULL CHECK (date >= '2000-01-01'), -- PK
+    title TEXT NOT NULL,
+    link TEXT NOT NULL,
+    description TEXT NOT NULL
+);
+
 CREATE TABLE tag
 (
     id                  SERIAL,
