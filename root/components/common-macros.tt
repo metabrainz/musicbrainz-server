@@ -77,7 +77,7 @@ END; -%]
          [%- IF message -%]
               else
               {
-                  $(this).closest ('a').replaceWith ('<em>[% message %]</em>');
+                  $(this).closest ('a').replaceWith ('<em>[% message %]<\/em>');
               }
          [%- END -%]
           }).attr ("src", "[% artwork.small_thumbnail %]");
