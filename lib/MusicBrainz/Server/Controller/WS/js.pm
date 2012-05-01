@@ -36,6 +36,9 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "entity" => {
         method => 'GET',
+    },
+    "events" => {
+        method => 'GET'
     }
 ]);
 
@@ -353,6 +356,15 @@ sub default : Path
     $c->stash->{serializer} = $self->serializers->{$self->get_default_serialization_type}->new();
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
+}
+
+sub events : Chained('root') PathPart('events') {
+    my ($self, $c) = @_;
+
+    my $events = $c->model('Statistics')->all_events;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize_data($events));
 }
 
 no Moose;
