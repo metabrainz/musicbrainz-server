@@ -100,7 +100,8 @@ after 'load' => sub
 };
 
 # Stuff that has the side bar and thus needs to display collection information
-after [qw( show collections details discids tags relationships )] => sub {
+after [qw( cover_art add_cover_art edit_cover_art reorder_cover_art
+           show collections details discids tags relationships )] => sub {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
