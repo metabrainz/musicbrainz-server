@@ -10,13 +10,13 @@ $(document).ready(function () {
     var graphZoomOptions = {};
 
     // Get MusicBrainz Events data
-    $.get('../../static/xml/mb_history.xml', function (data) {
-        $(data).find('event').each(function() {
-            $this = $(this);
-            musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
+    $.get('/ws/js/events', function (data) {
+        musicbrainzEventsOptions.musicbrainzEvents.data = $.map(data, function(e) {
+            e.jsDate = Date.parse(e.date);
+            return e;
         });
         $(window).hashchange();
-    }, 'xml');
+    }, 'json');
 
     // Called whenever plot is reset
     function graphData () {
