@@ -42,6 +42,7 @@ my @tables = qw(
     artist_tag_raw
     cdtoc_raw
     statistic
+    statistic_event
     edit
     edit_artist
     edit_label
@@ -298,6 +299,7 @@ my @group_derived = qw(
 
 my @group_stats = qw(
     statistic
+    statistic_event
 );
 
 my @group_editor = qw(
