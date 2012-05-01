@@ -5,9 +5,8 @@ INSERT INTO statistic_event (date, title, description, link) VALUES ('Mar 29 200
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Apr 05 2003', $$Improved search$$, $$Improved search/cleanup.$$, 'http://blog.musicbrainz.org/?p=6');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Jun 07 2003', $$Cleanup$$, $$Cleanup release.$$, 'http://blog.musicbrainz.org/?p=9');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Jun 15 2003', $$Cleanup$$, $$Cleanup release.$$, 'http://blog.musicbrainz.org/?p=10');
-INSERT INTO statistic_event (date, title, description, link) VALUES ('Jun 30 2003', $$Artist subscriptions$$, $$Artist subscription and bug fix/cleanup release.s$$, 'http://blog.musicbrainz.org/?p=11');
---This conflicts with the above event, so I am dropping it entirely.
---INSERT INTO statistic_event (date, title, description, link) VALUES ('Jun 30 2003', $$Bug fixes$$, $$Bug fix/cleanup release.$$, 'http://blog.musicbrainz.org/?p=13');
+INSERT INTO statistic_event (date, title, description, link) VALUES ('Jun 22 2003', $$Artist subscriptions$$, $$Artist subscriptions.$$, 'http://blog.musicbrainz.org/?p=11');
+INSERT INTO statistic_event (date, title, description, link) VALUES ('Jun 30 2003', $$Bug fixes$$, $$Bug fix/cleanup release.$$, 'http://blog.musicbrainz.org/?p=13');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Jul 25 2003', $$Bug fixes$$, $$Bug fix/cleanup release.$$, 'http://blog.musicbrainz.org/?p=15');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Sep 04 2003', $$Bug fixes$$, $$Bug fix/cleanup release.$$, 'http://blog.musicbrainz.org/?p=16');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Oct 13 2003', $$Non album tracks$$, $$Non album tracks are released.$$, 'http://blog.musicbrainz.org/?p=18');
@@ -16,9 +15,8 @@ INSERT INTO statistic_event (date, title, description, link) VALUES ('Nov 10 200
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Dec 28 2003', $$Linking$$, $$Link to MusicBrainz feature, release events and edit suggestions released.$$, 'http://blog.musicbrainz.org/?p=23');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Jan 17 2004', $$Inline edits$$, $$Inline edits, new reports, improved data import scripts.$$, 'http://blog.musicbrainz.org/?p=24');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Feb 24 2004', $$Amazon Coverart$$, $$Amazon coverart support released.$$, 'http://blog.musicbrainz.org/?p=27');
-INSERT INTO statistic_event (date, title, description, link) VALUES ('May 09 2004', $$Caching/bug fixes$$, $$Caching (memcached) and bugs fixed. Edit display improvements, turned off RDF dumps, new install scripts released.$$, 'http://blog.musicbrainz.org/?p=28');
---This conflicts with the above event, so I am dropping it entirely.
---INSERT INTO statistic_event (date, title, description, link) VALUES ('May 09 2004', $$Install scripts$$, $$Edit display improvements, turned off RDF dumps, new install scripts released.$$, 'http://blog.musicbrainz.org/?p=33');
+INSERT INTO statistic_event (date, title, description, link) VALUES ('Mar 09 2004', $$Caching/bug fixes$$, $$Caching (memcached) and bugs fixed.$$, 'http://blog.musicbrainz.org/?p=28');
+INSERT INTO statistic_event (date, title, description, link) VALUES ('May 09 2004', $$Install scripts$$, $$Edit display improvements, turned off RDF dumps, new install scripts released.$$, 'http://blog.musicbrainz.org/?p=33');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Jul 24 2004', $$Improve voting$$, $$Voting logic was improved, web based autoeditor elections released.$$, 'http://blog.musicbrainz.org/?p=35');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Oct 10 2004', $$FreeDB off/Autoeditors$$, $$FreeDB auto import feature turned off and autoeditor elections released. Unused TRMs pruned from the database.$$, 'http://blog.musicbrainz.org/?p=37');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Nov 14 2004', $$Annotations$$, $$Annotation support released.$$, 'http://blog.musicbrainz.org/?p=65');
