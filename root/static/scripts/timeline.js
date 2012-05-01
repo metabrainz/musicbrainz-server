@@ -10,7 +10,7 @@ $(document).ready(function () {
     var graphZoomOptions = {};
 
     // Get MusicBrainz Events data
-    $.get('/ws/js/events', function (data) {
+    $.get('../../ws/js/events', function (data) {
         musicbrainzEventsOptions.musicbrainzEvents.data = $.map(data, function(e) {
             e.jsDate = Date.parse(e.date);
             return e;
