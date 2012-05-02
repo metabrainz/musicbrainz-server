@@ -210,6 +210,16 @@ sub update
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('artist', $row, { id => $artist_id });
+
+    for my $ipi (@{ $update->{ipi_codes}->{del} })
+    {
+        $self->sql->delete_row('artist_ipi', { artist => $artist_id, ipi => $ipi });
+    }
+
+    for my $ipi (@{ $update->{ipi_codes}->{add} })
+    {
+        $self->sql->insert_row('artist_ipi', { artist => $artist_id, ipi => $ipi });
+    }
 }
 
 sub can_delete

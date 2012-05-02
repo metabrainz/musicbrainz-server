@@ -15,7 +15,11 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
-use MooseX::Types::Moose qw( Maybe Str Int );
+use JSON::Any;
+use Clone 'clone';
+use Algorithm::Merge qw( diff3 );
+
+use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -39,7 +43,8 @@ sub change_fields
         gender_id  => Nullable[Int],
         country_id => Nullable[Int],
         comment    => Nullable[Str],
-        ipi_code   => Nullable[Str],
+        ipi_code   => Optional[Str],
+        ipi_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
     ];
@@ -103,14 +108,37 @@ sub build_display_data
         };
     }
 
+    if (exists $self->data->{new}{end_date}) {
+        $data->{end_date} = {
+            new => PartialDate->new($self->data->{new}{end_date}),
+            old => PartialDate->new($self->data->{old}{end_date}),
+        };
+    }
+
+    if (exists $self->data->{new}{ipi_codes}) {
+        my $ipi_changes = $self->ipi_changes (
+            $self->data->{old}{ipi_codes},
+            $self->data->{old}{ipi_codes},
+            $self->data->{new}{ipi_codes});
+
+        $data->{ipi_codes}->{added} = $ipi_changes->{add};
+        $data->{ipi_codes}->{deleted} = $ipi_changes->{del};
+    }
+
     return $data;
 }
 
 sub _mapping
 {
+    my $self = shift;
+
     return (
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
+        ipi_codes => sub {
+            my $ipis = $self->c->model('Artist')->ipi->find_by_entity_id(shift->id);
+            return [ map { $_->ipi } @$ipis ];
+        },
     );
 }
 
@@ -147,10 +175,15 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{country_id}
         and defined($self->data->{old}{country_id}) && $self->data->{old}{country_id} != 0;
 
+    # FIXME: Adding IPIs should be automatic?
     if ($self->data->{old}{ipi_code}) {
         my ($old_ipi, $new_ipi) = normalise_strings($self->data->{old}{ipi_code},
                                                     $self->data->{new}{ipi_code});
         return 0 if $new_ipi ne $old_ipi;
+    }
+
+    if ($self->data->{old}{ipi_codes}) {
+        warn "FIXME: Check if ipi_codes change, perhaps this is not an autoedit.\n";
     }
 
     return 1;
@@ -166,6 +199,87 @@ sub _edit_hash {
     return $self->merge_changes;
 }
 
+before initialize => sub {
+    my ($self, %opts) = @_;
+    die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+};
+
+
+sub new_data {
+    my $self = shift;
+    my $new = clone ($self->data->{new});
+
+    # merge_changes only looks at keys in whatever is returned from
+    # new_data(), make it skip ipi_codes so we can handle that
+    # seperately.
+    delete $new->{ipi_codes};
+    return $new;
+}
+
+
+sub ipi_changes
+{
+   my ($self, $old, $current, $new) = @_;
+
+   # FIXME: check if these lists need to be sorted.
+   my @changes = diff3([ sort @$old ], [ sort @$current ], [ sort @$new ]);
+
+   my @add;
+   my @del;
+
+    for my $change (@changes)
+    {
+        given ($change->[0])
+        {
+            when ('c') { # c - conflict (no two are the same)
+                MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                    ->throw('IPI codes have changed since this edit was created, and now conflict ' .
+                            'with changes made in this edit.');
+            }
+            when ('l') { # l - left is different
+                # other edit made some changes we didn't make, ignore.
+            }
+            when ('o') { # o - original is different
+                # other edit made changes we also made, ignore.
+            }
+            when ('r') { # r - right is different
+
+                # we made changes, apply.
+                if (defined $change->[3])
+                {
+                    push @add, $change->[3];
+                }
+                else
+                {
+                    push @del, $change->[1];
+                }
+            }
+            when ('u') { # u - unchanged
+                # no changes at all.
+            }
+        }
+    }
+
+   return { add => \@add, del => \@del };
+}
+
+
+around merge_changes => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $merged = $self->$orig (@_);
+
+    $merged->{ipi_codes} = $self->ipi_changes (
+        $self->data->{old}->{ipi_codes},
+        $self->c->model('Artist')->ipi->find_by_entity_id($self->entity_id),
+        $self->data->{new}->{ipi_codes})
+        if $self->data->{new}->{ipi_codes};
+
+    return $merged;
+};
+
+
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
@@ -177,7 +291,6 @@ around extract_property => sub {
         when ('end_date') {
             return merge_partial_date('end_date' => $ancestor, $current, $new);
         }
-
         default {
             return ($self->$orig(@_));
         }

@@ -57,6 +57,11 @@ is($artist->end_date->year, 2000);
 is($artist->end_date->month, 3);
 is($artist->end_date->day, 20);
 
+my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(1);
+is(scalar @$ipi_codes, 2, "Artist has two ipi codes after accepting edit");
+isa_ok($ipi_codes->[0], "MusicBrainz::Server::Entity::ArtistIPI");
+isa_ok($ipi_codes->[1], "MusicBrainz::Server::Entity::ArtistIPI");
+
 # load the edit and test if it provides a populated ->display_data
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);
@@ -77,7 +82,8 @@ is($edit->display_data->{begin_date}->{old}->format, '');
 is($edit->display_data->{begin_date}->{new}->format, '1990-05-10');
 is($edit->display_data->{end_date}->{old}->format, '');
 is($edit->display_data->{end_date}->{new}->format, '2000-03-20');
-
+is_deeply($edit->display_data->{ipi_codes}->{deleted}, []);
+is_deeply($edit->display_data->{ipi_codes}->{added}, [ '00145958831', '00151894163' ]);
 
 # Make sure we can use NULL values where possible
 $edit = $c->model('Edit')->create(
@@ -91,6 +97,7 @@ $edit = $c->model('Edit')->create(
     country_id => undef,
     begin_date => { year => undef, month => undef, day => undef },
     end_date => { year => undef, month => undef, day => undef },
+    ipi_codes => [],
 );
 
 accept_edit($c, $edit);
@@ -100,6 +107,7 @@ is($artist->gender_id, undef);
 is($artist->type_id, undef);
 ok($artist->begin_date->is_empty);
 ok($artist->end_date->is_empty);
+
 
 # Test loading entities for the edit
 $edit = $c->model('Edit')->get_by_id($edit->id);
@@ -117,13 +125,15 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(1),
         name => 'Renamed artist',
+        ipi_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(1),
-        comment   => 'Comment change'
+        comment   => 'Comment change',
+        ipi_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -144,7 +154,8 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(1),
         name      => 'Renamed artist',
-        sort_name => 'Sort FOO'
+        sort_name => 'Sort FOO',
+        ipi_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -152,7 +163,8 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(1),
         comment   => 'Comment change',
-        sort_name => 'Sort BAR'
+        sort_name => 'Sort BAR',
+        ipi_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -179,6 +191,7 @@ sub _create_full_edit {
         type_id => 1,
         gender_id => 1,
         country_id => 1,
+        ipi_codes => [ '00151894163', '00145958831' ],
     );
 }
 
