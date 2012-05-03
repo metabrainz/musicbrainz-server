@@ -170,9 +170,11 @@ sub insert
 sub update
 {
     my ($self, $label_id, $update) = @_;
+
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $self->sql->update_row('label', $row, { id => $label_id });
+    $self->sql->update_row('label', $row, { id => $label_id }) if %$row;
+
     return 1;
 }
 
@@ -207,6 +209,7 @@ sub delete
     $self->c->model('Relationship')->delete_entities('label', @label_ids);
     $self->annotation->delete(@label_ids);
     $self->alias->delete_entities(@label_ids);
+    $self->ipi->delete_entities(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);

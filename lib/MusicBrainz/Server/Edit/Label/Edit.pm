@@ -166,9 +166,7 @@ sub allow_auto_edit
         return 0 if $new_ipi ne $old_ipi;
     }
 
-    if ($self->data->{old}{ipi_codes}) {
-        warn "FIXME: Check if ipi_codes change, perhaps this is not an autoedit.\n";
-    }
+    return 0 if $self->data->{new}{ipi_codes};
 
     return 1;
 }

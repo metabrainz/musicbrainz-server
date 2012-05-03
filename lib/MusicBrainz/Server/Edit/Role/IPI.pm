@@ -32,38 +32,32 @@ sub ipi_changes
    my @add;
    my @del;
 
-    for my $change (@changes)
-    {
-        given ($change->[0])
-        {
-            when ('c') { # c - conflict (no two are the same)
-                MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                    ->throw('IPI codes have changed since this edit was created, and now conflict ' .
-                            'with changes made in this edit.');
-            }
-            when ('l') { # l - left is different
-                # other edit made some changes we didn't make, ignore.
-            }
-            when ('o') { # o - original is different
-                # other edit made changes we also made, ignore.
-            }
-            when ('r') { # r - right is different
+   for my $change (@changes)
+   {
+       given ($change->[0])
+       {
+           when ('c') { # c - conflict (no two are the same)
+               MusicBrainz::Server::Edit::Exceptions::FailedDependency
+                   ->throw('IPI codes have changed since this edit was created, and now conflict ' .
+                           'with changes made in this edit.');
+           }
+           when ('l') { # l - left is different
+               # other edit made some changes we didn't make, ignore.
+           }
+           when ('o') { # o - original is different
+               # other edit made changes we also made, ignore.
+           }
+           when ('r') { # r - right is different
 
-                # we made changes, apply.
-                if (defined $change->[3])
-                {
-                    push @add, $change->[3];
-                }
-                else
-                {
-                    push @del, $change->[1];
-                }
-            }
-            when ('u') { # u - unchanged
-                # no changes at all.
-            }
-        }
-    }
+               # we made changes, apply.
+               push @del, $change->[1] if defined $change->[1];
+               push @add, $change->[3] if defined $change->[3];
+           }
+           when ('u') { # u - unchanged
+               # no changes at all.
+           }
+       }
+   }
 
    return { add => \@add, del => \@del };
 }
@@ -74,9 +68,12 @@ around merge_changes => sub {
 
     my $merged = $self->$orig (@_);
 
+    my $current_ipis = $self->c->model($self->_edit_model)
+        ->ipi->find_by_entity_id($self->entity_id);
+
     $merged->{ipi_codes} = $self->ipi_changes (
         $self->data->{old}->{ipi_codes},
-        $self->c->model($self->_edit_model)->ipi->find_by_entity_id($self->entity_id),
+        [ map { $_->ipi } @$current_ipis ],
         $self->data->{new}->{ipi_codes})
         if $self->data->{new}->{ipi_codes};
 

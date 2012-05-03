@@ -7,6 +7,7 @@ use MooseX::Types::Moose qw( Int );
 use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Edit::Exceptions;
+use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 requires 'change_fields', '_edit_model';

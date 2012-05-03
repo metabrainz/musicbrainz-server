@@ -62,6 +62,17 @@ sub delete
     return 1;
 }
 
+sub delete_entities
+{
+    my ($self, @entities) = @_;
+
+    my $key = $self->type;
+    my $query = "DELETE FROM " . $self->table .
+                " WHERE $key IN (" . placeholders(@entities) . ")";
+    $self->sql->do($query, @entities);
+    return 1;
+}
+
 # sub insert
 # {
 #     my ($self, @alias_hashes) = @_;
