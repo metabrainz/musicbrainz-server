@@ -54,6 +54,11 @@ is($label->end_date->month, 5);
 is($label->end_date->day, 30);
 is($label->edits_pending, 0);
 
+my $ipi_codes = $c->model('Label')->ipi->find_by_entity_id($label->id);
+is(scalar @$ipi_codes, 1, "Label has one ipi code after accepting edit");
+isa_ok($ipi_codes->[0], "MusicBrainz::Server::Entity::LabelIPI");
+is($ipi_codes->[0]->ipi, '00262168177');
+
 };
 
 test 'Check conflicts (non-conflicting edits)' => sub {
@@ -66,13 +71,15 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Label')->get_by_id(2),
         name => 'Renamed label',
+        ipi_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
         edit_type => $EDIT_LABEL_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Label')->get_by_id(2),
-        comment   => 'Comment change'
+        comment   => 'Comment change',
+        ipi_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -93,7 +100,8 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Label')->get_by_id(2),
         name      => 'Renamed label',
-        sort_name => 'Sort FOO'
+        sort_name => 'Sort FOO',
+        ipi_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -101,7 +109,8 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Label')->get_by_id(2),
         comment   => 'Comment change',
-        sort_name => 'Sort BAR'
+        sort_name => 'Sort BAR',
+        ipi_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -127,7 +136,8 @@ sub create_full_edit {
         type_id => 1,
         label_code => 12345,
         begin_date => { year => 1995, month => 1, day => 12 },
-        end_date => { year => 2005, month => 5, day => 30 }
+        end_date => { year => 2005, month => 5, day => 30 },
+        ipi_codes => [ '00262168177' ]
     );
 }
 

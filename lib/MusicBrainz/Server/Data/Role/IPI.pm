@@ -39,8 +39,22 @@ role
         );
         ensure_all_roles($ipi, 'MusicBrainz::Server::Data::Role::Editable' => { table => $params->table });
     };
-};
 
+    after update => sub {
+        my ($self, $entity_id, $update) = @_;
+
+        for my $ipi (@{ $update->{ipi_codes}->{del} })
+        {
+            $self->sql->delete_row($params->table, { $params->type => $entity_id, ipi => $ipi });
+        }
+
+        for my $ipi (@{ $update->{ipi_codes}->{add} })
+        {
+            $self->sql->insert_row($params->table, { $params->type => $entity_id, ipi => $ipi });
+        }
+    };
+
+};
 
 no Moose::Role;
 1;

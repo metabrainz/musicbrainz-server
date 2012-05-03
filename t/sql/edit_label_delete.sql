@@ -12,4 +12,5 @@ INSERT INTO label (id, gid, name, sort_name)
 
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 
+ALTER SEQUENCE label_name_id_seq RESTART 100;
 

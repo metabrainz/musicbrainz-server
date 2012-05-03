@@ -23,6 +23,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
