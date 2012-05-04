@@ -19,6 +19,12 @@ then
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 fi
 
+echo `date` : 20120430-timeline-events.sql
+./admin/psql < admin/sql/updates/20120430-timeline-events.sql
+
+echo `date` : 20120501-timeline-events.sql
+./admin/psql < admin/sql/updates/20120501-timeline-events.sql
+
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Create replication triggers
