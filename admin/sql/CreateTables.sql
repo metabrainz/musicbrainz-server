@@ -102,7 +102,7 @@ CREATE TABLE artist_tag_raw
 CREATE TABLE artist_credit (
     id                  SERIAL,
     name                INTEGER NOT NULL, -- references artist_name.id
-    artist_count       SMALLINT NOT NULL,
+    artist_count        SMALLINT NOT NULL,
     ref_count           INTEGER DEFAULT 0,
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -1220,7 +1220,6 @@ CREATE TABLE url
     gid                 UUID NOT NULL,
     url                 TEXT NOT NULL,
     description         TEXT,
-    ref_count           INTEGER NOT NULL DEFAULT 0,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

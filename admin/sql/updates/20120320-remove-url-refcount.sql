@@ -1,0 +1,5 @@
+BEGIN;
+
+ALTER TABLE url DROP COLUMN ref_count;
+
+COMMIT;
