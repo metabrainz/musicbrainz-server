@@ -207,6 +207,12 @@ sub update
         my %names = $self->parent->find_or_insert_names($alias_hash->{name});
         $row{name} = $names{ $alias_hash->{name} };
     }
+
+    if (exists $alias_hash->{sort_name}) {
+        my %names = $self->parent->find_or_insert_names($alias_hash->{sort_name});
+        $row{sort_name} = $names{ $alias_hash->{sort_name} };
+    }
+
     add_partial_date_to_row(\%row, $alias_hash->{begin_date}, "begin_date")
         if exists $alias_hash->{begin_date};
     add_partial_date_to_row(\%row, $alias_hash->{end_date}, "end_date")
