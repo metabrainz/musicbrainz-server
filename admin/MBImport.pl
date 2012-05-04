@@ -444,6 +444,7 @@ sub ImportAllTables
         script
         script_language
         statistic
+        statistic_event
         tag
         tag_relation
         track

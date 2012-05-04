@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
@@ -11,6 +11,18 @@ use MusicBrainz::Server::Data::Relationship;
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
+
+sub all_events {
+    my ($self) = @_;
+
+    return [
+        query_to_list(
+            $self->sql,
+            sub { shift },
+            'SELECT * FROM statistic_event ORDER BY date ASC',
+        )
+    ];
+}
 
 sub fetch {
     my ($self, @names) = @_;
