@@ -17,7 +17,7 @@ BEGIN { use MusicBrainz::Server::Data::Edit };
 use Sql;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $VOTE_APPROVE );
+use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $VOTE_APPROVE );
 
 use MusicBrainz::Server::EditRegistry;
 MusicBrainz::Server::EditRegistry->register_type("t::Edit::MockEdit");
@@ -56,7 +56,7 @@ test 'Test locks on edits' => sub {
 
     # We have to have some data present outside transactions.
     my $foreign_connection = MusicBrainz::Server::DatabaseConnectionFactory->get_connection(
-        'READWRITE',
+        'TEST',
         fresh => 1
     );
 

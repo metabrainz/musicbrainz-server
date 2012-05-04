@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use feature 'switch';
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Types qw( :vote );
+use MusicBrainz::Server::Constants qw( :vote );
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
