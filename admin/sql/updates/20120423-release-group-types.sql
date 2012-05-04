@@ -61,12 +61,24 @@ FROM (
         bool_or(track.length IS NULL) AS has_unknown_lengths
       FROM release_group
       JOIN release ON release.release_group = release_group.id
-      JOIN medium ON medium.release = release.id
-      JOIN track ON medium.tracklist = track.tracklist
+      LEFT JOIN medium ON medium.release = release.id
+      LEFT JOIN track ON medium.tracklist = track.tracklist
       WHERE type IN (4, 5, 9, 10)
       GROUP BY release_group.id, release.id
   ) s
   GROUP BY rg_id
+) rgs
+WHERE rgs.rg_id = release_group.id;
+
+-- These are release groups which have releases with no mediums at all
+UPDATE release_group
+SET type = NULL
+FROM (
+  SELECT release_group.id AS rg_id
+  FROM release_group
+  JOIN release ON release.release_group = release_group.id
+  LEFT JOIN medium ON medium.release = release.id
+  WHERE type IN (4, 5, 9, 10) AND medium.id IS NULL
 ) rgs
 WHERE rgs.rg_id = release_group.id;
 
