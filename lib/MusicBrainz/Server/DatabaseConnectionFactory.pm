@@ -26,6 +26,11 @@ sub register_database
     $databases{$key} = $database;
 }
 
+sub alias {
+    my ($class, $alias, $key) = @_;
+    $databases{$alias} = $databases{$key};
+}
+
 sub get_connection
 {
     my ($class, $key, %opts) = @_;

@@ -148,7 +148,7 @@ sub get_wiki_versions
 
         my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", &DBDefs::WIKITRANS_SERVER_API, $query;
 
-        my $ua = LWP::UserAgent->new(max_redirect => 0);
+        my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
         $ua->env_proxy;
         my $response = $ua->get($doc_url);
 

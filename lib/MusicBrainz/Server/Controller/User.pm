@@ -12,7 +12,7 @@ use MusicBrainz::Server::Translation qw ( l ln );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
-use MusicBrainz::Server::Types qw(
+use MusicBrainz::Server::Constants qw(
     $BOT_FLAG
     $AUTO_EDITOR_FLAG
     $WIKI_TRANSCLUSION_FLAG

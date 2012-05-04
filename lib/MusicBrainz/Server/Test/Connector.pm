@@ -5,8 +5,6 @@ use 5.10.0;
 
 extends 'MusicBrainz::Server::Connector';
 
-sub _schema { 'musicbrainz_test,public' }
-
 # *DISABLE* the thread saftey guarantees that DBIx::Connector provides.
 #
 # ocharles introduced this bit of horrible code, because of Selenium. When we
@@ -49,4 +47,3 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
-

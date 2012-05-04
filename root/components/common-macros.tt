@@ -56,6 +56,36 @@ END; -%]
       END;
     END -%]
 
+[%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
+    <a href="[% artwork.image %]" class="thickbox">
+    [%- IF no_javascript -%]
+        <img src="[% artwork.small_thumbnail %]" />
+    [%- ELSE -%]
+        <img />
+        <script>
+          $('img').last ().bind ('error', function (event) {
+              if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
+              {
+                  $(this).attr ("src", "[% artwork.image %]");
+              }
+         [%- IF fallback -%]
+              else if ($(this).attr ("src") === "[% artwork.image %]")
+              {
+                  $(this).attr ("src", "[% fallback %]");
+              }
+         [%- END -%]
+              else
+              {
+                  $(this).closest ('a').replaceWith ('<em>
+                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
+                  <\/em>');
+              }
+          }).attr ("src", "[% artwork.small_thumbnail %]");
+        </script>
+    [%- END -%]
+    </a>
+[%- END -%]
+
 [%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
         [%- item -%]

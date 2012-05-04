@@ -3,6 +3,8 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Deep qw( cmp_bag );
+use Test::Memory::Cycle;
+use Test::Magpie qw( mock when inspect verify );
 
 use MusicBrainz::Server::Data::Release;
 

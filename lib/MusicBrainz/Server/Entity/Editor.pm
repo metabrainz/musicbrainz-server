@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Entity::Editor;
 use Moose;
+use namespace::autoclean;
 
 use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Types qw( :privileges );
+use MusicBrainz::Server::Constants qw( :privileges );
+use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -96,7 +98,7 @@ has [qw( accepted_edits rejected_edits failed_edits accepted_auto_edits )] => (
 
 use DateTime;
 has [qw( registration_date )] => (
-    isa    => 'DateTime',
+    isa    => DateTimeType,
     is     => 'rw',
     coerce => 1,
     lazy   => 1,
@@ -106,7 +108,7 @@ has [qw( registration_date )] => (
 );
 
 has [qw( last_login_date email_confirmation_date )] => (
-    isa    => 'DateTime',
+    isa    => DateTimeType,
     is     => 'rw',
     coerce => 1,
 );

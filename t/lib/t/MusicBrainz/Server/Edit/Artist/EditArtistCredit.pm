@@ -6,8 +6,7 @@ with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT );
-use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDITCREDIT $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
