@@ -151,7 +151,7 @@ sub is_limited
 
 has birth_date => (
    is => 'rw',
-   isa => 'DateTime',
+   isa => DateTimeType,
    coerce => 1
 );
 
