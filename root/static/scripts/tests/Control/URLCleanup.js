@@ -108,34 +108,40 @@ MB.tests.URLCleanup.GuessType = function() {
             tests = [
                 [
                     'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
-                    'http://www.amazon.co.uk/gp/product/B00009W0XE'
+                    'http://www.amazon.co.uk/gp/product/B00009W0XE',
+                    'release'
                 ],
                 [
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
-                    'http://www.discogs.com/release/5578'
+                    'http://www.discogs.com/release/5578',
+                    'release'
                 ],
                 [
                     // FIXME Need a "bad" archive.org link
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
-                    'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg'
+                    'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
+                    'release'
                 ],
                 [
                     'http://www.jamendo.com/en/album/56372',
-                    'http://www.jamendo.com/album/56372'
+                    'http://www.jamendo.com/album/56372',
+                    'release'
                 ],
                 [
                     'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
-                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg'
+                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
+                    'release'
                 ],
                 [
                     // FIXME Need a bad link
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'http://www.mange-disque.tv/fs/md_1643.jpg'
+                    'http://www.mange-disque.tv/fs/md_1643.jpg',
+                    'release'
                 ]
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.cleanUrl(test[0]), test[1], test[0]);
+            QUnit.equals(control.cleanUrl(test[2], test[0]), test[1], test[0]);
         });
     });
 };

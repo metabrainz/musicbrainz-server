@@ -118,6 +118,13 @@
     [%- END -%]
 [%- END -%]
 
+[%- MACRO form_row_paragraph(message, label) BLOCK -%]
+    [% WRAPPER form_row %]
+      <label>[%- IF label -%][%- label -%][%- ELSE -%]&nbsp;[%- END -%]</label>
+      <p>[%- message -%]</p>
+    [% END %]
+[%- END -%]
+
 [%- MACRO guesscase BLOCK -%]
   <fieldset class="guesscase">
     <legend>[% l('Guess case') %]</legend>

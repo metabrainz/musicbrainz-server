@@ -250,9 +250,9 @@
         </span>
 
         <span class="title"></span>
-        <span class="medium"></span>
-        [% l('by'); %] <span class="artist"></span>
       </a>
+      <span class="medium"></span>
+      [% l('by'); %] <span class="artist"></span>
 
       [%# either tracklist id, freedb id or discid (cdstub). %]
       <input type="hidden" class="id" />

@@ -35,6 +35,7 @@ use Sub::Exporter -setup => {
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
+MusicBrainz::Server::DatabaseConnectionFactory->alias('READWRITE' => 'TEST');
 
 our $test_context;
 our $test_transport = Email::Sender::Transport::Test->new();

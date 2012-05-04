@@ -379,14 +379,6 @@ sub appears_on
     return %map;
 }
 
-sub editor_can_create_recordings {
-    my ($self, $editor) = @_;
-    return DateTime::Duration->compare(
-        DateTime->now - $editor->registration_date,
-        DateTime::Duration->new( weeks => 2 )
-      ) && $editor->accepted_edits >= 10;
-}
-
 =method find_tracklist_offsets
 
 Attempt to find all absolute offsets of when a recording appears in a releases

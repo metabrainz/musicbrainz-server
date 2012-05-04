@@ -37,8 +37,7 @@ use Getopt::Long;
 
 use DBDefs;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw ( $EDIT_ARTIST_DELETE );;
-use MusicBrainz::Server::Types qw( $BOT_FLAG $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw ( $EDIT_ARTIST_DELETE $BOT_FLAG $AUTO_EDITOR_FLAG );
 use Sql;
 use ModDefs;
 

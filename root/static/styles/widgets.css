@@ -55,8 +55,8 @@
 }
 
 /* Standard */
-.buttons a:focus, input[type=submit]:focus, button:focus,
-.buttons a:hover, input[type=submit]:hover, button:hover {
+.buttons a:focus, .buttons input[type=submit]:focus, .buttons button:focus,
+.buttons a:hover, .buttons input[type=submit]:hover, .buttons button:hover {
     background-color:#dff4ff;
     border:1px solid #c2e1ef;
     color:#336699;
