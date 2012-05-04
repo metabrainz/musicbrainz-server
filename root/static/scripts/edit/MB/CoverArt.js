@@ -117,6 +117,8 @@ MB.CoverArt.reorder_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function () {
+    $('#add-cover-art-submit').removeAttr('disabled');
+
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();
 

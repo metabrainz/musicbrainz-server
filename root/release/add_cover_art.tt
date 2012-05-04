@@ -5,7 +5,11 @@
 [%- WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' -%]
   <h2>[%- l('Add Cover Art') -%]</h2>
 
-  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
+  <noscript>
+    <p>[% l('This page requires JavaScript.') %]</p>
+  </noscript>
+
+  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" style="display: none">
     [%- USE r = FormRenderer(form) -%]
 
     <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
@@ -49,11 +53,17 @@
     <div style="clear: left;"> </div>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
-    [%- enter_edit() -%]
-
+    [%- as_auto_editor() -%]
+    <div class="row no-label buttons">
+        <button id="add-cover-art-submit" type="submit" disabled="disabled"
+                class="submit positive">[% l('Enter edit') %]</button>
+        [% extra %]
+    </div>
   </form>
+
   <script type="text/javascript">
     MB.CoverArt.add_cover_art ();
+    $('#add-cover-art').show();
     MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]
