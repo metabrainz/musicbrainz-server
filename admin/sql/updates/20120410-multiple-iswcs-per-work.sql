@@ -3,7 +3,7 @@ BEGIN;
 CREATE TABLE iswc (
     id SERIAL NOT NULL,
     work INTEGER NOT NULL,
-    iswc CHARACTER(15) CHECK (iswc ~ '^T-?\d{3}.?\d{3}.?\d{3}[-.]?\d$'),
+    iswc CHARACTER(15) CHECK (iswc ~ E'^T-?\\d{3}.?\\d{3}.?\\d{3}[-.]?\\d$'),
     source SMALLINT,
     edits_pending INTEGER NOT NULL DEFAULT 0,
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
