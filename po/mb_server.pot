@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-04 10:30-0400\n"
+"POT-Creation-Date: 2012-05-04 10:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,14 +338,14 @@ msgstr ""
 msgid "<strong>Note</strong>:"
 msgstr ""
 
-#: ../root/main/index.tt:38
+#: ../root/main/index.tt:54
 #, perl-format
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone "
 "to contribute and releasing the {doc|data} under {doc2|open licenses}."
 msgstr ""
 
-#: ../root/main/index.tt:43
+#: ../root/main/index.tt:59
 #, perl-format
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
@@ -2349,7 +2349,7 @@ msgid ""
 "the email to verify the new email address."
 msgstr ""
 
-#: ../root/main/index.tt:73
+#: ../root/main/index.tt:89
 #, perl-format
 msgid ""
 "Become a part of our <strong>global community</strong> and <strong>start "
@@ -2393,7 +2393,7 @@ msgstr ""
 msgid "Beginners Guide"
 msgstr ""
 
-#: ../root/main/index.tt:18
+#: ../root/main/index.tt:33
 #, perl-format
 msgid "Beginners guide"
 msgstr ""
@@ -3387,9 +3387,9 @@ msgstr ""
 msgid "Comment:"
 msgstr ""
 
-#: ../root/main/index.tt:70
+#: ../root/main/index.tt:86
 #, perl-format
-msgid "Community »"
+msgid "Community"
 msgstr ""
 
 #: DB:country/name:48
@@ -4467,9 +4467,9 @@ msgstr ""
 msgid "Developer Resources"
 msgstr ""
 
-#: ../root/main/index.tt:86
+#: ../root/main/index.tt:102
 #, perl-format
-msgid "Developers »"
+msgid "Developers"
 msgstr ""
 
 #: ../root/layout/menu.tt:227
@@ -5112,7 +5112,7 @@ msgstr ""
 msgid "Editing history"
 msgstr ""
 
-#: ../root/main/index.tt:19
+#: ../root/main/index.tt:34
 #, perl-format
 msgid "Editing introduction"
 msgstr ""
@@ -5574,7 +5574,7 @@ msgstr ""
 msgid "External links"
 msgstr ""
 
-#: ../root/layout/menu.tt:215 ../root/main/index.tt:21
+#: ../root/layout/menu.tt:215 ../root/main/index.tt:36
 #, perl-format
 msgid "FAQs"
 msgstr ""
@@ -7987,7 +7987,7 @@ msgstr ""
 msgid "Italy"
 msgstr ""
 
-#: ../root/layout/menu.tt:124 ../root/main/index.tt:9
+#: ../root/layout/menu.tt:124 ../root/main/index.tt:24
 #, perl-format
 msgid "Jaikoz"
 msgstr ""
@@ -8578,6 +8578,11 @@ msgstr ""
 msgid "Last updated: {date}"
 msgstr ""
 
+#: ../root/main/index.tt:6
+#, perl-format
+msgid "Latest posts:"
+msgstr ""
+
 #: DB:language/name:238 DB:script/name:28
 msgid "Latin"
 msgstr ""
@@ -8671,7 +8676,7 @@ msgid ""
 "Highland Bagpipe fingering."
 msgstr ""
 
-#: ../root/main/index.tt:49
+#: ../root/main/index.tt:65
 #, perl-format
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
@@ -8938,7 +8943,7 @@ msgstr ""
 msgid "Magahi"
 msgstr ""
 
-#: ../root/layout/menu.tt:127 ../root/main/index.tt:10
+#: ../root/layout/menu.tt:127 ../root/main/index.tt:25
 #, perl-format
 msgid "Magic MP3 Tagger"
 msgstr ""
@@ -9561,14 +9566,14 @@ msgstr ""
 msgid "MusicBrainz - The Open Music Encyclopedia"
 msgstr ""
 
-#: ../root/layout/menu.tt:136
+#: ../root/main/index.tt:5
 #, perl-format
-msgid "MusicBrainz Database"
+msgid "MusicBrainz Blog"
 msgstr ""
 
-#: ../root/main/index.tt:78
+#: ../root/layout/menu.tt:136 ../root/main/index.tt:94
 #, perl-format
-msgid "MusicBrainz Database »"
+msgid "MusicBrainz Database"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:63
@@ -9581,7 +9586,7 @@ msgstr ""
 msgid "MusicBrainz Events:"
 msgstr ""
 
-#: ../root/layout/menu.tt:121 ../root/main/index.tt:8
+#: ../root/layout/menu.tt:121 ../root/main/index.tt:23
 #, perl-format
 msgid "MusicBrainz Picard"
 msgstr ""
@@ -9591,7 +9596,7 @@ msgstr ""
 msgid "MusicBrainz Server"
 msgstr ""
 
-#: ../root/main/index.tt:33
+#: ../root/main/index.tt:49
 #, perl-format
 msgid "MusicBrainz aims to be:"
 msgstr ""
@@ -9621,14 +9626,14 @@ msgid ""
 "or label, please use the above form to create an account."
 msgstr ""
 
-#: ../root/main/index.tt:29
+#: ../root/main/index.tt:45
 #, perl-format
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
 msgstr ""
 
-#: ../root/main/index.tt:61
+#: ../root/main/index.tt:77
 #, perl-format
 msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
@@ -11543,9 +11548,9 @@ msgstr ""
 msgid "Query:"
 msgstr ""
 
-#: ../root/main/index.tt:15
+#: ../root/main/index.tt:30
 #, perl-format
-msgid "Quick Start »"
+msgid "Quick Start"
 msgstr ""
 
 #: ../root/edit/list_header.tt:4
@@ -11619,6 +11624,11 @@ msgstr ""
 #: ../root/statistics/view_js.tt:35
 #, perl-format
 msgid "Ratings and Tags"
+msgstr ""
+
+#: ../root/main/index.tt:14
+#, perl-format
+msgid "Read more &raquo;"
 msgstr ""
 
 #: ../root/admin/wikidoc/index.tt:56
@@ -14008,7 +14018,7 @@ msgstr ""
 msgid "Style Guidelines"
 msgstr ""
 
-#: ../root/edit/list_header.tt:25 ../root/main/index.tt:20
+#: ../root/edit/list_header.tt:25 ../root/main/index.tt:35
 #, perl-format
 msgid "Style guidelines"
 msgstr ""
@@ -14228,9 +14238,9 @@ msgstr ""
 msgid "Tag Not Used"
 msgstr ""
 
-#: ../root/main/index.tt:5
+#: ../root/main/index.tt:20
 #, perl-format
-msgid "Tag Your Music »"
+msgid "Tag Your Music"
 msgstr ""
 
 #: ../root/search/index.tt:14
@@ -14805,7 +14815,7 @@ msgstr ""
 msgid "The main server is located at {uri}."
 msgstr ""
 
-#: ../root/main/index.tt:81
+#: ../root/main/index.tt:97
 #, perl-format
 msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
@@ -17059,7 +17069,7 @@ msgstr ""
 msgid "Use in a relationship"
 msgstr ""
 
-#: ../root/main/index.tt:89
+#: ../root/main/index.tt:105
 #, perl-format
 msgid ""
 "Use our <strong>XML web service</strong> or <strong>development libraries</"
@@ -17620,7 +17630,7 @@ msgstr ""
 msgid "Website:"
 msgstr ""
 
-#: ../root/main/index.tt:27
+#: ../root/main/index.tt:43
 #, perl-format
 msgid "Welcome to MusicBrainz!"
 msgstr ""
@@ -22872,7 +22882,7 @@ msgstr ""
 msgid "zurna"
 msgstr ""
 
-#: ../root/main/index.tt:54
+#: ../root/main/index.tt:70
 #, perl-format
 msgid ""
 "{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
