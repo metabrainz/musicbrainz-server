@@ -18,6 +18,7 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+work');
+MusicBrainz::Server::Test->prepare_test_database($c, '+language');
 
 my $edit = create_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Create');
@@ -32,6 +33,7 @@ ok(defined $work);
 is($work->name, 'Mrs. Bongo');
 is($work->comment => 'Work comment');
 is($work->type_id, 1);
+is($work->language_id, 1);
 
 is($work->edits_pending, 0);
 is($edit->status, $STATUS_APPLIED, 'add work edits should be autoedits');
@@ -46,7 +48,8 @@ sub create_edit
         edit_type => $EDIT_WORK_CREATE,
         name => 'Mrs. Bongo',
         comment => 'Work comment',
-        type_id => 1
+        type_id => 1,
+        language_id => 1,
     );
 }
 

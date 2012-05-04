@@ -34,7 +34,8 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Create');
 is_deeply($edit->data, {
     name          => 'Enchanted',
     comment       => 'A comment!',
-    type_id       => 1
+    type_id       => 1,
+    language_id   => undef,
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');

@@ -367,6 +367,7 @@ sub _serialize_work
         } $work->all_iswcs);
     }
 
+    push @list, $gen->language($work->language->iso_code_3 // $work->language->iso_code_2t) if $work->language;
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
