@@ -137,11 +137,29 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
     my $table = $self->table;
     my $type = $self->type;
-    $self->sql->do("DELETE FROM $table
-              WHERE name IN (SELECT name FROM $table WHERE $type = ?) AND
-                    $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+
+    # Keep locales in the target merge, as there can only be one alias per locale
+    $self->sql->do(
+        "DELETE FROM $table WHERE $type = any(?) AND locale IS NOT NULL
+         AND (locale) IN (
+             SELECT locale FROM $table WHERE $type = ? AND locale IS NOT NULL
+         )",
+        \@old_ids, $new_id
+    );
+
+    $self->sql->do(
+        "DELETE FROM $table
+         WHERE $type = any(?) AND
+           (name, locale, $type) NOT IN (
+             SELECT DISTINCT ON (name, locale) name, locale, $type
+             FROM $table WHERE $type = any(?)
+           )",
+        [ $new_id, @old_ids ],
+        [ $new_id, @old_ids ]);
+
     $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+
     $self->sql->do(
         "INSERT INTO $table (name, $type)
             SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id

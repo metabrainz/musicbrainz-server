@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
-use MusicBrainz::Server::Types qw( $STATUS_DELETED );
+use MusicBrainz::Server::Constants qw( $STATUS_DELETED );
 
 with 't::Context', 't::Mechanize';
 

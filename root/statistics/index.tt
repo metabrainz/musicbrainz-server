@@ -507,6 +507,12 @@
 </tr>
 <tr>
     <th></th>
+    <th colspan=2>[% l('Approve:') %]</th>
+    <td>[% add_commas(stats.statistic('count.vote.approve')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.approve', 'count.vote')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
     <th colspan=2>[% l('Yes:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.yes')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.yes', 'count.vote')) }) %]</td>
