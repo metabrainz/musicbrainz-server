@@ -19,6 +19,9 @@ then
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 fi
 
+echo `date` : Applying 20120420-editor-improvements.sql
+./admin/psql < admin/sql/updates/20120420-editor-improvements.sql
+
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Create replication triggers
