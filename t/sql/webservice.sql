@@ -30,7 +30,7 @@ INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_cred
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', NULL, 437020, 0, 2, 265420, 377462, 'b84625af-6229-305f-9f1b-59c0185df016');
 INSERT INTO release_status (name, id) VALUES ('Official', 1);
 INSERT INTO country (iso_code, name, id) VALUES ('JP', 'Japan', 107);
-INSERT INTO language (frequency, iso_code_2, iso_code_3t, name, id, iso_code_3b) VALUES (2, 'ja', 'jpn', 'Japanese', 198, 'jpn');
+INSERT INTO language (frequency, iso_code_1, iso_code_2t, name, id, iso_code_2b, iso_code_3) VALUES (2, 'ja', 'jpn', 'Japanese', 198, 'jpn', 'jpn');
 INSERT INTO script (frequency, iso_code, name, iso_number, id) VALUES (4, 'Jpan', 'Japanese', '413', 85);
 INSERT INTO release_status (name, id) VALUES ('Pseudo-Release', 4);
 INSERT INTO script (frequency, iso_code, name, iso_number, id) VALUES (4, 'Latn', 'Latin', '215', 28);
@@ -110,7 +110,7 @@ INSERT INTO artist_tag (last_updated, count, artist, tag) VALUES ('2011-01-18 15
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES (NULL, 11545, 602704, 0, 11545);
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', NULL, 694423, 0, 1, 11545, 155364, '202cad78-a2e1-3fa7-b8bc-77c1f737e3da');
 INSERT INTO country (iso_code, name, id) VALUES ('GB', 'United Kingdom', 221);
-INSERT INTO language (frequency, iso_code_2, iso_code_3t, name, id, iso_code_3b) VALUES (2, 'en', 'eng', 'English', 120, 'eng');
+INSERT INTO language (frequency, iso_code_1, iso_code_2t, name, id, iso_code_2b, iso_code_3) VALUES (2, 'en', 'eng', 'English', 120, 'eng', 'eng');
 INSERT INTO country (iso_code, name, id) VALUES ('US', 'United States', 222);
 INSERT INTO release (date_day, status, release_group, edits_pending, packaging, id, quality, country, last_updated, script, language, name, artist_credit, barcode, comment, date_year, date_month, gid) VALUES (13, 1, 155364, 0, NULL, 24752, -1, 221, '2010-02-22 02:01:29.413661+00', 28, 120, 694423, 11545, '5021603064126', NULL, 1999, 9, '4f5a6b97-a09b-4893-80d1-eae1f3bfa221');
 INSERT INTO release (date_day, status, release_group, edits_pending, packaging, id, quality, country, last_updated, script, language, name, artist_credit, barcode, comment, date_year, date_month, gid) VALUES (23, 1, 155364, 0, NULL, 243064, -1, 222, '2010-02-22 02:01:29.413661+00', 28, 120, 694423, 11545, NULL, NULL, 1999, 9, 'fbe4eb72-0f24-3875-942e-f581589713d4');

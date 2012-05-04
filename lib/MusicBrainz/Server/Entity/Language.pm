@@ -9,17 +9,22 @@ has 'name' => (
     isa => 'Str'
 );
 
-has 'iso_code_3t' => (
+has 'iso_code_2t' => (
     is => 'rw',
     isa => 'Str'
 );
 
-has 'iso_code_3b' => (
+has 'iso_code_2b' => (
     is => 'rw',
     isa => 'Str'
 );
 
-has 'iso_code_2' => (
+has 'iso_code_1' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'iso_code_3' => (
     is => 'rw',
     isa => 'Str'
 );

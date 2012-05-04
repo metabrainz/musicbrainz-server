@@ -347,7 +347,7 @@ sub schema_fixup
             exists $data->{"text-representation"}->{language})
         {
             $data->{language} = MusicBrainz::Server::Entity::Language->new( {
-                iso_code_3t => $data->{"text-representation"}->{language}
+                iso_code_3 => $data->{"text-representation"}->{language}
             } );
         }
         if (exists $data->{"text-representation"} &&

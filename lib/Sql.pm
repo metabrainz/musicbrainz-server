@@ -161,6 +161,7 @@ sub update_row
 
     my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
                 ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
+
     $self->do($query,
         (map { $update->{$_} } @update_columns),
         (map { $conditions->{$_} } @condition_columns));
