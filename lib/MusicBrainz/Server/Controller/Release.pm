@@ -676,9 +676,9 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
             edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
             release => $entity,
             artwork_id => $artwork->id,
-            old_types => [ @type_ids ],
+            old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
             old_comment => $artwork->comment,
-            new_types => $form->field ("type_id")->value,
+            new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
             new_comment => $form->field('comment')->value || '',
         );
 
