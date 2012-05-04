@@ -19,6 +19,12 @@ then
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 fi
 
+echo `date` : Applying 20120405-rename-language-columns.sql
+./admin/psql < admin/sql/updates/20120405-rename-language-columns.sql
+
+echo `date` : Running 20120406-update-language-codes.pl
+./admin/sql/updates/20120406-update-language-codes.pl
+
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Create replication triggers
