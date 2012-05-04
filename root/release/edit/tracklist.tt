@@ -250,9 +250,9 @@
         </span>
 
         <span class="title"></span>
-        <span class="medium"></span>
-        [% l('by'); %] <span class="artist"></span>
       </a>
+      <span class="medium"></span>
+      [% l('by'); %] <span class="artist"></span>
 
       [%# either tracklist id, freedb id or discid (cdstub). %]
       <input type="hidden" class="id" />
@@ -302,8 +302,15 @@
     <table class="tracklist-template" style="display: none">
       <tr class="track">
         <td class="position">
-          <input class="pos" type="text">
+          <span class="pos"></span>
         </td>
+        <td class="reorder">
+            <input type="button" class="icon track-down"
+              title="[% l('Move track down') %]"
+              style="background-image: url([% c.uri_for("/static/images/icons/track-down.png") %]); width: 16px; height: 16px; border: 0;" />
+            <input type="button" class="icon track-up"
+              title="[% l('Move track up') %]"
+              style="background-image: url([% c.uri_for("/static/images/icons/track-up.png") %]); width: 16px; height: 16px; border: 0;" />
         <td class="title">
           <input type="hidden" class="id" />
           <input type="text" class="track-name" />
@@ -416,8 +423,9 @@
           <thead>
             <tr>
               <th class="position">[% l('#') %]</th>
-               <th class="title">[% l('Title') %]</th>
-               <th class="artist" colspan="2">
+              <th class="reorder"></th>
+              <th class="title">[% l('Title') %]</th>
+              <th class="artist" colspan="2">
                 <input type="checkbox" id="artistcolumn" class="artistcolumn" />
                 <label for="artistcolumn">[% l('Artist') %]</label>
               </th>

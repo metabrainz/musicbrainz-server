@@ -375,7 +375,7 @@ sub find_for_cdtoc
                         ON medium.tracklist = tracklist.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
                    AND (medium_format.id IS NULL OR medium_format.has_discids)
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(name.name), date_year, date_month, date_day
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -709,6 +709,7 @@ sub merge
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->c->model('CoverArtArchive')->merge_releases($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
 
     merge_table_attributes(
@@ -840,6 +841,7 @@ sub load_meta
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
         $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};
+        $obj->cover_art_presence($row->{cover_art_presence});
     }, @objs);
 
     my @ids = keys %id_to_obj;

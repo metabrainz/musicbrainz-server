@@ -144,7 +144,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
         if (item.position)
         {
-            var format = item.format ? item.format : 'Disc';
+            var format = item.format ? item.format : 'Medium';
             var medium = '(' + format + ' ' + item.position +
                 (item.medium ? ': ' + item.medium : '') + ')';
 
@@ -348,7 +348,7 @@ MB.Control.ReleaseTrackParser = function (dialog) {
 
             if (MB.TrackParser.options.trackNumbers ())
             {
-                str += item.$position.val () + ". ";
+                str += item.position () + ". ";
             }
 
             str += item.$title.val ();

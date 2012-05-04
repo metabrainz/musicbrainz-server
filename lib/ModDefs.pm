@@ -226,6 +226,8 @@ use constant VOTE_NO                                    => 0;
 use constant VOTE_YES                                   => 1;
 # The moderation voted ABSTAIN
 use constant VOTE_ABS                                   => -1;
+# An auto-editor approved the edit
+use constant VOTE_APPROVE                               => 2;
 
 # The moderator didn't vote.
 use constant VOTE_NOTVOTED                      => -2;
@@ -238,6 +240,7 @@ my %VoteNames = (
     VOTE_NO  . ""      => "no",
     VOTE_YES . ""      => "yes",
     VOTE_ABS . ""      => "abstain",
+    VOTE_APPROVE . ""  => "approve",
     VOTE_NOTVOTED . "" => "not voted",
     VOTE_UNKNOWN  . "" => "unknown",
 );

@@ -406,7 +406,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text == '' ? html_escape(artist.name) : html_escape(text);
     hover = html_escape(artist.sort_name);
-    IF artist.comment; hover = hover _ ', ' _ artist.comment; END;
+    IF artist.comment; hover = hover _ ' (' _ artist.comment _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a title="' _ hover _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -521,7 +521,7 @@ END -%]
     <a rel="mo:record"
        [%- IF doRDFa %] resource="[%- rdfa_tracklist_curi(medium) -%]" [%- END -%]
        href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
-    [%~ l(medium.format_name) or l("Medium") | html =%]
+    [%~ medium_format_name(medium) =%]
     [%= medium.position ~%]
     [%~ IF medium.name ~%]:
        [%= medium.name | html ~%]

@@ -4,6 +4,7 @@ use MooseX::ABC;
 
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Data::Utils qw( remove_equal );
+use Scalar::Util qw(blessed);
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -20,14 +21,21 @@ sub _change_hash
 
 sub _property_to_edit {
     my ($self, $instance, $property) = @_;
+
     my %mapping = $self->_mapping;
+
     my $mapped = exists $mapping{$property} ? $mapping{$property} : $property;
     if (ref $mapped eq 'CODE') {
         return $mapped->($instance)
     }
-    else {
+    elsif (blessed $instance)
+    {
         my $value = $instance->$mapped;
         return defined($value) ? "$value" : undef;
+    }
+    else
+    {
+        return $instance->{$mapped};
     }
 }
 

@@ -1,8 +1,8 @@
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-{label: MB.text.Timeline["[%- statistic -%]"].Label, 
- color: MB.text.Timeline["[%- statistic -%]"].Color, 
- category: MB.text.Timeline["[%- statistic -%]"].Category
+{label: MB.text.Timeline.Stat("[%- statistic -%]").Label, 
+ color: MB.text.Timeline.Stat("[%- statistic -%]").Color, 
+ category: MB.text.Timeline.Stat("[%- statistic -%]").Category
 },
 [% END %]
 
