@@ -91,28 +91,22 @@ sub delete_entities
 #     return wantarray ? @created : $created[0];
 # }
 
-# sub merge
-# {
-#     my ($self, $new_id, @old_ids) = @_;
-#     my $table = $self->table;
-#     my $type = $self->type;
-#     $self->sql->do("DELETE FROM $table
-#               WHERE name IN (SELECT name FROM $table WHERE $type = ?) AND
-#                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-#     $self->sql->do("UPDATE $table SET $type = ?
-#               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-#     $self->sql->do(
-#         "INSERT INTO $table (name, $type)
-#             SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id
-#               FROM $type old_entity
-#          LEFT JOIN $table alias ON alias.name = old_entity.name
-#               JOIN $type new_entity ON (new_entity.id = ?)
-#              WHERE old_entity.id IN (" . placeholders(@old_ids) . ")
-#                AND alias.id IS NULL
-#                AND old_entity.name != new_entity.name",
-#         $new_id, @old_ids
-#     );
-# }
+sub merge
+{
+    my ($self, $new_id, @old_ids) = @_;
+    my $table = $self->table;
+    my $type = $self->type;
+
+    for my $old_id (@old_ids)
+    {
+        # move over ipis to the new artist, leaving duplicates.
+        $self->sql->do("UPDATE $table SET $type = ? WHERE $type = ? ".
+                       "AND NOT ipi IN (SELECT ipi FROM $table WHERE $type = ?)",
+                       $new_id, $old_id, $new_id);
+        # if any remain, they're duplicates, remove them.
+        $self->sql->do("DELETE FROM $table WHERE $type = ?", $old_id);
+    }
+}
 
 # sub update
 # {

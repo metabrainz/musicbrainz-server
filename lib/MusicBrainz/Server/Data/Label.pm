@@ -222,6 +222,7 @@ sub _merge_impl
     my ($self, $new_id, @old_ids) = @_;
 
     $self->alias->merge($new_id, @old_ids);
+    $self->ipi->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->subscription->merge_entities($new_id, @old_ids);
