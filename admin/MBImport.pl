@@ -367,6 +367,7 @@ sub ImportAllTables
         editor_subscribe_label
         gender
         isrc
+        iswc
         l_artist_artist
         l_artist_label
         l_artist_recording

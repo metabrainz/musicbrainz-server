@@ -45,7 +45,6 @@ accept_edit($c, $edit);
 $work = $c->model('Work')->get_by_id(1);
 is($work->name, 'Edited name');
 is($work->comment, 'Edited comment');
-is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
 is($work->edits_pending, 0);
 
@@ -115,7 +114,6 @@ sub create_edit {
         to_edit => $work,
         name => 'Edited name',
         comment => 'Edited comment',
-        iswc => 'T-000.000.001-0',
         type_id => 1,
     );
 }
@@ -124,7 +122,6 @@ sub is_unchanged {
     my $work = shift;
     is($work->name, 'Traits (remix)');
     is($work->comment, undef);
-    is($work->iswc, undef);
     is($work->type_id, undef);
 }
 

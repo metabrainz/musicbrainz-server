@@ -81,6 +81,10 @@ CREATE TRIGGER "reptg_isrc"
 AFTER INSERT OR DELETE OR UPDATE ON "isrc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_iswc"
+AFTER INSERT OR DELETE OR UPDATE ON "iswc"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 -- not replicated:
 -- historicalstat
 

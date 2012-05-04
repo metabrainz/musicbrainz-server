@@ -115,6 +115,7 @@ sub direct : Private
         when ('work') {
             $c->model('Work')->load_writers(@entities);
             $c->model('Work')->load_recording_artists(@entities);
+            $c->model('ISWC')->load_for_works(@entities);
         }
     }
 
@@ -208,6 +209,13 @@ sub do_external_search {
         $c->stash->{pager}    = $ret->{pager};
         $c->stash->{offset}   = $ret->{offset};
         $c->stash->{results}  = $ret->{results};
+
+        # FIXME Search server needs updating to return this
+        if ($type eq 'work') {
+            $c->model('ISWC')->load_for_works(
+                map { $_->entity } @{ $c->stash->{results} }
+            );
+        }
     }
 }
 

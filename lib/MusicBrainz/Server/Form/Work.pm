@@ -15,16 +15,12 @@ has_field 'name' => (
     required => 1,
 );
 
-has_field 'iswc' => (
-    type => '+MusicBrainz::Server::Form::Field::ISWC',
-);
-
 has_field 'comment' => (
     type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 
-sub edit_field_names { qw( type_id name iswc comment artist_credit ) }
+sub edit_field_names { qw( type_id name comment artist_credit ) }
 
 sub options_type_id { shift->_select_all('WorkType') }
 
