@@ -1,3 +1,0 @@
-[% WRAPPER 'layout.tt' title=l('Attach CD TOC to release') %]
-    [% INCLUDE 'components/search.tt' %]
-[% END %]

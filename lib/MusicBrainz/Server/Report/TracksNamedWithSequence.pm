@@ -8,7 +8,7 @@ sub gather_data {
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, <<'EOSQL');
-SELECT release.id, release.gid,
+SELECT release.id, release.gid AS release_gid,
        release.artist_credit AS artist_credit_id,
        release.edits_pending,
        release_name.name

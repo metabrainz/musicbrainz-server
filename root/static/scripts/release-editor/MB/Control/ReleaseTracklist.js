@@ -335,6 +335,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             self.addTrack ();
             count = count - 1;
         }
+
+        self.$add_track_count.val(1);
     };
 
 
@@ -1053,7 +1055,7 @@ MB.Control.ReleaseTracklist = function () {
             $va.each (function (idx, elem) {
                 var $trkrow = $(elem).parents ('tr.track-artist-credit').prevAll('*:eq(0)');
 
-                var disc = $.trim ($trkrow.parents ('fieldset.advanced-disc').find ('legend').text ());
+                var disc = MB.utility.trim ($trkrow.parents ('fieldset.advanced-disc').find ('legend').text ());
 
                 if (!affected.hasOwnProperty (disc))
                 {

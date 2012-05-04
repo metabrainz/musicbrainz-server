@@ -27,7 +27,7 @@
            classes.push('mp') IF medium_cdtoc.edits_pending > 0; %]
         <tr class="[% classes.join(' ') %]">
             <td>[% medium.position %]/[% release.medium_count %]</td>
-            <td>[% medium.format_name or "-" %]</td>
+            <td>[% medium_format_name(medium) %]</td>
             <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
             <td>[% release.date.format %]</td>

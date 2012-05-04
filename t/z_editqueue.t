@@ -14,8 +14,7 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Test::Connector;
 use MusicBrainz::Server::Edit;
-use MusicBrainz::Server::Constants qw( :edit_type :quality );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_type :quality :edit_status );
 
 {
     package MockEdit;
@@ -81,7 +80,7 @@ $sql->auto_commit(1);
 $sql->do("UPDATE edit SET yes_votes=100 WHERE id=101");
 
 # Acquire an exclusive lock on the edit
-my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('READWRITE');
+my $raw_db = MusicBrainz::Server::DatabaseConnectionFactory->get('TEST');
 my $raw2   = MusicBrainz::Server::Test::Connector->new(database => $raw_db);
 
 my $sql2 = Sql->new($raw2->conn);
@@ -125,7 +124,7 @@ $edit->yes_votes(0);
 $edit->no_votes(0);
 $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
 $status = $queue->_determine_new_status($edit);
-is($status, $STATUS_FAILEDVOTE);
+is($status, $STATUS_NOVOTES);
 
 # Expired one day ago, 1 no vote, 0 yes votes
 $edit = MockEdit->new();

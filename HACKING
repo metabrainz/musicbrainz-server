@@ -124,8 +124,9 @@ Keys:
  * ac:INT -- artist credit by ID
  * artist:INT -- artist by ID
  * artist:UUID -- artist ID by MBID (you need to do another lookup by ID)
- * g:INT -- gender by ID
+ * cat:INT -- cover art type by ID
  * c:INT -- country by ID
+ * g:INT -- gender by ID
  * label:INT -- label by ID
  * label:UUID -- label by MBID (you need to do another lookup by ID)
  * lng:INT -- language by ID
