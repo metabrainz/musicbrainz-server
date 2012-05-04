@@ -124,6 +124,7 @@ Keys:
  * ac:INT -- artist credit by ID
  * artist:INT -- artist by ID
  * artist:UUID -- artist ID by MBID (you need to do another lookup by ID)
+ * blog:entries -- The lastest entries from blog.musicbrainz.org
  * g:INT -- gender by ID
  * c:INT -- country by ID
  * label:INT -- label by ID
