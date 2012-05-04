@@ -6,12 +6,15 @@
                     <th>
                         [% l('Alias') %]
                     </th>
+                    <th>[% l('Begin Date') %]</th>
+                    <th>[% l('End Date') %]</th>
+                    <th>[% l('Type') %]</th>
+                    <th>[% l('Locale') %]</th>
                     [% IF c.user_exists %]
                         <th style="width: 10em">
                             [% l('Actions') %]
                         </th>
                     [% END %]
-                    <th style="width: 5em">[% l('Locale') %]</th>
                 </tr>
             </thead>
             <tbody about="[% rdfa_entity_curi(entity) %]">
@@ -21,6 +24,17 @@
                         [% '<span class="mp">' IF alias.edits_pending %]
                         [% rdfa_alias(alias.name, entity) %]
                         [% '</span>' IF alias.edits_pending %]
+                    </td>
+                    <td>[% alias.begin_date.format %]</td>
+                    <td>[% alias.end_date.format %]</td>
+                    <td>[% alias.type_name %]</td>
+                    <td>
+                      [% IF alias.locale %]
+                        [% alias.locale | locale %]
+                      [% END %]
+                      [% IF alias.primary_for_locale %]
+                        [% l('(<span class="comment">primary</span>)') %]
+                      [% END %]
                     </td>
                     [% IF c.user_exists %]
                         <td>
@@ -32,7 +46,6 @@
                             </a>
                         </td>
                     [% END %]
-                    <td>[% IF alias.locale %][% alias.locale | locale %][% END %]</td>
                 </tr>
             [%- END -%]
             </tbody>

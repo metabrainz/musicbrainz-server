@@ -3,7 +3,13 @@ use Moose;
 use namespace::autoclean;
 
 use Class::MOP;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw(
+    add_partial_date_to_row
+    load_subobjects
+    partial_date_from_row
+    placeholders
+    query_to_list
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -25,14 +31,17 @@ has [qw( table type entity )] => (
 sub _table
 {
     my $self = shift;
-    return sprintf '%s JOIN %s name ON %s.name=name.id',
-        $self->table, $self->parent->name_table, $self->table
+    return sprintf '%s JOIN %s name ON %s.name=name.id JOIN %s sort_name ON %s.sort_name=sort_name.id',
+        $self->table, $self->parent->name_table, $self->table, $self->parent->name_table, $self->table;
 }
 
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s.id, name.name, %s, locale, edits_pending',
+    return sprintf '%s.id, name.name, sort_name.name AS sort_name, %s, locale,
+                    edits_pending, begin_date_year, begin_date_month,
+                    begin_date_day, end_date_year, end_date_month,
+                    end_date_day, type AS type_id, primary_for_locale',
         $self->table, $self->type;
 }
 
@@ -42,9 +51,14 @@ sub _column_mapping
     return {
         id                  => 'id',
         name                => 'name',
+        sort_name           => 'sort_name',
         $self->type . '_id' => $self->type,
         edits_pending       => 'edits_pending',
-        locale              => 'locale'
+        locale              => 'locale',
+        type_id             => 'type_id',
+        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        primary_for_locale  => 'primary_for_locale'
     };
 }
 
@@ -68,7 +82,7 @@ sub find_by_entity_id
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY locale NULLS LAST, musicbrainz_collate(name.name)";
+                 ORDER BY locale NULLS LAST, musicbrainz_collate(sort_name.name), musicbrainz_collate(name.name)";
 
     return [ query_to_list($self->c->sql, sub {
         $self->_new_from_row(@_)
@@ -118,16 +132,23 @@ sub insert
 {
     my ($self, @alias_hashes) = @_;
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-    my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
+    my %names = $self->parent->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @alias_hashes);
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
-        push @created, $class->new(
-            id => $self->sql->insert_row($table, {
-                $type  => $hash->{$type . '_id'},
-                name   => $names{ $hash->{name} },
-                locale => $hash->{locale}
-            }, 'id'));
+        my $row = {
+            $type => $hash->{$type . '_id'},
+            name => $names{ $hash->{name} },
+            locale => $hash->{locale},
+            sort_name => $names{ $hash->{sort_name} },
+            primary_for_locale => $hash->{primary_for_locale},
+            type => $hash->{type_id},
+        };
+
+        add_partial_date_to_row($row, $hash->{begin_date}, "begin_date");
+        add_partial_date_to_row($row, $hash->{end_date}, "end_date");
+
+        push @created, $class->new(id => $self->sql->insert_row($table, $row, 'id'));
     }
     return wantarray ? @created : $created[0];
 }
@@ -161,8 +182,8 @@ sub merge
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 
     $self->sql->do(
-        "INSERT INTO $table (name, $type)
-            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id
+        "INSERT INTO $table (name, $type, sort_name)
+            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.name -- TODO: Use old_entity.sort_name, but works don't have this...
               FROM $type old_entity
          LEFT JOIN $table alias ON alias.name = old_entity.name
               JOIN $type new_entity ON (new_entity.id = ?)
@@ -178,11 +199,22 @@ sub update
     my ($self, $alias_id, $alias_hash) = @_;
     my $table = $self->table;
     my $type = $self->type;
+
+    my %row = %$alias_hash;
+    delete @row{qw( name begin_date end_date )};
+
     if (exists $alias_hash->{name}) {
         my %names = $self->parent->find_or_insert_names($alias_hash->{name});
-        $alias_hash->{name} = $names{ $alias_hash->{name} };
+        $row{name} = $names{ $alias_hash->{name} };
     }
-    $self->sql->update_row($table, $alias_hash, { id => $alias_id });
+    add_partial_date_to_row(\%row, $alias_hash->{begin_date}, "begin_date")
+        if exists $alias_hash->{begin_date};
+    add_partial_date_to_row(\%row, $alias_hash->{end_date}, "end_date")
+        if exists $alias_hash->{end_date};
+    $row{type} = delete $row{type_id}
+        if exists $row{type_id};
+
+    $self->sql->update_row($table, \%row, { id => $alias_id });
 }
 
 no Moose;

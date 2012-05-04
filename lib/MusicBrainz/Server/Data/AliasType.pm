@@ -1,44 +1,38 @@
-package MusicBrainz::Server::Entity::Alias;
+package MusicBrainz::Server::Data::AliasType;
 
 use Moose;
+use namespace::autoclean;
+use MusicBrainz::Server::Entity::AliasType;
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
-extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Editable';
-with 'MusicBrainz::Server::Entity::Role::Age';
+extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
+has [qw( table type )] => (
+    isa      => 'Str',
+    is       => 'rw',
+    required => 1
 );
 
-has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str'
-);
+sub _table { shift->table }
 
-has 'locale' => (
-    is  => 'rw',
-    isa => 'Str',
-);
-
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has 'type' => (
-    is => 'rw',
-);
-
-has 'primary_for_locale' => (
-    isa => 'Bool',
-    is => 'rw',
-);
-
-sub type_name {
-    my $self = shift;
-    return defined $self->type ? $self->type->name : undef;
+sub _columns
+{
+    return 'id, name';
 }
+
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::AliasType';
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'type', @objs);
+}
+
+sub _id_cache_prefix { shift->table }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -46,8 +40,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

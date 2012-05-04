@@ -346,6 +346,7 @@ sub ImportAllTables
         annotation
         artist
         artist_alias
+        artist_alias_type
         artist_annotation
         artist_credit
         artist_credit_name
@@ -396,6 +397,7 @@ sub ImportAllTables
         l_work_work
         label
         label_alias
+        label_alias_type
         label_annotation
         label_gid_redirect
         label_meta
@@ -450,6 +452,7 @@ sub ImportAllTables
         url_gid_redirect
         work
         work_alias
+        work_alias_type
         work_annotation
         work_gid_redirect
         work_meta

@@ -22,6 +22,9 @@ fi
 echo `date` : Applying 20120420-editor-improvements.sql
 ./admin/psql < admin/sql/updates/20120420-editor-improvements.sql
 
+echo `date` : Appyling 20120417-improved-aliases.sql
+./admin/psql < admin/sql/updates/20120417-improved-aliases.sql
+
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Create replication triggers
