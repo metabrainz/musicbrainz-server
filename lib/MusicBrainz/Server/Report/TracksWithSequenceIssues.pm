@@ -2,7 +2,7 @@ package MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use Moose;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Report';
+extends 'MusicBrainz::Server::Report::ReleaseReport';
 
 sub gather_data
 {
@@ -18,7 +18,7 @@ sub gather_data
     #    the following will *not* hold:
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
 	$self->gather_data_from_query($writer, <<'EOSQL');
-SELECT DISTINCT release.id, release.gid, release.artist_credit AS artist_credit_id,
+SELECT DISTINCT release.id, release.gid AS release_gid, release.artist_credit AS artist_credit_id,
   musicbrainz_collate(rel_name.name), rel_name.name
 FROM (
     SELECT
@@ -40,15 +40,6 @@ WHERE
   OR (track_count * (1 + track_count)) / 2 <> track_pos_acc
 ORDER BY musicbrainz_collate(rel_name.name)
 EOSQL
-}
-
-sub post_load {
-    my ($self, $items) = @_;
-    for my $item (@$items) {
-        $item->{release} = MusicBrainz::Server::Data::Release->_new_from_row($item)
-    }
-
-    $self->c->model('ArtistCredit')->load(map { $_->{release} } @$items);
 }
 
 sub template {

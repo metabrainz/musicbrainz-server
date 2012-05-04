@@ -33,6 +33,7 @@ my %URL_SPECIALIZATIONS = (
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
     'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Songfacts'       => qr{^https?://(?:www.)?songfacts.com/}i,
+    'SoundCloud'      => qr{^https?://(?:www.)?soundcloud.com/}i,
     'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
     'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,

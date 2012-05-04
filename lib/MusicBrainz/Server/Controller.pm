@@ -5,7 +5,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 use Carp;
 use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 use Try::Tiny;
@@ -74,7 +74,9 @@ sub _insert_edit {
     my ($self, $c, $form, %opts) = @_;
 
     my $privs   = $c->user->privileges;
-    if ($c->user->is_auto_editor && !$form->field('as_auto_editor')->value) {
+    if ($c->user->is_auto_editor &&
+        $form->field('as_auto_editor') &&
+        !$form->field('as_auto_editor')->value) {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
