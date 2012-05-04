@@ -9,8 +9,6 @@ use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
-use XML::RSS::Parser::Lite;
-use LWP::Simple;
 
 #
 # Sets the actions in this controller to be registered with no prefix
