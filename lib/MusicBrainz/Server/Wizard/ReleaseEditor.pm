@@ -1469,7 +1469,7 @@ sub _seed_parameters {
             sub { shift->model('ReleaseStatus')->find_by_name(shift) },
         ],
         [
-            'type_id', 'type',
+            'primary_type_id', 'type',
             sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
         ],
         [

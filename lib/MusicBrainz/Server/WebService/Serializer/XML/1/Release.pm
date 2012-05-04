@@ -23,8 +23,8 @@ sub attributes {
         if $opts && exists $opts->{score};
 
     my @type_status;
-    push @type_status, $entity->release_group->type->name
-        if $entity->release_group && $entity->release_group->type;
+    push @type_status, $entity->release_group->primary_type->name
+        if $entity->release_group && $entity->release_group->primary_type;
     push @type_status, $entity->status->name
         if $entity->status;
 

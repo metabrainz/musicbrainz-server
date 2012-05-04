@@ -25,7 +25,7 @@ is( $rg->id, 1 );
 is( $rg->gid, "7b5d22d0-72d7-11de-8a39-0800200c9a66" );
 is( $rg->name, "Release Group" );
 is( $rg->artist_credit_id, 1 );
-is( $rg->type_id, 1 );
+is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
 
 $rg = $rg_data->get_by_gid('7b5d22d0-72d7-11de-8a39-0800200c9a66');
@@ -33,7 +33,7 @@ is( $rg->id, 1 );
 is( $rg->gid, "7b5d22d0-72d7-11de-8a39-0800200c9a66" );
 is( $rg->name, "Release Group" );
 is( $rg->artist_credit_id, 1 );
-is( $rg->type_id, 1 );
+is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
 
 my ($rgs, $hits) = $rg_data->find_by_artist(1, 100);
@@ -77,7 +77,7 @@ $sql->begin;
 $rg = $rg_data->insert({
         name => 'My Demons',
         artist_credit => 1,
-        type_id => 1,
+        primary_type_id => 1,
         comment => 'Dubstep album',
     });
 
@@ -88,7 +88,7 @@ ok($rg->gid);
 
 $rg = $rg_data->get_by_id($rg->id);
 is($rg->name, 'My Demons');
-is($rg->type_id, 1);
+is($rg->primary_type_id, 1);
 is($rg->comment, 'Dubstep album');
 is($rg->artist_credit_id, 1);
 
@@ -96,7 +96,7 @@ $rg_data->update($rg->id, { name => 'My Angels', comment => 'Fake dubstep album'
 
 $rg = $rg_data->get_by_id($rg->id);
 is($rg->name, 'My Angels');
-is($rg->type_id, 1);
+is($rg->primary_type_id, 1);
 is($rg->comment, 'Fake dubstep album');
 is($rg->artist_credit_id, 1);
 

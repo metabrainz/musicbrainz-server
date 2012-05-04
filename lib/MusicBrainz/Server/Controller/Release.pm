@@ -207,7 +207,7 @@ sub medium_sort
 {
     ($a->medium->format_id || 99) <=> ($b->medium->format_id || 99)
         or
-    ($a->medium->release->release_group->type_id || 99) <=> ($b->medium->release->release_group->type_id || 99)
+    ($a->medium->release->release_group->primary_type_id || 99) <=> ($b->medium->release->release_group->primary_type_id || 99)
         or
     ($a->medium->release->status_id || 99) <=> ($b->medium->release->status_id || 99)
         or

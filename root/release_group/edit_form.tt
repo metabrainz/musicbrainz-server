@@ -7,7 +7,8 @@
       [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
-      [%- form_row_select(r, 'type_id', l('Type:')) -%]
+      [%- form_row_select(r, 'primary_type_id', l('Type:')) -%]
+      [%- form_row_select(r, 'secondary_type_ids', l('Extra Types:')) -%]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]

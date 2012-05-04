@@ -30,7 +30,7 @@
     <h2>[% l('Additional details') %]</h2>
     [% WRAPPER 'layout/sidebar/properties.tt';
         INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-           content=l(release.release_group.type.name) IF release.release_group.type.name;
+           content=l(release.release_group.primary_type.name) IF release.release_group.primary_type.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Packaging:')
            content=l(release.packaging.name) IF release.packaging.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Status:')

@@ -117,7 +117,7 @@ sub search
         $type2 = "release" if $type eq "release_group";
 
         my $extra_columns = "";
-        $extra_columns .= 'entity.type AS type_id,'
+        $extra_columns .= 'entity.type AS primary_type_id,'
             if ($type eq 'release_group');
 
         $extra_columns = "entity.length,"
@@ -303,7 +303,7 @@ sub schema_fixup
     }
     if ($type eq 'release-group' && exists $data->{type})
     {
-        $data->{type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
+        $data->{primary_type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
     }
     if ($type eq 'cdstub' && exists $data->{gid})
     {
@@ -399,7 +399,7 @@ sub schema_fixup
                 ) ]
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
-                type => MusicBrainz::Server::Entity::ReleaseGroupType->new(
+                primary_type => MusicBrainz::Server::Entity::ReleaseGroupType->new(
                     name => $release->{"release-group"}->{type} || ''
                 )
             );

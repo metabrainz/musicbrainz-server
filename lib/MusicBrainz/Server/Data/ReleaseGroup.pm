@@ -35,7 +35,7 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS type_id, name.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, name.name,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,
@@ -47,7 +47,7 @@ sub _column_mapping {
     return {
         id => 'id',
         gid => 'gid',
-        type_id => 'type_id',
+        primary_type_id => 'primary_type_id',
         name => 'name',
         artist_credit_id => 'artist_credit_id',
         comment => 'comment',
@@ -432,10 +432,13 @@ sub insert
     {
         my $row = $self->_hash_to_row($group, \%names);
         $row->{gid} = $group->{gid} || generate_gid();
-        push @created, $class->new(
+        my $new = $class->new(
             id => $self->sql->insert_row('release_group', $row, 'id'),
             gid => $row->{gid}
         );
+        push @created, $new;
+
+        $self->c->model('ReleaseGroupSecondaryType')->set_types($new->id, $group->{secondary_type_ids})
     }
     return @groups > 1 ? @created : $created[0];
 }
@@ -447,6 +450,8 @@ sub update
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('release_group', $row, { id => $group_id });
+    $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
+        if exists $update->{secondary_type_ids};
 }
 
 sub in_use
@@ -548,7 +553,7 @@ sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
     my $row = hash_to_row($group, {
-        type => 'type_id',
+        type => 'primary_type_id',
         map { $_ => $_ } qw( artist_credit comment edits_pending )
     });
 

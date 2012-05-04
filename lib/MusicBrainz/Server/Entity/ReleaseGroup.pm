@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Entity::ReleaseGroup;
 
 use Moose;
+
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
@@ -11,20 +13,35 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 
-has 'type_id' => (
+has 'primary_type_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'type' => (
+has 'primary_type' => (
     is => 'rw',
     isa => 'ReleaseGroupType'
+);
+
+has 'secondary_types' => (
+    isa => 'ArrayRef',
+    is => 'ro',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_secondary_type => 'push',
+        all_secondary_types => 'elements'
+    }
 );
 
 sub type_name
 {
     my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
+    return undef unless any { defined } ($self->primary_type, $self->all_secondary_types);
+    return join(' + ',
+                ($self->primary_type ? $self->primary_type->name : undef),
+                map { $_->name } $self->all_secondary_types
+            );
 }
 
 has 'artist_credit_id' => (

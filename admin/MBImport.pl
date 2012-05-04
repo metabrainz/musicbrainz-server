@@ -430,7 +430,8 @@ sub ImportAllTables
         release_group_gid_redirect
         release_group_meta
         release_group_tag
-        release_group_type
+        release_group_primary_type
+        release_group_secondary_type
         release_label
         release_meta
         release_coverart

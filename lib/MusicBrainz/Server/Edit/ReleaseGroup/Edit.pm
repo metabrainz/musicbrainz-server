@@ -53,6 +53,7 @@ sub change_fields
         type_id => Nullable[Int],
         artist_credit => Optional[ArtistCreditDefinition],
         comment => Nullable[Str],
+        secondary_type_ids => Optional[ArrayRef[Int]]
     ];
 }
 
@@ -87,6 +88,10 @@ sub foreign_keys
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
+    $relations->{ReleaseGroupSecondaryType} = [
+        map { @{ $self->data->{$_}{secondary_type_ids} || [] } } qw( old new )
+    ];
+
     return $relations;
 }
 
@@ -113,6 +118,13 @@ sub build_display_data
         $self->data->{entity}{id}
     } || ReleaseGroup->new( name => $self->data->{entity}{name} );
 
+    $data->{secondary_types} = {
+        map {
+            $_ => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->name }
+                           @{ $self->data->{$_}{secondary_type_ids} })
+        } qw( old new )
+    };
+
     return $data;
 }
 
@@ -121,17 +133,25 @@ sub _mapping
     return (
         artist_credit => sub {
             return artist_credit_to_ref(shift->artist_credit, []);
-        }
+        },
+        secondary_type_ids => sub {
+            return [ map { $_->id } shift->all_secondary_types ]
+        },
+        type_id => 'primary_type_id'
     );
 }
 
-before 'initialize' => sub
+around initialize => sub
 {
+    my $orig = shift;
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
     if (exists $opts{artist_credit} && !$release_group->artist_credit) {
         $self->c->model('ArtistCredit')->load($release_group);
     }
+    $opts{type_id} = delete $opts{primary_type_id};
+
+    $self->$orig(%opts);
 };
 
 around extract_property => sub {
@@ -141,6 +161,24 @@ around extract_property => sub {
         when ('artist_credit') {
             return merge_artist_credit($self->c, $ancestor, $current, $new);
         }
+        when ('type_id') {
+            return (
+                [ $ancestor->{type_id}, $ancestor->{type_id} ],
+                [ $current->primary_type_id, $current->primary_type_id ],
+                [ $new->{type_id}, $new->{type_id} ]
+            )
+        }
+        when ('secondary_type_ids') {
+            my $type_list_gen = sub {
+                my $type = shift;
+                return [ join(',', sort @$type), $type ];
+            };
+            return (
+                $type_list_gen->( $ancestor->{secondary_type_ids} ),
+                $type_list_gen->( [ map { $_->id } $current->all_secondary_types ] ),
+                $type_list_gen->( $new->{secondary_type_ids} ),
+            )
+        }
         default {
             return $self->$orig(@_);
         }
@@ -149,7 +187,9 @@ around extract_property => sub {
 
 sub current_instance {
     my $self = shift;
-    return $self->c->model('ReleaseGroup')->get_by_id($self->entity_id);
+    my $rg = $self->c->model('ReleaseGroup')->get_by_id($self->entity_id);
+    $self->c->model('ReleaseGroupSecondaryType')->load_for_release_groups($rg);
+    return $rg;
 }
 
 sub _edit_hash
@@ -158,6 +198,7 @@ sub _edit_hash
     $data = $self->merge_changes;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
+    $data->{primary_type_id} = delete $data->{type_id};
     return $data;
 }
 

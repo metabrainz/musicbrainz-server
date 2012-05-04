@@ -15,7 +15,8 @@ has_field 'release_group' => ( type => 'Compound'    );
 has_field 'release_group.name' => ( type => 'Text'    );
 
 has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit', required => 1, allow_unlinked => 1 );
-has_field 'type_id'          => ( type => 'Select'    );
+has_field 'primary_type_id'  => ( type => 'Select'    );
+has_field 'secondary_type_ids' => ( type => 'Select', multiple => 1 );
 has_field 'status_id'        => ( type => 'Select'    );
 has_field 'language_id'      => ( type => 'Select'    );
 has_field 'script_id'        => ( type => 'Select'    );
@@ -39,8 +40,8 @@ has_field 'no_barcode'       => ( type => 'Checkbox'  ); # release doesn't have 
 has_field 'annotation'       => ( type => 'TextArea'  );
 has_field 'comment'          => ( type => 'Text', maxlength => 255 );
 
-
-sub options_type_id           { shift->_select_all('ReleaseGroupType') }
+sub options_primary_type_id   { shift->_select_all('ReleaseGroupType') }
+sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
 sub options_country_id        { shift->_select_all('Country') }
@@ -121,9 +122,12 @@ after 'BUILD' => sub {
 
         if (defined $self->init_object->release_group)
         {
-            $self->field ('type_id')->value ($self->init_object->release_group->type->id)
-                if $self->init_object->release_group->type;
-            $self->field ('type_id')->disabled (1);
+            $self->field ('primary_type_id')->value ($self->init_object->release_group->primary_type->id)
+                if $self->init_object->release_group->primary_type;
+            $self->field ('primary_type_id')->disabled (1);
+
+            $self->field ('secondary_type_ids')->value ([ map { $_->id } $self->init_object->release_group->all_secondary_types ]);
+            $self->field ('secondary_type_ids')->disabled (1);
         }
 
         my $max = @{ $self->init_object->labels } - 1;

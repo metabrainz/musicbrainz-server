@@ -343,7 +343,7 @@ ALTER TABLE editor_watch_release_group_type
 ALTER TABLE editor_watch_release_group_type
    ADD CONSTRAINT editor_watch_release_group_type_fk_release_group_type
    FOREIGN KEY (release_group_type)
-   REFERENCES release_group_type(id);
+   REFERENCES release_group_primary_type(id);
 
 ALTER TABLE editor_watch_release_status
    ADD CONSTRAINT editor_watch_release_status_fk_editor
@@ -1102,7 +1102,7 @@ ALTER TABLE release_group
 ALTER TABLE release_group
    ADD CONSTRAINT release_group_fk_type
    FOREIGN KEY (type)
-   REFERENCES release_group_type(id);
+   REFERENCES release_group_primary_type(id);
 
 ALTER TABLE release_group_annotation
    ADD CONSTRAINT release_group_annotation_fk_release_group
@@ -1134,6 +1134,16 @@ ALTER TABLE release_group_rating_raw
    ADD CONSTRAINT release_group_rating_raw_fk_editor
    FOREIGN KEY (editor)
    REFERENCES editor(id);
+
+ALTER TABLE release_group_secondary_type_join
+   ADD CONSTRAINT release_group_secondary_type_join_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_secondary_type_join
+   ADD CONSTRAINT release_group_secondary_type_join_fk_secondary_type
+   FOREIGN KEY (secondary_type)
+   REFERENCES release_group_secondary_type(id);
 
 ALTER TABLE release_group_tag
    ADD CONSTRAINT release_group_tag_fk_release_group
