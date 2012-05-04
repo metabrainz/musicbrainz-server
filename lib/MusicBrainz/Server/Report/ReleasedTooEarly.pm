@@ -9,7 +9,7 @@ sub gather_data
 
     $self->gather_data_from_query($writer, "
         SELECT
-            DISTINCT r.gid, rn.name, r.artist_credit AS artist_credit_id,
+            DISTINCT r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id,
             musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
         FROM
             release r

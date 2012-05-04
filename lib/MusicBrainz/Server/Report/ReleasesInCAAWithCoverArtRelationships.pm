@@ -1,7 +1,7 @@
-package MusicBrainz::Server::Report::RecordingsCreativeCommonsRelationships;
+package MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::RecordingReport';
+extends 'MusicBrainz::Server::Report::ReleaseReport';
 
 sub gather_data
 {
@@ -9,22 +9,26 @@ sub gather_data
 
     $self->gather_data_from_query($writer, "
         SELECT
-            r.gid, rn.name, r.artist_credit AS artist_credit_id
-        FROM recording r
-            JOIN l_recording_url l_ru ON r.id = l_ru.entity0
-            JOIN link l ON l_ru.link = l.id
-            JOIN track_name rn ON r.name = rn.id
+            DISTINCT r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id,
+            musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
+        FROM
+            release r
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
-        WHERE l.link_type = 267 AND l_ru.edits_pending = 0
-        GROUP BY r.gid, rn.name, r.artist_credit, an.name
+            JOIN release_name rn ON r.name = rn.id
+            JOIN l_release_url lru ON entity0 = r.id
+            JOIN link l ON l.id = lru.link
+            JOIN link_type lt ON lt.id = l.link_type
+            JOIN cover_art_archive.cover_art ON cover_art.release = r.id
+        WHERE
+            lt.gid = '2476be45-3090-43b3-a948-a8f972b4065c'
         ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
     ");
 }
 
 sub template
 {
-    return 'report/recordings_with_cc_links.tt';
+    return 'report/releases_in_caa_with_cover_art_relationships.tt';
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -33,8 +37,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 Johannes Weißl
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

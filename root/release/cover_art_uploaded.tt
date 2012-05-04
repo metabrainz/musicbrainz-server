@@ -1,0 +1,8 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      parent.document.getElementById ("add-cover-art").submit ();
+    </script>
+  </head>
+  <body></body>
+</html>

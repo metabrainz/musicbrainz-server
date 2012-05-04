@@ -272,6 +272,8 @@ sub end : ActionClass('RenderView')
     # Display which git branch is active (only on dev servers)
     $c->stash->{server_details}->{git_branch} = &DBDefs::GIT_BRANCH;
 
+    $c->stash->{google_analytics_code} = &DBDefs::GOOGLE_ANALYTICS_CODE;
+
     # For displaying release attributes
     $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;
     $c->stash->{plural_release_attribute} = \&MusicBrainz::Server::Release::attribute_name_as_plural;

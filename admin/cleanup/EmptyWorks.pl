@@ -10,8 +10,7 @@ use Getopt::Long;
 
 use DBDefs;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw ( $EDITOR_MODBOT $EDIT_WORK_DELETE );
-use MusicBrainz::Server::Types qw( $BOT_FLAG $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw ( $EDITOR_MODBOT $EDIT_WORK_DELETE $BOT_FLAG $AUTO_EDITOR_FLAG );
 
 my $use_auto_mod = 1;
 my $moderator = $EDITOR_MODBOT;

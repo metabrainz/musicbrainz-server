@@ -11,8 +11,13 @@ sub post_load
 
     my @ids = map { $_->{artist_credit_id} } @$items;
     my $acs = $self->c->model('ArtistCredit')->get_by_ids(@ids);
+
+    my @recordingids = map { $_->{recording_gid} } @$items;
+    my $recordings = $self->c->model('Recording')->get_by_gids(@recordingids);
+
     foreach my $item (@$items) {
         $item->{artist_credit} = $acs->{$item->{artist_credit_id}};
+        $item->{recording} = $recordings->{$item->{recording_gid}};
     }
 }
 
