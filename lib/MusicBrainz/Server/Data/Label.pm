@@ -158,11 +158,16 @@ sub insert
     {
         my $row = $self->_hash_to_row($label, \%names);
         $row->{gid} = $label->{gid} || generate_gid();
-        push @created, $class->new(
+
+        my $created = $class->new(
             name => $label->{name},
             id => $self->sql->insert_row('label', $row, 'id'),
             gid => $row->{gid}
         );
+
+        $self->ipi->insert($created->id, $label->{ipi_codes});
+
+        push @created, $created;
     }
     return @labels > 1 ? @created : $created[0];
 }

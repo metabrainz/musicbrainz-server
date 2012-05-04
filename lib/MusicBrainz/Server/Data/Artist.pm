@@ -194,11 +194,15 @@ sub insert
         my $row = $self->_hash_to_row($artist, \%names);
         $row->{gid} = $artist->{gid} || generate_gid();
 
-        push @created, $class->new(
+        my $created = $class->new(
             name => $artist->{name},
             id => $self->sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
+
+        $self->ipi->insert($created->id, $artist->{ipi_codes});
+
+        push @created, $created;
     }
     return @artists > 1 ? @created : $created[0];
 }

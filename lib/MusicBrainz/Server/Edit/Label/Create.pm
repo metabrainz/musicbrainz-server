@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Label::Create;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Moose::Util::TypeConstraints qw( subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
@@ -23,15 +23,16 @@ sub label_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
-        name => Str,
-        sort_name => Str,
-        type_id => Nullable[Int],
-        label_code => Nullable[Int],
-        begin_date => Nullable[PartialDateHash],
-        end_date => Nullable[PartialDateHash],
-        country_id => Nullable[Int],
-        comment => Nullable[Str],
-        ipi_code   => Nullable[Str]
+        name         => Str,
+        sort_name    => Str,
+        type_id      => Nullable[Int],
+        label_code   => Nullable[Int],
+        begin_date   => Nullable[PartialDateHash],
+        end_date     => Nullable[PartialDateHash],
+        country_id   => Nullable[Int],
+        comment      => Nullable[Str],
+        ipi_code     => Optional[Str],
+        ipi_codes    => Optional[ArrayRef[Str]],
     ]
 );
 

@@ -66,30 +66,23 @@ sub delete_entities
 {
     my ($self, @entities) = @_;
 
-    my $key = $self->type;
     my $query = "DELETE FROM " . $self->table .
-                " WHERE $key IN (" . placeholders(@entities) . ")";
+                " WHERE ".$self->type." IN (" . placeholders(@entities) . ")";
     $self->sql->do($query, @entities);
     return 1;
 }
 
-# sub insert
-# {
-#     my ($self, @alias_hashes) = @_;
-#     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-#     my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
-#     my @created;
-#     Class::MOP::load_class($class);
-#     for my $hash (@alias_hashes) {
-#         push @created, $class->new(
-#             id => $self->sql->insert_row($table, {
-#                 $type  => $hash->{$type . '_id'},
-#                 name   => $names{ $hash->{name} },
-#                 locale => $hash->{locale}
-#             }, 'id'));
-#     }
-#     return wantarray ? @created : $created[0];
-# }
+sub insert
+{
+    my ($self, $entity_id, $ipis) = @_;
+
+    return unless scalar @$ipis;
+
+    my $query = "INSERT INTO ".$self->table."(".$self->type.", ipi) ".
+        "VALUES ".join (", ", ("(?, ?)") x scalar @$ipis).";";
+
+    $self->sql->do($query, map { $entity_id => $_ } @$ipis);
+}
 
 sub merge
 {
