@@ -184,6 +184,6 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 }
 
 .wikicontent .wikidoc-search input {
-    width: 175px;
+    width: 200px;
     margin: 0;
 }
