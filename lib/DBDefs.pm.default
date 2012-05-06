@@ -126,7 +126,8 @@ sub DB_STAGING_SERVER_DESCRIPTION { "" }
 sub DB_STAGING_SERVER_SANITIZED { 1 }
 
 # Testing features enable "Accept edit" and "Reject edit" links on edits,
-# this should only be enabled on staging servers.
+# this should only be enabled on staging servers. Also, this enables non-admin
+# users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { DB_STAGING_SERVER }
 
 ################################################################################
@@ -305,6 +306,15 @@ sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
 sub AMAZON_ASSOCIATE_TAG { '' }
+
+# internet archive private/public keys (for coverartarchive.org).
+sub COVER_ART_ARCHIVE_ID { };
+sub COVER_ART_ARCHIVE_KEY { };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { sprintf("http://%s.s3.us.archive.org/", shift) };
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
+
+# Add a Google Analytics tracking code to enable Google Analytics tracking.
+sub GOOGLE_ANALYTICS_CODE { '' }
 
 ################################################################################
 # Sessions (advanced)

@@ -121,7 +121,7 @@ sub _load_page
         $doc_url .= "&oldid=$version";
     }
 
-    my $ua = LWP::UserAgent->new(max_redirect => 0);
+    my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
     $ua->env_proxy;
     my $response = $ua->get($doc_url);
 

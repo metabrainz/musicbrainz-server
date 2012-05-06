@@ -21,8 +21,9 @@ sub search : Path('')
     $c->req->query_params->{type} = 'recording'
         if exists $c->req->query_params->{type} && $c->req->query_params->{type} eq 'track';
 
-    $c->req->query_params->{advanced} = $c->req->query_params->{adv}
-        if exists $c->req->query_params->{adv};
+    # ?adv=1 or ?advanced=1 means use the 'advanced' search method
+    $c->req->query_params->{method} = 'advanced'
+        if $c->req->query_params->{adv} || $c->req->query_params->{advanced};
 
     # The form should really be responsible for this, but I can't see a way
     # to make the field optional, but always have a value

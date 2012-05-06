@@ -15,7 +15,7 @@ use aliased 'MusicBrainz::Server::Entity::Editor';
 use aliased 'MusicBrainz::Script::SubscriptionEmails' => 'Script';
 
 use DateTime;
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 
 my $c = MusicBrainz::Server::Test->create_test_context(
     models => {

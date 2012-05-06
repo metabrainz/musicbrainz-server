@@ -19,7 +19,7 @@ This role can be applied to edit types in order to add conflict checking and
 merging of properties. Merges are 3 way, combining data from the source data
 when the edit was created, the data as it is currently in the database, and the
 new data stored in this edit type. Each property is merged together, and if
-their is a conflict a L<MusicBrainz::Server::Edit::Exceptions::FailedDependency>
+there is a conflict a L<MusicBrainz::Server::Edit::Exceptions::FailedDependency>
 exception is raised causing the edit to be rejected, and ModBot to leave a
 message.
 

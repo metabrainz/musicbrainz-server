@@ -40,7 +40,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_SET_TRACK_LENGTHS
     $EDIT_MEDIUM_EDIT
 );
-use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Track qw( format_track_length );
 
 use Getopt::Long;
