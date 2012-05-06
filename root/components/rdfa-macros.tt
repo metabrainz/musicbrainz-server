@@ -391,7 +391,7 @@ END -%]
 [%- MACRO rdfa_artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
         [%- IF name.artist.gid && !opts.plain -%]
-          [%- rdfa_link_maker_artist(name.artist, 'show', name.name) -%]
+            [%- rdfa_link_maker_artist(name.artist, 'show', name.name) -%]
         [%- ELSE -%]
             [%- name.name | html -%]
         [%- END -%]
@@ -408,7 +408,9 @@ END -%]
     hover = html_escape(artist.sort_name);
     IF artist.comment; hover = hover _ ' (' _ artist.comment _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
+    '<span class="name-variation">' IF text != artist.name AND action == 'show';
     '<a title="' _ hover _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF text != artist.name AND action == 'show';
     '</span>' IF artist.edits_pending AND action == 'show';
   ELSE;
     link_artist(artist, action, text);
