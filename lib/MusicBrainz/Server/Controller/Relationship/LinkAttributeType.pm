@@ -58,6 +58,10 @@ sub create : Path('/relationships/attributes/create') Args(0) RequireAuth(relati
     $self->_load_tree($c);
     my $form = $c->form( form => 'Admin::LinkAttributeType' );
 
+    my $gid = $c->request->params->{parent};
+
+    $c->stash( parent_link_attr_type => $self->_load_link_attr_type($c, $gid) );
+
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_ADD_ATTRIBUTE,

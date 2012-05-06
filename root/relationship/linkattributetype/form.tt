@@ -1,7 +1,11 @@
 <form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
 
-    [% form_row_select(r, 'parent_id', l('Parent:')) %]
+    [% WRAPPER form_row %]
+      [% r.label('parent_id', l('Parent:')) %]
+      [% r.relationshiptree('parent_id', parent_link_attr_type.id) %]
+      [% field_errors(r.form, 'parent_id') %]
+    [% END %]
 
     [% WRAPPER form_row %]
         [% r.label('child_order', l('Child order:')) %]
