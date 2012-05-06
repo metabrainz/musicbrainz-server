@@ -97,3 +97,10 @@ p.subheader span { color: #999; }
     position: relative;
     top: -0.25em
 }
+
+.name-variation-ref:before {
+    content: "*";
+    color: #999;
+    position: relative;
+    top: -0.25em
+}

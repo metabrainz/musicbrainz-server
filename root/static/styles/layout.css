@@ -516,6 +516,7 @@ tr.diff-changes {
 
 .lastupdate,
 .annotation-details,
+.name-variation-ref,
 .small {
     font-size: 90%;
     color: #777;
@@ -524,6 +525,10 @@ tr.diff-changes {
 
 .lastupdate {
     padding-top: 1em;
+    margin-left: -5px;
+}
+
+.name-variation-ref {
     margin-left: -5px;
 }
 
