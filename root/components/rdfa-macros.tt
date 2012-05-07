@@ -198,9 +198,15 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_artist_ipi(artist) BLOCK -%]
-    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(artist) -%]" property="mo:ipi">[%- END -%]
-        [%- html_escape(artist.ipi_code) -%]
+[%- MACRO rdfa_artist_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(ipi_code.artist) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
+    [%- IF doRDFa -%]</span>[%- END -%]
+[%- END -%]
+
+[%- MACRO rdfa_label_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_label_curi(ipi_code.label) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
     [%- IF doRDFa -%]</span>[%- END -%]
 [%- END -%]
 

@@ -62,7 +62,7 @@ sub build_display_data
     my $country = $self->data->{country_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ipi_code ) ),
+        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ) ),
         type       => $type ? $loaded->{ArtistType}->{$type} : '',
         gender     => $gender ? $loaded->{Gender}->{$gender} : '',
         country    => $country ? $loaded->{Country}->{$country} : '',
@@ -71,6 +71,7 @@ sub build_display_data
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
         ipi_code   => $self->data->{ipi_code},
+        ipi_codes   => $self->data->{ipi_codes},
     };
 }
 

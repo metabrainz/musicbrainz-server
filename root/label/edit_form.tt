@@ -42,7 +42,7 @@
             LC- [% r.text('label_code', size => 5, class => "label-code") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
-        [% form_row_text(r, 'ipi_code', l('IPI code:')) %]
+        [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]
       </fieldset>
 
       <fieldset>

@@ -213,7 +213,7 @@ sub update
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $self->sql->update_row('artist', $row, { id => $artist_id });
+    $self->sql->update_row('artist', $row, { id => $artist_id }) if %$row;
 }
 
 sub can_delete

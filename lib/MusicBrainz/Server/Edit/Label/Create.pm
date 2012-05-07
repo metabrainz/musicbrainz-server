@@ -36,6 +36,11 @@ has '+data' => (
     ]
 );
 
+before initialize => sub {
+    my ($self, %opts) = @_;
+    die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+};
+
 sub foreign_keys
 {
     my $self = shift;
@@ -63,6 +68,7 @@ sub build_display_data
                         $loaded->{Country}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
         ipi_code   => $self->data->{ipi_code},
+        ipi_codes   => $self->data->{ipi_codes},
         begin_date => partial_date_from_row($self->data->{begin_date}),
         end_date   => partial_date_from_row($self->data->{end_date}),
     };
