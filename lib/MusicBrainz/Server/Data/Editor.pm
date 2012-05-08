@@ -73,7 +73,9 @@ sub get_by_name
                 ' FROM ' . $self->_table .
                 ' WHERE lower(name) = ? LIMIT 1';
     my $row = $self->sql->select_single_row_hash($query, lc $name);
-    return $self->_new_from_row($row);
+    my $editor = $self->_new_from_row($row);
+    $self->load_preferences($editor);
+    return $editor;
 }
 
 sub find_by_name
@@ -83,10 +85,12 @@ sub find_by_name
                 '  FROM ' . $self->_table .
                 " WHERE musicbrainz_unaccent(lower(name)) LIKE musicbrainz_unaccent(lower(?)) || '%'
                  OFFSET ?";
-    return query_to_list_limited(
+    my @editors = query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $name, $offset
     );
+    $self->load_preferences(@editors);
+    return @editors;
 }
 
 sub _get_ratings_for_type
@@ -189,6 +193,16 @@ sub get_tags
 
     return { max => $max, tags => \@tags };
 }
+
+around '_get_by_keys' => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $ret = $self->$orig(@_);
+    $self->load_preferences(values %$ret);
+
+    return $ret;
+};
 
 sub find_by_email
 {
