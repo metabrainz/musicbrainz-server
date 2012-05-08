@@ -37,7 +37,7 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(l(artist.country.name))
                    IF artist.country -%]
-            [%- FOR ipi_code IN ipi_codes -%]
+            [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                  content=rdfa_artist_ipi(ipi_code) %]
             [%- END -%]

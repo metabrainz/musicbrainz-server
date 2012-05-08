@@ -3,7 +3,12 @@ use Moose;
 use namespace::autoclean;
 
 use Class::MOP;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw(
+    load_subobjects
+    placeholders
+    query_to_list
+    object_to_ids
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -47,10 +52,22 @@ sub find_by_entity_id
     }, $query, @ids) ];
 }
 
-sub load
+sub load_for
 {
     my ($self, @objects) = @_;
-    load_subobjects($self, 'ipi', @objects);
+    my %obj_id_map = object_to_ids(@objects);
+    my $ipis = $self->find_by_entity_id(keys %obj_id_map);
+    my $id_column = $self->type . '_id';
+
+    for my $ipi (@$ipis) {
+        if (my $entities = $obj_id_map{ $ipi->$id_column }) {
+            for my $entity (@$entities) {
+                $entity->add_ipi_code($ipi);
+            }
+        }
+    }
+
+    return $ipis;
 }
 
 sub delete

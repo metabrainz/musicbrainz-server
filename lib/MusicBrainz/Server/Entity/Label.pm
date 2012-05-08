@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
+with 'MusicBrainz::Server::Entity::Role::IPI';
 
 has 'sort_name' => (
     is => 'rw',
