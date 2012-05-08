@@ -706,7 +706,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION end_date_implies_ended()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.end_date_year IS NOT NULL OR
+       NEW.end_date_month IS NOT NULL OR
+       NEW.end_date_day IS NOT NULL
+    THEN
+        NEW.ended = TRUE;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 COMMIT;
 -- vi: set ts=4 sw=4 et :
-
-
