@@ -118,7 +118,8 @@ img.gravatar {
     vertical-align: middle;
     border: 1px solid #ddd;
     padding: 1px;
-    background: #fff
+    background: #fff;
+    margin-right: 0.35em;
 }
 
 h1 img.gravatar {
