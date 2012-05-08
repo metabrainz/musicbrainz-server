@@ -351,6 +351,7 @@ sub ImportAllTables
         artist_credit
         artist_credit_name
         artist_gid_redirect
+        artist_ipi
         artist_meta
         artist_name
         artist_tag
@@ -401,6 +402,7 @@ sub ImportAllTables
         label_alias_type
         label_annotation
         label_gid_redirect
+        label_ipi
         label_meta
         label_name
         label_tag
