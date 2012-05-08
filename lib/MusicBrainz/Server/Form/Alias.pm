@@ -92,6 +92,13 @@ after validate => sub {
         $sort_name_field->required(1);
         $sort_name_field->validate_field;
     }
+
+    if ($self->alias_model->exists({ name => $self->field('name')->value,
+                                     locale => $self->field('locale')->value,
+                                     type_id => $self->field('type_id')->value
+                                 })) {
+        $self->field('name')->add_error('This alias already exists');
+    }
 };
 
 1;
