@@ -135,7 +135,8 @@ sub _load
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id";
         my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
-                     l.end_date_year,   l.end_date_month,   l.end_date_day';
+                     l.end_date_year,   l.end_date_month,   l.end_date_day,
+                     l.ended';
 
         if ($target eq 'url') {
             $query = "

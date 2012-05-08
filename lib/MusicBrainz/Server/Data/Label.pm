@@ -56,7 +56,7 @@ sub _columns
     return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
            'label.type, label.country, label.edits_pending, label.label_code, label.ipi_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, comment, label.last_updated';
+           'end_date_year, end_date_month, end_date_day, ended, comment, label.last_updated';
 }
 
 sub _id_column
@@ -85,6 +85,7 @@ sub _column_mapping
         comment => 'comment',
         ipi_code => 'ipi_code',
         last_updated => 'last_updated',
+        ended => 'ended'
     };
 }
 
