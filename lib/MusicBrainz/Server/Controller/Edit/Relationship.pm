@@ -201,6 +201,7 @@ sub edit : Local RequireAuth Edit
         link_type_id => $rel->link->type_id,
         begin_date => $rel->link->begin_date,
         end_date => $rel->link->end_date,
+        ended => $rel->link->ended,
         attrs => {},
     };
     my %attr_multi;

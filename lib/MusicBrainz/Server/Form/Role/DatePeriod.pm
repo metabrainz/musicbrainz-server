@@ -15,6 +15,10 @@ has_field 'end_date' => (
     not_nullable => 1
 );
 
+has_field 'ended' => (
+    type => 'Checkbox'
+);
+
 after 'validate' => sub {
     my $self = shift;
     my $begin = $self->field('begin_date')->value;
