@@ -27,10 +27,10 @@ my @all = qw(
     NoScript
     PartOfSetRelationships
     PossibleCollaborations
-    RecordingsCreativeCommonsRelationships
     RecordingsWithEarliestReleaseRelationships
     ReleasesWithUnlikelyLanguageScript
     ReleasedTooEarly
+    ReleasesInCAAWithCoverArtRelationships
     SeparateDiscs
     SetInDifferentRG
     SuperfluousDataTracks
@@ -65,10 +65,10 @@ use MusicBrainz::Server::Report::NoLanguage;
 use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
-use MusicBrainz::Server::Report::RecordingsCreativeCommonsRelationships;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
+use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;

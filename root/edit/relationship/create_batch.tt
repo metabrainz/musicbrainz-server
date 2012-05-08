@@ -58,7 +58,7 @@
                     <tr class="subh">
                       <th></th>
                       <th colspan="5">
-                        [%~ medium.format_name or l("Medium") | html =%]
+                        [%~ medium_format_name(medium) =%]
                         [%= medium.position ~%]
                         [%~ IF medium.name ~%]:
                         [%= medium.name | html ~%]

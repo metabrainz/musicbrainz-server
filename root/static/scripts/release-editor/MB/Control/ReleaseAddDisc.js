@@ -144,7 +144,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
         if (item.position)
         {
-            var format = item.format ? item.format : 'Disc';
+            var format = item.format ? item.format : 'Medium';
             var medium = '(' + format + ' ' + item.position +
                 (item.medium ? ': ' + item.medium : '') + ')';
 

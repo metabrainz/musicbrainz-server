@@ -3,7 +3,7 @@ use 5.10.0;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(

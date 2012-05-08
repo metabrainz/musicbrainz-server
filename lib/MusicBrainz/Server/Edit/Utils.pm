@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_r
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 use Text::Trim qw( trim );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';

@@ -1,0 +1,27 @@
+[% WRAPPER "layout.tt" title=l("Relationship Types") full_width=1 %]
+    <div id="content" class="wikicontent">
+        [%- INCLUDE 'relationship/header.tt' page='index' %]
+
+        <table border="1">
+            <tr>
+                <th></th>
+                [% FOR type IN types %]
+                    <th>[% type %]</th>
+                [% END %]
+            </tr>
+
+            [% FOR row IN table %]
+            <tr>
+                <th>[% types.${loop.index} %]</th>
+                [% FOR column IN row %]
+                    <td>
+                    [% IF column %]
+                        <a href="[% c.uri_for_action("/relationship/linktype/tree", [ column ]) %]">[% column %]</a>
+                    [% END %]
+                    </td>
+                [% END %]
+            </tr>
+            [% END %]
+        </table>
+    </div>
+[% END %]
