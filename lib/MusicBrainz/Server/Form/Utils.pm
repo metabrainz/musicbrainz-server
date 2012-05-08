@@ -1,16 +1,21 @@
 package MusicBrainz::Server::Form::Utils;
 
-use base 'Exporter';
+use strict;
+use warnings;
+
+use MusicBrainz::Server::Translation qw( l );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( l ln );
 
-our @EXPORT = qw(
-    collapse_param
-    expand_all_params
-    expand_param
-    language_options
-    script_options
-);
+use Sub::Exporter -setup => {
+    exports => [qw(
+                      collapse_param
+                      expand_all_params
+                      expand_param
+                      language_options
+                      script_options
+              )]
+};
 
 sub _expand
 {

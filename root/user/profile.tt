@@ -82,13 +82,11 @@
             [% END %]
         [% END %]
 
-        [% WRAPPER property name=l("Homepage:") %]
-            [% IF user.website %]
+        [% IF user.website %]
+            [% WRAPPER property name=l("Homepage:") %]
                 <a href="[% user.website | url %]">
                     [% user.website | html_entity %]
                 </a>
-            [% ELSE %]
-                [% l('(none)') %]
             [% END %]
         [% END %]
 
@@ -107,14 +105,16 @@
                 [% END %]
             [% END %]
 
-        [% bio_class = 'biography' IF user.biography %]
-        [% WRAPPER property name=l("Bio:") class=bio_class %]
-            [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
+        [% IF user.biography %]
+            [% bio_class = 'biography' IF user.biography %]
+            [% WRAPPER property name=l("Bio:") class=bio_class %]
+                [% html_escape(user.biography).split("\n").join("<br />") %]
+            [% END %]
         [% END %]
 
         [% IF user.languages.size %]
           [% WRAPPER property name=l('Languages:') %]
-            <ul>
+            <ul class="inline">
               [% FOR language=user.languages %]
                 <li>[% language.language.name %] ([% language.fluency %])</li>
               [% END %]
