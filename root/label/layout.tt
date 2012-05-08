@@ -27,9 +27,10 @@
                         [% END %]
                     [% END %]
             [%- END -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-               content=html_escape(label.ipi_code)
-                   IF label.ipi_code -%]
+            [%- FOR ipi_code IN ipi_codes -%]
+              [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+                 content=rdfa_label_ipi(ipi_code) %]
+            [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
                content=html_escape(label.format_label_code)
                    IF label.label_code -%]

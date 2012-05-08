@@ -158,11 +158,16 @@ sub insert
     {
         my $row = $self->_hash_to_row($label, \%names);
         $row->{gid} = $label->{gid} || generate_gid();
-        push @created, $class->new(
+
+        my $created = $class->new(
             name => $label->{name},
             id => $self->sql->insert_row('label', $row, 'id'),
             gid => $row->{gid}
         );
+
+        $self->ipi->insert($created->id, $label->{ipi_codes});
+
+        push @created, $created;
     }
     return @labels > 1 ? @created : $created[0];
 }
@@ -222,6 +227,7 @@ sub _merge_impl
     my ($self, $new_id, @old_ids) = @_;
 
     $self->alias->merge($new_id, @old_ids);
+    $self->ipi->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->subscription->merge_entities($new_id, @old_ids);

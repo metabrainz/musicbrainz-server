@@ -194,11 +194,15 @@ sub insert
         my $row = $self->_hash_to_row($artist, \%names);
         $row->{gid} = $artist->{gid} || generate_gid();
 
-        push @created, $class->new(
+        my $created = $class->new(
             name => $artist->{name},
             id => $self->sql->insert_row('artist', $row, 'id'),
             gid => $row->{gid}
         );
+
+        $self->ipi->insert($created->id, $artist->{ipi_codes});
+
+        push @created, $created;
     }
     return @artists > 1 ? @created : $created[0];
 }
@@ -209,7 +213,7 @@ sub update
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $self->sql->update_row('artist', $row, { id => $artist_id });
+    $self->sql->update_row('artist', $row, { id => $artist_id }) if %$row;
 }
 
 sub can_delete
@@ -250,6 +254,7 @@ sub merge
     }
 
     $self->alias->merge($new_id, @$old_ids);
+    $self->ipi->merge($new_id, @$old_ids);
     $self->tags->merge($new_id, @$old_ids);
     $self->rating->merge($new_id, @$old_ids);
     $self->subscription->merge_entities($new_id, @$old_ids);

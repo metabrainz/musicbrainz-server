@@ -44,4 +44,8 @@
   [% display_diff(l('IPI code:'),
                   html_escape(edit.display_data.ipi_code.old),
                   html_escape(edit.display_data.ipi_code.new)) %]
+
+  [% display_full_change(l('IPI codes:'),
+                  edit.display_data.ipi_codes.deleted.join (", "),
+                  edit.display_data.ipi_codes.added.join (", ")) %]
 </table>

@@ -35,14 +35,10 @@ has_field 'comment' => (
     maxlength => 255
 );
 
-has_field 'ipi_codes'          => ( type => 'Repeatable', num_when_empty => 1 );
-has_field 'ipi_codes.code'     => ( type => '+MusicBrainz::Server::Form::Field::IPI' );
-has_field 'ipi_codes.deleted'  => ( type => 'Checkbox' );
-
 sub edit_field_names
 {
     return qw( name sort_name type_id gender_id country_id
-               begin_date end_date comment ipi_code );
+               begin_date end_date comment ipi_codes );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }
@@ -62,28 +58,24 @@ sub validate {
     }
 }
 
-after 'BUILD' => sub {
-    my ($self) = @_;
-
-    if (defined $self->init_object)
-    {
-        my $ipi_codes = $self->ctx->model ('Artist')->ipi->find_by_entity_id ($self->init_object->id);
-
-        my $max = @$ipi_codes - 1;
-        for (0..$max)
-        {
-            my $ipi_field = $self->field ('ipi_codes')->fields->[$_];
-
-            unless (defined $ipi_field)
-            {
-                $self->field ('ipi_codes')->add_extra (1);
-                $ipi_field = $self->field ('ipi_codes')->fields->[$_];
-            }
-
-            $ipi_field->field ('code')->value ($ipi_codes->[$_]->ipi);
-        }
-
-    }
-};
-
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

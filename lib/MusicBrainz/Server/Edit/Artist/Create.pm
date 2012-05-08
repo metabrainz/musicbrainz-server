@@ -6,7 +6,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw ( l ln );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
-use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -19,6 +19,28 @@ sub edit_name { l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
+
+
+has '+data' => (
+    isa => Dict[
+        name       => Str,
+        gid        => Optional[Str],
+        sort_name  => Optional[Str],
+        type_id    => Nullable[Int],
+        gender_id  => Nullable[Int],
+        country_id => Nullable[Int],
+        comment    => Nullable[Str],
+        begin_date => Nullable[PartialDateHash],
+        end_date   => Nullable[PartialDateHash],
+        ipi_code   => Optional[Str],
+        ipi_codes  => Optional[ArrayRef[Str]],
+    ]
+);
+
+before initialize => sub {
+    my ($self, %opts) = @_;
+    die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+};
 
 sub foreign_keys
 {
@@ -40,7 +62,7 @@ sub build_display_data
     my $country = $self->data->{country_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ipi_code ) ),
+        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ) ),
         type       => $type ? $loaded->{ArtistType}->{$type} : '',
         gender     => $gender ? $loaded->{Gender}->{$gender} : '',
         country    => $country ? $loaded->{Country}->{$country} : '',
@@ -49,23 +71,9 @@ sub build_display_data
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
         ipi_code   => $self->data->{ipi_code},
+        ipi_codes   => $self->data->{ipi_codes},
     };
 }
-
-has '+data' => (
-    isa => Dict[
-        name       => Str,
-        gid        => Optional[Str],
-        sort_name  => Optional[Str],
-        type_id    => Nullable[Int],
-        gender_id  => Nullable[Int],
-        country_id => Nullable[Int],
-        comment    => Nullable[Str],
-        begin_date => Nullable[PartialDateHash],
-        end_date   => Nullable[PartialDateHash],
-        ipi_code   => Nullable[Str],
-    ]
-);
 
 sub _insert_hash
 {

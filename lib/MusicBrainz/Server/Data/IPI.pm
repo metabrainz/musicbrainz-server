@@ -66,53 +66,40 @@ sub delete_entities
 {
     my ($self, @entities) = @_;
 
-    my $key = $self->type;
     my $query = "DELETE FROM " . $self->table .
-                " WHERE $key IN (" . placeholders(@entities) . ")";
+                " WHERE ".$self->type." IN (" . placeholders(@entities) . ")";
     $self->sql->do($query, @entities);
     return 1;
 }
 
-# sub insert
-# {
-#     my ($self, @alias_hashes) = @_;
-#     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-#     my %names = $self->parent->find_or_insert_names(map { $_->{name} } @alias_hashes);
-#     my @created;
-#     Class::MOP::load_class($class);
-#     for my $hash (@alias_hashes) {
-#         push @created, $class->new(
-#             id => $self->sql->insert_row($table, {
-#                 $type  => $hash->{$type . '_id'},
-#                 name   => $names{ $hash->{name} },
-#                 locale => $hash->{locale}
-#             }, 'id'));
-#     }
-#     return wantarray ? @created : $created[0];
-# }
+sub insert
+{
+    my ($self, $entity_id, $ipis) = @_;
 
-# sub merge
-# {
-#     my ($self, $new_id, @old_ids) = @_;
-#     my $table = $self->table;
-#     my $type = $self->type;
-#     $self->sql->do("DELETE FROM $table
-#               WHERE name IN (SELECT name FROM $table WHERE $type = ?) AND
-#                     $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-#     $self->sql->do("UPDATE $table SET $type = ?
-#               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
-#     $self->sql->do(
-#         "INSERT INTO $table (name, $type)
-#             SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id
-#               FROM $type old_entity
-#          LEFT JOIN $table alias ON alias.name = old_entity.name
-#               JOIN $type new_entity ON (new_entity.id = ?)
-#              WHERE old_entity.id IN (" . placeholders(@old_ids) . ")
-#                AND alias.id IS NULL
-#                AND old_entity.name != new_entity.name",
-#         $new_id, @old_ids
-#     );
-# }
+    return unless scalar @$ipis;
+
+    my $query = "INSERT INTO ".$self->table."(".$self->type.", ipi) ".
+        "VALUES ".join (", ", ("(?, ?)") x scalar @$ipis).";";
+
+    $self->sql->do($query, map { $entity_id => $_ } @$ipis);
+}
+
+sub merge
+{
+    my ($self, $new_id, @old_ids) = @_;
+    my $table = $self->table;
+    my $type = $self->type;
+
+    for my $old_id (@old_ids)
+    {
+        # move over ipis to the new artist, leaving duplicates.
+        $self->sql->do("UPDATE $table SET $type = ? WHERE $type = ? ".
+                       "AND NOT ipi IN (SELECT ipi FROM $table WHERE $type = ?)",
+                       $new_id, $old_id, $new_id);
+        # if any remain, they're duplicates, remove them.
+        $self->sql->do("DELETE FROM $table WHERE $type = ?", $old_id);
+    }
+}
 
 # sub update
 # {
