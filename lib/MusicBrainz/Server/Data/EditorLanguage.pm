@@ -44,7 +44,7 @@ sub load_for_editor {
         $self->sql, sub { $self->_new_from_row(@_) },
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
         ' WHERE editor = ?' .
-        ' ORDER BY musicbrainz_collate(language.name)',  $editor->id
+        ' ORDER BY fluency DESC, musicbrainz_collate(language.name)',  $editor->id
     );
 
     $editor->add_language($_) for @languages;
