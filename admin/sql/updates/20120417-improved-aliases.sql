@@ -24,8 +24,8 @@ CREATE OR REPLACE FUNCTION unique_primary()
 RETURNS trigger AS $$
 BEGIN
     IF NEW.primary_for_locale THEN
-        EXECUTE 'UPDATE ' || quote_ident(TG_ARGV[0]) || ' SET primary_for_locale = FALSE WHERE locale = $1'
-        USING NEW.locale;
+        EXECUTE 'UPDATE ' || quote_ident(TG_ARGV[0]) || ' SET primary_for_locale = FALSE WHERE locale = $1 AND id != $2'
+        USING NEW.locale, NEW.id;
     END IF;
     RETURN NEW;
 END;
