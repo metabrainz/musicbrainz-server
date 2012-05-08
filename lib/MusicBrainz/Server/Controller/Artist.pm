@@ -34,6 +34,11 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::FilterUtils qw(
+    create_artist_release_groups_form
+    create_artist_releases_form
+    create_artist_recordings_form
+);
 use Sql;
 
 my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
@@ -188,6 +193,10 @@ sub show : PathPart('') Chained('load')
     }
     else
     {
+        my %filter = %{ $self->process_filter($c, sub {
+            return create_artist_release_groups_form($c, $artist->id);
+        }) };
+
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
         if ($show_va) {
@@ -195,13 +204,13 @@ sub show : PathPart('') Chained('load')
         }
 
         $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift);
+                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift, filter => \%filter);
             });
 
         my $pager = $c->stash->{pager};
-        if (!$show_va && $pager->total_entries == 0) {
+        if (!$show_va && !%filter && $pager->total_entries == 0) {
             $release_groups = $self->_load_paged($c, sub {
-                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
                 });
             $c->stash(
                 va_only => 1
@@ -280,6 +289,10 @@ sub recordings : Chained('load')
     }
     else
     {
+        my %filter = %{ $self->process_filter($c, sub {
+            return create_artist_recordings_form($c, $artist->id);
+        }) };
+
         if ($c->req->query_params->{standalone}) {
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_standalone($artist->id, shift, shift);
@@ -288,7 +301,7 @@ sub recordings : Chained('load')
         }
         else {
             $recordings = $self->_load_paged($c, sub {
-                $c->model('Recording')->find_by_artist($artist->id, shift, shift);
+                $c->model('Recording')->find_by_artist($artist->id, shift, shift, filter => \%filter);
             });
         }
 
@@ -341,6 +354,10 @@ sub releases : Chained('load')
     }
     else
     {
+        my %filter = %{ $self->process_filter($c, sub {
+            return create_artist_releases_form($c, $artist->id);
+        }) };
+
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
         if ($show_va) {
@@ -349,13 +366,13 @@ sub releases : Chained('load')
         }
 
         $releases = $self->_load_paged($c, sub {
-                $c->model('Release')->$method($artist->id, shift, shift);
+                $c->model('Release')->$method($artist->id, shift, shift, filter => \%filter);
             });
 
         my $pager = $c->stash->{pager};
         if (!$show_va && $pager->total_entries == 0) {
             $releases = $self->_load_paged($c, sub {
-                    $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift);
+                    $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
                 });
             $c->stash(
                 va_only => 1,
@@ -656,6 +673,41 @@ sub edit_credit : Chained('credit') PathPart('edit') RequireAuth Edit {
                 $c->uri_for_action('/artist/aliases', [ $artist->gid ]));
         }
     );
+}
+
+=head2 process_filter
+
+Utility function for dynamically loading the filter form.
+
+=cut
+
+sub process_filter
+{
+    my ($self, $c, $create_form) = @_;
+
+    my %filter;
+    unless (exists $c->req->params->{'filter.cancel'}) {
+        my $cookie = $c->req->cookies->{filter};
+        my $has_filter_params = grep(/^filter\./, keys %{ $c->req->params });
+        if ($has_filter_params || (defined($cookie) && $cookie->value eq '1')) {
+            my $filter_form = $create_form->();
+            if ($filter_form->submitted_and_valid($c->req->params)) {
+                for my $name ($filter_form->filter_field_names) {
+                    my $value = $filter_form->field($name)->value;
+                    if ($value) {
+                        $filter{$name} = $value;
+                    }
+
+                }
+                $c->res->cookies->{filter} = { value => '1', path => '/' };
+            }
+        }
+    }
+    else {
+        $c->res->cookies->{filter} = { value => '', path => '/' };
+    }
+
+    return \%filter;
 }
 
 =head1 LICENSE

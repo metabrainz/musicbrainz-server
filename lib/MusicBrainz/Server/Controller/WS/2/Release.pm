@@ -192,7 +192,7 @@ sub release_browse : Private
         $c->detach('not_found') unless ($artist);
 
         my @tmp = $c->model('Release')->find_by_artist (
-            $artist->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
+            $artist->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'track_artist')
@@ -201,7 +201,7 @@ sub release_browse : Private
         $c->detach('not_found') unless ($artist);
 
         my @tmp = $c->model('Release')->find_by_track_artist (
-            $artist->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
+            $artist->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'label')
@@ -210,7 +210,7 @@ sub release_browse : Private
         $c->detach('not_found') unless ($label);
 
         my @tmp = $c->model('Release')->find_by_label (
-            $label->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
+            $label->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release-group')
@@ -219,7 +219,7 @@ sub release_browse : Private
         $c->detach('not_found') unless ($rg);
 
         my @tmp = $c->model('Release')->find_by_release_group (
-            $rg->id, $limit, $offset, $c->stash->{status});
+            $rg->id, $limit, $offset, filter => { status => $c->stash->{status} });
         $releases = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'recording')
@@ -228,7 +228,7 @@ sub release_browse : Private
         $c->detach('not_found') unless ($recording);
 
         my @tmp = $c->model('Release')->find_by_recording (
-            $recording->id, $limit, $offset, $c->stash->{status}, $c->stash->{type});
+            $recording->id, $limit, $offset, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $releases = $self->make_list (@tmp, $offset);
     }
 

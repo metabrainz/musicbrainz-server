@@ -67,12 +67,12 @@ sub recording_toplevel
         if ($c->stash->{inc}->media)
         {
             @results = $c->model('Release')->load_with_tracklist_for_recording(
-                $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
+                $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         }
         else
         {
             @results = $c->model('Release')->find_by_recording(
-                $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
+                $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         }
 
         my @releases = @{$results[0]};

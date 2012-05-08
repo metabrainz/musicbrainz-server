@@ -148,8 +148,9 @@ MB.utility.structureToString = function (obj) {
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
 
+    var withDataAndEvents = true;
     $(form).prepend (
-        $(button).clone ().removeAttr ('id').css ({
+        $(button).clone (withDataAndEvents).removeAttr ('id').css ({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
@@ -197,7 +198,7 @@ MB.utility.formatTrackLength = function (duration)
 
 MB.utility.unformatTrackLength = function (duration)
 {
-    var parts = duration.split (":");
+    var parts = duration.replace(/[:\.]/, ':').split (":");
     if (parts.length != 2)
     {
         return null;
@@ -213,3 +214,18 @@ MB.utility.unformatTrackLength = function (duration)
 
     return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
 };
+
+MB.utility.trim = function (str)
+{
+    return str.replace (/\s+/g, " ").replace (/^ /, "").replace (/ $/, "");
+}
+
+MB.utility.renderArtistCredit = function (ac) {
+    var html = '';
+    $.each(ac.names, function(name) {
+        html += this.name + this.join_phrase
+    });
+
+    return html;
+}
+

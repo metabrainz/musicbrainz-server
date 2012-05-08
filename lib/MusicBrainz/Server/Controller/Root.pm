@@ -40,8 +40,10 @@ other than the blog feed.
 sub index : Path Args(0)
 {
     my ($self, $c) = @_;
-
-    $c->stash->{template} = 'main/index.tt';
+    $c->stash(
+        blog => $c->model('Blog')->get_latest_entries,
+        template => 'main/index.tt'
+    );
 }
 
 =head2 default
@@ -269,12 +271,10 @@ sub end : ActionClass('RenderView')
         developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
-    # Determine which server version to display. If the DBDefs string is empty
-    # attempt to display the current subversion revision
-    if (&DBDefs::VERSION)
-    {
-        $c->stash->{server_details}->{version} = &DBDefs::VERSION;
-    }
+    # Display which git branch is active (only on dev servers)
+    $c->stash->{server_details}->{git_branch} = &DBDefs::GIT_BRANCH;
+
+    $c->stash->{google_analytics_code} = &DBDefs::GOOGLE_ANALYTICS_CODE;
 
     # For displaying release attributes
     $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;

@@ -119,5 +119,8 @@ $(function() {
         MB.Control.EntityAutocomplete({ 'inputs': $(this) });
     });
 
-    MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');
+    if ($('#edit-search').length)
+    {
+        MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');
+    }
 });

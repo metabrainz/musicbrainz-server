@@ -12,6 +12,7 @@ use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
+use MusicBrainz::Server::Entity::ISRC;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
@@ -125,6 +126,9 @@ sub search
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
             entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
+
+        $extra_columns .= 'entity.iswc,'
+            if ($type eq 'work');
 
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
@@ -414,6 +418,12 @@ sub schema_fixup
         $data->{_extra} = \@releases;
     }
 
+    if ($type eq 'recording' && exists $data->{'isrc-list'}) {
+        $data->{isrcs} = [
+            map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrc-list'}{'isrc'} }
+        ];
+    }
+
     if (exists $data->{"relation-list"} &&
         exists $data->{"relation-list"}->[0] &&
         exists $data->{"relation-list"}->[0]->{"relation"})
@@ -531,29 +541,16 @@ sub external_search
     Class::MOP::load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
-    if ($query eq '!!!' and $type eq 'artist')
-    {
-        $query = 'chkchkchk';
-    }
-
-    unless ($adv)
-    {
-        $query = escape_query($query);
-
-        if (grep { $type eq $_ } ('artist', 'label', 'work'))
-        {
-            $query = alias_query ($type, $query);
-        }
-    }
-
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
+    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=%s",
                                  DBDefs::LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
-                                 $limit,);
+                                 $limit,
+                                 $adv ? 'false' : 'true',
+                                 );
 
     if (&DBDefs::_RUNNING_TESTS)
     {

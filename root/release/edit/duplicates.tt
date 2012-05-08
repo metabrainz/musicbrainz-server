@@ -17,14 +17,25 @@
     [% BLOCK release_row_prefix %]
     <td>
       <input type="radio" name="[% form.field('duplicate_id').html_name %]"
-             value="[% release.id %]" />
+             value="[% release.id %]"
+             [% IF wizard.get_value('duplicates', 'duplicate_id') == release.id %]
+               checked="checked"
+             [% END %]/>
     </td>
     [% END %]
     [% INCLUDE 'release_group/releases-list.tt' releases=similar_releases %]
 
     <div class="row no-label">
+        [% made_selection = 0;
+           FOR release=similar_releases;
+             IF release.id == wizard.get_value('duplicates', 'duplicate_id');
+               made_selection = 1;
+             END;
+           END; %]
+
         <input id="no-duplicate" name="[% form.field('duplicate_id').html_name %]"
-               value="" type="radio" checked="checked" />
+               value="" type="radio"
+               [% 'checked="checked"' IF !made_selection %]/>
         <label for="no-duplicate" class="inline">
           [% l('Do not use any of the above releases as a starting point') %]
         </label>

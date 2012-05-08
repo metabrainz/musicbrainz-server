@@ -12,7 +12,7 @@ use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
 
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -191,6 +191,7 @@ sub _create_no_vote_email
         'From' => $NOREPLY_ADDRESS,
         'Reply-To' => $SUPPORT_ADDRESS,
         'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
+        'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
         'Subject' => "Someone has voted against your edit #$edit_id",
     );
 
@@ -270,6 +271,8 @@ sub _create_edit_note_email
         'To'       => _user_address($editor),
         'From'     => _user_address($from_editor, 1),
         'Sender'   => $NOREPLY_ADDRESS,
+        'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
+        'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
     );
 
     my $from = $from_editor->name;

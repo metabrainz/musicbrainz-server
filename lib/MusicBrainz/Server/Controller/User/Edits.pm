@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use MusicBrainz::Server::Types ':edit_status';
+use MusicBrainz::Server::Constants ':edit_status';
 
 __PACKAGE__->config(
     paging_limit => 25,

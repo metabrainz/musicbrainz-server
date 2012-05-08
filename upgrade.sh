@@ -2,12 +2,34 @@
 
 set -o errexit
 cd `dirname $0`
-
 eval `./admin/ShowDBDefs`
 
-echo `date` : MBS-2799, update barcode column of "no barcode" releases
-./admin/psql READWRITE < ./admin/sql/updates/20120123-no-barcode.sql
+if [ "$DB_SCHEMA_SEQUENCE" != "14" ]
+then
+    echo `date` : Error: Schema sequence must be 14 when you run this script
+    exit -1
+fi
+
+if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
+then
+    echo `date` : Export pending db changes
+    ./admin/RunExport
+
+    echo `date` : Drop replication triggers
+    ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
+fi
+
+if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
+then
+    echo `date` : Create replication triggers
+    ./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql
+fi
+
+DB_SCHEMA_SEQUENCE=15
+echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
+echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
 echo `date` : Done
+echo `date` : UPDATE THE DB_SCHEMA_SEQUENCE IN DBDefs.pm TO $DB_SCHEMA_SEQUENCE !
 
 # eof

@@ -11,7 +11,7 @@ use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
+use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG $VOTE_APPROVE );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
@@ -405,6 +405,15 @@ sub create
         my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
         $edit->id($edit_id);
 
+        $edit->post_insert;
+        my $post_insert_update = {
+            data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
+            status => $edit->status,
+            type => $edit->edit_type,
+        };
+
+        $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
+
         my $ents = $edit->related_entities;
         while (my ($type, $ids) = each %$ents) {
             $ids = [ uniq grep { defined } @$ids ];
@@ -490,7 +499,7 @@ sub approve
         $self->c->model('Vote')->enter_votes(
             $editor_id,
             {
-                vote    => $VOTE_YES,
+                vote    => $VOTE_APPROVE,
                 edit_id => $edit->id
             }
         );

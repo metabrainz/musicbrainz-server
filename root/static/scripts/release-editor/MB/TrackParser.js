@@ -20,7 +20,10 @@
 
 MB.TrackParser = (MB.TrackParser) ? MB.TrackParser : {};
 
-MB.TrackParser.separator = " - ";
+// These are all different types of dash
+MB.TrackParser.separatorRegex = /\s+[\-‒–—―\t]\s+/;
+MB.TrackParser.separators = ['-', '‒', '–', '—', '―', "\t"];
+MB.TrackParser.separator = ' ' + MB.TrackParser.separators[0] + ' ';
 
 MB.TrackParser.Artist = function (track, artist) {
     var self = MB.Object ();
@@ -30,11 +33,11 @@ MB.TrackParser.Artist = function (track, artist) {
     self.addNew = function (name) {
         self.names.push ({
             'artist': {
-                'name': $.trim (name),
+                'name': MB.utility.trim (name),
                 'id': '',
                 'gid': ''
             },
-            'name': $.trim (name),
+            'name': MB.utility.trim (name),
             'join_phrase': null
         });
     };
@@ -217,7 +220,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
     self.position = position;
-    self.line = $.trim (line);
+    self.line = MB.utility.trim (line);
     self.parent = parent;
     self.duration = null;
     self.name = '';
@@ -225,7 +228,8 @@ MB.TrackParser.Track = function (position, line, parent) {
 
     self.regex = {
         vinyl: /^\s*[０-９0-9a-z]+(\.|\s|$)/i,
-        trkno: /^\s*([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/
+        // Leading "M." is for Japanese releases. MBS-3398
+        trkno: /^\s*(M[\.\-])?([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/
     }
 
     self.ignoreTrack = function () {
@@ -273,13 +277,18 @@ MB.TrackParser.Track = function (position, line, parent) {
         var end = self.parts.length - 1;
         while (end > 0)
         {
-            var attempt = self.parts.slice (0, end).join (MB.TrackParser.separator);
-            if (attempt === name)
-            {
-                return { 
-                    'track': attempt,
-                    'artist': self.parts.slice (end).join (MB.TrackParser.separator)
-                };
+            for (var i in MB.TrackParser.separators) {
+                if (MB.TrackParser.separators.hasOwnProperty(i)) {
+                    var separator = MB.TrackParser.separators[i];
+                    var attempt = self.parts.slice (0, end).join (separator);
+                    if (attempt === name)
+                    {
+                        return {
+                            'track': attempt,
+                            'artist': self.parts.slice (end).join (separator)
+                        };
+                    }
+                }
             }
 
             end = end - 1;
@@ -292,13 +301,18 @@ MB.TrackParser.Track = function (position, line, parent) {
         var start = self.parts.length - 1;
         while (start > 0)
         {
-            var attempt = self.parts.slice (start).join (MB.TrackParser.separator);
-            if (attempt === name)
-            {
-                return {
-                    'track': self.parts.slice (0, start).join (MB.TrackParser.separator),
-                    'artist': attempt
-                };
+            for (var i in MB.TrackParser.separators) {
+                if (MB.TrackParser.separators.hasOwnProperty(i)) {
+                    var separator = MB.TrackParser.separators[i];
+                    var attempt = self.parts.slice (start).join (separator);
+                    if (attempt === name)
+                    {
+                        return {
+                            'track': self.parts.slice (0, start).join (separator),
+                            'artist': attempt
+                        };
+                    }
+                }
             }
 
             start = start - 1;
@@ -309,14 +323,14 @@ MB.TrackParser.Track = function (position, line, parent) {
 
     self.parseArtist = function () {
         if (!MB.TrackParser.options.trackArtists () ||
-            self.line.indexOf (MB.TrackParser.separator) === -1)
+            !self.line.match(MB.TrackParser.separatorRegex))
         {
             self.title = self.line;
             self.artist = null;
             return;
         }
 
-        self.parts = self.line.split (MB.TrackParser.separator);
+        self.parts = self.line.split (MB.TrackParser.separatorRegex);
 
         var original = self.parent.originals[self.position - 1];
         var current = self.parent.disc.getTracksAtPosition (self.position);
@@ -375,11 +389,11 @@ MB.TrackParser.Track = function (position, line, parent) {
         /* neither artist nor track match, let's just assume most of
          * it is the track name. */
         self.artist = MB.TrackParser.Artist (current, self.parts.pop ());
-        self.title = self.parts.join (MB.TrackParser.separator);
+        self.title = self.parts.join (MB.TrackParser.separators[0]);
     };
 
     self.clean = function () {
-        self.title = $.trim (self.title)
+        self.title = MB.utility.trim (self.title)
             .replace (/(.*),\sThe$/i, "The $1")
             .replace (/\s*,/g, ",");
     };
@@ -401,13 +415,14 @@ MB.TrackParser.Parser = function (disc, serialized) {
     var self = MB.Object ();
 
     self.getTrackInput = function (input) {
-        var lines = $.trim (input).split ("\n");
+        var lines = input.split ("\n");
         var tracks = [];
 
         /* lineno is 1-based and ignores empty lines, it is used as
          * track position. */
         var lineno = 1;
         $.each (lines, function (idx, item) {
+            item = MB.utility.trim (item);
             if (item === '')
                 return;
 
@@ -425,7 +440,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
         var map = {};
 
         $.each (self.originals, function (idx, track) {
-            var trackname = $.trim (track.name);
+            var trackname = MB.utility.trim (track.name);
 
             if (map[trackname] === undefined) {
                 map[trackname] = [];

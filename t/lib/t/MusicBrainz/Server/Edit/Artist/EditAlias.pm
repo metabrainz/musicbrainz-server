@@ -11,6 +11,24 @@ BEGIN { use MusicBrainz::Server::Edit::Artist::EditAlias }
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT_ALIAS );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
+test 'Should fail if the alias has subsequently been deleted' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT_ALIAS,
+        editor_id => 1,
+        entity    => $c->model('Artist')->get_by_id(1),
+        alias     => $c->model('Artist')->alias->get_by_id(2),
+        name      =>  'Renamed alias',
+    );
+
+    $c->model('Artist')->alias->delete(2);
+
+    isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
 test 'Check conflicts (non-conflicting edits)' => sub {
     my $test = shift;
     my $c = $test->c;

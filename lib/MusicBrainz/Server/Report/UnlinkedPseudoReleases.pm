@@ -8,7 +8,7 @@ sub gather_data
     my ($self, $writer) = @_;
 
     $self->gather_data_from_query($writer, "
-SELECT r.gid, rn.name, r.artist_credit AS artist_credit_id
+SELECT r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id
 FROM release r
         JOIN release_name rn ON r.name = rn.id
         JOIN release_status rs ON r.status = rs.id
@@ -18,12 +18,14 @@ FROM release r
                 FROM link_type lt
                 WHERE lt.name='transl-tracklisting'
         )
+        JOIN artist_credit ac ON r.artist_credit = ac.id
+        JOIN artist_name an ON ac.name = an.id
 WHERE r.status IN (
         SELECT rs.id
         FROM release_status rs
         WHERE rs.name = 'Pseudo-Release'
 ) AND lrr.link IS NULL
-ORDER BY r.artist_credit, r.name;
+ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name);
     ");
 }
 
