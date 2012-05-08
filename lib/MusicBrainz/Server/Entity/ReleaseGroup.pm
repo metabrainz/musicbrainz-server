@@ -39,7 +39,7 @@ sub type_name
     my ($self) = @_;
     return undef unless any { defined } ($self->primary_type, $self->all_secondary_types);
     return join(' + ',
-                ($self->primary_type ? $self->primary_type->name : undef),
+                ($self->primary_type ? $self->primary_type->name : ()),
                 map { $_->name } $self->all_secondary_types
             );
 }
