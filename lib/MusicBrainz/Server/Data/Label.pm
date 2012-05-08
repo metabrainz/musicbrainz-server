@@ -256,6 +256,7 @@ sub _hash_to_row
     my $row = hash_to_row($label, {
         country => 'country_id',
         type => 'type_id',
+        ended => 'ended',
         map { $_ => $_ } qw( ipi_code label_code comment )
     });
 

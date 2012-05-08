@@ -36,6 +36,11 @@
   </tr>
   [% END %]
 
+  <tr>
+    <th>[% l('Ended:') %]</th>
+    <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
+  </tr>
+
   [% IF edit.display_data.country %]
   <tr>
     <th>[% l('Country:') %]</th>

@@ -291,6 +291,7 @@ sub _hash_to_row
         gender  => 'gender_id',
         comment => 'comment',
         ipi_code => 'ipi_code',
+        ended => 'ended',
     });
 
     if (exists $values->{begin_date}) {

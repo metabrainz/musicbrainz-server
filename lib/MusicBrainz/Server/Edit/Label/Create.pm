@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Label::Create;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Moose::Util::TypeConstraints qw( subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
@@ -31,7 +31,8 @@ has '+data' => (
         end_date => Nullable[PartialDateHash],
         country_id => Nullable[Int],
         comment => Nullable[Str],
-        ipi_code   => Nullable[Str]
+        ipi_code   => Nullable[Str],
+        ended      => Optional[Bool]
     ]
 );
 
@@ -64,6 +65,7 @@ sub build_display_data
         ipi_code   => $self->data->{ipi_code},
         begin_date => partial_date_from_row($self->data->{begin_date}),
         end_date   => partial_date_from_row($self->data->{end_date}),
+        ended      => $self->data->{ended}
     };
 }
 

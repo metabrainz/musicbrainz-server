@@ -42,7 +42,7 @@ has_field 'ipi_code' => (
 sub edit_field_names
 {
     return qw( name sort_name type_id gender_id country_id
-               begin_date end_date comment ipi_code );
+               begin_date end_date comment ipi_code ended );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }

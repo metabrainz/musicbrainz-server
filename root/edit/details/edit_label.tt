@@ -40,6 +40,11 @@
                   edit.display_data.end_date.new.format,
                   '-') %]
 
+  [% display_diff(l('Ended:'),
+                  edit.display_data.ended.old ? l('Yes') : l('No'),
+                  edit.display_data.ended.new ? l('Yes') : l('No'),
+                  '-') %]
+
   [% display_full_change(l('Country:'),
                          html_escape(edit.display_data.country.old.name),
                          html_escape(edit.display_data.country.new.name)) %]
