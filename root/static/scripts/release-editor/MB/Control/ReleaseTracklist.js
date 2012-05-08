@@ -31,6 +31,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.$acrow = $artistcredit;
 
     self.$position = $track.find ('td.position span');
+    self.$number = $track.find ('td.position input');
     self.$title = $track.find ('td.title input.track-name');
     self.$id = $track.find ('td.title input[type=hidden]');
     self.$artist = $track.find ('td.artist input');
@@ -44,7 +45,16 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      * render enters the supplied data into the form fields for this track.
      */
     self.render = function (data) {
-        self.$position.text (data.position)
+        self.$position.text (data.position);
+        if (data.number)
+        {
+            self.$number.val (data.number);
+        }
+        else
+        {
+            self.$number.val (self.position ());
+        }
+
         self.$title.val (data.name);
         if (self.getDuration () === null || !self.parent.hasToc ())
         {

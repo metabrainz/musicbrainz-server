@@ -1309,6 +1309,7 @@ sub _expand_track
         length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
+        number => trim ($trk->{number} // $trk->{position}),
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));

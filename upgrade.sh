@@ -49,6 +49,9 @@ echo `date` : Running 20120406-update-language-codes.pl
 echo `date` : Applying 20120411-add-work-language.sql
 ./admin/psql < admin/sql/updates/20120411-add-work-language.sql
 
+echo `date` : Applying 20120314-add-tracknumber.sql
+./admin/psql < admin/sql/updates/20120314-add-tracknumber.sql
+
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Create replication triggers
