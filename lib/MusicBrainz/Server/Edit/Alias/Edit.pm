@@ -101,6 +101,10 @@ sub build_display_data
             new => partial_date_from_row($self->data->{new}{begin_date}),
             old => partial_date_from_row($self->data->{old}{begin_date}),
         },
+        end_date => {
+            new => partial_date_from_row($self->data->{new}{end_date}),
+            old => partial_date_from_row($self->data->{old}{end_date}),
+        },
         primary_for_locale => {
             new => $self->data->{new}{primary_for_locale},
             old => $self->data->{old}{primary_for_locale},

@@ -223,6 +223,22 @@ sub update
     $self->sql->update_row($table, \%row, { id => $alias_id });
 }
 
+sub exists {
+    my ($self, $alias) = @_;
+    my $name_table = $self->parent->name_table;
+    my $table = $self->table;
+    return $self->sql->select_single_value(
+        "SELECT EXISTS (
+             SELECT TRUE
+             FROM $table alias
+             JOIN $name_table n ON alias.name = n.id
+             WHERE n.name IS NOT DISTINCT FROM ?
+               AND locale IS NOT DISTINCT FROM ?
+               AND type IS NOT DISTINCT FROM ?
+         )", $alias->{name}, $alias->{locale}, $alias->{type_id}
+    );
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
