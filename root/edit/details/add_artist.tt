@@ -57,4 +57,13 @@
       <td>[% edit.display_data.ipi_code %]</td>
     </tr>
     [% END %]
+
+    [% IF edit.display_data.ipi_codes %]
+      [%- FOR ipi_code IN edit.display_data.ipi_codes -%]
+      <tr>
+        <th>[% l('IPI code:') %]</th>
+        <td>[% ipi_code %]</td>
+      </tr>
+      [% END %]
+    [% END %]
 </table>

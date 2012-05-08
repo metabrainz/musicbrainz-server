@@ -167,6 +167,18 @@ sub update_row
         (map { $conditions->{$_} } @condition_columns));
 }
 
+sub delete_row
+{
+    my ($self, $table, $conditions) = @_;
+    my @condition_columns = keys %$conditions;
+
+    croak 'delete_row called with no where clause' unless @condition_columns;
+
+    my $query = "DELETE FROM $table WHERE " . join(' AND ', map { "$_ = ?" } @condition_columns);
+
+    $self->do($query, (map { $conditions->{$_} } @condition_columns));
+}
+
 has 'transaction_depth' => (
     isa => 'Int',
     is => 'ro',
