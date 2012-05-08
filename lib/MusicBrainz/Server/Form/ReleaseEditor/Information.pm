@@ -2,6 +2,8 @@ package MusicBrainz::Server::Form::ReleaseEditor::Information;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l ln );
 
+use MusicBrainz::Server::Form::Utils qw( language_id_options );
+
 extends 'MusicBrainz::Server::Form::Step';
 
 # Slightly hackish, but lets us know if we're editing an existing release or not
@@ -47,25 +49,7 @@ sub options_country_id        { shift->_select_all('Country') }
 
 sub options_language_id {
     my ($self) = @_;
-
-    # group list of languages in <optgroups>.
-    # most frequently used languages have hardcoded value 2.
-    # languages which shouldn't be shown have hardcoded value 0.
-
-    my $frequent = 2;
-    my $skip = 0;
-
-    my @sorted = sort { $a->{label} cmp $b->{label} } map {
-        {
-            'value' => $_->id,
-            'label' => $_->{name},
-            'class' => 'language',
-            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
-            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
-        }
-    } grep { $_->{frequency} ne $skip } $self->ctx->model('Language')->get_all;
-
-    return \@sorted;
+    return language_id_options($self->ctx);
 }
 
 sub options_script_id {

@@ -1,9 +1,14 @@
 package MusicBrainz::Server::Form::Utils;
 
-use base 'Exporter';
+use strict;
+use warnings;
+
+use MusicBrainz::Server::Translation qw( l );
 use Scalar::Util qw( looks_like_number );
 
-our @EXPORT = qw( expand_param expand_all_params collapse_param );
+use Sub::Exporter -setup => {
+    exports => [qw( expand_param expand_all_params collapse_param language_id_options )]
+};
 
 sub _expand
 {
@@ -102,6 +107,28 @@ sub collapse_param
     }
 }
 
+sub language_id_options {
+    my $ctx = shift;
+
+    # group list of languages in <optgroups>.
+    # most frequently used languages have hardcoded value 2.
+    # languages which shouldn't be shown have hardcoded value 0.
+
+    my $frequent = 2;
+    my $skip = 0;
+
+    my @sorted = sort { $a->{label} cmp $b->{label} } map {
+        {
+            'value' => $_->id,
+            'label' => $_->{name},
+            'class' => 'language',
+            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
+            'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
+        }
+    } grep { $_->{frequency} ne $skip } $ctx->model('Language')->get_all;
+
+    return \@sorted;
+}
 
 1;
 
