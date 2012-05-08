@@ -114,7 +114,7 @@
 
         [% IF user.languages.size %]
           [% WRAPPER property name=l('Languages:') %]
-            <ul>
+            <ul class="inline">
               [% FOR language=user.languages %]
                 <li>[% language.language.name %] ([% language.fluency %])</li>
               [% END %]
