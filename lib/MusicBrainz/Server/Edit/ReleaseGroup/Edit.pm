@@ -198,7 +198,8 @@ sub _edit_hash
     $data = $self->merge_changes;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
-    $data->{primary_type_id} = delete $data->{type_id};
+    $data->{primary_type_id} = delete $data->{type_id}
+        if exists $data->{type_id};
     return $data;
 }
 

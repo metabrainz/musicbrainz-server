@@ -222,13 +222,39 @@ sub _serialize_release_group
 
     my %attr;
     $attr{id} = $release_group->gid;
-    $attr{type} = $release_group->primary_type->name if $release_group->primary_type;
+
+    if ($release_group->primary_type && $release_group->primary_type->name eq 'Album') {
+        my %fallback_type_order = (
+            Compilation => 0,
+            Remix => 1,
+            Soundtrack => 2,
+            Live => 3,
+            Spokenword => 4,
+            Interview => 5
+        );
+
+        my ($fallback) =
+            nsort_by { $fallback_type_order{$_} }
+                grep { exists $fallback_type_order{$_} }
+                    map { $_->name }
+                        $release_group->all_secondary_types;
+
+        $attr{type} = $fallback || $release_group->primary_type->name;
+    }
+    elsif ($release_group->primary_type) {
+        $attr{type} = $release_group->primary_type->name;
+    }
+    elsif ($release_group->all_secondary_types) {
+        $attr{type} = $release_group->secondary_types->[0]->name;
+    }
 
     my @list;
     push @list, $gen->title($release_group->name);
     push @list, $gen->disambiguation($release_group->comment) if $release_group->comment;
     push @list, $gen->first_release_date($release_group->first_release_date->format);
 
+    push @list, $gen->primary_type($release_group->primary_type->name)
+        if $release_group->primary_type;
     push @list, $gen->secondary_type_list(
         map {
             $gen->secondary_type($_->name)
