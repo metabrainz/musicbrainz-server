@@ -17,7 +17,7 @@ use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
 
-use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
+use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -46,6 +46,7 @@ sub change_fields
         ipi_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
+        ended      => Optional[Bool]
     ];
 }
 
@@ -86,6 +87,7 @@ sub build_display_data
         sort_name  => 'sort_name',
         ipi_code   => 'ipi_code',
         comment    => 'comment',
+        ended      => 'ended'
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -173,6 +175,9 @@ sub allow_auto_edit
 
     return 0 if exists $self->data->{old}{country_id}
         and defined($self->data->{old}{country_id}) && $self->data->{old}{country_id} != 0;
+
+    return 0 if exists $self->data->{old}{ended}
+        and $self->data->{old}{ended} != $self->data->{new}{ended};
 
     if ($self->data->{old}{ipi_code}) {
         my ($old_ipi, $new_ipi) = normalise_strings($self->data->{old}{ipi_code},

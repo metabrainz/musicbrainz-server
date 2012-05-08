@@ -78,6 +78,7 @@ sub try_and_edit {
                 link_type_id => $params{new_link_type_id},
                 begin_date   => $params{new_begin_date},
                 end_date     => $params{new_end_date},
+                ended        => $params{ended},
                 attributes   => $attributes,
                 entity0_id   => $params{entity0_id},
                 entity1_id   => $params{entity1_id},
@@ -103,6 +104,7 @@ sub try_and_edit {
                 link_type         => $link_type,
                 begin_date        => $params{new_begin_date},
                 end_date          => $params{new_end_date},
+                ended             => $params{ended},
                 attributes        => $attributes
             );
 
@@ -134,6 +136,7 @@ sub try_and_insert {
                 link_type_id => $params{link_type_id},
                 begin_date   => $params{begin_date},
                 end_date     => $params{end_date},
+                ended        => $params{ended},
                 attributes   => $attributes,
                 entity0_id   => $params{entity0}->id,
                 entity1_id   => $params{entity1}->id,
@@ -156,6 +159,7 @@ sub try_and_insert {
                 end_date     => $params{end_date},
                 link_type    => $link_type,
                 attributes   => $attributes,
+                ended        => $params{ended}
             );
 
             return 1;
@@ -201,6 +205,7 @@ sub edit : Local RequireAuth Edit
         link_type_id => $rel->link->type_id,
         begin_date => $rel->link->begin_date,
         end_date => $rel->link->end_date,
+        ended => $rel->link->ended,
         attrs => {},
     };
     my %attr_multi;
@@ -276,6 +281,7 @@ sub edit : Local RequireAuth Edit
             new_link_type_id => $form->field('link_type_id')->value,
             new_begin_date   => $form->field('begin_date')->value,
             new_end_date     => $form->field('end_date')->value,
+            ended            => $form->field('ended')->value
         ) or
             $self->detach_existing($c);
 
@@ -376,7 +382,8 @@ sub create : Local RequireAuth Edit
             attributes   => [uniq @attributes],
             link_type_id => $form->field('link_type_id')->value,
             entity0      => $entity0,
-            entity1      => $entity1
+            entity1      => $entity1,
+            ended        => $form->field('ended')->value
         ) or
             $self->detach_existing($c);
 
@@ -505,7 +512,8 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
                 link_type_id => $form->field('link_type_id')->value,
                 entity0      => $ents[0],
                 entity1      => $ents[1],
-                attributes   => \@attributes
+                attributes   => \@attributes,
+                ended        => $form->field('ended')->value
             ) or
                 next;
         }

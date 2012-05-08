@@ -111,6 +111,9 @@ sub find
     push @conditions, "link_type = ?";
     push @args, $values->{link_type_id};
 
+    push @conditions, "ended = ?";
+    push @args, $values->{ended};
+
     foreach my $date_key (qw( begin_date end_date )) {
         my $column_prefix = $date_key;
         foreach my $key (qw( year month day )) {
@@ -153,6 +156,7 @@ sub find_or_insert
     my $row = {
         link_type      => $values->{link_type_id},
         attribute_count => scalar(@attrs),
+        ended => $values->{ended}
     };
     add_partial_date_to_row($row, $values->{begin_date}, "begin_date");
     add_partial_date_to_row($row, $values->{end_date}, "end_date");

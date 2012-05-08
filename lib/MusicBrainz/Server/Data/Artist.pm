@@ -296,6 +296,7 @@ sub _hash_to_row
         type    => 'type_id',
         gender  => 'gender_id',
         comment => 'comment',
+        ended => 'ended',
     });
 
     if (exists $values->{begin_date}) {

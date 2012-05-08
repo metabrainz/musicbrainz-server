@@ -39,7 +39,7 @@ has_field 'comment' => (
 sub edit_field_names
 {
     return qw( name sort_name type_id gender_id country_id
-               begin_date end_date comment ipi_codes );
+               begin_date end_date comment ipi_codes ended );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }

@@ -6,7 +6,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw ( l ln );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use Moose::Util::TypeConstraints;
-use MooseX::Types::Moose qw( ArrayRef Int Str );
+use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -34,6 +34,7 @@ has '+data' => (
         end_date   => Nullable[PartialDateHash],
         ipi_code   => Optional[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
+        ended      => Optional[Bool]
     ]
 );
 

@@ -40,7 +40,7 @@ has_field 'comment' => (
 sub edit_field_names
 {
     return qw( name sort_name comment type_id country_id
-               begin_date end_date label_code ipi_codes );
+               begin_date end_date label_code ipi_codes ended );
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }
