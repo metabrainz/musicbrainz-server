@@ -55,6 +55,9 @@ echo `date` : Applying 20120314-add-tracknumber.sql
 echo `date` : Applying 20120412-add-ipi-tables.sql
 ./admin/psql < admin/sql/updates/20120412-add-ipi-tables.sql
 
+echo `date` : Applying 20120508-unknown-end-dates.sql
+./admin/psql < admin/sql/updates/20120508-unknown-end-dates.sql
+
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Create replication triggers

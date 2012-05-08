@@ -59,7 +59,8 @@ sub _columns
     return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
            'artist.type, artist.country, gender, artist.edits_pending, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, artist.comment, artist.last_updated';
+           'end_date_year, end_date_month, end_date_day, artist.comment, artist.last_updated,' .
+           'ended';
 }
 
 sub _id_column
@@ -87,6 +88,7 @@ sub _column_mapping
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
+        ended => 'ended'
     };
 }
 

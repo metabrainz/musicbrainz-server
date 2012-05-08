@@ -23,7 +23,7 @@ sub _table
 sub _columns
 {
     return 'id, link_type, begin_date_year, begin_date_month, begin_date_day,
-            end_date_year, end_date_month, end_date_day';
+            end_date_year, end_date_month, end_date_day, ended';
 }
 
 sub _column_mapping
@@ -33,6 +33,7 @@ sub _column_mapping
         type_id    => 'link_type',
         begin_date => sub { partial_date_from_row(shift, 'begin_date_') },
         end_date   => sub { partial_date_from_row(shift, 'end_date_') },
+        ended      => 'ended'
     };
 }
 

@@ -84,6 +84,7 @@ sub search
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day,
+                entity.ended,
                 $extra_columns
                 MAX(rank) AS rank
             FROM
@@ -102,7 +103,7 @@ sub search
             GROUP BY
                 $extra_columns entity.id, entity.gid, entity.comment, aname.name, asort_name.name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY
                 rank DESC, sort_name, name
             OFFSET

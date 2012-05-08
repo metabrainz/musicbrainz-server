@@ -25,6 +25,10 @@
                                 ([% display_age (label.age) %])
                             [% END %]
                         [% END %]
+                    [% ELSIF label.ended %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") %]
+                            [% l('[unknown]') %]
+                        [% END %]
                     [% END %]
             [%- END -%]
             [%- FOR ipi_code IN label.ipi_codes -%]
