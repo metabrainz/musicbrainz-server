@@ -5,6 +5,7 @@ extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::DatePeriod';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Form::Role::IPI';
 
 has '+name' => ( default => 'edit-artist' );
 
