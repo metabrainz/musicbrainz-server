@@ -162,6 +162,7 @@ my @tables = qw(
     release_group_tag
     release_group_primary_type
     release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_meta
     release_coverart
@@ -267,6 +268,7 @@ my @group_core = qw(
     release_group_gid_redirect
     release_group_primary_type
     release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_name
     release_packaging
