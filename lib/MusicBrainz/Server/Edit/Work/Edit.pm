@@ -65,7 +65,8 @@ sub build_display_data
     my %map = (
         name    => 'name',
         comment => 'comment',
-        type    => [ qw( type_id WorkType ) ]
+        type    => [ qw( type_id WorkType ) ],
+        iswc    => 'iswc',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
