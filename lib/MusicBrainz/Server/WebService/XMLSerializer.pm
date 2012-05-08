@@ -106,7 +106,10 @@ sub _serialize_artist
     push @list, $gen->name($artist->name);
     push @list, $gen->sort_name($artist->sort_name) if ($artist->sort_name);
     push @list, $gen->disambiguation($artist->comment) if ($artist->comment);
-    push @list, $gen->ipi($artist->ipi_code) if ($artist->ipi_code);
+    push @list, $gen->ipi($artist->ipi_codes->[0]->ipi) if ($artist->all_ipi_codes);
+    push @list, $gen->ipi_list(
+        map { $gen->ipi($_->ipi) } $artist->all_ipi_codes
+    ) if ($artist->all_ipi_codes);
 
     if ($toplevel)
     {
@@ -612,7 +615,10 @@ sub _serialize_label
     push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
     push @list, $gen->disambiguation($label->comment) if $label->comment;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
-    push @list, $gen->ipi($label->ipi_code) if ($label->ipi_code);
+    push @list, $gen->ipi($label->ipi_codes->[0]->ipi) if ($label->all_ipi_codes);
+    push @list, $gen->ipi_list(
+        map { $gen->ipi($_->ipi) } $label->all_ipi_codes
+    ) if ($label->all_ipi_codes);
 
     if ($toplevel)
     {
