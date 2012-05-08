@@ -7,11 +7,7 @@ after 'show' => sub {
     my ($self, $c) = @_;
     my $entity_name = $self->{entity_name};
     my $entity = $c->stash->{ $entity_name };
-
-    $c->stash (ipi_codes => [
-                   map { $_->$entity_name ($entity); $_ }
-                   @{ $c->model($self->{model})->ipi->find_by_entity_id($entity->id) }
-               ]);
+    $c->model( $self->{model} )->ipi->load_for($entity);
 };
 
 no Moose::Role;

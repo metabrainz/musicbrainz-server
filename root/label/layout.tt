@@ -27,7 +27,7 @@
                         [% END %]
                     [% END %]
             [%- END -%]
-            [%- FOR ipi_code IN ipi_codes -%]
+            [%- FOR ipi_code IN label.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                  content=rdfa_label_ipi(ipi_code) %]
             [%- END -%]

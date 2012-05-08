@@ -64,6 +64,7 @@ sub artist_toplevel
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
+    $c->model('Artist')->ipi->load_for($artist);
 
     if ($c->stash->{inc}->recordings)
     {
