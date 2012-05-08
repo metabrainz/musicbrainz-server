@@ -27,7 +27,8 @@ CREATE TABLE artist (
     comment             VARCHAR(255),
     ipi_code            VARCHAR(11),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE artist_alias
@@ -611,7 +612,8 @@ CREATE TABLE label (
     comment             VARCHAR(255),
     ipi_code            VARCHAR(11),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 
@@ -698,7 +700,8 @@ CREATE TABLE link
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     attribute_count     INTEGER NOT NULL DEFAULT 0,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE link_attribute
