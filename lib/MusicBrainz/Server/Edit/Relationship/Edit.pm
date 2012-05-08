@@ -3,8 +3,8 @@ use Moose;
 use Carp;
 use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
@@ -41,6 +41,7 @@ subtype 'LinkHash'
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
+        ended => Optional[Bool],
         entity0 => Nullable[Dict[
             id => Int,
             name => Str,
@@ -63,6 +64,7 @@ subtype 'RelationshipHash'
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
+        ended => Optional[Bool],
         entity0 => Nullable[Dict[
             id => Int,
             name => Str,
@@ -135,6 +137,7 @@ sub _build_relationship
 
     my $begin      = defined $change->{begin_date}   ? $change->{begin_date}   : $link->{begin_date};
     my $end        = defined $change->{end_date}     ? $change->{end_date}     : $link->{end_date};
+    my $ended      = defined $change->{ended}        ? $change->{ended}        : $link->{ended};
     my $attributes = defined $change->{attributes}   ? $change->{attributes}   : $link->{attributes};
     my $entity0    = defined $change->{entity0}      ? $change->{entity0}      : $link->{entity0};
     my $entity1    = defined $change->{entity1}      ? $change->{entity1}      : $link->{entity1};
@@ -147,6 +150,7 @@ sub _build_relationship
             type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
             begin_date => partial_date_from_row( $begin ),
             end_date   => partial_date_from_row( $end ),
+            ended      => $ended,
             attributes => [
                 map {
                     my $attr    = $loaded->{LinkAttributeType}{ $_ };
@@ -214,6 +218,7 @@ sub _mapping
     return (
         begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
         end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
+        ended => sub { return shift->link->ended },
         attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
         link_type => sub {
             my $rel = shift;
@@ -277,6 +282,7 @@ sub initialize
         link => {
             begin_date => partial_date_to_hash ($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
+            ended => $link->ended,
             attributes => [ map { $_->id } $link->all_attributes ],
             link_type => {
                 id => $link->type_id,
@@ -327,6 +333,7 @@ sub accept
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
+        ended        => $data->{new}{ended}         // $relationship->link->ended
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
