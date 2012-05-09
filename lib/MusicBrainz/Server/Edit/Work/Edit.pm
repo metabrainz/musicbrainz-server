@@ -68,6 +68,7 @@ sub build_display_data
         name      => 'name',
         comment   => 'comment',
         type      => [ qw( type_id WorkType ) ],
+        iswc      => 'iswc',
         language  => [ qw( language_id Language ) ],
     );
 

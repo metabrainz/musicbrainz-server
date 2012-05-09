@@ -46,6 +46,7 @@ sub build_display_data
         comment       => $self->data->{comment},
         type          => $self->data->{type_id} && $loaded->{WorkType}->{ $self->data->{type_id} },
         language      => $self->data->{language_id} && $loaded->{Language}->{ $self->data->{language_id} },
+        iswc          => $self->data->{iswc},
         work          => $loaded->{Work}{ $self->entity_id }
             || Work->new( name => $self->data->{name} )
     };

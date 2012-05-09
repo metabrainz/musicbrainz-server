@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_MERGE
     $EDIT_WORK_ADD_ISWCS
 );
+use MusicBrainz::Server::Translation qw( l );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Work',
