@@ -351,6 +351,7 @@ sub ImportAllTables
         artist_credit
         artist_credit_name
         artist_gid_redirect
+        artist_ipi
         artist_meta
         artist_name
         artist_tag
@@ -401,6 +402,7 @@ sub ImportAllTables
         label_alias_type
         label_annotation
         label_gid_redirect
+        label_ipi
         label_meta
         label_name
         label_tag
@@ -433,6 +435,7 @@ sub ImportAllTables
         release_group_tag
         release_group_primary_type
         release_group_secondary_type
+        release_group_secondary_type_join
         release_label
         release_meta
         release_coverart

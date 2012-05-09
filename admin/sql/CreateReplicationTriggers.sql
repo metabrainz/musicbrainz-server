@@ -13,6 +13,10 @@ CREATE TRIGGER "reptg_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_artist_ipi"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_ipi"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_artist_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_alias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -216,6 +220,10 @@ CREATE TRIGGER "reptg_label_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "label_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_label_ipi"
+AFTER INSERT OR DELETE OR UPDATE ON "label_ipi"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_label_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "label_meta"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -354,6 +362,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_group_secondary_type"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_secondary_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_secondary_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_secondary_type_join"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_name"

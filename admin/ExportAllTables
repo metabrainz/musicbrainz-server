@@ -72,6 +72,7 @@ my @tables = qw(
     artist_credit
     artist_credit_name
     artist_gid_redirect
+    artist_ipi
     artist_meta
     artist_name
     artist_tag
@@ -128,6 +129,7 @@ my @tables = qw(
     label_alias_type
     label_annotation
     label_gid_redirect
+    label_ipi
     label_meta
     label_name
     label_tag
@@ -160,6 +162,7 @@ my @tables = qw(
     release_group_tag
     release_group_primary_type
     release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_meta
     release_coverart
@@ -202,6 +205,7 @@ my @group_core = qw(
     artist_credit
     artist_credit_name
     artist_gid_redirect
+    artist_ipi
     artist_name
     artist_type
     cdtoc
@@ -242,6 +246,7 @@ my @group_core = qw(
     label_alias
     label_alias_type
     label_gid_redirect
+    label_ipi
     label_name
     label_type
     language
@@ -263,6 +268,7 @@ my @group_core = qw(
     release_group_gid_redirect
     release_group_primary_type
     release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_name
     release_packaging
