@@ -113,7 +113,7 @@ sub _join_attrs
     if (scalar(@attrs) > 1) {
         my $a = pop(@attrs);
         my $b = join(l(", "), @attrs);
-        return l("$b and $a");
+        return l("{b} and {a}", {b => $b, a => $a});
     }
     elsif (scalar(@attrs) == 1) {
         return $attrs[0];
