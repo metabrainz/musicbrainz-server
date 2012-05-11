@@ -27,6 +27,10 @@ after 'validate' => sub {
     return if any { $_->has_errors } map { $_->fields }
         $self->field('begin_date'), $self->field('end_date');
 
+    if ($end->{year} || $end->{month} || $end->{day}) {
+        $self->field('ended')->value(1);
+    }
+
     return 1 unless $begin->{year} && $end->{year};
 
     my ($days) = Date::Calc::Delta_Days(
