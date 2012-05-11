@@ -118,18 +118,6 @@ sub merge
     }
 }
 
-# sub update
-# {
-#     my ($self, $alias_id, $alias_hash) = @_;
-#     my $table = $self->table;
-#     my $type = $self->type;
-#     if (exists $alias_hash->{name}) {
-#         my %names = $self->parent->find_or_insert_names($alias_hash->{name});
-#         $alias_hash->{name} = $names{ $alias_hash->{name} };
-#     }
-#     $self->sql->update_row($table, $alias_hash, { id => $alias_id });
-# }
-
 no Moose;
 1;
 

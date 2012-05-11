@@ -103,7 +103,6 @@
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" name="" id="" class="value">
-              <input type="hidden" value="" name="" id="" class="deleted">
               <button class="nobutton icon remove" href="#remove_row">
                 <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
                      title="[% l('Remove {item}', item => item_name) %]"
@@ -118,16 +117,9 @@
           </div>
       </div>
       <script>
-         MB.Form.TextList ("[%- r.form.field(field_name).html_name _ '-template' -%]")
-         [%- FOR field=r.form.field(field_name).fields -%]
-           [%- FOR input=field.fields -%]
-             [%- UNLESS input.name == 'deleted' -%]
-               .add (
-                   "[%- input.html_name -%]",
-                   "[%- field.html_name _ '.deleted' -%]",
-                   "[%- input.value -%]")
-             [%- END -%]
-           [%- END -%]
+         MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]")
+         [%- FOR value=r.form.field(field_name).value -%]
+           .add ("[%- value -%]")
          [%- END -%]
          ;
       </script>
