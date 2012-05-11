@@ -72,6 +72,7 @@ while (<$import>)
         }
 
         print "Updating ".$data{iso_code_3}."\n";
+        delete $data{name};
         $c->sql->update_row ('language', \%data, { id => $exists->{id} });
     }
     else
