@@ -31,7 +31,7 @@ has '+data' => (
         end_date     => Nullable[PartialDateHash],
         country_id   => Nullable[Int],
         comment      => Nullable[Str],
-        ipi_code     => Optional[Str],
+        ipi_code     => Nullable[Str],
         ipi_codes    => Optional[ArrayRef[Str]],
     ]
 );
@@ -67,8 +67,7 @@ sub build_display_data
         country    => defined($self->data->{country_id}) &&
                         $loaded->{Country}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
-        ipi_code   => $self->data->{ipi_code},
-        ipi_codes   => $self->data->{ipi_codes},
+        ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
         begin_date => partial_date_from_row($self->data->{begin_date}),
         end_date   => partial_date_from_row($self->data->{end_date}),
     };
