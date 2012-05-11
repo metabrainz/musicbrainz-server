@@ -30,8 +30,10 @@
   </tr>
   [% END %]
 
+  [% IF edit.display_data.secondary_types %]
   <tr>
     <th>[% l('Secondary Types:') %]</td>
     <td>[% edit.display_data.secondary_types %]</td>
   </tr>
+  [% END %]
 </table>
