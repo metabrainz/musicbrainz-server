@@ -38,6 +38,7 @@ sub _serialize_life_span
         my @span;
         push @span, $gen->begin($entity->begin_date->format) if $has_begin_date;
         push @span, $gen->end($entity->end_date->format) if $has_end_date;
+        push @span, $gen->ended('true') if $entity->ended;
         push @$data, $gen->life_span(@span);
     }
 }
@@ -666,6 +667,7 @@ sub _serialize_relation
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
+    push @list, $gen->ended('true') if $rel->link->ended;
 
     push @list, $gen->attribute_list(
         map { $gen->attribute($_->name) }
