@@ -429,6 +429,7 @@ sub ImportAllTables
         release_group_tag
         release_group_primary_type
         release_group_secondary_type
+        release_group_secondary_type_join
         release_label
         release_meta
         release_coverart
