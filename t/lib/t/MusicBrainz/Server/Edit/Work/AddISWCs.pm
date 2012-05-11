@@ -13,8 +13,7 @@ with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ISWCS );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ISWCS $STATUS_APPLIED );
 
 my $valid_addition = { work => { id => 10, name => 'Foo' }, iswc => 'T-111.222.002-0' };
 my $already_exists = { work => { id => 1, name => 'Foo' }, iswc => 'T-000.000.001-0' };

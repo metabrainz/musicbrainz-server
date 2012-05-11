@@ -15,8 +15,7 @@ with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 has edit => (
