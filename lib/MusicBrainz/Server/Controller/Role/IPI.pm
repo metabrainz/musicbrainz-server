@@ -3,7 +3,7 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
 requires 'load';
 
-after 'show' => sub {
+after 'load' => sub {
     my ($self, $c) = @_;
     my $entity_name = $self->{entity_name};
     my $entity = $c->stash->{ $entity_name };
