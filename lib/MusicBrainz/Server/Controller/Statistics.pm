@@ -3,6 +3,7 @@ use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
+use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
@@ -100,20 +101,36 @@ sub languages_scripts : Path('languages-scripts')
     my ($self, $c) = @_;
 
     my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
-    my $language_stats = [];
+    my @language_stats;
     my $script_stats = [];
     if (defined $stats) {
-        my $language_prefix = 'count.release.language';
-        my $script_prefix = 'count.release.script';
+        my %language_column_stat = (
+            releases => 'count.release.language',
+            works => 'count.work.language'
+        );
         my %languages = map { $_->iso_code_3 => $_ }
            grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
+
+        my $script_prefix = 'count.release.script';
         my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
+
+        for my $iso_code (keys %languages) {
+            my %counts = map { $_ => $stats->statistic($language_column_stat{$_} . ".$iso_code") || 0 }
+                keys %language_column_stat;
+            my $total = sum values %counts;
+
+            next unless $total > 0;
+
+            push @language_stats, {
+                entity => $languages{$iso_code},
+                %counts,
+                total => $total
+            };
+        }
+
         foreach my $stat_name
             (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-           if (my ($iso_code_3) = $stat_name =~ /^$language_prefix\.(.*)$/) { 
-                push(@$language_stats, ({'entity' => $languages{$iso_code_3}, 'count' => $stats->statistic($stat_name)}));
-           }
-           if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) { 
+           if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) {
                 push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
            }
         }
@@ -121,8 +138,8 @@ sub languages_scripts : Path('languages-scripts')
 
     $c->stash(
         template => 'statistics/languages_scripts.tt',
-        language_stats  => $language_stats,
-        script_stats    => $script_stats,
+        language_stats => [ rev_nsort_by { $_->{total} } @language_stats ],
+        script_stats => $script_stats,
         date_collected => $stats->{date_collected}
     );
 }
