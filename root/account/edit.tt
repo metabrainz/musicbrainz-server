@@ -51,10 +51,6 @@
             </li>
           </ul>
         </div>
-
-        [% FOR error=form.errors %]
-          [% error %]
-        [% END %]
       [% END %]
 
       <script>
