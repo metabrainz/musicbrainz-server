@@ -88,7 +88,7 @@ sub set_languages {
         'INSERT INTO editor_language (editor, language, fluency)
          VALUES ' . join(', ', ('(?, ?, ?)') x scalar(keys %language_fluencys)),
         map { $editor_id, $_, $language_fluencys{$_} } keys %language_fluencys
-    );
+    ) if %language_fluencys;
     $self->c->sql->commit;
 }
 

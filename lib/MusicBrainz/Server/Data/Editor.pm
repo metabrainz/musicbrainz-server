@@ -368,7 +368,8 @@ sub load_preferences
 
     return unless @editors;
 
-    my %editors = map { $_->id => $_ } @editors;
+    my %editors = map { $_->id => $_ } grep { defined } @editors
+        or return;
 
     my $query = sprintf "SELECT editor, name, value ".
         "FROM editor_preference WHERE editor IN (%s)",
