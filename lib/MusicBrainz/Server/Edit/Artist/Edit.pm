@@ -42,7 +42,7 @@ sub change_fields
         gender_id  => Nullable[Int],
         country_id => Nullable[Int],
         comment    => Nullable[Str],
-        ipi_code   => Optional[Str],
+        ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
