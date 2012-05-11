@@ -235,7 +235,8 @@ sub exists {
              WHERE n.name IS NOT DISTINCT FROM ?
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
-         )", $alias->{name}, $alias->{locale}, $alias->{type_id}
+               AND alias.id IS DISTINCT FROM ?
+         )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}
     );
 }
 
