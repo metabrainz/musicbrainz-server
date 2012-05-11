@@ -109,7 +109,7 @@ sub set_ipis {
         "INSERT INTO $table ($type, ipi) VALUES " .
             join(', ', ("(?, ?)") x @ipis),
         map { $entity_id, $_ } @ipis
-    );
+    ) if @ipis;
 }
 
 no Moose;

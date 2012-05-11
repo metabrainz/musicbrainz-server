@@ -28,7 +28,7 @@ MB.Form.TextList = function (input) {
     var last_item = null;
 
     self.removeEvent = function (event) {
-        $(this).closest ('div.text-list-row').hide ().find ('input.deleted').val ('1');
+        $(this).closest ('div.text-list-row').remove();
         event.preventDefault ();
         return false;
     };

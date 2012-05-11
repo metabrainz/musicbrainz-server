@@ -1,18 +1,30 @@
 package MusicBrainz::Server::Form::Role::IPI;
 use HTML::FormHandler::Moose::Role;
 
-has_field 'ipi_codes'          => ( type => 'Repeatable', num_when_empty => 1 );
-has_field 'ipi_codes.contains' => ( type => '+MusicBrainz::Server::Form::Field::IPI' );
+use List::AllUtils qw( uniq );
 
-after 'BUILD' => sub {
-    my ($self) = @_;
+has_field 'ipi_codes'          => (
+    type => 'Repeatable',
+    num_when_empty => 1,
+    deflation => \&deflate_ipi,
+    inflation => \&inflate_ipi
+);
 
-    if (defined $self->init_object) {
-        $self->field('ipi_codes')->value([
-            map { $_->ipi } $self->init_object->all_ipi_codes
-        ]);
-    }
+has_field 'ipi_codes.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::IPI'
+);
+
+sub deflate_ipi {
+    my ($value) = @_;
+    return [
+        map { $_->ipi } @$value
+    ];
 };
+
+sub inflate_ipi {
+    my ($value) = @_;
+    return [ uniq @$value ];
+}
 
 1;
 
