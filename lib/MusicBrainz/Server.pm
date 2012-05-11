@@ -239,28 +239,10 @@ sub relative_uri
 }
 
 use POSIX qw(SIGALRM);
-use Proc::ProcessTable;
-
-my $pt;
-
-sub setup {
-	my $c = shift @_;
-	$pt = Proc::ProcessTable->new;
-	return $c->next::method(@_)
-}
 
 around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
-
-    my ($process_info) = grep { $_->pid == $$ } @{ $pt->table };
-    $c->log->debug(sprintf "Process memory information: pid=%d virt=%d res=%d served=%d \"%s %s\"\n",
-        $$,
-        $process_info->size,
-        $process_info->rss,
-        $Catalyst::COUNT,
-        $c->req->method,
-        $c->req->uri);
 
     Translation->instance->build_languages_from_header($c->req->headers);
 
