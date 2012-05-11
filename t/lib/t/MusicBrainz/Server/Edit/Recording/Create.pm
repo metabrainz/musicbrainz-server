@@ -73,9 +73,9 @@ test 'Reject when in use' => sub {
 
     $test->c->sql->do('
 INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO track (id, tracklist, artist_credit, name, recording, position)
+INSERT INTO track (id, tracklist, artist_credit, name, recording, position, number)
     VALUES (1, 1, (SELECT id FROM artist_credit LIMIT 1),
-                  (SELECT id FROM track_name LIMIT 1), ' . $edit->entity_id . ", 1);
+                  (SELECT id FROM track_name LIMIT 1), ' . $edit->entity_id . ", 1, 1);
 ");
 
     reject_edit($test->c, $edit);
