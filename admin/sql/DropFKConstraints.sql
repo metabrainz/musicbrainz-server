@@ -16,6 +16,7 @@ ALTER TABLE artist_credit_name DROP CONSTRAINT artist_credit_name_fk_artist_cred
 ALTER TABLE artist_credit_name DROP CONSTRAINT artist_credit_name_fk_artist;
 ALTER TABLE artist_credit_name DROP CONSTRAINT artist_credit_name_fk_name;
 ALTER TABLE artist_gid_redirect DROP CONSTRAINT artist_gid_redirect_fk_new_id;
+ALTER TABLE artist_ipi DROP CONSTRAINT artist_ipi_fk_artist;
 ALTER TABLE artist_meta DROP CONSTRAINT artist_meta_fk_id;
 ALTER TABLE artist_rating_raw DROP CONSTRAINT artist_rating_raw_fk_artist;
 ALTER TABLE artist_rating_raw DROP CONSTRAINT artist_rating_raw_fk_editor;
@@ -157,6 +158,7 @@ ALTER TABLE label_alias DROP CONSTRAINT label_alias_fk_name;
 ALTER TABLE label_annotation DROP CONSTRAINT label_annotation_fk_label;
 ALTER TABLE label_annotation DROP CONSTRAINT label_annotation_fk_annotation;
 ALTER TABLE label_gid_redirect DROP CONSTRAINT label_gid_redirect_fk_new_id;
+ALTER TABLE label_ipi DROP CONSTRAINT label_ipi_fk_label;
 ALTER TABLE label_meta DROP CONSTRAINT label_meta_fk_id;
 ALTER TABLE label_rating_raw DROP CONSTRAINT label_rating_raw_fk_label;
 ALTER TABLE label_rating_raw DROP CONSTRAINT label_rating_raw_fk_editor;

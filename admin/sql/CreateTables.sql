@@ -47,8 +47,8 @@ CREATE TABLE artist_annotation
 
 CREATE TABLE artist_ipi
 (
-    artist              INTEGER NOT NULL,
-    ipi                 VARCHAR(11) NOT NULL,
+    artist              INTEGER NOT NULL, -- PK, references artist.id
+    ipi                 VARCHAR(11) NOT NULL, -- PK
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -653,8 +653,8 @@ CREATE TABLE label_annotation
 
 CREATE TABLE label_ipi
 (
-    label               INTEGER NOT NULL,
-    ipi                 VARCHAR(11) NOT NULL,
+    label               INTEGER NOT NULL, -- PK, references label.id
+    ipi                 VARCHAR(11) NOT NULL, -- PK
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
