@@ -28,7 +28,7 @@
                           [% ELSIF rel.link.begin_date.is_empty %]
                             ([% l('&ndash; {enddate}', { enddate => rel.link.end_date.format }) %])
                           [% ELSIF rel.link.end_date.is_empty %]
-                            [% IF ended %]
+                            [% IF rel.link.ended %]
                               ([% l('{begindate} &ndash; ????', { begindate => rel.link.begin_date.format }) %])
                             [% ELSE %]
                               ([% l('{begindate} &ndash;', { begindate => rel.link.begin_date.format }) %])
