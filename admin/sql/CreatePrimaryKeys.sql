@@ -9,6 +9,7 @@ ALTER TABLE artist_annotation ADD CONSTRAINT artist_annotation_pkey PRIMARY KEY 
 ALTER TABLE artist_credit ADD CONSTRAINT artist_credit_pkey PRIMARY KEY (id);
 ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_pkey PRIMARY KEY (artist_credit, position);
 ALTER TABLE artist_gid_redirect ADD CONSTRAINT artist_gid_redirect_pkey PRIMARY KEY (gid);
+ALTER TABLE artist_ipi ADD CONSTRAINT artist_ipi_pkey PRIMARY KEY (artist, ipi);
 ALTER TABLE artist_meta ADD CONSTRAINT artist_meta_pkey PRIMARY KEY (id);
 ALTER TABLE artist_name ADD CONSTRAINT artist_name_pkey PRIMARY KEY (id);
 ALTER TABLE artist_rating_raw ADD CONSTRAINT artist_rating_raw_pkey PRIMARY KEY (artist, editor);
@@ -78,6 +79,7 @@ ALTER TABLE label_alias ADD CONSTRAINT label_alias_pkey PRIMARY KEY (id);
 ALTER TABLE label_alias_type ADD CONSTRAINT label_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE label_annotation ADD CONSTRAINT label_annotation_pkey PRIMARY KEY (label, annotation);
 ALTER TABLE label_gid_redirect ADD CONSTRAINT label_gid_redirect_pkey PRIMARY KEY (gid);
+ALTER TABLE label_ipi ADD CONSTRAINT label_ipi_pkey PRIMARY KEY (label, ipi);
 ALTER TABLE label_meta ADD CONSTRAINT label_meta_pkey PRIMARY KEY (id);
 ALTER TABLE label_name ADD CONSTRAINT label_name_pkey PRIMARY KEY (id);
 ALTER TABLE label_rating_raw ADD CONSTRAINT label_rating_raw_pkey PRIMARY KEY (label, editor);

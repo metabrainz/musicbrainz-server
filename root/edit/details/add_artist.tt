@@ -55,14 +55,7 @@
     <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
     </tr>
 
-    [% IF edit.display_data.ipi_code %]
-    <tr>
-      <th>[% l('IPI code:') %]</th>
-      <td>[% edit.display_data.ipi_code %]</td>
-    </tr>
-    [% END %]
-
-    [% IF edit.display_data.ipi_codes %]
+    [% IF edit.display_data.ipi_codes.size %]
       [%- FOR ipi_code IN edit.display_data.ipi_codes -%]
       <tr>
         <th>[% l('IPI code:') %]</th>

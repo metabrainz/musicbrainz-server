@@ -42,7 +42,7 @@ sub change_fields
         gender_id  => Nullable[Int],
         country_id => Nullable[Int],
         comment    => Nullable[Str],
-        ipi_code   => Optional[Str],
+        ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
@@ -117,13 +117,8 @@ sub build_display_data
     }
 
     if (exists $self->data->{new}{ipi_codes}) {
-        my $ipi_changes = $self->ipi_changes (
-            $self->data->{old}{ipi_codes},
-            $self->data->{old}{ipi_codes},
-            $self->data->{new}{ipi_codes});
-
-        $data->{ipi_codes}->{added} = $ipi_changes->{add};
-        $data->{ipi_codes}->{deleted} = $ipi_changes->{del};
+        $data->{ipi_codes}->{old} = $self->data->{old}{ipi_codes};
+        $data->{ipi_codes}->{new} = $self->data->{new}{ipi_codes};
     }
 
     return $data;

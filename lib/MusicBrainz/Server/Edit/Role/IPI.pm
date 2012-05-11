@@ -59,7 +59,8 @@ sub ipi_changes
        }
    }
 
-   return { add => \@add, del => \@del };
+   my %delete_map = map { $_ => 1 } @del;
+   return [ @add, grep { !exists $delete_map{$_} } @$current ];
 }
 
 around merge_changes => sub {

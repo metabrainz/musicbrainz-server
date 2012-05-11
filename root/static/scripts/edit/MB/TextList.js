@@ -20,28 +20,27 @@
 
 MB.Form = (MB.Form) ? MB.Form : {};
 
-MB.Form.TextList = function (template) {
+MB.Form.TextList = function (input) {
+    var template = input + '-template';
     var self = MB.Object ();
     var $template = $('.' + template.replace (/\./g, '\\.'));
 
     var last_item = null;
 
     self.removeEvent = function (event) {
-        $(this).closest ('div.text-list-row').hide ().find ('input.deleted').val ('1');
+        $(this).closest ('div.text-list-row').remove();
         event.preventDefault ();
         return false;
     };
 
-    self.add = function (input, deleted, init_value) {
+    self.add = function (init_value) {
         last_item = input;
-    
+
         $template.clone ()
             .removeClass (template)
             .insertAfter ($template.parent ().find ('div.text-list-row').last ())
             .show ()
             .find ('input.value').attr ("name", input).val (init_value)
-            .end ()
-            .find ('input.deleted').attr ("name", deleted)
             .end ()
             .find ('button.remove').bind ('click.mb', self.removeEvent);
 
@@ -53,7 +52,7 @@ MB.Form.TextList = function (template) {
         var field_name = parts.pop ();
         var idx = parseInt (parts.pop (), 10) + 1;
         var prefix = parts.join ('.') + '.' + idx + '.';
-        self.add (prefix + field_name, prefix + 'deleted', '');
+        self.add ('');
 
         event.preventDefault ();
         return false;

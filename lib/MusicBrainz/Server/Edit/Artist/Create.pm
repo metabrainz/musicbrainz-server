@@ -32,7 +32,7 @@ has '+data' => (
         comment    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ipi_code   => Optional[Str],
+        ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
         ended      => Optional[Bool]
     ]
@@ -71,8 +71,7 @@ sub build_display_data
         end_date   => PartialDate->new($self->data->{end_date}),
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
-        ipi_code   => $self->data->{ipi_code},
-        ipi_codes   => $self->data->{ipi_codes},
+        ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
     };
 }
 

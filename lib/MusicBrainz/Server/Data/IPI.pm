@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Class::MOP;
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
@@ -45,7 +46,8 @@ sub find_by_entity_id
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE $key IN (" . placeholders(@ids) . ")";
+                 WHERE $key IN (" . placeholders(@ids) . ")
+                 ORDER BY ipi";
 
     return [ query_to_list($self->c->sql, sub {
         $self->_new_from_row(@_)
@@ -70,15 +72,6 @@ sub load_for
     return $ipis;
 }
 
-sub delete
-{
-    my ($self, @ipis) = @_;
-    my $query = "DELETE FROM " . $self->table .
-                " WHERE ipi IN (" . placeholders(@ipis) . ")";
-    $self->sql->do($query, @ipis);
-    return 1;
-}
-
 sub delete_entities
 {
     my ($self, @entities) = @_;
@@ -87,18 +80,6 @@ sub delete_entities
                 " WHERE ".$self->type." IN (" . placeholders(@entities) . ")";
     $self->sql->do($query, @entities);
     return 1;
-}
-
-sub insert
-{
-    my ($self, $entity_id, $ipis) = @_;
-
-    return unless scalar @$ipis;
-
-    my $query = "INSERT INTO ".$self->table."(".$self->type.", ipi) ".
-        "VALUES ".join (", ", ("(?, ?)") x scalar @$ipis).";";
-
-    $self->sql->do($query, map { $entity_id => $_ } @$ipis);
 }
 
 sub merge
@@ -118,17 +99,19 @@ sub merge
     }
 }
 
-# sub update
-# {
-#     my ($self, $alias_id, $alias_hash) = @_;
-#     my $table = $self->table;
-#     my $type = $self->type;
-#     if (exists $alias_hash->{name}) {
-#         my %names = $self->parent->find_or_insert_names($alias_hash->{name});
-#         $alias_hash->{name} = $names{ $alias_hash->{name} };
-#     }
-#     $self->sql->update_row($table, $alias_hash, { id => $alias_id });
-# }
+sub set_ipis {
+    my ($self, $entity_id, @ipis) = @_;
+    @ipis = uniq @ipis;
+    my $table = $self->table;
+    my $type = $self->type;
+
+    $self->sql->do("DELETE FROM $table WHERE $type = ?", $entity_id);
+    $self->sql->do(
+        "INSERT INTO $table ($type, ipi) VALUES " .
+            join(', ', ("(?, ?)") x @ipis),
+        map { $entity_id, $_ } @ipis
+    ) if @ipis;
+}
 
 no Moose;
 1;

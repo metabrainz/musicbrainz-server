@@ -6,7 +6,7 @@
     [%- END -%]
 [%- END -%]
 
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri %]" method="post" class="edit-artist">
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
@@ -80,3 +80,7 @@
   </div>
 
 </form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction ('form.edit-artist', 'button.submit.positive');
+</script>

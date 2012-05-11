@@ -1,56 +1,30 @@
 package MusicBrainz::Server::Form::Role::IPI;
 use HTML::FormHandler::Moose::Role;
 
-has_field 'ipi_codes'          => ( type => 'Repeatable', num_when_empty => 1 );
-has_field 'ipi_codes.code'     => ( type => '+MusicBrainz::Server::Form::Field::IPI' );
-has_field 'ipi_codes.deleted'  => ( type => 'Checkbox' );
+use List::AllUtils qw( uniq );
 
-around edit_fields => sub {
-    my $orig = shift;
-    my $self = shift;
+has_field 'ipi_codes'          => (
+    type => 'Repeatable',
+    num_when_empty => 1,
+    deflation => \&deflate_ipi,
+    inflation => \&inflate_ipi
+);
 
-    my @ret = $self->$orig (@_);
+has_field 'ipi_codes.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::IPI'
+);
 
-    for my $field (@ret)
-    {
-        if ($field->name eq 'ipi_codes')
-        {
-            # FIXME: this is an evil dirty hack, the ipi_codes field
-            # wouldn't take this value if HTML::FormHandler did any
-            # kind of validation on the ->value() accessor.
-            #
-            # what would be a better place to perform this mapping?
-            my @new_value = map { $_->{code} } grep { $_->{deleted} == 0 } @{ $field->value };
-            $field->value(\@new_value);
-        }
-    };
-
-    return @ret;
+sub deflate_ipi {
+    my ($value) = @_;
+    return [
+        map { $_->ipi } @$value
+    ];
 };
 
-after 'BUILD' => sub {
-    my ($self) = @_;
-
-    if (defined $self->init_object)
-    {
-        my $ipi_codes = $self->dupe_model->ipi->find_by_entity_id ($self->init_object->id);
-
-        my $max = @$ipi_codes - 1;
-        for (0..$max)
-        {
-            my $ipi_field = $self->field ('ipi_codes')->fields->[$_];
-
-            unless (defined $ipi_field)
-            {
-                $self->field ('ipi_codes')->add_extra (1);
-                $ipi_field = $self->field ('ipi_codes')->fields->[$_];
-            }
-
-            $ipi_field->field ('code')->value ($ipi_codes->[$_]->ipi);
-        }
-
-    }
-};
+sub inflate_ipi {
+    my ($value) = @_;
+    return [ uniq grep { $_ } @$value ];
+}
 
 1;
 

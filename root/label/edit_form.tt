@@ -3,7 +3,7 @@
     [%- create_guideline(l('If one or more labels with the same name already exist in the database, you will be prompted to add a {doc_comment|disambiguation comment to this label} that will allow users to distinguish this entry from the other label(s) with the same name.', {doc_comment => doc_link('Label_Comment')})) %]
     [%- create_guideline(l('Please note that capitalization of the label name is taken into account when determining the need for a comment.  The two labels <em>some name</em> and <em>Some Name</em> are not the same.')) %]
 [% END %]
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri %]" method="post" class="edit-label">
     [%- USE r = FormRenderer(form) -%]
 
     <div class="half-width">
@@ -65,3 +65,7 @@
   </div>
 
 </form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction ('form.edit-label', 'button.submit.positive');
+</script>

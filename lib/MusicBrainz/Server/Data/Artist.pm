@@ -202,7 +202,7 @@ sub insert
             gid => $row->{gid}
         );
 
-        $self->ipi->insert($created->id, $artist->{ipi_codes});
+        $self->ipi->set_ipis($created->id, $artist->{ipi_codes});
 
         push @created, $created;
     }
