@@ -14,7 +14,7 @@ CREATE TABLE release_group_secondary_type_join (
 ALTER TABLE release_group_type RENAME to release_group_primary_type;
 
 INSERT INTO release_group_secondary_type (id, name) VALUES
-(1, 'Compilation'), (2, 'Soundtrack'), (3, 'Spokenword'), (4, 'Interview'), (5, 'Live'), (6, 'Remix');
+(1, 'Compilation'), (2, 'Soundtrack'), (3, 'Spokenword'), (4, 'Interview'), (5, 'Audiobook'), (6, 'Live'), (7, 'Remix');
 
 SELECT setval('release_group_secondary_type_id_seq', (SELECT MAX(id) FROM release_group_secondary_type));
 
@@ -25,19 +25,21 @@ SELECT id, CASE type
     WHEN 5 THEN 2  -- Soundtrack
     WHEN 6 THEN 3  -- Spokenword
     WHEN 7 THEN 4  -- Interview
-    WHEN 9 THEN 5  -- Live
-    WHEN 10 THEN 6 -- Remix
+    WHEN 8 THEN 5  -- Audiobook
+    WHEN 9 THEN 6  -- Live
+    WHEN 10 THEN 7 -- Remix
 END
 FROM release_group
-WHERE type IN ( 4, 5, 6, 7, 9, 10 );
+WHERE type IN ( 4, 5, 6, 7, 8, 9, 10 );
 
 -- Change references to no longer valid primary types
 UPDATE release_group
 SET type = CASE type
   WHEN 6 THEN 11 -- Spokenword becomes 'other'
   WHEN 7 THEN 11 -- Interview becomes 'other'
+  WHEN 8 THEN 11 -- Audiobook becomes 'other'
 END
-WHERE type IN ( 6, 7 );
+WHERE type IN ( 6, 7, 8 );
 
 -- Attempt to guess albums/singles based on:
 -- * > 20 minutes duration

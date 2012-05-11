@@ -168,6 +168,7 @@ ws_test 'release group lookup with url relationships',
     <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
         <title>the Love Bug</title>
         <first-release-date>2004-03-17</first-release-date>
+        <primary-type>Single</primary-type>
         <relation-list target-type="url">
             <relation type="wikipedia">
                 <target>http://en.wikipedia.org/wiki/The_Love_Bug_(song)</target>

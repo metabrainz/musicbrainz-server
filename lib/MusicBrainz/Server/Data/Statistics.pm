@@ -213,15 +213,15 @@ my %stats = (
 
             my $data = $sql->select_list_of_lists(
                 "SELECT
-                   coalesce(release_group_type.name, 'null'),
+                   coalesce(release_group_primary_type.name, 'null'),
                    count(DISTINCT cover_art.release)
                  FROM cover_art_archive.cover_art
                  JOIN release ON release.id = cover_art.release
                  JOIN release_group
                    ON release.release_group = release_group.id
-                 FULL OUTER JOIN release_group_type
-                   ON release_group_type.id = release_group.type
-                 GROUP BY coalesce(release_group_type.name, 'null')"
+                 FULL OUTER JOIN release_group_primary_type
+                   ON release_group_primary_type.id = release_group.type
+                 GROUP BY coalesce(release_group_primary_type.name, 'null')"
             );
 
             my %dist = map { @$_ } @$data;
