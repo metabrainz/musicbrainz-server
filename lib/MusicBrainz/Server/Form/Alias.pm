@@ -96,7 +96,7 @@ after validate => sub {
     if ($self->alias_model->exists({ name => $self->field('name')->value,
                                      locale => $self->field('locale')->value,
                                      type_id => $self->field('type_id')->value,
-                                     not_id => $self->init_object ? $self->init_object->id : undef,
+                                     not_id => $self->init_object ? $self->init_object->{id} : undef,
                                  })) {
         $self->field('name')->add_error('This alias already exists');
     }

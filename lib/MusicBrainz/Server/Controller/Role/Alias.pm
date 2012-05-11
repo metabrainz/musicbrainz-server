@@ -72,7 +72,8 @@ sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit
             entity => $entity
         },
         item => {
-            name => $entity->name
+            name => $entity->name,
+            id => $entity->id
         },
         on_creation => sub { $self->_redir_to_aliases($c) }
     );
