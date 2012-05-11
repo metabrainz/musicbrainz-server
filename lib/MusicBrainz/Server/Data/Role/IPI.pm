@@ -42,16 +42,8 @@ role
 
     after update => sub {
         my ($self, $entity_id, $update) = @_;
-
-        for my $ipi (@{ $update->{ipi_codes}->{del} })
-        {
-            $self->sql->delete_row($params->table, { $params->type => $entity_id, ipi => $ipi });
-        }
-
-        for my $ipi (@{ $update->{ipi_codes}->{add} })
-        {
-            $self->sql->insert_row($params->table, { $params->type => $entity_id, ipi => $ipi });
-        }
+        $self->ipi->set_ipis($entity_id, @{ $update->{ipi_codes} })
+            if $update->{ipi_codes};
     };
 
 };
