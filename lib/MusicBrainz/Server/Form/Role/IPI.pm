@@ -23,7 +23,7 @@ sub deflate_ipi {
 
 sub inflate_ipi {
     my ($value) = @_;
-    return [ uniq @$value ];
+    return [ uniq grep { $_ } @$value ];
 }
 
 1;
