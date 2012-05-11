@@ -176,7 +176,7 @@ sub search : Path('/search/edits') RequireAuth
             ], sort keys %grouped
         ],
         status => status_names(),
-        languages => [ $c->model('Language')->get_all ],
+        languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
         countries => [ $c->model('Country')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree ]
     );
