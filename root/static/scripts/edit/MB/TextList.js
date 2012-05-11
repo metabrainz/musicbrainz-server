@@ -52,7 +52,7 @@ MB.Form.TextList = function (input) {
         var field_name = parts.pop ();
         var idx = parseInt (parts.pop (), 10) + 1;
         var prefix = parts.join ('.') + '.' + idx + '.';
-        self.add (prefix + field_name, prefix + 'deleted', '');
+        self.add ('');
 
         event.preventDefault ();
         return false;
