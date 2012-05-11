@@ -340,6 +340,28 @@ my %stats = (
         DESC => "Count of all works",
         SQL => "SELECT COUNT(*) FROM work",
     },
+    "count.work.language" => {
+        DESC => "Distribution of works by lyrics language",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(r.gid) AS count
+                FROM work w FULL OUTER JOIN language l
+                    ON w.language=l.id
+                GROUP BY l.iso_code_3
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.work.language.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.artistcredit" => {
         DESC => "Count of all artist credits",
         SQL => "SELECT COUNT(*) FROM artist_credit",
