@@ -107,12 +107,10 @@
 
 /* Special */
 
-/* search button in header*/
-.buttons.header-search { display: inline; }
-.buttons.header-search button {
+/* Buttons that should be inline (e.g. with an input or select) */
+.buttons.inline button {
     float: none;
-    display: inline;
-    padding: 2px 6px !important;
+    padding: 2px 6px;
 }
 
 

@@ -73,7 +73,7 @@
                         [% sidebar.text('query', { placeholder => 'search' }) %]
                         [% sidebar.select('type') %]
                         [% sidebar.hidden('method', { value => 'indexed' }) %]
-                        [% form_submit(l('Search'), "header-search") %]
+                        [% form_submit(l('Search'), 'inline') %]
                     </form>
                 </div>
                 [%- IF server_details.git_branch -%]
