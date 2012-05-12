@@ -136,7 +136,13 @@ form input[type=submit] {
 
 input[type=button].disabled,
 input[type=submit].disabled,
-button.disabled { color: #aaa; }
+button.disabled, button[disabled],
+button.disabled:hover, button[disabled]:hover {
+    color: #aaa !important;
+    border: 1px solid #EAEAEA !important;
+    background-color: #F0F0F0 !important;
+    cursor: default !important;
+}
 
 /*
 ** RATINGS
