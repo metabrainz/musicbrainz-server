@@ -17,7 +17,7 @@ CREATE TABLE label_ipi
     ipi                 VARCHAR(11) NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    PRIMARY KEY (artist, ipi)
+    PRIMARY KEY (label, ipi)
 );
 
 INSERT INTO artist_ipi (artist, ipi) SELECT id, ipi_code FROM artist WHERE ipi_code IS NOT NULL;
