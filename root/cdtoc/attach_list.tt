@@ -25,8 +25,8 @@
     <tr[% ' class="ev"' IF zebra % 2 == 0 %]>
       <td class="pos"></td>
       <td>
-        <label>
-          <input type="radio" name="medium" value="[% medium.id %]" [% IF !medium.may_have_discids %]disabled="disabled"[% END %]/>
+        <label[% IF !medium.may_have_discids %] title="[%l('This medium format cannot have a disc ID attached') %]"[% END %]>
+          <input type="radio" name="medium" value="[% medium.id %]"[% IF !medium.may_have_discids %] disabled="disabled"[% END %]/>
           [% medium.format_name %] [% medium.position %]
           [%~ IF medium.name %]:
              [% medium.name | html %]
