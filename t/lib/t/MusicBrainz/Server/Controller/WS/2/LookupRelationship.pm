@@ -198,10 +198,10 @@ ws_test 'release lookup with recording-level relationships',
         <asin>B0015XAAY2</asin>
         <medium-list count="1">
             <medium>
-                <position>1</position>
+                <position>1</position><number>1</number>
                 <track-list count="9" offset="0">
                     <track>
-                        <position>1</position>
+                        <position>1</position><number>1</number>
                         <length>256666</length>
                         <recording id="88d26635-cfc8-4fd9-b81e-36f7a1b3d270">
                             <title>Reverend Charisma</title>
@@ -217,7 +217,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>2</position>
+                        <position>2</position><number>2</number>
                         <length>86666</length>
                         <recording id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
                             <title>Dear Diary</title>
@@ -233,7 +233,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>3</position>
+                        <position>3</position><number>3</number>
                         <length>213666</length>
                         <recording id="7152d72e-c7d4-4b15-9f8e-97fabb88b1af">
                             <title>Black Sundress</title>
@@ -249,7 +249,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>4</position>
+                        <position>4</position><number>4</number>
                         <length>266666</length>
                         <recording id="da778cae-9e88-4385-af7f-666e102b94af">
                             <title>Allegiance?WTF?</title>
@@ -265,7 +265,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>5</position>
+                        <position>5</position><number>5</number>
                         <length>254666</length>
                         <recording id="150b8c8c-ed02-4ade-99cc-e8d673f6f5b9">
                             <title>Maggie&amp;Heidi</title>
@@ -281,7 +281,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>6</position>
+                        <position>6</position><number>6</number>
                         <length>236666</length>
                         <recording id="9815c3e5-f842-41c2-bb5c-bcd0dd97dbe5">
                             <title>Discopharma</title>
@@ -289,7 +289,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>7</position>
+                        <position>7</position><number>7</number>
                         <length>230666</length>
                         <recording id="6356e37c-a44b-4218-80ce-6fb6c11a124f">
                             <title>Still Unsatisfied</title>
@@ -305,7 +305,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>8</position>
+                        <position>8</position><number>8</number>
                         <length>274666</length>
                         <recording id="4878bc36-7306-497a-b45a-561d9f7f8573">
                             <title>Asseswaving</title>
@@ -332,7 +332,7 @@ ws_test 'release lookup with recording-level relationships',
                         </recording>
                     </track>
                     <track>
-                        <position>9</position>
+                        <position>9</position><number>9</number>
                         <length>249653</length>
                         <recording id="15918f5f-20b1-4e1a-888d-8762790017a9">
                             <title>Just Because</title>

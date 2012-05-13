@@ -63,8 +63,8 @@ INSERT INTO tracklist (id) VALUES (1);
 INSERT INTO track_name (id, name) VALUES (1, 'King of the Mountain');
 INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES
-    (1, 1, 1, 1, 1, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES
+    (1, 1, 1, 1, 1, 1, 1, NULL);
 EOSQL
 
     my $new_tracklist_id = $c->model('Tracklist')->replace(
@@ -106,9 +106,9 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720),
            (2, '659f405b-b4ee-4033-868a-0daa27784b89', 2, 1, 369680),
            (3, 'ae674299-2824-4500-9516-653ac1bc6f80', 3, 1, 258839);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES
-    (1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 2, 2, 1, NULL),
-    (3, 2, 1, 1, 1, 1, NULL), (4, 2, 2, 3, 2, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES
+    (1, 1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 2, 2, 2, 1, NULL),
+    (3, 2, 1, 1, 1, 1, 1, NULL), (4, 2, 2, 2, 3, 2, 1, NULL);
 EOSQL
 
     $c->model('Tracklist')->merge(1, 2);
@@ -143,9 +143,9 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720),
            (2, '659f405b-b4ee-4033-868a-0daa27784b89', 2, 1, 369680),
            (3, 'ae674299-2824-4500-9516-653ac1bc6f80', 3, 1, 258839);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES
-    (1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 1, 2, 1, NULL),
-    (3, 2, 1, 2, 1, 1, NULL), (4, 2, 2, 3, 2, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES
+    (1, 1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 2, 1, 2, 1, NULL),
+    (3, 2, 1, 1, 2, 1, 1, NULL), (4, 2, 2, 2, 3, 2, 1, NULL);
 EOSQL
 
     $c->model('Tracklist')->merge(2, 1);

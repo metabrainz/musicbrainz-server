@@ -9,7 +9,7 @@ INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 INSERT INTO artist_name (id, name) VALUES (2, 'Other Artist');
 INSERT INTO artist (id, name, sort_name, gid) VALUES (2, 2, 2, '9f5ad190-caee-11de-8a39-0800200c9a66');
 INSERT INTO tracklist (id) VALUES (3);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (17, 3, 1, 1, 1, 1, 293720);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (17, 3, 1, 1, 1, 1, 1, 293720);
 INSERT INTO medium_format (id, name) VALUES (2, 'Musical Box');
 INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
 INSERT INTO release_status (id, name) VALUES (2, 'Promotion');

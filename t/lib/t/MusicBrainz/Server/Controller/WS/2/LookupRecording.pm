@@ -89,10 +89,10 @@ ws_test 'lookup recording with official singles (+media)',
                 <quality>normal</quality>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><format>CD</format>
+                        <position>1</position><number>1</number><format>CD</format>
                         <track-list count="3" offset="0">
                             <track>
-                                <position>1</position>
+                                <position>1</position><number>1</number>
                                 <title>サマーれげぇ!レインボー</title>
                                 <length>296026</length>
                             </track>

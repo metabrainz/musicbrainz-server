@@ -34,14 +34,14 @@ ws_test 'direct disc id lookup',
         <medium-list count="2">
           <medium>
             <title>A Sea of Honey</title>
-            <position>1</position>
+            <position>1</position><number>1</number>
             <format>Format</format>
             <disc-list count="0" />
             <track-list count="7" />
           </medium>
           <medium>
             <title>A Sky of Honey</title>
-            <position>2</position>
+            <position>2</position><number>2</number>
             <format>Format</format>
             <disc-list count="1">
               <disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-"><sectors>189343</sectors>
@@ -68,14 +68,14 @@ ws_test 'lookup via toc',
       <medium-list count="2">
         <medium>
           <title>A Sea of Honey</title>
-          <position>1</position>
+          <position>1</position><number>1</number>
           <format>Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
         <medium>
           <title>A Sky of Honey</title>
-          <position>2</position>
+          <position>2</position><number>2</number>
           <format>Format</format>
           <disc-list count="0" />
           <track-list count="9" />
@@ -89,14 +89,14 @@ ws_test 'lookup via toc',
       <medium-list count="2">
         <medium>
           <title>A Sea of Honey</title>
-          <position>1</position>
+          <position>1</position><number>1</number>
           <format>Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
         <medium>
           <title>A Sky of Honey</title>
-          <position>2</position>
+          <position>2</position><number>2</number>
           <format>Format</format>
           <disc-list count="1"><disc id="IeldkVfIh1wep_M8CMuDvA0nQ7Q-"><sectors>189343</sectors></disc></disc-list>
           <track-list count="9" />
