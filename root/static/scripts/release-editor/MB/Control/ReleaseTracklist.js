@@ -211,6 +211,11 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.position = function (val) {
         if (val !== undefined)
         {
+            if (self.$number.val () === self.$position.text ())
+            {
+                self.$number.val (val);
+            }
+
             self.$position.text (val);
         }
 
