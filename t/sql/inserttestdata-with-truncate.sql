@@ -40,7 +40,7 @@ TRUNCATE release_gid_redirect CASCADE;
 TRUNCATE release_group CASCADE;
 TRUNCATE release_group_annotation CASCADE;
 TRUNCATE release_group_gid_redirect CASCADE;
-TRUNCATE release_group_type CASCADE;
+TRUNCATE release_group_primary_type CASCADE;
 TRUNCATE release_label CASCADE;
 TRUNCATE release_name CASCADE;
 TRUNCATE release_packaging CASCADE;
