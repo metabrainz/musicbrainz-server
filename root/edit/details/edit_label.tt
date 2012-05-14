@@ -55,5 +55,6 @@
 
   [% display_diff(l('IPI codes:'),
                   edit.display_data.ipi_codes.old.join (", "),
-                  edit.display_data.ipi_codes.new.join (", ")) %]
+                  edit.display_data.ipi_codes.new.join (", "),
+                  ', ') %]
 </table>
