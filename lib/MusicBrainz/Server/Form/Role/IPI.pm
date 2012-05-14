@@ -7,24 +7,28 @@ has_field 'ipi_codes'          => (
     type => 'Repeatable',
     num_when_empty => 1,
     deflation => \&deflate_ipi,
-    inflation => \&inflate_ipi
 );
 
 has_field 'ipi_codes.contains' => (
     type => '+MusicBrainz::Server::Form::Field::IPI'
 );
 
-sub deflate_ipi {
-    my ($value) = @_;
-    return [
-        map { $_->ipi } @$value
-    ];
+after 'validate' => sub {
+    my ($self) = @_;
+    return if $self->has_errors;
+
+    {
+        my $ipi_codes_field =  $self->field('ipi_codes');
+        $ipi_codes_field->value(
+            [ uniq sort grep { $_ } @{ $ipi_codes_field->value } ]
+        );
+    };
 };
 
-sub inflate_ipi {
+sub deflate_ipi {
     my ($value) = @_;
-    return [ uniq grep { $_ } @$value ];
-}
+    return [ map { $_->ipi } @$value ];
+};
 
 1;
 

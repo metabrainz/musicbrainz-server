@@ -24,6 +24,7 @@ MB.Form.TextList = function (input) {
     var template = input + '-template';
     var self = MB.Object ();
     var $template = $('.' + template.replace (/\./g, '\\.'));
+    var counter = 0;
 
     var last_item = null;
 
@@ -40,9 +41,11 @@ MB.Form.TextList = function (input) {
             .removeClass (template)
             .insertAfter ($template.parent ().find ('div.text-list-row').last ())
             .show ()
-            .find ('input.value').attr ("name", input).val (init_value)
+            .find ('input.value').attr ("name", input + '.' + counter).val (init_value)
             .end ()
             .find ('button.remove').bind ('click.mb', self.removeEvent);
+
+        counter++;
 
         return self;
     };
