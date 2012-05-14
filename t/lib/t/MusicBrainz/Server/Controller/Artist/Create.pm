@@ -60,8 +60,8 @@ subtest 'Create artists with all fields' => sub {
             month => 4,
             day => 15
         },
-        ipi_code => undef,
         ended => 1
+        ipi_codes => [],
     });
 
 
@@ -115,7 +115,6 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
     is($edit->data->{country_id}, undef);
     is($edit->data->{gender_id}, undef);
     is($edit->data->{comment}, undef);
-    is($edit->data->{ipi_code}, undef);
 
     ok( PartialDate->new($edit->data->{begin_date})->is_empty );
     ok( PartialDate->new($edit->data->{end_date})->is_empty );
