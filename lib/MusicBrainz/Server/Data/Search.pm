@@ -13,6 +13,7 @@ use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
+use MusicBrainz::Server::Entity::ISWC;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
@@ -486,23 +487,33 @@ sub schema_fixup
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
     }
 
-    if ($type eq 'work' && exists $data->{relationships}) {
-        my %relationship_map = partition_by { $_->entity1->gid }
-            @{ $data->{relationships} };
+    if ($type eq 'work') {
+        if (exists $data->{relationships}) {
+            my %relationship_map = partition_by { $_->entity1->gid }
+                @{ $data->{relationships} };
 
-        $data->{writers} = [
-            map {
-                my @relationships = @{ $relationship_map{$_} };
-                {
-                    entity => $relationships[0]->entity1,
-                    roles  => [ map { $_->link->type->name } @relationships ]
-                }
-            } keys %relationship_map
-        ];
-    }
+            $data->{writers} = [
+                map {
+                    my @relationships = @{ $relationship_map{$_} };
+                    {
+                        entity => $relationships[0]->entity1,
+                        roles  => [ map { $_->link->type->name } @relationships ]
+                    }
+                } keys %relationship_map
+            ];
+        }
 
-    if($type eq 'work' && exists $data->{type}) {
-        $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
+        if(exists $data->{type}) {
+            $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
+        }
+
+        if(exists $data->{'iswc-list'}) {
+            $data->{iswcs} = [
+                map {
+                    MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
+                } @{ $data->{'iswc-list'}{iswc} }
+            ]
+        }
     }
 }
 
