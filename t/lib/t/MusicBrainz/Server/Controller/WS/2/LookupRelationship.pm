@@ -198,7 +198,7 @@ ws_test 'release lookup with recording-level relationships',
         <asin>B0015XAAY2</asin>
         <medium-list count="1">
             <medium>
-                <position>1</position><number>1</number>
+                <position>1</position>
                 <track-list count="9" offset="0">
                     <track>
                         <position>1</position><number>1</number>

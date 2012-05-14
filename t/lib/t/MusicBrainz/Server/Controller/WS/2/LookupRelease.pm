@@ -135,7 +135,7 @@ ws_test 'release lookup with labels and recordings',
         </label-info-list>
         <medium-list count="1">
             <medium>
-                <position>1</position><number>1</number>
+                <position>1</position>
                 <track-list count="3" offset="0">
                     <track>
                         <position>1</position><number>1</number>
@@ -214,7 +214,7 @@ ws_test 'release lookup with discids and puids',
         <asin>B00005LA6G</asin>
         <medium-list count="1">
             <medium>
-                <position>1</position><number>1</number><format>CD</format>
+                <position>1</position><format>CD</format>
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
                         <sectors>60295</sectors>
