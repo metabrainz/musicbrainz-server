@@ -100,7 +100,6 @@
             </tr>
             <tr>
               <td class="label">
-                [% r.label('ended', l('Ended:'), fake => 1) %]
               </td>
               <td colspan="2">
                 [% r.checkbox('ended') %]

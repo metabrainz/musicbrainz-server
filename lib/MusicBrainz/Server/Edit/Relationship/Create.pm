@@ -44,7 +44,7 @@ has '+data' => (
         end_date     => Nullable[PartialDateHash],
         type0        => Str,
         type1        => Str,
-        ended        => Optional[Bool]
+        ended        => Bool
     ]
 );
 

@@ -605,7 +605,8 @@ sub create_url : Local RequireAuth Edit
             entity0 => $e0,
             entity1 => $e1,
             link_type_id => $form->field('link_type_id')->value,
-            attributes => \@attributes
+            attributes => \@attributes,
+            ended => 0
         ) or $self->detach_existing($c);
 
         my $redirect = $c->controller(type_to_model($type))->action_for('show');
