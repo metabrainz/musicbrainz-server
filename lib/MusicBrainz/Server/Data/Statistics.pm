@@ -342,11 +342,11 @@ my %stats = (
     },
     "count.ipi.artist" => {
         DESC => "Count of artists with an IPI code",
-        SQL => "SELECT COUNT(*) FROM artist WHERE ipi_code IS NOT NULL",
+        SQL => "SELECT COUNT(DISTINCT artist) FROM artist_ipi",
     },
     "count.ipi.label" => {
         DESC => "Count of labels with an IPI code",
-        SQL => "SELECT COUNT(*) FROM label WHERE ipi_code IS NOT NULL",
+        SQL => "SELECT COUNT(DISTINCT label) FROM label_ipi",
     },
     "count.isrc.all" => {
         DESC => "Count of all ISRCs joined to recordings",
