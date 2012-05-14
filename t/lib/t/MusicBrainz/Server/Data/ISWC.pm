@@ -130,11 +130,15 @@ test 'Test find_by_iswc' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
 
-    my @iswcs = $test->c->model('Work')->find_by_iswc('T-000.000.001-0');
-    is(@iswcs, 1, 'Found 1 ISWC for existing ISWC');
+    {
+        my @iswcs = $test->c->model('Work')->find_by_iswc('T-000.000.001-0');
+        is(@iswcs, 1, 'Found 1 ISWC for existing ISWC');
+    }
 
-    my @iswcs = $test->c->model('Work')->find_by_iswc('T-111.222.331-0');
-    is(@iswcs, 0, 'Found 0 ISWCs for non-existant ISWC');
+    {
+        my @iswcs = $test->c->model('Work')->find_by_iswc('T-111.222.331-0');
+        is(@iswcs, 0, 'Found 0 ISWCs for non-existant ISWC');
+    }
 };
 
 1;
