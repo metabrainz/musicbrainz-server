@@ -1,5 +1,7 @@
 BEGIN;
 
+SET client_min_messages TO 'WARNING';
+
 TRUNCATE annotation CASCADE;
 TRUNCATE artist CASCADE;
 TRUNCATE artist_alias CASCADE;
@@ -56,8 +58,6 @@ TRUNCATE work_annotation CASCADE;
 TRUNCATE work_gid_redirect CASCADE;
 TRUNCATE work_name CASCADE;
 TRUNCATE work_type CASCADE;
-
-SET client_min_messages TO 'WARNING';
 
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
