@@ -334,7 +334,7 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(r.gid) AS count
+                "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(w.gid) AS count
                 FROM work w FULL OUTER JOIN language l
                     ON w.language=l.id
                 GROUP BY l.iso_code_3
