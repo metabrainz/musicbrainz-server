@@ -47,7 +47,7 @@ ws_test 'discid lookup with artist-credits',
                 <asin>B0000YGBSG</asin>
                 <medium-list count="1">
                   <medium>
-                    <position>1</position><number>1</number>
+                    <position>1</position>
                     <disc-list count="2">
                       <disc id="T.epJ9O5SoDjPqAJuOJfAI9O8Nk-"><sectors>256486</sectors></disc>
                       <disc id="afhq1hAs2MoqPcU9JENE5i_mACM-"><sectors>254650</sectors></disc>

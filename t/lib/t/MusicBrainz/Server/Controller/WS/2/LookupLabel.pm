@@ -63,11 +63,11 @@ ws_test 'label lookup with releases, inc=media',
                 <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
-                        <position>1</position><number>1</number><format>CD</format><track-list count="9" />
+                        <position>1</position><format>CD</format><track-list count="9" />
                     </medium>
                     <medium>
                         <title>Chestplate Singles</title>
-                        <position>2</position><number>2</number><format>CD</format><track-list count="9" />
+                        <position>2</position><format>CD</format><track-list count="9" />
                     </medium>
                 </medium-list>
             </release>
@@ -80,7 +80,7 @@ ws_test 'label lookup with releases, inc=media',
                 <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
-                        <position>1</position><number>1</number><format>CD</format><track-list count="12" />
+                        <position>1</position><format>CD</format><track-list count="12" />
                     </medium>
                 </medium-list>
             </release>
