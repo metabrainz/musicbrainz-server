@@ -37,7 +37,6 @@ test all => sub {
     is ( $label->label_code, 2070, "label code" );
     is ( $label->format_label_code, 'LC 02070', "formatted label code" );
     is ( $label->comment, 'Sheffield based electronica label', "comment" );
-    is ( $label->ipi_code, '00407982339', "ipi_code" );
 
     my $annotation = $label_data->annotation->get_latest(3);
     is ( $annotation->text, "Label Annotation", "annotation" );
@@ -68,7 +67,7 @@ test all => sub {
         sort_name => 'RAM Records',
         type_id => 1,
         country_id => 1,
-        ipi_code => '00407982340',
+        ipi_codes => [ '00407982340' ],
         end_date => { year => 2000, month => 05 }
                                  });
     isa_ok($label, 'MusicBrainz::Server::Entity::Label');
@@ -82,15 +81,11 @@ test all => sub {
 
     $found = $label_data->search_by_names('Warp Records');
     isa_ok($found->{'Warp Records'}->[0], 'MusicBrainz::Server::Entity::Label');
-    is($found->{'Warp Records'}->[0]->ipi_code, '00407982339', 'Found label with correct ipi');
 
     $found = $label_data->search_by_names('RAM Records', 'Warp Records', 'Not there');
     isa_ok($found->{'Warp Records'}->[0], 'MusicBrainz::Server::Entity::Label');
-    is($found->{'Warp Records'}->[0]->ipi_code, '00407982339', 'Found label with correct ipi');
     isa_ok($found->{'RAM Records'}->[0], 'MusicBrainz::Server::Entity::Label');
-    is($found->{'RAM Records'}->[0]->ipi_code, '00407982340', 'Found label with correct ipi');
     ok(!defined $found->{'Not there'}, 'Non existent label was not found');
-
 
     ok(!$test->c->model('Label')->in_use($label->id));
 
@@ -102,14 +97,13 @@ test all => sub {
     ok(!$label->end_date->is_empty, "end date is not empty");
     is($label->end_date->year, 2000, "end date, year");
     is($label->end_date->month, 5, "end date, month");
-    is($label->ipi_code, '00407982340', "ipi_code");
 
     $label_data->update($label->id, {
         sort_name => 'Records, RAM',
         begin_date => { year => 1990 },
-        ipi_code => '00407982341',
+        ipi_codes => [ '00407982341' ],
         comment => 'Drum & bass label'
-                        });
+    });
 
     $label = $label_data->get_by_id($label->id);
     is($label->name, 'RAM Records', "name hasn't changed");
@@ -120,7 +114,6 @@ test all => sub {
     is($label->begin_date->year, 1990, "begin date, year");
     is($label->end_date->year, 2000, "end date, year");
     is($label->end_date->month, 5, "end date, month");
-    is($label->ipi_code, '00407982341', "ipi_code updated");
 
     $label_data->delete($label->id);
     $label = $label_data->get_by_id($label->id);
