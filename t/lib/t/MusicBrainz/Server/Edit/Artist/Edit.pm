@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Artist::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Deep qw( cmp_set );
 use Test::Fatal;
 
 with 't::Edit';
@@ -82,8 +83,8 @@ is($edit->display_data->{begin_date}->{old}->format, '');
 is($edit->display_data->{begin_date}->{new}->format, '1990-05-10');
 is($edit->display_data->{end_date}->{old}->format, '');
 is($edit->display_data->{end_date}->{new}->format, '2000-03-20');
-is_deeply($edit->display_data->{ipi_codes}->{deleted}, []);
-is_deeply($edit->display_data->{ipi_codes}->{added}, [ '00145958831', '00151894163' ]);
+cmp_set($edit->display_data->{ipi_codes}->{old}, []);
+cmp_set($edit->display_data->{ipi_codes}->{new}, [ '00145958831', '00151894163' ]);
 
 # Make sure we can use NULL values where possible
 $edit = $c->model('Edit')->create(
