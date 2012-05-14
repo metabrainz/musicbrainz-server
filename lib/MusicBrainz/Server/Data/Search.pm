@@ -489,23 +489,31 @@ sub schema_fixup
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
     }
 
-    if ($type eq 'work' && exists $data->{relationships}) {
-        my %relationship_map = partition_by { $_->entity1->gid }
-            @{ $data->{relationships} };
+    if ($type eq 'work') {
+        if (exists $data->{relationships}) {
+            my %relationship_map = partition_by { $_->entity1->gid }
+                @{ $data->{relationships} };
 
-        $data->{writers} = [
-            map {
-                my @relationships = @{ $relationship_map{$_} };
-                {
-                    entity => $relationships[0]->entity1,
-                    roles  => [ map { $_->link->type->name } @relationships ]
-                }
-            } keys %relationship_map
-        ];
-    }
+            $data->{writers} = [
+                map {
+                    my @relationships = @{ $relationship_map{$_} };
+                    {
+                        entity => $relationships[0]->entity1,
+                            roles  => [ map { $_->link->type->name } @relationships ]
+                        }
+                } keys %relationship_map
+            ];
+        }
 
-    if($type eq 'work' && exists $data->{type}) {
-        $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
+        if(exists $data->{type}) {
+            $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
+        }
+
+        if (exists $data->{language}) {
+            $data->{language} = MusicBrainz::Server::Entity::Language->new({
+                iso_code_3 => $data->{language}
+            });
+        }
     }
 }
 
