@@ -165,7 +165,7 @@ sub insert
             gid => $row->{gid}
         );
 
-        $self->ipi->set_ipis($created->id, $label->{ipi_codes});
+        $self->ipi->set_ipis($created->id, @{ $label->{ipi_codes} });
 
         push @created, $created;
     }
