@@ -9,7 +9,7 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(l(label.type_name))
                    IF label.type -%]
-            [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
+            [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty AND !label.ended -%]
                     [%- IF label.begin_date.format %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") %]
                             [% label.begin_date.format %]

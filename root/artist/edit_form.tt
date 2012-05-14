@@ -51,7 +51,7 @@
         </p>
         [% form_row_date(r, 'begin_date', l('Begin date:')) %]
         [% form_row_date(r, 'end_date', l('End date:')) %]
-        [% form_row_checkbox(r, 'ended', l('This artist is ended.')) %]
+        [% form_row_checkbox(r, 'ended', l('This artist has ended.')) %]
       </fieldset>
 
       [% IF edit_artist_credits && artist_credits %]
