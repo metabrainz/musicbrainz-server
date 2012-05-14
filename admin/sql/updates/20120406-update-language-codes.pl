@@ -35,6 +35,12 @@ while (<$import>)
         name => $columns[6]
     );
 
+    # The name column has a UNIQUE index, and the following codes have
+    # a macrolanguage and an individual language with the same name.
+
+    $data{name} = "Nepali (individual language)" if ($data{iso_code_3} eq "npi");
+    $data{name} = "Oriya (individual language)" if ($data{iso_code_3} eq "ory");
+
     $data{iso_code_1} = undef if trim($data{iso_code_1}) eq "";
     $data{iso_code_2b} = undef if trim($data{iso_code_2b}) eq "";
     $data{iso_code_2t} = undef if trim($data{iso_code_2t}) eq "";
