@@ -56,7 +56,7 @@ is_deeply($edit->data, {
             month => 4,
             day => 15
         },
-        ended => 1
+        ended => 1,
         ipi_codes => [],
     });
 

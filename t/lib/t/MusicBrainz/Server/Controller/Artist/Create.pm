@@ -60,7 +60,7 @@ subtest 'Create artists with all fields' => sub {
             month => 4,
             day => 15
         },
-        ended => 1
+        ended => 1,
         ipi_codes => [],
     });
 
