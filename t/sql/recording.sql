@@ -28,8 +28,8 @@ INSERT INTO medium (id, release, tracklist, position, format, name)
               (23, 23, 23, 1, 1, NULL),
               (24, 24, 24, 1, 1, NULL);
 
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length)
-       VALUES (22, 22, 1, 1, 1, 1, NULL),
-              (23, 23, 1, 1, 1, 1, NULL),
-              (24, 24, 1, 1, 1, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length)
+       VALUES (22, 22, 1, 1, 1, 1, 1, NULL),
+              (23, 23, 1, 1, 1, 1, 1, NULL),
+              (24, 24, 1, 1, 1, 1, 1, NULL);
 

@@ -78,7 +78,7 @@ MB.Control.ReleaseEdits = function ($edits) {
             return true;
         }
 
-        $.each ([ 'position', 'name', 'length', 'deleted' ], function (idx, key) {
+        $.each ([ 'position', 'number', 'name', 'length', 'deleted' ], function (idx, key) {
 
             if (from[key] !== to[key])
             {

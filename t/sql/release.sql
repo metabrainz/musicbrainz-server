@@ -61,8 +61,8 @@ INSERT INTO tracklist (id, track_count) VALUES (1, 1);
 INSERT INTO medium (id, tracklist, release, position) VALUES (1, 1, 3, 1);
 INSERT INTO recording (id, artist_credit, name, gid)
     VALUES (1, 2, 1, 'b43eb990-ff5b-11de-8a39-0800200c9a66');
-INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
-    VALUES (1, 1, 1, 1, 1, 1), (100, 1, 1, 1, 2, 1);
+INSERT INTO track (id, name, artist_credit, tracklist, position, number, recording)
+    VALUES (1, 1, 1, 1, 1, 1, 1), (100, 1, 1, 1, 2, 2, 1);
 
 -- test search ranking.
 INSERT INTO release_name (id, name) VALUES (4, 'Blues on Blonde on Blonde');
@@ -92,9 +92,9 @@ INSERT INTO recording (id, gid, name, artist_credit)
            (3, '5d9cb570-f0cc-11df-98cf-0800200c9a66', 1, 1),
            (4, '64cac850-f0cc-11df-98cf-0800200c9a66', 1, 1),
            (5, '691ee030-f0cc-11df-98cf-0800200c9a66', 1, 1);
-INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
-    VALUES (2, 1, 1, 2, 1, 2), (3, 1, 1, 3, 1, 3),
-           (4, 1, 1, 4, 1, 4), (5, 1, 1, 5, 1, 5);
+INSERT INTO track (id, name, artist_credit, tracklist, position, number, recording)
+    VALUES (2, 1, 1, 2, 1, 1, 2), (3, 1, 1, 3, 1, 1, 3),
+           (4, 1, 1, 4, 1, 1, 4), (5, 1, 1, 5, 1, 1, 5);
 INSERT INTO medium (id, release, tracklist, position)
     VALUES (2, 6, 2, 1), (3, 7, 3, 1),
            (4, 8, 4, 1), (5, 9, 5, 1);
@@ -113,8 +113,8 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
            (11, '7c906020-72db-11de-8a39-0800200c9a71', 7, 4, 2);
 
 INSERT INTO tracklist (id, track_count) VALUES (6, 1);
-INSERT INTO track (id, name, artist_credit, tracklist, position, recording)
-    VALUES (6, 1, 3, 6, 1, 2);
+INSERT INTO track (id, name, artist_credit, tracklist, position, number, recording)
+    VALUES (6, 1, 3, 6, 1, 1, 2);
 INSERT INTO medium (id, release, tracklist, position)
     VALUES (6, 10, 6, 1), (7, 11, 6, 1);
 
