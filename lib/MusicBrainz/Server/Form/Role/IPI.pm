@@ -20,7 +20,7 @@ after 'validate' => sub {
     {
         my $ipi_codes_field =  $self->field('ipi_codes');
         $ipi_codes_field->value(
-            [ uniq grep { $_ } @{ $ipi_codes_field->value } ]
+            [ uniq sort grep { $_ } @{ $ipi_codes_field->value } ]
         );
     };
 };
