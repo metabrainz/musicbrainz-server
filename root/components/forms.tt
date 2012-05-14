@@ -121,7 +121,7 @@
          [%- FOR value=r.form.field(field_name).value -%]
            .add ("[%- value -%]")
          [%- END -%]
-         [%- IF r.form.field(field_name).value.size == 0 -%]
+         [%- IF !r.form.field(field_name).value.size -%]
            .add ('')
          [%- END -%]
          ;
