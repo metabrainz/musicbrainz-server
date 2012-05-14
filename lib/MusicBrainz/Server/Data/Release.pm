@@ -408,7 +408,8 @@ sub load_with_tracklist_for_recording
                 tracklist.track_count AS m_track_count,
             track.id AS t_id, track_name.name AS t_name,
                 track.tracklist AS t_tracklist, track.position AS t_position,
-                track.length AS t_length, track.artist_credit AS t_artist_credit
+                track.length AS t_length, track.artist_credit AS t_artist_credit,
+                track.number AS t_number
         FROM
             track
             JOIN tracklist ON tracklist.id = track.tracklist
