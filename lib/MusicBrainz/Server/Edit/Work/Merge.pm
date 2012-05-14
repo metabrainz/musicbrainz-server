@@ -19,7 +19,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Work => {
-            $self->data->{new_entity}{id} => [ 'ArtistCredit', 'WorkType' ],
+            $self->data->{new_entity}{id} => [ 'ArtistCredit', 'WorkType', 'Language' ],
             map {
                 $_->{id} => [ 'ArtistCredit', 'WorkType' ]
             } @{ $self->data->{old_entities} }

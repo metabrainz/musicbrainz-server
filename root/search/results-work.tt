@@ -11,6 +11,7 @@
                             <th>[%- l('Writers') -%]</th>
                             <th>[%- l('Artists') -%]</th>
                             <th>[%- l('ISWC') -%]</th>
+                            <th>[%- l('Language') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,6 +41,11 @@
                                   [% link_iswc(iswc.iswc) %]
                                 [% END %]
                               </ul>
+                            </td>
+                            <td>
+                              <abbr title="[% l(result.entity.language.name) %]">
+                                [% result.entity.language.iso_code_3 %]
+                              </abbr>
                             </td>
                         </tr>
                         [%- END -%]
