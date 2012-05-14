@@ -57,6 +57,7 @@ is_deeply($edit->data, {
             day => 15
         },
         ipi_code => undef,
+        ended => 1
     });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
