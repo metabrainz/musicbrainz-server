@@ -13,6 +13,7 @@ use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
+use MusicBrainz::Server::Entity::ISWC;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
@@ -514,6 +515,14 @@ sub schema_fixup
             $data->{language} = MusicBrainz::Server::Entity::Language->new({
                 iso_code_3 => $data->{language}
             });
+        }
+
+        if(exists $data->{'iswc-list'}) {
+            $data->{iswcs} = [
+                map {
+                    MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
+                } @{ $data->{'iswc-list'}{iswc} }
+            ]
         }
     }
 }
