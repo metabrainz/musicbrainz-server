@@ -31,6 +31,7 @@ ALTER TABLE tmp_track ALTER COLUMN edits_pending SET DEFAULT 0;
 ALTER TABLE tmp_track RENAME TO track;
 
 ALTER TABLE track ADD PRIMARY KEY (id);
+SELECT setval('track_id_seq', (SELECT MAX(id) FROM track));
 
 COMMIT;
 
