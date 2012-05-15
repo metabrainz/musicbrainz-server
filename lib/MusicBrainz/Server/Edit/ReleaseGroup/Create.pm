@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw( l ln );
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -67,6 +68,10 @@ sub build_display_data
 sub initialize {
     my ($self, %opts) = @_;
     $opts{type_id} = delete $opts{primary_type_id};
+
+    delete $opts{secondary_type_ids}
+        unless grep { looks_like_number($_) } @{ $opts{secondary_type_ids} // [] };
+
     $self->data(\%opts);
 }
 
