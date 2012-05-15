@@ -68,6 +68,9 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Applying 20120508-unknown-end-dates-constraints.sql
     ./admin/psql < admin/sql/updates/20120508-unknown-end-dates-constraints.sql
+
+    echo `date` : Applying 20120411-add-work-language-constraints.sql
+    ./admin/psql < admin/sql/updates/20120411-add-work-language-constraints.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15
