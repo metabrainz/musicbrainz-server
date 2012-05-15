@@ -71,6 +71,9 @@ then
 
     echo `date` : Applying 20120411-add-work-language-constraints.sql
     ./admin/psql < admin/sql/updates/20120411-add-work-language-constraints.sql
+
+    echo `date` : Applying 20120412-add-ipi-tables-constraints.sql
+    ./admin/psql < admin/sql/updates/20120412-add-ipi-tables-constraints.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15

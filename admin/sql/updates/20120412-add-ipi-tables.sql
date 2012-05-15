@@ -4,7 +4,7 @@ BEGIN;
 
 CREATE TABLE artist_ipi
 (
-    artist              INTEGER NOT NULL REFERENCES artist (id),
+    artist              INTEGER NOT NULL,
     ipi                 CHAR(11) NOT NULL CHECK (ipi ~ E'^\\d{11}$'),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -13,7 +13,7 @@ CREATE TABLE artist_ipi
 
 CREATE TABLE label_ipi
 (
-    label               INTEGER NOT NULL REFERENCES label (id),
+    label               INTEGER NOT NULL,
     ipi                 CHAR(11) NOT NULL CHECK (ipi ~ E'^\\d{11}$'),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
