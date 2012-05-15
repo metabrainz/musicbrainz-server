@@ -31,7 +31,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Applying 20120423-release-group-types-constraints.sql
-    ./admin/psql < admin/sql/updates/20120423-release-group-types-constraint.sql
+    ./admin/psql < admin/sql/updates/20120423-release-group-types-constraints.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15
