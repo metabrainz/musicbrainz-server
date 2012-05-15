@@ -80,6 +80,9 @@ then
 
     echo `date` : Applying 20120423-release-group-types-constraints.sql
     ./admin/psql < admin/sql/updates/20120423-release-group-types-constraint.sql
+
+    echo `date` : Appyling 20120417-improved-aliases-constraints.sql
+    ./admin/psql < admin/sql/updates/20120417-improved-aliases-constraints.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15
