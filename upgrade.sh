@@ -28,6 +28,12 @@ then
     ./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql
 fi
 
+if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
+then
+    echo `date` : 20120410-multiple-iswcs-per-work.sql
+    ./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work-constraints.sql
+fi
+
 DB_SCHEMA_SEQUENCE=15
 echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
 echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE

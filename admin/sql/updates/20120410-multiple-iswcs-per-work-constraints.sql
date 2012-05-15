@@ -1,0 +1,5 @@
+BEGIN;
+
+ALTER TABLE iswc ADD CONSTRAINT iswc_work_fkey FOREIGN KEY (work) REFERENCES work (id);
+
+COMMIT;
