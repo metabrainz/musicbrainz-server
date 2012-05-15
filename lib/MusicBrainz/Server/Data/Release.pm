@@ -4,6 +4,7 @@ use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
@@ -42,7 +43,8 @@ sub _table
 sub _columns
 {
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
-            release_group, release.status, release.packaging, date_year, date_month, date_day,
+            release.release_group, release.status, release.packaging,
+            release.date_year, release.date_month, release.date_day,
             release.country, release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality, release.last_updated';
 }
@@ -113,10 +115,20 @@ sub _where_filter
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
-            if (@types) {
-                push @query, 'release_group.type IN (' . placeholders(@types) . ')';
+            my %partitioned_types = partition_by {
+                "$_" =~ /^st:/ ? 'secondary' : 'primary'
+            } @types;
+
+            if (my $primary = $partitioned_types{primary}) {
+                push @query, 'release_group.type = any(?)';
                 push @joins, 'JOIN release_group ON release.release_group = release_group.id';
-                push @params, @types;
+                push @params, $primary;
+            }
+
+            if (my $secondary = $partitioned_types{secondary}) {
+                push @query, 'st.secondary_type = any(?)';
+                push @params, [ map { substr($_, 3) } @$secondary ];
+                push @joins, 'JOIN release_group_secondary_type_join st ON release.release_group = st.release_group';
             }
         }
     }
