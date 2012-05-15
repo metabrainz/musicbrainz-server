@@ -14,6 +14,7 @@ CREATE INDEX track_idx_artist_credit ON tmp_track (artist_credit);
 ALTER TABLE tmp_track ADD CONSTRAINT track_edits_pending_check CHECK (edits_pending >= 0);
 ALTER TABLE tmp_track ADD CONSTRAINT track_length_check CHECK (length IS NULL OR length > 0);
 
+CREATE SEQUENCE track_id_seq OWNED BY tmp_track.id;
 ALTER TABLE tmp_track ALTER COLUMN id            SET DEFAULT nextval('track_id_seq'::regclass);
 ALTER TABLE tmp_track ALTER COLUMN recording     SET NOT NULL;
 ALTER TABLE tmp_track ALTER COLUMN tracklist     SET NOT NULL;
@@ -25,9 +26,8 @@ ALTER TABLE tmp_track ALTER COLUMN last_updated  SET DEFAULT now();
 ALTER TABLE tmp_track ALTER COLUMN edits_pending SET NOT NULL;
 ALTER TABLE tmp_track ALTER COLUMN edits_pending SET DEFAULT 0;
 
-ALTER TABLE tmp_track ADD PRIMARY KEY (id);
-
-ALTER SEQUENCE track_id_seq OWNED BY tmp_track.id;
+CREATE UNIQUE INDEX track_idx_pkey ON tmp_track (id);
+ALTER TABLE tmp_track ADD PRIMARY KEY (id) USING INDEX track_idx_pkey;
 
 ALTER TABLE tmp_track RENAME TO track;
 
