@@ -61,34 +61,34 @@ OUTPUT=`./admin/psql < admin/sql/updates/20120508-unknown-end-dates.sql 2>&1` ||
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : Create replication triggers
-    ./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Applying 20120508-unknown-end-dates-constraints.sql
-    ./admin/psql < admin/sql/updates/20120508-unknown-end-dates-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120508-unknown-end-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20120411-add-work-language-constraints.sql
-    ./admin/psql < admin/sql/updates/20120411-add-work-language-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120411-add-work-language-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20120412-add-ipi-tables-constraints.sql
-    ./admin/psql < admin/sql/updates/20120412-add-ipi-tables-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120412-add-ipi-tables-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 20120410-multiple-iswcs-per-work.sql
-    ./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20120423-release-group-types-constraints.sql
-    ./admin/psql < admin/sql/updates/20120423-release-group-types-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120423-release-group-types-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Appyling 20120417-improved-aliases-constraints.sql
-    ./admin/psql < admin/sql/updates/20120417-improved-aliases-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120417-improved-aliases-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20120420-editor-improvements-constraints.sql
-    ./admin/psql < admin/sql/updates/20120420-editor-improvements-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120420-editor-improvements-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20120314-add-tracknumber-constraints.sql
-    ./admin/psql < admin/sql/updates/20120314-add-tracknumber-constraints.sql
+    OUTPUT=`./admin/psql < admin/sql/updates/20120314-add-tracknumber-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 DB_SCHEMA_SEQUENCE=15
