@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 ALTER TABLE editor ADD CONSTRAINT editor_fk_gender FOREIGN KEY (gender) REFERENCES gender (id);

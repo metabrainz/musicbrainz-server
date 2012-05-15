@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 CREATE TRIGGER a_ins_track AFTER INSERT ON tmp_track FOR EACH ROW EXECUTE PROCEDURE a_ins_track();

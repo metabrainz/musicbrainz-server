@@ -1,5 +1,7 @@
 -- MBS-842, Allow vinyl style track numbers and sides by adding a free-text trackno column.
 
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 CREATE TABLE tmp_track AS SELECT *, position::text AS number FROM track;

@@ -1,4 +1,5 @@
 -- MBS-2532, Allow more than one IPI per artist
+\set ON_ERROR_STOP 1
 
 BEGIN;
 

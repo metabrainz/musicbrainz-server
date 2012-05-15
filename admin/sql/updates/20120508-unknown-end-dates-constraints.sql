@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 CREATE OR REPLACE FUNCTION end_date_implies_ended()

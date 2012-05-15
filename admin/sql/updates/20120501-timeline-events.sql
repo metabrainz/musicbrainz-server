@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Jan 21 2003', $$TRM collisions$$, $$Added support for improved TRM collision handling in the classic tagger.$$, 'http://blog.musicbrainz.org/?p=4');
 INSERT INTO statistic_event (date, title, description, link) VALUES ('Mar 02 2003', $$Cleanup$$, $$Bug fix/cleanup release.$$, 'http://blog.musicbrainz.org/?p=4');

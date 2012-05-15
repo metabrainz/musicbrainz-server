@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 CREATE TABLE release_group_secondary_type (

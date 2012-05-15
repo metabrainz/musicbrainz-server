@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 ALTER TABLE artist_ipi ADD CONSTRAINT artist_ipi_fk_artist FOREIGN KEY (artist) REFERENCES artist (id);

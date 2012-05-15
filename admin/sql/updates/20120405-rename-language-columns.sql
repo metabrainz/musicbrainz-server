@@ -1,5 +1,7 @@
 -- MBS-1799, Add ISO 639-3 language codes to the database
 
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 ALTER TABLE language ADD COLUMN iso_code_3 CHAR(3);
