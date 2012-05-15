@@ -37,6 +37,10 @@
   [%- ELSE -%]
     <p>[% l('We do not currently have any cover art for {release}.',
             { release => link_entity(entity) }) %]</p>
+    [% IF entity.cover_art_url %]
+      <p>[% l('The artwork in the sidebar is being provided by a {relationships|URL relationship}.',
+              { relationships => c.uri_for_action('/release/relationships', [ entity.gid ]) }) %]</p>
+    [% END %]
   [%- END -%]
 
   [%- IF c.user_exists -%]

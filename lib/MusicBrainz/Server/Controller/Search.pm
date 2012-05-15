@@ -115,6 +115,8 @@ sub direct : Private
         when ('work') {
             $c->model('Work')->load_writers(@entities);
             $c->model('Work')->load_recording_artists(@entities);
+            $c->model('ISWC')->load_for_works(@entities);
+            $c->model('Language')->load(@entities);
         }
     }
 

@@ -42,6 +42,7 @@ my @tables = qw(
     artist_tag_raw
     cdtoc_raw
     statistic
+    statistic_event
     edit
     edit_artist
     edit_label
@@ -66,10 +67,12 @@ my @tables = qw(
     annotation
     artist
     artist_alias
+    artist_alias_type
     artist_annotation
     artist_credit
     artist_credit_name
     artist_gid_redirect
+    artist_ipi
     artist_meta
     artist_name
     artist_tag
@@ -81,6 +84,7 @@ my @tables = qw(
     country
     editor
     editor_preference
+    editor_language
     editor_sanitised
     editor_subscribe_artist
     editor_subscribe_editor
@@ -91,6 +95,7 @@ my @tables = qw(
     editor_watch_release_status
     gender
     isrc
+    iswc
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -121,8 +126,10 @@ my @tables = qw(
     l_work_work
     label
     label_alias
+    label_alias_type
     label_annotation
     label_gid_redirect
+    label_ipi
     label_meta
     label_name
     label_tag
@@ -153,7 +160,9 @@ my @tables = qw(
     release_group_gid_redirect
     release_group_meta
     release_group_tag
-    release_group_type
+    release_group_primary_type
+    release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_meta
     release_coverart
@@ -174,6 +183,7 @@ my @tables = qw(
     url_gid_redirect
     work
     work_alias
+    work_alias_type
     work_annotation
     work_gid_redirect
     work_meta
@@ -191,9 +201,11 @@ my @replication_tables = qw(
 my @group_core = qw(
     artist
     artist_alias
+    artist_alias_type
     artist_credit
     artist_credit_name
     artist_gid_redirect
+    artist_ipi
     artist_name
     artist_type
     cdtoc
@@ -201,6 +213,7 @@ my @group_core = qw(
     country
     gender
     isrc
+    iswc
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -231,7 +244,9 @@ my @group_core = qw(
     l_work_work
     label
     label_alias
+    label_alias_type
     label_gid_redirect
+    label_ipi
     label_name
     label_type
     language
@@ -251,7 +266,9 @@ my @group_core = qw(
     release_gid_redirect
     release_group
     release_group_gid_redirect
-    release_group_type
+    release_group_primary_type
+    release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_name
     release_packaging
@@ -266,6 +283,7 @@ my @group_core = qw(
     url_gid_redirect
     work
     work_alias
+    work_alias_type
     work_gid_redirect
     work_name
     work_type
@@ -298,10 +316,12 @@ my @group_derived = qw(
 
 my @group_stats = qw(
     statistic
+    statistic_event
 );
 
 my @group_editor = qw(
     editor_sanitised
+    editor_language
     );
 
 my @group_edit = qw(

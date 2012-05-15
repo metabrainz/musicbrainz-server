@@ -29,9 +29,14 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
-has 'iswc' => (
+has 'language_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
+    );
+
+has 'language' => (
+    is => 'rw',
+    isa => 'Language'
 );
 
 has 'comment' => (
@@ -62,6 +67,17 @@ has 'writers' => (
     handles => {
         add_writer => 'push',
         all_writers => 'elements',
+    }
+);
+
+has 'iswcs' => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        all_iswcs => 'elements',
+        add_iswc => 'push'
     }
 );
 

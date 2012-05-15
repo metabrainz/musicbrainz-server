@@ -31,6 +31,20 @@ is_deeply($edit->data, {
     },
     alias_id  => 1,
     name      => 'Test Label Alias',
+    sort_name => 'Test Label Alias',
+    begin_date => {
+        year => undef,
+        month => undef,
+        day => undef
+    },
+    end_date => {
+        year => undef,
+        month => undef,
+        day => undef
+    },
+    type_id => 1,
+    locale => undef,
+    primary_for_locale => 0
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

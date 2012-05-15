@@ -44,7 +44,12 @@ ws_test 'browse artists via recording',
                 <begin>1998</begin>
             </life-span>
             <alias-list count="6">
-                <alias>m-flow</alias><alias>mediarite-flow crew</alias><alias>meteorite-flow crew</alias><alias>mflo</alias><alias>えむふろう</alias><alias>エムフロウ</alias>
+              <alias sort-name="m-flow">m-flow</alias>
+              <alias sort-name="mediarite-flow crew">mediarite-flow crew</alias>
+              <alias sort-name="meteorite-flow crew">meteorite-flow crew</alias>
+              <alias sort-name="mflo">mflo</alias>
+              <alias sort-name="えむふろう">えむふろう</alias>
+              <alias sort-name="エムフロウ">エムフロウ</alias>
             </alias-list>
         </artist>
         <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -53,7 +58,11 @@ ws_test 'browse artists via recording',
                 <begin>1986-11-05</begin>
             </life-span>
             <alias-list count="5">
-                <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>ボア</alias><alias>보아</alias>
+              <alias sort-name="Beat of Angel">Beat of Angel</alias>
+              <alias sort-name="BoA Kwon">BoA Kwon</alias>
+              <alias sort-name="Kwon BoA">Kwon BoA</alias>
+              <alias sort-name="ボア">ボア</alias>
+              <alias sort-name="보아">보아</alias>
             </alias-list>
         </artist>
     </artist-list>

@@ -38,8 +38,8 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 INSERT INTO script (id, iso_code, iso_number, name) VALUES (1, 'Ugar', '040', 'Ugaritic');
-INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name)
-    VALUES (1, 'deu', 'ger', 'de', 'German');
+INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name)
+    VALUES (1, 'deu', 'ger', 'de', 'deu', 'German');
 
 ALTER SEQUENCE artist_credit_id_seq RESTART 2;
 ALTER SEQUENCE artist_name_id_seq RESTART 2;

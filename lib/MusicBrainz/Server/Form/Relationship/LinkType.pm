@@ -90,6 +90,11 @@ after validate => sub {
                   'relationship type.')
             );
             return;
+        } elsif ($link_type->description =~ /This relationship type is <strong>deprecated<\/strong>/) {
+            $self->field('link_type_id')->add_error(
+                l("This relationship type is deprecated.")
+            );
+            return
         }
 
         my %attribute_bounds = map { $_->type_id => [$_->min, $_->max] }

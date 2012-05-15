@@ -65,7 +65,7 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 	   var urlString = /\.jpg$|\.jpeg$|\.png$|\.gif$|\.bmp$/;
 	   var urlType = baseURL.toLowerCase().match(urlString);
 
-		if(urlType == '.jpg' || urlType == '.jpeg' || urlType == '.png' || urlType == '.gif' || urlType == '.bmp'){//code to show images
+	   { //code to show images
 				
 			TB_PrevCaption = "";
 			TB_PrevURL = "";
@@ -179,66 +179,6 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			};
 			
 			imgPreloader.src = url;
-		}else{//code to show html
-			
-			var queryString = url.replace(/^[^\?]+\??/,'');
-			var params = tb_parseQuery( queryString );
-
-			TB_WIDTH = (params['width']*1) + 30 || 630; //defaults to 630 if no paramaters were added to URL
-			TB_HEIGHT = (params['height']*1) + 40 || 440; //defaults to 440 if no paramaters were added to URL
-			ajaxContentW = TB_WIDTH - 30;
-			ajaxContentH = TB_HEIGHT - 45;
-			
-			if(url.indexOf('TB_iframe') != -1){// either iframe or ajax window		
-					urlNoQuery = url.split('TB_');
-					$("#TB_iframeContent").remove();
-					if(params['modal'] != "true"){//iframe no modal
-						$("#TB_window").append("<div id='TB_title'><div id='TB_ajaxWindowTitle'>"+caption+"</div><div id='TB_closeAjaxWindow'><a href='#' id='TB_closeWindowButton' title='Close'>close</a> or Esc Key</div></div><iframe frameborder='0' hspace='0' src='"+urlNoQuery[0]+"' id='TB_iframeContent' name='TB_iframeContent"+Math.round(Math.random()*1000)+"' onload='tb_showIframe()' style='width:"+(ajaxContentW + 29)+"px;height:"+(ajaxContentH + 17)+"px;' > </iframe>");
-					}else{//iframe modal
-					$("#TB_overlay").unbind();
-						$("#TB_window").append("<iframe frameborder='0' hspace='0' src='"+urlNoQuery[0]+"' id='TB_iframeContent' name='TB_iframeContent"+Math.round(Math.random()*1000)+"' onload='tb_showIframe()' style='width:"+(ajaxContentW + 29)+"px;height:"+(ajaxContentH + 17)+"px;'> </iframe>");
-					}
-			}else{// not an iframe, ajax
-					if($("#TB_window").css("display") != "block"){
-						if(params['modal'] != "true"){//ajax no modal
-						$("#TB_window").append("<div id='TB_title'><div id='TB_ajaxWindowTitle'>"+caption+"</div><div id='TB_closeAjaxWindow'><a href='#' id='TB_closeWindowButton'>close</a> or Esc Key</div></div><div id='TB_ajaxContent' style='width:"+ajaxContentW+"px;height:"+ajaxContentH+"px'></div>");
-						}else{//ajax modal
-						$("#TB_overlay").unbind();
-						$("#TB_window").append("<div id='TB_ajaxContent' class='TB_modal' style='width:"+ajaxContentW+"px;height:"+ajaxContentH+"px;'></div>");	
-						}
-					}else{//this means the window is already up, we are just loading new content via ajax
-						$("#TB_ajaxContent")[0].style.width = ajaxContentW +"px";
-						$("#TB_ajaxContent")[0].style.height = ajaxContentH +"px";
-						$("#TB_ajaxContent")[0].scrollTop = 0;
-						$("#TB_ajaxWindowTitle").html(caption);
-					}
-			}
-					
-			$("#TB_closeWindowButton").click(tb_remove);
-			
-				if(url.indexOf('TB_inline') != -1){	
-					$("#TB_ajaxContent").append($('#' + params['inlineId']).children());
-					$("#TB_window").unload(function () {
-						$('#' + params['inlineId']).append( $("#TB_ajaxContent").children() ); // move elements back when you're finished
-					});
-					tb_position();
-					$("#TB_load").remove();
-					$("#TB_window").css({display:"block"}); 
-				}else if(url.indexOf('TB_iframe') != -1){
-					tb_position();
-					if($.browser.safari){//safari needs help because it will not fire iframe onload
-						$("#TB_load").remove();
-						$("#TB_window").css({display:"block"});
-					}
-				}else{
-					$("#TB_ajaxContent").load(url += "&random=" + (new Date().getTime()),function(){//to do a post change this load method
-						tb_position();
-						$("#TB_load").remove();
-						tb_init("#TB_ajaxContent a.thickbox");
-						$("#TB_window").css({display:"block"});
-					});
-				}
-			
 		}
 
 		if(!params['modal']){

@@ -68,9 +68,9 @@
             CheckDigit: '[% l('The checkdigit is #checkdigit#.') | js %]'
         },
         ArtistDate: {
-            Unknown: [ '[% l('Began:') | js %]', '[% l('Ended:') | js %]' ],
-            Person: [ '[% l('Born:') | js %]', '[% l('Deceased:') | js %]' ],
-            Founded: [ '[% l('Founded:') | js %]', '[% l('Dissolved') | js %]' ]
+            Unknown: [ '[% l('Began:') | js %]', '[% l('Ended:') | js %]', '[% l('This artist has ended.') | js %]'  ],
+            Person: [ '[% l('Born:') | js %]', '[% l('Deceased:') | js %]', '[% l('This person is deceased.') | js %]' ],
+            Founded: [ '[% l('Founded:') | js %]', '[% l('Dissolved:') | js %]', '[% l('This group has dissolved.') | js %]' ]
         },
         Pager: '[% l('page #{page} of #{total}') | js %]',
         SwitchToDirectSearch: '[% l('Not found? Try again with direct search.') | js %]',

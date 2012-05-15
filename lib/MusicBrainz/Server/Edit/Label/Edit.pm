@@ -2,9 +2,6 @@ package MusicBrainz::Server::Edit::Label::Edit;
 use 5.10.0;
 use Moose;
 
-use MooseX::Types::Moose qw( Maybe Str Int );
-use MooseX::Types::Structured qw( Dict Optional );
-
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
@@ -18,11 +15,15 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw( l ln );
 
+use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
+use MooseX::Types::Structured qw( Dict Optional );
+
+use aliased 'MusicBrainz::Server::Entity::Label';
+
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Label';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
-
-use aliased 'MusicBrainz::Server::Entity::Label';
+with 'MusicBrainz::Server::Edit::Role::IPI';
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { l('Edit label') }
@@ -39,8 +40,10 @@ sub change_fields
         country_id => Nullable[Int],
         comment    => Nullable[Str],
         ipi_code   => Nullable[Str],
+        ipi_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
+        ended      => Optional[Bool]
     ];
 }
 
@@ -81,6 +84,7 @@ sub build_display_data
         comment    => 'comment',
         ipi_code   => 'ipi_code',
         country    => [ qw( country_id Country ) ],
+        ended      => 'ended'
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -98,14 +102,25 @@ sub build_display_data
     $data->{label} = $loaded->{Label}{ $self->data->{entity}{id} }
         || Label->new( name => $self->data->{entity}{name} );
 
+    if (exists $self->data->{new}{ipi_codes}) {
+        $data->{ipi_codes}{old} = $self->data->{old}{ipi_codes};
+        $data->{ipi_codes}{new} = $self->data->{new}{ipi_codes};
+    }
+
     return $data;
 }
 
 sub _mapping
 {
+    my $self = shift;
+
     return (
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
+        ipi_codes => sub {
+            my $ipis = $self->c->model('Label')->ipi->find_by_entity_id(shift->id);
+            return [ map { $_->ipi } @$ipis ];
+        },
     );
 }
 
@@ -142,11 +157,16 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{type_id}
         and $self->data->{old}{type_id} != 0;
 
+    return 0 if exists $self->data->{old}{ended}
+        and $self->data->{old}{ended} != $self->data->{new}{ended};
+
     if ($self->data->{old}{ipi_code}) {
         my ($old_ipi, $new_ipi) = normalise_strings($self->data->{old}{ipi_code},
                                                     $self->data->{new}{ipi_code});
         return 0 if $new_ipi ne $old_ipi;
     }
+
+    return 0 if $self->data->{new}{ipi_codes};
 
     return 1;
 }
@@ -160,6 +180,7 @@ sub _edit_hash {
     my ($self, $data) = @_;
     return $self->merge_changes;
 }
+
 
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
@@ -183,3 +204,23 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
+
+=head1 LICENSE
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+=cut

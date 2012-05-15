@@ -14,8 +14,8 @@ sub attributes {
 
     my @attrs;
 
-    push @attrs, ( type => $entity->type->name )
-        if $entity->type;
+    push @attrs, ( type => $entity->primary_type->name )
+        if $entity->primary_type;
 
     return @attrs;
 }

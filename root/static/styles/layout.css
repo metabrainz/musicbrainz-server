@@ -89,6 +89,7 @@ ul.inline {
     padding-left: 0;
     list-style-type: none;
     list-style-image: none;
+    margin: 0;
 }
 
 /* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
@@ -107,6 +108,22 @@ pre code {
 */
 #header {
     width: 100%;
+}
+
+#header img.gravatar { display: none; }
+
+img.gravatar {
+    display: inline;
+    max-height: 1em;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    padding: 1px;
+    background: #fff;
+    margin-right: 0.35em;
+}
+
+h1 img.gravatar {
+    max-height: 3em;
 }
 
 #header-logo {
@@ -362,7 +379,7 @@ div.warning img.warning {
 
 #page.homepage #sidebar {
     margin-top: 34px;
-    width: 239px;
+    width: 450px;
 }
 
 #sidebar p {
@@ -879,4 +896,11 @@ div.delete { display: hidden !important; }
 
 .annotation-collapse {
     max-height: none;
+}
+
+span.release-group-type {
+    background: #589DFF;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0 3px;
 }

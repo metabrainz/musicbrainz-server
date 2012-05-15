@@ -54,12 +54,12 @@
                 method="post">
             [%- rg_type = 0 -%]
             [%- FOR rg=release_groups -%]
-                [% IF rg_type != rg.type %]
+                [% IF rg_type != rg.primary_type_id %]
                     [% IF rg_type != 0 %]
                         </tbody>
                     </table>
                     [% END %]
-                    <h3>[% l(rg.type.name) || l('Other release groups') %]</h3>
+                    <h3>[% l(rg.primary_type.name) || l('Other release groups') %]</h3>
                     <table class="tbl">
                         <thead>
                             <tr>
@@ -74,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-                    [% rg_type = rg.type %]
+                    [% rg_type = rg.primary_type_id %]
                 [% END %]
                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
 		    [% rdfa_release_group_ns(rg) %]>
@@ -88,6 +88,9 @@
                     <td>
                       [% rdfa_made_rg_link(rg) %]
                       [% disambiguation(rg) %]
+                      [% FOR t=rg.secondary_types %]
+                        <span class="release-group-type">[% t.name %]</span>
+                      [% END %]
                     </td>
                     [% IF show_artists %]
                     <td>[% artist_credit(rg.artist_credit) %]</td>

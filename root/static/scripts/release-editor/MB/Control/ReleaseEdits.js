@@ -78,7 +78,7 @@ MB.Control.ReleaseEdits = function ($edits) {
             return true;
         }
 
-        $.each ([ 'position', 'name', 'length', 'deleted' ], function (idx, key) {
+        $.each ([ 'position', 'number', 'name', 'length', 'deleted' ], function (idx, key) {
 
             if (from[key] !== to[key])
             {
@@ -108,6 +108,7 @@ MB.Control.ReleaseEdits = function ($edits) {
             to['edit_sha1'] = b64_sha1 (MB.utility.structureToString (to));
             to['position'] = trk.position ();
             to['deleted'] = trk.$deleted.val ();
+            to['number'] = trk.$number.val ();
 
             edited_tracklist.push (to);
 

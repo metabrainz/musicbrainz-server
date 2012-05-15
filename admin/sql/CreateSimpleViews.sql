@@ -7,7 +7,7 @@ CREATE VIEW s_artist AS
         a.id, gid, n.name, sn.name AS sort_name,
         begin_date_year, begin_date_month, begin_date_day,
         end_date_year, end_date_month, end_date_day,
-        type, country, gender, comment, ipi_code,
+        type, country, gender, comment,
         edits_pending, last_updated
     FROM artist a
     JOIN artist_name n ON a.name=n.id
@@ -31,7 +31,7 @@ CREATE VIEW s_label AS
         a.id, a.gid, n.name, sn.name AS sort_name,
         a.begin_date_year, a.begin_date_month, a.begin_date_day,
         a.end_date_year, a.end_date_month, a.end_date_day,
-        a.type, a.country, a.comment, a.ipi_code,
+        a.type, a.country, a.comment,
         a.edits_pending, a.last_updated
     FROM label a
     JOIN label_name n ON a.name = n.id
@@ -69,7 +69,7 @@ CREATE VIEW s_track AS
 CREATE VIEW s_work AS
     SELECT
         w.id, gid, n.name, artist_credit,
-        type, iswc, comment, edits_pending, last_updated
+        type, comment, edits_pending, last_updated
     FROM work w
     JOIN work_name n ON w.name=n.id;
 

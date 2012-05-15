@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Edit::ReleaseGroup::Create;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Int Str );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -29,7 +29,8 @@ has '+data' => (
         type_id       => Nullable[Int],
         name          => Str,
         artist_credit => ArtistCreditDefinition,
-        comment       => Nullable[Str]
+        comment       => Nullable[Str],
+        secondary_type_ids => Optional[ArrayRef[Int]]
     ]
 );
 
@@ -39,7 +40,8 @@ sub foreign_keys
     return {
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
         ReleaseGroup     => [ $self->entity_id ],
-        ReleaseGroupType => [ $self->data->{type_id} ]
+        ReleaseGroupType => [ $self->data->{type_id} ],
+        ReleaseGroupSecondaryType => $self->data->{secondary_type_ids}
     };
 }
 
@@ -56,15 +58,24 @@ sub build_display_data
         type          => $type ? $loaded->{ReleaseGroupType}->{ $type } : '',
         release_group => (defined($self->entity_id) &&
                               $loaded->{ReleaseGroup}{ $self->entity_id }) ||
-                                  ReleaseGroup->new( name => $self->data->{name} )
+                                  ReleaseGroup->new( name => $self->data->{name} ),
+        secondary_types => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->name }
+                                    @{ $self->data->{secondary_type_ids} })
     };
+}
+
+sub initialize {
+    my ($self, %opts) = @_;
+    $opts{type_id} = delete $opts{primary_type_id};
+    $self->data(\%opts);
 }
 
 sub _insert_hash
 {
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
-    return $data
+    $data->{primary_type_id} = delete $data->{type_id};
+    return $data;
 }
 
 sub allow_auto_edit { 1 }
