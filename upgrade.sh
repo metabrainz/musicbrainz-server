@@ -20,43 +20,43 @@ then
 fi
 
 echo `date` : Applying 20120420-editor-improvements.sql
-./admin/psql < admin/sql/updates/20120420-editor-improvements.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120420-editor-improvements.sql` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Appyling 20120417-improved-aliases.sql
-./admin/psql < admin/sql/updates/20120417-improved-aliases.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120417-improved-aliases.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying 20120423-release-group-types.sql
-./admin/psql < admin/sql/updates/20120423-release-group-types.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120423-release-group-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying 20120320-remove-url-refcount.sql
-./admin/psql < admin/sql/updates/20120320-remove-url-refcount.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120320-remove-url-refcount.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 20120410-multiple-iswcs-per-work.sql
-./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 20120430-timeline-events.sql
-./admin/psql < admin/sql/updates/20120430-timeline-events.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120430-timeline-events.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 20120501-timeline-events.sql
-./admin/psql < admin/sql/updates/20120501-timeline-events.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120501-timeline-events.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying 20120405-rename-language-columns.sql
-./admin/psql < admin/sql/updates/20120405-rename-language-columns.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120405-rename-language-columns.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Running 20120406-update-language-codes.pl
-./admin/sql/updates/20120406-update-language-codes.pl
+OUTPUT=`./admin/sql/updates/20120406-update-language-codes.pl 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying 20120411-add-work-language.sql
-./admin/psql < admin/sql/updates/20120411-add-work-language.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120411-add-work-language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying 20120314-add-tracknumber.sql
-./admin/psql < admin/sql/updates/20120314-add-tracknumber.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120314-add-tracknumber.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying 20120412-add-ipi-tables.sql
-./admin/psql < admin/sql/updates/20120412-add-ipi-tables.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120412-add-ipi-tables.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying 20120508-unknown-end-dates.sql
-./admin/psql < admin/sql/updates/20120508-unknown-end-dates.sql
+OUTPUT=`./admin/psql < admin/sql/updates/20120508-unknown-end-dates.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
