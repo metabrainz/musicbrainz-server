@@ -791,6 +791,16 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     /**
+     * Reset free-text track numbers back to their integer values.
+     */
+    self.resetTrackNumbers = function (event) {
+        $.each (self.sorted_tracks, function (idx, item) {
+            item.number (item.position ());
+        });
+    };
+
+
+    /**
      * Open the trackparser.
      */
     self.openTrackParser = function (event) {
@@ -842,6 +852,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     });
 
     self.$add_track_count = self.$fieldset.find ('input.add-track-count');
+    self.$fieldset.find ('.reset-track-numbers').bind ('click.mb', self.resetTrackNumbers);
     self.$fieldset.find ('input.track-parser').bind ('click.mb', self.openTrackParser);
     self.$fieldset.find ('input.add-track').bind ('click.mb', self.addTrackEvent);
     self.$fieldset.find ('input.disc-down').bind ('click.mb', self.moveDown);
