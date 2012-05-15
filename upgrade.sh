@@ -20,7 +20,7 @@ then
 fi
 
 echo `date` : Applying 20120420-editor-improvements.sql
-OUTPUT=`./admin/psql < admin/sql/updates/20120420-editor-improvements.sql` || ( echo "$OUTPUT" ; exit 1 )
+OUTPUT=`./admin/psql < admin/sql/updates/20120420-editor-improvements.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Appyling 20120417-improved-aliases.sql
 OUTPUT=`./admin/psql < admin/sql/updates/20120417-improved-aliases.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
