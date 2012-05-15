@@ -220,6 +220,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
     self.position = position;
+    self.number = position;
     self.line = MB.utility.trim (line);
     self.parent = parent;
     self.duration = null;
@@ -227,7 +228,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.artist = null;
 
     self.regex = {
-        vinyl: /^\s*[０-９0-9a-z]+(\.|\s|$)/i,
+        vinyl: /^\s*([０-９0-9a-z]+)(\.|\s|$)/i,
         // Leading "M." is for Japanese releases. MBS-3398
         trkno: /^\s*(M[\.\-])?([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/
     }
@@ -250,6 +251,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.removeTrackNumbers = function () {
         if (MB.TrackParser.options.vinylNumbers ())
         {
+            self.number = MB.utility.fullWidthConverter(self.line.match(self.regex.vinyl)[1]);
             self.line = self.line.replace(self.regex.vinyl, "");
         }
         else if (MB.TrackParser.options.trackNumbers ())
@@ -468,6 +470,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
         $.each (self.tracks, function (idx, track) {
             var data = {
                 'position': track.position,
+                'number': track.number,
                 'length': track.duration,
                 'artist_credit': track.artist
             };
@@ -516,6 +519,9 @@ MB.TrackParser.Parser = function (disc, serialized) {
             {
                 copy.artist_credit = data.artist_credit;
             }
+
+            copy.number = data.number;
+
             self.disc.getTrack (data.row).render (copy);
         });
 
@@ -524,6 +530,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
             var copy = original (data.row);
             copy.deleted = 0;
             copy.position = data.position;
+            copy.number = data.number;
 
             /* only override the original track length if there is no cdtoc and
                "detect track durations" is enabled. */
