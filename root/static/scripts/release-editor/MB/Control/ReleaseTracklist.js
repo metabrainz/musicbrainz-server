@@ -240,9 +240,21 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         var pos = self.position ();
         if (pos > 1)
         {
-            self.position (pos - 1);
             // sorted_tracks is zero-based.
-            self.parent.sorted_tracks[pos - 2].position (pos);
+            var other = self.parent.sorted_tracks[pos - 2];
+
+            // position() may change the number() if it looks
+            // like an integer, so get these before they're changed.
+            var self_number = self.number ();
+            var other_number = other.number ();
+
+            // set correct integer track positions.
+            self.position (pos - 1);
+            other.position (pos);
+
+            // set correct free-text track numbers.
+            other.number (self_number);
+            self.number (other_number);
         }
 
         self.parent.sort ();
