@@ -21,8 +21,11 @@ ALTER TABLE tmp_track ALTER COLUMN position      SET NOT NULL;
 ALTER TABLE tmp_track ALTER COLUMN number        SET NOT NULL;
 ALTER TABLE tmp_track ALTER COLUMN name          SET NOT NULL;
 ALTER TABLE tmp_track ALTER COLUMN artist_credit SET NOT NULL;
-ALTER TABLE tmp_track ALTER COLUMN last_updated  SET NOT NULL;
 ALTER TABLE tmp_track ALTER COLUMN last_updated  SET DEFAULT now();
+ALTER TABLE tmp_track ALTER COLUMN edits_pending SET NOT NULL;
+ALTER TABLE tmp_track ALTER COLUMN edits_pending SET DEFAULT 0;
+
+ALTER TABLE tmp_track ADD PRIMARY KEY (id);
 
 ALTER SEQUENCE track_id_seq OWNED BY tmp_track.id;
 
