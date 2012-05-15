@@ -86,6 +86,9 @@ then
 
     echo `date` : Applying 20120420-editor-improvements-constraints.sql
     ./admin/psql < admin/sql/updates/20120420-editor-improvements-constraints.sql
+
+    echo `date` : Applying 20120314-add-tracknumber-constraints.sql
+    ./admin/psql < admin/sql/updates/20120314-add-tracknumber-constraints.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15
