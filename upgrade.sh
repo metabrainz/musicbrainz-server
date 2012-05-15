@@ -74,6 +74,9 @@ then
 
     echo `date` : Applying 20120412-add-ipi-tables-constraints.sql
     ./admin/psql < admin/sql/updates/20120412-add-ipi-tables-constraints.sql
+
+    echo `date` : 20120410-multiple-iswcs-per-work.sql
+    ./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work-constraints.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15
