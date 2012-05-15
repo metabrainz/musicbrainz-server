@@ -28,10 +28,9 @@ ALTER TABLE tmp_track ALTER COLUMN last_updated  SET DEFAULT now();
 ALTER TABLE tmp_track ALTER COLUMN edits_pending SET NOT NULL;
 ALTER TABLE tmp_track ALTER COLUMN edits_pending SET DEFAULT 0;
 
-CREATE UNIQUE INDEX track_idx_pkey ON tmp_track (id);
-ALTER TABLE tmp_track ADD PRIMARY KEY (id) USING INDEX track_idx_pkey;
-
 ALTER TABLE tmp_track RENAME TO track;
+
+ALTER TABLE track ADD PRIMARY KEY (id);
 
 COMMIT;
 
