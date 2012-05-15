@@ -54,10 +54,10 @@ ws_test 'browse releases via label',
             <asin>B001IKWNCE</asin>
             <medium-list count="2">
                 <medium>
-                    <position>1</position><number>1</number><format>CD</format><track-list count="9" />
+                    <position>1</position><format>CD</format><track-list count="9" />
                 </medium>
                 <medium>
-                    <title>Chestplate Singles</title><position>2</position><number>2</number><format>CD</format><track-list count="9" />
+                    <title>Chestplate Singles</title><position>2</position><format>CD</format><track-list count="9" />
                 </medium>
             </medium-list>
         </release>
@@ -71,7 +71,7 @@ ws_test 'browse releases via label',
             <asin>B000KJTG6K</asin>
             <medium-list count="1">
                 <medium>
-                    <position>1</position><number>1</number><format>CD</format><track-list count="12" />
+                    <position>1</position><format>CD</format><track-list count="12" />
                 </medium>
             </medium-list>
         </release>
