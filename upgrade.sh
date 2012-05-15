@@ -77,6 +77,9 @@ then
 
     echo `date` : 20120410-multiple-iswcs-per-work.sql
     ./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work-constraints.sql
+
+    echo `date` : Applying 20120423-release-group-types-constraints.sql
+    ./admin/psql < admin/sql/updates/20120423-release-group-types-constraint.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15
