@@ -222,6 +222,15 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         return parseInt (self.$position.text (), 10);
     };
 
+    self.number = function (val) {
+        if (val !== undefined)
+        {
+            self.$number.val (val);
+        }
+
+        return self.$number.val ();
+    };
+
 
     /**
      * move the track up/down.
