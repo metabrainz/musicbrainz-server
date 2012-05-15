@@ -79,7 +79,7 @@ then
     ./admin/psql < admin/sql/updates/20120410-multiple-iswcs-per-work-constraints.sql
 
     echo `date` : Applying 20120423-release-group-types-constraints.sql
-    ./admin/psql < admin/sql/updates/20120423-release-group-types-constraint.sql
+    ./admin/psql < admin/sql/updates/20120423-release-group-types-constraints.sql
 
     echo `date` : Appyling 20120417-improved-aliases-constraints.sql
     ./admin/psql < admin/sql/updates/20120417-improved-aliases-constraints.sql
