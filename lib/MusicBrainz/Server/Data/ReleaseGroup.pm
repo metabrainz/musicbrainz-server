@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Data::ReleaseGroup;
-
 use Moose;
 use namespace::autoclean;
+
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
@@ -74,7 +75,7 @@ sub _entity_class
 
 sub _where_filter
 {
-	my ($filter) = @_;
+    my ($filter) = @_;
 
     my (@query, @joins, @params);
 
@@ -93,14 +94,24 @@ sub _where_filter
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
-			if (@types) {
-				push @query, 'rg.type IN (' . placeholders(@types) . ')';
-				push @params, @types;
-			}
+            my %partitioned_types = partition_by {
+                "$_" =~ /^st:/ ? 'secondary' : 'primary'
+            } @types;
+
+            if (my $primary = $partitioned_types{primary}) {
+                push @query, 'rg.type = any(?)';
+                push @params, $primary;
+            }
+
+            if (my $secondary = $partitioned_types{secondary}) {
+                push @query, 'st.secondary_type = any(?)';
+                push @params, [ map { substr($_, 3) } @$secondary ];
+                push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
+            }
         }
     }
 
-	return (\@query, \@joins, \@params);	
+    return (\@query, \@joins, \@params);
 }
 
 sub load
