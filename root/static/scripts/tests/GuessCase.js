@@ -69,7 +69,7 @@ MB.tests.GuessCase.Modes = function() {
     QUnit.module('Guess Case');
     QUnit.test('Artist', function() {
 
-        tests = [
+        var tests = [
             {
                 input: 'Members Of Mayday',
                 expected: 'Members of Mayday'
@@ -103,7 +103,7 @@ MB.tests.GuessCase.Modes = function() {
 
     QUnit.test('Label', function() {
 
-        tests = [
+        var tests = [
             {
                 input: 'da! heard it records',
                 expected: 'Da! Heard It Records'
@@ -124,7 +124,7 @@ MB.tests.GuessCase.Modes = function() {
 
     QUnit.test('Work', function() {
 
-        tests = [
+        var tests = [
             {
                 input: "WE LOVE TECHPARA VI",
                 expected: "WE LOVE TECHPARA VI",
@@ -183,7 +183,7 @@ MB.tests.GuessCase.BugFixes = function() {
     QUnit.module('Guess Case');
     QUnit.test('BugFixes', function() {
 
-        tests = [
+        var tests = [
             {
                 input: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
                 expected: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
