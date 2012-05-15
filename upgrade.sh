@@ -83,6 +83,9 @@ then
 
     echo `date` : Appyling 20120417-improved-aliases-constraints.sql
     ./admin/psql < admin/sql/updates/20120417-improved-aliases-constraints.sql
+
+    echo `date` : Applying 20120420-editor-improvements-constraints.sql
+    ./admin/psql < admin/sql/updates/20120420-editor-improvements-constraints.sql
 fi
 
 DB_SCHEMA_SEQUENCE=15
