@@ -166,12 +166,7 @@ sub html_ok
         $Test->ok(1, $message);
     }
     catch {
-        if ($_ =~ /bdi/) {
-            $Test->skip("Validation cannot happen as this HTML uses HTML5 tags");
-        }
-        else {
-            $Test->ok(0, $_);
-        }
+        $Test->ok(0, $_);
     }
 }
 
