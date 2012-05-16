@@ -54,17 +54,17 @@ CREATE TABLE artist_alias
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist.id
     name                INTEGER NOT NULL, -- references artist_name.id
-    sort_name           INTEGER NOT NULL, -- references artist_name.id
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references artist_alias_type.id
+    sort_name           INTEGER NOT NULL, -- references artist_name.id
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
-    locale              TEXT,
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
@@ -719,17 +719,17 @@ CREATE TABLE label_alias
     id                  SERIAL,
     label               INTEGER NOT NULL, -- references label.id
     name                INTEGER NOT NULL, -- references label_name.id
-    sort_name           INTEGER NOT NULL, -- references label_name.id
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references label_alias_type.id
+    sort_name           INTEGER NOT NULL, -- references label_name.id
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
-    locale              TEXT,
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
@@ -792,12 +792,12 @@ CREATE TABLE label_type (
 CREATE TABLE language
 (
     id                  SERIAL,
-    iso_code_3          CHAR(3), -- ISO 639-3
     iso_code_2t         CHAR(3), -- ISO 639-2 (T)
     iso_code_2b         CHAR(3), -- ISO 639-2 (B)
     iso_code_1          CHAR(2), -- ISO 639
     name                VARCHAR(100) NOT NULL,
-    frequency           INTEGER NOT NULL DEFAULT 0
+    frequency           INTEGER NOT NULL DEFAULT 0,
+    iso_code_3          CHAR(3)  -- ISO 639-3
 );
 
 ALTER TABLE language
@@ -1260,12 +1260,12 @@ CREATE TABLE track
     recording           INTEGER NOT NULL, -- references recording.id
     tracklist           INTEGER NOT NULL, -- references tracklist.id
     position            INTEGER NOT NULL,
-    number              TEXT NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    number              TEXT NOT NULL
 );
 
 CREATE TABLE track_raw
@@ -1329,9 +1329,9 @@ CREATE TABLE work (
     artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
     comment             VARCHAR(255),
-    language            INTEGER, -- references language.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    language            INTEGER  -- references language.id
 );
 
 CREATE TABLE work_rating_raw
@@ -1358,17 +1358,17 @@ CREATE TABLE work_alias
     id                  SERIAL,
     work                INTEGER NOT NULL, -- references work.id
     name                INTEGER NOT NULL, -- references work_name.id
-    sort_name           INTEGER NOT NULL, -- references work_name.id
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references work_alias_type.id
+    sort_name           INTEGER NOT NULL, -- references work_name.id
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
-    locale              TEXT,
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
