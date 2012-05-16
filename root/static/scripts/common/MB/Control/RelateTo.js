@@ -35,8 +35,8 @@ MB.Control.RelateTo = function () {
     self.$endpoint = self.$relate.find('select.endpoint');
     self.$type0 = self.$relate.find ('input.type');
     self.$gid0 = self.$relate.find ('input.gid');
-    self.$cancel = self.$relate.find ('input.cancel');
-    self.$create = self.$relate.find ('input.create');
+    self.$cancel = self.$relate.find ('button.cancel');
+    self.$create = self.$relate.find ('button.create');
     self.$autocomplete = self.$relate.find ('span.autocomplete');
 
     self.type = function () {
