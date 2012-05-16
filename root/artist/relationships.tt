@@ -55,7 +55,7 @@
                     <td>
                       [%- FOR attr=rel.link.attributes;
                             l(attr.name) | html;
-                            ', ' UNLESS loop.last;
+                            l(', ') UNLESS loop.last;
                          END %]
                     </td>
                     [% END %]
