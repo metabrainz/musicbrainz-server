@@ -21,7 +21,7 @@ sub _load_tree
     $c->stash( root => $tree );
 }
 
-sub base : Chained('/') PathPart('relationship-attributes') CaptureArgs(0) { }
+sub base : Chained('/') PathPart('relationship-attribute') CaptureArgs(0) { }
 
 sub index : Path('/relationship-attributes') Args(0)
 {
@@ -30,7 +30,7 @@ sub index : Path('/relationship-attributes') Args(0)
     $self->_load_tree($c);
 }
 
-sub instruments : Path('/relationships/instruments')
+sub instruments : Path('/relationship-attributes/instruments')
 {
     my ($self, $c) = @_;
 

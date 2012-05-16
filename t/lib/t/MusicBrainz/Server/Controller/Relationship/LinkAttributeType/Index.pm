@@ -19,7 +19,7 @@ EOSQL
 
 with 't::Mechanize', 't::Context';
 
-test 'Editing a relationship attribute /relationship-attributes/edit for a valid attribute type' => sub {
+test 'GET /relationship-attributes as admin' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
@@ -34,6 +34,8 @@ EOSQL
             'has a link to edit the attribute');
     $tx->ok('//a[contains(@href,"/relationship-attributes/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
             'has a link to delete the attribute');
+    $tx->ok('//a[contains(@href,"/relationship-attributes/create")]',
+            'has a link to create new attributes');
 };
 
 1;

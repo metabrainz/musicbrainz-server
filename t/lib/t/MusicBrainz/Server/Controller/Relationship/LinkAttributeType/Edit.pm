@@ -18,7 +18,7 @@ EOSQL
 
 with 't::Mechanize', 't::Context';
 
-test 'Editing a relationship attribute /relationship-attributes/edit for a valid attribute type' => sub {
+test 'Editing a relationship attribute /relationship-attribute/edit for a valid attribute type' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
@@ -28,7 +28,7 @@ INSERT INTO link_attribute_type (id, root, gid, name)
 EOSQL
 
     $mech->get_ok(
-        '/relationship-attributes/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit');
+        '/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit');
 
     my ($new_name, $new_description) = (
         'Additional additional', 'Extra additional'
@@ -52,12 +52,12 @@ EOSQL
        "Sets the new description to $new_description");
 };
 
-test 'GET /relationship/attributes/edit for invalid attribute types' => sub {
+test 'GET /relationship/attribute/edit for invalid attribute types' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
     $mech->get(
-        '/relationship-attributes/77a0f1d3-beee-4055-a6e7-24d7258c21f7/edit/');
+        '/relationship-attribute/77a0f1d3-beee-4055-a6e7-24d7258c21f7/edit/');
 
     is($mech->status, 404,
        'Returns 404 when trying to edit a non-existant relationship attribute');
