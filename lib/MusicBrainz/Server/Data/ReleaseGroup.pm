@@ -542,6 +542,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->merge_entities ($new_id, @old_ids);
 
     merge_table_attributes(
         $self->sql => (

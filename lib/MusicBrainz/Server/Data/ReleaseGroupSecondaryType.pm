@@ -58,13 +58,32 @@ sub set_types {
         if @types;
 }
 
+sub merge_entities
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    for my $old_id (@old_ids)
+    {
+        # move over types to the new release group, leaving duplicates.
+        $self->sql->do(
+            "UPDATE release_group_secondary_type_join SET release_group = ? ".
+            "WHERE release_group = ? AND NOT secondary_type IN ".
+            "  (SELECT secondary_type FROM release_group_secondary_type_join ".
+            "   WHERE release_group = ?)", $new_id, $old_id, $new_id);
+
+        # if any remain, they're duplicates, remove them.
+        $self->sql->do("DELETE FROM release_group_secondary_type_join ".
+                       "WHERE release_group = ?", $old_id);
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
