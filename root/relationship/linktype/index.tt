@@ -13,10 +13,12 @@
             [% FOR row IN table %]
             <tr>
                 <th>[% types.${loop.index} %]</th>
-                [% FOR column IN row %]
+                [% FOR type IN types %]
+                    [% column = row.${loop.index} %]
                     <td>
                     [% IF column %]
-                        <a href="[% c.uri_for_action("/relationship/linktype/tree", [ column ]) %]">[% column %]</a>
+                        <a href="[% c.uri_for_action("/relationship/linktype/tree", [ column.join('-') ]) %]">
+                          [% column.join('-') %]</a>
                     [% END %]
                     </td>
                 [% END %]
