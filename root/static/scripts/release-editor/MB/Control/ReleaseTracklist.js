@@ -110,17 +110,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$row.hide ();
         self.$row.addClass ('deleted');
 
-        var trackpos = 1;
-
-        self.$row.closest ('tbody').find ('tr.track').each (
-            function (idx, elem) {
-                $(elem).find('input.pos').val (trackpos);
-                if (! $(elem).hasClass ('deleted'))
-                {
-                    trackpos += 1;
-                }
-            }
-        );
+        self.parent.updateTrackNumbers (self);
     };
 
     /* disableTracklistEditing disables the position and duration inputs and
@@ -796,6 +786,23 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.resetTrackNumbers = function (event) {
         $.each (self.sorted_tracks, function (idx, item) {
             item.number (item.position ());
+        });
+    };
+
+    /**
+     * Update remaining track numbers / positions after a track in the
+     * tracklist has been deleted.
+     */
+    self.updateTrackNumbers = function (deletedTrack) {
+        var trackpos = 1;
+
+        $.each (self.sorted_tracks, function (idx, item) {
+            item.position (trackpos);
+
+            if (!item.isDeleted ())
+            {
+                trackpos += 1;
+            }
         });
     };
 
