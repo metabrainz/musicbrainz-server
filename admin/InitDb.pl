@@ -36,31 +36,16 @@ use MusicBrainz::Server::Replication ':replication_type';
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
-my $READWRITE = Databases->get("READWRITE");
-my $READONLY  = Databases->get("READONLY");
-
-# Register a new database connection as the system user, but to the MB
-# database
-my $SYSTEM = Databases->get("SYSTEM");
-my $SYSMB  = $SYSTEM->meta->clone_object(
-    $SYSTEM,
-    database => $READWRITE->database,
-    schema => $READWRITE->schema
-);
-Databases->register_database("SYSMB", $SYSMB);
-
 my $REPTYPE = &DBDefs::REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
+my $databaseName;
 my $fFixUTF8 = 0;
 my $fCreateDB;
 my $fInstallExtension;
 my $fExtensionSchema;
 my $tmp_dir;
-
-warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
-    if $REPTYPE == RT_SLAVE and not $READONLY;
 
 use Getopt::Long;
 
@@ -225,11 +210,13 @@ sub Create
 
 sub CreateRelations
 {
+    my $DB = shift;
+    my $SYSMB = shift;
     my $import = shift;
 
-    my $opts = $READWRITE->shell_args;
-    $ENV{"PGPASSWORD"} = $READWRITE->password;
-    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $READWRITE->schema));
+    my $opts = $DB->shell_args;
+    $ENV{"PGPASSWORD"} = $DB->password;
+    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $DB->schema));
     die "\nFailed to create schema\n" if ($? >> 8);
 
     if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
@@ -238,12 +225,12 @@ sub CreateRelations
     }
     else
     {
-        InstallExtension($SYSMB, "cube.sql", $READWRITE->schema);
+        InstallExtension($SYSMB, "cube.sql", $DB->schema);
     }
 
-    InstallExtension($SYSMB, "musicbrainz_collate.sql", $READWRITE->schema);
+    InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
 
-    RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
 
     if ($import)
     {
@@ -254,42 +241,42 @@ sub CreateRelations
         system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {
-        RunSQLScript($READWRITE, "InsertDefaultRows.sql", "Adding default rows ...");
+        RunSQLScript($DB, "InsertDefaultRows.sql", "Adding default rows ...");
     }
 
-    RunSQLScript($READWRITE, "CreatePrimaryKeys.sql", "Creating primary keys ...");
+    RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
-    RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
         if HasPLPerlSupport();
 
-    RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
-    RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
+    RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
+    RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($READWRITE, "SetSequences.sql", "Setting raw initial sequence values ...");
+    RunSQLScript($DB, "SetSequences.sql", "Setting raw initial sequence values ...");
 
-    RunSQLScript($READWRITE, "CreateViews.sql", "Creating views ...");
-    RunSQLScript($READWRITE, "CreateTriggers.sql", "Creating triggers ...")
+    RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
+    RunSQLScript($DB, "CreateTriggers.sql", "Creating triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($READWRITE, "CreateSearchIndexes.sql", "Creating search indexes ...");
+    RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");
 
     if ($REPTYPE == RT_MASTER)
     {
         CreateReplicationFunction();
-        RunSQLScript($READWRITE, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
+        RunSQLScript($DB, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
     {
-        RunSQLScript($READWRITE, "ReplicationSetup.sql", "Setting up replication ...");
+        RunSQLScript($DB, "ReplicationSetup.sql", "Setting up replication ...");
     }
 
     print localtime() . " : Optimizing database ...\n";
-    $opts = $READWRITE->shell_args;
-    $ENV{"PGPASSWORD"} = $READWRITE->password;
+    $opts = $DB->shell_args;
+    $ENV{"PGPASSWORD"} = $DB->password;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 
@@ -298,6 +285,9 @@ sub CreateRelations
 
 sub GrantSelect
 {
+    my $READONLY = Databases->get("READONLY");
+    my $READWRITE = Databases->get("READWRITE");
+
     return unless $READONLY;
 
     my $name = $_[0];
@@ -325,6 +315,12 @@ sub SanityCheck
 {
     die "The postgres psql application must be on your path for this script to work.\n"
        if not -x $psql and (`which psql` eq '');
+
+    if ($REPTYPE == RT_SLAVE)
+    {
+        warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
+            unless Databases->get("READONLY");
+    }
 
     if ($REPTYPE == RT_MASTER)
     {
@@ -356,6 +352,7 @@ Usage: InitDb.pl [options] [file] ...
 Options are:
      --psql=PATH         Specify the path to the "psql" utility
      --postgres=NAME     Specify the name of the system user
+     --database=NAME     Specify which database to initialize (default: READWRITE)
      --createdb          Create the database, PL/PGSQL language and user
   -i --import            Prepare the database and then import the data from
                          the given files
@@ -395,6 +392,7 @@ my $mode = "MODE_IMPORT";
 GetOptions(
     "psql=s"              => \$psql,
     "createdb"            => \$fCreateDB,
+    "database:s"          => \$databaseName,
     "empty-database"      => sub { $mode = "MODE_NO_TABLES" },
     "import|i"            => sub { $mode = "MODE_IMPORT" },
     "clean|c"             => sub { $mode = "MODE_NO_DATA" },
@@ -407,6 +405,18 @@ GetOptions(
     "extension-schema=s"  => \$fExtensionSchema,
     "tmp-dir=s"           => \$tmp_dir
 ) or exit 2;
+
+$databaseName = "READWRITE" if $databaseName eq '';
+my $DB = Databases->get($databaseName);
+# Register a new database connection as the system user, but to the MB
+# database
+my $SYSTEM = Databases->get("SYSTEM");
+my $SYSMB  = $SYSTEM->meta->clone_object(
+    $SYSTEM,
+    database => $DB->database,
+    schema => $DB->schema
+);
+Databases->register_database("SYSMB", $SYSMB);
 
 if ($fInstallExtension)
 {
@@ -428,14 +438,14 @@ my $started = 1;
 
 if ($fCreateDB)
 {
-    Create("READWRITE");
+    Create($databaseName);
 }
 
 if ($mode eq "MODE_NO_TABLES") { } # nothing to do
-elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
-elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
+elsif ($mode eq "MODE_NO_DATA") { CreateRelations($DB, $SYSMB) }
+elsif ($mode eq "MODE_IMPORT") { CreateRelations($DB, $SYSMB, \@ARGV) }
 
-GrantSelect("READWRITE");
+GrantSelect("READWRITE") if $databaseName eq "READWRITE";
 
 END {
     print localtime() . " : InitDb.pl "
