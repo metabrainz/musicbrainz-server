@@ -8,11 +8,11 @@ source ./admin/functions.sh
 echo `date` : Clearing old test database
 OUTPUT=`
 echo "
-  DROP SCHEMA musicbrainz CASCADE;
-  DROP SCHEMA cover_art_archive CASCADE;
+  DROP SCHEMA IF EXISTS musicbrainz CASCADE;
+  DROP SCHEMA IF EXISTS cover_art_archive CASCADE;
 
   CREATE SCHEMA musicbrainz;
-  CREATE SCHEMA cover_art_archive;" | ./admin/psql TEST 2>&1
+  CREATE SCHEMA cover_art_archive;" | ./admin/psql --schema=public TEST 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
 if [ `compare_postgres_version 9.1` == "older" ]; then
