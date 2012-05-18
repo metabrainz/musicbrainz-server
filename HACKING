@@ -33,6 +33,33 @@ tests as a comma-separated list:
  $ carton exec -Ilib -- prove t/tests.t :: --tests Data::URL,Entity::URL
 
 
+Cover art archive development
+-----------------------------
+
+The cover art archive is provided by the internet archive
+(archive.org).  For uploading pictures it uses a slightly modified S3
+protocol.  To simulate this service for development, we can use a
+third-party implementation of the S3 protocol.
+
+The following instructions document how to install Fake S3 by Spool.
+(these steps have only been tested on Ubuntu 12.04).
+
+  1. curl -L get.rvm.io | bash -s stable
+  2. source ~/.rvm/scripts/rvm
+  3. rvm requirements
+
+Copy/paste the "apt-get install" line from the output and run it to
+install all the dependancies.
+
+  4. rvm install 1.9.3
+  5. rvm use 1.9.3
+  6. gem install fakes3
+  7. fakes3 -r ~/fakes3_root -p 10001
+
+You should now have a fake S3 running on localhost:10001.  If you want
+to run it again later, run steps 2, 5 and 7 in that order.
+
+
 JavaScript and Selenium tests
 -----------------------------
 
