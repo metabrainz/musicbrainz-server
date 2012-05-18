@@ -13,7 +13,7 @@ my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_
 sub find_available_artwork {
     my ($self, $mbid) = @_;
 
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid/";
+    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
 
     return [
         map {
