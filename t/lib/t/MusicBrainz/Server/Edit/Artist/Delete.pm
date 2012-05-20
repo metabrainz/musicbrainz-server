@@ -8,7 +8,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Artist::Delete }
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $EDIT_ARTIST_DELETE );
-use MusicBrainz::Server::Types ':edit_status';
+use MusicBrainz::Server::Constants ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -55,6 +55,9 @@ $edit = _create_edit($c, $artist);
 accept_edit($c, $edit);
 $artist = $c->model('Artist')->get_by_id(3);
 ok(!defined $artist);
+
+my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(3);
+is(scalar @$ipi_codes, 0, "IPI codes for deleted artist removed from database");
 
 };
 

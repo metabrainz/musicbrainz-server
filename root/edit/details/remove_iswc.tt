@@ -1,0 +1,10 @@
+<table class="details remove-iswc">
+  <tr>
+    <th>[% l('ISWC:') %]</th>
+    <td>[% link_iswc(edit.display_data.iswc.iswc) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('Work:') %]</th>
+    <td>[% descriptive_link(edit.display_data.iswc.work) %]</td>
+  </tr>
+</table>

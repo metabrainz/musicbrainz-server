@@ -9,15 +9,75 @@
 
     [%- USE r = FormRenderer(form) -%]
 
-    <form action="[% c.req.uri %]" method="post">
+    <form action="[% c.req.uri %]" method="post" id="edit-profile-form">
+      [%- IF server_details.testing_features -%]
+        [%- warning(l('This is a development server. Your email address is not private or secure. Proceed with caution!')) -%]
+      [%- END -%]
       [% form_row_text_long(r, 'email', l('Email:')) %]
       [% form_row_text_long(r, 'website', l('Website:')) %]
+      [% form_row_select(r, 'gender_id', l('Gender:')) %]
+      [% form_row_select(r, 'country_id', l('Country:')) %]
+      [% WRAPPER form_row %]
+        [% r.label('birth_date', l('Birth date:'), fake => 1) %]
+        [% r.date('birth_date') %]
+        [% l('We will use your birth date to display your age in years on your profile page.') %]
+        [% field_errors(r.form, 'birth_date') %]
+      [% END %]
       [% WRAPPER form_row %]
         [% r.label('biography', l('Bio:')) %]
         [% r.textarea('biography', { cols => 80, rows => 5 }) %]
         [% field_errors(form, 'biography') %]
       [% END %]
-      <div class="row no-label">
+
+      [% WRAPPER form_row %]
+        [% r.label('languages', l('Languages Known:'), fake => 1) %]
+        <div style="display: block; overflow: auto">
+          <ul>
+            [% FOR language=form.field('languages').fields %]
+            <li class="language">
+              [% r.select(language.field('language_id')) %]
+              [% r.select(language.field('fluency')) %]
+              <button class="remove">[% l('Remove') %]</button>
+            </li>
+            [% END %]
+            <li>
+              <button class="another">[% l('Add a language') %]</button>
+              [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
+              <span id="add-language-template" style="display: none">
+    [% r.select(extra_field.field('language_id'), name => '', id => 'fluency-template', class => 'language_id',) %]
+[% r.select(extra_field.field('fluency'), name => '', id => '', class => 'fluency') %]
+                <button class="remove">[% l('Remove') %]</button>
+              </span>
+            </li>
+          </ul>
+        </div>
+      [% END %]
+
+      <script>
+      $(function() {
+          var languageCount = $('li.language').size();
+          $('button.remove').live('click', function(event) {
+              event.preventDefault();
+              $(this).parent('li').remove();
+          });
+          $('button.another').click(function(event) {
+              event.preventDefault();
+
+              languageCount++;
+
+              var newLanguage = $('<li>').append($('#add-language-template').clone().contents());
+              newLanguage.find('select.language_id').attr('name',
+                                                          'profile.languages.' + languageCount + '.language_id');
+              newLanguage.find('select.fluency').attr('name',
+                                                      'profile.languages.' + languageCount + '.fluency');
+
+              $(this).parent('li').before(newLanguage);
+          });
+          MB.utility.setDefaultAction('#edit-profile-form', '#edit-profile-submit button');
+      });
+      </script>
+
+      <div class="row no-label" id="edit-profile-submit">
       [% form_submit(l('Save')) %]
       </div>
       <p class="row no-label">[% l('If you would like to delete your account, you may {uri|do so here}.', { uri => c.uri_for_action("/admin/delete_user", user.name) })%]</p>

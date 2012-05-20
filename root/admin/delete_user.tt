@@ -4,8 +4,9 @@
     <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',
 	{ e => link_editor(user) }) %]</p>
     <form action="[% c.req.uri %]" method="post">
-      <input type="submit" value="[% l('Delete {e}', { e => user.name } ) %]"
-	   style="color: red" />
+      <span class="buttons">
+        <button class="negative" type="submit">[% l('Delete {e}', { e => user.name } ) %]</button>
+      </span>
     </form>
     [% END %]
 [% ELSE %]
@@ -18,8 +19,9 @@
 
     <p>[% l('Are you sure you want to delete your account? This cannot be undone!')%]</p>
     <form action="[% c.req.uri %]" method="post">
-      <input type="submit" value="[% l('Delete my account') %]"
-	   style="color: red" />
+      <span class="buttons">
+        <button class="negative" type="submit">[% l('Delete my account') %]</button>
+      </span>
     </form>
     [% END %]
 [% END %]

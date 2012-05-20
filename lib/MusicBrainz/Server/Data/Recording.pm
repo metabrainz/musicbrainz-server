@@ -343,7 +343,7 @@ sub appears_on
 
     my $query =
         "SELECT DISTINCT ON (recording.id, name.name, type)
-             rg.id, rg.gid, type AS type_id, name.name,
+             rg.id, rg.gid, type AS primary_type_id, name.name,
              rg.artist_credit AS artist_credit_id, recording.id AS recording
          FROM release_group rg
            JOIN release_name name ON rg.name=name.id
@@ -366,7 +366,7 @@ sub appears_on
     {
         # A crude ordering of importance.
         my @rgs = uniq_by { $_->name }
-                  rev_nsort_by { $_->type_id // -1 }
+                  rev_nsort_by { $_->primary_type_id // -1 }
                   sort_by { $_->name  }
                   @{ $map{$rec_id} };
 
@@ -377,14 +377,6 @@ sub appears_on
     }
 
     return %map;
-}
-
-sub editor_can_create_recordings {
-    my ($self, $editor) = @_;
-    return DateTime::Duration->compare(
-        DateTime->now - $editor->registration_date,
-        DateTime::Duration->new( weeks => 2 )
-      ) && $editor->accepted_edits >= 10;
 }
 
 =method find_tracklist_offsets

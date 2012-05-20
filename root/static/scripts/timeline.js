@@ -10,13 +10,13 @@ $(document).ready(function () {
     var graphZoomOptions = {};
 
     // Get MusicBrainz Events data
-    $.get('../../static/xml/mb_history.xml', function (data) {
-        $(data).find('event').each(function() {
-            $this = $(this);
-            musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
+    $.get('../../ws/js/events', function (data) {
+        musicbrainzEventsOptions.musicbrainzEvents.data = $.map(data, function(e) {
+            e.jsDate = Date.parse(e.date);
+            return e;
         });
         $(window).hashchange();
-    }, 'xml');
+    }, 'json');
 
     // Called whenever plot is reset
     function graphData () {
@@ -364,7 +364,7 @@ $(document).ready(function () {
     function controlHtml(datasetId, label) {
         var id = controlIDPrefix + 'checker' + datasetId;
 	var name = controlIDPrefix + datasetId;
-	var color = (MB.text.Timeline[datasetId] || { 'Color': '#ff0000' })['Color'];
+	var color = (MB.text.Timeline.Stat(datasetId) || { 'Color': '#ff0000' })['Color'];
         return MB.html.div( { "class": 'graph-control', "id": name }, 
 		     MB.html.input( { 'id': id, 'name': name, 'type': 'checkbox', 'checked': 'checked' }, '') +
 	             MB.html.label( { 'for': id }, 
@@ -385,14 +385,14 @@ $(document).ready(function () {
 	var minus = !$this.attr('checked');
 	var identifier = $this.parent('div').attr('id').substr(controlIDPrefix.length);
 	var newHashPart = identifier.substr('count.'.length);
-	var hide = (MB.text.Timeline[identifier].Hide ? true : false);
+	var hide = (MB.text.Timeline.Stat(identifier).Hide ? true : false);
 	changeHash(minus, newHashPart, hide);
 
 	if (minus) {
 	    $this.siblings('label').children('div.graph-color-swatch').css('background-color', '#ccc');
 	} else {
 	    $this.siblings('label').children('div.graph-color-swatch').css('background-color',
-                MB.text.Timeline[identifier].Color);
+                MB.text.Timeline.Stat(identifier).Color);
 	}
     }
     function categoryChange() {
@@ -409,10 +409,11 @@ $(document).ready(function () {
 
     MB.Timeline.addControls = function (id, dataset) {
         if (!dataset) {
+            stat = MB.text.Timeline.Stat(id);
             dataset = {
-                'label': MB.text.Timeline[id].Label,
-		'color': MB.text.Timeline[id].Color,
-		'category': MB.text.Timeline[id].Category
+                'label': stat.Label,
+		'color': stat.Color,
+		'category': stat.Category
 	    }
 	}
         if (!MB.Timeline.datasets[id]) {
@@ -465,7 +466,7 @@ $(document).ready(function () {
         });
         $('div.graph-control').each(function () {
             var identifier = $(this).attr('id').substr(controlIDPrefix.length);
-            if (MB.text.Timeline[identifier].Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
+            if (MB.text.Timeline.Stat(identifier).Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
                 $(this).children('input:checkbox').attr('checked', false).change();
             }
         });

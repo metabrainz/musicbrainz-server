@@ -346,10 +346,12 @@ sub ImportAllTables
         annotation
         artist
         artist_alias
+        artist_alias_type
         artist_annotation
         artist_credit
         artist_credit_name
         artist_gid_redirect
+        artist_ipi
         artist_meta
         artist_name
         artist_tag
@@ -358,6 +360,7 @@ sub ImportAllTables
         clientversion
         country
         editor
+        editor_language
         editor_preference
         editor_sanitised
         editor_subscribe_artist
@@ -365,6 +368,7 @@ sub ImportAllTables
         editor_subscribe_label
         gender
         isrc
+        iswc
         l_artist_artist
         l_artist_label
         l_artist_recording
@@ -395,8 +399,10 @@ sub ImportAllTables
         l_work_work
         label
         label_alias
+        label_alias_type
         label_annotation
         label_gid_redirect
+        label_ipi
         label_meta
         label_name
         label_tag
@@ -427,7 +433,9 @@ sub ImportAllTables
         release_group_gid_redirect
         release_group_meta
         release_group_tag
-        release_group_type
+        release_group_primary_type
+        release_group_secondary_type
+        release_group_secondary_type_join
         release_label
         release_meta
         release_coverart
@@ -439,6 +447,7 @@ sub ImportAllTables
         script
         script_language
         statistic
+        statistic_event
         tag
         tag_relation
         track
@@ -449,6 +458,7 @@ sub ImportAllTables
         url_gid_redirect
         work
         work_alias
+        work_alias_type
         work_annotation
         work_gid_redirect
         work_meta

@@ -140,6 +140,7 @@ sub attach : Local
     }
 
     if (my $medium_id = $c->req->query_params->{medium}) {
+        $c->forward('/user/do_login');
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
@@ -163,7 +164,7 @@ sub attach : Local
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
 
-        $c->stash( release => $medium->release );
+        $c->stash( medium => $medium );
 
         $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,
@@ -197,11 +198,14 @@ sub attach : Local
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
         $c->model('Track')->load_for_tracklists(
             map { $_->tracklist } map { $_->all_mediums } @$releases);
+        $c->model('Country')->load(@$releases);
+        $c->model('ReleaseLabel')->load(@$releases);
+        $c->model('Label')->load(map { $_->all_labels } @$releases);
 
         $c->stash(
             artist => $artist,
             releases => $releases,
-            template => 'cdtoc/attach_artist_releases.tt'
+            template => 'cdtoc/attach_artist_releases.tt',
         );
     }
     else {
@@ -230,13 +234,15 @@ sub attach : Local
             my @releases = map { $_->entity } @$releases;
             $c->model('Medium')->load_for_releases(@releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-            my @mediums = grep { !$_->format || $_->format->has_discids }
-                map { $_->all_mediums } @releases;
+            my @mediums = map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
 
             my @tracks = map { $_->all_tracks } map { $_->tracklist } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
+            $c->model('Country')->load(@releases);
+            $c->model('ReleaseLabel')->load(@releases);
+            $c->model('Label')->load(map { $_->all_labels } @releases);
 
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',

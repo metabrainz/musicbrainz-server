@@ -56,7 +56,8 @@ __PACKAGE__->config(
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
-            'locale' => \&MusicBrainz::Server::Filters::locale
+            'locale' => \&MusicBrainz::Server::Filters::locale,
+            'gravatar' => \&MusicBrainz::Server::Filters::gravatar
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',

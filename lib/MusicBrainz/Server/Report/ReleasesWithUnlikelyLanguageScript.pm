@@ -9,7 +9,7 @@ sub gather_data
 
     $self->gather_data_from_query($writer, "
         SELECT
-            DISTINCT r.gid, rn.name, r.artist_credit AS artist_credit_id,
+            DISTINCT r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id,
             musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
         FROM
             release r
@@ -20,7 +20,7 @@ sub gather_data
             JOIN language ON r.language = language.id
         WHERE
             script.iso_code != 'Latn' AND
-            language.iso_code_3t IN (
+            language.iso_code_3 IN (
               'eng', 'spa', 'deu', 'fra', 'por', 'ita', 'swe', 'nor', 'fin',
               'est', 'lav', 'lit', 'pol', 'nld', 'cat', 'hun', 'ces', 'slk',
               'dan', 'ron', 'slv', 'hrv'

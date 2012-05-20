@@ -49,6 +49,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Relationship::RemoveLinkAttribute
     MusicBrainz::Server::Edit::Relationship::RemoveLinkType
     MusicBrainz::Server::Edit::Release::AddAnnotation
+    MusicBrainz::Server::Edit::Release::AddCoverArt
     MusicBrainz::Server::Edit::Release::AddReleaseLabel
     MusicBrainz::Server::Edit::Release::ChangeQuality
     MusicBrainz::Server::Edit::Release::Create
@@ -57,9 +58,12 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::Edit
     MusicBrainz::Server::Edit::Release::EditArtist
     MusicBrainz::Server::Edit::Release::EditBarcodes
+    MusicBrainz::Server::Edit::Release::EditCoverArt
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::Release::Merge
     MusicBrainz::Server::Edit::Release::Move
+    MusicBrainz::Server::Edit::Release::RemoveCoverArt
+    MusicBrainz::Server::Edit::Release::ReorderCoverArt
     MusicBrainz::Server::Edit::Release::ReorderMediums
     MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation
     MusicBrainz::Server::Edit::ReleaseGroup::Create
@@ -70,12 +74,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
     MusicBrainz::Server::Edit::Work::AddAnnotation
+    MusicBrainz::Server::Edit::Work::AddISWCs
     MusicBrainz::Server::Edit::Work::Create
     MusicBrainz::Server::Edit::Work::Delete
     MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
     MusicBrainz::Server::Edit::Work::Merge
+    MusicBrainz::Server::Edit::Work::RemoveISWC
 
     MusicBrainz::Server::Edit::Historic::AddDiscID
     MusicBrainz::Server::Edit::Historic::AddLink

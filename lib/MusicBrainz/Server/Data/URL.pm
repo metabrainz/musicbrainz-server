@@ -33,6 +33,7 @@ my %URL_SPECIALIZATIONS = (
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
     'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Songfacts'       => qr{^https?://(?:www.)?songfacts.com/}i,
+    'SoundCloud'      => qr{^https?://(?:www.)?soundcloud.com/}i,
     'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
     'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
@@ -51,9 +52,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, gid, url, description,
-            edits_pending,
-            ref_count AS reference_count';
+    return 'id, gid, url, description, edits_pending';
 }
 
 sub _entity_class

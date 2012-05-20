@@ -198,9 +198,15 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_artist_ipi(artist) BLOCK -%]
-    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(artist) -%]" property="mo:ipi">[%- END -%]
-        [%- html_escape(artist.ipi_code) -%]
+[%- MACRO rdfa_artist_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(ipi_code.artist) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
+    [%- IF doRDFa -%]</span>[%- END -%]
+[%- END -%]
+
+[%- MACRO rdfa_label_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_label_curi(ipi_code.label) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
     [%- IF doRDFa -%]</span>[%- END -%]
 [%- END -%]
 
@@ -406,7 +412,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text == '' ? html_escape(artist.name) : html_escape(text);
     hover = html_escape(artist.sort_name);
-    IF artist.comment; hover = hover _ ', ' _ artist.comment; END;
+    IF artist.comment; hover = hover _ ' (' _ artist.comment _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a title="' _ hover _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -486,12 +492,6 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_work_iswc(work) BLOCK -%]
-    [%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%]
-        [%- html_escape(work.iswc) -%]
-    [%- IF doRDFa -%]</span>[%- END -%]
-[%- END -%]
-
 [%-###########-%]
 [%-# Release #-%]
 [%-###########-%]
@@ -521,7 +521,7 @@ END -%]
     <a rel="mo:record"
        [%- IF doRDFa %] resource="[%- rdfa_tracklist_curi(medium) -%]" [%- END -%]
        href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
-    [%~ l(medium.format_name) or l("Medium") | html =%]
+    [%~ medium_format_name(medium) =%]
     [%= medium.position ~%]
     [%~ IF medium.name ~%]:
        [%= medium.name | html ~%]
@@ -533,6 +533,12 @@ END -%]
 [%- '<span class="mp">' IF isrc.edits_pending; -%]
 <a href="[%- c.uri_for_action('/isrc/show', [ isrc.isrc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_recording_curi(recording) -%]" property="mo:isrc">[%- END -%][%- isrc.isrc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
 [%- '</span>' IF isrc.edits_pending; -%]
+[%- END -%]
+
+[%- MACRO rdfa_work_iswc(work, iswc) BLOCK -%]
+[%- '<span class="mp">' IF iswc.edits_pending; -%]
+<a href="[%- c.uri_for_action('/iswc/show', [ iswc.iswc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%][%- iswc.iswc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
+[%- '</span>' IF iswc.edits_pending; -%]
 [%- END -%]
 
 [%-#################-%]

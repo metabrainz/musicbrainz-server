@@ -1,11 +1,37 @@
-[% WRAPPER 'layout.tt' full_width=1 %]
+[% BLOCK layout_head %]
+<script>
+$(document).ready (function () {
+
+    $(".tracklist").hide();
+
+    $(".toggle").click(function() {
+
+        $(this).closest('tr').next('.tracklist').toggle();
+
+        if ( $(this).closest('tr').next('.tracklist').is(':hidden') ) {
+            $(this).text("show tracklist");
+        } else {
+            $(this).text("hide tracklist");
+        }
+
+    });
+});
+</script>
+[% END %]
+
+[% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
+  <h1>[% l('Attach CD TOC') %]</h1>
+  <p>
+    [% ln('{num} release found matching your query.', '{num} release found matching your query.',
+            results.size, { num => results.size }) %]
+  </p>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% toc %]" />
     [% WRAPPER form_row %]
       [% r.label('query', l('Release title:')) %]
       [% r.text('query') %]
-      [% form_submit(l('Search')) %]
+      [% form_submit(l('Search'), 'inline') %]
     [% END %]
   </form>
 
@@ -14,48 +40,38 @@
     [% r.hidden('query') %]
     [%- IF results.size -%]
       [% WRAPPER 'components/with-pager.tt' %]
-      [%- FOREACH result=results -%]
-        [% release=result.entity %]
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th colspan="4">
-                [% descriptive_link(release) %]
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            [% FOR medium=release.mediums %]
-              [% NEXT UNLESS
-                    medium.tracklist.track_count == cdtoc.track_count AND
-                    medium.may_have_discids %]
-              <tr class="subh">
-                <th colspan="4">
-                  <input type="radio" name="medium" value="[% medium.id %]" />
-                  <a rel="mo:record"
-                     href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
-                    [%~ l(medium.format_name) or l("Medium") | html =%]
-                    [%= medium.position ~%]
-                    [%~ IF medium.name ~%]:
-                    [%= medium.name | html ~%]
-                    [%~ END ~%]
-                  </a>
-                </tr>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th colspan="2">[% l('Release') %]</th>
+                <th>[% l('Artist') %]</th>
+                <th>[% l('Date') %]</th>
+                <th>[% l('Country') %]</th>
+                <th>[% l('Label') %]</th>
+                <th>[% l('Catalog#') %]</th>
+                <th>[% l('Barcode') %]</th>
+                [%- IF c.session.tport -%]
+                  <th>[% l('Tagger') %]</th>
+                [%- END -%]
               </tr>
-              [% INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist
-                    hide_rating = 1 show_artists = release.has_multiple_artists %]
-            [%- END -%]
-          </tbody>
-      </table>
-      [% END %]
-      [% form_submit(l('Attach CD TOC')) %]
-      [% END %]
+            </thead>
+            <tbody>
+              [% zebra = 0 %]
+              [% FOR result=results %]
+                [% zebra = zebra + 1 %]
+                [% release=result.entity %]
+                [% INCLUDE 'cdtoc/attach_list.tt' show_artists=1 %]
+              [% END %]
+            </tbody>
+          </table>
+        [% END %]
+      <p>[% form_submit(l('Attach CD TOC')) %]
     [%- END -%]
   </form>
 
   <h2>[% l('Add a new release') %]</h2>
   <p>[% l("If you don't see the release you are looking for, you can still add a new one,
-    using this disc id.") %]</p>
+    using this CD TOC:") %]</p>
 
   <form action="[% c.uri_for('/release/add') %]" method="post">
     <input type="hidden" name="name" value="[% query_release.field('query').value %]" />

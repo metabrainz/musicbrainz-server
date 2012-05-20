@@ -19,6 +19,11 @@ has 'end_date' => (
     default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
 );
 
+has 'ended' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 our $mock_now;
 
 sub _YMD

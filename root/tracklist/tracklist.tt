@@ -29,7 +29,10 @@ dl.ars dt {
 [%# model tracks as blank nodes %]
 <span rel="mo:track">
 <tr class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]" typeof="[% rdfa_concept_curi('track') %]">
-    <td class="pos t">[% rdfa_track_number(track.position) %]</td>
+    <td class="pos t">
+      <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+      [%- track.number -%]
+    </td>
     <td>
       [%- IF recording.gid -%]
         [%- rdfa_link_recording_as_track(recording, 'show', track.name) -%]

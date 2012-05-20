@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Entity::Vote;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Types qw( :vote );
+use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Types qw( DateTime VoteOption );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -23,7 +25,7 @@ has 'edit' => (
 );
 
 has 'vote_time' => (
-    isa => 'DateTime',
+    isa => DateTime,
     is => 'rw',
     coerce => 1,
 );
@@ -34,7 +36,7 @@ has 'superseded' => (
 );
 
 has 'vote' => (
-    isa => 'VoteOption',
+    isa => VoteOption,
     is => 'rw',
 );
 
@@ -45,6 +47,7 @@ sub vote_name
         $VOTE_ABSTAIN => 'Abstain',
         $VOTE_NO => 'No',
         $VOTE_YES => 'Yes',
+        $VOTE_APPROVE => 'Approve',
     );
     return $names{$self->vote};
 }

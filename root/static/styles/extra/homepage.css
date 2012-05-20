@@ -1,4 +1,8 @@
 /* Extra CSS for the homepage */
+.homepage #contnt {
+    margin-right: 460px;
+}
+
 #triple {
     clear: both;
     margin-top: 20px;
@@ -60,6 +64,12 @@
     -moz-border-radius-topright: 10px;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
+}
+
+#sidebar #blog-feed {
+    float: left;
+    width: 209px;
+    height: auto;
 }
 
 .homepage .linkbar {

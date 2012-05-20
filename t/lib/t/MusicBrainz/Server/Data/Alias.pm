@@ -77,10 +77,12 @@ is(scalar @$alias_set, 0);
 $artist_data->alias->merge(1, 3);
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
-is(scalar @$alias_set, 3);
+is(scalar @$alias_set, 4);
 is($alias_set->[0]->name, 'Alias 2');
+is($alias_set->[0]->locale, 'en_GB');
 is($alias_set->[1]->name, 'Alias 1');
-is($alias_set->[2]->name, 'Empty Artist');
+is($alias_set->[2]->locale, undef);
+is($alias_set->[3]->name, 'Empty Artist');
 
 $alias_set = $artist_data->alias->find_by_entity_id(3);
 is(scalar @$alias_set, 0);
@@ -91,12 +93,20 @@ $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
 # Test inserting new aliases
-$artist_data->alias->insert({ artist_id => 1, name => 'New alias', locale => 'en_AU' });
+$artist_data->alias->insert({
+    artist_id => 1,
+    name => 'New alias',
+    sort_name => 'New sort name',
+    locale => 'en_AU',
+    primary_for_locale => 0
+});
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
 is($alias_set->[0]->locale, 'en_AU');
+is($alias_set->[0]->sort_name, 'New sort name');
+is($alias_set->[0]->primary_for_locale, 0);
 
 $test->c->sql->commit;
 
@@ -138,7 +148,7 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
            (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_alias (artist, name) VALUES (1, 2);
+INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 2, 2);
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2);

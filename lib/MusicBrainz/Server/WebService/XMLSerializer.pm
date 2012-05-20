@@ -38,6 +38,7 @@ sub _serialize_life_span
         my @span;
         push @span, $gen->begin($entity->begin_date->format) if $has_begin_date;
         push @span, $gen->end($entity->end_date->format) if $has_end_date;
+        push @span, $gen->ended('true') if $entity->ended;
         push @$data, $gen->life_span(@span);
     }
 }
@@ -49,7 +50,8 @@ sub _serialize_text_representation
     if ($entity->language || $entity->script)
     {
         my @tr;
-        push @tr, $gen->language($entity->language->iso_code_3t) if $entity->language;
+        push @tr, $gen->language($entity->language->iso_code_3 // $entity->language->iso_code_2t)
+            if $entity->language;
         push @tr, $gen->script($entity->script->iso_code) if $entity->script;
         push @$data, $gen->text_representation(@tr);
     }
@@ -65,12 +67,14 @@ sub _serialize_alias
         my @alias_list;
         foreach my $al (sort_by { $_->name } @$aliases)
         {
-            if ($al->locale) {
-                push @alias_list, $gen->alias({ locale => $al->locale }, $al->name);
-            }
-            else {
-                push @alias_list, $gen->alias($al->name);
-            }
+            push @alias_list, $gen->alias({
+                $al->locale ? ( locale => $al->locale ) : (),
+                'sort-name' => $al->sort_name,
+                $al->type ? ( type => $al->type_name ) : (),
+                $al->primary_for_locale ? (primary => 'primary') : (),
+                !$al->begin_date->is_empty ? ( 'begin-date' => $al->begin_date->format ) : (),
+                !$al->end_date->is_empty ? ( 'end-date' => $al->end_date->format ) : ()
+            }, $al->name);
         }
         push @$data, $gen->alias_list(\%attr, @alias_list);
     }
@@ -105,7 +109,10 @@ sub _serialize_artist
     push @list, $gen->name($artist->name);
     push @list, $gen->sort_name($artist->sort_name) if ($artist->sort_name);
     push @list, $gen->disambiguation($artist->comment) if ($artist->comment);
-    push @list, $gen->ipi($artist->ipi_code) if ($artist->ipi_code);
+    push @list, $gen->ipi($artist->ipi_codes->[0]->ipi) if ($artist->all_ipi_codes);
+    push @list, $gen->ipi_list(
+        map { $gen->ipi($_->ipi) } $artist->all_ipi_codes
+    ) if ($artist->all_ipi_codes);
 
     if ($toplevel)
     {
@@ -216,12 +223,44 @@ sub _serialize_release_group
 
     my %attr;
     $attr{id} = $release_group->gid;
-    $attr{type} = $release_group->type->name if $release_group->type;
+
+    if ($release_group->primary_type && $release_group->primary_type->name eq 'Album') {
+        my %fallback_type_order = (
+            Compilation => 0,
+            Remix => 1,
+            Soundtrack => 2,
+            Live => 3,
+            Spokenword => 4,
+            Interview => 5
+        );
+
+        my ($fallback) =
+            nsort_by { $fallback_type_order{$_} }
+                grep { exists $fallback_type_order{$_} }
+                    map { $_->name }
+                        $release_group->all_secondary_types;
+
+        $attr{type} = $fallback || $release_group->primary_type->name;
+    }
+    elsif ($release_group->primary_type) {
+        $attr{type} = $release_group->primary_type->name;
+    }
+    elsif ($release_group->all_secondary_types) {
+        $attr{type} = $release_group->secondary_types->[0]->name;
+    }
 
     my @list;
     push @list, $gen->title($release_group->name);
     push @list, $gen->disambiguation($release_group->comment) if $release_group->comment;
     push @list, $gen->first_release_date($release_group->first_release_date->format);
+
+    push @list, $gen->primary_type($release_group->primary_type->name)
+        if $release_group->primary_type;
+    push @list, $gen->secondary_type_list(
+        map {
+            $gen->secondary_type($_->name)
+        } $release_group->all_secondary_types
+    ) if $release_group->all_secondary_types;
 
     if ($toplevel)
     {
@@ -346,20 +385,19 @@ sub _serialize_work
 
     my $opts = $stash->store ($work);
 
-    my $iswc = $work->iswc;
-    if ($iswc)
-    {
-        $iswc =~ s/^\s+//;
-        $iswc =~ s/\s+$//;
-    }
-
     my %attrs;
     $attrs{id} = $work->gid;
     $attrs{type} = $work->type->name if ($work->type);
 
     my @list;
     push @list, $gen->title($work->name);
-    push @list, $gen->iswc($iswc) if $iswc;
+    if ($work->all_iswcs) {
+        push @list, $gen->iswc_list(map {
+            $gen->iswc($_->iswc);
+        } $work->all_iswcs);
+    }
+
+    push @list, $gen->language($work->language->iso_code_3 // $work->language->iso_code_2t) if $work->language;
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
@@ -477,6 +515,7 @@ sub _serialize_track
 
     my @track;
     push @track, $gen->position($track->position);
+    push @track, $gen->number($track->number);
 
     push @track, $gen->title($track->name)
         if ($track->recording && $track->name ne $track->recording->name) ||
@@ -611,7 +650,10 @@ sub _serialize_label
     push @list, $gen->sort_name($label->sort_name) if $label->sort_name;
     push @list, $gen->disambiguation($label->comment) if $label->comment;
     push @list, $gen->label_code($label->label_code) if $label->label_code;
-    push @list, $gen->ipi($label->ipi_code) if ($label->ipi_code);
+    push @list, $gen->ipi($label->ipi_codes->[0]->ipi) if ($label->all_ipi_codes);
+    push @list, $gen->ipi_list(
+        map { $gen->ipi($_->ipi) } $label->all_ipi_codes
+    ) if ($label->all_ipi_codes);
 
     if ($toplevel)
     {
@@ -666,6 +708,7 @@ sub _serialize_relation
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
+    push @list, $gen->ended('true') if $rel->link->ended;
 
     push @list, $gen->attribute_list(
         map { $gen->attribute($_->name) }

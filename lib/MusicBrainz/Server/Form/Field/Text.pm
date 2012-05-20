@@ -1,17 +1,12 @@
 package MusicBrainz::Server::Form::Field::Text;
 use HTML::FormHandler::Moose;
-extends 'HTML::FormHandler::Field::Text';
+use MusicBrainz::Server::Data::Utils;
 
-require Text::Trim;
+extends 'HTML::FormHandler::Field::Text';
 
 apply ([
     {
-        transform => sub {
-            my $text = shift;
-            $text =~ s/[^[:print:]]//g;
-            $text =~ s/\s+/ /g;
-            return Text::Trim::trim($text);
-        }
+        transform => &MusicBrainz::Server::Data::Utils::trim
     }
 ]);
 

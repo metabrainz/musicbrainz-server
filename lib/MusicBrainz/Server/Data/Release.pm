@@ -4,6 +4,7 @@ use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
@@ -42,7 +43,8 @@ sub _table
 sub _columns
 {
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
-            release_group, release.status, release.packaging, date_year, date_month, date_day,
+            release.release_group, release.status, release.packaging,
+            release.date_year, release.date_month, release.date_day,
             release.country, release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality, release.last_updated';
 }
@@ -113,10 +115,20 @@ sub _where_filter
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
-            if (@types) {
-                push @query, 'release_group.type IN (' . placeholders(@types) . ')';
+            my %partitioned_types = partition_by {
+                "$_" =~ /^st:/ ? 'secondary' : 'primary'
+            } @types;
+
+            if (my $primary = $partitioned_types{primary}) {
+                push @query, 'release_group.type = any(?)';
                 push @joins, 'JOIN release_group ON release.release_group = release_group.id';
-                push @params, @types;
+                push @params, $primary;
+            }
+
+            if (my $secondary = $partitioned_types{secondary}) {
+                push @query, 'st.secondary_type = any(?)';
+                push @params, [ map { substr($_, 3) } @$secondary ];
+                push @joins, 'JOIN release_group_secondary_type_join st ON release.release_group = st.release_group';
             }
         }
     }
@@ -375,7 +387,7 @@ sub find_for_cdtoc
                         ON medium.tracklist = tracklist.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
                    AND (medium_format.id IS NULL OR medium_format.has_discids)
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(name.name), date_year, date_month, date_day
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -408,7 +420,8 @@ sub load_with_tracklist_for_recording
                 tracklist.track_count AS m_track_count,
             track.id AS t_id, track_name.name AS t_name,
                 track.tracklist AS t_tracklist, track.position AS t_position,
-                track.length AS t_length, track.artist_credit AS t_artist_credit
+                track.length AS t_length, track.artist_credit AS t_artist_credit,
+                track.number AS t_number
         FROM
             track
             JOIN tracklist ON tracklist.id = track.tracklist
@@ -709,6 +722,7 @@ sub merge
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->c->model('CoverArtArchive')->merge_releases($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
 
     merge_table_attributes(
@@ -840,6 +854,7 @@ sub load_meta
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
         $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};
+        $obj->cover_art_presence($row->{cover_art_presence});
     }, @objs);
 
     my @ids = keys %id_to_obj;

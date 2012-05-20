@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::IPI';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
@@ -253,7 +254,9 @@ sub works : Chained('load')
     });
     $c->model('Work')->load_writers(@$works);
     $c->model('Work')->load_recording_artists(@$works);
+    $c->model('ISWC')->load_for_works(@$works);
     $c->model('WorkType')->load(@$works);
+    $c->model('Language')->load(@$works);
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
     }

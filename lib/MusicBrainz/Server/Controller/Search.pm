@@ -14,11 +14,21 @@ sub search : Path('')
 {
     my ($self, $c) = @_;
 
+    # Backwards compatibility with existing URLs
+    $c->req->query_params->{method} = 'direct'
+        if ($c->req->query_params->{direct} // '') eq 'on';
+
     $c->req->query_params->{type} = 'recording'
         if exists $c->req->query_params->{type} && $c->req->query_params->{type} eq 'track';
 
-    $c->req->query_params->{advanced} = $c->req->query_params->{adv}
-        if exists $c->req->query_params->{adv};
+    # ?adv=1 or ?advanced=1 means use the 'advanced' search method
+    $c->req->query_params->{method} = 'advanced'
+        if $c->req->query_params->{adv} || $c->req->query_params->{advanced};
+
+    # The form should really be responsible for this, but I can't see a way
+    # to make the field optional, but always have a value
+    $c->req->query_params->{method} ||= 'indexed'
+        if $c->req->query_params->{query};
 
     my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
@@ -30,17 +40,22 @@ sub search : Path('')
         if ($form->field('type')->value eq 'annotation' ||
             $form->field('type')->value eq 'freedb'     ||
             $form->field('type')->value eq 'cdstub') {
-            $form->field('direct')->value(0);
+            $form->field('method')->value('indexed')
+                if $form->field('method')->value eq 'direct';
             $c->forward('external');
         }
         elsif ($form->field('type')->value eq 'tag' ||
                $form->field('type')->value eq 'editor')
         {
-            $form->field('direct')->value(1);
+            $form->field('method')->value('direct');
             $c->forward('direct');
         }
+        elsif ($form->field('type')->value eq 'doc')
+        {
+            $c->forward('doc');
+        }
         else {
-            $c->forward($form->field('direct')->value ? 'direct' : 'external');
+            $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
     }
     else
@@ -48,6 +63,17 @@ sub search : Path('')
         $c->stash( template => 'search/index.tt' );
     }
 }
+
+sub doc : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash(
+      google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
+      template             => 'search/results-doc.tt'
+    );
+}
+
 
 sub direct : Private
 {
@@ -104,6 +130,8 @@ sub direct : Private
         when ('work') {
             $c->model('Work')->load_writers(@entities);
             $c->model('Work')->load_recording_artists(@entities);
+            $c->model('ISWC')->load_for_works(@entities);
+            $c->model('Language')->load(@entities);
         }
     }
 
@@ -141,7 +169,7 @@ sub external : Private
                               type     => $type,
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
-                              advanced => $form->field('advanced')->value);
+                              advanced => $form->field('method')->value eq 'advanced');
 
     $c->stash->{template} ="search/results-$type.tt";
 }
@@ -285,6 +313,7 @@ C<state> method of the current context. For example:
 =head1 LICENSE
 
 Copyright (C) 2009 Oliver Charles
+Copyright (C) 2012 Pavan Chander
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,

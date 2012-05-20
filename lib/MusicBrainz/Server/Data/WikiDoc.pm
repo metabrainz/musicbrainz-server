@@ -96,7 +96,9 @@ sub _create_page
     $title =~ s/_/ /g;
     # Create hierarchy for displaying in the h1
     my @hierarchy = split('/',$title);
-    $title = $hierarchy[-1];
+
+    # Format nicely for <title>
+    $title =~ s,/, / ,g;
 
     $content = $self->_fix_html_markup($content, $index);
 
@@ -119,7 +121,7 @@ sub _load_page
         $doc_url .= "&oldid=$version";
     }
 
-    my $ua = LWP::UserAgent->new(max_redirect => 0);
+    my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
     $ua->env_proxy;
     my $response = $ua->get($doc_url);
 
