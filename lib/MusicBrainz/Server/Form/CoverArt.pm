@@ -27,7 +27,7 @@ sub options_type_id {
 
     my $ret = [
         map {
-            $_->id => l($_->name)
+            defined $_ ? ($_->id => l($_->name)) : ()
         } ($front, $back, values %types_by_name, $other) ];
 
     return $ret;

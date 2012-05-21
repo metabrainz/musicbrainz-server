@@ -93,17 +93,19 @@ sub add_iswc : Chained('load') PathPart('add-iswc') RequireAuth
     my $work = $c->stash->{work};
     my $form = $c->form(form => 'AddISWC');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_WORK_ADD_ISWCS,
-            iswcs => [ {
-                iswc => $form->field('iswc')->value,
-                work => {
-                    id => $work->id,
-                    name => $work->name
-                }
-            } ]
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_WORK_ADD_ISWCS,
+                iswcs => [ {
+                    iswc => $form->field('iswc')->value,
+                    work => {
+                        id => $work->id,
+                        name => $work->name
+                    }
+                } ]
+            );
+        });
 
         if ($c->stash->{makes_no_changes}) {
             $form->field('iswc')->add_error(l('This ISWC already exists for this work'));

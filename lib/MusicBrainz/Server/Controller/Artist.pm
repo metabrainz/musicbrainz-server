@@ -453,7 +453,7 @@ sub edit : Chained('load') RequireAuth Edit {
         type        => $EDIT_ARTIST_EDIT,
         item        => $artist,
         edit_args   => { to_edit => $artist },
-        on_creation => sub {
+        post_creation => sub {
             my ($edit, $form) = @_;
 
             my $name = $form->field('name')->value;
@@ -479,7 +479,8 @@ sub edit : Chained('load') RequireAuth Edit {
                     );
                 }
             }
-
+        },
+        on_creation => sub {
             $c->res->redirect(
                 $c->uri_for_action('/artist/show', [ $artist->gid ]));
         }
@@ -612,38 +613,40 @@ sub split : Chained('load') Edit {
         form        => 'EditArtistCredit',
         type        => $EDIT_ARTIST_EDITCREDIT,
         item        => { artist_credit => $ac },
-        edit_args   => { to_edit => $ac }
-    );
+        edit_args   => { to_edit => $ac },
+        post_creation => sub {
+            my ($edit) = @_;
 
-    if ($edit) {
-        my %artists = map { $_ => 1 } $edit->new_artist_ids;
+            my %artists = map { $_ => 1 } $edit->new_artist_ids;
 
-        for my $relationship (grep {
-            $_->link->type->gid == $COLLABORATION &&
-            exists $artists{$_->entity0_id} &&
-            $_->entity1_id == $artist->id
-        } $artist->all_relationships) {
-            my $rem = $c->model('Edit')->create(
-                edit_type    => $EDIT_RELATIONSHIP_DELETE,
-                editor_id    => $EDITOR_MODBOT,
-                type0        => 'artist',
-                type1        => 'artist',
-                relationship => $relationship
-            );
+            for my $relationship (grep {
+                $_->link->type->gid == $COLLABORATION &&
+                    exists $artists{$_->entity0_id} &&
+                        $_->entity1_id == $artist->id
+                    } $artist->all_relationships) {
+                my $rem = $c->model('Edit')->create(
+                    edit_type    => $EDIT_RELATIONSHIP_DELETE,
+                    editor_id    => $EDITOR_MODBOT,
+                    type0        => 'artist',
+                    type1        => 'artist',
+                    relationship => $relationship
+                );
 
-            $c->model('EditNote')->add_note(
-                $rem->id,
-                {
-                    text => l('This collaboration has been split in edit #{id}.',
-                              { id => $edit->id }),
-                    editor_id => $EDITOR_MODBOT
-                }
-            );
+                $c->model('EditNote')->add_note(
+                    $rem->id,
+                    {
+                        text => l('This collaboration has been split in edit #{id}.',
+                                  { id => $edit->id }),
+                        editor_id => $EDITOR_MODBOT
+                    }
+                );
+            }
+        },
+        on_creation => sub {
+            $c->res->redirect(
+                $c->uri_for_action('/artist/show', [ $artist->gid ]))
         }
-
-        $c->res->redirect(
-            $c->uri_for_action('/artist/show', [ $artist->gid ]))
-    }
+    );
 }
 
 sub can_split {

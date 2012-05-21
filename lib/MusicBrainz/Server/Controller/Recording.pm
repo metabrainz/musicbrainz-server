@@ -200,18 +200,20 @@ sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
     my $recording = $c->stash->{recording};
     my $form = $c->form(form => 'AddISRC');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RECORDING_ADD_ISRCS,
-            isrcs => [ {
-                isrc      => $form->field('isrc')->value,
-                recording => {
-                    id => $recording->id,
-                    name => $recording->name
-                },
-                source    => 0
-            } ]
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RECORDING_ADD_ISRCS,
+                isrcs => [ {
+                    isrc      => $form->field('isrc')->value,
+                    recording => {
+                        id => $recording->id,
+                        name => $recording->name
+                    },
+                    source    => 0
+                } ]
+            );
+        });
 
         if ($c->stash->{makes_no_changes}) {
             $form->field('isrc')->add_error(l('This ISRC already exists for this recording'));
