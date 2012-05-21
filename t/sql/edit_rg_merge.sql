@@ -18,6 +18,5 @@ INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'DJ-Mix');
 INSERT INTO release_group_secondary_type (id, name) VALUES (2, 'Live');
 
 INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
-       VALUES (1, 1), (2, 2);
-
+       VALUES (1, 1), (2, 1), (2, 2);
 
