@@ -58,13 +58,33 @@ sub set_types {
         if @types;
 }
 
+sub merge_entities
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    my @all_ids = ($new_id, @old_ids);
+
+    $self->sql->do(
+        "DELETE FROM release_group_secondary_type_join " .
+        "WHERE release_group = any(?) " .
+        "AND (release_group, secondary_type) NOT IN (" .
+        "    SELECT DISTINCT ON (secondary_type) release_group, secondary_type " .
+        "    FROM release_group_secondary_type_join " .
+        "    WHERE release_group = any(?))", \@all_ids, \@all_ids);
+
+    $self->sql->do(
+        "UPDATE release_group_secondary_type_join " .
+        "SET release_group = ? WHERE release_group = any(?) ",
+        $new_id, \@old_ids);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
