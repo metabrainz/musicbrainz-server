@@ -74,6 +74,7 @@ DROP TRIGGER a_ins_track ON track;
 DROP TRIGGER a_upd_track ON track;
 DROP TRIGGER a_del_track ON track;
 DROP TRIGGER b_upd_track ON track;
+DROP TRIGGER remove_orphaned_tracks ON track;
 DROP TRIGGER b_upd_tracklist ON tracklist;
 DROP TRIGGER b_upd_url ON url;
 DROP TRIGGER a_ins_work ON work;
