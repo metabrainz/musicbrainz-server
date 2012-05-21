@@ -62,19 +62,20 @@ sub merge_entities
 {
     my ($self, $new_id, @old_ids) = @_;
 
-    for my $old_id (@old_ids)
-    {
-        # move over types to the new release group, leaving duplicates.
-        $self->sql->do(
-            "UPDATE release_group_secondary_type_join SET release_group = ? ".
-            "WHERE release_group = ? AND NOT secondary_type IN ".
-            "  (SELECT secondary_type FROM release_group_secondary_type_join ".
-            "   WHERE release_group = ?)", $new_id, $old_id, $new_id);
+    my @all_ids = ($new_id, @old_ids);
 
-        # if any remain, they're duplicates, remove them.
-        $self->sql->do("DELETE FROM release_group_secondary_type_join ".
-                       "WHERE release_group = ?", $old_id);
-    }
+    $self->sql->do(
+        "DELETE FROM release_group_secondary_type_join " .
+        "WHERE release_group = any(?) " .
+        "AND (release_group, secondary_type) NOT IN (" .
+        "    SELECT DISTINCT ON (secondary_type) release_group, secondary_type " .
+        "    FROM release_group_secondary_type_join " .
+        "    WHERE release_group = any(?))", \@all_ids, \@all_ids);
+
+    $self->sql->do(
+        "UPDATE release_group_secondary_type_join " .
+        "SET release_group = ? WHERE release_group = any(?) ",
+        $new_id, \@old_ids);
 }
 
 __PACKAGE__->meta->make_immutable;
