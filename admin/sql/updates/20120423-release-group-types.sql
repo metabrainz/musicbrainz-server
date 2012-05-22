@@ -102,6 +102,8 @@ FROM (
 ) rgs
 WHERE rgs.id = release_group.id;
 
+DELETE FROM editor_watch_release_group_type WHERE release_group_type IN ( 4, 5, 6, 7, 9, 10 );
+
 -- Remove old primary type
 DELETE FROM release_group_primary_type WHERE id IN ( 4, 5, 6, 7, 9, 10 );
 
