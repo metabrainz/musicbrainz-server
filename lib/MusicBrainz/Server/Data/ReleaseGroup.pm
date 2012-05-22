@@ -499,6 +499,8 @@ sub delete
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->delete_entities (@group_ids);
+
     $self->sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
 }

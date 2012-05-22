@@ -78,6 +78,14 @@ sub merge_entities
         $new_id, \@old_ids);
 }
 
+sub delete_entities {
+    my ($self, @ids) = @_;
+
+    $self->sql->do(
+        "DELETE FROM release_group_secondary_type_join " .
+        "WHERE release_group = any(?) ", \@ids);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
