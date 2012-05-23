@@ -35,6 +35,7 @@ my $domain = $domain[0];
 
 # @DBDEFS is a list of hashes; needs at least domain, table, and columns.
 # Additional entries include flag, where applicable, should probably be 'perl-format' or 'perl-brace-format';
+# where, which specifies a WHERE clause to add to the SQL query;
 # and ctx, which specifies a column to use for a msgctxt entry.
 my @DBDEFS = (
               {'domain' => 'iso_codes', 'table' => 'country', 'columns' => ['name'], 'ctx' => 'iso_code'},
@@ -49,8 +50,9 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'release_packaging', 'columns' => ['name']},
               {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name']},
               {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name']},
-              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'flags' => 'perl-format'},
-              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'flags' => 'perl-format'}
+              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'flags' => 'perl-format', 'where' => 'root != 14'},
+              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'flags' => 'perl-format'},
+              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'flags' => 'perl-format', 'where' => 'root = 14'}
              );
 my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
 
@@ -79,6 +81,7 @@ sub parse_db {
     my $columns = $opt->{columns};
     my $flag = $opt->{flag};
     my $ctx = $opt->{ctx};
+    my $where = $opt->{where};
 
     foreach my $column (@$columns) {
         my $select_cols = $column . ',id';
@@ -86,6 +89,9 @@ sub parse_db {
             $select_cols .= ',' . $ctx;
         }
         my $query = "SELECT $select_cols from $table";
+        if ($where) {
+            $query .= "WHERE $where";
+        }
         my $values = $sql->select_list_of_lists($query);
 
         foreach my $value (@$values) { 
