@@ -90,7 +90,7 @@ sub parse_db {
         }
         my $query = "SELECT $select_cols from $table";
         if ($where) {
-            $query .= "WHERE $where";
+            $query .= " WHERE $where";
         }
         my $values = $sql->select_list_of_lists($query);
 
