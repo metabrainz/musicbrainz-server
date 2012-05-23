@@ -1,11 +1,7 @@
 <form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
 
-    [% WRAPPER form_row %]
-      [% r.label('parent_id', l('Parent:')) %]
-      [% r.select('parent_id') %]
-      [% field_errors(r.form, 'parent_id') %]
-    [% END %]
+    [% form_row_select(r, 'parent_id', l('Parent:')) %]
 
     [% WRAPPER form_row %]
         [% r.label('child_order', l('Child order:')) %]
