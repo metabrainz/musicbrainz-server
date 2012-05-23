@@ -44,7 +44,7 @@ EOSQL
     is(@edits, 1, 'created 1 edit');
     isa_ok($edits[0], 'MusicBrainz::Server::Edit::Artist::EditArtistCredit');
 
-    my ($edit) = $edits;
+    my ($edit) = @edits;
     is_deeply($edit->data->{old}{artist_credit}, {
         names => [{
             artist => {
