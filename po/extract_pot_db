@@ -1,0 +1,148 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Locale::PO;
+use File::Slurp;
+
+use Encode qw(encode decode);
+
+use MusicBrainz::Server::Context;
+my $c = MusicBrainz::Server::Context->create_script_context();
+
+### DATABASE 
+
+my $sql = $c->sql;
+
+my @domain;
+
+if (! defined $ARGV[0]) {
+    @domain = read_file(\*STDIN);
+    unless (@domain) {
+        print "Need domain name, either as command-line or on stdin";
+        exit;
+    }
+    chomp for @domain;
+} else {
+    @domain = @ARGV;
+}
+
+my $domain = $domain[0];
+
+# @DBDEFS is a list of hashes; needs at least domain, table, and columns.
+# Additional entries include flag, where applicable, should probably be 'perl-format' or 'perl-brace-format';
+# id, which specifies an identifier column other than 'id', the default
+# comment, which specifies columns to add as automatic comments (format <column name>:<value>)
+# where, which specifies a WHERE clause to add to the SQL query;
+# and ctx, which specifies a column to use for a msgctxt entry (unused at present).
+my @DBDEFS = (
+              {'domain' => 'statistics', 'table' => 'statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
+              {'domain' => 'countries', 'table' => 'country', 'columns' => ['name'],},
+              {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency']},
+              {'domain' => 'scripts', 'table' => 'script', 'columns' => ['name'], 'comment' => ['frequency']},
+              {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'artist_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'label_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'work_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'release_group_primary_type', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'release_group_secondary_type', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'medium_format', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'release_packaging', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'flags' => 'perl-format', 'where' => 'root != 14'},
+              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'flags' => 'perl-format'},
+              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'flags' => 'perl-format', 'where' => 'root = 14'},
+              {'domain' => 'instrument_descriptions', 'table' => 'link_attribute_type', 'columns' => ['description'], 'flags' => 'perl-format', 'where' => 'root = 14'}
+             );
+my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
+
+### GENERATE .POT
+
+my $po = new Locale::PO(-msgid=>'', -msgstr=>
+                        "Project-Id-Version: PACKAGE VERSION\\n" .
+                        "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\\n" .
+                        "Last-Translator: FULL NAME <EMAIL\@ADDRESS>\\n" .
+                        "Language-Team: LANGUAGE <LL\@li.org>\\n" .
+                        "MIME-Version: 1.0\\n" .
+                        "Content-Type: text/plain; charset=utf-8\\n" .
+                        "Content-Transfer-Encoding: ENCODING\\n");
+
+print $po->dump();
+
+map { print $_->dump(); } @po_objects;
+
+### HELPER FUNCTIONS
+
+sub parse_db {
+    my $opt = shift;
+    my @pos;
+
+    my $table = $opt->{table};
+    my $ctxtable = $opt->{ctxtable} // $table;
+    my $columns = $opt->{columns};
+    my $flag = $opt->{flag};
+    my $ctx = $opt->{ctx};
+    my $where = $opt->{where};
+    my $idcol = $opt->{id} // 'id';
+    my $comment = $opt->{comment};
+
+    foreach my $column (@$columns) {
+        my $select_cols = "$column,$idcol";
+        if ($ctx && $ctx ne 'NULL') {
+            $select_cols .= ',' . $ctx;
+        }
+        if ($comment) {
+            foreach my $col (@$comment) {
+                $select_cols .= ',' . $col;
+            }
+        }
+        my $query = "SELECT $select_cols from $table";
+        if ($where) {
+            $query .= " WHERE $where";
+        }
+        my $values = $sql->select_list_of_lists($query);
+
+        foreach my $value (@$values) { 
+               my $po = Locale::PO->new();
+               my $item = shift @{$value};
+               if ($item) {
+                   my $id = shift @{$value};
+                   $item =~ s/\r*\n/\\n/g;
+                   $po->msgid(encode('UTF-8', $item));
+                   if ($ctx) {
+                       if ($ctx ne 'NULL') {
+                           my $ctxt = shift @{$value};
+                           if ($ctxt) {
+                               $po->msgctxt("$ctxtable:$ctxt");
+                           } else {
+                               $po->msgctxt("$ctxtable:$id");
+                           }
+                       } else {
+                           $po->msgctxt("$ctxtable");
+                       }
+                   }
+                   if ($comment) {
+                       foreach my $col (@$comment) {
+                           my $val = shift @{$value};
+                           $po->automatic("$col:$val");
+                       }
+                   }
+                   $po->msgstr("");
+                   if ($flag) {
+                       $po->add_flag($flag);
+                   }
+                   $po->reference("DB:$table/$column:$id");
+                   push @pos, $po;
+               }
+           }
+    }
+
+    return @pos;
+}
