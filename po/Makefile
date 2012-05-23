@@ -38,6 +38,11 @@ attributes.pot: $(wildcard extract_pot_db)
 	@echo "- Update database .pot";
 	@./extract_pot_db attributes | msguniq -s > attributes.pot
 
+instruments.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the instruments.pot file";
+	@echo "- Update database .pot";
+	@./extract_pot_db instruments | msguniq -s > instruments.pot
+
 clean:
 	rm -f $(MOFILES)
 
