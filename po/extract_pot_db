@@ -1,0 +1,112 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Locale::PO;
+use File::Slurp;
+
+use Encode qw(encode decode);
+
+use MusicBrainz::Server::Context;
+my $c = MusicBrainz::Server::Context->create_script_context();
+
+### DATABASE 
+
+my $sql = $c->sql;
+
+my @domain;
+
+if (! defined $ARGV[0]) {
+    @domain = read_file(\*STDIN);
+    unless (@domain) {
+        print "Need domain name, either as command-line or on stdin";
+        exit;
+    }
+    chomp for @domain;
+} else {
+    @domain = @ARGV;
+}
+
+my $domain = $domain[0];
+
+# @DBDEFS is a list of hashes; needs at least domain, table, and columns.
+# Additional entries include flag, where applicable, should probably be 'perl-format' or 'perl-brace-format';
+# and ctx, which specifies a column to use for a msgctxt entry.
+my @DBDEFS = (
+              {'domain' => 'iso_codes', 'table' => 'country', 'columns' => ['name'], 'ctx' => 'iso_code'},
+              {'domain' => 'iso_codes', 'table' => 'language', 'columns' => ['name'], 'ctx' => 'iso_code'},
+              {'domain' => 'iso_codes', 'table' => 'script', 'columns' => ['name'], 'ctx' => 'iso_code'},
+              {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name']},
+              {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name']},
+              {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name']},
+              {'domain' => 'attributes', 'table' => 'release_group_type', 'columns' => ['name']},
+              {'domain' => 'attributes', 'table' => 'medium_format', 'columns' => ['name']},
+              {'domain' => 'attributes', 'table' => 'release_packaging', 'columns' => ['name']},
+              {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name']},
+              {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name']},
+              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'flags' => 'perl-format'},
+              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'flags' => 'perl-format'}
+             );
+my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
+
+### GENERATE .POT
+
+my $po = new Locale::PO(-msgid=>'', -msgstr=>
+                        "Project-Id-Version: PACKAGE VERSION\\n" .
+                        "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\\n" .
+                        "Last-Translator: FULL NAME <EMAIL\@ADDRESS>\\n" .
+                        "Language-Team: LANGUAGE <LL\@li.org>\\n" .
+                        "MIME-Version: 1.0\\n" .
+                        "Content-Type: text/plain; charset=utf-8\\n" .
+                        "Content-Transfer-Encoding: ENCODING\\n");
+
+print $po->dump();
+
+map { print $_->dump(); } @po_objects;
+
+### HELPER FUNCTIONS
+
+sub parse_db {
+    my $opt = shift;
+    my @pos;
+
+    my $table = $opt->{table};
+    my $columns = $opt->{columns};
+    my $flag = $opt->{flag};
+    my $ctx = $opt->{ctx};
+
+    foreach my $column (@$columns) {
+        my $select_cols = $column . ',id';
+        if ($ctx) {
+            $select_cols .= ',' . $ctx;
+        }
+        my $query = "SELECT $select_cols from $table";
+        my $values = $sql->select_list_of_lists($query);
+
+        foreach my $value (@$values) { 
+               my $po = Locale::PO->new();
+               my $item = shift @{$value};
+               if ($item) {
+                   my $id = shift @{$value};
+                   $item =~ s/\r*\n/\\n/g;
+                   $po->msgid(encode('UTF-8', $item));
+                   if ($ctx) {
+                       my $ctxt = shift @{$value};
+                       $po->msgctxt("$table:$ctxt");
+                   }
+                   $po->msgstr("");
+                   if ($flag) {
+                       $po->add_flag($flag);
+                   }
+                   $po->reference("DB:$table/$column:$id");
+                   push @pos, $po;
+               }
+           }
+    }
+
+    return @pos;
+}
