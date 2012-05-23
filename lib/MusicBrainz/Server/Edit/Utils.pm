@@ -158,7 +158,7 @@ sub clean_submitted_artist_credits
             $part->{artist}->{name} = trim ($part->{artist}->{name}) if $part->{artist}->{name};
             $part->{name} = trim ($part->{name}) if $part->{name};
 
-            push @delete, $_ unless ($part->{artist}->{id} || $part->{artist}->{name} || $part->{name});
+            push @delete, $_ unless ($part->{artist}->{name} || $part->{name});
 
             # MBID is only used for display purposes so remove it (we
             # use the id in edits, and that should determine if an
