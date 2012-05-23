@@ -38,7 +38,7 @@ my $domain = $domain[0];
 # where, which specifies a WHERE clause to add to the SQL query;
 # and ctx, which specifies a column to use for a msgctxt entry.
 my @DBDEFS = (
-              {'domain' => 'statistics', 'table' => 'statistic_event', 'columns' => ['title', 'description']},
+              {'domain' => 'statistics', 'table' => 'statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
               {'domain' => 'iso_codes', 'table' => 'country', 'columns' => ['name'], 'ctx' => 'iso_code'},
               {'domain' => 'iso_codes', 'table' => 'language', 'columns' => ['name'], 'ctx' => 'iso_code_3'},
               {'domain' => 'iso_codes', 'table' => 'script', 'columns' => ['name'], 'ctx' => 'iso_code'},
@@ -83,9 +83,10 @@ sub parse_db {
     my $flag = $opt->{flag};
     my $ctx = $opt->{ctx};
     my $where = $opt->{where};
+    my $idcol = $opt->{id} // 'id';
 
     foreach my $column (@$columns) {
-        my $select_cols = $column . ',id';
+        my $select_cols = "$column,$idcol";
         if ($ctx) {
             $select_cols .= ',' . $ctx;
         }
