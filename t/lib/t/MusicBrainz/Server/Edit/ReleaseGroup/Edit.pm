@@ -135,6 +135,25 @@ test 'Check conflicts (conflicting edits)' => sub {
     is ($rg->artist_credit->name, 'New ac name', 'date changed');
 };
 
+test 'Reject edits that try to set the release group type to something that doesnt exist' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('ReleaseGroup')->get_by_id(1),
+        primary_type_id => 1001,
+    );
+
+    my $exception = exception { $edit->accept };
+    ok(defined $exception, 'Did not accept edit');
+    isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency');
+    is($exception->message,
+       "This edit changes the release group's primary type to a type that no longer exists.");
+};
+
 sub create_edit {
     my ($c, $rg) = @_;
     return $c->model('Edit')->create(

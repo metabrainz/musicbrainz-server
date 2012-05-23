@@ -212,6 +212,14 @@ before accept => sub {
     my ($self) = @_;
 
     verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+
+    if (my $type_id = $self->data->{new}{type_id}) {
+        if (!$self->c->model('ReleaseGroupType')->get_by_id($type_id)) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+                "This edit changes the release group's primary type to a type that no longer exists."
+            );
+        }
+    }
 };
 
 sub allow_auto_edit
