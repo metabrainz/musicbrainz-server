@@ -40,8 +40,9 @@ sub _load_index_from_disk
 {
     my ($self) = @_;
 
-    if (!open(FILE, "<" . $self->_index_file)) {
-        warn "Could not open wikitrans index file: $!.";
+    my $index_file = $self->_index_file;
+    if (!open(FILE, "<" . $index_file)) {
+        warn "Could not open wikitrans index file '$index_file': $!.";
         return {};
     }
     my $data = do { local $/; <FILE> };
