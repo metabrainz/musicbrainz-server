@@ -30,9 +30,9 @@ EOSQL
 
     $mech->get_ok('/relationship-attributes');
     my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    $tx->ok('//a[contains(@href,"/relationship-attributes/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
+    $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
             'has a link to edit the attribute');
-    $tx->ok('//a[contains(@href,"/relationship-attributes/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
+    $tx->ok('//a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/delete")]',
             'has a link to delete the attribute');
     $tx->ok('//a[contains(@href,"/relationship-attributes/create")]',
             'has a link to create new attributes');
