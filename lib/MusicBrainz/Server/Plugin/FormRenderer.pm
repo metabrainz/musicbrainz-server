@@ -209,45 +209,6 @@ sub select
     }, \@options);
 }
 
-# This is a stripped down copy of the select function.
-# It uses the parentid to set an option's selected attribute.
-sub relationshiptree
-{
-    my ($self, $field_name, $parentid, $attrs) = @_;
-    my $field = $self->_lookup_field($field_name) or return;
-
-    my @options;
-
-    # Clone options as they get mutated
-    for my $option (map { clone($_) } @{ $field->options })
-    {
-        my $label = delete $option->{label};
-
-        my $option_html = $self->h->option(
-            {
-                %$option, selected => $option->{value} eq $parentid ? "selected" : undef,
-            }, $label);
-
-        push @options, $option_html;
-    }
-
-    $attrs ||= {};
-    if (!$field->required || delete $attrs->{no_default})
-    {
-        unshift @options, $self->h->option({
-            selected => !defined $field->value ? "selected" : undef,
-        }, ' ')
-    }
-
-    return $self->h->select({
-        id => $self->_id($field),
-        name => $field->html_name,
-        multiple => $field->multiple ? "multiple" : undef,
-        disabled => $field->disabled ? "disabled" : undef,
-        %{ $attrs || {} }
-    }, \@options);
-}
-
 sub radio
 {
     my ($self, $field_name, $option, $attrs) = @_;

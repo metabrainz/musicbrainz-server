@@ -3,7 +3,7 @@
 
     [% WRAPPER form_row %]
       [% r.label('parent_id', l('Parent:')) %]
-      [% r.relationshiptree('parent_id', parent_link_attr_type.id) %]
+      [% r.select('parent_id') %]
       [% field_errors(r.form, 'parent_id') %]
     [% END %]
 
