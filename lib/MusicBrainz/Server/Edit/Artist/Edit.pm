@@ -15,7 +15,9 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
-use MooseX::Types::Moose qw( Maybe Str Int );
+use JSON::Any;
+
+use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -24,6 +26,7 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::IPI';
 
 sub edit_name { l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
@@ -40,8 +43,10 @@ sub change_fields
         country_id => Nullable[Int],
         comment    => Nullable[Str],
         ipi_code   => Nullable[Str],
+        ipi_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
+        ended      => Optional[Bool]
     ];
 }
 
@@ -82,6 +87,7 @@ sub build_display_data
         sort_name  => 'sort_name',
         ipi_code   => 'ipi_code',
         comment    => 'comment',
+        ended      => 'ended'
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -103,14 +109,32 @@ sub build_display_data
         };
     }
 
+    if (exists $self->data->{new}{end_date}) {
+        $data->{end_date} = {
+            new => PartialDate->new($self->data->{new}{end_date}),
+            old => PartialDate->new($self->data->{old}{end_date}),
+        };
+    }
+
+    if (exists $self->data->{new}{ipi_codes}) {
+        $data->{ipi_codes}->{old} = $self->data->{old}{ipi_codes};
+        $data->{ipi_codes}->{new} = $self->data->{new}{ipi_codes};
+    }
+
     return $data;
 }
 
 sub _mapping
 {
+    my $self = shift;
+
     return (
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
+        ipi_codes => sub {
+            my $ipis = $self->c->model('Artist')->ipi->find_by_entity_id(shift->id);
+            return [ map { $_->ipi } @$ipis ];
+        },
     );
 }
 
@@ -147,11 +171,16 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{country_id}
         and defined($self->data->{old}{country_id}) && $self->data->{old}{country_id} != 0;
 
+    return 0 if exists $self->data->{old}{ended}
+        and $self->data->{old}{ended} != $self->data->{new}{ended};
+
     if ($self->data->{old}{ipi_code}) {
         my ($old_ipi, $new_ipi) = normalise_strings($self->data->{old}{ipi_code},
                                                     $self->data->{new}{ipi_code});
         return 0 if $new_ipi ne $old_ipi;
     }
+
+    return 0 if $self->data->{new}{ipi_codes};
 
     return 1;
 }
@@ -177,7 +206,6 @@ around extract_property => sub {
         when ('end_date') {
             return merge_partial_date('end_date' => $ancestor, $current, $new);
         }
-
         default {
             return ($self->$orig(@_));
         }
@@ -186,5 +214,24 @@ around extract_property => sub {
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
-
 1;
+
+=head1 LICENSE
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+=cut

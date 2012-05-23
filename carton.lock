@@ -25504,6 +25504,73 @@
          },
          "version" : "v0.1.2"
       },
+      "Net::CoverArtArchive" : {
+         "dist" : "Net-CoverArtArchive-1.02",
+         "module" : "Net::CoverArtArchive",
+         "mymeta" : {
+            "abstract" : "Query the coverartarchive.org",
+            "author" : [
+               "Oliver Charles <oliver@musicbrainz.org>",
+               "Brian Cassidy <bricas@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Dist::Zilla version 4.300015, CPAN::Meta::Converter version 2.120921, CPAN::Meta::Converter version 2.120351",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Net-CoverArtArchive",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "File::Find::Rule" : "0.33",
+                     "Test::More" : "0.90",
+                     "Try::Tiny" : "0.11"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.30"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "JSON::Any" : "1.29",
+                     "LWP::UserAgent" : "6.03",
+                     "Moose" : "2.0402",
+                     "namespace::autoclean" : "0.13"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "bugtracker" : {
+                  "web" : "http://tickets.musicbrainz.org/browse/CAA"
+               },
+               "homepage" : "https://github.com/metabrainz/CoverArtArchive",
+               "repository" : {
+                  "url" : "https://github.com/metabrainz/CoverArtArchive.git"
+               }
+            },
+            "version" : "1.02"
+         },
+         "name" : "Net::CoverArtArchive",
+         "pathname" : "C/CY/CYCLES/Net-CoverArtArchive-1.02.tar.gz",
+         "provides" : {
+            "Net::CoverArtArchive" : {
+               "file" : "Net/CoverArtArchive.pm",
+               "version" : "1.02"
+            },
+            "Net::CoverArtArchive::CoverArt" : {
+               "file" : "Net/CoverArtArchive/CoverArt.pm",
+               "version" : "1.02"
+            }
+         },
+         "version" : "1.02"
+      },
       "Net::DNS" : {
          "dist" : "Net-DNS-0.67",
          "module" : "Net::DNS",
@@ -38378,7 +38445,7 @@
          "version" : "1.24"
       },
       "Test::WWW::Selenium::Catalyst" : {
-         "dist" : "Test-WWW-Selenium-Catalyst-0.06",
+         "dist" : "Test-WWW-Selenium-Catalyst-0.07",
          "module" : "Test::WWW::Selenium::Catalyst",
          "mymeta" : {
             "abstract" : "Test your Catalyst application with Selenium",
@@ -38433,14 +38500,14 @@
             "version" : "0.06"
          },
          "name" : "Test::WWW::Selenium::Catalyst",
-         "pathname" : "http:/cpan.metacpan.org/authors/id/A/AS/ASH/Test-WWW-Selenium-Catalyst-0.06.tar.gz",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Test-WWW-Selenium-Catalyst-0.07.tar.gz",
          "provides" : {
             "Test::WWW::Selenium::Catalyst" : {
                "file" : "Test/WWW/Selenium/Catalyst.pm",
-               "version" : "0.06"
+               "version" : "0.07"
             }
          },
-         "version" : "0.06"
+         "version" : "0.07"
       },
       "Test::Warn" : {
          "dist" : "Test-Warn-0.23",

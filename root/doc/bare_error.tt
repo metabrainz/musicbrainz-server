@@ -8,11 +8,9 @@
 </p>
 
 <p>
-    [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.
-           Alternatively, you may find the page you\'re looking for by <a href="{wiki}" class="external">searching for it</a> on our wiki.',
+    [%- l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
          { doc => doc_link('MusicBrainz_Documentation'),
-           faq => doc_link('FAQ'),
-           wiki => 'http://' _ wiki_server _ '/Special:Search?search=' _ replace(id, '_', '+') }) -%]
+           faq => doc_link('FAQ') }) -%]
 </p>
 
 <p>

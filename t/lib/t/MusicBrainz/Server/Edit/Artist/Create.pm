@@ -30,6 +30,7 @@ my $edit = $c->model('Edit')->create(
     comment => 'Canadian electronica duo',
     editor_id => 1,
     begin_date => { 'year' => 1981, 'month' => 5 },
+    ipi_codes => [ ],
 );
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Create');
 
@@ -44,6 +45,9 @@ is($artist->name, 'Junior Boys');
 is($artist->gender_id, 1);
 is($artist->comment, 'Canadian electronica duo');
 is($artist->begin_date->format, "1981-05" );
+
+my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id($artist->id);
+is(scalar @$ipi_codes, 0, "Artist has no ipi codes");
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);

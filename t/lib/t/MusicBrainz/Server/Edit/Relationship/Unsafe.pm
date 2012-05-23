@@ -33,6 +33,7 @@ EOSQL
         begin_date => { },
         end_date => { },
         attributes => [ ],
+        ended => 0
     );
 
     reject_edit($c, $edit);
@@ -74,6 +75,7 @@ EOSQL
         begin_date => { },
         end_date => { },
         attributes => [ ],
+        ended => 0
     );
 
     reject_edit($c, $edit);

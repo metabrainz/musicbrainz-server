@@ -28,6 +28,7 @@ sub show : Path('')
     $c->stash(
         id => $id,
         page => $page,
+        google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
     );
 
     if ($id =~ /^(Special|User|MetaBrainz|Proposal):/i) {

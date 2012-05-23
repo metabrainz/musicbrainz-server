@@ -57,10 +57,12 @@ augment 'create_edits' => sub
     # recording edits
     # ----------------------------------------
 
-    my $medium_index = 0;
+    my $medium_index = -1;
     for my $medium (@{ $data->{rec_mediums} }) {
-        my $track_index = 0;
+        $medium_index++;
+        my $track_index = -1;
         for my $track_association (@{ $medium->{associations} }) {
+            $track_index++;
             next if $track_association->{gid} eq 'new';
             if ($track_association->{update_recording}) {
                 my $track = $data->{mediums}[ $medium_index ]{tracks}[ $track_index ];
@@ -73,11 +75,7 @@ augment 'create_edits' => sub
                     as_auto_editor => $data->{as_auto_editor},
                 );
             }
-
-            $track_index++;
         }
-
-        $medium_index++;
     }
 
     return $self->release;

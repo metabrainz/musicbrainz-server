@@ -41,5 +41,8 @@ use String::ShellQuote;
 
 my $export = Package::Stash->new('DBDefs')->get_all_symbols('CODE');
 
+my %exclude = map { $_ => 1 }
+    qw ( COVER_ART_ARCHIVE_UPLOAD_PREFIXER );
+
 printf "export %s=%s\n", $_, shell_quote($export->{$_}->() || '')
-    for (grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export)
+    for (grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export)

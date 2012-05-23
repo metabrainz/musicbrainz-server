@@ -60,7 +60,8 @@ subtest 'creating cover art relationships should update the releases coverart' =
         type1 => 'url',
         entity0 => $e0,
         entity1 => $c->model('URL')->find_or_insert($url),
-        link_type => $c->model('LinkType')->get_by_id(84)
+        link_type => $c->model('LinkType')->get_by_id(84),
+        ended => 0,
     );
     accept_edit($c, $edit);
 
@@ -80,8 +81,9 @@ subtest 'creating asin relationships should update the releases coverart' => sub
             type1 => 'url',
             entity0 => $e0,
             entity1 => $c->model('URL')->find_or_insert('http://www.amazon.co.jp/gp/product/B00005EIIB'),
-            link_type => $c->model('LinkType')->get_by_id(83)
-            );
+            link_type => $c->model('LinkType')->get_by_id(83),
+            ended => 1
+        );
         accept_edit($c, $edit);
 
         my $release = $c->model('Release')->get_by_id(2);
@@ -112,6 +114,7 @@ sub _create_edit {
         begin_date => { year => 1994 },
         end_date => { year => 1995 },
         attributes => [ ],
+        ended => 1,
     );
 }
 

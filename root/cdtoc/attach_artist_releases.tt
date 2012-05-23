@@ -19,7 +19,6 @@ $(document).ready (function () {
 </script>
 [% END %]
 
-
 [% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
   <h1>[% l('Attach CD TOC') %]</h1>
   <p>[% l('You are viewing releases by {artist}.', { artist => link_entity(artist) }) %]</p>
@@ -29,72 +28,28 @@ $(document).ready (function () {
       <input type="hidden" name="toc" value="[% toc %]" />
       <input type="hidden" name="artist" value="[% c.req.query_params.artist %]" />
       [% WRAPPER 'components/with-pager.tt' %]
-          <table class="tbl">
-            <thead>
-              <tr>
-                <th colspan="2">[% l('Release') %]</th>
-                <th>[% l('Date') %]</th>
-                <th>[% l('Country') %]</th>
-                <th>[% l('Label') %]</th>
-                <th>[% l('Catalog#') %]</th>
-                <th>[% l('Barcode') %]</th>
-                [%- IF c.session.tport -%]
-                  <th>[% l('Tagger') %]</th>
-                [%- END -%]
-              </tr>
-            </thead>
-            <tbody>
-              [% zebra = 0 %]
-              [% FOR release=releases %]
-                [% zebra = zebra + 1 %]
-                <tr[% ' class="ev"' IF zebra % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
-                  <td colspan="2">
-                    [% rdfa_event_product_release_link(release) %]
-                    [% disambiguation(release) %]
-                  </td>
-                  <td>[% rdfa_release_event_date(release) %]</td>
-                  <td>
-                    [%- IF release.country -%]
-                [% rdfa_release_country_abbr(release) %]
-                    [%- END -%]
-                  </td>
-                  <td>[% rdfa_release_label_list(release.labels) %]</td>
-                  <td>[% rdfa_release_catno_list(release.labels) %]</td>
-                  <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
-                  [%- IF c.session.tport -%]
-                    <td>[% tagger_icon(release) %]</td>
-                  [%- END -%]
-                </tr>
-                [% FOR medium=release.mediums %]
-                  [% NEXT UNLESS
-                      medium.tracklist.track_count == cdtoc.track_count &&
-                      medium.may_have_discids %]
-                    <tr[% ' class="ev"' IF zebra % 2 == 0 %]>
-                      <td class="pos"></td>
-                      <td>
-                        <input type="radio" name="medium" value="[% medium.id %]" />
-                        [% medium.format_name %] [% medium.position %]
-                        [%~ IF medium.name %]:
-                           [% medium.name | html %]
-                        [% END %]
-                        <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
-                      </td>
-                      <td colspan="6"></td>
-                    </tr>
-                    <tr class="tracklist" style="display:none">
-                      <td></td>
-                      <td colspan="7">
-                        <table>
-                        [% INCLUDE 'tracklist/tracklist.tt'
-                            tracklist=medium.tracklist hide_rating = 1%]
-                        </table>
-                      </td>
-                    </tr>
-                  </tr>
-                [% END %]
-              [% END %]
-            </tbody>
-          </table>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th colspan="2">[% l('Release') %]</th>
+              <th>[% l('Date') %]</th>
+              <th>[% l('Country') %]</th>
+              <th>[% l('Label') %]</th>
+              <th>[% l('Catalog#') %]</th>
+              <th>[% l('Barcode') %]</th>
+              [%- IF c.session.tport -%]
+                <th>[% l('Tagger') %]</th>
+              [%- END -%]
+            </tr>
+          </thead>
+          <tbody>
+            [% zebra = 0 %]
+            [% FOR release=releases %]
+              [% zebra = zebra + 1 %]
+              [% INCLUDE 'cdtoc/attach_list.tt' %]
+            [% END %]
+          </tbody>
+        </table>
       [% END %]
       <div style="margin-top: 1em;">
         [% form_submit(l('Attach CD TOC')) %]

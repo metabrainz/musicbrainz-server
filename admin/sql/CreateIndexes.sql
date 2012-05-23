@@ -4,10 +4,9 @@ BEGIN;
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
-CREATE INDEX artist_idx_ipi_code ON artist (ipi_code);
 
 CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
-CREATE UNIQUE INDEX artist_alias_idx_locale_artist ON artist_alias (artist, locale);
+CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
 
@@ -31,6 +30,7 @@ CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, tra
 CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
+CREATE INDEX editor_language_idx_language ON editor_language (language);
 
 CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (editor, name);
 
@@ -64,6 +64,9 @@ CREATE INDEX edit_note_idx_edit ON edit_note (edit);
 CREATE INDEX isrc_idx_isrc ON isrc (isrc);
 CREATE INDEX isrc_idx_recording ON isrc (recording);
 CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
+
+CREATE INDEX iswc_idx_work ON iswc (work);
+CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);
@@ -143,10 +146,9 @@ CREATE INDEX link_idx_type_attr ON link (link_type, attribute_count);
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);
 CREATE INDEX label_idx_sort_name ON label (sort_name);
-CREATE INDEX label_idx_ipi_code ON label (ipi_code);
 
 CREATE INDEX label_alias_idx_label ON label_alias (label);
-CREATE UNIQUE INDEX label_alias_idx_locale_label ON label_alias (label, locale);
+CREATE UNIQUE INDEX label_alias_idx_primary ON label_alias (label, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE UNIQUE INDEX label_name_idx_name ON label_name (name);
 CREATE INDEX label_name_idx_page ON label_name (page_index(name));
@@ -162,9 +164,10 @@ CREATE INDEX label_rating_raw_idx_label ON label_rating_raw (label);
 CREATE INDEX label_rating_raw_idx_editor ON label_rating_raw (editor);
 
 
-CREATE UNIQUE INDEX language_idx_iso_code_3b ON language (iso_code_3b);
-CREATE UNIQUE INDEX language_idx_iso_code_3t ON language (iso_code_3t);
-CREATE UNIQUE INDEX language_idx_iso_code_2 ON language (iso_code_2);
+CREATE UNIQUE INDEX language_idx_iso_code_2b ON language (iso_code_2b);
+CREATE UNIQUE INDEX language_idx_iso_code_2t ON language (iso_code_2t);
+CREATE UNIQUE INDEX language_idx_iso_code_1 ON language (iso_code_1);
+CREATE UNIQUE INDEX language_idx_iso_code_3 ON language (iso_code_3);
 
 CREATE UNIQUE INDEX editor_collection_idx_gid ON editor_collection (gid);
 CREATE INDEX editor_collection_idx_name ON editor_collection (name);
@@ -265,7 +268,7 @@ CREATE INDEX work_idx_name ON work (name);
 CREATE INDEX work_idx_artist_credit ON work (artist_credit);
 
 CREATE INDEX work_alias_idx_work ON work_alias (work);
-CREATE UNIQUE INDEX work_alias_idx_locale_work ON work_alias (work, locale);
+CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE UNIQUE INDEX work_name_idx_name ON work_name (name);
 CREATE INDEX work_name_idx_page ON work_name (page_index(name));

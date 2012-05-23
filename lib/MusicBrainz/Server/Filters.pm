@@ -3,6 +3,7 @@ package MusicBrainz::Server::Filters;
 use strict;
 use warnings;
 
+use Digest::MD5 qw( md5_hex );
 use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
@@ -200,6 +201,11 @@ sub locale
     catch {
         return;
     }
+}
+
+sub gravatar {
+    my $email = shift;
+    return sprintf 'http://gravatar.com/avatar/%s?d=mm', md5_hex($email);
 }
 
 1;

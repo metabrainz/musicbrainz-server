@@ -402,7 +402,8 @@ sub create_edit {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            number => 1
         )
     ];
 

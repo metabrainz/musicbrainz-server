@@ -11,7 +11,7 @@
           [% END %]
         </ul>
         <p style="margin: 1em 0; text-align: right;">
-          <strong><a href="http://blog.musicbraiz.org">[% l('Read more &raquo;') %]</a></strong>
+          <strong><a href="http://blog.musicbrainz.org">[% l('Read more &raquo;') %]</a></strong>
         </p>
       </div>
 
@@ -21,7 +21,7 @@
             <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" />
             <ul>
                 <li><a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a></li>
-                <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz') %]</a></li>
+                <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
                 <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
             </ul>
         </div>

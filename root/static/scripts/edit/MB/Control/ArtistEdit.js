@@ -23,6 +23,7 @@ MB.Control.ArtistEdit = function () {
 
     self.$name   = $('#id-edit-artist\\.name');
     self.$begin  = $('#label-id-edit-artist\\.begin_date');
+    self.$ended  = $('#label-id-edit-artist\\.ended');
     self.$end    = $('#label-id-edit-artist\\.end_date');
     self.$type   = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
@@ -31,11 +32,12 @@ MB.Control.ArtistEdit = function () {
     self.changeDateText = function (text) {
         self.$begin.text(text[0]);
         self.$end.text(text[1]);
+        self.$ended.text(text[2]);
     };
 
     /* Sets the label descriptions depending upon the artist type:
 
-           Unknown: 0 
+           Unknown: 0
            Person: 1
            Group: 2
     */

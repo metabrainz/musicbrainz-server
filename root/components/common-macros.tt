@@ -321,6 +321,15 @@ END -%]
     '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_iswc(iswc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/iswc/$action", [ iswc ]);
+    '<span class="mp">' IF iswc.edits_pending AND action == 'show';
+    text = text == '' ? '<code>' _ html_escape(iswc) _ '</code>' : text;
+    '<a href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF iswc.edits_pending AND action == 'show';
+END -%]
+
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
@@ -342,11 +351,20 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO gravatar(email) FILTER gravatar; email; END %]
+
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text == '' ? html_escape(editor.name) : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '">';
+    IF editor.preferences.show_gravatar;
+      '<img src="' _ gravatar(editor.email) _ '" class="gravatar">';
+    ELSE;
+      '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
+    END;
+    text;
+    '</a>';
 END -%]
 
 [%- MACRO link_edit(edit, action, text) BLOCK;
@@ -477,8 +495,8 @@ END -%]
         [% END %]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
-          <input class="negative button cancel" type="button" value="[% l('Cancel') %]" style="float: left;" />
-          <input class="positive button create" type="button" value="[% l('Create relationship') %]" style="float: right;" />
+          <button class="negative cancel">[% l('Cancel') %]</button>
+          <button class="positive create" style="float:right;">[% l('Create relationship') %]</button>
         </div>
       </div>
     </div>
@@ -562,11 +580,15 @@ END -%]
                             end_date => relationship.link.end_date.format
                         }) %]
                     [%- END -%]
+                [%- ELSIF relationship.link.ended -%]
+                    [% l('from {date} to ????', { date => relationship.link.begin_date.format }) %]
                 [%- ELSE -%]
                     [% l('from {date} to present', { date => relationship.link.begin_date.format }) %]
                 [%- END -%]
             [%- ELSIF !relationship.link.end_date.is_empty -%]
                 [% l('until {date}', { date => relationship.link.end_date.format }) %]
+            [%- ELSIF relationship.link.ended -%]
+                [% l('ended') %]
             [%- END -%]
 [%- END -%]
 
@@ -665,3 +687,12 @@ http://[%- server -%]/[%- id -%]"
   <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">Filter</a></div>
 [%- END -%]
 
+[%- MACRO wikidoc_search_box BLOCK -%]
+  <div class="wikidoc-search">
+    <form action="[% c.uri_for('/search') | html %]" method="get">
+      <input type="hidden" name="type" value="doc" />
+      <input type="text" name="query" placeholder="[% l('Search the documentation...')  %]" />
+      [% form_submit(l('Search'),'header-search') %]
+    </form>
+  </div>
+[%- END -%]

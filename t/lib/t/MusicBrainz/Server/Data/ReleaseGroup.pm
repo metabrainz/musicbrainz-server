@@ -25,7 +25,7 @@ is( $rg->id, 1 );
 is( $rg->gid, "7b5d22d0-72d7-11de-8a39-0800200c9a66" );
 is( $rg->name, "Release Group" );
 is( $rg->artist_credit_id, 1 );
-is( $rg->type_id, 1 );
+is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
 
 $rg = $rg_data->get_by_gid('7b5d22d0-72d7-11de-8a39-0800200c9a66');
@@ -33,7 +33,7 @@ is( $rg->id, 1 );
 is( $rg->gid, "7b5d22d0-72d7-11de-8a39-0800200c9a66" );
 is( $rg->name, "Release Group" );
 is( $rg->artist_credit_id, 1 );
-is( $rg->type_id, 1 );
+is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
 
 my ($rgs, $hits) = $rg_data->find_by_artist(1, 100);
@@ -77,7 +77,7 @@ $sql->begin;
 $rg = $rg_data->insert({
         name => 'My Demons',
         artist_credit => 1,
-        type_id => 1,
+        primary_type_id => 1,
         comment => 'Dubstep album',
     });
 
@@ -88,7 +88,7 @@ ok($rg->gid);
 
 $rg = $rg_data->get_by_id($rg->id);
 is($rg->name, 'My Demons');
-is($rg->type_id, 1);
+is($rg->primary_type_id, 1);
 is($rg->comment, 'Dubstep album');
 is($rg->artist_credit_id, 1);
 
@@ -96,7 +96,7 @@ $rg_data->update($rg->id, { name => 'My Angels', comment => 'Fake dubstep album'
 
 $rg = $rg_data->get_by_id($rg->id);
 is($rg->name, 'My Angels');
-is($rg->type_id, 1);
+is($rg->primary_type_id, 1);
 is($rg->comment, 'Fake dubstep album');
 is($rg->artist_credit_id, 1);
 
@@ -115,6 +115,27 @@ ok(defined $rg);
 
 $sql->commit;
 
+};
+
+test 'Delete release groups with secondary types' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Name');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+    VALUES (1, 1, 1, 0, NULL);
+INSERT INTO release_name (id, name) VALUES (1, 'Release Group');
+INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
+    VALUES (1, '7b5d22d0-72d7-11de-8a39-0800200c9a66', 1, 1, 1, 'Comment', 2);
+INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'Remix');
+INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
+    VALUES (1, 1);
+EOSQL
+
+    $test->c->model('ReleaseGroup')->delete(1);
+    ok(!defined $test->c->model('ReleaseGroup')->get_by_id(1));
 };
 
 1;

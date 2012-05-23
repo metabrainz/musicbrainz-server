@@ -85,7 +85,6 @@ is($editor->accepted_auto_edits, 60, "editor has 60 accepted auto edits");
 
 my $alice = $editor_data->get_by_name('alice');
 # Test preferences
-is($alice->preferences->public_ratings, 1, 'use default preference');
 $editor_data->load_preferences($alice);
 is($alice->preferences->public_ratings, 0, 'load preferences');
 is($alice->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');

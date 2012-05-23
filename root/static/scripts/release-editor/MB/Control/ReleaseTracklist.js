@@ -31,6 +31,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.$acrow = $artistcredit;
 
     self.$position = $track.find ('td.position span');
+    self.$number = $track.find ('td.position input');
     self.$title = $track.find ('td.title input.track-name');
     self.$id = $track.find ('td.title input[type=hidden]');
     self.$artist = $track.find ('td.artist input');
@@ -44,7 +45,16 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      * render enters the supplied data into the form fields for this track.
      */
     self.render = function (data) {
-        self.$position.text (data.position)
+        self.$position.text (data.position);
+        if (data.number)
+        {
+            self.$number.val (data.number);
+        }
+        else
+        {
+            self.$number.val (self.position ());
+        }
+
         self.$title.val (data.name);
         if (self.getDuration () === null || !self.parent.hasToc ())
         {
@@ -100,17 +110,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$row.hide ();
         self.$row.addClass ('deleted');
 
-        var trackpos = 1;
-
-        self.$row.closest ('tbody').find ('tr.track').each (
-            function (idx, elem) {
-                $(elem).find('input.pos').val (trackpos);
-                if (! $(elem).hasClass ('deleted'))
-                {
-                    trackpos += 1;
-                }
-            }
-        );
+        self.parent.updateTrackNumbers (self);
     };
 
     /* disableTracklistEditing disables the position and duration inputs and
@@ -201,10 +201,24 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.position = function (val) {
         if (val !== undefined)
         {
+            if (self.$number.val () === self.$position.text ())
+            {
+                self.$number.val (val);
+            }
+
             self.$position.text (val);
         }
 
         return parseInt (self.$position.text (), 10);
+    };
+
+    self.number = function (val) {
+        if (val !== undefined)
+        {
+            self.$number.val (val);
+        }
+
+        return self.$number.val ();
     };
 
 
@@ -216,9 +230,21 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         var pos = self.position ();
         if (pos > 1)
         {
-            self.position (pos - 1);
             // sorted_tracks is zero-based.
-            self.parent.sorted_tracks[pos - 2].position (pos);
+            var other = self.parent.sorted_tracks[pos - 2];
+
+            // position() may change the number() if it looks
+            // like an integer, so get these before they're changed.
+            var self_number = self.number ();
+            var other_number = other.number ();
+
+            // set correct integer track positions.
+            self.position (pos - 1);
+            other.position (pos);
+
+            // set correct free-text track numbers.
+            other.number (self_number);
+            self.number (other_number);
         }
 
         self.parent.sort ();
@@ -755,6 +781,33 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     /**
+     * Reset free-text track numbers back to their integer values.
+     */
+    self.resetTrackNumbers = function (event) {
+        $.each (self.sorted_tracks, function (idx, item) {
+            item.number (item.position ());
+        });
+    };
+
+    /**
+     * Update remaining track numbers / positions after a track in the
+     * tracklist has been deleted.
+     */
+    self.updateTrackNumbers = function (deletedTrack) {
+        var trackpos = 1;
+
+        $.each (self.sorted_tracks, function (idx, item) {
+            item.position (trackpos);
+
+            if (!item.isDeleted ())
+            {
+                trackpos += 1;
+            }
+        });
+    };
+
+
+    /**
      * Open the trackparser.
      */
     self.openTrackParser = function (event) {
@@ -806,6 +859,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     });
 
     self.$add_track_count = self.$fieldset.find ('input.add-track-count');
+    self.$fieldset.find ('.reset-track-numbers').bind ('click.mb', self.resetTrackNumbers);
     self.$fieldset.find ('input.track-parser').bind ('click.mb', self.openTrackParser);
     self.$fieldset.find ('input.add-track').bind ('click.mb', self.addTrackEvent);
     self.$fieldset.find ('input.disc-down').bind ('click.mb', self.moveDown);

@@ -16,9 +16,14 @@
                         html_escape(edit.display_data.comment.old),
                         html_escape(edit.display_data.comment.new)) -%]
 
-  [%- display_full_change(l('Type:'),
+  [%- display_full_change(l('Primary Type:'),
                           html_escape(edit.display_data.type.old.name),
                           html_escape(edit.display_data.type.new.name)) -%]
+
+  [%- display_diff(l('Secondary Types:'),
+                   html_escape(edit.display_data.secondary_types.old),
+                   html_escape(edit.display_data.secondary_types.new),
+                   ' \+ ') -%]
 
   [%- IF edit.display_data.artist_credit -%]
   <tr>

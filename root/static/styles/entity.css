@@ -62,13 +62,14 @@ div.tabs ul li a:hover {
 .workheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create work icon */
 .collectionheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create collection icon */
 
-.releaseheader .prefix,
-h1 span.prefix,
 span.comment
 {
-    font-size: 12px;
     font-weight: normal;
-    color: #666;
+    color: #888;
+}
+
+h1 span.comment {
+    font-size: 12px;
 }
 
 p.subheader {

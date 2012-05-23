@@ -10,8 +10,17 @@ CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
 CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
     FOR EACH ROW EXECUTE PROCEDURE deny_special_purpose_artist_deletion();
 
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON artist_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary('artist_alias');
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON artist_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
 
 CREATE TRIGGER b_upd_artist_tag BEFORE UPDATE ON artist_tag 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -115,11 +124,23 @@ CREATE TRIGGER b_del_label_special BEFORE DELETE ON label
 CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON label
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
 CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON label_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary('label_alias');
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON label_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
 CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON link
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
 CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE OR INSERT ON link_attribute
     FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
@@ -213,6 +234,12 @@ CREATE TRIGGER b_upd_work BEFORE UPDATE ON work
 
 CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON work_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary('work_alias');
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON work_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
 CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();

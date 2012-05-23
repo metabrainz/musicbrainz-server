@@ -74,12 +74,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
     MusicBrainz::Server::Edit::Work::AddAnnotation
+    MusicBrainz::Server::Edit::Work::AddISWCs
     MusicBrainz::Server::Edit::Work::Create
     MusicBrainz::Server::Edit::Work::Delete
     MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
     MusicBrainz::Server::Edit::Work::Merge
+    MusicBrainz::Server::Edit::Work::RemoveISWC
 
     MusicBrainz::Server::Edit::Historic::AddDiscID
     MusicBrainz::Server::Edit::Historic::AddLink

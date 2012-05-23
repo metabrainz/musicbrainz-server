@@ -72,6 +72,7 @@ sub _add_tracks {
         map +{
             recording_id  => $_->{recording_id},
             tracklist     => $id,
+            number        => $_->{number} // $i,
             position      => $i++,
             name          => $_->{name},
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
@@ -221,6 +222,7 @@ sub find_or_insert
                                     'artist_credit = ?',
                                     'recording = ?',
                                     defined($_->{length}) ? 'length = ?' : 'length IS NULL',
+                                    'number = ?',
                                     'position = ?') .
                          ')' } @$tracks) . '
                   GROUP BY tracklist
@@ -238,6 +240,7 @@ sub find_or_insert
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
                 $_->{recording_id},
                 defined($_->{length}) ? $_->{length} : (),
+                $_->{number} // $i,
                 $i++,
             } @$tracks),
             scalar(@$tracks)
