@@ -28,6 +28,16 @@ iso_codes.pot: $(wildcard extract_pot_db)
 	@echo "- Update database .pot";
 	@./extract_pot_db iso_codes | msguniq -s > iso_codes.pot
 
+relationships.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the relationships.pot file";
+	@echo "- Update database .pot";
+	@./extract_pot_db relationships | msguniq -s > relationships.pot
+
+attributes.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the attributes.pot file";
+	@echo "- Update database .pot";
+	@./extract_pot_db attributes | msguniq -s > attributes.pot
+
 clean:
 	rm -f $(MOFILES)
 
