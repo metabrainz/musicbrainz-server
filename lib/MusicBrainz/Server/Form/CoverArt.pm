@@ -7,8 +7,8 @@ extends 'MusicBrainz::Server::Form';
 sub edit_field_names { qw( comment type_id position ) }
 
 has_field 'comment' => (
-    type      => '+MusicBrainz::Server::Form::Field::Text',
-    required  => 0,
+    type      => '+MusicBrainz::Server::Form::Field::Comment',
+    maxlength => 255
 );
 
 has_field 'type_id' => (
