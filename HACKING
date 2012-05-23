@@ -26,12 +26,16 @@ t/controllers.t like this:
 
  $ carton exec -Ilib -- prove t/controllers.t :: --tests WS::2::LookupArtist
 
-For t::MusicBrainz::Server::Edit:: tests use t/edits.t, and for the
-remaining tests you can usually run t/tests.t.  You can specify multiple
-tests as a comma-separated list:
+For t::MusicBrainz::Server::Edit:: tests use t/edits.t, and for the remaining
+tests you can usually run t/tests.t.  The --tests argument takes a regular
+expression to match against the test name. For example, run multiple tests you
+can use regular expression groups:
 
- $ carton exec -Ilib -- prove t/tests.t :: --tests Data::URL,Entity::URL
+ $ carton exec -Ilib -- prove t/tests.t :: --tests '(Data::URL|Entity::URL)'
 
+While to run all Data:: tests you can do the following:
+
+ $ carton exec -Ilib -- prove t/tests.t :: --tests 'Data::'
 
 JavaScript and Selenium tests
 -----------------------------
