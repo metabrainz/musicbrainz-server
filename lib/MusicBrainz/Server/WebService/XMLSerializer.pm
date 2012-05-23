@@ -392,6 +392,7 @@ sub _serialize_work
     my @list;
     push @list, $gen->title($work->name);
     if ($work->all_iswcs) {
+        push @list, $gen->iswc($work->iswcs->[0]->iswc);
         push @list, $gen->iswc_list(map {
             $gen->iswc($_->iswc);
         } $work->all_iswcs);
