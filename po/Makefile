@@ -23,6 +23,16 @@ mb_server.pot: $(POTFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "- Update code .pot"
 	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
 
+statistics.pot: $(wildcard extract_pot_db) $(wildcard extract_pot_templates)
+	@echo "Rebuilding the statistics.pot file";
+	@echo "- Update templates .pot"; 
+	@find ../root/statistics -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > statistics_tmpl.pot;
+	@echo "- Update database .pot";
+	@./extract_pot_db statistics | msguniq -s > statistics_db.pot
+	@echo "- Merge";
+	@msgcat -o statistics.pot statistics_db.pot statistics_tmpl.pot
+	@rm statistics_db.pot statistics_tmpl.pot
+
 iso_codes.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the iso_codes.pot file";
 	@echo "- Update database .pot";
