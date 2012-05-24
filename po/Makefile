@@ -11,10 +11,11 @@ all: $(MOFILES) check
 
 install: $(MOFILES)	
 	@for file in $(MOFILES); do \
-	     	lang=`echo $$file | sed 's/\.mo//'`; \
+			lang=`echo $$file | sed 's/\.\([^.]*\)\.mo//'`; \
+			catalog=`echo $$file | sed -e 's/^\([^.]*\)\.//' -e 's/\.mo//'`; \
 		install -d ../lib/LocaleData/$$lang/LC_MESSAGES/; \
-		echo "Installing $$file to ../lib/LocaleData/$$lang/LC_MESSAGES/mb_server.mo"; \
-		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/mb_server.mo; \
+		echo "Installing $$file to ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo"; \
+		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
 	done
 
 mb_server.pot: $(POTFILES) $(TT) $(wildcard extract_pot_templates)
@@ -59,10 +60,6 @@ clean:
 
 %.mo: %.po
 	@msgfmt -o $@ $<
-
-%.po: mb_server.pot
-	@echo -n "Merging $@"
-	@msgmerge $@ mb_server.pot -o $@.new 2>&1
 
 check:
 	@for file in $(POFILES); do \
