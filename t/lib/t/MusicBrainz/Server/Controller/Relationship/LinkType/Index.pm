@@ -51,4 +51,12 @@ test 'Viewing /relationships shows a full tree' => sub {
             'has a link to work-work relationships');
 };
 
+test 'Cannot view impossible relationships' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get('/relationships/fake-fake');
+    is($mech->status, 400);
+};
+
 1;

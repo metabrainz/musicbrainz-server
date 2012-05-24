@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_EDIT_LINK_TYPE
     $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE
 );
+use MusicBrainz::Server::Translation qw( l );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'LinkType',
