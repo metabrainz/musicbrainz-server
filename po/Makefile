@@ -35,10 +35,20 @@ statistics.pot: $(STATTT) $(wildcard extract_pot_db) $(wildcard extract_pot_temp
 	@msgcat -o statistics.pot statistics_db.pot statistics_tmpl.pot
 	@rm statistics_db.pot statistics_tmpl.pot
 
-iso_codes.pot: $(wildcard extract_pot_db)
-	@echo "Rebuilding the iso_codes.pot file";
+countries.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the countries.pot file";
 	@echo "- Update database .pot";
-	@./extract_pot_db iso_codes | msguniq -s > iso_codes.pot
+	@./extract_pot_db countries | msguniq -s > countries.pot
+
+languages.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the languages.pot file";
+	@echo "- Update database .pot";
+	@./extract_pot_db languages | msguniq -s > languages.pot
+
+scripts.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the scripts.pot file";
+	@echo "- Update database .pot";
+	@./extract_pot_db scripts | msguniq -s > scripts.pot
 
 relationships.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the relationships.pot file";
@@ -54,6 +64,11 @@ instruments.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the instruments.pot file";
 	@echo "- Update database .pot";
 	@./extract_pot_db instruments | msguniq -s > instruments.pot
+
+instrument_descriptions.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the instrument_descriptions.pot file";
+	@echo "- Update database .pot";
+	@./extract_pot_db instrument_descriptions | msguniq -s > instrument_descriptions.pot
 
 clean:
 	rm -f $(MOFILES)
