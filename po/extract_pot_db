@@ -35,13 +35,15 @@ my $domain = $domain[0];
 
 # @DBDEFS is a list of hashes; needs at least domain, table, and columns.
 # Additional entries include flag, where applicable, should probably be 'perl-format' or 'perl-brace-format';
+# id, which specifies an identifier column other than 'id', the default
+# comment, which specifies columns to add as automatic comments (format <column name>:<value>)
 # where, which specifies a WHERE clause to add to the SQL query;
 # and ctx, which specifies a column to use for a msgctxt entry.
 my @DBDEFS = (
               {'domain' => 'statistics', 'table' => 'statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
-              {'domain' => 'iso_codes', 'table' => 'country', 'columns' => ['name'], 'ctx' => 'iso_code'},
-              {'domain' => 'iso_codes', 'table' => 'language', 'columns' => ['name'], 'ctx' => 'iso_code_3'},
-              {'domain' => 'iso_codes', 'table' => 'script', 'columns' => ['name'], 'ctx' => 'iso_code'},
+              {'domain' => 'iso_codes', 'table' => 'country', 'columns' => ['name'], 'ctx' => 'iso_code', 'comment' => ['frequency']},
+              {'domain' => 'iso_codes', 'table' => 'language', 'columns' => ['name'], 'ctx' => 'iso_code_3', 'comment' => ['frequency']},
+              {'domain' => 'iso_codes', 'table' => 'script', 'columns' => ['name'], 'ctx' => 'iso_code', 'comment' => ['frequency']},
               {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name']},
               {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name']},
               {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name']},
@@ -84,11 +86,17 @@ sub parse_db {
     my $ctx = $opt->{ctx};
     my $where = $opt->{where};
     my $idcol = $opt->{id} // 'id';
+    my $comment = $opt->{comment};
 
     foreach my $column (@$columns) {
         my $select_cols = "$column,$idcol";
         if ($ctx) {
             $select_cols .= ',' . $ctx;
+        }
+        if ($comment) {
+            foreach my $col (@$comment) {
+                $select_cols .= ',' . $col;
+            }
         }
         my $query = "SELECT $select_cols from $table";
         if ($where) {
@@ -109,6 +117,12 @@ sub parse_db {
                            $po->msgctxt("$table:$ctxt");
                        } else {
                            $po->msgctxt("$table:$id");
+                       }
+                   }
+                   if ($comment) {
+                       foreach my $col (@$comment) {
+                           my $val = shift @{$value};
+                           $po->automatic("$col:$val");
                        }
                    }
                    $po->msgstr("");
