@@ -275,6 +275,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                (such as "feat.") it is likely that it should be surrounded
                by spaces.  Add those spaces automatically only this first
                time.
+               Also standardise "feat." according to our guidelines.
             */
 
             var join = self.$join.val ();
@@ -282,6 +283,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             {
                 self.$join.val (' ' + join + ' ');
             }
+            join.replace (/^ feat\.? $/i,"feat.");
+            join.replace (/^ featuring? $/i,"feat.");
+            join.replace (/^ ft\.? $/i,"feat.");
         }
 
         /* this join phrase has been changed, it should no langer be automatic. */
