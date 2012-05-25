@@ -142,6 +142,7 @@ sub insert
 sub update
 {
     my ($self, $work_id, $update) = @_;
+    return unless %{ $update // {} };
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('work', $row, { id => $work_id });
