@@ -52,6 +52,13 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
     $self->_load_tree($c);
     my $form = $c->form( form => 'Admin::LinkAttributeType' );
 
+    my $gid = $c->request->params->{parent};
+    my $parent_link_attr_type = $c->model('LinkAttributeType')->get_by_gid($gid)
+      if (MusicBrainz::Server::Validation::IsGUID($gid));
+
+    $form->field ('parent_id')->value ($parent_link_attr_type->id)
+        if $parent_link_attr_type;
+
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         $self->_insert_edit($c, $form,
             edit_type => $EDIT_RELATIONSHIP_ADD_ATTRIBUTE,
