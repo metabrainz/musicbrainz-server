@@ -67,7 +67,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 14 }
+sub DB_SCHEMA_SEQUENCE { 15 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -329,15 +329,12 @@ sub GOOGLE_ANALYTICS_CODE { '' }
 sub SESSION_STORE { "Session::Store::Memcached" }
 sub SESSION_STORE_ARGS
 {
-    {
+    return {
         memcached_new_args => {
-            {
-                data => MEMCACHED_SERVERS(),
-                namespace => MEMCACHED_NAMESPACE(),
-                memcached_class => 'Cache::Memcached::Fast',
-            }
+            data => MEMCACHED_SERVERS(),
+            namespace => MEMCACHED_NAMESPACE(),
+            memcached_class => 'Cache::Memcached::Fast',
         }
-        
     }
 }
 

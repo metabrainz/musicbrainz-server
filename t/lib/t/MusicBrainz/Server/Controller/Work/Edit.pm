@@ -20,7 +20,6 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
 html_ok($mech->content);
 my $request = POST $mech->uri, [
-    'edit-work.iswc' => 'T-123456789-0',
     'edit-work.comment' => 'A comment!',
     'edit-work.type_id' => 2,
     'edit-work.name' => 'Another name'
@@ -42,12 +41,10 @@ is_deeply($edit->data, {
         name => 'Another name',
         type_id => 2,
         comment => 'A comment!',
-        iswc => 'T-123.456.789-0',
     },
     old => {
         type_id => 1,
         comment => undef,
-        iswc => 'T-000.000.001-0',
         name => 'Dancing Queen'
     }
 });
@@ -56,8 +53,6 @@ $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');
 html_ok($mech->content, '..valid xml');
 $mech->text_contains('Another name', '..has new name');
 $mech->text_contains('Dancing Queen', '..has old name');
-$mech->text_contains('T-123.456.789-0', '..has new iswc');
-$mech->text_contains('T-000.000.001-0', '..has old iswc');
 $mech->text_contains('Symphony', '..has new work type');
 $mech->text_contains('Composition', '..has old work type');
 $mech->text_contains('A comment!', '..has new comment');

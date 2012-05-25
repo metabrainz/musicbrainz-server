@@ -307,6 +307,25 @@ sub merge_partial_date {
 }
 
 
+=method merge_list
+
+Merge any list of strings.
+
+=cut
+
+sub merge_list {
+    my ($name, $ancestor, $current, $new) = @_;
+
+    return (
+        [ PartialDate->new($ancestor->{$name})->format, $ancestor->{$name} ],
+        [ $current->$name->format, partial_date_to_hash($current->$name) ],
+        [ PartialDate->new($new->{$name})->format, $new->{$name} ],
+    );
+}
+
+
+
+
 =method merge_barcode
 
 Merge barcodes, using the formatted representation as the hash key.

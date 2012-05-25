@@ -147,6 +147,9 @@ sub get_by_gid
     if (scalar(@result)) {
         return $result[0];
     }
+    else {
+        return undef;
+    }
 }
 
 sub in_use

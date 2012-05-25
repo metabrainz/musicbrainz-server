@@ -447,15 +447,10 @@ sub commandline_override
 {
     my ($prefix, @default_tests) = @_;
 
-    my @tests;
-    GetOptions ("tests=s" => \@tests);
-    @tests = split(/,/,join(',',@tests));
+    my $test_re = '';
+    GetOptions ("tests=s" => \$test_re);
 
-    @default_tests = map {
-        /^t::/ ? $_ : $prefix.$_;
-    } @tests if scalar @tests;
-
-    return @default_tests;
+    return grep { $_ =~ /$test_re/ } @default_tests;
 }
 
 1;

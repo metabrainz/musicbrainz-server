@@ -198,9 +198,15 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_artist_ipi(artist) BLOCK -%]
-    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(artist) -%]" property="mo:ipi">[%- END -%]
-        [%- html_escape(artist.ipi_code) -%]
+[%- MACRO rdfa_artist_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(ipi_code.artist) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
+    [%- IF doRDFa -%]</span>[%- END -%]
+[%- END -%]
+
+[%- MACRO rdfa_label_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_label_curi(ipi_code.label) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
     [%- IF doRDFa -%]</span>[%- END -%]
 [%- END -%]
 
@@ -486,12 +492,6 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_work_iswc(work) BLOCK -%]
-    [%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%]
-        [%- html_escape(work.iswc) -%]
-    [%- IF doRDFa -%]</span>[%- END -%]
-[%- END -%]
-
 [%-###########-%]
 [%-# Release #-%]
 [%-###########-%]
@@ -533,6 +533,12 @@ END -%]
 [%- '<span class="mp">' IF isrc.edits_pending; -%]
 <a href="[%- c.uri_for_action('/isrc/show', [ isrc.isrc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_recording_curi(recording) -%]" property="mo:isrc">[%- END -%][%- isrc.isrc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
 [%- '</span>' IF isrc.edits_pending; -%]
+[%- END -%]
+
+[%- MACRO rdfa_work_iswc(work, iswc) BLOCK -%]
+[%- '<span class="mp">' IF iswc.edits_pending; -%]
+<a href="[%- c.uri_for_action('/iswc/show', [ iswc.iswc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%][%- iswc.iswc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
+[%- '</span>' IF iswc.edits_pending; -%]
 [%- END -%]
 
 [%-#################-%]

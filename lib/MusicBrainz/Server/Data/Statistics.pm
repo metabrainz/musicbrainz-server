@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
@@ -11,6 +11,18 @@ use MusicBrainz::Server::Data::Relationship;
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
+
+sub all_events {
+    my ($self) = @_;
+
+    return [
+        query_to_list(
+            $self->sql,
+            sub { shift },
+            'SELECT * FROM statistic_event ORDER BY date ASC',
+        )
+    ];
+}
 
 sub fetch {
     my ($self, @names) = @_;
@@ -201,15 +213,15 @@ my %stats = (
 
             my $data = $sql->select_list_of_lists(
                 "SELECT
-                   coalesce(release_group_type.name, 'null'),
+                   coalesce(release_group_primary_type.name, 'null'),
                    count(DISTINCT cover_art.release)
                  FROM cover_art_archive.cover_art
                  JOIN release ON release.id = cover_art.release
                  JOIN release_group
                    ON release.release_group = release_group.id
-                 FULL OUTER JOIN release_group_type
-                   ON release_group_type.id = release_group.type
-                 GROUP BY coalesce(release_group_type.name, 'null')"
+                 FULL OUTER JOIN release_group_primary_type
+                   ON release_group_primary_type.id = release_group.type
+                 GROUP BY coalesce(release_group_primary_type.name, 'null')"
             );
 
             my %dist = map { @$_ } @$data;
@@ -328,6 +340,28 @@ my %stats = (
         DESC => "Count of all works",
         SQL => "SELECT COUNT(*) FROM work",
     },
+    "count.work.language" => {
+        DESC => "Distribution of works by lyrics language",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(w.gid) AS count
+                FROM work w FULL OUTER JOIN language l
+                    ON w.language=l.id
+                GROUP BY l.iso_code_3
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.work.language.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.artistcredit" => {
         DESC => "Count of all artist credits",
         SQL => "SELECT COUNT(*) FROM artist_credit",
@@ -342,11 +376,11 @@ my %stats = (
     },
     "count.ipi.artist" => {
         DESC => "Count of artists with an IPI code",
-        SQL => "SELECT COUNT(*) FROM artist WHERE ipi_code IS NOT NULL",
+        SQL => "SELECT COUNT(DISTINCT artist) FROM artist_ipi",
     },
     "count.ipi.label" => {
         DESC => "Count of labels with an IPI code",
-        SQL => "SELECT COUNT(*) FROM label WHERE ipi_code IS NOT NULL",
+        SQL => "SELECT COUNT(DISTINCT label) FROM label_ipi",
     },
     "count.isrc.all" => {
         DESC => "Count of all ISRCs joined to recordings",
@@ -358,11 +392,11 @@ my %stats = (
     },
     "count.iswc.all" => {
         DESC => "Count of all works with an ISWC",
-        SQL => "SELECT COUNT(*) FROM work WHERE iswc IS NOT NULL",
+        SQL => "SELECT COUNT(DISTINCT work) FROM iswc",
     },
     "count.iswc" => {
         DESC => "Count of unique ISWCs",
-        SQL => "SELECT COUNT(distinct iswc) FROM work WHERE iswc IS NOT NULL",
+        SQL => "SELECT COUNT(distinct iswc) FROM iswc",
     },
     "count.vote" => {
         DESC => "Count of all votes",
@@ -463,10 +497,10 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(l.iso_code_3t::text, 'null'), COUNT(r.gid) AS count
+                "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(r.gid) AS count
                 FROM release r FULL OUTER JOIN language l
                     ON r.language=l.id
-                GROUP BY l.iso_code_3t
+                GROUP BY l.iso_code_3
                 ",
             );
 

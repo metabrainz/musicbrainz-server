@@ -70,10 +70,10 @@
                 <div>
                     [%- USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
-                        [% sidebar.text('query', { placeholder => 'search' }) %]
+                        [% sidebar.text('query', { placeholder => l('search') }) %]
                         [% sidebar.select('type') %]
                         [% sidebar.hidden('method', { value => 'indexed' }) %]
-                        [% form_submit(l('Search'), "header-search") %]
+                        [% form_submit(l('Search'), 'inline') %]
                     </form>
                 </div>
                 [%- IF server_details.git_branch -%]

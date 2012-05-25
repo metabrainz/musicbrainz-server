@@ -25,8 +25,15 @@
 
   [% IF edit.display_data.type %]
   <tr>
-    <th>[% l('Type:') %]</td>
+    <th>[% l('Primary Type:') %]</td>
     <td>[% edit.display_data.type.name %]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.secondary_types %]
+  <tr>
+    <th>[% l('Secondary Types:') %]</td>
+    <td>[% edit.display_data.secondary_types %]</td>
   </tr>
   [% END %]
 </table>

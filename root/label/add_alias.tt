@@ -8,5 +8,5 @@
                                Please see {aa|label aliases} for more details.',
                                { aa => doc_link('Label_Alias') })) %]
     [% END %]
-    [%- INCLUDE 'alias/edit_form.tt' %]
+    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id = 2 %]
 [%- END -%]

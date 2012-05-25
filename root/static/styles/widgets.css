@@ -107,16 +107,14 @@
 
 /* Special */
 
-/* search button in header*/
-.buttons.header-search { display: inline; }
-.buttons.header-search button {
+/* Buttons that should be inline (e.g. with an input or select) */
+.buttons.inline button {
     float: none;
-    display: inline;
-    padding: 2px 6px !important;
+    padding: 2px 6px;
 }
 
-
-/* buttons inline with an input row in a form. */
+/* Legacy styling
+   Inputs that use this shoud be converted to buttons */
 form div.row input[type=button],
 form input[type=button],
 form input[type=submit] {
@@ -138,7 +136,13 @@ form input[type=submit] {
 
 input[type=button].disabled,
 input[type=submit].disabled,
-button.disabled { color: #aaa; }
+button.disabled, button[disabled],
+button.disabled:hover, button[disabled]:hover {
+    color: #aaa !important;
+    border: 1px solid #EAEAEA !important;
+    background-color: #F0F0F0 !important;
+    cursor: default !important;
+}
 
 /*
 ** RATINGS
