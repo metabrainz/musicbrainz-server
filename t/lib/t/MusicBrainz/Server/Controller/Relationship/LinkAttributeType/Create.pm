@@ -65,7 +65,6 @@ EOSQL
     my @edits = capture_edits {
         my $response = $mech->submit_form(
             with_fields => {
-                'linkattrtype.parent_id' => $parent_id,
                 'linkattrtype.name' => $name,
                 'linkattrtype.child_order' => $child_order
             }
