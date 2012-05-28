@@ -275,9 +275,13 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                (such as "feat.") it is likely that it should be surrounded
                by spaces.  Add those spaces automatically only this first
                time.
+               Also standardise "feat." according to our guidelines.
             */
 
             var join = self.$join.val ();
+            join = join.replace (/^\s*feat\.?\s*$/i,"feat.");
+            join = join.replace (/^\s*featuring\s*$/i,"feat.");
+            join = join.replace (/^\s*ft\.?\s*$/i,"feat.");
             if (join.match (/^[A-Za-z]*\.?$/))
             {
                 self.$join.val (' ' + join + ' ');
