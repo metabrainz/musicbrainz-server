@@ -169,9 +169,25 @@ sub initialize
 sub allow_auto_edit
 {
     my $self = shift;
-    my ($old, $new) = normalise_strings($self->data->{old}{name},
-                                        $self->data->{new}{name});
-    return 0 if $old ne $new;
+
+    {
+        my ($old, $new) = normalise_strings($self->data->{old}{name},
+                                            $self->data->{new}{name});
+        return 0 if $old ne $new;
+    }
+
+    {
+        my ($old, $new) = normalise_strings($self->data->{old}{sort_name},
+                                            $self->data->{new}{sort_name});
+        return 0 if $old ne $new;
+    }
+
+    return 0 if $self->data->{old}{type_id};
+
+    return 0 if exists $self->data->{old}{begin_date}
+        and partial_date_from_row($self->data->{old}{begin_date})->format ne '';
+    return 0 if exists $self->data->{old}{end_date}
+        and partial_date_from_row($self->data->{old}{end_date})->format ne '';
 
     return 0 if $self->data->{old}{locale};
 
