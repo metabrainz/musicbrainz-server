@@ -621,6 +621,8 @@ END -%]
     ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
     ELSIF url.url.host.search('ibdb.com'); 'ibdb';
     ELSIF url.url.host.search('imslp.org'); 'imslp';
+    ELSIF url.url.host.search('tallinn.ester.ee'); 'ESTERTallinn';
+    ELSIF url.url.host.search('tartu.ester.ee'); 'ESTERTartu';
     ELSE; '';
 END %]
 
