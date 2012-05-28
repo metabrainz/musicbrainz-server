@@ -96,6 +96,45 @@ sub countries : Local
     );
 }
 
+sub coverart : Local
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $release_type_stats = [];
+    my $release_status_stats = [];
+    my $release_format_stats = [];
+    my $type_stats = [];
+    my $per_release_stats = [];
+
+    if (defined $stats) {
+        foreach my $stat_name
+                (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+            if (my ($type) = $stat_name =~ /^count\.release\.type\.(.*)\.has_coverart$/) {
+                push(@$release_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+            }
+            if (my ($status) = $stat_name =~ /^count\.release\.status\.(.*)\.has_coverart$/) {
+                push(@$release_status_stats, ({'stat_name' => $stat_name, 'status' => $status}));
+            }
+            if (my ($format) = $stat_name =~ /^count\.release\.format\.(.*)\.has_coverart$/) {
+                push(@$release_format_stats, ({'stat_name' => $stat_name, 'format' => $format}));
+            }
+            if (my ($type) = $stat_name =~ /^count\.coverart.type\.(.*)$/) {
+                push(@$type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+            }
+        }
+    } 
+
+    $c->stash(
+        template => 'statistics/coverart.tt',
+        stats => $stats,
+        release_type_stats => $release_type_stats,
+        release_status_stats => $release_status_stats,
+        release_format_stats => $release_format_stats,
+        type_stats => $type_stats
+    );
+}
+
 sub languages_scripts : Path('languages-scripts')
 {
     my ($self, $c) = @_;
