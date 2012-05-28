@@ -305,10 +305,11 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
-            // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
             if (url.match (/^http:\/\/www\.facebook\.com.*$/))
             {
+                  // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
                   url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");
+                  // Ensure the first parameter left uses ? not to break the URL
                   url = url.replace(/([&?])&/, "$1");
                   url = url.replace(/[&?]$/, "");
             }
