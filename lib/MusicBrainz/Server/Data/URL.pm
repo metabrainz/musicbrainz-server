@@ -13,6 +13,7 @@ with
     'MusicBrainz::Server::Data::Role::Merge';
 
 my %URL_SPECIALIZATIONS = (
+    '45cat'           => qr{^https?://(?:www.)?45cat.com/}i,
     'Allmusic'        => qr{^https?://(?:www.)?allmusic.com/}i,
     'ASIN'            => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'BBCMusic'        => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
@@ -33,6 +34,7 @@ my %URL_SPECIALIZATIONS = (
     'MySpace'         => qr{^https?://(?:www.)?myspace.com/}i,
     'Ozon'            => qr{^https?://(?:www.)?ozon.ru/}i,
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
+    'Rateyourmusic'   => qr{^https?://(?:www.)?rateyourmusic.com/}i,
     'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Songfacts'       => qr{^https?://(?:www.)?songfacts.com/}i,
     'SoundCloud'      => qr{^https?://(?:www.)?soundcloud.com/}i,

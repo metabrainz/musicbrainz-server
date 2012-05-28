@@ -494,6 +494,14 @@ div.warning img.warning {
     background-image: url("../images/favicons/worldcat-16.png");
 }
 
+#sidebar ul.external_links li.fortyfivecat {
+    background-image: url("../images/favicons/45cat-16.png");
+}
+
+#sidebar ul.external_links li.rateyourmusic {
+    background-image: url("../images/favicons/rateyourmusic-16.png");
+}
+
 #sidebar .cover-art {
     text-align: center;
 }
