@@ -39,6 +39,7 @@ my %URL_SPECIALIZATIONS = (
     'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
     'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
+    'Worldcat'         => qr{^https?://(?:www.)?worldcat.org/}i,
     'YouTube'         => qr{^https?://(?:www.)?youtube.com/}i,
 );
 
