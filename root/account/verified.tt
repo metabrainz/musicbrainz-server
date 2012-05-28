@@ -1,6 +1,6 @@
 [% WRAPPER 'layout.tt' title=l("Email Address Verified") full_width=1 %]
 
     <h1>[% l("Email Address Verified") %]</h1>
-    <p>[% l('Thank you, your email address has now been verified!') %]</p>
+    <p>[% l('Thank you, your email address has now been verified! If you still can\'t edit, please try to log out and log in again.') %]</p>
 
 [% END %]
