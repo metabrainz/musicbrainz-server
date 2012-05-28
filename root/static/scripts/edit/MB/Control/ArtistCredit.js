@@ -279,9 +279,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             */
 
             var join = self.$join.val ();
-            join = join.replace (/^\s*feat\.?\s*$/i,"feat.");
-            join = join.replace (/^\s*featuring\s*$/i,"feat.");
-            join = join.replace (/^\s*ft\.?\s*$/i,"feat.");
+            join = join.replace (/^\s*(feat\.?|ft\.?|featuring)\s*$/i,"feat.");
             if (join.match (/^[A-Za-z]*\.?$/))
             {
                 self.$join.val (' ' + join + ' ');
