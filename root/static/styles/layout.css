@@ -474,6 +474,14 @@ div.warning img.warning {
     background-image: url("../images/favicons/soundcloud-16.png");
 }
 
+#sidebar ul.external_links li.ibdb {
+    background-image: url("../images/favicons/ibdb-16.png");
+}
+
+#sidebar ul.external_links li.imslp {
+    background-image: url("../images/favicons/imslp-16.png");
+}
+
 #sidebar .cover-art {
     text-align: center;
 }

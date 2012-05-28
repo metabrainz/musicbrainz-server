@@ -619,6 +619,8 @@ END -%]
     ELSIF url.url.host.search('secondhandsongs.com'); 'secondhandsongs';
     ELSIF url.url.host.search('songfacts.com'); 'songfacts';
     ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
+    ELSIF url.url.host.search('ibdb.com'); 'ibdb';
+    ELSIF url.url.host.search('imslp.org'); 'imslp';
     ELSE; '';
 END %]
 
