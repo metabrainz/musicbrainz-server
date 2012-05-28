@@ -50,7 +50,9 @@
                         [% r.checkbox('direction') %] [% l('Change direction') %]
                       [%- ELSE -%]
                         [% r.hidden('direction') %]
-                        <input type="button" id="changedirection" value="[% l('Change direction') %]" />
+                        <span class="buttons inline">
+                          <button id="changedirection" type="button">[% l('Change direction') %]</button>
+                        </span>
                       [%- END -%]
                       </span>
                     [% END %]

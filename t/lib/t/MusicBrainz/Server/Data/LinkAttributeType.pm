@@ -58,4 +58,12 @@ is($link_attr_type, undef);
 
 };
 
+test 'get_by_gid with non existant GID' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
+
+    ok(!defined $test->c->model('LinkAttributeType')->get_by_gid(
+        'ba5341f8-3b1d-4f99-a0c6-26b7f4e42c7f'));
+};
+
 1;

@@ -95,7 +95,33 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
+                ],
+
+                [
+                    'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
+                    MB.constants.LINK_TYPES.lyrics.release
+                ],
+
+                [
+                    'recording', 'http://vimeo.com/1109226',
+                    MB.constants.LINK_TYPES.streamingmusic.recording
+                ],
+
+                [
+                    'recording', 'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    MB.constants.LINK_TYPES.streamingmusic.recording
+                ],
+
+                [
+                    'artist', 'http://youtube.com/user/officialpsy/videos',
+                    MB.constants.LINK_TYPES.youtube.artist
+                ],
+
+                [
+                    'label', 'http://youtube.com/user/officialpsy/videos',
+                    MB.constants.LINK_TYPES.youtube.label
                 ]
+
             ];
 
         $.each(tests, function(i, test) {
@@ -137,6 +163,26 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
                     'release'
+                ],
+                [
+                    'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
+                    'http://vimeo.com/1109226',
+                    'streamingmusic'
+                ],
+                [
+                    'http://youtu.be/UmHdefsaL6I',
+                    'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    'streamingmusic'
+                ],
+                [
+                    'http://www.youtube.com/embed/UmHdefsaL6I',
+                    'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    'streamingmusic'
+                ],
+                [
+                    'http://youtube.com/user/officialpsy/videos',
+                    'http://www.youtube.com/user/officialpsy',
+                    'artist'
                 ]
             ];
 

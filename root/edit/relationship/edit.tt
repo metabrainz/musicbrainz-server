@@ -76,7 +76,9 @@ var typeInfo = [% type_info %];
                   [% r.checkbox('direction') %] [% l('Change direction') %]
               [%- ELSE -%]
                   [% r.hidden('direction') %]
-                  <input type="button" id="changedirection" value="[% l('Change direction') %]" />
+                  <span class="buttons inline">
+                    <button id="changedirection" type="button">[% l('Change direction') %]</button>
+                  </span>
               [%- END -%]
               </span>
             [% END %]
@@ -109,10 +111,10 @@ var typeInfo = [% type_info %];
                 </div>
                 [% END %]
                 </div>
-                <div class="ar-descr">[% attr.description %]</div>
+                <div class="ar-descr">[% l(attr.description) %]</div>
             [% ELSE %]
-                <label for="id-ar.attrs.[% attr.name %]">[% r.checkbox(field) %] [% attr.name %]</label>
-                <div class="ar-descr">[% attr.description %]</div>
+                <label for="id-ar.attrs.[% attr.name %]">[% r.checkbox(field) %] [% l(attr.name) %]</label>
+                <div class="ar-descr">[% l(attr.description) %]</div>
             [% END %]
             [% field_errors(form, field) %]
             </div>

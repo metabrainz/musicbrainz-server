@@ -73,7 +73,7 @@ after 'load' => sub
     }
 
     # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
+    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
         small_thumbnail => $prefix.'/front-250'

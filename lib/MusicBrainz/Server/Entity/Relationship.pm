@@ -4,6 +4,7 @@ use Moose;
 use Readonly;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Translation qw( l );
 
 Readonly our $DIRECTION_FORWARD  => 1;
 Readonly our $DIRECTION_BACKWARD => 2;
@@ -111,8 +112,8 @@ sub _join_attrs
     my @attrs = map { $_ } @{$_[0]};
     if (scalar(@attrs) > 1) {
         my $a = pop(@attrs);
-        my $b = join(", ", @attrs);
-        return "$b and $a";
+        my $b = join(l(", "), @attrs);
+        return l("{b} and {a}", {b => $b, a => $a});
     }
     elsif (scalar(@attrs) == 1) {
         return $attrs[0];
@@ -124,8 +125,8 @@ sub _build_phrase {
     my ($self) = @_;
     $self->_interpolate(
         $self->direction == $DIRECTION_FORWARD
-            ? $self->link->type->link_phrase
-            : $self->link->type->reverse_link_phrase
+            ? l($self->link->type->link_phrase)
+            : l($self->link->type->reverse_link_phrase)
     );
 }
 
@@ -142,7 +143,7 @@ sub _interpolate
     my %attrs;
     foreach my $attr (@attrs) {
         my $name = lc $attr->root->name;
-        my $value = $attr->name;
+        my $value = l($attr->name);
         if (exists $attrs{$name}) {
             push @{$attrs{$name}}, $value;
         }

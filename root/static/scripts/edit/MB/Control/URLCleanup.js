@@ -122,7 +122,8 @@ MB.constants.LINK_TYPES = {
     },
     youtube: {
         artist: 193,
-        label: 225
+        label: 225,
+        recording: 268
     }
 };
 
@@ -159,7 +160,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
         type: MB.constants.LINK_TYPES.imdb,
         clean: function(url) {
-            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/(bio|soundtrack)?)?/, "http://www.imdb.com/$3/");
+            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
     },
     myspace: {
@@ -258,7 +259,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org)", "i"),
         type: MB.constants.LINK_TYPES.lyrics
     },
     bbcmusic: {
@@ -317,26 +318,35 @@ MB.constants.CLEANUPS = {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
         }
     },
-    streamingmusic: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/|vimeo\\.com/)", "i"),
+    vgmdb: {
+        match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
+        type: MB.constants.LINK_TYPES.vgmdb
+    },
+    vimeo: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.streamingmusic,
         clean: function(url) {
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
-            //YouTube URL shortener
-            url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
-            //YouTube standard watch URL
-            url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "http://www.youtube.com/watch?$1");
-            //YouTube embeds
-            url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0_9_-]+)([^?]+)/, "http://www.youtube.com/watch?v=$1");
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
+            // Remove query string, just the video id should be enough.
+            url = url.replace(/\?.*/, "");
+	    return url;
+        }
+    },
+    youtube: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)", "i"),
+        type: MB.constants.LINK_TYPES.youtube,
+        clean: function(url) {
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
+            // YouTube URL shortener
+            url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
+            // YouTube standard watch URL
+            url = url.replace(/^http:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, "http://www.youtube.com/watch?$1");
+            // YouTube embeds
+            url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
             url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
 	    return url;
         }
     },
-    vgmdb: {
-        match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
-        type: MB.constants.LINK_TYPES.vgmdb
-    }
 };
 
 

@@ -495,8 +495,8 @@ END -%]
         [% END %]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
-          <input class="negative button cancel" type="button" value="[% l('Cancel') %]" style="float: left;" />
-          <input class="positive button create" type="button" value="[% l('Create relationship') %]" style="float: right;" />
+          <button class="negative cancel">[% l('Cancel') %]</button>
+          <button class="positive create" style="float:right;">[% l('Create relationship') %]</button>
         </div>
       </div>
     </div>
@@ -687,3 +687,12 @@ http://[%- server -%]/[%- id -%]"
   <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">Filter</a></div>
 [%- END -%]
 
+[%- MACRO wikidoc_search_box BLOCK -%]
+  <div class="wikidoc-search">
+    <form action="[% c.uri_for('/search') | html %]" method="get">
+      <input type="hidden" name="type" value="doc" />
+      <input type="text" name="query" placeholder="[% l('Search the documentation...')  %]" />
+      [% form_submit(l('Search'),'inline') %]
+    </form>
+  </div>
+[%- END -%]
