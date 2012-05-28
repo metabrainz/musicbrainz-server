@@ -346,7 +346,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
 	    return url;
         }
-    },
+    }
 };
 
 
