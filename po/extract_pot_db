@@ -91,7 +91,7 @@ sub parse_db {
 
     foreach my $column (@$columns) {
         my $select_cols = "$column,$idcol";
-        if ($ctx) {
+        if ($ctx && $ctx != 'NULL') {
             $select_cols .= ',' . $ctx;
         }
         if ($comment) {
@@ -113,11 +113,15 @@ sub parse_db {
                    $item =~ s/\r*\n/\\n/g;
                    $po->msgid(encode('UTF-8', $item));
                    if ($ctx) {
-                       my $ctxt = shift @{$value};
-                       if ($ctxt) {
-                           $po->msgctxt("$table:$ctxt");
+                       if ($ctx != 'NULL') {
+                           my $ctxt = shift @{$value};
+                           if ($ctxt) {
+                               $po->msgctxt("$table:$ctxt");
+                           } else {
+                               $po->msgctxt("$table:$id");
+                           }
                        } else {
-                           $po->msgctxt("$table:$id");
+                           $po->msgctxt("$table");
                        }
                    }
                    if ($comment) {
