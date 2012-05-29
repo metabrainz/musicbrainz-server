@@ -190,14 +190,21 @@ sub find_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name) AS name_collate
+                    musicbrainz_collate(name.name) AS name_collate,
+                    array(
+                      SELECT name FROM release_group_secondary_type rgst
+                      JOIN release_group_secondary_type_join rgstj
+                        ON rgstj.secondary_type = rgst.id
+                      WHERE rgstj.release_group = rg.id
+                      ORDER BY name ASC
+                    ) secondary_types
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                      " . join(' ', @$extra_joins) . "
                  WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY
-                    rg.type,
+                    rg.type, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
