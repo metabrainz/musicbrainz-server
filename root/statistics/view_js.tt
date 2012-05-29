@@ -34,6 +34,7 @@
                 "release-quality": { Label: '[% l('Release Data Quality') | js %]' },
                 "ratings-tags": { Label: '[% l('Ratings and Tags') | js %]' },
                 "formats": { Label: '[% l('Formats') | js %]' },
+                "cover-art": { Label: '[% l('Cover Art') | js %]', Hide: true },
 
                 "other": { Label: '[% l('Other') | js %]' }
             },
@@ -180,6 +181,9 @@
                 [% USE String(loop.count() * 3 ) %]
                 "count.ar.links.l_[% rel.0 %]_[% rel.1 %]": { Label: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Color: '#5[% String.format('%02d') %]F[% String.format('%02d') %]', Description: '[% l('l_{first}_{second} Relationships', { first => rel.0, second => rel.1 }) | js %]', Category: 'relationships' },
             [% END %]
+
+            "count.coverart": { Label: '[% l('Pieces of Cover Art') | js %]', Color: '#0022dd', Description: '[% l('Pieces of Cover Art') | js %]', Category: 'cover-art' },
+            "count.release.has_caa": { Label: '[% l('Releases with Cover Art') | js %]', Color: '#22eedd', Description: '[% l('Releases with Cover Art') | js %]', Category: 'cover-art' }
         }
     });
 })(MB);

@@ -942,7 +942,8 @@ sub _edit_missing_entities
             as_auto_editor => $data->{as_auto_editor},
             name => $artist->{name},
             sort_name => $artist->{sort_name} || '',
-            comment => $artist->{comment} || '');
+            comment => $artist->{comment} || '',
+            ipi_codes => [ ]);
     } grep { !$_->{entity_id} } @missing_artist;
 
     my @missing_label = @{ $data->{missing}{label} || [] };
@@ -952,6 +953,7 @@ sub _edit_missing_entities
             $EDIT_LABEL_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
+            ipi_codes => [ ],
             map { $_ => $label->{$_} } qw( name sort_name comment ));
     } grep { !$_->{entity_id} } @{ $data->{missing}{label} };
 
@@ -1309,6 +1311,7 @@ sub _expand_track
         length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
+        number => trim ($trk->{number} // $trk->{position}),
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
@@ -1469,7 +1472,7 @@ sub _seed_parameters {
             sub { shift->model('ReleaseStatus')->find_by_name(shift) },
         ],
         [
-            'type_id', 'type',
+            'primary_type_id', 'type',
             sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
         ],
         [

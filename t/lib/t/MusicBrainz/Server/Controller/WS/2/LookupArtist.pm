@@ -43,7 +43,11 @@ ws_test 'artist lookup, inc=aliases',
             <begin>1986-11-05</begin>
         </life-span>
         <alias-list count="5">
-            <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>ボア</alias><alias>보아</alias>
+            <alias sort-name="Beat of Angel">Beat of Angel</alias>
+            <alias sort-name="BoA Kwon">BoA Kwon</alias>
+            <alias sort-name="Kwon BoA">Kwon BoA</alias>
+            <alias sort-name="ボア">ボア</alias>
+            <alias sort-name="보아">보아</alias>
         </alias-list>
     </artist>
 </metadata>';
@@ -194,6 +198,7 @@ ws_test 'artist lookup with release groups',
             <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
                 <title>the Love Bug</title>
                 <first-release-date>2004-03-17</first-release-date>
+                <primary-type>Single</primary-type>
             </release-group>
         </release-group-list>
     </artist>

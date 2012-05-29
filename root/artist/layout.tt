@@ -13,7 +13,7 @@
                property='foaf:gender'
                content=html_escape(l(artist.gender_name))
                    IF artist.gender -%]
-            [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
+            [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended -%]
                     [%- IF artist.begin_date.format %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
                             [% date_period_label = artist.type_id == 1 ? l('Born:') : artist.type_id == 2 ? l('Founded:') : l('Began:') %]
@@ -23,13 +23,19 @@
                             [% END %]
                         [% END %]
                     [%- END -%]
+                    [% date_period_label = artist.type_id == 1 ? l('Died:')
+                                         : artist.type_id == 2 ? l('Dissolved:')
+                                         :                       l('Ended:') %]
                     [% IF artist.end_date.format %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% date_period_label = artist.type_id == 1 ? l('Died:') : artist.type_id == 2 ? l('Dissolved:') : l('Ended:') %]
                             [% rdfa_end_date_artist(artist.end_date.format) %]
                             [% IF artist.has_age %]
                                 ([% rdfa_artist_age(display_age (artist.age, artist.type_id == 1)) %])
                             [% END %]
+                        [% END %]
+                    [% ELSIF artist.ended %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
+                            [% l('[unknown]') %]
                         [% END %]
                     [% END %]
             [%- END -%]
@@ -37,9 +43,10 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
                content=html_escape(l(artist.country.name))
                    IF artist.country -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-               content=rdfa_artist_ipi(artist)
-                   IF artist.ipi_code -%]
+            [%- FOR ipi_code IN artist.ipi_codes -%]
+              [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+                 content=rdfa_artist_ipi(ipi_code) %]
+            [%- END -%]
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]

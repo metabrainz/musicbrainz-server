@@ -48,6 +48,7 @@ sub label_toplevel
 
     $c->model('LabelType')->load($label);
     $c->model('Country')->load($label);
+    $c->model('Label')->ipi->load_for($label);
 
     if ($c->stash->{inc}->aliases)
     {

@@ -51,7 +51,8 @@ CREATE OR REPLACE FUNCTION reindex_release_via_catno() RETURNS trigger AS $$
         SELECT gid INTO release_mbid
         FROM musicbrainz.release
         JOIN musicbrainz.release_label ON release_label.release = release.id
-        WHERE release = NEW.id;
+        JOIN cover_art_archive.cover_art caa_r ON release.id = caa_r.release
+        WHERE release = NEW.release;
 
         IF FOUND THEN
             PERFORM pgq.insert_event('CoverArtIndex', 'index', release_mbid::text);

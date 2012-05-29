@@ -3,9 +3,11 @@ use HTML::FormHandler::Moose;
 
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'edit-alias' );
 
@@ -14,9 +16,22 @@ has_field 'name' => (
     required => 1
 );
 
+has_field 'sort_name' => (
+    type => '+MusicBrainz::Server::Form::Field::Text'
+);
+
 has_field 'locale' => (
     type     => 'Select',
     required => 0
+);
+
+has_field 'type_id' => (
+    type => 'Select',
+    required => 0
+);
+
+has_field 'primary_for_locale' => (
+    type => 'Checkbox'
 );
 
 has 'id' => (
@@ -36,13 +51,13 @@ has 'alias_model' => (
     required => 1
 );
 
-sub edit_field_names { qw(name locale) }
+has search_hint_type_id => (
+    isa => 'Int',
+    is => 'ro',
+    required => 1
+);
 
-sub validate_locale {
-    my ($self, $field) = @_;
-    $field->add_error('An alias for this locale has already been added')
-        if $self->alias_model->has_locale( $self->parent_id, $field->value, $self->id );
-}
+sub edit_field_names { qw( name locale sort_name begin_date end_date type_id primary_for_locale ) }
 
 sub options_locale {
     my ($self, $field) = @_;
@@ -54,5 +69,37 @@ sub options_locale {
                 map { DateTime::Locale->load($_) } DateTime::Locale->ids
     ];
 }
+
+sub options_type_id {
+    my $self = shift;
+    $self->_select_all($self->alias_model->parent->alias_type);
+}
+
+sub validate_primary_for_locale {
+    my $self = shift;
+    if ($self->field('primary_for_locale')->value && !$self->field('locale')->value) {
+        return $self->field('primary_for_locale')->add_error(
+            l('This alias can only be a primary alias if a locale is selected'));
+    }
+}
+
+after validate => sub {
+    my $self = shift;
+    my $type_id = $self->field('type_id')->value;
+
+    if (!$type_id || $type_id != $self->search_hint_type_id) {
+        my $sort_name_field = $self->field('sort_name');
+        $sort_name_field->required(1);
+        $sort_name_field->validate_field;
+    }
+
+    if ($self->alias_model->exists({ name => $self->field('name')->value,
+                                     locale => $self->field('locale')->value,
+                                     type_id => $self->field('type_id')->value,
+                                     not_id => $self->init_object ? $self->init_object->{id} : undef,
+                                 })) {
+        $self->field('name')->add_error('This alias already exists');
+    }
+};
 
 1;

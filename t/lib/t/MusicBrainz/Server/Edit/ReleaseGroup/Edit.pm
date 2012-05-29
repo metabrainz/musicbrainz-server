@@ -40,7 +40,7 @@ $rg = $c->model('ReleaseGroup')->get_by_id(1);
 $c->model('ArtistCredit')->load($rg);
 is($rg->edits_pending, 0);
 is($rg->artist_credit->name, 'Break & Silent Witness');
-is($rg->type_id, 1);
+is($rg->primary_type_id, 1);
 is($rg->comment, 'EP');
 is($rg->name, 'We Know');
 
@@ -135,6 +135,25 @@ test 'Check conflicts (conflicting edits)' => sub {
     is ($rg->artist_credit->name, 'New ac name', 'date changed');
 };
 
+test 'Reject edits that try to set the release group type to something that doesnt exist' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('ReleaseGroup')->get_by_id(1),
+        primary_type_id => 1001,
+    );
+
+    my $exception = exception { $edit->accept };
+    ok(defined $exception, 'Did not accept edit');
+    isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency');
+    is($exception->message,
+       "This edit changes the release group's primary type to a type that no longer exists.");
+};
+
 sub create_edit {
     my ($c, $rg) = @_;
     return $c->model('Edit')->create(
@@ -157,14 +176,14 @@ sub create_edit {
             ] },
         name => 'We Know',
         comment => 'EP',
-        type_id => 1,
+        primary_type_id => 1,
     );
 }
 
 sub is_unchanged {
     my $rg = shift;
     is($rg->name, 'Release Name');
-    is($rg->type_id, undef);
+    is($rg->primary_type_id, undef);
     is($rg->comment, undef);
     is($rg->artist_credit_id, 1);
 }

@@ -9,7 +9,7 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(l(label.type_name))
                    IF label.type -%]
-            [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
+            [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty AND !label.ended -%]
                     [%- IF label.begin_date.format %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") %]
                             [% label.begin_date.format %]
@@ -25,11 +25,16 @@
                                 ([% display_age (label.age) %])
                             [% END %]
                         [% END %]
+                    [% ELSIF label.ended %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") %]
+                            [% l('[unknown]') %]
+                        [% END %]
                     [% END %]
             [%- END -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-               content=html_escape(label.ipi_code)
-                   IF label.ipi_code -%]
+            [%- FOR ipi_code IN label.ipi_codes -%]
+              [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
+                 content=rdfa_label_ipi(ipi_code) %]
+            [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
                content=html_escape(label.format_label_code)
                    IF label.label_code -%]

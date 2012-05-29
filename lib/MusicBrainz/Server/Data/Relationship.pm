@@ -135,7 +135,8 @@ sub _load
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id";
         my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
-                     l.end_date_year,   l.end_date_month,   l.end_date_day';
+                     l.end_date_year,   l.end_date_month,   l.end_date_day,
+                     l.ended';
 
         if ($target eq 'url') {
             $query = "
@@ -342,6 +343,7 @@ sub exists
             link_type_id => $values->{link_type_id},
             begin_date => $values->{begin_date},
             end_date => $values->{end_date},
+            ended => $values->{ended},
             attributes => $values->{attributes},
         })
     );
@@ -357,6 +359,7 @@ sub insert
             link_type_id => $values->{link_type_id},
             begin_date => $values->{begin_date},
             end_date => $values->{end_date},
+            ended => $values->{ended},
             attributes => $values->{attributes},
         }),
         entity0 => $values->{entity0_id},
@@ -374,7 +377,7 @@ sub update
 
     my %link = map {
         $_ => $values->{$_};
-    } qw( link_type_id begin_date end_date attributes );
+    } qw( link_type_id begin_date end_date attributes ended );
 
     my $row = {};
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);

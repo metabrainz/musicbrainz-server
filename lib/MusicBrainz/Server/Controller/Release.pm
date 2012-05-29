@@ -73,7 +73,7 @@ after 'load' => sub
     }
 
     # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
+    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
         small_thumbnail => $prefix.'/front-250'
@@ -207,7 +207,7 @@ sub medium_sort
 {
     ($a->medium->format_id || 99) <=> ($b->medium->format_id || 99)
         or
-    ($a->medium->release->release_group->type_id || 99) <=> ($b->medium->release->release_group->type_id || 99)
+    ($a->medium->release->release_group->primary_type_id || 99) <=> ($b->medium->release->release_group->primary_type_id || 99)
         or
     ($a->medium->release->status_id || 99) <=> ($b->medium->release->status_id || 99)
         or
@@ -676,9 +676,9 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
             edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
             release => $entity,
             artwork_id => $artwork->id,
-            old_types => [ @type_ids ],
+            old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
             old_comment => $artwork->comment,
-            new_types => $form->field ("type_id")->value,
+            new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
             new_comment => $form->field('comment')->value || '',
         );
 

@@ -50,11 +50,17 @@
         <td>[% edit.display_data.end_date.format %]</td>
     </tr>
     [% END %]
-
-    [% IF edit.display_data.ipi_code %]
     <tr>
-      <th>[% l('IPI code:') %]</th>
-      <td>[% edit.display_data.ipi_code %]</td>
+        <th>[% l('Ended:') %]</th>
+    <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
     </tr>
+
+    [% IF edit.display_data.ipi_codes.size %]
+      [%- FOR ipi_code IN edit.display_data.ipi_codes -%]
+      <tr>
+        <th>[% l('IPI code:') %]</th>
+        <td>[% ipi_code %]</td>
+      </tr>
+      [% END %]
     [% END %]
 </table>

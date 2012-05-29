@@ -11,6 +11,28 @@ use MusicBrainz::Server::Test;
 
 with 't::Context';
 
+test 'Test find_by_iswc' => sub {
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+
+    {
+        my @works = $test->c->model('Work')->find_by_iswc('T-000.000.001-0');
+        is(@works, 1, 'Found 1 work');
+        is($works[0]->id, 1, 'Found work with ID 1');
+    }
+
+    {
+        my @works = $test->c->model('Work')->find_by_iswc('T-000.000.002-0');
+        is(@works, 1, 'Found 1 work');
+        is($works[0]->id, 2, 'Found work with ID 1');
+    }
+
+    {
+        my @works = $test->c->model('Work')->find_by_iswc('T-123.321.002-0');
+        is(@works, 0, 'Found 0 works with unknown ISWC');
+    }
+};
+
 test all => sub {
 
 my $test = shift;
@@ -22,7 +44,6 @@ my $work = $work_data->get_by_id(1);
 is ( $work->id, 1 );
 is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
 is ( $work->name, "Dancing Queen" );
-is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
 
@@ -30,7 +51,6 @@ $work = $work_data->get_by_gid("745c079d-374e-4436-9448-da92dedef3ce");
 is ( $work->id, 1 );
 is ( $work->gid, "745c079d-374e-4436-9448-da92dedef3ce" );
 is ( $work->name, "Dancing Queen" );
-is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
 
@@ -67,7 +87,6 @@ $test->c->sql->begin;
 $work = $work_data->insert({
         name => 'Traits',
         type_id => 1,
-        iswc => 'T-000.000.001-0',
         comment => 'Drum & bass track',
     });
 
@@ -77,18 +96,15 @@ ok($work->id > 1);
 $work = $work_data->get_by_id($work->id);
 is($work->name, 'Traits');
 is($work->comment, 'Drum & bass track');
-is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
 ok(defined $work->gid);
 
 $work_data->update($work->id, {
         name => 'Traits (remix)',
-        iswc => 'T-100.000.001-0',
     });
 
 $work = $work_data->get_by_id($work->id);
 is($work->name, 'Traits (remix)');
-is($work->iswc, 'T-100.000.001-0');
 
 $work_data->delete($work->id);
 

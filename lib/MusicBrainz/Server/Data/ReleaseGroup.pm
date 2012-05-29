@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Data::ReleaseGroup;
-
 use Moose;
 use namespace::autoclean;
+
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
@@ -35,7 +36,7 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS type_id, name.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, name.name,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,
@@ -47,7 +48,7 @@ sub _column_mapping {
     return {
         id => 'id',
         gid => 'gid',
-        type_id => 'type_id',
+        primary_type_id => 'primary_type_id',
         name => 'name',
         artist_credit_id => 'artist_credit_id',
         comment => 'comment',
@@ -74,7 +75,7 @@ sub _entity_class
 
 sub _where_filter
 {
-	my ($filter) = @_;
+    my ($filter) = @_;
 
     my (@query, @joins, @params);
 
@@ -93,14 +94,24 @@ sub _where_filter
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
-			if (@types) {
-				push @query, 'rg.type IN (' . placeholders(@types) . ')';
-				push @params, @types;
-			}
+            my %partitioned_types = partition_by {
+                "$_" =~ /^st:/ ? 'secondary' : 'primary'
+            } @types;
+
+            if (my $primary = $partitioned_types{primary}) {
+                push @query, 'rg.type = any(?)';
+                push @params, $primary;
+            }
+
+            if (my $secondary = $partitioned_types{secondary}) {
+                push @query, 'st.secondary_type = any(?)';
+                push @params, [ map { substr($_, 3) } @$secondary ];
+                push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
+            }
         }
     }
 
-	return (\@query, \@joins, \@params);	
+    return (\@query, \@joins, \@params);
 }
 
 sub load
@@ -179,14 +190,21 @@ sub find_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name) AS name_collate
+                    musicbrainz_collate(name.name) AS name_collate,
+                    array(
+                      SELECT name FROM release_group_secondary_type rgst
+                      JOIN release_group_secondary_type_join rgstj
+                        ON rgstj.secondary_type = rgst.id
+                      WHERE rgstj.release_group = rg.id
+                      ORDER BY name ASC
+                    ) secondary_types
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                      " . join(' ', @$extra_joins) . "
                  WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY
-                    rg.type,
+                    rg.type, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
@@ -432,10 +450,13 @@ sub insert
     {
         my $row = $self->_hash_to_row($group, \%names);
         $row->{gid} = $group->{gid} || generate_gid();
-        push @created, $class->new(
+        my $new = $class->new(
             id => $self->sql->insert_row('release_group', $row, 'id'),
             gid => $row->{gid}
         );
+        push @created, $new;
+
+        $self->c->model('ReleaseGroupSecondaryType')->set_types($new->id, $group->{secondary_type_ids})
     }
     return @groups > 1 ? @created : $created[0];
 }
@@ -446,7 +467,9 @@ sub update
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $self->sql->update_row('release_group', $row, { id => $group_id });
+    $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
+    $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
+        if exists $update->{secondary_type_ids};
 }
 
 sub in_use
@@ -483,6 +506,8 @@ sub delete
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->delete_entities (@group_ids);
+
     $self->sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
 }
@@ -526,6 +551,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->merge_entities ($new_id, @old_ids);
 
     merge_table_attributes(
         $self->sql => (
@@ -548,7 +574,7 @@ sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
     my $row = hash_to_row($group, {
-        type => 'type_id',
+        type => 'primary_type_id',
         map { $_ => $_ } qw( artist_credit comment edits_pending )
     });
 

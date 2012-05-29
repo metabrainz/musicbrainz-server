@@ -8,7 +8,7 @@
     [% WRAPPER form_row %]
         [% qr.label('query', l('Query:')) %]
         [% qr.text('query') %]
-        [% form_submit(l('Search')) %]
+        [% form_submit(l('Search'), 'inline') %]
         [% field_errors(qr, 'query') %]
     [% END %]
 </form>

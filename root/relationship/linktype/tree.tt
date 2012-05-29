@@ -15,8 +15,8 @@
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [%- IF c.user.is_relationship_editor -%]
         [
-            <a href="[% c.uri_for_action('/relationship/linktype/edit', [ types ], obj.gid) %]">[% l('Edit') %]</a>
-            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ types ], obj.gid) %]">[% l('Remove') %]</a>[% END %]
+            <a href="[% c.uri_for_action('/relationship/linktype/edit', [ obj.gid ]) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ obj.gid ]) %]">[% l('Remove') %]</a>[% END %]
         ]
         [% END %]
         </div>
@@ -35,12 +35,12 @@
     <div id="content">
         [%- INCLUDE 'relationship/header.tt' %]
 
-        <p><small><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[%- l('< Back to all relationship types') -%]</a></small></p>
+        <p><small><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[%- l('&lt; Back to all relationship types') -%]</a></small></p>
 
         <h2>[% l("{type0}-{type1} relationship types", { type0 => type0_name, type1 => make_lower(type1_name) }) %]</h2>
 
         [%- IF c.user.is_relationship_editor -%]
-            <p><a href="[% c.uri_for_action('/relationship/linktype/create') %]">[% l('Create a new {type0}-{type1} relationship', { type0 => make_lower(type0_name), type1 => make_lower(type1_name) }) %]</a></p>
+            <p><a href="[% c.uri_for_action('/relationship/linktype/create', [ types ]) %]">[% l('Create a new {type0}-{type1} relationship', { type0 => make_lower(type0_name), type1 => make_lower(type1_name) }) %]</a></p>
         [%- END -%]
 
         [% IF root.children.size %]
