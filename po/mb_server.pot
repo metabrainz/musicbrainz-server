@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-23 20:41-0400\n"
+"POT-Creation-Date: 2012-05-29 19:14-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -646,6 +646,11 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddArtistAlias.pm:7
 #, perl-format
 msgid "Add artist alias"
+msgstr ""
+
+#: ../root/relationship/linkattributetype/common.tt:24
+#, perl-format
+msgid "Add child"
 msgstr ""
 
 #: ../root/cdstub/layout.tt:23
@@ -2709,7 +2714,7 @@ msgstr ""
 #: ../root/collection/header.tt:6 ../root/components/aliases.tt:44
 #: ../root/components/relationships.tt:56 ../root/label/header.tt:1
 #: ../root/puid/index.tt:13 ../root/recording/header.tt:1
-#: ../root/relationship/linkattributetype/common.tt:24
+#: ../root/relationship/linkattributetype/common.tt:25
 #: ../root/relationship/linktype/tree.tt:18 ../root/release/cover_art.tt:23
 #: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:369
 #: ../root/release_group/header.tt:1 ../root/release/tabs.tt:1
@@ -6570,7 +6575,7 @@ msgstr ""
 #: ../root/components/aliases.tt:47 ../root/components/relationships.tt:49
 #: ../root/label/delete.tt:1 ../root/puid/index.tt:31
 #: ../root/recording/delete.tt:1 ../root/recording/fingerprints.tt:30
-#: ../root/relationship/linkattributetype/common.tt:25
+#: ../root/relationship/linkattributetype/common.tt:26
 #: ../root/relationship/linkattributetype/delete.tt:11
 #: ../root/relationship/linktype/delete.tt:11
 #: ../root/relationship/linktype/tree.tt:19 ../root/release/cover_art.tt:26
@@ -10865,7 +10870,7 @@ msgstr ""
 msgid "This ISRC already exists for this recording"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:47
+#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:48
 #, perl-brace-format
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
@@ -11300,7 +11305,7 @@ msgstr ""
 msgid "Remove work alias"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:25
 msgid "Edit work"
 msgstr ""
 
