@@ -626,6 +626,14 @@ END -%]
     ELSIF url.url.host.search('worldcat.org'); 'worldcat';
     ELSIF url.url.host.search('45cat.com'); 'fortyfivecat';
     ELSIF url.url.host.search('rateyourmusic.com'); 'rateyourmusic';
+    ELSIF url.url.host.search('rolldabeats.com'); 'rolldabeats';
+    ELSIF url.url.host.search('psydb.net'); 'psydb';
+    ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
+    ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
+    ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
+    ELSIF url.url.host.search('ocremix.org'); 'ocremix';
+    ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
+    ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSE; '';
 END %]
 
