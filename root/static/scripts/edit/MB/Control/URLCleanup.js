@@ -163,10 +163,10 @@ MB.constants.CLEANUPS = {
         }
     },
     myspace: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?myspace\\.com","i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?myspace\\.(com|de|fr)","i"),
         type: MB.constants.LINK_TYPES.myspace,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?(www\.)?myspace\.com/, "http://www.myspace.com");
+            return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "http://www.myspace.com");
         }
     },
     purevolume: {
