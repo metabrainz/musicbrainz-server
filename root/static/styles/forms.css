@@ -335,6 +335,14 @@ ul.conditions button.remove img {
     top: 0;
 }
 
+div.upload-error {
+    border: 1px solid #a1a1a1;
+    background: #ffffd0;
+    margin: 2em 2em 0 2em;
+}
+div.upload-error img.warning { width: 48px; height: 48px; margin: 16px; }
+div.upload-error { min-height: 80px; }
+div.file-info div.ui-progressbar { margin-right: 16px; }
 div.file-info div.ui-progressbar .ui-widget-header {
     background: url("../images/diagonals-purple.png");
 }

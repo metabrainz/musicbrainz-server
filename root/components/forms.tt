@@ -44,7 +44,7 @@
 
 [%- BLOCK form_row -%]
     <div class="row" [% IF row_id %]id="[% row_id %]"[% END %]>
-      [% content %]
+      [%- content -%]
     </div>
 [%- END -%]
 

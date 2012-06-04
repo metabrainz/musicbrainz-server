@@ -116,7 +116,27 @@ MB.CoverArt.reorder_position = function () {
     $('div.editimage script').remove ();
 };
 
-MB.CoverArt.create_edit = function ($filebox, gid) {
+MB.CoverArt.upload_error = function ($filebox, error) {
+    var message = "";
+    if (error && error.slice (0, 5) === '<?xml')
+    {
+        message = ("<strong>code</strong>: " +
+                   $(error).find ('Code').text () +
+                   "<br /><strong>message</strong>: " +
+                   $(error).find ('Message').text () +
+                   "<br />");
+    }
+    else
+    {
+        message = "<strong>" + error + "</strong>";
+    }
+
+    $filebox.find ('div.row').not ('.file-info').hide ();
+    $filebox.find ('div.upload-error').show ()
+        .find (".errortext").empty ().append ($(message));
+};
+
+MB.CoverArt.create_edit = function ($filebox, gid, position) {
     var deferred = $.Deferred ();
 
     var formdata = new FormData ();
@@ -125,17 +145,33 @@ MB.CoverArt.create_edit = function ($filebox, gid) {
         formdata.append ('add-cover-art.type_id', $(elem).val ());
     });
 
-    /* FIXME: increment with each image. */
-    formdata.append ('add-cover-art.position', $('#id-add-cover-art\\.position').val ());
+    formdata.append ('add-cover-art.position', position);
     formdata.append ('add-cover-art.comment', $filebox.find ('input.comment').val ());
     formdata.append ('add-cover-art.edit_note', $('textarea.edit-note').val ());
 
     var xhr = new XMLHttpRequest ();
     xhr.addEventListener("load", function (event) {
-        deferred.resolve();
+        if (xhr.status === 200)
+        {
+            deferred.resolve();
+        }
+        else
+        {
+            MB.CoverArt.upload_error (
+                $filebox, xhr.status + " " + xhr.statusText);
+            deferred.reject();
+        }
     });
-    xhr.addEventListener("error", function (event) { console.log ("edit create error", event); deferred.reject(); });
-    xhr.addEventListener("abort", function (event) { console.log ("edit create abort", event); deferred.reject(); });
+
+    xhr.addEventListener("error", function (event) {
+        MB.CoverArt.upload_error ($filebox);
+        deferred.reject();
+    });
+
+    xhr.addEventListener("abort", function (event) {
+        MB.CoverArt.upload_error ($filebox);
+        deferred.reject();
+    });
 
     xhr.open ("POST", $('form.add-cover-art').attr ('action'));
     xhr.send (formdata);
@@ -143,7 +179,7 @@ MB.CoverArt.create_edit = function ($filebox, gid) {
     return deferred.promise ();
 };
 
-MB.CoverArt.upload_image = function ($filebox, gid) {
+MB.CoverArt.upload_image = function ($filebox, gid, position) {
 
     var set_progress = function ($filebox, progress) {
       $filebox.find ('.ui-progressbar-value').css ('width', Math.floor (progress) + "%");
@@ -169,15 +205,29 @@ MB.CoverArt.upload_image = function ($filebox, gid) {
         });
 
         xhr.addEventListener("load", function (event) {
-            set_progress ($filebox, 100);
+            if (xhr.status >= 200 && xhr.status < 210)
+            {
+                set_progress ($filebox, 100);
 
-            var edit_promise = MB.CoverArt.create_edit ($filebox, gid);
-            /* resolve our promise when creating the edit succeeded or failed,
-               so the next image can be uploaded. */
-            edit_promise.always (function () { deferred.resolve(); });
+                var edit_promise = MB.CoverArt.create_edit ($filebox, gid, position);
+                edit_promise.done (deferred.resolve);
+                edit_promise.fail (deferred.reject);
+            }
+            else
+            {
+                MB.CoverArt.upload_error ($filebox, xhr.responseText);
+            }
         });
-        xhr.addEventListener("error", function (event) { console.log ("error", event); deferred.reject(); });
-        xhr.addEventListener("abort", function (event) { console.log ("abort", event); deferred.reject(); });
+
+        xhr.addEventListener("error", function (event) {
+            MB.CoverArt.upload_error ($filebox);
+            deferred.reject();
+        });
+
+        xhr.addEventListener("abort", function (event) {
+            MB.CoverArt.upload_error ($filebox);
+            deferred.reject();
+        });
 
         xhr.open ("POST", data.action);
         xhr.send (formdata);
@@ -197,7 +247,7 @@ MB.CoverArt.add_files = function (event) {
         {
             $filebox = $('.file-box-error.template').clone ().removeClass ('template');
         }
-        $filebox.insertBefore ($('#cover-art-position-row'))
+        $filebox.insertBefore ($('#add-files-end'))
             .show ()
             .find ('.filename').text (file.name).end ()
             .find ('.filesize').text ('(' + filesize (file.size) + ')').end ()
@@ -218,9 +268,11 @@ MB.CoverArt.add_files = function (event) {
 MB.CoverArt.add_cover_art_submit = function (gid) {
     var queue = [];
 
+    var position = parseInt ($('#id-add-cover-art\\.position').val (), 10);
+
     $('.file-box').not('.template').each (function (idx, elem) {
         queue.push (function () {
-            return MB.CoverArt.upload_image ($(elem), gid);
+            return MB.CoverArt.upload_image ($(elem), gid, position++);
         });
     });
 

@@ -60,9 +60,14 @@
           <label>&nbsp;</label>
           <p>[%- l('Please see the <a href="{doc}" target="_blank">Cover Art Types</a> documentation for a description of these types.', {doc => doc_link('Cover_Art/Types')}) -%]</p>
         </div>
-        <div class="row">
+        <div class="comment row">
           <label>[%- l('Comment:') -%]</label>
           <input class="comment" type="text" size="47" />
+        </div>
+        <div class="upload-error row" style="display: none;">
+          <label>[%- warning_icon() -%]</label>
+          <p class="message">[%- l('An error occured while uploading this image.') -%]</p>
+          <p class="errortext"></p>
         </div>
 
       </div>
@@ -78,37 +83,34 @@
 
     </div>
 
-    <div class="row" id="cover-art-position-row">
-      <label id="cover-art-position-label" class="required">Position:</label>
+    <div id="add-files-end"> </div>
 
-      [%- IF images.size == 0 -%]
-        <div class="image-position-only">
-          [%- l('(no other cover art)') -%]
-        </div>
-      [%- ELSE -%]
-        <div class="image-position">
-        [%- FOR image = images -%]
-          <div class="thumb-position">
-            [%- display_artwork(image) -%]
-          </div>
-        [%- END -%]
+    [%- IF images.size > 0 -%]
+      <div class="row" id="cover-art-position-row">
+        <label id="cover-art-position-label" class="required">Position:</label>
 
-        [%- IF !artwork.id -%]
-          <div class="editimage thumb-position">
-            <img class="editimage" src="[% c.uri_for('/static/images/newimagesgohere-125.png') %]" />
-            <div>
-              <button class="left">&larr;</button>
-              <button class="right" style="float: right;">&rarr;</button>
+          <div class="image-position">
+          [%- FOR image = images -%]
+            <div class="thumb-position">
+              [%- display_artwork(image) -%]
             </div>
-          </div>
-        [%- END -%]
-        </div>
+          [%- END -%]
 
+          [%- IF !artwork.id -%]
+            <div class="editimage thumb-position">
+              <img class="editimage" src="[% c.uri_for('/static/images/newimagesgohere-125.png') %]" />
+              <div>
+                <button class="left">&larr;</button>
+                <button class="right" style="float: right;">&rarr;</button>
+              </div>
+            </div>
+          [%- END -%]
+        </div>
         <script type="text/javascript">
-            MB.CoverArt.image_position ("[% index_url %]", "[% artwork.id %]");
+          MB.CoverArt.image_position ("[% index_url %]", "[% artwork.id %]");
         </script>
-      [%- END -%]
-    </div>
+      </div>
+    [%- END -%]
 
     <div style="clear: left;"> </div>
 
