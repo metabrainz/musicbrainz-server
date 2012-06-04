@@ -1,9 +1,9 @@
 
--- jquery/jquery-1.5.1.js --
+-- jquery/jquery.js --
 
 library:     jQuery
 license:     MIT/GPLv2
-version:     1.5.1
+version:     1.7.2
 author:      John Resig
 url:         http://jquery.com
 
