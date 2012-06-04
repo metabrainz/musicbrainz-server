@@ -385,6 +385,40 @@ sub collections : Chained('load') RequireAuth
     );
 }
 
+=head2 cover art upload functions.
+
+  The starting point for a cover art upload is [ADD].
+
+  That page will either upload cover art to the internet archive using
+  XMLHttpRequests, or if the browser doesn't have support for this it
+  will fallback to an iframe which POSTs to the internet archive.
+
+  1. iframe fallback
+
+  The iframe is [UPLOADER], when the upload is finished the iframe
+  will be redirected to [UPLOADED].  [UPLOADED] will trigger a submit
+  in the parent frame, which then POSTs to [ADD].
+
+  2. ajax upload
+
+  The ajax upload allows the add cover art page to upload multiple
+  images.  For each image it will perform a GET request to [JS-COVER],
+  which will generate an image id and any other fields neccesary for
+  the POST to the internet archive.  After a POST to the internet
+  archive succeeds it creates the actual edit by POSTing to [ADD].
+
+  After all ajax uploads are finished and all edits are created it
+  will redirect to [ADDED], which will set a correct flash message and
+  redirect back to the cover-art page for the release.
+
+  [ADD]      /release/{mbid}/add-cover-art
+  [ADDED]    /release/{mbid}/added-cover-art
+  [UPLOADER] /release/{mbid}/cover_art_uploader?id={image-id}
+  [UPLOADED] /release/{mbid}/cover_art_uploaded?id={image-id}
+  [JS-COVER] /ws/js/cover-art-upload/{mbid}
+
+=cut
+
 sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
 {
     my ($self, $c) = @_;
@@ -407,6 +441,34 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     $c->stash->{form_action} = DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
+
+# FIXME: move this out of the controller.
+sub cover_art_types
+{
+    my ($self, $c) = @_;
+
+    my %types_by_name = map { $_->name => $_ } $c->model('CoverArtType')->get_all ();
+
+    my $front = delete $types_by_name{Front};
+    my $back = delete $types_by_name{Back};
+    my $other = delete $types_by_name{Other};
+
+    my $ret = {
+        map {
+            $_->id => l($_->name)
+        } ($front, $back, values %types_by_name, $other) };
+
+    return $ret;
+};
+
+sub added_cover_art : Chained('load') PathPart('added-cover-art') RequireAuth
+{
+    my ($self, $c) = @_;
+    my $entity = $c->stash->{$self->{entity_name}};
+    $c->flash->{message} = l('Thank you, your edits has been entered.');
+    $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
+    $c->detach;
+};
 
 sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
 {
@@ -431,7 +493,8 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     $c->stash({
         id => $id,
         index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
-        images => \@artwork
+        images => \@artwork,
+        cover_art_types => $self->cover_art_types ($c)
     });
 
     my $form = $c->form(
@@ -441,6 +504,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             position => $count
         }
     );
+
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
         $self->_insert_edit(

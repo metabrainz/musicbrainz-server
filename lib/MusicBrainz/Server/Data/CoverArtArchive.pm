@@ -56,25 +56,28 @@ sub post_fields
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
-    $policy->add ({'success_action_redirect' => $redirect});
+    $policy->add ({'success_action_redirect' => $redirect}) if $redirect;
     $policy->add ('$key eq '.$filename);
     $policy->add ('$content-type starts-with image/jpeg');
     $policy->add ('x-archive-auto-make-bucket eq 1');
     $policy->add ('x-archive-meta-collection eq coverartarchive');
     $policy->add ('x-archive-meta-mediatype eq images');
 
-    return {
+    my $ret = {
         AWSAccessKeyId => $aws_id,
         policy => $policy->base64(),
         signature => $policy->signature_base64($aws_key),
         key => $filename,
         acl => 'public-read',
         "content-type" => 'image/jpeg',
-        success_action_redirect => $redirect,
         "x-archive-auto-make-bucket" => 1,
         "x-archive-meta-collection" => 'coverartarchive',
         "x-archive-meta-mediatype" => 'images',
     };
+
+    $ret->{success_action_redirect} = $redirect if $redirect;
+
+    return $ret;
 }
 
 sub insert_cover_art {

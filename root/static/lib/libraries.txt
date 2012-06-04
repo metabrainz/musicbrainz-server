@@ -45,6 +45,14 @@ version:     v2.2
 author:      Paul Johnston
 url:         http://pajhome.org.uk/crypt/md5/jshash-2.2.zip
 
+-- filesize.js --
+
+library:     filesize.js
+license:     BSD
+version:     1.6.3
+author:      Jason Mulligan
+url:         http://filesizejs.com, http://github.com/avoidwork/filesize.js
+
 -- flot/jquery.flot.* --
 
 library:     flot
