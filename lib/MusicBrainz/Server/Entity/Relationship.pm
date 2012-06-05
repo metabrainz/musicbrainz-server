@@ -125,8 +125,8 @@ sub _build_phrase {
     my ($self) = @_;
     $self->_interpolate(
         $self->direction == $DIRECTION_FORWARD
-            ? l($self->link->type->link_phrase)
-            : l($self->link->type->reverse_link_phrase)
+            ? $self->link->type->l_link_phrase()
+            : $self->link->type->l_reverse_link_phrase()
     );
 }
 
@@ -143,7 +143,7 @@ sub _interpolate
     my %attrs;
     foreach my $attr (@attrs) {
         my $name = lc $attr->root->name;
-        my $value = l($attr->name);
+        my $value = $attr->l_name();
         if (exists $attrs{$name}) {
             push @{$attrs{$name}}, $value;
         }

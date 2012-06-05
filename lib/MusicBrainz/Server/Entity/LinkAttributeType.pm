@@ -2,6 +2,9 @@ package MusicBrainz::Server::Entity::LinkAttributeType;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Translation::Relationships;
+use MusicBrainz::Server::Translation::Instruments;
+use MusicBrainz::Server::Translation::InstrumentDescriptions;
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -35,10 +38,30 @@ has 'name' => (
     isa => 'Str',
 );
 
+sub l_name {
+    my $self = shift;
+    my $rootid = defined $self->root ? $self->root->id : $self->root_id;
+    if ($rootid == 14) {
+        return MusicBrainz::Server::Translation::Instruments::l($self->name);
+    } else {
+        return MusicBrainz::Server::Translation::Relationships::l($self->name);
+    }
+}
+
 has 'description' => (
     is => 'rw',
     isa => 'Str',
 );
+
+sub l_description {
+    my $self = shift;
+    my $rootid = defined $self->root ? $self->root->id : $self->root_id;
+    if ($rootid == 14) {
+        return MusicBrainz::Server::Translation::InstrumentDescriptions::l($self->description);
+    } else {
+        return MusicBrainz::Server::Translation::Relationships::l($self->description);
+    }
+}
 
 has 'child_order' => (
     is => 'rw',
