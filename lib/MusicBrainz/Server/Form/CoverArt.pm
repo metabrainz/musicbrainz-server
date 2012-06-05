@@ -16,22 +16,7 @@ has_field 'type_id' => (
     multiple  => 1,
 );
 
-sub options_type_id { 
-    my $self = shift;
-
-    my %types_by_name = map { $_->name => $_ } $self->ctx->model('CoverArtType')->get_all ();
-
-    my $front = delete $types_by_name{Front};
-    my $back = delete $types_by_name{Back};
-    my $other = delete $types_by_name{Other};
-
-    my $ret = [
-        map {
-            $_->id => l($_->name)
-        } ($front, $back, values %types_by_name, $other) ];
-
-    return $ret;
-};
+sub options_type_id { shift->_select_all('CoverArtType') };
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

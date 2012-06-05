@@ -391,7 +391,7 @@ sub collections : Chained('load') RequireAuth
 
   That page will either upload cover art to the internet archive using
   XMLHttpRequests, or if the browser doesn't have support for this it
-  will fallback to an iframe which POSTs to the internet archive.
+  will fall back to an iframe which POSTs to the internet archive.
 
   1. iframe fallback
 
@@ -442,25 +442,6 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
-# FIXME: move this out of the controller.
-sub cover_art_types
-{
-    my ($self, $c) = @_;
-
-    my %types_by_name = map { $_->name => $_ } $c->model('CoverArtType')->get_all ();
-
-    my $front = delete $types_by_name{Front};
-    my $back = delete $types_by_name{Back};
-    my $other = delete $types_by_name{Other};
-
-    my $ret = {
-        map {
-            $_->id => l($_->name)
-        } ($front, $back, values %types_by_name, $other) };
-
-    return $ret;
-};
-
 sub added_cover_art : Chained('load') PathPart('added-cover-art') RequireAuth
 {
     my ($self, $c) = @_;
@@ -494,7 +475,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         id => $id,
         index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork,
-        cover_art_types => $self->cover_art_types ($c)
+        cover_art_types => [ $c->model('CoverArtType')->get_all () ],
     });
 
     my $form = $c->form(

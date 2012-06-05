@@ -50,8 +50,7 @@
           <ul class="checkboxes">
           [%- FOR type = cover_art_types -%]
             <li>
-              <input type="checkbox" class="type" value="[% type.key %]" />
-              <label>[% type.value %]</label>
+              <label><input type="checkbox" class="type" value="[% type.id %]" /> [% type.name %]</label>
             </li>
           [%- END -%]
           </ul>

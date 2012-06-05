@@ -7,7 +7,8 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'cat' };
-with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::SelectAll' => {
+    -alias => { get_all => '_select_all' }, -excludes => 'get_all' };
 
 sub _table
 {
@@ -37,6 +38,19 @@ sub get_by_name
     my %types_by_name = map { $_->name => $_ } $self->get_all ();
 
     return map { $types_by_name{$_} } @names;
+}
+
+sub get_all
+{
+    my $self = shift;
+
+    my %types_by_name = map { $_->name => $_ } $self->_select_all ();
+
+    my $front = delete $types_by_name{Front};
+    my $back = delete $types_by_name{Back};
+    my $other = delete $types_by_name{Other};
+
+    return ($front, $back, values %types_by_name, $other);
 }
 
 __PACKAGE__->meta->make_immutable;

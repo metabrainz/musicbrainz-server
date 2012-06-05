@@ -254,13 +254,6 @@ MB.CoverArt.add_files = function (event) {
             .data ('file', file);
     });
 
-    var checkboxid = 0;
-    $('div.cover-art-types input[type="checkbox"]').each (function (idx, elem) {
-        checkboxid++;
-        $(elem).attr ('name', 'checkbox' + checkboxid)
-            .next ('label').attr ('for', 'checkbox' + checkboxid);
-    });
-
     /* Only display the the cover art type help once. */
     $('.cover-art-types-help').hide ().eq (1).show ();
 };
