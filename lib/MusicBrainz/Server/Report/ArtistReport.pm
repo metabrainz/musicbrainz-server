@@ -13,12 +13,16 @@ sub post_load
     my @artistids = map { $_->{artist_gid} } @$items;
     my $artists = $self->c->model('Artist')->get_by_gids(@artistids);
 
+    my @urlgids = map { $_->{url_gid} } @$items;
+    my $urls = $self->c->model('URL')->get_by_gids(@urlgids);
+
     foreach my $item (@$items) {
         if (defined $item->{type}) {
             $item->{type_id} = $item->{type};
             $item->{type} = $types->{$item->{type_id}};
         }
         $item->{artist} = $artists->{$item->{artist_gid}};
+        $item->{urlentity} = $urls->{$item->{url_gid}} if $item->{url_gid};
     }
 }
 
