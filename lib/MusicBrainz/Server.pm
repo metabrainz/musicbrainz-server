@@ -8,6 +8,14 @@ use DBDefs;
 use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
+use aliased 'MusicBrainz::Server::Translation::Statistics';
+use aliased 'MusicBrainz::Server::Translation::Countries';
+use aliased 'MusicBrainz::Server::Translation::Scripts';
+use aliased 'MusicBrainz::Server::Translation::Languages';
+use aliased 'MusicBrainz::Server::Translation::Attributes';
+use aliased 'MusicBrainz::Server::Translation::Relationships';
+use aliased 'MusicBrainz::Server::Translation::Instruments';
+use aliased 'MusicBrainz::Server::Translation::InstrumentDescriptions';
 
 use Encode;
 use Try::Tiny;
@@ -245,6 +253,14 @@ around 'dispatch' => sub {
     my $c = shift;
 
     Translation->instance->build_languages_from_header($c->req->headers);
+    Statistics->instance->build_languages_from_header($c->req->headers);
+    Countries->instance->build_languages_from_header($c->req->headers);
+    Scripts->instance->build_languages_from_header($c->req->headers);
+    Languages->instance->build_languages_from_header($c->req->headers);
+    Attributes->instance->build_languages_from_header($c->req->headers);
+    Relationships->instance->build_languages_from_header($c->req->headers);
+    Instruments->instance->build_languages_from_header($c->req->headers);
+    InstrumentDescriptions->instance->build_languages_from_header($c->req->headers);
 
     if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
         alarm($max_request_time);
@@ -267,6 +283,7 @@ around 'dispatch' => sub {
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
+sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
 sub language { return $ENV{LANGUAGE} || 'en' }
 
