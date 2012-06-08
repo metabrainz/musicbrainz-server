@@ -16,7 +16,7 @@ sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE }
 has '+data' => (
     isa => Dict[
         name        => Str,
-        description => Str,
+        description => Nullable[Str],
         id          => Int,
         parent_id   => Nullable[Int],
         child_order => Optional[Str]

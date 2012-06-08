@@ -872,6 +872,8 @@ sub create_edits
 
     $self->_expand_mediums($data);
 
+    $self->c->model('MB')->context->sql->begin unless $previewing;
+
     # Artists and labels:
     # ----------------------------------------
     my (%created) = $self->_edit_missing_entities(%args);
@@ -896,6 +898,8 @@ sub create_edits
 
     # Add any other extra edits (adding mediums, etc)
     $self->create_common_edits(%args);
+
+    $self->c->model('MB')->context->sql->commit unless $previewing;
 
     return $self->release;
 }

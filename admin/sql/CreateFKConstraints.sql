@@ -1299,7 +1299,7 @@ ALTER TABLE work
 ALTER TABLE work
    ADD CONSTRAINT work_fk_language
    FOREIGN KEY (language)
-   REFERENCES language (id);
+   REFERENCES language(id);
 
 ALTER TABLE work_alias
    ADD CONSTRAINT work_alias_fk_work

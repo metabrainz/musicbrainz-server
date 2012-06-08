@@ -442,19 +442,20 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         }
     );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RELEASE_ADD_COVER_ART,
-            release => $entity,
-            cover_art_types => [
-                grep { defined $_ && looks_like_number($_) }
-                    @{ $form->field ("type_id")->value }
-            ],
-            cover_art_position => $form->field ("position")->value,
-            cover_art_id => $form->field('id')->value,
-            cover_art_comment => $form->field('comment')->value || ''
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELEASE_ADD_COVER_ART,
+                release => $entity,
+                cover_art_types => [
+                    grep { defined $_ && looks_like_number($_) }
+                        @{ $form->field ("type_id")->value }
+                    ],
+                cover_art_position => $form->field ("position")->value,
+                cover_art_id => $form->field('id')->value,
+                cover_art_comment => $form->field('comment')->value || ''
+            );
+        });
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
@@ -489,14 +490,15 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAut
         init_object => { artwork => \@positions }
     );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
-            release => $entity,
-            old => \@positions,
-            new => $form->field ("artwork")->value
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
+                release => $entity,
+                old => \@positions,
+                new => $form->field ("artwork")->value
+            );
+        });
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
@@ -669,18 +671,19 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
             comment => $artwork->comment,
         }
     );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
-            release => $entity,
-            artwork_id => $artwork->id,
-            old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
-            old_comment => $artwork->comment,
-            new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
-            new_comment => $form->field('comment')->value || '',
-        );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
+                release => $entity,
+                artwork_id => $artwork->id,
+                old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
+                old_comment => $artwork->comment,
+                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
+                new_comment => $form->field('comment')->value || '',
+            );
+        });
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;

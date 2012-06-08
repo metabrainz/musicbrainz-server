@@ -128,6 +128,7 @@ DROP INDEX label_tag_raw_idx_tag;
 DROP INDEX language_idx_iso_code_1;
 DROP INDEX language_idx_iso_code_2b;
 DROP INDEX language_idx_iso_code_2t;
+DROP INDEX language_idx_iso_code_3;
 DROP INDEX link_attribute_type_idx_gid;
 DROP INDEX link_idx_type_attr;
 DROP INDEX link_type_idx_gid;
