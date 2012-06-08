@@ -354,8 +354,6 @@ MB.constants.CLEANUPS = {
             url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
 	    return url;
         }
-<<<<<<< HEAD
-=======
     },
     vgmdb: {
         match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
@@ -373,8 +371,6 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
             return url;
         }
-
->>>>>>> reosarevok/otherdbs
     }
 };
 
