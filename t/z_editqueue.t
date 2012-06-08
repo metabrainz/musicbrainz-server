@@ -37,6 +37,7 @@ my $log = Log::Dispatch->new( outputs => [ [ 'Null', min_level => 'debug' ] ] );
 #my $log = Log::Dispatch->new( outputs => [ [ 'Screen', min_level => 'debug' ] ] );
 my $queue;
 
+$sql->begin;
 $c->model('Edit')->create(
     edit_type => $EDIT_ARTIST_DELETE,
     editor_id => 1,
@@ -48,6 +49,7 @@ $c->model('Edit')->create(
     editor_id => 1,
     to_delete => $c->model('Artist')->get_by_id(4)
 );
+$sql->commit;
 
 my $edit = $c->model('Edit')->get_by_id(100);
 
