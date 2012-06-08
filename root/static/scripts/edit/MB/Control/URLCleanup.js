@@ -306,6 +306,14 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
+            if (url.match (/^http:\/\/www\.facebook\.com.*$/))
+            {
+                  // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
+                  url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");
+                  // Ensure the first parameter left uses ? not to break the URL
+                  url = url.replace(/([&?])&/, "$1");
+                  url = url.replace(/[&?]$/, "");
+            }
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             return url;
