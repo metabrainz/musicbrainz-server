@@ -44,7 +44,7 @@ working with Release entities
 =head1 DESCRIPTION
 
 This controller handles user interaction, both read and write, with
-L<MusicBrainz::Server::Release> objects. This includes displaying
+L<MusicBrainz::Server::Entity::Release> objects. This includes displaying
 releases, editing releases and creating new releases.
 
 =head1 METHODS
