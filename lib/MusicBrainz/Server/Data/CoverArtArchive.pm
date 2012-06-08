@@ -158,6 +158,13 @@ sub merge_releases {
     }
 }
 
+sub exists {
+    my ($self, $id) = @_;
+    my $row = $self->c->sql->select_single_value(
+        'SELECT TRUE FROM cover_art_archive.cover_art WHERE id = ?', $id
+    ) or return undef;
+}
+
 1;
 
 =head1 COPYRIGHT
