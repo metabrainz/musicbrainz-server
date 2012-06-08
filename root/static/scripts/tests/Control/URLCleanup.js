@@ -120,6 +120,27 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'label', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.label
+                ],
+
+                [
+                    'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                    MB.constants.LINK_TYPES.allmusic.artist
+                ],
+                [
+                    'release_group', 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                    MB.constants.LINK_TYPES.allmusic.release_group
+                ],
+                [
+                    'work', 'http://www.allmusic.com/song/help!-mt0043064796',
+                    MB.constants.LINK_TYPES.allmusic.work
+                ],
+                [
+                    'work', 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
+                    MB.constants.LINK_TYPES.allmusic.work
+                ],
+                [
+                    'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
+                    MB.constants.LINK_TYPES.allmusic.recording
                 ]
 
             ];
@@ -183,7 +204,34 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://youtube.com/user/officialpsy/videos',
                     'http://www.youtube.com/user/officialpsy',
                     'artist'
+                ],
+
+                [
+                    'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                    'http://www.allmusic.com/artist/mn0000754032',
+                    'artist'
+                ],
+                [
+                    'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                    'http://www.allmusic.com/album/mw0002303439',
+                    'release_group'
+                ],
+                [
+                    'http://www.allmusic.com/song/help!-mt0043064796',
+                    'http://www.allmusic.com/song/mt0043064796',
+                    'work'
+                ],
+                [
+                    'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
+                    'http://www.allmusic.com/composition/mc0002367338',
+                    'work'
+                ],
+                [
+                    'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
+                    'http://www.allmusic.com/performance/mq0000061129',
+                    'recording'
                 ]
+
             ];
 
         $.each(tests, function(i, test) {
