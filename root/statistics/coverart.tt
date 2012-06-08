@@ -2,6 +2,7 @@
 [% IF name == 'null' %][% default %][% ELSE %][% l(name) %][% END %]
 [%- END -%]
 [% WRAPPER 'statistics/layout.tt' title=l('Cover Art') full_width=1 page='coverart' %] 
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 [% USE format %]
 [% round1 = format('%.1f') %]
@@ -121,4 +122,5 @@
 </tr>
 </tbody>
 </table>
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

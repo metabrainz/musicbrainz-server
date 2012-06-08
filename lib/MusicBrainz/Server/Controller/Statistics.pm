@@ -3,6 +3,7 @@ use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
+use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );

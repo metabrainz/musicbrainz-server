@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
+use MusicBrainz::Server::Translation::Statistics qw( l );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
@@ -16,7 +17,8 @@ sub all_events {
     my ($self) = @_;
 
     return [
-        query_to_list(
+        map { $_->{title} = l($_->{title}); $_->{description} = l($_->{description}); $_; } 
+	query_to_list(
             $self->sql,
             sub { shift },
             'SELECT * FROM statistic_event ORDER BY date ASC',

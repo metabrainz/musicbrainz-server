@@ -7,16 +7,20 @@
     ['timeline', '<span class="mp"><a href="/statistics/timeline/main">Timeline</a></span>'],
 ] -%]
 
+
 [%- IF full_width -%]
 [%- WRAPPER "layout.tt" title="Database Statistics - ${title}" full_width=1 -%]
+[%- PROCESS "statistics/macros-header.tt" -%]
 <div class="statisticsheader">
     <h1>[%- l('Database Statistics') -%]</h1>
 </div>
         [% INCLUDE 'components/tabs.tt' list=info_links %]
         [%- content -%]
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [%- END -%]
 [%- ELSE -%]
 [%- WRAPPER "layout.tt" title="Database Statistics - ${title}" -%]
+[%- PROCESS "statistics/macros-header.tt" -%]
     <div id="sidebar">
         [%- sidebar -%]
     </div>
@@ -27,5 +31,6 @@
         [% INCLUDE 'components/tabs.tt' list=info_links %]
         [%- content -%]
     </div>
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [%- END -%]
 [%- END -%]
