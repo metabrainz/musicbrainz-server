@@ -31,10 +31,6 @@ MB.constants.LINK_TYPES = {
         artist: 180,
         label: 217
     },
-    musicmoz: {
-        release_group: 91,
-        artist: 181
-    },
     imdb: {
         release_group: 97,
         artist: 178
@@ -124,6 +120,14 @@ MB.constants.LINK_TYPES = {
         artist: 193,
         label: 225,
         recording: 268
+    },
+    otherdatabases: {
+        artist: 188,
+        label: 222,
+        release_group: 96,
+        release: 82,
+        work: 273,
+        recording: 306
     }
 };
 
@@ -151,10 +155,6 @@ MB.constants.CLEANUPS = {
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
         }
-    },
-    musicmoz: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?musicmoz\\.","i"),
-        type: MB.constants.LINK_TYPES.musicmoz
     },
     imdb: {
         match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
@@ -346,6 +346,27 @@ MB.constants.CLEANUPS = {
             url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
 	    return url;
         }
+<<<<<<< HEAD
+=======
+    },
+    vgmdb: {
+        match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
+        type: MB.constants.LINK_TYPES.vgmdb
+    },
+    otherdatabases: {
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/)", "i"),
+        type: MB.constants.LINK_TYPES.otherdatabases,
+        clean: function(url) {
+            //Removing cruft from Worldcat URLs
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
+            //Standardising IBDb not to use www
+            url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
+            //Standardising ESTER to their default parameters
+            url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
+            return url;
+        }
+
+>>>>>>> reosarevok/otherdbs
     }
 };
 
