@@ -37,11 +37,11 @@ MB.tests.URLCleanup.GuessType = function() {
 
                 [
                     'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
-                    MB.constants.LINK_TYPES.musicmoz.artist
+                    MB.constants.LINK_TYPES.otherdatabases.artist
                 ],
                 [
                     'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
-                    MB.constants.LINK_TYPES.musicmoz.release
+                    MB.constants.LINK_TYPES.otherdatabases.release
                 ],
 
                 [
