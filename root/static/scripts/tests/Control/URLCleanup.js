@@ -95,6 +95,10 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
+                ],
+                [
+                    'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                    MB.constants.LINK_TYPES.streamingmusic.recording
                 ]
             ];
 
