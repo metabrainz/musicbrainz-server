@@ -265,11 +265,17 @@ msgstr ""
 
 #: DB:link_type/description:25 DB:link_type/description:129
 #: DB:link_type/description:261 DB:link_type/description:162
-#: DB:link_type/description:270
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
 "notes of an album. (<a href=\"http://musicbrainz.org/doc/"
 "Miscellaneous_Production_Relationship_Type\">Details</a>)"
+msgstr ""
+
+#: DB:link_type/description:270
+msgid ""
+"Indicates a miscellaneous support role. This is usually stated in the liner "
+"notes of an album. (<a href=\"http://musicbrainz.org/doc/"
+"Other_Databases_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:105
@@ -1064,36 +1070,11 @@ msgid ""
 "org/doc/Discogs_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:195
-msgid ""
-"Points to the Internet Broadway Database page for this artist. (<a href="
-"\"http://musicbrainz.org/doc/IBDb_Relationship_Type\">Details</a>)"
-msgstr ""
-
 #: DB:link_type/description:178
 msgid ""
 "Points to the Internet Movie Database page for this artist. URLs should "
 "follow the format <code>http://www.imdb.com/name/&lt;ID&gt;/</code>. (<a "
 "href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:196
-msgid ""
-"Points to the Lortel Archives (Internet Off-Broadway Database) page for this "
-"artist. (<a href=\"http://musicbrainz.org/doc/IOBDb_Relationship_Type"
-"\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:91
-msgid ""
-"Points to the MusicMoz page for this album. (<a href=\"http://musicbrainz."
-"org/doc/MusicMoz_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:181
-msgid ""
-"Points to the MusicMoz page for this artist. (<a href=\"http://musicbrainz."
-"org/doc/MusicMoz_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:89
@@ -1122,40 +1103,12 @@ msgstr ""
 msgid "PureVolume page for"
 msgstr ""
 
-#: DB:link_type/description:99
-msgid ""
-"Relates a soundtrack album to the Internet Broadway Database page for the "
-"musical for which it is a soundtrack. (<a href=\"http://musicbrainz.org/doc/"
-"IBDb_Relationship_Type\">Details</a>)"
-msgstr ""
-
 #: DB:link_type/description:97
 msgid ""
 "Relates a soundtrack album to the Internet Movie Database page for the "
 "movie, show or game of which it is a soundtrack. URLs should follow the "
 "format <code>http://www.imdb.com/title/&lt;ID&gt;/</code>. (<a href=\"http://"
 "musicbrainz.org/doc/IMDb_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:100
-msgid ""
-"Relates a soundtrack album to the Lortel Archives (Internet Off-Broadway "
-"Database) page for the musical for which it is a soundtrack. (<a href="
-"\"http://musicbrainz.org/doc/IOBDb_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:275
-msgid ""
-"Relates a track to the Internet Broadway Database page for the musical from "
-"which the work originates. (<a href=\"http://musicbrainz.org/doc/"
-"IBDb_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:276
-msgid ""
-"Relates a track to the Lortel Archives (Internet Off-Broadway Database) page "
-"for the musical from which the work originates. (<a href=\"http://"
-"musicbrainz.org/doc/IOBDb_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:280
@@ -1507,6 +1460,26 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Songfacts_Relationship_Type\">Details</a>)"
 msgstr ""
 
+#: DB:link_type/description:273 DB:link_type/description:188
+#: DB:link_type/description:222 DB:link_type/description:306
+#: DB:link_type/description:82 DB:link_type/description:96
+msgid ""
+"This links an entity to the equivalent entry at another database. Please "
+"respect the <a href=\"http://musicbrainz.org/doc/"
+"Other_Databases_Relationship_Type/Whitelist\">whitelist</a> (<a href="
+"\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type"
+"\">Details</a>)"
+msgstr ""
+
+#: DB:link_type/description:100 DB:link_type/description:91
+#: DB:link_type/description:99 DB:link_type/description:196
+#: DB:link_type/description:181 DB:link_type/description:195
+#: DB:link_type/description:276 DB:link_type/description:275
+msgid ""
+"This relationship is <strong>deprecated</strong>. Use \"has a page in a "
+"database\" instead."
+msgstr ""
+
 #: DB:link_type/description:85
 msgid ""
 "This relationship is used to link a release to a site where music can be "
@@ -1582,7 +1555,7 @@ msgid "This relationship links an artist to its corresponding page on VGMdb."
 msgstr ""
 
 #: DB:link_type/description:283 DB:link_type/description:284
-#: DB:link_type/description:285 DB:link_type/description:286
+#: DB:link_type/description:286 DB:link_type/description:285
 msgid ""
 "This relationship links an artist, release group, work or recording to its "
 "corresponding page on allmusic. (<a href=\"http://musicbrainz.org/doc/"
@@ -1622,13 +1595,6 @@ msgid ""
 "Online_Community_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:199
-msgid ""
-"This relationship type can be used to link a MusicBrainz artist to their "
-"weblogs (<a href=\"http://musicbrainz.org/doc/Blog_Relationship_Type"
-"\">Details</a>)."
-msgstr ""
-
 #: DB:link_type/description:215
 msgid ""
 "This relationship type can be used to link a MusicBrainz label to the "
@@ -1645,9 +1611,8 @@ msgstr ""
 
 #: DB:link_type/description:224
 msgid ""
-"This relationship type can be used to link a MusicBrainz label to their "
-"weblogs (<a href=\"http://musicbrainz.org/doc/Blog_Relationship_Type"
-"\">Details</a>)."
+"This relationship type can be used to link a label to its blog (<a href="
+"\"http://musicbrainz.org/doc/Blog_Relationship_Type\">Details</a>)."
 msgstr ""
 
 #: DB:link_type/description:225
@@ -1671,6 +1636,12 @@ msgid ""
 "in YouTube. URLs should follow the format http://www.youtube.com/user/"
 "<username>. (<a href=\"http://musicbrainz.org/doc/YouTube_Relationship_Type"
 "\">Details</a>)"
+msgstr ""
+
+#: DB:link_type/description:199
+msgid ""
+"This relationship type can be used to link an artist to their blog (<a href="
+"\"http://musicbrainz.org/doc/Blog_Relationship_Type\">Details</a>)."
 msgstr ""
 
 #: DB:link_type/description:238
@@ -1723,12 +1694,13 @@ msgid ""
 "spelling."
 msgstr ""
 
-#: DB:link_type/description:93 DB:link_type/description:197
+#: DB:link_type/description:197 DB:link_type/description:93
 #: DB:link_type/description:271
 msgid ""
 "Use this relationship to link to lyrics hosted by lyrics.wikia.com, "
-"directlyrics.com, lyricstatus.com or kasi-time.com ONLY! (<a href=\"http://"
-"musicbrainz.org/doc/Has_Lyrics_At_Relationship_Type\">Details</a>)"
+"directlyrics.com, lyricstatus.com, kasi-time.com or wikisource.org ONLY! (<a "
+"href=\"http://musicbrainz.org/doc/Has_Lyrics_At_Relationship_Type\">Details</"
+"a>)"
 msgstr ""
 
 #: DB:link_type/description:227
@@ -2249,6 +2221,12 @@ msgstr ""
 msgid "has a miscellaneous role on"
 msgstr ""
 
+#: DB:link_type/short_link_phrase:188 DB:link_type/short_link_phrase:222
+#: DB:link_type/short_link_phrase:306 DB:link_type/short_link_phrase:82
+#: DB:link_type/short_link_phrase:96
+msgid "has a page in a database at"
+msgstr ""
+
 #: DB:link_type/short_link_phrase:173
 msgid "has a picture at"
 msgstr ""
@@ -2327,7 +2305,7 @@ msgstr ""
 msgid "has legal representation by"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:93 DB:link_type/short_link_phrase:197
+#: DB:link_type/short_link_phrase:197 DB:link_type/short_link_phrase:93
 msgid "has lyrics available at"
 msgstr ""
 
@@ -2405,6 +2383,10 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:270
 msgid "is a miscellaneous website for"
+msgstr ""
+
+#: DB:link_type/short_link_phrase:273
+msgid "is a page in a database for"
 msgstr ""
 
 #: DB:link_type/short_link_phrase:6 DB:link_type/short_link_phrase:236
@@ -2566,13 +2548,13 @@ msgstr ""
 msgid "logos"
 msgstr ""
 
-#: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
+#: DB:link_type/link_phrase:197 DB:link_type/link_phrase:93
 #: DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
 msgstr ""
 
-#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
-#: DB:link_type/reverse_link_phrase:197
+#: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:197
+#: DB:link_type/reverse_link_phrase:93
 msgid "lyrics page for"
 msgstr ""
 
@@ -2720,14 +2702,12 @@ msgstr ""
 msgid "other"
 msgstr ""
 
-#: DB:link_type/link_phrase:96 DB:link_type/link_phrase:82
-#: DB:link_type/link_phrase:188 DB:link_type/link_phrase:222
-#: DB:link_type/link_phrase:273 DB:link_type/reverse_link_phrase:96
-#: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:188
-#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
-#: DB:link_type/short_link_phrase:96 DB:link_type/short_link_phrase:82
-#: DB:link_type/short_link_phrase:188 DB:link_type/short_link_phrase:222
-#: DB:link_type/short_link_phrase:273
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
+#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:306
+#: DB:link_type/link_phrase:82 DB:link_type/link_phrase:96
+#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:188
+#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:306
+#: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:96
 msgid "other databases"
 msgstr ""
 
