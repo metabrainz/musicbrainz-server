@@ -128,6 +128,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://creativecommons.org/publicdomain/zero/1.0/legalcode'
+                    'http://creativecommons.org/publicdomain/zero/1.0/'
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es'
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/'
+                    'release'
+                ],
+                [
                     'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
                     'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
                     'release'
