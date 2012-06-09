@@ -128,13 +128,13 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
-                    'http://creativecommons.org/publicdomain/zero/1.0/legalcode'
-                    'http://creativecommons.org/publicdomain/zero/1.0/'
+                    'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
                     'release'
                 ],
                 [
-                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es'
-                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/'
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
                     'release'
                 ],
                 [
