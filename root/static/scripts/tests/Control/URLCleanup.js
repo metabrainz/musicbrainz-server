@@ -141,6 +141,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
                     'release'
+                ],
+                [
+                    'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                    'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
+                    'recording'
                 ]
             ];
 
