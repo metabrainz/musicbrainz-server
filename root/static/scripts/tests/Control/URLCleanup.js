@@ -112,6 +112,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://fr.myspace.com/jujusasadada',
+                    'http://www.myspace.com/jujusasadada',
+                    'artist'
+                ],
+                [
+                    'http://myspace.de/diekisten',
+                    'http://www.myspace.com/diekisten',
+                    'artist'
+                ],
+                [
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
                     'http://www.discogs.com/release/5578',
                     'release'
