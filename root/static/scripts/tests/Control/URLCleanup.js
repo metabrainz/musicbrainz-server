@@ -183,7 +183,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://youtube.com/user/officialpsy/videos',
                     'http://www.youtube.com/user/officialpsy',
                     'artist'
-                ]
+                ],
+                [
+                    'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
+                    'http://www.jamendo.com/list/a81403',
+                    'release'
+                ],
             ];
 
         $.each(tests, function(i, test) {
