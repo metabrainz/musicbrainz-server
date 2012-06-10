@@ -188,7 +188,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
                     'http://www.jamendo.com/list/a81403',
                     'release'
-                ],
+                ]
             ];
 
         $.each(tests, function(i, test) {
