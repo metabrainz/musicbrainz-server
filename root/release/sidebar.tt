@@ -2,7 +2,11 @@
     <div class="cover-art">
         [%- SWITCH release.cover_art_presence -%]
         [%- CASE 'absent' -%]
-          [%- l("No cover art available.") -%]
+          [%- IF release.cover_art_url -%]
+            <img src="[% release.cover_art_url -%]" />
+          [%- ELSE -%]
+            [%- l("No cover art available.") -%]
+          [%- END -%]
         [%- CASE 'present' -%]
           [%- SET cover_art_message = l("No front cover image available.<br/>{all|View all artwork}.",
                                         { all => c.uri_for_action('/release/cover_art', [ release.gid ]) }) -%]

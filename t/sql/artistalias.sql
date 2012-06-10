@@ -19,5 +19,7 @@ INSERT INTO artist_alias (id, artist, name, sort_name, begin_date_year,
 INSERT INTO artist_alias (id, artist, name, sort_name, locale) VALUES (2, 1, 4, 4, 'en_GB');
 INSERT INTO artist_alias (id, artist, name, sort_name) VALUES (3, 3, 4, 4);
 
+INSERT INTO artist_alias_type (id, name) VALUES (1, 'Legal name'), (2, 'Alias');
+
 ALTER SEQUENCE artist_name_id_seq RESTART 5;
 ALTER SEQUENCE artist_alias_id_seq RESTART 4;

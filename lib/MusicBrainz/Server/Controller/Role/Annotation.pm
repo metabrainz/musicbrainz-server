@@ -117,13 +117,15 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
         }
         else
         {
-            $self->_insert_edit(
-                $c,
-                $form,
-                edit_type => $model_to_edit_type{$model},
-                (map { $_->name => $_->value } $form->edit_fields),
-                entity => $entity
-            );
+            $c->model('MB')->with_transaction(sub {
+                $self->_insert_edit(
+                    $c,
+                    $form,
+                    edit_type => $model_to_edit_type{$model},
+                    (map { $_->name => $_->value } $form->edit_fields),
+                    entity => $entity
+                );
+            });
 
             my $show = $self->action_for('show');
             $c->response->redirect($c->uri_for_action($show, [ $entity->gid ]));

@@ -12,6 +12,11 @@ has 'context' => (
     handles    => [qw( cache dbh )] # XXX Hack - Model::Feeds should be in Data
 );
 
+sub with_transaction {
+    my ($self, $code) = @_;
+    Sql::run_in_transaction($code, $self->context->sql);
+}
+
 sub _build_context {
     my $self = shift;
 
