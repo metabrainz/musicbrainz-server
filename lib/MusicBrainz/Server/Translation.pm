@@ -35,7 +35,11 @@ has 'bound' => (
 sub _bind_domain
 {
     my ($self, $domain) = @_;
-    # copied from Locale::TextDomain
+    # copied from Locale::TextDomain lines 321-346, in sub __find_domain
+    # I changed $try_dirs to @search_dirs, which I set myself based on line 303, in sub import
+    # Otherwise the same. This is so we can use Locale::TextDomain's 
+    # search and textdomain binding code without using its crazy way
+    # of determining which domain to use for a given string.
     my @search_dirs = map $_ . '/LocaleData', @INC;
     my $found_dir = '';
          
@@ -77,7 +81,6 @@ sub build_languages_from_header
 sub _set_language
 {
     my $self = shift;
-    # return if $ENV{LANGUAGE};
 
     my @avail_lang = grep {
         my $l = $_;
