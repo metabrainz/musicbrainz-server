@@ -180,6 +180,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://plus.google.com/u/0/101821796946045393834/about',
+                    'https://plus.google.com/101821796946045393834',
+                    'artist'
+                ],
+                [
                     // FIXME Need a bad link
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
