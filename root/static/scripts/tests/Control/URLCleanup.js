@@ -37,11 +37,11 @@ MB.tests.URLCleanup.GuessType = function() {
 
                 [
                     'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
-                    MB.constants.LINK_TYPES.musicmoz.artist
+                    MB.constants.LINK_TYPES.otherdatabases.artist
                 ],
                 [
                     'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
-                    MB.constants.LINK_TYPES.musicmoz.release
+                    MB.constants.LINK_TYPES.otherdatabases.release
                 ],
 
                 [
@@ -120,6 +120,27 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'label', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.label
+                ],
+
+                [
+                    'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                    MB.constants.LINK_TYPES.allmusic.artist
+                ],
+                [
+                    'release_group', 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                    MB.constants.LINK_TYPES.allmusic.release_group
+                ],
+                [
+                    'work', 'http://www.allmusic.com/song/help!-mt0043064796',
+                    MB.constants.LINK_TYPES.allmusic.work
+                ],
+                [
+                    'work', 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
+                    MB.constants.LINK_TYPES.allmusic.work
+                ],
+                [
+                    'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
+                    MB.constants.LINK_TYPES.allmusic.recording
                 ]
 
             ];
@@ -138,6 +159,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://fr.myspace.com/jujusasadada',
+                    'http://www.myspace.com/jujusasadada',
+                    'artist'
+                ],
+                [
+                    'http://myspace.de/diekisten',
+                    'http://www.myspace.com/diekisten',
+                    'artist'
+                ],
+                [
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
                     'http://www.discogs.com/release/5578',
                     'release'
@@ -154,9 +185,24 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
+                    'release'
+                ],
+                [
                     'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
                     'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
                     'release'
+                ],
+                [
+                    'http://plus.google.com/u/0/101821796946045393834/about',
+                    'https://plus.google.com/101821796946045393834',
+                    'artist'
                 ],
                 [
                     // FIXME Need a bad link
@@ -188,7 +234,33 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
                     'http://www.jamendo.com/list/a81403',
                     'release'
+                ],
+                [
+                    'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                    'http://www.allmusic.com/artist/mn0000754032',
+                    'artist'
+                ],
+                [
+                    'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                    'http://www.allmusic.com/album/mw0002303439',
+                    'release_group'
+                ],
+                [
+                    'http://www.allmusic.com/song/help!-mt0043064796',
+                    'http://www.allmusic.com/song/mt0043064796',
+                    'work'
+                ],
+                [
+                    'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
+                    'http://www.allmusic.com/composition/mc0002367338',
+                    'work'
+                ],
+                [
+                    'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
+                    'http://www.allmusic.com/performance/mq0000061129',
+                    'recording'
                 ]
+
             ];
 
         $.each(tests, function(i, test) {

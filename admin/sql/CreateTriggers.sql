@@ -220,6 +220,10 @@ CREATE TRIGGER a_del_track AFTER DELETE ON track
 CREATE TRIGGER b_upd_track BEFORE UPDATE ON track 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE CONSTRAINT TRIGGER remove_orphaned_tracks
+    AFTER DELETE OR UPDATE ON track DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE delete_orphaned_recordings();
+
 CREATE TRIGGER b_upd_tracklist BEFORE UPDATE ON tracklist 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

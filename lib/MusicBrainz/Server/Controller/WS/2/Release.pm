@@ -288,18 +288,20 @@ sub release_submit : Private
 
     if (@submit) {
         try {
-            $c->model('Edit')->create(
-                editor_id => $c->user->id,
-                privileges => $c->user->privileges,
-                edit_type => $EDIT_RELEASE_EDIT_BARCODES,
-                submissions => [ map +{
-                    release => {
-                        id => $gid_map{ $_->{release} }->id,
-                        name => $gid_map{ $_->{release} }->name
-                    },
-                    barcode => $_->{barcode}
-                }, @submit ]
-            );
+            $c->model('MB')->with_transaction(sub {
+                $c->model('Edit')->create(
+                    editor_id => $c->user->id,
+                    privileges => $c->user->privileges,
+                    edit_type => $EDIT_RELEASE_EDIT_BARCODES,
+                    submissions => [ map +{
+                        release => {
+                            id => $gid_map{ $_->{release} }->id,
+                            name => $gid_map{ $_->{release} }->name
+                        },
+                        barcode => $_->{barcode}
+                    }, @submit ]
+                );
+            });
         }
         catch {
             my $e = $_;
