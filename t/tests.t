@@ -14,12 +14,7 @@ my @classes = (
     map {
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (
-        't::MusicBrainz::Server::Controller',
-        't::MusicBrainz::Server::Data',
-        't::MusicBrainz::Server::Edit',
-        't::MusicBrainz::Server::EditSearch',
-        't::MusicBrainz::Server::Entity',
-        't::MusicBrainz::Server::Form',
+        't::MusicBrainz::Server'
     )
 );
 
