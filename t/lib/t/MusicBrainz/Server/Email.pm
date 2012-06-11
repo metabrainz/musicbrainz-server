@@ -3,15 +3,14 @@ use Test::Routine;
 use Test::LongString;
 use Test::More;
 
-use Sql;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Email;
 
 with 't::Context';
 
 BEGIN {
     no warnings 'redefine';
     use DBDefs;
-    *DBDefs::_RUNNING_TESTS = sub { 1 };
     *DBDefs::WEB_SERVER = sub { "localhost" };
 }
 
@@ -25,8 +24,6 @@ sub compare_body
 }
 
 test all => sub {
-
-    use_ok 'MusicBrainz::Server::Email';
 
     my $test = shift;
 

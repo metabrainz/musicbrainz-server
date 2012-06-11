@@ -19,6 +19,7 @@ my @classes = (
         't::MusicBrainz::Server::Data',
         't::MusicBrainz::Server::Edit',
         't::MusicBrainz::Server::EditSearch',
+        't::MusicBrainz::Server::Email',
         't::MusicBrainz::Server::Entity',
         't::MusicBrainz::Server::Form',
     )
