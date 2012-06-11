@@ -9,6 +9,7 @@ use Test::Routine::Util;
 use MusicBrainz::Server::Test qw( commandline_override );
 
 my @classes = (
+    't::TemplateMacros',
     't::MusicBrainz::Server::Email',
     't::MusicBrainz::Server::Filters',
     't::MusicBrainz::Server::EditRegistry',
