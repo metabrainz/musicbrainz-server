@@ -9,8 +9,7 @@ use Test::Routine::Util;
 use MusicBrainz::Server::Test qw( commandline_override );
 
 my @classes = (
-    't::MusicBrainz::Server::Filters',
-    't::MusicBrainz::Server::EditRegistry',
+    't::Sql',
     map {
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (
