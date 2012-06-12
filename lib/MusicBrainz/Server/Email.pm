@@ -65,7 +65,7 @@ sub _create_message_to_editor_email
     my $subject = $opts{subject} or die "Missing 'subject' argument";
     my $message = $opts{message} or die "Missing 'message' argument";
 
-    my $time = time();
+    my $time = $opts{time} || time();
 
     my @headers = (
         'To'      => _user_address($to),
@@ -324,6 +324,7 @@ sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
+    $opts{time} = time();
     {
         my $email = $self->_create_message_to_editor_email(%opts);
         $self->_send_email($email);
