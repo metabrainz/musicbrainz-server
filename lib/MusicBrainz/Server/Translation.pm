@@ -6,8 +6,10 @@ use I18N::LangTags ();
 use I18N::LangTags::Detect;
 use DBDefs;
 
-use Locale::Messages qw( bindtextdomain dgettext dpgettext dngettext );
+use Locale::Messages qw( bindtextdomain );
 use Cwd qw (abs_path);
+
+with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
     exports => [qw( l lp ln )],
@@ -31,6 +33,10 @@ has 'bound' => (
     is => 'rw',
     default => 0
 );
+
+sub l { __PACKAGE__->instance->gettext(@_) }
+sub lp { __PACKAGE__->instance->pgettext(@_) }
+sub ln { __PACKAGE__->instance->ngettext(@_) }
 
 sub _bind_domain
 {
@@ -90,47 +96,6 @@ sub _set_language
     $ENV{LANGUAGE} = $avail_lang[0] if @avail_lang;
 }
 
-sub gettext
-{
-    my ($self, $msgid, $vars) = @_;
-
-    my %vars = %$vars if (ref $vars eq "HASH");
-
-    $self->_bind_domain('mb_server') unless $self->bound;
-    $self->_set_language;
-
-    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
-
-    return $self->_expand(dgettext('mb_server' => $msgid), %vars) if $msgid;
-}
-
-sub pgettext
-{
-    my ($self, $msgid, $msgctxt, $vars) = @_;
-
-    my %vars = %$vars if (ref $vars eq "HASH");
-
-    $self->_bind_domain('mb_server') unless $self->bound;
-    $self->_set_language;
-
-    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
-
-    return $self->_expand(dpgettext('mb_server' => $msgctxt, $msgid), %vars) if $msgid;
-}
-
-sub ngettext {
-    my ($self, $msgid, $msgid_plural, $n, $vars) = @_;
-
-    my %vars = %$vars if (ref $vars eq "HASH");
-
-    $self->_bind_domain('mb_server') unless $self->bound;
-    $self->_set_language;
-
-    $msgid =~ s/\r*\n\s*/ /xmsg;
-
-    return $self->_expand(dngettext('mb_server' => $msgid, $msgid_plural, $n), %vars);
-}
-
 sub _expand
 {
     my ($self, $string, %args) = @_;
@@ -144,9 +109,5 @@ sub _expand
 
     return $string;
 }
-
-sub l  { __PACKAGE__->instance->gettext(@_) }
-sub lp { __PACKAGE__->instance->pgettext(@_) }
-sub ln { __PACKAGE__->instance->ngettext(@_) }
 
 1;
