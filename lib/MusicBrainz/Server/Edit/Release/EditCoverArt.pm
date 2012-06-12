@@ -79,7 +79,7 @@ sub accept {
             'This release no longer exists'
         );
 
-    $self->c->model('CoverArtArchive')->exists($self->data->{artwork_id})
+    $self->c->model('CoverArtArchive')->exists($self->data->{id})
         or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
             'This cover art no longer exists'
         );

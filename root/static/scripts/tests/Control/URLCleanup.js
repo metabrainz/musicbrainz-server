@@ -96,7 +96,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
                 ],
-
+                [
+                    'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                    MB.constants.LINK_TYPES.streamingmusic.recording
+                ],
                 [
                     'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
@@ -159,6 +162,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://fr.myspace.com/jujusasadada',
+                    'http://www.myspace.com/jujusasadada',
+                    'artist'
+                ],
+                [
+                    'http://myspace.de/diekisten',
+                    'http://www.myspace.com/diekisten',
+                    'artist'
+                ],
+                [
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
                     'http://www.discogs.com/release/5578',
                     'release'
@@ -175,15 +188,35 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
+                    'release'
+                ],
+                [
                     'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
                     'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
                     'release'
+                ],
+                [
+                    'http://plus.google.com/u/0/101821796946045393834/about',
+                    'https://plus.google.com/101821796946045393834',
+                    'artist'
                 ],
                 [
                     // FIXME Need a bad link
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
                     'release'
+                ],
+                [
+                    'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                    'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
+                    'streamingmusic'
                 ],
                 [
                     'http://www.vimeo.com/1109226?pg=embed&sec=1109226',

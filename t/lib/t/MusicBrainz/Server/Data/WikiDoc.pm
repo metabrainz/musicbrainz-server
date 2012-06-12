@@ -14,7 +14,7 @@ with 't::Context';
 
 test all => sub {
 
-LWP::UserAgent::Mockable->reset( playback => $Bin.'/data_wikidoc.xmlwebservice-redirect.lwp-mock' );
+LWP::UserAgent::Mockable->reset( playback => $Bin.'/lwp-sessions/data_wikidoc.xmlwebservice-redirect.lwp-mock' );
 LWP::UserAgent::Mockable->set_playback_validation_callback(\&basic_validation);
 
 my $test = shift;

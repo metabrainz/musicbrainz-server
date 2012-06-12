@@ -359,7 +359,7 @@ END -%]
     text = text == '' ? html_escape(editor.name) : text;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
-      '<img src="' _ gravatar(editor.email) _ '" class="gravatar">';
+      '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
       '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
     END;

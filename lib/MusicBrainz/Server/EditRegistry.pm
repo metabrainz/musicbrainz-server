@@ -86,7 +86,6 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::AddDiscID
     MusicBrainz::Server::Edit::Historic::AddLink
     MusicBrainz::Server::Edit::Historic::AddRelease
-    MusicBrainz::Server::Edit::Historic::AddReleaseAnnotation
     MusicBrainz::Server::Edit::Historic::AddReleaseEvents
     MusicBrainz::Server::Edit::Historic::AddTrack
     MusicBrainz::Server::Edit::Historic::AddTrackKV
@@ -112,8 +111,8 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
     MusicBrainz::Server::Edit::Historic::RemoveLink
     MusicBrainz::Server::Edit::Historic::RemoveRelease
-    MusicBrainz::Server::Edit::Historic::RemoveReleases
     MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents
+    MusicBrainz::Server::Edit::Historic::RemoveReleases
     MusicBrainz::Server::Edit::Historic::RemoveTrack
     MusicBrainz::Server::Edit::Historic::SACToMAC
     MusicBrainz::Server::Edit::Historic::SetTrackLengthsFromCDTOC

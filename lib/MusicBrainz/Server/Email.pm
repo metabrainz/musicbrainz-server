@@ -62,10 +62,14 @@ sub _create_message_to_editor_email
     my $subject = $opts{subject} or die "Missing 'subject' argument";
     my $message = $opts{message} or die "Missing 'message' argument";
 
+    my $time = $opts{time} || time();
+
     my @headers = (
         'To'      => _user_address($to),
         'Sender'  => $EMAIL_NOREPLY_ADDRESS,
         'Subject' => $subject,
+        'References' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
+        'In-Reply-To' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
     );
 
     if ($opts{reveal_address}) {
@@ -74,10 +78,6 @@ sub _create_message_to_editor_email
     else {
         push @headers, 'From', _user_address($from, 1);
         push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
-    }
-
-    if ($opts{send_to_self}) {
-        push @headers, 'BCC', _user_address($from);
     }
 
     my $from_name = $from->name;
@@ -321,8 +321,28 @@ sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
-    my $email = $self->_create_message_to_editor_email(%opts);
-    return $self->_send_email($email);
+    $opts{time} = time();
+    {
+        my $email = $self->_create_message_to_editor_email(%opts);
+        $self->_send_email($email);
+    }
+
+    if ($opts{send_to_self}) {
+        my $copy = $self->_create_message_to_editor_email(%opts);
+        my $toname = $opts{to}->name;
+        my $message = $opts{message};
+
+        $copy->header_str_set( To => _user_address($opts{from}) );
+        $copy->body_str_set(<<EOF);
+This is a copy of the message you sent to MusicBrainz editor '$toname':
+------------------------------------------------------------------------
+$message
+------------------------------------------------------------------------
+Please do not respond to this e-mail.
+EOF
+
+        $self->_send_email($copy);
+    }
 }
 
 sub send_email_verification
