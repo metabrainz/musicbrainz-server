@@ -10,7 +10,6 @@ use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
 
-use Encode;
 use Try::Tiny;
 
 # Set flags and add plugins for the application
