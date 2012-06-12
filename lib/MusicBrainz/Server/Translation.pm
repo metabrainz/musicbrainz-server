@@ -7,6 +7,7 @@ use I18N::LangTags::Detect;
 use DBDefs;
 
 use Locale::Messages qw( bindtextdomain );
+use Locale::Util qw( web_set_domain );
 use Cwd qw (abs_path);
 
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
@@ -93,7 +94,9 @@ sub _set_language
         grep { $l eq $_ } DBDefs::MB_LANGUAGES
     } $self->all_system_languages;
 
-    $ENV{LANGUAGE} = $avail_lang[0] if @avail_lang;
+    # change e.g. 'en-aq' to 'en_AQ'
+    @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } @avail_lang;
+    web_set_language(\@avail_lang, [ 'utf-8' ]);
 }
 
 sub _expand
