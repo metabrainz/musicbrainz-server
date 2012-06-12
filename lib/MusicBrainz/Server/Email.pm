@@ -12,7 +12,7 @@ use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
 
-use MusicBrainz::Server::Constants qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status :email_addresses );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -25,9 +25,6 @@ has 'c' => (
     is => 'rw',
     isa => 'Object'
 );
-
-Readonly our $NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
-Readonly our $SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
 
 sub _user_address
 {
@@ -69,7 +66,7 @@ sub _create_message_to_editor_email
 
     my @headers = (
         'To'      => _user_address($to),
-        'Sender'  => $NOREPLY_ADDRESS,
+        'Sender'  => $EMAIL_NOREPLY_ADDRESS,
         'Subject' => $subject,
         'References' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
         'In-Reply-To' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
@@ -80,7 +77,7 @@ sub _create_message_to_editor_email
     }
     else {
         push @headers, 'From', _user_address($from, 1);
-        push @headers, 'Reply-To', $NOREPLY_ADDRESS;
+        push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
     }
 
     my $from_name = $from->name;
@@ -121,8 +118,8 @@ sub _create_email_verification_email
 
     my @headers = (
         'To'       => $opts{email},
-        'From'     => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
+        'From'     => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
         'Subject'  => 'Please verify your email address',
     );
 
@@ -151,8 +148,8 @@ sub _create_lost_username_email
 
     my @headers = (
         'To'       => _user_address($opts{user}),
-        'From'     => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
+        'From'     => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
         'Subject'  => 'Lost username',
     );
 
@@ -188,8 +185,8 @@ sub _create_no_vote_email
 
     my @headers = (
         'To' => _user_address($opts{editor}),
-        'From' => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
+        'From' => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
         'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
         'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
         'Subject' => "Someone has voted against your edit #$edit_id",
@@ -226,8 +223,8 @@ sub _create_password_reset_request_email
 
     my @headers = (
         'To'       => _user_address($opts{user}),
-        'From'     => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
+        'From'     => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
         'Subject'  => 'Password reset request',
     );
 
@@ -270,7 +267,7 @@ sub _create_edit_note_email
     my @headers = (
         'To'       => _user_address($editor),
         'From'     => _user_address($from_editor, 1),
-        'Sender'   => $NOREPLY_ADDRESS,
+        'Sender'   => $EMAIL_NOREPLY_ADDRESS,
         'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
         'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
     );
@@ -377,7 +374,7 @@ sub send_subscriptions_digest
     my ($self, %opts) = @_;
 
     my $email = MusicBrainz::Server::Email::Subscriptions->new(
-        from => $NOREPLY_ADDRESS,
+        from => $EMAIL_NOREPLY_ADDRESS,
         %opts
     );
     return try { $self->_send_email($email->create_email) } catch { warn $_ };
