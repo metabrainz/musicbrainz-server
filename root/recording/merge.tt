@@ -3,6 +3,13 @@
     <h1>[% l('Merge Recordings') %]</h1>
     <p>[% l('You are about to merge the following recordings into a single recording. Please
              select the recording which you would like other recordings to be merged into:') %]</p>
+    [% IF isrcs_differ %]
+    <div class="warning warning-isrcs-differ">
+      <p>[% l('<strong>Warning:</strong> Some of the recordings you\'re merging
+             have different ISRCs. Please make sure they are indeed the same
+             recordings and you wish to continue with the merge.') %]</p>
+    </div>
+    [% END %]
     <form action="[% c.req.uri %]" method="post">
         [% BLOCK recording_row_prefix %]
           <td>
