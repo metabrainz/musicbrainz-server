@@ -706,12 +706,37 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION unique_primary()
+CREATE OR REPLACE FUNCTION unique_primary_artist_alias()
 RETURNS trigger AS $$
 BEGIN
     IF NEW.primary_for_locale THEN
-        EXECUTE 'UPDATE ' || quote_ident(TG_ARGV[0]) || ' SET primary_for_locale = FALSE WHERE locale = $1'
-        USING NEW.locale;
+      UPDATE artist_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND artist = NEW.artist;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_label_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE label_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND label = NEW.label;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_work_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE work_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND work = NEW.work;
     END IF;
     RETURN NEW;
 END;
