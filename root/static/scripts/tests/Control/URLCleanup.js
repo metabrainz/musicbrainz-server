@@ -263,6 +263,38 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
+                ],
+
+                // MBS-4810: exactly one terminating slash at the end
+                [
+                    'http://creativecommons.org/licenses/by-nc-sa/2.0/de//',
+                    'http://creativecommons.org/licenses/by-nc-sa/2.0/de/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/by/2.0/scotland',
+                    'http://creativecommons.org/licenses/by/2.0/scotland/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/publicdomain//',
+                    'http://creativecommons.org/licenses/publicdomain/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/publicdomain',
+                    'http://creativecommons.org/licenses/publicdomain/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/publicdomain/zero/1.0//',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/publicdomain/zero/1.0',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
                 ]
 
             ];
