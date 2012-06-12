@@ -5,6 +5,10 @@ cd `dirname $0`/..
 
 source ./admin/functions.sh
 
+if ! script/database_exists TEST; then
+    ./admin/InitDb.pl --createdb --database TEST --clean
+fi
+
 echo `date` : Clearing old test database
 OUTPUT=`
 echo "

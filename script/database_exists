@@ -1,0 +1,33 @@
+#!/usr/bin/env perl
+
+use utf8;
+use strict;
+use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use DBDefs;
+use Sql;
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
+if ($ARGV[0])
+{
+    my $db = Databases->get_connection(uc($ARGV[0]));
+
+    my $sys = Databases->get_connection('SYSTEM');
+    my $sql = Sql->new( $sys->conn );
+
+    my $so = $sql->select_single_value(
+        "SELECT TRUE FROM pg_database WHERE datname = ?",
+        $db->database->database);
+    exit 0 if $so;
+    exit 1; # E_NODATABASE
+}
+else
+{
+    print "Usage: database_exists <DBNAME>\n";
+    print "\n";
+    print "\tDBNAME\tThe database name (READWRITE or TEST)\n";
+    print "\n";
+    exit 2;
+}
+
