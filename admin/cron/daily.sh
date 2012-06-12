@@ -30,10 +30,10 @@ DATETIME=`date +'%Y%m%d-%H%M%S'`
 
 # Identify and remove unused artists
 echo `date`" : Removing unused artists"
-./admin/cleanup/EmptyArtists.pl --remove --summary --noverbose
+carton exec -- ./admin/cleanup/EmptyArtists.pl --remove --summary --noverbose
 
 echo `date`" : Removing unused works"
-./admin/cleanup/EmptyWorks.pl --remove --summary --noverbose
+carton exec -- ./admin/cleanup/EmptyWorks.pl --remove --summary --noverbose
 
 # Dump all the data
 # Only do this on the nominated days (0=Sun 6=Sat)
@@ -58,16 +58,13 @@ if date +%w | grep -q [6]
 then
     WEEKLY="--weekly"
 fi
-./admin/ProcessSubscriptions $WEEKLY
+carton exec -- ./admin/ProcessSubscriptions $WEEKLY
 
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies
 
 # Recalculate related tags
 ./admin/CalculateRelatedTags.sh
-
-echo `date`": Updating cover art links"
-./admin/RebuildCoverArtUrls.pl
 
 echo `date`" : Nightly jobs complete!"
 
