@@ -49,7 +49,7 @@ test all => sub {
     is($e->get_header('From'), '"Editor 1" <"Editor 1"@users.musicbrainz.org>', 'Header from is Editor 1 @users.musicbrainz.org');
     is($e->get_header('Reply-To'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Reply-To is noreply@');
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
-    # is($e->get_header('BCC'), undef, 'BCC is undefined');
+    is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
     compare_body($e->get_body,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
@@ -70,13 +70,12 @@ test all => sub {
         send_to_self => 1,
         );
 
-    is(scalar(@{$email->transport->deliveries}), 1);
+    is(scalar(@{$email->transport->deliveries}), 2);
     is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
     $e = $email->transport->deliveries->[0]->{email};
-    $email->transport->clear_deliveries;
     is($e->get_header('From'), '"Editor 1" <foo@example.com>', 'From is Editor 1, foo@example.com');
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
-    # is($e->get_header('BCC'), undef, 'BCC is undefined');
+    is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
     compare_body($e->get_body,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
@@ -87,6 +86,20 @@ test all => sub {
                  "http://localhost/user/Editor\%201/contact to send 'Editor 1' an email.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
+
+    is($email->transport->deliveries->[1]->{envelope}->{from}, 'noreply@musicbrainz.org');
+    $e = $email->transport->deliveries->[1]->{email};
+    $email->transport->clear_deliveries;
+    is($e->get_header('From'), '"Editor 1" <foo@example.com>', 'From is Editor 1, foo@example.com');
+    is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+    is($e->get_header('BCC'), undef, 'BCC is undefined');
+    is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
+    compare_body($e->get_body,
+                 "This is a copy of the message you sent to MusicBrainz editor 'Editor 2':\n".
+                 "------------------------------------------------------------------------\n".
+                 "Hello!\n".
+                 "------------------------------------------------------------------------\n".
+                 "Please do not respond to this e-mail.\n");
 
     $email->send_email_verification(
         email => 'user@example.com',
