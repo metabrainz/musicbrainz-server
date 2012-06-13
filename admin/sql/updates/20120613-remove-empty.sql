@@ -202,4 +202,74 @@ END
 $BODY$
 LANGUAGE 'plpgsql' ;
 
+-------------------------------------------------------------------
+-- Find release groups that are empty, and have not been updated
+-- within the last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_release_groups() RETURNS SETOF release_group AS
+$BODY$
+DECLARE
+    rg_row release_group%rowtype;
+BEGIN
+    FOR rg_row IN
+        SELECT * FROM release_group
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_release_group
+            JOIN edit ON edit_release_group.edit = edit.id
+            WHERE edit_release_group.release_group = release_group.id
+            AND edit.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM release
+             WHERE release_group = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_recording_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_release_group
+             WHERE entity0 = rg_row.id OR entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_url
+             WHERE entity0 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_work
+             WHERE entity0 = rg_row.id
+             LIMIT 1
+        );
+        RETURN NEXT rg_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
 COMMIT;
