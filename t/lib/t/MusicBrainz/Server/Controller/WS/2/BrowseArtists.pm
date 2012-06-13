@@ -103,6 +103,17 @@ ws_test 'browse artists via release, inc=tags+ratings',
     </artist-list>
 </metadata>';
 
+ws_test 'browse artists via work',
+    '/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist-list count="1">
+        <artist type="Group" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+            <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+        </artist>
+    </artist-list>
+</metadata>';
+
 };
 
 1;
