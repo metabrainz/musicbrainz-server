@@ -489,7 +489,7 @@ $$ LANGUAGE 'plpgsql';
 
 -------------------------------------------------------------------
 -- Find artists that are empty, and have not been updated within the
--- last $interval
+-- last 1 days
 -------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION empty_artists() RETURNS SETOF artist AS
@@ -502,6 +502,12 @@ BEGIN
         WHERE edits_pending = 0
           AND (last_updated < NOW() - '1 day'::INTERVAL OR
                last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_artist
+            WHERE edit_artist.artist = artist.id
+            AND edit_artist.status = 1
+            LIMIT 1
+          )
     LOOP
         CONTINUE WHEN
         (
@@ -613,6 +619,71 @@ BEGIN
              LIMIT 1
         );
         RETURN NEXT label_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+-------------------------------------------------------------------
+-- Find works that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_works() RETURNS SETOF work AS
+$BODY$
+DECLARE
+    work_row work%rowtype;
+BEGIN
+    FOR work_row IN
+        SELECT * FROM work
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_work
+            JOIN edit ON edit.id = edit_work.edit
+            WHERE edit_work.work = work.id
+            AND edit.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM l_artist_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_recording_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_url_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_work_work
+             WHERE entity0 = work_row.id OR entity1 = work_row.id
+             LIMIT 1
+        );
+        RETURN NEXT work_row;
     END LOOP;
 END
 $BODY$
