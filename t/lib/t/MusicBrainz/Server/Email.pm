@@ -8,12 +8,6 @@ use MusicBrainz::Server::Email;
 
 with 't::Context';
 
-BEGIN {
-    no warnings 'redefine';
-    use DBDefs;
-    *DBDefs::WEB_SERVER = sub { "localhost" };
-}
-
 sub compare_body
 {
     my ($got, $expected, $msg) = @_;
