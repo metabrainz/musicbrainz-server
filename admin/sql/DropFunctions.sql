@@ -31,6 +31,8 @@ DROP FUNCTION deny_special_purpose_artist_deletion();
 DROP FUNCTION deny_special_purpose_label_deletion();
 DROP FUNCTION empty_artists();
 DROP FUNCTION empty_labels();
+DROP FUNCTION empty_release_groups();
+DROP FUNCTION empty_works();
 DROP FUNCTION end_date_implies_ended();
 DROP FUNCTION from_hex(t text);
 DROP FUNCTION generate_uuid_v3(namespace varchar, name varchar);
