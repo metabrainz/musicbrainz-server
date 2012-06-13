@@ -53,7 +53,7 @@ SELECT set_eq(
 UPDATE label SET last_updated = '1970-01-01' WHERE id = 1;
 
 SELECT set_eq(
-  'SELECT id FROM label WHERE edits_pending = 0 AND last_updated < now() - ''1 day''::interval',
+  'SELECT id FROM empty_labels()',
   ARRAY[ 1 ]
 );
 
