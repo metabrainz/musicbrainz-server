@@ -29,7 +29,7 @@ test all => sub {
     html_ok($mech->content);
     my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
     $tx->not_ok(selector_to_xpath('.warning-isrcs-differ'),
-                'Does not have a warning about diferring ISRCs');
+                'Does not have a warning about differing ISRCs');
 
     my $response = $mech->submit_form(
         with_fields => {
@@ -67,7 +67,7 @@ test 'Warn the user when merging recordings with different ISRCs' => sub {
 
     my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
     $tx->ok(selector_to_xpath('.warning-isrcs-differ'),
-            'Has a warning about diferring ISRCs');
+            'Has a warning about differing ISRCs');
 };
 
 1;
