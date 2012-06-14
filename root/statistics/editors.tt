@@ -25,7 +25,7 @@
     <thead>
       <tr>
         <th>[% l('Editor') %]</th>
-        <th>[% l('Total Applied Edits') %]</th>
+        <th>[% l('total applied edits') %]</th>
       </tr>
     </thead>
     <tbody>
