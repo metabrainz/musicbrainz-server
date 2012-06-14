@@ -57,7 +57,8 @@ EOSQL
                     id => 243064,
                     name => 'For Beginner Piano'
                 },
-                barcode => '5021603064126'
+                barcode => '5021603064126',
+                old_barcode => undef
             }
         ]
     });
@@ -99,7 +100,8 @@ EOSQL
                     id => $rel->id,
                     name => $rel->name
                 },
-                barcode => '796122009228'
+                barcode => '796122009228',
+                old_barcode => '4942463511227'
             }
         ]
     });
