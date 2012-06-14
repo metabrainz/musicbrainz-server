@@ -32,7 +32,7 @@
       [% FOR editor=top_editors %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
         <td>[% link_editor(editor) %]</td>
-        <td>[% add_commas(editor.accepted_edits) %]</td>
+        <td>[% add_commas(editor.accepted_edits + editor.accepted_auto_edits) %]</td>
       </tr>
       [% END %]
     </tbody>
