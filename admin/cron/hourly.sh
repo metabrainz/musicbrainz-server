@@ -1,9 +1,10 @@
 #!/bin/sh
 
 mb_server=`dirname $0`/../..
-eval `$mb_server/admin/ShowDBDefs`
-. "$MB_SERVER_ROOT"/admin/config.sh
 cd "$MB_SERVER_ROOT"
+
+eval `carton exec -- ./admin/ShowDBDefs`
+. "$MB_SERVER_ROOT"/admin/config.sh
 
 # Only run one "hourly.sh" at a time
 if [ "$1" != "gotlock" ]
@@ -26,11 +27,11 @@ OUTPUT=`
 ` || ( echo "$OUTPUT" | mail -s "ModBot output" $ADMIN_EMAILS )
 
 OUTPUT=`
-    ./admin/CheckElectionVotes.pl 2>&1
+    carton exec -- ./admin/CheckElectionVotes.pl 2>&1
 ` || echo "$OUTPUT"
 
 OUTPUT=`
-    ./admin/RunExport 2>&1
+    carton exec -- ./admin/RunExport 2>&1
 ` || echo "$OUTPUT"
 
 # eof

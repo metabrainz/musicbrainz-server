@@ -1,9 +1,11 @@
 #!/bin/sh
 
 mb_server=`dirname $0`/../..
-eval `$mb_server/admin/ShowDBDefs`
-. "$MB_SERVER_ROOT"/admin/config.sh
 cd "$MB_SERVER_ROOT"
+
+eval `carton exec -- ./admin/ShowDBDefs`
+. "$MB_SERVER_ROOT"/admin/config.sh
+
 
 # Only run one "daily.sh" at a time
 if [ "$1" != "gotlock" ]
@@ -28,7 +30,7 @@ DATETIME=`date +'%Y%m%d-%H%M%S'`
 # Create the reports
 echo `date`" : Running reports"
 OUTPUT=`
-    nice ./admin/RunReports.pl 2>&1
+    nice carton exec -- ./admin/RunReports.pl 2>&1
 ` || echo "$OUTPUT"
 
 echo `date`" : Beta jobs complete!"
