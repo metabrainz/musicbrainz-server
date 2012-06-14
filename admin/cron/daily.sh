@@ -28,12 +28,17 @@ echo `date`" : Collecting statistics"
 
 DATETIME=`date +'%Y%m%d-%H%M%S'`
 
-# Identify and remove unused artists
 echo `date`" : Removing unused artists"
-carton exec -- ./admin/cleanup/EmptyArtists.pl --remove --summary --noverbose
+OUTPUT=`./admin/cleanup/RemoveEmpty artist` || echo "$OUTPUT"
+
+echo `date`" : Removing unused labels"
+OUTPUT=`./admin/cleanup/RemoveEmpty label` || echo "$OUTPUT"
+
+echo `date`" : Removing unused release groups"
+OUTPUT=`./admin/cleanup/RemoveEmpty release_group` || echo "$OUTPUT"
 
 echo `date`" : Removing unused works"
-carton exec -- ./admin/cleanup/EmptyWorks.pl --remove --summary --noverbose
+OUTPUT=`./admin/cleanup/RemoveEmpty work` || echo "$OUTPUT"
 
 # Dump all the data
 # Only do this on the nominated days (0=Sun 6=Sat)
