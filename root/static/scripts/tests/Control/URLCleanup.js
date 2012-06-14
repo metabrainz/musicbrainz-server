@@ -238,7 +238,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.youtube.com/user/officialpsy',
                     'artist'
                 ],
-
+                [
+                    'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
+                    'http://www.jamendo.com/list/a81403',
+                    'release'
+                ],
                 [
                     'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     'http://www.allmusic.com/artist/mn0000754032',
