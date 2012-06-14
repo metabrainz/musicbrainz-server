@@ -60,7 +60,7 @@ sub top_editors {
                 $self->c->sql->select_single_column_array(
                     "SELECT id FROM editor
                      WHERE (edits_accepted + auto_edits_accepted) > 0
-                     ORDER BY edits_accepted DESC, musicbrainz_collate(editor.name)
+                     ORDER BY (edits_accepted + auto_edits_accepted) DESC, musicbrainz_collate(editor.name)
                      LIMIT 25",
                 );
             $cache->set($cache_key => $id_edits, 60*60*24) # Expires in 1 day (60*60*24)
