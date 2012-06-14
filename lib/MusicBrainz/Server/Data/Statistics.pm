@@ -10,6 +10,100 @@ use MusicBrainz::Server::Data::Relationship;
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
+sub top_recently_active_editors {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my @id_edits = @{
+            $self->c->sql->select_list_of_lists(
+                "SELECT editor, count(edit.id) FROM edit
+                 JOIN editor ON edit.editor = editor.id
+                 WHERE status IN (?, ?)
+                   AND open_time >= now() - '1 week'::INTERVAL
+                 GROUP BY edit.editor, editor.name
+                 ORDER BY count(edit.id) DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25",
+                $STATUS_OPEN, $STATUS_APPLIED
+            )
+        };
+        my %id_editor_map = %{
+            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @id_edits)
+        };
+        return [
+            map +{
+                editor => $id_editor_map{$_->[0]},
+                edits => $_->[1]
+            }, @id_edits
+        ];
+    }, $self->c->sql);
+}
+
+sub top_editors {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my @ids = @{
+            $self->c->sql->select_single_column_array(
+                "SELECT id FROM editor
+                 WHERE edits_accepted > 0
+                 ORDER BY edits_accepted DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25",
+            )
+        };
+        my %id_editor_map = %{ $self->c->model('Editor')->get_by_ids(@ids) };
+        return [ map { $id_editor_map{$_} } @ids ];
+    }, $self->c->sql);
+}
+
+sub top_recently_active_voters {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my @id_edits = @{
+            $self->c->sql->select_list_of_lists(
+                "SELECT editor, count(vote.id) FROM vote
+                 JOIN editor ON vote.editor = editor.id
+                 WHERE NOT superseded AND vote != -1
+                   AND vote_time >= now() - '1 week'::INTERVAL
+                 GROUP BY vote.editor, editor.name
+                 ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25"
+            )
+        };
+        my %id_editor_map = %{
+            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @id_edits)
+        };
+        return [
+            map +{
+                editor => $id_editor_map{$_->[0]},
+                votes => $_->[1]
+            }, @id_edits
+        ];
+    }, $self->c->sql);
+}
+
+sub top_voters {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my @id_edits = @{
+            $self->c->sql->select_list_of_lists(
+                "SELECT editor, count(vote.id) FROM vote
+                 JOIN editor ON vote.editor = editor.id
+                 WHERE NOT superseded AND vote != -1
+                 GROUP BY editor, editor.name
+                 ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25"
+            )
+        };
+        my %id_editor_map = %{
+            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @id_edits)
+        };
+        return [
+            map +{
+                editor => $id_editor_map{$_->[0]},
+                votes => $_->[1]
+            }, @id_edits
+        ];
+    }, $self->c->sql);
+}
+
 sub _table { 'statistic' }
 
 sub all_events {
