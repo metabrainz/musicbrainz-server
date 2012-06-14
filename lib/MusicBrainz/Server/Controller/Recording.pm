@@ -25,8 +25,10 @@ use MusicBrainz::Server::Constants qw(
 );
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Translation qw( l );
+use Set::Scalar;
 
 =head1 NAME
 
@@ -181,7 +183,18 @@ around create => sub {
 
 before '_merge_confirm' => sub {
     my ($self, $c) = @_;
-    $c->model('ISRC')->load_for_recordings(@{ $c->stash->{to_merge} });
+    my @recordings = @{ $c->stash->{to_merge} };
+    $c->model('ISRC')->load_for_recordings(@recordings);
+
+    my @recordings_with_isrcs = grep { $_->all_isrcs > 0 } @recordings;
+    if (@recordings_with_isrcs > 1) {
+        my ($comparator, @tail) = @recordings_with_isrcs;
+        my $get_isrc_set = sub { Set::Scalar->new(map { $_->isrc } shift->all_isrcs) };
+        my $expect = $get_isrc_set->($comparator);
+        $c->stash(
+            isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
+        );
+    }
 };
 
 around '_merge_search' => sub {
