@@ -4,6 +4,7 @@
     ['languages-scripts', '<span class="mp"><a href="/statistics/languages-scripts">Languages/Scripts</a></span>'],
     ['coverart', '<span class="mp"><a href="/statistics/coverart">Cover Art</a></span>'],
     ['formats', '<span class="mp"><a href="/statistics/formats">Formats</a></span>'],
+    ['editors', '<span class="mp"><a href="/statistics/editors">Editors</a></span>'],
     ['timeline', '<span class="mp"><a href="/statistics/timeline/main">Timeline</a></span>'],
 ] -%]
 
