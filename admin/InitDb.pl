@@ -6,6 +6,7 @@ use warnings;
 #   MusicBrainz -- the open internet music database
 #
 #   Copyright (C) 2002 Robert Kaye
+#   Copyright (C) 2012 MetaBrainz Foundation
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -51,6 +52,7 @@ use Getopt::Long;
 
 my $fEcho = 0;
 my $fQuiet = 0;
+my $fVerbose = 0;
 
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
@@ -70,18 +72,32 @@ sub RunSQLScript
 {
     my ($db, $file, $startmessage, $path) = @_;
     $startmessage ||= "Running $file";
-    print localtime() . " : $startmessage ($file)\n";
+    print localtime() . " : $startmessage ($file)\n" unless $fQuiet;
 
     $path //= $sqldir;
 
     my $opts = $db->shell_args;
     my $echo = ($fEcho ? "-e" : "");
-    my $stdout = ($fQuiet ? ">/dev/null" : "");
+    my $stdout;
+    my $quiet;
 
     $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema . ",public";
     $ENV{"PGPASSWORD"} = $db->password;
-    print "$psql $echo -f $path/$file $opts 2>&1 $stdout |\n";
-    open(PIPE, "$psql $echo -f $path/$file $opts 2>&1 $stdout |")
+
+    if ($fVerbose)
+    {
+        $stdout = "";
+        $quiet = "";
+    }
+    else
+    {
+        $stdout = ">/dev/null";
+        $quiet = " --quiet ";
+        $ENV{"PGOPTIONS"} .= ' -c client_min_messages=WARNING';
+    }
+
+    print "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |\n" if $fVerbose;
+    open(PIPE, "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |")
         or die "exec '$psql': $!";
     while (<PIPE>)
     {
@@ -105,7 +121,7 @@ sub InstallExtension
 
     my $opts = "-U postgres " . $db->database;
     my $echo = ($fEcho ? "-e" : "");
-    my $stdout = ($fQuiet ? ">/dev/null" : "");
+    my $stdout = (!$fVerbose ? ">/dev/null" : "");
 
     my $sharedir = `pg_config --sharedir`;
     die "Cannot find pg_config on path" if !defined $sharedir or $? != 0;
@@ -187,7 +203,7 @@ sub Create
     }
 
     my $dbname = $db->database;
-    print localtime() . " : Creating database '$dbname'\n";
+    print localtime() . " : Creating database '$dbname'\n" unless $fQuiet;
     $system_sql->auto_commit;
     my $dbuser = $db->username;
     $system_sql->do(
@@ -274,13 +290,13 @@ sub CreateRelations
         RunSQLScript($DB, "ReplicationSetup.sql", "Setting up replication ...");
     }
 
-    print localtime() . " : Optimizing database ...\n";
+    print localtime() . " : Optimizing database ...\n" unless $fQuiet;
     $opts = $DB->shell_args;
     $ENV{"PGPASSWORD"} = $DB->password;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 
-    print localtime() . " : Initialized and imported data into the database.\n";
+    print localtime() . " : Initialized and imported data into the database.\n" unless $fQuiet;
 }
 
 sub GrantSelect
@@ -399,6 +415,7 @@ GetOptions(
     "with-pending=s"      => \$path_to_pending_so,
     "echo!"               => \$fEcho,
     "quiet|q"             => \$fQuiet,
+    "verbose|v"           => \$fVerbose,
     "help|h"              => \&Usage,
     "fix-broken-utf8"     => \$fFixUTF8,
     "install-extension=s" => \$fInstallExtension,
@@ -433,7 +450,7 @@ if ($fInstallExtension)
 
 SanityCheck();
 
-print localtime() . " : InitDb.pl starting\n";
+print localtime() . " : InitDb.pl starting\n" unless $fQuiet;
 my $started = 1;
 
 if ($fCreateDB)
