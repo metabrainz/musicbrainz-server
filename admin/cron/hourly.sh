@@ -1,10 +1,10 @@
 #!/bin/sh
 
 mb_server=`dirname $0`/../..
-cd "$MB_SERVER_ROOT"
+cd $mb_server
 
 eval `carton exec -- ./admin/ShowDBDefs`
-. "$MB_SERVER_ROOT"/admin/config.sh
+carton exec -- ./admin/config.sh
 
 # Only run one "hourly.sh" at a time
 if [ "$1" != "gotlock" ]
