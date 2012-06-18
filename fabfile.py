@@ -8,14 +8,16 @@ env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
 def socket_deploy():
     run("~/musicbrainz-server/admin/socket-deploy.sh")
 
-def beta():
-    env.host_string = "beta"
-
+def no_local_changes():
     # The exit code of these will be 0 if there are no changes.
     # If there are changes, then the author should fix his damn code.
     with settings( hide("stdout") ):
-        local("git diff")
-        local("git diff -c")
+        local("git diff --exit-code")
+        local("git diff --exit-code -c")
+
+def beta():
+    env.host_string = "beta"
+    no_local_changes()
 
     with settings( hide("stdout", "stderr") ):
         local("git checkout beta")
@@ -26,6 +28,7 @@ def beta():
 
 def test():
     env.host_string = "test"
+    no_local_changes()
 
     # The exit code of these will be 0 if there are no changes.
     # If there are changes, then the author should fix his damn code.
