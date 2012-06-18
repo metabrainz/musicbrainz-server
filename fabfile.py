@@ -30,12 +30,6 @@ def test():
     env.host_string = "test"
     no_local_changes()
 
-    # The exit code of these will be 0 if there are no changes.
-    # If there are changes, then the author should fix his damn code.
-    with settings( hide("stdout") ):
-        local("git diff")
-        local("git diff -c")
-
     with settings( hide("stdout", "stderr") ):
         local("git checkout next")
         local("git merge master")
