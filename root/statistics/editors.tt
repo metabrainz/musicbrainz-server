@@ -6,6 +6,7 @@
   <table class="tbl">
     <thead>
       <tr>
+        <th class="pos">[% l('Rank') %]</th>
         <th>[% l('Editor') %]</th>
         <th>[% l('Open and applied edits in past week') %]</th>
       </tr>
@@ -13,6 +14,7 @@
     <tbody>
       [% FOR data_point=top_recently_active_editors %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
         <td>[% link_editor(data_point.editor) %]</td>
         <td>[% add_commas(data_point.edits) %]</td>
       </tr>
@@ -24,6 +26,7 @@
   <table class="tbl">
     <thead>
       <tr>
+        <th class="pos">[% l('Rank') %]</th>
         <th>[% l('Editor') %]</th>
         <th>[% l('total applied edits') %]</th>
       </tr>
@@ -31,6 +34,7 @@
     <tbody>
       [% FOR editor=top_editors %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
         <td>[% link_editor(editor) %]</td>
         <td>[% add_commas(editor.accepted_edits + editor.accepted_auto_edits) %]</td>
       </tr>
@@ -45,6 +49,7 @@
   <table class="tbl">
     <thead>
       <tr>
+        <th class="pos">[% l('Rank') %]</th>
         <th>[% l('Voter') %]</th>
         <th>[% l('Votes in past week') %]</th>
       </tr>
@@ -52,6 +57,7 @@
     <tbody>
       [% FOR data_point=top_recently_active_voters %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
         <td>[% link_editor(data_point.editor) %]</td>
         <td>[% add_commas(data_point.votes) %]</td>
       </tr>
@@ -63,6 +69,7 @@
   <table class="tbl">
     <thead>
       <tr>
+        <th class="pos">[% l('Rank') %]</th>
         <th>[% l('Voter') %]</th>
         <th>[% l('Total votes') %]</th>
       </tr>
@@ -70,6 +77,7 @@
     <tbody>
       [% FOR data_point=top_voters %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
         <td>[% link_editor(data_point.editor) %]</td>
         <td>[% add_commas(data_point.votes) %]</td>
       </tr>
