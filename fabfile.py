@@ -6,7 +6,7 @@ env.use_ssh_config = True
 env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
 
 def socket_deploy():
-    run("~/musicbrainz-server/socket-deploy.sh")
+    run("~/musicbrainz-server/admin/socket-deploy.sh")
 
 def beta():
     env.host_string = "beta"
