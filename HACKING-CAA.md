@@ -21,26 +21,28 @@ For development we need a place to store the images, obviously a
 development server should not upload images to the actual
 coverartarchive storage.
 
-We provide a simple PHP script which emulates just enough of the
+We provide a simple Plack script which emulates just enough of the
 internet archive S3 protocol to use it with the musicbrainz server.
 
-Any php hosting should work, but we will assume apache with mod_php5.
-You will also need imagemagick to create thumbnails.  On ubuntu you
-can install all of this with:
+It is not designed to server back those static files however, so for
+now you will also need to be running a regular webserver (apache,
+nginx, etc..).
 
-    $ sudo apt-get install apache2 libapache2-mod-php5 imagemagick
+Figure out where you want to store uploaded images and make sure the
+storage server (ssssss.psgi) has write permissions at that location.
+E.g. if you have default debian apache install you could do something
+like this:
 
-Now install the php script and give it write permissions to store the
-uploaded files:
+    $ sudo mkdir /var/www/caa
+    $ sudo chown user.users /var/www/caa
+    $ SSSSSS_STORAGE=/var/www/caa/ plackup --port 5050 -r contrib/ssssss.psgi
 
-    $ sudo mkdir /var/www/caa/
-    $ sudo cp contrib/ssssss.php /var/www/caa/
-    $ sudo chown www-data.www-data /var/www/caa
-    $ sudo chmod ug+w /var/www/caa
+Note that we're specifying a port here.  We need the default port
+(5000) for musicbrainz.
 
-Now that you've installed this script, mb_server should be able to
-upload images and indexes to http://localhost/ssssss.php?bucket=$BUCKET,
-where $BUCKET is the bucket name.
+Now that you're running this script, mb_server should be able to
+upload images and indexes to http://localhost/caa/$BUCKET, where
+$BUCKET is the bucket name.
 
 
 CAA-indexer
@@ -87,7 +89,7 @@ should be uploaded to.  We will have to hardcode the correct URL in the
 source, edit lib/CoverArtArchive/IAS3Request.pm and change line 21.
 
     -    my $uri = "$protocol://$1.s3.us.archive.org$2";
-    +    my $uri = "$protocol://localhost/caa/ssssss.php?bucket=$1&file=$2";
+    +    my $uri = "$protocol://localhost/caa/$1?file=$2";
 
 And finally run the indexer:
 
@@ -108,7 +110,7 @@ Create a configuration file:
     $ vim coverart_redirect.conf
 
 Set prefix=http://localhost/caa/ in the [s3] section (this should be
-the location where ssssss.php is storing uploaded images).
+the location where ssssss.psgi is storing uploaded images).
 
 And start the server:
 
@@ -122,5 +124,5 @@ Now that all of that is configured you can point the musicbrainz server at
 the upload and download urls for your local cover art archive, change
 the following values in lib/DBDefs.pm:
 
-    sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { sprintf("http://localhost/caa/ssssss.php?bucket=%s", shift) };
+    sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { sprintf("http://localhost:5050/%s", shift) };
     sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" };
