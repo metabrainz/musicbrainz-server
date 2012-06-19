@@ -250,6 +250,30 @@ server. Just run:
 Visiting http://your.machines.ip.address:5000 should now present you with
 your own running instance of the MusicBrainz Server.
 
+Translations
+------------
+
+If you intend to run a translatable server, there are a few steps to follow:
+    1. Make sure gettext is installed (you need msgmerge and msgfmt, at least)
+
+    2. Download the .po files for your language(s) of choice, from 
+       https://www.transifex.net/projects/p/musicbrainz/r/server/ -- put them
+       in the po/ folder. These files should be named based on their translation
+       domain and their language: <domain>.<language>.mo. For the most part the
+       domain names are the same as the name of the 'resource' on Transifex,
+       with the lone exception being 'server', whose domain is 'mb_server'.
+       Language codes for .po files should be formatted <lang>_<COUNTRY>, e.g.
+       'es' or 'fr_CA'.
+
+    3. For each file, run make <file base>.mo. That is, for instruments.fr_CA.po, run
+       make instruments.fr-ca.mo.
+
+    4. Run make install, which should install the files to 
+       lib/LocaleData/<language>/LC_MESSAGES/<domain>.mo
+
+    5. Add the languages to MB_LANGUAGES in DBDefs.pm. These should be formatted
+       <lang>-<country>, e.g. 'es', or 'fr-ca'.
+
 Troubleshooting
 ---------------
 
