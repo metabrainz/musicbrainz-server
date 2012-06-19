@@ -266,7 +266,7 @@ If you intend to run a translatable server, there are a few steps to follow:
        'es' or 'fr_CA'.
 
     3. For each file, run make <file base>.mo. That is, for instruments.fr_CA.po, run
-       make instruments.fr-ca.mo.
+       make instruments.fr_CA.mo.
 
     4. Run make install, which should install the files to 
        lib/LocaleData/<language>/LC_MESSAGES/<domain>.mo
