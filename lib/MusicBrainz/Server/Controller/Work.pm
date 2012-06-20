@@ -51,7 +51,6 @@ sub show : PathPart('') Chained('load')
     # need to call relationships for overview page
     $self->relationships($c);
 
-
     $c->stash->{template} = 'work/index.tt';
 }
 
@@ -60,6 +59,7 @@ for my $action (qw( relationships aliases tags details add_iswc )) {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
+        $c->model('Language')->load($work);
     };
 }
 
