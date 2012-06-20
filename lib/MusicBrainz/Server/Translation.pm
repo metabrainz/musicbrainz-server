@@ -89,6 +89,13 @@ sub _set_language
 {
     my $self = shift;
 
+    # Make sure everything is unset first.
+    $ENV{LANGUAGE} = '';
+    $ENV{LANG} = '';
+    $ENV{OUTPUT_CHARSET} = '';
+    $ENV{LC_ALL} = '';
+    $ENV{LC_MESSAGES} = '';
+
     my @avail_lang = grep {
         my $l = $_;
         grep { $l eq $_ } DBDefs::MB_LANGUAGES
