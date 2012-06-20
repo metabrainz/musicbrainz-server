@@ -15,6 +15,7 @@ my @all = qw(
     CollaborationRelationships
     CreativeCommonsRelationships
     DiscogsLinksWithMultipleArtists
+    DiscogsLinksWithMultipleLabels
     DiscogsLinksWithMultipleReleaseGroups
     DiscogsLinksWithMultipleReleases
     FeaturingRecordings
@@ -52,6 +53,7 @@ use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::CreativeCommonsRelationships;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
+use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use MusicBrainz::Server::Report::FeaturingRecordings;
