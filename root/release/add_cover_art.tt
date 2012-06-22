@@ -34,6 +34,12 @@
 
       <div class="file-box template" style="display: none; margin: 1em 0; padding: 1em 0; border-top: 1px solid #AAAAAA;">
         <div class="file-info row">
+
+          <input type="button" class="icon file-down" title="[% l('Move file down') %]"
+            style="float: left; background-image: url([% c.uri_for("/static/images/icons/track-down.png") %]); width: 16px; height: 16px; border: 0;" />
+          <input type="button" class="icon file-up" title="[% l('Move file up') %]"
+            style="float: left; background-image: url([% c.uri_for("/static/images/icons/track-up.png") %]); width: 16px; height: 16px; border: 0;" />
+
           <label>[%- l("File:") -%]</label>
           <span class="filename"></span>
           <span class="filesize"></span>

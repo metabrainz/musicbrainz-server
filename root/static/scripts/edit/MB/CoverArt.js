@@ -236,6 +236,18 @@ MB.CoverArt.upload_image = function ($filebox, gid, position) {
     return deferred.promise ();
 };
 
+MB.CoverArt.file_down = function (event) {
+    var $filebox = $(this).closest ('.file-box');
+    var $next = $filebox.next ('.file-box');
+    $next.insertBefore ($filebox);
+};
+
+MB.CoverArt.file_up = function (event) {
+    var $filebox = $(this).closest ('.file-box');
+    var $prev = $filebox.prev ('.file-box');
+    $filebox.insertBefore ($prev);
+};
+
 MB.CoverArt.add_files = function (event) {
     $.each ($('input.add-files')[0].files, function (idx, file) {
         var $filebox;
@@ -251,6 +263,8 @@ MB.CoverArt.add_files = function (event) {
             .show ()
             .find ('.filename').text (file.name).end ()
             .find ('.filesize').text ('(' + filesize (file.size) + ')').end ()
+            .find ('.file-down').click (MB.CoverArt.file_down).end ()
+            .find ('.file-up').click (MB.CoverArt.file_up).end ()
             .data ('file', file);
     });
 
