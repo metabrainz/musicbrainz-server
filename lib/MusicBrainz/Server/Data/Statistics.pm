@@ -306,7 +306,6 @@ my %stats = (
     "count.edit" => {
         DESC => "Count of all edits",
         SQL => "SELECT COUNT(*) FROM edit",
-        DB => 'READWRITE'
     },
     "count.editor" => {
         DESC => "Count of all editors",
@@ -401,7 +400,6 @@ my %stats = (
     "count.vote" => {
         DESC => "Count of all votes",
         SQL => "SELECT COUNT(*) FROM vote",
-        DB => 'READWRITE'
     },
 
     "count.label.country" => {
@@ -610,7 +608,6 @@ my %stats = (
 
     "count.edit.open" => {
         DESC => "Count of open edits",
-        DB => 'READWRITE',
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -672,30 +669,25 @@ my %stats = (
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '1 day')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
-        DB => 'READWRITE'
     },
     "count.edit.perweek" => {
         DESC => "Count of edits per week",
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '7 days')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
-        DB => 'READWRITE'
     },
 
     "count.cdstub" => {
         DESC => "Count of all existing CD Stubs",
         SQL => "SELECT COUNT(*) FROM release_raw",
-        DB => 'READWRITE'
     },
     "count.cdstub.submitted" => {
         DESC => "Count of all submitted CD Stubs",
         SQL => "SELECT MAX(id) FROM release_raw",
-        DB => 'READWRITE'
     },
     "count.cdstub.track" => {
         DESC => "Count of all CD Stub tracks",
         SQL => "SELECT COUNT(*) FROM track_raw",
-        DB => 'READWRITE'
     },
 
     "count.artist.country" => {
@@ -723,7 +715,6 @@ my %stats = (
 
     "count.vote.yes" => {
         DESC => "Count of 'yes' votes",
-        DB => 'READWRITE',
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -758,14 +749,12 @@ my %stats = (
     },
     "count.vote.perday" => {
         DESC => "Count of votes per day",
-        DB => 'READWRITE',
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '1 day')
                   AND vote <> ". $VOTE_ABSTAIN,
     },
     "count.vote.perweek" => {
         DESC => "Count of votes per week",
-        DB => 'READWRITE',
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '7 days')
                   AND vote <> ". $VOTE_ABSTAIN,
@@ -776,7 +765,6 @@ my %stats = (
 
     "count.editor.editlastweek" => {
         DESC => "Count of editors who have submitted edits during the last week",
-        DB => 'READWRITE',
         CALC => sub {
             my ($self, $sql) = @_;
 
@@ -853,32 +841,26 @@ my %stats = (
     "count.tag.raw.artist" => {
         DESC => "Count of all artist raw tags",
         SQL => "SELECT COUNT(*) FROM artist_tag_raw",
-        DB => 'READWRITE'
     },
     "count.tag.raw.label" => {
         DESC => "Count of all label raw tags",
         SQL => "SELECT COUNT(*) FROM label_tag_raw",
-        DB => 'READWRITE'
     },
     "count.tag.raw.releasegroup" => {
         DESC => "Count of all release-group raw tags",
         SQL => "SELECT COUNT(*) FROM release_group_tag_raw",
-        DB => 'READWRITE'
     },
     "count.tag.raw.release" => {
         DESC => "Count of all release raw tags",
         SQL => "SELECT COUNT(*) FROM release_tag_raw",
-        DB => 'READWRITE'
     },
     "count.tag.raw.recording" => {
         DESC => "Count of all recording raw tags",
         SQL => "SELECT COUNT(*) FROM recording_tag_raw",
-        DB => 'READWRITE'
     },
     "count.tag.raw.work" => {
         DESC => "Count of all work raw tags",
         SQL => "SELECT COUNT(*) FROM work_tag_raw",
-        DB => 'READWRITE'
     },
     "count.tag.raw" => {
         DESC => "Count of all raw tags",
