@@ -40,7 +40,7 @@ def test():
     """
     Update the test.musicbrainz.org server
 
-    This requires you have a 'beta' alias in your .ssh/config file.
+    This requires you have a 'test' alias in your .ssh/config file.
     """
     env.host_string = "test"
     no_local_changes()
