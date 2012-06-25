@@ -33,6 +33,16 @@ OUTPUT=`
     nice carton exec -- ./admin/RunReports.pl 2>&1
 ` || echo "$OUTPUT"
 
+echo `date`" : Recalculating editor statistics"
+carton exec -Ilib -- perl -e '
+    use MusicBrainz::Server::Context;
+    my $c = MusicBrainz::Server::Context->create_script_context;
+    $c->model("Statistics")->top_recently_active_editors;
+    $c->model("Statistics")->top_editors;
+    $c->model("Statistics")->top_recently_active_voters;
+    $c->model("Statistics")->top_voters,
+'
+
 echo `date`" : Beta jobs complete!"
 
 # eof
