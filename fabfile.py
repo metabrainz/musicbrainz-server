@@ -112,8 +112,10 @@ def reset_test_branches():
         with cd("/home/beta/musicbrainz-server"):
             run("git fetch")
             run("git reset --hard origin/beta")
+        socket_deploy()
 
     with settings(host_string='beta'):
         with cd("/home/musicbrainz/musicbrainz-server"):
             run("git fetch")
             run("git reset --hard origin/next")
+        socket_deploy()
