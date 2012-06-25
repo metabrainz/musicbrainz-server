@@ -34724,6 +34724,78 @@
          },
          "version" : "0.0202"
       },
+      "TAP::Parser::SourceHandler::pgTAP" : {
+         "dist" : "TAP-Parser-SourceHandler-pgTAP-3.28",
+         "module" : "TAP::Parser::SourceHandler::pgTAP",
+         "mymeta" : {
+            "abstract" : "Stream TAP from pgTAP test scripts",
+            "author" : [
+               "David E. Wheeler <dwheeler@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.120351, CPAN::Meta::Converter version 2.120921",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "TAP-Parser-SourceHandler-pgTAP",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "Module::Build" : "0.30",
+                     "Test::More" : "0.88"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.30"
+                  }
+               },
+               "runtime" : {
+                  "recommends" : {
+                     "Test::Pod" : "1.41",
+                     "Test::Pod::Coverage" : "1.06"
+                  },
+                  "requires" : {
+                     "TAP::Parser::SourceHandler" : "0",
+                     "perl" : "5.006"
+                  }
+               }
+            },
+            "provides" : {
+               "TAP::Parser::SourceHandler::pgTAP" : {
+                  "file" : "lib/TAP/Parser/SourceHandler/pgTAP.pm",
+                  "version" : "3.28"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "bugtracker" : {
+                  "web" : "http://github.com/theory/tap-parser-sourcehandler-pgtap/issues/"
+               },
+               "homepage" : "http://search.cpan.org/dist/Tap-Parser-Sourcehandler-pgTAP/",
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://github.com/theory/tap-parser-sourcehandler-pgtap/tree/"
+               }
+            },
+            "version" : "3.28"
+         },
+         "name" : "TAP::Parser::SourceHandler::pgTAP",
+         "pathname" : "D/DW/DWHEELER/TAP-Parser-SourceHandler-pgTAP-3.28.tar.gz",
+         "provides" : {
+            "TAP::Parser::SourceHandler::pgTAP" : {
+               "file" : "TAP/Parser/SourceHandler/pgTAP.pm",
+               "version" : "3.28"
+            }
+         },
+         "version" : "3.28"
+      },
       "Task::Weaken" : {
          "dist" : "Task-Weaken-1.03",
          "module" : "Task::Weaken",
@@ -35975,6 +36047,451 @@
             }
          },
          "version" : "0.003"
+      },
+      "Test::Harness" : {
+         "dist" : "Test-Harness-3.25",
+         "module" : "http://cpan.metacpan.org/authors/id/O/OV/OVID/Test-Harness-3.25.tar.gz",
+         "mymeta" : {
+            "abstract" : "Run Perl standard test scripts with statistics",
+            "author" : [
+               "Andy Armstrong  C<< <andy@hexten.net> >>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.4, CPAN::Meta::Converter version 2.120351, CPAN::Meta::Converter version 2.120921",
+            "keywords" : [
+               "TAP",
+               "test harness",
+               "prove"
+            ],
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Test-Harness",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "runtime" : {
+                  "recommends" : {
+                     "Pod::Usage" : "1.12"
+                  },
+                  "requires" : {}
+               }
+            },
+            "provides" : {
+               "App::Prove" : {
+                  "file" : "lib/App/Prove.pm",
+                  "version" : "3.25"
+               },
+               "App::Prove::State" : {
+                  "file" : "lib/App/Prove/State.pm",
+                  "version" : "3.25"
+               },
+               "App::Prove::State::Result" : {
+                  "file" : "lib/App/Prove/State/Result.pm",
+                  "version" : "3.25"
+               },
+               "App::Prove::State::Result::Test" : {
+                  "file" : "lib/App/Prove/State/Result/Test.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Base" : {
+                  "file" : "lib/TAP/Base.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::Base" : {
+                  "file" : "lib/TAP/Formatter/Base.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::Color" : {
+                  "file" : "lib/TAP/Formatter/Color.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::Console" : {
+                  "file" : "lib/TAP/Formatter/Console.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::Console::ParallelSession" : {
+                  "file" : "lib/TAP/Formatter/Console/ParallelSession.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::Console::Session" : {
+                  "file" : "lib/TAP/Formatter/Console/Session.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::File" : {
+                  "file" : "lib/TAP/Formatter/File.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::File::Session" : {
+                  "file" : "lib/TAP/Formatter/File/Session.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Formatter::Session" : {
+                  "file" : "lib/TAP/Formatter/Session.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Harness" : {
+                  "file" : "lib/TAP/Harness.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Object" : {
+                  "file" : "lib/TAP/Object.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser" : {
+                  "file" : "lib/TAP/Parser.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Aggregator" : {
+                  "file" : "lib/TAP/Parser/Aggregator.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Grammar" : {
+                  "file" : "lib/TAP/Parser/Grammar.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Iterator" : {
+                  "file" : "lib/TAP/Parser/Iterator.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Iterator::Array" : {
+                  "file" : "lib/TAP/Parser/Iterator/Array.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Iterator::Process" : {
+                  "file" : "lib/TAP/Parser/Iterator/Process.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Iterator::Stream" : {
+                  "file" : "lib/TAP/Parser/Iterator/Stream.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::IteratorFactory" : {
+                  "file" : "lib/TAP/Parser/IteratorFactory.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Multiplexer" : {
+                  "file" : "lib/TAP/Parser/Multiplexer.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result" : {
+                  "file" : "lib/TAP/Parser/Result.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::Bailout" : {
+                  "file" : "lib/TAP/Parser/Result/Bailout.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::Comment" : {
+                  "file" : "lib/TAP/Parser/Result/Comment.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::Plan" : {
+                  "file" : "lib/TAP/Parser/Result/Plan.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::Pragma" : {
+                  "file" : "lib/TAP/Parser/Result/Pragma.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::Test" : {
+                  "file" : "lib/TAP/Parser/Result/Test.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::Unknown" : {
+                  "file" : "lib/TAP/Parser/Result/Unknown.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::Version" : {
+                  "file" : "lib/TAP/Parser/Result/Version.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Result::YAML" : {
+                  "file" : "lib/TAP/Parser/Result/YAML.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::ResultFactory" : {
+                  "file" : "lib/TAP/Parser/ResultFactory.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Scheduler" : {
+                  "file" : "lib/TAP/Parser/Scheduler.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Scheduler::Job" : {
+                  "file" : "lib/TAP/Parser/Scheduler/Job.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Scheduler::Spinner" : {
+                  "file" : "lib/TAP/Parser/Scheduler/Spinner.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Source" : {
+                  "file" : "lib/TAP/Parser/Source.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::SourceHandler" : {
+                  "file" : "lib/TAP/Parser/SourceHandler.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::SourceHandler::Executable" : {
+                  "file" : "lib/TAP/Parser/SourceHandler/Executable.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::SourceHandler::File" : {
+                  "file" : "lib/TAP/Parser/SourceHandler/File.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::SourceHandler::Handle" : {
+                  "file" : "lib/TAP/Parser/SourceHandler/Handle.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::SourceHandler::Perl" : {
+                  "file" : "lib/TAP/Parser/SourceHandler/Perl.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::SourceHandler::RawTAP" : {
+                  "file" : "lib/TAP/Parser/SourceHandler/RawTAP.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::Utils" : {
+                  "file" : "lib/TAP/Parser/Utils.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::YAMLish::Reader" : {
+                  "file" : "lib/TAP/Parser/YAMLish/Reader.pm",
+                  "version" : "3.25"
+               },
+               "TAP::Parser::YAMLish::Writer" : {
+                  "file" : "lib/TAP/Parser/YAMLish/Writer.pm",
+                  "version" : "3.25"
+               },
+               "Test::Harness" : {
+                  "file" : "lib/Test/Harness.pm",
+                  "version" : "3.25"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "bugtracker" : {
+                  "web" : "http://rt.cpan.org/Public/Dist/Display.html?Name=Test-Harness"
+               },
+               "homepage" : "http://testanything.org/",
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://github.com/Perl-Toolchain-Gang/Test-Harness/tree/master"
+               },
+               "x_MailingList" : "mailto:<tapx-dev@hexten.net>"
+            },
+            "version" : "3.25"
+         },
+         "name" : "Test::Harness",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/O/OV/OVID/Test-Harness-3.25.tar.gz",
+         "provides" : {
+            "App::Prove" : {
+               "file" : "App/Prove.pm",
+               "version" : "3.25"
+            },
+            "App::Prove::State" : {
+               "file" : "App/Prove/State.pm",
+               "version" : "3.25"
+            },
+            "App::Prove::State::Result" : {
+               "file" : "App/Prove/State/Result.pm",
+               "version" : "3.25"
+            },
+            "App::Prove::State::Result::Test" : {
+               "file" : "App/Prove/State/Result/Test.pm",
+               "version" : "3.25"
+            },
+            "TAP::Base" : {
+               "file" : "TAP/Base.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::Base" : {
+               "file" : "TAP/Formatter/Base.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::Color" : {
+               "file" : "TAP/Formatter/Color.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::Console" : {
+               "file" : "TAP/Formatter/Console.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::Console::ParallelSession" : {
+               "file" : "TAP/Formatter/Console/ParallelSession.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::Console::Session" : {
+               "file" : "TAP/Formatter/Console/Session.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::File" : {
+               "file" : "TAP/Formatter/File.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::File::Session" : {
+               "file" : "TAP/Formatter/File/Session.pm",
+               "version" : "3.25"
+            },
+            "TAP::Formatter::Session" : {
+               "file" : "TAP/Formatter/Session.pm",
+               "version" : "3.25"
+            },
+            "TAP::Harness" : {
+               "file" : "TAP/Harness.pm",
+               "version" : "3.25"
+            },
+            "TAP::Object" : {
+               "file" : "TAP/Object.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser" : {
+               "file" : "TAP/Parser.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Aggregator" : {
+               "file" : "TAP/Parser/Aggregator.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Grammar" : {
+               "file" : "TAP/Parser/Grammar.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Iterator" : {
+               "file" : "TAP/Parser/Iterator.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Iterator::Array" : {
+               "file" : "TAP/Parser/Iterator/Array.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Iterator::Process" : {
+               "file" : "TAP/Parser/Iterator/Process.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Iterator::Stream" : {
+               "file" : "TAP/Parser/Iterator/Stream.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::IteratorFactory" : {
+               "file" : "TAP/Parser/IteratorFactory.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Multiplexer" : {
+               "file" : "TAP/Parser/Multiplexer.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result" : {
+               "file" : "TAP/Parser/Result.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::Bailout" : {
+               "file" : "TAP/Parser/Result/Bailout.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::Comment" : {
+               "file" : "TAP/Parser/Result/Comment.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::Plan" : {
+               "file" : "TAP/Parser/Result/Plan.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::Pragma" : {
+               "file" : "TAP/Parser/Result/Pragma.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::Test" : {
+               "file" : "TAP/Parser/Result/Test.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::Unknown" : {
+               "file" : "TAP/Parser/Result/Unknown.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::Version" : {
+               "file" : "TAP/Parser/Result/Version.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Result::YAML" : {
+               "file" : "TAP/Parser/Result/YAML.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::ResultFactory" : {
+               "file" : "TAP/Parser/ResultFactory.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Scheduler" : {
+               "file" : "TAP/Parser/Scheduler.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Scheduler::Job" : {
+               "file" : "TAP/Parser/Scheduler/Job.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Scheduler::Spinner" : {
+               "file" : "TAP/Parser/Scheduler/Spinner.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Source" : {
+               "file" : "TAP/Parser/Source.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::SourceHandler" : {
+               "file" : "TAP/Parser/SourceHandler.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::SourceHandler::Executable" : {
+               "file" : "TAP/Parser/SourceHandler/Executable.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::SourceHandler::File" : {
+               "file" : "TAP/Parser/SourceHandler/File.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::SourceHandler::Handle" : {
+               "file" : "TAP/Parser/SourceHandler/Handle.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::SourceHandler::Perl" : {
+               "file" : "TAP/Parser/SourceHandler/Perl.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::SourceHandler::RawTAP" : {
+               "file" : "TAP/Parser/SourceHandler/RawTAP.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::Utils" : {
+               "file" : "TAP/Parser/Utils.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::YAMLish::Reader" : {
+               "file" : "TAP/Parser/YAMLish/Reader.pm",
+               "version" : "3.25"
+            },
+            "TAP::Parser::YAMLish::Writer" : {
+               "file" : "TAP/Parser/YAMLish/Writer.pm",
+               "version" : "3.25"
+            },
+            "Test::Harness" : {
+               "file" : "Test/Harness.pm",
+               "version" : "3.25"
+            },
+            "http://cpan.metacpan.org/authors/id/O/OV/OVID/Test-Harness-3.25.tar.gz" : {}
+         },
+         "version" : "3.25"
       },
       "Test::JSON" : {
          "dist" : "Test-JSON-0.11",

@@ -63,9 +63,11 @@ sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
-            $_->id => ($_->id =~ /_/ ? "&nbsp;&nbsp;&nbsp;" : '') . $_->name
+            # Special-case el_POLYTON, because it has a stupid non-descriptive name
+            $_->id => ($_->id =~ /_/ ? "&nbsp;&nbsp;&nbsp;" : '') . ($_->id eq 'el_POLYTON' ? "Greek Polytonic" : $_->name)
         }
             sort_by { $_->name }
+            sort_by { $_->id }
                 map { DateTime::Locale->load($_) } DateTime::Locale->ids
     ];
 }

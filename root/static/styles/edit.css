@@ -61,7 +61,7 @@ table.vote-tally .date {
 .voteopts div {
     text-align: center;
     display: inline-block;
-    padding: 5px;
+    padding: 0px;
     border: 1px solid transparent;
 }
 
@@ -193,7 +193,7 @@ table.vote-tally .date {
     padding: 0 10px;
 }
 
-.edit-list .edit-actions .voteopts {
+.edit-list .edit-actions {
     margin-bottom: 10px;
 }
 
@@ -281,4 +281,14 @@ div.thumb-position img {
 
 div.thumb-position.moved {
     background: #B1EBB0;
+}
+
+.voteopts .vote label {
+    padding: 5px;
+    display: block;
+}
+
+.voteopts .vote label input {
+    margin: 0 auto;
+    display: block;
 }

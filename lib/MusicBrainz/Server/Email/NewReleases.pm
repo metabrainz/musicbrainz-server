@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use String::TT qw( strip tt );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Constants qw( $EMAIL_SUPPORT_ADDRESS );
 
 has 'editor' => (
     isa => 'Editor',
@@ -26,7 +27,7 @@ has 'releases' => (
 
 sub extra_headers {
     return (
-        'Reply-To' => $MusicBrainz::Server::Email::SUPPORT_ADDRESS
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS
     )
 }
 

@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( l ln );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -12,6 +13,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { l('Edit barcodes') }
@@ -25,6 +27,7 @@ has '+data' => (
                 name => Str
             ],
             barcode => Str,
+            old_barcode => Nullable[Str]
         ]]
     ]
 );
@@ -79,7 +82,9 @@ sub build_display_data
             map +{
                 release => $loaded->{Release}->{ $_->{release}{id} }
                     || Release->new( name => $_->{release}{name} ),
-                barcode => $_->{barcode},
+                new_barcode => Barcode->new($_->{barcode}),
+                exists $_->{old_barcode} ?
+                    (old_barcode => Barcode->new($_->{old_barcode})) : ()
             }, @{ $self->data->{submissions} }
         ]
     }
@@ -93,6 +98,21 @@ sub accept {
             { barcode => $submission->{barcode} }
         )
     }
+}
+
+sub initialize {
+    my ($self, %opts) = @_;
+    $opts{submissions} = [
+        map +{
+            release => {
+                id => $_->{release}->id,
+                name => $_->{release}->name,
+            },
+            barcode => $_->{barcode},
+            old_barcode => $_->{release}->barcode->code
+        }, @{ $opts{submissions} }
+    ];
+    $self->data(\%opts);
 }
 
 1;

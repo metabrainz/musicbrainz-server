@@ -11,50 +11,59 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
+    my $test = shift;
+    my $c = $test->c;
 
-my $test = shift;
-my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+    my $edit = _create_edit($c);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditBarcodes');
 
-my $edit = _create_edit($c);
-isa_ok($edit, 'MusicBrainz::Server::Edit::Release::EditBarcodes');
+    my ($edits) = $c->model('Edit')->find({ release => [1, 2] }, 10, 0);
+    is(@$edits, 1);
+    is($edits->[0]->id, $edit->id);
 
-my ($edits) = $c->model('Edit')->find({ release => [1, 2] }, 10, 0);
-is(@$edits, 1);
-is($edits->[0]->id, $edit->id);
+    cmp_set(
+        [ map +{
+            barcode => $_->{barcode},
+            old_barcode => $_->{old_barcode}
+        }, @{ $edit->data->{submissions} } ],
+        [
+            { barcode => '5099703257021', old_barcode => '731453398122' },
+            { barcode => '5199703257021', old_barcode => undef }
+        ]
+    );
 
-cmp_set($edit->related_entities->{artist},
-        [ 1 ],
-        'is related to the release artists');
+    cmp_set($edit->related_entities->{artist},
+            [ 1 ],
+            'is related to the release artists');
 
-cmp_set($edit->related_entities->{release},
-        [ 1, 2 ],
-        'is related to the releases');
+    cmp_set($edit->related_entities->{release},
+            [ 1, 2 ],
+            'is related to the releases');
 
-cmp_set($edit->related_entities->{release_group},
-        [ 1 ],
-        'is related to the release groups');
+    cmp_set($edit->related_entities->{release_group},
+            [ 1 ],
+            'is related to the release groups');
 
-my $r1 = $c->model('Release')->get_by_id(1);
-my $r2 = $c->model('Release')->get_by_id(2);
-is($r1->edits_pending, 3);
-is($r1->barcode->format, '731453398122');
-is($r2->edits_pending, 1);
-is($r2->barcode->format, '');
+    my $r1 = $c->model('Release')->get_by_id(1);
+    my $r2 = $c->model('Release')->get_by_id(2);
+    is($r1->edits_pending, 3);
+    is($r1->barcode->format, '731453398122');
+    is($r2->edits_pending, 1);
+    is($r2->barcode->format, '');
 
-reject_edit($c, $edit);
+    reject_edit($c, $edit);
 
-$edit = _create_edit($c);
-accept_edit($c, $edit);
+    $edit = _create_edit($c);
+    accept_edit($c, $edit);
 
-$r1 = $c->model('Release')->get_by_id(1);
-$r2 = $c->model('Release')->get_by_id(2);
-is($r1->edits_pending, 2);
-is($r1->barcode->format, '5099703257021');
-is($r2->edits_pending, 0);
-is($r2->barcode->format, '5199703257021');
-
+    $r1 = $c->model('Release')->get_by_id(1);
+    $r2 = $c->model('Release')->get_by_id(2);
+    is($r1->edits_pending, 2);
+    is($r1->barcode->format, '5099703257021');
+    is($r2->edits_pending, 0);
+    is($r2->barcode->format, '5199703257021');
 };
 
 sub _create_edit {
@@ -66,17 +75,11 @@ sub _create_edit {
         editor_id => 1,
         submissions => [
             {
-                release => {
-                    id => $old_rel->id,
-                    name => $old_rel->name,
-                },
+                release => $old_rel,
                 barcode => '5099703257021',
             },
             {
-                release => {
-                    id => $new_rel->id,
-                    name => $new_rel->name
-                },
+                release => $new_rel,
                 barcode => '5199703257021'
             }
         ]
