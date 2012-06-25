@@ -131,11 +131,17 @@ sub edit_action
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
 
-        my $edit = $self->_insert_edit($c, $form,
-            edit_type => $opts{type},
-            @options,
-            %extra
-        );
+        my $edit;
+        $c->model('MB')->with_transaction(sub {
+            $edit = $self->_insert_edit(
+                $c, $form,
+                edit_type => $opts{type},
+                @options,
+                %extra
+            );
+
+            $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+        });
 
         $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
 

@@ -220,7 +220,7 @@ my $create_triggers_sql = do { local $/; <FILE> };
 close FILE;
 
 my @triggers;
-while ($create_triggers_sql =~ m/CREATE TRIGGER\s+([a-z0-9_]+)\s+.*?\s+ON\s+([a-z0-9_]+)/gi) {
+while ($create_triggers_sql =~ m/CREATE (?:CONSTRAINT )?TRIGGER\s+([a-z0-9_]+)\s+.*?\s+ON\s+([a-z0-9_]+)/gi) {
     push @triggers, [$1, $2];
 }
 

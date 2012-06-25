@@ -452,37 +452,6 @@ sub select_list_of_hashes
     $self->_select_list($query, \@params, 'hashref');
 }
 
-sub get_column_range
-{
-    my ($self, $tables, $column, $cmpfunc) = @_;
-    $tables = [ $tables ] if not ref $tables;
-    $column = "id" if not defined $column;
-    $cmpfunc ||= sub { $_[0] <=> $_[1] };
-
-    # Postgres is poor at optimising SELECT MIN(id) FROM table
-    # (or MAX).  It uses a table scan, instead of an index scan.
-    # However for the following queries it gets it right:
-
-    my ($min, $max);
-    for my $table (@$tables) {
-        my $thismin = $self->select_single_value(
-            "SELECT $column FROM $table ORDER BY 1 ASC LIMIT 1",
-        );
-        $min = $thismin
-            if defined($thismin)
-                and (not defined($min) or &$cmpfunc($thismin, $min)<0);
-
-        my $thismax = $self->select_single_value(
-            "SELECT $column FROM $table ORDER BY 1 DESC LIMIT 1",
-        );
-        $max = $thismax
-            if defined($thismax)
-                and (not defined($max) or &$cmpfunc($thismax, $max)>0);
-    }
-
-    return ($min, $max);
-}
-
 ################################################################################
 
 package Sql::Timer;

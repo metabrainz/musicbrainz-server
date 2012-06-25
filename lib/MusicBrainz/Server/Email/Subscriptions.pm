@@ -8,6 +8,7 @@ use MooseX::Types::Structured qw( Map );
 use String::TT qw( strip tt );
 use URI::Escape;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Constants qw( $EMAIL_SUPPORT_ADDRESS );
 
 has 'editor' => (
     isa => 'Editor',
@@ -43,7 +44,7 @@ has 'edits' => (
 
 sub extra_headers {
     return (
-        'Reply-To' => $MusicBrainz::Server::Email::SUPPORT_ADDRESS
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS
     )
 }
 

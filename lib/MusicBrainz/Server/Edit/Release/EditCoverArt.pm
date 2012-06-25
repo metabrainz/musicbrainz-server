@@ -79,6 +79,11 @@ sub accept {
             'This release no longer exists'
         );
 
+    $self->c->model('CoverArtArchive')->exists($self->data->{id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This cover art no longer exists'
+        );
+
     $self->c->model('CoverArtArchive')->update_cover_art(
         $release->id,
         $self->data->{id},
@@ -100,7 +105,7 @@ sub foreign_keys {
         @{ $self->data->{new}->{types} },
         @{ $self->data->{old}->{types} }
     ] if defined $self->data->{new}->{types};
-        
+
     return \%fk;
 }
 

@@ -256,6 +256,7 @@ ALTER TABLE vote DROP CONSTRAINT vote_fk_editor;
 ALTER TABLE vote DROP CONSTRAINT vote_fk_edit;
 ALTER TABLE work DROP CONSTRAINT work_fk_name;
 ALTER TABLE work DROP CONSTRAINT work_fk_type;
+ALTER TABLE work DROP CONSTRAINT work_fk_language;
 ALTER TABLE work_alias DROP CONSTRAINT work_alias_fk_work;
 ALTER TABLE work_alias DROP CONSTRAINT work_alias_fk_name;
 ALTER TABLE work_alias DROP CONSTRAINT work_alias_fk_sort_name;

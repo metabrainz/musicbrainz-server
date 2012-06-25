@@ -102,8 +102,8 @@
     <th colspan=4>[% l('Per release') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Pieces of cover art:') %]</th>
-    <td>[% add_commas(stats.statistic('count.coverart')) %]</td>
+    <th colspan=2>[% l('Releases with cover art:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release.has_caa')) %]</td>
     <td></td>
 </tr>
 [%- FOREACH num IN [1 .. 29] -%]
@@ -111,14 +111,14 @@
     <th></th>
     <th>[% ln('with {num} piece of cover art:', 'with {num} pieces of cover art:', num, { num => num }) %]</th>
     <td>[% add_commas(stats.statistic('count.coverart.per_release.' _ num _ 'images')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.coverart.per_release.' _ num _ 'images', 'count.coverart')) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.coverart.per_release.' _ num _ 'images', 'count.release.has_caa')) }) %]</td>
 </tr>
 [%- END -%]
 <tr>
     <th></th>
     <th>[% l('with 30 or more pieces of cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.coverart.per_release.30images')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.coverart.per_release.30images', 'count.coverart')) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.coverart.per_release.30images', 'count.release.has_caa')) }) %]</td>
 </tr>
 </tbody>
 </table>

@@ -183,17 +183,19 @@ sub submit_puid : Private
         }
     );
 
-    $buffer->flush_on_complete(sub {
-        while(my ($recording_gid, $puids) = each %$submit) {
-            next unless exists $recordings->{ $recording_gid };
-            $buffer->add_items(map +{
-                recording => {
-                    id   => $recordings->{ $recording_gid }->id,
-                    name => $recordings->{ $recording_gid }->name
-                },
-                puid      => $_
-            }, @$puids);
-        }
+    $c->model('MB')->with_transaction(sub {
+        $buffer->flush_on_complete(sub {
+            while(my ($recording_gid, $puids) = each %$submit) {
+                next unless exists $recordings->{ $recording_gid };
+                $buffer->add_items(map +{
+                    recording => {
+                        id   => $recordings->{ $recording_gid }->id,
+                        name => $recordings->{ $recording_gid }->name
+                    },
+                    puid      => $_
+                }, @$puids);
+            }
+        })
     });
 
     $c->detach;
@@ -232,17 +234,19 @@ sub submit_isrc : Private
         }
     );
 
-    $buffer->flush_on_complete(sub {
-        while(my ($recording_gid, $isrcs) = each %$submit) {
-            next unless exists $recordings->{ $recording_gid };
-            $buffer->add_items(map +{
-                recording => {
-                    id   => $recordings->{ $recording_gid }->id,
-                    name => $recordings->{ $recording_gid }->name
-                },
-                isrc         => $_
-            }, @$isrcs);
-        }
+    $c->model('MB')->with_transaction(sub {
+        $buffer->flush_on_complete(sub {
+            while(my ($recording_gid, $isrcs) = each %$submit) {
+                next unless exists $recordings->{ $recording_gid };
+                $buffer->add_items(map +{
+                    recording => {
+                        id   => $recordings->{ $recording_gid }->id,
+                        name => $recordings->{ $recording_gid }->name
+                    },
+                    isrc         => $_
+                }, @$isrcs);
+            }
+        });
     });
 
     $c->detach;
