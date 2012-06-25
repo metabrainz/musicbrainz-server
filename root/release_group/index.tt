@@ -30,7 +30,7 @@
             [%- FOR group=releases -%]
               <tr class="subh">
                 [% IF c.user_exists %]<th></th>[% END %]
-                <th colspan="[% c.session.tport ? 10 : 9 %]">[% l(group.0.status_name) || l('(unknown)') %]</th>
+                <th colspan="[% c.session.tport ? 9 : 8 %]">[% l(group.0.status_name) || l('(unknown)') %]</th>
               </tr>
               [% FOR release=group %]
               <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
