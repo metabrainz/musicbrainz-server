@@ -11,6 +11,7 @@ def socket_deploy():
     restarting the process and taking down the old one if a new process could
     successful be started.
     """
+    run("git pull --ff-only")
     run("~/musicbrainz-server/admin/socket-deploy.sh")
 
 def no_local_changes():
@@ -18,7 +19,7 @@ def no_local_changes():
     # If there are changes, then the author should fix his damn code.
     with settings( hide("stdout") ):
         local("git diff --exit-code")
-        local("git diff --exit-code -c")
+        local("git diff --exit-code --cached")
 
 def beta():
     """
@@ -96,3 +97,23 @@ def production():
         run("tail /etc/service/mb_server-fastcgi/log/main/current | grep started")
         run("wget http://localhost -O -")
 
+def reset_test_branches():
+    """
+    Reset the 'next' and 'beta' branches, and do socket updates on both beta and test
+    """
+    no_local_changes()
+    local("git checkout next")
+    local("git reset --hard origin/master")
+    local("git checkout beta")
+    local("git reset --hard origin/master")
+    local("git push --force origin next beta")
+
+    with settings(host_string='beta'):
+        with cd("/home/beta/musicbrainz-server"):
+            run("git fetch")
+            run("git reset --hard origin/beta")
+
+    with settings(host_string='beta'):
+        with cd("/home/musicbrainz/musicbrainz-server"):
+            run("git fetch")
+            run("git reset --hard origin/next")
