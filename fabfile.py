@@ -80,7 +80,11 @@ def production():
             abort('User does not wish to proceed')
 
     sudo("svc -d /etc/service/mb_server-fastcgi")
-    sudo("/home/musicbrainz/musicbrainz-server/production-deploy.sh", user="musicbrainz")
+
+    with cd('/home/musicbrainz/musicbrainz-server'):
+        sudo("git pull --ff-only", user="musicbrainz")
+
+    sudo("/home/musicbrainz/musicbrainz-server/admin/production-deploy.sh", user="musicbrainz")
     sudo("svc -u /etc/service/mb_server-fastcgi")
 
     puts("Waiting 20 seconds for server to start")
