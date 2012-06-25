@@ -11,8 +11,9 @@ def socket_deploy():
     restarting the process and taking down the old one if a new process could
     successful be started.
     """
-    run("git pull --ff-only")
-    run("~/musicbrainz-server/admin/socket-deploy.sh")
+    with cd("~/musicbrainz-server"):
+        run("git pull --ff-only")
+        run("~/musicbrainz-server/admin/socket-deploy.sh")
 
 def no_local_changes():
     # The exit code of these will be 0 if there are no changes.
