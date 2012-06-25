@@ -2,6 +2,7 @@ package MusicBrainz::Server::Context;
 use Moose;
 
 use DBDefs;
+use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
@@ -19,7 +20,8 @@ has 'connector' => (
 );
 
 sub _build_connector {
-    return DatabaseConnectionFactory->get_connection('READWRITE');
+    my $db = &DBDefs::REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE';
+    return DatabaseConnectionFactory->get_connection($db);
 }
 
 has 'models' => (
