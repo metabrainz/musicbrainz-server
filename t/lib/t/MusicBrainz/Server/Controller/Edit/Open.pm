@@ -5,7 +5,7 @@ use Test::More;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Test qw( accept_edit html_ok );
 
-my $mock_edit_class = int(rand(1000));
+my $mock_edit_class = 1000 + int(rand(1000));
 
 {
     package t::Controller::Edit::Open::FakeEdit;

@@ -17,7 +17,7 @@ CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON artist_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary('artist_alias');
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_artist_alias();
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
@@ -131,7 +131,7 @@ CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON label_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary('label_alias');
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_label_alias();
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON label_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
@@ -240,7 +240,7 @@ CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON work_alias
-    FOR EACH ROW EXECUTE PROCEDURE unique_primary('work_alias');
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_work_alias();
 
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON work_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
@@ -257,91 +257,119 @@ CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
 CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
     FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
 
-
 --------------------------------------------------------------------------------
-CREATE TRIGGER a_upd_l_artist_artist AFTER UPDATE ON l_artist_artist FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_artist_artist AFTER DELETE ON l_artist_artist FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_artist DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_artist_label AFTER UPDATE ON l_artist_label FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_artist_label AFTER DELETE ON l_artist_label FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_label DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_artist_recording AFTER UPDATE ON l_artist_recording FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_artist_recording AFTER DELETE ON l_artist_recording FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_recording DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_artist_release AFTER UPDATE ON l_artist_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_artist_release AFTER DELETE ON l_artist_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_artist_release_group AFTER UPDATE ON l_artist_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_artist_release_group AFTER DELETE ON l_artist_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_artist_url AFTER UPDATE ON l_artist_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_artist_url AFTER DELETE ON l_artist_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_artist_work AFTER UPDATE ON l_artist_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_artist_work AFTER DELETE ON l_artist_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_artist_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_label_label AFTER UPDATE ON l_label_label FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_label_label AFTER DELETE ON l_label_label FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_label_label DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_label_recording AFTER UPDATE ON l_label_recording FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_label_recording AFTER DELETE ON l_label_recording FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_label_recording DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_label_release AFTER UPDATE ON l_label_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_label_release AFTER DELETE ON l_label_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_label_release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_label_release_group AFTER UPDATE ON l_label_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_label_release_group AFTER DELETE ON l_label_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_label_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_label_url AFTER UPDATE ON l_label_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_label_url AFTER DELETE ON l_label_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_label_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_label_work AFTER UPDATE ON l_label_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_label_work AFTER DELETE ON l_label_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_label_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_recording_recording AFTER UPDATE ON l_recording_recording FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_recording_recording AFTER DELETE ON l_recording_recording FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_recording_recording DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_recording_release AFTER UPDATE ON l_recording_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_recording_release AFTER DELETE ON l_recording_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_recording_release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_recording_release_group AFTER UPDATE ON l_recording_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_recording_release_group AFTER DELETE ON l_recording_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_recording_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_recording_url AFTER UPDATE ON l_recording_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_recording_url AFTER DELETE ON l_recording_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_recording_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_recording_work AFTER UPDATE ON l_recording_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_recording_work AFTER DELETE ON l_recording_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_recording_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_release_release AFTER UPDATE ON l_release_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_release_release AFTER DELETE ON l_release_release FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_release_release DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_release_release_group AFTER UPDATE ON l_release_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_release_release_group AFTER DELETE ON l_release_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_release_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_release_url AFTER UPDATE ON l_release_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_release_url AFTER DELETE ON l_release_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_release_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_release_work AFTER UPDATE ON l_release_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_release_work AFTER DELETE ON l_release_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_release_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_release_group_release_group AFTER UPDATE ON l_release_group_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_release_group_release_group AFTER DELETE ON l_release_group_release_group FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_release_group_release_group DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_release_group_url AFTER UPDATE ON l_release_group_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_release_group_url AFTER DELETE ON l_release_group_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_release_group_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_release_group_work AFTER UPDATE ON l_release_group_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_release_group_work AFTER DELETE ON l_release_group_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_release_group_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_url_url AFTER UPDATE ON l_url_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_url_url AFTER DELETE ON l_url_url FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_url_url DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_url_work AFTER UPDATE ON l_url_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_url_work AFTER DELETE ON l_url_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_url_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
-CREATE TRIGGER a_upd_l_work_work AFTER UPDATE ON l_work_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
-CREATE TRIGGER a_del_l_work_work AFTER DELETE ON l_work_work FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+CREATE CONSTRAINT TRIGGER remove_unused_links
+    AFTER DELETE OR UPDATE ON l_work_work DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
+--------------------------------------------------------------------------------
 
 CREATE CONSTRAINT TRIGGER url_gc_a_upd_l_artist_url
 AFTER UPDATE ON l_artist_url DEFERRABLE INITIALLY DEFERRED

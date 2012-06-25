@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
 use MusicBrainz::Server::Validation qw( is_valid_iswc );
+use List::UtilsBy qw( sort_by );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -31,7 +32,7 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $iswcs = $c->stash->{iswcs};
-    my @works = $c->model('Work')->load(@$iswcs);
+    my @works = sort_by { $_->name } $c->model('Work')->load(@$iswcs);
     $c->model('WorkType')->load(@works);
     $c->model('Work')->load_writers(@works);
     $c->model('Work')->load_recording_artists(@works);

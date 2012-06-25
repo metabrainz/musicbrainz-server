@@ -238,7 +238,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.youtube.com/user/officialpsy',
                     'artist'
                 ],
-
+                [
+                    'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
+                    'http://www.jamendo.com/list/a81403',
+                    'release'
+                ],
                 [
                     'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     'http://www.allmusic.com/artist/mn0000754032',
@@ -263,6 +267,62 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
+                ],
+
+                // MBS-4810: exactly one terminating slash at the end
+                [
+                    'http://creativecommons.org/licenses/by-nc-sa/2.0/de//',
+                    'http://creativecommons.org/licenses/by-nc-sa/2.0/de/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/by/2.0/scotland',
+                    'http://creativecommons.org/licenses/by/2.0/scotland/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/publicdomain//',
+                    'http://creativecommons.org/licenses/publicdomain/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/publicdomain',
+                    'http://creativecommons.org/licenses/publicdomain/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/publicdomain/zero/1.0//',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/publicdomain/zero/1.0',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+
+                // MBS-4044: Cleanup Discogs URLs
+                [
+                    'http://www.discogs.com/artist/Teresa+Teng?anv=%E9%84%A7%E9%BA%97%E5%90%9B',
+                    'http://www.discogs.com/artist/Teresa+Teng',
+                    'artist'
+                ],
+                [
+                    'http://www.discogs.com/artist/Guy+Balbaert#t=Credits_Writing-Arrangement&q=&p=1',
+                    'http://www.discogs.com/artist/Guy+Balbaert',
+                    'artist'
+                ],
+
+                // MBS-4284: Normalize URL encoding for specific sites
+                [
+                    'http://www.discogs.com/label/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                    'http://www.discogs.com/label/%24%26+%2C%2F%3A%3B%3D%40%5B%5D+%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                    'label'
+                ],
+                [
+                    'http://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                    'http://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
+                    'label'
                 ]
 
             ];
