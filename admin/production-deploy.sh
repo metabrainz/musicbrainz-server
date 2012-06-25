@@ -2,9 +2,6 @@
 mb_server=`dirname $0`/..
 cd $mb_server
 
-echo `date` : Updating from Git
-git pull --ff-only
-
 # Clear the Perl environment from anything now, and use the Carton environment
 eval $(perl -Mlocal::lib)
 export PERL_CARTON_PATH=$mb_server/local
