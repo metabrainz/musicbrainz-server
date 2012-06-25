@@ -1,14 +1,14 @@
 package MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'artists_that_may_be_persons' }
 
-    $self->gather_data_from_query($writer, "
-        SELECT DISTINCT ON(name.name, artist.id) artist.gid AS artist_gid, name.name, artist.type
+sub query {
+    "
+        SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
+          row_number() OVER (ORDER BY musicbrainz_collate(name.name), artist.id)
         FROM
             artist
             JOIN l_artist_artist ON l_artist_artist.entity0=artist.id
@@ -20,8 +20,7 @@ sub gather_data
             link_type.name NOT IN ('collaboration') AND
             link_type.entity_type0 = 'artist' AND
             link_type.entity_type1 = 'artist'
-        ORDER BY name.name, artist.id
-    ");
+    ";
 }
 
 sub template
@@ -36,6 +35,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

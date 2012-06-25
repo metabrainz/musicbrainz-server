@@ -24,20 +24,21 @@
     </thead>
     <tbody>
       [% FOR item IN items %]
-      <tr class="subh"><td colspan="4"></td></tr>
-      [% FOR dupe IN item %]
+      [% IF !lastkey.defined || lastkey != item.key %]
+        <tr class="subh"><td colspan="4"></td></tr>
+      [% END %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
         <td>
           <input type="checkbox" name="add-to-merge"
-                 value="[% dupe.artist.id %]" />
+                 value="[% item.artist.id %]" />
         </td>
         <td>
-          [% link_entity(dupe.artist) %][% IF dupe.alias %] (alias: [% dupe.alias %])[% END %]
+          [% link_entity(item.artist) %][% IF item.alias %] (alias: [% item.alias %])[% END %]
         </td>
-        <td>[% dupe.artist.sort_name | html %]</td>
-        <td>[% dupe.artist.type_name %]</td>
+        <td>[% item.artist.sort_name | html %]</td>
+        <td>[% item.artist.type_name %]</td>
       </tr>
-      [% END %]
+      [% lastkey = item.key %]
       [% END %]
     </tbody>
   </table>

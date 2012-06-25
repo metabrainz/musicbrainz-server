@@ -1,52 +1,35 @@
 package MusicBrainz::Server::Report;
-use Moose;
+use Moose::Role;
 
-use Sql;
+with 'MusicBrainz::Server::Data::Role::Sql';
 
-has 'c' => ( is => 'ro' );
+use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 
-sub gather_data
-{
-    die 'Not implemented.';
+requires 'table', 'run', 'template', 'inflate_rows';
+
+sub qualified_table { join('.', 'report', shift->table) }
+
+sub load {
+    my ($self, $limit, $offset) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $ordering = $self->ordering;
+    my ($rows, $total) = query_to_list_limited(
+        $self->sql, $offset, $limit, sub { shift },
+        "SELECT * FROM $qualified_table ORDER BY $ordering OFFSET ?", $offset);
+
+    $rows = $self->inflate_rows($rows);
+    return ($rows, $total);
 }
 
-sub gather_data_from_query
-{
-    my ($self, $writer, $query, $args, $filter) = @_;
-    $args ||= [];
+sub ordering { "row_number" }
 
-    my $sql = $self->c->sql;
-    $sql->select($query, @$args);
-    while (my $row = $sql->next_row_hash_ref) {
-        next if $filter and not($row = &$filter($row));
-        $writer->Print($row);
-    }
-    $sql->finish;
-}
-
-sub run
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data($writer);
-}
-
-sub post_load
-{
-}
-
-sub template
-{
-    die 'Not implemented.';
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,25 +1,25 @@
-package MusicBrainz::Server::Report::ReleaseReport;
+package MusicBrainz::Server::Report::URLReport;
 use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
-sub inflate_rows {
+around inflate_rows => sub {
+    my $orig = shift;
     my ($self, $items) = @_;
 
-    my $releases = $self->c->model('Release')->get_by_ids(
-        map { $_->{release_id} } @$items
-    );
+    $items = $self->$orig($items);
 
-    $self->c->model('ArtistCredit')->load(values %$releases);
+    my $urls = $self->c->model('URL')->get_by_ids(
+        map { $_->{url_id} } @$items
+    );
 
     return [
         map +{
             %$_,
-            release => $releases->{ $_->{release_id} }
-        },
-            @$items
+            url => $urls->{ $_->{url_id} }
+        }, @$items
     ];
-}
+};
 
 1;
 

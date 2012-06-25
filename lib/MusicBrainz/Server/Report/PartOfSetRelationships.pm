@@ -1,17 +1,15 @@
 package MusicBrainz::Server::Report::PartOfSetRelationships;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'part_of_set_relationships' }
 
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT DISTINCT
-            r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id,
-            musicbrainz_collate(an.name) artist_collate,
-            musicbrainz_collate(rn.name) release_collate
+            r.id AS release_id,
+            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM (
             SELECT
                 entity0 AS entity, link
@@ -31,8 +29,7 @@ sub gather_data
             JOIN artist_name an ON ac.name = an.id
         WHERE
             link_type.name = 'part of set'
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
+    ";
 }
 
 sub template
@@ -47,6 +44,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

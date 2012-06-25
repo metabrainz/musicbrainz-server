@@ -1,23 +1,22 @@
 package MusicBrainz::Server::Report::FeaturingRecordings;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::RecordingReport';
+with 'MusicBrainz::Server::Report::RecordingReport';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'featuring_recordings' }
 
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            r.gid AS recording_gid, rn.name, r.artist_credit AS artist_credit_id
+            r.id AS recording_id,
+            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM recording r
             JOIN track_name rn ON r.name = rn.id
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
         WHERE
             rn.name ~ E' \\\\(feat\\\\. '
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
+    "
 }
 
 sub template
@@ -32,6 +31,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

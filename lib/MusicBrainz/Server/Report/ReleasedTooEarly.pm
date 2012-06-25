@@ -1,16 +1,15 @@
 package MusicBrainz::Server::Report::ReleasedTooEarly;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'released_too_early' }
 
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            DISTINCT r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id,
-            musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
+            DISTINCT r.id AS release_id,
+            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM
             release r
             JOIN artist_credit ac ON r.artist_credit = ac.id
@@ -23,8 +22,7 @@ sub gather_data
             (mcd.id IS NOT NULL AND r.date_year < (select min(year) from medium_format where has_discids = 't')) OR
             (mcd.id IS NOT NULL AND mf.year IS NOT NULL AND mf.has_discids = 'f') OR
             (mf.year IS NOT NULL AND r.date_year < mf.year)
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
+    ";
 }
 
 sub template
@@ -39,6 +37,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Report::DuplicateArtists;
 use Moose;
 
-extends 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report';
+
+sub table { 'duplicate_artists' }
 
 sub _add_artist {
     my ($store, $name, $gid, $row) = @_;
@@ -16,12 +18,12 @@ sub _add_artist {
     $store->{$key}{$gid} = $row;
 }
 
-sub gather_data
+sub run
 {
-    my ($self, $writer) = @_;
+    my $self = shift;
 
     my %artists;
-    my $sql = $self->c->sql;
+    my $sql = $self->sql;
 
     my $artists = $sql->select_list_of_hashes(
         'SELECT artist.gid, name.name AS name, sort_name.name AS sort_name,
@@ -59,35 +61,40 @@ sub gather_data
         _add_artist(\%artists, $r->{alias}, $r->{gid}, $r);
     }
 
+    my $qualified_table = $self->qualified_table;
+    $sql->do("DROP TABLE IF EXISTS $qualified_table");
+    $sql->do("CREATE TABLE $qualified_table ( key TEXT NOT NULL, artist_id INT NOT NULL, alias TEXT )");
+
     while (my ($k, $v) = each %artists) {
 		next unless keys(%$v) >= 2;
-        my @dupes =values %$v;
+        my @dupes = values %$v;
 
         # Skip if all artists have comments
         next if (grep { $_->{has_comment} } @dupes) == @dupes;
 
-		my $dupelist = [ values %$v ];
-
-		$writer->Print($dupelist);
+        for my $dupe (values %$v) {
+            $sql->do("INSERT INTO $qualified_table (key, artist_id, alias) VALUES (?, ?, ?)",
+                     $k, $dupe->{id}, $dupe->{alias})
+        }
 	}
 }
 
-sub post_load
+sub inflate_rows
 {
-    my ($self, $dupe_sets) = @_;
-    my @artists;
+    my ($self, $dupes) = @_;
 
-    my $artists = $self->c->model('Artist')->get_by_gids(map { $_->{gid} } map { @$_ } @$dupe_sets);
+    my $artists = $self->c->model('Artist')->get_by_ids(map { $_->{artist_id} } @$dupes);
+    $self->c->model('ArtistType')->load(values %$artists);
 
-    for my $dupes (@$dupe_sets) {
-        for my $dupe (@$dupes) {
-            $dupe->{artist} = $artists->{$dupe->{gid}};
-            push @artists, $dupe->{artist};
-        }
-    }
-
-    $self->c->model('ArtistType')->load(@artists);
+    return [
+        map +{
+            %$_,
+            artist => $artists->{ $_->{artist_id} }
+        }, @$dupes
+    ];
 }
+
+sub ordering { "musicbrainz_collate(key)" }
 
 sub template
 {
@@ -101,6 +108,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

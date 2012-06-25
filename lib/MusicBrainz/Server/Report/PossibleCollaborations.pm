@@ -1,14 +1,13 @@
 package MusicBrainz::Server::Report::PossibleCollaborations;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'possible_collaborations' }
 
-    $self->gather_data_from_query($writer, "
-        SELECT artist.gid AS artist_gid, name.name
+sub query {
+    "
+        SELECT artist.id AS artist_id, row_number() OVER ( ORDER BY musicbrainz_collate(name.name) )
         FROM
             artist
             LEFT JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
@@ -18,9 +17,8 @@ sub gather_data
         WHERE
             name.name ~ '&' AND
             (link_type.name IS NULL OR link_type.name NOT IN ('collaboration', 'member of band'))
-        GROUP BY artist.gid, name.name
-        ORDER BY musicbrainz_collate(name.name);
-    ");
+        GROUP BY artist.id, name.name
+    "
 }
 
 sub template
@@ -35,6 +33,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,15 +1,16 @@
 package MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport',
+     'MusicBrainz::Server::Report::URLReport';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'discogs_links_with_multiple_artists' }
 
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            a.gid AS artist_gid, an.name, q.gid AS url_gid, q.url, q.count
+            a.id AS artist_id, q.id AS url_id, q.count,
+            row_number() OVER (ORDER BY q.count DESC, q.url, musicbrainz_collate(an.name))
         FROM
             (
                 SELECT
@@ -24,8 +25,7 @@ sub gather_data
             JOIN l_artist_url lau ON lau.entity1 = q.id
             JOIN artist a ON a.id = lau.entity0
             JOIN artist_name an ON an.id = a.name
-        ORDER BY q.count DESC, q.url, musicbrainz_collate(an.name)
-    ");
+    ";
 }
 
 sub template
@@ -39,6 +39,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2012 Johannes Weißl
 Copyright (C) 2011 MetaBrainz Foundation
 

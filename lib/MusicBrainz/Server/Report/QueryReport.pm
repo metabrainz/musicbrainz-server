@@ -1,31 +1,28 @@
-package MusicBrainz::Server::Report::ReleaseReport;
+package MusicBrainz::Server::Report::QueryReport;
 use Moose::Role;
 
-with 'MusicBrainz::Server::Report::QueryReport';
+with 'MusicBrainz::Server::Report';
 
-sub inflate_rows {
-    my ($self, $items) = @_;
+requires 'query';
 
-    my $releases = $self->c->model('Release')->get_by_ids(
-        map { $_->{release_id} } @$items
+sub run {
+    my ($self) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $query = $self->query;
+
+    $self->sql->do("DROP TABLE IF EXISTS $qualified_table");
+    $self->sql->do(
+        "SELECT s.*
+         INTO $qualified_table
+         FROM ( $query ) s"
     );
-
-    $self->c->model('ArtistCredit')->load(values %$releases);
-
-    return [
-        map +{
-            %$_,
-            release => $releases->{ $_->{release_id} }
-        },
-            @$items
-    ];
 }
 
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
 Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
@@ -43,3 +40,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+

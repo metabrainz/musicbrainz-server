@@ -1,29 +1,23 @@
 package MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'artists_that_may_be_groups' }
 
-    $self->gather_data_from_query($writer, "
-        SELECT DISTINCT ON(name.name, artist.id) artist.gid AS artist_gid, name.name, artist.type
-        FROM
-            artist
-            JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
-            JOIN link ON link.id=l_artist_artist.link
-            JOIN link_type ON link_type.id=link.link_type
-            JOIN artist_name AS name ON artist.name=name.id
-        WHERE
-            (artist.type = 1 OR artist.type IS NULL) AND
-            link_type.name IN ('collaboration', 'member of band')
-        ORDER BY name.name, artist.id
-    ");
+sub query {
+    "SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
+       row_number() OVER (ORDER BY musicbrainz_collate(name.name), artist.id)
+     FROM artist
+     JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
+     JOIN link ON link.id=l_artist_artist.link
+     JOIN link_type ON link_type.id=link.link_type
+     JOIN artist_name AS name ON artist.name=name.id
+     WHERE (artist.type = 1 OR artist.type IS NULL)
+       AND link_type.name IN ('collaboration', 'member of band')"
 }
 
-sub template
-{
+sub template {
     return 'report/artists_that_may_be_groups.tt';
 }
 
@@ -34,6 +28,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
