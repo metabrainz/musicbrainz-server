@@ -6,6 +6,11 @@ env.use_ssh_config = True
 env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
 
 def socket_deploy():
+    """
+    Do a Unix FastCGI socket deployment of musicbrainz-server. This works by
+    restarting the process and taking down the old one if a new process could
+    successful be started.
+    """
     run("~/musicbrainz-server/admin/socket-deploy.sh")
 
 def no_local_changes():
@@ -16,6 +21,11 @@ def no_local_changes():
         local("git diff --exit-code -c")
 
 def beta():
+    """
+    Update the beta.musicbrainz.org server
+
+    This requires you have a 'beta' alias in your .ssh/config file.
+    """
     env.host_string = "beta"
     no_local_changes()
 
@@ -27,6 +37,11 @@ def beta():
     socket_deploy()
 
 def test():
+    """
+    Update the test.musicbrainz.org server
+
+    This requires you have a 'beta' alias in your .ssh/config file.
+    """
     env.host_string = "test"
     no_local_changes()
 
@@ -38,6 +53,20 @@ def test():
     socket_deploy()
 
 def production():
+    """
+    To upgrade the servers, first take them out of the load balancer one by
+    one. Then, use Fabric to update them:
+
+    fab production
+
+    You will be prompted to check you wish to continue, and then prompted for a
+    server to update. The Fabric deployment script will take care of taking the
+    service down, running a Git pull (and running the rest of
+    production-deploy.sh) and then bring the service back up.
+
+    It will attempt to check that the server started correctly by looking at the
+    tail of the log and also doing a curl against localhost.
+    """
     puts("Checking if the server is quiet (expecting no requests in 5 second window)")
     with settings( hide("stdout") ):
         t1 = run("tail /var/log/nginx/001-musicbrainz.access.log")
@@ -62,3 +91,4 @@ def production():
         run("pgrep plackup")
         run("tail /etc/service/mb_server-fastcgi/log/main/current | grep started")
         run("wget http://localhost -O -")
+
