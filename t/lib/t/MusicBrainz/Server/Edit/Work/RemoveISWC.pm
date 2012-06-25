@@ -50,6 +50,14 @@ test 'Can reject' => sub {
     is($iswc->edits_pending, 0, 'The ISWC has no edits pending');
 };
 
+test 'Can build_display_data for accepted edits' => sub {
+    my $test = shift;
+    accept_edit($test->c, $test->edit);
+
+    $test->c->model('Edit')->load_all($test->edit);
+    is($test->edit->display_data->{iswc}->iswc, 'T-000.000.001-0');
+};
+
 sub _build_edit {
     my ($test, $url, $url_to_edit) = @_;
     $test->c->model('Edit')->create(
