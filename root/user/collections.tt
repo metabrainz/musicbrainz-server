@@ -7,7 +7,7 @@
     <thead>
         <tr>
             <th>[% l('Collection') %]</th>
-            <th style="width: 10em">[% l('Number of releases') %]</th>
+            <th style="width: 10em">[% l('Releases') %]</th>
             [% IF viewing_own_profile %]
             <th style="width: 10em">[% l('Privacy') %]</th>
             <th style="width: 10em">[% l('Actions') %]</th>
