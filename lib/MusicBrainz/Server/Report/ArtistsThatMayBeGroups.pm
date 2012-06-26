@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use Moose;
 
-with 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
     "SELECT DISTINCT ON (artist.id) artist.id AS artist_id,

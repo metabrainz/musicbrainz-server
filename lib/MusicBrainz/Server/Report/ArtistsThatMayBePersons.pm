@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use Moose;
 
-with 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
     "

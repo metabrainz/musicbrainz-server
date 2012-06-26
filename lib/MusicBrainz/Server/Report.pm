@@ -27,15 +27,7 @@ sub template {
 
 sub load {
     my ($self, $limit, $offset) = @_;
-
-    my $qualified_table = $self->qualified_table;
-    my $ordering = $self->ordering;
-    my ($rows, $total) = query_to_list_limited(
-        $self->sql, $offset, $limit, sub { shift },
-        "SELECT * FROM $qualified_table ORDER BY $ordering OFFSET ?", $offset);
-
-    $rows = $self->inflate_rows($rows);
-    return ($rows, $total);
+    return $self->_load('', $offset, $limit);
 }
 
 sub ordering { "row_number" }
@@ -43,6 +35,21 @@ sub ordering { "row_number" }
 sub inflate_rows {
     my ($self, $rows) = @_;
     return $rows;
+}
+
+sub _load {
+    my ($self, $join_sql, $offset, $limit, @params) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $ordering = $self->ordering;
+    my ($rows, $total) = query_to_list_limited(
+        $self->sql, $offset, $limit, sub { shift },
+        "SELECT * FROM $qualified_table report $join_sql ORDER BY $ordering OFFSET ?",
+        @params, $offset
+    );
+
+    $rows = $self->inflate_rows($rows);
+    return ($rows, $total);
 }
 
 1;

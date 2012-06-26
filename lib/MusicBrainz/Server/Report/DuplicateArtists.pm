@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Report::DuplicateArtists;
 use Moose;
 
-with 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report',
+     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub _add_artist {
     my ($store, $name, $gid, $row) = @_;

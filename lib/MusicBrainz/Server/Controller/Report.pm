@@ -19,7 +19,24 @@ sub show : Path Args(1)
     ) or $c->detach('/error_404');
 
     $c->stash(
-        items => $self->_load_paged($c, sub { $report->load(shift, shift) }),
+        items => $self->_load_paged($c, sub {
+            if (exists $c->req->query_params->{filter}) {
+                if ($report->does('MusicBrainz::Server::Report::FilterForEditor')) {
+                    if ($c->user_exists) {
+                        return $report->load_filtered($c->user->id, shift, shift);
+                    }
+                    else {
+                        $c->forward('/user/login')
+                    }
+                }
+                else {
+                    die 'This report does not support filtering';
+                }
+            }
+            else {
+                $report->load(shift, shift);
+            }
+        }),
 #        generated => DateTime->from_epoch( epoch => $data->Time ),
         template => $report->template,
     );

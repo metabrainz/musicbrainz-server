@@ -2,7 +2,8 @@ package MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ArtistReport',
-     'MusicBrainz::Server::Report::URLReport';
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
 sub query {
     "
