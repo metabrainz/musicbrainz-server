@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use Moose;
 
-with 'MusicBrainz::Server::Report::RecordingReport';
+with 'MusicBrainz::Server::Report::RecordingReport',
+     'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {
     "
