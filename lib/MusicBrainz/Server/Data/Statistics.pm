@@ -671,6 +671,50 @@ my %stats = (
             };
         },
     },
+    "count.release.status" => {
+        DESC => "Distribution of releases by status",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(s.id::text, 'null'), COUNT(r.gid) AS count
+                FROM release r FULL OUTER JOIN release_status s
+                    ON r.status=s.id
+                GROUP BY s.id
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.status.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.release.packaging" => {
+        DESC => "Distribution of releases by packaging",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(p.id::text, 'null'), COUNT(r.gid) AS count
+                FROM release r FULL OUTER JOIN release_packaging p
+                    ON r.packaging=p.id
+                GROUP BY p.id
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.packaging.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
         CALC => sub {
