@@ -702,6 +702,50 @@ my %stats = (
             };
         },
     },
+    "count.releasegroup.primary_type" => {
+        DESC => "Distribution of release groups by primary type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT type.id, COUNT(rg.id) AS count
+                 FROM release_group_primary_type type
+                 LEFT JOIN release_group rg on rg.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.releasegroup.primary_type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.releasegroup.secondary_type" => {
+        DESC => "Distribution of release groups by secondary type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT type.id, COUNT(rg.id) AS count
+                 FROM release_group_secondary_type type
+                 LEFT JOIN release_group_secondary_type_join type_join 
+                     ON type.id = type_join.secondary_type
+                 JOIN release_group rg on rg.id = type_join.release_group
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.releasegroup.secondary_type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.release.various" => {
         DESC => "Count of all 'Various Artists' releases",
         SQL => 'SELECT COUNT(*) FROM release
