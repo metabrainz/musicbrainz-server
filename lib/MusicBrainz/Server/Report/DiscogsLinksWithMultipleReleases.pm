@@ -2,7 +2,8 @@ package MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport',
-     'MusicBrainz::Server::Report::URLReport';
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
     "

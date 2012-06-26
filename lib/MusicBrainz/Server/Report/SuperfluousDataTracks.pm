@@ -2,7 +2,8 @@ package MusicBrainz::Server::Report::SuperfluousDataTracks;
 use Moose;
 use namespace::autoclean;
 
-with 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
     <<'EOSQL'

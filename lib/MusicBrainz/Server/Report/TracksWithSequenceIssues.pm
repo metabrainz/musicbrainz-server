@@ -2,7 +2,8 @@ package MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use Moose;
 use namespace::autoclean;
 
-with 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
     # There are 3 checks going on in this query:

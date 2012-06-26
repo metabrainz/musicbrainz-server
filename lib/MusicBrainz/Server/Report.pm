@@ -44,7 +44,7 @@ sub _load {
     my $ordering = $self->ordering;
     my ($rows, $total) = query_to_list_limited(
         $self->sql, $offset, $limit, sub { shift },
-        "SELECT * FROM $qualified_table report $join_sql ORDER BY $ordering OFFSET ?",
+        "SELECT DISTINCT report.* FROM $qualified_table report $join_sql ORDER BY $ordering OFFSET ?",
         @params, $offset
     );
 

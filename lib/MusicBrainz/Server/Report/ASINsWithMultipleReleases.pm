@@ -2,7 +2,8 @@ package MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport',
-     'MusicBrainz::Server::Report::URLReport';
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
     "   SELECT r.id AS release_id, q.id AS url_id,

@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Report::NoScript;
 use Moose;
 
-with 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub query {
     "
