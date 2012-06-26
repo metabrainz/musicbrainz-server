@@ -19,9 +19,16 @@ has 'connector' => (
     lazy_build => 1,
 );
 
+has 'database' => (
+    is => 'ro',
+    isa => 'Str',
+    handles => [ 'db' ],
+    default => sub { &DBDefs::REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
+}
+
 sub _build_connector {
-    my $db = &DBDefs::REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE';
-    return DatabaseConnectionFactory->get_connection($db);
+    my $self = shift;
+    return DatabaseConnectionFactory->get_connection($self->db);
 }
 
 has 'models' => (
