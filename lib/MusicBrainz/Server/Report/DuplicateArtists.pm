@@ -2,7 +2,9 @@ package MusicBrainz::Server::Report::DuplicateArtists;
 use Moose;
 
 with 'MusicBrainz::Server::Report',
-     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
+     'MusicBrainz::Server::Report::FilterForEditor';
+
+use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 
 sub _add_artist {
     my ($store, $name, $gid, $row) = @_;
@@ -93,7 +95,31 @@ sub inflate_rows
     ];
 }
 
-sub ordering { "musicbrainz_collate(key)" }
+sub ordering { "key" }
+
+sub load_filtered {
+    my ($self, $editor_id, $limit, $offset) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $ordering = $self->ordering;
+    my ($rows, $total) = query_to_list_limited(
+        $self->sql, $offset, $limit, sub { shift },
+        "SELECT DISTINCT report.*
+         FROM $qualified_table report
+         WHERE (key) IN (
+             SELECT key
+             FROM $qualified_table
+             JOIN editor_subscribe_artist esa ON esa.artist = artist_id
+             WHERE esa.editor = ?
+         ) ORDER BY $ordering OFFSET ?",
+        $editor_id, $offset
+    );
+
+    $rows = $self->inflate_rows($rows);
+    return ($rows, $total);
+}
+
+sub filter_sql { }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
