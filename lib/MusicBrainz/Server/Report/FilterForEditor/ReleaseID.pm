@@ -9,7 +9,7 @@ sub filter_sql {
     return (
         "JOIN release ON release.id = release_id
          JOIN artist_credit_name ON release.artist_credit = artist_credit_name.artist_credit
-         JOIN editor_subscribe_artist esa ON esa.artist = report.artist_id
+         JOIN editor_subscribe_artist esa ON esa.artist = artist_credit_name.artist
          WHERE esa.editor = ?",
         $editor_id
     );
