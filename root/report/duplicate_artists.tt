@@ -9,6 +9,7 @@
               have disambiguation comments.') %]</li>
     <li>[% l('Total duplicate groups: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 <form action="[% c.uri_for_action('/artist/merge_queue') %]">

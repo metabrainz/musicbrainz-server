@@ -10,6 +10,7 @@
 <ul>
     <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- WRAPPER 'components/with-pager.tt' -%]

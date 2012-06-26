@@ -18,9 +18,10 @@ sub show : Path Args(1)
         $name, $c->model('MB')->context
     ) or $c->detach('/error_404');
 
+    my $filtered = exists $c->req->query_params->{filter};
     $c->stash(
         items => $self->_load_paged($c, sub {
-            if (exists $c->req->query_params->{filter}) {
+            if ($filtered) {
                 if ($report->does('MusicBrainz::Server::Report::FilterForEditor')) {
                     if ($c->user_exists) {
                         return $report->load_filtered($c->user->id, shift, shift);
@@ -37,6 +38,8 @@ sub show : Path Args(1)
                 $report->load(shift, shift);
             }
         }),
+        filtered => $filtered,
+        report => $report,
 #        generated => DateTime->from_epoch( epoch => $data->Time ),
         template => $report->template,
     );
