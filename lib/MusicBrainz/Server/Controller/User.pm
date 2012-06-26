@@ -287,9 +287,9 @@ sub collections : Chained('load') PathPart('collections')
 
     my $collections = $self->_load_paged($c, sub {
         my ($collections, $hits) = $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
-        $c->model('Collection')->load_release_count(@$collections);
         return ($collections, $hits);
     });
+    $c->model('Collection')->load_release_count(@$collections);
 
     $c->stash(
         user => $user,
