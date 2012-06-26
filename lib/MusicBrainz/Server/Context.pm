@@ -55,8 +55,9 @@ sub model
 
 sub create_script_context
 {
+    my ($class, %args) = @_
     my $cache_manager = MusicBrainz::Server::CacheManager->new(&DBDefs::CACHE_MANAGER_OPTIONS);
-    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
+    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, %args);
 }
 
 1;

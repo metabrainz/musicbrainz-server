@@ -31,6 +31,7 @@ use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long;
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::DatabaseConnectionFactory;
 use DBDefs;
 use Sql;
 
@@ -70,7 +71,7 @@ $fHelp and usage();
 
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
-my $c = MusicBrainz::Server::Context->new;
+my $c = MusicBrainz::Server::Context->new(connection => MusicBrainz::Server::DatabaseConnectionFactory->get_connection('READWRITE'));
 my $sql = Sql->new($c->conn);
 
 for my $arg (@ARGV)
