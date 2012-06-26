@@ -1,33 +1,35 @@
 package MusicBrainz::Server::Report::RecordingReport;
-use Moose;
+use Moose::Role;
 
-extends 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report::QueryReport';
 
-use List::MoreUtils qw( uniq );
+around inflate_rows => sub {
+    my $orig = shift;
+    my $self = shift;
 
-sub post_load
-{
-    my ($self, $items) = @_;
+    my $items = $self->$orig(@_);
 
-    my @ids = map { $_->{artist_credit_id} } @$items;
-    my $acs = $self->c->model('ArtistCredit')->get_by_ids(@ids);
+    my $recordings = $self->c->model('Recording')->get_by_ids(
+        map { $_->{recording_id} } @$items
+    );
 
-    my @recordingids = map { $_->{recording_gid} } @$items;
-    my $recordings = $self->c->model('Recording')->get_by_gids(@recordingids);
+    $self->c->model('ArtistCredit')->load(values %$recordings);
 
-    foreach my $item (@$items) {
-        $item->{artist_credit} = $acs->{$item->{artist_credit_id}};
-        $item->{recording} = $recordings->{$item->{recording_gid}};
-    }
-}
+    return [
+        map +{
+            %$_,
+            recording => $recordings->{ $_->{recording_id} }
+        },
+            @$items
+    ];
+};
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

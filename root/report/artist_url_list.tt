@@ -9,11 +9,11 @@
     <tbody>
         [%- lastgid = 0 -%]
         [%- FOR item IN items -%]
-            [%- IF lastgid != item.url_gid -%]
+            [%- IF lastgid != item.url.gid -%]
                 <tr class="ev">
-                    <td colspan="2">[% link_entity(item.urlentity, 'show', item.url) %]</td>
+                    <td colspan="2">[% link_entity(item.url, 'show', item.url.url) %]</td>
                 </tr>
-                [% lastgid = item.url_gid %]
+                [% lastgid = item.url.gid %]
             [%- END -%]
 
             <tr>

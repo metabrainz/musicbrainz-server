@@ -6,6 +6,7 @@
     <li>[% l('This report shows recordings that still have earliest release relationships.') %]</li>
     <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/recording_list.tt' -%]

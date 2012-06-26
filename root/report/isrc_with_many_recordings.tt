@@ -6,6 +6,7 @@
     <li>[% l('This report lists ISRCs that are attached to more than one recording.') %]</li>
     <li>[% l('Total ISRCs found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- WRAPPER 'components/with-pager.tt' -%]

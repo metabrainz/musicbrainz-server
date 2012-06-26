@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Translation qw( l ln );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
-use aliased 'MusicBrainz::Server::Entity::ISRC';
+use aliased 'MusicBrainz::Server::Entity::ISWC';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
