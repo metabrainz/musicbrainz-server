@@ -22,13 +22,12 @@ has 'connector' => (
 has 'database' => (
     is => 'ro',
     isa => 'Str',
-    handles => [ 'db' ],
     default => sub { &DBDefs::REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
 );
 
 sub _build_connector {
     my $self = shift;
-    return DatabaseConnectionFactory->get_connection($self->{database});
+    return DatabaseConnectionFactory->get_connection($self->database);
 }
 
 has 'models' => (
