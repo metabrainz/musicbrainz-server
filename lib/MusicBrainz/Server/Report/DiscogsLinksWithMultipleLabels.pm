@@ -1,15 +1,15 @@
 package MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::LabelReport';
+with 'MusicBrainz::Server::Report::LabelReport',
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::LabelID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            l.gid AS label_gid, ln.name, q.gid AS url_gid, q.url, q.count
+            l.id AS label_id, q.id AS url_id,
+            row_number() OVER (ORDER BY q.count DESC, q.url, musicbrainz_collate(ln.name))
         FROM
             (
                 SELECT
@@ -24,13 +24,7 @@ sub gather_data
             JOIN l_label_url llu ON llu.entity1 = q.id
             JOIN label l ON l.id = llu.entity0
             JOIN label_name ln ON ln.id = l.name
-        ORDER BY q.count DESC, q.url, musicbrainz_collate(ln.name)
-    ");
-}
-
-sub template
-{
-    return 'report/discogs_links_with_multiple_labels.tt';
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -39,6 +33,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2012 Johannes Weißl
 Copyright (C) 2011 MetaBrainz Foundation
 

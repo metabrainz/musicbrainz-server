@@ -1,37 +1,33 @@
 package MusicBrainz::Server::Report::LabelReport;
-use Moose;
+use Moose::Role;
 
-extends 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report';
 
-sub post_load
-{
-    my ($self, $items) = @_;
+around inflate_rows => sub {
+    my $orig = shift;
+    my $self = shift;
 
-    my @ids = grep { $_ } map { $_->{type} } @$items;
-    my $types = $self->c->model('LabelType')->get_by_ids(@ids);
+    my $items = $self->$orig(@_);
 
-    my @labelids = map { $_->{label_gid} } @$items;
-    my $labels = $self->c->model('Label')->get_by_gids(@labelids);
+    my $labels = $self->c->model('Label')->get_by_ids(
+        map { $_->{label_id} } @$items
+    );
+    $self->c->model('LabelType')->load(values %$labels);
 
-    my @urlgids = map { $_->{url_gid} } @$items;
-    my $urls = $self->c->model('URL')->get_by_gids(@urlgids);
+    return [
+        map +{
+            %$_,
+            label => $labels->{ $_->{label_id} }
+        },
+            @$items
+    ];
+};
 
-    foreach my $item (@$items) {
-        if (defined $item->{type}) {
-            $item->{type_id} = $item->{type};
-            $item->{type} = $types->{$item->{type_id}};
-        }
-        $item->{label} = $labels->{$item->{label_gid}};
-        $item->{urlentity} = $urls->{$item->{url_gid}} if $item->{url_gid};
-    }
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2012 Johannes Weißl
 Copyright (C) 2009 Lukas Lalinsky
 
