@@ -4,6 +4,8 @@ use Moose;
 with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
+sub table { 'multiple_asins' }
+
 sub query
 {
     "

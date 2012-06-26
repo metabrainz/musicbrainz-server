@@ -5,6 +5,8 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::URLReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
+sub table { 'asins_with_multiple_releases' }
+
 sub query {
     "   SELECT r.id AS release_id, q.id AS url_id,
           row_number() OVER (

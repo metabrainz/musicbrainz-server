@@ -4,6 +4,8 @@ use Moose;
 with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
+sub table { 'isrc_with_many_recordings' }
+
 sub query {
     "
         SELECT i.isrc, recordingcount, r.id as recording_id, tn.name, r.length,
