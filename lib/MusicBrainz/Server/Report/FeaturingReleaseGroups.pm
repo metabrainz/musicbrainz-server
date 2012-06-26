@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use Moose;
 
-with 'MusicBrainz::Server::Report::ReleaseGroupReport';
+with 'MusicBrainz::Server::Report::ReleaseGroupReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
 sub query {
     "
