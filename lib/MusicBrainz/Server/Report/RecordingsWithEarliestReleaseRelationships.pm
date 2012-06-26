@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::RecordingReport';
 
-sub table { 'recordings_with_earliest_release_relationships' }
-
 sub query {
     "
         SELECT
@@ -30,11 +28,6 @@ sub query {
         WHERE
             link_type.name = 'first track release'
     ";
-}
-
-sub template
-{
-    return 'report/recordings_with_earliest_release_relationships.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

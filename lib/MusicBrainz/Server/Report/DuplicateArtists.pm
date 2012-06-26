@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report';
 
-sub table { 'duplicate_artists' }
-
 sub _add_artist {
     my ($store, $name, $gid, $row) = @_;
 
@@ -95,11 +93,6 @@ sub inflate_rows
 }
 
 sub ordering { "musicbrainz_collate(key)" }
-
-sub template
-{
-    return 'report/duplicate_artists.tt';
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

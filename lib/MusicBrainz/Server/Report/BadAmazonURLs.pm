@@ -4,8 +4,6 @@ use Moose;
 with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::URLReport';
 
-sub table { 'bad_amazon_urls' }
-
 sub query
 {
     "
@@ -21,11 +19,6 @@ sub query
             url ~ E'amazon\\\\.' AND
             url !~ E'^http://www\\\\.amazon\\\\.(com|ca|cn|de|es|fr|it|co\\\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
     ";
-}
-
-sub template
-{
-    return 'report/bad_amazon_urls.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

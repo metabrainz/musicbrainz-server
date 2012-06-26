@@ -4,8 +4,6 @@ use Moose;
 with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::URLReport';
 
-sub table { 'asins_with_multiple_releases' }
-
 sub query {
     "   SELECT r.id AS release_id, q.id AS url_id,
           row_number() OVER (
@@ -28,11 +26,6 @@ sub query {
             JOIN release_name rn ON rn.id = r.name
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id";
-}
-
-sub template
-{
-    return 'report/asins_with_multiple_releases.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

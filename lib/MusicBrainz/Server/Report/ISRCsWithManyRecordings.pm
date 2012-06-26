@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::RecordingReport';
 
-sub table { 'isrc_with_many_recordings' }
-
 sub query {
     "
         SELECT i.isrc, recordingcount, r.id as recording_id, tn.name, r.length,
@@ -18,11 +16,6 @@ sub query {
             GROUP BY isrc HAVING count(*) > 1
           ) t ON t.isrc = i.isrc
     ";
-}
-
-sub template
-{
-    return 'report/isrc_with_many_recordings.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

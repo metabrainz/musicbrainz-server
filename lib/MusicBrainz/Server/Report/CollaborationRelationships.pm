@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
-sub table { 'collaboration_relationships' }
-
 sub query {
     "
         SELECT
@@ -41,11 +39,6 @@ sub inflate_rows
             artist1 => $artists->{$_->{gid1}}
         }, @$items
     ];
-}
-
-sub template
-{
-    return 'report/collaboration_relationships.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

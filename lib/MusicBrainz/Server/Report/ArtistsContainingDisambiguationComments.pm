@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ArtistReport';
 
-sub table { 'artists_containing_disambiguation_comments' }
-
 sub query {
     "SELECT artist.id AS artist_id,
        row_number() OVER (ORDER BY musicbrainz_collate(name.name))
@@ -12,11 +10,6 @@ sub query {
      JOIN artist_name AS name ON artist.name=name.id
      WHERE (name.name LIKE '%(%' OR name.name LIKE '%)%')
        AND name.name NOT LIKE '(%'";
-}
-
-sub template
-{
-    return 'report/artists_containing_disambiguation_comments.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

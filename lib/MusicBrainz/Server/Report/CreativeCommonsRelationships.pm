@@ -4,8 +4,6 @@ use Moose;
 with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::URLReport',;
 
-sub table { 'releases_with_cc_links' }
-
 sub query {
     "
         SELECT

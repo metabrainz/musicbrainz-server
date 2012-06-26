@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'releases_in_caa_with_cover_art_relationships' }
-
 sub query {
     "
         SELECT
@@ -22,11 +20,6 @@ sub query {
         WHERE
             lt.gid = '2476be45-3090-43b3-a948-a8f972b4065c'
     ";
-}
-
-sub template
-{
-    return 'report/releases_in_caa_with_cover_art_relationships.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

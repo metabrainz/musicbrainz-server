@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseGroupReport';
 
-sub table { 'featuring_release_groups' }
-
 sub query {
     "
         SELECT
@@ -19,11 +17,6 @@ sub query {
         WHERE
             rn.name ~ E' \\\\(feat\\\\. '
     ";
-}
-
-sub template
-{
-    return 'report/featuring_release_groups.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

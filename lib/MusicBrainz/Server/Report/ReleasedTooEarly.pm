@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'released_too_early' }
-
 sub query {
     "
         SELECT
@@ -23,11 +21,6 @@ sub query {
             (mcd.id IS NOT NULL AND mf.year IS NOT NULL AND mf.has_discids = 'f') OR
             (mf.year IS NOT NULL AND r.date_year < mf.year)
     ";
-}
-
-sub template
-{
-    return 'report/released_too_early.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

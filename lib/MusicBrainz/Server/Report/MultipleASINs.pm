@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'multiple_asins' }
-
 sub query
 {
     "
@@ -25,11 +23,6 @@ sub query
             r.id, rn.name, an.name, r.artist_credit
             HAVING COUNT(r.gid) > 1
     ";
-}
-
-sub template
-{
-    return 'report/multiple_asins.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

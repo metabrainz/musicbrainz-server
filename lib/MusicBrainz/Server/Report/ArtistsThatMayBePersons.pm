@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ArtistReport';
 
-sub table { 'artists_that_may_be_persons' }
-
 sub query {
     "
         SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
@@ -21,11 +19,6 @@ sub query {
             link_type.entity_type0 = 'artist' AND
             link_type.entity_type1 = 'artist'
     ";
-}
-
-sub template
-{
-    return 'report/artists_that_may_be_persons.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

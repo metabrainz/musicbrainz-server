@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'releases_without_script' }
-
 sub query {
     "
         SELECT

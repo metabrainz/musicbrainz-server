@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'unlinked_pseudo_releases' }
-
 sub query {
     "
 SELECT r.id AS release_id,
@@ -26,11 +24,6 @@ WHERE r.status IN (
         WHERE rs.name = 'Pseudo-Release'
 ) AND lrr.link IS NULL
     ";
-}
-
-sub template
-{
-    return 'report/unlinked_pseudo_releases.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

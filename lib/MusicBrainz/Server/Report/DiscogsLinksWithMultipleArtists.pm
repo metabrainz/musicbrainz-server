@@ -4,8 +4,6 @@ use Moose;
 with 'MusicBrainz::Server::Report::ArtistReport',
      'MusicBrainz::Server::Report::URLReport';
 
-sub table { 'discogs_links_with_multiple_artists' }
-
 sub query {
     "
         SELECT
@@ -26,11 +24,6 @@ sub query {
             JOIN artist a ON a.id = lau.entity0
             JOIN artist_name an ON an.id = a.name
     ";
-}
-
-sub template
-{
-    return 'report/discogs_links_with_multiple_artists.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

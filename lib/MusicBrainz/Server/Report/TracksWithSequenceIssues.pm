@@ -4,8 +4,6 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'track_with_sequence_issues' }
-
 sub query {
     # There are 3 checks going on in this query:
     # 1. The first track should be '1'
@@ -38,10 +36,6 @@ WHERE
   OR last_track != track_count
   OR (track_count * (1 + track_count)) / 2 <> track_pos_acc
 EOSQL
-}
-
-sub template {
-    return 'report/tracks_with_sequence_issues.tt'
 }
 
 1;

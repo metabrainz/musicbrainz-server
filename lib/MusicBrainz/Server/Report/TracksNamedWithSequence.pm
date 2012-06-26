@@ -4,8 +4,6 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'tracks_named_with_sequence' }
-
 sub query {
     <<'EOSQL'
 SELECT release.id AS release_id,
@@ -26,8 +24,6 @@ JOIN release ON s.id = release.id
 JOIN release_name ON release_name.id = release.name
 EOSQL
 }
-
-sub template { 'report/tracks_named_with_sequence.tt' }
 
 1;
 

@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'some_formats_unset' }
-
 sub query {
     "
         SELECT
@@ -25,11 +23,6 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
     ";
-}
-
-sub template
-{
-    return 'report/some_formats_unset.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

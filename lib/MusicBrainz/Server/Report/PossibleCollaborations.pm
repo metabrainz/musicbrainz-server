@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ArtistReport';
 
-sub table { 'possible_collaborations' }
-
 sub query {
     "
         SELECT artist.id AS artist_id, row_number() OVER ( ORDER BY musicbrainz_collate(name.name) )
@@ -19,11 +17,6 @@ sub query {
             (link_type.name IS NULL OR link_type.name NOT IN ('collaboration', 'member of band'))
         GROUP BY artist.id, name.name
     "
-}
-
-sub template
-{
-    return 'report/possible_collaborations.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

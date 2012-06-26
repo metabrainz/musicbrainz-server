@@ -4,8 +4,6 @@ use Moose;
 with 'MusicBrainz::Server::Report::ReleaseGroupReport',
      'MusicBrainz::Server::Report::URLReport';
 
-sub table { 'discogs_links_with_multiple_release_groups' }
-
 sub query {
     "
         SELECT
@@ -28,11 +26,6 @@ sub query {
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
     ";
-}
-
-sub template
-{
-    return 'report/discogs_links_with_multiple_release_groups.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

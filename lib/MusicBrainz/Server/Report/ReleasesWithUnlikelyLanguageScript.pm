@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'releases_with_unlikely_language_script' }
-
 sub query {
     "
         SELECT
@@ -25,11 +23,6 @@ sub query {
               'dan', 'ron', 'slv', 'hrv'
             )
     ";
-}
-
-sub template
-{
-    return 'report/releases_with_unlikely_language_script.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

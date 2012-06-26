@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'cat_no_looks_like_asin' }
-
 sub query {
     "
         SELECT
@@ -19,11 +17,6 @@ sub query {
             JOIN artist_name an ON ac.name = an.id
         WHERE rl.catalog_number ~ '^B0[0-9A-Z]{8}\$'
     "
-}
-
-sub template
-{
-    return 'report/cat_no_looks_like_asin.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

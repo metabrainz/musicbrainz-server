@@ -4,8 +4,6 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'mediums_with_sequence_issues' }
-
 sub query
 {
     # There are 3 checks going on in this query:
@@ -39,10 +37,6 @@ WHERE
   OR last_medium != medium_count
   OR (medium_count * (1 + medium_count)) / 2 <> medium_pos_acc
 EOSQL
-}
-
-sub template {
-    return 'report/mediums_with_sequence_issues.tt'
 }
 
 1;

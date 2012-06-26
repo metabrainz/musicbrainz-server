@@ -4,8 +4,6 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Report::ReleaseGroupReport';
 
-sub table { 'set_in_different_rg' }
-
 sub query {
     "
         SELECT DISTINCT
@@ -35,8 +33,6 @@ sub query {
 		)
     ";
 }
-
-sub template { 'report/set_in_different_rg.tt' }
 
 1;
 

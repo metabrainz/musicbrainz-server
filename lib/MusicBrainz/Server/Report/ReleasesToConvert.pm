@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'releases_to_convert' }
-
 sub query {
     "
         SELECT DISTINCT release.id AS release_id,
@@ -19,11 +17,6 @@ sub query {
         GROUP BY release.id, release_name.name, tracklist.id
         HAVING count(*) = tracklist.track_count
     ";
-}
-
-sub template
-{
-    return 'report/releases_to_convert.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

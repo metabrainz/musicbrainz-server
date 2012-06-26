@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'part_of_set_relationships' }
-
 sub query {
     "
         SELECT DISTINCT
@@ -30,11 +28,6 @@ sub query {
         WHERE
             link_type.name = 'part of set'
     ";
-}
-
-sub template
-{
-    return 'report/part_of_set_relationships.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

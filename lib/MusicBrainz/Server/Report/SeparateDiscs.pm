@@ -3,8 +3,6 @@ use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'separate_discs' }
-
 sub query {
     "
         SELECT
@@ -20,11 +18,6 @@ sub query {
             rn.name ~ E'\((disc [0-9]+|bonus disc)(: .*)?\)'
             AND NOT (rg.type = 2 AND r.country = 221)
     ";
-}
-
-sub template
-{
-    return 'report/separate_discs.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

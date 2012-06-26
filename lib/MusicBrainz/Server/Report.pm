@@ -4,10 +4,26 @@ use Moose::Role;
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
+use String::CamelCase qw( decamelize );
 
-requires 'table', 'run', 'template', 'inflate_rows';
+requires 'run';
 
-sub qualified_table { join('.', 'report', shift->table) }
+sub qualified_table {
+    my $self = shift;
+    return join('.', 'report', $self->table);
+}
+
+sub table {
+    my $self = shift;
+    my $name = $self->meta->name;
+    $name =~ s/MusicBrainz::Server::Report::(.*)$/$1/;
+    return decamelize($name);
+}
+
+sub template {
+    my $self = shift;
+    return 'report/' . $self->table . '.tt';
+}
 
 sub load {
     my ($self, $limit, $offset) = @_;
@@ -23,6 +39,11 @@ sub load {
 }
 
 sub ordering { "row_number" }
+
+sub inflate_rows {
+    my ($self, $rows) = @_;
+    return $rows;
+}
 
 1;
 

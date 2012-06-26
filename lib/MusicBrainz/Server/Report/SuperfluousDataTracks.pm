@@ -4,8 +4,6 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
-sub table { 'superfluous_data_tracks' }
-
 sub query {
     <<'EOSQL'
 SELECT DISTINCT
@@ -27,8 +25,6 @@ AND NOT EXISTS (
 )
 EOSQL
 }
-
-sub template { 'report/superfluous_data_tracks.tt' }
 
 1;
 

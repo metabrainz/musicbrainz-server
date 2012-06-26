@@ -3,8 +3,11 @@ use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
 
-sub inflate_rows {
-    my ($self, $rows) = @_;
+around inflate_rows => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $rows = $self->$orig(@_);
 
     my $artists = $self->c->model('Artist')->get_by_ids(
         map { $_->{artist_id} } @$rows
