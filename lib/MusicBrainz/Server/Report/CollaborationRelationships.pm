@@ -1,12 +1,13 @@
 package MusicBrainz::Server::Report::CollaborationRelationships;
 use Moose;
 
-with 'MusicBrainz::Server::Report::QueryReport';
+with 'MusicBrainz::Server::Report::QueryReport',
+     'MusicBrainz::Server::Report::FilterForEditor';
 
 sub query {
     "
         SELECT
-            artist0.gid AS gid0, name0.name AS name0, artist1.gid AS gid1, name1.name AS name1,
+            artist0.id AS id0, name0.name AS name0, artist1.id AS id1, name1.name AS name1,
             row_number() OVER (
               ORDER BY musicbrainz_collate(name1.name), artist1.id, musicbrainz_collate(name0.name), artist0.id
             )
@@ -28,17 +29,30 @@ sub query {
 sub inflate_rows
 {
     my ($self, $items) = @_;
-    my $artists = $self->c->model('Artist')->get_by_gids(
-        map { $_->{gid0}, $_->{gid1} } @$items
+    my $artists = $self->c->model('Artist')->get_by_ids(
+        map { $_->{id0}, $_->{id1} } @$items
     );
 
     return [
         map +{
             %$_,
-            artist0 => $artists->{$_->{gid0}},
-            artist1 => $artists->{$_->{gid1}}
+            artist0 => $artists->{$_->{id0}},
+            artist1 => $artists->{$_->{id1}}
         }, @$items
     ];
+}
+
+sub filter_sql {
+    my ($self, $editor_id) = @_;
+    my $tbl = $self->qualified_table;
+    return (
+        "WHERE report.id1 IN (
+           SELECT id1 FROM $tbl inner_report
+           JOIN editor_subscribe_artist esa ON esa.artist = inner_report.id0 OR esa.artist = inner_report.id1
+           WHERE esa.editor = ?
+         )",
+        $editor_id
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
