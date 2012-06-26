@@ -2,7 +2,8 @@ package MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseGroupReport',
-     'MusicBrainz::Server::Report::URLReport';
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
 sub query {
     "

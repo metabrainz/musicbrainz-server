@@ -2,7 +2,8 @@ package MusicBrainz::Server::Report::SetInDifferentRG;
 use Moose;
 use namespace::autoclean;
 
-with 'MusicBrainz::Server::Report::ReleaseGroupReport';
+with 'MusicBrainz::Server::Report::ReleaseGroupReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
 sub query {
     "
