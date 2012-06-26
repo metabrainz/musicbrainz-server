@@ -1482,7 +1482,7 @@ sub _seed_parameters {
         my %primary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupType')->get_all ();
         my %secondary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupSecondaryType')->get_all ();
 
-        for my $typename (@{ $params->{type} })
+        for my $typename (ref($params->{type}) eq 'ARRAY' ? @{ $params->{type} } : ($params->{type}))
         {
             if (defined $primary_types{$typename})
             {
