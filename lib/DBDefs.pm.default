@@ -51,6 +51,15 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       host            => "",
 #       port            => "",
     },
+    # How to connect to a test database
+    TEST => {
+        database    => "musicbrainz_test",
+        schema          => "musicbrainz",
+        username    => "musicbrainz",
+        password        => "musicbrainz",
+#       host            => "",
+#       port            => "",
+    },
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     # READONLY => undef,
     # How to connect for administrative access
