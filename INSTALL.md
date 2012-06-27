@@ -30,7 +30,10 @@ Prerequisites
     PostgreSQL is required, along with its development libraries. To install
     using packages run the following, replacing 8.x with the latest version.
 
-        sudo apt-get install postgresql-8.x postgresql-server-dev-8.x postgresql-contrib
+        sudo apt-get install postgresql-8.x postgresql-server-dev-8.x postgresql-contrib-8.x
+
+    Since Ubuntu 11.10, you can also install postgresql 9.x; replace '8.x' by the
+    most recent 9.x version to do so.
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube extension found in contrib/cube. The database import
