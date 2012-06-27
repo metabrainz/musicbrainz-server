@@ -122,8 +122,6 @@ sub parse_file {
     for (@{$strings}) {
         my $line_number = shift @{$_};
         my $contents = shift @{$_};
-	#use Data::Dumper qw(Dumper);
-	#warn Dumper($contents);
         next unless $contents and @{$contents};
         for my $content (@$contents) {
             my $po = Locale::PO->new();
