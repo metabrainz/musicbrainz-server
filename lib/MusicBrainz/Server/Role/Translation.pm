@@ -7,6 +7,12 @@ parameter domain => ( required => 1, isa => 'Str' );
 role {
 	my $params = shift;
 
+	method 'nop_gettext' => sub
+	{
+		# just return the first argument to the caller
+		shift;
+		return shift;
+	}
 	method 'gettext' => sub
 	{
 	    my ($self, $msgid, $vars) = @_;
