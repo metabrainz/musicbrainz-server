@@ -83,7 +83,7 @@
             </div>
         [% END %]
         <h1>
-            [%- l('Edit #{id} - {name}', { id => edit.id, name => html_escape(edit.l_edit_name)) } -%]
+            [%- l('Edit #{id} - {name}', { id => edit.id, name => html_escape(edit.l_edit_name) } ) -%]
         </h1>
     [% END %]
 
