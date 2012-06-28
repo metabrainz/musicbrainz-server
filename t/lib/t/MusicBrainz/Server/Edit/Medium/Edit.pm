@@ -383,6 +383,54 @@ test 'Auto-editing edit medium' => sub {
     };
 };
 
+test "MBS-4681 Edit marked as applied, but is not" => sub {
+    my $test = shift;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium_MBS-4681');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_tracklists($medium->tracklist);
+    $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+
+    my $edit = $c->model('Edit')->create(
+        editor_id  => 1,
+        privileges => 0,
+        edit_type  => $EDIT_MEDIUM_EDIT,
+        to_edit    => $medium,
+        tracklist  => [
+            Track->new(
+                artist_credit => ArtistCredit->new(
+                    names => [
+                        ArtistCreditName->new(
+                            name => "Kazuki Muraoka",
+                            join_phrase => "",
+                            artist => Artist->new(
+                                id => 2,
+                                name => "Kazuki Muraoka",
+                            )
+                        )]
+                ),
+                length => undef,
+                name => "Metal Gear; Ending",
+                number => "1",
+                position => 1,
+                recording_id => "1",
+            )
+        ]);
+
+    $edit = $c->model('Edit')->get_by_id ($edit->id);
+    accept_edit($c, $edit);
+
+    $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_tracklists($medium->tracklist);
+    $c->model('ArtistCredit')->load($medium->tracklist->all_tracks);
+
+    # use Data::Dumper;
+    # warn "tracklist:".Dumper ($medium->tracklist)."\n";
+    is (0, 1);
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 
