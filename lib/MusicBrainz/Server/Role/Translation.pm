@@ -12,7 +12,8 @@ role {
 		# just return the first argument to the caller
 		shift;
 		return shift;
-	}
+	};
+
 	method 'gettext' => sub
 	{
 	    my ($self, $msgid, $vars) = @_;
