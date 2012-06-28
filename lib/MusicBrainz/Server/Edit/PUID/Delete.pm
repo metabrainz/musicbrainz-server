@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::PUID::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_type { $EDIT_PUID_DELETE }
-sub edit_name { l('Remove PUID') }
+sub edit_name { N_l('Remove PUID') }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 

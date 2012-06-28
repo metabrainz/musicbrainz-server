@@ -24,7 +24,7 @@ use MusicBrainz::Server::Edit::Types qw(
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Track qw ( format_track_length );
 use Try::Tiny;
 
@@ -36,7 +36,7 @@ with 'MusicBrainz::Server::Edit::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
-sub edit_name { l('Edit medium') }
+sub edit_name { N_l('Edit medium') }
 sub _edit_model { 'Medium' }
 sub entity_id { shift->data->{entity_id} }
 sub medium_id { shift->entity_id }

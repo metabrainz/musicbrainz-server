@@ -5,7 +5,7 @@ use warnings;
 use MusicBrainz::Server::Edit::Historic::Base;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNAME );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 sub deserialize_previous_value {
     my ($self, $previous) = @_;
@@ -17,7 +17,7 @@ sub deserialize_new_value {
     return $previous;
 }
 
-sub edit_name     { l('Edit track name') }
+sub edit_name     { N_l('Edit track name') }
 sub historic_type { 4 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNAME }
 

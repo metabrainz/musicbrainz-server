@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_preview
     verify_artist_credits
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -20,7 +20,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name { l('Add release group') }
+sub edit_name { N_l('Add release group') }
 sub edit_type { $EDIT_RELEASEGROUP_CREATE }
 sub _create_model { 'ReleaseGroup' }
 sub release_group_id { shift->entity_id }

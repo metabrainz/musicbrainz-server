@@ -5,12 +5,12 @@ use MooseX::Types::Moose qw( Str Int );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 
-sub edit_name { l('Remove relationship attribute') }
+sub edit_name { N_l('Remove relationship attribute') }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE }
 
 has '+data' => (

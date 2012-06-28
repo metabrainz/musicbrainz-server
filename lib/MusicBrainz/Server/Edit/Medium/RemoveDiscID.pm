@@ -5,9 +5,9 @@ use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
-sub edit_name { l('Remove disc ID') }
+sub edit_name { N_l('Remove disc ID') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
 
 extends 'MusicBrainz::Server::Edit';

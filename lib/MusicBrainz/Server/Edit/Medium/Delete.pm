@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE :expire_action :quali
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
-sub edit_name { l('Remove medium') }
+sub edit_name { N_l('Remove medium') }
 sub medium_id { shift->data->{medium_id} }
 
 has '+data' => (

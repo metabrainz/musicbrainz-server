@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Artist::EditAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT_ALIAS );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 
 sub _alias_model { shift->c->model('Artist')->alias }
 
-sub edit_name { l('Edit artist alias') }
+sub edit_name { N_l('Edit artist alias') }
 sub edit_type { $EDIT_ARTIST_EDIT_ALIAS }
 
 sub _build_related_entities { { artist => [ shift->artist_id ] } }
