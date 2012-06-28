@@ -212,6 +212,17 @@ sub formats : Path('formats')
     );
 }
 
+sub editors : Path('editors') {
+    my ($self, $c) = @_;
+    $c->stash(
+        top_recently_active_editors => $c->model('Statistics')->top_recently_active_editors,
+        top_editors => $c->model('Statistics')->top_editors,
+
+        top_recently_active_voters => $c->model('Statistics')->top_recently_active_voters,
+        top_voters => $c->model('Statistics')->top_voters,
+    );
+}
+
 =head1 LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.

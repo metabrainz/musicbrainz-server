@@ -8,6 +8,7 @@
     ['languages-scripts', link_statistics_tab('/statistics/languages-scripts', l('Languages/Scripts')) ],
     ['coverart', link_statistics_tab('/statistics/coverart', l('Cover Art')) ],
     ['formats', link_statistics_tab('/statistics/formats', l('Formats')) ],
+    ['editors', link_statistics_tab('/statistics/editors', l('Editors')) ],
     ['timeline', link_statistics_tab('/statistics/timeline/main', l('Timeline')) ],
 ] -%]
 
