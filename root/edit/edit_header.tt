@@ -91,6 +91,8 @@
         <span class="prefix">~</span>
         [% l('Edit by {editor}',
             { editor => link_entity(edit.editor) }) %]
-        [% '<span>(<span class="tooltip" title="This edit was automatically applied.">auto-edit</span>)</span>' IF edit.auto_edit %]
+        [% IF edit.editor.is_limited; '<span>(<span class="tooltip" title="' _ l('This user is new to MusicBrainz.') _ '">' _ l('limited user') _ '</span>)</span>'; END %]
+        [% IF edit.editor.is_bot; '<span>(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
+        [% IF edit.auto_edit; '<span>(<span class="tooltip" title="' _ l('This edit was automatically applied.') _ '">' _ l('auto-edit') _ '</span>)</span>'; END %]
     </p>
 </div>
