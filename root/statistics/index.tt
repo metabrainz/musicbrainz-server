@@ -209,7 +209,55 @@
 </tr>
 </tbody>
 <tbody>
+<tr class="thead">
+   <th colspan=5>[% l('Release Status') %]</th>
+</tr>
 <tr>
+    <th colspan=3>[% l('Releases:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH status IN statuses %]
+<tr>
+   <th></th>
+   <th colspan=2>[% status.value.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.release.status.' _ status.key)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.status.' _ status.key, 'count.release')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th colspan=2>[% l('No status set') %]</th>
+   <td>[% add_commas(stats.statistic('count.release.status.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.status.null', 'count.release')) }) %]</td>
+</tr>
+</tbody>
+<tbody>
+<tr class="thead">
+   <th colspan=5>[% l('Release Packaging') %]</th>
+</tr>
+<tr>
+    <th colspan=3>[% l('Releases:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH packaging IN packagings %]
+<tr>
+   <th></th>
+   <th colspan=2>[% packaging.value.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.release.packaging.' _ packaging.key)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.packaging.' _ packaging.key, 'count.release')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th colspan=2>[% l('No packaging set') %]</th>
+   <td>[% add_commas(stats.statistic('count.release.packaging.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.packaging.null', 'count.release')) }) %]</td>
+</tr>
+</tbody>
+<tbody>
+<tr class="thead">
     <th colspan=5>[% l('Data Quality') %]</th>
 </tr>
 <tr>

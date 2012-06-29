@@ -18,9 +18,13 @@ sub statistics : Path('')
 #       ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id); fails
 #       for duplicate key 1
 #       count.quality.release.unknown is too high
+    my %statuses = map { $_->id => $_ } $c->model('ReleaseStatus')->get_all();
+    my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
+	statuses => \%statuses,
+        packagings => \%packagings,
         stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
     );
 }
