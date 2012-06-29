@@ -1504,6 +1504,33 @@ my %stats = (
         },
     },
 
+    "count.ar.links.table.type_name" => {
+        DESC => "Count of advanced relationship links by type",
+	CALC => sub {
+	    my ($self, $sql) = @_;
+	    my %dist;
+	    for my $t ($self->c->model('Relationship')->all_pairs) {
+                my $table = join('_', 'l', @$t);
+                my $data = $sql->select_list_of_lists(
+                    "SELECT lt.name, count(*) 
+		     FROM $table l_table 
+		         JOIN link ON l_table.link = link.id
+			 JOIN link_type lt ON link.link_type = lt.id
+		     GROUP BY lt.name"
+		);
+		for (@$data) {
+                    $dist{ $table . '.' . $_->[0] } = $_->[1];
+		}
+	    }
+
+	    +{
+                map {
+		    "count.ar.links.".$_ => $dist{$_}
+		} keys %dist
+	    };
+	},
+    },
+
     "count.ar.links" => {
         DESC => "Count of all advanced relationships links",
         CALC => sub {
