@@ -18,6 +18,11 @@ sub show : Path Args(1)
         $name, $c->model('MB')->context
     ) or $c->detach('/error_404');
 
+    if (!$report->generated) {
+        $c->stash( template => 'report/not_available.tt' );
+        $c->detach;
+    }
+
     my $filtered = exists $c->req->query_params->{filter};
     $c->stash(
         items => $self->_load_paged($c, sub {

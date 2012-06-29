@@ -52,6 +52,14 @@ sub _load {
     return ($rows, $total);
 }
 
+sub generated {
+    my ($self) = @_;
+    return $self->sql->select_single_value(
+        'SELECT TRUE FROM information_schema.tables WHERE table_schema = ? AND table_name = ?',
+        'report', $self->table
+    );
+}
+
 1;
 
 =head1 COPYRIGHT

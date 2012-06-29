@@ -13,6 +13,13 @@ $| = 1;
 @ARGV = "^" if not @ARGV;
 my $c = MusicBrainz::Server::Context->create_script_context();
 
+$c->sql->begin;
+$c->sql->do('CREATE SCHEMA report')
+    unless $c->sql->select_single_value(
+        'SELECT TRUE FROM information_schema.schemata WHERE schema_name = ?',
+        'report');
+$c->sql->commit;
+
 my $errors = 0;
 for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
     unless (grep { $name =~ /$_/i } @ARGV) {
