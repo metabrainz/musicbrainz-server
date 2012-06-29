@@ -23,7 +23,7 @@ sub show : Path Args(1)
         $c->detach;
     }
 
-    my $filtered = exists $c->req->query_params->{filter};
+    my $filtered = $c->req->query_params->{filter};
     $c->stash(
         items => $self->_load_paged($c, sub {
             if ($filtered) {
