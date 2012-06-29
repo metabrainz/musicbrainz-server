@@ -8,7 +8,7 @@ sub filter_sql {
 
     return (
         "JOIN editor_subscribe_label esl ON esl.label = label_id
-         WHERE esa.editor = ?",
+         WHERE esl.editor = ?",
         $editor_id
     );
 }
