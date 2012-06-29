@@ -6,7 +6,6 @@ use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
 use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 use MusicBrainz::Server::Translation qw ( N_l );
-use MusicBrainz::Server::Translation qw ( N_l );
 
 sub edit_name { N_l('Add disc ID') }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }

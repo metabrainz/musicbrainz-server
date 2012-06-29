@@ -3,7 +3,6 @@ package MusicBrainz::Server::Edit::Release::AddAnnotation;
 use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_ANNOTATION );
 use MusicBrainz::Server::Translation qw ( N_l );
-use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
