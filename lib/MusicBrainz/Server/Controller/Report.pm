@@ -45,7 +45,7 @@ sub show : Path Args(1)
         }),
         filtered => $filtered,
         report => $report,
-#        generated => DateTime->from_epoch( epoch => $data->Time ),
+        generated => $report->generated_at,
         template => $report->template,
     );
 }
