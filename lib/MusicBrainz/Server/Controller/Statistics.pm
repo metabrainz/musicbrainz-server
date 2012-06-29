@@ -20,11 +20,15 @@ sub statistics : Path('')
 #       count.quality.release.unknown is too high
     my %statuses = map { $_->id => $_ } $c->model('ReleaseStatus')->get_all();
     my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
+    my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
+    my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
 	statuses => \%statuses,
         packagings => \%packagings,
+        primary_types => \%primary_types,
+        secondary_types => \%secondary_types,
         stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
     );
 }
