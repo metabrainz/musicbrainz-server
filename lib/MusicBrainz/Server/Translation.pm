@@ -13,9 +13,9 @@ use Cwd qw (abs_path);
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln )],
+    exports => [qw( l lp ln N_l )],
     groups => {
-        default => [qw( l lp ln )]
+        default => [qw( l lp ln N_l )]
     }
 };
 
@@ -35,6 +35,7 @@ has 'bound' => (
     default => 0
 );
 
+sub N_l { __PACKAGE__->instance->nop_gettext(@_) }
 sub l { __PACKAGE__->instance->gettext(@_) }
 sub lp { __PACKAGE__->instance->pgettext(@_) }
 sub ln { __PACKAGE__->instance->ngettext(@_) }

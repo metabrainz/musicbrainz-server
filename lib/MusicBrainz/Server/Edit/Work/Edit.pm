@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
 );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -22,7 +22,7 @@ with 'MusicBrainz::Server::Edit::Work';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_type { $EDIT_WORK_EDIT }
-sub edit_name { l('Edit work') }
+sub edit_name { N_l('Edit work') }
 sub _edit_model { 'Work' }
 sub work_id { shift->entity_id }
 

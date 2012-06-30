@@ -9,7 +9,7 @@
                   [% USE class = Class(edit_type) %]
                   <li>
                     <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
-                      [% class.edit_name %]
+                      [% class.l_edit_name %]
                        </a>
                   </li>
                 [% END %]
@@ -23,7 +23,7 @@
                 [% USE class = Class(edit_type) %]
                 <li>
                   <a href="[% c.uri_for_action('/edit/edit_type', class.edit_type) %]">
-                    [% class.edit_name %]
+                    [% class.l_edit_name %]
                   </a>
                 </li>
               [% END %]

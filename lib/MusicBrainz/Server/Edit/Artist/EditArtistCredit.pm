@@ -16,12 +16,12 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     verify_artist_credits
 );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 
-sub edit_name { l('Edit artist credit') }
+sub edit_name { N_l('Edit artist credit') }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 
 sub new_artist_ids {
