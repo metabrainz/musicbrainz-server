@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Track;
 use strict;
 use Carp 'confess';
+use DateTime::Format::Duration;
 
 use Sub::Exporter -setup => {
     exports => [
@@ -20,11 +21,8 @@ sub FormatTrackLength
     $ms or return "?:??";
     $ms >= 1000 or return "$ms ms";
 
-    my $length_in_secs = int($ms / 1000.0 + 0.5);
-    sprintf "%d:%02d",
-        int($length_in_secs / 60),
-        ($length_in_secs % 60),
-        ;
+    my $f = DateTime::Format::Duration->new (normalize => 1, pattern => "%H:%M:%S");
+    return $f->format_duration_from_deltas (seconds => $ms / 1000);
 }
 
 sub FormatXSDTrackLength
@@ -33,11 +31,11 @@ sub FormatXSDTrackLength
     $ms or return undef;
     #$ms >= 1000 or return "$ms ms";
     my $length_in_secs = ($ms / 1000.0);
-    sprintf "PT%dM%dS", 
+    sprintf "PT%dM%dS",
         int($length_in_secs / 60),
         ($length_in_secs % 60),
     ;
-    
+
 }
 
 sub UnformatTrackLength
