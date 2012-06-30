@@ -1505,30 +1505,46 @@ my %stats = (
     },
 
     "count.ar.links.table.type_name" => {
-        DESC => "Count of advanced relationship links by type",
-	CALC => sub {
-	    my ($self, $sql) = @_;
-	    my %dist;
-	    for my $t ($self->c->model('Relationship')->all_pairs) {
+        DESC => "Count of advanced relationship links by type, inclusive of child counts and exclusive",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my %dist;
+            for my $t ($self->c->model('Relationship')->all_pairs) {
                 my $table = join('_', 'l', @$t);
-                my $data = $sql->select_list_of_lists(
-                    "SELECT lt.name, count(*) 
-		     FROM $table l_table 
-		         JOIN link ON l_table.link = link.id
-			 JOIN link_type lt ON link.link_type = lt.id
-		     GROUP BY lt.name"
-		);
-		for (@$data) {
-                    $dist{ $table . '.' . $_->[0] } = $_->[1];
-		}
-	    }
+                my $data = $sql->select_list_of_hashes(
+                    "SELECT lt.id, lt.name, lt.parent, count(l_table.id) 
+                     FROM $table l_table 
+                         RIGHT JOIN link ON l_table.link = link.id
+                         RIGHT JOIN 
+                             (SELECT * FROM link_type WHERE entity_type0 = ? AND entity_type1 = ?) 
+                         AS lt ON link.link_type = lt.id
+                     GROUP BY lt.name, lt.id, lt.parent", @$t
+                );
+                for (@$data) {
+                    $dist{ $table . '.' . $_->{name} } = $_->{count};
+                    $dist{ $table . '.' . $_->{name} . '.inclusive' } = $_->{count};
+                }
+                for (@$data) {
+                    my $parent = $_->{parent};
+                    my $count = $_->{count};
+                    while (defined $parent) {
+                        my @parent_obj = grep { $_->{id} == $parent } @$data;
+                        my $parent_obj = $parent_obj[0] if scalar(@parent_obj) == 1;
+                        die unless $parent_obj;
 
-	    +{
+                        $dist{ $table . '.' . $parent_obj->{name} . '.inclusive' } += $count;
+
+                        $parent = $parent_obj->{parent};
+                    }
+                }
+            }
+
+            +{
                 map {
-		    "count.ar.links.".$_ => $dist{$_}
-		} keys %dist
-	    };
-	},
+                    "count.ar.links.".$_ => $dist{$_}
+                } keys %dist
+            };
+        }
     },
 
     "count.ar.links" => {

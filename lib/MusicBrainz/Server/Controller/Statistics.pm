@@ -231,6 +231,17 @@ sub editors : Path('editors') {
     );
 }
 
+sub relationships : Path('relationships') {
+    my ($self, $c) = @_;
+    my $pairs = [ $c->model('Relationship')->all_pairs() ];
+    my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => $c->model('LinkType')->get_tree($_->[0], $_->[1]) } } @$pairs };
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    $c->stash(
+        types => $types,
+	stats => $stats
+    );
+}
+
 =head1 LICENSE
 
 Copyright (C) 2011 MetaBrainz Foundation Inc.
