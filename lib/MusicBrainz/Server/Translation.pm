@@ -6,7 +6,7 @@ use I18N::LangTags ();
 use I18N::LangTags::Detect;
 use DBDefs;
 
-use Locale::Messages qw( bindtextdomain );
+use Locale::Messages qw( bindtextdomain LC_MESSAGES );
 use Locale::Util qw( web_set_locale );
 use Cwd qw (abs_path);
 
@@ -103,7 +103,12 @@ sub _set_language
 
     # change e.g. 'en-aq' to 'en_AQ'
     @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } @avail_lang;
-    web_set_locale(\@avail_lang, [ 'utf-8' ]);
+    web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
+}
+
+sub _unset_language
+{
+    web_set_locale([ 'en' ], [ 'utf-8' ], LC_MESSAGES);
 }
 
 sub _expand
