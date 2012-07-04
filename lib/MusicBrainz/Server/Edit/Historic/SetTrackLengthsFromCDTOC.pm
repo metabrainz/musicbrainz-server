@@ -40,7 +40,7 @@ sub build_display_data
         length => {
             map {
                 $_ => [ map { MusicBrainz::Server::Track::UnformatTrackLength($_) }
-                            split /\s+/, $self->data->{$_}{lengths} ]
+                            split /\s+(?!ms)/, $self->data->{$_}{lengths} ]
             } qw( old new)
         },
     }
