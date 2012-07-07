@@ -264,13 +264,28 @@ for database maintainance.
 EOF
 
 # Development server feature.
-# Used to display which git branch is currently active.
+# Used to display which git branch is currently running along with information
+# about the last commit
 sub GIT_BRANCH
 {
   if (DB_STAGING_SERVER) {
     my $git_branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
     $git_branch =~ s/\* (.+)/$1/;
     return $git_branch;
+  }
+}
+sub GIT_COMMIT
+{
+  if (DB_STAGING_SERVER) {
+    my $git_commit = `git log -1 --format=format:"Last commit by %an on %ad%n%s" --date=short`;
+    return $git_commit;
+  }
+}
+sub GIT_SHA
+{
+  if (DB_STAGING_SERVER) {
+    my $git_sha = `git log -1 --format=format:"%h"`;
+    return $git_sha;
   }
 }
 
