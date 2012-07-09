@@ -163,8 +163,11 @@ sub all_events {
 sub fetch {
     my ($self, @names) = @_;
 
-    my $query = 'SELECT name, value FROM ' . $self->_table;
+    my $query = 'SELECT name, value, row_number() OVER (PARTITION BY name ORDER BY date_collected DESC)'.
+        ' FROM ' . $self->_table;
     $query .= ' WHERE name IN (' . placeholders(@names) . ')' if @names;
+
+    $query = "SELECT name, value FROM ($query) s WHERE s.row_number = 1";
 
     my %stats =
         map { $_->{name} => $_->{value} }
