@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
+use Test::Deep qw( cmp_set );
 
 use MusicBrainz::Server::Data::Artist;
 
@@ -16,6 +17,46 @@ use Sql;
 
 with 't::Edit';
 with 't::Context';
+
+test 'Test find_by_work' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
+INSERT INTO work (id, gid, name)
+    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 1);
+
+INSERT INTO artist_name (id, name) VALUES (1, 'Test Artist');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1);
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO track_name (id, name) VALUES (1, 'Recording');
+INSERT INTO recording (id, gid, name, artist_credit)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1);
+
+INSERT INTO link_type
+    (id, gid, entity_type0, entity_type1, name, link_phrase,
+     reverse_link_phrase, short_link_phrase, description)
+  VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
+          '', '', '', '', ''),
+         (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',
+          '', '', '', '', '');
+
+INSERT INTO link (id, link_type, attribute_count)
+  VALUES (1, 1, 0), (2, 2, 0);
+
+INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
+INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
+EOSQL
+
+    my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1);
+    is($hits, 2);
+    cmp_set([ map { $_->id } @$artists ], [ 1, 2 ]);
+};
 
 test all => sub {
 
