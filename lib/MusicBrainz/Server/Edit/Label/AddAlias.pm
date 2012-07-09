@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Label::AddAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_ADD_ALIAS );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 
@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Edit::Label';
 
 sub _alias_model { shift->c->model('Label')->alias }
 
-sub edit_name { l('Add label alias') }
+sub edit_name { N_l('Add label alias') }
 sub edit_type { $EDIT_LABEL_ADD_ALIAS }
 
 sub _build_related_entities { { label => [ shift->label_id ] } }

@@ -18,7 +18,7 @@
 
        [%- FOREACH edit=edits -%]
          <div class="edit-list">
-           <h2>[% edit.edit_name | html %]</h2>
+           <h2>[% edit.l_edit_name | html %]</h2>
 
            <div class="edit-details">
            [% IF edit.data.defined %]

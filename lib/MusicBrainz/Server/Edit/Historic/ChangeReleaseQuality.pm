@@ -3,13 +3,13 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Change release quality') }
+sub edit_name     { N_l('Change release quality') }
 sub historic_type { 63 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_QUALITY }
 sub edit_template { 'historic/change_release_quality' }

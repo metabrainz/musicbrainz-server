@@ -15,14 +15,14 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Link;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
-sub edit_name { l("Remove relationship") }
+sub edit_name { N_l("Remove relationship") }
 
 has '+data' => (
     isa => Dict[

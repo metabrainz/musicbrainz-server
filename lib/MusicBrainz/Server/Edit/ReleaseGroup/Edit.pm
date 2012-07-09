@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
     merge_artist_credit
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
@@ -31,7 +31,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { l("Edit release group") }
+sub edit_name { N_l("Edit release group") }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 

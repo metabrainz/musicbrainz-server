@@ -3,11 +3,11 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_LINK );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
-sub edit_name     { l('Remove relationship (historic)') }
+sub edit_name     { N_l('Remove relationship (historic)') }
 sub historic_type { 35 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK }
 

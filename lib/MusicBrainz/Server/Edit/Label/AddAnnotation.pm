@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Label::AddAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Label';
 
-sub edit_name { l('Add label annotation') }
+sub edit_name { N_l('Add label annotation') }
 sub edit_type { $EDIT_LABEL_ADD_ANNOTATION }
 
 sub _build_related_entities { { label => [ shift->label_id ] } }
