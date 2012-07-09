@@ -65,6 +65,7 @@ sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
 
     if (!$c->user_exists) {
         $c->res->status(401);
+        $c->res->body('{}');
         $c->detach;
     }
 

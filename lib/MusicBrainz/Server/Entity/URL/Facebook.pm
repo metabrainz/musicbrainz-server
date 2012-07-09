@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^https?://(?:www.)?facebook.com/([^/]+)/?$}i) {
+    if ($self->url =~ m{^https?://(?:www.)?facebook.com/(?:pages/)?([^/]+)(?:/[^/]+)?/?$}i) {
         return $1;
     } else {
         return "Facebook";

@@ -60,12 +60,18 @@ sub load_type_and_status
 {
     my ($c) = @_;
 
-    my @types = $c->model('ReleaseGroupType')->get_all();
-    %types = map { (
-        lc($_->name) => $_->id,
-        lc('sa-' . $_->name)=> $_->id,
-        lc('va-' . $_->name)=> $_->id,
-    ) } @types;
+    %types = map {
+        my ($name, $id) = @$_;
+        (
+            lc($name) => $id,
+            lc("sa-$name") => $id,
+            lc("va-$name") => $id
+        )
+    } (
+        (map +[ lc($_->name) => $_->id ], $c->model('ReleaseGroupType')->get_all()),
+        (map +[ lc($_->name) => 'st:' . $_->id ], $c->model('ReleaseGroupSecondaryType')->get_all())
+    );
+
     my @statuses = $c->model('ReleaseStatus')->get_all();
     %statuses = map {
         lc($_->name) => $_->id,

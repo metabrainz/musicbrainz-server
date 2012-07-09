@@ -54,13 +54,10 @@ sub replace
                    $new_tracklist->id, $tracklist_id);
 
     # XXX Should go through Tracklist->delete
-    my @possibly_orphaned_recordings = @{
-        $self->sql->select_single_column_array(
-            'DELETE FROM track WHERE tracklist = ? RETURNING recording', $tracklist_id
-        )
-    };
+    $self->sql->select_single_column_array(
+        'DELETE FROM track WHERE tracklist = ? RETURNING recording', $tracklist_id
+    );
     $self->sql->do('DELETE FROM tracklist WHERE id = ?', $tracklist_id);
-    $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
 
     return $new_tracklist->id;
 }
@@ -72,6 +69,7 @@ sub _add_tracks {
         map +{
             recording_id  => $_->{recording_id},
             tracklist     => $id,
+            number        => $_->{number} // $i,
             position      => $i++,
             name          => $_->{name},
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
@@ -106,16 +104,12 @@ sub garbage_collect {
     };
 
     if (@orphaned_tracklists) {
-        my @possibly_orphaned_recordings = @{
-            $self->sql->select_single_column_array(
-                'DELETE FROM track
-                 WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')
-                 RETURNING recording',
-                @orphaned_tracklists
-            )
-        };
-
-        $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
+        $self->sql->select_single_column_array(
+            'DELETE FROM track
+             WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')
+             RETURNING recording',
+            @orphaned_tracklists
+        );
 
         $self->sql->do(
             'DELETE FROM tracklist
@@ -221,6 +215,7 @@ sub find_or_insert
                                     'artist_credit = ?',
                                     'recording = ?',
                                     defined($_->{length}) ? 'length = ?' : 'length IS NULL',
+                                    'number = ?',
                                     'position = ?') .
                          ')' } @$tracks) . '
                   GROUP BY tracklist
@@ -238,6 +233,7 @@ sub find_or_insert
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
                 $_->{recording_id},
                 defined($_->{length}) ? $_->{length} : (),
+                $_->{number} // $i,
                 $i++,
             } @$tracks),
             scalar(@$tracks)

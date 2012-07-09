@@ -4,6 +4,8 @@ input.mb_placeholder { color: #aaa ! important; }
 input[disabled].lookup-performed,
 input[disabled] { background: #DCDAD5; cursor: default; }
 
+button.nobutton:focus,
+button.nobutton:hover,
 button.nobutton {
     background: inherit;
     color: inherit;
@@ -38,6 +40,10 @@ form div.row div.label {
     width: 132px;
     margin-right: 12px;
 }
+
+div.form-row-text-list { margin-left: 144px; }
+div.half-width fieldset div.text-list-row > input { width: 278px; }
+
 
 div.bubble div.row input[type=text] {
     width: 176px;
@@ -287,3 +293,15 @@ ul.conditions button.remove {
 ul.conditions button.remove img {
     vertical-align: middle;
 }
+
+#filter {
+    margin-top: 0.75em;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 0.5em;
+    display: none;
+}
+

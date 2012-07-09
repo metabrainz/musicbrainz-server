@@ -13,8 +13,16 @@ CREATE TRIGGER "reptg_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_artist_ipi"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_ipi"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_artist_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_artist_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_alias_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_annotation"
@@ -75,6 +83,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_isrc"
 AFTER INSERT OR DELETE OR UPDATE ON "isrc"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_iswc"
+AFTER INSERT OR DELETE OR UPDATE ON "iswc"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 -- not replicated:
@@ -200,8 +212,16 @@ CREATE TRIGGER "reptg_label_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "label_alias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_label_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "label_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_label_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "label_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_label_ipi"
+AFTER INSERT OR DELETE OR UPDATE ON "label_ipi"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_meta"
@@ -336,8 +356,16 @@ CREATE TRIGGER "reptg_release_group_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_release_group_type"
-AFTER INSERT OR DELETE OR UPDATE ON "release_group_type"
+CREATE TRIGGER "reptg_release_group_primary_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_primary_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_secondary_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_secondary_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_release_group_secondary_type"
+AFTER INSERT OR DELETE OR UPDATE ON "release_group_secondary_type_join"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_release_name"
@@ -354,6 +382,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_statistic"
 AFTER INSERT OR DELETE OR UPDATE ON "statistic"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_statistic_event"
+AFTER INSERT OR DELETE OR UPDATE ON "statistic_event"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_script_language"
@@ -394,6 +426,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "work_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "work_alias_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_annotation"

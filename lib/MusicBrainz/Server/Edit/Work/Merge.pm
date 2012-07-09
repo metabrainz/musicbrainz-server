@@ -19,13 +19,24 @@ sub foreign_keys
     my $self = shift;
     return {
         Work => {
-            $self->data->{new_entity}{id} => [ 'ArtistCredit' ],
             map {
-                $_->{id} => [ 'ArtistCredit' ]
-            } @{ $self->data->{old_entities} }
+                $_ => [ 'ArtistCredit', 'WorkType', 'Language' ]
+            } (
+                $self->data->{new_entity}{id},
+                map { $_->{id} } @{ $self->data->{old_entities} },
+            )
         }
     }
 }
+
+before build_display_data => sub {
+    my ($self, $loaded) = @_;
+
+    my @works = grep defined, map { $loaded->{Work}{$_} } $self->work_ids;
+    $self->c->model('Work')->load_writers(@works);
+    $self->c->model('Work')->load_recording_artists(@works);
+    $self->c->model('ISWC')->load_for_works(@works);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

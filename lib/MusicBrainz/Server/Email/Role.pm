@@ -5,6 +5,7 @@ use namespace::autoclean;
 use DBDefs;
 use Encode qw( encode );
 use MooseX::Types::Moose qw( Str );
+use MusicBrainz::Server::Constants qw( $EMAIL_NOREPLY_ADDRESS );
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Entity::Types;
 use String::TT qw( strip );
@@ -23,7 +24,7 @@ has 'from' => (
     isa => Str,
     is => 'ro',
     required => 1,
-    default => $MusicBrainz::Server::Email::NOREPLY_ADDRESS
+    default => $EMAIL_NOREPLY_ADDRESS
 );
 
 has 'server' => (

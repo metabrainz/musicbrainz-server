@@ -41,6 +41,16 @@ ALTER TABLE artist_alias
    FOREIGN KEY (name)
    REFERENCES artist_name(id);
 
+ALTER TABLE artist_alias
+   ADD CONSTRAINT artist_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES artist_name(id);
+
+ALTER TABLE artist_alias
+   ADD CONSTRAINT artist_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES artist_alias_type(id);
+
 ALTER TABLE artist_annotation
    ADD CONSTRAINT artist_annotation_fk_artist
    FOREIGN KEY (artist)
@@ -76,6 +86,11 @@ ALTER TABLE artist_credit_name
 ALTER TABLE artist_gid_redirect
    ADD CONSTRAINT artist_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
+   REFERENCES artist(id);
+
+ALTER TABLE artist_ipi
+   ADD CONSTRAINT artist_ipi_fk_artist
+   FOREIGN KEY (artist)
    REFERENCES artist(id);
 
 ALTER TABLE artist_meta
@@ -246,6 +261,16 @@ ALTER TABLE edit_work
    REFERENCES work(id)
    ON DELETE CASCADE;
 
+ALTER TABLE editor
+   ADD CONSTRAINT editor_fk_gender
+   FOREIGN KEY (gender)
+   REFERENCES gender(id);
+
+ALTER TABLE editor
+   ADD CONSTRAINT editor_fk_country
+   FOREIGN KEY (country)
+   REFERENCES country(id);
+
 ALTER TABLE editor_collection
    ADD CONSTRAINT editor_collection_fk_editor
    FOREIGN KEY (editor)
@@ -260,6 +285,16 @@ ALTER TABLE editor_collection_release
    ADD CONSTRAINT editor_collection_release_fk_release
    FOREIGN KEY (release)
    REFERENCES release(id);
+
+ALTER TABLE editor_language
+   ADD CONSTRAINT editor_language_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE editor_language
+   ADD CONSTRAINT editor_language_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
 
 ALTER TABLE editor_preference
    ADD CONSTRAINT editor_preference_fk_editor
@@ -313,7 +348,7 @@ ALTER TABLE editor_watch_release_group_type
 ALTER TABLE editor_watch_release_group_type
    ADD CONSTRAINT editor_watch_release_group_type_fk_release_group_type
    FOREIGN KEY (release_group_type)
-   REFERENCES release_group_type(id);
+   REFERENCES release_group_primary_type(id);
 
 ALTER TABLE editor_watch_release_status
    ADD CONSTRAINT editor_watch_release_status_fk_editor
@@ -330,6 +365,11 @@ ALTER TABLE isrc
    ADD CONSTRAINT isrc_fk_recording
    FOREIGN KEY (recording)
    REFERENCES recording(id);
+
+ALTER TABLE iswc
+   ADD CONSTRAINT iswc_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
 
 ALTER TABLE l_artist_artist
    ADD CONSTRAINT l_artist_artist_fk_link
@@ -781,6 +821,16 @@ ALTER TABLE label_alias
    FOREIGN KEY (name)
    REFERENCES label_name(id);
 
+ALTER TABLE label_alias
+   ADD CONSTRAINT label_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES label_name(id);
+
+ALTER TABLE label_alias
+   ADD CONSTRAINT label_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES label_alias_type(id);
+
 ALTER TABLE label_annotation
    ADD CONSTRAINT label_annotation_fk_label
    FOREIGN KEY (label)
@@ -794,6 +844,11 @@ ALTER TABLE label_annotation
 ALTER TABLE label_gid_redirect
    ADD CONSTRAINT label_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
+   REFERENCES label(id);
+
+ALTER TABLE label_ipi
+   ADD CONSTRAINT label_ipi_fk_label
+   FOREIGN KEY (label)
    REFERENCES label(id);
 
 ALTER TABLE label_meta
@@ -1062,7 +1117,7 @@ ALTER TABLE release_group
 ALTER TABLE release_group
    ADD CONSTRAINT release_group_fk_type
    FOREIGN KEY (type)
-   REFERENCES release_group_type(id);
+   REFERENCES release_group_primary_type(id);
 
 ALTER TABLE release_group_annotation
    ADD CONSTRAINT release_group_annotation_fk_release_group
@@ -1094,6 +1149,16 @@ ALTER TABLE release_group_rating_raw
    ADD CONSTRAINT release_group_rating_raw_fk_editor
    FOREIGN KEY (editor)
    REFERENCES editor(id);
+
+ALTER TABLE release_group_secondary_type_join
+   ADD CONSTRAINT release_group_secondary_type_join_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_secondary_type_join
+   ADD CONSTRAINT release_group_secondary_type_join_fk_secondary_type
+   FOREIGN KEY (secondary_type)
+   REFERENCES release_group_secondary_type(id);
 
 ALTER TABLE release_group_tag
    ADD CONSTRAINT release_group_tag_fk_release_group
@@ -1231,6 +1296,11 @@ ALTER TABLE work
    FOREIGN KEY (type)
    REFERENCES work_type(id);
 
+ALTER TABLE work
+   ADD CONSTRAINT work_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
+
 ALTER TABLE work_alias
    ADD CONSTRAINT work_alias_fk_work
    FOREIGN KEY (work)
@@ -1240,6 +1310,16 @@ ALTER TABLE work_alias
    ADD CONSTRAINT work_alias_fk_name
    FOREIGN KEY (name)
    REFERENCES work_name(id);
+
+ALTER TABLE work_alias
+   ADD CONSTRAINT work_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES work_name(id);
+
+ALTER TABLE work_alias
+   ADD CONSTRAINT work_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES work_alias_type(id);
 
 ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_work

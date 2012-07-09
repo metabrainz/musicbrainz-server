@@ -40,8 +40,9 @@ sub _load_index_from_disk
 {
     my ($self) = @_;
 
-    if (!open(FILE, "<" . $self->_index_file)) {
-        warn "Could not open wikitrans index file: $!.";
+    my $index_file = $self->_index_file;
+    if (!open(FILE, "<" . $index_file)) {
+        warn "Could not open wikitrans index file '$index_file': $!.";
         return {};
     }
     my $data = do { local $/; <FILE> };
@@ -148,7 +149,7 @@ sub get_wiki_versions
 
         my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", &DBDefs::WIKITRANS_SERVER_API, $query;
 
-        my $ua = LWP::UserAgent->new(max_redirect => 0);
+        my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
         $ua->env_proxy;
         my $response = $ua->get($doc_url);
 

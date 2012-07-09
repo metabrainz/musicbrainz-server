@@ -30,6 +30,7 @@
         [% form_row_checkbox(r, 'public_subscriptions', l('Allow other users to see my subscriptions')) %]
         [% form_row_checkbox(r, 'public_tags', l('Allow other users to see my tags')) %]
         [% form_row_checkbox(r, 'public_ratings', l('Allow other users to see my ratings')) %]
+        [% form_row_checkbox(r, 'show_gravatar', l('Show my Gravatar')) %]
     </fieldset>
 
     <fieldset>

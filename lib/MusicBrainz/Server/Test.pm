@@ -33,8 +33,16 @@ use Sub::Exporter -setup => {
     ],
 };
 
+BEGIN {
+    no warnings 'redefine';
+    use DBDefs;
+    *DBDefs::WEB_SERVER = sub { "localhost" };
+    *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { "localhost" };
+}
+
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
+MusicBrainz::Server::DatabaseConnectionFactory->alias('READWRITE' => 'TEST');
 
 our $test_context;
 our $test_transport = Email::Sender::Transport::Test->new();
@@ -446,15 +454,10 @@ sub commandline_override
 {
     my ($prefix, @default_tests) = @_;
 
-    my @tests;
-    GetOptions ("tests=s" => \@tests);
-    @tests = split(/,/,join(',',@tests));
+    my $test_re = '';
+    GetOptions ("tests=s" => \$test_re);
 
-    @default_tests = map {
-        /^t::/ ? $_ : $prefix.$_;
-    } @tests if scalar @tests;
-
-    return @default_tests;
+    return grep { $_ =~ /$test_re/ } @default_tests;
 }
 
 1;

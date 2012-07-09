@@ -28,12 +28,12 @@ sub show : Path('')
     $c->stash(
         id => $id,
         page => $page,
+        google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
     );
 
     if ($id =~ /^(Special|User|MetaBrainz|Proposal):/i) {
-        $c->response->status(404);
-        $c->stash->{template} = 'doc/error.tt';
-        return;
+        $c->response->redirect(sprintf('http://%s/%s', DBDefs::WIKITRANS_SERVER, $id));
+        $c->detach;
     }
 
     if ($page) {

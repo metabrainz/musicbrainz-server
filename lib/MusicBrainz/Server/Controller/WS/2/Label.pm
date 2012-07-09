@@ -58,6 +58,7 @@ sub label_toplevel
 
     $c->model('LabelType')->load($label);
     $c->model('Country')->load($label);
+    $c->model('Label')->ipi->load_for($label);
 
     if ($c->stash->{inc}->aliases)
     {
@@ -68,7 +69,7 @@ sub label_toplevel
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_label(
-            $label->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
+            $label->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});

@@ -37,11 +37,11 @@ MB.tests.URLCleanup.GuessType = function() {
 
                 [
                     'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
-                    MB.constants.LINK_TYPES.musicmoz.artist
+                    MB.constants.LINK_TYPES.otherdatabases.artist
                 ],
                 [
                     'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
-                    MB.constants.LINK_TYPES.musicmoz.release
+                    MB.constants.LINK_TYPES.otherdatabases.release
                 ],
 
                 [
@@ -95,7 +95,57 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
+                ],
+                [
+                    'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                    MB.constants.LINK_TYPES.streamingmusic.recording
+                ],
+                [
+                    'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
+                    MB.constants.LINK_TYPES.lyrics.release
+                ],
+
+                [
+                    'recording', 'http://vimeo.com/1109226',
+                    MB.constants.LINK_TYPES.streamingmusic.recording
+                ],
+
+                [
+                    'recording', 'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    MB.constants.LINK_TYPES.streamingmusic.recording
+                ],
+
+                [
+                    'artist', 'http://youtube.com/user/officialpsy/videos',
+                    MB.constants.LINK_TYPES.youtube.artist
+                ],
+
+                [
+                    'label', 'http://youtube.com/user/officialpsy/videos',
+                    MB.constants.LINK_TYPES.youtube.label
+                ],
+
+                [
+                    'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                    MB.constants.LINK_TYPES.allmusic.artist
+                ],
+                [
+                    'release_group', 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                    MB.constants.LINK_TYPES.allmusic.release_group
+                ],
+                [
+                    'work', 'http://www.allmusic.com/song/help!-mt0043064796',
+                    MB.constants.LINK_TYPES.allmusic.work
+                ],
+                [
+                    'work', 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
+                    MB.constants.LINK_TYPES.allmusic.work
+                ],
+                [
+                    'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
+                    MB.constants.LINK_TYPES.allmusic.recording
                 ]
+
             ];
 
         $.each(tests, function(i, test) {
@@ -108,34 +158,177 @@ MB.tests.URLCleanup.GuessType = function() {
             tests = [
                 [
                     'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
-                    'http://www.amazon.co.uk/gp/product/B00009W0XE'
+                    'http://www.amazon.co.uk/gp/product/B00009W0XE',
+                    'release'
+                ],
+                [
+                    'http://fr.myspace.com/jujusasadada',
+                    'http://www.myspace.com/jujusasadada',
+                    'artist'
+                ],
+                [
+                    'http://myspace.de/diekisten',
+                    'http://www.myspace.com/diekisten',
+                    'artist'
                 ],
                 [
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
-                    'http://www.discogs.com/release/5578'
+                    'http://www.discogs.com/release/5578',
+                    'release'
                 ],
                 [
                     // FIXME Need a "bad" archive.org link
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
-                    'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg'
+                    'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
+                    'release'
                 ],
                 [
                     'http://www.jamendo.com/en/album/56372',
-                    'http://www.jamendo.com/album/56372'
+                    'http://www.jamendo.com/album/56372',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
+                    'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
+                    'release'
                 ],
                 [
                     'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
-                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg'
+                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
+                    'release'
+                ],
+                [
+                    'http://plus.google.com/u/0/101821796946045393834/about',
+                    'https://plus.google.com/101821796946045393834',
+                    'artist'
                 ],
                 [
                     // FIXME Need a bad link
                     'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'http://www.mange-disque.tv/fs/md_1643.jpg'
+                    'http://www.mange-disque.tv/fs/md_1643.jpg',
+                    'release'
+                ],
+                [
+                    'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
+                    'http://open.spotify.com/track/7gwRSZ0EmGWa697ZrE58GA',
+                    'streamingmusic'
+                ],
+                [
+                    'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
+                    'http://vimeo.com/1109226',
+                    'streamingmusic'
+                ],
+                [
+                    'http://youtu.be/UmHdefsaL6I',
+                    'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    'streamingmusic'
+                ],
+                [
+                    'http://www.youtube.com/embed/UmHdefsaL6I',
+                    'http://www.youtube.com/watch?v=UmHdefsaL6I',
+                    'streamingmusic'
+                ],
+                [
+                    'http://youtube.com/user/officialpsy/videos',
+                    'http://www.youtube.com/user/officialpsy',
+                    'artist'
+                ],
+                [
+                    'http://www.jamendo.com/en/list/a81403/the-cabinet-ep',
+                    'http://www.jamendo.com/list/a81403',
+                    'release'
+                ],
+                [
+                    'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                    'http://www.allmusic.com/artist/mn0000754032',
+                    'artist'
+                ],
+                [
+                    'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
+                    'http://www.allmusic.com/album/mw0002303439',
+                    'release_group'
+                ],
+                [
+                    'http://www.allmusic.com/song/help!-mt0043064796',
+                    'http://www.allmusic.com/song/mt0043064796',
+                    'work'
+                ],
+                [
+                    'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
+                    'http://www.allmusic.com/composition/mc0002367338',
+                    'work'
+                ],
+                [
+                    'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
+                    'http://www.allmusic.com/performance/mq0000061129',
+                    'recording'
+                ],
+
+                // MBS-4810: exactly one terminating slash at the end
+                [
+                    'http://creativecommons.org/licenses/by-nc-sa/2.0/de//',
+                    'http://creativecommons.org/licenses/by-nc-sa/2.0/de/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/by/2.0/scotland',
+                    'http://creativecommons.org/licenses/by/2.0/scotland/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/publicdomain//',
+                    'http://creativecommons.org/licenses/publicdomain/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/licenses/publicdomain',
+                    'http://creativecommons.org/licenses/publicdomain/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/publicdomain/zero/1.0//',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+                [
+                    'http://creativecommons.org/publicdomain/zero/1.0',
+                    'http://creativecommons.org/publicdomain/zero/1.0/',
+                    'release'
+                ],
+
+                // MBS-4044: Cleanup Discogs URLs
+                [
+                    'http://www.discogs.com/artist/Teresa+Teng?anv=%E9%84%A7%E9%BA%97%E5%90%9B',
+                    'http://www.discogs.com/artist/Teresa+Teng',
+                    'artist'
+                ],
+                [
+                    'http://www.discogs.com/artist/Guy+Balbaert#t=Credits_Writing-Arrangement&q=&p=1',
+                    'http://www.discogs.com/artist/Guy+Balbaert',
+                    'artist'
+                ],
+
+                // MBS-4284: Normalize URL encoding for specific sites
+                [
+                    'http://www.discogs.com/label/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                    'http://www.discogs.com/label/%24%26+%2C%2F%3A%3B%3D%40%5B%5D+%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                    'label'
+                ],
+                [
+                    'http://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
+                    'http://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
+                    'label'
                 ]
+
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.cleanUrl(test[0]), test[1], test[0]);
+            QUnit.equals(control.cleanUrl(test[2], test[0]), test[1], test[0]);
         });
     });
 };

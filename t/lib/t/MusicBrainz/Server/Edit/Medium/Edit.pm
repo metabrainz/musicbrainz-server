@@ -8,7 +8,7 @@ with 't::Edit';
 with 't::Context';
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
-use MusicBrainz::Server::Types ':edit_status';
+use MusicBrainz::Server::Constants ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Medium::Util qw( tracks_to_hash );
@@ -206,9 +206,6 @@ test 'Accept/failure conditions regarding links' => sub {
         is($edit->display_data->{recording_changes}[0][1]->recording_id, 100, 'was recording 100');
         is($edit->display_data->{recording_changes}[0][2]->recording_id, 1, 'now recording 1');
 
-        ok(!defined($c->model('Recording')->get_by_id($old_recording_id)),
-           'the recording has been garbage collected');
-
         ok(defined($c->model('Recording')->get_by_id(1)),
            'the new recording exists');
     };
@@ -402,7 +399,8 @@ sub create_edit {
                         )
                     )]),
             recording_id => 1,
-            position => 1
+            position => 1,
+            number => 1
         )
     ];
 

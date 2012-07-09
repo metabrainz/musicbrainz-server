@@ -56,6 +56,36 @@ END; -%]
       END;
     END -%]
 
+[%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
+    <a href="[% artwork.image %]" class="thickbox">
+    [%- IF no_javascript -%]
+        <img src="[% artwork.small_thumbnail %]" />
+    [%- ELSE -%]
+        <img />
+        <script>
+          $('img').last ().bind ('error', function (event) {
+              if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
+              {
+                  $(this).attr ("src", "[% artwork.image %]");
+              }
+         [%- IF fallback -%]
+              else if ($(this).attr ("src") === "[% artwork.image %]")
+              {
+                  $(this).attr ("src", "[% fallback %]");
+              }
+         [%- END -%]
+              else
+              {
+                  $(this).closest ('a').replaceWith ('<em>
+                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
+                  <\/em>');
+              }
+          }).attr ("src", "[% artwork.small_thumbnail %]");
+        </script>
+    [%- END -%]
+    </a>
+[%- END -%]
+
 [%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
         [%- item -%]
@@ -122,7 +152,7 @@ END -%]
   <ul>
     [% FOR name=ac.names %]
       <li>
-      [% IF name.artist.name != name.name || name.artist.comment %]
+      [% IF name.artist.name != name.name %]
         [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
       [% ELSE %]
         [% descriptive_link(name.artist) %]
@@ -206,7 +236,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text == '' ? html_escape(artist.name) : text;
     hover = html_escape(artist.sort_name);
-    IF artist.comment; hover = hover _ ', ' _ html_escape(artist.comment); END;
+    IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a href="' _ link _ '" title="' _ hover _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -291,6 +321,15 @@ END -%]
     '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_iswc(iswc, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/iswc/$action", [ iswc ]);
+    '<span class="mp">' IF iswc.edits_pending AND action == 'show';
+    text = text == '' ? '<code>' _ html_escape(iswc) _ '</code>' : text;
+    '<a href="' _ link _ '">' _ text _ '</a>';
+    '</span>' IF iswc.edits_pending AND action == 'show';
+END -%]
+
 [%- MACRO link_cdtoc(cdtoc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/cdtoc/$action", [ cdtoc.discid ]);
@@ -312,11 +351,20 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO gravatar(email) FILTER gravatar; email; END %]
+
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text == '' ? html_escape(editor.name) : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '">';
+    IF editor.preferences.show_gravatar;
+      '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
+    ELSE;
+      '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
+    END;
+    text;
+    '</a>';
 END -%]
 
 [%- MACRO link_edit(edit, action, text) BLOCK;
@@ -447,8 +495,8 @@ END -%]
         [% END %]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
-          <input class="negative button cancel" type="button" value="[% l('Cancel') %]" style="float: left;" />
-          <input class="positive button create" type="button" value="[% l('Create relationship') %]" style="float: right;" />
+          <button class="negative cancel">[% l('Cancel') %]</button>
+          <button class="positive create" style="float:right;">[% l('Create relationship') %]</button>
         </div>
       </div>
     </div>
@@ -532,11 +580,15 @@ END -%]
                             end_date => relationship.link.end_date.format
                         }) %]
                     [%- END -%]
+                [%- ELSIF relationship.link.ended -%]
+                    [% l('from {date} to ????', { date => relationship.link.begin_date.format }) %]
                 [%- ELSE -%]
                     [% l('from {date} to present', { date => relationship.link.begin_date.format }) %]
                 [%- END -%]
             [%- ELSIF !relationship.link.end_date.is_empty -%]
                 [% l('until {date}', { date => relationship.link.end_date.format }) %]
+            [%- ELSIF relationship.link.ended -%]
+                [% l('ended') %]
             [%- END -%]
 [%- END -%]
 
@@ -567,6 +619,21 @@ END -%]
     ELSIF url.url.host.search('secondhandsongs.com'); 'secondhandsongs';
     ELSIF url.url.host.search('songfacts.com'); 'songfacts';
     ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
+    ELSIF url.url.host.search('ibdb.com'); 'ibdb';
+    ELSIF url.url.host.search('imslp.org'); 'imslp';
+    ELSIF url.url.host.search('tallinn.ester.ee'); 'ESTERTallinn';
+    ELSIF url.url.host.search('tartu.ester.ee'); 'ESTERTartu';
+    ELSIF url.url.host.search('worldcat.org'); 'worldcat';
+    ELSIF url.url.host.search('45cat.com'); 'fortyfivecat';
+    ELSIF url.url.host.search('rateyourmusic.com'); 'rateyourmusic';
+    ELSIF url.url.host.search('rolldabeats.com'); 'rolldabeats';
+    ELSIF url.url.host.search('psydb.net'); 'psydb';
+    ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
+    ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
+    ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
+    ELSIF url.url.host.search('ocremix.org'); 'ocremix';
+    ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
+    ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSE; '';
 END %]
 
@@ -622,7 +689,25 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO format_length(n) BLOCK; n | format_length; END %]
 
+[%- MACRO medium_format_name(medium) BLOCK -%]
+    [% medium.format_name or l("Medium") | html %]
+[%- END -%]
+
 [%- MACRO medium_link(medium) BLOCK -%]
-  [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
+  [% medium_format_name(medium) %] [% medium.position %][% IF medium.name %]:
   [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
+[%- END -%]
+
+[%- MACRO filter_button BLOCK -%]
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">Filter</a></div>
+[%- END -%]
+
+[%- MACRO wikidoc_search_box BLOCK -%]
+  <div class="wikidoc-search">
+    <form action="[% c.uri_for('/search') | html %]" method="get">
+      <input type="hidden" name="type" value="doc" />
+      <input type="text" name="query" placeholder="[% l('Search the documentation...')  %]" />
+      [% form_submit(l('Search'),'inline') %]
+    </form>
+  </div>
 [%- END -%]

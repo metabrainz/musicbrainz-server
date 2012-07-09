@@ -253,7 +253,7 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
 
     self.$matches.find ('input.recordingmatch').bind ('change.mb', self.change);
 
-    var artistname = $.trim (self.$row.next ().find ('.track-artist').text ());
+    var artistname = MB.utility.trim (self.$row.next ().find ('.track-artist').text ());
     self.select = MB.Control.ReleaseRecordingsSelect (self.$container, artistname, self.change);
 
     self.addBubble (

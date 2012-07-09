@@ -67,12 +67,12 @@ sub recording_toplevel
         if ($c->stash->{inc}->media)
         {
             @results = $c->model('Release')->load_with_tracklist_for_recording(
-                $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
+                $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         }
         else
         {
             @results = $c->model('Release')->find_by_recording(
-                $recording->id, $MAX_ITEMS, 0, $c->stash->{status}, $c->stash->{type});
+                $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         }
 
         my @releases = @{$results[0]};
@@ -239,65 +239,69 @@ sub recording_submit : Private
             unless exists $recordings_by_gid{$recording_gid};
     }
 
-    # Submit PUIDs
-    my $buffer = Buffer->new(
-        limit => 100,
-        on_full => f($contents) {
-            my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
-            return unless @$new_rows;
+    $c->model('MB')->with_transaction(sub {
 
-            $c->model('Edit')->create(
-                edit_type      => $EDIT_RECORDING_ADD_PUIDS,
-                editor_id      => $c->user->id,
-                client_version => $client,
-                puids          => $new_rows
-            );
-        }
-    );
+        # Submit PUIDs
+        my $buffer = Buffer->new(
+            limit => 100,
+            on_full => f($contents) {
+                my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
+                return unless @$new_rows;
 
-    $buffer->flush_on_complete(sub {
-        for my $recording_gid (keys %submit_puid) {
-            $buffer->add_items(map +{
-                recording => {
-                    id => $recordings_by_gid{$recording_gid}->id,
-                    name => $recordings_by_gid{$recording_gid}->name
-                },
-                puid      => $_
-            }, @{ $submit_puid{$recording_gid} });
-        }
-    });
-
-    # Submit ISRCs
-    $buffer = Buffer->new(
-        limit => 100,
-        on_full => f($contents) {
-            try {
                 $c->model('Edit')->create(
-                    edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                    edit_type      => $EDIT_RECORDING_ADD_PUIDS,
                     editor_id      => $c->user->id,
-                    isrcs          => $contents
+                    client_version => $client,
+                    puids          => $new_rows
                 );
             }
-            catch {
-                my $err = $_;
-                unless (blessed($err) && $err->isa('MusicBrainz::Server::Edit::Exceptions::NoChanges')) {
-                    # Ignore the NoChanges exception
-                    die $err;
-                }
-            };
-        }
-    );
+        );
 
-    $buffer->flush_on_complete(sub {
-        for my $recording_gid (keys %submit_isrc) {
-            $buffer->add_items(map +{
-                recording => {
-                    id => $recordings_by_gid{$recording_gid}->id,
-                    name => $recordings_by_gid{$recording_gid}->name
-                },
-                isrc         => $_
-            }, @{ $submit_isrc{$recording_gid} });
-        }
+        $buffer->flush_on_complete(sub {
+            for my $recording_gid (keys %submit_puid) {
+                $buffer->add_items(map +{
+                    recording => {
+                        id => $recordings_by_gid{$recording_gid}->id,
+                        name => $recordings_by_gid{$recording_gid}->name
+                    },
+                    puid      => $_
+                }, @{ $submit_puid{$recording_gid} });
+            }
+        });
+
+
+        # Submit ISRCs
+        $buffer = Buffer->new(
+            limit => 100,
+            on_full => f($contents) {
+                try {
+                    $c->model('Edit')->create(
+                        edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                        editor_id      => $c->user->id,
+                        isrcs          => $contents
+                    );
+                }
+                    catch {
+                        my $err = $_;
+                        unless (blessed($err) && $err->isa('MusicBrainz::Server::Edit::Exceptions::NoChanges')) {
+                            # Ignore the NoChanges exception
+                            die $err;
+                        }
+                    };
+            }
+        );
+
+        $buffer->flush_on_complete(sub {
+            for my $recording_gid (keys %submit_isrc) {
+                $buffer->add_items(map +{
+                    recording => {
+                        id => $recordings_by_gid{$recording_gid}->id,
+                        name => $recordings_by_gid{$recording_gid}->name
+                    },
+                    isrc         => $_
+                }, @{ $submit_isrc{$recording_gid} });
+            }
+        });
     });
 
     $c->detach('success');

@@ -22,7 +22,8 @@ my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-UPDATE work SET iswc = 'T-000.000.002-0' WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c';
+INSERT INTO iswc (work, iswc)
+VALUES ( (SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'), 'T-000.000.002-0');
 EOSQL
 
 ws_test 'basic work lookup',
@@ -32,6 +33,7 @@ ws_test 'basic work lookup',
   <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
     <title>サマーれげぇ!レインボー</title>
     <iswc>T-000.000.002-0</iswc>
+    <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
   </work>
 </metadata>';
 
@@ -43,6 +45,7 @@ ws_test 'work lookup via iswc',
     <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
       <title>サマーれげぇ!レインボー</title>
       <iswc>T-000.000.002-0</iswc>
+      <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
     </work>
   </work-list>
 </metadata>';
@@ -54,6 +57,7 @@ ws_test 'work lookup with recording relationships',
   <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
     <title>サマーれげぇ!レインボー</title>
     <iswc>T-000.000.002-0</iswc>
+    <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
     <relation-list target-type="recording">
       <relation type="performance">
         <target>162630d9-36d2-4a8d-ade1-1c77440b34e7</target>

@@ -19,7 +19,8 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/add-alias');
 my $response = $mech->submit_form(
     with_fields => {
-        'edit-alias.name' => 'An alias'
+        'edit-alias.name' => 'An alias',
+        'edit-alias.sort_name' => 'An alias sort name'
     });
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
@@ -30,7 +31,20 @@ is_deeply($edit->data, {
         name => 'Warp Records'
     },
     name => 'An alias',
+    sort_name => 'An alias sort name',
     locale => undef,
+    primary_for_locale => 0,
+    begin_date => {
+        year => undef,
+        month => undef,
+        day => undef
+    },
+    end_date => {
+        year => undef,
+        month => undef,
+        day => undef
+    },
+    type_id => undef
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
@@ -39,6 +53,7 @@ html_ok($mech->content, '..valid xml');
 $mech->content_contains('Warp Records', '..contains label name');
 $mech->content_contains('/label/46f0f4cd-8aab-4b33-b698-f459faf64190', '..contains label link');
 $mech->content_contains('An alias', '..contains alias name');
+$mech->content_contains('An alias sort name', '..contains alias sort name');
 
 };
 

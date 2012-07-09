@@ -75,6 +75,11 @@ has_field 'attributes.max' => (
     type => '+MusicBrainz::Server::Form::Field::Integer'
 );
 
+has root => (
+    is => 'ro',
+    required => 1
+);
+
 sub _build_parent_id_options
 {
     my ($self, $root, $indent) = @_;
@@ -93,9 +98,7 @@ sub _build_parent_id_options
 sub options_parent_id
 {
     my ($self) = @_;
-
-    my $root = $self->ctx->stash->{root};
-    return [ $self->_build_parent_id_options($root, '') ];
+    return [ $self->_build_parent_id_options($self->root, '') ];
 }
 
 1;

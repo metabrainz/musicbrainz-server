@@ -78,6 +78,7 @@ sub try_and_edit {
                 link_type_id => $params{new_link_type_id},
                 begin_date   => $params{new_begin_date},
                 end_date     => $params{new_end_date},
+                ended        => $params{ended},
                 attributes   => $attributes,
                 entity0_id   => $params{entity0_id},
                 entity1_id   => $params{entity1_id},
@@ -103,6 +104,7 @@ sub try_and_edit {
                 link_type         => $link_type,
                 begin_date        => $params{new_begin_date},
                 end_date          => $params{new_end_date},
+                ended             => $params{ended},
                 attributes        => $attributes
             );
 
@@ -134,6 +136,7 @@ sub try_and_insert {
                 link_type_id => $params{link_type_id},
                 begin_date   => $params{begin_date},
                 end_date     => $params{end_date},
+                ended        => $params{ended},
                 attributes   => $attributes,
                 entity0_id   => $params{entity0}->id,
                 entity1_id   => $params{entity1}->id,
@@ -156,6 +159,7 @@ sub try_and_insert {
                 end_date     => $params{end_date},
                 link_type    => $link_type,
                 attributes   => $attributes,
+                ended        => $params{ended}
             );
 
             return 1;
@@ -201,6 +205,7 @@ sub edit : Local RequireAuth Edit
         link_type_id => $rel->link->type_id,
         begin_date => $rel->link->begin_date,
         end_date => $rel->link->end_date,
+        ended => $rel->link->ended,
         attrs => {},
     };
     my %attr_multi;
@@ -267,17 +272,20 @@ sub edit : Local RequireAuth Edit
 
         $c->stash( selected => \@selected );
 
-        $self->try_and_edit(
-            $c, $form,
-            $type0, $type1, $rel,
-            entity0_id       => $ids[0],
-            entity1_id       => $ids[1],
-            attributes       => \@attributes,
-            new_link_type_id => $form->field('link_type_id')->value,
-            new_begin_date   => $form->field('begin_date')->value,
-            new_end_date     => $form->field('end_date')->value,
-        ) or
-            $self->detach_existing($c);
+        $c->model('MB')->with_transaction(sub {
+            $self->try_and_edit(
+                $c, $form,
+                $type0, $type1, $rel,
+                entity0_id       => $ids[0],
+                entity1_id       => $ids[1],
+                attributes       => \@attributes,
+                new_link_type_id => $form->field('link_type_id')->value,
+                new_begin_date   => $form->field('begin_date')->value,
+                new_end_date     => $form->field('end_date')->value,
+                ended            => $form->field('ended')->value
+            ) or
+                $self->detach_existing($c);
+        });
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
         $c->response->redirect($redirect);
@@ -368,17 +376,20 @@ sub create : Local RequireAuth Edit
             ($entity0, $entity1) = ($entity1, $entity0);
         }
 
-        $self->try_and_insert(
-            $c, $form,
-            $type0, $type1,
-            begin_date   => $form->field('begin_date')->value,
-            end_date     => $form->field('end_date')->value,,
-            attributes   => [uniq @attributes],
-            link_type_id => $form->field('link_type_id')->value,
-            entity0      => $entity0,
-            entity1      => $entity1
-        ) or
-            $self->detach_existing($c);
+        $c->model('MB')->with_transaction(sub {
+            $self->try_and_insert(
+                $c, $form,
+                $type0, $type1,
+                begin_date   => $form->field('begin_date')->value,
+                end_date     => $form->field('end_date')->value,,
+                attributes   => [uniq @attributes],
+                link_type_id => $form->field('link_type_id')->value,
+                entity0      => $entity0,
+                entity1      => $entity1,
+                ended        => $form->field('ended')->value
+            ) or
+                $self->detach_existing($c);
+        });
 
         delete $c->session->{relationship};
         my $redirect = $c->req->params->{returnto} ||
@@ -492,23 +503,26 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
             $c->detach;
         }
 
-        my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
-        for my $recording_id (@recording_ids) {
-            my $target = $recordings{$recording_id};
-            $ents[ $rec_idx ] = $target;
+        $c->model('MB')->with_transaction(sub {
+            my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
+            for my $recording_id (@recording_ids) {
+                my $target = $recordings{$recording_id};
+                $ents[ $rec_idx ] = $target;
 
-            $self->try_and_insert(
-                $c, $form,
-                @types,
-                begin_date   => $form->field('begin_date')->value,
-                end_date     => $form->field('end_date')->value,
-                link_type_id => $form->field('link_type_id')->value,
-                entity0      => $ents[0],
-                entity1      => $ents[1],
-                attributes   => \@attributes
-            ) or
-                next;
-        }
+                $self->try_and_insert(
+                    $c, $form,
+                    @types,
+                    begin_date   => $form->field('begin_date')->value,
+                    end_date     => $form->field('end_date')->value,
+                    link_type_id => $form->field('link_type_id')->value,
+                    entity0      => $ents[0],
+                    entity1      => $ents[1],
+                    attributes   => \@attributes,
+                    ended        => $form->field('ended')->value
+                ) or
+                    next;
+            }
+        });
 
         delete $c->session->{relationship};
         $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ]));
@@ -591,14 +605,17 @@ sub create_url : Local RequireAuth Edit
         my $e1 = $types[1] eq 'url' ? $url : $entity;
 
         $c->stash( url => $form->field('url')->value );
-        $self->try_and_insert(
-            $c, $form,
-            @types,
-            entity0 => $e0,
-            entity1 => $e1,
-            link_type_id => $form->field('link_type_id')->value,
-            attributes => \@attributes
-        ) or $self->detach_existing($c);
+        $c->model('MB')->with_transaction(sub {
+            $self->try_and_insert(
+                $c, $form,
+                @types,
+                entity0 => $e0,
+                entity1 => $e1,
+                link_type_id => $form->field('link_type_id')->value,
+                attributes => \@attributes,
+                ended => 0
+            ) or $self->detach_existing($c);
+        });
 
         my $redirect = $c->controller(type_to_model($type))->action_for('show');
         $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));
@@ -623,15 +640,16 @@ sub delete : Local RequireAuth Edit
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $values = $form->values;
+        $c->model('MB')->with_transaction(sub {
+            my $edit = $self->_insert_edit(
+                $c, $form,
+                edit_type    => $EDIT_RELATIONSHIP_DELETE,
 
-        my $edit = $self->_insert_edit($c, $form,
-            edit_type    => $EDIT_RELATIONSHIP_DELETE,
-
-            type0        => $type0,
-            type1        => $type1,
-            relationship => $rel,
-        );
+                type0        => $type0,
+                type1        => $type1,
+                relationship => $rel,
+            );
+        });
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
         $c->response->redirect($redirect);

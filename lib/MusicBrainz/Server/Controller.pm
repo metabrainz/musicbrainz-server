@@ -5,7 +5,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 use Carp;
 use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 use Try::Tiny;
@@ -74,7 +74,9 @@ sub _insert_edit {
     my ($self, $c, $form, %opts) = @_;
 
     my $privs   = $c->user->privileges;
-    if ($c->user->is_auto_editor && !$form->field('as_auto_editor')->value) {
+    if ($c->user->is_auto_editor &&
+        $form->field('as_auto_editor') &&
+        !$form->field('as_auto_editor')->value) {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
@@ -129,11 +131,17 @@ sub edit_action
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
 
-        my $edit = $self->_insert_edit($c, $form,
-            edit_type => $opts{type},
-            @options,
-            %extra
-        );
+        my $edit;
+        $c->model('MB')->with_transaction(sub {
+            $edit = $self->_insert_edit(
+                $c, $form,
+                edit_type => $opts{type},
+                @options,
+                %extra
+            );
+
+            $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+        });
 
         $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
 

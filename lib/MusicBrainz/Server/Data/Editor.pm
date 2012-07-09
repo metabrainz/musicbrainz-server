@@ -8,6 +8,7 @@ use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     load_subobjects
     placeholders
     query_to_list
@@ -15,7 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     type_to_model
 );
-use MusicBrainz::Server::Types qw( :edit_status :privileges );
+use MusicBrainz::Server::Constants qw( :edit_status :privileges );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -33,7 +34,8 @@ sub _columns
 {
     return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
-            edits_rejected, auto_edits_accepted, edits_failed';
+            edits_rejected, auto_edits_accepted, edits_failed, gender, country,
+            birth_date';
 }
 
 sub _column_mapping
@@ -53,6 +55,9 @@ sub _column_mapping
         email_confirmation_date => 'email_confirm_date',
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
+        gender_id               => 'gender',
+        country_id              => 'country',
+        birth_date              => 'birth_date'
     };
 }
 
@@ -68,7 +73,9 @@ sub get_by_name
                 ' FROM ' . $self->_table .
                 ' WHERE lower(name) = ? LIMIT 1';
     my $row = $self->sql->select_single_row_hash($query, lc $name);
-    return $self->_new_from_row($row);
+    my $editor = $self->_new_from_row($row);
+    $self->load_preferences($editor);
+    return $editor;
 }
 
 sub find_by_name
@@ -78,10 +85,12 @@ sub find_by_name
                 '  FROM ' . $self->_table .
                 " WHERE musicbrainz_unaccent(lower(name)) LIKE musicbrainz_unaccent(lower(?)) || '%'
                  OFFSET ?";
-    return query_to_list_limited(
+    my @editors = query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $name, $offset
     );
+    $self->load_preferences(@editors);
+    return @editors;
 }
 
 sub _get_ratings_for_type
@@ -185,6 +194,16 @@ sub get_tags
     return { max => $max, tags => \@tags };
 }
 
+around '_get_by_keys' => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $ret = $self->$orig(@_);
+    $self->load_preferences(values %$ret);
+
+    return $ret;
+};
+
 sub find_by_email
 {
     my ($self, $email) = @_;
@@ -282,11 +301,30 @@ sub update_password
 
 sub update_profile
 {
-    my ($self, $editor, $website, $bio) = @_;
+    my ($self, $editor, $update) = @_;
+
+    my $row = hash_to_row(
+        $update,
+        {
+            bio => 'biography',
+            country => 'country_id',
+            gender => 'gender_id',
+            website => 'website',
+            birth_date => 'birth_date',
+        }
+    );
+
+    if (my $date = delete $row->{birth_date}) {
+        if (%$date) { # if date is given but all NULL, it will be an empty hash.
+            $row->{birth_date} = sprintf '%d-%d-%d', map { $date->{$_} } qw( year month day )
+        }
+        else {
+            $row->{birth_date} = undef;
+        }
+    }
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET website=?, bio=? WHERE id=?',
-                 $website || undef, $bio || undef, $editor->id);
+        $self->sql->update_row('editor', $row, { id => $editor->id });
     }, $self->sql);
 }
 
@@ -321,6 +359,7 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'editor', @objs);
+    $self->load_preferences(map { $_->editor } grep defined, @objs);
 }
 
 sub load_preferences
@@ -329,7 +368,8 @@ sub load_preferences
 
     return unless @editors;
 
-    my %editors = map { $_->id => $_ } @editors;
+    my %editors = map { $_->id => $_ } grep { defined } @editors
+        or return;
 
     my $query = sprintf "SELECT editor, name, value ".
         "FROM editor_preference WHERE editor IN (%s)",

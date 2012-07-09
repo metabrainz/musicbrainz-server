@@ -58,11 +58,15 @@
               new_track = change.2;
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
                                                                    new_track.artist_credit);
-              old_name_diff = Diff.diff_side(html_escape(old_track.name), html_escape(new_track.name), '-', '\s+');
-              old_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '-'); -%]
+              old_number_diff = Diff.diff_side(html_escape(old_track.number),
+                                               html_escape(new_track.number), '-', '\s+');
+              old_name_diff = Diff.diff_side(html_escape(old_track.name),
+                                             html_escape(new_track.name), '-', '\s+');
+              old_track_length = Diff.diff_side(format_length(old_track.length),
+                                                format_length(new_track.length), '-'); -%]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td class="pos t">
-               [% old_track.position %]
+               [% old_number_diff %]
              </td>
              <td>
                [% IF old_track.recording.gid;
@@ -85,7 +89,7 @@
            [% track = change.1 %]
            <tr class="diff-removal">
              <td class="pos t">
-               [% track.position %]
+               [% html_escape(track.number) %]
              </td>
              <td>
                [% IF track.recording.gid;
@@ -128,11 +132,15 @@
               new_track = change.2;
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
                                                                    new_track.artist_credit);
-              new_name_diff = Diff.diff_side(html_escape(old_track.name), html_escape(new_track.name), '+', '\s+');
-              new_track_length = Diff.diff_side(format_length(old_track.length), format_length(new_track.length), '+') %]
+              new_number_diff = Diff.diff_side(html_escape(old_track.number),
+                                               html_escape(new_track.number), '+', '\s+');
+              new_name_diff = Diff.diff_side(html_escape(old_track.name),
+                                             html_escape(new_track.name), '+', '\s+');
+              new_track_length = Diff.diff_side(format_length(old_track.length),
+                                                format_length(new_track.length), '+') %]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
              <td class="pos t">
-               [% new_track.position %]
+               [% new_number_diff %]
              </td>
              <td>
                [% IF new_track.recording.gid;
@@ -155,7 +163,7 @@
            [% track = change.2 %]
            <tr class="diff-addition">
              <td class="pos t">
-               [% track.position %]
+               [% track.number %]
              </td>
              <td>
                [% IF track.recording.gid;

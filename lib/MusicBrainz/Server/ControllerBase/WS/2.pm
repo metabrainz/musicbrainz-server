@@ -296,6 +296,7 @@ sub linked_artists
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Artist')->alias->find_by_entity_id(map { $_->id } @$artists) };
+        $c->model('Artist')->alias_type->load(@aliases);
 
         my %alias_per_artist;
         foreach (@aliases)
@@ -325,6 +326,7 @@ sub linked_labels
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Label')->alias->find_by_entity_id(map { $_->id } @$labels) };
+        $c->model('Label')->alias_type->load(@aliases);
 
         my %alias_per_label;
         foreach (@aliases)
@@ -446,6 +448,7 @@ sub linked_works
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Work')->alias->find_by_entity_id(map { $_->id } @$works) };
+        $c->model('Work')->alias_type->load(@aliases);
 
         my %alias_per_work;
         foreach (@aliases)

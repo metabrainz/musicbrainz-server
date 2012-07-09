@@ -41,7 +41,17 @@
                   html_escape(edit.display_data.end_date.old.format),
                   html_escape(edit.display_data.end_date.new.format), '-') %]
 
+  [% display_diff(l('Ended:'),
+                  edit.display_data.ended.old ? l('Yes') : l('No'),
+                  edit.display_data.ended.new ? l('Yes') : l('No'),
+                  '-') %]
+
   [% display_diff(l('IPI code:'),
                   html_escape(edit.display_data.ipi_code.old),
                   html_escape(edit.display_data.ipi_code.new)) %]
+
+  [% display_diff(l('IPI codes:'),
+                  edit.display_data.ipi_codes.old.join (", "),
+                  edit.display_data.ipi_codes.new.join (", "),
+                  ', ') %]
 </table>

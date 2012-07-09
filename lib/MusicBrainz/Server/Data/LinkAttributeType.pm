@@ -147,6 +147,9 @@ sub get_by_gid
     if (scalar(@result)) {
         return $result[0];
     }
+    else {
+        return undef;
+    }
 }
 
 sub in_use
@@ -156,6 +159,24 @@ sub in_use
         'SELECT 1 FROM link_attribute WHERE link_attribute.attribute_type = ?',
         $id);
 }
+
+
+# The entries in the memcached store for 'Link' objects also have all attributes
+# loaded. Thus changing an attribute should clear all of these link objects.
+for my $method (qw( delete update )) {
+    before $method => sub {
+        my ($self, $id) = @_;
+        $self->c->model('Link')->_delete_from_cache(
+            @{ $self->sql->select_single_column_array(
+                'SELECT id FROM link
+                 JOIN link_attribute la ON link.id = la.link
+                 WHERE la.attribute_type = ?',
+                $id
+            ) }
+        );
+    };
+}
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

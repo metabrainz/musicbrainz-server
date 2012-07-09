@@ -42,18 +42,24 @@
       </p>
     [% END %]
 
+    [%- filter_button() -%]
+    <h2>[% l('Discography') %]</h2>
+
+    [%- INCLUDE 'components/filter.tt'
+        ajax_form_url=c.uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => artist.id }) -%]
+
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
             <form action="[% c.uri_for_action('/release_group/merge_queue') %]"
                 method="post">
-            [%- rg_type = 0 -%]
+            [%- rg_type = '' -%]
             [%- FOR rg=release_groups -%]
-                [% IF rg_type != rg.type %]
-                    [% IF rg_type != 0 %]
+                [% IF rg_type != rg.type_name %]
+                    [% IF rg_type != '' %]
                         </tbody>
                     </table>
                     [% END %]
-                    <h2>[% l(rg.type.name) || l('Other release groups') %]</h2>
+                    <h3>[% l(rg.type_name) || l('Other release groups') %]</h3>
                     <table class="tbl">
                         <thead>
                             <tr>
@@ -68,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-                    [% rg_type = rg.type %]
+                    [% rg_type = rg.type_name %]
                 [% END %]
                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
 		    [% rdfa_release_group_ns(rg) %]>
@@ -82,6 +88,9 @@
                     <td>
                       [% rdfa_made_rg_link(rg) %]
                       [% disambiguation(rg) %]
+                      [% FOR t=rg.secondary_types %]
+                        <span class="release-group-type">[% t.name %]</span>
+                      [% END %]
                     </td>
                     [% IF show_artists %]
                     <td>[% artist_credit(rg.artist_credit) %]</td>
@@ -90,7 +99,7 @@
                     <td class="c">[% rg.release_count %]</td>
                 </tr>
             [%- END -%]
-            [% IF rg_type != 0 %]
+            [% IF rg_type != '' %]
                 </tbody>
             </table>
             [% END %]

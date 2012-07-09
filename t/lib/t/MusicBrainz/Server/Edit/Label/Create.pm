@@ -7,7 +7,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Label::Create; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test all => sub {
@@ -46,6 +46,13 @@ is($label->end_date->day, 30);
 is($edit->status, $STATUS_APPLIED, 'add label edits should be autoedits');
 is($label->edits_pending, 0, 'add label edits should be autoedits');
 
+my $ipi_codes = $c->model('Label')->ipi->find_by_entity_id($label->id);
+is(scalar @$ipi_codes, 2, "Label has two ipi codes");
+
+my @ipis = sort map { $_->ipi } @$ipi_codes;
+is($ipis[0], '00262168177', "first ipi is 00262168177");
+is($ipis[1], '00284373936', "first ipi is 00284373936");
+
 };
 
 sub create_edit
@@ -61,7 +68,8 @@ sub create_edit
         comment => 'Funky record label',
         label_code => 7306,
         begin_date => { year => 1995, month => 1, day => 12 },
-        end_date => { year => 2005, month => 5, day => 30 }
+        end_date => { year => 2005, month => 5, day => 30 },
+        ipi_codes => [ '00284373936', '00262168177' ]
     );
 }
 

@@ -12,6 +12,11 @@ has 'context' => (
     handles    => [qw( cache dbh )] # XXX Hack - Model::Feeds should be in Data
 );
 
+sub with_transaction {
+    my ($self, $code) = @_;
+    Sql::run_in_transaction($code, $self->context->sql);
+}
+
 sub _build_context {
     my $self = shift;
 
@@ -31,7 +36,7 @@ sub _build_context {
 sub models {
     my @models;
 
-    my @exclude = qw( Alias EntityAnnotation Rating Utils );
+    my @exclude = qw( Alias AliasType EntityAnnotation Rating Utils );
     my $searcher = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Data',
         except      => [ map { "MusicBrainz::Server::Data::$_" } @exclude ]

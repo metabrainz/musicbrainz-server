@@ -67,7 +67,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 14 }
+sub DB_SCHEMA_SEQUENCE { 15 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -126,7 +126,8 @@ sub DB_STAGING_SERVER_DESCRIPTION { "" }
 sub DB_STAGING_SERVER_SANITIZED { 1 }
 
 # Testing features enable "Accept edit" and "Reject edit" links on edits,
-# this should only be enabled on staging servers.
+# this should only be enabled on staging servers. Also, this enables non-admin
+# users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { DB_STAGING_SERVER }
 
 ################################################################################
@@ -141,6 +142,12 @@ sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/-/api.php" }
 
 sub WIKITRANS_INDEX_FILE { MB_SERVER_ROOT() . "/root/static/wikidocs/index.txt" }
 sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
+
+# To enable documentation search on your server, create your own Google Custom
+# Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
+# Alternatively, if you're okay with the search results pointing to
+# the musicbrainz.org server, you can use '006539527923176875863:xsv3chs2ovc'.
+sub GOOGLE_CUSTOM_SEARCH { '' }
 
 ################################################################################
 # Cache Settings
@@ -256,11 +263,16 @@ This server is temporarily in read-only mode
 for database maintainance.
 EOF
 
-# This defines the version of the server.  Only used by things which display
-# the server version, e.g. at the foot of each web page.  Basically it can be
-# whatever you want. If you leave it blank, the current subversion revision
-# will be shown (if subversion is in use).
-sub VERSION { "master" }
+# Development server feature.
+# Used to display which git branch is currently active.
+sub GIT_BRANCH
+{
+  if (DB_STAGING_SERVER) {
+    my $git_branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
+    $git_branch =~ s/\* (.+)/$1/;
+    return $git_branch;
+  }
+}
 
 # How long (in seconds) a web/rdf session can go "idle" before being timed out
 sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
@@ -295,6 +307,15 @@ sub AWS_PUBLIC { '' }
 
 sub AMAZON_ASSOCIATE_TAG { '' }
 
+# internet archive private/public keys (for coverartarchive.org).
+sub COVER_ART_ARCHIVE_ID { };
+sub COVER_ART_ARCHIVE_KEY { };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { sprintf("http://%s.s3.us.archive.org/", shift) };
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
+
+# Add a Google Analytics tracking code to enable Google Analytics tracking.
+sub GOOGLE_ANALYTICS_CODE { '' }
+
 ################################################################################
 # Sessions (advanced)
 ################################################################################
@@ -308,15 +329,12 @@ sub AMAZON_ASSOCIATE_TAG { '' }
 sub SESSION_STORE { "Session::Store::Memcached" }
 sub SESSION_STORE_ARGS
 {
-    {
+    return {
         memcached_new_args => {
-            {
-                data => MEMCACHED_SERVERS(),
-                namespace => MEMCACHED_NAMESPACE(),
-                memcached_class => 'Cache::Memcached::Fast',
-            }
+            data => MEMCACHED_SERVERS(),
+            namespace => MEMCACHED_NAMESPACE(),
+            memcached_class => 'Cache::Memcached::Fast',
         }
-        
     }
 }
 
@@ -334,7 +352,7 @@ sub CATALYST_DEBUG { 1 }
 # If you are developing on MusicBrainz, you should set this to a true value
 # This will turn off some optimizations (such as CSS/JS compression) to make
 # developing and debuging easier
-sub DEVELOPMENT_SERVER { 0 }
+sub DEVELOPMENT_SERVER { 1 }
 
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which

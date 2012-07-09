@@ -23,8 +23,8 @@ sub attributes {
         if $opts && exists $opts->{score};
 
     my @type_status;
-    push @type_status, $entity->release_group->type->name
-        if $entity->release_group && $entity->release_group->type;
+    push @type_status, $entity->release_group->primary_type->name
+        if $entity->release_group && $entity->release_group->primary_type;
     push @type_status, $entity->status->name
         if $entity->status;
 
@@ -42,7 +42,7 @@ sub serialize
     push @body, ( $self->gen->title($entity->name) );
 
     my %lang_script;
-    $lang_script{language} = uc($entity->language->iso_code_3b)
+    $lang_script{language} = uc($entity->language->iso_code_3 // $entity->language->iso_code_2t)
         if $entity->language;
     $lang_script{script} = $entity->script->iso_code
         if $entity->script;

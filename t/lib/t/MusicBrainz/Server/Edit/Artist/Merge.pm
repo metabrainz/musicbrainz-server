@@ -9,7 +9,7 @@ BEGIN { use MusicBrainz::Server::Edit::Artist::Merge }
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 test 'Non-existant merge target' => sub {
@@ -62,6 +62,9 @@ ok(!defined $a1);
 ok(defined $a2);
 
 is($a2->edits_pending, 0);
+
+my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id($a2->id);
+is(scalar @$ipi_codes, 3, "Merged Artist has all ipi codes after accepting edit");
 
 };
 

@@ -14,12 +14,10 @@ has_field 'type' => (
     required => 1
 );
 
-has_field 'direct' => (
-    type => 'Boolean',
-);
-
-has_field 'advanced' => (
-    type => 'Boolean',
+has_field 'method' => (
+    type => 'Select',
+    required => 1,
+    default => 'indexed'
 );
 
 has_field 'limit' => (
@@ -31,7 +29,7 @@ has_field 'limit' => (
 
 sub options_type
 {
-    return [
+    my @options = (
         'artist'        => l('Artist'),
         'release_group' => l('Release Group'),
         'release'       => l('Release'),
@@ -43,7 +41,20 @@ sub options_type
         'editor'        => l('Editor'),
         'freedb'        => l('FreeDB'),
         'tag'           => l('Tag'),
-    ];
+    );
+
+    push @options, ( 'doc' => l('Documentation') ) if &DBDefs::GOOGLE_CUSTOM_SEARCH;
+
+    return \@options;
+}
+
+sub options_method
+{
+    return [
+        'indexed' => l('Indexed search'),
+        'advanced' => l('Indexed search with advanced query syntax'),
+        'direct' => l('Direct database search')
+    ]
 }
 
 1;

@@ -12,7 +12,7 @@ use MusicBrainz::Server::Translation qw ( l ln );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
-use MusicBrainz::Server::Types qw(
+use MusicBrainz::Server::Constants qw(
     $BOT_FLAG
     $AUTO_EDITOR_FLAG
     $WIKI_TRANSCLUSION_FLAG
@@ -305,6 +305,10 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user->id);
+
+    $c->model('Gender')->load($user);
+    $c->model('Country')->load($user);
+    $c->model('EditorLanguage')->load_for_editor($user);
 
     $c->stash(
         user     => $user,

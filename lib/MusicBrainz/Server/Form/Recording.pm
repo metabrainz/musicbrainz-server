@@ -16,7 +16,7 @@ has_field 'length' => (
 );
 
 has_field 'comment' => (
-    type      => '+MusicBrainz::Server::Form::Field::Text',
+    type      => '+MusicBrainz::Server::Form::Field::Comment',
     maxlength => 255
 );
 

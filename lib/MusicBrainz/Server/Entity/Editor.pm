@@ -1,8 +1,11 @@
 package MusicBrainz::Server::Entity::Editor;
 use Moose;
+use namespace::autoclean;
 
+use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Types qw( :privileges );
+use MusicBrainz::Server::Constants qw( :privileges );
+use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -95,7 +98,7 @@ has [qw( accepted_edits rejected_edits failed_edits accepted_auto_edits )] => (
 
 use DateTime;
 has [qw( registration_date )] => (
-    isa    => 'DateTime',
+    isa    => DateTimeType,
     is     => 'rw',
     coerce => 1,
     lazy   => 1,
@@ -105,7 +108,7 @@ has [qw( registration_date )] => (
 );
 
 has [qw( last_login_date email_confirmation_date )] => (
-    isa    => 'DateTime',
+    isa    => DateTimeType,
     is     => 'rw',
     coerce => 1,
 );
@@ -119,8 +122,10 @@ sub is_charter
 sub is_newbie
 {
     my $self = shift;
-    my $date = (DateTime->now - DateTime::Duration->new(weeks => 2));
-    return $self->registration_date > $date;
+    return DateTime::Duration->compare(
+        DateTime->now - $self->registration_date,
+        DateTime::Duration->new( weeks => 2 )
+      ) == -1;
 }
 
 sub is_admin
@@ -135,6 +140,54 @@ has 'preferences' => (
     default => sub { MusicBrainz::Server::Entity::Preferences->new }
 );
 
+sub is_limited
+{
+    my $self = shift;
+    return
+        !$self->email_confirmation_date ||
+        $self->is_newbie ||
+        $self->accepted_edits < 10;
+}
+
+has birth_date => (
+   is => 'rw',
+   isa => DateTimeType,
+   coerce => 1
+);
+
+has gender_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has gender => (
+    is => 'rw',
+);
+
+has country_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has country => (
+    is => 'rw',
+);
+
+sub age {
+    my $self = shift;
+    return unless $self->birth_date;
+    return (DateTime->now - $self->birth_date)->in_units('years');
+}
+
+has languages => (
+    isa => 'ArrayRef',
+    is => 'rw',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_language => 'push',
+    }
+);
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

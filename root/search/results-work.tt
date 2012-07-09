@@ -10,6 +10,8 @@
                             <th>[%- l('Name') -%]</th>
                             <th>[%- l('Writers') -%]</th>
                             <th>[%- l('Artists') -%]</th>
+                            <th>[%- l('ISWC') -%]</th>
+                            <th>[%- l('Language') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +34,18 @@
                                 <li>[%- artist_credit(artist) -%]</li>
                               [%- END -%]
                               </ul>
+                            </td>
+                            <td>
+                              <ul>
+                                [% FOR iswc=result.entity.iswcs %]
+                                  <li>[%- link_iswc(iswc.iswc) -%]</li>
+                                [% END %]
+                              </ul>
+                            </td>
+                            <td>
+                              <abbr title="[% l(result.entity.language.name) %]">
+                                [% result.entity.language.iso_code_3 %]
+                              </abbr>
                             </td>
                         </tr>
                         [%- END -%]

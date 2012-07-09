@@ -2,7 +2,7 @@ package MusicBrainz::Server::Report::SetInDifferentRG;
 use Moose;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Report';
+extends 'MusicBrainz::Server::Report::ReleaseGroupReport';
 
 sub gather_data {
     my ($self, $writer) = @_;
@@ -13,7 +13,7 @@ sub gather_data {
 			rg.id AS release_group_id,
             rg_name.name AS release_group_name,
             rg.edits_pending AS release_group_edits_pending,
-            rg.artist_credit AS release_group_artist_credit_id,
+            rg.artist_credit AS artist_credit_id,
             rg.gid AS release_group_gid,
             musicbrainz_collate(rg_name.name) AS rg_name_collate,
             rg.comment AS release_group_comment
@@ -45,14 +45,5 @@ sub gather_data {
 }
 
 sub template { 'report/set_in_different_rg.tt' }
-
-sub post_load {
-    my ($self, $items) = @_;
-    for my $item (@$items) {
-        $item->{release_group} = MusicBrainz::Server::Data::ReleaseGroup->_new_from_row($item, 'release_group_')
-    }
-
-    $self->c->model('ArtistCredit')->load(map { $_->{release_group} } @$items);
-}
 
 1;

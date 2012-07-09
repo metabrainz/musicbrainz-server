@@ -137,8 +137,8 @@ sub _release_group
         gid     => $item->gid,
         comment => $item->comment,
         artist  => $item->artist_credit->name,
-        type    => $item->type_id,
-        $item->type ? (typeName => $item->type->name) : ()
+        type    => $item->primary_type_id,
+        $item->primary_type ? (typeName => $item->primary_type->name) : ()
     };
 }
 

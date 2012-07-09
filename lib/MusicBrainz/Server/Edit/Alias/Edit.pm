@@ -1,13 +1,22 @@
 package MusicBrainz::Server::Edit::Alias::Edit;
+use 5.10.0;
 use Moose;
 use MooseX::ABC;
 
 use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Data::Utils qw(
+    partial_date_from_row
+    type_to_model
+);
+use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Edit::Utils qw(
+    date_closure
+    merge_partial_date
+);
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -17,8 +26,13 @@ sub _alias_model { die 'Not implemented' }
 
 subtype 'AliasHash'
     => as Dict[
-        name   => Optional[Str],
-        locale => Nullable[Str]
+        name => Optional[Str],
+        sort_name => Optional[Str],
+        locale => Nullable[Str],
+        begin_date => Nullable[PartialDateHash],
+        end_date   => Nullable[PartialDateHash],
+        type_id => Nullable[Int],
+        primary_for_locale => Nullable[Bool]
     ];
 
 has '+data' => (
@@ -67,6 +81,10 @@ sub build_display_data
             new => $self->data->{new}{name},
             old => $self->data->{old}{name}
         },
+        sort_name => {
+            new => $self->data->{new}{sort_name},
+            old => $self->data->{old}{sort_name}
+        },
         locale => {
             new => $self->data->{new}{locale},
             old => $self->data->{old}{locale}
@@ -74,14 +92,61 @@ sub build_display_data
         $type => $loaded->{$model}{ $self->data->{entity}{id} }
             || $self->c->model($model)->_entity_class->new(
                 name => $self->data->{entity}{name}
-            )
+            ),
+        type => {
+            new => $self->_alias_model->parent->alias_type->get_by_id($self->data->{new}{type_id}),
+            old => $self->_alias_model->parent->alias_type->get_by_id($self->data->{old}{type_id}),
+        },
+        begin_date => {
+            new => partial_date_from_row($self->data->{new}{begin_date}),
+            old => partial_date_from_row($self->data->{old}{begin_date}),
+        },
+        end_date => {
+            new => partial_date_from_row($self->data->{new}{end_date}),
+            old => partial_date_from_row($self->data->{old}{end_date}),
+        },
+        primary_for_locale => {
+            new => $self->data->{new}{primary_for_locale},
+            old => $self->data->{old}{primary_for_locale},
+        }
     };
 }
+
+sub _mapping
+{
+    return (
+        begin_date => date_closure('begin_date'),
+        end_date => date_closure('end_date'),
+    );
+}
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('begin_date') {
+            return merge_partial_date('begin_date' => $ancestor, $current, $new);
+        }
+
+        when ('end_date') {
+            return merge_partial_date('end_date' => $ancestor, $current, $new);
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
 
 sub accept
 {
     my $self = shift;
     my $model = $self->_alias_model;
+
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This alias no longer exists'
+    ) unless $self->_load_alias;
+
     $model->update($self->data->{alias_id}, $self->merge_changes);
 }
 
@@ -104,9 +169,25 @@ sub initialize
 sub allow_auto_edit
 {
     my $self = shift;
-    my ($old, $new) = normalise_strings($self->data->{old}{name},
-                                        $self->data->{new}{name});
-    return 0 if $old ne $new;
+
+    {
+        my ($old, $new) = normalise_strings($self->data->{old}{name},
+                                            $self->data->{new}{name});
+        return 0 if $old ne $new;
+    }
+
+    {
+        my ($old, $new) = normalise_strings($self->data->{old}{sort_name},
+                                            $self->data->{new}{sort_name});
+        return 0 if $old ne $new;
+    }
+
+    return 0 if $self->data->{old}{type_id};
+
+    return 0 if exists $self->data->{old}{begin_date}
+        and partial_date_from_row($self->data->{old}{begin_date})->format ne '';
+    return 0 if exists $self->data->{old}{end_date}
+        and partial_date_from_row($self->data->{old}{end_date})->format ne '';
 
     return 0 if $self->data->{old}{locale};
 

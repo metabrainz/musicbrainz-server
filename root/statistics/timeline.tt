@@ -1,15 +1,14 @@
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-{label: MB.text.Timeline["[%- statistic -%]"].Label, 
- color: MB.text.Timeline["[%- statistic -%]"].Color, 
- category: MB.text.Timeline["[%- statistic -%]"].Category
+{label: MB.text.Timeline.Stat("[%- statistic -%]").Label, 
+ color: MB.text.Timeline.Stat("[%- statistic -%]").Color, 
+ category: MB.text.Timeline.Stat("[%- statistic -%]").Category
 },
 [% END %]
 
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[% c.uri_for('view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]><script src="[% c.uri_for("../../static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;

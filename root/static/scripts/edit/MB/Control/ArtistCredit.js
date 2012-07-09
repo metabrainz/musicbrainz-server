@@ -275,9 +275,11 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                (such as "feat.") it is likely that it should be surrounded
                by spaces.  Add those spaces automatically only this first
                time.
+               Also standardise "feat." according to our guidelines.
             */
 
             var join = self.$join.val ();
+            join = join.replace (/^\s*(feat\.?|ft\.?|featuring)\s*$/i,"feat.");
             if (join.match (/^[A-Za-z]*\.?$/))
             {
                 self.$join.val (' ' + join + ' ');
@@ -715,11 +717,11 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
 
             ret.push({
                 'artist': {
-                    'name': item.$name.val (),
+                    'name': MB.utility.trim (item.$name.val ()),
                     'id': item.$id.val (),
                     'gid': item.$gid.val ()
                 },
-                'name': artistcredit,
+                'name': MB.utility.trim (artistcredit),
                 'join_phrase': item.$join.val () || ''
             });
         });

@@ -69,7 +69,7 @@
                         [% END %]
                     </div>
                     
-                    [% INCLUDE 'edit/notes.tt' verbose=0 hide=1 rows=1 index=loop.index %]
+                    [% INCLUDE 'edit/notes.tt' verbose='not-verbose' hide=1 rows=1 index=loop.index %]
     
                     <div class="seperator">
                     </div>
@@ -78,7 +78,7 @@
 
             <input type="hidden" name="url" value="[% c.req.uri %]" />
             <div class="row no-label" style="text-align: right">
-                [% form_submit(l('Submit votes & edit notes')) %]
+                [% form_submit(l('Submit votes &amp; edit notes')) %]
             </div>
         </form>
     [% END %]

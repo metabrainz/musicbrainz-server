@@ -6,5 +6,6 @@ lib/jquery.ui/ui/jquery-ui-1.8.16.custom.js
 lib/jquery.ui/external/jquery.cookie.js
 lib/underscore/underscore.js
 lib/underscore/underscore.string.js
+lib/thickbox/thickbox.js
 
 scripts/common

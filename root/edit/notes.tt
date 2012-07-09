@@ -6,7 +6,7 @@
     [%- 'owner' IF edit.editor_id == note.editor_id -%]
 [% END %]
 
-[% DEFAULT verbose = 1,
+[% DEFAULT verbose = 'verbose',
            hide = 0,
            rows = 5,
            index = 0%]
@@ -19,12 +19,12 @@
                     [%- link_entity(note.editor) -%]
                     <span class="date">[%- UserDate.format(note.post_time) -%]</span>
                 </h3>
-                <div class="edit-note-text">
+                <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
                     [%- note.text | format_editnote -%]
                 </div>
             </div>
         [% END %]
-    [% ELSIF verbose %]
+    [% ELSIF verbose == 'verbose' %]
         <div class="edit-note">
             <em>[% l('No edit notes have been added.') %]</em>
         </div>
