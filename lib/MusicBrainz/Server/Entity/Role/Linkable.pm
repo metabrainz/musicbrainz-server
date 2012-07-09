@@ -25,13 +25,16 @@ sub grouped_relationships
 
     my %groups;
     my @relationships = sort {
-        my $name_sort = defined ($a->target->can('sort_name') and $b->target->can('sort_name')) ? 
-	    $a->target->sort_name cmp $b->target->sort_name : 
-	    $a->target->name cmp $b->target->name;
+        my $a_sortname = $a->target->can('sort_name') ? 
+	   $a->target->sort_name :
+	   $a->target->name;
+        my $b_sortname = $b->target->can('sort_name') ? 
+	   $b->target->sort_name :
+	   $b->target->name;
         $a->link->begin_date        <=> $b->link->begin_date ||
         $a->link->end_date          <=> $b->link->end_date   ||
         $a->link->type->child_order <=> $b->link->type->child_order ||
-	$name_sort
+	$a_sortname cmp $b_sortname
     } $self->all_relationships;
 
     for my $relationship (@relationships) {
