@@ -371,7 +371,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.vgmdb
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|trove\\.nla\\.gov\\.au/)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -380,6 +380,8 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
             //Standardising ESTER to their default parameters
             url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
+            //Standardising Trove
+            url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/([^\/]+)\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/$1/$2");
             return url;
         }
     }
