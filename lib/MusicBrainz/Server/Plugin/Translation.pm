@@ -40,14 +40,4 @@ sub ln {
     }
 }
 
-sub lp {
-    my ($self, $msgid, $msgctxt, $vars) = @_;
-
-    if ($self->domain eq 'statistics') {
-    return MusicBrainz::Server::Translation::Statistics::lp($msgid, $msgctxt, $num, $vars);
-    } else {
-    return MusicBrainz::Server::Translation::lp($msgid, $msgctxt, $num, $vars);
-    }
-}
-
 1;
