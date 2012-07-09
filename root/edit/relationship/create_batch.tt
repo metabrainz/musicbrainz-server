@@ -72,7 +72,7 @@
                                value="[% track.recording_id %]" />
                       </td>
                       <td class="pos t">
-                        [% track.position %]
+                        [% track.number %]
                       </td>
                       <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
                       <td>[% artist_credit(track.artist_credit) %]</td>
