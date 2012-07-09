@@ -1363,17 +1363,13 @@ my %stats = (
             my $data = $sql->select_list_of_lists(
                 "SELECT c, COUNT(*) AS freq
                 FROM (
-                    SELECT r.id, count(*) AS c
-                    FROM recording r
-                        JOIN track t ON t.recording = r.id
-                        JOIN tracklist tl ON tl.id = t.tracklist
-                        JOIN medium m ON tl.id = m.tracklist
-                    GROUP BY r.id 
-                    UNION
-                    SELECT r.id, 0 AS c
-                    FROM recording r
-                        LEFT JOIN track t ON t.recording = r.id
-                    WHERE t.id IS NULL
+                    SELECT r.id, count(distinct release.id) as c
+                        FROM recording r 
+                        LEFT JOIN track t ON t.recording = r.id 
+                        LEFT JOIN tracklist tl ON tl.id = t.tracklist 
+                        LEFT JOIN medium m ON tl.id = m.tracklist 
+                        LEFT JOIN release on m.release = release.id 
+                    GROUP BY r.id
                 ) AS t
                 GROUP BY c
                 ",
