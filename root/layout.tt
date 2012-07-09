@@ -78,10 +78,10 @@
                 </div>
                 [%- IF server_details.git.branch -%]
                   <div class="git-branch">
-                    [%- l('Running: <abbr title="{commit}">{branch} ({sha})</abbr>',
-			 { branch => server_details.git.branch,
-			   commit => server_details.git.commit,
-			   sha	  => server_details.git.sha}) -%]
+                    [%- l('Running: <abbr title="{msg}">{branch} ({sha})</abbr>',
+                         { branch => server_details.git.branch,
+                           msg => server_details.git.msg,
+                           sha	  => server_details.git.sha}) -%]
                   </div>
                 [%- END -%]
             </div>
