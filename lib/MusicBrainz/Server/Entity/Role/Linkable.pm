@@ -28,7 +28,7 @@ sub grouped_relationships
         $a->link->begin_date        <=> $b->link->begin_date ||
         $a->link->end_date          <=> $b->link->end_date   ||
         $a->link->type->child_order <=> $b->link->type->child_order ||
-        $a->target_type eq 'artist' ? 
+        $a->target->can('sort_name') ? 
 	    $a->target->sort_name cmp $b->target->sort_name : 
 	    $a->target->name cmp $b->target->name
     } $self->all_relationships;
