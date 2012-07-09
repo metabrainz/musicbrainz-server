@@ -11,6 +11,7 @@
               this report.') %]</li>
     <li>[% l('Total release groups: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_group_list.tt' -%]

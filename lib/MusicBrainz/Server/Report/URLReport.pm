@@ -1,27 +1,26 @@
-package MusicBrainz::Server::Report::NoScript;
-use Moose;
+package MusicBrainz::Server::Report::URLReport;
+use Moose::Role;
 
-with 'MusicBrainz::Server::Report::ReleaseReport',
-     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
+with 'MusicBrainz::Server::Report::QueryReport';
 
-sub query {
-    "
-        SELECT
-            r.id AS release_id,
-            row_number() OVER (ORDER BY r.artist_credit, r.name)
-        FROM release r
-            JOIN release_name rn ON r.name = rn.id
-        WHERE script IS NULL
-    ";
-}
+around inflate_rows => sub {
+    my $orig = shift;
+    my ($self, $items) = @_;
 
-sub template
-{
-    return 'report/releases_without_script.tt';
-}
+    $items = $self->$orig($items);
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+    my $urls = $self->c->model('URL')->get_by_ids(
+        map { $_->{url_id} } @$items
+    );
+
+    return [
+        map +{
+            %$_,
+            url => $urls->{ $_->{url_id} }
+        }, @$items
+    ];
+};
+
 1;
 
 =head1 COPYRIGHT

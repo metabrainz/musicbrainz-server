@@ -1,32 +1,28 @@
-package MusicBrainz::Server::Report::NoScript;
-use Moose;
+package MusicBrainz::Server::Report::QueryReport;
+use Moose::Role;
 
-with 'MusicBrainz::Server::Report::ReleaseReport',
-     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
+with 'MusicBrainz::Server::Report';
 
-sub query {
-    "
-        SELECT
-            r.id AS release_id,
-            row_number() OVER (ORDER BY r.artist_credit, r.name)
-        FROM release r
-            JOIN release_name rn ON r.name = rn.id
-        WHERE script IS NULL
-    ";
+requires 'query';
+
+sub run {
+    my ($self) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $query = $self->query;
+
+    $self->sql->do("DROP TABLE IF EXISTS $qualified_table");
+    $self->sql->do(
+        "SELECT s.*
+         INTO $qualified_table
+         FROM ( $query ) s"
+    );
 }
 
-sub template
-{
-    return 'report/releases_without_script.tt';
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
 Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
@@ -44,3 +40,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+
