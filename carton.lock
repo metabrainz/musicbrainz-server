@@ -679,15 +679,14 @@
          "version" : "1.10"
       },
       "Bit::Vector" : {
-         "dist" : "Bit-Vector-7.1",
-         "module" : "Bit::Vector",
+         "dist" : "Bit-Vector-7.2",
          "mymeta" : {
             "abstract" : "unknown",
             "author" : [
                "unknown"
             ],
             "dynamic_config" : 0,
-            "generated_by" : "ExtUtils::MakeMaker version 6.42, CPAN::Meta::Converter version 2.113640, CPAN::Meta::Converter version 2.112150",
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.120630",
             "license" : [
                "unknown"
             ],
@@ -696,10 +695,21 @@
                "version" : "2"
             },
             "name" : "Bit-Vector",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
             "prereqs" : {
                "build" : {
                   "requires" : {
-                     "ExtUtils::MakeMaker" : 0
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
                   }
                },
                "runtime" : {
@@ -710,25 +720,26 @@
                }
             },
             "release_status" : "stable",
-            "version" : "7.1"
+            "version" : "7.2"
          },
          "name" : "Bit::Vector",
-         "pathname" : "S/ST/STBEY/Bit-Vector-7.1.tar.gz",
+         "pathname" : "http:/cpan.metacpan.org/authors/id/S/ST/STBEY/Bit-Vector-7.2.tar.gz",
          "provides" : {
             "Bit::Vector" : {
                "file" : "Bit/Vector.pm",
-               "version" : "7.1"
+               "version" : "7.2"
             },
             "Bit::Vector::Overload" : {
                "file" : "Bit/Vector/Overload.pm",
-               "version" : "7.1"
+               "version" : "7.2"
             },
             "Bit::Vector::String" : {
                "file" : "Bit/Vector/String.pm",
-               "version" : "7.1"
+               "version" : "7.2"
             }
          },
-         "version" : "7.1"
+         "target" : "http://cpan.metacpan.org/authors/id/S/ST/STBEY/Bit-Vector-7.2.tar.gz",
+         "version" : "7.2"
       },
       "CGI::Expand" : {
          "dist" : "CGI-Expand-2.03",
