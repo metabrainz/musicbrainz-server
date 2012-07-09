@@ -1,0 +1,47 @@
+[main]
+host = https://www.transifex.net
+
+[musicbrainz.server]
+file_filter = mb_server.<lang>.po
+source_file = mb_server.pot
+source_lang = en
+
+[musicbrainz.attributes]
+file_filter = attributes.<lang>.po
+source_file = attributes.pot
+source_lang = en
+
+[musicbrainz.countries]
+file_filter = countries.<lang>.po
+source_file = countries.pot
+source_lang = en
+
+[musicbrainz.instrument_descriptions]
+file_filter = instrument_descriptions.<lang>.po
+source_file = instrument_descriptions.pot
+source_lang = en
+
+[musicbrainz.instruments]
+file_filter = instruments.<lang>.po
+source_file = instruments.pot
+source_lang = en
+
+[musicbrainz.languages]
+file_filter = languages.<lang>.po
+source_file = languages.pot
+source_lang = en
+
+[musicbrainz.relationships]
+file_filter = relationships.<lang>.po
+source_file = relationships.pot
+source_lang = en
+
+[musicbrainz.scripts]
+file_filter = scripts.<lang>.po
+source_file = scripts.pot
+source_lang = en
+
+[musicbrainz.statistics]
+file_filter = statistics.<lang>.po
+source_file = statistics.pot
+source_lang = en
