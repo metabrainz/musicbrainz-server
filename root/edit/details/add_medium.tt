@@ -45,14 +45,14 @@
        <table class="tbl">
          <thead>
            <tr>
-             <th>[% l('#') %]</th>
+             <th class="pos">[% l('#') %]</th>
              <th>[% l('Artist') %]</th>
            </tr>
          </thead>
          <tbody>
            [% FOR track=edit.display_data.tracklist.tracks %]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
-             <td>[% track.number %]</td>
+             <td class="pos t">[% track.number %]</td>
              <td>[% expanded_artist_credit(track.artist_credit) %]</td>
            </tr>
            [% END %]

@@ -48,7 +48,7 @@
                   <table class="tbl">
                     <tr>
                       <thead>
-                        <th>
+                        <th class="pos">
                           <input type="checkbox" />
                         </th>
                         <th colspan="5"></th>
@@ -56,7 +56,7 @@
                     </tr>
                     [% FOR medium=release.all_mediums %]
                     <tr class="subh">
-                      <th></th>
+                      <th class="pos"></th>
                       <th colspan="5">
                         [%~ medium_format_name(medium) =%]
                         [%= medium.position ~%]
