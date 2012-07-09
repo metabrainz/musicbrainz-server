@@ -137,7 +137,7 @@ feature 'Fast edit migration' =>
 
 # These are just for I18N
 requires 'Locale::PO';
-requires 'Locale::TextDomain' => '1.16';
+requires 'Locale::Messages';
 
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';

@@ -11,7 +11,7 @@ $(document).ready(function() {
 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
     <td class="t">[% loop.count %]</td>
     [%- IF country.entity.iso_code != '' -%]
-    <td>[% l(country.entity.name) %]</td>
+    <td>[% country.entity.l_name %]</td>
     [%- ELSE -%]
     <td>[% l('Unknown Country') %]</td>
     [%- END -%]
@@ -23,6 +23,7 @@ $(document).ready(function() {
 [%- END -%]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Countries') full_width=1 page='countries' %] 
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
 
@@ -43,4 +44,5 @@ $(document).ready(function() {
 [%- END -%]
 </tbody>
 </table>
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

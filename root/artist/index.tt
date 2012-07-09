@@ -59,7 +59,7 @@
                         </tbody>
                     </table>
                     [% END %]
-                    <h3>[% l(rg.type_name) || l('Other release groups') %]</h3>
+                    <h3>[% rg.l_type_name || l('Other release groups') %]</h3>
                     <table class="tbl">
                         <thead>
                             <tr>

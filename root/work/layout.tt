@@ -1,5 +1,5 @@
 [% main_title = l('{type} “{work}”', {
-    type => l(work.type_name) or l('Work'),
+    type => work.l_type_name or l('Work'),
     work => work.name
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
@@ -9,10 +9,10 @@
         <h2>[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Lyrics Language:')
-               content=html_escape(l(work.language.name))
+               content=html_escape(work.language.l_name)
                    IF work.language -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(l(work.type.name))
+               content=html_escape(work.type.l_name)
                    IF work.type -%]
             [%- FOR iswc IN work.iswcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') %]
