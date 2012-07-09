@@ -11,6 +11,140 @@ use MusicBrainz::Server::Translation::Statistics qw( l );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
+sub _id_cache_prefix { 'stats' }
+
+sub top_recently_active_editors {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my $cache_key = join(':', $self->_id_cache_prefix, 'top_recently_active_editors');
+        my $cache = $self->c->cache($self->_id_cache_prefix);
+
+        my $id_edits = $cache->get($cache_key);
+
+        if (!$id_edits) {
+            $id_edits =
+                $self->c->sql->select_list_of_lists(
+                    "SELECT editor, count(edit.id) FROM edit
+                     JOIN editor ON edit.editor = editor.id
+                     WHERE status IN (?, ?)
+                       AND open_time >= now() - '1 week'::INTERVAL
+                       AND cast(privs AS bit(2)) & B'10' = B'00'
+                     GROUP BY edit.editor, editor.name
+                     ORDER BY count(edit.id) DESC, musicbrainz_collate(editor.name)
+                     LIMIT 25",
+                    $STATUS_OPEN, $STATUS_APPLIED
+                );
+            $cache->set($cache_key => $id_edits, 60*60*24); # Expires in 1 day (60*60*24)
+        }
+
+        my %id_editor_map = %{
+            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @$id_edits)
+        };
+        return [
+            map +{
+                editor => $id_editor_map{$_->[0]},
+                edits => $_->[1]
+            }, @$id_edits
+        ];
+    }, $self->c->sql);
+}
+
+sub top_editors {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my $cache_key = join(':', $self->_id_cache_prefix, 'top_editors');
+        my $cache = $self->c->cache($self->_id_cache_prefix);
+
+        my $id_edits = $cache->get($cache_key);
+
+        if (!$id_edits) {
+            $id_edits =
+                $self->c->sql->select_single_column_array(
+                    "SELECT id FROM editor
+                     WHERE (edits_accepted + auto_edits_accepted) > 0
+                       AND cast(privs AS bit(2)) & B'10' = B'00'
+                     ORDER BY (edits_accepted + auto_edits_accepted) DESC, musicbrainz_collate(editor.name)
+                     LIMIT 25"
+                );
+            $cache->set($cache_key => $id_edits, 60*60*24) # Expires in 1 day (60*60*24)
+        }
+
+        my %id_editor_map = %{ $self->c->model('Editor')->get_by_ids(@$id_edits) };
+        return [ map { $id_editor_map{$_} } @$id_edits ];
+    }, $self->c->sql);
+}
+
+sub top_recently_active_voters {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my $cache_key = join(':', $self->_id_cache_prefix, 'top_recently_active_voters');
+        my $cache = $self->c->cache($self->_id_cache_prefix);
+
+        my $id_edits = $cache->get($cache_key);
+
+        if (!$id_edits) {
+            $id_edits =
+                $self->c->sql->select_list_of_lists(
+                    "SELECT editor, count(vote.id) FROM vote
+                     JOIN editor ON vote.editor = editor.id
+                     WHERE NOT superseded AND vote != -1
+                       AND vote_time >= now() - '1 week'::INTERVAL
+                       AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
+                     GROUP BY vote.editor, editor.name
+                     ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                     LIMIT 25"
+                );
+
+            $cache->set($cache_key, $id_edits, 60*60*24); # Expires in 1 day (60*60*24)
+        }
+
+        my %id_editor_map = %{
+            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @$id_edits)
+        };
+
+        return [
+            map +{
+                editor => $id_editor_map{$_->[0]},
+                votes => $_->[1]
+            }, @$id_edits
+        ];
+    }, $self->c->sql);
+}
+
+sub top_voters {
+    my ($self) = @_;
+    Sql::run_in_transaction(sub {
+        my $cache_key = join(':', $self->_id_cache_prefix, 'top_voters');
+        my $cache = $self->c->cache($self->_id_cache_prefix);
+
+        my $id_edits = $cache->get($cache_key);
+
+        if (!$id_edits) {
+            $id_edits =
+                $self->c->sql->select_list_of_lists(
+                    "SELECT editor, count(vote.id) FROM vote
+                     JOIN editor ON vote.editor = editor.id
+                     WHERE NOT superseded AND vote != -1
+                       AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
+                     GROUP BY editor, editor.name
+                     ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                     LIMIT 25"
+                );
+            $cache->set($cache_key => $id_edits, 60*60*24); # Expires in 1 day (60*60*24)
+        };
+
+        my %id_editor_map = %{
+            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @$id_edits)
+        };
+        return [
+            map +{
+                editor => $id_editor_map{$_->[0]},
+                votes => $_->[1]
+            }, @$id_edits
+        ];
+    }, $self->c->sql);
+}
+
 sub _table { 'statistic' }
 
 sub all_events {

@@ -144,6 +144,7 @@ Keys:
  * rs:INT -- release status by ID
  * rp:INT -- release packaging by ID
  * scr:INT -- script by ID
+ * stats:* -- various different statistics
  * tag:INT -- tag by ID
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page
