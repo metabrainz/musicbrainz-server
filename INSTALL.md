@@ -54,6 +54,14 @@ Prerequisites
     same server with default settings. You can change the memcached server name
     and port or configure other datastores in lib/DBDefs.pm.
 
+6.  Standard Development Tools
+
+    In order to install some of the required Perl and Postgresql modules, you'll
+    need a C compiler and make. You can install a basic set of development tools
+    with the command:
+
+        sudo apt-get install build-essential
+
 
 Server configuration
 --------------------
