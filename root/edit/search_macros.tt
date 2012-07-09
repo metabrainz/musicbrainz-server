@@ -206,7 +206,7 @@
     [% FOR type_group=relationship_type %]
       <optgroup label="[% type_group.name %]">
         [% relationship_node(top_level, '', field_contents)
-             FOR top_level=type_group.children%]
+             FOR top_level=type_group %]
       </optgroup>
     [% END %]
   </select>
