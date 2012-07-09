@@ -145,6 +145,10 @@ h1 img.gravatar {
     right: 18px;
 }
 
+#header-logo #headerid-query {
+    width: 18em;
+}
+
 #header-logo #id-type {
     margin-right: 4px;
     margin-left: 10px;
