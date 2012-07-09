@@ -40,7 +40,7 @@
    </tr>
 
    <tr>
-     <th>[% l('Artist Credits') %]</th>
+     <th>[% l('Artist Credits:') %]</th>
      <td>
        <table class="tbl">
          <thead>
