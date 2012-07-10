@@ -252,13 +252,13 @@ sub edits : Path('edits') {
     my %by_category;
     for my $class (EditRegistry->get_all_classes) {
         $by_category{$class->edit_category} ||= [];
-        push @{ $by_category{$class->edit_category} }, { edit_name => $class->edit_name, l_edit_name => $class->l_edit_name, edit_type => $class->edit_type };
+        push @{ $by_category{$class->edit_category} }, $class;
     }
 
     for my $category (keys %by_category) {
         $by_category{$category} = [
-            reverse sort { $stats->statistic('count.edit.type.' . $a->{edit_type}) <=> 
-	           $stats->statistic('count.edit.type.' . $b->{edit_type}) }
+            reverse sort { $stats->statistic('count.edit.type.' . $a->edit_type) <=> 
+	           $stats->statistic('count.edit.type.' . $b->edit_type) }
                 @{ $by_category{$category} }
             ];
     }

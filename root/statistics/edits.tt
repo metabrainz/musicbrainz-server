@@ -18,9 +18,10 @@
 <tr class="thead">
    <th colspan=4>[% category.key %]</th>
 </tr>
-[% FOREACH type IN category.value %]
+[% FOREACH type_class IN category.value %]
+[% USE type = Class(type_class) %]
 <tr>
-   <th></th><th>[% type.edit_name %]</th><td>[% add_commas(stats.statistic('count.edit.type.' _ type.edit_type)) %]</td><td>[% l('{n}%', { n => round2(stats.ratio('count.edit.type.' _ type.edit_type, 'count.edit')) }) %]</td>
+   <th></th><th>[% type.l_edit_name %]</th><td>[% add_commas(stats.statistic('count.edit.type.' _ type.edit_type)) %]</td><td>[% l('{n}%', { n => round2(stats.ratio('count.edit.type.' _ type.edit_type, 'count.edit')) }) %]</td>
 </tr>
 [%- END -%]
 [%- END -%]
