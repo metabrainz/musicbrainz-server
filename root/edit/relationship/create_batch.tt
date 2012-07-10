@@ -72,6 +72,7 @@
                                value="[% track.recording_id %]" />
                       </td>
                       <td class="pos t">
+                        <span style="display: none">[% rdfa_track_number(track.position) %]</span>
                         [% track.number %]
                       </td>
                       <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
