@@ -604,6 +604,7 @@ sub cancel
 sub _close
 {
     my ($self, $edit, $close_sub, %opts) = @_;
+    $self->c->model('Editor')->lock_row($edit->editor_id);
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
