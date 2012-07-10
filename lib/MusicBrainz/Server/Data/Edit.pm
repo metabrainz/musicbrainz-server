@@ -384,6 +384,8 @@ sub create
     # Save quality level
     $edit->quality($quality);
 
+    $self->c->model('Editor')->lock_row($edit->editor_id) if $edit->auto_edit;
+
     $edit->insert;
 
     my $now = DateTime->now;
@@ -604,7 +606,6 @@ sub cancel
 sub _close
 {
     my ($self, $edit, $close_sub, %opts) = @_;
-    $self->c->model('Editor')->lock_row($edit->editor_id);
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
