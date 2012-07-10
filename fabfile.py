@@ -92,6 +92,8 @@ def production():
     puts("Waiting 20 seconds for server to start")
     sleep(20)
 
+    sudo("/etc/init.d/nginx restart", pty=False)
+
     # A non-0 exit code from any of these will cause the deployment to abort
     with settings( hide("stdout") ):
         run("pgrep plackup")
