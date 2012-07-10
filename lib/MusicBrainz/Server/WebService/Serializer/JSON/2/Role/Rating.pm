@@ -1,24 +1,30 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2;
-use Moose;
-use JSON;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating;
+use Moose::Role;
 
-sub boolean {
-    my ($self, $value) = @_;
-    return $value ? JSON::true : JSON::false;
-}
+around serialize => sub {
+    my ($orig, $self, $entity, $inc, $stash) = @_;
+    my %ret = $self->$orig($entity, $inc, $stash);
 
-sub number {
-    my ($self, $value) = @_;
-    return $value + 0;
-}
+    my $opts = $stash->store ($entity);
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+    $ret{rating} = {
+        "votes-count" => $self->number ($opts->{ratings}->{count}),
+        "value" => $self->number ($opts->{ratings}->{rating})
+    } if $opts->{ratings};
+
+    $ret{"user-rating"} = {
+        "value" => $self->number ($opts->{"user_ratings"})
+    } if $opts->{"user_ratings"};
+
+    return %ret;
+};
+
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

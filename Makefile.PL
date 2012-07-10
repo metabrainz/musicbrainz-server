@@ -53,6 +53,7 @@ requires 'HTML::TreeBuilder::XPath';
 requires 'IO::All';
 requires 'Javascript::Closure';
 requires 'JSON'                                       => '2.14';
+requires 'JSON::XS'                                   => '2.27';
 requires 'Log::Dispatch';
 requires 'List::UtilsBy'                              => '0.06';
 requires 'List::MoreUtils'                            => '0.22';
@@ -129,11 +130,6 @@ feature 'Production server' =>
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
     'FCGI' => '0',
     'FCGI::ProcManager' => '0.19',
-    ;
-
-feature 'Fast edit migration' =>
-    -default   => 1,
-    'JSON::XS' => '2.27',
     ;
 
 # These are just for I18N

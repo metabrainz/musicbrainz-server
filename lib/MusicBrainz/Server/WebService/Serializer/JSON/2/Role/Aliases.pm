@@ -1,29 +1,27 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases;
 use Moose::Role;
 
-sub has_lifespan
-{
-    my ($self, $entity) = @_;
-
-    my $has_begin_date = !$entity->begin_date->is_empty;
-    my $has_end_date = !$entity->end_date->is_empty;
-
-    return $has_begin_date || $has_end_date;
-}
-
 around serialize => sub {
-    my ($orig, $self, $entity, $inc, $opts) = @_;
-    my %ret = $self->$orig($entity, $inc, $opts);
+    my ($orig, $self, $entity, $inc, $stash) = @_;
+    my %ret = $self->$orig($entity, $inc, $stash);
 
-    if ($self->has_lifespan ($entity))
+    my $opts = $stash->store ($entity);
+
+    my @aliases;
+    for my $alias (sort_by { $_->name } @{ $opts->{aliases} })
     {
-        my %lifespan;
-        $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
-        $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
-        $lifespan{ended} = $self->boolean ($entity->ended);
+        my $item = { name => $alias->name, "sort-name" => $alias->sort_name };
 
-        $ret{lifespan} = \%lifespan;
+        if ($alias->locale)
+        {
+            $item->{locale} = $alias->locale;
+            $item->{primary} = $self->boolean ($alias->primary_for_locale);
+        }
+
+        push @aliases, $item;
     }
+
+    $ret{aliases} = \@aliases if scalar @aliases;
 
     return %ret;
 };
@@ -33,7 +31,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

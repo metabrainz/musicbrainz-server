@@ -1,15 +1,16 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Label;
 use Moose;
 
-use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of );
 use String::CamelCase qw(camelize);
 
+extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
-# with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 # with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
-# with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub element { 'label'; }
 
@@ -19,9 +20,10 @@ sub serialize
     my %body;
 
     $body{name} = $entity->name;
-    $body{sort_name} = $entity->sort_name;
-    $body{label_code} = $entity->label_code if $entity->label_code;
+    $body{"sort-name"} = $entity->sort_name;
+    $body{"label-code"} = $self->number ($entity->label_code) if $entity->label_code;
     $body{disambiguation} = $entity->comment if $entity->comment;
+    $body{type} = $entity->type_name if $entity->type;
     $body{country} = $entity->country->iso_code if $entity->country;
 
     return %body;
@@ -33,7 +35,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2011,2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

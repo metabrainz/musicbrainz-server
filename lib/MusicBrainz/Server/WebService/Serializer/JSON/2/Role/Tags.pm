@@ -1,12 +1,30 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags;
 use Moose::Role;
+use List::UtilsBy qw( nsort_by sort_by );
 
 around serialize => sub {
-    my ($orig, $self, $entity, $inc, $opts) = @_;
-    return (
-        id => $entity->gid,
-        $self->$orig($entity, $inc, $opts)
-    );
+    my ($orig, $self, $entity, $inc, $stash) = @_;
+    my %ret = $self->$orig($entity, $inc, $stash);
+
+    my $opts = $stash->store ($entity);
+
+    my @tags;
+    for my $tag (sort_by { $_->tag->name } @{$opts->{tags}})
+    {
+        push @tags, { count => $tag->count, name => $tag->tag->name };
+    }
+
+    $ret{tags} = \@tags if scalar @tags;
+
+    my @usertags;
+    for my $tag (sort_by { $_->tag->name } @{$opts->{user_tags}})
+    {
+        push @usertags, { name => $tag->tag->name };
+    }
+
+    $ret{"user-tags"} = \@usertags if scalar @usertags;
+
+    return %ret;
 };
 
 no Moose::Role;
@@ -14,7 +32,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
