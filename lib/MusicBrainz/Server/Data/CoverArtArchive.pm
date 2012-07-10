@@ -48,8 +48,8 @@ sub post_fields
 {
     my ($self, $bucket, $mbid, $id, $redirect) = @_;
 
-    my $aws_id = &DBDefs::COVER_ART_ARCHIVE_ID;
-    my $aws_key = &DBDefs::COVER_ART_ARCHIVE_KEY;
+    my $access_key = &DBDefs::COVER_ART_ARCHIVE_ACCESS_KEY;
+    my $secret_key = &DBDefs::COVER_ART_ARCHIVE_SECRET_KEY;
 
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
     my $filename = "mbid-$mbid-" . $id . '.jpg';
@@ -64,9 +64,9 @@ sub post_fields
     $policy->add ('x-archive-meta-mediatype eq images');
 
     return {
-        AWSAccessKeyId => $aws_id,
+        AWSAccessKeyId => $access_key,
         policy => $policy->base64(),
-        signature => $policy->signature_base64($aws_key),
+        signature => $policy->signature_base64($secret_key),
         key => $filename,
         acl => 'public-read',
         "content-type" => 'image/jpeg',
