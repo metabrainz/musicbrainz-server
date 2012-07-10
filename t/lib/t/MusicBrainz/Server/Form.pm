@@ -47,7 +47,6 @@ test 'Check unserialize(serialize(x)) == x' => sub {
     $form->field('foo.baz.1.qux')->readonly (1);
     $form->field('foo.baz.2.qux')->style ('border: 2px dashed red');
     $form->field('foo.baz.2.qux')->css_class ('error');
-    $form->field('foo.baz.2.qux')->javascript ('alert("wait, wat?")');
 
     my $data = $form->serialize;
 
@@ -65,7 +64,6 @@ test 'Check unserialize(serialize(x)) == x' => sub {
     is ($form->field('foo.baz.1.qux')->readonly, 1, 'second field is readonly');
     is ($form->field('foo.baz.2.qux')->style, 'border: 2px dashed red', 'third field has style');
     is ($form->field('foo.baz.2.qux')->css_class, 'error', 'third field has error class');
-    is ($form->field('foo.baz.2.qux')->javascript, 'alert("wait, wat?")', 'third field has alert');
 };
 
 1;
