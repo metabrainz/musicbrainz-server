@@ -16,26 +16,30 @@ sub query {
     #    the following will *not* hold:
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
     <<'EOSQL'
-SELECT DISTINCT release.id AS release_id,
+SELECT release.id AS release_id,
   row_number() OVER (ORDER BY musicbrainz_collate(rel_name.name))
-FROM (
-    SELECT
-      track.tracklist,
-      min(track.position) AS first_track,
-      max(track.position) AS last_track,
-      count(track.position) AS track_count,
-      sum(track.position) AS track_pos_acc
-    FROM
-      track
-    GROUP BY track.tracklist
-) s
-JOIN medium ON medium.tracklist = s.tracklist
-JOIN release ON release.id = medium.release
-JOIN release_name rel_name ON rel_name.id = release.name
-WHERE
+FROM
+(
+  SELECT DISTINCT release.*
+  FROM
+    ( SELECT
+        track.tracklist,
+        min(track.position) AS first_track,
+        max(track.position) AS last_track,
+        count(track.position) AS track_count,
+        sum(track.position) AS track_pos_acc
+      FROM
+        track
+      GROUP BY track.tracklist
+   ) s
+   JOIN medium ON medium.tracklist = s.tracklist
+   JOIN release ON release.id = medium.release
+   WHERE
      first_track != 1
-  OR last_track != track_count
-  OR (track_count * (1 + track_count)) / 2 <> track_pos_acc
+     OR last_track != track_count
+     OR (track_count * (1 + track_count)) / 2 <> track_pos_acc
+) release
+JOIN release_name rel_name ON rel_name.id = release.name
 EOSQL
 }
 

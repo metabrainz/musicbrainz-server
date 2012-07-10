@@ -6,28 +6,30 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 
 sub query {
     "
-        SELECT DISTINCT
+        SELECT
             r.id AS release_id,
             row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM (
-            SELECT
+            SELECT DISTINCT r.*
+            FROM (
+              SELECT
                 entity0 AS entity, link
-            FROM
+              FROM
                 l_release_release
-            UNION
-            SELECT
+              UNION
+              SELECT
                 entity1 AS entity, link
-            FROM
+              FROM
                 l_release_release
-        ) AS lrr
+            ) AS lrr
             JOIN link ON link.id = lrr.link
             JOIN link_type ON link.link_type = link_type.id
             JOIN release r ON lrr.entity = r.id
-            JOIN release_name rn ON r.name = rn.id
-            JOIN artist_credit ac ON r.artist_credit = ac.id
-            JOIN artist_name an ON ac.name = an.id
-        WHERE
-            link_type.name = 'part of set'
+            WHERE link_type.name = 'part of set'
+        ) r
+        JOIN release_name rn ON r.name = rn.id
+        JOIN artist_credit ac ON r.artist_credit = ac.id
+        JOIN artist_name an ON ac.name = an.id
     ";
 }
 
