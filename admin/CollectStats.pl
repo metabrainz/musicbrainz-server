@@ -33,7 +33,7 @@ use lib "$FindBin::Bin/../lib";
 use MusicBrainz::Server::Context;
 use Sql;
 
-my $c = MusicBrainz::Server::Context->new;
+my $c = MusicBrainz::Server::Context->create_script_context;
 my $sql = Sql->new($c->conn);
 
 $sql->begin;
