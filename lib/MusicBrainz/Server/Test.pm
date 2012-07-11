@@ -355,6 +355,7 @@ sub _build_ws_test_xml {
         $opts ||= {};
 
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+        $mech->default_header ("Accept" => "application/xml");
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});

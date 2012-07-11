@@ -15,7 +15,11 @@ role {
         my ($self, $c) = @_;
 
         my %accepted = map { $_->mime_type => $_ } @{ $role->serializers };
-        my $match = best_match ([ keys %accepted ], $c->req->header ('Accept'));
+
+        # Default to application/xml when no accept header is specified.
+        # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
+        my $accept = $c->req->header ('Accept') // "application/xml";
+        my $match = best_match ([ keys %accepted ], $accept);
 
         return $accepted{$match} if $match;
 
