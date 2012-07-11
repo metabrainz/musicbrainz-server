@@ -131,6 +131,12 @@
             </div>
         [%- END -%]
 
+            <div class="server-details" style="background: #ffdddd; font-weight: bold; border: 1px solid red; color: #000; font-size: larger">
+                <p>
+                   <strong>MusicBrainz is currently experiencing some serious database problems, and will need to go offline for a few minutes while we fix things. The site will be unavailable from 17:30 UTC. Sorry!</strong>
+                </p>
+            </div>
+
         [% IF makes_no_changes %]
         <div class="warning-header">
             <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>
