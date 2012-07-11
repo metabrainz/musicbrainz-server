@@ -3,6 +3,7 @@ use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
+use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
@@ -208,6 +209,17 @@ sub formats : Path('formats')
         template => 'statistics/formats.tt',
         format_stats => $format_stats,
         stats => $stats
+    );
+}
+
+sub editors : Path('editors') {
+    my ($self, $c) = @_;
+    $c->stash(
+        top_recently_active_editors => $c->model('Statistics')->top_recently_active_editors,
+        top_editors => $c->model('Statistics')->top_editors,
+
+        top_recently_active_voters => $c->model('Statistics')->top_recently_active_voters,
+        top_voters => $c->model('Statistics')->top_voters,
     );
 }
 

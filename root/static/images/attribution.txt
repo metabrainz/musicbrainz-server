@@ -37,9 +37,8 @@ License:     CC-BY/2.5 (see: famfamfam-silk-icons-copyright.txt)
 Download:    http://www.famfamfam.com/lab/icons/silk/
 Images:
 
-    icons/user.png
-    icons/user_add.png
-    icons/user_delete.png
+    icons/add.png
+    icons/delete.png
 
 ----------------------------------------------------------------------------
 

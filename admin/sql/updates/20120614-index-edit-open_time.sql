@@ -1,0 +1,2 @@
+CREATE INDEX CONCURRENTLY ON edit (open_time);
+CREATE INDEX CONCURRENTLY ON vote (vote_time);

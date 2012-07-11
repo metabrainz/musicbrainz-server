@@ -294,10 +294,7 @@ sub release_submit : Private
                     privileges => $c->user->privileges,
                     edit_type => $EDIT_RELEASE_EDIT_BARCODES,
                     submissions => [ map +{
-                        release => {
-                            id => $gid_map{ $_->{release} }->id,
-                            name => $gid_map{ $_->{release} }->name
-                        },
+                        release => $gid_map{ $_->{release} },
                         barcode => $_->{barcode}
                     }, @submit ]
                 );

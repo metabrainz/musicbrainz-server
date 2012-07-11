@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Recording::AddAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
 
-sub edit_name { l('Add recording annotation') }
+sub edit_name { N_l('Add recording annotation') }
 sub edit_type { $EDIT_RECORDING_ADD_ANNOTATION }
 
 sub models { [qw( Recording )] }

@@ -227,7 +227,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?jamendo\\.com","i"),
         type: MB.constants.LINK_TYPES.downloadfree,
         clean: function(url) {
-            url =  url.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
+            url =  url.replace(/jamendo\.com\/(?:\w\w\/)?(album|list)\/([^\/]+)(\/.*)?$/, "jamendo.com/$1/$2");
             url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
             return url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
         }
@@ -246,6 +246,12 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, "http://creativecommons.org/");
             url = url.replace(/^http:\/\/creativecommons\.org\/(licenses|publicdomain)\/(.+)\/((legalcode|deed)((\.|-)[A-Za-z_]+)?)?/, "http://creativecommons.org/$1/$2/");
+
+            // make sure there is exactly one terminating slash
+            url = url.replace(/^(http:\/\/creativecommons\.org\/licenses\/(?:by|(?:by-|)(?:nc|nc-nd|nc-sa|nd|sa)|(?:nc-|)sampling\+?)\/[0-9]+\.[0-9]+(?:\/(?:ar|au|at|be|br|bg|ca|cl|cn|co|cr|hr|cz|dk|ec|ee|fi|fr|de|gr|gt|hk|hu|in|ie|il|it|jp|lu|mk|my|mt|mx|nl|nz|no|pe|ph|pl|pt|pr|ro|rs|sg|si|za|kr|es|se|ch|tw|th|uk|scotland|us|vn)|))\/*$/, "$1/");
+            url = url.replace(/^(http:\/\/creativecommons\.org\/publicdomain\/zero\/[0-9]+\.[0-9]+)\/*$/, "$1/");
+            url = url.replace(/^(http:\/\/creativecommons\.org\/licenses\/publicdomain)\/*$/, "$1/");
+
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?artlibre\.org\//, "http://artlibre.org/");
             url = url.replace(/^http:\/\/artlibre\.org\/licence\.php\/lal\.html/, "http://artlibre.org/licence/lal");
             return url;
@@ -316,9 +322,13 @@ MB.constants.CLEANUPS = {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
         }
     },
-    vgmdb: {
-        match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
-        type: MB.constants.LINK_TYPES.vgmdb
+    spotify: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i"),
+        type: MB.constants.LINK_TYPES.streamingmusic,
+        clean: function(url) {
+            url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
+            return url;
+        }
     },
     vimeo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
@@ -350,7 +360,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.vgmdb
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|trove\\.nla\\.gov\\.au/)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -359,6 +369,8 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
             //Standardising ESTER to their default parameters
             url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
+            //Standardising Trove
+            url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/([^\/]+)\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/$1/$2");
             return url;
         }
     }

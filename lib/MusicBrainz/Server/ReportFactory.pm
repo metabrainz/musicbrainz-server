@@ -14,9 +14,9 @@ my @all = qw(
     CatNoLooksLikeASIN
     CollaborationRelationships
     CreativeCommonsRelationships
+    DiscogsLinksWithMultipleArtists
     DiscogsLinksWithMultipleReleaseGroups
     DiscogsLinksWithMultipleReleases
-    EmptyReleaseGroups
     FeaturingRecordings
     FeaturingReleaseGroups
     FeaturingReleases
@@ -51,9 +51,9 @@ use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::CreativeCommonsRelationships;
+use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
-use MusicBrainz::Server::Report::EmptyReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;

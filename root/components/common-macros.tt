@@ -30,8 +30,9 @@ END -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
 
+[%- USE Translation('mb_server') -%]
 [%- MACRO l(text, args) BLOCK;
-    c.gettext(text, args);
+    Translation.l(text, args);
 END; -%]
 [%#- There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
 The problem surfaces when an unfinished translation file is used, in this case a plural translation would
@@ -39,7 +40,7 @@ apply language-specific plural construction rules to the untranslated english st
 more than two plural forms, then the first plural form (germanic plural) is chosen for every form other than the first
 two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
-    c.ngettext(text, plural, num, args);
+    Translation.ln(text, plural, num, args);
 END; -%]
 
 [%- MACRO display_age(age, person) BLOCK;
@@ -359,7 +360,7 @@ END -%]
     text = text == '' ? html_escape(editor.name) : text;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
-      '<img src="' _ gravatar(editor.email) _ '" class="gravatar">';
+      '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
       '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
     END;
@@ -634,6 +635,7 @@ END -%]
     ELSIF url.url.host.search('ocremix.org'); 'ocremix';
     ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
+    ELSIF url.url.host.search('trove.nla.gov.au'); 'trove';
     ELSE; '';
 END %]
 

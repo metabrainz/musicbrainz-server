@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::AliasType;
 
 use Moose;
+use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -8,6 +9,11 @@ has 'name' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub l_name {
+    my $self = shift;
+    return lp($self->name, 'alias_type')
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -61,6 +61,8 @@ is($rel->link->end_date->year, 1995, "... end year 1995");
 is($rel->entity0_id, 1, '... entity 0 is artist 1');
 is($rel->entity1_id, 3, '... entity 1 is artist 3');
 
+$c->sql->do('SET CONSTRAINTS ALL IMMEDIATE');
+$c->sql->do('SET CONSTRAINTS ALL DEFERRED');
 $c->sql->do('TRUNCATE artist CASCADE');
 $c->sql->do('TRUNCATE link_type CASCADE');
 $c->model('Edit')->load_all($edit);

@@ -13,6 +13,11 @@
         <span class="prefix">~</span>
         [% collection.public ? l('Public collection by {owner}', { owner => link_editor(collection.editor) })
                              : l('Private collection') %]
+        <span class="small">
+        (<a href="[% c.uri_for_action("/user/collections", [ collection.editor.name ]) %]">[% c.user_exists && collection.editor.id == c.user.id
+                ? l('See all of your collections')
+                : l("See all of {editor}'s public collections", { editor => collection.editor.name })%]</a>)
+        </span>
     </p>
 </div>
 

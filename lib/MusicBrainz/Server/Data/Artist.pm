@@ -166,17 +166,24 @@ sub find_by_release_group
 
 sub find_by_work
 {
-    my ($self, $recording_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN artist_credit_name acn ON acn.artist = artist.id
-                    JOIN work ON work.artist_credit = acn.artist_credit
-                 WHERE work.id = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+    my ($self, $work_id, $limit, $offset) = @_;
+    my $query = "SELECT DISTINCT musicbrainz_collate(name) name_collate, s.*
+                 FROM (
+                   SELECT " . $self->_columns . " FROM ". $self->_table . "
+                   JOIN artist_credit_name acn ON acn.artist = artist.id
+                   JOIN recording ON recording.artist_credit = acn.artist_credit
+                   JOIN l_recording_work lrw ON lrw.entity0 = recording.id
+                   WHERE lrw.entity1 = ?
+                   UNION ALL
+                   SELECT " . $self->_columns . " FROM ". $self->_table . "
+                   JOIN l_artist_work law ON law.entity0 = artist.id
+                   WHERE law.entity1 = ?
+                 ) s
+                 ORDER BY musicbrainz_collate(name), id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $recording_id, $offset || 0);
+        $query, $work_id, $work_id, $offset || 0);
 }
 
 sub load

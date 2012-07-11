@@ -43,7 +43,7 @@
                               </ul>
                             </td>
                             <td>
-                              <abbr title="[% l(result.entity.language.name) %]">
+                              <abbr title="[% result.entity.language.l_name %]">
                                 [% result.entity.language.iso_code_3 %]
                               </abbr>
                             </td>

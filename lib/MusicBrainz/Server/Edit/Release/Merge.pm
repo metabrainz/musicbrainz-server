@@ -4,7 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Map );
@@ -46,7 +46,7 @@ has '+data' => (
     ]
 );
 
-sub edit_name { l('Merge releases') }
+sub edit_name { N_l('Merge releases') }
 sub edit_type { $EDIT_RELEASE_MERGE }
 sub _merge_model { 'Release' }
 

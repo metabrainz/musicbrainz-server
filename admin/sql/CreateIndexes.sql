@@ -42,6 +42,8 @@ CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor
 
 CREATE INDEX edit_idx_editor ON edit (editor);
 CREATE INDEX edit_idx_type ON edit (type);
+CREATE INDEX edit_idx_open_time ON edit (open_time);
+CREATE INDEX edit_idx_vote_time ON vote (vote_time);
 
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;

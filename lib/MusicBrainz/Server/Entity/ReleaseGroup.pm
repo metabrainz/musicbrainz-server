@@ -44,6 +44,16 @@ sub type_name
             );
 }
 
+sub l_type_name
+{
+    my ($self) = @_;
+    return undef unless any { defined } ($self->primary_type, $self->all_secondary_types);
+    return join(' + ',
+                ($self->primary_type ? $self->primary_type->l_name() : ()),
+                map { $_->l_name() } $self->all_secondary_types
+            );
+}
+
 has 'artist_credit_id' => (
     is => 'rw',
     isa => 'Int'

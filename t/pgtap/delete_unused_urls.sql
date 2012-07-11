@@ -51,12 +51,12 @@ INSERT INTO url (id, gid, url)
          (7, '7783b91e-aebd-4cb0-b08f-8799f14d3976', 'http://seven.com');
 
 INSERT INTO l_artist_url (id, link, entity0, entity1) VALUES (1, 1, 1, 1);
-INSERT INTO l_label_url (id, link, entity0, entity1) VALUES (1, 1, 1, 2);
-INSERT INTO l_recording_url (id, link, entity0, entity1) VALUES (1, 1, 1, 3);
-INSERT INTO l_release_url (id, link, entity0, entity1) VALUES (1, 1, 1, 4);
-INSERT INTO l_release_group_url (id, link, entity0, entity1) VALUES (1, 1, 1, 5);
-INSERT INTO l_url_url (id, link, entity0, entity1) VALUES (1, 1, 1, 6);
-INSERT INTO l_url_work (id, link, entity0, entity1) VALUES (1, 1, 7, 1);
+INSERT INTO l_label_url (id, link, entity0, entity1) VALUES (1, 2, 1, 2);
+INSERT INTO l_recording_url (id, link, entity0, entity1) VALUES (1, 3, 1, 3);
+INSERT INTO l_release_url (id, link, entity0, entity1) VALUES (1, 4, 1, 4);
+INSERT INTO l_release_group_url (id, link, entity0, entity1) VALUES (1, 5, 1, 5);
+INSERT INTO l_url_url (id, link, entity0, entity1) VALUES (1, 6, 1, 6);
+INSERT INTO l_url_work (id, link, entity0, entity1) VALUES (1, 7, 7, 1);
 
 --------------------------------------------------------------------------------
 -- Test

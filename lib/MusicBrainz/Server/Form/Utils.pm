@@ -127,7 +127,7 @@ sub language_options {
     my @sorted = sort { $a->{label} cmp $b->{label} } map {
         {
             'value' => $_->id,
-            'label' => $_->{name},
+            'label' => $_->l_name,
             'class' => 'language',
             'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
@@ -150,7 +150,7 @@ sub script_options {
     return [ map {
         {
             'value' => $_->id,
-            'label' => $_->{name},
+            'label' => $_->l_name,
             'class' => 'script',
             'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
