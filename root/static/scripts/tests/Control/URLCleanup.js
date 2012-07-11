@@ -193,11 +193,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
-                    'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
-                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
-                    'release'
-                ],
-                [
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
                     'artist'
