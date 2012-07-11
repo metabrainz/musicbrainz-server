@@ -83,11 +83,6 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
 
                 [
-                    'release', 'http://www.encyclopedisque.fr/images/imgdb/main/16593.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
-                ],
-
-                [
                     'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
