@@ -120,3 +120,7 @@ def reset_test_branches():
             run("git fetch")
             run("git reset --hard origin/next")
         socket_deploy()
+
+def downtime():
+  with cd("/home/musicbrainz/musicbrainz-server"):
+    sudo("git fetch", user="musicbrainz")
