@@ -81,7 +81,7 @@ def production():
         if cont == 'no':
             abort('User does not wish to proceed')
 
-    sudo("svc -d /etc/service/mb_server-fastcgi")
+    shutdown()
 
     with cd('/home/musicbrainz/musicbrainz-server'):
         sudo("git pull --ff-only", user="musicbrainz")
@@ -122,3 +122,6 @@ def reset_test_branches():
             run("git fetch")
             run("git reset --hard origin/next")
         socket_deploy()
+
+def shutdown():
+    sudo("svc -d /etc/service/mb_server-fastcgi")
