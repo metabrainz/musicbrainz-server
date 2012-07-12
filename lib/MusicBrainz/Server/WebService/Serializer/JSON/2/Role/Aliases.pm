@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases;
 use Moose::Role;
+use List::UtilsBy qw( sort_by );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash) = @_;
@@ -7,10 +8,8 @@ around serialize => sub {
 
     my $opts = $stash->store ($entity);
 
-    return %ret unless scalar @{ $opts->{aliases} };
-
     my @aliases;
-    for my $alias (sort_by { $_->name } @{ $opts->{aliases} })
+    for my $alias (sort_by { $_->name } @{ $opts->{aliases} // [] })
     {
         my $item = { name => $alias->name, "sort-name" => $alias->sort_name };
 

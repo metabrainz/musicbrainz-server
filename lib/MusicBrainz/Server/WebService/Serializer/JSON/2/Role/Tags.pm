@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags;
 use Moose::Role;
-use List::UtilsBy qw( nsort_by sort_by );
+use List::UtilsBy qw( sort_by );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash) = @_;
