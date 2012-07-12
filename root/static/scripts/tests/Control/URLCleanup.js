@@ -75,7 +75,7 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
-                ],                
+                ],
 
                 [
                     'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
