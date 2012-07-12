@@ -149,7 +149,8 @@ RE.parseRelationships = function(source, check_post) {
                             delete removed.errors;
                         }
                         if (rel.fields.action != "remove") {
-                            rel.$container.eq(0).children("a.remove-button").click();
+                            var button = rel.$container.eq(0).children("a.remove-button")[0];
+                            RE.UI.Buttons.Remove.clicked.call(button, null);
                         }
                     }
                 }

@@ -25,26 +25,9 @@ var UI = RE.UI, Buttons = UI.Buttons = {};
 
 Buttons.initEvents = function() {
 
-    $("#form").on("click", "a.remove-button", function(event) {
-        event.preventDefault();
+    $("#form").on("click", "a.remove-button", Buttons.Remove.clicked)
 
-        var rel = $(this).data("relationship"), $container = rel.$container;
-
-        if (rel.fields.action != "remove") {
-            if (rel.fields.action == "add") {
-                $container.fadeOut("fast", function() {rel.remove();});
-            } else {
-                rel.fields.action = "remove";
-                rel.update();
-                $container.children("span.link-phrase").addClass("rel-remove disabled");
-            }
-        } else {
-            delete rel.fields.action;
-            rel.update();
-            $container.children("span.link-phrase").removeClass("rel-remove disabled");
-        }
-
-    }).on("click", "span.link-phrase", function(event) {
+    .on("click", "span.link-phrase", function(event) {
 
         if ($(this).hasClass("disabled")) return;
         var rel = $(this).data("relationship");
@@ -75,6 +58,27 @@ Buttons.initEvents = function() {
 
 Buttons.Remove = function(relationship) {
     return $(this.template).data("relationship", relationship);
+};
+
+
+Buttons.Remove.clicked = function(event) {
+    event && event.preventDefault();
+
+    var rel = $(this).data("relationship"), $container = rel.$container;
+
+    if (rel.fields.action != "remove") {
+        if (rel.fields.action == "add") {
+            $container.fadeOut("fast", function() {rel.remove();});
+        } else {
+            rel.fields.action = "remove";
+            rel.update();
+            $container.children("span.link-phrase").addClass("rel-remove disabled");
+        }
+    } else {
+        delete rel.fields.action;
+        rel.update();
+        $container.children("span.link-phrase").removeClass("rel-remove disabled");
+    }
 };
 
 
