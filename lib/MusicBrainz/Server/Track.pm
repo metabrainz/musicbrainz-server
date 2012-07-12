@@ -21,8 +21,11 @@ sub FormatTrackLength
     $ms or return "?:??";
     $ms >= 1000 or return "$ms ms";
 
-    my $f = DateTime::Format::Duration->new (normalize => 1, pattern => "%H:%M:%S");
-    return $f->format_duration_from_deltas (seconds => $ms / 1000);
+    my $seconds = $ms / 1000;
+
+    my $pattern = $seconds >= 3600 ? "%H:%M:%S" : "%M:%S";
+    my $f = DateTime::Format::Duration->new (normalize => 1, pattern => $pattern);
+    return $f->format_duration_from_deltas (seconds => $seconds);
 }
 
 sub FormatXSDTrackLength
@@ -41,7 +44,11 @@ sub FormatXSDTrackLength
 sub UnformatTrackLength
 {
     my $length = shift;
-    if ($length =~ /^\s*(\d{1,3}):(\d{1,2})\s*$/ && $2 < 60)
+    if ($length =~ /^\s*(\d{1,3}):(\d{1,2}):(\d{1,2})\s*$/ && $2 < 60 && $3 < 60)
+    {
+        return ($1 * 3600 + $2 * 60 + $3) * 1000;
+    }
+    elsif ($length =~ /^\s*(\d{1,3}):(\d{1,2})\s*$/ && $2 < 60)
     {
         return ($1 * 60 + $2) * 1000;
     }
