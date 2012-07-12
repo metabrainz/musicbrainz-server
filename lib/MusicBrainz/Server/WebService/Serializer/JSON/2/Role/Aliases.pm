@@ -7,6 +7,8 @@ around serialize => sub {
 
     my $opts = $stash->store ($entity);
 
+    return %ret unless scalar @{ $opts->{aliases} };
+
     my @aliases;
     for my $alias (sort_by { $_->name } @{ $opts->{aliases} })
     {

@@ -1,11 +1,11 @@
 package MusicBrainz::Server::ControllerBase::WS::js;
 use Moose;
-use MusicBrainz::Server::WebService::AcceptHeader;
+use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::JSONSerializer;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-with 'MusicBrainz::Server::WebService::AcceptHeader' =>
+with 'MusicBrainz::Server::WebService::Format' =>
 {
     serializers => [ 'MusicBrainz::Server::WebService::JSONSerializer' ]
 };

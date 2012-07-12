@@ -7,13 +7,14 @@ use MusicBrainz::Server::WebService::WebServiceInc;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serializer serialize_entity list_of);
 
 sub mime_type { 'application/json' }
+sub fmt { 'json' }
 
 sub serialize
 {
     my ($self, $type, @data) = @_;
 
     my $override = $self->meta->find_method_by_name ($type);
-    return $override->execute (@data) if $override;
+    return $override->execute ($self, @data) if $override;
 
     my ($entity, $inc, $opts) = @data;
 

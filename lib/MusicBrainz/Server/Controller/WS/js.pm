@@ -6,8 +6,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 use Data::OptList;
 use Encode qw( decode encode );
 use List::UtilsBy qw( uniq_by );
-use MusicBrainz::Server::WebService::AcceptHeader;
-use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
@@ -42,11 +40,6 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET'
     }
 ]);
-
-with 'MusicBrainz::Server::WebService::AcceptHeader' =>
-{
-    serializers => [ 'MusicBrainz::Server::WebService::JSONSerializer' ]
-};
 
 with 'MusicBrainz::Server::WebService::Validator' =>
 {

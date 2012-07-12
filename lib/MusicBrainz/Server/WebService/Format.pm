@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::AcceptHeader;
+package MusicBrainz::Server::WebService::Format;
 use MooseX::Role::Parameterized;
 use REST::Utils qw( best_match );
 
@@ -14,11 +14,17 @@ role {
     {
         my ($self, $c) = @_;
 
+        my %formats = map { $_->fmt => $_ } @{ $role->serializers };
+
+        my $fmt = $c->request->parameters->{fmt};
+        return $formats{$fmt} if $fmt && $formats{$fmt};
+
         my %accepted = map { $_->mime_type => $_ } @{ $role->serializers };
 
         # Default to application/xml when no accept header is specified.
         # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
         my $accept = $c->req->header ('Accept') // "application/xml";
+
         my $match = best_match ([ keys %accepted ], $accept);
 
         return $accepted{$match} if $match;
