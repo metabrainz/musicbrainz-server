@@ -75,6 +75,16 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
+                ],                
+
+                [
+                    'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
+                    MB.constants.LINK_TYPES.downloadfree.recording
+                ],
+
+                [
+                    'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
+                    MB.constants.LINK_TYPES.downloadfree.release
                 ],
 
                 [
@@ -181,6 +191,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
                     'release'
+                ],
+                [
+                    'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
+                    'http://www.jamendo.com/list/a84763',
+                    'release'
+                ],
+                [
+                    'http://www.jamendo.com/en/track/725574/giraffe',
+                    'http://www.jamendo.com/track/725574',
+                    'recording'
                 ],
                 [
                     'http://www.jamendo.com/en/album/56372',
