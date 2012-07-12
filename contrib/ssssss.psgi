@@ -122,7 +122,7 @@ sub handle_post
     {
         return $request->new_response (200);
     }
-    elsif (defenide $status && $status eq "201")
+    elsif (defined $status && $status eq "201")
     {
         my $response = $request->new_response (201);
         $response->body ("<fixme>some xml response goes here. see: http://docs.amazonwebservices.com/AmazonS3/latest/dev/HTTPPOSTForms.html?r=3818</fixme>");
