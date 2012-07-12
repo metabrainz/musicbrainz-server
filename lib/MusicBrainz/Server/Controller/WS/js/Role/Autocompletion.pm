@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use Text::Trim;
 use Text::Unaccent qw( unac_string_utf16 );
+use Scalar::Util qw ( blessed );
 
 requires 'type';
 
@@ -38,7 +39,13 @@ sub dispatch_search {
     $c->res->body($c->stash->{serializer}->serialize($serialization_routine, $output, $pager));
 }
 
-sub _load_entities { }
+sub _load_entities {
+    my ($self, $c, @entities) = @_;
+
+    if (blessed $c->stash->{inc} && $c->stash->{inc}->rels) {
+        $c->model('Relationship')->load (@entities);
+    }
+}
 
 sub _do_direct_search {
     my ($self, $c, $query, $offset, $limit) = @_;

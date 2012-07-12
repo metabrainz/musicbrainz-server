@@ -22,6 +22,93 @@ sub serialize_data
     return $json->encode($data);
 }
 
+sub serialize_release
+{
+    my ($self, $c, $release) = @_;
+
+    my $data = $self->_release($release);
+    my $mediums = $data->{mediums} = [];
+
+    if ($c->stash->{inc}->recordings) {
+        for my $medium ($release->all_mediums) {
+
+            my $medium_data = {
+                position => $medium->position,
+                $medium->name   ? ( name   => $medium->name ) : (),
+                $medium->format ? ( format => $medium->format_name ) : (),
+                tracks => [],
+            };
+
+            my $tracks_data = $medium_data->{tracks};
+
+            for my $track ($medium->tracklist->all_tracks) {
+                my $track_data = {
+                    name     => $track->name,
+                    position => $track->position,
+                    number   => $track->number,
+                    length   => $track->length,
+                    artist_credit => $self->_artist_credit( $track->artist_credit ),
+                    recording     => $self->_recording( $track->recording,
+                        MusicBrainz::Server::Entity::ArtistCredit::is_different
+                                   ( $track->artist_credit,
+                                     $track->recording->artist_credit) ),
+                };
+
+                if ($c->stash->{inc}->rels) {
+                    $track_data->{recording}->{relationships} =
+                        $self->serialize_relationships( $track->recording->all_relationships );
+                }
+
+                push @{ $medium_data->{tracks} }, $track_data;
+            }
+
+            push @{ $mediums }, $medium_data;
+        }
+    }
+    if ($c->stash->{inc}->rels) {
+        $data->{relationships} = $self->serialize_relationships( $release->all_relationships );
+    }
+    return $self->serialize_data($data);
+}
+
+sub serialize_relationships
+{
+    my ($self, @relationships) = @_;
+
+    my $data = {};
+
+    for (@relationships) {
+        my $rels = $data->{ $_->target_type } //= {};
+        $rels = $rels->{ $_->link->type->name } //= [];
+
+        my $entity = '_' . $_->target_type;
+        $entity =~ s/\-/_/g;
+
+        my $out = {
+            id         => $_->id,
+            link_type  => $_->link->type_id,
+            attributes => $_->link->get_attribute_hash,
+            $_->link->begin_date->has_year
+                ? ( begin_date => $_->link->begin_date->format ) : (),
+            $_->link->end_date->has_year
+                ? ( end_date => $_->link->end_date->format ) : (),
+            ended         => $_->link->ended ? 1 : 0,
+            target        => $self->$entity( $_->target ),
+            edits_pending => $_->edits_pending,
+        };
+
+        $out->{direction} = 'backward'
+            if ($_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
+
+        $out->{target}->{relationships} = $self->serialize_relationships
+            ( $_->target->all_relationships ) if $_->target->all_relationships;
+
+        push @{ $rels }, $out;
+    }
+
+    return $data;
+}
+
 sub autocomplete_generic
 {
     my ($self, $output, $pager) = @_;
@@ -46,11 +133,19 @@ sub _generic
         name    => $entity->name,
         id      => $entity->id,
         gid     => $entity->gid,
-        comment => $entity->comment,
+        $entity->comment ? ( comment => $entity->comment ) : (),
         $entity->meta->has_attribute('sort_name')
-            ? (sortname => $entity->sort_name) : ()
+            ? (sortname => $entity->sort_name) : (),
+        $entity->meta->has_attribute('artist_credit') && $entity->artist_credit
+            ? (artist_credit => $self->_artist_credit($entity->artist_credit)) : ()
     };
 }
+
+sub _artist { goto &_generic }
+
+sub _label { goto &_generic }
+
+sub _release { goto &_generic }
 
 sub autocomplete_editor
 {
@@ -110,7 +205,7 @@ sub _release_group
         name    => $item->name,
         id      => $item->id,
         gid     => $item->gid,
-        comment => $item->comment,
+        $item->comment ? ( comment => $item->comment ) : (),
         artist  => $item->artist_credit->name,
         type    => $item->primary_type_id,
         $item->primary_type ? (typeName => $item->primary_type->name) : ()
@@ -122,9 +217,21 @@ sub autocomplete_recording
     my ($self, $results, $pager) = @_;
 
     my $json = JSON::Any->new;
-
     my @output;
-    push @output, $self->_recording($_) for @$results;
+
+    for (@$results) {
+        my $out = $self->_recording( $_->{recording} );
+
+        $out->{appears_on} = {
+            hits    => $_->{appears_on}{hits},
+            results => [ map { {
+                'name' => $_->name,
+                'gid'  => $_->gid
+            } } @{ $_->{appears_on}{results} } ],
+        };
+
+        push @output, $out
+    }
 
     push @output, {
         pages => $pager->last_page,
@@ -136,23 +243,18 @@ sub autocomplete_recording
 
 sub _recording
 {
-    my ($self, $item) = @_;
+    my ($self, $recording, $show_ac) = @_;
 
     return {
-        name    => $item->{recording}->name,
-        id      => $item->{recording}->id,
-        gid     => $item->{recording}->gid,
-        comment => $item->{recording}->comment,
-        length  => format_track_length ($item->{recording}->length),
-        artist  => $item->{recording}->artist_credit->name,
-        isrcs   => [ map { $_->isrc } @{ $item->{recording}->isrcs } ],
-        appears_on  => {
-            hits    => $item->{appears_on}{hits},
-            results => [ map { {
-                'name' => $_->name,
-                'gid'  => $_->gid
-            } } @{ $item->{appears_on}{results} } ],
-        }
+        name    => $recording->name,
+        id      => $recording->id,
+        gid     => $recording->gid,
+        $recording->comment ? ( comment => $recording->comment ) : (),
+        length  => format_track_length ($recording->length),
+        artist  => $recording->artist_credit->name,
+        $show_ac ? ( artist_credit  =>
+            $self->_artist_credit($recording->artist_credit) ) : (),
+        isrcs => [ map { $_->isrc } $recording->all_isrcs ],
     };
 }
 
@@ -163,7 +265,12 @@ sub autocomplete_work
     my $json = JSON::Any->new;
 
     my @output;
-    push @output, $self->_work($_) for (@$results);
+
+    for (@$results) {
+        my $out = $self->_work( $_->{work} );
+        $out->{artists} = $_->{artists};
+        push @output, $out;
+    }
 
     push @output, {
         pages => $pager->last_page,
@@ -175,15 +282,36 @@ sub autocomplete_work
 
 sub _work
 {
-    my ($self, $item) = @_;
+    my ($self, $work) = @_;
 
     return {
-        name    => $item->{work}->name,
-        id      => $item->{work}->id,
-        gid     => $item->{work}->gid,
-        comment => $item->{work}->comment,
-        artists => $item->{artists},
+        name    => $work->name,
+        id      => $work->id,
+        gid     => $work->gid,
+        $work->comment ? ( comment => $work->comment ) : (),
     };
+}
+
+sub _url
+{
+    my ($self, $url) = @_;
+
+    return {
+        url           => $url->pretty_name,
+        id            => $url->id,
+        gid           => $url->gid,
+        edits_pending => $url->edits_pending,
+    };
+}
+
+sub _artist_credit
+{
+    my ($self, $ac) = @_;
+
+    return [ map +{
+        artist     => $self->_artist( $_->artist ),
+        joinphrase => $_->join_phrase,
+    }, $ac->all_names ];
 }
 
 __PACKAGE__->meta->make_immutable;
