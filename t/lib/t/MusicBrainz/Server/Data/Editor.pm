@@ -4,6 +4,7 @@ use Test::Moose;
 use Test::More;
 
 use DateTime;
+use DateTime::Format::Pg;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Constants qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
@@ -105,7 +106,8 @@ $editor = $editor_data->get_by_id($new_editor_2->id);
 is($editor->email, undef);
 is($editor->email_confirmation_date, undef);
 
-my $now = DateTime->now;
+my $now = DateTime::Format::Pg->parse_datetime(
+    $test->c->sql->select_single_value('SELECT now()'));
 $editor_data->update_email($new_editor_2, 'editor@example.com');
 
 $editor = $editor_data->get_by_id($new_editor_2->id);
