@@ -192,15 +192,15 @@
 
       <p><h3>[% l('Tools:') %]</h3>
         <span id="batch-recording" class="btn">
-          <img src="/static/images/icons/add_row.png" class="bottom"/>
+          <img src="/static/images/icons/add.png" class="bottom"/>
           [% l('Batch-add a relationship to recordings') %]
         </span><br/>
         <span id="batch-work" class="btn">
-          <img src="/static/images/icons/add_row.png" class="bottom"/>
+          <img src="/static/images/icons/add.png" class="bottom"/>
           [% l('Batch-add a relationship to works') %]
         </span><br/>
         <span class="btn">
-          <img src="/static/images/icons/add_row.png" class="bottom"/>
+          <img src="/static/images/icons/add.png" class="bottom"/>
           [% l('Batch-create new works') %]
         </span>
       </p>

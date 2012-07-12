@@ -93,7 +93,7 @@ Buttons.AddRelationship = function(source) {
 
 Buttons.AddRelationship.prototype.template =
     '<span class="add-rel btn">' +
-        '<img src="/static/images/icons/add_row.png" class="bottom"/> ' +
+        '<img src="/static/images/icons/add.png" class="bottom"/> ' +
         MB.text.AddRelationship +
     '</span>';
 
@@ -105,7 +105,7 @@ Buttons.RelateToWork = function(source) {
 
 Buttons.RelateToWork.prototype.template =
     '<span class="relate-work btn">' +
-        '&#8592 <img src="/static/images/icons/add_row.png" class="bottom"/> ' +
+        '&#8592 <img src="/static/images/icons/add.png" class="bottom"/> ' +
         MB.text.RelateRecordingWork + ' &#8594;' +
     '</span>';
 
