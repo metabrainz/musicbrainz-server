@@ -15,6 +15,9 @@ with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 
+use JSON;
+use Encode;
+use Text::Unaccent qw( unac_string_utf16 );
 use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
@@ -28,8 +31,14 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_MOVE
     $EDIT_RELEASE_REMOVE_COVER_ART
     $EDIT_RELEASE_REORDER_COVER_ART
+    $EDIT_RELATIONSHIP_CREATE
+    $EDIT_RELATIONSHIP_EDIT
+    $EDIT_RELATIONSHIP_DELETE
+    $EDIT_WORK_CREATE
 );
 use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Form::Utils qw( language_options );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -642,6 +651,179 @@ around _merge_submit => sub {
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
+
+sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth
+{
+    my ($self, $c) = @_;
+    my $release = $c->stash->{release};
+    my %type_info;
+    my @link_type_tree = $c->model('LinkType')->get_full_tree;
+
+    foreach (@link_type_tree) {
+        next if $_->name !~ /(recording|work|release)/;
+        my %tmp = $c->controller('Edit::Relationship')->build_type_info($_);
+        @type_info{ keys %tmp } = values %tmp;
+    }
+
+    my $language_options = language_options($c);
+    my @work_languages;
+    foreach my $lang (@$language_options) {
+        my $i = $lang->{optgroup_order} - 1;
+        $work_languages[$i] //= {
+            optgroup => $lang->{optgroup},
+            options  => []
+        };
+        push @{ $work_languages[$i]{options} },
+              { label => $lang->{label}, value => $lang->{value} };
+    }
+
+    # unnaccent instrument attributes names
+    sub unaccent {
+        my $root = $_;
+        $root->{unaccented} =
+            decode("utf-16", unac_string_utf16(encode("utf-16", $root->{name})));
+        if (defined $root->{children}) {
+            unaccent($_) for @{ $root->{children} };
+        }
+    };
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+    my $attr_hash = $c->model('LinkAttributeType')->get_hash($attr_tree);
+    unaccent($_) for @{ $attr_hash->{14}->{children} };
+
+    my $loaded_entities = {};
+    my $loaded_relationships = {};
+    my $error_fields = {};
+
+    $c->stash(
+        release => $release,
+        work_types => [ $c->model('WorkType')->get_all ],
+        work_languages => \@work_languages,
+        type_info => \%type_info,
+        attr_tree => $attr_hash,
+        loaded_entities => $loaded_entities,
+        loaded_relationships => $loaded_relationships,
+        error_fields => $error_fields,
+        params => $c->req->body_parameters,
+    );
+
+    my $form = $c->form(
+        form => 'RelationshipEditor',
+        link_type_tree => \@link_type_tree,
+        attr_tree => $attr_tree,
+        language_options => $language_options,
+    );
+    return if !($c->form_posted && $form->submitted_and_valid($c->req->body_parameters));
+
+    my @added_fields;
+    my $edited_fields = {};
+    my $removed_fields = {};
+
+    # new works have a fake generated id, equal to the gid
+    sub new_work {
+        my $ent = shift;
+        return $ent->{type} eq 'work' && $ent->{id} eq $ent->{gid};
+    }
+
+    foreach my $field ($form->field('rels')->fields) {
+        my $rel = $field->value;
+        my $action = $rel->{action};
+        my $entity0 = $rel->{entity}->[0];
+        my $entity1 = $rel->{entity}->[1];
+        my $types =  $entity0->{type} . '-' . $entity1->{type};
+
+        if ($action eq 'remove') {
+            # prevent people from submitting a remove and edit action on the
+            # same rel
+            $removed_fields->{$types} //= {};
+            $removed_fields->{$types}->{$rel->{id}} = 1;
+
+            my $relationship = $loaded_relationships->{$types}->{$rel->{id}};
+
+            $c->model('MB')->with_transaction(sub {
+                $self->_insert_edit(
+                    $c, $form,
+                    edit_type => $EDIT_RELATIONSHIP_DELETE,
+                    relationship => $relationship,
+                );
+            });
+        } else {
+            if ($action eq 'add') {
+                my $new_work = new_work($entity0) ? $entity0 : (
+                               new_work($entity1) ? $entity1 : undef);
+
+                if ($new_work && !exists $loaded_entities->{$new_work->{gid}}) {
+
+                    $c->model('MB')->with_transaction(sub {
+                        my $edit = $self->_insert_edit(
+                            $c, $form,
+                            edit_type => $EDIT_WORK_CREATE,
+                            name => $new_work->{name},
+                            comment => $new_work->{comment},
+                            type_id => $new_work->{type_id},
+                            language_id => $new_work->{language_id}
+                        );
+                        $loaded_entities->{$new_work->{gid}} =
+                            $c->model('Work')->get_by_id($edit->entity_id);
+                    });
+                }
+                push @added_fields, $field;
+
+            } elsif ($action eq 'edit') {
+                $edited_fields->{$types} //= {};
+                $edited_fields->{$types}->{$rel->{id}} = $field;
+            }
+        }
+    }
+
+    foreach my $field (@added_fields) {
+        my $rel = $field->value;
+        my $entity0 = $rel->{entity}->[0];
+        my $entity1 = $rel->{entity}->[1];
+        my @attributes = $c->controller('Edit::Relationship')
+            ->flatten_attributes($attr_tree, $field->field('attrs'));
+
+        $c->controller('Edit::Relationship')->try_and_insert(
+            $c, $form, $entity0->{type}, $entity1->{type}, (
+                entity0 => $loaded_entities->{$entity0->{gid}},
+                entity1 => $loaded_entities->{$entity1->{gid}},
+                link_type_id => $rel->{link_type},
+                attributes => \@attributes,
+                begin_date => $rel->{begin_date},
+                end_date => $rel->{end_date},
+                ended => $rel->{ended},
+        ));
+    }
+
+    foreach my $types (keys %$edited_fields) {
+        my $edited = $edited_fields->{$types};
+        my $removed = $removed_fields->{$types};
+
+        foreach my $id (keys %$edited) {
+            next if exists $removed->{$id};
+            my $field = $edited->{$id};
+            my $rel = $field->value;
+            my $entity0 = $rel->{entity}->[0];
+            my $entity1 = $rel->{entity}->[1];
+
+            my $relationship = $loaded_relationships->{$types}->{$rel->{id}};
+            my @attributes = $c->controller('Edit::Relationship')
+                ->flatten_attributes($attr_tree, $field->field('attrs'));
+
+            $c->controller('Edit::Relationship')->try_and_edit(
+                $c, $form, $entity0->{type}, $entity1->{type}, $relationship, (
+                    new_link_type_id => $rel->{link_type},
+                    new_begin_date => $rel->{begin_date},
+                    new_end_date => $rel->{end_date},
+                    ended => $rel->{ended},
+                    attributes => \@attributes,
+                    entity0_id => $entity0->{id},
+                    entity1_id => $entity1->{id},
+            ));
+        }
+    }
+    $c->res->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
+    $c->detach;
+}
 
 sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit RequireAuth
 {

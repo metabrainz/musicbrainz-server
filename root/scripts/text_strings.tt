@@ -27,6 +27,7 @@
         Cancel: '[% l('Cancel') | js %]',
         Change: '[% l('Change') | js %]',
         Done: '[% l('Done') | js %]',
+        Search: '[% l('Search') | js %]',
         AppearsOn: '[% l('appears on:') | js %]',
         UseAltNames: '[% l('Some artists credited with alternative names') | js %]',
         Preview: '[% l('Preview: ') | js %]',
@@ -85,6 +86,24 @@
         },
         link: '[% l('link') | js %]',
         ShowMore: '[% l('Show more...') | js %]',
-        ShowLess: '[% l('Show less...') | js %]'
+        ShowLess: '[% l('Show less...') | js %]',
+        Medium: '[% l('Medium') | js %]',
+        RequiredField: '[% l('Required field.') | js %]',
+        AddRelationship: '[% l('Add relationship') | js %]',
+        RelateRecordingWork: '[% l('Relate recording to work') | js %]',
+        InvalidDate: '[% l('The date you entered is not valid.') | js %]',
+        EditRelationship: '[% l('Edit relationship') | js %]',
+        LoadingRelationships: '[% l('Loading relationships...') | js %]',
+        ErrorLoadingRelationships: '[% l('Error loading relationships') | js %]',
+        ChangeDirection: '[% l('Change direction') | js %]',
+        Entity: {
+            artist:          "[% l('Artist') | js %]",
+            label:           "[% l('Label') | js %]",
+            recording:       "[% l('Recording') | js %]",
+            release:         "[% l('Release') | js %]",
+            'release-group': "[% l('Release group') | js %]",
+            url:             "[% l('URL') | js %]",
+            work:            "[% l('Work') | js %]",
+        },
     });
 })(MB);

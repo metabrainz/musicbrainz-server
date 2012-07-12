@@ -16,7 +16,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-MB.utility.keys = function (obj) {
+MB.utility.keys = Object.keys || function (obj) {
     var ret = [];
     for (var key in obj) {
         if (obj.hasOwnProperty (key))

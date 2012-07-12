@@ -17,7 +17,7 @@ use JSON;
 
 sub build_type_info
 {
-    my ($tree) = @_;
+    my ($self, $tree) = @_;
 
     sub _builder
     {
@@ -29,8 +29,18 @@ sub build_type_info
                 defined $_->max ? 0 + $_->max : undef,
             ] } $root->all_attributes;
             $info->{$root->id} = {
+                id => $root->id,
                 descr => $root->description,
                 attrs => \%attrs,
+                type0 => $root->entity0_type,
+                type1 => $root->entity1_type,
+                link_phrase  => $root->link_phrase,
+                reverse_link_phrase => $root->reverse_link_phrase,
+                $root->parent_id ? (parent => $root->parent_id) : (),
+                $root->all_children ?
+                    (children => [ map { $_->id } $root->all_children ]) : (),
+                child_order  => $root->child_order,
+
             };
         }
         foreach my $child ($root->all_children) {
@@ -167,6 +177,21 @@ sub try_and_insert {
     );
 }
 
+sub flatten_attributes {
+    my ($self, $attr_tree, $field) = @_;
+
+    my @attributes;
+    for my $attr ($attr_tree->all_children) {
+        my $value = $field->field($attr->name)->value;
+        next unless defined($value);
+
+        push @attributes, scalar($attr->all_children)
+            ? @$value
+            : $value ? $attr->id : ();
+    }
+    return @attributes;
+}
+
 sub edit : Local RequireAuth Edit
 {
     my ($self, $c) = @_;
@@ -181,7 +206,7 @@ sub edit : Local RequireAuth Edit
     $c->model('Relationship')->load_entities($rel);
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
-    my %type_info = build_type_info($tree);
+    my %type_info = $self->build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(
@@ -243,15 +268,7 @@ sub edit : Local RequireAuth Edit
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my @attributes;
-        for my $attr ($attr_tree->all_children) {
-            my $value = $form->field('attrs')->field($attr->name)->value;
-            next unless defined($value);
-
-            push @attributes, scalar($attr->all_children)
-                ? @$value
-                : $value ? $attr->id : ();
-        }
+        my @attributes = $self->flatten_attributes($attr_tree, $form->field('attrs'));
 
         my @ids = $form->field('direction')->value
                 # User is changing the direction
@@ -328,7 +345,7 @@ sub create : Local RequireAuth Edit
     }
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
-    my %type_info = build_type_info($tree);
+    my %type_info = $self->build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(
@@ -358,15 +375,7 @@ sub create : Local RequireAuth Edit
     );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my @attributes;
-        for my $attr ($attr_tree->all_children) {
-            my $value = $form->field('attrs')->field($attr->name)->value;
-            next unless defined($value);
-
-            push @attributes, scalar($attr->all_children)
-                ? @$value
-                : $value ? $attr->id : ();
-        }
+        my @attributes = $self->flatten_attributes($attr_tree, $form->field('attrs'));
 
         my $entity0 = $source;
         my $entity1 = $dest;
@@ -450,7 +459,7 @@ sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
     $ents[1 - $rec_idx] = $dest;
 
     my $tree = $c->model('LinkType')->get_tree(@types);
-    my %type_info = build_type_info($tree);
+    my %type_info = $self->build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(
@@ -549,7 +558,7 @@ sub create_url : Local RequireAuth Edit
         $c->stash( message => l('Invalid type') );
         $c->detach('/error_500');
     }
-    
+
     my $entity = $model->get_by_gid($gid);
     unless (defined $entity) {
         $c->stash( message => l('Entity not found') );
@@ -557,7 +566,7 @@ sub create_url : Local RequireAuth Edit
     }
 
     my $tree = $c->model('LinkType')->get_tree(@types);
-    my %type_info = build_type_info($tree);
+    my %type_info = $self->build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(

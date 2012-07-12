@@ -1,0 +1,8 @@
+scripts/relationship-editor/RelationshipEditor.js
+scripts/relationship-editor/Util.js
+scripts/relationship-editor/UI/UI.js
+scripts/relationship-editor/UI/Buttons.js
+scripts/relationship-editor/UI/Dialog/Dialog.js
+scripts/relationship-editor/UI/Dialog/Fields.js
+scripts/relationship-editor/Entity.js
+scripts/relationship-editor/Relationship.js
