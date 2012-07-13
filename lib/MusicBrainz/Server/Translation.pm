@@ -112,6 +112,9 @@ sub _set_language
             } $self->all_system_languages;
     }
     my $set_lang = web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
+    if (!defined $set_lang) {
+        return 'en';
+    }
     # Strip off charset
     $set_lang =~ s/\.utf-8//;
     # Change en_AQ back to en-aq to compare with MB_LANGUAGES
