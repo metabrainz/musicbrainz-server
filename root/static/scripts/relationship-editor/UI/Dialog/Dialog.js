@@ -272,7 +272,7 @@ Dialog.result = function(result) {
         var item = this.autocomplete.currentSelection;
 
         if (!(item && this.$acname.hasClass("lookup-performed"))) {
-            $("span.error", "#target").text(MB.text.RequiredField);
+            $("div.error", "#target").text(MB.text.RequiredField);
             return;
         }
         // $.extend removes undefined props for us

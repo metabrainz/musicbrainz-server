@@ -159,8 +159,8 @@ Relationship.prototype.remove = function() {
 Relationship.prototype.linkPhrase = function() {
 
     var attrs = {}, type_info = RE.type_info[this.fields.link_type],
-        phrase = this.direction == "backward"
-            ? type_info.reverse_link_phrase : type_info.link_phrase;
+        phrase = this.source === this.fields.entity[0]
+            ? type_info.link_phrase : type_info.reverse_link_phrase;
 
     if (this.fields.attrs) {
         var names = MB.utility.keys(this.fields.attrs);

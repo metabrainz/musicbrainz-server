@@ -86,7 +86,7 @@ UI.initCheckboxes = function() {
                     .filter(checked ? ":not(:checked)" : ":checked")
                     .prop("checked", checked).length * (checked ? 1 : -1);
             } else {
-                count = this.checked ? 1 : -1;
+                count = checked ? 1 : -1;
             }
             counter.count += count;
             count_msg($tools, counter.count, counter_str);
