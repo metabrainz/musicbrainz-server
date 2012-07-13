@@ -14,19 +14,8 @@ sub process
     my $self = shift;
     my $c = $_[0];
 
-    my $cookie = $c->request->cookies->{lang};
-    my $lang = MusicBrainz::Server::Translation->instance->_set_language($cookie);
-    # because s///r is a perl 5.14 feature
-    my $html_lang = $lang;
-    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
-    $c->stash(
-        current_language => $lang,
-        current_language_html => $html_lang
-    );
 
-    my $ret = $self->next::method(@_);
-    MusicBrainz::Server::Translation->instance->_unset_language();
-    $ret or return 0;
+    $self->next::method(@_) or return 0;
 
     return 1 unless &DBDefs::USE_ETAGS;
 
