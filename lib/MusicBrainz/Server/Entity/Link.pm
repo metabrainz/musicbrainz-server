@@ -80,8 +80,8 @@ sub get_attribute_hash
     my ($self) = @_;
 
     my %hash;
-    for ($self->all_attributes) {
-        if ($_->all_children) {
+    foreach ($self->all_attributes) {
+        if ($_->id != $_->root->id) {
             my $attrs = $hash{ $_->root->name } //= [];
             push @$attrs, $_->id;
         } else {

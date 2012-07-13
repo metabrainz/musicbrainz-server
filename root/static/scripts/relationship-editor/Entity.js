@@ -19,9 +19,8 @@
 
 (function() {
 
-var Entity, cache = {},
-    fields = ["name", "id", "gid", "type", "sortname"],
-    work_fields = ["work_comment", "work_type_id", "work_language_id"];
+var Entity, cache = {}, fields = ["name", "id", "gid", "type", "sortname",
+    "work_comment", "work_type_id", "work_language_id"];
 
 // represents a core entitiy, either existing or newly-created.
 // only "source" entities have relationships (recordings, works, the release).
@@ -82,15 +81,9 @@ Entity.prototype.removeOrphans = function() {
 // makes access far less convenient
 
 Entity.prototype.getFields = function() {
-    var foo = {};
-    for (var i = 0; i < fields.length; i++) {
-        foo[fields[i]] = this[fields[i]];
-    }
-    if (this.type == "work") {
-        for (var i = 0; i < work_fields.length; i++) {
-            foo[work_fields[i]] = this[work_fields[i]];
-        }
-    }
+    var foo = {}, field;
+    for (var i = 0; field = fields[i]; i++)
+        if (this[field]) foo[field] = this[field];
     return foo;
 };
 
@@ -102,18 +95,10 @@ RE.Entity = function(obj) {
     if ((ent = cache[obj.gid]) === undefined) {
         ent = cache[obj.gid] = new Entity;
     }
-    for (var i = 0; i < fields.length; i++) {
-        field = fields[i];
-        if (obj[field]) ent[field] = obj[field];
-    }
-    // we always want work_fields to be overwritten, even if falsy, because
-    // they're edited directly by the user
-    if (obj.type == "work") {
-        for (var i = 0; i < work_fields.length; i++) {
-            field = work_fields[i];
-            ent[field] = obj[field] || null;
-        }
-    }
+    // obj is usually passed in from json, and has its own relationships obj
+    var rels = ent.relationships;
+    $.extend(true, ent, obj);
+    if (rels) ent.relationships = rels;
     return ent;
 };
 

@@ -93,9 +93,9 @@ Dialog.init = function() {
 
 
 function dumpErrors(errors, $container) {
-    var $ul = $("<ul></ul>");
-    for (var i = 0; i < errors.length; i++)
-        $("<li></li>").text(errors[i]).appendTo($ul);
+    var $ul = $("<ul></ul>"), keys = MB.utility.keys(errors), key;
+    for (var i = 0; key = keys[i]; i++)
+        $("<li></li>").text(errors[key]).appendTo($ul);
     $container.append($ul);
 }
 
@@ -103,6 +103,8 @@ function dumpErrors(errors, $container) {
 Dialog.setup = function(source, target_type) {
     Dialog.source = source;
     Dialog.recording_work = source.type == "recording" && target_type == "work";
+    Dialog.new_work = Dialog.recording_work &&
+        this.relationship && !RE.Util.isMBID(this.relationship.target.gid);
 
     $("#work-options").toggle(this.recording_work);
 
@@ -120,6 +122,32 @@ Dialog.setup = function(source, target_type) {
 
     this.$dialog.find(".error").empty();
 
+    function dumpEntityErrors(entity) {
+        var errors = entity.errors;
+        if (Dialog.relationship.source === entity) {
+            dumpErrors(errors, $("#source div.error"));
+        } else if (Dialog.new_work) {
+            if (errors.name) {
+                Dialog.$work_name.next("div.error")
+                    .append(errors.name.join("<br/>"));
+            }
+            if (errors.work_comment) {
+                Dialog.$work_comment.next("div.error")
+                    .append(errors.work_comment.join("<br/>"));
+            }
+            if (errors.work_type_id) {
+                Dialog.$work_type.next("div.error")
+                    .append(errors.work_type_id.join("<br/>"));
+            }
+            if (errors.work_language_id) {
+                Dialog.$work_lang.next("div.error")
+                    .append(errors.work_language_id.join("<br/>"));
+            }
+        } else {
+            dumpErrors(errors, $("#target div.error"));
+        }
+    }
+
     // populate errors we got from the server (not client-side errors)
     if (this.relationship && this.relationship.errors) {
         var fields = this.relationship.fields;
@@ -127,17 +155,8 @@ Dialog.setup = function(source, target_type) {
         if (fields.link_type.errors) {
             dumpErrors(fields.link_type.errors, Fields.LinkType.$error);
         }
-        var $container;
-        if (fields.entity[0].errors) {
-            $container = this.relationship.source == fields.entity[0]
-                ? $("#source div.error") : $("#target div.error");
-            dumpErrors(fields.entity[0].errors, $container);
-        }
-        if (fields.entity[1].errors) {
-            $container = this.relationship.source == fields.entity[1]
-                ? $("#source div.error") : $("#target div.error");
-            dumpErrors(fields.entity[1].errors, $container);
-        }
+        if (fields.entity[0].errors) dumpEntityErrors(fields.entity[0]);
+        if (fields.entity[1].errors) dumpEntityErrors(fields.entity[1]);
         if (fields.begin_date && fields.begin_date.errors) {
             dumpErrors(fields.begin_date.errors, this.beginDate.$error);
         }
@@ -149,8 +168,8 @@ Dialog.setup = function(source, target_type) {
         }
         if (this.attributes) {
             for (var i = 0; i < this.attributes.length; i++) {
-                var obj = this.attributes[i], errors = fields.attrs[obj.attr.name];
-                if (errors) dumpErrors(errors, obj.$error);
+                var obj = this.attributes[i], field = fields.attrs[obj.attr.name];
+                if (field && field.errors) dumpErrors(field.errors, obj.$error);
             }
         }
     }
@@ -360,7 +379,7 @@ EditDialog.setup = function(relationship, source, target_type) {
 
     var fields = this.relationship.fields;
 
-    if (this.recording_work && !RE.Util.isMBID(relationship.target.gid)) {
+    if (Dialog.new_work) {
         $("#new-work-button").click().change();
         this.$work_name.val(relationship.target.name);
         this.$work_comment.val(relationship.target.work_comment);

@@ -26,65 +26,35 @@ var Util = RE.Util = {}, CGI = Util.CGI = {}, cgi_regex,
 // the regex is used to skip any invalid ones
 
 cgi_regex = new RegExp(
-    "^rel-editor\\.rels\\.\\d+\\.(?:id|action|link_type|entity\\.[01]\\.(?:id" +
-    "|type|name|gid|sortname|comment|type_id|language_id)|ended|begin_date\\." +
-    "(?:year|month|day)|end_date\\.(?:year|month|day)|attrs\\.(?:[a-z_]+(?:\\" +
-    ".\\d+)?)|direction)$"
+    "^rel-editor\\.rels\\.\\d+\\.(?:id|action|link_type|entity\\.[01]\\.(?:id|" +
+    "type|name|gid|sortname|work_comment|work_type_id|work_language_id)|ended|" +
+    "begin_date\\.(?:year|month|day)|end_date\\.(?:year|month|day)|attrs\\.(?:" +
+    "[a-z_]+(?:\\.\\d+)?)|direction)$"
 );
 
-var hasError = function(error_keys, key) {
-    for (var i = 0; i < error_keys.length; i++) {
-        var err_key = error_keys[i];
-        if (err_key.lastIndexOf(key, 0) === 0) {
-            error_keys.splice(i, 1);
-            return err_key;
-        }
-    }
-    return false;
-};
 
 CGI.parseParams = function(params, error_fields) {
-    var result = {}, keys = MB.utility.keys(params),
-        error_keys = MB.utility.keys(error_fields);
+    var result = {}, keys = MB.utility.keys(params), key;
 
-    for (var i = 0; i < keys.length; i++) {
-        var key = keys[i], field, errors = false;
-        if (!key.match(cgi_regex)) continue;
-        var value = params[key], parts = key.split("."), num = parts[2];
+    for (var i = 0; key = keys[i]; i++) {
+        if (!cgi_regex.test(key)) continue;
+        var value = params[key], parts = key.split("."), part, num = parts[2],
+            ckey = 'rel-editor.rels.' + num, errors = false,
+            field = result[num] = result[num] || {};
 
-        if ((field = result[num]) === undefined) {
-            field = result[num] = {};
-        }
         if ($.isArray(value)) value = value[0];
-        if (/^\d+$/.test(value)) value = parseInt(value);
+        if (/^\d+$/.test(value)) value = parseInt(value, 10);
 
-        current_key = 'rel-editor.rels.' + num + '.' + parts[3];
-        for (var j = 3; j < parts.length; j++) {
-
-            var err_key;
-            if (err_key = hasError(error_keys, current_key)) {
-                if (field.errors === undefined) {
-                    field.errors = [];
-                }
+        for (var j = 3; part = parts[j]; j++) {
+            ckey += "." + part;
+            if (error_fields[ckey] !== undefined) {
+                (field.errors = field.errors || {})[part] = error_fields[ckey];
                 errors = true;
-                field.errors.push(error_fields[err_key]);
             }
-            var part = parts[j];
+            if (j == parts.length - 1) field[part] = value;
 
-            if (part == "entity") {
-                if (field[part] === undefined) field[part] = [];
-                field = field[part];
-            } else if (parts[j - 2] == "attrs") {
-                field.push(value);
-
-            } else if (j == parts.length - 1) {
-                field[part] = value;
-
-            } else {
-                field = field[part] = (
-                    field[part] || (parts[j - 1] == "attrs" ? [] : {})
-                );
-            }
+            field = field[part] = field[part] ||
+                ((part == "entity" || parts[j - 1] == "attrs") ? [] : {});
         }
         if (errors) result[num].errors = true;
     }
@@ -95,7 +65,7 @@ CGI.parseParams = function(params, error_fields) {
      */
     var relnums = MB.utility.keys(result);
 
-    for (var i = 0; i < relnums.length; i++) {try {
+    for (i = 0; i < relnums.length; i++) {try {
         var num = relnums[i], field = result[num];
 
         var entity0 = field.entity[0] = RE.Entity(field.entity[0]),
@@ -152,9 +122,9 @@ var date_regex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
 Util.parseDate = function(str) {
     var match = str.match(date_regex);
     if (match) {
-        date = {year: parseInt(match[1])};
-        if (match[2]) date.month = parseInt(match[2]);
-        if (match[3]) date.day = parseInt(match[3]);
+        date = {year: parseInt(match[1], 10)};
+        if (match[2]) date.month = parseInt(match[2], 10);
+        if (match[3]) date.day = parseInt(match[3], 10);
         return date;
     }
 };

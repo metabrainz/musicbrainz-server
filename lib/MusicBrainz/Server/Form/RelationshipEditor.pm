@@ -108,11 +108,11 @@ has_field 'rels.direction' => (
     type => 'Select'
 );
 
-sub options_rels_work_type_id {
+sub options_rels_entity_work_type_id {
     shift->_select_all('WorkType');
 }
 
-sub options_rels_work_language_id {
+sub options_rels_entity_work_language_id {
     return shift->language_options;
 }
 
