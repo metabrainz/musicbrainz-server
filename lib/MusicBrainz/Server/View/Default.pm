@@ -14,7 +14,13 @@ sub process
     my $self = shift;
     my $c = $_[0];
 
-    MusicBrainz::Server::Translation->instance->_set_language();
+    my $cookie = $c->request->cookies->{lang};
+    my $lang = MusicBrainz::Server::Translation->instance->_set_language($cookie);
+    $c->stash(
+        current_language => $lang,
+        current_language_html => $lang =~ s/_([A-Z]{2})/-\L$1/r
+    );
+
     my $ret = $self->next::method(@_);
     MusicBrainz::Server::Translation->instance->_unset_language();
     $ret or return 0;

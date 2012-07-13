@@ -279,7 +279,6 @@ around 'dispatch' => sub {
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
-sub language { return $ENV{LANGUAGE} || 'en' }
 
 sub _handle_param_unicode_decoding {
     my ( $self, $value ) = @_;

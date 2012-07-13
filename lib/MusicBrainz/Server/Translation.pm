@@ -87,7 +87,7 @@ sub build_languages_from_header
 
 sub _set_language
 {
-    my $self = shift;
+    my ($self, $cookie) = @_;
 
     # Make sure everything is unset first.
     $ENV{LANGUAGE} = '';
@@ -96,14 +96,36 @@ sub _set_language
     $ENV{LC_ALL} = '';
     $ENV{LC_MESSAGES} = '';
 
-    my @avail_lang = grep {
-        my $l = $_;
-        grep { $l eq $_ } DBDefs::MB_LANGUAGES
-    } $self->all_system_languages;
-
-    # change e.g. 'en-aq' to 'en_AQ'
-    @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } @avail_lang;
-    web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
+    my @avail_lang;
+    if (defined $cookie && 
+        grep { $cookie->value eq $_ || $cookie->value =~ s/_([A-Z]{2})/-\L$1/r eq $_ } DBDefs::MB_LANGUAGES) {
+        @avail_lang = ($cookie->value);
+    } elsif (defined $cookie && 
+             grep { $cookie->value =~ s/_[A-Z]{2}//r eq $_ } DBDefs::MB_LANGUAGES) {
+        @avail_lang = ($cookie->value =~ s/_[A-Z]{2}//r)
+    } else {
+        # change e.g. 'en-aq' to 'en_AQ'
+        @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } 
+            grep {
+                my $l = $_;
+                grep { $l eq $_ } DBDefs::MB_LANGUAGES
+            } $self->all_system_languages;
+    }
+    my $set_lang = web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
+    # Strip off charset
+    $set_lang =~ s/\.utf-8//;
+    # Change en_AQ back to en-aq to compare with MB_LANGUAGES
+    if (grep { $set_lang eq $_ || $set_lang =~ s/_([A-Z]{2})/-\L$1/r eq $_ } DBDefs::MB_LANGUAGES) {
+        return $set_lang;
+    } 
+    # Check if the language without country code is in MB_LANGUAGES
+    elsif (grep { $set_lang =~ s/_[A-Z]{2}//r eq $_ } DBDefs::MB_LANGUAGES) {
+        return $set_lang =~ s/_[A-Z]{2}//r;
+    } 
+    # Give up, return the full language even though it looks wrong
+    else {
+        return $set_lang;
+    } 
 }
 
 sub _unset_language

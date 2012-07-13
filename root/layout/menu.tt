@@ -1,4 +1,24 @@
 <ul class="r">
+    [% IF languages.size > 0 -%]
+    <li class="language-selector">
+        [% FOREACH language = languages; IF language.0 == current_language -%]
+            <a href="[% c.uri_for_action('set_language', [ language.0 ]) %]">[%- language.1.native_name -%]</a>
+            [%- LAST; END -%]
+        [%- END %]
+        <ul>
+        [%- FOREACH language = languages -%]
+            [%- IF language.0 == current_language; selected_language = 1; ELSE; selected_language = 0; END %]
+            <li>[%- IF selected_language == 1 -%]<strong>[%- END %]
+                <a href="[% c.uri_for_action('set_language', [ language.0 ]) %]">[%- language.1.native_name -%]</a>
+                [%- IF selected_language == 1 -%]</strong>[%- END %]
+            </li>
+        [%- END %]
+            <li>
+                <a href="[% c.uri_for_action('set_language', [ 'unset' ] ) %]">[%- l('(reset language)') -%]</a>
+            </li>
+        </ul>
+    </li>
+    [%- END %]
     [%- IF c.user_exists -%]
         <li class="account">
             [% link_entity(c.user) %]

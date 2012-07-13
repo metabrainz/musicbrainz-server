@@ -10,6 +10,8 @@ use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 
+use DateTime::Locale;
+
 #
 # Sets the actions in this controller to be registered with no prefix
 # so they function identically to actions created in MyApp.pm
@@ -44,6 +46,25 @@ sub index : Path Args(0)
         blog => $c->model('Blog')->get_latest_entries,
         template => 'main/index.tt'
     );
+}
+
+=head2 set_language
+
+Sets the language; designed to be used from the language switcher
+
+=cut
+
+sub set_language : Path('set-language') Args(1)
+{
+    my ($self, $c, $lang) = @_;
+    if ($lang eq 'unset') {
+        # force the cookie to expire
+        $c->res->cookies->{lang} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+    } else {
+        $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/' };
+    }
+    $c->res->redirect($c->req->referer || $c->uri_for('/'));
+    $c->detach;
 }
 
 =head2 default
@@ -140,12 +161,22 @@ sub begin : Private
     # if no javascript cookie is set we don't know if javascript is enabled or not.
     my $jscookie = $c->request->cookie('javascript');
     my $js = $jscookie ? $jscookie->value : "unknown";
+    my @lang_with_locale = map { [ $_ => DateTime::Locale->load($_) ] } 
+                           grep { my $l = $_; 
+                                  grep { $l eq $_ } DateTime::Locale->ids() } 
+                           map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES();
+    my @lang_without_locale = map { [ $_ => {'native_name' => $_} ] } 
+                              grep { my $l = $_; 
+                                     !(grep { $l eq $_ } DateTime::Locale->ids()) } 
+                              map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES();
+    my @languages = (@lang_with_locale, @lang_without_locale);
     $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
 
     $c->stash(
         javascript => $js,
         no_javascript => $js eq "false",
         wiki_server => &DBDefs::WIKITRANS_SERVER,
+        languages => \@languages,
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
             testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,
