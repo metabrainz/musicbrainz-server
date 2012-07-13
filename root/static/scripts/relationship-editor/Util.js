@@ -58,7 +58,7 @@ CGI.parseParams = function(params, error_fields) {
         if ($.isArray(value)) value = value[0];
         if (/^\d+$/.test(value)) value = parseInt(value);
 
-        current_key = 'rel-editor.' + num + '.' + parts[3];
+        current_key = 'rel-editor.rels.' + num + '.' + parts[3];
         for (var j = 3; j < parts.length; j++) {
 
             var err_key;
