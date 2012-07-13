@@ -85,24 +85,27 @@ Relationship.prototype.update = function(obj, compare) {
         $entity.prepend("&#160;");
     }
 
-    if (fields.action == "add") {
+    var action = fields.action;
+    if (action == "add") {
         fields.direction = this.direction || "forward";
         create_fields = true;
         $phrase.addClass("rel-add");
 
-    } else if (fields.action != "add" && compare) {
-        delete fields.action;
+    } else if (action != "add" && compare) {
         var orig = RE.server_fields[this.type][fields.id];
+        delete fields.action;
 
         if (this.isIdentical(orig)) {
+            if (action && action != "edit") {
+                fields.action = action;
+                create_fields = true;
+            }
             $phrase.removeClass("rel-edit");
         } else {
             fields.action = "edit";
             create_fields = true;
             $phrase.addClass("rel-edit");
         }
-    } else if (fields.action == "remove") {
-        create_fields = true;
     }
     this.$container.children("input[type=hidden]").remove();
     if (create_fields) this.createFields();
@@ -155,6 +158,12 @@ Relationship.prototype.remove = function() {
     this.target.removeOrphans();
     this.source.removeOrphans();
     delete RE.relationships[this.type][this.fields.id];
+};
+
+
+Relationship.prototype.reset = function(obj) {
+    var fields = RE.server_fields[this.type][this.fields.id];
+    if (fields) this.update({fields: $.extend(obj, fields)}, true);
 };
 
 // Constructs the link phrase to display for this relationship

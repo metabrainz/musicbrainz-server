@@ -47,15 +47,15 @@ Buttons.initEvents = function() {
     });
 
     $("#batch-recording").click(function() {
-        UI.BatchAddDialog.show("recording");
+        if (!$(this).hasClass("disabled")) UI.BatchAddDialog.show("recording");
     });
 
     $("#batch-work").click(function() {
-        UI.BatchAddDialog.show("work");
+        if (!$(this).hasClass("disabled")) UI.BatchAddDialog.show("work");
     });
 
     $("#batch-create-works").click(function() {
-        UI.BatchCreateWorksDialog.show();
+        if (!$(this).hasClass("disabled")) UI.BatchCreateWorksDialog.show();
     });
 };
 
@@ -80,8 +80,7 @@ Buttons.Remove.clicked = function(event) {
                 rel.remove();
             });
         } else {
-            rel.fields.action = "remove";
-            rel.update();
+            rel.reset({action: "remove"});
             $container.children("span.link-phrase").addClass("rel-remove disabled");
         }
     } else {
