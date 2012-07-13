@@ -113,7 +113,8 @@ Relationship.prototype.update = function(obj, compare) {
     if ((old_target === undefined || (old_target && old_target.id != work.id)) &&
         this.type == "recording-work" && RE.works_loading[gid] === undefined) {
 
-        work.$ars = this.$container.children("div.ars").empty();
+        var $c = this.$container;
+        work.$ars = $c.children("div.ars").empty();
 
         if (old_target) {
             old_target.$ars = old_target.$ars.not(work.$ars);
@@ -129,6 +130,7 @@ Relationship.prototype.update = function(obj, compare) {
                     $loading.remove();
                     RE.parseRelationships(data, !old_target);
                     UI.renderWorkRelationships(RE.Entity(data), true);
+                    $c.children("input[type=checkbox]").data("source", work);
                 })
                 .error(function() {
                     $loading.remove();
@@ -141,6 +143,7 @@ Relationship.prototype.update = function(obj, compare) {
                 });
         } else {
             work.$ars.append(new UI.Buttons.AddRelationship(work));
+            $c.children("input[type=checkbox]").data("source", work);
         }
     }
 };
@@ -151,7 +154,7 @@ Relationship.prototype.remove = function() {
     this.$container.children().empty().end().empty().remove();
     this.target.removeOrphans();
     this.source.removeOrphans();
-    delete RE.relationships[this.fields.id];
+    delete RE.relationships[this.type][this.fields.id];
 };
 
 // Constructs the link phrase to display for this relationship
