@@ -92,7 +92,7 @@ Buttons.AddRelationship = function(source) {
 
 
 Buttons.AddRelationship.prototype.template =
-    '<span class="add-rel btn">' +
+    '<span class="add-rel btn">&#160;' +
         '<img src="/static/images/icons/add.png" class="bottom"/> ' +
         MB.text.AddRelationship +
     '</span>';
