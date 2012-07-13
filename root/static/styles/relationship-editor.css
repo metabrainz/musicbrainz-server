@@ -21,6 +21,7 @@
 }
 #content.rel-editor .add-rel {margin-top: 0.5em; display: inline-block;}
 #content.rel-editor img.bottom {vertical-align: bottom;}
+#content.rel-editor .btn.disabled {cursor: default; color: #999;}
 
 #content.rel-editor #errors-msg {
     border: 2px red dotted;

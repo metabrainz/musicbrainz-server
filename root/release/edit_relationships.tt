@@ -161,7 +161,7 @@
     </div>
 
     <div id="create-works-dialog" style="display: none;">
-      <p id="batch-create-work-msg" class="msg">
+      <p id="batch-create-works-msg" class="msg">
         [% l('This will create a new work for each checked recording that does
               not already have a related work. The work names will be the same as
               their respective recording’s.') %]
@@ -192,20 +192,33 @@
 
       <h2>[% l('Track Relationships') %]</h2>
 
-      <p><h3>[% l('Tools:') %]</h3>
-        <span id="batch-recording" class="btn">
-          <img src="/static/images/icons/add.png" class="bottom"/>
-          [% l('Batch-add a relationship to recordings') %]
-        </span><br/>
-        <span id="batch-work" class="btn">
-          <img src="/static/images/icons/add.png" class="bottom"/>
-          [% l('Batch-add a relationship to works') %]
-        </span><br/>
-        <span class="btn">
-          <img src="/static/images/icons/add.png" class="bottom"/>
-          [% l('Batch-create new works') %]
-        </span>
-      </p>
+      <h3>[% l('Tools:') %]</h3>
+      <div>
+        <div style="float: left;">
+          <span id="batch-recording" class="btn disabled">
+            <img src="/static/images/icons/add.png" class="bottom"/>
+            [% l('Batch-add a relationship to recordings') %]
+          </span>
+          <span class="count">([% l('0 recordings selected') %])</span>
+          <br/>
+          <span id="batch-work" class="btn disabled">
+            <img src="/static/images/icons/add.png" class="bottom"/>
+            [% l('Batch-add a relationship to works') %]
+          </span>
+          <span class="count">([% l('0 works selected') %])</span>
+          <br/>
+          <span id="batch-create-works" class="btn disabled">
+            <img src="/static/images/icons/add.png" class="bottom"/>
+            [% l('Batch-create new works') %]
+          </span>
+          <span class="count">([% l('0 recordings selected') %])</span>
+        </div>
+        <div class="documentation">
+          <div class="bubble">
+            [% l('To use these tools, select some recordings or works using the checkboxes.') %]
+          </div>
+        </div>
+      </div>
 
       <table class="tbl" id="tracklist">
         <thead>
