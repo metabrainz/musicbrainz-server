@@ -57,6 +57,7 @@
     color: #565656;
     cursor: pointer;
 }
+#dialog.rel-editor table {border-spacing: 0;}
 #dialog.rel-editor table.relationship td {padding: 0.25em 0;}
 #dialog.rel-editor table.relationship td.section {
     font-weight: bold;

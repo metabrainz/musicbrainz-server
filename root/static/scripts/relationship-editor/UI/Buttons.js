@@ -53,6 +53,10 @@ Buttons.initEvents = function() {
     $("#batch-work").click(function() {
         UI.BatchAddDialog.show("work");
     });
+
+    $("#batch-create-works").click(function() {
+        UI.BatchCreateWorksDialog.show();
+    });
 };
 
 
@@ -68,7 +72,13 @@ Buttons.Remove.clicked = function(event) {
 
     if (rel.fields.action != "remove") {
         if (rel.fields.action == "add") {
-            $container.fadeOut("fast", function() {rel.remove();});
+            $container.fadeOut("fast", function() {
+                $.each($container.children("input[type=checkbox]"), function(i, input) {
+                    var $input = $(input);
+                    if ($input.is(":checked")) $input.prop("checked", false).click();
+                });
+                rel.remove();
+            });
         } else {
             rel.fields.action = "remove";
             rel.update();

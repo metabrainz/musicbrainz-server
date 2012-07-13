@@ -71,7 +71,7 @@ Dialog.init = function() {
 
     $("#new-work-button").change(function() {
         $("#target").hide();
-        $("#new-work").show();
+        $("#new-work").find("tr").show().end().show();
         self.position();
     });
 
@@ -346,7 +346,8 @@ var beget = function(o) {
 
 var AddDialog = RE.UI.AddDialog = beget(Dialog),
     EditDialog = RE.UI.EditDialog = beget(Dialog),
-    BatchAddDialog = RE.UI.BatchAddDialog = beget(AddDialog);
+    BatchAddDialog = RE.UI.BatchAddDialog = beget(AddDialog),
+    BatchCreateWorksDialog = RE.UI.BatchCreateWorksDialog = beget(BatchAddDialog);
 
 
 AddDialog.setup = function(source, target_type) {
@@ -450,12 +451,34 @@ BatchAddDialog.accept = function() {
 
         result = {fields: {action: "add"}};
         Dialog.source = this.targets[i];
+        this.$work_name.val(Dialog.source.name);
 
         if (!Dialog.result.call(this, result)) return;
         RE.processRelationship(result, Dialog.source);
     }
     this.hide();
 }
+
+
+BatchCreateWorksDialog.setup = function() {
+    var source = {type: "recording"};
+    AddDialog.setup.call(this, source, "work");
+};
+
+
+BatchCreateWorksDialog.show = function() {
+    this.targets = RE.UI.checkedRecordings();
+
+    if (this.targets.length > 0) {
+        Dialog.show.call(this, ["recording"]);
+
+        $("#work-options").hide();
+        $("#new-work-button").click().change();
+        Dialog.$work_name.parents("tr:first").hide();
+        var width = Dialog.$dialog.width();
+        $("#batch-create-works-msg").css("max-width", width).show();
+    }
+};
 
 
 String.prototype.repeat = function(n) {
