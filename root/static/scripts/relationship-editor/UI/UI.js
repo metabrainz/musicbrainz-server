@@ -44,20 +44,31 @@ UI.initCheckboxes = function() {
         $work_tools = $("#batch-work"),
         recording_count = {count: 0}, work_count = {count: 0};
 
+    function count($inputs) {
+        var src = {}, count = 0;
+        for (var i = 0; i < $inputs.length; i++) {
+            var id = $inputs.eq(i).data("source").id;
+            if (src[id] === undefined) {
+                count += 1;
+                src[id] = 1;
+            }
+        }
+        return count;
+    }
+
     function count_msg($tools, count, counter_str) {
         var msg = (count == 1 ? counter_str[0] : counter_str[1]).replace("{num}", count);
         $tools.next("span.count").text("(" + msg + ")");
         count == 0 ? $tools.addClass("disabled") : $tools.removeClass("disabled");
     }
 
-    function medium($inputs, cls, $tools, counter, counter_str) {
+    function medium($inputs, selector, $tools, counter, counter_str) {
         $inputs.change(function(event) {
             var checked = this.checked,
-                count = $(this).parents("tr.subh").nextUntil("tr.subh")
-                    .find("td." + cls + " > input[type=checkbox]")
-                    .filter(checked ? ":not(:checked)" : ":checked")
-                    .prop("checked", checked).length * (checked ? 1 : -1);
-            counter.count += count;
+                $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
+                    .find(selector).filter(checked ? ":not(:checked)" : ":checked")
+                    .prop("checked", checked);
+            counter.count += count($changed) * (checked ? 1 : -1);
             count_msg($tools, counter.count, counter_str);
         });
     }
@@ -74,38 +85,32 @@ UI.initCheckboxes = function() {
         var last_clicked = null;
 
         UI.$tbody.on("click", selector, function(event) {
-            var count, checked = this.checked;
+            var checked = this.checked, $inputs = $(selector, UI.$tbody);
             if (event.shiftKey && last_clicked && last_clicked != this) {
+                var first = $inputs.index(last_clicked), last = $inputs.index(this);
 
-                var $inputs = $(selector), first = $inputs.index(last_clicked),
-                    last = $inputs.index(this);
-
-                count = (first > last
+                (first > last
                     ? $inputs.slice(last, first + 1)
                     : $inputs.slice(first, last + 1))
-                    .filter(checked ? ":not(:checked)" : ":checked")
-                    .prop("checked", checked).length * (checked ? 1 : -1);
-            } else {
-                count = checked ? 1 : -1;
+                    .prop("checked", checked);
             }
-            counter.count += count;
+            counter.count = count($inputs.filter(":checked"));
             count_msg($tools, counter.count, counter_str);
             last_clicked = this;
         });
     }
 
-    medium($medium_recordings, "recording", $recording_tools, recording_count,
-           MB.text.RecordingSelection);
-    medium($medium_works, "works > div.ar", $work_tools, work_count,
-           MB.text.WorkSelection);
+    var recording_selector = "td.recording > input[type=checkbox]",
+        work_selector = "td.works > div.ar > input[type=checkbox]";
+
+    medium($medium_recordings, recording_selector, $recording_tools, recording_count, MB.text.RecordingSelection);
+    medium($medium_works, work_selector, $work_tools, work_count, MB.text.WorkSelection);
 
     release($medium_recordings, "recordings");
     release($medium_works, "works");
 
-    range("td.recording > input[type=checkbox]", $recording_tools, recording_count,
-          MB.text.RecordingSelection);
-    range("td.works > div.ar > input[type=checkbox]", $work_tools, work_count,
-          MB.text.WorkSelection);
+    range(recording_selector, $recording_tools, recording_count, MB.text.RecordingSelection);
+    range(work_selector, $work_tools, work_count, MB.text.WorkSelection);
 };
 
 
