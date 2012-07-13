@@ -97,12 +97,17 @@ sub _set_language
     $ENV{LC_MESSAGES} = '';
 
     my @avail_lang;
+    # because s///r is a perl 5.14 feature
+    my $cookie_munge = defined $cookie ? $cookie->value : '';
+    $cookie_munge =~ s/_([A-Z]{2})/-\L$1/;
+    my $cookie_nocountry = defined $cookie ? $cookie->value : '';
+    $cookie_nocountry =~ s/_[A-Z]{2}//;
     if (defined $cookie && 
-        grep { $cookie->value eq $_ || $cookie->value =~ s/_([A-Z]{2})/-\L$1/r eq $_ } DBDefs::MB_LANGUAGES) {
+        grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs::MB_LANGUAGES) {
         @avail_lang = ($cookie->value);
     } elsif (defined $cookie && 
-             grep { $cookie->value =~ s/_[A-Z]{2}//r eq $_ } DBDefs::MB_LANGUAGES) {
-        @avail_lang = ($cookie->value =~ s/_[A-Z]{2}//r)
+             grep { $cookie_nocountry eq $_ } DBDefs::MB_LANGUAGES) {
+        @avail_lang = ($cookie_nocountry);
     } else {
         # change e.g. 'en-aq' to 'en_AQ'
         @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } 
@@ -117,13 +122,18 @@ sub _set_language
     }
     # Strip off charset
     $set_lang =~ s/\.utf-8//;
+    # because s///r is a perl 5.14 feature
+    my $set_lang_munge = $set_lang;
+    $set_lang_munge =~ s/_([A-Z]{2})/-\L$1/;
+    my $set_lang_nocountry = $set_lang;
+    $set_lang_nocountry =~ s/_[A-Z]{2}//;
     # Change en_AQ back to en-aq to compare with MB_LANGUAGES
-    if (grep { $set_lang eq $_ || $set_lang =~ s/_([A-Z]{2})/-\L$1/r eq $_ } DBDefs::MB_LANGUAGES) {
+    if (grep { $set_lang eq $_ || $set_lang_munge eq $_ } DBDefs::MB_LANGUAGES) {
         return $set_lang;
     } 
     # Check if the language without country code is in MB_LANGUAGES
-    elsif (grep { $set_lang =~ s/_[A-Z]{2}//r eq $_ } DBDefs::MB_LANGUAGES) {
-        return $set_lang =~ s/_[A-Z]{2}//r;
+    elsif (grep { $set_lang_nocountry eq $_ } DBDefs::MB_LANGUAGES) {
+        return $set_lang_nocountry;
     } 
     # Give up, return the full language even though it looks wrong
     else {

@@ -16,9 +16,12 @@ sub process
 
     my $cookie = $c->request->cookies->{lang};
     my $lang = MusicBrainz::Server::Translation->instance->_set_language($cookie);
+    # because s///r is a perl 5.14 feature
+    my $html_lang = $lang;
+    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
     $c->stash(
         current_language => $lang,
-        current_language_html => $lang =~ s/_([A-Z]{2})/-\L$1/r
+        current_language_html => $html_lang
     );
 
     my $ret = $self->next::method(@_);
