@@ -128,9 +128,9 @@ RE.parseRelationships = function(source, check_post) {
                     var edited = RE.Util.CGI.edited(fields);
 
                     if (edited !== undefined) {
-                        if (edited.errors) {
-                            rel.errors = true;
-                            delete edited.errors;
+                        if (edited.has_errors) {
+                            rel.has_errors = true;
+                            delete edited.has_errors;
                         }
                         $.extend(true, rel.fields, edited);
                         if (edited.target) rel.target = edited.target;
@@ -144,9 +144,9 @@ RE.parseRelationships = function(source, check_post) {
                 if (check_post) {
                     var removed = RE.Util.CGI.removed(fields);
                     if (rel && removed && !compare) {
-                        if (removed.errors) {
-                            rel.errors = true;
-                            delete removed.errors;
+                        if (removed.has_errors) {
+                            rel.has_errors = true;
+                            delete removed.has_errors;
                         }
                         if (rel.fields.action != "remove") {
                             var button = rel.$container.eq(0).children("a.remove-button")[0];
@@ -172,9 +172,9 @@ RE.processAddedRelationships = function(source) {
     for (var i = 0; i < added.length; i++) {
         var fields = added[i], rel = {}, types = RE.type_info[fields.link_type].types;
 
-        if (fields.errors) {
-            rel.errors = true;
-            delete fields.errors;
+        if (fields.has_errors) {
+            rel.has_errors = true;
+            delete fields.has_errors;
         }
         rel.fields = fields;
         rel.target = RE.Util.src(types[0], types[1], fields.direction) == 0

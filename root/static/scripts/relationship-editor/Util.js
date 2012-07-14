@@ -34,13 +34,13 @@ cgi_regex = new RegExp(
 
 
 CGI.parseParams = function(params, error_fields) {
-    var result = {}, keys = MB.utility.keys(params), key;
+    var result = {}, keys = MB.utility.keys(params), key, part, errors;
 
     for (var i = 0; key = keys[i]; i++) {
         if (!cgi_regex.test(key)) continue;
-        var value = params[key], parts = key.split("."), part, num = parts[2],
-            ckey = 'rel-editor.rels.' + num, errors = false,
-            field = result[num] = result[num] || {};
+
+        var value = params[key], parts = key.split("."), num = parts[2],
+            ckey = 'rel-editor.rels.' + num, field = result[num] = result[num] || {};
 
         if ($.isArray(value)) value = value[0];
         if (/^\d+$/.test(value)) value = parseInt(value, 10);
@@ -56,7 +56,7 @@ CGI.parseParams = function(params, error_fields) {
             field = field[part] = field[part] ||
                 ((part == "entity" || parts[j - 1] == "attrs") ? [] : {});
         }
-        if (errors) result[num].errors = true;
+        if (errors) result[num].has_errors = true;
     }
     /* form state is preserved using three variables, each representing
        a separate action:
@@ -70,10 +70,22 @@ CGI.parseParams = function(params, error_fields) {
 
         var entity0 = field.entity[0] = RE.Entity(field.entity[0]),
             entity1 = field.entity[1] = RE.Entity(field.entity[1]),
-            types = RE.type_info[field.link_type].types,
-            typestr = Util.typestr(field.link_type), removed, added, edited;
+            type_info = RE.type_info[field.link_type], types, typestr,
+            removed, added, edited;
 
-        if (!types) continue;
+        // the link type field is invalid, let's try to set it to something
+        if (!type_info) {
+            types = [entity0.type, entity1.type];
+            typestr = types[0] + "-" + types[1];
+
+            var type_info = RE.type_info_by_entities[typestr];
+            if (type_info === undefined) continue;
+            field.link_type = type_info[0].descr
+                ? type_info[0].id : type_info[0].children[0];
+        } else {
+            types = type_info.types;
+            typestr = types[0] + "-" + types[1];
+        }
 
         if (field.action == "remove") {
             if ((removed = removed_rels[typestr]) === undefined) {

@@ -168,7 +168,7 @@
       [% IF error_fields.size > 0 %]
         <p id="errors-msg">
           [% l('There were errors in your submission. Relationships marked with
-                <span class="error-field">red underline</span> contain errors.
+                <span class="error-field">red underline</span> contained errors.
                 Please fix them and try again.') %]
         </p>
       [% END %]

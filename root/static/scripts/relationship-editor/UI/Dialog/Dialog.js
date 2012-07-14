@@ -101,10 +101,12 @@ Dialog.init = function() {
 
 
 function dumpErrors(errors, $container) {
-    var $ul = $("<ul></ul>"), keys = MB.utility.keys(errors), key;
-    for (var i = 0; key = keys[i]; i++)
-        $("<li></li>").text(errors[key]).appendTo($ul);
-    $container.append($ul);
+    var keys = MB.utility.keys(errors), key;
+    for (var i = 0; key = keys[i]; i++) {
+        typeof errors[key] == "object"
+            ? dumpErrors(errors[key], $container)
+            : $container.append(errors[key], "<br/>");
+    }
 }
 
 
@@ -130,8 +132,7 @@ Dialog.setup = function(source, target_type) {
 
     this.$dialog.find(".error").empty();
 
-    function dumpEntityErrors(entity) {
-        var errors = entity.errors;
+    function dumpEntityErrors(entity, errors) {
         if (Dialog.relationship.source === entity) {
             dumpErrors(errors, $("#source div.error"));
         } else if (Dialog.new_work) {
@@ -157,22 +158,26 @@ Dialog.setup = function(source, target_type) {
     }
 
     // populate errors we got from the server (not client-side errors)
-    if (this.relationship && this.relationship.errors) {
+    if (this.relationship && this.relationship.has_errors) {
         var fields = this.relationship.fields;
 
-        if (fields.link_type.errors) {
-            dumpErrors(fields.link_type.errors, Fields.LinkType.$error);
+        if (fields.errors && fields.errors.link_type) {
+            dumpErrors(fields.errors.link_type, Fields.LinkType.$error);
         }
-        if (fields.entity[0].errors) dumpEntityErrors(fields.entity[0]);
-        if (fields.entity[1].errors) dumpEntityErrors(fields.entity[1]);
+        if (fields.entity.errors) {
+            if (fields.entity.errors[0])
+                dumpEntityErrors(fields.entity[0], fields.entity.errors[0]);
+            if (fields.entity.errors[1])
+                dumpEntityErrors(fields.entity[1], fields.entity.errors[1]);
+        }
         if (fields.begin_date && fields.begin_date.errors) {
             dumpErrors(fields.begin_date.errors, this.beginDate.$error);
         }
         if (fields.end_date && fields.end_date.errors) {
             dumpErrors(fields.end_date.errors, this.endDate.$error);
         }
-        if (fields.ended && fields.ended.errors) {
-            dumpErrors(fields.end_date.errors, this.endDate.$error);
+        if (fields.ended && fields.errors.ended) {
+            dumpErrors(fields.errors.ended, this.$ended.parent().next("div.error"));
         }
         if (this.attributes) {
             for (var i = 0; i < this.attributes.length; i++) {
@@ -430,7 +435,7 @@ EditDialog.accept = function() {
     if (relationship.fields.action == "add") result.fields.action = "add";
 
     if (Dialog.result.call(this, result)) {
-        delete relationship.errors;
+        delete relationship.has_errors;
         relationship.update(result, true);
         this.hide();
     }

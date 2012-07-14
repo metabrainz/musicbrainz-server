@@ -61,7 +61,7 @@ Relationship.prototype.update = function(obj, compare) {
 
     $phrase = this.$container.children("span.link-phrase").empty()
                   .data("relationship", this);
-    this.errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
+    this.has_errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
 
     $entity = this.$container.children("span.entity").empty()
                   .append(UI.renderEntity(this.target));

@@ -193,10 +193,10 @@ after validate => sub {
     my $c = $self->ctx;
 
     foreach my $field ($self->field('rels')->fields) {
-        my $link_type_id = $field->field('link_type')->value;
-        return if !$link_type_id;
+        my $link_type_field = $field->field('link_type');
+        next if !$link_type_field->value || $link_type_field->has_errors;
 
-        my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
+        my $link_type = $c->model('LinkType')->get_by_id($link_type_field->value);
 
         if (!$link_type->description) {
             $field->field('link_type')->add_error(
