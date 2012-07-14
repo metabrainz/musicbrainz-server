@@ -263,7 +263,7 @@ Dialog.result = function(result) {
         Fields.LinkType.$error.text(MB.text.PleaseSelectARType);
         return;
     }
-    var relationship = this.relationship, types = RE.Util.types(fields.link_type);
+    var relationship = this.relationship, types = RE.type_info[fields.link_type].types;
     result.direction = Fields.LinkType.direction;
 
     if (!(types[0] == "recording" && types[1] == "work") ||

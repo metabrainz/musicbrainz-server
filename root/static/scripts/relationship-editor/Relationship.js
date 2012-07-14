@@ -186,14 +186,12 @@ Relationship.prototype.linkPhrase = function() {
             attrs[name] = str;
         }
     }
-    // FIXME this leaves gaps of whitespace between the attribute names, which
-    // you at least can't see in the browser.
     var m;
     while (m = phrase.match(/\{(.*?)(?::(.*?))?\}/)) {
         var replace = attrs[m[1]] !== undefined
             ? (m[2] && m[2].split("|")[0]) || attrs[m[1]]
             : (m[2] && m[2].split("|")[1]) || "";
-        phrase = phrase.replace(m[0], replace);
+        phrase = phrase.replace(m[0], replace).replace("  ", " ");
     }
     return $.trim(phrase);
 };

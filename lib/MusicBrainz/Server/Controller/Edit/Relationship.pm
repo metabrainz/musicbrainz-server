@@ -30,15 +30,14 @@ sub build_type_info
             ] } $root->all_attributes;
             $info->{$root->id} = {
                 id => $root->id,
-                descr => $root->description,
-                attrs => \%attrs,
-                type0 => $root->entity0_type,
-                type1 => $root->entity1_type,
+                scalar %attrs ? ( attrs => \%attrs ) : (),
+                types => [ $root->entity0_type, $root->entity1_type ],
                 link_phrase  => $root->link_phrase,
                 reverse_link_phrase => $root->reverse_link_phrase,
+                $root->description ? (descr => $root->description) : (),
                 $root->parent_id ? (parent => $root->parent_id) : (),
-                $root->all_children ?
-                    (children => [ map { $_->id } $root->all_children ]) : (),
+                $root->all_children ? (children =>
+                    [ map { $_->id } $root->all_children ]) : (),
                 child_order  => $root->child_order,
 
             };

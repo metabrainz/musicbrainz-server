@@ -106,11 +106,12 @@ Fields.Attribute.Select = function(attr, info) {
         select.appendChild(document.createElement("option"));
 
         var render_options = function(attr, indent) {
-            for (var i = 0; i < attr.children.length; i++) {
-                var child = attr.children[i],
+            var id;
+            for (var i = 0; id = attr.children[i]; i++) {
+                var child = RE.attr_map[id],
                     opt = document.createElement("option");
 
-                opt.value = child.id;
+                opt.value = id;
                 (opt.dataset = opt.dataset || {}).unaccented = child.unaccented;
                 opt.innerHTML = "&#160;&#160;".repeat(indent) + child.name;
                 select.appendChild(opt);
@@ -275,10 +276,10 @@ Fields.LinkType = {
 
         if (this.value) {
             var type_info = RE.type_info[this.value],
-                allowed_attrs = MB.utility.keys(type_info.attrs);
+                allowed_attrs = type_info.attrs ? MB.utility.keys(type_info.attrs) : [];
 
             allowed_attrs.sort(function(a, b) {
-                return RE.attr_tree[a].child_order - RE.attr_tree[b].child_order;
+                return RE.attr_map[a].child_order - RE.attr_map[b].child_order;
             });
 
             if (type_info.descr) {
@@ -292,9 +293,7 @@ Fields.LinkType = {
                 var id = allowed_attrs[i];
 
                 Dialog.attributes.push(new Fields.Attribute(
-                    Dialog.relationship,
-                    RE.attr_tree[id],
-                    type_info.attrs[id]));
+                    Dialog.relationship, RE.attr_map[id], type_info.attrs[id]));
             }
 
             $attrs.parent().toggle(allowed_attrs.length > 0);
@@ -307,8 +306,7 @@ Fields.LinkType = {
 
     render: function(reverse, value) {
 
-        var root = RE.type_info_by_entities,
-            relationship = Dialog.relationship,
+        var root = RE.type_info_by_entities, relationship = Dialog.relationship,
             cache = reverse ? this.backward_cache : this.forward_cache;
 
         if (relationship) {
@@ -319,6 +317,7 @@ Fields.LinkType = {
                 type = Dialog.source.type + "-" + Dialog.target_type;
         }
         root = root[type];
+        value = value || (root[0].descr ? root[0].id : root[0].children[0].id);
 
         if (cache[type] === undefined) {
             var select = document.createElement("select");
@@ -326,6 +325,18 @@ Fields.LinkType = {
             var expand = function(root, indent) {
                 var phrase = reverse ? root.reverse_link_phrase : root.link_phrase,
                     opt = document.createElement("option");
+
+                // remove {foo} {bar} junk, unless it's a required attribute.
+                // e.g. removing {instrument} from
+                //     {additional} {guest} {solo} {instrument}
+                // would leave an empty string.
+
+                var orig_phrase = phrase, re = /\{(.*?)(?::.*?)?\}/g, m;
+                while (m = re.exec(orig_phrase)) {
+                    var attr = RE.attr_roots[m[1]], info = root.attrs[attr.id];
+                    if (info[0] < 1)
+                        phrase = phrase.replace(m[0], "").replace("  ", " ");
+                }
 
                 opt.value = root.id;
                 opt.innerHTML = "&#160;&#160;".repeat(indent) + phrase;
@@ -355,8 +366,7 @@ Fields.LinkType = {
         if (Dialog.source.type == Dialog.target_type)
             this.$select.after(this.$change_direction);
 
-        if (value) this.$select.val(value);
-        this.$select.change();
+        this.$select.val(value).change();
     }
 };
 
@@ -381,7 +391,7 @@ Fields.TargetType = {
             Fields.LinkType.direction = direction;
             var type_info = RE.type_info[link_type],
                 reverse = type_info
-                    ? (RE.Util.src(type_info.type0, type_info.type1, direction) == 1)
+                    ? (RE.Util.src(type_info.types[0], type_info.types[1], direction) == 1)
                     : false;
 
             Fields.LinkType.render(reverse, link_type);

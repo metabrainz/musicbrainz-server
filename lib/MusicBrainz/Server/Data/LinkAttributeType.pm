@@ -74,23 +74,26 @@ sub get_tree
     return $root;
 }
 
-sub get_hash
+sub get_map
 {
     my ($self, $root) = @_;
 
+    my $hash = {};
     sub attr {
-        return {
-            name => $_->name,
-            id   => $_->id,
-            child_order => $_->child_order,
-            $_->description  ? ( descr    => $_->description ) : (),
-            $_->all_children ? ( children => [ foo($_->all_children) ] ) : ()
-        }
+        my ($hash, $attr) = @_;
+        $hash->{$attr->id} = {
+            id => $attr->id,
+            name => $attr->name,
+            child_order => $attr->child_order,
+            $attr->parent_id    ? ( parent   => $attr->parent_id ) : (),
+            $attr->description  ? ( descr    => $attr->description ) : (),
+            $attr->all_children ? ( children =>
+                [ map { attr($hash, $_) } $attr->all_children ] ) : ()
+        };
+        return $attr->id;
     }
-    sub foo { return map attr($_), @_; }
-
-    my %hash = map { $_->id => attr($_) } $root->all_children;
-    return \%hash;
+    attr($hash, $_) for $root->all_children;
+    return $hash;
 }
 
 sub find_root

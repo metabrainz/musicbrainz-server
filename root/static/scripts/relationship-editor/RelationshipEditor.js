@@ -88,7 +88,7 @@ RE.parseRelationships = function(source, check_post) {
             var rel_type = rel_types[j], rels = rels_by_type[rel_type];
 
             for (var k = 0; k < rels.length; k++) {
-                var obj = rels[k], target_entity, types = RE.Util.types(obj.link_type);
+                var obj = rels[k], target_entity, types = RE.type_info[obj.link_type].types;
 
                 obj.target.type = entity_type;
                 target_entity = RE.Entity(obj.target);
@@ -170,7 +170,7 @@ RE.processAddedRelationships = function(source) {
     if (added === undefined) return;
 
     for (var i = 0; i < added.length; i++) {
-        var fields = added[i], rel = {}, types = RE.Util.types(fields.link_type);
+        var fields = added[i], rel = {}, types = RE.type_info[fields.link_type].types;
 
         if (fields.errors) {
             rel.errors = true;

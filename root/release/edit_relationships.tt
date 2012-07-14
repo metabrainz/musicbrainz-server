@@ -4,23 +4,18 @@
     $(function() {
         RE.release_gid = "[% release.gid %]";
         RE.type_info = [% USE JSON; type_info.json %];
-        RE.attr_tree = [% attr_tree.json %];
-        RE.attr_map = {};
+        RE.attr_map = [% attr_map.json %];
+        RE.attr_roots = {};
 
-        var foo = function(id, root) {
-            if (root.children)
-                for (var i = 0; i < root.children.length; i++) {
-                    var child = root.children[i];
-                    RE.attr_map[child.id] = foo(child.id, child);
-                }
-            return RE.attr_map[id] = root;
+        for (var id in RE.attr_map) {
+            var attr = RE.attr_map[id];
+            if (!attr.parent) RE.attr_roots[attr.name] = attr;
         }
-        $.each(RE.attr_tree, foo);
 
-        foo = RE.type_info_by_entities = {};
+        var foo = RE.type_info_by_entities = {};
         $.each(RE.type_info, function(id, root) {
             if (root.parent !== undefined) return;
-            var entities = root.type0 + "-" + root.type1;
+            var entities = root.types[0] + "-" + root.types[1];
             if (foo[entities] === undefined) foo[entities] = [];
             foo[entities].push(root);
         });

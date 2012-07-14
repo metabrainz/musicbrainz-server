@@ -677,18 +677,19 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
               { label => $lang->{label}, value => $lang->{value} };
     }
 
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+    my $attr_map = $c->model('LinkAttributeType')->get_map($attr_tree);
+
     # unnaccent instrument attributes names
     sub unaccent {
-        my $root = $_;
+        my ($root, $map) = @_;
         $root->{unaccented} =
             decode("utf-16", unac_string_utf16(encode("utf-16", $root->{name})));
         if (defined $root->{children}) {
-            unaccent($_) for @{ $root->{children} };
+            unaccent($map->{$_}, $map) for @{ $root->{children} };
         }
     };
-    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
-    my $attr_hash = $c->model('LinkAttributeType')->get_hash($attr_tree);
-    unaccent($_) for @{ $attr_hash->{14}->{children} };
+    unaccent($attr_map->{$_}, $attr_map) for @{ $attr_map->{14}->{children} };
 
     my $loaded_entities = {};
     my $loaded_relationships = {};
@@ -699,7 +700,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
         work_types => [ $c->model('WorkType')->get_all ],
         work_languages => \@work_languages,
         type_info => \%type_info,
-        attr_tree => $attr_hash,
+        attr_map => $attr_map,
         loaded_entities => $loaded_entities,
         loaded_relationships => $loaded_relationships,
         error_fields => $error_fields,

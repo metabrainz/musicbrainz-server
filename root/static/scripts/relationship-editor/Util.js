@@ -70,10 +70,10 @@ CGI.parseParams = function(params, error_fields) {
 
         var entity0 = field.entity[0] = RE.Entity(field.entity[0]),
             entity1 = field.entity[1] = RE.Entity(field.entity[1]),
-            types = Util.types(field.link_type),
+            types = RE.type_info[field.link_type].types,
             typestr = Util.typestr(field.link_type), removed, added, edited;
 
-        if (!typestr) continue;
+        if (!types) continue;
 
         if (field.action == "remove") {
             if ((removed = removed_rels[typestr]) === undefined) {
@@ -173,14 +173,9 @@ Util.src = function(t0, t1, direction) {
 };
 
 
-Util.types = function(link_type) {
-    var info = RE.type_info[link_type];
-    return info ? [info.type0, info.type1] : [];
-};
-
 Util.typestr = function(link_type) {
     var info = RE.type_info[link_type];
-    return info ? info.type0 + "-" + info.type1 : null;
+    return info ? info.types[0] + "-" + info.types[1] : null;
 };
 
 })();
