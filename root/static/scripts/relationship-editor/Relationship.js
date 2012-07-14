@@ -53,18 +53,23 @@ Relationship.relcount = 0;
 
 Relationship.prototype.update = function(obj, compare) {
     var self = this, old_target = this.target, create_fields = false, fields,
-        $phrase, $entity;
+        $phrase, $entity, $c = this.$container;
 
     if (obj) for (key in obj) this[key] = obj[key];
     fields = this.fields;
     fields.num = this.num;
 
-    $phrase = this.$container.children("span.link-phrase").empty()
-                  .data("relationship", this);
-    this.has_errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
+    // removes whitespace
+    $.each($c, function() {
+        var $children = $(this).children().detach();
+        $(this).empty().append($children);
+    });
 
-    $entity = this.$container.children("span.entity").empty()
-                  .append(UI.renderEntity(this.target));
+    $phrase = $c.children("span.link-phrase").empty().data("relationship", this);
+    $entity = $c.children("span.entity").empty().append(UI.renderEntity(this.target));
+
+    this.has_errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
+    this.edits_pending ? $entity.addClass("rel-edit") : $entity.removeClass("rel-edit");
 
     this.type = RE.Util.typestr(fields.link_type);
 
@@ -73,10 +78,10 @@ Relationship.prototype.update = function(obj, compare) {
         $.each($phrase, function() {
             $(this).siblings("span.entity").after(this);
         });
-        $entity.append("&#160;");
+        $entity.after("&#160;");
     } else {
         $phrase.prepend(this.linkPhrase() + ":");
-        $entity.prepend("&#160;");
+        $entity.before("&#160;");
     }
     var action = fields.action;
     if (action == "add") {
@@ -100,7 +105,7 @@ Relationship.prototype.update = function(obj, compare) {
             $phrase.addClass("rel-edit");
         }
     }
-    this.$container.children("input[type=hidden]").remove();
+    $c.children("input[type=hidden]").remove();
     if (create_fields) this.createFields();
 
     // if the user changed a work, we need to request its relationships
@@ -109,7 +114,6 @@ Relationship.prototype.update = function(obj, compare) {
     if ((old_target === undefined || (old_target && old_target.id != work.id)) &&
         this.type == "recording-work" && RE.works_loading[gid] === undefined) {
 
-        var $c = this.$container;
         work.$ars = $c.children("div.ars").empty();
 
         if (old_target) {
@@ -338,6 +342,26 @@ Relationship.prototype.isIdentical = function(other) {
 function isDateIdentical(a, b) {
     return a.year == b.year && a.month == b.month && a.day == b.day;
 }
+
+
+Relationship.prototype.openEditsSearch = function() {
+    var orig = RE.server_fields[this.type][this.fields.id],
+        entity0 = orig.entity[0], entity1 = orig.entity[1];
+
+    return '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
+        '&conditions.0.field=' + encodeURIComponent(entity0.type) +
+        '&conditions.0.operator=%3D' +
+        '&conditions.0.name=' + encodeURIComponent(entity0.name) +
+        '&conditions.0.args.0=' + encodeURIComponent(entity0.id) +
+        '&conditions.1.field=' + encodeURIComponent(entity1.type) +
+        '&conditions.1.operator=%3D' +
+        '&conditions.1.name=' + encodeURIComponent(entity1.name) +
+        '&conditions.1.args.0=' + encodeURIComponent(entity1.id) +
+        '&conditions.2.field=type&conditions.2.operator=%3D&conditions.2.args=90%2C233' +
+        '&conditions.2.args=91&conditions.2.args=92&conditions.3.field=status' +
+        '&conditions.3.operator=%3D&conditions.3.args=1&field=Please+choose+a+condition';
+};
+
 
 Relationship.prototype.template =
     '<div class="ar">' +

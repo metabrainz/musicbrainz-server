@@ -40,6 +40,12 @@
 
     <div id="dialog" class="rel-editor">
 
+      <p id="edits-pending-msg" class="msg">
+        [% l('Warning: This relationship has pending edits.
+              <a href="#">Click here</a> to view these edits and make sure they
+              do not conflict with your own.') %]
+      </p>
+
       <p id="batch-recording-msg" class="msg">
         [% l('This will add a relationship to all checked recordings.
               If the relationship already exists on one of the recordings,

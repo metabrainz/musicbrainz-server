@@ -38,6 +38,8 @@ Buttons.initEvents = function() {
     }).on("click", "span.add-rel", function(event) {
 
         var source = $(this).data("source");
+        UI.Dialog.posx = event.pageX;
+        UI.Dialog.posy = event.pageY;
         UI.AddDialog.show([source, "artist"]); // default to artist
 
     }).on("click", "span.relate-work", function(event) {

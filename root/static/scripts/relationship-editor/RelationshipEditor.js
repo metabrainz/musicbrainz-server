@@ -107,6 +107,7 @@ RE.parseRelationships = function(source, check_post) {
                     fields.end_date = this.Util.parseDate(obj.end_date);
                 }
                 if (obj.ended == 1) fields.ended = 1;
+                rel.edits_pending = Boolean(obj.edits_pending);
 
                 var typestr = RE.Util.typestr(obj.link_type), server;
 

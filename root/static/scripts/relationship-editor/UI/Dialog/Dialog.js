@@ -219,6 +219,7 @@ Dialog.hide = function() {
         $("#attrs").empty();
         $("#new-work").hide();
         $("#target").show();
+        $("#edits-pending-msg").hide();
 
         self.autocomplete.clear(true);
         self.$acname.removeClass("error");
@@ -396,7 +397,12 @@ EditDialog.setup = function(relationship, source, target_type) {
     Dialog.relationship = relationship;
     Dialog.setup.call(this, source, target_type);
 
-    var fields = this.relationship.fields;
+    if (relationship.edits_pending) {
+        $("#edits-pending-msg").show().find("a")
+            .attr({href: relationship.openEditsSearch(), target: "_blank"});
+    }
+
+    var fields = relationship.fields;
 
     if (Dialog.new_work) {
         $("#new-work-button").click().change();
