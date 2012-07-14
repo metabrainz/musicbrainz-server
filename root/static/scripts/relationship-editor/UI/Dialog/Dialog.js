@@ -66,18 +66,26 @@ Dialog.init = function() {
     $("#existing-work-button").change(function() {
         $("#target").show();
         $("#new-work").hide();
-        self.position();
+        self.setWidth();
     });
 
     $("#new-work-button").change(function() {
         $("#target").hide();
         $("#new-work").find("tr").show().end().show();
-        self.position();
+        self.setWidth();
     });
 
     $("#attrs-help").click(function(event) {
         event.preventDefault();
         $("#attrs").find("div.ar-descr").toggle();
+        self.position();
+    });
+
+    $("#rel-type-help").click(function(event) {
+        event.preventDefault();
+        var $descr = $("#rel-type").find("div.ar-descr");
+        if ($descr.is(":empty")) $descr.hide(); else $descr.toggle();
+        self.position();
     });
 
     this.$dialog.find("button.negative").click(function(event) {
@@ -176,21 +184,25 @@ Dialog.setup = function(source, target_type) {
 };
 
 
-Dialog.show = function(setup) {
+Dialog.setWidth = function() {
+    var $hidden = $();
+    // the ar-descrs stretch the dialog
+    $.each(this.$dialog.find("div.ar-descr"), function(i, div) {
+        var $div = $(div);
+        if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
+    });
+    this.$dialog.css("max-width", "100%").css("max-width", this.$dialog.width());
+    $hidden.show();
+    this.position();
+};
+
+
+Dialog.show = function(setup, dontsetwidth) {
     this.setup.apply(this, setup);
 
     this.$overlay.show();
     this.$dialog.fadeIn("fast");
-
-    var descr_width = Fields.LinkType.$select.outerWidth();
-    if (Fields.LinkType.$change_direction.is(":visible")) {
-        descr_width += Fields.LinkType.$change_direction.outerWidth();
-    }
-    if (descr_width < 200) descr_width = 200;
-
-    this.$dialog.find("div.ar-descr").css("max-width", descr_width - 8 + "px");
-
-    this.position();
+    if (dontsetwidth !== true) this.setWidth();
     Fields.LinkType.$select.focus();
 };
 
@@ -199,8 +211,6 @@ Dialog.hide = function() {
     var self = Dialog;
 
     this.$dialog.fadeOut("fast", function() {
-        self.$overlay.hide();
-
         $("#attrs").empty();
         $("#new-work").hide();
         $("#target").show();
@@ -210,7 +220,10 @@ Dialog.hide = function() {
         self.$dialog.find(":input").val("");
         self.$dialog.find("input[type=checkbox]").prop("checked", false);
         self.$dialog.find("p.msg").hide();
+        self.$dialog.find("div.ar-descr").empty().hide();
+        self.$dialog.css("max-width", undefined);
     });
+    self.$overlay.fadeOut("fast");
     delete self.relationship;
     delete self.source;
     delete self.target_type;
@@ -437,10 +450,9 @@ BatchAddDialog.show = function(source_type) {
         : RE.UI.checkedWorks();
 
     if (this.targets.length > 0) {
-        Dialog.show.call(this, [source_type]);
-
-        var width = Dialog.$dialog.width();
-        $("#batch-" + this.source.type + "-msg").css("max-width", width).show();
+        Dialog.show.call(this, [source_type], true);
+        this.setWidth();
+        $("#batch-" + this.source.type + "-msg").show();
     }
 };
 
@@ -470,13 +482,13 @@ BatchCreateWorksDialog.show = function() {
     this.targets = RE.UI.checkedRecordings();
 
     if (this.targets.length > 0) {
-        Dialog.show.call(this, ["recording"]);
+        Dialog.show.call(this, ["recording"], true);
 
         $("#work-options").hide();
         $("#new-work-button").click().change();
         Dialog.$work_name.parents("tr:first").hide();
-        var width = Dialog.$dialog.width();
-        $("#batch-create-works-msg").css("max-width", width).show();
+        this.setWidth();
+        $("#batch-create-works-msg").show();
     }
 };
 

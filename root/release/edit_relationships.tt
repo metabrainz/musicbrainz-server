@@ -72,14 +72,15 @@
           <td class="source"><div class="error"></div></td>
         </tr>
         <tr id="rel-type">
-          <td class="section">[% l('Type') %]:</td><td class="rel-type"></td>
+          <td class="section">[% l('Type') %]:</td>
+          <td class="rel-type">(<a href="#" id="rel-type-help">[% l('help') %]</a>)</td>
         </tr>
         <tr id="target">
           <td><select id="target-type"></select></td>
           <td>
-            <span class="autocomplete">
+            <span class="autocomplete" style="width: 90%;">
               <img class="search" src="/static/images/icons/search.png" />
-              <input type="text" class="name" />
+              <input type="text" class="name" style="width: 100%;" />
               <input type="hidden" class="id" />
               <input type="hidden" class="gid" />
             </span>

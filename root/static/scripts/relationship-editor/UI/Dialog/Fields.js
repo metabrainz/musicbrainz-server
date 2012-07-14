@@ -244,7 +244,7 @@ Fields.LinkType = {
 
     $select: $("<select></select>"),
     $error:  $('<div class="error"></div>'),
-    $descr:  $('<div class="ar-descr"></div>'),
+    $descr:  $('<div class="ar-descr"></div>').hide(),
     $change_direction: $("<button></button>").text(MB.text.ChangeDirection),
 
     direction: "forward",
@@ -264,15 +264,16 @@ Fields.LinkType = {
                 self.direction = "backward";
                 self.render(true, self.$select.val());
             }
+            Dialog.setWidth();
         });
 
         $("#rel-type > td.rel-type")
-            .append(this.$select, this.$error, this.$descr);
+            .prepend(this.$select).append(this.$error, this.$descr);
     },
 
     changed: function() {
         var self = Fields.LinkType, $attrs = $("#attrs").empty();
-        self.$descr.empty().hide();
+        self.$descr.empty();
 
         if (this.value) {
             var type_info = RE.type_info[this.value],
@@ -283,8 +284,10 @@ Fields.LinkType = {
             });
 
             if (type_info.descr) {
-                self.$descr.html(type_info.descr).show()
+                self.$descr.html(type_info.descr)
                     .children("a").attr("target", "_blank");
+            } else {
+                self.$descr.hide();
             }
 
             Dialog.attributes.length = 0;
@@ -299,9 +302,7 @@ Fields.LinkType = {
             $attrs.parent().toggle(allowed_attrs.length > 0);
             self.$error.empty();
         }
-
-        if (Dialog.$dialog.is(":visible"))
-            Dialog.position();
+        if (Dialog.$dialog.is(":visible")) Dialog.setWidth();
     },
 
     render: function(reverse, value) {
