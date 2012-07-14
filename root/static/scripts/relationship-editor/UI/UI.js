@@ -19,12 +19,13 @@
 
 (function() {
 
-var UI = RE.UI = {$tbody: $("<tbody></tbody>")};
+var UI = RE.UI = {};
 
 
 UI.init = function() {
+    this.$tbody = $("#tracklist tbody");
     this.Dialog.init();
-    UI.Buttons.initEvents();
+    this.Buttons.initEvents();
 
     var url = "/ws/js/release/" + RE.release_gid + "?inc=recordings+rels";
     $("#tracklist").after(this.loading_indicator);
@@ -128,62 +129,84 @@ UI.checkedWorks = function() {
 
 UI.renderTracklist = function(data) {
     data.type = "release";
-    var Buttons = UI.Buttons, release = RE.Entity(data);
+    var Buttons = UI.Buttons, release = RE.Entity(data),
+        frag = document.createDocumentFragment();
     release.$ars = $("#release-rels");
 
-    for (var i = 0; i < data.mediums.length; i++) {
-        var medium = data.mediums[i], tracks = medium.tracks;
+    // minimal jquery zone!
+    // rendering large releases is slow enough; native createElement calls make
+    // a noticeable difference
 
-        UI.$tbody.append(
-            $('<tr class="subh"></tr>').append(
-                '<td></td>',
-                $('<td colspan="2"></td>')
-                    .text((medium.format || MB.text.Medium) + " " + medium.position)
-                    .prepend($(UI.checkbox).addClass("medium-recordings")),
-                $('<td></td>').append($(UI.checkbox).addClass("medium-works"))));
+    for (var i = 0; i < data.mediums.length; i++) {
+        var medium = data.mediums[i], tracks = medium.tracks, tr, td;
+
+        tr = document.createElement("tr");
+        tr.className = "subh";
+        tr.appendChild(document.createElement("td"));
+        td = document.createElement("td");
+        td.colSpan = 2;
+        td.appendChild($(UI.checkbox).addClass("medium-recordings")[0]);
+        td.appendChild(document.createTextNode(
+            (medium.format || MB.text.Medium) + " " + medium.position));
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.appendChild($(UI.checkbox).addClass("medium-works")[0]);
+        tr.appendChild(td);
+        frag.appendChild(tr);
 
         for (var j = 0; j < tracks.length; j++) {
 
-            var track = tracks[j], rec = track.recording, source, $ars,
-                $reccol = $('<td class="recording"></td>'),
-                $work_ars = $('<td class="works"></td>');
+            var track = tracks[j], rec = track.recording, source, ars, work_ars;
 
             rec.type = "recording";
             source = RE.Entity(rec);
-            $ars = $('<div class="ars"></div>')
-                .append(new Buttons.AddRelationship(source));
+            ars = document.createElement("div");
+            ars.className = "ars";
+            ars.appendChild(new Buttons.AddRelationship(source)[0]);
 
-            $reccol.append(
-                $(UI.checkbox).data("source", source),
-                UI.renderEntity(track, "track"),
-                " (" + rec.length + ")");
+            var rcol = document.createElement("td");
+            rcol.className = "recording";
+            rcol.appendChild($(UI.checkbox).data("source", source)[0]);
+            rcol.appendChild(UI.renderEntity(track, "track"));
+            rcol.appendChild(document.createTextNode(" (" + rec.length + ")"));
 
-            if (!RE.Util.compareArtistCredits(data.artist_credit, track.artist_credit))
-                $reccol.append(" by ", UI.renderArtistCredit(track.artist_credit));
-
-            if (source.$ars === undefined) {
-                source.$ars = $ars;
-                source.$work_ars = $work_ars;
-            } else {
-                source.$ars = source.$ars.add($ars);
-                source.$work_ars = source.$work_ars.add($work_ars);
+            if (!RE.Util.compareArtistCredits(data.artist_credit, track.artist_credit)) {
+                rcol.appendChild(document.createTextNode(" by "));
+                rcol.appendChild(UI.renderArtistCredit(track.artist_credit));
             }
 
-            UI.$tbody.append($('<tr class="track"></tr>')
-                .addClass(j % 2 == 0 ? "ev" : "")
-                .append(
-                    $('<td class="pos t"></td>').text(track.number),
-                    $reccol.append($ars),
-                    $('<td class="midcol"></td>')
-                        .append(new Buttons.RelateToWork(source)),
-                    $work_ars));
+            rcol.appendChild(ars);
+            work_ars = document.createElement("td");
+            work_ars.className = "works";
+
+            if (source.$ars === undefined) {
+                source.$ars = $(ars);
+                source.$work_ars = $(work_ars);
+            } else {
+                source.$ars = source.$ars.add(ars);
+                source.$work_ars = source.$work_ars.add(work_ars);
+            }
+
+            tr = document.createElement("tr");
+            tr.className = "track" + (j % 2 == 0 ? " ev" : "");
+            td = document.createElement("td");
+            td.className = "pos t";
+            td.appendChild(document.createTextNode(track.number));
+            tr.appendChild(td);
+            tr.appendChild(rcol);
+            td = document.createElement("td");
+            td.className = "midcol";
+            td.appendChild(new Buttons.RelateToWork(source)[0])
+            tr.appendChild(td);
+            tr.appendChild(work_ars);
+            frag.appendChild(tr);
 
             if (source.relationships.length) {
                 var rels = source.relationships, rel;
 
                 for (var i = 0; i < rels.length; i++) {
                     rel = rels[i];
-                    rel.cloneInto(rel.type == "recording-work" ? $work_ars : $ars);
+                    rel.cloneInto(rel.type == "recording-work" ? $(work_ars) : $(ars));
                 }
             } else {
                 RE.parseRelationships(rec, true);
@@ -193,7 +216,7 @@ UI.renderTracklist = function(data) {
     RE.parseRelationships(data, true);
     release.$ars.append(new RE.UI.Buttons.AddRelationship(release));
 
-    $("#tracklist tbody").replaceWith(UI.$tbody);
+    UI.$tbody[0].appendChild(frag);
     $("#tracklist").next("span.loading").remove();
 };
 
@@ -217,29 +240,34 @@ UI.renderWorkRelationships = function(work, added_only) {
 
 
 UI.renderArtistCredit = function(obj) {
-    var $span = $("<span></span>");
+    var span = document.createElement("span");
     for (var i = 0; i < obj.length; i++) {
         var name = obj[i];
-        $span.append(this.renderEntity(name.artist), name.joinphrase);
+        span.appendChild(this.renderEntity(name.artist));
+        span.appendChild(document.createTextNode(name.joinphrase));
     }
-    return $span;
+    return span;
 };
 
 
 UI.renderEntity = function(obj, type) {
     type = type || obj.type;
-    var gid = type == "track" ? obj.recording.gid : obj.gid, name;
+    var gid = type == "track" ? obj.recording.gid : obj.gid, name, link;
 
-    var name = type == "url" ? obj.url : obj.name;
+    name = type == "url" ? obj.url : obj.name;
     if (type == "url" && name.length > 50) {
         name = name.slice(0, 50) + "...";
     }
+    name = document.createTextNode(name);
     if (!(gid && RE.Util.isMBID(gid))) return name;
     if (type == "track") type = "recording";
 
-    return $("<a></a>").text(name).attr({
-        href: "/" + type + "/" + gid, target: "_blank", title: obj.sortname
-    });
+    link = document.createElement("a");
+    link.appendChild(name);
+    link.href = "/" + type + "/" + gid;
+    link.target = "_blank";
+    link.title = obj.sortname;
+    return link;
 };
 
 

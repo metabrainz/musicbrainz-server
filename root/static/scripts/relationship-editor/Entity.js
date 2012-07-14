@@ -97,7 +97,7 @@ RE.Entity = function(obj) {
     }
     // obj is usually passed in from json, and has its own relationships obj
     var rels = ent.relationships;
-    $.extend(true, ent, obj);
+    for (key in obj) ent[key] = obj[key];
     if (rels) ent.relationships = rels;
     return ent;
 };

@@ -55,13 +55,7 @@ Relationship.prototype.update = function(obj, compare) {
     var self = this, old_target = this.target, create_fields = false, fields,
         $phrase, $entity;
 
-    if (obj) {
-        var keys = MB.utility.keys(this.fields);
-        for (var i = 0; i < keys.length; i++) {
-            if (obj.fields[keys[i]] === undefined) delete this.fields[keys[i]];
-        }
-        $.extend(this, obj);
-    }
+    if (obj) for (key in obj) this[key] = obj[key];
     fields = this.fields;
     fields.num = this.num;
 
@@ -84,7 +78,6 @@ Relationship.prototype.update = function(obj, compare) {
         $phrase.prepend(this.linkPhrase() + ":");
         $entity.prepend("&#160;");
     }
-
     var action = fields.action;
     if (action == "add") {
         fields.direction = this.direction || "forward";
@@ -323,13 +316,16 @@ Relationship.prototype.isIdentical = function(other) {
         $(attrs2).not(attrs1).length > 0) return false;
 
     for (var i = 0; i < attrs1.length; i++) {
-        var val1 = self.attrs[attrs1[i]], val2 = other.attrs[attrs1[i]],
-            t1 = typeof val1, t2 = typeof val2;
+        var v1 = self.attrs[attrs1[i]], v2 = other.attrs[attrs1[i]],
+            t1 = typeof v1, t2 = typeof v2;
 
         if (t1 != t2) return false;
-        if (t1 != "number" && !($.isArray(val1) && $.isArray(val2))) return false;
-        if (t1 == "number" && val1 != val2) return false;
-        if ($(val1).not(val2).length > 0 || $(val2).not(val1).length > 0) return false;
+        if (t1 == "number") {
+            if (v1 != v2) return false;
+        } else {
+            if (!$.isArray(v1) || !$.isArray(v2) || $(v1).not(v2).length > 0 ||
+                $(v2).not(v1).length > 0) return false;
+        }
     }
     return true;
 };
