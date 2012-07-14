@@ -332,11 +332,13 @@ Fields.LinkType = {
                 //     {additional} {guest} {solo} {instrument}
                 // would leave an empty string.
 
-                var orig_phrase = phrase, re = /\{(.*?)(?::.*?)?\}/g, m;
+                var orig_phrase = phrase, re = /\{(.*?)(?::(.*?))?\}/g, m, repl;
                 while (m = re.exec(orig_phrase)) {
                     var attr = RE.attr_roots[m[1]], info = root.attrs[attr.id];
-                    if (info[0] < 1)
-                        phrase = phrase.replace(m[0], "").replace("  ", " ");
+                    if (info[0] < 1) {
+                        repl = (m[2] ? m[2].split("|")[1] : "") || "";
+                        phrase = phrase.replace(m[0], repl).replace("  ", " ");
+                    }
                 }
 
                 opt.value = root.id;
