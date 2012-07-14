@@ -246,7 +246,7 @@ var createFields = function(prefix, values, doc) {
 Relationship.prototype.createFields = function() {
     // documentFragment is noticeably faster here
     var doc = document.createDocumentFragment();
-    this.$container.append(createFields.call(this, "", this.fields, doc));
+    this.$container.eq(0).append(createFields.call(this, "", this.fields, doc));
 };
 
 // this single function makes the entire relationship editor code considerably

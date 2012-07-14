@@ -713,6 +713,14 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
         attr_tree => $attr_tree,
         language_options => $language_options,
     );
+
+    # remove duplicate params
+    my $params = $c->req->body_parameters;
+    foreach my $key (keys %$params) {
+        if (ref($params->{$key}) eq 'ARRAY') {
+            $params->{$key} = $params->{$key}->[0];
+        }
+    }
     return if !($c->form_posted && $form->submitted_and_valid($c->req->body_parameters));
 
     my @added_fields;
