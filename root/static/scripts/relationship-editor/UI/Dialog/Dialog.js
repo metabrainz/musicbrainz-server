@@ -192,7 +192,7 @@ Dialog.setup = function(source, target_type) {
 Dialog.setWidth = function() {
     var $hidden = $();
     // the ar-descrs stretch the dialog
-    $.each(this.$dialog.find("div.ar-descr"), function(i, div) {
+    $.each(this.$dialog.find("div.ar-descr, p.msg"), function(i, div) {
         var $div = $(div);
         if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
     });
