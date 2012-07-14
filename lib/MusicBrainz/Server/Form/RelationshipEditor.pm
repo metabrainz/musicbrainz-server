@@ -261,6 +261,8 @@ after validate => sub {
         next if ($entity0->field('type')->has_errors || $entity1->field('type')->has_errors);
 
         my $i = 0;
+        my $loaded_entities = $c->stash->{loaded_entities};
+
         foreach my $ent_field (($entity0, $entity1)) {
             my $ent = $ent_field->value;
 
@@ -270,12 +272,13 @@ after validate => sub {
 
             if (!$valid_ids && !$new_work) {
                 $ent_field->add_error(l('This entity has an invalid ID or MBID.'));
-            } elsif (!$new_work) {
+
+            } elsif (!$new_work && !defined($loaded_entities->{$ent->{gid}})) {
                 my $model = type_to_model($ent->{type});
                 my $ent_data = $c->model($model)->get_by_id($ent->{id});
 
                 if ($ent_data) {
-                    $c->stash->{loaded_entities}->{$ent->{gid}} = $ent_data;
+                    $loaded_entities->{$ent->{gid}} = $ent_data;
                 } else {
                     $ent_field->add_error(l('This entity does not exist.'));
                 }

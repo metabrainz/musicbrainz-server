@@ -722,7 +722,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
     # new works have a fake generated id, equal to the gid
     sub new_work {
         my $ent = shift;
-        return $ent->{type} eq 'work' && $ent->{id} eq $ent->{gid};
+        return ($ent->{type} eq 'work') && ($ent->{id} eq $ent->{gid});
     }
 
     foreach my $field ($form->field('rels')->fields) {
@@ -748,27 +748,27 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
                 );
             });
         } else {
+            my $new_work = new_work($entity0) ? $entity0 : (
+                           new_work($entity1) ? $entity1 : undef);
+
+            if ($new_work && !defined($loaded_entities->{$new_work->{gid}})) {
+
+                my $edit;
+                $c->model('MB')->with_transaction(sub {
+                    $edit = $self->_insert_edit(
+                        $c, $form,
+                        edit_type => $EDIT_WORK_CREATE,
+                        name => $new_work->{name},
+                        comment => $new_work->{comment},
+                        type_id => $new_work->{type_id},
+                        language_id => $new_work->{language_id}
+                    );
+                });
+                $loaded_entities->{$new_work->{gid}} =
+                    $c->model('Work')->get_by_id($edit->entity_id);
+            }
             if ($action eq 'add') {
-                my $new_work = new_work($entity0) ? $entity0 : (
-                               new_work($entity1) ? $entity1 : undef);
-
-                if ($new_work && !exists $loaded_entities->{$new_work->{gid}}) {
-
-                    $c->model('MB')->with_transaction(sub {
-                        my $edit = $self->_insert_edit(
-                            $c, $form,
-                            edit_type => $EDIT_WORK_CREATE,
-                            name => $new_work->{name},
-                            comment => $new_work->{comment},
-                            type_id => $new_work->{type_id},
-                            language_id => $new_work->{language_id}
-                        );
-                        $loaded_entities->{$new_work->{gid}} =
-                            $c->model('Work')->get_by_id($edit->entity_id);
-                    });
-                }
                 push @added_fields, $field;
-
             } elsif ($action eq 'edit') {
                 $edited_fields->{$types} //= {};
                 $edited_fields->{$types}->{$rel->{id}} = $field;
@@ -817,8 +817,8 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
                     new_end_date => $rel->{end_date},
                     ended => $rel->{ended},
                     attributes => \@attributes,
-                    entity0_id => $entity0->{id},
-                    entity1_id => $entity1->{id},
+                    entity0_id => $loaded_entities->{$entity0->{gid}}->id,
+                    entity1_id => $loaded_entities->{$entity1->{gid}}->id,
             ));
         }
     }
