@@ -156,7 +156,14 @@ Relationship.prototype.remove = function() {
 
 Relationship.prototype.reset = function(obj) {
     var fields = RE.server_fields[this.type][this.fields.id];
-    if (fields) this.update({fields: $.extend(obj, fields)}, true);
+    if (fields) {
+        var types = RE.type_info[fields.link_type].types, target;
+
+        target = RE.Util.src(types[0], types[1], fields.direction) === 1
+            ? fields.entity[0] : fields.entity[1];
+
+        this.update({target: target, fields: $.extend(obj, fields)}, true);
+    }
 };
 
 // Constructs the link phrase to display for this relationship
