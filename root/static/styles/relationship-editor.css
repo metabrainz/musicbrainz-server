@@ -23,11 +23,11 @@
 #content.rel-editor img.bottom {vertical-align: bottom;}
 #content.rel-editor .btn.disabled {cursor: default; color: #999;}
 
-#content.rel-editor #errors-msg,
-#dialog.rel-editor #edits-pending-msg {
+#content.rel-editor .warning,
+#dialog.rel-editor .warning {
     border: 2px red dotted;
     background: #FBE3E4;
-    padding: 1em;
+    padding: 0.5em;
     font-weight: bold;
 }
 #content.rel-editor .error-field {border-bottom: 2px red dotted;}

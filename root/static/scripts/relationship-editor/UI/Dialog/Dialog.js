@@ -65,13 +65,14 @@ Dialog.init = function() {
 
     $("#existing-work-button").change(function() {
         $("#target").show();
-        $("#new-work").hide();
+        $("#new-work, #new-work-msg").hide();
         self.setWidth();
     });
 
     $("#new-work-button").change(function() {
         $("#target").hide();
         $("#new-work").find("tr").show().end().show();
+        $("#new-work-msg").show();
         self.setWidth();
     });
 
@@ -124,7 +125,7 @@ Dialog.setup = function(source, target_type) {
     Fields.TargetType.render(allowed_targets, target_type,
         this.relationship || this.recording_work);
 
-    var $source = $("td.section", "#source")
+    var $source = $("#source").show().find("td.section")
         .text(MB.text.Entity[source.type] + ":")
         .next().empty();
 
@@ -227,7 +228,6 @@ Dialog.hide = function() {
         self.$dialog.find("input[type=checkbox]").prop("checked", false);
         self.$dialog.find("p.msg").hide();
         self.$dialog.find("div.ar-descr").empty().hide();
-        self.$dialog.css("max-width", undefined);
     });
     self.$overlay.fadeOut("fast");
     delete self.relationship;
@@ -468,16 +468,16 @@ BatchAddDialog.show = function(source_type) {
 };
 
 
-BatchAddDialog.accept = function() {
+BatchAddDialog.accept = function(callback) {
     var result;
     for (var i = 0; i < this.targets.length; i++) {
-
         result = {fields: {action: "add"}};
         Dialog.source = this.targets[i];
-        this.$work_name.val(Dialog.source.name);
 
-        if (!Dialog.result.call(this, result)) return;
-        RE.processRelationship(result, Dialog.source);
+        if (!callback || callback.call(this)) {
+            if (!Dialog.result.call(this, result)) return;
+            RE.processRelationship(result, Dialog.source);
+        }
     }
     this.hide();
 }
@@ -502,6 +502,19 @@ BatchCreateWorksDialog.show = function() {
         $("#batch-create-works-msg").show();
     }
 };
+
+
+BatchCreateWorksDialog.accept = function() {
+    BatchAddDialog.accept.call(this, function() {
+        var rels = this.source.relationships;
+        // check that this recording has no work rels already
+        for (var i = 0; i < rels.length; i++) {
+            if (rels[i].type == "recording-work") return false;
+        }
+        this.$work_name.val(this.source.name);
+        return true;
+    });
+}
 
 
 String.prototype.repeat = function(n) {

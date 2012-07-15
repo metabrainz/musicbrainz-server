@@ -40,7 +40,7 @@
 
     <div id="dialog" class="rel-editor">
 
-      <p id="edits-pending-msg" class="msg">
+      <p id="edits-pending-msg" class="msg warning">
         [% l('Warning: This relationship has pending edits.
               <a href="#">Click here</a> to view these edits and make sure they
               do not conflict with your own.') %]
@@ -57,8 +57,9 @@
               the attributes will be merged into the existing one.') %]
       </p>
       <p id="batch-create-works-msg" class="msg">
-        [% l('This will create a new work for each checked recording. The work
-              names will be the same as their respective recording.') %]
+        [% l('This will create a new work for each checked recording that has no
+              work already. The work names will be the same as their respective
+              recording.') %]
       </p>
 
       <table id="work-options" class="rel-editor" style="display: none;"><tr>
@@ -71,6 +72,12 @@
           [% l('Create a new work') %]
         </label></td>
       </tr></table>
+
+      <p id="new-work-msg" class="msg warning">
+        [% l('Only use this option after you\'ve tried searching for the work(s)
+              you want to create, and are certain they do not already exist on
+              MusicBrainz.') %]
+      </p>
 
       <table class="relationship">
         <tr id="source">
@@ -172,7 +179,7 @@
       [%- INCLUDE "release/header.tt" page='edit_relationships' -%]
 
       [% IF error_fields.size > 0 %]
-        <p id="errors-msg">
+        <p id="errors-msg" class="warning">
           [% l('There were errors in your submission. Relationships marked with
                 <span class="error-field">red underline</span> contained errors.
                 Please fix them and try again.') %]

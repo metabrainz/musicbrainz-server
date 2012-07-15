@@ -306,19 +306,8 @@ Fields.LinkType = {
     },
 
     render: function(reverse, value) {
-
-        var root = RE.type_info_by_entities, relationship = Dialog.relationship,
-            cache = reverse ? this.backward_cache : this.forward_cache;
-
-        if (relationship) {
-            var type = relationship.type;
-        } else {
-            var type = Dialog.target_type + "-" + Dialog.source.type;
-            if (root[type] === undefined)
-                type = Dialog.source.type + "-" + Dialog.target_type;
-        }
-        root = root[type];
-        value = value || (root[0].descr ? root[0].id : root[0].children[0].id);
+        var cache = reverse ? this.backward_cache : this.forward_cache,
+            root = allowed_link_types(), type = RE.Util.typestr(value);
 
         if (cache[type] === undefined) {
             var select = document.createElement("select");
@@ -369,7 +358,8 @@ Fields.LinkType = {
         if (Dialog.source.type == Dialog.target_type)
             this.$select.after(this.$change_direction);
 
-        this.$select.val(value).change();
+        if (value) this.$select.val(value);
+        this.$select.change();
     }
 };
 
@@ -383,20 +373,20 @@ Fields.TargetType = {
             Dialog.autocomplete.changeEntity(this.value);
             Dialog.target_type = this.value;
 
-            var link_type = Fields.LinkType.$select.val(),
-                direction = "forward";
+            var link_type, direction = "forward", root, reverse;
 
             if (Dialog.relationship) {
                 var rel = Dialog.relationship;
                 link_type = rel.fields.link_type;
                 if (rel.direction) direction = rel.direction;
+            } else {
+                root = allowed_link_types();
+                link_type = root[0].descr ? root[0].id : root[0].children[0];
             }
-            Fields.LinkType.direction = direction;
-            var type_info = RE.type_info[link_type],
-                reverse = type_info
-                    ? (RE.Util.src(type_info.types[0], type_info.types[1], direction) == 1)
-                    : false;
 
+            Fields.LinkType.direction = direction;
+            root = RE.type_info[link_type];
+            var reverse = RE.Util.src(root.types[0], root.types[1], direction) == 1;
             Fields.LinkType.render(reverse, link_type);
         });
     },
@@ -414,6 +404,20 @@ Fields.TargetType = {
         this.$select.val(value).change();
         if (disable) this.$select.attr("disabled", "disabled");
     }
+};
+
+
+var allowed_link_types = function() {
+    var root = RE.type_info_by_entities, type;
+
+    if (Dialog.relationship) {
+        type = Dialog.relationship.type;
+    } else {
+        type = Dialog.target_type + "-" + Dialog.source.type;
+        if (root[type] === undefined)
+            type = Dialog.source.type + "-" + Dialog.target_type;
+    }
+    return root[type];
 };
 
 })();
