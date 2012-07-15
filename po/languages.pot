@@ -36188,7 +36188,7 @@ msgstr ""
 msgid "Ventureño"
 msgstr ""
 
-#. frequency:0
+#. frequency:1
 #: DB:language/name:6913
 msgid "Veps"
 msgstr ""

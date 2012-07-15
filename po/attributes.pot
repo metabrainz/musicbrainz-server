@@ -38,6 +38,11 @@ msgctxt "work_type"
 msgid "Aria"
 msgstr ""
 
+#: DB:artist_alias_type/name:1
+msgctxt "alias_type"
+msgid "Artist name"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -203,9 +208,19 @@ msgctxt "release_packaging"
 msgid "Keep Case"
 msgstr ""
 
+#: DB:label_alias_type/name:1
+msgctxt "alias_type"
+msgid "Label name"
+msgstr ""
+
 #: DB:medium_format/name:5
 msgctxt "medium_format"
 msgid "LaserDisc"
+msgstr ""
+
+#: DB:artist_alias_type/name:2
+msgctxt "alias_type"
+msgid "Legal name"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:6
@@ -273,8 +288,8 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr ""
 
-#: DB:release_group_primary_type/name:11
-msgctxt "release_group_primary_type"
+#: DB:gender/name:3
+msgctxt "gender"
 msgid "Other"
 msgstr ""
 
@@ -283,13 +298,13 @@ msgctxt "medium_format"
 msgid "Other"
 msgstr ""
 
-#: DB:release_packaging/name:5
-msgctxt "release_packaging"
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
 msgid "Other"
 msgstr ""
 
-#: DB:gender/name:3
-msgctxt "gender"
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
 msgid "Other"
 msgstr ""
 
@@ -366,6 +381,12 @@ msgstr ""
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
+msgstr ""
+
+#: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
+#: DB:work_alias_type/name:2
+msgctxt "alias_type"
+msgid "Search hint"
 msgstr ""
 
 #: DB:release_group_primary_type/name:2
@@ -451,6 +472,11 @@ msgstr ""
 #: DB:medium_format/name:14
 msgctxt "medium_format"
 msgid "Wax Cylinder"
+msgstr ""
+
+#: DB:work_alias_type/name:1
+msgctxt "alias_type"
+msgid "Work name"
 msgstr ""
 
 #: DB:work_type/name:19
