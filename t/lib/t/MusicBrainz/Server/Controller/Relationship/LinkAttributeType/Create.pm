@@ -11,7 +11,9 @@ INSERT INTO editor (id, name, password, email, privs)
 EOSQL
 
     $test->mech->get('/login');
-    $test->mech->submit_form( with_fields => { username => 'editor1', password => 'pass' } );
+    $test->mech->submit_form(
+        with_fields => { username => 'editor1', password => 'pass' }
+    );
 
     $test->$orig(@args);
 };

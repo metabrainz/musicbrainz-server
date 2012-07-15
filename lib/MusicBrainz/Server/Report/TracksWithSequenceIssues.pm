@@ -2,12 +2,10 @@ package MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use Moose;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub gather_data
-{
-	my ($self, $writer) = @_;
-
+sub query {
     # There are 3 checks going on in this query:
     # 1. The first track should be '1'
     # 2. The last track should match the amount of tracks
@@ -17,33 +15,52 @@ sub gather_data
     #    E.g. If the tracklist had tracks: 1, 2, 3, 3, 5 then
     #    the following will *not* hold:
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
-	$self->gather_data_from_query($writer, <<'EOSQL');
-SELECT DISTINCT release.id, release.gid AS release_gid, release.artist_credit AS artist_credit_id,
-  musicbrainz_collate(rel_name.name), rel_name.name
-FROM (
-    SELECT
-      track.tracklist,
-      min(track.position) AS first_track,
-      max(track.position) AS last_track,
-      count(track.position) AS track_count,
-      sum(track.position) AS track_pos_acc
-    FROM
-      track
-    GROUP BY track.tracklist
-) s
-JOIN medium ON medium.tracklist = s.tracklist
-JOIN release ON release.id = medium.release
-JOIN release_name rel_name ON rel_name.id = release.name
-WHERE
+    <<'EOSQL'
+SELECT release.id AS release_id,
+  row_number() OVER (ORDER BY musicbrainz_collate(rel_name.name))
+FROM
+(
+  SELECT DISTINCT release.*
+  FROM
+    ( SELECT
+        track.tracklist,
+        min(track.position) AS first_track,
+        max(track.position) AS last_track,
+        count(track.position) AS track_count,
+        sum(track.position) AS track_pos_acc
+      FROM
+        track
+      GROUP BY track.tracklist
+   ) s
+   JOIN medium ON medium.tracklist = s.tracklist
+   JOIN release ON release.id = medium.release
+   WHERE
      first_track != 1
-  OR last_track != track_count
-  OR (track_count * (1 + track_count)) / 2 <> track_pos_acc
-ORDER BY musicbrainz_collate(rel_name.name)
+     OR last_track != track_count
+     OR (track_count * (1 + track_count)) / 2 <> track_pos_acc
+) release
+JOIN release_name rel_name ON rel_name.id = release.name
 EOSQL
 }
 
-sub template {
-    return 'report/tracks_with_sequence_issues.tt'
-}
-
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

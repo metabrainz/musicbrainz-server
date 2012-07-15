@@ -1,0 +1,92 @@
+[% WRAPPER 'statistics/layout.tt' title=l('Editors') full_width=1 page='editors' %]
+
+<p>[% l('For the vote statistics, only yes or no votes are counted, abstain
+    votes are not counted.') %]</p>
+
+<div style="float:left; display:inline-block; margin-right: 50px;">
+  <h2 style="margin-top:0;">[%- l('Editors') -%]</h2>
+  <h3>[% l('Most active editors in the past week') %]</h3>
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th class="pos">[% l('Rank') %]</th>
+        <th>[% l('Editor') %]</th>
+        <th>[% l('Open and applied edits in past week') %]</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOR data_point=top_recently_active_editors %]
+      <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
+        <td>[% link_editor(data_point.editor) %]</td>
+        <td>[% add_commas(data_point.edits) %]</td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
+
+  <h3>[% l('Top editors overall') %]</h3>
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th class="pos">[% l('Rank') %]</th>
+        <th>[% l('Editor') %]</th>
+        <th>[% l('Total applied edits') %]</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOR editor=top_editors %]
+      <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
+        <td>[% link_editor(editor) %]</td>
+        <td>[% add_commas(editor.accepted_edits + editor.accepted_auto_edits) %]</td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
+</div>
+
+<div style="float:left; display:inline-block; margin-right: 50px;">
+  <h2 style="margin-top:0;">[%- l('Voters') -%]</h2>
+  <h3>[% l('Most active voters in the past week') %]</h3>
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th class="pos">[% l('Rank') %]</th>
+        <th>[% l('Voter') %]</th>
+        <th>[% l('Votes in past week') %]</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOR data_point=top_recently_active_voters %]
+      <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
+        <td>[% link_editor(data_point.editor) %]</td>
+        <td>[% add_commas(data_point.votes) %]</td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
+
+  <h3>[% l('Top voters overall') %]</h3>
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th class="pos">[% l('Rank') %]</th>
+        <th>[% l('Voter') %]</th>
+        <th>[% l('Total votes') %]</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOR data_point=top_voters %]
+      <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+        <td class="t">[% loop.count %]</td>
+        <td>[% link_editor(data_point.editor) %]</td>
+        <td>[% add_commas(data_point.votes) %]</td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
+</div>
+
+[% END %]

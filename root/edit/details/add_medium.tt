@@ -40,19 +40,22 @@
    </tr>
 
    <tr>
-     <th>[% l('Artist Credits') %]</th>
+     <th>[% l('Artist Credits:') %]</th>
      <td>
        <table class="tbl">
          <thead>
            <tr>
-             <th>[% l('#') %]</th>
+             <th class="pos">[% l('#') %]</th>
              <th>[% l('Artist') %]</th>
            </tr>
          </thead>
          <tbody>
            [% FOR track=edit.display_data.tracklist.tracks %]
            <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
-             <td>[% loop.count %]</td>
+             <td class="pos t">
+               <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+               [% track.number %]
+             </td>
              <td>[% expanded_artist_credit(track.artist_credit) %]</td>
            </tr>
            [% END %]

@@ -52,14 +52,14 @@
         [%- WRAPPER 'components/with-pager.tt' -%]
             <form action="[% c.uri_for_action('/release_group/merge_queue') %]"
                 method="post">
-            [%- rg_type = '' -%]
             [%- FOR rg=release_groups -%]
-                [% IF rg_type != rg.type_name %]
-                    [% IF rg_type != '' %]
+                [% rgtype = rg.type_name || 'undefined' %]
+                [% IF last_rg_type != rgtype %]
+                    [% IF last_rg_type.defined %]
                         </tbody>
                     </table>
                     [% END %]
-                    <h3>[% l(rg.type_name) || l('Other release groups') %]</h3>
+                    <h3>[% rg.l_type_name || l('Other release groups') %]</h3>
                     <table class="tbl">
                         <thead>
                             <tr>
@@ -74,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-                    [% rg_type = rg.type_name %]
+                    [% last_rg_type = rgtype %]
                 [% END %]
                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
 		    [% rdfa_release_group_ns(rg) %]>
@@ -99,7 +99,7 @@
                     <td class="c">[% rg.release_count %]</td>
                 </tr>
             [%- END -%]
-            [% IF rg_type != '' %]
+            [% IF last_rg_type.defined %]
                 </tbody>
             </table>
             [% END %]

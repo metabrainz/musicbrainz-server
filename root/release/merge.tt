@@ -68,7 +68,10 @@
               </tr>
               [% FOR track=medium.tracklist.tracks %]
               <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
-                <td class="pos t">[% track.position %]</td>
+                <td class="pos t">
+                  <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+                  [% track.number %]
+                </td>
                 <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
                 <td>[% artist_credit(track.artist_credit) %]</td>
                 <td class="treleases">[% track.length | format_length %]</td>
@@ -86,7 +89,7 @@
 
           [% IF bad_recording_merges.size %]
             [% warning(l('The recording artists do not match! Perhaps you meant to use the "append mediums" merge strategy?')) %]
-            <p>[% l('If you continue with the current merge strategy, the following recordings will be merged:') %]</p>
+            <p>[% l('The recordings that will be merged if you continue with the current merge strategy include the following, whose artists differ:') %]</p>
             [% FOR bad_recordings IN bad_recording_merges %]
                 <ul>
                 [% FOR bad_recording IN bad_recordings %]

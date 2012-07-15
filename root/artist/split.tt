@@ -23,10 +23,13 @@
    <p>
      [% l('There are no recordings, release groups, releases or tracks
            credited to only {name}. If you are trying to remove {name}, please
+           edit all artist credits at the bottom of the {alias_uri|aliases} tab and
            remove all existing {rel_uri|relationships} instead, which will allow
            ModBot to automatically remove this artist in the upcoming days.', {
               name    => link_artist(artist),
               rel_uri => c.uri_for_action('/artist/relationships',
+                                          [ artist.gid ] )
+              alias_uri => c.uri_for_action('/artist/aliases',
                                           [ artist.gid ] )
           }) %]</strong>
    </p>

@@ -54,13 +54,10 @@ sub replace
                    $new_tracklist->id, $tracklist_id);
 
     # XXX Should go through Tracklist->delete
-    my @possibly_orphaned_recordings = @{
-        $self->sql->select_single_column_array(
-            'DELETE FROM track WHERE tracklist = ? RETURNING recording', $tracklist_id
-        )
-    };
+    $self->sql->select_single_column_array(
+        'DELETE FROM track WHERE tracklist = ? RETURNING recording', $tracklist_id
+    );
     $self->sql->do('DELETE FROM tracklist WHERE id = ?', $tracklist_id);
-    $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
 
     return $new_tracklist->id;
 }
@@ -107,16 +104,12 @@ sub garbage_collect {
     };
 
     if (@orphaned_tracklists) {
-        my @possibly_orphaned_recordings = @{
-            $self->sql->select_single_column_array(
-                'DELETE FROM track
-                 WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')
-                 RETURNING recording',
-                @orphaned_tracklists
-            )
-        };
-
-        $self->c->model('Recording')->garbage_collect_orphans(@possibly_orphaned_recordings);
+        $self->sql->select_single_column_array(
+            'DELETE FROM track
+             WHERE tracklist IN ('. placeholders(@orphaned_tracklists) . ')
+             RETURNING recording',
+            @orphaned_tracklists
+        );
 
         $self->sql->do(
             'DELETE FROM tracklist

@@ -1,7 +1,9 @@
 package t::MusicBrainz::Server::Controller::Artist::Edit;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
+
+use List::UtilsBy qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 
@@ -171,6 +173,67 @@ $mech->submit_form_ok({
 ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce/edit$}, 'still on the edit page');
 $mech->content_contains('Field should not exceed 255 characters', 'warning about the long comment');
 
+};
+
+test 'Test updating artist credits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password, email, email_confirm_date)
+  VALUES ( 1, 'new_editor', 'password', 'example@example.com', '2005-10-20');
+INSERT INTO editor (id, name, password)
+  VALUES ( 4, 'ModBot', '' );
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist name'), (2, 'Alternative Name');
+INSERT INTO artist (id, gid, name, sort_name) VALUES (10, '9f0b3e1a-2431-400f-b6ff-2bcebbf0971a', 1, 1);
+
+INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 2);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
+  VALUES (1, 10, 2, 1, NULL);
+EOSQL
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my @edits = capture_edits {
+        $mech->get_ok('/artist/9f0b3e1a-2431-400f-b6ff-2bcebbf0971a/edit');
+        $mech->submit_form_ok({
+            with_fields => {
+                'edit-artist.name' => 'test artist',
+                'edit-artist.rename_artist_credit' => [ 1 ]
+            }
+        });
+    } $c;
+
+    @edits = sort_by { $_->id } @edits;
+
+    is(@edits, 2, 'created 2 edits');
+    my ($edit_artist, $edit_ac) = @edits;
+    isa_ok($edit_artist, 'MusicBrainz::Server::Edit::Artist::Edit', 'created an artist edit');
+    isa_ok($edit_ac, 'MusicBrainz::Server::Edit::Artist::EditArtistCredit', 'edited an artist credit');
+
+    is_deeply($edit_ac->data->{new}{artist_credit}, {
+        names => [{
+            artist => {
+                name => 'Artist name',
+                id => 10,
+            },
+            name => 'test artist',
+            join_phrase => ''
+        }]
+    });
+
+    is_deeply($edit_ac->data->{old}{artist_credit}, {
+        names => [{
+            artist => {
+                name => 'Artist name',
+                id => 10,
+            },
+            name => 'Alternative Name',
+            join_phrase => ''
+        }]
+    });
 };
 
 1;

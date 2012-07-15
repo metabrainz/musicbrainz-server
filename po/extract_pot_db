@@ -47,6 +47,9 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name'], 'ctx' => 'NULL'},
+              {'domain' => 'attributes', 'table' => 'artist_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'label_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
+              {'domain' => 'attributes', 'table' => 'work_alias_type', 'columns' => ['name'], 'ctx' => 'NULL', 'ctxtable' => 'alias_type'},
               {'domain' => 'attributes', 'table' => 'release_group_primary_type', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'release_group_secondary_type', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'medium_format', 'columns' => ['name'], 'ctx' => 'NULL'},
@@ -82,6 +85,7 @@ sub parse_db {
     my @pos;
 
     my $table = $opt->{table};
+    my $ctxtable = $opt->{ctxtable} // $table;
     my $columns = $opt->{columns};
     my $flag = $opt->{flag};
     my $ctx = $opt->{ctx};
@@ -116,12 +120,12 @@ sub parse_db {
                        if ($ctx ne 'NULL') {
                            my $ctxt = shift @{$value};
                            if ($ctxt) {
-                               $po->msgctxt("$table:$ctxt");
+                               $po->msgctxt("$ctxtable:$ctxt");
                            } else {
-                               $po->msgctxt("$table:$id");
+                               $po->msgctxt("$ctxtable:$id");
                            }
                        } else {
-                           $po->msgctxt("$table");
+                           $po->msgctxt("$ctxtable");
                        }
                    }
                    if ($comment) {

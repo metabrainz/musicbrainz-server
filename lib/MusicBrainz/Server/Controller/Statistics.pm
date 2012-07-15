@@ -3,9 +3,12 @@ use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
+use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
+
+use aliased 'MusicBrainz::Server::EditRegistry';
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
@@ -17,9 +20,17 @@ sub statistics : Path('')
 #       ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id); fails
 #       for duplicate key 1
 #       count.quality.release.unknown is too high
+    my %statuses = map { $_->id => $_ } $c->model('ReleaseStatus')->get_all();
+    my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
+    my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
+    my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
+	statuses => \%statuses,
+        packagings => \%packagings,
+        primary_types => \%primary_types,
+        secondary_types => \%secondary_types,
         stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
     );
 }
@@ -96,6 +107,45 @@ sub countries : Local
     );
 }
 
+sub coverart : Local
+{
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $release_type_stats = [];
+    my $release_status_stats = [];
+    my $release_format_stats = [];
+    my $type_stats = [];
+    my $per_release_stats = [];
+
+    if (defined $stats) {
+        foreach my $stat_name
+                (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+            if (my ($type) = $stat_name =~ /^count\.release\.type\.(.*)\.has_coverart$/) {
+                push(@$release_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+            }
+            if (my ($status) = $stat_name =~ /^count\.release\.status\.(.*)\.has_coverart$/) {
+                push(@$release_status_stats, ({'stat_name' => $stat_name, 'status' => $status}));
+            }
+            if (my ($format) = $stat_name =~ /^count\.release\.format\.(.*)\.has_coverart$/) {
+                push(@$release_format_stats, ({'stat_name' => $stat_name, 'format' => $format}));
+            }
+            if (my ($type) = $stat_name =~ /^count\.coverart.type\.(.*)$/) {
+                push(@$type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+            }
+        }
+    } 
+
+    $c->stash(
+        template => 'statistics/coverart.tt',
+        stats => $stats,
+        release_type_stats => $release_type_stats,
+        release_status_stats => $release_status_stats,
+        release_format_stats => $release_format_stats,
+        type_stats => $type_stats
+    );
+}
+
 sub languages_scripts : Path('languages-scripts')
 {
     my ($self, $c) = @_;
@@ -168,6 +218,53 @@ sub formats : Path('formats')
     $c->stash(
         template => 'statistics/formats.tt',
         format_stats => $format_stats,
+        stats => $stats
+    );
+}
+
+sub editors : Path('editors') {
+    my ($self, $c) = @_;
+    $c->stash(
+        top_recently_active_editors => $c->model('Statistics')->top_recently_active_editors,
+        top_editors => $c->model('Statistics')->top_editors,
+
+        top_recently_active_voters => $c->model('Statistics')->top_recently_active_voters,
+        top_voters => $c->model('Statistics')->top_voters,
+    );
+}
+
+sub relationships : Path('relationships') {
+    my ($self, $c) = @_;
+    my $pairs = [ $c->model('Relationship')->all_pairs() ];
+    my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => $c->model('LinkType')->get_tree($_->[0], $_->[1]) } } @$pairs };
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    $c->stash(
+        types => $types,
+	stats => $stats
+    );
+}
+
+sub edits : Path('edits') {
+    my ($self, $c) = @_;
+
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+
+    my %by_category;
+    for my $class (EditRegistry->get_all_classes) {
+        $by_category{$class->edit_category} ||= [];
+        push @{ $by_category{$class->edit_category} }, $class;
+    }
+
+    for my $category (keys %by_category) {
+        $by_category{$category} = [
+            reverse sort { $stats->statistic('count.edit.type.' . $a->edit_type) <=> 
+	           $stats->statistic('count.edit.type.' . $b->edit_type) }
+                @{ $by_category{$category} }
+            ];
+    }
+
+    $c->stash(
+        by_category => \%by_category,
         stats => $stats
     );
 }

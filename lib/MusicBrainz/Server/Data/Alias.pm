@@ -227,6 +227,7 @@ sub exists {
     my ($self, $alias) = @_;
     my $name_table = $self->parent->name_table;
     my $table = $self->table;
+    my $type = $self->type;
     return $self->sql->select_single_value(
         "SELECT EXISTS (
              SELECT TRUE
@@ -236,7 +237,8 @@ sub exists {
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
                AND alias.id IS DISTINCT FROM ?
-         )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}
+               AND $type = ?
+         )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}, $alias->{entity}
     );
 }
 

@@ -111,10 +111,13 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
         $values->{entity1_type} = $c->stash->{type1};
         $values->{attributes} = $self->_get_attribute_values($form);
 
-        $self->_insert_edit($c, $form,
-            edit_type => $EDIT_RELATIONSHIP_ADD_TYPE,
-            %$values
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELATIONSHIP_ADD_TYPE,
+                %$values
+            );
+        });
 
         my $url = $c->uri_for_action(
             '/relationship/linktype/tree',
@@ -163,12 +166,15 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
         my $values = { map { $_->name => $_->value } $form->edit_fields };
         $values->{attributes} = $self->_get_attribute_values($form);
 
-        $self->_insert_edit($c, $form,
-            edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
-            old => $old_values,
-            new => $values,
-            link_id => $link_type->id
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
+                old => $old_values,
+                new => $values,
+                link_id => $link_type->id
+            );
+        });
 
         my $url = $c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
         $c->response->redirect($url);
@@ -190,23 +196,26 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
     my $form = $c->form( form => 'Confirm' );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        $self->_insert_edit($c, $form,
-            edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE,
-            link_type_id => $link_type->id,
-            types => [ $link_type->entity0_type, $link_type->entity1_type ],
-            name => $link_type->name,
-            link_phrase => $link_type->link_phrase,
-            short_link_phrase => $link_type->short_link_phrase,
-            reverse_link_phrase => $link_type->reverse_link_phrase,
-            description => $link_type->description,
-            attributes => [
-                map +{
-                    type => $_->type_id,
-                    min => $_->min,
-                    max => $_->max
-                }, $link_type->all_attributes
-            ]
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE,
+                link_type_id => $link_type->id,
+                types => [ $link_type->entity0_type, $link_type->entity1_type ],
+                name => $link_type->name,
+                link_phrase => $link_type->link_phrase,
+                short_link_phrase => $link_type->short_link_phrase,
+                reverse_link_phrase => $link_type->reverse_link_phrase,
+                description => $link_type->description,
+                attributes => [
+                    map +{
+                        type => $_->type_id,
+                        min => $_->min,
+                        max => $_->max
+                    }, $link_type->all_attributes
+                ]
+            );
+        });
 
         my $url = $c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ], { msg => 'deleted' });
         $c->response->redirect($url);

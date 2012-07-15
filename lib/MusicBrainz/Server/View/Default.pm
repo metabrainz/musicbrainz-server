@@ -5,6 +5,7 @@ use base 'Catalyst::View::TT';
 use DBDefs;
 use MRO::Compat;
 use Digest::MD5 qw( md5_hex );
+use MusicBrainz::Server::Translation;
 
 __PACKAGE__->config(TEMPLATE_EXTENSION => '.tt');
 
@@ -13,8 +14,10 @@ sub process
     my $self = shift;
     my $c = $_[0];
 
-    $self->next::method(@_)
-        or return 0;
+    MusicBrainz::Server::Translation->instance->_set_language();
+    my $ret = $self->next::method(@_);
+    MusicBrainz::Server::Translation->instance->_unset_language();
+    $ret or return 0;
 
     return 1 unless &DBDefs::USE_ETAGS;
 

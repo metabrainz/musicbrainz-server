@@ -8,11 +8,13 @@ use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
 
 sub edit_type { die 'Unimplemented' }
 sub edit_name { die 'Unimplemented' }
+sub l_edit_name { l(shift->edit_name) }
 
 sub edit_template
 {

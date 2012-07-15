@@ -3,9 +3,12 @@
 <h1>[% l('Releases without script') %]</h1>
 
 <ul>
-    <li>[% l('This report shows releases that have no script set.') %]</li>
+    <li>[% l('This report shows releases that have no script set. If you
+              recognize the script, just add it! Remember that the script used for
+              English (and most other European languages) is Latin.') %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]

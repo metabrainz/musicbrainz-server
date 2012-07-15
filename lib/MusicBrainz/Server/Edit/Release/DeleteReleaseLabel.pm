@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Release;
 
@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
-sub edit_name { l('Remove release label') }
+sub edit_name { N_l('Remove release label') }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 
 sub release_id { shift->data->{release}{id} }

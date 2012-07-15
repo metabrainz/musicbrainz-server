@@ -6,13 +6,13 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_SAC_TO_MAC
     $VARTIST_ID
 );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Convert release to multiple artists') }
+sub edit_name     { N_l('Convert release to multiple artists') }
 sub historic_type { 9 }
 sub edit_type     { $EDIT_HISTORIC_SAC_TO_MAC }
 

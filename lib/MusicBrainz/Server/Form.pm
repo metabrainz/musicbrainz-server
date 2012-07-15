@@ -16,7 +16,7 @@ sub submitted_and_valid
 sub _select_all
 {
     my ($self, $model, $accessor) = @_;
-    $accessor ||= 'name';
+    $accessor ||= 'l_name';
 
     my $model_ref = ref($model) ? $model : $self->ctx->model($model);
     return [ map {
@@ -76,7 +76,7 @@ sub serialize
     # ->fif provides convenient access to all values.
     my $fif = $self->_fix_fif ($self->fif);
 
-    my @attribute_names = qw/ label title style css_class id disabled readonly javascript order /;
+    my @attribute_names = qw/ label title style css_class id disabled readonly order /;
     my $name = $self->name;
     my $attributes = {};
 

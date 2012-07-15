@@ -2,7 +2,7 @@
 <tr[% ' class="ev"' IF loop.count % 2 == 1 %]>
     <td class="t">[% loop.count %]</td>
     <td>[% IF entity.entity.id != '' %]<a href="/search?query=format%3A%22[% entity.entity.name | replace('"', '\"') | uri %]%22&type=release&advanced=on">[% END %]
-            [% l(entity.entity.name) || l('Unknown Format') %]
+            [% entity.entity.l_name || l('Unknown Format') %]
         [% IF entity.entity.id != '' %]</a>[% END %]
     </td>
     <td class="t">[% add_commas(entity.release_count) %]</td>
@@ -16,6 +16,7 @@
 [% round1 = format('%.2f') %]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %] 
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
 
@@ -45,4 +46,5 @@
 [%- END -%]
 </tbody>
 </table>
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

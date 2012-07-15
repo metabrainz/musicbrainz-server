@@ -58,6 +58,9 @@
               [% END %]
               <li>
                 <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                       [%- IF artist_row.field('entity_id').value == 0 -%]
+                       checked="checked"
+                       [%- END -%]
                         value="0" />
                 [% l('Add new artist') %]
               </li>
@@ -104,6 +107,9 @@
               [% END %]
               <li>
                 <input type="radio" name="[% label_row.field('entity_id').html_name %]"
+                       [%- IF label_row.field('entity_id').value == 0 -%]
+                       checked="checked"
+                       [%- END -%]
                         value="0" />
                 [% l('Add new label') %]
               </li>

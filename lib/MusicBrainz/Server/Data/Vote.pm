@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Constants qw( $VOTE_YES $VOTE_NO $VOTE_ABSTAIN );
+use MusicBrainz::Server::Constants qw( :vote );
 use MusicBrainz::Server::Types qw( VoteOption );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -59,6 +59,12 @@ sub enter_votes
         @votes = grep {
             my $edit = $edits->{ $_->{edit_id} };
             defined $edit && $edit->is_open
+        } @votes;
+
+        # Filter out self-votes
+        @votes = grep {
+            $_->{vote} == $VOTE_APPROVE ||
+            $editor_id != $edits->{ $_->{edit_id} }->editor_id
         } @votes;
 
         return unless @votes;

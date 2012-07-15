@@ -101,19 +101,19 @@ $vote_data->load_for_edits($edit);
 is(scalar @{ $email_transport->deliveries }, 1);
 is($email_transport->deliveries->[-1]->{email}, $email);
 
-is(scalar @{ $edit->votes }, 5);
+is(scalar @{ $edit->votes }, 4);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
 
 # Check the vote counts
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
 is($edit->yes_votes, 1);
-is($edit->no_votes, 1);
+is($edit->no_votes, 0);
 
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 is($edit->yes_votes, 0);
-is($edit->no_votes, 1);
+is($edit->no_votes, 0);
 
 # Make sure future no votes do not cause another email to be sent out
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
@@ -133,42 +133,42 @@ is_deeply($stats, [
         name   => 'Yes',
         recent => {
             count      => 2,
-            percentage => 40,
+            percentage => 50,
         },
         all    => {
             count      => 3,
-            percentage => 50
+            percentage => 60
         }
     },
     {
         name   => 'No',
         recent => {
-            count      => 2,
-            percentage => 40,
+            count      => 1,
+            percentage => 25,
         },
         all    => {
-            count      => 2,
-            percentage => 33
+            count      => 1,
+            percentage => 20
         }
     },
     {
         name   => 'Abstain',
         recent => {
             count      => 1,
-            percentage => 20,
+            percentage => 25,
         },
         all    => {
             count      => 1,
-            percentage => 17
+            percentage => 20
         }
     },
     {
         name   => 'Total',
         recent => {
-            count      => 5,
+            count      => 4,
         },
         all    => {
-            count      => 6,
+            count      => 5,
         }
     }
 ]);

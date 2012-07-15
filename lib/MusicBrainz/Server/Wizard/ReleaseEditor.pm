@@ -872,6 +872,8 @@ sub create_edits
 
     $self->_expand_mediums($data);
 
+    $self->c->model('MB')->context->sql->begin unless $previewing;
+
     # Artists and labels:
     # ----------------------------------------
     my (%created) = $self->_edit_missing_entities(%args);
@@ -896,6 +898,8 @@ sub create_edits
 
     # Add any other extra edits (adding mediums, etc)
     $self->create_common_edits(%args);
+
+    $self->c->model('MB')->context->sql->commit unless $previewing;
 
     return $self->release;
 }
@@ -940,9 +944,9 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            name => $artist->{name},
-            sort_name => $artist->{sort_name} || '',
-            comment => $artist->{comment} || '',
+            name => trim ($artist->{name}),
+            sort_name => trim ($artist->{sort_name}) || '',
+            comment => trim ($artist->{comment}) || '',
             ipi_codes => [ ]);
     } grep { !$_->{entity_id} } @missing_artist;
 
@@ -953,8 +957,10 @@ sub _edit_missing_entities
             $EDIT_LABEL_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            ipi_codes => [ ],
-            map { $_ => $label->{$_} } qw( name sort_name comment ));
+            name => trim ($label->{name}),
+            sort_name => trim ($label->{sort_name}) || '',
+            comment => trim ($label->{comment}) || '',
+            ipi_codes => [ ]);
     } grep { !$_->{entity_id} } @{ $data->{missing}{label} };
 
     return () if $previewing;

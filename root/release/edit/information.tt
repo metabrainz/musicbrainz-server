@@ -136,6 +136,14 @@
      </div>
     </div>
 
+    <div class="packaging-container" style="display: none">
+      <div class="packaging bubble">
+        <p>
+          [% l('Review the {doc|list of packaging types} for help.', { doc => doc_link('Release/Packaging') }) %]
+        </p>
+     </div>
+    </div>
+
     [% FOR field=form.field('labels').fields %]
     <div class="catno-container" style="display: none">
       <div class="bubble">

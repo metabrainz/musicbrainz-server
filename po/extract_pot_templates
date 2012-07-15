@@ -14,7 +14,7 @@ use Encode qw(encode decode);
 
 ### TEMPLATES
 
-my @MARKERS = qw/l ln/;
+my @MARKERS = qw/l ln lp/;
 
 my @files;
 
@@ -72,6 +72,7 @@ sub get_translations {
             my $s = shift @$data;
             if ( grep { $s eq $_ } @MARKERS ) {
                 my @contents = ();
+		push @contents, $s;
                 # Two parens at the start
                 shift @$data;
                 shift @$data;
@@ -125,6 +126,7 @@ sub parse_file {
         for my $content (@$contents) {
             my $po = Locale::PO->new();
             $po->add_flag('perl-format');
+            my $type = shift @{$content};
             my $cur = shift @{$content};
             $po->reference("$file:$line_number");
             if (defined $cur && $cur eq 'LITERAL' ) {
@@ -139,13 +141,22 @@ sub parse_file {
             if ( defined $next && $next eq 'COMMA' ) {
                 shift @{$content};
                 if (shift @{$content} eq 'LITERAL') {
-                    my $plural = shift @{$content};
-                    $plural =~ s/\r*\n\s*/ /xmsg;
-                    $plural =~ s/\\'/'/xmsg;
-                    $plural =~ s/^\'(.*)\'$/$1/xmsg;
-                    $po->msgid_plural($plural);
-                    delete $po->{msgstr};
-                    $po->msgstr_n( {0 => "", 1 => ""});
+                    if ($type eq 'ln') {
+                        my $plural = shift @{$content};
+                        $plural =~ s/\r*\n\s*/ /xmsg;
+                        $plural =~ s/\\'/'/xmsg;
+                        $plural =~ s/^\'(.*)\'$/$1/xmsg;
+                        $po->msgid_plural($plural);
+                        delete $po->{msgstr};
+                        $po->msgstr_n( {0 => "", 1 => ""});
+                    } elsif ($type eq 'lp') {
+                        my $context = shift @{$content};
+                        $context =~ s/\r*\n\s*/ /xmsg;
+                        $context =~ s/\\'/'/xmsg;
+                        $context =~ s/^\'(.*)\'$/$1/xmsg;
+			$po->msgctxt($context);
+                    }
+
                 }
             }
             push @pos, $po if defined $cur && $cur eq 'LITERAL';

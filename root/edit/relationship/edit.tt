@@ -111,10 +111,10 @@ var typeInfo = [% type_info %];
                 </div>
                 [% END %]
                 </div>
-                <div class="ar-descr">[% l(attr.description) %]</div>
+                <div class="ar-descr">[% attr.l_description %]</div>
             [% ELSE %]
-                <label for="id-ar.attrs.[% attr.name %]">[% r.checkbox(field) %] [% l(attr.name) %]</label>
-                <div class="ar-descr">[% l(attr.description) %]</div>
+                <label for="id-ar.attrs.[% attr.name %]">[% r.checkbox(field) %] [% attr.l_name %]</label>
+                <div class="ar-descr">[% attr.l_description %]</div>
             [% END %]
             [% field_errors(form, field) %]
             </div>

@@ -30,8 +30,9 @@ END -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
 
+[%- USE Translation('mb_server') -%]
 [%- MACRO l(text, args) BLOCK;
-    c.gettext(text, args);
+    Translation.l(text, args);
 END; -%]
 [%#- There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
 The problem surfaces when an unfinished translation file is used, in this case a plural translation would
@@ -39,7 +40,7 @@ apply language-specific plural construction rules to the untranslated english st
 more than two plural forms, then the first plural form (germanic plural) is chosen for every form other than the first
 two. -%]
 [%- MACRO ln(text, plural, num, args) BLOCK;
-    c.ngettext(text, plural, num, args);
+    Translation.ln(text, plural, num, args);
 END; -%]
 
 [%- MACRO display_age(age, person) BLOCK;
@@ -359,7 +360,7 @@ END -%]
     text = text == '' ? html_escape(editor.name) : text;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
-      '<img src="' _ gravatar(editor.email) _ '" class="gravatar">';
+      '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
       '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
     END;
@@ -411,15 +412,25 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
+    seen = {};
     FOR label=labels;
-      out.push(link_entity(label.label)) IF label.label_id;
+      IF label.label_id AND !seen.${ label.label_id };
+        out.push(link_entity(label.label));
+        seen.${ label.label_id } = 1;
+      END;
     END;
     out.join(', ');
 END -%]
 
 [%- MACRO release_catno_list(labels) BLOCK;
     out = [];
-    out.push(label.catalog_number) FOR label=labels;
+    seen = {};
+    FOR label=labels;
+      IF label.catalog_number AND !seen.${ label.catalog_number };
+        out.push(label.catalog_number);
+        seen.${ label.catalog_number } = 1;
+      END;
+    END;
     out.join(', ');
 END -%]
 
@@ -619,6 +630,22 @@ END -%]
     ELSIF url.url.host.search('secondhandsongs.com'); 'secondhandsongs';
     ELSIF url.url.host.search('songfacts.com'); 'songfacts';
     ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
+    ELSIF url.url.host.search('ibdb.com'); 'ibdb';
+    ELSIF url.url.host.search('imslp.org'); 'imslp';
+    ELSIF url.url.host.search('tallinn.ester.ee'); 'ESTERTallinn';
+    ELSIF url.url.host.search('tartu.ester.ee'); 'ESTERTartu';
+    ELSIF url.url.host.search('worldcat.org'); 'worldcat';
+    ELSIF url.url.host.search('45cat.com'); 'fortyfivecat';
+    ELSIF url.url.host.search('rateyourmusic.com'); 'rateyourmusic';
+    ELSIF url.url.host.search('rolldabeats.com'); 'rolldabeats';
+    ELSIF url.url.host.search('psydb.net'); 'psydb';
+    ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
+    ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
+    ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
+    ELSIF url.url.host.search('ocremix.org'); 'ocremix';
+    ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
+    ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
+    ELSIF url.url.host.search('trove.nla.gov.au'); 'trove';
     ELSE; '';
 END %]
 

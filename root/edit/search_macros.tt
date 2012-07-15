@@ -59,6 +59,8 @@
                  CASE 'status';
                    predicate_set(field.field_name, status, field);
                END;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality';
+               predicate_set(field.field_name, quality, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
@@ -206,7 +208,7 @@
     [% FOR type_group=relationship_type %]
       <optgroup label="[% type_group.name %]">
         [% relationship_node(top_level, '', field_contents)
-             FOR top_level=type_group.children%]
+             FOR top_level=type_group %]
       </optgroup>
     [% END %]
   </select>
@@ -294,6 +296,7 @@
                    [ 'editor', l('Editor') ],
                    [ 'vote', l('My Vote') ]
                    [ 'release_language', l('Release Language') ],
+                   [ 'release_quality', l('Release Quality') ],
                    [ 'artist_country', l('Artist Country') ],
                    [ 'label_country', l('Label Country') ]
                    [ 'link_type', l('Relationship Type') ],
@@ -311,6 +314,7 @@
     [% predicate_date(field_name) FOR field_name=['open_time', 'expire_time', 'close_time'] %]
     [% predicate_set('type', edit_types) %]
     [% predicate_set('status', status) %]
+    [% predicate_set('release_quality', quality) %]
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
 

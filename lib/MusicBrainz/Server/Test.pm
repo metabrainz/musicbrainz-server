@@ -33,6 +33,13 @@ use Sub::Exporter -setup => {
     ],
 };
 
+BEGIN {
+    no warnings 'redefine';
+    use DBDefs;
+    *DBDefs::WEB_SERVER = sub { "localhost" };
+    *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { "localhost" };
+}
+
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
 MusicBrainz::Server::DatabaseConnectionFactory->alias('READWRITE' => 'TEST');

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
@@ -19,7 +19,7 @@ use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
-sub edit_name { l('Add relationship') }
+sub edit_name { N_l('Add relationship') }
 sub _create_model { 'Relationship' }
 
 has '+data' => (

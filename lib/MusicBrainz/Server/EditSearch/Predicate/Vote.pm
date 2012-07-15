@@ -74,11 +74,12 @@ sub combine_with_query {
 
         when ('!=') {
             if (!@votes && $no_vote_option) {
+                my @query_votes = ($VOTE_ABSTAIN, $VOTE_NO, $VOTE_YES);
                 $query->add_where([
                     sprintf("$sql", "vote.vote = any(?)"),
                     [
                         $self->voter_id,
-                        $VOTE_ABSTAIN, $VOTE_NO, $VOTE_YES
+                        \@query_votes, 
                     ]
                 ]);
             }

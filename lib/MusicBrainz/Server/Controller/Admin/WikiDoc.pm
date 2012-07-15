@@ -57,14 +57,16 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder)
         my $values = $form->values;
         my $page = $values->{page};
         $page =~ s/ /_/g;
-        my $edit = $c->model('Edit')->create(
-            edit_type    => $EDIT_WIKIDOC_CHANGE,
-            editor_id    => $c->user->id,
+        $c->model('MB')->with_transaction(sub {
+            my $edit = $c->model('Edit')->create(
+                edit_type    => $EDIT_WIKIDOC_CHANGE,
+                editor_id    => $c->user->id,
 
-            page        => $page,
-            old_version => undef,
-            new_version => $values->{version},
-        );
+                page        => $page,
+                old_version => undef,
+                new_version => $values->{version},
+            );
+        });
 
         my $url = $c->uri_for_action('/admin/wikidoc/index');
         $c->response->redirect($url);
@@ -83,14 +85,16 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder)
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $values = $form->values;
-        my $edit = $c->model('Edit')->create(
-            edit_type    => $EDIT_WIKIDOC_CHANGE,
-            editor_id    => $c->user->id,
+        $c->model('MB')->with_transaction(sub {
+            my $edit = $c->model('Edit')->create(
+                edit_type    => $EDIT_WIKIDOC_CHANGE,
+                editor_id    => $c->user->id,
 
-            page        => $page,
-            old_version => $version,
-            new_version => $values->{version},
-        );
+                page        => $page,
+                old_version => $version,
+                new_version => $values->{version},
+            );
+        });
 
         my $url = $c->uri_for_action('/admin/wikidoc/index');
         $c->response->redirect($url);
@@ -109,15 +113,16 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder)
     my $form = $c->form( form => 'Confirm' );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $values = $form->values;
-        my $edit = $c->model('Edit')->create(
-            edit_type    => $EDIT_WIKIDOC_CHANGE,
-            editor_id    => $c->user->id,
+        $c->model('MB')->with_transaction(sub {
+            my $edit = $c->model('Edit')->create(
+                edit_type    => $EDIT_WIKIDOC_CHANGE,
+                editor_id    => $c->user->id,
 
-            page        => $page,
-            old_version => $version,
-            new_version => undef,
-        );
+                page        => $page,
+                old_version => $version,
+                new_version => undef,
+            );
+        });
 
         my $url = $c->uri_for_action('/admin/wikidoc/index');
         $c->response->redirect($url);

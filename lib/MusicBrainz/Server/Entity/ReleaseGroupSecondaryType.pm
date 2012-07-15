@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
 
 use Moose;
+use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -9,6 +10,11 @@ has 'name' => (
     isa => 'Str'
 );
 
+sub l_name {
+    my $self = shift;
+    return lp($self->name, 'release_group_secondary_type')
+}
+ 
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

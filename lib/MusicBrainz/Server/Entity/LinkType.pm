@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::LinkType;
 use Moose;
 
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Translation::Relationships qw( l );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -40,20 +41,40 @@ has 'link_phrase' => (
     isa => 'Str',
 );
 
+sub l_link_phrase {
+    my $self = shift;
+    return l($self->link_phrase);
+}
+
 has 'reverse_link_phrase' => (
     is => 'rw',
     isa => 'Str',
 );
+
+sub l_reverse_link_phrase {
+    my $self = shift;
+    return l($self->reverse_link_phrase);
+}
 
 has 'short_link_phrase' => (
     is => 'rw',
     isa => 'Str',
 );
 
+sub l_short_link_phrase {
+    my $self = shift;
+    return l($self->short_link_phrase);
+}
+
 has 'description' => (
     is => 'rw',
     isa => 'Str',
 );
+
+sub l_description {
+    my $self = shift;
+    return l($self->description);
+}
 
 has 'child_order' => (
     is => 'rw',

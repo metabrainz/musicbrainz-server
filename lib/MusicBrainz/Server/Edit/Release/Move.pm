@@ -6,7 +6,7 @@ use List::MoreUtils qw( uniq );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
@@ -14,7 +14,7 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 
-sub edit_name { l('Change release group') }
+sub edit_name { N_l('Change release group') }
 sub edit_type { $EDIT_RELEASE_MOVE }
 
 sub release_id { shift->data->{release}{id} }

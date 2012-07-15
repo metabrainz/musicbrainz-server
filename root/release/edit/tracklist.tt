@@ -133,7 +133,7 @@
      </p>
      <ul> </ul>
      <p>
-       [% l('{valink|Various Artists} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
+       [% l('{valink|Various Artists} should very rarely be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
      </p>
   </div>
 

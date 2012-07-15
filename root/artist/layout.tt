@@ -7,11 +7,11 @@
                content=rdfa_sort_name(artist.sort_name)
                    IF artist.name != artist.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(l(artist.type_name))
+               content=html_escape(artist.l_type_name)
                    IF artist.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
                property='foaf:gender'
-               content=html_escape(l(artist.gender_name))
+               content=html_escape(artist.l_gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended -%]
                     [%- IF artist.begin_date.format %]
@@ -41,7 +41,7 @@
             [%- END -%]
             [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=html_escape(l(artist.country.name))
+               content=html_escape(artist.country.l_name)
                    IF artist.country -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')

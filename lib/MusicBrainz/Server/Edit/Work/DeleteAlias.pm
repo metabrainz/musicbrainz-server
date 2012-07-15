@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Work::DeleteAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_DELETE_ALIAS );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Alias::Delete';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
@@ -12,7 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Work';
 
 sub _alias_model { shift->c->model('Work')->alias }
 
-sub edit_name { l('Remove work alias') }
+sub edit_name { N_l('Remove work alias') }
 sub edit_type { $EDIT_WORK_DELETE_ALIAS }
 
 sub adjust_edit_pending

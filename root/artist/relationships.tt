@@ -54,7 +54,7 @@
                     [% IF rel.link.attributes.size %]
                     <td>
                       [%- FOR attr=rel.link.attributes;
-                            l(attr.name) | html;
+                            attr.l_name | html;
                             l(', ') UNLESS loop.last;
                          END %]
                     </td>

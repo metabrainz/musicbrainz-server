@@ -59,7 +59,7 @@ has 'subscriptions_email_period' => (
 
 has 'show_gravatar' => (
     isa => 'Bool',
-    default => 1,
+    default => 0,
     is => 'rw',
     lazy => 1
 );

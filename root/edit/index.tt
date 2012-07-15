@@ -1,11 +1,3 @@
-[%- BLOCK layout_head -%]
-    <script type="text/javascript">//<![CDATA[
-        $(function() {
-            MB.Control.EditNote($('textarea'));
-        });
-    //]]></script>
-[%- END -%]
-
 [%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- INCLUDE "edit/info.tt" -%]

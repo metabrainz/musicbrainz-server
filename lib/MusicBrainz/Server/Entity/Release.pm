@@ -42,6 +42,12 @@ sub status_name
     return $self->status ? $self->status->name : undef;
 }
 
+sub l_status_name
+{
+    my ($self) = @_;
+    return $self->status ? $self->status->l_name : undef;
+}
+
 has 'packaging_id' => (
     is => 'rw',
     isa => 'Int'
@@ -56,6 +62,12 @@ sub packaging_name
 {
     my ($self) = @_;
     return $self->packaging ? $self->packaging->name : undef;
+}
+
+sub l_packaging_name
+{
+    my ($self) = @_;
+    return $self->packaging ? $self->packaging->l_name : undef;
 }
 
 has 'artist_credit_id' => (
@@ -176,7 +188,7 @@ sub combined_format_name
     my %formats_count;
     my @formats_order;
     foreach my $medium (@mediums) {
-        my $format_name = l($medium->format_name) || l('(unknown)');
+        my $format_name = $medium->l_format_name() || l('(unknown)');
         if (exists $formats_count{$format_name}) {
             $formats_count{$format_name} += 1;
         }

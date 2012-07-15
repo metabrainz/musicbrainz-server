@@ -7,7 +7,7 @@ use MusicBrainz::Server::Constants qw(
      :expire_action
      :quality
 );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';
@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::Edit::Work';
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 sub edit_type { $EDIT_WORK_ADD_ISWCS }
-sub edit_name { l('Add ISWCs') }
+sub edit_name { N_l('Add ISWCs') }
 
 sub work_ids { map { $_->{work}{id} } @{ shift->data->{iswcs} } }
 

@@ -15,7 +15,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_preview
     verify_artist_credits
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -26,7 +26,7 @@ use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-sub edit_name { l('Add release') }
+sub edit_name { N_l('Add release') }
 sub edit_type { $EDIT_RELEASE_CREATE }
 sub _create_model { 'Release' }
 sub release_id { shift->entity_id }

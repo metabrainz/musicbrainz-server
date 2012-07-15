@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     date_closure
     merge_partial_date
 );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use JSON::Any;
@@ -28,7 +28,7 @@ with 'MusicBrainz::Server::Edit::Artist';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::IPI';
 
-sub edit_name { l('Edit artist') }
+sub edit_name { N_l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
 
 sub _edit_model { 'Artist' }

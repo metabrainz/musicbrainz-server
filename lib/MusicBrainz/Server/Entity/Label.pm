@@ -34,6 +34,12 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
+sub l_type_name
+{
+    my ($self) = @_;
+    return $self->type ? $self->type->l_name : undef;
+}
+
 has 'label_code' => (
     is => 'rw',
     isa => 'Int'
