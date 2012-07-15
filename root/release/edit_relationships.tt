@@ -15,7 +15,7 @@
         var foo = RE.type_info_by_entities = {};
         $.each(RE.type_info, function(id, root) {
             if (root.parent !== undefined) return;
-            var entities = root.types[0] + "-" + root.types[1];
+            var entities = root.types.join("-");
             if (foo[entities] === undefined) foo[entities] = [];
             foo[entities].push(root);
         });
@@ -191,7 +191,7 @@
               relationships highlighted <span class="rel-add">green</span> will be added.') %]
       </p>
 
-      <p>[% l('To <span class="rel-edit">edit</span> a relationship, click on its name (e.g. "composer:").') %]</p>
+      <p>[% l('To <span class="rel-edit">edit</span> a relationship, click on its name (e.g. "composer").') %]</p>
 
       <form id="form" action="[% c.req.uri %]" method="post">
 
@@ -200,22 +200,22 @@
       <h3>[% l('Tools:') %]</h3>
       <div>
         <div style="float: left;">
-          <span id="batch-recording" class="btn disabled">
+          <a id="batch-recording" class="btn disabled">
             <img src="/static/images/icons/add.png" class="bottom"/>
             [% l('Batch-add a relationship to recordings') %]
-          </span>
+          </a>
           <span class="count">([% l('0 recordings selected') %])</span>
           <br/>
-          <span id="batch-work" class="btn disabled">
+          <a id="batch-work" class="btn disabled">
             <img src="/static/images/icons/add.png" class="bottom"/>
             [% l('Batch-add a relationship to works') %]
-          </span>
+          </a>
           <span class="count">([% l('0 works selected') %])</span>
           <br/>
-          <span id="batch-create-works" class="btn disabled">
+          <a id="batch-create-works" class="btn disabled">
             <img src="/static/images/icons/add.png" class="bottom"/>
             [% l('Batch-create new works') %]
-          </span>
+          </a>
           <span class="count">([% l('0 recordings selected') %])</span>
         </div>
         <div class="documentation">
@@ -239,7 +239,7 @@
 
       <h2>[% l('Release Relationships') %]</h2>
 
-      <div id="release-rels"></div>
+      <div id="release-rels" class="ars"></div>
 
       [% INCLUDE 'forms/edit-note.tt' %]
       [% enter_edit() %]

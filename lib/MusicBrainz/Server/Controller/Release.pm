@@ -660,7 +660,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
     my @link_type_tree = $c->model('LinkType')->get_full_tree;
 
     foreach (@link_type_tree) {
-        next if $_->name !~ /(recording|work|release)/;
+        next if $_->name !~ /(recording|work|release(?!_group))/;
         my %tmp = $c->controller('Edit::Relationship')->build_type_info($_);
         @type_info{ keys %tmp } = values %tmp;
     }

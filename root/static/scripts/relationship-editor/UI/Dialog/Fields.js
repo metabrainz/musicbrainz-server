@@ -260,7 +260,7 @@ Fields.LinkType = {
             if (self.direction == "backward") {
                 self.direction = "forward";
                 self.render(false, self.$select.val());
-            } else if (self.direction == "forward") {
+            } else {
                 self.direction = "backward";
                 self.render(true, self.$select.val());
             }
@@ -373,20 +373,18 @@ Fields.TargetType = {
             Dialog.autocomplete.changeEntity(this.value);
             Dialog.target_type = this.value;
 
-            var link_type, direction = "forward", root, reverse;
+            var link_type, direction = "forward", reverse;
 
             if (Dialog.relationship) {
                 var rel = Dialog.relationship;
                 link_type = rel.fields.link_type;
-                if (rel.direction) direction = rel.direction;
+                if (rel.source === rel.fields.entity[1]) direction = "backward";
             } else {
-                root = allowed_link_types();
+                var root = allowed_link_types();
                 link_type = root[0].descr ? root[0].id : root[0].children[0];
             }
-
+            reverse = RE.Util.src(link_type, direction) == 1;
             Fields.LinkType.direction = direction;
-            root = RE.type_info[link_type];
-            var reverse = RE.Util.src(root.types[0], root.types[1], direction) == 1;
             Fields.LinkType.render(reverse, link_type);
         });
     },

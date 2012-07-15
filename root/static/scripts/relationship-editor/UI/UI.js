@@ -162,7 +162,6 @@ UI.renderTracklist = function(data) {
             source = RE.Entity(rec);
             ars = document.createElement("div");
             ars.className = "ars";
-            ars.appendChild(new Buttons.AddRelationship(source)[0]);
 
             var rcol = document.createElement("td");
             rcol.className = "recording";
@@ -176,6 +175,7 @@ UI.renderTracklist = function(data) {
             }
 
             rcol.appendChild(ars);
+            rcol.appendChild(new Buttons.AddRelationship(source)[0]);
             work_ars = document.createElement("td");
             work_ars.className = "works";
 
@@ -214,7 +214,7 @@ UI.renderTracklist = function(data) {
         }
     };
     RE.parseRelationships(data, true);
-    release.$ars.append(new RE.UI.Buttons.AddRelationship(release));
+    release.$ars.after(new RE.UI.Buttons.AddRelationship(release));
 
     UI.$tbody[0].appendChild(frag);
     $("#tracklist").next("span.loading").remove();
@@ -226,15 +226,8 @@ UI.renderWorkRelationships = function(work, added_only) {
 
     for (var i = 0; i < work.relationships.length; i++) {
         var rel = work.relationships[i];
-
-        if (!added_only || rel.fields.action == "add") {
+        if (!added_only || rel.fields.action == "add")
             rel.cloneInto($container);
-        }
-    }
-    for (var i = 0; i < $container.length; i++) {
-        if ($container.eq(i).children("span.add-rel").length == 0) {
-            $container.eq(i).append(new UI.Buttons.AddRelationship(work));
-        }
     }
 };
 
@@ -266,7 +259,8 @@ UI.renderEntity = function(obj, type) {
     link.appendChild(name);
     link.href = "/" + type + "/" + gid;
     link.target = "_blank";
-    link.title = obj.sortname;
+    if (obj.sortname) link.title = obj.sortname;
+    link.className = "entity";
     return link;
 };
 

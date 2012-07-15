@@ -19,7 +19,7 @@
 
 (function() {
 
-var Util = RE.Util = {}, CGI = Util.CGI = {}, cgi_regex,
+var Util = RE.Util, CGI = Util.CGI = {}, cgi_regex,
     added_rels = {}, edited_rels = {}, removed_rels = {};
 
 // parseParams makes a lot of assumptions about how the params look (i.e. valid).
@@ -38,6 +38,7 @@ CGI.parseParams = function(params, error_fields) {
 
     for (var i = 0; key = keys[i]; i++) {
         if (!cgi_regex.test(key)) continue;
+        errors = false;
 
         var value = params[key], parts = key.split("."), num = parts[2],
             ckey = 'rel-editor.rels.' + num, field = result[num] = result[num] || {};
@@ -66,48 +67,45 @@ CGI.parseParams = function(params, error_fields) {
     var relnums = MB.utility.keys(result);
 
     for (i = 0; i < relnums.length; i++) {try {
-        var num = relnums[i], field = result[num];
+        var num = relnums[i], fields = result[num];
 
-        var entity0 = field.entity[0] = RE.Entity(field.entity[0]),
-            entity1 = field.entity[1] = RE.Entity(field.entity[1]),
-            type_info = RE.type_info[field.link_type], types, typestr,
+        var entity0 = fields.entity[0] = RE.Entity(fields.entity[0]),
+            entity1 = fields.entity[1] = RE.Entity(fields.entity[1]),
+            type_info = RE.type_info[fields.link_type], typestr,
             removed, added, edited;
 
         // the link type field is invalid, let's try to set it to something
         if (!type_info) {
-            types = [entity0.type, entity1.type];
-            typestr = types[0] + "-" + types[1];
-
+            typestr = entity0.type + "-" + entity1.type;
             var type_info = RE.type_info_by_entities[typestr];
             if (type_info === undefined) continue;
-            field.link_type = type_info[0].descr
+
+            fields.link_type = type_info[0].descr
                 ? type_info[0].id : type_info[0].children[0];
         } else {
-            types = type_info.types;
-            typestr = types[0] + "-" + types[1];
+            typestr = type_info.types.join("-");
         }
 
-        if (field.action == "remove") {
+        if (fields.action == "remove") {
             if ((removed = removed_rels[typestr]) === undefined) {
                 removed = removed_rels[typestr] = {};
             }
-            removed[field.id] = field;
+            removed[fields.id] = fields;
         } else {
-            field.attrs = field.attrs || {};
+            fields.attrs = fields.attrs || {};
 
-            if (field.action == "add") {
-                var source = Util.src(types[0], types[1], field.direction) === 0
-                    ? entity0 : entity1;
+            if (fields.action == "add") {
+                var source = fields.entity[Util.src(fields.link_type, fields.direction)];
 
                 if ((added = added_rels[source.gid]) === undefined) {
                     added = added_rels[source.gid] = [];
                 }
-                added.push(field);
-            } else if (field.action == "edit") {
+                added.push(fields);
+            } else if (fields.action == "edit") {
                 if ((edited = edited_rels[typestr]) === undefined) {
                     edited = edited_rels[typestr] = {};
                 }
-                edited[field.id] = field;
+                edited[fields.id] = fields;
             }
         }
     } catch (e) {}}
@@ -172,22 +170,25 @@ Util.isMBID = function(str) {
     return str.match(mbid_regex) !== null;
 };
 
-// given type0, type1 and a direction, tells us what the source is
 
-Util.src = function(t0, t1, direction) {
-    if (t0 == t1) return direction == "backward" ? 1 : 0;
-    if (t0 == "recording" || t0 == "release") {
-        if (t1 == "release") return direction == "backward" ? 1 : 0;
-        return 0;
-    }
-    if (t1 == "recording" || t1 == "work" || t1 == "release") return 1;
-    return null;
+var entity_relations = {
+    'artist-recording': 1, 'artist-release': 1, 'artist-work': 1,
+    'label-recording':  1, 'label-release':  1, 'label-work':  1,
+    'recording-url':    0, 'recording-work': 0, 'release-url': 0, 'url-work': 1,
+};
+// given a link type and a direction, tells us what the source is
+
+Util.src = function(link_type, direction) {
+    var types = RE.type_info[link_type].types, str = types.join("-");
+
+    return ((types[0] == types[1] || str == "recording-release")
+        ? (direction == "backward" ? 1 : 0) : entity_relations[str]);
 };
 
 
 Util.typestr = function(link_type) {
     var info = RE.type_info[link_type];
-    return info ? info.types[0] + "-" + info.types[1] : null;
+    return info ? info.types.join("-") : null;
 };
 
 })();

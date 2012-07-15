@@ -27,36 +27,39 @@ Buttons.initEvents = function() {
 
     $("#form").on("click", "a.remove-button", Buttons.Remove.clicked)
 
-    .on("click", "span.link-phrase", function(event) {
-
+    .on("click", "a.link-phrase", function(event) {
+        event.preventDefault();
         if ($(this).hasClass("disabled")) return;
         var rel = $(this).data("relationship");
         UI.Dialog.posx = event.pageX;
         UI.Dialog.posy = event.pageY;
         UI.EditDialog.show([rel, rel.source, rel.target.type]);
 
-    }).on("click", "span.add-rel", function(event) {
-
+    }).on("click", "a.add-rel", function(event) {
+        event.preventDefault();
         var source = $(this).data("source");
         UI.Dialog.posx = event.pageX;
         UI.Dialog.posy = event.pageY;
         UI.AddDialog.show([source, "artist"]); // default to artist
 
-    }).on("click", "span.relate-work", function(event) {
-
+    }).on("click", "a.relate-work", function(event) {
+        event.preventDefault();
         var source = $(this).data("source");
         UI.AddDialog.show([source, "work"]);
     });
 
-    $("#batch-recording").click(function() {
+    $("#batch-recording").click(function(event) {
+        event.preventDefault();
         if (!$(this).hasClass("disabled")) UI.BatchAddDialog.show("recording");
     });
 
-    $("#batch-work").click(function() {
+    $("#batch-work").click(function(event) {
+        event.preventDefault();
         if (!$(this).hasClass("disabled")) UI.BatchAddDialog.show("work");
     });
 
-    $("#batch-create-works").click(function() {
+    $("#batch-create-works").click(function(event) {
+        event.preventDefault();
         if (!$(this).hasClass("disabled")) UI.BatchCreateWorksDialog.show();
     });
 };
@@ -83,12 +86,12 @@ Buttons.Remove.clicked = function(event) {
             });
         } else {
             rel.reset({action: "remove"});
-            $container.children("span.link-phrase").addClass("rel-remove disabled");
+            $container.children("a.link-phrase").addClass("rel-remove disabled");
         }
     } else {
         delete rel.fields.action;
         rel.update();
-        $container.children("span.link-phrase").removeClass("rel-remove disabled");
+        $container.children("a.link-phrase").removeClass("rel-remove disabled");
     }
 };
 
@@ -103,10 +106,10 @@ Buttons.AddRelationship = function(source) {
 
 
 Buttons.AddRelationship.prototype.template =
-    '<span class="add-rel btn">&#160;' +
+    '<a class="add-rel btn">&#160;' +
         '<img src="/static/images/icons/add.png" class="bottom"/> ' +
         MB.text.AddRelationship +
-    '</span>';
+    '</a>';
 
 
 Buttons.RelateToWork = function(source) {
@@ -115,9 +118,9 @@ Buttons.RelateToWork = function(source) {
 
 
 Buttons.RelateToWork.prototype.template =
-    '<span class="relate-work btn">' +
+    '<a class="relate-work btn">' +
         '&#8592 <img src="/static/images/icons/add.png" class="bottom"/> ' +
         MB.text.RelateRecordingWork + ' &#8594;' +
-    '</span>';
+    '</a>';
 
 })();

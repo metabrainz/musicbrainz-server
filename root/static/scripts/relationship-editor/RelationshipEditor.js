@@ -17,52 +17,45 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-
 var RelationshipEditor = {
+    Util: {},
     server_fields: {},
     relationships: {},
     works_loading: {},
 }, RE = RelationshipEditor;
+
+(function() {
+
+var Util = RE.Util;
 
 // "source" is the entity on the page the user is adding the
 // relationship to, not the technical source of the relationship.
 // (e.g. for an artist-recording rel, it's the recording.)
 
 RE.processRelationship = function(obj, source, check_post, compare) {
-    var id = obj.fields.id, rel, update = false, $c, type, relationships;
+    var fields = obj.fields, id = fields.id, rel, update = false, $c,
+        relationships, type = Util.typestr(fields.link_type);
 
-    type = RE.Util.typestr(obj.fields.link_type);
     if ((relationships = RE.relationships[type]) === undefined) {
         relationships = RE.relationships[type] = {};
     }
-
     if (id && (rel = relationships[id]) !== undefined) {
         update = true;
     } else {
-        rel = new RE.Relationship(obj, source, compare);
+        var target = fields.entity[1 - Util.src(fields.link_type, fields.direction)];
+        rel = new RE.Relationship(obj, source, target, compare);
 
         if (id) {
             relationships[id] = rel;
         } else if (source.mergeRelationship(rel)) {
             return;
         }
-        if (check_post && !RE.Util.isMBID(rel.target.gid)) {
-            RE.processAddedRelationships(rel.target);
-        }
+        if (check_post && !Util.isMBID(rel.target.gid))
+            processAddedRelationships(rel.target);
     }
-    $c = type == "recording-work" ? rel.source.$work_ars : rel.source.$ars;
-
-    // if our source has undefined AR containers, it must be a phantom rel
-    // e.g. a work rel via a recording<->work rel where the work was changed
-    // by edited_rels in parseRelationships
-
-    if ($c !== undefined) {
-        rel.cloneInto($c);
-        if (update && !rel.fields.action) rel.update(obj, compare);
-        return rel;
-    } else {
-        rel.remove();
-    }
+    rel.cloneInto(type == "recording-work" ? rel.source.$work_ars : rel.source.$ars);
+    if (update && !rel.fields.action) rel.update(obj, compare);
+    return rel;
 };
 
 // check_post is a flag indicating that we're checking for posted
@@ -75,99 +68,74 @@ RE.parseRelationships = function(source, check_post) {
     var source_entity = RE.Entity(source),
         entity_types = MB.utility.keys(source.relationships);
 
-    for (var i = 0; i < entity_types.length; i++) {
-        var entity_type = entity_types[i];
-
+    for (var i = 0; entity_type = entity_types[i]; i++) {
         if (entity_type == "url") continue; // skip URLs for now
         if (source.type == "work" && entity_type == "recording") continue;
 
         var rels_by_type = source.relationships[entity_type],
-            rel_types = MB.utility.keys(rels_by_type);
+            rel_types = MB.utility.keys(rels_by_type), rels, obj;
 
-        for (var j = 0; j < rel_types.length; j++) {
-            var rel_type = rel_types[j], rels = rels_by_type[rel_type];
-
-            for (var k = 0; k < rels.length; k++) {
-                var obj = rels[k], target_entity, types = RE.type_info[obj.link_type].types;
-
+        for (var j = 0; rels = rels_by_type[rel_types[j]]; j++) {
+            for (var k = 0; obj = rels[k]; k++) {
                 obj.target.type = entity_type;
-                target_entity = RE.Entity(obj.target);
-
-                var rel = {target: target_entity, direction: obj.direction},
-                    fields = rel.fields = {
-                    id:        obj.id,
-                    link_type: obj.link_type,
-                    attrs:     obj.attributes,
-                    entity:    []
-                };
-                if (obj.begin_date) {
-                    fields.begin_date = this.Util.parseDate(obj.begin_date);
-                }
-                if (obj.end_date) {
-                    fields.end_date = this.Util.parseDate(obj.end_date);
-                }
-                if (obj.ended == 1) fields.ended = 1;
-                rel.edits_pending = Boolean(obj.edits_pending);
-
-                var typestr = RE.Util.typestr(obj.link_type), server;
-
-                server = (RE.server_fields[typestr] = RE.server_fields[typestr] || {})
-                    [fields.id] = $.extend(true, {}, fields);
-
-                if (RE.Util.src(types[0], types[1], obj.direction) === 0) {
-                    fields.entity[0] = server.entity[0] = source_entity;
-                    fields.entity[1] = server.entity[1] = target_entity;
-                } else {
-                    fields.entity[0] = server.entity[0] = target_entity;
-                    fields.entity[1] = server.entity[1] = source_entity;
-                }
-
-                var compare = false,
-                    work_rels = entity_type == "work" && obj.target.relationships;
-
-                if (check_post) {
-                    var edited = RE.Util.CGI.edited(fields);
-
-                    if (edited !== undefined) {
-                        if (edited.has_errors) {
-                            rel.has_errors = true;
-                            delete edited.has_errors;
-                        }
-                        $.extend(true, rel.fields, edited);
-                        if (edited.target) rel.target = edited.target;
-                        if (edited.direction) rel.direction = edited.direction;
-                        compare = true;
-                    }
-                }
-                if (work_rels) RE.works_loading[target_entity.gid] = 1;
-                rel = RE.processRelationship(rel, source_entity, check_post, compare);
-
-                if (check_post) {
-                    var removed = RE.Util.CGI.removed(fields);
-                    if (rel && removed && !compare) {
-                        if (removed.has_errors) {
-                            rel.has_errors = true;
-                            delete removed.has_errors;
-                        }
-                        if (rel.fields.action != "remove") {
-                            var button = rel.$container.eq(0).children("a.remove-button")[0];
-                            RE.UI.Buttons.Remove.clicked.call(button, null);
-                        }
-                    }
-                }
-                if (work_rels) {
-                    delete RE.works_loading[target_entity.gid];
-                    RE.parseRelationships(obj.target, check_post);
-                }
+                parseRelationship(obj, source_entity, check_post);
             }
         }
     }
-    if (check_post) RE.processAddedRelationships(source_entity);
+    if (check_post) processAddedRelationships(source_entity);
 };
 
+var parseRelationship = function(obj, source, check_post) {
+    var result = {}, fields = result.fields = {
+        id: obj.id, link_type: obj.link_type, attrs: obj.attributes, entity: []
+    };
+    if (obj.direction && source.type == obj.target.type)
+        fields.direction = obj.direction;
 
-RE.processAddedRelationships = function(source) {
-    var added = RE.Util.CGI.added(source.gid);
+    if (obj.begin_date) fields.begin_date = Util.parseDate(obj.begin_date);
+    if (obj.end_date) fields.end_date = Util.parseDate(obj.end_date);
+    if (obj.ended == 1) fields.ended = 1;
+
+    result.edits_pending = Boolean(obj.edits_pending);
+
+    var compare = false, type = Util.typestr(obj.link_type), edited, removed,
+        work_rels = type == "recording-work" && obj.target.relationships,
+        server = (RE.server_fields[type] = RE.server_fields[type] || {})
+                 [fields.id] = $.extend(true, {}, fields), src;
+
+    src = Util.src(obj.link_type, obj.direction);
+    fields.entity[src] = server.entity[src] = source;
+    fields.entity[1 - src] = server.entity[1 - src] = RE.Entity(obj.target);
+
+    if (check_post && (edited = Util.CGI.edited(fields))) {
+        compare = true;
+
+        if (edited.has_errors) {
+            result.has_errors = true;
+            delete edited.has_errors;
+        }
+        fields = result.fields = edited;
+        src = Util.src(fields.link_type, fields.direction || obj.direction);
+        fields.entity[src] = source = fields.entity[src];
+        fields.entity[1 - src] = fields.entity[1 - src];
+
+        if (work_rels && fields.entity[1] !== server.entity[1]) work_rels = false;
+    }
+    var rel = RE.processRelationship(result, source, check_post, compare);
+
+    if (check_post && (removed = Util.CGI.removed(fields))) {
+        if (removed.has_errors) rel.has_errors = true;
+
+        if (rel.fields.action != "remove") {
+            var button = rel.$container.eq(0).children("a.remove-button")[0];
+            RE.UI.Buttons.Remove.clicked.call(button, null);
+        }
+    }
+    if (work_rels) RE.parseRelationships(obj.target, check_post);
+};
+
+var processAddedRelationships = function(source) {
+    var added = Util.CGI.added(source.gid);
     if (added === undefined) return;
 
     for (var i = 0; i < added.length; i++) {
@@ -178,10 +146,8 @@ RE.processAddedRelationships = function(source) {
             delete fields.has_errors;
         }
         rel.fields = fields;
-        rel.target = RE.Util.src(types[0], types[1], fields.direction) == 0
-            ? fields.entity[1] : fields.entity[0];
-        rel.direction = fields.direction;
-
         RE.processRelationship(rel, source, true, false);
     }
 };
+
+})();

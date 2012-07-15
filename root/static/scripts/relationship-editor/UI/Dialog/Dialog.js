@@ -27,7 +27,7 @@ var Dialog = RE.UI.Dialog = {
         work:      ["artist", "label", "work"],
         release:   ["artist", "label", "recording", "release"],
     },
-}, Fields;
+}, Fields, LinkType;
 
 
 Dialog.init = function() {
@@ -55,7 +55,8 @@ Dialog.init = function() {
     });
 
     Fields = this.Fields;
-    Fields.LinkType.init();
+    LinkType = Fields.LinkType;
+    LinkType.init();
     Fields.TargetType.init();
 
     this.beginDate = new Fields.Date();
@@ -163,7 +164,7 @@ Dialog.setup = function(source, target_type) {
         var fields = this.relationship.fields;
 
         if (fields.errors && fields.errors.link_type) {
-            dumpErrors(fields.errors.link_type, Fields.LinkType.$error);
+            dumpErrors(fields.errors.link_type, LinkType.$error);
         }
         if (fields.entity.errors) {
             if (fields.entity.errors[0])
@@ -209,7 +210,7 @@ Dialog.show = function(setup, dontsetwidth) {
     this.$overlay.show();
     this.$dialog.fadeIn("fast");
     if (dontsetwidth !== true) this.setWidth();
-    Fields.LinkType.$select.focus();
+    LinkType.$select.focus();
 };
 
 
@@ -276,26 +277,27 @@ Dialog.result = function(result) {
 
     var fields = result.fields;
     fields.entity = [];
-    fields.link_type = parseInt(Fields.LinkType.$select.val(), 10);
+    fields.link_type = parseInt(LinkType.$select.val(), 10);
 
     if (!fields.link_type) {
-        Fields.LinkType.$error.text(MB.text.PleaseSelectARType);
+        LinkType.$error.text(MB.text.PleaseSelectARType);
         return;
     }
-    var relationship = this.relationship, types = RE.type_info[fields.link_type].types;
-    result.direction = Fields.LinkType.direction;
+    var relationship = this.relationship;
 
-    if (!(types[0] == "recording" && types[1] == "work") ||
-        $("#existing-work-button").is(":checked")) {
+    this.source.type == this.target_type && LinkType.direction == "backward"
+        ? (fields.direction = LinkType.direction)
+        : (delete fields.direction);
 
-        var item = this.autocomplete.currentSelection;
+    if (!this.recording_work || $("#existing-work-button").is(":checked")) {
+        var item = this.autocomplete.currentSelection, target, src;
 
         if (!(item && this.$acname.hasClass("lookup-performed"))) {
             $("div.error", "#target").text(MB.text.RequiredField);
             return;
         }
         // $.extend removes undefined props for us
-        result.target = RE.Entity($.extend({}, {
+        target = RE.Entity($.extend({}, {
             id: item.id,
             gid: item.gid,
             name: item.name,
@@ -303,13 +305,9 @@ Dialog.result = function(result) {
             type: this.target_type,
         }));
 
-        if (RE.Util.src(types[0], types[1], result.direction) === 1) {
-            fields.entity[0] = result.target;
-            fields.entity[1] = this.source;
-        } else {
-            fields.entity[0] = this.source;
-            fields.entity[1] = result.target;
-        }
+        src = RE.Util.src(fields.link_type, LinkType.direction);
+        fields.entity[1 - src] = target;
+        fields.entity[src] = this.source;
     } else {
         var name = $.trim(this.$work_name.val()), id, gid;
 
@@ -325,7 +323,7 @@ Dialog.result = function(result) {
         } else {
             id = gid = RE.Util.fakeID();
         }
-        result.target = fields.entity[1] = RE.Entity({
+        fields.entity[1] = RE.Entity({
             id: id, gid: gid, name: name, type: "work",
             work_comment:       $.trim(this.$work_comment.val())  || null,
             work_type_id:     parseInt(this.$work_type.val(), 10) || null,
