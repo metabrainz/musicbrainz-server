@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Track;
 use strict;
 use Carp 'confess';
+use Scalar::Util qw( looks_like_number );
 
 use Sub::Exporter -setup => {
     exports => [
@@ -16,6 +17,8 @@ use Sub::Exporter -setup => {
 sub FormatTrackLength
 {
     my $ms = shift;
+
+    return $ms unless looks_like_number($ms);
 
     $ms or return "?:??";
     $ms >= 1000 or return "$ms ms";
