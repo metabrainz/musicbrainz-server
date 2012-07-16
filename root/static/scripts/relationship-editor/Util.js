@@ -33,32 +33,32 @@ cgi_regex = new RegExp(
 );
 
 
-CGI.parseParams = function(params, error_fields) {
-    var result = {}, keys = MB.utility.keys(params), key, part, errors;
+var params2obj = function(params, validate) {
+    var result = {}, keys = MB.utility.keys(params), key;
 
     for (var i = 0; key = keys[i]; i++) {
-        if (!cgi_regex.test(key)) continue;
-        errors = false;
+        if (validate !== false && !cgi_regex.test(key)) continue;
 
         var value = params[key], parts = key.split("."), num = parts[2],
-            ckey = 'rel-editor.rels.' + num, field = result[num] = result[num] || {};
+            field = result[num] = result[num] || {};
 
         if ($.isArray(value)) value = value[0];
         if (/^\d+$/.test(value)) value = parseInt(value, 10);
 
         for (var j = 3; part = parts[j]; j++) {
-            ckey += "." + part;
-            if (error_fields[ckey] !== undefined) {
-                (field.errors = field.errors || {})[part] = error_fields[ckey];
-                errors = true;
-            }
             if (j == parts.length - 1) field[part] = value;
 
             field = field[part] = field[part] ||
                 ((part == "entity" || parts[j - 1] == "attrs") ? [] : {});
         }
-        if (errors) result[num].has_errors = true;
     }
+    return result;
+};
+
+
+CGI.parseParams = function(params, error_fields) {
+    var result = params2obj(params), error_fields = params2obj(error_fields, false);
+
     /* form state is preserved using three variables, each representing
        a separate action:
        - edited_rels and removed_rels are origanized by their id
@@ -68,6 +68,7 @@ CGI.parseParams = function(params, error_fields) {
 
     for (i = 0; i < relnums.length; i++) {try {
         var num = relnums[i], fields = result[num];
+        if (error_fields[num]) fields.errors = error_fields[num];
 
         var entity0 = fields.entity[0] = RE.Entity(fields.entity[0]),
             entity1 = fields.entity[1] = RE.Entity(fields.entity[1]),

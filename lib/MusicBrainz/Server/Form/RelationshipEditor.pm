@@ -285,6 +285,7 @@ after validate => sub {
             }
             $i++;
         }
+        next if $field->field('id')->has_errors;
 
         if ($field->field('action')->value =~ /^(edit|remove)$/) {
             my $type0 = $entity0->field('type')->value;

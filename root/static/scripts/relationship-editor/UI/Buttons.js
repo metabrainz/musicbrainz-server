@@ -86,12 +86,10 @@ Buttons.Remove.clicked = function(event) {
             });
         } else {
             rel.reset({action: "remove"});
-            $container.children("a.link-phrase").addClass("rel-remove disabled");
         }
     } else {
         delete rel.fields.action;
         rel.update();
-        $container.children("a.link-phrase").removeClass("rel-remove disabled");
     }
 };
 

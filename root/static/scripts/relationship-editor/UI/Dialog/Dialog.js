@@ -101,11 +101,12 @@ Dialog.init = function() {
 
 
 function dumpErrors(errors, $container) {
-    var keys = MB.utility.keys(errors), key;
-    for (var i = 0; key = keys[i]; i++) {
-        typeof errors[key] == "object"
-            ? dumpErrors(errors[key], $container)
-            : $container.append(errors[key], "<br/>");
+    if (typeof errors == "object") {
+        var keys = MB.utility.keys(errors), key;
+        for (var i = 0; key = keys[i]; i++)
+            dumpErrors(errors[key], $container);
+    } else {
+        $container.append(errors, "<br/>");
     }
 }
 
@@ -158,31 +159,29 @@ Dialog.setup = function(source, target_type) {
     }
 
     // populate errors we got from the server (not client-side errors)
-    if (this.relationship && this.relationship.has_errors) {
-        var fields = this.relationship.fields;
+    if (this.relationship && this.relationship.errors) {
+        var fields = this.relationship.fields, errors = this.relationship.errors;
 
-        if (fields.errors && fields.errors.link_type) {
-            dumpErrors(fields.errors.link_type, LinkType.$error);
+        if (errors.link_type) {
+            dumpErrors(errors.link_type, LinkType.$error);
         }
-        if (fields.entity.errors) {
-            if (fields.entity.errors[0])
-                dumpEntityErrors(fields.entity[0], fields.entity.errors[0]);
-            if (fields.entity.errors[1])
-                dumpEntityErrors(fields.entity[1], fields.entity.errors[1]);
+        if (errors.entity) {
+            if (errors.entity[0]) dumpEntityErrors(fields.entity[0], errors.entity[0]);
+            if (errors.entity[1]) dumpEntityErrors(fields.entity[1], errors.entity[1]);
         }
-        if (fields.begin_date && fields.begin_date.errors) {
-            dumpErrors(fields.begin_date.errors, this.beginDate.$error);
+        if (fields.begin_date && errors.begin_date) {
+            dumpErrors(errors.begin_date, this.beginDate.$error);
         }
-        if (fields.end_date && fields.end_date.errors) {
-            dumpErrors(fields.end_date.errors, this.endDate.$error);
+        if (fields.end_date && errors.end_date) {
+            dumpErrors(errors.end_date, this.endDate.$error);
         }
-        if (fields.ended && fields.errors.ended) {
-            dumpErrors(fields.errors.ended, this.$ended.parent().next("div.error"));
+        if (fields.ended && errors.ended) {
+            dumpErrors(errors.ended, this.$ended.parent().next("div.error"));
         }
-        if (this.attributes) {
+        if (this.attributes && errors.attrs) {
             for (var i = 0; i < this.attributes.length; i++) {
                 var obj = this.attributes[i], field = fields.attrs[obj.attr.name];
-                if (field && field.errors) dumpErrors(field.errors, obj.$error);
+                if (field && errors.attrs[field]) dumpErrors(errors.attrs[field], obj.$error);
             }
         }
     }

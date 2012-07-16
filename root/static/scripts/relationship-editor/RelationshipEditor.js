@@ -55,7 +55,6 @@ RE.processRelationship = function(obj, source, check_post, compare) {
     }
     rel.cloneInto(type == "recording-work" ? rel.source.$work_ars : rel.source.$ars);
     if (update && !rel.fields.action) rel.update(obj, compare);
-    return rel;
 };
 
 // check_post is a flag indicating that we're checking for posted
@@ -110,9 +109,9 @@ var parseRelationship = function(obj, source, check_post) {
     if (check_post && (edited = Util.CGI.edited(fields))) {
         compare = true;
 
-        if (edited.has_errors) {
-            result.has_errors = true;
-            delete edited.has_errors;
+        if (edited.errors) {
+            result.errors = edited.errors;
+            delete edited.errors;
         }
         fields = result.fields = edited;
         src = Util.src(fields.link_type, fields.direction || obj.direction);
@@ -121,16 +120,16 @@ var parseRelationship = function(obj, source, check_post) {
 
         if (work_rels && fields.entity[1] !== server.entity[1]) work_rels = false;
     }
-    var rel = RE.processRelationship(result, source, check_post, compare);
 
     if (check_post && (removed = Util.CGI.removed(fields))) {
-        if (removed.has_errors) rel.has_errors = true;
-
-        if (rel.fields.action != "remove") {
-            var button = rel.$container.eq(0).children("a.remove-button")[0];
-            RE.UI.Buttons.Remove.clicked.call(button, null);
+        if (removed.errors) {
+            result.errors = removed.errors;
+            delete removed.errors;
         }
+        fields = result.fields = removed;
     }
+    if (!fields.attrs) fields.attrs = {};
+    RE.processRelationship(result, source, check_post, compare);
     if (work_rels) RE.parseRelationships(obj.target, check_post);
 };
 
@@ -141,9 +140,9 @@ var processAddedRelationships = function(source) {
     for (var i = 0; i < added.length; i++) {
         var fields = added[i], rel = {}, types = RE.type_info[fields.link_type].types;
 
-        if (fields.has_errors) {
-            rel.has_errors = true;
-            delete fields.has_errors;
+        if (fields.errors) {
+            rel.errors = fields.errors;
+            delete fields.errors;
         }
         rel.fields = fields;
         RE.processRelationship(rel, source, true, false);

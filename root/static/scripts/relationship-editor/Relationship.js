@@ -63,7 +63,7 @@ Relationship.prototype.update = function(obj, compare) {
     $phrase = $c.children("a.link-phrase").html(this.linkPhrase());
     $entity = $c.children("a.entity");
 
-    this.has_errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
+    this.errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
     this.edits_pending ? $entity.addClass("rel-edit") : $entity.removeClass("rel-edit");
 
     var action = fields.action;
@@ -87,6 +87,13 @@ Relationship.prototype.update = function(obj, compare) {
             $phrase.addClass("rel-edit");
         }
     }
+    if (action == "remove") {
+        create_fields = true;
+        $phrase.addClass("rel-remove disabled");
+    } else {
+        $phrase.removeClass("rel-remove disabled");
+    }
+
     var old_target = this.target, self = this;
     this.target = fields.entity[1 - RE.Util.src(fields.link_type, fields.direction)];
 
@@ -141,6 +148,7 @@ Relationship.prototype.remove = function() {
 
 
 Relationship.prototype.reset = function(obj) {
+    delete this.errors;
     var fields = RE.server_fields[this.type][this.fields.id];
     if (fields) this.update({fields: $.extend(obj, fields)}, true);
 };
