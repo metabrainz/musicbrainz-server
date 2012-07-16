@@ -18,9 +18,8 @@ sub FormatTrackLength
 {
     my $ms = shift;
 
-    return $ms unless looks_like_number($ms);
-
     $ms or return "?:??";
+    looks_like_number($ms) or return $ms;
     $ms >= 1000 or return "$ms ms";
 
     my $length_in_secs = int($ms / 1000.0 + 0.5);
