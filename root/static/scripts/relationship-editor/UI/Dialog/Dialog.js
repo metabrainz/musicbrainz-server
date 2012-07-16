@@ -27,7 +27,7 @@ var Dialog = RE.UI.Dialog = {
         work:      ["artist", "label", "work"],
         release:   ["artist", "label", "recording", "release"],
     },
-}, Fields, LinkType;
+}, Fields, LinkType, $w = $(window);
 
 
 Dialog.init = function() {
@@ -79,15 +79,13 @@ Dialog.init = function() {
 
     $("#attrs-help").click(function(event) {
         event.preventDefault();
-        $("#attrs").find("div.ar-descr").toggle();
-        self.position();
+        $("#attrs").find("div.ar-descr").slideToggle("fast");
     });
 
     $("#rel-type-help").click(function(event) {
         event.preventDefault();
         var $descr = $("#rel-type").find("div.ar-descr");
-        if ($descr.is(":empty")) $descr.hide(); else $descr.toggle();
-        self.position();
+        if ($descr.is(":empty")) $descr.hide(); else $descr.slideToggle("fast");
     });
 
     this.$dialog.find("button.negative").click(function(event) {
@@ -206,9 +204,9 @@ Dialog.setWidth = function() {
 
 Dialog.show = function(setup, dontsetwidth) {
     this.setup.apply(this, setup);
-
     this.$overlay.show();
-    this.$dialog.fadeIn("fast");
+    // setting top & left before showing prevents the page from jumping
+    this.$dialog.css({top: $w.scrollTop(), left: $w.scrollLeft()}).fadeIn("fast");
     if (dontsetwidth !== true) this.setWidth();
     LinkType.$select.focus();
 };
@@ -242,7 +240,7 @@ Dialog.hide = function() {
 
 
 Dialog.position = function() {
-    var $w = $(window), $d = this.$dialog,
+    var $d = this.$dialog,
         posx = this.posx, posy = this.posy,
         offx = $w.scrollLeft(), offy = $w.scrollTop(),
         wwidth = $w.width(), wheight = $w.height(),
