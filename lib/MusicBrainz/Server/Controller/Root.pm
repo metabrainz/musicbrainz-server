@@ -154,11 +154,6 @@ sub begin : Private
         },
     );
 
-    if ($c->req->user_agent && $c->req->user_agent =~ /MSIE/i) {
-        $c->stash->{looks_like_ie} = 1;
-        $c->stash->{needs_chrome} = !($c->req->user_agent =~ /chromeframe/i);
-    }
-
     # Setup the searchs on the sidebar
     $c->form( sidebar_search => 'Search::Search' );
 
