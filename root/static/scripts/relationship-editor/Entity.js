@@ -75,6 +75,11 @@ Entity.prototype.removeOrphans = function() {
     }
 };
 
+
+Entity.prototype.remove = function() {
+    delete cache[this.gid];
+};
+
 // entities contain other cruft like relationships, $ars, etc.
 // this gets the essential fields, used by RE.Relationship.createFields.
 // like RE.Relationship, stuffing these in a fields attribute would work, but

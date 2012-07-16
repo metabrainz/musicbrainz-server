@@ -41,7 +41,35 @@ Dialog.init = function() {
     this.$acid = $("#target input.id");
     this.$acgid = $("#target input.gid");
 
-    this.$work_name = $("#work-name");
+    this.$work_name = $("#work-name")
+        .autocomplete({
+            source: function(request, response) {
+                var term = request.term, data = [];
+                for (var id in RE.new_works) {
+                    var work = RE.new_works[id];
+                    if (work.name.lastIndexOf(term, 0) === 0 &&
+                        work !== this.new_work)
+                        data.push({
+                            label: work.name,
+                            value: work.name,
+                            work: work
+                        });
+                }
+                response(data);
+            },
+            select: function(event, ui) {setNewWork(ui.item.work);},
+            delay: 0
+        })
+        .bind("input", function() {
+            if (this.value == "") {
+                $(this).removeClass("lookup-performed");
+                if (Dialog.new_work) {
+                    Dialog.new_work = $.extend({}, Dialog.new_work);
+                    delete Dialog.new_work.id;
+                    delete Dialog.new_work.gid;
+                }
+            }
+        });
     this.$work_comment = $("#work-comment");
     this.$work_type = $("#work-type_id");
     this.$work_lang = $("#work-language_id");
@@ -114,8 +142,9 @@ function dumpErrors(errors, $container) {
 Dialog.setup = function(source, target_type) {
     Dialog.source = source;
     Dialog.recording_work = source.type == "recording" && target_type == "work";
-    Dialog.new_work = Dialog.recording_work &&
-        this.relationship && !RE.Util.isMBID(this.relationship.target.gid);
+
+    if (this.relationship && this.relationship.target.new_work)
+        Dialog.new_work = this.relationship.target;
 
     $("#work-options").toggle(this.recording_work);
 
@@ -222,6 +251,7 @@ Dialog.hide = function() {
 
         self.autocomplete.clear(true);
         self.$acname.removeClass("error");
+        self.$work_name.removeClass("lookup-performed");
         self.$dialog.find(":input").val("");
         self.$dialog.find("input[type=checkbox]").prop("checked", false);
         self.$dialog.find("p.msg").hide();
@@ -230,6 +260,7 @@ Dialog.hide = function() {
     self.$overlay.fadeOut("fast");
     delete self.relationship;
     delete self.source;
+    delete self.new_work;
     delete self.target_type;
     delete self.recording_work;
     self.attributes.length = 0;
@@ -280,7 +311,7 @@ Dialog.result = function(result) {
         LinkType.$error.text(MB.text.PleaseSelectARType);
         return;
     }
-    var relationship = this.relationship;
+    var rel = this.relationship;
 
     this.source.type == this.target_type && LinkType.direction == "backward"
         ? (fields.direction = LinkType.direction)
@@ -314,14 +345,15 @@ Dialog.result = function(result) {
         }
         fields.entity[0] = this.source;
 
-        if (relationship && !RE.Util.isMBID(relationship.target.gid)) {
-            id = relationship.target.id;
-            gid = relationship.target.gid;
+        if (this.new_work) {
+            id = gid = (this.new_work.id ? this.new_work.id : workID());
+        } else if (rel && rel.target.new_work) {
+            id = gid = rel.target.id;
         } else {
-            id = gid = RE.Util.fakeID();
+            id = gid = workID();
         }
         fields.entity[1] = RE.Entity({
-            id: id, gid: gid, name: name, type: "work",
+            id: id, gid: gid, name: name, type: "work", new_work: true,
             work_comment:       $.trim(this.$work_comment.val())  || null,
             work_type_id:     parseInt(this.$work_type.val(), 10) || null,
             work_language_id: parseInt(this.$work_lang.val(), 10) || null,
@@ -348,6 +380,25 @@ Dialog.result = function(result) {
     if (this.$ended.is(":checked")) fields.ended = 1;
 
     return result;
+};
+
+
+var setNewWork = function(work) {
+    var self = Dialog;
+    self.new_work = work;
+    self.$work_name.val(work.name).addClass("lookup-performed");
+    self.$work_comment.val(work.work_comment);
+    self.$work_type.val(work.work_type_id);
+    self.$work_lang.val(work.work_language_id);
+};
+
+// used to generate small ids to identify new works
+
+var workID = function() {
+    var alphabet = "0123456789abcdef", id = "";
+    while (id.length < 10)
+        id += alphabet[Math.floor(Math.random() * 16)];
+    return "work-" + id;
 };
 
 
@@ -401,10 +452,7 @@ EditDialog.setup = function(relationship, source, target_type) {
 
     if (Dialog.new_work) {
         $("#new-work-button").click().change();
-        this.$work_name.val(relationship.target.name);
-        this.$work_comment.val(relationship.target.work_comment);
-        this.$work_type.val(relationship.target.work_type_id);
-        this.$work_lang.val(relationship.target.work_language_id);
+        setNewWork(relationship.target);
     } else {
         $("#existing-work-button").click().change();
         var target = relationship.target;

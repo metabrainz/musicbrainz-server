@@ -22,6 +22,7 @@ var RelationshipEditor = {
     server_fields: {},
     relationships: {},
     works_loading: {},
+    new_works: {},
 }, RE = RelationshipEditor;
 
 (function() {

@@ -245,19 +245,20 @@ UI.renderArtistCredit = function(obj) {
 
 UI.renderEntity = function(obj, type) {
     type = type || obj.type;
-    var gid = type == "track" ? obj.recording.gid : obj.gid, name, link;
+    var name = obj.name;
 
-    name = type == "url" ? obj.url : obj.name;
-    if (type == "url" && name.length > 50) {
-        name = name.slice(0, 50) + "...";
+    if (type == "url") {
+        name = obj.url;
+        if (name.length > 50) name = name.slice(0, 50) + "...";
     }
-    name = document.createTextNode(name);
-    if (!(gid && RE.Util.isMBID(gid))) return name;
-    if (type == "track") type = "recording";
-
-    link = document.createElement("a");
-    link.appendChild(name);
-    link.href = "/" + type + "/" + gid;
+    if (type == "track") {
+        type = "recording";
+        obj = obj.recording;
+    }
+    if (obj.id == obj.gid) return document.createTextNode(name);
+    var link = document.createElement("a");
+    link.appendChild(document.createTextNode(name));
+    link.href = "/" + type + "/" + obj.gid;
     link.target = "_blank";
     if (obj.sortname) link.title = obj.sortname;
     link.className = "entity";

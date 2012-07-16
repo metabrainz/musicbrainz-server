@@ -35,16 +35,16 @@ RE.Relationship = function(obj, source, target, compare) {
 
     var $remove = new UI.Buttons.Remove(this),
         $phrase = $('<a href="#" class="link-phrase"></a>').data("relationship", this),
-        entity = UI.renderEntity(target);
+        $entity = $('<span class="entity"></span>').append(UI.renderEntity(target));
 
     if (this.type == "recording-work") {
         this.$container.append(
-            $(UI.checkbox).data("source", target), entity, "&#160;(", $phrase, ")",
+            $(UI.checkbox).data("source", target), $entity, "&#160;(", $phrase, ")",
             $remove, '<div class="ars"></div>', new UI.Buttons.AddRelationship(target)
         );
         this.resetARContainers();
     } else {
-        this.$container.append($remove, $phrase, ":&#160;", entity);
+        this.$container.append($remove, $phrase, ":&#160;", $entity);
     }
     this.update(null, compare);
 };
@@ -61,7 +61,7 @@ Relationship.prototype.update = function(obj, compare) {
     fields.num = this.num;
 
     $phrase = $c.children("a.link-phrase").html(this.linkPhrase());
-    $entity = $c.children("a.entity");
+    $entity = $c.children("span.entity");
 
     this.errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
     this.edits_pending ? $entity.addClass("rel-edit") : $entity.removeClass("rel-edit");
@@ -94,44 +94,58 @@ Relationship.prototype.update = function(obj, compare) {
         $phrase.removeClass("rel-remove disabled");
     }
 
-    var old_target = this.target, self = this;
-    this.target = fields.entity[1 - RE.Util.src(fields.link_type, fields.direction)];
+    var old_target = this.target, target = this.target =
+        fields.entity[1 - RE.Util.src(fields.link_type, fields.direction)],
+        target_changed = old_target !== target, gid = target.gid;
 
-    if (old_target !== this.target) {
-        $entity.replaceWith(function() {return UI.renderEntity(self.target)});
+    if (target_changed && !target.new_work)
+        $entity.empty().append(UI.renderEntity(target));
 
-        // if the user changed a work, we need to request its relationships
-        var gid = this.target.gid;
-        if (this.type == "recording-work" && RE.works_loading[gid] === undefined) {
-            var work = this.target;
-            work.$ars = $c.children("div.ars").empty();
+    // for new works, we want to update the entity everywhere it appears, not
+    // just for this relationship
+    if (target.new_work) {
+        $entity.addClass(target.id);
+        var $new_work = $("#tracklist span." + target.id);
+        $new_work.empty().append(UI.renderEntity(target));
+        RE.new_works[target.id] = target;
+    }
+    // if the user changed a work, we need to request its relationships
+    if (target_changed && this.type == "recording-work" && !RE.works_loading[gid]) {
+        target.$ars = $c.children("div.ars").empty();
 
-            if (old_target) {
-                old_target.$ars = old_target.$ars.not(work.$ars);
-                old_target.removeOrphans();
+        if (old_target) {
+            old_target.$ars = old_target.$ars.not(target.$ars);
+            old_target.removeOrphans();
+
+            if (old_target.new_work) {
+                $entity.removeClass(old_target.id);
+                if (old_target.$ars.length == 0) {
+                    old_target.remove();
+                    delete RE.new_works[old_target.id];
+                }
             }
-            if (RE.Util.isMBID(gid)) {
-                var $loading = $(UI.loading_indicator).appendTo(work.$ars);
-                RE.works_loading[gid] = 1;
-
-                $.get("/ws/js/entity/" + gid + "?inc=rels")
-                    .success(function(data) {
-                        $loading.remove();
-                        RE.parseRelationships(data, !old_target);
-                        UI.renderWorkRelationships(RE.Entity(data), true);
-                    })
-                    .error(function() {
-                        $loading.remove();
-                        $('<span class="error"></span>')
-                            .text(MB.text.ErrorLoadingRelationships)
-                            .appendTo(work.$ars);
-                    })
-                    .complete(function() {
-                        delete RE.works_loading[gid];
-                    });
-            }
-            $c.children("input[type=checkbox], a.add-rel").data("source", work);
         }
+        if (RE.Util.isMBID(gid)) {
+            var $loading = $(UI.loading_indicator).appendTo(target.$ars);
+            RE.works_loading[gid] = 1;
+
+            $.get("/ws/js/entity/" + gid + "?inc=rels")
+                .success(function(data) {
+                    $loading.remove();
+                    RE.parseRelationships(data, !old_target);
+                    UI.renderWorkRelationships(RE.Entity(data), true);
+                })
+                .error(function() {
+                    $loading.remove();
+                    $('<span class="error"></span>')
+                        .text(MB.text.ErrorLoadingRelationships)
+                        .appendTo(target.$ars);
+                })
+                .complete(function() {
+                    delete RE.works_loading[gid];
+                });
+        }
+        $c.children("input[type=checkbox], a.add-rel").data("source", target);
     }
     $c.children("input[type=hidden]").remove();
     if (create_fields) this.createFields();
@@ -143,6 +157,7 @@ Relationship.prototype.remove = function() {
     this.$container.children().empty().end().empty().remove();
     this.target.removeOrphans();
     this.source.removeOrphans();
+    delete RE.new_works[this.target];
     delete RE.relationships[this.type][this.fields.id];
 };
 

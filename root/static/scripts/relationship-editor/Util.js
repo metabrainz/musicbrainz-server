@@ -155,15 +155,6 @@ Util.compareArtistCredits = function(a, b) {
     return true;
 };
 
-// used to generate small ids to identify new works
-
-Util.fakeID = function() {
-    var alphabet = "0123456789abcdef", id = "";
-    while (id.length < 10)
-        id += alphabet[Math.floor(Math.random() * 16)];
-    return id;
-};
-
 
 var mbid_regex = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/;
 
