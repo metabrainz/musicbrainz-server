@@ -37,12 +37,9 @@ $mech->content_contains("Thank you, your email address has now been verified!");
 
 $mech->get_ok('/user/new_editor');
 $mech->content_like(qr{\(verified at (.*)\)});
-$mech->content =~ qr{\(verified at (.*)\)};
-my $reverification = $1;
-like($reverification, qr{\d+.\d+.\d+ \d+.\d+}, "Reverification $reverification looks like a date");
-$reverification =~ qr{\d+.\d+.(\d+) \d+.\d+}; # yes, this depends on the format in t/sql/editor.sql not changing
-my $reverification_year = $1;
-ok($reverification_year > 2003, "reverification is after original verification");
+
+my $editor = $c->model('Editor')->get_by_name('new_editor');
+ok($editor->email_confirmation_date->year > 2003, "Reverification date is newer than original verification date")
 
 };
 
