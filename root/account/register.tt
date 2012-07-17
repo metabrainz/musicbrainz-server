@@ -7,9 +7,9 @@
 
     <h1>[% l("Create an Account") %]</h1>
     <p>We're sorry, but MusicBrainz is currently having a problem with spam
-       accounts and will have logins disabled until at least 13:00 UTC 2012-07-17.
+       accounts and will have logins disabled until tomorrow.
        For more information, please follow us on
-       <a href="http://twitter.com/musicbrainz">Twitter @MusicBrainz</a>
+       <a href="http://twitter.com/musicbrainz">Twitter @MusicBrainz</a>.
      </p>
 
 </div>
