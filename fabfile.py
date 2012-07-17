@@ -85,7 +85,7 @@ def production():
 
     with cd('/home/musicbrainz/musicbrainz-server'):
         sudo("git fetch", user="musicbrainz")
-        sudo("git checkout die-spammers-die", user="musicbrainz")
+        sudo("git checkout die-spammer-die", user="musicbrainz")
 
     sudo("/home/musicbrainz/musicbrainz-server/admin/production-deploy.sh", user="musicbrainz")
     sudo("svc -u /etc/service/mb_server-fastcgi")
