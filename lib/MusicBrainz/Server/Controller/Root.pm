@@ -262,13 +262,15 @@ sub end : ActionClass('RenderView')
 
     return if exists $c->action->attributes->{Minimal};
 
+    my $root = DBDefs::MB_SERVER_ROOT;
     $c->stash->{server_details} = {
         staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
         testing_features           => &DBDefs::DB_STAGING_TESTING_FEATURES,
         is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
-        developement_server        => &DBDefs::DEVELOPMENT_SERVER
+        developement_server        => &DBDefs::DEVELOPMENT_SERVER,
+        git_revision               => `GIT_DIR=$root/.git git rev-parse HEAD`
     };
 
     # Display which git branch is active (only on dev servers)

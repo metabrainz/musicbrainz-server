@@ -1,5 +1,4 @@
-[% rdfa_set_header(usesRDFa) %]
-
+[%- rdfa_set_header(usesRDFa) -%]
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
          [%- IF looks_like_ie -%]
@@ -34,7 +33,8 @@
             </style>
         [%- ELSE -%]
             [%- script_manifest('common.js.manifest') -%]
-            <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
+            <script type="text/javascript"
+                    src="[% c.uri_for('/text.js', { rev => server_details.git_revision }) %]"></script>
         [%- END -%]
         <script type="text/javascript">//<![CDATA[
             $(document).ready (function () {

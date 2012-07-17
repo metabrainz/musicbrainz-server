@@ -10,6 +10,8 @@ sub end : ActionClass('RenderView') { }
 sub js_text_strings : Path('/text.js') {
     my ($self, $c) = @_;
     $c->res->content_type('text/javascript');
+    $c->res->header('Cache-Control' => 'max-age=86400')
+        unless DBDefs::CATALYST_DEBUG;
     $c->stash->{template} = 'scripts/text_strings.tt';
 }
 
