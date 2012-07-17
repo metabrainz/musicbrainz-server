@@ -397,7 +397,7 @@ sub register : Path('/register') ForbiddenOnSlaves
     my ($self, $c) = @_;
 
     $c->stash(
-        register_form => $form,
+        register_form => "", # $form,
         template      => 'account/register.tt',
     );
 }
