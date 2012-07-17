@@ -1,6 +1,21 @@
+[%- MACRO subscription_summary(single_text, plural_text, stat) BLOCK -%]
+  [%- IF stat > 0 -%]
+    <li>[% ln(single_text, plural_text, stat, { num => stat }) %]</li>
+  [%- END -%]
+[%- END -%]
+
 [% WRAPPER "user/profile/layout.tt" page="subscriptions" %]
    <h2>[% title %]</h2>
    [% INCLUDE "user/subscriptions/menu.tt" %]
+
+   [% IF summary.artist > 0 || summary.editor > 0 || summary.label > 0 %]
+   <p>[% l('{editor} is subscribed to:', { editor => link_editor(user) }) %]</p>
+   <ul>
+     [% subscription_summary('{num} artist', '{num} artists', summary.artist) %]
+     [% subscription_summary('{num} editor', '{num} editors', summary.editor) %]
+     [% subscription_summary('{num} label', '{num} labels', summary.label) %]
+   </ul>
+   [% END %]
 
    [% IF entities.size %]
       [%- WRAPPER 'components/with-pager.tt' -%]

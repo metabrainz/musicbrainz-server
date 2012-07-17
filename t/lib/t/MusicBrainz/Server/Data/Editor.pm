@@ -152,4 +152,36 @@ $editor_data->delete(1);
 
 };
 
+test 'subscription_summary' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO artist_name VALUES (1, 'artist');
+INSERT INTO label_name VALUES (1, 'label');
+
+INSERT INTO artist (id, gid, name, sort_name)
+  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 1);
+INSERT INTO label (id, gid, name, sort_name)
+  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 1);
+
+INSERT INTO editor (id, name, password)
+  VALUES (1, 'Alice', 'al1c3'), (2, 'Bob', 'b0b');
+INSERT INTO editor_subscribe_artist (id, editor, artist, last_edit_sent) VALUES
+  (1, 1, 1, 1);
+INSERT INTO editor_subscribe_label (id, editor, label, last_edit_sent) VALUES
+  (1, 1, 1, 1), (2, 2, 1, 1);
+INSERT INTO editor_subscribe_editor
+  (id, editor, subscribed_editor, last_edit_sent) VALUES (1, 1, 1, 1);
+EOSQL
+
+    is_deeply($test->c->model('Editor')->subscription_summary(1),
+              { artist => 1,
+                label => 1,
+                editor => 1 });
+
+    is_deeply($test->c->model('Editor')->subscription_summary(2),
+              { artist => 0,
+                label => 1,
+                editor => 0 });
+};
+
 1;

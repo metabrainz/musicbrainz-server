@@ -523,6 +523,20 @@ sub delete {
     $self->sql->commit;
 }
 
+sub subscription_summary {
+    my ($self, $editor_id) = @_;
+
+    $self->sql->select_single_row_hash(
+        'SELECT ' .
+            join(', ', map {
+                "COALESCE(
+                   (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
+                   0) AS $_"
+            } qw( artist label editor )),
+        ($editor_id) x 3
+    );
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
