@@ -85,13 +85,13 @@ CDTOC, or both.
 sub length {
     my $self = shift;
 
-    if ($self->cdtocs->[0] && $self->cdtocs->[0]->cdtoc)
-    {
-        return $self->cdtocs->[0]->cdtoc->length;
-    }
-    elsif ($self->tracklist)
+    if ($self->tracklist)
     {
         return $self->tracklist->length;
+    }
+    elsif ($self->cdtocs->[0] && $self->cdtocs->[0]->cdtoc)
+    {
+        return $self->cdtocs->[0]->cdtoc->length;
     }
     else
     {
