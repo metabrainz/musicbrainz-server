@@ -60,12 +60,12 @@ END; -%]
 [%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
     <a href="[% artwork.image %]" class="thickbox">
     [%- IF no_javascript -%]
-        <img src="[% artwork.small_thumbnail %]" />
+        <img src="[% artwork.large_thumbnail %]" />
     [%- ELSE -%]
         <img />
         <script>
           $('img').last ().bind ('error', function (event) {
-              if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
+              if ($(this).attr ("src") === "[% artwork.large_thumbnail %]")
               {
                   $(this).attr ("src", "[% artwork.image %]");
               }
@@ -81,7 +81,7 @@ END; -%]
                   [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
                   <\/em>');
               }
-          }).attr ("src", "[% artwork.small_thumbnail %]");
+          }).attr ("src", "[% artwork.large_thumbnail %]");
         </script>
     [%- END -%]
     </a>
