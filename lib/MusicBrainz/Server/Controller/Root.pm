@@ -9,9 +9,7 @@ use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
-
-use DateTime::Locale;
-use List::UtilsBy qw( sort_by );
+use aliased 'MusicBrainz::Server::Translation';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -162,24 +160,13 @@ sub begin : Private
     # if no javascript cookie is set we don't know if javascript is enabled or not.
     my $jscookie = $c->request->cookie('javascript');
     my $js = $jscookie ? $jscookie->value : "unknown";
-    my @lang_with_locale = sort_by { ucfirst $_->[1]->native_language } 
-                           map { [ $_ => DateTime::Locale->load($_) ] } 
-                           grep { my $l = $_; 
-                                  grep { $l eq $_ } DateTime::Locale->ids() } 
-                           map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES();
-    my @lang_without_locale = sort_by { $_->[1]->{id} } 
-                              map { [ $_ => {'id' => $_, 'native_language' => ''} ] } 
-                              grep { my $l = $_; 
-                                     !(grep { $l eq $_ } DateTime::Locale->ids()) } 
-                              map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES();
-    my @languages = (@lang_with_locale, @lang_without_locale);
     $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
 
     $c->stash(
         javascript => $js,
         no_javascript => $js eq "false",
         wiki_server => &DBDefs::WIKITRANS_SERVER,
-        languages => \@languages,
+        languages => Translation->instance->all_languages(),
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
             testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,

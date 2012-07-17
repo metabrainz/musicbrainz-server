@@ -9,6 +9,8 @@ use DBDefs;
 use Locale::Messages qw( bindtextdomain LC_MESSAGES );
 use Locale::Util qw( web_set_locale );
 use Cwd qw (abs_path);
+use DateTime::Locale;
+use List::UtilsBy qw( sort_by );
 
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
@@ -85,9 +87,9 @@ sub build_languages_from_header
     ]);
 }
 
-sub _set_language
+sub set_language
 {
-    my ($self, $cookie) = @_;
+    my ($self, $lang) = @_;
 
     # Make sure everything is unset first.
     $ENV{LANGUAGE} = '';
@@ -97,17 +99,8 @@ sub _set_language
     $ENV{LC_MESSAGES} = '';
 
     my @avail_lang;
-    # because s///r is a perl 5.14 feature
-    my $cookie_munge = defined $cookie ? $cookie->value : '';
-    $cookie_munge =~ s/_([A-Z]{2})/-\L$1/;
-    my $cookie_nocountry = defined $cookie ? $cookie->value : '';
-    $cookie_nocountry =~ s/_[A-Z]{2}//;
-    if (defined $cookie && 
-        grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs::MB_LANGUAGES) {
-        @avail_lang = ($cookie->value);
-    } elsif (defined $cookie && 
-             grep { $cookie_nocountry eq $_ } DBDefs::MB_LANGUAGES) {
-        @avail_lang = ($cookie_nocountry);
+    if (defined $lang) {
+        @avail_lang = ($lang);
     } else {
         # change e.g. 'en-aq' to 'en_AQ'
         @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } 
@@ -141,9 +134,25 @@ sub _set_language
     } 
 }
 
-sub _unset_language
+sub unset_language
 {
     web_set_locale([ 'en' ], [ 'utf-8' ], LC_MESSAGES);
+}
+
+sub all_languages
+{
+    my @lang_with_locale = sort_by { ucfirst $_->[1]->native_language } 
+                           map { [ $_ => DateTime::Locale->load($_) ] } 
+                           grep { my $l = $_; 
+                                  grep { $l eq $_ } DateTime::Locale->ids() } 
+                           map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES;
+    my @lang_without_locale = sort_by { $_->[1]->{id} } 
+                              map { [ $_ => {'id' => $_, 'native_language' => ''} ] } 
+                              grep { my $l = $_; 
+                                     !(grep { $l eq $_ } DateTime::Locale->ids()) } 
+                              map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES;
+    my @languages = (@lang_with_locale, @lang_without_locale);
+    return \@languages;
 }
 
 sub _expand
