@@ -1,53 +1,55 @@
 package t::MusicBrainz::Server::Controller::WS::2::JSON::LookupLabel;
 use utf8;
+use JSON;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
-
-with 't::Mechanize', 't::Context';
-
-use utf8;
-use JSON;
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
+use MusicBrainz::Server::Test qw( html_ok xml_ok schema_validator );
 use MusicBrainz::Server::Test ws_test_json => {
     version => 2
 };
 
-test all => sub {
+with 't::Mechanize', 't::Context';
 
-my $test = shift;
-my $c = $test->c;
+test 'basic label lookup' => sub {
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-ws_test_json 'basic label lookup',
+    ws_test_json 'basic label lookup',
     '/label/b4edce40-090f-4956-b82a-5d9d285da40b' => encode_json (
-    {
-        id => "b4edce40-090f-4956-b82a-5d9d285da40b",
-        name => "Planet Mu",
-        "sort-name" => "Planet Mu",
-        type => "Original Production",
-        country => "GB",
-        lifespan => {
-            "begin" => "1995",
-            "ended" => JSON::false,
-        },
-    });
+        {
+            id => "b4edce40-090f-4956-b82a-5d9d285da40b",
+            name => "Planet Mu",
+            "sort-name" => "Planet Mu",
+            type => "Original Production",
+            country => "GB",
+            lifespan => {
+                "begin" => "1995",
+                "ended" => JSON::false,
+            },
+        });
 
-ws_test_json 'label lookup, inc=aliases',
+};
+
+test 'label lookup, inc=aliases' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'label lookup, inc=aliases',
     '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=aliases' => encode_json (
-    {
-        id => "b4edce40-090f-4956-b82a-5d9d285da40b",
-        name => "Planet Mu",
-        "sort-name" => "Planet Mu",
-        type => "Original Production",
-        country => "GB",
-        lifespan => {
-            "begin" => "1995",
-            "ended" => JSON::false,
-        },
-        aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ]
-    });
+        {
+            id => "b4edce40-090f-4956-b82a-5d9d285da40b",
+            name => "Planet Mu",
+            "sort-name" => "Planet Mu",
+            type => "Original Production",
+            country => "GB",
+            lifespan => {
+                "begin" => "1995",
+                "ended" => JSON::false,
+            },
+            aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ]
+        });
+
+};
 
 # ws_test 'label lookup with releases, inc=media',
 #     '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=releases+media' =>
@@ -91,8 +93,6 @@ ws_test_json 'label lookup, inc=aliases',
 #         </release-list>
 #     </label>
 # </metadata>';
-
-};
 
 1;
 

@@ -1,4 +1,5 @@
 package MusicBrainz::Server::WebService::Format;
+use HTTP::Status qw( HTTP_NOT_ACCEPTABLE );
 use MooseX::Role::Parameterized;
 use REST::Utils qw( best_match );
 
@@ -15,29 +16,36 @@ role {
         my ($self, $c) = @_;
 
         my %formats = map { $_->fmt => $_ } @{ $role->serializers };
-
-        my $fmt = $c->request->parameters->{fmt};
-        return $formats{$fmt} if $fmt && $formats{$fmt};
-
         my %accepted = map { $_->mime_type => $_ } @{ $role->serializers };
 
-        # Default to application/xml when no accept header is specified.
-        # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
-        my $accept = $c->req->header ('Accept') // "application/xml";
+        my $fmt = $c->request->parameters->{fmt};
 
-        my $match = best_match ([ keys %accepted ], $accept);
+        if (defined $fmt)
+        {
+            return $formats{$fmt} if $formats{$fmt};
+        }
+        else
+        {
+            # Default to application/xml when no accept header is specified.
+            # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
+            my $accept = $c->req->header ('Accept') // "application/xml";
 
-        return $accepted{$match} if $match;
+            my $match = best_match ([ keys %accepted ], $accept);
 
-        $c->stash->{error} = 'Invalid Accept header. Must be set to '
-            . join(' or ', keys %accepted) . '.';
+            return $accepted{$match} if $match;
+        }
+
+        $c->stash->{error} = 'Invalid format. Either set an Accept header'
+            . ' (recognized mime types are '. join (' and ', keys %accepted)
+            . '), or include a fmt= argument in the query string (valid values'
+            . ' for fmt are '. join (' and ', keys %formats) . ').';
 
         my $ser = $role->serializers->[0];
 
-        $c->res->status(406);
+        $c->res->status(HTTP_NOT_ACCEPTABLE);
         $c->res->content_type($ser->mime_type . '; charset=utf-8');
         $c->res->body($ser->output_error($c->stash->{error}));
-        $c->detach ();
+        $c->detach();
     };
 
 };
