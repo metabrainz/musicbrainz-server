@@ -93,7 +93,6 @@
         <span class="prefix">~</span>
         [% l('Edit by {editor}',
             { editor => link_entity(edit.editor) }) %]
-        [% IF edit.editor.is_limited; '<span>(<span class="tooltip" title="' _ l('This user is new to MusicBrainz.') _ '">' _ l('limited user') _ '</span>)</span>'; END %]
-        [% IF edit.editor.is_bot; '<span>(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
+        [%- editor_type_info(edit.editor) -%]
     </p>
 </div>

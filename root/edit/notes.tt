@@ -18,8 +18,7 @@
                 <h3 class="[%- PROCESS votename -%]">
                     [%- link_entity(note.editor) -%]
                     <span class="date">[%- UserDate.format(note.post_time) -%]</span>
-                    [% IF note.editor.is_limited; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is new to MusicBrainz.') _ '">' _ l('limited user') _ '</span>)</span>'; END %]
-                    [% IF note.editor.is_bot; '<span class="editor-class">(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
+                    [%- editor_type_info(note.editor) -%]
                 </h3>
                 <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
                     [%- note.text | format_editnote -%]
