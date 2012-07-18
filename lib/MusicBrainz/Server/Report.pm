@@ -1,52 +1,63 @@
 package MusicBrainz::Server::Report;
-use Moose;
+use Moose::Role;
 
-use Sql;
+with 'MusicBrainz::Server::Data::Role::Sql';
 
-has 'c' => ( is => 'ro' );
+use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
+use String::CamelCase qw( decamelize );
 
-sub gather_data
-{
-    die 'Not implemented.';
+requires 'run';
+
+sub qualified_table {
+    my $self = shift;
+    return join('.', 'report', $self->table);
 }
 
-sub gather_data_from_query
-{
-    my ($self, $writer, $query, $args, $filter) = @_;
-    $args ||= [];
-
-    my $sql = $self->c->sql;
-    $sql->select($query, @$args);
-    while (my $row = $sql->next_row_hash_ref) {
-        next if $filter and not($row = &$filter($row));
-        $writer->Print($row);
-    }
-    $sql->finish;
+sub table {
+    my $self = shift;
+    my $name = $self->meta->name;
+    $name =~ s/MusicBrainz::Server::Report::(.*)$/$1/;
+    return decamelize($name);
 }
 
-sub run
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data($writer);
+sub template {
+    my $self = shift;
+    return 'report/' . $self->table . '.tt';
 }
 
-sub post_load
-{
+sub load {
+    my ($self, $limit, $offset) = @_;
+    return $self->_load('', $offset, $limit);
 }
 
-sub template
-{
-    die 'Not implemented.';
+sub ordering { "row_number" }
+
+sub inflate_rows {
+    my ($self, $rows) = @_;
+    return $rows;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+sub _load {
+    my ($self, $join_sql, $offset, $limit, @params) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $ordering = $self->ordering;
+    my ($rows, $total) = query_to_list_limited(
+        $self->sql, $offset, $limit, sub { shift },
+        "SELECT DISTINCT report.* FROM $qualified_table report $join_sql ORDER BY $ordering OFFSET ?",
+        @params, $offset
+    );
+
+    $rows = $self->inflate_rows($rows);
+    return ($rows, $total);
+}
+
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

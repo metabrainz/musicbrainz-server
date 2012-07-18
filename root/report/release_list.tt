@@ -10,7 +10,7 @@
         [%- FOR item IN items -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% link_entity(item.release) %]</td>
-            <td>[% artist_credit(item.artist_credit) %]</td>
+            <td>[% artist_credit(item.release.artist_credit) %]</td>
         </tr>
         [%- END -%]
     </tbody>

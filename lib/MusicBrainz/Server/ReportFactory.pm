@@ -3,24 +3,25 @@ package MusicBrainz::Server::ReportFactory;
 use DBDefs;
 use MusicBrainz::Server::PagedReport;
 
-my @all = qw(
-    DuplicateArtists
-    ReleasesToConvert
+@all = qw(
+    ASINsWithMultipleReleases
     ArtistsContainingDisambiguationComments
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
-    ASINsWithMultipleReleases
     BadAmazonURLs
     CatNoLooksLikeASIN
     CollaborationRelationships
     CreativeCommonsRelationships
     DiscogsLinksWithMultipleArtists
+    DiscogsLinksWithMultipleLabels
     DiscogsLinksWithMultipleReleaseGroups
     DiscogsLinksWithMultipleReleases
+    DuplicateArtists
     FeaturingRecordings
     FeaturingReleaseGroups
     FeaturingReleases
     ISRCsWithManyRecordings
+    MediumsWithSequenceIssues
     MultipleASINs
     MultipleDiscogsLinks
     NoLanguage
@@ -28,32 +29,32 @@ my @all = qw(
     PartOfSetRelationships
     PossibleCollaborations
     RecordingsWithEarliestReleaseRelationships
-    ReleasesWithUnlikelyLanguageScript
     ReleasedTooEarly
     ReleasesInCAAWithCoverArtRelationships
+    ReleasesToConvert
+    ReleasesWithUnlikelyLanguageScript
     SeparateDiscs
     SetInDifferentRG
+    SomeFormatsUnset
     SuperfluousDataTracks
     TracksNamedWithSequence
     TracksWithSequenceIssues
     UnlinkedPseudoReleases
-    SomeFormatsUnset
-    MediumsWithSequenceIssues
 );
 
+use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
-use MusicBrainz::Server::Report::DuplicateArtists;
-use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
-use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::CreativeCommonsRelationships;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
+use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
+use MusicBrainz::Server::Report::DuplicateArtists;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
@@ -66,16 +67,17 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
-use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
+use MusicBrainz::Server::Report::ReleasesToConvert;
+use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
+use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use MusicBrainz::Server::Report::UnlinkedPseudoReleases;
-use MusicBrainz::Server::Report::SomeFormatsUnset;
 
 my %all = map { $_ => 1 } @all;
 
@@ -93,14 +95,6 @@ sub create_report
 
     my $report_class = "MusicBrainz::Server::Report::$name";
     return $report_class->new( c => $c );
-}
-
-sub load_report_data
-{
-    my ($class, $name) = @_;
-
-    my $data = &DBDefs::MB_SERVER_ROOT . "/data/reports/$name/$name";
-    return MusicBrainz::Server::PagedReport->Load($data);
 }
 
 1;
