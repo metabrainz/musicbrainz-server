@@ -107,6 +107,7 @@ def reset_test():
     no_local_changes()
     local("git checkout test")
     local("git reset --hard origin/develop")
+    local("git push --force origin test")
 
     with settings(host_string='test'):
         with cd("/home/musicbrainz/musicbrainz-server"):
