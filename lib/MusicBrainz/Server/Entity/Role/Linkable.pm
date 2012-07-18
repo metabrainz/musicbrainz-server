@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Role::Linkable;
 use Moose::Role;
 
 use MusicBrainz::Server::Entity::Types;
+use List::UtilsBy qw( sort_by );
 
 has 'relationships' => (
     is => 'rw',
@@ -24,10 +25,16 @@ sub grouped_relationships
 
     my %groups;
     my @relationships = sort {
+        my $a_sortname = $a->target->can('sort_name') ? 
+	   $a->target->sort_name :
+	   $a->target->name;
+        my $b_sortname = $b->target->can('sort_name') ? 
+	   $b->target->sort_name :
+	   $b->target->name;
         $a->link->begin_date        <=> $b->link->begin_date ||
         $a->link->end_date          <=> $b->link->end_date   ||
         $a->link->type->child_order <=> $b->link->type->child_order ||
-        $a->target->name            cmp $b->target->name
+	$a_sortname cmp $b_sortname
     } $self->all_relationships;
 
     for my $relationship (@relationships) {
