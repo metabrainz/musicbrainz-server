@@ -27,6 +27,9 @@ after 'validate' => sub {
     return if any { $_->has_errors } map { $_->fields }
         $self->field('begin_date'), $self->field('end_date');
 
+    return if !Date::Calc::check_date($begin->{year}, $begin->{month} || 1, $begin->{day} || 1);
+    return if !Date::Calc::check_date($end->{year}, $end->{month} || 1, $end->{day} || 1);
+
     if ($end->{year} || $end->{month} || $end->{day}) {
         $self->field('ended')->value(1);
     }
