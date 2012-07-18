@@ -13,6 +13,7 @@ version_from 'lib/MusicBrainz/Server.pm';
 requires 'Algorithm::Diff';
 requires 'Algorithm::Merge';
 requires 'Cache::Memcached';
+requires 'Captcha::reCAPTCHA';
 requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
