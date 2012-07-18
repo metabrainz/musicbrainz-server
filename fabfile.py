@@ -32,9 +32,9 @@ def beta():
     no_local_changes()
 
     with settings( hide("stdout", "stderr") ):
-        local("git checkout beta")
+        local("git checkout develop")
         local("git merge master")
-        local("git push origin beta")
+        local("git push origin develop")
 
     socket_deploy()
 
@@ -48,9 +48,9 @@ def test():
     no_local_changes()
 
     with settings( hide("stdout", "stderr") ):
-        local("git checkout next")
+        local("git checkout test")
         local("git merge master")
-        local("git push origin next")
+        local("git push origin test")
 
     socket_deploy()
 
@@ -100,27 +100,18 @@ def production():
         run("tail /etc/service/mb_server-fastcgi/log/main/current | grep started")
         run("wget http://localhost -O -")
 
-def reset_test_branches():
+def reset_test():
     """
-    Reset the 'next' and 'beta' branches, and do socket updates on both beta and test
+    Reset the 'test' branch, and do a socket update release
     """
     no_local_changes()
-    local("git checkout next")
-    local("git reset --hard origin/master")
-    local("git checkout beta")
-    local("git reset --hard origin/master")
-    local("git push --force origin next beta")
+    local("git checkout test")
+    local("git reset --hard origin/develop")
 
-    with settings(host_string='beta'):
-        with cd("/home/beta/musicbrainz-server"):
-            run("git fetch")
-            run("git reset --hard origin/beta")
-        socket_deploy()
-
-    with settings(host_string='beta'):
+    with settings(host_string='test'):
         with cd("/home/musicbrainz/musicbrainz-server"):
             run("git fetch")
-            run("git reset --hard origin/next")
+            run("git reset --hard origin/test")
         socket_deploy()
 
 def shutdown():
