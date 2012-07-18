@@ -32,9 +32,9 @@ def beta():
     no_local_changes()
 
     with settings( hide("stdout", "stderr") ):
-        local("git checkout develop")
+        local("git checkout beta")
         local("git merge master")
-        local("git push origin develop")
+        local("git push origin beta")
 
     socket_deploy()
 
@@ -106,7 +106,7 @@ def reset_test():
     """
     no_local_changes()
     local("git checkout test")
-    local("git reset --hard origin/develop")
+    local("git reset --hard origin/beta")
     local("git push --force origin test")
 
     with settings(host_string='test'):
