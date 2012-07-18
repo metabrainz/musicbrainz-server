@@ -402,8 +402,8 @@ sub register : Path('/register') ForbiddenOnSlaves
     my $captcha = Captcha::reCAPTCHA->new;
     my $captcha_result;
     my $use_captcha = ($c->req->address &&
-                       defined &DBDefs::RECAPTCHA_PUBLIC_KEY &&
-                       defined &DBDefs::RECAPTCHA_PRIVATE_KEY);
+                       defined DBDefs::RECAPTCHA_PUBLIC_KEY &&
+                       defined DBDefs::RECAPTCHA_PRIVATE_KEY);
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
