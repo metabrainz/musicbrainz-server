@@ -271,8 +271,12 @@ sub end : ActionClass('RenderView')
         developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
-    # Display which git branch is active (only on dev servers)
-    $c->stash->{server_details}->{git_branch} = &DBDefs::GIT_BRANCH;
+    # For displaying which git branch is active as well as last commit information
+    # (only shown on staging servers)
+    my ($git_branch, $git_sha, $git_msg) = &DBDefs::GIT_BRANCH;
+    $c->stash->{server_details}->{git}->{branch} = $git_branch;
+    $c->stash->{server_details}->{git}->{sha}    = $git_sha;
+    $c->stash->{server_details}->{git}->{msg}    = $git_msg;
 
     $c->stash->{google_analytics_code} = &DBDefs::GOOGLE_ANALYTICS_CODE;
 
