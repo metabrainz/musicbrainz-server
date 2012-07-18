@@ -401,7 +401,7 @@ sub register : Path('/register') ForbiddenOnSlaves
 
     my $captcha = Captcha::reCAPTCHA->new;
     my $captcha_result;
-    my $use_captcha = (defined $ENV{'REMOTE_ADDR'} &&
+    my $use_captcha = ($c->req->address &&
                        defined &DBDefs::RECAPTCHA_PUBLIC_KEY &&
                        defined &DBDefs::RECAPTCHA_PRIVATE_KEY);
 
@@ -415,7 +415,7 @@ sub register : Path('/register') ForbiddenOnSlaves
 
             $captcha_result = $captcha->check_answer (
                 &DBDefs::RECAPTCHA_PRIVATE_KEY,
-                $ENV{'REMOTE_ADDR'}, $challenge, $response);
+                $c->req->address, $challenge, $response);
 
             $valid = $captcha_result->{is_valid};
         }
