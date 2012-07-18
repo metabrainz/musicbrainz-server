@@ -166,7 +166,7 @@ sub begin : Private
         javascript => $js,
         no_javascript => $js eq "false",
         wiki_server => &DBDefs::WIKITRANS_SERVER,
-        languages => Translation->instance->all_languages(),
+        server_languages => Translation->instance->all_languages(),
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
             testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,
