@@ -13,6 +13,8 @@ $| = 1;
 @ARGV = "^" if not @ARGV;
 my $c = MusicBrainz::Server::Context->create_script_context();
 
+guarantee_schema($c);
+
 my $errors = 0;
 for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
     unless (grep { $name =~ /$_/i } @ARGV) {
@@ -35,7 +37,9 @@ for my $name (MusicBrainz::Server::ReportFactory->all_report_names) {
                 }));
 
             Sql::run_in_transaction(sub {
-                $report->run
+                $report->run;
+                $c->sql->do('DELETE FROM report.index WHERE report_name = ?', $report->table);
+                $c->sql->insert_row('report.index', { report_name => $report->table })
             }, $c->sql);
 
             alarm(0);
@@ -61,6 +65,30 @@ print localtime() . " : Completed with 1 error\n" if $errors == 1;
 print localtime() . " : Completed with $errors errors\n" if $errors != 1;
 
 exit($errors ? 1 : 0);
+
+sub guarantee_schema {
+    my $c = shift;
+
+    $c->sql->begin;
+    $c->sql->do('CREATE SCHEMA report')
+        unless $c->sql->select_single_value(
+            'SELECT TRUE FROM information_schema.schemata WHERE schema_name = ?',
+            'report');
+
+    my $index_exists = $c->sql->select_single_value(
+        'SELECT TRUE FROM information_schema.tables
+         WHERE table_schema = ? AND table_name = ?',
+        'report', 'index');
+
+    $c->sql->do(<<EOSQL) unless $index_exists;
+CREATE TABLE report.index (
+    report_name TEXT NOT NULL PRIMARY KEY,
+    generated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+EOSQL
+
+    $c->sql->commit;
+}
 
 =head1 COPYRIGHT
 

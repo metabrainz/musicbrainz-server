@@ -52,6 +52,26 @@ sub _load {
     return ($rows, $total);
 }
 
+sub generated {
+    my ($self) = @_;
+    return $self->sql->select_single_value(
+        'SELECT TRUE FROM information_schema.tables WHERE table_schema = ? AND table_name = ?',
+        'report', $self->table
+    );
+}
+
+sub generated_at {
+    my ($self) = @_;
+    my $timestamp = $self->sql->select_single_value(
+        'SELECT generated_at FROM report.index WHERE report_name = ?',
+        $self->table
+    );
+    if ($timestamp) {
+        $timestamp = DateTime::Format::Pg->parse_datetime($timestamp);
+    }
+    return $timestamp;
+}
+
 1;
 
 =head1 COPYRIGHT

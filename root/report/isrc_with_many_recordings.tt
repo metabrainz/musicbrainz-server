@@ -38,7 +38,7 @@
         [%- END -%]
         <tr>
             <td></td>
-            <td>[% artist_credit(item.artist_credit) %]</td>
+            <td>[% artist_credit(item.recording.artist_credit) %]</td>
             <td>[% link_entity(item.recording) %]</td>
             <td>[% item.length | format_length %]</td>
         </tr>

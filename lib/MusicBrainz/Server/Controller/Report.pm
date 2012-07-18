@@ -18,7 +18,12 @@ sub show : Path Args(1)
         $name, $c->model('MB')->context
     ) or $c->detach('/error_404');
 
-    my $filtered = exists $c->req->query_params->{filter};
+    if (!$report->generated) {
+        $c->stash( template => 'report/not_available.tt' );
+        $c->detach;
+    }
+
+    my $filtered = $c->req->query_params->{filter};
     $c->stash(
         items => $self->_load_paged($c, sub {
             if ($filtered) {
@@ -40,7 +45,7 @@ sub show : Path Args(1)
         }),
         filtered => $filtered,
         report => $report,
-#        generated => DateTime->from_epoch( epoch => $data->Time ),
+        generated => $report->generated_at,
         template => $report->template,
     );
 }
