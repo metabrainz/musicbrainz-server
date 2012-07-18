@@ -232,13 +232,6 @@ MB.constants.CLEANUPS = {
             return url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
         }
     },
-    encyclopedisque: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?encyclopedisque\\.fr/images/.*\\.jpg","i"),
-        type: MB.constants.LINK_TYPES.coverart,
-        clean: function(url) {
-            return url.replace(/images\/imgdb\/thumb250\//, "images/imgdb/main/");
-        }
-    },
     manjdisc: {
         match: new RegExp("^(https?://)?([^/]+\\.)?mange-disque\\.tv/(fs/md_|fstb/tn_md_|info_disque\\.php3\\?dis_code=)[0-9]+","i"),
         type: MB.constants.LINK_TYPES.coverart,
@@ -286,10 +279,6 @@ MB.constants.CLEANUPS = {
     ozonru: {
         match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i"),
         type: MB.constants.LINK_TYPES.mailorder
-    },
-    ozonrucoverart: {
-        match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/multimedia/", "i"),
-        type: MB.constants.LINK_TYPES.coverart
     },
     review: {
         match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
@@ -437,7 +426,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     }
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
-        var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|ozon\\.ru|mange-disque\\.tv|encyclopedisque\\.fr|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
+        var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
         return sites.test($('#id-ar\\.url').val())
     };
 
