@@ -48,7 +48,7 @@
                   <table class="tbl">
                     <tr>
                       <thead>
-                        <th>
+                        <th class="pos">
                           <input type="checkbox" />
                         </th>
                         <th colspan="5"></th>
@@ -56,7 +56,7 @@
                     </tr>
                     [% FOR medium=release.all_mediums %]
                     <tr class="subh">
-                      <th></th>
+                      <th class="pos"></th>
                       <th colspan="5">
                         [%~ medium_format_name(medium) =%]
                         [%= medium.position ~%]
@@ -72,7 +72,8 @@
                                value="[% track.recording_id %]" />
                       </td>
                       <td class="pos t">
-                        [% track.position %]
+                        <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+                        [% track.number %]
                       </td>
                       <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
                       <td>[% artist_credit(track.artist_credit) %]</td>
