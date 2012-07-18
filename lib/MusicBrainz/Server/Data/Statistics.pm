@@ -672,6 +672,50 @@ my %stats = (
             };
         },
     },
+    "count.release.status" => {
+        DESC => "Distribution of releases by status",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(s.id::text, 'null'), COUNT(r.gid) AS count
+                FROM release r FULL OUTER JOIN release_status s
+                    ON r.status=s.id
+                GROUP BY s.id
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.status.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.release.packaging" => {
+        DESC => "Distribution of releases by packaging",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(p.id::text, 'null'), COUNT(r.gid) AS count
+                FROM release r FULL OUTER JOIN release_packaging p
+                    ON r.packaging=p.id
+                GROUP BY p.id
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.release.packaging.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.releasegroup.Nreleases" => {
         DESC => "Distribution of releases per releasegroup",
         CALC => sub {
@@ -699,6 +743,50 @@ my %stats = (
             +{
                 map {
                     "count.releasegroup.".$_."releases" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.releasegroup.primary_type" => {
+        DESC => "Distribution of release groups by primary type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT type.id, COUNT(rg.id) AS count
+                 FROM release_group_primary_type type
+                 LEFT JOIN release_group rg on rg.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.releasegroup.primary_type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.releasegroup.secondary_type" => {
+        DESC => "Distribution of release groups by secondary type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT type.id, COUNT(rg.id) AS count
+                 FROM release_group_secondary_type type
+                 LEFT JOIN release_group_secondary_type_join type_join 
+                     ON type.id = type_join.secondary_type
+                 JOIN release_group rg on rg.id = type_join.release_group
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.releasegroup.secondary_type.".$_ => $dist{$_}
                 } keys %dist
             };
         },
@@ -814,6 +902,25 @@ my %stats = (
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '7 days')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
+    },
+    "count.edit.type" => {
+	DESC => "Count of edits by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+	    my $data = $sql->select_list_of_lists(
+                "SELECT type, count(id) AS count 
+		FROM edit GROUP BY type",
+	    );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.edit.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+	}
     },
 
     "count.cdstub" => {
@@ -1376,6 +1483,49 @@ my %stats = (
                 } keys %dist
             };
         },
+    },
+
+    "count.ar.links.table.type_name" => {
+        DESC => "Count of advanced relationship links by type, inclusive of child counts and exclusive",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my %dist;
+            for my $t ($self->c->model('Relationship')->all_pairs) {
+                my $table = join('_', 'l', @$t);
+                my $data = $sql->select_list_of_hashes(
+                    "SELECT lt.id, lt.name, lt.parent, count(l_table.id) 
+                     FROM $table l_table 
+                         RIGHT JOIN link ON l_table.link = link.id
+                         RIGHT JOIN 
+                             (SELECT * FROM link_type WHERE entity_type0 = ? AND entity_type1 = ?) 
+                         AS lt ON link.link_type = lt.id
+                     GROUP BY lt.name, lt.id, lt.parent", @$t
+                );
+                for (@$data) {
+                    $dist{ $table . '.' . $_->{name} } = $_->{count};
+                    $dist{ $table . '.' . $_->{name} . '.inclusive' } = $_->{count};
+                }
+                for (@$data) {
+                    my $parent = $_->{parent};
+                    my $count = $_->{count};
+                    while (defined $parent) {
+                        my @parent_obj = grep { $_->{id} == $parent } @$data;
+                        my $parent_obj = $parent_obj[0] if scalar(@parent_obj) == 1;
+                        die unless $parent_obj;
+
+                        $dist{ $table . '.' . $parent_obj->{name} . '.inclusive' } += $count;
+
+                        $parent = $parent_obj->{parent};
+                    }
+                }
+            }
+
+            +{
+                map {
+                    "count.ar.links.".$_ => $dist{$_}
+                } keys %dist
+            };
+        }
     },
 
     "count.ar.links" => {
