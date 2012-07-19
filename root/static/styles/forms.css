@@ -211,7 +211,7 @@ div.half-width fieldset {
 
 div.half-width fieldset.editnote {
     background-color: inherit;
-    border: 0;
+    border-color: transparent; /* this preserves the spacing below the legend, but keeps the border hidden */
 }
 
 div.half-width fieldset legend {
