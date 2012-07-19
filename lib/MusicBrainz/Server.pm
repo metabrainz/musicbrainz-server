@@ -255,19 +255,7 @@ around 'dispatch' => sub {
 		MusicBrainz::Server::Translation::Instruments 
 		MusicBrainz::Server::Translation::InstrumentDescriptions );
 
-    my $cookie = $c->request->cookies->{lang};
-    my $cookie_lang;
-    my $cookie_munge = defined $cookie ? $cookie->value : '';
-    $cookie_munge =~ s/_([A-Z]{2})/-\L$1/;
-    my $cookie_nocountry = defined $cookie ? $cookie->value : '';
-    $cookie_nocountry =~ s/_[A-Z]{2}//;
-    if (defined $cookie && 
-        grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs::MB_LANGUAGES) {
-        $cookie_lang = $cookie->value;
-    } elsif (defined $cookie && 
-             grep { $cookie_nocountry eq $_ } DBDefs::MB_LANGUAGES) {
-        $cookie_lang = $cookie_nocountry;
-    }     
+    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
     my $lang = Translation->instance->set_language($cookie_lang);
     # because s///r is a perl 5.14 feature
     my $html_lang = $lang;

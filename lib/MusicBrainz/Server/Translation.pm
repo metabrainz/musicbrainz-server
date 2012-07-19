@@ -139,6 +139,24 @@ sub unset_language
     web_set_locale([ 'en' ], [ 'utf-8' ], LC_MESSAGES);
 }
 
+sub language_from_cookie
+{
+    my ($self, $cookie) = @_;
+    my $cookie_munge = defined $cookie ? $cookie->value : '';
+    $cookie_munge =~ s/_([A-Z]{2})/-\L$1/;
+    my $cookie_nocountry = defined $cookie ? $cookie->value : '';
+    $cookie_nocountry =~ s/_[A-Z]{2}//;
+    if (defined $cookie && 
+        grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs::MB_LANGUAGES) {
+        return $cookie->value;
+    } elsif (defined $cookie && 
+             grep { $cookie_nocountry eq $_ } DBDefs::MB_LANGUAGES) {
+        return $cookie_nocountry;
+    } else {
+        return undef;
+    }
+}
+
 sub all_languages
 {
     my @lang_with_locale = sort_by { ucfirst $_->[1]->native_language } 
