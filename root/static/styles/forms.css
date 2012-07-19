@@ -54,6 +54,7 @@ div.bubble div.row label,
 div.bubble div.row div.label { width: 150px; }
 
 form div.row p { float: none; clear: none; }
+form div.row ul { overflow: auto; }
 
 form div.no-label,
 form p.no-label,

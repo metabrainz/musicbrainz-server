@@ -31,8 +31,7 @@
 
       [% WRAPPER form_row %]
         [% r.label('languages', l('Languages Known:'), fake => 1) %]
-        <div style="display: block; overflow: auto">
-          <ul>
+          <ul class="inline">
             [% FOR language=form.field('languages').fields %]
             <li class="language">
               [% r.select(language.field('language_id')) %]
@@ -50,7 +49,6 @@
               </span>
             </li>
           </ul>
-        </div>
       [% END %]
 
       <script>

@@ -44,7 +44,9 @@
             <p>[% l('We found the following artists with the same name already existing in
                      MusicBrainz. If any of these are the artist you intended to use, please
                      select the artist:') %]</p>
-            <ul>
+            [% WRAPPER form_row %]
+              <label>[% l('Artist:') %]</label>
+            <ul class="inline">
               [% FOR artist=possible %]
               <li>
                 <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
@@ -58,10 +60,11 @@
               [% END %]
               <li>
                 <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
-                        value="0" />
-                [% l('Add new artist') %]
+                        value="0" id="[% artist_row.field('entity_id').html_name %]" />
+                <label class="inline" for="[% artist_row.field('entity_id').html_name %]">[% l('Add new artist') %]</label>
               </li>
             </ul>
+            [% END %]
             [% IF artist_row.field('entity_id').has_errors %]
             <ul class="errors">
               <li>[% l('Please make a selection') %]</li>
