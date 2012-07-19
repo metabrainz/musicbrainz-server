@@ -487,6 +487,7 @@ my %stats = (
                 "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(w.gid) AS count
                 FROM work w FULL OUTER JOIN language l
                     ON w.language=l.id
+                WHERE l.iso_code_2t IS NOT NULL OR l.frequency > 0
                 GROUP BY l.iso_code_3
                 ",
             );
@@ -637,6 +638,7 @@ my %stats = (
                 "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(r.gid) AS count
                 FROM release r FULL OUTER JOIN language l
                     ON r.language=l.id
+                WHERE l.iso_code_2t IS NOT NULL OR l.frequency > 0
                 GROUP BY l.iso_code_3
                 ",
             );
