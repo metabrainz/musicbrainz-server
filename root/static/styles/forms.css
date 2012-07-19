@@ -191,8 +191,9 @@ div.half-width {
     width: 465px;
 }
 
-div.half-width p {
-    margin: 12px;
+div.half-width p,
+fieldset > p {
+    margin: 1em;
 }
 
 div.documentation {
