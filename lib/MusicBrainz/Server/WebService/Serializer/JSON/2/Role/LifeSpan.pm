@@ -13,7 +13,7 @@ sub has_lifespan
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $opts) = @_;
-    my %ret = $self->$orig($entity, $inc, $opts);
+    my $ret = $self->$orig($entity, $inc, $opts);
 
     if ($self->has_lifespan ($entity))
     {
@@ -22,10 +22,10 @@ around serialize => sub {
         $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
         $lifespan{ended} = $self->boolean ($entity->ended);
 
-        $ret{"life-span"} = \%lifespan;
+        $ret->{"life-span"} = \%lifespan;
     }
 
-    return %ret;
+    return $ret;
 };
 
 no Moose::Role;

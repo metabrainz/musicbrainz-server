@@ -4,7 +4,7 @@ use Moose;
 use JSON;
 use MusicBrainz::Server::Track qw( format_track_length );
 use MusicBrainz::Server::WebService::WebServiceInc;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serializer serialize_entity list_of);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serializer serialize_entity );
 
 sub mime_type { 'application/json' }
 sub fmt { 'json' }
@@ -18,9 +18,8 @@ sub serialize
 
     my ($entity, $inc, $opts) = @data;
 
-    my %ret = serialize_entity($entity, $inc, $opts);
-
-    return encode_json(\%ret);
+    my $ret = serialize_entity($entity, $inc, $opts);
+    return encode_json($ret);
 }
 
 sub serialize_data

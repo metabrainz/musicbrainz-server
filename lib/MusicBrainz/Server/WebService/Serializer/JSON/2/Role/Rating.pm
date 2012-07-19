@@ -3,20 +3,22 @@ use Moose::Role;
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash) = @_;
-    my %ret = $self->$orig($entity, $inc, $stash);
+    my $ret = $self->$orig($entity, $inc, $stash);
+
+    return $ret unless defined $inc && ($inc->ratings || $inc->user_ratings);
 
     my $opts = $stash->store ($entity);
 
-    $ret{rating} = {
+    $ret->{rating} = {
         "votes-count" => $self->number ($opts->{ratings}->{count}),
         "value" => $self->number ($opts->{ratings}->{rating})
     } if $opts->{ratings};
 
-    $ret{"user-rating"} = {
+    $ret->{"user-rating"} = {
         "value" => $self->number ($opts->{"user_ratings"})
     } if $opts->{"user_ratings"};
 
-    return %ret;
+    return $ret;
 };
 
 no Moose::Role;

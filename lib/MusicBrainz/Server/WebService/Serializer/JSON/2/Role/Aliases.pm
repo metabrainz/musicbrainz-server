@@ -4,7 +4,9 @@ use List::UtilsBy qw( sort_by );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash) = @_;
-    my %ret = $self->$orig($entity, $inc, $stash);
+    my $ret = $self->$orig($entity, $inc, $stash);
+
+    return $ret unless defined $inc && $inc->aliases;
 
     my $opts = $stash->store ($entity);
 
@@ -22,9 +24,9 @@ around serialize => sub {
         push @aliases, $item;
     }
 
-    $ret{aliases} = \@aliases if scalar @aliases;
+    $ret->{aliases} = \@aliases if scalar @aliases;
 
-    return %ret;
+    return $ret;
 };
 
 no Moose::Role;

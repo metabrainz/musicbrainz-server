@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Label;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Artist;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 # with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
-sub element { 'label'; }
+sub element { 'artist'; }
 
 sub serialize
 {
@@ -18,7 +18,6 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->sort_name;
-    $body{"label-code"} = $self->number ($entity->label_code) if $entity->label_code;
     $body{disambiguation} = $entity->comment if $entity->comment;
     $body{type} = $entity->type_name if $entity->type;
     $body{country} = $entity->country->iso_code if $entity->country;

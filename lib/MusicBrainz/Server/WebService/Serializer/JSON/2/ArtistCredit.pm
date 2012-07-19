@@ -1,21 +1,33 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID;
-use Moose::Role;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::ArtistCredit;
+use Moose;
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
 
-around serialize => sub {
-    my ($orig, $self, $entity, $inc, $opts) = @_;
-    my $ret = $self->$orig($entity, $inc, $opts);
+extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
-    $ret->{id} = $entity->gid;
+sub element { 'artist-credit'; }
 
-    return $ret;
+sub serialize
+{
+    my ($self, $entity, $inc, $stash) = @_;
+
+    my @body = map {
+        {
+            "name" => $_->name,
+            "joinphrase" => $_->join_phrase,
+            "artist" => serialize_entity ($_->artist),
+        }
+    } @{ $entity->names };
+
+    return \@body;
 };
 
-no Moose::Role;
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2011,2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
