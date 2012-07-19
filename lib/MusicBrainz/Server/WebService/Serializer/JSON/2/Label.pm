@@ -2,7 +2,6 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Label;
 use Moose;
 
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of );
-use String::CamelCase qw(camelize);
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';

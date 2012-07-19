@@ -22,7 +22,7 @@ around serialize => sub {
         $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
         $lifespan{ended} = $self->boolean ($entity->ended);
 
-        $ret{lifespan} = \%lifespan;
+        $ret{"life-span"} = \%lifespan;
     }
 
     return %ret;
