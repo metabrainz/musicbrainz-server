@@ -9,17 +9,18 @@ my $ws_defs = Data::OptList::mkopt([
      work => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      work => {
                          method   => 'GET',
                          inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
                          linked   => [ qw( artist ) ]
      },
      work => {
                          method   => 'GET',
                          inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 

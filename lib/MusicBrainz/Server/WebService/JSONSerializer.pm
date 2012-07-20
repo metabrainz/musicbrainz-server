@@ -18,7 +18,7 @@ sub serialize
 
     my ($entity, $inc, $opts) = @data;
 
-    my $ret = serialize_entity($entity, $inc, $opts);
+    my $ret = serialize_entity($entity, $inc, $opts, 1);
     return encode_json($ret);
 }
 

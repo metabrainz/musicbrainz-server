@@ -1,30 +1,24 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Artist;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Work;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-# with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
-sub element { 'artist'; }
+sub element { 'work'; }
 
 sub serialize
 {
-    my ($self, $entity, $inc, $stash, $toplevel) = @_;
+    my ($self, $entity, $inc, $stash) = @_;
     my %body;
 
-    $body{name} = $entity->name;
-    $body{"sort-name"} = $entity->sort_name;
+    my $opts = $stash->store ($entity);
 
-    if ($toplevel)
-    {
-        $body{disambiguation} = $entity->comment if $entity->comment;
-        $body{type} = $entity->type_name if $entity->type;
-        $body{country} = $entity->country->iso_code if $entity->country;
-    }
+    $body{title} = $entity->name;
+    $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
 
     return \%body;
 };

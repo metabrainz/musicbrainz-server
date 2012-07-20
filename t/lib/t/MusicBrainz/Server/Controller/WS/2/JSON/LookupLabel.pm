@@ -22,7 +22,7 @@ test 'basic label lookup' => sub {
             "sort-name" => "Planet Mu",
             type => "Original Production",
             country => "GB",
-            lifespan => {
+            "life-span" => {
                 "begin" => "1995",
                 "ended" => JSON::false,
             },
@@ -42,7 +42,7 @@ test 'label lookup, inc=aliases' => sub {
             "sort-name" => "Planet Mu",
             type => "Original Production",
             country => "GB",
-            lifespan => {
+            "life-span" => {
                 "begin" => "1995",
                 "ended" => JSON::false,
             },

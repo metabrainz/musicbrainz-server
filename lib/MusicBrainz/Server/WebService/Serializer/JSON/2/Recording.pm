@@ -12,21 +12,22 @@ sub element { 'recording'; }
 
 sub serialize
 {
-    my ($self, $entity, $inc, $stash) = @_;
+    my ($self, $entity, $inc, $stash, $toplevel) = @_;
     my %body;
-
-    my $opts = $stash->store ($entity);
 
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment if $entity->comment;
     $body{length} = $entity->length if $entity->length;
-
-    $body{isrcs} = [ map { $_->isrc } @{ $opts->{isrcs} } ] if $inc->isrcs;
-    $body{puids} = [ map { $_->puid->puid } @{ $opts->{puids} } ] if $inc->puids;
-
-    $body{"artist-credit"} = serialize_entity ($entity->artist_credit);
+    $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
+        if $toplevel && $entity->artist_credit;
 
 #     # TODO: releases.
+
+    return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
+
+    my $opts = $stash->store ($entity);
+    $body{isrcs} = [ map { $_->isrc } @{ $opts->{isrcs} } ] if $inc->isrcs;
+    $body{puids} = [ map { $_->puid->puid } @{ $opts->{puids} } ] if $inc->puids;
 
     return \%body;
 };

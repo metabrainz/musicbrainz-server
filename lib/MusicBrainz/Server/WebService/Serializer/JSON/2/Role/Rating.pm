@@ -2,10 +2,11 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating;
 use Moose::Role;
 
 around serialize => sub {
-    my ($orig, $self, $entity, $inc, $stash) = @_;
-    my $ret = $self->$orig($entity, $inc, $stash);
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    return $ret unless defined $inc && ($inc->ratings || $inc->user_ratings);
+    return $ret unless $toplevel && defined $inc &&
+        ($inc->ratings || $inc->user_ratings);
 
     my $opts = $stash->store ($entity);
 

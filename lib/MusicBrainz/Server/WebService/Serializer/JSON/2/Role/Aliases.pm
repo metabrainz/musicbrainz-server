@@ -3,10 +3,10 @@ use Moose::Role;
 use List::UtilsBy qw( sort_by );
 
 around serialize => sub {
-    my ($orig, $self, $entity, $inc, $stash) = @_;
-    my $ret = $self->$orig($entity, $inc, $stash);
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    return $ret unless defined $inc && $inc->aliases;
+    return $ret unless $toplevel && defined $inc && $inc->aliases;
 
     my $opts = $stash->store ($entity);
 

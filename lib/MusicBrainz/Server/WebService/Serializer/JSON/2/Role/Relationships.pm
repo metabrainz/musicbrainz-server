@@ -1,11 +1,20 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships;
 use Moose::Role;
 
-around serialize => sub {
-    my ($orig, $self, $entity, $inc, $opts, $toplevel) = @_;
-    my $ret = $self->$orig($entity, $inc, $opts, $toplevel);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serialize_entity);
 
-    $ret->{id} = $entity->gid;
+requires 'serialize';
+
+around serialize => sub
+{
+    my ($orig, $self, $entity, $inc, $opts) = @_;
+    my $ret = $self->$orig($entity, $inc, $opts);
+
+    return $ret unless defined $inc && $inc->has_rels;
+
+    my @rels = map { serialize_entity ($_) } @{ $entity->relationships };
+
+    $ret->{relations} = \@rels;
 
     return $ret;
 };
@@ -15,7 +24,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2010,2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
