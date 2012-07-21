@@ -6,10 +6,8 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-# with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
-
-sub element { 'label'; }
 
 sub serialize
 {
@@ -18,10 +16,12 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->sort_name;
-    $body{"label-code"} = $self->number ($entity->label_code) if $entity->label_code;
-    $body{disambiguation} = $entity->comment if $entity->comment;
-    $body{type} = $entity->type_name if $entity->type;
-    $body{country} = $entity->country->iso_code if $entity->country;
+    $body{"label-code"} = $self->number ($entity->label_code);
+    $body{disambiguation} = $entity->comment;
+
+    # FIXME: defaults?
+    $body{type} = $entity->type_name;
+    $body{country} = $entity->country->iso_code;
 
     return \%body;
 };

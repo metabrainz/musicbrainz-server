@@ -1,12 +1,9 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Medium;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
+use JSON;
+use List::UtilsBy qw( sort_by );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub serialize
 {
@@ -14,18 +11,15 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{disambiguation} = $entity->comment if $entity->comment;
-    $body{length} = $entity->length if $entity->length;
-    $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
-        if $toplevel && $entity->artist_credit;
+    $body{format} = $entity->format ? $entity->format->name : JSON::null;
 
-#     # TODO: releases.
+    $body{discids} = [ map +{
+        id => $_->cdtoc->discid,
+        sectors => $_->cdtoc->leadout_offset
+    }, sort_by { $_->cdtoc->discid } $entity->all_cdtocs ]
+        if defined $inc && $inc->discids;
 
-    return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
-
-    my $opts = $stash->store ($entity);
-    $body{isrcs} = [ map { $_->isrc } @{ $opts->{isrcs} } ] if $inc->isrcs;
-    $body{puids} = [ map { $_->puid->puid } @{ $opts->{puids} } ] if $inc->puids;
+    $body{"track-count"} = $entity->tracklist->track_count;
 
     return \%body;
 };

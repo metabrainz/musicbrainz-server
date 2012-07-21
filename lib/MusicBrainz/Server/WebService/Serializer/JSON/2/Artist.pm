@@ -1,15 +1,15 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Artist;
 use Moose;
+use List::UtilsBy 'sort_by';
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-# with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
-
-sub element { 'artist'; }
 
 sub serialize
 {
@@ -21,9 +21,20 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{disambiguation} = $entity->comment if $entity->comment;
-        $body{type} = $entity->type_name if $entity->type;
-        $body{country} = $entity->country->iso_code if $entity->country;
+        $body{disambiguation} = $entity->comment;
+        $body{type} = $entity->type_name;
+        $body{country} = $entity->country
+            ? $entity->country->iso_code : JSON::null;
+    }
+
+    if ($inc && $inc->releases)
+    {
+        my $opts = $stash->store ($entity);
+
+        # use Data::Dumper;
+        # warn "releases: ".Dumper ($opts->{releases})."\n";
+        $body{releases} = list_of (
+            [ sort_by { $_->gid } @{ $opts->{releases}->{items} } ], $inc);
     }
 
     return \%body;

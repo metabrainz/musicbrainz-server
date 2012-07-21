@@ -9,7 +9,8 @@ sub boolean {
 
 sub number {
     my ($self, $value) = @_;
-    return $value + 0;
+
+    return defined $value ? $value + 0 : JSON::null;
 }
 
 __PACKAGE__->meta->make_immutable;

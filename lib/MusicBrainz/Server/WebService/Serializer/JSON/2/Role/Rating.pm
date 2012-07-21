@@ -13,11 +13,11 @@ around serialize => sub {
     $ret->{rating} = {
         "votes-count" => $self->number ($opts->{ratings}->{count}),
         "value" => $self->number ($opts->{ratings}->{rating})
-    } if $opts->{ratings};
+    } if $inc->ratings;
 
     $ret->{"user-rating"} = {
         "value" => $self->number ($opts->{"user_ratings"})
-    } if $opts->{"user_ratings"};
+    } if $inc->user_ratings;
 
     return $ret;
 };

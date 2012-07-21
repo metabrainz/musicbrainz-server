@@ -15,21 +15,22 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      release => {
                          method   => 'GET',
                          linked   => [ qw(track_artist artist label recording release-group) ],
                          inc      => [ qw(artist-credits labels recordings discids
                                           release-groups media _relations) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups aliases
                                           tags user-tags ratings user-ratings collections
                                           artist-credits discids media recording-level-rels
-                                          work-level-rels _relations) ]
+                                          work-level-rels _relations) ],
+                         optional => [ qw(fmt) ],
      },
      release => {
                          method   => 'POST',

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
 
@@ -14,18 +14,17 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{disambiguation} = $entity->comment if $entity->comment;
-    $body{length} = $entity->length if $entity->length;
-    $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
-        if $toplevel && $entity->artist_credit;
 
-#     # TODO: releases.
-
-    return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
-
-    my $opts = $stash->store ($entity);
-    $body{isrcs} = [ map { $_->isrc } @{ $opts->{isrcs} } ] if $inc->isrcs;
-    $body{puids} = [ map { $_->puid->puid } @{ $opts->{puids} } ] if $inc->puids;
+    if ($toplevel)
+    {
+        $body{disambiguation} = $entity->comment;
+        $body{"primary-type"} = $entity->primary_type->name;
+        $body{"secondary-types"} = [ map {
+            $_->name } $entity->all_secondary_types ];
+        $body{"first-release-date"} = $entity->first_release_date->format;
+        $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
+            if $inc->artist_credits;
+    }
 
     return \%body;
 };

@@ -22,6 +22,7 @@ test 'basic artist lookup' => sub {
             "sort-name" => "Distance",
             type => "Person",
             disambiguation => "UK dubstep artist Greg Sanders",
+            country => JSON::null,
         });
 };
 
@@ -35,6 +36,7 @@ test 'basic artist lookup, inc=aliases' => sub {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
             "sort-name" => "BoA",
+            country => JSON::null,
             disambiguation => "Korean pop star also famous in Japan",
             type => "Person",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
@@ -49,90 +51,144 @@ test 'basic artist lookup, inc=aliases' => sub {
 
 };
 
-# ws_test 'artist lookup with releases',
-#     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' =>
-#     '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Group" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f"><name>7人祭</name><sort-name>7nin Matsuri</sort-name><release-list count="2"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e"><title>サマーれげぇ!レインボー</title><status>Official</status><quality>normal</quality><text-representation><language>jpn</language><script>Jpan</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release><release id="b3b7e934-445b-4c68-a097-730c6a6d47e6"><title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status><quality>normal</quality><text-representation><language>jpn</language><script>Latn</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release></release-list></artist></metadata>';
+test 'artist lookup with releases' => sub {
 
-# ws_test 'artist lookup with pseudo-releases',
-#     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' =>
-#     '<?xml version="1.0" encoding="UTF-8"?>
-# <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-#     <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group">
-#         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
-#         <release-list count="1">
-#             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-#                 <title>Summer Reggae! Rainbow</title>
-#                 <status>Pseudo-Release</status>
-#                 <quality>normal</quality>
-#                 <text-representation>
-#                     <language>jpn</language>
-#                     <script>Latn</script>
-#                 </text-representation>
-#                 <date>2001-07-04</date>
-#                 <country>JP</country>
-#                 <barcode>4942463511227</barcode>
-#             </release>
-#         </release-list>
-#     </artist>
-# </metadata>';
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-# ws_test 'artist lookup with releases and discids',
-#     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids' =>
-#     '<?xml version="1.0" encoding="UTF-8"?>
-# <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-#     <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
-#         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-#         <release-list count="2">
-#             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
-#                 <title>Repercussions</title><status>Official</status>
-#                 <quality>normal</quality>
-#                 <text-representation>
-#                     <language>eng</language><script>Latn</script>
-#                 </text-representation>
-#                 <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
-#                 <medium-list count="2">
-#                     <medium>
-#                         <position>1</position><format>CD</format>
-#                         <disc-list count="1">
-#                             <disc id="93K4ogyxWlv522XF0BG8fZOuay4-">
-#                                 <sectors>215137</sectors>
-#                             </disc>
-#                         </disc-list>
-#                         <track-list count="9" />
-#                     </medium>
-#                     <medium>
-#                         <title>Chestplate Singles</title><position>2</position><format>CD</format>
-#                         <disc-list count="1">
-#                             <disc id="VnL0A7ksXznBxvZ94H3Z61EZY3k-">
-#                                 <sectors>208393</sectors>
-#                             </disc>
-#                         </disc-list>
-#                         <track-list count="9" />
-#                     </medium>
-#                 </medium-list>
-#             </release>
-#             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-#                 <title>My Demons</title><status>Official</status>
-#                 <quality>normal</quality>
-#                 <text-representation>
-#                     <language>eng</language><script>Latn</script>
-#                 </text-representation>
-#                 <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
-#                 <medium-list count="1">
-#                     <medium>
-#                         <position>1</position><format>CD</format>
-#                         <disc-list count="1">
-#                             <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
-#                                 <sectors>281289</sectors>
-#                             </disc>
-#                         </disc-list>
-#                         <track-list count="12" />
-#                     </medium>
-#                 </medium-list>
-#             </release>
-#         </release-list>
-#     </artist>
-# </metadata>';
+    ws_test_json 'artist lookup with releases',
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' => encode_json (
+        {
+            id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
+            name => "7人祭",
+            "sort-name" => "7nin Matsuri",
+            country => JSON::null,
+            disambiguation => JSON::null,
+            type => "Group",
+            releases => [
+                {
+                    id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
+                    title => "サマーれげぇ!レインボー",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Jpan" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                },
+                {
+                    id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
+                    title => "Summer Reggae! Rainbow",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    status => "Pseudo-Release",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Latn" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                }
+                ],
+        });
+};
+
+test 'artist lookup with pseudo-releases' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with pseudo-releases',
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' => encode_json (
+        {
+            id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
+            name => "7人祭",
+            "sort-name" => "7nin Matsuri",
+            country => JSON::null,
+            disambiguation => JSON::null,
+            type => "Group",
+            releases => [
+                {
+                    id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
+                    title => "Summer Reggae! Rainbow",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    status => "Pseudo-Release",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Latn" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                }
+                ],
+        });
+};
+
+
+test 'artist lookup with releases and discids' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with releases and discids',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids' => encode_json(
+        {
+            id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
+            name => "Distance",
+            "sort-name" => "Distance",
+            country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            type => "Person",
+            releases => [
+                {
+                    id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
+                    title => "Repercussions",
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "eng", script => "Latn" },
+                    date => "2008-11-17",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    country => "GB",
+                    asin => JSON::null,
+                    barcode => "600116822123",
+                    media => [
+                        {
+                            title => JSON::null,
+                            format => "CD",
+                            discids => [ { id => "93K4ogyxWlv522XF0BG8fZOuay4-", sectors => 215137 } ],
+                            "track-count" => 9,
+                        },
+                        {
+                            title => "Chestplate Singles",
+                            format => "CD",
+                            discids => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
+                            "track-count" => 9,
+                        }]
+                },
+                {
+                    id => "adcf7b48-086e-48ee-b420-1001f88d672f",
+                    title => "My Demons",
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "eng", script => "Latn" },
+                    date => "2007-01-29",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    country => "GB",
+                    asin => JSON::null,
+                    barcode => "600116817020",
+                    media => [
+                        {
+                            title => JSON::null,
+                            format => "CD",
+                            discids => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
+                            "track-count" => 12,
+                        }]
+                }]
+        });
+};
 
 # ws_test 'artist lookup with recordings and artist credits',
 #     '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' =>

@@ -7,8 +7,8 @@ requires 'serialize';
 
 around serialize => sub
 {
-    my ($orig, $self, $entity, $inc, $opts) = @_;
-    my $ret = $self->$orig($entity, $inc, $opts);
+    my ($orig, $self, $entity, $inc, $opts, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $opts, $toplevel);
 
     return $ret unless defined $inc && $inc->has_rels;
 

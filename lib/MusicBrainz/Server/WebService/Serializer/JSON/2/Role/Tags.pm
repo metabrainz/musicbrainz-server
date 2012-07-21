@@ -17,7 +17,7 @@ around serialize => sub {
         push @tags, { count => $tag->count, name => $tag->tag->name };
     }
 
-    $ret->{tags} = \@tags if scalar @tags;
+    $ret->{tags} = \@tags if $inc->tags;
 
     my @usertags;
     for my $tag (sort_by { $_->tag->name } @{$opts->{user_tags}})
@@ -25,7 +25,7 @@ around serialize => sub {
         push @usertags, { name => $tag->tag->name };
     }
 
-    $ret->{"user-tags"} = \@usertags if scalar @usertags;
+    $ret->{"user-tags"} = \@usertags if $inc->user_tags;;
 
     return $ret;
 };
