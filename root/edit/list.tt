@@ -33,7 +33,7 @@
 <div class="search-toggle c">
     <p>
         <strong>
-          [% IF guess_search && pager.last_page > 1 %]
+          [% IF guess_search && pager.last_page > 1 && pager.total_entries % pager.entries_per_page == 0 %]
             [%- ln('Found {n} edit', 'Found at least {n} edits' ,
                     pager.total_entries,
                     { n => add_commas(pager.total_entries) }) -%]
