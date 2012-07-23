@@ -74,7 +74,8 @@ __PACKAGE__->config(
     },
     stacktrace => {
         enable => 1
-    }
+    },
+    use_request_uri_for_path => 1
 );
 
 if ($ENV{'MUSICBRAINZ_USE_PROXY'})
