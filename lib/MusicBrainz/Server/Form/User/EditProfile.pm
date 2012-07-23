@@ -67,11 +67,18 @@ sub options_languages_fluency {
 
 sub validate_birth_date {
     my ($self, $field) = @_;
-    my @date_components = values %{ $field->value };
+
+    my $year = $field->field('year')->value;
+    my $month = $field->field('month')->value;
+    my $day = $field->field('day')->value;
+
+    my @date_components = ($year, $month, $day);
     if ((any { defined } @date_components) &&
             !(all { defined } @date_components)) {
         return $field->add_error(l('You must supply a complete birth date for us to display your age.'));
     }
+
+    return $field->add_error("invalid date") unless Date::Calc::check_date ($year, $month, $day);
 }
 
 1;
