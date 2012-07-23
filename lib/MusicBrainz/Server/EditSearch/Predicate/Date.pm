@@ -20,7 +20,7 @@ sub transform_user_input {
 override combine_with_query => sub {
     my ($self, $query) = @_;
 
-    if ($self->operator == '=') {
+    if ($self->operator eq '=') {
         $query->add_where([
             "date_trunc('day', edit." . $self->field_name . " AT TIME ZONE 'UTC') = ".
             "date_trunc('day', ? AT TIME ZONE 'UTC')",
