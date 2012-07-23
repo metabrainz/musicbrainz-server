@@ -34,6 +34,13 @@
         <div class="row no-label">
           [% form_submit(l('Select')) %]
         </div>
+    [%- ELSE -%]
+        <div class="row">
+          <div class="label required">[% l('Results:') %]</div>
+          <div class="no-label">
+            <p>[%- l('No results found. Try refining your search query.') -%]</p>
+          </div>
+        </div>
     [%- END -%]
   </form>
 

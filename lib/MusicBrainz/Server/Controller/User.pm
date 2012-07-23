@@ -286,8 +286,10 @@ sub collections : Chained('load') PathPart('collections')
     my $show_private = $c->stash->{viewing_own_profile};
 
     my $collections = $self->_load_paged($c, sub {
-        $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
+        my ($collections, $hits) = $c->model('Collection')->find_by_editor($user->id, $show_private, shift, shift);
+        return ($collections, $hits);
     });
+    $c->model('Collection')->load_release_count(@$collections);
 
     $c->stash(
         user => $user,
@@ -396,19 +398,21 @@ sub privileged : Path('/privileged')
 {
     my ($self, $c) = @_;
 
+    my @bots = $c->model ('Editor')->find_by_privileges ($BOT_FLAG);
+    my @auto_editors = $c->model ('Editor')->find_by_privileges ($AUTO_EDITOR_FLAG);
+    my @transclusion_editors = $c->model ('Editor')->find_by_privileges ($WIKI_TRANSCLUSION_FLAG);
+    my @relationship_editors = $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG);
+
+    $c->model ('Editor')->load_preferences (@bots);
+    $c->model ('Editor')->load_preferences (@auto_editors);
+    $c->model ('Editor')->load_preferences (@transclusion_editors);
+    $c->model ('Editor')->load_preferences (@relationship_editors);
+
     $c->stash(
-        bots => [
-            $c->model ('Editor')->find_by_privileges ($BOT_FLAG)
-        ],
-        auto_editors => [
-            $c->model ('Editor')->find_by_privileges ($AUTO_EDITOR_FLAG)
-        ],
-        transclusion_editors => [
-            $c->model ('Editor')->find_by_privileges ($WIKI_TRANSCLUSION_FLAG)
-        ],
-        relationship_editors => [
-            $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG)
-        ],
+        bots => [ @bots ],
+        auto_editors => [ @auto_editors ],
+        transclusion_editors => [ @transclusion_editors ],
+        relationship_editors => [ @relationship_editors ],
         template => 'user/privileged.tt',
     );
 }

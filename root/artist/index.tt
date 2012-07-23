@@ -53,7 +53,8 @@
             <form action="[% c.uri_for_action('/release_group/merge_queue') %]"
                 method="post">
             [%- FOR rg=release_groups -%]
-                [% IF last_rg_type != rg.type_name %]
+                [% rgtype = rg.type_name || 'undefined' %]
+                [% IF last_rg_type != rgtype %]
                     [% IF last_rg_type.defined %]
                         </tbody>
                     </table>
@@ -73,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-                    [% last_rg_type = rg.type_name %]
+                    [% last_rg_type = rgtype %]
                 [% END %]
                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
 		    [% rdfa_release_group_ns(rg) %]>

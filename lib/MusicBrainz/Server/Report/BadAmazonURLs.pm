@@ -1,30 +1,27 @@
 package MusicBrainz::Server::Report::BadAmazonURLs;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub gather_data
+sub table { 'bad_amazon_urls' }
+
+sub query
 {
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+    "
         SELECT
-            url, url.gid AS url_gid, r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id
+            url.id AS url_id, r.id AS release_id,
+            row_number() OVER (ORDER BY url.id DESC)
         FROM
             l_release_url lru
-            JOIN url ON lru.entity1 = url.id 
+            JOIN url ON lru.entity1 = url.id
             JOIN release r ON lru.entity0 = r.id
             JOIN release_name rn ON r.name = rn.id
         WHERE
             url ~ E'amazon\\\\.' AND
             url !~ E'^http://www\\\\.amazon\\\\.(com|ca|cn|de|es|fr|it|co\\\\.(jp|uk))/gp/product/[0-9A-Z]{10}\$'
-        ORDER BY url.id DESC
-    ");
-}
-
-sub template
-{
-    return 'report/bad_amazon_urls.tt';
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -34,6 +31,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

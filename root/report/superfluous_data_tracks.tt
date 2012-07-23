@@ -4,10 +4,11 @@
 
 <ul>
     <li>[% l('This report lists releases without any disc IDs that probably
-              contain data tracks. A data track should be deleted if it is the
-              last track of the CD and there is no disc ID.') %]</li>
+              contain data tracks (like videos). A data track should be deleted if
+              it is the last track of the CD and there is no disc ID.') %]</li>
     <li>[% l('Total releases: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]
