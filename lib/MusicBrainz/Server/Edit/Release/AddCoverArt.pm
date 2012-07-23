@@ -110,6 +110,7 @@ sub build_display_data {
     my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
     my $artwork = {
         image => $prefix.$self->data->{cover_art_id}.'.jpg',
+        large_thumbnail => $prefix.$self->data->{cover_art_id}.'-500.jpg',
         small_thumbnail => $prefix.$self->data->{cover_art_id}.'-250.jpg',
     };
 
