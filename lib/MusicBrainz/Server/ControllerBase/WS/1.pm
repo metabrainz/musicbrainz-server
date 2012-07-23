@@ -136,6 +136,10 @@ sub search : Chained('root') PathPart('')
             $c->res->body($err->message);
             $c->res->status(HTTP_BAD_REQUEST);
         }
+        elsif (blessed($err) && $err->isa('HTTP::Response')) {
+            $c->res->body("Could not retrieve sub-document page from search server. Error: " . $err->status_line);
+            $c->res->status(HTTP_SERVICE_UNAVAILABLE);
+        }
         else {
             die $err;
         }
