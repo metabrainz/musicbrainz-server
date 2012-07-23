@@ -76,6 +76,7 @@ after 'load' => sub
     my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
+        large_thumbnail => $prefix.'/front-500',
         small_thumbnail => $prefix.'/front-250'
     };
 

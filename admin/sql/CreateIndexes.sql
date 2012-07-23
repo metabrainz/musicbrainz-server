@@ -42,6 +42,8 @@ CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor
 
 CREATE INDEX edit_idx_editor ON edit (editor);
 CREATE INDEX edit_idx_type ON edit (type);
+CREATE INDEX edit_idx_open_time ON edit (open_time);
+CREATE INDEX edit_idx_vote_time ON vote (vote_time);
 
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
@@ -49,6 +51,10 @@ CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
 -- Indexes for materialized edit status
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);
 CREATE INDEX edit_label_idx_status ON edit_label (status);
+
+CREATE INDEX edit_open_time_date ON edit (date_trunc('day', open_time AT TIME ZONE 'UTC'));
+CREATE INDEX edit_close_time_date ON edit (date_trunc('day', close_time AT TIME ZONE 'UTC'));
+CREATE INDEX edit_expire_time_date ON edit (date_trunc('day', expire_time AT TIME ZONE 'UTC'));
 
 -- Entity indexes
 CREATE INDEX edit_artist_idx ON edit_artist (artist);

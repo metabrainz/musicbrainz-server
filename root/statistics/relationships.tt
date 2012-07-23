@@ -1,0 +1,64 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
+[%- MACRO better_name(type_name) BLOCK -%]
+    [%- IF type_name == 'artist'; l('Artist');
+    ELSIF type_name == 'release'; l('Release');
+    ELSIF type_name == 'recording'; l('Recording');
+    ELSIF type_name == 'release_group'; l('Release Group');
+    ELSIF type_name == 'work'; l('Work');
+    ELSIF type_name == 'label'; l('Label');
+    ELSIF type_name == 'url'; l('URL');
+    END -%]
+[%- END -%]
+
+[%- MACRO print_type(type, indent, base, parent) BLOCK -%]
+<tr>
+    [% FOREACH n IN [2..indent] -%]<th></th>[%- END %]
+    <th colspan=[%- 10 - indent -%]>[%- type.l_short_link_phrase -%]</th>
+    <td>[% add_commas(stats.statistic(base _ '.' _ type.name)) %]</td>
+    <td>[% add_commas(stats.statistic(base _ '.' _ type.name _ '.inclusive')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio(base _ '.' _ type.name _ '.inclusive', parent)) }) %]</td>
+</tr>
+[% FOREACH child IN type.children.sort('l_short_link_phrase') -%]
+[%- print_type(child, indent + 1, base, base _ '.' _ type.name _ '.inclusive' ) -%]
+[%- END -%]
+[%- END -%]
+
+[% WRAPPER 'statistics/layout.tt' title=l('Relationships') full_width=1 page='relationships' %] 
+
+[% USE format %]
+[% round1 = format('%.1f') %]
+
+<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+
+<h2>[% l('Relationships') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan=9></th><th>[% l('Exclusive') %]</th><th>[% l('Inclusive') %]</th><th></th>
+</tr>
+<tr>
+    <th colspan=9>[% l('Relationships:') %]</th>
+    <td></td>
+    <td>[% add_commas(stats.statistic('count.ar.links')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH type IN types -%]
+<tr class="thead">
+    <th colspan=12>[% l('{type0}-{type1}', { type0 => better_name(type.value.entity_types.0), type1 => better_name(type.value.entity_types.1) } ) %]</th>
+</tr>
+<tr>
+    <th colspan=10>[% l('{type0}-{type1} relationships:', { type0 => better_name(type.value.entity_types.0), type1 => better_name(type.value.entity_types.1) } ) %]</th>
+    <td>[% add_commas(stats.statistic('count.ar.links.' _ type.key)) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.' _ type.key, 'count.ar.links')) }) %]</td>
+</tr>
+[%- FOREACH child1 IN type.value.tree -%]
+    [%- FOREACH child2 IN child1.children.sort('l_short_link_phrase') -%]
+        [%- print_type(child2, 2, 'count.ar.links.' _ type.key, 'count.ar.links.' _ type.key) -%]
+    [%- END -%]
+[%- END -%]
+[%- END -%]
+</tbody>
+</table>
+
+[%- PROCESS "statistics/macros-footer.tt" -%]
+[% END %]

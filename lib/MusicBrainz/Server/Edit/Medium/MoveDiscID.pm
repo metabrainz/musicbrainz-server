@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -15,7 +15,7 @@ use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { l('Move disc ID') }
+sub edit_name { N_l('Move disc ID') }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 
 has '+data' => (

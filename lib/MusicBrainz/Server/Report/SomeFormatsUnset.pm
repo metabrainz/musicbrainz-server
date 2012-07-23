@@ -1,15 +1,14 @@
 package MusicBrainz::Server::Report::SomeFormatsUnset;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id
+            r.id AS release_id,
+            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM
             (
                 SELECT release
@@ -24,13 +23,7 @@ sub gather_data
             JOIN release_name rn ON rn.id = r.name
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name);
-    ");
-}
-
-sub template
-{
-    return 'report/some_formats_unset.tt';
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -40,6 +33,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

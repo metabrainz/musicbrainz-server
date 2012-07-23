@@ -51,6 +51,15 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       host            => "",
 #       port            => "",
     },
+    # How to connect to a test database
+    TEST => {
+        database    => "musicbrainz_test",
+        schema          => "musicbrainz",
+        username    => "musicbrainz",
+        password        => "musicbrainz",
+#       host            => "",
+#       port            => "",
+    },
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     # READONLY => undef,
     # How to connect for administrative access
@@ -264,13 +273,16 @@ for database maintainance.
 EOF
 
 # Development server feature.
-# Used to display which git branch is currently active.
+# Used to display which git branch is currently running along with information
+# about the last commit
 sub GIT_BRANCH
 {
   if (DB_STAGING_SERVER) {
-    my $git_branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
-    $git_branch =~ s/\* (.+)/$1/;
-    return $git_branch;
+    my $branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
+    $branch =~ s/\* (.+)/$1/;
+    my $sha = `git log -1 --format=format:"%h"`;
+    my $msg = `git log -1 --format=format:"Last commit by %an on %ad%n%s" --date=short`;
+    return $branch, $sha, $msg;
   }
 }
 
@@ -306,6 +318,12 @@ sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
 sub AMAZON_ASSOCIATE_TAG { '' }
+
+# To enable use of reCAPTCHA:
+# 1. make sure $ENV{'REMOTE_ADDR'} is the ip address of the visitor.
+# 2. replace undef with your recaptcha keys:
+sub RECAPTCHA_PUBLIC_KEY { return undef }
+sub RECAPTCHA_PRIVATE_KEY { return undef }
 
 # internet archive private/public keys (for coverartarchive.org).
 sub COVER_ART_ARCHIVE_ID { };

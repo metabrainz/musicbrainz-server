@@ -24,7 +24,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
     verify_artist_credits
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
@@ -36,7 +36,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
-sub edit_name { l('Edit release') }
+sub edit_name { N_l('Edit release') }
 sub _edit_model { 'Release' }
 sub release_id { shift->data->{entity}{id} }
 

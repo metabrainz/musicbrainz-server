@@ -1,0 +1,32 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
+[% WRAPPER 'statistics/layout.tt' title=l('Edits') full_width=1 page='edits' %] 
+
+[% USE format %]
+[% round2 = format('%.2f') %]
+
+<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+
+<h2>[% l('Edits') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr>
+    <th colspan=2>[% l('Edits:') %]</th>
+    <td>[% add_commas(stats.statistic('count.edit')) %]</td>
+    <td></td>
+</tr>
+[%- FOREACH category IN by_category -%]
+<tr class="thead">
+   <th colspan=4>[% category.key %]</th>
+</tr>
+[% FOREACH type_class IN category.value %]
+[% USE type = Class(type_class) %]
+<tr>
+   <th></th><th>[% type.l_edit_name %]</th><td>[% add_commas(stats.statistic('count.edit.type.' _ type.edit_type)) %]</td><td>[% l('{n}%', { n => round2(stats.ratio('count.edit.type.' _ type.edit_type, 'count.edit')) }) %]</td>
+</tr>
+[%- END -%]
+[%- END -%]
+</tbody>
+</table>
+
+[%- PROCESS "statistics/macros-footer.tt" -%]
+[% END %]

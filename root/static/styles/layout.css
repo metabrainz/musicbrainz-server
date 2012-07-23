@@ -143,6 +143,11 @@ h1 img.gravatar {
     position: absolute;
     top: 2px;
     right: 18px;
+    color: #DDD;
+}
+
+#header-logo #headerid-query {
+    width: 18em;
 }
 
 #header-logo #id-type {
@@ -532,6 +537,10 @@ div.warning img.warning {
 
 #sidebar ul.external_links li.encyclopedisque {
     background-image: url("../images/favicons/encyclopedisque-16.png");
+}
+
+#sidebar ul.external_links li.trove {
+    background-image: url("../images/favicons/trove-16.png");
 }
 
 #sidebar .cover-art {

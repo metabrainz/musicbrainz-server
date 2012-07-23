@@ -4,13 +4,13 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name { l('Add release annotation') }
+sub edit_name { N_l('Add release annotation') }
 sub historic_type { 31 }
 sub edit_type { $EDIT_HISTORIC_ADD_RELEASE_ANNOTATION }
 sub edit_template { 'historic/add_release_annotation' }

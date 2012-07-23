@@ -23,15 +23,4 @@ fi
 . ./admin/functions.sh
 make_temp_dir
 
-# Collect stats
-DATETIME=`date +'%Y%m%d-%H%M%S'`
-
-# Create the reports
-echo `date`" : Running reports"
-OUTPUT=`
-    nice carton exec -- ./admin/RunReports.pl 2>&1
-` || echo "$OUTPUT"
-
-echo `date`" : Beta jobs complete!"
-
 # eof

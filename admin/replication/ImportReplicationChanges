@@ -70,7 +70,7 @@ $fHelp and usage();
 
 $SIG{'INT'} = sub { die "SIGINT\n" };
 
-my $c = MusicBrainz::Server::Context->new;
+my $c = MusicBrainz::Server::Context->new(database => 'READWRITE');
 my $sql = Sql->new($c->conn);
 
 for my $arg (@ARGV)

@@ -90,6 +90,9 @@ my $result2 = MusicBrainz::Server::Data::Utils::hash_structure ($input2);
 is ($result1, "aIkUXodpaNX7Q1YfttiKMkKCxB0", 'SHA-1 of $input1');
 is ($result2, "aIkUXodpaNX7Q1YfttiKMkKCxB0", 'SHA-1 of $input2');
 
+my $gid = MusicBrainz::Server::Data::Utils::generate_gid();
+is ($gid, lc($gid), 'GID is returned as lower-case');
+
 };
 
 1;

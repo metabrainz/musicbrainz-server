@@ -1,12 +1,8 @@
-[%- BLOCK layout_head -%]
-    <script type="text/javascript" src="[% c.uri_for('/register.js') %]"></script>
-[%- END -%]
-
 [% WRAPPER "layout.tt" title=l("Create an Account") full_width=1 %]
 <div id="content">
 
-     [%- IF invalid_nonce -%]
-     [%- warning(l('An error occured while creating your account.  Make sure javascript and cookies are enabled in your browser.')) -%]
+     [%- IF invalid_captcha_response -%]
+     [%- warning(l('Captcha incorrect. Try again.')) -%]
      [%- END -%]
 
     <h1>[% l("Create an Account") %]</h1>
@@ -36,6 +32,12 @@
         <div class="row no-label">
             <span class="input-note">[% l('You must provide a working email address if you wish to contribute to the database.') %]</span>
         </div>
+        [%- IF use_captcha -%]
+            <div class="row">
+                <label class="required">Captcha:</label>
+                [%- captcha -%]
+            </div>
+        [%- END -%]
         <div class="row no-label">
             <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_Of_Conduct') }) %]</p>
             [% form_submit(l('Create Account')) %]

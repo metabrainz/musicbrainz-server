@@ -1,11 +1,19 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
+[%- MACRO link_statistics_tab(link, title) BLOCK -%]
+<span class="mp"><a href="[% link %]">[% title %]</a></span>
+[%- END -%]
 [%- info_links = [
-    ['index', '<span class="mp"><a href="/statistics">Overview</a></span>']
-    ['countries', '<span class="mp"><a href="/statistics/countries">Countries</a></span>'],
-    ['languages-scripts', '<span class="mp"><a href="/statistics/languages-scripts">Languages/Scripts</a></span>'],
-    ['coverart', '<span class="mp"><a href="/statistics/coverart">Cover Art</a></span>'],
-    ['formats', '<span class="mp"><a href="/statistics/formats">Formats</a></span>'],
-    ['timeline', '<span class="mp"><a href="/statistics/timeline/main">Timeline</a></span>'],
+    ['index', link_statistics_tab('/statistics', l('Overview')) ]
+    ['countries', link_statistics_tab('/statistics/countries', l('Countries')) ],
+    ['languages-scripts', link_statistics_tab('/statistics/languages-scripts', l('Languages/Scripts')) ],
+    ['coverart', link_statistics_tab('/statistics/coverart', l('Cover Art')) ],
+    ['relationships', link_statistics_tab('/statistics/relationships', l('Relationships')) ],
+    ['edits', link_statistics_tab('/statistics/edits', l('Edits')) ],
+    ['formats', link_statistics_tab('/statistics/formats', l('Formats')) ],
+    ['editors', link_statistics_tab('/statistics/editors', l('Editors')) ],
+    ['timeline', link_statistics_tab('/statistics/timeline/main', l('Timeline')) ],
 ] -%]
+
 
 [%- IF full_width -%]
 [%- WRAPPER "layout.tt" title="Database Statistics - ${title}" full_width=1 -%]
@@ -14,9 +22,11 @@
 </div>
         [% INCLUDE 'components/tabs.tt' list=info_links %]
         [%- content -%]
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [%- END -%]
 [%- ELSE -%]
 [%- WRAPPER "layout.tt" title="Database Statistics - ${title}" -%]
+[%- PROCESS "statistics/macros-header.tt" -%]
     <div id="sidebar">
         [%- sidebar -%]
     </div>
@@ -29,3 +39,4 @@
     </div>
 [%- END -%]
 [%- END -%]
+[%- PROCESS "statistics/macros-footer.tt" -%]

@@ -13,6 +13,7 @@ version_from 'lib/MusicBrainz/Server.pm';
 requires 'Algorithm::Diff';
 requires 'Algorithm::Merge';
 requires 'Cache::Memcached';
+requires 'Captcha::reCAPTCHA';
 requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
@@ -137,7 +138,7 @@ feature 'Fast edit migration' =>
 
 # These are just for I18N
 requires 'Locale::PO';
-requires 'Locale::TextDomain' => '1.16';
+requires 'Locale::Messages';
 
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';

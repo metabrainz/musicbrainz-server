@@ -13,7 +13,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
 );
 use MusicBrainz::Server::Validation qw( normalise_strings );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -26,7 +26,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::IPI';
 
 sub edit_type { $EDIT_LABEL_EDIT }
-sub edit_name { l('Edit label') }
+sub edit_name { N_l('Edit label') }
 sub _edit_model { 'Label' }
 sub label_id { shift->entity_id }
 

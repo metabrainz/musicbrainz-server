@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -14,7 +15,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
-sub edit_name { 'Add cover art' }
+sub edit_name { N_l('Add cover art') }
 sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 
@@ -109,6 +110,7 @@ sub build_display_data {
     my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
     my $artwork = {
         image => $prefix.$self->data->{cover_art_id}.'.jpg',
+        large_thumbnail => $prefix.$self->data->{cover_art_id}.'-500.jpg',
         small_thumbnail => $prefix.$self->data->{cover_art_id}.'-250.jpg',
     };
 

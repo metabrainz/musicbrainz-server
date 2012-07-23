@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
-use MusicBrainz::Server::Translation 'l';
+use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Release';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { l('Edit release artist') }
+sub edit_name { N_l('Edit release artist') }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{release}{id} }
 

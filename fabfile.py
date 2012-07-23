@@ -48,9 +48,9 @@ def test():
     no_local_changes()
 
     with settings( hide("stdout", "stderr") ):
-        local("git checkout next")
+        local("git checkout test")
         local("git merge master")
-        local("git push origin next")
+        local("git push origin test")
 
     socket_deploy()
 
@@ -81,7 +81,7 @@ def production():
         if cont == 'no':
             abort('User does not wish to proceed')
 
-    sudo("svc -d /etc/service/mb_server-fastcgi")
+    shutdown()
 
     with cd('/home/musicbrainz/musicbrainz-server'):
         sudo("git pull --ff-only", user="musicbrainz")
@@ -92,31 +92,28 @@ def production():
     puts("Waiting 20 seconds for server to start")
     sleep(20)
 
+    sudo("/etc/init.d/nginx restart", pty=False)
+
     # A non-0 exit code from any of these will cause the deployment to abort
     with settings( hide("stdout") ):
         run("pgrep plackup")
         run("tail /etc/service/mb_server-fastcgi/log/main/current | grep started")
         run("wget http://localhost -O -")
 
-def reset_test_branches():
+def reset_test():
     """
-    Reset the 'next' and 'beta' branches, and do socket updates on both beta and test
+    Reset the 'test' branch, and do a socket update release
     """
     no_local_changes()
-    local("git checkout next")
-    local("git reset --hard origin/master")
-    local("git checkout beta")
-    local("git reset --hard origin/master")
-    local("git push --force origin next beta")
+    local("git checkout test")
+    local("git reset --hard origin/beta")
+    local("git push --force origin test")
 
-    with settings(host_string='beta'):
-        with cd("/home/beta/musicbrainz-server"):
-            run("git fetch")
-            run("git reset --hard origin/beta")
-        socket_deploy()
-
-    with settings(host_string='beta'):
+    with settings(host_string='test'):
         with cd("/home/musicbrainz/musicbrainz-server"):
             run("git fetch")
-            run("git reset --hard origin/next")
+            run("git reset --hard origin/test")
         socket_deploy()
+
+def shutdown():
+    sudo("svc -d /etc/service/mb_server-fastcgi")

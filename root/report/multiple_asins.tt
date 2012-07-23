@@ -3,9 +3,14 @@
 <h1>[% l('Releases With Multiple ASINs') %]</h1>
 
 <ul>
-    <li>[% l('This report shows releases that have more than one ASIN.') %]</li>
+    <li>[% l('This report shows releases that have more than one Amazon ASIN.
+              In most cases ASINs should map to MusicBrainz releases 1:1, so only one of
+              them will be correct. Just check which ones do not fit the release (because
+              of format, different number of tracks, etc). If the release has a barcode,
+              you can search Amazon for it and see which ASIN matches.') %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]

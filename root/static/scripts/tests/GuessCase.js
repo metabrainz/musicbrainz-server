@@ -92,7 +92,7 @@ MB.tests.GuessCase.Modes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            result = MB.GuessCase.artist.guess (test.input);
+            var result = MB.GuessCase.artist.guess (test.input);
 
             var prefix = test.bug ? test.bug + ', ' : '';
 

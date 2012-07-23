@@ -5,7 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Edit::Work';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
-sub edit_name { l('Add work') }
+sub edit_name { N_l('Add work') }
 sub edit_type { $EDIT_WORK_CREATE }
 sub _create_model { 'Work' }
 sub work_id { shift->entity_id }

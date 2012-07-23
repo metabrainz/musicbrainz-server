@@ -413,6 +413,8 @@ sub create
 
     $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
 
+    $edit->adjust_edit_pending(+1);
+
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
         $ids = [ uniq grep { defined } @$ids ];
@@ -422,8 +424,6 @@ sub create
         my @all_ids = ($edit_id) x @$ids;
         $self->c->sql->do($query, zip @all_ids, @$ids);
     }
-
-    $edit->adjust_edit_pending(+1);
 
     # Automatically accept auto-edits on insert
     $edit = $self->get_by_id($edit->id);

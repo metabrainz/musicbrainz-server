@@ -4,7 +4,7 @@
             { n => edit.id }) %]</p>
 
    <div class="edit-list">
-     <h2>[% edit.edit_name | html %]</h2>
+     <h2>[% edit.l_edit_name | html %]</h2>
      <div class="edit-details">
        [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
      </div>

@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Types qw(
 );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -22,7 +22,7 @@ with 'MusicBrainz::Server::Edit::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
-sub edit_name { l('Add medium') }
+sub edit_name { N_l('Add medium') }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
 

@@ -70,7 +70,7 @@
             </table>
         </div>
         <h2>
-            [%- link_edit(edit, show, html_escape('Edit #' _ edit.id _ ' - ' _ edit.edit_name)) -%]
+            [%- link_edit(edit, show, html_escape(l('Edit #{id} - {name}', { id => edit.id, name => edit.l_edit_name}))) -%]
         </h2>
     [% ELSE %]
         [% IF edit.can_approve(c.user) || edit.can_cancel(c.user) %]
@@ -85,7 +85,7 @@
             </div>
         [% END %]
         <h1>
-            [%- 'Edit #' _ edit.id _ ' - ' _ html_escape(edit.edit_name) -%]
+            [%- l('Edit #{id} - {name}', { id => edit.id, name => html_escape(edit.l_edit_name) } ) -%]
         </h1>
     [% END %]
 

@@ -40,6 +40,11 @@ sub type_name {
     return defined $self->type ? $self->type->name : undef;
 }
 
+sub l_type_name {
+    my $self = shift;
+    return defined $self->type ? $self->type->l_name : undef;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

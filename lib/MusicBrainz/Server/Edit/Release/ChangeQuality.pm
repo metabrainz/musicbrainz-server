@@ -6,7 +6,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Edit::PerEditConditions';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { l('Change release quality') }
+sub edit_name { N_l('Change release quality') }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release}{id} }
 

@@ -7,7 +7,13 @@ use Try::Tiny;
 
 extends 'HTML::FormHandler::Field::Text';
 
-sub deflate {
+has '+fif_from_value' => ( default => 1 );
+
+has '+deflate_method' => (
+    default => sub { \&deflate_length }
+);
+
+sub deflate_length {
     my ($self, $value) = @_;
     $value ||= $self->value;
     return MusicBrainz::Server::Track::FormatTrackLength($value);

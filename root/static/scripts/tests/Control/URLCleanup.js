@@ -78,13 +78,18 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
 
                 [
-                    'release', 'http://www.jamendo.com/album/16090',
+                    'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
+                    MB.constants.LINK_TYPES.downloadfree.recording
+                ],
+
+                [
+                    'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
 
                 [
-                    'release', 'http://www.encyclopedisque.fr/images/imgdb/main/16593.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
+                    'release', 'http://www.jamendo.com/album/16090',
+                    MB.constants.LINK_TYPES.downloadfree.release
                 ],
 
                 [
@@ -183,6 +188,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
+                    'http://www.jamendo.com/list/a84763',
+                    'release'
+                ],
+                [
+                    'http://www.jamendo.com/en/track/725574/giraffe',
+                    'http://www.jamendo.com/track/725574',
+                    'recording'
+                ],
+                [
                     'http://www.jamendo.com/en/album/56372',
                     'http://www.jamendo.com/album/56372',
                     'release'
@@ -195,11 +210,6 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
                     'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
-                    'release'
-                ],
-                [
-                    'http://www.encyclopedisque.fr/images/imgdb/thumb250/1435.jpg',
-                    'http://www.encyclopedisque.fr/images/imgdb/main/1435.jpg',
                     'release'
                 ],
                 [
