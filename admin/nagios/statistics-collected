@@ -1,0 +1,84 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use FindBin '$Bin';
+use lib "$Bin/../../lib";
+
+use DBDefs;
+use DBI;
+use Getopt::Long;
+use MusicBrainz::Server::Context;
+use Pod::Usage;
+
+my $c = MusicBrainz::Server::Context->create_script_context;
+my $res = $c->sql->select_single_value(
+    "SELECT
+       CASE
+         WHEN ago > '2 days'::interval THEN
+           concat_ws(':', 'CRITICAL', 2,
+             'Statistics have not been collected for over 2 days')
+         WHEN ago > '28 hours'::interval THEN
+           concat_ws(':', 'WARNING', 1,
+             'Statistics have not been collected for over 28 hours')
+         WHEN ago IS NULL THEN
+           concat_ws(':', 'CRITICAL', 2,
+             'No statistics could be found')
+         ELSE
+           concat_ws(':', 'OK', 0)
+       END
+     FROM (
+       SELECT
+         (SELECT now() - date_collected
+          FROM statistic
+          ORDER BY date_collected DESC LIMIT 1) AS ago
+     ) a")
+    or critical('Failed to collect statistics');
+
+my ($status, $exit, $summary) = split(':', $res);
+
+print $status, "\n";
+print $summary, "\n" if $summary;
+exit $exit;
+
+sub critical {
+    my $message = shift;
+    print "CRITICAL\n$message\n";
+    exit 2;
+}
+
+__END__
+
+=head1 NAME
+
+statistics-collected - Nagios check for statistics collections
+
+=head1 SYNOPSIS
+
+statistics-collected
+
+=head1 DESCRIPTION
+
+Nagios check to make sure statistics have been collected
+
+Checks that statistics have been collected recently. The alerts are:
+
+=over 4
+
+=item CRITICAL
+
+Statistics have not been collected at all.
+
+The command fails to connect to the database.
+
+Statistics have not been collected in over 2 days.
+
+=item WARNING
+
+Statistics have not been collected in over 28 hours.
+
+=item OK
+
+Otherwise
+
+=cut
