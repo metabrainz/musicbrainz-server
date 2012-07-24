@@ -11,6 +11,7 @@ use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
+use List::UtilsBy qw( sort_by );
 
 use MusicBrainz::Server::Constants qw( :edit_status :email_addresses );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
@@ -43,6 +44,10 @@ sub _create_email
 {
     my ($self, $headers, $body) = @_;
 
+    # Add a Message-Id header if there isn't one.
+    if( !(grep { "$_" eq "Message-Id" } @$headers) ) {
+        push @$headers, 'Message-Id', sprintf('<uncategorized-email-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL);
+    }
     return Email::MIME->create(
         header => $headers,
         body => encode('utf-8', $body),
@@ -64,12 +69,14 @@ sub _create_message_to_editor_email
 
     my $time = $opts{time} || time();
 
+    my @correspondents = sort_by { $_->name } ($from, $to);
     my @headers = (
-        'To'      => _user_address($to),
-        'Sender'  => $EMAIL_NOREPLY_ADDRESS,
-        'Subject' => $subject,
-        'References' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
-        'In-Reply-To' => sprintf('<correspondence-%d@musicbrainz.org>', $time),
+        'To'          => _user_address($to),
+        'Sender'      => $EMAIL_NOREPLY_ADDRESS,
+        'Subject'     => $subject,
+        'Message-Id'  => sprintf('<correspondence-%s-%s-%d@%s>', $correspondents[0]->id, $correspondents[1]->id, $time, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'References'  => sprintf('<correspondence-%s-%s@%s>', $correspondents[0]->id, $correspondents[1]->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'In-Reply-To' => sprintf('<correspondence-%s-%s@%s>', $correspondents[0]->id, $correspondents[1]->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
     );
 
     if ($opts{reveal_address}) {
@@ -117,10 +124,11 @@ sub _create_email_verification_email
     my ($self, %opts) = @_;
 
     my @headers = (
-        'To'       => $opts{email},
-        'From'     => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
-        'Subject'  => 'Please verify your email address',
+        'To'         => $opts{email},
+        'From'       => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id' => sprintf('<verify-email-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Subject'    => 'Please verify your email address',
     );
 
     my $verification_link = $opts{verification_link};
@@ -147,10 +155,11 @@ sub _create_lost_username_email
     my ($self, %opts) = @_;
 
     my @headers = (
-        'To'       => _user_address($opts{user}),
-        'From'     => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
-        'Subject'  => 'Lost username',
+        'To'         => _user_address($opts{user}),
+        'From'       => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id' => sprintf('<lost-username-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Subject'    => 'Lost username',
     );
 
     my $user_name = $opts{user}->name;
@@ -184,12 +193,13 @@ sub _create_no_vote_email
     my $editor = $opts{editor} or die "Missing 'editor' argument";
 
     my @headers = (
-        'To' => _user_address($opts{editor}),
-        'From' => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
-        'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
-        'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
-        'Subject' => "Someone has voted against your edit #$edit_id",
+        'To'          => _user_address($opts{editor}),
+        'From'        => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'    => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id'  => sprintf('<edit-%d-%d-no-vote-%d@%s>', $edit_id, $voter->id, time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'References'  => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'In-Reply-To' => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Subject'     => "Someone has voted against your edit #$edit_id",
     );
 
     my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER_USED_IN_EMAIL, $edit_id;
@@ -222,10 +232,11 @@ sub _create_password_reset_request_email
     my ($self, %opts) = @_;
 
     my @headers = (
-        'To'       => _user_address($opts{user}),
-        'From'     => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
-        'Subject'  => 'Password reset request',
+        'To'         => _user_address($opts{user}),
+        'From'       => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id' => sprintf('<password-reset-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Subject'    => 'Password reset request',
     );
 
     my $reset_password_link = $opts{reset_password_link};
@@ -265,11 +276,12 @@ sub _create_edit_note_email
     my $own_edit = $opts{own_edit};
 
     my @headers = (
-        'To'       => _user_address($editor),
-        'From'     => _user_address($from_editor, 1),
-        'Sender'   => $EMAIL_NOREPLY_ADDRESS,
-        'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
-        'In-Reply-To' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
+        'To'          => _user_address($editor),
+        'From'        => _user_address($from_editor, 1),
+        'Sender'      => $EMAIL_NOREPLY_ADDRESS,
+        'Message-Id'  => sprintf('<edit-%d-%s-edit-note-%d@%s>', $edit_id, $from_editor->id, time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'References'  => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'In-Reply-To' => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
     );
 
     my $from = $from_editor->name;

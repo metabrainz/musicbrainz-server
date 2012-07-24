@@ -5,6 +5,7 @@ use namespace::autoclean;
 use String::TT qw( strip tt );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( $EMAIL_SUPPORT_ADDRESS );
+use DBDefs;
 
 has 'editor' => (
     isa => 'Editor',
@@ -26,8 +27,12 @@ has 'releases' => (
 );
 
 sub extra_headers {
+    my $self = shift;
     return (
-        'Reply-To' => $EMAIL_SUPPORT_ADDRESS
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
+        'References' => sprintf('<watched-%s@%s>', $self->editor->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'In-Reply-To' => sprintf('<watched-%s@%s>', $self->editor->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Message-Id' => sprintf('<watched-%s-%d@%s>', $self->editor->id, time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL)
     )
 }
 
