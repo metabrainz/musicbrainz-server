@@ -67,7 +67,7 @@ Checks that statistics have been collected recently. The alerts are:
 
 =item CRITICAL
 
-Satistics have not been collected at all.
+Statistics have not been collected at all.
 
 The command fails to connect to the database.
 
