@@ -15446,7 +15446,7 @@
          "version" : "v1.62.0"
       },
       "Function::Parameters" : {
-         "dist" : "Function-Parameters-0.07",
+         "dist" : "Function-Parameters-0.04",
          "mymeta" : {
             "abstract" : "subroutine definitions with parameter lists",
             "author" : [
@@ -15492,18 +15492,18 @@
                   "url" : "git://git.shadowcat.co.uk/p5sagit/Function-Parameters"
                }
             },
-            "version" : "0.07"
+            "version" : "0.04"
          },
          "name" : "Function::Parameters",
-         "pathname" : "M/MA/MAUKE/Function-Parameters-0.07.tar.gz",
+         "pathname" : "M/MA/MAUKE/Function-Parameters-0.04.tar.gz",
          "provides" : {
             "Function::Parameters" : {
                "file" : "Function/Parameters.pm",
-               "version" : "0.07"
+               "version" : "0.04"
             }
          },
          "target" : "Function::Parameters",
-         "version" : "0.07"
+         "version" : "0.04"
       },
       "Getopt::Long::Descriptive" : {
          "dist" : "Getopt-Long-Descriptive-0.091",
