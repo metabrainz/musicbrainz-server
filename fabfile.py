@@ -81,11 +81,19 @@ def production():
         if cont == 'no':
             abort('User does not wish to proceed')
 
-    shutdown()
-
     with cd('/home/musicbrainz/musicbrainz-server'):
+        # Carton has a tendency to change this file when it does update
+        # It's important that we discard these
+        sudo("git reset HEAD -- carton.lock", user="musicbrainz")
+        sudo("git checkout -- carton.lock", user="musicbrainz")
+
+        # If there's anything uncommited this must be fixed
+        sudo("git diff --exit-code", user="musicbrainz")
+        sudo("git diff --exit-code --cached", user="musicbrainz")
+
         sudo("git pull --ff-only", user="musicbrainz")
 
+    shutdown()
     sudo("/home/musicbrainz/musicbrainz-server/admin/production-deploy.sh", user="musicbrainz")
     sudo("svc -u /etc/service/mb_server-fastcgi")
 
