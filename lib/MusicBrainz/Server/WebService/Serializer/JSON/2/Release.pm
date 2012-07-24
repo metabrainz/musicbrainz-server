@@ -62,11 +62,13 @@ sub serialize
         # TODO: label info list.
     }
 
-    $body{media} = list_of ($entity->mediums, $inc, $stash)
-        if defined $inc && ($inc->media || $inc->discids || $inc->recordings);
+    if ($inc->media || $inc->discids || $inc->recordings)
+    {
+        $body{media} = [
+            map { serialize_entity($_, $inc, $stash) }
+            $entity->all_mediums ];
+    }
 
-
-    # TODO: medium list
     # TODO: collection list
 
     return \%body;

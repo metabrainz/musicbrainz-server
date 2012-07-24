@@ -10,6 +10,29 @@ use MusicBrainz::Server::Test ws_test_json => {
 
 with 't::Mechanize', 't::Context';
 
+test 'errors' => sub {
+
+    use Test::JSON import => [ 'is_valid_json', 'is_json' ];
+
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+webservice');
+
+    my $mech = $test->mech;
+    $mech->default_header ("Accept" => "application/json");
+    $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=coffee');
+    is ($mech->status, 400);
+
+    is_valid_json ($mech->content);
+    is_json ($mech->content, encode_json ({
+        error => "coffee is not a valid inc parameter for the artist resource."
+    }));
+
+    $mech->get('/ws/2/artist/00000000-1111-2222-3333-444444444444');
+    is ($mech->status, 404);
+    is_valid_json ($mech->content);
+    is_json ($mech->content, encode_json ({ error => "Not Found" }));
+};
+
 test 'basic artist lookup' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
@@ -190,146 +213,280 @@ test 'artist lookup with releases and discids' => sub {
         });
 };
 
-# ws_test 'artist lookup with recordings and artist credits',
-#     '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' =>
-#     '<?xml version="1.0" encoding="UTF-8"?>
-# <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-#     <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
-#         <name>m-flo</name><sort-name>m-flo</sort-name>
-#         <life-span>
-#             <begin>1998</begin>
-#         </life-span>
-#         <recording-list count="2">
-#             <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
-#                 <title>the Love Bug</title><length>242226</length>
-#                 <artist-credit>
-#                     <name-credit joinphrase="♥">
-#                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
-#                             <name>m-flo</name>
-#                             <sort-name>m-flo</sort-name>
-#                         </artist>
-#                     </name-credit>
-#                     <name-credit>
-#                         <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-#                             <name>BoA</name>
-#                             <sort-name>BoA</sort-name>
-#                         </artist>
-#                     </name-credit>
-#                 </artist-credit>
-#             </recording>
-#             <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
-#                 <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
-#                 <artist-credit>
-#                     <name-credit joinphrase="♥">
-#                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
-#                             <name>m-flo</name>
-#                             <sort-name>m-flo</sort-name>
-#                         </artist>
-#                     </name-credit>
-#                     <name-credit>
-#                         <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-#                             <name>BoA</name>
-#                             <sort-name>BoA</sort-name>
-#                         </artist>
-#                     </name-credit>
-#                 </artist-credit>
-#             </recording>
-#         </recording-list>
-#     </artist>
-# </metadata>';
+test 'artist lookup with recordings and artist credits' => sub {
 
-# ws_test 'artist lookup with release groups',
-#     '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' =>
-#     '<?xml version="1.0" encoding="UTF-8"?>
-# <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-#     <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
-#         <name>m-flo</name><sort-name>m-flo</sort-name>
-#         <life-span>
-#             <begin>1998</begin>
-#         </life-span>
-#         <release-group-list count="1">
-#             <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
-#                 <title>the Love Bug</title>
-#                 <first-release-date>2004-03-17</first-release-date>
-#                 <primary-type>Single</primary-type>
-#             </release-group>
-#         </release-group-list>
-#     </artist>
-# </metadata>';
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-# ws_test 'single artist release lookup',
-#     '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' =>
-#     '<?xml version="1.0" encoding="UTF-8"?>
-# <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-#     <artist type="Group" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
-#         <name>m-flo</name><sort-name>m-flo</sort-name>
-#         <life-span>
-#             <begin>1998</begin>
-#         </life-span>
-#         <release-list count="1">
-#             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-#                 <title>the Love Bug</title><status>Official</status>
-#                 <quality>normal</quality>
-#                 <text-representation>
-#                     <language>eng</language><script>Latn</script>
-#                 </text-representation>
-#                 <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
-#             </release>
-#         </release-list>
-#     </artist>
-# </metadata>';
+    ws_test_json 'artist lookup with recordings and artist credits',
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=recordings+artist-credits' => encode_json (
+        {
+            id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
+            name => "m-flo",
+            "sort-name" => "m-flo",
+            type => "Group",
+            country => "JP",
+            disambiguation => undef,
+            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "recordings" => [
+                {
+                    id => "0cf3008f-e246-428f-abc1-35f87d584d60",
+                    title => "the Love Bug",
+                    length => 242226,
+                    "artist-credit" => [
+                        {
+                            name => "m-flo",
+                            artist => {
+                                id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
+                                name => "m-flo",
+                                "sort-name" => "m-flo",
+                            },
+                            joinphrase => "♥",
+                        },
+                        {
+                            name => "BoA",
+                            artist => {
+                                id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
+                                name => "BoA",
+                                "sort-name" => "BoA",
+                            },
+                            joinphrase => ""
+                        }
+                    ]
+                },
+                {
+                    id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
+                    title => "the Love Bug (Big Bug NYC remix)",
+                    length => 222000,
+                    "artist-credit" => [
+                        {
+                            name => "m-flo",
+                            artist => {
+                                id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
+                                name => "m-flo",
+                                "sort-name" => "m-flo",
+                            },
+                            joinphrase => "♥",
+                        },
+                        {
+                            name => "BoA",
+                            artist => {
+                                id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
+                                name => "BoA",
+                                "sort-name" => "BoA",
+                            },
+                            joinphrase => ""
+                        }
+                    ]
+                },
+            ]
+        });
+};
 
-# ws_test 'various artists release lookup',
-#     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' =>
-#     '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name><life-span><begin>1986-11-05</begin></life-span><release-list count="1"><release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7"><title>the Love Bug</title><status>Official</status><quality>normal</quality><text-representation><language>eng</language><script>Latn</script></text-representation><date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode></release></release-list></artist></metadata>';
+test 'artist lookup with release groups' => sub {
 
-# $mech->get('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=coffee');
-# is($mech->status, 400);
-# is_xml_same($mech->content, q{<?xml version="1.0"?>
-# <error>
-#   <text>coffee is not a valid inc parameter for the artist resource.</text>
-#   <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
-# </error>});
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-# ws_test 'artist lookup with works (using l_artist_work)',
-#     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' =>
-#     '<?xml version="1.0"?>
-# <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-#   <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
-#     <name>Distance</name><sort-name>Distance</sort-name>
-#     <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-#     <work-list count="1">
-#     <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8"><title>Asseswaving</title></work>
-#     </work-list>
-#   </artist>
-# </metadata>';
+    ws_test_json 'artist lookup with release groups',
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=release-groups&type=single' => encode_json (
+        {
+            id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
+            name => "m-flo",
+            "sort-name" => "m-flo",
+            type => "Group",
+            country => "JP",
+            disambiguation => undef,
+            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "release-groups" => [
+                {
+                    id => "153f0a09-fead-3370-9b17-379ebd09446b",
+                    title => "the Love Bug",
+                    "first-release-date" => "2004-03-17",
+                    "primary-type" => "Single",
+                    "secondary-types" => [],
+                }
+            ]
+        });
+};
 
-# ws_test 'artist lookup with works (using l_recording_work)',
-#     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' =>
-#     '<?xml version="1.0"?>
-# <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-#   <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-#     <name>BoA</name><sort-name>BoA</sort-name>
-#     <life-span><begin>1986-11-05</begin></life-span>
-#     <work-list count="15">
-#       <work id="286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b"><title>Easy To Be Hard</title></work>
-#       <work id="2d967c29-63dc-309d-bbc1-a2d38639aaa1"><title>心の手紙</title></work>
-#       <work id="303f9bd2-152f-3145-9e09-afa34edb6a57"><title>DOUBLE</title></work>
-#       <work id="46724ef1-241e-3d7f-9f3b-e51ba34e2aa1"><title>the Love Bug</title></work>
-#       <work id="4b6a46c2-a904-3471-9bff-3942d4549f47"><title>SOME DAY ONE DAY )</title></work>
-#       <work id="50c07b24-7ee2-31ac-ab87-f0d399011c71"><title>Milky Way 〜君の歌〜</title></work>
-#       <work id="511f5124-c0ae-3386-bb76-4b6521498a68"><title>Milky Way-君の歌-</title></work>
-#       <work id="53d1fbac-e60a-38cb-85ff-e5a9224c9749"><title>Be the one</title></work>
-#       <work id="61ab56f0-e803-3aef-a91b-63564b7a8043"><title>Rock With You</title></work>
-#       <work id="6f08d5a8-1811-3e5e-848b-35ffa77babe5"><title>Midnight Parade</title></work>
-#       <work id="7981d409-8e76-33df-be27-ef625d81c501"><title>Shine We Are!</title></work>
-#       <work id="7e78f281-52b4-315b-9d7b-6d215732f3d7"><title>EXPECT</title></work>
-#       <work id="cd86f9e2-83ce-3192-a817-fe6c98079303"><title>Song With No Name～名前のない歌～</title></work>
-#       <work id="d2f1ea1f-de2e-3d0c-b534-e96377912478"><title>OVER～across the time～</title></work>
-#       <work id="f23ae726-0300-3830-b1ca-634f4362f78c"><title>LOVE &amp; HONESTY</title></work>
-#     </work-list>
-#   </artist>
-# </metadata>';
+test 'single artist release lookup' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'single artist release lookup',
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' => encode_json (
+        {
+            id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
+            name => "m-flo",
+            "sort-name" => "m-flo",
+            type => "Group",
+            country => "JP",
+            disambiguation => undef,
+            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            releases => [
+                {
+                    id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
+                    title => "the Love Bug",
+                    date => "2004-03-17",
+                    "text-representation" => { "language" => "eng", "script" => "Latn" },
+                    country => "JP",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    quality => "normal",
+                    status => "Official",
+                    barcode => "4988064451180",
+                    asin => JSON::null,
+                }
+            ]
+        });
+};
+
+test 'various artists release lookup' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'various artists release lookup',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' => encode_json (
+        {
+            id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
+            name => "BoA",
+            "sort-name" => "BoA",
+            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
+            country => JSON::null,
+            disambiguation => 'Korean pop star also famous in Japan',
+            type => "Person",
+            releases => [
+                {
+                    id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
+                    title => "the Love Bug",
+                    packaging => JSON::null,
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { "language" => "eng", "script" => "Latn" },
+                    date => "2004-03-17",
+                    country => "JP",
+                    barcode => "4988064451180",
+                    asin => JSON::null,
+                    disambiguation => JSON::null,
+                }
+            ]
+        });
+};
+
+test 'artist lookup with works (using l_artist_work)' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with works (using l_artist_work)',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=works' => encode_json (
+        {
+            id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
+            name => "Distance",
+            "sort-name" => "Distance",
+            type => "Person",
+            disambiguation => "UK dubstep artist Greg Sanders",
+            country => JSON::null,
+            works => [
+                {
+                    id => "f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8",
+                    title => "Asseswaving",
+                    iswcs => [],
+                }
+            ]
+        });
+};
+
+test 'artist lookup with works (using l_recording_work)' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with works (using l_recording_work)',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=works' => encode_json (
+        {
+            id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
+            name => "BoA",
+            "sort-name" => "BoA",
+            country => JSON::null,
+            disambiguation => "Korean pop star also famous in Japan",
+            type => "Person",
+            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
+            works => [
+                {
+                    id => "286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b",
+                    title => "Easy To Be Hard",
+                    iswcs => [],
+                },
+                {
+                    id => "2d967c29-63dc-309d-bbc1-a2d38639aaa1",
+                    title => "心の手紙",
+                    iswcs => [],
+                },
+                {
+                    id => "303f9bd2-152f-3145-9e09-afa34edb6a57",
+                    title => "DOUBLE",
+                    iswcs => [],
+                },
+                {
+                    id => "46724ef1-241e-3d7f-9f3b-e51ba34e2aa1",
+                    title => "the Love Bug",
+                    iswcs => [],
+                },
+                {
+                    id => "4b6a46c2-a904-3471-9bff-3942d4549f47",
+                    title => "SOME DAY ONE DAY )",
+                    iswcs => [],
+                },
+                {
+                    id => "50c07b24-7ee2-31ac-ab87-f0d399011c71",
+                    title => "Milky Way 〜君の歌〜",
+                    iswcs => [],
+                },
+                {
+                    id => "511f5124-c0ae-3386-bb76-4b6521498a68",
+                    title => "Milky Way-君の歌-",
+                    iswcs => [],
+                },
+                {
+                    id => "53d1fbac-e60a-38cb-85ff-e5a9224c9749",
+                    title => "Be the one",
+                    iswcs => [],
+                },
+                {
+                    id => "61ab56f0-e803-3aef-a91b-63564b7a8043",
+                    title => "Rock With You",
+                    iswcs => [],
+                },
+                {
+                    id => "6f08d5a8-1811-3e5e-848b-35ffa77babe5",
+                    title => "Midnight Parade",
+                    iswcs => [],
+                },
+                {
+                    id => "7981d409-8e76-33df-be27-ef625d81c501",
+                    title => "Shine We Are!",
+                    iswcs => [],
+                },
+                {
+                    id => "7e78f281-52b4-315b-9d7b-6d215732f3d7",
+                    title => "EXPECT",
+                    iswcs => [],
+                },
+                {
+                    id => "cd86f9e2-83ce-3192-a817-fe6c98079303",
+                    title => "Song With No Name～名前のない歌～",
+                    iswcs => [],
+                },
+                {
+                    id => "d2f1ea1f-de2e-3d0c-b534-e96377912478",
+                    title => "OVER～across the time～",
+                    iswcs => [],
+                },
+                {
+                    id => "f23ae726-0300-3830-b1ca-634f4362f78c",
+                    title => "LOVE & HONESTY",
+                    iswcs => [],
+                }]
+        });
+};
 
 1;
 

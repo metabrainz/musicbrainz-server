@@ -15,8 +15,6 @@ sub serialize
     my ($self, $entity, $inc, $stash) = @_;
     my %body;
 
-    my $opts = $stash->store ($entity);
-
     $body{title} = $entity->name;
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
 

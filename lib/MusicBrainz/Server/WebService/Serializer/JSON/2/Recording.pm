@@ -17,7 +17,7 @@ sub serialize
     $body{disambiguation} = $entity->comment if $entity->comment;
     $body{length} = $entity->length if $entity->length;
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
-        if $toplevel && $entity->artist_credit;
+        if ($toplevel || $inc->artist_credits) && $entity->artist_credit;
 
 #     # TODO: releases.
 

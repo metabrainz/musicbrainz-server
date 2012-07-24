@@ -27,15 +27,17 @@ sub serialize
             ? $entity->country->iso_code : JSON::null;
     }
 
-    if ($inc && $inc->releases)
-    {
-        my $opts = $stash->store ($entity);
+    $body{recordings} = list_of ($entity, $inc, $stash, "recordings")
+        if ($inc && $inc->recordings);
 
-        # use Data::Dumper;
-        # warn "releases: ".Dumper ($opts->{releases})."\n";
-        $body{releases} = list_of (
-            [ sort_by { $_->gid } @{ $opts->{releases}->{items} } ], $inc);
-    }
+    $body{releases} = list_of ($entity, $inc, $stash, "releases")
+        if ($inc && $inc->releases);
+
+    $body{"release-groups"} = list_of ($entity, $inc, $stash, "release_groups")
+        if ($inc && $inc->release_groups);
+
+    $body{works} = list_of ($entity, $inc, $stash, "works")
+        if ($inc && $inc->works);
 
     return \%body;
 };

@@ -44,7 +44,7 @@ sub apply_rate_limit
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->output_error(
                 "Your requests are being throttled by MusicBrainz because the ".
@@ -63,7 +63,7 @@ sub apply_rate_limit
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->output_error(
                 "Your requests are exceeding the allowable rate limit (" . $r->msg . "). " .
@@ -79,7 +79,7 @@ sub apply_rate_limit
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->output_error(
                 "The MusicBrainz web server is currently busy. " .
@@ -93,8 +93,9 @@ sub apply_rate_limit
 sub bad_req : Private
 {
     my ($self, $c) = @_;
+
     $c->res->status(400);
-    $c->res->content_type("application/xml; charset=UTF-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
 }
 
@@ -103,7 +104,7 @@ sub deny_readonly : Private
     my ($self, $c) = @_;
     if (DBDefs::DB_READ_ONLY) {
         $c->res->status(503);
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
     }
 }
@@ -111,7 +112,7 @@ sub deny_readonly : Private
 sub success : Private
 {
     my ($self, $c) = @_;
-    $c->res->content_type("application/xml; charset=UTF-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_success);
 }
 
@@ -119,7 +120,7 @@ sub unauthorized : Private
 {
     my ($self, $c) = @_;
     $c->res->status(401);
-    $c->res->content_type("application/xml; charset=utf-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error("Your credentials ".
         "could not be verified.\nEither you supplied the wrong credentials ".
         "(e.g., bad password), or your client doesn't understand how to ".
@@ -130,7 +131,7 @@ sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->res->status(404);
-    $c->res->content_type("application/xml; charset=utf-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error("Not Found"));
 }
 

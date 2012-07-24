@@ -14,14 +14,14 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
+    $body{"primary-type"} = $entity->primary_type->name;
+    $body{"secondary-types"} = [ map {
+        $_->name } $entity->all_secondary_types ];
+    $body{"first-release-date"} = $entity->first_release_date->format;
 
     if ($toplevel)
     {
         $body{disambiguation} = $entity->comment;
-        $body{"primary-type"} = $entity->primary_type->name;
-        $body{"secondary-types"} = [ map {
-            $_->name } $entity->all_secondary_types ];
-        $body{"first-release-date"} = $entity->first_release_date->format;
         $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
             if $inc->artist_credits;
     }

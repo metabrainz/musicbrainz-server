@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Utils;
 
 use base 'Exporter';
 use Readonly;
+use List::UtilsBy 'sort_by';
 
 our @EXPORT_OK = qw(
     serializer
@@ -56,9 +57,13 @@ sub serialize_entity
 
 sub list_of
 {
-    my ($entities, $inc, $opts) = @_;
+    my ($entity, $inc, $stash, $type) = @_;
 
-    return [ map { serialize_entity($_, $inc, $opts) } @$entities ];
+    my $opts = $stash->store ($entity);
+
+    return [
+        map { serialize_entity($_, $inc, $opts) }
+        sort_by { $_->gid } @{ $opts->{$type}->{items} } ];
 }
 
 1;
