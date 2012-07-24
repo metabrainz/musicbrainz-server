@@ -50,6 +50,8 @@ test all => sub {
         releases => \@releases
         );
 
+    ok((grep {"$_" eq 'Message-Id' } $email->extra_headers), 'Has a message-id header');
+
     contains_string($email->text, $_->name, 'Has release name: ' . $_->name)
         for @releases;
 

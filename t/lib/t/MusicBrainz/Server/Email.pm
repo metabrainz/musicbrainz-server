@@ -5,6 +5,7 @@ use Test::More;
 
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Email;
+use DBDefs;
 
 with 't::Context';
 
@@ -23,8 +24,8 @@ test all => sub {
 
     my $email = MusicBrainz::Server::Email->new( c => $test->c );
 
-    my $user1 = MusicBrainz::Server::Entity::Editor->new( name => 'Editor 1', email => 'foo@example.com' );
-    my $user2 = MusicBrainz::Server::Entity::Editor->new( name => 'Editor 2', email => 'bar@example.com' );
+    my $user1 = MusicBrainz::Server::Entity::Editor->new( name => 'Editor 1', email => 'foo@example.com', id => 4444 );
+    my $user2 = MusicBrainz::Server::Entity::Editor->new( name => 'Editor 2', email => 'bar@example.com', id => 8888 );
 
     my $addr = MusicBrainz::Server::Email::_user_address($user1);
     is($addr, '"Editor 1" <foo@example.com>', 'User address is foo@example.com');
@@ -45,6 +46,8 @@ test all => sub {
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
+    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, "Message-Id has right format");
+    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
     compare_body($e->get_body,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
                  "------------------------------------------------------------------------\n".
@@ -71,6 +74,8 @@ test all => sub {
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
+    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, "Message-Id has right format");
+    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
     compare_body($e->get_body,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
                  "------------------------------------------------------------------------\n".
@@ -107,6 +112,7 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), 'user@example.com', 'To is user@example.com');
     is($e->get_header('Subject'), 'Please verify your email address', 'Subject is Please verify your email address');
+    like($e->get_header('Message-Id'), qr{<verify-email-\d+@.*>}, "Message-Id has right format");
     compare_body($e->get_body,
                  "This is a verification email for your MusicBrainz account. Please click\n".
                  "on the link below to verify your email address:\n".
@@ -131,6 +137,7 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Subject'), 'Lost username', 'Subject is Lost username');
+    like($e->get_header('Message-Id'), qr{<lost-username-\d+@.*>}, "Message-Id has right format");
     compare_body($e->get_body,
                  "Someone, probably you, asked to look up the username of the\n".
                  "MusicBrainz account associated with this email address.\n".
@@ -158,6 +165,7 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Subject'), 'Password reset request', 'Subject is Password reset request');
+    like($e->get_header('Message-Id'), qr{<password-reset-\d+@.*>}, "Message-Id has right format");
     compare_body($e->get_body,
                  "Someone, probably you, asked that your MusicBrainz password be reset.\n".
                  "\n".
@@ -190,7 +198,8 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Reply-To'), 'MusicBrainz <support@musicbrainz.org>', 'Reply-To is support@...');
-    is($e->get_header('References'), '<edit-1234@musicbrainz.org>', 'References edit-1234');
+    is($e->get_header('References'), sprintf('<edit-1234@%s>', &DBDefs::WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+    like($e->get_header('Message-Id'), qr{<edit-1234-8888-no-vote-\d+@.*>} , 'Message ID has right format');
     is($e->get_header('Subject'), 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
     compare_body($e->get_body,
                  "'Editor 2' has voted against your edit #1234.\n".
@@ -224,6 +233,8 @@ test all => sub {
     is($e->get_header('From'), '"Editor 2" <"Editor 2"@users.musicbrainz.org>', 'From is Editor 2, @users.musicbrainz.org');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Subject'), 'Note added to edit #1234', 'Subject is Note added to edit #1234');
+    is($e->get_header('References'), sprintf('<edit-1234@%s>', &DBDefs::WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+    like($e->get_header('Message-Id'), qr{<edit-1234-8888-edit-note-\d+@.*>} , 'Message ID has right format');
     is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
     compare_body($e->get_body,
                  "'Editor 2' has added the following note to edit #1234:\n".
@@ -251,6 +262,7 @@ test all => sub {
     is($e->get_header('From'), '"Editor 1" <"Editor 1"@users.musicbrainz.org>', 'From is Editor 1, @users.musicbrainz.org');
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('Subject'), 'Note added to your edit #9000', 'Subject is Note added to your edit #9000');
+    like($e->get_header('Message-Id'), qr{<edit-9000-4444-edit-note-\d+@.*>} , 'Message ID has right format');
     is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
     compare_body($e->get_body,
                  "'Editor 1' has added the following note to your edit #9000:\n".
