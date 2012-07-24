@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use 5.8.8;
+use 5.10.1;
 
 use inc::Module::Install;
 
@@ -9,165 +9,148 @@ author 'MetaBrainz Foundation';
 license 'gpl';
 version_from 'lib/MusicBrainz/Server.pm';
 
-# Mandatory modules
-requires 'Algorithm::Diff';
-requires 'Algorithm::Merge';
-requires 'Cache::Memcached';
-requires 'Captcha::reCAPTCHA';
-requires 'Catalyst::Action::RenderView'               => '0.09';
-requires 'Catalyst::Plugin::Authentication'           => '0.10011';
-requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
-requires 'Catalyst::Plugin::I18N'                     => '0.09';
-requires 'Catalyst::Plugin::Cache';
-requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.2';
-requires 'Catalyst::Runtime'                          => '5.90007';
-requires 'Catalyst::View::TT'                         => '0.29';
-requires 'CGI::Expand';
-requires 'Class::MOP';
-requires 'CSS::Minifier';
-requires 'Clone';
-requires 'Data::Compare';
-requires 'Data::Dumper::Concise';
-requires 'Data::OptList';
-requires 'Data::Page'                                 => '2.01';
-requires 'Date::Calc'                                 => '5.8';
-requires 'Data::UUID::MT'                             => '0.004';
-requires 'DateTime::TimeZone';
-requires 'DateTime::Format::Pg'                       => '0.16004';
-requires 'DateTime::Format::Natural'                  => '0.96';
-requires 'DBIx::Connector';
-requires 'DBD::Pg'                                    => '2.11.8';
-requires 'DBI'                                        => '1.607';
-requires 'Digest::MD5'                                => '2.36';
-requires 'Digest::SHA1'                               => '2.110';
-requires 'Email::Address';
-requires 'Email::Sender';
-requires 'Email::MIME';
-requires 'Email::MIME::Creator';
-requires 'Email::Valid';
-requires 'Encode::Detect'                             => '1.01';
-requires 'Exception::Class'                           => '1.29';
-requires 'Function::Parameters';
-requires 'HTML::FormHandler'                          => '0.36002';
+requires 'Algorithm::Diff'                            => '1.1902';
+requires 'Algorithm::Merge'                           => '0.08';
+requires 'CGI::Expand'                                => '2.03';
+requires 'CSS::Minifier'                              => '0.01';
+requires 'Cache::Memcached'                           => '1.30';
+requires 'Cache::Memcached::Fast'                     => '0.16';
+requires 'Cache::Memory'                              => '2.04';
+requires 'Captcha::reCAPTCHA'                         => '0.94';
+requires 'Catalyst::Action::RenderView'               => '0.16';
+requires 'Catalyst::Plugin::Authentication'           => '0.10021';
+requires 'Catalyst::Authentication::Credential::HTTP' => '1.015';
+requires 'Catalyst::Plugin::AutoRestart'              => '0.93';
+requires 'Catalyst::Plugin::Cache'                    => '0.11';
+requires 'Catalyst::Plugin::Cache::HTTP'              => '0.001';
+requires 'Catalyst::Plugin::ErrorCatcher'             => '0.0.8.8';
+requires 'Catalyst::Plugin::Session::State::Cookie'   => '0.17';
+requires 'Catalyst::Plugin::StackTrace'               => '0.09';
+requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.8';
+requires 'Catalyst::Runtime'                          => '5.90015';
+requires 'Catalyst::View::TT'                         => '0.39';
+requires 'Clone'                                      => '0.31';
+requires 'DBD::Pg'                                    => '2.19.2';
+requires 'DBI'                                        => '1.622';
+requires 'DBIx::Connector'                            => '0.52';
+requires 'Data::Compare'                              => '1.22';
+requires 'Data::Dumper::Concise'                      => '2.020';
+requires 'Data::OptList'                              => '0.107';
+requires 'Data::Page'                                 => '2.02';
+requires 'Data::UUID::MT'                             => '0.006';
+requires 'Date::Calc'                                 => '6.3';
+requires 'DateTime'                                   => '0.76';
+requires 'DateTime::Format::Natural'                  => '1.00';
+requires 'DateTime::Format::Pg'                       => '0.16007';
+requires 'DateTime::Locale'                           => '0.45';
+requires 'DateTime::TimeZone'                         => '1.47';
+requires 'Devel::StackTrace'                          => '1.27';
+requires 'Digest::MD5'                                => '2.52';
+requires 'Digest::MD5::File'                          => '0.08';
+requires 'Digest::SHA1'                               => '2.13';
+requires 'Email::Address'                             => '1.895';
+requires 'Email::MIME'                                => '1.911';
+requires 'Email::Sender'                              => '0.120001';
+requires 'Email::Valid'                               => '0.190';
+requires 'FCGI'                                       => '0';
+requires 'FCGI::ProcManager'                          => '0.19';
+requires 'HTML::FormHandler'                          => '0.40013';
 requires 'HTML::Tiny'                                 => '1.05';
-requires 'HTML::TreeBuilder::XPath';
-requires 'IO::All';
-requires 'Javascript::Closure';
-requires 'JSON'                                       => '2.14';
-requires 'Log::Dispatch';
-requires 'List::UtilsBy'                              => '0.06';
-requires 'List::MoreUtils'                            => '0.22';
-requires 'Method::Signatures::Simple';
-requires 'Module::Pluggable'                          => '3.9';
-requires 'Moose'                                      => '2.0402';
-requires 'MooseX::ABC'                                => '0.05';
-requires 'MooseX::Clone';
-requires 'MooseX::Getopt';
-requires 'MooseX::MethodAttributes'                   => '0.24';
-requires 'MooseX::Role::Parameterized'                => '0.16';
-requires 'MooseX::Runnable';
-requires 'MooseX::Singleton';
-requires 'MooseX::Types'                              => '0.16';
-requires 'MooseX::Types::Structured'                  => '0.24';
+requires 'HTTP::Message'                              => '6.03';
+requires 'JSON'                                       => '2.53';
+requires 'Javascript::Closure'                        => '0.07';
+requires 'LWP'                                        => '6.04';
+requires 'List::AllUtils'                             => '0.03';
+requires 'List::UtilsBy'                              => '0.09';
+requires 'Locale::Codes'                              => '3.22';
+requires 'Locale::Messages'                           => '1.20';
+requires 'Locale::PO'                                 => '0.21';
+requires 'Log::Dispatch'                              => '2.32';
+requires 'Module::Pluggable'                          => '4.0';
+requires 'Moose'                                      => '2.0603';
+requires 'MooseX::Clone'                              => '0.05';
+requires 'MooseX::Getopt'                             => '0.45';
+requires 'MooseX::MethodAttributes'                   => '0.27';
+requires 'MooseX::Role::Parameterized'                => '1.00';
+requires 'MooseX::Runnable'                           => '0.03';
+requires 'MooseX::Singleton'                          => '0.29';
+requires 'MooseX::Types'                              => '0.35';
+requires 'MooseX::Types::Structured'                  => '0.28';
 requires 'MooseX::Types::URI'                         => '0.03';
-requires 'MRO::Compat'                                => '0.10';
-requires 'Net::Amazon::AWSSign';
+requires 'Net::Amazon::AWSSign'                       => '0.12';
 requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
-requires 'Net::CoverArtArchive';
-requires 'Package::Stash'                             => '0.29';
+requires 'Net::CoverArtArchive'                       => '1.02';
+requires 'Plack'                                      => '0.9985';
+requires 'Plack::Middleware::Debug'                   => '0.14';
 requires 'Readonly'                                   => '1.03';
-requires 'Statistics::Basic'                          => '1.6602';
-requires 'String::CamelCase';
-requires 'String::ShellQuote'                         => '1.030';
+requires 'SOAP::Lite'                                 => '0.715';
+requires 'Set::Scalar'                                => '1.25';
+requires 'String::CamelCase'                          => '0.02';
+requires 'String::ShellQuote'                         => '1.04';
 requires 'String::TT'                                 => '0.03';
-requires 'Template::Plugin::Math';
-requires 'Template::Plugin::Class';
-requires 'Template::Plugin::JavaScript';
-requires 'Text::WikiFormat'                           => '0.790';
-requires 'Text::Unaccent';
+requires 'Sub::Exporter'                              => '0.984';
+requires 'Template::Plugin::Class'                    => '0.14';
+requires 'Template::Plugin::JavaScript'               => '0.02';
+requires 'Template::Plugin::Math'                     => '2.24';
 requires 'Text::Trim'                                 => '1.02';
-requires 'Time::Duration';
-requires 'Throwable';
-requires 'TryCatch';
-requires 'URI'                                        => '1.50';
-requires 'XML::Generator';
-requires 'XML::Parser::Lite'                          => '0.714';
+requires 'Text::Unaccent'                             => '1.08';
+requires 'Text::WikiFormat'                           => '0.80';
+requires 'Throwable'                                  => '0.102080';
+requires 'Time::Duration'                             => '1.06';
+requires 'Try::Tiny'                                  => '0.11';
+requires 'URI'                                        => '1.60';
 requires 'XML::RSS::Parser::Lite'                     => '0.10';
+requires 'aliased'                                    => '0.30';
+requires 'namespace::autoclean'                       => '0.13';
+requires 'namespace::clean'                           => '0.23';
+
+requires 'Exception::Class'                           => '1.32';
+requires 'Function::Parameters'                       => '0.04';
+requires 'HTML::HTML5::Parser'                        => '0.206';
+requires 'HTML::HTML5::Sanity'                        => '0.103';
+requires 'HTML::Parser'                               => '3.69';
+requires 'HTML::TreeBuilder::XPath'                   => '0.14';
+requires 'IO::All'                                    => '0.45';
+requires 'JSON::Any'                                  => '1.29';
+requires 'JSON::XS'                                   => '2.27';
+requires 'MRO::Compat'                                => '0.11';
+requires 'Method::Signatures::Simple'                 => '1.02';
+requires 'MooseX::ABC'                                => '0.06';
+requires 'Package::Stash'                             => '0.33';
+requires 'Path::Class'                                => '0.26';
+requires 'RDF::Query'                                 => '2.908';
+requires 'RDF::RDFa::Parser'                          => '1.097';
+requires 'Statistics::Basic'                          => '1.6607';
+requires 'TryCatch'                                   => '1.003000';
+requires 'XML::Generator'                             => '1.04';
+requires 'XML::LibXML'                                => '2.0002';
 requires 'XML::SemanticDiff'                          => '1.0000';
-requires 'XML::Simple'                                => '2.14';
-requires 'XML::XPath';
+requires 'XML::Simple'                                => '2.20';
+requires 'XML::XPath'                                 => '1.13';
 
-feature 'ETag Caching' =>
-    -default                        => 1,
-    'Catalyst::Plugin::Cache::HTTP' => '0.001',
-    ;
-
-feature 'Default caching setup' =>
-    -default                 => 1,
-    'Cache::Memory'          => '2.04',
-    'Cache::Memcached::Fast' => '0.16'
-    ;
-
-feature 'Default session store/state management' =>
-    -default                                     => 1,
-    'Catalyst::Plugin::Session::State::Cookie'   => '0.11',
-    'Catalyst::Plugin::Session::Store::FastMmap' => '0.07',
-    ;
-
-feature 'Developer features' =>
-    -default                           => 1,
-    'Catalyst::Plugin::StackTrace'     => '0.09',
-    'Catalyst::Devel'                  => '1.25',
-    'Plack'                            => '0.9985',
-    'Plack::Middleware::Debug'         => '0.14',
-    'Catalyst::Runtime'                => '5.9'
-    ;
-
-feature 'Production server' =>
-    'Digest::MD5::File' => '0.07',
-    'Catalyst::Plugin::AutoRestart' => '0.93',
-    'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
-    'FCGI' => '0',
-    'FCGI::ProcManager' => '0.19',
-    ;
-
-feature 'Fast edit migration' =>
-    -default   => 1,
-    'JSON::XS' => '2.27',
-    ;
-
-# These are just for I18N
-requires 'Locale::PO';
-requires 'Locale::Messages';
-
-author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
+author_requires 'Test::NoTabs';
 
 test_requires 'Env::Path';
-test_requires 'HTML::HTML5::Parser';
-test_requires 'HTML::HTML5::Sanity';
 test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
-test_requires 'RDF::Query';
 test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
-test_requires 'Test::Differences';
+test_requires 'Test::Differences' => '0.61';
 test_requires 'Test::Fatal' => '0.006';
 test_requires 'Test::JSON';
 test_requires 'Test::LongString';
 test_requires 'Test::Magpie' => '0.04';
 test_requires 'Test::Memory::Cycle';
-test_requires 'Test::Mock::Class';
+test_requires 'Test::Mock::Class' => '0.0303';
 test_requires 'Test::Routine';
+test_requires 'Test::WWW::Mechanize::Catalyst' => '0.58';
 test_requires 'Test::WWW::Selenium';
 test_requires 'Test::WWW::Selenium::Catalyst' => '0.07';
 test_requires 'Test::XPath';
 test_requires 'XML::Parser';
 
-catalyst;
-
 author_tests 't/author';
 
-install_script glob('script/*.pl');
 auto_install;
 WriteAll;
