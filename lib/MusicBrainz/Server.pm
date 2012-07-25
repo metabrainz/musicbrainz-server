@@ -259,7 +259,6 @@ around 'dispatch' => sub {
         alarm($max_request_time);
         POSIX::sigaction(
             SIGALRM, POSIX::SigAction->new(sub {
-                $c->model('MB')->dbh->cancel;
                 $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
                                        $c->req->uri,
                                        $max_request_time));
