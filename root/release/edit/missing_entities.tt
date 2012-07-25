@@ -46,28 +46,28 @@
                      select the artist:') %]</p>
 
             [% WRAPPER form_row %]
-            <label>[% l('Artist:') %]</label>
-            <ul class="inline">
-              [% FOR artist=possible %]
-              <li>
-                <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
-                       value="[% artist.id %]"
-                       [%- IF artist_row.field('entity_id').value == artist.id -%]
-                       checked="checked"
-                       [%- END -%]
-                        />
-                [% link_entity(artist) %]
-              </li>
-              [% END %]
-              <li>
-                <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
-                       [%- IF artist_row.field('entity_id').value == 0 -%]
-                       checked="checked"
-                       [%- END -%]
-                        value="0" id="[% artist_row.field('entity_id').html_name %]"/>
-                <label class="inline" for="[% artist_row.field('entity_id').html_name %]">[% l('Add new artist') %]</label>
-              </li>
-            </ul>
+              <label>[% l('Artist:') %]</label>
+              <ul class="inline">
+                [% FOR artist=possible %]
+                <li>
+                  <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                         value="[% artist.id %]"
+                         [%- IF artist_row.field('entity_id').value == artist.id -%]
+                         checked="checked"
+                         [%- END -%]
+                          />
+                  [% link_entity(artist) %]
+                </li>
+                [% END %]
+                <li>
+                  <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                         [%- IF artist_row.field('entity_id').value == 0 -%]
+                         checked="checked"
+                         [%- END -%]
+                          value="0" id="[% artist_row.field('entity_id').html_name %]"/>
+                  <label class="inline" for="[% artist_row.field('entity_id').html_name %]">[% l('Add new artist') %]</label>
+                </li>
+              </ul>
             [% END %]
 
             [% IF artist_row.field('entity_id').has_errors %]
