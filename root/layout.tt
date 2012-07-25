@@ -76,9 +76,12 @@
                         [% form_submit(l('Search'), 'inline') %]
                     </form>
                 </div>
-                [%- IF server_details.git_branch -%]
+                [%- IF server_details.git.branch -%]
                   <div class="git-branch">
-                    [%- l('Development branch: {branch}', { branch => server_details.git_branch }) -%]
+                    [%- l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
+                         { branch => server_details.git.branch,
+                           msg => server_details.git.msg,
+                           sha	  => server_details.git.sha}) -%]
                   </div>
                 [%- END -%]
             </div>

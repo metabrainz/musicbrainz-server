@@ -3,9 +3,14 @@
 <h1>[% l('Recordings with Earliest Release Relationships') %]</h1>
 
 <ul>
-    <li>[% l('This report shows recordings that still have earliest release relationships.') %]</li>
+    <li>[% l('This report shows recordings that have the deprecated "earliest release"
+              relationship. They should be merged if they are truly the same recording; if
+              they\'re not, the relationship should be removed. Please, do not merge
+              recordings blindly just because the lengths fit, and do not merge recordings
+              with very different times!') %]</li>
     <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/recording_list.tt' -%]

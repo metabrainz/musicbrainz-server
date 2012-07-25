@@ -59,12 +59,25 @@ has search_hint_type_id => (
 
 sub edit_field_names { qw( name locale sort_name begin_date end_date type_id primary_for_locale ) }
 
+sub _locale_name_special_cases {
+    my $locale = shift;
+    if ($locale->id eq 'el_POLYTON') {
+        return 'Greek Polytonic';
+    } elsif ($locale->id eq 'sr_Cyrl_YU') {
+	return 'Serbian Cyrillic Yugoslavia';
+    } elsif ($locale->id eq 'sr_Latn_YU') {
+	return 'Serbian Latin Yugoslavia';
+    } else {
+	return $locale->name;
+    }
+}
+
 sub options_locale {
     my ($self, $field) = @_;
     return [
         map {
             # Special-case el_POLYTON, because it has a stupid non-descriptive name
-            $_->id => ($_->id =~ /_/ ? "&nbsp;&nbsp;&nbsp;" : '') . ($_->id eq 'el_POLYTON' ? "Greek Polytonic" : $_->name)
+            $_->id => ($_->id =~ /_/ ? "&nbsp;&nbsp;&nbsp;" : '') . _locale_name_special_cases($_)
         }
             sort_by { $_->name }
             sort_by { $_->id }

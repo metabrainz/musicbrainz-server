@@ -1,15 +1,15 @@
 package MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseGroupReport';
+with 'MusicBrainz::Server::Report::ReleaseGroupReport',
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            r.gid AS release_group_gid, rn.name, r.artist_credit AS artist_credit_id, q.gid AS url_gid, q.url, q.count
+            r.id AS release_group_id, q.id AS url_id,
+            row_number() OVER (ORDER BY q.count DESC, q.url, musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM
             (
                 SELECT
@@ -26,13 +26,7 @@ sub gather_data
             JOIN release_name rn ON rn.id = r.name
             JOIN artist_credit ac ON r.artist_credit = ac.id
             JOIN artist_name an ON ac.name = an.id
-        ORDER BY q.count DESC, q.url, musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
-}
-
-sub template
-{
-    return 'report/discogs_links_with_multiple_release_groups.tt';
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -41,6 +35,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify

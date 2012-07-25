@@ -1,15 +1,14 @@
 package MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseGroupReport';
+with 'MusicBrainz::Server::Report::ReleaseGroupReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            rg.gid AS release_group_gid, rn.name, rg.artist_credit AS artist_credit_id
+            rg.id AS release_group_id,
+            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM
             release_group rg
             JOIN artist_credit ac ON rg.artist_credit = ac.id
@@ -18,13 +17,7 @@ sub gather_data
             JOIN release_group_meta rm ON rg.id = rm.id
         WHERE
             rn.name ~ E' \\\\(feat\\\\. '
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
-}
-
-sub template
-{
-    return 'report/featuring_release_groups.tt';
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -34,6 +27,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

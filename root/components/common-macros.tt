@@ -412,15 +412,25 @@ END-%]
 
 [%- MACRO release_label_list(labels) BLOCK;
     out = [];
+    seen = {};
     FOR label=labels;
-      out.push(link_entity(label.label)) IF label.label_id;
+      IF label.label_id AND !seen.${ label.label_id };
+        out.push(link_entity(label.label));
+        seen.${ label.label_id } = 1;
+      END;
     END;
     out.join(', ');
 END -%]
 
 [%- MACRO release_catno_list(labels) BLOCK;
     out = [];
-    out.push(label.catalog_number) FOR label=labels;
+    seen = {};
+    FOR label=labels;
+      IF label.catalog_number AND !seen.${ label.catalog_number };
+        out.push(label.catalog_number);
+        seen.${ label.catalog_number } = 1;
+      END;
+    END;
     out.join(', ');
 END -%]
 

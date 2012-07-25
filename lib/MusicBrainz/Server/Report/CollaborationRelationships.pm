@@ -1,15 +1,16 @@
 package MusicBrainz::Server::Report::CollaborationRelationships;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::QueryReport',
+     'MusicBrainz::Server::Report::FilterForEditor';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            artist0.gid AS gid0, name0.name AS name0, artist1.gid AS gid1, name1.name AS name1
+            artist0.id AS id0, name0.name AS name0, artist1.id AS id1, name1.name AS name1,
+            row_number() OVER (
+              ORDER BY musicbrainz_collate(name1.name), artist1.id, musicbrainz_collate(name0.name), artist0.id
+            )
         FROM
             l_artist_artist
             JOIN link ON link.id=l_artist_artist.link
@@ -22,27 +23,36 @@ sub gather_data
         WHERE
             link_type.name = 'collaboration' AND
             l_artist_url.id IS NULL
-        ORDER BY musicbrainz_collate(name1.name), artist1.id, musicbrainz_collate(name0.name), artist0.id
-    ");
+    ";
 }
 
-sub post_load
+sub inflate_rows
 {
     my ($self, $items) = @_;
+    my $artists = $self->c->model('Artist')->get_by_ids(
+        map { $_->{id0}, $_->{id1} } @$items
+    );
 
-    my @gid0s = map { $_->{gid0} } @$items;
-    my @gid1s = map { $_->{gid1} } @$items;
-    my $artists = $self->c->model('Artist')->get_by_gids(@gid0s, @gid1s);
-
-    foreach my $item (@$items) {
-        $item->{artist0} = $artists->{$item->{gid0}};
-        $item->{artist1} = $artists->{$item->{gid1}};
-    }
+    return [
+        map +{
+            %$_,
+            artist0 => $artists->{$_->{id0}},
+            artist1 => $artists->{$_->{id1}}
+        }, @$items
+    ];
 }
 
-sub template
-{
-    return 'report/collaboration_relationships.tt';
+sub filter_sql {
+    my ($self, $editor_id) = @_;
+    my $tbl = $self->qualified_table;
+    return (
+        "WHERE report.id1 IN (
+           SELECT id1 FROM $tbl inner_report
+           JOIN editor_subscribe_artist esa ON esa.artist = inner_report.id0 OR esa.artist = inner_report.id1
+           WHERE esa.editor = ?
+         )",
+        $editor_id
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -52,6 +62,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
