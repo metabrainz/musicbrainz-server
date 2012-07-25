@@ -122,6 +122,13 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' IMMUTABLE STRICT;
 
+CREATE OR REPLACE FUNCTION delete_unused_artist_credit(ac_id integer)
+RETURNS void AS $$
+BEGIN
+  DELETE FROM artist_credit_name WHERE artist_credit = ac_id;
+  DELETE FROM artist_credit WHERE id = ac_id;
+END;
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION inc_ref_count(tbl varchar, row_id integer, val integer) RETURNS void AS $$
 BEGIN
