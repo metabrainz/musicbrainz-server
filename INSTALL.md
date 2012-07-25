@@ -194,7 +194,7 @@ Creating the database
     following configuration recipe may prove useful:
 
         # in pg_hba.conf (Note: The order of lines is important!):
-        local    musicbrainz_db    musicbrainz    ident    mb_map
+        local    musicbrainz_db    musicbrainz    ident    map=mb_map
 
         # in pg_ident.conf:
         mb_map    www-user    musicbrainz
