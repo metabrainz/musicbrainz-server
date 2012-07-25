@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Label;
 use Moose;
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
@@ -22,6 +23,9 @@ sub serialize
     # FIXME: defaults?
     $body{type} = $entity->type_name;
     $body{country} = $entity->country->iso_code;
+
+    $body{releases} = list_of ($entity, $inc, $stash, "releases")
+        if ($inc && $inc->releases);
 
     return \%body;
 };
