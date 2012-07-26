@@ -11,7 +11,7 @@
 
   <tr>
     <th>[% l('Alias:') %]</th>
-    <td colspan="2">[% html_escape(edit.alias.name) %]</td>
+    <td colspan="2">[% html_escape(edit.alias.name) %] ([% link_entity(edit.display_data.artist, 'aliases', l('view all aliases')) %])</td>
   </tr>
 
   [% display_diff(l('Alias:'),

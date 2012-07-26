@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <th>[% l('Alias:') %]</th>
-    <td>[% edit.display_data.alias | html %]</td>
+    <td>[% edit.display_data.alias | html %] ([% link_entity(edit.display_data.label, 'aliases', l('view all aliases')) %])</td>
   </tr>
   [% IF edit.display_data.sort_name %]
   <tr>
