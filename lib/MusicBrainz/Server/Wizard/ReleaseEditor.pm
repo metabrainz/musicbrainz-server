@@ -1478,14 +1478,31 @@ sub _seed_parameters {
             sub { shift->model('ReleaseStatus')->find_by_name(shift) },
         ],
         [
-            'primary_type_id', 'type',
-            sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
-        ],
-        [
             'packaging_id', 'packaging',
             sub { shift->model('ReleasePackaging')->find_by_name(shift) },
         ],
     );
+
+    if (exists $params->{type})
+    {
+        my %primary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupType')->get_all ();
+        my %secondary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupSecondaryType')->get_all ();
+
+        for my $typename (ref($params->{type}) eq 'ARRAY' ? @{ $params->{type} } : ($params->{type}))
+        {
+            if (defined $primary_types{$typename})
+            {
+                $params->{primary_type_id} = $primary_types{$typename}->id;
+            }
+            elsif (defined $secondary_types{$typename})
+            {
+                $params->{secondary_type_ids} = [] unless defined $params->{secondary_type_ids};
+                push @{ $params->{secondary_type_ids} }, $secondary_types{$typename}->id;
+            }
+        }
+
+        delete $params->{type};
+    }
 
     for my $trans (@transformations) {
         my ($key, $alias, $transform) = @$trans;

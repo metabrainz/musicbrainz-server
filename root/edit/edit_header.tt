@@ -47,9 +47,11 @@
                     <td class="vote-count">
                         [% IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open %]
                             <div>
-                                [%- l('{yes} yes : {no} no',
+                                [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
+                                    ELSE; l('{yes} yes : {no} no',
                                      { yes => '<strong>' _ edit.yes_votes _ '</strong>',
-                                       no => '<strong>' _ edit.no_votes _ '</strong>' }) -%]
+                                       no => '<strong>' _ edit.no_votes _ '</strong>' });
+                                END -%]
                             </div>
                         [% END %]
                     </td>
@@ -91,6 +93,7 @@
         <span class="prefix">~</span>
         [% l('Edit by {editor}',
             { editor => link_entity(edit.editor) }) %]
-        [% '<span>(<span class="tooltip" title="This edit was automatically applied.">auto-edit</span>)</span>' IF edit.auto_edit %]
+        [% IF edit.editor.is_limited; '<span>(<span class="tooltip" title="' _ l('This user is new to MusicBrainz.') _ '">' _ l('limited user') _ '</span>)</span>'; END %]
+        [% IF edit.editor.is_bot; '<span>(<span class="tooltip" title="' _ l('This user is automated.') _ '">' _ l('bot') _ '</span>)</span>'; END %]
     </p>
 </div>

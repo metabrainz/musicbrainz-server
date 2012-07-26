@@ -127,7 +127,7 @@
 
     [% BLOCK statistics %]
         <tr>
-            <th>[% name %]</td>
+            <th>[% name %]</th>
             <td>[% content %]</td>
         </tr>
     [% END %]

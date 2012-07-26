@@ -21,7 +21,6 @@ role {
 	    my %vars = %$vars if (ref $vars eq "HASH");
 
 	    $self->_bind_domain($params->domain) unless $self->bound;
-	    $self->_set_language;
 
 	    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
@@ -35,7 +34,6 @@ role {
 	    my %vars = %$vars if (ref $vars eq "HASH");
 
 	    $self->_bind_domain($params->domain) unless $self->bound;
-	    $self->_set_language;
 
 	    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
@@ -49,7 +47,6 @@ role {
 	    my %vars = %$vars if (ref $vars eq "HASH");
 
 	    $self->_bind_domain($params->domain) unless $self->bound;
-	    $self->_set_language;
 
 	    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 

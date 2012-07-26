@@ -48,9 +48,9 @@ def test():
     no_local_changes()
 
     with settings( hide("stdout", "stderr") ):
-        local("git checkout next")
+        local("git checkout test")
         local("git merge master")
-        local("git push origin next")
+        local("git push origin test")
 
     socket_deploy()
 
@@ -81,11 +81,19 @@ def production():
         if cont == 'no':
             abort('User does not wish to proceed')
 
-    shutdown()
-
     with cd('/home/musicbrainz/musicbrainz-server'):
+        # Carton has a tendency to change this file when it does update
+        # It's important that we discard these
+        sudo("git reset HEAD -- carton.lock", user="musicbrainz")
+        sudo("git checkout -- carton.lock", user="musicbrainz")
+
+        # If there's anything uncommited this must be fixed
+        sudo("git diff --exit-code", user="musicbrainz")
+        sudo("git diff --exit-code --cached", user="musicbrainz")
+
         sudo("git pull --ff-only", user="musicbrainz")
 
+    shutdown()
     sudo("/home/musicbrainz/musicbrainz-server/admin/production-deploy.sh", user="musicbrainz")
     sudo("svc -u /etc/service/mb_server-fastcgi")
 
@@ -100,27 +108,19 @@ def production():
         run("tail /etc/service/mb_server-fastcgi/log/main/current | grep started")
         run("wget http://localhost -O -")
 
-def reset_test_branches():
+def reset_test():
     """
-    Reset the 'next' and 'beta' branches, and do socket updates on both beta and test
+    Reset the 'test' branch, and do a socket update release
     """
     no_local_changes()
-    local("git checkout next")
-    local("git reset --hard origin/master")
-    local("git checkout beta")
-    local("git reset --hard origin/master")
-    local("git push --force origin next beta")
+    local("git checkout test")
+    local("git reset --hard origin/beta")
+    local("git push --force origin test")
 
-    with settings(host_string='beta'):
-        with cd("/home/beta/musicbrainz-server"):
-            run("git fetch")
-            run("git reset --hard origin/beta")
-        socket_deploy()
-
-    with settings(host_string='beta'):
+    with settings(host_string='test'):
         with cd("/home/musicbrainz/musicbrainz-server"):
             run("git fetch")
-            run("git reset --hard origin/next")
+            run("git reset --hard origin/test")
         socket_deploy()
 
 def shutdown():

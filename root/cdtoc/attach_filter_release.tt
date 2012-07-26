@@ -21,10 +21,6 @@ $(document).ready (function () {
 
 [% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
   <h1>[% l('Attach CD TOC') %]</h1>
-  <p>
-    [% ln('{num} release found matching your query.', '{num} release found matching your query.',
-            results.size, { num => results.size }) %]
-  </p>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% toc %]" />
@@ -39,6 +35,11 @@ $(document).ready (function () {
     <input type="hidden" name="toc" value="[% toc %]" />
     [% r.hidden('query') %]
     [%- IF results.size -%]
+      <p>
+        [% ln('{num} release found matching your query.', '{num} release found matching your query.',
+                results.size, { num => results.size }) %]
+      </p>
+
       [% WRAPPER 'components/with-pager.tt' %]
           <table class="tbl">
             <thead>
@@ -66,6 +67,13 @@ $(document).ready (function () {
           </table>
         [% END %]
       <p>[% form_submit(l('Attach CD TOC')) %]
+    [%- ELSE -%]
+      <div class="row">
+        <div class="label required">[% l('Results:') %]</div>
+        <div class="no-label">
+          <p>[%- l('No results found. Try refining your search query.') -%]</p>
+        </div>
+      </div>
     [%- END -%]
   </form>
 
