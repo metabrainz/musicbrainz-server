@@ -17,6 +17,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Artist',
 #     'MusicBrainz::Server::Entity::ArtistAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ArtistCredit',
+    'MusicBrainz::Server::Entity::Collection' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Collection',
 #     'MusicBrainz::Server::Entity::CDStub' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDStub',
 #     'MusicBrainz::Server::Entity::Editor' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Editor',
 #     'MusicBrainz::Server::Entity::ISRC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ISRC',
@@ -60,10 +61,12 @@ sub list_of
     my ($entity, $inc, $stash, $type) = @_;
 
     my $opts = $stash->store ($entity);
+    my $list = $opts->{$type};
+    my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
     return [
         map { serialize_entity($_, $inc, $opts) }
-        sort_by { $_->gid } @{ $opts->{$type}->{items} } ];
+        sort_by { $_->gid } @$items ];
 }
 
 1;

@@ -8,13 +8,13 @@ sub element { 'artist-credit'; }
 
 sub serialize
 {
-    my ($self, $entity, $inc, $stash) = @_;
+    my ($self, $entity, $inc, $stash, $toplevel) = @_;
 
     my @body = map {
         {
             "name" => $_->name,
             "joinphrase" => $_->join_phrase,
-            "artist" => serialize_entity ($_->artist),
+            "artist" => serialize_entity ($_->artist, $inc, $stash, $toplevel),
         }
     } @{ $entity->names };
 

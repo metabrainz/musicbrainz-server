@@ -225,13 +225,14 @@ test 'artist lookup with recordings and artist credits' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => "JP",
-            disambiguation => undef,
+            disambiguation => JSON::null,
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             "recordings" => [
                 {
                     id => "0cf3008f-e246-428f-abc1-35f87d584d60",
                     title => "the Love Bug",
                     length => 242226,
+                    disambiguation => JSON::null,
                     "artist-credit" => [
                         {
                             name => "m-flo",
@@ -257,6 +258,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                     id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
                     title => "the Love Bug (Big Bug NYC remix)",
                     length => 222000,
+                    disambiguation => JSON::null,
                     "artist-credit" => [
                         {
                             name => "m-flo",
@@ -300,6 +302,7 @@ test 'artist lookup with release groups' => sub {
                 {
                     id => "153f0a09-fead-3370-9b17-379ebd09446b",
                     title => "the Love Bug",
+                    disambiguation => JSON::null,
                     "first-release-date" => "2004-03-17",
                     "primary-type" => "Single",
                     "secondary-types" => [],

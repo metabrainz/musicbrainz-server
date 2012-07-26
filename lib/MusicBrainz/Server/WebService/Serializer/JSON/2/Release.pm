@@ -42,14 +42,20 @@ sub serialize
         ? $entity->packaging->name : JSON::null;
 
     $body{"text-representation"} = {
-        script => $entity->script->iso_code,
-        language => $entity->language->iso_code_3,
+        script => $entity->script ? $entity->script->iso_code : JSON::null,
+        language => $entity->language ? $entity->language->iso_code_3 : JSON::null
     };
+
+    $body{collections} = list_of ($entity, $inc, $stash, "collections")
+        if $inc && $inc->collections;
+
+    $body{"release-group"} = serialize_entity ($entity->release_group, $inc, $stash)
+        if $inc && $inc->release_groups;
 
     if ($toplevel)
     {
         $body{"artist-credit"} = serialize_entity ($entity->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artist_credits;
+            if $inc->artist_credits || $inc->artists;
     }
     else
     {
@@ -57,10 +63,13 @@ sub serialize
             if $inc->artist_credits;
     }
 
-    if ($toplevel)
-    {
-        # TODO: label info list.
-    }
+    $body{"label-info"} = [
+        map {
+            {
+                "catalog-number" => $_->catalog_number,
+                label => serialize_entity ($_->label, $inc, $stash)
+            }
+        } @{ $entity->labels } ] if $toplevel && $inc->labels;
 
     if ($inc->media || $inc->discids || $inc->recordings)
     {
@@ -68,8 +77,6 @@ sub serialize
             map { serialize_entity($_, $inc, $stash) }
             $entity->all_mediums ];
     }
-
-    # TODO: collection list
 
     return \%body;
 };

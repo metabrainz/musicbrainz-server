@@ -1,7 +1,8 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Medium;
 use Moose;
 use JSON;
-use List::UtilsBy qw( sort_by );
+use List::UtilsBy qw( nsort_by sort_by );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -20,6 +21,40 @@ sub serialize
         if defined $inc && $inc->discids;
 
     $body{"track-count"} = $entity->tracklist->track_count;
+
+    # Not all tracks in the tracklists may have been loaded.  If not all
+    # tracks have been loaded, only one them will have been loaded which
+    # therefore can be represented as if a query had been performed with
+    # limit = 1 and offset = track->position.
+
+    my @tracks = nsort_by { $_->position } @{$entity->tracklist->tracks};
+    my $min = scalar @tracks ? $tracks[0]->position : 0;
+
+    my @list;
+    foreach my $track_entity (@tracks)
+    {
+        my %track_output = (
+            length => $track_entity->length,
+            number => $track_entity->number,
+            title => $track_entity->name
+        );
+
+        $track_output{recording} = serialize_entity (
+            $track_entity->recording, $inc, $stash)
+            if $inc->recordings;
+
+        $track_output{artist_credit} = serialize_entity (
+            $track_entity->artist_credit, $inc, $stash)
+            if $inc->artist_credits;
+
+        push @list, \%track_output;
+    }
+
+    if (scalar @list)
+    {
+        $body{tracks} = \@list ;
+        $body{"track-offset"} = $min - 1;
+    }
 
     return \%body;
 };

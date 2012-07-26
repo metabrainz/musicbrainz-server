@@ -27,17 +27,20 @@ sub serialize
             ? $entity->country->iso_code : JSON::null;
     }
 
-    $body{recordings} = list_of ($entity, $inc, $stash, "recordings")
-        if ($inc && $inc->recordings);
+    if ($toplevel)
+    {
+        $body{recordings} = list_of ($entity, $inc, $stash, "recordings")
+            if ($inc && $inc->recordings);
 
-    $body{releases} = list_of ($entity, $inc, $stash, "releases")
-        if ($inc && $inc->releases);
+        $body{releases} = list_of ($entity, $inc, $stash, "releases")
+            if ($inc && $inc->releases);
 
-    $body{"release-groups"} = list_of ($entity, $inc, $stash, "release_groups")
-        if ($inc && $inc->release_groups);
+        $body{"release-groups"} = list_of ($entity, $inc, $stash, "release_groups")
+            if ($inc && $inc->release_groups);
 
-    $body{works} = list_of ($entity, $inc, $stash, "works")
-        if ($inc && $inc->works);
+        $body{works} = list_of ($entity, $inc, $stash, "works")
+            if ($inc && $inc->works);
+    }
 
     return \%body;
 };

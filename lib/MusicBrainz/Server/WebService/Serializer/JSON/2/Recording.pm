@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity list_of );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
@@ -14,12 +14,14 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{disambiguation} = $entity->comment if $entity->comment;
+    $body{disambiguation} = $entity->comment;
     $body{length} = $entity->length if $entity->length;
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
-        if ($toplevel || $inc->artist_credits) && $entity->artist_credit;
+        if ($entity->artist_credit &&
+            ($toplevel || ($inc && $inc->artist_credits)));
 
-#     # TODO: releases.
+    $body{releases} = list_of ($entity, $inc, $stash, "releases")
+        if ($inc && $inc->releases);
 
     return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
 

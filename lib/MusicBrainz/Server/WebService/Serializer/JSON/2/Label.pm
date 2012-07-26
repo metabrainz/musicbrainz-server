@@ -22,7 +22,7 @@ sub serialize
 
     # FIXME: defaults?
     $body{type} = $entity->type_name;
-    $body{country} = $entity->country->iso_code;
+    $body{country} = $entity->country ? $entity->country->iso_code : JSON::null;
 
     $body{releases} = list_of ($entity, $inc, $stash, "releases")
         if ($inc && $inc->releases);
