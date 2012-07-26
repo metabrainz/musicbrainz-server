@@ -419,7 +419,6 @@ sub lock_and_do {
 
     my ($t0, $t1) = sort ($type0, $type1);
     Sql::run_in_transaction(sub {
-        $self->c->sql->do("LOCK l_${t0}_${t1} IN SHARE ROW EXCLUSIVE MODE");
         $code->();
     }, $self->c->sql);
 }

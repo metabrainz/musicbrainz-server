@@ -413,8 +413,6 @@ sub create
 
     $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
 
-    $edit->adjust_edit_pending(+1);
-
     my $ents = $edit->related_entities;
     while (my ($type, $ids) = each %$ents) {
         $ids = [ uniq grep { defined } @$ids ];
@@ -607,9 +605,7 @@ sub _close
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
-    $edit->adjust_edit_pending(-1);
     $edit->status($status);
-    $self->c->model('Editor')->credit($edit->editor_id, $status, %opts);
 }
 
 sub insert_votes_and_notes {
