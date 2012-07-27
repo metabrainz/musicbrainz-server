@@ -35,9 +35,14 @@ Entity = function() {};
 Entity.prototype.init = function() {
     this.refcount = 0;
     this.name = ko.observable("");
-    this.rendering = ko.computed(function() {
-        return this.render(this.name());
-    }, this);
+
+    this.rendering = ko.computed({
+        read: function() {
+            return this.render(this.name());
+        },
+        owner: this,
+        deferEvaluation: true
+    });
 };
 
 Entity.prototype.render = function(name, options) {
@@ -97,6 +102,7 @@ Source.prototype.mergeRelationship = function(rel) {
 Artist = function() {
     this.init();
     this.sortname = ko.observable("");
+
     this.rendering = ko.computed({
         read: function() {
             return this.render(this.name(), {title: this.sortname()});
@@ -125,6 +131,7 @@ Work = function() {
     this.comment = ko.observable("");
     this.work_type = ko.observable(null);
     this.work_language = ko.observable(null);
+
     this.rendering = ko.computed({
         read: function() {
             return RE.Util.isMBID(this.gid) ? this.render(this.name()) : this.name();
@@ -136,6 +143,7 @@ Work = function() {
 
 URL = function() {
     this.init();
+
     this.rendering = ko.computed({
         read: function() {
             var name = this.name();

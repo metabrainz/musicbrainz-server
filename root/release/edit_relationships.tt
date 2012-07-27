@@ -254,7 +254,7 @@
     <td class="pos t" data-bind="text: number"></td>
     <td class="recording">
       <input type="checkbox">
-      <a target="_blank" data-bind="text: name, attr: {href: rendering}"></a>
+      <span data-bind="html: rendering"></span>
       <!-- ko if: artistCredit -->by <span data-bind="html: artistCredit"></span><!-- /ko -->
       (<!-- ko text: length --><!-- /ko -->)
       <!-- ko template: {name: 'template.relationships', data: $data} --><!-- /ko -->
