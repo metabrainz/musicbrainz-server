@@ -65,7 +65,7 @@
                   <span>[% link_entity(dest) %]</span>
                 </td>
             </tr>
-            <tr>
+            <tr class="attributes-container">
                 <th class="label">[% l('Attributes:') %]</th>
                 <td>
                 [% FOR attr IN attr_tree.children %]

@@ -77,21 +77,22 @@ sub field_list
     return \@fields;
 }
 
-after validate => sub {
-    my ($self) = @_;
+sub validate_link_type
+{
+    my ($self, $c, $link_type_field, $attrs_field) = @_;
 
-    if(my $link_type_id = $self->field('link_type_id')->value) {
-        my $link_type = $self->ctx->model('LinkType')->get_by_id($link_type_id);
+    if(my $link_type_id = $link_type_field->value) {
+        my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
 
         if (!$link_type->description) {
-            $self->field('link_type_id')->add_error(
+            $link_type_field->add_error(
                 l('This relationship type is used to group other relationships. '.
                   'Please select a subtype of the currently selected '.
                   'relationship type.')
             );
             return;
         } elsif ($link_type->description =~ /This relationship type is <strong>deprecated<\/strong>/) {
-            $self->field('link_type_id')->add_error(
+            $link_type_field->add_error(
                 l("This relationship type is deprecated.")
             );
             return
@@ -104,14 +105,14 @@ after validate => sub {
             # Try and find the values for the current attribute (attributes may
             # have more than 1 value)
             my @values = ();
-            if(my $value = $self->field('attrs')->field($attr->name)->value) {
+            if(my $value = $attrs_field->field($attr->name)->value) {
                 @values = $attr->all_children ? @{ $value } : ($attr->id);
             }
 
             # If we have some values, make sure this attribute is allowed for
             # the current link type
             if (@values && !exists $attribute_bounds{ $attr->id }) {
-                $self->field('attrs')->field($attr->name)->add_error(
+                $attrs_field->field($attr->name)->add_error(
                     l('This attribute is not supported for the selected relationship type.'));
             }
 
@@ -122,12 +123,12 @@ after validate => sub {
             # within min and max
             my ($min, $max) = @{ $attribute_bounds{$attr->id} };
             if (defined($min) && @values < $min) {
-                $self->field('attrs')->field($attr->name)->add_error(
+                $attrs_field->field($attr->name)->add_error(
                     l('This attribute is required.'));
             }
 
             if (defined($max) && scalar(@values) > $max) {
-                $self->field('attrs')->field($attr->name)->add_error(
+                $attrs_field->field($attr->name)->add_error(
                     l('This attribute can only be specified {max} times. '.
                       'You specified {n}.', {
                           max => $max,
@@ -136,6 +137,6 @@ after validate => sub {
             }
         }
     }
-};
+}
 
 1;

@@ -19,6 +19,13 @@ has_field 'entity1'      => ( type => 'Compound' );
 has_field 'entity1.id'   => ( type => 'Text' );
 has_field 'entity1.name' => ( type => 'Text' );
 
+after validate => sub {
+    my ($self) = @_;
+
+    $self->validate_link_type($self->ctx,
+        $self->field('link_type_id'), $self->field('attrs'));
+};
+
 sub edit_field_names { qw() }
 
 1;

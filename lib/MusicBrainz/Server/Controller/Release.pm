@@ -742,7 +742,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
 
         if ($action eq 'remove') {
             # prevent people from submitting a remove and edit action on the
-            # same rel
+            # same relationship
             $removed_fields->{$types} //= {};
             $removed_fields->{$types}->{$rel->{id}} = 1;
 

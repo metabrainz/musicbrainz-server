@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::RelationshipEditor;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Form::Relationship::LinkType qw ( validate_link_type );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -189,63 +190,11 @@ after validate => sub {
     my $c = $self->ctx;
 
     foreach my $field ($self->field('rels')->fields) {
+
         my $link_type_field = $field->field('link_type');
         next if !$link_type_field->value || $link_type_field->has_errors;
 
-        my $link_type = $c->model('LinkType')->get_by_id($link_type_field->value);
-
-        if (!$link_type->description) {
-            $field->field('link_type')->add_error(
-                l('This relationship type is used to group other relationships. '.
-                  'Please select a subtype of the currently selected '.
-                  'relationship type.')
-            );
-            return;
-        } elsif ($link_type->description =~ /This relationship type is <strong>deprecated<\/strong>/) {
-            $field->field('link_type')->add_error(
-                l("This relationship type is deprecated.")
-            );
-            return
-        }
-
-        my %attribute_bounds = map { $_->type_id => [$_->min, $_->max] }
-            $link_type->all_attributes;
-
-        foreach my $attr ($self->attr_tree->all_children) {
-            # Try and find the values for the current attribute (attributes may
-            # have more than 1 value)
-            my @values = ();
-            if (my $value = $field->field('attrs')->field($attr->name)->value) {
-                @values = $attr->all_children ? @{ $value } : ($attr->id);
-            }
-
-            # If we have some values, make sure this attribute is allowed for
-            # the current link type
-            if (@values && !exists $attribute_bounds{ $attr->id }) {
-                $field->field('attrs')->field($attr->name)->add_error(
-                    l('This attribute is not supported for the selected relationship type.'));
-            }
-
-            # No values, continue if the attribute is not present (no further checks)
-            next unless exists $attribute_bounds{ $attr->id };
-
-            # This attribute is allowed on this attirbute, make sure we're
-            # within min and max
-            my ($min, $max) = @{ $attribute_bounds{$attr->id} };
-            if (defined($min) && @values < $min) {
-                $field->field('attrs')->field($attr->name)->add_error(
-                    l('This attribute is required.'));
-            }
-
-            if (defined($max) && scalar(@values) > $max) {
-                $field->field('attrs')->field($attr->name)->add_error(
-                    l('This attribute can only be specified {max} times. '.
-                      'You specified {n}.', {
-                          max => $max,
-                          n => scalar(@values)
-                      }));
-            }
-        }
+        validate_link_type($c, $field->field('link_type'), $field->field('attrs'));
 
         my $begin_date = $field->field('begin_date');
         my $end_date = $field->field('end_date');

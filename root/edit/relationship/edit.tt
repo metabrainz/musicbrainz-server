@@ -96,7 +96,7 @@ var typeInfo = [% type_info %];
           [%- relationship_entity(form.field('entity1'), relationship.entity1, relationship.link.type.entity1_type) -%]
         </td>
     </tr>
-    <tr>
+    <tr class="attributes-container">
         <th class="label"><label>[% l('Attributes:') %]</label></td>
         <td>
         [% FOR attr IN attr_tree.children %]
