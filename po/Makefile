@@ -18,7 +18,7 @@ install: $(MOFILES)
 		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
 	done
 
-pot: mb_server.pot statistics.pot countries.pot languages.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
+pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
 
 mb_server.pot: $(POTFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the mb_server.pot file"; 
@@ -46,6 +46,11 @@ languages.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the languages.pot file";
 	@echo "- Update database .pot";
 	@./extract_pot_db languages | msguniq -s > languages.pot
+
+languages_notrim.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the languages.pot file (no trimming)";
+	@echo "- Update database .pot";
+	@./extract_pot_db languages_notrim | msguniq -s > languages_notrim.pot
 
 scripts.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the scripts.pot file";
