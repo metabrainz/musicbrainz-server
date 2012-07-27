@@ -98,7 +98,7 @@
             <div class="ar-descr" data-bind="html: LinkType.descr, visible: LinkType.help() && LinkType.descr()"></div>
           </td>
         </tr>
-        <!-- ko template: {"if": !newWork(), afterRender: initAutocomplete} -->
+        <!-- ko template: {"if": newWork() === false} -->
         <tr>
           <td class="section">
             <select data-bind="targetType: targetType,
@@ -116,7 +116,7 @@
         </tr>
         <!-- /ko -->
         <!-- ko with: relationship -->
-        <!-- ko template: {"if": $root.newWork, afterRender: $root.resize} -->
+        <!-- ko template: {"if": $root.newWork() === true, afterRender: $root.resize} -->
         <tr class="rel-editor">
           <td class="section">[% l('Work') %]:</td>
           <td>
@@ -240,6 +240,15 @@
       </div>
     </div>
 
+<script type="text/html" id="template.relationships">
+  <div class="ars" data-bind="template: {name: 'template.relationship', foreach: relationships,
+    afterAdd: $root.addRelationship, beforeRemove: $root.removeRelationship}">
+  </div>
+  <span class="add-rel btn">
+    <img src="/static/images/icons/add.png" class="bottom"/> Add relationship
+  </span>
+</script>
+
 <script type="text/html" id="template.track">
   <tr class="track" data-bind="css: {ev: position % 2 == 0}">
     <td class="pos t" data-bind="text: number"></td>
@@ -248,12 +257,7 @@
       <a target="_blank" data-bind="text: name, attr: {href: rendering}"></a>
       <!-- ko if: artistCredit -->by <span data-bind="html: artistCredit"></span><!-- /ko -->
       (<!-- ko text: length --><!-- /ko -->)
-      <div class="ars" data-bind="template: {name: 'template.relationship', foreach: relationships,
-        afterAdd: $root.addRelationship, beforeRemove: $root.removeRelationship}">
-      </div>
-      <span class="add-rel btn">
-        <img src="/static/images/icons/add.png" class="bottom"/> Add relationship
-      </span>
+      <!-- ko template: {name: 'template.relationships', data: $data} --><!-- /ko -->
     </td>
     <td class="midcol">
       <span class="relate-work btn">
@@ -287,13 +291,7 @@
       <div data-bind="html: $root.loadingIndicator"></div>
     <!-- /ko -->
     <!-- ko if: !loadingWork() -->
-    <div class="ars" data-bind="template: {name: 'template.relationship', foreach: target().relationships,
-      afterAdd: $root.addRelationship, beforeRemove: $root.removeRelationship}"></div>
-    <!-- ko with: target -->
-    <span class="add-rel btn">
-      <img src="/static/images/icons/add.png" class="bottom"/>
-      Add relationship
-    </span>
+    <!-- ko template: {name: 'template.relationships', data: target} --><!-- /ko -->
     <!-- /ko -->
     <div data-bind="html: hiddenFields, visible: false"></div>
     <!-- /ko -->
@@ -327,7 +325,7 @@
 
       <h3>[% l('Tools:') %]</h3>
       <div>
-        <div id="tools" style="float: left;">
+        <div style="float: left;" data-bind="with: checkboxes">
           <a id="batch-recording" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
             <img src="/static/images/icons/add.png" class="bottom"/>
             [% l('Batch-add a relationship to recordings') %]
@@ -375,7 +373,9 @@
 
       <h2>[% l('Release Relationships') %]</h2>
 
-      <div id="release-rels" class="ars"></div>
+      <div id="release-rels" class="ars">
+        <!-- ko template: {name: 'template.relationships', data: entity} --><!-- /ko -->
+      </div>
 
       [% INCLUDE 'forms/edit-note.tt' %]
       [% enter_edit() %]

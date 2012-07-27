@@ -86,11 +86,12 @@ ko.bindingHandlers.targetType = {
             source = relationship.source;
 
         var types = recordingWork ? ["work"] : allowedRelations[source.type];
-
         $element.empty();
+
         $.each(types, function(i, type) {
             $element.append($("<option></option>").val(type).text(MB.text.Entity[type]));
         });
+        $element.val(Dialog.targetType());
     }
 };
 
@@ -188,12 +189,6 @@ var Dialog = UI.Dialog = {
         var value = ko.observable("");
 
         value.subscribe(function(newValue) {
-            if (!newValue) return;
-
-            Dialog.autocomplete.clear();
-            Dialog.autocomplete.changeEntity(newValue);
-            Dialog.$autocomplete.find("input.name").removeClass("error");
-
             var mode = Dialog.mode();
 
             if (mode == "add" || /^batch\.(recording|work)$/.test(mode)) {
@@ -207,11 +202,20 @@ var Dialog = UI.Dialog = {
                 relationship.target(target);
             }
         });
+
+        value.subscribe(function(newValue) {
+            if (!Dialog.autocomplete) return;
+
+            Dialog.autocomplete.clear();
+            Dialog.autocomplete.changeEntity(newValue);
+            Dialog.$autocomplete.find("input.name").removeClass("error");
+        });
+
         return value;
     })(),
 
     newWork: (function() {
-        var value = ko.observable(false);
+        var value = ko.observable(null);
 
         value.subscribe(function(newValue) {
             var currentTarget = Dialog.relationship().target();
@@ -251,9 +255,8 @@ var Dialog = UI.Dialog = {
     },
 
     initAutocomplete: function() {
-        // note: this is called by the afterRender binding. do not use "this" to
-        // reference the Dialog.
-        var dlg = Dialog;
+        var dlg = Dialog, relationship = dlg.relationship.peek(),
+            target = relationship.target.peek();
 
         dlg.$autocomplete = $("#autocomplete")
             .bind("lookup-performed", function(event, data) {
@@ -265,8 +268,28 @@ var Dialog = UI.Dialog = {
         dlg.autocomplete = MB.Control.EntityAutocomplete({
             inputs: dlg.$autocomplete,
             position: {collision: "fit"},
-            entity: dlg.relationship.peek().target.peek().type
+            entity: target.type
         });
+
+        if (dlg.mode() == "edit") {
+            dlg.autocomplete.term = target.name();
+            dlg.autocomplete.currentSelection = target;
+            dlg.autocomplete.selectedItem = null;
+
+            dlg.$autocomplete.find("input.name")
+                .removeClass("error")
+                .addClass("lookup-performed")
+                .data("lookup-result", target)
+                .val(target.name());
+
+        } else if (relationship.type() == "recording-work") {
+
+            var name = relationship.source.name.peek();
+            dlg.autocomplete.term = name;
+            dlg.autocomplete.selectedItem = null;
+            dlg.$autocomplete.find("input.name").val(name);
+            target.name(name);
+        }
     },
 
     initWorkAutocomplete: function() {
@@ -333,9 +356,7 @@ var Dialog = UI.Dialog = {
         this.$dialog.css({top: $w.scrollTop(), left: $w.scrollLeft()}).fadeIn("fast");
         this.resize();
 
-        if (this.newWork.peek()) {
-            this.initWorkAutocomplete();
-        }
+        this.newWork.peek() ? this.initWorkAutocomplete() : this.initAutocomplete();
     },
 
     hide: function(callback) {
@@ -348,13 +369,14 @@ var Dialog = UI.Dialog = {
         delete dlg.posy;
         delete dlg.initialNewWork;
         delete dlg.previousWork;
+        delete dlg.autocomplete;
+        delete dlg.$autocomplete;
 
         if ($.isFunction(callback)) callback.call(dlg);
 
         dlg.$dialog.fadeOut("fast", function() {
             dlg.relationship(dlg.emptyRelationship);
-            dlg.newWork(false);
-            dlg.autocomplete.clear(true);
+            dlg.newWork(null);
         });
 
         dlg.$overlay.fadeOut("fast");
@@ -487,13 +509,6 @@ UI.AddDialog.show = function(options) {
     this.targetType(target.type);
     this.newWork(options.newWork || false);
 
-    if (relationship.type() == "recording-work") {
-        var autocomplete = this.autocomplete;
-        autocomplete.term = source.name();
-        autocomplete.selectedItem = null;
-        Dialog.$autocomplete.find("input.name").val(source.name());
-        target.name(source.name());
-    }
     Dialog.show.call(this);
 }
 
@@ -527,21 +542,9 @@ UI.EditDialog.show = function(relationship) {
     dlg.relationship(relationship);
     dlg.targetType(target.type);
 
-    if (dlg.newWork()) {
-        dlg.initialNewWork = dlg.originalTarget;
-    } else {
-        var autocomplete = dlg.autocomplete;
-        autocomplete.term = target.name();
-        autocomplete.currentSelection = target;
-        autocomplete.selectedItem = null;
+    if (dlg.newWork()) dlg.initialNewWork = dlg.originalTarget;
 
-        Dialog.$autocomplete.find("input.name")
-            .removeClass("error")
-            .addClass("lookup-performed")
-            .data("lookup-result", target)
-            .val(target.name());
-    }
-    Dialog.show.call(this);
+    dlg.show.call(this);
 };
 
 UI.EditDialog.hide = function(cancel) {
@@ -652,16 +655,15 @@ UI.BatchCreateWorksDialog.show = function() {
     Dialog.targets = UI.checkedRecordings();
 
     if (Dialog.targets.length > 0) {
-        var source = Util.tempEntity("recording");
+        var target = Util.tempEntity("work");
 
         // the user can't edit the work name in this dialog (the names are
         // taken from the recordings), but this has to be set to something
-        // so that validation passes. we're setting the recording name here
-        // because it's copied to the work name in UI.AddDialog.show.
-        source.name("foo");
+        // so that validation passes.
+        target.name("foo");
 
         UI.AddDialog.show.call(this, {
-            source: source, target: Util.tempEntity("work"),
+            source: Util.tempEntity("recording"), target: target,
             mode: "batch.create.works", newWork: true
         });
     }

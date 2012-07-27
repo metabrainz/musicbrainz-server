@@ -28,6 +28,8 @@ var UI = RE.UI = {}, Util = RE.Util;
 UI.release = {
     media: ko.observableArray([]),
 
+    relationships: ko.observableArray([]),
+
     addRelationship: function(element, i, relationship) {
         $(element).hide().fadeIn("fast");
 
@@ -41,6 +43,31 @@ UI.release = {
     removeRelationship: function(element, i, relationship) {
         $(element).fadeOut("fast", function() {$(this).remove()});
     },
+
+    checkboxes: (function() {
+
+        var rstr = MB.text.RecordingSelection, wstr = MB.text.WorkSelection,
+            checkboxes = {
+                recordingCount: ko.observable(0),
+                workCount: ko.observable(0)
+            };
+
+        checkboxes.recordingMessage = ko.computed(function() {
+
+            var count = checkboxes.recordingCount();
+            return "(" + (count == 1 ? rstr[0] : rstr[1]).replace("{num}", count) + ")";
+
+        }).extend({throttle: 20});
+
+        checkboxes.workMessage = ko.computed(function() {
+
+            var count = checkboxes.workCount();
+            return "(" + (count == 1 ? wstr[0] : wstr[1]).replace("{num}", count) + ")";
+
+        }).extend({throttle: 20});
+
+        return checkboxes;
+    })(),
 
     loadingIndicator:
         '<span class="loading">' +
@@ -59,7 +86,9 @@ UI.init = function(releaseGID) {
     // preload image to avoid flickering
     $("<img/>").attr("src", "/static/images/icons/add.png");
 
-    ko.applyBindings(UI.release, UI.$tbody[0]);
+    UI.release.entity = RE.Entity({type: "release", gid: releaseGID});
+
+    ko.applyBindings(UI.release, document.getElementById("form"));
 
     var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
         $loading = $(UI.release.loadingIndicator).insertAfter("#tracklist");
@@ -84,6 +113,8 @@ UI.init = function(releaseGID) {
     var media = UI.release.media;
 
     $.getJSON(url, function(data) {
+        data.type = "release";
+        RE.Entity(data);
 
         $.each(data.mediums, function(i, medium) {
             medium.format = (medium.format || MB.text.Medium) + " " + medium.position;
@@ -96,6 +127,9 @@ UI.init = function(releaseGID) {
                 setTimeout(function() {renderTrack(track, medium, data)}, 0);
             });
         });
+
+        Util.parseRelationships(data, true);
+
         UI.initButtons();
         UI.initCheckboxes();
         $loading.remove();
@@ -108,23 +142,9 @@ UI.initCheckboxes = function() {
     var $medium_recordings = UI.$tbody.find("input.medium-recordings"),
         $medium_works = UI.$tbody.find("input.medium-works"),
         recording_selector = "td.recording > input[type=checkbox]",
-        work_selector = "td.works > div.ar > input[type=checkbox]",
-        rstr = MB.text.RecordingSelection, wstr = MB.text.WorkSelection;
+        work_selector = "td.works > div.ar > input[type=checkbox]";
 
-    var checkboxes = {
-        recordingCount: ko.observable(0),
-        workCount: ko.observable(0)
-    };
-
-    checkboxes.recordingMessage = ko.computed(function() {
-        var count = checkboxes.recordingCount();
-        return "(" + (count == 1 ? rstr[0] : rstr[1]).replace("{num}", count) + ")";
-    }).extend({throttle: 20});
-
-    checkboxes.workMessage = ko.computed(function() {
-        var count = checkboxes.workCount();
-        return "(" + (count == 1 ? wstr[0] : wstr[1]).replace("{num}", count) + ")";
-    }).extend({throttle: 20});
+    var checkboxes = UI.release.checkboxes;
 
     function count($inputs) {
         var src = {}, count = 0, input;
@@ -179,8 +199,6 @@ UI.initCheckboxes = function() {
 
     range(recording_selector, checkboxes.recordingCount);
     range(work_selector, checkboxes.workCount);
-
-    ko.applyBindings(checkboxes, document.getElementById("tools"));
 };
 
 
