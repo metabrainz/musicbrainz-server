@@ -28,7 +28,8 @@ has_field 'rels' => (
 );
 
 has_field 'rels.id' => (
-    type => 'Integer'
+    type => 'Text',
+    required => 1
 );
 
 has_field 'rels.action' => (
@@ -37,11 +38,6 @@ has_field 'rels.action' => (
 );
 
 has_field 'rels.link_type' => (
-    type => 'Integer',
-    required => 1
-);
-
-has_field 'rels.num' => (
     type => 'Integer',
     required => 1
 );
@@ -75,16 +71,16 @@ has_field 'rels.entity.sortname' => (
     type => '+MusicBrainz::Server::Form::Field::Text'
 );
 
-has_field 'rels.entity.work_comment' => (
+has_field 'rels.entity.comment' => (
     type      => '+MusicBrainz::Server::Form::Field::Comment',
     maxlength => 255
 );
 
-has_field 'rels.entity.work_type_id' => (
+has_field 'rels.entity.work_type' => (
     type => 'Select'
 );
 
-has_field 'rels.entity.work_language_id' => (
+has_field 'rels.entity.work_language' => (
     type => 'Select'
 );
 
@@ -108,11 +104,11 @@ has_field 'rels.direction' => (
     type => 'Select'
 );
 
-sub options_rels_entity_work_type_id {
+sub options_rels_entity_work_type {
     shift->_select_all('WorkType');
 }
 
-sub options_rels_entity_work_language_id {
+sub options_rels_entity_work_language {
     return shift->language_options;
 }
 
@@ -251,6 +247,26 @@ after validate => sub {
             }
         }
 
+        my $begin_date = $field->field('begin_date');
+        my $end_date = $field->field('end_date');
+
+        if (!$begin_date->has_errors && !$end_date->has_errors) {
+
+            my $y1 = $begin_date->field('year')->value;
+            my $m1 = $begin_date->field('month')->value;
+            my $d1 = $begin_date->field('day')->value;
+
+            my $y2 = $end_date->field('year')->value;
+            my $m2 = $end_date->field('month')->value;
+            my $d2 = $end_date->field('day')->value;
+
+            if (MusicBrainz::Server::Validation::IsDateEarlierThan(
+                    $y2, $m2, $d2, $y1, $m1, $d1)) {
+
+                $end_date->add_error(l('The end date cannot precede the begin date.'));
+            }
+        }
+
         my $entity0 = $field->field('entity')->field('0');
         my $entity1 = $field->field('entity')->field('1');
 
@@ -305,21 +321,22 @@ after validate => sub {
         }
     }
     foreach my $field ($self->field('rels')->fields) {
-        $self->_get_errors($c, $field, $field->field('num')->value);
+        $self->_get_errors($c, $field, $field->field('id')->value);
     }
 };
 
 sub _get_errors {
-    my ($self, $c, $field, $num) = @_;
+    my ($self, $c, $field, $id) = @_;
 
     if ($field->has_errors) {
-        (my $name = $field->html_name) =~ s/rels\.\d+/rels\.$num/;
-        $c->stash->{error_fields}->{$name} = $field->errors;
+        my $name = $field->full_name;
+        $name =~ s/^rels\.\d+\.//;
+
+        $c->stash->{error_fields}->{$id} //= {};
+        $c->stash->{error_fields}->{$id}->{$name} = $field->errors;
     }
     if ($field->has_fields) {
-        foreach my $subfield ($field->fields) {
-            $self->_get_errors($c, $subfield, $num);
-        }
+        $self->_get_errors($c, $_, $id) for $field->fields;
     }
 }
 

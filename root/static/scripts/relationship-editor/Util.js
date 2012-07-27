@@ -19,27 +19,102 @@
 
 (function() {
 
-var Util = RE.Util, CGI = Util.CGI = {}, cgi_regex,
-    added_rels = {}, edited_rels = {}, removed_rels = {};
+var Util = RE.Util, CGI = Util.CGI = {}, CGIRegex;
+
+
+Util.parseRelationships = function(obj, checkCGIParams) {
+    var source = RE.Entity(obj);
+
+    $.each(obj.relationships, function(target_type, rel_types) {
+        if (obj.type == "work" && target_type == "recording") return;
+        if (target_type == "url") return; // no url support yet
+
+        $.each(rel_types, function(rel_type, rels) {
+
+            for (var i = 0; i < rels.length; i++) {
+                var rel = rels[i], target, relationship, type, orig;
+                type = RE.Util.type(rel.link_type);
+                orig = RE.serverFields[type] = RE.serverFields[type] || {};
+
+                if (orig[rel.id] !== undefined) continue;
+
+                Util.attrsForLinkType(rel.link_type, function(attr) {
+                    var name = attr.name;
+                    rel.attributes[name] = Util.convertAttr(attr, rel.attributes[name]);
+                });
+                rel.begin_date = Util.parseDate(rel.begin_date || "");
+                rel.end_date = Util.parseDate(rel.end_date || "");
+                rel.ended = Boolean(rel.ended);
+                rel.direction = rel.direction || "forward";
+
+                orig = orig[rel.id] = $.extend(true, {}, rel);
+                orig.target.type = target_type;
+                orig.target = RE.Entity(orig.target);
+                orig.attributes = ko.toJS(rel.attributes);
+
+                if (checkCGIParams) {
+                    try {
+                        $.extend(true, rel, CGI.actions.edit[type][rel.id]);
+                    } catch (e) {};
+
+                    try {
+                        $.extend(true, rel, CGI.actions.remove[type][rel.id]);
+                    } catch (e) {};
+                }
+                target = rel.target;
+                target.type = target_type;
+
+                if (target_type == "url") {
+                    target.name = target.url;
+                    delete target.url;
+                }
+                rel.source = source;
+                rel.target = RE.Entity(target);
+
+                RE.Relationship(rel, !checkCGIParams).show();
+
+                if (target.relationships) Util.parseRelationships(target, checkCGIParams);
+            }
+        });
+    });
+
+    if (checkCGIParams) {
+        var added = CGI.actions.add[source.gid], obj, src, target;
+        if (added === undefined) return;
+
+        for (var i = 0; i < added.length; i++) {
+            var obj = added[i];
+
+            obj.source = source;
+            obj.target = RE.Entity(obj.target);
+
+            RE.Relationship(obj).show();
+        }
+    }
+};
+
+
+// form state is preserved using three variables, one for each action.
+
+CGI.actions = {add: {}, edit: {}, remove: {}};
 
 // parseParams makes a lot of assumptions about how the params look (i.e. valid).
 // the regex is used to skip any invalid ones
 
-cgi_regex = new RegExp(
+CGIRegex = new RegExp(
     "^rel-editor\\.rels\\.\\d+\\.(?:id|action|link_type|entity\\.[01]\\.(?:id|" +
-    "type|name|gid|sortname|work_comment|work_type_id|work_language_id)|ended|" +
-    "begin_date\\.(?:year|month|day)|end_date\\.(?:year|month|day)|attrs\\.(?:" +
-    "[a-z_]+(?:\\.\\d+)?)|direction)$"
+    "type|name|gid|sortname|comment|work_type|work_language)|ended|begin_date\\" +
+    ".(?:year|month|day)|end_date\\.(?:year|month|day)|attrs\\.(?:[a-z_]+(?:\\" +
+    ".\\d+)?)|direction)$"
 );
 
+CGI.parseParams = function(params, errorFields) {
+    var result = {};
 
-var params2obj = function(params, validate) {
-    var result = {}, keys = MB.utility.keys(params), key;
+    $.each(params, function(key, value) {
+        if (!CGIRegex.test(key)) return;
 
-    for (var i = 0; key = keys[i]; i++) {
-        if (validate !== false && !cgi_regex.test(key)) continue;
-
-        var value = params[key], parts = key.split("."), num = parts[2],
+        var parts = key.split("."), num = parts[2],
             field = result[num] = result[num] || {};
 
         if ($.isArray(value)) value = value[0];
@@ -51,93 +126,57 @@ var params2obj = function(params, validate) {
             field = field[part] = field[part] ||
                 ((part == "entity" || parts[j - 1] == "attrs") ? [] : {});
         }
-    }
-    return result;
-};
+    });
 
+    $.each(result, function(num, fields) {try {
+        if (errorFields[fields.id]) fields.serverErrors = errorFields[fields.id];
 
-CGI.parseParams = function(params, error_fields) {
-    var result = params2obj(params), error_fields = params2obj(error_fields, false);
+        var entity0 = fields.entity[0], entity1 = fields.entity[1],
+            typeInfo = RE.typeInfo[fields.link_type], types, src;
 
-    /* form state is preserved using three variables, each representing
-       a separate action:
-       - edited_rels and removed_rels are origanized by their id
-       - added_rels are organized into lists based on the source entity's gid
-     */
-    var relnums = MB.utility.keys(result);
-
-    for (i = 0; i < relnums.length; i++) {try {
-        var num = relnums[i], fields = result[num];
-        if (error_fields[num]) fields.errors = error_fields[num];
-
-        var entity0 = fields.entity[0] = RE.Entity(fields.entity[0]),
-            entity1 = fields.entity[1] = RE.Entity(fields.entity[1]),
-            type_info = RE.type_info[fields.link_type], typestr,
-            removed, added, edited;
-
-        // the link type field is invalid, let's try to set it to something
-        if (!type_info) {
-            typestr = entity0.type + "-" + entity1.type;
-            var type_info = RE.type_info_by_entities[typestr];
-            if (type_info === undefined) continue;
-
-            fields.link_type = type_info[0].descr
-                ? type_info[0].id : type_info[0].children[0];
+        if (typeInfo) {
+            types = typeInfo.types.join("-");
         } else {
-            typestr = type_info.types.join("-");
+            // the link type field is invalid, let's try to set it to something
+            fields.link_type = Util.defaultLinkType(entity0.type, entity1.type);
+            typeInfo = RE.typeInfo[fields.link_type];
+            types = typeInfo.types.join("-");
         }
 
-        if (fields.action == "remove") {
-            if ((removed = removed_rels[typestr]) === undefined) {
-                removed = removed_rels[typestr] = {};
-            }
-            removed[fields.id] = fields;
-        } else {
-            fields.attrs = fields.attrs || {};
+        src = Util.src(fields.link_type, fields.direction);
+        fields.source = fields.entity[src];
+        fields.target = fields.entity[1 - src];
+        delete fields.entity;
+        fields.attributes = {};
 
-            if (fields.action == "add") {
-                var source = fields.entity[Util.src(fields.link_type, fields.direction)];
-
-                if ((added = added_rels[source.gid]) === undefined) {
-                    added = added_rels[source.gid] = [];
-                }
-                added.push(fields);
-            } else if (fields.action == "edit") {
-                if ((edited = edited_rels[typestr]) === undefined) {
-                    edited = edited_rels[typestr] = {};
-                }
-                edited[fields.id] = fields;
-            }
+        if (fields.attrs) {
+            Util.attrsForLinkType(fields.link_type, function(attr) {
+                var name = attr.name;
+                fields.attrs[name] = Util.convertAttr(attr, fields.attrs[name]);
+            });
+            fields.attributes = fields.attrs;
+            delete fields.attrs;
         }
-    } catch (e) {}}
+
+        var actions = CGI.actions[fields.action], gid = fields.source.gid;
+
+        fields.action == "add"
+            ? (actions[gid] = actions[gid] || []).push(fields)
+            : ((actions[types] = actions[types] || {})[fields.id] = fields);
+
+    } catch (e) {}});
 };
 
 
-CGI.added = function(gid) {
-    return added_rels[gid];
-};
-
-CGI.edited = function(fields) {
-    var types = Util.typestr(fields.link_type);
-    return (edited_rels[types] || {})[fields.id];
-};
-
-CGI.removed = function(fields) {
-    var types = Util.typestr(fields.link_type);
-    return (removed_rels[types] || {})[fields.id];
-};
-
-
-var date_regex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
+var dateRegex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
 
 Util.parseDate = function(str) {
-    var match = str.match(date_regex);
-    if (match) {
-        date = {year: parseInt(match[1], 10)};
-        if (match[2]) date.month = parseInt(match[2], 10);
-        if (match[3]) date.day = parseInt(match[3], 10);
-        return date;
-    }
+    var match = str.match(dateRegex) || [];
+    return {
+        year:  match[1] || null,
+        month: match[2] || null,
+        day:   match[3] || null
+    };
 };
 
 
@@ -156,31 +195,81 @@ Util.compareArtistCredits = function(a, b) {
 };
 
 
-var mbid_regex = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/;
+var MBIDRegex = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/;
 
 Util.isMBID = function(str) {
-    return str.match(mbid_regex) !== null;
+    return str.match(MBIDRegex) !== null;
 };
 
 
-var entity_relations = {
+var entityRelations = {
     'artist-recording': 1, 'artist-release': 1, 'artist-work': 1,
     'label-recording':  1, 'label-release':  1, 'label-work':  1,
     'recording-url':    0, 'recording-work': 0, 'release-url': 0, 'url-work': 1,
 };
 // given a link type and a direction, tells us what the source is
 
-Util.src = function(link_type, direction) {
-    var types = RE.type_info[link_type].types, str = types.join("-");
+Util.src = function(linkType, direction) {
+    if (!linkType) return null;
+    var types = RE.typeInfo[linkType].types, str = types.join("-");
 
     return ((types[0] == types[1] || str == "recording-release")
-        ? (direction == "backward" ? 1 : 0) : entity_relations[str]);
+        ? (direction == "backward" ? 1 : 0) : entityRelations[str]);
 };
 
 
-Util.typestr = function(link_type) {
-    var info = RE.type_info[link_type];
+Util.type = function(linkType) {
+    var info = RE.typeInfo[linkType];
     return info ? info.types.join("-") : null;
+};
+
+
+Util.ID = function() {
+    var alphabet = "0123456789abcdef", id = "";
+    while (id.length < 10)
+        id += alphabet[Math.floor(Math.random() * 16)];
+    return id;
+};
+
+
+Util.tempEntity = function(type) {
+    var id = Util.ID();
+    return RE.Entity({type: type, id: id, gid: id});
+};
+
+
+Util.convertAttr = function(root, value) {
+    if (root.children) {
+        if (!$.isArray(value)) value = [value];
+
+        return $.map(value, function(v) {
+            return parseInt(v, 10) || null;
+        });
+    } else {
+        if ($.isNumeric(value)) value = parseInt(value, 10);
+        return Boolean(value);
+    }
+};
+
+
+Util.attrsForLinkType = function(linkType, callback) {
+    var typeInfo = RE.typeInfo[linkType];
+    if (!typeInfo || !typeInfo.attrs) return {};
+
+    $.each(typeInfo.attrs, function(id, info) {
+        callback(RE.attrMap[id]);
+    });
+};
+
+
+Util.defaultLinkType = function(sourceType, targetType) {
+    var type = sourceType + "-" + targetType, linkType;
+
+    if (!RE.typeInfoByEntities[type])
+        type = targetType + "-" + sourceType;
+
+    linkType = RE.typeInfoByEntities[type][0];
+    return linkType.descr ? linkType.id : linkType.children[0];
 };
 
 })();

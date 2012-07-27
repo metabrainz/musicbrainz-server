@@ -82,3 +82,19 @@ license:     MIT/GPL
 version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
+
+-- knockout/knockout-latest.debug.js --
+
+library:     Knockout
+license:     MIT
+version:     GIT, 2012-07-23
+author:      Steven Sanderson
+url:         http://knockoutjs.com
+
+-- knockout/knockout.mapping-latest.debug.js --
+
+library:     Knockout mapping
+license:     MIT
+version:     v2.2.3
+author:      Steven Sanderson, Roy Jacobs
+url:         http://knockoutjs.com/documentation/plugins-mapping.html

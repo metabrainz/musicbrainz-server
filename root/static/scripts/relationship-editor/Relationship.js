@@ -19,183 +19,324 @@
 
 (function() {
 
-var UI = RE.UI;
+var UI = RE.UI, Util = RE.Util, Fields = RE.Fields, mapping, cache = {}, relcount = 0;
 
 
-RE.Relationship = function(obj, source, target, compare) {
+ko.bindingHandlers.action = {
+    update: function(element, valueAccessor) {
+        var relationship = ko.utils.unwrapObservable(valueAccessor()),
+            action = relationship.action(), $element = $(element);
 
-    this.$container = $('<div class="ar"></div>');
-    this.source = source;
-    this.target = target;
-    source.relationships.push(this);
-
-    for (key in obj) this[key] = obj[key];
-    this.num = Relationship.relcount += 1;
-    this.type = RE.Util.typestr(this.fields.link_type);
-
-    var $remove = new UI.Buttons.Remove(this),
-        $phrase = $('<a href="#" class="link-phrase"></a>').data("relationship", this),
-        $entity = $('<span class="entity"></span>').append(UI.renderEntity(target));
-
-    if (this.type == "recording-work") {
-        this.$container.append(
-            $(UI.checkbox).data("source", target), $entity, "&#160;(", $phrase, ")",
-            $remove, '<div class="ars"></div>', new UI.Buttons.AddRelationship(target)
-        );
-        this.resetARContainers();
-    } else {
-        this.$container.append($remove, $phrase, ":&#160;", $entity);
+        $element
+            .toggleClass("rel-remove disabled", action == "remove")
+            .toggleClass("rel-add", action == "add")
+            .toggleClass("rel-edit", action == "edit");
     }
-    this.update(null, compare);
-};
-
-var Relationship = RE.Relationship;
-Relationship.relcount = 0;
-
-
-Relationship.prototype.update = function(obj, compare) {
-    var create_fields = false, fields, $phrase, $entity, $c = this.$container;
-
-    if (obj) for (key in obj) this[key] = obj[key];
-    fields = this.fields;
-    fields.num = this.num;
-
-    $phrase = $c.children("a.link-phrase").html(this.linkPhrase());
-    $entity = $c.children("span.entity");
-
-    this.errors ? $phrase.addClass("error-field") : $phrase.removeClass("error-field");
-    this.edits_pending ? $entity.addClass("rel-edit") : $entity.removeClass("rel-edit");
-
-    var action = fields.action;
-    if (action == "add") {
-        create_fields = true;
-        $phrase.addClass("rel-add");
-
-    } else if (action != "add" && compare) {
-        var orig = RE.server_fields[this.type][fields.id];
-        delete fields.action;
-
-        if (this.isIdentical(orig)) {
-            if (action && action != "edit") {
-                fields.action = action;
-                create_fields = true;
-            }
-            $phrase.removeClass("rel-edit");
-        } else {
-            fields.action = "edit";
-            create_fields = true;
-            $phrase.addClass("rel-edit");
-        }
-    }
-    if (action == "remove") {
-        create_fields = true;
-        $phrase.addClass("rel-remove disabled");
-    } else {
-        $phrase.removeClass("rel-remove disabled");
-    }
-
-    var old_target = this.target, target = this.target =
-        fields.entity[1 - RE.Util.src(fields.link_type, fields.direction)],
-        target_changed = old_target !== target, gid = target.gid;
-
-    if (target_changed && !target.new_work)
-        $entity.empty().append(UI.renderEntity(target));
-
-    // for new works, we want to update the entity everywhere it appears, not
-    // just for this relationship
-    if (target.new_work) {
-        $entity.addClass(target.id);
-        var $new_work = $("#tracklist span." + target.id);
-        $new_work.empty().append(UI.renderEntity(target));
-        RE.new_works[target.id] = target;
-    }
-    // if the user changed a work, we need to request its relationships
-    if (target_changed && this.type == "recording-work" && !RE.works_loading[gid]) {
-        target.$ars = $c.children("div.ars").empty();
-
-        if (old_target) {
-            old_target.$ars = old_target.$ars.not(target.$ars);
-            old_target.removeOrphans();
-
-            if (old_target.new_work) {
-                $entity.removeClass(old_target.id);
-                if (old_target.$ars.length == 0) {
-                    old_target.remove();
-                    delete RE.new_works[old_target.id];
-                }
-            }
-        }
-        if (RE.Util.isMBID(gid)) {
-            var $loading = $(UI.loading_indicator).appendTo(target.$ars);
-            RE.works_loading[gid] = 1;
-
-            $.get("/ws/js/entity/" + gid + "?inc=rels")
-                .success(function(data) {
-                    $loading.remove();
-                    RE.parseRelationships(data, !old_target);
-                    UI.renderWorkRelationships(RE.Entity(data), true);
-                })
-                .error(function() {
-                    $loading.remove();
-                    $('<span class="error"></span>')
-                        .text(MB.text.ErrorLoadingRelationships)
-                        .appendTo(target.$ars);
-                })
-                .complete(function() {
-                    delete RE.works_loading[gid];
-                });
-        }
-        $c.children("input[type=checkbox], a.add-rel").data("source", target);
-    }
-    $c.children("input[type=hidden]").remove();
-    if (create_fields) this.createFields();
 };
 
 
-Relationship.prototype.remove = function() {
-    // have to empty the children too so that they lose their parent
-    this.$container.children().empty().end().empty().remove();
-    this.target.removeOrphans();
-    this.source.removeOrphans();
-    delete RE.new_works[this.target];
-    delete RE.relationships[this.type][this.fields.id];
+var updateAttributes = function(relationship, target, value) {
+    var validAttrs = {};
+
+    Util.attrsForLinkType(relationship.link_type(), function(attr) {
+        var name = attr.name;
+
+        if (target[name] === undefined) {
+            target[name] = Fields.Attribute(name, value[name], attr, relationship);
+
+        } else if (value[name] !== undefined) {
+            target[name](value[name]);
+        }
+        validAttrs[name] = 1;
+    });
+
+    var allAttrs = MB.utility.keys(target), name, attr;
+
+    for (var i = 0; name = allAttrs[i]; i++) {
+        attr = target[name];
+
+        if (validAttrs[name] === undefined) {
+            if (attr.hasError) attr.error("");
+            attr.errorSub.dispose();
+            delete target[name];
+        }
+    }
+};
+
+
+mapping = {
+    // entities (source, target) have their own mapping options in Entity.js
+    ignore:  ["source", "target", "num", "visible"],
+    copy:    ["edits_pending", "id", "serverErrors"],
+    include: ["link_type", "num", "action", "direction", "ended", "begin_date",
+              "end_date", "attributes"],
+    attributes: {
+        update: function(options) {return $.extend(true, {}, options.data)}
+    },
+    begin_date: {
+        update: function(options) {
+            var data = options.data, date = options.target;
+            data = typeof data == "string" ? Util.parseDate(data) : data;
+            date.year(data.year);
+            date.month(data.month);
+            date.day(data.day);
+            return date;
+        }
+    },
+    ended: {
+        update: function(options) {return Boolean(options.data)}
+    }
+};
+
+mapping.end_date = mapping.begin_date;
+
+
+RE.Relationship = function(obj, tryToMerge) {
+    obj.link_type = obj.link_type || Util.defaultLinkType(obj.source.type, obj.target.type);
+    var type = Util.type(obj.link_type), relationship, _cache;
+
+    if ((_cache = cache[type]) === undefined) _cache = cache[type] = {};
+    if (obj.id === undefined) obj.id = Util.ID();
+
+    if ((relationship = _cache[obj.id]) === undefined)
+        relationship = _cache[obj.id] = new Relationship(obj);
+
+    if (tryToMerge && relationship.source.mergeRelationship(relationship)) {
+        delete _cache[obj.id];
+        return null;
+    }
+    return relationship;
+};
+
+
+var Relationship = function(obj) {
+    var self = this;
+
+    this.exists = false; // new relationships still being edited don't exist
+
+    this.id = obj.id;
+    this.num = relcount += 1;
+    this.changeCount = 0;
+    this.errorCount = 0;
+    this.action = ko.observable(obj.action || "");
+    this.hasErrors = ko.observable(Boolean(obj.serverErrors));
+
+    if (this.hasErrors())
+        this.errorCount = MB.utility.keys(obj.serverErrors).length;
+
+    this.link_type = Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
+    this.begin_date = Fields.PartialDate(Util.parseDate(""));
+    this.end_date = Fields.PartialDate(Util.parseDate(""));
+    this.ended = ko.observable(false);
+    this.direction = ko.observable("forward");
+
+    // computed observables alert their subscribers even when the value doesn't
+    // change, which we don't want, so this is mainly boilerplate to prevent that.
+    this.type = (function() {
+        var value = ko.observable(null);
+
+        ko.computed(function() {
+            value(Util.type(self.link_type()));
+        });
+        return value;
+    })();
+
+    this.dateRendering = ko.computed(function() {
+        return self.renderDate();
+    }).extend({throttle: 10});
+
+    // entities have a refcount so that they can be deleted when they aren't
+    // referenced by any relationship. we use a computed observable for the target,
+    // so that we don't have to remember to decrement the refcount each time the
+    // target changes.
+
+    obj.source.refcount += 1;
+    this.source = obj.source; // source can't change
+
+    obj.target.refcount += 1;
+    var target = ko.observable(obj.target);
+
+    this.target = ko.computed({
+        read: target,
+        write: function(newValue) {
+            var oldTarget = target(),
+                newTarget = RE.Entity(ko.utils.unwrapObservable(newValue));
+
+            if (oldTarget !== newTarget) {
+                // we no longer want validation notifications for this entity's name
+                self.target.nameSubs[self.id].dispose();
+                delete self.target.nameSubs[self.id];
+
+                self.changeTarget(oldTarget, newTarget, target);
+            }
+        }
+    }).extend({field: [self, "target"]});
+
+    // XXX trigger the validation subscription's callback, so that validation
+    // on the target's name is registered as well. that'll get added to
+    // target.nameSub.
+    this.target.validationSub.callback(obj.target);
+
+    // if the relationship's link type changes (in the edit dialog, for example),
+    // it's convenient to be able to write directly to any attribute that's valid
+    // for the link type. the computed observable below makes sure that they exist.
+
+    this.attributes = (function() {
+        var value = {};
+        return ko.computed({
+            read: function() {
+                updateAttributes(self, value, {});
+                return value;
+            },
+            write: function(newValue) {
+                updateAttributes(self, value, newValue);
+            },
+            deferEvaluation: true
+        });
+    })();
+
+    ko.mapping.fromJS(obj, mapping, this);
+
+    // add these *after* pulling in the obj mapping, otherwise they'll mark the
+    // relationship as having changes.
+    this.begin_date.extend({field: [this, "begin_date"]});
+    this.end_date.extend({field: [this, "end_date"]});
+    this.ended.extend({field: [this, "ended"]});
+    this.direction.extend({field: [this, "direction"]});
+    this.attributes.extend({field: [this, "attributes"]});
+
+    this.entity = ko.computed(function() {
+        var src = Util.src(self.link_type(), self.direction());
+        return src == 0 ? [self.source, self.target()] : [self.target(), self.source];
+    });
+
+    this.linkPhrase = ko.computed(self.buildLinkPhrase, this).extend({throttle: 10});
+    this.hiddenFields = ko.computed(this.buildFields, this).extend({throttle: 100});
+    this.loadingWork = ko.observable(false);
+
+    this.edits_pending
+        ? (this.openEdits = ko.computed(this.buildOpenEdits, this))
+        : (this.edits_pending = false);
+
+    delete this.serverErrors;
+    delete obj;
+};
+
+
+Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable) {
+    if (oldTarget) oldTarget.remove();
+
+    observable(newTarget);
+    newTarget.refcount += 1;
+
+    if (oldTarget.type != newTarget.type) {
+        // the type changed. our relationship cache is organized by type, so we
+        // have to move the position of this relationship in the cache.
+        var oldType = Util.type(this.link_type()), newType;
+
+        this.link_type(Util.defaultLinkType(this.source.type, newTarget.type));
+        newType = Util.type(this.link_type());
+
+        (cache[newType] = cache[newType] || {})[this.id] = cache[oldType][this.id];
+        delete cache[oldType][this.id];
+    }
+
+    if (this.type() == "recording-work")
+        this.workChanged(newTarget);
+};
+
+// if the user changed a work, we need to request its relationships.
+
+var worksLoading = {};
+
+Relationship.prototype.workChanged = function(work) {
+    var gid = work.gid, self = this;
+    if (!Util.isMBID(gid) || worksLoading[gid]) return;
+
+    this.loadingWork(true);
+    worksLoading[gid] = 1;
+
+    $.get("/ws/js/entity/" + gid + "?inc=rels")
+        .success(function(data) {
+            Util.parseRelationships(data, false);
+        })
+        .complete(function() {
+            self.loadingWork(false);
+            delete worksLoading[gid];
+        });
+};
+
+
+Relationship.prototype.show = function() {
+    var source = this.source;
+    if (this.type.peek() == "recording-work") {
+        if (source.performanceRelationships.peek().indexOf(this) == -1) {
+            source.performanceRelationships.push(this);
+            this.target.peek().performanceRefcount += 1;
+        }
+    } else {
+        if (source.relationships.peek().indexOf(this) == -1)
+            source.relationships.push(this);
+    }
+    this.exists = true;
 };
 
 
 Relationship.prototype.reset = function(obj) {
-    delete this.errors;
-    var fields = RE.server_fields[this.type][this.fields.id];
-    if (fields) this.update({fields: $.extend(obj, fields)}, true);
+    this.hasErrors(false);
+    var fields = RE.serverFields[this.type()][this.id];
+
+    if (fields) {
+        ko.mapping.fromJS(fields, this);
+        this.target(fields.target);
+    }
+};
+
+
+Relationship.prototype.remove = function() {
+    var recordingWork = (this.type() == "recording-work"), target = this.target();
+
+    if (recordingWork) {
+        this.source.performanceRelationships.remove(this);
+        target.performanceRefcount -= 1;
+    } else {
+        this.source.relationships.remove(this);
+    }
+
+    this.source.remove();
+    target.remove();
+
+    if (recordingWork && target.performanceRefcount <= 0) {
+        var relationships = target.relationships.slice(0);
+
+        for (var i = 0; i < relationships.length; i++)
+            relationships[i].remove();
+    }
+    delete cache[this.type()][this.id];
+    this.exists = false;
 };
 
 // Constructs the link phrase to display for this relationship
 
-Relationship.prototype.linkPhrase = function() {
+Relationship.prototype.buildLinkPhrase = function() {
+    var typeInfo = RE.typeInfo[this.link_type()];
+    if (!typeInfo) return "";
 
-    var attrs = {}, type_info = RE.type_info[this.fields.link_type],
-        phrase = this.source === this.fields.entity[0]
-            ? type_info.link_phrase : type_info.reverse_link_phrase;
+    var attrs = {}, m, phrase = this.source === this.entity()[0]
+        ? typeInfo.link_phrase : typeInfo.reverse_link_phrase;
 
-    if (this.fields.attrs) {
-        var names = MB.utility.keys(this.fields.attrs);
+    $.each(this.attributes(), function(name, observable) {
+        var value = observable(), str = name, isArray = $.isArray(value);
 
-        for (var i = 0; i < names.length; i++) {
-            var name = names[i], vals = this.fields.attrs[name], str;
+        if (!value || isArray && !value.length) return;
+        if (isArray) {
+            value = $.map(value, function(v) {return RE.attrMap[v].name});
 
-            if (typeof vals == "object") {
-                vals = vals.slice(0);
-                for (var j = vals.length; j > 0;) {
-                    vals[--j] = RE.attr_map[vals[j]].name;
-                }
-                var list = vals.slice(0, -1).join(", ");
-                str = (list && list + " & ") + (vals.pop() || "");
-            } else {
-                str = name;
-            }
-            attrs[name] = str;
+            var list = value.slice(0, -1).join(", ");
+            str = (list && list + " & ") + (value.pop() || "");
         }
-    }
-    var m;
+        attrs[name] = str;
+    });
     while (m = phrase.match(/\{(.*?)(?::(.*?))?\}/)) {
         var replace = attrs[m[1]] !== undefined
             ? (m[2] && m[2].split("|")[0]) || attrs[m[1]]
@@ -206,153 +347,89 @@ Relationship.prototype.linkPhrase = function() {
 };
 
 
-Relationship.prototype.fieldName = function(name) {
-    return "rel-editor.rels." + this.fields.num + "." + name;
+Relationship.prototype.renderDate = function() {
+     var begin_date = this.begin_date.render(), end_date = this.end_date.render(),
+        ended = this.ended();
+
+    if (!begin_date && !end_date) return "";
+    if (begin_date == end_date) return MB.text.Date.on + " " + begin_date;
+
+    return (begin_date ? MB.text.Date.from + " " + begin_date + " \u2013" : MB.text.Date.until) + " " +
+           (end_date ? end_date : (ended ? "????" : MB.text.Date.present));
 };
 
+// Contruction of hidden input fields
 
-Relationship.prototype.removeField = function(name) {
-    var name = this.fieldName(name).replace(/\./g, "\\.");
-    this.$container.children("input[name=" + name + "]").remove();
+var simpleFields, dateFields, entityFields, fieldHTML, buildField;
+
+simpleFields = ["id", "link_type", "action", "direction", "ended"];
+dateFields   = ["year", "month", "day"];
+entityFields = ["id", "gid", "name", "type", "sortname", "comment", "work_type", "work_language"];
+
+fieldHTML = function(num, name, value) {
+    var name = "rel-editor.rels." + num + "." + name;
+    return MB.html.input({type: "hidden", name: name, value: value});
 };
 
+buildField = function(num, obj, name, fields) {
+    var field, value, prefix = name && name + ".", result = "";
 
-var createFields = function(prefix, values, doc) {
-    var self = this;
-    if (RE.Entity.isInstance(values)) {
-        values = values.getFields();
-    }
-    $.each(values, function(index, value) {
+    for (var i = 0; field = fields[i]; i++) {
+        value = ko.utils.unwrapObservable(obj[field]);
+
         if (value) {
-            var newprefix = prefix ? [prefix, index].join(".") : index;
+            field = prefix + field;
 
-            if (typeof value == "object") {
-                createFields.call(self, newprefix, value, doc);
+            if ($.isArray(value)) {
+                for (var j = 0; j < value.length; j++)
+                    result += fieldHTML(num, field + "." + j, value[j]);
+
             } else {
-                var name = self.fieldName(newprefix),
-                    input = document.createElement('input');
-
-                input.type = "hidden";
-                input.name = name;
-                input.value = value;
-                doc.appendChild(input);
+                if (typeof value == "boolean") value = value ? "1" : "0";
+                result += fieldHTML(num, field, value);
             }
         }
-    });
-    return doc;
-};
-
-// creates the hidden input fields for this relationship, and appends them to
-// the DOM. we only need to do this when a field changed, obviously.
-
-Relationship.prototype.createFields = function() {
-    // documentFragment is noticeably faster here
-    var doc = document.createDocumentFragment();
-    this.$container.eq(0).append(createFields.call(this, "", this.fields, doc));
-};
-
-// this single function makes the entire relationship editor code considerably
-// less complex. it says "copy this relationship into $container, unless it's
-// already there." other modules can be indiscriminate and not worry about
-// duplicate entities, relationships, and other corner cases
-
-Relationship.prototype.cloneInto = function($container) {
-    var $self = this.$container, $parents = $self.parent();
-
-    $container = $container.not($parents);
-    if ($container.length == 0) // check if this is a no-op
-        return;
-
-    // if we're not even in the DOM yet our life is easy
-    if ($self.length == 1 && $parents.length == 0) {
-        this.$container = $self.appendTo($container);
-    } else {
-        // okay, we're duplicating a relationship into a new container
-        var $clone = $self.eq(0).clone(true).children("div.ars").empty().end();
-        $container.append($clone);
-        this.$container = $self.add($clone);
     }
-    this.resetARContainers();
-    // let's not forget to copy the work's ARs
-    if (this.type == "recording-work") {
-        UI.renderWorkRelationships(this.target);
-    }
+    return result;
 };
 
-// $ars always references one or more div.ars - i.e. a container that groups
-// relationships for an entity on the page. as we delete or move things around,
-// we have to update these.
+Relationship.prototype.buildFields = function() {
+    if (!this.action()) return "";
+    var result = "", attrs = MB.utility.keys(this.attributes()), n = this.num;
 
-Relationship.prototype.resetARContainers = function() {
-    this.type == "recording-work"
-        ? (this.target.$ars = this.$container.children("div.ars"))
-        : (this.source.$ars = this.$container.parent());
+    result += buildField(n, this, "", simpleFields);
+    result += buildField(n, this.begin_date(), "begin_date", dateFields);
+    result += buildField(n, this.end_date(), "end_date", dateFields);
+    result += buildField(n, this.attributes(), "attrs", attrs);
+    result += buildField(n, this.entity()[0], "entity.0", entityFields);
+    result += buildField(n, this.entity()[1], "entity.1", entityFields);
+
+    return result;
 };
 
 // returns true if this relationship is a "duplicate" of the other.
 // doesn't compare attributes
 
 Relationship.prototype.isDuplicate = function(other) {
-    var self = this.fields;
-    return (self.link_type == other.link_type &&
-            self.entity[0] === other.entity[0] &&
-            self.entity[1] === other.entity[1]);
+    var thisent = this.entity(), otherent = other.entity();
+    return (this.link_type() == other.link_type() &&
+            thisent[0] === otherent[0] && thisent[1] === otherent[1]);
 };
 
-// returns true if this relationship is identical to the other.
-// compares attributes
-// at first this function was generic (i.e. didn't have hardcoded attributes,
-// and could compare any two objects), but that was problematic because there's
-// some cruft in the relationships we don't want to compare
 
-Relationship.prototype.isIdentical = function(other) {
-    if (!this.isDuplicate(other)) return false;
-    var self = this.fields;
-
-    if (self.id != other.id || self.action != other.action ||
-        self.ended != other.ended || self.direction != other.direction ||
-        self.date != other.date || (self.date &&
-            !isDateIdentical(self.date, other.date))) return false;
-
-    var attrs1 = self.attrs ? MB.utility.keys(self.attrs) : [],
-        attrs2 = other.attrs ? MB.utility.keys(other.attrs) : [];
-
-    if ($(attrs1).not(attrs2).length > 0 ||
-        $(attrs2).not(attrs1).length > 0) return false;
-
-    for (var i = 0; i < attrs1.length; i++) {
-        var v1 = self.attrs[attrs1[i]], v2 = other.attrs[attrs1[i]],
-            t1 = typeof v1, t2 = typeof v2;
-
-        if (t1 != t2) return false;
-        if (t1 == "number") {
-            if (v1 != v2) return false;
-        } else {
-            if (!$.isArray(v1) || !$.isArray(v2) || $(v1).not(v2).length > 0 ||
-                $(v2).not(v1).length > 0) return false;
-        }
-    }
-    return true;
-};
-
-function isDateIdentical(a, b) {
-    return a.year == b.year && a.month == b.month && a.day == b.day;
-}
-
-
-Relationship.prototype.openEditsSearch = function() {
-    var orig = RE.server_fields[this.type][this.fields.id],
-        entity0 = orig.entity[0], entity1 = orig.entity[1];
+Relationship.prototype.buildOpenEdits = function() {
+    var orig = RE.serverFields[this.type()][this.id],
+        source = this.source, target = orig.target;
 
     return '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
-        '&conditions.0.field=' + encodeURIComponent(entity0.type) +
+        '&conditions.0.field=' + encodeURIComponent(source.type) +
         '&conditions.0.operator=%3D' +
-        '&conditions.0.name=' + encodeURIComponent(entity0.name) +
-        '&conditions.0.args.0=' + encodeURIComponent(entity0.id) +
-        '&conditions.1.field=' + encodeURIComponent(entity1.type) +
+        '&conditions.0.name=' + encodeURIComponent(source.name()) +
+        '&conditions.0.args.0=' + encodeURIComponent(source.id) +
+        '&conditions.1.field=' + encodeURIComponent(target.type) +
         '&conditions.1.operator=%3D' +
-        '&conditions.1.name=' + encodeURIComponent(entity1.name) +
-        '&conditions.1.args.0=' + encodeURIComponent(entity1.id) +
+        '&conditions.1.name=' + encodeURIComponent(target.name()) +
+        '&conditions.1.args.0=' + encodeURIComponent(target.id) +
         '&conditions.2.field=type&conditions.2.operator=%3D&conditions.2.args=90%2C233' +
         '&conditions.2.args=91&conditions.2.args=92&conditions.3.field=status' +
         '&conditions.3.operator=%3D&conditions.3.args=1&field=Please+choose+a+condition';

@@ -768,8 +768,8 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
                         edit_type => $EDIT_WORK_CREATE,
                         name => $new_work->{name},
                         comment => $new_work->{comment},
-                        type_id => $new_work->{type_id},
-                        language_id => $new_work->{language_id}
+                        type_id => $new_work->{work_type},
+                        language_id => $new_work->{work_language}
                     );
                 });
                 $loaded_entities->{$new_work->{gid}} =

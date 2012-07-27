@@ -1,15 +1,15 @@
 #content.rel-editor #tracklist td {vertical-align: top;}
 #content.rel-editor #tracklist td.midcol {vertical-align: middle;}
 #content.rel-editor div.ars {padding: 0; margin: 0.5em 0; margin-left: 1.5em;}
-#content.rel-editor a.link-phrase {color: #000; cursor: pointer; text-decoration: none;}
-#content.rel-editor a.link-phrase:hover {background: #FD9;}
+#content.rel-editor span.link-phrase {color: #000; cursor: pointer; text-decoration: none;}
+#content.rel-editor span.link-phrase:hover {background: #FD9;}
 #content.rel-editor #release-rels {margin-top: 1em;}
 
 #content.rel-editor .rel-edit {background: #FD9;}
 #content.rel-editor .rel-remove {background: #FF8F8F !important;}
 #content.rel-editor .rel-add {background: #B6FFA3;}
 
-#content.rel-editor .remove-button {color: #888; padding: 0 0.5em;}
+#content.rel-editor .remove-button {cursor: pointer; color: #888; padding: 0 0.5em;}
 #content.rel-editor .remove-button:hover {color: #FF8F8F; text-decoration: none;}
 #content.rel-editor .remove-button:visited {color: #888;}
 
@@ -51,7 +51,7 @@
     display: none;
     padding: 0.8em;
 }
-#dialog.rel-editor p.msg {display: none; margin: 0.5em 1em 1.5em 1em;}
+#dialog.rel-editor p.msg {margin: 0.5em 1em 1.5em 1em;}
 #dialog.rel-editor span.error,
 #dialog.rel-editor div.error {color: #f00;}
 #dialog.rel-editor #attrs button {
@@ -75,6 +75,10 @@
 #dialog.rel-editor div.ar-descr {max-width: 460px; margin: 6px 0;}
 #dialog.rel-editor input.selectFilter {width: 7em;}
 #dialog.rel-editor div.attr-select > * {margin: 2px !important;}
+#dialog.rel-editor input[type=text] {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
 
 #work-options.rel-editor {margin-bottom: 1em;}
 #new-work.rel-editor table {

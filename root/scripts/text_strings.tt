@@ -91,10 +91,12 @@
         RequiredField: '[% l('Required field.') | js %]',
         AddRelationship: '[% l('Add relationship') | js %]',
         RelateRecordingWork: '[% l('Relate recording to work') | js %]',
-        InvalidDate: '[% l('The date you entered is not valid.') | js %]',
+        InvalidDate: '[% l('The date you\'ve entered is not valid.') | js %]',
+        InvalidEndDate: '[% l('The end date cannot preceed the begin date.') | js %]',
+        InvalidValue: '[% l('The value you\'ve entered is not valid.') | js %]',
         EditRelationship: '[% l('Edit relationship') | js %]',
         LoadingRelationships: '[% l('Loading relationships...') | js %]',
-        ErrorLoadingRelationships: '[% l('Error loading relationships') | js %]',
+        ErrorLoadingRelationships: '[% l('Error loading relationships.') | js %]',
         ChangeDirection: '[% l('Change direction') | js %]',
         Entity: {
             artist:          "[% l('Artist') | js %]",
@@ -112,6 +114,15 @@
         WorkSelection: [
             '[% ln('{num} work selected', '{num} works selected', 1) %]',
             '[% ln('{num} work selected', '{num} works selected', 2) %]'
-        ]
+        ],
+        AttributeNotSupported: '[% l('This attribute is not supported for the selected relationship type.') | js %]',
+        AttributeTooMany: '[% l('This attribute can only be specified {max} times. You specified {n}.') | js %]',
+        AttributeRequired: '[% l('This attribute is required.') | js %]',
+        Date: {
+            on: '[% l('on') |js %]',
+            from: '[% l('from') |js %]',
+            until: '[% l('until') |js %]',
+            present: '[% l('present') |js %]',
+        }
     });
 })(MB);

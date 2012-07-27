@@ -1,8 +1,8 @@
+lib/knockout/knockout-latest.debug.js
+lib/knockout/knockout.mapping-latest.debug.js
 scripts/relationship-editor/RelationshipEditor.js
 scripts/relationship-editor/Util.js
-scripts/relationship-editor/UI/UI.js
-scripts/relationship-editor/UI/Buttons.js
-scripts/relationship-editor/UI/Dialog/Dialog.js
-scripts/relationship-editor/UI/Dialog/Fields.js
 scripts/relationship-editor/Entity.js
+scripts/relationship-editor/Fields.js
 scripts/relationship-editor/Relationship.js
+scripts/relationship-editor/Dialog.js
