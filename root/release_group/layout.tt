@@ -11,7 +11,7 @@
                content=artist_credit(rg.artist_credit) %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(rg.l_type_name)
-                   IF rg.primary_type -%]
+                   IF rg.primary_type || rg.all_secondary_types -%]
         [%- END -%]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=rg -%]
