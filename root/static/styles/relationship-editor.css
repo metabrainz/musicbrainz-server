@@ -6,7 +6,7 @@
 #content.rel-editor #release-rels {margin-top: 1em;}
 
 #content.rel-editor .rel-edit {background: #FD9;}
-#content.rel-editor .rel-remove {background: #FF8F8F !important;}
+#content.rel-editor .rel-remove {background: #FF8F8F !important; cursor: default;}
 #content.rel-editor .rel-add {background: #B6FFA3;}
 
 #content.rel-editor .remove-button {cursor: pointer; color: #888; padding: 0 0.5em;}

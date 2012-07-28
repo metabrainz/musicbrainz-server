@@ -22,19 +22,6 @@
 var UI = RE.UI, Util = RE.Util, Fields = RE.Fields, mapping, cache = {}, relcount = 0;
 
 
-ko.bindingHandlers.action = {
-    update: function(element, valueAccessor) {
-        var relationship = ko.utils.unwrapObservable(valueAccessor()),
-            action = relationship.action(), $element = $(element);
-
-        $element
-            .toggleClass("rel-remove disabled", action == "remove")
-            .toggleClass("rel-add", action == "add")
-            .toggleClass("rel-edit", action == "edit");
-    }
-};
-
-
 var updateAttributes = function(relationship, target, value) {
     var validAttrs = {};
 

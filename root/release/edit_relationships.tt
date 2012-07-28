@@ -241,8 +241,8 @@
     </div>
 
 <script type="text/html" id="template.relationships">
-  <div class="ars" data-bind="template: {name: 'template.relationship', foreach: relationships,
-    afterAdd: $root.addRelationship, beforeRemove: $root.removeRelationship}">
+  <div class="ars" data-bind="template: {name: 'template.relationship',
+    foreach: relationships, afterAdd: $root.addRelationship}">
   </div>
   <span class="add-rel btn">
     <img src="/static/images/icons/add.png" class="bottom"/> Add relationship
@@ -264,16 +264,23 @@
         &#8592; <img src="/static/images/icons/add.png" class="bottom"> Relate recording to work &#8594;
       </span>
     </td>
-    <td class="works" data-bind="template: {name: 'template.relationship.performance', foreach: performanceRelationships,
-      afterAdd: $root.addRelationship, beforeRemove: $root.removeRelationship}">
+    <td class="works" data-bind="template: {name: 'template.relationship.performance',
+      foreach: performanceRelationships, afterAdd: $root.addRelationship}">
     </td>
   </tr>
 </script>
 
+<script type="text/html" id="template.link.phrase"><span class="link-phrase"
+        data-bind="text: linkPhrase, css: {
+             'error-field': hasErrors,
+             'rel-add':     action() == 'add',
+             'rel-edit':    action() == 'edit',
+             'rel-remove':  action() == 'remove'}"></span></script>
+
 <script type="text/html" id="template.relationship">
-  <div class="ar">
+  <div class="ar" data-bind="with: $data">
     <span class="remove-button">&#215;</span>
-    <span class="link-phrase" data-bind="text: linkPhrase, action: $data, css: {'error-field': hasErrors}"></span>:
+    <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
     <span class="entity" data-bind="html: target().rendering, css: {'rel-edit': edits_pending}"></span>
     <!-- ko text: dateRendering --><!-- /ko -->
     <div data-bind="html: hiddenFields, visible: false"></div>
@@ -284,14 +291,14 @@
   <div class="ar">
     <!-- ko with: target --><input type="checkbox"/><!-- /ko -->
     <span class="entity" data-bind="html: target().rendering, css: {'rel-edit': edits_pending}"></span>
-    (<span class="link-phrase" data-bind="text: linkPhrase, action: $data, css: {'error-field': hasErrors}"></span>)
+    (<!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->)
     <!-- ko text: dateRendering --><!-- /ko -->
     <span class="remove-button">&#215;</span>
     <!-- ko if: loadingWork -->
       <div data-bind="html: $root.loadingIndicator"></div>
     <!-- /ko -->
     <!-- ko if: !loadingWork() -->
-    <!-- ko template: {name: 'template.relationships', data: target} --><!-- /ko -->
+      <!-- ko template: {name: 'template.relationships', data: target} --><!-- /ko -->
     <!-- /ko -->
     <div data-bind="html: hiddenFields, visible: false"></div>
     <!-- /ko -->

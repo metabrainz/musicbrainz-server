@@ -31,17 +31,11 @@ UI.release = {
     relationships: ko.observableArray([]),
 
     addRelationship: function(element, i, relationship) {
-        $(element).hide().fadeIn("fast");
-
         if (relationship.promise) {
             var promise = relationship.promise;
             delete relationship.promise;
             setTimeout(promise, 0);
         }
-    },
-
-    removeRelationship: function(element, i, relationship) {
-        $(element).fadeOut("fast", function() {$(this).remove()});
     },
 
     checkboxes: (function() {
