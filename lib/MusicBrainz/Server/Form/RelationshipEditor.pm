@@ -2,10 +2,14 @@ package MusicBrainz::Server::Form::RelationshipEditor;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Form::Relationship::LinkType qw ( validate_link_type );
 
 extends 'MusicBrainz::Server::Form';
+
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::LinkType' => {
+    -alias    => { field_list => '_field_list' },
+    -excludes => 'field_list'
+};
 
 has '+name' => ( default => 'rel-editor' );
 
@@ -150,38 +154,11 @@ sub options_rels_link_type
     return \@options;
 }
 
-sub _build_options
-{
-    my ($self, $root, $ignore) = @_;
-
-    my @options;
-    if ($root->id && $root->name ne $ignore) {
-        push @options, { value => $root->id, label => $root->name };
-    }
-    foreach my $child ($root->all_children) {
-        push @options, $self->_build_options($child, $ignore);
-    }
-    return @options;
-}
-
 sub field_list
 {
     my ($self) = @_;
 
-    my @fields;
-    foreach my $attr ($self->attr_tree->all_children) {
-        if ($attr->all_children) {
-            my @options = $self->_build_options($attr, $attr->name);
-            push @fields, 'rels.attrs.' . $attr->name, { type => 'Repeatable' };
-            push @fields, 'rels.attrs.' . $attr->name . '.contains', {
-                type => 'Select',
-                options => \@options,
-            };
-        } else {
-            push @fields, 'rels.attrs.' . $attr->name, { type => 'Boolean' };
-        }
-    }
-    return \@fields;
+    return $self->_field_list('rels.', undef);
 }
 
 after validate => sub {
@@ -194,7 +171,7 @@ after validate => sub {
         my $link_type_field = $field->field('link_type');
         next if !$link_type_field->value || $link_type_field->has_errors;
 
-        validate_link_type($c, $field->field('link_type'), $field->field('attrs'));
+        $self->validate_link_type($c, $field->field('link_type'), $field->field('attrs'));
 
         my $begin_date = $field->field('begin_date');
         my $end_date = $field->field('end_date');

@@ -2,10 +2,9 @@ package MusicBrainz::Server::Form::Relationship;
 
 use HTML::FormHandler::Moose;
 
-extends 'MusicBrainz::Server::Form';
-with 'MusicBrainz::Server::Form::Role::Edit';
+extends 'MusicBrainz::Server::Form::Relationship::LinkType';
+
 with 'MusicBrainz::Server::Form::Role::DatePeriod';
-with 'MusicBrainz::Server::Form::Relationship::LinkType';
 
 has '+name' => ( default => 'ar' );
 
@@ -18,15 +17,6 @@ has_field 'entity0.name' => ( type => 'Text' );
 has_field 'entity1'      => ( type => 'Compound' );
 has_field 'entity1.id'   => ( type => 'Text' );
 has_field 'entity1.name' => ( type => 'Text' );
-
-after validate => sub {
-    my ($self) = @_;
-
-    $self->validate_link_type($self->ctx,
-        $self->field('link_type_id'), $self->field('attrs'));
-};
-
-sub edit_field_names { qw() }
 
 1;
 
