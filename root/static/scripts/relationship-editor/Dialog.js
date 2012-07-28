@@ -365,14 +365,15 @@ var Dialog = UI.Dialog = {
         var dlg = Dialog;
 
         delete dlg.targets;
-        delete dlg.posx;
-        delete dlg.posy;
         delete dlg.initialNewWork;
         delete dlg.previousWork;
         delete dlg.autocomplete;
         delete dlg.$autocomplete;
 
         if ($.isFunction(callback)) callback.call(dlg);
+
+        delete dlg.posx;
+        delete dlg.posy;
 
         dlg.$dialog.fadeOut("fast", function() {
             dlg.relationship(dlg.emptyRelationship);

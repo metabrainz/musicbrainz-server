@@ -132,7 +132,7 @@ CGI.parseParams = function(params, errorFields) {
         if (errorFields[fields.id]) fields.serverErrors = errorFields[fields.id];
 
         var entity0 = fields.entity[0], entity1 = fields.entity[1],
-            typeInfo = RE.typeInfo[fields.link_type], types, src;
+            typeInfo = RE.typeInfo[fields.link_type], types, src, source;
 
         if (typeInfo) {
             types = typeInfo.types.join("-");
@@ -144,7 +144,7 @@ CGI.parseParams = function(params, errorFields) {
         }
 
         src = Util.src(fields.link_type, fields.direction);
-        fields.source = fields.entity[src];
+        source = fields.entity[src];
         fields.target = fields.entity[1 - src];
         delete fields.entity;
         fields.attributes = {};
@@ -158,7 +158,7 @@ CGI.parseParams = function(params, errorFields) {
             delete fields.attrs;
         }
 
-        var actions = CGI.actions[fields.action], gid = fields.source.gid;
+        var actions = CGI.actions[fields.action], gid = source.gid;
 
         fields.action == "add"
             ? (actions[gid] = actions[gid] || []).push(fields)
