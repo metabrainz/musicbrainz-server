@@ -228,13 +228,17 @@ Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable)
         if  (oldTarget.type != newTarget.type) {
             // the type changed. our relationship cache is organized by type, so we
             // have to move the position of this relationship in the cache.
-            var oldType = Util.type(this.link_type()), newType;
+            var oldType = Util.type(this.link_type.peek()), newType;
 
             this.link_type(Util.defaultLinkType(this.source.type, newTarget.type));
-            newType = Util.type(this.link_type());
+            newType = Util.type(this.link_type.peek());
 
             (cache[newType] = cache[newType] || {})[this.id] = cache[oldType][this.id];
             delete cache[oldType][this.id];
+
+            // fix the direction.
+            var typeInfo = RE.typeInfo[this.link_type.peek()];
+            this.direction(this.source.type == typeInfo.types[0] ? "forward" : "backward");
         }
     }
 
