@@ -72,7 +72,10 @@ Source.prototype.init = function() {
 // if it is a duplicate, remove and merge it
 
 Source.prototype.mergeRelationship = function(rel) {
-    var relationships = this.relationships(), obj = ko.mapping.toJS(rel);
+    var relationships = rel.type.peek() == "recording-work"
+            ? this.performanceRelationships() : this.relationships(),
+        obj = ko.mapping.toJS(rel);
+
     delete obj.id;
 
     // XXX figure out a faster/nicer way to merge relationship attributes

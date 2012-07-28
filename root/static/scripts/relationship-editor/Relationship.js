@@ -141,6 +141,10 @@ var Relationship = function(obj) {
     this.source = obj.source; // source can't change
 
     obj.target.refcount += 1;
+
+    if (this.type.peek() == "recording-work")
+        obj.target.performanceRefcount += 1;
+
     var target = ko.observable(obj.target);
 
     this.target = ko.computed({
@@ -211,25 +215,33 @@ var Relationship = function(obj) {
 
 
 Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable) {
-    if (oldTarget) oldTarget.remove();
+    var type = this.type.peek();
 
     observable(newTarget);
     newTarget.refcount += 1;
 
-    if (oldTarget.type != newTarget.type) {
-        // the type changed. our relationship cache is organized by type, so we
-        // have to move the position of this relationship in the cache.
-        var oldType = Util.type(this.link_type()), newType;
+    if (oldTarget) {
+        oldTarget.remove();
 
-        this.link_type(Util.defaultLinkType(this.source.type, newTarget.type));
-        newType = Util.type(this.link_type());
+        if (type == "recording-work") oldTarget.performanceRefcount -= 1;
 
-        (cache[newType] = cache[newType] || {})[this.id] = cache[oldType][this.id];
-        delete cache[oldType][this.id];
+        if  (oldTarget.type != newTarget.type) {
+            // the type changed. our relationship cache is organized by type, so we
+            // have to move the position of this relationship in the cache.
+            var oldType = Util.type(this.link_type()), newType;
+
+            this.link_type(Util.defaultLinkType(this.source.type, newTarget.type));
+            newType = Util.type(this.link_type());
+
+            (cache[newType] = cache[newType] || {})[this.id] = cache[oldType][this.id];
+            delete cache[oldType][this.id];
+        }
     }
 
-    if (this.type() == "recording-work")
+    if (type == "recording-work") {
+        newTarget.performanceRefcount += 1;
         this.workChanged(newTarget);
+    }
 };
 
 // if the user changed a work, we need to request its relationships.
@@ -256,14 +268,13 @@ Relationship.prototype.workChanged = function(work) {
 
 Relationship.prototype.show = function() {
     var source = this.source;
+
     if (this.type.peek() == "recording-work") {
-        if (source.performanceRelationships.peek().indexOf(this) == -1) {
+        if (source.performanceRelationships.peek().indexOf(this) == -1)
             source.performanceRelationships.push(this);
-            this.target.peek().performanceRefcount += 1;
-        }
-    } else {
-        if (source.relationships.peek().indexOf(this) == -1)
-            source.relationships.push(this);
+
+    } else if (source.relationships.peek().indexOf(this) == -1) {
+        source.relationships.push(this);
     }
     this.exists = true;
 };
@@ -281,7 +292,14 @@ Relationship.prototype.reset = function(obj) {
 
 
 Relationship.prototype.remove = function() {
-    var recordingWork = (this.type() == "recording-work"), target = this.target();
+    // prevent this from being removed twice, otherwise it screws up refcounts
+    // everywhere. this can happen if the relationship is merged into another
+    // one (thus removed), and then removed again when the dialog is closed
+    // (because the dialog sees that this.exists is false).
+    if (this.removed === true) return;
+
+    var recordingWork = (this.type() == "recording-work"),
+        target = this.target.peek();
 
     if (recordingWork) {
         this.source.performanceRelationships.remove(this);
@@ -299,8 +317,9 @@ Relationship.prototype.remove = function() {
         for (var i = 0; i < relationships.length; i++)
             relationships[i].remove();
     }
-    delete cache[this.type()][this.id];
+    delete cache[this.type.peek()][this.id];
     this.exists = false;
+    this.removed = true;
 };
 
 // Constructs the link phrase to display for this relationship
@@ -398,8 +417,8 @@ Relationship.prototype.buildFields = function() {
 // doesn't compare attributes
 
 Relationship.prototype.isDuplicate = function(other) {
-    var thisent = this.entity(), otherent = other.entity();
-    return (this.link_type() == other.link_type() &&
+    var thisent = this.entity.peek(), otherent = other.entity.peek();
+    return (this.link_type.peek() == other.link_type.peek() &&
             thisent[0] === otherent[0] && thisent[1] === otherent[1]);
 };
 
