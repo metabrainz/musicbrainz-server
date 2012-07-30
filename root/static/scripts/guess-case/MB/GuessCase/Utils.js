@@ -388,7 +388,7 @@ MB.GuessCase.Utils = function () {
 	// if in sentence caps mode, and last char was not
 	// a punctuation or opening bracket -> lowercase.
 	if ((!gc.f.slurpExtraTitleInformation) &&
-	    (gc.getMode().isSentenceCaps() && !forceCaps) &&
+	    (gc.mode.isSentenceCaps() && !forceCaps) &&
 	    (!gc.i.isFirstWord()) &&
 	    (!gc.u.isSentenceStopChar(wordbefore)) &&
 	    (!gc.f.openingBracket)) {

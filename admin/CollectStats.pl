@@ -33,7 +33,7 @@ use lib "$FindBin::Bin/../lib";
 use MusicBrainz::Server::Context;
 use Sql;
 
-my $c = MusicBrainz::Server::Context->new;
+my $c = MusicBrainz::Server::Context->create_script_context;
 my $sql = Sql->new($c->conn);
 
 $sql->begin;
@@ -46,3 +46,9 @@ if (-t STDOUT)
     printf "%10d : %s\n", $all->{$_}, $_
         for sort keys %$all;
 }
+
+# Recompute the editor statistics
+$c->model('Statistics')->top_recently_active_editors;
+$c->model('Statistics')->top_editors;
+$c->model('Statistics')->top_recently_active_voters;
+$c->model('Statistics')->top_voters,

@@ -68,7 +68,10 @@
               </tr>
               [% FOR track=medium.tracklist.tracks %]
               <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
-                <td class="pos t">[% track.position %]</td>
+                <td class="pos t">
+                  <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+                  [% track.number %]
+                </td>
                 <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
                 <td>[% artist_credit(track.artist_credit) %]</td>
                 <td class="treleases">[% track.length | format_length %]</td>

@@ -3,11 +3,16 @@
 <h1>[% l('Part of Set Relationships') %]</h1>
 
 <ul>
-    <li>[% l('This report shows releases that still have part of set relationships.') %]</li>
-    <li>[% l('For instructions on how to fix them, please see the documentation about
-              {howto|how to merge releases}.', { howto => doc_link('How_to_Merge_Releases') }) %]</li>
+    <li>[% l('This report shows releases that still have the deprecated "part
+              of set" relationship and should probably be merged. For instructions
+              on how to fix them, please see the documentation about
+              {how_to_merge_releases|how to merge releases}. If the releases are
+              not really part of a set (for example, if they are
+              independently-released volumes in a series) just remove the relationship.',
+              { how_to_merge_releases => doc_link('How_to_Merge_Releases') }) %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]

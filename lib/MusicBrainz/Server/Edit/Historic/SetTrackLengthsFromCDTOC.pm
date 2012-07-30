@@ -3,11 +3,11 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Set track lengths') }
+sub edit_name     { N_l('Set track lengths') }
 sub historic_type { 53 }
 sub edit_type     { $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC }
 sub edit_template { 'set_track_lengths' }
@@ -40,7 +40,7 @@ sub build_display_data
         length => {
             map {
                 $_ => [ map { MusicBrainz::Server::Track::UnformatTrackLength($_) }
-                            split /\s+/, $self->data->{$_}{lengths} ]
+                            split /\s+(?!ms)/, $self->data->{$_}{lengths} ]
             } qw( old new)
         },
     }

@@ -1,8 +1,0 @@
-
-
-$(document).ready (function () {
-
-    $('<input type="hidden" name="data">').val ("[% nonce %]").appendTo ($('form.register'));
-
-});
-

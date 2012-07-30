@@ -12,6 +12,7 @@ use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
 use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
+use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistCountry;
 use MusicBrainz::Server::EditSearch::Predicate::LabelCountry;
 use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
@@ -31,6 +32,7 @@ my %field_map = (
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
     vote => 'MusicBrainz::Server::EditSearch::Predicate::Vote',
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
+    release_quality => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality',
     artist_country => 'MusicBrainz::Server::EditSearch::Predicate::ArtistCountry',
     label_country => 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry',
     link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',

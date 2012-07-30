@@ -7,42 +7,14 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use Locale::PO;
-use Data::Dumper;
 use Template::Parser;
 use File::Slurp;
 
 use Encode qw(encode decode);
 
-use MusicBrainz::Server::Context;
-my $c = MusicBrainz::Server::Context->create_script_context();
-
-### DATABASE 
-
-my $sql = $c->sql;
-
-# Format: [table, [column1, column2], flag]
-# where applicable, flag should probably be 'perl-format' or 'perl-brace-format'
-my @DBDEFS = (
-              ['country', ['name']],
-              ['language', ['name']],
-              ['script', ['name']],
-              ['artist_type', ['name']],
-              ['label_type', ['name']],
-              ['work_type', ['name']],
-              ['release_group_type', ['name']],
-              ['medium_format', ['name']],
-              ['release_packaging', ['name']],
-              ['release_status', ['name']],
-              ['gender', ['name']],
-	      ['link_attribute_type', ['description', 'name'], 'perl-format'],
-	      ['link_type', ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'perl-format']
-             );
-
-my @database_po_objects = map { parse_db($_); } @DBDEFS;
-
 ### TEMPLATES
 
-my @MARKERS = qw/l ln/;
+my @MARKERS = qw/l ln lp/;
 
 my @files;
 
@@ -57,7 +29,7 @@ if (! defined $ARGV[0]) {
     @files = @ARGV;
 }
 
-my @file_po_objects = map { parse_file($_); } @files;
+my @po_objects = map { parse_file($_); } @files;
 
 ### GENERATE .POT
 
@@ -72,42 +44,9 @@ my $po = new Locale::PO(-msgid=>'', -msgstr=>
 
 print $po->dump();
 
-my @po_objects = (@file_po_objects, @database_po_objects);
-map {
-    print $_->dump();
-} @po_objects;
+map { print $_->dump(); } @po_objects;
 
 ### HELPER FUNCTIONS
-
-sub parse_db {
-    my $opt = shift;
-    my @pos;
-
-    my ($table, $columns, $flag) = @$opt;
-
-    foreach my $column (@$columns) {
-        my $query = "SELECT $column, id from $table";
-        my $values = $sql->select_list_of_lists($query);
-
-	foreach my $value (@$values) { 
-               my $po = Locale::PO->new();
-	       my $item = shift @{$value};
-	       if ($item) {
-	           my $id = shift @{$value};
-	           $item =~ s/\r*\n/\\n/g;
-                   $po->msgid(encode('UTF-8', $item));
-                   $po->msgstr("");
-	           if ($flag) {
-	               $po->add_flag($flag);
-	           }
-                   $po->reference("DB:$table/$column:$id");
-	           push @pos, $po;
-               }
-           }
-    }
-
-    return @pos;
-}
 
 sub get_translations {
     my $data = shift;
@@ -133,6 +72,7 @@ sub get_translations {
             my $s = shift @$data;
             if ( grep { $s eq $_ } @MARKERS ) {
                 my @contents = ();
+		push @contents, $s;
                 # Two parens at the start
                 shift @$data;
                 shift @$data;
@@ -186,6 +126,7 @@ sub parse_file {
         for my $content (@$contents) {
             my $po = Locale::PO->new();
             $po->add_flag('perl-format');
+            my $type = shift @{$content};
             my $cur = shift @{$content};
             $po->reference("$file:$line_number");
             if (defined $cur && $cur eq 'LITERAL' ) {
@@ -200,13 +141,22 @@ sub parse_file {
             if ( defined $next && $next eq 'COMMA' ) {
                 shift @{$content};
                 if (shift @{$content} eq 'LITERAL') {
-                    my $plural = shift @{$content};
-                    $plural =~ s/\r*\n\s*/ /xmsg;
-                    $plural =~ s/\\'/'/xmsg;
-                    $plural =~ s/^\'(.*)\'$/$1/xmsg;
-                    $po->msgid_plural($plural);
-                    delete $po->{msgstr};
-                    $po->msgstr_n( {0 => "", 1 => ""});
+                    if ($type eq 'ln') {
+                        my $plural = shift @{$content};
+                        $plural =~ s/\r*\n\s*/ /xmsg;
+                        $plural =~ s/\\'/'/xmsg;
+                        $plural =~ s/^\'(.*)\'$/$1/xmsg;
+                        $po->msgid_plural($plural);
+                        delete $po->{msgstr};
+                        $po->msgstr_n( {0 => "", 1 => ""});
+                    } elsif ($type eq 'lp') {
+                        my $context = shift @{$content};
+                        $context =~ s/\r*\n\s*/ /xmsg;
+                        $context =~ s/\\'/'/xmsg;
+                        $context =~ s/^\'(.*)\'$/$1/xmsg;
+			$po->msgctxt($context);
+                    }
+
                 }
             }
             push @pos, $po if defined $cur && $cur eq 'LITERAL';

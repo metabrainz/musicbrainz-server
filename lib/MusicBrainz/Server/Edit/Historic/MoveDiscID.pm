@@ -4,11 +4,11 @@ use warnings;
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_DISCID );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Move disc ID') }
+sub edit_name     { N_l('Move disc ID') }
 sub historic_type { 21 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_DISCID }
 sub edit_template { 'historic/move_disc_id' }

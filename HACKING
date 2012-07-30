@@ -30,6 +30,14 @@ While to run all Data:: tests you can do the following:
 
  $ carton exec -Ilib -- prove t/tests.t :: --tests 'Data::'
 
+Cover art archive development
+-----------------------------
+
+The Cover Art features in musicbrainz are provided by
+coverartarchive.org.  To add cover art support to your development set
+up, see HACKING-CAA.md
+
+
 JavaScript and Selenium tests
 -----------------------------
 
@@ -144,6 +152,7 @@ Keys:
  * rs:INT -- release status by ID
  * rp:INT -- release packaging by ID
  * scr:INT -- script by ID
+ * stats:* -- various different statistics
  * tag:INT -- tag by ID
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page

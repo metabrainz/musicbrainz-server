@@ -22,7 +22,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, parent, child_order, gid, name, description';
+    return 'id, parent, child_order, gid, name, description, root';
 }
 
 sub _column_mapping
@@ -31,6 +31,7 @@ sub _column_mapping
         id          => 'id',
         gid         => 'gid',
         parent_id   => 'parent',
+        root_id     => 'root',
         child_order => 'child_order',
         name        => 'name',
         description => 'description',

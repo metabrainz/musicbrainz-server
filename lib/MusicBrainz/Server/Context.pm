@@ -2,6 +2,7 @@ package MusicBrainz::Server::Context;
 use Moose;
 
 use DBDefs;
+use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
@@ -18,8 +19,15 @@ has 'connector' => (
     lazy_build => 1,
 );
 
+has 'database' => (
+    is => 'ro',
+    isa => 'Str',
+    default => sub { &DBDefs::REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
+);
+
 sub _build_connector {
-    return DatabaseConnectionFactory->get_connection('READWRITE');
+    my $self = shift;
+    return DatabaseConnectionFactory->get_connection($self->database);
 }
 
 has 'models' => (
@@ -53,8 +61,9 @@ sub model
 
 sub create_script_context
 {
+    my ($class, %args) = @_;
     my $cache_manager = MusicBrainz::Server::CacheManager->new(&DBDefs::CACHE_MANAGER_OPTIONS);
-    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
+    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, %args);
 }
 
 1;

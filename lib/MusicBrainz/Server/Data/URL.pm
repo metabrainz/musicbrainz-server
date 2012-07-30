@@ -49,6 +49,7 @@ my %URL_SPECIALIZATIONS = (
     'SoundCloud'      => qr{^https?://(?:www.)?soundcloud.com/}i,
     'SpiritOfMetal'   => qr{^https?://(?:www.)?spirit-of-metal.com/}i,
     'Theatricalia'    => qr{^https?://(?:www.)?theatricalia.com/}i,
+    'Trove'           => qr{^https?://(?:www.)?trove.nla.gov.au/}i,
     'Twitter'         => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'           => qr{^https?://(?:www.)?vgmdb.net/}i,
     'Wikipedia'       => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,

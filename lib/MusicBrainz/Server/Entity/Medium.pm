@@ -52,6 +52,12 @@ sub format_name
     return $self->format ? $self->format->name : undef;
 }
 
+sub l_format_name
+{
+    my ($self) = @_;
+    return $self->format ? $self->format->l_name : undef;
+}
+
 has 'cdtocs' => (
     is => 'rw',
     isa => 'ArrayRef[MediumCDTOC]',

@@ -54,10 +54,10 @@
         </ul>
       </td>
       <td>
-        [% l(work.type.name) %]
+        [% work.l_type_name %]
       </td>
       <td>
-        <abbr title="[% l(work.language.name) %]">[% work.language.iso_code_3 %]</abbr>
+        <abbr title="[% work.language.l_name %]">[% work.language.iso_code_3 %]</abbr>
       </td>
       [% UNLESS no_ratings %]
       <td>[% rating_stars(work) %]</td>

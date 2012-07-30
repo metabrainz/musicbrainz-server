@@ -290,7 +290,7 @@ sub insert_and_create
 
 sub generate_gid
 {
-    Data::UUID::MT->new( version => 4 )->create_string();
+    lc(Data::UUID::MT->new( version => 4 )->create_string());
 }
 
 sub defined_hash

@@ -4,9 +4,15 @@
 
 <ul>
     <li>[% l('This report lists artists which have "&" in their names but no member or
-        collaboration relationships, and might need to be turned into artist credits.') %]</li>
+              collaboration relationships. If the artist is usually seen as an actual group,
+              member relationships should be added. If it\'s a short term collaboration, it
+              should be split if possible (see {how_to_split_artists|How to Split Artists}).
+              If it is a collaboration with its own name and can\'t be split, collaboration
+              relationships should be added to it.',
+              { how_to_split_artists => doc_link('How_to_Split_Artists') }) %]</li>
     <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/artist_list.tt' -%]

@@ -3,12 +3,12 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use Scalar::Util qw( looks_like_number );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Add track') }
+sub edit_name     { N_l('Add track') }
 sub historic_type { 7 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK }
 sub edit_template { 'historic/add_track_old' }

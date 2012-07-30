@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Recording::Merge;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_MERGE );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities' => {
 };
 with 'MusicBrainz::Server::Edit::Recording';
 
-sub edit_name { l('Merge recordings') }
+sub edit_name { N_l('Merge recordings') }
 sub edit_type { $EDIT_RECORDING_MERGE }
 sub _merge_model { 'Recording' }
 

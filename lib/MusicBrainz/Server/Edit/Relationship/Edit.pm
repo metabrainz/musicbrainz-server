@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
   partial_date_from_row
   type_to_model
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
-sub edit_name { l("Edit relationship") }
+sub edit_name { N_l("Edit relationship") }
 
 sub _xml_arguments { ForceArray => ['attributes'] }
 

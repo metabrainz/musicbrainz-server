@@ -1,46 +1,25 @@
 package MusicBrainz::Server::Report::ReleasesToConvert;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
-        SELECT release.gid AS release_gid, release.artist_credit AS artist_credit_id,
-               release_name.name, tracklist.id, tracklist.track_count, COUNT(*)
-        FROM track_name 
+sub query {
+    "
+        SELECT DISTINCT release.id AS release_id,
+          row_number() OVER (ORDER BY musicbrainz_collate(ac_name.name), musicbrainz_collate(release_name.name))
+        FROM track_name
         JOIN track ON track.name = track_name.id
         JOIN tracklist ON track.tracklist = tracklist.id
         JOIN medium ON medium.tracklist = tracklist.id
         JOIN release ON medium.release = release.id
         JOIN release_name ON release.name = release_name.id
-        WHERE track_name.name ~* E'[^\\d]-[^\\d]' 
-        GROUP BY release.gid, release.artist_credit, release_name.name, 
-                 tracklist.id, tracklist.track_count
+        JOIN artist_credit ON release.artist_credit = artist_credit.id
+        JOIN artist_name ac_name ON artist_credit.name = ac_name.id
+        WHERE track_name.name ~* E'[^\\d]-[^\\d]' OR track_name.name LIKE '%/%'
+        GROUP BY release.id, release_name.name, tracklist.id, tracklist.track_count, ac_name.name
         HAVING count(*) = tracklist.track_count
-    ");
-
-    $self->gather_data_from_query($writer, "
-        SELECT release.gid, release.artist_credit AS artist_credit_id,
-               release_name.name, tracklist.id, tracklist.track_count, COUNT(*)
-        FROM track_name 
-        JOIN track ON track.name = track_name.id
-        JOIN tracklist ON track.tracklist = tracklist.id
-        JOIN medium ON medium.tracklist = tracklist.id
-        JOIN release ON medium.release = release.id
-        JOIN release_name ON release.name = release_name.id
-        WHERE track_name.name LIKE '%/%'
-        GROUP BY release.gid, release.artist_credit, release_name.name, 
-                 tracklist.id, tracklist.track_count
-        HAVING count(*) = tracklist.track_count
-    ");
-}
-
-sub template
-{
-    return 'report/releases_to_convert.tt';
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -50,6 +29,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

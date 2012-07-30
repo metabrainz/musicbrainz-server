@@ -10,17 +10,17 @@
     <tbody>
         [%- lastgid = 0 -%]
         [%- FOR item IN items -%]
-            [%- IF lastgid != item.url_gid -%]
+            [%- IF lastgid != item.url.gid -%]
                 <tr class="ev">
-                    <td colspan="3">[% link_entity(item.urlentity, 'show', item.url) %]</td>
+                    <td colspan="3">[% link_entity(item.url, 'show', item.url.url) %]</td>
                 </tr>
-                [% lastgid = item.url_gid %]
+                [% lastgid = item.url.gid %]
             [%- END -%]
 
             <tr>
                 <td></td>
                 <td>[% link_entity(item.release_group) %]</td>
-                <td>[% artist_credit(item.artist_credit) %]</td>
+                <td>[% artist_credit(item.release_group.artist_credit) %]</td>
             </tr>
         [%- END -%]
     </tbody>

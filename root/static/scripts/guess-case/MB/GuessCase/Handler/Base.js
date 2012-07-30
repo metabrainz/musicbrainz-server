@@ -217,7 +217,7 @@ MB.GuessCase.Handler.Base = function () {
 
 		// force capitalization of the last word,
 		// because we are starting a new subtitle
-	        gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
+	        gc.o.capitalizeLastWord(!gc.mode.isSentenceCaps());
 	    }
 
 	    // from next position on, skip spaces and dots.
@@ -335,7 +335,7 @@ MB.GuessCase.Handler.Base = function () {
 
 	    // force caps on word before the colon, if
 	    // the mode is not sentencecaps
-	    gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
+	    gc.o.capitalizeLastWord(!gc.mode.isSentenceCaps());
 
 	    gc.f.forceCaps = true;
 	    gc.f.spaceNextWord = true;
@@ -362,7 +362,7 @@ MB.GuessCase.Handler.Base = function () {
 	    gc.f.resetContext();
 
 	    // don't capitalize next word after hyphen in sentence mode.
-	    gc.f.forceCaps = !gc.getMode().isSentenceCaps();
+	    gc.f.forceCaps = !gc.mode.isSentenceCaps();
 	    gc.f.hypen = true;
 	    return true;
 	}
@@ -497,7 +497,7 @@ MB.GuessCase.Handler.Base = function () {
 
 	    // force caps on last word before the opending bracket,
 	    // if the current mode is not sentence mode.
-	    gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
+	    gc.o.capitalizeLastWord(!gc.mode.isSentenceCaps());
 
 	    // register current bracket as openening bracket
 	    gc.f.pushBracket(gc.i.getCurrentWord());
@@ -555,7 +555,7 @@ MB.GuessCase.Handler.Base = function () {
 		gc.f.slurpExtraTitleInformation = false;
 	    }
 	    gc.f.resetContext();
-	    gc.f.forceCaps = !gc.getMode().isSentenceCaps();
+	    gc.f.forceCaps = !gc.mode.isSentenceCaps();
 	    gc.f.spaceNextWord = true;
 	    gc.o.appendCurrentWord();
 	    return true;

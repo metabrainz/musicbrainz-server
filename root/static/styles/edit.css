@@ -113,6 +113,41 @@ table.vote-tally .date {
     font-weight: bold;
 }
 
+.edit-notes h3 a img {
+    margin-right: 0.75em;
+}
+
+.edit-note h3.No, .edit-note h3.Yes {
+    position: relative;
+}
+.edit-note h3.No a img {
+    border-color: #E55451;
+}
+
+.edit-note h3.No .voting-icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 12px;
+    left: 17px;
+    background-image: url('../images/icons/delete.png');
+    background-repeat: no-repeat;
+}
+
+.edit-note h3.Yes a img {
+    border-color: #87F717;
+}
+
+.edit-note h3.Yes .voting-icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 12px;
+    left: 17px;
+    background-image: url('../images/icons/add.png');
+    background-repeat: no-repeat;
+}
+
 .edit-notes .edit-note .date {
     color: #333333;
     float: right;

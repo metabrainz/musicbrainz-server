@@ -7,6 +7,7 @@ use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Translation qw (l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
+use Captcha::reCAPTCHA;
 
 sub index : Path('/account') RequireAuth
 {
@@ -398,14 +399,32 @@ sub register : Path('/register') ForbiddenOnSlaves
 
     my $form = $c->form(register_form => 'User::Register');
 
+    my $captcha = Captcha::reCAPTCHA->new;
+    my $captcha_result;
+    my $use_captcha = ($c->req->address &&
+                       defined DBDefs::RECAPTCHA_PUBLIC_KEY &&
+                       defined DBDefs::RECAPTCHA_PRIVATE_KEY);
+
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
-        my $valid_nonce = ($c->req->params->{data} // "") eq ($c->session->{nonce} // "invalid");
+        my $valid = 0;
+        if ($use_captcha)
+        {
+            my $challenge = $c->req->params->{recaptcha_challenge_field};
+            my $response = $c->req->params->{recaptcha_response_field};
 
-        # overwrite the nonce, so it is no longer valid for this session.
-        $c->session (nonce => "invalid");
+            $captcha_result = $captcha->check_answer (
+                &DBDefs::RECAPTCHA_PRIVATE_KEY,
+                $c->req->address, $challenge, $response);
 
-        if ($valid_nonce)
+            $valid = $captcha_result->{is_valid};
+        }
+        else
+        {
+            $valid = 1;
+        }
+
+        if ($valid)
         {
             my $editor = $c->model('Editor')->insert({
                 name => $form->field('username')->value,
@@ -429,11 +448,17 @@ sub register : Path('/register') ForbiddenOnSlaves
         }
         else
         {
-            $c->stash (invalid_nonce => 1);
+            $c->stash (invalid_captcha_response => 1);
         }
     }
 
+    my $captcha_html = "";
+    $captcha_html = $captcha->get_html (
+        &DBDefs::RECAPTCHA_PUBLIC_KEY, $captcha_result) if $use_captcha;
+
     $c->stash(
+        use_captcha   => $use_captcha,
+        captcha       => $captcha_html,
         register_form => $form,
         template      => 'account/register.tt',
     );

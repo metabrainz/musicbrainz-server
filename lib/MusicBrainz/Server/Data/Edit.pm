@@ -423,8 +423,6 @@ sub create
         $self->c->sql->do($query, zip @all_ids, @$ids);
     }
 
-    $edit->adjust_edit_pending(+1);
-
     # Automatically accept auto-edits on insert
     $edit = $self->get_by_id($edit->id);
     if ($edit->auto_edit) {
@@ -607,9 +605,7 @@ sub _close
     my $status = &$close_sub($edit);
     my $query = "UPDATE edit SET status = ?, close_time = NOW() WHERE id = ?";
     $self->c->sql->do($query, $status, $edit->id);
-    $edit->adjust_edit_pending(-1);
     $edit->status($status);
-    $self->c->model('Editor')->credit($edit->editor_id, $status, %opts);
 }
 
 sub insert_votes_and_notes {

@@ -273,7 +273,7 @@ END -%]
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(release) BLOCK;
  '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(release.country) _ '">' IF doRDFa;
- '<abbr title="' _ html_escape(l(release.country.name)) _ '">' _ release.country.iso_code _ '</abbr>';
+ '<abbr title="' _ html_escape(release.country.l_name) _ '">' _ release.country.iso_code _ '</abbr>';
  '</span>' IF doRDFa;
 END -%]
 
@@ -442,7 +442,7 @@ END -%]
     FOR label=labels;
       IF label.catalog_number AND !seen.${ label.catalog_number };
         out.push(rdfa_release_catno(label.catalog_number));
-        seen.${ label.catolog_number } = 1;
+        seen.${ label.catalog_number } = 1;
       END;
     END;
     out.join(', ');

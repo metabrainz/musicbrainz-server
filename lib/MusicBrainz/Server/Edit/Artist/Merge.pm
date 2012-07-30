@@ -4,13 +4,13 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Merge';
 with 'MusicBrainz::Server::Edit::Role::MergeSubscription';
 with 'MusicBrainz::Server::Edit::Artist';
 
-sub edit_name { l('Merge artists') }
+sub edit_name { N_l('Merge artists') }
 sub edit_type { $EDIT_ARTIST_MERGE }
 
 sub _merge_model { 'Artist' }

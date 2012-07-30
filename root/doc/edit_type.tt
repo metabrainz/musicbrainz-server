@@ -10,12 +10,12 @@
 </style>
 [% END %]
 
-[% WRAPPER 'layout.tt' full_width=1 title=class.edit_name %]
-   <h1>[% class.edit_name %]</h1>
+[% WRAPPER 'layout.tt' full_width=1 title=class.l_edit_name %]
+   <h1>[% class.l_edit_name %]</h1>
 
    <p>
    <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a> &gt;
-   [% class.edit_category %] &gt; [% class.edit_name %]
+   [% class.edit_category %] &gt; [% class.l_edit_name %]
    </p>
 
    [% IF page %]

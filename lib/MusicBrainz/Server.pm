@@ -244,7 +244,16 @@ around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
-    Translation->instance->build_languages_from_header($c->req->headers);
+    $_->instance->build_languages_from_header($c->req->headers) 
+        for qw( MusicBrainz::Server::Translation 
+	        MusicBrainz::Server::Translation::Statistics 
+		MusicBrainz::Server::Translation::Countries 
+		MusicBrainz::Server::Translation::Scripts 
+		MusicBrainz::Server::Translation::Languages 
+		MusicBrainz::Server::Translation::Attributes 
+		MusicBrainz::Server::Translation::Relationships 
+		MusicBrainz::Server::Translation::Instruments 
+		MusicBrainz::Server::Translation::InstrumentDescriptions );
 
     if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
         alarm($max_request_time);
@@ -268,6 +277,7 @@ around 'dispatch' => sub {
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
+sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
 sub language { return $ENV{LANGUAGE} || 'en' }
 

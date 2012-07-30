@@ -4,7 +4,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 use aliased 'MusicBrainz::Server::Entity::ISWC';
@@ -13,7 +13,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 
-sub edit_name { l('Remove ISWC') }
+sub edit_name { N_l('Remove ISWC') }
 sub edit_type { $EDIT_WORK_REMOVE_ISWC }
 
 sub edit_conditions

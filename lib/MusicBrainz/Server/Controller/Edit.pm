@@ -7,7 +7,7 @@ use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Utils qw( status_names );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
 
@@ -176,6 +176,7 @@ sub search : Path('/search/edits') RequireAuth
             ], sort keys %grouped
         ],
         status => status_names(),
+        quality => [ [$QUALITY_LOW => 'Low'], [$QUALITY_NORMAL => 'Normal'], [$QUALITY_HIGH => 'High'], [$QUALITY_UNKNOWN => 'Default'] ],
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
         countries => [ $c->model('Country')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree ]
@@ -256,7 +257,7 @@ sub edit_types : Path('/doc/Edit_Types')
 
     for my $category (keys %by_category) {
         $by_category{$category} = [
-            sort { $a->edit_name cmp $b->edit_name }
+            sort { $a->l_edit_name cmp $b->l_edit_name }
                 @{ $by_category{$category} }
             ];
     }
