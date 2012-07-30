@@ -6271,6 +6271,308 @@
          "target" : "DateTime::Format::Builder",
          "version" : "0.80"
       },
+      "DateTime::Format::Duration" : {
+         "dist" : "DateTime-Format-Duration-1.03a",
+         "mymeta" : {
+            "abstract" : "Format and parse DateTime::Durations",
+            "author" : [
+               "Rick Measham <rickm@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "unknown"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "DateTime-Format-Duration",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "DateTime" : "0.3",
+                     "DateTime::Duration" : 0,
+                     "Test::More" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "1.03"
+         },
+         "name" : "DateTime::Format::Duration",
+         "pathname" : "R/RI/RICKM/DateTime-Format-Duration-1.03a.tgz",
+         "provides" : {
+            "DateTime::Format::Duration" : {
+               "file" : "DateTime/Format/Duration.pm",
+               "version" : "1.03"
+            }
+         },
+         "target" : "DateTime::Format::Duration",
+         "version" : "1.03"
+      },
+      "DateTime::Format::Flexible" : {
+         "dist" : "DateTime-Format-Flexible-0.21",
+         "module" : "DateTime::Format::Flexible",
+         "mymeta" : {
+            "abstract" : "DateTime::Format::Flexible - Flexibly parse strings and turn them into DateTime objects.",
+            "author" : [
+               "Tom Heady (cpan@punch.net)"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.55_02, CPAN::Meta::Converter version 2.120351",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "DateTime-Format-Flexible",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "DateTime" : "0",
+                     "DateTime::Format::Builder" : "0.74",
+                     "DateTime::TimeZone" : "0",
+                     "List::MoreUtils" : "0",
+                     "Module::Pluggable" : "0",
+                     "Test::MockTime" : "0",
+                     "Test::Simple" : "0.44"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.21"
+         },
+         "name" : "DateTime::Format::Flexible",
+         "pathname" : "T/TH/THINC/DateTime-Format-Flexible-0.21.tar.gz",
+         "provides" : {
+            "DateTime::Format::Flexible" : {
+               "file" : "DateTime/Format/Flexible.pm",
+               "version" : "0.21"
+            },
+            "DateTime::Format::Flexible::lang" : {
+               "file" : "DateTime/Format/Flexible/lang.pm"
+            },
+            "DateTime::Format::Flexible::lang::de" : {
+               "file" : "DateTime/Format/Flexible/lang/de.pm"
+            },
+            "DateTime::Format::Flexible::lang::en" : {
+               "file" : "DateTime/Format/Flexible/lang/en.pm"
+            },
+            "DateTime::Format::Flexible::lang::es" : {
+               "file" : "DateTime/Format/Flexible/lang/es.pm"
+            }
+         },
+         "version" : "0.21"
+      },
+      "DateTime::Format::HTTP" : {
+         "dist" : "DateTime-Format-HTTP-0.40",
+         "module" : "DateTime::Format::HTTP",
+         "mymeta" : {
+            "abstract" : "Date conversion routines",
+            "author" : [
+               "Christiaan Kras <ckras@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.120351",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "DateTime-Format-HTTP",
+            "prereqs" : {
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.36"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "DateTime" : "0.17",
+                     "HTTP::Date" : "1.44",
+                     "Test::More" : "0.47"
+                  }
+               }
+            },
+            "provides" : {
+               "DateTime::Format::HTTP" : {
+                  "file" : "lib/DateTime/Format/HTTP.pm",
+                  "version" : "0.40"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "0.40"
+         },
+         "name" : "DateTime::Format::HTTP",
+         "pathname" : "C/CK/CKRAS/DateTime-Format-HTTP-0.40.tar.gz",
+         "provides" : {
+            "DateTime::Format::HTTP" : {
+               "file" : "DateTime/Format/HTTP.pm",
+               "version" : "0.40"
+            }
+         },
+         "version" : "0.40"
+      },
+      "DateTime::Format::ICal" : {
+         "dist" : "DateTime-Format-ICal-0.09",
+         "module" : "DateTime::Format::ICal",
+         "mymeta" : {
+            "abstract" : "Parse and format iCal datetime and duration strings",
+            "author" : [
+               "Dave Rolsky <autarch@urth.org> and Flavio Soibelmann Glock\n<fglock@pucrs.br>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.120351",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "DateTime-Format-ICal",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "Module::Build" : "0"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "DateTime" : "0.17",
+                     "DateTime::Event::ICal" : "0.03",
+                     "DateTime::Set" : "0.1",
+                     "DateTime::TimeZone" : "0.22",
+                     "Params::Validate" : "0.59"
+                  }
+               }
+            },
+            "provides" : {
+               "DateTime::Format::ICal" : {
+                  "file" : "lib/DateTime/Format/ICal.pm",
+                  "version" : "0.09"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "0.09"
+         },
+         "name" : "DateTime::Format::ICal",
+         "pathname" : "D/DR/DROLSKY/DateTime-Format-ICal-0.09.tar.gz",
+         "provides" : {
+            "DateTime::Format::ICal" : {
+               "file" : "DateTime/Format/ICal.pm",
+               "version" : "0.09"
+            }
+         },
+         "version" : "0.09"
+      },
+      "DateTime::Format::ISO8601" : {
+         "dist" : "DateTime-Format-ISO8601-0.08",
+         "module" : "DateTime::Format::ISO8601",
+         "mymeta" : {
+            "abstract" : "Parses ISO8601 formats",
+            "author" : [
+               "Joshua Hoblitt <jhoblitt@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.120351",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "DateTime-Format-ISO8601",
+            "prereqs" : {
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.38"
+                  }
+               },
+               "runtime" : {
+                  "recommends" : {
+                     "File::Find::Rule" : "0.24",
+                     "Test::Distribution" : "1.22",
+                     "Test::Pod" : "0.95"
+                  },
+                  "requires" : {
+                     "DateTime" : "0.18",
+                     "DateTime::Format::Builder" : "0.77"
+                  }
+               }
+            },
+            "provides" : {
+               "DateTime::Format::ISO8601" : {
+                  "file" : "lib/DateTime/Format/ISO8601.pm",
+                  "version" : "0.08"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "0.08"
+         },
+         "name" : "DateTime::Format::ISO8601",
+         "pathname" : "J/JH/JHOBLITT/DateTime-Format-ISO8601-0.08.tar.gz",
+         "provides" : {
+            "DateTime::Format::ISO8601" : {
+               "file" : "DateTime/Format/ISO8601.pm",
+               "version" : "0.08"
+            }
+         },
+         "version" : "0.08"
+      },
       "DateTime::Format::Natural" : {
          "dist" : "DateTime-Format-Natural-1.00",
          "mymeta" : {

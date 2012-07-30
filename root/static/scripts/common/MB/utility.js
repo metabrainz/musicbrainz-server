@@ -179,40 +179,57 @@ MB.utility.rememberCheckbox = function (id, name) {
 
 MB.utility.formatTrackLength = function (duration)
 {
-    var length_str = '';
-
     if (duration === null)
     {
-        length_str = '?:??';
-    }
-    else
-    {
-        var length_in_secs = (duration / 1000 + 0.5);
-        length_str = String (Math.floor (length_in_secs / 60)) + ":" +
-            ("00" + String (Math.floor (length_in_secs % 60))).slice (-2);
+        return '?:??';
     }
 
-    return length_str;
+    if (duration < 1000)
+    {
+        return duration + ' ms';
+    }
+
+    var seconds = 1000;
+    var minutes = 60 * seconds;
+    var hours = 60 * minutes;
+
+    var hours_str = '';
+    duration = duration + 0.5;
+
+    if (duration > 1 * hours)
+    {
+        hours_str = ('00' + Math.floor (duration / hours)).slice (-2) + ':';
+        duration = Math.floor (duration % hours);
+    }
+
+    var minutes_str = ('00' + Math.floor (duration / minutes)).slice (-2) + ':';
+    duration = Math.floor (duration % minutes);
+
+    var seconds_str = ('00' + Math.floor (duration / seconds)).slice (-2);
+
+    return hours_str + minutes_str + seconds_str;
 };
 
 
 MB.utility.unformatTrackLength = function (duration)
 {
-    var parts = duration.replace(/[:\.]/, ':').split (":");
-    if (parts.length != 2)
+    if (duration.slice (-2) == 'ms')
+    {
+        return parseInt (duration, 10);
+    }
+
+    var parts = duration.replace(/[:\.]/, ':').split (':');
+
+    if (parts[0] == '??')
     {
         return null;
     }
 
-    if (parts[1] == '??')
-    {
-        return null;
-    }
+    var seconds = parseInt (parts.pop (), 10);
+    var minutes = parseInt (parts.pop () || 0, 10) * 60;
+    var hours = parseInt (parts.pop () || 0, 10) * 3600;
 
-    // MBS-3352: Handle the case of ":57"
-    parts[0] = parts[0] || 0;
-
-    return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
+    return (hours + minutes + seconds) * 1000;
 };
 
 MB.utility.trim = function (str)
