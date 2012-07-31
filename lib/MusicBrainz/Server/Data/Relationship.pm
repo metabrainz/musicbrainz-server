@@ -402,7 +402,7 @@ sub adjust_edit_pending
     $self->_check_types($type0, $type1);
 
     my $query = "UPDATE l_${type0}_${type1}
-                 SET edits_pending = edits_pending + ?
+                 SET edits_pending = numeric_larger(0, edits_pending + ?)
                  WHERE id IN (" . placeholders(@ids) . ")";
     $self->sql->do($query, $adjust, @ids);
 }
