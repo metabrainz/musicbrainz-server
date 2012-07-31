@@ -22,20 +22,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
-use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_ADD_COVER_ART
-    $EDIT_RELEASE_CHANGE_QUALITY
-    $EDIT_RELEASE_DELETE
-    $EDIT_RELEASE_EDIT_COVER_ART
-    $EDIT_RELEASE_MERGE
-    $EDIT_RELEASE_MOVE
-    $EDIT_RELEASE_REMOVE_COVER_ART
-    $EDIT_RELEASE_REORDER_COVER_ART
-    $EDIT_RELATIONSHIP_CREATE
-    $EDIT_RELATIONSHIP_EDIT
-    $EDIT_RELATIONSHIP_DELETE
-    $EDIT_WORK_CREATE
-);
+use MusicBrainz::Server::Constants qw( :edit_type );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Form::Utils qw( language_options );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );

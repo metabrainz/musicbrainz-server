@@ -28,23 +28,21 @@ sub build_type_info
                 defined $_->min ? 0 + $_->min : undef,
                 defined $_->max ? 0 + $_->max : undef,
             ] } $root->all_attributes;
+
             $info->{$root->id} = {
-                id => $root->id,
-                scalar %attrs ? ( attrs => \%attrs ) : (),
-                types => [ $root->entity0_type, $root->entity1_type ],
-                link_phrase  => $root->link_phrase,
+                id                  => $root->id,
+                types               => [$root->entity0_type, $root->entity1_type],
+                child_order         => $root->child_order,
+                link_phrase         => $root->link_phrase,
                 reverse_link_phrase => $root->reverse_link_phrase,
-                $root->description ? (descr => $root->description) : (),
-                $root->parent_id ? (parent => $root->parent_id) : (),
+                scalar %attrs       ? (attrs    => \%attrs) : (),
+                $root->description  ? (descr    => $root->description) : (),
+                $root->parent_id    ? (parent   => $root->parent_id) : (),
                 $root->all_children ? (children =>
                     [ map { $_->id } $root->all_children ]) : (),
-                child_order  => $root->child_order,
-
             };
         }
-        foreach my $child ($root->all_children) {
-            _builder($child, $info);
-        }
+        _builder($_, $info) for $root->all_children;
     }
 
     my %type_info;
