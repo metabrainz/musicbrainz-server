@@ -35719,7 +35719,7 @@
          "version" : "1.08"
       },
       "Text::WikiFormat" : {
-         "dist" : "Text-WikiFormat-0.79",
+         "dist" : "Text-WikiFormat-0.80",
          "mymeta" : {
             "abstract" : "module for translating Wiki formatted text into other formats",
             "author" : [
@@ -35751,7 +35751,7 @@
             "provides" : {
                "Text::WikiFormat" : {
                   "file" : "lib/Text/WikiFormat.pm",
-                  "version" : "0.79"
+                  "version" : "0.80"
                },
                "Text::WikiFormat::Block" : {
                   "file" : "lib/Text/WikiFormat/Blocks.pm",
@@ -35772,14 +35772,14 @@
                   "http://dev.perl.org/licenses/"
                ]
             },
-            "version" : "0.79"
+            "version" : "0.80"
          },
          "name" : "Text::WikiFormat",
-         "pathname" : "C/CH/CHROMATIC/Text-WikiFormat-0.79.tar.gz",
+         "pathname" : "C/CY/CYCLES/Text-WikiFormat-0.80.tar.gz",
          "provides" : {
             "Text::WikiFormat" : {
                "file" : "Text/WikiFormat.pm",
-               "version" : "0.79"
+               "version" : "0.80"
             },
             "Text::WikiFormat::Block" : {
                "file" : "Text/WikiFormat/Blocks.pm"
@@ -35792,7 +35792,7 @@
             }
          },
          "target" : "Text::WikiFormat",
-         "version" : "0.79"
+         "version" : "0.80"
       },
       "Throwable" : {
          "dist" : "Throwable-0.102080",
