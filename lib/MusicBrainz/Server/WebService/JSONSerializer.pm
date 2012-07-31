@@ -1,38 +1,32 @@
 package MusicBrainz::Server::WebService::JSONSerializer;
 
 use Moose;
-use JSON;
+use JSON::Any;
 use MusicBrainz::Server::Track qw( format_track_length );
-use MusicBrainz::Server::WebService::WebServiceInc;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serializer serialize_entity list_of);
 
 sub mime_type { 'application/json' }
-sub fmt { 'json' }
 
 sub serialize
 {
     my ($self, $type, @data) = @_;
 
-    my $override = $self->meta->find_method_by_name ($type);
-    return $override->execute ($self, @data) if $override;
-
-    my ($entity, $inc, $opts) = @data;
-
-    my %ret = serialize_entity($entity, $inc, $opts);
-
-    return encode_json(\%ret);
+    return $self->$type(@data);
 }
 
 sub serialize_data
 {
     my ($self, $data) = @_;
 
-    return encode_json($data);
+    my $json = JSON::Any->new;
+
+    return $json->encode($data);
 }
 
 sub autocomplete_generic
 {
     my ($self, $output, $pager) = @_;
+
+    my $json = JSON::Any->new;
 
     my @output = map $self->_generic($_), @$output;
 
@@ -41,7 +35,7 @@ sub autocomplete_generic
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return $json->encode (\@output);
 }
 
 sub _generic
@@ -62,7 +56,8 @@ sub autocomplete_editor
 {
     my ($self, $output, $pager) = @_;
 
-    return encode_json([
+    my $json = JSON::Any->new;
+    return $json->encode([
         (map +{
             name => $_->name,
             id => $_->id,
@@ -77,20 +72,24 @@ sub autocomplete_editor
 sub generic
 {
     my ($self, $response) = @_;
-
-    return encode_json($response);
+    my $json = JSON::Any->new;
+    return $json->encode($response);
 }
 
 sub output_error
 {
     my ($self, $err) = @_;
 
-    return encode_json ({ error => $err });
+    my $json = JSON::Any->new;
+
+    return $json->encode ({ error => $err });
 }
 
 sub autocomplete_release_group
 {
     my ($self, $results, $pager) = @_;
+
+    my $json = JSON::Any->new;
 
     my @output;
     push @output, $self->_release_group($_) for @$results;
@@ -100,7 +99,7 @@ sub autocomplete_release_group
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return $json->encode (\@output);
 }
 
 sub _release_group
@@ -122,6 +121,8 @@ sub autocomplete_recording
 {
     my ($self, $results, $pager) = @_;
 
+    my $json = JSON::Any->new;
+
     my @output;
     push @output, $self->_recording($_) for @$results;
 
@@ -130,7 +131,7 @@ sub autocomplete_recording
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return $json->encode (\@output);
 }
 
 sub _recording
@@ -159,6 +160,8 @@ sub autocomplete_work
 {
     my ($self, $results, $pager) = @_;
 
+    my $json = JSON::Any->new;
+
     my @output;
     push @output, $self->_work($_) for (@$results);
 
@@ -167,7 +170,7 @@ sub autocomplete_work
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return $json->encode (\@output);
 }
 
 sub _work

@@ -20,7 +20,6 @@ test all => sub {
     my $c = $test->c;
     my $v2 = schema_validator;
     my $mech = $test->mech;
-    $mech->default_header ("Accept" => "application/xml");
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');

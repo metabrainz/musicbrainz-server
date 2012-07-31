@@ -1,14 +1,12 @@
 package MusicBrainz::Server::ControllerBase::WS::js;
 use Moose;
-use MusicBrainz::Server::WebService::Format;
-use MusicBrainz::Server::WebService::JSONSerializer;
-
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-with 'MusicBrainz::Server::WebService::Format' =>
-{
-    serializers => [ 'MusicBrainz::Server::WebService::JSONSerializer' ]
-};
+sub serializers {
+    return {
+        json => 'MusicBrainz::Server::WebService::JSONSerializer'
+    };
+}
 
 sub bad_req : Private
 {
@@ -36,7 +34,7 @@ sub begin : Private { }
 sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
 {
     my ($self, $c) = @_;
-    $self->validate($c) or $c->detach('bad_req');
+    $self->validate($c, $self->serializers) or $c->detach('bad_req');
 }
 
 # Don't render with TT
