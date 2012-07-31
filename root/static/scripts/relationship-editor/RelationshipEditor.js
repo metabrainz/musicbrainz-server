@@ -66,7 +66,7 @@ UI.release = {
 
     loadingIndicator:
         '<span class="loading">' +
-            '<img src="/static/images/icons/loading.gif" class="bottom"/> ' +
+            '<img src="../../../static/images/icons/loading.gif" class="bottom"/> ' +
              MB.text.LoadingRelationships +
         '</span>',
 };
@@ -79,7 +79,7 @@ UI.init = function(releaseGID) {
     UI.Dialog.init();
 
     // preload image to avoid flickering
-    $("<img/>").attr("src", "/static/images/icons/add.png");
+    $("<img/>").attr("src", "../../../static/images/icons/add.png");
 
     UI.release.entity = RE.Entity({type: "release", gid: releaseGID});
 
