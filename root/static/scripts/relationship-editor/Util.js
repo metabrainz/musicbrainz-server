@@ -237,7 +237,7 @@ Util.ID = function() {
     var alphabet = "0123456789abcdef", id = "";
     while (id.length < 10)
         id += alphabet[Math.floor(Math.random() * 16)];
-    return id;
+    return "new-" + id;
 };
 
 

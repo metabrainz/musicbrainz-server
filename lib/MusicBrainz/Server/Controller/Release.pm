@@ -714,10 +714,9 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
     my $edited_fields = {};
     my $removed_fields = {};
 
-    # new works have a fake generated id, equal to the gid
     sub new_work {
         my $ent = shift;
-        return ($ent->{type} eq 'work') && ($ent->{id} eq $ent->{gid});
+        return ($ent->{type} eq 'work') && ($ent->{gid} =~ /^new-[\da-f]{10}$/);
     }
 
     foreach my $field ($form->field('rels')->fields) {
