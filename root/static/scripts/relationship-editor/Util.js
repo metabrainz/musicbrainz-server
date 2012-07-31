@@ -101,11 +101,20 @@ CGI.actions = {add: {}, edit: {}, remove: {}};
 // parseParams makes a lot of assumptions about how the params look (i.e. valid).
 // the regex is used to skip any invalid ones
 
-CGIRegex = new RegExp(
-    "^rel-editor\\.rels\\.\\d+\\.(?:id|action|link_type|entity\\.[01]\\.(?:id|" +
-    "type|name|gid|sortname|comment|work_type|work_language)|ended|begin_date\\" +
-    ".(?:year|month|day)|end_date\\.(?:year|month|day)|attrs\\.(?:[a-z_]+(?:\\" +
-    ".\\d+)?)|direction)$"
+CGIRegex = eval(
+    "/^rel-editor.rels.\\d+." +          // rel-editor.rels.n, where n = the rel num.
+    "(?:" +
+        "id|action|link_type|direction|ended|" +
+        "(?:begin|end)_date." +          // date fields.
+            "(?:year|month|day)|" +
+
+        "attrs.(?:[a-z_]+(?:.\\d+)?)|" + // matches attr.foo for boolean attrs, or
+                                         // attrs.foo.n for select attrs.
+        "entity.[01]." +                 // entity fields.
+        "(?:" +
+            "id|type|name|gid|sortname|" +
+            "comment|work_type|work_language)" +
+    ")$/"
 );
 
 CGI.parseParams = function(params, errorFields) {
