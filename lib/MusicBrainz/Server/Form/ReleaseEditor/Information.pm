@@ -53,7 +53,8 @@ sub options_script_id         { return script_options (shift->ctx); }
 sub validate {
     my $self = shift;
 
-    my $current_release = $self->field('id')->value ? 
+    my $current_release = $self->init_object // 
+        $self->field('id')->value ? 
         $self->ctx->model('Release')->get_by_id($self->field('id')->value) :
         undef;
     unless (!defined $self->field('barcode')->value ||
