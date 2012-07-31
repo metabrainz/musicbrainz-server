@@ -107,14 +107,6 @@
             url:             "[% l('URL') | js %]",
             work:            "[% l('Work') | js %]",
         },
-        RecordingSelection: [
-            '[% ln('{num} recording selected', '{num} recordings selected', 1) %]',
-            '[% ln('{num} recording selected', '{num} recordings selected', 2) %]'
-        ],
-        WorkSelection: [
-            '[% ln('{num} work selected', '{num} works selected', 1) %]',
-            '[% ln('{num} work selected', '{num} works selected', 2) %]'
-        ],
         AttributeNotSupported: '[% l('This attribute is not supported for the selected relationship type.') | js %]',
         AttributeTooMany: '[% l('This attribute can only be specified {max} times. You specified {n}.') | js %]',
         AttributeRequired: '[% l('This attribute is required.') | js %]',

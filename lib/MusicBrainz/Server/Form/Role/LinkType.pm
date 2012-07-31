@@ -43,7 +43,7 @@ sub field_list
     my @fields;
     foreach my $attr ($self->attr_tree->all_children) {
         if ($attr->all_children) {
-            my @options = $self->_build_options($attr, 'name', $attr->name, $indent);
+            my @options = $self->_build_options($attr, 'l_name', $attr->name, $indent);
             push @fields, $prefix . 'attrs.' . $attr->name, { type => 'Repeatable' };
             push @fields, $prefix . 'attrs.' . $attr->name . '.contains', {
                 type => 'Select',

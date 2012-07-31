@@ -245,7 +245,7 @@
     foreach: relationships, afterAdd: $root.addRelationship}">
   </div>
   <span class="add-rel btn">
-    <img src="/static/images/icons/add.png" class="bottom"/> Add relationship
+    <img src="/static/images/icons/add.png" class="bottom"/> [% l('Add relationship') %]
   </span>
 </script>
 
@@ -261,7 +261,7 @@
     </td>
     <td class="midcol">
       <span class="relate-work btn">
-        &#8592; <img src="/static/images/icons/add.png" class="bottom"> Relate recording to work &#8594;
+        &#8592; <img src="/static/images/icons/add.png" class="bottom"> [% l('Relate recording to work') %] &#8594;
       </span>
     </td>
     <td class="works" data-bind="template: {name: 'template.relationship.performance',

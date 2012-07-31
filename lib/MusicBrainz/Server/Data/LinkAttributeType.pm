@@ -83,7 +83,7 @@ sub get_map
         my ($hash, $attr) = @_;
         $hash->{$attr->id} = {
             id => $attr->id,
-            name => $attr->name,
+            name => $attr->l_name,
             child_order => $attr->child_order,
             $attr->parent_id    ? ( parent   => $attr->parent_id ) : (),
             $attr->description  ? ( descr    => $attr->description ) : (),

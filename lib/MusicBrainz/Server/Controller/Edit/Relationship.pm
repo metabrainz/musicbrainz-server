@@ -33,10 +33,10 @@ sub build_type_info
                 id                  => $root->id,
                 types               => [$root->entity0_type, $root->entity1_type],
                 child_order         => $root->child_order,
-                link_phrase         => $root->link_phrase,
-                reverse_link_phrase => $root->reverse_link_phrase,
+                link_phrase         => $root->l_link_phrase,
+                reverse_link_phrase => $root->l_reverse_link_phrase,
                 scalar %attrs       ? (attrs    => \%attrs) : (),
-                $root->description  ? (descr    => $root->description) : (),
+                $root->description  ? (descr    => $root->l_description) : (),
                 $root->parent_id    ? (parent   => $root->parent_id) : (),
                 $root->all_children ? (children =>
                     [ map { $_->id } $root->all_children ]) : (),

@@ -40,27 +40,28 @@ UI.release = {
 
     checkboxes: (function() {
 
-        var rstr = MB.text.RecordingSelection, wstr = MB.text.WorkSelection,
-            checkboxes = {
-                recordingCount: ko.observable(0),
-                workCount: ko.observable(0)
-            };
+        var data = {
+            recordingStrings: ko.observable([]),
+            workStrings: ko.observable([]),
+            recordingCount: ko.observable(0),
+            workCount: ko.observable(0)
+        };
 
-        checkboxes.recordingMessage = ko.computed(function() {
+        data.recordingMessage = ko.computed(function() {
+            var strings = data.recordingStrings(),
+                msg = strings[Math.min(strings.length - 1, data.recordingCount())];
 
-            var count = checkboxes.recordingCount();
-            return "(" + (count == 1 ? rstr[0] : rstr[1]).replace("{num}", count) + ")";
-
+            return msg ? "(" + msg + ")" : "";
         }).extend({throttle: 20});
 
-        checkboxes.workMessage = ko.computed(function() {
+        data.workMessage = ko.computed(function() {
+            var strings = data.workStrings(),
+                msg = strings[Math.min(strings.length - 1, data.workCount())];
 
-            var count = checkboxes.workCount();
-            return "(" + (count == 1 ? wstr[0] : wstr[1]).replace("{num}", count) + ")";
-
+            return msg ? "(" + msg + ")" : "";
         }).extend({throttle: 20});
 
-        return checkboxes;
+        return data;
     })(),
 
     loadingIndicator:
@@ -109,10 +110,12 @@ UI.init = function(releaseGID) {
     $.getJSON(url, function(data) {
         data.type = "release";
         RE.Entity(data);
+        var trackCount = 0;
 
         $.each(data.mediums, function(i, medium) {
             medium.format = (medium.format || MB.text.Medium) + " " + medium.position;
             var tracks = medium.tracks;
+            trackCount += tracks.length;
             delete medium.tracks;
             medium.recordings = ko.observableArray([]);
             media.push(medium);
@@ -125,13 +128,13 @@ UI.init = function(releaseGID) {
         Util.parseRelationships(data, true);
 
         UI.initButtons();
-        UI.initCheckboxes();
+        UI.initCheckboxes(trackCount);
         $loading.remove();
     });
 };
 
 
-UI.initCheckboxes = function() {
+UI.initCheckboxes = function(trackCount) {
 
     var $medium_recordings = UI.$tbody.find("input.medium-recordings"),
         $medium_works = UI.$tbody.find("input.medium-works"),
@@ -139,6 +142,19 @@ UI.initCheckboxes = function() {
         work_selector = "td.works > div.ar > input[type=checkbox]";
 
     var checkboxes = UI.release.checkboxes;
+
+    // get translated strings for the checkboxes
+    function getPlurals(singular, plural, max, name) {
+
+        var url = "/ws/js/plurals?singular=" + encodeURIComponent(singular) +
+                  "&plural=" + encodeURIComponent(plural) + "&max=" + max;
+
+        $.getJSON(url, function(data) {
+            checkboxes[name](data.strings);
+        });
+    }
+    getPlurals("{n} recording selected", "{n} recordings selected", trackCount, "recordingStrings");
+    getPlurals("{n} work selected", "{n} works selected", trackCount, "workStrings");
 
     function count($inputs) {
         var src = {}, count = 0, input;
