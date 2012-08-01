@@ -233,30 +233,22 @@ Util.type = function(linkType) {
 };
 
 
-Util.ID = function() {
-    var alphabet = "0123456789abcdef", id = "";
-    while (id.length < 10)
-        id += alphabet[Math.floor(Math.random() * 16)];
-    return "new-" + id;
-};
-
-
 Util.tempEntity = function(type) {
-    var id = Util.ID();
+    var id = _.uniqueId("new-");
     return RE.Entity({type: type, id: id, gid: id});
 };
 
 
 Util.convertAttr = function(root, value) {
     if (root.children) {
-        if (!$.isArray(value)) value = [value];
+        if (!_.isArray(value)) value = [value];
 
-        return $.map(value, function(v) {
-            return parseInt(v, 10) || null;
-        });
+        return (_.chain(value)
+            .map(function(n) {return parseInt(n, 10)})
+            .compact().uniq().value()
+            .sort(function(a, b) {return a - b}));
     } else {
-        if ($.isNumeric(value)) value = parseInt(value, 10);
-        return Boolean(value);
+        return Boolean(_.isNumber(value) ? parseInt(value, 10) : value);
     }
 };
 
@@ -282,7 +274,7 @@ Util.defaultLinkType = function(sourceType, targetType) {
 };
 
 
-var newWorkRegex = /^new-[\da-f]{10}$/;
+var newWorkRegex = /^new-\d+$/;
 
 Util.isNewWork = function(gid) {
     return newWorkRegex.test(gid);

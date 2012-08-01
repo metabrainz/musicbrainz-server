@@ -64,7 +64,7 @@ mapping = {
     begin_date: {
         update: function(options) {
             var data = options.data, date = options.target;
-            data = typeof data == "string" ? Util.parseDate(data) : data;
+            data = _.isString(data) ? Util.parseDate(data) : data;
             date.year(data.year);
             date.month(data.month);
             date.day(data.day);
@@ -84,7 +84,7 @@ RE.Relationship = function(obj, tryToMerge) {
     var type = Util.type(obj.link_type), relationship, _cache;
 
     if ((_cache = cache[type]) === undefined) _cache = cache[type] = {};
-    if (obj.id === undefined) obj.id = Util.ID();
+    if (obj.id === undefined) obj.id = _.uniqueId("new-");
 
     if ((relationship = _cache[obj.id]) === undefined)
         relationship = _cache[obj.id] = new Relationship(obj);
@@ -352,9 +352,9 @@ Relationship.prototype.buildLinkPhrase = function() {
         var replace = attrs[m[1]] !== undefined
             ? (m[2] && m[2].split("|")[0]) || attrs[m[1]]
             : (m[2] && m[2].split("|")[1]) || "";
-        phrase = phrase.replace(m[0], replace).replace("  ", " ");
+        phrase = phrase.replace(m[0], replace);
     }
-    return $.trim(phrase);
+    return _.clean(phrase);
 };
 
 
@@ -396,7 +396,7 @@ buildField = function(num, obj, name, fields) {
                     result += fieldHTML(num, field + "." + j, value[j]);
 
             } else {
-                if (typeof value == "boolean") value = value ? "1" : "0";
+                if (_.isBoolean(value)) value = value ? "1" : "0";
                 result += fieldHTML(num, field, value);
             }
         }
@@ -432,18 +432,21 @@ Relationship.prototype.buildOpenEdits = function() {
     var orig = RE.serverFields[this.type()][this.id],
         source = this.source, target = orig.target;
 
-    return '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
-        '&conditions.0.field=' + encodeURIComponent(source.type) +
-        '&conditions.0.operator=%3D' +
-        '&conditions.0.name=' + encodeURIComponent(source.name()) +
-        '&conditions.0.args.0=' + encodeURIComponent(source.id) +
-        '&conditions.1.field=' + encodeURIComponent(target.type) +
-        '&conditions.1.operator=%3D' +
-        '&conditions.1.name=' + encodeURIComponent(target.name()) +
-        '&conditions.1.args.0=' + encodeURIComponent(target.id) +
-        '&conditions.2.field=type&conditions.2.operator=%3D&conditions.2.args=90%2C233' +
-        '&conditions.2.args=91&conditions.2.args=92&conditions.3.field=status' +
-        '&conditions.3.operator=%3D&conditions.3.args=1&field=Please+choose+a+condition';
+    return _.sprintf(
+        '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
+        '&conditions.0.field=%s&conditions.0.operator=%%3D&conditions.0.name=%s' +
+        '&conditions.0.args.0=%s&conditions.1.field=%s&conditions.1.operator=%%3D' +
+        '&conditions.1.name=%s&conditions.1.args.0=%s&conditions.2.field=type' +
+        '&conditions.2.operator=%%3D&conditions.2.args=90%%2C233&conditions.2.args=91' +
+        '&conditions.2.args=92&conditions.3.field=status&conditions.3.operator=%%3D' +
+        '&conditions.3.args=1&field=Please+choose+a+condition',
+        encodeURIComponent(source.type),
+        encodeURIComponent(source.name()),
+        encodeURIComponent(source.id),
+        encodeURIComponent(target.type),
+        encodeURIComponent(target.name()),
+        encodeURIComponent(target.id)
+    );
 };
 
 return RE;

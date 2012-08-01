@@ -716,7 +716,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
 
     sub new_work {
         my $ent = shift;
-        return ($ent->{type} eq 'work') && ($ent->{gid} =~ /^new-[\da-f]{10}$/);
+        return ($ent->{type} eq 'work') && ($ent->{gid} =~ /^new-\d+$/);
     }
 
     foreach my $field ($form->field('rels')->fields) {

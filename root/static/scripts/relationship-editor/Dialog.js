@@ -41,7 +41,7 @@ ko.bindingHandlers.selectAttribute = (function() {
                 attrs = relationshipAttrs[child.name];
 
             opt.value = id;
-            opt.innerHTML = "&#160;&#160;".repeat(indent) + child.name;
+            opt.innerHTML = _.repeat("&#160;&#160;", indent) + child.name;
             if (child.unaccented) opt.setAttribute("data-unaccented", child.unaccented);
             if (attrs && attrs.indexOf(id) > -1) opt.selected = true;
             frag.appendChild(opt);
@@ -110,12 +110,12 @@ ko.bindingHandlers.linkType = (function() {
             var attr = RE.attrRoots[m[1]], info = root.attrs[attr.id];
             if (info[0] < 1) {
                 repl = (m[2] ? m[2].split("|")[1] : "") || "";
-                phrase = phrase.replace(m[0], repl).replace("  ", " ");
+                phrase = phrase.replace(m[0], repl);
             }
         }
         opt = document.createElement("option");
         opt.value = root.id;
-        opt.innerHTML = "&#160;&#160;".repeat(indent) + phrase;
+        opt.innerHTML = _.repeat("&#160;&#160;", indent) + _.clean(phrase);
         if (!root.descr) opt.disabled = true;
         frag.appendChild(opt);
 
@@ -225,7 +225,7 @@ var Dialog = UI.Dialog = {
                 if (Util.isMBID(currentTarget.gid)) {
                     Dialog.previousWork = currentTarget;
                     // wait for other newWork subscriptions to catch up
-                    setTimeout(function() {Dialog.initNewWork(currentTarget.name())}, 0);
+                    _.defer(function() {Dialog.initNewWork(currentTarget.name())});
                 }
             } else if (Dialog.previousWork) {
                 Dialog.relationship().target(Dialog.previousWork);
@@ -332,7 +332,7 @@ var Dialog = UI.Dialog = {
             oldWork = observable.peek(), newWork,
             obj = ko.mapping.toJS(oldWork);
 
-        obj.id = obj.gid = Util.ID();
+        obj.id = obj.gid = _.uniqueId("new-");
         obj.name = name;
         newWork = RE.Entity(obj);
         observable(newWork);
@@ -672,17 +672,12 @@ UI.BatchCreateWorksDialog.accept = function() {
 
         var newWork = ko.mapping.toJS(obj.target);
 
-        newWork.id = newWork.gid = Util.ID();
+        newWork.id = newWork.gid = _.uniqueId("new-");
         newWork.name = obj.source.name();
 
         obj.target = RE.Entity(newWork);
         return true;
     });
-};
-
-
-String.prototype.repeat = function(n) {
-    return (new Array(n + 1)).join(this);
 };
 
 return RE;

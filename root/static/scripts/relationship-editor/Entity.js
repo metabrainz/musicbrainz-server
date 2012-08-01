@@ -151,8 +151,7 @@ URL = function() {
 
     this.rendering = ko.computed({
         read: function() {
-            var name = this.name();
-            if (name.length > 50) name = name.slice(0, 50) + "...";
+            var name = _.prune(this.name(), 50);
             return this.render(name);
         },
         owner: this,

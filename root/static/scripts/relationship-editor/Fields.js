@@ -56,7 +56,7 @@ validationHandlers = {
     },
 
     ended: function(field, value) {
-        typeof value == "boolean" ? field.error("") : field.error(MB.text.InvalidValue);
+        _.isBoolean(value) ? field.error("") : field.error(MB.text.InvalidValue);
     },
 
     direction: function(field, value) {
@@ -127,26 +127,6 @@ validationHandlers.end_date = function(field, value, relationship) {
     }
 }
 
-var compareDates, compareAttr, compareAttrs;
-
-compareDates = function(a, b) {
-    return a.year == b.year && a.month == b.month && a.day == b.day;
-};
-
-compareAttr = function(a, b) {
-    if (typeof a == "boolean" && a != b) return false;
-    if ($.isArray(a) && ($(a).not(b).length > 0 || $(b).not(a).length > 0)) return false;
-    return true;
-};
-
-compareAttrs = function(a, b) {
-    var name;
-    // we can assume they have the same keys, since we use attrsForLinkType to
-    // make sure a relationship has all attributes for their link type
-    for (name in a) if (!compareAttr(a[name], b[name])) return false;
-    return true;
-};
-
 // used to track changes, handle validation, and update "action" accordingly
 
 ko.extenders.field = function(target, options) {
@@ -188,14 +168,8 @@ ko.extenders.field = function(target, options) {
         // properties might not have been defined originally
         try {origValue = RE.serverFields[type()][id][name]} catch (err) {};
 
-        // dates/attributes are special cases since they're compound fields
-        if (name == "attributes") {
-            changed = !compareAttrs(origValue, newValue);
-        } else if (name == "begin_date" || name == "end_date") {
-            changed = !compareDates(origValue, newValue);
-        } else {
-            changed = (newValue !== origValue);
-        }
+        changed = !_.isEqual(origValue, newValue);
+
         if (changed != target.changed) {
             relationship.changeCount += (changed ? 1 : -1);
         }
@@ -253,7 +227,7 @@ Fields.Attribute = function(name, value, attr, relationship) {
         write: function(newValue) {
             newValue = Util.convertAttr(attr, ko.utils.unwrapObservable(newValue));
 
-            if (!compareAttr(value(), newValue)) {
+            if (!_.isEqual(value(), newValue)) {
                 value(newValue);
                 relationship.attributes.notifySubscribers(relationship.attributes());
             }

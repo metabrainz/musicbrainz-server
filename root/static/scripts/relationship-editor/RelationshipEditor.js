@@ -32,7 +32,7 @@ release = {
         if (relationship.promise) {
             var promise = relationship.promise;
             delete relationship.promise;
-            setTimeout(promise, 0);
+            _.defer(promise);
         }
     },
 
@@ -136,8 +136,8 @@ parseMedium = function(medium, media, release) {
     medium.recordings = ko.observableArray([]);
     media.push(medium);
 
-    $.each(tracks, function(i, track) {
-        setTimeout(function() {parseTrack(track, medium, release)}, 0);
+    _.map(tracks, function(track) {
+        _.defer(function() {parseTrack(track, medium, release)});
     });
     return tracks.length;
 };
