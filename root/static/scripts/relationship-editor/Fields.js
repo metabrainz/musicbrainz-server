@@ -17,9 +17,10 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function() {
+MB.RelationshipEditor = (function(RE) {
 
-var Fields = RE.Fields = {}, Util = RE.Util, daysInMonth, validationHandlers;
+var Fields = RE.Fields = RE.Fields || {}, Util = RE.Util = RE.Util || {},
+    daysInMonth, validationHandlers;
 
 daysInMonth = {
     "true":  [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -260,4 +261,6 @@ Fields.Attribute = function(name, value, attr, relationship) {
     }).extend({field: [relationship, null, "attrs." + name, true]});
 };
 
-})();
+return RE;
+
+}(MB.RelationshipEditor || {}));

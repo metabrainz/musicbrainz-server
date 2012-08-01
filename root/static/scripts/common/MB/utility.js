@@ -229,3 +229,9 @@ MB.utility.renderArtistCredit = function (ac) {
     return html;
 }
 
+// Based on http://javascript.crockford.com/prototypal.html
+MB.utility.beget = function(o) {
+    function F() {};
+    F.prototype = o;
+    return new F;
+};

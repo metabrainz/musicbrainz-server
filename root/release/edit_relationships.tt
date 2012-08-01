@@ -2,35 +2,17 @@
     [% script_manifest('relationship-editor.js.manifest') %]
     <script type="text/javascript">//<![CDATA[
     $(function() {
+        var RE = MB.RelationshipEditor;
+
         RE.typeInfo = [% USE JSON; type_info.json %];
+
         RE.attrMap = [% attr_map.json %];
-        RE.attrRoots = {};
 
-        for (var id in RE.attrMap) {
-            var attr = RE.attrMap[id];
-            if (!attr.parent) RE.attrRoots[attr.name] = attr;
-        }
+        RE.params = [% params.json %];
 
-        var foo = RE.typeInfoByEntities = {};
-        $.each(RE.typeInfo, function(id, root) {
-            if (root.parent !== undefined) return;
-            var entities = root.types.join("-");
-            if (foo[entities] === undefined) foo[entities] = [];
-            foo[entities].push(root);
-        });
+        RE.errorFields = [% error_fields.json %];
 
-        $.each(foo, function(entities, children) {
-            children.sort(function(a, b) {
-                return a.child_order - b.child_order;
-            });
-        });
-
-        var params = [% params.json %],
-            errorFields = [% error_fields.json %];
-
-        RE.Util.CGI.parseParams(params, errorFields);
-
-        RE.UI.init("[% release.gid %]");
+        RE.init("[% release.gid %]");
     });
     //]]></script>
 [% END %]

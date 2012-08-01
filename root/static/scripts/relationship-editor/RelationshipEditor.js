@@ -17,15 +17,13 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-var RE = {Util: {}, serverFields: {}, newWorks: {}};
+MB.RelationshipEditor = (function(RE) {
 
+var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
+    $tracklist, release, parseMedium, parseTrack;
 
-(function() {
+release = {
 
-var UI = RE.UI = {}, Util = RE.Util;
-
-
-UI.release = {
     media: ko.observableArray([]),
 
     relationships: ko.observableArray([]),
@@ -62,7 +60,7 @@ UI.release = {
         }).extend({throttle: 20});
 
         return data;
-    })(),
+    }()),
 
     loadingIndicator:
         '<span class="loading">' +
@@ -72,76 +70,116 @@ UI.release = {
 };
 
 
-UI.init = function(releaseGID) {
+RE.init = function(releaseGID) {
+    RE.serverFields = {};
+    RE.newWorks = {};
+    RE.attrRoots = {};
 
-    UI.$tbody = $("#tracklist tbody");
+    for (var id in RE.attrMap) {
+        var attr = RE.attrMap[id];
+        if (!attr.parent) RE.attrRoots[attr.name] = attr;
+    }
+
+    var foo = RE.typeInfoByEntities = {};
+
+    $.each(RE.typeInfo, function(id, root) {
+        if (root.parent) return;
+        var entities = root.types.join("-");
+        (foo[entities] = foo[entities] || []).push(root);
+    });
+
+    $.each(foo, function(entities, children) {
+        children.sort(function(a, b) {
+            return a.child_order - b.child_order;
+        });
+    });
+    delete foo;
+
+    Util.CGI.parseParams(RE.params, RE.errorFields);
 
     UI.Dialog.init();
 
+    $tracklist = $("#tracklist tbody");
     // preload image to avoid flickering
     $("<img/>").attr("src", "../../../static/images/icons/add.png");
 
-    UI.release.entity = RE.Entity({type: "release", gid: releaseGID});
+    release.entity = RE.Entity({type: "release", gid: releaseGID});
 
-    ko.applyBindings(UI.release, document.getElementById("form"));
+    ko.applyBindings(release, document.getElementById("form"));
 
     var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
-        $loading = $(UI.release.loadingIndicator).insertAfter("#tracklist");
-
-    function renderTrack(track, medium, release) {
-        var recording = track.recording;
-
-        recording.type = "recording";
-        recording.name = track.name;
-        recording.position = track.position;
-        recording.number = track.number;
-        delete recording.artist_credit;
-        recording.artistCredit = "";
-
-        if (!RE.Util.compareArtistCredits(release.artist_credit, track.artist_credit))
-            recording.artistCredit = UI.renderArtistCredit(track.artist_credit);
-
-        Util.parseRelationships(recording, true);
-        medium.recordings.push(RE.Entity(recording));
-    }
-
-    var media = UI.release.media;
+        $loading = $(release.loadingIndicator).insertAfter("#tracklist");
 
     $.getJSON(url, function(data) {
         data.type = "release";
         RE.Entity(data);
         var trackCount = 0;
 
-        $.each(data.mediums, function(i, medium) {
-            medium.format = (medium.format || MB.text.Medium) + " " + medium.position;
-            var tracks = medium.tracks;
-            trackCount += tracks.length;
-            delete medium.tracks;
-            medium.recordings = ko.observableArray([]);
-            media.push(medium);
-
-            $.each(tracks, function(i, track) {
-                setTimeout(function() {renderTrack(track, medium, data)}, 0);
-            });
-        });
+        var media = data.mediums;
+        for (var i = 0; i < media.length; i++)
+            trackCount += parseMedium(media[i], release.media, data);
 
         Util.parseRelationships(data, true);
 
-        UI.initButtons();
-        UI.initCheckboxes(trackCount);
+        initButtons();
+        initCheckboxes(trackCount);
+
         $loading.remove();
     });
 };
 
 
-UI.initCheckboxes = function(trackCount) {
+parseMedium = function(medium, media, release) {
+    medium.format = (medium.format || MB.text.Medium) + " " + medium.position;
+    var tracks = medium.tracks;
+    delete medium.tracks;
+    medium.recordings = ko.observableArray([]);
+    media.push(medium);
 
-    var $medium_recordings = UI.$tbody.find("input.medium-recordings"),
-        $medium_works = UI.$tbody.find("input.medium-works"),
+    $.each(tracks, function(i, track) {
+        setTimeout(function() {parseTrack(track, medium, release)}, 0);
+    });
+    return tracks.length;
+};
+
+
+parseTrack = function(track, medium, release) {
+    var recording = track.recording;
+
+    recording.type = "recording";
+    recording.name = track.name;
+    recording.position = track.position;
+    recording.number = track.number;
+    delete recording.artist_credit;
+    recording.artistCredit = "";
+
+    if (!Util.compareArtistCredits(release.artist_credit, track.artist_credit))
+        recording.artistCredit = UI.renderArtistCredit(track.artist_credit);
+
+    Util.parseRelationships(recording, true);
+    medium.recordings.push(RE.Entity(recording));
+};
+
+
+UI.checkedRecordings = function() {
+    return $.map($tracklist.find("td.recording > input[type=checkbox]:checked"),
+        function(input) {return ko.dataFor(input)});
+};
+
+
+UI.checkedWorks = function() {
+    return $.map($tracklist.find("td.works > div.ar > input[type=checkbox]:checked"),
+        function(input) {return ko.dataFor(input)});
+};
+
+
+function initCheckboxes(trackCount) {
+
+    var $medium_recordings = $tracklist.find("input.medium-recordings"),
+        $medium_works = $tracklist.find("input.medium-works"),
         recording_selector = "td.recording > input[type=checkbox]",
-        work_selector = "td.works > div.ar > input[type=checkbox]";
-
-    var checkboxes = UI.release.checkboxes;
+        work_selector = "td.works > div.ar > input[type=checkbox]",
+        checkboxes = release.checkboxes;
 
     // get translated strings for the checkboxes
     function getPlurals(singular, plural, max, name) {
@@ -175,7 +213,7 @@ UI.initCheckboxes = function(trackCount) {
         });
     }
 
-    function release($inputs, cls) {
+    function _release($inputs, cls) {
         $('<input type="checkbox"/>&#160;')
             .change(function(event) {
                 $inputs.prop("checked", this.checked).change();
@@ -186,8 +224,8 @@ UI.initCheckboxes = function(trackCount) {
     function range(selector, counter) {
         var last_clicked = null;
 
-        UI.$tbody.on("click", selector, function(event) {
-            var checked = this.checked, $inputs = $(selector, UI.$tbody);
+        $tracklist.on("click", selector, function(event) {
+            var checked = this.checked, $inputs = $(selector, $tracklist);
             if (event.shiftKey && last_clicked && last_clicked != this) {
                 var first = $inputs.index(last_clicked), last = $inputs.index(this);
 
@@ -204,27 +242,15 @@ UI.initCheckboxes = function(trackCount) {
     medium($medium_recordings, recording_selector, checkboxes.recordingCount);
     medium($medium_works, work_selector, checkboxes.workCount);
 
-    release($medium_recordings, "recordings");
-    release($medium_works, "works");
+    _release($medium_recordings, "recordings");
+    _release($medium_works, "works");
 
     range(recording_selector, checkboxes.recordingCount);
     range(work_selector, checkboxes.workCount);
-};
+}
 
 
-UI.checkedRecordings = function() {
-    return $.map(UI.$tbody.find("td.recording > input[type=checkbox]:checked"),
-        function(input) {return ko.dataFor(input)});
-};
-
-
-UI.checkedWorks = function() {
-    return $.map(UI.$tbody.find("td.works > div.ar > input[type=checkbox]:checked"),
-        function(input) {return ko.dataFor(input)});
-};
-
-
-UI.initButtons = function() {
+function initButtons() {
     $("#batch-recording").click(function() {
         if (!$(this).hasClass("disabled"))
             UI.BatchRecordingRelationshipDialog.show();
@@ -242,11 +268,11 @@ UI.initButtons = function() {
     $("#form").on("click", "span.add-rel", function(event) {
         UI.Dialog.posx = event.pageX;
         UI.Dialog.posy = event.pageY;
-        UI.AddDialog.show({source: ko.dataFor(this), target: RE.Util.tempEntity("artist")});
+        UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("artist")});
     });
 
     $("#form").on("click", "span.relate-work", function() {
-        UI.AddDialog.show({source: ko.dataFor(this), target: RE.Util.tempEntity("work")});
+        UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("work")});
     });
 
     $("#form").on("click", "span.remove-button", function() {
@@ -272,14 +298,16 @@ UI.initButtons = function() {
             UI.EditDialog.show(relationship);
         }
     });
-};
+}
 
 
-UI.renderArtistCredit = function(obj) {
+function renderArtistCredit(obj) {
     var html = "", name;
     for (var i = 0; name = obj[i]; i++)
         html += RE.Entity(name.artist).rendering() + name.joinphrase;
     return html;
-};
+}
 
-})();
+return RE;
+
+}(MB.RelationshipEditor || {}));

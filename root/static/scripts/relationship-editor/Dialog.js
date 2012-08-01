@@ -17,9 +17,9 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function() {
+MB.RelationshipEditor = (function(RE) {
 
-var UI = RE.UI, Util = RE.Util, $w = $(window),
+var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window),
 
 allowedRelations = {
     recording: ["artist", "label", "recording", "release"],
@@ -72,7 +72,7 @@ ko.bindingHandlers.selectAttribute = (function() {
             if (multi) $element.multiselect(attr.data.name);
         }
     };
-})();
+}());
 
 
 ko.bindingHandlers.targetType = {
@@ -157,7 +157,7 @@ ko.bindingHandlers.linkType = (function() {
             }
         },
     };
-})();
+}());
 
 
 var Dialog = UI.Dialog = {
@@ -183,7 +183,7 @@ var Dialog = UI.Dialog = {
                 }
             }
         });
-    })(),
+    }()),
 
     targetType: (function() {
         var value = ko.observable("");
@@ -212,7 +212,7 @@ var Dialog = UI.Dialog = {
         });
 
         return value;
-    })(),
+    }()),
 
     newWork: (function() {
         var value = ko.observable(null);
@@ -234,7 +234,7 @@ var Dialog = UI.Dialog = {
         });
 
         return value;
-    })(),
+    }()),
 
     init: function() {
         // this is used as an "empty" state when the dialog is hidden, so that
@@ -488,17 +488,10 @@ Dialog.attributes = (function() {
         sub = relationship.link_type.subscribe(build);
     });
     return value;
-})();
+}());
 
 
-var beget = function(o) {
-    function F() {};
-    F.prototype = o;
-    return new F;
-};
-
-
-UI.AddDialog = beget(Dialog);
+UI.AddDialog = MB.utility.beget(Dialog);
 
 UI.AddDialog.show = function(options) {
     var target = options.target, source = options.source,
@@ -525,13 +518,13 @@ UI.AddDialog.accept = function() {
 };
 
 
-UI.EditDialog = beget(Dialog);
+UI.EditDialog = MB.utility.beget(Dialog);
 
 UI.EditDialog.show = function(relationship) {
     var dlg = Dialog, target = relationship.target();
 
     dlg.mode("edit");
-    dlg.newWork(target.type == "work" && !RE.Util.isMBID(target.gid));
+    dlg.newWork(target.type == "work" && RE.Util.isNewWork(target.gid));
     dlg.originalRelationship = ko.mapping.toJS(relationship);
 
     // saving the relationship isn't sufficient, because the target is excluded
@@ -576,7 +569,7 @@ UI.EditDialog.accept = function() {
 };
 
 
-var BatchRelationshipDialog = beget(UI.AddDialog);
+var BatchRelationshipDialog = MB.utility.beget(UI.AddDialog);
 
 BatchRelationshipDialog.accept = function(callback) {
     var relationship = Dialog.relationship();
@@ -622,7 +615,7 @@ BatchRelationshipDialog.accept = function(callback) {
 };
 
 
-UI.BatchRecordingRelationshipDialog = beget(BatchRelationshipDialog);
+UI.BatchRecordingRelationshipDialog = MB.utility.beget(BatchRelationshipDialog);
 
 UI.BatchRecordingRelationshipDialog.show = function() {
     Dialog.targets = UI.checkedRecordings();
@@ -636,7 +629,7 @@ UI.BatchRecordingRelationshipDialog.show = function() {
 };
 
 
-UI.BatchWorkRelationshipDialog = beget(BatchRelationshipDialog);
+UI.BatchWorkRelationshipDialog = MB.utility.beget(BatchRelationshipDialog);
 
 UI.BatchWorkRelationshipDialog.show = function() {
     Dialog.targets = UI.checkedWorks();
@@ -650,7 +643,7 @@ UI.BatchWorkRelationshipDialog.show = function() {
 };
 
 
-UI.BatchCreateWorksDialog = beget(BatchRelationshipDialog);
+UI.BatchCreateWorksDialog = MB.utility.beget(BatchRelationshipDialog);
 
 UI.BatchCreateWorksDialog.show = function() {
     Dialog.targets = UI.checkedRecordings();
@@ -692,4 +685,6 @@ String.prototype.repeat = function(n) {
     return (new Array(n + 1)).join(this);
 };
 
-})();
+return RE;
+
+}(MB.RelationshipEditor || {}));

@@ -17,7 +17,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function() {
+MB.RelationshipEditor = (function(RE) {
 
 var Entity, Source, Artist, Label, Recording, Work, URL, entities, mapping, cache = {};
 
@@ -55,7 +55,9 @@ Entity.prototype.render = function(name, options) {
 Entity.prototype.remove = function() {
     if (--this.refcount == 0) {
         delete cache[this.gid];
-        delete RE.newWorks[this.gid];
+
+        if (RE.Util.isNewWork(this.gid))
+            delete RE.newWorks[this.gid];
     }
 };
 
@@ -180,7 +182,7 @@ RE.Entity = function(obj) {
     if ((ent = cache[obj.gid]) === undefined) {
         ent = cache[obj.gid] = new entities[obj.type];
 
-        if (obj.type == "work" && !RE.Util.isMBID(obj.gid))
+        if (obj.type == "work" && RE.Util.isNewWork(obj.gid))
             RE.newWorks[obj.gid] = ent;
     }
     ko.mapping.fromJS(obj, mapping, ent);
@@ -191,4 +193,6 @@ RE.Entity.isInstance = function(obj) {
     return obj instanceof Entity;
 };
 
-})();
+return RE;
+
+}(MB.RelationshipEditor || {}));

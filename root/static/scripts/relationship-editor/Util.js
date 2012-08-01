@@ -17,9 +17,9 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-(function() {
+MB.RelationshipEditor = (function(RE) {
 
-var Util = RE.Util, CGI = Util.CGI = {}, CGIRegex;
+var Util = RE.Util = RE.Util || {}, CGI = Util.CGI = {}, CGIRegex;
 
 
 Util.parseRelationships = function(obj, checkCGIParams) {
@@ -281,4 +281,13 @@ Util.defaultLinkType = function(sourceType, targetType) {
     return linkType.descr ? linkType.id : linkType.children[0];
 };
 
-})();
+
+var newWorkRegex = /^new-[\da-f]{10}$/;
+
+Util.isNewWork = function(gid) {
+    return newWorkRegex.test(gid);
+};
+
+return RE;
+
+}(MB.RelationshipEditor || {}));
