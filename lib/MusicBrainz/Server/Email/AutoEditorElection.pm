@@ -5,7 +5,6 @@ use namespace::autoclean;
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Data::AutoEditorElection;
-use DBDefs;
 
 has 'election' => (
     isa => 'AutoEditorElection',
@@ -20,9 +19,9 @@ sub to { 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>'
 sub extra_headers {
     my $self = shift;
     my @headers = (
-        'References' => sprintf('<autoeditor-election-%s@%s>', $self->election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'In-Reply-To' => sprintf('<autoeditor-election-%s@%s>', $self->election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'Message-Id' => sprintf('<autoeditor-election-%s-%d@%s>', $self->election->id, time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL)
+        'References'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s', $self->election->id),
+        'In-Reply-To' => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s', $self->election->id),
+        'Message-Id'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s-%d', $self->election->id, time())
     );
     push @headers, (BCC => MusicBrainz::Server::Email::_user_address($self->election->candidate)) 
         if $self->election->candidate->email;

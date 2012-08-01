@@ -40,13 +40,19 @@ sub _user_address
     return Email::Address->new($user->name, $user->email)->format;
 }
 
+sub _message_id
+{
+    my $format_string = shift;
+    return sprintf('<' . $format_string . '@%s>', @_, &DBDefs::WEB_SERVER_USED_IN_EMAIL);
+}
+
 sub _create_email
 {
     my ($self, $headers, $body) = @_;
 
     # Add a Message-Id header if there isn't one.
     if( !(grep { "$_" eq "Message-Id" } @$headers) ) {
-        push @$headers, 'Message-Id', sprintf('<uncategorized-email-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL);
+        push @$headers, 'Message-Id', _message_id('uncategorized-email-%d', time());
     }
     return Email::MIME->create(
         header => $headers,
@@ -74,9 +80,9 @@ sub _create_message_to_editor_email
         'To'          => _user_address($to),
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
         'Subject'     => $subject,
-        'Message-Id'  => sprintf('<correspondence-%s-%s-%d@%s>', $correspondents[0]->id, $correspondents[1]->id, $time, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'References'  => sprintf('<correspondence-%s-%s@%s>', $correspondents[0]->id, $correspondents[1]->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'In-Reply-To' => sprintf('<correspondence-%s-%s@%s>', $correspondents[0]->id, $correspondents[1]->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Message-Id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, $time),
+        'References'  => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
+        'In-Reply-To' => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
     );
 
     if ($opts{reveal_address}) {
@@ -127,7 +133,7 @@ sub _create_email_verification_email
         'To'         => $opts{email},
         'From'       => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => sprintf('<verify-email-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Message-Id' => _message_id('verify-email-%d', time()),
         'Subject'    => 'Please verify your email address',
     );
 
@@ -158,7 +164,7 @@ sub _create_lost_username_email
         'To'         => _user_address($opts{user}),
         'From'       => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => sprintf('<lost-username-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Message-Id' => _message_id('lost-username-%d', time()),
         'Subject'    => 'Lost username',
     );
 
@@ -196,9 +202,9 @@ sub _create_no_vote_email
         'To'          => _user_address($opts{editor}),
         'From'        => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'    => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id'  => sprintf('<edit-%d-%d-no-vote-%d@%s>', $edit_id, $voter->id, time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'References'  => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'In-Reply-To' => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Message-Id'  => _message_id('edit-%d-%d-no-vote-%d', $edit_id, $voter->id, time()),
+        'References'  => _message_id('edit-%d', $edit_id),
+        'In-Reply-To' => _message_id('edit-%d', $edit_id),
         'Subject'     => "Someone has voted against your edit #$edit_id",
     );
 
@@ -235,7 +241,7 @@ sub _create_password_reset_request_email
         'To'         => _user_address($opts{user}),
         'From'       => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => sprintf('<password-reset-%d@%s>', time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Message-Id' => _message_id('password-reset-%d', time()),
         'Subject'    => 'Password reset request',
     );
 
@@ -279,9 +285,9 @@ sub _create_edit_note_email
         'To'          => _user_address($editor),
         'From'        => _user_address($from_editor, 1),
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Message-Id'  => sprintf('<edit-%d-%s-edit-note-%d@%s>', $edit_id, $from_editor->id, time(), &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'References'  => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
-        'In-Reply-To' => sprintf('<edit-%d@%s>', $edit_id, &DBDefs::WEB_SERVER_USED_IN_EMAIL),
+        'Message-Id'  => _message_id('edit-%d-%s-edit-note-%d', $edit_id, $from_editor->id, time()),
+        'References'  => _message_id('edit-%d', $edit_id),
+        'In-Reply-To' => _message_id('edit-%d', $edit_id),
     );
 
     my $from = $from_editor->name;
