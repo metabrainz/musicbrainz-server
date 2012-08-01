@@ -98,3 +98,19 @@ license:     MIT
 version:     v2.2.3
 author:      Steven Sanderson, Roy Jacobs
 url:         http://knockoutjs.com/documentation/plugins-mapping.html
+
+-- underscore/underscore.js --
+
+library:     Underscore
+license:     MIT
+version:     1.3.3
+author:      Jeremy Ashkenas, DocumentCloud
+url:         http://underscorejs.org
+
+-- underscore/underscore.string.js --
+
+library:     Underscore.string
+license:     MIT
+version:     2.2.0rc
+author:      Esa-Matti Suuronen
+url:         http://epeli.github.com/underscore.string
