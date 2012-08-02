@@ -22,36 +22,6 @@ MB.RelationshipEditor = (function(RE) {
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
     Fields = RE.Fields = RE.Fields || {}, mapping, cache = {}, relcount = 0;
 
-
-var updateAttributes = function(relationship, target, value) {
-    var validAttrs = {};
-
-    Util.attrsForLinkType(relationship.link_type(), function(attr) {
-        var name = attr.name;
-
-        if (target[name] === undefined) {
-            target[name] = Fields.Attribute(name, value[name], attr, relationship);
-
-        } else if (value[name] !== undefined) {
-            target[name](value[name]);
-        }
-        validAttrs[name] = 1;
-    });
-
-    var allAttrs = MB.utility.keys(target), name, attr;
-
-    for (var i = 0; name = allAttrs[i]; i++) {
-        attr = target[name];
-
-        if (validAttrs[name] === undefined) {
-            if (attr.hasError) attr.error("");
-            attr.errorSub.dispose();
-            delete target[name];
-        }
-    }
-};
-
-
 mapping = {
     // entities (source, target) have their own mapping options in Entity.js
     ignore:  ["source", "target", "num", "visible"],
@@ -117,17 +87,8 @@ var Relationship = function(obj) {
     this.end_date = Fields.PartialDate(Util.parseDate(""));
     this.ended = ko.observable(false);
     this.direction = ko.observable("forward");
-
-    // computed observables alert their subscribers even when the value doesn't
-    // change, which we don't want, so this is mainly boilerplate to prevent that.
-    this.type = (function() {
-        var value = ko.observable(null);
-
-        ko.computed(function() {
-            value(Util.type(self.link_type()));
-        });
-        return value;
-    }());
+    this.type = Fields.Type(this);
+    this.attributes = Fields.Attributes(this);
 
     this.dateRendering = ko.computed(function() {
         return self.renderDate();
@@ -141,51 +102,15 @@ var Relationship = function(obj) {
     obj.source.refcount += 1;
     this.source = obj.source; // source can't change
 
-    obj.target.refcount += 1;
-
     if (this.type.peek() == "recording-work")
         obj.target.performanceRefcount += 1;
 
-    var target = ko.observable(obj.target);
-
-    this.target = ko.computed({
-        read: target,
-        write: function(newValue) {
-            var oldTarget = target(),
-                newTarget = RE.Entity(ko.utils.unwrapObservable(newValue));
-
-            if (oldTarget !== newTarget) {
-                // we no longer want validation notifications for this entity's name
-                self.target.nameSubs[self.id].dispose();
-                delete self.target.nameSubs[self.id];
-
-                self.changeTarget(oldTarget, newTarget, target);
-            }
-        }
-    }).extend({field: [self, "target"]});
-
+    obj.target.refcount += 1;
+    this.target = Fields.Target(obj.target, this);
     // XXX trigger the validation subscription's callback, so that validation
     // on the target's name is registered as well. that'll get added to
     // target.nameSub.
     this.target.validationSub.callback(obj.target);
-
-    // if the relationship's link type changes (in the edit dialog, for example),
-    // it's convenient to be able to write directly to any attribute that's valid
-    // for the link type. the computed observable below makes sure that they exist.
-
-    this.attributes = (function() {
-        var value = {};
-        return ko.computed({
-            read: function() {
-                updateAttributes(self, value, {});
-                return value;
-            },
-            write: function(newValue) {
-                updateAttributes(self, value, newValue);
-            },
-            deferEvaluation: true
-        });
-    }());
 
     ko.mapping.fromJS(obj, mapping, this);
 
@@ -197,12 +122,8 @@ var Relationship = function(obj) {
     this.direction.extend({field: [this, "direction"]});
     this.attributes.extend({field: [this, "attributes"]});
 
-    this.entity = ko.computed(function() {
-        var src = Util.src(self.link_type(), self.direction());
-        return src == 0 ? [self.source, self.target()] : [self.target(), self.source];
-    });
-
-    this.linkPhrase = ko.computed(self.buildLinkPhrase, this).extend({throttle: 10});
+    this.entity = ko.computed(computeEntities, this);
+    this.linkPhrase = ko.computed(this.buildLinkPhrase, this).extend({throttle: 10});
     this.hiddenFields = ko.computed(this.buildFields, this).extend({throttle: 100});
     this.loadingWork = ko.observable(false);
 
@@ -212,6 +133,12 @@ var Relationship = function(obj) {
 
     delete this.serverErrors;
     delete obj;
+};
+
+
+var computeEntities = function() {
+    var src = Util.src(this.link_type(), this.direction());
+    return src == 0 ? [this.source, this.target()] : [this.target(), this.source];
 };
 
 

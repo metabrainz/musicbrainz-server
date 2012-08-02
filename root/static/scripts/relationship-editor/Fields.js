@@ -219,7 +219,7 @@ Fields.PartialDate = function(obj) {
 };
 
 
-Fields.Attribute = function(name, value, attr, relationship) {
+var Attribute = function(name, value, attr, relationship) {
     value = ko.observable(Util.convertAttr(attr, value));
 
     return ko.computed({
@@ -233,6 +233,89 @@ Fields.Attribute = function(name, value, attr, relationship) {
             }
         }
     }).extend({field: [relationship, null, "attrs." + name, true]});
+};
+
+
+var updateAttributes = function(relationship, target, value) {
+    var validAttrs = {};
+
+    Util.attrsForLinkType(relationship.link_type(), function(attr) {
+        var name = attr.name;
+
+        if (target[name] === undefined) {
+            target[name] = Attribute(name, value[name], attr, relationship);
+
+        } else if (value[name] !== undefined) {
+            target[name](value[name]);
+        }
+        validAttrs[name] = 1;
+    });
+
+    var allAttrs = MB.utility.keys(target), name, attr;
+
+    for (var i = 0; name = allAttrs[i]; i++) {
+        attr = target[name];
+
+        if (validAttrs[name] === undefined) {
+            if (attr.hasError) attr.error("");
+            attr.errorSub.dispose();
+            delete target[name];
+        }
+    }
+};
+
+// if the relationship's link type changes (in the edit dialog, for example),
+// it's convenient to be able to write directly to any attribute that's valid
+// for the link type. the computed observable below (specifically,
+// updateAttributes) makes sure that they exist.
+
+Fields.Attributes = function(relationship) {
+    var value = {};
+
+    return ko.computed({
+        read: function() {
+            updateAttributes(relationship, value, {});
+            return value;
+        },
+        write: function(newValue) {
+            updateAttributes(relationship, value, newValue);
+        },
+        deferEvaluation: true
+    });
+};
+
+
+Fields.Target = function(target, relationship) {
+    var target = ko.observable(target), self = relationship, computed;
+
+    computed = ko.computed({
+        read: target,
+        write: function(newTarget) {
+            var oldTarget = target(),
+                newTarget = RE.Entity(ko.utils.unwrapObservable(newTarget));
+
+            if (oldTarget !== newTarget) {
+                // we no longer want validation notifications for this entity's name
+                computed.nameSubs[self.id].dispose();
+                delete computed.nameSubs[self.id];
+
+                self.changeTarget(oldTarget, newTarget, target);
+            }
+        }
+    });
+    return computed.extend({field: [self, "target"]});
+};
+
+
+Fields.Type = function(relationship) {
+    // computed observables alert their subscribers even when the value doesn't
+    // change, which we don't want, so this is mainly boilerplate to prevent that.
+    var value = ko.observable(null);
+
+    ko.computed(function() {
+        value(Util.type(relationship.link_type()));
+    });
+    return value;
 };
 
 return RE;
