@@ -19,15 +19,9 @@
 
 MB.RelationshipEditor = (function(RE) {
 
-var Fields = RE.Fields = RE.Fields || {}, Util = RE.Util = RE.Util || {},
-    daysInMonth, validationHandlers;
+var Fields = RE.Fields = RE.Fields || {}, Util = RE.Util = RE.Util || {};
 
-daysInMonth = {
-    "true":  [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-    "false": [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-};
-
-validationHandlers = {
+var validationHandlers = {
 
     link_type: function(field, value) {
         var typeInfo = RE.typeInfo[value];
@@ -39,20 +33,12 @@ validationHandlers = {
         }
     },
 
-    begin_date: function(field, value) {
-        var y = value.year(), m = value.month(), d = value.day(), leapYear;
+    begin_date: function(field, value, relationship) {
+        validateDatePeriod(field, relationship.end_date, validateDate(field, value));
+    },
 
-        if (y !== null || m !== null || d !== null) {
-            leapYear = (y % 400 ? (y % 100 ? !Boolean(y % 4) : false) : true).toString();
-
-            if (y === null || (d !== null && m === null) || y < 1 || (m !== null &&
-                (m < 1 || m > 12 || (d !== null && (d < 1 || d > daysInMonth[leapYear][m]))))) {
-
-                field.error(MB.text.InvalidDate);
-                return;
-            }
-        }
-        field.error("");
+    end_date: function(field, value, relationship) {
+        validateDatePeriod(relationship.begin_date, field, null, validateDate(field, value));
     },
 
     ended: function(field, value) {
@@ -111,19 +97,26 @@ validationHandlers = {
     }
 };
 
-validationHandlers.end_date = function(field, value, relationship) {
-    validationHandlers.begin_date(field, value);
+function validateDate(field, value) {
+    var y = value.year(), m = value.month(), d = value.day(),
+        valid = (y === null && m === null && d === null) || MB.utility.validDate(y, m, d);
 
-    var begin_date = relationship.begin_date;
+    field.error(valid ? "" : MB.text.InvalidDate);
+    return valid;
+}
 
-    if (!field.error.peek() && !begin_date.error.peek()) {
+function validateDatePeriod(begin, end, beginValid, endValid) {
+    beginValid = beginValid || validateDate(begin, begin.peek());
+    endValid = endValid || validateDate(end, end.peek());
 
-        var b = field(), a = begin_date(),
+    if (beginValid && endValid) {
+
+        var a = begin(), b = end(),
             y1 = a.year(), m1 = a.month(), d1 = a.day(),
             y2 = b.year(), m2 = b.month(), d2 = b.day();
 
         if ((y1 && y2 && y2 < y1) || (y1 == y2 && (m2 < m1 || (m1 == m2 && d2 < d1))))
-            field.error(MB.text.InvalidEndDate);
+            end.error(MB.text.InvalidEndDate);
     }
 }
 
