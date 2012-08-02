@@ -30,9 +30,8 @@ release = {
 
     addRelationship: function(elements, relationship) {
         if (relationship.promise) {
-            var promise = relationship.promise;
+            _.defer(relationship.promise);
             delete relationship.promise;
-            _.defer(promise);
         }
     },
 

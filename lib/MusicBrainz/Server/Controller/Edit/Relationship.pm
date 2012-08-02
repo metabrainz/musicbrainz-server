@@ -3,7 +3,6 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Relationship::Delete;
@@ -59,6 +58,7 @@ sub edit : Local RequireAuth Edit
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
     $c->stash( attr_tree => $attr_tree );
+    $self->attr_tree($attr_tree);
 
     my $values = {
         link_type_id => $rel->link->type_id,
@@ -102,7 +102,7 @@ sub edit : Local RequireAuth Edit
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my @attributes = $self->flatten_attributes($attr_tree, $form->field('attrs'));
+        my @attributes = $self->flatten_attributes($form->field('attrs'));
 
         my @ids = $form->field('direction')->value
                 # User is changing the direction
@@ -197,6 +197,7 @@ sub create : Local RequireAuth Edit
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
     $c->stash( attr_tree => $attr_tree );
+    $self->attr_tree($attr_tree);
 
     my $form = $c->form(
         form => 'Relationship',
@@ -209,7 +210,7 @@ sub create : Local RequireAuth Edit
     );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my @attributes = $self->flatten_attributes($attr_tree, $form->field('attrs'));
+        my @attributes = $self->flatten_attributes($form->field('attrs'));
 
         my $entity0 = $source;
         my $entity1 = $dest;
@@ -225,7 +226,7 @@ sub create : Local RequireAuth Edit
                 $type0, $type1,
                 begin_date   => $form->field('begin_date')->value,
                 end_date     => $form->field('end_date')->value,,
-                attributes   => [uniq @attributes],
+                attributes   => \@attributes,
                 link_type_id => $form->field('link_type_id')->value,
                 entity0      => $entity0,
                 entity1      => $entity1,
@@ -287,6 +288,7 @@ sub create_url : Local RequireAuth Edit
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree;
     $c->stash( attr_tree => $attr_tree );
+    $self->attr_tree($attr_tree);
 
     my $form = $c->form(
         form => 'Relationship::URL',
@@ -301,16 +303,7 @@ sub create_url : Local RequireAuth Edit
     );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my @attributes;
-        for my $attr ($attr_tree->all_children) {
-            my $value = $form->field('attrs')->field($attr->name)->value;
-            next unless defined($value);
-
-            push @attributes, scalar($attr->all_children)
-                ? @$value
-                : $value ? $attr->id : ();
-        }
-
+        my @attributes = $self->flatten_attributes($form->field('attrs'));
         my $url = $c->model('URL')->find_or_insert($form->field('url')->value);
 
         my $e0 = $types[0] eq 'url' ? $url : $entity;

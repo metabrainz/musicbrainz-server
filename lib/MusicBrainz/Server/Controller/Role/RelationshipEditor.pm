@@ -9,6 +9,8 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Relationship::Edit;
 
+has attr_tree => ( is => 'rw' );
+
 =method try_and_edit
 
 Try and edit an existing relationship.
@@ -26,13 +28,12 @@ sub try_and_edit {
     $c->model('Relationship')->lock_and_do(
         $type0, $type1,
         sub {
-            my $attributes = [ uniq @{ $params{attributes} } ];
             if ($c->model('Relationship')->exists($type0, $type1, {
                 link_type_id => $params{new_link_type_id},
                 begin_date   => $params{new_begin_date},
                 end_date     => $params{new_end_date},
                 ended        => $params{ended},
-                attributes   => $attributes,
+                attributes   => $params{attributes},
                 entity0_id   => $params{entity0_id},
                 entity1_id   => $params{entity1_id},
             })) {
@@ -58,7 +59,7 @@ sub try_and_edit {
                 begin_date        => $params{new_begin_date},
                 end_date          => $params{new_end_date},
                 ended             => $params{ended},
-                attributes        => $attributes
+                attributes        => $params{attributes}
             );
 
             return 1;
@@ -84,13 +85,12 @@ sub try_and_insert {
     $c->model('Relationship')->lock_and_do(
         $type0, $type1,
         sub {
-            my $attributes = [ uniq @{ $params{attributes} } ];
             if ($c->model('Relationship')->exists($type0, $type1, {
                 link_type_id => $params{link_type_id},
                 begin_date   => $params{begin_date},
                 end_date     => $params{end_date},
                 ended        => $params{ended},
-                attributes   => $attributes,
+                attributes   => $params{attributes},
                 entity0_id   => $params{entity0}->id,
                 entity1_id   => $params{entity1}->id,
             })) {
@@ -111,7 +111,7 @@ sub try_and_insert {
                 begin_date   => $params{begin_date},
                 end_date     => $params{end_date},
                 link_type    => $link_type,
-                attributes   => $attributes,
+                attributes   => $params{attributes},
                 ended        => $params{ended}
             );
 
@@ -121,10 +121,10 @@ sub try_and_insert {
 }
 
 sub flatten_attributes {
-    my ($self, $attr_tree, $field) = @_;
+    my ($self, $field) = @_;
 
     my @attributes;
-    for my $attr ($attr_tree->all_children) {
+    for my $attr ($self->attr_tree->all_children) {
         my $value = $field->field($attr->name)->value;
         next unless defined($value);
 
@@ -132,7 +132,7 @@ sub flatten_attributes {
             ? @$value
             : $value ? $attr->id : ();
     }
-    return @attributes;
+    return uniq(@attributes);
 }
 
 1;

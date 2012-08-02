@@ -18,11 +18,6 @@ has link_type_tree => (
     required => 1
 );
 
-has attr_tree => (
-    is => 'ro',
-    required => 1
-);
-
 has language_options => (
     is => 'ro',
     required => 1
