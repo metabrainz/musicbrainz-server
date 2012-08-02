@@ -82,17 +82,16 @@ var Relationship = function(obj) {
     if (this.hasErrors())
         this.errorCount = MB.utility.keys(obj.serverErrors).length;
 
-    this.link_type = Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
-    this.begin_date = Fields.PartialDate(Util.parseDate(""));
-    this.end_date = Fields.PartialDate(Util.parseDate(""));
+    this.link_type = new Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
+    this.begin_date = new Fields.PartialDate(Util.parseDate(""));
+    this.end_date = new Fields.PartialDate(Util.parseDate(""));
     this.ended = ko.observable(false);
     this.direction = ko.observable("forward");
-    this.type = Fields.Type(this);
-    this.attributes = Fields.Attributes(this);
+    this.type = new Fields.Type(this);
+    this.attributes = new Fields.Attributes(this);
 
-    this.dateRendering = ko.computed(function() {
-        return self.renderDate();
-    }).extend({throttle: 10});
+    this.dateRendering = ko.computed({read: this.renderDate, owner: this})
+        .extend({throttle: 10});
 
     // entities have a refcount so that they can be deleted when they aren't
     // referenced by any relationship. we use a computed observable for the target,
@@ -106,7 +105,7 @@ var Relationship = function(obj) {
         obj.target.performanceRefcount += 1;
 
     obj.target.refcount += 1;
-    this.target = Fields.Target(obj.target, this);
+    this.target = new Fields.Target(obj.target, this);
     // XXX trigger the validation subscription's callback, so that validation
     // on the target's name is registered as well. that'll get added to
     // target.nameSub.
@@ -285,8 +284,14 @@ Relationship.prototype.buildLinkPhrase = function() {
 };
 
 
+function renderDate(date) {
+    var year = date.year(), month = date.month(), day = date.day();
+    return year ? year + (month ? "-" + month + (day ? "-" + day : "") : "") : "";
+}
+
 Relationship.prototype.renderDate = function() {
-     var begin_date = this.begin_date.render(), end_date = this.end_date.render(),
+    var begin_date = renderDate(this.begin_date.peek()),
+        end_date = renderDate(this.end_date.peek()),
         ended = this.ended();
 
     if (!begin_date && !end_date) return "";

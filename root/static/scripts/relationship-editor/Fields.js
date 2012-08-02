@@ -136,6 +136,7 @@ ko.extenders.field = function(target, options) {
 
     target.error = ko.observable((relationship.serverErrors &&
         relationship.serverErrors[fullName]) || "");
+
     target.hasError = Boolean(target.error());
 
     target.errorSub = target.error.subscribe(function(error) {
@@ -146,7 +147,8 @@ ko.extenders.field = function(target, options) {
             relationship.hasErrors(relationship.errorCount > 0);
         }
         target.hasError = hasError;
-    })
+    });
+
     delete fullName;
     var noValidationOrComparison = options[3];
 
@@ -182,68 +184,90 @@ ko.extenders.field = function(target, options) {
 
 
 Fields.Integer = function(value) {
-    function convert(val) {
-        val = parseInt(ko.utils.unwrapObservable(val), 10);
-        return isNaN(val) ? null : val;
-    };
-    value = ko.observable(convert(value));
+    this.value = ko.observable(this.convert(value));
+    return ko.computed({read: this.value, write: this.write, owner: this});
+};
 
-    return ko.computed({
-        read:  value,
-        write: function(newValue) {value(convert(newValue))}
-    });
+Fields.Integer.prototype.write = function(newValue) {
+    this.value(this.convert(newValue));
+};
+
+Fields.Integer.prototype.convert = function(value) {
+    value = parseInt(ko.utils.unwrapObservable(value), 10);
+    return isNaN(value) ? null : value;
 };
 
 
 Fields.PartialDate = function(obj) {
+    var date = {
+        year:  new Fields.Integer(obj.year),
+        month: new Fields.Integer(obj.month),
+        day:   new Fields.Integer(obj.day)
+    };
 
-    var value = ko.observable({
-        year:  Fields.Integer(obj.year),
-        month: Fields.Integer(obj.month),
-        day:   Fields.Integer(obj.day)
-    });
-
+    this.value = ko.observable(date);
     delete obj;
-    var date = value(), partChanged = function() {value.notifySubscribers(date)};
 
-    date.year.subscribe(partChanged);
-    date.month.subscribe(partChanged);
-    date.day.subscribe(partChanged);
+    date.year.subscribe(this.partChanged, this);
+    date.month.subscribe(this.partChanged, this);
+    date.day.subscribe(this.partChanged, this);
 
-    value.render = function() {
-        var year = date.year(), month = date.month(), day = date.day();
-        return year ? year + (month ? "-" + month + (day ? "-" + day : "") : "") : "";
-    }
+    return this.value;
+};
 
-    return value;
+Fields.PartialDate.prototype.partChanged = function() {
+    this.value.notifySubscribers(this.value.peek());
 };
 
 
 var Attribute = function(name, value, attr, relationship) {
-    value = ko.observable(Util.convertAttr(attr, value));
+    this.value = ko.observable(Util.convertAttr(attr, value));
+    this.attr = attr;
+    this.relationship = relationship;
 
-    return ko.computed({
-        read: value,
-        write: function(newValue) {
-            newValue = Util.convertAttr(attr, ko.utils.unwrapObservable(newValue));
-
-            if (!_.isEqual(value(), newValue)) {
-                value(newValue);
-                relationship.attributes.notifySubscribers(relationship.attributes());
-            }
-        }
-    }).extend({field: [relationship, null, "attrs." + name, true]});
+    return (ko.computed({read: this.value, write: this.write, owner: this})
+        .extend({field: [relationship, null, "attrs." + name, true]}));
 };
 
 
-var updateAttributes = function(relationship, target, value) {
-    var validAttrs = {};
+Attribute.prototype.write = function(newValue) {
+    newValue = Util.convertAttr(this.attr, ko.utils.unwrapObservable(newValue));
 
-    Util.attrsForLinkType(relationship.link_type(), function(attr) {
+    if (!_.isEqual(this.value(), newValue)) {
+        this.value(newValue);
+        var attrs = this.relationship.attributes;
+        attrs.notifySubscribers(attrs());
+    }
+};
+
+// if the relationship's link type changes (in the edit dialog, for example),
+// it's convenient to be able to write directly to any attribute that's valid
+// for the link type. the computed observable below (specifically,
+// updateAttributes) makes sure that they exist.
+
+Fields.Attributes = function(relationship) {
+    this.value = {};
+    this.relationship = relationship;
+    return ko.computed({read: this.read, write: this.write, owner: this, deferEvaluation: true});
+};
+
+Fields.Attributes.prototype.read = function() {
+    this.update({});
+    return this.value;
+};
+
+Fields.Attributes.prototype.write = function(newValue) {
+    this.update(newValue);
+};
+
+Fields.Attributes.prototype.update = function(value) {
+    var target = this.value, validAttrs = {}, self = this;
+
+    Util.attrsForLinkType(this.relationship.link_type(), function(attr) {
         var name = attr.name;
 
         if (target[name] === undefined) {
-            target[name] = Attribute(name, value[name], attr, relationship);
+            target[name] = new Attribute(name, value[name], attr, self.relationship);
 
         } else if (value[name] !== undefined) {
             target[name](value[name]);
@@ -258,64 +282,49 @@ var updateAttributes = function(relationship, target, value) {
 
         if (validAttrs[name] === undefined) {
             if (attr.hasError) attr.error("");
+
             attr.errorSub.dispose();
             delete target[name];
         }
     }
 };
 
-// if the relationship's link type changes (in the edit dialog, for example),
-// it's convenient to be able to write directly to any attribute that's valid
-// for the link type. the computed observable below (specifically,
-// updateAttributes) makes sure that they exist.
-
-Fields.Attributes = function(relationship) {
-    var value = {};
-
-    return ko.computed({
-        read: function() {
-            updateAttributes(relationship, value, {});
-            return value;
-        },
-        write: function(newValue) {
-            updateAttributes(relationship, value, newValue);
-        },
-        deferEvaluation: true
-    });
-};
-
 
 Fields.Target = function(target, relationship) {
-    var target = ko.observable(target), self = relationship, computed;
+    this.target = ko.observable(target);
+    this.relationship = relationship;
 
-    computed = ko.computed({
-        read: target,
-        write: function(newTarget) {
-            var oldTarget = target(),
-                newTarget = RE.Entity(ko.utils.unwrapObservable(newTarget));
+    this.computed = ko.computed({read: this.target, write: this.write, owner: this})
+        .extend({field: [relationship, "target"]});
 
-            if (oldTarget !== newTarget) {
-                // we no longer want validation notifications for this entity's name
-                computed.nameSubs[self.id].dispose();
-                delete computed.nameSubs[self.id];
-
-                self.changeTarget(oldTarget, newTarget, target);
-            }
-        }
-    });
-    return computed.extend({field: [self, "target"]});
+    return this.computed
 };
+
+Fields.Target.prototype.write = function(newTarget) {
+    var relationship = this.relationship, oldTarget = this.target(),
+        newTarget = RE.Entity(ko.utils.unwrapObservable(newTarget));
+
+    if (oldTarget !== newTarget) {
+        // we no longer want validation notifications for this entity's name
+        this.computed.nameSubs[relationship.id].dispose();
+        delete this.computed.nameSubs[relationship.id];
+
+        relationship.changeTarget(oldTarget, newTarget, this.target);
+    }
+}
 
 
 Fields.Type = function(relationship) {
     // computed observables alert their subscribers even when the value doesn't
     // change, which we don't want, so this is mainly boilerplate to prevent that.
-    var value = ko.observable(null);
+    this.value = ko.observable(null);
+    this.relationship = relationship;
+    ko.computed({read: this.read, owner: this});
+    return this.value;
+};
 
-    ko.computed(function() {
-        value(Util.type(relationship.link_type()));
-    });
-    return value;
+Fields.Type.prototype.read = function() {
+    this.value(Util.type(this.relationship.link_type()));
 };
 
 return RE;
