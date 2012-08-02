@@ -408,7 +408,7 @@ var Dialog = UI.Dialog = {
             if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
         });
 
-        $d.css("max-width", "100%").css("max-width", $d.width());
+        $d.css("max-width", "100%").css("max-width", $d.outerWidth());
         $hidden.show();
 
         var offx = $w.scrollLeft(), offy = $w.scrollTop(),
