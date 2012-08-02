@@ -54,7 +54,7 @@ sub serialize_release
                                      $track->recording->artist_credit) ),
                 };
 
-                if ($c->stash->{inc}->rels) {
+                if ($c->stash->{inc}->{rels}) {
                     $track_data->{recording}->{relationships} =
                         $self->serialize_relationships( $track->recording->all_relationships );
                 }
@@ -65,7 +65,7 @@ sub serialize_release
             push @{ $mediums }, $medium_data;
         }
     }
-    if ($c->stash->{inc}->rels) {
+    if ($c->stash->{inc}->{rels}) {
         $data->{relationships} = $self->serialize_relationships( $release->all_relationships );
     }
     return $self->serialize_data($data);

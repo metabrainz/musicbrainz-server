@@ -7,7 +7,6 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use Text::Trim;
 use Text::Unaccent qw( unac_string_utf16 );
-use Scalar::Util qw ( blessed );
 
 requires 'type';
 
@@ -42,7 +41,7 @@ sub dispatch_search {
 sub _load_entities {
     my ($self, $c, @entities) = @_;
 
-    if (blessed $c->stash->{inc} && $c->stash->{inc}->rels) {
+    if ($c->stash->{inc}->{rels}) {
         $c->model('Relationship')->load (@entities);
     }
 }
