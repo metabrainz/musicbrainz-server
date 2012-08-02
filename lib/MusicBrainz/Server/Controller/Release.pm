@@ -639,6 +639,11 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
 
+with 'MusicBrainz::Server::Controller::Role::RelationshipEditor' => {
+    -alias => { try_and_edit   => 'try_and_edit_relationship',
+                try_and_insert => 'try_and_insert_relationship' }
+};
+
 sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth
 {
     my ($self, $c) = @_;
@@ -648,18 +653,18 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
 
     foreach (@link_type_tree) {
         next if $_->name !~ /(recording|work|release(?!_group))/;
-        my %tmp = $c->controller('Edit::Relationship')->build_type_info($_);
+        my %tmp = $c->model('LinkType')->build_type_info($_);
         @type_info{ keys %tmp } = values %tmp;
     }
 
     my $language_options = language_options($c);
     my @work_languages;
+
     foreach my $lang (@$language_options) {
+
         my $i = $lang->{optgroup_order} - 1;
-        $work_languages[$i] //= {
-            optgroup => $lang->{optgroup},
-            options  => []
-        };
+        $work_languages[$i] //= { optgroup => $lang->{optgroup}, options  => [] };
+
         push @{ $work_languages[$i]{options} },
               { label => $lang->{label}, value => $lang->{value} };
     }
@@ -774,10 +779,9 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
         my $rel = $field->value;
         my $entity0 = $rel->{entity}->[0];
         my $entity1 = $rel->{entity}->[1];
-        my @attributes = $c->controller('Edit::Relationship')
-            ->flatten_attributes($attr_tree, $field->field('attrs'));
+        my @attributes = $self->flatten_attributes($attr_tree, $field->field('attrs'));
 
-        $c->controller('Edit::Relationship')->try_and_insert(
+        $self->try_and_insert_relationship(
             $c, $form, $entity0->{type}, $entity1->{type}, (
                 entity0 => $loaded_entities->{$entity0->{gid}},
                 entity1 => $loaded_entities->{$entity1->{gid}},
@@ -801,10 +805,9 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
             my $entity1 = $rel->{entity}->[1];
 
             my $relationship = $loaded_relationships->{$types}->{$rel->{id}};
-            my @attributes = $c->controller('Edit::Relationship')
-                ->flatten_attributes($attr_tree, $field->field('attrs'));
+            my @attributes = $self->flatten_attributes($attr_tree, $field->field('attrs'));
 
-            $c->controller('Edit::Relationship')->try_and_edit(
+            $self->try_and_edit_relationship(
                 $c, $form, $entity0->{type}, $entity1->{type}, $relationship, (
                     new_link_type_id => $rel->{link_type},
                     new_begin_date => $rel->{begin_date},
