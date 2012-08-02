@@ -37,9 +37,7 @@ Entity.prototype.init = function() {
     this.name = ko.observable("");
 
     this.rendering = ko.computed({
-        read: function() {
-            return this.render(this.name());
-        },
+        read: renderEntity,
         owner: this,
         deferEvaluation: true
     });
@@ -51,6 +49,10 @@ Entity.prototype.render = function(name, options) {
     }, options);
     return MB.html.a(options, name);
 };
+
+function renderEntity() {
+    return this.render(this.name());
+}
 
 Entity.prototype.remove = function() {
     if (--this.refcount == 0) {
@@ -109,13 +111,15 @@ Artist = function() {
     this.sortname = ko.observable("");
 
     this.rendering = ko.computed({
-        read: function() {
-            return this.render(this.name(), {title: this.sortname()});
-        },
+        read: renderArtist,
         owner: this,
         deferEvaluation: true
     });
 };
+
+function renderArtist() {
+    return this.render(this.name(), {title: this.sortname()});
+}
 
 Label = function() {
     this.init();
@@ -138,26 +142,30 @@ Work = function() {
     this.work_language = ko.observable(null);
 
     this.rendering = ko.computed({
-        read: function() {
-            return RE.Util.isMBID(this.gid) ? this.render(this.name()) : this.name();
-        },
+        read: renderWork,
         owner: this,
         deferEvaluation: true
     });
 };
+
+function renderWork() {
+    return RE.Util.isMBID(this.gid) ? this.render(this.name()) : this.name();
+}
 
 URL = function() {
     this.init();
 
     this.rendering = ko.computed({
-        read: function() {
-            var name = _.prune(this.name(), 50);
-            return this.render(name);
-        },
+        read: renderURL,
         owner: this,
         deferEvaluation: true
     });
 };
+
+function renderURL() {
+    var name = _.prune(this.name(), 50);
+    return this.render(name);
+}
 
 Artist.prototype = new Entity;
 Label.prototype = new Entity;
