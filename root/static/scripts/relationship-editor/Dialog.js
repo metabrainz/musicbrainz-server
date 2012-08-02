@@ -52,7 +52,7 @@ ko.bindingHandlers.selectAttribute = (function() {
     return {
         init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
             var $element = $(element), attr = valueAccessor(),
-                frag, multi = (attr.max === null);
+                frag, name = attr.data.name, multi = (attr.max === null);
 
             if ((frag = cache[attr.data.name]) === undefined) {
                 frag = cache[attr.data.name] = document.createDocumentFragment();
@@ -69,7 +69,12 @@ ko.bindingHandlers.selectAttribute = (function() {
                     attr.value(multi ? $(this).val() : [value]);
                 });
 
-            if (multi) $element.multiselect(attr.data.name);
+            if (multi) {
+                var id = attr.data.id, placeholder = "";
+                if (id == 14) placeholder = MB.text.FocusInstrument;
+                if (id == 3) placeholder = MB.text.FocusVocal;
+                $element.multiselect(placeholder, id);
+            }
         }
     };
 }());

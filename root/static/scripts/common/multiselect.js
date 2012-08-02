@@ -130,7 +130,7 @@ $("body")
         }
     });
 
-var multiselect = function(input, cacheKey) {
+var multiselect = function(input, placeholder, cacheKey) {
     var self = this;
     this.hoverOption = null;
     this.values = $(input).val() || [];
@@ -147,7 +147,7 @@ var multiselect = function(input, cacheKey) {
     this.menu.style.display = "none";
 
     this.search = document.createElement("input");
-    this.search.setAttribute("placeholder", MB.text.Search);
+    this.search.setAttribute("placeholder", placeholder);
 
     this.items = document.createElement("div");
     this.items.className = "items";
@@ -402,8 +402,8 @@ multiselect.prototype.buildOptions = function(cacheKey) {
     this.options = this.menu.querySelectorAll("a");
 };
 
-$.fn.multiselect = function(cacheKey) {
-    this.each(function(i, e) {new multiselect(e, cacheKey)});
+$.fn.multiselect = function(placeholder, cacheKey) {
+    this.each(function(i, e) {new multiselect(e, placeholder || "", cacheKey)});
 };
 
 });

@@ -115,6 +115,8 @@
             from: '[% l('from') |js %]',
             until: '[% l('until') |js %]',
             present: '[% l('present') |js %]',
-        }
+        },
+        FocusInstrument: '[% l('Click here to choose an instrument') | js %]',
+        FocusVocal: '[% l('Click here to choose a vocal') | js %]',
     });
 })(MB);
