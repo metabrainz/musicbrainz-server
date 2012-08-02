@@ -225,7 +225,7 @@ var Dialog = UI.Dialog = {
                 if (Util.isMBID(currentTarget.gid)) {
                     Dialog.previousWork = currentTarget;
                     // wait for other newWork subscriptions to catch up
-                    _.defer(function() {Dialog.initNewWork(currentTarget.name())});
+                    _.defer(Dialog.initNewWork, currentTarget.name());
                 }
             } else if (Dialog.previousWork) {
                 Dialog.relationship().target(Dialog.previousWork);
@@ -581,36 +581,16 @@ BatchRelationshipDialog.accept = function(callback) {
 
     model.target = relationship.target();
 
-    // trying to create and render a ton of relationships all at once is *slow*.
-    // this is designed to not do that. each relationship promises to create
-    // the next one once it's done rendering itself. this is called back in
-    // RelationshipEditor.js -> UI.release.addRelationship.
+    Util.renderRelationships(targets, function(target) {
+        model.source = target;
+        delete model.id;
 
-    function createRelationship(index) {
+        if (!hasCallback || callback(model)) {
+            var newRelationship = RE.Relationship(model, true);
+            if (newRelationship) return newRelationship;
+        }
+    });
 
-        return function() {
-            var target = targets[index], next = targets[index + 1], promise;
-
-            model.source = target;
-            delete model.id;
-
-            if (next) promise = createRelationship(index + 1);
-
-            if (!hasCallback || callback(model)) {
-                var newRelationship = RE.Relationship(model, true);
-
-                if (newRelationship) {
-
-                    newRelationship.promise = promise;
-                    newRelationship.show();
-
-                } else if (promise) promise();
-
-            } else if (promise) promise();
-        };
-    };
-
-    createRelationship(0)();
     Dialog.hide();
 };
 

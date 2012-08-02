@@ -23,76 +23,109 @@ var Util = RE.Util = RE.Util || {}, CGI = Util.CGI = {}, CGIRegex;
 
 
 Util.parseRelationships = function(obj, checkCGIParams) {
-    var source = RE.Entity(obj);
+    var source = RE.Entity(obj),
+        args = {source: source, checkCGIParams: checkCGIParams, result: []};
 
     $.each(obj.relationships, function(target_type, rel_types) {
         if (obj.type == "work" && target_type == "recording") return;
         if (target_type == "url") return; // no url support yet
+        args.target_type = target_type;
 
         $.each(rel_types, function(rel_type, rels) {
 
             for (var i = 0; i < rels.length; i++) {
-                var rel = rels[i], target, relationship, type, orig;
-                type = RE.Util.type(rel.link_type);
-                orig = RE.serverFields[type] = RE.serverFields[type] || {};
-
-                if (orig[rel.id] !== undefined) continue;
-
-                Util.attrsForLinkType(rel.link_type, function(attr) {
-                    var name = attr.name;
-                    rel.attributes[name] = Util.convertAttr(attr, rel.attributes[name]);
-                });
-                rel.begin_date = Util.parseDate(rel.begin_date || "");
-                rel.end_date = Util.parseDate(rel.end_date || "");
-                rel.ended = Boolean(rel.ended);
-                rel.direction = rel.direction || "forward";
-
-                orig = orig[rel.id] = $.extend(true, {}, rel);
-                orig.target.type = target_type;
-                orig.target = RE.Entity(orig.target);
-                orig.attributes = ko.toJS(rel.attributes);
-
-                if (checkCGIParams) {
-                    try {
-                        $.extend(true, rel, CGI.actions.edit[type][rel.id]);
-                    } catch (e) {};
-
-                    try {
-                        $.extend(true, rel, CGI.actions.remove[type][rel.id]);
-                    } catch (e) {};
-                }
-                target = rel.target;
-                target.type = target_type;
-
-                if (target_type == "url") {
-                    target.name = target.url;
-                    delete target.url;
-                }
-                rel.source = source;
-                rel.target = RE.Entity(target);
-
-                RE.Relationship(rel, !checkCGIParams).show();
-
-                if (target.relationships) Util.parseRelationships(target, checkCGIParams);
+                args.obj = rels[i];
+                parseRelationship(args);
             }
         });
     });
 
-    if (checkCGIParams) {
-        var added = CGI.actions.add[source.gid], obj, src, target;
-        if (added === undefined) return;
+    var added = CGI.actions.add[source.gid];
+    if (checkCGIParams && added) {
+        var obj;
 
         for (var i = 0; i < added.length; i++) {
-            var obj = added[i];
-
+            obj = added[i];
             obj.source = source;
             obj.target = RE.Entity(obj.target);
 
-            RE.Relationship(obj).show();
+            args.result.push(RE.Relationship(obj));
         }
     }
+
+    Util.renderRelationships(args.result, _.identity);
 };
 
+
+var parseRelationship = function(args) {
+    var obj = args.obj, target, relationship, type, orig;
+    type = RE.Util.type(obj.link_type);
+    orig = RE.serverFields[type] = RE.serverFields[type] || {};
+
+    if (orig[obj.id]) return;
+
+    Util.attrsForLinkType(obj.link_type, function(attr) {
+        var name = attr.name;
+        obj.attributes[name] = Util.convertAttr(attr, obj.attributes[name]);
+    });
+
+    obj.begin_date = Util.parseDate(obj.begin_date || "");
+    obj.end_date = Util.parseDate(obj.end_date || "");
+    obj.ended = Boolean(obj.ended);
+    obj.direction = obj.direction || "forward";
+
+    orig = orig[obj.id] = $.extend(true, {}, obj);
+    orig.target.type = args.target_type;
+    orig.target = RE.Entity(orig.target);
+    orig.attributes = ko.toJS(obj.attributes);
+
+    if (args.checkCGIParams) {
+        try {
+            $.extend(true, obj, CGI.actions.edit[type][obj.id]);
+        } catch (e) {};
+
+        try {
+            $.extend(true, obj, CGI.actions.remove[type][obj.id]);
+        } catch (e) {};
+    }
+    target = obj.target;
+    target.type = args.target_type;
+
+    if (args.target_type == "url") {
+        target.name = target.url;
+        delete target.url;
+    }
+    obj.source = args.source;
+    obj.target = RE.Entity(target);
+
+    args.result.push(RE.Relationship(obj, !args.checkCGIParams));
+
+    if (target.relationships) Util.parseRelationships(target, args.checkCGIParams);
+};
+
+// trying to render a ton of relationships all at once is *slow*. this helper
+// function is designed to not do that. each relationship promises to create
+// the next one once it's done rendering itself. the promise is called back in
+// RelationshipEditor.js -> release.addRelationship.
+
+Util.renderRelationships = function(targets, callback) {
+    function next(index) {
+
+        return function() {
+            var target = targets[index], nextTarget = targets[index + 1],
+                promise = nextTarget ? next(index + 1) : undefined,
+                relationship = callback(target);
+
+            if (relationship) {
+
+                relationship.promise = promise;
+                relationship.show();
+
+            } else if (promise) promise();
+        };
+    }
+    next(0)();
+};
 
 // form state is preserved using three variables, one for each action.
 

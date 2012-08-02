@@ -28,7 +28,7 @@ release = {
 
     relationships: ko.observableArray([]),
 
-    addRelationship: function(element, i, relationship) {
+    addRelationship: function(elements, relationship) {
         if (relationship.promise) {
             var promise = relationship.promise;
             delete relationship.promise;
@@ -137,7 +137,7 @@ parseMedium = function(medium, media, release) {
     media.push(medium);
 
     _.map(tracks, function(track) {
-        _.defer(function() {parseTrack(track, medium, release)});
+        _.defer(parseTrack, track, medium, release);
     });
     return tracks.length;
 };
