@@ -218,6 +218,7 @@ Relationship.prototype.reset = function(obj) {
     if (fields) {
         ko.mapping.fromJS(fields, this);
         this.target(fields.target);
+        this.changeCount = 0;
     }
 };
 
