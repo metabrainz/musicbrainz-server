@@ -28,8 +28,6 @@
            content=release.barcode.format property='mo:tgin' datatype='xsd:string' IF release.barcode.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Format:')
            content=release.combined_format_name IF release.combined_format_name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-           content=format_length(release.length) IF release.length;
     END %]
 
     <h2>[% l('Additional details') %]</h2>
