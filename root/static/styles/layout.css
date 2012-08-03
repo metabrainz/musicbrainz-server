@@ -874,6 +874,11 @@ dl.search-plugins dd {
 
 div.searchform input#id-query { width: 30em }
 
+/* Collections */
+.collection-image img {
+    width:100%;
+}
+
 /* CSS columns (instead of using tables) */
 div.columns-2 div.column {
     float: left;

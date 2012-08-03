@@ -83,6 +83,8 @@ sub show : Chained('load') PathPart('')
     my $releases = $self->_load_paged($c, sub {
         $c->model('Release')->find_by_collection($collection->id, shift, shift, $order);
     });
+    $c->model('Release')->load_meta(@$releases);
+
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
@@ -90,11 +92,25 @@ sub show : Chained('load') PathPart('')
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 
+    my $release_artwork = {};
+    foreach my $rel (@$releases) {
+        if ($rel->cover_art_presence && $rel->cover_art_presence eq "present") {
+            # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
+            my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $rel->gid;
+            my $artwork = {
+                image => $prefix.'/front',
+                small_thumbnail => $prefix.'/front-250'
+            };
+            $release_artwork->{$rel->gid} = $artwork;
+        }
+    }
+
     $c->stash(
         collection => $collection,
         order => $order,
         releases => $releases,
-        template => 'collection/index.tt'
+        template => 'collection/index.tt',
+        release_artwork => $release_artwork
     );
 }
 

@@ -7,6 +7,7 @@
           <thead>
               <tr>
                   [% IF my_collection %]<th><input type="checkbox" /></th>[% END %]
+                  <th style="width:100px"></th>
                   [% sortble_table_header('title', l('Release')) %]
                   [% sortble_table_header('artist', l('Artist')) %]
                   <th>[% l('Format') %]</th>
@@ -25,6 +26,18 @@
                     <input type="checkbox" name="remove" value="[% release.id %]" />
                   </td>
                   [% END %]
+                  <td>
+                      <div class="collection-image">
+                          [%- SWITCH release.cover_art_presence -%]
+                          [%- CASE 'absent' -%]
+                              [%- IF release.cover_art_url -%]
+                                  <img src="[% release.cover_art_url -%]" />
+                              [%- END -%]
+                          [%- CASE 'present' -%]
+                              [%- display_artwork (release_artwork.${release.gid}, release.cover_art_url, "&nbsp;") -%]
+                          [%- END -%]
+                      </div>
+                  </td>
                   <td>[% link_entity(release) %]</td>
                   <td>[% artist_credit(release.artist_credit) %]</td>
                   <td>[% release.combined_format_name or "-" %]</td>

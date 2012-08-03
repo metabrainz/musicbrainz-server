@@ -49,4 +49,19 @@ test 'Unknown collection' => sub {
     is($mech->status, HTTP_NOT_FOUND);
 };
 
+
+test 'Images are present for some releases' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
+    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
+    #warn $mech->content;
+    $tx->is('//table/tbody/tr[1]/td[1]//img/@src', 'http://ecx.images-amazon.com/images/I/41KMH1VE7XL.jpg',
+        'contains image pointing to amazon');
+    $tx->is('//table/tbody/tr[2]/td[1]//img/@src',
+        'http://coverartarchive.org/release/c34c079d-374e-4436-9448-da92dedef3ce/front-250',
+        'contains image pointing to CAA');
+};
+
 1;

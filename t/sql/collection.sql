@@ -20,6 +20,12 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
            (3, 'b34c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1),
            (4, 'c34c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1);
 
+INSERT INTO release_coverart
+    VALUES (2, now(), 'http://ecx.images-amazon.com/images/I/41KMH1VE7XL.jpg');
+
+INSERT INTO release_meta (id, date_added, cover_art_presence)
+    VALUES (4, now(), 'present'), (2, now(), 'absent');
+
 INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'pass'), (2, 'editor2', 'pass'), (3, 'editor3', 'pass');
 INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE), (2, 'f34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2', TRUE);
 
