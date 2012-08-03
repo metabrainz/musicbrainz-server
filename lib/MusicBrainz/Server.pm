@@ -264,6 +264,9 @@ around 'dispatch' => sub {
                                        $max_request_time));
                 $c->log->error(Devel::StackTrace->new->as_string);
                 $c->log->_flush;
+                if (my $sth = $c->model('MB')->context->sql->sth) {
+                    $sth->cancel;
+                }
                 exit(42)
             }));
 

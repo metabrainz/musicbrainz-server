@@ -39,12 +39,16 @@ has 'sth' => (
         next_row_ref => 'fetch',
         next_row_hash_ref => 'fetchrow_hashref',
     },
+    clearer => 'clear_sth'
 );
 
 sub finish
 {
     my ($self) = @_;
-    $self->sth->finish if exists $self->{sth};
+    if (my $sth = $self->sth) {
+        $sth->finish;
+        $self->clear_sth;
+    }
 }
 
 sub BUILDARGS
@@ -336,13 +340,14 @@ sub _select_single_row
     return try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        my $sth = $self->dbh->prepare_cached($query);
-        my $rv  = $sth->execute(@params) or croak 'Could not execute query';
+        $self->sth( $self->dbh->prepare_cached($query) );
+        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
 
-        my $first_row = $sth->$method;
-        my $next_row  = $sth->$method if $first_row;
+        my $first_row = $self->sth->$method;
+        my $next_row  = $self->sth->$method if $first_row;
 
-        $sth->finish;
+        $self->finish;
+
         croak 'Query returned more than one row (expected 1 row)' if $next_row;
 
         return $first_row;
@@ -405,15 +410,16 @@ sub _select_list
     try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        my $sth = $self->dbh->prepare_cached($query);
-        my $rv  = $sth->execute(@params) or croak 'Could not execute query';
+        $self->sth( $self->dbh->prepare_cached($query) );
+        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
 
         my @vals;
-        while(my $row = $sth->$method) {
+        while(my $row = $self->sth->$method) {
             push @vals, $form_row->($row);
         }
 
-        $sth->finish;
+        $self->finish;
+
         return \@vals;
     }
     catch {
