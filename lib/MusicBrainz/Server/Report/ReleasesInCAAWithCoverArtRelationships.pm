@@ -1,34 +1,27 @@
 package MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            DISTINCT r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id,
-            musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-        FROM
-            release r
-            JOIN artist_credit ac ON r.artist_credit = ac.id
-            JOIN artist_name an ON ac.name = an.id
-            JOIN release_name rn ON r.name = rn.id
+            r.id AS release_id,
+            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+        FROM (
+            SELECT DISTINCT r.*
+            FROM release r
+            JOIN cover_art_archive.cover_art ON cover_art.release = r.id
             JOIN l_release_url lru ON entity0 = r.id
             JOIN link l ON l.id = lru.link
             JOIN link_type lt ON lt.id = l.link_type
-            JOIN cover_art_archive.cover_art ON cover_art.release = r.id
-        WHERE
-            lt.gid = '2476be45-3090-43b3-a948-a8f972b4065c'
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
-}
-
-sub template
-{
-    return 'report/releases_in_caa_with_cover_art_relationships.tt';
+            WHERE lt.gid = '2476be45-3090-43b3-a948-a8f972b4065c'
+        ) r
+        JOIN artist_credit ac ON r.artist_credit = ac.id
+        JOIN artist_name an ON ac.name = an.id
+        JOIN release_name rn ON r.name = rn.id
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;

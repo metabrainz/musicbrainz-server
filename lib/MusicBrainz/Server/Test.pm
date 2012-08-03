@@ -38,6 +38,8 @@ BEGIN {
     use DBDefs;
     *DBDefs::WEB_SERVER = sub { "localhost" };
     *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { "localhost" };
+    *DBDefs::RECAPTCHA_PUBLIC_KEY = sub { undef };
+    *DBDefs::RECAPTCHA_PRIVATE_KEY = sub { undef };
 }
 
 use MusicBrainz::Server::DatabaseConnectionFactory;

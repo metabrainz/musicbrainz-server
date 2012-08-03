@@ -160,7 +160,8 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
             self.button = true;
         }
         else if (self.$target.filter ('input[type=text]').length ||
-                 self.$target.filter ('textarea').length)
+                 self.$target.filter ('textarea').length ||
+                 self.$target.filter ('select').length)
         {
             self.textinput = true;
         }

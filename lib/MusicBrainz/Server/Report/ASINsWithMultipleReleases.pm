@@ -1,15 +1,18 @@
 package MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'asins_with_multiple_releases' }
 
-    $self->gather_data_from_query($writer, "
-        SELECT
-            r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id, q.gid AS url_gid, q.url, q.count
+sub query {
+    "   SELECT r.id AS release_id, q.id AS url_id,
+          row_number() OVER (
+             ORDER BY q.count DESC, q.url,
+               musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
+          )
         FROM
             (
                 SELECT
@@ -25,14 +28,7 @@ sub gather_data
             JOIN release r ON r.id = lru.entity0
             JOIN release_name rn ON rn.id = r.name
             JOIN artist_credit ac ON r.artist_credit = ac.id
-            JOIN artist_name an ON ac.name = an.id
-        ORDER BY q.count DESC, q.url, musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
-}
-
-sub template
-{
-    return 'report/asins_with_multiple_releases.tt';
+            JOIN artist_name an ON ac.name = an.id";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -42,6 +38,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

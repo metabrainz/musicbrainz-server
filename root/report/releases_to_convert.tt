@@ -4,11 +4,13 @@
 
 <ul>
     <li>
-    [% l('This report aims to identify releases which need converting to "multiple artists".') %]
-    [% l('Currently it does this by looking for releases where every track contains "/" or "-".') %]
+    [% l('This report aims to identify releases which need converting to multiple artists
+          (because the track artists are on the title field, for example). Currently it does
+          this by looking for releases where every track contains "/" or "-".') %]
     </li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]

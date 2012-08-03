@@ -45,7 +45,7 @@ sub FormatXSDTrackLength
 sub UnformatTrackLength
 {
     my $length = shift;
-    if ($length =~ /^\s*(\d{1,3}):(\d{1,2})\s*$/ && $2 < 60)
+    if ($length =~ /^\s*(\d+):(\d{1,2})\s*$/ && $2 < 60)
     {
         return ($1 * 60 + $2) * 1000;
     }

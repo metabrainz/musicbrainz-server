@@ -3,12 +3,17 @@
 <h1>[% l('Possibly duplicate artists') %]</h1>
 
 <ul>
-    <li>[% l('This report aims to identify artists with very similar names,
-              which might indicate that the artists need to be merged.') %]</li>
-    <li>[% l('This report does not show similarly named artists, if all artists
-              have disambiguation comments.') %]</li>
+    <li>[% l('This report aims to identify artists with very similar names. If
+              two artists are actually the same, please merge them (remember to
+              {how_to_write_edit_notes|write an edit note} and give your proof).
+              If they\'re different, add {disambiguation_comment|disambiguation
+              comments} to them (and once a group of similarly named artists have
+              disambiguation comments, they will stop appearing here).',
+              { how_to_write_edit_notes => doc_link('How_to_Write_Edit_Notes'),
+                disambiguation_comment => doc_link('Disambiguation_Comment') }) %]</li>
     <li>[% l('Total duplicate groups: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 <form action="[% c.uri_for_action('/artist/merge_queue') %]">
@@ -24,20 +29,21 @@
     </thead>
     <tbody>
       [% FOR item IN items %]
-      <tr class="subh"><td colspan="4"></td></tr>
-      [% FOR dupe IN item %]
+      [% IF !lastkey.defined || lastkey != item.key %]
+        <tr class="subh"><td colspan="4"></td></tr>
+      [% END %]
       <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
         <td>
           <input type="checkbox" name="add-to-merge"
-                 value="[% dupe.artist.id %]" />
+                 value="[% item.artist.id %]" />
         </td>
         <td>
-          [% link_entity(dupe.artist) %][% IF dupe.alias %] (alias: [% dupe.alias %])[% END %]
+          [% link_entity(item.artist) %][% IF item.alias %] (alias: [% item.alias %])[% END %]
         </td>
-        <td>[% dupe.artist.sort_name | html %]</td>
-        <td>[% dupe.artist.type_name %]</td>
+        <td>[% item.artist.sort_name | html %]</td>
+        <td>[% item.artist.type_name %]</td>
       </tr>
-      [% END %]
+      [% lastkey = item.key %]
       [% END %]
     </tbody>
   </table>

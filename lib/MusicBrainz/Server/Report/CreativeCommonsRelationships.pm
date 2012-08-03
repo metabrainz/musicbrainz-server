@@ -1,15 +1,15 @@
 package MusicBrainz::Server::Report::CreativeCommonsRelationships;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ReleaseReport';
+with 'MusicBrainz::Server::Report::ReleaseReport',
+     'MusicBrainz::Server::Report::URLReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
+sub query {
+    "
         SELECT
-            r.gid AS release_gid, rn.name, r.artist_credit AS artist_credit_id
+            r.id AS release_id,
+            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
         FROM release r
             JOIN release_name rn ON r.name = rn.id
             JOIN l_release_url l_ru ON r.id = l_ru.entity0
@@ -17,8 +17,7 @@ sub gather_data
             JOIN artist_credit ac on ac.id = r.artist_credit
             JOIN artist_name an on an.id = ac.name
         WHERE l.link_type = 84 AND l_ru.edits_pending = 0
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
-    ");
+    ";
 }
 
 sub template
@@ -32,6 +31,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2011 Johannes Weißl
 Copyright (C) 2009 Lukas Lalinsky
 

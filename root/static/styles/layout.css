@@ -143,6 +143,11 @@ h1 img.gravatar {
     position: absolute;
     top: 2px;
     right: 18px;
+    color: #DDD;
+}
+
+#header-logo #headerid-query {
+    width: 18em;
 }
 
 #header-logo #id-type {

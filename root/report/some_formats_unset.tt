@@ -3,9 +3,12 @@
 <h1>[% l('Releases With Some Formats Unset') %]</h1>
 
 <ul>
-    <li>[% l('This report shows releases where some of the medium formats are set, but others are unset.') %]</li>
+    <li>[% l('This report shows releases where some of the medium formats are set, but others
+              are unset. In most cases, it should be easy to find out which the correct
+              formats are (don\'t just assume that they\'re all CDs because one is though!).') %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]

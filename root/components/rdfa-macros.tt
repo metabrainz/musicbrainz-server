@@ -442,7 +442,7 @@ END -%]
     FOR label=labels;
       IF label.catalog_number AND !seen.${ label.catalog_number };
         out.push(rdfa_release_catno(label.catalog_number));
-        seen.${ label.catolog_number } = 1;
+        seen.${ label.catalog_number } = 1;
       END;
     END;
     out.join(', ');

@@ -2,14 +2,14 @@
 
 <h1>[% l('Artists with Collaboration Relationships') %]</h1>
 <p>[% l('This report lists artists which have collaboration relationships but no URL relationships.
-         Many collaborations were automatically split. The ones here weren\'t
-         because the artist names weren\'t all found in the collaboration name,
-         not all of the artists were linked or the collaboration artist had other relationships.
-') %]
-</p>
+         If the collaboration has its own independent name, do nothing. If it is in a format like
+         "X with Y" or "X & Y", you should probably split it. See {how_to_split_artists|How to Split
+         Artists}.',
+         { how_to_split_artists => doc_link('How_to_Split_Artists') }) %]</p>
 <ul>
     <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- WRAPPER 'components/with-pager.tt' -%]
@@ -21,13 +21,13 @@
         </tr>
     </thead>
     <tbody>
-        [%- lastgid = 0 -%]
+        [%- lastid = 0 -%]
         [%- FOR item IN items -%]
-        [% IF lastgid != item.gid1 %]
+        [% IF lastid != item.id1 %]
             <tr class="ev">
                 <td colspan="2">[% link_entity(item.artist1) %]</td>
             </tr>
-            [% lastgid = item.gid1 %]
+            [% lastid = item.id1 %]
         [% END %]
 
         <tr>
