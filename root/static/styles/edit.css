@@ -80,6 +80,10 @@ table.vote-tally .date {
     background-color: #F2F0A5;
 }
 
+.wrap-block {
+    display: inline-block;
+}
+
 /*
 ** Edit notes
 */
