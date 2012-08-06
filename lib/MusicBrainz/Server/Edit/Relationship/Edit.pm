@@ -356,21 +356,42 @@ sub accept
         $values
     );
 
-    my $link_type = $self->c->model('LinkType')->get_by_id(
-        $values->{link_type_id}
-    );
+    my $old_link_type_id =
+        ($self->data->{old}{link_type} && $self->data->{old}{link_type}{id});
 
-    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $relationship = $self->c->model('Relationship')->get_by_id(
-            $data->{type0}, $data->{type1},
-            $data->{relationship_id}
-        );
+    my $new_link_type_id = $values->{link_type_id};
 
+    my $link_types = $self->c->model('LinkType')->get_by_ids(
+        $new_link_type_id, $old_link_type_id // ());
+
+    my $new_link_type = $link_types->{ $values->{link_type_id} };
+
+    my $can_parse_new_link_type = $self->c->model('CoverArt')->can_parse($new_link_type->name);
+    if ($can_parse_new_link_type) {
         my $release = $self->c->model('Release')->get_by_id(
-            $relationship->entity0_id
+            $values->{entity0_id}
         );
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
+    }
+
+    # MBS-5029: If the user edits a relationship by moving it to different
+    # entities, we should refresh the old entity. For example, if an ASIN
+    # has been moved, the old release should not have cover art any more.
+    my $old_link_type = $link_types->{
+        $old_link_type_id // $new_link_type_id
+    };
+
+    my $can_parse_old_link_type = $self->c->model('CoverArt')->can_parse($old_link_type->name);
+    my $old_entity_id_changed = $self->data->{old}{entity0} && $self->data->{new}{entity0}
+        && $self->data->{old}{entity0}{id} != $self->data->{new}{entity0}{id};
+
+    if ($can_parse_old_link_type && ($old_entity_id_changed || !$can_parse_new_link_type)) {
+        my $old_release = $self->c->model('Release')->get_by_id(
+            $self->data->{old}{entity0}{id}
+        );
+        $self->c->model('Relationship')->load_subset([ 'url' ], $old_release);
+        $self->c->model('CoverArt')->cache_cover_art($old_release);
     }
 }
 
