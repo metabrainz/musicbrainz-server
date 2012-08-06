@@ -74,7 +74,8 @@ __PACKAGE__->config(
     },
     stacktrace => {
         enable => 1
-    }
+    },
+    use_request_uri_for_path => 1
 );
 
 if ($ENV{'MUSICBRAINZ_USE_PROXY'})
@@ -255,10 +256,21 @@ around 'dispatch' => sub {
 		MusicBrainz::Server::Translation::Instruments 
 		MusicBrainz::Server::Translation::InstrumentDescriptions );
 
+    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
+    my $lang = Translation->instance->set_language($cookie_lang);
+    # because s///r is a perl 5.14 feature
+    my $html_lang = $lang;
+    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
+    $c->stash(
+        current_language => $lang,
+        current_language_html => $html_lang
+    );
+
     if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
         alarm($max_request_time);
         POSIX::sigaction(
             SIGALRM, POSIX::SigAction->new(sub {
+                $c->model('MB')->dbh->cancel;
                 $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
                                        $c->req->uri,
                                        $max_request_time));
@@ -277,12 +289,12 @@ around 'dispatch' => sub {
     else {
         $c->$orig(@_);
     }
+    Translation->instance->unset_language();
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
-sub language { return $ENV{LANGUAGE} || 'en' }
 
 sub _handle_param_unicode_decoding {
     my ( $self, $value ) = @_;

@@ -42,6 +42,8 @@ my $fHelp;
 my $fProgress = -t STDOUT;
 my $tmpdir = "/tmp";
 my $fKeepFiles = 0;
+my $limit = 0;
+my $count = 0;
 my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
@@ -51,6 +53,7 @@ GetOptions(
     "lockfile=s"                => \$lockfile,
     "base-uri=s"                => \$baseuri,
     "process-arg=s"             => \@process_opts,
+    "limit=i"                   => \$limit,
 ) or exit 2;
 
 $baseuri =~ s/\/$//;
@@ -291,6 +294,11 @@ $iNextReplicationSequence = $iReplicationSequence + 1
 ++$iReplicationSequence;
 $dtReplicationDate = $TIMESTAMP;
 
+$count += 1;
+if ($limit > 0 && $count >= $limit) {
+    print localtime() . " : Hit packet limit $limit.\n";
+    exit 0;
+}
 # Loop back round and start again
 goto NEXT_PACKET;
 

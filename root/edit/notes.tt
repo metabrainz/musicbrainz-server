@@ -24,6 +24,7 @@
                         '<div class="voting-icon"></div>'; LAST; 
                     END; END; -%]
                     <span class="date">[%- UserDate.format(note.post_time) -%]</span>
+                    [%- editor_type_info(note.editor) -%]
                 </h3>
                 <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
                     [%- note.text | format_editnote -%]
