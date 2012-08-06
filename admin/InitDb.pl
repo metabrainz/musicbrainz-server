@@ -272,6 +272,9 @@ sub CreateRelations
     RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
+    RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
     RunSQLScript($DB, "SetSequences.sql", "Setting raw initial sequence values ...");
 
     RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
