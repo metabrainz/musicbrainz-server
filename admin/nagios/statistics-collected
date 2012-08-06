@@ -16,16 +16,13 @@ my $res = $c->sql->select_single_value(
     "SELECT
        CASE
          WHEN ago > '2 days'::interval THEN
-           concat_ws(':', 'CRITICAL', 2,
-             'Statistics have not been collected for over 2 days')
+           'CRITICAL:2:Statistics have not been collected for over 2 days'
          WHEN ago > '28 hours'::interval THEN
-           concat_ws(':', 'WARNING', 1,
-             'Statistics have not been collected for over 28 hours')
+           'WARNING:1:Statistics have not been collected for over 28 hours'
          WHEN ago IS NULL THEN
-           concat_ws(':', 'CRITICAL', 2,
-             'No statistics could be found')
+           'CRITICAL:2:No statistics could be found'
          ELSE
-           concat_ws(':', 'OK', 0)
+           'OK:0'
        END
      FROM (
        SELECT
