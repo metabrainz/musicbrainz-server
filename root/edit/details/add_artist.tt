@@ -40,7 +40,6 @@
     [% END %]
     [% IF !edit.display_data.begin_date.is_empty %]
     <tr>
-        [% date_period_label =  %]
         <th>[% edit.display_data.type.id == 1 ? l('Born:') : edit.display_data.type.id == 2 ? l('Founded:') : l('Begin date:') %]</th>
         <td>[% edit.display_data.begin_date.format %]</td>
     </tr>
