@@ -3,7 +3,6 @@ use utf8;
 use JSON;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok xml_ok schema_validator );
 use MusicBrainz::Server::Test ws_test_json => {
     version => 2
 };
@@ -158,6 +157,7 @@ test 'recording lookup with artists' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
+                        disambiguation => JSON::null,
                     },
                     joinphrase => "♥",
                 },
@@ -167,6 +167,7 @@ test 'recording lookup with artists' => sub {
                         id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                         name => "BoA",
                         "sort-name" => "BoA",
+                        disambiguation => JSON::null,
                     },
                     joinphrase => "",
                 }

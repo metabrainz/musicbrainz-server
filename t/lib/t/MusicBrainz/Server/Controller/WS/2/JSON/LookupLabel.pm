@@ -3,7 +3,6 @@ use utf8;
 use JSON;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok xml_ok schema_validator );
 use MusicBrainz::Server::Test ws_test_json => {
     version => 2
 };

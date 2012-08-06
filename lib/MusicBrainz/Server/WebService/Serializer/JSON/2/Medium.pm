@@ -2,7 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Medium;
 use Moose;
 use JSON;
 use List::UtilsBy qw( nsort_by sort_by );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -16,7 +16,7 @@ sub serialize
 
     $body{discids} = [ map +{
         id => $_->cdtoc->discid,
-        sectors => $_->cdtoc->leadout_offset
+        sectors => number ($_->cdtoc->leadout_offset)
     }, sort_by { $_->cdtoc->discid } $entity->all_cdtocs ]
         if defined $inc && $inc->discids;
 
@@ -53,7 +53,7 @@ sub serialize
     if (scalar @list)
     {
         $body{tracks} = \@list ;
-        $body{"track-offset"} = $min - 1;
+        $body{"track-offset"} = number ($min - 1);
     }
 
     return \%body;

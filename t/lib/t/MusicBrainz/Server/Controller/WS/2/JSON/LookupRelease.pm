@@ -123,9 +123,6 @@ test 'release lookup with artists + aliases' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
-                        "life-span" => { begin => "1998", ended => JSON::false },
-                        country => JSON::null,
-                        type => JSON::null,
                         disambiguation => JSON::null,
                         aliases => [
                             { "sort-name" => "m-flow", name => "m-flow" },
@@ -136,8 +133,7 @@ test 'release lookup with artists + aliases' => sub {
                             { "sort-name" => "エムフロウ", name => "エムフロウ" },
                             ]
                     }
-                }
-                ],
+                }],
             date => "2004-03-17",
             country => "JP",
             barcode => "4988064451180",
@@ -170,9 +166,7 @@ test 'release lookup with labels and recordings' => sub {
                         id => "72a46579-e9a0-405a-8ee1-e6e6b63b8212",
                         name => "rhythm zone",
                         "sort-name" => "rhythm zone",
-                        country => JSON::null,
                         disambiguation => JSON::null,
-                        type => JSON::null,
                         "label-code" => JSON::null,
                     }
                 }],
@@ -245,6 +239,7 @@ test 'release lookup with release-groups' => sub {
                       id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                       name => "m-flo",
                       "sort-name" => "m-flo",
+                      disambiguation => JSON::null,
                    },
                    joinphrase => '',
                 }
@@ -263,6 +258,7 @@ test 'release lookup with release-groups' => sub {
                           id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                           name => "m-flo",
                           "sort-name" => "m-flo",
+                          disambiguation => JSON::null,
                        },
                        joinphrase => "",
                     }

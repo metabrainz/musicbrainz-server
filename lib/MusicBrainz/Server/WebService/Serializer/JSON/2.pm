@@ -2,17 +2,6 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2;
 use Moose;
 use JSON;
 
-sub boolean {
-    my ($self, $value) = @_;
-    return $value ? JSON::true : JSON::false;
-}
-
-sub number {
-    my ($self, $value) = @_;
-
-    return defined $value ? $value + 0 : JSON::null;
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

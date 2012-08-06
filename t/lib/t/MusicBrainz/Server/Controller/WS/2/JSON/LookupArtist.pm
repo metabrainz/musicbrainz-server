@@ -3,7 +3,6 @@ use utf8;
 use JSON;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
 use MusicBrainz::Server::Test ws_test_json => {
     version => 2
 };
@@ -60,7 +59,7 @@ test 'basic artist lookup, inc=aliases' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
-            disambiguation => "Korean pop star also famous in Japan",
+            disambiguation => JSON::null,
             type => "Person",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             aliases => [
@@ -224,7 +223,7 @@ test 'artist lookup with recordings and artist credits' => sub {
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
-            country => "JP",
+            country => JSON::null,
             disambiguation => JSON::null,
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             "recordings" => [
@@ -240,6 +239,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
+                                disambiguation => JSON::null,
                             },
                             joinphrase => "♥",
                         },
@@ -249,6 +249,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                                 name => "BoA",
                                 "sort-name" => "BoA",
+                                disambiguation => JSON::null,
                             },
                             joinphrase => ""
                         }
@@ -266,6 +267,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
+                                disambiguation => JSON::null,
                             },
                             joinphrase => "♥",
                         },
@@ -275,6 +277,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                                 name => "BoA",
                                 "sort-name" => "BoA",
+                                disambiguation => JSON::null,
                             },
                             joinphrase => ""
                         }
@@ -295,7 +298,7 @@ test 'artist lookup with release groups' => sub {
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
-            country => "JP",
+            country => JSON::null,
             disambiguation => undef,
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             "release-groups" => [
@@ -322,7 +325,7 @@ test 'single artist release lookup' => sub {
             name => "m-flo",
             "sort-name" => "m-flo",
             type => "Group",
-            country => "JP",
+            country => JSON::null,
             disambiguation => undef,
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             releases => [
@@ -355,7 +358,7 @@ test 'various artists release lookup' => sub {
             "sort-name" => "BoA",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             country => JSON::null,
-            disambiguation => 'Korean pop star also famous in Japan',
+            disambiguation => JSON::null,
             type => "Person",
             releases => [
                 {
@@ -409,7 +412,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
-            disambiguation => "Korean pop star also famous in Japan",
+            disambiguation => JSON::null,
             type => "Person",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             works => [

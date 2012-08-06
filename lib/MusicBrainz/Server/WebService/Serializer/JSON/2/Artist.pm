@@ -18,17 +18,15 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->sort_name;
+    $body{disambiguation} = $entity->comment;
 
     if ($toplevel)
     {
-        $body{disambiguation} = $entity->comment;
         $body{type} = $entity->type_name;
+
         $body{country} = $entity->country
             ? $entity->country->iso_code : JSON::null;
-    }
 
-    if ($toplevel)
-    {
         $body{recordings} = list_of ($entity, $inc, $stash, "recordings")
             if ($inc && $inc->recordings);
 

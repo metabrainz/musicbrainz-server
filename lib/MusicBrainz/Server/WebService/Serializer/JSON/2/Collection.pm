@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Collection;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
@@ -12,7 +12,7 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{editor} = $entity->editor->name;
-    $body{"release-count"} = $self->number ($entity->release_count);
+    $body{"release-count"} = number ($entity->release_count);
 
     return \%body;
 };

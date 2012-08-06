@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Recording;
 use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity list_of );
+use List::UtilsBy 'sort_by';
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
@@ -26,8 +27,12 @@ sub serialize
     return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
 
     my $opts = $stash->store ($entity);
-    $body{isrcs} = [ map { $_->isrc } @{ $opts->{isrcs} } ] if $inc->isrcs;
-    $body{puids} = [ map { $_->puid->puid } @{ $opts->{puids} } ] if $inc->puids;
+    $body{isrcs} = [
+        map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
+        ] if $inc->isrcs;
+    $body{puids} = [
+        map { $_->puid->puid } sort_by { $_->puid->puid } @{ $opts->{puids} }
+        ] if $inc->puids;
 
     return \%body;
 };

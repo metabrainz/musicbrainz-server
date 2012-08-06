@@ -5,9 +5,11 @@ use Readonly;
 use List::UtilsBy 'sort_by';
 
 our @EXPORT_OK = qw(
+    boolean
+    list_of
+    number
     serializer
     serialize_entity
-    list_of
 );
 
 my %serializers;
@@ -37,6 +39,13 @@ Readonly my %ENTITY_TO_SERIALIZER => (
 #     'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseEvent'
     'MusicBrainz::Server::Entity::Work' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Work',
 );
+
+sub boolean { return (shift) ? JSON::true : JSON::false; }
+
+sub number {
+    my $value = shift;
+    return defined $value ? $value + 0 : JSON::null;
+}
 
 sub serializer
 {

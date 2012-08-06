@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Label;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
@@ -12,20 +12,22 @@ with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub serialize
 {
-    my ($self, $entity, $inc, $stash) = @_;
+    my ($self, $entity, $inc, $stash, $toplevel) = @_;
     my %body;
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->sort_name;
-    $body{"label-code"} = $self->number ($entity->label_code);
+    $body{"label-code"} = number ($entity->label_code);
     $body{disambiguation} = $entity->comment;
 
-    # FIXME: defaults?
-    $body{type} = $entity->type_name;
-    $body{country} = $entity->country ? $entity->country->iso_code : JSON::null;
+    if ($toplevel)
+    {
+        $body{type} = $entity->type_name;
+        $body{country} = $entity->country ? $entity->country->iso_code : JSON::null;
 
-    $body{releases} = list_of ($entity, $inc, $stash, "releases")
-        if ($inc && $inc->releases);
+        $body{releases} = list_of ($entity, $inc, $stash, "releases")
+            if ($inc && $inc->releases);
+    }
 
     return \%body;
 };

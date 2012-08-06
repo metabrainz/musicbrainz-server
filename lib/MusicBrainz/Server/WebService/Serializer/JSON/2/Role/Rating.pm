@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating;
 use Moose::Role;
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number );
 
 around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
@@ -11,12 +12,13 @@ around serialize => sub {
     my $opts = $stash->store ($entity);
 
     $ret->{rating} = {
-        "votes-count" => $self->number ($opts->{ratings}->{count}),
-        "value" => $self->number ($opts->{ratings}->{rating})
+        "votes-count" => defined $opts->{ratings}->{count} ?
+            number ($opts->{ratings}->{count}) : 0,
+        "value" => number ($opts->{ratings}->{rating})
     } if $inc->ratings;
 
     $ret->{"user-rating"} = {
-        "value" => $self->number ($opts->{"user_ratings"})
+        "value" => number ($opts->{"user_ratings"})
     } if $inc->user_ratings;
 
     return $ret;
