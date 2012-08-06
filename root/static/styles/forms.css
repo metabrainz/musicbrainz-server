@@ -54,6 +54,7 @@ div.bubble div.row label,
 div.bubble div.row div.label { width: 150px; }
 
 form div.row p { float: none; clear: none; }
+form div.row ul { overflow: auto; }
 
 form div.no-label,
 form p.no-label,
@@ -190,8 +191,9 @@ div.half-width {
     width: 465px;
 }
 
-div.half-width p {
-    margin: 12px;
+div.half-width p,
+fieldset > p {
+    margin: 1em;
 }
 
 div.documentation {
@@ -209,7 +211,7 @@ div.half-width fieldset {
 
 div.half-width fieldset.editnote {
     background-color: inherit;
-    border: 0;
+    border-color: transparent; /* this preserves the spacing below the legend, but keeps the border hidden */
 }
 
 div.half-width fieldset legend {
