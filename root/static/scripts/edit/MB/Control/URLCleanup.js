@@ -468,7 +468,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return dirtyURL;
     };
 
-    var typeChanged = function() {
+    var typeChanged = function(event) {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
         if (!checker || checker()) {
             self.errorList.hide();
@@ -476,11 +476,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         }
         else {
             self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
+            if (event.type === 'submit') {
+                event.preventDefault();
+            }
             $('button[type="submit"]').attr('disabled', 'disabled');
         }
     };
 
-    var urlChanged = function() {
+    var urlChanged = function(event) {
         var url = self.urlControl.val(),
             clean = self.cleanUrl(self.sourceType, url) || url;
 
@@ -496,7 +499,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
                 .attr('selected', 'selected').trigger('change');
-            typeChanged();
+            typeChanged(event);
         }
     };
 
