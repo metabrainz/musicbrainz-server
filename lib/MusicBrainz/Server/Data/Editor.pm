@@ -437,7 +437,7 @@ sub donation_check
         $ua->timeout(5); # in seconds.
 
         my $response = $ua->request(HTTP::Request->new (GET =>
-            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
+            'http://metabrainz.org/donations/nag-check/' .
             uri_escape_utf8($obj->name)));
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
