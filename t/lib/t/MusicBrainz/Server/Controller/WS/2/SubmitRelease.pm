@@ -60,7 +60,8 @@ EOSQL
                 barcode => '5021603064126',
                 old_barcode => undef
             }
-        ]
+        ],
+        client_version => 'test-1.0'
     });
 
     $content = '<?xml version="1.0" encoding="UTF-8"?>
@@ -85,7 +86,7 @@ EOSQL
   </release-list>
 </metadata>';
 
-    $req = xml_post('/ws/2/release?client=test-1.0', $content);
+    $req = xml_post('/ws/2/release?client=test-2.0', $content);
     $mech->request($req);
     is($mech->status, HTTP_OK);
     xml_ok($mech->content);
@@ -103,7 +104,8 @@ EOSQL
                 barcode => '796122009228',
                 old_barcode => '4942463511227'
             }
-        ]
+        ],
+        client_version => 'test-2.0'
     });
 
     $next_edit->accept;
