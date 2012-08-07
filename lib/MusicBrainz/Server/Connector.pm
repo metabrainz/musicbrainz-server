@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Connector;
 use Moose;
 
+use DBDefs;
 use DBIx::Connector;
 use Sql;
 
@@ -47,6 +48,11 @@ sub _build_conn
                 my $dbh = shift;
                 $dbh->do("SET TIME ZONE 'UTC'");
                 $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
+
+                $dbh->do("SET statement_timeout = " .
+                             (DBDefs::MAX_REQUEST_TIME() * 1000));
+                    if defined DBDefs::MAX_REQUEST_TIME
+                        && DBDefs::MAX_REQUEST_TIME > 0;
 
                 if ($schema) {
                     $dbh->do("SET search_path=$schema,public");
