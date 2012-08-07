@@ -10,11 +10,10 @@
     <th>[% l('Types:') %]</th>
     <td>
       [% IF edit.display_data.types.size %]
-        <ul class="inline">
         [% FOR type=edit.display_data.types %]
-          <li>[% type.name | html %]</li>
+            [%- type.name | html -%]
+            [%- !loop.last ? ", " : "" -%]
         [% END %]
-        </ul>
       [% ELSE %]
         [% l('(none)') %]
       [% END %]

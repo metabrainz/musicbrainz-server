@@ -17,11 +17,10 @@
   <tr>
     <th>[% l('Types:') %]</th>
     <td>
-      <ul class="inline">
         [% FOR type=edit.display_data.types %]
-        <li>[% type.name | html %]</li>
+            [%- type.name | html -%]
+            [%- !loop.last ? ", " : "" -%]
         [% END %]
-      </ul>
     </td>
   </tr>
   [% END %]
