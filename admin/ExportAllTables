@@ -321,7 +321,6 @@ my @group_stats = qw(
 
 my @group_editor = qw(
     editor_sanitised
-    editor_language
     );
 
 my @group_edit = qw(
@@ -351,6 +350,7 @@ my @group_private = qw(
     editor
     editor_collection
     editor_collection_release
+    editor_language
     editor_preference
     editor_subscribe_artist
     editor_subscribe_editor
@@ -530,7 +530,9 @@ writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 if (grep { $_ eq "editor_sanitised" } @tables)
 {
     $sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
-    $sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
+    $sql->do("UPDATE editor_sanitised
+              SET password = 'mb', privs = 0, email = '', gender = NULL,
+                birth_date = NULL, country = NULL, website = NULL, bio = NULL");
 }
 
 $| = 1;
