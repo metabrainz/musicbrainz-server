@@ -245,6 +245,8 @@ around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
+    $c->model('MB')->context->connector->refresh;
+
     $_->instance->build_languages_from_header($c->req->headers) 
         for qw( MusicBrainz::Server::Translation 
 	        MusicBrainz::Server::Translation::Statistics 
@@ -326,6 +328,8 @@ sub finalize_error {
     my $c = shift;
 
     $c->next::method(@_);
+
+    $c->model('MB')->context->connector->disconnect;
 
     if (!$c->debug && scalar @{ $c->error }) {
         $c->stash->{errors} = $c->error;
