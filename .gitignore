@@ -9,6 +9,8 @@
 /lib/DBDefs.pm
 /Makefile
 /META.yml
+/MYMETA.json
+/MYMETA.yml
 /po/*.mo
 *.ttc
 *.pyc
