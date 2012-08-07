@@ -190,13 +190,10 @@ my @tables = qw(
     work_name
     work_tag
     work_type
-);
 
-@tables = (
-    @tables,
-    'cover_art_archive.art_type',
-    'cover_art_archive.cover_art',
-    'cover_art_archive.cover_art_type'
+    cover_art_archive.art_type
+    cover_art_archive.cover_art
+    cover_art_archive.cover_art_type
 );
 
 my @replication_tables = qw(
