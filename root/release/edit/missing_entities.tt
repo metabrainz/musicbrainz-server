@@ -58,11 +58,12 @@
               [% END %]
               <li>
                 <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                       id="id-[% artist_row.field('entity_id').html_name %]"
                        [%- IF artist_row.field('entity_id').value == 0 -%]
                        checked="checked"
                        [%- END -%]
                         value="0" />
-                [% l('Add new artist') %]
+                <label for="id-[% artist_row.field('entity_id').html_name %]">[% l('Add new artist') %]</label>
               </li>
             </ul>
             [% IF artist_row.field('entity_id').has_errors %]
@@ -107,11 +108,12 @@
               [% END %]
               <li>
                 <input type="radio" name="[% label_row.field('entity_id').html_name %]"
+                       id="id-[% label_row.field('entity_id').html_name %]"
                        [%- IF label_row.field('entity_id').value == 0 -%]
                        checked="checked"
                        [%- END -%]
                         value="0" />
-                [% l('Add new label') %]
+                <label for="id-[% label_row.field('entity_id').html_name %]">[% l('Add new label') %]</label>
               </li>
             </ul>
             [% IF label_row.field('entity_id').has_errors %]
