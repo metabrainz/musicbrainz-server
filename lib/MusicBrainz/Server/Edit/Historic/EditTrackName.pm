@@ -17,9 +17,10 @@ sub deserialize_new_value {
     return $previous;
 }
 
-sub edit_name     { N_l('Edit track name') }
+sub edit_name     { N_l('Edit track name (historic)') }
 sub historic_type { 4 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNAME }
+sub edit_template { 'historic/edit_track_name' }
 
 sub _build_related_entities
 {
