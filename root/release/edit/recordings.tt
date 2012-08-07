@@ -355,7 +355,7 @@
               <td colspan="3">
                 <span style="display: [% recording_track_differ ? 'visible' : 'none' %]">
                 [% r.checkbox(assoc.field('update_recording'), { class => 'copy-to-recording' }) %]
-                [% l('Also update the recording with track changes') %]
+                [% r.label(assoc.field('update_recording'), l('Also update the recording with track changes')) %]
                 </span>
               </td>
             </tr>
