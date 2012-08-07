@@ -643,11 +643,11 @@ END -%]
 
 [%- MACRO rdfa_paginator_previous_page(pager) BLOCK;
   IF doRDFa -%]
-    '<a rel="xhv:first" href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>';
-    '<a rel="xhv:prev" href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>';
+    <a rel="xhv:first" href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>
+    <a rel="xhv:prev" href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>
   [%- ELSE -%]
-    '<a href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>';
-    '<a href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>';
+    <a href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>
+    <a href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>
   [%- END;
 END -%]
 
