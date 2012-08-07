@@ -505,6 +505,39 @@ sub _validate_entity
     return ($entity, $model);
 }
 
+sub load_relationships {
+    my ($self, $c, @for) = @_;
+
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, @for);
+
+        my @works = ();
+        if ($c->stash->{inc}->work_level_rels)
+        {
+            @works =
+                map { $_->target }
+                grep { $_->target_type eq 'work' }
+                map { $_->all_relationships } @for;
+            $c->model('Relationship')->load_subset($types, @works);
+        }
+
+        my $collect_works = sub {
+            my $relationship = shift;
+            return (
+                ($relationship->target_type eq 'work' && $relationship->target) || (),
+                ($relationship->source_type eq 'work' && $relationship->source) || (),
+            );
+        };
+
+        my @load_language_for = (
+            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
+        );
+        $c->model('Language')->load(@load_language_for);
+    }
+}
+
 no Moose;
 1;
 

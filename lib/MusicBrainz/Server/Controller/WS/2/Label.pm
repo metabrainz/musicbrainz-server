@@ -65,11 +65,7 @@ sub label_toplevel
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $label);
-    }
+    $self->load_relationships($c, $label);
 }
 
 sub label : Chained('load') PathPart('')
