@@ -1,0 +1,7 @@
+[% WRAPPER 'layout.tt' title=l('ISWC Not Currently Used') full_width=1 %]
+<h1>[% l('ISWC Not Currently Used') %]</h1>
+
+<p>[% l('This ISWC is not associated with any works. If you wish to associate it with a work,
+         please {search_url|search for the work} and add it.',
+         { search_url => c.uri_for_action('/search/search') }) %]</p>
+[% END %]
