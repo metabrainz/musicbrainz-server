@@ -6,7 +6,8 @@ use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Historic::MergeRelease';
 
-sub edit_name     { N_l('Merge releases') }
+sub edit_name     { N_l('Merge releases (Various Artists)') }
+sub edit_template { 'merge_releases' }
 sub historic_type { 25 }
 sub edit_type     { $EDIT_HISTORIC_MERGE_RELEASE_MAC }
 
