@@ -86,7 +86,8 @@ EOSQL
   </release-list>
 </metadata>';
 
-    $req = xml_post('/ws/2/release?client=test-2.0', $content);
+    $req = xml_post('/ws/2/release', $content);
+    $req->header('User-Agent', 'test-ua');
     $mech->request($req);
     is($mech->status, HTTP_OK);
     xml_ok($mech->content);
@@ -105,7 +106,7 @@ EOSQL
                 old_barcode => '4942463511227'
             }
         ],
-        client_version => 'test-2.0'
+        client_version => 'test-ua'
     });
 
     $next_edit->accept;
