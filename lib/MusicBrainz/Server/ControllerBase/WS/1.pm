@@ -24,11 +24,13 @@ has 'model' => (
     is  => 'ro',
 );
 
-sub serializers {
-    return {
-        xml => 'MusicBrainz::Server::WebService::XMLSerializerV1',
-    };
-}
+with 'MusicBrainz::Server::WebService::Format' =>
+{
+    serializers => [
+        'MusicBrainz::Server::WebService::XMLSerializerV1',
+    ]
+};
+
 
 sub apply_rate_limit
 {
@@ -91,9 +93,10 @@ sub apply_rate_limit
 sub begin : Private {}
 sub auto : Private {
     my ($self, $c) = @_;
+
     $c->stash->{data} = {};
     my $continue = try {
-        $self->validate($c, $self->serializers) or $c->detach('bad_req');
+        $self->validate($c) or $c->detach('bad_req');
         return 1;
     }
     catch {

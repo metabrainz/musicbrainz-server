@@ -1,4 +1,5 @@
 package MusicBrainz::Server::WebService::Format;
+
 use HTTP::Status qw( HTTP_NOT_ACCEPTABLE );
 use MooseX::Role::Parameterized;
 use REST::Utils qw( best_match );
@@ -7,6 +8,13 @@ parameter serializers => (
     is => 'ro',
     isa => 'ArrayRef',
 );
+
+sub _instance
+{
+    my $cls = shift;
+    Class::MOP::load_class ($cls);
+    $cls->new;
+}
 
 role {
     my $role = shift;
@@ -22,7 +30,7 @@ role {
 
         if (defined $fmt)
         {
-            return $formats{$fmt} if $formats{$fmt};
+            return _instance ($formats{$fmt}) if $formats{$fmt};
         }
         else
         {
@@ -32,7 +40,7 @@ role {
 
             my $match = best_match ([ keys %accepted ], $accept);
 
-            return $accepted{$match} if $match;
+            return _instance ($accepted{$match}) if $match;
         }
 
         $c->stash->{error} = 'Invalid format. Either set an Accept header'
