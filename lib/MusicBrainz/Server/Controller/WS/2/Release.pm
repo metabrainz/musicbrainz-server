@@ -259,7 +259,7 @@ sub release_submit : Private
     $self->deny_readonly($c);
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
-    my $client = $c->req->query_params->{client} // '';
+    my $client = $self->determine_client($c) // '';
 
     my @submit;
     for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {

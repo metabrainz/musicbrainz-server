@@ -505,6 +505,11 @@ sub _validate_entity
     return ($entity, $model);
 }
 
+sub determine_client {
+    my ($self, $c) = @_;
+    return $c->req->query_params->{client} // $c->req->user_agent;
+}
+
 no Moose;
 1;
 
