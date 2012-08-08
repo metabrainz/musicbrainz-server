@@ -17,10 +17,8 @@
   <tr>
     <th>[% l('Types:') %]</th>
     <td>
-        [% FOR type=edit.display_data.types %]
-            [%- type.name | html -%]
-            [%- !loop.last ? ", " : "" -%]
-        [% END %]
+        [% USE Map %]
+        [% comma_only_list(edit.display_data.types.map('name')) | html %]
     </td>
   </tr>
   [% END %]

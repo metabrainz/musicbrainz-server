@@ -10,10 +10,8 @@
     <th>[% l('Types:') %]</th>
     <td>
       [% IF edit.display_data.types.size %]
-        [% FOR type=edit.display_data.types %]
-            [%- type.name | html -%]
-            [%- !loop.last ? ", " : "" -%]
-        [% END %]
+        [% USE Map %]
+        [% comma_only_list(edit.display_data.types.map('name')) | html %]
       [% ELSE %]
         [% l('(none)') %]
       [% END %]
