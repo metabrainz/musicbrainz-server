@@ -24,7 +24,7 @@ debug_method_calls() if DBDefs::CATALYST_DEBUG;
 
 builder {
     if (DBDefs::CATALYST_DEBUG) {
-        #enable 'Debug', panels => [ qw( Memory Session Timer DAOLogger ExclusiveTime TemplateToolkit Parameters ) ];
+        enable 'Debug', panels => [ qw( Memory Session Timer DAOLogger ExclusiveTime TemplateToolkit Parameters ) ];
     }
     if ($ENV{'MUSICBRAINZ_USE_PROXY'}) {
         enable 'Plack::Middleware::ReverseProxy';
