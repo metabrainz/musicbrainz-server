@@ -2,7 +2,7 @@
   [% IF edit.data.client_version.defined %]
   <tr>
     <th>[% l('Client:') %]</th>
-    <td>[% edit.data.client_version | html %]</td>
+    <td>[% (edit.data.client_version || l('(unknown)')) | html %]</td>
   </tr>
   [% END %]
 
