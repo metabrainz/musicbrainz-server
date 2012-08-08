@@ -2,20 +2,21 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Utils;
 
 use base 'Exporter';
 use Readonly;
-
-use String::CamelCase qw(camelize);
+use List::UtilsBy 'sort_by';
 
 our @EXPORT_OK = qw(
+    boolean
+    list_of
+    number
     serializer
     serialize_entity
-    list_of
 );
 
 my %serializers;
 
 Readonly my %ENTITY_TO_SERIALIZER => (
 #     'MusicBrainz::Server::Entity::AggregatedTag' => 'MusicBrainz::Server::WebService::Serializer::XML::1::AggregatedTag',
-#     'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Artist',
+    'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Artist',
 #     'MusicBrainz::Server::Entity::ArtistAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
 #     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit',
 #     'MusicBrainz::Server::Entity::CDStub' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDStub',
@@ -36,6 +37,13 @@ Readonly my %ENTITY_TO_SERIALIZER => (
 #     'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseEvent'
 );
 
+sub boolean { return (shift) ? JSON::true : JSON::false; }
+
+sub number {
+    my $value = shift;
+    return defined $value ? $value + 0 : JSON::null;
+}
+
 sub serializer
 {
     my $entity = shift;
@@ -54,11 +62,24 @@ sub serialize_entity
     return serializer($_[0])->serialize(@_);
 }
 
+sub list_of
+{
+    my ($entity, $inc, $stash, $type) = @_;
+
+    my $opts = $stash->store ($entity);
+    my $list = $opts->{$type};
+    my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
+
+    return [
+        map { serialize_entity($_, $inc, $opts) }
+        sort_by { $_->gid } @$items ];
+}
+
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
