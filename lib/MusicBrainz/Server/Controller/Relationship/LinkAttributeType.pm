@@ -72,7 +72,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
             $c->model('LinkAttributeType')->get_by_id($form->field('parent_id')->value) :
             undef;
 
-        my $root = defined $parent ? ($parent->root_id // $parent->id) : undef;
+        my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
 
         my $url = $root == 14 ?
             $c->uri_for_action('relationship/linkattributetype/instruments', { msg => 'created' }) :
