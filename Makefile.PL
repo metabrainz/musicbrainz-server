@@ -83,6 +83,7 @@ requires 'String::TT'                                 => '0.03';
 requires 'Template::Plugin::Math';
 requires 'Template::Plugin::Class';
 requires 'Template::Plugin::JavaScript';
+requires 'Template::Plugin::Map';
 requires 'Text::WikiFormat'                           => '0.80';
 requires 'Text::Unaccent';
 requires 'Text::Trim'                                 => '1.02';
