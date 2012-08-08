@@ -391,6 +391,8 @@ sub _serialize_work
 
     my @list;
     push @list, $gen->title($work->name);
+    push @list, $gen->language($work->language->iso_code_3 // $work->language->iso_code_2t) if $work->language;
+
     if ($work->all_iswcs) {
         push @list, $gen->iswc($work->iswcs->[0]->iswc);
         push @list, $gen->iswc_list(map {
@@ -398,7 +400,6 @@ sub _serialize_work
         } $work->all_iswcs);
     }
 
-    push @list, $gen->language($work->language->iso_code_3 // $work->language->iso_code_2t) if $work->language;
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
