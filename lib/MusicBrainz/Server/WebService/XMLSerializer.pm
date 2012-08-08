@@ -13,6 +13,7 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 sub mime_type { 'application/xml' }
+sub fmt { 'xml' }
 
 Readonly my $xml_decl_begin => '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">';
 Readonly my $xml_decl_end => '</metadata>';

@@ -4,15 +4,21 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
+use MusicBrainz::Server::WebService::Format;
+use MusicBrainz::Server::WebService::XMLSerializer;
+use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Data::Utils qw( object_to_ids );
+use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
 use Readonly;
 use Try::Tiny;
 
-Readonly my %serializers => (
-    xml => 'MusicBrainz::Server::WebService::XMLSerializer',
-);
+with 'MusicBrainz::Server::WebService::Format' =>
+{
+    serializers => [
+        'MusicBrainz::Server::WebService::XMLSerializer',
+        'MusicBrainz::Server::WebService::JSONSerializer',
+    ]
+};
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
     threshold => DBDefs::PROFILE_WEB_SERVICE()
@@ -143,7 +149,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     my ($self, $c) = @_;
 
     try {
-        $self->validate($c, \%serializers) or $c->detach('bad_req');
+        $self->validate($c) or $c->detach('bad_req');
     }
     catch {
         my $err = $_;
