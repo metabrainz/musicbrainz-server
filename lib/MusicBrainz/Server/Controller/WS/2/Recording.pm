@@ -194,7 +194,7 @@ sub recording_submit : Private
     my ($self, $c) = @_;
 
     $self->deny_readonly($c);
-    my $client = $self->determine_client($c)
+    my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
     $self->bad_req($c, 'Invalid argument "client"') if ref($client);
 
