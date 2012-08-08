@@ -1,7 +1,7 @@
 [% IF pager && pager.last_page > 1 %]
 <p class="pageselector">
     [% IF pager.previous_page %]
-        [% rdfa_paginator_previous_page %]
+        [% rdfa_paginator_previous_page(pager) %]
     [% ELSE %]
         <span>&#171;</span>
         <span>&#8249;</span>
@@ -18,7 +18,7 @@
     [% END %]
 
     [% IF pager.next_page %]
-        [% rdfa_paginator_next_page %]
+        [% rdfa_paginator_next_page(pager) %]
     [% ELSE %]
         <span>&#8250;</span>
         <span>&#187;</span>
