@@ -25,6 +25,11 @@ test 'Test is_valid_isrc' => sub {
     ok(!MusicBrainz::Server::Validation::is_valid_isrc('123'));
 };
 
+test 'Test is_not_tunecore' => sub {
+    ok(MusicBrainz::Server::Validation::is_not_tunecore('USPR37300012'), "Non-TuneCore ID passes 'is_not_tunecore'.");
+    ok(!MusicBrainz::Server::Validation::is_not_tunecore('TCABF1283419'), "TuneCore ID does not pass 'is_not_tunecore'.");
+};
+
 test 'Test is_valid_discid' => sub {
     ok(MusicBrainz::Server::Validation::is_valid_discid('D5LsXhbWwpctL4s5xHSTS_SefQw-'));
     ok(!MusicBrainz::Server::Validation::is_valid_discid('aivDFb2Tw6HzN.XdYZFj5zr1Q9EY'));
