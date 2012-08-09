@@ -73,6 +73,145 @@ test 'basic artist lookup, inc=aliases' => sub {
 
 };
 
+test 'artist lookup with releases' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with releases',
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' => encode_json (
+        {
+            id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
+            name => "7人祭",
+            "sort-name" => "7nin Matsuri",
+            country => JSON::null,
+            disambiguation => JSON::null,
+            type => "Group",
+            releases => [
+                {
+                    id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
+                    title => "サマーれげぇ!レインボー",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Jpan" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                },
+                {
+                    id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
+                    title => "Summer Reggae! Rainbow",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    status => "Pseudo-Release",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Latn" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                }
+                ],
+        });
+};
+
+test 'artist lookup with pseudo-releases' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with pseudo-releases',
+    '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' => encode_json (
+        {
+            id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
+            name => "7人祭",
+            "sort-name" => "7nin Matsuri",
+            country => JSON::null,
+            disambiguation => JSON::null,
+            type => "Group",
+            releases => [
+                {
+                    id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
+                    title => "Summer Reggae! Rainbow",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    status => "Pseudo-Release",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Latn" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                }
+                ],
+        });
+};
+
+
+test 'artist lookup with releases and discids' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with releases and discids',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=releases+discids' => encode_json(
+        {
+            id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
+            name => "Distance",
+            "sort-name" => "Distance",
+            country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            type => "Person",
+            releases => [
+                {
+                    id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
+                    title => "Repercussions",
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "eng", script => "Latn" },
+                    date => "2008-11-17",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    country => "GB",
+                    asin => JSON::null,
+                    barcode => "600116822123",
+                    media => [
+                        {
+                            title => JSON::null,
+                            format => "CD",
+                            discids => [ { id => "93K4ogyxWlv522XF0BG8fZOuay4-", sectors => 215137 } ],
+                            "track-count" => 9,
+                        },
+                        {
+                            title => "Chestplate Singles",
+                            format => "CD",
+                            discids => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
+                            "track-count" => 9,
+                        }]
+                },
+                {
+                    id => "adcf7b48-086e-48ee-b420-1001f88d672f",
+                    title => "My Demons",
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "eng", script => "Latn" },
+                    date => "2007-01-29",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    country => "GB",
+                    asin => JSON::null,
+                    barcode => "600116817020",
+                    media => [
+                        {
+                            title => JSON::null,
+                            format => "CD",
+                            discids => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
+                            "track-count" => 12,
+                        }]
+                }]
+        });
+};
+
 test 'artist lookup with recordings and artist credits' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
@@ -170,6 +309,70 @@ test 'artist lookup with release groups' => sub {
                     "first-release-date" => "2004-03-17",
                     "primary-type" => "Single",
                     "secondary-types" => [],
+                }
+            ]
+        });
+};
+
+test 'single artist release lookup' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'single artist release lookup',
+    '/artist/22dd2db3-88ea-4428-a7a8-5cd3acf23175?inc=releases' => encode_json (
+        {
+            id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
+            name => "m-flo",
+            "sort-name" => "m-flo",
+            type => "Group",
+            country => JSON::null,
+            disambiguation => undef,
+            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            releases => [
+                {
+                    id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
+                    title => "the Love Bug",
+                    date => "2004-03-17",
+                    "text-representation" => { "language" => "eng", "script" => "Latn" },
+                    country => "JP",
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    quality => "normal",
+                    status => "Official",
+                    barcode => "4988064451180",
+                    asin => JSON::null,
+                }
+            ]
+        });
+};
+
+test 'various artists release lookup' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'various artists release lookup',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' => encode_json (
+        {
+            id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
+            name => "BoA",
+            "sort-name" => "BoA",
+            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
+            country => JSON::null,
+            disambiguation => JSON::null,
+            type => "Person",
+            releases => [
+                {
+                    id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
+                    title => "the Love Bug",
+                    packaging => JSON::null,
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { "language" => "eng", "script" => "Latn" },
+                    date => "2004-03-17",
+                    country => "JP",
+                    barcode => "4988064451180",
+                    asin => JSON::null,
+                    disambiguation => JSON::null,
                 }
             ]
         });
@@ -292,3 +495,4 @@ test 'artist lookup with works (using l_recording_work)' => sub {
 };
 
 1;
+

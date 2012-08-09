@@ -24,6 +24,121 @@ test 'basic recording lookup' => sub {
 
 };
 
+test 'recording lookup with releases' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'recording lookup with releases',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases' => encode_json (
+        {
+            id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
+            title => "サマーれげぇ!レインボー",
+            length => 296026,
+            disambiguation => JSON::null,
+            releases => [
+                {
+                    id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
+                    title => "サマーれげぇ!レインボー",
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Jpan" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                },
+                {
+                    id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
+                    title => "Summer Reggae! Rainbow",
+                    status => "Pseudo-Release",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Latn" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                }]
+        });
+};
+
+
+test 'lookup recording with official singles' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'lookup recording with official singles',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases&status=official&type=single' => encode_json (
+        {
+            id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
+            title => "サマーれげぇ!レインボー",
+            length => 296026,
+            disambiguation => JSON::null,
+            releases => [
+                {
+                    id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
+                    title => "サマーれげぇ!レインボー",
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Jpan" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "4942463511227",
+                    asin => JSON::null,
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                }]
+        });
+};
+
+test 'lookup recording with official singles (+media)' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'lookup recording with official singles (+media)',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+media&status=official&type=single' => encode_json (
+        {
+            id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
+            title => "サマーれげぇ!レインボー",
+            length => 296026,
+            disambiguation => JSON::null,
+            releases => [
+                {
+                    id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
+                    title => "サマーれげぇ!レインボー",
+                    status => "Official",
+                    quality => "normal",
+                    "text-representation" => {
+                        language => JSON::null, script => JSON::null
+                    },
+                    date => "2001-07-04",
+                    country => "JP",
+                    barcode => "",
+                    asin => JSON::null,
+                    disambiguation => JSON::null,
+                    packaging => JSON::null,
+                    media => [
+                        {
+                            format => "CD",
+                            title => JSON::null,
+                            "track-count" => 3,
+                            "track-offset" => 0,
+                            tracks => [
+                                {
+                                    number => "1",
+                                    title => "サマーれげぇ!レインボー",
+                                    length => 296026,
+                                }
+                            ]
+                        }]
+                }]
+        });
+
+};
+
 test 'recording lookup with artists' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');

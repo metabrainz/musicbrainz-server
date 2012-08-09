@@ -1,30 +1,18 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Collection;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity list_of );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub serialize
 {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;
     my %body;
 
-    $body{title} = $entity->name;
-    $body{"primary-type"} = $entity->primary_type->name;
-    $body{"secondary-types"} = [ map {
-        $_->name } $entity->all_secondary_types ];
-    $body{"first-release-date"} = $entity->first_release_date->format;
-    $body{disambiguation} = $entity->comment;
-
-    $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
-        if $inc && ($inc->artist_credits || $inc->artists);
-
-    $body{releases} = list_of ($entity, $inc, $stash, "releases")
-        if $inc && $inc->releases;
+    $body{name} = $entity->name;
+    $body{editor} = $entity->editor->name;
+    $body{"release-count"} = number ($entity->release_count);
 
     return \%body;
 };
@@ -35,7 +23,7 @@ no Moose;
 
 # =head1 COPYRIGHT
 
-# Copyright (C) 2011,2012 MetaBrainz Foundation
+# Copyright (C) 2012 MetaBrainz Foundation
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -17,9 +17,12 @@ my %serializers;
 Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Artist',
     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ArtistCredit',
+    'MusicBrainz::Server::Entity::Collection' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Collection',
     'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Label',
+    'MusicBrainz::Server::Entity::Medium' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Medium',
     'MusicBrainz::Server::Entity::Recording' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Recording',
     'MusicBrainz::Server::Entity::Relationship' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Relation',
+    'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Release',
     'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup',
     'MusicBrainz::Server::Entity::Work' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Work',
 );
