@@ -182,7 +182,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn.com)","i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i"),
         type: MB.constants.LINK_TYPES.amazon,
         clean: function(url) {
             // determine tld, asin from url, and build standard format [1],
