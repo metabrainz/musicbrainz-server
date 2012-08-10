@@ -127,7 +127,7 @@ is($work->edits_pending, 0);
 
 };
 
-test 'Adding a work language is not an edit for non-auto-editors' => sub {
+test 'Adding a work language is an auto-edit for non-auto-editors' => sub {
     my $test = shift;
     my $c = $test->c;
 
