@@ -182,7 +182,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)","i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i"),
         type: MB.constants.LINK_TYPES.amazon,
         clean: function(url) {
             // determine tld, asin from url, and build standard format [1],
@@ -192,15 +192,20 @@ MB.constants.CLEANUPS = {
             // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
             // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
             var tld = "", asin = "";
-            if ((m = url.match(/amazon\.([a-z\.]+)\//)) != null) {
+            if ((m = url.match(/(?:amazon|amzn)\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
+                if (tld == "jp") tld = "co.jp";
+                if (tld == "at") tld = "de";
             }
-            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) {
+
+            if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) { // artist pages
+                return "http://www.amazon." + tld + "/-/e/" + m[1];
+            } else if ((m = url.match(/\/(?:product|dp)\/(B00[0-9A-Z]{7}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/)) != null) { // strict regex to catch most ASINs
+                asin = m[1];
+            } else if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) { // if all else fails, find anything that could be an ASIN
                 asin = m[1];
             }
             if (tld != "" && asin != "") {
-                if (tld == "jp") tld = "co.jp";
-                if (tld == "at") tld = "de";
                 return "http://www.amazon." + tld + "/gp/product/" + asin;
             }
 
