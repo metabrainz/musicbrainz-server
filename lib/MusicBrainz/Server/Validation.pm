@@ -34,7 +34,7 @@ require Exporter;
     our @EXPORT_OK = qw(
         encode_entities
         is_valid_isrc
-        is_not_tunecore
+        is_tunecore
         is_valid_iswc
         is_valid_ipi
         format_iswc
@@ -369,10 +369,10 @@ sub is_valid_isrc
     return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/;
 }
 
-sub is_not_tunecore
+sub is_tunecore
 {
 	my $supposed_isrc = $_[0];
-	return $supposed_isrc !~ /TC\.*/;
+	return $supposed_isrc =~ /TC\.*/;
 }
 
 ################################################################################

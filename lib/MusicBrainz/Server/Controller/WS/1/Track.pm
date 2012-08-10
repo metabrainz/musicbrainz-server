@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
-use MusicBrainz::Server::Validation qw( is_valid_isrc is_not_tunecore is_guid );
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_tunecore is_guid );
 use Function::Parameters 'f';
 use List::Util qw( first );
 use Try::Tiny;
@@ -211,7 +211,7 @@ sub submit_isrc : Private
                 $c->stash->{error} = 'ISRCs must be in valid ISRC format';
                 $c->detach('bad_req');
             }
-            unless (is_not_tunecore($isrc)) {
+            if (is_tunecore($isrc)) {
                 $c->stash->{error} = 'ISRC submissions may not include TuneCore IDs';
                 $c->detach('bad_req');
             }
