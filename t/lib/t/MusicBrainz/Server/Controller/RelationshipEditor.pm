@@ -41,7 +41,6 @@ test 'Can add relationship' => sub {
                 'rel-editor.rels.0.end_date.year' => '1999',
                 'rel-editor.rels.0.end_date.month' => '1',
                 'rel-editor.rels.0.end_date.day' => '1',
-                'rel-editor.rels.0.ended' => '1',
             },
             form_id => 'form'
         );
@@ -63,7 +62,6 @@ test 'Can add relationship' => sub {
     is($edit->data->{end_date}{year}, 1999);
     is($edit->data->{end_date}{month}, 1);
     is($edit->data->{end_date}{day}, 1);
-    is($edit->data->{ended}, 1);
 };
 
 test 'Can edit relationship' => sub {
@@ -102,7 +100,6 @@ test 'Can edit relationship' => sub {
                 'rel-editor.rels.0.end_date.year' => '2009',
                 'rel-editor.rels.0.end_date.month' => '9',
                 'rel-editor.rels.0.end_date.day' => '9',
-                'rel-editor.rels.0.ended' => '1',
             },
             form_id => 'form'
         );
@@ -124,7 +121,6 @@ test 'Can edit relationship' => sub {
     is($edit->data->{new}{end_date}{year}, 2009);
     is($edit->data->{new}{end_date}{month}, 9);
     is($edit->data->{new}{end_date}{day}, 9);
-    is($edit->data->{new}{ended}, 1);
 };
 
 test 'Can remove relationship' => sub {

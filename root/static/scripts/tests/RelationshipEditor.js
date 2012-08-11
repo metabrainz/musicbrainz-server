@@ -23,7 +23,7 @@ $.extend(MB.text = MB.text || {}, {
     BadURL: "This URL is not allowed for the selected link type, or is incorrectly formatted.",
 });
 
-MB.text.Date = {from: "from", until: "until", present: "present"};
+MB.text.Date = {from: "from", until: "until", on: "on"};
 
 MB.tests.RelationshipEditor.Util = function() {
     QUnit.module("Relationship editor");
@@ -223,31 +223,26 @@ MB.tests.RelationshipEditor.Relationship = function() {
             {
                 begin_date: {year: 2001, month: 5, day: 13},
                 end_date: {},
-                ended: true,
                 expected: "from 2001-5-13 – ????"
             },
             {
                 begin_date: {year: 2001, month: 5, day: 13},
                 end_date: {year: 2002, month: 8, day: 12},
-                ended: true,
                 expected: "from 2001-5-13 – 2002-8-12"
             },
             {
                 begin_date: {year: 2001, month: 5, day: 13},
-                end_date: {},
-                ended: false,
-                expected: "from 2001-5-13 – present"
+                end_date: {year: 2001, month: 5, day: 13},
+                expected: "on 2001-5-13"
             },
             {
                 begin_date: {},
                 end_date: {year: 2002, month: 8, day: 12},
-                ended: true,
                 expected: "until 2002-8-12"
             },
             {
                 begin_date: {},
                 end_date: {},
-                ended: true,
                 expected: ""
             }
         ];
@@ -263,50 +258,42 @@ MB.tests.RelationshipEditor.Relationship = function() {
             b.month(test.end_date.month);
             b.day(test.end_date.day);
 
-            relationship.ended(test.ended);
             var result = relationship.renderDate();
 
             QUnit.equals(result, test.expected, [
                 JSON.stringify(test.begin_date),
-                JSON.stringify(test.end_date),
-                JSON.stringify(test.ended)
+                JSON.stringify(test.end_date)
             ].join(", "));
         });
 
         // test errors
 
-        // the target has an empty name to start with, so errorCount = 1
+        // the target has an invalid gid to start with, so errorCount = 1
         QUnit.equals(relationship.errorCount, 1, "relationship.errorCount");
 
         // direction must be either forward or backward
         relationship.direction("foo");
         QUnit.equals(relationship.errorCount, 2, "relationship.errorCount");
 
-        // ended must be boolean
-        relationship.ended(null);
-        QUnit.equals(relationship.errorCount, 3, "relationship.errorCount");
-
         // date must exist
         relationship.begin_date("2001-01-32");
-        QUnit.equals(relationship.errorCount, 4, "relationship.errorCount");
+        QUnit.equals(relationship.errorCount, 3, "relationship.errorCount");
 
         relationship.begin_date("2001-01-31");
-        QUnit.equals(relationship.errorCount, 3, "relationship.errorCount");
+        QUnit.equals(relationship.errorCount, 2, "relationship.errorCount");
 
         // end date must be after begin date
         relationship.end_date("2000-01-31");
-        QUnit.equals(relationship.errorCount, 4, "relationship.errorCount");
-
-        relationship.end_date("2002-01-31");
         QUnit.equals(relationship.errorCount, 3, "relationship.errorCount");
 
-        relationship.target().name("foo");
+        relationship.end_date("2002-01-31");
         QUnit.equals(relationship.errorCount, 2, "relationship.errorCount");
 
-        relationship.direction("backward");
+        relationship.target().gid = "00000000-0000-0000-0000-000000000000";
+        relationship.target.notifySubscribers(relationship.target());
         QUnit.equals(relationship.errorCount, 1, "relationship.errorCount");
 
-        relationship.ended(true);
+        relationship.direction("backward");
         QUnit.equals(relationship.errorCount, 0, "relationship.errorCount");
     });
 };
