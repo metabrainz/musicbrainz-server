@@ -21,32 +21,27 @@ __PACKAGE__->config( namespace => 'release' );
 
 has loaded_entities => (
     is => 'rw',
-    isa => 'HashRef',
-    default => sub { {} }
+    isa => 'HashRef'
 );
 
 has loaded_relationships => (
     is => 'rw',
-    isa => 'HashRef',
-    default => sub { {} }
+    isa => 'HashRef'
 );
 
 has edited_fields => (
     is => 'rw',
-    isa => 'HashRef',
-    default => sub { {} }
+    isa => 'HashRef'
 );
 
 has removed_fields => (
     is => 'rw',
-    isa => 'HashRef',
-    default => sub { {} }
+    isa => 'HashRef'
 );
 
 has added_fields => (
     is => 'rw',
-    isa => 'ArrayRef',
-    default => sub { [] }
+    isa => 'ArrayRef'
 );
 
 sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
@@ -63,6 +58,13 @@ after 'load' => sub
 sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth
 {
     my ($self, $c) = @_;
+
+    $self->loaded_entities({});
+    $self->loaded_relationships({});
+    $self->edited_fields({});
+    $self->removed_fields({});
+    $self->added_fields([]);
+
     my $release = $c->stash->{release};
 
     my @link_type_tree = $c->model('LinkType')->get_full_tree;

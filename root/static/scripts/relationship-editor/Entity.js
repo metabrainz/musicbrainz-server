@@ -164,7 +164,7 @@ URL = function() {
 
 function renderURL() {
     var name = _.prune(this.name(), 50);
-    return this.render(name);
+    return this.render(name, {href: this.name()});
 }
 
 Artist.prototype = new Entity;
@@ -185,6 +185,7 @@ entities = {
 
 RE.Entity = function(obj) {
     if (obj instanceof Entity) return obj;
+
     var ent;
     if ((ent = cache[obj.gid]) === undefined) {
         ent = cache[obj.gid] = new entities[obj.type];

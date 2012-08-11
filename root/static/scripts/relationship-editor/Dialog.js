@@ -19,13 +19,7 @@
 
 MB.RelationshipEditor = (function(RE) {
 
-var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window),
-
-allowedRelations = {
-    recording: ["artist", "label", "recording", "release"],
-    work:      ["artist", "label", "work"],
-    release:   ["artist", "label", "recording", "release"],
-};
+var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
 // For select attributes and the link type field, we use a custom binding handler
 // for performance reasons (the instrument tree is huge, for example). We also
@@ -34,7 +28,7 @@ allowedRelations = {
 
 ko.bindingHandlers.selectAttribute = (function() {
 
-    var cache = {}, build = function(relationshipAttrs, attr, indent, frag) {
+    function build(relationshipAttrs, attr, indent, doc) {
 
         for (var i = 0, id; id = attr.children[i]; i++) {
             var child = RE.attrMap[id], opt = document.createElement("option"),
@@ -44,25 +38,25 @@ ko.bindingHandlers.selectAttribute = (function() {
             opt.innerHTML = _.repeat("&#160;&#160;", indent) + child.name;
             if (child.unaccented) opt.setAttribute("data-unaccented", child.unaccented);
             if (attrs && attrs.indexOf(id) > -1) opt.selected = true;
-            frag.appendChild(opt);
+            doc.appendChild(opt);
 
-            if (child.children) build(relationshipAttrs, child, indent + 1, frag);
+            if (child.children) build(relationshipAttrs, child, indent + 1, doc);
         }
-    };
+    }
+
+    var getOptions = _.memoize(function(attr) {
+        var doc = document.createDocumentFragment();
+        build(attr.relationship.attributes(), attr.data, 0, doc);
+        return doc;
+
+    }, function(attr) {return attr.data.name});
+
     return {
         init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
-            var $element = $(element), attr = valueAccessor(),
-                frag, name = attr.data.name, multi = (attr.max === null);
-
-            if ((frag = cache[attr.data.name]) === undefined) {
-                frag = cache[attr.data.name] = document.createDocumentFragment();
-                build(attr.relationship.attributes(), attr.data, 0, frag);
-            }
+            var $element = $(element), attr = valueAccessor(), multi = (attr.max === null);
             if (multi) element.multiple = true;
 
-            $element
-                .append(frag.cloneNode(true))
-                .val(attr.value())
+            $element.append(getOptions(attr).cloneNode(true)).val(attr.value())
                 .change(function() {
                     // for mutiselects, jQuery's val() returns an array
                     var value = $(this).val();
@@ -80,34 +74,12 @@ ko.bindingHandlers.selectAttribute = (function() {
 }());
 
 
-ko.bindingHandlers.targetType = {
-
-    init: function(element) {
-        $(element).change(function() {Dialog.targetType(this.value)});
-    },
-    update: function(element) {
-        var $element = $(element), relationship = Dialog.relationship(),
-            recordingWork = (relationship.type.peek() == "recording-work"),
-            source = relationship.source;
-
-        var types = recordingWork ? ["work"] : allowedRelations[source.type];
-        $element.empty();
-
-        $.each(types, function(i, type) {
-            $element.append($("<option></option>").val(type).text(MB.text.Entity[type]));
-        });
-        $element.val(Dialog.targetType());
-    }
-};
-
-
 ko.bindingHandlers.linkType = (function() {
 
-    var linkTypesBackward = {}, linkTypesForward = {},
-        previousValue, previousDirection, reverse;
+    var previousType, previousDirection;
 
-    function build(root, indent, frag) {
-        var phrase = reverse ? root.reverse_link_phrase : root.link_phrase, opt;
+    function build(root, indent, reverse, doc) {
+        var phrase = reverse ? root.reverse_link_phrase : root.link_phrase;
 
         // remove {foo} {bar} junk, unless it's for a required attribute.
         var orig_phrase = phrase, re = /\{(.*?)(?::(.*?))?\}/g, m, repl;
@@ -118,49 +90,167 @@ ko.bindingHandlers.linkType = (function() {
                 phrase = phrase.replace(m[0], repl);
             }
         }
-        opt = document.createElement("option");
+        var opt = document.createElement("option");
         opt.value = root.id;
         opt.innerHTML = _.repeat("&#160;&#160;", indent) + _.clean(phrase);
-        if (!root.descr) opt.disabled = true;
-        frag.appendChild(opt);
+        root.descr || (opt.disabled = true);
+        doc.appendChild(opt);
 
-        if (root.children) {
-            for (var i = 0; i < root.children.length; i++) {
-                var id = root.children[i], child = RE.typeInfo[id];
-                build(child, indent + 1, frag);
-            }
-        }
+        root.children && $.each(root.children, function(i, id) {
+            build(RE.typeInfo[id], indent + 1, reverse, doc);
+        });
     };
 
-    function getOptions(type, cache) {
-        var frag, root = RE.typeInfoByEntities[type];
-        if (!root) return null;
+    var getOptions = _.memoize(function(type, direction) {
+        var reverse = (direction == "backward"), doc = document.createDocumentFragment();
 
-        if ((frag = cache[type]) === undefined) {
-            frag = cache[type] = document.createDocumentFragment();
-
-            for (var i = 0; i < root.length; i++)
-                build(root[i], 0, frag);
-        }
-        return frag.cloneNode(true);
-    };
+        $.each(RE.typeInfoByEntities[type], function(i, root) {
+            build(root, 0, reverse, doc);
+        });
+        return doc;
+    }, function(type, direction) {return type + "-" + direction});
 
     return {
         update: function(element) {
-            var relationship = Dialog.relationship(), value = relationship.link_type(),
+            var relationship = Dialog.relationship(), type = relationship.type(),
                 direction = relationship.direction();
 
-            if (value != previousValue || direction != previousDirection) {
-                reverse = (direction == "backward");
-                var cache = reverse ? linkTypesBackward : linkTypesForward;
+            if (type != previousType || direction != previousDirection) {
+                var doc = getOptions(relationship.type(), direction).cloneNode(true);
 
-                $(element).empty().append(getOptions(relationship.type(), cache)).val(value);
+                $(element).empty().append(doc).val(relationship.link_type());
                 Dialog.resize();
 
-                previousValue = value;
+                previousType = type;
                 previousDirection = direction;
             }
         },
+    };
+}());
+
+
+ko.bindingHandlers.targetType = (function() {
+
+    var allowedRelations = {
+        recording: ["artist", "label", "recording", "release"],
+        work:      ["artist", "label", "work"],
+        release:   ["artist", "label", "recording", "release"],
+    };
+
+    function change() {
+        var mode = Dialog.mode();
+        if (!(mode == "add" || /^batch\.(recording|work)$/.test(mode))) return;
+
+        var relationship = Dialog.relationship.peek(), ac = Dialog.autocomplete,
+            name = relationship.target().name(), target = Util.tempEntity(this.value);
+
+        // reset the current target entity
+        target.name(name);
+        relationship.target(target);
+        relationship.target.error("");
+
+        if (ac) {
+            ac.clear();
+            ac.changeEntity(this.value);
+            Dialog.$autocomplete.find("input.name").removeClass("error");
+        }
+    }
+
+    return {
+        init: function(element) {
+            var $element = $(element).change(change), relationship = Dialog.relationship(),
+                types = (relationship.type.peek() == "recording-work")
+                    ? ["work"] : allowedRelations[relationship.source.type];
+
+            $element.empty();
+            $.each(types, function(i, type) {
+                $element.append($("<option></option>").val(type).text(MB.text.Entity[type]));
+            });
+            $element.val(relationship.target.peek().type);
+        }
+    };
+}());
+
+
+ko.bindingHandlers.autocomplete = {
+    init: function(element) {
+        var $autocomplete = Dialog.$autocomplete = $(element), autocomplete,
+            $name = $autocomplete.find("input.name"), relationship = Dialog.relationship,
+            target = relationship.peek().target.peek();
+
+        $autocomplete.on("lookup-performed", function(event, data) {
+            var target = relationship.peek().target;
+            data.type = target.peek().type;
+            target(RE.Entity(data));
+        });
+
+        autocomplete = MB.Control.EntityAutocomplete({
+            inputs: $autocomplete,
+            position: {collision: "fit"},
+            entity: target.type
+        });
+
+        var name = target.name.peek();
+        autocomplete.term = name;
+        autocomplete.selectedItem = null;
+        $name.removeClass("error lookup-performed").val(name);
+
+        if (Dialog.mode() == "edit") {
+            autocomplete.currentSelection = null;
+            $name.addClass("lookup-performed").data("lookup-result", target);
+        }
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+            $autocomplete.autocomplete("destroy");
+        });
+    }
+};
+
+
+ko.bindingHandlers.workName = (function() {
+
+    function setWork(work) {
+        $("#work-name").addClass("lookup-performed");
+        Dialog.relationship.peek().target(work);
+        Dialog.initialNewWork = work;
+    }
+
+    var autocompleteOptions = {
+        source: function(request, response) {
+            var term = request.term.toLowerCase(), data = [];
+
+            for (var id in RE.newWorks) {
+                var work = RE.newWorks[id], name = work.name.peek(),
+                    lower = name.toLowerCase();
+
+                if (work === Dialog.relationship.peek().target.peek()) continue;
+                if (_.startsWith(lower, term))
+                    data.push({label: name, value: name, work: work});
+            }
+            response(data);
+        },
+        select: function(event, ui) {setWork(ui.item.work)},
+        delay: 0
+    };
+
+    function input() {
+        // if the user clears the work field, initiate a new work instead
+        // of editing the existing one.
+        this.value
+            ? Dialog.relationship.peek().target.peek().name(this.value)
+            : Dialog.initNewWork("");
+    }
+
+    return {
+        init: function(element) {
+            var $workName = $(element)
+                .on("input", input).on("set-work", function(event, work) {setWork(work)})
+                .autocomplete(autocompleteOptions);
+        },
+        update: function(element, valueAccessor) {
+            var relationship = ko.utils.unwrapObservable(valueAccessor());
+            $(element).val(relationship.target().name.peek());
+        }
     };
 }());
 
@@ -175,7 +265,7 @@ var Dialog = UI.Dialog = {
         var value = ko.observable(null);
 
         return ko.computed({
-            read:  value,
+            read: value,
             write: function(newValue) {
                 var oldValue = value();
 
@@ -188,35 +278,6 @@ var Dialog = UI.Dialog = {
                 }
             }
         });
-    }()),
-
-    targetType: (function() {
-        var value = ko.observable("");
-
-        value.subscribe(function(newValue) {
-            var mode = Dialog.mode();
-
-            if (mode == "add" || /^batch\.(recording|work)$/.test(mode)) {
-                var relationship = Dialog.relationship();
-
-                // reset the current target entity
-                var name = relationship.target().name(),
-                    target = Util.tempEntity(newValue);
-
-                target.name(name);
-                relationship.target(target);
-            }
-        });
-
-        value.subscribe(function(newValue) {
-            if (!Dialog.autocomplete) return;
-
-            Dialog.autocomplete.clear();
-            Dialog.autocomplete.changeEntity(newValue);
-            Dialog.$autocomplete.find("input.name").removeClass("error");
-        });
-
-        return value;
     }()),
 
     newWork: (function() {
@@ -246,88 +307,40 @@ var Dialog = UI.Dialog = {
         // none of the bindings error out.
         this.emptyRelationship = RE.Relationship({
             source: Util.tempEntity("recording"),
-            target: Util.tempEntity("work"),
+            target: Util.tempEntity("artist"),
         }, false);
 
         this.relationship(this.emptyRelationship);
 
+        // there are three separate "forms" that the user can be editing: the
+        // entity autocomplete, the URL field (with cleanup handlers), or the
+        // new work fields. in the template, we use "editor" to decide which to
+        // display. we have a separate observable to do this because depending
+        // on multiple observables causes the "if" bindings to needlessly
+        // re-render (and execute all associated binding handlers) multiple
+        // times, while this doesn't.
+        this.editor = (function() {
+            var value = ko.observable(null);
+
+            ko.computed(function() {
+                var relationship = Dialog.relationship();
+
+                if (relationship === Dialog.emptyRelationship) {
+                    value(null);
+                } else if (Dialog.newWork()) {
+                    value("new.work");
+                } else {
+                    value("entity");
+                }
+            });
+            return value;
+        }());
+
         this.$overlay = $("#overlay");
         this.$dialog =  $("#dialog");
 
-        RE.dialogViewModel = ko.observable(this);
-
-        ko.applyBindings(RE.dialogViewModel, this.$dialog[0]);
-    },
-
-    initAutocomplete: function() {
-        var dlg = Dialog, relationship = dlg.relationship.peek(),
-            target = relationship.target.peek();
-
-        dlg.$autocomplete = $("#autocomplete")
-            .bind("lookup-performed", function(event, data) {
-                var target = dlg.relationship.peek().target;
-                data.type = target.peek().type;
-                target(RE.Entity(data));
-            });
-
-        dlg.autocomplete = MB.Control.EntityAutocomplete({
-            inputs: dlg.$autocomplete,
-            position: {collision: "fit"},
-            entity: target.type
-        });
-
-        if (dlg.mode() == "edit") {
-            dlg.autocomplete.term = target.name();
-            dlg.autocomplete.currentSelection = target;
-            dlg.autocomplete.selectedItem = null;
-
-            dlg.$autocomplete.find("input.name")
-                .removeClass("error")
-                .addClass("lookup-performed")
-                .data("lookup-result", target)
-                .val(target.name());
-
-        } else if (relationship.type() == "recording-work") {
-
-            var name = relationship.source.name.peek();
-            dlg.autocomplete.term = name;
-            dlg.autocomplete.selectedItem = null;
-            dlg.$autocomplete.find("input.name").val(name);
-            target.name(name);
-        }
-    },
-
-    initWorkAutocomplete: function() {
-        var dlg = Dialog, $workName = $("#work-name");
-
-        $workName.autocomplete({
-            source: function(request, response) {
-                var term = request.term.toLowerCase(), data = [];
-
-                for (var id in RE.newWorks) {
-                    var work = RE.newWorks[id], name = work.name.peek(),
-                        lower = name.toLowerCase();
-
-                    if (work === dlg.relationship.peek().target.peek())
-                        continue;
-                    if (lower.lastIndexOf(term, 0) === 0)
-                        data.push({label: name, value: name, work: work});
-                }
-                response(data);
-            },
-            select: function(event, ui) {
-                $workName.addClass("lookup-performed");
-                dlg.relationship.peek().target(ui.item.work);
-                Dialog.initialNewWork = ui.item.work;
-            },
-            delay: 0
-        });
-
-        if (dlg.mode.peek() == "edit") $workName.addClass("lookup-performed");
-    },
-
-    workNameChanged: function(data, event) {
-        if (!event.target.value) Dialog.initNewWork("");
+        Dialog.instance = ko.observable(this);
+        ko.applyBindings(this, this.$dialog[0]);
     },
 
     initNewWork: function(name) {
@@ -352,40 +365,31 @@ var Dialog = UI.Dialog = {
     },
 
     show: function() {
-        // important: objects down the prototype chain should set "this"
-        RE.dialogViewModel(this);
+        // important: objects down the prototype chain should set "this" when
+        // calling show. the template uses instance to decide which accept and
+        // hide methods to execute.
+        Dialog.instance(this);
 
         this.$overlay.fadeIn("fast");
-
         // prevents the page from jumping. these will be adjusted in resize().
         this.$dialog.css({top: $w.scrollTop(), left: $w.scrollLeft()}).fadeIn("fast");
         this.resize();
-
-        this.newWork.peek() ? this.initWorkAutocomplete() : this.initAutocomplete();
     },
 
     hide: function(callback) {
-        // note: this is called by the afterRender binding. Also, delete doesn't
-        // affect the prototype chain anyway, so reference Dialog directly.
         var dlg = Dialog;
+        dlg.$dialog.hide();
+        dlg.$overlay.fadeOut("fast");
 
         delete dlg.targets;
         delete dlg.initialNewWork;
         delete dlg.previousWork;
-        delete dlg.autocomplete;
-        delete dlg.$autocomplete;
-
-        if ($.isFunction(callback)) callback.call(dlg);
-
         delete dlg.posx;
         delete dlg.posy;
 
-        dlg.$dialog.fadeOut("fast", function() {
-            dlg.relationship(dlg.emptyRelationship);
-            dlg.newWork(null);
-        });
-
-        dlg.$overlay.fadeOut("fast");
+        if ($.isFunction(callback)) callback.call(dlg);
+        dlg.relationship(dlg.emptyRelationship);
+        dlg.newWork(null);
     },
 
     accept: function() {},
@@ -403,7 +407,7 @@ var Dialog = UI.Dialog = {
         // the dialog 100%, making this impossible; hide them first.
         $hidden = $();
 
-        $.each($d.find("div.ar-descr, p.msg"), function(i, div) {
+        $.each($d.find("div.ar-descr, p.msg, div.error"), function(i, div) {
             var $div = $(div);
             if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
         });
@@ -503,9 +507,10 @@ UI.AddDialog.show = function(options) {
         relationship = RE.Relationship({
             source: source, target: target, action: "add"}, false);
 
+    if (target.type == "work") target.name(source.name.peek());
+
     this.mode(options.mode || "add");
     this.relationship(relationship);
-    this.targetType(target.type);
     this.newWork(options.newWork || false);
 
     Dialog.show.call(this);
@@ -526,22 +531,24 @@ UI.AddDialog.accept = function() {
 UI.EditDialog = MB.utility.beget(Dialog);
 
 UI.EditDialog.show = function(relationship) {
-    var dlg = Dialog, target = relationship.target();
+    var dlg = Dialog, target = relationship.target.peek(), name = target.name.peek(),
+        newWork = target.type == "work" && RE.Util.isNewWork(target.gid);
 
     dlg.mode("edit");
-    dlg.newWork(target.type == "work" && RE.Util.isNewWork(target.gid));
+    dlg.newWork(newWork);
+
+    // originalRelationship is a copy of the relationship when the dialog was
+    // opened, i.e. before the user edits it. if they cancel the dialog, this is
+    // what gets copied back to revert their changes.
     dlg.originalRelationship = ko.mapping.toJS(relationship);
 
-    // saving the relationship isn't sufficient, because the target is excluded
-    // from the Relationship mapping options. for new works, we have to copy
-    // everything, because the user can edit it - i.e., we have to revert their
-    // changes to the work if they cancel.
-    dlg.originalTarget = dlg.newWork() ? ko.mapping.toJS(target) : target;
+    // because the target is excluded from the Relationship mapping options, we
+    // have to save the target as well. for new works we have to make a full
+    // copy as opposed to just saving the reference, since the user can edit them.
+    dlg.originalTarget = newWork ? ko.mapping.toJS(target) : target;
+    if (newWork) dlg.initialNewWork = dlg.originalTarget;
 
     dlg.relationship(relationship);
-    dlg.targetType(target.type);
-
-    if (dlg.newWork()) dlg.initialNewWork = dlg.originalTarget;
 
     dlg.show.call(this);
 };
@@ -549,13 +556,15 @@ UI.EditDialog.show = function(relationship) {
 UI.EditDialog.hide = function(cancel) {
     Dialog.hide(function() {
         if (cancel !== false) {
-            ko.mapping.fromJS(this.originalRelationship, this.relationship());
-            var target = this.relationship().target;
+            var relationship = this.relationship.peek();
+            ko.mapping.fromJS(this.originalRelationship, relationship);
+            var observable = relationship.target, target = observable.peek();
 
-            if (target.peek() !== this.originalTarget) {
+            if (target !== this.originalTarget) {
+
                 RE.Entity.isInstance(this.originalTarget)
-                    ? target(this.originalTarget)
-                    : ko.mapping.fromJS(this.originalTarget, target.peek());
+                    ? observable(this.originalTarget)
+                    : ko.mapping.fromJS(this.originalTarget, target);
             }
         }
         delete Dialog.originalRelationship;

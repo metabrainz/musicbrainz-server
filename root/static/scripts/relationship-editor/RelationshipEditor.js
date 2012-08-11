@@ -23,7 +23,6 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
     $tracklist, release, parseMedium, parseTrack;
 
 release = {
-
     media: ko.observableArray([]),
 
     relationships: ko.observableArray([]),
@@ -49,14 +48,14 @@ release = {
                 msg = strings[Math.min(strings.length - 1, data.recordingCount())];
 
             return msg ? "(" + msg + ")" : "";
-        }).extend({throttle: 20});
+        }).extend({throttle: 100});
 
         data.workMessage = ko.computed(function() {
             var strings = data.workStrings(),
                 msg = strings[Math.min(strings.length - 1, data.workCount())];
 
             return msg ? "(" + msg + ")" : "";
-        }).extend({throttle: 20});
+        }).extend({throttle: 100});
 
         return data;
     }()),
@@ -69,7 +68,7 @@ release = {
 };
 
 
-RE.init = function(releaseGID) {
+RE.init = function(params, errorFields) {
     RE.serverFields = {};
     RE.newWorks = {};
     RE.attrRoots = {};
@@ -94,8 +93,11 @@ RE.init = function(releaseGID) {
     });
     delete foo;
 
-    Util.CGI.parseParams(RE.params, RE.errorFields);
+    Util.CGI.parseParams(params, errorFields);
+};
 
+
+UI.init = function(releaseGID) {
     UI.Dialog.init();
 
     $tracklist = $("#tracklist tbody");

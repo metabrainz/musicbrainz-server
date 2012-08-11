@@ -33,12 +33,7 @@ mapping = {
     },
     begin_date: {
         update: function(options) {
-            var data = options.data, date = options.target;
-            data = _.isString(data) ? Util.parseDate(data) : data;
-            date.year(data.year);
-            date.month(data.month);
-            date.day(data.day);
-            return date;
+            return new Fields.PartialDate(options.data);
         }
     },
     ended: {
@@ -83,15 +78,15 @@ var Relationship = function(obj) {
         this.errorCount = MB.utility.keys(obj.serverErrors).length;
 
     this.link_type = new Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
-    this.begin_date = new Fields.PartialDate(Util.parseDate(""));
-    this.end_date = new Fields.PartialDate(Util.parseDate(""));
+    this.begin_date = new Fields.PartialDate();
+    this.end_date = new Fields.PartialDate();
     this.ended = ko.observable(false);
     this.direction = ko.observable("forward");
     this.type = new Fields.Type(this);
     this.attributes = new Fields.Attributes(this);
 
     this.dateRendering = ko.computed({read: this.renderDate, owner: this})
-        .extend({throttle: 10});
+        .extend({throttle: 100});
 
     // entities have a refcount so that they can be deleted when they aren't
     // referenced by any relationship. we use a computed observable for the target,
@@ -107,9 +102,8 @@ var Relationship = function(obj) {
     obj.target.refcount += 1;
     this.target = new Fields.Target(obj.target, this);
     // XXX trigger the validation subscription's callback, so that validation
-    // on the target's name is registered as well. that'll get added to
-    // target.nameSub.
-    this.target.validationSub.callback(obj.target);
+    // on the target's name is registered as well.
+    this.target.notifySubscribers(this.target.peek());
 
     ko.mapping.fromJS(obj, mapping, this);
 
@@ -122,8 +116,8 @@ var Relationship = function(obj) {
     this.attributes.extend({field: [this, "attributes"]});
 
     this.entity = ko.computed(computeEntities, this);
-    this.linkPhrase = ko.computed(this.buildLinkPhrase, this).extend({throttle: 10});
-    this.hiddenFields = ko.computed(this.buildFields, this).extend({throttle: 100});
+    this.linkPhrase = ko.computed(this.buildLinkPhrase, this).extend({throttle: 1});
+    this.hiddenFields = ko.computed(this.buildFields, this).extend({throttle: 1000});
     this.loadingWork = ko.observable(false);
 
     this.edits_pending

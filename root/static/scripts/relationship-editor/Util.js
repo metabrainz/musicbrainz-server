@@ -255,7 +255,7 @@ Util.src = function(linkType, direction) {
     if (!linkType) return null;
     var types = RE.typeInfo[linkType].types, str = types.join("-");
 
-    return ((types[0] == types[1] || str == "recording-release")
+    return ((types[0] == types[1] || str == "recording-release" || str == "recording-work")
         ? (direction == "backward" ? 1 : 0) : entityRelations[str]);
 };
 

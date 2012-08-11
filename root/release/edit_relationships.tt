@@ -5,21 +5,19 @@
         var RE = MB.RelationshipEditor;
 
         RE.typeInfo = [% USE JSON; type_info.json %];
-
         RE.attrMap = [% attr_map.json %];
 
-        RE.params = [% params.json %];
+        var params = [% params.json %];
+        var errorFields = [% error_fields.json %];
 
-        RE.errorFields = [% error_fields.json %];
-
-        RE.init("[% release.gid %]");
+        RE.init(params, errorFields);
+        RE.UI.init("[% release.gid %]");
     });
     //]]></script>
 [% END %]
 
 [%- BLOCK invisible_content -%]
     <div id="overlay" class="rel-editor"></div>
-
     <div id="dialog" class="rel-editor">
 
       <!-- ko if: relationship() && relationship().edits_pending -->
@@ -77,19 +75,19 @@
             <!-- /ko -->
             (<a href="#" data-bind="click: LinkType.toggleHelp">[% l('help') %]</a>)
             <div class="error" data-bind="text: relationship().link_type.error"></div>
-            <div class="ar-descr" data-bind="html: LinkType.descr, visible: LinkType.help() && LinkType.descr()"></div>
+            <div class="ar-descr" data-bind="html: LinkType.descr, visible: LinkType.help() &amp;&amp; LinkType.descr()"></div>
           </td>
         </tr>
-        <!-- ko template: {"if": newWork() === false} -->
+        <!-- ko if: editor() == "entity" -->
         <tr>
           <td class="section">
-            <select data-bind="targetType: targetType,
+            <select data-bind="targetType: $data,
               disable: mode() == 'edit' || relationship().type() == 'recording-work'"></select>
           </td>
           <td>
-            <span id="autocomplete" class="autocomplete" style="width: 100%;">
-              <img class="search" src="/static/images/icons/search.png"/>
-              <input class="name" type="text" style="width: 100%;"/>
+            <span id="autocomplete" class="autocomplete" data-bind="autocomplete: relationship">
+              <img class="search" src="../../../static/images/icons/search.png"/>
+              <input class="name" type="text"/>
               <input type="hidden" class="id"/>
               <input type="hidden" class="gid"/>
             </span>
@@ -97,8 +95,7 @@
           </td>
         </tr>
         <!-- /ko -->
-        <!-- ko with: relationship -->
-        <!-- ko template: {"if": $root.newWork() === true, afterRender: $root.resize} -->
+        <!-- ko template: {"if": editor() == "new.work", afterRender: resize} -->
         <tr class="rel-editor">
           <td class="section">[% l('Work') %]:</td>
           <td>
@@ -106,21 +103,21 @@
               <tr data-bind="if: $root.mode() != 'batch.create.works'">
                 <td><label for="work-name">[%- l('Name:') -%]</label></td>
                 <td>
-                  <input id="work-name" size="32" data-bind="value: target().name,
-                    valueUpdate: 'afterkeydown', event: {input: $root.workNameChanged}"/>
-                  <div class="error" data-bind="text: target.error"></div>
+                  <input id="work-name" size="32" data-bind="workName: relationship" type="text"/>
+                  <div class="error" data-bind="text: relationship().target.error"></div>
                 </td>
               </tr>
               <tr>
                 <td><label for="work-comment">[%- l('Disambiguation:') -%]</label></td>
                 <td>
-                  <input id="work-comment" size="32" data-bind="value: target().comment, valueUpdate: 'afterkeydown'"/>
+                  <input id="work-comment" size="32" data-bind="value: relationship().target().comment,
+                    valueUpdate: 'afterkeydown'" type="text"/>
                 </td>
               </tr>
               <tr>
                 <td><label for="work-type">[%- l('Type:') -%]</label></td>
                 <td>
-                  <select id="work-type" data-bind="value: target().work_type">
+                  <select id="work-type" data-bind="value: relationship().target().work_type">
                     <option selected="selected"></option>
                     [%- FOR type=work_types %]
                       <option value="[% type.id %]">[% type.name | html %]</option>
@@ -131,7 +128,7 @@
               <tr>
                 <td><label for="work-language">[%- l('Lyrics Language:') -%]</label></td>
                 <td>
-                  <select id="work-language" data-bind="value: target().work_language">
+                  <select id="work-language" data-bind="value: relationship().target().work_language">
                     <option selected="selected"></option>
                     [% FOR optgroup=work_languages %]
                       <optgroup label="[% optgroup.optgroup %]">
@@ -145,7 +142,6 @@
             </table>
           </td>
         </tr>
-        <!-- /ko -->
         <!-- /ko -->
         <!-- ko if: relationship().type() == "recording-work" -->
         <!-- ko if: mode() != "batch.create.works" -->
@@ -215,9 +211,9 @@
       </table>
 
       <div class="buttons ui-helper-clearfix" style="margin-top: 1em">
-        <button class="negative" data-bind="click: hide">[% l('Cancel') %]</button>
+        <button class="negative" data-bind="click: instance().hide">[% l('Cancel') %]</button>
         <div class="buttons-right" style="float: right; text-align: right;">
-          <button class="positive" data-bind="click: accept">[% l('Done') %]</button>
+          <button class="positive" data-bind="click: instance().accept, disable: relationship().hasErrors">[% l('Done') %]</button>
         </div>
       </div>
     </div>

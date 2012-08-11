@@ -79,22 +79,19 @@ var validationHandlers = {
             attrField.error("");
         });
     },
+    target: (function() {
 
-    target: function(field, value, relationship) {
         // currently the only thing we're validating is that the name's not empty.
-        // given that the target can be attached to multiple relationships,
-        // nameSubs is added to the observable to keep track of subscriptions to
-        // the target's name for each relationship, and for disposing them if the
-        // target changes. this isn't ideal if validation is expanded to other fields.
+        function validateName(name) {
+            this.error(name ? "" : MB.text.RequiredField);
+        }
 
-        var checkName = function(name) {
-            name ? field.error("") : field.error(MB.text.RequiredField);
+        return function(field, value) {
+            var nameChanged = _.bind(validateName, field);
+            nameChanged(value.name.peek());
+            field.nameChanged = value.name.subscribe(nameChanged);
         };
-        checkName(value.name());
-
-        (field.nameSubs = field.nameSubs || {})[relationship.id] =
-            value.name.subscribe(checkName);
-    }
+    }())
 };
 
 function validateDate(field, value) {
@@ -123,9 +120,7 @@ function validateDatePeriod(begin, end, beginValid, endValid) {
 // used to track changes, handle validation, and update "action" accordingly
 
 ko.extenders.field = function(target, options) {
-
-    var relationship = options[0], name = options[1], fullName = options[2] || name,
-        id = relationship.id, type = relationship.type;
+    var relationship = options[0], name = options[1], fullName = options[2] || name;
 
     target.error = ko.observable((relationship.serverErrors &&
         relationship.serverErrors[fullName]) || "");
@@ -159,9 +154,9 @@ ko.extenders.field = function(target, options) {
         // entities are unique, we compare them directly.
         if (name != "target") newValue = ko.mapping.toJS(newValue);
 
-        var origValue, changed;
+        var origValue, changed, type = relationship.type.peek(), id = relationship.id;
         // properties might not have been defined originally
-        try {origValue = RE.serverFields[type()][id][name]} catch (err) {};
+        try {origValue = RE.serverFields[type][id][name]} catch (err) {};
 
         changed = !_.isEqual(origValue, newValue);
 
@@ -192,24 +187,39 @@ Fields.Integer.prototype.convert = function(value) {
 
 
 Fields.PartialDate = function(obj) {
-    var date = {
+    obj = this.convert(obj);
+    obj = {
         year:  new Fields.Integer(obj.year),
         month: new Fields.Integer(obj.month),
         day:   new Fields.Integer(obj.day)
     };
+    obj.year.subscribe(this.partChanged, this);
+    obj.month.subscribe(this.partChanged, this);
+    obj.day.subscribe(this.partChanged, this);
 
-    this.value = ko.observable(date);
+    this.date = ko.observable(obj);
     delete obj;
 
-    date.year.subscribe(this.partChanged, this);
-    date.month.subscribe(this.partChanged, this);
-    date.day.subscribe(this.partChanged, this);
+    return ko.computed({read: this.date, write: this.write, owner: this});
+};
 
-    return this.value;
+Fields.PartialDate.prototype.write = function(obj) {
+    obj = this.convert(obj);
+    var date = this.date.peek();
+    date.year(obj.year);
+    date.month(obj.month);
+    date.day(obj.day);
+}
+
+Fields.PartialDate.prototype.convert = function(obj) {
+    obj = ko.utils.unwrapObservable(obj);
+    obj = _.isString(obj) ? Util.parseDate(obj) : obj;
+    obj = _.isObject(obj) ? obj : {};
+    return obj;
 };
 
 Fields.PartialDate.prototype.partChanged = function() {
-    this.value.notifySubscribers(this.value.peek());
+    this.date.notifySubscribers(this.date.peek());
 };
 
 
@@ -299,8 +309,8 @@ Fields.Target.prototype.write = function(newTarget) {
 
     if (oldTarget !== newTarget) {
         // we no longer want validation notifications for this entity's name
-        this.computed.nameSubs[relationship.id].dispose();
-        delete this.computed.nameSubs[relationship.id];
+        this.computed.nameChanged.dispose();
+        delete this.computed.nameChanged;
 
         relationship.changeTarget(oldTarget, newTarget, this.target);
     }

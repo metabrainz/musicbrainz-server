@@ -51,6 +51,8 @@
     display: none;
     padding: 0.8em;
 }
+#dialog.rel-editor span.autocomplete,
+#dialog.rel-editor input[type=text] {width: 100%;}
 #dialog.rel-editor p.msg {margin: 0.5em 1em 1.5em 1em;}
 #dialog.rel-editor span.error,
 #dialog.rel-editor div.error {color: #f00;}
