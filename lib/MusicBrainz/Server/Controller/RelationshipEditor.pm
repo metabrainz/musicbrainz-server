@@ -29,21 +29,6 @@ has loaded_relationships => (
     isa => 'HashRef'
 );
 
-has edited_fields => (
-    is => 'rw',
-    isa => 'HashRef'
-);
-
-has removed_fields => (
-    is => 'rw',
-    isa => 'HashRef'
-);
-
-has added_fields => (
-    is => 'rw',
-    isa => 'ArrayRef'
-);
-
 sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
 
 after 'load' => sub
@@ -61,9 +46,6 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit Req
 
     $self->loaded_entities({});
     $self->loaded_relationships({});
-    $self->edited_fields({});
-    $self->removed_fields({});
-    $self->added_fields([]);
 
     my $release = $c->stash->{release};
 
@@ -149,125 +131,84 @@ sub build_work_languages {
     return \@work_languages;
 }
 
-sub is_new_work {
-    my $ent = shift;
-    return ($ent->{type} eq 'work') && ($ent->{gid} =~ /^new-\d+$/);
-}
-
 sub submit_edits {
     my ($self, $c, $form) = @_;
 
     foreach my $field ($form->field('rels')->fields) {
         my $rel = $field->value;
+
         my $action = $rel->{action};
         my $entity0 = $rel->{entity}->[0];
         my $entity1 = $rel->{entity}->[1];
         my $types =  $entity0->{type} . '-' . $entity1->{type};
 
         if ($action eq 'remove') {
-            # prevents people from submitting a remove and edit action on the same relationship
-            $self->removed_fields->{$types} //= {};
-            $self->removed_fields->{$types}->{$rel->{id}} = 1;
+            $self->remove_relationship($c, $form, $field, $types);
 
-            my $relationship = $self->loaded_relationships->{$types}->{$rel->{id}};
+        } elsif ($action eq 'add') {
+            $self->add_relationship($c, $form, $field);
 
-            $c->model('MB')->with_transaction(sub {
-                $self->_insert_edit(
-                    $c, $form,
-                    edit_type => $EDIT_RELATIONSHIP_DELETE,
-                    relationship => $relationship,
-                );
-            });
-        } else {
-            my $new_work = is_new_work($entity0) ? $entity0 : (
-                           is_new_work($entity1) ? $entity1 : undef);
-
-            if ($new_work && !defined($self->loaded_entities->{$new_work->{gid}})) {
-                $self->create_new_work($c, $form, $new_work);
-            }
-            if ($action eq 'add') {
-                push @{ $self->added_fields }, $field;
-
-            } elsif ($action eq 'edit') {
-                $self->edited_fields->{$types} //= {};
-                $self->edited_fields->{$types}->{$rel->{id}} = $field;
-            }
-        }
-    }
-    $self->submit_added_relationships($c, $form);
-    $self->submit_edited_relationships($c, $form);
-}
-
-sub submit_added_relationships {
-    my ($self, $c, $form) = @_;
-
-    foreach my $field (@{ $self->added_fields }) {
-        my $rel = $field->value;
-        my $entity0 = $rel->{entity}->[0];
-        my $entity1 = $rel->{entity}->[1];
-        my @attributes = $self->flatten_attributes($field->field('attrs'));
-
-        $self->try_and_insert(
-            $c, $form, $entity0->{type}, $entity1->{type}, (
-                entity0 => $self->loaded_entities->{$entity0->{gid}},
-                entity1 => $self->loaded_entities->{$entity1->{gid}},
-                link_type_id => $rel->{link_type},
-                attributes => \@attributes,
-                begin_date => $rel->{begin_date},
-                end_date => $rel->{end_date},
-                ended => $rel->{ended},
-        ));
-    }
-}
-
-sub submit_edited_relationships {
-    my ($self, $c, $form) = @_;
-
-    foreach my $types (keys %{ $self->edited_fields }) {
-        my $edited = $self->edited_fields->{$types};
-        my $removed = $self->removed_fields->{$types};
-
-        foreach my $id (keys %$edited) {
-            next if exists $removed->{$id};
-            my $field = $edited->{$id};
-            my $rel = $field->value;
-            my $entity0 = $rel->{entity}->[0];
-            my $entity1 = $rel->{entity}->[1];
-
-            my $relationship = $self->loaded_relationships->{$types}->{$rel->{id}};
-            my @attributes = $self->flatten_attributes($field->field('attrs'));
-
-            $self->try_and_edit(
-                $c, $form, $entity0->{type}, $entity1->{type}, $relationship, (
-                    new_link_type_id => $rel->{link_type},
-                    new_begin_date => $rel->{begin_date},
-                    new_end_date => $rel->{end_date},
-                    ended => $rel->{ended},
-                    attributes => \@attributes,
-                    entity0_id => $self->loaded_entities->{$entity0->{gid}}->id,
-                    entity1_id => $self->loaded_entities->{$entity1->{gid}}->id,
-            ));
+        } elsif ($action eq 'edit') {
+            $self->edit_relationship($c, $form, $field, $types);
         }
     }
 }
 
-sub create_new_work {
-    my ($self, $c, $form, $new_work) = @_;
+sub remove_relationship {
+    my ($self, $c, $form, $field, $types) = @_;
 
-    my $edit;
+    my $id = $field->field('id')->value;
+    my $relationship = $self->loaded_relationships->{$types}->{$id};
+
     $c->model('MB')->with_transaction(sub {
-        $edit = $self->_insert_edit(
+        $self->_insert_edit(
             $c, $form,
-            edit_type => $EDIT_WORK_CREATE,
-            name => $new_work->{name},
-            comment => $new_work->{comment},
-            type_id => $new_work->{work_type},
-            language_id => $new_work->{work_language}
+            edit_type => $EDIT_RELATIONSHIP_DELETE,
+            relationship => $relationship,
         );
     });
+}
 
-    $self->loaded_entities->{$new_work->{gid}} =
-        $c->model('Work')->get_by_id($edit->entity_id);
+sub add_relationship {
+    my ($self, $c, $form, $field) = @_;
+
+    my $rel = $field->value;
+    my $entity0 = $rel->{entity}->[0];
+    my $entity1 = $rel->{entity}->[1];
+    my @attributes = $self->flatten_attributes($field->field('attrs'));
+
+    $self->try_and_insert(
+        $c, $form, $entity0->{type}, $entity1->{type}, (
+            entity0 => $self->loaded_entities->{$entity0->{gid}},
+            entity1 => $self->loaded_entities->{$entity1->{gid}},
+            link_type_id => $rel->{link_type},
+            attributes => \@attributes,
+            begin_date => $rel->{begin_date},
+            end_date => $rel->{end_date},
+            ended => 0,
+    ));
+}
+
+sub edit_relationship {
+    my ($self, $c, $form, $field, $types) = @_;
+
+    my $rel = $field->value;
+    my $entity0 = $rel->{entity}->[0];
+    my $entity1 = $rel->{entity}->[1];
+
+    my $relationship = $self->loaded_relationships->{$types}->{$rel->{id}};
+    my @attributes = $self->flatten_attributes($field->field('attrs'));
+
+    $self->try_and_edit(
+        $c, $form, $entity0->{type}, $entity1->{type}, $relationship, (
+            new_link_type_id => $rel->{link_type},
+            new_begin_date => $rel->{begin_date},
+            new_end_date => $rel->{end_date},
+            attributes => \@attributes,
+            entity0_id => $self->loaded_entities->{$entity0->{gid}}->id,
+            entity1_id => $self->loaded_entities->{$entity1->{gid}}->id,
+            ended => $relationship->link->ended,
+    ));
 }
 
 __PACKAGE__->meta->make_immutable;

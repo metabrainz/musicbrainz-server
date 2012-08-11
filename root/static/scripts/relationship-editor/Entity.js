@@ -55,12 +55,7 @@ function renderEntity() {
 }
 
 Entity.prototype.remove = function() {
-    if (--this.refcount == 0) {
-        delete cache[this.gid];
-
-        if (RE.Util.isNewWork(this.gid))
-            delete RE.newWorks[this.gid];
-    }
+    if (--this.refcount == 0) delete cache[this.gid];
 };
 
 Source = function() {};
@@ -140,17 +135,7 @@ Work = function() {
     this.comment = ko.observable("");
     this.work_type = ko.observable(null);
     this.work_language = ko.observable(null);
-
-    this.rendering = ko.computed({
-        read: renderWork,
-        owner: this,
-        deferEvaluation: true
-    });
 };
-
-function renderWork() {
-    return RE.Util.isMBID(this.gid) ? this.render(this.name()) : this.name();
-}
 
 URL = function() {
     this.init();
@@ -183,16 +168,14 @@ entities = {
     url:       URL
 };
 
-RE.Entity = function(obj) {
+RE.Entity = function(obj, type) {
     if (obj instanceof Entity) return obj;
+    obj.type = obj.type || type;
 
     var ent;
-    if ((ent = cache[obj.gid]) === undefined) {
+    if ((ent = cache[obj.gid]) === undefined)
         ent = cache[obj.gid] = new entities[obj.type];
 
-        if (obj.type == "work" && RE.Util.isNewWork(obj.gid))
-            RE.newWorks[obj.gid] = ent;
-    }
     ko.mapping.fromJS(obj, mapping, ent);
     return ent;
 };

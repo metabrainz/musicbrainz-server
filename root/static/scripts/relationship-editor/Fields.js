@@ -41,10 +41,6 @@ var validationHandlers = {
         validateDatePeriod(relationship.begin_date, field, null, validateDate(field, value));
     },
 
-    ended: function(field, value) {
-        _.isBoolean(value) ? field.error("") : field.error(MB.text.InvalidValue);
-    },
-
     direction: function(field, value) {
         (value == "forward" || value == "backward")
             ? field.error("") : field.error(MB.text.InvalidValue);
@@ -79,19 +75,10 @@ var validationHandlers = {
             attrField.error("");
         });
     },
-    target: (function() {
 
-        // currently the only thing we're validating is that the name's not empty.
-        function validateName(name) {
-            this.error(name ? "" : MB.text.RequiredField);
-        }
-
-        return function(field, value) {
-            var nameChanged = _.bind(validateName, field);
-            nameChanged(value.name.peek());
-            field.nameChanged = value.name.subscribe(nameChanged);
-        };
-    }())
+    target: function(field, value) {
+        field.error(Util.isMBID(value.gid) ? "" : MB.text.RequiredField);
+    }
 };
 
 function validateDate(field, value) {
@@ -307,13 +294,8 @@ Fields.Target.prototype.write = function(newTarget) {
     var relationship = this.relationship, oldTarget = this.target(),
         newTarget = RE.Entity(ko.utils.unwrapObservable(newTarget));
 
-    if (oldTarget !== newTarget) {
-        // we no longer want validation notifications for this entity's name
-        this.computed.nameChanged.dispose();
-        delete this.computed.nameChanged;
-
+    if (oldTarget !== newTarget)
         relationship.changeTarget(oldTarget, newTarget, this.target);
-    }
 }
 
 

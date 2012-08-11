@@ -26,19 +26,20 @@ Util.parseRelationships = function(obj, checkCGIParams) {
     var source = RE.Entity(obj),
         args = {source: source, checkCGIParams: checkCGIParams, result: []};
 
-    $.each(obj.relationships, function(target_type, rel_types) {
-        if (obj.type == "work" && target_type == "recording") return;
-        if (target_type == "url") return; // no url support yet
-        args.target_type = target_type;
+    if (obj.relationships)
+        $.each(obj.relationships, function(target_type, rel_types) {
+            if (obj.type == "work" && target_type == "recording") return;
+            if (target_type == "url") return; // no url support yet
+            args.target_type = target_type;
 
-        $.each(rel_types, function(rel_type, rels) {
+            $.each(rel_types, function(rel_type, rels) {
 
-            for (var i = 0; i < rels.length; i++) {
-                args.obj = rels[i];
-                parseRelationship(args);
-            }
+                for (var i = 0; i < rels.length; i++) {
+                    args.obj = rels[i];
+                    parseRelationship(args);
+                }
+            });
         });
-    });
 
     var added = CGI.actions.add[source.gid];
     if (checkCGIParams && added) {
@@ -71,7 +72,6 @@ var parseRelationship = function(args) {
 
     obj.begin_date = Util.parseDate(obj.begin_date || "");
     obj.end_date = Util.parseDate(obj.end_date || "");
-    obj.ended = Boolean(obj.ended);
     obj.direction = obj.direction || "forward";
 
     orig = orig[obj.id] = $.extend(true, {}, obj);
@@ -137,7 +137,7 @@ CGI.actions = {add: {}, edit: {}, remove: {}};
 CGIRegex = eval(
     "/^rel-editor.rels.\\d+." +          // rel-editor.rels.n, where n = the rel num.
     "(?:" +
-        "id|action|link_type|direction|ended|" +
+        "id|action|link_type|direction|" +
         "(?:begin|end)_date." +          // date fields.
             "(?:year|month|day)|" +
 
@@ -240,7 +240,7 @@ Util.compareArtistCredits = function(a, b) {
 var MBIDRegex = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/;
 
 Util.isMBID = function(str) {
-    return str.match(MBIDRegex) !== null;
+    return MBIDRegex.test(str);
 };
 
 
@@ -304,13 +304,6 @@ Util.defaultLinkType = function(sourceType, targetType) {
 
     linkType = RE.typeInfoByEntities[type][0];
     return linkType.descr ? linkType.id : linkType.children[0];
-};
-
-
-var newWorkRegex = /^new-\d+$/;
-
-Util.isNewWork = function(gid) {
-    return newWorkRegex.test(gid);
 };
 
 return RE;

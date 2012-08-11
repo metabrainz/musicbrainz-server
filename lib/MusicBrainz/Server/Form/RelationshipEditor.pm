@@ -71,29 +71,12 @@ has_field 'rels.entity.sortname' => (
     type => '+MusicBrainz::Server::Form::Field::Text'
 );
 
-has_field 'rels.entity.comment' => (
-    type      => '+MusicBrainz::Server::Form::Field::Comment',
-    maxlength => 255
-);
-
-has_field 'rels.entity.work_type' => (
-    type => 'Select'
-);
-
-has_field 'rels.entity.work_language' => (
-    type => 'Select'
-);
-
 has_field 'rels.begin_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate'
 );
 
 has_field 'rels.end_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate'
-);
-
-has_field 'rels.ended' => (
-    type => 'Boolean'
 );
 
 has_field 'rels.attrs' => (
@@ -205,12 +188,11 @@ after validate => sub {
 
             my $valid_ids = MusicBrainz::Server::Validation::IsGUID($ent->{gid})
                 && $ent->{id} =~ /^\d+$/;
-            my $new_work = $ent->{type} eq 'work' && $ent->{id} eq $ent->{gid};
 
-            if (!$valid_ids && !$new_work) {
+            if (!$valid_ids) {
                 $ent_field->add_error(l('This entity has an invalid ID or MBID.'));
 
-            } elsif (!$new_work && !defined($loaded_entities->{$ent->{gid}})) {
+            } elsif (!defined($loaded_entities->{$ent->{gid}})) {
                 my $model = type_to_model($ent->{type});
                 my $ent_data = $c->model($model)->get_by_id($ent->{id});
 

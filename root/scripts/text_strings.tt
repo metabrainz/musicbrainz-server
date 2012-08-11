@@ -95,7 +95,7 @@
         InvalidEndDate: '[% l('The end date cannot preceed the begin date.') | js %]',
         InvalidValue: '[% l('The value you\'ve entered is not valid.') | js %]',
         EditRelationship: '[% l('Edit relationship') | js %]',
-        LoadingRelationships: '[% l('Loading relationships...') | js %]',
+        Loading: '[% l('Loading...') | js %]',
         ErrorLoadingRelationships: '[% l('Error loading relationships.') | js %]',
         ChangeDirection: '[% l('Change direction') | js %]',
         Entity: {
@@ -114,7 +114,6 @@
             on: '[% l('on') |js %]',
             from: '[% l('from') |js %]',
             until: '[% l('until') |js %]',
-            present: '[% l('present') |js %]',
         },
         FocusInstrument: '[% l('Click here to choose an instrument') | js %]',
         FocusVocal: '[% l('Click here to choose a vocal') | js %]',

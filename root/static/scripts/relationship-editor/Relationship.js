@@ -24,9 +24,9 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
 
 mapping = {
     // entities (source, target) have their own mapping options in Entity.js
-    ignore:  ["source", "target", "num", "visible"],
+    ignore:  ["source", "target", "num", "visible", "ended"],
     copy:    ["edits_pending", "id", "serverErrors"],
-    include: ["link_type", "num", "action", "direction", "ended", "begin_date",
+    include: ["link_type", "num", "action", "direction", "begin_date",
               "end_date", "attributes"],
     attributes: {
         update: function(options) {return $.extend(true, {}, options.data)}
@@ -35,9 +35,6 @@ mapping = {
         update: function(options) {
             return new Fields.PartialDate(options.data);
         }
-    },
-    ended: {
-        update: function(options) {return Boolean(options.data)}
     }
 };
 
@@ -80,7 +77,6 @@ var Relationship = function(obj) {
     this.link_type = new Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
     this.begin_date = new Fields.PartialDate();
     this.end_date = new Fields.PartialDate();
-    this.ended = ko.observable(false);
     this.direction = ko.observable("forward");
     this.type = new Fields.Type(this);
     this.attributes = new Fields.Attributes(this);
@@ -111,7 +107,6 @@ var Relationship = function(obj) {
     // relationship as having changes.
     this.begin_date.extend({field: [this, "begin_date"]});
     this.end_date.extend({field: [this, "end_date"]});
-    this.ended.extend({field: [this, "ended"]});
     this.direction.extend({field: [this, "direction"]});
     this.attributes.extend({field: [this, "attributes"]});
 
@@ -175,7 +170,7 @@ var worksLoading = {};
 
 Relationship.prototype.workChanged = function(work) {
     var gid = work.gid, self = this;
-    if (!Util.isMBID(gid) || worksLoading[gid]) return;
+    if (worksLoading[gid]) return;
 
     this.loadingWork(true);
     worksLoading[gid] = 1;
@@ -286,21 +281,20 @@ function renderDate(date) {
 
 Relationship.prototype.renderDate = function() {
     var begin_date = renderDate(this.begin_date.peek()),
-        end_date = renderDate(this.end_date.peek()),
-        ended = this.ended();
+        end_date = renderDate(this.end_date.peek());
 
     if (!begin_date && !end_date) return "";
     if (begin_date == end_date) return MB.text.Date.on + " " + begin_date;
 
     return (begin_date ? MB.text.Date.from + " " + begin_date + " \u2013" : MB.text.Date.until) + " " +
-           (end_date ? end_date : (ended ? "????" : MB.text.Date.present));
+           (end_date || "????");
 };
 
 // Contruction of hidden input fields
 
 var simpleFields, dateFields, entityFields, fieldHTML, buildField;
 
-simpleFields = ["id", "link_type", "action", "direction", "ended"];
+simpleFields = ["id", "link_type", "action", "direction"];
 dateFields   = ["year", "month", "day"];
 entityFields = ["id", "gid", "name", "type", "sortname", "comment", "work_type", "work_language"];
 

@@ -23,6 +23,7 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
     $tracklist, release, parseMedium, parseTrack;
 
 release = {
+    RE: RE,
     media: ko.observableArray([]),
 
     relationships: ko.observableArray([]),
@@ -58,19 +59,12 @@ release = {
         }).extend({throttle: 100});
 
         return data;
-    }()),
-
-    loadingIndicator:
-        '<span class="loading">' +
-            '<img src="../../../static/images/icons/loading.gif" class="bottom"/> ' +
-             MB.text.LoadingRelationships +
-        '</span>',
+    }())
 };
 
 
 RE.init = function(params, errorFields) {
     RE.serverFields = {};
-    RE.newWorks = {};
     RE.attrRoots = {};
 
     for (var id in RE.attrMap) {
@@ -99,6 +93,11 @@ RE.init = function(params, errorFields) {
 
 UI.init = function(releaseGID) {
     UI.Dialog.init();
+    UI.WorkDialog.init();
+
+    $("#overlay").on("click", function() {
+        UI.Dialog.instance().hide();
+    });
 
     $tracklist = $("#tracklist tbody");
     // preload image to avoid flickering
@@ -109,7 +108,7 @@ UI.init = function(releaseGID) {
     ko.applyBindings(release, document.getElementById("form"));
 
     var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
-        $loading = $(release.loadingIndicator).insertAfter("#tracklist");
+        $loading = $(UI.loadingIndicator).insertAfter("#tracklist");
 
     $.getJSON(url, function(data) {
         data.type = "release";
@@ -128,6 +127,13 @@ UI.init = function(releaseGID) {
         $loading.remove();
     });
 };
+
+
+UI.loadingIndicator =
+    '<span class="loading">' +
+        '<img src="../../../static/images/icons/loading.gif" class="bottom"/> ' +
+         MB.text.Loading +
+    '</span>';
 
 
 parseMedium = function(medium, media, release) {
@@ -159,6 +165,22 @@ parseTrack = function(track, medium, release) {
 
     Util.parseRelationships(recording, true);
     medium.recordings.push(RE.Entity(recording));
+};
+
+
+RE.createWorks = function(works, editNote, success, error) {
+    var fields = {};
+
+    _.each(works, function(work, i) {
+        var prefix = ["create-works", "works", i, ""].join(".");
+        fields[prefix + "name"] = _.clean(work.name);
+        fields[prefix + "comment"] = _.clean(work.comment);
+        fields[prefix + "type_id"] = work.type;
+        fields[prefix + "language_id"] = work.language;
+    });
+
+    fields["create-works.edit_note"] = _.trim(editNote);
+    $.post("/create-works", fields).success(success).error(error);
 };
 
 
@@ -267,9 +289,7 @@ function initButtons() {
     });
 
     $("#form").on("click", "span.add-rel", function(event) {
-        UI.Dialog.posx = event.pageX;
-        UI.Dialog.posy = event.pageY;
-        UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("artist")});
+        UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("artist")}, event.pageX, event.pageY);
     });
 
     $("#form").on("click", "span.relate-work", function() {
@@ -293,11 +313,8 @@ function initButtons() {
     $("#form").on("click", "span.link-phrase", function(event) {
         var relationship = ko.dataFor(this);
 
-        if (relationship.action() != "remove") {
-            UI.Dialog.posx = event.pageX;
-            UI.Dialog.posy = event.pageY;
-            UI.EditDialog.show(relationship);
-        }
+        if (relationship.action() != "remove")
+            UI.EditDialog.show(relationship, event.pageX, event.pageY);
     });
 }
 
