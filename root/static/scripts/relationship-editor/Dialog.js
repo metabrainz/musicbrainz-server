@@ -172,10 +172,24 @@ ko.bindingHandlers.targetType = (function() {
 }());
 
 
+function setAutocompleteEntity(entity, nameOnly) {
+    var $ac = Dialog.$autocomplete, ac = Dialog.autocomplete,
+        $name = $ac.find("input.name"), name = entity.name.peek();
+
+    ac.term = name;
+    ac.selectedItem = null;
+    $name.removeClass("error lookup-performed").val(name);
+
+    if (nameOnly === false) {
+        ac.currentSelection = null;
+        $name.addClass("lookup-performed").data("lookup-result", entity);
+    }
+};
+
 ko.bindingHandlers.autocomplete = {
     init: function(element) {
-        var $autocomplete = Dialog.$autocomplete = $(element), autocomplete,
-            $name = $autocomplete.find("input.name"), relationship = Dialog.relationship,
+        var $autocomplete = Dialog.$autocomplete = $(element),
+            relationship = Dialog.relationship,
             target = relationship.peek().target.peek();
 
         $autocomplete.on("lookup-performed", function(event, data) {
@@ -184,21 +198,13 @@ ko.bindingHandlers.autocomplete = {
             target(RE.Entity(data));
         });
 
-        autocomplete = MB.Control.EntityAutocomplete({
+        Dialog.autocomplete = MB.Control.EntityAutocomplete({
             inputs: $autocomplete,
             position: {collision: "fit"},
             entity: target.type
         });
 
-        var name = target.name.peek();
-        autocomplete.term = name;
-        autocomplete.selectedItem = null;
-        $name.removeClass("error lookup-performed").val(name);
-
-        if (Dialog.mode() == "edit") {
-            autocomplete.currentSelection = null;
-            $name.addClass("lookup-performed").data("lookup-result", target);
-        }
+        setAutocompleteEntity(target, Dialog.mode() != "edit");
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
             $autocomplete.autocomplete("destroy");
@@ -207,59 +213,16 @@ ko.bindingHandlers.autocomplete = {
 };
 
 
-ko.bindingHandlers.workName = (function() {
-
-    function setWork(work) {
-        $("#work-name").addClass("lookup-performed");
-        Dialog.relationship.peek().target(work);
-        Dialog.initialNewWork = work;
-    }
-
-    var autocompleteOptions = {
-        source: function(request, response) {
-            var term = request.term.toLowerCase(), data = [];
-
-            for (var id in RE.newWorks) {
-                var work = RE.newWorks[id], name = work.name.peek(),
-                    lower = name.toLowerCase();
-
-                if (work === Dialog.relationship.peek().target.peek()) continue;
-                if (_.startsWith(lower, term))
-                    data.push({label: name, value: name, work: work});
-            }
-            response(data);
-        },
-        select: function(event, ui) {setWork(ui.item.work)},
-        delay: 0
-    };
-
-    function input() {
-        // if the user clears the work field, initiate a new work instead
-        // of editing the existing one.
-        this.value
-            ? Dialog.relationship.peek().target.peek().name(this.value)
-            : Dialog.initNewWork("");
-    }
-
-    return {
-        init: function(element) {
-            var $workName = $(element)
-                .on("input", input).on("set-work", function(event, work) {setWork(work)})
-                .autocomplete(autocompleteOptions);
-        },
-        update: function(element, valueAccessor) {
-            var relationship = ko.utils.unwrapObservable(valueAccessor());
-            $(element).val(relationship.target().name.peek());
-        }
-    };
-}());
-
-
 var Dialog = UI.Dialog = {
-
     MB: MB,
     mode: ko.observable(""),
-    attrsHelp: ko.observable(false),
+    loading: ko.observable(false),
+    batchWorksError: ko.observable(false),
+
+    showAutocomplete: ko.observable(false),
+    showCreateWorkLink: ko.observable(false),
+    showAttributesHelp: ko.observable(false),
+    showLinkTypeHelp: ko.observable(false),
 
     relationship: (function() {
         var value = ko.observable(null);
@@ -280,28 +243,6 @@ var Dialog = UI.Dialog = {
         });
     }()),
 
-    newWork: (function() {
-        var value = ko.observable(null);
-
-        value.subscribe(function(newValue) {
-            var currentTarget = Dialog.relationship().target();
-
-            if (newValue) {
-                // we only want to do this when we *started* with an existing work
-                if (Util.isMBID(currentTarget.gid)) {
-                    Dialog.previousWork = currentTarget;
-                    // wait for other newWork subscriptions to catch up
-                    _.defer(Dialog.initNewWork, currentTarget.name());
-                }
-            } else if (Dialog.previousWork) {
-                Dialog.relationship().target(Dialog.previousWork);
-                Dialog.previousWork = currentTarget;
-            }
-        });
-
-        return value;
-    }()),
-
     init: function() {
         // this is used as an "empty" state when the dialog is hidden, so that
         // none of the bindings error out.
@@ -312,30 +253,6 @@ var Dialog = UI.Dialog = {
 
         this.relationship(this.emptyRelationship);
 
-        // there are three separate "forms" that the user can be editing: the
-        // entity autocomplete, the URL field (with cleanup handlers), or the
-        // new work fields. in the template, we use "editor" to decide which to
-        // display. we have a separate observable to do this because depending
-        // on multiple observables causes the "if" bindings to needlessly
-        // re-render (and execute all associated binding handlers) multiple
-        // times, while this doesn't.
-        this.editor = (function() {
-            var value = ko.observable(null);
-
-            ko.computed(function() {
-                var relationship = Dialog.relationship();
-
-                if (relationship === Dialog.emptyRelationship) {
-                    value(null);
-                } else if (Dialog.newWork()) {
-                    value("new.work");
-                } else {
-                    value("entity");
-                }
-            });
-            return value;
-        }());
-
         this.$overlay = $("#overlay");
         this.$dialog =  $("#dialog");
 
@@ -343,104 +260,68 @@ var Dialog = UI.Dialog = {
         ko.applyBindings(this, this.$dialog[0]);
     },
 
-    initNewWork: function(name) {
-        $("#work-name").removeClass("lookup-performed");
+    show: function(posx, posy) {
+        var dlg = Dialog;
 
-        var observable = Dialog.relationship().target,
-            oldWork = observable.peek(), newWork,
-            obj = ko.mapping.toJS(oldWork);
-
-        obj.id = obj.gid = _.uniqueId("new-");
-        obj.name = name;
-        newWork = RE.Entity(obj);
-        observable(newWork);
-
-        // restore original state of old work, if it's still being used elsewhere
-        if (oldWork.refcount > 0 && Dialog.initialNewWork &&
-            Dialog.initialNewWork.gid === oldWork.gid) {
-
-            ko.mapping.fromJS(Dialog.initialNewWork, oldWork);
-        }
-        Dialog.initialNewWork = obj;
-    },
-
-    show: function() {
+        dlg.posx = posx;
+        dlg.posy = posy;
         // important: objects down the prototype chain should set "this" when
         // calling show. the template uses instance to decide which accept and
         // hide methods to execute.
-        Dialog.instance(this);
+        dlg.instance(this);
 
-        this.$overlay.fadeIn("fast");
-        // prevents the page from jumping. these will be adjusted in resize().
-        this.$dialog.css({top: $w.scrollTop(), left: $w.scrollLeft()}).fadeIn("fast");
-        this.resize();
+        var relationship = dlg.relationship.peek(),
+            notBatchWorks = dlg.mode.peek() != "batch.create.works";
+
+        dlg.showAutocomplete(relationship.target().type != "url" && notBatchWorks);
+        dlg.showCreateWorkLink(relationship.type() == "recording-work" && notBatchWorks);
+
+        dlg.$overlay.show();
+        // prevents the page from jumping. these will be adjusted in positionDialog.
+        dlg.$dialog.css({top: $w.scrollTop(), left: $w.scrollLeft()}).show();
+
+        positionDialog(dlg.$dialog, posx, posy);
+        $("#link-type").focus();
     },
 
     hide: function(callback) {
         var dlg = Dialog;
-        dlg.$dialog.hide();
-        dlg.$overlay.fadeOut("fast");
 
+        WorkDialog.hide();
+        dlg.$dialog.hide();
+        dlg.$overlay.hide();
         delete dlg.targets;
-        delete dlg.initialNewWork;
-        delete dlg.previousWork;
-        delete dlg.posx;
-        delete dlg.posy;
 
         if ($.isFunction(callback)) callback.call(dlg);
+
+        dlg.showAutocomplete(false);
         dlg.relationship(dlg.emptyRelationship);
-        dlg.newWork(null);
     },
 
     accept: function() {},
 
-    showAttributesHelp: function() {
-        this.attrsHelp(!this.attrsHelp());
+    createWork: function(data, event) {
+        WorkDialog.show(function(work) {
+            setAutocompleteEntity(RE.Entity(work, "work"), false);
+        }, event.pageX, event.pageY);
+
+        WorkDialog.name(Dialog.relationship.peek().source.name.peek());
+        $("#work-name").focus();
     },
 
-    resize: function() {
-        // note: this is called by the afterRender binding.
-        var dlg = Dialog, $d = dlg.$dialog, $hidden;
-        if (!$d.is(":visible")) return;
+    batchWorksMode: function() {
+        $("#work-type").clone(true).removeAttr("id").removeAttr("data-bind")
+            .appendTo("#batch-work-type");
 
-        // we want the dialog's size to "fit" the contents. the ar-descrs stretch
-        // the dialog 100%, making this impossible; hide them first.
-        $hidden = $();
+        $("#work-language").clone(true).removeAttr("id").removeAttr("data-bind")
+            .appendTo("#batch-work-lang");
+    },
 
-        $.each($d.find("div.ar-descr, p.msg, div.error"), function(i, div) {
-            var $div = $(div);
-            if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
-        });
+    toggleAttributesHelp: function() {
+        this.showAttributesHelp(!this.showAttributesHelp());
+    },
 
-        $d.css("max-width", "100%").css("max-width", $d.outerWidth());
-        $hidden.show();
-
-        var offx = $w.scrollLeft(), offy = $w.scrollTop(),
-            wwidth = $w.width(), wheight = $w.height(),
-            dwidth = $d.outerWidth(), dheight = $d.outerHeight(),
-            centerx = offx + (wwidth / 2), centery = offy + (wheight / 2);
-
-        if (!dlg.posx || !dlg.posy || wwidth < dwidth) {
-            $d.css({top: Math.max(offy, centery - dheight), left: centerx - (dwidth / 2)});
-
-        } else {
-            $d.css("left", dlg.posx <= centerx ? dlg.posx : dlg.posx - dwidth);
-
-            var dheight2 = dheight / 2, topclear = dlg.posy - dheight2 >= offy,
-                botclear = dlg.posy + dheight2 <= wheight + offy;
-
-            (topclear && botclear)
-                ? $d.css("top", dlg.posy - dheight2)
-                : $d.css("top", topclear ? (wheight + offy - dheight) : offy);
-        }
-    }
-};
-
-
-Dialog.LinkType = {
-    help: ko.observable(false),
-
-    descr: ko.computed({
+    linkTypeDescription: ko.computed({
         read: function() {
             var info = RE.typeInfo[Dialog.relationship().link_type()];
             return info ? info.descr : "";
@@ -452,15 +333,57 @@ Dialog.LinkType = {
     }),
 
     changeDirection: function() {
-        var direction = Dialog.relationship().direction;
+        var direction = this.relationship().direction;
         direction(direction() == "backward" ? "forward" : "backward");
-        Dialog.resize();
+        this.resize();
     },
 
-    toggleHelp: function() {
-        Dialog.LinkType.help(!Dialog.LinkType.help());
+    toggleLinkTypeHelp: function() {
+        this.showLinkTypeHelp(!this.showLinkTypeHelp());
+    },
+
+    resize: function() {
+        // note: this is called by the afterRender binding.
+        positionDialog(Dialog.$dialog, Dialog.posx, Dialog.posy);
     }
 };
+
+
+function positionDialog($dialog, posx, posy) {
+    var $d = $dialog, $hidden;
+    if (!$d.is(":visible")) return;
+
+    // we want the dialog's size to "fit" the contents. the ar-descrs stretch
+    // the dialog 100%, making this impossible; hide them first.
+    $hidden = $();
+
+    $.each($d.find("div.ar-descr, p.msg, div.error"), function(i, div) {
+        var $div = $(div);
+        if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
+    });
+
+    $d.css("max-width", "100%").css("max-width", $d.outerWidth());
+    $hidden.show();
+
+    var offx = $w.scrollLeft(), offy = $w.scrollTop(),
+        wwidth = $w.width(), wheight = $w.height(),
+        dwidth = $d.outerWidth(), dheight = $d.outerHeight(),
+        centerx = offx + (wwidth / 2), centery = offy + (wheight / 2);
+
+    if (!posx || !posy || wwidth < dwidth) {
+        $d.css({top: Math.max(offy, centery - dheight), left: centerx - (dwidth / 2)});
+
+    } else {
+        $d.css("left", posx <= centerx ? posx : posx - dwidth);
+
+        var dheight2 = dheight / 2, topclear = posy - dheight2 >= offy,
+            botclear = posy + dheight2 <= wheight + offy;
+
+        (topclear && botclear)
+            ? $d.css("top", posy - dheight2)
+            : $d.css("top", topclear ? (wheight + offy - dheight) : offy);
+    }
+}
 
 
 Dialog.attributes = (function() {
@@ -502,7 +425,7 @@ Dialog.attributes = (function() {
 
 UI.AddDialog = MB.utility.beget(Dialog);
 
-UI.AddDialog.show = function(options) {
+UI.AddDialog.show = function(options, posx, posy) {
     var target = options.target, source = options.source,
         relationship = RE.Relationship({
             source: source, target: target, action: "add"}, false);
@@ -511,9 +434,7 @@ UI.AddDialog.show = function(options) {
 
     this.mode(options.mode || "add");
     this.relationship(relationship);
-    this.newWork(options.newWork || false);
-
-    Dialog.show.call(this);
+    Dialog.show.call(this, posx, posy);
 }
 
 UI.AddDialog.accept = function() {
@@ -530,12 +451,10 @@ UI.AddDialog.accept = function() {
 
 UI.EditDialog = MB.utility.beget(Dialog);
 
-UI.EditDialog.show = function(relationship) {
-    var dlg = Dialog, target = relationship.target.peek(), name = target.name.peek(),
-        newWork = target.type == "work" && RE.Util.isNewWork(target.gid);
+UI.EditDialog.show = function(relationship, posx, posy) {
+    var dlg = Dialog, target = relationship.target.peek(), name = target.name.peek();
 
     dlg.mode("edit");
-    dlg.newWork(newWork);
 
     // originalRelationship is a copy of the relationship when the dialog was
     // opened, i.e. before the user edits it. if they cancel the dialog, this is
@@ -543,14 +462,11 @@ UI.EditDialog.show = function(relationship) {
     dlg.originalRelationship = ko.mapping.toJS(relationship);
 
     // because the target is excluded from the Relationship mapping options, we
-    // have to save the target as well. for new works we have to make a full
-    // copy as opposed to just saving the reference, since the user can edit them.
-    dlg.originalTarget = newWork ? ko.mapping.toJS(target) : target;
-    if (newWork) dlg.initialNewWork = dlg.originalTarget;
+    // have to save the target as well.
+    dlg.originalTarget = target;
 
     dlg.relationship(relationship);
-
-    dlg.show.call(this);
+    dlg.show.call(this, posx, posy);
 };
 
 UI.EditDialog.hide = function(cancel) {
@@ -640,39 +556,130 @@ UI.BatchWorkRelationshipDialog.show = function() {
 UI.BatchCreateWorksDialog = MB.utility.beget(BatchRelationshipDialog);
 
 UI.BatchCreateWorksDialog.show = function() {
-    Dialog.targets = UI.checkedRecordings();
+    Dialog.targets = _.filter(UI.checkedRecordings(), function(obj) {
+        return obj.performanceRelationships.peek().length == 0;
+    });
 
     if (Dialog.targets.length > 0) {
-        var target = Util.tempEntity("work");
+        var source = Util.tempEntity("recording"), target = Util.tempEntity("work");
 
-        // the user can't edit the work name in this dialog (the names are
-        // taken from the recordings), but this has to be set to something
-        // so that validation passes.
-        target.name("foo");
-
-        UI.AddDialog.show.call(this, {
-            source: Util.tempEntity("recording"), target: target,
-            mode: "batch.create.works", newWork: true
-        });
+        // the user can't edit the target in this dialog, but the gid of the
+        // temporary target entity has to be set to something valid, so that
+        // validation passes and the dialog can be okay'd.
+        target.gid = "00000000-0000-0000-0000-000000000000";
+        UI.AddDialog.show.call(this, {source: source, target: target, mode: "batch.create.works"});
     }
 };
 
 UI.BatchCreateWorksDialog.accept = function() {
-    BatchRelationshipDialog.accept.call(this, function(obj) {
+    Dialog.loading(true);
 
-        // check that this recording has no work rels already
-        if (obj.source.performanceRelationships.peek().length > 0)
-            return false;
+    var type_id = $("#batch-work-type > select").val(),
+        language_id = $("#batch-work-lang > select").val(), works = [];
 
-        var newWork = ko.mapping.toJS(obj.target);
+    _.each(Dialog.targets, function(obj) {
+        works.push({
+            name: obj.name.peek(), comment: "",
+            type: type_id, language: language_id
+        });
+    });
 
-        newWork.id = newWork.gid = _.uniqueId("new-");
-        newWork.name = obj.source.name();
+    function success(data) {
+        BatchRelationshipDialog.accept.call(this, function(obj) {
+            obj.target = RE.Entity(data.works.shift(), "work");
+            if (data.works.length == 0) Dialog.loading(false);
+            return true;
+        });
+    }
 
-        obj.target = RE.Entity(newWork);
-        return true;
+    function error() {
+        Dialog.loading(false);
+        Dialog.batchWorksError(true);
+    }
+
+    RE.createWorks(works, "", success, error);
+};
+
+UI.BatchCreateWorksDialog.hide = function() {
+    Dialog.hide(function() {
+        Dialog.batchWorksError(false);
     });
 };
+
+
+var WorkDialog = UI.WorkDialog = {
+    RE: RE,
+    showName: ko.observable(true),
+    loading: ko.observable(false),
+    error: ko.observable(false),
+    callback: ko.observable(null),
+
+    name: ko.observable(""),
+    comment: ko.observable(""),
+    type: ko.observable(""),
+    language: ko.observable(""),
+    editNote: ko.observable(""),
+
+    init: function() {
+        ko.applyBindings(this, document.getElementById("new-work-dialog"));
+    },
+
+    data: function() {
+        var self = WorkDialog;
+
+        return {
+            name: self.name(),
+            comment: self.comment(),
+            type: self.type(),
+            language: self.language()
+        };
+    },
+
+    show: function(callback, posx, posy) {
+        var self = WorkDialog;
+
+        self.showName(true);
+        self.loading(false);
+        self.error(false);
+        self.callback(callback);
+
+        self.name("");
+        self.comment("");
+        self.type("");
+        self.language("");
+
+        positionDialog($("#new-work-dialog").show(), posx, posy);
+    },
+
+    accept: function() {
+        var self = WorkDialog;
+        self.error(false);
+        self.loading(true);
+
+        RE.createWorks([self.data()], self.editNote(),
+            self.successCallback, self.errorCallback);
+    },
+
+    hide: function() {
+        WorkDialog.callback(null);
+        $("#new-work-dialog").hide();
+        WorkDialog.type("");
+        WorkDialog.language("");
+        $("#link-type").focus();
+    },
+
+    successCallback: function(data) {
+        WorkDialog.loading(false);
+        WorkDialog.callback()(data.works[0]);
+        WorkDialog.hide();
+    },
+
+    errorCallback: function() {
+        WorkDialog.loading(false);
+        WorkDialog.error(true);
+    },
+};
+
 
 return RE;
 
