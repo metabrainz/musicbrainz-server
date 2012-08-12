@@ -13,6 +13,7 @@
                     <th>[% l('Artists') %]</th>
                     <th>[% l('ISWC') %]</th>
                     <th>[% l('Type') %]</th>
+                    <th>[% l('Language') %]</th>
                     <th class="rating c">[% l('Rating') %]</th>
                 </tr>
             </thead>
@@ -44,6 +45,7 @@
                     </td>
                     <td>[% rdfa_work_iswc(entity) %]</td>
                     <td>[% entity.type.name %]</td>
+                    <td><abbr title="[% entity.language.l_name %]">[% entity.language.iso_code_3 %]</abbr></td>
                     <td class="c">[% rating_stars(entity) %]</td>
                   </tr>
                 </tr>
