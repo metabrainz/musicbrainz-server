@@ -30,7 +30,7 @@
                       [% disambiguation(entity) %]
                     </td>
                     <td>[% artist_credit(entity.artist_credit) %]</td>
-                    <td>[% entity.type.name %]</td>
+                    <td>[% entity.l_type_name %]</td>
                     <td class="c">[% entity.first_release_date.year or '&mdash;' %]</td>
                     <td class="c">[% rating_stars(rg) %]</td>
                     <td>[% entity.release_count %]</td>
