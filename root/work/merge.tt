@@ -43,7 +43,13 @@
                         [% END %]
                       </ul>
                     </td>
-                    <td>[% rdfa_work_iswc(entity) %]</td>
+                    <td class="iswc">
+                      <ul>
+                        [% FOR iswc=entity.iswcs %]
+                          <li>[% rdfa_work_iswc(entity, iswc) %]</li>
+                        [% END %]
+                      </ul>
+                    </td>
                     <td>[% entity.type.name %]</td>
                     <td><abbr title="[% entity.language.l_name %]">[% entity.language.iso_code_3 %]</abbr></td>
                     <td class="c">[% rating_stars(entity) %]</td>

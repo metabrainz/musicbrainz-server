@@ -92,6 +92,7 @@ after 'merge' => sub
     $c->model('Work')->load_writers(@{ $c->stash->{to_merge} });
     $c->model('Work')->load_recording_artists(@{ $c->stash->{to_merge} });
     $c->model('Language')->load(@{ $c->stash->{to_merge} });
+    $c->model('ISWC')->load_for_works(@{ $c->stash->{to_merge} });
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
