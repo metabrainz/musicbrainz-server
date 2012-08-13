@@ -153,10 +153,7 @@ sub get_version
     my ($self, $id) = @_;
 
     my $doc_url = sprintf "http://%s/?title=%s", &DBDefs::WIKITRANS_SERVER, $id;
-
-    my $ua = LWP::UserAgent->new();
-    $ua->env_proxy;
-    my $response = $ua->get($doc_url);
+    my $response = $self->c->lwp->get($doc_url);
 
     my $content = $response->decoded_content;
 

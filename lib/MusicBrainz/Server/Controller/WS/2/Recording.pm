@@ -11,7 +11,6 @@ use MusicBrainz::Server::Constants qw(
 );
 
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
-use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use Try::Tiny;
@@ -185,7 +184,7 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
     $c->detach('recording_submit') if $c->req->method eq 'POST';
     $c->detach('recording_browse') if ($c->stash->{linked});
 
-    my $result = xml_search('recording', $c->stash->{args});
+    my $result = $c->model('WebService')->xml_search('recording', $c->stash->{args});
     $self->_search ($c, 'recording');
 }
 

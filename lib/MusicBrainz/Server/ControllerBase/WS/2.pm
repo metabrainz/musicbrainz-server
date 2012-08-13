@@ -4,7 +4,6 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids );
 use Readonly;
@@ -169,7 +168,7 @@ sub _search
 {
     my ($self, $c, $entity) = @_;
 
-    my $result = xml_search($entity, $c->stash->{args});
+    my $result = $c->model('WebService')->xml_search($entity, $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     if (exists $result->{xml})
     {
