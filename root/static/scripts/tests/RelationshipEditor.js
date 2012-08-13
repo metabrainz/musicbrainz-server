@@ -33,43 +33,43 @@ MB.tests.RelationshipEditor.Util = function() {
 
         var tests = [
             // artist-recording
-            {linkType: 127, direction: "forward", expected: 1},
-            {linkType: 127, direction: "backward", expected: 1},
+            {linkType: 127, backward: false, expected: 1},
+            {linkType: 127, backward: true, expected: 1},
             // artist-release
-            {linkType: 32, direction: "forward", expected: 1},
-            {linkType: 32, direction: "backward", expected: 1},
+            {linkType: 32, backward: false, expected: 1},
+            {linkType: 32, backward: true, expected: 1},
             // artist-work
-            {linkType: 161, direction: "forward", expected: 1},
-            {linkType: 161, direction: "backward", expected: 1},
+            {linkType: 161, backward: false, expected: 1},
+            {linkType: 161, backward: true, expected: 1},
             // label-recording
-            {linkType: 206, direction: "forward", expected: 1},
-            {linkType: 206, direction: "backward", expected: 1},
+            {linkType: 206, backward: false, expected: 1},
+            {linkType: 206, backward: true, expected: 1},
             // label-release
-            {linkType: 66, direction: "forward", expected: 1},
-            {linkType: 66, direction: "backward", expected: 1},
+            {linkType: 66, backward: false, expected: 1},
+            {linkType: 66, backward: true, expected: 1},
             // label-work
-            {linkType: 208, direction: "forward", expected: 1},
-            {linkType: 208, direction: "backward", expected: 1},
+            {linkType: 208, backward: false, expected: 1},
+            {linkType: 208, backward: true, expected: 1},
             // recording-release
-            {linkType: 69, direction: "forward", expected: 0},
-            {linkType: 69, direction: "backward", expected: 1},
+            {linkType: 69, backward: false, expected: 0},
+            {linkType: 69, backward: true, expected: 1},
             // recording-url
-            {linkType: 261, direction: "forward", expected: 0},
-            {linkType: 261, direction: "backward", expected: 0},
+            {linkType: 261, backward: false, expected: 0},
+            {linkType: 261, backward: true, expected: 0},
             // recording-work
-            {linkType: 247, direction: "forward", expected: 0},
-            {linkType: 247, direction: "backward", expected: 1},
+            {linkType: 247, backward: false, expected: 0},
+            {linkType: 247, backward: true, expected: 1},
             // release-url
-            {linkType: 84, direction: "forward", expected: 0},
-            {linkType: 84, direction: "backward", expected: 0},
+            {linkType: 84, backward: false, expected: 0},
+            {linkType: 84, backward: true, expected: 0},
             // url-work
-            {linkType: 276, direction: "forward", expected: 1},
-            {linkType: 276, direction: "backward", expected: 1},
+            {linkType: 276, backward: false, expected: 1},
+            {linkType: 276, backward: true, expected: 1},
         ];
 
         $.each(tests, function(i, test) {
-            var result = RE.Util.src(test.linkType, test.direction);
-            QUnit.equals(result, test.expected, [test.linkType, test.direction].join(", "));
+            var result = RE.Util.src(test.linkType, test.backward);
+            QUnit.equals(result, test.expected, [test.linkType, test.backward].join(", "));
         });
 
         tests = [
@@ -271,8 +271,8 @@ MB.tests.RelationshipEditor.Relationship = function() {
         // the target has an invalid gid to start with, so errorCount = 1
         QUnit.equals(relationship.errorCount, 1, "relationship.errorCount");
 
-        // direction must be either forward or backward
-        relationship.direction("foo");
+        // backward must be either true or false
+        relationship.backward("foo");
         QUnit.equals(relationship.errorCount, 2, "relationship.errorCount");
 
         // date must exist
@@ -293,7 +293,7 @@ MB.tests.RelationshipEditor.Relationship = function() {
         relationship.target.notifySubscribers(relationship.target());
         QUnit.equals(relationship.errorCount, 1, "relationship.errorCount");
 
-        relationship.direction("backward");
+        relationship.backward(true);
         QUnit.equals(relationship.errorCount, 0, "relationship.errorCount");
     });
 };
