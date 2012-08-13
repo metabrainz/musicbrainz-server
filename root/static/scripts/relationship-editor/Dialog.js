@@ -78,8 +78,8 @@ ko.bindingHandlers.linkType = (function() {
 
     var previousType, previousDirection;
 
-    function build(root, indent, reverse, doc) {
-        var phrase = reverse ? root.reverse_link_phrase : root.link_phrase;
+    function build(root, indent, backward, doc) {
+        var phrase = backward ? root.reverse_link_phrase : root.link_phrase;
 
         // remove {foo} {bar} junk, unless it's for a required attribute.
         var orig_phrase = phrase, re = /\{(.*?)(?::(.*?))?\}/g, m, repl;
@@ -97,32 +97,32 @@ ko.bindingHandlers.linkType = (function() {
         doc.appendChild(opt);
 
         root.children && $.each(root.children, function(i, id) {
-            build(RE.typeInfo[id], indent + 1, reverse, doc);
+            build(RE.typeInfo[id], indent + 1, backward, doc);
         });
     };
 
-    var getOptions = _.memoize(function(type, direction) {
-        var reverse = (direction == "backward"), doc = document.createDocumentFragment();
+    var getOptions = _.memoize(function(type, backward) {
+        var doc = document.createDocumentFragment();
 
         $.each(RE.typeInfoByEntities[type], function(i, root) {
-            build(root, 0, reverse, doc);
+            build(root, 0, backward, doc);
         });
         return doc;
-    }, function(type, direction) {return type + "-" + direction});
+    }, function(type, backward) {return type + "-" + backward});
 
     return {
         update: function(element) {
             var relationship = Dialog.relationship(), type = relationship.type(),
-                direction = relationship.direction();
+                backward = relationship.backward();
 
-            if (type != previousType || direction != previousDirection) {
-                var doc = getOptions(relationship.type(), direction).cloneNode(true);
+            if (type != previousType || backward != previousDirection) {
+                var doc = getOptions(relationship.type(), backward).cloneNode(true);
 
                 $(element).empty().append(doc).val(relationship.link_type());
                 Dialog.resize();
 
                 previousType = type;
-                previousDirection = direction;
+                previousDirection = backward;
             }
         },
     };
@@ -301,8 +301,12 @@ var Dialog = UI.Dialog = {
     accept: function() {},
 
     createWork: function(data, event) {
+
         WorkDialog.show(function(work) {
-            setAutocompleteEntity(RE.Entity(work, "work"), false);
+            var target = RE.Entity(work, "work");
+            setAutocompleteEntity(target, false);
+            Dialog.relationship.peek().target(target);
+
         }, event.pageX, event.pageY);
 
         WorkDialog.name(Dialog.relationship.peek().source.name.peek());
@@ -333,13 +337,19 @@ var Dialog = UI.Dialog = {
     }),
 
     changeDirection: function() {
-        var direction = this.relationship().direction;
-        direction(direction() == "backward" ? "forward" : "backward");
+        var backward = this.relationship().backward;
+        backward(!backward());
         this.resize();
     },
 
     toggleLinkTypeHelp: function() {
-        this.showLinkTypeHelp(!this.showLinkTypeHelp());
+        var newValue = !this.showLinkTypeHelp.peek();
+        this.showLinkTypeHelp(newValue);
+
+        if (newValue)
+            _.defer(function() {
+                $("#link-type").parent().find("div.ar-descr a").attr("target", "_blank");
+            });
     },
 
     resize: function() {

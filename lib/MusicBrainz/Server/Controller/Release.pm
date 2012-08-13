@@ -715,6 +715,17 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     );
 }
 
+sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth {
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{release};
+    $c->model('Release')->load_meta($release);
+    $c->model('ArtistCredit')->load($release);
+    $c->model('ReleaseGroup')->load($release);
+
+    $c->forward('/relationship_editor/load', $c);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -28,8 +28,7 @@ has_field 'rels' => (
 );
 
 has_field 'rels.id' => (
-    type => 'Text',
-    required => 1
+    type => 'Integer',
 );
 
 has_field 'rels.action' => (
@@ -47,16 +46,6 @@ has_field 'rels.entity' => (
     required => 1
 );
 
-has_field 'rels.entity.id' => (
-    type => 'Text',
-    required => 1
-);
-
-has_field 'rels.entity.name' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1
-);
-
 has_field 'rels.entity.gid' => (
     type => 'Text',
     required => 1
@@ -65,10 +54,6 @@ has_field 'rels.entity.gid' => (
 has_field 'rels.entity.type' => (
     type => 'Select',
     required => 1
-);
-
-has_field 'rels.entity.sortname' => (
-    type => '+MusicBrainz::Server::Form::Field::Text'
 );
 
 has_field 'rels.begin_date' => (
@@ -81,10 +66,6 @@ has_field 'rels.end_date' => (
 
 has_field 'rels.attrs' => (
     type => 'Compound'
-);
-
-has_field 'rels.direction' => (
-    type => 'Select'
 );
 
 sub options_rels_entity_work_type {
@@ -100,13 +81,6 @@ sub options_rels_action {
         'remove' => 'remove',
         'add' => 'add',
         'edit' => 'edit'
-    ];
-}
-
-sub options_rels_direction {
-    return [
-        'forward' => 'forward',
-        'backward' => 'backward'
     ];
 }
 
@@ -186,15 +160,12 @@ after validate => sub {
         foreach my $ent_field (($entity0, $entity1)) {
             my $ent = $ent_field->value;
 
-            my $valid_ids = MusicBrainz::Server::Validation::IsGUID($ent->{gid})
-                && $ent->{id} =~ /^\d+$/;
-
-            if (!$valid_ids) {
+            if (!MusicBrainz::Server::Validation::IsGUID($ent->{gid})) {
                 $ent_field->add_error(l('This entity has an invalid ID or MBID.'));
 
             } elsif (!defined($loaded_entities->{$ent->{gid}})) {
                 my $model = type_to_model($ent->{type});
-                my $ent_data = $c->model($model)->get_by_id($ent->{id});
+                my $ent_data = $c->model($model)->get_by_gid($ent->{gid});
 
                 if ($ent_data) {
                     $loaded_entities->{$ent->{gid}} = $ent_data;
@@ -204,13 +175,19 @@ after validate => sub {
             }
             $i++;
         }
-        next if $field->field('id')->has_errors;
+        my $id_field = $field->field('id');
+        next if $id_field->has_errors;
 
         if ($field->field('action')->value =~ /^(edit|remove)$/) {
+            my $id = $id_field->value;
+
+            if (!defined($id)) {
+                $id_field->add_error(l('Required field.'));
+                next;
+            }
             my $type0 = $entity0->field('type')->value;
             my $type1 = $entity1->field('type')->value;
             my $types = $type0 . '-' . $type1;
-            my $id = $field->field('id')->value;
             my $rel = $c->model('Relationship')->get_by_id($type0, $type1, $id);
 
             if ($rel) {
@@ -223,23 +200,24 @@ after validate => sub {
             }
         }
     }
+    my $num = 0;
     foreach my $field ($self->field('rels')->fields) {
-        $self->_get_errors($c, $field, $field->field('id')->value);
+        $self->_get_errors($c, $field, $num++);
     }
 };
 
 sub _get_errors {
-    my ($self, $c, $field, $id) = @_;
+    my ($self, $c, $field, $num) = @_;
 
     if ($field->has_errors) {
         my $name = $field->full_name;
         $name =~ s/^rels\.\d+\.//;
 
-        $c->stash->{error_fields}->{$id} //= {};
-        $c->stash->{error_fields}->{$id}->{$name} = $field->errors;
+        $c->stash->{errors}->{$num} //= {};
+        $c->stash->{errors}->{$num}->{$name} = $field->errors;
     }
     if ($field->has_fields) {
-        $self->_get_errors($c, $_, $id) for $field->fields;
+        $self->_get_errors($c, $_, $num) for $field->fields;
     }
 }
 

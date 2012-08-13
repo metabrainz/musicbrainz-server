@@ -4,13 +4,10 @@
     $(function() {
         var RE = MB.RelationshipEditor;
 
-        RE.typeInfo = [% USE JSON; type_info.json %];
-        RE.attrMap = [% attr_map.json %];
+        RE.typeInfo = [% type_info %];
+        RE.attrMap = [% attr_map %];
 
-        var params = [% params.json %];
-        var errorFields = [% error_fields.json %];
-
-        RE.init(params, errorFields);
+        RE.init();
         RE.UI.init("[% release.gid %]");
     });
     //]]></script>
@@ -235,9 +232,9 @@
         </tr>
       </table>
       <div class="buttons ui-helper-clearfix" style="margin-top: 1em">
-        <button class="negative" data-bind="click: hide">[% l('Cancel') %]</button>
+        <button class="negative" data-bind="click: hide, disable: loading">[% l('Cancel') %]</button>
         <div class="buttons-right" style="float: right">
-          <button class="positive" data-bind="click: accept, enable: name">[% l('Create work') %]</button>
+          <button class="positive" data-bind="click: accept, enable: name() && !loading()">[% l('Create work') %]</button>
         </div>
       </div>
     </div>
@@ -285,7 +282,6 @@
     <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
     <span class="entity" data-bind="html: target().rendering, css: {'rel-edit': edits_pending}"></span>
     <!-- ko text: dateRendering --><!-- /ko -->
-    <div data-bind="html: hiddenFields, visible: false"></div>
   </div>
 </script>
 
@@ -302,7 +298,6 @@
     <!-- ko if: !loadingWork() -->
       <!-- ko template: {name: 'template.relationships', data: target} --><!-- /ko -->
     <!-- /ko -->
-    <div data-bind="html: hiddenFields, visible: false"></div>
     <!-- /ko -->
   </div>
 </script>
@@ -313,13 +308,6 @@
     <div id="content" class="rel-editor">
       [%- INCLUDE "release/header.tt" page='edit_relationships' -%]
 
-      [% IF error_fields.size > 0 %]
-        <p id="errors-msg" class="warning">
-          [% l('There were errors in your submission. Relationships marked with
-                <span class="error-field">red underline</span> contained errors.
-                Please fix them and try again.') %]
-        </p>
-      [% END %]
       <p>
         [% l('Relationships highlighted <span class="rel-edit">yellow</span> will be edited,
               relationships highlighted <span class="rel-remove">red</span> will be removed, and
@@ -327,8 +315,6 @@
       </p>
 
       <p>[% l('To <span class="rel-edit">edit</span> a relationship, click on its name (e.g. "composer").') %]</p>
-
-      <form id="form" action="[% c.req.uri %]" method="post">
 
       <h2>[% l('Track Relationships') %]</h2>
 
@@ -386,8 +372,20 @@
         <!-- ko template: {name: 'template.relationships', data: entity} --><!-- /ko -->
       </div>
 
-      [% INCLUDE 'forms/edit-note.tt' %]
-      [% enter_edit() %]
+      <!-- ko if: submissionError -->
+      <p id="errors-msg" class="warning" data-bind="text: submissionError"></p>
+      <!-- /ko -->
+
+      <form>
+        [% INCLUDE 'forms/edit-note.tt' %]
+        <div class="row no-label buttons">
+          <button type="submit" class="submit positive" data-bind="click: submit,
+            disable: submissionLoading">[% l('Enter edit') %]</button>
+
+          <!-- ko if: submissionLoading -->
+            <span data-bind="html: RE.UI.loadingIndicator"></span>
+          <!-- /ko -->
+        </div>
       </form>
     </div>
 [%- END -%]
