@@ -39,8 +39,19 @@
       [%- form_row_artist_credit(form, 'release-artist') -%]
 
       [%# FIXME: should only be editable on Add Release. %]
-      [% form_row_select (r, 'primary_type_id', l('Type:')) %]
-      [% form_row_select (r, 'secondary_type_ids', l('Extra Types:')) %]
+      [% IF !release_group %]
+        [% form_row_select (r, 'primary_type_id', l('Type:')) %]
+        [% form_row_select (r, 'secondary_type_ids', l('Extra Types:')) %]
+      [% ELSE %]
+        <div class="row">
+          <div class="label">[% l('Type:') %]</div>
+          <div>
+            <div>
+              [% l('To edit types, please edit the release group.') %]
+            </div>
+          </div>
+        </div>
+      [% END %]
       [% form_row_select (r, 'status_id', l('Status:')) %]
       [% form_row_select (r, 'language_id', l('Language:')) %]
       [% form_row_select (r, 'script_id', l('Script:')) %]

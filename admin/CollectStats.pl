@@ -32,15 +32,21 @@ use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz::Server::Context;
 use Sql;
+use Getopt::Long;
+
+my $output_file;
+GetOptions(
+    "output-file=s"                => \$output_file,
+) or exit 2;
 
 my $c = MusicBrainz::Server::Context->create_script_context;
 my $sql = Sql->new($c->conn);
 
 $sql->begin;
-$c->model('Statistics')->recalculate_all;
+$c->model('Statistics')->recalculate_all($output_file);
 $sql->commit;
 
-if (-t STDOUT)
+if (-t STDOUT && !$output_file)
 {
     my $all = $c->model('Statistics')->fetch;
     printf "%10d : %s\n", $all->{$_}, $_

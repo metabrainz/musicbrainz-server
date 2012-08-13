@@ -10,33 +10,10 @@ use Test::More;
 
     has '+name' => ( default => 'test-edit' );
 
-    has_field 'full_date' => (
+    has_field $_ => (
         type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    );
-
-    has_field 'no_day' => (
-        type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    );
-
-    has_field 'day_40' => (
-        type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    );
-
-    has_field 'leap_year_valid' => (
-        type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    );
-
-    has_field 'leap_year_invalid' => (
-        type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    );
-
-    has_field 'no_leap_year_valid' => (
-        type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    );
-
-    has_field 'no_leap_year_invalid' => (
-        type => '+MusicBrainz::Server::Form::Field::PartialDate',
-    );
+    ) for qw( full_date no_day day_40 no_year leap_year_valid leap_year_invalid
+              no_leap_year_valid no_leap_year_invalid );
 }
 
 test 'Partial date field validation' => sub {
@@ -47,6 +24,7 @@ test 'Partial date field validation' => sub {
         "full_date" => { "year" => "2008", "month" => "1", "day" => "29" },
         "no_day" => { "year" => "2008", "month" => "11" },
         "day_40" => { "year" => "2008", "month" => "01", "day" => "40" },
+        "no_year" => { "month" => "11" },
         "leap_year_valid" => { "year" => "2000", "month" => "02", "day" => "29" },
         "leap_year_invalid" => { "year" => "2000", "month" => "02", "day" => "30" },
         "no_leap_year_valid" => { "year" => "1999", "month" => "02", "day" => "28" },
@@ -74,6 +52,9 @@ test 'Partial date field validation' => sub {
     ok ($form->field('leap_year_invalid')->has_errors, "february 2000 has no day 30");
     ok (!$form->field('no_leap_year_valid')->has_errors, "february 1999 has a day 28");
     ok ($form->field('no_leap_year_invalid')->has_errors, "february 1999 has no day 29");
+
+    my $no_year = $form->field('no_year');
+    ok (!$no_year->has_errors, 'no_year is valid');
 };
 
 1;
