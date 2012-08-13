@@ -3,6 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
+use JSON;
 use Encode;
 use Text::Unaccent qw( unac_string_utf16 );
 use MusicBrainz::Server::Constants qw(
@@ -10,88 +11,83 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
 );
 use MusicBrainz::Server::Form::Utils qw( language_options );
+use MusicBrainz::Server::Translation qw( l );
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    entity_name => 'release',
-    model       => 'Release',
-};
 with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
-__PACKAGE__->config( namespace => 'release' );
+__PACKAGE__->config( namespace => 'relationship_editor' );
 
-has loaded_entities => (
-    is => 'rw',
-    isa => 'HashRef'
-);
-
-has loaded_relationships => (
-    is => 'rw',
-    isa => 'HashRef'
-);
-
-sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
-
-after 'load' => sub
-{
-    my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-    $c->model('Release')->load_meta($release);
-    $c->model('ArtistCredit')->load($release);
-    $c->model('ReleaseGroup')->load($release);
-};
-
-sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth
-{
+sub base : Path('/relationship-editor') Args(0) Edit RequireAuth {
     my ($self, $c) = @_;
 
-    $self->loaded_entities({});
-    $self->loaded_relationships({});
+    my $json = JSON::XS->new;
+    $c->res->content_type('application/json; charset=utf-8');
 
-    my $release = $c->stash->{release};
+    if ($c->form_posted) {
+        my $form = $self->load_form($c);
 
-    my @link_type_tree = $c->model('LinkType')->get_full_tree;
-    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
-    my $attr_map = $c->model('LinkAttributeType')->get_map($attr_tree);
-    $self->attr_tree($attr_tree);
+        # remove duplicate params
+        my $params = $c->req->body_parameters;
+        foreach my $key (keys %$params) {
+            if (ref($params->{$key}) eq 'ARRAY') {
+                $params->{$key} = $params->{$key}->[0];
+            }
+        }
+        if ($form->submitted_and_valid($c->req->body_parameters)) {
+            $self->submit_edits($c, $form);
+            $c->res->body($json->encode({message => 'OK'}));
+        } else {
+            $c->res->status(400);
+            $c->res->body($json->encode({
+                message => l('There were errors in your submission. Please fix ' .
+                             'them and try again.'),
+                errors => $c->stash->{errors},
+            }));
+        }
+    } else {
+        $c->res->status(400);
+        $c->res->body($json->encode({message => l('Invalid submission.')}));
+    }
+}
+
+sub load_form : Private {
+    my ($self, $c) = @_;
 
     my $language_options = language_options($c);
-
-    # unnaccent instrument attributes names
-    unaccent_attributes($attr_map->{$_}, $attr_map) for @{ $attr_map->{14}->{children} };
+    my @link_type_tree = $c->model('LinkType')->get_full_tree;
+    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+    $self->attr_tree($attr_tree);
 
     $c->stash(
-        release => $release,
-        work_types => [ $c->model('WorkType')->get_all ],
-        work_languages => $self->build_work_languages($c, $language_options),
-        type_info => $self->build_type_info($c, @link_type_tree),
-        attr_map => $attr_map,
-        loaded_entities => $self->loaded_entities,
-        loaded_relationships => $self->loaded_relationships,
-        error_fields => {},
-        params => $c->req->body_parameters,
+        loaded_entities => {},
+        loaded_relationships => {},
+        errors => {},
     );
 
-    my $form = $c->form(
+    return $c->form(
         form => 'RelationshipEditor',
         link_type_tree => \@link_type_tree,
         attr_tree => $attr_tree,
         language_options => $language_options,
     );
+}
 
-    # remove duplicate params
-    my $params = $c->req->body_parameters;
-    foreach my $key (keys %$params) {
-        if (ref($params->{$key}) eq 'ARRAY') {
-            $params->{$key} = $params->{$key}->[0];
-        }
-    }
+sub load : Private {
+    my ($self, $c) = @_;
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->body_parameters)) {
-        $self->submit_edits($c, $form);
+    my $form = $self->load_form($c);
+    my $json = JSON::XS->new;
+    my $attr_map = $c->model('LinkAttributeType')->get_map($self->attr_tree);
 
-        $c->res->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
-        $c->detach;
-    }
+    # unnaccent instrument attributes names
+    unaccent_attributes($attr_map->{$_}, $attr_map) for @{ $attr_map->{14}->{children} };
+
+    $c->stash(
+        attr_map => $json->encode($attr_map),
+        type_info => $json->encode($self->build_type_info($c, @{ $form->link_type_tree })),
+        work_types => [ $c->model('WorkType')->get_all ],
+        work_languages => $self->build_work_languages($c, $form->language_options),
+    );
 }
 
 sub build_type_info {
@@ -109,8 +105,10 @@ sub build_type_info {
 sub unaccent_attributes {
     my ($root, $map) = @_;
 
-    $root->{unaccented} = decode("utf-16", unac_string_utf16(encode("utf-16", $root->{name})));
-
+    my $unaccented = decode("utf-16", unac_string_utf16(encode("utf-16", $root->{name})));
+    if ($unaccented ne $root->{name}) {
+        $root->{unaccented} = $unaccented;
+    }
     if (defined $root->{children}) {
         unaccent_attributes($map->{$_}, $map) for @{ $root->{children} };
     }
@@ -158,7 +156,7 @@ sub remove_relationship {
     my ($self, $c, $form, $field, $types) = @_;
 
     my $id = $field->field('id')->value;
-    my $relationship = $self->loaded_relationships->{$types}->{$id};
+    my $relationship = $c->stash->{loaded_relationships}->{$types}->{$id};
 
     $c->model('MB')->with_transaction(sub {
         $self->_insert_edit(
@@ -179,8 +177,8 @@ sub add_relationship {
 
     $self->try_and_insert(
         $c, $form, $entity0->{type}, $entity1->{type}, (
-            entity0 => $self->loaded_entities->{$entity0->{gid}},
-            entity1 => $self->loaded_entities->{$entity1->{gid}},
+            entity0 => $c->stash->{loaded_entities}->{$entity0->{gid}},
+            entity1 => $c->stash->{loaded_entities}->{$entity1->{gid}},
             link_type_id => $rel->{link_type},
             attributes => \@attributes,
             begin_date => $rel->{begin_date},
@@ -196,7 +194,7 @@ sub edit_relationship {
     my $entity0 = $rel->{entity}->[0];
     my $entity1 = $rel->{entity}->[1];
 
-    my $relationship = $self->loaded_relationships->{$types}->{$rel->{id}};
+    my $relationship = $c->stash->{loaded_relationships}->{$types}->{$rel->{id}};
     my @attributes = $self->flatten_attributes($field->field('attrs'));
 
     $self->try_and_edit(
@@ -205,8 +203,8 @@ sub edit_relationship {
             new_begin_date => $rel->{begin_date},
             new_end_date => $rel->{end_date},
             attributes => \@attributes,
-            entity0_id => $self->loaded_entities->{$entity0->{gid}}->id,
-            entity1_id => $self->loaded_entities->{$entity1->{gid}}->id,
+            entity0_id => $c->stash->{loaded_entities}->{$entity0->{gid}}->id,
+            entity1_id => $c->stash->{loaded_entities}->{$entity1->{gid}}->id,
             ended => $relationship->link->ended,
     ));
 }

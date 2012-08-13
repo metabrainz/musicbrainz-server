@@ -41,9 +41,8 @@ var validationHandlers = {
         validateDatePeriod(relationship.begin_date, field, null, validateDate(field, value));
     },
 
-    direction: function(field, value) {
-        (value == "forward" || value == "backward")
-            ? field.error("") : field.error(MB.text.InvalidValue);
+    backward: function(field, value) {
+        field.error(_.isBoolean(value) ? "" : MB.text.InvalidValue);
     },
 
     attributes: function(field, value, relationship) {
@@ -109,10 +108,8 @@ function validateDatePeriod(begin, end, beginValid, endValid) {
 ko.extenders.field = function(target, options) {
     var relationship = options[0], name = options[1], fullName = options[2] || name;
 
-    target.error = ko.observable((relationship.serverErrors &&
-        relationship.serverErrors[fullName]) || "");
-
-    target.hasError = Boolean(target.error());
+    target.error = ko.observable("");
+    target.hasError = false;
 
     target.errorSub = target.error.subscribe(function(error) {
         var hasError = Boolean(error);
@@ -141,15 +138,12 @@ ko.extenders.field = function(target, options) {
         // entities are unique, we compare them directly.
         if (name != "target") newValue = ko.mapping.toJS(newValue);
 
-        var origValue, changed, type = relationship.type.peek(), id = relationship.id;
-        // properties might not have been defined originally
-        try {origValue = RE.serverFields[type][id][name]} catch (err) {};
+        var origValue = Util.originalFields(relationship, name),
+            changed = !_.isEqual(origValue, newValue);
 
-        changed = !_.isEqual(origValue, newValue);
-
-        if (changed != target.changed) {
+        if (changed != target.changed)
             relationship.changeCount += (changed ? 1 : -1);
-        }
+
         target.changed = changed;
         relationship.action(relationship.changeCount > 0 ? "edit" : "");
     });

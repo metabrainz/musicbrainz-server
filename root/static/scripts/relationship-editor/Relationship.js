@@ -20,14 +20,13 @@
 MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
-    Fields = RE.Fields = RE.Fields || {}, mapping, cache = {}, relcount = 0;
+    Fields = RE.Fields = RE.Fields || {}, mapping, cache = {};
 
 mapping = {
     // entities (source, target) have their own mapping options in Entity.js
-    ignore:  ["source", "target", "num", "visible", "ended"],
-    copy:    ["edits_pending", "id", "serverErrors"],
-    include: ["link_type", "num", "action", "direction", "begin_date",
-              "end_date", "attributes"],
+    ignore:  ["source", "target", "visible", "ended"],
+    copy:    ["edits_pending", "id"],
+    include: ["link_type", "action", "backward", "begin_date", "end_date", "attributes"],
     attributes: {
         update: function(options) {return $.extend(true, {}, options.data)}
     },
@@ -65,19 +64,15 @@ var Relationship = function(obj) {
     this.exists = false; // new relationships still being edited don't exist
 
     this.id = obj.id;
-    this.num = relcount += 1;
     this.changeCount = 0;
     this.errorCount = 0;
     this.action = ko.observable(obj.action || "");
-    this.hasErrors = ko.observable(Boolean(obj.serverErrors));
-
-    if (this.hasErrors())
-        this.errorCount = MB.utility.keys(obj.serverErrors).length;
+    this.hasErrors = ko.observable(false);
 
     this.link_type = new Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
     this.begin_date = new Fields.PartialDate();
     this.end_date = new Fields.PartialDate();
-    this.direction = ko.observable("forward");
+    this.backward = ko.observable(false);
     this.type = new Fields.Type(this);
     this.attributes = new Fields.Attributes(this);
 
@@ -107,25 +102,23 @@ var Relationship = function(obj) {
     // relationship as having changes.
     this.begin_date.extend({field: [this, "begin_date"]});
     this.end_date.extend({field: [this, "end_date"]});
-    this.direction.extend({field: [this, "direction"]});
+    this.backward.extend({field: [this, "backward"]});
     this.attributes.extend({field: [this, "attributes"]});
 
     this.entity = ko.computed(computeEntities, this);
     this.linkPhrase = ko.computed(this.buildLinkPhrase, this).extend({throttle: 1});
-    this.hiddenFields = ko.computed(this.buildFields, this).extend({throttle: 1000});
     this.loadingWork = ko.observable(false);
 
     this.edits_pending
         ? (this.openEdits = ko.computed(this.buildOpenEdits, this))
         : (this.edits_pending = false);
 
-    delete this.serverErrors;
     delete obj;
 };
 
 
 var computeEntities = function() {
-    var src = Util.src(this.link_type(), this.direction());
+    var src = Util.src(this.link_type(), this.backward());
     return src == 0 ? [this.source, this.target()] : [this.target(), this.source];
 };
 
@@ -154,7 +147,7 @@ Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable)
 
             // fix the direction.
             var typeInfo = RE.typeInfo[this.link_type.peek()];
-            this.direction(this.source.type == typeInfo.types[0] ? "forward" : "backward");
+            this.backward(this.source.type != typeInfo.types[0]);
         }
     }
 
@@ -202,7 +195,8 @@ Relationship.prototype.show = function() {
 
 Relationship.prototype.reset = function(obj) {
     this.hasErrors(false);
-    var fields = RE.serverFields[this.type()][this.id];
+    this.errorCount = 0;
+    var fields = Util.originalFields(this);
 
     if (fields) {
         ko.mapping.fromJS(fields, this);
@@ -290,53 +284,41 @@ Relationship.prototype.renderDate = function() {
            (end_date || "????");
 };
 
-// Contruction of hidden input fields
+// Contruction of form fields
 
-var simpleFields, dateFields, entityFields, fieldHTML, buildField;
+var simpleFields = ["id", "link_type", "action"], dateFields = ["year", "month", "day"],
+    entityFields = ["gid", "type"];
 
-simpleFields = ["id", "link_type", "action", "direction"];
-dateFields   = ["year", "month", "day"];
-entityFields = ["id", "gid", "name", "type", "sortname", "comment", "work_type", "work_language"];
-
-fieldHTML = function(num, name, value) {
-    var name = "rel-editor.rels." + num + "." + name;
-    return MB.html.input({type: "hidden", name: name, value: value});
-};
-
-buildField = function(num, obj, name, fields) {
-    var field, value, prefix = name && name + ".", result = "";
+var buildField = function(prefix, name, obj, fields) {
+    var field, value, prefix = prefix + (name && name + ".");
 
     for (var i = 0; field = fields[i]; i++) {
         value = ko.utils.unwrapObservable(obj[field]);
-
         if (value) {
             field = prefix + field;
 
-            if ($.isArray(value)) {
+            if (_.isArray(value)) {
                 for (var j = 0; j < value.length; j++)
-                    result += fieldHTML(num, field + "." + j, value[j]);
-
+                    this[field + "." + j] = value[j];
             } else {
-                if (_.isBoolean(value)) value = value ? "1" : "0";
-                result += fieldHTML(num, field, value);
+                if (_.isBoolean(value)) value = value ? 1 : 0;
+                this[field] = value;
             }
         }
     }
-    return result;
 };
 
-Relationship.prototype.buildFields = function() {
-    if (!this.action()) return "";
-    var result = "", attrs = MB.utility.keys(this.attributes()), n = this.num;
+Relationship.prototype.buildFields = function(num, result) {
+    var attrs = _.keys(this.attributes.peek()), entity = this.entity.peek(),
+        prefix = "rel-editor.rels." + num + ".", bf = _.bind(buildField, result),
+        sf = (this.action.peek() == "add") ? _.rest(simpleFields) : simpleFields;
 
-    result += buildField(n, this, "", simpleFields);
-    result += buildField(n, this.begin_date(), "begin_date", dateFields);
-    result += buildField(n, this.end_date(), "end_date", dateFields);
-    result += buildField(n, this.attributes(), "attrs", attrs);
-    result += buildField(n, this.entity()[0], "entity.0", entityFields);
-    result += buildField(n, this.entity()[1], "entity.1", entityFields);
-
-    return result;
+    bf(prefix, "", this, sf);
+    bf(prefix, "begin_date", this.begin_date.peek(), dateFields);
+    bf(prefix, "end_date", this.end_date.peek(), dateFields);
+    bf(prefix, "attrs", this.attributes.peek(), attrs);
+    bf(prefix, "entity.0", entity[0], entityFields);
+    bf(prefix, "entity.1", entity[1], entityFields);
 };
 
 // returns true if this relationship is a "duplicate" of the other.
@@ -350,8 +332,7 @@ Relationship.prototype.isDuplicate = function(other) {
 
 
 Relationship.prototype.buildOpenEdits = function() {
-    var orig = RE.serverFields[this.type()][this.id],
-        source = this.source, target = orig.target;
+    var orig = Util.originalFields(this), source = this.source, target = orig.target;
 
     return _.sprintf(
         '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +

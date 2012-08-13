@@ -30,7 +30,7 @@ has_field 'works.comment' => (
     maxlength => 255
 );
 
-sub edit_field_names {}
+sub edit_field_names          { qw() }
 sub options_works_type_id     { shift->_select_all('WorkType') }
 sub options_works_language_id { return language_options (shift->ctx); }
 

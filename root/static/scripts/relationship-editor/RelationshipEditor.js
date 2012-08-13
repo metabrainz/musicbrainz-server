@@ -20,13 +20,11 @@
 MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
-    $tracklist, release, parseMedium, parseTrack;
+    $tracklist, releaseViewModel, parseMedium, parseTrack;
 
-release = {
+releaseViewModel = {
     RE: RE,
     media: ko.observableArray([]),
-
-    relationships: ko.observableArray([]),
 
     addRelationship: function(elements, relationship) {
         if (relationship.promise) {
@@ -36,7 +34,6 @@ release = {
     },
 
     checkboxes: (function() {
-
         var data = {
             recordingStrings: ko.observable([]),
             workStrings: ko.observable([]),
@@ -59,12 +56,93 @@ release = {
         }).extend({throttle: 100});
 
         return data;
-    }())
+    }()),
+
+    submissionLoading: ko.observable(false),
+    submissionError: ko.observable(""),
+
+    submit: function(data, event) {
+        event.preventDefault();
+
+        var self = this, data = {}, changed = [], addChanged;
+        this.submissionLoading(true);
+
+        addChanged = function(relationship) {
+            if (relationship.action.peek()) changed.push(relationship);
+        };
+
+        _.each(this.media.peek(), function(medium) {
+            _.each(medium.recordings.peek(), function(recording) {
+                _.each(recording.relationships.peek(), addChanged);
+
+                _.each(recording.performanceRelationships.peek(), function(relationship) {
+                    addChanged(relationship);
+                    _.each(relationship.target.peek().relationships.peek(), addChanged);
+                });
+            });
+        });
+        _.each(this.entity.relationships.peek(), addChanged);
+
+        if (changed.length == 0) {
+            this.submissionLoading(false);
+            this.submissionError(MB.text.NoChanges);
+            return;
+        }
+        changed = _.uniq(changed);
+
+        _.each(changed, function(relationship, num) {
+            relationship.buildFields(num, data);
+        });
+
+        data["rel-editor.edit_note"] = _.trim($("#id-rel-editor\\.edit_note").val());
+
+        $.post("/relationship-editor", data)
+            .success(function() {
+                window.location.replace("/release/" + self.GID);
+            })
+            .error(function(jqXHR, statusText) {
+                try {
+                    self.handlerErrors(JSON.parse(jqXHR.responseText), changed);
+                } catch(e) {
+                    self.submissionLoading(false);
+                    self.submissionError(statusText);
+                }
+            });
+    },
+
+    handlerErrors: function(data, changed) {
+        _.each(data.errors, function(keys, num) {
+            var relationship = changed[num];
+
+            _.each(keys, function(error, key) {
+                var parts = key.split(".");
+
+                if (parts[0] == "entity") {
+                    var i = parts[1];
+
+                    if (relationship.entity()[i] === relationship.target())
+                        relationship.target.error(error[0]);
+
+                } else if (parts[0] == "begin_date" || parts[0] == "end_date") {
+                    relationship[parts[0]].error(error[0]);
+
+                } else if (parts.length == 1 && _.isObject(relationship[key]) &&
+                    _.isFunction(relationship[key].error)) {
+
+                    relationship[key].error(error[0]);
+                } else {
+                    relationship.errorCount += 1;
+                    relationship.hasErrors(true);
+                }
+            });
+        });
+        this.submissionLoading(false);
+        this.submissionError(data.message);
+    }
 };
 
 
-RE.init = function(params, errorFields) {
-    RE.serverFields = {};
+RE.init = function() {
     RE.attrRoots = {};
 
     for (var id in RE.attrMap) {
@@ -86,12 +164,12 @@ RE.init = function(params, errorFields) {
         });
     });
     delete foo;
-
-    Util.CGI.parseParams(params, errorFields);
 };
 
 
 UI.init = function(releaseGID) {
+    releaseViewModel.GID = releaseGID;
+
     UI.Dialog.init();
     UI.WorkDialog.init();
 
@@ -103,9 +181,9 @@ UI.init = function(releaseGID) {
     // preload image to avoid flickering
     $("<img/>").attr("src", "../../../static/images/icons/add.png");
 
-    release.entity = RE.Entity({type: "release", gid: releaseGID});
+    releaseViewModel.entity = RE.Entity({type: "release", gid: releaseGID});
 
-    ko.applyBindings(release, document.getElementById("form"));
+    ko.applyBindings(releaseViewModel, document.getElementById("content"));
 
     var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
         $loading = $(UI.loadingIndicator).insertAfter("#tracklist");
@@ -117,7 +195,7 @@ UI.init = function(releaseGID) {
 
         var media = data.mediums;
         for (var i = 0; i < media.length; i++)
-            trackCount += parseMedium(media[i], release.media, data);
+            trackCount += parseMedium(media[i], releaseViewModel.media, data);
 
         Util.parseRelationships(data, true);
 
@@ -180,7 +258,7 @@ RE.createWorks = function(works, editNote, success, error) {
     });
 
     fields["create-works.edit_note"] = _.trim(editNote);
-    $.post("/create-works", fields).success(success).error(error);
+    $.post("/relationship-editor/create-works", fields).success(success).error(error);
 };
 
 
@@ -202,7 +280,7 @@ function initCheckboxes(trackCount) {
         $medium_works = $tracklist.find("input.medium-works"),
         recording_selector = "td.recording > input[type=checkbox]",
         work_selector = "td.works > div.ar > input[type=checkbox]",
-        checkboxes = release.checkboxes;
+        checkboxes = releaseViewModel.checkboxes;
 
     // get translated strings for the checkboxes
     function getPlurals(singular, plural, max, name) {
@@ -288,15 +366,15 @@ function initButtons() {
         if (!$(this).hasClass("disabled")) UI.BatchCreateWorksDialog.show();
     });
 
-    $("#form").on("click", "span.add-rel", function(event) {
+    $("#content").on("click", "span.add-rel", function(event) {
         UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("artist")}, event.pageX, event.pageY);
     });
 
-    $("#form").on("click", "span.relate-work", function() {
+    $("#content").on("click", "span.relate-work", function() {
         UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("work")});
     });
 
-    $("#form").on("click", "span.remove-button", function() {
+    $("#content").on("click", "span.remove-button", function() {
         var relationship = ko.dataFor(this), action = relationship.action(), newAction = "remove";
 
         if (action == "add") {
@@ -310,7 +388,7 @@ function initButtons() {
         relationship.action(newAction);
     });
 
-    $("#form").on("click", "span.link-phrase", function(event) {
+    $("#content").on("click", "span.link-phrase", function(event) {
         var relationship = ko.dataFor(this);
 
         if (relationship.action() != "remove")

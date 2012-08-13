@@ -11,13 +11,13 @@ has works => (
     isa => 'HashRef',
 );
 
-sub create_works : Path("/create-works") Edit RequireAuth
+sub create_works : Path("/relationship-editor/create-works") Edit RequireAuth
 {
     my ($self, $c) = @_;
 
     $self->works({});
     $c->res->content_type('application/json; charset=utf-8');
-    my $json = JSON::Any->new;
+    my $json = JSON::XS->new;
     my $form = $c->form(form => 'RelationshipEditor::CreateWorks');
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->body_parameters)) {
