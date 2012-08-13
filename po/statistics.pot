@@ -476,7 +476,7 @@ msgstr ""
 msgid "Active Voters"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:75
+#: ../root/statistics/timeline.tt:77
 #, perl-format
 msgid "Add/remove lines:"
 msgstr ""
@@ -712,17 +712,17 @@ msgstr ""
 msgid "Cancelled:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:75
+#: ../root/statistics/timeline.tt:77
 #, perl-format
 msgid "Check boxes above"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:74
+#: ../root/statistics/timeline.tt:76
 #, perl-format
 msgid "Click to deselect"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:71
+#: ../root/statistics/timeline.tt:73
 #, perl-format
 msgid "Controls"
 msgstr ""
@@ -1138,7 +1138,7 @@ msgstr ""
 msgid "Disc IDs:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:73
+#: ../root/statistics/timeline.tt:75
 #, perl-format
 msgid "Draw a rectangle on either graph"
 msgstr ""
@@ -1213,7 +1213,7 @@ msgstr ""
 msgid "Evalnochange edits"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:85
+#: ../root/statistics/timeline.tt:87
 #, perl-format
 msgid "Exact Values (items vs. day)"
 msgstr ""
@@ -1295,7 +1295,7 @@ msgstr ""
 msgid "High Data Quality:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:76
+#: ../root/statistics/timeline.tt:78
 #, perl-format
 msgid "Hover and click on vertical lines"
 msgstr ""
@@ -1428,7 +1428,7 @@ msgstr ""
 msgid "Last updated: {date}"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:60
+#: ../root/statistics/timeline.tt:62
 #, perl-format
 msgid "Legend"
 msgstr ""
@@ -1500,12 +1500,12 @@ msgstr ""
 msgid "Most active voters in the past week"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:64
+#: ../root/statistics/timeline.tt:66
 #, perl-format
 msgid "MusicBrainz Events"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:76
+#: ../root/statistics/timeline.tt:78
 #, perl-format
 msgid "MusicBrainz Events:"
 msgstr ""
@@ -1676,12 +1676,12 @@ msgstr ""
 msgid "Rank"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:87
+#: ../root/statistics/timeline.tt:89
 #, perl-format
 msgid "Rate of Change (average items/day vs. day)"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:68
+#: ../root/statistics/timeline.tt:70
 #, perl-format
 msgid "Rate of Change Graph"
 msgstr ""
@@ -1954,7 +1954,7 @@ msgstr ""
 msgid "Releases:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:74
+#: ../root/statistics/timeline.tt:76
 #, perl-format
 msgid "Reset:"
 msgstr ""
@@ -1989,7 +1989,7 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:83
+#: ../root/statistics/timeline.tt:85
 #, perl-format
 msgid "Timeline Graph"
 msgstr ""
@@ -2181,7 +2181,7 @@ msgstr ""
 msgid "Yesterday:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:73
+#: ../root/statistics/timeline.tt:75
 #, perl-format
 msgid "Zoom:"
 msgstr ""
