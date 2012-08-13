@@ -161,21 +161,23 @@ for my $medium (@mediums)
                         if $verbose;
 
                 unless ($dry_run) {
-                    my $edit = $c->model('Edit')->create(
-                        editor_id => $EDITOR_MODBOT,
-                        privileges => $AUTO_EDITOR_FLAG,
-                        edit_type => $EDIT_SET_TRACK_LENGTHS,
-                        tracklist_id => $medium->tracklist_id,
-                        cdtoc_id => $cdtoc->id
-                    );
-
-                    $c->model('EditNote')->add_note(
-                        $edit->id,
-                        {
+                    Sql::run_in_transaction(sub {
+                        my $edit = $c->model('Edit')->create(
                             editor_id => $EDITOR_MODBOT,
-                            text => 'FixTrackLength script'
-                        }
-                    );
+                            privileges => $AUTO_EDITOR_FLAG,
+                            edit_type => $EDIT_SET_TRACK_LENGTHS,
+                            tracklist_id => $medium->tracklist_id,
+                            cdtoc_id => $cdtoc->id
+                        );
+
+                        $c->model('EditNote')->add_note(
+                            $edit->id,
+                            {
+                                editor_id => $EDITOR_MODBOT,
+                                text => 'FixTrackLength script'
+                            }
+                        );
+                    }, $c->sql);
                 }
 
                 ++$mediums_fixed;
@@ -260,22 +262,24 @@ for my $medium (@mediums)
                 } @tracks;
 
                 unless ($dry_run) {
-                    my $edit = $c->model('Edit')->create(
-                        edit_type => $EDIT_MEDIUM_EDIT,
-                        editor_id => $EDITOR_MODBOT,
-                        privileges => $AUTO_EDITOR_FLAG,
-                        to_edit => $medium,
-                        tracklist => \@new_tracklist,
-                        separate_tracklists => 1 # TODO ?
-                    );
-
-                    $c->model('EditNote')->add_note(
-                        $edit->id,
-                        {
+                    Sql::run_in_transaction(sub {
+                        my $edit = $c->model('Edit')->create(
+                            edit_type => $EDIT_MEDIUM_EDIT,
                             editor_id => $EDITOR_MODBOT,
-                            text => 'FixTrackLength script'
-                        }
-                    );
+                            privileges => $AUTO_EDITOR_FLAG,
+                            to_edit => $medium,
+                            tracklist => \@new_tracklist,
+                            separate_tracklists => 1 # TODO ?
+                        );
+
+                        $c->model('EditNote')->add_note(
+                            $edit->id,
+                            {
+                                editor_id => $EDITOR_MODBOT,
+                                text => 'FixTrackLength script'
+                            }
+                        );
+                    }, $c->sql);
 
                 }
 

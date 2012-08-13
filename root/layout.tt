@@ -2,14 +2,6 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-         [%- IF looks_like_ie -%]
-          [%- IF needs_chrome -%]
-            [%# choose the best available standards mode in internet explorer if chromeframe is not installed. %]
-            <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-          [%- ELSE -%]
-            <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-          [%- END -%]
-        [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
         [% css_manifest('common.css.manifest') %]
         [% IF extra_css %]
@@ -112,18 +104,6 @@
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% END %]
-
-        [%- IF needs_chrome -%]
-            <div class="server-details">
-                <p>
-                    [% l('It looks like you\'re using Internet Explorer.<br/>To get the most
-                          out of this website we highly recommend the use of
-                          {uri|Google Chrome Frame}.',
-                        { uri => c.uri_for_action('/chrome_frame') }) %]
-                </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
-            </div>
-        [%- END -%]
 
         [%- IF server_details.read_only -%]
             <div class="server-details">

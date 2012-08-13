@@ -128,7 +128,7 @@ sub update
 {
     my ($self, $user_id, $entity_id, $rating) = @_;
 
-    my ($rating_count, $rating_sum, $rating_avg);
+    my ($rating_count, $rating_sum);
 
     my $sql = $self->c->sql;
     Sql::run_in_transaction(sub {
@@ -165,7 +165,7 @@ sub update
 
     }, $self->c->sql);
 
-    return ($rating_avg, $rating_count);
+    return ($rating_sum, $rating_count);
 }
 
 no Moose;

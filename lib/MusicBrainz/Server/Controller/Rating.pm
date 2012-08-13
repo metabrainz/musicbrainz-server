@@ -30,13 +30,13 @@ sub rate : Local RequireAuth DenyWhenReadonly
     }
 
     my $model = $c->model(type_to_model($entity_type));
-    my @result = $model->rating->update($c->user->id, $entity_id, $rating);
+    my ($sum, $count) = $model->rating->update($c->user->id, $entity_id, $rating);
 
     if ($c->request->params->{json}) {
         $c->stash->{json} = {
             rating         => $rating,
-            rating_average => $result[0],
-            rating_count   => $result[1],
+            rating_average => $count > 0 ? ($sum / $count) : 0,
+            rating_count   => $count,
         };
         $c->detach('View::JSON');
     }
