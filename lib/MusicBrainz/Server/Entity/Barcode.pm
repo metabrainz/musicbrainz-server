@@ -7,7 +7,7 @@ has 'code' => (
     isa => 'Maybe[Str]',
 );
 
-use overload '""' => sub { shift->code }, fallback => 1;
+use overload '""' => sub { shift->code // '' }, fallback => 1;
 
 sub type {
     my ($self) = @_;
