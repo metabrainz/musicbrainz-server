@@ -241,6 +241,8 @@ Readonly our $ELECTION_VOTE_YES     => 1;
 Readonly our $COVERART_FRONT_TYPE   => 2;
 Readonly our $COVERART_BACK_TYPE   => 3;
 
+Readonly our $INSTRUMENT_ROOT_ID => 14;
+
 =head1 NAME
 
 MusicBrainz::Server::Constant - constants used in the database that

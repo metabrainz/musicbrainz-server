@@ -4,6 +4,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
     $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE
     $EDIT_RELATIONSHIP_ATTRIBUTE
+    $INSTRUMENT_ROOT_ID
 );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -74,7 +75,7 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
 
         my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
 
-        my $url = $root == 14 ?
+        my $url = $root == $INSTRUMENT_ROOT_ID ?
             $c->uri_for_action('relationship/linkattributetype/instruments', { msg => 'created' }) :
             $c->uri_for_action('relationship/linkattributetype/index', { msg => 'created' });
         $c->response->redirect($url);
@@ -107,7 +108,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        my $url = $link_attr_type->root_id == 14 ?
+        my $url = $link_attr_type->root_id == $INSTRUMENT_ROOT_ID ?
             $c->uri_for_action('relationship/linkattributetype/instruments', { msg => 'updated' }) :
             $c->uri_for_action('relationship/linkattributetype/index', { msg => 'updated' });
         $c->response->redirect($url);
@@ -140,7 +141,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        my $url = $link_attr_type->root_id == 14 ?
+        my $url = $link_attr_type->root_id == $INSTRUMENT_ROOT_ID ?
             $c->uri_for_action('relationship/linkattributetype/instruments', { msg => 'deleted' }) :
             $c->uri_for_action('relationship/linkattributetype/index', { msg => 'deleted' });
         $c->response->redirect($url);
