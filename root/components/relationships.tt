@@ -1,3 +1,4 @@
+[% USE Map %]
 [%- DEFAULT relationships = source.grouped_relationships -%]
 
 [% IF relationships.size %]
@@ -11,7 +12,8 @@
             <tr>
                 <th>[% l(relationship.key) %]:</th>
                 <td>
-                    [% FOR rel IN relationship.value %]
+                    [% FOR rels_target IN relationship.value.pairs %]
+                        [% rel = rels_target.value.0 %]
                         <span[% IF rel.edits_pending %] class="mp"[% END %]>
                         [% IF rel.target.artist_credit AND
                               rel.target.artist_credit.name != hide_ac %]
@@ -20,23 +22,10 @@
                         [% ELSE %]
                             [% link_entity(rel.target) %]
                         [% END %]
-                        [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format %]
-                          ([% rel.link.begin_date.format %])
-                        [% ELSIF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
-                          [% IF !rel.link.begin_date.is_empty && !rel.link.end_date.is_empty %]
-                            ([% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %])
-                          [% ELSIF rel.link.begin_date.is_empty %]
-                            ([% l('&ndash; {enddate}', { enddate => rel.link.end_date.format }) %])
-                          [% ELSIF rel.link.end_date.is_empty %]
-                            [% IF rel.link.ended %]
-                              ([% l('{begindate} &ndash; ????', { begindate => rel.link.begin_date.format }) %])
-                            [% ELSE %]
-                              ([% l('{begindate} &ndash;', { begindate => rel.link.begin_date.format }) %])
-                            [% END %]
-                          [% END %]
-                        [% ELSIF rel.link.ended %]
-                          ([% l(' &ndash; ????') %])
-                        [% END %]
+
+                        [%# We only display dates for relationships that have dates %]
+                        [% dates = rels_target.value.map('format_date').grep('.+');
+                           '(' _ dates.join(', ') _ ')' IF dates.size; %]
 
                         [%- IF c.user_exists -%]
                             <span style="float: right">

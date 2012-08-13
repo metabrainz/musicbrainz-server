@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Relationship;
-
 use Moose;
+
+use utf8;
 use Readonly;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation;
@@ -170,6 +171,39 @@ sub _interpolate
     MusicBrainz::Server::Validation::TrimInPlace($phrase);
 
     return $phrase;
+}
+
+sub format_date {
+    my $self = shift;
+    my $link = $self->link;
+    my $begin_date = $link->begin_date;
+    my $end_date = $link->end_date;
+
+    if (!$begin_date->is_empty && $begin_date->format eq $end_date->format) {
+        return $begin_date->format;
+    }
+    elsif (!($begin_date->is_empty && $end_date->is_empty)) {
+        if (!$begin_date->is_empty && !$end_date->is_empty) {
+            return join('–', $begin_date->format, $end_date->format);
+        }
+        elsif ($begin_date->is_empty) {
+            return '–' . $end_date->format;
+        }
+        elsif ($end_date->is_empty) {
+            if ($link->ended) {
+                return $begin_date->format . '–????';
+            }
+            else {
+                return $begin_date->format . '–';
+            }
+        }
+    }
+    elsif ($link->ended) {
+        return '–????';
+    }
+    else {
+        return '';
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

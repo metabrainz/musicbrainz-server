@@ -25,23 +25,26 @@ sub grouped_relationships
 
     my %groups;
     my @relationships = sort {
-        my $a_sortname = $a->target->can('sort_name') ? 
-	   $a->target->sort_name :
-	   $a->target->name;
-        my $b_sortname = $b->target->can('sort_name') ? 
-	   $b->target->sort_name :
-	   $b->target->name;
+        my $a_sortname = $a->target->can('sort_name')
+            ? $a->target->sort_name
+            : $a->target->name;
+
+        my $b_sortname = $b->target->can('sort_name')
+            ? $b->target->sort_name
+            : $b->target->name;
+
         $a->link->begin_date        <=> $b->link->begin_date ||
         $a->link->end_date          <=> $b->link->end_date   ||
         $a->link->type->child_order <=> $b->link->type->child_order ||
-	$a_sortname cmp $b_sortname
+        $a_sortname                 cmp $b_sortname
     } $self->all_relationships;
 
     for my $relationship (@relationships) {
         next if ($filter_present && !$filter{ $relationship->target_type });
         $groups{ $relationship->target_type } ||= {};
-        $groups{ $relationship->target_type }{ $relationship->phrase } ||= [];
-        push @{ $groups{ $relationship->target_type }{ $relationship->phrase} },
+        $groups{ $relationship->target_type }{ $relationship->phrase } ||= {};
+        $groups{ $relationship->target_type }{ $relationship->phrase }{ $relationship->target->id } ||= [];
+        push @{ $groups{ $relationship->target_type }{ $relationship->phrase}{ $relationship->target->id} },
             $relationship;
     }
 
