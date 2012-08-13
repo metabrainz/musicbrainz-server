@@ -147,7 +147,6 @@ ko.bindingHandlers.targetType = (function() {
         // reset the current target entity
         target.name(name);
         relationship.target(target);
-        relationship.target.error("");
 
         if (ac) {
             ac.clear();
