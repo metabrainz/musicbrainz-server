@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::PartialDate;
-
 use Moose;
+
+use List::AllUtils qw( any first_index zip );
 use Date::Calc;
 
 use overload '<=>' => \&_cmp, fallback => 1;
@@ -53,21 +54,26 @@ sub is_empty
 sub format
 {
     my ($self) = @_;
-    my $fmt = "";
-    my @args;
-    if ($self->year) {
-        $fmt .= "%04d";
-        push @args, $self->year;
-        if ($self->month) {
-            $fmt .= "-%02d";
-            push @args, $self->month;
-            if ($self->day) {
-                $fmt .= "-%02d";
-                push @args, $self->day;
-            }
-        }
+
+    # Take as many values as possible, but drop any trailing undefined values
+    my @comp = ($self->day, $self->month, $self->year);
+    return '' unless any { defined } @comp;
+
+    splice(@comp, 0, first_index { defined } @comp);
+    my @significant_components = reverse(@comp);
+
+    # Attempt to display each significant date component, but if it's undefined
+    # replace by an appropriate number of '?' characters
+    my @len = (4, 2, 2);
+    my @res;
+    for my $i (0..$#significant_components) {
+        my $len = $len[$i];
+        my $val = $significant_components[$i];
+
+        push @res, defined($val) ? sprintf "%0${len}d", $val : '?' x $len;
     }
-    return sprintf $fmt, @args;
+
+    return join('-', @res);
 }
 
 sub _cmp
@@ -97,6 +103,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

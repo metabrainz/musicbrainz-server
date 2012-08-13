@@ -1,0 +1,22 @@
+<table class="details convert-release-to-multiple-artists">
+  <tr>
+    <th>[% l('Releases:') %]</th>
+    <td colspan="2">
+      [% IF edit.display_data.releases.size %]
+      <ul>
+        [% FOR release=edit.display_data.releases %]
+        <li>[% descriptive_link(release) %]</li>
+        [% END %]
+      </ul>
+      [% ELSE;
+           l('(unknown)');
+         END %]
+    </td>
+  </tr>
+
+  <tr>
+    <th>[% l('Artist:') %]</th>
+    <td class="old">[% link_entity(edit.display_data.artist.old) %]</td>
+    <td class="new">[% link_entity(edit.display_data.artist.new) %]</td>
+  </tr>
+</table>

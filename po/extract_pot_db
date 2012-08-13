@@ -42,7 +42,8 @@ my $domain = $domain[0];
 my @DBDEFS = (
               {'domain' => 'statistics', 'table' => 'statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
               {'domain' => 'countries', 'table' => 'country', 'columns' => ['name'], 'comment' => ['iso_code']},
-              {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3']},
+              {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3'], 'where' => 'iso_code_2t IS NOT NULL OR frequency > 0'},
+              {'domain' => 'languages_notrim', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3']},
               {'domain' => 'scripts', 'table' => 'script', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code']},
               {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name'], 'ctx' => 'NULL'},

@@ -9,6 +9,7 @@ use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
+use aliased 'MusicBrainz::Server::Translation';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -44,6 +45,25 @@ sub index : Path Args(0)
         blog => $c->model('Blog')->get_latest_entries,
         template => 'main/index.tt'
     );
+}
+
+=head2 set_language
+
+Sets the language; designed to be used from the language switcher
+
+=cut
+
+sub set_language : Path('set-language') Args(1)
+{
+    my ($self, $c, $lang) = @_;
+    if ($lang eq 'unset') {
+        # force the cookie to expire
+        $c->res->cookies->{lang} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+    } else {
+        $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/' };
+    }
+    $c->res->redirect($c->req->referer || $c->uri_for('/'));
+    $c->detach;
 }
 
 =head2 default
@@ -146,6 +166,7 @@ sub begin : Private
         javascript => $js,
         no_javascript => $js eq "false",
         wiki_server => &DBDefs::WIKITRANS_SERVER,
+        server_languages => Translation->instance->all_languages(),
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
             testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,
@@ -153,11 +174,6 @@ sub begin : Private
             read_only      => &DBDefs::DB_READ_ONLY
         },
     );
-
-    if ($c->req->user_agent && $c->req->user_agent =~ /MSIE/i) {
-        $c->stash->{looks_like_ie} = 1;
-        $c->stash->{needs_chrome} = !($c->req->user_agent =~ /chromeframe/i);
-    }
 
     # Setup the searchs on the sidebar
     $c->form( sidebar_search => 'Search::Search' );

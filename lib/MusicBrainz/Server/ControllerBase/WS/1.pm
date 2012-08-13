@@ -24,11 +24,13 @@ has 'model' => (
     is  => 'ro',
 );
 
-sub serializers {
-    return {
-        xml => 'MusicBrainz::Server::WebService::XMLSerializerV1',
-    };
-}
+with 'MusicBrainz::Server::WebService::Format' =>
+{
+    serializers => [
+        'MusicBrainz::Server::WebService::XMLSerializerV1',
+    ]
+};
+
 
 sub apply_rate_limit
 {
@@ -91,9 +93,10 @@ sub apply_rate_limit
 sub begin : Private {}
 sub auto : Private {
     my ($self, $c) = @_;
+
     $c->stash->{data} = {};
     my $continue = try {
-        $self->validate($c, $self->serializers) or $c->detach('bad_req');
+        $self->validate($c) or $c->detach('bad_req');
         return 1;
     }
     catch {
@@ -135,6 +138,10 @@ sub search : Chained('root') PathPart('')
         if (blessed($err) && $err->isa('MusicBrainz::Server::Exceptions::InvalidSearchParameters')) {
             $c->res->body($err->message);
             $c->res->status(HTTP_BAD_REQUEST);
+        }
+        elsif (blessed($err) && $err->isa('HTTP::Response')) {
+            $c->res->body("Could not retrieve sub-document page from search server. Error: " . $err->status_line);
+            $c->res->status(HTTP_SERVICE_UNAVAILABLE);
         }
         else {
             die $err;

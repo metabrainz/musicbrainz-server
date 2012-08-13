@@ -852,7 +852,7 @@ sub xml_search
     my $response = $ua->get($search_url);
     unless ($response->is_success)
     {
-        return;
+        die $response;
     }
     else
     {

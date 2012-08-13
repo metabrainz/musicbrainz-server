@@ -13,7 +13,7 @@ $(document).ready (function() {
                 ratingLink.parent().prepend(currentRatingSpan);
             }
             var rating;
-            if (data.rating) {
+            if (data.rating > 0) {
                 // Use the user rating
                 currentRatingSpan.removeClass('current-rating');
                 currentRatingSpan.addClass('current-user-rating');

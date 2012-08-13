@@ -9,6 +9,7 @@ use String::TT qw( strip tt );
 use URI::Escape;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( $EMAIL_SUPPORT_ADDRESS );
+use MusicBrainz::Server::Email;
 
 has 'editor' => (
     isa => 'Editor',
@@ -43,8 +44,12 @@ has 'edits' => (
 );
 
 sub extra_headers {
+    my $self = shift;
     return (
-        'Reply-To' => $EMAIL_SUPPORT_ADDRESS
+        'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
+        'References' => MusicBrainz::Server::Email::_message_id('subscriptions-%s', $self->editor->id),
+        'In-Reply-To' => MusicBrainz::Server::Email::_message_id('subscriptions-%s', $self->editor->id),
+        'Message-Id' => MusicBrainz::Server::Email::_message_id('subscriptions-%s-%d', $self->editor->id, time())
     )
 }
 

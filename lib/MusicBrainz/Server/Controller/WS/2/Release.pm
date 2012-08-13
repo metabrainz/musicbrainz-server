@@ -120,20 +120,7 @@ sub release_toplevel
         $self->linked_recordings ($c, $stash, \@recordings);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        $c->model('Relationship')->load_subset($types, @rels_entities);
-
-        if ($c->stash->{inc}->work_level_rels)
-        {
-            my @works =
-                map { $_->target }
-                grep { $_->target_type eq 'work' }
-                map { $_->all_relationships } @rels_entities;
-            $c->model('Relationship')->load_subset($types, @works);
-        }
-    }
+    $self->load_relationships($c, @rels_entities);
 
     if ($c->stash->{inc}->collections)
     {

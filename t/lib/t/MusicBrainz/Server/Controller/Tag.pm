@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::Tag;
 use Test::Routine;
 use Test::More;
+use utf8;
 
 use MusicBrainz::Server::Test qw( html_ok );
 
@@ -53,6 +54,10 @@ test 'Can view tags' => sub {
     $test->mech->get('/tag/not-found');
     html_ok($test->mech->content);
     is($test->mech->status(), 404);
+
+    $test->mech->get_ok('/tag/hip-hop%2Frap/');
+    html_ok($test->mech->content);
+    $test->mech->content_like(qr{Tag “hip-hop/rap”});
 };
 
 1;

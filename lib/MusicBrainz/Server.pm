@@ -74,7 +74,8 @@ __PACKAGE__->config(
     },
     stacktrace => {
         enable => 1
-    }
+    },
+    use_request_uri_for_path => 1
 );
 
 if ($ENV{'MUSICBRAINZ_USE_PROXY'})
@@ -244,6 +245,8 @@ around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
+    $c->model('MB')->context->connector->refresh;
+
     $_->instance->build_languages_from_header($c->req->headers) 
         for qw( MusicBrainz::Server::Translation 
 	        MusicBrainz::Server::Translation::Statistics 
@@ -255,6 +258,16 @@ around 'dispatch' => sub {
 		MusicBrainz::Server::Translation::Instruments 
 		MusicBrainz::Server::Translation::InstrumentDescriptions );
 
+    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
+    my $lang = Translation->instance->set_language($cookie_lang);
+    # because s///r is a perl 5.14 feature
+    my $html_lang = $lang;
+    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
+    $c->stash(
+        current_language => $lang,
+        current_language_html => $html_lang
+    );
+
     if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
         alarm($max_request_time);
         POSIX::sigaction(
@@ -264,6 +277,9 @@ around 'dispatch' => sub {
                                        $max_request_time));
                 $c->log->error(Devel::StackTrace->new->as_string);
                 $c->log->_flush;
+                if (my $sth = $c->model('MB')->context->sql->sth) {
+                    $sth->cancel;
+                }
                 exit(42)
             }));
 
@@ -274,12 +290,12 @@ around 'dispatch' => sub {
     else {
         $c->$orig(@_);
     }
+    Translation->instance->unset_language();
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
-sub language { return $ENV{LANGUAGE} || 'en' }
 
 sub _handle_param_unicode_decoding {
     my ( $self, $value ) = @_;
@@ -311,6 +327,8 @@ sub finalize_error {
     my $c = shift;
 
     $c->next::method(@_);
+
+    $c->model('MB')->context->connector->disconnect;
 
     if (!$c->debug && scalar @{ $c->error }) {
         $c->stash->{errors} = $c->error;

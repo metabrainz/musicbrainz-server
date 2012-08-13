@@ -1364,6 +1364,62 @@
          "target" : "Cache::Memcached::Managed",
          "version" : "0.24"
       },
+      "Captcha::reCAPTCHA" : {
+         "dist" : "Captcha-reCAPTCHA-0.94",
+         "mymeta" : {
+            "abstract" : "A Perl implementation of the reCAPTCHA API",
+            "author" : [
+               "Andy Armstrong <andy@hexten.net>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Captcha-reCAPTCHA",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : 0
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "HTML::Tiny" : "0.904",
+                     "LWP::UserAgent" : 0,
+                     "Test::More" : 0
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.94"
+         },
+         "name" : "Captcha::reCAPTCHA",
+         "pathname" : "A/AN/ANDYA/Captcha-reCAPTCHA-0.94.tar.gz",
+         "provides" : {
+            "Captcha::reCAPTCHA" : {
+               "file" : "Captcha/reCAPTCHA.pm",
+               "version" : "0.93"
+            }
+         },
+         "target" : "Captcha::reCAPTCHA",
+         "version" : "0.93"
+      },
       "Capture::Tiny" : {
          "dist" : "Capture-Tiny-0.18",
          "mymeta" : {
@@ -15390,7 +15446,7 @@
          "version" : "v1.62.0"
       },
       "Function::Parameters" : {
-         "dist" : "Function-Parameters-0.07",
+         "dist" : "Function-Parameters-0.04",
          "mymeta" : {
             "abstract" : "subroutine definitions with parameter lists",
             "author" : [
@@ -15436,18 +15492,18 @@
                   "url" : "git://git.shadowcat.co.uk/p5sagit/Function-Parameters"
                }
             },
-            "version" : "0.07"
+            "version" : "0.04"
          },
          "name" : "Function::Parameters",
-         "pathname" : "M/MA/MAUKE/Function-Parameters-0.07.tar.gz",
+         "pathname" : "M/MA/MAUKE/Function-Parameters-0.04.tar.gz",
          "provides" : {
             "Function::Parameters" : {
                "file" : "Function/Parameters.pm",
-               "version" : "0.07"
+               "version" : "0.04"
             }
          },
          "target" : "Function::Parameters",
-         "version" : "0.07"
+         "version" : "0.04"
       },
       "Getopt::Long::Descriptive" : {
          "dist" : "Getopt-Long-Descriptive-0.091",
@@ -29121,6 +29177,70 @@
          "target" : "RDF::Trine",
          "version" : "1.000"
       },
+      "REST::Utils" : {
+         "dist" : "REST-Utils-0.6",
+         "mymeta" : {
+            "abstract" : "Utility functions for REST applications",
+            "author" : [
+               "Jaldhar H. Vyas <jaldhar@braincells.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "REST-Utils",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "Test::More" : 0,
+                     "Test::WWW::Mechanize::CGI" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.38"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "perl" : "5.008"
+                  }
+               }
+            },
+            "provides" : {
+               "REST::Utils" : {
+                  "file" : "lib/REST/Utils.pm",
+                  "version" : "0.6"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "homepage" : "http://jaldhar.github.com/REST-Utils",
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://github.com/jaldhar/REST-Utils"
+               }
+            },
+            "version" : "0.6"
+         },
+         "name" : "REST::Utils",
+         "pathname" : "J/JA/JALDHAR/REST-Utils-0.6.tar.gz",
+         "provides" : {
+            "REST::Utils" : {
+               "file" : "REST/Utils.pm",
+               "version" : "0.6"
+            }
+         },
+         "target" : "REST::Utils",
+         "version" : "0.6"
+      },
       "Readonly" : {
          "dist" : "Readonly-1.03",
          "mymeta" : {
@@ -31450,6 +31570,37 @@
          },
          "target" : "Template::Plugin::JavaScript",
          "version" : "0.02"
+      },
+      "Template::Plugin::Map" : {
+         "dist" : "Template-Plugin-Map-0.01",
+         "mymeta" : {},
+         "name" : "Template::Plugin::Map",
+         "pathname" : "M/MS/MSCHOUT/Template-Plugin-Map-0.01.tar.gz",
+         "provides" : {
+            "Template::Plugin::Map" : {
+               "file" : "Template/Plugin/Map.pm",
+               "version" : "0.01"
+            }
+         },
+         "target" : "Template::Plugin::Map",
+         "version" : "0.01"
+      },
+      "Template::Plugin::VMethods" : {
+         "dist" : "Template-Plugin-VMethods-0.03",
+         "mymeta" : {},
+         "name" : "Template::Plugin::VMethods",
+         "pathname" : "M/MA/MARKF/Template-Plugin-VMethods-0.03.tar.gz",
+         "provides" : {
+            "Template::Plugin::VMethods" : {
+               "file" : "Template/Plugin/VMethods.pm",
+               "version" : "0.03"
+            },
+            "Template::Plugin::VMethods::VMethodContainer" : {
+               "file" : "Template/Plugin/VMethods/VMethodContainer.pm"
+            }
+         },
+         "target" : "Template::Plugin::VMethods",
+         "version" : "0.03"
       },
       "Template::Timer" : {
          "dist" : "Template-Timer-1.00",
@@ -35663,7 +35814,7 @@
          "version" : "1.08"
       },
       "Text::WikiFormat" : {
-         "dist" : "Text-WikiFormat-0.79",
+         "dist" : "Text-WikiFormat-0.80",
          "mymeta" : {
             "abstract" : "module for translating Wiki formatted text into other formats",
             "author" : [
@@ -35695,7 +35846,7 @@
             "provides" : {
                "Text::WikiFormat" : {
                   "file" : "lib/Text/WikiFormat.pm",
-                  "version" : "0.79"
+                  "version" : "0.80"
                },
                "Text::WikiFormat::Block" : {
                   "file" : "lib/Text/WikiFormat/Blocks.pm",
@@ -35716,14 +35867,14 @@
                   "http://dev.perl.org/licenses/"
                ]
             },
-            "version" : "0.79"
+            "version" : "0.80"
          },
          "name" : "Text::WikiFormat",
-         "pathname" : "C/CH/CHROMATIC/Text-WikiFormat-0.79.tar.gz",
+         "pathname" : "C/CY/CYCLES/Text-WikiFormat-0.80.tar.gz",
          "provides" : {
             "Text::WikiFormat" : {
                "file" : "Text/WikiFormat.pm",
-               "version" : "0.79"
+               "version" : "0.80"
             },
             "Text::WikiFormat::Block" : {
                "file" : "Text/WikiFormat/Blocks.pm"
@@ -35736,7 +35887,7 @@
             }
          },
          "target" : "Text::WikiFormat",
-         "version" : "0.79"
+         "version" : "0.80"
       },
       "Throwable" : {
          "dist" : "Throwable-0.102080",

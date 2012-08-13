@@ -1,8 +1,7 @@
 [% IF pager && pager.last_page > 1 %]
 <p class="pageselector">
     [% IF pager.previous_page %]
-        <a rel="xhv:first" href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>
-        <a rel="xhv:prev" href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>
+        [% rdfa_paginator_previous_page(pager) %]
     [% ELSE %]
         <span>&#171;</span>
         <span>&#8249;</span>
@@ -19,8 +18,7 @@
     [% END %]
 
     [% IF pager.next_page %]
-        <a rel="xhv:next" href="[% c.req.uri_with( page => pager.next_page ) | html %]">&#8250;</a>
-        <a rel="xhv:last" href="[% c.req.uri_with( page => pager.last_page ) | html %]">&#187;</a>
+        [% rdfa_paginator_next_page(pager) %]
     [% ELSE %]
         <span>&#8250;</span>
         <span>&#187;</span>

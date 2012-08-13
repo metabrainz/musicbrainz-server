@@ -3,14 +3,14 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use MusicBrainz::Server::Entity::PartialDate;
+use aliased 'MusicBrainz::Server::Entity::PartialDate' => 'Date';
 
 test all => sub {
 
 my $date;
 my $partial;
 
-$date = MusicBrainz::Server::Entity::PartialDate->new();
+$date = Date->new();
 ok( $date->is_empty );
 is( $date->format, "" );
 
@@ -25,26 +25,34 @@ $date->day(18);
 is( $date->format, "2009-04-18" );
 
 $partial = { 'year' => 1476, 'month' => 12 };
-$date = MusicBrainz::Server::Entity::PartialDate->new( $partial );
+$date = Date->new( $partial );
 is ($date->format, "1476-12");
 
 $partial = { 'year' => 1476, 'month' => 12, 'day' => undef };
-$date = MusicBrainz::Server::Entity::PartialDate->new( $partial );
+$date = Date->new( $partial );
 is ($date->format, "1476-12");
 
-$date = MusicBrainz::Server::Entity::PartialDate->new( "1476" );
+$date = Date->new( "1476" );
 is ($date->format, "1476");
 
-$date = MusicBrainz::Server::Entity::PartialDate->new( "1476-12" );
+$date = Date->new( "1476-12" );
 is ($date->format, "1476-12");
 
-$date = MusicBrainz::Server::Entity::PartialDate->new( "1476-12-1" );
+$date = Date->new( "1476-12-1" );
 is ($date->format, "1476-12-01");
 
-$date = MusicBrainz::Server::Entity::PartialDate->new( "1476-12-01" );
+$date = Date->new( "1476-12-01" );
 is ($date->format, "1476-12-01");
 
-use aliased 'MusicBrainz::Server::Entity::PartialDate' => 'Date';
+$date = Date->new( month => 04, day => 01 );
+is ($date->format, "????-04-01");
+
+$date = Date->new( year => 1999, day => 01 );
+is ($date->format, "1999-??-01");
+
+$date = Date->new( day => 01 );
+is ($date->format, "????-??-01");
+
 my ($a, $b);
 
 $a = Date->new( year => 2000 );

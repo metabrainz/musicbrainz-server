@@ -13,32 +13,22 @@ my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
-$mech->get_ok('/register.js', 'Fetch registration page javascript');
-my ($iamhuman) = $mech->content =~ /([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/gi;
 $mech->get_ok('/register', 'Fetch registration page');
-$mech->form_number (2);
-$mech->set_fields (
+$mech->submit_form( with_fields => {
     'register.username' => 'brand_new_editor',
     'register.password' => 'magic_password',
     'register.confirm_password' => 'magic_password',
-    'data' => $iamhuman,
-);
-$mech->submit;
+});
 
 like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
 
-$mech->get_ok('/register.js', 'Fetch registration page javascript');
-($iamhuman) = $mech->content =~ /([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/gi;
 $mech->get_ok('/register', 'Fetch registration page');
-$mech->form_number (2);
-$mech->set_fields (
+$mech->submit_form( with_fields => {
     'register.username' => 'email_editor',
     'register.password' => 'magic_password',
     'register.confirm_password' => 'magic_password',
     'register.email' => 'foo@bar.com',
-    'data' => $iamhuman,
-);
-$mech->submit;
+});
 
 like($mech->uri, qr{/user/email_editor}, 'should redirect to profile page after registering');
 
@@ -51,6 +41,11 @@ my ($verify_link) = $email->get_body =~ qr{http://localhost(/verify-email.*)};
 $mech->get_ok($verify_link, 'verify account');
 $mech->content_like(qr/Thank you, your email address has now been verified/);
 
+$mech->get('/user/new_editor');
+$mech->content_like(qr{\(verified at (.*)\)});
+$mech->content =~ qr{\(verified at (.*)\)};
+my $original_verification = $1;
+like($original_verification, qr{\d+.\d+.\d+ \d+.\d+}, "Verification $original_verification looks like a date");
 };
 
 1;

@@ -7,9 +7,9 @@
 
     [% INCLUDE 'edit/vote.tt' n=loop.index summary=1 %]
 
-    [% IF !server_details.read_only %]
+    [% IF !server_details.read_only && (edit.editor_may_add_note(c.user) || edit.can_approve(c.user) || edit.can_cancel(c.user)) %]
     <div class="cancel-edit buttons">
-        [% IF c.user_exists %]
+        [% IF edit.editor_may_add_note(c.user) %]
             <a class="positive edit-note-toggle">[% l('Add Note') %]</a>
         [% END %]
 

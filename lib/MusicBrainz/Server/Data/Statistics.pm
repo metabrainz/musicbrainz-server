@@ -8,6 +8,11 @@ use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Translation::Statistics qw( l );
+use MusicBrainz::Server::Replication ':replication_type';
+
+use DBDefs;
+
+use Fcntl qw(:flock SEEK_END);
 
 with 'MusicBrainz::Server::Data::Role::Sql';
 
@@ -152,7 +157,7 @@ sub all_events {
 
     return [
         map { $_->{title} = l($_->{title}); $_->{description} = l($_->{description}); $_; } 
-	query_to_list(
+        query_to_list(
             $self->sql,
             sub { shift },
             'SELECT * FROM statistic_event ORDER BY date ASC',
@@ -189,15 +194,23 @@ sub fetch {
 }
 
 sub insert {
-    my ($self, %updates) = @_;
-    $self->sql->do('LOCK TABLE ' . $self->_table . ' IN EXCLUSIVE MODE');
+    my ($self, $output_file, %updates) = @_;
+    $self->sql->do('LOCK TABLE ' . $self->_table . ' IN EXCLUSIVE MODE') unless $output_file;
     for my $key (keys %updates) {
         next unless defined $updates{$key};
-
-        $self->sql->insert_row(
-            $self->_table,
-            { name => $key, value => $updates{$key} }
-        );
+        
+        if ($output_file) {
+                open(OUTPUTFILE, '>>'.$output_file);
+                flock(OUTPUTFILE, LOCK_EX);
+                seek(OUTPUTFILE, 0, SEEK_END);
+                print OUTPUTFILE "$key\t$updates{$key}\n";
+                close(OUTPUTFILE);
+        } else {
+            $self->sql->insert_row(
+                $self->_table,
+                { name => $key, value => $updates{$key} }
+            );
+        }
     }
 }
 
@@ -237,7 +250,7 @@ my %stats = (
                 "count.artist.type.person" => $dist{1} || 0,
                 "count.artist.type.group"  => $dist{2} || 0,
                 "count.artist.type.other"  => $dist{3} || 0,
-		"count.artist.type.null" => $dist{null} || 0
+                "count.artist.type.null" => $dist{null} || 0
             };
         },
     },
@@ -270,8 +283,8 @@ my %stats = (
             +{
                 "count.artist.gender.male" => $dist{1} || 0,
                 "count.artist.gender.female"  => $dist{2} || 0,
-		"count.artist.gender.other" => $dist{3} || 0,
-		"count.artist.gender.null" => $dist{null} || 0
+                "count.artist.gender.other" => $dist{3} || 0,
+                "count.artist.gender.null" => $dist{null} || 0
             };
         },
     },
@@ -289,15 +302,17 @@ my %stats = (
     },
     "count.artist.has_credits" => {
         DESC => "Artists in at least one artist credit",
-	SQL => "SELECT COUNT(DISTINCT artist) FROM artist_credit_name",
+        SQL => "SELECT COUNT(DISTINCT artist) FROM artist_credit_name",
     },
     "count.artist.0credits" => {
         DESC => "Artists in no artist credits",
-	SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
+        SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
     "count.coverart" => {
         DESC => 'Count of all cover art images',
         SQL => 'SELECT count(*) FROM cover_art_archive.cover_art',
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.coverart.type" => {
         DESC => "Distribution of cover art by type",
@@ -319,6 +334,8 @@ my %stats = (
                 } keys %dist
             };
         },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.release.status.statname.has_coverart" => {
         DESC => "Count of releases with cover art, by status",
@@ -343,7 +360,9 @@ my %stats = (
                     "count.release.status.".$_.".has_coverart" => $dist{$_}
                 } keys %dist
             };
-        }
+        },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.release.type.typename.has_coverart" => {
         DESC => "Count of releases with cover art, by release group type",
@@ -370,7 +389,9 @@ my %stats = (
                     "count.release.type.".$_.".has_coverart" => $dist{$_}
                 } keys %dist
             };
-        }
+        },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.release.format.fname.has_coverart" => {
         DESC => "Count of releases with cover art, by medium format",
@@ -396,7 +417,9 @@ my %stats = (
                     "count.release.format.".$_.".has_coverart" => $dist{$_}
                 } keys %dist
             };
-        }
+        },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.coverart.per_release.Nimages" => {
         DESC => "Distribution of cover art images per release",
@@ -432,6 +455,8 @@ my %stats = (
                 } keys %dist
             };
         },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
 
     "count.label" => {
@@ -445,10 +470,12 @@ my %stats = (
     "count.edit" => {
         DESC => "Count of all edits",
         SQL => "SELECT COUNT(*) FROM edit",
+        NONREPLICATED => 1,
     },
     "count.editor" => {
         DESC => "Count of all editors",
         SQL => "SELECT COUNT(*) FROM editor",
+        NONREPLICATED => 1,
     },
     "count.barcode" => {
         DESC => "Count of all unique Barcodes",
@@ -487,6 +514,7 @@ my %stats = (
                 "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(w.gid) AS count
                 FROM work w FULL OUTER JOIN language l
                     ON w.language=l.id
+                WHERE l.iso_code_2t IS NOT NULL OR l.frequency > 0
                 GROUP BY l.iso_code_3
                 ",
             );
@@ -539,6 +567,7 @@ my %stats = (
     "count.vote" => {
         DESC => "Count of all votes",
         SQL => "SELECT COUNT(*) FROM vote",
+        NONREPLICATED => 1,
     },
 
     "count.label.country" => {
@@ -637,6 +666,7 @@ my %stats = (
                 "SELECT COALESCE(l.iso_code_3::text, 'null'), COUNT(r.gid) AS count
                 FROM release r FULL OUTER JOIN language l
                     ON r.language=l.id
+                WHERE l.iso_code_2t IS NOT NULL OR l.frequency > 0
                 GROUP BY l.iso_code_3
                 ",
             );
@@ -821,7 +851,9 @@ my %stats = (
     },
     "count.release.has_caa" => {
         DESC => 'Count of releases that have cover art at the Cover Art Archive',
-        SQL => 'SELECT count(DISTINCT release) FROM cover_art_archive.cover_art'
+        SQL => 'SELECT count(DISTINCT release) FROM cover_art_archive.cover_art',
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
 
     "count.recording.has_isrc" => {
@@ -855,53 +887,63 @@ my %stats = (
                 "count.edit.deleted"        => $dist{$STATUS_DELETED}       || 0,
             };
         },
+        NONREPLICATED => 1,
     },
     "count.edit.applied" => {
         DESC => "Count of applied edits",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.edit.failedvote" => {
         DESC => "Count of edits which were voted down",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.edit.faileddep" => {
         DESC => "Count of edits which failed their dependency check",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.edit.error" => {
         DESC => "Count of edits which failed because of an internal error",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.edit.failedprereq" => {
         DESC => "Count of edits which failed because a prerequisitite moderation failed",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.edit.evalnochange" => {
         DESC => "Count of evalnochange edits",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.edit.deleted" => {
         DESC => "Count of deleted edits",
         PREREQ => [qw[ count.edit.open ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.edit.perday" => {
         DESC => "Count of edits per day",
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '1 day')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
+        NONREPLICATED => 1,
     },
     "count.edit.perweek" => {
         DESC => "Count of edits per week",
         SQL => "SELECT count(id) FROM edit
                 WHERE open_time >= (now() - interval '7 days')
                   AND editor NOT IN (". $EDITOR_FREEDB .", ". $EDITOR_MODBOT .")",
+        NONREPLICATED => 1,
     },
     "count.edit.type" => {
 	DESC => "Count of edits by type",
@@ -926,14 +968,17 @@ my %stats = (
     "count.cdstub" => {
         DESC => "Count of all existing CD Stubs",
         SQL => "SELECT COUNT(*) FROM release_raw",
+        NONREPLICATED => 1,
     },
     "count.cdstub.submitted" => {
         DESC => "Count of all submitted CD Stubs",
         SQL => "SELECT MAX(id) FROM release_raw",
+        NONREPLICATED => 1,
     },
     "count.cdstub.track" => {
         DESC => "Count of all CD Stub tracks",
         SQL => "SELECT COUNT(*) FROM track_raw",
+        NONREPLICATED => 1,
     },
 
     "count.artist.country" => {
@@ -977,33 +1022,39 @@ my %stats = (
                 "count.vote.approve"    => $dist{$VOTE_APPROVE} || 0,
             };
         },
+        NONREPLICATED => 1,
     },
     "count.vote.no" => {
         DESC => "Count of 'no' votes",
         PREREQ => [qw[ count.vote.yes ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.vote.abstain" => {
         DESC => "Count of 'abstain' votes",
         PREREQ => [qw[ count.vote.yes ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.vote.approve" => {
         DESC => "Count of auto-editor approvals",
         PREREQ => [qw[ count.vote.yes ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.vote.perday" => {
         DESC => "Count of votes per day",
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '1 day')
                   AND vote <> ". $VOTE_ABSTAIN,
+        NONREPLICATED => 1,
     },
     "count.vote.perweek" => {
         DESC => "Count of votes per week",
         SQL => "SELECT count(id) FROM vote
                 WHERE vote_time >= (now() - interval '7 days')
                   AND vote <> ". $VOTE_ABSTAIN,
+        NONREPLICATED => 1,
     },
 
     # count active moderators in last week(?)
@@ -1061,16 +1112,19 @@ my %stats = (
                 "count.editor.activelastweek"=> $both,
             };
         },
+        NONREPLICATED => 1,
     },
     "count.editor.votelastweek" => {
         DESC => "Count of editors who have voted on edits during the last week",
         PREREQ => [qw[ count.editor.editlastweek ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
     "count.editor.activelastweek" => {
         DESC => "Count of active editors (editing or voting) during the last week",
         PREREQ => [qw[ count.editor.editlastweek ]],
         PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
     },
 
     # To add?
@@ -1087,26 +1141,38 @@ my %stats = (
     "count.tag.raw.artist" => {
         DESC => "Count of all artist raw tags",
         SQL => "SELECT COUNT(*) FROM artist_tag_raw",
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.tag.raw.label" => {
         DESC => "Count of all label raw tags",
         SQL => "SELECT COUNT(*) FROM label_tag_raw",
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.tag.raw.releasegroup" => {
         DESC => "Count of all release-group raw tags",
         SQL => "SELECT COUNT(*) FROM release_group_tag_raw",
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.tag.raw.release" => {
         DESC => "Count of all release raw tags",
         SQL => "SELECT COUNT(*) FROM release_tag_raw",
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.tag.raw.recording" => {
         DESC => "Count of all recording raw tags",
         SQL => "SELECT COUNT(*) FROM recording_tag_raw",
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.tag.raw.work" => {
         DESC => "Count of all work raw tags",
         SQL => "SELECT COUNT(*) FROM work_tag_raw",
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
     "count.tag.raw" => {
         DESC => "Count of all raw tags",
@@ -1120,6 +1186,8 @@ my %stats = (
                    $self->fetch('count.tag.raw.work') +
                    $self->fetch('count.tag.raw.recording');
         },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
     },
 
     # Ratings
@@ -1560,12 +1628,14 @@ my %stats = (
 );
 
 sub recalculate {
-    my ($self, $statistic) = @_;
+    my ($self, $statistic, $output_file) = @_;
 
     my $definition = $stats{$statistic}
         or warn("Unknown statistic '$statistic'"), return;
 
     return if $definition->{PREREQ_ONLY};
+    return if $definition->{NONREPLICATED} && &DBDefs::REPLICATION_TYPE == RT_SLAVE;
+    return if $definition->{PRIVATE} && &DBDefs::REPLICATION_TYPE != RT_MASTER;
 
     my $db = $definition->{DB} || 'READWRITE';
     my $sql = $db eq 'READWRITE' ? $self->sql
@@ -1573,7 +1643,7 @@ sub recalculate {
 
     if (my $query = $definition->{SQL}) {
         my $value = $sql->select_single_value($query);
-		$self->insert($statistic => $value);
+                $self->insert($output_file, $statistic => $value);
         return;
     }
 
@@ -1581,9 +1651,9 @@ sub recalculate {
         my $output = $calculate->($self, $sql);
         if (ref($output) eq "HASH")
         {
-            $self->insert(%$output);
+            $self->insert($output_file, %$output);
         } else {
-            $self->insert($statistic => $output);
+            $self->insert($output_file, $statistic => $output);
         }
     }
 }
@@ -1591,6 +1661,7 @@ sub recalculate {
 sub recalculate_all
 {
     my $self = shift;
+    my $output_file = shift;
 
     my %notdone = %stats;
     my %done;
@@ -1606,7 +1677,7 @@ sub recalculate_all
             next if grep { $notdone{$_} } @$d;
 
             # $name has no unsatisfied dependencies.  Let's do it!
-            $self->recalculate($name);
+            $self->recalculate($name, $output_file);
 
             $done{$name} = delete $notdone{$name};
             ++$count;
