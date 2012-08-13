@@ -15,7 +15,8 @@ sub AUTOLOAD {
         body => [ map {
             ref($_) eq 'MusicBrainz::XML::Element'
                 ? $_
-                : bless(\"$_", 'MusicBrainz::XML::Text')
+                : defined($_) ? bless(\"$_", 'MusicBrainz::XML::Text')
+                              : ()
         } @_ ]
     }, 'MusicBrainz::XML::Element';
 }
