@@ -576,7 +576,7 @@ sub validate_tar
     );
 
     print localtime() . " : Pre-checking $tar\n";
-    system "$cat_cmd < $tar | head --bytes=102400 | tar -C $dir -xf- 2>/dev/null";
+    system "$cat_cmd < $tar | head -c 102400 | tar -C $dir -xf- 2>/dev/null";
 
     if (open(my $fh, "<", "$dir/SCHEMA_SEQUENCE"))
     {
