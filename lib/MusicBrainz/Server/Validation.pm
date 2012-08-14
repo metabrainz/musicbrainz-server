@@ -44,6 +44,7 @@ require Exporter;
         is_freedb_id
         is_valid_discid
         is_valid_barcode
+        is_valid_ean
         is_valid_isrc
         encode_entities
         normalise_strings
@@ -165,7 +166,7 @@ sub is_valid_barcode
     return $barcode =~ /^[0-9]+$/;
 }
 
-sub IsValidEAN
+sub is_valid_ean
 {
     my $ean = shift;
     my $length = length($ean);

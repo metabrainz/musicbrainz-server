@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::ReleaseEditor::Information;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( language_options script_options );
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Validation qw( is_valid_ean );
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -55,7 +56,7 @@ sub validate {
 
     unless (!defined $self->field('barcode')->value ||
             $self->field('barcode')->value eq '' ||
-            MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
+            is_valid_ean ($self->field('barcode')->value) ||
             $self->field('barcode_confirm')->value == 1)
     {
         $self->field('barcode')->add_error (

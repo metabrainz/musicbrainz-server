@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
 
-use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode );
+use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode is_valid_ean );
 
 test 'Test trim_in_place' => sub {
     my $a = '  ';
@@ -97,20 +97,20 @@ test 'Test is_valid_barcode' => sub {
     ok(!is_valid_barcode('129483615aaa'), "Invalid Barcode");
 };
 
-test 'Test IsValidEAN' => sub {
-    ok(!MusicBrainz::Server::Validation::IsValidEAN('1234567'), "Invalid EAN (7 chars)");
-    ok(MusicBrainz::Server::Validation::IsValidEAN('96385074'), "Valid EAN (8 chars)");
-    ok(!MusicBrainz::Server::Validation::IsValidEAN('96385076'), "Invalid EAN (8 chars)");
-    ok(MusicBrainz::Server::Validation::IsValidEAN('123456789999'), "Valid UPC (12 chars)");
-    ok(!MusicBrainz::Server::Validation::IsValidEAN('123456789997'), "Invalid UPC (12 chars)");
-    ok(MusicBrainz::Server::Validation::IsValidEAN('5901234123457'), "Valid EAN (13 chars)");
-    ok(!MusicBrainz::Server::Validation::IsValidEAN('5901234123459'), "Invalid EAN (13 chars)");
-    ok(MusicBrainz::Server::Validation::IsValidEAN('12345678901231'), "Valid GTIN (14 chars)");
-    ok(!MusicBrainz::Server::Validation::IsValidEAN('12345678901234'), "Invalid GTIN (14 chars)");
-    ok(MusicBrainz::Server::Validation::IsValidEAN('12345678912345675'), "Valid (17 chars)");
-    ok(!MusicBrainz::Server::Validation::IsValidEAN('12345678912345677'), "Invalid (17 chars)");
-    ok(MusicBrainz::Server::Validation::IsValidEAN('123456789123456789'), "Valid SSCC (18 chars)");
-    ok(!MusicBrainz::Server::Validation::IsValidEAN('123456789123456787'), "Invalid SSCC (18 chars)");
+test 'Test is_valid_ean' => sub {
+    ok(!is_valid_ean('1234567'), "Invalid EAN (7 chars)");
+    ok(is_valid_ean('96385074'), "Valid EAN (8 chars)");
+    ok(!is_valid_ean('96385076'), "Invalid EAN (8 chars)");
+    ok(is_valid_ean('123456789999'), "Valid UPC (12 chars)");
+    ok(!is_valid_ean('123456789997'), "Invalid UPC (12 chars)");
+    ok(is_valid_ean('5901234123457'), "Valid EAN (13 chars)");
+    ok(!is_valid_ean('5901234123459'), "Invalid EAN (13 chars)");
+    ok(is_valid_ean('12345678901231'), "Valid GTIN (14 chars)");
+    ok(!is_valid_ean('12345678901234'), "Invalid GTIN (14 chars)");
+    ok(is_valid_ean('12345678912345675'), "Valid (17 chars)");
+    ok(!is_valid_ean('12345678912345677'), "Invalid (17 chars)");
+    ok(is_valid_ean('123456789123456789'), "Valid SSCC (18 chars)");
+    ok(!is_valid_ean('123456789123456787'), "Invalid SSCC (18 chars)");
 };
 
 test 'Test encode_entities' => sub {
