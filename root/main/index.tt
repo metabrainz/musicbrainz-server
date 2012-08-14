@@ -2,6 +2,7 @@
     <div id="sidebar">
       <div id="blog-feed" class="triple-column">
         <h2>[% l('MusicBrainz Blog') %]</h2>
+        [% IF blog.defined %]
         <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
         <ul style="margin: 0; padding-left: 20px;">
           [% FOR item IN blog.items %]
@@ -12,6 +13,9 @@
         <p style="margin: 1em 0; text-align: right;">
           <strong><a href="http://blog.musicbrainz.org">[% l('Read more &raquo;') %]</a></strong>
         </p>
+        [% ELSE %]
+        <p style="margin: 0; text-align: center">[% l('The blog currently unavailable.') %]</p>
+        [% END %]
       </div>
 
       <div style="float: right;">
