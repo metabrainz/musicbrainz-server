@@ -376,6 +376,9 @@ sub linked_recordings
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$recordings);
+        my @artists = map  { $_->artist }
+                      map @{ $_->artist_credit->names }, @$recordings;
+        $self->linked_artists($c, $stash, \@artists);
     }
 
     $self->_tags_and_ratings($c, 'Recording', $recordings, $stash);
