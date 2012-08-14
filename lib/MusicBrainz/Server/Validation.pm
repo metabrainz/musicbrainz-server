@@ -91,8 +91,6 @@ sub is_guid
     1;
 }
 
-sub IsGUID { goto \&is_guid }
-
 sub TrimInPlace
 {
     carp "Uninitialized value passed to TrimInPlace"

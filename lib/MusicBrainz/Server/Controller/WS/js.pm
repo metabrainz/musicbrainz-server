@@ -14,6 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     hash_structure
 );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
 
@@ -318,7 +319,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    unless (MusicBrainz::Server::Validation::IsGUID($gid)) {
+    unless (is_guid($gid)) {
         $c->stash->{error} = "$gid is not a valid MusicBrainz ID.";
         $c->detach('bad_req');
         return;

@@ -5,8 +5,8 @@ BEGIN { extends 'Catalyst::Controller'; }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Data::Utils qw( object_to_ids );
+use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Try::Tiny;
 
@@ -487,7 +487,7 @@ sub _validate_entity
 
     my $model = type_to_model ($entity);
 
-    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!$gid || !is_guid($gid))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

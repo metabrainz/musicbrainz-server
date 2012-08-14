@@ -26,17 +26,15 @@ test 'Test is_positive_integer' => sub {
     ok(!is_positive_integer({blah => 'foo', bar => 3}), "Passing hashref to is_positive_integer");
 };
 
-test 'Test IsGUID' => sub {
+test 'Test is_guid' => sub {
     my $valid_guid = 'abcdef89-4444-5555-789a-1432abcdef88';
-    ok(MusicBrainz::Server::Validation::IsGUID($valid_guid), "Actual GUID");
-    ok(!MusicBrainz::Server::Validation::IsGUID('abcdef89-4444'), "Incomplete GUID");
-    ok(!MusicBrainz::Server::Validation::IsGUID('00000000a0000-0000-0000-000000000000'), "Incorrect format with correct length");
-    ok(!MusicBrainz::Server::Validation::IsGUID('00000000-0000-0000-0000-000000000000'), "All 0s fails");
-    ok(!MusicBrainz::Server::Validation::IsGUID(undef), "Passing undef to IsGUID");
-    ok(!MusicBrainz::Server::Validation::IsGUID([1, 2, 3, 4]), "Passing arrayref to IsGUID");
-    ok(!MusicBrainz::Server::Validation::IsGUID({blah => 'foo', bar => 3}), "Passing hashref to IsGUID");
-
-    ok(is_guid($valid_guid), "Test is_guid alias");
+    ok(is_guid($valid_guid), "Actual GUID");
+    ok(!is_guid('abcdef89-4444'), "Incomplete GUID");
+    ok(!is_guid('00000000a0000-0000-0000-000000000000'), "Incorrect format with correct length");
+    ok(!is_guid('00000000-0000-0000-0000-000000000000'), "All 0s fails");
+    ok(!is_guid(undef), "Passing undef to is_guid");
+    ok(!is_guid([1, 2, 3, 4]), "Passing arrayref to is_guid");
+    ok(!is_guid({blah => 'foo', bar => 3}), "Passing hashref to is_guid");
 };
 
 test 'Test IsValidURL/is_valid_url' => sub {
