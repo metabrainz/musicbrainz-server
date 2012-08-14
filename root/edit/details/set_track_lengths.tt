@@ -32,7 +32,7 @@
 
   <tr>
     <th>[% l('Track lengths:') %]</th>
-    <td>
+    <td class="column-container">
         [%- FOR length = edit.display_data.length.old %]
           <table class="wrap-block">
              <tr>
@@ -40,8 +40,8 @@
              [%-
              old_length = edit.display_data.length.old.${ loop.index } | format_length;
              new_length = edit.display_data.length.new.${ loop.index } | format_length; %]
-             <td><table><tr><td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td></tr>
-             <tr><td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td></tr></table></td>
+             <td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td>
+             <td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td>
              </tr>
           </table>
         [%- END -%]

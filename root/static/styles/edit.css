@@ -82,12 +82,22 @@ table.vote-tally .date {
 
 .wrap-block {
     display: inline-block;
-    width: 70px;
+    width: 100px;
+    margin-bottom: -5px;
+}
+
+.column-container {
+    -webkit-column-width: 100px;
+    -webkit-column-gap: 0.5em;
+    -moz-column-width: 100px;
+    -moz-column-gap: 0.5em;
+    column-width: 100px;
+    column-gap: 0.5em;
 }
 
 .wrap-block .track-number {
-    width: 100%;
     text-align: right;
+    width: 20px;
 }
 
 /*
