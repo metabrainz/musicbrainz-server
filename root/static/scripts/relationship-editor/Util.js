@@ -139,22 +139,6 @@ Util.isMBID = function(str) {
 };
 
 
-var entityRelations = {
-    'artist-recording': 1, 'artist-release': 1, 'artist-work': 1,
-    'label-recording':  1, 'label-release':  1, 'label-work':  1,
-    'recording-url':    0, 'recording-work': 0, 'release-url': 0, 'url-work': 1,
-};
-// given a link type and a direction, tells us what the source is
-
-Util.src = function(linkType, backward) {
-    if (!linkType) return null;
-    var types = RE.typeInfo[linkType].types, str = types.join("-");
-
-    return ((types[0] == types[1] || str == "recording-release" || str == "recording-work")
-        ? (backward ? 1 : 0) : entityRelations[str]);
-};
-
-
 Util.type = function(linkType) {
     var info = RE.typeInfo[linkType];
     return info ? info.types.join("-") : null;

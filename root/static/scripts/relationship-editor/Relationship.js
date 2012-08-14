@@ -117,10 +117,24 @@ var Relationship = function(obj) {
 };
 
 
-var computeEntities = function() {
-    var src = Util.src(this.link_type(), this.backward());
-    return src == 0 ? [this.source, this.target()] : [this.target(), this.source];
-};
+var computeEntities = (function() {
+
+    var relations = {
+        "artist-recording": 1, "artist-release": 1, "artist-work": 1,
+        "label-recording":  1, "label-release":  1, "label-work":  1,
+        "recording-url":    0, "recording-work": 0, "release-url": 0, "url-work": 1,
+    },
+        rrw = /recording\-(release|work)/;
+
+    return function() {
+        var types = RE.typeInfo[this.link_type()].types, str = types.join("-"), result = [],
+            src = (types[0] == types[1] || rrw.test(str)) ? (this.backward() ? 1 : 0) : relations[str];
+
+        result[src] = this.source;
+        result[1 - src] = this.target();
+        return result;
+    };
+}());
 
 
 Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable) {
