@@ -132,6 +132,7 @@ sub release_toplevel
                 grep { $_->target_type eq 'work' }
                 map { $_->all_relationships } @rels_entities;
             $c->model('Relationship')->load_subset($types, @works);
+            $self->linked_works($c, $stash, \@works);
         }
     }
 

@@ -47,7 +47,6 @@ sub work_toplevel
     }
 
     $c->model('WorkType')->load($work);
-    $c->model('ISWC')->load_for_works($work);
     $c->model('Language')->load($work);
 }
 

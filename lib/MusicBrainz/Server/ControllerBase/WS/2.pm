@@ -438,6 +438,8 @@ sub linked_works
 {
     my ($self, $c, $stash, $works) = @_;
 
+    $c->model('ISWC')->load_for_works(@$works);
+
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Work')->alias->find_by_entity_id(map { $_->id } @$works) };
