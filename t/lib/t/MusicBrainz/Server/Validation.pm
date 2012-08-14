@@ -2,15 +2,15 @@ package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
 
-use MusicBrainz::Server::Validation qw( is_positive_integer is_guid  is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode );
+use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode );
 
-test 'Test TrimInPlace' => sub {
+test 'Test trim_in_place' => sub {
     my $a = '  ';
     my $b = ' a ';
     my $c = ' a  b  ';
     my $d = ' a  b  c ';
 
-    MusicBrainz::Server::Validation::TrimInPlace($a, $b, $c, $d);
+    trim_in_place($a, $b, $c, $d);
 
     is( $a, '' );
     is( $b, 'a' );

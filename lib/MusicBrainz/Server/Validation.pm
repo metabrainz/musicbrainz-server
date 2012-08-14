@@ -35,6 +35,7 @@ require Exporter;
         unaccent_utf16
         is_positive_integer
         is_guid
+        trim_in_place
         is_valid_iswc
         format_iswc
         is_valid_ipi
@@ -91,9 +92,9 @@ sub is_guid
     1;
 }
 
-sub TrimInPlace
+sub trim_in_place
 {
-    carp "Uninitialized value passed to TrimInPlace"
+    carp "Uninitialized value passed to trim_in_place"
         if grep { not defined } @_;
     for (@_)
     {
