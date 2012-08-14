@@ -148,13 +148,6 @@ sub is_valid_url
     return 1;
 }
 
-sub IsValidURL
-{
-    my ($class, $url) = @_;
-
-    return is_valid_url($url);
-}
-
 sub is_freedb_id {
     my $id = shift;
     return lc($id) =~ /^[a-f0-9]{8}$/;

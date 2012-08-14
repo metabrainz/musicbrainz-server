@@ -37,14 +37,7 @@ test 'Test is_guid' => sub {
     ok(!is_guid({blah => 'foo', bar => 3}), "Passing hashref to is_guid");
 };
 
-test 'Test IsValidURL/is_valid_url' => sub {
-    ok(MusicBrainz::Server::Validation->IsValidURL('http://musicbrainz.org/'), 'Valid URL');
-    ok(MusicBrainz::Server::Validation->IsValidURL('urn:isbn:0451450523'), 'URN');
-    ok(!MusicBrainz::Server::Validation->IsValidURL(' http://musicbrainz.org'), 'Contains a space');
-    ok(!MusicBrainz::Server::Validation->IsValidURL('../lol.html'), 'Relative URI');
-    ok(!MusicBrainz::Server::Validation->IsValidURL('://lol.org'), 'No scheme');
-    ok(!MusicBrainz::Server::Validation->IsValidURL('http://blah/'), 'No period in authority');
-
+test 'Test is_valid_url' => sub {
     ok(is_valid_url('http://musicbrainz.org/'), 'Valid URL');
     ok(is_valid_url('urn:isbn:0451450523'), 'URN');
     ok(!is_valid_url(' http://musicbrainz.org'), 'Contains a space');
