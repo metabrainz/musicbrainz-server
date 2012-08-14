@@ -36,11 +36,11 @@
           [% IF guess_search && pager.last_page > 1 %]
             [%- ln('Found {n} edit', 'Found at least {n} edits' ,
                     pager.total_entries,
-                    { n => add_commas(pager.total_entries) }) -%]
+                    { n => add_commas(pager.total_entries || 0) }) -%]
           [% ELSE %]
             [%- ln('Found {n} edit', 'Found {n} edits' ,
                     pager.total_entries,
-                    { n => add_commas(pager.total_entries) }) -%]
+                    { n => add_commas(pager.total_entries || 0) }) -%]
           [% END %]
         </strong>
     </p>
