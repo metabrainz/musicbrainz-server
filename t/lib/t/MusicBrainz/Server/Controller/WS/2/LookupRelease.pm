@@ -113,8 +113,8 @@ ws_test 'release lookup with artists + aliases',
     </release>
 </metadata>';
 
-ws_test 'release lookup with labels and recordings',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings' =>
+ws_test 'release lookup with labels, recordings and tags',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=labels+recordings+tags' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
@@ -142,6 +142,9 @@ ws_test 'release lookup with labels and recordings',
                         <length>243000</length>
                         <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
                             <title>the Love Bug</title><length>242226</length>
+                            <tag-list>
+                                <tag count="1"><name>kpop</name></tag>
+                            </tag-list>
                         </recording>
                     </track>
                     <track>
@@ -149,6 +152,9 @@ ws_test 'release lookup with labels and recordings',
                         <length>222000</length>
                         <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
                             <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
+                            <tag-list>
+                                <tag count="1"><name>jpop</name></tag>
+                            </tag-list>
                         </recording>
                     </track>
                     <track>
@@ -156,6 +162,9 @@ ws_test 'release lookup with labels and recordings',
                         <length>333000</length>
                         <recording id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
                             <title>the Love Bug (cover)</title><length>333000</length>
+                            <tag-list>
+                                <tag count="1"><name>c-pop</name></tag>
+                            </tag-list>
                         </recording>
                     </track>
                 </track-list>

@@ -125,15 +125,16 @@ sub release_toplevel
         my $types = $c->stash->{inc}->get_rel_types();
         $c->model('Relationship')->load_subset($types, @rels_entities);
 
+        my @works =
+            map { $_->target }
+            grep { $_->target_type eq 'work' }
+            map { $_->all_relationships } @rels_entities;
+
         if ($c->stash->{inc}->work_level_rels)
         {
-            my @works =
-                map { $_->target }
-                grep { $_->target_type eq 'work' }
-                map { $_->all_relationships } @rels_entities;
             $c->model('Relationship')->load_subset($types, @works);
-            $self->linked_works($c, $stash, \@works);
         }
+        $self->linked_works($c, $stash, \@works);
     }
 
     if ($c->stash->{inc}->collections)
