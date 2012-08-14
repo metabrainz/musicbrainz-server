@@ -33,26 +33,18 @@
   <tr>
     <th>[% l('Track lengths:') %]</th>
     <td>
-        <table class="wrap-block">
         [%- FOR length = edit.display_data.length.old %]
+          <table class="wrap-block">
              <tr>
-             <td><strong>[% loop.count() %].</strong></td>
-             [%- 
+             <td class="track-number"><strong>[% loop.count() %].</strong></td>
+             [%-
              old_length = edit.display_data.length.old.${ loop.index } | format_length;
              new_length = edit.display_data.length.new.${ loop.index } | format_length; %]
-             <td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td>
-             <td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td>
+             <td><table><tr><td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td></tr>
+             <tr><td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td></tr></table></td>
              </tr>
-        [% IF loop.count() % 5 == 0 %]</table>
-        <table class="wrap-block">[%- END -%]
+          </table>
         [%- END -%]
-        [%-# Add extra rows of hidden padding so the tables line up properly -%]
-        [%- i = (5 - (edit.display_data.length.old.size % 5)) -%]
-        [%- WHILE i > 0 %]
-             <tr style="visibility:hidden"><td><strong>0</strong></td><td class="old">0</td></tr>
-             [%- i = i - 1 -%]
-        [%- END %]
-        </table>
     </td>
   </tr>
 

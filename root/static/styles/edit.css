@@ -82,6 +82,12 @@ table.vote-tally .date {
 
 .wrap-block {
     display: inline-block;
+    width: 70px;
+}
+
+.wrap-block .track-number {
+    width: 100%;
+    text-align: right;
 }
 
 /*
