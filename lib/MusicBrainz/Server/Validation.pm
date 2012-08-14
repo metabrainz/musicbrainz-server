@@ -32,18 +32,20 @@ require Exporter;
 {
     our @ISA = qw( Exporter );
     our @EXPORT_OK = qw(
-        encode_entities
-        is_valid_isrc
+        unaccent_utf16
+        is_positive_integer
+        is_guid
         is_valid_iswc
-        is_valid_ipi
         format_iswc
+        is_valid_ipi
         format_ipi
         is_valid_url
-        is_positive_integer
-        is_valid_discid
-        is_guid
-        normalise_strings
         is_freedb_id
+        is_valid_discid
+        is_valid_barcode
+        is_valid_isrc
+        encode_entities
+        normalise_strings
     )
 }
 
@@ -69,7 +71,7 @@ sub is_positive_integer
     defined($t) and not ref($t) and $t =~ /\A(\d{1,20})\z/;
 }
 
-sub IsGUID
+sub is_guid
 {
     my $t = $_[0];
     defined($t) and not ref($t) or return undef;
@@ -89,7 +91,7 @@ sub IsGUID
     1;
 }
 
-sub is_guid { goto \&IsGUID }
+sub IsGUID { goto \&is_guid }
 
 sub TrimInPlace
 {
@@ -165,7 +167,7 @@ sub is_valid_discid
     return $discid =~ /^[A-Za-z0-9._-]{27}-/;
 }
 
-sub IsValidBarcode
+sub is_valid_barcode
 {
     my $barcode = shift;
     return $barcode =~ /^[0-9]+$/;
