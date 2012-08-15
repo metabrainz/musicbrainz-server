@@ -14,7 +14,7 @@
           <strong><a href="http://blog.musicbrainz.org">[% l('Read more &raquo;') %]</a></strong>
         </p>
         [% ELSE %]
-        <p style="margin: 0; text-align: center">[% l('The blog currently unavailable.') %]</p>
+        <p style="margin: 0; text-align: center">[% l('The blog is currently unavailable.') %]</p>
         [% END %]
       </div>
 
