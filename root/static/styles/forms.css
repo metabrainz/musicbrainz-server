@@ -7,7 +7,7 @@ input[disabled] { background: #DCDAD5; cursor: default; }
 button.nobutton:focus,
 button.nobutton:hover,
 button.nobutton {
-    background: inherit;
+    background: transparent;
     color: inherit;
     font-size: inherit;
     font-style: inherit;
@@ -42,8 +42,11 @@ form div.row div.label {
 }
 
 div.form-row-text-list { margin-left: 144px; }
+div.form-row-text-list button > img { vertical-align: middle; }
 div.half-width fieldset div.text-list-row > input { width: 278px; }
 
+div.form-row-add button { text-align: right; }
+div.form-row-add span.add-row { display: inline-block; width: 278px; padding: 2px; }
 
 div.bubble div.row input[type=text] {
     width: 176px;

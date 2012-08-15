@@ -1,8 +1,9 @@
 package t::MusicBrainz::Server::Controller::Work::Edit;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( capture_edits html_ok );
 use HTTP::Request::Common;
+use List::UtilsBy qw( sort_by );
 
 with 't::Mechanize', 't::Context';
 
@@ -17,20 +18,25 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-$mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
-html_ok($mech->content);
-my $request = POST $mech->uri, [
-    'edit-work.comment' => 'A comment!',
-    'edit-work.type_id' => 2,
-    'edit-work.name' => 'Another name'
-];
+my @edits = capture_edits {
+    $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
+    html_ok($mech->content);
+    my $request = POST $mech->uri, [
+        'edit-work.comment' => 'A comment!',
+        'edit-work.type_id' => 2,
+        'edit-work.name' => 'Another name',
+        'edit-work.iswcs.0' => 'T-000.000.002-0'
+    ];
+    my $response = $mech->request($request);
+} $c;
 
-my $response = $mech->request($request);
+@edits = sort_by { $_->id } @edits;
+
 ok($mech->success);
 ok($mech->uri =~ qr{/work/745c079d-374e-4436-9448-da92dedef3ce$});
 html_ok($mech->content);
 
-my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+my $edit = $edits[0];
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
 is_deeply($edit->data, {
     entity => {
@@ -56,6 +62,33 @@ $mech->text_contains('Dancing Queen', '..has old name');
 $mech->text_contains('Symphony', '..has new work type');
 $mech->text_contains('Composition', '..has old work type');
 $mech->text_contains('A comment!', '..has new comment');
+
+$edit = $edits[1];
+isa_ok($edit, 'MusicBrainz::Server::Edit::Work::AddISWCs');
+is_deeply($edit->data, {
+    iswcs => [ {
+        iswc => 'T-000.000.002-0',
+        work => {
+            id => 1,
+            name => 'Dancing Queen'
+        }
+    } ]
+});
+
+$edit = $edits[2];
+isa_ok($edit, 'MusicBrainz::Server::Edit::Work::RemoveISWC');
+my @iswc = $c->model('ISWC')->find_by_iswc('T-000.000.001-0');
+
+is_deeply($edit->data, {
+    iswc => {
+        id => $iswc[0]->id,
+        iswc => 'T-000.000.001-0',
+    },
+    work => {
+        id => 1,
+        name => 'Dancing Queen'
+    }
+});
 
 };
 
