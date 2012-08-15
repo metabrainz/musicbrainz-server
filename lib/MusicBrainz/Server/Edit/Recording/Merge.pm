@@ -37,6 +37,29 @@ before build_display_data => sub {
     );
 };
 
+sub bulk_load {
+    my ($class, $c, @edits) = @_;
+
+    my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
+        $_->recording_ids
+    } @edits);
+
+    $result_map{$_}->extra(
+        [ map { $_->[0] } @{ $recording_releases_map{$_} } ]
+    ) for keys %recording_releases_map;
+
+            my @releases = map { @{ $_->extra } } @$results;
+            $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+            $c->model('Medium')->load_for_releases(@releases);
+            $c->model('Tracklist')->load(map { $_->all_mediums } @releases);
+            $c->model('Track')->load_for_tracklists(map { $_->tracklist }
+                                                    map { $_->all_mediums } @releases);
+            $c->model('Recording')->load(map { $_->tracklist->all_tracks }
+                                         map { $_->all_mediums } @releases);
+            $c->model('ISRC')->load_for_recordings(map { $_->entity } @$results);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -1,16 +1,41 @@
+[% MACRO recording_table(recordings) BLOCK %]
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th>[% l('Name') %]</th>
+        <th class="treleases">[% l('Length') %]</th>
+        <th>[% l('Artist') %]</th>
+        <th>[% l('ISRCs') %]</th>
+        <th>[% l('Release') %]</th>
+        <th class="t pos">[% l('Track') %]</th>
+        <th>[% l('Medium') %]</th>
+        <th>[% l('Type') %]</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOR recording=recordings %]
+      <tr[% ' class="ev"' IF linenum % 2 == 0 %]>
+        <td>[% link_entity(recording) %]</td>
+        <td>[% recording.length | format_length %]</td>
+        <td>[% artist_credit(recording.artist_credit) %]</td>
+        <td>
+          [% FOR isrc=recording.isrcs %]
+            [% link_isrc(isrc.isrc) %]<br />
+          [% END %]
+        </td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
+[% END %]
+
 <table class="details merge-recordings">
   <tr>
     <th>[% l('Merge:') %]</th>
-    <td>
-      [% INCLUDE 'artist/recordings-list.tt' recordings=edit.display_data.old
-           show_artists=1 no_prefix=1 no_ratings=1 %]
-    </td>
+    <td>[% recording_table(edit.display_data.old) %]</td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
-    <td>
-      [% INCLUDE 'artist/recordings-list.tt' recordings=[edit.display_data.new]
-            show_artists=1 no_prefix=1 no_ratings=1 %]
-    </td>
+    <td>[% recording_table(edit.display_data.new) %]</td>
   </tr>
 </table>
