@@ -1,5 +1,0 @@
-[%- MACRO annotation_link(entity) BLOCK -%]
-    <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
-        [%- l('View annotation history.') -%]
-    </a>
-[%- END -%]
