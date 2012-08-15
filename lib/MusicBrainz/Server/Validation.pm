@@ -200,8 +200,6 @@ sub is_valid_isrc
 my %ent = ( '>' =>  '&gt;', '<' => '&lt;', q/"/ => '&quot;', q/'/ => '&#39;', '&' => '&amp;');
 sub encode_entities
 {
-    ${ $_[0] } =~ s/([<>"'&])/$ent{$1}/go, return
-        if not defined wantarray;
     my $t = $_[0];
     $t =~ s/([<>"'&])/$ent{$1}/go;
     $t;

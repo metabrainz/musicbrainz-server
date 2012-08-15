@@ -9,13 +9,15 @@ test 'Test trim_in_place' => sub {
     my $b = ' a ';
     my $c = ' a  b  ';
     my $d = ' a  b  c ';
+    my $e = undef;
 
-    trim_in_place($a, $b, $c, $d);
+    trim_in_place($a, $b, $c, $d, $e);
 
     is( $a, '' );
     is( $b, 'a' );
     is( $c, 'a b' );
     is( $d, 'a b c' );
+    is( $e, '' );
 };
 
 test 'Test is_positive_integer' => sub {
