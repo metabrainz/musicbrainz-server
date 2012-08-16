@@ -142,31 +142,6 @@ releaseViewModel = {
 };
 
 
-RE.init = function() {
-    RE.attrRoots = {};
-
-    for (var id in RE.attrMap) {
-        var attr = RE.attrMap[id];
-        if (!attr.parent) RE.attrRoots[attr.name] = attr;
-    }
-
-    var foo = RE.typeInfoByEntities = {};
-
-    $.each(RE.typeInfo, function(id, root) {
-        if (root.parent) return;
-        var entities = root.types.join("-");
-        (foo[entities] = foo[entities] || []).push(root);
-    });
-
-    $.each(foo, function(entities, children) {
-        children.sort(function(a, b) {
-            return a.child_order - b.child_order;
-        });
-    });
-    delete foo;
-};
-
-
 UI.init = function(releaseGID) {
     releaseViewModel.GID = releaseGID;
 

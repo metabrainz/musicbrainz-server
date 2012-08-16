@@ -12,6 +12,34 @@ use JSON;
 
 with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
+sub build_type_info
+{
+    my ($tree) = @_;
+
+    sub _builder
+    {
+        my ($root, $info) = @_;
+
+        if ($root->id) {
+            my %attrs = map { $_->type_id => [
+                defined $_->min ? 0 + $_->min : undef,
+                defined $_->max ? 0 + $_->max : undef,
+            ] } $root->all_attributes;
+            $info->{$root->id} = {
+                descr => $root->description,
+                attrs => \%attrs,
+            };
+        }
+        foreach my $child ($root->all_children) {
+            _builder($child, $info);
+        }
+    }
+
+    my %type_info;
+    _builder($tree, \%type_info);
+    return %type_info;
+}
+
 =method detach_existing
 
 Notify the user that the relationship already exists, and do not do any more
@@ -39,7 +67,7 @@ sub edit : Local RequireAuth Edit
     $c->model('Relationship')->load_entities($rel);
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
-    my %type_info = $c->model('LinkType')->build_type_info($tree);
+    my %type_info = build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(
@@ -179,7 +207,7 @@ sub create : Local RequireAuth Edit
     }
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
-    my %type_info = $c->model('LinkType')->build_type_info($tree);
+    my %type_info = build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(
@@ -270,7 +298,7 @@ sub create_url : Local RequireAuth Edit
     }
 
     my $tree = $c->model('LinkType')->get_tree(@types);
-    my %type_info = $c->model('LinkType')->build_type_info($tree);
+    my %type_info = build_type_info($tree);
 
     if (!%type_info) {
         $c->stash(

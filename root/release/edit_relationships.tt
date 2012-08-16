@@ -3,11 +3,7 @@
     <script type="text/javascript">//<![CDATA[
     $(function() {
         var RE = MB.RelationshipEditor;
-
-        RE.typeInfo = [% type_info %];
-        RE.attrMap = [% attr_map %];
-
-        RE.init();
+        RE.Util.init([% type_info %], [% attr_info %]);
         RE.UI.init("[% release.gid %]");
     });
     //]]></script>

@@ -30,14 +30,14 @@ ko.bindingHandlers.selectAttribute = (function() {
 
     function build(relationshipAttrs, attr, indent, doc) {
 
-        for (var i = 0, id; id = attr.children[i]; i++) {
-            var child = RE.attrMap[id], opt = document.createElement("option"),
+        for (var i = 0, child; child = attr.children[i]; i++) {
+            var opt = document.createElement("option"),
                 attrs = relationshipAttrs[child.name];
 
-            opt.value = id;
+            opt.value = child.id;
             opt.innerHTML = _.repeat("&#160;&#160;", indent) + child.name;
             if (child.unaccented) opt.setAttribute("data-unaccented", child.unaccented);
-            if (attrs && attrs.indexOf(id) > -1) opt.selected = true;
+            if (attrs && attrs.indexOf(child.id) > -1) opt.selected = true;
             doc.appendChild(opt);
 
             if (child.children) build(relationshipAttrs, child, indent + 1, doc);
@@ -79,12 +79,12 @@ ko.bindingHandlers.linkType = (function() {
     var previousType, previousDirection;
 
     function build(root, indent, backward, doc) {
-        var phrase = backward ? root.reverse_link_phrase : root.link_phrase;
+        var phrase = backward ? root.reverse_phrase : root.phrase;
 
         // remove {foo} {bar} junk, unless it's for a required attribute.
         var orig_phrase = phrase, re = /\{(.*?)(?::(.*?))?\}/g, m, repl;
         while (m = re.exec(orig_phrase)) {
-            var attr = RE.attrRoots[m[1]], info = root.attrs[attr.id];
+            var attr = Util.attrRoot(m[1]), info = root.attrs[attr.id];
             if (info[0] < 1) {
                 repl = (m[2] ? m[2].split("|")[1] : "") || "";
                 phrase = phrase.replace(m[0], repl);
@@ -96,15 +96,15 @@ ko.bindingHandlers.linkType = (function() {
         root.descr || (opt.disabled = true);
         doc.appendChild(opt);
 
-        root.children && $.each(root.children, function(i, id) {
-            build(RE.typeInfo[id], indent + 1, backward, doc);
+        root.children && $.each(root.children, function(i, child) {
+            build(child, indent + 1, backward, doc);
         });
     };
 
     var getOptions = _.memoize(function(type, backward) {
         var doc = document.createDocumentFragment();
 
-        $.each(RE.typeInfoByEntities[type], function(i, root) {
+        $.each(Util.typeInfoByEntities(type), function(i, root) {
             build(root, 0, backward, doc);
         });
         return doc;
@@ -234,7 +234,7 @@ var Dialog = UI.Dialog = {
                 if (oldValue !== newValue) {
                     // if we cancelled an add dialog, the temporary relationship
                     // must be deleted.
-                    if (oldValue && !oldValue.exists) oldValue.remove();
+                    if (oldValue && !oldValue.visible) oldValue.remove();
 
                     value(newValue);
                 }
@@ -248,6 +248,7 @@ var Dialog = UI.Dialog = {
         this.emptyRelationship = RE.Relationship({
             source: Util.tempEntity("recording"),
             target: Util.tempEntity("artist"),
+            backward: true
         }, false);
 
         this.relationship(this.emptyRelationship);
@@ -326,7 +327,7 @@ var Dialog = UI.Dialog = {
 
     linkTypeDescription: ko.computed({
         read: function() {
-            var info = RE.typeInfo[Dialog.relationship().link_type()];
+            var info = Util.typeInfo(Dialog.relationship().link_type());
             return info ? info.descr : "";
         },
         // at the time this is declared, Dialog.relationship() is not set,
@@ -408,17 +409,17 @@ Dialog.attributes = (function() {
     }
 
     build = function(linkType) {
-        var attributes = [], typeInfo = RE.typeInfo[linkType], id;
+        var attributes = [], typeInfo = Util.typeInfo(linkType), id;
         if (!typeInfo) return attributes;
 
         var allowedAttrs = typeInfo.attrs ? MB.utility.keys(typeInfo.attrs) : [];
 
         allowedAttrs.sort(function(a, b) {
-            return RE.attrMap[a].child_order - RE.attrMap[b].child_order;
+            return Util.attrInfo(a).child_order - Util.attrInfo(b).child_order;
         });
 
         for (var i = 0; id = allowedAttrs[i]; i++)
-            attributes.push(new Attribute(RE.attrMap[id], typeInfo.attrs[id]));
+            attributes.push(new Attribute(Util.attrInfo(id), typeInfo.attrs[id]));
 
         value(attributes);
     };
