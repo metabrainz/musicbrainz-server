@@ -1,14 +1,4 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
-[%- MACRO better_name(type_name) BLOCK -%]
-    [%- IF type_name == 'artist'; l('Artist');
-    ELSIF type_name == 'release'; l('Release');
-    ELSIF type_name == 'recording'; l('Recording');
-    ELSIF type_name == 'release_group'; l('Release Group');
-    ELSIF type_name == 'work'; l('Work');
-    ELSIF type_name == 'label'; l('Label');
-    ELSIF type_name == 'url'; l('URL');
-    END -%]
-[%- END -%]
 
 [%- MACRO print_type(type, indent, base, parent) BLOCK -%]
 <tr>
