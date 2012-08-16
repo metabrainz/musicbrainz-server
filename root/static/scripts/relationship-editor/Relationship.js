@@ -41,17 +41,14 @@ mapping.end_date = mapping.begin_date;
 
 
 RE.Relationship = function(obj, tryToMerge) {
-    obj.link_type = obj.link_type || Util.defaultLinkType(obj.source.type, obj.target.type);
-    var type = Util.type(obj.link_type), relationship, _cache;
+    obj.link_type = obj.link_type || defaultLinkType(obj.source.type, obj.target.type);
+    var type = Util.types(obj.link_type), relationship, c = cache[type] = cache[type] || {};
 
-    if ((_cache = cache[type]) === undefined) _cache = cache[type] = {};
-    if (obj.id === undefined) obj.id = _.uniqueId("new-");
-
-    if ((relationship = _cache[obj.id]) === undefined)
-        relationship = _cache[obj.id] = new Relationship(obj);
+    if (!obj.id) obj.id = _.uniqueId("new-");
+    relationship = c[obj.id] || (c[obj.id] = new Relationship(obj));
 
     if (tryToMerge && relationship.source.mergeRelationship(relationship)) {
-        delete _cache[obj.id];
+        delete c[obj.id];
         return null;
     }
     return relationship;
@@ -61,19 +58,20 @@ RE.Relationship = function(obj, tryToMerge) {
 var Relationship = function(obj) {
     var self = this;
 
-    this.exists = false; // new relationships still being edited don't exist
-
+    this.visible = false; // new relationships still being edited aren't visible
     this.id = obj.id;
     this.changeCount = 0;
     this.errorCount = 0;
     this.action = ko.observable(obj.action || "");
     this.hasErrors = ko.observable(false);
 
-    this.link_type = new Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
+    this.link_type = new Fields.Integer(obj.link_type ||
+        defaultLinkType(obj.source.type, obj.target.type))
+            .extend({field: [this, "link_type"]});
+
     this.begin_date = new Fields.PartialDate();
     this.end_date = new Fields.PartialDate();
     this.backward = ko.observable(false);
-    this.type = new Fields.Type(this);
     this.attributes = new Fields.Attributes(this);
 
     this.dateRendering = ko.computed({read: this.renderDate, owner: this})
@@ -87,11 +85,12 @@ var Relationship = function(obj) {
     obj.source.refcount += 1;
     this.source = obj.source; // source can't change
 
-    if (this.type.peek() == "recording-work")
-        obj.target.performanceRefcount += 1;
-
     obj.target.refcount += 1;
     this.target = new Fields.Target(obj.target, this);
+
+    this.type = ko.computed(function() {return Util.types(self.link_type())});
+    if (this.type.peek() == "recording-work") obj.target.performanceRefcount += 1;
+
     // XXX trigger the validation subscription's callback, so that validation
     // on the target's name is registered as well.
     this.target.notifySubscribers(this.target.peek());
@@ -119,22 +118,29 @@ var Relationship = function(obj) {
 
 var computeEntities = (function() {
 
-    var relations = {
-        "artist-recording": 1, "artist-release": 1, "artist-work": 1,
-        "label-recording":  1, "label-release":  1, "label-work":  1,
-        "recording-url":    0, "recording-work": 0, "release-url": 0, "url-work": 1,
-    },
-        rrw = /recording\-(release|work)/;
+    var rw = /release|work/, alu = /artist|label|url/,
+        targetIsFirst = function(type0, type1, backward) {
+            return (type0 == type1 || (type0 == "recording" && rw.test(type1))
+                ? backward : alu.test(type0));
+        };
 
     return function() {
-        var types = RE.typeInfo[this.link_type()].types, str = types.join("-"), result = [],
-            src = (types[0] == types[1] || rrw.test(str)) ? (this.backward() ? 1 : 0) : relations[str];
-
-        result[src] = this.source;
-        result[1 - src] = this.target();
-        return result;
+        var type = Util.types(this.link_type()), types = type.split("-");
+        return (targetIsFirst(types[0], types[1], this.backward())
+            ? [this.target(), this.source] : [this.source, this.target()]);
     };
 }());
+
+
+var defaultLinkType = function(sourceType, targetType) {
+    var type = sourceType + "-" + targetType, linkType;
+
+    if (!(linkType = Util.typeInfoByEntities(type)))
+        linkType = Util.typeInfoByEntities(targetType + "-" + sourceType);
+
+    linkType = linkType[0];
+    return linkType.descr ? linkType.id : linkType.children[0].id;
+};
 
 
 Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable) {
@@ -151,17 +157,17 @@ Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable)
         if  (oldTarget.type != newTarget.type) {
             // the type changed. our relationship cache is organized by type, so we
             // have to move the position of this relationship in the cache.
-            var oldType = Util.type(this.link_type.peek()), newType;
+            var oldType = Util.types(this.link_type.peek()), newType;
 
-            this.link_type(Util.defaultLinkType(this.source.type, newTarget.type));
-            newType = Util.type(this.link_type.peek());
+            this.link_type(defaultLinkType(this.source.type, newTarget.type));
+            newType = this.type();
 
             (cache[newType] = cache[newType] || {})[this.id] = cache[oldType][this.id];
             delete cache[oldType][this.id];
 
             // fix the direction.
-            var typeInfo = RE.typeInfo[this.link_type.peek()];
-            this.backward(this.source.type != typeInfo.types[0]);
+            var typeInfo = Util.typeInfo(this.link_type.peek());
+            this.backward(this.source.type != newType.split("-")[0]);
         }
     }
 
@@ -203,7 +209,7 @@ Relationship.prototype.show = function() {
     } else if (source.relationships.peek().indexOf(this) == -1) {
         source.relationships.push(this);
     }
-    this.exists = true;
+    this.visible = true;
 };
 
 
@@ -224,7 +230,7 @@ Relationship.prototype.remove = function() {
     // prevent this from being removed twice, otherwise it screws up refcounts
     // everywhere. this can happen if the relationship is merged into another
     // one (thus removed), and then removed again when the dialog is closed
-    // (because the dialog sees that this.exists is false).
+    // (because the dialog sees that this.visible is false).
     if (this.removed === true) return;
 
     var recordingWork = (this.type() == "recording-work"),
@@ -247,25 +253,25 @@ Relationship.prototype.remove = function() {
             relationships[i].remove();
     }
     delete cache[this.type.peek()][this.id];
-    this.exists = false;
+    this.visible = false;
     this.removed = true;
 };
 
 // Constructs the link phrase to display for this relationship
 
 Relationship.prototype.buildLinkPhrase = function() {
-    var typeInfo = RE.typeInfo[this.link_type()];
+    var typeInfo = Util.typeInfo(this.link_type());
     if (!typeInfo) return "";
 
     var attrs = {}, m, phrase = this.source === this.entity()[0]
-        ? typeInfo.link_phrase : typeInfo.reverse_link_phrase;
+        ? typeInfo.phrase : typeInfo.reverse_phrase;
 
     $.each(this.attributes(), function(name, observable) {
         var value = observable(), str = name, isArray = $.isArray(value);
 
         if (!value || isArray && !value.length) return;
         if (isArray) {
-            value = $.map(value, function(v) {return RE.attrMap[v].name});
+            value = $.map(value, function(v) {return Util.attrInfo(v).name});
 
             var list = value.slice(0, -1).join(", ");
             str = (list && list + " & ") + (value.pop() || "");

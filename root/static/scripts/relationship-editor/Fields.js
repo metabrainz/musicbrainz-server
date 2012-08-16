@@ -24,7 +24,7 @@ var Fields = RE.Fields = RE.Fields || {}, Util = RE.Util = RE.Util || {};
 var validationHandlers = {
 
     link_type: function(field, value) {
-        var typeInfo = RE.typeInfo[value];
+        var typeInfo = Util.typeInfo(value);
 
         if (!typeInfo) {
             field.error(MB.text.PleaseSelectARType);
@@ -46,11 +46,11 @@ var validationHandlers = {
     },
 
     attributes: function(field, value, relationship) {
-        var linkType = relationship.link_type(), typeInfo = RE.typeInfo[linkType];
+        var linkType = relationship.link_type(), typeInfo = Util.typeInfo(linkType);
         if (!typeInfo) return;
 
         $.each(value, function(name, observable) {
-            var root = RE.attrRoots[name], attrInfo = typeInfo.attrs[root.id],
+            var root = Util.attrRoot(name), attrInfo = typeInfo.attrs[root.id],
                 attrField = value[name];
 
             if (attrInfo === undefined) {
@@ -291,20 +291,6 @@ Fields.Target.prototype.write = function(newTarget) {
     if (oldTarget !== newTarget)
         relationship.changeTarget(oldTarget, newTarget, this.target);
 }
-
-
-Fields.Type = function(relationship) {
-    // computed observables alert their subscribers even when the value doesn't
-    // change, which we don't want, so this is mainly boilerplate to prevent that.
-    this.value = ko.observable(null);
-    this.relationship = relationship;
-    ko.computed({read: this.read, owner: this});
-    return this.value;
-};
-
-Fields.Type.prototype.read = function() {
-    this.value(Util.type(this.relationship.link_type()));
-};
 
 return RE;
 

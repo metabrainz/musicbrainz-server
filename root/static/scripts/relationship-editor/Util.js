@@ -22,6 +22,33 @@ MB.RelationshipEditor = (function(RE) {
 var Util = RE.Util = RE.Util || {}, originalFields = {};
 
 
+Util.init = function(typeInfo, attrInfo) {
+
+    var findItem = function(roots, id, i, c) {
+        if (roots && (i = roots.length)) while (c = roots[--i])
+            if ((c.id == id) || (c = findItem(c.children, id)))
+                return c;
+    };
+
+    Util.typeInfo = _.memoize(function(linkType, info) {
+        for (var key in typeInfo)
+            if (info = findItem(typeInfo[key], linkType)) return info;
+    });
+
+    Util.types = _.memoize(function(linkType) {
+        for (var key in typeInfo)
+            if (findItem(typeInfo[key], linkType)) return key;
+    });
+
+    Util.typeInfoByEntities = function(types) {return typeInfo[types]};
+
+    Util.attrRoot = function(name) {return attrInfo[name]};
+
+    var attrValues = _.values(attrInfo);
+    Util.attrInfo = _.memoize(function(id) {return findItem(attrValues, id)});
+};
+
+
 Util.parseRelationships = function(obj) {
     var source = RE.Entity(obj), args = {source: source, result: []};
 
@@ -39,17 +66,13 @@ Util.parseRelationships = function(obj) {
                 }
             });
         });
-
     Util.renderRelationships(args.result, _.identity);
 };
 
 
 var parseRelationship = function(args) {
-    var obj = args.obj, target, relationship, type, orig;
-    type = RE.Util.type(obj.link_type);
-    orig = originalFields[type] = originalFields[type] || {};
-
-    if (orig[obj.id]) return;
+    var obj = args.obj, target, type = RE.Util.types(obj.link_type),
+        orig = originalFields[type] = originalFields[type] || {};
 
     Util.attrsForLinkType(obj.link_type, function(attr) {
         var name = attr.name;
@@ -76,7 +99,6 @@ var parseRelationship = function(args) {
     obj.target = RE.Entity(target);
 
     args.result.push(RE.Relationship(obj));
-
     if (target.relationships) Util.parseRelationships(target);
 };
 
@@ -139,12 +161,6 @@ Util.isMBID = function(str) {
 };
 
 
-Util.type = function(linkType) {
-    var info = RE.typeInfo[linkType];
-    return info ? info.types.join("-") : null;
-};
-
-
 Util.tempEntity = function(type) {
     var id = _.uniqueId("new-");
     return RE.Entity({type: type, id: id, gid: id});
@@ -166,23 +182,12 @@ Util.convertAttr = function(root, value) {
 
 
 Util.attrsForLinkType = function(linkType, callback) {
-    var typeInfo = RE.typeInfo[linkType];
+    var typeInfo = Util.typeInfo(linkType);
     if (!typeInfo || !typeInfo.attrs) return {};
 
     $.each(typeInfo.attrs, function(id, info) {
-        callback(RE.attrMap[id]);
+        callback(Util.attrInfo(id));
     });
-};
-
-
-Util.defaultLinkType = function(sourceType, targetType) {
-    var type = sourceType + "-" + targetType, linkType;
-
-    if (!RE.typeInfoByEntities[type])
-        type = targetType + "-" + sourceType;
-
-    linkType = RE.typeInfoByEntities[type][0];
-    return linkType.descr ? linkType.id : linkType.children[0];
 };
 
 

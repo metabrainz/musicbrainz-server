@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Form::Utils qw( language_options );
 use MusicBrainz::Server::Translation qw( l );
+use List::UtilsBy qw( sort_by );
 
 with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
@@ -77,13 +78,13 @@ sub load : Private {
 
     my $form = $self->load_form($c);
     my $json = JSON::XS->new;
-    my $attr_map = $c->model('LinkAttributeType')->get_map($self->attr_tree);
+    my $attr_info = build_attr_info($self->attr_tree);
 
     # unnaccent instrument attributes names
-    unaccent_attributes($attr_map->{$_}, $attr_map) for @{ $attr_map->{14}->{children} };
+    unaccent_attributes($attr_info->{$_}, $attr_info) for @{ $attr_info->{14}->{children} };
 
     $c->stash(
-        attr_map => $json->encode($attr_map),
+        attr_info => $json->encode($attr_info),
         type_info => $json->encode($self->build_type_info($c, @{ $form->link_type_tree })),
         work_types => [ $c->model('WorkType')->get_all ],
         work_languages => $self->build_work_languages($c, $form->language_options),
@@ -93,13 +94,49 @@ sub load : Private {
 sub build_type_info {
     my ($self, $c, @link_type_tree) = @_;
 
+    sub _build_type {
+        my $root = shift;
+        my %attrs = map { $_->type_id => [
+            defined $_->min ? 0 + $_->min : undef,
+            defined $_->max ? 0 + $_->max : undef,
+        ] } $root->all_attributes;
+        {
+            id                  => $root->id,
+            phrase              => $root->l_link_phrase,
+            reverse_phrase      => $root->l_reverse_link_phrase,
+            scalar %attrs       ? (attrs    => \%attrs) : (),
+            $root->description  ? (descr    => $root->l_description) : (),
+            $root->all_children ? (children => _build_children($root, \&_build_type)) : (),
+        };
+    }
+
     my %type_info;
-    foreach (@link_type_tree) {
-        next if $_->name !~ /(recording|work|release(?!_group))/;
-        my %tmp = $c->model('LinkType')->build_type_info($_);
-        @type_info{ keys %tmp } = values %tmp;
+    for my $root (@link_type_tree) {
+        my @name = split / /, $root->name;
+        next if $name[0] !~ /(recording|work|release(?!_group))/;
+        $type_info{ $name[0] } = _build_children($root, \&_build_type);
     }
     return \%type_info;
+}
+
+sub build_attr_info {
+    my $root = shift;
+    sub _build_attr {
+        {
+            id   => $_->id,
+            name => $_->l_name,
+            $_->description  ? ( descr    => $_->l_description ) : (),
+            $_->all_children ? ( children => _build_children($_, \&_build_attr)) : (),
+        };
+    }
+   my %hash = map { $_->l_name => _build_attr($_) } $root->all_children;
+   return \%hash;
+}
+
+sub _build_children {
+    my ($root, $builder) = @_;
+    return [ map  { $builder->($_) } sort_by { $_->child_order }
+             grep { $_ } $root->all_children ];
 }
 
 sub unaccent_attributes {

@@ -263,41 +263,6 @@ sub in_use {
     );
 }
 
-sub build_type_info
-{
-    my ($self, $tree) = @_;
-
-    sub _builder
-    {
-        my ($root, $info) = @_;
-
-        if ($root->id) {
-            my %attrs = map { $_->type_id => [
-                defined $_->min ? 0 + $_->min : undef,
-                defined $_->max ? 0 + $_->max : undef,
-            ] } $root->all_attributes;
-
-            $info->{$root->id} = {
-                id                  => $root->id,
-                types               => [$root->entity0_type, $root->entity1_type],
-                child_order         => $root->child_order,
-                link_phrase         => $root->l_link_phrase,
-                reverse_link_phrase => $root->l_reverse_link_phrase,
-                scalar %attrs       ? (attrs    => \%attrs) : (),
-                $root->description  ? (descr    => $root->l_description) : (),
-                $root->parent_id    ? (parent   => $root->parent_id) : (),
-                $root->all_children ? (children =>
-                    [ map { $_->id } $root->all_children ]) : (),
-            };
-        }
-        _builder($_, $info) for $root->all_children;
-    }
-
-    my %type_info;
-    _builder($tree, \%type_info);
-    return %type_info;
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
