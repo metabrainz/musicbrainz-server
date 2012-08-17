@@ -12,16 +12,16 @@ test 'Format Track Length' => sub {
     my $hours = 60 * $minutes;
 
     is (format_track_length (23), "23 ms");
-    is (format_track_length (23 * $seconds), "00:23");
+    is (format_track_length (23 * $seconds), "0:23");
     is (format_track_length (59 * $minutes), "59:00");
-    is (format_track_length (60 * $minutes), "01:00:00");
+    is (format_track_length (60 * $minutes), "1:00:00");
     is (format_track_length (14 * $hours + 15 * $minutes + 16 * $seconds), "14:15:16");
 
     is (format_track_length (undef), '?:??', 'Undefined track');
     is (format_track_length ('432'), '432 ms', 'Short track');
-    is (format_track_length ('9000'), '00:09', 'Short track');
+    is (format_track_length ('9000'), '0:09', 'Short track');
     is (format_track_length ('1820000'), '30:20', 'Medium track');
-    is (format_track_length ('181100000'), '02:18:20', 'Long track');
+    is (format_track_length ('181100000'), '2:18:20', 'Long track');
 };
 
 test 'Unformat Track Length' => sub {
