@@ -219,8 +219,7 @@ MB.utility.unformatTrackLength = function (duration)
     }
 
     var parts = duration.replace(/[:\.]/, ':').split (':');
-
-    if (parts[0] == '??')
+    if (parts[0] == '?' || parts[0] == '??')
     {
         return null;
     }
