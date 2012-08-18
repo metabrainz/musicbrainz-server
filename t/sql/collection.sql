@@ -20,11 +20,13 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
            (3, 'b34c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1),
            (4, 'c34c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1);
 
-INSERT INTO release_coverart
-    VALUES (2, now(), 'http://ecx.images-amazon.com/images/I/41KMH1VE7XL.jpg');
+-- Trigger on release creates a release_coverart and release_meta row, so update
+UPDATE release_coverart
+    SET last_updated=now(), cover_art_url='http://ecx.images-amazon.com/images/I/41KMH1VE7XL.jpg'
+    WHERE id=2;
 
-INSERT INTO release_meta (id, date_added, cover_art_presence)
-    VALUES (4, now(), 'present'), (2, now(), 'absent');
+UPDATE release_meta SET date_added=now(), cover_art_presence='present' WHERE id=4;
+UPDATE release_meta SET date_added=now(), cover_art_presence='absent' WHERE id=2;
 
 INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'pass'), (2, 'editor2', 'pass'), (3, 'editor3', 'pass');
 INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE), (2, 'f34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2', TRUE);
@@ -32,4 +34,8 @@ INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (1, 'f34c07
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);
 
+INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (1, 1, 316, '', 2, now());
+INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
+INSERT INTO cover_art_archive.cover_art VALUES (1, 4, '', 1, 1, now());
+INSERT INTO cover_art_archive.cover_art_type VALUES (1, 1)
 

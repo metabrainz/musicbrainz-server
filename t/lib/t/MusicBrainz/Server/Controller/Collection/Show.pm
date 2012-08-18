@@ -56,11 +56,10 @@ test 'Images are present for some releases' => sub {
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
     my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    #warn $mech->content;
-    $tx->is('//table/tbody/tr[1]/td[1]//img/@src', 'http://ecx.images-amazon.com/images/I/41KMH1VE7XL.jpg',
+    $tx->is('/descendant-or-self::div[@class="collection-image"][1]//img/@src', 'http://ecx.images-amazon.com/images/I/41KMH1VE7XL.jpg',
         'contains image pointing to amazon');
-    $tx->is('//table/tbody/tr[2]/td[1]//img/@src',
-        'http://coverartarchive.org/release/c34c079d-374e-4436-9448-da92dedef3ce/front-250',
+    $tx->is('/descendant-or-self::div[@class="collection-image"][2]//img/@src',
+        'http://coverartarchive.org/release/c34c079d-374e-4436-9448-da92dedef3ce/1-250.jpg',
         'contains image pointing to CAA');
 };
 

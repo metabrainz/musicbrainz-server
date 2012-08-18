@@ -95,12 +95,7 @@ sub show : Chained('load') PathPart('')
     my $release_artwork = {};
     foreach my $rel (@$releases) {
         if ($rel->cover_art_presence && $rel->cover_art_presence eq "present") {
-            # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
-            my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $rel->gid;
-            my $artwork = {
-                image => $prefix.'/front',
-                small_thumbnail => $prefix.'/front-250'
-            };
+            my $artwork = $c->model('CoverArtArchive')->find_front_artwork($rel->gid);
             $release_artwork->{$rel->gid} = $artwork;
         }
     }
