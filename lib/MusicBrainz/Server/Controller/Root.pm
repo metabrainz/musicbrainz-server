@@ -41,9 +41,14 @@ other than the blog feed.
 sub index : Path Args(0)
 {
     my ($self, $c) = @_;
+
+    my @newest_releases = $c->model('Release')->newest_releases_with_artwork;
+    $c->model('ArtistCredit')->load(map { $_->{release} } @newest_releases);
+
     $c->stash(
         blog => $c->model('Blog')->get_latest_entries,
-        template => 'main/index.tt'
+        template => 'main/index.tt',
+        releases => \@newest_releases
     );
 }
 
