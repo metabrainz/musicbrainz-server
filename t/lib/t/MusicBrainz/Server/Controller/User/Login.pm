@@ -26,4 +26,22 @@ is($mech->uri->path, '/user/new_editor');
 
 };
 
+test 'Can login with usernames that contain the "/" character"' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password) VALUES (100, 'ocharles/bot', 'mb');
+EOSQL
+
+    $mech->get_ok('/user/ocharles%2Fbot');
+    html_ok($mech->content);
+    $mech->content_contains('ocharles/bot');
+    $mech->follow_link_ok({ url_regex => qr{/login} });
+    $mech->submit_form(
+        with_fields => { username => 'ocharles/bot', password => 'mb' }
+    );
+    like($mech->uri->path, qr{/user/ocharles%2Fbot});
+};
+
 1;

@@ -22,20 +22,29 @@ $mech->submit_form( with_fields => {
     'profile.website' => 'foo',
     'profile.biography' => 'hello world!',
 } );
-$mech->content_contains('Invalid URL format');
+$mech->content_contains('Invalid URL format', "Invalid URL format 'foo' triggers validation failure.");
+$mech->submit_form( with_fields => {
+    'profile.birth_date.year' => 0,
+    'profile.birth_date.month' => 1,
+    'profile.birth_date.day' => 1
+} );
+$mech->content_contains('invalid date', "Invalid date 0-1-1 triggers validation failure.");
 $mech->submit_form( with_fields => {
     'profile.website' => 'http://example.com/~new_editor/',
     'profile.biography' => 'hello world!',
     'profile.email' => 'new_email@example.com',
+    'profile.birth_date.year' => '',
+    'profile.birth_date.month' => '',
+    'profile.birth_date.day' => ''
 } );
 $mech->content_contains('Your profile has been updated');
 $mech->content_contains('We have sent you a verification email');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->deliveries->[-1]->{email};
-is($email->get_header('To'), 'new_email@example.com');
-is($email->get_header('Subject'), 'Please verify your email address');
-like($email->get_body, qr{http://localhost/verify-email.*});
+is($email->get_header('To'), 'new_email@example.com', "Verification email sent to correct address");
+is($email->get_header('Subject'), 'Please verify your email address', "Verification email has correct subject");
+like($email->get_body, qr{http://localhost/verify-email.*}, "Verification emial contains verification link");
 
 $email->get_body =~ qr{http://localhost(/verify-email.*)};
 my $verify_email_path = $1;

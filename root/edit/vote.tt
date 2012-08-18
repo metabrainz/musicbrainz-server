@@ -19,11 +19,10 @@
         <div class="vote">
             [% vote_checkbox(l('Abstain'), -1) %]
         </div>
-        [% IF summary %]
-            <div class="vote">
-                [% vote_checkbox(l('None'), -2) %]
-            </div>
-        [% ELSE %]
+        <div class="vote">
+            [% vote_checkbox(l('None'), -2) %]
+        </div>
+        [% UNLESS summary %]
             [% IF edit.latest_vote_for_editor(c.user.id).vote %]
                 [% form_submit(l('Change vote')) %]
             [% ELSE %]
