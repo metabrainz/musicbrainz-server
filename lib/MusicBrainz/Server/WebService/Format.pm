@@ -9,13 +9,6 @@ parameter serializers => (
     isa => 'ArrayRef',
 );
 
-sub _instance
-{
-    my $cls = shift;
-    Class::MOP::load_class ($cls);
-    $cls->new;
-}
-
 role {
     my $role = shift;
 
@@ -23,14 +16,20 @@ role {
     {
         my ($self, $c) = @_;
 
-        my %formats = map { $_->fmt => $_ } @{ $role->serializers };
-        my %accepted = map { $_->mime_type => $_ } @{ $role->serializers };
+        my @serializers = map {
+            Class::MOP::load_class ($_);
+            $_->new;
+        } @{ $role->serializers };
+
+
+        my %formats = map { $_->fmt => $_ } @serializers;
+        my %accepted = map { $_->mime_type => $_ } @serializers;
 
         my $fmt = $c->request->parameters->{fmt};
 
         if (defined $fmt)
         {
-            return _instance ($formats{$fmt}) if $formats{$fmt};
+            return $formats{$fmt} if $formats{$fmt};
         }
         else
         {
@@ -40,7 +39,7 @@ role {
 
             my $match = best_match ([ keys %accepted ], $accept);
 
-            return _instance ($accepted{$match}) if $match;
+            return $accepted{$match} if $match;
         }
 
         $c->stash->{error} = 'Invalid format. Either set an Accept header'
