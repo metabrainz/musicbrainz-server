@@ -10,6 +10,13 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of numb
 sub mime_type { 'application/json' }
 sub fmt { 'json' }
 
+sub finalize_body
+{
+    my ($self, $data) = @_;
+
+    return encode_json ($data);
+}
+
 sub serialize
 {
     my ($self, $type, @data) = @_;
@@ -22,7 +29,8 @@ sub serialize
     my ($entity, $inc, $opts) = @data;
 
     my $ret = serialize_entity($entity, $inc, $opts, 1);
-    return encode_json($ret);
+
+    return $self->finalize_body ($ret);
 }
 
 sub entity_list
@@ -36,7 +44,7 @@ sub entity_list
         map { serialize_entity($_, $inc, $opts, 1) }
         sort_by { $_->gid } @{ $list->{items} }];
 
-    return encode_json (\%ret);
+    return $self->finalize_body (\%ret);
 }
 
 sub artist_list        { shift->entity_list (@_, "artist", "artists") };

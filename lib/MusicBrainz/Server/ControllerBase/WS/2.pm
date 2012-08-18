@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::WebService::Format' =>
     serializers => [
         'MusicBrainz::Server::WebService::XMLSerializer',
         'MusicBrainz::Server::WebService::JSONSerializer',
+        'MusicBrainz::Server::WebService::JSONLDSerializer',
     ]
 };
 
