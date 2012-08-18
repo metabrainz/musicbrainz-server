@@ -123,7 +123,9 @@
         [% FOR release=releases %]
         <div class="artwork-cont" style="text-align: center">
           <div class="artwork">
-            [%- display_artwork (release.artwork, release.cover_art_url, cover_art_message) -%]
+            <a href="[% c.uri_for_action('/release/show', [ release.release.gid ]) %]">
+              [%- display_artwork_image(release.artwork, release.cover_art_url, cover_art_message) -%]
+            </a>
             [% descriptive_link(release.release) %]
           </div>
         </div>
