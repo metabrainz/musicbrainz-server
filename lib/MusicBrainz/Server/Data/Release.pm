@@ -847,6 +847,9 @@ sub load_meta
     my $self = shift;
     my (@objs) = @_;
 
+    @objs = grep { defined } @objs;
+    return unless @objs;
+
     my %id_to_obj = map { $_->id => $_ } @objs;
 
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
