@@ -167,6 +167,39 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
+                    'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
+                    'release'
+                ],
+                [
+                    'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
+                    'http://www.amazon.co.uk/gp/product/B000VLR0II',
+                    'release'
+                ],
+                [
+                    'http://www.amazon.com/Shine-We-Are-BoA/dp/B00015007W%3FSubscriptionId%3D14P3HXS0ZAYFZPH45TR2%26tag%3Dws%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00015007W',
+                    'http://www.amazon.com/gp/product/B00015007W',
+                    'release'
+                ],
+                [
+                    'http://www.amazon.co.uk/IMPOSSIBLE/dp/B00008CQP2/ref=sr_1_1?ie=UTF8&qid=1344584322&sr=8-1',
+                    'http://www.amazon.co.uk/gp/product/B00008CQP2',
+                    'release'
+                ],
+                [
+                    'http://amzn.com/B000005SU4',
+                    'http://www.amazon.com/gp/product/B000005SU4',
+                    'release'
+                ],
+                [
+                    'http://www.amazon.co.uk/Kosheen/e/B000APRTKE',
+                    'http://www.amazon.co.uk/-/e/B000APRTKE'
+                ],
+                [
+                    'http://www.amazon.com/gp/redirect.html/ref=amb_link_7764682_1?location=http://www.amazon.com/Carrie-Underwood/e/B0017PAU8Y/%20&token=3A0F170E7CEFE27BDC730D3D7344512BC1296B83&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-4&pf_rd_r=0WX9S8HSE9M2WG1YZJE4&pf_rd_t=101&pf_rd_p=80631142&pf_rd_i=721517011',
+                    'http://www.amazon.com/-/e/B0017PAU8Y'
+                ],
+                [
                     'http://fr.myspace.com/jujusasadada',
                     'http://www.myspace.com/jujusasadada',
                     'artist'

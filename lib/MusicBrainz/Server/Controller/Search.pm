@@ -94,6 +94,9 @@ sub direct : Private
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
         }
+        when ('editor') {
+            $c->model('Editor')->load_preferences(@entities);
+        }
         when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);
         }
@@ -209,6 +212,7 @@ sub do_external_search {
             when (414) { $template .= 'uri-too-large.tt'; };
             when (500) { $template .= 'internal-error.tt'; }
             when (400) { $template .= 'invalid.tt'; }
+	    when (503) { $template .= 'rate-limit.tt'; }
 
             default { $template .= 'general.tt'; }
         }

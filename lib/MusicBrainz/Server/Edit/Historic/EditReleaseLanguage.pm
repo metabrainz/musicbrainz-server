@@ -10,9 +10,10 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Edit release language') }
+sub edit_name     { N_l('Edit release language (historic)') }
 sub historic_type { 44 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE }
+sub edit_template { 'historic/edit_release_language' }
 
 sub _build_related_entities
 {

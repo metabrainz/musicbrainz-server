@@ -13,7 +13,7 @@ use Try::Tiny;
 use URI::Escape;
 
 use Sub::Exporter -setup => {
-    exports => [qw( format_editnote )]
+    exports => [qw( format_editnote format_wikitext )]
 };
 
 sub release_date
@@ -72,6 +72,18 @@ sub format_wikitext
     my ($text) = @_;
 
     return '' unless $text;
+
+    # MBS-2437: Expand MBID entity links
+    my $ws = DBDefs::WEB_SERVER;
+    $text =~ s/
+      \[
+      (artist|label|recording|release|release-group|url|work):
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})
+    /[http:\/\/$ws\/$1\/$2\//ix;
 
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;

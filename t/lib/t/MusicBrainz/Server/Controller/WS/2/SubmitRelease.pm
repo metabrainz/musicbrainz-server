@@ -20,6 +20,7 @@ test all => sub {
     my $c = $test->c;
     my $v2 = schema_validator;
     my $mech = $test->mech;
+    $mech->default_header ("Accept" => "application/xml");
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
@@ -60,7 +61,8 @@ EOSQL
                 barcode => '5021603064126',
                 old_barcode => undef
             }
-        ]
+        ],
+        client_version => 'test-1.0'
     });
 
     $content = '<?xml version="1.0" encoding="UTF-8"?>
@@ -85,7 +87,8 @@ EOSQL
   </release-list>
 </metadata>';
 
-    $req = xml_post('/ws/2/release?client=test-1.0', $content);
+    $req = xml_post('/ws/2/release', $content);
+    $req->header('User-Agent', 'test-ua');
     $mech->request($req);
     is($mech->status, HTTP_OK);
     xml_ok($mech->content);
@@ -103,7 +106,8 @@ EOSQL
                 barcode => '796122009228',
                 old_barcode => '4942463511227'
             }
-        ]
+        ],
+        client_version => 'test-ua'
     });
 
     $next_edit->accept;

@@ -225,6 +225,15 @@ sub can_cancel
       && $self->editor_id == $user->id;
 }
 
+sub was_approved
+{
+    my $self = shift;
+    
+    return 0 if $self->is_open;
+    
+    return scalar $self->_grep_votes(sub { $_->vote == $VOTE_APPROVE })
+}
+
 =head2 related_entities
 
 A list of all entities that this edit relates to. For each entity, a row in the edit_*

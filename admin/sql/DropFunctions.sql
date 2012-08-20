@@ -48,4 +48,4 @@ DROP FUNCTION simplify_search_hints();
 DROP FUNCTION unique_primary_artist_alias();
 DROP FUNCTION unique_primary_label_alias();
 DROP FUNCTION unique_primary_work_alias();
-DROP AGGREGATE array_accum;
+DROP AGGREGATE array_accum (anyelement);

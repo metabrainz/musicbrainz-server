@@ -686,7 +686,7 @@ http://[%- server -%]/[%- id -%]"
   [%- IF server_details.developement_server -%]
     [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]"></script>
+        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]"></script>
     [%- END -%]
   [%- ELSE -%]
     <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
@@ -727,4 +727,12 @@ http://[%- server -%]/[%- id -%]"
       [% form_submit(l('Search'),'inline') %]
     </form>
   </div>
+[%- END -%]
+
+[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
+[%- END -%]
+
+[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]</th>
 [%- END -%]

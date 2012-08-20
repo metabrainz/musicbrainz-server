@@ -106,20 +106,7 @@ sub recording_toplevel
         $self->linked_artists ($c, $stash, \@artists);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $recording);
-
-        if ($c->stash->{inc}->work_level_rels)
-        {
-            my @works =
-                map { $_->target }
-                grep { $_->target_type eq 'work' }
-                $recording->all_relationships;
-            $c->model('Relationship')->load_subset($types, @works);
-        }
-    }
+    $self->load_relationships($c, $recording);
 }
 
 sub recording: Chained('load') PathPart('')
@@ -278,7 +265,8 @@ sub recording_submit : Private
                     $c->model('Edit')->create(
                         edit_type      => $EDIT_RECORDING_ADD_ISRCS,
                         editor_id      => $c->user->id,
-                        isrcs          => $contents
+                        isrcs          => $contents,
+                        client_version => $client
                     );
                 }
                     catch {
