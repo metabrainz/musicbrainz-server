@@ -18,7 +18,6 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
-my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
@@ -32,6 +31,7 @@ ws_test 'basic work lookup',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
     <title>サマーれげぇ!レインボー</title>
+    <language>jpn</language>
     <iswc>T-000.000.002-0</iswc>
     <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
   </work>
@@ -44,6 +44,7 @@ ws_test 'work lookup via iswc',
   <work-list count="1">
     <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
       <title>サマーれげぇ!レインボー</title>
+      <language>jpn</language>
       <iswc>T-000.000.002-0</iswc>
       <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
     </work>
@@ -56,6 +57,7 @@ ws_test 'work lookup with recording relationships',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
     <title>サマーれげぇ!レインボー</title>
+    <language>jpn</language>
     <iswc>T-000.000.002-0</iswc>
     <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
     <relation-list target-type="recording">

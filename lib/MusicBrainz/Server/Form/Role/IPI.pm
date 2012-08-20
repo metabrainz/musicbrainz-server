@@ -6,7 +6,7 @@ use List::AllUtils qw( uniq );
 has_field 'ipi_codes'          => (
     type => 'Repeatable',
     num_when_empty => 1,
-    deflation => \&deflate_ipi,
+    inflate_default_method => \&inflate_ipi_codes
 );
 
 has_field 'ipi_codes.contains' => (
@@ -25,8 +25,8 @@ after 'validate' => sub {
     };
 };
 
-sub deflate_ipi {
-    my ($value) = @_;
+sub inflate_ipi_codes {
+    my ($self, $value) = @_;
     return [ map { $_->ipi } @$value ];
 };
 

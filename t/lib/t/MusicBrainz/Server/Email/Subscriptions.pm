@@ -15,7 +15,8 @@ test all => sub {
 
     my $editor = Editor->new(
         name => 'ニッキー',
-        email => 'somebody@example.com'
+        email => 'somebody@example.com',
+        id => 6666
         );
 
     my $email = Email->new(
@@ -23,6 +24,8 @@ test all => sub {
         );
 
     my $text = $email->text;
+
+    ok((grep {"$_" eq 'Message-Id' } $email->extra_headers), 'Has a message-id header');
 
     my $server = sprintf 'http://%s', DBDefs::WEB_SERVER_USED_IN_EMAIL;
     my $expected = "$server/user/%E3%83%8B%E3%83%83%E3%82%AD%E3%83%BC/subscriptions";

@@ -247,6 +247,7 @@ sub CreateRelations
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
 
     if ($import)
     {
@@ -261,21 +262,36 @@ sub CreateRelations
     }
 
     RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
+    RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
         if HasPLPerlSupport();
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
+    RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating indexes ...");
+
     RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding foreign key constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
+	RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "SetSequences.sql", "Setting raw initial sequence values ...");
 
     RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
+    RunSQLScript($DB, "caa/CreateViews.sql", "Creating views ...");
+
     RunSQLScript($DB, "CreateTriggers.sql", "Creating triggers ...")
+        unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "caa/CreateTriggers.sql", "Creating triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");

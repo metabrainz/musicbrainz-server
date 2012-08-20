@@ -6,7 +6,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 use Data::OptList;
 use Encode qw( decode encode );
 use List::UtilsBy qw( uniq_by );
-use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
@@ -46,7 +45,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 {
      defs => $ws_defs,
      version => 'js',
-     default_serialization_type => 'json',
 };
 
 sub entities {
@@ -354,7 +352,7 @@ sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $self->serializers->{$self->get_default_serialization_type}->new();
+    $c->stash->{serializer} = $self->get_serialization ($c);
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
 }

@@ -29177,6 +29177,70 @@
          "target" : "RDF::Trine",
          "version" : "1.000"
       },
+      "REST::Utils" : {
+         "dist" : "REST-Utils-0.6",
+         "mymeta" : {
+            "abstract" : "Utility functions for REST applications",
+            "author" : [
+               "Jaldhar H. Vyas <jaldhar@braincells.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "REST-Utils",
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "Test::More" : 0,
+                     "Test::WWW::Mechanize::CGI" : 0
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.38"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "perl" : "5.008"
+                  }
+               }
+            },
+            "provides" : {
+               "REST::Utils" : {
+                  "file" : "lib/REST/Utils.pm",
+                  "version" : "0.6"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "homepage" : "http://jaldhar.github.com/REST-Utils",
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://github.com/jaldhar/REST-Utils"
+               }
+            },
+            "version" : "0.6"
+         },
+         "name" : "REST::Utils",
+         "pathname" : "J/JA/JALDHAR/REST-Utils-0.6.tar.gz",
+         "provides" : {
+            "REST::Utils" : {
+               "file" : "REST/Utils.pm",
+               "version" : "0.6"
+            }
+         },
+         "target" : "REST::Utils",
+         "version" : "0.6"
+      },
       "Readonly" : {
          "dist" : "Readonly-1.03",
          "mymeta" : {
@@ -31506,6 +31570,37 @@
          },
          "target" : "Template::Plugin::JavaScript",
          "version" : "0.02"
+      },
+      "Template::Plugin::Map" : {
+         "dist" : "Template-Plugin-Map-0.01",
+         "mymeta" : {},
+         "name" : "Template::Plugin::Map",
+         "pathname" : "M/MS/MSCHOUT/Template-Plugin-Map-0.01.tar.gz",
+         "provides" : {
+            "Template::Plugin::Map" : {
+               "file" : "Template/Plugin/Map.pm",
+               "version" : "0.01"
+            }
+         },
+         "target" : "Template::Plugin::Map",
+         "version" : "0.01"
+      },
+      "Template::Plugin::VMethods" : {
+         "dist" : "Template-Plugin-VMethods-0.03",
+         "mymeta" : {},
+         "name" : "Template::Plugin::VMethods",
+         "pathname" : "M/MA/MARKF/Template-Plugin-VMethods-0.03.tar.gz",
+         "provides" : {
+            "Template::Plugin::VMethods" : {
+               "file" : "Template/Plugin/VMethods.pm",
+               "version" : "0.03"
+            },
+            "Template::Plugin::VMethods::VMethodContainer" : {
+               "file" : "Template/Plugin/VMethods/VMethodContainer.pm"
+            }
+         },
+         "target" : "Template::Plugin::VMethods",
+         "version" : "0.03"
       },
       "Template::Timer" : {
          "dist" : "Template-Timer-1.00",

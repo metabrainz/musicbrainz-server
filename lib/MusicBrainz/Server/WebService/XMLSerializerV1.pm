@@ -6,6 +6,7 @@ use MusicBrainz::Server::WebService::WebServiceIncV1;
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serializer serialize_entity list_of);
 
 sub mime_type { 'application/xml' }
+sub fmt { 'xml' }
 
 has 'namespaces' => (
     is      => 'ro',
