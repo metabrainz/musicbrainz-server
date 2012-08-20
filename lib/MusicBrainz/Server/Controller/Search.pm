@@ -94,6 +94,9 @@ sub direct : Private
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
         }
+        when ('editor') {
+            $c->model('Editor')->load_preferences(@entities);
+        }
         when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);
         }
