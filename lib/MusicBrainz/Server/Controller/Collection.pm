@@ -67,13 +67,31 @@ sub show : Chained('load') PathPart('')
 
     my $collection = $c->stash->{collection};
 
+    my @collections = {};
+    if ($c->stash->{my_collection}) {
+        @collections = $c->model('Collection')->find_all_by_editor($c->user->id);
+    }
     if ($c->form_posted && $c->stash->{my_collection}) {
-        my $remove_params = $c->req->params->{remove};
-        $c->model('Collection')->remove_releases_from_collection(
-            $collection->id,
-            grep { looks_like_number($_) }
-                ref($remove_params) ? @$remove_params : ($remove_params)
-        );
+        my $action = $c->req->params->{submit};
+        if ($action eq 'Delete selected releases') {
+            my $remove_params = $c->req->params->{remove};
+            $c->model('Collection')->remove_releases_from_collection(
+                $collection->id,
+                grep { looks_like_number($_) }
+                    ref($remove_params) ? @$remove_params : ($remove_params)
+            );
+        } elsif ($action eq 'Move') {
+            my $move_params = $c->req->params->{remove};
+            my $move_to = $c->req->params->{move_releases_to};
+            if ($move_to ne "none") {
+                $c->model('Collection')->move_releases_to_collection(
+                    $collection->id,
+                    $move_to,
+                    grep { looks_like_number($_) }
+                        ref($move_params) ? @$move_params : ($move_params)
+                );
+            }
+        }
     }
 
     $self->own_collection($c) if !$collection->public;
@@ -91,6 +109,7 @@ sub show : Chained('load') PathPart('')
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 
     $c->stash(
+        collections => \@collections,
         collection => $collection,
         order => $order,
         releases => $releases,

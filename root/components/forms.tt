@@ -4,6 +4,12 @@
     </span>
 [%- END -%]
 
+[%- MACRO named_form_submit(label, class) BLOCK %]
+    <span class="buttons[% ' ' _ class IF class %]">
+        <button type="submit" name="submit" value="[% label %]">[% label %]</button>
+    </span>
+[%- END -%]
+
 [%- MACRO as_auto_editor BLOCK -%]
     [%- IF c.user.is_auto_editor -%]
         <div class="row no-label">

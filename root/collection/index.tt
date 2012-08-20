@@ -44,8 +44,23 @@
           </tbody>
         </table>
 
-        [% form_submit(l('Remove selected releases from collection'))
-             IF my_collection %]
+        [% IF my_collection %]
+            [%- named_form_submit(l('Delete selected releases')) -%]
+            [%- IF collections.size > 1 -%]
+<span style="line-height:29px; vertical-align:top; display:inline-block;">
+                Move selected releases to:
+                <select name="move_releases_to">
+                <option value="none">--</option>
+                [%- FOREACH coll IN collections -%]
+                    [%- IF coll.gid != collection.gid -%]
+                        <option value="[%- coll.gid -%]">[%- coll.name -%]</option>
+                    [%- END -%]
+                [%- END -%]
+                </select>
+</span>
+                [%- named_form_submit(l('Move')) -%]
+            [% END %]
+        [% END %]
         [%- END -%]
       </form>
     [%- ELSE -%]

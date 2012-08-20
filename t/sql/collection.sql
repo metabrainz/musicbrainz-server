@@ -21,7 +21,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
            (4, 'c34c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1);
 
 INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'pass'), (2, 'editor2', 'pass'), (3, 'editor3', 'pass');
-INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE), (2, 'f34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2', TRUE);
+INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3cd', 1, 'collection1', FALSE), (2, 'f34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2', TRUE), (3, 'f34c079d-374e-4436-9448-da92dedef3cc', 2, 'collection3', TRUE);
 
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);

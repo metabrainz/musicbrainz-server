@@ -66,6 +66,16 @@ sub add_releases_to_collection
             )", zip @collection_ids, @release_ids);
 }
 
+sub move_releases_to_collection
+{
+    my ($self, $from_collection_id, $to_collection, @release_ids) = @_;
+    return unless @release_ids;
+
+    my $to_collection_id = $self->get_id_by_gid($to_collection);
+    $self->add_releases_to_collection($to_collection_id, @release_ids);
+    $self->remove_releases_from_collection($from_collection_id, @release_ids);
+}
+
 sub remove_releases_from_collection
 {
     my ($self, $collection_id, @release_ids) = @_;
@@ -142,6 +152,15 @@ sub get_first_collection
     my ($self, $editor_id) = @_;
     my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
     return $self->sql->select_single_value($query, $editor_id);
+}
+
+sub get_id_by_gid
+{
+    my ($self, $gid) = @_;
+    my $query = "SELECT id
+                 FROM " . $self->_table . "
+                 WHERE gid=?";
+    return $self->sql->select_single_value($query, $gid);
 }
 
 sub find_all_by_editor
