@@ -875,7 +875,7 @@ INSERT INTO artist_name (name, id) VALUES ('Chemical Brothers, The', 58894);
 INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 242, 58894, NULL, NULL, NULL, NULL, 643746, 1989, NULL, NULL, NULL, NULL, 2, NULL, '1946a82a-f927-40c2-8235-38d64f50d043');
 INSERT INTO artist_name (name, id) VALUES ('Chemical Brother', 245780);
 INSERT INTO artist_name (name, id) VALUES ('CHEMICAL BROTHERS', 29493);
-INSERT INTO artist_name (name, id) VALUES ('Chemical  Brothers', 355249);
+INSERT INTO artist_name (name, id) VALUES ('Chemical Brothers', 355249);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 245780, 0, NULL, 34446, 245780);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 29493, 0, NULL, 381, 29493);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 355249, 0, NULL, 2207, 355249);
