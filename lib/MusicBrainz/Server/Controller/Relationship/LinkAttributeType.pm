@@ -4,6 +4,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_ATTRIBUTE
     $EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE
     $EDIT_RELATIONSHIP_ATTRIBUTE
+    $INSTRUMENT_ROOT_ID
 );
 
 use MusicBrainz::Server::Validation qw( is_guid );
@@ -70,7 +71,15 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
             );
         });
 
-        my $url = $c->uri_for_action('relationship/linkattributetype/index', { msg => 'created' });
+        my $parent = $form->field('parent_id')->value ?
+            $c->model('LinkAttributeType')->get_by_id($form->field('parent_id')->value) :
+            undef;
+
+        my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
+
+        my $url = $root == $INSTRUMENT_ROOT_ID ?
+            $c->uri_for_action('relationship/linkattributetype/instruments', { msg => 'created' }) :
+            $c->uri_for_action('relationship/linkattributetype/index', { msg => 'created' });
         $c->response->redirect($url);
         $c->detach;
     }
@@ -101,7 +110,9 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        my $url = $c->uri_for_action('/relationship/linkattributetype/index', { msg => 'updated' });
+        my $url = $link_attr_type->root_id == $INSTRUMENT_ROOT_ID ?
+            $c->uri_for_action('relationship/linkattributetype/instruments', { msg => 'updated' }) :
+            $c->uri_for_action('relationship/linkattributetype/index', { msg => 'updated' });
         $c->response->redirect($url);
         $c->detach;
     }
@@ -132,7 +143,9 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
             );
         });
 
-        my $url = $c->uri_for_action('/relationship/linkattributetype/index', { msg => 'deleted' });
+        my $url = $link_attr_type->root_id == $INSTRUMENT_ROOT_ID ?
+            $c->uri_for_action('relationship/linkattributetype/instruments', { msg => 'deleted' }) :
+            $c->uri_for_action('relationship/linkattributetype/index', { msg => 'deleted' });
         $c->response->redirect($url);
         $c->detach;
     }

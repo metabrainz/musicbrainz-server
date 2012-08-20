@@ -274,6 +274,9 @@
             <li>
                 <a href="[% doc_link('Copyright_Violation_Notice') %]">[% l('Report a Copyright Violation') %]</a>
             </li>
+            <li>
+                <a href="[% doc_link('Data_Removal_Policy') %]">[% l('Data Removal Policy') %]</a>
+            </li>
         </ul>
     </li>
 </ul>

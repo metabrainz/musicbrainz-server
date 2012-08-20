@@ -1,3 +1,14 @@
+[% BLOCK layout_head %]
+  [% script_manifest('guess-case.js.manifest') %]
+  [% script_manifest('edit.js.manifest') %]
+  <script type="text/javascript">//<![CDATA[
+    $(function() {
+      var bubbles = MB.Control.BubbleCollection ();
+      MB.Control.initialize_guess_case (bubbles, 'artist', 'id-edit-alias');
+    });
+    //]]></script>
+[% END %]
+
 [%- WRAPPER 'artist/layout.tt' title=l('Edit Artist Alias') full_width=1 -%]
     <h2>[% l('Edit artist alias') %]</h2>
     [% WRAPPER 'layout/guidelines.tt' %]

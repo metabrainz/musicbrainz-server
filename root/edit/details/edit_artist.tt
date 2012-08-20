@@ -1,11 +1,13 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
-<table class="details edit-artist">
-  <tr>
-    <th>[% l('Artist:') %]</th>
-    <td>[% link_entity(edit.display_data.artist) %]</td>
-  </tr>
+<table class="details">
+    <tr>
+        <th>[% l('Artist:') %]</th>
+        <td>[% link_entity(edit.display_data.artist) %]</td>
+    </tr>
+</table>
 
+<table class="details edit-artist">
   [% display_diff(l('Name:'),
                   html_escape(edit.display_data.name.old),
                   html_escape(edit.display_data.name.new),

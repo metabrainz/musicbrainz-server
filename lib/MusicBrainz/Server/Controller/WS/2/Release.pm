@@ -121,20 +121,7 @@ sub release_toplevel
         $self->linked_recordings ($c, $stash, \@recordings);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        $c->model('Relationship')->load_subset($types, @rels_entities);
-
-        if ($c->stash->{inc}->work_level_rels)
-        {
-            my @works =
-                map { $_->target }
-                grep { $_->target_type eq 'work' }
-                map { $_->all_relationships } @rels_entities;
-            $c->model('Relationship')->load_subset($types, @works);
-        }
-    }
+    $self->load_relationships($c, $stash, @rels_entities);
 
     if ($c->stash->{inc}->collections)
     {
@@ -260,6 +247,8 @@ sub release_submit : Private
     $self->deny_readonly($c);
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
+    my $client = $c->req->query_params->{client} // $c->req->user_agent // '';
+
     my @submit;
     for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
         my $id = $xp->find('@mb:id', $node)->string_value or
@@ -297,7 +286,8 @@ sub release_submit : Private
                     submissions => [ map +{
                         release => $gid_map{ $_->{release} },
                         barcode => $_->{barcode}
-                    }, @submit ]
+                    }, @submit ],
+                    client_version => $client
                 );
             });
         }

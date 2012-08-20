@@ -74,7 +74,7 @@ is(scalar @{ $email_transport->deliveries }, 1);
 
 my $email = $email_transport->deliveries->[-1]->{email};
 is($email->get_header('Subject'), 'Someone has voted against your edit #2', 'Subject explains someone has voted against your edit');
-is($email->get_header('References'), sprintf '<edit-%d@musicbrainz.org>', $edit->id, 'References header contains edit id');
+is($email->get_header('References'), sprintf '<edit-%d@%s>', $edit->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL, 'References header contains edit id');
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
 
 my $server = DBDefs::WEB_SERVER_USED_IN_EMAIL;
@@ -127,7 +127,7 @@ $vote_data->enter_votes(2, { edit_id => $edit->id, vote => 123 });
 is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
 
 # Check the voting statistics
-my $stats = $vote_data->editor_statistics(1);
+my $stats = $vote_data->editor_statistics($test->c->model('Editor')->get_by_id(1));
 is_deeply($stats, [
     {
         name   => 'Yes',

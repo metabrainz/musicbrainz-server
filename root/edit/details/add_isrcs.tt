@@ -1,4 +1,11 @@
 <table class="details add-isrcs">
+  [% IF edit.data.client_version.defined %]
+  <tr>
+    <th>[% l('Client:') %]</th>
+    <td>[% (edit.data.client_version || l('(unknown)')) | html %]</td>
+  </tr>
+  [% END %]
+
   <tr>
     <th>[% l('Additions:') %]</th>
     <td>

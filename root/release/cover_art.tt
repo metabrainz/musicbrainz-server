@@ -31,7 +31,7 @@
     [%- END -%]
 
     <p>
-      [% l('All artwork is provided by the {caa|Cover Art Archive}.',
+      [% l('These images provided by the {caa|Cover Art Archive}.',
            { caa => 'http://coverartarchive.org' }) %]
     </p>
   [%- ELSE -%]

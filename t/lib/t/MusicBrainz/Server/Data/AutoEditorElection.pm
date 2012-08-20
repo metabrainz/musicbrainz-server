@@ -39,6 +39,8 @@ test 'Accept' => sub {
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
     like($email->get_body, qr{Candidate:\s+noob1});
     like($email->get_body, qr{Proposer:\s+autoeditor1});
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), "References header is correct");
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
     $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
@@ -75,6 +77,8 @@ test 'Accept' => sub {
     like($email->get_body, qr{Proposer:\s+autoeditor1});
     like($email->get_body, qr{Seconder:\s+autoeditor2});
     like($email->get_body, qr{Seconder:\s+autoeditor3});
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), "References header is correct");
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
     $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
@@ -137,6 +141,8 @@ test 'Accept' => sub {
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now closed: noob1 has been\s+accepted as an auto-editor});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), "References header is correct");
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
     $candidate = $test->c->model('Editor')->get_by_id($candidate->id);
@@ -184,6 +190,8 @@ test 'Rejected' => sub {
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now closed: the proposal to make\s+noob1 an auto-editor was declined});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), "References header is correct");
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
     $candidate = $test->c->model('Editor')->get_by_id($candidate->id);
@@ -300,6 +308,8 @@ test 'Timeout' => sub {
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{This election has been cancelled, because two seconders could not be\s+found within the allowed time \(1 week\)});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), "References header is correct");
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
     $candidate = $test->c->model('Editor')->get_by_id($candidate->id);
@@ -334,6 +344,8 @@ test 'Cancel' => sub {
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{This election has been cancelled by the proposer \(autoeditor1\)});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
+    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), "References header is correct");
+    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, "Message-id header has correct format");
     $email_transport->clear_deliveries;
 
     $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);

@@ -1,5 +1,12 @@
 [% PROCESS 'edit/details/macros.tt' %]
 <table class="details edit-barcodes">
+    [% IF edit.data.client_version.defined %]
+    <tr>
+      <th>[% l('Client:') %]</th>
+      <td>[% edit.data.client_version | html %]</td>
+    </tr>
+    [% END %]
+
     [% FOR submission=edit.display_data.submissions %]
     <tr>
         <th>[% l('Release:') %]</th>

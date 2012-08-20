@@ -30,6 +30,7 @@ use Sub::Exporter -setup => {
             capture_edits
         ),
         ws_test => \&_build_ws_test,
+        ws_test_json => \&_build_ws_test_json,
     ],
 };
 
@@ -357,6 +358,7 @@ sub _build_ws_test_xml {
         $opts ||= {};
 
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+        $mech->default_header ("Accept" => "application/xml");
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -380,6 +382,7 @@ sub _build_ws_test_json {
     my $end_point = '/ws/' . $args->{version};
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+    $mech->default_header ("Accept" => "application/json");
 
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
