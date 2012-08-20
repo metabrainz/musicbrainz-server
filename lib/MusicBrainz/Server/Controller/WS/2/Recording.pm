@@ -10,7 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
 );
 
-use MusicBrainz::Server::Validation qw( is_valid_isrc is_tunecore );
+use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
@@ -211,8 +211,6 @@ sub recording_submit : Private
             my $isrc = $xp->find('@mb:id', $isrc_node)->string_value;
             $self->_error($c, "$isrc is not a valid ISRC")
                 unless is_valid_isrc($isrc);
-            $self->_error($c, "$isrc is not a valid ISRC; this is a TuneCore ID")
-                if is_tunecore($isrc);
 
             $submit_isrc{ $id } ||= [];
             push @{ $submit_isrc{$id} }, $isrc;

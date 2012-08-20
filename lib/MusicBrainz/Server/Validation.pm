@@ -366,13 +366,13 @@ sub SimpleLog
 sub is_valid_isrc
 {
     my $isrc = $_[0];
-    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/;
+    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/ && !is_tunecore($isrc);
 }
 
 sub is_tunecore
 {
-	my $supposed_isrc = $_[0];
-	return $supposed_isrc =~ /TC\.*/;
+    my $supposed_isrc = $_[0];
+    return $supposed_isrc =~ /TC\.*/;
 }
 
 ################################################################################

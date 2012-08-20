@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::Field::ISRC;
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation qw( is_valid_isrc is_tunecore );
+use MusicBrainz::Server::Validation qw( is_valid_isrc );
 
 extends 'HTML::FormHandler::Field::Text';
 
@@ -12,11 +12,7 @@ has '+maxlength' => ( default => 12 );
 apply ([
     {
         check => sub { is_valid_isrc(shift) },
-        message => l('This is not a valid ISRC'),
-    },
-    {
-        check => sub { !is_tunecore(shift) },
-        message => l('This is not a valid ISRC; codes beginning "TC" are TuneCore IDs which should not be put into the ISRC field. Please put this code into the annotation for the recording instead.'),
+        message => l('This is not a valid ISRC. If this code starts with "TC", it is a TuneCore ID, which should be put into the annotation instead.'),
     }
 ]);
 
