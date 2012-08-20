@@ -110,11 +110,7 @@ sub artist_toplevel
         $self->linked_works ($c, $stash, $opts->{works}->{items});
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $artist);
-    }
+    $self->load_relationships($c, $artist);
 }
 
 sub artist_browse : Private

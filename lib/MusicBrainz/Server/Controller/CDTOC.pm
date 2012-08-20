@@ -320,7 +320,9 @@ sub move : Local RequireAuth Edit
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
         $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
-        $c->stash( release => $medium->release );
+        $c->stash( 
+            medium => $medium
+        );
 
 
         $c->stash(template => 'cdtoc/attach_confirm.tt');

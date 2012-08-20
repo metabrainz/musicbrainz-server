@@ -327,3 +327,10 @@ ul.favicons li img {
     vertical-align: middle;
 }
 
+/*
+** Misc
+*/
+
+#recaptcha_widget_div {
+    display: inline-block;
+}

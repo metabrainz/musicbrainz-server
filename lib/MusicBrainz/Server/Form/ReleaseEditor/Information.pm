@@ -53,8 +53,13 @@ sub options_script_id         { return script_options (shift->ctx); }
 sub validate {
     my $self = shift;
 
+    my $current_release = $self->init_object // 
+        $self->field('id')->value ? 
+        $self->ctx->model('Release')->get_by_id($self->field('id')->value) :
+        undef;
     unless (!defined $self->field('barcode')->value ||
             $self->field('barcode')->value eq '' ||
+            ($current_release && $current_release->barcode eq $self->field('barcode')->value) ||
             MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
             $self->field('barcode_confirm')->value == 1)
     {

@@ -875,7 +875,7 @@ INSERT INTO artist_name (name, id) VALUES ('Chemical Brothers, The', 58894);
 INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 242, 58894, NULL, NULL, NULL, NULL, 643746, 1989, NULL, NULL, NULL, NULL, 2, NULL, '1946a82a-f927-40c2-8235-38d64f50d043');
 INSERT INTO artist_name (name, id) VALUES ('Chemical Brother', 245780);
 INSERT INTO artist_name (name, id) VALUES ('CHEMICAL BROTHERS', 29493);
-INSERT INTO artist_name (name, id) VALUES ('Chemical  Brothers', 355249);
+INSERT INTO artist_name (name, id) VALUES ('Chemical Brothers', 355249);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 245780, 0, NULL, 34446, 245780);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 29493, 0, NULL, 381, 29493);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 355249, 0, NULL, 2207, 355249);
@@ -3568,7 +3568,7 @@ INSERT INTO link_type (priority, last_updated, parent, name, description, short_
 INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, link_type, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, 2008, '2011-01-18 15:31:00.495651+00', 71, NULL, NULL, NULL, 6059, NULL);
 INSERT INTO l_recording_release (link, last_updated, entity1, entity0, edits_pending, id) VALUES (6059, '2011-01-18 15:56:00.408782+00', 459740, 7905440, 0, 1);
 INSERT INTO work_name (name, id) VALUES ('サマーれげぇ!レインボー', 28109);
-INSERT INTO work (last_updated, name, edits_pending, artist_credit, comment, id, type, gid) VALUES (NULL, 28109, 0, NULL, NULL, 4223059, NULL, '3c37b9fa-a6c1-37d2-9e90-657a116d337c');
+INSERT INTO work (last_updated, name, edits_pending, artist_credit, comment, id, type, gid, language) VALUES (NULL, 28109, 0, NULL, NULL, 4223059, NULL, '3c37b9fa-a6c1-37d2-9e90-657a116d337c', 198);
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;
 INSERT INTO link_type (priority, last_updated, parent, name, description, short_link_phrase, link_phrase, entity_type1, entity_type0, id, reverse_link_phrase, child_order, gid) VALUES (0, '2011-01-18 15:31:00.495651+00', NULL, 'performance', '', 'performance', 'is a performance of', 'work', 'recording', 285, 'has performance', 0, 'fdc57134-e05c-30bc-aff6-425684475276');
 INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, link_type, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, NULL, '2011-01-18 15:31:00.495651+00', 285, NULL, NULL, NULL, 23865, NULL);
@@ -3679,7 +3679,7 @@ INSERT INTO work (last_updated, name, edits_pending, artist_credit, comment, id,
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 3584195;
 INSERT INTO l_recording_work (link, last_updated, entity1, entity0, edits_pending, id) VALUES (23865, '2011-01-18 16:15:33.876477+00', 3584195, 3584195, 0, 163067);
 INSERT INTO work_name (name, id) VALUES ('Asseswaving', 137513);
-INSERT INTO work (last_updated, name, edits_pending, artist_credit, comment, id, type, gid) VALUES (NULL, 137513, 0, NULL, NULL, 7905446, NULL, 'f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8');
+INSERT INTO work (last_updated, name, edits_pending, artist_credit, comment, id, type, gid, language) VALUES (NULL, 137513, 0, NULL, NULL, 7905446, NULL, 'f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8', 198);
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 7905446;
 INSERT INTO l_recording_work (link, last_updated, entity1, entity0, edits_pending, id) VALUES (23865, '2011-01-18 16:15:33.876477+00', 7905446, 7905446, 0, 43140);
 INSERT INTO work_name (name, id) VALUES ('Got Glint?', 21994);
