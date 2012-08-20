@@ -41,9 +41,8 @@ role
         my $entity = $self->_load($c, @args);
 
         if (!defined $entity) {
+            # This will detach for us
             $self->not_found($c, @args);
-            $c->detach;
-            return;
         }
 
         # First stash is more convenient for the actual controller
@@ -61,8 +60,8 @@ role
             return $c->model($model)->get_by_gid($id);
         }
         else {
+            # This will detach for us
             $self->invalid_mbid($c, $id);
-            $c->detach;
         }
     };
 };
