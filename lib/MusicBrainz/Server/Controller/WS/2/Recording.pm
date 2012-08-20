@@ -106,7 +106,7 @@ sub recording_toplevel
         $self->linked_artists ($c, $stash, \@artists);
     }
 
-    $self->load_relationships($c, $recording);
+    $self->load_relationships($c, $stash, $recording);
 }
 
 sub recording: Chained('load') PathPart('')

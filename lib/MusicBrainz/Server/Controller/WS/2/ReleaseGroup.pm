@@ -64,7 +64,7 @@ sub release_group_toplevel
         $self->linked_artists ($c, $stash, \@artists);
     }
 
-    $self->load_relationships($c, $rg);
+    $self->load_relationships($c, $stash, $rg);
 }
 
 sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }

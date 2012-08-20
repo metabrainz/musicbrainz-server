@@ -40,7 +40,7 @@ sub work_toplevel
 
     $self->linked_works ($c, $stash, [ $work ]);
 
-    $self->load_relationships($c, $work);
+    $self->load_relationships($c, $stash, $work);
 
     $c->model('WorkType')->load($work);
     $c->model('Language')->load($work);

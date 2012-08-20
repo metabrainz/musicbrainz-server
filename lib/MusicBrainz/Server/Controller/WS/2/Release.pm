@@ -120,7 +120,7 @@ sub release_toplevel
         $self->linked_recordings ($c, $stash, \@recordings);
     }
 
-    $self->load_relationships($c, @rels_entities);
+    $self->load_relationships($c, $stash, @rels_entities);
 
     if ($c->stash->{inc}->collections)
     {

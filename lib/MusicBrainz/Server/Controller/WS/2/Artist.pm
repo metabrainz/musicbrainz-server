@@ -110,7 +110,7 @@ sub artist_toplevel
         $self->linked_works ($c, $stash, $opts->{works}->{items});
     }
 
-    $self->load_relationships($c, $artist);
+    $self->load_relationships($c, $stash, $artist);
 }
 
 sub artist_browse : Private

@@ -66,7 +66,7 @@ sub label_toplevel
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
     }
 
-    $self->load_relationships($c, $label);
+    $self->load_relationships($c, $stash, $label);
 }
 
 sub label : Chained('load') PathPart('')

@@ -514,7 +514,7 @@ sub _validate_entity
 }
 
 sub load_relationships {
-    my ($self, $c, @for) = @_;
+    my ($self, $c, $stash, @for) = @_;
 
     if ($c->stash->{inc}->has_rels)
     {
@@ -530,7 +530,7 @@ sub load_relationships {
         {
             $c->model('Relationship')->load_subset($types, @works);
         }
-        $self->linked_works($c, $c->stash, \@works);
+        $self->linked_works($c, $stash, \@works);
 
         my $collect_works = sub {
             my $relationship = shift;
