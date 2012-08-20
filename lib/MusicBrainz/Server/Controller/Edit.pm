@@ -125,17 +125,19 @@ sub cancel : Chained('load') RequireAuth
 
     my $form = $c->form(form => 'Confirm');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('Edit')->cancel($edit);
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Edit')->cancel($edit);
 
-        if (my $edit_note = $form->field('edit_note')->value) {
-            $c->model('EditNote')->add_note(
-                $edit->id,
-                {
-                    editor_id => $c->user->id,
-                    text      => $edit_note
-                }
-            );
-        }
+            if (my $edit_note = $form->field('edit_note')->value) {
+                $c->model('EditNote')->add_note(
+                    $edit->id,
+                    {
+                        editor_id => $c->user->id,
+                        text      => $edit_note
+                    }
+                );
+            }
+        });
 
         $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
         $c->detach;

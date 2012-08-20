@@ -5,6 +5,7 @@ use LWP;
 use URI::Escape;
 
 use DateTime;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -527,6 +528,18 @@ sub delete {
                 ReleaseGroup
                 Work
           );
+
+    # Cancel any open edits the editor still has
+    my @edits = values %{ $self->c->model('Edit')->get_by_ids(
+        @{ $self->sql->select_single_column_array(
+            'SELECT id FROM edit WHERE editor = ? AND status = ?',
+            $editor_id, $STATUS_OPEN)
+       }
+    ) };
+
+    for my $edit (@edits) {
+        $self->c->model('Edit')->cancel($edit);
+    }
 
     $self->sql->commit;
 }
