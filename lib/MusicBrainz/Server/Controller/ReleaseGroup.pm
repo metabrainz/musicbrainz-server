@@ -105,6 +105,8 @@ after 'merge' => sub
 {
     my ($self, $c) = @_;
 
+    $c->model('ReleaseGroup')->load_meta(@{ $c->stash->{to_merge} });
+    $c->model('ReleaseGroupType')->load(@{ $c->stash->{to_merge} });
     $c->model('ArtistCredit')->load(
         $c->stash->{old}, $c->stash->{new}
     );
