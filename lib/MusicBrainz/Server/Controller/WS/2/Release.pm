@@ -246,6 +246,8 @@ sub release_submit : Private
     $self->deny_readonly($c);
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
+    my $client = $c->req->query_params->{client} // $c->req->user_agent // '';
+
     my @submit;
     for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
         my $id = $xp->find('@mb:id', $node)->string_value or
@@ -283,7 +285,8 @@ sub release_submit : Private
                     submissions => [ map +{
                         release => $gid_map{ $_->{release} },
                         barcode => $_->{barcode}
-                    }, @submit ]
+                    }, @submit ],
+                    client_version => $client
                 );
             });
         }

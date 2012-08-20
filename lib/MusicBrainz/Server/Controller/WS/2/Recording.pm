@@ -265,7 +265,8 @@ sub recording_submit : Private
                     $c->model('Edit')->create(
                         edit_type      => $EDIT_RECORDING_ADD_ISRCS,
                         editor_id      => $c->user->id,
-                        isrcs          => $contents
+                        isrcs          => $contents,
+                        client_version => $client
                     );
                 }
                     catch {

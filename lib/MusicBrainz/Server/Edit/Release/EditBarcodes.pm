@@ -28,7 +28,8 @@ has '+data' => (
             ],
             barcode => Str,
             old_barcode => Nullable[Str]
-        ]]
+        ]],
+        client_version => Nullable[Str]
     ]
 );
 
