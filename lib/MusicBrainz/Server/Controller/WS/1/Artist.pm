@@ -45,7 +45,7 @@ sub lookup : Chained('load') PathPart('')
         }
         else
         {
-            @rg = $c->model('ReleaseGroup')->filter_by_artist($artist->id, filtr => { type => $c->stash->{inc}->rg_type });
+            @rg = $c->model('ReleaseGroup')->filter_by_artist($artist->id, filter => { type => $c->stash->{inc}->rg_type });
         }
     }
 
