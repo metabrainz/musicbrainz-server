@@ -246,9 +246,10 @@ sub update
     @new_tags = $self->parse_tags($input);
 
     Sql::run_in_transaction(sub {
+        # Lock the entity being tagged to prevent concurrency issues
+        $self->parent->get_by_id_locked($entity_id);
 
         # Load the existing raw tag ids for this entity
-
         my %old_tag_info;
         my @old_tags;
         my $old_tag_ids = $self->sql->select_single_column_array("
