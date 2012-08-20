@@ -728,3 +728,11 @@ http://[%- server -%]/[%- id -%]"
     </form>
   </div>
 [%- END -%]
+
+[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
+[%- END -%]
+
+[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]</th>
+[%- END -%]

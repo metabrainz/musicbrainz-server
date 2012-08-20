@@ -40,13 +40,13 @@
     [% END %]
     [% IF !edit.display_data.begin_date.is_empty %]
     <tr>
-        <th>[% l('Begin date:') %]</th>
+        <th>[% artist_begin_label_from_type(edit.display_data.type.id) %]</th>
         <td>[% edit.display_data.begin_date.format %]</td>
     </tr>
     [% END %]
     [% IF !edit.display_data.end_date.is_empty %]
     <tr>
-        <th>[% l('End date:') %]</th>
+        <th>[% artist_end_label_from_type(edit.display_data.type.id) %]</th>
         <td>[% edit.display_data.end_date.format %]</td>
     </tr>
     [% END %]
