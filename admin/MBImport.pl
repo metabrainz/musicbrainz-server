@@ -469,7 +469,7 @@ sub ImportAllTables
         cover_art_archive.art_type
         cover_art_archive.cover_art
         cover_art_archive.cover_art_type
-    ) {
+    )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
