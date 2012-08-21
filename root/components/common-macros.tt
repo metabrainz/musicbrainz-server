@@ -78,7 +78,7 @@ END; -%]
               else
               {
                   $(this).closest ('a').replaceWith ('<em>
-                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
+                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') | js -%]
                   <\/em>');
               }
           }).attr ("src", "[% artwork.large_thumbnail %]");
