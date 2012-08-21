@@ -20,9 +20,9 @@
 MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
-    $tracklist, releaseViewModel, parseMedium, parseTrack;
+    $tracklist, parseMedium, parseTrack, releaseLoaded;
 
-releaseViewModel = {
+RE.releaseViewModel = {
     RE: RE,
     media: ko.observableArray([]),
 
@@ -142,8 +142,8 @@ releaseViewModel = {
 };
 
 
-UI.init = function(releaseGID) {
-    releaseViewModel.GID = releaseGID;
+UI.init = function(releaseGID, data) {
+    RE.releaseViewModel.GID = releaseGID;
 
     UI.Dialog.init();
     UI.WorkDialog.init();
@@ -156,29 +156,37 @@ UI.init = function(releaseGID) {
     // preload image to avoid flickering
     $("<img/>").attr("src", "../../../static/images/icons/add.png");
 
-    releaseViewModel.entity = RE.Entity({type: "release", gid: releaseGID});
+    RE.releaseViewModel.entity = RE.Entity({type: "release", gid: releaseGID});
 
-    ko.applyBindings(releaseViewModel, document.getElementById("content"));
+    ko.applyBindings(RE.releaseViewModel, document.getElementById("content"));
 
-    var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
-        $loading = $(UI.loadingIndicator).insertAfter("#tracklist");
+    if (data) {
+        releaseLoaded(data);
+    } else {
+        var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
+            $loading = $(UI.loadingIndicator).insertAfter("#tracklist");
 
-    $.getJSON(url, function(data) {
-        data.type = "release";
-        RE.Entity(data);
-        var trackCount = 0;
+        $.getJSON(url, function(data) {
+            releaseLoaded(data);
+            $loading.remove();
+        });
+    }
+};
 
-        var media = data.mediums;
-        for (var i = 0; i < media.length; i++)
-            trackCount += parseMedium(media[i], releaseViewModel.media, data);
 
-        Util.parseRelationships(data, true);
+releaseLoaded = function(data) {
+    data.type = "release";
+    RE.Entity(data);
+    var trackCount = 0;
 
-        initButtons();
-        initCheckboxes(trackCount);
+    var media = data.mediums;
+    for (var i = 0; i < media.length; i++)
+        trackCount += parseMedium(media[i], RE.releaseViewModel.media, data);
 
-        $loading.remove();
-    });
+    Util.parseRelationships(data, true);
+
+    initButtons();
+    initCheckboxes(trackCount);
 };
 
 
@@ -255,7 +263,7 @@ function initCheckboxes(trackCount) {
         $medium_works = $tracklist.find("input.medium-works"),
         recording_selector = "td.recording > input[type=checkbox]",
         work_selector = "td.works > div.ar > input[type=checkbox]",
-        checkboxes = releaseViewModel.checkboxes;
+        checkboxes = RE.releaseViewModel.checkboxes;
 
     // get translated strings for the checkboxes
     function getPlurals(singular, plural, max, name) {
