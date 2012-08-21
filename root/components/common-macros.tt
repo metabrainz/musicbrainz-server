@@ -750,5 +750,5 @@ http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
 [%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]</th>
+    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
 [%- END -%]
