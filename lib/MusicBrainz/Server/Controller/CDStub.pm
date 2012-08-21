@@ -78,7 +78,7 @@ sub add : Path('add') {
             tracks => [ map +{}, (1..$toc->track_count) ]
         }
     );
-    $c->stash( template => 'cdstub/edit.tt' );
+    $c->stash( template => 'cdstub/add.tt' );
     if ($form->submitted_and_valid($c->req->params)) {
         my $form_val = $form->value;
         $c->model('CDStub')->insert({

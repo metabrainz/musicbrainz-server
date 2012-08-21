@@ -87,7 +87,7 @@
     <td class="edit-cover-art">
       [%- SET history_message = l('We are unable to display history for cover
           art. For a current listing of cover art, please see the
-          {coverart|releases cover art page}.',
+          {coverart|release\'s cover art page}.',
           { coverart => c.uri_for_action('/release/cover_art', [ release.gid ]) }) %]
 
 

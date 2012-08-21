@@ -7,7 +7,7 @@
 
       var bubbles = MB.Control.BubbleCollection ();
       MB.Control.initialize_artist_credit (bubbles);
-      MB.Control.initialize_guess_case (bubbles, 'recording');
+      MB.Control.initialize_guess_case (bubbles, 'recording', 'id-edit-recording');
 
       $('.artist-credit-box input.name').live ('VariousArtists', function (event) {
           var $va = $('.artist-credit-box input.name.various-artists');
