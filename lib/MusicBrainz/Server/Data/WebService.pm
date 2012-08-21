@@ -1,12 +1,15 @@
-package MusicBrainz::Server::WebService::XMLSearch;
+package MusicBrainz::Server::Data::WebService;
+use Moose;
+use namespace::autoclean;
 
-use base 'Exporter';
-our @EXPORT_OK = qw( xml_search );
-
-use MusicBrainz::Server::Validation qw( is_positive_integer );
+use DBDefs;
 use Encode qw( decode );
-use URI::Escape qw( uri_escape_utf8 );
 use HTTP::Status ':constants';
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Validation qw( is_positive_integer );
+use URI::Escape qw( uri_escape_utf8 );
+
+with 'MusicBrainz::Server::Data::Role::Context';
 
 # Escape special characters in a Lucene search query
 sub escape_query
@@ -20,7 +23,7 @@ sub escape_query
 # Return the complete XML document.
 sub xml_search
 {
-    my ($resource, $args) = @_;
+    my ($self, $resource, $args) = @_;
 
     my $query = "";
     my $dur = 0;
@@ -197,14 +200,9 @@ sub xml_search
         };
     }
 
-    my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/2/$resource/?" .
+    my $url = 'http://' . DBDefs::LUCENE_SERVER . "/ws/2/$resource/?" .
               "max=$limit&type=$resource&fmt=xml&offset=$offset&query=". uri_escape_utf8($query);
-
-    require LWP::UserAgent;
-    my $ua = LWP::UserAgent->new;
-    $ua->env_proxy;
-    my $response = $ua->get($url);
-    $ua->timeout(2);
+    my $response = $self->c->lwp->get($url);
     if ( $response->is_success )
     {
         return { xml => decode('utf-8', $response->content) };
@@ -228,4 +226,5 @@ sub xml_search
     }
 }
 
+__PACKAGE__->meta->make_immutable;
 1;
