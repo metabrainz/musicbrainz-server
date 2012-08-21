@@ -34,45 +34,11 @@ package DBDefs::Default;
 # The server root, i.e. the parent directory of admin, bin, lib, root, etc.
 sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
 # Where static files are located
-sub STATIC_FILES_DIR { MB_SERVER_ROOT . '/root/static' }
+sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' }
 
 ################################################################################
 # The Database
 ################################################################################
-
-use MusicBrainz::Server::DatabaseConnectionFactory;
-MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
-    # How to connect when we need read-write access to the database
-    READWRITE => {
-        database    => "musicbrainz_db",
-        schema          => "musicbrainz",
-        username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
-    },
-    # How to connect to a test database
-    TEST => {
-        database    => "musicbrainz_test",
-        schema          => "musicbrainz",
-        username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
-    },
-    # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
-    # READONLY => undef,
-    # How to connect for administrative access
-    SYSTEM    => {
-        database    => "template1",
-        username    => "postgres",
-#       password        => "",
-#       host            => "",
-#       port            => "",
-    },
-    # Fill out only if RAWDATA lives on a different host from the READWRITE server.
-    # RAWDATA_SYSTEM => undef,
-);
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
@@ -99,7 +65,7 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # To use a port number other than 80, add it like so: "myhost:8000"
 sub WEB_SERVER                { "www.musicbrainz.example.com" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
-sub WEB_SERVER_USED_IN_EMAIL  { WEB_SERVER }
+sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
 ################################################################################
 # Mail Settings
@@ -137,7 +103,7 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # Testing features enable "Accept edit" and "Reject edit" links on edits,
 # this should only be enabled on staging servers. Also, this enables non-admin
 # users to edit user permissions.
-sub DB_STAGING_TESTING_FEATURES { DB_STAGING_SERVER }
+sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
 ################################################################################
 # Documentation Server Settings
@@ -149,7 +115,7 @@ sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
 # transclusion table.
 sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/-/api.php" }
 
-sub WIKITRANS_INDEX_FILE { MB_SERVER_ROOT() . "/root/static/wikidocs/index.txt" }
+sub WIKITRANS_INDEX_FILE { my $self = shift; $self->MB_SERVER_ROOT . "/root/static/wikidocs/index.txt" }
 sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 
 # To enable documentation search on your server, create your own Google Custom
@@ -181,11 +147,12 @@ sub MEMCACHED_NAMESPACE { return 'MB:'; };
 # the same as the settings you use for the session store.
 #
 sub PLUGIN_CACHE_OPTIONS {
+    my $self = shift;
     return {
 #        class => "Cache::Memory",
         class => "Cache::Memcached::Fast",
-        servers => MEMCACHED_SERVERS(),
-        namespace => MEMCACHED_NAMESPACE(),
+        servers => $self->MEMCACHED_SERVERS(),
+        namespace => $self->MEMCACHED_NAMESPACE(),
     };
 };
 
@@ -246,7 +213,7 @@ sub RATELIMIT_SERVER { undef }
 
 # The following two values determine how scripts and styles are minified. By
 # default, a dummy minifier is used:
-sub MINIFY_DUMMY { my %args = @_; return $args{input}; }
+sub MINIFY_DUMMY { shift; my %args = @_; return $args{input}; }
 sub MINIFY_SCRIPTS { return \&MINIFY_DUMMY; }
 sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
 
@@ -277,7 +244,8 @@ EOF
 # about the last commit
 sub GIT_BRANCH
 {
-  if (DB_STAGING_SERVER) {
+  my $self = shift;
+  if ($self->DB_STAGING_SERVER) {
     my $branch = `git branch --no-color 2> /dev/null | sed -e '/^[^*]/d'`;
     $branch =~ s/\* (.+)/$1/;
     my $sha = `git log -1 --format=format:"%h"`;
@@ -310,6 +278,7 @@ my %amazon_store_associate_ids = (
 
 sub AWS_ASSOCIATE_ID
 {
+	shift;
     return keys %amazon_store_associate_ids if not @_;
     return $amazon_store_associate_ids{$_[0]};
 }
@@ -328,7 +297,7 @@ sub RECAPTCHA_PRIVATE_KEY { return undef }
 # internet archive private/public keys (for coverartarchive.org).
 sub COVER_ART_ARCHIVE_ID { };
 sub COVER_ART_ARCHIVE_KEY { };
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { sprintf("http://%s.s3.us.archive.org/", shift) };
+sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("http://%s.s3.us.archive.org/", shift) };
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
 
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
@@ -347,10 +316,11 @@ sub GOOGLE_ANALYTICS_CODE { '' }
 sub SESSION_STORE { "Session::Store::Memcached" }
 sub SESSION_STORE_ARGS
 {
+	my $self = shift;
     return {
         memcached_new_args => {
-            data => MEMCACHED_SERVERS(),
-            namespace => MEMCACHED_NAMESPACE(),
+            data => $self->MEMCACHED_SERVERS(),
+            namespace => $self->MEMCACHED_NAMESPACE(),
             memcached_class => 'Cache::Memcached::Fast',
         }
     }
@@ -360,7 +330,8 @@ sub SESSION_STORE_ARGS
 # seperately from the regular session store.
 sub WIZARD_MEMCACHED
 {
-    return { servers => MEMCACHED_SERVERS(), namespace => MEMCACHED_NAMESPACE() };
+	my $self = shift;
+    return { servers => $self->MEMCACHED_SERVERS(), namespace => $self->MEMCACHED_NAMESPACE() };
 }
 
 sub USE_ETAGS { 1 }

@@ -18,8 +18,8 @@ sub _fix_html_links
 {
     my ($self, $node, $index) = @_;
 
-    my $server      = DBDefs::WEB_SERVER;
-    my $wiki_server = DBDefs::WIKITRANS_SERVER;
+    my $server      = DBDefs->WEB_SERVER;
+    my $wiki_server = DBDefs->WIKITRANS_SERVER;
 
     my $class = $node->attr('class') || "";
 
@@ -48,7 +48,7 @@ sub _fix_html_markup
 {
     my ($self, $content, $index) = @_;
 
-    my $wiki_server = DBDefs::WIKITRANS_SERVER;
+    my $wiki_server = DBDefs->WIKITRANS_SERVER;
     my $tree = HTML::TreeBuilder::XPath->new;
 
     $tree->parse_content ("<html><body>".$content."</body></html>");
@@ -116,7 +116,7 @@ sub _load_page
     return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "MusicBrainz_Documentation" })
         if ($id eq "");
 
-    my $doc_url = sprintf "http://%s/%s?action=render", &DBDefs::WIKITRANS_SERVER, $id;
+    my $doc_url = sprintf "http://%s/%s?action=render", DBDefs->WIKITRANS_SERVER, $id;
     if (defined $version) {
         $doc_url .= "&oldid=$version";
     }
@@ -152,7 +152,7 @@ sub get_version
 {
     my ($self, $id) = @_;
 
-    my $doc_url = sprintf "http://%s/?title=%s", &DBDefs::WIKITRANS_SERVER, $id;
+    my $doc_url = sprintf "http://%s/?title=%s", DBDefs->WIKITRANS_SERVER, $id;
 
     my $ua = LWP::UserAgent->new();
     $ua->env_proxy;

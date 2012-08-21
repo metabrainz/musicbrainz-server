@@ -74,7 +74,7 @@ sub format_wikitext
     return '' unless $text;
 
     # MBS-2437: Expand MBID entity links
-    my $ws = DBDefs::WEB_SERVER;
+    my $ws = DBDefs->WEB_SERVER;
     $text =~ s/
       \[
       (artist|label|recording|release|release-group|url|work):
@@ -130,7 +130,7 @@ sub format_editnote
     my ($html) = @_;
 
     my $is_url = 1;
-    my $server = &DBDefs::WEB_SERVER;
+    my $server = DBDefs->WEB_SERVER;
 
     # Pre-pass the edit note to attempt to normalise any URLs
     $html =~ s{(http://[^\s]+)}{normalise_url($1)}eg;

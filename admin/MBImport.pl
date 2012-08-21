@@ -138,7 +138,7 @@ $timestamp =~ s/^This snapshot was taken at //;
 print localtime() . " : Snapshot timestamp is $timestamp\n";
 
 # We should also have SCHEMA_SEQUENCE files, which match.  Plus they must
-# match DBDefs::DB_SCHEMA_SEQUENCE.
+# match DBDefs->DB_SCHEMA_SEQUENCE.
 my $SCHEMA_SEQUENCE = read_all_and_check("SCHEMA_SEQUENCE");
 if (not defined $SCHEMA_SEQUENCE)
 {
@@ -146,10 +146,10 @@ if (not defined $SCHEMA_SEQUENCE)
     print STDERR localtime() . " : Don't be surprised if this import fails\n";
     $| = 1, print(chr(7)), sleep 5
         if -t STDOUT;
-} elsif ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE) {
+} elsif ($SCHEMA_SEQUENCE != DBDefs->DB_SCHEMA_SEQUENCE) {
     printf STDERR "%s : Schema sequence mismatch - codebase is %d, snapshot files are %d\n",
         scalar localtime,
-        &DBDefs::DB_SCHEMA_SEQUENCE,
+        DBDefs->DB_SCHEMA_SEQUENCE,
         $SCHEMA_SEQUENCE,
         ;
     exit 1;
@@ -474,7 +474,7 @@ sub ImportAllTables
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
 
-        if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+        if (DBDefs->REPLICATION_TYPE == RT_SLAVE)
         {
                 my $basetable = $table;
                 $basetable =~ s/_sanitised$//;
@@ -587,11 +587,11 @@ sub validate_tar
         my $all = do { local $/; <$fh> };
         close $fh;
         chomp($all);
-        if ($all ne &DBDefs::DB_SCHEMA_SEQUENCE)
+        if ($all ne DBDefs->DB_SCHEMA_SEQUENCE)
         {
                 printf STDERR "%s : Schema sequence mismatch - codebase is %d, $tar is %d\n",
                         scalar localtime,
-                        &DBDefs::DB_SCHEMA_SEQUENCE,
+                        DBDefs->DB_SCHEMA_SEQUENCE,
                         $all,
                         ;
                 exit 1;

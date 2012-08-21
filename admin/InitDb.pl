@@ -37,7 +37,7 @@ use MusicBrainz::Server::Replication ':replication_type';
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
-my $REPTYPE = &DBDefs::REPLICATION_TYPE;
+my $REPTYPE = DBDefs->REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
@@ -394,7 +394,7 @@ Options are:
   -q, --quiet            Don't show the output of any SQL scripts
   -h --help              This help
   --with-pending=PATH    For use only if this is a master replication server
-                         (DBDefs::REPLICATION_TYPE==RT_MASTER).  PATH specifies
+                         (DBDefs->REPLICATION_TYPE==RT_MASTER).  PATH specifies
                          the path to "pending.so" (on the database server).
      --fix-broken-utf8   replace invalid UTF-8 byte sequences with the special
                          Unicode "replacement character" U+FFFD.

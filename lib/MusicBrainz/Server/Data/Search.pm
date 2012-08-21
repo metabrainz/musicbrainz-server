@@ -562,7 +562,7 @@ sub external_search
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
     my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=%s",
-                                 DBDefs::LUCENE_SERVER,
+                                 DBDefs->LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
@@ -570,7 +570,7 @@ sub external_search
                                  $adv ? 'false' : 'true',
                                  );
 
-    if (&DBDefs::_RUNNING_TESTS)
+    if (DBDefs->_RUNNING_TESTS)
     {
         $ua = MusicBrainz::Server::Test::mock_search_server($type);
     }
@@ -837,7 +837,7 @@ sub xml_search
 
     $query = uri_escape_utf8($query);
     my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
-                                 DBDefs::LUCENE_SERVER,
+                                 DBDefs->LUCENE_SERVER,
                                  $version,
                                  $type,
                                  $query,

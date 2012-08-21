@@ -43,7 +43,7 @@ sub options_type
         'tag'           => l('Tag'),
     );
 
-    push @options, ( 'doc' => l('Documentation') ) if &DBDefs::GOOGLE_CUSTOM_SEARCH;
+    push @options, ( 'doc' => l('Documentation') ) if DBDefs->GOOGLE_CUSTOM_SEARCH;
 
     return \@options;
 }

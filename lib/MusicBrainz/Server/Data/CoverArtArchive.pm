@@ -8,12 +8,12 @@ use Net::CoverArtArchive qw( find_available_artwork );
 use Net::CoverArtArchive::CoverArt;
 use Time::HiRes qw( time );
 
-my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
+my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
 
 sub find_available_artwork {
     my ($self, $mbid) = @_;
 
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
+    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
 
     return [
         map {
@@ -48,8 +48,8 @@ sub post_fields
 {
     my ($self, $bucket, $mbid, $id, $redirect) = @_;
 
-    my $aws_id = &DBDefs::COVER_ART_ARCHIVE_ID;
-    my $aws_key = &DBDefs::COVER_ART_ARCHIVE_KEY;
+    my $aws_id = DBDefs->COVER_ART_ARCHIVE_ID;
+    my $aws_key = DBDefs->COVER_ART_ARCHIVE_KEY;
 
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
     my $filename = "mbid-$mbid-" . $id . '.jpg';

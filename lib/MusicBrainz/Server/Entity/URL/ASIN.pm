@@ -29,7 +29,7 @@ sub affiliate_url {
     my $url = $self->url;
     if ($url =~ m{^http://(?:www.)?(.*?\.)amazon\.([a-z\.]+)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
         my $asin = $3;
-        my $ass_id = DBDefs::AMAZON_ASSOCIATE_TAG;
+        my $ass_id = DBDefs->AMAZON_ASSOCIATE_TAG;
         return URI->new("http://amazon.$2/exec/obidos/ASIN/$asin/$ass_id?v=glance&s=music");
     }
     else {

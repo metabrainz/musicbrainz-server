@@ -83,14 +83,14 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
     __PACKAGE__->config( using_frontend_proxy => 1 );
 }
 
-if (DBDefs::EMAIL_BUGS) {
+if (DBDefs->EMAIL_BUGS) {
     __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
         emit_module => 'Catalyst::Plugin::ErrorCatcher::Email'
     };
 
     __PACKAGE__->config->{'Plugin::ErrorCatcher::Email'} = {
-        to => DBDefs::EMAIL_BUGS(),
-        from => 'bug-reporter@' . DBDefs::WEB_SERVER(),
+        to => DBDefs->EMAIL_BUGS(),
+        from => 'bug-reporter@' . DBDefs->WEB_SERVER(),
         use_tags => 1,
         subject => 'Unhandled error in %f (line %l)'
     };
@@ -98,7 +98,7 @@ if (DBDefs::EMAIL_BUGS) {
     push @args, "ErrorCatcher";
 }
 
-__PACKAGE__->config->{'Plugin::Cache'}{backend} = &DBDefs::PLUGIN_CACHE_OPTIONS;
+__PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
@@ -148,7 +148,7 @@ __PACKAGE__->config->{form} = {
     form_name_space => 'MusicBrainz::Server::Forms',
 };
 
-if (&DBDefs::_RUNNING_TESTS) {
+if (DBDefs->_RUNNING_TESTS) {
     push @args, "Session::Store::Dummy";
 
     # /static is usually taken care of by Plack or nginx, but not when running
@@ -164,29 +164,29 @@ if (&DBDefs::_RUNNING_TESTS) {
     }
 }
 else {
-    push @args, &DBDefs::SESSION_STORE;
-    __PACKAGE__->config->{'Plugin::Session'} = &DBDefs::SESSION_STORE_ARGS;
+    push @args, DBDefs->SESSION_STORE;
+    __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
 }
 
-if (&DBDefs::CATALYST_DEBUG) {
+if (DBDefs->CATALYST_DEBUG) {
     push @args, "-Debug";
 }
 
-if (&DBDefs::SESSION_COOKIE) {
-    __PACKAGE__->config->{session}{cookie_name} = &DBDefs::SESSION_COOKIE;
+if (DBDefs->SESSION_COOKIE) {
+    __PACKAGE__->config->{session}{cookie_name} = DBDefs->SESSION_COOKIE;
 }
 
-if (&DBDefs::SESSION_DOMAIN) {
-    __PACKAGE__->config->{session}{cookie_domain} = &DBDefs::SESSION_DOMAIN;
+if (DBDefs->SESSION_DOMAIN) {
+    __PACKAGE__->config->{session}{cookie_domain} = DBDefs->SESSION_DOMAIN;
 }
 
-__PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
+__PACKAGE__->config->{session}{cookie_expires} = DBDefs->WEB_SESSION_SECONDS_TO_LIVE;
 
-if (&DBDefs::USE_ETAGS) {
+if (DBDefs->USE_ETAGS) {
     push @args, "Cache::HTTP";
 }
 
-if (my $config = DBDefs::AUTO_RESTART) {
+if (my $config = DBDefs->AUTO_RESTART) {
     __PACKAGE__->config->{'Plugin::AutoRestart'} = $config;
     push @args, 'AutoRestart';
 }
@@ -268,7 +268,7 @@ around 'dispatch' => sub {
         current_language_html => $html_lang
     );
 
-    if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
+    if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
         alarm($max_request_time);
         POSIX::sigaction(
             SIGALRM, POSIX::SigAction->new(sub {

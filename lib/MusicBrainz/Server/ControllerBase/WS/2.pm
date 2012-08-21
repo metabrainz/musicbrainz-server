@@ -21,7 +21,7 @@ with 'MusicBrainz::Server::WebService::Format' =>
 };
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs::PROFILE_WEB_SERVICE()
+    threshold => DBDefs->PROFILE_WEB_SERVICE()
 };
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
@@ -101,7 +101,7 @@ sub bad_req : Private
 sub deny_readonly : Private
 {
     my ($self, $c) = @_;
-    if (DBDefs::DB_READ_ONLY) {
+    if (DBDefs->DB_READ_ONLY) {
         $c->res->status(503);
         $c->res->content_type("application/xml; charset=UTF-8");
         $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));

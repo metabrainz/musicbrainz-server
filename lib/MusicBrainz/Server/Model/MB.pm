@@ -21,12 +21,12 @@ sub _build_context {
     my $self = shift;
 
 
-    if (DBDefs::_RUNNING_TESTS()) {
+    if (DBDefs->_RUNNING_TESTS()) {
         require MusicBrainz::Server::Test;
         return MusicBrainz::Server::Test->create_test_context;
     }
     else {
-        my $cache_opts = &DBDefs::CACHE_MANAGER_OPTIONS;
+        my $cache_opts = DBDefs->CACHE_MANAGER_OPTIONS;
         return MusicBrainz::Server::Context->new(
             cache_manager => MusicBrainz::Server::CacheManager->new($cache_opts)
         );

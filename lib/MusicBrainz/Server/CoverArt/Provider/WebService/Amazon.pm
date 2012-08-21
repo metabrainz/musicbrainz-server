@@ -49,8 +49,8 @@ my $last_request_time;
 
 sub _build__aws_signature
 {
-    my $public  = DBDefs::AWS_PUBLIC();
-    my $private = DBDefs::AWS_PRIVATE();
+    my $public  = DBDefs->AWS_PUBLIC();
+    my $private = DBDefs->AWS_PRIVATE();
     return Net::Amazon::AWSSign->new($public, $private);
 }
 
@@ -58,8 +58,8 @@ sub handles
 {
     # Handle any thing that is an Amazon ASIN url relationship (but only if
     # the server config has AWS keys)
-    my $public  = DBDefs::AWS_PUBLIC();
-    my $private = DBDefs::AWS_PRIVATE();
+    my $public  = DBDefs->AWS_PUBLIC();
+    my $private = DBDefs->AWS_PRIVATE();
     return $public && $private;
 }
 
@@ -110,7 +110,7 @@ sub search_by_barcode
 sub _lookup_coverart {
     my ($self, $url) = @_;
 
-    $url .= "&AssociateTag=" . DBDefs::AMAZON_ASSOCIATE_TAG;
+    $url .= "&AssociateTag=" . DBDefs->AMAZON_ASSOCIATE_TAG;
     $url = $self->_aws_signature->addRESTSecret($url);
 
     # Respect Amazon SLA
