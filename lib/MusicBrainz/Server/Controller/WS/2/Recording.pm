@@ -10,7 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
 );
 
-use MusicBrainz::Server::Validation qw( is_valid_isrc );
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
 use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
@@ -129,7 +129,7 @@ sub recording_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -194,13 +194,13 @@ sub recording_submit : Private
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
-            unless MusicBrainz::Server::Validation::IsGUID($id);
+            unless is_guid($id);
 
         my @puids = $xp->find('mb:puid-list/mb:puid', $node)->get_nodelist;
         for my $puid_node (@puids) {
             my $puid = $xp->find('@mb:id', $puid_node)->string_value;
             $self->_error($c, "$puid is not a valid PUID")
-                unless MusicBrainz::Server::Validation::IsGUID($puid);
+                unless is_guid($puid);
 
             $submit_puid{ $id } ||= [];
             push @{ $submit_puid{$id} }, $puid;

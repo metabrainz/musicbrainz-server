@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::Role::Load;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 use MusicBrainz::Server::Data::Utils 'model_to_type';
+use MusicBrainz::Server::Validation qw( is_guid );
 
 parameter 'model' => (
     isa => 'Str',
@@ -56,7 +57,7 @@ role
     {
         my ($self, $c, $id) = @_;
 
-        if (MusicBrainz::Server::Validation::IsGUID($id)) {
+        if (is_guid($id)) {
             return $c->model($model)->get_by_gid($id);
         }
         else {

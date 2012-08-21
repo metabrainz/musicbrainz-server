@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
+use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
 use Readonly;
 use Try::Tiny;
 
@@ -139,7 +140,7 @@ sub release: Chained('root') PathPart('release') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!is_guid($gid))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -165,7 +166,7 @@ sub release_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -254,12 +255,12 @@ sub release_submit : Private
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
-            unless MusicBrainz::Server::Validation::IsGUID($id);
+            unless is_guid($id);
 
         my $barcode = $xp->find('mb:barcode', $node)->string_value or next;
 
         $self->_error($c, "$barcode is not a valid barcode")
-            unless MusicBrainz::Server::Validation::IsValidEAN($barcode);
+            unless is_valid_ean($barcode);
 
         push @submit, { release => $id, barcode => $barcode };
     }

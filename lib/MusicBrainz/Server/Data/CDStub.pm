@@ -12,7 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( is_valid_barcode );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -131,7 +131,7 @@ sub insert
             @tracks == $cdtoc->track_count
         },
         l('Invalid barcode') => check ($data) {
-            !$data->{barcode} || MusicBrainz::Server::Validation::IsValidBarcode($data->{barcode});
+            !$data->{barcode} || is_valid_barcode($data->{barcode});
         }
     );
 
