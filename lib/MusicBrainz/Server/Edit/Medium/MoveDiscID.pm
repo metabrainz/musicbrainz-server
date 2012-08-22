@@ -84,8 +84,6 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    use Data::Dumper qw(Dumper);
-    warn Dumper($self->data);
     my $old_release = $loaded->{Release}->{ $self->data->{old_medium}{release}{id} }
             || Release->new( name => $self->data->{old_medium}{release}{name} );
     my $old_medium = $loaded->{Medium}->{ $self->data->{old_medium}{id} }
