@@ -469,7 +469,7 @@ sub ImportAllTables
         cover_art_archive.art_type
         cover_art_archive.cover_art
         cover_art_archive.cover_art_type
-    ) {
+    )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
@@ -580,7 +580,7 @@ sub validate_tar
     );
 
     print localtime() . " : Pre-checking $tar\n";
-    system "$cat_cmd < $tar | head --bytes=102400 | tar -C $dir -xf- 2>/dev/null";
+    system "$cat_cmd < $tar | head -c 102400 | tar -C $dir -xf- 2>/dev/null";
 
     if (open(my $fh, "<", "$dir/SCHEMA_SEQUENCE"))
     {

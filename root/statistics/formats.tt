@@ -1,7 +1,7 @@
 [%- MACRO entry(entity) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 1 %]>
     <td class="t">[% loop.count %]</td>
-    <td>[% IF entity.entity.id != '' %]<a href="/search?query=format%3A%22[% entity.entity.name | replace('"', '\"') | uri %]%22&type=release&advanced=on">[% END %]
+    <td>[% IF entity.entity.id != '' %]<a href="/search?query=format%3A%22[% entity.entity.name | replace('"', '\"') | uri %]%22&amp;type=release&amp;advanced=on">[% END %]
             [% entity.entity.l_name || l('Unknown Format') %]
         [% IF entity.entity.id != '' %]</a>[% END %]
     </td>

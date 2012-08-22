@@ -640,6 +640,16 @@ around _merge_submit => sub {
     }
 };
 
+after 'merge' => sub
+{
+    my ($self, $c) = @_;
+    $c->model('Medium')->load_for_releases(@{ $c->stash->{to_merge} });
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @{ $c->stash->{to_merge} });
+    $c->model('Country')->load(@{ $c->stash->{to_merge} });
+    $c->model('ReleaseLabel')->load(@{ $c->stash->{to_merge} });
+    $c->model('Label')->load(map { $_->all_labels } @{ $c->stash->{to_merge} });
+};
+
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };

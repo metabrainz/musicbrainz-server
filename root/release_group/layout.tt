@@ -31,11 +31,7 @@
 
                 <hr/>
 
-                <li>
-                  <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ rg.gid ]) %]">
-                    [% rg.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-                  </a>
-                </li>
+                [% annotation_links(rg) %]
                 <li>
                   <a href="[% c.uri_for_action('/release_group/merge_queue', { 'add-to-merge' => rg.id }) %]">
                     [% l('Merge release group') %]

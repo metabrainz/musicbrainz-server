@@ -1,20 +1,6 @@
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
-    <div id="sidebar">
-      <div id="blog-feed" class="triple-column">
-        <h2>[% l('MusicBrainz Blog') %]</h2>
-        <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
-        <ul style="margin: 0; padding-left: 20px;">
-          [% FOR item IN blog.items %]
-            <li><a href="[% item.url %]">[% item.title %]</a></li>
-            [% LAST IF loop.count == 6 %]
-          [% END %]
-        </ul>
-        <p style="margin: 1em 0; text-align: right;">
-          <strong><a href="http://blog.musicbrainz.org">[% l('Read more &raquo;') %]</a></strong>
-        </p>
-      </div>
-
-      <div style="float: right;">
+    <div class="sidebar" id="sidebar">
+      <div class="information">
         <div id="taggers" class="triple-column">
             <h2 class="taggers">[% l('Tag Your Music') %]</h2>
             <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" alt="MusicBrainz Picard logo" />
@@ -35,6 +21,26 @@
                 <li><a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a></li>
             </ul>
         </div>
+      </div>
+    </div>
+
+    <div class="sidebar" id="sidebar2">
+      <div id="blog-feed" class="triple-column">
+        <h2>[% l('MusicBrainz Blog') %]</h2>
+        [% IF blog.defined %]
+        <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
+        <ul style="margin: 0; padding-left: 20px;">
+          [% FOR item IN blog.items %]
+            <li><a href="[% item.url %]">[% item.title %]</a></li>
+            [% LAST IF loop.count == 6 %]
+          [% END %]
+        </ul>
+        <p style="margin: 1em 0; text-align: right;">
+          <strong><a href="http://blog.musicbrainz.org">[% l('Read more &raquo;') %]</a></strong>
+        </p>
+        [% ELSE %]
+        <p style="margin: 0; text-align: center">[% l('The blog is currently unavailable.') %]</p>
+        [% END %]
       </div>
     </div>
 

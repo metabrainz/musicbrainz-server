@@ -284,6 +284,12 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             {
                 self.$join.val (' ' + join + ' ');
             }
+            else if(join.match(/^,$/)) {
+                self.$join.val (', ');
+            }
+            else if(join.match(/^&$/)) {
+                self.$join.val (' & ');
+            }
         }
 
         /* this join phrase has been changed, it should no langer be automatic. */

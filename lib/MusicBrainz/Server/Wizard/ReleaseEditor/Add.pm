@@ -6,6 +6,7 @@ use JSON qw( decode_json );
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
+use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use List::UtilsBy qw( uniq_by );
@@ -257,7 +258,7 @@ augment 'load' => sub
 
     if ($rg_gid)
     {
-        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($rg_gid);
+        $self->c->detach () unless is_guid($rg_gid);
         my $rg = $self->c->model('ReleaseGroup')->get_by_gid($rg_gid);
         $self->c->detach () unless $rg;
 
@@ -271,7 +272,7 @@ augment 'load' => sub
     }
     elsif ($label_gid)
     {
-        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($label_gid);
+        $self->c->detach () unless is_guid($label_gid);
         my $label = $self->c->model('Label')->get_by_gid($label_gid);
 
         $release->add_label(
@@ -282,7 +283,7 @@ augment 'load' => sub
     }
     elsif ($artist_gid)
     {
-        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($artist_gid);
+        $self->c->detach () unless is_guid($artist_gid);
         my $artist = $self->c->model('Artist')->get_by_gid($artist_gid);
         $self->c->detach () unless $artist;
 
