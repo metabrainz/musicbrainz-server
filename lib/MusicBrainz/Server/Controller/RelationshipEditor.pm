@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use JSON;
+use JSON qw( encode_json );
 use Encode;
 use Text::Unaccent qw( unac_string_utf16 );
 use MusicBrainz::Server::Constants qw(
@@ -21,7 +21,6 @@ __PACKAGE__->config( namespace => 'relationship_editor' );
 sub base : Path('/relationship-editor') Args(0) Edit RequireAuth {
     my ($self, $c) = @_;
 
-    my $json = JSON::XS->new;
     $c->res->content_type('application/json; charset=utf-8');
 
     if ($c->form_posted) {
@@ -36,10 +35,10 @@ sub base : Path('/relationship-editor') Args(0) Edit RequireAuth {
         }
         if ($form->submitted_and_valid($c->req->body_parameters)) {
             $self->submit_edits($c, $form);
-            $c->res->body($json->encode({message => 'OK'}));
+            $c->res->body(encode_json({message => 'OK'}));
         } else {
             $c->res->status(400);
-            $c->res->body($json->encode({
+            $c->res->body(encode_json({
                 message => l('There were errors in your submission. Please fix ' .
                              'them and try again.'),
                 errors => $c->stash->{errors},
@@ -47,7 +46,7 @@ sub base : Path('/relationship-editor') Args(0) Edit RequireAuth {
         }
     } else {
         $c->res->status(400);
-        $c->res->body($json->encode({message => l('Invalid submission.')}));
+        $c->res->body(encode_json({message => l('Invalid submission.')}));
     }
 }
 
