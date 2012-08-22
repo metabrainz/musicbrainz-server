@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use JSON;
+use JSON qw( encode_json );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
 
 has works => (
@@ -17,7 +17,7 @@ sub create_works : Path("/relationship-editor/create-works") Edit RequireAuth
 
     $self->works({});
     $c->res->content_type('application/json; charset=utf-8');
-    my $json = JSON::XS->new;
+
     my $form = $c->form(form => 'RelationshipEditor::CreateWorks');
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->body_parameters)) {
@@ -26,10 +26,10 @@ sub create_works : Path("/relationship-editor/create-works") Edit RequireAuth
         for my $field ($form->field('works')->fields) {
             $self->create_new_work($c, $form, $field);
         }
-        $c->res->body($json->encode($self->works));
+        $c->res->body(encode_json($self->works));
     } else {
         $c->res->status(400);
-        $c->res->body($json->encode({error => 'Invalid submission.'}));
+        $c->res->body(encode_json({error => 'Invalid submission.'}));
     }
 }
 
