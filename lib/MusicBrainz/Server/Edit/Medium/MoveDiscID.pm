@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Medium';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub edit_name { N_l('Move disc ID') }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
@@ -83,14 +84,18 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+    use Data::Dumper qw(Dumper);
+    warn Dumper($self->data);
     my $old_release = $loaded->{Release}->{ $self->data->{old_medium}{release}{id} }
             || Release->new( name => $self->data->{old_medium}{release}{name} );
-    my $old_medium = $loaded->{Medium}{ $self->data->{old_medium}{id} };
+    my $old_medium = $loaded->{Medium}->{ $self->data->{old_medium}{id} }
+            || Medium->new( id => $self->data->{old_medium}{id} );
     $old_medium->release($old_release);
 
     my $new_release = $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
             || Release->new( name => $self->data->{new_medium}{release}{name} );
-    my $new_medium = $loaded->{Medium}{ $self->data->{new_medium}{id} };
+    my $new_medium = $loaded->{Medium}->{ $self->data->{new_medium}{id} }
+            || Medium->new( id => $self->data->{new_medium}{id} );
     $new_medium->release($new_release);
 
     return {
