@@ -222,7 +222,7 @@ parseTrack = function(track, medium, release) {
     recording.artistCredit = "";
 
     if (!Util.compareArtistCredits(release.artist_credit, track.artist_credit))
-        recording.artistCredit = UI.renderArtistCredit(track.artist_credit);
+        recording.artistCredit = renderArtistCredit(track.artist_credit);
 
     Util.parseRelationships(recording, true);
     medium.recordings.push(RE.Entity(recording));
