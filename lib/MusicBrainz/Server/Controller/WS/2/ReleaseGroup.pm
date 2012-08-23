@@ -14,13 +14,13 @@ my $ws_defs = Data::OptList::mkopt([
      "release-group" => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
-                         inc      => [ qw(artist-credits
+                         inc      => [ qw(artist-credits annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(limit offset) ],
      },
      "release-group" => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits aliases
+                         inc      => [ qw(artists releases artist-credits aliases annotation
                                           _relations tags user-tags ratings user-ratings) ]
      },
 ]);
@@ -45,6 +45,9 @@ sub release_group_toplevel
     my $opts = $stash->store ($rg);
 
     $self->linked_release_groups ($c, $stash, [ $rg ]);
+
+    $c->model('ReleaseGroup')->annotation->load_latest($rg)
+        if $c->stash->{inc}->annotation;
 
     if ($c->stash->{inc}->releases)
     {

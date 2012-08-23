@@ -29,6 +29,18 @@ sub _list_attributes
     return \%attrs;
 }
 
+sub _serialize_annotation
+{
+    my ($self, $data, $gen, $entity, $inc, $opts) = @_;
+
+    if ($inc->annotation &&
+        defined $entity->latest_annotation &&
+        $entity->latest_annotation->text)
+    {
+        push @$data, $gen->annotation($entity->latest_annotation->text);
+    }
+}
+
 sub _serialize_life_span
 {
     my ($self, $data, $gen, $entity, $inc, $opts) = @_;
@@ -120,6 +132,7 @@ sub _serialize_artist
         push @list, $gen->gender($artist->gender->name) if ($artist->gender);
         push @list, $gen->country($artist->country->iso_code) if ($artist->country);
 
+        $self->_serialize_annotation(\@list, $gen, $artist, $inc, $opts);
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
     }
 
@@ -265,6 +278,8 @@ sub _serialize_release_group
 
     if ($toplevel)
     {
+        $self->_serialize_annotation(\@list, $gen, $release_group, $inc, $opts);
+
         $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
@@ -352,6 +367,7 @@ sub _serialize_release
 
     if ($toplevel)
     {
+        $self->_serialize_annotation(\@list, $gen, $release, $inc, $opts);
         $self->_serialize_label_info_list(\@list, $gen, $release->labels, $inc, $stash)
             if ($release->labels && $inc->labels);
 
@@ -403,6 +419,11 @@ sub _serialize_work
 
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
 
+    if ($toplevel)
+    {
+        $self->_serialize_annotation(\@list, $gen, $work, $inc, $opts);
+    }
+
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 
@@ -438,6 +459,8 @@ sub _serialize_recording
 
     if ($toplevel)
     {
+        $self->_serialize_annotation(\@list, $gen, $recording, $inc, $opts);
+
         $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
@@ -661,6 +684,7 @@ sub _serialize_label
     if ($toplevel)
     {
         push @list, $gen->country($label->country->iso_code) if $label->country;
+        $self->_serialize_annotation(\@list, $gen, $label, $inc, $opts);
         $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
     }
 

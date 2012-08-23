@@ -25,7 +25,7 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
-                         inc      => [ qw(artist-credits puids isrcs
+                         inc      => [ qw(artist-credits puids isrcs annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(limit offset) ],
      },
@@ -33,7 +33,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings
-                                          release-groups work-level-rels) ]
+                                          release-groups work-level-rels annotation) ]
      },
      recording => {
                          method => 'POST'
@@ -60,6 +60,9 @@ sub recording_toplevel
     my $opts = $stash->store ($recording);
 
     $self->linked_recordings ($c, $stash, [ $recording ]);
+
+    $c->model('Recording')->annotation->load_latest($recording)
+        if $c->stash->{inc}->annotation;
 
     if ($c->stash->{inc}->releases)
     {
