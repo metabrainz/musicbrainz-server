@@ -20,6 +20,7 @@ my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);
 INSERT INTO editor (id, name, password) VALUES (15412, 'editor', 'mb');
@@ -39,6 +40,24 @@ ws_test 'basic release lookup',
         </text-representation>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
+    </release>
+</metadata>';
+
+ws_test 'release lookup, inc=annotation',
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+        <title>My Demons</title>
+        <status>Official</status><quality>normal</quality>
+        <annotation>this is a release annotation</annotation>
+        <text-representation>
+            <language>eng</language><script>Latn</script>
+        </text-representation>
+        <date>2007-01-29</date>
+        <country>GB</country>
+        <barcode>600116817020</barcode>
+        <asin>B000KJTG6K</asin>
     </release>
 </metadata>';
 

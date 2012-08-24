@@ -20,6 +20,7 @@ my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
 ws_test 'basic label lookup',
     '/label/b4edce40-090f-4956-b82a-5d9d285da40b' =>
@@ -41,6 +42,19 @@ ws_test 'label lookup, inc=aliases',
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
         <alias-list count="1"><alias sort-name="Planet µ">Planet µ</alias></alias-list>
+    </label>
+</metadata>';
+
+ws_test 'label lookup, inc=annotation',
+    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <label type="Original Production" id="46f0f4cd-8aab-4b33-b698-f459faf64190">
+        <name>Warp Records</name><sort-name>Warp Records</sort-name>
+        <label-code>2070</label-code>
+        <annotation>this is a label annotation</annotation>
+        <country>GB</country>
+        <life-span><begin>1989</begin></life-span>
     </label>
 </metadata>';
 
