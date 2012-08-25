@@ -453,7 +453,7 @@ sub ImportAllTables
         track
         track_name
         tracklist
-	tracklist_index
+        tracklist_index
         url
         url_gid_redirect
         work
@@ -465,6 +465,10 @@ sub ImportAllTables
         work_name
         work_tag
         work_type
+
+        cover_art_archive.art_type
+        cover_art_archive.cover_art
+        cover_art_archive.cover_art_type
     )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;

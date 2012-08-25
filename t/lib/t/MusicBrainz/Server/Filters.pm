@@ -4,7 +4,7 @@ use Test::More;
 
 use utf8;
 
-use MusicBrainz::Server::Filters qw( format_editnote );
+use MusicBrainz::Server::Filters qw( format_editnote format_wikitext );
 
 test 'Edit note syntax' => sub {
     is(format_editnote("'''bold'''"), '<strong>bold</strong>');
@@ -39,6 +39,16 @@ test 'Edit note syntax' => sub {
 
     like(format_editnote("Please see edit   1"),
          qr{Please see <a href=".*">edit #1</a>});
+};
+
+test 'Wiki documentation syntax' => sub {
+    for my $type (qw( artist label recording release release-group url work )) {
+        my $mbid = 'b3b1e2b3-cbb8-4b46-a7d0-0031ec13492c';
+        like(format_wikitext("[$type:$mbid]"),
+             qr{<a href="http://localhost/$type/$mbid/">http://localhost/$type/$mbid/</a>});
+        like(format_wikitext("[$type:$mbid|alt text]"),
+             qr{<a href="http://localhost/$type/$mbid/">alt text</a>});
+    }
 };
 
 1;

@@ -17,7 +17,7 @@
       <div style="float: right;">
         <div id="taggers" class="triple-column">
             <h2 class="taggers">[% l('Tag Your Music') %]</h2>
-            <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" />
+            <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" alt="MusicBrainz Picard logo" />
             <ul>
                 <li><a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a></li>
                 <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
@@ -27,7 +27,7 @@
 
         <div id="quick-start" class="triple-column">
             <h2>[% l('Quick Start') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/quick-start.png') %]" />
+            <img src="[% c.uri_for('/static/images/layout/quick-start.png') %]" alt="quick start icon" />
             <ul>
                 <li><a href="[% doc_link('Beginners_Guide') %]">[% l('Beginners guide') %]</a></li>
                 <li><a href="[% doc_link('How_Editing_Works') %]">[% l('Editing introduction') %]</a></li>
@@ -52,7 +52,7 @@
             <li>
                 [% l('<strong>The ultimate source of music information</strong> by allowing anyone to contribute and releasing the {doc|data} under {doc2|open licenses}.',
                     { doc => doc_link('MusicBrainz_Database'),
-                      doc2 => doc_link('MusicBrainz_License') }) %]
+                      doc2 => doc_link('About/Data_License') }) %]
             </li>
             <li>
                 [% l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.',
@@ -67,7 +67,7 @@
 
         <div class="linkbar">
             [% l('{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}',
-                { about => doc_link('About_MusicBrainz'),
+                { about => doc_link('About'),
                   contact => doc_link('Contact_Us'),
                   faq => doc_link('Frequently_Asked_Questions') }) %]
         </div>
@@ -75,7 +75,7 @@
         <p>
             [% l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.',
                 { uri => "http://metabrainz.org",
-                  free => doc_link('MusicBrainz_License') }) %]
+                  free => doc_link('About/Data_License') }) %]
         </p>
 
     </div>
@@ -83,7 +83,7 @@
     <div id="triple">
         <div id="community" class="triple-column first-column">
             <h2 class="community">[% l('Community') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/community.png') %]" />
+            <img src="[% c.uri_for('/static/images/layout/community.png') %]" alt="community icon" />
             <p>
                 <a href="[% doc_link('How_To_Contribute') %]">[% l('Become a part of our <strong>global community</strong> and <strong>start contributing!</strong>') %]</a>
             </p>
@@ -91,7 +91,7 @@
 
         <div id="products" class="triple-column">
             <h2 class="products">[% l('MusicBrainz Database') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/download.png') %]" />
+            <img src="[% c.uri_for('/static/images/layout/download.png') %]" alt="download icon" />
             <p>
                 <a href="[% doc_link('MusicBrainz_Database') %]">[% l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.') %]</a>
             </p>
@@ -99,7 +99,7 @@
 
         <div id="developers" class="triple-column last-column">
             <h2 class="developers">[% l('Developers') %]</h2>
-            <img src="[% c.uri_for('/static/images/layout/developer.png') %]" />
+            <img src="[% c.uri_for('/static/images/layout/developer.png') %]" alt="developers icon" />
             <p>
                 <a href="[% doc_link('Developer_Resources')  %]">[% l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.') %]</a>
             </p>

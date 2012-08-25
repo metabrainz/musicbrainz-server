@@ -366,10 +366,18 @@ sub associate_recordings
             }
         }
 
+        # MBS-3957: Track length has been changed by >10 seconds.
+        # Always require confirmation
+        if ($trk &&
+            abs(($trk_edit->{length} || 0) - ($trk->length || 0)) > 10000) {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
+        }
+
         # Track edit is already associated with a recording edit.
         # (but ignore that association if it concerns an automatically
         #  selected "add new recording").
-        if ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
+        elsif ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
         {
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;

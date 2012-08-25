@@ -5,7 +5,7 @@
           [%- IF release.cover_art_url -%]
             <img src="[% release.cover_art_url -%]" />
           [%- ELSE -%]
-            [%- l("No cover art available.") -%]
+            <p style="text-align:left">[%- l("No cover art available.") -%]</p>
           [%- END -%]
         [%- CASE 'present' -%]
           [%- SET cover_art_message = l("No front cover image available.<br/>{all|View all artwork}.",

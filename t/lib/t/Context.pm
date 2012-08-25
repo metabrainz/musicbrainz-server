@@ -50,6 +50,8 @@ around run_test => sub {
 
     MusicBrainz::Server::Test->prepare_test_server;
 
+    $self->c->connector->_disconnect;
+
     $self->c->sql->begin;
     $self->_clear_cache_aware_c;
 
