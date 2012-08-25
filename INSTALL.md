@@ -194,7 +194,7 @@ Creating the database
     following configuration recipe may prove useful:
 
         # in pg_hba.conf (Note: The order of lines is important!):
-        local    musicbrainz_db    musicbrainz    ident    mb_map
+        local    musicbrainz_db    musicbrainz    ident    map=mb_map
 
         # in pg_ident.conf:
         mb_map    www-user    musicbrainz
@@ -226,8 +226,14 @@ Creating the database
 
         To get going, you need at least the mbdump.tar.bz2,
         mbdump-editor.tar.bz2 and mbdump-derived.tar.bz2 archives, but you can
-        grab whichever dumps suit your needs. Assuming the dumps have been
-        downloaded to /tmp/dumps/ you can import them with:
+        grab whichever dumps suit your needs.
+
+        Assuming the dumps have been downloaded to /tmp/dumps/ you can verify
+        that the data is correct by running:
+
+            pushd /tmp/dumps/ && md5sum -c MD5SUMS && popd
+
+        If this is OK and you wish to continue, you can import them with:
 
             carton exec ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 

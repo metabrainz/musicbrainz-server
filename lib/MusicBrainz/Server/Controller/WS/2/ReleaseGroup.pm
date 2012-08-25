@@ -64,11 +64,7 @@ sub release_group_toplevel
         $self->linked_artists ($c, $stash, \@artists);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $rg);
-    }
+    $self->load_relationships($c, $rg);
 }
 
 sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }

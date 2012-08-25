@@ -127,6 +127,42 @@ is($work->edits_pending, 0);
 
 };
 
+test 'Adding a work language is an auto-edit for non-auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+language');
+
+    {
+        my $edit = create_edit(
+            $c, $c->model('Work')->get_by_id(1),
+            language_id => 1
+        );
+
+        ok(!$edit->is_open);
+    }
+};
+
+test 'Changing work language is not an auto-edit for non-auto-editors' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+language');
+    $c->sql->do('UPDATE work SET language = 1');
+
+    {
+        my $edit = create_edit(
+            $c, $c->model('Work')->get_by_id(1),
+            language_id => undef
+        );
+
+        ok($edit->is_open);
+        accept_edit($c, $edit);
+    }
+};
+
 test 'Check conflicts (non-conflicting edits)' => sub {
     my $test = shift;
     my $c = $test->c;

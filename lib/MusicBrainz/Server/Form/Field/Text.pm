@@ -6,7 +6,7 @@ extends 'HTML::FormHandler::Field::Text';
 
 apply ([
     {
-        transform => &MusicBrainz::Server::Data::Utils::trim
+        transform => sub { MusicBrainz::Server::Data::Utils::trim(shift) }
     }
 ]);
 

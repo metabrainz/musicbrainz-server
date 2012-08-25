@@ -1,5 +1,7 @@
 BEGIN;
 
+SET search_path = 'cover_art_archive';
+
 SELECT pgq.create_queue('CoverArtIndex');
 SELECT pgq.register_consumer('CoverArtIndex', 'CoverArtIndexer');
 

@@ -242,6 +242,8 @@ sub load_subset
     $self->c->model('Link')->load(@rels);
     $self->c->model('LinkType')->load(map { $_->link } @rels);
     $self->load_entities(@rels);
+
+    return @rels;
 }
 
 sub load

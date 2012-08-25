@@ -18,12 +18,11 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
-my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'browse labels via release',
-    '/label?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7' => 
+    '/label?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label-list count="1">

@@ -384,6 +384,10 @@ sub create
     # Save quality level
     $edit->quality($quality);
 
+    # Serialize transactions per-editor. Should only be necessary for autoedits,
+    # since only they update the editor table but for now we've enabled it for everything
+    $self->c->model('Editor')->lock_row($edit->editor_id);
+
     $edit->insert;
 
     my $now = DateTime->now;
