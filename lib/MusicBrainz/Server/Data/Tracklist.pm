@@ -70,11 +70,12 @@ sub _add_tracks {
             recording_id  => $_->{recording_id},
             tracklist     => $id,
             number        => $_->{number} // $i,
-            position      => $i++,
+            position      => $i,
             name          => $_->{name},
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
             length        => $_->{length},
         }, @$tracks);
+    $i++;
 }
 
 sub load

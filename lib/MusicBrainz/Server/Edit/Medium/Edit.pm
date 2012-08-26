@@ -414,6 +414,7 @@ sub accept {
             my $new_tracklist = $self->c->model('Tracklist')->find_or_insert(
                 \@final_tracklist
             );
+
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
             });
