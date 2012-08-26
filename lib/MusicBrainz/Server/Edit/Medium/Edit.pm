@@ -373,6 +373,7 @@ sub accept {
                         @merged_numbers;
 
             my $length = shift(@merged_lengths);
+            my $number = shift(@merged_numbers);
             my $recording_id = shift(@merged_recordings);
 
             if (defined($recording_id) && $recording_id > 0 && !$existing_recordings->{$recording_id}) {
@@ -382,7 +383,7 @@ sub accept {
 
             push @final_tracklist, {
                 name => shift(@merged_names),
-                number => shift(@merged_numbers),
+                number => $number eq $UNDEF_MARKER ? undef : $number,
                 length => $length eq $UNDEF_MARKER ? undef : $length,
                 recording_id => $recording_id,
                 artist_credit => shift(@merged_artist_credits)
