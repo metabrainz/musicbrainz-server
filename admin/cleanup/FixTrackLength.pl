@@ -254,6 +254,7 @@ for my $medium (@mediums)
                 my @new_tracklist = map {
                     Track->new(
                         length => int($average_toc[$_->position - 1]),
+                        number => $_->number,
                         name => $_->name,
                         artist_credit => $_->artist_credit,
                         recording_id => $_->recording_id,
