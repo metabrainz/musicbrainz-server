@@ -55,7 +55,7 @@ sub show : PathPart('') Chained('load')
     $c->stash->{template} = 'work/index.tt';
 }
 
-for my $action (qw( relationships aliases tags details add_iswc )) {
+for my $action (qw( relationships aliases tags details )) {
     after $action => sub {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
@@ -124,25 +124,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         );
     }
 };
-
-sub add_iswc : Chained('load') PathPart('add-iswc') RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my $work = $c->stash->{work};
-    my $form = $c->form(form => 'AddISWC');
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $self->_add_iswcs($c, $form, $work, $form->field('iswc')->value);
-
-        if ($c->stash->{makes_no_changes}) {
-            $form->field('iswc')->add_error(l('This ISWC already exists for this work'));
-        }
-        else {
-            $c->response->redirect($c->uri_for_action('/work/show', [ $work->gid ]));
-            $c->detach;
-        }
-    }
-}
 
 sub _add_iswcs {
     my ($self, $c, $form, $work, @iswcs) = @_;

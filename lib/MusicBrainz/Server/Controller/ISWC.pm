@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Controller::ISWC;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
 use MusicBrainz::Server::Validation qw( is_valid_iswc );
 use List::UtilsBy qw( sort_by );
 
@@ -39,31 +38,6 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         works => \@works,
         template => 'iswc/index.tt',
-    );
-}
-
-sub delete : Local Edit {
-    my ($self, $c) = @_;
-
-    my $iswc_id = $c->req->query_params->{iswc_id};
-    my $iswc = $c->model('ISWC')->get_by_id($iswc_id);
-
-    $c->model('Work')->load($iswc);
-    $c->stash( iswc => $iswc );
-
-    if (!$iswc) {
-        $c->detach('/error_500');
-        $c->stash( message => l('This ISWC does not exist' ));
-    }
-
-    $self->edit_action($c,
-        form        => 'Confirm',
-        edit_args   => { iswc => $iswc },
-        type        => $EDIT_WORK_REMOVE_ISWC,
-        on_creation => sub {
-            $c->response->redirect($c->uri_for_action('/iswc/show', [ $iswc->iswc ]));
-            $c->detach;
-        }
     );
 }
 

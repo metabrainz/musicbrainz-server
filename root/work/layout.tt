@@ -17,10 +17,6 @@
             [%- FOR iswc IN work.iswcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') %]
                 [% rdfa_work_iswc(work, iswc) %]
-                [% IF c.user_exists %]
-                [% l('({delete_uri|remove})', {
-                       delete_uri => c.uri_for_action('/iswc/delete', { iswc_id => iswc.id }) }) %]
-                [% END %]
                 [% END %]
             [%- END -%]
         [% END %]
@@ -34,7 +30,6 @@
         <h2>[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
-              <li>[% link_work(work, 'add_iswc', l('Add ISWC')) %]</li>
               <li>
                 <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ work.gid ]) %]">
                   [% work.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
