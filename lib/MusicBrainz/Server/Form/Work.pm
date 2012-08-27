@@ -29,10 +29,7 @@ has_field 'comment' => (
 
 has_field 'iswcs' => (
     type => 'Repeatable',
-    deflation => sub {
-        my ($value) = @_;
-        return [ map { $_->iswc } @$value ];
-    }
+    inflate_default_method => \&inflate_iswcs
 );
 
 has_field 'iswcs.contains' => (
@@ -46,6 +43,11 @@ after 'validate' => sub {
     my $iswcs =  $self->field('iswcs');
     $iswcs->value([ uniq sort grep { $_ } @{ $iswcs->value } ]);
 };
+
+sub inflate_iswcs {
+    my ($self, $value) = @_;
+    return [ map { $_->iswc } @$value ];
+}
 
 sub edit_field_names { qw( type_id language_id name comment artist_credit ) }
 
