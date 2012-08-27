@@ -31,7 +31,11 @@
     </tbody>
 </table>
 [%- ELSE -%]
-<p>[% l('{user} has no public collections.', { user => html_escape(user.name) }) -%]</p>
+    [% IF viewing_own_profile %]
+        <p>[% l('You have no collections.') -%]</p>
+    [%- ELSE -%]
+        <p>[% l('{user} has no public collections.', { user => html_escape(user.name) }) -%]</p>
+    [%- END -%]
 [%- END -%]
 
 [% IF viewing_own_profile %]

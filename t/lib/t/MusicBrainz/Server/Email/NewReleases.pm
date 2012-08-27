@@ -19,6 +19,7 @@ use aliased 'MusicBrainz::Server::Email::NewReleases';
 test all => sub {
 
     my $editor = Editor->new(
+	id => 9999,
         name => 'acid2',
         email => 'acid2@musicbrainz.org'
         );
@@ -49,6 +50,8 @@ test all => sub {
         editor => $editor,
         releases => \@releases
         );
+
+    ok((grep {"$_" eq 'Message-Id' } $email->extra_headers), 'Has a message-id header');
 
     contains_string($email->text, $_->name, 'Has release name: ' . $_->name)
         for @releases;

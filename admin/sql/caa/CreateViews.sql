@@ -1,5 +1,7 @@
 BEGIN;
 
+SET search_path = 'cover_art_archive';
+
 CREATE OR REPLACE VIEW index_listing AS
 SELECT cover_art.*,
   (edit.close_time IS NOT NULL) AS approved,

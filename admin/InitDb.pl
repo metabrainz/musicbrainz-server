@@ -63,7 +63,7 @@ sub GetPostgreSQLVersion
     my $sql = Sql->new( $mb->conn );
 
     my $version = $sql->select_single_value ("SELECT version();");
-    $version =~ s/PostgreSQL ([0-9\.]*) .*/$1/;
+    $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
 
     return version->parse ("v".$version);
 }
@@ -233,6 +233,7 @@ sub CreateRelations
     my $opts = $DB->shell_args;
     $ENV{"PGPASSWORD"} = $DB->password;
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $DB->schema));
+    system("echo \"CREATE SCHEMA cover_art_archive\" | $psql $opts");
     die "\nFailed to create schema\n" if ($? >> 8);
 
     if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
@@ -247,6 +248,7 @@ sub CreateRelations
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
 
     if ($import)
     {
@@ -261,21 +263,36 @@ sub CreateRelations
     }
 
     RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
+    RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating functions ...");
 
     RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
         if HasPLPerlSupport();
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
+    RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating indexes ...");
+
     RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding foreign key constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
+	RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "SetSequences.sql", "Setting raw initial sequence values ...");
 
     RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
+    RunSQLScript($DB, "caa/CreateViews.sql", "Creating views ...");
+
     RunSQLScript($DB, "CreateTriggers.sql", "Creating triggers ...")
+        unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "caa/CreateTriggers.sql", "Creating triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");

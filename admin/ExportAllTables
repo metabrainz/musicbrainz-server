@@ -321,7 +321,6 @@ my @group_stats = qw(
 
 my @group_editor = qw(
     editor_sanitised
-    editor_language
     );
 
 my @group_edit = qw(
@@ -351,6 +350,7 @@ my @group_private = qw(
     editor
     editor_collection
     editor_collection_release
+    editor_language
     editor_preference
     editor_subscribe_artist
     editor_subscribe_editor
@@ -530,7 +530,9 @@ writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 if (grep { $_ eq "editor_sanitised" } @tables)
 {
     $sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
-    $sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
+    $sql->do("UPDATE editor_sanitised
+              SET password = 'mb', privs = 0, email = '', gender = NULL,
+                birth_date = NULL, country = NULL, website = NULL, bio = NULL");
 }
 
 $| = 1;
@@ -714,6 +716,9 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-stats.tar.bz2",  @group_stats);
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
+
+    system "/usr/bin/md5sum --binary $OutputDir/*.tar.bz2 > $OutputDir/MD5SUMS";
+    $? == 0 or die "md5sum returned $?";
 }
 
 if ($fCompress and $fDoReplication)

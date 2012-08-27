@@ -27,7 +27,7 @@
                 <label class="inline">
                   [% search.radio('method', 1) %]
                   [% l('Indexed search with {doc|advanced query syntax}',
-                        { doc => doc_link('Text_Search_Syntax') }) %]
+                        { doc => doc_link('Indexed_Search_Syntax') }) %]
                 </label>
                 <br />
                 <label class="inline">
@@ -36,7 +36,7 @@
                 </label>
             </div>
         [% END %]
-        [% form_row_radio(search, 'method', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
+        [% form_row_radio(search, 'method', l('Use {doc|advanced query syntax}', { doc => doc_link('Indexed_Search_Syntax') })) %]
         [% form_row_checkbox(search, 'direct', l('Direct database search')) %]
         <div class="row no-label">
         [% form_submit(l('Search')) %]

@@ -40,11 +40,7 @@ sub work_toplevel
 
     $self->linked_works ($c, $stash, [ $work ]);
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $work);
-    }
+    $self->load_relationships($c, $work);
 
     $c->model('WorkType')->load($work);
     $c->model('ISWC')->load_for_works($work);

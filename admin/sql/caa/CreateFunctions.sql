@@ -1,5 +1,7 @@
 BEGIN;
 
+SET search_path = 'cover_art_archive';
+
 CREATE OR REPLACE FUNCTION materialize_caa_presence() RETURNS trigger AS $$
     BEGIN
         -- On delete, set the presence flag to 'absent' if there's no more
