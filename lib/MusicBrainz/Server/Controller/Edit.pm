@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw( status_names );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN :quality );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use MusicBrainz::Server::EditSearch::Query;
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
@@ -176,7 +177,7 @@ sub search : Path('/search/edits') RequireAuth
             ], sort keys %grouped
         ],
         status => status_names(),
-        quality => [ [$QUALITY_LOW => 'Low'], [$QUALITY_NORMAL => 'Normal'], [$QUALITY_HIGH => 'High'], [$QUALITY_UNKNOWN => 'Default'] ],
+        quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
         countries => [ $c->model('Country')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree ]

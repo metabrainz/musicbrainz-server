@@ -184,7 +184,7 @@
     [% FOR item=set_contents %]
     <option value="[% html_escape(item.0) %]"
             [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
-            >[% html_escape(item.1) %]</option>
+            >[% l(html_escape(item.1)) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -196,7 +196,7 @@
     [% FOR language=languages %]
     <option value="[% language.id %]"
             [% 'selected="selected"' IF field_contents.find_argument(language.id) %]
-            >[% html_escape(language.name) %]</option>
+            >[% html_escape(language.l_name) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -278,7 +278,7 @@
     [% FOR country=countries %]
     <option value="[% country.id %]"
             [% 'selected="selected"' IF field_contents.find_argument(country.id) %]
-            >[% html_escape(country.name) %]</option>
+            >[% html_escape(country.l_name) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -286,7 +286,7 @@
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
-      <option>Please choose a condition</option>
+      <option>[% l('Please choose a condition') %]</option>
     [% END %]
     [% FOR field=[ [ 'id', l('ID') ],
                    [ 'open_time', l('Created') ],

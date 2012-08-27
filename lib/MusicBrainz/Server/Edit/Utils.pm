@@ -12,6 +12,8 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 use Text::Trim qw( trim );
 
+use MusicBrainz::Server::Translation qw( N_l );
+
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Barcode';
@@ -230,14 +232,14 @@ sub changed_display_data
 }
 
 our @STATUS_MAP = (
-    [ $STATUS_OPEN         => 'Open' ],
-    [ $STATUS_APPLIED      => 'Applied' ],
-    [ $STATUS_FAILEDVOTE   => 'Failed vote' ],
-    [ $STATUS_FAILEDDEP    => 'Failed dependency' ],
-    [ $STATUS_ERROR        => 'Error' ],
-    [ $STATUS_FAILEDPREREQ => 'Failed prerequisite' ],
-    [ $STATUS_NOVOTES      => 'No votes' ],
-    [ $STATUS_DELETED      => 'Cancelled' ],
+    [ $STATUS_OPEN         => N_l('Open') ],
+    [ $STATUS_APPLIED      => N_l('Applied') ],
+    [ $STATUS_FAILEDVOTE   => N_l('Failed vote') ],
+    [ $STATUS_FAILEDDEP    => N_l('Failed dependency') ],
+    [ $STATUS_ERROR        => N_l('Error') ],
+    [ $STATUS_FAILEDPREREQ => N_l('Failed prerequisite') ],
+    [ $STATUS_NOVOTES      => N_l('No votes') ],
+    [ $STATUS_DELETED      => N_l('Cancelled') ],
 );
 our %STATUS_NAMES = map { @$_ } @STATUS_MAP;
 
