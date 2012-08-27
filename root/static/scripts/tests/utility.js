@@ -51,11 +51,12 @@ MB.tests.utility.All = function() {
         var hours = 60 * minutes;
 
         QUnit.equal (MB.utility.formatTrackLength (23), '23 ms', 'formatTrackLength');
-        QUnit.equal (MB.utility.formatTrackLength (23 * seconds), '00:23', 'formatTrackLength');
+        QUnit.equal (MB.utility.formatTrackLength (23 * seconds), '0:23', 'formatTrackLength');
         QUnit.equal (MB.utility.formatTrackLength (59 * minutes), '59:00', 'formatTrackLength');
-        QUnit.equal (MB.utility.formatTrackLength (60 * minutes), '01:00:00', 'formatTrackLength');
+        QUnit.equal (MB.utility.formatTrackLength (60 * minutes), '1:00:00', 'formatTrackLength');
         QUnit.equal (MB.utility.formatTrackLength (14 * hours + 15 * minutes + 16 * seconds), '14:15:16', 'formatTrackLength');
 
+        QUnit.equal (MB.utility.unformatTrackLength ('?:??'), null, 'MBS-5086: unformatTrackLength(?:??) should be null');
         QUnit.equal (MB.utility.unformatTrackLength ('23 ms'), 23, 'unformatTrackLength');
         QUnit.equal (MB.utility.unformatTrackLength ('00:23'), 23 * seconds, 'unformatTrackLength');
         QUnit.equal (MB.utility.unformatTrackLength (':57'), 57 * seconds, 'MBS-3352: Handle the case of ":57"');

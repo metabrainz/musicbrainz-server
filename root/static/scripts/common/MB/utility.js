@@ -198,11 +198,15 @@ MB.utility.formatTrackLength = function (duration)
 
     if (duration > 1 * hours)
     {
-        hours_str = ('00' + Math.floor (duration / hours)).slice (-2) + ':';
+        hours_str = Math.floor (duration / hours) + ':';
         duration = Math.floor (duration % hours);
     }
 
-    var minutes_str = ('00' + Math.floor (duration / minutes)).slice (-2) + ':';
+    /* pad minutes with zeroes of the hours string is non-empty. */
+    var minutes_str = hours_str === '' ?
+        Math.floor (duration / minutes) + ':' :
+        ('00' + Math.floor (duration / minutes)).slice (-2) + ':';
+
     duration = Math.floor (duration % minutes);
 
     var seconds_str = ('00' + Math.floor (duration / seconds)).slice (-2);
@@ -219,8 +223,7 @@ MB.utility.unformatTrackLength = function (duration)
     }
 
     var parts = duration.replace(/[:\.]/, ':').split (':');
-
-    if (parts[0] == '??')
+    if (parts[0] == '?' || parts[0] == '??')
     {
         return null;
     }
