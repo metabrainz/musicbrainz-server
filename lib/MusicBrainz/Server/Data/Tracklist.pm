@@ -65,7 +65,7 @@ sub replace
 sub _add_tracks {
     my ($self, $id, $tracks) = @_;
     my $i = 1;
-    my @trax = map {
+    my @track_hashes = map {
         my $v = {
             recording_id  => $_->{recording_id},
             tracklist     => $id,
@@ -77,7 +77,7 @@ sub _add_tracks {
         };
         $i++;
         $v; } @$tracks;
-    $self->c->model('Track')->insert(@trax);
+    $self->c->model('Track')->insert(@track_hashes);
 }
 
 sub load
