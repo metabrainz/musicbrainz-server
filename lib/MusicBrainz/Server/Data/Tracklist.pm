@@ -236,7 +236,7 @@ sub find_or_insert
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
                 $_->{recording_id},
                 defined($_->{length}) ? $_->{length} : (),
-                $_->{number} // $i,
+                $_->{number} // $i + 0,
                 $i++,
             } @$tracks),
             scalar(@$tracks)
