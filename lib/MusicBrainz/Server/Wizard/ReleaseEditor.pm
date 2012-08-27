@@ -236,6 +236,23 @@ sub recording_edits_from_tracklist
     return %recording_edits;
 }
 
+=method track_edits_from_tracklist
+
+Create no-op track edits for a particular tracklist.
+
+=cut
+
+sub track_edits_from_tracklist
+{
+    my ($self, $tracklist) = @_;
+
+    my @tracks;
+
+    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+    return map { $self->track_edit_from_track ($_) } @{ $tracklist->{tracks} };
+}
 
 =method _search_recordings
 
