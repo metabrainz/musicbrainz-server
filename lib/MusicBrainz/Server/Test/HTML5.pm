@@ -33,6 +33,10 @@ Currently we ignore the following warnings:
      types, whereas in RDFa you can use anything if you link to a vocabulary
      which defines the type.
 
+  6. "img" tags without alt attributes
+     Not all img elements must have an alt attribute, although we could
+     probably do do better here.  For now, just ignore it.
+
 =cut
 
 sub ignore_warning
@@ -45,6 +49,7 @@ sub ignore_warning
         '^Attribute .resource. not allowed on element',
         '^Attribute .xmlns:[A-Za-z0-9]*. not allowed here',
         '^Bad value .* for attribute .rel. on element',
+        '^An .img. element must have an .alt. attribute',
     );
 
     for my $test (@ignored)
