@@ -1,5 +1,5 @@
 <div id="filter">
-    <form action="" method="get">
+    <form method="get">
     [% INCLUDE "components/filter-form.tt" IF filter_form.defined %]
 	<input type="hidden" id="filter_ajax_form_url" disabled="disabled" value="[% ajax_form_url | html %]" />
     </form>
