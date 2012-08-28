@@ -1,6 +1,6 @@
 [%- USE search = FormRenderer(form) -%]
 <div class="searchform">
-    <form action="[% c.uri_for_action('/search/direct') %]" method="get">
+    <form action="[% c.uri_for('/search') %]" method="get">
         [% form_row_text_long(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
         [% WRAPPER form_row %]
