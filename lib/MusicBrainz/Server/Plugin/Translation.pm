@@ -40,4 +40,9 @@ sub ln {
     }
 }
 
+sub N_ln {
+    my ($self, $msgid, $msgid_plural) = @_;
+    return { msgid => $msgid, plural => $msgid_plural };
+}
+
 1;

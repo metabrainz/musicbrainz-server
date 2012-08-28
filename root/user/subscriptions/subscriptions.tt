@@ -1,6 +1,6 @@
-[%- MACRO subscription_summary(single_text, plural_text, stat) BLOCK -%]
+[%- MACRO subscription_summary(msgid, text, stat) BLOCK -%]
   [%- IF stat > 0 -%]
-    <li>[% ln(single_text, plural_text, stat, { num => stat }) %]</li>
+    <li>[% ln(msgid, plural, stat, { num => stat }) %]</li>
   [%- END -%]
 [%- END -%]
 
@@ -11,9 +11,19 @@
    [% IF summary.artist > 0 || summary.editor > 0 || summary.label > 0 %]
    <p>[% l('{editor} is subscribed to:', { editor => link_editor(user) }) %]</p>
    <ul>
-     [% subscription_summary('{num} artist', '{num} artists', summary.artist) %]
-     [% subscription_summary('{num} editor', '{num} editors', summary.editor) %]
-     [% subscription_summary('{num} label', '{num} labels', summary.label) %]
+     [%# Each macro call first defines the string (for translation).
+         Template Toolkit sadly doesn't give us a good way to reuse these
+         strings, so we have to then call the `subscription_summary' macro
+         again, repeating these strings for the actual rendering. %]
+
+     [% discard = N_ln('{num} artist', '{num} artists');
+        subscription_summary('{num} artist', '{num} artists', summary.artist) %]
+
+     [% discard = N_ln('{num} editor', '{num} editors');
+        subscription_summary('{num} editor', '{num} editors', summary.editor) %]
+
+     [% discard = N_ln('{num} label', '{num} labels');
+        subscription_summary('{num} label', '{num} labels', summary.label) %]
    </ul>
    [% END %]
 

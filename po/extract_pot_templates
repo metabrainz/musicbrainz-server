@@ -14,7 +14,7 @@ use Encode qw(encode decode);
 
 ### TEMPLATES
 
-my @MARKERS = qw/l ln/;
+my @MARKERS = qw/l ln N_ln/;
 
 my @files;
 
