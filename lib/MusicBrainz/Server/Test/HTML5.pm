@@ -3,9 +3,9 @@ package MusicBrainz::Server::Test::HTML5;
 use utf8;
 use DBDefs;
 use Encode;
+use File::Temp qw( tempfile );
 use JSON;
 use Sub::Exporter -setup => { exports => [ 'html5_ok' ] };
-
 
 =func ignore_warning
 
@@ -79,6 +79,31 @@ sub format_message
     }
 }
 
+=func save_html
+
+If html validation fails, optionally write the failed output to a file
+in /tmp so a developer running tests can investigate the output.
+
+Example:
+
+    SAVE_HTML=1 prove -v t/tests.t :: --tests Browse::Entities
+
+=cut
+
+sub save_html
+{
+    my ($Test, $content) = @_;
+
+    if ($ENV{SAVE_HTML}) {
+        my ($fh, $filename) = tempfile (
+            "html5_ok_XXXX", SUFFIX => ".html", TMPDIR => 1);
+        print $fh encode ("utf-8", $content);
+        close ($fh);
+        $Test->diag ("failed output written to $filename");
+    };
+}
+
+
 =func html5_ok
 
 Validate HTML5 using the validator.nu validator.
@@ -130,6 +155,8 @@ sub html5_ok
         $all_ok = 0;
         $message .= ", Could not connect to ".$url;
     }
+
+    save_html ($Test, $content) unless $all_ok;
 
     $Test->ok($all_ok, $message);
 }
