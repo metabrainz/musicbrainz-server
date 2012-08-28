@@ -21,7 +21,14 @@ Currently we ignore the following warnings:
   2. datatype attribute
      Not a valid attribute in HTML5, but used by RDFa.
 
-  3. Bad value "foo:Bar" for attribute "rel"
+  3. resource attribute
+     Not a valid attribute in HTML5, but used by RDFa.
+
+  4. xmlns attributes on <html>
+     Not valid in html5, required for RDFa 1.0.  Upgrading our implementation
+     to RDFa 1.1 hopefully will solve this.
+
+  5. Bad value "foo:Bar" for attribute "rel"
      validator.nu requires rel="" values to be from a list of registered
      types, whereas in RDFa you can use anything if you link to a vocabulary
      which defines the type.
@@ -35,6 +42,8 @@ sub ignore_warning
     my @ignored = (
         '^Attribute .rel. not allowed on element',
         '^Attribute .datatype. not allowed on element',
+        '^Attribute .resource. not allowed on element',
+        '^Attribute .xmlns:[A-Za-z0-9]*. not allowed here',
         '^Bad value .* for attribute .rel. on element',
     );
 
@@ -57,19 +66,16 @@ sub format_message
     my $msg = shift;
     my %opts = @_;
 
-    use Data::Dumper;
-    warn "msg:".Dumper ($msg)."\n";
-
     if ($opts{ignored})
     {
         return sprintf ("%s (ignored): %s", $msg->{type}, $msg->{message});
     }
     else
     {
-        return sprintf (encode ("utf-8", "%s%s: %s\n ⤷ line %d (col %d): %s"),
-        # return sprintf ("%s%s: %s\n -> line %d (col %d): %s",
-                        $msg->{type}, $ignored, $msg->{message},
-                        $msg->{lastLine}, $msg->{firstColumn}, $msg->{extract});
+        return sprintf ("%s%s: %s\n ⤷ line %d (col %d): %s", $msg->{type},
+                        $ignored, $msg->{message}, $msg->{lastLine},
+                        $msg->{firstColumn}, $msg->{extract});
+
     }
 }
 
