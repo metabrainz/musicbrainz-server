@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Test;
 
+binmode STDOUT, ":utf8";
+binmode STDERR, ":utf8";
+
 use DBDefs;
 use Encode qw( encode );
 use FindBin '$Bin';
