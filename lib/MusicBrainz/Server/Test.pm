@@ -10,6 +10,7 @@ use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
+use MusicBrainz::Server::Test::HTML5 qw( html5_ok );
 use MusicBrainz::WWW::Mechanize;
 use Sql;
 use Template;
@@ -165,26 +166,26 @@ sub diag_lineno
     }
 }
 
+=func html_ok
+
+Validate html by checking if it is well-formed XML and validating
+HTML5 with validator.nu.
+
+=cut
+
 sub html_ok
 {
     my ($content, $message) = @_;
 
-    $message ||= "invalid HTML";
-
-    try {
-        XML::LibXML->load_html(string => $content);
-        $Test->ok(1, $message);
-    }
-    catch {
-        $Test->ok(0, $_);
-    }
+    xml_ok ($content, $message);
+    html5_ok ($Test, $content, $message);
 }
 
 sub xml_ok
 {
     my ($content, $message) = @_;
 
-    $message ||= "invalid XML";
+    $message ||= "well-formed XML";
 
     my $parser = XML::Parser->new(Style => 'Tree');
     eval { $parser->parse($content) };
