@@ -27,12 +27,19 @@ use warnings;
 
 package DBDefs::Default;
 
+use File::Spec::Functions qw( splitdir catdir );
+use Cwd qw( abs_path );
+
 ################################################################################
 # Directories
 ################################################################################
 
 # The server root, i.e. the parent directory of admin, bin, lib, root, etc.
-sub MB_SERVER_ROOT    { "/home/httpd/musicbrainz/musicbrainz-server" }
+sub MB_SERVER_ROOT {
+    my @splitfilename = splitdir(abs_path('./' . __FILE__));
+    my @parentdir = @splitfilename[0..(scalar @splitfilename - 4)];
+    return catdir(@parentdir);
+}
 # Where static files are located
 sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' }
 
