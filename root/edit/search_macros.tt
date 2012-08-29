@@ -11,13 +11,6 @@
         ' selected="selected"' IF (!to_match && true_if_undef) || value == to_match;
     END -%]
 
-    [%- MACRO selected_for_negation(value) BLOCK;
-       SWITCH value;
-              CASE '0'; ' selected="selected"' IF !query.negate;
-              CASE '1'; ' selected="selected"' IF  query.negate;
-              END;
-    END -%]
-
     [%- autoedit_select_block = '<select name="auto_edit_filter">
       <option value=""'  _ selected_if_matches('', query.auto_edit_filter, 1)  _ '>' _ l('edits')          _ '</option>
       <option value="1"' _ selected_if_matches('1', query.auto_edit_filter) _ '>' _ l('auto-edits')     _ '</option>
@@ -29,8 +22,8 @@
       <option value="rand"' _ selected_if_matches('rand', query.order) _ '>' _ l('randomly')     _ '</option>
     </select>' -%]
     [%- match_or_negation_block = '<select name="negation">
-      <option value="0"' _ selected_for_negation('0') _ '>' _ l('match')        _ '</option>
-      <option value="1"' _ selected_for_negation('1') _ '>' _ l('do not match') _ '</option>
+      <option value="0"' _ selected_if_matches('0', query.negate, 1) _ '>' _ l('match')        _ '</option>
+      <option value="1"' _ selected_if_matches('1', query.negate)    _ '>' _ l('do not match') _ '</option>
     </select>' -%]
     [%- and_vs_or_block = '<select name="combinator">
       <option value="and"' _ selected_if_matches('and', query.combinator, 1) _ '>' _ l('all') _ '</option>
