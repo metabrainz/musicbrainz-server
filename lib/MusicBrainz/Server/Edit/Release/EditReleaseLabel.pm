@@ -54,7 +54,7 @@ sub foreign_keys
 {
     my $self = shift;
 
-    my $keys = { Release => { $self->release_id => [] } };
+    my $keys = { Release => { $self->release_id => [ 'ArtistCredit' ] } };
 
     $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
     $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
