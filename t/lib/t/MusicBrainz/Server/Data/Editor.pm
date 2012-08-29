@@ -147,9 +147,44 @@ subtest 'Find editors with subscriptions' => sub {
     is($editors[0]->id => 2, 'is editor #2');
 };
 
-# Test deleting editors
-$editor_data->delete(1);
+};
 
+test 'Deleting editors removes most information' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $model = $c->model('Editor');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO country (id, iso_code, name) VALUES (1, 'bb', 'Bobland');
+INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
+INSERT INTO gender (id, name) VALUES (1, 'Male');
+INSERT INTO editor (id, name, password, email, website, bio, member_since,
+    email_confirm_date, last_login_date, edits_accepted, edits_rejected,
+    auto_edits_accepted, edits_failed, privs, birth_date, country, gender)
+  VALUES (1, 'Bob', 'bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(),
+    now(), now(), 100, 101, 102, 103, 1, '1980-02-03', 1, 1);
+INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
+EOSQL
+
+    # Test deleting editors
+    $model->delete(1);
+    my $bob = $model->get_by_id(1);
+
+    is($bob->name, 'Deleted Editor #' . $bob->id);
+    is($bob->password, '');
+    is($bob->email, undef);
+    is($bob->biography, undef);
+    is($bob->website, undef);
+    is($bob->privileges, 0);
+    is($bob->accepted_edits, 100);
+    is($bob->rejected_edits, 101);
+    is($bob->accepted_auto_edits, 102);
+    is($bob->birth_date, undef);
+    is($bob->gender_id, undef);
+    is($bob->country_id, undef);
+
+    $c->model('EditorLanguage')->load_for_editor($bob);
+    is(@{ $bob->languages }, 0);
 };
 
 1;
