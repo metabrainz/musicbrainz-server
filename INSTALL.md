@@ -73,7 +73,7 @@ Server configuration
 
 2.  Modify the server configuration file.
 
-        cp lib/DBDefs.pm.default lib/DBDefs.pm
+        cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
     Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
 
