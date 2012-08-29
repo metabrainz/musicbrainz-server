@@ -319,6 +319,12 @@ sub edit : Local RequireAuth
             $form->field('languages')->value
         );
 
+        # We need to refresh the logged in user, so we simply log in again.
+        # Refreshing is necessary to update the cached email/confirmation date
+        # which is used to determine if an editor can edit.
+        $c->set_authenticated(
+            $c->find_user({ username => $editor->name }, 'default'));
+
         $c->response->redirect($c->uri_for_action('/account/edit', \%args));
         $c->detach;
     }
