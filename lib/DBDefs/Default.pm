@@ -85,6 +85,7 @@ sub SMTP_SERVER { "localhost" }
 # passwords.  However you MUST change it from the default
 # value (the empty string).  This is so an attacker can't just look in CVS and
 # see the default secret value, and then use it to attack your server.
+
 sub SMTP_SECRET_CHECKSUM { "" }
 sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 
@@ -156,7 +157,6 @@ sub MEMCACHED_NAMESPACE { return 'MB:'; };
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-#        class => "Cache::Memory",
         class => "Cache::Memcached::Fast",
         servers => $self->MEMCACHED_SERVERS(),
         namespace => $self->MEMCACHED_NAMESPACE(),
@@ -285,7 +285,7 @@ my %amazon_store_associate_ids = (
 
 sub AWS_ASSOCIATE_ID
 {
-	shift;
+    shift;
     return keys %amazon_store_associate_ids if not @_;
     return $amazon_store_associate_ids{$_[0]};
 }
@@ -323,12 +323,11 @@ sub GOOGLE_ANALYTICS_CODE { '' }
 sub SESSION_STORE { "Session::Store::Memcached" }
 sub SESSION_STORE_ARGS
 {
-	my $self = shift;
+    my $self = shift;
     return {
         memcached_new_args => {
             data => $self->MEMCACHED_SERVERS(),
-            namespace => $self->MEMCACHED_NAMESPACE(),
-            memcached_class => 'Cache::Memcached::Fast',
+            namespace => $self->MEMCACHED_NAMESPACE()
         }
     }
 }
@@ -337,7 +336,7 @@ sub SESSION_STORE_ARGS
 # seperately from the regular session store.
 sub WIZARD_MEMCACHED
 {
-	my $self = shift;
+    my $self = shift;
     return { servers => $self->MEMCACHED_SERVERS(), namespace => $self->MEMCACHED_NAMESPACE() };
 }
 
