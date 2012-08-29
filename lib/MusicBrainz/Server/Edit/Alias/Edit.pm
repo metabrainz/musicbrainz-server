@@ -191,6 +191,8 @@ sub allow_auto_edit
 
     return 0 if $self->data->{old}{locale};
 
+    return 0 if exists $self->data->{new}{primary_for_locale};
+
     return 1;
 }
 
