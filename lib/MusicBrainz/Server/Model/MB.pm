@@ -33,9 +33,9 @@ sub _build_context {
         );
 
         $c->dbh->do("SET statement_timeout = " .
-                        (DBDefs::MAX_REQUEST_TIME() * 1000))
-            if (defined(DBDefs::MAX_REQUEST_TIME)
-                    && DBDefs::MAX_REQUEST_TIME > 0);
+                        (DBDefs->MAX_REQUEST_TIME() * 1000))
+            if (defined(DBDefs->MAX_REQUEST_TIME)
+                    && DBDefs->MAX_REQUEST_TIME > 0);
 
         return $c;
     }
