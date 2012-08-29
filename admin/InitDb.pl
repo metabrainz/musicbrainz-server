@@ -63,7 +63,7 @@ sub GetPostgreSQLVersion
     my $sql = Sql->new( $mb->conn );
 
     my $version = $sql->select_single_value ("SELECT version();");
-    $version =~ s/PostgreSQL ([0-9\.]*) .*/$1/;
+    $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
 
     return version->parse ("v".$version);
 }
@@ -233,6 +233,7 @@ sub CreateRelations
     my $opts = $DB->shell_args;
     $ENV{"PGPASSWORD"} = $DB->password;
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $DB->schema));
+    system("echo \"CREATE SCHEMA cover_art_archive\" | $psql $opts");
     die "\nFailed to create schema\n" if ($? >> 8);
 
     if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
