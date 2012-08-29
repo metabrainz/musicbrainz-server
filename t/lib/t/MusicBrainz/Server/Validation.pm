@@ -2,7 +2,7 @@ package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
 
-use MusicBrainz::Server::Validation qw( is_valid_iswc format_iswc is_valid_ipi format_ipi );
+use MusicBrainz::Server::Validation qw( is_valid_iswc format_iswc is_valid_ipi );
 
 test 'Test TrimInPlace' => sub {
     my $a = '  ';
@@ -52,10 +52,6 @@ test 'Test format_iswc' => sub {
 
 test 'Test is_valid_ipi' => sub {
     ok(is_valid_ipi('00014107338'));
-};
-
-test 'Test format_ipi' => sub {
-    is(format_ipi('014107338'), '00014107338');
 };
 
 test 'Test normalise_strings' => sub {
