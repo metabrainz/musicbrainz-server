@@ -83,6 +83,8 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
+# This is required, there is no default in order to prevent it changing without
+# manual intervention.
 sub DB_SCHEMA_SEQUENCE { 15 }
 
 # What type of server is this?

@@ -47,10 +47,6 @@ sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' 
 # The Database
 ################################################################################
 
-# The schema sequence number.  Must match the value in
-# replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 15 }
-
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
 #               they result in replication packets being produced.
