@@ -48,7 +48,7 @@ requires 'Email::Valid';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.29';
 requires 'Function::Parameters';
-requires 'HTML::FormHandler'                          => '0.36002';
+requires 'HTML::FormHandler'                          => '0.40013';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath';
 requires 'IO::All';
