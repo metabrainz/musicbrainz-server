@@ -2,6 +2,7 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Add;
 use Moose;
 use namespace::autoclean;
 
+use Encode qw( encode );
 use JSON qw( decode_json );
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
@@ -16,7 +17,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
 );
-
 
 around render => sub {
     my $orig = shift;
@@ -82,7 +82,7 @@ sub skip_duplicates
     my $mediums = $self->get_value('tracklist', 'mediums');
     my $has_tracks =
         $mediums && @$mediums
-            && @{decode_json($mediums->[0]{edits} || '[]')};
+            && @{decode_json(encode('utf-8', $mediums->[0]{edits} || '[]'))};
 
     return ($seeded && $has_tracks)
         || !($releases && scalar @$releases > 0);
