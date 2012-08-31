@@ -8,8 +8,10 @@
     [%- WRAPPER 'components/with-pager.tt' -%]
     <table class="tbl">
       <thead>
-        <th>[% l('Tag') %]</th>
-        <th style="width: 10em">[% l('Usage Count') %]</th>
+        <tr>
+          <th>[% l('Tag') %]</th>
+          <th style="width: 10em">[% l('Usage Count') %]</th>
+        </tr>
       </thead>
       <tbody>
         [%- FOREACH tag IN tags -%]
