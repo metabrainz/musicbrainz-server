@@ -98,12 +98,12 @@
 
 [%- MACRO form_row_text_list(r, field_name, label, item_name) BLOCK -%]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      <label>[% label || r.form.field(field_name).label %]</label>
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" name="" class="value">
-              <button class="nobutton icon remove" href="#remove_row">
+              <button class="nobutton icon remove">
                 <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
                      title="[% l('Remove {item}', item => item_name) %]"
                        alt="[% l('Remove {item}', item => item_name) %]" />
