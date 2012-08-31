@@ -157,7 +157,7 @@ END -%]
 [%- END -%]
 
 [%- MACRO rdfa_typeof(type) BLOCK; -%]
-[%- IF doRDFa -%]typeof="[%- type -%]"[%- END -%]
+[%- IF doRDFa -%][%- IF type -%]typeof="[%- type -%]"[%- END -%][%- END -%]
 [%- END -%]
 
 [%-#####################-%]
