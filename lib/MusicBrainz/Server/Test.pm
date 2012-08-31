@@ -13,7 +13,7 @@ use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
-use MusicBrainz::Server::Test::HTML5 qw( html5_ok );
+use MusicBrainz::Server::Test::HTML5 qw( xhtml_ok html5_ok );
 use MusicBrainz::WWW::Mechanize;
 use Sql;
 use Template;
@@ -180,7 +180,7 @@ sub html_ok
 {
     my ($content, $message) = @_;
 
-    xml_ok ($content, $message);
+    xhtml_ok ($Test, $content, $message);
     html5_ok ($Test, $content, $message);
 }
 

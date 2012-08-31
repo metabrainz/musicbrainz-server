@@ -367,7 +367,7 @@ END -%]
 
 [%- MACRO rdfa_recording_hidden_published_as(track) BLOCK;
   IF doRDFa;
-    '<tr style="display: none;" rel="mo:published_as"><span about="' _ rdfa_track_blank_node(track) _ '"></span></tr>';
+    '<tr style="display: none;" rel="mo:published_as"><td><span about="' _ rdfa_track_blank_node(track) _ '"></span></td></tr>';
   END;
 END -%]
 
