@@ -4,9 +4,9 @@ use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Edit::Utils qw( edit_conditions_no_autoedit );
 
 extends 'MusicBrainz::Server::Edit';
 
@@ -47,26 +47,7 @@ sub build_display_data
 
 sub edit_conditions
 {
-    return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
-    };
+    return edit_conditions_no_autoedit();
 }
 
 has 'alias_id' => (

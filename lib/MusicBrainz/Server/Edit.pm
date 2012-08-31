@@ -167,8 +167,8 @@ sub edit_conditions
 {
     return {
         $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
+            duration      => 14,
+            votes         => 3,
             expire_action => $EXPIRE_ACCEPT,
             auto_edit     => 1,
         },
@@ -180,9 +180,9 @@ sub edit_conditions
         },
         $QUALITY_HIGH => {
             duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
+            votes         => 3,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 1,
         },
     };
 }

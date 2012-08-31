@@ -9,7 +9,7 @@ use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_r
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
 use Text::Trim qw( trim );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -26,6 +26,7 @@ our @EXPORT_OK = qw(
     clean_submitted_artist_credits
     date_closure
     edit_status_name
+    edit_conditions_no_autoedit
     hash_artist_credit
     merge_artist_credit
     merge_barcode
@@ -54,6 +55,21 @@ sub verify_artist_credits
             'An artist that is used in the new artist credits has been deleted'
         )
     }
+}
+
+sub edit_conditions_no_autoedit
+{
+    my $conditions = {
+        duration      => 14,
+        votes         => 3,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 0,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
 }
 
 sub date_closure

@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_REMOVE_DISCID );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Edit::Utils qw( edit_conditions_no_autoedit );
 
 sub edit_name { N_l('Remove disc ID') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
@@ -46,26 +47,7 @@ has 'release_id' => (
 
 sub edit_conditions
 {
-    return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
-    };
+    return edit_conditions_no_autoedit();
 }
 
 method initialize (%opts) {

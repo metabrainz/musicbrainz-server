@@ -3,7 +3,7 @@ use Moose;
 use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
+use MusicBrainz::Server::Edit::Utils qw( edit_conditions_no_autoedit );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -91,27 +91,7 @@ method accept
 
 sub edit_conditions
 {
-    my $self = shift;
-
-    my $quality = $self->data->{new}{quality} > $self->data->{old}{quality} ?
-        {
-            duration      => 3,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        } :
-        {
-            duration      => 14,
-            votes         => 5,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        };
-
-    return {
-        $QUALITY_LOW    => $quality,
-        $QUALITY_NORMAL => $quality,
-        $QUALITY_HIGH   => $quality
-    };
+    return edit_conditions_no_autoedit();
 }
 
 

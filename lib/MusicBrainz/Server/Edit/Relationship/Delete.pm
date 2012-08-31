@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
+use MusicBrainz::Server::Edit::Utils qw( edit_conditions_no_autoedit );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     partial_date_from_row
@@ -56,26 +56,7 @@ has 'relationship' => (
 
 sub edit_conditions
 {
-    return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
-    };
+    return edit_conditions_no_autoedit();
 }
 
 sub model0 { type_to_model(shift->data->{relationship}{link}{type}{entity0_type}) }
