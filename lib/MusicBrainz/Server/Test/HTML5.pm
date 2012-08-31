@@ -5,7 +5,9 @@ use DBDefs;
 use Encode;
 use File::Temp qw( tempfile );
 use JSON;
-use Sub::Exporter -setup => { exports => [ 'html5_ok' ] };
+use XML::LibXML;
+
+use Sub::Exporter -setup => { exports => [ qw(xhtml_ok html5_ok) ] };
 
 =func ignore_warning
 
@@ -24,18 +26,31 @@ Currently we ignore the following warnings:
   3. resource attribute
      Not a valid attribute in HTML5, but used by RDFa.
 
-  4. xmlns attributes on <html>
-     Not valid in html5, required for RDFa 1.0.  Upgrading our implementation
-     to RDFa 1.1 hopefully will solve this.
+  4. content attribute
+     Not a valid attribute in HTML5, but used by RDFa.
 
-  5. Bad value "foo:Bar" for attribute "rel"
+  5. xmlns attributes on <html>
+     Not valid in html5, required for RDFa 1.0.  Upgrading our implementation
+     to RDFa 1.1 hopefully will solve this.  See MBS-xxxx.
+
+  6. Bad value "foo:Bar" for attribute "rel"
      validator.nu requires rel="" values to be from a list of registered
      types, whereas in RDFa you can use anything if you link to a vocabulary
      which defines the type.
 
-  6. "img" tags without alt attributes
+  7. <img> tags without alt attributes
      Not all img elements must have an alt attribute, although we could
      probably do do better here.  For now, just ignore it.
+
+  8. <input type="button"> without value
+     In a few spots we use <input type="button"> for buttons which get
+     their appearance from a background image instead of the value
+     attribute.  <button><img src="" alt="" /></button> would be better
+     solution.  See MBS-xxxx.
+
+  9. Element "foo" now allowed as child of element "bar" ...
+     These are problems with how our HTML is structured, and these should
+     be fixed.  See MBS-xxxx.
 
 =cut
 
@@ -47,9 +62,12 @@ sub ignore_warning
         '^Attribute .rel. not allowed on element',
         '^Attribute .datatype. not allowed on element',
         '^Attribute .resource. not allowed on element',
+        '^Attribute .content. not allowed on element',
         '^Attribute .xmlns:[A-Za-z0-9]*. not allowed here',
         '^Bad value .* for attribute .rel. on element',
         '^An .img. element must have an .alt. attribute',
+        '^Element .input. with attribute .type. whose value is .button.',
+        '^Element .* not allowed as child of element .* in this context.'
     );
 
     for my $test (@ignored)
@@ -106,6 +124,35 @@ sub save_html
         close ($fh);
         $Test->diag ("failed output written to $filename");
     };
+}
+
+
+=func xhtml_ok
+
+Check if the document is well-formed xhtml. (== well-formed xml, but
+html character entities are allowed without an external DTD).
+
+=cut
+
+sub xhtml_ok
+{
+    my ($Test, $content, $message) = @_;
+
+    $message ||= "well-formed XHTML";
+
+    eval { XML::LibXML->load_html (string => $content); };
+    if ($@)
+    {
+        foreach (split "\n", $@->as_string ())
+        {
+            $Test->diag($_);
+        }
+        return $Test->ok (0, $message);
+    }
+    else
+    {
+        return $Test->ok (1, $message);
+    }
 }
 
 
