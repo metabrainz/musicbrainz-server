@@ -30,9 +30,8 @@
             </tr>
             <!-- Invalid HTML, commenting out for now.  See MBS-5244.
                 <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
-                [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
-                </div>
             -->
+                [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
         [%- END -%]
         </tbody>
     </table>
