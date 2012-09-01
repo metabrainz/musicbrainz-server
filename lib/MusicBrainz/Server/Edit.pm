@@ -166,24 +166,12 @@ sub editor_may_add_note
 sub edit_conditions
 {
     return {
-        $QUALITY_LOW => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        },
+        map { $_ =>
+               { duration      => 14,
+                 votes         => 3,
+                 expire_action => $EXPIRE_ACCEPT,
+                 auto_edit     => 1 }
+            } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH)
     };
 }
 
