@@ -4,7 +4,7 @@ use MooseX::ABC;
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Utils qw( edit_conditions_no_autoedit );
+use MusicBrainz::Server::Edit::Utils qw( edit_disallow_autoedit );
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -27,10 +27,10 @@ sub _build_related_entities
     }
 }
 
-sub edit_conditions
-{
-    return edit_conditions_no_autoedit();
-}
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+    return edit_disallow_autoedit($self->$orig(@args));
+};
 
 has '+data' => (
     isa => Dict[

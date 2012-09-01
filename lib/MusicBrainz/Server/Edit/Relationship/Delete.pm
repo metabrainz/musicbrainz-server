@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
-use MusicBrainz::Server::Edit::Utils qw( edit_conditions_no_autoedit );
+use MusicBrainz::Server::Edit::Utils qw( edit_disallow_autoedit );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
     partial_date_from_row
@@ -54,10 +54,10 @@ has 'relationship' => (
     is => 'rw'
 );
 
-sub edit_conditions
-{
-    return edit_conditions_no_autoedit();
-}
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+    return edit_disallow_autoedit($self->$orig(@args));
+};
 
 sub model0 { type_to_model(shift->data->{relationship}{link}{type}{entity0_type}) }
 sub model1 { type_to_model(shift->data->{relationship}{link}{type}{entity1_type}) }

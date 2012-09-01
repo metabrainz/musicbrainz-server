@@ -26,7 +26,7 @@ our @EXPORT_OK = qw(
     clean_submitted_artist_credits
     date_closure
     edit_status_name
-    edit_conditions_no_autoedit
+    edit_disallow_autoedit
     hash_artist_credit
     merge_artist_credit
     merge_barcode
@@ -57,19 +57,14 @@ sub verify_artist_credits
     }
 }
 
-sub edit_conditions_no_autoedit
+sub edit_disallow_autoedit
 {
-    my $conditions = {
-        duration      => 14,
-        votes         => 3,
-        expire_action => $EXPIRE_ACCEPT,
-        auto_edit     => 0,
-    };
-    return {
-        $QUALITY_LOW    => $conditions,
-        $QUALITY_NORMAL => $conditions,
-        $QUALITY_HIGH   => $conditions,
-    };
+    my $conditions = shift;
+    foreach my $quality (keys %$conditions) {
+        $conditions->{$quality}->{auto_edit} = 0;
+    }
+
+    return $conditions;
 }
 
 sub date_closure

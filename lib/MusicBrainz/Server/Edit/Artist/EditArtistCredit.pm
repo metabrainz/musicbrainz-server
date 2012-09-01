@@ -14,7 +14,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
     load_artist_credit_definitions
     verify_artist_credits
-    edit_conditions_no_autoedit
+    edit_disallow_autoedit
 );
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -119,9 +119,9 @@ sub accept {
     );
 }
 
-sub edit_conditions
-{
-    return edit_conditions_no_autoedit();
-}
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+    return edit_disallow_autoedit($self->$orig(@args));
+};
 
 1;

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Release::EditBarcodes;
 use Moose;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Edit::Utils qw( edit_conditions_no_autoedit );
+use MusicBrainz::Server::Edit::Utils qw( edit_disallow_autoedit );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_BARCODES );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -32,10 +32,10 @@ has '+data' => (
     ]
 );
 
-sub edit_conditions
-{
-    return edit_conditions_no_autoedit();
-}
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+    return edit_disallow_autoedit($self->$orig(@args));
+};
 
 sub release_ids { map { $_->{release}{id} } @{ shift->data->{submissions} } }
 
