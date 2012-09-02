@@ -308,6 +308,18 @@ my %stats = (
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.url" => {
+        DESC => 'Count of all URLs',
+        SQL => 'SELECT count(*) FROM url',
+    },
+    "count.url.no_description" => {
+        DESC => 'Count of URLs without descriptions',
+        SQL => "SELECT COUNT(*) FROM url WHERE description IS null OR description = ''",
+    },
+    "count.url.has_description" => {
+        DESC => 'Count of URLs that have a non-empty description',
+        SQL => "SELECT COUNT(*) FROM url WHERE description IS NOT NULL AND description <> ''",
+    },
     "count.coverart" => {
         DESC => 'Count of all cover art images',
         SQL => 'SELECT count(*) FROM cover_art_archive.cover_art',
