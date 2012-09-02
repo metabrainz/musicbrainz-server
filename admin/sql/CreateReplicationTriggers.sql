@@ -364,7 +364,7 @@ CREATE TRIGGER "reptg_release_group_secondary_type"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_secondary_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_release_group_secondary_type"
+CREATE TRIGGER "reptg_release_group_secondary_type_join"
 AFTER INSERT OR DELETE OR UPDATE ON "release_group_secondary_type_join"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
