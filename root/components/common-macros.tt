@@ -62,7 +62,7 @@ END; -%]
 [%- END -%]
 
 [%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" class="thickbox">
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" rel="mb-coverart" class="thickbox">
     [%- IF no_javascript -%]
         <img src="[% artwork.large_thumbnail %]" />
     [%- ELSE -%]
