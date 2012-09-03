@@ -72,6 +72,18 @@ subtest 'Submit a set of ISRCs' => sub {
     ]);
 };
 
+subtest 'Submit invalid ISRCs' => sub {
+    my $request = POST '/ws/1/track/?type=xml', [
+        client => 'test-1.0',
+        isrc   => '162630d9-36d2-4a8d-ade1-1c77440b34e7 TCABF1283419'
+    ];
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
+
+    my $response = $mech->request($request);
+    is($mech->status, 400, "TuneCore ID does not get submitted.");
+};
+
 };
 
 1;

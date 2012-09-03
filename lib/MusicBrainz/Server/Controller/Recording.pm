@@ -23,6 +23,9 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_PUID_DELETE
 );
+use MusicBrainz::Server::Entity::Util::Release qw(
+    group_by_release_status_nested
+);
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use List::AllUtils qw( any );
@@ -106,14 +109,20 @@ sub show : Chained('load') PathPart('')
     my $tracks = $self->_load_paged($c, sub {
         $c->model('Track')->find_by_recording($recording->id, shift, shift);
     });
+
     my @releases = map { $_->tracklist->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
     $c->model('Country')->load(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
+    $c->model('ReleaseStatus')->load(@releases);
+
     $self->relationships($c);
     $c->stash(
-        tracks   => $tracks,
+        tracks =>
+            group_by_release_status_nested(
+                sub { shift->tracklist->medium->release },
+                @$tracks),
         template => 'recording/index.tt',
     );
 }

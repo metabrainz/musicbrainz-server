@@ -316,7 +316,7 @@ sub GOOGLE_ANALYTICS_CODE { '' }
 # If you're using multiple front-end webservers make sure they all connect to
 # the same memcached server.  Also make sure enough memory is configured for
 # memcached so sessions aren't evicted from the cache.
-sub SESSION_STORE { "Session::Store::Memcached" }
+sub SESSION_STORE { "Session::Store::MusicBrainz" }
 sub SESSION_STORE_ARGS
 {
     my $self = shift;

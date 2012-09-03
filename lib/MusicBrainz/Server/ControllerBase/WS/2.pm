@@ -7,8 +7,8 @@ use HTTP::Status qw( :constants );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::JSONSerializer;
-use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
 use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Try::Tiny;
 
@@ -175,7 +175,7 @@ sub _search
 {
     my ($self, $c, $entity) = @_;
 
-    my $result = xml_search($entity, $c->stash->{args});
+    my $result = $c->model('WebService')->xml_search($entity, $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     if (exists $result->{xml})
     {
@@ -444,6 +444,8 @@ sub linked_works
 {
     my ($self, $c, $stash, $works) = @_;
 
+    $c->model('ISWC')->load_for_works(@$works);
+
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Work')->alias->find_by_entity_id(map { $_->id } @$works) };
@@ -493,7 +495,7 @@ sub _validate_entity
 
     my $model = type_to_model ($entity);
 
-    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!$gid || !is_guid($gid))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -512,22 +514,23 @@ sub _validate_entity
 }
 
 sub load_relationships {
-    my ($self, $c, @for) = @_;
+    my ($self, $c, $stash, @for) = @_;
 
     if ($c->stash->{inc}->has_rels)
     {
         my $types = $c->stash->{inc}->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, @for);
 
-        my @works = ();
+        my @works =
+            map { $_->target }
+            grep { $_->target_type eq 'work' }
+            map { $_->all_relationships } @for;
+
         if ($c->stash->{inc}->work_level_rels)
         {
-            @works =
-                map { $_->target }
-                grep { $_->target_type eq 'work' }
-                map { $_->all_relationships } @for;
             $c->model('Relationship')->load_subset($types, @works);
         }
+        $self->linked_works($c, $stash, \@works);
 
         my $collect_works = sub {
             my $relationship = shift;

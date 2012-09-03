@@ -6,7 +6,7 @@
     $('document').ready(function() {
 
       var bubbles = MB.Control.BubbleCollection ();
-      MB.Control.initialize_guess_case (bubbles, 'work');
+      MB.Control.initialize_guess_case (bubbles, 'work', 'id-edit-work');
 
     });
   //]]></script>

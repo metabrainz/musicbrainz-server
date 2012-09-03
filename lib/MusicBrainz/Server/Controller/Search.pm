@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::Util qw( min max );
-use LWP::UserAgent;
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
@@ -93,6 +92,9 @@ sub direct : Private
     given($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
+        }
+        when ('editor') {
+            $c->model('Editor')->load_preferences(@entities);
         }
         when ('release_group') {
             $c->model('ReleaseGroupType')->load(@entities);

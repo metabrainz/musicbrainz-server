@@ -127,7 +127,7 @@ $vote_data->enter_votes(2, { edit_id => $edit->id, vote => 123 });
 is(@{ $edit->votes }, $old_count, 'vote count should not have changed');
 
 # Check the voting statistics
-my $stats = $vote_data->editor_statistics(1);
+my $stats = $vote_data->editor_statistics($test->c->model('Editor')->get_by_id(1));
 is_deeply($stats, [
     {
         name   => 'Yes',

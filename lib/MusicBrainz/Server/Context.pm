@@ -36,6 +36,16 @@ has 'models' => (
     default => sub { {} }
 );
 
+has lwp => (
+    is => 'ro',
+    default => sub {
+        my $lwp = LWP::UserAgent->new;
+        $lwp->env_proxy;
+        $lwp->timeout(5);
+        return $lwp;
+    }
+);
+
 has data_prefix => (
     isa => 'Str',
     is => 'ro',

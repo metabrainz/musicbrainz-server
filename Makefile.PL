@@ -34,6 +34,7 @@ requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
 requires 'Data::UUID::MT'                             => '0.004';
 requires 'DateTime::TimeZone';
+requires 'DateTime::Format::Duration'                 => '1.03';
 requires 'DateTime::Format::Pg'                       => '0.16004';
 requires 'DateTime::Format::Natural'                  => '0.96';
 requires 'DBIx::Connector';
