@@ -8,7 +8,9 @@ use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw( :edit_status $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test qw( accept_edit );
+use Set::Scalar;
 use Sql;
+use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
 
@@ -147,9 +149,65 @@ subtest 'Find editors with subscriptions' => sub {
     is($editors[0]->id => 2, 'is editor #2');
 };
 
-# Test deleting editors
-$editor_data->delete(1);
+};
 
+test 'Deleting editors removes most information' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $model = $c->model('Editor');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO country (id, iso_code, name) VALUES (1, 'bb', 'Bobland');
+INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
+INSERT INTO gender (id, name) VALUES (1, 'Male');
+INSERT INTO editor (id, name, password, email, website, bio, member_since,
+    email_confirm_date, last_login_date, edits_accepted, edits_rejected,
+    auto_edits_accepted, edits_failed, privs, birth_date, country, gender)
+  VALUES (1, 'Bob', 'bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(),
+    now(), now(), 100, 101, 102, 103, 1, '1980-02-03', 1, 1);
+INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
+EOSQL
+
+    # Test deleting editors
+    $model->delete(1);
+    my $bob = $model->get_by_id(1);
+
+    is($bob->name, 'Deleted Editor #' . $bob->id);
+    is($bob->password, '');
+    is($bob->privileges, 0);
+    is($bob->accepted_edits, 100);
+    is($bob->rejected_edits, 101);
+    is($bob->accepted_auto_edits, 102);
+
+    # Ensure all other attributes are cleared
+    my $exclusions = Set::Scalar->new(
+        qw( id name password privileges accepted_edits rejected_edits
+            accepted_auto_edits last_login_date failed_edits languages
+            registration_date preferences
+      ));
+
+    for my $attribute (grep { !$exclusions->contains($_->name) }
+                           object_attributes($bob)) {
+        attribute_value_is($attribute, $bob, undef,
+                           $attribute->name . " is now undef");
+    }
+
+    # Ensure all languages have been cleared
+    $c->model('EditorLanguage')->load_for_editor($bob);
+    is(@{ $bob->languages }, 0);
+
+    # Ensure all preferences are cleared
+    my $prefs = $bob->preferences;
+    for my $attribute (object_attributes($prefs)) {
+        if (!$attribute->has_default) {
+            diag("Editor preference " . attribute->name . " has no default");
+        }
+        else {
+            attribute_value_is(
+                $attribute, $prefs, $attribute->default($prefs),
+                "Preference " . $attribute->name . " was cleared");
+        }
+    }
 };
 
 test 'Deleting an editor cancels all open edits' => sub {
