@@ -22,7 +22,7 @@ test 'Create collection from release page adds the new release' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/release/f34c079d-374e-4436-9448-da92dedef3ce');
-    $mech->follow_link(text => 'Create a new collection');
+    $mech->follow_link(text => 'Add to a new collection');
 
     $mech->form_number(2);
     $mech->field("edit-list.name", "Super collection");
