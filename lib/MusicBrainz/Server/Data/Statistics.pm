@@ -312,14 +312,6 @@ my %stats = (
         DESC => 'Count of all URLs',
         SQL => 'SELECT count(*) FROM url',
     },
-    "count.url.no_description" => {
-        DESC => 'Count of URLs without descriptions',
-        SQL => "SELECT COUNT(*) FROM url WHERE description IS null OR description = ''",
-    },
-    "count.url.has_description" => {
-        DESC => 'Count of URLs that have a non-empty description',
-        SQL => "SELECT COUNT(*) FROM url WHERE description IS NOT NULL AND description <> ''",
-    },
     "count.coverart" => {
         DESC => 'Count of all cover art images',
         SQL => 'SELECT count(*) FROM cover_art_archive.cover_art',
