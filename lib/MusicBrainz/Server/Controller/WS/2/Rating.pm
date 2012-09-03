@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::WebService::XML::XPath;
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 
@@ -56,7 +57,7 @@ sub rating_submit : Private
 
         my $gid = $xp->find('@mb:id', $node)->string_value;
         $self->_error ($c, "Cannot parse MBID: $gid.")
-            unless MusicBrainz::Server::Validation::IsGUID($gid);
+            unless is_guid($gid);
 
         my $entity = $c->model($model)->get_by_gid($gid);
         $self->_error ($c, "Cannot find $type $gid.") unless $entity;

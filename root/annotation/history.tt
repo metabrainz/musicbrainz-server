@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      [% FOR annotation=annotations %]
+      [%- FOR annotation=annotations -%]
       <tr>
         <td>
           <input type="radio" name="old" value="[% annotation.id %]" class="old"
@@ -31,8 +31,8 @@
           ([% annotation.changelog || l('<em>no changelog specified</em>') %])
         </td>
       </tr>
+      [%- END -%]
     </tbody>
-    [% END %]
   </table>
   <p>
     [% form_submit(l('Compare versions')) %]

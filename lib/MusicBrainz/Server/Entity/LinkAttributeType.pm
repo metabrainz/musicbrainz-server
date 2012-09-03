@@ -6,6 +6,8 @@ use MusicBrainz::Server::Translation::Relationships;
 use MusicBrainz::Server::Translation::Instruments;
 use MusicBrainz::Server::Translation::InstrumentDescriptions;
 
+use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
+
 extends 'MusicBrainz::Server::Entity';
 
 has 'gid' => (
@@ -41,7 +43,7 @@ has 'name' => (
 sub l_name {
     my $self = shift;
     my $rootid = defined $self->root ? $self->root->id : $self->root_id;
-    if ($rootid == 14) {
+    if ($rootid == $INSTRUMENT_ROOT_ID) {
         return MusicBrainz::Server::Translation::Instruments::l($self->name);
     } else {
         return MusicBrainz::Server::Translation::Relationships::l($self->name);
@@ -56,7 +58,7 @@ has 'description' => (
 sub l_description {
     my $self = shift;
     my $rootid = defined $self->root ? $self->root->id : $self->root_id;
-    if ($rootid == 14) {
+    if ($rootid == $INSTRUMENT_ROOT_ID) {
         return MusicBrainz::Server::Translation::InstrumentDescriptions::l($self->description);
     } else {
         return MusicBrainz::Server::Translation::Relationships::l($self->description);

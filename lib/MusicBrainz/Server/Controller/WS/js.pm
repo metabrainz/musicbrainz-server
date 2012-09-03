@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     hash_structure
 );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
 
@@ -64,8 +65,6 @@ sub tracklist : Chained('root') PathPart Args(1) {
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
     $c->model('ArtistCredit')->load($tracklist->all_tracks);
-    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
 
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
@@ -266,8 +265,6 @@ sub associations : Chained('root') PathPart Args(1) {
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
     $c->model('ArtistCredit')->load($tracklist->all_tracks);
-    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
 
     $c->model('Recording')->load ($tracklist->all_tracks);
 
@@ -316,7 +313,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    unless (MusicBrainz::Server::Validation::IsGUID($gid)) {
+    unless (is_guid($gid)) {
         $c->stash->{error} = "$gid is not a valid MusicBrainz ID.";
         $c->detach('bad_req');
         return;

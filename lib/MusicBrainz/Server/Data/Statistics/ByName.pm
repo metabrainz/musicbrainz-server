@@ -11,6 +11,8 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
 
+sub _columns { 'id, date_collected, name, value' }
+
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Statistics::ByName';
@@ -19,14 +21,11 @@ sub _entity_class
 sub get_statistic {
 
     my ($self, $statistic) = @_;
-    my $query = "SELECT id,
-                        date_collected,
-                        name,
-                        value
-                   FROM statistic
-                  WHERE name = '$statistic'";
+    my $query = "SELECT " . $self->_columns . "
+                   FROM " . $self->_table . "
+                  WHERE name = ?";
 
-    $self->sql->select($query) or return;
+    $self->sql->select($query, $statistic) or return;
 
     my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new();
     while (1) {
@@ -39,31 +38,5 @@ sub get_statistic {
 
     return $stats;
 }
-
-sub get_statistics {
-    my ($self, @statistics) = @_;
-    my $query = "SELECT id,
-                        date_collected,
-			name,
-			value
-                   FROM statistic
-		  WHERE name IN (" . placeholders(@statistics) . ")";
-    $self->sql->select($query, @statistics) or return;
-
-    my $return = {};
-    foreach my $statistic (@statistics) {
-        $return->{$statistic} = MusicBrainz::Server::Entity::Statistics::ByName->new();
-    }
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
-	my $obj = $return->{$row->{name}};
-	$obj->name($row->{name}) unless $obj->name;
-	$obj->data->{$row->{date_collected}} = $row->{value};
-    }
-    $self->sql->finish;
-
-    return $return;
-}
-
 
 1;
