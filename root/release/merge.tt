@@ -20,15 +20,64 @@
              into:') %]</p>
 
     <form action="[% c.req.uri %]" method="post">
-        <ul>
-            [% FOR entity=to_merge %]
-            <li>
-                <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
-                <input type="radio" name="merge.target" value="[% entity.id %]" />
-                [% descriptive_link(entity) %]
-            </li>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th style="width: 1em"></th>
+                    <th>[% l('Release') %]</th>
+                    <th>[% l('Artist') %]</th>
+                    <th>[% l('Format') %]</th>
+                    <th>[% l('Tracks') %]</th>
+                    <th>[% l('Date') %]</th>
+                    <th>[% l('Country') %]</th>
+                    <th>[% l('Label') %]</th>
+                    <th>[% l('Catalog#') %]</th>
+                    <th>[% l('Barcode') %]</th>
+                </tr>
+            </thead>
+            [% IF rdfa_made %]
+              <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
+            [% ELSE %]
+              <tbody>
             [% END %]
-        </ul>
+            [%- FOR release=to_merge -%]
+              <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
+                <td>
+                  <input type="hidden" name="merge.merging.[% loop.index %]" value="[% release.id %]" />
+                  <input type="radio" name="merge.target" value="[% release.id %]" />
+                </td>
+                [% IF rdfa_made %]
+                  <td>
+                    [% rdfa_made_release_link(release) %]
+                    [% disambiguation(release) %]
+                  </td>
+                [% ELSE %]
+                  <td>
+                    [% rdfa_event_product_release_link(release) %]
+                    [% disambiguation(release) %]
+                  </td>
+                [% END %]
+                  <td>[% artist_credit(release.artist_credit) %]</td>
+                  <td>[% rdfa_release_format(release) or "-" %]</td>
+                  <td>[% release.combined_track_count or "-" %]</td>
+                  <td>[% rdfa_release_event_date(release) %]</td>
+                  <td>
+                  [%- IF release.country -%]
+                    [% rdfa_release_country_abbr(release) %]
+                  [%- END -%]
+                  </td>
+                  [%- IF filter_label -%]
+                      <td>[% rdfa_release_catno_list(release.filter_labels(filter_label)) %]</td>
+                  [%- ELSE -%]
+                      <td>[% rdfa_release_label_list(release.labels) %]</td>
+                      <td>[% rdfa_release_catno_list(release.labels) %]</td>
+                  [%- END -%]
+                  <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
+              </tr>
+              [%- END -%]
+            </tbody>
+        </table>
+
         [% field_errors(form, 'target') %]
 
         [% USE r = FormRenderer(form) %]

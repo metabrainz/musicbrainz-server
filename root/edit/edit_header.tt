@@ -62,6 +62,8 @@
                             [% expiration_time(edit.expires_time) %]
                         [% ELSIF !edit.is_open && edit.status == 8 %]
                             [%- l('<strong>Closed:</strong> <em>Cancelling</em>') -%]
+                        [% ELSIF !edit.is_open && edit.was_approved %]
+                            [%- l('<strong>Approved:</strong> {date}', { date => html_escape(UserDate.format(edit.close_time)) }) -%]
                         [% ELSIF !edit.is_open %]
                             [%- l('<strong>Closed:</strong> {date}', { date => html_escape(UserDate.format(edit.close_time)) }) -%]
                         [% END %]

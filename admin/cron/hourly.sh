@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -u
 
 export PATH=/usr/local/bin:$PATH
 
@@ -6,10 +6,10 @@ mb_server=`dirname $0`/../..
 cd $mb_server
 
 eval `carton exec -- ./admin/ShowDBDefs`
-carton exec -- ./admin/config.sh
+source ./admin/config.sh
 
 # Only run one "hourly.sh" at a time
-if [ "$1" != "gotlock" ]
+if [ "${1:-}" != "gotlock" ]
 then
     true ${LOCKFILE:=/tmp/hourly.sh.lock}
     $MB_SERVER_ROOT/bin/runexclusive -f "$LOCKFILE" --no-wait \

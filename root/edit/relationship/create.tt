@@ -82,7 +82,7 @@
                         </div>
                         <div class="ar-descr">[% attr.description %]</div>
                     [% ELSE %]
-                        <label for="id-ar.attrs.[% attr.name %]">[% r.checkbox(field) %] [% attr.name %]</label>
+                        [% r.label(field, r.checkbox(field) _ ' ' _ attr.name) %]
                         <div class="ar-descr">[% attr.description %]</div>
                     [% END %]
                     [% field_errors(form, field) %]

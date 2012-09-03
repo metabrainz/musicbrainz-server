@@ -38,6 +38,9 @@ test 'Can create new relationship attribute' => sub {
             }
         );
         ok($mech->success);
+
+        my @redir = $response->redirects;
+        like($redir[0]->content, qr{http://localhost/relationship-attributes\?msg=created}, "Redirect contains link to main relationship-attributes page.");
     } $test->c;
 
     is(@edits, 1);
@@ -53,8 +56,8 @@ test 'Can create child relationship attribute using parentid' => sub {
     my $gid = 'f6100277-c7b8-4c8d-aa26-d8cd014b6761';
 
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO link_attribute_type (id, root, gid, name)
-  VALUES (1, 1, 'f6100277-c7b8-4c8d-aa26-d8cd014b6761', 'Trombone');
+INSERT INTO link_attribute_type (id, parent, root, gid, name)
+  VALUES (14, NULL, 14, '0abd7f04-5e28-425b-956f-94789d9bcbe2', 'instrument'), (1, 14, 14, 'f6100277-c7b8-4c8d-aa26-d8cd014b6761', 'trombone');
 EOSQL
 
     $mech->get_ok('/relationship-attributes/create?parent=' . $gid);
@@ -72,6 +75,9 @@ EOSQL
             }
         );
         ok($mech->success);
+
+        my @redir = $response->redirects;
+        like($redir[0]->content, qr{http://localhost/relationship-attributes/instruments\?msg=created}, "Redirect contains link to instrument tree page.");
     } $test->c;
 
     is(@edits, 1);

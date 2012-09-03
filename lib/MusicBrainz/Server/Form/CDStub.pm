@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::CDStub;
 use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( is_valid_barcode );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -15,7 +15,7 @@ has_field 'title' => (
 );
 
 has_field 'comment' => (
-    type => '+MusicBrainz::Server::Form::Field::Comment',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 
@@ -58,7 +58,7 @@ sub validate_barcode {
     my ($self, $field) = @_;
     return unless $field->value;
     $field->add_error(l('Must be a valid barcode'))
-        unless MusicBrainz::Server::Validation::IsValidBarcode($field->value);
+        unless is_valid_barcode($field->value);
 }
 
 sub validate

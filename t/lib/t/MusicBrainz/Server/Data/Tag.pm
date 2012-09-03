@@ -55,7 +55,8 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, '+tag');
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+tag_raw');
 
 my $tag_data = MusicBrainz::Server::Data::EntityTag->new(
-    c => $test->c, type => 'artist', tag_table => 'artist_tag');
+    c => $test->c, type => 'artist', tag_table => 'artist_tag',
+    parent => $test->c->model('Artist'));
 
 # Artists tagged with 'musical'
 my ($tags, $hits) = $test->c->model('Artist')->tags->find_entities(1, 10, 0);
