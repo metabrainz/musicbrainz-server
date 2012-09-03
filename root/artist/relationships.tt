@@ -23,8 +23,8 @@
         [%- FOREACH relationship IN artist.appearances.pairs -%]
 
                 <tr class="subh">
-                    <td></td>
-                    <td colspan="3">[% l(relationship.key) %]</td>
+                    <th></th>
+                    <th colspan="3">[% l(relationship.key) %]</th>
                 </tr>
 
                 [% FOR rel IN relationship.value %]
