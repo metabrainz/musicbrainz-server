@@ -30,8 +30,6 @@ sub extra_headers {
     my $self = shift;
     return (
         'Reply-To' => $EMAIL_SUPPORT_ADDRESS,
-        'References' => MusicBrainz::Server::Email::_message_id('watched-%s', $self->editor->id),
-        'In-Reply-To' => MusicBrainz::Server::Email::_message_id('watched-%s', $self->editor->id),
         'Message-Id' => MusicBrainz::Server::Email::_message_id('watched-%s-%d', $self->editor->id, time())
     )
 }
