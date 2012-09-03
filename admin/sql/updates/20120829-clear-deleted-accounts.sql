@@ -9,6 +9,7 @@ UPDATE editor SET
   password = '',
   privs = 0,
   email = NULL,
+  email_confirm_date = NULL,
   website = NULL,
   bio = NULL,
   country = NULL,

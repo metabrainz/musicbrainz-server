@@ -8,7 +8,9 @@ use DateTime::Format::Pg;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Constants qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
+use Set::Scalar;
 use Sql;
+use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
 
@@ -172,19 +174,40 @@ EOSQL
 
     is($bob->name, 'Deleted Editor #' . $bob->id);
     is($bob->password, '');
-    is($bob->email, undef);
-    is($bob->biography, undef);
-    is($bob->website, undef);
     is($bob->privileges, 0);
     is($bob->accepted_edits, 100);
     is($bob->rejected_edits, 101);
     is($bob->accepted_auto_edits, 102);
-    is($bob->birth_date, undef);
-    is($bob->gender_id, undef);
-    is($bob->country_id, undef);
 
+    # Ensure all other attributes are cleared
+    my $exclusions = Set::Scalar->new(
+        qw( id name password privileges accepted_edits rejected_edits
+            accepted_auto_edits last_login_date failed_edits languages
+            registration_date preferences
+      ));
+
+    for my $attribute (grep { !$exclusions->contains($_->name) }
+                           object_attributes($bob)) {
+        attribute_value_is($attribute, $bob, undef,
+                           $attribute->name . " is now undef");
+    }
+
+    # Ensure all languages have been cleared
     $c->model('EditorLanguage')->load_for_editor($bob);
     is(@{ $bob->languages }, 0);
+
+    # Ensure all preferences are cleared
+    my $prefs = $bob->preferences;
+    for my $attribute (object_attributes($prefs)) {
+        if (!$attribute->has_default) {
+            diag("Editor preference " . attribute->name . " has no default");
+        }
+        else {
+            attribute_value_is(
+                $attribute, $prefs, $attribute->default($prefs),
+                "Preference " . $attribute->name . " was cleared");
+        }
+    }
 };
 
 1;
