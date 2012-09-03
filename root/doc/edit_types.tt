@@ -2,7 +2,7 @@
     <div id="content" class="wikicontent">
         <h1>[%- l('Edit Types') -%]</h1>
           [% FOR category=by_category.pairs %]
-            [% NEXT IF category.key == 'Historic' %]
+            [% NEXT IF category.key == l('Historic') %]
             <h2>[% category.key %]</h2>
               <ul>
                 [% FOR edit_type=category.value %]
@@ -16,7 +16,8 @@
               </ul>
           [% END %]
 
-          [% category = by_category.Historic %]
+          [%- category_name = l('Historic') -%]
+          [%- category = by_category.$category_name -%]
           <h2>[% l('Historic') %]</h2>
             <ul>
               [% FOR edit_type IN category %]
