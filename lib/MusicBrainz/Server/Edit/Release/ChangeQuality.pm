@@ -3,7 +3,7 @@ use Moose;
 use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
-use MusicBrainz::Server::Edit::Utils qw( edit_disallow_autoedit );
+use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CHANGE_QUALITY );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -91,7 +91,7 @@ method accept
 
 around edit_conditions => sub {
     my ($orig, $self, @args) = @_;
-    return edit_disallow_autoedit($self->$orig(@args));
+    return conditions_without_autoedit($self->$orig(@args));
 };
 
 no Moose;

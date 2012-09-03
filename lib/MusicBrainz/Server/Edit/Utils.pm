@@ -26,7 +26,7 @@ our @EXPORT_OK = qw(
     clean_submitted_artist_credits
     date_closure
     edit_status_name
-    edit_disallow_autoedit
+    conditions_without_autoedit
     hash_artist_credit
     merge_artist_credit
     merge_barcode
@@ -57,7 +57,7 @@ sub verify_artist_credits
     }
 }
 
-sub edit_disallow_autoedit
+sub conditions_without_autoedit
 {
     my $conditions = shift;
     foreach my $quality (keys %$conditions) {

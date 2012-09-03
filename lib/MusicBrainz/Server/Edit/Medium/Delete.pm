@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
-use MusicBrainz::Server::Edit::Utils qw( edit_disallow_autoedit );
+use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
@@ -101,7 +101,7 @@ sub accept
 
 around edit_conditions => sub {
     my ($orig, $self, @args) = @_;
-    return edit_disallow_autoedit($self->$orig(@args));
+    return conditions_without_autoedit($self->$orig(@args));
 };
 
 __PACKAGE__->meta->make_immutable;

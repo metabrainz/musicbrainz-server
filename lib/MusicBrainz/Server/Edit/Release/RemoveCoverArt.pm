@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
-use MusicBrainz::Server::Edit::Utils qw( edit_disallow_autoedit );
+use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw ( N_l );
 
@@ -39,7 +39,7 @@ has '+data' => (
 
 around edit_conditions => sub {
     my ($orig, $self, @args) = @_;
-    return edit_disallow_autoedit($self->$orig(@args));
+    return conditions_without_autoedit($self->$orig(@args));
 };
 
 sub initialize {
