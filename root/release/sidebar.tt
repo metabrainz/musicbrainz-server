@@ -28,6 +28,8 @@
            content=release.barcode.format property='mo:tgin' datatype='xsd:string' IF release.barcode.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Format:')
            content=release.combined_format_name IF release.combined_format_name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
+           content=format_length(release.length) IF release.length;
     END %]
 
     <h2>[% l('Additional details') %]</h2>
@@ -69,11 +71,7 @@
     <h2>[% l('Editing') %]</h2>
     <ul class="links">
       [% IF c.user_exists %]
-        <li>
-          <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ release.gid ]) %]">
-            [% release.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-          </a>
-        </li>
+        [% annotation_links(release) %]
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>

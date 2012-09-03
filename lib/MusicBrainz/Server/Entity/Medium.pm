@@ -75,6 +75,38 @@ sub may_have_discids {
     return !$self->format || $self->format->has_discids;
 }
 
+
+=head2 length
+
+Attempt to return the duration of the medium in microseconds.  This
+will return the length of the disc, by looking at the associated
+discids or tracklists.
+
+This will not load any data from the database, so make sure you load
+either the associated tracklists + tracks, the MediumCDTOC +
+CDTOC, or both.
+
+=cut
+
+sub length {
+    my $self = shift;
+
+    if ($self->tracklist)
+    {
+        return $self->tracklist->length;
+    }
+    elsif ($self->cdtocs->[0] && $self->cdtocs->[0]->cdtoc)
+    {
+        return $self->cdtocs->[0]->cdtoc->length;
+    }
+    else
+    {
+        return undef;
+    }
+}
+
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -55,7 +55,8 @@ EOSQL
             },
             isrc => 'GBAAA9000038',
             source => 0
-        }]
+        }],
+        client_version => undef
     });
 };
 

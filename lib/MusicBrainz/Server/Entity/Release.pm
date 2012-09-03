@@ -279,6 +279,29 @@ sub filter_labels
     return grep { $_->label_id && $_->label_id == $label->id } @labels;
 }
 
+=head2 length
+
+Return the duration of the release in microseconds.
+(or undef if the duration of one or more media is not known).
+
+=cut
+
+sub length {
+    my $self = shift;
+
+    my $length = 0;
+
+    for my $disc ($self->all_mediums)
+    {
+        my $l = $disc->length;
+        return undef unless $l;
+
+        $length += $l;
+    }
+
+    return $length;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

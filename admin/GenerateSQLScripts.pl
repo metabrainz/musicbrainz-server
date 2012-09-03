@@ -195,9 +195,8 @@ sub process_functions
     @functions = sort(@functions);
 
     my @aggregates;
-    while ($create_functions_sql =~ m/CREATE\s+AGGREGATE\s+(\w+)/gi) {
-        my $name = $1;
-        push @aggregates, $name;
+    while ($create_functions_sql =~ m/CREATE\s+AGGREGATE\s+(\w+).*basetype[\s=]+(\w+)/gi) {
+        push @aggregates, [$1, $2];
     }
     @aggregates = sort(@aggregates);
 
@@ -208,7 +207,8 @@ sub process_functions
         print OUT "DROP FUNCTION $func;\n";
     }
     foreach my $agg (@aggregates) {
-        print OUT "DROP AGGREGATE $agg;\n";
+        my ($name, $type) = @$agg;
+        print OUT "DROP AGGREGATE $name ($type);\n";
     }
     close OUT;
 }

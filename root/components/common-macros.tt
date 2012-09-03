@@ -57,6 +57,7 @@ END; -%]
       END;
     END -%]
 
+[%- USE JavaScript -%]
 [%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
     <a href="[% artwork.image %]" class="thickbox">
     [%- IF no_javascript -%]
@@ -78,7 +79,7 @@ END; -%]
               else
               {
                   $(this).closest ('a').replaceWith ('<em>
-                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
+                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') | js -%]
                   <\/em>');
               }
           }).attr ("src", "[% artwork.large_thumbnail %]");
@@ -727,4 +728,27 @@ http://[%- server -%]/[%- id -%]"
       [% form_submit(l('Search'),'inline') %]
     </form>
   </div>
+[%- END -%]
+
+[%- MACRO annotation_links(entity) BLOCK -%]
+  <li>
+    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
+      [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
+    </a>
+  </li>
+  [%- IF number_of_revisions > 0 %]
+  <li>
+    <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
+      [% l('View annotation history') %]
+    </a>
+  </li>
+  [%- END -%]
+[%- END -%]
+
+[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
+[%- END -%]
+
+[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
 [%- END -%]
