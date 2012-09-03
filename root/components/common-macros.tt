@@ -457,17 +457,6 @@ END -%]
     END;
 END -%]
 
-[%- MACRO type_name(type) BLOCK;
-    IF type == 'artist'; l('Artist');
-    ELSIF type == 'label'; l('Label');
-    ELSIF type == 'release'; l('Release');
-    ELSIF type == 'release_group'; l('Release group');
-    ELSIF type == 'recording'; l('Recording');
-    ELSIF type == 'work'; l('Work');
-    ELSIF type == 'url'; l('URL');
-    END;
-END -%]
-
 [%- MACRO use_in_relationship(entity) BLOCK;
     UNLESS c.session.relationship.id == entity.id;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
