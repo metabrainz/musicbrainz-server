@@ -72,6 +72,7 @@ sub build_display_data
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        ended      => $self->data->{ended} // 0
     };
 }
 

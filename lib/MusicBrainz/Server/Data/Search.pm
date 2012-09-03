@@ -189,7 +189,8 @@ sub search
         $use_hard_search_limit = 0;
     }
     elsif ($type eq 'editor') {
-        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
+                    email
                   FROM editor, plainto_tsquery('mb_simple', ?) AS query
                   WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                   ORDER BY rank DESC
@@ -852,7 +853,7 @@ sub xml_search
     my $response = $ua->get($search_url);
     unless ($response->is_success)
     {
-        return;
+        die $response;
     }
     else
     {

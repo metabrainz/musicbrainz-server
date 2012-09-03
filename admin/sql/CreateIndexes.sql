@@ -52,6 +52,10 @@ CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);
 CREATE INDEX edit_label_idx_status ON edit_label (status);
 
+CREATE INDEX edit_open_time_date ON edit (date_trunc('day', open_time AT TIME ZONE 'UTC'));
+CREATE INDEX edit_close_time_date ON edit (date_trunc('day', close_time AT TIME ZONE 'UTC'));
+CREATE INDEX edit_expire_time_date ON edit (date_trunc('day', expire_time AT TIME ZONE 'UTC'));
+
 -- Entity indexes
 CREATE INDEX edit_artist_idx ON edit_artist (artist);
 CREATE INDEX edit_label_idx ON edit_label (label);

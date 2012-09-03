@@ -12,9 +12,10 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { N_l('Convert release to multiple artists') }
+sub edit_name     { N_l('Convert release to multiple artists (historic)') }
 sub historic_type { 9 }
 sub edit_type     { $EDIT_HISTORIC_SAC_TO_MAC }
+sub edit_template { 'historic/convert_release_to_multiple_artists' }
 
 sub _build_related_entities
 {

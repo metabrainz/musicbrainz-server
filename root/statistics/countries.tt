@@ -15,9 +15,9 @@ $(document).ready(function() {
     [%- ELSE -%]
     <td>[% l('Unknown Country') %]</td>
     [%- END -%]
-    <td class="t"><a href="/search?query=country%3A[% country.entity.iso_code || 'unknown' %]&type=artist&limit=25&advanced=1">[% add_commas(country.artist_count) %]</a></td>
-    <td class="t"><a href="/search?query=country%3A[% country.entity.iso_code || 'unknown' %]&type=release&limit=25&advanced=1">[% add_commas(country.release_count) %]</a></td>
-    <td class="t"><a href="/search?query=country%3A[% country.entity.iso_code || 'unknown' %]&type=label&limit=25&advanced=1">[% add_commas(country.label_count) %]</a></td>
+    <td class="t"><a href="/search?query=country%3A[% country.entity.iso_code || 'unknown' %]&amp;type=artist&amp;limit=25&amp;advanced=1">[% add_commas(country.artist_count) %]</a></td>
+    <td class="t"><a href="/search?query=country%3A[% country.entity.iso_code || 'unknown' %]&amp;type=release&amp;limit=25&amp;advanced=1">[% add_commas(country.release_count) %]</a></td>
+    <td class="t"><a href="/search?query=country%3A[% country.entity.iso_code || 'unknown' %]&amp;type=label&amp;limit=25&amp;advanced=1">[% add_commas(country.label_count) %]</a></td>
     <td class="t">[% add_commas(country.artist_count + country.release_count + country.label_count) %]</td>
 </tr>
 [%- END -%]

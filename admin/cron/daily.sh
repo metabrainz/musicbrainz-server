@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export PATH=/usr/local/bin:$PATH
+
 mb_server=`dirname $0`/../..
 cd $mb_server
 

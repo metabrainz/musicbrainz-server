@@ -5,8 +5,6 @@ use MusicBrainz::Server::Validation qw( is_valid_ipi format_ipi );
 
 extends 'HTML::FormHandler::Field::Text';
 
-has '+minlength' => ( default => 11 );
-
 apply ([
     {
         transform => sub { return format_ipi(shift) },

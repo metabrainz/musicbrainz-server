@@ -41,9 +41,10 @@ my $domain = $domain[0];
 # and ctx, which specifies a column to use for a msgctxt entry (unused at present).
 my @DBDEFS = (
               {'domain' => 'statistics', 'table' => 'statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
-              {'domain' => 'countries', 'table' => 'country', 'columns' => ['name'],},
-              {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency']},
-              {'domain' => 'scripts', 'table' => 'script', 'columns' => ['name'], 'comment' => ['frequency']},
+              {'domain' => 'countries', 'table' => 'country', 'columns' => ['name'], 'comment' => ['iso_code']},
+              {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3'], 'where' => 'iso_code_2t IS NOT NULL OR frequency > 0'},
+              {'domain' => 'languages_notrim', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3']},
+              {'domain' => 'scripts', 'table' => 'script', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code']},
               {'domain' => 'attributes', 'table' => 'artist_type', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'label_type', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'work_type', 'columns' => ['name'], 'ctx' => 'NULL'},
@@ -100,7 +101,7 @@ sub parse_db {
         }
         if ($comment) {
             foreach my $col (@$comment) {
-                $select_cols .= ',' . $col;
+                $select_cols .= ", COALESCE(" . $col . "::text, 'null')";
             }
         }
         my $query = "SELECT $select_cols from $table";
@@ -129,10 +130,12 @@ sub parse_db {
                        }
                    }
                    if ($comment) {
+                       my $autocomment = '';
                        foreach my $col (@$comment) {
                            my $val = shift @{$value};
-                           $po->automatic("$col:$val");
+                           $autocomment .= "$col:$val ";
                        }
+                       $po->automatic($autocomment);
                    }
                    $po->msgstr("");
                    if ($flag) {

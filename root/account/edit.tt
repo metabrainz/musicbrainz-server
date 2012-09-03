@@ -31,26 +31,24 @@
 
       [% WRAPPER form_row %]
         [% r.label('languages', l('Languages Known:'), fake => 1) %]
-        <div style="display: block; overflow: auto">
-          <ul>
-            [% FOR language=form.field('languages').fields %]
-            <li class="language">
-              [% r.select(language.field('language_id')) %]
-              [% r.select(language.field('fluency')) %]
+        <ul class="inline">
+          [% FOR language=form.field('languages').fields %]
+          <li class="language">
+            [% r.select(language.field('language_id')) %]
+            [% r.select(language.field('fluency')) %]
+            <button class="remove">[% l('Remove') %]</button>
+          </li>
+          [% END %]
+          <li>
+            <button class="another">[% l('Add a language') %]</button>
+            [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
+            <span id="add-language-template" style="display: none">
+              [% r.select(extra_field.field('language_id'), name => '', id => 'fluency-template', class => 'language_id',) %]
+              [% r.select(extra_field.field('fluency'), name => '', id => '', class => 'fluency') %]
               <button class="remove">[% l('Remove') %]</button>
-            </li>
-            [% END %]
-            <li>
-              <button class="another">[% l('Add a language') %]</button>
-              [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
-              <span id="add-language-template" style="display: none">
-    [% r.select(extra_field.field('language_id'), name => '', id => 'fluency-template', class => 'language_id',) %]
-[% r.select(extra_field.field('fluency'), name => '', id => '', class => 'fluency') %]
-                <button class="remove">[% l('Remove') %]</button>
-              </span>
-            </li>
-          </ul>
-        </div>
+            </span>
+          </li>
+        </ul>
       [% END %]
 
       <script>

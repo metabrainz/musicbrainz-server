@@ -1,4 +1,31 @@
+[%- MACRO print_language_link(language) BLOCK -%]
+    <a href="[% c.uri_for_action('/set_language', [ language.0 ]) %]">
+    [%- IF language.1.native_language != '' -%]
+        [%- language.1.native_language | ucfirst -%][%- IF language.1.native_territory != '' %] ([%- language.1.native_territory | ucfirst -%])[%- END -%]
+    [%- ELSE -%][[%- language.1.id -%]][%- END -%]
+    </a>
+[%- END -%]
 <ul class="r">
+    [% IF server_languages.size > 0 -%]
+    <li class="language-selector">
+        [% FOREACH language = server_languages; IF language.0 == current_language -%]
+            [%- print_language_link(language) -%]
+            [%- LAST; END -%]
+        [%- END %]
+        <ul>
+        [%- FOREACH language = server_languages -%]
+            [%- IF language.0 == current_language; selected_language = 1; ELSE; selected_language = 0; END %]
+            <li>[%- IF selected_language == 1 -%]<strong>[%- END %]
+                [%- print_language_link(language) -%]
+                [%- IF selected_language == 1 -%]</strong>[%- END %]
+            </li>
+        [%- END %]
+            <li>
+                <a href="[% c.uri_for_action('/set_language', [ 'unset' ] ) %]">[%- l('(reset language)') -%]</a>
+            </li>
+        </ul>
+    </li>
+    [%- END %]
     [%- IF c.user_exists -%]
         <li class="account">
             [% link_entity(c.user) %]
@@ -246,6 +273,9 @@
             </li>
             <li>
                 <a href="[% doc_link('Copyright_Violation_Notice') %]">[% l('Report a Copyright Violation') %]</a>
+            </li>
+            <li>
+                <a href="[% doc_link('Data_Removal_Policy') %]">[% l('Data Removal Policy') %]</a>
             </li>
         </ul>
     </li>

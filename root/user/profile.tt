@@ -28,6 +28,10 @@
                         [%- l('(<strong>unverified!</strong>)') -%]
                 [% END %]
 
+                [% IF viewing_own_profile %]
+                    (<a href="[% c.uri_for('/account/resend-verification') %]">[% l('resend verification email') %]</a>)
+                [% END %]
+
                 [% IF c.user_exists AND NOT viewing_own_profile %]
                     (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("send email") %]</a>)
                 [% END %]

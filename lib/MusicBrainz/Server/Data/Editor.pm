@@ -421,6 +421,14 @@ sub credit
     $self->sql->do($query, $editor_id);
 }
 
+# Must be run in a transaction to actually do anything. Acquires a row-level lock for a given editor ID.
+sub lock_row
+{
+    my ($self, $editor_id) = @_;
+    my $query = "SELECT 1 FROM " . $self->_table . " WHERE id = ? FOR UPDATE";
+    $self->sql->do($query, $editor_id);
+}
+
 sub donation_check
 {
     my ($self, $obj) = @_;
@@ -437,7 +445,7 @@ sub donation_check
         $ua->timeout(5); # in seconds.
 
         my $response = $ua->request(HTTP::Request->new (GET =>
-            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
+            'http://metabrainz.org/donations/nag-check/' .
             uri_escape_utf8($obj->name)));
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)

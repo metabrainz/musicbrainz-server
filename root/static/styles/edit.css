@@ -113,6 +113,11 @@ table.vote-tally .date {
     font-weight: bold;
 }
 
+.edit-notes .edit-note .editor-class {
+    font-weight: normal;
+    color: #999;
+}
+
 .edit-notes h3 a img {
     margin-right: 0.75em;
 }

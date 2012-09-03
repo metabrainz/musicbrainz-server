@@ -13,6 +13,7 @@ version_from 'lib/MusicBrainz/Server.pm';
 requires 'Algorithm::Diff';
 requires 'Algorithm::Merge';
 requires 'Cache::Memcached';
+requires 'Captcha::reCAPTCHA';
 requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
@@ -32,6 +33,7 @@ requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
 requires 'Data::UUID::MT'                             => '0.004';
 requires 'DateTime::TimeZone';
+requires 'DateTime::Format::Duration'                 => '1.03';
 requires 'DateTime::Format::Pg'                       => '0.16004';
 requires 'DateTime::Format::Natural'                  => '0.96';
 requires 'DBIx::Connector';
@@ -47,12 +49,13 @@ requires 'Email::Valid';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.29';
 requires 'Function::Parameters';
-requires 'HTML::FormHandler'                          => '0.36002';
+requires 'HTML::FormHandler'                          => '0.40013';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath';
 requires 'IO::All';
 requires 'Javascript::Closure';
 requires 'JSON'                                       => '2.14';
+requires 'JSON::XS'                                   => '2.27';
 requires 'Log::Dispatch';
 requires 'List::UtilsBy'                              => '0.06';
 requires 'List::MoreUtils'                            => '0.22';
@@ -74,6 +77,7 @@ requires 'Net::Amazon::AWSSign';
 requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
 requires 'Net::CoverArtArchive';
 requires 'Package::Stash'                             => '0.29';
+requires 'REST::Utils'                                => '0.4';
 requires 'Readonly'                                   => '1.03';
 requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
@@ -82,7 +86,8 @@ requires 'String::TT'                                 => '0.03';
 requires 'Template::Plugin::Math';
 requires 'Template::Plugin::Class';
 requires 'Template::Plugin::JavaScript';
-requires 'Text::WikiFormat'                           => '0.790';
+requires 'Template::Plugin::Map';
+requires 'Text::WikiFormat'                           => '0.80';
 requires 'Text::Unaccent';
 requires 'Text::Trim'                                 => '1.02';
 requires 'Time::Duration';
@@ -128,11 +133,6 @@ feature 'Production server' =>
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
     'FCGI' => '0',
     'FCGI::ProcManager' => '0.19',
-    ;
-
-feature 'Fast edit migration' =>
-    -default   => 1,
-    'JSON::XS' => '2.27',
     ;
 
 # These are just for I18N

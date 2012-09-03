@@ -4,15 +4,60 @@
     <p>[% l('You are about to merge the following works into a single work. Please
              select the work that you would like the other works merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
-        <ul>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th style="width: 1em"></th>
+                    <th>[% l('Work') %]</th>
+                    <th>[% l('Writers') %]</th>
+                    <th>[% l('Artists') %]</th>
+                    <th>[% l('ISWC') %]</th>
+                    <th>[% l('Type') %]</th>
+                    <th>[% l('Language') %]</th>
+                    <th class="rating c">[% l('Rating') %]</th>
+                </tr>
+            </thead>
+            <tbody>
             [% FOR entity=to_merge %]
-            <li>
-                <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
-                <input type="radio" name="merge.target" value="[% entity.id %]" />
-                [% descriptive_link(entity) %]
-            </li>
-            [% END %]
-        </ul>
+                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>
+                        <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
+                        <input type="radio" name="merge.target" value="[% entity.id %]" />
+                    </td>
+                    <td>
+                        [% descriptive_link(entity) %]
+                    </td>
+                    <td>
+                      <ul>
+                        [% FOR rel_artist=entity.writers %]
+                        <li>
+                          [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                          roles  => rel_artist.roles.join(', ') }) %]</li>
+                        [% END %]
+                      </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        [% FOR rel_artist=entity.artists %]
+                        <li>[% artist_credit(rel_artist) %]</li>
+                        [% END %]
+                      </ul>
+                    </td>
+                    <td class="iswc">
+                      <ul>
+                        [% FOR iswc=entity.iswcs %]
+                          <li>[% rdfa_work_iswc(entity, iswc) %]</li>
+                        [% END %]
+                      </ul>
+                    </td>
+                    <td>[% entity.l_type_name %]</td>
+                    <td><abbr title="[% entity.language.l_name %]">[% entity.language.iso_code_3 %]</abbr></td>
+                    <td class="c">[% rating_stars(entity) %]</td>
+                  </tr>
+                </tr>
+            [%- END -%]
+            </tbody>
+        </table>
         [% field_errors(form, 'target') %]
 
         [% INCLUDE "forms/edit-note.tt" %]

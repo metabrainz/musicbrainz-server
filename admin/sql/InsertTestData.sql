@@ -361,8 +361,8 @@ INSERT INTO puid (id, puid, version) VALUES
 INSERT INTO recording_puid (id, recording, puid) VALUES
     (1, 1, 1), (2, 1, 2);
 
-INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
-INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
+INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used'), (3, 'hip-hop/rap');
+INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2), (3, 3, 2);
 INSERT INTO label_tag (tag, label, count) VALUES (1, 2, 2);
 INSERT INTO recording_tag (tag, recording, count) VALUES (1, 1, 2);
 INSERT INTO release_group_tag (tag, release_group, count) VALUES (1, 1, 2);

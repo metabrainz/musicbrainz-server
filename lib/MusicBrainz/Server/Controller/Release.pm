@@ -76,6 +76,7 @@ after 'load' => sub
     my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
+        large_thumbnail => $prefix.'/front-500',
         small_thumbnail => $prefix.'/front-250'
     };
 
@@ -637,6 +638,16 @@ around _merge_submit => sub {
             l('This merge strategy is not applicable to the releases you have selected.')
         );
     }
+};
+
+after 'merge' => sub
+{
+    my ($self, $c) = @_;
+    $c->model('Medium')->load_for_releases(@{ $c->stash->{to_merge} });
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @{ $c->stash->{to_merge} });
+    $c->model('Country')->load(@{ $c->stash->{to_merge} });
+    $c->model('ReleaseLabel')->load(@{ $c->stash->{to_merge} });
+    $c->model('Label')->load(map { $_->all_labels } @{ $c->stash->{to_merge} });
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

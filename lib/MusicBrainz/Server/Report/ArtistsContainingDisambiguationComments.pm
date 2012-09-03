@@ -1,27 +1,16 @@
 package MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, q{
-        SELECT artist.gid AS artist_gid, name.name
-        FROM
-            artist
-            JOIN artist_name AS name ON artist.name=name.id
-        WHERE
-            (name.name LIKE '%(%' OR name.name LIKE '%)%')
-            AND name.name NOT LIKE '(%'
-        ORDER BY musicbrainz_collate(name.name)
-    });
-}
-
-sub template
-{
-    return 'report/artists_containing_disambiguation_comments.tt';
+sub query {
+    "SELECT artist.id AS artist_id,
+       row_number() OVER (ORDER BY musicbrainz_collate(name.name))
+     FROM artist
+     JOIN artist_name AS name ON artist.name=name.id
+     WHERE (name.name LIKE '%(%' OR name.name LIKE '%)%')
+       AND name.name NOT LIKE '(%'";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -31,6 +20,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

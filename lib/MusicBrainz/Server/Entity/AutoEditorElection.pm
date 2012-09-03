@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :election_status );
 use MusicBrainz::Server::Types qw( DateTime AutoEditorElectionStatus );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -85,21 +86,21 @@ sub is_closed
 
 # XXX not translatable
 our %STATUS_NAMES = (
-    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
-    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
-    $ELECTION_OPEN        => 'Voting open since {date}',
-    $ELECTION_ACCEPTED    => 'Accepted at {date}',
-    $ELECTION_REJECTED    => 'Declined at {date}',
-    $ELECTION_CANCELLED   => 'Cancelled at {date}',
+    $ELECTION_SECONDER_1  => N_l('Awaiting 1st seconder'),
+    $ELECTION_SECONDER_2  => N_l('Awaiting 2nd seconder'),
+    $ELECTION_OPEN        => N_l('Voting open since {date}'),
+    $ELECTION_ACCEPTED    => N_l('Accepted at {date}'),
+    $ELECTION_REJECTED    => N_l('Declined at {date}'),
+    $ELECTION_CANCELLED   => N_l('Cancelled at {date}'),
 );
 
 our %SHORT_STATUS_NAMES = (
-    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
-    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
-    $ELECTION_OPEN        => 'Voting open',
-    $ELECTION_ACCEPTED    => 'Accepted',
-    $ELECTION_REJECTED    => 'Declined',
-    $ELECTION_CANCELLED   => 'Cancelled',
+    $ELECTION_SECONDER_1  => N_l('Awaiting 1st seconder'),
+    $ELECTION_SECONDER_2  => N_l('Awaiting 2nd seconder'),
+    $ELECTION_OPEN        => N_l('Voting open'),
+    $ELECTION_ACCEPTED    => N_l('Accepted'),
+    $ELECTION_REJECTED    => N_l('Declined'),
+    $ELECTION_CANCELLED   => N_l('Cancelled'),
 );
 
 sub status_name

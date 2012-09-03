@@ -10,8 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
 );
 
-use MusicBrainz::Server::Validation qw( is_valid_isrc );
-use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use Try::Tiny;
@@ -106,20 +105,7 @@ sub recording_toplevel
         $self->linked_artists ($c, $stash, \@artists);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $recording);
-
-        if ($c->stash->{inc}->work_level_rels)
-        {
-            my @works =
-                map { $_->target }
-                grep { $_->target_type eq 'work' }
-                $recording->all_relationships;
-            $c->model('Relationship')->load_subset($types, @works);
-        }
-    }
+    $self->load_relationships($c, $stash, $recording);
 }
 
 sub recording: Chained('load') PathPart('')
@@ -142,7 +128,7 @@ sub recording_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -185,7 +171,7 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
     $c->detach('recording_submit') if $c->req->method eq 'POST';
     $c->detach('recording_browse') if ($c->stash->{linked});
 
-    my $result = xml_search('recording', $c->stash->{args});
+    my $result = $c->model('WebService')->xml_search('recording', $c->stash->{args});
     $self->_search ($c, 'recording');
 }
 
@@ -207,13 +193,13 @@ sub recording_submit : Private
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
-            unless MusicBrainz::Server::Validation::IsGUID($id);
+            unless is_guid($id);
 
         my @puids = $xp->find('mb:puid-list/mb:puid', $node)->get_nodelist;
         for my $puid_node (@puids) {
             my $puid = $xp->find('@mb:id', $puid_node)->string_value;
             $self->_error($c, "$puid is not a valid PUID")
-                unless MusicBrainz::Server::Validation::IsGUID($puid);
+                unless is_guid($puid);
 
             $submit_puid{ $id } ||= [];
             push @{ $submit_puid{$id} }, $puid;
@@ -278,7 +264,8 @@ sub recording_submit : Private
                     $c->model('Edit')->create(
                         edit_type      => $EDIT_RECORDING_ADD_ISRCS,
                         editor_id      => $c->user->id,
-                        isrcs          => $contents
+                        isrcs          => $contents,
+                        client_version => $client
                     );
                 }
                     catch {

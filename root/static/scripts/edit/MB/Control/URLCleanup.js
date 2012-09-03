@@ -182,7 +182,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)","i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i"),
         type: MB.constants.LINK_TYPES.amazon,
         clean: function(url) {
             // determine tld, asin from url, and build standard format [1],
@@ -192,15 +192,20 @@ MB.constants.CLEANUPS = {
             // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
             // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
             var tld = "", asin = "";
-            if ((m = url.match(/amazon\.([a-z\.]+)\//)) != null) {
+            if ((m = url.match(/(?:amazon|amzn)\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
+                if (tld == "jp") tld = "co.jp";
+                if (tld == "at") tld = "de";
             }
-            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) {
+
+            if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) { // artist pages
+                return "http://www.amazon." + tld + "/-/e/" + m[1];
+            } else if ((m = url.match(/\/(?:product|dp)\/(B00[0-9A-Z]{7}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/)) != null) { // strict regex to catch most ASINs
+                asin = m[1];
+            } else if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) { // if all else fails, find anything that could be an ASIN
                 asin = m[1];
             }
             if (tld != "" && asin != "") {
-                if (tld == "jp") tld = "co.jp";
-                if (tld == "at") tld = "de";
                 return "http://www.amazon." + tld + "/gp/product/" + asin;
             }
 
@@ -227,16 +232,10 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?jamendo\\.com","i"),
         type: MB.constants.LINK_TYPES.downloadfree,
         clean: function(url) {
-            url =  url.replace(/jamendo\.com\/(?:\w\w\/)?(album|list)\/([^\/]+)(\/.*)?$/, "jamendo.com/$1/$2");
+            url =  url.replace(/jamendo\.com\/(?:\w\w\/)?(album|list|track)\/([^\/]+)(\/.*)?$/, "jamendo.com/$1/$2");
             url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
-            return url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
-        }
-    },
-    encyclopedisque: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?encyclopedisque\\.fr/images/.*\\.jpg","i"),
-        type: MB.constants.LINK_TYPES.coverart,
-        clean: function(url) {
-            return url.replace(/images\/imgdb\/thumb250\//, "images/imgdb/main/");
+            url =  url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
+            return url;
         }
     },
     manjdisc: {
@@ -286,10 +285,6 @@ MB.constants.CLEANUPS = {
     ozonru: {
         match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i"),
         type: MB.constants.LINK_TYPES.mailorder
-    },
-    ozonrucoverart: {
-        match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/multimedia/", "i"),
-        type: MB.constants.LINK_TYPES.coverart
     },
     review: {
         match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
@@ -437,7 +432,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     }
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
-        var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|ozon\\.ru|mange-disque\\.tv|encyclopedisque\\.fr|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
+        var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
         return sites.test($('#id-ar\\.url').val())
     };
 
@@ -478,7 +473,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return dirtyURL;
     };
 
-    var typeChanged = function() {
+    var typeChanged = function(event) {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
         if (!checker || checker()) {
             self.errorList.hide();
@@ -486,11 +481,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         }
         else {
             self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
+            if (event.type === 'submit') {
+                event.preventDefault();
+            }
             $('button[type="submit"]').attr('disabled', 'disabled');
         }
     };
 
-    var urlChanged = function() {
+    var urlChanged = function(event) {
         var url = self.urlControl.val(),
             clean = self.cleanUrl(self.sourceType, url) || url;
 
@@ -506,7 +504,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
                 .attr('selected', 'selected').trigger('change');
-            typeChanged();
+            typeChanged(event);
         }
     };
 

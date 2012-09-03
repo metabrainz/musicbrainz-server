@@ -3,9 +3,17 @@
 <h1>[% l('ISRCs with multiple recordings') %]</h1>
 
 <ul>
-    <li>[% l('This report lists ISRCs that are attached to more than one recording.') %]</li>
+    <li>[% l('This report lists {isrc|ISRCs} that are attached to more than one recording. If
+              the recordings are the same, this usually means they should be merged
+              (ISRCs can be wrongly assigned so care should still be taken to make sure
+              they really are the same). If the recordings are parts of a larger
+              recording, the ISRCs are probably correct and should be left alone. If the
+              same ISRC appears on two unrelated recordings on the same release, this is
+              usually means there was an error when reading the disc.',
+              { isrc => doc_link('ISRC') }) %]</li>
     <li>[% l('Total ISRCs found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- WRAPPER 'components/with-pager.tt' -%]
@@ -30,7 +38,7 @@
         [%- END -%]
         <tr>
             <td></td>
-            <td>[% artist_credit(item.artist_credit) %]</td>
+            <td>[% artist_credit(item.recording.artist_credit) %]</td>
             <td>[% link_entity(item.recording) %]</td>
             <td>[% item.length | format_length %]</td>
         </tr>

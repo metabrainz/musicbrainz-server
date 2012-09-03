@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use List::MoreUtils qw( uniq all );
 use MusicBrainz::Server::WebService::XML::XPath;
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -85,7 +86,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
 
     for my $gid (@gids) {
         $self->_error($c, "$gid is not a valid MBID")
-            unless MusicBrainz::Server::Validation::IsGUID($gid);
+            unless is_guid($gid);
     }
 
     my %releases = %{ $c->model('Release')->get_by_gids(@gids) };
