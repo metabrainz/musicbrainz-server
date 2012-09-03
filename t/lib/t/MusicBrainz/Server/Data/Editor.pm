@@ -5,9 +5,9 @@ use Test::More;
 
 use DateTime;
 use DateTime::Format::Pg;
+use MusicBrainz::Server::Constants qw( :edit_status $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Constants qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
+use MusicBrainz::Server::Test qw( accept_edit );
 use Sql;
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
@@ -150,6 +150,38 @@ subtest 'Find editors with subscriptions' => sub {
 # Test deleting editors
 $editor_data->delete(1);
 
+};
+
+test 'Deleting an editor cancels all open edits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $applied_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'An additional comment',
+        ipi_codes => []
+    );
+
+    accept_edit($c, $applied_edit);
+
+    my $open_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => []
+    );
+
+    is ($open_edit->status, $STATUS_OPEN);
+
+    $c->model('Editor')->delete(1);
+
+    is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
+    is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
 };
 
 1;
