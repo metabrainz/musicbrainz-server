@@ -37,6 +37,7 @@ require Exporter;
         is_valid_iswc
         is_valid_ipi
         format_iswc
+        format_ipi
         is_valid_url
         is_positive_integer
         is_valid_discid
@@ -164,6 +165,14 @@ sub is_valid_ipi
 {
     my $ipi = shift;
     return $ipi =~ /^\d{11}$/;
+}
+
+sub format_ipi
+{
+    my $ipi = shift;
+    return $ipi unless $ipi =~ /^[\d\s.]{9,}$/;
+    $ipi =~ s/[\s.]//g;
+    return sprintf("%011.0f", $ipi)
 }
 
 sub is_valid_url
