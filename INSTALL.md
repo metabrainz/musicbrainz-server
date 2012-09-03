@@ -108,6 +108,10 @@ Server configuration
 
             wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
 
+    If you chose RT_SLAVE, please ensure that there is a configuration for
+    both READONLY and READWRITE, or the server will not function correctly.
+    (Both can be configured the same in a simple setup).
+
 
 Installing Perl dependencies
 ----------------------------
