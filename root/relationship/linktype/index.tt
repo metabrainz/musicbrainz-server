@@ -6,19 +6,19 @@
             <tr>
                 <th></th>
                 [% FOR type IN types %]
-                    <th>[% type %]</th>
+                    <th>[% format_entity_type_name(type) %]</th>
                 [% END %]
             </tr>
 
             [% FOR row IN table %]
             <tr>
-                <th>[% types.${loop.index} %]</th>
+                <th>[% format_entity_type_name(types.${loop.index}) %]</th>
                 [% FOR type IN types %]
                     [% column = row.${loop.index} %]
                     <td>
                     [% IF column %]
                         <a href="[% c.uri_for_action("/relationship/linktype/tree", [ column.join('-') ]) %]">
-                          [% column.join('-') %]</a>
+                          [% l("{type0}-{type1}", { type0 => format_entity_type_name(column.0), type1 => format_entity_type_name(column.1) }) %]</a>
                     [% END %]
                     </td>
                 [% END %]
