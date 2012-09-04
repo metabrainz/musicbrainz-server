@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::Relationship;
 use Moose;
 use Readonly;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l );
 
 Readonly our $DIRECTION_FORWARD  => 1;
@@ -167,7 +167,7 @@ sub _interpolate
         }
     };
     $phrase =~ s/{(.*?)(?::(.*?))?}/$replace_attrs->(lc $1, $2)/eg;
-    MusicBrainz::Server::Validation::TrimInPlace($phrase);
+    trim_in_place($phrase);
 
     return $phrase;
 }

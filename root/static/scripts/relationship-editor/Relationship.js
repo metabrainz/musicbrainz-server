@@ -334,8 +334,8 @@ Relationship.prototype.buildFields = function(num, result) {
         sf = (this.action.peek() == "add") ? _.rest(simpleFields) : simpleFields;
 
     bf(prefix, "", this, sf);
-    bf(prefix, "begin_date", this.begin_date.peek(), dateFields);
-    bf(prefix, "end_date", this.end_date.peek(), dateFields);
+    bf(prefix, "period.begin_date", this.begin_date.peek(), dateFields);
+    bf(prefix, "period.end_date", this.end_date.peek(), dateFields);
     bf(prefix, "attrs", this.attributes.peek(), attrs);
     bf(prefix, "entity.0", entity[0], entityFields);
     bf(prefix, "entity.1", entity[1], entityFields);

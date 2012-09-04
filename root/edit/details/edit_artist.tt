@@ -1,11 +1,13 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
-<table class="details edit-artist">
-  <tr>
-    <th>[% l('Artist:') %]</th>
-    <td>[% link_entity(edit.display_data.artist) %]</td>
-  </tr>
+<table class="details">
+    <tr>
+        <th>[% l('Artist:') %]</th>
+        <td>[% link_entity(edit.display_data.artist) %]</td>
+    </tr>
+</table>
 
+<table class="details edit-artist">
   [% display_diff(l('Name:'),
                   html_escape(edit.display_data.name.old),
                   html_escape(edit.display_data.name.new),
@@ -33,11 +35,16 @@
                   html_escape(edit.display_data.country.old.name),
                   html_escape(edit.display_data.country.new.name)) %]
 
-  [% display_diff(l('Begin date:'),
+  [%- IF edit.display_data.type.old && edit.display_data.type.new != edit.display_data.type.old -%]
+      [%- display_type_id = 0 -%]
+  [%- ELSE -%]
+      [%- display_type_id = edit.display_data.artist.type_id -%]
+  [%- END -%]
+  [% display_diff(artist_begin_label_from_type(display_type_id),
                   html_escape(edit.display_data.begin_date.old.format),
                   html_escape(edit.display_data.begin_date.new.format), '-') %]
 
-  [% display_diff(l('End date:'),
+  [% display_diff(artist_end_label_from_type(display_type_id),
                   html_escape(edit.display_data.end_date.old.format),
                   html_escape(edit.display_data.end_date.new.format), '-') %]
 

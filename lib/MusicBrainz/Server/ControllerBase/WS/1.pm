@@ -7,6 +7,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::WebService::XMLSerializerV1;
 use Scalar::Util qw( looks_like_number );
@@ -179,7 +180,7 @@ sub load : Chained('root') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $gid) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!is_guid($gid))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::RelationshipEditor;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Validation qw( is_guid );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -56,12 +57,8 @@ has_field 'rels.entity.type' => (
     required => 1
 );
 
-has_field 'rels.begin_date' => (
-    type => '+MusicBrainz::Server::Form::Field::PartialDate'
-);
-
-has_field 'rels.end_date' => (
-    type => '+MusicBrainz::Server::Form::Field::PartialDate'
+has_field 'rels.period' => (
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod'
 );
 
 has_field 'rels.attrs' => (
@@ -125,26 +122,6 @@ after validate => sub {
 
         $self->validate_link_type($c, $field->field('link_type'), $field->field('attrs'));
 
-        my $begin_date = $field->field('begin_date');
-        my $end_date = $field->field('end_date');
-
-        if (!$begin_date->has_errors && !$end_date->has_errors) {
-
-            my $y1 = $begin_date->field('year')->value;
-            my $m1 = $begin_date->field('month')->value;
-            my $d1 = $begin_date->field('day')->value;
-
-            my $y2 = $end_date->field('year')->value;
-            my $m2 = $end_date->field('month')->value;
-            my $d2 = $end_date->field('day')->value;
-
-            if (MusicBrainz::Server::Validation::IsDateEarlierThan(
-                    $y2, $m2, $d2, $y1, $m1, $d1)) {
-
-                $end_date->add_error(l('The end date cannot precede the begin date.'));
-            }
-        }
-
         my $entity0 = $field->field('entity')->field('0');
         my $entity1 = $field->field('entity')->field('1');
 
@@ -160,7 +137,7 @@ after validate => sub {
         foreach my $ent_field (($entity0, $entity1)) {
             my $ent = $ent_field->value;
 
-            if (!MusicBrainz::Server::Validation::IsGUID($ent->{gid})) {
+            if (!is_guid($ent->{gid})) {
                 $ent_field->add_error(l('This entity has an invalid ID or MBID.'));
 
             } elsif (!defined($loaded_entities->{$ent->{gid}})) {
