@@ -139,7 +139,7 @@ sub _generic
         name    => $entity->name,
         id      => $entity->id,
         gid     => $entity->gid,
-        $entity->comment ? ( comment => $entity->comment ) : (),
+        comment => $entity->comment,
         $entity->meta->has_attribute('sort_name')
             ? (sortname => $entity->sort_name) : (),
         $entity->meta->has_attribute('artist_credit') && $entity->artist_credit
@@ -206,7 +206,7 @@ sub _release_group
         name    => $item->name,
         id      => $item->id,
         gid     => $item->gid,
-        $item->comment ? ( comment => $item->comment ) : (),
+        comment => $item->comment,
         artist  => $item->artist_credit->name,
         type    => $item->primary_type_id,
         $item->primary_type ? (typeName => $item->primary_type->name) : ()
@@ -249,7 +249,7 @@ sub _recording
         name    => $recording->name,
         id      => $recording->id,
         gid     => $recording->gid,
-        $recording->comment ? ( comment => $recording->comment ) : (),
+        comment => $recording->comment,
         length  => format_track_length ($recording->length),
         artist  => $recording->artist_credit->name,
         $show_ac ? ( artist_credit  =>
@@ -286,7 +286,7 @@ sub _work
         name    => $work->name,
         id      => $work->id,
         gid     => $work->gid,
-        $work->comment ? ( comment => $work->comment ) : (),
+        comment => $work->comment,
     };
 }
 
