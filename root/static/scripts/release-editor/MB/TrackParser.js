@@ -261,7 +261,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.parseTimes = function () {
-        if (!self.parent.trackTimes ())
+        if (!MB.TrackParser.options.trackTimes())
         {
             return;
         }
@@ -269,7 +269,9 @@ MB.TrackParser.Track = function (position, line, parent) {
         var tmp = self.line.replace (/\s?\(\?:\?\?\)\s?$/, '');
         self.line = tmp.replace(/\s?\(?\s?([0-9０-９]+[：，．':,.][0-9０-９][0-9０-９])\s?\)?$/,
             function (str, p1) {
-                self.duration = MB.utility.unformatTrackLength (MB.utility.fullWidthConverter(p1));
+                if (self.parent.trackTimes()) {
+                    self.duration = MB.utility.unformatTrackLength (MB.utility.fullWidthConverter(p1));
+                }
                 return "";
             }
         );
