@@ -730,7 +730,9 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
     make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
 
-    system "/usr/bin/md5sum --binary $OutputDir/*.tar.bz2 > $OutputDir/MD5SUMS";
+    system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
+           ' | grep -v mbdump-private > MD5SUMS';
+
     $? == 0 or die "md5sum returned $?";
 }
 
