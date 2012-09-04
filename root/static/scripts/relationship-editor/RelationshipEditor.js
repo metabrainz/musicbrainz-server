@@ -383,7 +383,7 @@ function initButtons() {
 function renderArtistCredit(obj) {
     var html = "", name;
     for (var i = 0; name = obj[i]; i++)
-        html += RE.Entity(name.artist).rendering() + name.joinphrase;
+        html += RE.Entity(name.artist, "artist").rendering() + name.joinphrase;
     return html;
 }
 
