@@ -7,7 +7,6 @@ use MusicBrainz::Server::Translation qw( l ln );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::DatePeriod';
 
 has '+name' => ( default => 'edit-alias' );
 
@@ -34,6 +33,10 @@ has_field 'primary_for_locale' => (
     type => 'Checkbox'
 );
 
+has_field 'period' => (
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod'
+);
+
 has 'id' => (
     isa => 'Int',
     is  => 'rw',
@@ -57,7 +60,10 @@ has search_hint_type_id => (
     required => 1
 );
 
-sub edit_field_names { qw( name locale sort_name begin_date end_date type_id primary_for_locale ) }
+sub edit_field_names {
+    qw( name locale sort_name period.begin_date period.end_date
+        type_id primary_for_locale )
+}
 
 sub _locale_name_special_cases {
     my $locale = shift;

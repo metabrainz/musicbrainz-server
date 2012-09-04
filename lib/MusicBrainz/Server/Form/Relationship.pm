@@ -4,11 +4,13 @@ use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form::Relationship::LinkType';
 
-with 'MusicBrainz::Server::Form::Role::DatePeriod';
-
 has '+name' => ( default => 'ar' );
 
 has_field 'direction'    => ( type => 'Checkbox' );
+
+has_field 'period' => (
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod'
+);
 
 has_field 'entity0'      => ( type => 'Compound' );
 has_field 'entity0.id'   => ( type => 'Text' );

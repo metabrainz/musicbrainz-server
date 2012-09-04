@@ -3,7 +3,6 @@ use HTML::FormHandler::Moose;
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::DatePeriod';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
 
@@ -37,10 +36,14 @@ has_field 'comment' => (
     maxlength => 255
 );
 
+has_field 'period' => (
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod'
+);
+
 sub edit_field_names
 {
-    return qw( name sort_name comment type_id country_id
-               begin_date end_date label_code ipi_codes ended );
+    return qw( name sort_name comment type_id country_id period.begin_date
+               period.end_date period.ended label_code ipi_codes );
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }

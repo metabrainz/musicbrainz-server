@@ -90,9 +90,11 @@ sub edit : Local RequireAuth Edit
 
     my $values = {
         link_type_id => $rel->link->type_id,
-        begin_date => $rel->link->begin_date,
-        end_date => $rel->link->end_date,
-        ended => $rel->link->ended,
+        period => {
+            begin_date => $rel->link->begin_date,
+            end_date => $rel->link->end_date,
+            ended => $rel->link->ended,
+        },
         attrs => {},
     };
     my %attr_multi;
@@ -159,9 +161,9 @@ sub edit : Local RequireAuth Edit
                 entity1_id       => $ids[1],
                 attributes       => \@attributes,
                 new_link_type_id => $form->field('link_type_id')->value,
-                new_begin_date   => $form->field('begin_date')->value,
-                new_end_date     => $form->field('end_date')->value,
-                ended            => $form->field('ended')->value
+                new_begin_date   => $form->field('period.begin_date')->value,
+                new_end_date     => $form->field('period.end_date')->value,
+                ended            => $form->field('period.ended')->value
             ) or
                 $self->detach_existing($c);
         });
@@ -252,13 +254,13 @@ sub create : Local RequireAuth Edit
             $self->try_and_insert(
                 $c, $form,
                 $type0, $type1,
-                begin_date   => $form->field('begin_date')->value,
-                end_date     => $form->field('end_date')->value,,
+                begin_date   => $form->field('period.begin_date')->value,
+                end_date     => $form->field('period.end_date')->value,,
                 attributes   => \@attributes,
                 link_type_id => $form->field('link_type_id')->value,
                 entity0      => $entity0,
                 entity1      => $entity1,
-                ended        => $form->field('ended')->value
+                ended        => $form->field('period.ended')->value
             ) or
                 $self->detach_existing($c);
         });
