@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Utils;
-
 use strict;
 use warnings;
+use 5.10.0;
 
 use List::MoreUtils qw( uniq );
 
@@ -32,6 +32,7 @@ our @EXPORT_OK = qw(
     merge_artist_credit
     merge_barcode
     merge_partial_date
+    merge_value
     load_artist_credit_definitions
     status_names
     verify_artist_credits
@@ -325,9 +326,6 @@ sub merge_list {
     );
 }
 
-
-
-
 =method merge_barcode
 
 Merge barcodes, using the formatted representation as the hash key.
@@ -344,6 +342,11 @@ sub merge_barcode {
     );
 }
 
+sub merge_value {
+    my $v = shift;
+    state $json = JSON::Any->new( utf8 => 1, allow_blessed => 1, canonical => 1 );
+    return [ ref($v) ? $json->objToJson($v) : defined($v) ? "'$v'" : 'undef', $v ];
+}
 
 1;
 
