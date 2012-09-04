@@ -27,12 +27,12 @@ test 'Can add relationship' => sub {
                 'rel-editor.rels.0.entity.0.type' => 'artist',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'rel-editor.rels.0.entity.1.type' => 'recording',
-                'rel-editor.rels.0.begin_date.year' => '1999',
-                'rel-editor.rels.0.begin_date.month' => '1',
-                'rel-editor.rels.0.begin_date.day' => '1',
-                'rel-editor.rels.0.end_date.year' => '1999',
-                'rel-editor.rels.0.end_date.month' => '1',
-                'rel-editor.rels.0.end_date.day' => '1',
+                'rel-editor.rels.0.period.begin_date.year' => '1999',
+                'rel-editor.rels.0.period.begin_date.month' => '1',
+                'rel-editor.rels.0.period.begin_date.day' => '1',
+                'rel-editor.rels.0.period.end_date.year' => '1999',
+                'rel-editor.rels.0.period.end_date.month' => '1',
+                'rel-editor.rels.0.period.end_date.day' => '1',
             }
         );
     } $c;
@@ -78,12 +78,12 @@ test 'Can edit relationship' => sub {
                 'rel-editor.rels.0.entity.0.type' => 'artist',
                 'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
                 'rel-editor.rels.0.entity.1.type' => 'recording',
-                'rel-editor.rels.0.begin_date.year' => '1999',
-                'rel-editor.rels.0.begin_date.month' => '1',
-                'rel-editor.rels.0.begin_date.day' => '1',
-                'rel-editor.rels.0.end_date.year' => '2009',
-                'rel-editor.rels.0.end_date.month' => '9',
-                'rel-editor.rels.0.end_date.day' => '9',
+                'rel-editor.rels.0.period.begin_date.year' => '1999',
+                'rel-editor.rels.0.period.begin_date.month' => '1',
+                'rel-editor.rels.0.period.begin_date.day' => '1',
+                'rel-editor.rels.0.period.end_date.year' => '2009',
+                'rel-editor.rels.0.period.end_date.month' => '9',
+                'rel-editor.rels.0.period.end_date.day' => '9',
             }
         );
     } $c;
