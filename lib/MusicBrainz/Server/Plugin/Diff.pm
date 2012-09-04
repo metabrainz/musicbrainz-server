@@ -52,11 +52,7 @@ sub diff_side {
     $old //= '';
     $new //= '';
 
-    my ($old_hex, $new_hex) = (md5_hex(encode('utf-8', $old)), md5_hex(encode('utf-8', $new)));
-    $old =~ s/($split)/$old_hex$1/g;
-    $new =~ s/($split)/$new_hex$1/g;
-
-    my @diffs = sdiff([ split($old_hex, $old) ], [ split($new_hex, $new) ]);
+    my @diffs = sdiff([ split(/$split/, $old) ], [ split(/$split/, $new) ]);
 
     my @stack;
     my $output;
