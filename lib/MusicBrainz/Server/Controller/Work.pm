@@ -81,6 +81,20 @@ before 'edit' => sub
     $c->model('WorkType')->load($work);
 };
 
+after 'merge' => sub
+{
+    my ($self, $c) = @_;
+    $c->model('Work')->load_meta(@{ $c->stash->{to_merge} });
+    $c->model('WorkType')->load(@{ $c->stash->{to_merge} });
+    if ($c->user_exists) {
+        $c->model('Work')->rating->load_user_ratings($c->user->id, @{ $c->stash->{to_merge} });
+    }
+    $c->model('Work')->load_writers(@{ $c->stash->{to_merge} });
+    $c->model('Work')->load_recording_artists(@{ $c->stash->{to_merge} });
+    $c->model('Language')->load(@{ $c->stash->{to_merge} });
+    $c->model('ISWC')->load_for_works(@{ $c->stash->{to_merge} });
+};
+
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Work',
     edit_type => $EDIT_WORK_CREATE,

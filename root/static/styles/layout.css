@@ -56,7 +56,7 @@ fieldset legend {
     font-weight: bold;
 }
 
-#sidebar h2 {
+#sidebar h2, .sidebar h2 {
     font-size: 100%;
     margin-left: -5px;
 }
@@ -352,7 +352,7 @@ div.warning {
     margin: 2em auto;
     border: 1px solid #a1a1a1;
     min-height: 54px;
-    width: 30em;
+    width: 60em;
     background: #ffffd0;
 }
 
@@ -382,9 +382,21 @@ div.warning img.warning {
     font-size: 95%;
 }
 
-#page.homepage #sidebar {
+#page.homepage .sidebar {
+    float: right;
+    font-size: 95%;
     margin-top: 34px;
-    width: 450px;
+    width: auto;
+}
+
+#page.homepage #sidebar {
+    margin-left: 2.5em;
+}
+
+#page.homepage .sidebar div:after {
+    visibility: hidden;
+    content: '&nbsp';
+    clear: both;
 }
 
 #sidebar p {

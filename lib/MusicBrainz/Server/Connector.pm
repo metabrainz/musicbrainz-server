@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Connector;
 use Moose;
 
+use DBDefs;
 use DBIx::Connector;
 use Sql;
 
@@ -11,6 +12,7 @@ has 'conn' => (
     is         => 'ro',
     handles    => [qw( dbh )],
     lazy_build => 1,
+    clearer => '_clear_conn'
 );
 
 has 'database' => (
@@ -24,7 +26,8 @@ has 'sql' => (
         my $self = shift;
         Sql->new( $self->conn )
     },
-    lazy => 1
+    lazy => 1,
+    clearer => '_clear_sql'
 );
 
 sub _build_conn
@@ -61,6 +64,27 @@ sub _build_conn
     $conn->mode('fixup');
 
     return $conn;
+}
+
+sub _disconnect {
+    my ($self) = @_;
+    if (my $conn = $self->conn) {
+        $conn->dbh->disconnect;
+    }
+
+    $self->_clear_conn;
+    $self->_clear_sql;
+}
+
+sub disconnect {
+    my $self = shift;
+    $self->_disconnect
+}
+
+sub refresh {
+    my $self = shift;
+    $self->disconnect;
+    # A connection will be established on demand
 }
 
 no Moose;

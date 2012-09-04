@@ -5,7 +5,7 @@
           [%- IF release.cover_art_url -%]
             <img src="[% release.cover_art_url -%]" />
           [%- ELSE -%]
-            [%- l("No cover art available.") -%]
+            <p style="text-align:left">[%- l("No cover art available.") -%]</p>
           [%- END -%]
         [%- CASE 'present' -%]
           [%- SET cover_art_message = l("No front cover image available.<br/>{all|View all artwork}.",
@@ -28,6 +28,8 @@
            content=release.barcode.format property='mo:tgin' datatype='xsd:string' IF release.barcode.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Format:')
            content=release.combined_format_name IF release.combined_format_name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
+           content=format_length(release.length) IF release.length;
     END %]
 
     <h2>[% l('Additional details') %]</h2>
@@ -69,11 +71,7 @@
     <h2>[% l('Editing') %]</h2>
     <ul class="links">
       [% IF c.user_exists %]
-        <li>
-          <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ release.gid ]) %]">
-            [% release.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-          </a>
-        </li>
+        [% annotation_links(release) %]
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>
@@ -142,7 +140,7 @@
         [% ELSE %]
             <li>[% l("You have no collections!") %]</li>
         [% END %]
-            <li><a href="[% c.uri_for_action("/collection/create") %]">[% l('Create a new collection') %]</a></li>
+            <li><a href="[% c.uri_for_action("/collection/create", { release => release.id }) %]">[% l('Add to a new collection') %]</a></li>
             <li>[% link_release(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
                                                             all_collections.size, { num => all_collections.size }) ) %]</li>
         </ul>

@@ -18,7 +18,6 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
-my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -315,6 +314,7 @@ ws_test 'release lookup with recording-level relationships',
                                     <target>f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8</target>
                                     <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
                                         <title>Asseswaving</title>
+                                        <language>jpn</language>
                                         <relation-list target-type="artist">
                                             <relation type="composer">
                                                 <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>
@@ -359,6 +359,7 @@ ws_test 'recording lookup with work-level relationships',
                 <target>f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8</target>
                 <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
                     <title>Asseswaving</title>
+                    <language>jpn</language>
                     <relation-list target-type="artist">
                         <relation type="composer">
                             <target>472bc127-8861-45e8-bc9e-31e8dd32de7a</target>

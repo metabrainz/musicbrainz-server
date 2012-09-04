@@ -43,6 +43,10 @@ two. -%]
     Translation.ln(text, plural, num, args);
 END; -%]
 
+[%- MACRO N_ln(text, plural) BLOCK;
+    Translation.N_ln(text, plural);
+END; -%]
+
 [%- MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
@@ -61,6 +65,7 @@ END; -%]
     [%- IF artwork.types; comma_only_list(artwork.types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
 
+[%- USE JavaScript -%]
 [%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
     <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" rel="mb-coverart" class="thickbox">
     [%- IF no_javascript -%]
@@ -82,7 +87,7 @@ END; -%]
               else
               {
                   $(this).closest ('a').replaceWith ('<em>
-                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
+                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') | js -%]
                   <\/em>');
               }
           }).attr ("src", "[% artwork.large_thumbnail %]");
@@ -461,6 +466,17 @@ END -%]
     END;
 END -%]
 
+[%- MACRO format_entity_type_name(type_name) BLOCK -%]
+    [%- IF    type_name == 'artist'; l('Artist');
+        ELSIF type_name == 'release'; l('Release');
+        ELSIF type_name == 'recording'; l('Recording');
+        ELSIF type_name == 'release_group'; l('Release Group');
+        ELSIF type_name == 'work'; l('Work');
+        ELSIF type_name == 'label'; l('Label');
+        ELSIF type_name == 'url'; l('URL');
+    END -%]
+[%- END -%]
+
 [%- MACRO use_in_relationship(entity) BLOCK;
     UNLESS c.session.relationship.id == entity.id;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
@@ -487,6 +503,21 @@ END -%]
       <div class="relate-to" style="display: none">
         <input type="hidden" class="gid" value="[% entity.gid %]" />
         <input type="hidden" class="type" value="[% entity_type(entity) %]" />
+
+        <input type="hidden" class="returnto"
+               value="[%-
+          action = 'relationships';
+
+          # Recording, URLs and works show more information on their landing
+          # pages
+          IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
+             entity.isa('MusicBrainz::Server::Entity::URL') ||
+             entity.isa('MusicBrainz::Server::Entity::Work');
+             action = 'show';
+          END;
+          c.uri_for_action(c.controller.action_for(action),
+                           [ entity.gid ]) -%]" />
+
         <select style="width: 130px; margin-right: 4px;">
           <option value="artist">[% l('Artist') %]</option>
           <option value="label">[% l('Label') %]</option>
@@ -690,7 +721,7 @@ http://[%- server -%]/[%- id -%]"
   [%- IF server_details.developement_server -%]
     [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]"></script>
+        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]"></script>
     [%- END -%]
   [%- ELSE -%]
     <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
@@ -731,4 +762,27 @@ http://[%- server -%]/[%- id -%]"
       [% form_submit(l('Search'),'inline') %]
     </form>
   </div>
+[%- END -%]
+
+[%- MACRO annotation_links(entity) BLOCK -%]
+  <li>
+    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
+      [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
+    </a>
+  </li>
+  [%- IF number_of_revisions > 0 %]
+  <li>
+    <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
+      [% l('View annotation history') %]
+    </a>
+  </li>
+  [%- END -%]
+[%- END -%]
+
+[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
+[%- END -%]
+
+[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
 [%- END -%]

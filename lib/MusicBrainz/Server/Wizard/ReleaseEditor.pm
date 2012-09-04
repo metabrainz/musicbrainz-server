@@ -236,6 +236,23 @@ sub recording_edits_from_tracklist
     return %recording_edits;
 }
 
+=method track_edits_from_tracklist
+
+Create no-op track edits for a particular tracklist.
+
+=cut
+
+sub track_edits_from_tracklist
+{
+    my ($self, $tracklist) = @_;
+
+    my @tracks;
+
+    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+    return map { $self->track_edit_from_track ($_) } @{ $tracklist->{tracks} };
+}
 
 =method _search_recordings
 
@@ -366,10 +383,18 @@ sub associate_recordings
             }
         }
 
+        # MBS-3957: Track length has been changed by >10 seconds.
+        # Always require confirmation
+        if ($trk && $trk_edit->{length} && $trk->length &&
+            abs($trk_edit->{length} - $trk->length) > 10000) {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
+        }
+
         # Track edit is already associated with a recording edit.
         # (but ignore that association if it concerns an automatically
         #  selected "add new recording").
-        if ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
+        elsif ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
         {
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;

@@ -5,6 +5,7 @@ use LWP;
 use URI::Escape;
 
 use DateTime;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -421,6 +422,14 @@ sub credit
     $self->sql->do($query, $editor_id);
 }
 
+# Must be run in a transaction to actually do anything. Acquires a row-level lock for a given editor ID.
+sub lock_row
+{
+    my ($self, $editor_id) = @_;
+    my $query = "SELECT 1 FROM " . $self->_table . " WHERE id = ? FOR UPDATE";
+    $self->sql->do($query, $editor_id);
+}
+
 sub donation_check
 {
     my ($self, $obj) = @_;
@@ -437,7 +446,7 @@ sub donation_check
         $ua->timeout(5); # in seconds.
 
         my $response = $ua->request(HTTP::Request->new (GET =>
-            'http://metabrainz.org/cgi-bin/nagcheck_days?moderator='.
+            'http://metabrainz.org/donations/nag-check/' .
             uri_escape_utf8($obj->name)));
 
         if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
@@ -491,13 +500,18 @@ sub delete {
                            password = '',
                            privs = 0,
                            email = NULL,
+                           email_confirm_date = NULL,
                            website = NULL,
-                           bio = NULL
+                           bio = NULL,
+                           country = NULL,
+                           birth_date = NULL,
+                           gender = NULL
          WHERE id = ?",
         $editor_id
     );
 
     $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
+    $self->c->model('EditorLanguage')->delete_editor($editor_id);
 
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
@@ -520,7 +534,33 @@ sub delete {
                 Work
           );
 
+    # Cancel any open edits the editor still has
+    my @edits = values %{ $self->c->model('Edit')->get_by_ids(
+        @{ $self->sql->select_single_column_array(
+            'SELECT id FROM edit WHERE editor = ? AND status = ?',
+            $editor_id, $STATUS_OPEN)
+       }
+    ) };
+
+    for my $edit (@edits) {
+        $self->c->model('Edit')->cancel($edit);
+    }
+
     $self->sql->commit;
+}
+
+sub subscription_summary {
+    my ($self, $editor_id) = @_;
+
+    $self->sql->select_single_row_hash(
+        'SELECT ' .
+            join(', ', map {
+                "COALESCE(
+                   (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
+                   0) AS $_"
+            } qw( artist label editor )),
+        ($editor_id) x 3
+    );
 }
 
 no Moose;
