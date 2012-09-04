@@ -186,7 +186,7 @@ sub html5_ok
     my $response = $ua->request($request);
     if ($response->is_success)
     {
-        my $report = decode_json ($response->decoded_content);
+        my $report = decode_json ($response->content);
         for my $msg (@{ $report->{messages} })
         {
             next if $msg->{type} eq "info";
