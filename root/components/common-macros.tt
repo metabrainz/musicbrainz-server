@@ -61,13 +61,17 @@ END; -%]
       END;
     END -%]
 
+[%- MACRO artwork_hover(artwork) BLOCK -%]
+    [%- IF artwork.types; comma_only_list(artwork.types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
+[%- END -%]
+
 [%- USE JavaScript -%]
 [%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
-    <a href="[% artwork.image %]" class="thickbox">
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" rel="mb-coverart" class="thickbox">
     [%- IF no_javascript -%]
         <img src="[% artwork.large_thumbnail %]" />
     [%- ELSE -%]
-        <img />
+        <img title="[% artwork_hover(artwork) %]" />
         <script>
           $('img').last ().bind ('error', function (event) {
               if ($(this).attr ("src") === "[% artwork.large_thumbnail %]")
