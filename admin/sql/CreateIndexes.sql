@@ -215,6 +215,10 @@ CREATE INDEX release_idx_release_group ON release (release_group);
 CREATE INDEX release_idx_artist_credit ON release (artist_credit);
 CREATE INDEX release_idx_date ON release (date_year, date_month, date_day);
 
+CREATE INDEX release_tag_idx_tag ON release_tag (tag);
+
+CREATE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
+CREATE INDEX release_tag_raw_idx_editor ON release_tag_raw (editor);
 
 CREATE INDEX release_raw_idx_last_modified ON release_raw (last_modified);
 CREATE INDEX release_raw_idx_lookup_count ON release_raw (lookup_count);
@@ -280,6 +284,8 @@ CREATE UNIQUE INDEX work_name_idx_name ON work_name (name);
 CREATE INDEX work_name_idx_page ON work_name (page_index(name));
 
 CREATE INDEX work_tag_idx_tag ON work_tag (tag);
+
+CREATE INDEX work_tag_raw_idx_tag ON work_tag_raw (tag);
 
 -- lowercase indexes for javascript autocomplete
 CREATE INDEX artist_name_idx_lower_name ON artist_name (lower(name));
