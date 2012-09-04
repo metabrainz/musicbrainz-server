@@ -53,6 +53,7 @@ server {
 
         fastcgi_pass unix:/home/beta/musicbrainz-server/fcgi.socket;
 
+        fastcgi_param  HTTPS            $http_x_mb_https;
         fastcgi_param  SCRIPT_NAME      $script;
         fastcgi_param  PATH_INFO        $path_info;
         fastcgi_param  QUERY_STRING     $query_string;

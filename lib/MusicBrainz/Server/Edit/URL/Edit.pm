@@ -94,6 +94,18 @@ around accept => sub {
     $self->c->model('CoverArt')->url_updated($new_id);
 };
 
+after insert => sub {
+    my ($self) = @_;
+
+    # If the target URL exists, then this edit must not be an auto edit (as it
+    # would produce a merge).
+    if (my $new_url = $self->data->{new}{url}) {
+        if ($self->c->model('URL')->find_by_url($new_url)) {
+            $self->auto_edit(0);
+        }
+    }
+};
+
 sub current_instance {
     my $self = shift;
     $self->c->model('URL')->get_by_id($self->url_id),

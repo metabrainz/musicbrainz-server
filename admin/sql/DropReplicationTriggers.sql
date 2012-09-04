@@ -88,7 +88,7 @@ DROP TRIGGER reptg_release_group_meta ON release_group_meta;
 DROP TRIGGER reptg_release_group_tag ON release_group_tag;
 DROP TRIGGER reptg_release_group_primary_type ON release_group_primary_type;
 DROP TRIGGER reptg_release_group_secondary_type ON release_group_secondary_type;
-DROP TRIGGER reptg_release_group_secondary_type ON release_group_secondary_type_join;
+DROP TRIGGER reptg_release_group_secondary_type_join ON release_group_secondary_type_join;
 DROP TRIGGER reptg_release_name ON release_name;
 DROP TRIGGER reptg_replication_control ON replication_control;
 DROP TRIGGER reptg_script ON script;

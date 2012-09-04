@@ -116,6 +116,12 @@ sub create : Local RequireAuth
 
         my $collection = $c->model('Collection')->insert($c->user->id, \%insert);
 
+        my $params = $c->req->params;
+        if (exists $params->{"release"}) {
+            my $release_id = $params->{"release"};
+            $c->model('Collection')->add_releases_to_collection($collection->id, $release_id);
+        }
+
         $c->response->redirect(
             $c->uri_for_action($self->action_for('show'), [ $collection->gid ]));
     }

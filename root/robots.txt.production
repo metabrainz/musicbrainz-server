@@ -8,14 +8,12 @@ Disallow: /cdtoc/
 Disallow: /edit/
 Disallow: /freedb/
 Disallow: /isrc/
-Disallow: /label/
 Disallow: /otherlookup
 Disallow: /partners/
 Disallow: /puid/
 Disallow: /rating/
 Disallow: /recording/
 Disallow: /release/
-Disallow: /release-group/
 Disallow: /report/
 Disallow: /reports
 Disallow: /search
