@@ -9,7 +9,8 @@ has '+name' => ( default => 'ar' );
 has_field 'direction'    => ( type => 'Checkbox' );
 
 has_field 'period' => (
-    type => '+MusicBrainz::Server::Form::Field::DatePeriod'
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod',
+    not_nullable => 1
 );
 
 has_field 'entity0'      => ( type => 'Compound' );

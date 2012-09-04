@@ -123,8 +123,8 @@ RE.releaseViewModel = {
                     if (relationship.entity()[i] === relationship.target())
                         relationship.target.error(error[0]);
 
-                } else if (parts[0] == "begin_date" || parts[0] == "end_date") {
-                    relationship[parts[0]].error(error[0]);
+                } else if (parts[1] == "begin_date" || parts[1] == "end_date") {
+                    relationship[parts[1]].error(error[0]);
 
                 } else if (parts.length == 1 && _.isObject(relationship[key]) &&
                     _.isFunction(relationship[key].error)) {

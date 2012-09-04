@@ -34,7 +34,8 @@ has_field 'primary_for_locale' => (
 );
 
 has_field 'period' => (
-    type => '+MusicBrainz::Server::Form::Field::DatePeriod'
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod',
+    not_nullable => 1
 );
 
 has 'id' => (
