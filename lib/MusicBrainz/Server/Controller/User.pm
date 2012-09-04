@@ -306,7 +306,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     my $subscr_model = $c->model('Editor')->subscription;
     $c->stash->{subscribed}       = $c->user_exists && $subscr_model->check_subscription($c->user->id, $user->id);
     $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
-    $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user->id);
+    $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
     $c->model('Gender')->load($user);
     $c->model('Country')->load($user);

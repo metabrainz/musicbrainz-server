@@ -205,7 +205,7 @@ sub _load_paged
     }
 
     $pager->entries_per_page($LIMIT);
-    $pager->total_entries($total);
+    $pager->total_entries($total || 0);
     $pager->current_page($page);
 
     $c->stash( pager => $pager );

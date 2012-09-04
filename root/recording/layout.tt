@@ -32,11 +32,7 @@
         <ul class="links">
           [% IF c.user_exists %]
           <li>[% link_entity(recording, 'add_isrc', l('Add ISRC')) %]</li>
-          <li>
-            <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ recording.gid ]) %]">
-              [% recording.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-            </a>
-          </li>
+          [% annotation_links(recording) %]
           <li>
             <a href="[% c.uri_for_action('/recording/merge_queue', { 'add-to-merge' => recording.id }) %]">
               [% l('Merge recording') %]

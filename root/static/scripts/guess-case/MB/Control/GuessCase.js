@@ -86,9 +86,9 @@ MB.Control.ArtistSortName = function (type, $name, $sortname) {
 
 /* A generic guess case initialize function for use outside the
    release editor. */
-MB.Control.initialize_guess_case = function (bubbles, type) {
+MB.Control.initialize_guess_case = function (bubbles, type, form_prefix) {
 
-    var $name = $('input#id-edit-' + type + '\\.name');
+    var $name = $('input#' + form_prefix + '\\.name');
     var $gcdoc = $('div.guess-case.bubble');
 
     bubbles.add ($name, $gcdoc);
@@ -96,7 +96,7 @@ MB.Control.initialize_guess_case = function (bubbles, type) {
 
     if (type === 'label' || type === 'artist')
     {
-        var $sortname = $('input#id-edit-' + type + '\\.sort_name');
+        var $sortname = $('input#' + form_prefix + '\\.sort_name');
         var $sortdoc = $('div.sortname.bubble');
 
         bubbles.add ($sortname, $sortdoc);
