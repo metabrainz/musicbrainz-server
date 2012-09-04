@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js::Release;
 use Moose;
 use aliased 'MusicBrainz::Server::Entity::Work';
+use MusicBrainz::Server::Validation qw( is_guid );
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
@@ -36,7 +37,7 @@ sub release : Chained('root') PathPart('release') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid)) {
+    if (!is_guid($gid)) {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
     }

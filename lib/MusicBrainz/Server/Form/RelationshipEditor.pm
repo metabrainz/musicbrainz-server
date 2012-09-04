@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::RelationshipEditor;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Validation qw( is_guid );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -160,7 +161,7 @@ after validate => sub {
         foreach my $ent_field (($entity0, $entity1)) {
             my $ent = $ent_field->value;
 
-            if (!MusicBrainz::Server::Validation::IsGUID($ent->{gid})) {
+            if (!is_guid($ent->{gid})) {
                 $ent_field->add_error(l('This entity has an invalid ID or MBID.'));
 
             } elsif (!defined($loaded_entities->{$ent->{gid}})) {
