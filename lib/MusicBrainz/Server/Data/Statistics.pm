@@ -508,7 +508,7 @@ my %stats = (
     "count.work.has_iswc" => {
         DESC => "Count of all works with at least one ISWC",
         SQL => "SELECT COUNT(DISTINCT work) FROM iswc",
-    }
+    },
     "count.work.language" => {
         DESC => "Distribution of works by lyrics language",
         CALC => sub {
