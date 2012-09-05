@@ -76,10 +76,10 @@ sub load : Private {
     my ($self, $c) = @_;
 
     my $form = $self->load_form($c);
-    my $json = JSON::XS->new;
+    my $json = JSON->new;
     my $attr_info = build_attr_info($self->attr_tree);
 
-    # unnaccent instrument attributes names
+    # unaccent instrument attributes names
     unaccent_attributes($attr_info->{$_}, $attr_info) for @{ $attr_info->{14}->{children} };
 
     $c->stash(
