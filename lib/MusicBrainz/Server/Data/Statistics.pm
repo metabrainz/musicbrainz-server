@@ -505,6 +505,10 @@ my %stats = (
         DESC => "Count of all works",
         SQL => "SELECT COUNT(*) FROM work",
     },
+    "count.work.has_iswc" => {
+        DESC => "Count of all works with at least one ISWC",
+        SQL => "SELECT COUNT(DISTINCT work) FROM iswc",
+    }
     "count.work.language" => {
         DESC => "Distribution of works by lyrics language",
         CALC => sub {
@@ -557,8 +561,8 @@ my %stats = (
         SQL => "SELECT COUNT(distinct isrc) FROM isrc",
     },
     "count.iswc.all" => {
-        DESC => "Count of all works with an ISWC",
-        SQL => "SELECT COUNT(DISTINCT work) FROM iswc",
+        DESC => "Count of all ISWCs",
+        SQL => "SELECT COUNT(*) FROM iswc",
     },
     "count.iswc" => {
         DESC => "Count of unique ISWCs",
