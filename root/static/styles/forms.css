@@ -17,6 +17,19 @@ button.nobutton {
     margin: 0;
 }
 
+button.link:focus,
+button.link:hover,
+button.link {
+    background: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+    margin: 0 0 0 -0.3em;
+    cursor: pointer;
+}
+
 div.various-artists.warning { width: 50em; }
 
 fieldset {

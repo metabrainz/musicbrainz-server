@@ -79,6 +79,9 @@
             [% l('Merge release') %]
           </a>
         </li>
+        <li>
+          <button class="link" id="add-to-merge">[% l('Merge release Javascript edition') %]</button>
+        </li>
         <li>[% link_entity(release, 'delete', l('Remove release')) %]</li>
 
         <hr/>

@@ -1,0 +1,36 @@
+<span id="descriptive-link" style="display: none">
+  [%- descriptive_link(entity) -%]
+</span>
+
+<div id="current-editing" style="border: 2px solid #8f0">
+  <form method="get">
+    <h2>[% l('Merge Process') %]</h2>
+    <p>[% l('You currently have the following entities selected
+      for merging:') %]</p>
+    <ul id="merge-js">
+        <li class="template" style="display: none">
+          <input type="checkbox" class="remove" name="remove" />
+          <label></label>
+        </li>
+    </ul>
+
+    <p class="ready-to-merge">
+      [% l('When you are ready to merge these, just click the Merge button.
+      You may still add more to this merge queue by simply browsing to
+      the entities page and following the merge link.') %]
+    </p>
+    <p class="not-ready-to-merge">
+      [% l('Please navigate to the pages of other entities you wish to merge and
+      select the "merge" link.') %]
+    </p>
+    <div class="buttons" style="display: table-cell">
+        <button type="submit" name="submit" value="merge"
+            class="ready-to-merge positive">[% l('Merge') %]</button>
+        <button type="submit" name="submit"
+            value="remove">[% l('Remove selected entities') %]</button>
+      <button type="submit" name="submit" value="cancel"
+            class="negative">[% l('Cancel') %]</button>
+    </div>
+  </form>
+  <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+</div>

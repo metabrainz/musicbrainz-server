@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>PersistJS Test Page</title>
+    <script type='text/javascript' src='../persist.js'></script>
+    <script type='text/javascript' src='test.js'></script>
+  </head>
+
+  <body onload='Test.init();'>
+    <h1>PersistJS Test Page</h1>
+
+    <fieldset>
+      <legend>Store 1</legend>
+
+      <label for='data'>Data:</label>
+      <textarea id='data'></textarea><br/>
+      <button id='load-btn'>Load</button>
+      <button id='save-btn'>Save</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Store 2</legend>
+
+      <label for='data2'>Data:</label>
+      <textarea id='data2'></textarea><br/>
+      <button id='load2-btn'>Load</button>
+      <button id='save2-btn'>Save</button>
+    </fieldset>
+
+    <p>
+      Persist Type: <span id='type'>none</span>
+    </p>
+  </body>
+</html>

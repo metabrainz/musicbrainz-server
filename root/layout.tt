@@ -136,6 +136,8 @@
             <div style="clear: both"></div>
         </div>
 
+        [%- INCLUDE 'layout/merge-helper-js.tt' -%]
+
         [%- INCLUDE 'layout/merge-helper.tt'
            IF c.session.merger AND !hide_merge_helper -%]
 

@@ -82,3 +82,11 @@ license:     MIT/GPL
 version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
+
+-- persist-js/ --
+
+library:     PersistJS
+license:     MIT
+version:     0.1.0
+author:      Paul Duncan
+url:         http://pablotron.org/software/persist-js/

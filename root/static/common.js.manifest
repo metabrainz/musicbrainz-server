@@ -5,5 +5,6 @@ lib/jquery/jquery.tablesorter.js
 lib/jquery.ui/ui/jquery-ui-1.8.16.custom.js
 lib/jquery.ui/external/jquery.cookie.js
 lib/thickbox/thickbox.js
-
+lib/persist-js/extras/swfobject.js
+lib/persist-js/persist-min.js
 scripts/common
