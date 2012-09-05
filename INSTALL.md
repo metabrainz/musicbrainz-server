@@ -47,12 +47,15 @@ Prerequisites
 
         sudo apt-get install git-core
 
-
 5.  Memcached
 
     By default the MusicBrainz server requires a Memcached server running on the
-    same server with default settings. You can change the memcached server name
-    and port or configure other datastores in lib/DBDefs.pm.
+    same server with default settings. To install Memcached, run the following:
+
+        sudo apt-get install memcached
+    
+    You can change the memcached server name and port, or configure other datastores 
+    in lib/DBDefs.pm.
 
 6.  Standard Development Tools
 
