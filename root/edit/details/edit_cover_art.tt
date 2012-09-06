@@ -14,9 +14,9 @@
                   html_escape(edit.display_data.position.old),
                   html_escape(edit.display_data.position.new)) %]
 
-  [% display_diff(l('Comment:'),
-                  html_escape(edit.display_data.comment.old),
-                  html_escape(edit.display_data.comment.new)) %]
+  [% display_word_diff(l('Comment:'),
+                       html_escape(edit.display_data.comment.old),
+                       html_escape(edit.display_data.comment.new)) %]
 
   [%- display_edit_artwork(edit.display_data.artwork, edit.display_data.release) -%]
 </table>

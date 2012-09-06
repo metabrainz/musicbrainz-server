@@ -1,4 +1,8 @@
-[% WRAPPER 'statistics/layout.tt' title=l('Editors') full_width=1 page='editors' %]
+[%- PROCESS "statistics/macros-header.tt" -%]
+[%- html_title = l('Editors') -%]
+[%- PROCESS "statistics/macros-footer.tt" -%]
+[% WRAPPER 'statistics/layout.tt' title=html_title full_width=1 page='editors' %]
+[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[% l('For the vote statistics, only yes or no votes are counted, abstain
     votes are not counted.') %]</p>
@@ -89,4 +93,5 @@
   </table>
 </div>
 
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

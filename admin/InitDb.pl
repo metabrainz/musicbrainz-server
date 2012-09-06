@@ -232,8 +232,10 @@ sub CreateRelations
 
     my $opts = $DB->shell_args;
     $ENV{"PGPASSWORD"} = $DB->password;
-    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $DB->schema));
-    system("echo \"CREATE SCHEMA cover_art_archive\" | $psql $opts");
+
+    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $_))
+        for ($DB->schema, 'cover_art_archive', 'report');
+
     die "\nFailed to create schema\n" if ($? >> 8);
 
     if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
@@ -249,6 +251,7 @@ sub CreateRelations
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
 
     if ($import)
     {

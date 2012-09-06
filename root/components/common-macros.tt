@@ -43,6 +43,10 @@ two. -%]
     Translation.ln(text, plural, num, args);
 END; -%]
 
+[%- MACRO N_ln(text, plural) BLOCK;
+    Translation.N_ln(text, plural);
+END; -%]
+
 [%- MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
@@ -57,13 +61,17 @@ END; -%]
       END;
     END -%]
 
+[%- MACRO artwork_hover(artwork) BLOCK -%]
+    [%- IF artwork.types; comma_only_list(artwork.types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
+[%- END -%]
+
 [%- USE JavaScript -%]
 [%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
-    <a href="[% artwork.image %]" class="thickbox">
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" rel="mb-coverart" class="thickbox">
     [%- IF no_javascript -%]
         <img src="[% artwork.large_thumbnail %]" />
     [%- ELSE -%]
-        <img />
+        <img title="[% artwork_hover(artwork) %]" />
         <script>
           $('img').last ().bind ('error', function (event) {
               if ($(this).attr ("src") === "[% artwork.large_thumbnail %]")
@@ -458,6 +466,17 @@ END -%]
     END;
 END -%]
 
+[%- MACRO format_entity_type_name(type_name) BLOCK -%]
+    [%- IF    type_name == 'artist'; l('Artist');
+        ELSIF type_name == 'release'; l('Release');
+        ELSIF type_name == 'recording'; l('Recording');
+        ELSIF type_name == 'release_group'; l('Release Group');
+        ELSIF type_name == 'work'; l('Work');
+        ELSIF type_name == 'label'; l('Label');
+        ELSIF type_name == 'url'; l('URL');
+    END -%]
+[%- END -%]
+
 [%- MACRO use_in_relationship(entity) BLOCK;
     UNLESS c.session.relationship.id == entity.id;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
@@ -484,6 +503,21 @@ END -%]
       <div class="relate-to" style="display: none">
         <input type="hidden" class="gid" value="[% entity.gid %]" />
         <input type="hidden" class="type" value="[% entity_type(entity) %]" />
+
+        <input type="hidden" class="returnto"
+               value="[%-
+          action = 'relationships';
+
+          # Recording, URLs and works show more information on their landing
+          # pages
+          IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
+             entity.isa('MusicBrainz::Server::Entity::URL') ||
+             entity.isa('MusicBrainz::Server::Entity::Work');
+             action = 'show';
+          END;
+          c.uri_for_action(c.controller.action_for(action),
+                           [ entity.gid ]) -%]" />
+
         <select style="width: 130px; margin-right: 4px;">
           <option value="artist">[% l('Artist') %]</option>
           <option value="label">[% l('Label') %]</option>
