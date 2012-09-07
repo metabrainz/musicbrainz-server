@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::XPath;
 use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test::HTML5 qw( make_xml );
 use HTTP::Status qw( :constants );
 
 around run_test => sub {
@@ -22,10 +23,12 @@ test 'Viewing your own collections' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/user/editor1/collections');
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    $tx->is('count(//div[@id="page"]//table//th)', 4, 'your collection list has 4 cols');
+    my $tx = Test::XPath->new(
+        xml => make_xml ($mech->content),
+        xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
+    $tx->is('count(//html:div[@id="page"]//html:table//html:th)', 4, 'your collection list has 4 cols');
 
-    $tx->is('//div[@id="page"]//table/tbody/tr[1]/td[2]', 2, 'number of collections is correct');
+    $tx->is('//html:div[@id="page"]//html:table/html:tbody/html:tr[1]/html:td[2]', 2, 'number of collections is correct');
 };
 
 test 'No collections' => sub {
@@ -33,8 +36,10 @@ test 'No collections' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/user/editor3/collections');
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    $tx->is('//div[@id="page"]/p', 'editor3 has no public collections.', 'editor has no collections');
+    my $tx = Test::XPath->new(
+        xml => make_xml ($mech->content),
+        xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
+    $tx->is('//html:div[@id="page"]/html:p', 'editor3 has no public collections.', 'editor has no collections');
 };
 
 test 'Viewing someone elses collections' => sub {
@@ -42,8 +47,10 @@ test 'Viewing someone elses collections' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/user/editor2/collections');
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    $tx->is('count(//div[@id="page"]//table//th)', 2, 'other collection list has 2 cols');
+    my $tx = Test::XPath->new(
+        xml => make_xml ($mech->content),
+        xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
+    $tx->is('count(//html:div[@id="page"]//html:table//html:th)', 2, 'other collection list has 2 cols');
 };
 
 test 'Invalid user' => sub {

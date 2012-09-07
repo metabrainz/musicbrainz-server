@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::XPath;
 use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test::HTML5 qw( make_xml );
 use HTML::Selector::XPath 'selector_to_xpath';
 
 around run_test => sub {
@@ -27,7 +28,7 @@ test all => sub {
 
     $mech->get_ok('/recording/merge');
     html_ok($mech->content);
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
+    my $tx = Test::XPath->new( xml => make_xml ($mech->content) );
     $tx->not_ok(selector_to_xpath('.warning-isrcs-differ'),
                 'Does not have a warning about differing ISRCs');
 
@@ -65,7 +66,7 @@ test 'Warn the user when merging recordings with different ISRCs' => sub {
     $mech->get_ok('/recording/merge');
     html_ok($mech->content);
 
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
+    my $tx = Test::XPath->new( xml => make_xml ($mech->content) );
     $tx->ok(selector_to_xpath('.warning-isrcs-differ'),
             'Has a warning about differing ISRCs');
 };
