@@ -51,7 +51,7 @@
         </ul>
       [% END %]
 
-      <script>
+      <script>//<![CDATA[
       $(function() {
           var languageCount = $('li.language').size();
           $('button.remove').live('click', function(event) {
@@ -73,7 +73,7 @@
           });
           MB.utility.setDefaultAction('#edit-profile-form', '#edit-profile-submit button');
       });
-      </script>
+      //]]></script>
 
       <div class="row no-label" id="edit-profile-submit">
       [% form_submit(l('Save')) %]

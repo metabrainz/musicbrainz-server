@@ -102,7 +102,7 @@
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" name="" class="value">
+              <input type="text" value="" name="" class="value" />
               <button class="nobutton icon remove">
                 <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
                      title="[% l('Remove {item}', item => item_name) %]"
