@@ -7,7 +7,7 @@ use File::Temp qw( tempfile );
 use JSON;
 use XML::LibXML;
 
-use Sub::Exporter -setup => { exports => [ qw(xhtml_ok html5_ok) ] };
+use Sub::Exporter -setup => { exports => [ qw(make_xml xhtml_ok html5_ok) ] };
 
 =func ignore_warning
 
@@ -115,17 +115,45 @@ Example:
 
 sub save_html
 {
-    my ($Test, $content) = @_;
+    my ($Test, $content, $suffix) = @_;
 
     if ($ENV{SAVE_HTML}) {
         my ($fh, $filename) = tempfile (
-            "html5_ok_XXXX", SUFFIX => ".html", TMPDIR => 1);
+            "html5_ok_XXXX", SUFFIX => $suffix, TMPDIR => 1);
         print $fh encode ("utf-8", $content);
         close ($fh);
         $Test->diag ("failed output written to $filename");
     };
 }
 
+
+=func make_xml
+
+Turns a valid HTML5 document into a well-formed XML document.
+
+=cut
+
+sub make_xml
+{
+    my ($html5) = @_;
+
+    my $newdoctype = '<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE html [
+            <!ENTITY % xhtml-lat1
+                PUBLIC "-//W3C//ENTITIES Latin 1 for XHTML//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent"> %xhtml-lat1;
+            <!ENTITY % xhtml-special
+                PUBLIC "-//W3C//ENTITIES Special for XHTML//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent"> %xhtml-special;
+            <!ENTITY % xhtml-symbol
+                PUBLIC "-//W3C//ENTITIES Symbols for XHTML//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent"> %xhtml-symbol;
+        ]>';
+
+    $html5 =~ s/<!DOCTYPE html>//;
+
+    return $newdoctype.$html5;
+};
 
 =func xhtml_ok
 
@@ -140,13 +168,14 @@ sub xhtml_ok
 
     $message ||= "well-formed XHTML";
 
-    eval { XML::LibXML->load_html (string => $content); };
+    eval { XML::LibXML->load_xml (string => make_xml ($content)); };
     if ($@)
     {
         foreach (split "\n", $@->as_string ())
         {
             $Test->diag($_);
         }
+        save_html ($Test, make_xml ($content), ".xml");
         return $Test->ok (0, $message);
     }
     else
@@ -208,7 +237,7 @@ sub html5_ok
         $message .= ", Could not connect to ".$url;
     }
 
-    save_html ($Test, $content) unless $all_ok;
+    save_html ($Test, $content, ".html") unless $all_ok;
 
     $Test->ok($all_ok, $message);
 }
