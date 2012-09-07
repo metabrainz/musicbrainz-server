@@ -8,6 +8,7 @@ use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
 use URI::Escape;
@@ -217,7 +218,7 @@ sub locale
 
 sub gravatar {
     my $email = shift;
-    return sprintf 'http://gravatar.com/avatar/%s?d=mm', md5_hex($email);
+    return sprintf 'http://gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
 }
 
 1;
