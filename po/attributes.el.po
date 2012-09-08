@@ -1,0 +1,502 @@
+# 
+# Translators:
+# Dimitris  <email address hidden>, 2012.
+# Panos Bouklis <email address hidden>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
+"PO-Revision-Date: 2012-08-30 23:40+0000\n"
+"Last-Translator: Panos Bouklis <email address hidden>\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: DB:medium_format/name:30
+msgctxt "medium_format"
+msgid "10\" Vinyl"
+msgstr "βινύλιο 10\" "
+
+#: DB:medium_format/name:31
+msgctxt "medium_format"
+msgid "12\" Vinyl"
+msgstr "βινύλιο 12\""
+
+#: DB:medium_format/name:29
+msgctxt "medium_format"
+msgid "7\" Vinyl"
+msgstr "βινύλιο 7\""
+
+#: DB:medium_format/name:34
+msgctxt "medium_format"
+msgid "8cm CD"
+msgstr "CD 8cm"
+
+#: DB:release_group_primary_type/name:1
+msgctxt "release_group_primary_type"
+msgid "Album"
+msgstr "Άλμπουμ"
+
+#: DB:work_type/name:1
+msgctxt "work_type"
+msgid "Aria"
+msgstr "Άρια"
+
+#: DB:artist_alias_type/name:1
+msgctxt "alias_type"
+msgid "Artist name"
+msgstr "Όνομα καλλιτέχνη"
+
+#: DB:release_group_secondary_type/name:5
+msgctxt "release_group_secondary_type"
+msgid "Audiobook"
+msgstr "Βιβλίο ήχου"
+
+#: DB:work_type/name:2
+msgctxt "work_type"
+msgid "Ballet"
+msgstr "Μπαλέτο"
+
+#: DB:medium_format/name:24
+msgctxt "medium_format"
+msgid "Betamax"
+msgstr "Betamax"
+
+#: DB:medium_format/name:20
+msgctxt "medium_format"
+msgid "Blu-ray"
+msgstr "Blu-ray"
+
+#: DB:release_status/name:3
+msgctxt "release_status"
+msgid "Bootleg"
+msgstr "Bootleg"
+
+#: DB:label_type/name:5
+msgctxt "label_type"
+msgid "Bootleg Production"
+msgstr "Παραγωγή Bootleg"
+
+#: DB:medium_format/name:1
+msgctxt "medium_format"
+msgid "CD"
+msgstr "CD"
+
+#: DB:medium_format/name:33
+msgctxt "medium_format"
+msgid "CD-R"
+msgstr "CD-R"
+
+#: DB:work_type/name:3
+msgctxt "work_type"
+msgid "Cantata"
+msgstr "Καντάτα"
+
+#: DB:release_packaging/name:4
+msgctxt "release_packaging"
+msgid "Cardboard/Paper Sleeve"
+msgstr "Χάρτινη θήκη"
+
+#: DB:medium_format/name:9
+msgctxt "medium_format"
+msgid "Cartridge"
+msgstr "Cartridge"
+
+#: DB:medium_format/name:8
+msgctxt "medium_format"
+msgid "Cassette"
+msgstr "Κασέτα"
+
+#: DB:release_group_secondary_type/name:1
+msgctxt "release_group_secondary_type"
+msgid "Compilation"
+msgstr "Συλλογή"
+
+#: DB:work_type/name:4
+msgctxt "work_type"
+msgid "Concerto"
+msgstr "Κονσέρτο"
+
+#: DB:medium_format/name:11
+msgctxt "medium_format"
+msgid "DAT"
+msgstr "DAT"
+
+#: DB:medium_format/name:16
+msgctxt "medium_format"
+msgid "DCC"
+msgstr "DCC"
+
+#: DB:release_group_secondary_type/name:8
+msgctxt "release_group_secondary_type"
+msgid "DJ-mix"
+msgstr "DJ-mix"
+
+#: DB:medium_format/name:2
+msgctxt "medium_format"
+msgid "DVD"
+msgstr "DVD"
+
+#: DB:medium_format/name:18
+msgctxt "medium_format"
+msgid "DVD-Audio"
+msgstr "DVD-Audio"
+
+#: DB:medium_format/name:19
+msgctxt "medium_format"
+msgid "DVD-Video"
+msgstr "DVD-Video"
+
+#: DB:release_packaging/name:3
+msgctxt "release_packaging"
+msgid "Digipak"
+msgstr "Digipak"
+
+#: DB:medium_format/name:12
+msgctxt "medium_format"
+msgid "Digital Media"
+msgstr "Ψηφιακό μέσο"
+
+#: DB:label_type/name:1
+msgctxt "label_type"
+msgid "Distributor"
+msgstr "Διανομέας"
+
+#: DB:medium_format/name:4
+msgctxt "medium_format"
+msgid "DualDisc"
+msgstr "DualDisc"
+
+#: DB:release_group_primary_type/name:3
+msgctxt "release_group_primary_type"
+msgid "EP"
+msgstr "EP"
+
+#: DB:gender/name:2
+msgctxt "gender"
+msgid "Female"
+msgstr "Γυναίκα"
+
+#: DB:artist_type/name:2
+msgctxt "artist_type"
+msgid "Group"
+msgstr "Συγκρότημα"
+
+#: DB:medium_format/name:17
+msgctxt "medium_format"
+msgid "HD-DVD"
+msgstr "HD-DVD"
+
+#: DB:medium_format/name:25
+msgctxt "medium_format"
+msgid "HDCD"
+msgstr "HDCD"
+
+#: DB:label_type/name:2
+msgctxt "label_type"
+msgid "Holding"
+msgstr ""
+
+#: DB:release_group_secondary_type/name:4
+msgctxt "release_group_secondary_type"
+msgid "Interview"
+msgstr "Συνέντευξη"
+
+#: DB:release_packaging/name:1
+msgctxt "release_packaging"
+msgid "Jewel Case"
+msgstr ""
+
+#: DB:release_packaging/name:6
+msgctxt "release_packaging"
+msgid "Keep Case"
+msgstr ""
+
+#: DB:label_alias_type/name:1
+msgctxt "alias_type"
+msgid "Label name"
+msgstr "Όνομα δισκογραφικής"
+
+#: DB:medium_format/name:5
+msgctxt "medium_format"
+msgid "LaserDisc"
+msgstr "LaserDisc"
+
+#: DB:artist_alias_type/name:2
+msgctxt "alias_type"
+msgid "Legal name"
+msgstr "Νόμιμο όνομα"
+
+#: DB:release_group_secondary_type/name:6
+msgctxt "release_group_secondary_type"
+msgid "Live"
+msgstr "Ζωντανός δίσκος"
+
+#: DB:work_type/name:7
+msgctxt "work_type"
+msgid "Madrigal"
+msgstr "Μαδριγάλιο"
+
+#: DB:gender/name:1
+msgctxt "gender"
+msgid "Male"
+msgstr "Άνδρας"
+
+#: DB:work_type/name:8
+msgctxt "work_type"
+msgid "Mass"
+msgstr ""
+
+#: DB:medium_format/name:6
+msgctxt "medium_format"
+msgid "MiniDisc"
+msgstr "MiniDisc"
+
+#: DB:release_group_secondary_type/name:9
+msgctxt "release_group_secondary_type"
+msgid "Mixtape/Street"
+msgstr ""
+
+#: DB:work_type/name:9
+msgctxt "work_type"
+msgid "Motet"
+msgstr "Ύμνος"
+
+#: DB:release_packaging/name:7
+msgctxt "release_packaging"
+msgid "None"
+msgstr "Κανένα"
+
+#: DB:release_status/name:1
+msgctxt "release_status"
+msgid "Official"
+msgstr "Επίσημο"
+
+#: DB:work_type/name:10
+msgctxt "work_type"
+msgid "Opera"
+msgstr "Όπερα"
+
+#: DB:work_type/name:11
+msgctxt "work_type"
+msgid "Oratorio"
+msgstr "Ορατόριο"
+
+#: DB:label_type/name:4
+msgctxt "label_type"
+msgid "Original Production"
+msgstr "Πρωτότυπη παραγωγή"
+
+#: DB:artist_type/name:3
+msgctxt "artist_type"
+msgid "Other"
+msgstr "Άλλο"
+
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "Άλλο"
+
+#: DB:medium_format/name:13
+msgctxt "medium_format"
+msgid "Other"
+msgstr "Άλλο"
+
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
+msgid "Other"
+msgstr "Άλλο"
+
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
+msgid "Other"
+msgstr "Άλλο"
+
+#: DB:work_type/name:12
+msgctxt "work_type"
+msgid "Overture"
+msgstr "Προοίμιο"
+
+#: DB:work_type/name:13
+msgctxt "work_type"
+msgid "Partita"
+msgstr "Παρτίτα"
+
+#: DB:artist_type/name:1
+msgctxt "artist_type"
+msgid "Person"
+msgstr "Πρόσωπο"
+
+#: DB:medium_format/name:15
+msgctxt "medium_format"
+msgid "Piano Roll"
+msgstr ""
+
+#: DB:work_type/name:21
+msgctxt "work_type"
+msgid "Poem"
+msgstr "Ποίημα"
+
+#: DB:label_type/name:3
+msgctxt "label_type"
+msgid "Production"
+msgstr "Παραγωγή"
+
+#: DB:release_status/name:2
+msgctxt "release_status"
+msgid "Promotion"
+msgstr "Προώθηση"
+
+#: DB:release_status/name:4
+msgctxt "release_status"
+msgid "Pseudo-Release"
+msgstr "Ψευδο-κυκλοφορία"
+
+#: DB:label_type/name:7
+msgctxt "label_type"
+msgid "Publisher"
+msgstr "Εκδότης"
+
+#: DB:work_type/name:14
+msgctxt "work_type"
+msgid "Quartet"
+msgstr "Κουαρτέτο"
+
+#: DB:medium_format/name:10
+msgctxt "medium_format"
+msgid "Reel-to-reel"
+msgstr ""
+
+#: DB:label_type/name:6
+msgctxt "label_type"
+msgid "Reissue Production"
+msgstr "Παραγωγή επανακυκλοφορίας"
+
+#: DB:release_group_secondary_type/name:7
+msgctxt "release_group_secondary_type"
+msgid "Remix"
+msgstr "Remix"
+
+#: DB:medium_format/name:3
+msgctxt "medium_format"
+msgid "SACD"
+msgstr "SACD"
+
+#: DB:medium_format/name:23
+msgctxt "medium_format"
+msgid "SVCD"
+msgstr "SVCD"
+
+#: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
+#: DB:work_alias_type/name:2
+msgctxt "alias_type"
+msgid "Search hint"
+msgstr "Συμβουλή αναζήτησης"
+
+#: DB:release_group_primary_type/name:2
+msgctxt "release_group_primary_type"
+msgid "Single"
+msgstr "Single"
+
+#: DB:release_packaging/name:2
+msgctxt "release_packaging"
+msgid "Slim Jewel Case"
+msgstr ""
+
+#: DB:work_type/name:5
+msgctxt "work_type"
+msgid "Sonata"
+msgstr "Σονάτα"
+
+#: DB:work_type/name:17
+msgctxt "work_type"
+msgid "Song"
+msgstr "Τραγούδι"
+
+#: DB:work_type/name:15
+msgctxt "work_type"
+msgid "Song-cycle"
+msgstr "Κύκλος τραγουδιών"
+
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
+msgid "Soundtrack"
+msgstr "Soundtrack"
+
+#: DB:release_group_secondary_type/name:3
+msgctxt "release_group_secondary_type"
+msgid "Spokenword"
+msgstr "Προφορικός λόγος"
+
+#: DB:work_type/name:6
+msgctxt "work_type"
+msgid "Suite"
+msgstr "Συνοδία"
+
+#: DB:work_type/name:18
+msgctxt "work_type"
+msgid "Symphonic poem"
+msgstr "Συμφωνικό ποιήμα"
+
+#: DB:work_type/name:16
+msgctxt "work_type"
+msgid "Symphony"
+msgstr "Συμφωνία"
+
+#: DB:medium_format/name:28
+msgctxt "medium_format"
+msgid "UMD"
+msgstr "UMD"
+
+#: DB:medium_format/name:26
+msgctxt "medium_format"
+msgid "USB Flash Drive"
+msgstr "USB Flash Drive"
+
+#: DB:medium_format/name:22
+msgctxt "medium_format"
+msgid "VCD"
+msgstr "VCD"
+
+#: DB:medium_format/name:21
+msgctxt "medium_format"
+msgid "VHS"
+msgstr "VHS"
+
+#: DB:medium_format/name:32
+msgctxt "medium_format"
+msgid "Videotape"
+msgstr "Βιντεοκασέτα"
+
+#: DB:medium_format/name:7
+msgctxt "medium_format"
+msgid "Vinyl"
+msgstr "Βινύλιο"
+
+#: DB:medium_format/name:14
+msgctxt "medium_format"
+msgid "Wax Cylinder"
+msgstr "Κύλινδρος κεριού"
+
+#: DB:work_alias_type/name:1
+msgctxt "alias_type"
+msgid "Work name"
+msgstr "Ονομασία έργου"
+
+#: DB:work_type/name:19
+msgctxt "work_type"
+msgid "Zarzuela"
+msgstr ""
+
+#: DB:medium_format/name:27
+msgctxt "medium_format"
+msgid "slotMusic"
+msgstr "slotMusic"
+
+#: DB:work_type/name:20
+msgctxt "work_type"
+msgid "Étude"
+msgstr ""

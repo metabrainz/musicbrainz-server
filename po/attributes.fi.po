@@ -1,0 +1,503 @@
+# 
+# Translators:
+# Jaakko Perttilä <email address hidden>, 2012.
+# Timo Martikainen <>, 2012.
+# Timo Martikainen <email address hidden>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
+"PO-Revision-Date: 2012-06-12 10:21+0000\n"
+"Last-Translator: Jaakko Perttilä <email address hidden>\n"
+"Language-Team: Finnish (http://www.transifex.net/projects/p/musicbrainz/language/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: DB:medium_format/name:30
+msgctxt "medium_format"
+msgid "10\" Vinyl"
+msgstr "10\" Vinyyli"
+
+#: DB:medium_format/name:31
+msgctxt "medium_format"
+msgid "12\" Vinyl"
+msgstr "12\" Vinyyli"
+
+#: DB:medium_format/name:29
+msgctxt "medium_format"
+msgid "7\" Vinyl"
+msgstr "7\" Vinyyli"
+
+#: DB:medium_format/name:34
+msgctxt "medium_format"
+msgid "8cm CD"
+msgstr "8 cm CD"
+
+#: DB:release_group_primary_type/name:1
+msgctxt "release_group_primary_type"
+msgid "Album"
+msgstr "Albumi"
+
+#: DB:work_type/name:1
+msgctxt "work_type"
+msgid "Aria"
+msgstr "Aaria"
+
+#: DB:artist_alias_type/name:1
+msgctxt "alias_type"
+msgid "Artist name"
+msgstr "Artistin nimi"
+
+#: DB:release_group_secondary_type/name:5
+msgctxt "release_group_secondary_type"
+msgid "Audiobook"
+msgstr "Äänikirja"
+
+#: DB:work_type/name:2
+msgctxt "work_type"
+msgid "Ballet"
+msgstr "Baletti"
+
+#: DB:medium_format/name:24
+msgctxt "medium_format"
+msgid "Betamax"
+msgstr "Betamax"
+
+#: DB:medium_format/name:20
+msgctxt "medium_format"
+msgid "Blu-ray"
+msgstr "Blu-ray"
+
+#: DB:release_status/name:3
+msgctxt "release_status"
+msgid "Bootleg"
+msgstr "Bootleg"
+
+#: DB:label_type/name:5
+msgctxt "label_type"
+msgid "Bootleg Production"
+msgstr "Bootleg-tuotanto"
+
+#: DB:medium_format/name:1
+msgctxt "medium_format"
+msgid "CD"
+msgstr "CD-levy"
+
+#: DB:medium_format/name:33
+msgctxt "medium_format"
+msgid "CD-R"
+msgstr "CD-R-levy"
+
+#: DB:work_type/name:3
+msgctxt "work_type"
+msgid "Cantata"
+msgstr "Kantaatti"
+
+#: DB:release_packaging/name:4
+msgctxt "release_packaging"
+msgid "Cardboard/Paper Sleeve"
+msgstr "Pahvi/Paperikotelo"
+
+#: DB:medium_format/name:9
+msgctxt "medium_format"
+msgid "Cartridge"
+msgstr "Kasetti"
+
+#: DB:medium_format/name:8
+msgctxt "medium_format"
+msgid "Cassette"
+msgstr "C-kasetti"
+
+#: DB:release_group_secondary_type/name:1
+msgctxt "release_group_secondary_type"
+msgid "Compilation"
+msgstr "Kokoelma"
+
+#: DB:work_type/name:4
+msgctxt "work_type"
+msgid "Concerto"
+msgstr "Konsertto"
+
+#: DB:medium_format/name:11
+msgctxt "medium_format"
+msgid "DAT"
+msgstr "DAT"
+
+#: DB:medium_format/name:16
+msgctxt "medium_format"
+msgid "DCC"
+msgstr "DCC"
+
+#: DB:release_group_secondary_type/name:8
+msgctxt "release_group_secondary_type"
+msgid "DJ-mix"
+msgstr "DJ-miksaus"
+
+#: DB:medium_format/name:2
+msgctxt "medium_format"
+msgid "DVD"
+msgstr "DVD"
+
+#: DB:medium_format/name:18
+msgctxt "medium_format"
+msgid "DVD-Audio"
+msgstr "DVD-Audio"
+
+#: DB:medium_format/name:19
+msgctxt "medium_format"
+msgid "DVD-Video"
+msgstr "DVD-Video"
+
+#: DB:release_packaging/name:3
+msgctxt "release_packaging"
+msgid "Digipak"
+msgstr "Digipak"
+
+#: DB:medium_format/name:12
+msgctxt "medium_format"
+msgid "Digital Media"
+msgstr "Digitaalinen media"
+
+#: DB:label_type/name:1
+msgctxt "label_type"
+msgid "Distributor"
+msgstr "Jakelija"
+
+#: DB:medium_format/name:4
+msgctxt "medium_format"
+msgid "DualDisc"
+msgstr "DualDisc"
+
+#: DB:release_group_primary_type/name:3
+msgctxt "release_group_primary_type"
+msgid "EP"
+msgstr "EP"
+
+#: DB:gender/name:2
+msgctxt "gender"
+msgid "Female"
+msgstr "Nainen"
+
+#: DB:artist_type/name:2
+msgctxt "artist_type"
+msgid "Group"
+msgstr "Yhtye"
+
+#: DB:medium_format/name:17
+msgctxt "medium_format"
+msgid "HD-DVD"
+msgstr "HD DVD"
+
+#: DB:medium_format/name:25
+msgctxt "medium_format"
+msgid "HDCD"
+msgstr "HDCD"
+
+#: DB:label_type/name:2
+msgctxt "label_type"
+msgid "Holding"
+msgstr "Holding"
+
+#: DB:release_group_secondary_type/name:4
+msgctxt "release_group_secondary_type"
+msgid "Interview"
+msgstr "Haastattelu"
+
+#: DB:release_packaging/name:1
+msgctxt "release_packaging"
+msgid "Jewel Case"
+msgstr "Jewel Case"
+
+#: DB:release_packaging/name:6
+msgctxt "release_packaging"
+msgid "Keep Case"
+msgstr "Keep Case"
+
+#: DB:label_alias_type/name:1
+msgctxt "alias_type"
+msgid "Label name"
+msgstr "Levymerkin nimi"
+
+#: DB:medium_format/name:5
+msgctxt "medium_format"
+msgid "LaserDisc"
+msgstr "LaserDisc"
+
+#: DB:artist_alias_type/name:2
+msgctxt "alias_type"
+msgid "Legal name"
+msgstr "Virallinen nimi"
+
+#: DB:release_group_secondary_type/name:6
+msgctxt "release_group_secondary_type"
+msgid "Live"
+msgstr "Live-taltionti"
+
+#: DB:work_type/name:7
+msgctxt "work_type"
+msgid "Madrigal"
+msgstr "Madrigaali"
+
+#: DB:gender/name:1
+msgctxt "gender"
+msgid "Male"
+msgstr "Mies"
+
+#: DB:work_type/name:8
+msgctxt "work_type"
+msgid "Mass"
+msgstr "Messu"
+
+#: DB:medium_format/name:6
+msgctxt "medium_format"
+msgid "MiniDisc"
+msgstr "MiniDisc"
+
+#: DB:release_group_secondary_type/name:9
+msgctxt "release_group_secondary_type"
+msgid "Mixtape/Street"
+msgstr "Mixtape/Street"
+
+#: DB:work_type/name:9
+msgctxt "work_type"
+msgid "Motet"
+msgstr "Motetti"
+
+#: DB:release_packaging/name:7
+msgctxt "release_packaging"
+msgid "None"
+msgstr "Ei mitään"
+
+#: DB:release_status/name:1
+msgctxt "release_status"
+msgid "Official"
+msgstr "Virallinen"
+
+#: DB:work_type/name:10
+msgctxt "work_type"
+msgid "Opera"
+msgstr "Ooppera"
+
+#: DB:work_type/name:11
+msgctxt "work_type"
+msgid "Oratorio"
+msgstr "Oratorio"
+
+#: DB:label_type/name:4
+msgctxt "label_type"
+msgid "Original Production"
+msgstr "Alkuperäinen tuotanto"
+
+#: DB:artist_type/name:3
+msgctxt "artist_type"
+msgid "Other"
+msgstr "Muu"
+
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
+msgid "Other"
+msgstr "Muu"
+
+#: DB:medium_format/name:13
+msgctxt "medium_format"
+msgid "Other"
+msgstr "Muu"
+
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
+msgid "Other"
+msgstr "Muu"
+
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "Muu"
+
+#: DB:work_type/name:12
+msgctxt "work_type"
+msgid "Overture"
+msgstr "Alkusoitto"
+
+#: DB:work_type/name:13
+msgctxt "work_type"
+msgid "Partita"
+msgstr "Partita"
+
+#: DB:artist_type/name:1
+msgctxt "artist_type"
+msgid "Person"
+msgstr "Henkilö"
+
+#: DB:medium_format/name:15
+msgctxt "medium_format"
+msgid "Piano Roll"
+msgstr "Pianorulla"
+
+#: DB:work_type/name:21
+msgctxt "work_type"
+msgid "Poem"
+msgstr "Runo"
+
+#: DB:label_type/name:3
+msgctxt "label_type"
+msgid "Production"
+msgstr "Tuotanto"
+
+#: DB:release_status/name:2
+msgctxt "release_status"
+msgid "Promotion"
+msgstr "Promo"
+
+#: DB:release_status/name:4
+msgctxt "release_status"
+msgid "Pseudo-Release"
+msgstr "Valejulkaisu"
+
+#: DB:label_type/name:7
+msgctxt "label_type"
+msgid "Publisher"
+msgstr "Julkaisija"
+
+#: DB:work_type/name:14
+msgctxt "work_type"
+msgid "Quartet"
+msgstr "Kvartetti"
+
+#: DB:medium_format/name:10
+msgctxt "medium_format"
+msgid "Reel-to-reel"
+msgstr "Äänikela"
+
+#: DB:label_type/name:6
+msgctxt "label_type"
+msgid "Reissue Production"
+msgstr "Uudelleenjulkaisutuotanto"
+
+#: DB:release_group_secondary_type/name:7
+msgctxt "release_group_secondary_type"
+msgid "Remix"
+msgstr "Remix"
+
+#: DB:medium_format/name:3
+msgctxt "medium_format"
+msgid "SACD"
+msgstr "Super Audio CD"
+
+#: DB:medium_format/name:23
+msgctxt "medium_format"
+msgid "SVCD"
+msgstr "Super Video CD"
+
+#: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
+#: DB:work_alias_type/name:2
+msgctxt "alias_type"
+msgid "Search hint"
+msgstr "Hakuvihje"
+
+#: DB:release_group_primary_type/name:2
+msgctxt "release_group_primary_type"
+msgid "Single"
+msgstr "Single"
+
+#: DB:release_packaging/name:2
+msgctxt "release_packaging"
+msgid "Slim Jewel Case"
+msgstr "Ohut Jewel Case"
+
+#: DB:work_type/name:5
+msgctxt "work_type"
+msgid "Sonata"
+msgstr "Sonaatti"
+
+#: DB:work_type/name:17
+msgctxt "work_type"
+msgid "Song"
+msgstr "Laulu"
+
+#: DB:work_type/name:15
+msgctxt "work_type"
+msgid "Song-cycle"
+msgstr "Laulusarja"
+
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
+msgid "Soundtrack"
+msgstr "Soundtrack"
+
+#: DB:release_group_secondary_type/name:3
+msgctxt "release_group_secondary_type"
+msgid "Spokenword"
+msgstr "Puhe"
+
+#: DB:work_type/name:6
+msgctxt "work_type"
+msgid "Suite"
+msgstr "Orkesterisarja"
+
+#: DB:work_type/name:18
+msgctxt "work_type"
+msgid "Symphonic poem"
+msgstr "Sinfoninen runo"
+
+#: DB:work_type/name:16
+msgctxt "work_type"
+msgid "Symphony"
+msgstr "Sinfonia"
+
+#: DB:medium_format/name:28
+msgctxt "medium_format"
+msgid "UMD"
+msgstr "UMD"
+
+#: DB:medium_format/name:26
+msgctxt "medium_format"
+msgid "USB Flash Drive"
+msgstr "USB Flash –asema"
+
+#: DB:medium_format/name:22
+msgctxt "medium_format"
+msgid "VCD"
+msgstr "Video-CD"
+
+#: DB:medium_format/name:21
+msgctxt "medium_format"
+msgid "VHS"
+msgstr "VHS"
+
+#: DB:medium_format/name:32
+msgctxt "medium_format"
+msgid "Videotape"
+msgstr "Videokasetti"
+
+#: DB:medium_format/name:7
+msgctxt "medium_format"
+msgid "Vinyl"
+msgstr "Vinyyli"
+
+#: DB:medium_format/name:14
+msgctxt "medium_format"
+msgid "Wax Cylinder"
+msgstr "Fonografisylinteri"
+
+#: DB:work_alias_type/name:1
+msgctxt "alias_type"
+msgid "Work name"
+msgstr "Teoksen nimi"
+
+#: DB:work_type/name:19
+msgctxt "work_type"
+msgid "Zarzuela"
+msgstr "Zarzuela"
+
+#: DB:medium_format/name:27
+msgctxt "medium_format"
+msgid "slotMusic"
+msgstr "slotMusic"
+
+#: DB:work_type/name:20
+msgctxt "work_type"
+msgid "Étude"
+msgstr "Etydi"

@@ -1,0 +1,810 @@
+# 
+# Translators:
+# Mihkel Tõnnov <email address hidden>, 2008, 2009, 2011, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
+"PO-Revision-Date: 2012-06-01 17:06+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"Language-Team: Estonian (http://www.transifex.net/projects/p/musicbrainz/language/et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#. frequency:1
+#: DB:script/name:133
+msgid "Afaka"
+msgstr ""
+
+#. frequency:4
+#: DB:script/name:18
+msgid "Arabic"
+msgstr "Araabia"
+
+#. frequency:3
+#: DB:script/name:35
+msgid "Armenian"
+msgstr "Armeenia"
+
+#. frequency:1
+#: DB:script/name:114
+msgid "Avestan"
+msgstr "Avesta"
+
+#. frequency:2
+#: DB:script/name:72
+msgid "Balinese"
+msgstr "Bali"
+
+#. frequency:1
+#: DB:script/name:155
+msgid "Bamum"
+msgstr "Bamuni"
+
+#. frequency:1
+#: DB:script/name:145
+msgid "Bassa Vah"
+msgstr "Bassa"
+
+#. frequency:1
+#: DB:script/name:74
+msgid "Batak"
+msgstr "Bataki"
+
+#. frequency:3
+#: DB:script/name:53
+msgid "Bengali"
+msgstr "Bengali"
+
+#. frequency:1
+#: DB:script/name:95
+msgid "Blissymbols"
+msgstr "Blissi sümbolid"
+
+#. frequency:1
+#: DB:script/name:123
+msgid "Book Pahlavi"
+msgstr "Pahlavi raamatukiri"
+
+#. frequency:3
+#: DB:script/name:42
+msgid "Bopomofo"
+msgstr "Bopomofo"
+
+#. frequency:1
+#: DB:script/name:47
+msgid "Brahmi"
+msgstr "Braahmi"
+
+#. frequency:1
+#: DB:script/name:96
+msgid "Braille"
+msgstr "Braille"
+
+#. frequency:2
+#: DB:script/name:75
+msgid "Buginese"
+msgstr "Bugi"
+
+#. frequency:2
+#: DB:script/name:78
+msgid "Buhid"
+msgstr "Buhidi"
+
+#. frequency:2
+#: DB:script/name:87
+msgid "Canadian Syllabics"
+msgstr "Kanada silpkiri"
+
+#. frequency:2
+#: DB:script/name:108
+msgid "Carian"
+msgstr "Kaaria"
+
+#. frequency:1
+#: DB:script/name:115
+msgid "Chakma"
+msgstr "Tšakma"
+
+#. frequency:2
+#: DB:script/name:71
+msgid "Cham"
+msgstr "Tšaami"
+
+#. frequency:2
+#: DB:script/name:88
+msgid "Cherokee"
+msgstr "Tšerokii"
+
+#. frequency:1
+#: DB:script/name:45
+msgid "Cirth"
+msgstr "Cirthi"
+
+#. frequency:1
+#: DB:script/name:159
+msgid "Code for inherited script"
+msgstr "Päritud kiri"
+
+#. frequency:1
+#: DB:script/name:130
+msgid "Code for uncoded script"
+msgstr "Kodeerimata kiri"
+
+#. frequency:1
+#: DB:script/name:129
+msgid "Code for undetermined script"
+msgstr "Määratlemata kiri"
+
+#. frequency:1
+#: DB:script/name:128
+msgid "Code for unwritten documents"
+msgstr "Kirjata dokument"
+
+#. frequency:2
+#: DB:script/name:23
+msgid "Coptic"
+msgstr "Kopti"
+
+#. frequency:2
+#: DB:script/name:1
+msgid "Cuneiform, Sumero-Akkadian"
+msgstr "Kiilkiri (sumeri)"
+
+#. frequency:2
+#: DB:script/name:82
+msgid "Cypriot"
+msgstr "Muinasküprose"
+
+#. frequency:4
+#: DB:script/name:31
+msgid "Cyrillic"
+msgstr "Kirillitsa"
+
+#. frequency:1
+#: DB:script/name:32
+msgid "Cyrillic (Old Church Slavonic variant)"
+msgstr "Kirillitsa (kirikuslaavi)"
+
+#. frequency:2
+#: DB:script/name:37
+msgid "Deseret"
+msgstr "Desereti"
+
+#. frequency:3
+#: DB:script/name:50
+msgid "Devanagari"
+msgstr "Devanaagari"
+
+#. frequency:1
+#: DB:script/name:142
+msgid "Duployan shorthand"
+msgstr "Duployé kiirkiri"
+
+#. frequency:1
+#: DB:script/name:6
+msgid "Egyptian demotic"
+msgstr "Egiptuse rahvalik (demootiline)"
+
+#. frequency:1
+#: DB:script/name:5
+msgid "Egyptian hieratic"
+msgstr "Egiptuse preestrikiri (hieraatiline)"
+
+#. frequency:1
+#: DB:script/name:4
+msgid "Egyptian hieroglyphs"
+msgstr "Egiptuse hieroglüüfkiri"
+
+#. frequency:1
+#: DB:script/name:143
+msgid "Elbasan"
+msgstr "Elbasani"
+
+#. frequency:3
+#: DB:script/name:86
+msgid "Ethiopic"
+msgstr "Etioopia"
+
+#. frequency:3
+#: DB:script/name:36
+msgid "Georgian"
+msgstr "Gruusia"
+
+#. frequency:2
+#: DB:script/name:33
+msgid "Glagolitic"
+msgstr "Glagoolitsa"
+
+#. frequency:2
+#: DB:script/name:24
+msgid "Gothic"
+msgstr "Gooti"
+
+#. frequency:1
+#: DB:script/name:152
+msgid "Grantha"
+msgstr "Grantha"
+
+#. frequency:4
+#: DB:script/name:22
+msgid "Greek"
+msgstr "Kreeka"
+
+#. frequency:3
+#: DB:script/name:52
+msgid "Gujarati"
+msgstr "Gudžarati"
+
+#. frequency:3
+#: DB:script/name:49
+msgid "Gurmukhi"
+msgstr "Gurmukhi"
+
+#. frequency:4
+#: DB:script/name:92
+msgid "Han (Hanzi, Kanji, Hanja)"
+msgstr "Hani (hanzi, kanji, hanja)"
+
+#. frequency:4
+#: DB:script/name:93
+msgid "Han (Simplified variant)"
+msgstr "Hiina lihtsustatud kiri"
+
+#. frequency:4
+#: DB:script/name:94
+msgid "Han (Traditional variant)"
+msgstr "Hiina traditsiooniline kiri"
+
+#. frequency:3
+#: DB:script/name:101
+msgid "Hangul"
+msgstr "Hangul"
+
+#. frequency:2
+#: DB:script/name:77
+msgid "Hanunoo"
+msgstr "Hanunoo"
+
+#. frequency:4
+#: DB:script/name:11
+msgid "Hebrew"
+msgstr "Heebrea"
+
+#. frequency:3
+#: DB:script/name:83
+msgid "Hiragana"
+msgstr "Hiragana"
+
+#. frequency:1
+#: DB:script/name:113
+msgid "Imperial Aramaic"
+msgstr "Vanaaramea"
+
+#. frequency:1
+#: DB:script/name:97
+msgid "Indus"
+msgstr "Induse"
+
+#. frequency:1
+#: DB:script/name:121
+msgid "Inscriptional Pahlavi"
+msgstr "Pahlavi raidkiri"
+
+#. frequency:1
+#: DB:script/name:124
+msgid "Inscriptional Parthian"
+msgstr "Partia raidkiri"
+
+#. frequency:4
+#: DB:script/name:85
+msgid "Japanese"
+msgstr "Jaapani"
+
+#. frequency:3
+#: DB:script/name:100
+msgid "Japanese syllabaries"
+msgstr "Jaapani silpkirjad"
+
+#. frequency:1
+#: DB:script/name:73
+msgid "Javanese"
+msgstr "Jaava"
+
+#. frequency:1
+#: DB:script/name:134
+msgid "Jurchen"
+msgstr "Tšurtšeni"
+
+#. frequency:1
+#: DB:script/name:116
+msgid "Kaithi"
+msgstr "Kaithi"
+
+#. frequency:3
+#: DB:script/name:60
+msgid "Kannada"
+msgstr "Kannada"
+
+#. frequency:4
+#: DB:script/name:84
+msgid "Katakana"
+msgstr "Katakana"
+
+#. frequency:2
+#: DB:script/name:70
+msgid "Kayah Li"
+msgstr "Kaja lii"
+
+#. frequency:2
+#: DB:script/name:48
+msgid "Kharoshthi"
+msgstr "Kharoshthi (muinasindia)"
+
+#. frequency:3
+#: DB:script/name:68
+msgid "Khmer"
+msgstr "Khmeeri"
+
+#. frequency:1
+#: DB:script/name:131
+msgid "Khojki"
+msgstr ""
+
+#. frequency:1
+#: DB:script/name:144
+msgid "Khudawadi"
+msgstr ""
+
+#. frequency:2
+#: DB:script/name:102
+msgid "Khutsuri"
+msgstr "Hutsuri"
+
+#. frequency:4
+#: DB:script/name:43
+msgid "Korean"
+msgstr "Korea"
+
+#. frequency:1
+#: DB:script/name:146
+msgid "Kpelle"
+msgstr "Kpelle"
+
+#. frequency:3
+#: DB:script/name:69
+msgid "Lao"
+msgstr "Lao"
+
+#. frequency:4
+#: DB:script/name:28
+msgid "Latin"
+msgstr "Ladina"
+
+#. frequency:1
+#: DB:script/name:30
+msgid "Latin (Fraktur variant)"
+msgstr "Ladina fraktuurkiri"
+
+#. frequency:1
+#: DB:script/name:29
+msgid "Latin (Gaelic variant)"
+msgstr "Ladina keldi kiri"
+
+#. frequency:2
+#: DB:script/name:57
+msgid "Lepcha"
+msgstr "Leptša"
+
+#. frequency:2
+#: DB:script/name:58
+msgid "Limbu"
+msgstr "Limbu"
+
+#. frequency:1
+#: DB:script/name:80
+msgid "Linear A"
+msgstr "Lineaarkiri A"
+
+#. frequency:2
+#: DB:script/name:81
+msgid "Linear B"
+msgstr "Lineaarkiri B"
+
+#. frequency:1
+#: DB:script/name:157
+msgid "Lisu (Fraser)"
+msgstr "Lisu (Fraseri)"
+
+#. frequency:1
+#: DB:script/name:147
+msgid "Loma"
+msgstr "Loma"
+
+#. frequency:2
+#: DB:script/name:109
+msgid "Lycian"
+msgstr "Lüükia"
+
+#. frequency:2
+#: DB:script/name:110
+msgid "Lydian"
+msgstr "Lüüdia"
+
+#. frequency:3
+#: DB:script/name:62
+msgid "Malayalam"
+msgstr "Malajalami"
+
+#. frequency:1
+#: DB:script/name:16
+msgid "Mandaic"
+msgstr "Manda"
+
+#. frequency:1
+#: DB:script/name:118
+msgid "Manichaean"
+msgstr "Mani"
+
+#. frequency:2
+#: DB:script/name:111
+msgid "Mathematical notation"
+msgstr "Matemaatiline tähistus"
+
+#. frequency:1
+#: DB:script/name:7
+msgid "Mayan hieroglyphs"
+msgstr "Maaja hieroglüüfkiri"
+
+#. frequency:1
+#: DB:script/name:120
+msgid "Meitei Mayek"
+msgstr "Meitei"
+
+#. frequency:1
+#: DB:script/name:148
+msgid "Mende"
+msgstr "Mende"
+
+#. frequency:1
+#: DB:script/name:153
+msgid "Meroitic Cursive"
+msgstr "Meroe kursiivkiri"
+
+#. frequency:1
+#: DB:script/name:8
+msgid "Meroitic Hieroglyphs"
+msgstr "Meroe hieroglüüfkiri"
+
+#. frequency:1
+#: DB:script/name:41
+msgid "Miao"
+msgstr "Miao (Pollardi)"
+
+#. frequency:3
+#: DB:script/name:17
+msgid "Mongolian"
+msgstr "Mongoli"
+
+#. frequency:1
+#: DB:script/name:119
+msgid "Moon"
+msgstr "Mooni"
+
+#. frequency:1
+#: DB:script/name:135
+msgid "Mro, Mru"
+msgstr "Mroo"
+
+#. frequency:3
+#: DB:script/name:64
+msgid "Myanmar"
+msgstr "Birma"
+
+#. frequency:2
+#: DB:script/name:103
+msgid "N'ko"
+msgstr "Nkoo"
+
+#. frequency:1
+#: DB:script/name:149
+msgid "Nabataean"
+msgstr "Nabatea"
+
+#. frequency:1
+#: DB:script/name:158
+msgid "Nakhi Geba"
+msgstr "Nasi"
+
+#. frequency:2
+#: DB:script/name:67
+msgid "New Tai Lue"
+msgstr "Tai lue lihtsustatud"
+
+#. frequency:1
+#: DB:script/name:136
+msgid "Nüshu"
+msgstr ""
+
+#. frequency:2
+#: DB:script/name:27
+msgid "Ogham"
+msgstr "Ogam"
+
+#. frequency:2
+#: DB:script/name:104
+msgid "Ol Chiki"
+msgstr "Santali"
+
+#. frequency:1
+#: DB:script/name:21
+msgid "Old Hungarian"
+msgstr "Vanaungari"
+
+#. frequency:2
+#: DB:script/name:25
+msgid "Old Italic"
+msgstr "Vanaitali"
+
+#. frequency:1
+#: DB:script/name:150
+msgid "Old North Arabian"
+msgstr "Põhja-Araabia"
+
+#. frequency:1
+#: DB:script/name:34
+msgid "Old Permic"
+msgstr "Vanapermi"
+
+#. frequency:2
+#: DB:script/name:2
+msgid "Old Persian"
+msgstr "Vanapärsia"
+
+#. frequency:1
+#: DB:script/name:156
+msgid "Old South Arabian"
+msgstr "Lõuna-Araabia"
+
+#. frequency:1
+#: DB:script/name:20
+msgid "Old Turkish"
+msgstr "Orhoni (vanatürgi ruunikiri)"
+
+#. frequency:3
+#: DB:script/name:54
+msgid "Oriya"
+msgstr "Oria"
+
+#. frequency:2
+#: DB:script/name:38
+msgid "Osmanya"
+msgstr "Osmanja (somaali)"
+
+#. frequency:1
+#: DB:script/name:89
+msgid "Pahawh Hmong"
+msgstr "Phahau-hmongi"
+
+#. frequency:1
+#: DB:script/name:151
+msgid "Palmyrene"
+msgstr "Palmyra"
+
+#. frequency:2
+#: DB:script/name:56
+msgid "Phags-pa"
+msgstr "Phakpa"
+
+#. frequency:2
+#: DB:script/name:9
+msgid "Phoenician"
+msgstr "Foiniikia"
+
+#. frequency:1
+#: DB:script/name:122
+msgid "Psalter Pahlavi"
+msgstr "Pahlavi psalmikiri"
+
+#. frequency:2
+#: DB:script/name:105
+msgid "Rejang"
+msgstr "Redžangi"
+
+#. frequency:1
+#: DB:script/name:98
+msgid "Rongorongo"
+msgstr "Rongorongo"
+
+#. frequency:2
+#: DB:script/name:26
+msgid "Runic"
+msgstr "Ruunikiri"
+
+#. frequency:1
+#: DB:script/name:125
+msgid "Samaritan"
+msgstr "Samaaria"
+
+#. frequency:1
+#: DB:script/name:46
+msgid "Sarati"
+msgstr "Sarati"
+
+#. frequency:2
+#: DB:script/name:106
+msgid "Saurashtra"
+msgstr "Sauraštra"
+
+#. frequency:1
+#: DB:script/name:138
+msgid "Sharada"
+msgstr ""
+
+#. frequency:2
+#: DB:script/name:40
+msgid "Shavian"
+msgstr "Shaw' tähestik"
+
+#. frequency:1
+#: DB:script/name:126
+msgid "SignWriting"
+msgstr "Viipekiri"
+
+#. frequency:3
+#: DB:script/name:63
+msgid "Sinhala"
+msgstr "Singali"
+
+#. frequency:1
+#: DB:script/name:137
+msgid "Sora Sompeng"
+msgstr "Sora"
+
+#. frequency:2
+#: DB:script/name:107
+msgid "Sundanese"
+msgstr "Sunda"
+
+#. frequency:2
+#: DB:script/name:51
+msgid "Syloti Nagri"
+msgstr "Siloti"
+
+#. frequency:3
+#: DB:script/name:112
+msgid "Symbols"
+msgstr "Sümbolid"
+
+#. frequency:2
+#: DB:script/name:12
+msgid "Syriac"
+msgstr "Süüria"
+
+#. frequency:1
+#: DB:script/name:13
+msgid "Syriac (Eastern variant)"
+msgstr "Süüria (idapoolne)"
+
+#. frequency:1
+#: DB:script/name:15
+msgid "Syriac (Estrangelo variant)"
+msgstr "Süüria (estrangelo)"
+
+#. frequency:1
+#: DB:script/name:14
+msgid "Syriac (Western variant)"
+msgstr "Süüria (läänepoolne)"
+
+#. frequency:2
+#: DB:script/name:76
+msgid "Tagalog"
+msgstr "Tagalogi"
+
+#. frequency:2
+#: DB:script/name:79
+msgid "Tagbanwa"
+msgstr "Tagbanwa"
+
+#. frequency:2
+#: DB:script/name:66
+msgid "Tai Le"
+msgstr "Tai le"
+
+#. frequency:1
+#: DB:script/name:117
+msgid "Tai Tham"
+msgstr "Tai-thami (lanna)"
+
+#. frequency:1
+#: DB:script/name:127
+msgid "Tai Viet"
+msgstr "Tai-vieti"
+
+#. frequency:1
+#: DB:script/name:139
+msgid "Takri"
+msgstr ""
+
+#. frequency:3
+#: DB:script/name:61
+msgid "Tamil"
+msgstr "Tamili"
+
+#. frequency:1
+#: DB:script/name:140
+msgid "Tangut"
+msgstr "Tanguudi"
+
+#. frequency:3
+#: DB:script/name:59
+msgid "Telugu"
+msgstr "Telugu"
+
+#. frequency:1
+#: DB:script/name:44
+msgid "Tengwar"
+msgstr "Tengwar"
+
+#. frequency:2
+#: DB:script/name:19
+msgid "Thaana"
+msgstr "Thaana"
+
+#. frequency:4
+#: DB:script/name:65
+msgid "Thai"
+msgstr "Tai"
+
+#. frequency:3
+#: DB:script/name:55
+msgid "Tibetan"
+msgstr "Tiibeti"
+
+#. frequency:3
+#: DB:script/name:10
+msgid "Tifinagh"
+msgstr "Tifinagi"
+
+#. frequency:1
+#: DB:script/name:132
+msgid "Tiruta"
+msgstr ""
+
+#. frequency:2
+#: DB:script/name:3
+msgid "Ugaritic"
+msgstr "Ugariti"
+
+#. frequency:2
+#: DB:script/name:91
+msgid "Vai"
+msgstr "Vai"
+
+#. frequency:1
+#: DB:script/name:39
+msgid "Visible Speech"
+msgstr "Nähtava kõne kiri"
+
+#. frequency:1
+#: DB:script/name:154
+msgid "Warang Citi"
+msgstr "Hoo"
+
+#. frequency:1
+#: DB:script/name:141
+msgid "Woleai"
+msgstr "Voleai"
+
+#. frequency:2
+#: DB:script/name:90
+msgid "Yi"
+msgstr "Jii"
+
+#. frequency:2
+#: DB:script/name:160
+msgid "[Multiple scripts]"
+msgstr "[Mitu kirjasüsteemi]"

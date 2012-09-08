@@ -1,0 +1,503 @@
+# 
+# Translators:
+# Gioele  <email address hidden>, 2012.
+#   <email address hidden>, 2012.
+#   <email address hidden>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
+"PO-Revision-Date: 2012-06-09 23:31+0000\n"
+"Last-Translator: salorock <email address hidden>\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/musicbrainz/language/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: DB:medium_format/name:30
+msgctxt "medium_format"
+msgid "10\" Vinyl"
+msgstr "Vinile 10\""
+
+#: DB:medium_format/name:31
+msgctxt "medium_format"
+msgid "12\" Vinyl"
+msgstr "Vinile 12\""
+
+#: DB:medium_format/name:29
+msgctxt "medium_format"
+msgid "7\" Vinyl"
+msgstr "Vinile 7\""
+
+#: DB:medium_format/name:34
+msgctxt "medium_format"
+msgid "8cm CD"
+msgstr "CD 8cm"
+
+#: DB:release_group_primary_type/name:1
+msgctxt "release_group_primary_type"
+msgid "Album"
+msgstr "Album"
+
+#: DB:work_type/name:1
+msgctxt "work_type"
+msgid "Aria"
+msgstr "Aria"
+
+#: DB:artist_alias_type/name:1
+msgctxt "alias_type"
+msgid "Artist name"
+msgstr "Nome artista"
+
+#: DB:release_group_secondary_type/name:5
+msgctxt "release_group_secondary_type"
+msgid "Audiobook"
+msgstr "Audiolibro"
+
+#: DB:work_type/name:2
+msgctxt "work_type"
+msgid "Ballet"
+msgstr "Balletto"
+
+#: DB:medium_format/name:24
+msgctxt "medium_format"
+msgid "Betamax"
+msgstr "Betamax"
+
+#: DB:medium_format/name:20
+msgctxt "medium_format"
+msgid "Blu-ray"
+msgstr "Blu-ray"
+
+#: DB:release_status/name:3
+msgctxt "release_status"
+msgid "Bootleg"
+msgstr "Bootleg"
+
+#: DB:label_type/name:5
+msgctxt "label_type"
+msgid "Bootleg Production"
+msgstr "Produzione di bootleg"
+
+#: DB:medium_format/name:1
+msgctxt "medium_format"
+msgid "CD"
+msgstr "CD"
+
+#: DB:medium_format/name:33
+msgctxt "medium_format"
+msgid "CD-R"
+msgstr "CD-R"
+
+#: DB:work_type/name:3
+msgctxt "work_type"
+msgid "Cantata"
+msgstr "Cantata"
+
+#: DB:release_packaging/name:4
+msgctxt "release_packaging"
+msgid "Cardboard/Paper Sleeve"
+msgstr "Custodia di carta/cartone"
+
+#: DB:medium_format/name:9
+msgctxt "medium_format"
+msgid "Cartridge"
+msgstr "Cartuccia"
+
+#: DB:medium_format/name:8
+msgctxt "medium_format"
+msgid "Cassette"
+msgstr "Audiocassetta"
+
+#: DB:release_group_secondary_type/name:1
+msgctxt "release_group_secondary_type"
+msgid "Compilation"
+msgstr "Compilation"
+
+#: DB:work_type/name:4
+msgctxt "work_type"
+msgid "Concerto"
+msgstr "Concerto"
+
+#: DB:medium_format/name:11
+msgctxt "medium_format"
+msgid "DAT"
+msgstr "DAT"
+
+#: DB:medium_format/name:16
+msgctxt "medium_format"
+msgid "DCC"
+msgstr "DCC"
+
+#: DB:release_group_secondary_type/name:8
+msgctxt "release_group_secondary_type"
+msgid "DJ-mix"
+msgstr "DJ mix"
+
+#: DB:medium_format/name:2
+msgctxt "medium_format"
+msgid "DVD"
+msgstr "DVD"
+
+#: DB:medium_format/name:18
+msgctxt "medium_format"
+msgid "DVD-Audio"
+msgstr "DVD-Audio"
+
+#: DB:medium_format/name:19
+msgctxt "medium_format"
+msgid "DVD-Video"
+msgstr "DVD-Video"
+
+#: DB:release_packaging/name:3
+msgctxt "release_packaging"
+msgid "Digipak"
+msgstr "Digipak"
+
+#: DB:medium_format/name:12
+msgctxt "medium_format"
+msgid "Digital Media"
+msgstr "Supporto digitale"
+
+#: DB:label_type/name:1
+msgctxt "label_type"
+msgid "Distributor"
+msgstr "Distributore"
+
+#: DB:medium_format/name:4
+msgctxt "medium_format"
+msgid "DualDisc"
+msgstr "DualDisc"
+
+#: DB:release_group_primary_type/name:3
+msgctxt "release_group_primary_type"
+msgid "EP"
+msgstr "EP"
+
+#: DB:gender/name:2
+msgctxt "gender"
+msgid "Female"
+msgstr "Donna"
+
+#: DB:artist_type/name:2
+msgctxt "artist_type"
+msgid "Group"
+msgstr "Gruppo"
+
+#: DB:medium_format/name:17
+msgctxt "medium_format"
+msgid "HD-DVD"
+msgstr "HD-DVD"
+
+#: DB:medium_format/name:25
+msgctxt "medium_format"
+msgid "HDCD"
+msgstr "HDCD"
+
+#: DB:label_type/name:2
+msgctxt "label_type"
+msgid "Holding"
+msgstr "Holding"
+
+#: DB:release_group_secondary_type/name:4
+msgctxt "release_group_secondary_type"
+msgid "Interview"
+msgstr "Intervista"
+
+#: DB:release_packaging/name:1
+msgctxt "release_packaging"
+msgid "Jewel Case"
+msgstr "Jewel case"
+
+#: DB:release_packaging/name:6
+msgctxt "release_packaging"
+msgid "Keep Case"
+msgstr "Amaray"
+
+#: DB:label_alias_type/name:1
+msgctxt "alias_type"
+msgid "Label name"
+msgstr "Nome etichetta"
+
+#: DB:medium_format/name:5
+msgctxt "medium_format"
+msgid "LaserDisc"
+msgstr "LaserDisc"
+
+#: DB:artist_alias_type/name:2
+msgctxt "alias_type"
+msgid "Legal name"
+msgstr "Nome legale"
+
+#: DB:release_group_secondary_type/name:6
+msgctxt "release_group_secondary_type"
+msgid "Live"
+msgstr "Live"
+
+#: DB:work_type/name:7
+msgctxt "work_type"
+msgid "Madrigal"
+msgstr "Madrigale"
+
+#: DB:gender/name:1
+msgctxt "gender"
+msgid "Male"
+msgstr "Uomo"
+
+#: DB:work_type/name:8
+msgctxt "work_type"
+msgid "Mass"
+msgstr "Messa"
+
+#: DB:medium_format/name:6
+msgctxt "medium_format"
+msgid "MiniDisc"
+msgstr "MiniDisc"
+
+#: DB:release_group_secondary_type/name:9
+msgctxt "release_group_secondary_type"
+msgid "Mixtape/Street"
+msgstr "Mixtape/Street"
+
+#: DB:work_type/name:9
+msgctxt "work_type"
+msgid "Motet"
+msgstr "Mottetto"
+
+#: DB:release_packaging/name:7
+msgctxt "release_packaging"
+msgid "None"
+msgstr "Nessuno"
+
+#: DB:release_status/name:1
+msgctxt "release_status"
+msgid "Official"
+msgstr "Ufficiale"
+
+#: DB:work_type/name:10
+msgctxt "work_type"
+msgid "Opera"
+msgstr "Opera"
+
+#: DB:work_type/name:11
+msgctxt "work_type"
+msgid "Oratorio"
+msgstr "Oratorio"
+
+#: DB:label_type/name:4
+msgctxt "label_type"
+msgid "Original Production"
+msgstr "Produzione originale"
+
+#: DB:artist_type/name:3
+msgctxt "artist_type"
+msgid "Other"
+msgstr "Altro"
+
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
+msgid "Other"
+msgstr "Altro"
+
+#: DB:medium_format/name:13
+msgctxt "medium_format"
+msgid "Other"
+msgstr "Altro"
+
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
+msgid "Other"
+msgstr "Altro"
+
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "Altro"
+
+#: DB:work_type/name:12
+msgctxt "work_type"
+msgid "Overture"
+msgstr "Ouverture"
+
+#: DB:work_type/name:13
+msgctxt "work_type"
+msgid "Partita"
+msgstr "Partita"
+
+#: DB:artist_type/name:1
+msgctxt "artist_type"
+msgid "Person"
+msgstr "Persona"
+
+#: DB:medium_format/name:15
+msgctxt "medium_format"
+msgid "Piano Roll"
+msgstr "Rullo per pianola"
+
+#: DB:work_type/name:21
+msgctxt "work_type"
+msgid "Poem"
+msgstr "Poema"
+
+#: DB:label_type/name:3
+msgctxt "label_type"
+msgid "Production"
+msgstr "Produzione"
+
+#: DB:release_status/name:2
+msgctxt "release_status"
+msgid "Promotion"
+msgstr "Promozionale"
+
+#: DB:release_status/name:4
+msgctxt "release_status"
+msgid "Pseudo-Release"
+msgstr "Pseudo-pubblicazione"
+
+#: DB:label_type/name:7
+msgctxt "label_type"
+msgid "Publisher"
+msgstr "Editore"
+
+#: DB:work_type/name:14
+msgctxt "work_type"
+msgid "Quartet"
+msgstr "Quartetto"
+
+#: DB:medium_format/name:10
+msgctxt "medium_format"
+msgid "Reel-to-reel"
+msgstr "Bobina per registratore"
+
+#: DB:label_type/name:6
+msgctxt "label_type"
+msgid "Reissue Production"
+msgstr "Produzione di riedizioni"
+
+#: DB:release_group_secondary_type/name:7
+msgctxt "release_group_secondary_type"
+msgid "Remix"
+msgstr "Remix"
+
+#: DB:medium_format/name:3
+msgctxt "medium_format"
+msgid "SACD"
+msgstr "SACD"
+
+#: DB:medium_format/name:23
+msgctxt "medium_format"
+msgid "SVCD"
+msgstr "SVCD"
+
+#: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
+#: DB:work_alias_type/name:2
+msgctxt "alias_type"
+msgid "Search hint"
+msgstr "Suggerimento per ricerca"
+
+#: DB:release_group_primary_type/name:2
+msgctxt "release_group_primary_type"
+msgid "Single"
+msgstr "Singolo"
+
+#: DB:release_packaging/name:2
+msgctxt "release_packaging"
+msgid "Slim Jewel Case"
+msgstr "Slim jewel case"
+
+#: DB:work_type/name:5
+msgctxt "work_type"
+msgid "Sonata"
+msgstr "Sonata"
+
+#: DB:work_type/name:17
+msgctxt "work_type"
+msgid "Song"
+msgstr "Canzone"
+
+#: DB:work_type/name:15
+msgctxt "work_type"
+msgid "Song-cycle"
+msgstr "Ciclo di canzoni"
+
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
+msgid "Soundtrack"
+msgstr "Colonna sonora"
+
+#: DB:release_group_secondary_type/name:3
+msgctxt "release_group_secondary_type"
+msgid "Spokenword"
+msgstr "Spoken word (parlato)"
+
+#: DB:work_type/name:6
+msgctxt "work_type"
+msgid "Suite"
+msgstr "Suite"
+
+#: DB:work_type/name:18
+msgctxt "work_type"
+msgid "Symphonic poem"
+msgstr "Poema sinfonico"
+
+#: DB:work_type/name:16
+msgctxt "work_type"
+msgid "Symphony"
+msgstr "Sinfonia"
+
+#: DB:medium_format/name:28
+msgctxt "medium_format"
+msgid "UMD"
+msgstr "UMD"
+
+#: DB:medium_format/name:26
+msgctxt "medium_format"
+msgid "USB Flash Drive"
+msgstr "Chiave USB"
+
+#: DB:medium_format/name:22
+msgctxt "medium_format"
+msgid "VCD"
+msgstr "VCD"
+
+#: DB:medium_format/name:21
+msgctxt "medium_format"
+msgid "VHS"
+msgstr "VHS"
+
+#: DB:medium_format/name:32
+msgctxt "medium_format"
+msgid "Videotape"
+msgstr "Videocassetta"
+
+#: DB:medium_format/name:7
+msgctxt "medium_format"
+msgid "Vinyl"
+msgstr "Vinile"
+
+#: DB:medium_format/name:14
+msgctxt "medium_format"
+msgid "Wax Cylinder"
+msgstr "Cilindro fonografico"
+
+#: DB:work_alias_type/name:1
+msgctxt "alias_type"
+msgid "Work name"
+msgstr "Nome opera"
+
+#: DB:work_type/name:19
+msgctxt "work_type"
+msgid "Zarzuela"
+msgstr "Zarzuela"
+
+#: DB:medium_format/name:27
+msgctxt "medium_format"
+msgid "slotMusic"
+msgstr "slotMusic"
+
+#: DB:work_type/name:20
+msgctxt "work_type"
+msgid "Étude"
+msgstr "Studio"
