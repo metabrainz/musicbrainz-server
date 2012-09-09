@@ -77,4 +77,6 @@
     [%- ELSE -%]
         <p>[% l('No releases found.') -%]</p>
     [%- END -%]
+    <h2>[% l("Relationships") %]</h2>
+    [%- INCLUDE "components/relationships.tt" source=rg -%]
 [%- END -%]
