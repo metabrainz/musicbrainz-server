@@ -3,7 +3,6 @@ use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
 use MusicBrainz::Server::Translation qw( l );
-use List::UtilsBy qw( sort_by );
 
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );
@@ -22,8 +21,6 @@ sub _select_all
     my $model_ref = ref($model) ? $model : $self->ctx->model($model);
     return [ map {
         $_->id => l($_->$accessor)
-    } sort_by {
-        l($_->$accessor)
     } $model_ref->get_all ];
 }
 
