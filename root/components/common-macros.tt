@@ -479,7 +479,7 @@ END -%]
 END -%]
 
 [%- MACRO relate_to_ellipsis(entity, endpoints) BLOCK -%]
-    <a href="#relate_to">[%- l('Relate to ...') -%]</a>
+    <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
       <div class="relate-to" style="display: none">
         <input type="hidden" class="gid" value="[% entity.gid %]" />
