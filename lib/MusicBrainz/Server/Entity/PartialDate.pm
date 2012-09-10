@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Entity::PartialDate;
 use Moose;
 
-use List::AllUtils qw( any first_index zip );
+use List::AllUtils qw( any first_index );
 use Date::Calc;
 
 use overload '<=>' => \&_cmp, fallback => 1;
@@ -94,6 +94,15 @@ sub _cmp
     return $days > 0 ? -1
          : $days < 0 ?  1
          :              0;
+}
+
+sub new_from_row {
+    my ($class, $row, $prefix) = @_;
+    my %info;
+    $info{year} = $row->{$prefix . 'year'} if defined $row->{$prefix . 'year'};
+    $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
+    $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
+    return $class->new(%info);
 }
 
 __PACKAGE__->meta->make_immutable;

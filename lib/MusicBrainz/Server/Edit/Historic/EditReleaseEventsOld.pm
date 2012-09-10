@@ -5,11 +5,11 @@ use warnings;
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD
 );
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_date
     upgrade_id
 );
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
@@ -73,7 +73,7 @@ sub _build_re {
         label_id       => $re->{label_id},
         catalog_number => $re->{catalog_number},
         barcode        => $re->{barcode},
-        date           => partial_date_from_row( $re->{date} )
+        date           => MusicBrainz::Server::Entity::PartialDate->new_from_row( $re->{date} )
     }
 }
 
@@ -96,8 +96,8 @@ sub build_display_data
                     new => $_->{new}{label_id}
                 },
                 date    => {
-                    old => partial_date_from_row($_->{old}{date}),
-                    new => partial_date_from_row($_->{new}{date})
+                    old => MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{old}{date}),
+                    new => MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date})
                 },
                 country => {
                     old => $loaded->{Country}{ $_->{old}{country_id} },

@@ -4,7 +4,6 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
 use MusicBrainz::Server::Data::Label;
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     date_closure
@@ -12,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     merge_partial_date
 );
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Translation qw ( N_l );
 
@@ -93,8 +93,8 @@ sub build_display_data
         my $field = $period . '_date';
         if (exists $self->data->{new}{$field}) {
             $data->{$field} = {
-                new => partial_date_from_row($self->data->{new}{$field}),
-                old => partial_date_from_row($self->data->{old}{$field}),
+                new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{$field}),
+                old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{$field}),
             };
         }
     }
@@ -150,9 +150,9 @@ sub allow_auto_edit
 
     # Adding a date is automatic if there was no date yet.
     return 0 if exists $self->data->{old}{begin_date}
-        and partial_date_from_row($self->data->{old}{begin_date})->format ne '';
+        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
     return 0 if exists $self->data->{old}{end_date}
-        and partial_date_from_row($self->data->{old}{end_date})->format ne '';
+        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
 
     return 0 if exists $self->data->{old}{type_id}
         and $self->data->{old}{type_id} != 0;

@@ -5,7 +5,6 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
-    partial_date_from_row
     type_to_model
 );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
@@ -15,6 +14,7 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -111,8 +111,8 @@ sub build_display_data
                 ),
             verbose_phrase => $self->data->{relationship}{phrase},
             link => MusicBrainz::Server::Entity::Link->new(
-                begin_date => partial_date_from_row($self->data->{relationship}{link}{begin_date}),
-                end_date => partial_date_from_row($self->data->{relationship}{link}{end_date}), 
+                begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{begin_date}),
+                end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{end_date}), 
             )
         )
     }
