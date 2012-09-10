@@ -61,10 +61,10 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
             self.selected_data = data;
 
-            var rowHolder = $('<tbody />');
-            var toClone = self.$table.find('tr.track:first');
+            var $row_holder = $('<tbody />');
+            var $to_clone = self.$table.find('tr.track:first');
             $.each (data.tracks, function (idx, item) {
-                var tr = toClone.clone().appendTo(rowHolder);
+                var tr = $to_clone.clone().appendTo($row_holder);
                 var artist = item.artist ? item.artist :
                     item.artist_credit ? MB.utility.renderArtistCredit(item.artist_credit) : "";
                 var rowTRs = tr.find('td.position, td.title, td.artist, td.length');
@@ -82,7 +82,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
                 tr.show();
             });
 
-            self.$table.find('tbody').append(rowHolder.contents());
+            self.$table.find('tbody').append($row_holder.contents());
 
             self.$toc.val (data.toc);
 
