@@ -64,22 +64,22 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             var $row_holder = $('<tbody />');
             var $to_clone = self.$table.find('tr.track:first');
             $.each (data.tracks, function (idx, item) {
-                var tr = $to_clone.clone().appendTo($row_holder);
+                var $tr = $to_clone.clone().appendTo($row_holder);
                 var artist = item.artist ? item.artist :
                     item.artist_credit ? MB.utility.renderArtistCredit(item.artist_credit) : "";
-                var rowTRs = tr.find('td.position, td.title, td.artist, td.length');
-                rowTRs.eq(0).text(idx+1);
-                rowTRs.eq(1).text(item.name);
-                rowTRs.eq(2).text(artist);
-                rowTRs.eq(3).text(MB.utility.formatTrackLength(item.length));
+                var $row_trs = $tr.find('td.position, td.title, td.artist, td.length');
+                $row_trs.eq(0).text(idx+1);
+                $row_trs.eq(1).text(item.name);
+                $row_trs.eq(2).text(artist);
+                $row_trs.eq(3).text(MB.utility.formatTrackLength(item.length));
 
                 if (idx % 2 == 0) {
-                    tr.addClass('ev');
+                    $tr.addClass('ev');
                 } else {
-                    tr.addClass('odd');
+                    $tr.addClass('odd');
                 }
 
-                tr.show();
+                $tr.show();
             });
 
             self.$table.find('tbody').append($row_holder.contents());
