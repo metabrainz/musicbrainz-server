@@ -249,7 +249,9 @@ sub editors : Path('editors') {
              @$top_recently_active_voters, @$top_active_voters) );
         foreach my $dataset ($top_recently_active_editors, $top_active_editors,
              $top_recently_active_voters, $top_active_voters) {
-            map { $_->{editor} = $editors->{ delete $_->{editor_id} } } @$dataset;
+            for (@$dataset) {
+                $_->{editor} = $editors->{ delete $_->{editor_id} };
+            }
         }
 
         $c->stash(
