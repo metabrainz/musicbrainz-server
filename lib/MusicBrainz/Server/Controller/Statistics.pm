@@ -247,9 +247,9 @@ sub editors : Path('editors') {
         my $editors = $c->model('Editor')->get_by_ids( map { $_->{editor_id} }
             (@$top_recently_active_editors, @$top_active_editors,
              @$top_recently_active_voters, @$top_active_voters) );
-        for ($top_recently_active_editors, $top_active_editors,
+        foreach my $dataset ($top_recently_active_editors, $top_active_editors,
              $top_recently_active_voters, $top_active_voters) {
-            $_ = [ map { {%$_, editor => $editors->{$_->{editor_id}} } } @$_ ]
+            map { $_->{editor} = $editors->{ delete $_->{editor_id} } } @$dataset;
         }
 
         $c->stash(
