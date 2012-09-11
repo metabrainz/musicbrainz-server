@@ -7,9 +7,17 @@ STATTT=$(sort $(shell find ../root/statistics -type f -name \*.tt -print))
 POFILES=$(wildcard *.po)
 MOFILES=$(POFILES:.po=.mo)
 
-all: $(MOFILES) check
+all: $(MOFILES) check_quiet
 
 install: $(MOFILES)	
+	@for file in $(MOFILES); do \
+			catalog=`echo $$file | sed 's/\.\([^.]*\)\.mo//'`; \
+			lang=`echo $$file | sed -e 's/^\([^.]*\)\.//' -e 's/\.mo//'`; \
+		install -d ../lib/LocaleData/$$lang/LC_MESSAGES/; \
+		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
+	done
+
+install_verbose: $(MOFILES)	
 	@for file in $(MOFILES); do \
 			catalog=`echo $$file | sed 's/\.\([^.]*\)\.mo//'`; \
 			lang=`echo $$file | sed -e 's/^\([^.]*\)\.//' -e 's/\.mo//'`; \
@@ -88,4 +96,9 @@ check:
 		lang=`echo $$file | sed 's/\.po//'`; \
 		printf "$$lang: "; \
 		msgfmt -o /dev/null -c -v --statistics $$lang.po;\
+	done
+
+check_quiet:
+	@for file in $(POFILES); do \
+		msgfmt -o /dev/null -c $$file;\
 	done
