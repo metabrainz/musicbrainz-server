@@ -432,12 +432,10 @@ msgid "mb_server now hosted on Git"
 msgstr ""
 
 #: ../root/statistics/formats.tt:32
-#, perl-format
 msgid "% of total mediums"
 msgstr ""
 
 #: ../root/statistics/formats.tt:30
-#, perl-format
 msgid "% of total releases"
 msgstr ""
 
