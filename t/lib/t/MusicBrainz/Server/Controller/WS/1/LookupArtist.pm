@@ -76,6 +76,16 @@ ws_test 'artist lookup with release groups',
     </artist>
 </metadata>';
 
+ws_test 'artist lookup with release groups filter by single',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?type=xml&inc=release-groups+sa-Single' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+    <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person">
+        <name>Distance</name><sort-name>Distance</sort-name>
+        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+    </artist>
+</metadata>';
+
 ws_test 'artist lookup with URL relationships',
     '/artist/97fa3f6e-557c-4227-bc0e-95a7f9f3285d?type=xml&inc=url-rels' =>
     '<?xml version="1.0" encoding="UTF-8"?>

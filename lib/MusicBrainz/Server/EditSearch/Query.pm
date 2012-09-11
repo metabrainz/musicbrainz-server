@@ -156,9 +156,12 @@ sub as_string {
     my $comb = $self->combinator;
     my $ae_predicate = defined $self->auto_edit_filter ?
         'autoedit = ? AND ' : '';
+
     my $order = '';
-    $order = 'ORDER BY open_time ' . $self->order
+    $order = 'ORDER BY ' . join(', ', map { "$_ " . $self->order }
+                                        qw( edit.open_time edit.id ))
         unless $self->order eq 'rand';
+
     return 'SELECT DISTINCT edit.* FROM edit ' .
         join(' ', $self->join) .
         ' WHERE ' . $ae_predicate . ($self->negate ? 'NOT' : '') . ' (' .

@@ -536,6 +536,7 @@ INSERT INTO artist_tag (last_updated, count, artist, tag) VALUES ('2011-01-18 15
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('♥', 135345, 75219, 0, 792488);
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES (NULL, 9496, 661715, 1, 792488);
 INSERT INTO recording (last_updated, name, edits_pending, artist_credit, length, comment, id, gid) VALUES (NULL, 2580451, 0, 792488, 242226, NULL, 4525123, '0cf3008f-e246-428f-abc1-35f87d584d60');
+INSERT INTO recording_tag (last_updated, count, recording, tag) VALUES (NULL, 1, 4525123, 558);
 INSERT INTO puid (version, puid, id) VALUES (140, 'f58d85a3-e905-51ed-0c12-4849d7e6c750', 1512107);
 INSERT INTO clientversion (created, version, id) VALUES ('2011-01-18 15:21:33.71184+00', 'MusicBrainz Picard-0.9.0beta1', 181);
 INSERT INTO puid (version, puid, id) VALUES (181, '784dfe48-4ae2-6f11-f44f-0f6b5608edc8', 2219372);
@@ -547,6 +548,7 @@ INSERT INTO recording_puid (created, recording, puid, edits_pending, id) VALUES 
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4525123;
 INSERT INTO track_name (name, id) VALUES ('the Love Bug (Big Bug NYC remix)', 3270954);
 INSERT INTO recording (last_updated, name, edits_pending, artist_credit, length, comment, id, gid) VALUES (NULL, 3270954, 0, 792488, 222000, NULL, 4525010, '84c98ebf-5d40-4a29-b7b2-0e9c26d9061d');
+INSERT INTO recording_tag (last_updated, count, recording, tag) VALUES (NULL, 1, 4525010, 741);
 INSERT INTO puid (version, puid, id) VALUES (140, 'd4b7bf96-e36b-a321-3791-8567ae14c7c1', 1512108);
 INSERT INTO recording_puid (created, recording, puid, edits_pending, id) VALUES ('2011-01-18 15:56:00.408782+00', 4525010, 1512108, 0, 1892457);
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4525010;
@@ -557,6 +559,7 @@ INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_da
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 283833;
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES (NULL, 283833, 672240, 0, 283833);
 INSERT INTO recording (last_updated, name, edits_pending, artist_credit, length, comment, id, gid) VALUES (NULL, 1041200, 0, 283833, 333000, NULL, 4525011, '3f33fc37-43d0-44dc-bfd6-60efd38810c5');
+INSERT INTO recording_tag (last_updated, count, recording, tag) VALUES (NULL, 1, 4525011, 1354);
 INSERT INTO clientversion (created, version, id) VALUES ('2011-01-18 15:21:33.71184+00', 'MusicBrainz Picard-0.9.0alpha14', 174);
 INSERT INTO puid (version, puid, id) VALUES (174, '37ef1d1f-610f-aa23-9b5f-cca82ed8007e', 1951547);
 INSERT INTO recording_puid (created, recording, puid, edits_pending, id) VALUES ('2011-01-18 15:56:00.408782+00', 4525011, 1951547, 0, 2435947);
@@ -875,7 +878,7 @@ INSERT INTO artist_name (name, id) VALUES ('Chemical Brothers, The', 58894);
 INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 242, 58894, NULL, NULL, NULL, NULL, 643746, 1989, NULL, NULL, NULL, NULL, 2, NULL, '1946a82a-f927-40c2-8235-38d64f50d043');
 INSERT INTO artist_name (name, id) VALUES ('Chemical Brother', 245780);
 INSERT INTO artist_name (name, id) VALUES ('CHEMICAL BROTHERS', 29493);
-INSERT INTO artist_name (name, id) VALUES ('Chemical  Brothers', 355249);
+INSERT INTO artist_name (name, id) VALUES ('Chemical Brothers', 355249);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 245780, 0, NULL, 34446, 245780);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 29493, 0, NULL, 381, 29493);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 242, 355249, 0, NULL, 2207, 355249);
@@ -4204,5 +4207,5 @@ INSERT INTO l_label_url (link, last_updated, entity1, entity0, edits_pending, id
 INSERT INTO link_type (priority, last_updated, parent, name, description, short_link_phrase, link_phrase, entity_type1, entity_type0, id, reverse_link_phrase, child_order, gid) VALUES (0, '2011-01-18 15:31:00.495651+00', NULL, 'composer', 'Foo', 'composer', 'composer', 'work', 'artist', 1222, 'composer of', 3, '21d842db-81d4-4d30-a0bd-8c6cc07e1dc2');
 INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, link_type, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, NULL, '2011-01-18 15:31:00.495651+00', 1222, NULL, NULL, NULL, 1123780, NULL);
 INSERT INTO l_artist_work (link, entity1, entity0, id) VALUES
-    (1123780, (SELECT id FROM work WHERE gid='f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8'), 
+    (1123780, (SELECT id FROM work WHERE gid='f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8'),
      (SELECT id FROM artist WHERE gid='472bc127-8861-45e8-bc9e-31e8dd32de7a'), 1117124);

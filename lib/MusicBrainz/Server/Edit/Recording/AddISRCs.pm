@@ -31,7 +31,8 @@ has '+data' => (
                 name => Str
             ],
             source    => Nullable[Int],
-        ]]
+        ]],
+        client_version => Nullable[Str]
     ]
 );
 
@@ -45,7 +46,8 @@ sub initialize
     }
     else {
         $self->data({
-            isrcs => \@isrcs
+            isrcs => \@isrcs,
+            client_version => $opts{client_version}
         });
     }
 }

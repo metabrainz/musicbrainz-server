@@ -166,24 +166,12 @@ sub editor_may_add_note
 sub edit_conditions
 {
     return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
+        map { $_ =>
+               { duration      => 14,
+                 votes         => 3,
+                 expire_action => $EXPIRE_ACCEPT,
+                 auto_edit     => 1 }
+            } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH)
     };
 }
 
@@ -223,6 +211,15 @@ sub can_cancel
     return
          $self->is_open
       && $self->editor_id == $user->id;
+}
+
+sub was_approved
+{
+    my $self = shift;
+    
+    return 0 if $self->is_open;
+    
+    return scalar $self->_grep_votes(sub { $_->vote == $VOTE_APPROVE })
 }
 
 =head2 related_entities

@@ -405,7 +405,7 @@ sub accept
 
     if ($can_parse_old_link_type && ($old_entity_id_changed || !$can_parse_new_link_type)) {
         my $old_release = $self->c->model('Release')->get_by_id(
-            $self->data->{old}{entity0}{id}
+            $self->data->{old}{entity0}{id} // $self->data->{link}{entity0}{id}
         );
         $self->c->model('Relationship')->load_subset([ 'url' ], $old_release);
         $self->c->model('CoverArt')->cache_cover_art($old_release);

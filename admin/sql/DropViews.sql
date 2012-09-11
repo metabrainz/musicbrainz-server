@@ -1,3 +1,3 @@
-\set ON_ERROR_STOP 1
+-- Automatically generated, do not edit.
+\unset ON_ERROR_STOP
 
--- vi: set ts=4 sw=4 et :

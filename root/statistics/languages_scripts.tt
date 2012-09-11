@@ -27,7 +27,7 @@ $(document).ready(function() {
 
 [%- MACRO lang_script_search_link(type, code, contents, entity_type) BLOCK -%]
   [%- IF code != '' -%]
-    <a href="/search?query=[% type %]%3A[% code %]&type=[% entity_type %]&limit=25&advanced=1">
+    <a href="/search?query=[% type %]%3A[% code %]&amp;type=[% entity_type %]&amp;limit=25&amp;advanced=1">
   [%- END -%]
   [% contents %]
   [%- IF code != '' -%]

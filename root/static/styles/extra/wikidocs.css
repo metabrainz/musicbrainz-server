@@ -167,6 +167,11 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
     font-weight: bold;
 }
 
+.center {
+    text-align: center;
+    width: 100%;
+}
+
 /* Escape clause for tables that are used just for formatting */
 .wikicontent table[border^="0"],
 .wikicontent table[border^="0"] td {

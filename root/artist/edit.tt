@@ -8,7 +8,7 @@
       edit.initializeArtistCreditPreviews ('[% artist.gid %]');
 
       var bubbles = MB.Control.BubbleCollection ();
-      MB.Control.initialize_guess_case (bubbles, 'artist');
+      MB.Control.initialize_guess_case (bubbles, 'artist', 'id-edit-artist');
 
     });
     //]]></script>

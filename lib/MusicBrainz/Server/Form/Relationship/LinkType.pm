@@ -43,7 +43,7 @@ sub options_link_type_id
     my ($self) = @_;
 
     my $root = $self->root;
-    return [ $self->_build_options($root, 'short_link_phrase', 'ROOT', '&nbsp;') ];
+    return [ $self->_build_options($root, 'l_short_link_phrase', 'ROOT', '&nbsp;') ];
 }
 
 sub field_list
@@ -54,7 +54,7 @@ sub field_list
     my $attr_tree = $self->attr_tree;
     foreach my $attr ($attr_tree->all_children) {
         if ($attr->all_children) {
-            my @options = $self->_build_options($attr, 'name', $attr->name, '');
+            my @options = $self->_build_options($attr, 'l_name', $attr->name, '');
             my @opts;
             while (@options) {
                 my ($value, $label) = (shift(@options), shift(@options));

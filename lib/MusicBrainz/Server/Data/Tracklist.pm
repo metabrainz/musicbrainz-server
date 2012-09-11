@@ -65,16 +65,19 @@ sub replace
 sub _add_tracks {
     my ($self, $id, $tracks) = @_;
     my $i = 1;
-    $self->c->model('Track')->insert(
-        map +{
+    my @track_hashes = map {
+        my $v = {
             recording_id  => $_->{recording_id},
             tracklist     => $id,
             number        => $_->{number} // $i,
-            position      => $i++,
+            position      => $i,
             name          => $_->{name},
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
             length        => $_->{length},
-        }, @$tracks);
+        };
+        $i++;
+        $v; } @$tracks;
+    $self->c->model('Track')->insert(@track_hashes);
 }
 
 sub load
@@ -233,7 +236,7 @@ sub find_or_insert
                 $self->c->model('ArtistCredit')->find_or_insert($_->{artist_credit}),
                 $_->{recording_id},
                 defined($_->{length}) ? $_->{length} : (),
-                $_->{number} // $i,
+                $_->{number} // $i + 0,
                 $i++,
             } @$tracks),
             scalar(@$tracks)
