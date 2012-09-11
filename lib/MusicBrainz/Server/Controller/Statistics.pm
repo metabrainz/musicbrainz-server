@@ -253,7 +253,7 @@ sub editors : Path('editors') {
         }
 
         $c->stash(
-            stats => $c->model('Statistics::ByDate')->get_latest_statistics(),
+            stats => $stats,
             top_recently_active_editors => $top_recently_active_editors,
             top_editors => $top_active_editors,
 
