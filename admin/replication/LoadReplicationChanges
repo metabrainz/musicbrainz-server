@@ -290,8 +290,8 @@ $iNextReplicationSequence = $iReplicationSequence + 1
     not defined($TIMESTAMP)
         or $row->{last_replication_date} eq $TIMESTAMP
         or warn "Applied changes, but last_replication_date is '$row->{last_replication_date}' not '$TIMESTAMP'\n";
+    $iReplicationSequence = $row->{current_replication_sequence};
 }
-++$iReplicationSequence;
 $dtReplicationDate = $TIMESTAMP;
 
 $count += 1;
