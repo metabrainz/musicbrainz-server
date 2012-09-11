@@ -21,4 +21,7 @@ ALTER TABLE release_group ALTER COLUMN comment SET DEFAULT '';
 ALTER TABLE work ALTER COLUMN comment SET NOT NULL;
 ALTER TABLE work ALTER COLUMN comment SET DEFAULT '';
 
+ALTER TABLE artist_credit_name ALTER COLUMN join_phrase SET NOT NULL;
+ALTER TABLE artist_credit_name ALTER COLUMN join_phrase SET DEFAULT '';
+
 COMMIT;
