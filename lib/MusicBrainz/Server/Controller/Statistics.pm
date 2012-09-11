@@ -226,39 +226,41 @@ sub editors : Path('editors') {
     my ($self, $c) = @_;
     my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
 
-    my $top_recently_active_editors = [
-        map { { editor_id => $stats->statistic("editor.top_recently_active.rank.$_"),
-                count => $stats->statistic("count.edit.top_recently_active.rank.$_") } } @{ [1..25] }
-    ];
-    my $top_active_editors = [
-        map { { editor_id => $stats->statistic("editor.top_active.rank.$_"),
-                count => $stats->statistic("count.edit.top_active.rank.$_") } } @{ [1..25] }
-    ];
-    my $top_recently_active_voters = [
-        map { { editor_id => $stats->statistic("editor.top_recently_active_voters.rank.$_"),
-                count => $stats->statistic("count.vote.top_recently_active_voters.rank.$_") } } @{ [1..25] }
-    ];
-    my $top_active_voters = [
-        map { { editor_id => $stats->statistic("editor.top_active_voters.rank.$_"),
-                count => $stats->statistic("count.vote.top_active_voters.rank.$_") } } @{ [1..25] }
-    ];
+    if (defined $stats) {
+        my $top_recently_active_editors = [
+            map { { editor_id => $stats->statistic("editor.top_recently_active.rank.$_"),
+                    count => $stats->statistic("count.edit.top_recently_active.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_active_editors = [
+            map { { editor_id => $stats->statistic("editor.top_active.rank.$_"),
+                    count => $stats->statistic("count.edit.top_active.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_recently_active_voters = [
+            map { { editor_id => $stats->statistic("editor.top_recently_active_voters.rank.$_"),
+                    count => $stats->statistic("count.vote.top_recently_active_voters.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_active_voters = [
+            map { { editor_id => $stats->statistic("editor.top_active_voters.rank.$_"),
+                    count => $stats->statistic("count.vote.top_active_voters.rank.$_") } } @{ [1..25] }
+        ];
 
-    my $editors = $c->model('Editor')->get_by_ids( map { $_->{editor_id} }
-        (@$top_recently_active_editors, @$top_active_editors,
-         @$top_recently_active_voters, @$top_active_voters) );
-    for ($top_recently_active_editors, $top_active_editors,
-         $top_recently_active_voters, $top_active_voters) {
-        $_ = [ map { {%$_, editor => $editors->{$_->{editor_id}} } } @$_ ]
+        my $editors = $c->model('Editor')->get_by_ids( map { $_->{editor_id} }
+            (@$top_recently_active_editors, @$top_active_editors,
+             @$top_recently_active_voters, @$top_active_voters) );
+        for ($top_recently_active_editors, $top_active_editors,
+             $top_recently_active_voters, $top_active_voters) {
+            $_ = [ map { {%$_, editor => $editors->{$_->{editor_id}} } } @$_ ]
+        }
+
+        $c->stash(
+            stats => $c->model('Statistics::ByDate')->get_latest_statistics(),
+            top_recently_active_editors => $top_recently_active_editors,
+            top_editors => $top_active_editors,
+
+            top_recently_active_voters => $top_recently_active_voters,
+            top_voters => $top_active_voters,
+        );
     }
-
-    $c->stash(
-        stats => $c->model('Statistics::ByDate')->get_latest_statistics(),
-        top_recently_active_editors => $top_recently_active_editors,
-        top_editors => $top_active_editors,
-
-        top_recently_active_voters => $top_recently_active_voters,
-        top_voters => $top_active_voters,
-    );
 }
 
 sub relationships : Path('relationships') {
