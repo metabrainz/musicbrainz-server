@@ -9,13 +9,10 @@ CREATE INDEX CONCURRENTLY tmp_track_name_corrected ON track_name (controlled_for
 BEGIN;
 
 DELETE FROM artist_name WHERE NOT controlled_for_whitespace(name);
-ALTER TABLE artist_name ADD CHECK (controlled_for_whitespace(name));
 
 --------------------------------------------------------------------------------
 UPDATE url SET description = btrim(regexp_replace(description, E'\\s{2,}', ' ', 'g'))
 WHERE NOT controlled_for_whitespace(description);
-
-ALTER TABLE url ADD CHECK (controlled_for_whitespace(description));
 
 --------------------------------------------------------------------------------
 SELECT recording.id,
@@ -51,7 +48,6 @@ FROM invalid_tracks inv
 WHERE track.id = inv.id;
 
 DELETE FROM track_name WHERE NOT controlled_for_whitespace(name);
-ALTER TABLE track_name ADD CHECK (controlled_for_whitespace(name));
 
 --------------------------------------------------------------------------------
 DROP INDEX tmp_artist_alias_name;
