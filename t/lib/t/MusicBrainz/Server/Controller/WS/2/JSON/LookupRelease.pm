@@ -336,4 +336,52 @@ test 'release lookup with discids and puids' => sub {
         });
 };
 
+test 'release lookup, barcode is NULL' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'release lookup, barcode is NULL',
+    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' => encode_json (
+        {
+            id => "fbe4eb72-0f24-3875-942e-f581589713d4",
+            title => "For Beginner Piano",
+            status => "Official",
+            quality => "normal",
+            "text-representation" => {
+                language => "eng",
+                script => "Latn",
+            },
+            date => "1999-09-23",
+            country => "US",
+            barcode => JSON::null,
+            asin => "B00001IVAI",
+            disambiguation => JSON::null,
+            packaging => JSON::null,
+        });
+};
+
+test 'release lookup, barcode is  empty string' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'release lookup, barcode is empty string',
+    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' => encode_json (
+        {
+            id => "dd66bfdd-6097-32e3-91b6-67f47ba25d4c",
+            title => "For Beginner Piano",
+            status => "Official",
+            quality => "normal",
+            "text-representation" => {
+                language => "eng",
+                script => "Latn",
+            },
+            date => "1999-09-13",
+            country => "GB",
+            barcode => "",
+            asin => JSON::null,
+            disambiguation => JSON::null,
+            packaging => JSON::null,
+        });
+};
+
 1;

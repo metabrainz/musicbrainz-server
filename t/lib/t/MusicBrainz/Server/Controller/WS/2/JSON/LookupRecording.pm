@@ -116,7 +116,7 @@ test 'lookup recording with official singles (+media)' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
-                    barcode => "",
+                    barcode => JSON::null,
                     asin => JSON::null,
                     disambiguation => JSON::null,
                     packaging => JSON::null,

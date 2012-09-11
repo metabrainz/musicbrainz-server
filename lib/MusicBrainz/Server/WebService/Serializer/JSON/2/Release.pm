@@ -33,7 +33,7 @@ sub serialize
         ? $entity->country->iso_code : JSON::null;
 
     $body{asin} = $entity->amazon_asin;
-    $body{barcode} = $entity->barcode->format;
+    $body{barcode} = $entity->barcode->code;
     $body{date} = $entity->date->format;
     $body{disambiguation} = $entity->comment;
     $body{status} = $entity->status_name;
