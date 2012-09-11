@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -u
 
 set -o errexit
 cd `dirname $0`
