@@ -43,7 +43,7 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
 
     my $work_list = $self->make_list (\@works);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('iswc', $work_list, $c->stash->{inc}, $stash));
+    $c->res->body($c->stash->{serializer}->serialize('work_list', $work_list, $c->stash->{inc}, $stash));
 }
 
 __PACKAGE__->meta->make_immutable;

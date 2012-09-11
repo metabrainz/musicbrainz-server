@@ -109,7 +109,7 @@ my $expected = '<?xml version="1.0" encoding="UTF-8"?>
 </metadata>';
 
 my $diff = XML::SemanticDiff->new;
-is($diff->compare ($expected, $expected), 0, 'result ok');
+is($diff->compare ($mech->content, $expected), 0, 'result ok');
 
 };
 
