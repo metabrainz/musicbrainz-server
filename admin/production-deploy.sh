@@ -14,6 +14,6 @@ echo `date` : "Rebuilding resources"
 carton exec -- script/compile_resources.pl
 
 echo `date` : "Building and installing translations"
-carton exec -- make -C po && carton exec -- make -C po install
+make -C po all_quiet && make -C po deploy
 
 echo `date` : Update complete
