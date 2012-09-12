@@ -363,7 +363,7 @@ END -%]
     IF editor.preferences.show_gravatar;
       '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
-      '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
+      '<img src="//gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
     END;
     text;
     '</a>';
