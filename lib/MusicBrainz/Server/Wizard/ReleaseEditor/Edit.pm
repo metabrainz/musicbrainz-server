@@ -142,6 +142,7 @@ sub _edits_from_tracklist
     my $tracklist = $self->c->model('Tracklist')->get_by_id($tracklist_id);
     $self->c->model('Track')->load_for_tracklists($tracklist);
     $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $self->c->model('Artist')->load(map { @{ $_->artist_credit->names } } $tracklist->all_tracks);
 
     return [ map { $self->track_edit_from_track ($_) } $tracklist->all_tracks ];
 }
