@@ -256,7 +256,7 @@ sub _serialize_release_group
 
     $gen->_DeclaredElement('release-group')->StartElement;
     $gen->_DeclaredAttribute('id')->AddAttribute($release_group->gid);
-    $gen->_DeclaredAttribute('type')->AddAttribute($type);
+    $gen->_DeclaredAttribute('type')->AddAttribute($type) if $type;
 
     $gen->Element(title => $release_group->name);
     $gen->Element(disambiguation => $release_group->comment) if $release_group->comment;
@@ -686,7 +686,7 @@ sub _serialize_label
     $gen->Element(name => $label->name);
     $gen->Element('sort-name' => $label->sort_name) if $label->sort_name;
     $gen->Element(disambiguation => $label->comment) if $label->comment;
-    $gen->Element(label_code => $label->label_code) if $label->label_code;
+    $gen->Element('label-code' => $label->label_code) if $label->label_code;
     $gen->Element(ipi => $label->ipi_codes->[0]->ipi) if ($label->all_ipi_codes);
 
     if ($label->all_ipi_codes) {
