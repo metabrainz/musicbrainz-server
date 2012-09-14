@@ -42,14 +42,14 @@ ALTER TABLE artist_alias
    REFERENCES artist_name(id);
 
 ALTER TABLE artist_alias
-   ADD CONSTRAINT artist_alias_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES artist_name(id);
-
-ALTER TABLE artist_alias
    ADD CONSTRAINT artist_alias_fk_type
    FOREIGN KEY (type)
    REFERENCES artist_alias_type(id);
+
+ALTER TABLE artist_alias
+   ADD CONSTRAINT artist_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES artist_name(id);
 
 ALTER TABLE artist_annotation
    ADD CONSTRAINT artist_annotation_fk_artist
@@ -90,6 +90,11 @@ ALTER TABLE artist_gid_redirect
 
 ALTER TABLE artist_ipi
    ADD CONSTRAINT artist_ipi_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
+ALTER TABLE artist_isni
+   ADD CONSTRAINT artist_isni_fk_artist
    FOREIGN KEY (artist)
    REFERENCES artist(id);
 
@@ -822,14 +827,14 @@ ALTER TABLE label_alias
    REFERENCES label_name(id);
 
 ALTER TABLE label_alias
-   ADD CONSTRAINT label_alias_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES label_name(id);
-
-ALTER TABLE label_alias
    ADD CONSTRAINT label_alias_fk_type
    FOREIGN KEY (type)
    REFERENCES label_alias_type(id);
+
+ALTER TABLE label_alias
+   ADD CONSTRAINT label_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES label_name(id);
 
 ALTER TABLE label_annotation
    ADD CONSTRAINT label_annotation_fk_label
@@ -848,6 +853,11 @@ ALTER TABLE label_gid_redirect
 
 ALTER TABLE label_ipi
    ADD CONSTRAINT label_ipi_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_isni
+   ADD CONSTRAINT label_isni_fk_label
    FOREIGN KEY (label)
    REFERENCES label(id);
 
@@ -1312,14 +1322,14 @@ ALTER TABLE work_alias
    REFERENCES work_name(id);
 
 ALTER TABLE work_alias
-   ADD CONSTRAINT work_alias_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES work_name(id);
-
-ALTER TABLE work_alias
    ADD CONSTRAINT work_alias_fk_type
    FOREIGN KEY (type)
    REFERENCES work_alias_type(id);
+
+ALTER TABLE work_alias
+   ADD CONSTRAINT work_alias_fk_sort_name
+   FOREIGN KEY (sort_name)
+   REFERENCES work_name(id);
 
 ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_work
