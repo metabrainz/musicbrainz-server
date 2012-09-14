@@ -972,7 +972,8 @@ sub _edit_missing_entities
             name => trim ($artist->{name}),
             sort_name => trim ($artist->{sort_name}) || '',
             comment => trim ($artist->{comment}) || '',
-            ipi_codes => [ ]);
+            ipi_codes => [ ],
+            isni_codes => [ ]);
     } grep { !$_->{entity_id} } @missing_artist;
 
     my @missing_label = @{ $data->{missing}{label} || [] };
@@ -985,7 +986,8 @@ sub _edit_missing_entities
             name => trim ($label->{name}),
             sort_name => trim ($label->{sort_name}) || '',
             comment => trim ($label->{comment}) || '',
-            ipi_codes => [ ]);
+            ipi_codes => [ ],
+            isni_codes => [ ]);
     } grep { !$_->{entity_id} } @{ $data->{missing}{label} };
 
     return () if $previewing;

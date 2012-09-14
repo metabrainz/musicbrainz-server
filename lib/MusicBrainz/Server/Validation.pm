@@ -40,6 +40,8 @@ require Exporter;
         format_iswc
         is_valid_ipi
         format_ipi
+        is_valid_isni
+        format_isni
         is_valid_url
         is_freedb_id
         is_valid_discid
@@ -134,6 +136,22 @@ sub format_ipi
     my $ipi = shift;
     $ipi =~ s/\D+//g;
     return sprintf("%011.0f", $ipi)
+}
+
+sub is_valid_isni
+{
+    my $isni = shift;
+    $isni =~ s/[\s\.-]//g;
+    return $isni =~ /^\d{15}[\dX]$/;
+}
+
+sub format_isni
+{
+    my $isni = shift;
+    $isni =~ s/[\s\.]//g;
+    # FIXME
+    #$isni =~ s/^(\d{4})(\d{4})(\d{4})(\d{3})([\dX])/$1 $2 $3 $4$5/;
+    return $isni;
 }
 
 sub is_valid_url

@@ -33,6 +33,8 @@ has '+data' => (
         comment      => Nullable[Str],
         ipi_code     => Nullable[Str],
         ipi_codes    => Optional[ArrayRef[Str]],
+        isni_code     => Nullable[Str],
+        isni_codes    => Optional[ArrayRef[Str]],
         ended        => Optional[Bool]
     ]
 );
@@ -40,6 +42,7 @@ has '+data' => (
 before initialize => sub {
     my ($self, %opts) = @_;
     die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+    die "You must specify isni_codes" unless defined $opts{isni_codes};
 };
 
 sub foreign_keys
@@ -69,6 +72,7 @@ sub build_display_data
                         $loaded->{Country}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        isni_codes   => $self->data->{isni_codes} // [ $self->data->{isni_code} // () ],
         begin_date => partial_date_from_row($self->data->{begin_date}),
         end_date   => partial_date_from_row($self->data->{end_date}),
         ended      => $self->data->{ended}

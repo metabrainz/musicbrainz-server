@@ -24,6 +24,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Label';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::IPI';
+with 'MusicBrainz::Server::Edit::Role::ISNI';
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { N_l('Edit label') }
@@ -41,6 +42,8 @@ sub change_fields
         comment    => Nullable[Str],
         ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
+        isni_code   => Nullable[Str],
+        isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         ended      => Optional[Bool]
@@ -83,6 +86,7 @@ sub build_display_data
         label_code => 'label_code',
         comment    => 'comment',
         ipi_code   => 'ipi_code',
+        isni_code   => 'isni_code',
         country    => [ qw( country_id Country ) ],
         ended      => 'ended'
     );
@@ -107,6 +111,11 @@ sub build_display_data
         $data->{ipi_codes}{new} = $self->data->{new}{ipi_codes};
     }
 
+    if (exists $self->data->{new}{isni_codes}) {
+        $data->{isni_codes}{old} = $self->data->{old}{isni_codes};
+        $data->{isni_codes}{new} = $self->data->{new}{isni_codes};
+    }
+
     return $data;
 }
 
@@ -120,6 +129,10 @@ sub _mapping
         ipi_codes => sub {
             my $ipis = $self->c->model('Label')->ipi->find_by_entity_id(shift->id);
             return [ map { $_->ipi } @$ipis ];
+        },
+        isni_codes => sub {
+            my $isnis = $self->c->model('Label')->isni->find_by_entity_id(shift->id);
+            return [ map { $_->isni } @$isnis ];
         },
     );
 }
@@ -165,8 +178,14 @@ sub allow_auto_edit
                                                     $self->data->{new}{ipi_code});
         return 0 if $new_ipi ne $old_ipi;
     }
-
     return 0 if $self->data->{new}{ipi_codes};
+
+    if ($self->data->{old}{isni_code}) {
+        my ($old_isni, $new_isni) = normalise_strings($self->data->{old}{isni_code},
+                                                    $self->data->{new}{isni_code});
+        return 0 if $new_isni ne $old_isni;
+    }
+    return 0 if $self->data->{new}{isni_codes};
 
     return 1;
 }

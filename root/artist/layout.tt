@@ -45,6 +45,10 @@
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                  content=rdfa_artist_ipi(ipi_code) %]
             [%- END -%]
+            [%- FOR isni_code IN artist.isni_codes -%]
+              [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
+                 content=rdfa_artist_isni(isni_code) %]
+            [%- END -%]
         [% END %]
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=artist -%]

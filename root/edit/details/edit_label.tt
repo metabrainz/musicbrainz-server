@@ -57,4 +57,13 @@
                   edit.display_data.ipi_codes.old.join (", "),
                   edit.display_data.ipi_codes.new.join (", "),
                   ', ') %]
+
+  [% display_diff(l('ISNI code:'),
+                  edit.display_data.isni_code.old,
+                  edit.display_data.isni_code.new) %]
+
+  [% display_diff(l('ISNI codes:'),
+                  edit.display_data.isni_codes.old.join (", "),
+                  edit.display_data.isni_codes.new.join (", "),
+                  ', ') %]
 </table>

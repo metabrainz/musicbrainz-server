@@ -27,6 +27,7 @@ with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'artist' };
@@ -210,6 +211,7 @@ sub insert
         );
 
         $self->ipi->set_ipis($created->id, @{ $artist->{ipi_codes} });
+        $self->isni->set_isnis($created->id, @{ $artist->{isni_codes} });
 
         push @created, $created;
     }
@@ -246,6 +248,7 @@ sub delete
     $self->annotation->delete(@artist_ids);
     $self->alias->delete_entities(@artist_ids);
     $self->ipi->delete_entities(@artist_ids);
+    $self->isni->delete_entities(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
@@ -264,6 +267,7 @@ sub merge
 
     $self->alias->merge($new_id, @$old_ids);
     $self->ipi->merge($new_id, @$old_ids);
+    $self->isni->merge($new_id, @$old_ids);
     $self->tags->merge($new_id, @$old_ids);
     $self->rating->merge($new_id, @$old_ids);
     $self->subscription->merge_entities($new_id, @$old_ids);

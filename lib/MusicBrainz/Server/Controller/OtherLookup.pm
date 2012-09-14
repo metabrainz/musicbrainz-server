@@ -116,12 +116,38 @@ lookup_handler 'artist-ipi' => sub {
     $c->detach;
 };
 
+lookup_handler 'artist-isni' => sub {
+    my ($self, $c, $isni) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'isni:' . $isni,
+            type => 'artist',
+            advanced => '1',
+        }));
+
+    $c->detach;
+};
+
 lookup_handler 'label-ipi' => sub {
     my ($self, $c, $ipi) = @_;
 
     $c->response->redirect(
         $c->uri_for_action ('/search/search', {
             query => 'ipi:' . $ipi,
+            type => 'label',
+            advanced => '1',
+        }));
+
+    $c->detach;
+};
+
+lookup_handler 'label-isni' => sub {
+    my ($self, $c, $isni) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'isni:' . $isni,
             type => 'label',
             advanced => '1',
         }));

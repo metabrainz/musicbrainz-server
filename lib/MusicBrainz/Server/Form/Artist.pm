@@ -6,6 +6,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::DatePeriod';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
+with 'MusicBrainz::Server::Form::Role::ISNI';
 
 has '+name' => ( default => 'edit-artist' );
 
@@ -39,7 +40,7 @@ has_field 'comment' => (
 sub edit_field_names
 {
     return qw( name sort_name type_id gender_id country_id
-               begin_date end_date comment ipi_codes ended );
+               begin_date end_date comment ipi_codes isni_codes ended );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }

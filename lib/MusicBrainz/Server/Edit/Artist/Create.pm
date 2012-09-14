@@ -34,6 +34,8 @@ has '+data' => (
         end_date   => Nullable[PartialDateHash],
         ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
+        isni_code   => Nullable[Str],
+        isni_codes  => Optional[ArrayRef[Str]],
         ended      => Optional[Bool]
     ]
 );
@@ -41,6 +43,7 @@ has '+data' => (
 before initialize => sub {
     my ($self, %opts) = @_;
     die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+    die "You must specify isni_codes" unless defined $opts{isni_codes};
 };
 
 sub foreign_keys
@@ -72,6 +75,7 @@ sub build_display_data
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        isni_codes   => $self->data->{isni_codes} // [ $self->data->{isni_code} // () ],
         ended      => $self->data->{ended} // 0
     };
 }
