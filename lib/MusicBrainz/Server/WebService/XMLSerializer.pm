@@ -4,6 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
+use Memoize;
 use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
@@ -58,12 +59,18 @@ sub _serialize_text_representation
     }
 }
 
+# --------------------------------------------------------------------------------
+
 sub _serialize_alias
 {
     my ($self, $data, $gen, $aliases, $inc, $opts) = @_;
+    push @$data, @{ _serialize_alias_inner($gen, $aliases) };
+}
 
-    if (@$aliases)
-    {
+sub _serialize_alias_inner {
+    my ($gen, $aliases) = @_;
+
+    if (@$aliases) {
         my %attr = ( count => scalar(@$aliases) );
         my @alias_list;
         foreach my $al (sort_by { $_->name } @$aliases)
@@ -77,9 +84,19 @@ sub _serialize_alias
                 !$al->end_date->is_empty ? ( 'end-date' => $al->end_date->format ) : ()
             }, $al->name);
         }
-        push @$data, $gen->alias_list(\%attr, @alias_list);
+        return [ $gen->alias_list(\%attr, @alias_list)->evaluate ];
+    }
+    else {
+        return [];
     }
 }
+
+memoize('_serialize_alias_inner', NORMALIZER => sub {
+    my ($gen, $aliases) = @_;
+    return join(', ', map { $_->id } @$aliases);
+});
+
+# --------------------------------------------------------------------------------
 
 sub _serialize_artist_list
 {
@@ -793,70 +810,86 @@ sub _serialize_isrc
 sub _serialize_tags_and_ratings
 {
     my ($self, $data, $gen, $inc, $opts) = @_;
-
-    $self->_serialize_tag_list($data, $gen, $inc, $opts)
-        if $opts->{tags} && $inc->{tags};
-    $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
-        if $opts->{user_tags} && $inc->{user_tags};
-    $self->_serialize_rating($data, $gen, $inc, $opts)
-        if $opts->{ratings} && $inc->{ratings};
-    $self->_serialize_user_rating($data, $gen, $inc, $opts)
-        if $opts->{user_ratings} && $inc->{user_ratings};
+    push @$data, _serialize_tags_and_ratings_inner($gen, $inc, $opts);
 }
+
+sub _serialize_tags_and_ratings_inner
+{
+    my ($gen, $inc, $opts) = @_;
+
+    my @l;
+    push @l, _serialize_tag_list($gen, $inc, $opts)
+        if $opts->{tags} && $inc->{tags};
+    push @l, _serialize_user_tag_list($gen, $inc, $opts)
+        if $opts->{user_tags} && $inc->{user_tags};
+    push @l, _serialize_rating($gen, $inc, $opts)
+        if $opts->{ratings} && $inc->{ratings};
+    push @l, _serialize_user_rating($gen, $inc, $opts)
+        if $opts->{user_ratings} && $inc->{user_ratings};
+
+    my $s = join('', @l);
+    return bless \$s, 'MusicBrainz::XML::Raw';
+}
+
+memoize('_serialize_tags_and_ratings_inner', NORMALIZER => sub {
+    my ($gen, $inc, $opts) = @_;
+    return join(', ', (sort map { $_->tag->name } @{ $opts->{tags} // [] }));
+
+});
 
 sub _serialize_tag_list
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($gen, $inc, $opts) = @_;
 
     my @list;
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{tags}})
     {
-        $self->_serialize_tag(\@list, $gen, $tag, $inc, $opts);
+        push @list, _serialize_tag($gen, $tag, $inc, $opts);
     }
-    push @$data, $gen->tag_list(@list);
+    return $gen->tag_list(@list);
 }
 
 sub _serialize_tag
 {
-    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+    my ($gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->tag({ count => $tag->count }, $gen->name ($tag->tag->name));
+    return $gen->tag({ count => $tag->count }, $gen->name ($tag->tag->name));
 }
 
 sub _serialize_user_tag_list
 {
-    my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
+    my ($gen, $inc, $opts, $modelname, $entity) = @_;
 
     my @list;
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_tags}})
     {
-        $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
+        push @list, _serialize_user_tag(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
     }
-    push @$data, $gen->user_tag_list(@list);
+    return $gen->user_tag_list(@list);
 }
 
 sub _serialize_user_tag
 {
-    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+    my ($gen, $tag, $inc, $opts, $modelname, $entity) = @_;
 
-    push @$data, $gen->user_tag($gen->name($tag->tag->name));
+    return $gen->user_tag($gen->name($tag->tag->name));
 }
 
 sub _serialize_rating
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($gen, $inc, $opts) = @_;
 
     my $count = $opts->{ratings}->{count};
     my $rating = $opts->{ratings}->{rating};
 
-    push @$data, $gen->rating({ 'votes-count' => $count }, $rating);
+    return $gen->rating({ 'votes-count' => $count }, $rating);
 }
 
 sub _serialize_user_rating
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($gen, $inc, $opts) = @_;
 
-    push @$data, $gen->user_rating($opts->{user_ratings});
+    return $gen->user_rating($opts->{user_ratings});
 }
 
 sub output_error

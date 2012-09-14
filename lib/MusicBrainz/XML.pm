@@ -13,43 +13,15 @@ sub AUTOLOAD {
         tag => $tag,
         attrs => \%attrs,
         body => [ map {
-            ref($_) eq 'MusicBrainz::XML::Element'
+            ref($_) eq 'MusicBrainz::XML::Element' ||
+            ref($_) eq 'MusicBrainz::XML::Raw'
                 ? $_
                 : bless(\"$_", 'MusicBrainz::XML::Text')
         } @_ ]
     }, 'MusicBrainz::XML::Element';
 }
 
-sub BUILDARGS { return () }
-
-package MusicBrainz::XML::Element;
-use overload '""' => \&as_string;
-
-sub as_string {
-    my $element = shift;
-    my $tag = $element->{tag};
-    my %attrs = %{ $element->{attrs} };
-    my $body = join('', map { ref($_) eq 'MusicBrainz::XML::Text'
-                                  ? _escape($$_) : $_ }
-                        @{ $element->{body} });
-    my @attributes =
-        map { "$_=" . q{"} . _escape($attrs{$_}) . q{"} }
-        grep { defined $attrs{$_} } keys %attrs;
-
-    if (defined($body) && $body ne '') {
-        return
-            q{<} . join(' ', $tag, @attributes) . q{>} .
-                $body .
-            "</$tag>";
-    }
-    else {
-        return
-            q{<} . join(' ', $tag, @attributes) . q{ />};
-    }
-}
-
-sub _escape
-{
+sub _escape {
 	my $t = $_[0];
 
     return '' unless defined($t);
@@ -65,5 +37,49 @@ sub _escape
 
 	return $t;
 }
+
+sub BUILDARGS { return () }
+
+package MusicBrainz::XML::Element;
+use overload '""' => \&as_string;
+
+sub as_string {
+    my $element = shift;
+    my $tag = $element->{tag};
+    my %attrs = %{ $element->{attrs} };
+    my $body = join('', @{ $element->{body} });
+    my @attributes =
+        map { "$_=" . q{"} . MusicBrainz::XML::_escape($attrs{$_}) . q{"} }
+        grep { defined $attrs{$_} } keys %attrs;
+
+    if (defined($body) && $body ne '') {
+        return
+            q{<} . join(' ', $tag, @attributes) . q{>} .
+                $body .
+            "</$tag>";
+    }
+    else {
+        return
+            q{<} . join(' ', $tag, @attributes) . q{ />};
+    }
+}
+
+sub evaluate {
+    my $self = shift;
+    my $v = $self->as_string;
+    return bless \$v, 'MusicBrainz::XML::Raw';
+}
+
+package MusicBrainz::XML::Text;
+use overload '""' => \&as_string;
+
+sub as_string {
+    return MusicBrainz::XML::_escape(${ shift() });
+}
+
+package MusicBrainz::XML::Raw;
+use overload '""' => \&as_string;
+
+sub as_string { return ${ shift() } }
 
 1;
