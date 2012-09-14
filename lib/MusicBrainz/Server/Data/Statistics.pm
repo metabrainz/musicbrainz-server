@@ -545,6 +545,22 @@ my %stats = (
         DESC => "Count of labels with an IPI code",
         SQL => "SELECT COUNT(DISTINCT label) FROM label_ipi",
     },
+    "count.isni" => {
+        DESC => "Count of ISNI codes",
+        PREREQ => [qw[ count.isni.artist count.isni.label ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+            return $self->fetch("count.isni.artist") + $self->fetch("count.isni.label");
+        },
+    },
+    "count.isni.artist" => {
+        DESC => "Count of artists with an ISNI code",
+        SQL => "SELECT COUNT(DISTINCT artist) FROM artist_isni",
+    },
+    "count.isni.label" => {
+        DESC => "Count of labels with an ISNI code",
+        SQL => "SELECT COUNT(DISTINCT label) FROM label_isni",
+    },
     "count.isrc.all" => {
         DESC => "Count of all ISRCs joined to recordings",
         SQL => "SELECT COUNT(*) FROM isrc",

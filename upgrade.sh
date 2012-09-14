@@ -42,6 +42,9 @@ fi
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
 
+echo `date` : Applying admin/sql/updates/20120914-isni.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120914-isni.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 

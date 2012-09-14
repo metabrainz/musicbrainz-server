@@ -68,6 +68,7 @@ test all => sub {
         type_id => 1,
         country_id => 1,
         ipi_codes => [ '00407982340' ],
+        isni_codes => [ '0000000106750994' ],
         end_date => { year => 2000, month => 05 }
                                  });
     isa_ok($label, 'MusicBrainz::Server::Entity::Label');
@@ -102,6 +103,7 @@ test all => sub {
         sort_name => 'Records, RAM',
         begin_date => { year => 1990 },
         ipi_codes => [ '00407982341' ],
+        isni_codes => [ '0000000106750995' ],
         comment => 'Drum & bass label'
     });
 

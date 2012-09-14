@@ -46,7 +46,9 @@ INSERT INTO language (frequency, iso_code_1, iso_code_2t, name, id, iso_code_2b,
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 
 INSERT INTO artist_ipi (artist, ipi) VALUES (3, '00151894163');
+INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730476');
 INSERT INTO label_ipi (label, ipi) VALUES (1, '00151894166');
+INSERT INTO label_isni (label, isni) VALUES (1, '0000000106750994');
 INSERT INTO
     editor ( id, name, password, privs, email, website, bio,
              email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
