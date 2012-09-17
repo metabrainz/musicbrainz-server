@@ -87,10 +87,18 @@ test 'Test format_iswc' => sub {
 
 test 'Test is_valid_ipi' => sub {
     ok(is_valid_ipi('00014107338'));
+    ok(!is_valid_ipi(''));
+    ok(!is_valid_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
+       'Regression test #MBS-5066');
 };
 
 test 'Test format_ipi' => sub {
     is(format_ipi('014107338'), '00014107338');
+    is(format_ipi('274.373.649'), '00274373649');
+    is(format_ipi('274 373 649'), '00274373649');
+    is(format_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
+       'MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)',
+       'Regression test #MBS-5066');
 };
 
 test 'Test is_freedb_id' => sub {

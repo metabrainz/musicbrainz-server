@@ -5,10 +5,12 @@ use Test::More;
 
 use DateTime;
 use DateTime::Format::Pg;
+use MusicBrainz::Server::Constants qw( :edit_status $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
-use MusicBrainz::Server::Constants qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
+use MusicBrainz::Server::Test qw( accept_edit );
+use Set::Scalar;
 use Sql;
+use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
 
@@ -147,9 +149,129 @@ subtest 'Find editors with subscriptions' => sub {
     is($editors[0]->id => 2, 'is editor #2');
 };
 
-# Test deleting editors
-$editor_data->delete(1);
+};
 
+test 'Deleting editors removes most information' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $model = $c->model('Editor');
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO country (id, iso_code, name) VALUES (1, 'bb', 'Bobland');
+INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
+INSERT INTO gender (id, name) VALUES (1, 'Male');
+INSERT INTO editor (id, name, password, email, website, bio, member_since,
+    email_confirm_date, last_login_date, edits_accepted, edits_rejected,
+    auto_edits_accepted, edits_failed, privs, birth_date, country, gender)
+  VALUES (1, 'Bob', 'bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(),
+    now(), now(), 100, 101, 102, 103, 1, '1980-02-03', 1, 1);
+INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
+EOSQL
+
+    # Test deleting editors
+    $model->delete(1);
+    my $bob = $model->get_by_id(1);
+
+    is($bob->name, 'Deleted Editor #' . $bob->id);
+    is($bob->password, '');
+    is($bob->privileges, 0);
+    is($bob->accepted_edits, 100);
+    is($bob->rejected_edits, 101);
+    is($bob->accepted_auto_edits, 102);
+
+    # Ensure all other attributes are cleared
+    my $exclusions = Set::Scalar->new(
+        qw( id name password privileges accepted_edits rejected_edits
+            accepted_auto_edits last_login_date failed_edits languages
+            registration_date preferences
+      ));
+
+    for my $attribute (grep { !$exclusions->contains($_->name) }
+                           object_attributes($bob)) {
+        attribute_value_is($attribute, $bob, undef,
+                           $attribute->name . " is now undef");
+    }
+
+    # Ensure all languages have been cleared
+    $c->model('EditorLanguage')->load_for_editor($bob);
+    is(@{ $bob->languages }, 0);
+
+    # Ensure all preferences are cleared
+    my $prefs = $bob->preferences;
+    for my $attribute (object_attributes($prefs)) {
+        if (!$attribute->has_default) {
+            diag("Editor preference " . attribute->name . " has no default");
+        }
+        else {
+            attribute_value_is(
+                $attribute, $prefs, $attribute->default($prefs),
+                "Preference " . $attribute->name . " was cleared");
+        }
+    }
+};
+
+test 'Deleting an editor cancels all open edits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $applied_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'An additional comment',
+        ipi_codes => []
+    );
+
+    accept_edit($c, $applied_edit);
+
+    my $open_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => []
+    );
+
+    is ($open_edit->status, $STATUS_OPEN);
+
+    $c->model('Editor')->delete(1);
+
+    is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
+    is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
+};
+
+test 'subscription_summary' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO artist_name VALUES (1, 'artist');
+INSERT INTO label_name VALUES (1, 'label');
+
+INSERT INTO artist (id, gid, name, sort_name)
+  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 1);
+INSERT INTO label (id, gid, name, sort_name)
+  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 1);
+
+INSERT INTO editor (id, name, password)
+  VALUES (1, 'Alice', 'al1c3'), (2, 'Bob', 'b0b');
+INSERT INTO editor_subscribe_artist (id, editor, artist, last_edit_sent) VALUES
+  (1, 1, 1, 1);
+INSERT INTO editor_subscribe_label (id, editor, label, last_edit_sent) VALUES
+  (1, 1, 1, 1), (2, 2, 1, 1);
+INSERT INTO editor_subscribe_editor
+  (id, editor, subscribed_editor, last_edit_sent) VALUES (1, 1, 1, 1);
+EOSQL
+
+    is_deeply($test->c->model('Editor')->subscription_summary(1),
+              { artist => 1,
+                label => 1,
+                editor => 1 });
+
+    is_deeply($test->c->model('Editor')->subscription_summary(2),
+              { artist => 0,
+                label => 1,
+                editor => 0 });
 };
 
 1;

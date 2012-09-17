@@ -64,7 +64,7 @@ sub release_toplevel
     {
         $c->model('ArtistCredit')->load($release);
 
-        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $release->artist_credit->names };
+        my @artists = map { $_->artist } @{ $release->artist_credit->names };
 
         $self->linked_artists ($c, $stash, \@artists);
     }

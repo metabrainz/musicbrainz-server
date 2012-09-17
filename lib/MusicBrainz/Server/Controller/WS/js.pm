@@ -67,8 +67,6 @@ sub tracklist : Chained('root') PathPart Args(1) {
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
     $c->model('ArtistCredit')->load($tracklist->all_tracks);
-    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
 
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
@@ -268,11 +266,11 @@ sub associations : Chained('root') PathPart Args(1) {
 
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $c->model('Recording')->load ($tracklist->all_tracks);
+
+    $c->model('ArtistCredit')->load($tracklist->all_tracks, map { $_->recording } $tracklist->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
         $tracklist->all_tracks);
-
-    $c->model('Recording')->load ($tracklist->all_tracks);
 
     my %appears_on = $c->model('Recording')->appears_on (
         [ map { $_->recording } $tracklist->all_tracks ], 3);
@@ -298,7 +296,7 @@ sub associations : Chained('root') PathPart Args(1) {
             name => $_->recording->name,
             comment => $_->recording->comment,
             length => $_->recording->length,
-            artist_credit => { preview => $_->artist_credit->name },
+            artist_credit => { preview => $_->recording->artist_credit->name },
             appears_on => {
                 hits => $appears_on{$_->recording->id}{hits},
                 results => [ map { {
