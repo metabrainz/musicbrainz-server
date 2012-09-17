@@ -16,4 +16,9 @@ ALTER TABLE url           ADD CHECK (controlled_for_whitespace(description));
 ALTER TABLE work          ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE work_name     ADD CHECK (controlled_for_whitespace(name));
 
+ALTER TABLE artist_name ADD CHECK (name != '');
+ALTER TABLE label_name ADD CHECK (name != '');
+ALTER TABLE release_name ADD CHECK (name != '');
+ALTER TABLE work_name ADD CHECK (name != '');
+
 COMMIT;
