@@ -62,10 +62,16 @@ VALUES
   (5, '{}', 2, 1, '1970-01-01', now(), 4);
 EOSQL
 
-    my $editors = $test->c->model('Statistics')->top_recently_active_editors;
-    is(@$editors, 2);
-    is_deeply([ map +[ $_->{editor}->id, $_->{edits} ], @$editors ],
-              [ [1, 2], [2, 1] ]);
+    ok !exception { $test->c->model('Statistics')->recalculate_all };
+    my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();
+
+    ok(defined $stats);
+    is($stats->statistic('editor.top_recently_active.rank.1'), 1);
+    is($stats->statistic('editor.top_recently_active.rank.2'), 2);
+    is($stats->statistic('editor.top_recently_active.rank.3'), undef);
+
+    is($stats->statistic('count.edit.top_recently_active.rank.1'), 2);
+    is($stats->statistic('count.edit.top_recently_active.rank.2'), 1);
 };
 
 test 'top_editors' => sub {
@@ -92,10 +98,17 @@ UPDATE editor SET edits_accepted = 1 WHERE id = 2;
 UPDATE editor SET edits_accepted = 1 WHERE id = 4;
 EOSQL
 
-    my $editors = $test->c->model('Statistics')->top_editors;
-    is(@$editors, 3);
-    is_deeply([ map { $_->id } @$editors ],
-              [ 1, 2, 4 ]);
+    ok !exception { $test->c->model('Statistics')->recalculate_all };
+    my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();
+
+    ok(defined $stats);
+    is($stats->statistic('editor.top_active.rank.1'), 1);
+    is($stats->statistic('editor.top_active.rank.2'), 2);
+    is($stats->statistic('editor.top_active.rank.3'), 4);
+
+    is($stats->statistic('count.edit.top_active.rank.1'), 2);
+    is($stats->statistic('count.edit.top_active.rank.2'), 1);
+    is($stats->statistic('count.edit.top_active.rank.3'), 1);
 };
 
 test 'top_recently_active_voters' => sub {
@@ -124,10 +137,16 @@ VALUES
   (7, 1, -1, now(), 5, FALSE);
 EOSQL
 
-    my $editors = $test->c->model('Statistics')->top_recently_active_voters;
-    is(@$editors, 2);
-    is_deeply([ map +[ $_->{editor}->id, $_->{votes} ], @$editors ],
-              [ [1, 2], [2, 1] ]);
+    ok !exception { $test->c->model('Statistics')->recalculate_all };
+    my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();
+
+    ok(defined $stats);
+    is($stats->statistic('editor.top_recently_active_voters.rank.1'), 1);
+    is($stats->statistic('editor.top_recently_active_voters.rank.2'), 2);
+    is($stats->statistic('editor.top_recently_active_voters.rank.3'), undef);
+
+    is($stats->statistic('count.vote.top_recently_active_voters.rank.1'), 2);
+    is($stats->statistic('count.vote.top_recently_active_voters.rank.2'), 1);
 };
 
 test 'top_voters' => sub {
@@ -156,10 +175,17 @@ VALUES
   (7, 1, -1, now(), 5, FALSE);
 EOSQL
 
-    my $editors = $test->c->model('Statistics')->top_voters;
-    is(@$editors, 3);
-    is_deeply([ map +[ $_->{editor}->id, $_->{votes} ], @$editors ],
-              [ [1, 2], [2, 1], [4, 1] ]);
+    ok !exception { $test->c->model('Statistics')->recalculate_all };
+    my $stats = $test->c->model('Statistics::ByDate')->get_latest_statistics();
+
+    ok(defined $stats);
+    is($stats->statistic('editor.top_active_voters.rank.1'), 1);
+    is($stats->statistic('editor.top_active_voters.rank.2'), 2);
+    is($stats->statistic('editor.top_active_voters.rank.3'), 4);
+
+    is($stats->statistic('count.vote.top_active_voters.rank.1'), 2);
+    is($stats->statistic('count.vote.top_active_voters.rank.2'), 1);
+    is($stats->statistic('count.vote.top_active_voters.rank.3'), 1);
 };
 
 1;
