@@ -177,6 +177,57 @@ test 'Check conflicts (conflicting edits)' => sub {
     is ($artist->comment, undef);
 };
 
+test 'Check IPI changes' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
+    my $ipi_codes;
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        ipi_codes => [ '11111111111', '22222222222',
+                       '33333333333', '44444444444' ],
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(1);
+    cmp_set( [ map { $_->ipi } @$ipi_codes ],
+        [ '11111111111', '22222222222', '33333333333', '44444444444' ]);
+
+    # remove two IPI codes, add two others
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        ipi_codes => [ '11111111111', '33333333333',
+                       '55555555555', '66666666666' ],
+    );
+
+    # remove two IPI codes (one of them already being removed in edit 2),
+    # add two (again, one of them already being added in edit 2)
+    my $edit_3 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        ipi_codes => [ '11111111111', '22222222222',
+                       '55555555555', '77777777777' ],
+    );
+    # this checks all seven cases (before/edit 2/edit 3):
+    # 111, 2-2, 33-, 4--, -55, -6-, --7
+
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(1);
+    cmp_set( [ map { $_->ipi } @$ipi_codes ],
+        [ '11111111111', '33333333333', '55555555555', '66666666666' ]);
+
+    ok !exception { $edit_3->accept }, 'accepted edit 3';
+    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(1);
+    cmp_set( [ map { $_->ipi } @$ipi_codes ],
+        [ '11111111111', '55555555555', '66666666666', '77777777777' ]);
+};
+
 sub _create_full_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(
