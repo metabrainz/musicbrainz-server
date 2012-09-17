@@ -16,7 +16,7 @@
                         [%- FOR result=results -%]
                         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                             <td>[% result.score %]</td>
-                            <td>[% result.type %]</td>
+                            <td>[% format_entity_type_name(result.type) %]</td>
                             <td>[% link_entity(result.entity.parent) %]</td>
                             <td>[% result.entity.text | format_wikitext %]</td>
                         </tr>

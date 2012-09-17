@@ -30,7 +30,8 @@ sub options_link_type_id
 {
     my ($self) = @_;
 
-    return [ $self->_build_options($self->root, 'short_link_phrase', 'ROOT', '&nbsp;') ];
+    my $root = $self->root;
+    return [ $self->_build_options($root, 'l_short_link_phrase', 'ROOT', '&nbsp;') ];
 }
 
 sub field_list

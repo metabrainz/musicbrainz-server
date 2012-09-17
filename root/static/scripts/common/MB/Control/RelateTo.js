@@ -34,6 +34,7 @@ MB.Control.RelateTo = function () {
     self.$select = self.$relate.find ('select:first');
     self.$type0 = self.$relate.find ('input.type');
     self.$gid0 = self.$relate.find ('input.gid');
+    self.$returnto = self.$relate.find ('input.returnto');
     self.$cancel = self.$relate.find ('button.cancel');
     self.$create = self.$relate.find ('button.create');
     self.$autocomplete = self.$relate.find ('span.autocomplete');
@@ -70,7 +71,7 @@ MB.Control.RelateTo = function () {
                 type1: cleanType(self.selected_item.type),
                 entity0: self.$gid0.val (),
                 entity1: self.selected_item.gid,
-                returnto: window.location.toString()
+                returnto: returnto
             });
 
         window.location = location + '?' + query_string;

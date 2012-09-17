@@ -317,11 +317,10 @@
       <h3>[% l('Tools:') %]</h3>
 
       [%# These are here to make sure the strings get added to the message catalog.
-          The strings are later obtained via /ws/js/plurals.
+          The strings are later obtained via /ws/js/plurals. %]
 
-          ln('{n} recording selected', '{n} recordings selected', 0)
-          ln('{n} work selected', '{n} works selected', 0)
-      %]
+      <!-- [% ln('{n} recording selected', '{n} recordings selected', 0) %]
+           [% ln('{n} work selected', '{n} works selected', 0) %] -->
 
       <div>
         <div style="float: left;" data-bind="with: checkboxes">

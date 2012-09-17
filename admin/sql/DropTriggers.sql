@@ -128,3 +128,8 @@ DROP TRIGGER url_gc_a_upd_l_url_url ON l_url_url;
 DROP TRIGGER url_gc_a_del_l_url_url ON l_url_url;
 DROP TRIGGER url_gc_a_upd_l_url_work ON l_url_work;
 DROP TRIGGER url_gc_a_del_l_url_work ON l_url_work;
+DROP TRIGGER delete_unused_tag ON tag;
+DROP TRIGGER delete_unused_tag ON artist_tag;
+DROP TRIGGER delete_unused_tag ON label_tag;
+DROP TRIGGER delete_unused_tag ON release_group_tag;
+DROP TRIGGER delete_unused_tag ON work_tag;
