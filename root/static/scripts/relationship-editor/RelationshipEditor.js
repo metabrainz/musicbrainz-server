@@ -276,7 +276,7 @@ function initCheckboxes(trackCount) {
         });
     }
     getPlurals("{n} recording selected", "{n} recordings selected", trackCount, "recordingStrings");
-    getPlurals("{n} work selected", "{n} works selected", trackCount, "workStrings");
+    getPlurals("{n} work selected", "{n} works selected", Math.max(10, Math.min(trackCount * 2, 100)), "workStrings");
 
     function count($inputs) {
         var src = {}, count = 0, input;

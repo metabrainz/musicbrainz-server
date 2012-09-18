@@ -24,7 +24,7 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
 
 mapping = {
     // entities (source, target) have their own mapping options in Entity.js
-    ignore:  ["source", "target", "visible", "ended"],
+    ignore:  ["source", "target", "visible", "ended", "direction"],
     copy:    ["edits_pending", "id"],
     include: ["link_type", "action", "backward", "begin_date", "end_date", "attributes"],
     attributes: {
@@ -65,13 +65,16 @@ var Relationship = function(obj) {
     this.action = ko.observable(obj.action || "");
     this.hasErrors = ko.observable(false);
 
-    this.link_type = new Fields.Integer(obj.link_type ||
-        defaultLinkType(obj.source.type, obj.target.type))
-            .extend({field: [this, "link_type"]});
+    var linkType = obj.link_type || defaultLinkType(obj.source.type, obj.target.type);
+    this.link_type = new Fields.Integer(linkType).extend({field: [this, "link_type"]});
+
+    this.backward = ko.observable(obj.source.type != Util.types(linkType).split("-")[0])
+        .extend({field: [this, "backward"]});
+
+    delete linkType;
 
     this.begin_date = new Fields.PartialDate();
     this.end_date = new Fields.PartialDate();
-    this.backward = ko.observable(false);
     this.attributes = new Fields.Attributes(this);
 
     this.dateRendering = ko.computed({read: this.renderDate, owner: this})
@@ -101,7 +104,6 @@ var Relationship = function(obj) {
     // relationship as having changes.
     this.begin_date.extend({field: [this, "begin_date"]});
     this.end_date.extend({field: [this, "end_date"]});
-    this.backward.extend({field: [this, "backward"]});
     this.attributes.extend({field: [this, "attributes"]});
 
     this.entity = ko.computed(computeEntities, this);
