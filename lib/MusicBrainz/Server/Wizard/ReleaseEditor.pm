@@ -1459,7 +1459,8 @@ sub track_edit_from_track
         deleted => 0,
         length => $track->length,
         name => $track->name,
-        position => $track->position
+        position => $track->position,
+        number => $track->number
     });
 }
 

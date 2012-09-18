@@ -9,7 +9,17 @@ MOFILES=$(POFILES:.po=.mo)
 
 all: $(MOFILES) check
 
-install: $(MOFILES)	
+all_quiet: $(MOFILES) check_quiet
+
+deploy: $(MOFILES)
+	@for file in $(MOFILES); do \
+			catalog=`echo $$file | sed 's/\.\([^.]*\)\.mo//'`; \
+			lang=`echo $$file | sed -e 's/^\([^.]*\)\.//' -e 's/\.mo//'`; \
+		install -d ../lib/LocaleData/$$lang/LC_MESSAGES/; \
+		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
+	done
+
+install: $(MOFILES)
 	@for file in $(MOFILES); do \
 			catalog=`echo $$file | sed 's/\.\([^.]*\)\.mo//'`; \
 			lang=`echo $$file | sed -e 's/^\([^.]*\)\.//' -e 's/\.mo//'`; \
@@ -88,4 +98,9 @@ check:
 		lang=`echo $$file | sed 's/\.po//'`; \
 		printf "$$lang: "; \
 		msgfmt -o /dev/null -c -v --statistics $$lang.po;\
+	done
+
+check_quiet:
+	@for file in $(POFILES); do \
+		msgfmt -o /dev/null -c $$file;\
 	done

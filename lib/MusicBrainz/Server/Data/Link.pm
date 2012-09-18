@@ -5,8 +5,8 @@ use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkAttributeType;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
-    partial_date_from_row
     add_partial_date_to_row
     load_subobjects
     placeholders
@@ -31,8 +31,8 @@ sub _column_mapping
     return {
         id         => 'id',
         type_id    => 'link_type',
-        begin_date => sub { partial_date_from_row(shift, 'begin_date_') },
-        end_date   => sub { partial_date_from_row(shift, 'end_date_') },
+        begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'begin_date_') },
+        end_date   => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'end_date_') },
         ended      => 'ended'
     };
 }

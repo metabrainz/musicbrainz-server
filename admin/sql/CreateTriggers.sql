@@ -427,6 +427,27 @@ CREATE CONSTRAINT TRIGGER url_gc_a_del_l_url_work
 AFTER DELETE ON l_url_work DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE remove_unused_url();
 
+--------------------------------------------------------------------------------
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER INSERT ON tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag();
+
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER DELETE ON artist_tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER DELETE ON label_tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER DELETE ON release_group_tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
+CREATE CONSTRAINT TRIGGER delete_unused_tag
+AFTER DELETE ON work_tag DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE trg_delete_unused_tag_ref();
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

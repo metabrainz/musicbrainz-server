@@ -595,14 +595,10 @@ sub reject
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
 
-# Runs it's own transaction
 sub cancel
 {
     my ($self, $edit) = @_;
-
-    Sql::run_in_transaction(sub {
-        $self->reject($edit, $STATUS_DELETED);
-   }, $self->c->sql);
+    $self->reject($edit, $STATUS_DELETED);
 }
 
 sub _close

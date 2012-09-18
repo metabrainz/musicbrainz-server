@@ -18,145 +18,13 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _id_cache_prefix { 'stats' }
 
-sub top_recently_active_editors {
-    my ($self) = @_;
-    Sql::run_in_transaction(sub {
-        my $cache_key = join(':', $self->_id_cache_prefix, 'top_recently_active_editors');
-        my $cache = $self->c->cache($self->_id_cache_prefix);
-
-        my $id_edits = $cache->get($cache_key);
-
-        if (!$id_edits) {
-            $id_edits =
-                $self->c->sql->select_list_of_lists(
-                    "SELECT editor, count(edit.id) FROM edit
-                     JOIN editor ON edit.editor = editor.id
-                     WHERE status IN (?, ?)
-                       AND open_time >= now() - '1 week'::INTERVAL
-                       AND cast(privs AS bit(2)) & B'10' = B'00'
-                     GROUP BY edit.editor, editor.name
-                     ORDER BY count(edit.id) DESC, musicbrainz_collate(editor.name)
-                     LIMIT 25",
-                    $STATUS_OPEN, $STATUS_APPLIED
-                );
-            $cache->set($cache_key => $id_edits, 60*60*24); # Expires in 1 day (60*60*24)
-        }
-
-        my %id_editor_map = %{
-            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @$id_edits)
-        };
-        return [
-            map +{
-                editor => $id_editor_map{$_->[0]},
-                edits => $_->[1]
-            }, @$id_edits
-        ];
-    }, $self->c->sql);
-}
-
-sub top_editors {
-    my ($self) = @_;
-    Sql::run_in_transaction(sub {
-        my $cache_key = join(':', $self->_id_cache_prefix, 'top_editors');
-        my $cache = $self->c->cache($self->_id_cache_prefix);
-
-        my $id_edits = $cache->get($cache_key);
-
-        if (!$id_edits) {
-            $id_edits =
-                $self->c->sql->select_single_column_array(
-                    "SELECT id FROM editor
-                     WHERE (edits_accepted + auto_edits_accepted) > 0
-                       AND cast(privs AS bit(2)) & B'10' = B'00'
-                     ORDER BY (edits_accepted + auto_edits_accepted) DESC, musicbrainz_collate(editor.name)
-                     LIMIT 25"
-                );
-            $cache->set($cache_key => $id_edits, 60*60*24) # Expires in 1 day (60*60*24)
-        }
-
-        my %id_editor_map = %{ $self->c->model('Editor')->get_by_ids(@$id_edits) };
-        return [ map { $id_editor_map{$_} } @$id_edits ];
-    }, $self->c->sql);
-}
-
-sub top_recently_active_voters {
-    my ($self) = @_;
-    Sql::run_in_transaction(sub {
-        my $cache_key = join(':', $self->_id_cache_prefix, 'top_recently_active_voters');
-        my $cache = $self->c->cache($self->_id_cache_prefix);
-
-        my $id_edits = $cache->get($cache_key);
-
-        if (!$id_edits) {
-            $id_edits =
-                $self->c->sql->select_list_of_lists(
-                    "SELECT editor, count(vote.id) FROM vote
-                     JOIN editor ON vote.editor = editor.id
-                     WHERE NOT superseded AND vote != -1
-                       AND vote_time >= now() - '1 week'::INTERVAL
-                       AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
-                     GROUP BY vote.editor, editor.name
-                     ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
-                     LIMIT 25"
-                );
-
-            $cache->set($cache_key, $id_edits, 60*60*24); # Expires in 1 day (60*60*24)
-        }
-
-        my %id_editor_map = %{
-            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @$id_edits)
-        };
-
-        return [
-            map +{
-                editor => $id_editor_map{$_->[0]},
-                votes => $_->[1]
-            }, @$id_edits
-        ];
-    }, $self->c->sql);
-}
-
-sub top_voters {
-    my ($self) = @_;
-    Sql::run_in_transaction(sub {
-        my $cache_key = join(':', $self->_id_cache_prefix, 'top_voters');
-        my $cache = $self->c->cache($self->_id_cache_prefix);
-
-        my $id_edits = $cache->get($cache_key);
-
-        if (!$id_edits) {
-            $id_edits =
-                $self->c->sql->select_list_of_lists(
-                    "SELECT editor, count(vote.id) FROM vote
-                     JOIN editor ON vote.editor = editor.id
-                     WHERE NOT superseded AND vote != -1
-                       AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
-                     GROUP BY editor, editor.name
-                     ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
-                     LIMIT 25"
-                );
-            $cache->set($cache_key => $id_edits, 60*60*24); # Expires in 1 day (60*60*24)
-        };
-
-        my %id_editor_map = %{
-            $self->c->model('Editor')->get_by_ids(map { $_->[0] } @$id_edits)
-        };
-        return [
-            map +{
-                editor => $id_editor_map{$_->[0]},
-                votes => $_->[1]
-            }, @$id_edits
-        ];
-    }, $self->c->sql);
-}
-
 sub _table { 'statistic' }
 
 sub all_events {
     my ($self) = @_;
 
     return [
-        map { $_->{title} = l($_->{title}); $_->{description} = l($_->{description}); $_; } 
+        map { $_->{title} = l($_->{title}); $_->{description} = l($_->{description}); $_; }
         query_to_list(
             $self->sql,
             sub { shift },
@@ -198,7 +66,7 @@ sub insert {
     $self->sql->do('LOCK TABLE ' . $self->_table . ' IN EXCLUSIVE MODE') unless $output_file;
     for my $key (keys %updates) {
         next unless defined $updates{$key};
-        
+
         if ($output_file) {
                 open(OUTPUTFILE, '>>'.$output_file);
                 flock(OUTPUTFILE, LOCK_EX);
@@ -221,6 +89,107 @@ sub last_refreshed {
 }
 
 my %stats = (
+    "editor.top_recently_active" => {
+        DESC => "Top recently active editors",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $id_edits = $sql->select_list_of_lists(
+                "SELECT editor, count(edit.id) FROM edit
+                 JOIN editor ON edit.editor = editor.id
+                 WHERE status IN (?, ?)
+                   AND open_time >= now() - '1 week'::INTERVAL
+                   AND cast(privs AS bit(2)) & B'10' = B'00'
+                 GROUP BY edit.editor, editor.name
+                 ORDER BY count(edit.id) DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25",
+                $STATUS_OPEN, $STATUS_APPLIED
+            );
+
+            my %map;
+            my $count = 1;
+            foreach my $editor (@$id_edits) {
+                $map{"editor.top_recently_active.rank.$count"} = $editor->[0];
+                $map{"count.edit.top_recently_active.rank.$count"} = $editor->[1];
+                $count++;
+            }
+
+            return \%map;
+        }
+    },
+    "editor.top_active" => {
+        DESC => "Top active editors",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $id_edits = $sql->select_list_of_lists(
+                "SELECT id, (edits_accepted + auto_edits_accepted) AS count FROM editor
+                 WHERE (edits_accepted + auto_edits_accepted) > 0
+                   AND cast(privs AS bit(2)) & B'10' = B'00'
+                 ORDER BY (edits_accepted + auto_edits_accepted) DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25"
+            );
+
+            my %map;
+            my $count = 1;
+            foreach my $editor (@$id_edits) {
+                $map{"editor.top_active.rank.$count"} = $editor->[0];
+                $map{"count.edit.top_active.rank.$count"} = $editor->[1];
+                $count++;
+            }
+
+            return \%map;
+        }
+    },
+    "editor.top_recently_active_voters" => {
+        DESC => "Top recently active voters",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $id_edits = $sql->select_list_of_lists(
+                "SELECT editor, count(vote.id) FROM vote
+                 JOIN editor ON vote.editor = editor.id
+                 WHERE NOT superseded AND vote != -1
+                   AND vote_time >= now() - '1 week'::INTERVAL
+                   AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
+                 GROUP BY vote.editor, editor.name
+                 ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25"
+            );
+
+            my %map;
+            my $count = 1;
+            foreach my $editor (@$id_edits) {
+                $map{"editor.top_recently_active_voters.rank.$count"} = $editor->[0];
+                $map{"count.vote.top_recently_active_voters.rank.$count"} = $editor->[1];
+                $count++;
+            }
+
+            return \%map;
+        }
+    },
+    "editor.top_active_voters" => {
+        DESC => "Top active voters",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $id_edits = $sql->select_list_of_lists(
+                "SELECT editor, count(vote.id) FROM vote
+                 JOIN editor ON vote.editor = editor.id
+                 WHERE NOT superseded AND vote != -1
+                   AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
+                 GROUP BY editor, editor.name
+                 ORDER BY count(vote.id) DESC, musicbrainz_collate(editor.name)
+                 LIMIT 25"
+            );
+
+            my %map;
+            my $count = 1;
+            foreach my $editor (@$id_edits) {
+                $map{"editor.top_active_voters.rank.$count"} = $editor->[0];
+                $map{"count.vote.top_active_voters.rank.$count"} = $editor->[1];
+                $count++;
+            }
+
+            return \%map;
+        }
+    },
     "count.release" => {
         DESC => "Count of all releases",
         SQL => "SELECT COUNT(*) FROM release",
@@ -307,6 +276,10 @@ my %stats = (
     "count.artist.0credits" => {
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
+    },
+    "count.url" => {
+        DESC => 'Count of all URLs',
+        SQL => 'SELECT count(*) FROM url',
     },
     "count.coverart" => {
         DESC => 'Count of all cover art images',
@@ -505,6 +478,10 @@ my %stats = (
         DESC => "Count of all works",
         SQL => "SELECT COUNT(*) FROM work",
     },
+    "count.work.has_iswc" => {
+        DESC => "Count of all works with at least one ISWC",
+        SQL => "SELECT COUNT(DISTINCT work) FROM iswc",
+    },
     "count.work.language" => {
         DESC => "Distribution of works by lyrics language",
         CALC => sub {
@@ -557,8 +534,8 @@ my %stats = (
         SQL => "SELECT COUNT(distinct isrc) FROM isrc",
     },
     "count.iswc.all" => {
-        DESC => "Count of all works with an ISWC",
-        SQL => "SELECT COUNT(DISTINCT work) FROM iswc",
+        DESC => "Count of all ISWCs",
+        SQL => "SELECT COUNT(*) FROM iswc",
     },
     "count.iswc" => {
         DESC => "Count of unique ISWCs",

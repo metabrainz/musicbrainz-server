@@ -150,6 +150,13 @@ test 'Adding locales to an alias with locales should not be an auto edit' => sub
     ok(create_edit($c, locale => 'en_GB')->is_open);
 };
 
+test 'Setting an alias as primary for a locale is not an auto edit' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+artistalias');
+    ok(create_edit($c, primary_for_locale => 1)->is_open);
+};
+
 sub create_edit {
     my $c = shift;
     return $c->model('Edit')->create(

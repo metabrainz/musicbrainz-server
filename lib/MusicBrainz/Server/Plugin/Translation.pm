@@ -40,6 +40,8 @@ sub ln {
     }
 }
 
+sub N_ln { shift; return @_; }
+
 sub lp {
     my ($self, $msgid, $msgctxt, $vars) = @_;
 

@@ -14,7 +14,7 @@ use Encode qw(encode decode);
 
 ### TEMPLATES
 
-my @MARKERS = qw/l ln lp/;
+my @MARKERS = qw/l ln N_ln lp/;
 
 my @files;
 
@@ -40,7 +40,7 @@ my $po = new Locale::PO(-msgid=>'', -msgstr=>
                         "Language-Team: LANGUAGE <LL\@li.org>\\n" .
                         "MIME-Version: 1.0\\n" .
                         "Content-Type: text/plain; charset=utf-8\\n" .
-                        "Content-Transfer-Encoding: ENCODING\\n");
+                        "Content-Transfer-Encoding: 8bit\\n");
 
 print $po->dump();
 
@@ -141,7 +141,7 @@ sub parse_file {
             if ( defined $next && $next eq 'COMMA' ) {
                 shift @{$content};
                 if (shift @{$content} eq 'LITERAL') {
-                    if ($type eq 'ln') {
+                    if ($type eq 'ln' || $type eq 'N_ln') {
                         my $plural = shift @{$content};
                         $plural =~ s/\r*\n\s*/ /xmsg;
                         $plural =~ s/\\'/'/xmsg;
@@ -154,7 +154,7 @@ sub parse_file {
                         $context =~ s/\r*\n\s*/ /xmsg;
                         $context =~ s/\\'/'/xmsg;
                         $context =~ s/^\'(.*)\'$/$1/xmsg;
-			$po->msgctxt($context);
+                        $po->msgctxt($context);
                     }
 
                 }
