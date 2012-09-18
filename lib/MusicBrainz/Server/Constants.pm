@@ -238,8 +238,8 @@ Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;
 Readonly our $ELECTION_VOTE_YES     => 1;
 
-Readonly our $COVERART_FRONT_TYPE   => 2;
-Readonly our $COVERART_BACK_TYPE   => 3;
+Readonly our $COVERART_FRONT_TYPE   => 1;
+Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 

@@ -730,9 +730,10 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    $c->stash(
-        cover_art => $c->model('CoverArtArchive')->find_available_artwork($release->gid)
-    );
+    my $artwork = $c->model ('Artwork')->load_for_releases ($release);
+    $c->model ('CoverArtType')->load_for (@$artwork);
+
+    $c->stash(cover_art => $artwork);
 }
 
 __PACKAGE__->meta->make_immutable;
