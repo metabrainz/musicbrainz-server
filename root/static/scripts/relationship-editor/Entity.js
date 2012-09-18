@@ -76,6 +76,7 @@ Source.prototype.mergeRelationship = function(rel) {
         obj = ko.mapping.toJS(rel);
 
     delete obj.id;
+    delete obj.action;
 
     // XXX figure out a faster/nicer way to merge relationship attributes
     var attrs = $.extend({}, obj.attributes),
