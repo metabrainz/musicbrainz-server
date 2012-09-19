@@ -15,12 +15,15 @@ sub submitted_and_valid
 
 sub _select_all
 {
-    my ($self, $model, $accessor) = @_;
-    $accessor ||= 'l_name';
+    my ($self, $model, %opts) = @_;
+    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
+    my $accessor = $opts{accessor} // 'l_name';
 
     my $model_ref = ref($model) ? $model : $self->ctx->model($model);
     return [ map {
         $_->id => l($_->$accessor)
+    } sort_by {
+        $sort_by_accessor ? l($_->$accessor) : ''
     } $model_ref->get_all ];
 }
 
