@@ -1,10 +1,20 @@
 [% IF release.name %]
-   [% page_title = l('Edit Release: {name}', { name => release.name }) %]
+  [% page_title = l('{name} - Edit Release', { name => release.name }) %]
+[% ELSIF information.field('name').value %]
+  [% page_title = l('Add Release: {title}', { title => html_escape(information.field('name').value) }) %]
 [% ELSE %]
-   [% page_title = l('Add Release') %]
+  [% page_title = l('Add Release') %]
 [% END %]
 
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
+  [% IF release.name %]
+    [%- INCLUDE "release/header.tt" page="edit" -%]
+  [% ELSIF information.field('name').value %]
+    <h1>[% l('Add Release: {title}', { title => html_escape(information.field('name').value) }) %]</h1>
+  [% ELSE %]
+    <h1>[% l('Add Release') %]</h1>
+  [% END %]
+
   <form action="[% c.req.uri %]" method="post" class="release-editor">
     [%- r.hidden ('wizard_session_id') -%]
     <input type="hidden" name="wizard_page_id" value="[% page_id %]" />

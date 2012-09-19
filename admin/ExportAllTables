@@ -410,6 +410,7 @@ my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
 my @tablelist;
+my $encrypt_for = undef;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
@@ -423,6 +424,7 @@ GetOptions(
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
     "help"                              => \$fHelp,
+    "encrypt-for|e=s" => \$encrypt_for
 );
 
 sub usage
@@ -439,6 +441,7 @@ Usage: ExportAllTables [options]
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
         --check-completeness     Check that all tables from DB schema are exported
+    -e, --encrypt-for     A GPG aware recipient to encrypt private data for.
 
 Certain combinations of options are pointless:
  * specifying --without-replication and --without-full-export
@@ -447,6 +450,11 @@ Certain combinations of options are pointless:
 
 If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
+
+GPG encryption of private data requires you pass a recipient to encrypt data
+for. This parameter can take any value that gpg(1) can take for `-r`. The user
+running ExportAllTables must have a GPG keyring setup that is aware of this
+recipient.
 
 EOF
 }
@@ -734,6 +742,11 @@ if ($fCompress and $fDoFullExport)
            ' | grep -v mbdump-private > MD5SUMS';
 
     $? == 0 or die "md5sum returned $?";
+
+    if ($encrypt_for) {
+        system "/usr/bin/gpg -r '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "rm $OutputDir/mbdump-private.tar.bz2";
+    }
 }
 
 if ($fCompress and $fDoReplication)

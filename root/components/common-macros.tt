@@ -66,8 +66,8 @@ END; -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
-[%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]" rel="mb-coverart" class="thickbox">
+[%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
     [%- IF no_javascript -%]
         <img src="[% artwork.large_thumbnail %]" />
     [%- ELSE -%]
@@ -371,7 +371,7 @@ END -%]
     IF editor.preferences.show_gravatar;
       '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
-      '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
+      '<img src="//gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
     END;
     text;
     '</a>';
@@ -498,26 +498,11 @@ END -%]
 END -%]
 
 [%- MACRO relate_to_ellipsis(entity) BLOCK -%]
-    <a href="#relate_to">[%- l('Relate to ...') -%]</a>
+    <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
       <div class="relate-to" style="display: none">
         <input type="hidden" class="gid" value="[% entity.gid %]" />
         <input type="hidden" class="type" value="[% entity_type(entity) %]" />
-
-        <input type="hidden" class="returnto"
-               value="[%-
-          action = 'relationships';
-
-          # Recording, URLs and works show more information on their landing
-          # pages
-          IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
-             entity.isa('MusicBrainz::Server::Entity::URL') ||
-             entity.isa('MusicBrainz::Server::Entity::Work');
-             action = 'show';
-          END;
-          c.uri_for_action(c.controller.action_for(action),
-                           [ entity.gid ]) -%]" />
-
         <select style="width: 130px; margin-right: 4px;">
           <option value="artist">[% l('Artist') %]</option>
           <option value="label">[% l('Label') %]</option>
@@ -674,6 +659,7 @@ END -%]
     ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSIF url.url.host.search('trove.nla.gov.au'); 'trove';
+    ELSIF url.url.host.search('rockinchina.com'); 'ric';
     ELSE; '';
 END %]
 

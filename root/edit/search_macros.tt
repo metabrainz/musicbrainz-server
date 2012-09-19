@@ -176,7 +176,7 @@
   <select name="args" multiple="multiple">
     [% FOR item=set_contents %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
+            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
             >[% l(html_escape(item.1)) %]</option>
     [% END %]
   </select>

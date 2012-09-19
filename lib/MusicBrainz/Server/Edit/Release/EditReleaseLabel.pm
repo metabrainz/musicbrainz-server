@@ -172,6 +172,12 @@ sub accept
 {
     my $self = shift;
 
+    if (!defined($self->release_label)) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This release label no longer exists.'
+        );
+    }
+
     my %args = %{ $self->merge_changes };
     $args{label_id} = delete $args{label}
         if $args{label};
@@ -185,9 +191,18 @@ sub accept
     $self->c->model('ReleaseLabel')->update($self->release_label_id, \%args);
 }
 
+has release_label => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        return $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
+    },
+    lazy => 1
+);
+
 sub current_instance {
     my $self = shift;
-    return $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
+    return $self->release_label;
 }
 
 around extract_property => sub {
