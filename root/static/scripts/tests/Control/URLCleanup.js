@@ -142,7 +142,7 @@ MB.tests.URLCleanup.GuessType = function() {
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.guessType(test[0], test[1]), test[2], test[1]);
+            QUnit.equal(control.guessType(test[0], test[1]), test[2], test[1]);
         });
     });
 
@@ -367,7 +367,7 @@ MB.tests.URLCleanup.GuessType = function() {
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.cleanUrl(test[2], test[0]), test[1], test[0]);
+            QUnit.equal(control.cleanUrl(test[2], test[0]), test[1], test[0]);
         });
     });
 };
