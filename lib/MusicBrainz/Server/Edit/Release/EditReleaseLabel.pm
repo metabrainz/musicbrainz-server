@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Release::EditReleaseLabel;
 use Moose;
+use 5.10.0;
 
 use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
 use MooseX::Types::Moose qw( Int Str );
@@ -7,12 +8,14 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_name { N_l('Edit release label') }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
@@ -54,7 +57,7 @@ sub foreign_keys
 {
     my $self = shift;
 
-    my $keys = { Release => { $self->release_id => [] } };
+    my $keys = { Release => { $self->release_id => [ 'ArtistCredit' ] } };
 
     $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
     $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
@@ -169,14 +172,15 @@ sub accept
 {
     my $self = shift;
 
-    my %args;
-    if (exists $self->data->{new}{label})
-    {
-        $args{label_id} = $self->data->{new}{label} ? $self->data->{new}{label}{id} : undef;
+    if (!defined($self->release_label)) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This release label no longer exists.'
+        );
     }
 
-    $args{catalog_number} = $self->data->{new}{catalog_number}
-        if exists $self->data->{new}{catalog_number};
+    my %args = %{ $self->merge_changes };
+    $args{label_id} = delete $args{label}
+        if $args{label};
 
     if (my $label_id = $args{label_id}) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
@@ -186,6 +190,38 @@ sub accept
 
     $self->c->model('ReleaseLabel')->update($self->release_label_id, \%args);
 }
+
+has release_label => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        return $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
+    },
+    lazy => 1
+);
+
+sub current_instance {
+    my $self = shift;
+    return $self->release_label;
+}
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('label') {
+            return (
+                merge_value($ancestor->{label} && $ancestor->{label}{id}),
+                merge_value($current->label_id),
+                merge_value($new->{label} && $new->{label}{id})
+            );
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

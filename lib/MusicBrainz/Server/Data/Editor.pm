@@ -5,6 +5,7 @@ use LWP;
 use URI::Escape;
 
 use DateTime;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -499,13 +500,18 @@ sub delete {
                            password = '',
                            privs = 0,
                            email = NULL,
+                           email_confirm_date = NULL,
                            website = NULL,
-                           bio = NULL
+                           bio = NULL,
+                           country = NULL,
+                           birth_date = NULL,
+                           gender = NULL
          WHERE id = ?",
         $editor_id
     );
 
     $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
+    $self->c->model('EditorLanguage')->delete_editor($editor_id);
 
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
@@ -528,7 +534,33 @@ sub delete {
                 Work
           );
 
+    # Cancel any open edits the editor still has
+    my @edits = values %{ $self->c->model('Edit')->get_by_ids(
+        @{ $self->sql->select_single_column_array(
+            'SELECT id FROM edit WHERE editor = ? AND status = ?',
+            $editor_id, $STATUS_OPEN)
+       }
+    ) };
+
+    for my $edit (@edits) {
+        $self->c->model('Edit')->cancel($edit);
+    }
+
     $self->sql->commit;
+}
+
+sub subscription_summary {
+    my ($self, $editor_id) = @_;
+
+    $self->sql->select_single_row_hash(
+        'SELECT ' .
+            join(', ', map {
+                "COALESCE(
+                   (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
+                   0) AS $_"
+            } qw( artist label editor )),
+        ($editor_id) x 3
+    );
 }
 
 no Moose;
