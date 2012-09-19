@@ -323,8 +323,8 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES
     (8, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 8, 9);
-INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9);
+INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
+    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9, 'Second');
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 8, 2);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, edits_pending) VALUES (2, 1, 9, 2, 1);

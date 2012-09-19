@@ -3,8 +3,6 @@ use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
-use HTTP::Status qw( :constants );
-
 with 't::Mechanize', 't::Context';
 
 test all => sub {
@@ -59,42 +57,6 @@ $mech->content_contains('hello world!');
 $mech->content_contains('new_email@example.com');
 
 
-};
-
-test 'After removing email address, editors cannot edit' => sub {
-    my $test = shift;
-    my $mech = $test->mech;
-    my $c    = $test->c;
-
-    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
-    $c->sql->do(
-        'UPDATE editor SET email = ?, email_confirm_date = now()
-         WHERE name = ?',
-        'foo@bar.baz', 'new_editor'
-    );
-
-    $mech->get('/login');
-    $mech->submit_form( with_fields => {
-        username => 'new_editor',
-        password => 'password'
-    });
-
-    {
-        my $response = $mech->get('/artist/create');
-        is($response->code, HTTP_OK);
-    }
-
-    $mech->get_ok('/account/edit');
-    html_ok($mech->content);
-    $mech->submit_form( with_fields => {
-        'profile.email' => '',
-    });
-    $mech->content_contains('Your profile has been updated');
-
-    {
-        my $response = $mech->get('/artist/create');
-        is($response->code, HTTP_UNAUTHORIZED);
-    }
 };
 
 1;

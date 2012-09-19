@@ -7,7 +7,7 @@
 
       <div class="artwork-cont[% ' mp' IF !artwork.approved %]">
         <div style="position: relative" class="artwork">
-          [%- display_artwork (artwork) -%]
+          [%- display_artwork (artwork, undef, undef, 'mb-caa') -%]
         </div>
         <p>
           Types: [% comma_list(artwork.types) || '-' %]
