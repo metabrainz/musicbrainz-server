@@ -365,8 +365,7 @@ MB.tests.RelationshipEditor.Util = function() {
 
         $.each(tests, function(i, test) {
             var result = RE.Util.convertAttr(test.root, test.value);
-            /* FIXME: this test is failing. --warp. */
-            // QUnit.deepEqual(result, test.expected, test.value);
+            QUnit.deepEqual(result, test.expected, String(test.value));
         });
     });
 };
@@ -381,18 +380,18 @@ MB.tests.RelationshipEditor.Fields = function() {
         var field = new Fields.Integer();
 
         var tests = [
-            // FIXME: this test fails. --warp.  {input: undefined, expected: null},
-            // {input: false, expected: null},
-            // {input: "", expected: null},
-            // {input: 0, expected: 0},
-            // {input: 12, expected: 12},
-            // {input: "0", expected: 0},
+            {input: undefined, expected: null},
+            {input: false, expected: null},
+            {input: "", expected: null},
+            {input: 0, expected: 0},
+            {input: 12, expected: 12},
+            {input: "0", expected: 0},
             {input: "012", expected: 12},
         ];
 
         $.each(tests, function(i, test) {
             field(test.input);
-            QUnit.equal(field(), test.expected, test.input);
+            QUnit.equal(field(), test.expected, String(test.input));
         });
 
         var relationship = RE.Relationship({
