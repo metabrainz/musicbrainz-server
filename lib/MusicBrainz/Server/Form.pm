@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
+use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Translation qw( l );
 
 has '+name' => ( required => 1 );
