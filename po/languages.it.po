@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-08-19 12:59+0000\n"
+"PO-Revision-Date: 2012-09-12 08:55+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -621,7 +621,7 @@ msgstr "Inglese"
 msgid "English, Middle (1100-1500)"
 msgstr "Inglese medio (1100-1500)"
 
-#. frequency:0 iso_code_3:ang
+#. frequency:1 iso_code_3:ang
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
 msgstr "Inglese antico (ca. 450-1100)"
@@ -1796,6 +1796,11 @@ msgstr "Puyuma"
 msgid "Quechua"
 msgstr "Quechua"
 
+#. frequency:1 iso_code_3:qya
+#: DB:language/name:5662
+msgid "Quenya"
+msgstr ""
+
 #. frequency:1 iso_code_3:raj
 #: DB:language/name:345
 msgid "Rajasthani"
@@ -1985,6 +1990,11 @@ msgstr "Lingue dei segni"
 #: DB:language/name:54
 msgid "Siksika"
 msgstr "Siksika"
+
+#. frequency:1 iso_code_3:sjn
+#: DB:language/name:5989
+msgid "Sindarin"
+msgstr ""
 
 #. frequency:1 iso_code_3:snd
 #: DB:language/name:387
@@ -2429,7 +2439,7 @@ msgstr "Yao"
 #. frequency:1 iso_code_3:yap
 #: DB:language/name:462
 msgid "Yapese"
-msgstr ""
+msgstr "Yapese"
 
 #. frequency:1 iso_code_3:yid
 #: DB:language/name:463
@@ -2449,12 +2459,12 @@ msgstr "Cantonese"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:465
 msgid "Yupik languages"
-msgstr ""
+msgstr "Lingue yupik"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:469
 msgid "Zande languages"
-msgstr ""
+msgstr "Lingue zande"
 
 #. frequency:1 iso_code_3:zap
 #: DB:language/name:466

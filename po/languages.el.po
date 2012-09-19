@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-03 21:58+0000\n"
+"PO-Revision-Date: 2012-09-12 08:55+0000\n"
 "Last-Translator: Panos Bouklis <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -620,7 +620,7 @@ msgstr "Αγγλικά"
 msgid "English, Middle (1100-1500)"
 msgstr "Αγγλικά, Μεσαιωνικά (1100-1500)"
 
-#. frequency:0 iso_code_3:ang
+#. frequency:1 iso_code_3:ang
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
 msgstr "Αγγλικά, Αρχαία (περίπου 450-1100)"
@@ -1795,6 +1795,11 @@ msgstr ""
 msgid "Quechua"
 msgstr "Κέτσουα"
 
+#. frequency:1 iso_code_3:qya
+#: DB:language/name:5662
+msgid "Quenya"
+msgstr ""
+
 #. frequency:1 iso_code_3:raj
 #: DB:language/name:345
 msgid "Rajasthani"
@@ -1983,6 +1988,11 @@ msgstr "Νοηματικές γλώσσες"
 #. frequency:1 iso_code_3:bla
 #: DB:language/name:54
 msgid "Siksika"
+msgstr ""
+
+#. frequency:1 iso_code_3:sjn
+#: DB:language/name:5989
+msgid "Sindarin"
 msgstr ""
 
 #. frequency:1 iso_code_3:snd
