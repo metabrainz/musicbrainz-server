@@ -2,14 +2,16 @@ package MusicBrainz::Server::Form::Relationship;
 
 use HTML::FormHandler::Moose;
 
-extends 'MusicBrainz::Server::Form';
-with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::DatePeriod';
-with 'MusicBrainz::Server::Form::Relationship::LinkType';
+extends 'MusicBrainz::Server::Form::Relationship::LinkType';
 
 has '+name' => ( default => 'ar' );
 
 has_field 'direction'    => ( type => 'Checkbox' );
+
+has_field 'period' => (
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod',
+    not_nullable => 1
+);
 
 has_field 'entity0'      => ( type => 'Compound' );
 has_field 'entity0.id'   => ( type => 'Text' );
@@ -18,8 +20,6 @@ has_field 'entity0.name' => ( type => 'Text' );
 has_field 'entity1'      => ( type => 'Compound' );
 has_field 'entity1.id'   => ( type => 'Text' );
 has_field 'entity1.name' => ( type => 'Text' );
-
-sub edit_field_names { qw() }
 
 1;
 

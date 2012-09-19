@@ -36,7 +36,7 @@ $(function() {
             else {
                 message = MB.text.PleaseSelectARSubtype;
             }
-            attrs = selected.attrs;
+            attrs = selected.attrs || {};
         }
         else {
             message = MB.text.PleaseSelectARType;
