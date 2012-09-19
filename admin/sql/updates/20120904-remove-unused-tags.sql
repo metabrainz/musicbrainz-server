@@ -1,3 +1,5 @@
+SET search_path = 'musicbrainz';
+
 DROP INDEX artist_tag_idx_artist;
 DROP INDEX artist_tag_raw_idx_artist;
 DROP INDEX label_tag_idx_label;
@@ -19,6 +21,6 @@ CREATE INDEX CONCURRENTLY tag_relation_idx_tag2 ON tag_relation (tag2);
 
 BEGIN;
 
-SELECT delete_unused_tag(id) INTO discard_output FROM tag;
+SELECT delete_unused_tag(id) FROM tag;
 
 COMMIT;
