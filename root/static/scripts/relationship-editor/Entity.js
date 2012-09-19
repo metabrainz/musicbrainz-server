@@ -45,7 +45,8 @@ Entity.prototype.init = function() {
 
 Entity.prototype.render = function(name, options) {
     options = $.extend({
-        href: "/" + this.type + "/" + this.gid, target: "_blank",
+        href: "/" + this.type + "/" + this.gid,
+        target: "_blank"
     }, options);
     return MB.html.a(options, name);
 };
