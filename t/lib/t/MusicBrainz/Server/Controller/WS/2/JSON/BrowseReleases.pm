@@ -44,7 +44,7 @@ test 'browse releases via artist (paging)' => sub {
                     date => "1999-09-23",
                     country => "US",
                     asin => "B00001IVAI",
-                    barcode => "",
+                    barcode => JSON::null,
                     disambiguation => JSON::null,
                     packaging => JSON::null,
                 }]

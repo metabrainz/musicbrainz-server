@@ -347,7 +347,7 @@ sub _serialize_release
 
     push @list, $gen->date($release->date->format) if $release->date && !$release->date->is_empty;
     push @list, $gen->country($release->country->iso_code) if $release->country;
-    push @list, $gen->barcode($release->barcode) if $release->barcode;
+    push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
 
     if ($toplevel)
