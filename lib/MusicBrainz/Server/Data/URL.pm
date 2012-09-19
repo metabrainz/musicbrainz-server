@@ -3,7 +3,8 @@ use Moose;
 use namespace::autoclean;
 
 use Carp;
-use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
+use MusicBrainz::Server::Data::Utils
+    qw( generate_gid hash_to_row query_to_list );
 use MusicBrainz::Server::Entity::URL;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -43,6 +44,7 @@ my %URL_SPECIALIZATIONS = (
     'PsyDB'           => qr{^https?://(?:www.)?psydb.net/}i,
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
     'Rateyourmusic'   => qr{^https?://(?:www.)?rateyourmusic.com/}i,
+    'RockInChina'     => qr{^https?://(?:www.)?rockinchina.com/}i,
     'Rolldabeats'     => qr{^https?://(?:www.)?rolldabeats.com/}i,
     'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Songfacts'       => qr{^https?://(?:www.)?songfacts.com/}i,
@@ -113,14 +115,27 @@ sub _merge_impl
     return 1;
 }
 
+sub find_by_url {
+    my ($self, $url) = @_;
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                ' WHERE url = ?';
+    return query_to_list(
+        $self->sql, sub { $self->_new_from_row(@_) },
+        $query, $url
+    );
+}
+
 sub update
 {
     my ($self, $url_id, $url_hash) = @_;
     croak '$url_id must be present and > 0' unless $url_id > 0;
-    my $query = 'SELECT id FROM url WHERE url = ? AND id != ?';
-    if (my $merge = $self->sql->select_single_value($query, $url_hash->{url}, $url_id)) {
-        $self->merge($merge, $url_id);
-        return $merge;
+
+    my ($merge_into) = grep { $_->id != $url_id }
+        $self->find_by_url($url_hash->{url});
+
+    if ($merge_into) {
+        $self->merge($merge_into->id, $url_id);
+        return $merge_into->id;
     }
     else {
         my $row = $self->_hash_to_row($url_hash);

@@ -1,25 +1,26 @@
 package MusicBrainz::Server::Entity::PartialDate;
 use Moose;
 
-use List::AllUtils qw( any first_index zip );
 use Date::Calc;
+use List::AllUtils qw( any first_index );
+use MusicBrainz::Server::Data::Utils qw( take_while );
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
 has 'year' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
     predicate => 'has_year',
 );
 
 has 'month' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Maybe[Int]'
 );
 
 has 'day' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Maybe[Int]'
 );
 
 around BUILDARGS => sub {
@@ -76,6 +77,19 @@ sub format
     return join('-', @res);
 }
 
+=method defined_run
+
+Return all parts of the date that are defined, returning at the first undefined
+value.
+
+=cut
+
+sub defined_run {
+    my $self = shift;
+    my @components = ($self->year, $self->month, $self->day);
+    return take_while { defined } @components;
+}
+
 sub _cmp
 {
     my ($a, $b) = @_;
@@ -94,6 +108,15 @@ sub _cmp
     return $days > 0 ? -1
          : $days < 0 ?  1
          :              0;
+}
+
+sub new_from_row {
+    my ($class, $row, $prefix) = @_;
+    my %info;
+    $info{year} = $row->{$prefix . 'year'} if defined $row->{$prefix . 'year'};
+    $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
+    $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
+    return $class->new(%info);
 }
 
 __PACKAGE__->meta->make_immutable;

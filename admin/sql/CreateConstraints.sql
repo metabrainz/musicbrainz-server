@@ -16,4 +16,10 @@ ALTER TABLE url           ADD CHECK (controlled_for_whitespace(description));
 ALTER TABLE work          ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE work_name     ADD CHECK (controlled_for_whitespace(name));
 
+ALTER TABLE artist
+ADD CHECK (
+  (gender IS NULL AND type = 2)
+  OR type IS DISTINCT FROM 2
+);
+
 COMMIT;

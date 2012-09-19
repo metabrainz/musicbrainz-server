@@ -3,7 +3,6 @@ use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
 use MusicBrainz::Server::Translation qw( l );
-use List::UtilsBy qw( sort_by );
 
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );

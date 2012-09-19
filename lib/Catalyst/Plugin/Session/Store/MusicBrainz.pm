@@ -1,20 +1,23 @@
 package Catalyst::Plugin::Session::Store::MusicBrainz;
 
-use Moose;
-use Try::Tiny;
+use Catalyst::Plugin::Session::Store::Memcached;
+our @ISA = 'Catalyst::Plugin::Session::Store::Memcached';
 
-extends 'Catalyst::Plugin::Session::Store::Memcached';
+sub store_session_data
+{
+    my $self = shift;
+    my $ret;
 
-around 'store_session_data' => sub {
-    my $orig = shift;
-    my $c = shift;
-
-    try {
-        $c->$orig(@_);
-    } catch {
-        $c->log->error ("Cannot save session to memcached, kick some servers!");
+    eval {
+        $ret = $self->SUPER::store_session_data(@_);
     };
-};
+    if ($@)
+    {
+        $self->log->error ("Cannot save session to memcached, kick some servers!");
+    }
+
+    return $ret;
+}
 
 =head1 LICENSE
 

@@ -6,7 +6,6 @@ use warnings;
 use MusicBrainz::Server::Translation qw( l );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( l ln );
-use List::UtilsBy qw( sort_by );
 
 use Sub::Exporter -setup => {
     exports => [qw(
@@ -125,7 +124,7 @@ sub language_options {
     my $frequent = 2;
     my $skip = 0;
 
-    my @sorted = sort_by { $_->{label} } map {
+    my @sorted = sort { $a->{label} cmp $b->{label} } map {
         {
             'value' => $_->id,
             'label' => $_->l_name,
@@ -148,7 +147,7 @@ sub script_options {
     my $frequent = 4;
     my $skip = 1;
 
-    my @sorted = sort_by { $_->{label} } map {
+    return [ map {
         {
             'value' => $_->id,
             'label' => $_->l_name,
@@ -156,8 +155,7 @@ sub script_options {
             'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
-    } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all;
-    return \@sorted;
+    } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all ];
 }
 
 1;
