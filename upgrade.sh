@@ -34,6 +34,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120220-merge-duplicate-cr
 echo `date` : Applying admin/sql/updates/20120822-more-text-constraints.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120822-more-text-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : Applying admin/sql/updates/20120917-rg-st-created.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120917-rg-st-created.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
