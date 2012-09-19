@@ -6,7 +6,7 @@
     </a>
 [%- END -%]
 <ul class="r">
-    [% IF server_languages.size > 0 -%]
+    [% IF server_languages.size > 1 -%]
     <li class="language-selector">
         [% FOREACH language = server_languages; IF language.0 == current_language -%]
             [%- print_language_link(language) -%]

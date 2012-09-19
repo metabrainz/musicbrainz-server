@@ -44,6 +44,7 @@ my %URL_SPECIALIZATIONS = (
     'PsyDB'           => qr{^https?://(?:www.)?psydb.net/}i,
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
     'Rateyourmusic'   => qr{^https?://(?:www.)?rateyourmusic.com/}i,
+    'RockInChina'     => qr{^https?://(?:www.)?rockinchina.com/}i,
     'Rolldabeats'     => qr{^https?://(?:www.)?rolldabeats.com/}i,
     'SecondHandSongs' => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Songfacts'       => qr{^https?://(?:www.)?songfacts.com/}i,

@@ -65,6 +65,8 @@ sub tracklist : Chained('root') PathPart Args(1) {
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
     $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
+        $tracklist->all_tracks);
 
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {

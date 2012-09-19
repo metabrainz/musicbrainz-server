@@ -30,12 +30,11 @@ MB.Control.RelateTo = function () {
         return null;
     }
 
-    self.$link = $('a[href=#relate_to]');
+    self.$link = $('a.relate-to');
     self.$select = self.$relate.find ('select:first');
     self.$endpoint = self.$relate.find('select.endpoint');
     self.$type0 = self.$relate.find ('input.type');
     self.$gid0 = self.$relate.find ('input.gid');
-    self.$returnto = self.$relate.find ('input.returnto');
     self.$cancel = self.$relate.find ('button.cancel');
     self.$create = self.$relate.find ('button.create');
     self.$autocomplete = self.$relate.find ('span.autocomplete');
@@ -66,19 +65,16 @@ MB.Control.RelateTo = function () {
         if (!self.selected_item) {
             return;
         }
-
         var endpoint = self.$endpoint.val(),
             location,
-            query_string,
-            returnto = self.$returnto.val();
-
+            query_string;
         if (endpoint && endpoint == 'recording') {
             location = '/edit/relationship/create-recordings';
             query_string = $.param ({
                 release: self.$gid0.val (),
                 type: cleanType(self.selected_item.type),
                 gid: self.selected_item.gid,
-                returnto: returnto
+                returnto: window.location.toString()
             });
         }
         else {
@@ -88,7 +84,7 @@ MB.Control.RelateTo = function () {
                 type1: cleanType(self.selected_item.type),
                 entity0: self.$gid0.val (),
                 entity1: self.selected_item.gid,
-                returnto: returnto
+                returnto: window.location.toString()
             });
         }
 

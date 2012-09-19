@@ -6,17 +6,17 @@ use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 use Carp 'confess';
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Entity::Barcode;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    barcode_from_row
     generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
     merge_partial_date
     order_by
-    partial_date_from_row
     placeholders
     query_to_list
     query_to_list_limited
@@ -70,10 +70,10 @@ sub _column_mapping
         status_id => 'status',
         packaging_id => 'packaging',
         country_id => 'country',
-        date => sub { partial_date_from_row(shift, shift() . 'date_') },
+        date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'date_') },
         edits_pending => 'edits_pending',
         comment => 'comment',
-        barcode => sub { barcode_from_row (shift, shift) },
+        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row(shift, shift) },
         script_id => 'script',
         language_id => 'language',
         quality => sub {
