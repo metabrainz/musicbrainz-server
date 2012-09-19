@@ -124,7 +124,7 @@ ko.bindingHandlers.linkType = (function() {
                 previousType = type;
                 previousDirection = backward;
             }
-        },
+        }
     };
 }());
 
@@ -134,7 +134,7 @@ ko.bindingHandlers.targetType = (function() {
     var allowedRelations = {
         recording: ["artist", "label", "recording", "release"],
         work:      ["artist", "label", "work"],
-        release:   ["artist", "label", "recording", "release"],
+        release:   ["artist", "label", "recording", "release"]
     };
 
     function change() {
@@ -687,7 +687,7 @@ var WorkDialog = UI.WorkDialog = {
     errorCallback: function() {
         WorkDialog.loading(false);
         WorkDialog.error(true);
-    },
+    }
 };
 
 
