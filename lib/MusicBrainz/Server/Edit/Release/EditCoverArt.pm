@@ -21,8 +21,11 @@ sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 
 sub alter_edit_pending {
+    my $self = shift;
+
     return {
-        Release => [ shift->release_ids ],
+        Release => [ $self->release_ids ],
+        Artwork => [ $self->data->{id} ],
     }
 }
 
@@ -127,7 +130,7 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt object.
+    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
     my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $data{release}->gid . "/";
     $data{artwork} = {
         image => $prefix.$self->data->{id}.'.jpg',

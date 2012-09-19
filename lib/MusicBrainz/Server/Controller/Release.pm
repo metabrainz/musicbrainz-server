@@ -72,7 +72,7 @@ after 'load' => sub
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
 
-    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
+    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
     my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
