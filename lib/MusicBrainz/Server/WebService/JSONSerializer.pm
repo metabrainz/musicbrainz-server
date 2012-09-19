@@ -2,9 +2,10 @@ package MusicBrainz::Server::WebService::JSONSerializer;
 
 use Moose;
 use JSON;
+use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::Track qw( format_track_length );
 use MusicBrainz::Server::WebService::WebServiceInc;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serializer serialize_entity list_of);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serializer serialize_entity );
 
 sub mime_type { 'application/json' }
 sub fmt { 'json' }
@@ -13,15 +14,37 @@ sub serialize
 {
     my ($self, $type, @data) = @_;
 
+    $type =~ s/-/_/g;
+
     my $override = $self->meta->find_method_by_name ($type);
     return $override->execute ($self, @data) if $override;
 
     my ($entity, $inc, $opts) = @data;
 
-    my %ret = serialize_entity($entity, $inc, $opts);
-
-    return encode_json(\%ret);
+    my $ret = serialize_entity($entity, $inc, $opts, 1);
+    return encode_json($ret);
 }
+
+sub entity_list
+{
+    my ($self, $list, $inc, $opts, $type, $type_plural) = @_;
+
+    my %ret;
+    $ret{$type."-offset"} = number ($list->{offset});
+    $ret{$type."-count"} = number ($list->{total});
+    $ret{$type_plural} = [
+        map { serialize_entity($_, $inc, $opts, 1) }
+        sort_by { $_->gid } @{ $list->{items} }];
+
+    return encode_json (\%ret);
+}
+
+sub artist_list        { shift->entity_list (@_, "artist", "artists") };
+sub label_list         { shift->entity_list (@_, "label", "labels") };
+sub recording_list     { shift->entity_list (@_, "recording", "recordings") };
+sub release_list       { shift->entity_list (@_, "release", "releases") };
+sub release_group_list { shift->entity_list (@_, "release-group", "release-groups") };
+sub work_list          { shift->entity_list (@_, "work", "works") };
 
 sub serialize_data
 {

@@ -984,15 +984,6 @@ sub isrc_resource
     return $data->[0];
 }
 
-sub iswc_resource
-{
-    my ($self, $gen, $work, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_work_list($data, $gen, $work, $inc, $stash, 1);
-    return $data->[0];
-}
-
 sub puid_resource
 {
     my ($self, $gen, $puid, $inc, $stash) = @_;

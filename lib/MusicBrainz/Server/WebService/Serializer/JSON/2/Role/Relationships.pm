@@ -1,29 +1,20 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships;
 use Moose::Role;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean );
 
-sub has_lifespan
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serialize_entity);
+
+requires 'serialize';
+
+around serialize => sub
 {
-    my ($self, $entity) = @_;
-
-    my $has_begin_date = !$entity->begin_date->is_empty;
-    my $has_end_date = !$entity->end_date->is_empty;
-
-    return $has_begin_date || $has_end_date;
-}
-
-around serialize => sub {
     my ($orig, $self, $entity, $inc, $opts, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $opts, $toplevel);
 
-    return $ret unless $toplevel && $self->has_lifespan ($entity);
+    return $ret unless defined $inc && $inc->has_rels;
 
-    my %lifespan;
-    $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
-    $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
-    $lifespan{ended} = boolean ($entity->ended);
+    my @rels = map { serialize_entity ($_) } @{ $entity->relationships };
 
-    $ret->{"life-span"} = \%lifespan;
+    $ret->{relations} = \@rels;
 
     return $ret;
 };
@@ -33,7 +24,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2010,2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

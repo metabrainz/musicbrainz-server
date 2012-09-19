@@ -1,6 +1,31 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Relation;
+
 use Moose;
-use JSON;
+use String::CamelCase qw(camelize);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serialize_entity);
+
+extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
+
+sub element { 'relation'; }
+
+sub serialize
+{
+    my ($self, $entity, $inc, $opts) = @_;
+    my %body;
+
+    $body{type} = $entity->link->type->name;
+    $body{direction} = $entity->direction == 2 ? "backward" : "forward";
+
+    if ($entity->target_type eq 'artist' ||
+           $entity->target_type eq 'label' ||
+           # $entity->target_type eq 'release' ||
+           $entity->target_type eq 'recording')
+    {
+        $body{$entity->target_type} = serialize_entity ($entity->target);
+    }
+
+    return \%body;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
