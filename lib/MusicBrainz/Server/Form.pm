@@ -16,9 +16,9 @@ sub submitted_and_valid
 
 sub _select_all
 {
-    my ($self, $model, $accessor, $sort_by_accessor) = @_;
-    $sort_by_accessor ||= 0;
-    $accessor ||= 'l_name';
+    my ($self, $model, %opts) = @_;
+    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
+    my $accessor = $opts{accessor} // 'l_name';
 
     my $model_ref = ref($model) ? $model : $self->ctx->model($model);
     return [ map {

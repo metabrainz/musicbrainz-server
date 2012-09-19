@@ -54,7 +54,7 @@ has_field 'languages.fluency' => (
 );
 
 sub options_gender_id { shift->_select_all('Gender') }
-sub options_country_id { shift->_select_all('Country', undef, 1) }
+sub options_country_id { shift->_select_all('Country', sort_by_accessor => 1) }
 sub options_languages_language_id { return language_options(shift->ctx) }
 sub options_languages_fluency {
     return [
