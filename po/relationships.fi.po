@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-07-15 20:30+0000\n"
+"PO-Revision-Date: 2012-09-11 20:36+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
@@ -184,14 +184,6 @@ msgid ""
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr ""
 
-#: DB:link_type/link_phrase:99 DB:link_type/link_phrase:195
-msgid "IBDb"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:99 DB:link_type/reverse_link_phrase:195
-msgid "IBDb page for"
-msgstr ""
-
 #: DB:link_type/link_phrase:97 DB:link_type/link_phrase:178
 msgid "IMDb"
 msgstr "IMDb"
@@ -202,14 +194,6 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:178
 msgid "IMDb page for"
-msgstr ""
-
-#: DB:link_type/link_phrase:100 DB:link_type/link_phrase:196
-msgid "IOBDb"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:100 DB:link_type/reverse_link_phrase:196
-msgid "IOBDb page for"
 msgstr ""
 
 #: DB:link_attribute_type/description:516
@@ -1470,9 +1454,7 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:100 DB:link_type/description:91
-#: DB:link_type/description:99 DB:link_type/description:196
-#: DB:link_type/description:181 DB:link_type/description:195
+#: DB:link_type/description:91 DB:link_type/description:181
 msgid ""
 "This relationship is <strong>deprecated</strong>. Use \"has a page in a "
 "database\" instead."
@@ -2093,7 +2075,7 @@ msgstr "perustaja"
 msgid "founders"
 msgstr "perustajat"
 
-#: DB:link_type/reverse_link_phrase:75 DB:link_type/reverse_link_phrase:177
+#: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:75
 #: DB:link_type/reverse_link_phrase:255
 msgid "free download page for"
 msgstr ""
@@ -2242,17 +2224,9 @@ msgstr ""
 msgid "has an Allmusic page at"
 msgstr "on Allmusic-sivu osoitteessa"
 
-#: DB:link_type/short_link_phrase:99 DB:link_type/short_link_phrase:195
-msgid "has an IBDb page at"
-msgstr "on IBdb-sivu osoitteessa"
-
 #: DB:link_type/short_link_phrase:97 DB:link_type/short_link_phrase:178
 msgid "has an IMDb page at"
 msgstr "on IMDb-sivu osoitteessa"
-
-#: DB:link_type/short_link_phrase:100 DB:link_type/short_link_phrase:196
-msgid "has an IOBDb page at"
-msgstr "on IOBDb-sivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:225 DB:link_type/short_link_phrase:193
 msgid "has an official YouTube channel at"
@@ -2391,7 +2365,7 @@ msgstr ""
 msgid "is a remaster of"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:9 DB:link_type/short_link_phrase:230
+#: DB:link_type/short_link_phrase:230 DB:link_type/short_link_phrase:9
 msgid "is a remix of"
 msgstr ""
 
@@ -2855,19 +2829,19 @@ msgid "public domain"
 msgstr " vapaasti yleiseen käyttöön"
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:206
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:269
 #: DB:link_type/link_phrase:161 DB:link_type/reverse_link_phrase:252
 #: DB:link_type/short_link_phrase:66 DB:link_type/short_link_phrase:127
-#: DB:link_type/short_link_phrase:32 DB:link_type/short_link_phrase:206
+#: DB:link_type/short_link_phrase:206 DB:link_type/short_link_phrase:32
 #: DB:link_type/short_link_phrase:208 DB:link_type/short_link_phrase:269
 #: DB:link_type/short_link_phrase:161
 msgid "published"
 msgstr "julkaistu"
 
 #: DB:link_type/link_phrase:252 DB:link_type/reverse_link_phrase:66
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:206
+#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:208
 #: DB:link_type/reverse_link_phrase:269 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "julkaisija"
@@ -2913,15 +2887,15 @@ msgstr "uudelleen masteroidut versiot"
 msgid "remasters"
 msgstr "uudelleenmasteroinnit"
 
-#: DB:link_type/link_phrase:9 DB:link_type/link_phrase:230
+#: DB:link_type/link_phrase:230 DB:link_type/link_phrase:9
 msgid "remix of"
 msgstr ""
 
 #: DB:link_type/link_phrase:13 DB:link_type/link_phrase:50
 #: DB:link_type/link_phrase:157 DB:link_type/link_phrase:234
 #: DB:link_type/reverse_link_phrase:13 DB:link_type/reverse_link_phrase:50
-#: DB:link_type/reverse_link_phrase:157 DB:link_type/reverse_link_phrase:9
-#: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:234
+#: DB:link_type/reverse_link_phrase:157 DB:link_type/reverse_link_phrase:230
+#: DB:link_type/reverse_link_phrase:234 DB:link_type/reverse_link_phrase:9
 #: DB:link_type/short_link_phrase:13 DB:link_type/short_link_phrase:50
 #: DB:link_type/short_link_phrase:157 DB:link_type/short_link_phrase:234
 msgid "remixes"

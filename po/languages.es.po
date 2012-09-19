@@ -3,6 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012.
 # gr0uch0mars <email address hidden>, 2011.
 # Héctor Arroyo <email address hidden>, 2012.
+# Ismael Olea <email address hidden>, 2012.
 # Nicolás Tamargo <email address hidden>, 2011, 2012.
 #   <email address hidden>, 2012.
 #   Tobias Quathamer <email address hidden>, 2007.
@@ -11,14 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-07-27 10:08+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2012-09-12 09:27+0000\n"
+"Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -625,7 +626,7 @@ msgstr "Inglés"
 msgid "English, Middle (1100-1500)"
 msgstr "Ingles medieval (1100-1500)"
 
-#. frequency:0 iso_code_3:ang
+#. frequency:1 iso_code_3:ang
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
 msgstr "Inglés antiguo (ca. 450-1100)"
@@ -1800,6 +1801,11 @@ msgstr "Puyuma"
 msgid "Quechua"
 msgstr "Quechua"
 
+#. frequency:1 iso_code_3:qya
+#: DB:language/name:5662
+msgid "Quenya"
+msgstr "Quenya"
+
 #. frequency:1 iso_code_3:raj
 #: DB:language/name:345
 msgid "Rajasthani"
@@ -1989,6 +1995,11 @@ msgstr "Lenguas de signos"
 #: DB:language/name:54
 msgid "Siksika"
 msgstr "Siksiká"
+
+#. frequency:1 iso_code_3:sjn
+#: DB:language/name:5989
+msgid "Sindarin"
+msgstr "Sindarin"
 
 #. frequency:1 iso_code_3:snd
 #: DB:language/name:387
