@@ -4,12 +4,11 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     check_data
-    barcode_from_row
     load_subobjects
     query_to_list
     query_to_list_limited
 );
-
+use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_barcode );
@@ -40,7 +39,7 @@ sub _column_mapping
         lookup_count => 'lookup_count',
         modify_count => 'modify_count',
         source => 'source',
-        barcode => sub { barcode_from_row (shift, shift) },
+        barcode => sub { MusicBrainz::Server::Data::Entity::Barcode->new_from_row (shift, shift) },
         comment => 'comment',
         discid => 'discid',
     };

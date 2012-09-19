@@ -21,4 +21,10 @@ ALTER TABLE label_name ADD CHECK (name != '');
 ALTER TABLE release_name ADD CHECK (name != '');
 ALTER TABLE work_name ADD CHECK (name != '');
 
+ALTER TABLE artist
+ADD CHECK (
+  (gender IS NULL AND type = 2)
+  OR type IS DISTINCT FROM 2
+);
+
 COMMIT;
