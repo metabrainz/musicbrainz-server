@@ -95,6 +95,7 @@ RE.releaseViewModel = {
         });
 
         data["rel-editor.edit_note"] = _.trim($("#id-rel-editor\\.edit_note").val());
+        data["rel-editor.as_auto_editor"] = $("#id-rel-editor\\.as_auto_editor").is(":checked") ? 1 : 0;
 
         $.post("/relationship-editor", data)
             .success(function() {

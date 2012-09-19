@@ -381,6 +381,7 @@
 
       <form>
         [% INCLUDE 'forms/edit-note.tt' %]
+        [%- as_auto_editor() -%]
         <div class="row no-label buttons">
           <button type="submit" class="submit positive" data-bind="click: submit,
             disable: submissionLoading">[% l('Enter edit') %]</button>
