@@ -283,6 +283,7 @@ sub load_writers
 {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_writers == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
@@ -290,8 +291,7 @@ sub load_writers
     $self->_find_writers(\@ids, \%map);
     for my $work (@works) {
         $work->add_writer(@{ $map{$work->id} })
-            if exists $map{$work->id} and
-               scalar $work->all_writers == 0;
+            if exists $map{$work->id};
     }
 }
 
@@ -337,6 +337,7 @@ sub load_recording_artists
 {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_artists == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
@@ -344,8 +345,7 @@ sub load_recording_artists
     $self->_find_recording_artists(\@ids, \%map);
     for my $work (@works) {
         $work->add_artist(map { $_->{entity} } @{ $map{$work->id} })
-            if exists $map{$work->id} and
-               scalar $work->all_artists == 0;
+            if exists $map{$work->id};
     }
 }
 
