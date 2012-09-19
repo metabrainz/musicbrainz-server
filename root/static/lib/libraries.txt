@@ -32,9 +32,9 @@ url:         http://www.json.org/json2.js
 
 library:     QUnit
 license:     MIT/GPLv2
-version:     (commit ba03becf377e01bd9a464857369fefd13e4b337b)
+version:     (commit e34ffb61488459f6823ded82e19865ba4b46e2ed)
 authors:     Jörn Zaefferer, John Resig
-url:         http://docs.jquery.com/QUnit, http://github.com/jquery/qunit
+url:         http://qunitjs.com, http://github.com/jquery/qunit
 
 
 -- sha1/sha1.js --
