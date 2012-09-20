@@ -25,7 +25,7 @@
 [% ELSE %]
     [%- WRAPPER 'layout/sidebar/properties.tt' class='edit-status'-%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-            content=edit.status_name -%]
+            content=l(edit.status_name) -%]
     [% END %]
 
     <p>[% edit_status_description(edit) %]</p>
