@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Form::CoverArt;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -27,7 +26,7 @@ sub options_type_id {
 
     my $ret = [
         map {
-            defined $_ ? ($_->id => l($_->name)) : ()
+            defined $_ ? ($_->id => $_->l_name) : ()
         } ($front, $back, values %types_by_name, $other) ];
 
     return $ret;
