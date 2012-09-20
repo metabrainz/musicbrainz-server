@@ -114,6 +114,8 @@ sub recording: Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $recording = $c->stash->{entity};
 
+    return unless defined $recording;
+
     my $stash = WebServiceStash->new;
 
     $self->recording_toplevel ($c, $stash, $recording);
