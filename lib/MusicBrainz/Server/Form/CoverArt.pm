@@ -15,7 +15,7 @@ has_field 'type_id' => (
     multiple  => 1,
 );
 
-sub options_type_id { 
+sub options_type_id {
     my $self = shift;
 
     my %types_by_name = map { $_->name => $_ } $self->ctx->model('CoverArtType')->get_all ();
