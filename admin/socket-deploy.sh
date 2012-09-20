@@ -19,6 +19,9 @@ md5sum carton.lock > .carton.lock.md5
 echo `date` : "Rebuilding resources"
 carton exec -- script/compile_resources.pl
 
+echo `date` : "Building and installing translations"
+make -C po all_quiet && make -C po deploy
+
 echo `date` : "Bringing a new set of processes up"
 if carton exec -- plackup -d -Ilib -s FCGI -E deployment -S fcgi.socket --nproc 20 -keep-stderr=1
 then

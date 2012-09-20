@@ -10,19 +10,20 @@ my $ws_defs = Data::OptList::mkopt([
      work => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      work => {
                          method   => 'GET',
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
                          linked   => [ qw( artist ) ]
      },
      work => {
                          method   => 'GET',
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 
@@ -58,6 +59,8 @@ sub work : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $work = $c->stash->{entity};
+
+    return unless defined $work;
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($work);

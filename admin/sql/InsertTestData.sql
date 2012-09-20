@@ -302,11 +302,11 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase, description)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
-            'performer');
+            'performer', 'description');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1);
@@ -323,8 +323,8 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES
     (8, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 8, 9);
-INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9);
+INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
+    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9, 'Second');
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 8, 2);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, edits_pending) VALUES (2, 1, 9, 2, 1);
@@ -399,5 +399,7 @@ ALTER SEQUENCE track_id_seq RESTART 20;
 ALTER SEQUENCE medium_id_seq RESTART 7;
 
 ALTER SEQUENCE tag_id_seq RESTART 100;
+
+ALTER SEQUENCE link_id_seq RESTART 3;
 
 SET client_min_messages TO 'NOTICE';

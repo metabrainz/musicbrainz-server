@@ -89,6 +89,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         }
         else
         {
+            self.$comment.text ('');
             self.$comment.closest ('tr').hide ();
         }
 

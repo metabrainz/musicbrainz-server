@@ -19,20 +19,21 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
                          inc      => [ qw(artist-credits puids isrcs annotation
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings
-                                          release-groups work-level-rels annotation) ]
+                                          release-groups work-level-rels annotation) ],
+                         optional => [ qw(fmt) ],
      },
      recording => {
                          method => 'POST'
@@ -115,6 +116,8 @@ sub recording: Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $recording = $c->stash->{entity};
+
+    return unless defined $recording;
 
     my $stash = WebServiceStash->new;
 

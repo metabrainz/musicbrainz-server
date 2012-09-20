@@ -35,9 +35,9 @@ INSERT INTO work (id, gid, name)
   VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 1);
 
 INSERT INTO label_name (id, name) VALUES (1, 'Test Label');
-INSERT INTO label (id, gid, name, sort_name, last_updated, edits_pending)
-  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 1, 1, now(), 0),
-         (2, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 1, 1, now(), 10);
+INSERT INTO label (id, gid, name, sort_name, last_updated, edits_pending, comment)
+  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 1, 1, now(), 0, 'Label 1'),
+         (2, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 1, 1, now(), 10, 'Label 2');
 
 -- Disable triggers so we can actually update the last_updated field
 ALTER TABLE label DISABLE TRIGGER USER;

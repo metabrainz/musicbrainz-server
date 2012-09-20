@@ -1,10 +1,13 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases;
 use Moose::Role;
 use List::UtilsBy qw( sort_by );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean list_of );
 
 around serialize => sub {
-    my ($orig, $self, $entity, $inc, $stash) = @_;
-    my %ret = $self->$orig($entity, $inc, $stash);
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
+
+    return $ret unless defined $inc && $inc->aliases;
 
     my $opts = $stash->store ($entity);
 
@@ -16,15 +19,15 @@ around serialize => sub {
         if ($alias->locale)
         {
             $item->{locale} = $alias->locale;
-            $item->{primary} = $self->boolean ($alias->primary_for_locale);
+            $item->{primary} = boolean ($alias->primary_for_locale);
         }
 
         push @aliases, $item;
     }
 
-    $ret{aliases} = \@aliases if scalar @aliases;
+    $ret->{aliases} = \@aliases if scalar @aliases;
 
-    return %ret;
+    return $ret;
 };
 
 no Moose::Role;
