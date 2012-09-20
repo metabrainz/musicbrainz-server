@@ -20,6 +20,7 @@ my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
 ws_test 'basic recording lookup',
     '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7' =>
@@ -54,6 +55,17 @@ ws_test 'recording lookup with releases',
                 <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
             </release>
         </release-list>
+    </recording>
+</metadata>';
+
+ws_test 'recording lookup, inc=annotation',
+    '/recording/6e89c516-b0b6-4735-a758-38e31855dcb6?inc=annotation' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="6e89c516-b0b6-4735-a758-38e31855dcb6">
+        <title>Plock</title>
+        <length>237133</length>
+        <annotation>this is a recording annotation</annotation>
     </recording>
 </metadata>';
 
