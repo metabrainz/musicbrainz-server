@@ -17,7 +17,6 @@ sub find_available_artwork {
 
     my $types = { map { $_->name => $_ } $self->c->model('CoverArtType')->get_all() };
 
-            use Data::Dumper qw(Dumper);
     return [
         map {
             Net::CoverArtArchive::CoverArt->new(
