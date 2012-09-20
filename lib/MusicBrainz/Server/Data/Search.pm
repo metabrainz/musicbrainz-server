@@ -610,7 +610,9 @@ sub external_search
         my $xmltype = $type;
         $xmltype =~ s/freedb/freedb-disc/;
         my $pos = 0;
-        my $last_updated = DateTime::Format::ISO8601->parse_datetime($data->{created});
+        my $last_updated = $data->{created} ?
+            DateTime::Format::ISO8601->parse_datetime($data->{created}) :
+            undef;
 
         foreach my $t (@{$data->{"$xmltype-list"}->{$xmltype}})
         {
