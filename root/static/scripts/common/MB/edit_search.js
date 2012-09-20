@@ -110,7 +110,11 @@ $(function() {
 
     $('ul.conditions li.condition').each(function() {
         $(this).find(':input').each(function() {
-            $(this).attr('name', prefixedInputName($(this)));
+            var $input = $(this);
+            if ($input.attr ('name'))
+            {
+                $input.attr('name', prefixedInputName($input));
+            }
         });
         conditionCounter++;
     });
