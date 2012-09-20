@@ -269,11 +269,13 @@ Relationship.prototype.buildLinkPhrase = function() {
         ? typeInfo.phrase : typeInfo.reverse_phrase;
 
     $.each(this.attributes(), function(name, observable) {
-        var value = observable(), str = name, isArray = $.isArray(value);
+        var value = observable(),
+            str = Util.attrRoot(name).l_name,
+            isArray = $.isArray(value);
 
         if (!value || isArray && !value.length) return;
         if (isArray) {
-            value = $.map(value, function(v) {return Util.attrInfo(v).name});
+            value = $.map(value, function(v) {return Util.attrInfo(v).l_name});
 
             var list = value.slice(0, -1).join(", ");
             str = (list && list + " & ") + (value.pop() || "");
