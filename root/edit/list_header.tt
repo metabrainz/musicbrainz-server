@@ -8,6 +8,10 @@
                 <a href="[% c.uri_for_action('/edit/search') %]">[% l('Search for edits') %]</a>
                 | 
             [% END %]
+            [%- IF refine_url_args -%] 
+                <a href="[% c.uri_for('/search/edits', refine_url_args) %]">[% l('Refine this search') %]</a>
+                |
+            [%- END -%]
             <a href="[% c.uri_for('/edit/open') %]">[% l('Open edits') %]</a>
             | 
             <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Subscribed entities') %]</a>

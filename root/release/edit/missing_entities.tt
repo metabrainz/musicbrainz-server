@@ -55,17 +55,18 @@
                          [%- IF artist_row.field('entity_id').value == artist.id -%]
                          checked="checked"
                          [%- END -%]
-                          />
+                         />
                   [% link_entity(artist) %]
                 </li>
-                [% END %]
+              [% END %]
                 <li>
                   <input type="radio" name="[% artist_row.field('entity_id').html_name %]"
+                         id="id-[% artist_row.field('entity_id').html_name %]"
                          [%- IF artist_row.field('entity_id').value == 0 -%]
                          checked="checked"
                          [%- END -%]
-                          value="0" id="[% artist_row.field('entity_id').html_name %]"/>
-                  <label class="inline" for="[% artist_row.field('entity_id').html_name %]">[% l('Add new artist') %]</label>
+                          value="0" />
+                  <label class="inline" for="id-[% artist_row.field('entity_id').html_name %]">[% l('Add new artist') %]</label>
                 </li>
               </ul>
             [% END %]
@@ -98,27 +99,33 @@
             <p>[% l('We found the following labels with the same name already existing in
                      MusicBrainz. If any of these are the label you intended to use, please
                      select the label:') %]</p>
-            <ul>
-              [% FOR label=possible %]
-              <li>
-                <input type="radio" name="[% label_row.field('entity_id').html_name %]"
-                       value="[% label.id %]"
-                       [%- IF label_row.field('entity_id').value == label.id -%]
-                       checked="checked"
-                       [%- END -%]
-                        />
-                [% link_entity(label) %]
-              </li>
-              [% END %]
-              <li>
-                <input type="radio" name="[% label_row.field('entity_id').html_name %]"
-                       [%- IF label_row.field('entity_id').value == 0 -%]
-                       checked="checked"
-                       [%- END -%]
-                        value="0" />
-                [% l('Add new label') %]
-              </li>
-            </ul>
+
+            [% WRAPPER form_row %]
+              <label>[% l('Label:') %]</label>
+              <ul class="inline">
+                [% FOR label=possible %]
+                <li>
+                  <input type="radio" name="[% label_row.field('entity_id').html_name %]"
+                         value="[% label.id %]"
+                         [%- IF label_row.field('entity_id').value == label.id -%]
+                         checked="checked"
+                         [%- END -%]
+                         />
+                  [% link_entity(label) %]
+                </li>
+                [% END %]
+                <li>
+                  <input type="radio" name="[% label_row.field('entity_id').html_name %]"
+                         id="id-[% label_row.field('entity_id').html_name %]"
+                         [%- IF label_row.field('entity_id').value == 0 -%]
+                         checked="checked"
+                         [%- END -%]
+                          value="0" />
+                  <label class="inline" for="id-[% label_row.field('entity_id').html_name %]">[% l('Add new label') %]</label>
+                </li>
+              </ul>
+            [% END %]
+
             [% IF label_row.field('entity_id').has_errors %]
             <ul class="errors">
               <li>[% l('Please make a selection') %]</li>

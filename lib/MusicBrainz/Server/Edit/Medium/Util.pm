@@ -67,11 +67,11 @@ sub tracklist_foreign_keys {
         } @$tracklist
     };
 
-    $fk->{Recording} = [
+    $fk->{Recording} = {
         map {
-            $_->{recording_id}
+            $_->{recording_id} => [ 'ArtistCredit' ]
         } @$tracklist
-    ];
+    };
 }
 
 sub track {

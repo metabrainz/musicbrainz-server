@@ -43,6 +43,10 @@ two. -%]
     Translation.ln(text, plural, num, args);
 END; -%]
 
+[%- MACRO N_ln(text, plural) BLOCK;
+    Translation.N_ln(text, plural);
+END; -%]
+
 [%- MACRO display_age(age, person) BLOCK;
       IF person AND age.0;
         l('aged {num}', { num => age.0 });
@@ -57,12 +61,17 @@ END; -%]
       END;
     END -%]
 
-[%- MACRO display_artwork(artwork, fallback, message) BLOCK -%]
-    <a href="[% artwork.image %]" class="thickbox">
+[%- MACRO artwork_hover(artwork) BLOCK -%]
+    [%- IF artwork.types; comma_only_list(artwork.types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
+[%- END -%]
+
+[%- USE JavaScript -%]
+[%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
     [%- IF no_javascript -%]
         <img src="[% artwork.large_thumbnail %]" />
     [%- ELSE -%]
-        <img />
+        <img title="[% artwork_hover(artwork) %]" />
         <script>
           $('img').last ().bind ('error', function (event) {
               if ($(this).attr ("src") === "[% artwork.large_thumbnail %]")
@@ -78,7 +87,7 @@ END; -%]
               else
               {
                   $(this).closest ('a').replaceWith ('<em>
-                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') -%]
+                  [%- message ? message : l('Image not available yet, please try again in a few minutes.') | js -%]
                   <\/em>');
               }
           }).attr ("src", "[% artwork.large_thumbnail %]");
@@ -457,6 +466,17 @@ END -%]
     END;
 END -%]
 
+[%- MACRO format_entity_type_name(type_name) BLOCK -%]
+    [%- IF    type_name == 'artist'; l('Artist');
+        ELSIF type_name == 'release'; l('Release');
+        ELSIF type_name == 'recording'; l('Recording');
+        ELSIF type_name == 'release_group'; l('Release Group');
+        ELSIF type_name == 'work'; l('Work');
+        ELSIF type_name == 'label'; l('Label');
+        ELSIF type_name == 'url'; l('URL');
+    END -%]
+[%- END -%]
+
 [%- MACRO use_in_relationship(entity) BLOCK;
     UNLESS c.session.relationship.id == entity.id;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
@@ -727,4 +747,27 @@ http://[%- server -%]/[%- id -%]"
       [% form_submit(l('Search'),'inline') %]
     </form>
   </div>
+[%- END -%]
+
+[%- MACRO annotation_links(entity) BLOCK -%]
+  <li>
+    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
+      [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
+    </a>
+  </li>
+  [%- IF number_of_revisions > 0 %]
+  <li>
+    <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
+      [% l('View annotation history') %]
+    </a>
+  </li>
+  [%- END -%]
+[%- END -%]
+
+[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
+[%- END -%]
+
+[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
 [%- END -%]

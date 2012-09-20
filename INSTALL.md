@@ -11,9 +11,9 @@ Prerequisites
 
 1.  A Unix based operating system
 
-    The MusicBrainz development team uses a mix of Ubuntu and Debian, but Mac OS
-    X will work just fine, if you're prepared to potentially jump through some
-    hoops. If you are running Windows we recommend you set up a Ubuntu virtual
+    The MusicBrainz development team uses a variety of Linux distributions, but 
+    Mac OS X will work just fine, if you're prepared to potentially jump through 
+    some hoops. If you are running Windows we recommend you set up a Ubuntu virtual
     machine.
 
     **This document will assume you are using Ubuntu for its instructions.**
@@ -47,12 +47,15 @@ Prerequisites
 
         sudo apt-get install git-core
 
-
 5.  Memcached
 
     By default the MusicBrainz server requires a Memcached server running on the
-    same server with default settings. You can change the memcached server name
-    and port or configure other datastores in lib/DBDefs.pm.
+    same server with default settings. To install Memcached, run the following:
+
+        sudo apt-get install memcached
+    
+    You can change the memcached server name and port, or configure other datastores 
+    in lib/DBDefs.pm.
 
 6.  Standard Development Tools
 
@@ -91,6 +94,10 @@ Server configuration
         If you are not setting up a mirror server for development purposes, make
         sure to set `DB_STAGING_SERVER` to 0.
 
+        If you're setting up a slave server, make sure you have something set up
+        for the READONLY database setting in lib/DBDefs.pm; it can just be a copy
+        of what's in READWRITE if you don't need anything fancy.
+
     2.  `RT_STANDALONE`
 
         A stand alone server is recommended if you are setting up a server for
@@ -103,6 +110,10 @@ Server configuration
         WikiDoc transclusion table:
 
             wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
+
+    If you chose RT_SLAVE, please ensure that there is a configuration for
+    both READONLY and READWRITE, or the server will not function correctly.
+    (Both can be configured the same in a simple setup).
 
 
 Installing Perl dependencies
@@ -119,7 +130,7 @@ polluting your system installation with these dependencies.
 Below outlines how to setup MusicBrainz server with Carton.
 
 
-1.  Prerequisities
+1.  Prerequisites
 
     Before you get started you will actually need to have Carton installed as
     MusicBrainz does not yet ship with an executable. There are also a few
@@ -145,6 +156,12 @@ Below outlines how to setup MusicBrainz server with Carton.
     directory to remove all packages previously installed by carton, and then run
     the above step again.
 
+    If you still see errors, you can install individual packages manually by running:
+
+        carton install {module name}
+
+    Where {module name} is something like Function::Parameters or Locale::TextDomain.
+
 
 Creating the database
 ---------------------
@@ -160,8 +177,8 @@ Creating the database
         sudo make install
         cd ..
 
-    To build our collate extension you will need libicu and it's development
-    files, to install these run:
+    To build our collate extension you will need libicu and its development
+    headers, to install these run:
 
         sudo apt-get install libicu-dev
 
@@ -267,26 +284,61 @@ server. Just run:
 Visiting http://your.machines.ip.address:5000 should now present you with
 your own running instance of the MusicBrainz Server.
 
+If you'd like a more permanent setup, 
+[the plackup documentation](https://metacpan.org/module/plackup) may prove
+useful in setting up a server such as nginx, using FastCGI.
+
 Translations
 ------------
 
-If you intend to run a translatable server, there are a few steps to follow:
-    1. Make sure gettext is installed (you need msgmerge and msgfmt, at least)
+If you intend to run a server with translations, there are a few steps to follow:
 
-    2. Download the .po files for your language(s) of choice, from 
-       https://www.transifex.net/projects/p/musicbrainz/r/server/ -- put them
-       in the po/ folder. These files should be named based on their translation
-       domain and their language: <domain>.<language>.mo. For the most part the
-       domain names are the same as the name of the 'resource' on Transifex,
-       with the lone exception being 'server', whose domain is 'mb_server'.
-       Language codes for .po files should be formatted <lang>_<COUNTRY>, e.g.
-       'es' or 'fr_CA'.
+1. Prerequisites
 
-    3. Run make install, which should compile and install the files to 
-       lib/LocaleData/<language>/LC_MESSAGES/<domain>.mo
+   Make sure gettext is installed (you need msgmerge and msgfmt, at least),
+   and the transifex client 'tx' 
+   (http://help.transifex.com/features/client/index.html):
 
-    4. Add the languages to MB_LANGUAGES in DBDefs.pm. These should be formatted
-       <lang>-<country>, e.g. 'es', or 'fr-ca'.
+         sudo apt-get install gettext transifex-client
+
+   Configure a username and password in ~/.transifexrc using the format listed 
+   on the above page.
+
+2. Change to the po directory
+
+         cd po/
+
+3. Get translations
+
+         tx pull -l {a list of languages you want to pull}
+
+   This will download the .po files for your language(s) of choice to the po/ 
+   folder with the correct filenames.
+
+4. Install translations
+
+         make install
+
+   This will compile and install the files to 
+   lib/LocaleData/{language}/LC\_MESSAGES/{domain}.mo
+
+5. Add the languages to MB\_LANGUAGES in DBDefs.pm. These should be formatted
+   {lang}-{country}, e.g. 'es', or 'fr-ca', in a space-separated list.
+
+6. Ensure you have a system locale for any languages you want to use, and for
+   some languages, be wary of https://rt.cpan.org/Public/Bug/Display.html?id=78341
+
+   For many languages, this will suffice: 
+
+         sudo apt-get install language-pack-{language code}
+
+   To work around the linked CPAN bug, you may need to edit the file for Locale::Util
+   (if you've installed with carton, local/lib/perl5/Locale/Util.pm) to add entries
+   to LANG2COUNTRY. Suggested ones include: 
+   * es => 'ES'
+   * et => 'EE'
+   * el => 'GR'
+   * sl => 'SI' (this one is there in 1.20, but needs amendment)
 
 Troubleshooting
 ---------------

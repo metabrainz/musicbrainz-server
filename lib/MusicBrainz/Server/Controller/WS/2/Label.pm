@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -69,7 +70,7 @@ sub label_toplevel
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
     }
 
-    $self->load_relationships($c, $label);
+    $self->load_relationships($c, $stash, $label);
 }
 
 sub label : Chained('load') PathPart('')
@@ -93,7 +94,7 @@ sub label_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

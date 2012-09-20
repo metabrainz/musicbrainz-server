@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -45,10 +46,9 @@ sub work_toplevel
     $c->model('Work')->annotation->load_latest($work)
         if $c->stash->{inc}->annotation;
 
-    $self->load_relationships($c, $work);
+    $self->load_relationships($c, $stash, $work);
 
     $c->model('WorkType')->load($work);
-    $c->model('ISWC')->load_for_works($work);
     $c->model('Language')->load($work);
 }
 
@@ -75,7 +75,7 @@ sub work_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
