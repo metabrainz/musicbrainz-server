@@ -17,6 +17,7 @@ sub query {
             JOIN link l ON l.id = lru.link
             JOIN link_type lt ON lt.id = l.link_type
             WHERE lt.gid = '2476be45-3090-43b3-a948-a8f972b4065c'
+            AND lru.edits_pending = 0
         ) r
         JOIN artist_credit ac ON r.artist_credit = ac.id
         JOIN artist_name an ON ac.name = an.id

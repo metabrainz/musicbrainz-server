@@ -4,7 +4,6 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Constants qw( :edit_status );
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
@@ -12,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     date_closure
     merge_partial_date
 );
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -158,9 +158,9 @@ sub allow_auto_edit
 
     # Adding a date is automatic if there was no date yet.
     return 0 if exists $self->data->{old}{begin_date}
-        and partial_date_from_row($self->data->{old}{begin_date})->format ne '';
+        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
     return 0 if exists $self->data->{old}{end_date}
-        and partial_date_from_row($self->data->{old}{end_date})->format ne '';
+        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
 
     return 0 if exists $self->data->{old}{type_id}
         and defined($self->data->{old}{type_id}) && $self->data->{old}{type_id} != 0;

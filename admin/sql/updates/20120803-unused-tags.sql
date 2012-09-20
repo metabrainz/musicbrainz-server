@@ -1,5 +1,7 @@
 BEGIN;
 
+SET search_path = 'musicbrainz';
+
 CREATE OR REPLACE FUNCTION delete_unused_tag(tag_id INT)
 RETURNS void AS $$
   BEGIN

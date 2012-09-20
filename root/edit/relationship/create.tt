@@ -65,7 +65,7 @@
                   <span>[% link_entity(dest) %]</span>
                 </td>
             </tr>
-            <tr>
+            <tr class="attributes-container">
                 <th class="label">[% l('Attributes:') %]</th>
                 <td>
                 [% FOR attr IN attr_tree.children %]
@@ -91,22 +91,22 @@
                 </td>
             </tr>
             <tr>
-                <th class="label">[% r.label('begin_date', l('Begin date:'), fake => 1) %]</th>
-                <td colspan="2">[% r.date('begin_date') %]
-                [% field_errors(form, 'begin_date') %]</td>
+                <th class="label">[% r.label('period.begin_date', l('Begin date:'), fake => 1) %]</th>
+                <td colspan="2">[% r.date('period.begin_date') %]
+                [% field_errors(form, 'period.begin_date') %]</td>
             </tr>
             <tr>
-                <th class="label">[% r.label('end_date', l('End date:'), fake => 1) %]</th>
-                <td colspan="2">[% r.date('end_date') %]
-                [% field_errors(form, 'end_date') %]</td>
+                <th class="label">[% r.label('period.end_date', l('End date:'), fake => 1) %]</th>
+                <td colspan="2">[% r.date('period.end_date') %]
+                [% field_errors(form, 'period.end_date') %]</td>
             </tr>
             <tr>
               <td class="label">
               </td>
               <td colspan="2">
-                [% r.checkbox('ended') %]
-                [% r.label('ended', l('This relationship has ended.')) %]
-                [% field_errors(form, 'end_date') %]
+                [% r.checkbox('period.ended') %]
+                [% r.label('period.ended', l('This relationship has ended.')) %]
+                [% field_errors(form, 'period.ended') %]
               </td>
             </tr>
         </table>

@@ -93,6 +93,17 @@ test 'Fetch /statistics/edits' => sub {
     html_ok($test->mech->content);
 };
 
+test 'Fetch /statistics/editors' => sub {
+    my $test = shift;
+    $test->mech->get_ok('/statistics/editors');
+    html_ok($test->mech->content);
+
+    initialize_stats($test->c);
+
+    $test->mech->get_ok('/statistics/editors');
+    html_ok($test->mech->content);
+};
+
 test 'Fetch /statistics/timeline' => sub {
     my $test = shift;
     $test->mech->get_ok('/statistics/timeline');

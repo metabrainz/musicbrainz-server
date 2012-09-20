@@ -218,7 +218,7 @@ sub locale
 
 sub gravatar {
     my $email = shift;
-    return sprintf 'http://gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
+    return sprintf '//gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
 }
 
 1;

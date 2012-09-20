@@ -4,7 +4,7 @@
 <h1>[% title %]</h1>
 
 <ul>
-    <li>[% l('This report shows releases which have artwork in the Cover Ar
+    <li>[% l('This report shows releases which have artwork in the Cover Art
       Archive, but still have a cover art relationship (pointing to a URL).') %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>

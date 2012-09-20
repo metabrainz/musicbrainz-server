@@ -51,6 +51,14 @@
               <a href="[% c.uri_for_action('/cdtoc/set_durations',
                               [ cdtoc.discid ], { tracklist => medium.tracklist_id }) %]">
                 [% l('Set track durations') %]
+              </a> |
+              <a href="[% c.uri_for_action('cdtoc/remove',
+                                           { cdtoc_id  => medium_cdtoc.cdtoc.id,
+                                             medium_id => medium.id }) %]">
+               [% l('Remove') %]
+              </a> |
+              <a href="[% c.uri_for_action('cdtoc/move', { toc => medium_cdtoc.id }) %]">
+                [% l('Move') %]
               </a>
             </td>
             [% END %]

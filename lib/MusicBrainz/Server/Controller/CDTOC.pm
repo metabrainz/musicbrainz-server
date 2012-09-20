@@ -43,6 +43,7 @@ sub _load_releases
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('CDTOC')->load(@medium_cdtocs);
     return \@medium_cdtocs;
 }
 
@@ -320,7 +321,7 @@ sub move : Local RequireAuth Edit
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
         $c->model('Country')->load($medium->release);
         $c->model('ReleaseLabel')->load($medium->release);
-        $c->model('Label')->load(@{ $medium->release->all_labels });
+        $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
         $c->stash( 

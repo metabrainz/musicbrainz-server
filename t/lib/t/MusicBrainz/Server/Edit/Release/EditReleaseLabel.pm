@@ -109,6 +109,22 @@ test 'Parallel edits that dont conflict merge' => sub {
     is($rl->catalog_number, 'Woof!');
 };
 
+test 'Editing a non-existant release label fails' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $model = $c->model('ReleaseLabel');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $rl = $model->get_by_id(1);
+    my $edit = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(2));
+
+    $model->delete(1);
+
+    isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
+
 sub create_edit {
     my ($c, $rl) = @_;
     return _create_edit(

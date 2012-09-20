@@ -1,22 +1,27 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating;
 use Moose::Role;
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number );
 
 around serialize => sub {
-    my ($orig, $self, $entity, $inc, $stash) = @_;
-    my %ret = $self->$orig($entity, $inc, $stash);
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
+
+    return $ret unless $toplevel && defined $inc &&
+        ($inc->ratings || $inc->user_ratings);
 
     my $opts = $stash->store ($entity);
 
-    $ret{rating} = {
-        "votes-count" => $self->number ($opts->{ratings}->{count}),
-        "value" => $self->number ($opts->{ratings}->{rating})
-    } if $opts->{ratings};
+    $ret->{rating} = {
+        "votes-count" => defined $opts->{ratings}->{count} ?
+            number ($opts->{ratings}->{count}) : 0,
+        "value" => number ($opts->{ratings}->{rating})
+    } if $inc->ratings;
 
-    $ret{"user-rating"} = {
-        "value" => $self->number ($opts->{"user_ratings"})
-    } if $opts->{"user_ratings"};
+    $ret->{"user-rating"} = {
+        "value" => number ($opts->{"user_ratings"})
+    } if $inc->user_ratings;
 
-    return %ret;
+    return $ret;
 };
 
 no Moose::Role;

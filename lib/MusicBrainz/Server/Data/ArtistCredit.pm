@@ -15,8 +15,9 @@ with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $query = "SELECT artist.id, artist_name.name, join_phrase, artist_credit,
-                        gid, n2.name AS artist_name, n3.name AS sort_name,
+    my $query = "SELECT artist, artist_name.name, join_phrase, artist_credit,
+                        artist.id, gid, n2.name AS artist_name,
+                        n3.name AS sort_name,
                         comment " .
                 "FROM artist_credit_name " .
                 "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
@@ -36,7 +37,7 @@ sub get_by_ids
     while (1) {
         my $row = $self->sql->next_row_hash_ref or last;
         my %info = (
-            artist_id => $row->{id},
+            artist_id => $row->{artist},
             name => $row->{name}
         );
         $info{join_phrase} = $row->{join_phrase} // '';

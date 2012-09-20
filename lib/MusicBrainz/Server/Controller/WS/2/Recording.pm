@@ -19,20 +19,21 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
                          inc      => [ qw(artist-credits puids isrcs
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings
-                                          release-groups work-level-rels) ]
+                                          release-groups work-level-rels) ],
+                         optional => [ qw(fmt) ],
      },
      recording => {
                          method => 'POST'
@@ -90,6 +91,8 @@ sub recording_toplevel
 
             if ($c->stash->{inc}->artist_credits) {
                 $c->model('ArtistCredit')->load(map { $_->release_group } @releases);
+                $c->model('Artist')->load(
+                    map { @{ $_->release_group->artist_credit->names } } @releases);
             }
         }
     }
@@ -98,7 +101,7 @@ sub recording_toplevel
     {
         $c->model('ArtistCredit')->load($recording);
 
-        my @artists = map { $_->artist } @{ $recording->artist_credit->names };
+        my @artists = map { $c->model('Artist')->load ($_); $_->artist } @{ $recording->artist_credit->names };
 
         $self->linked_artists ($c, $stash, \@artists);
     }
