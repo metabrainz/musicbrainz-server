@@ -8,7 +8,7 @@
         <h2 class="release-group-information">[% l('Release group information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-               content=artist_credit(rg.artist_credit) %] class="artist"
+               content=artist_credit(rg.artist_credit) class="artist" %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(rg.l_type_name) class="type"
                    IF rg.primary_type || rg.all_secondary_types -%]
