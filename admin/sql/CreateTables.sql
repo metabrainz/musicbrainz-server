@@ -1301,7 +1301,6 @@ CREATE TABLE url
     id                  SERIAL,
     gid                 UUID NOT NULL,
     url                 TEXT NOT NULL,
-    description         TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
