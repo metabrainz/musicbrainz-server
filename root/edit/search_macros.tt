@@ -285,7 +285,7 @@
                    [ 'open_time', l('Created') ],
                    [ 'expire_time', l('Expired') ],
                    [ 'close_time', l('Closed') ],
-                   [ 'status', l('Status') ],
+                   [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],
                    [ 'no_votes', l('No vote count') ],
                    [ 'yes_votes', l('Yes vote count') ],
