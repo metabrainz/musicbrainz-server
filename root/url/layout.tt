@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' %]
 
     [% WRAPPER 'layout/sidebar.tt' %]
-        <h2>[% l('Editing') %]</h2>
+        <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
                 [%# Adds <li> itself %]
