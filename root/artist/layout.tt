@@ -15,11 +15,11 @@
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended -%]
                     [%- IF artist.begin_date.format %]
+                        [% date_period_label = artist_begin_label_from_type(artist.type_id) %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% date_period_label = artist_begin_label_from_type(artist.type_id) %]
                             [% rdfa_begin_date_artist(artist.begin_date.format) %]
                             [% IF artist.has_age AND not artist.end_date.format %]
-                                ([% rdfa_artist_age(display_age (artist.age)) %] ago)
+                                (<span style="display:none">[% rdfa_artist_age(display_age (artist.age)) %]</span>[% display_age_ago(artist.age) %])
                             [% END %]
                         [% END %]
                     [%- END -%]

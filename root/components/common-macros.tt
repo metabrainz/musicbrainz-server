@@ -61,6 +61,16 @@ END; -%]
       END;
     END -%]
 
+[%- MACRO display_age_ago(age) BLOCK;
+        IF age.0;
+          ln('{num} year ago', '{num}&nbsp;years ago', age.0, { num => age.0 });
+        ELSIF age.1;
+          ln('{num} month ago', '{num}&nbsp;months ago', age.1, { num => age.1 });
+        ELSE;
+          ln('{num} day ago', '{num}&nbsp;days ago', age.2, { num => age.2 });
+        END;
+    END -%]
+
 [%- MACRO artwork_hover(artwork) BLOCK -%]
     [%- IF artwork.types; comma_only_list(artwork.types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
@@ -591,10 +601,6 @@ END -%]
     [% ELSE %]
         [% l('Already expired') %]
     [% END %]
-[%- END -%]
-
-[%- MACRO age(datetime) BLOCK -%]
-    [%- Age.format(datetime, "{age} ago") -%]
 [%- END -%]
 
 [%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
