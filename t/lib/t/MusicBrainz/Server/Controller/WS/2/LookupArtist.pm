@@ -23,6 +23,7 @@ my $mech = $test->mech;
 $mech->default_header ("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
 ws_test 'basic artist lookup',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' =>
@@ -50,6 +51,17 @@ ws_test 'artist lookup, inc=aliases',
             <alias sort-name="ボア">ボア</alias>
             <alias sort-name="보아">보아</alias>
         </alias-list>
+    </artist>
+</metadata>';
+
+ws_test 'artist lookup, inc=annotation',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+        <name>Distance</name><sort-name>Distance</sort-name>
+        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+        <annotation>this is an artist annotation</annotation>
     </artist>
 </metadata>';
 

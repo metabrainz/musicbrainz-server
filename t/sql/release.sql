@@ -44,9 +44,9 @@ INSERT INTO release_annotation (release, annotation) VALUES (1, 1);
 INSERT INTO release_gid_redirect (gid, new_id) VALUES ('71dc55d8-0fc6-41c1-94e0-85ff2404997d', 1);
 
 INSERT INTO artist_name (id, name) VALUES (2, 'Various Artists');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2),
-           (3, '1a906020-72db-11de-8a39-0800200c9a66', 2, 2);
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 2, 2, NULL),
+           (3, '1a906020-72db-11de-8a39-0800200c9a66', 2, 2, 'Various Artists 2');
 INSERT INTO artist_credit (id, name, artist_count) VALUES (2, 2, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (2, 2, 2, 1, NULL);
 

@@ -5,7 +5,7 @@
               release => link_entity(release),
               artist => artist_credit(release.artist_credit) }) -%]
     </p>
-    <p>
+    <p class="artwork">
       [%- display_artwork(artwork) -%]
     </p>
     <form action="[% c.req.uri %]" method="post">

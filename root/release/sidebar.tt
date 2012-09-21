@@ -83,23 +83,11 @@
 
         <hr/>
 
+        <li>[% link_release(release, 'edit_relationships', l('Edit relationships')) %]</li>
         [%# Adds <li> itself %]
         [% use_in_relationship(release) %]
-        <li>[% relate_to_ellipsis(release, ['release', 'recording']) %]</li>
+        <li>[% relate_to_ellipsis(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
-        <li>
-          <a href="[%
-            c.uri_for_action('/edit/relationship/create_batch', {
-              type => c.session.relationship.type0,
-              gid => c.session.relationship.entity0,
-              release => release.gid
-            })
-          -%]">
-            [% l('Relate {what} to recordings',
-                 { what => html_escape(c.session.relationship.name) }) %]
-          </a>
-        </li>
-
         <hr/>
 
         [% IF release.edits_pending %]
@@ -140,7 +128,7 @@
         [% ELSE %]
             <li>[% l("You have no collections!") %]</li>
         [% END %]
-            <li><a href="[% c.uri_for_action("/collection/create") %]">[% l('Create a new collection') %]</a></li>
+            <li><a href="[% c.uri_for_action("/collection/create", { release => release.id }) %]">[% l('Add to a new collection') %]</a></li>
             <li>[% link_release(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
                                                             all_collections.size, { num => all_collections.size }) ) %]</li>
         </ul>

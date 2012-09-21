@@ -9,7 +9,6 @@ use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
-    partial_date_from_row
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable PartialDateHash );
@@ -24,6 +23,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_partial_date
     verify_artist_credits
 );
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
@@ -154,8 +154,8 @@ sub build_display_data
 
     if (exists $self->data->{new}{date}) {
         $data->{date} = {
-            new => partial_date_from_row($self->data->{new}{date}),
-            old => partial_date_from_row($self->data->{old}{date}),
+            new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{date}),
+            old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{date}),
         };
     }
 
@@ -264,7 +264,7 @@ sub allow_auto_edit
     return 0 if defined $self->data->{old}{script_id};
 
     return 0 if exists $self->data->{old}{date} &&
-        partial_date_from_row($self->data->{old}{date}) ne '';
+        MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{date}) ne '';
 
     return 0 if exists $self->data->{old}{release_group_id};
     return 0 if exists $self->data->{new}{artist_credit};

@@ -92,20 +92,20 @@ test 'All tests' => sub {
             qr/Cannot insert a missing or empty row/;
 
         $sql->auto_commit(1);
-        ok !exception { $sql->insert_row('tag', { id => 5, name => 'magical' }) }, 'can insert rows';
-        my $rows = $sql->select_single_value('SELECT count(*) FROM tag WHERE id = ?', 5);
+        ok !exception { $sql->insert_row('artist_type', { id => 5, name => 'magical' }) }, 'can insert rows';
+        my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 5);
         is($rows, 1);
 
         my $id;
         $sql->auto_commit(1);
-        ok !exception { $id = $sql->insert_row('tag', { id => 6, name => 'live' }, 'id') }, 'can insert returning';
+        ok !exception { $id = $sql->insert_row('artist_type', { id => 6, name => 'live' }, 'id') }, 'can insert returning';
         is($id, 6, 'can insert returning id');
-        $rows = $sql->select_single_value('SELECT count(*) FROM tag WHERE id = ?', 6);
+        $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 6);
         is($rows, 1);
 
         $sql->auto_commit(1);
-        ok !exception { $id = $sql->insert_row('tag', { id => 7, name => \"'calm'" }) }, 'can insert with literal sql';
-        $rows = $sql->select_single_value('SELECT count(*) FROM tag WHERE id = ?', 7);
+        ok !exception { $id = $sql->insert_row('artist_type', { id => 7, name => \"'calm'" }) }, 'can insert with literal sql';
+        $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE id = ?', 7);
         is($rows, 1);
 
         # Updating rows
@@ -120,14 +120,14 @@ test 'All tests' => sub {
                 'must pass where clause';
 
         $sql->auto_commit(1);
-        ok !exception { $sql->update_row('tag', { name => 'magic' }, { id => 5 }) }, 'can update rows';
-        my $rows = $sql->select_single_value('SELECT count(*) FROM tag WHERE name = ?', 'magic');
+        ok !exception { $sql->update_row('artist_type', { name => 'magic' }, { id => 5 }) }, 'can update rows';
+        my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE name = ?', 'magic');
         is($rows, 1);
 
         # Test automatic transactions
         my $sub = sub {
-            $sql->update_row('tag', { name => 'blah' }, { id => 5 });
-            my $rows = $sql->select_single_value('SELECT count(*) FROM tag WHERE name = ?', 'blah');
+            $sql->update_row('artist_type', { name => 'blah' }, { id => 5 });
+            my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE name = ?', 'blah');
             is($rows, 1);
         };
 
@@ -138,6 +138,9 @@ test 'All tests' => sub {
         ok !exception { Sql::run_in_transaction($sub, $sql) }, 'can call run_in_transaction';
     }
     finally {
+        $sql->auto_commit(1);
+        $sql->do('DELETE FROM artist_type');
+
         $sql->auto_commit(1);
         $sql->do('DELETE FROM tag');
     };

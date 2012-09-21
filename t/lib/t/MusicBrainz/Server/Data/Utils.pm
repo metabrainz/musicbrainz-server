@@ -3,9 +3,9 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use MusicBrainz::Server::Data::Utils;
-
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Test;
 
 with 't::Context';
@@ -15,7 +15,7 @@ test all => sub {
 my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+artisttype');
 
-my $date = MusicBrainz::Server::Data::Utils::partial_date_from_row(
+my $date = MusicBrainz::Server::Entity::PartialDate->new_from_row(
     { a_year => 2008, a_month => 1, a_day => 2 }, 'a_');
 
 is ( $date->year, 2008 );
@@ -93,6 +93,17 @@ is ($result2, "aIkUXodpaNX7Q1YfttiKMkKCxB0", 'SHA-1 of $input2');
 my $gid = MusicBrainz::Server::Data::Utils::generate_gid();
 is ($gid, lc($gid), 'GID is returned as lower-case');
 
+};
+
+test 'Test take_while' => sub {
+    is_deeply([ MusicBrainz::Server::Data::Utils::take_while { defined($_) } (1, 2, 3) ],
+              [ 1, 2, 3 ]);
+
+    is_deeply([ MusicBrainz::Server::Data::Utils::take_while { defined($_) } (1, 2, undef, 3) ],
+              [ 1, 2 ]);
+
+    is_deeply([ MusicBrainz::Server::Data::Utils::take_while { defined($_) } (undef, 3) ],
+              []);
 };
 
 1;

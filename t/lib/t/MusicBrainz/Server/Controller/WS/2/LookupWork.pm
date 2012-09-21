@@ -20,6 +20,7 @@ my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO iswc (work, iswc)
 VALUES ( (SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'), 'T-000.000.002-0');
@@ -34,6 +35,16 @@ ws_test 'basic work lookup',
     <language>jpn</language>
     <iswc>T-000.000.002-0</iswc>
     <iswc-list><iswc>T-000.000.002-0</iswc></iswc-list>
+  </work>
+</metadata>';
+
+ws_test 'work lookup, inc=annotation',
+    '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <work id="482530c1-a2ab-32e8-be43-ea5240aa7913">
+    <title>Plock</title>
+    <annotation>this is a work annotation</annotation>
   </work>
 </metadata>';
 

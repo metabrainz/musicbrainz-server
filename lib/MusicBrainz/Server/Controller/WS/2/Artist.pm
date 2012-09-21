@@ -10,20 +10,21 @@ my $ws_defs = Data::OptList::mkopt([
      artist => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          linked   => [ qw(recording release release-group work) ],
-                         inc      => [ qw(aliases
+                         inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
-                                          aliases various-artists
+                                          aliases various-artists annotation
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 
@@ -44,6 +45,8 @@ sub artist : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $artist = $c->stash->{entity};
+
+    return unless defined $artist;
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($artist);
@@ -66,6 +69,9 @@ sub artist_toplevel
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
     $c->model('Artist')->ipi->load_for($artist);
+
+    $c->model('Artist')->annotation->load_latest($artist)
+        if $c->stash->{inc}->annotation;
 
     if ($c->stash->{inc}->recordings)
     {

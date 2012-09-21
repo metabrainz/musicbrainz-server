@@ -17,7 +17,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://en.wikipedia.org/wiki/Astralwerks',
                     MB.constants.LINK_TYPES.wikipedia.label
                 ],
-
                 [
                     'artist', 'http://www.discogs.com/artist/Source+Direct',
                     MB.constants.LINK_TYPES.discogs.artist
@@ -34,7 +33,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                     MB.constants.LINK_TYPES.discogs.release_group
                 ],
-
                 [
                     'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
                     MB.constants.LINK_TYPES.otherdatabases.artist
@@ -43,7 +41,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
                     MB.constants.LINK_TYPES.otherdatabases.release
                 ],
-
+                [
+                    'artist', 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
@@ -61,42 +62,34 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://www.myspace.com/hospitalrecords',
                     MB.constants.LINK_TYPES.myspace.label
                 ],
-
                 [
                     'artist', 'http://www.purevolume.com/withbloodcomescleansing',
                     MB.constants.LINK_TYPES.purevolume.artist
                 ],
-
                 [
                     'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
                     MB.constants.LINK_TYPES.amazon.release
                 ],
-
                 [
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
-
                 [
                     'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
                     MB.constants.LINK_TYPES.downloadfree.recording
                 ],
-
                 [
                     'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
-
                 [
                     'release', 'http://www.jamendo.com/album/16090',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
-
                 [
                     'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
-
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
@@ -109,27 +102,22 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
                 ],
-
                 [
                     'recording', 'http://vimeo.com/1109226',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
-
                 [
                     'recording', 'http://www.youtube.com/watch?v=UmHdefsaL6I',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
-
                 [
                     'artist', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.artist
                 ],
-
                 [
                     'label', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.label
                 ],
-
                 [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     MB.constants.LINK_TYPES.allmusic.artist
@@ -154,7 +142,7 @@ MB.tests.URLCleanup.GuessType = function() {
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.guessType(test[0], test[1]), test[2], test[1]);
+            QUnit.equal(control.guessType(test[0], test[1]), test[2], test[1]);
         });
     });
 
@@ -234,6 +222,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.jamendo.com/en/album/56372',
                     'http://www.jamendo.com/album/56372',
                     'release'
+                ],
+                [
+                    'http://wiki.rockinchina.com/w/Beyond_Cure_(TW)',
+                    'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
+                    'artist'
                 ],
                 [
                     'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
@@ -367,16 +360,18 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
                     'label'
                 ],
-
                 [
                     'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
                     'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif'
+                ],
+                [
+                    'http://sv.m.wikipedia.org/wiki/Bullet',
+                    'http://sv.wikipedia.org/wiki/Bullet',
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.cleanUrl(test[2], test[0]), test[1], test[0]);
+            QUnit.equal(control.cleanUrl(test[2], test[0]), test[1], test[0]);
         });
     });
 };

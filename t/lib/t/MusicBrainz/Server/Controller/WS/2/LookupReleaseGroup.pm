@@ -20,6 +20,7 @@ my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
 ws_test 'basic release group lookup',
     '/release-group/b84625af-6229-305f-9f1b-59c0185df016' =>
@@ -29,6 +30,18 @@ ws_test 'basic release group lookup',
         <title>サマーれげぇ!レインボー</title>
         <first-release-date>2001-07-04</first-release-date>
         <primary-type>Single</primary-type>
+    </release-group>
+</metadata>';
+
+ws_test 'release group lookup, inc=annotation',
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
+        <title>My Demons</title>
+        <annotation>this is a release group annotation</annotation>
+        <first-release-date>2007-01-29</first-release-date>
+        <primary-type>Album</primary-type>
     </release-group>
 </metadata>';
 
