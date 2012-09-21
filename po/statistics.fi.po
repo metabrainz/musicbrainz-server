@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-11 20:46+0000\n"
+"PO-Revision-Date: 2012-09-20 06:21+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -437,10 +437,12 @@ msgid "mb_server now hosted on Git"
 msgstr ""
 
 #: ../root/statistics/formats.tt:32
+#, perl-format
 msgid "% of total mediums"
 msgstr ""
 
 #: ../root/statistics/formats.tt:30
+#, perl-format
 msgid "% of total releases"
 msgstr "% kaikista julkaisuista"
 
@@ -1151,12 +1153,12 @@ msgstr ""
 msgid "Edit Information"
 msgstr ""
 
-#: ../root/statistics/editors.tt:17 ../root/statistics/editors.tt:37
+#: ../root/statistics/editors.tt:39 ../root/statistics/editors.tt:40
 #, perl-format
 msgid "Editor"
 msgstr ""
 
-#: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:11
+#: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:38
 #: ../root/statistics/index.tt:492 ../root/statistics/layout.tt:5
 #: ../root/statistics/view_js.tt:73
 #, perl-format
@@ -1266,7 +1268,7 @@ msgstr "Naisartisteja"
 msgid "Female:"
 msgstr "Nainen:"
 
-#: ../root/statistics/editors.tt:7
+#: ../root/statistics/editors.tt:34
 #, perl-format
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are"
@@ -1419,8 +1421,9 @@ msgid "Last Week:"
 msgstr "Viime viikko:"
 
 #: ../root/statistics/countries.tt:28 ../root/statistics/coverart.tt:10
-#: ../root/statistics/edits.tt:7 ../root/statistics/formats.tt:21
-#: ../root/statistics/index.tt:7 ../root/statistics/languages_scripts.tt:41
+#: ../root/statistics/editors.tt:32 ../root/statistics/edits.tt:7
+#: ../root/statistics/formats.tt:21 ../root/statistics/index.tt:7
+#: ../root/statistics/languages_scripts.tt:41
 #: ../root/statistics/relationships.tt:21
 #, perl-format
 msgid "Last updated: {date}"
@@ -1488,12 +1491,12 @@ msgstr ""
 msgid "Mediums:"
 msgstr ""
 
-#: ../root/statistics/editors.tt:12
+#: ../root/statistics/editors.tt:39
 #, perl-format
 msgid "Most active editors in the past week"
 msgstr ""
 
-#: ../root/statistics/editors.tt:55
+#: ../root/statistics/editors.tt:45
 #, perl-format
 msgid "Most active voters in the past week"
 msgstr ""
@@ -1563,7 +1566,7 @@ msgstr "Normaali datan laatu:"
 msgid "Open Edits"
 msgstr "Avoimet muokkaukset"
 
-#: ../root/statistics/editors.tt:18
+#: ../root/statistics/editors.tt:39
 #, perl-format
 msgid "Open and applied edits in past week"
 msgstr ""
@@ -1665,10 +1668,8 @@ msgstr ""
 msgid "Primary Types"
 msgstr ""
 
-#: ../root/statistics/countries.tt:33 ../root/statistics/editors.tt:16
-#: ../root/statistics/editors.tt:36 ../root/statistics/editors.tt:59
-#: ../root/statistics/editors.tt:79 ../root/statistics/formats.tt:27
-#: ../root/statistics/languages_scripts.tt:49
+#: ../root/statistics/countries.tt:33 ../root/statistics/editors.tt:11
+#: ../root/statistics/formats.tt:27 ../root/statistics/languages_scripts.tt:49
 #: ../root/statistics/languages_scripts.tt:70
 #, perl-format
 msgid "Rank"
@@ -1967,6 +1968,11 @@ msgstr ""
 msgid "Tags (raw)"
 msgstr ""
 
+#: ../root/statistics/editors.tt:19
+#, perl-format
+msgid "There is no data to display here."
+msgstr ""
+
 #: ../root/statistics/layout.tt:5
 #, perl-format
 msgid "Timeline"
@@ -1982,12 +1988,12 @@ msgstr "Aikajana"
 msgid "To-be-cancelled edits"
 msgstr ""
 
-#: ../root/statistics/editors.tt:32
+#: ../root/statistics/editors.tt:40
 #, perl-format
 msgid "Top editors overall"
 msgstr ""
 
-#: ../root/statistics/editors.tt:75
+#: ../root/statistics/editors.tt:46
 #, perl-format
 msgid "Top voters overall"
 msgstr ""
@@ -1998,12 +2004,12 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: ../root/statistics/editors.tt:38
+#: ../root/statistics/editors.tt:40
 #, perl-format
 msgid "Total applied edits"
 msgstr ""
 
-#: ../root/statistics/editors.tt:81
+#: ../root/statistics/editors.tt:46
 #, perl-format
 msgid "Total votes"
 msgstr ""
@@ -2084,12 +2090,12 @@ msgstr ""
 msgid "Voted down:"
 msgstr "Kumoon äänestetyt:"
 
-#: ../root/statistics/editors.tt:60 ../root/statistics/editors.tt:80
+#: ../root/statistics/editors.tt:45 ../root/statistics/editors.tt:46
 #, perl-format
 msgid "Voter"
 msgstr ""
 
-#: ../root/statistics/editors.tt:54
+#: ../root/statistics/editors.tt:44
 #, perl-format
 msgid "Voters"
 msgstr ""
@@ -2099,7 +2105,7 @@ msgstr ""
 msgid "Votes"
 msgstr "Annetut äänet"
 
-#: ../root/statistics/editors.tt:61
+#: ../root/statistics/editors.tt:45
 #, perl-format
 msgid "Votes in past week"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-11 20:45+0000\n"
+"PO-Revision-Date: 2012-09-20 06:21+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -438,10 +438,12 @@ msgid "mb_server now hosted on Git"
 msgstr "mb_server wordt nu gehost op Git"
 
 #: ../root/statistics/formats.tt:32
+#, perl-format
 msgid "% of total mediums"
 msgstr "% van totale media"
 
 #: ../root/statistics/formats.tt:30
+#, perl-format
 msgid "% of total releases"
 msgstr "% van het totale aantal uitgaves"
 
@@ -1152,12 +1154,12 @@ msgstr "Trek een rechthoek op een grafiek"
 msgid "Edit Information"
 msgstr "Bewerk informatie"
 
-#: ../root/statistics/editors.tt:17 ../root/statistics/editors.tt:37
+#: ../root/statistics/editors.tt:39 ../root/statistics/editors.tt:40
 #, perl-format
 msgid "Editor"
 msgstr "Redacteur"
 
-#: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:11
+#: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:38
 #: ../root/statistics/index.tt:492 ../root/statistics/layout.tt:5
 #: ../root/statistics/view_js.tt:73
 #, perl-format
@@ -1267,7 +1269,7 @@ msgstr "Vrouwelijke artiesten"
 msgid "Female:"
 msgstr "vrouw:"
 
-#: ../root/statistics/editors.tt:7
+#: ../root/statistics/editors.tt:34
 #, perl-format
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are"
@@ -1420,8 +1422,9 @@ msgid "Last Week:"
 msgstr "vorige week:"
 
 #: ../root/statistics/countries.tt:28 ../root/statistics/coverart.tt:10
-#: ../root/statistics/edits.tt:7 ../root/statistics/formats.tt:21
-#: ../root/statistics/index.tt:7 ../root/statistics/languages_scripts.tt:41
+#: ../root/statistics/editors.tt:32 ../root/statistics/edits.tt:7
+#: ../root/statistics/formats.tt:21 ../root/statistics/index.tt:7
+#: ../root/statistics/languages_scripts.tt:41
 #: ../root/statistics/relationships.tt:21
 #, perl-format
 msgid "Last updated: {date}"
@@ -1489,12 +1492,12 @@ msgstr "Media waarvan het type niet is ingesteld"
 msgid "Mediums:"
 msgstr "Media:"
 
-#: ../root/statistics/editors.tt:12
+#: ../root/statistics/editors.tt:39
 #, perl-format
 msgid "Most active editors in the past week"
 msgstr "Meest actieve redacteuren in de afgelopen week (bewerken)"
 
-#: ../root/statistics/editors.tt:55
+#: ../root/statistics/editors.tt:45
 #, perl-format
 msgid "Most active voters in the past week"
 msgstr "Meest actieve redacteuren in de afgelopen week (stemmen)"
@@ -1564,7 +1567,7 @@ msgstr "normale gegevenskwaliteit:"
 msgid "Open Edits"
 msgstr "Openstaande bewerkingen"
 
-#: ../root/statistics/editors.tt:18
+#: ../root/statistics/editors.tt:39
 #, perl-format
 msgid "Open and applied edits in past week"
 msgstr "Open en doorgevoerde bewerkingen in de afgelopen week"
@@ -1666,10 +1669,8 @@ msgstr "Aantal hoesafbeeldingen:"
 msgid "Primary Types"
 msgstr "Primaire types"
 
-#: ../root/statistics/countries.tt:33 ../root/statistics/editors.tt:16
-#: ../root/statistics/editors.tt:36 ../root/statistics/editors.tt:59
-#: ../root/statistics/editors.tt:79 ../root/statistics/formats.tt:27
-#: ../root/statistics/languages_scripts.tt:49
+#: ../root/statistics/countries.tt:33 ../root/statistics/editors.tt:11
+#: ../root/statistics/formats.tt:27 ../root/statistics/languages_scripts.tt:49
 #: ../root/statistics/languages_scripts.tt:70
 #, perl-format
 msgid "Rank"
@@ -1968,6 +1969,11 @@ msgstr "Etiketten (totaal / verzameld):"
 msgid "Tags (raw)"
 msgstr "Etiketten (totaal)"
 
+#: ../root/statistics/editors.tt:19
+#, perl-format
+msgid "There is no data to display here."
+msgstr ""
+
 #: ../root/statistics/layout.tt:5
 #, perl-format
 msgid "Timeline"
@@ -1983,12 +1989,12 @@ msgstr "Tijdslijngrafiek"
 msgid "To-be-cancelled edits"
 msgstr "Bewerkingen die geannuleerd gaan worden"
 
-#: ../root/statistics/editors.tt:32
+#: ../root/statistics/editors.tt:40
 #, perl-format
 msgid "Top editors overall"
 msgstr "Topredacteurs (altijd)"
 
-#: ../root/statistics/editors.tt:75
+#: ../root/statistics/editors.tt:46
 #, perl-format
 msgid "Top voters overall"
 msgstr "Topstemmers (altijd)"
@@ -1999,12 +2005,12 @@ msgstr "Topstemmers (altijd)"
 msgid "Total"
 msgstr "Totaal"
 
-#: ../root/statistics/editors.tt:38
+#: ../root/statistics/editors.tt:40
 #, perl-format
 msgid "Total applied edits"
 msgstr "Totaal aantal doorgevoerde stemmen"
 
-#: ../root/statistics/editors.tt:81
+#: ../root/statistics/editors.tt:46
 #, perl-format
 msgid "Total votes"
 msgstr "Totaal aantal stemmen"
@@ -2085,12 +2091,12 @@ msgstr "Artiesten van een onbekend type"
 msgid "Voted down:"
 msgstr "weggestemd:"
 
-#: ../root/statistics/editors.tt:60 ../root/statistics/editors.tt:80
+#: ../root/statistics/editors.tt:45 ../root/statistics/editors.tt:46
 #, perl-format
 msgid "Voter"
 msgstr "Stemmer"
 
-#: ../root/statistics/editors.tt:54
+#: ../root/statistics/editors.tt:44
 #, perl-format
 msgid "Voters"
 msgstr "Stemmers"
@@ -2100,7 +2106,7 @@ msgstr "Stemmers"
 msgid "Votes"
 msgstr "Stemmen"
 
-#: ../root/statistics/editors.tt:61
+#: ../root/statistics/editors.tt:45
 #, perl-format
 msgid "Votes in past week"
 msgstr "Stemmen in de afgelopen week"
