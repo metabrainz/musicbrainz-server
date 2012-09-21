@@ -145,7 +145,7 @@
         </thead>
 
         <tbody>
-        [% WRAPPER statistics name=l("Accepted") %]
+        [% WRAPPER statistics name=lp("Accepted", 'edit descriptor') %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => c.uri_for_action('/user/edits/accepted', [ user.name ]) }) %]
         [% END %]
 
