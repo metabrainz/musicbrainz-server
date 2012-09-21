@@ -62,11 +62,7 @@ $(function() {
             });
 
             $li.find(':input').each(function() {
-                var $input = $(this);
-                if ($input.attr ('name'))
-                {
-                    $input.attr('name', prefixedInputName($input));
-                }
+                addInputNamePrefix($(this));
             });
 
             conditionCounter++;
@@ -78,6 +74,13 @@ $(function() {
 
     function prefixedInputName($element) {
         return 'conditions.' + conditionCounter + '.' + $element.attr('name').replace(/conditions\.\d+\./, '');
+    }
+
+    function addInputNamePrefix($input) {
+        if ($input.attr ('name'))
+        {
+            $input.attr('name', prefixedInputName($input));
+        }
     }
 
     $('ul.conditions select.operator').live('change', function() {
@@ -110,11 +113,7 @@ $(function() {
 
     $('ul.conditions li.condition').each(function() {
         $(this).find(':input').each(function() {
-            var $input = $(this);
-            if ($input.attr ('name'))
-            {
-                $input.attr('name', prefixedInputName($input));
-            }
+            addInputNamePrefix($(this));
         });
         conditionCounter++;
     });
