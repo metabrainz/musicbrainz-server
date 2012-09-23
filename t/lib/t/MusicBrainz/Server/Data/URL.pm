@@ -29,7 +29,6 @@ $sql->begin;
 
 $url_data->update($url->id, {
     url => 'http://google.com',
-    description => 'Google'
 });
 
 $url = $url_data->get_by_id(1);
@@ -39,7 +38,6 @@ is ( $url->url, 'http://google.com' );
 
 $url_data->update(2, {
     url => 'http://google.com',
-    description => 'Google'
 });
 
 is($url_data->get_by_gid('9b3c5c67-572a-4822-82a3-bdd3f35cf152')->id,
