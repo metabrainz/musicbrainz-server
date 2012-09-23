@@ -69,7 +69,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, gid, url, description, edits_pending';
+    return 'id, gid, url, edits_pending';
 }
 
 sub _entity_class
@@ -139,7 +139,6 @@ sub _hash_to_row
     my ($self, $values) = @_;
     return hash_to_row($values, {
         url => 'url',
-        description => 'description'
     });
 }
 
