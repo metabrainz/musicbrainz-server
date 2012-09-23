@@ -446,8 +446,6 @@ sub ImportAllTables
         replication_control
         script
         script_language
-        statistic
-        statistic_event
         tag
         tag_relation
         track
@@ -469,6 +467,9 @@ sub ImportAllTables
         cover_art_archive.art_type
         cover_art_archive.cover_art
         cover_art_archive.cover_art_type
+
+        musicbrainz_statistics.statistic
+        musicbrainz_statistics.statistic_event
     )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;

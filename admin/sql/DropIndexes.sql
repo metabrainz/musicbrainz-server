@@ -179,8 +179,6 @@ DROP INDEX release_raw_idx_last_modified;
 DROP INDEX release_raw_idx_lookup_count;
 DROP INDEX release_raw_idx_modify_count;
 DROP INDEX script_idx_iso_code;
-DROP INDEX statistic_name;
-DROP INDEX statistic_name_date_collected;
 DROP INDEX tag_idx_name;
 DROP INDEX track_idx_artist_credit;
 DROP INDEX track_idx_name;

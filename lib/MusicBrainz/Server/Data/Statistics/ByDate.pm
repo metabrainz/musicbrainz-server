@@ -8,7 +8,7 @@ use MusicBrainz::Server::Entity::Statistics::ByDate;
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Sql';
 
-sub _table { 'statistic' }
+sub _table { 'musicbrainz_statistics.statistic' }
 
 sub _columns { 'id, date_collected, name, value' }
 
