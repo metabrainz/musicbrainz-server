@@ -22,7 +22,6 @@ my $url = $url_data->get_by_id(1);
 is ( $url->id, 1 );
 is ( $url->gid, "9201840b-d810-4e0f-bb75-c791205f5b24" );
 is ( $url->url, "http://musicbrainz.org/" );
-is ( $url->description, "MusicBrainz" );
 is ( $url->edits_pending, 0 );
 
 my $sql = $test->c->sql;
@@ -37,7 +36,6 @@ $url = $url_data->get_by_id(1);
 is ( $url->id, 1 );
 is ( $url->gid, "9201840b-d810-4e0f-bb75-c791205f5b24" );
 is ( $url->url, 'http://google.com' );
-is ( $url->description, 'Google' );
 
 $url_data->update(2, {
     url => 'http://google.com',

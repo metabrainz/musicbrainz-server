@@ -30,7 +30,6 @@ test 'Entering makes no changes' => sub {
     my $test = shift;
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://microsoft.com');
-    is($url->description, 'EVIL');
     is($url->edits_pending, 1);
 };
 
@@ -41,7 +40,6 @@ test 'Can accept' => sub {
 
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://apple.com');
-    is($url->description, 'Possibly even more evil');
     is($url->edits_pending, 0);
 };
 
@@ -51,7 +49,6 @@ test 'Can reject' => sub {
 
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://microsoft.com');
-    is($url->description, 'EVIL');
     is($url->edits_pending, 0);
 };
 
@@ -67,7 +64,6 @@ test 'Entering the same edit twice is OK' => sub {
 
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://apple.com');
-    is($url->description, 'Possibly even more evil');
     is($url->edits_pending, 0);
 };
 
@@ -127,7 +123,6 @@ test 'Check conflicts (non-conflicting edits)' => sub {
 
     my $url = $c->model('URL')->get_by_id(1);
     is ($url->url, 'http://musicbrainz.org/rocks', 'url renamed');
-    is ($url->description, 'The best music database!', 'description changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -154,7 +149,6 @@ test 'Check conflicts (conflicting edits)' => sub {
 
     my $url = $c->model('URL')->get_by_id(1);
     is ($url->url, 'http://musicbrainz.org/rocks', 'url renamed');
-    is ($url->description, 'The best music database!', 'description changed');
 };
 
 sub _build_edit {
