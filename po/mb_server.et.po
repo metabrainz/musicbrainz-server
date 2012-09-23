@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2012-09-19 17:30-0700\n"
-"PO-Revision-Date: 2012-09-20 15:43+0000\n"
+"PO-Revision-Date: 2012-09-22 19:07+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -276,7 +276,7 @@ msgstr "2. sekundant:"
 #: ../root/admin/edit_user.tt:17
 #, perl-format
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr ""
+msgstr "<abbr title=\"MusicBrainzi identifikaator\">MBID</abbr>-sisestaja"
 
 #: ../root/edit/info.tt:42
 #, perl-format
@@ -362,7 +362,7 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr ""
+msgstr "<strong>Hoiatus:</strong> mõnel mestitavatest salvestistest on erinev ISRC. Palun tee kindlaks, kas ikka on tegu samade salvestistega, ja alles siis jätka mestimisega."
 
 #: ../root/components/common-macros.tt:680 ../root/recording/edit.tt:41
 #: ../root/release/edit/tracklist.tt:131
@@ -506,7 +506,7 @@ msgstr ""
 #: ../root/release/cover_art.tt:49
 #, perl-format
 msgid "Add Cover Art"
-msgstr "Lisa kaanepilt"
+msgstr "Kaanepildi lisamine"
 
 #: ../root/release/edit/tracklist.tt:167 ../root/release/edit/tracklist.tt:293
 #: ../root/release/edit/tracklist.tt:495
@@ -535,12 +535,12 @@ msgstr "Lisa plaadifirma"
 #: ../root/label/add_alias.tt:12
 #, perl-format
 msgid "Add Label Alias"
-msgstr "Lisa plaadifirma alias"
+msgstr "Plaadifirma aliase lisamine"
 
 #: ../root/release_group/create.tt:16
 #, perl-format
 msgid "Add New Release Group"
-msgstr "Lisa uus väljalaskerühm"
+msgstr "Uue väljalaskerühma lisamine"
 
 #: ../root/edit/info.tt:13
 #, perl-format
@@ -1121,7 +1121,7 @@ msgstr ""
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "{format} {pos} of {release} by {artist}?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid omistada plaadi-ID „<code>{discid}</code>” {format} {pos}-le väljalaskel „{release}” artistilt {artist}?"
 
 #: ../root/admin/delete_user.tt:4
 #, perl-format
@@ -1180,7 +1180,7 @@ msgstr "Kas oled kindel, et soovid eemaldada kogu „{collection}”?"
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid eemaldada plaadi-ID „<code>{discid}</code>” artisti {artist} väljalaskelt „{release}”?"
 
 #: ../root/edit/cancel.tt:3
 #, perl-format
@@ -1509,12 +1509,12 @@ msgstr[1] ""
 #: ../root/cdtoc/attach_filter_release.tt:69
 #, perl-format
 msgid "Attach CD TOC"
-msgstr ""
+msgstr "CD sisukorra omistamine"
 
 #: ../root/cdtoc/lookup.tt:51
 #, perl-format
 msgid "Attach Disc ID"
-msgstr ""
+msgstr "Plaadi-ID omistamine"
 
 #: ../root/cdtoc/index.tt:7
 #, perl-format
@@ -3738,12 +3738,12 @@ msgstr "Oleta suurtähestus"
 #: ../root/release/edit/tracklist.tt:385
 #, perl-format
 msgid "Guess case disc title"
-msgstr ""
+msgstr "Oleta plaadi pealkirja suurtähestus"
 
 #: ../root/release/edit/tracklist.tt:333
 #, perl-format
 msgid "Guess case track"
-msgstr ""
+msgstr "Oleta loo pealkirja suurtähestus"
 
 #: ../root/annotation/edit.tt:43
 #, perl-format
@@ -3963,7 +3963,7 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:63
 #, perl-format
 msgid "If you can't find what you're looking for, you can add a new release:"
-msgstr ""
+msgstr "Kui sa ei leia otsitavat, võid lisada uue väljalaske."
 
 #: ../root/account/edit.tt:7
 #, perl-format
@@ -3983,14 +3983,14 @@ msgid ""
 "If you don't see the artist you are looking for, you can still add a new "
 "release. This will allow you to create this artist and a release at the same"
 " time"
-msgstr ""
+msgstr "Kui sa ei näe otsitavat artisti, võid ikkagi uue väljalaske lisada. Artist luuakse väljalaske lisamise käigus."
 
 #: ../root/cdtoc/attach_filter_release.tt:81
 #, perl-format
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
-msgstr ""
+msgstr "Kui sa ei näe otsitavat väljalaset, võid selle CD sisukorra abil andmebaasi uue lisada."
 
 #: ../root/taglookup/nag.tt:16
 #, perl-format
@@ -4578,7 +4578,7 @@ msgstr ""
 #: ../root/cdtoc/lookup.tt:4 ../root/cdtoc/lookup.tt:77
 #, perl-format
 msgid "Matching CDs"
-msgstr ""
+msgstr "Vastavad CD-d"
 
 #: ../root/cdtoc/lookup.tt:37 ../root/components/common-macros.tt:719
 #: ../root/scripts/text_strings.tt:90
@@ -5877,12 +5877,12 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:26
 #, perl-format
 msgid "Please select the medium you wish to attach this CD TOC to."
-msgstr ""
+msgstr "Palun vali helikandja, millele see CD sisukord omistada."
 
 #: ../root/main/rate_limited.tt:6
 #, perl-format
 msgid "Please slow down and then try again"
-msgstr ""
+msgstr "Palun võta hoog maha ja proovi siis uuesti."
 
 #: ../root/components/forms.tt:185
 #, perl-format
@@ -7109,12 +7109,12 @@ msgstr "Otsingu tulemused"
 #: ../root/cdtoc/lookup.tt:56
 #, perl-format
 msgid "Search by artist"
-msgstr "Otsi esitaja järgi"
+msgstr "Otsing artisti järgi"
 
 #: ../root/cdtoc/lookup.tt:66
 #, perl-format
 msgid "Search by release"
-msgstr "Otsi väljalaske järgi"
+msgstr "Otsing väljalaske järgi"
 
 #: ../root/edit/search_results.tt:24 ../root/edit/search_results.tt:26
 #: ../root/edit/search.tt:2 ../root/edit/search.tt:4
@@ -7125,12 +7125,12 @@ msgstr "Toimetuste otsimine"
 #: ../root/search/editor.tt:1
 #, perl-format
 msgid "Search for an Editor"
-msgstr ""
+msgstr "Toimetaja otsimine"
 
 #: ../root/cdtoc/attach_filter_artist.tt:3
 #, perl-format
 msgid "Search for an artist"
-msgstr ""
+msgstr "Artisti otsimine"
 
 #: ../root/edit/list_header.tt:8
 #, perl-format
@@ -7140,7 +7140,7 @@ msgstr "Toimetuste otsing"
 #: ../root/release/edit/recordings.tt:95
 #, perl-format
 msgid "Search for recordings"
-msgstr ""
+msgstr "Salvestiste otsimine"
 
 #: ../root/search/form.tt:52
 #, perl-format
@@ -7197,7 +7197,7 @@ msgstr "Teisesed tüübid:"
 #: ../root/cdtoc/info.tt:38 ../root/cdtoc/info.tt:40 ../root/cdtoc/info.tt:42
 #, perl-format
 msgid "Sectors"
-msgstr "Sektorid"
+msgstr "Sekt."
 
 #: ../root/collection/header.tt:17
 #, perl-format
@@ -7229,7 +7229,7 @@ msgstr "Vaata {uri|instrumendipuud}."
 #: ../root/release/edit/recordings.tt:329
 #, perl-format
 msgid "Select"
-msgstr ""
+msgstr "Vali"
 
 #: ../root/release/edit/tracklist.tt:99
 #, perl-format
@@ -8258,7 +8258,7 @@ msgid ""
 "There are currently no discs in MusicBrainz associated with the information "
 "you provided. You can search for the disc you are looking for using the "
 "forms below, or you may add a new release to MusicBrainz"
-msgstr ""
+msgstr "Hetkel pole MusicBrainzis ükski plaat antud andmetega seostatud. Võid soovitud plaati otsida allolevate päringuvormide abil või siis lisada andmebaasi uue väljalaske."
 
 #: ../root/user/subscribers.tt:23
 #, perl-format
@@ -8372,7 +8372,7 @@ msgstr "Ilmnes vähemalt üks viga, palun vaata üle järgnevad väljad: {fields
 #: ../root/release/cover_art.tt:34
 #, perl-format
 msgid "These images provided by the {caa|Cover Art Archive}."
-msgstr ""
+msgstr "Piltidega on varustanud {caa|Kaanepildiarhiiv}."
 
 #: ../root/cdstub/edit_form.tt:9
 #, perl-format
@@ -8640,14 +8640,14 @@ msgstr ""
 #: ../root/cdtoc/attach_list.tt:28
 #, perl-format
 msgid "This medium format cannot have a disc ID attached"
-msgstr ""
+msgstr "Sellele helikandjaformaadile ei saa plaadi-ID-d omistada."
 
 #: ../root/scripts/text_strings.tt:52
 #, perl-format
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
-msgstr ""
+msgstr "Sellele helikandjale on omistatud plaadi-ID, mistõttu ei saa seda teavet muuta."
 
 #: ../root/release/merge.tt:135
 #, perl-format
@@ -10361,7 +10361,7 @@ msgstr "Pead sisestama täpsustuse, mille järgi seda plaadifirmat teistest sama
 #: ../root/cdtoc/attach_artist_releases.tt:24
 #, perl-format
 msgid "You are viewing releases by {artist}."
-msgstr ""
+msgstr "Näidatakse artisti {artist} sobida võivaid väljalaskeid."
 
 #: ../root/cdtoc/lookup.tt:98
 #, perl-format
@@ -10425,7 +10425,7 @@ msgstr "Oled sellel salvestisel kasutanud eriotstarbelist artisti „{valink|Eri
 #: ../root/release/edit/tracklist.tt:132
 #, perl-format
 msgid "You have used the {valink|Various Artists} special purpose artist on:"
-msgstr "Oled järgneval kasutanud eriotstarbelist artisti „{valink|Erinevad esitajad}”:"
+msgstr "oled järgneval kasutanud eriotstarbelist artisti „{valink|Erinevad esitajad}”:"
 
 #: ../root/scripts/text_strings.tt:120
 #, perl-format
@@ -10900,7 +10900,7 @@ msgstr "saada e-kiri"
 #: ../root/cdtoc/attach_list.tt:35
 #, perl-format
 msgid "show tracklist"
-msgstr ""
+msgstr "näita lugude nimekirja"
 
 #: ../root/browse/page_selector.tt:43
 #, perl-format
@@ -11172,8 +11172,8 @@ msgstr[1] "Leiti {num} väljalaset"
 #, perl-format
 msgid "{num} release found matching your query."
 msgid_plural "{num} release found matching your query."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Päringu peale leiti {num} väljalase."
+msgstr[1] "Päringu peale leiti {num} väljalaset."
 
 #: ../root/tag/release_group.tt:1
 #, perl-format
@@ -11318,11 +11318,11 @@ msgstr "„{id}” ei ole kehtiv MusicBrainzi ID"
 #: ../lib/MusicBrainz/Server/Controller.pm:115
 msgid ""
 "Thank you, your edit has been entered into the edit queue for peer review."
-msgstr ""
+msgstr "Aitäh, toimetus on sisestatud ja ootab teistelt kasutajatelt ülevaatamist."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:116
 msgid "Thank you, your edit has been accepted and applied"
-msgstr ""
+msgstr "Aitäh, toimetus on vastuvõetud ja rakendatud."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."
@@ -11395,7 +11395,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:475
 #, perl-brace-format
 msgid "The artist name has been changed in edit #{id}."
-msgstr ""
+msgstr "Artisti nime muudeti toimetuses #{id}."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:519
 msgid "You cannot merge a special purpose artist into another artist"
@@ -12163,11 +12163,11 @@ msgstr "Lugu nr {pos} on puudu."
 msgid ""
 "This medium already has disc IDs so you may only change the format\n"
 "                       to a format that can have disc IDs"
-msgstr ""
+msgstr "Sellele helikandjale on omistatud plaadi-ID, mistõttu saab formaati\n                       vahetada ainult selliseks, millel saab plaadi-ID olla."
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:222
 msgid "A release must have at least one medium."
-msgstr ""
+msgstr "Väljalaskes peab olema vähemalt üks helikandja."
 
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:68
 msgid ""
@@ -12177,7 +12177,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:75
 msgid "This relationship type is deprecated."
-msgstr ""
+msgstr "See seosetüüp on iganenud."
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
 msgid "FreeDB"
@@ -12277,80 +12277,80 @@ msgstr ""
 msgid ""
 "An album release primarily consists of previously unreleased material. This "
 "includes album re-issues, with or without bonus tracks."
-msgstr ""
+msgstr "Album koosneb põhiliselt varem avaldamata materjalist. See hõlmab siiski ka albumite kordusväljalaskeid, nii lisalugudega kui ilma."
 
 #: ../lib/MusicBrainz/Server/Release.pm:59
 msgid ""
 "A single typically has one main song and possibly a handful of additional "
 "tracks or remixes of the main track. A single is usually named after its "
 "main song."
-msgstr ""
+msgstr "Singlil on tavaliselt üks põhilugu ja vahel ka mõni lisalugu või põhiloo remiks. Singli pealkiri on tavaliselt sama, mis põhilool."
 
 #: ../lib/MusicBrainz/Server/Release.pm:60
 msgid ""
 "An EP is an Extended Play release and often contains the letters EP in the "
 "title."
-msgstr ""
+msgstr "EP (ingl Extended Play) on tavaliselt albumi ja singli vahepealse kestusega väljalase; selle pealkirjas on tihti „EP”."
 
 #: ../lib/MusicBrainz/Server/Release.pm:61
 msgid ""
 "A compilation is a collection of previously released tracks by one or more "
 "artists."
-msgstr ""
+msgstr "Kogumik sisaldab varem avaldatud lugusid ühelt või mitmelt artistilt."
 
 #: ../lib/MusicBrainz/Server/Release.pm:62
 msgid ""
 "A soundtrack is the musical score to a movie, TV series, stage show, "
 "computer game etc."
-msgstr ""
+msgstr "Saatemuusika on filmis, telesarjas, teatrietenduses, arvutimängus vm kasutatud muusika."
 
 #: ../lib/MusicBrainz/Server/Release.pm:63
 msgid "Non-music spoken word releases."
-msgstr ""
+msgstr "Kõneldud tekstiga ja ilma muusikata väljalase."
 
 #: ../lib/MusicBrainz/Server/Release.pm:64
 msgid "An interview release contains an interview with the Artist."
-msgstr ""
+msgstr "Intervjuu-väljalase sisaldab ainult intervjuud artistiga."
 
 #: ../lib/MusicBrainz/Server/Release.pm:65
 msgid "An audiobook is a book read by a narrator without music."
-msgstr ""
+msgstr "Heliraamat on ilma muusikata väljalase, kus jutustaja raamatut ette loeb."
 
 #: ../lib/MusicBrainz/Server/Release.pm:66
 msgid "A release that was recorded live."
-msgstr ""
+msgstr "Kontserdil („laivis”) lindistatud väljalase."
 
 #: ../lib/MusicBrainz/Server/Release.pm:67
 msgid "A release that was (re)mixed from previously released material."
-msgstr ""
+msgstr "Väljalase, mis on (re)miksitud varemavaldatud materjalist."
 
 #: ../lib/MusicBrainz/Server/Release.pm:68
 msgid "Any release that does not fit any of the categories above."
-msgstr ""
+msgstr "Igasugune muu väljalase, mis ei sobi ühtegi teise kategooriasse."
 
 #: ../lib/MusicBrainz/Server/Release.pm:70
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " (Most releases will fit into this category.)"
-msgstr ""
+msgstr "Igasugune väljalase, mille on heaks kiitnud artist ja/või nende plaadifirma. Sellesse kategooriasse sobib enamik väljalaskeid."
 
 #: ../lib/MusicBrainz/Server/Release.pm:71
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr ""
+msgstr "Tasuta jagatud või peatse ametliku väljalaske reklaamimiseks mõeldud väljalase, nt albumi eelväljalase või ajakirjaga kaasas olnud väljalase."
 
 #: ../lib/MusicBrainz/Server/Release.pm:72
 msgid ""
 "An unofficial/underground release that was not sanctioned by the artist "
 "and/or the record company."
-msgstr ""
+msgstr "Mitteametlik või põrandaalune väljalase, mida pole heaks kiitnud artist ega nende plaadifirma."
 
 #: ../lib/MusicBrainz/Server/Release.pm:73
 msgid ""
 "A pseudo-release is a duplicate release for translation/transliteration "
 "purposes."
-msgstr ""
+msgstr "Pseudoväljalase on tõlgitud või translitereeritud pealkirjadega duplikaatväljalase."
 
 #: ../lib/MusicBrainz/Server/Wizard/ReleaseEditor.pm:51
 msgid "Release Information"
