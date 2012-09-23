@@ -44,7 +44,8 @@ my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->deliveries->[-1]->{email};
 is($email->get_header('To'), 'new_email@example.com', "Verification email sent to correct address");
 is($email->get_header('Subject'), 'Please verify your email address', "Verification email has correct subject");
-like($email->get_body, qr{http://localhost/verify-email.*}, "Verification emial contains verification link");
+like($email->get_body, qr{http://localhost/verify-email.*}, "Verification email contains verification link");
+like($email->get_body, qr{\[127\.0\.0\.1\]}, "Verification email contains request IP");
 
 $email->get_body =~ qr{http://localhost(/verify-email.*)};
 my $verify_email_path = $1;
