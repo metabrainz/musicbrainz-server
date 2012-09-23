@@ -18,6 +18,10 @@ sub _load
 {
     my ($self, $c, $id) = @_;
 
+    if (substr($id,length($id)-1,1) ne '-') {
+        $id .= '-';
+    }
+
     if (!is_valid_discid($id)) {
         $c->stash(
                 template  => 'cdstub/error.tt',

@@ -28,6 +28,10 @@ sub _load
 {
     my ($self, $c, $discid) = @_;
 
+    if (substr($discid,length($discid)-1,1) ne '-') {
+        $discid .= '-';
+    }
+
     return $c->model('CDTOC')->get_by_discid($discid);
 }
 
