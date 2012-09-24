@@ -12,7 +12,7 @@ use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
 
-use Test::Deep::NoTest qw( eq_deeply );
+use Data::Compare qw( Compare );
 
 sub edit_type { die 'Unimplemented' }
 sub edit_name { die 'Unimplemented' }
@@ -181,7 +181,7 @@ sub edit_conditions_vary
 {
     my $self = shift;
     my ($low, $normal, $high) = map { $self->edit_conditions->{$_} } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH);
-    return !eq_deeply($low, $normal) || !eq_deeply($normal, $high);
+    return !Compare($low, $normal) || !Compare($normal, $high);
 }
 
 sub allow_auto_edit
