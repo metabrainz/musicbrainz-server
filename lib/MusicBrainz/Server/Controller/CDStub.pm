@@ -19,7 +19,10 @@ sub _load
     my ($self, $c, $id) = @_;
 
     if (substr($id,length($id)-1,1) ne '-') {
-        $id .= '-';
+        my $redir = $c->relative_uri;
+        $redir =~ s/$id/$id-/;
+        $c->response->redirect($redir);
+        $c->detach;
     }
 
     if (!is_valid_discid($id)) {
