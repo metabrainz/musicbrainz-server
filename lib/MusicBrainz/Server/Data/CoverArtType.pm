@@ -40,7 +40,7 @@ sub get_by_name
     return map { $types_by_name{$_} } @names;
 }
 
-sub find_by_coverart_ids
+sub find_by_cover_art_ids
 {
     my ($self, @ids) = @_;
     return () unless @ids;
@@ -67,7 +67,7 @@ sub load_for
     my ($self, @objects) = @_;
     my %obj_id_map = object_to_ids(@objects);
 
-    my %id_types_map = $self->find_by_coverart_ids (keys %obj_id_map);
+    my %id_types_map = $self->find_by_cover_art_ids (keys %obj_id_map);
 
     while (my ($cover_art_id, $types) = each %id_types_map)
     {

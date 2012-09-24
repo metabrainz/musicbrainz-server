@@ -41,6 +41,9 @@ sub _column_mapping
         edit_id => 'edit',
         ordering => 'ordering',
         edits_pending => 'edits_pending',
+        is_front => 'is_front',
+        is_back => 'is_back',
+        approved => 'approved',
     };
 }
 
@@ -49,17 +52,29 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Artwork';
 }
 
-sub load_for_releases
+sub find_by_release
 {
     my ($self, @releases) = @_;
     my %id_to_release = object_to_ids (@releases);
     my @ids = keys %id_to_release;
 
     return unless @ids; # nothing to do
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY ordering";
+    my $query = "SELECT
+            cover_art_archive.index_listing.id,
+            cover_art_archive.index_listing.release,
+            cover_art_archive.index_listing.comment,
+            cover_art_archive.index_listing.edit,
+            cover_art_archive.index_listing.ordering,
+            cover_art_archive.cover_art.edits_pending,
+            cover_art_archive.index_listing.approved,
+            cover_art_archive.index_listing.is_front,
+            cover_art_archive.index_listing.is_back
+        FROM cover_art_archive.index_listing
+        JOIN cover_art_archive.cover_art
+        ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
+        WHERE cover_art_archive.index_listing.release
+        IN (" . placeholders(@ids) . ")
+        ORDER BY cover_art_archive.index_listing.ordering";
 
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);

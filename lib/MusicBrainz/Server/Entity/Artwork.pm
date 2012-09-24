@@ -21,17 +21,6 @@ has ordering => (
 has cover_art_types => (
     is => 'rw',
     isa => 'ArrayRef[MusicBrainz::Server::Entity::CoverArtType]',
-    trigger => sub {
-        my ($self, $types, $old_types) = @_;
-
-        $self->is_front (0);
-        $self->is_back (0);
-
-        foreach my $type (@$types) {
-            $self->is_front (1) if $type->id == $COVERART_FRONT_TYPE;
-            $self->is_back (1) if $type->id == $COVERART_BACK_TYPE;
-        };
-    }
 );
 
 sub types { return [ map { $_->name } @{ shift->cover_art_types } ]; }
@@ -46,11 +35,10 @@ has is_back => (
     isa => 'Bool',
 );
 
-# has approved => (
-#     is => 'rw',
-#     isa => 'Bool',
-#     coerce => 1
-# );
+has approved => (
+    is => 'rw',
+    isa => 'Bool',
+);
 
 has release_id => (
     is => 'rw',
@@ -60,16 +48,6 @@ has release_id => (
 has release => (
     is => 'rw',
     isa => 'Release',
-    trigger => sub {
-        my ($self, $release, $old_release) = @_;
-
-        my $urlprefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX .
-            "/release/" . $self->release->gid . "/" . $self->id;
-
-        $self->image           ($urlprefix . ".jpg");
-        $self->small_thumbnail ($urlprefix . "-250.jpg");
-        $self->large_thumbnail ($urlprefix . "-500.jpg");
-    }
 );
 
 has edit_id => (
@@ -77,20 +55,17 @@ has edit_id => (
     isa => 'Int',
 );
 
-has image => (
-    is => 'rw',
-    isa => 'Str',
-);
+sub _urlprefix
+{
+    my $self = shift;
 
-has small_thumbnail => (
-    is => 'rw',
-    isa => 'Str',
-);
+    return DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX .
+        "/release/" . $self->release->gid . "/" . $self->id;
+}
 
-has large_thumbnail => (
-    is => 'rw',
-    isa => 'Str',
-);
+sub image           { return shift->_urlprefix . ".jpg"; }
+sub small_thumbnail { return shift->_urlprefix . "-250.jpg"; }
+sub large_thumbnail { return shift->_urlprefix . "-500.jpg"; }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

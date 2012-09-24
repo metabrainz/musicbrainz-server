@@ -730,7 +730,7 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    my $artwork = $c->model ('Artwork')->load_for_releases ($release);
+    my $artwork = $c->model ('Artwork')->find_by_release ($release);
     $c->model ('CoverArtType')->load_for (@$artwork);
 
     $c->stash(cover_art => $artwork);
