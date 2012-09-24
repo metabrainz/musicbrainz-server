@@ -22,7 +22,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          linked   => [ qw(track_artist artist label recording release-group) ],
                          inc      => [ qw(artist-credits labels recordings discids
-                                          release-groups media _relations annotation) ],
+                                          release-groups media _relations) ],
                          optional => [ qw(fmt limit offset) ],
      },
      release => {
@@ -30,7 +30,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists labels recordings release-groups aliases
                                           tags user-tags ratings user-ratings collections
                                           artist-credits discids media recording-level-rels
-                                          work-level-rels _relations annotation) ],
+                                          work-level-rels _relations) ],
                          optional => [ qw(fmt) ],
      },
      release => {
@@ -60,9 +60,6 @@ sub release_toplevel
     $self->linked_releases ($c, $stash, [ $release ]);
 
     my @rels_entities = $release;
-
-    $c->model('Release')->annotation->load_latest($release)
-        if $c->stash->{inc}->annotation;
 
     if ($c->stash->{inc}->artists)
     {
