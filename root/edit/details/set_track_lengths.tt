@@ -33,18 +33,7 @@
   <tr>
     <th>[% l('Track lengths:') %]</th>
     <td>
-        [%- FOR length = edit.display_data.length.old %]
-          [%-
-          old_length = edit.display_data.length.old.${ loop.index } | format_length;
-          new_length = edit.display_data.length.new.${ loop.index } | format_length; %]
-          <table class="wrap-block">
-             <tr>
-             <td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td>
-             </tr><tr>
-             <td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td>
-             </tr>
-          </table>
-        [%- END -%]
+        [%- track_duration_changes(edit.display_data.length.old, edit.display_data.length.old, edit.display_data.length.new) -%]
     </td>
   </tr>
 
