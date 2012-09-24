@@ -14,6 +14,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 use HTTP::Status qw( :constants );
 
@@ -28,12 +29,7 @@ sub _load
 {
     my ($self, $c, $discid) = @_;
 
-    if (substr($discid,length($discid)-1,1) ne '-') {
-        my $redir = $c->relative_uri;
-        $redir =~ s/$discid/$discid-/;
-        $c->response->redirect($redir);
-        $c->detach;
-    }
+    add_dash($c, $discid);
 
     return $c->model('CDTOC')->get_by_discid($discid);
 }

@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'CDStubTOC',
@@ -18,12 +19,7 @@ sub _load
 {
     my ($self, $c, $id) = @_;
 
-    if (substr($id,length($id)-1,1) ne '-') {
-        my $redir = $c->relative_uri;
-        $redir =~ s/$id/$id-/;
-        $c->response->redirect($redir);
-        $c->detach;
-    }
+    add_dash($c, $id);
 
     if (!is_valid_discid($id)) {
         $c->stash(
