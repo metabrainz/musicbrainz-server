@@ -5,10 +5,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
+use HTTP::Status qw( :constants );
+use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
+use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
@@ -318,7 +321,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     );
 }
 
-sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
+sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -331,13 +334,46 @@ sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
             unless $user->preferences->public_ratings;
     }
 
-    my $ratings = $c->model('Editor')->get_ratings($user,
+    my $ratings = $c->model('Editor')->summarize_ratings($user,
                         $c->stash->{viewing_own_profile});
 
     $c->stash(
-        user => $user,
         ratings => $ratings,
-        template => 'user/ratings.tt',
+        template => 'user/ratings_summary.tt',
+    );
+}
+
+sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
+{
+    my ($self, $c, $type) = @_;
+
+    my $model = try { type_to_model($type) };
+
+    if (!$model || !$c->model($model)->can('rating')) {
+        $c->stash(
+            message  => l(
+                "'{type}' is not an entity type that can have ratings.",
+                { type => $type }
+            )
+        );
+        $c->detach('/error_400');
+    }
+
+    my $user = $c->stash->{user};
+    if (!defined $c->user || $c->user->id != $user->id) {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach('/error_403')
+            unless $user->preferences->public_ratings;
+    }
+
+    my $ratings = $self->_load_paged($c, sub {
+        $c->model($model)->rating->find_editor_ratings(
+            $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
+    }, 100);
+
+    $c->stash(
+        ratings => $ratings,
+        type => $type
     );
 }
 
@@ -356,7 +392,6 @@ sub tags : Chained('load') PathPart('tags')
 
     my $tags = $c->model('Editor')->get_tags ($user);
 
-    use List::Util 'sum';
     $c->stash(
         user => $user,
         tags => $tags,
