@@ -103,7 +103,12 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
         or die "Could not find mediums";
 
     $c->model('Release')->load(@$mediums);
-    $c->model('ArtistCredit')->load(map { $_->release } @$mediums);
+
+    $c->model('Track')->load_for_tracklists(
+        $c->model('Tracklist')->load($mediums->[0]));
+    $c->model('Recording')->load($mediums->[0]->tracklist->all_tracks);
+
+    $c->model('ArtistCredit')->load($mediums->[0]->tracklist->all_tracks, map { $_->release } @$mediums);
 
     $c->stash( mediums => $mediums );
 
