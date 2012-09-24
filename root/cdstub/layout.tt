@@ -4,9 +4,9 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Added:')
-               content=display_age_ago(cdstubtoc.cdstub.added_age) -%]
+               content=display_age_ago(cdstubtoc.cdstub.age(cdstubtoc.cdstub.date_added)) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Last modified:')
-               content=display_age_ago(cdstubtoc.cdstub.modified_age) -%]
+               content=display_age_ago(cdstubtoc.cdstub.age(cdstubtoc.cdstub.last_modified)) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Lookup count:')
                content=cdstubtoc.cdstub.lookup_count -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Modify count:')

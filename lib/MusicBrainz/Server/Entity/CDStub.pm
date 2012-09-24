@@ -84,31 +84,18 @@ has 'tracks' => (
 
 sub _YMD
 {
-    my ($self, $date) = @_;
+    my ($date) = @_;
     return ($date->year, $date->month, $date->day);
 }
 
 sub age
 {
-    my ($self, $prop) = @_;
-    my $begin = $self->$prop;
+    my ($self, $begin) = @_;
 
     my @end_YMD = Today;
-    my ($y, $m, $d) = N_Delta_YMD ($self->_YMD ($begin), @end_YMD);
+    my ($y, $m, $d) = N_Delta_YMD (_YMD ($begin), @end_YMD);
 
     return ($y, $m, $d);
-}
-
-sub added_age
-{
-    my ($self) = @_;
-    return $self->age('date_added');
-}
-
-sub modified_age
-{
-    my ($self) = @_;
-    return $self->age('last_modified');
 }
 
 __PACKAGE__->meta->make_immutable;

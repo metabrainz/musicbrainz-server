@@ -20,7 +20,7 @@
                 </tr>
                 <tr class="[% ' ev' IF loop.count % 2 == 0 %]">
                     <td colspan="4" class="lastupdate">[%- l('Added {add}, last modified {lastmod}',
-                        { add => display_age_ago(cdstub.added_age), lastmod => display_age_ago(cdstub.modified_age) }) -%]</td>
+                        { add => display_age_ago(cdstub.age(cdstub.date_added)), lastmod => display_age_ago(cdstub.age(cdstub.last_modified)) }) -%]</td>
                 </tr>
                 [%- END -%]
             </tbody>
