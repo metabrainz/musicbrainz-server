@@ -1,9 +1,3 @@
-[% WRAPPER "layout.tt" title=l("Search Results") full_width=1 %]
-    <div id="content">
-        <h1>[% l("Search Results") %]</h1>
-        [%- IF last_updated -%]<p>[%- l('Last updated: {date}', { date => UserDate.format(last_updated) }) -%]</p>[%- END -%]
+[% WRAPPER 'search/results-layout.tt' %]
         [% INCLUDE 'search/lib/inline-results-release.tt' %]
-
-        [%- INCLUDE "search/form.tt" -%]
-    </div>
 [% END %]
