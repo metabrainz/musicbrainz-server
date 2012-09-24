@@ -277,6 +277,32 @@ sub subscribed_editor_edits {
         $query, $STATUS_OPEN, @editor_ids, $editor_id, $offset);
 }
 
+sub editor_open_count
+{
+    my ($self, $editor_id) = @_;
+    my $query =
+        'SELECT count(*)
+           FROM ' . $self->_table . '
+          WHERE status = ?
+          AND editor = ?
+       ';
+
+    return $self->sql->select_single_value($query, $STATUS_OPEN, $editor_id);
+}
+
+sub editor_last_day_count
+{
+    my ($self, $editor_id) = @_;
+    my $query =
+        "SELECT count(*)
+           FROM " . $self->_table . "
+          WHERE editor = ?
+          AND open_time >= (now() - interval '1 day')
+       ";
+
+    return $self->sql->select_single_value($query, $editor_id);
+}
+
 sub merge_entities
 {
     my ($self, $type, $new_id, @old_ids) = @_;
