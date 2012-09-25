@@ -52,6 +52,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120922-move-statistics-ta
 echo `date` : Applying admin/sql/updates/20120911-not-null-comments.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
