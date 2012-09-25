@@ -234,7 +234,7 @@ sub CreateRelations
     $ENV{"PGPASSWORD"} = $DB->password;
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $DB->schema));
     system("echo \"CREATE SCHEMA cover_art_archive\" | $psql $opts");
-    system("echo \"CREATE SCHEMA musicbrainz_statistics\" | $psql $opts");
+    system("echo \"CREATE SCHEMA statistics\" | $psql $opts");
     die "\nFailed to create schema\n" if ($? >> 8);
 
     if (GetPostgreSQLVersion () >= version->parse ("v9.1"))

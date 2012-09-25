@@ -150,7 +150,7 @@ sub top_voters {
     }, $self->c->sql);
 }
 
-sub _table { 'musicbrainz_statistics.statistic' }
+sub _table { 'statistics.statistic' }
 
 sub all_events {
     my ($self) = @_;
@@ -160,7 +160,7 @@ sub all_events {
         query_to_list(
             $self->sql,
             sub { shift },
-            'SELECT * FROM musicbrainz_statistics.statistic_event ORDER BY date ASC',
+            'SELECT * FROM statistics.statistic_event ORDER BY date ASC',
         )
     ];
 }

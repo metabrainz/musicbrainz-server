@@ -1,5 +1,5 @@
 -- Adjust this setting to control where the objects get created.
-SET search_path = 'musicbrainz_statistics',public;
+SET search_path = 'statistics',public;
 
 \set ON_ERROR_STOP 1
 

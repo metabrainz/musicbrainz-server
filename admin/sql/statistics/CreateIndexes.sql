@@ -1,4 +1,4 @@
-SET search_path = 'musicbrainz_statistics';
+SET search_path = 'statistics';
 
 \set ON_ERROR_STOP 1
 BEGIN;

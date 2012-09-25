@@ -1,6 +1,6 @@
 BEGIN;
 
-SET search_path = 'musicbrainz_statistics';
+SET search_path = 'statistics';
 
 CREATE TABLE statistic
 (

@@ -40,7 +40,7 @@ my $domain = $domain[0];
 # where, which specifies a WHERE clause to add to the SQL query;
 # and ctx, which specifies a column to use for a msgctxt entry (unused at present).
 my @DBDEFS = (
-              {'domain' => 'statistics', 'table' => 'musicbrainz_statistics.statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
+              {'domain' => 'statistics', 'table' => 'statistics.statistic_event', 'columns' => ['title', 'description'], 'id' => 'date'},
               {'domain' => 'countries', 'table' => 'country', 'columns' => ['name'], 'comment' => ['iso_code']},
               {'domain' => 'languages', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3'], 'where' => 'iso_code_2t IS NOT NULL OR frequency > 0'},
               {'domain' => 'languages_notrim', 'table' => 'language', 'columns' => ['name'], 'comment' => ['frequency', 'iso_code_3']},

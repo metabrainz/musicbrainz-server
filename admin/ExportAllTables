@@ -193,8 +193,8 @@ my @tables = qw(
     cover_art_archive.cover_art
     cover_art_archive.cover_art_type
 
-    musicbrainz_statistics.statistic
-    musicbrainz_statistics.statistic_event
+    statistics.statistic
+    statistics.statistic_event
 );
 
 my @replication_tables = qw(
@@ -320,8 +320,8 @@ my @group_derived = qw(
     );
 
 my @group_stats = qw(
-    musicbrainz_statistics.statistic
-    musicbrainz_statistics.statistic_event
+    statistics.statistic
+    statistics.statistic_event
 );
 
 my @group_editor = qw(
