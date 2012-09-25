@@ -97,17 +97,21 @@ END; -%]
 [%- END -%]
 
 [%- MACRO comma_list(items) BLOCK -%]
-    [%- FOREACH item IN items -%]
-        [%- item -%]
-        [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? ", " : "" -%]
+    [%- output = l('{almost_last_list_item} and {last_list_item}', {last_list_item => items.last, almost_last_list_item => items.reverse.slice(1).first}) -%]
+    [%- FOREACH item IN items.reverse.slice(2) -%]
+        [%- output = l('{list_item}, {rest}', {list_item => item, rest => output}) -%]
     [%- END -%]
+    [%- output -%]
 [%- END -%]
+
 [%- MACRO comma_only_list(items) BLOCK -%]
-    [%- FOREACH item IN items -%]
-        [%- item -%]
-        [%- !loop.last ? ", " : "" -%]
+    [%- output = l('{last_list_item}', {last_list_item => items.last}) -%]
+    [%- FOREACH item IN items.reverse.slice(1) -%]
+        [%- output = l('{commas_only_list_item}, {rest}', {commas_only_list_item => item, rest => output}) -%]
     [%- END -%]
+    [%- output -%]
 [%- END -%]
+
 [%- MACRO form_id(field)
     IF field.form;
         "form-" _ field.form.name _ "-" _ field.name.replace('_', '-');
