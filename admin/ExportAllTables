@@ -455,9 +455,9 @@ If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
 
 GPG encryption of private data requires you pass a recipient to encrypt data
-for. This parameter can take any value that gpg(1) can take for `-r`. The user
-running ExportAllTables must have a GPG keyring setup that is aware of this
-recipient.
+for. This parameter can take any value that gpg(1) can take for
+`--recipient`. The user running ExportAllTables must have a GPG keyring setup
+that is aware of this recipient.
 
 EOF
 }
@@ -745,7 +745,7 @@ if ($fCompress and $fDoFullExport)
     $? == 0 or die "md5sum returned $?";
 
     if ($encrypt_for) {
-        system "/usr/bin/gpg -r '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "/usr/bin/gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
         system "rm $OutputDir/mbdump-private.tar.bz2";
     }
 }
