@@ -28,7 +28,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Disabling last_updated triggers
-    ./admin/psql READWRITE < ./admin/sql/DisableLastUpdatedTriggers.sql
+    ./admin/sql/DisableLastUpdatedTriggers.pl
 fi
 
 ################################################################################
@@ -57,7 +57,7 @@ then
     echo `date` : Adding master constraints
 
     echo `date` : Enabling last_updated triggers
-    ./admin/psql READWRITE < ./admin/sql/EnableLastUpdatedTriggers.sql
+    ./admin/sql/EnableLastUpdatedTriggers.pl
 
     echo `date` : Applying admin/sql/updates/20120822-more-text-constraints-master.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120822-more-text-constraints-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
