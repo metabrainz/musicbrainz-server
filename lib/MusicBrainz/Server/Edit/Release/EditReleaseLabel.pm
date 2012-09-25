@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use MusicBrainz::Server::Translation qw ( N_l l );
 use MusicBrainz::Server::Data::Utils qw( combined_medium_format_name );
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -100,6 +101,10 @@ sub build_display_data
         $data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{combined_format});
     }
 
+    if (looks_like_number($data->{extra}{country})) {
+        $data->{extra}{country} = $self->c->model('Country')->get_by_id($data->{extra}{country})->l_name;
+    }
+
     for (qw( new old )) {
         if (my $lbl = $self->data->{$_}{label}) {
             next unless %$lbl;
@@ -176,7 +181,7 @@ sub initialize
     $data->{release}{date} = $release_label->release->date->format
         if $release_label->release->date;
 
-    $data->{release}{country} = $release_label->release->country->name
+    $data->{release}{country} = $release_label->release->country->id
         if $release_label->release->country;
 
     $data->{release}{barcode} = $release_label->release->barcode->format
