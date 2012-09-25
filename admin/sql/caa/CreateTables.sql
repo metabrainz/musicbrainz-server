@@ -22,4 +22,10 @@ CREATE TABLE cover_art_type (
     type_id INTEGER NOT NULL -- PK, references art_type.id,
 );
 
+CREATE TABLE cover_art_archive.release_group_cover_art
+(
+    release_group       INTEGER NOT NULL, -- PK, references release_group.id
+    release             INTEGER NOT NULL
+);
+
 COMMIT;
