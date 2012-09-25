@@ -9,7 +9,8 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
-use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Translation qw ( N_l l );
+use MusicBrainz::Server::Data::Utils qw( combined_medium_format_name );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -65,18 +66,39 @@ sub foreign_keys
     return $keys;
 };
 
+sub process_medium_formats
+{
+    my ($self, $format_names) = @_;
+
+    my @format_names = split(', ', $format_names);
+    @format_names = @format_names[1..scalar @format_names-1];
+
+    return combined_medium_format_name(map {
+        if ($_ eq '(unknown)') {
+            l('(unknown)');
+        }
+        else {
+            $self->c->model('MediumFormat')->find_by_name($_)->l_name();
+        }
+        } @format_names);
+}
+
 sub build_display_data
 {
     my ($self, $loaded) = @_;
 
     my $data = {
-        release => $loaded->{Release}->{ $self->release_id },
+        release => $loaded->{Release}->{ $self->release_id } // Release->new( name => $self->data->{release}{name} ),
         catalog_number => {
             new => $self->data->{new}{catalog_number},
             old => $self->data->{old}{catalog_number},
         },
         extra => $self->data->{release}
     };
+
+    if ($data->{extra}{combined_format} =~ m/, /) {
+        $data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{combined_format});
+    }
 
     for (qw( new old )) {
         if (my $lbl = $self->data->{$_}{label}) {
@@ -145,7 +167,8 @@ sub initialize
         release => {
             id => $release_label->release->id,
             name => $release_label->release->name,
-            combined_format => $release_label->release->combined_format_name,
+            # first entry is to ensure this format is matched when postprocessing
+            combined_format => 'LIST_OF_FORMATS, ' . join(', ', map { defined $_->format ? $_->format->name : '(unknown)' } $release_label->release->all_mediums),
         },
         $self->_change_data($release_label, %opts),
     };
