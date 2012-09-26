@@ -68,9 +68,6 @@ sub allow_auto_edit
 {
     my $self = shift;
 
-    my ($old_desc, $new_desc) = normalise_strings($self->data->{old}{description},
-						  $self->data->{new}{description});
-    return 0 if $old_desc ne $new_desc;
     return 0 if exists $self->data->{old}{url};
 
     return 1;
@@ -116,6 +113,16 @@ around extract_property => sub {
         }
     }
 };
+
+sub _edit_hash
+{
+    my ($self, $data) = @_;
+    # Descriptions no longer exist, so remove them before trying to apply edits
+    if (exists $data->{description}) {
+       delete $data->{description};
+    }
+    return $data;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
