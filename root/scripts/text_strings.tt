@@ -85,6 +85,8 @@
         },
         link: '[% l('link') | js %]',
         ShowMore: '[% l('Show more...') | js %]',
-        ShowLess: '[% l('Show less...') | js %]'
+        ShowLess: '[% l('Show less...') | js %]',
+        AddNote: '[% l('Add Note') | js %]',
+        DeleteNote: '[% l('Delete Note') | js %]'
     });
 })(MB);
