@@ -54,7 +54,10 @@ ko.bindingHandlers.selectAttribute = (function() {
     return {
         init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
             var $element = $(element), attr = valueAccessor(), multi = (attr.max === null);
-            if (multi) element.multiple = true;
+            if (multi) {
+                element.multiple = true;
+                $element.hide();
+            }
 
             $element.append(getOptions(attr).cloneNode(true)).val(attr.value())
                 .change(function() {
@@ -185,31 +188,76 @@ function setAutocompleteEntity(entity, nameOnly) {
     }
 };
 
-ko.bindingHandlers.autocomplete = {
-    init: function(element) {
-        var $autocomplete = Dialog.$autocomplete = $(element),
-            relationship = Dialog.relationship,
-            target = relationship.peek().target.peek();
 
-        $autocomplete.on("lookup-performed", function(event, data) {
-            var target = relationship.peek().target;
-            data.type = target.peek().type;
-            target(RE.Entity(data));
-        });
+ko.bindingHandlers.autocomplete = (function() {
 
-        Dialog.autocomplete = MB.Control.EntityAutocomplete({
-            inputs: $autocomplete,
-            position: {collision: "fit"},
-            entity: target.type
-        });
+    var recentEntities = {};
 
-        setAutocompleteEntity(target, Dialog.mode() != "edit");
-
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-            $autocomplete.autocomplete("destroy");
-        });
+    function setEntity(type) {
+        $("#target-type").val(type).trigger("change");
     }
-};
+
+    function closeOnEnter(event) {
+        if (event.keyCode == 13 && !Dialog.relationship.peek().hasErrors.peek() &&
+            !event.isDefaultPrevented())
+                Dialog.instance.peek().accept();
+    }
+
+    function changeTarget(event, data) {
+        var target = Dialog.relationship.peek().target, recent, dup;
+        data.type = target.peek().type;
+
+        // Add/move to the top of the recent entities menu.
+        recent = recentEntities[data.type] = recentEntities[data.type] || [];
+        dup = _.where(recent, {gid: data.gid})[0];
+        dup && recent.splice(recent.indexOf(dup), 1);
+        recent.unshift(data);
+
+        target(RE.Entity(data));
+    }
+
+    function showRecentEntities(event) {
+        if (event.originalEvent === undefined || // event was triggered by code, not user
+            (event.type == "keyup" && !_.contains([8, 40], event.keyCode)))
+            return;
+
+        var recent = recentEntities[Dialog.relationship.peek().target.peek().type],
+            ac = Dialog.autocomplete.autocomplete;
+
+        if (!this.value && recent && recent.length && !ac.menu.active) {
+            // setting ac.term to "" prevents the autocomplete plugin
+            // from running its own search, which closes our menu.
+            ac.term = "";
+            ac._suggest(recent);
+        }
+    }
+
+    return {
+        init: function(element) {
+            var $autocomplete = Dialog.$autocomplete = $(element),
+                target = Dialog.relationship.peek().target.peek();
+
+            Dialog.autocomplete = MB.Control.EntityAutocomplete({
+                inputs: $autocomplete,
+                position: {collision: "fit"},
+                entity: target.type,
+                setEntity: setEntity
+            });
+
+            $autocomplete
+                .on("lookup-performed", changeTarget)
+                .find("input.name")
+                    .on("keyup focus click", showRecentEntities)
+                    .on("keydown", closeOnEnter);
+
+            setAutocompleteEntity(target, Dialog.mode() != "edit");
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                $autocomplete.autocomplete("destroy");
+            });
+        }
+    };
+}());
 
 
 var Dialog = UI.Dialog = {
@@ -354,30 +402,35 @@ var Dialog = UI.Dialog = {
 
     resize: function() {
         // note: this is called by the afterRender binding.
-        positionDialog(Dialog.$dialog, Dialog.posx, Dialog.posy);
+        resizeDialog(Dialog.$dialog);
     }
 };
 
 
-function positionDialog($dialog, posx, posy) {
-    var $d = $dialog, $hidden;
-    if (!$d.is(":visible")) return;
-
+function resizeDialog($dialog) {
     // we want the dialog's size to "fit" the contents. the ar-descrs stretch
     // the dialog 100%, making this impossible; hide them first.
-    $hidden = $();
+    var $d = $dialog, $hidden = $();
 
     $.each($d.find("div.ar-descr, p.msg, div.error"), function(i, div) {
         var $div = $(div);
         if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
     });
 
-    $d.css("max-width", "100%").css("max-width", $d.outerWidth());
+    $d.css("width", "").css("width", $d[0].offsetWidth + 1);
     $hidden.show();
+}
+
+
+function positionDialog($dialog, posx, posy) {
+    var $d = $dialog;
+    if (!$d.is(":visible")) return;
+
+    resizeDialog($d);
 
     var offx = $w.scrollLeft(), offy = $w.scrollTop(),
         wwidth = $w.width(), wheight = $w.height(),
-        dwidth = $d.outerWidth(), dheight = $d.outerHeight(),
+        dwidth = $d[0].offsetWidth, dheight = $d[0].offsetHeight,
         centerx = offx + (wwidth / 2), centery = offy + (wheight / 2);
 
     if (!posx || !posy || wwidth < dwidth) {
@@ -631,7 +684,13 @@ var WorkDialog = UI.WorkDialog = {
     editNote: ko.observable(""),
 
     init: function() {
-        ko.applyBindings(this, document.getElementById("new-work-dialog"));
+        var self = this, $dialog = $("#new-work-dialog")
+            .on("keydown", "#work-name", function(event) {
+                if (event.keyCode == 13 && self.name.peek() && !self.loading.peek())
+                    self.accept();
+            });
+
+        ko.applyBindings(this, $dialog[0]);
     },
 
     data: function() {
