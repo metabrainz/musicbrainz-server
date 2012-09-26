@@ -1,0 +1,6 @@
+<p>
+  [% l('An alias is an alternate "name" that is used as a search hint.
+        They usually contain common mispellings or local variations of the official name.
+        View the {doc|alias documentation} for more details.', { doc => doc_link('Alias') }) %]
+</p>
+[%- INCLUDE 'alias/edit_form.tt' search_hint_type_id = 3%]

@@ -1,3 +1,15 @@
+<p>[% l('Are you sure you want to remove the alias <em>{alias}</em>?', { alias => html_escape(alias.name) }) %]</p>
+
+[% WRAPPER 'layout/guidelines.tt' %]
+   [% create_guideline(l("Please review the {doc|alias documentation}
+                          before entering this edit.",
+                         { doc => doc_link('Alias') })) %]
+   [% create_guideline(l("If you added this alias by mistake, please follow the
+                          instructions on {cancel|how to cancel pending edits}
+                          instead of removing this alias.",
+                         { cancel => doc_link('How_To_Cancel_Edits') })) %]
+[% END %]
+
 <form action="[% c.req.uri %]" method="post">
   [% INCLUDE 'forms/edit-note.tt' %]
   [% enter_edit() %]
