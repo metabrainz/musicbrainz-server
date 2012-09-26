@@ -99,7 +99,7 @@ END; -%]
 [%- MACRO cover_art_links(artwork) BLOCK -%]
 [% IF artwork.small_thumbnail %]<a href="[% artwork.small_thumbnail %]">[% l('250px') %]</a> |[% END %]
 [% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]
-<a href="[% artwork.image %]">[% l('full-size') %]</a>
+<a href="[% artwork.image %]">[% l('original') %]</a>
 [%- END -%]
 
 [%- MACRO comma_list(items) BLOCK -%]
