@@ -5,12 +5,6 @@
             <th>[% l('URL:') %]</th>
             <td><a href="[% html_escape(url.url) %]">[% display_url(url.url) %]</a></td>
         </tr>
-        [% IF url.description %]
-            <tr>
-                <th>[% l('Description:') %]</th>
-                <td>[% url.description | html %]</td>
-            </tr>
-        [% END %]
     </table>
     <h2>[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=url -%]
