@@ -1,9 +1,8 @@
 <h2>[% l("Aliases") %]</h2>
 <p>
-  [%- l('An alias is an alternate "name" that is used as a search hint.
-         They usually contain common mispellings or local variations of the official name.
-         View the {doc|alias documentation} for more details.', { doc => doc_link('Aliases') })
-  -%]
+  [%- l('An alias is an alternate name for an entity. They typically contain contain
+        common mispellings or variations of the name and are also used to improve search results.
+        View the {doc|alias documentation} for more details.', { doc => doc_link('Aliases') }) -%]
 </p>
     [%- IF aliases.size > 0 -%]
         <table class="tbl">
