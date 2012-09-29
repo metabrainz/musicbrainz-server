@@ -4,7 +4,7 @@
     $(function() {
         var RE = MB.RelationshipEditor;
         RE.Util.init([% type_info %], [% attr_info %]);
-        RE.UI.init("[% release.gid %]");
+        RE.UI.init("[% release.gid %]", "[% release.release_group.gid %]");
     });
     //]]></script>
 [% END %]
@@ -372,7 +372,13 @@
       <h2>[% l('Release Relationships') %]</h2>
 
       <div id="release-rels" class="ars">
-        <!-- ko template: {name: 'template.relationships', data: entity} --><!-- /ko -->
+        <!-- ko template: {name: 'template.relationships', data: release} --><!-- /ko -->
+      </div>
+
+      <h2>[% l('Release Group Relationships') %]</h2>
+
+      <div id="release-group-rels" class="ars">
+        <!-- ko template: {name: 'template.relationships', data: releaseGroup} --><!-- /ko -->
       </div>
 
       <!-- ko if: submissionError -->

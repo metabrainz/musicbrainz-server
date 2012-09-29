@@ -87,6 +87,7 @@ sub options_rels_entity_type {
         'label' => 'label',
         'recording' => 'recording',
         'release' => 'release',
+        'release_group' => 'release_group',
         'url' => 'url',
         'work' => 'work'
     ];

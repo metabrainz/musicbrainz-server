@@ -60,6 +60,10 @@ sub serialize_release
     my $data = $self->_release($release);
     my $mediums = $data->{mediums} = [];
 
+    $data->{release_group} = $self->_release_group( $release->release_group );
+    $data->{release_group}->{relationships} =
+        $self->serialize_relationships( $release->release_group->all_relationships );
+
     if ($c->stash->{inc}->recordings) {
         for my $medium ($release->all_mediums) {
 

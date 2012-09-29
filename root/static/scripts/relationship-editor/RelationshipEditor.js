@@ -81,7 +81,8 @@ RE.releaseViewModel = {
                 });
             });
         });
-        _.each(this.entity.relationships.peek(), addChanged);
+        _.each(this.release.relationships.peek(), addChanged);
+        _.each(this.releaseGroup.relationships.peek(), addChanged);
 
         if (changed.length == 0) {
             this.submissionLoading(false);
@@ -143,7 +144,7 @@ RE.releaseViewModel = {
 };
 
 
-UI.init = function(releaseGID, data) {
+UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
 
     UI.Dialog.init();
@@ -157,7 +158,8 @@ UI.init = function(releaseGID, data) {
     // preload image to avoid flickering
     $("<img/>").attr("src", "../../../static/images/icons/add.png");
 
-    RE.releaseViewModel.entity = RE.Entity({type: "release", gid: releaseGID});
+    RE.releaseViewModel.release = RE.Entity({type: "release", gid: releaseGID});
+    RE.releaseViewModel.releaseGroup = RE.Entity({type: "release_group", gid: releaseGroupGID});
 
     ko.applyBindings(RE.releaseViewModel, document.getElementById("content"));
 
@@ -177,6 +179,7 @@ UI.init = function(releaseGID, data) {
 
 releaseLoaded = function(data) {
     data.type = "release";
+    data.release_group.type = "release_group";
     RE.Entity(data);
     var trackCount = 0;
 
@@ -185,6 +188,7 @@ releaseLoaded = function(data) {
         trackCount += parseMedium(media[i], RE.releaseViewModel.media, data);
 
     Util.parseRelationships(data, true);
+    Util.parseRelationships(data.release_group, true);
 
     initButtons();
     initCheckboxes(trackCount);

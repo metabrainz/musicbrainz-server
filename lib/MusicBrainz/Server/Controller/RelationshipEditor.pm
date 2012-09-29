@@ -112,7 +112,7 @@ sub build_type_info {
     my %type_info;
     for my $root (@link_type_tree) {
         my @name = split / /, $root->name;
-        next if $name[0] !~ /(recording|work|release(?!_group))/;
+        next if $name[0] !~ /(recording|work|release)/;
         $type_info{ $name[0] } = _build_children($root, \&_build_type);
     }
     return \%type_info;

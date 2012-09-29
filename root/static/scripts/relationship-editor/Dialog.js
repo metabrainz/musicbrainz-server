@@ -132,9 +132,10 @@ ko.bindingHandlers.linkType = (function() {
 ko.bindingHandlers.targetType = (function() {
 
     var allowedRelations = {
-        recording: ["artist", "label", "recording", "release"],
-        work:      ["artist", "label", "work"],
-        release:   ["artist", "label", "recording", "release"]
+        recording:     ["artist", "label", "recording", "release"],
+        work:          ["artist", "label", "work"],
+        release:       ["artist", "label", "recording", "release"],
+        release_group: ["artist", "release_group"]
     };
 
     function change() {

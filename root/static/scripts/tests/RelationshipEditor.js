@@ -242,7 +242,14 @@ var testRelease = {
             "position": 1
         }
     ],
-    "gid": "867cc694-0f35-4a65-acb4-bc873795701a"
+    "gid": "867cc694-0f35-4a65-acb4-bc873795701a",
+    "release_group": {
+        "artist": "The Beatles",
+        "name": "Love Me Do",
+        "id": 564256,
+        "gid": "5db85281-934d-36e5-865c-1922ad82a948",
+        "relationships": {}
+    }
 };
 
 $.extend(MB.text = MB.text || {}, {
@@ -657,7 +664,7 @@ MB.tests.RelationshipEditor.RelationshipEditor = function() {
     QUnit.test('RelationshipEditor', function() {
 
         var RE = MB.RelationshipEditor, vm = RE.releaseViewModel;
-        RE.UI.init(testRelease.gid, $.extend(true, {}, testRelease));
+        RE.UI.init(testRelease.gid, testRelease.release_group.gid, $.extend(true, {}, testRelease));
         QUnit.stop();
 
         _.defer(function() {

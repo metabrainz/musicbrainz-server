@@ -43,12 +43,15 @@ sub release : Chained('root') PathPart('release') Args(1)
     }
 
     my $release = $c->model('Release')->get_by_gid($gid);
+    $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroup')->load_meta($release->release_group);
+    $c->model('Relationship')->load($release->release_group);
     $c->model('Medium')->load_for_releases($release);
     $c->model('MediumFormat')->load($release->all_mediums);
     my @tracklists = map { $_->tracklist } $release->all_mediums;
     $c->model('Track')->load_for_tracklists(@tracklists);
     my @tracks = map { $_->all_tracks } @tracklists;
-    $c->model('ArtistCredit')->load($release, @tracks);
+    $c->model('ArtistCredit')->load($release, $release->release_group, @tracks);
 
     if ($c->stash->{inc}->recordings) {
         my @recordings = $c->model('Recording')->load(@tracks);

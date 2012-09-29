@@ -19,7 +19,8 @@
 
 MB.RelationshipEditor = (function(RE) {
 
-var Entity, Source, Artist, Label, Recording, Work, URL, entities, mapping, cache = {};
+var Entity, Source, Artist, Label, Recording, Release, ReleaseGroup, Work, URL,
+    entities, mapping, cache = {};
 
 mapping = {
     copy:    ["type", "gid", "id", "artistCredit", "number", "position", "length"],
@@ -131,6 +132,10 @@ Release = function() {
     this.init();
 };
 
+ReleaseGroup = function() {
+    this.init();
+};
+
 Work = function() {
     this.init();
     this.performanceRefcount = 0;
@@ -158,16 +163,18 @@ Artist.prototype = new Entity;
 Label.prototype = new Entity;
 Recording.prototype = new Source;
 Release.prototype = new Source;
+ReleaseGroup.prototype = new Source;
 Work.prototype = new Source;
 URL.prototype = new Entity;
 
 entities = {
-    artist:    Artist,
-    label:     Label,
-    recording: Recording,
-    release:   Release,
-    work:      Work,
-    url:       URL
+    artist:        Artist,
+    label:         Label,
+    recording:     Recording,
+    release:       Release,
+    release_group: ReleaseGroup,
+    work:          Work,
+    url:           URL
 };
 
 RE.Entity = function(obj, type) {
