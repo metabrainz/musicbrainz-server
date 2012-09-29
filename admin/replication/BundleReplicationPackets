@@ -130,13 +130,16 @@ if ($limit) {
     @seq_to_use = @seq_to_use[0..$limit - 1];
 }
 
-print join " ", @seq_to_use;
+die "No packets available for this period" unless scalar @seq_to_use;
 
 my $newpacketdir = tempdir("mb-bundle-XXXXXX", DIR => $tmpdir);
 mkdir "$newpacketdir/mbdump" or die $!;
 
 my $schema_sequence;
+my $last_replication_sequence = $start - 1;
 for my $sequence (@seq_to_use) {
+    die ("Replication sequence $sequence is too far from $last_replication_sequence")
+        if $last_replication_sequence + 1 != $sequence;
     my $individual_packet_dir = tempdir("replication-bundle-XXXXXX", DIR => $tmpdir);
 
     # untar the packet
@@ -178,6 +181,8 @@ for my $sequence (@seq_to_use) {
 
     print localtime() . " : Removing $individual_packet_dir\n";
     rmtree($individual_packet_dir);
+
+    $last_replication_sequence = $sequence;
 }
 
 # make tarfile
