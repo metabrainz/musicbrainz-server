@@ -7,7 +7,7 @@ var typeInfo = {
             "reverse_phrase": "{additional:additionally} {instrument} sampled by",
             "id": 69,
             "phrase": "{additional} {instrument} samples from",
-            "descr": "Indicates that a track contains samples from an album. (<a href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Details</a>)"
+            "descr": 1
         }
     ],
     "artist-recording": [
@@ -23,19 +23,19 @@ var typeInfo = {
                             "reverse_phrase": "{additional} {guest} {solo} {instrument}",
                             "id": 148,
                             "phrase": "{additional} {guest} {solo} {instrument}",
-                            "descr": "Indicates an artist that performed a particular instrument on this work. (<a href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
+                            "descr": 1
                         },
                         {
                             "attrs": {"1": [0, 1], "3": [0, null], "194": [0, 1], "596": [0, 1]},
                             "reverse_phrase": "{additional} {guest} {solo} {vocal} vocals",
                             "id": 149,
                             "phrase": "{additional} {guest} {solo} {vocal} vocals",
-                            "descr": "Indicates an artist performed in a particular voice on this work. (<a href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
+                            "descr": 1
                         }
                     ],
                     "id": 156,
                     "phrase": "{additional:additionally} {guest} {solo} performed",
-                    "descr": "Indicates an artist that performed on this work. (<a href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
+                    "descr": 1
                 }
             ],
             "id": 122,
@@ -49,7 +49,7 @@ var typeInfo = {
                     "reverse_phrase": "contains {additional} {instrument} samples by",
                     "id": 154,
                     "phrase": "produced {instrument} material that was {additional:additionally} sampled in",
-                    "descr": "Indicates that the track contains samples from material that was originally performed by another artist. Use this only if you really cannot figure out the particular track that has been sampled. (<a href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Details</a>)"
+                    "descr": 1
                 }
             ],
             "id": 157,
@@ -63,7 +63,7 @@ var typeInfo = {
                     "reverse_phrase": "{additional} {assistant} {associate} {co:co-}{executive:executive }producer",
                     "id": 141,
                     "phrase": "{additional:additionally} {assistant} {associate} {co:co-}{executive:executive }produced",
-                    "descr": "Indicates the producer, co-producer, executive producer or co-executive producer for this work. (<a href=\"http://musicbrainz.org/doc/Producer_Relationship_Type\">Details</a>)"
+                    "descr": 1
                 }
             ],
             "id": 160,
@@ -79,7 +79,7 @@ var typeInfo = {
                     "reverse_phrase": "{partial} {live} {instrumental} {cover} recordings",
                     "id": 278,
                     "phrase": "{partial} {live} {instrumental} {cover} recording of",
-                    "descr": "This is used to link works to their recordings. (<a href=\"http://musicbrainz.org/doc/Performance_Relationship_Type\">Details</a>)"
+                    "descr": 1
                 }
             ],
             "id": 245,
@@ -95,11 +95,19 @@ var typeInfo = {
                     "reverse_phrase": "{additional} writer",
                     "id": 167,
                     "phrase": "{additional:additionally} wrote",
-                    "descr": "This relationship is used to link a work to the artist responsible for writing the music and/or the words (lyrics, libretto, etc.), when no more specific information is available. If possible, the more specific composer, lyricist and/or librettist types should be used, rather than this relationship type. (<a href=\"http://musicbrainz.org/doc/Writer_Relationship_Type\">Details</a>)"
+                    "descr": 1
                 }
             ],
             "id": 170,
             "phrase": "composition"
+        }
+    ],
+    "work-work": [
+        {
+            "reverse_phrase": "referred to in medleys",
+            "id": 239,
+            "phrase": "medley of",
+            "descr": 1
         }
     ]
 };
@@ -275,8 +283,8 @@ MB.tests.RelationshipEditor.Util = function() {
         var tests = [
             // artist-recording
             {
-                source: Util.tempEntity("artist"),
-                target: Util.tempEntity("recording"),
+                source: Util.tempEntity("recording"),
+                target: Util.tempEntity("artist"),
                 expected: function() {
                     return [this.target, this.source];
                 }
@@ -285,7 +293,6 @@ MB.tests.RelationshipEditor.Util = function() {
             {
                 source: Util.tempEntity("recording"),
                 target: Util.tempEntity("release"),
-                backward: false,
                 expected: function() {
                     return [this.source, this.target];
                 }
@@ -302,7 +309,6 @@ MB.tests.RelationshipEditor.Util = function() {
             {
                 source: Util.tempEntity("recording"),
                 target: Util.tempEntity("work"),
-                backward: false,
                 expected: function() {
                     return [this.source, this.target];
                 }
@@ -315,13 +321,21 @@ MB.tests.RelationshipEditor.Util = function() {
                     return [this.target, this.source];
                 }
             },
+            // work-work
+            {
+                source: Util.tempEntity("work"),
+                target: Util.tempEntity("work"),
+                backward: true,
+                expected: function() {
+                    return [this.target, this.source];
+                }
+            }
         ];
 
         $.each(tests, function(i, test) {
-            var relationship = RE.Relationship({source: test.source, target: test.target});
-
-            if (test.backward !== undefined)
-                relationship.backward(test.backward);
+            var obj = {source: test.source, target: test.target}, relationship;
+            if (test.backward) obj.backward = true;
+            relationship = RE.Relationship(obj);
 
             QUnit.deepEqual(relationship.entity(), test.expected(),
                 relationship.type() + ", " + relationship.backward());
