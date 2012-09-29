@@ -367,6 +367,19 @@ MB.tests.RelationshipEditor.Util = function() {
             var result = RE.Util.convertAttr(test.root, test.value);
             QUnit.deepEqual(result, test.expected, String(test.value));
         });
+
+        var ac1 = [{artist: {gid: 1, name: "a"}, joinphrase: "/"}],
+            ac2 = [{artist: {gid: 1, name: "b"}, joinphrase: "/"}],
+            ac3 = [{artist: {gid: 1, name: "a"}, joinphrase: "/"}, {artist: {gid: 2, name: "b"}}];
+
+        QUnit.equal(RE.Util.compareArtistCredits(ac1, ac1), true,
+            JSON.stringify(ac1) + " == " + JSON.stringify(ac1));
+
+        QUnit.equal(RE.Util.compareArtistCredits(ac1, ac2), false,
+            JSON.stringify(ac1) + " != " + JSON.stringify(ac2));
+
+        QUnit.equal(RE.Util.compareArtistCredits(ac1, ac3), false,
+            JSON.stringify(ac1) + " != " + JSON.stringify(ac3));
     });
 };
 
