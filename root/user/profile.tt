@@ -160,6 +160,25 @@
         [% WRAPPER statistics name=l("Failed") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.failed_edits), view_url => c.uri_for_action('/user/edits/failed', [ user.name ]) }) %]
         [% END %]
+
+        [% WRAPPER statistics name=l("Open") %]
+            [% l('{count} ({view_url|view})', { count => add_commas(open_count), view_url => c.uri_for_action('/user/edits/open', [ user.name ]) }) %]
+        [% END %]
+
+        [% WRAPPER statistics name=l("Last 24 hours") %]
+            [% l('{count} ({view_url|view})', { count => add_commas(last_day_count),
+                     view_url => c.uri_for('/search/edits', {
+                         auto_edit_filter => '', order => 'desc',
+                         negation => '0', combinator => 'and',
+                         'conditions.0.field' => 'editor',
+                         'conditions.0.operator' => '=',
+                         'conditions.0.name' => user.name,
+                         'conditions.0.args.0' => user.id,
+                         'conditions.1.field' => 'open_time',
+                         'conditions.1.operator' => '>',
+                         'conditions.1.args.0' => '24 hours ago'
+                     }) }) %]
+        [% END %]
         </tbody>
     </table>
 
