@@ -12,8 +12,10 @@ sub query {
      JOIN link ON link.id=l_artist_artist.link
      JOIN link_type ON link_type.id=link.link_type
      JOIN artist_name AS name ON artist.name=name.id
-     WHERE (artist.type = 1 OR artist.type IS NULL)
-       AND link_type.name IN ('collaboration', 'member of band')"
+     WHERE artist.type IS DISTINCT FROM 2
+       AND link_type.name IN ('collaboration', 'member of band', 'conductor position')
+       AND link_type.entity_type0 = 'artist'
+       AND link_type.entity_type1 = 'artist'"
 }
 
 __PACKAGE__->meta->make_immutable;
