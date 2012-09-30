@@ -95,6 +95,14 @@ Source.prototype.mergeRelationship = function(rel) {
                 if (!value || ($.isArray(value) && !value.length))
                     obj.attributes[name] = other.attributes.peek()[name].peek();
             }
+
+            // Merge the dates here, otherwise ko.mapping.fromJS would overwrite
+            // them with whatever is in obj.begin_date and obj.end_date.
+            other.begin_date(RE.Util.mergeDates(rel.begin_date, other.begin_date));
+            other.end_date(RE.Util.mergeDates(rel.end_date, other.end_date));
+            delete obj.begin_date;
+            delete obj.end_date;
+
             ko.mapping.fromJS(obj, other);
             rel.remove();
             return true;

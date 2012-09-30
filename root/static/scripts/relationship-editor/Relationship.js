@@ -344,12 +344,15 @@ Relationship.prototype.buildFields = function(num, result) {
 };
 
 // returns true if this relationship is a "duplicate" of the other.
-// doesn't compare attributes
+// doesn't compare attributes, but does compare dates.
 
 Relationship.prototype.isDuplicate = function(other) {
     var thisent = this.entity.peek(), otherent = other.entity.peek();
+
     return (this.link_type.peek() == other.link_type.peek() &&
-            thisent[0] === otherent[0] && thisent[1] === otherent[1]);
+            thisent[0] === otherent[0] && thisent[1] === otherent[1] &&
+            Util.mergeDates(this.begin_date, other.begin_date) &&
+            Util.mergeDates(this.end_date, other.end_date));
 };
 
 
