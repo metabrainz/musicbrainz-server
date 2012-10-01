@@ -50,5 +50,4 @@ MB.Object = function () {
     return self;
 };
 
-// Add underscore.string functions to _ namespace
-_.mixin(_.str.exports());
+

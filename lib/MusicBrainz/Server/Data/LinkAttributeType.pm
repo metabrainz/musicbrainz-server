@@ -3,7 +3,6 @@ package MusicBrainz::Server::Data::LinkAttributeType;
 use Moose;
 use namespace::autoclean;
 use Sql;
-use Encode;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Data::Utils qw(
@@ -54,7 +53,7 @@ sub get_tree
 {
     my ($self) = @_;
 
-    $self->sql->select('SELECT ' .$self->_columns . ' FROM ' . $self->_table . '
+    $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
                   ORDER BY child_order, id');
     my %id_to_obj;
     my @objs;

@@ -1,16 +1,19 @@
-package MusicBrainz::Server::Form::Relationship::URL;
+package MusicBrainz::Server::Form::Relationship::Recordings;
 
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::DatePeriod';
 with 'MusicBrainz::Server::Form::Relationship::LinkType';
+
+use Text::Trim;
 
 has '+name' => ( default => 'ar' );
 
-has_field 'url' => (
-    type => '+MusicBrainz::Server::Form::Field::URL',
-    required => 1,
+has_field 'link_type_id' => (
+    type => 'Select',
+    required => 1
 );
 
 sub edit_field_names { qw() }
@@ -19,7 +22,7 @@ sub edit_field_names { qw() }
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2011 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
