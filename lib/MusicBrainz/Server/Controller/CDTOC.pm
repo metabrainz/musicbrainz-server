@@ -43,6 +43,7 @@ sub _load_releases
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('CDTOC')->load(@medium_cdtocs);
     return \@medium_cdtocs;
 }
 

@@ -555,6 +555,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/trove-16.png");
 }
 
+#sidebar ul.external_links li.ric {
+    background-image: url("../images/favicons/ric-16.png");
+}
+
 #sidebar .cover-art {
     text-align: center;
 }
@@ -942,7 +946,8 @@ div.artwork-cont {
 }
 
 div.artwork { position: relative; width: 250px; }
-div.artwork img { max-width: 250px; max-height: 250px; }
+/* don't include 'div' since this should apply to 'p' as well */
+.artwork img { max-width: 250px; max-height: 250px; }
 div.delete { display: hidden !important; }
 
 .annotation-toggle {
