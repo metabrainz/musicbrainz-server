@@ -1,0 +1,34 @@
+[% WRAPPER "user/profile/layout.tt" title=l("Ratings") page="ratings" %]
+    [%- has_rated = 0 -%]
+    [% FOREACH type IN [
+        [l("Artist ratings"), "artist"],
+        [l("Label ratings"), "label"],
+        [l("Release group ratings"), "release_group"],
+        [l("Recording ratings"), "recording"],
+        [l("Work ratings"), "work"],
+        ]
+    %]
+        [% IF ratings.${ type.1 }.size %]
+            [% has_rated = 1 %]
+            <h2>[% type.0 %]</h2>
+            <ul>
+            [% FOREACH entity IN ratings.${ type.1 } %]
+                <li>[% rating_stars(entity, !viewing_own_profile) %] -
+                    [% link_entity (entity) %]</li>
+            [% END %]
+                <li>
+                  [% view_more = c.uri_for_action(
+                         '/user/ratings',
+                         [ user.name ], type.1
+                     )
+                  %]
+                  <a href="[% view_more  %]">View all ratings</a>
+                </li>
+            </ul>
+        [% END %]
+    [% END %]
+    [% UNLESS has_rated %]
+        <h2>[%- l('Ratings') -%]</h2>
+        <p>[%- l('{user} has not rated anything.', { user => user.name }) %]</p>
+    [% END %]
+[% END %]
