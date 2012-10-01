@@ -66,13 +66,13 @@
 
         [% IF user.gender;
              WRAPPER property name=l('Gender:');
-              user.gender.name;
+              user.gender.l_name;
              END;
            END; %]
 
         [% IF user.country;
              WRAPPER property name=l('Country:');
-              user.country.name;
+              user.country.l_name;
              END;
            END; %]
 
@@ -120,7 +120,7 @@
           [% WRAPPER property name=l('Languages:') %]
             <ul class="inline">
               [% FOR language=user.languages %]
-                <li>[% language.language.name %] ([% language.fluency %])</li>
+                <li>[% language.language.l_name %] ([% language.l_fluency %])</li>
               [% END %]
             </ul>
           [% END %]
