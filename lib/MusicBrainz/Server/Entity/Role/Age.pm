@@ -25,6 +25,15 @@ has 'ended' => (
     isa => 'Bool',
 );
 
+sub period {
+    my $self = shift;
+    return {
+        begin_date => $self->begin_date,
+        end_date => $self->end_date,
+        ended => $self->ended
+    };
+}
+
 sub _YMD
 {
     my ($self, $partial) = @_;

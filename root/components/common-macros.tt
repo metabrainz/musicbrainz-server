@@ -497,7 +497,7 @@ END -%]
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END -%]
 
-[%- MACRO relate_to_ellipsis(entity, endpoints) BLOCK -%]
+[%- MACRO relate_to_ellipsis(entity) BLOCK -%]
     <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
       <div class="relate-to" style="display: none">
@@ -517,18 +517,6 @@ END -%]
           <input type="hidden" class="id" value=""  />
           <input type="hidden" class="gid" value=""  />
         </span>
-        [% IF endpoints.size %]
-        <select class="endpoint">
-          [% FOR endpoint=endpoints %]
-          <option value="[% endpoint %]">
-          [% SWITCH endpoint;
-               CASE 'release'; l('Relate to release');
-               CASE 'recording'; l('Relate to recordings');
-             END %]
-          </option>
-          [% END %]
-        </select>
-        [% END %]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
           <button class="negative cancel">[% l('Cancel') %]</button>

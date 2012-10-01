@@ -36,7 +36,13 @@ sub dispatch_search {
     $c->res->body($c->stash->{serializer}->serialize($serialization_routine, $output, $pager));
 }
 
-sub _load_entities { }
+sub _load_entities {
+    my ($self, $c, @entities) = @_;
+
+    if ($c->stash->{inc}->{rels}) {
+        $c->model('Relationship')->load (@entities);
+    }
+}
 
 sub _do_direct_search {
     my ($self, $c, $query, $offset, $limit) = @_;
