@@ -286,6 +286,7 @@ sub attach : Local
 
         $c->stash(
             medium_cdtocs => $self->_load_releases($c, $cdtoc),
+            cdtoc => $cdtoc,
             template => 'cdtoc/lookup.tt',
         );
     }
