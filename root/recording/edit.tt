@@ -42,7 +42,7 @@
        [% l('You have used the {valink|Various Artists} special purpose artist on this recording.', { valink => va_doc_link }) %]
      </p>
      <p>
-       [% l('{valink|Various Artists} should very rarely be used on recordings, make sure that the artists has been entered correctly.', { valink => va_doc_link }) %]
+       [% l('{valink|Various Artists} should very rarely be used on recordings, make sure that the artist has been entered correctly.', { valink => va_doc_link }) %]
      </p>
    </div>
 
