@@ -39,7 +39,7 @@
             [%- END -%]
             [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=html_escape(artist.country.l_name)
+               content=link_searchable_property('country', artist.country.iso_code, 'artist', artist.country.l_name)
                    IF artist.country -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')

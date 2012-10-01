@@ -389,6 +389,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_searchable_property(property, code, entity_type, text) BLOCK -%]
+  [%- text = text == '' ? code : text -%]
+  <a href="[% c.uri_for('/search', {query => property _ ':' _ code, type => entity_type, limit => 25, method => 'advanced'}) %]">
+      [% text %]
+  </a>
+[%- END -%]
+
 [%- MACRO login_url(redirect) BLOCK;
     c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
