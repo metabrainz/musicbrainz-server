@@ -100,6 +100,12 @@ END; -%]
     </a>
 [%- END -%]
 
+[%- MACRO cover_art_links(artwork) BLOCK -%]
+[% IF artwork.small_thumbnail %]<a href="[% artwork.small_thumbnail %]">[% l('250px') %]</a> |[% END %]
+[% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]
+<a href="[% artwork.image %]">[% l('original') %]</a>
+[%- END -%]
+
 [%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
         [%- item -%]
@@ -375,7 +381,7 @@ END -%]
     IF editor.preferences.show_gravatar;
       '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
-      '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
+      '<img src="//gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
     END;
     text;
     '</a>';
@@ -501,8 +507,8 @@ END -%]
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END -%]
 
-[%- MACRO relate_to_ellipsis(entity, endpoints) BLOCK -%]
-    <a href="#relate_to">[%- l('Relate to ...') -%]</a>
+[%- MACRO relate_to_ellipsis(entity) BLOCK -%]
+    <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
       <div class="relate-to" style="display: none">
         <input type="hidden" class="gid" value="[% entity.gid %]" />
@@ -521,18 +527,6 @@ END -%]
           <input type="hidden" class="id" value=""  />
           <input type="hidden" class="gid" value=""  />
         </span>
-        [% IF endpoints.size %]
-        <select class="endpoint">
-          [% FOR endpoint=endpoints %]
-          <option value="[% endpoint %]">
-          [% SWITCH endpoint;
-               CASE 'release'; l('Relate to release');
-               CASE 'recording'; l('Relate to recordings');
-             END %]
-          </option>
-          [% END %]
-        </select>
-        [% END %]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
           <button class="negative cancel">[% l('Cancel') %]</button>
@@ -675,6 +669,7 @@ END -%]
     ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSIF url.url.host.search('trove.nla.gov.au'); 'trove';
+    ELSIF url.url.host.search('rockinchina.com'); 'ric';
     ELSE; '';
 END %]
 
@@ -731,7 +726,7 @@ http://[%- server -%]/[%- id -%]"
 [%- MACRO format_length(n) BLOCK; n | format_length; END %]
 
 [%- MACRO medium_format_name(medium) BLOCK -%]
-    [% medium.format_name or l("Medium") | html %]
+    [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
 [%- MACRO medium_link(medium) BLOCK -%]
@@ -774,4 +769,27 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
     [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
+[%- END -%]
+
+[%- MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
+  [% USE Diff %]
+  [%- FOR i = loop_over %]
+     [%- IF old_prop;
+       old_length = old_base.${ loop.index }.${ old_prop } | format_length;
+         ELSE;
+       old_length = old_base.${ loop.index } | format_length;
+         END;
+         IF new_prop;
+       new_length = new_base.${ loop.index }.${ new_prop } | format_length;
+         ELSE;
+       new_length = new_base.${ loop.index } | format_length;
+         END %]
+     <table class="wrap-block details">
+         <tr>
+             <td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td>
+         </tr><tr>
+             <td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td>
+         </tr>
+     </table>
+  [%- END -%]
 [%- END -%]

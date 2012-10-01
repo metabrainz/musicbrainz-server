@@ -20,9 +20,9 @@ INSERT INTO release_name (id, name) VALUES (1, 'Test');
 INSERT INTO track_name (id, name) VALUES (1, 'Test');
 INSERT INTO work_name (id, name) VALUES (1, 'Test');
 
-INSERT INTO artist (id, gid, name, sort_name, last_updated, edits_pending)
-  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 1, 1, now(), 0),
-         (2, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 1, 1, now(), 10);
+INSERT INTO artist (id, gid, name, sort_name, last_updated, edits_pending, comment)
+  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 1, 1, now(), 0, 'Artist 1'),
+         (2, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 1, 1, now(), 10, 'Artist 2');
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 
 INSERT INTO label (id, gid, name, sort_name)

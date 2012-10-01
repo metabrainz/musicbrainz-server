@@ -238,6 +238,9 @@ sub allow_auto_edit
 
     return 0 if exists $self->data->{new}{artist_credit};
 
+    return 0 if $self->data->{old}{secondary_type_ids}
+        && @{ $self->data->{old}{secondary_type_ids} };
+
     return 1;
 }
 

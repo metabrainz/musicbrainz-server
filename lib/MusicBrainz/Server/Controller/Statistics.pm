@@ -5,7 +5,7 @@ use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
 use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
-use List::UtilsBy qw( rev_nsort_by );
+use List::UtilsBy qw( rev_nsort_by sort_by );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
@@ -24,13 +24,15 @@ sub statistics : Path('')
     my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
     my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
     my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
+    my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
-	statuses => \%statuses,
+        statuses => \%statuses,
         packagings => \%packagings,
         primary_types => \%primary_types,
         secondary_types => \%secondary_types,
+        work_types => \@work_types,
         stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
     );
 }
@@ -224,13 +226,45 @@ sub formats : Path('formats')
 
 sub editors : Path('editors') {
     my ($self, $c) = @_;
-    $c->stash(
-        top_recently_active_editors => $c->model('Statistics')->top_recently_active_editors,
-        top_editors => $c->model('Statistics')->top_editors,
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
 
-        top_recently_active_voters => $c->model('Statistics')->top_recently_active_voters,
-        top_voters => $c->model('Statistics')->top_voters,
-    );
+    if (defined $stats) {
+        my $top_recently_active_editors = [
+            map { { editor_id => $stats->statistic("editor.top_recently_active.rank.$_"),
+                    count => $stats->statistic("count.edit.top_recently_active.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_active_editors = [
+            map { { editor_id => $stats->statistic("editor.top_active.rank.$_"),
+                    count => $stats->statistic("count.edit.top_active.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_recently_active_voters = [
+            map { { editor_id => $stats->statistic("editor.top_recently_active_voters.rank.$_"),
+                    count => $stats->statistic("count.vote.top_recently_active_voters.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_active_voters = [
+            map { { editor_id => $stats->statistic("editor.top_active_voters.rank.$_"),
+                    count => $stats->statistic("count.vote.top_active_voters.rank.$_") } } @{ [1..25] }
+        ];
+
+        my $editors = $c->model('Editor')->get_by_ids( map { $_->{editor_id} }
+            (@$top_recently_active_editors, @$top_active_editors,
+             @$top_recently_active_voters, @$top_active_voters) );
+        foreach my $dataset ($top_recently_active_editors, $top_active_editors,
+             $top_recently_active_voters, $top_active_voters) {
+            for (@$dataset) {
+                $_->{editor} = $editors->{ delete $_->{editor_id} };
+            }
+        }
+
+        $c->stash(
+            stats => $stats,
+            top_recently_active_editors => $top_recently_active_editors,
+            top_editors => $top_active_editors,
+
+            top_recently_active_voters => $top_recently_active_voters,
+            top_voters => $top_active_voters,
+        );
+    }
 }
 
 sub relationships : Path('relationships') {

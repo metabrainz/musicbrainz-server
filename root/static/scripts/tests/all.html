@@ -1,13 +1,20 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <link rel="stylesheet" href="../../lib/qunit/qunit.css" type="text/css" />
-    <script type="text/javascript" charset="utf-8" src="../../lib/jquery/jquery-1.5.1.js"></script>
+    <link rel="stylesheet" href="../../lib/qunit/qunit/qunit.css" type="text/css" />
+    <script type="text/javascript" charset="utf-8" src="../../lib/jquery/jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/jquery.ui/ui/jquery-ui-1.8.16.custom.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/underscore/underscore.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/underscore/underscore.string.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/json/json2.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/sha1/sha1.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../lib/qunit/qunit.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/qunit/qunit/qunit.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/qunit-tap/lib/qunit-tap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout-latest.debug.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout.mapping-latest.debug.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB/utility.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../common/MB/html.js"></script>
 
     <!-- URL Cleanup -->
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/URLCleanup.js"></script>
@@ -41,11 +48,23 @@
     <!-- Track Parser -->
     <script type="text/javascript" charset="utf-8" src="../release-editor/MB/TrackParser.js"></script>
 
+    <!-- Relationship Editor -->
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Dialog.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Entity.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Fields.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Relationship.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/Util.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../relationship-editor/RelationshipEditor.js"></script>
+
     <!-- Load tests -->
     <script type="text/javascript">//<![CDATA[
 
         /* provide namespace for tests. */
         MB.tests = (MB.tests) ? MB.tests : {};
+
+        qunitTap (QUnit, function() {
+          console.log.apply (console, arguments);
+        }, { noPlan: true });
 
     //]]></script>
 
@@ -53,24 +72,19 @@
     <script type="text/javascript" charset="utf-8" src="Control/URLCleanup.js"></script>
     <script type="text/javascript" charset="utf-8" src="GuessCase.js"></script>
     <script type="text/javascript" charset="utf-8" src="TrackParser.js"></script>
+    <script type="text/javascript" charset="utf-8" src="RelationshipEditor.js"></script>
 
     <!-- Start! -->
     <script type="text/javascript">//<![CDATA[
 
       $(document).ready (function () {
 
-          var old_done = QUnit.done;
-          QUnit.done = function (failures, total)
-          {
-              $('#placeholder').empty ();
-
-              old_done (failures, total);
-          };
-
           MB.tests.utility.Run ();
           MB.tests.URLCleanup.Run ();
           MB.tests.GuessCase.Run ();
           MB.tests.TrackParser.Run ();
+          MB.tests.RelationshipEditor.Run ();
+
       });
 
     //]]></script>
@@ -78,9 +92,11 @@
   <body>
     <h1 id="qunit-header">MusicBrainz QUnit Test Runner</h1>
     <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
     <h2 id="qunit-userAgent"></h2>
     <ol id="qunit-tests"></ol>
-    <div id="placeholder"></div>
+    <div id="qunit-fixture">test markup</div>
+
 
     <!-- FIXME: Allow these things to be set in a way which is easier for testing. -->
     <fieldset class="guesscase" style="display: none">

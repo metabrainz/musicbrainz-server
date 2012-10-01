@@ -36,6 +36,7 @@ requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Duration'                 => '1.03';
 requires 'DateTime::Format::Pg'                       => '0.16004';
 requires 'DateTime::Format::Natural'                  => '0.96';
+requires 'DateTime::Format::ISO8601';
 requires 'DBIx::Connector';
 requires 'DBD::Pg'                                    => '2.11.8';
 requires 'DBI'                                        => '1.607';
@@ -48,7 +49,6 @@ requires 'Email::MIME::Creator';
 requires 'Email::Valid';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.29';
-requires 'Function::Parameters';
 requires 'HTML::FormHandler'                          => '0.40013';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath';
@@ -131,6 +131,7 @@ feature 'Production server' =>
     'Digest::MD5::File' => '0.07',
     'Catalyst::Plugin::AutoRestart' => '0.93',
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
+    'Catalyst::Plugin::Session::Store::Memcached' => '0.05',
     'FCGI' => '0',
     'FCGI::ProcManager' => '0.19',
     ;
@@ -162,6 +163,7 @@ test_requires 'Test::WWW::Selenium';
 test_requires 'Test::WWW::Selenium::Catalyst' => '0.07';
 test_requires 'Test::XPath';
 test_requires 'XML::Parser';
+test_requires 'TAP::Parser::SourceHandler::pgTAP';
 
 catalyst;
 

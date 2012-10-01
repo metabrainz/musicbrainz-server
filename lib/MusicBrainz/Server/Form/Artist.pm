@@ -3,7 +3,6 @@ use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Role::DatePeriod';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
 
@@ -36,15 +35,20 @@ has_field 'comment' => (
     maxlength => 255
 );
 
+has_field 'period' => (
+    type => '+MusicBrainz::Server::Form::Field::DatePeriod',
+    not_nullable => 1
+);
+
 sub edit_field_names
 {
-    return qw( name sort_name type_id gender_id country_id
-               begin_date end_date comment ipi_codes ended );
+    return qw( name sort_name type_id gender_id country_id period.begin_date
+               period.end_date period.ended comment ipi_codes );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }
 sub options_type_id     { shift->_select_all('ArtistType') }
-sub options_country_id  { shift->_select_all('Country') }
+sub options_country_id  { shift->_select_all('Country', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Artist') }
 

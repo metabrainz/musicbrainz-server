@@ -1,3 +1,5 @@
+SET search_path = 'musicbrainz';
+
 BEGIN;
 
 SELECT id INTO TEMPORARY cleanup

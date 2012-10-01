@@ -4,12 +4,11 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     check_data
-    barcode_from_row
     load_subobjects
     query_to_list
     query_to_list_limited
 );
-
+use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_barcode );
@@ -40,7 +39,7 @@ sub _column_mapping
         lookup_count => 'lookup_count',
         modify_count => 'modify_count',
         source => 'source',
-        barcode => sub { barcode_from_row (shift, shift) },
+        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row (shift, shift) },
         comment => 'comment',
         discid => 'discid',
     };
@@ -101,36 +100,45 @@ sub insert
 
     my $cdtoc = MusicBrainz::Server::Entity::CDTOC->new_from_toc($cdstub_hash->{toc});
 
-    use Function::Parameters qw( check );
-    check_data($cdstub_hash, 
-        l('No title provided') => check ($data) {
+    check_data($cdstub_hash,
+        l('No title provided') => sub {
+            my $data = shift;
             $data->{title}
         },
-        l('No artist names provided') => check ($data) {
-            $data->{artist} || $track_artists > 0; 
+        l('No artist names provided') => sub {
+            my $data = shift;
+            $data->{artist} || $track_artists > 0;
         },
-        l('Not all tracks specify an artist') => check ($data) {
+        l('Not all tracks specify an artist') => sub {
+            my $data = shift;
             $track_artists == 0 || $track_artists == @tracks
         },
-        l('Not all tracks have a title') => check ($data) {
+        l('Not all tracks have a title') => sub {
+            my $data = shift;
             $track_titles == @tracks
         },
-        l('Cannot add a CD stub with no tracks') => check ($data) {
+        l('Cannot add a CD stub with no tracks') => sub {
+            my $data = shift;
             @tracks > 0
         },
-        l('Incomplete TOC data') => check ($data) {
+        l('Incomplete TOC data') => sub {
+            my $data = shift;
             $data->{toc} && defined $cdtoc
         },
-        l('Missing disc ID') => check ($data) {
+        l('Missing disc ID') => sub {
+            my $data = shift;
             $data->{discid}
         },
-        l('Disc ID does match parsed TOC') => check ($data) {
+        l('Disc ID does match parsed TOC') => sub {
+            my $data = shift;
             $data->{discid} eq $cdtoc->discid
         },
-        l('Number of submitted tracks does not match track count in TOC') => check ($data) {
+        l('Number of submitted tracks does not match track count in TOC') => sub {
+            my $data = shift;
             @tracks == $cdtoc->track_count
         },
-        l('Invalid barcode') => check ($data) {
+        l('Invalid barcode') => sub {
+            my $data = shift;
             !$data->{barcode} || is_valid_barcode($data->{barcode});
         }
     );

@@ -57,10 +57,10 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'release_packaging', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'flags' => 'perl-format', 'where' => 'root != 14'},
-              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'flags' => 'perl-format'},
-              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'flags' => 'perl-format', 'where' => 'root = 14'},
-              {'domain' => 'instrument_descriptions', 'table' => 'link_attribute_type', 'columns' => ['description'], 'flags' => 'perl-format', 'where' => 'root = 14'}
+              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
+              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase']},
+              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'where' => 'root = 14'},
+              {'domain' => 'instrument_descriptions', 'table' => 'link_attribute_type', 'columns' => ['description'], 'where' => 'root = 14'}
              );
 my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
 
@@ -73,7 +73,7 @@ my $po = new Locale::PO(-msgid=>'', -msgstr=>
                         "Language-Team: LANGUAGE <LL\@li.org>\\n" .
                         "MIME-Version: 1.0\\n" .
                         "Content-Type: text/plain; charset=utf-8\\n" .
-                        "Content-Transfer-Encoding: ENCODING\\n");
+                        "Content-Transfer-Encoding: 8bit\\n");
 
 print $po->dump();
 

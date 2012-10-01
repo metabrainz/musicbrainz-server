@@ -1,6 +1,4 @@
-[% WRAPPER "layout.tt" title=l("Search Results") full_width=1 %]
-    <div id="content">
-        <h1>[% l("Search Results") %]</h1>
+[% WRAPPER 'search/results-layout.tt' %]
         [% INCLUDE 'search/lib/inline-results-recording.tt' %]
 
         <p>
@@ -9,6 +7,4 @@
                          'edit-recording.name' => query
                        }) }) %]
         </p>
-        [%- INCLUDE "search/form.tt" -%]
-    </div>
 [% END %]
