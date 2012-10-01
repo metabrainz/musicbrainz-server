@@ -284,6 +284,7 @@ sub load_writers
 {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_writers == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
@@ -337,6 +338,7 @@ sub load_recording_artists
 {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_artists == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
