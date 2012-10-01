@@ -14,6 +14,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 use HTTP::Status qw( :constants );
 
@@ -27,6 +28,8 @@ sub base : Chained('/') PathPart('cdtoc') CaptureArgs(0) {}
 sub _load
 {
     my ($self, $c, $discid) = @_;
+
+    add_dash($c, $discid);
 
     return $c->model('CDTOC')->get_by_discid($discid);
 }
