@@ -6,7 +6,7 @@
     [%- 'owner' IF edit.editor_id == note.editor_id -%]
 [% END %]
 
-[% DEFAULT verbose = 1,
+[% DEFAULT verbose = 'verbose',
            hide = 0,
            rows = 5,
            index = 0%]
@@ -17,14 +17,21 @@
             <div class="edit-note">
                 <h3 class="[%- PROCESS votename -%]">
                     [%- link_entity(note.editor) -%]
+                    [%- FOR vote=edit.votes; 
+                        IF (vote.editor_id == note.editor_id) && 
+                           !vote.superseded && 
+                           (vote.vote_name == 'No' || vote.vote_name == 'Yes'); 
+                        '<div class="voting-icon"></div>'; LAST; 
+                    END; END; -%]
                     <span class="date">[%- UserDate.format(note.post_time) -%]</span>
+                    [%- editor_type_info(note.editor) -%]
                 </h3>
-                <div class="edit-note-text">
+                <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
                     [%- note.text | format_editnote -%]
                 </div>
             </div>
         [% END %]
-    [% ELSIF verbose %]
+    [% ELSIF verbose == 'verbose' %]
         <div class="edit-note">
             <em>[% l('No edit notes have been added.') %]</em>
         </div>

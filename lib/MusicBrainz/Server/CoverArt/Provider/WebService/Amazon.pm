@@ -27,15 +27,16 @@ has '_store_map' => (
     is => 'ro',
     default => sub {
         return {
-            'amazon.ca' => 'ecs.amazonaws.ca',
+            'amazon.ca' => 'webservices.amazon.ca',
             'amazon.cn' => 'webservices.amazon.cn',
             'amazon.de' => 'ecs.amazonaws.de',
+            'amazon.es' => 'webservices.amazon.es',
             'amazon.fr' => 'ecs.amazonaws.fr',
             'amazon.it' => 'webservices.amazon.it',
             'amazon.jp' => 'ecs.amazonaws.jp',
             'amazon.co.jp' => 'ecs.amazonaws.jp',
             'amazon.co.uk' => 'ecs.amazonaws.co.uk',
-            'amazon.com' => 'ecs.amazonaws.com'
+            'amazon.com' => 'webservices.amazon.com',
         }
     },
     traits => [ 'Hash' ],
@@ -79,6 +80,7 @@ sub lookup_cover_art
                   "Service=AWSECommerceService&" .
                   "Operation=ItemLookup&" .
                   "ItemId=$asin&" .
+                  "Version=2011-08-01&" .
                   "ResponseGroup=Images";
 
     my $cover_art = $self->_lookup_coverart($url) or return;
@@ -98,7 +100,7 @@ sub search_by_barcode
                   "Service=AWSECommerceService&" .
                   "Operation=ItemLookup&" .
                   "ResponseGroup=Images&" .
-                  "IdType=" . $release->barcode_type . "&" .
+                  "IdType=" . $release->barcode->type . "&" .
                   "SearchIndex=Music&" .
                   "ItemId=" . $release->barcode;
 
@@ -120,6 +122,7 @@ sub _lookup_coverart {
 
     my $lwp = LWP::UserAgent->new;
     $lwp->env_proxy;
+    $lwp->timeout(10);
     my $response = $lwp->get($url) or return;
     if (!$response->is_success) {
         log_error { "Failed to lookup cover art: $_" } $response->decoded_content;

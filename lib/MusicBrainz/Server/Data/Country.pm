@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Country;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Country;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 

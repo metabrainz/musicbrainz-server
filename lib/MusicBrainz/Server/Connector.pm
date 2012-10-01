@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Connector;
 use Moose;
 
+use DBDefs;
 use DBIx::Connector;
 use Sql;
 
@@ -11,6 +12,7 @@ has 'conn' => (
     is         => 'ro',
     handles    => [qw( dbh )],
     lazy_build => 1,
+    clearer => '_clear_conn'
 );
 
 has 'database' => (
@@ -22,9 +24,10 @@ has 'sql' => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        Sql->new($self->dbh)
+        Sql->new( $self->conn )
     },
-    lazy => 1
+    lazy => 1,
+    clearer => '_clear_sql'
 );
 
 sub _build_conn
@@ -35,28 +38,53 @@ sub _build_conn
     $dsn .= ';host=' . $self->database->host if $self->database->host;
     $dsn .= ';port=' . $self->database->port if $self->database->port;
 
+    my $schema = $self->_schema;
     my $db = $self->database;
     my $conn = DBIx::Connector->new($dsn, $db->username, $db->password, {
         pg_enable_utf8    => 1,
         pg_server_prepare => 0, # XXX Still necessary?
         RaiseError        => 1,
         PrintError        => 0,
-    });
+        Callbacks         => {
+            connected => sub {
+                my $dbh = shift;
+                $dbh->do("SET TIME ZONE 'UTC'");
+                $dbh->do("SET CLIENT_ENCODING = 'UNICODE'");
 
-    $conn->run(sub {
-        my $sql = Sql->new($_);
-        $sql->auto_commit(1);
-        $sql->do("SET TIME ZONE 'UTC'");
-        $sql->auto_commit(1);
-        $sql->do("SET CLIENT_ENCODING = 'UNICODE'");
+                if ($schema) {
+                    $dbh->do("SET search_path=$schema,public");
+                }
 
-        if (my $schema = $self->_schema) {
-            $sql->auto_commit(1);
-            $sql->do("SET search_path=$schema");
+                return ();
+            }
         }
     });
 
+    # Make sure we notice the DB going down and attempt to reconnect
+    $conn->mode('fixup');
+
     return $conn;
+}
+
+sub _disconnect {
+    my ($self) = @_;
+    if (my $conn = $self->conn) {
+        $conn->dbh->disconnect;
+    }
+
+    $self->_clear_conn;
+    $self->_clear_sql;
+}
+
+sub disconnect {
+    my $self = shift;
+    $self->_disconnect
+}
+
+sub refresh {
+    my $self = shift;
+    $self->disconnect;
+    # A connection will be established on demand
 }
 
 no Moose;

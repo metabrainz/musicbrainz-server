@@ -26,13 +26,13 @@
       xmlns:skos="http://www.w3.org/2004/02/skos/core#"
       xmlns:xhv="http://www.w3.org/1999/xhtml/vocab#"
       xmlns:owl="http://www.w3.org/2002/07/owl#"
-      xml:lang="[%- c.language() -%]"
-      lang="[%- c.language() -%]">
+      xml:lang="[%- current_language_html -%]"
+      lang="[%- current_language_html -%]">
 [%- ELSE -%]
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xml:lang="[%- c.language() -%]"
-      lang="[%- c.language() -%]">
+      xml:lang="[%- current_language_html -%]"
+      lang="[%- current_language_html -%]">
 [%- END -%]
 [%- END -%]
 
@@ -198,6 +198,18 @@ END -%]
   END;
 END -%]
 
+[%- MACRO rdfa_artist_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(ipi_code.artist) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
+    [%- IF doRDFa -%]</span>[%- END -%]
+[%- END -%]
+
+[%- MACRO rdfa_label_ipi(ipi_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_label_curi(ipi_code.label) -%]" property="mo:ipi">[%- END -%]
+        [%- html_escape(ipi_code.ipi) -%]
+    [%- IF doRDFa -%]</span>[%- END -%]
+[%- END -%]
+
 [%- MACRO rdfa_link_artist_header(artist, action, text) BLOCK;
   IF doRDFa;
     action = action || 'show';
@@ -261,7 +273,7 @@ END -%]
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(release) BLOCK;
  '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(release.country) _ '">' IF doRDFa;
- '<abbr title="' _ html_escape(release.country.name) _ '">' _ release.country.iso_code _ '</abbr>';
+ '<abbr title="' _ html_escape(release.country.l_name) _ '">' _ release.country.iso_code _ '</abbr>';
  '</span>' IF doRDFa;
 END -%]
 
@@ -400,7 +412,7 @@ END -%]
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
     text = text == '' ? html_escape(artist.name) : html_escape(text);
     hover = html_escape(artist.sort_name);
-    IF artist.comment; hover = hover _ ', ' _ artist.comment; END;
+    IF artist.comment; hover = hover _ ' (' _ artist.comment _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
     '<a title="' _ hover _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -414,9 +426,11 @@ END -%]
 
 [%- MACRO rdfa_release_label_list(labels) BLOCK;
     out = [];
+    seen = {};
     FOR label=labels;
-      IF label.label_id;
+      IF label.label_id AND !seen.${ label.label_id };
         out.push(rdfa_link_label(label.label));
+        seen.${ label.label_id } = 1;
       END;
     END;
     out.join(', ');
@@ -424,9 +438,11 @@ END -%]
 
 [%- MACRO rdfa_release_catno_list(labels) BLOCK;
     out = [];
+    seen = {};
     FOR label=labels;
-      IF label.catalog_number;
+      IF label.catalog_number AND !seen.${ label.catalog_number };
         out.push(rdfa_release_catno(label.catalog_number));
+        seen.${ label.catalog_number } = 1;
       END;
     END;
     out.join(', ');
@@ -452,6 +468,7 @@ END -%]
     '<span class="mp">' IF release.edits_pending AND action == 'show';
     '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:track" resource="' _ rdfa_track_blank_node(track) _ '" typeof="' _ rdfa_concept_curi('release') _ '"></span>';
     '<a href="' _ link _ '"><span about="' _ rdfa_release_curi(release) _ '" typeof="' _ rdfa_concept_curi('release') _ '" rel="mo:release_event" resource="[evn:]" property="dct:title rdfs:label" xml:lang="">' _ text _ '</span></a>';
+    rdfa_disambiguation(release);
     '</span>' IF release.edits_pending AND action == 'show';
   ELSE;
     link_release(release, action, text);
@@ -474,12 +491,6 @@ END -%]
     link_work(work);
   END;
 END -%]
-
-[%- MACRO rdfa_work_iswc(work) BLOCK -%]
-    [%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%]
-        [%- html_escape(work.iswc) -%]
-    [%- IF doRDFa -%]</span>[%- END -%]
-[%- END -%]
 
 [%-###########-%]
 [%-# Release #-%]
@@ -510,7 +521,7 @@ END -%]
     <a rel="mo:record"
        [%- IF doRDFa %] resource="[%- rdfa_tracklist_curi(medium) -%]" [%- END -%]
        href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
-    [%~ medium.format_name or l("Medium") | html =%]
+    [%~ medium_format_name(medium) =%]
     [%= medium.position ~%]
     [%~ IF medium.name ~%]:
        [%= medium.name | html ~%]
@@ -522,6 +533,12 @@ END -%]
 [%- '<span class="mp">' IF isrc.edits_pending; -%]
 <a href="[%- c.uri_for_action('/isrc/show', [ isrc.isrc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_recording_curi(recording) -%]" property="mo:isrc">[%- END -%][%- isrc.isrc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
 [%- '</span>' IF isrc.edits_pending; -%]
+[%- END -%]
+
+[%- MACRO rdfa_work_iswc(work, iswc) BLOCK -%]
+[%- '<span class="mp">' IF iswc.edits_pending; -%]
+<a href="[%- c.uri_for_action('/iswc/show', [ iswc.iswc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%][%- iswc.iswc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
+[%- '</span>' IF iswc.edits_pending; -%]
 [%- END -%]
 
 [%-#################-%]
@@ -623,6 +640,26 @@ END -%]
 [%-########################-%]
 [%-# pagination / seeAlso #-%]
 [%-########################-%]
+
+[%- MACRO rdfa_paginator_previous_page(pager) BLOCK;
+  IF doRDFa -%]
+    <a rel="xhv:first" href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>
+    <a rel="xhv:prev" href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>
+  [%- ELSE -%]
+    <a href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>
+    <a href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>
+  [%- END;
+END -%]
+
+[%- MACRO rdfa_paginator_next_page(pager) BLOCK;
+  IF doRDFa -%]
+    <a rel="xhv:next" href="[% c.req.uri_with( page => pager.next_page ) | html %]">&#8250;</a>
+    <a rel="xhv:last" href="[% c.req.uri_with( page => pager.last_page ) | html %]">&#187;</a>
+  [%- ELSE -%]
+    <a href="[% c.req.uri_with( page => pager.next_page ) | html %]">&#8250;</a>
+    <a href="[% c.req.uri_with( page => pager.last_page ) | html %]">&#187;</a>
+  [%- END;
+END -%]
 
 [%- MACRO rdfa_seeAlso_link(entity, type, action, text) BLOCK;
   IF doRDFa;

@@ -39,14 +39,14 @@ use Getopt::Long;
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
-my $profile;
 my $system = 0;
 my $help = 0;
+my $schema;
 
 GetOptions(
     "system"    => \$system,
-    "profile=s" => \$profile,
     "help"      => \$help,
+    "schema=s"  => \$schema,
 ) or exit 2;
 
 my $key = shift // "READWRITE";
@@ -62,13 +62,11 @@ if ($system) {
     $db = $db->meta->clone_object($sys_db, database => $db->database, schema => $db->schema);
 }
 
-if (defined $profile && $profile eq "test") {
-    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz_test," . $db->schema;
-}
-else {
-    $ENV{"PGOPTIONS"} = "-c search_path=" . $db->schema;
+unless ($schema) {
+    $schema = $db->schema;
 }
 
+$ENV{"PGOPTIONS"} = "-c search_path=" . $schema . ",public";
 $ENV{"PGPASSWORD"} = $db->password;
 
 exec "psql", $db->shell_args;

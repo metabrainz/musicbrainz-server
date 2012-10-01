@@ -3,6 +3,12 @@
         <h1>[% l("Search Results") %]</h1>
         [% INCLUDE 'search/lib/inline-results-recording.tt' %]
 
+        <p>
+          [% l('Alternatively, you may {uri|add a new recording}.', {
+                uri => c.uri_for_action('/recording/create', {
+                         'edit-recording.name' => query
+                       }) }) %]
+        </p>
         [%- INCLUDE "search/form.tt" -%]
     </div>
 [% END %]

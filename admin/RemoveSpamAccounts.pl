@@ -41,7 +41,7 @@ GetOptions(
 ) or return 2;
 
 my $c = MusicBrainz::Server::Context->create_script_context();
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
 my $dbh = $c->dbh;
 
 my $prefix = shift;

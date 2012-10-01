@@ -9,7 +9,7 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Medium::Create; }
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
@@ -106,6 +106,36 @@ ok(!defined $medium);
 
 $tracklist = $c->model('Tracklist')->get_by_id($tracklist_id);
 ok(!defined $tracklist, 'deleted now orphaned tracklist');
+
+my $tracklist_creating_recordings = [
+    Track->new(
+        name => 'Fluffles',
+        artist_credit => ArtistCredit->new(
+            names => [
+                ArtistCreditName->new(
+                    name => 'Warp Industries',
+                    artist => Artist->new(
+                        id => 2,
+                        name => 'Artist',
+                    )
+                )]),
+        position => 1
+    )
+];
+
+$edit = $c->model('Edit')->create(
+    edit_type => $EDIT_MEDIUM_CREATE,
+    editor_id => 1,
+    name => 'Live',
+    position => 2,
+    format_id => 1,
+    release => $c->model('Release')->get_by_id(1),
+    tracklist => $tracklist_creating_recordings
+);
+
+$c->model('Edit')->load_all($edit);
+ok($edit->display_data);
+ok(defined $edit->display_data->{tracklist}{tracks}[0]{recording_id}, "New recording was created");
 
 };
 

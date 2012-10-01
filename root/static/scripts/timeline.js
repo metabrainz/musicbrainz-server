@@ -10,13 +10,13 @@ $(document).ready(function () {
     var graphZoomOptions = {};
 
     // Get MusicBrainz Events data
-    $.get('../../static/xml/mb_history.xml', function (data) {
-        $(data).find('event').each(function() {
-            $this = $(this);
-            musicbrainzEventsOptions.musicbrainzEvents.data.push({jsDate: Date.parse($this.attr('start')), description: $this.text(), title: $this.attr('title'), link: $this.attr('link')});
+    $.get('../../ws/js/events', function (data) {
+        musicbrainzEventsOptions.musicbrainzEvents.data = $.map(data, function(e) {
+            e.jsDate = Date.parse(e.date);
+            return e;
         });
         $(window).hashchange();
-    }, 'xml');
+    }, 'json');
 
     // Called whenever plot is reset
     function graphData () {
@@ -61,29 +61,34 @@ $(document).ready(function () {
     // Called once per dataset to calculate rates of change
     function weeklyRate(data) {
         var weekData = [];
-        var oneWeek = 1000 * 60 * 60 * 24 * 7;
+        var oneDay = 1000 * 60 * 60 * 24;
+        var dataPrev = data[0][1];
+        var datePrev = data[0][0];
+        var sPrev = 0;
+        var a = 0.25;
+
         var mean = 0;
         var count = 0;
 
         $.each(data, function(index, value) {
-            var oneWeekAgoDate = value[0] - oneWeek;
-            var oneWeekAgoValue = null;
-            var useZero = true;
-            $.each(data, function(innerIndex, innerValue) {
-		if (innerValue[0] <= oneWeekAgoDate) {
-                    var useZero = false;
-                    if ((innerValue[0] + oneWeek) > oneWeekAgoDate) {
-                        oneWeekAgoValue = value[1] - innerValue[1];
-                }}
-            });
-            if (oneWeekAgoValue==null && useZero) {
-                oneWeekAgoValue = value[1] - 0;
-	    }
-            if (oneWeekAgoValue!=null) {
-                count++;
-                mean = mean + oneWeekAgoValue;
-                weekData.push([value[0], oneWeekAgoValue]);
+            var changeValue = value[1] - dataPrev;
+            var sCurrent;
+            var days = 1;
+            
+            if (datePrev != null && value[0] > datePrev + oneDay) {
+                days = (value[0] - datePrev) / oneDay;
+                changeValue = changeValue / days
             }
+
+            for (var i = 0; i < days; i++) {
+                count++;
+                mean = mean + changeValue;
+                sCurrent = a * changeValue + (1-a) * sPrev;
+                weekData.push([datePrev + (i+1) * oneDay, sCurrent]);
+                sPrev = sCurrent;
+            }
+            dataPrev = value[1];
+            datePrev = value[0]
         });
         mean = mean / count;
 
@@ -187,13 +192,17 @@ $(document).ready(function () {
         plot.changeCurrentEvent(item);
         if (rateplot) { rateplot.changeCurrentEvent(item); }
     }
-    function setItemTooltip(item, extra) {
+    function setItemTooltip(item, extra, fixed) {
             if (!extra) { extra = '' };
             removeTooltip();
             setCursor();
             var x = item.datapoint[0],
                 y = item.datapoint[1],
                 date = new Date(parseInt(x));
+
+	    if (fixed) {
+                y = y.toFixed(fixed);
+	    }
 
             if (date.getDate() < 10) { day = '0' + date.getDate(); } else { day = date.getDate(); }
             if (date.getMonth()+1 < 10) { month = '0' + (date.getMonth()+1); } else { month = date.getMonth()+1; }
@@ -231,7 +240,7 @@ $(document).ready(function () {
         if(item) {
             if (ratePreviousPoint != item.dataIndex) {
                 ratePreviousPoint = item.dataIndex;
-                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser);
+                setItemTooltip(item, MB.text.Timeline.RateTooltipCloser, 2);
             }
         } 
         else if (rateplot.getEvent(pos)) { setEventTooltip(rateplot, pos); } 
@@ -355,7 +364,7 @@ $(document).ready(function () {
     function controlHtml(datasetId, label) {
         var id = controlIDPrefix + 'checker' + datasetId;
 	var name = controlIDPrefix + datasetId;
-	var color = (MB.text.Timeline[datasetId] || { 'Color': '#ff0000' })['Color'];
+	var color = (MB.text.Timeline.Stat(datasetId) || { 'Color': '#ff0000' })['Color'];
         return MB.html.div( { "class": 'graph-control', "id": name }, 
 		     MB.html.input( { 'id': id, 'name': name, 'type': 'checkbox', 'checked': 'checked' }, '') +
 	             MB.html.label( { 'for': id }, 
@@ -376,14 +385,14 @@ $(document).ready(function () {
 	var minus = !$this.attr('checked');
 	var identifier = $this.parent('div').attr('id').substr(controlIDPrefix.length);
 	var newHashPart = identifier.substr('count.'.length);
-	var hide = (MB.text.Timeline[identifier].Hide ? true : false);
+	var hide = (MB.text.Timeline.Stat(identifier).Hide ? true : false);
 	changeHash(minus, newHashPart, hide);
 
 	if (minus) {
 	    $this.siblings('label').children('div.graph-color-swatch').css('background-color', '#ccc');
 	} else {
 	    $this.siblings('label').children('div.graph-color-swatch').css('background-color',
-                MB.text.Timeline[identifier].Color);
+                MB.text.Timeline.Stat(identifier).Color);
 	}
     }
     function categoryChange() {
@@ -400,10 +409,11 @@ $(document).ready(function () {
 
     MB.Timeline.addControls = function (id, dataset) {
         if (!dataset) {
+            stat = MB.text.Timeline.Stat(id);
             dataset = {
-                'label': MB.text.Timeline[id].Label,
-		'color': MB.text.Timeline[id].Color,
-		'category': MB.text.Timeline[id].Category
+                'label': stat.Label,
+		'color': stat.Color,
+		'category': stat.Category
 	    }
 	}
         if (!MB.Timeline.datasets[id]) {
@@ -456,7 +466,7 @@ $(document).ready(function () {
         });
         $('div.graph-control').each(function () {
             var identifier = $(this).attr('id').substr(controlIDPrefix.length);
-            if (MB.text.Timeline[identifier].Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
+            if (MB.text.Timeline.Stat(identifier).Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
                 $(this).children('input:checkbox').attr('checked', false).change();
             }
         });

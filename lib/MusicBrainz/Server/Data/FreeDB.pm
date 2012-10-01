@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::FreeDB;
 use Moose;
+use namespace::autoclean;
 
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
@@ -7,7 +8,6 @@ use aliased 'MusicBrainz::Server::Entity::FreeDB';
 use MusicBrainz::Server::Translation qw( l ln );
 
 use Carp 'confess';
-use LWP::UserAgent;
 use URI;
 use Try::Tiny;
 
@@ -130,7 +130,8 @@ sub _cached_command
             $r = $self->$response_parser($response);
         }
 
-        $cache->set($cache_key => $r);
+        $cache->set($cache_key => $r) if $r;
+
         return $r;
     }
 }
@@ -149,9 +150,7 @@ sub _retrieve_no_cache
         proto => FREEDB_PROTOCOL
     ]);
 
-    my $ua = LWP::UserAgent->new(max_redirect => 0);
-	$ua->env_proxy;
-    my $response = $ua->get($url);
+    my $response = $self->c->lwp->get($url);
 
     # WARNING: evil hack.  For some reason the freedb lookup will
     # sometimes (always?) return a 500 error with a 200 OK status

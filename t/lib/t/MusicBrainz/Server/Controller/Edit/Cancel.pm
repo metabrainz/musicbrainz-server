@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
-use MusicBrainz::Server::Types qw( $STATUS_DELETED );
+use MusicBrainz::Server::Constants qw( $STATUS_DELETED );
 
 with 't::Context', 't::Mechanize';
 
@@ -75,6 +75,7 @@ EOSQL
         edit_type => $EDIT_ARTIST_EDIT,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'Changed comment',
+        ipi_codes => []
     );
 
     $mech->get_ok('/login');

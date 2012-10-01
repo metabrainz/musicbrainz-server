@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Medium;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Medium;
 
@@ -19,7 +18,6 @@ MusicBrainz::Server::Test->prepare_test_database($test->c,
     "INSERT INTO medium_format (id, name) VALUES (2, 'Telepathic Transmission')");
 
 my $medium_data = MusicBrainz::Server::Data::Medium->new(c => $test->c);
-memory_cycle_ok($medium_data);
 
 my $medium = $medium_data->get_by_id(1);
 is ( $medium->id, 1 );
@@ -29,8 +27,6 @@ is ( $medium->release_id, 1 );
 is ( $medium->position, 1 );
 is ( $medium->name, 'A Sea of Honey' );
 is ( $medium->format_id, 1 );
-memory_cycle_ok($medium_data);
-memory_cycle_ok($medium);
 
 $medium = $medium_data->get_by_id(2);
 is ( $medium->id, 2 );
@@ -53,8 +49,6 @@ is( $results->[1]->release->name, 'Aerial' );
 is( $results->[1]->release->artist_credit_id, 1 );
 is( $results->[1]->position, 1 );
 
-memory_cycle_ok($medium_data);
-memory_cycle_ok($results);
 
 
 # just check that it doesn't die
@@ -72,7 +66,6 @@ $medium_data->update(1, {
         format_id => 2
     });
 
-memory_cycle_ok($medium_data);
 
 $medium = $medium_data->get_by_id(1);
 is ( $medium->tracklist_id, 2 );

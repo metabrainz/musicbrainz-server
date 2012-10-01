@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::WS::js::Artist;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
-with 'MusicBrainz::Server::Controller::WS::js::Role::AliasAutocompletion';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
 
 my $ws_defs = Data::OptList::mkopt([
     "artist" => {
@@ -21,7 +21,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'artist' }
 
-sub search : Path('/ws/js/artist') {
+sub search : Chained('root') PathPart('artist')
+{
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }

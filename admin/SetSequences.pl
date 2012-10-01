@@ -63,7 +63,7 @@ sub SetSequence
 }
 
 my $c = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
 
 SetSequence($sql, "album");
 SetSequence($sql, "albumjoin");

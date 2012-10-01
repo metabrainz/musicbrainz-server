@@ -1,11 +1,3 @@
-[%- BLOCK layout_head -%]
-    <script type="text/javascript">//<![CDATA[
-        $(function() {
-            MB.Control.EditNote($('textarea'));
-        });
-    //]]></script>
-[%- END -%]
-
 [%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- INCLUDE "edit/info.tt" -%]
@@ -22,7 +14,11 @@
         [% END %]
 
         <h2>[% l('Votes') %]</h2>
-        <table class="vote-tally">
+        <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
+          <input type="hidden" value="[% c.req.uri %]" name="url" />
+          <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
+
+          <table class="vote-tally">
             <tr class="noborder">
                 <th>[% l('Vote tally:') %]</th>
                 <td class="vote">
@@ -33,16 +29,12 @@
             </tr>
             [% IF edit.editor_may_vote(c.user) %]
                 <tr class="noborder">
-                    <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
-                        <input type="hidden" value="[% c.req.uri %]" name="url" />
-                        <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
                         <th>[% l('My vote:') %]</th>
                         <td class="vote">
                           <div class="voteopts">
                             [% INCLUDE 'edit/vote.tt' %]
                           </div>
                         </td>
-                    </form>
                 </tr>
             [% END %]
             [% FOR vote=edit.votes %]
@@ -66,7 +58,7 @@
         [% END %]
 
         [% IF c.user_exists %]
-            [% IF edit.is_open AND server_details.staging_server %]
+            [% IF edit.is_open AND server_details.testing_features %]
                 <h2>[% l('Testing features') %]</h2>
                 <p>[%- l('To aid in testing, the following features have been made available on testing servers:') -%]</p>
                 <ul>
@@ -81,12 +73,11 @@
             </p>
         [% END %]
 
-        <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
             <h2>[% l('Edit notes') %]</h2>
-            <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.0.edit_id" />
-            <input type="hidden" value="[% c.req.uri %]" name="url" />
             [% INCLUDE 'edit/notes.tt' %]
-            [% form_submit(l('Add note')) %]
+            [%- IF edit.editor_may_add_note(c.user) || edit.editor_may_vote -%]
+                [%- form_submit(l('Add note and vote')) -%]
+            [%- END -%]
         </form>
     </div>
 [%- END -%]

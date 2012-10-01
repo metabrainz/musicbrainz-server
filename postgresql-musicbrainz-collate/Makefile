@@ -1,14 +1,11 @@
-
-MODULES = musicbrainz_collate
+MODULE_big = musicbrainz_collate
+OBJS = musicbrainz_collate.o
 DATA = musicbrainz_collate.sql uninstall_musicbrainz_collate.sql
 DOCS = README.musicbrainz_collate
 
-PGXS := $(shell pg_config --pgxs)
+SHLIB_LINK = $(shell icu-config --ldflags)
+
+PG_CONFIG = pg_config
+PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
-
-ICU_LIBS = $(shell icu-config --ldflags-libsonly)
-
-musicbrainz_collate.so: musicbrainz_collate.o
-	$(CC) $(ICU_LIBS) -shared -o $@ $< 
-
 

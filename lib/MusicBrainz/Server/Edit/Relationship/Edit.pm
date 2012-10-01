@@ -3,18 +3,18 @@ use Moose;
 use Carp;
 use Clone 'clone';
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
-use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
-  partial_date_from_row
   type_to_model
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
-sub edit_name { l("Edit relationship") }
+sub edit_name { N_l("Edit relationship") }
 
 sub _xml_arguments { ForceArray => ['attributes'] }
 
@@ -41,6 +41,7 @@ subtype 'LinkHash'
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
+        ended => Optional[Bool],
         entity0 => Nullable[Dict[
             id => Int,
             name => Str,
@@ -63,6 +64,7 @@ subtype 'RelationshipHash'
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
+        ended => Optional[Bool],
         entity0 => Nullable[Dict[
             id => Int,
             name => Str,
@@ -135,6 +137,7 @@ sub _build_relationship
 
     my $begin      = defined $change->{begin_date}   ? $change->{begin_date}   : $link->{begin_date};
     my $end        = defined $change->{end_date}     ? $change->{end_date}     : $link->{end_date};
+    my $ended      = defined $change->{ended}        ? $change->{ended}        : $link->{ended};
     my $attributes = defined $change->{attributes}   ? $change->{attributes}   : $link->{attributes};
     my $entity0    = defined $change->{entity0}      ? $change->{entity0}      : $link->{entity0};
     my $entity1    = defined $change->{entity1}      ? $change->{entity1}      : $link->{entity1};
@@ -145,8 +148,9 @@ sub _build_relationship
     return Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
-            begin_date => partial_date_from_row( $begin ),
-            end_date   => partial_date_from_row( $end ),
+            begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $begin ),
+            end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $end ),
+            ended      => $ended,
             attributes => [
                 map {
                     my $attr    = $loaded->{LinkAttributeType}{ $_ };
@@ -214,6 +218,7 @@ sub _mapping
     return (
         begin_date => sub { return partial_date_to_hash (shift->link->begin_date); },
         end_date =>   sub { return partial_date_to_hash (shift->link->end_date);   },
+        ended => sub { return shift->link->ended },
         attributes => sub { return [ map { $_->id } shift->link->all_attributes ]; },
         link_type => sub {
             my $rel = shift;
@@ -277,6 +282,7 @@ sub initialize
         link => {
             begin_date => partial_date_to_hash ($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
+            ended => $link->ended,
             attributes => [ map { $_->id } $link->all_attributes ],
             link_type => {
                 id => $link->type_id,
@@ -327,6 +333,7 @@ sub accept
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,
         end_date     => $data->{new}{end_date}      // $relationship->link->end_date,
+        ended        => $data->{new}{ended}         // $relationship->link->ended
     };
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
@@ -337,6 +344,11 @@ sub accept
         $values
     );
 
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'One of the end points of this relationship no longer exists'
+    ) if !$self->c->model(type_to_model($data->{type0}))->get_by_id($values->{entity0_id}) ||
+         !$self->c->model(type_to_model($data->{type1}))->get_by_id($values->{entity1_id});
+
     $self->c->model('Relationship')->update(
         $data->{type0},
         $data->{type1},
@@ -344,21 +356,59 @@ sub accept
         $values
     );
 
-    my $link_type = $self->c->model('LinkType')->get_by_id(
-        $values->{link_type_id}
-    );
+    # Determine the old link type id. Old link type might not be defined if
+    # the user didn't actually change the link type, so be careful to avoid
+    # dereferencing null.
+    my $old_link_type_id =
+        ($self->data->{old}{link_type} && $self->data->{old}{link_type}{id});
 
-    if ($self->c->model('CoverArt')->can_parse($link_type->name)) {
-        my $relationship = $self->c->model('Relationship')->get_by_id(
-            $data->{type0}, $data->{type1},
-            $data->{relationship_id}
-        );
+    # Take the new link type id to be the link type of the new relationship
+    my $new_link_type_id = $values->{link_type_id};
 
+    # Fetch both the new and the old link types, filtering out the old link type
+    # if it's undefined.
+    my $link_types = $self->c->model('LinkType')->get_by_ids(
+        $new_link_type_id, $old_link_type_id // ());
+
+    # If the new link type can be parsed by a cover art fetcher, refresh cover
+    # art for the release at the new relationship end point.
+    my $new_link_type = $link_types->{ $values->{link_type_id} };
+    my $can_parse_new_link_type =
+        $self->c->model('CoverArt')->can_parse($new_link_type->name);
+    if ($can_parse_new_link_type) {
         my $release = $self->c->model('Release')->get_by_id(
-            $relationship->entity0_id
+            $values->{entity0_id}
         );
         $self->c->model('Relationship')->load_subset([ 'url' ], $release);
         $self->c->model('CoverArt')->cache_cover_art($release);
+    }
+
+    # Determine the old link type of the relationship. If $old_link_type_id is
+    # not defined, then the relationship type has not changed so it's safe
+    # to default to $new_link_type_id.
+    my $old_link_type = $link_types->{
+        $old_link_type_id // $new_link_type_id
+    };
+
+    # If we have a cover art parser for the old link type, and the end point
+    # has changed, then we should refresh the old end point. For example,
+    # the relationship is an ASIN relationship, but the release the URL is
+    # associated with has been changed, so the old release should no longer
+    # have ASIN cover art.
+
+    my $can_parse_old_link_type =
+        $self->c->model('CoverArt')->can_parse($old_link_type->name);
+
+    my $old_entity_id_changed =
+           $self->data->{old}{entity0} && $self->data->{new}{entity0}
+        && $self->data->{old}{entity0}{id} != $self->data->{new}{entity0}{id};
+
+    if ($can_parse_old_link_type && ($old_entity_id_changed || !$can_parse_new_link_type)) {
+        my $old_release = $self->c->model('Release')->get_by_id(
+            $self->data->{old}{entity0}{id} // $self->data->{link}{entity0}{id}
+        );
+        $self->c->model('Relationship')->load_subset([ 'url' ], $old_release);
+        $self->c->model('CoverArt')->cache_cover_art($old_release);
     }
 }
 

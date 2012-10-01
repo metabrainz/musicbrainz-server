@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Release;
 use Moose;
 
+use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
@@ -11,6 +12,19 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Quality';
+
+around BUILDARGS => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $args = $self->$orig(@_);
+
+    if ($args->{barcode} && !ref($args->{barcode})) {
+        $args->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $args->{barcode} );
+    }
+
+    return $args;
+};
 
 has 'status_id' => (
     is => 'rw',
@@ -28,6 +42,12 @@ sub status_name
     return $self->status ? $self->status->name : undef;
 }
 
+sub l_status_name
+{
+    my ($self) = @_;
+    return $self->status ? $self->status->l_name : undef;
+}
+
 has 'packaging_id' => (
     is => 'rw',
     isa => 'Int'
@@ -42,6 +62,12 @@ sub packaging_name
 {
     my ($self) = @_;
     return $self->packaging ? $self->packaging->name : undef;
+}
+
+sub l_packaging_name
+{
+    my ($self) = @_;
+    return $self->packaging ? $self->packaging->l_name : undef;
 }
 
 has 'artist_credit_id' => (
@@ -67,15 +93,10 @@ has 'artist_credit' => (
 
 has 'barcode' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Barcode',
+    lazy => 1,
+    default => sub { MusicBrainz::Server::Entity::Barcode->new() },
 );
-
-sub barcode_type {
-    my ($self) = @_;
-    return 'EAN' if length($self->barcode) == 8;
-    return 'UPC' if length($self->barcode) == 12;
-    return 'EAN' if length($self->barcode) == 13;
-}
 
 has 'country_id' => (
     is => 'rw',
@@ -167,7 +188,7 @@ sub combined_format_name
     my %formats_count;
     my @formats_order;
     foreach my $medium (@mediums) {
-        my $format_name = $medium->format_name || l('(unknown)');
+        my $format_name = $medium->l_format_name() || l('(unknown)');
         if (exists $formats_count{$format_name}) {
             $formats_count{$format_name} += 1;
         }
@@ -212,6 +233,15 @@ has 'cover_art' => (
     predicate => 'has_cover_art',
 );
 
+has 'cover_art_presence' => (
+    isa => 'Str',
+    is => 'rw'
+);
+
+sub may_have_cover_art {
+    return shift->cover_art_presence ne 'darkened';
+}
+
 sub find_medium_for_recording {
     my ($self, $recording) = @_;
     for my $medium ($self->all_mediums) {
@@ -239,6 +269,37 @@ sub all_tracks
     my @tracklists = grep { defined } map { $_->tracklist } @mediums
         or return ();
     return map { $_->all_tracks } @tracklists;
+}
+
+sub filter_labels
+{
+    my ($self, $label) = @_;
+    my @labels = $self->all_labels
+        or return ();
+    return grep { $_->label_id && $_->label_id == $label->id } @labels;
+}
+
+=head2 length
+
+Return the duration of the release in microseconds.
+(or undef if the duration of one or more media is not known).
+
+=cut
+
+sub length {
+    my $self = shift;
+
+    my $length = 0;
+
+    for my $disc ($self->all_mediums)
+    {
+        my $l = $disc->length;
+        return undef unless $l;
+
+        $length += $l;
+    }
+
+    return $length;
 }
 
 __PACKAGE__->meta->make_immutable;

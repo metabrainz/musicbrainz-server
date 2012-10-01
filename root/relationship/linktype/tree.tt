@@ -1,0 +1,61 @@
+[%- BLOCK layout_head -%]
+  [% script_manifest('edit.js.manifest') %]
+[%- END -%]
+
+[% BLOCK link_type %]
+    <li style="padding-top: 0.5em">
+        <span><strong>[% obj.name | html %]</strong> (<a class="toggle" style="cursor:pointer">[% l("more") %]</a>)</span>
+        <div class="reldetails" style="margin-left: 20px; padding: 3px">
+        [%- IF c.user.is_relationship_editor -%]
+        <strong>[% l('Child order:') %]</strong> [% obj.child_order %]<br />
+        [% END %]
+        <strong>[% l('Forward link phrase:') %]</strong> [% obj.l_link_phrase || l("(none)") | html %]<br />
+        <strong>[% l('Reverse link phrase:') %]</strong> [% obj.l_reverse_link_phrase || l("(none)") | html %]<br />
+        <strong>[% l('Description:') %]</strong> [% obj.l_description || l("(none)") %]<br />
+        <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
+        [%- IF c.user.is_relationship_editor -%]
+        [
+            <a href="[% c.uri_for_action('/relationship/linktype/edit', [ obj.gid ]) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ obj.gid ]) %]">[% l('Remove') %]</a>[% END %]
+        ]
+        [% END %]
+        </div>
+
+        [% IF obj.children %]
+            <ul>
+                [% FOR child IN obj.children %]
+                [% PROCESS link_type obj=child %]
+                [% END %]
+            </ul>
+        [% END %]
+    </li>
+[% END %]
+
+[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) full_width=1 %]
+    <div id="content">
+        [%- INCLUDE 'relationship/header.tt' %]
+
+        <p><small><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[%- l('&lt; Back to all relationship types') -%]</a></small></p>
+
+        <h2>[% l("{type0}-{type1} relationship types", { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) %]</h2>
+
+        [%- IF c.user.is_relationship_editor -%]
+            <p><a href="[% c.uri_for_action('/relationship/linktype/create', [ types ]) %]">[% l('Create a new {type0}-{type1} relationship', { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) %]</a></p>
+        [%- END -%]
+
+        [% IF root.children.size %]
+        <p>
+            <a id="showAll" href="#">[% l('Expand all descriptions') %]</a>
+            <a id="hideAll" href="#" style="display:none">[% l('Collapse all descriptions') %]</a>
+        </p>
+
+        <ul>
+            [% FOR child IN root.children %]
+                [% PROCESS link_type obj=child %]
+            [% END %]
+        </ul>
+        [% ELSE %]
+            <p>[% l('No {type0}-{type1} relationship types found.', { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) %]</p>
+        [% END %]
+    </div>
+[% END %]

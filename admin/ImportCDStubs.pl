@@ -37,7 +37,7 @@ use MusicBrainz::Server::CDStub;
 use MusicBrainz::Server::CDTOC;
 
 my $c = MusicBrainz::Server::Context->new;
-my $rwsql = Sql->new($c->dbh);
+my $rwsql = Sql->new($c->conn);
 my $sql = Sql->new($mb->raw_dbh);
 
 my $rc = MusicBrainz::Server::CDStub->new($c->raw_dbh);

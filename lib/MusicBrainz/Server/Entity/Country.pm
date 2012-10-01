@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Country;
 
 use Moose;
+use MusicBrainz::Server::Translation::Countries qw ( l );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -8,6 +9,11 @@ has 'name' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub l_name {
+    my $self = shift;
+    return l($self->name);
+}
 
 has 'iso_code' => (
     is => 'rw',

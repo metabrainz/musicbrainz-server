@@ -4,6 +4,8 @@ use HTML::FormHandler::Moose;
 use DateTime;
 use DateTime::TimeZone;
 
+use MusicBrainz::Server::Translation qw( l ln );
+
 extends 'MusicBrainz::Server::Form';
 
 has '+name' => ( default => 'prefs' );
@@ -18,6 +20,8 @@ has_field 'email_on_vote' => ( type => 'Boolean' );
 
 has_field 'subscribe_to_created_artists' => ( type => 'Boolean' );
 has_field 'subscribe_to_created_labels' => ( type => 'Boolean' );
+
+has_field 'show_gravatar' => ( type => 'Boolean' );
 
 has_field 'subscriptions_email_period' => (
     type => 'Select',
@@ -74,9 +78,9 @@ sub options_timezone
 sub options_subscriptions_email_period
 {
     my $options = [
-        'daily'     => 'Daily',
-        'weekly'    => 'Weekly',
-        'never'     => 'Never',
+        'daily'     => l('Daily'),
+        'weekly'    => l('Weekly'),
+        'never'     => l('Never'),
     ];
     return $options;
 }

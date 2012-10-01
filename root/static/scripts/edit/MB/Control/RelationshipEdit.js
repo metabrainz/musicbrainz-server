@@ -21,14 +21,14 @@
 MB.Control.RelationshipEntity = function (entity) {
     var self = MB.Object ();
 
-    self.$id = $('#id-ar\\.' + entity + '\\.id');
+    self.$name = $('#id-ar\\.' + entity + '\\.name');
 
-    if (self.$id.length === 0)
+    if (self.$name.length === 0)
     {
         return self; // URL entity type, not currently supported.
     }
 
-    self.$name = $('#id-ar\\.' + entity + '\\.name');
+    self.$id = $('#id-ar\\.' + entity + '\\.id');
     self.$link = self.$name.closest ('span').siblings ('span.link').find ('a');
     self.type = self.$link.attr ('class');
 

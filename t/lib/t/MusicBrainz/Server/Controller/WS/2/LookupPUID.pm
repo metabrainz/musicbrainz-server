@@ -18,7 +18,6 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
-my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -104,6 +103,7 @@ ws_test 'puid lookup with release groups',
             <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
               <first-release-date>2001-07-04</first-release-date>
+              <primary-type>Single</primary-type>
               <artist-credit>
                 <name-credit>
                   <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
@@ -131,6 +131,7 @@ ws_test 'puid lookup with release groups',
             <release-group id="b84625af-6229-305f-9f1b-59c0185df016" type="Single">
               <title>サマーれげぇ!レインボー</title>
               <first-release-date>2001-07-04</first-release-date>
+              <primary-type>Single</primary-type>
               <artist-credit>
                 <name-credit>
                   <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">

@@ -4,7 +4,6 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
@@ -12,7 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
@@ -22,7 +21,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_type { $EDIT_RECORDING_CREATE }
-sub edit_name { l('Add standalone recording') }
+sub edit_name { N_l('Add standalone recording') }
 sub _create_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 

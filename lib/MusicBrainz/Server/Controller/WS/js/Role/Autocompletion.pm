@@ -4,13 +4,11 @@ use namespace::autoclean;
 
 use Encode;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Data::Search qw( escape_query );
 use Text::Trim;
-use Text::Unaccent qw( unac_string_utf16 );
 
 requires 'type';
 
-sub serialization_routine { 'autocomplete_generic' }
+sub serialization_routine { '_generic' }
 
 sub model {
     my ($self, $c) = @_;
@@ -32,9 +30,10 @@ sub dispatch_search {
     my ($output, $pager) =
         $direct eq 'true' ? $self->_direct_search($c, $query, $page, $limit)
                           : $self->_indexed_search($c, $query, $page, $limit);
+    my $serialization_routine = 'autocomplete' . $self->serialization_routine;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize($self->serialization_routine, $output, $pager));
+    $c->res->body($c->stash->{serializer}->serialize($serialization_routine, $output, $pager));
 }
 
 sub _load_entities { }
@@ -69,27 +68,14 @@ sub _format_output {
     return @entities;
 }
 
-sub _form_indexed_query {
-    my ($self, $query) = @_;
-    $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
-    $query = escape_query ($query);
-
-    return $query;
-}
-
 sub _indexed_search {
     my ($self, $c, $query, $page, $limit) = @_;
-
-    $query = join(' OR ',
-                  map { "($_)" }
-                      $self->_form_indexed_query("$query", $c),
-                      escape_query ("$query") . "*");
 
     my $model = $self->model($c);
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $self->type, $query, $limit, $page, 1, undef);
+        $self->type, $query, $limit, $page, 0, undef);
 
     my (@output, $pager);
 

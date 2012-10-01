@@ -148,8 +148,9 @@ MB.utility.structureToString = function (obj) {
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
 
+    var withDataAndEvents = true;
     $(form).prepend (
-        $(button).clone ().removeAttr ('id').css ({
+        $(button).clone (withDataAndEvents).removeAttr ('id').css ({
            position: 'absolute',
            left: "-999px", top: "-999px", height: 0, width: 0
         }));
@@ -178,38 +179,73 @@ MB.utility.rememberCheckbox = function (id, name) {
 
 MB.utility.formatTrackLength = function (duration)
 {
-    var length_str = '';
-
     if (duration === null)
     {
-        length_str = '?:??';
-    }
-    else
-    {
-        var length_in_secs = (duration / 1000 + 0.5);
-        length_str = String (Math.floor (length_in_secs / 60)) + ":" +
-            ("00" + String (Math.floor (length_in_secs % 60))).slice (-2);
+        return '?:??';
     }
 
-    return length_str;
+    if (duration < 1000)
+    {
+        return duration + ' ms';
+    }
+
+    var seconds = 1000;
+    var minutes = 60 * seconds;
+    var hours = 60 * minutes;
+
+    var hours_str = '';
+    duration = duration + 0.5;
+
+    if (duration > 1 * hours)
+    {
+        hours_str = Math.floor (duration / hours) + ':';
+        duration = Math.floor (duration % hours);
+    }
+
+    /* pad minutes with zeroes of the hours string is non-empty. */
+    var minutes_str = hours_str === '' ?
+        Math.floor (duration / minutes) + ':' :
+        ('00' + Math.floor (duration / minutes)).slice (-2) + ':';
+
+    duration = Math.floor (duration % minutes);
+
+    var seconds_str = ('00' + Math.floor (duration / seconds)).slice (-2);
+
+    return hours_str + minutes_str + seconds_str;
 };
 
 
 MB.utility.unformatTrackLength = function (duration)
 {
-    var parts = duration.split (":");
-    if (parts.length != 2)
+    if (duration.slice (-2) == 'ms')
+    {
+        return parseInt (duration, 10);
+    }
+
+    var parts = duration.replace(/[:\.]/, ':').split (':');
+    if (parts[0] == '?' || parts[0] == '??')
     {
         return null;
     }
 
-    if (parts[1] == '??')
-    {
-        return null;
-    }
+    var seconds = parseInt (parts.pop (), 10);
+    var minutes = parseInt (parts.pop () || 0, 10) * 60;
+    var hours = parseInt (parts.pop () || 0, 10) * 3600;
 
-    // MBS-3352: Handle the case of ":57"
-    parts[0] = parts[0] || 0;
-
-    return parseInt (parts[0], 10) * 60000 + parseInt (parts[1], 10) * 1000;
+    return (hours + minutes + seconds) * 1000;
 };
+
+MB.utility.trim = function (str)
+{
+    return str.replace (/\s+/g, " ").replace (/^ /, "").replace (/ $/, "");
+}
+
+MB.utility.renderArtistCredit = function (ac) {
+    var html = '';
+    $.each(ac.names, function(name) {
+        html += this.name + this.join_phrase
+    });
+
+    return html;
+}
+

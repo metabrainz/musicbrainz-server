@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::ReleaseGroupType;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
@@ -10,7 +11,7 @@ with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
 {
-    return 'release_group_type';
+    return 'release_group_primary_type';
 }
 
 sub _columns
@@ -26,7 +27,8 @@ sub _entity_class
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
+    load_subobjects($self, 'primary_type', @objs);
+    $self->c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@objs);
 }
 
 sub find_by_name
@@ -45,6 +47,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

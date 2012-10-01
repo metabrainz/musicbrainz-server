@@ -1,0 +1,35 @@
+[% BLOCK attribute_tree %]
+    <li style="margin-top:0.25em">
+        <strong>[% obj.l_name FILTER ucfirst | html %]</strong>
+        [% PROCESS attribute_details obj=obj toplevel=0 %]
+
+        [%- IF obj.children.size -%]
+        <ul>
+            [% FOR child IN obj.children %]
+            [% PROCESS attribute_tree obj=child %]
+            [% END %]
+        </ul>
+        [% END %]
+    </li>
+[% END %]
+
+[% BLOCK attribute_details %]
+        [%- IF c.user.is_relationship_editor -%]
+            [%- IF !toplevel %]([% END -%]
+            [%- obj.l_description || l('none') -%]
+            [%- IF !toplevel -%])[%- END -%]
+            ([% obj.child_order %])
+
+            [
+            <a href="[% c.uri_for_action('/relationship/linkattributetype/create', { parent = [ obj.gid ] }) %]">[% l('Add child') %]</a>
+            | <a href="[% c.uri_for_action('/relationship/linkattributetype/edit', [ obj.gid ]) %]">[% l('Edit') %]</a>
+            [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linkattributetype/delete', [ obj.gid ]) %]">[% l('Remove') %]</a>[% END %]
+            ]
+        [%- ELSE -%]
+            [%- IF obj.description && obj.description != obj.name -%]
+                [%- IF !toplevel %]([% END -%]
+                [%- obj.l_description -%]
+                [%- IF !toplevel -%])[%- END -%]
+            [%- END -%]
+        [% END %]
+[% END %]

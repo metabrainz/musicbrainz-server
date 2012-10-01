@@ -30,11 +30,22 @@ use Sub::Exporter -setup => {
             capture_edits
         ),
         ws_test => \&_build_ws_test,
+        ws_test_json => \&_build_ws_test_json,
     ],
 };
 
+BEGIN {
+    no warnings 'redefine';
+    use DBDefs;
+    *DBDefs::WEB_SERVER = sub { "localhost" };
+    *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { "localhost" };
+    *DBDefs::RECAPTCHA_PUBLIC_KEY = sub { undef };
+    *DBDefs::RECAPTCHA_PRIVATE_KEY = sub { undef };
+}
+
 use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Server::Test::Connector');
+MusicBrainz::Server::DatabaseConnectionFactory->alias('READWRITE' => 'TEST');
 
 our $test_context;
 our $test_transport = Email::Sender::Transport::Test->new();
@@ -90,7 +101,7 @@ sub prepare_test_database
 
     $query = $class->_load_query($query, "admin/sql/InsertTestData.sql");
 
-    my $sql = Sql->new($c->dbh);
+    my $sql = Sql->new($c->conn);
     $sql->auto_commit;
     $sql->do($query);
 }
@@ -101,7 +112,7 @@ sub prepare_raw_test_database
 
     $query = $class->_load_query($query, "t/sql/clean_raw_db.sql");
 
-    my $sql = Sql->new($c->dbh);
+    my $sql = Sql->new($c->conn);
     $sql->auto_commit;
     $sql->do($query);
 }
@@ -125,7 +136,7 @@ sub get_latest_edit
 {
     my ($class, $c) = @_;
     my $ed = MusicBrainz::Server::Data::Edit->new(c => $c);
-    my $sql = Sql->new($c->dbh);
+    my $sql = Sql->new($c->conn);
     my $last_id = $sql->select_single_value("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
     return $ed->get_by_id($last_id);
 }
@@ -283,6 +294,9 @@ sub old_edit_row
     };
 }
 
+use File::Basename;
+use Cwd;
+
 sub schema_validator
 {
     my $version = shift;
@@ -290,17 +304,11 @@ sub schema_validator
     $version = '1.4' if $version == 1;
     $version = '2.0' if $version == 2 or !$version;
 
-    my $rng_file = $ENV{'MMDFILE'};
+    my $mmd_home = $ENV{'MMDSCHEMA'} ||
+                   Cwd::realpath( File::Basename::dirname(__FILE__) ) . "/../../../../mmd-schema";
 
-    if (!$rng_file)
-    {
-        use File::Basename;
-        use Cwd;
+    my $rng_file = "$mmd_home/schema/musicbrainz_mmd-$version.rng";
 
-        my $base_dir = Cwd::realpath( File::Basename::dirname(__FILE__) );
-
-        $rng_file = "$base_dir/../../../../mmd-schema/schema/musicbrainz_mmd-$version.rng";
-    }
     my $rngschema;
     eval
     {
@@ -309,8 +317,8 @@ sub schema_validator
 
     if ($@)
     {
-        warn "Cannot find or parse RNG schema. Set environment var MMDFILE to point ".
-            "to the mmd-schema file or check out the mmd-schema in parallel to ".
+        warn "Cannot find or parse RNG schema. Set environment var MMDSCHEMA to point ".
+            "to the mmd-schema directory or check out the mmd-schema in parallel to ".
             "the mb_server source. No schema validation will happen.\n";
         undef $rngschema;
     }
@@ -350,6 +358,7 @@ sub _build_ws_test_xml {
         $opts ||= {};
 
         my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+        $mech->default_header ("Accept" => "application/xml");
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -373,6 +382,7 @@ sub _build_ws_test_json {
     my $end_point = '/ws/' . $args->{version};
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+    $mech->default_header ("Accept" => "application/json");
 
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
@@ -449,15 +459,10 @@ sub commandline_override
 {
     my ($prefix, @default_tests) = @_;
 
-    my @tests;
-    GetOptions ("tests=s" => \@tests);
-    @tests = split(/,/,join(',',@tests));
+    my $test_re = '';
+    GetOptions ("tests=s" => \$test_re);
 
-    @default_tests = map {
-        /^t::/ ? $_ : $prefix.$_;
-    } @tests if scalar @tests;
-
-    return @default_tests;
+    return grep { $_ =~ /$test_re/ } @default_tests;
 }
 
 1;

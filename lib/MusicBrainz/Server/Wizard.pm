@@ -1,10 +1,10 @@
 package MusicBrainz::Server::Wizard;
 use Moose;
-use Cache::Memcached;
+use Cache::Memcached::Fast;
 use Carp qw( croak );
 use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
 
-my $cache = new Cache::Memcached &DBDefs::WIZARD_MEMCACHED;
+my $cache = new Cache::Memcached::Fast (&DBDefs::WIZARD_MEMCACHED);
 
 has '_current' => (
     is => 'rw',
@@ -459,11 +459,8 @@ around '_current' => sub {
 sub _cache_key
 {
     my ($self, $key) = @_;
-
-    my $catalyst_session_id = $self->c->sessionid;
     my $sid = $self->_session_id;
-
-    return "wizard_session:$catalyst_session_id:$sid:$key";
+    return "wizard_session_v2:$sid:$key";
 }
 
 sub _store
@@ -501,11 +498,10 @@ sub _new_session
 {
     my ($self) = @_;
 
-    $self->_session_id(rand);
-    while (defined $self->_store ('wizard'))
-    {
-        $self->_session_id(rand);
-    }
+    # In the case that global_wizard_id is undef, set it to 0. ->inc require an
+    # existing, integer valued key.
+    $cache->add('global_wizard_id', 0);
+    $self->_session_id($cache->incr('global_wizard_id'));
     $self->_store ('wizard', 1);
     $self->_current (0);
 }

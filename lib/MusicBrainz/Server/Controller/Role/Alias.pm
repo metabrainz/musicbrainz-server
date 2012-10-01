@@ -27,12 +27,20 @@ my %model_to_edit_type = (
     }
 );
 
+my %model_to_search_hint_type_id = (
+    Artist => 3,
+    Label => 2,
+    Work => 2
+);
+
 sub aliases : Chained('load') PathPart('aliases')
 {
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
-    my $aliases = $c->model($self->{model})->alias->find_by_entity_id($entity->id);
+    my $m = $c->model($self->{model});
+    my $aliases = $m->alias->find_by_entity_id($entity->id);
+    $m->alias_type->load(@$aliases);
     $c->stash(
         aliases => $aliases,
     );
@@ -54,10 +62,18 @@ sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit
     my $alias_model = $c->model( $self->{model} )->alias;
     $self->edit_action($c,
         form => 'Alias',
-        form_args => { parent_id => $entity->id, alias_model => $alias_model },
+        form_args => {
+            parent_id => $entity->id,
+            alias_model => $alias_model,
+            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} }
+        },
         type => $model_to_edit_type{add}->{ $self->{model} },
         edit_args => {
             entity => $entity
+        },
+        item => {
+            name => $entity->name,
+            id => $entity->id
         },
         on_creation => sub { $self->_redir_to_aliases($c) }
     );
@@ -87,7 +103,12 @@ sub edit_alias : Chained('alias') PathPart('edit') RequireAuth Edit
     my $alias_model = $c->model( $self->{model} )->alias;
     $self->edit_action($c,
         form => 'Alias',
-        form_args => { parent_id => $entity->id, alias_model => $alias_model, id => $alias->id },
+        form_args => {
+            parent_id => $entity->id,
+            alias_model => $alias_model,
+            id => $alias->id,
+            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} }
+        },
         item => $alias,
         type => $model_to_edit_type{edit}->{ $self->{model} },
         edit_args => {

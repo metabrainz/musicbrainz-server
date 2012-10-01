@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::ArtistType;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 

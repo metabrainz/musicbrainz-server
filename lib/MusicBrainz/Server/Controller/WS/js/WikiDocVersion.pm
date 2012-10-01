@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      default_serialization_type => 'json',
 };
 
-sub version : Path('/ws/js/wikidocversion') {
+sub version : Chained('root') PathPart('wikidocversion') {
     my ($self, $c) = @_;
 
     my $title = trim $c->stash->{args}->{title};

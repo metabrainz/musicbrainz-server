@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Search;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use HTTP::Response;
 use MusicBrainz::Server::Context;
@@ -19,7 +18,6 @@ test all => sub {
 my $test = shift;
 
 my $data = load_data('artist', $test->c);
-memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -33,7 +31,6 @@ is ( $artist->gid, '34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47' );
 is ( $artist->type->name, 'group' );
 
 $data = load_data('release_group', $test->c);
-memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -42,7 +39,7 @@ my $release_group = $data->{results}->[0]->{entity};
 ok ( defined $release_group->name );
 is ( $release_group->name, 'Love' );
 is ( $release_group->gid, '1b545f10-b62e-370b-80fc-dba87834836b' );
-is ( $release_group->type->name, 'single' );
+is ( $release_group->primary_type->name, 'single' );
 is ( $release_group->artist_credit->names->[0]->artist->name, 'Anouk' );
 is ( $release_group->artist_credit->names->[0]->artist->sort_name, 'Anouk' );
 is ( $release_group->artist_credit->names->[0]->artist->gid, '5e8da504-c75b-4bf5-9dfc-119057c1a9c0' );
@@ -51,7 +48,6 @@ is ( $release_group->artist_credit->names->[0]->artist->comment, 'Dutch rock sin
 
 
 $data = load_data('release', $test->c);
-memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -60,7 +56,7 @@ my $release = $data->{results}->[0]->{entity};
 is ( $release->name, 'LOVE' );
 is ( $release->gid, '64ea1dca-db9a-4945-ae68-78e02a27b158' );
 is ( $release->script->iso_code, 'latn' );
-is ( $release->language->iso_code_3t, 'eng' );
+is ( $release->language->iso_code_3, 'eng' );
 is ( $release->artist_credit->names->[0]->artist->name, 'HOUND DOG' );
 is ( $release->artist_credit->names->[0]->artist->sort_name, 'HOUND DOG' );
 is ( $release->artist_credit->names->[0]->artist->gid, 'bd21b7a2-c6b5-45d6-bdb7-18e5de8bfa75' );
@@ -70,7 +66,6 @@ is ( $release->mediums->[0]->tracklist->track_count, 9 );
 
 
 $data = load_data('recording', $test->c);
-memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 
@@ -86,7 +81,7 @@ is ( $recording->artist_credit->names->[0]->artist->gid, 'c2c70ed6-5f10-445c-969
 
 ok ( defined $extra );
 is ( @{$extra}, 3 );
-is ( $extra->[0]->release_group->type->name, "album" );
+is ( $extra->[0]->release_group->primary_type->name, "album" );
 is ( $extra->[0]->name, "Sixpence None the Richer" );
 is ( $extra->[0]->gid, "24efdbe1-a15d-4cc0-a6d7-59bd1ebbdcc3" );
 is ( $extra->[0]->mediums->[0]->tracklist->tracks->[0]->position, 11 );
@@ -94,7 +89,6 @@ is ( $extra->[0]->mediums->[0]->tracklist->track_count, 12 );
 
 
 $data = load_data('label', $test->c);
-memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 my $label = $data->{results}->[0]->{entity};
@@ -108,7 +102,6 @@ is ( $label->type->name, 'production' );
 
 
 $data = load_data('annotation', $test->c);
-memory_cycle_ok($data);
 is ( @{$data->{results} }, 25 );
 
 my $annotation = $data->{results}->[0]->{entity};
@@ -119,7 +112,6 @@ is ( $annotation->text, "Soul Love" );
 
 
 $data = load_data('cdstub', $test->c);
-memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 my $cdstub = $data->{results}->[0]->{entity};
@@ -133,7 +125,6 @@ is ( $cdstub->track_count, '17');
 
 
 $data = load_data('freedb', $test->c);
-memory_cycle_ok($data);
 
 is ( @{$data->{results} }, 25 );
 my $freedb = $data->{results}->[0]->{entity};

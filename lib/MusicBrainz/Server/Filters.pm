@@ -3,16 +3,18 @@ package MusicBrainz::Server::Filters;
 use strict;
 use warnings;
 
+use Digest::MD5 qw( md5_hex );
 use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
 use URI::Escape;
 
 use Sub::Exporter -setup => {
-    exports => [qw( format_editnote )]
+    exports => [qw( format_editnote format_wikitext )]
 };
 
 sub release_date
@@ -36,7 +38,7 @@ sub date_xsd_type
 {
     my $date = shift;
     if($date =~ /^[\d-]+$/){
-	
+
 	my ($y, $m, $d) = split /-/, $date;
 
 	return 'xsd:date' if ($y && 0 + $y && $m && 0 + $m && $d && 0 + $d);
@@ -71,6 +73,18 @@ sub format_wikitext
     my ($text) = @_;
 
     return '' unless $text;
+
+    # MBS-2437: Expand MBID entity links
+    my $ws = DBDefs::WEB_SERVER;
+    $text =~ s/
+      \[
+      (artist|label|recording|release|release-group|url|work):
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})
+    /[http:\/\/$ws\/$1\/$2\//ix;
 
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;
@@ -200,6 +214,11 @@ sub locale
     catch {
         return;
     }
+}
+
+sub gravatar {
+    my $email = shift;
+    return sprintf '//gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
 }
 
 1;

@@ -9,7 +9,7 @@
         <table class="details" style="width: 100%">
         [%- FOREACH relationship IN group.value.pairs -%]
             <tr>
-                <th>[% relationship.key %]:</th>
+                <th>[% l(relationship.key) %]:</th>
                 <td>
                     [% FOR rel IN relationship.value %]
                         <span[% IF rel.edits_pending %] class="mp"[% END %]>
@@ -21,9 +21,21 @@
                             [% link_entity(rel.target) %]
                         [% END %]
                         [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format %]
-                        ([% rel.link.begin_date.format %])
+                          ([% rel.link.begin_date.format %])
                         [% ELSIF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
-                        ([% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %])
+                          [% IF !rel.link.begin_date.is_empty && !rel.link.end_date.is_empty %]
+                            ([% l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %])
+                          [% ELSIF rel.link.begin_date.is_empty %]
+                            ([% l('&ndash; {enddate}', { enddate => rel.link.end_date.format }) %])
+                          [% ELSIF rel.link.end_date.is_empty %]
+                            [% IF rel.link.ended %]
+                              ([% l('{begindate} &ndash; ????', { begindate => rel.link.begin_date.format }) %])
+                            [% ELSE %]
+                              ([% l('{begindate} &ndash;', { begindate => rel.link.begin_date.format }) %])
+                            [% END %]
+                          [% END %]
+                        [% ELSIF rel.link.ended %]
+                          ([% l(' &ndash; ????') %])
                         [% END %]
 
                         [%- IF c.user_exists -%]

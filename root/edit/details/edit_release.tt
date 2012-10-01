@@ -52,6 +52,7 @@
                           descriptive_link(edit.display_data.group.new)) -%]
 
   [%- display_diff(l('Barcode:'),
-                   html_escape(edit.display_data.barcode.old),
-                   html_escape(edit.display_data.barcode.new)) -%]
+          html_escape (edit.display_data.barcode.old.format),
+          html_escape (edit.display_data.barcode.new.format)) -%]
+
 </table>

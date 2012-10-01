@@ -1,8 +1,11 @@
 package MusicBrainz::Server::Entity::AutoEditorElection;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Types qw( :election_status );
+use MusicBrainz::Server::Constants qw( :election_status );
+use MusicBrainz::Server::Types qw( DateTime AutoEditorElectionStatus );
+use MusicBrainz::Server::Translation qw( N_l );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -17,7 +20,7 @@ has [qw( candidate_id proposer_id seconder_1_id seconder_2_id)] => (
 );
 
 has 'status' => (
-    isa => 'AutoEditorElectionStatus',
+    isa => AutoEditorElectionStatus,
     is  => 'rw'
 );
 
@@ -42,7 +45,7 @@ has 'no_votes' => (
 );
 
 has [qw( propose_time open_time close_time )] => (
-    isa => 'DateTime',
+    isa => DateTime,
     is  => 'rw',
     coerce => 1
 );
@@ -83,21 +86,21 @@ sub is_closed
 
 # XXX not translatable
 our %STATUS_NAMES = (
-    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
-    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
-    $ELECTION_OPEN        => 'Voting open since {date}',
-    $ELECTION_ACCEPTED    => 'Accepted at {date}',
-    $ELECTION_REJECTED    => 'Declined at {date}',
-    $ELECTION_CANCELLED   => 'Cancelled at {date}',
+    $ELECTION_SECONDER_1  => N_l('Awaiting 1st seconder'),
+    $ELECTION_SECONDER_2  => N_l('Awaiting 2nd seconder'),
+    $ELECTION_OPEN        => N_l('Voting open since {date}'),
+    $ELECTION_ACCEPTED    => N_l('Accepted at {date}'),
+    $ELECTION_REJECTED    => N_l('Declined at {date}'),
+    $ELECTION_CANCELLED   => N_l('Cancelled at {date}'),
 );
 
 our %SHORT_STATUS_NAMES = (
-    $ELECTION_SECONDER_1  => 'Awaiting 1st seconder',
-    $ELECTION_SECONDER_2  => 'Awaiting 2nd seconder',
-    $ELECTION_OPEN        => 'Voting open',
-    $ELECTION_ACCEPTED    => 'Accepted',
-    $ELECTION_REJECTED    => 'Declined',
-    $ELECTION_CANCELLED   => 'Cancelled',
+    $ELECTION_SECONDER_1  => N_l('Awaiting 1st seconder'),
+    $ELECTION_SECONDER_2  => N_l('Awaiting 2nd seconder'),
+    $ELECTION_OPEN        => N_l('Voting open'),
+    $ELECTION_ACCEPTED    => N_l('Accepted'),
+    $ELECTION_REJECTED    => N_l('Declined'),
+    $ELECTION_CANCELLED   => N_l('Cancelled'),
 );
 
 sub status_name
@@ -200,7 +203,7 @@ The latter 2 may be undef.
 
 =head2 status
 
-The current status of this election, see L<MusicBrainz::Server::Types>
+The current status of this election, see L<MusicBrainz::Server::Constants>
 for possible values.
 
 =head2 yes_votes, no_votes

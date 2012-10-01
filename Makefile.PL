@@ -13,13 +13,14 @@ version_from 'lib/MusicBrainz/Server.pm';
 requires 'Algorithm::Diff';
 requires 'Algorithm::Merge';
 requires 'Cache::Memcached';
+requires 'Captcha::reCAPTCHA';
 requires 'Catalyst::Action::RenderView'               => '0.09';
 requires 'Catalyst::Plugin::Authentication'           => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
 requires 'Catalyst::Plugin::I18N'                     => '0.09';
 requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.2';
-requires 'Catalyst::Runtime'                          => '5.80021';
+requires 'Catalyst::Runtime'                          => '5.90007';
 requires 'Catalyst::View::TT'                         => '0.29';
 requires 'CGI::Expand';
 requires 'Class::MOP';
@@ -30,7 +31,9 @@ requires 'Data::Dumper::Concise';
 requires 'Data::OptList';
 requires 'Data::Page'                                 => '2.01';
 requires 'Date::Calc'                                 => '5.8';
+requires 'Data::UUID::MT'                             => '0.004';
 requires 'DateTime::TimeZone';
+requires 'DateTime::Format::Duration'                 => '1.03';
 requires 'DateTime::Format::Pg'                       => '0.16004';
 requires 'DateTime::Format::Natural'                  => '0.96';
 requires 'DBIx::Connector';
@@ -46,18 +49,19 @@ requires 'Email::Valid';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.29';
 requires 'Function::Parameters';
-requires 'HTML::FormHandler'                          => '0.30002';
+requires 'HTML::FormHandler'                          => '0.40013';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath';
 requires 'IO::All';
 requires 'Javascript::Closure';
 requires 'JSON'                                       => '2.14';
+requires 'JSON::XS'                                   => '2.27';
 requires 'Log::Dispatch';
 requires 'List::UtilsBy'                              => '0.06';
 requires 'List::MoreUtils'                            => '0.22';
 requires 'Method::Signatures::Simple';
 requires 'Module::Pluggable'                          => '3.9';
-requires 'Moose'                                      => '0.87';
+requires 'Moose'                                      => '2.0402';
 requires 'MooseX::ABC'                                => '0.05';
 requires 'MooseX::Clone';
 requires 'MooseX::Getopt';
@@ -67,18 +71,23 @@ requires 'MooseX::Runnable';
 requires 'MooseX::Singleton';
 requires 'MooseX::Types'                              => '0.16';
 requires 'MooseX::Types::Structured'                  => '0.24';
-requires 'MooseX::Types::URI';
+requires 'MooseX::Types::URI'                         => '0.03';
 requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
-requires 'OSSP::uuid'                                 => '1.060200';
+requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
+requires 'Net::CoverArtArchive';
 requires 'Package::Stash'                             => '0.29';
+requires 'REST::Utils'                                => '0.4';
 requires 'Readonly'                                   => '1.03';
+requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';
 requires 'Template::Plugin::Math';
 requires 'Template::Plugin::Class';
-requires 'Text::WikiFormat'                           => '0.790';
+requires 'Template::Plugin::JavaScript';
+requires 'Template::Plugin::Map';
+requires 'Text::WikiFormat'                           => '0.80';
 requires 'Text::Unaccent';
 requires 'Text::Trim'                                 => '1.02';
 requires 'Time::Duration';
@@ -86,6 +95,8 @@ requires 'Throwable';
 requires 'TryCatch';
 requires 'URI'                                        => '1.50';
 requires 'XML::Generator';
+requires 'XML::Parser::Lite'                          => '0.714';
+requires 'XML::RSS::Parser::Lite'                     => '0.10';
 requires 'XML::SemanticDiff'                          => '1.0000';
 requires 'XML::Simple'                                => '2.14';
 requires 'XML::XPath';
@@ -110,8 +121,10 @@ feature 'Default session store/state management' =>
 feature 'Developer features' =>
     -default                           => 1,
     'Catalyst::Plugin::StackTrace'     => '0.09',
-    'Catalyst::Plugin::Static::Simple' => '0.21',
     'Catalyst::Devel'                  => '1.25',
+    'Plack'                            => '0.9985',
+    'Plack::Middleware::Debug'         => '0.14',
+    'Catalyst::Runtime'                => '5.9'
     ;
 
 feature 'Production server' =>
@@ -120,17 +133,11 @@ feature 'Production server' =>
     'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
     'FCGI' => '0',
     'FCGI::ProcManager' => '0.19',
-    'Catalyst::Engine::FastCGI',
-    ;
-
-feature 'Fast edit migration' =>
-    -default   => 1,
-    'JSON::XS' => '2.27',
     ;
 
 # These are just for I18N
 requires 'Locale::PO';
-requires 'Locale::TextDomain' => '1.16';
+requires 'Locale::Messages';
 
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
@@ -152,7 +159,7 @@ test_requires 'Test::Memory::Cycle';
 test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
 test_requires 'Test::WWW::Selenium';
-test_requires 'Test::WWW::Selenium::Catalyst';
+test_requires 'Test::WWW::Selenium::Catalyst' => '0.07';
 test_requires 'Test::XPath';
 test_requires 'XML::Parser';
 

@@ -5,16 +5,16 @@ use warnings;
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD
 );
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_date
     upgrade_id
 );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Edit release events (historic)') }
+sub edit_name     { N_l('Edit release events (historic)') }
 sub historic_type { 29 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
 sub edit_template { 'edit_release_events' }
@@ -66,14 +66,14 @@ sub foreign_keys
 sub _build_re {
     my ($re, $loaded) = @_;
     return {
-        release        => $loaded->{Release}{ $re->{release_id} },
-        country        => $loaded->{Country}{ $re->{country_id} },
-        label          => $loaded->{Label}{ $re->{label_id} },
+        release        => $re->{release_id} && $loaded->{Release}{ $re->{release_id} },
+        country        => $re->{country_id} && $loaded->{Country}{ $re->{country_id} },
+        label          => $re->{label_id}   && $loaded->{Label}{ $re->{label_id} },
+        format         => $re->{format_id}  && $loaded->{MediumFormat}{ $re->{format_id} },
         label_id       => $re->{label_id},
-        format         => $loaded->{MediumFormat}{ $re->{format_id} },
         catalog_number => $re->{catalog_number},
         barcode        => $re->{barcode},
-        date           => partial_date_from_row( $re->{date} )
+        date           => MusicBrainz::Server::Entity::PartialDate->new_from_row( $re->{date} )
     }
 }
 
@@ -86,26 +86,26 @@ sub build_display_data
         removals  => [ map { _build_re($_, $loaded) } $self->_removals  ],
         edits => [
             map { +{
-                release => $loaded->{Release}{ $_->{release_id} },
+                release => $_->{release_id} && $loaded->{Release}{ $_->{release_id} },
                 label   => {
-                    old => $loaded->{Label}{ $_->{old}{label_id} },
-                    new => $loaded->{Label}{ $_->{new}{label_id} },
+                    old => $_->{old}{label_id} && $loaded->{Label}{ $_->{old}{label_id} },
+                    new => $_->{new}{label_id} && $loaded->{Label}{ $_->{new}{label_id} },
                 },
                 label_id => {
                     old => $_->{old}{label_id},
                     new => $_->{new}{label_id}
                 },
                 date    => {
-                    old => partial_date_from_row($_->{old}{date}),
-                    new => partial_date_from_row($_->{new}{date})
+                    old => MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{old}{date}),
+                    new => MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date})
                 },
                 country => {
                     old => $loaded->{Country}{ $_->{old}{country_id} },
                     new => $loaded->{Country}{ $_->{new}{country_id} },
                 },
                 format => {
-                    old => $loaded->{MediumFormat}{ $_->{old}{format_id} },
-                    new => $loaded->{MediumFormat}{ $_->{new}{format_id} },
+                    old => $_->{old}{format_id} && $loaded->{MediumFormat}{ $_->{old}{format_id} },
+                    new => $_->{new}{format_id} && $loaded->{MediumFormat}{ $_->{new}{format_id} },
                 },
                 barcode => {
                     old => $_->{old}{barcode},

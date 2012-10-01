@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::EntityAnnotation;
 use Moose;
+use namespace::autoclean;
 
 use HTML::Entities qw( decode_entities );
 use MusicBrainz::Server::Constants qw(

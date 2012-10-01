@@ -61,19 +61,28 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
             self.selected_data = data;
 
+            var $row_holder = $('<tbody />');
+            var $to_clone = self.$table.find('tr.track:first');
             $.each (data.tracks, function (idx, item) {
-                var tr = self.$table.find ('tr.track').eq(0).clone ()
-                    .appendTo (self.$table.find ('tbody'));
-
+                var $tr = $to_clone.clone().appendTo($row_holder);
                 var artist = item.artist ? item.artist :
-                    item.artist_credit ? item.artist_credit.preview : "";
+                    item.artist_credit ? MB.utility.renderArtistCredit(item.artist_credit) : "";
+                var $row_trs = $tr.find('td.position, td.title, td.artist, td.length');
+                $row_trs.eq(0).text(idx+1);
+                $row_trs.eq(1).text(item.name);
+                $row_trs.eq(2).text(artist);
+                $row_trs.eq(3).text(MB.utility.formatTrackLength(item.length));
 
-                tr.find ('td.position').text (idx + 1);
-                tr.find ('td.title').text (item.name);
-                tr.find ('td.artist').text (artist);
-                tr.find ('td.length').text (MB.utility.formatTrackLength (item.length));
-                tr.show ();
+                if (idx % 2 == 0) {
+                    $tr.addClass('ev');
+                } else {
+                    $tr.addClass('odd');
+                }
+
+                $tr.show();
             });
+
+            self.$table.find('tbody').append($row_holder.contents());
 
             self.$toc.val (data.toc);
 
@@ -136,7 +145,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 
         if (item.position)
         {
-            var format = item.format ? item.format : 'Disc';
+            var format = item.format ? item.format : 'Medium';
             var medium = '(' + format + ' ' + item.position +
                 (item.medium ? ': ' + item.medium : '') + ')';
 
@@ -340,7 +349,7 @@ MB.Control.ReleaseTrackParser = function (dialog) {
 
             if (MB.TrackParser.options.trackNumbers ())
             {
-                str += item.$position.val () + ". ";
+                str += item.number () + ". ";
             }
 
             str += item.$title.val ();
@@ -354,9 +363,10 @@ MB.Control.ReleaseTrackParser = function (dialog) {
             /* do not render a track length if:
                - the track does not have a duration
                - the duration cannot be changed (attached discid). */
-            if (item.getDuration () !== null && !disc.hasToc ())
+            var duration = item.getDuration ()
+            if (duration !== null && !disc.hasToc ())
             {
-                str += " (" + len + ")";
+                str += " (" + MB.utility.formatTrackLength (duration) + ")";
             }
 
             str += "\n";

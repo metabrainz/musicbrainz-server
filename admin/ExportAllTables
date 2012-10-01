@@ -42,6 +42,7 @@ my @tables = qw(
     artist_tag_raw
     cdtoc_raw
     statistic
+    statistic_event
     edit
     edit_artist
     edit_label
@@ -66,10 +67,12 @@ my @tables = qw(
     annotation
     artist
     artist_alias
+    artist_alias_type
     artist_annotation
     artist_credit
     artist_credit_name
     artist_gid_redirect
+    artist_ipi
     artist_meta
     artist_name
     artist_tag
@@ -81,6 +84,7 @@ my @tables = qw(
     country
     editor
     editor_preference
+    editor_language
     editor_sanitised
     editor_subscribe_artist
     editor_subscribe_editor
@@ -91,6 +95,7 @@ my @tables = qw(
     editor_watch_release_status
     gender
     isrc
+    iswc
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -121,8 +126,10 @@ my @tables = qw(
     l_work_work
     label
     label_alias
+    label_alias_type
     label_annotation
     label_gid_redirect
+    label_ipi
     label_meta
     label_name
     label_tag
@@ -153,7 +160,9 @@ my @tables = qw(
     release_group_gid_redirect
     release_group_meta
     release_group_tag
-    release_group_type
+    release_group_primary_type
+    release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_meta
     release_coverart
@@ -174,12 +183,17 @@ my @tables = qw(
     url_gid_redirect
     work
     work_alias
+    work_alias_type
     work_annotation
     work_gid_redirect
     work_meta
     work_name
     work_tag
     work_type
+
+    cover_art_archive.art_type
+    cover_art_archive.cover_art
+    cover_art_archive.cover_art_type
 );
 
 my @replication_tables = qw(
@@ -191,9 +205,11 @@ my @replication_tables = qw(
 my @group_core = qw(
     artist
     artist_alias
+    artist_alias_type
     artist_credit
     artist_credit_name
     artist_gid_redirect
+    artist_ipi
     artist_name
     artist_type
     cdtoc
@@ -201,6 +217,7 @@ my @group_core = qw(
     country
     gender
     isrc
+    iswc
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -231,7 +248,9 @@ my @group_core = qw(
     l_work_work
     label
     label_alias
+    label_alias_type
     label_gid_redirect
+    label_ipi
     label_name
     label_type
     language
@@ -251,7 +270,9 @@ my @group_core = qw(
     release_gid_redirect
     release_group
     release_group_gid_redirect
-    release_group_type
+    release_group_primary_type
+    release_group_secondary_type
+    release_group_secondary_type_join
     release_label
     release_name
     release_packaging
@@ -266,6 +287,7 @@ my @group_core = qw(
     url_gid_redirect
     work
     work_alias
+    work_alias_type
     work_gid_redirect
     work_name
     work_type
@@ -298,6 +320,7 @@ my @group_derived = qw(
 
 my @group_stats = qw(
     statistic
+    statistic_event
 );
 
 my @group_editor = qw(
@@ -331,6 +354,7 @@ my @group_private = qw(
     editor
     editor_collection
     editor_collection_release
+    editor_language
     editor_preference
     editor_subscribe_artist
     editor_subscribe_editor
@@ -357,6 +381,12 @@ my @group_cdstubs = qw(
     track_raw
 );
 
+my @group_cover_art_archive = (
+    'cover_art_archive.art_type',
+    'cover_art_archive.cover_art',
+    'cover_art_archive.cover_art_type',
+);
+
 my @groups = (
     \@group_core,
     \@group_derived,
@@ -380,6 +410,7 @@ my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
 my @tablelist;
+my $encrypt_for = undef;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
@@ -393,6 +424,7 @@ GetOptions(
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
     "help"                              => \$fHelp,
+    "encrypt-for|e=s" => \$encrypt_for
 );
 
 sub usage
@@ -409,6 +441,7 @@ Usage: ExportAllTables [options]
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
         --check-completeness     Check that all tables from DB schema are exported
+    -e, --encrypt-for     A GPG aware recipient to encrypt private data for.
 
 Certain combinations of options are pointless:
  * specifying --without-replication and --without-full-export
@@ -417,6 +450,11 @@ Certain combinations of options are pointless:
 
 If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
+
+GPG encryption of private data requires you pass a recipient to encrypt data
+for. This parameter can take any value that gpg(1) can take for `-r`. The user
+running ExportAllTables must have a GPG keyring setup that is aware of this
+recipient.
 
 EOF
 }
@@ -452,7 +490,7 @@ use Sql;
 
 # Log in to the main DB
 my $c = MusicBrainz::Server::Context->new;
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
 my $dbh = $c->dbh;
 
 @tables = @tablelist if @tablelist;
@@ -510,7 +548,9 @@ writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 if (grep { $_ eq "editor_sanitised" } @tables)
 {
     $sql->do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
-    $sql->do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
+    $sql->do("UPDATE editor_sanitised
+              SET password = 'mb', privs = 0, email = '', gender = NULL,
+                birth_date = NULL, country = NULL, website = NULL, bio = NULL");
 }
 
 $| = 1;
@@ -530,6 +570,8 @@ sub table_rowcount
 {
     my $table = shift;
     $table =~ s/_sanitised$//;
+
+    $table =~ s/.*\.//;
 
     $sql->select_single_value(
         "SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
@@ -694,6 +736,17 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-stats.tar.bz2",  @group_stats);
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
+    make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
+
+    system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
+           ' | grep -v mbdump-private > MD5SUMS';
+
+    $? == 0 or die "md5sum returned $?";
+
+    if ($encrypt_for) {
+        system "/usr/bin/gpg -r '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "rm $OutputDir/mbdump-private.tar.bz2";
+    }
 }
 
 if ($fCompress and $fDoReplication)

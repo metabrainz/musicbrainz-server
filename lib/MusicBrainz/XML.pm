@@ -13,7 +13,9 @@ sub AUTOLOAD {
         tag => $tag,
         attrs => \%attrs,
         body => [ map {
-            ref($_) ? $_ : bless(\$_, 'MusicBrainz::XML::Text')
+            ref($_) eq 'MusicBrainz::XML::Element'
+                ? $_
+                : bless(\"$_", 'MusicBrainz::XML::Text')
         } @_ ]
     }, 'MusicBrainz::XML::Element';
 }
@@ -34,7 +36,7 @@ sub as_string {
         map { "$_=" . q{"} . _escape($attrs{$_}) . q{"} }
         grep { defined $attrs{$_} } keys %attrs;
 
-    if ($body) {
+    if (defined($body) && $body ne '') {
         return
             q{<} . join(' ', $tag, @attributes) . q{>} .
                 $body .

@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::Tracklist;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::Tracklist;
 
@@ -64,8 +63,8 @@ INSERT INTO tracklist (id) VALUES (1);
 INSERT INTO track_name (id, name) VALUES (1, 'King of the Mountain');
 INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES
-    (1, 1, 1, 1, 1, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES
+    (1, 1, 1, 1, 1, 1, 1, NULL);
 EOSQL
 
     my $new_tracklist_id = $c->model('Tracklist')->replace(
@@ -107,9 +106,9 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720),
            (2, '659f405b-b4ee-4033-868a-0daa27784b89', 2, 1, 369680),
            (3, 'ae674299-2824-4500-9516-653ac1bc6f80', 3, 1, 258839);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES
-    (1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 2, 2, 1, NULL),
-    (3, 2, 1, 1, 1, 1, NULL), (4, 2, 2, 3, 2, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES
+    (1, 1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 2, 2, 2, 1, NULL),
+    (3, 2, 1, 1, 1, 1, 1, NULL), (4, 2, 2, 2, 3, 2, 1, NULL);
 EOSQL
 
     $c->model('Tracklist')->merge(1, 2);
@@ -144,9 +143,9 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
     VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 293720),
            (2, '659f405b-b4ee-4033-868a-0daa27784b89', 2, 1, 369680),
            (3, 'ae674299-2824-4500-9516-653ac1bc6f80', 3, 1, 258839);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES
-    (1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 1, 2, 1, NULL),
-    (3, 2, 1, 2, 1, 1, NULL), (4, 2, 2, 3, 2, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES
+    (1, 1, 1, 1, 1, 1, 1, NULL), (2, 1, 2, 2, 1, 2, 1, NULL),
+    (3, 2, 1, 1, 2, 1, 1, NULL), (4, 2, 2, 2, 3, 2, 1, NULL);
 EOSQL
 
     $c->model('Tracklist')->merge(2, 1);
@@ -190,13 +189,10 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
 
 my $tracklist_data = MusicBrainz::Server::Data::Tracklist->new(c => $test->c);
-memory_cycle_ok($tracklist_data);
 
 my $tracklist1 = $tracklist_data->get_by_id(1);
 is ( $tracklist1->id, 1, "id" );
 is ( $tracklist1->track_count, 7, "track count");
-memory_cycle_ok($tracklist_data);
-memory_cycle_ok($tracklist1);
 
 my $tracklist2 = $tracklist_data->get_by_id(2);
 is ( $tracklist2->id, 2, "id" );
@@ -210,9 +206,6 @@ is ( $tracklist1->tracks->[5]->name, "Joanni", "sixth track is Joanni" );
 is ( scalar($tracklist2->all_tracks), 9, "9 tracks" );
 is ( $tracklist2->tracks->[3]->name, "The Painter's Link", "fourth track is The Painter's Link" );
 
-memory_cycle_ok($tracklist_data);
-memory_cycle_ok($track_data);
-memory_cycle_ok($tracklist1);
 
 my $tracklist = $tracklist_data->find_or_insert([{
     name => 'Track 1',
@@ -226,8 +219,6 @@ my $tracklist = $tracklist_data->find_or_insert([{
     recording_id => 2
 }]);
 
-memory_cycle_ok($tracklist_data);
-memory_cycle_ok($tracklist);
 
 $tracklist = $tracklist_data->get_by_id($tracklist->id);
 $track_data->load_for_tracklists($tracklist);
@@ -242,15 +233,12 @@ is($tracklist->tracks->[1]->position, 2, "... at position 2");
 is($tracklist->tracks->[1]->artist_credit_id, 1, "... with artist credit 1");
 is($tracklist->tracks->[1]->recording_id, 2, "... with recording id 2");
 
-memory_cycle_ok($tracklist_data);
-memory_cycle_ok($tracklist);
 
 subtest 'Can set tracklist times via a disc id' => sub {
     my $new_tracklist_id;
 
     Sql::run_in_transaction(sub {
         $new_tracklist_id = $tracklist_data->set_lengths_to_cdtoc(1, 1);
-        memory_cycle_ok($tracklist_data);
     }, $test->c->sql);
 
     $tracklist = $tracklist_data->get_by_id($new_tracklist_id);
@@ -271,7 +259,6 @@ my $tracks = [
 ];
 
 $tracklist = $tracklist_data->find_or_insert($tracks);
-memory_cycle_ok($tracklist_data);
 
 ok($tracklist, 'returned a tracklist id');
 ok($tracklist->id > 0, 'returned a tracklist id');

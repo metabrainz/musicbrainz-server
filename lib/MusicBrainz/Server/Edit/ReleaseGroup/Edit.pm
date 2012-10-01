@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::ReleaseGroup::Edit;
+use 5.10.0;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_EDIT );
@@ -13,21 +14,24 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     load_artist_credit_definitions
     verify_artist_credits
+    merge_artist_credit
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
+use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { l("Edit release group") }
+sub edit_name { N_l("Edit release group") }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 
@@ -50,6 +54,7 @@ sub change_fields
         type_id => Nullable[Int],
         artist_credit => Optional[ArtistCreditDefinition],
         comment => Nullable[Str],
+        secondary_type_ids => Optional[ArrayRef[Int]]
     ];
 }
 
@@ -84,6 +89,10 @@ sub foreign_keys
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
+    $relations->{ReleaseGroupSecondaryType} = [
+        map { @{ $self->data->{$_}{secondary_type_ids} || [] } } qw( old new )
+    ];
+
     return $relations;
 }
 
@@ -110,34 +119,92 @@ sub build_display_data
         $self->data->{entity}{id}
     } || ReleaseGroup->new( name => $self->data->{entity}{name} );
 
+    $data->{secondary_types} = {
+        map {
+            $_ => join(' + ', map { $loaded->{ReleaseGroupSecondaryType}{$_}->name }
+                           @{ $self->data->{$_}{secondary_type_ids} })
+        } qw( old new )
+    };
+
     return $data;
 }
 
 sub _mapping
 {
-    my $for_change_hash = 1;
-
     return (
         artist_credit => sub {
-            return artist_credit_to_ref(shift->artist_credit, $for_change_hash);
-        }
+            return artist_credit_to_ref(shift->artist_credit, []);
+        },
+        secondary_type_ids => sub {
+            return [ map { $_->id } shift->all_secondary_types ]
+        },
+        type_id => 'primary_type_id'
     );
 }
 
-before 'initialize' => sub
+around initialize => sub
 {
+    my $orig = shift;
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
     if (exists $opts{artist_credit} && !$release_group->artist_credit) {
         $self->c->model('ArtistCredit')->load($release_group);
     }
+    $opts{type_id} = delete $opts{primary_type_id};
+
+    $opts{secondary_type_ids} = [
+        grep { looks_like_number($_) } @{ $opts{secondary_type_ids} }
+    ] if $opts{secondary_type_ids};
+
+    $self->$orig(%opts);
 };
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('artist_credit') {
+            return merge_artist_credit($self->c, $ancestor, $current, $new);
+        }
+        when ('type_id') {
+            return (
+                [ $ancestor->{type_id}, $ancestor->{type_id} ],
+                [ $current->primary_type_id, $current->primary_type_id ],
+                [ $new->{type_id}, $new->{type_id} ]
+            )
+        }
+        when ('secondary_type_ids') {
+            my $type_list_gen = sub {
+                my $type = shift;
+                return [ join(',', sort @$type), $type ];
+            };
+            return (
+                $type_list_gen->( $ancestor->{secondary_type_ids} ),
+                $type_list_gen->( [ map { $_->id } $current->all_secondary_types ] ),
+                $type_list_gen->( $new->{secondary_type_ids} ),
+            )
+        }
+        default {
+            return $self->$orig(@_);
+        }
+    }
+};
+
+sub current_instance {
+    my $self = shift;
+    my $rg = $self->c->model('ReleaseGroup')->get_by_id($self->entity_id);
+    $self->c->model('ReleaseGroupSecondaryType')->load_for_release_groups($rg);
+    return $rg;
+}
 
 sub _edit_hash
 {
     my ($self, $data) = @_;
+    $data = $self->merge_changes;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
+    $data->{primary_type_id} = delete $data->{type_id}
+        if exists $data->{type_id};
     return $data;
 }
 
@@ -145,6 +212,14 @@ before accept => sub {
     my ($self) = @_;
 
     verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+
+    if (my $type_id = $self->data->{new}{type_id}) {
+        if (!$self->c->model('ReleaseGroupType')->get_by_id($type_id)) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+                "This edit changes the release group's primary type to a type that no longer exists."
+            );
+        }
+    }
 };
 
 sub allow_auto_edit

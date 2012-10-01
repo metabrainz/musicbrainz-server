@@ -3,25 +3,27 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
      "release-group" => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      "release-group" => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
                          inc      => [ qw(artist-credits
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      "release-group" => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits aliases
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 
@@ -49,7 +51,7 @@ sub release_group_toplevel
     if ($c->stash->{inc}->releases)
     {
         my @results = $c->model('Release')->find_by_release_group(
-            $rg->id, $MAX_ITEMS, 0, $c->stash->{status});
+            $rg->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status} });
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
@@ -64,11 +66,7 @@ sub release_group_toplevel
         $self->linked_artists ($c, $stash, \@artists);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $rg);
-    }
+    $self->load_relationships($c, $stash, $rg);
 }
 
 sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }
@@ -77,6 +75,8 @@ sub release_group : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $rg = $c->stash->{entity};
+
+    return unless defined $rg;
 
     my $stash = WebServiceStash->new;
 
@@ -93,7 +93,7 @@ sub release_group_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -107,7 +107,7 @@ sub release_group_browse : Private
         $c->detach('not_found') unless ($artist);
 
         my @tmp = $c->model('ReleaseGroup')->find_by_artist (
-            $artist->id, $limit, $offset, $c->stash->{type});
+            $artist->id, $limit, $offset, filter => { type => $c->stash->{type} });
         $rgs = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release')

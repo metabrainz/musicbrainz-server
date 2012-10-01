@@ -2,9 +2,12 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Add;
 use Moose;
 use namespace::autoclean;
 
+use Encode qw( encode );
+use JSON qw( decode_json );
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref );
+use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
+use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use List::UtilsBy qw( uniq_by );
@@ -15,7 +18,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
 );
-
 
 around render => sub {
     my $orig = shift;
@@ -77,12 +79,20 @@ sub skip_duplicates
 
     my $releases = $self->c->stash->{similar_releases};
 
-    return ! ($releases && scalar @$releases > 0);
+    my $seeded = $self->get_value('tracklist', 'seeded');
+    my $mediums = $self->get_value('tracklist', 'mediums');
+    my $has_tracks =
+        $mediums && @$mediums
+            && @{decode_json(encode('utf-8', $mediums->[0]{edits} || '[]'))};
+
+    return ($seeded && $has_tracks)
+        || !($releases && scalar @$releases > 0);
 }
 
 sub change_page_duplicates
 {
     my ($self) = @_;
+    my $json = JSON::Any->new( utf8 => 1 );
 
     my $release_id = $self->get_value ('duplicates', 'duplicate_id')
         or return;
@@ -90,19 +100,52 @@ sub change_page_duplicates
     my $release = $self->c->model('Release')->get_by_id($release_id);
     $self->c->model('Medium')->load_for_releases($release);
 
-    my $TRACKLIST_PAGE = 2;
-    $self->_post_to_page($TRACKLIST_PAGE, collapse_hash({
-        mediums => [
-            map +{
-                tracklist_id => $_->tracklist_id,
-                position => $_->position,
-                format_id => $_->format_id,
-                name => $_->name,
-                deleted => 0,
-                edits => '',
-            }, $release->all_mediums
-        ],
-    }));
+    my @media = map +{
+        tracklist_id => $_->tracklist_id,
+        position => $_->position,
+        format_id => $_->format_id,
+        name => $_->name,
+        deleted => 0,
+        edits => '',
+    }, $release->all_mediums;
+
+    # Any existing edits on the tracklist page were probably seeded,
+    # or they came in through /cdtoc/attach?toc=, or the user edited
+    # the tracklist and then navigated back to the duplicates tab.
+    #
+    # We only care about the TOC scenario:
+    #
+    # If a TOC is present we need to preserve it and make sure the
+    # track count + track lengths match it, everything else can be
+    # replaced with data from the existing (duplicate) tracklist.
+
+    my @seededmedia = @{ $self->get_value ('tracklist', 'mediums') // [] };
+
+    # "Add a new release" on /cdtoc/attach can only seed one toc at a time,
+    # and only to the first disc.  So we can safely ignore subsequent discs.
+    if (defined $seededmedia[0] && $seededmedia[0]->{toc})
+    {
+        my $tracklist = $self->c->model('Tracklist')->get_by_id($media[0]->{tracklist_id});
+        $self->c->model('Track')->load_for_tracklists ($tracklist);
+
+        my @tracks = $self->track_edits_from_tracklist ($tracklist);
+        my @edits = @{ $json->decode ($seededmedia[0]->{edits}) };
+
+        my @new_edits = map {
+            $tracks[$_]->{length} = $edits[$_]->{length};
+            $tracks[$_]->{position} = $_ + 1;
+            $self->update_track_edit_hash ($tracks[$_]);
+        } 0..$#edits;
+
+        $media[0]->{edits} = $json->encode (\@new_edits);
+    }
+
+    $self->_post_to_page ($self->page_number->{'tracklist'},
+        collapse_hash({ mediums => \@media }));
+
+    # When an existing release is selected, clear out any seeded recordings.
+    $self->_post_to_page($self->page_number->{'recordings'},
+          collapse_hash({ rec_mediums => [ ] }));
 }
 
 around _build_pages => sub {
@@ -140,23 +183,36 @@ augment 'create_edits' => sub
     # add release (and release group if necessary)
     # ----------------------------------------
 
-    my @fields = qw( name comment packaging_id status_id script_id language_id
-                     country_id barcode artist_credit date as_auto_editor );
+    my @fields = qw( packaging_id status_id script_id language_id country_id 
+                     artist_credit date as_auto_editor );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
+
+    map {
+        $add_release_args{$_} = trim ($data->{$_})
+    } grep { exists $data->{$_} } qw( name comment barcode );
 
     if ($data->{release_group_id}){
         $add_release_args{release_group_id} = $data->{release_group_id};
     }
     else {
-        my @fields = qw( artist_credit type_id as_auto_editor );
+        my @fields = qw( artist_credit primary_type_id as_auto_editor secondary_type_ids );
         my %args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
-        $args{name} = $data->{release_group}{name} || $data->{name};
+        $args{name} = trim( $data->{release_group}{name} // $data->{name} );
 
         my $edit = $create_edit->($EDIT_RELEASEGROUP_CREATE, $editnote, %args);
 
         # Previewing a release doesn't care about having the release group id
         $add_release_args{release_group_id} = $edit->entity_id
             unless $previewing;
+    }
+
+    if ($data->{no_barcode})
+    {
+        $add_release_args{barcode} =  '';
+    }
+    else
+    {
+        $add_release_args{barcode} = undef unless $data->{barcode};
     }
 
     # Add the release edit
@@ -201,7 +257,7 @@ after 'prepare_tracklist' => sub {
             next unless $trk->{artist_credit}->{preview} eq $release_artist->name
                 || $trk->{artist_credit}->{preview} eq '';
 
-            $trk->{artist_credit} = artist_credit_to_ref ($release_artist);
+            $trk->{artist_credit} = artist_credit_to_ref ($release_artist, [ "gid" ]);
 
             $edits[$trk_idx] = $self->update_track_edit_hash ($trk);
         }
@@ -233,7 +289,7 @@ augment 'load' => sub
 
     if ($rg_gid)
     {
-        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($rg_gid);
+        $self->c->detach () unless is_guid($rg_gid);
         my $rg = $self->c->model('ReleaseGroup')->get_by_gid($rg_gid);
         $self->c->detach () unless $rg;
 
@@ -247,7 +303,7 @@ augment 'load' => sub
     }
     elsif ($label_gid)
     {
-        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($label_gid);
+        $self->c->detach () unless is_guid($label_gid);
         my $label = $self->c->model('Label')->get_by_gid($label_gid);
 
         $release->add_label(
@@ -258,7 +314,7 @@ augment 'load' => sub
     }
     elsif ($artist_gid)
     {
-        $self->c->detach () unless MusicBrainz::Server::Validation::IsGUID($artist_gid);
+        $self->c->detach () unless is_guid($artist_gid);
         my $artist = $self->c->model('Artist')->get_by_gid($artist_gid);
         $self->c->detach () unless $artist;
 

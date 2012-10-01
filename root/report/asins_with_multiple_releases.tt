@@ -3,9 +3,18 @@
 <h1>[% l('Amazon URLs Linked to Multiple Releases') %]</h1>
 
 <ul>
-    <li>[% l('This report shows Amazon URLs which are linked to multiple releases.') %]</li>
+    <li>[% l('This report shows Amazon URLs which are linked to multiple
+              releases. In most cases Amazon ASINs should map to MusicBrainz releases
+              1:1, so only one of the links will be correct. Just check which MusicBrainz
+              release fits the release in Amazon (look at the format, tracklist, etc). If
+              the release has a barcode, you can also search Amazon for it and see which
+              ASIN matches. You might also find some ASINs linked to several discs of a
+              multi-disc release: just merge those (see {how_to_merge_releases|How to Merge
+              Releases}).',
+              { how_to_merge_releases => doc_link('How_to_Merge_Releases') }) %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_url_list.tt' -%]

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::URL::Facebook;
 
 use Moose;
+use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
@@ -8,8 +9,8 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^https?://(?:www.)?facebook.com/([^/]+)/?$}i) {
-        return $1;
+    if ($self->url =~ m{^https?://(?:www.)?facebook.com/(?:pages/)?([^/]+)(?:/[^/]+)?/?$}i) {
+        return MusicBrainz::Server::Filters::uri_decode($1);
     } else {
         return "Facebook";
     }

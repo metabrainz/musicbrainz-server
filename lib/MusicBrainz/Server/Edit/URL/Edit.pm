@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Edit::URL::Edit;
+use 5.10.0;
 use Moose;
 
 use Clone qw( clone );
@@ -9,15 +10,16 @@ use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::URL';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::URL';
 
-sub edit_name { l('Edit URL') }
+sub edit_name { N_l('Edit URL') }
 sub edit_type { $EDIT_URL_EDIT }
 sub _edit_model { 'URL' }
 sub url_id { shift->entity_id }
@@ -81,13 +83,50 @@ around accept => sub {
         l('This URL has already been merged into another URL')
     ) unless $self->c->model('URL')->get_by_id($self->url_id);
 
-    my $data = $self->_edit_hash(clone($self->data->{new}));
-    my $new_id = $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
+    my $new_id = $self->c->model( $self->_edit_model )->update(
+        $self->entity_id,
+        $self->merge_changes
+    );
 
     $self->data->{entity}{id} = $new_id;
 
     # Check for any releases that might need updating
     $self->c->model('CoverArt')->url_updated($new_id);
+};
+
+after insert => sub {
+    my ($self) = @_;
+
+    # If the target URL exists, then this edit must not be an auto edit (as it
+    # would produce a merge).
+    if (my $new_url = $self->data->{new}{url}) {
+        if ($self->c->model('URL')->find_by_url($new_url)) {
+            $self->auto_edit(0);
+        }
+    }
+};
+
+sub current_instance {
+    my $self = shift;
+    $self->c->model('URL')->get_by_id($self->url_id),
+}
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('url') {
+            return (
+                [ $ancestor->{url}, $ancestor->{url} ],
+                [ $current->url->as_string, $current->url->as_string ],
+                [ $new->{url}, $new->{url} ]
+            );
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
 };
 
 __PACKAGE__->meta->make_immutable;

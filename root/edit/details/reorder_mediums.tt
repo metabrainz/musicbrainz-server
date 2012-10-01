@@ -9,17 +9,25 @@
   [% END %]
 
   [%- FOR medium_edit = edit.display_data.mediums -%]
+  [%- display_heading = 1 -%]
+  [%- IF medium_edit.old != medium_edit.new -%]
   <tr>
-    <th>[% IF loop.index == 0 %][% l('Mediums:') %][% END %]</th>
+    <th>
+      [%- IF display_heading -%]
+        [%- l('Mediums:') -%]
+        [%- display_heading = 0 -%]
+      [%- END -%]
+    </th>
     <td>
       Disc <span class="new">[% medium_edit.new %]</span>: [% medium_edit.title %]
-      [% IF medium_edit.old == "new" %]
-        [% l('(new disc)') %]
-      [% ELSE %]
-        [% l('(moved from position <span class="old">{old}</span>)', old => medium_edit.old) %]
-      [% END %]
+      [%- IF medium_edit.old == "new" -%]
+        [%- l('(new disc)') -%]
+      [%- ELSE -%]
+        [%- l('(moved from position <span class="old">{old}</span>)', old => medium_edit.old) -%]
+      [%- END -%]
     </td>
   </tr>
+  [%- END -%]
   [% END %]
 
 </table>

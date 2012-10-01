@@ -40,7 +40,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_SET_TRACK_LENGTHS
     $EDIT_MEDIUM_EDIT
 );
-use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Track qw( format_track_length );
 
 use Getopt::Long;
@@ -161,21 +161,23 @@ for my $medium (@mediums)
                         if $verbose;
 
                 unless ($dry_run) {
-                    my $edit = $c->model('Edit')->create(
-                        editor_id => $EDITOR_MODBOT,
-                        privileges => $AUTO_EDITOR_FLAG,
-                        edit_type => $EDIT_SET_TRACK_LENGTHS,
-                        tracklist_id => $medium->tracklist_id,
-                        cdtoc_id => $cdtoc->id
-                    );
-
-                    $c->model('EditNote')->add_note(
-                        $edit->id,
-                        {
+                    Sql::run_in_transaction(sub {
+                        my $edit = $c->model('Edit')->create(
                             editor_id => $EDITOR_MODBOT,
-                            text => 'FixTrackLength script'
-                        }
-                    );
+                            privileges => $AUTO_EDITOR_FLAG,
+                            edit_type => $EDIT_SET_TRACK_LENGTHS,
+                            tracklist_id => $medium->tracklist_id,
+                            cdtoc_id => $cdtoc->id
+                        );
+
+                        $c->model('EditNote')->add_note(
+                            $edit->id,
+                            {
+                                editor_id => $EDITOR_MODBOT,
+                                text => 'FixTrackLength script'
+                            }
+                        );
+                    }, $c->sql);
                 }
 
                 ++$mediums_fixed;
@@ -252,6 +254,7 @@ for my $medium (@mediums)
                 my @new_tracklist = map {
                     Track->new(
                         length => int($average_toc[$_->position - 1]),
+                        number => $_->number,
                         name => $_->name,
                         artist_credit => $_->artist_credit,
                         recording_id => $_->recording_id,
@@ -260,22 +263,24 @@ for my $medium (@mediums)
                 } @tracks;
 
                 unless ($dry_run) {
-                    my $edit = $c->model('Edit')->create(
-                        edit_type => $EDIT_MEDIUM_EDIT,
-                        editor_id => $EDITOR_MODBOT,
-                        privileges => $AUTO_EDITOR_FLAG,
-                        to_edit => $medium,
-                        tracklist => \@new_tracklist,
-                        separate_tracklists => 1 # TODO ?
-                    );
-
-                    $c->model('EditNote')->add_note(
-                        $edit->id,
-                        {
+                    Sql::run_in_transaction(sub {
+                        my $edit = $c->model('Edit')->create(
+                            edit_type => $EDIT_MEDIUM_EDIT,
                             editor_id => $EDITOR_MODBOT,
-                            text => 'FixTrackLength script'
-                        }
-                    );
+                            privileges => $AUTO_EDITOR_FLAG,
+                            to_edit => $medium,
+                            tracklist => \@new_tracklist,
+                            separate_tracklists => 1 # TODO ?
+                        );
+
+                        $c->model('EditNote')->add_note(
+                            $edit->id,
+                            {
+                                editor_id => $EDITOR_MODBOT,
+                                text => 'FixTrackLength script'
+                            }
+                        );
+                    }, $c->sql);
 
                 }
 

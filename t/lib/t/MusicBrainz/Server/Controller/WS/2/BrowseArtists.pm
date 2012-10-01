@@ -18,7 +18,6 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
-my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -44,7 +43,12 @@ ws_test 'browse artists via recording',
                 <begin>1998</begin>
             </life-span>
             <alias-list count="6">
-                <alias>m-flow</alias><alias>mediarite-flow crew</alias><alias>meteorite-flow crew</alias><alias>mflo</alias><alias>えむふろう</alias><alias>エムフロウ</alias>
+              <alias sort-name="m-flow">m-flow</alias>
+              <alias sort-name="mediarite-flow crew">mediarite-flow crew</alias>
+              <alias sort-name="meteorite-flow crew">meteorite-flow crew</alias>
+              <alias sort-name="mflo">mflo</alias>
+              <alias sort-name="えむふろう">えむふろう</alias>
+              <alias sort-name="エムフロウ">エムフロウ</alias>
             </alias-list>
         </artist>
         <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -53,7 +57,11 @@ ws_test 'browse artists via recording',
                 <begin>1986-11-05</begin>
             </life-span>
             <alias-list count="5">
-                <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>ボア</alias><alias>보아</alias>
+              <alias sort-name="Beat of Angel">Beat of Angel</alias>
+              <alias sort-name="BoA Kwon">BoA Kwon</alias>
+              <alias sort-name="Kwon BoA">Kwon BoA</alias>
+              <alias sort-name="ボア">ボア</alias>
+              <alias sort-name="보아">보아</alias>
             </alias-list>
         </artist>
     </artist-list>
@@ -90,6 +98,17 @@ ws_test 'browse artists via release, inc=tags+ratings',
               <tag count="1"><name>pop</name></tag>
             </tag-list>
             <rating votes-count="3">4.35</rating>
+        </artist>
+    </artist-list>
+</metadata>';
+
+ws_test 'browse artists via work',
+    '/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist-list count="1">
+        <artist type="Group" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+            <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
         </artist>
     </artist-list>
 </metadata>';

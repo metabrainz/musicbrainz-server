@@ -7,6 +7,8 @@ with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Tags';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::XML::1::Role::Relationships';
 
+use List::UtilsBy qw( sort_by );
+
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw(serialize_entity list_of);
 
 sub element { 'track'; }
@@ -36,6 +38,7 @@ sub serialize
     # into the release. See also Release.pm
     push @body, (
         list_of([
+            sort_by { $_->gid }
             map {
                 my ($release_id, $offset) = @$_;
                 my $release = $opts->{releases}{$release_id};

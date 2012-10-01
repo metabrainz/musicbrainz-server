@@ -13,7 +13,7 @@ has $_ => (
           artists labels recordings releases release_groups works
           artist_rels label_rels recording_rels release_rels
           release_group_rels url_rels work_rels
-          tags ratings user_tags user_ratings
+          tags ratings user_tags user_ratings collections
           recording_level_rels work_level_rels
 );
 

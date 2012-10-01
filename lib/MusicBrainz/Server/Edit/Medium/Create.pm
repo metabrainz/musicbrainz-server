@@ -12,7 +12,7 @@ use MusicBrainz::Server::Edit::Types qw(
 );
 use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
 use MusicBrainz::Server::Entity::Medium;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -22,7 +22,7 @@ with 'MusicBrainz::Server::Edit::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
-sub edit_name { l('Add medium') }
+sub edit_name { N_l('Add medium') }
 sub _create_model { 'Medium' }
 sub medium_id { shift->entity_id }
 
@@ -39,6 +39,11 @@ has '+data' => (
     ]
 );
 
+has 'tracklist' => (
+    isa => ArrayRef[track()],
+    is => 'rw',
+);
+
 around _build_related_entities => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my $related = $self->$orig(@_);
@@ -46,6 +51,9 @@ around _build_related_entities => sub {
     push @{ $related->{artist} }, map {
         map { $_->{artist}{id} } @{ $_->{artist_credit}->{names} }
     } @{ $self->data->{tracklist} };
+
+    push @{ $related->{recording} },
+        map { $_->{recording_id} } @{ $self->data->{tracklist} };
 
     return $related;
 };
@@ -136,6 +144,8 @@ sub _insert_hash {
         })->id;
     }
 
+    $self->tracklist($tracklist);
+
     $data->{tracklist_id} = $self->c->model('Tracklist')->find_or_insert($tracklist)->id;
 
     my $release = delete $data->{release};
@@ -143,6 +153,17 @@ sub _insert_hash {
 
     return $data;
 }
+
+override 'to_hash' => sub
+{
+    my $self = shift;
+    my $hash = super(@_);
+
+    # Ensure that newly-created recordings get linked in tracklist/edit_recording table
+    $hash->{tracklist} = $self->tracklist;
+
+    return $hash;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

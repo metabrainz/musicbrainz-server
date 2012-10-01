@@ -30,17 +30,17 @@ MB.Control.RelateTo = function () {
         return null;
     }
 
-    self.$link = $('a[href=#relate_to]');
+    self.$link = $('a.relate-to');
     self.$select = self.$relate.find ('select:first');
     self.$endpoint = self.$relate.find('select.endpoint');
     self.$type0 = self.$relate.find ('input.type');
     self.$gid0 = self.$relate.find ('input.gid');
-    self.$cancel = self.$relate.find ('input.cancel');
-    self.$create = self.$relate.find ('input.create');
+    self.$cancel = self.$relate.find ('button.cancel');
+    self.$create = self.$relate.find ('button.create');
     self.$autocomplete = self.$relate.find ('span.autocomplete');
 
     self.type = function () {
-        return self.$relate.find ('option:selected').val ();
+        return self.$select.find ('option:selected').val ();
     };
 
     self.$autocomplete.bind ('lookup-performed.mb', function (event, data) {
@@ -147,6 +147,10 @@ MB.Control.RelateTo = function () {
     self.$cancel.bind ('click.mb', function (event) { self.hide(event); });
     self.$create.bind ('click.mb', self.createRelationship);
 
+    function setEntity (entity) {
+        self.$select.val(entity).trigger("change.mb");
+    }
+
     self.autocomplete = MB.Control.EntityAutocomplete ({
         'entity': self.type (),
         'inputs': self.$autocomplete,
@@ -155,7 +159,8 @@ MB.Control.RelateTo = function () {
             my: "right top",
             at: "right bottom",
             collision: "none"
-        }
+        },
+        'setEntity': setEntity
     });
 
     self.autocomplete.$input.keydown(function (event) {

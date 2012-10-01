@@ -1,12 +1,11 @@
 package MusicBrainz::Server::Controller::WS::js;
 
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 
 use Data::OptList;
 use Encode qw( decode encode );
 use List::UtilsBy qw( uniq_by );
-use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
@@ -14,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     hash_structure
 );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
 
@@ -33,6 +33,12 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "associations" => {
         method => 'GET',
+    },
+    "entity" => {
+        method => 'GET',
+    },
+    "events" => {
+        method => 'GET'
     }
 ]);
 
@@ -40,33 +46,17 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 {
      defs => $ws_defs,
      version => 'js',
-     default_serialization_type => 'json',
 };
 
-Readonly my %serializers => (
-    json => 'MusicBrainz::Server::WebService::JSONSerializer',
-);
-
-sub bad_req : Private
-{
-    my ($self, $c) = @_;
-    $c->res->status(400);
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
-}
-
-sub begin : Private
-{
-}
-
-sub end : Private
-{
-}
-
-sub root : Chained('/') PathPart("ws/js") CaptureArgs(0)
-{
-    my ($self, $c) = @_;
-    $self->validate($c, \%serializers) or $c->detach('bad_req');
+sub entities {
+    return {
+        'Artist' => 'artist',
+        'Work' => 'work',
+        'Recording' => 'recording',
+        'ReleaseGroup' => 'release-group',
+        'Release' => 'release',
+        'Label' => 'label',
+    };
 }
 
 sub tracklist : Chained('root') PathPart Args(1) {
@@ -81,8 +71,10 @@ sub tracklist : Chained('root') PathPart Args(1) {
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
         length => $_->length,
+        number => $_->number,
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit),
+        artist_credit => artist_credit_to_ref (
+            $_->artist_credit, [ "comment", "gid", "sortname" ]),
     }, sort { $a->position <=> $b->position }
     $tracklist->all_tracks ];
 
@@ -191,7 +183,7 @@ sub disc_results {
         $result{category} = $_->entity->category if $type eq 'freedb';
 
         $result{comment} = $_->entity->comment if $type eq 'cdstub';
-        $result{barcode} = $_->entity->barcode if $type eq 'cdstub';
+        $result{barcode} = $_->entity->barcode->format if $type eq 'cdstub';
 
         push @output, \%result;
     }
@@ -274,11 +266,11 @@ sub associations : Chained('root') PathPart Args(1) {
 
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $c->model('Recording')->load ($tracklist->all_tracks);
+
+    $c->model('ArtistCredit')->load($tracklist->all_tracks, map { $_->recording } $tracklist->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
         $tracklist->all_tracks);
-
-    $c->model('Recording')->load ($tracklist->all_tracks);
 
     my %appears_on = $c->model('Recording')->appears_on (
         [ map { $_->recording } $tracklist->all_tracks ], 3);
@@ -289,7 +281,7 @@ sub associations : Chained('root') PathPart Args(1) {
         my $track = {
             name => $_->name,
             length => $_->length,
-            artist_credit => artist_credit_to_ref ($_->artist_credit),
+            artist_credit => artist_credit_to_ref ($_->artist_credit, [ "gid" ]),
         };
 
         my $data = {
@@ -304,7 +296,7 @@ sub associations : Chained('root') PathPart Args(1) {
             name => $_->recording->name,
             comment => $_->recording->comment,
             length => $_->recording->length,
-            artist_credit => { preview => $_->artist_credit->name },
+            artist_credit => { preview => $_->recording->artist_credit->name },
             appears_on => {
                 hits => $appears_on{$_->recording->id}{hits},
                 results => [ map { {
@@ -321,13 +313,58 @@ sub associations : Chained('root') PathPart Args(1) {
     $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
 }
 
+sub entity : Chained('root') PathPart('entity') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    unless (is_guid($gid)) {
+        $c->stash->{error} = "$gid is not a valid MusicBrainz ID.";
+        $c->detach('bad_req');
+        return;
+    }
+
+    my $entity;
+    my $type;
+    for (keys %{ $self->entities }) {
+        $type = $_;
+        $entity = $c->model($type)->get_by_gid($gid);
+        last if defined $entity;
+    }
+
+    unless (defined $entity) {
+        $c->stash->{error} = "The requested entity was not found.";
+        $c->detach('not_found');
+        return;
+    }
+
+    my $jsent = "MusicBrainz::Server::Controller::WS::js::$type"->new();
+    $jsent->_load_entities($c, $entity);
+
+    my $item = ($jsent->_format_output($c, $entity))[0];
+    my $serialization_routine = $jsent->serialization_routine;
+    my $data = $c->stash->{serializer}->$serialization_routine($item);
+    $data->{'type'} = $self->entities->{$type};
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize_data($data));
+}
+
 sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $serializers{$self->get_default_serialization_type}->new();
+    $c->stash->{serializer} = $self->get_serialization ($c);
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
+}
+
+sub events : Chained('root') PathPart('events') {
+    my ($self, $c) = @_;
+
+    my $events = $c->model('Statistics')->all_events;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize_data($events));
 }
 
 no Moose;

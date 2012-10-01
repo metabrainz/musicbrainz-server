@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::EntityTag;
 use Moose;
+use namespace::autoclean;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
@@ -15,7 +16,7 @@ use Sql;
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 has parent => (
-    isa => 'Object',
+    does => 'MusicBrainz::Server::Data::Role::Tag',
     is => 'ro',
     weak_ref => 1
 );
@@ -61,11 +62,9 @@ sub find_top_tags
 
 sub find_tags_for_entities
 {
-    my ($self, $ids) = @_;
+    my ($self, @ids) = @_;
 
-    my @ids = ref $ids ? @$ids : $ids;
-
-    return unless @ids;
+    return unless scalar @ids;
 
     my $query = "SELECT tag.name, entity_tag.count,
                         entity_tag.".$self->type." AS entity
@@ -73,19 +72,18 @@ sub find_tags_for_entities
                  JOIN tag ON tag.id = entity_tag.tag
                  WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
                  ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
+
     return query_to_list(
         $self->c->sql, sub {
-            $self->_new_from_row($_[0])
+            $self->_new_from_row($_[0]);
         }, $query, @ids);
 }
 
 sub find_user_tags_for_entities
 {
-    my ($self, $user_id, $ids) = @_;
+    my ($self, $user_id, @ids) = @_;
 
-    my @ids = ref $ids ? @$ids : $ids;
-
-    return unless @ids;
+    return unless scalar @ids;
 
     my $type = $self->type;
     my $table = $self->tag_table . '_raw';
@@ -245,9 +243,10 @@ sub update
     @new_tags = $self->parse_tags($input);
 
     Sql::run_in_transaction(sub {
+        # Lock the entity being tagged to prevent concurrency issues
+        $self->parent->get_by_id_locked($entity_id);
 
         # Load the existing raw tag ids for this entity
-
         my %old_tag_info;
         my @old_tags;
         my $old_tag_ids = $self->sql->select_single_column_array("
@@ -405,8 +404,8 @@ sub find_editor_entities
           WHERE editor = ? AND tag = ?',
         $editor_id, $tag_id) };
 
-    my $objs = $self->parent->get_by_ids(@tags);
-    return values %$objs;
+    my $objs = $self->parent->get_by_ids_sorted_by_name(@tags);
+    return @$objs;
 }
 
 no Moose;

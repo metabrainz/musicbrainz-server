@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Relationship;
 
 use Moose;
+use namespace::autoclean -also => [qw( _generate_table_list )];
 use Readonly;
 use Sql;
 use Carp qw( carp croak );
@@ -134,7 +135,8 @@ sub _load
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id";
         my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
-                     l.end_date_year,   l.end_date_month,   l.end_date_day';
+                     l.end_date_year,   l.end_date_month,   l.end_date_day,
+                     l.ended';
 
         if ($target eq 'url') {
             $query = "
@@ -231,13 +233,17 @@ sub load_subset
             push @{$objs_by_type{$type}}, $obj;
         }
     }
+
     my @rels;
     foreach my $type (keys %objs_by_type) {
         push @rels, $self->_load($type, $types, @{$objs_by_type{$type}});
     }
+
     $self->c->model('Link')->load(@rels);
     $self->c->model('LinkType')->load(map { $_->link } @rels);
     $self->load_entities(@rels);
+
+    return @rels;
 }
 
 sub load
@@ -339,6 +345,7 @@ sub exists
             link_type_id => $values->{link_type_id},
             begin_date => $values->{begin_date},
             end_date => $values->{end_date},
+            ended => $values->{ended},
             attributes => $values->{attributes},
         })
     );
@@ -354,6 +361,7 @@ sub insert
             link_type_id => $values->{link_type_id},
             begin_date => $values->{begin_date},
             end_date => $values->{end_date},
+            ended => $values->{ended},
             attributes => $values->{attributes},
         }),
         entity0 => $values->{entity0_id},
@@ -371,7 +379,7 @@ sub update
 
     my %link = map {
         $_ => $values->{$_};
-    } qw( link_type_id begin_date end_date attributes );
+    } qw( link_type_id begin_date end_date attributes ended );
 
     my $row = {};
     $row->{link} = $self->c->model('Link')->find_or_insert(\%link);
@@ -396,7 +404,7 @@ sub adjust_edit_pending
     $self->_check_types($type0, $type1);
 
     my $query = "UPDATE l_${type0}_${type1}
-                 SET edits_pending = edits_pending + ?
+                 SET edits_pending = numeric_larger(0, edits_pending + ?)
                  WHERE id IN (" . placeholders(@ids) . ")";
     $self->sql->do($query, $adjust, @ids);
 }
@@ -413,7 +421,6 @@ sub lock_and_do {
 
     my ($t0, $t1) = sort ($type0, $type1);
     Sql::run_in_transaction(sub {
-        $self->c->sql->do("LOCK l_${t0}_${t1} IN SHARE ROW EXCLUSIVE MODE");
         $code->();
     }, $self->c->sql);
 }

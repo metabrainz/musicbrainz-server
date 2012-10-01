@@ -1,12 +1,24 @@
+[% PROCESS 'edit/details/macros.tt' %]
 <table class="details edit-barcodes">
+    [% IF edit.data.client_version.defined %]
+    <tr>
+      <th>[% l('Client:') %]</th>
+      <td>[% edit.data.client_version | html %]</td>
+    </tr>
+    [% END %]
+
     [% FOR submission=edit.display_data.submissions %]
     <tr>
         <th>[% l('Release:') %]</th>
-        <td>[% descriptive_link(submission.release) %]</td>
+        <td colspan="2">[% descriptive_link(submission.release) %]</td>
     </tr>
-    <tr>
-        <th>[% l('Barcode:') %]</th>
-        <td>[% submission.barcode | html %]</td>
-    </tr>
+    [% IF !submission.exists('old_barcode') %]
+      <tr>
+          <th>[% l('Barcode:') %]</th>
+          <td colspan="2">[% submission.barcode | html %]</td>
+      </tr>
+    [% ELSE %]
+       [% display_diff(l('Barcode:'), submission.old_barcode.format, submission.new_barcode.format) %]
+    [% END %]
     [% END %]
 </table>

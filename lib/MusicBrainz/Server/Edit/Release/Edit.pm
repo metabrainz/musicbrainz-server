@@ -1,37 +1,42 @@
 package MusicBrainz::Server::Edit::Release::Edit;
 use Moose;
+use 5.10.0;
 
 use MooseX::Types::Moose qw( Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
 
+use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
     partial_date_to_hash
-    partial_date_from_row
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
+    artist_credit_from_loaded_definition
     changed_relations
     changed_display_data
-    load_artist_credit_definitions
-    artist_credit_from_loaded_definition
     clean_submitted_artist_credits
+    load_artist_credit_definitions
+    merge_artist_credit
+    merge_barcode
+    merge_partial_date
     verify_artist_credits
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
-sub edit_name { l('Edit release') }
+sub edit_name { N_l('Edit release') }
 sub _edit_model { 'Release' }
 sub release_id { shift->data->{entity}{id} }
 
@@ -128,7 +133,6 @@ sub build_display_data
         language  => [ qw( language_id Language )],
         script    => [ qw( script_id Script )],
         name      => 'name',
-        barcode   => 'barcode',
         comment   => 'comment',
     );
 
@@ -141,10 +145,17 @@ sub build_display_data
         }
     }
 
+    if (exists $self->data->{new}{barcode}) {
+        $data->{barcode} = {
+            new => Barcode->new($self->data->{new}{barcode}),
+            old => Barcode->new($self->data->{old}{barcode}),
+        };
+    }
+
     if (exists $self->data->{new}{date}) {
         $data->{date} = {
-            new => partial_date_from_row($self->data->{new}{date}),
-            old => partial_date_from_row($self->data->{old}{date}),
+            new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{date}),
+            old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{date}),
         };
     }
 
@@ -158,7 +169,10 @@ sub _mapping
 {
     return (
         date => sub { partial_date_to_hash(shift->date) },
-        artist_credit => sub { clean_submitted_artist_credits (artist_credit_to_ref(shift->artist_credit)) }
+        artist_credit => sub {
+            clean_submitted_artist_credits (shift->artist_credit)
+        },
+        barcode => sub { shift->barcode->code }
     );
 }
 
@@ -177,9 +191,38 @@ before 'initialize' => sub
     }
 };
 
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('artist_credit') {
+            return merge_artist_credit($self->c, $ancestor, $current, $new);
+        }
+
+        when ('date') {
+            return merge_partial_date('date' => $ancestor, $current, $new);
+        }
+
+        when ('barcode') {
+            return merge_barcode ($ancestor, $current, $new);
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
+
+sub current_instance {
+    my $self = shift;
+    return $self->c->model('Release')->get_by_id($self->entity_id);
+}
+
 sub _edit_hash
 {
     my ($self, $data) = @_;
+
+    $data = $self->merge_changes;
     if ($data->{artist_credit}) {
         $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     }
@@ -221,7 +264,7 @@ sub allow_auto_edit
     return 0 if defined $self->data->{old}{script_id};
 
     return 0 if exists $self->data->{old}{date} &&
-        partial_date_from_row($self->data->{old}{date}) ne '';
+        MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{date}) ne '';
 
     return 0 if exists $self->data->{old}{release_group_id};
     return 0 if exists $self->data->{new}{artist_credit};

@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Recording::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -67,6 +68,63 @@ test 'Case changes to recording comments are auto-edits' => sub {
     );
 
     is($edit->status, 2);
+};
+
+test 'Check conflicts (non-conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RECORDING_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Recording')->get_by_id(1),
+        name => 'Renamed recording',
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RECORDING_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Recording')->get_by_id(1),
+        comment   => 'Comment change'
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $recording = $c->model('Recording')->get_by_id(1);
+    is ($recording->name, 'Renamed recording', 'recording renamed');
+    is ($recording->comment, 'Comment change', 'comment changed');
+};
+
+test 'Check conflicts (conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RECORDING_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Recording')->get_by_id(1),
+        name    => 'Renamed recording',
+        comment => 'comment FOO'
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RECORDING_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Recording')->get_by_id(1),
+        comment   => 'Comment BAR',
+        length => 12345
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok  exception { $edit_2->accept }, 'could not accept edit 2';
+
+    my $recording = $c->model('Recording')->get_by_id(1);
+    is ($recording->name, 'Renamed recording', 'recording renamed');
+    is ($recording->comment, 'comment FOO', 'comment changed');
+    is ($recording->length, undef);
 };
 
 sub create_edit {

@@ -46,13 +46,12 @@ sub tracks_to_hash
 {
     my $tracks = shift;
 
-    my $for_change_hash = 1;
-
     my $tmp = [ map +{
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit, $for_change_hash),
+        artist_credit => artist_credit_to_ref ($_->artist_credit, []),
         recording_id => $_->recording_id,
         position => $_->position,
+        number => $_->number,
         length => $_->length,
     }, @$tracks ];
 
@@ -68,11 +67,11 @@ sub tracklist_foreign_keys {
         } @$tracklist
     };
 
-    $fk->{Recording} = [
+    $fk->{Recording} = {
         map {
-            $_->{recording_id}
+            $_->{recording_id} => [ 'ArtistCredit' ]
         } @$tracklist
-    ];
+    };
 }
 
 sub track {
@@ -82,6 +81,7 @@ sub track {
         length => Nullable[Int],
         recording_id => NullableOnPreview[Int],
         position => Int,
+        number => Nullable[Str],
     ];
 }
 
@@ -96,6 +96,7 @@ sub display_tracklist {
                 length => $_->{length},
                 artist_credit => artist_credit_preview ($loaded, $_->{artist_credit}),
                 position => $_->{position},
+                number => $_->{number} // $_->{position},
                 recording => !$_->{recording_id} || !$loaded->{Recording}{ $_->{recording_id} } ?
                     Recording->new( name => $_->{name} ) : 
                     $loaded->{Recording}{ $_->{recording_id} },

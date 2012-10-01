@@ -9,16 +9,22 @@ use MooseX::Types::Moose qw( ArrayRef Bool Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Medium::Util ':all';
+use MusicBrainz::Server::Edit::Medium::Util qw(
+    display_tracklist
+    filter_subsecond_differences
+    track
+    tracks_to_hash
+    tracklist_foreign_keys
+);
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
     Nullable
     NullableOnPreview
 );
-use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits );
+use MusicBrainz::Server::Edit::Utils qw( verify_artist_credits hash_artist_credit );
 use MusicBrainz::Server::Log qw( log_assertion log_debug );
 use MusicBrainz::Server::Validation 'normalise_strings';
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Track qw ( format_track_length );
 use Try::Tiny;
 
@@ -30,7 +36,7 @@ with 'MusicBrainz::Server::Edit::Medium';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
-sub edit_name { l('Edit medium') }
+sub edit_name { N_l('Edit medium') }
 sub _edit_model { 'Medium' }
 sub entity_id { shift->data->{entity_id} }
 sub medium_id { shift->entity_id }
@@ -246,6 +252,7 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
+                        $track->number // $track->position,
                         $track->name,
                         format_track_length($track->length),
                         join(
@@ -301,19 +308,6 @@ sub track_column {
     return [ map { $_->{$column} // $UNDEF_MARKER } @$tracklist ];
 }
 
-sub hash_artist_credit {
-    my ($artist_credit) = @_;
-    return join(', ', map {
-        '[' .
-            join(',',
-                 $_->{name},
-                 $_->{artist}{id},
-                 $_->{join_phrase} || '')
-            .
-        ']'
-    } @{ $artist_credit->{names} });
-}
-
 sub accept {
     my $self = shift;
 
@@ -335,10 +329,11 @@ sub accept {
         # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly
         $_->{recording_id} //= 0 for @$data_new_tracklist;
 
-        my (@merged_names, @merged_recordings, @merged_lengths, @merged_artist_credits);
+        my (@merged_numbers, @merged_names, @merged_recordings, @merged_lengths, @merged_artist_credits);
         my $current_tracklist = tracks_to_hash($tracklist->tracks);
         try {
             for my $merge (
+                [ number => \@merged_numbers ],
                 [ name => \@merged_names ],
                 [ recording_id => \@merged_recordings ],
                 [ length => \@merged_lengths ],
@@ -361,6 +356,7 @@ sub accept {
         };
 
         log_assertion {
+            @merged_numbers == @merged_names &&
             @merged_names == @merged_recordings &&
             @merged_recordings == @merged_lengths &&
             @merged_lengths == @merged_artist_credits
@@ -373,9 +369,11 @@ sub accept {
             last unless @merged_artist_credits &&
                         @merged_lengths &&
                         @merged_recordings &&
-                        @merged_names;
+                        @merged_names &&
+                        @merged_numbers;
 
             my $length = shift(@merged_lengths);
+            my $number = shift(@merged_numbers);
             my $recording_id = shift(@merged_recordings);
 
             if (defined($recording_id) && $recording_id > 0 && !$existing_recordings->{$recording_id}) {
@@ -385,6 +383,7 @@ sub accept {
 
             push @final_tracklist, {
                 name => shift(@merged_names),
+                number => $number eq $UNDEF_MARKER ? undef : $number,
                 length => $length eq $UNDEF_MARKER ? undef : $length,
                 recording_id => $recording_id,
                 artist_credit => shift(@merged_artist_credits)
@@ -415,6 +414,7 @@ sub accept {
             my $new_tracklist = $self->c->model('Tracklist')->find_or_insert(
                 \@final_tracklist
             );
+
             $self->c->model('Medium')->update($medium->id, {
                 tracklist_id => $new_tracklist->id
             });
@@ -451,7 +451,7 @@ sub allow_auto_edit
                         $track->{name},
                         format_track_length($track->{length}),
                         hash_artist_credit($track->{artist_credit}),
-                        $track->{recording_id}
+                        $track->{recording_id} // 'new'
                     );
                 }
             ) };

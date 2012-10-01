@@ -28,6 +28,10 @@
                         [%- l('(<strong>unverified!</strong>)') -%]
                 [% END %]
 
+                [% IF viewing_own_profile %]
+                    (<a href="[% c.uri_for('/account/resend-verification') %]">[% l('resend verification email') %]</a>)
+                [% END %]
+
                 [% IF c.user_exists AND NOT viewing_own_profile %]
                     (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("send email") %]</a>)
                 [% END %]
@@ -42,9 +46,9 @@
             [% types.push(l("Internal/Bot")) IF user.is_bot %]
             [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('Relationship_Editor')})) IF user.is_relationship_editor %]
             [% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('Transclusion_Editor')})) IF user.is_wiki_transcluder %]
-            [% types.push('<span class="tooltip" title="' _ l('User accounts must be more than 2 weeks old, have a confirmed email address,' _
-                           ' and more than 10 accepted edits in order to vote on others\' edits.') _ '">' _ l('Limited User') _ '</span>')
-                           IF user.is_newbie || !user.has_confirmed_email_address || user.accepted_edits < 10 %]
+            [% types.push('<span class="tooltip" title="' _ l('User accounts must be more than 2 weeks old, have a confirmed email address,
+                           and more than 10 accepted edits in order to vote on others\' edits.') _ '">' _ l('Limited User') _ '</span>')
+                           IF user.is_limited %]
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
             [% IF c.user.is_auto_editor && !user.is_auto_editor %]
@@ -53,6 +57,24 @@
 
 
         [% END %]
+
+        [% IF user.age;
+             WRAPPER property name=l('Age:');
+              user.age;
+             END;
+           END; %]
+
+        [% IF user.gender;
+             WRAPPER property name=l('Gender:');
+              user.gender.name;
+             END;
+           END; %]
+
+        [% IF user.country;
+             WRAPPER property name=l('Country:');
+              user.country.name;
+             END;
+           END; %]
 
         [% WRAPPER property name=l("Member since:") %]
             [% IF user.name == "rob" %]
@@ -64,17 +86,15 @@
             [% END %]
         [% END %]
 
-        [% WRAPPER property name=l("Homepage:") %]
-            [% IF user.website %]
+        [% IF user.website %]
+            [% WRAPPER property name=l("Homepage:") %]
                 <a href="[% user.website | url %]">
                     [% user.website | html_entity %]
                 </a>
-            [% ELSE %]
-                [% l('(none)') %]
             [% END %]
         [% END %]
 
-        [% WRAPPER property name="Subscribers:" %]
+        [% WRAPPER property name=l("Subscribers:") %]
             [% IF subscriber_count %]
                 [% l('{count} ({url|view list})', { count => subscriber_count, url => c.uri_for_action('/user/subscribers', [ user.name ]) }) %]
             [% ELSE %]
@@ -89,9 +109,21 @@
                 [% END %]
             [% END %]
 
-        [% bio_class = 'biography' IF user.biography %]
-        [% WRAPPER property name=l("Bio:") class=bio_class %]
-            [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
+        [% IF user.biography %]
+            [% bio_class = 'biography' IF user.biography %]
+            [% WRAPPER property name=l("Bio:") class=bio_class %]
+                [% html_escape(user.biography).split("\n").join("<br />") %]
+            [% END %]
+        [% END %]
+
+        [% IF user.languages.size %]
+          [% WRAPPER property name=l('Languages:') %]
+            <ul class="inline">
+              [% FOR language=user.languages %]
+                <li>[% language.language.name %] ([% language.fluency %])</li>
+              [% END %]
+            </ul>
+          [% END %]
         [% END %]
 
         [% END %]
@@ -99,7 +131,7 @@
 
     [% BLOCK statistics %]
         <tr>
-            <th>[% name %]</td>
+            <th>[% name %]</th>
             <td>[% content %]</td>
         </tr>
     [% END %]

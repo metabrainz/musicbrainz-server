@@ -3,7 +3,7 @@
 */
 
 /* For those pesky few pages that use h1s in their content */
-.wikicontent * + h1 {
+.wikicontent h1.hierarchy-links * + h1 {
     margin-top: 1em;
 }
 
@@ -60,9 +60,8 @@
 .wikicontent div.floatright p { font-style: italic; }
 .wikicontent div.floatleft p { font-style: italic; }
 
-.wikicontent .hierarchy-links {
-	margin-top: -5px;
-	font-size: 10px;
+.wikicontent h1.hierarchy-links {
+	font-weight: normal;
 }
 
 /*
@@ -71,7 +70,7 @@
 .wikicontent #toc,
 .wikicontent .toc {
     background-color: #F9F9F9;
-    border: 1px solid #AAAAAA;
+    border: 1px solid #ADB9CC;
     font-size: 95%;
     padding: 5px;
     float:right;
@@ -166,4 +165,30 @@ h1 + #toc, h1 + .toc { margin-top: 1em; }
 .wikicontent .wikitable caption {
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+}
+
+/* Escape clause for tables that are used just for formatting */
+.wikicontent table[border^="0"],
+.wikicontent table[border^="0"] td {
+    border: none !important;
+    background: none !important;
+}
+
+/*
+** Search Box
+*/
+.wikicontent .wikidoc-search {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.wikicontent .wikidoc-search input {
+    width: 200px;
+    margin: 0;
 }

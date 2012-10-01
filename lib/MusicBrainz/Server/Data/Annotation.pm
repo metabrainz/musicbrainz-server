@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Annotation;
 use Moose;
+use namespace::autoclean;
 
 extends 'MusicBrainz::Server::Data::Entity';
 

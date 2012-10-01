@@ -47,6 +47,9 @@ ok(defined $l2);
 
 is($l2->edits_pending, 0);
 
+my $ipi_codes = $c->model('Label')->ipi->find_by_entity_id($l2->id);
+is(scalar @$ipi_codes, 1, "Merged Label has all ipi codes after accepting edit");
+
 };
 
 sub create_edit {

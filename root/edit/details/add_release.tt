@@ -76,10 +76,10 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.barcode %]
+  [% IF edit.display_data.barcode.format %]
   <tr>
     <th>[% l('Barcode:') %]</th>
-    <td>[% edit.display_data.barcode | html %]</td>
+    <td>[% edit.display_data.barcode.format | html %]</td>
   </tr>
   [% END %]
 </table>

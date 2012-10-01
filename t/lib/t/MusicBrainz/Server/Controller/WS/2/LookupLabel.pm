@@ -18,7 +18,6 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
-my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -41,7 +40,7 @@ ws_test 'label lookup, inc=aliases',
         <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
         <country>GB</country>
         <life-span><begin>1995</begin></life-span>
-        <alias-list count="1"><alias>Planet µ</alias></alias-list>
+        <alias-list count="1"><alias sort-name="Planet µ">Planet µ</alias></alias-list>
     </label>
 </metadata>';
 

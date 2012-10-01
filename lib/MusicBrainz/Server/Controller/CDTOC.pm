@@ -43,6 +43,7 @@ sub _load_releases
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('CDTOC')->load(@medium_cdtocs);
     return \@medium_cdtocs;
 }
 
@@ -140,6 +141,7 @@ sub attach : Local
     }
 
     if (my $medium_id = $c->req->query_params->{medium}) {
+        $c->forward('/user/do_login');
 
         $self->error($c, status => HTTP_BAD_REQUEST,
                      message => l('The provided medium id is not valid')
@@ -163,7 +165,7 @@ sub attach : Local
         $c->model('Release')->load($medium);
         $c->model('ArtistCredit')->load($medium->release);
 
-        $c->stash( release => $medium->release );
+        $c->stash( medium => $medium );
 
         $c->stash(template => 'cdtoc/attach_confirm.tt');
         $self->edit_action($c,
@@ -197,11 +199,14 @@ sub attach : Local
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
         $c->model('Track')->load_for_tracklists(
             map { $_->tracklist } map { $_->all_mediums } @$releases);
+        $c->model('Country')->load(@$releases);
+        $c->model('ReleaseLabel')->load(@$releases);
+        $c->model('Label')->load(map { $_->all_labels } @$releases);
 
         $c->stash(
             artist => $artist,
             releases => $releases,
-            template => 'cdtoc/attach_artist_releases.tt'
+            template => 'cdtoc/attach_artist_releases.tt',
         );
     }
     else {
@@ -228,12 +233,18 @@ sub attach : Local
                                             { track_count => $cdtoc->track_count });
             });
             my @releases = map { $_->entity } @$releases;
-            $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-            my @mediums = grep { !$_->format || $_->format->has_discids }
-                map { $_->all_mediums } @releases;
+            my @mediums = map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
+
+            my @tracks = map { $_->all_tracks } map { $_->tracklist } @mediums;
+            $c->model('Recording')->load(@tracks);
+            $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
+            $c->model('Country')->load(@releases);
+            $c->model('ReleaseLabel')->load(@releases);
+            $c->model('Label')->load(map { $_->all_labels } @releases);
+
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 results => $releases
@@ -297,12 +308,6 @@ sub move : Local RequireAuth Edit
                      message => l('The provided medium id is not valid')
             ) unless looks_like_number ($medium_id);
 
-        $self->error(
-            $c,
-            status => HTTP_BAD_REQUEST,
-            message => l('This CDTOC is already attached to this medium')
-        ) if $c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc);
-
         my $medium = $c->model('Medium')->get_by_id($medium_id);
         $c->model('MediumFormat')->load($medium);
         $self->error(
@@ -314,9 +319,14 @@ sub move : Local RequireAuth Edit
         $c->model('Medium')->load($medium_cdtoc);
 
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
+        $c->model('Country')->load($medium->release);
+        $c->model('ReleaseLabel')->load($medium->release);
+        $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
-        $c->stash( release => $medium->release );
+        $c->stash( 
+            medium => $medium
+        );
 
 
         $c->stash(template => 'cdtoc/attach_confirm.tt');
@@ -348,6 +358,9 @@ sub move : Local RequireAuth Edit
             my @releases = map { $_->entity } @$releases;
             $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
+            $c->model('Country')->load(@releases);
+            $c->model('ReleaseLabel')->load(@releases);
+            $c->model('Label')->load(map { $_->all_labels } @releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;

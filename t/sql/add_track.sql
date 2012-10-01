@@ -18,9 +18,9 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
            (2, '659f405b-b4ee-4033-868a-0daa27784b89', 2, 1, 369680),
            (3, 'ae674299-2824-4500-9516-653ac1bc6f80', 3, 1, 258839);
 
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (1, 1, 1, 1, 1, 1, 293720);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (2, 1, 2, 2, 2, 1, 369680);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (3, 1, 3, 3, 3, 1, 258839);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (1, 1, 1, 1, 1, 1, 1, 293720);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (2, 1, 2, 2, 2, 2, 1, 369680);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (3, 1, 3, 3, 3, 3, 1, 258839);
 
 ALTER SEQUENCE track_name_id_seq RESTART 4;
 ALTER SEQUENCE track_id_seq RESTART 4;

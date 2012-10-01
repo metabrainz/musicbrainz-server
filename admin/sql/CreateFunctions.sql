@@ -488,8 +488,8 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -------------------------------------------------------------------
--- Find artists that are empty, and have been updated within the
--- last $interval
+-- Find artists that are empty, and have not been updated within the
+-- last 1 days
 -------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION empty_artists() RETURNS SETOF artist AS
@@ -502,6 +502,12 @@ BEGIN
         WHERE edits_pending = 0
           AND (last_updated < NOW() - '1 day'::INTERVAL OR
                last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_artist
+            WHERE edit_artist.artist = artist.id
+            AND edit_artist.status = 1
+            LIMIT 1
+          )
     LOOP
         CONTINUE WHEN
         (
@@ -544,6 +550,211 @@ BEGIN
              LIMIT 1
         );
         RETURN NEXT artist_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+-------------------------------------------------------------------
+-- Find labels that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_labels() RETURNS SETOF label AS
+$BODY$
+DECLARE
+    label_row label%rowtype;
+BEGIN
+    FOR label_row IN
+        SELECT * FROM label
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_label
+            WHERE edit_label.label = label.id
+            AND edit_label.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM release_label
+             WHERE label = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_label
+             WHERE entity1 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_label
+             WHERE entity0 = label_row.id OR entity1 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_recording
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_release
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_release_group
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_url
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_work
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        );
+        RETURN NEXT label_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+-------------------------------------------------------------------
+-- Find release groups that are empty, and have not been updated
+-- within the last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_release_groups() RETURNS SETOF release_group AS
+$BODY$
+DECLARE
+    rg_row release_group%rowtype;
+BEGIN
+    FOR rg_row IN
+        SELECT * FROM release_group
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_release_group
+            JOIN edit ON edit_release_group.edit = edit.id
+            WHERE edit_release_group.release_group = release_group.id
+            AND edit.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM release
+             WHERE release_group = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_recording_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_release_group
+             WHERE entity0 = rg_row.id OR entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_url
+             WHERE entity0 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_work
+             WHERE entity0 = rg_row.id
+             LIMIT 1
+        );
+        RETURN NEXT rg_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+
+-------------------------------------------------------------------
+-- Find works that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_works() RETURNS SETOF work AS
+$BODY$
+DECLARE
+    work_row work%rowtype;
+BEGIN
+    FOR work_row IN
+        SELECT * FROM work
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_work
+            JOIN edit ON edit.id = edit_work.edit
+            WHERE edit_work.work = work.id
+            AND edit.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM l_artist_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_recording_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_url_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_work_work
+             WHERE entity0 = work_row.id OR entity1 = work_row.id
+             LIMIT 1
+        );
+        RETURN NEXT work_row;
     END LOOP;
 END
 $BODY$
@@ -706,7 +917,159 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION unique_primary_artist_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE artist_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND artist = NEW.artist;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_label_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE label_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND label = NEW.label;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_work_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE work_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND work = NEW.work;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION simplify_search_hints()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.type::int = TG_ARGV[0]::int THEN
+        NEW.sort_name := NEW.name;
+        NEW.begin_date_year := NULL;
+        NEW.begin_date_month := NULL;
+        NEW.begin_date_day := NULL;
+        NEW.end_date_year := NULL;
+        NEW.end_date_month := NULL;
+        NEW.end_date_day := NULL;
+        NEW.end_date_day := NULL;
+        NEW.locale := NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION end_date_implies_ended()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.end_date_year IS NOT NULL OR
+       NEW.end_date_month IS NOT NULL OR
+       NEW.end_date_day IS NOT NULL
+    THEN
+        NEW.ended = TRUE;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION delete_orphaned_recordings()
+RETURNS TRIGGER
+AS $$
+  BEGIN
+    PERFORM TRUE
+    FROM recording outer_r
+    WHERE id = OLD.recording
+      AND edits_pending = 0
+      AND NOT EXISTS (
+        SELECT TRUE
+        FROM edit JOIN edit_recording er ON edit.id = er.edit
+        WHERE er.recording = outer_r.id
+          AND type IN (71, 207, 218)
+          LIMIT 1
+      ) AND NOT EXISTS (
+        SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
+      ) AND NOT EXISTS (
+        SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_recording_recording WHERE entity1 = outer_r.id OR entity0 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_recording_release WHERE entity0 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_recording_release_group WHERE entity0 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_recording_work WHERE entity0 = outer_r.id
+          UNION ALL
+         SELECT TRUE FROM l_recording_url WHERE entity0 = outer_r.id
+      );
+
+    IF FOUND THEN
+      -- Remove references from tables that don't change whether or not this recording
+      -- is orphaned.
+      DELETE FROM isrc WHERE recording = OLD.recording;
+      DELETE FROM recording_annotation WHERE recording = OLD.recording;
+      DELETE FROM recording_gid_redirect WHERE new_id = OLD.recording;
+      DELETE FROM recording_puid WHERE recording = OLD.recording;
+      DELETE FROM recording_rating_raw WHERE recording = OLD.recording;
+      DELETE FROM recording_tag WHERE recording = OLD.recording;
+      DELETE FROM recording_tag_raw WHERE recording = OLD.recording;
+
+      DELETE FROM recording WHERE id = OLD.recording;
+    END IF;
+
+    RETURN NULL;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION padded_by_whitespace(TEXT) RETURNS boolean AS $$
+  SELECT btrim($1) <> $1;
+$$ LANGUAGE SQL IMMUTABLE;
+
+CREATE OR REPLACE FUNCTION whitespace_collapsed(TEXT) RETURNS boolean AS $$
+  SELECT $1 !~ E'\\s{2,}';
+$$ LANGUAGE SQL IMMUTABLE;
+
+CREATE OR REPLACE FUNCTION controlled_for_whitespace(TEXT) RETURNS boolean AS $$
+  SELECT NOT padded_by_whitespace($1) AND whitespace_collapsed($1);
+$$ LANGUAGE SQL IMMUTABLE SET search_path = musicbrainz, public;
+
+CREATE OR REPLACE FUNCTION delete_unused_tag(tag_id INT)
+RETURNS void AS $$
+  BEGIN
+    DELETE FROM tag WHERE id = tag_id;
+  EXCEPTION
+    WHEN foreign_key_violation THEN RETURN;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION trg_delete_unused_tag()
+RETURNS trigger AS $$
+  BEGIN
+    PERFORM delete_unused_tag(NEW.id);
+    RETURN NULL;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION trg_delete_unused_tag_ref()
+RETURNS trigger AS $$
+  BEGIN
+    PERFORM delete_unused_tag(OLD.tag);
+    RETURN NULL;
+  END;
+$$ LANGUAGE 'plpgsql';
+
 COMMIT;
 -- vi: set ts=4 sw=4 et :
-
-

@@ -56,7 +56,7 @@ sub _render_input
     return $self->h->input({
             type => $type,
             id => $self->_id($field),
-            value => $field->fif,
+            value => '' . $field->fif,
             name => $field->html_name,
             class => $class . ($field->has_errors ? ' error' : ''),
             %attrs
@@ -220,8 +220,9 @@ sub radio
         type => 'radio',
         id => $self->_id($field) . "-$option" ,
         name => $field->html_name,
-        checked => $value eq $field->value ? 'checked' : undef,
+        checked => $field->value && $value eq $field->value ? 'checked' : undef,
         disabled => $field->disabled ? "disabled" : undef,
+        value => $value,
         %{ $attrs || {} }
     });
 }

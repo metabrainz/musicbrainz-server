@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
+use namespace::autoclean -also => [qw( _clean )];
 
 use Data::Compare;
 use MusicBrainz::Server::Entity::Artist;
@@ -39,7 +40,7 @@ sub get_by_ids
             artist_id => $row->{artist},
             name => $row->{name}
         );
-        $info{join_phrase} = $row->{join_phrase} if defined $row->{join_phrase};
+        $info{join_phrase} = $row->{join_phrase} // '';
         my $obj = MusicBrainz::Server::Entity::ArtistCreditName->new(%info);
         $obj->artist(MusicBrainz::Server::Entity::Artist->new(
             id => $row->{id},
@@ -65,16 +66,22 @@ sub load
     load_subobjects($self, 'artist_credit', @objs);
 }
 
+sub find_by_ids
+{
+    my ($self, $ids) = @_;
+
+    my @artist_credits = sort { $a->name cmp $b->name }
+                         values %{ $self->get_by_ids(@$ids) };
+    return \@artist_credits;
+}
+
 sub find_by_artist_id
 {
     my ($self, $artist_id) = @_;
 
     my $query = 'SELECT artist_credit FROM artist_credit_name WHERE artist = ?';
-    my @ids = @{ $self->sql->select_single_column_array($query, $artist_id) };
-
-    my @artist_credits = sort { $a->name cmp $b->name }
-                         values %{ $self->get_by_ids(@ids) };
-    return \@artist_credits;
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->find_by_ids($ids);
 }
 
 sub _find
@@ -244,9 +251,9 @@ sub replace {
 
     return if Compare($old_ac, $new_ac);
 
-
     my $old_credit_id = $self->find ($old_ac) or return;
     my $new_credit_id = $self->find_or_insert($new_ac);
+    return if $old_credit_id == $new_credit_id;
 
     for my $table (qw( recording release release_group track )) {
         $self->c->sql->do(

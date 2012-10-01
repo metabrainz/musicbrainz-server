@@ -24,21 +24,16 @@ sub show : Path('')
         return;
     }
 
-    # Create hierarchy via url, but prevent the current page from showing
-    my @hierarchy_links = split('/',$id);
-    @hierarchy_links = splice @hierarchy_links, 0, -1;
-
     my $bare = $c->req->param('bare') || 0;
     $c->stash(
         id => $id,
         page => $page,
-        hierarchy_links => \@hierarchy_links,
+        google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
     );
 
-    if ($id =~ /^(Special|User):/i) {
-        $c->response->status(404);
-        $c->stash->{template} = 'doc/error.tt';
-        return;
+    if ($id =~ /^(Special|User|MetaBrainz|Proposal):/i) {
+        $c->response->redirect(sprintf('http://%s/%s', DBDefs::WIKITRANS_SERVER, $id));
+        $c->detach;
     }
 
     if ($page) {

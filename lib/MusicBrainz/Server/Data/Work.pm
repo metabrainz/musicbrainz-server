@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Work;
 
 use Moose;
+use namespace::autoclean;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw(
@@ -38,8 +39,8 @@ sub _table_join_name {
 
 sub _columns
 {
-    return 'work.id, work.gid, work.type AS type_id, name.name,
-            work.iswc, work.comment, work.edits_pending, work.last_updated';
+    return 'work.id, work.gid, work.type AS type_id, work.language AS language_id,
+            name.name, work.comment, work.edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -91,12 +92,22 @@ sub find_by_artist
         $query, $artist_id, $artist_id, $offset || 0);
 }
 
+=method find_by_iswc
+
+    find_by_iswc($iswc : Text)
+
+Find works by their ISWC. Returns an array of
+L<MusicBrainz::Server::Entity::Work> objects.
+
+=cut
+
 sub find_by_iswc
 {
     my ($self, $iswc) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE iswc = ?
+                 JOIN iswc ON work.id = iswc.work
+                 WHERE iswc.iswc = ?
                  ORDER BY musicbrainz_collate(name.name)";
 
     return query_to_list(
@@ -131,6 +142,7 @@ sub insert
 sub update
 {
     my ($self, $work_id, $update) = @_;
+    return unless %{ $update // {} };
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
     $self->sql->update_row('work', $row, { id => $work_id });
@@ -147,6 +159,7 @@ sub delete
     $self->alias->delete_entities($work_id);
     $self->tags->delete($work_id);
     $self->rating->delete($work_id);
+    $self->c->model('ISWC')->delete_works($work_id);
     $self->remove_gid_redirects($work_id);
     $self->sql->do('DELETE FROM work WHERE id = ?', $work_id);
     return;
@@ -162,11 +175,12 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
+    $self->c->model('ISWC')->merge_works($new_id, @old_ids);
 
     merge_table_attributes(
         $self->sql => (
             table => 'work',
-            columns => [ qw( type iswc ) ],
+            columns => [ qw( type ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -181,7 +195,8 @@ sub _hash_to_row
     my ($self, $work, $names) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
-        map { $_ => $_ } qw( iswc comment )
+        language => 'language_id',
+        map { $_ => $_ } qw( comment )
     });
 
     $row->{name} = $names->{$work->{name}}
@@ -421,6 +436,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify

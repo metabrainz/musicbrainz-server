@@ -3,11 +3,12 @@ use Moose;
 
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE :expire_action :quality );
+use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
+use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -15,7 +16,7 @@ with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
-sub edit_name { l('Remove medium') }
+sub edit_name { N_l('Remove medium') }
 sub medium_id { shift->data->{medium_id} }
 
 has '+data' => (
@@ -98,29 +99,10 @@ sub accept
     $self->c->model('Medium')->delete($self->medium_id);
 }
 
-sub edit_conditions
-{
-    return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
-    };
-}
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+    return conditions_without_autoedit($self->$orig(@args));
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

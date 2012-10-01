@@ -9,7 +9,7 @@ BEGIN { use MusicBrainz::Server::Edit::ReleaseGroup::Create }
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_CREATE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 
 test all => sub {
 
@@ -38,7 +38,7 @@ is($rg->name, 'Empty Release Group');
 is($rg->comment => 'An empty release group!');
 is($rg->artist_credit->names->[0]->name, 'Foo Foo');
 is($rg->artist_credit->names->[0]->artist_id, 1);
-is($rg->type_id, 1);
+is($rg->primary_type_id, 1);
 
 is($edit->status, $STATUS_APPLIED, 'add release group edits should be autoedits');
 is($rg->edits_pending, 0);
@@ -58,7 +58,7 @@ sub create_edit
             ],
         },
         comment => 'An empty release group!',
-        type_id => 1
+        primary_type_id => 1
     );
 }
 

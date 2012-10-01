@@ -16,7 +16,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     verify_artist_credits
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
-use MusicBrainz::Server::Translation 'l';
+use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -25,7 +25,7 @@ with 'MusicBrainz::Server::Edit::Release';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name { l('Edit release artist') }
+sub edit_name { N_l('Edit release artist') }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{release}{id} }
 
@@ -111,7 +111,7 @@ sub initialize {
     }
 
     my $new = clean_submitted_artist_credits ($opts{artist_credit});
-    my $old = clean_submitted_artist_credits (artist_credit_to_ref($release->artist_credit));
+    my $old = clean_submitted_artist_credits ($release->artist_credit);
 
     MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
         if Compare ($old, $new);
@@ -152,6 +152,7 @@ sub accept {
             artist_credit =>$new_ac_id
         });
 
+
     if ($self->data->{update_tracklists}) {
         $self->c->model('Medium')->load_for_releases($release);
         $self->c->model('Track')->load_for_tracklists(
@@ -168,7 +169,7 @@ sub accept {
                             position => $_->position,
                             name => $_->name,
                             artist_credit => $_->artist_credit_id != $old_ac_id
-                                ? artist_credit_to_ref($_->artist_credit)
+                                ? artist_credit_to_ref($_->artist_credit, [])
                                 : $self->data->{new_artist_credit},
                             recording_id => $_->recording_id,
                             length => $_->length

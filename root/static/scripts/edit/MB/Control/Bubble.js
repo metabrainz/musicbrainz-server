@@ -129,8 +129,16 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
         self.visible = false;
     };
 
-    self.toggle = function () {
-        if (self.visible)
+    self.toggle = function (showOrHide) {
+        if (showOrHide === true)
+        {
+            self.show ();
+        }
+        else if (showOrHide === false)
+        {
+            self.hide ();
+        }
+        else if (self.visible)
         {
             self.hide ();
         }
@@ -152,7 +160,8 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
             self.button = true;
         }
         else if (self.$target.filter ('input[type=text]').length ||
-                 self.$target.filter ('textarea').length)
+                 self.$target.filter ('textarea').length ||
+                 self.$target.filter ('select').length)
         {
             self.textinput = true;
         }

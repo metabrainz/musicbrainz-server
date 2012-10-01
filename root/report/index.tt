@@ -19,12 +19,19 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateArtists') %]">[% l('Possibly duplicate artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'PossibleCollaborations') %]">[% l('Artists which look like collaborations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsContainingDisambiguationComments') %]">[% l('Artists containing disambiguation comments in their name') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleArtists') %]">[% l('Discogs URLs linked to multiple artists') %]</a></li>
+        </ul>
+
+        <h2>[% l('Labels') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleLabels') %]">[% l('Discogs URLs linked to multiple labels') %]</a></li>
         </ul>
 
         <h2>[% l('Release groups') %]</h2>
 
         <ul>
-            <li><a href="[% c.uri_for_action('/report/show', 'EmptyReleaseGroups') %]">[% l('Release groups which contain no releases') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SetInDifferentRG') %]">[% l('Release groups that might need to be merged') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'FeaturingReleaseGroups') %]">[% l('Release groups with titles containing featuring artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleReleaseGroups') %]">[% l('Discogs URLs linked to multiple release groups') %]</a></li>
@@ -35,8 +42,8 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'CreativeCommonsRelationships') %]">[% l('Releases with Creative Commons Download relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesToConvert') %]">[% l('Releases which might need converting to "multiple artists"') %]</a></li>
-            <li><a href="[% c.uri_for_action('/report/show', 'NoLanguage') %]">[% l('Releases without language but script') %]</a></li>
-            <li><a href="[% c.uri_for_action('/report/show', 'NoScript') %]">[% l('Releases without script but language') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'NoLanguage') %]">[% l('Releases without language') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'NoScript') %]">[% l('Releases without script') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'BadAmazonURLs') %]">[% l('Releases which have unexpected Amazon URLs') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'MultipleASINs') %]">[% l('Releases which have multiple ASINs') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'MultipleDiscogsLinks') %]">[% l('Releases which have multiple Discogs links') %]</a></li>
@@ -50,6 +57,11 @@
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasedTooEarly') %]">[% l('Releases released too early') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SomeFormatsUnset') %]">[% l('Releases where some (but not all) mediums have no format set') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'CatNoLooksLikeASIN') %]">[% l('Releases with catalog numbers that look like ASINs') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'UnlinkedPseudoReleases') %]">[% l('Translated/Transliterated Pseudo-Releases not linked to an original version') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesInCAAWithCoverArtRelationships') %]">
+              [% l('Releases in the Cover Art Archive that still have cover art relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'MediumsWithSequenceIssues') %]">[% l('Releases with non-sequential mediums') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithUnlikelyLanguageScript') %]">[% l('Releases with unlikely language/script pairs') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>

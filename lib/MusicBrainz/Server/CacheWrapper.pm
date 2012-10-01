@@ -31,8 +31,8 @@ sub get_multi
 
 sub set
 {
-    my ($self, $key, $data) = @_;
-    $self->_orig->set($key, Storable::freeze(\$data));
+    my ($self, $key, $data, $exptime) = @_;
+    $self->_orig->set($key, Storable::freeze(\$data), $exptime);
 }
 
 sub set_multi

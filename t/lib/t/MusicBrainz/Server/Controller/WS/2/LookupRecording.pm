@@ -18,7 +18,6 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
-my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -92,7 +91,7 @@ ws_test 'lookup recording with official singles (+media)',
                         <position>1</position><format>CD</format>
                         <track-list count="3" offset="0">
                             <track>
-                                <position>1</position>
+                                <position>1</position><number>1</number>
                                 <title>サマーれげぇ!レインボー</title>
                                 <length>296026</length>
                             </track>

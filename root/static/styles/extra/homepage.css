@@ -1,4 +1,8 @@
 /* Extra CSS for the homepage */
+.homepage #contnt {
+    margin-right: 460px;
+}
+
 #triple {
     clear: both;
     margin-top: 20px;
@@ -41,16 +45,16 @@
     border-bottom: 4px solid #FFBA58;
 }
 
-#sidebar .triple-column {
+.sidebar .triple-column {
     height: 110px;
     margin-bottom: 10px;
 }
 
-#sidebar .triple-column img {
+.sidebar .triple-column img {
     margin: 10px 0 0 10px;
 }
 
-#sidebar .triple-column h2 {
+.sidebar .triple-column h2 {
     color: #000000;
     background-color: #FFBA58;
     border-bottom: 4px solid #736DAB;
@@ -60,6 +64,17 @@
     -moz-border-radius-topright: 10px;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
+}
+
+.sidebar #blog-feed {
+    float: right;
+    width: 209px;
+    height: auto;
+}
+
+.sidebar #information {
+    float: right;
+    height: auto;
 }
 
 .homepage .linkbar {

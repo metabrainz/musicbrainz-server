@@ -3,23 +3,25 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
      work => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      work => {
                          method   => 'GET',
                          inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
                          linked   => [ qw( artist ) ]
      },
      work => {
                          method   => 'GET',
                          inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 
@@ -40,13 +42,10 @@ sub work_toplevel
 
     $self->linked_works ($c, $stash, [ $work ]);
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $work);
-    }
+    $self->load_relationships($c, $stash, $work);
 
     $c->model('WorkType')->load($work);
+    $c->model('Language')->load($work);
 }
 
 sub base : Chained('root') PathPart('work') CaptureArgs(0) { }
@@ -55,6 +54,8 @@ sub work : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $work = $c->stash->{entity};
+
+    return unless defined $work;
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($work);
@@ -72,7 +73,7 @@ sub work_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

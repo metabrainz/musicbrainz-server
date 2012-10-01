@@ -5,6 +5,7 @@ extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::DatePeriod';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
+with 'MusicBrainz::Server::Form::Role::IPI';
 
 has '+name' => ( default => 'edit-label' );
 
@@ -36,19 +37,35 @@ has_field 'comment' => (
     maxlength => 255
 );
 
-has_field 'ipi_code' => (
-    type => '+MusicBrainz::Server::Form::Field::IPI',
-);
-
 sub edit_field_names
 {
     return qw( name sort_name comment type_id country_id
-               begin_date end_date label_code ipi_code );
+               begin_date end_date label_code ipi_codes ended );
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }
-sub options_country_id { shift->_select_all('Country') }
+sub options_country_id { shift->_select_all('Country', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Label') }
 
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

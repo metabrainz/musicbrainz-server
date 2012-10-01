@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::CDStub;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::CDStub;
 use MusicBrainz::Server::Data::CDStubTOC;
@@ -20,13 +19,10 @@ my $test = shift;
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+cdstub_raw');
 
 my $cdstubtoc = MusicBrainz::Server::Data::CDStubTOC->new(c => $test->c);
-memory_cycle_ok($cdstubtoc);
 
 my $toc = $cdstubtoc->get_by_discid('YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
 $test->c->model('CDStub')->load($toc);
 $test->c->model('CDStubTrack')->load_for_cdstub($toc->cdstub);
-memory_cycle_ok($cdstubtoc);
-memory_cycle_ok($toc);
 
 is ( $toc->discid, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
 is ( $toc->leadout_offset, 20000 );

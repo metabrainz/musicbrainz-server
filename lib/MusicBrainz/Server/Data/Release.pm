@@ -1,9 +1,13 @@
 package MusicBrainz::Server::Data::Release;
 
 use Moose;
+use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Entity::Barcode;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
@@ -13,7 +17,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_partial_date
     order_by
-    partial_date_from_row
     placeholders
     query_to_list
     query_to_list_limited
@@ -40,7 +43,8 @@ sub _table
 sub _columns
 {
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
-            release_group, release.status, release.packaging, date_year, date_month, date_day,
+            release.release_group, release.status, release.packaging,
+            release.date_year, release.date_month, release.date_day,
             release.country, release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality, release.last_updated';
 }
@@ -66,10 +70,10 @@ sub _column_mapping
         status_id => 'status',
         packaging_id => 'packaging',
         country_id => 'country',
-        date => sub { partial_date_from_row(shift, shift() . 'date_') },
+        date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'date_') },
         edits_pending => 'edits_pending',
         comment => 'comment',
-        barcode => 'barcode',
+        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row(shift, shift) },
         script_id => 'script',
         language_id => 'language',
         quality => sub {
@@ -87,25 +91,49 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Release';
 }
 
-sub _where_status_in
+sub _where_filter
 {
-    my @statuses = @_;
+    my ($filter) = @_;
 
-    return '' unless @statuses;
+    my (@query, @joins, @params);
 
-    return 'AND status IN ('.placeholders(@statuses).')';
-}
+    if (defined $filter) {
+        if (exists $filter->{name}) {
+            push @query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @params, $filter->{name}, $filter->{name};
+        }
+        if (exists $filter->{artist_credit_id}) {
+            push @query, "release.artist_credit = ?";
+            push @params, $filter->{artist_credit_id};
+        }
+        if (exists $filter->{status} && $filter->{status}) {
+            my @statuses = ref($filter->{status}) ? @{ $filter->{status} } : ( $filter->{status} );
+            if (@statuses) {
+                push @query, 'status IN (' . placeholders(@statuses) . ')';
+                push @params, @statuses;
+            }
+        }
+        if (exists $filter->{type} && $filter->{type}) {
+            my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
+            my %partitioned_types = partition_by {
+                "$_" =~ /^st:/ ? 'secondary' : 'primary'
+            } @types;
 
-sub _where_type_in
-{
-    my @types = @_;
+            if (my $primary = $partitioned_types{primary}) {
+                push @query, 'release_group.type = any(?)';
+                push @joins, 'JOIN release_group ON release.release_group = release_group.id';
+                push @params, $primary;
+            }
 
-    return ('', '') unless @types;
+            if (my $secondary = $partitioned_types{secondary}) {
+                push @query, 'st.secondary_type = any(?)';
+                push @params, [ map { substr($_, 3) } @$secondary ];
+                push @joins, 'JOIN release_group_secondary_type_join st ON release.release_group = st.release_group';
+            }
+        }
+    }
 
-    return (
-        'JOIN release_group ON release.release_group = release_group.id',
-        'AND release_group.type in ('.placeholders(@types).')'
-        );
+    return (\@query, \@joins, \@params);
 }
 
 sub load
@@ -114,12 +142,27 @@ sub load
     return load_subobjects($self, 'release', @objs);
 }
 
+sub find_artist_credits_by_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = "SELECT DISTINCT rel.artist_credit
+                 FROM release rel
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rel.artist_credit
+                 WHERE acn.artist = ?";
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my $where_statuses = _where_status_in (@$statuses);
-    my ($join_types, $where_types) = _where_type_in (@$types);
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "acn.artist = ?";
+    push @$params, $artist_id;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                         country.name AS country_name,
@@ -127,41 +170,44 @@ sub find_by_artist
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
-                     $join_types
+                     " . join(' ', @$extra_joins) . "
                      LEFT JOIN country ON release.country = country.id
-                 WHERE acn.artist = ?
-                 $where_statuses
-                 $where_types
+                 WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY date_year, date_month, date_day,
                           country.name, barcode, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, @$statuses, @$types, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_by_label
 {
-    my ($self, $label_id, $limit, $offset, $statuses, $types) = @_;
+    my ($self, $label_id, $limit, $offset, %args) = @_;
 
-    my $where_statuses = _where_status_in (@$statuses);
-    my ($join_types, $where_types) = _where_type_in (@$types);
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
-    my $query = "SELECT " . $self->_columns . ", country.name AS country_name
-                 FROM " . $self->_table . "
-                     JOIN release_label
-                         ON release_label.release = release.id
-                     $join_types
-                     LEFT JOIN country ON release.country = country.id
-                 WHERE release_label.label = ?
-                 $where_statuses
-                 $where_types
-                 ORDER BY date_year, date_month, date_day,
-                          country.name, barcode
-                 OFFSET ?";
+    push @$conditions, "release_label.label = ?";
+    push @$params, $label_id;
+
+    my $query =
+        "SELECT * FROM (
+           SELECT DISTINCT ON (release.id) " . $self->_columns . " 
+             , country.name AS country_name, catalog_number
+           FROM " . $self->_table . "
+           JOIN release_label
+             ON release_label.release = release.id
+           " . join(' ', @$extra_joins) . "
+           LEFT JOIN country ON release.country = country.id
+           WHERE " . join(" AND ", @$conditions) . "
+         ) s
+         ORDER BY date_year, date_month, date_day, catalog_number,
+                  musicbrainz_collate(name), country_name,
+                  barcode
+         OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $label_id, @$statuses, @$types, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_by_disc_id
@@ -182,111 +228,117 @@ sub find_by_disc_id
 
 sub find_by_release_group
 {
-    my ($self, $ids, $limit, $offset, $statuses) = @_;
+    my ($self, $ids, $limit, $offset, %args) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
 
-    my $where_statuses = _where_status_in (@$statuses);
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "release_group IN (" . placeholders(@ids) . ")";
+    push @$params, @ids;
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
+                 " . join(' ', @$extra_joins) . "
                  LEFT JOIN country ON release.country = country.id
-                 WHERE release_group IN (" . placeholders(@ids) . ")
-                 $where_statuses
+                 WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY date_year, date_month, date_day,
                           country.name, barcode
                  OFFSET ?";
+
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, @ids, @$statuses, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_by_track_artist
 {
-    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my $where_statuses = _where_status_in (@$statuses);
-    my ($join_types, $where_types) = _where_type_in (@$types);
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "
+        release.id IN (
+            SELECT release FROM medium
+                JOIN track tr
+                ON tr.tracklist = medium.tracklist
+                JOIN artist_credit_name acn
+                ON acn.artist_credit = tr.artist_credit
+            WHERE acn.artist = ?)
+        AND release.id NOT IN (
+            SELECT id FROM release
+              JOIN artist_credit_name acn
+                ON release.artist_credit = acn.artist_credit
+             WHERE acn.artist = ?)";
+    push @$params, $artist_id, $artist_id;
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 $join_types
-                 WHERE release.id IN (
-                     SELECT release FROM medium
-                         JOIN track tr
-                         ON tr.tracklist = medium.tracklist
-                         JOIN artist_credit_name acn
-                         ON acn.artist_credit = tr.artist_credit
-                     WHERE acn.artist = ?)
-                  AND release.id NOT IN (
-                     SELECT id FROM release
-                       JOIN artist_credit_name acn
-                         ON release.artist_credit = acn.artist_credit
-                      WHERE acn.artist = ?)
-                 $where_statuses
-                 $where_types
+                 " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $artist_id, @$statuses, @$types, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_for_various_artists
 {
-    my ($self, $artist_id, $limit, $offset, $statuses, $types) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my $where_statuses = _where_status_in (@$statuses);
-    my ($join_types, $where_types) = _where_type_in (@$types);
+	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "
+        acn.artist != ?
+        AND release.id IN (
+            SELECT release FROM medium
+                JOIN track tr
+                ON tr.tracklist = medium.tracklist
+                JOIN artist_credit_name acn
+                ON acn.artist_credit = tr.artist_credit
+            WHERE acn.artist = ?)";
+    push @$params, $artist_id, $artist_id;
 
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
-                     $join_types
-                 WHERE acn.artist != ?
-                 AND release.id IN (
-                     SELECT release FROM medium
-                         JOIN track tr
-                         ON tr.tracklist = medium.tracklist
-                         JOIN artist_credit_name acn
-                         ON acn.artist_credit = tr.artist_credit
-                     WHERE acn.artist = ?)
-                 $where_statuses
-                 $where_types
+                     " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $artist_id, @$statuses, @$types, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_by_recording
 {
-    my ($self, $ids, $limit, $offset, $statuses, $types) = @_;
-
-    my $where_statuses = _where_status_in (@$statuses);
-    my ($join_types, $where_types) = _where_type_in (@$types);
-
+    my ($self, $ids, $limit, $offset, %args) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "track.recording IN (" . placeholders(@ids) . ")";
+    push @$params, @ids;
+
     my $query = "SELECT DISTINCT ON (release.id) " . $self->_columns . "
                  FROM " . $self->_table . "
-                     $join_types
+                     " . join(' ', @$extra_joins) . "
                      JOIN medium ON medium.release = release.id
                      JOIN track ON track.tracklist = medium.tracklist
-                 WHERE track.recording IN (" . placeholders(@ids) . ")
-                 $where_statuses
-                 $where_types
+                 WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY release.id, date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
 
     if (!defined $limit) {
         return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                             $query, @ids, @$statuses, @$types, $offset || 0);
+                             $query, @$params, $offset || 0);
     }
     else {
         return query_to_list_limited(
             $self->c->sql, $offset, $limit || 25, sub { $self->_new_from_row(@_) },
-            $query, @ids, @$statuses, @$types, $offset || 0);
+            $query, @$params, $offset || 0);
     }
 }
 
@@ -335,7 +387,7 @@ sub find_for_cdtoc
                         ON medium.tracklist = tracklist.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
                    AND (medium_format.id IS NULL OR medium_format.has_discids)
-                 ORDER BY date_year, date_month, date_day, musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(name.name), date_year, date_month, date_day
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -344,10 +396,12 @@ sub find_for_cdtoc
 
 sub load_with_tracklist_for_recording
 {
-    my ($self, $recording_id, $limit, $offset, $statuses, $types) = @_;
+    my ($self, $recording_id, $limit, $offset, %args) = @_;
 
-    my $where_statuses = _where_status_in (@$statuses);
-    my ($join_types, $where_types) = _where_type_in (@$types);
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "track.recording = ?";
+    push @$params, $recording_id;
 
     my $query = "
         SELECT
@@ -366,7 +420,8 @@ sub load_with_tracklist_for_recording
                 tracklist.track_count AS m_track_count,
             track.id AS t_id, track_name.name AS t_name,
                 track.tracklist AS t_tracklist, track.position AS t_position,
-                track.length AS t_length, track.artist_credit AS t_artist_credit
+                track.length AS t_length, track.artist_credit AS t_artist_credit,
+                track.number AS t_number
         FROM
             track
             JOIN tracklist ON tracklist.id = track.tracklist
@@ -374,10 +429,8 @@ sub load_with_tracklist_for_recording
             JOIN release ON release.id = medium.release
             JOIN release_name ON release.name = release_name.id
             JOIN track_name ON track.name = track_name.id
-            $join_types
-        WHERE track.recording = ?
-            $where_statuses
-            $where_types
+            " . join(' ', @$extra_joins) . "
+       WHERE " . join(" AND ", @$conditions) . "
        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
        OFFSET ?";
     return query_to_list_limited(
@@ -393,7 +446,7 @@ sub load_with_tracklist_for_recording
 
             return $release;
         },
-        $query, $recording_id, @$statuses, @$types, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_by_puid
@@ -606,6 +659,56 @@ sub can_merge {
     }
 }
 
+sub determine_recording_merges
+{
+    my ($self, @releases) = @_;
+
+    my %medium_by_position;
+    foreach my $release (@releases) {
+        foreach my $medium ($release->all_mediums) {
+            if (exists $medium_by_position{$medium->position}) {
+                push @{ $medium_by_position{$medium->position} }, $medium;
+			}
+            else {
+                $medium_by_position{$medium->position} = [ $medium ];
+            }
+        }
+    }
+
+    my %recording_by_position;
+    for my $m_pos (keys %medium_by_position) {
+        # must have at least two mediums
+        my @mediums = @{ $medium_by_position{$m_pos} };
+        next if @mediums <= 1;
+        # all mediums must have the same number of tracks
+        my $track_count = $mediums[0]->tracklist->track_count;
+        next if grep { $_->tracklist->track_count != $track_count } @mediums;
+        # group recordings by track position 
+        $recording_by_position{$m_pos} = {};
+        for my $medium (@mediums) {
+            for my $tr ($medium->tracklist->all_tracks) {
+                my $tr_pos = $tr->position;
+                if (exists $recording_by_position{$m_pos}->{$tr_pos}) {
+                    push @{ $recording_by_position{$m_pos}->{$tr_pos} }, $tr->recording;
+                }
+                else {
+                    $recording_by_position{$m_pos}->{$tr_pos} = [ $tr->recording ];
+                }   
+            }
+        }
+    }
+
+    my @merges;
+    for my $m_pos (sort { $a <=> $b } keys %recording_by_position) {
+        for my $tr_pos (sort { $a <=> $b } keys %{ $recording_by_position{$m_pos} }) {
+            my $recordings = $recording_by_position{$m_pos}->{$tr_pos};
+            push @merges, $recordings if scalar @$recordings;
+        }
+    }
+
+    return @merges;
+}
+
 sub merge
 {
     my ($self, %opts) = @_;
@@ -619,6 +722,7 @@ sub merge
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
+    $self->c->model('CoverArtArchive')->merge_releases($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
 
     merge_table_attributes(
@@ -750,6 +854,7 @@ sub load_meta
         $obj->info_url($row->{info_url}) if defined $row->{info_url};
         $obj->amazon_asin($row->{amazon_asin}) if defined $row->{amazon_asin};
         $obj->amazon_store($row->{amazon_store}) if defined $row->{amazon_store};
+        $obj->cover_art_presence($row->{cover_art_presence});
     }, @objs);
 
     my @ids = keys %id_to_obj;

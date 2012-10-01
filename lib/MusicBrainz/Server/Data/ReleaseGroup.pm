@@ -1,7 +1,10 @@
 package MusicBrainz::Server::Data::ReleaseGroup;
-
 use Moose;
+use namespace::autoclean;
+
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::ReleaseGroup;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
@@ -9,7 +12,6 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
-    partial_date_from_row
     placeholders
     query_to_list
     query_to_list_limited
@@ -34,7 +36,7 @@ sub _table
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS type_id, name.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, name.name,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,
@@ -46,13 +48,13 @@ sub _column_mapping {
     return {
         id => 'id',
         gid => 'gid',
-        type_id => 'type_id',
+        primary_type_id => 'primary_type_id',
         name => 'name',
         artist_credit_id => 'artist_credit_id',
         comment => 'comment',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
-        first_release_date => sub { partial_date_from_row(shift, 'first_release_date_') }
+        first_release_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'first_release_date_') }
     }
 }
 
@@ -69,6 +71,47 @@ sub _gid_redirect_table
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::ReleaseGroup';
+}
+
+sub _where_filter
+{
+    my ($filter) = @_;
+
+    my (@query, @joins, @params);
+
+    if (defined $filter) {
+        if (exists $filter->{name}) {
+            push @query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @params, $filter->{name}, $filter->{name};
+        }
+        if (exists $filter->{artist_credit_id}) {
+            push @query, "rg.artist_credit = ?";
+            push @params, $filter->{artist_credit_id};
+        }
+        if (exists $filter->{type_id}) {
+            push @query, "rg.type = ?";
+            push @params, $filter->{type_id};
+        }
+        if (exists $filter->{type} && $filter->{type}) {
+            my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
+            my %partitioned_types = partition_by {
+                "$_" =~ /^st:/ ? 'secondary' : 'primary'
+            } @types;
+
+            if (my $primary = $partitioned_types{primary}) {
+                push @query, 'rg.type = any(?)';
+                push @params, $primary;
+            }
+
+            if (my $secondary = $partitioned_types{secondary}) {
+                push @query, 'st.secondary_type = any(?)';
+                push @params, [ map { substr($_, 3) } @$secondary ];
+                push @joins, 'JOIN release_group_secondary_type_join st ON rg.id = st.release_group';
+            }
+        }
+    }
+
+    return (\@query, \@joins, \@params);
 }
 
 sub load
@@ -118,11 +161,27 @@ sub find_by_name_prefix_va
     );
 }
 
+sub find_artist_credits_by_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = "SELECT DISTINCT rel.artist_credit
+                 FROM release_group rel
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rel.artist_credit
+                 WHERE acn.artist = ?";
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset, $types) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-    my $where_types = $types ? 'AND type IN ('.placeholders(@$types).')' : '';
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "acn.artist = ?";
+    push @$params, $artist_id;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
@@ -131,14 +190,21 @@ sub find_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name) AS name_collate
+                    musicbrainz_collate(name.name) AS name_collate,
+                    array(
+                      SELECT name FROM release_group_secondary_type rgst
+                      JOIN release_group_secondary_type_join rgstj
+                        ON rgstj.secondary_type = rgst.id
+                      WHERE rgstj.release_group = rg.id
+                      ORDER BY name ASC
+                    ) secondary_types
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE acn.artist = ?
-                    $where_types
+                     " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY
-                    rg.type,
+                    rg.type, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
@@ -150,11 +216,11 @@ sub find_by_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, @$types, $offset || 0);
+        $query, @$params, $offset || 0);
 }
 
 sub find_by_track_artist
@@ -167,7 +233,14 @@ sub find_by_track_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(name.name),
+                    array(
+                      SELECT name FROM release_group_secondary_type rgst
+                      JOIN release_group_secondary_type_join rgstj
+                        ON rgstj.secondary_type = rgst.id
+                      WHERE rgstj.release_group = rg.id
+                      ORDER BY name ASC
+                    ) secondary_types
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
@@ -187,7 +260,7 @@ sub find_by_track_artist
                          ON release_group.artist_credit = acn.artist_credit
                       WHERE acn.artist = ?)
                  ORDER BY
-                    rg.type,
+                    rg.type, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
@@ -199,7 +272,7 @@ sub find_by_track_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
@@ -209,7 +282,13 @@ sub find_by_track_artist
 # This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases
 sub filter_by_artist
 {
-    my ($self, $artist_id, $type) = @_;
+    my ($self, $artist_id, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "acn.artist = ?";
+    push @$params, $artist_id;
+
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -221,9 +300,9 @@ sub filter_by_artist
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE acn.artist = ?" .
-                     ($type ? " AND type = ? " : "") .
-                "ORDER BY
+                    " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
+                 ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -235,16 +314,32 @@ sub filter_by_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, $type ? ($type) : ());
+        $query, @$params);
 }
 
 sub filter_by_track_artist
 {
-    my ($self, $artist_id, $type) = @_;
+    my ($self, $artist_id, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "
+                 rg.id IN (
+                     SELECT release_group FROM release
+                         JOIN medium
+                         ON medium.release = release.id
+                         JOIN track tr
+                         ON tr.tracklist = medium.tracklist
+                         JOIN artist_credit_name acn
+                         ON acn.artist_credit = tr.artist_credit
+                     WHERE acn.artist = ?
+                 )";
+    push @$params, $artist_id;
+
     my $query = "SELECT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -255,18 +350,9 @@ sub filter_by_track_artist
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE rg.id IN (
-                     SELECT release_group FROM release
-                         JOIN medium
-                         ON medium.release = release.id
-                         JOIN track tr
-                         ON tr.tracklist = medium.tracklist
-                         JOIN artist_credit_name acn
-                         ON acn.artist_credit = tr.artist_credit
-                     WHERE acn.artist = ?
-                 ) " .
-                     ($type ? " AND type = ? " : "") .
-                 "ORDER BY
+                     " . join(' ', @$extra_joins) . "
+                 WHERE " . join(" AND ", @$conditions) . "
+                 ORDER BY
                     rg.type,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -278,11 +364,11 @@ sub filter_by_track_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
-        $query, $artist_id, $type ? ($type) : ());
+        $query, @$params);
 }
 
 sub find_by_release
@@ -306,7 +392,7 @@ sub find_by_release
         $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             return $rg;
         },
         $query, $release_id, $offset || 0);
@@ -332,7 +418,7 @@ sub find_by_release_gids
         $self->c->sql, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             return $rg;
         },
         $query, @release_gids);
@@ -371,10 +457,13 @@ sub insert
     {
         my $row = $self->_hash_to_row($group, \%names);
         $row->{gid} = $group->{gid} || generate_gid();
-        push @created, $class->new(
+        my $new = $class->new(
             id => $self->sql->insert_row('release_group', $row, 'id'),
             gid => $row->{gid}
         );
+        push @created, $new;
+
+        $self->c->model('ReleaseGroupSecondaryType')->set_types($new->id, $group->{secondary_type_ids})
     }
     return @groups > 1 ? @created : $created[0];
 }
@@ -385,7 +474,9 @@ sub update
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $self->sql->update_row('release_group', $row, { id => $group_id });
+    $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
+    $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
+        if exists $update->{secondary_type_ids};
 }
 
 sub in_use
@@ -422,6 +513,8 @@ sub delete
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->delete_entities (@group_ids);
+
     $self->sql->do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);
     return;
 }
@@ -465,6 +558,7 @@ sub _merge_impl
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
+    $self->c->model('ReleaseGroupSecondaryType')->merge_entities ($new_id, @old_ids);
 
     merge_table_attributes(
         $self->sql => (
@@ -487,7 +581,7 @@ sub _hash_to_row
 {
     my ($self, $group, $names) = @_;
     my $row = hash_to_row($group, {
-        type => 'type_id',
+        type => 'primary_type_id',
         map { $_ => $_ } qw( artist_credit comment edits_pending )
     });
 
@@ -505,7 +599,7 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->release_count($row->{release_count});
-        $obj->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+        $obj->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
     }, @_);
 }
 

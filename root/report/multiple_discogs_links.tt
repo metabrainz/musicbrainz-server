@@ -3,9 +3,17 @@
 <h1>[% l('Releases With Multiple Discogs Links') %]</h1>
 
 <ul>
-    <li>[% l('This report shows releases that have more than one Discogs link.') %]</li>
+    <li>[% l('This report shows releases that have more than one link to
+              Discogs. In most cases a MusicBrainz release should have only one
+              equivalent in Discogs, so only one of them will be correct. Just check
+              which ones do not fit the release (because of format, different number of
+              tracks, etc). Any "master" Discogs page belongs at the {release_group|release
+              group level}, not at the release level, and should be removed from
+              releases too.',
+              { release_group => doc_link('Release_Group') }) %]</li>
     <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]

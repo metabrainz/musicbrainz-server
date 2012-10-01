@@ -21,6 +21,7 @@ my $test = shift;
 my $c = $test->c;
 my $v2 = schema_validator;
 my $mech = $test->mech;
+$mech->default_header ("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
@@ -64,6 +65,7 @@ is_deeply($edit->data->{puids}, [
       }
   }
 ]);
+is($edit->data->{client_version}, 'test-1.0');
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -92,6 +94,22 @@ is_deeply($edit->data->{isrcs}, [
       }
   }
 ]);
+is($edit->data->{client_version}, 'test-1.0');
+
+$content = '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <recording-list>
+    <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
+      <isrc-list>
+        <isrc id="TCABF1283419"></isrc>
+      </isrc-list>
+    </recording>
+  </recording-list>
+</metadata>';
+
+$req = xml_post('/ws/2/recording?client=test-1.0', $content);
+$mech->request($req);
+is($mech->status, HTTP_BAD_REQUEST, "TuneCore ID does not get submitted.");
 
 $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
@@ -104,7 +122,7 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
   </recording-list>
 </metadata>';
 
-$req = xml_post('/ws/2/recording?client=test-1.0', $content);
+$req = xml_post('/ws/2/recording?client=test-2.0', $content);
 $mech->request($req);
 is($mech->status, HTTP_OK);
 xml_ok($mech->content);
@@ -120,6 +138,7 @@ is_deeply($edit->data->{puids}, [
       }
   }
 ]);
+is($edit->data->{client_version}, 'test-2.0');
 
 };
 

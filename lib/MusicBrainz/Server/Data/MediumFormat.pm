@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::MediumFormat;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::MediumFormat;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 

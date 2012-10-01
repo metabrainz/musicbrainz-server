@@ -6,7 +6,7 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_ISRCS
                                        :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Edit::Exceptions;
 
 extends 'MusicBrainz::Server::Edit';
@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Edit::Recording';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
-sub edit_name { l('Add ISRCs') }
+sub edit_name { N_l('Add ISRCs') }
 
 sub recording_ids { map { $_->{recording}{id} } @{ shift->data->{isrcs} } }
 
@@ -31,7 +31,8 @@ has '+data' => (
                 name => Str
             ],
             source    => Nullable[Int],
-        ]]
+        ]],
+        client_version => Nullable[Str]
     ]
 );
 
@@ -45,7 +46,8 @@ sub initialize
     }
     else {
         $self->data({
-            isrcs => \@isrcs
+            isrcs => \@isrcs,
+            client_version => $opts{client_version}
         });
     }
 }

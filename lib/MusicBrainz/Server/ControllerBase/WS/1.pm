@@ -7,6 +7,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::WebService::XMLSerializerV1;
 use Scalar::Util qw( looks_like_number );
@@ -17,17 +18,20 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 };
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
+with 'MusicBrainz::Server::Controller::Role::ETags';
 
 has 'model' => (
     isa => 'Str',
     is  => 'ro',
 );
 
-sub serializers {
-    return {
-        xml => 'MusicBrainz::Server::WebService::XMLSerializerV1',
-    };
-}
+with 'MusicBrainz::Server::WebService::Format' =>
+{
+    serializers => [
+        'MusicBrainz::Server::WebService::XMLSerializerV1',
+    ]
+};
+
 
 sub apply_rate_limit
 {
@@ -90,9 +94,10 @@ sub apply_rate_limit
 sub begin : Private {}
 sub auto : Private {
     my ($self, $c) = @_;
+
     $c->stash->{data} = {};
     my $continue = try {
-        $self->validate($c, $self->serializers) or $c->detach('bad_req');
+        $self->validate($c) or $c->detach('bad_req');
         return 1;
     }
     catch {
@@ -135,6 +140,10 @@ sub search : Chained('root') PathPart('')
             $c->res->body($err->message);
             $c->res->status(HTTP_BAD_REQUEST);
         }
+        elsif (blessed($err) && $err->isa('HTTP::Response')) {
+            $c->res->body("Could not retrieve sub-document page from search server. Error: " . $err->status_line);
+            $c->res->status(HTTP_SERVICE_UNAVAILABLE);
+        }
         else {
             die $err;
         }
@@ -171,7 +180,7 @@ sub load : Chained('root') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $gid) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!is_guid($gid))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

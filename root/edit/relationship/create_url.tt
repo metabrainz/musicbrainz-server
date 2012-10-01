@@ -53,7 +53,7 @@
                 <td colspan="2">[% r.text('url', { size => 47 }) %]</td>
             </tr>
             <tr class="attributes-container" style="display: hidden">
-                <th class="label">[% l('License:') %]</th>
+                <th class="label">[% l('Attributes:') %]</th>
                 <td>
                 [% FOR attr IN attr_tree.children %]
                     <div id="attr-section-[% attr.id %]" class="ar-attr">

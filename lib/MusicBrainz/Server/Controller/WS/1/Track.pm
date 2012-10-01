@@ -120,7 +120,7 @@ sub submit : Private
     for my $pair (@pairs) {
         my ($recording_id, $gid) = split(' ', $pair);
 
-        unless (MusicBrainz::Server::Validation::IsGUID($recording_id)) {
+        unless (is_guid($recording_id)) {
             $c->stash->{error} = 'Recording IDs be valid MBIDs';
             $c->detach('bad_req');
         }
@@ -161,7 +161,7 @@ sub submit_puid : Private
 
     for my $puids (values %$submit) {
         for my $puid (@$puids) {
-            unless (MusicBrainz::Server::Validation::IsGUID($puid)) {
+            unless (is_guid($puid)) {
                 $c->stash->{error} = 'PUIDs must be specified in MBID format';
                 $c->detach('bad_req');
             }
@@ -183,17 +183,19 @@ sub submit_puid : Private
         }
     );
 
-    $buffer->flush_on_complete(sub {
-        while(my ($recording_gid, $puids) = each %$submit) {
-            next unless exists $recordings->{ $recording_gid };
-            $buffer->add_items(map +{
-                recording => {
-                    id   => $recordings->{ $recording_gid }->id,
-                    name => $recordings->{ $recording_gid }->name
-                },
-                puid      => $_
-            }, @$puids);
-        }
+    $c->model('MB')->with_transaction(sub {
+        $buffer->flush_on_complete(sub {
+            while(my ($recording_gid, $puids) = each %$submit) {
+                next unless exists $recordings->{ $recording_gid };
+                $buffer->add_items(map +{
+                    recording => {
+                        id   => $recordings->{ $recording_gid }->id,
+                        name => $recordings->{ $recording_gid }->name
+                    },
+                    puid      => $_
+                }, @$puids);
+            }
+        })
     });
 
     $c->detach;
@@ -232,17 +234,19 @@ sub submit_isrc : Private
         }
     );
 
-    $buffer->flush_on_complete(sub {
-        while(my ($recording_gid, $isrcs) = each %$submit) {
-            next unless exists $recordings->{ $recording_gid };
-            $buffer->add_items(map +{
-                recording => {
-                    id   => $recordings->{ $recording_gid }->id,
-                    name => $recordings->{ $recording_gid }->name
-                },
-                isrc         => $_
-            }, @$isrcs);
-        }
+    $c->model('MB')->with_transaction(sub {
+        $buffer->flush_on_complete(sub {
+            while(my ($recording_gid, $isrcs) = each %$submit) {
+                next unless exists $recordings->{ $recording_gid };
+                $buffer->add_items(map +{
+                    recording => {
+                        id   => $recordings->{ $recording_gid }->id,
+                        name => $recordings->{ $recording_gid }->name
+                    },
+                    isrc         => $_
+                }, @$isrcs);
+            }
+        });
     });
 
     $c->detach;

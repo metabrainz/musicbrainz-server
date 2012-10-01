@@ -41,7 +41,8 @@ sub _load
     $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->cdstub);
     $cdstubtoc->update_track_lengths;
 
-    $c->stash->{show_artists} = $cdstubtoc->cdstub->artist eq '';
+    $c->stash->{show_artists} = !defined($cdstubtoc->cdstub->artist) ||
+                                $cdstubtoc->cdstub->artist eq '';
     $c->stash->{cdstub} = $cdstubtoc;
 }
 
@@ -77,7 +78,7 @@ sub add : Path('add') {
             tracks => [ map +{}, (1..$toc->track_count) ]
         }
     );
-    $c->stash( template => 'cdstub/edit.tt' );
+    $c->stash( template => 'cdstub/add.tt' );
     if ($form->submitted_and_valid($c->req->params)) {
         my $form_val = $form->value;
         $c->model('CDStub')->insert({

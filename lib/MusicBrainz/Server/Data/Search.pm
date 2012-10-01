@@ -8,19 +8,23 @@ use Readonly;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
-use MusicBrainz::Server::Entity::SearchResult;
+use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::Barcode;
+use MusicBrainz::Server::Entity::Gender;
+use MusicBrainz::Server::Entity::ISRC;
+use MusicBrainz::Server::Entity::ISWC;
+use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::Relationship;
+use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
-use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Script;
-use MusicBrainz::Server::Entity::Release;
-use MusicBrainz::Server::Entity::LabelType;
+use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::WorkType;
-use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Label;
@@ -28,6 +32,7 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Tag;
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -81,6 +86,7 @@ sub search
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day,
+                entity.ended,
                 $extra_columns
                 MAX(rank) AS rank
             FROM
@@ -99,7 +105,7 @@ sub search
             GROUP BY
                 $extra_columns entity.id, entity.gid, entity.comment, aname.name, asort_name.name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY
                 rank DESC, sort_name, name
             OFFSET
@@ -114,7 +120,7 @@ sub search
         $type2 = "release" if $type eq "release_group";
 
         my $extra_columns = "";
-        $extra_columns .= 'entity.type AS type_id,'
+        $extra_columns .= 'entity.type AS primary_type_id,'
             if ($type eq 'release_group');
 
         $extra_columns = "entity.length,"
@@ -123,6 +129,9 @@ sub search
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
             entity.date_year, entity.date_month, entity.date_day,'
             if ($type eq 'release');
+
+        $extra_columns .= 'entity.language AS language_id,'
+            if ($type eq 'work');
 
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
@@ -181,7 +190,8 @@ sub search
         $use_hard_search_limit = 0;
     }
     elsif ($type eq 'editor') {
-        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
+                    email
                   FROM editor, plainto_tsquery('mb_simple', ?) AS query
                   WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                   ORDER BY rank DESC
@@ -297,7 +307,7 @@ sub schema_fixup
     }
     if ($type eq 'release-group' && exists $data->{type})
     {
-        $data->{type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
+        $data->{primary_type} = MusicBrainz::Server::Entity::ReleaseGroupType->new( name => $data->{type} );
     }
     if ($type eq 'cdstub' && exists $data->{gid})
     {
@@ -322,6 +332,11 @@ sub schema_fixup
     }
     if (($type eq 'cdstub' || $type eq 'freedb') && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
     {
+        if (exists $data->{barcode})
+        {
+            $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
+        }
+
         $data->{track_count} = $data->{"track-list"}->{count};
         delete $data->{"track-list"}->{count};
     }
@@ -331,11 +346,15 @@ sub schema_fixup
         {
             $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
         }
+        if (exists $data->{barcode})
+        {
+            $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
+        }
         if (exists $data->{"text-representation"} &&
             exists $data->{"text-representation"}->{language})
         {
             $data->{language} = MusicBrainz::Server::Entity::Language->new( {
-                iso_code_3t => $data->{"text-representation"}->{language}
+                iso_code_3 => $data->{"text-representation"}->{language}
             } );
         }
         if (exists $data->{"text-representation"} &&
@@ -384,7 +403,7 @@ sub schema_fixup
                 ) ]
             );
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
-                type => MusicBrainz::Server::Entity::ReleaseGroupType->new(
+                primary_type => MusicBrainz::Server::Entity::ReleaseGroupType->new(
                     name => $release->{"release-group"}->{type} || ''
                 )
             );
@@ -401,6 +420,12 @@ sub schema_fixup
             );
         }
         $data->{_extra} = \@releases;
+    }
+
+    if ($type eq 'recording' && exists $data->{'isrc-list'}) {
+        $data->{isrcs} = [
+            map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrc-list'}{'isrc'} }
+        ];
     }
 
     if (exists $data->{"relation-list"} &&
@@ -468,23 +493,39 @@ sub schema_fixup
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
     }
 
-    if ($type eq 'work' && exists $data->{relationships}) {
-        my %relationship_map = partition_by { $_->entity1->gid }
-            @{ $data->{relationships} };
+    if ($type eq 'work') {
+        if (exists $data->{relationships}) {
+            my %relationship_map = partition_by { $_->entity1->gid }
+                @{ $data->{relationships} };
 
-        $data->{writers} = [
-            map {
-                my @relationships = @{ $relationship_map{$_} };
-                {
-                    entity => $relationships[0]->entity1,
-                    roles  => [ map { $_->link->type->name } @relationships ]
-                }
-            } keys %relationship_map
-        ];
-    }
+            $data->{writers} = [
+                map {
+                    my @relationships = @{ $relationship_map{$_} };
+                    {
+                        entity => $relationships[0]->entity1,
+                            roles  => [ map { $_->link->type->name } @relationships ]
+                        }
+                } keys %relationship_map
+            ];
+        }
 
-    if($type eq 'work' && exists $data->{type}) {
-        $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
+        if(exists $data->{type}) {
+            $data->{type} = MusicBrainz::Server::Entity::WorkType->new( name => $data->{type} );
+        }
+
+        if (exists $data->{language}) {
+            $data->{language} = MusicBrainz::Server::Entity::Language->new({
+                iso_code_3 => $data->{language}
+            });
+        }
+
+        if(exists $data->{'iswc-list'}) {
+            $data->{iswcs} = [
+                map {
+                    MusicBrainz::Server::Entity::ISWC->new( iswc => $_ )
+                } @{ $data->{'iswc-list'}{iswc} }
+            ]
+        }
     }
 }
 
@@ -520,29 +561,16 @@ sub external_search
     Class::MOP::load_class($entity_model);
     my $offset = ($page - 1) * $limit;
 
-    if ($query eq '!!!' and $type eq 'artist')
-    {
-        $query = 'chkchkchk';
-    }
-
-    unless ($adv)
-    {
-        $query = escape_query($query);
-
-        if (grep { $type eq $_ } ('artist', 'label', 'work'))
-        {
-            $query = alias_query ($type, $query);
-        }
-    }
-
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json",
+    my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=%s",
                                  DBDefs::LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
-                                 $limit,);
+                                 $limit,
+                                 $adv ? 'false' : 'true',
+                                 );
 
     if (&DBDefs::_RUNNING_TESTS)
     {
@@ -599,9 +627,7 @@ sub external_search
         {
             foreach my $result (@results)
             {
-                $result->{type} = ref($result->{entity}->{parent});
-                $result->{type} =~ s/MusicBrainz::Server::Entity:://;
-                $result->{type} = lc($result->{type});
+                $result->{type} = ref_to_type($result->{entity}->{parent});
             }
         }
 
@@ -826,7 +852,7 @@ sub xml_search
     my $response = $ua->get($search_url);
     unless ($response->is_success)
     {
-        return;
+        die $response;
     }
     else
     {

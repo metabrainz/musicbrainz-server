@@ -17,7 +17,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+coverart');
 my $script = MusicBrainz::Script::RebuildCoverArt->new( c => $c );
 ok !exception { $script->run };
 
-my $sql = Sql->new($c->dbh);
+my $sql = $c->sql;
 is($sql->select_single_value('SELECT 1 FROM release_coverart WHERE id = 1 AND cover_art_url IS NOT NULL'), 1);
 
 

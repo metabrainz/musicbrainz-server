@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Entity::EditNote;
 use Moose;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Types qw( DateTime );
 
 has 'editor_id' => (
     isa => 'Int',
@@ -30,7 +32,7 @@ has 'text' => (
 );
 
 has 'post_time' => (
-    isa => 'DateTime',
+    isa => DateTime,
     is => 'rw',
     coerce => 1
 );

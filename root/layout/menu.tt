@@ -1,4 +1,31 @@
+[%- MACRO print_language_link(language) BLOCK -%]
+    <a href="[% c.uri_for_action('/set_language', [ language.0 ]) %]">
+    [%- IF language.1.native_language != '' -%]
+        [%- language.1.native_language | ucfirst -%][%- IF language.1.native_territory != '' %] ([%- language.1.native_territory | ucfirst -%])[%- END -%]
+    [%- ELSE -%][[%- language.1.id -%]][%- END -%]
+    </a>
+[%- END -%]
 <ul class="r">
+    [% IF server_languages.size > 1 -%]
+    <li class="language-selector">
+        [% FOREACH language = server_languages; IF language.0 == current_language -%]
+            [%- print_language_link(language) -%]
+            [%- LAST; END -%]
+        [%- END %]
+        <ul>
+        [%- FOREACH language = server_languages -%]
+            [%- IF language.0 == current_language; selected_language = 1; ELSE; selected_language = 0; END %]
+            <li>[%- IF selected_language == 1 -%]<strong>[%- END %]
+                [%- print_language_link(language) -%]
+                [%- IF selected_language == 1 -%]</strong>[%- END %]
+            </li>
+        [%- END %]
+            <li>
+                <a href="[% c.uri_for_action('/set_language', [ 'unset' ] ) %]">[%- l('(reset language)') -%]</a>
+            </li>
+        </ul>
+    </li>
+    [%- END %]
     [%- IF c.user_exists -%]
         <li class="account">
             [% link_entity(c.user) %]
@@ -52,10 +79,10 @@
                 <ul>
                     [% IF c.user.is_relationship_editor %]
                         <li>
-                            <a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
+                            <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Edit Relationship Types') %]</a>
                         </li>
                         <li>
-                            <a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Relationship Attributes') %]</a>
+                            <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Edit Instrument Tree') %]</a>
                         </li>
                     [% END %]
                     [% IF c.user.is_wiki_transcluder %]
@@ -74,16 +101,16 @@
 
 <ul>
     <li class="about">
-        <a href="[% doc_link('About_MusicBrainz') %]">[% l('About') %]</a>
+        <a href="[% doc_link('About') %]">[% l('About') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('MusicBrainz_Sponsors') %]">[% l('Sponsors') %]</a>
+                <a href="[% doc_link('About/Sponsors') %]">[% l('Sponsors') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('People') %]">[% l('People') %]</a>
+                <a href="[% doc_link('About/Team') %]">[% l('Team') %]</a>
             </li>
             <li class="separator">
-                <a href="[% doc_link('MusicBrainz_License') %]">[% l('Data Licenses') %]</a>
+                <a href="[% doc_link('About/Data_License') %]">[% l('Data Licenses') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Social_Contract') %]">[% l('Social Contract') %]</a>
@@ -92,7 +119,7 @@
                 <a href="[% doc_link('Code_of_Conduct') %]">[% l('Code of Conduct') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('MusicBrainz_Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
+                <a href="[% doc_link('About/Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
             </li>
             <li class="separator">
                 <a href="[% c.uri_for_action('/elections/index') %]">[% l('Auto-editor Elections') %]</a>
@@ -121,7 +148,7 @@
                 <a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz') %]</a>
+                <a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a>
@@ -218,13 +245,10 @@
                 <a href="[% c.uri_for_action('/edit/edit_types') %]">[% l('Edit Types') %]</a>
             </li>
             <li>
-                <a href="[% c.uri_for('/admin/linktype') %]">[% l('Relationship Types') %]</a>
+                <a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
             </li>
             <li>
-                <a href="[% c.uri_for('/admin/linkattributetype') %]">[% l('Relationship Attributes') %]</a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/admin/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a>
+                <a href="[% c.uri_for_action('/relationship/linkattributetype/instruments') %]">[% l('Instrument Tree') %]</a>
             </li>
             <li class="separator">
                 <a href="[% doc_link('Development') %]">[% l('Development') %]</a>
@@ -249,6 +273,9 @@
             </li>
             <li>
                 <a href="[% doc_link('Copyright_Violation_Notice') %]">[% l('Report a Copyright Violation') %]</a>
+            </li>
+            <li>
+                <a href="[% doc_link('Data_Removal_Policy') %]">[% l('Data Removal Policy') %]</a>
             </li>
         </ul>
     </li>

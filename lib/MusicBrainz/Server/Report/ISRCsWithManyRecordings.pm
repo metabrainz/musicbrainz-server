@@ -1,14 +1,15 @@
 package MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use Moose;
 
-extends 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report::RecordingReport',
+     'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
+sub table { 'isrc_with_many_recordings' }
 
-    $self->gather_data_from_query($writer, "
-        SELECT i.isrc, recordingcount, r.gid, tn.name, r.length, r.artist_credit AS artist_credit_id
+sub query {
+    "
+        SELECT i.isrc, recordingcount, r.id as recording_id, tn.name, r.length,
+          row_number() OVER (ORDER BY i.isrc)
         FROM isrc i
           JOIN recording r ON (r.id = i.recording)
           JOIN track_name tn ON (r.name = tn.id)
@@ -17,25 +18,7 @@ sub gather_data
             FROM isrc
             GROUP BY isrc HAVING count(*) > 1
           ) t ON t.isrc = i.isrc
-        ORDER BY recordingcount DESC, i.isrc
-    ");
-}
-
-sub post_load
-{
-    my ($self, $items) = @_;
-
-    my @ids = map { $_->{artist_credit_id} } @$items;
-    my $acs = $self->c->model('ArtistCredit')->get_by_ids(@ids);
-    foreach my $item (@$items) {
-        $item->{artist_credit} = $acs->{$item->{artist_credit_id}};
-    }
-}
-
-__PACKAGE__->meta->make_immutable;
-sub template
-{
-    return 'report/isrc_with_many_recordings.tt';
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -45,6 +28,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

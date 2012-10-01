@@ -3,14 +3,14 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
-sub edit_name { l('Add PUIDs') }
+sub edit_name { N_l('Add PUIDs') }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }
 
 has '+data' => (

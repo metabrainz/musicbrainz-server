@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::LinkAttributeType;
 
 use Moose;
+use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
@@ -21,7 +22,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, parent, child_order, gid, name, description';
+    return 'id, parent, child_order, gid, name, description, root';
 }
 
 sub _column_mapping
@@ -30,6 +31,7 @@ sub _column_mapping
         id          => 'id',
         gid         => 'gid',
         parent_id   => 'parent',
+        root_id     => 'root',
         child_order => 'child_order',
         name        => 'name',
         description => 'description',
@@ -146,6 +148,9 @@ sub get_by_gid
     if (scalar(@result)) {
         return $result[0];
     }
+    else {
+        return undef;
+    }
 }
 
 sub in_use
@@ -155,6 +160,24 @@ sub in_use
         'SELECT 1 FROM link_attribute WHERE link_attribute.attribute_type = ?',
         $id);
 }
+
+
+# The entries in the memcached store for 'Link' objects also have all attributes
+# loaded. Thus changing an attribute should clear all of these link objects.
+for my $method (qw( delete update )) {
+    before $method => sub {
+        my ($self, $id) = @_;
+        $self->c->model('Link')->_delete_from_cache(
+            @{ $self->sql->select_single_column_array(
+                'SELECT id FROM link
+                 JOIN link_attribute la ON link.id = la.link
+                 WHERE la.attribute_type = ?',
+                $id
+            ) }
+        );
+    };
+}
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

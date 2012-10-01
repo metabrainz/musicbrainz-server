@@ -3,13 +3,17 @@
 /admin/apache/vh_mb_backend.conf
 /admin/apache/vh_mb_frontend.conf
 /admin/apache/startup.pl
+/root/robots.txt
 /blib
 /inc
 /lib/DBDefs.pm
 /Makefile
 /META.yml
+/MYMETA.json
+/MYMETA.yml
 /po/*.mo
 *.ttc
+*.pyc
 *~
 .#*
 
@@ -18,3 +22,16 @@ root/static/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f
 root/static/styles/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9].css
 
 /data
+
+# Ignore carton local::lib
+/local
+/.carton
+
+# If there's at least one person using a mac
+.DS_Store
+
+# Ignore Devel::Cover results
+/cover_db
+
+# Ignore installed translation files
+/lib/LocaleData/

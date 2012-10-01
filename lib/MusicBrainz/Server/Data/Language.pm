@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Language;
 
 use Moose;
+use namespace::autoclean;
 use MusicBrainz::Server::Entity::Language;
 
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
@@ -16,8 +17,8 @@ sub _table
 
 sub _columns
 {
-    return 'id, iso_code_3t, iso_code_3b, ' .
-           'iso_code_2, name, frequency';
+    return 'id, iso_code_3, iso_code_2t, iso_code_2b, ' .
+           'iso_code_1, name, frequency';
 }
 
 sub _entity_class
@@ -34,7 +35,7 @@ sub load
 sub find_by_code
 {
     my ($self, $code) = @_;
-    return $self->_get_by_key('iso_code_3t' => $code, transform => 'lower');
+    return $self->_get_by_key('iso_code_3' => $code, transform => 'lower');
 }
 
 __PACKAGE__->meta->make_immutable;

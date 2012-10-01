@@ -24,7 +24,7 @@ MB.tests.GuessCase.Sortname = function() {
 
         $.each(tests, function(idx, test) {
             var result = MB.GuessCase.artist.sortname (test.input, test.person);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
         tests = [
@@ -58,7 +58,7 @@ MB.tests.GuessCase.Sortname = function() {
 
         $.each(tests, function(idx, test) {
             var result = MB.GuessCase.label.sortname (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -69,7 +69,7 @@ MB.tests.GuessCase.Modes = function() {
     QUnit.module('Guess Case');
     QUnit.test('Artist', function() {
 
-        tests = [
+        var tests = [
             {
                 input: 'Members Of Mayday',
                 expected: 'Members of Mayday'
@@ -92,18 +92,18 @@ MB.tests.GuessCase.Modes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            result = MB.GuessCase.artist.guess (test.input);
+            var result = MB.GuessCase.artist.guess (test.input);
 
             var prefix = test.bug ? test.bug + ', ' : '';
 
-            QUnit.equals(result, test.expected, prefix + test.input);
+            QUnit.equal(result, test.expected, prefix + test.input);
         });
 
     });
 
     QUnit.test('Label', function() {
 
-        tests = [
+        var tests = [
             {
                 input: 'da! heard it records',
                 expected: 'Da! Heard It Records'
@@ -117,14 +117,14 @@ MB.tests.GuessCase.Modes = function() {
 
         $.each(tests, function(idx, test) {
             result = MB.GuessCase.label.guess (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
 
     QUnit.test('Work', function() {
 
-        tests = [
+        var tests = [
             {
                 input: "WE LOVE TECHPARA VI",
                 expected: "WE LOVE TECHPARA VI",
@@ -172,7 +172,7 @@ MB.tests.GuessCase.Modes = function() {
             MB.GuessCase.work.gc.setOptions (test);
 
             result = MB.GuessCase.work.guess (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -183,7 +183,7 @@ MB.tests.GuessCase.BugFixes = function() {
     QUnit.module('Guess Case');
     QUnit.test('BugFixes', function() {
 
-        tests = [
+        var tests = [
             {
                 input: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
                 expected: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
@@ -302,7 +302,7 @@ MB.tests.GuessCase.BugFixes = function() {
             MB.GuessCase.work.gc.setOptions (test);
 
             result = MB.GuessCase.work.guess (test.input);
-            QUnit.equals(result, test.expected, test.bug + ', ' + test.input);
+            QUnit.equal(result, test.expected, test.bug + ', ' + test.input);
         });
 
     });

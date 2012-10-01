@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::Artist::AddAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 
-sub edit_name { l('Add artist annotation') }
+sub edit_name { N_l('Add artist annotation') }
 sub edit_type { $EDIT_ARTIST_ADD_ANNOTATION }
 
 sub _build_related_entities { { artist => [ shift->artist_id ] } }

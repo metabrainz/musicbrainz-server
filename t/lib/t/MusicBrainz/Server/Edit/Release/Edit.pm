@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Release::Edit;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -23,23 +24,23 @@ my $release = $c->model('Release')->get_by_id(1);
 $c->model('ArtistCredit')->load($release);
 
 is_unchanged($release);
-is($release->edits_pending, 0);
+is($release->edits_pending, 0, 'release has no pending edits');
 
 # Test editing all possible fields
 my $edit = create_edit($c, $release);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit');
 
 my ($edits) = $c->model('Edit')->find({ release => $release->id }, 10, 0);
-is($edits->[0]->id, $edit->id);
+is($edits->[0]->id, $edit->id, 'found new edit among release edits');
 
 $release = $c->model('Release')->get_by_id(1);
-is($release->edits_pending, 1);
+is($release->edits_pending, 1, 'release now has a pending edit');
 is_unchanged($release);
 
 reject_edit($c, $edit);
 $release = $c->model('Release')->get_by_id(1);
 is_unchanged($release);
-is($release->edits_pending, 0);
+is($release->edits_pending, 0, 'release has no pending edits after rejecting the edit');
 
 # Accept the edit
 $edit = create_edit($c, $release);
@@ -47,33 +48,91 @@ accept_edit($c, $edit);
 
 $release = $c->model('Release')->get_by_id(1);
 $c->model('ArtistCredit')->load($release);
-is($release->name, 'Edited name');
-is($release->packaging_id, 1);
-is($release->script_id, 1);
-is($release->release_group_id, 2);
-is($release->barcode, 'BARCODE');
-is($release->country_id, 1);
-is($release->date->year, 1985);
-is($release->date->month, 4);
-is($release->date->day, 13);
-is($release->language_id, 1);
-is($release->comment, 'Edited comment');
-is($release->artist_credit->name, 'New Artist');
+is($release->name, 'Edited name', 'release name is Edited name');
+is($release->packaging_id, 1, 'packaging id is 1');
+is($release->script_id, 1, 'script id is 1');
+is($release->release_group_id, 2, 'release_group id is 2');
+is($release->barcode->format, 'BARCODE', 'barcode is BARCODE');
+is($release->country_id, 1, 'country id is 1');
+is($release->date->year, 1985, 'year is 1985');
+is($release->date->month, 4, 'month is 4');
+is($release->date->day, 13, 'day is 13');
+is($release->language_id, 1, 'language is 1');
+is($release->comment, 'Edited comment', 'disambiguation comment is Edited comment');
+is($release->artist_credit->name, 'New Artist', 'artist credit is New Artist');
 
+};
+
+test 'Check conflicts (non-conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        name => 'Renamed release',
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        date      => { year => '1990', month => '4', day => '29' }
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $release = $c->model('Release')->get_by_id(1);
+    is ($release->name, 'Renamed release', 'release renamed');
+    is ($release->date->format, '1990-04-29', 'date changed');
+};
+
+test 'Check conflicts (conflicting edits)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        name      => 'Renamed release',
+        comment   => 'comment FOO',
+        date      => { year => '1990', month => '4', day => '29' }
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Release')->get_by_id(1),
+        comment   => 'Comment BAR',
+        date      => { year => '1990', month => '4', day => '28' }
+    );
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok  exception { $edit_2->accept }, 'could not accept edit 2';
+
+    my $release = $c->model('Release')->get_by_id(1);
+    is ($release->name, 'Renamed release', 'release renamed');
+    is ($release->comment, 'comment FOO', 'comment changed');
+    is ($release->date->format, '1990-04-29');
 };
 
 sub is_unchanged {
     my ($release) = @_;
-    is($release->packaging_id, undef);
-    is($release->script_id, undef);
-    is($release->barcode, undef);
-    is($release->country_id, undef);
-    ok($release->date->is_empty);
-    is($release->language_id, undef);
-    is($release->comment, undef);
-    is($release->release_group_id, 1);
-    is($release->name, 'Release');
-    is($release->artist_credit_id, 1);
+    is($release->packaging_id, undef, 'is_unchanged: packaging is undef');
+    is($release->script_id, undef,    'is_unchanged: script is undef');
+    is($release->barcode->format, '', 'is_unchanged: barcode is empty');
+    is($release->country_id, undef,   'is_unchanged: country is undef');
+    ok($release->date->is_empty,      'is_unchanged: date is empty');
+    is($release->language_id, undef,  'is_unchanged: language is undef');
+    is($release->comment, undef,      'is_unchanged: disambiguation comment is undef');
+    is($release->release_group_id, 1, 'is_unchanged: release_group id is 1');
+    is($release->name, 'Release',     'is_unchanged: release name is Release');
+    is($release->artist_credit_id, 1, 'is_unchanged: artist credit is 1');
 }
 
 sub create_edit {

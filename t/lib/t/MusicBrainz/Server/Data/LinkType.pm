@@ -2,7 +2,6 @@ package t::MusicBrainz::Server::Data::LinkType;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Data::LinkType;
 
@@ -25,12 +24,9 @@ is($link_type->id, 1);
 is($link_type->name, 'instrument');
 is($link_type->short_link_phrase, 'performer');
 
-memory_cycle_ok($lt_data);
-memory_cycle_ok($link_type);
 
 $sql->begin;
 $lt_data->update(1, { name => 'instrument test' });
-memory_cycle_ok($lt_data);
 $sql->commit;
 
 $link_type = $lt_data->get_by_id(1);
@@ -51,7 +47,6 @@ $link_type = $lt_data->insert({
         { type => 1, min => 0, max => 1 }
     ],
 });
-memory_cycle_ok($lt_data);
 $sql->commit;
 
 is($link_type->id, 100);
@@ -88,7 +83,6 @@ is($link_type->parent_id, undef);
 
 $sql->begin;
 $link_type = $lt_data->delete(100);
-memory_cycle_ok($lt_data);
 $sql->commit;
 
 $link_type = $lt_data->get_by_id(100);

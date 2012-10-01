@@ -9,6 +9,7 @@ use ModDefs;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
+use aliased 'MusicBrainz::Server::Translation';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -40,8 +41,29 @@ other than the blog feed.
 sub index : Path Args(0)
 {
     my ($self, $c) = @_;
+    $c->stash(
+        blog => $c->model('Blog')->get_latest_entries,
+        template => 'main/index.tt'
+    );
+}
 
-    $c->stash->{template} = 'main/index.tt';
+=head2 set_language
+
+Sets the language; designed to be used from the language switcher
+
+=cut
+
+sub set_language : Path('set-language') Args(1)
+{
+    my ($self, $c, $lang) = @_;
+    if ($lang eq 'unset') {
+        # force the cookie to expire
+        $c->res->cookies->{lang} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+    } else {
+        $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/' };
+    }
+    $c->res->redirect($c->req->referer || $c->uri_for('/'));
+    $c->detach;
 }
 
 =head2 default
@@ -144,17 +166,14 @@ sub begin : Private
         javascript => $js,
         no_javascript => $js eq "false",
         wiki_server => &DBDefs::WIKITRANS_SERVER,
+        server_languages => Translation->instance->all_languages(),
         server_details => {
             staging_server => &DBDefs::DB_STAGING_SERVER,
+            testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,
             is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
             read_only      => &DBDefs::DB_READ_ONLY
         },
     );
-
-    if ($c->req->user_agent && $c->req->user_agent =~ /MSIE/i) {
-        $c->stash->{looks_like_ie} = 1;
-        $c->stash->{needs_chrome} = !($c->req->user_agent =~ /chromeframe/i);
-    }
 
     # Setup the searchs on the sidebar
     $c->form( sidebar_search => 'Search::Search' );
@@ -234,7 +253,6 @@ sub begin : Private
     my $r = $c->model('RateLimiter')->check_rate_limit('frontend ip=' . $c->req->address);
     if ($r && $r->is_over_limit) {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
-        $c->res->content_type("text/plain; charset=utf-8");
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
@@ -263,17 +281,20 @@ sub end : ActionClass('RenderView')
     $c->stash->{server_details} = {
         staging_server             => &DBDefs::DB_STAGING_SERVER,
         staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
+        testing_features           => &DBDefs::DB_STAGING_TESTING_FEATURES,
         is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
         developement_server        => &DBDefs::DEVELOPMENT_SERVER
     };
 
-    # Determine which server version to display. If the DBDefs string is empty
-    # attempt to display the current subversion revision
-    if (&DBDefs::VERSION)
-    {
-        $c->stash->{server_details}->{version} = &DBDefs::VERSION;
-    }
+    # For displaying which git branch is active as well as last commit information
+    # (only shown on staging servers)
+    my ($git_branch, $git_sha, $git_msg) = &DBDefs::GIT_BRANCH;
+    $c->stash->{server_details}->{git}->{branch} = $git_branch;
+    $c->stash->{server_details}->{git}->{sha}    = $git_sha;
+    $c->stash->{server_details}->{git}->{msg}    = $git_msg;
+
+    $c->stash->{google_analytics_code} = &DBDefs::GOOGLE_ANALYTICS_CODE;
 
     # For displaying release attributes
     $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;
@@ -296,15 +317,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
-
-    if (!$c->debug && scalar @{ $c->error }) {
-        $c->stash->{errors} = $c->error;
-        for my $error ( @{ $c->error } ) {
-            $c->log->error($error);
-        }
-        $c->stash->{template} = 'main/500.tt';
-        $c->clear_errors;
-    }
 }
 
 sub chrome_frame : Local

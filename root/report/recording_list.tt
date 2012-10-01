@@ -9,8 +9,8 @@
     <tbody>
         [%- FOR item IN items -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            <td>[% artist_credit(item.artist_credit) %]</td>
-            <td><a href="[% c.uri_for_action('/recording/show', [ item.gid ]) %]">[% item.name | html %]</a></td>
+            <td>[% artist_credit(item.recording.artist_credit) %]</td>
+            <td>[% link_entity(item.recording) %]</td>
         </tr>
         [%- END -%]
     </tbody>

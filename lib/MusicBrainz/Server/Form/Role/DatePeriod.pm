@@ -15,6 +15,10 @@ has_field 'end_date' => (
     not_nullable => 1
 );
 
+has_field 'ended' => (
+    type => 'Checkbox'
+);
+
 after 'validate' => sub {
     my $self = shift;
     my $begin = $self->field('begin_date')->value;
@@ -22,6 +26,13 @@ after 'validate' => sub {
 
     return if any { $_->has_errors } map { $_->fields }
         $self->field('begin_date'), $self->field('end_date');
+
+    return if !Date::Calc::check_date($begin->{year}, $begin->{month} || 1, $begin->{day} || 1);
+    return if !Date::Calc::check_date($end->{year}, $end->{month} || 1, $end->{day} || 1);
+
+    if ($end->{year} || $end->{month} || $end->{day}) {
+        $self->field('ended')->value(1);
+    }
 
     return 1 unless $begin->{year} && $end->{year};
 

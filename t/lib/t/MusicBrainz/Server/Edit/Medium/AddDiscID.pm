@@ -7,8 +7,8 @@ around run_test => sub {
     my ($orig, $test) = splice(@_, 0, 2);
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_medium');
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
-INSERT INTO track (id, name, tracklist, recording, artist_credit, position)
-    VALUES (1, 1, 1, 1, 1, 1), (2, 1, 1, 1, 1, 2);
+INSERT INTO track (id, name, tracklist, recording, artist_credit, position, number)
+    VALUES (1, 1, 1, 1, 1, 1, 1), (2, 1, 1, 1, 1, 2, 2);
 EOSQL
     $test->_clear_edit;
     $test->$orig(@_);
@@ -19,7 +19,7 @@ with 't::Context';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_ADD_DISCID );
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED $STATUS_FAILEDVOTE);
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED $STATUS_FAILEDVOTE);
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 has edit => (

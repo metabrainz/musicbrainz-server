@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
-use Test::Memory::Cycle;
 
 use MusicBrainz::Server::Test;
 
@@ -13,7 +12,6 @@ around 'run_test' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($self->c, '+watch');
     $self->$orig(@_);
-    memory_cycle_ok($self->c->model('WatchArtist'));
 };
 
 with 't::Context' => {
@@ -43,7 +41,6 @@ test 'Find watched artists for editors watching artists' => sub {
     is_watching('Spor', 1, @watching);
     is_watching('Break', 2, @watching);
 
-    memory_cycle_ok(\@watching);
 };
 
 test 'Find watched artists where an editor is not watching anyone' => sub {
@@ -63,7 +60,6 @@ test 'Can add new artists to the watch list' => sub {
     my @watching = $test->c->model('WatchArtist')->find_watched_artists(2);
     is(@watching => 1, 'Editor #2 is now watching 1 artist');
     is_watching('Tosca', 3, @watching);
-    memory_cycle_ok(\@watching);
 };
 
 test 'Watching a watched artist does not crash' => sub {
@@ -108,7 +104,6 @@ test 'WatchArtist->find_new_releases' => sub {
 
         my @releases = $test->c->model('WatchArtist')->find_new_releases(1);
         is(@releases => 1, 'found one release');
-        memory_cycle_ok(\@releases);
         $test->sql->rollback;
     };
 
@@ -148,7 +143,6 @@ test 'WatchArtist->find_editors_to_notify' => sub {
     my @editors = $test->c->model('WatchArtist')->find_editors_to_notify;
     is(@editors => 1, '1 editors have watch lists');
     ok((grep { $_->name eq 'acid2' } @editors), 'acid2 has a watchlist');
-    memory_cycle_ok(\@editors);
 };
 
 test 'WatchArtist->find_editors_to_notify ignores editors not requesting emails' => sub {
@@ -165,7 +159,6 @@ test 'WatchArtist->find_editors_to_notify ignores editors not requesting emails'
 test 'Default preferences' => sub {
     my $test = shift;
     my $prefs = $test->c->model('WatchArtist')->load_preferences(2);
-    memory_cycle_ok($prefs);
 
     is($prefs->notification_timeframe->in_units('days') => 7,
         'default notification timeframe is 7 days');
@@ -193,7 +186,6 @@ test 'Saving preferences' => sub {
         });
 
     my $prefs = $test->c->model('WatchArtist')->load_preferences(2);
-    memory_cycle_ok($prefs);
 
     is($prefs->notification_timeframe->in_units('days') => 14,
         'notification timeframe is 14 days');

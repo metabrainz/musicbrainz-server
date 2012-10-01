@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::WS::js::Label;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
-with 'MusicBrainz::Server::Controller::WS::js::Role::AliasAutocompletion';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
 
 my $ws_defs = Data::OptList::mkopt([
     "label" => {
@@ -21,7 +21,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'label' }
 
-sub search : Path('/ws/js/label') {
+sub search : Chained('root') PathPart('label')
+{
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }

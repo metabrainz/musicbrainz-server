@@ -5,11 +5,11 @@ BEGIN { extends 'Catalyst' }
 
 use Class::MOP;
 use DBDefs;
+use Encode;
 use MusicBrainz::Server::Log qw( logger );
 
 use aliased 'MusicBrainz::Server::Translation';
 
-use Encode;
 use Try::Tiny;
 
 # Set flags and add plugins for the application
@@ -17,12 +17,7 @@ use Try::Tiny;
 #         -Debug: activates the debug mode for very useful log messages
 #   ConfigLoader: will load the configuration from a YAML file in the
 #                 application's home directory
-# Static::Simple: will serve static files from the application's root
-#                 directory
-
 my @args = qw/
-Static::Simple
-
 StackTrace
 
 Session
@@ -61,7 +56,8 @@ __PACKAGE__->config(
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
-            'locale' => \&MusicBrainz::Server::Filters::locale
+            'locale' => \&MusicBrainz::Server::Filters::locale,
+            'gravatar' => \&MusicBrainz::Server::Filters::gravatar
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
@@ -76,14 +72,16 @@ __PACKAGE__->config(
     'Plugin::Session' => {
         expires => 36000 # 10 hours
     },
-    static => {
-        mime_types => {
-            json => 'application/json; charset=UTF-8',
-        },
-        dirs => [ 'static' ],
-        no_logs => 1
-    }
+    stacktrace => {
+        enable => 1
+    },
+    use_request_uri_for_path => 1
 );
+
+if ($ENV{'MUSICBRAINZ_USE_PROXY'})
+{
+    __PACKAGE__->config( using_frontend_proxy => 1 );
+}
 
 if (DBDefs::EMAIL_BUGS) {
     __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
@@ -152,6 +150,18 @@ __PACKAGE__->config->{form} = {
 
 if (&DBDefs::_RUNNING_TESTS) {
     push @args, "Session::Store::Dummy";
+
+    # /static is usually taken care of by Plack or nginx, but not when running
+    # as part of Test::WWW::Selenium::Catalyst, so we need Static::Simple when
+    # running tests.
+    push @args, "Static::Simple";
+    __PACKAGE__->config->{'static'} = {
+        mime_types => {
+            json => 'application/json; charset=UTF-8',
+        },
+        dirs => [ 'static' ],
+        no_logs => 1
+    }
 }
 else {
     push @args, &DBDefs::SESSION_STORE;
@@ -235,7 +245,28 @@ around 'dispatch' => sub {
     my $orig = shift;
     my $c = shift;
 
-    Translation->instance->build_languages_from_header($c->req->headers);
+    $c->model('MB')->context->connector->refresh;
+
+    $_->instance->build_languages_from_header($c->req->headers) 
+        for qw( MusicBrainz::Server::Translation 
+	        MusicBrainz::Server::Translation::Statistics 
+		MusicBrainz::Server::Translation::Countries 
+		MusicBrainz::Server::Translation::Scripts 
+		MusicBrainz::Server::Translation::Languages 
+		MusicBrainz::Server::Translation::Attributes 
+		MusicBrainz::Server::Translation::Relationships 
+		MusicBrainz::Server::Translation::Instruments 
+		MusicBrainz::Server::Translation::InstrumentDescriptions );
+
+    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
+    my $lang = Translation->instance->set_language($cookie_lang);
+    # because s///r is a perl 5.14 feature
+    my $html_lang = $lang;
+    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
+    $c->stash(
+        current_language => $lang,
+        current_language_html => $html_lang
+    );
 
     if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
         alarm($max_request_time);
@@ -244,7 +275,11 @@ around 'dispatch' => sub {
                 $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
                                        $c->req->uri,
                                        $max_request_time));
+                $c->log->error(Devel::StackTrace->new->as_string);
                 $c->log->_flush;
+                if (my $sth = $c->model('MB')->context->sql->sth) {
+                    $sth->cancel;
+                }
                 exit(42)
             }));
 
@@ -255,11 +290,12 @@ around 'dispatch' => sub {
     else {
         $c->$orig(@_);
     }
+    Translation->instance->unset_language();
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
+sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
-sub language { return $ENV{LANGUAGE} || 'en' }
 
 sub _handle_param_unicode_decoding {
     my ( $self, $value ) = @_;
@@ -273,6 +309,36 @@ sub _handle_param_unicode_decoding {
         $self->res->body('Sorry, but your request could not be decoded. Please ensure your request is encoded as utf-8 and try again.');
         $self->res->status(400);
     };
+}
+
+sub execute {
+    my $c = shift;
+    return do {
+        local $SIG{__WARN__} = sub {
+            my $warning = shift;
+            chomp $warning;
+            $c->log->warn($c->req->method . " " . $c->req->uri . " caused a warning: " . $warning);
+        };
+        $c->next::method(@_);
+    };
+}
+
+sub finalize_error {
+    my $c = shift;
+
+    $c->next::method(@_);
+
+    $c->model('MB')->context->connector->disconnect;
+
+    if (!$c->debug && scalar @{ $c->error }) {
+        $c->stash->{errors} = $c->error;
+        $c->stash->{template} = 'main/500.tt';
+        $c->stash->{stack_trace} = $c->_stacktrace;
+        $c->clear_errors;
+        $c->res->{body} = 'clear';
+        $c->view('Default')->process($c);
+        $c->res->{body} = encode('utf-8', $c->res->{body});
+    }
 }
 
 =head1 NAME

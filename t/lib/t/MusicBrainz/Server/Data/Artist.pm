@@ -2,8 +2,8 @@ package t::MusicBrainz::Server::Data::Artist;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
-use Test::Memory::Cycle;
 use Test::Fatal;
+use Test::Deep qw( cmp_set );
 
 use MusicBrainz::Server::Data::Artist;
 
@@ -18,6 +18,46 @@ use Sql;
 with 't::Edit';
 with 't::Context';
 
+test 'Test find_by_work' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
+INSERT INTO work (id, gid, name)
+    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 1);
+
+INSERT INTO artist_name (id, name) VALUES (1, 'Test Artist');
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, NULL),
+           (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Other test artist');
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO track_name (id, name) VALUES (1, 'Recording');
+INSERT INTO recording (id, gid, name, artist_credit)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1);
+
+INSERT INTO link_type
+    (id, gid, entity_type0, entity_type1, name, link_phrase,
+     reverse_link_phrase, short_link_phrase, description)
+  VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
+          '', '', '', '', ''),
+         (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',
+          '', '', '', '', '');
+
+INSERT INTO link (id, link_type, attribute_count)
+  VALUES (1, 1, 0), (2, 2, 0);
+
+INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
+INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
+EOSQL
+
+    my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1);
+    is($hits, 2);
+    cmp_set([ map { $_->id } @$artists ], [ 1, 2 ]);
+};
+
 test all => sub {
 
 my $test = shift;
@@ -29,7 +69,6 @@ $sql->begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 does_ok($artist_data, 'MusicBrainz::Server::Data::Role::Editable');
-memory_cycle_ok($artist_data, 'new artist data does not have memory cycles');
 
 # ----
 # Test fetching artists:
@@ -48,17 +87,12 @@ is ( $artist->end_date->month, 3 );
 is ( $artist->end_date->day, 4 );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, 'Yet Another Test Artist' );
-is ( $artist->ipi_code, '00014107338' );
-memory_cycle_ok($artist_data, 'artist data does not leak after get_by_id');
-memory_cycle_ok($artist, 'artist entity has no cycles after get_by_id');
 
 # Test loading metadata
 $artist_data->load_meta($artist);
 is ( $artist->rating, 70 );
 is ( $artist->rating_count, 4 );
 isnt ( $artist->last_updated, undef );
-memory_cycle_ok($artist_data, 'artist data does not leak after load_meta');
-memory_cycle_ok($artist, 'artist entity has no cycles after load_meta');
 
 # An artist with the minimal set of required attributes
 $artist = $artist_data->get_by_id(4);
@@ -74,9 +108,6 @@ is ( $artist->end_date->month, undef );
 is ( $artist->end_date->day, undef );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, undef );
-is ( $artist->ipi_code, undef );
-memory_cycle_ok($artist_data, 'artist data does not leak after get_by_id');
-memory_cycle_ok($artist, 'artist entity has no cycles after get_by_id');
 
 # ---
 # Test annotations
@@ -85,8 +116,6 @@ memory_cycle_ok($artist, 'artist entity has no cycles after get_by_id');
 my $annotation = $artist_data->annotation->get_latest(3);
 like ( $annotation->text, qr/Test annotation 1/ );
 
-memory_cycle_ok($artist_data, 'artist data does not leak after get_latest annotation');
-memory_cycle_ok($annotation, 'annotation entity has no cycles after get_latest annotation');
 
 # Merging annotations
 $artist_data->annotation->merge(4, 3);
@@ -96,8 +125,6 @@ ok(!defined $annotation);
 $annotation = $artist_data->annotation->get_latest(4);
 like ( $annotation->text, qr/Test annotation 2/ );
 
-memory_cycle_ok($annotation, 'annotation entity has no cycles after get_latest annotation');
-memory_cycle_ok($artist_data, 'artist data does not leak after merging annotations');
 
 like($annotation->text, qr/Test annotation 1/, 'has annotation 1');
 like($annotation->text, qr/Test annotation 2/, 'has annotation 2');
@@ -107,7 +134,6 @@ $artist_data->annotation->delete(4);
 $annotation = $artist_data->annotation->get_latest(4);
 ok(!defined $annotation);
 
-memory_cycle_ok($artist_data, 'artist data does not leak after deleting annotations');
 
 $sql->commit;
 
@@ -121,7 +147,6 @@ is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Test Artist" );
 is( $results->[0]->entity->sort_name, "Artist, Test" );
 
-memory_cycle_ok($results, 'search results do not leak after searching for artists');
 
 $sql->begin;
 
@@ -134,7 +159,6 @@ is($names{'Test Artist'}, 1);
 is($names{'Minimal Artist'}, 3);
 ok($names{'Massive Attack'} > 3);
 
-memory_cycle_ok($artist_data, 'artist data does not leak after find_or_insert_names');
 
 # ---
 # Creating new artists
@@ -147,12 +171,9 @@ $artist = $artist_data->insert({
         gender_id => 1,
         begin_date => { year => 2000, month => 1, day => 2 },
         end_date => { year => 1999, month => 3, day => 4 },
-        ipi_code => '00014107339',
     });
 isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
 ok($artist->id > 4);
-memory_cycle_ok($artist_data, 'artist data does not leak after insert');
-memory_cycle_ok($artist, 'artist entity from insert does not leak');
 
 $artist = $artist_data->get_by_id($artist->id);
 is($artist->name, 'New Artist');
@@ -167,7 +188,6 @@ is($artist->type_id, 1);
 is($artist->gender_id, 1);
 is($artist->country_id, 1);
 is($artist->comment, 'Artist comment');
-is($artist->ipi_code, '00014107339');
 ok(defined $artist->gid);
 
 # ---
@@ -177,14 +197,12 @@ $artist_data->update($artist->id, {
         sort_name => 'Artist, Updated',
         begin_date => { year => 1995, month => 4, day => 22 },
         end_date => { year => 1990, month => 6, day => 17 },
-        type_id => 2,
+        type_id => undef,
         gender_id => 2,
         country_id => 2,
         comment => 'Updated comment',
-        ipi_code => '00014107341',
     });
 
-memory_cycle_ok($artist_data, 'artist data does not leak ater update');
 
 $artist = $artist_data->get_by_id($artist->id);
 is($artist->name, 'Updated Artist');
@@ -195,20 +213,19 @@ is($artist->begin_date->day, 22);
 is($artist->end_date->year, 1990);
 is($artist->end_date->month, 6);
 is($artist->end_date->day, 17);
-is($artist->type_id, 2);
+is($artist->type_id, undef);
 is($artist->gender_id, 2);
 is($artist->country_id, 2);
 is($artist->comment, 'Updated comment');
-is($artist->ipi_code, '00014107341');
 
 $artist_data->update($artist->id, {
-        type_id => undef,
+        type_id => 2,
+        gender_id => undef
     });
 $artist = $artist_data->get_by_id($artist->id);
-is($artist->type_id, undef);
+is($artist->type_id, 2);
 
 $artist_data->delete($artist->id);
-memory_cycle_ok($artist_data, 'artist data does not leak after delete');
 $artist = $artist_data->get_by_id($artist->id);
 ok(!defined $artist);
 
@@ -216,20 +233,16 @@ ok(!defined $artist);
 # Gid redirections
 $artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
 is ( $artist->id, 3 );
-memory_cycle_ok($artist_data, 'artist data does not leak after get_by_gid');
-memory_cycle_ok($artist, 'artist entity does not leak after get_by_gid');
 
 $artist_data->remove_gid_redirects(3);
 $artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
 ok(!defined $artist);
-memory_cycle_ok($artist_data, 'artist data does not leak after remove_gid_redirects');
 
 $artist_data->add_gid_redirects(
     '20bb5c20-5dbf-11de-8a39-0800200c9a66' => 3,
     '2adff2b0-5dbf-11de-8a39-0800200c9a66' => 4,
 );
 
-memory_cycle_ok($artist_data, 'artist data does not leak after add_gid_redirects');
 
 $artist = $artist_data->get_by_gid('20bb5c20-5dbf-11de-8a39-0800200c9a66');
 is($artist->id, 3);
@@ -239,13 +252,11 @@ is($artist->id, 4);
 
 $artist_data->update_gid_redirects(3, 4);
 
-memory_cycle_ok($artist_data, 'artist data does not leak after update_gid_redirects');
 
 $artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
 is($artist->id, 3);
 
 $artist_data->merge(3, [ 4 ]);
-memory_cycle_ok($artist_data, 'artist data does not leak after merge');
 $artist = $artist_data->get_by_id(4);
 ok(!defined $artist);
 
@@ -257,7 +268,6 @@ is($artist->name, 'Test Artist');
 # Checking when an artist is in use or not
 
 ok($artist_data->can_delete(3));
-memory_cycle_ok($artist_data, 'artist data does not leak after can_delete');
 
 my $ac = $test->c->model('ArtistCredit')->find_or_insert(
     {
@@ -357,17 +367,21 @@ test 'Deny delete "Deleted Artist" trigger' => sub {
 
 test 'Merging attributes' => sub {
     my $c = shift->c;
-    $c->sql->do('INSERT INTO artist_name (id, name) VALUES (1, ?)', 'artist name');
-    $c->sql->do('INSERT INTO artist (id, gid, name, sort_name) VALUES (?, ?, ?, ?)',
-                3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
-    $c->sql->do('INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year, end_date_day)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)',
-                4, '145c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 2005, 12);
-    $c->sql->do('INSERT INTO artist (id, gid, name, sort_name, begin_date_year, begin_date_month)
-                 VALUES (?, ?, ?, ?, ?, ?)',
-                5, '245c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 06);
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'artist name');
+INSERT INTO artist (id, gid, name, sort_name) VALUES
+  (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
 
-    use Devel::Dwarn;
+INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
+    end_date_day, comment)
+  VALUES (4, '145c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 2005, 12,
+          'Artist 4');
+
+INSERT INTO artist (id, gid, name, sort_name, begin_date_year,
+    begin_date_month, comment)
+  VALUES (5, '245c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 06,
+          'Artist 5');
+EOSQL
 
     $c->model('Artist')->merge(3, [4, 5]);
     my $artist = $c->model('Artist')->get_by_id(3);

@@ -23,4 +23,8 @@
   [%- display_full_change(l('Work type:'),
                           html_escape(edit.display_data.type.old.name),
                           html_escape(edit.display_data.type.new.name)) -%]
+
+  [%- display_full_change(l('Language:'),
+                          html_escape(edit.display_data.language.old.name),
+                          html_escape(edit.display_data.language.new.name)) -%]
 </table>

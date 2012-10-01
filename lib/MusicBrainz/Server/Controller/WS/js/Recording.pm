@@ -21,9 +21,10 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'recording' }
 
-sub serialization_routine { 'autocomplete_recording' }
+sub serialization_routine { '_recording' }
 
-sub search : Path('/ws/js/recording') {
+sub search : Chained('root') PathPart('recording')
+{
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }
@@ -55,19 +56,6 @@ sub _format_output {
         }
     } @entities;
 }
-
-around _form_indexed_query => sub {
-    my ($orig, $self) = splice(@_, 0, 2);
-    my ($query, $c) = @_;
-    $query = $self->$orig(@_);
-
-    my $lucene_query = "recording:($query) OR recording:($query*)";
-    if (my $artist = $c->req->query_params->{a}) {
-        $lucene_query .= " AND artist:($artist)";
-    }
-
-    return $lucene_query;
-};
 
 1;
 

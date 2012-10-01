@@ -5,7 +5,7 @@ use Test::More;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $EDIT_RECORDING_CREATE );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status );
 
 around run_test => sub {
     my ($orig, $test, @args) = @_;
@@ -73,9 +73,9 @@ test 'Reject when in use' => sub {
 
     $test->c->sql->do('
 INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO track (id, tracklist, artist_credit, name, recording, position)
+INSERT INTO track (id, tracklist, artist_credit, name, recording, position, number)
     VALUES (1, 1, (SELECT id FROM artist_credit LIMIT 1),
-                  (SELECT id FROM track_name LIMIT 1), ' . $edit->entity_id . ", 1);
+                  (SELECT id FROM track_name LIMIT 1), ' . $edit->entity_id . ", 1, 1);
 ");
 
     reject_edit($test->c, $edit);

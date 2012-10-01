@@ -15,7 +15,7 @@
         [% WRAPPER form_row %]
           [% r.label(field.0, field.1) %]
           [% r.text(field.0, { size => 32 }) %]
-          <input type="submit" value="[% l('Search') %]" />
+          [% form_submit(l('Search'), 'inline') %]
           [% field_errors(other_lookup, field.0) %]
         [% END %]
       </form>

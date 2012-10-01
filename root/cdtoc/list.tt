@@ -27,7 +27,7 @@
            classes.push('mp') IF medium_cdtoc.edits_pending > 0; %]
         <tr class="[% classes.join(' ') %]">
             <td>[% medium.position %]/[% release.medium_count %]</td>
-            <td>[% medium.format_name or "-" %]</td>
+            <td>[% medium_format_name(medium) %]</td>
             <td>[% link_entity(release) %]</td>
             <td>[% artist_credit(release.artist_credit) %]</td>
             <td>[% release.date.format %]</td>
@@ -38,17 +38,9 @@
                 </abbr>
                 [%- END -%]
             </td>
-            <td>[%-
-                labels = [];
-                labels.push(link_entity(label.label)) FOR label=release.labels;
-                labels.join(', ')
-            -%]</td>
-            <td>[%-
-                catnos = [];
-                catnos.push(label.catalog_number) FOR label=release.labels;
-                catnos.join(', ')
-            -%]</td>
-            <td>[% release.barcode %]</td>
+            <td>[% rdfa_release_label_list(release.labels) %]</td>
+            <td>[% rdfa_release_catno_list(release.labels) %]</td>
+            <td>[% release.barcode.format %]</td>
             [% IF c.session.tport %]
             <td>
               [% tagger_icon(release) %]
@@ -59,6 +51,14 @@
               <a href="[% c.uri_for_action('/cdtoc/set_durations',
                               [ cdtoc.discid ], { tracklist => medium.tracklist_id }) %]">
                 [% l('Set track durations') %]
+              </a> |
+              <a href="[% c.uri_for_action('cdtoc/remove',
+                                           { cdtoc_id  => medium_cdtoc.cdtoc.id,
+                                             medium_id => medium.id }) %]">
+               [% l('Remove') %]
+              </a> |
+              <a href="[% c.uri_for_action('cdtoc/move', { toc => medium_cdtoc.id }) %]">
+                [% l('Move') %]
               </a>
             </td>
             [% END %]

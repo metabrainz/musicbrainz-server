@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Statistics::ByDate;
 use Moose;
 use namespace::autoclean;
+use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Statistics::ByDate;
 
@@ -8,6 +9,8 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistic' }
+
+sub _columns { 'id, date_collected, name, value' }
 
 sub _entity_class
 {
@@ -17,12 +20,9 @@ sub _entity_class
 sub get_latest_statistics {
 
     my $self = shift;
-    my $query = "SELECT id,
-                        date_collected,
-                        name,
-                        value
-                   FROM statistic
-                  WHERE date_collected = (SELECT MAX(date_collected) FROM statistic)";
+    my $query = "SELECT " . $self->_columns . "
+                   FROM " . $self->_table . "
+                  WHERE date_collected = (SELECT MAX(date_collected) FROM ". $self->_table .")";
 
     $self->sql->select($query) or return;
 

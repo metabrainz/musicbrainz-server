@@ -4,10 +4,11 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Map );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_MEDIUMS );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 
-sub edit_name { 'Reorder mediums' }
+sub edit_name { N_l('Reorder mediums') }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
 
 with 'MusicBrainz::Server::Edit::Role::Preview';

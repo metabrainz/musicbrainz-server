@@ -1,15 +1,14 @@
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-{label: MB.text.Timeline["[%- statistic -%]"].Label, 
- color: MB.text.Timeline["[%- statistic -%]"].Color, 
- category: MB.text.Timeline["[%- statistic -%]"].Category
+{label: MB.text.Timeline.Stat("[%- statistic -%]").Label, 
+ color: MB.text.Timeline.Stat("[%- statistic -%]").Color, 
+ category: MB.text.Timeline.Stat("[%- statistic -%]").Category
 },
 [% END %]
 
 [% BLOCK layout_head %]
   <script type="text/javascript" src="[% c.uri_for('view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
-  <!--[if lte IE 8]><script src="[% c.uri_for("../../static/lib/flot/excanvas.min.js") %]"></script><![endif]-->
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
@@ -38,15 +37,17 @@
           "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
           [%- END -%]},
           { xaxis: { mode: "time",
-                     timeformat: "%y/%0m",
-                     ticks: 20,
-                     minTickSize: [1, "month"]},
+                     timeformat: "%y/%0m/%0d",
+                     minTickSize: [7, "day"]},
+            yaxis: { tickFormatter: function numberWithCommas(x) {
+                         return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+                     }},
             selection: { mode: "xy" },
             grid: { hoverable: true },
             legend: { show: false }},
           { legend: {show: false},
             series: {lines: {lineWidth: 1}, shadowSize: 0},
-            xaxis: {mode: "time", tickSize: [1, "year"]},
+            xaxis: {mode: "time", minTickSize: [1, "year"]},
             yaxis: {tickFormatter: function () { return '' }},
             selection: {mode: "xy"}});
           [% IF show_all %]
@@ -57,6 +58,7 @@
 [% END %]
 
 [%- sidebar = BLOCK -%]
+[%- PROCESS "statistics/macros-header.tt" -%]
     <h2 id="graph-toggle-header">[% l('Legend') %]</h2>
         <div id="graph-lines">
         <h2>
@@ -68,7 +70,7 @@
             <label for="show-rate-graph">[% l('Rate of Change Graph') %]</label>
         </h2>
         </div>
-    <h2>Controls</h2><div id="graph-controls">
+    <h2>[% l('Controls') %]</h2><div id="graph-controls">
         <table class="timeline-controls">
             <tr><th>[% l('Zoom:') %]</th><td>[% l('Draw a rectangle on either graph') %]</td></tr>
             <tr><th>[% l('Reset:') %]</th><td>[% l('Click to deselect') %]</td></tr>
@@ -77,11 +79,14 @@
         </table>
         <div id="overview"></div>
     </div>
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [%- END -%]
 
 [%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]
+[%- PROCESS "statistics/macros-header.tt" -%]
 <h2>[% l('Exact Values (items vs. day)') %]</h2>
 <div id="graph-container"></div>
-<h2>[% l('Rate of Change (items/week vs. day)') %]</h2>
+<h2>[% l('Rate of Change (average items/day vs. day)') %]</h2>
 <div id="rate-of-change-graph"></div>
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Data::Recording;
 
 use Moose;
-use List::UtilsBy qw( uniq_by );
+use namespace::autoclean;
+use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
     $EDIT_HISTORIC_ADD_TRACK
@@ -70,9 +71,39 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Recording';
 }
 
+sub find_artist_credits_by_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = "SELECT DISTINCT rec.artist_credit
+                 FROM recording rec
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rec.artist_credit
+                 WHERE acn.artist = ?";
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $limit, $offset, %args) = @_;
+
+    my (@where_query, @where_args);
+   
+    push @where_query, "acn.artist = ?";
+    push @where_args, $artist_id;
+
+    if (exists $args{filter}) {
+        my %filter = %{ $args{filter} };
+        if (exists $filter{name}) {
+            push @where_query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @where_args, $filter{name}, $filter{name};
+        }
+        if (exists $filter{artist_credit_id}) {
+            push @where_query, "recording.artist_credit = ?";
+            push @where_args, $filter{artist_credit_id};
+        }
+    }
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                         musicbrainz_collate(name.name) AS name_collate,
@@ -80,13 +111,13 @@ sub find_by_artist
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
-                 WHERE acn.artist = ?
+                 WHERE " . join(" AND ", @where_query) . "
                  ORDER BY musicbrainz_collate(name.name),
                           musicbrainz_collate(comment)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $artist_id, $offset || 0);
+        $query, @where_args, $offset || 0);
 }
 
 sub find_by_release
@@ -173,55 +204,6 @@ sub delete
         @recording_ids
     );
     return;
-}
-
-=method garbage_collect_orphans
-
-Remove any recordings that do not have a corresponding 'add track', 'add track kv' or
-'add standalone recording' edit (which means they were created through the release
-editor).
-
-=cut
-
-sub garbage_collect_orphans {
-    my ($self, @possibly_orphaned_recordings) = @_;
-
-    return unless @possibly_orphaned_recordings;
-
-    my @orphans = @{ $self->sql->select_single_column_array(
-        'SELECT id FROM recording outer_r
-         WHERE id IN (' . placeholders(@possibly_orphaned_recordings) . ')
-         AND edits_pending = 0
-         AND NOT EXISTS (
-             SELECT TRUE
-             FROM edit JOIN edit_recording er ON edit.id = er.edit
-             WHERE er.recording = outer_r.id
-             AND (type = ? OR type = ? OR type = ?)
-             LIMIT 1
-         ) AND NOT EXISTS (
-             SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
-         ) AND NOT EXISTS (
-             SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
-             UNION ALL
-             SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
-             UNION ALL
-             SELECT TRUE FROM l_recording_recording WHERE entity1 = outer_r.id OR entity0 = outer_r.id
-             UNION ALL
-             SELECT TRUE FROM l_recording_release WHERE entity0 = outer_r.id
-             UNION ALL
-             SELECT TRUE FROM l_recording_release_group WHERE entity0 = outer_r.id
-             UNION ALL
-             SELECT TRUE FROM l_recording_work WHERE entity0 = outer_r.id
-             UNION ALL
-             SELECT TRUE FROM l_recording_url WHERE entity0 = outer_r.id
-         )',
-        @possibly_orphaned_recordings,
-        $EDIT_RECORDING_CREATE,
-        $EDIT_HISTORIC_ADD_TRACK,
-        $EDIT_HISTORIC_ADD_TRACK_KV
-    ) } or return;
-
-    $self->delete(@orphans);
 }
 
 sub _hash_to_row
@@ -312,7 +294,7 @@ sub appears_on
 
     my $query =
         "SELECT DISTINCT ON (recording.id, name.name, type)
-             rg.id, rg.gid, type AS type_id, name.name,
+             rg.id, rg.gid, type AS primary_type_id, name.name,
              rg.artist_credit AS artist_credit_id, recording.id AS recording
          FROM release_group rg
            JOIN release_name name ON rg.name=name.id
@@ -335,8 +317,8 @@ sub appears_on
     {
         # A crude ordering of importance.
         my @rgs = uniq_by { $_->name }
-                  sort { $a->type_id <=> $b->type_id }
-                  sort { $a->name cmp $b->name }
+                  rev_nsort_by { $_->primary_type_id // -1 }
+                  sort_by { $_->name  }
                   @{ $map{$rec_id} };
 
         $map{$rec_id} = {
@@ -346,14 +328,6 @@ sub appears_on
     }
 
     return %map;
-}
-
-sub editor_can_create_recordings {
-    my ($self, $editor) = @_;
-    return DateTime::Duration->compare(
-        DateTime->now - $editor->registration_date,
-        DateTime::Duration->new( weeks => 2 )
-      ) && $editor->accepted_edits >= 10;
 }
 
 =method find_tracklist_offsets

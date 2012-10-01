@@ -30,6 +30,11 @@ has 'end_date' => (
     default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
 );
 
+has 'ended' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 has 'attributes' => (
     is => 'rw',
     isa => 'ArrayRef[LinkAttributeType]',

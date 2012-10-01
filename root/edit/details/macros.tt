@@ -40,11 +40,15 @@
                   end_date => relationship.link.end_date.format
               });
          END;
+       ELSIF relationship.link.ended;
+         l('from {date} to ????', { date => relationship.link.begin_date.format });
        ELSE;
          l('from {date} to present', { date => relationship.link.begin_date.format });
        END;
      ELSIF !relationship.link.end_date.is_empty;
        l('until {date}', { date => relationship.link.end_date.format });
+     ELSIF relationship.link.ended;
+       l('(ended)');
      END;
    END; -%]
 
@@ -73,6 +77,25 @@
         [% descriptive_link(new_rel.target); %]
       </span>
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '+') %]
+    </td>
+  </tr>
+[%- END -%]
+
+[%- MACRO display_edit_artwork(artwork, release) BLOCK -%]
+  <tr>
+    <th>[% l('Cover art:') %]</th>
+    <td class="edit-cover-art">
+      [%- SET history_message = l('We are unable to display history for cover
+          art. For a current listing of cover art, please see the
+          {coverart|release\'s cover art page}.',
+          { coverart => c.uri_for_action('/release/cover_art', [ release.gid ]) }) %]
+
+
+      [% IF edit.is_open || !no_javascript %]
+        [%- display_artwork(edit.display_data.artwork, undef, history_message) -%]
+      [% ELSE %]
+        [%- history_message -%]
+      [% END %]
     </td>
   </tr>
 [%- END -%]

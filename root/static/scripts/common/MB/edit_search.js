@@ -15,6 +15,9 @@ $(function() {
         },
         'subscription': {
             '=': 1, '!=': 1, 'subscribed': 0
+        },
+        'link_type': {
+            '=': 1
         }
     };
 
@@ -59,11 +62,7 @@ $(function() {
             });
 
             $li.find(':input').each(function() {
-                var $input = $(this);
-                if ($input.attr ('name'))
-                {
-                    $input.attr('name', prefixedInputName($input));
-                }
+                addInputNamePrefix($(this));
             });
 
             conditionCounter++;
@@ -75,6 +74,13 @@ $(function() {
 
     function prefixedInputName($element) {
         return 'conditions.' + conditionCounter + '.' + $element.attr('name').replace(/conditions\.\d+\./, '');
+    }
+
+    function addInputNamePrefix($input) {
+        if ($input.attr ('name'))
+        {
+            $input.attr('name', prefixedInputName($input));
+        }
     }
 
     $('ul.conditions select.operator').live('change', function() {
@@ -107,7 +113,7 @@ $(function() {
 
     $('ul.conditions li.condition').each(function() {
         $(this).find(':input').each(function() {
-            $(this).attr('name', prefixedInputName($(this)));
+            addInputNamePrefix($(this));
         });
         conditionCounter++;
     });
@@ -116,5 +122,8 @@ $(function() {
         MB.Control.EntityAutocomplete({ 'inputs': $(this) });
     });
 
-    MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');
+    if ($('#edit-search').length)
+    {
+        MB.utility.setDefaultAction('#edit-search', '#edit-search-submit button');
+    }
 });

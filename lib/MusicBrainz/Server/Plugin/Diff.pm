@@ -12,7 +12,7 @@ use Digest::MD5 qw( md5_hex );
 use Encode;
 use HTML::Tiny;
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( trim_in_place );
 
 sub html_filter {
     my $text = shift;
@@ -98,10 +98,18 @@ sub diff_side {
 
 sub _link_artist_credit_name {
     my ($self, $acn, $name) = @_;
+    my $comment;
+    if ($acn->artist->comment) {
+        $comment = ' (' . $acn->artist->comment . ')';
+    }
+    else {
+        $comment = '';
+    }
+
     if ($acn->artist->gid) {
         return $h->a({
             href => $self->uri_for_action('/artist/show', [ $acn->artist->gid ]),
-            title => html_filter($acn->artist->name)
+            title => html_filter($acn->artist->sort_name . $comment)
         }, $name || html_filter($acn->name));
     }
     else {
@@ -127,7 +135,7 @@ sub diff_artist_credits {
             my $name = shift;
             join(
                 '',
-                $name->artist->id,
+                $name->artist->id || 'deleted',
                 $name->name,
                 $name->join_phrase || ''
             );
@@ -253,7 +261,7 @@ sub parse_paragraphs
     my $text = shift;
 
     $text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;
-    MusicBrainz::Server::Validation::TrimInPlace($text);
+    trim_in_place($text);
 
     my @paras = split /\n\n+/, $text;
 

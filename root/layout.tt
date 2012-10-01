@@ -2,14 +2,6 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-         [%- IF looks_like_ie -%]
-          [%- IF needs_chrome -%]
-            [%# choose the best available standards mode in internet explorer if chromeframe is not installed. %]
-            <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-          [%- ELSE -%]
-            <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-          [%- END -%]
-        [%- END -%]
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
         [% css_manifest('common.css.manifest') %]
         [% IF extra_css %]
@@ -43,9 +35,23 @@
                     MB.Control.RelateTo ();
                 [%- END -%]
             });
+            tb_pathToImage = '[% c.uri_for('/static/lib/thickbox/loadingAnimation.gif') %]';
         //]]></script>
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
+        [%- IF google_analytics_code -%]
+          <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '[% google_analytics_code %]']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+          </script>
+        [%- END -%]
     </head>
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END -%]
@@ -56,11 +62,20 @@
                 <div>
                     [%- USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') -%]
                     <form action="[% c.uri_for('/search') %]" method="get">
-                        [% sidebar.text('query', { placeholder => 'search' }) %]
+                        [% sidebar.text('query', { placeholder => l('search') }) %]
                         [% sidebar.select('type') %]
-                        [% form_submit(l('Search'), "header-search") %]
+                        [% sidebar.hidden('method', { value => 'indexed' }) %]
+                        [% form_submit(l('Search'), 'inline') %]
                     </form>
                 </div>
+                [%- IF server_details.git.branch -%]
+                  <div class="git-branch">
+                    [%- l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
+                         { branch => server_details.git.branch,
+                           msg => server_details.git.msg,
+                           sha	  => server_details.git.sha}) -%]
+                  </div>
+                [%- END -%]
             </div>
             <div id="header-menu">
                 <div>
@@ -89,18 +104,6 @@
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% END %]
-
-        [%- IF needs_chrome -%]
-            <div class="server-details">
-                <p>
-                    [% l('It looks like you\'re using Internet Explorer.<br/>To get the most
-                          out of this website we highly recommend the use of
-                          {uri|Google Chrome Frame}.',
-                        { uri => c.uri_for_action('/chrome_frame') }) %]
-                </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
-            </div>
-        [%- END -%]
 
         [%- IF server_details.read_only -%]
             <div class="server-details">
@@ -147,12 +150,13 @@
             </p>
 
             <p class="right">
-                [% l('Hosted by {host|Digital West}. Sponsored by: {url1|Google},
-                      {url2|OSUOSL} and {more|others…}',
+                [% l('Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital West}. Sponsored by: {url1|Google},
+                      {url2|OSUOSL} and {more|others...}. ',
                     { host => 'http://digitalwest.net/',
                       url1 => 'http://www.google.com/',
                       url2 => 'http://osuosl.org/',
-                      more => doc_link('MusicBrainz_Sponsors') }) %]
+                      more => doc_link('About/Sponsors'),
+                      caa  => 'http://coverartarchive.org/' }) %]
             </p>
         </div>
 

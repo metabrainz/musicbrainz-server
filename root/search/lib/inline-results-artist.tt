@@ -19,9 +19,15 @@
           [% link_entity(result.entity) %]
         </td>
         <td>[% result.entity.sort_name %]</td>
-        <td>[% result.entity.type_name  %]</td>
+        <td>[% result.entity.l_type_name  %]</td>
         <td>[% result.entity.begin_date.format %]</td>
-        <td>[% result.entity.end_date.format %]</td>
+        <td>
+          [% IF !result.entity.end_date.is_empty;
+               result.entity.end_date.format;
+             ELSIF result.entity.ended;
+               l('[unknown]');
+             END; -%]
+        </td>
       </tr>
       [%- END -%]
     </tbody>

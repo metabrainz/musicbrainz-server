@@ -5,7 +5,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 use Carp;
 use Data::Page;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 use Try::Tiny;
@@ -74,7 +74,9 @@ sub _insert_edit {
     my ($self, $c, $form, %opts) = @_;
 
     my $privs   = $c->user->privileges;
-    if ($c->user->is_auto_editor && !$form->field('as_auto_editor')->value) {
+    if ($c->user->is_auto_editor &&
+        $form->field('as_auto_editor') &&
+        !$form->field('as_auto_editor')->value) {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
@@ -129,11 +131,17 @@ sub edit_action
         my @options = (map { $_->name => $_->value } $form->edit_fields);
         my %extra   = %{ $opts{edit_args} || {} };
 
-        my $edit = $self->_insert_edit($c, $form,
-            edit_type => $opts{type},
-            @options,
-            %extra
-        );
+        my $edit;
+        $c->model('MB')->with_transaction(sub {
+            $edit = $self->_insert_edit(
+                $c, $form,
+                edit_type => $opts{type},
+                @options,
+                %extra
+            );
+
+            $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+        });
 
         $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
 
@@ -144,6 +152,32 @@ sub edit_action
         $form->clear_errors;
     }
 }
+
+sub _search_final_page
+{
+    my ($self, $loader, $limit, $page) = @_;
+
+    my $min = 1;
+    my $max = $page;
+
+    while (($max - $min) > 1)
+    {
+        my $middle = $min + (($max - $min) >> 1);
+
+        my ($data, $total) = $loader->($limit, ($middle - 1) * $limit);
+        if (scalar @$data > 0)
+        {
+            $min = $middle;
+        }
+        else
+        {
+            $max = $middle;
+        }
+    }
+
+    return $min;
+}
+
 
 sub _load_paged
 {
@@ -156,8 +190,22 @@ sub _load_paged
 
     my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
     my $pager = Data::Page->new;
+
+    if ($page > 1 && scalar @$data == 0)
+    {
+        my $page = $self->_search_final_page ($loader, $LIMIT, $page);
+        my $uri = $c->request->uri;
+        my %params = $uri->query_form;
+
+        $params{page} = $page;
+        $uri->query_form (\%params);
+
+        $c->response->redirect ($uri);
+        $c->detach;
+    }
+
     $pager->entries_per_page($LIMIT);
-    $pager->total_entries($total);
+    $pager->total_entries($total || 0);
     $pager->current_page($page);
 
     $c->stash( pager => $pager );

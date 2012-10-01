@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Data::FileCache;
 use Moose;
-use namespace::autoclean;
+use namespace::autoclean -also => [qw( _expand )];
 
 use DBDefs;
 use Digest::MD5 qw( md5_hex );

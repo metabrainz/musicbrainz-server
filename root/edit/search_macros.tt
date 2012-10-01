@@ -7,33 +7,35 @@
 [% BLOCK search_form %]
 <form action="[% c.req.uri.path %]" method="get" id="edit-search">
   <p>
-    Show me
-    <select name="order">
-      <option [% 'selected="selected"' IF query.order == 'desc' %] value="desc">[% l('new') %]</option>
-      <option [% 'selected="selected"' IF query.order == 'asc'  %] value="asc">[% l('old') %]</option>
-      <option [% 'selected="selected"' IF query.order == 'rand' %] value="rand">[% l('random') %]</option>
-    </select>
-    <select name="auto_edit_filter">
-      <option value="" [% 'selected="selected"'  IF !query.auto_edit_filter.defined %]>edits</option>
-      <option value="1" [% 'selected="selected"' IF  query.auto_edit_filter == 1 %]>auto-edits</option>
-      <option value="0" [% 'selected="selected"' IF  query.auto_edit_filter == 0 %]>non-auto-edits</option>
-    </select>
-    that
-    <select name="negation">
-      <option value="0" [% 'selected="selected"' IF !query.negate %]>match</option>
-      <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
-    </select>
-    <select name="combinator">
-      <option value="and"
-              [% 'selected="selected"' IF query.combinator == 'and' %]>
-        all
-      </option>
-      <option value="or"
-              [% 'selected="selected"' IF query.combinator == 'or' %]>
-        any
-      </option>
-    </select>
-    of the following conditions:
+    [%- MACRO selected_if_matches(value, to_match, true_if_undef) BLOCK;
+        ' selected="selected"' IF (!to_match && true_if_undef) || value == to_match;
+    END -%]
+
+    [%- autoedit_select_block = '<select name="auto_edit_filter">
+      <option value=""'  _ selected_if_matches('', query.auto_edit_filter, 1)  _ '>' _ l('edits')          _ '</option>
+      <option value="1"' _ selected_if_matches('1', query.auto_edit_filter) _ '>' _ l('auto-edits')     _ '</option>
+      <option value="0"' _ selected_if_matches('0', query.auto_edit_filter) _ '>' _ l('non-auto-edits') _ '</option>
+    </select>' -%]
+    [%- sort_select_block = '<select name="order">
+      <option value="desc"' _ selected_if_matches('desc', query.order, 1) _ '>' _ l('newest first') _ '</option>
+      <option value="asc"'  _ selected_if_matches('asc', query.order)  _ '>' _ l('oldest first') _ '</option>
+      <option value="rand"' _ selected_if_matches('rand', query.order) _ '>' _ l('randomly')     _ '</option>
+    </select>' -%]
+    [%- match_or_negation_block = '<select name="negation">
+      <option value="0"' _ selected_if_matches('0', query.negate, 1) _ '>' _ l('match')        _ '</option>
+      <option value="1"' _ selected_if_matches('1', query.negate)    _ '>' _ l('do not match') _ '</option>
+    </select>' -%]
+    [%- and_vs_or_block = '<select name="combinator">
+      <option value="and"' _ selected_if_matches('and', query.combinator, 1) _ '>' _ l('all') _ '</option>
+      <option value="or"'  _ selected_if_matches('or', query.combinator)  _ '>' _ l('any') _ '</option>
+    </select>' -%]
+    [%- l('Show me {autoedit_select_block} sorted {sort_select_block} that
+          {match_or_negation_block} {and_vs_or_block} of the following
+          conditions:',
+        { autoedit_select_block => autoedit_select_block,
+          sort_select_block => sort_select_block,
+          match_or_negation_block => match_or_negation_block,
+          and_vs_or_block => and_vs_or_block }) -%]
   </p>
 
   <ul class="conditions">
@@ -59,6 +61,8 @@
                  CASE 'status';
                    predicate_set(field.field_name, status, field);
                END;
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality';
+               predicate_set(field.field_name, quality, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Date';
                predicate_date(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Editor';
@@ -71,6 +75,8 @@
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry';
                predicate_country(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
+               predicate_link_type(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
@@ -92,7 +98,7 @@
     </li>
   </ul>
 
-  <span id="edit-search-submit">[% form_submit('Search') %]</span>
+  <span id="edit-search-submit">[% form_submit(l('Search')) %]</span>
 </form>
 [% PROCESS template_fields %]
 [% END %]
@@ -170,8 +176,8 @@
   <select name="args" multiple="multiple">
     [% FOR item=set_contents %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
-            >[% html_escape(item.1) %]</option>
+            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            >[% l(html_escape(item.1)) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -183,9 +189,34 @@
     [% FOR language=languages %]
     <option value="[% language.id %]"
             [% 'selected="selected"' IF field_contents.find_argument(language.id) %]
-            >[% html_escape(language.name) %]</option>
+            >[% html_escape(language.l_name) %]</option>
     [% END %]
   </select>
+[% END %]
+
+[% MACRO relationship_node(node, pad, field_contents) BLOCK; %]
+  [% FOR child=node.children %]
+    <option value="[% child.id %]"
+            [% 'selected="selected"' IF field_contents.find_argument(child.id) %]>
+      [%- pad _ child.name -%]</option>
+    [% relationship_node(child, pad _ '&nbsp;&nbsp;', field_contents) %]
+  [% END %]
+[% END %]
+
+[% MACRO predicate_link_type(field, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ] ], field_contents) %]
+
+  <select name="args" multiple="multiple">
+    [% FOR type_group=relationship_type %]
+      <optgroup label="[% type_group.name %]">
+        [% relationship_node(top_level, '', field_contents)
+             FOR top_level=type_group %]
+      </optgroup>
+    [% END %]
+  </select>
+
+  <br />
+  <p>[% l('Note: this currently only searches edits that add or edit relationships, created after 2011-05-16') %]</p>
 [% END %]
 
 [% MACRO predicate_link(field, field_contents) WRAPPER wfield predicate="set" %]
@@ -205,7 +236,8 @@
                  [ '!=', l('is not') ] ], field_contents) %]
   <input type="hidden" name="voter_id" value="[% c.user.id %]" />
   <select name="args" multiple="multiple">
-    [% FOR item=[ [  1,   l('Yes') ]
+    [% FOR item=[ [  2,   l('Approve') ]
+                , [  1,   l('Yes') ]
                 , [  0,   l('No') ]
                 , [ -1,   l('Abstain') ]
                 , [ 'no', l('No vote') ]
@@ -239,7 +271,7 @@
     [% FOR country=countries %]
     <option value="[% country.id %]"
             [% 'selected="selected"' IF field_contents.find_argument(country.id) %]
-            >[% html_escape(country.name) %]</option>
+            >[% html_escape(country.l_name) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -247,7 +279,7 @@
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
-      <option>Please choose a condition</option>
+      <option>[% l('Please choose a condition') %]</option>
     [% END %]
     [% FOR field=[ [ 'id', l('ID') ],
                    [ 'open_time', l('Created') ],
@@ -266,8 +298,10 @@
                    [ 'editor', l('Editor') ],
                    [ 'vote', l('My Vote') ]
                    [ 'release_language', l('Release Language') ],
+                   [ 'release_quality', l('Release Quality') ],
                    [ 'artist_country', l('Artist Country') ],
                    [ 'label_country', l('Label Country') ]
+                   [ 'link_type', l('Relationship Type') ],
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -282,6 +316,7 @@
     [% predicate_date(field_name) FOR field_name=['open_time', 'expire_time', 'close_time'] %]
     [% predicate_set('type', edit_types) %]
     [% predicate_set('status', status) %]
+    [% predicate_set('release_quality', quality) %]
     [% predicate_int('no_votes') %]
     [% predicate_int('yes_votes') %]
 
@@ -297,5 +332,6 @@
     [% predicate_release_language('release_language') %]
     [% predicate_country('artist_country') %]
     [% predicate_country('label_country') %]
+    [% predicate_link_type('link_type') %]
   </div>
 [% END %]

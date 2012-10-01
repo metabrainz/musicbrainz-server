@@ -11,8 +11,9 @@ use Email::Sender::Transport::SMTP;
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
+use List::UtilsBy qw( sort_by );
 
-use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_status :email_addresses );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -25,9 +26,6 @@ has 'c' => (
     is => 'rw',
     isa => 'Object'
 );
-
-Readonly our $NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
-Readonly our $SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
 
 sub _user_address
 {
@@ -42,10 +40,20 @@ sub _user_address
     return Email::Address->new($user->name, $user->email)->format;
 }
 
+sub _message_id
+{
+    my $format_string = shift;
+    return sprintf('<' . $format_string . '@%s>', @_, &DBDefs::WEB_SERVER_USED_IN_EMAIL);
+}
+
 sub _create_email
 {
     my ($self, $headers, $body) = @_;
 
+    # Add a Message-Id header if there isn't one.
+    if( !(grep { "$_" eq "Message-Id" } @$headers) ) {
+        push @$headers, 'Message-Id', _message_id('uncategorized-email-%d', time());
+    }
     return Email::MIME->create(
         header => $headers,
         body => encode('utf-8', $body),
@@ -65,10 +73,16 @@ sub _create_message_to_editor_email
     my $subject = $opts{subject} or die "Missing 'subject' argument";
     my $message = $opts{message} or die "Missing 'message' argument";
 
+    my $time = $opts{time} || time();
+
+    my @correspondents = sort_by { $_->name } ($from, $to);
     my @headers = (
-        'To'      => _user_address($to),
-        'Sender'  => $NOREPLY_ADDRESS,
-        'Subject' => $subject,
+        'To'          => _user_address($to),
+        'Sender'      => $EMAIL_NOREPLY_ADDRESS,
+        'Subject'     => $subject,
+        'Message-Id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, $time),
+        'References'  => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
+        'In-Reply-To' => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
     );
 
     if ($opts{reveal_address}) {
@@ -76,16 +90,12 @@ sub _create_message_to_editor_email
     }
     else {
         push @headers, 'From', _user_address($from, 1);
-        push @headers, 'Reply-To', $NOREPLY_ADDRESS;
-    }
-
-    if ($opts{send_to_self}) {
-        push @headers, 'BCC', _user_address($from);
+        push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
     }
 
     my $from_name = $from->name;
     my $contact_url = sprintf "http://%s/user/%s/contact",
-                        &DBDefs::WEB_SERVER,
+                        &DBDefs::WEB_SERVER_USED_IN_EMAIL,
                         uri_escape_utf8($from->name);
 
     my $body = <<EOS;
@@ -120,10 +130,11 @@ sub _create_email_verification_email
     my ($self, %opts) = @_;
 
     my @headers = (
-        'To'       => $opts{email},
-        'From'     => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
-        'Subject'  => 'Please verify your email address',
+        'To'         => $opts{email},
+        'From'       => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id' => _message_id('verify-email-%d', time()),
+        'Subject'    => 'Please verify your email address',
     );
 
     my $verification_link = $opts{verification_link};
@@ -150,14 +161,15 @@ sub _create_lost_username_email
     my ($self, %opts) = @_;
 
     my @headers = (
-        'To'       => _user_address($opts{user}),
-        'From'     => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
-        'Subject'  => 'Lost username',
+        'To'         => _user_address($opts{user}),
+        'From'       => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id' => _message_id('lost-username-%d', time()),
+        'Subject'    => 'Lost username',
     );
 
     my $user_name = $opts{user}->name;
-    my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER;
+    my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 Someone, probably you, asked to look up the username of the
@@ -187,15 +199,17 @@ sub _create_no_vote_email
     my $editor = $opts{editor} or die "Missing 'editor' argument";
 
     my @headers = (
-        'To' => _user_address($opts{editor}),
-        'From' => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
-        'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
-        'Subject' => "Someone has voted against your edit #$edit_id",
+        'To'          => _user_address($opts{editor}),
+        'From'        => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'    => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id'  => _message_id('edit-%d-%d-no-vote-%d', $edit_id, $voter->id, time()),
+        'References'  => _message_id('edit-%d', $edit_id),
+        'In-Reply-To' => _message_id('edit-%d', $edit_id),
+        'Subject'     => "Someone has voted against your edit #$edit_id",
     );
 
-    my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER, $edit_id;
-    my $prefs_url = sprintf 'http://%s/account/preferences', &DBDefs::WEB_SERVER;
+    my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER_USED_IN_EMAIL, $edit_id;
+    my $prefs_url = sprintf 'http://%s/account/preferences', &DBDefs::WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 '${\ $voter->name }' has voted against your edit #$edit_id.
@@ -224,14 +238,15 @@ sub _create_password_reset_request_email
     my ($self, %opts) = @_;
 
     my @headers = (
-        'To'       => _user_address($opts{user}),
-        'From'     => $NOREPLY_ADDRESS,
-        'Reply-To' => $SUPPORT_ADDRESS,
-        'Subject'  => 'Password reset request',
+        'To'         => _user_address($opts{user}),
+        'From'       => $EMAIL_NOREPLY_ADDRESS,
+        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
+        'Message-Id' => _message_id('password-reset-%d', time()),
+        'Subject'    => 'Password reset request',
     );
 
     my $reset_password_link = $opts{reset_password_link};
-    my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER;
+    my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 Someone, probably you, asked that your MusicBrainz password be reset.
@@ -267,13 +282,16 @@ sub _create_edit_note_email
     my $own_edit = $opts{own_edit};
 
     my @headers = (
-        'To'       => _user_address($editor),
-        'From'     => _user_address($from_editor, 1),
-        'Sender'   => $NOREPLY_ADDRESS,
+        'To'          => _user_address($editor),
+        'From'        => _user_address($from_editor, 1),
+        'Sender'      => $EMAIL_NOREPLY_ADDRESS,
+        'Message-Id'  => _message_id('edit-%d-%s-edit-note-%d', $edit_id, $from_editor->id, time()),
+        'References'  => _message_id('edit-%d', $edit_id),
+        'In-Reply-To' => _message_id('edit-%d', $edit_id),
     );
 
     my $from = $from_editor->name;
-    my $respond = sprintf "http://%s/edit/%d", &DBDefs::WEB_SERVER, $edit_id;
+    my $respond = sprintf "http://%s/edit/%d", &DBDefs::WEB_SERVER_USED_IN_EMAIL, $edit_id;
     my $body;
 
     if ($own_edit) {
@@ -321,8 +339,28 @@ sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
-    my $email = $self->_create_message_to_editor_email(%opts);
-    return $self->_send_email($email);
+    $opts{time} = time();
+    {
+        my $email = $self->_create_message_to_editor_email(%opts);
+        $self->_send_email($email);
+    }
+
+    if ($opts{send_to_self}) {
+        my $copy = $self->_create_message_to_editor_email(%opts);
+        my $toname = $opts{to}->name;
+        my $message = $opts{message};
+
+        $copy->header_str_set( To => _user_address($opts{from}) );
+        $copy->body_str_set(<<EOF);
+This is a copy of the message you sent to MusicBrainz editor '$toname':
+------------------------------------------------------------------------
+$message
+------------------------------------------------------------------------
+Please do not respond to this e-mail.
+EOF
+
+        $self->_send_email($copy);
+    }
 }
 
 sub send_email_verification
@@ -354,7 +392,7 @@ sub send_subscriptions_digest
     my ($self, %opts) = @_;
 
     my $email = MusicBrainz::Server::Email::Subscriptions->new(
-        from => $NOREPLY_ADDRESS,
+        from => $EMAIL_NOREPLY_ADDRESS,
         %opts
     );
     return try { $self->_send_email($email->create_email) } catch { warn $_ };

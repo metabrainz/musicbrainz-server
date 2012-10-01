@@ -14,7 +14,7 @@ use MusicBrainz::Server::Data::Utils qw( placeholders );
 my $remove = 1;
 
 my $c = MusicBrainz::Server::Context->create_script_context();
-my $sql = Sql->new($c->dbh);
+my $sql = Sql->new($c->conn);
 
 GetOptions(
     "remove!"           => \$remove,

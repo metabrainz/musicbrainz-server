@@ -7,14 +7,13 @@ use Clone 'clone';
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure trim );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Types qw( $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
-use Text::Trim qw( trim );
 use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -52,6 +51,7 @@ sub _build_pages {
             title => l('Release Information'),
             template => 'release/edit/information.tt',
             form => 'ReleaseEditor::Information',
+            prepare => sub { $self->prepare_information ($self->release); },
         },
         {
             name => 'tracklist',
@@ -236,6 +236,23 @@ sub recording_edits_from_tracklist
     return %recording_edits;
 }
 
+=method track_edits_from_tracklist
+
+Create no-op track edits for a particular tracklist.
+
+=cut
+
+sub track_edits_from_tracklist
+{
+    my ($self, $tracklist) = @_;
+
+    my @tracks;
+
+    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+    return map { $self->track_edit_from_track ($_) } @{ $tracklist->{tracks} };
+}
 
 =method _search_recordings
 
@@ -366,10 +383,18 @@ sub associate_recordings
             }
         }
 
+        # MBS-3957: Track length has been changed by >10 seconds.
+        # Always require confirmation
+        if ($trk && $trk_edit->{length} && $trk->length &&
+            abs($trk_edit->{length} - $trk->length) > 10000) {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
+        }
+
         # Track edit is already associated with a recording edit.
         # (but ignore that association if it concerns an automatically
         #  selected "add new recording").
-        if ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
+        elsif ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
         {
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
@@ -563,6 +588,23 @@ sub associate_recordings
     return (\@ret, \@suggestions);
 }
 
+sub prepare_information
+{
+    my ($self, $release) = @_;
+
+    my $labels = $self->c->model('Label')->get_by_ids(
+        grep { $_ }
+        map { $_->{label_id} }
+        @{ $self->get_value ("information", "labels") // [] });
+
+    my $rg_id = $self->get_value ("information", "release_group_id");
+
+    $self->c->stash(
+        labels_by_id => $labels,
+        release_group => $rg_id ? $self->c->model('ReleaseGroup')->get_by_id($rg_id) : undef
+        );
+}
+
 sub prepare_tracklist
 {
     my ($self, $release) = @_;
@@ -577,6 +619,28 @@ sub prepare_tracklist
 
     map { $_->{artist}->{gid} = $artists->{$_->{artist}->{id}}->gid }
     grep { $_->{artist}->{id} } @{ $submitted_ac->{names} };
+
+    my $mediums = $self->get_value ('tracklist', 'mediums') // [];
+    if (scalar @$mediums == 0)
+    {
+        # Releases should always have one medium, but the current
+        # edit-system cannot guarantee that.  See MBS-1929.
+        #
+        # "Add Disc" buttons use an existing disc as a template, so we
+        # need to make sure there is atleast one disc.
+        $self->set_value (
+            'tracklist', 'mediums', [
+                {
+                    'format_id' => undef,
+                    'position' => '1',
+                    'name' => undef,
+                    'deleted' => '0',
+                    'edits' => '[]',
+                    'toc' => undef,
+                    'tracklist_id' => undef,
+                    'id' => undef
+                }]);
+    }
 
     $self->c->stash->{release_artist} = $submitted_ac;
 }
@@ -721,7 +785,8 @@ sub prepare_recordings
         'recordings',
         {
             'rec_mediums' => \@recording_edits,
-            'infer_durations' => $self->get_value ('recordings', 'infer_durations')
+            'infer_durations' => $self->get_value ('recordings', 'infer_durations'),
+            'propagate_all_track_changes' => $self->get_value ('recordings', 'propagate_all_track_changes'),
         });
 }
 
@@ -733,13 +798,13 @@ sub prepare_missing_entities
     my @artist_credits = $self->_missing_artist_credits($data);
 
     my @credits = map +{
-            for => $_->{artist}->{name},
-            name => $_->{artist}->{name},
+            for => trim ($_->{artist}->{name}),
+            name => trim ($_->{artist}->{name}),
         }, uniq_by { normalise_strings($_->{artist}->{name}) } @artist_credits;
 
     my @labels = map +{
-            for => $_->{name},
-            name => $_->{name}
+            for => trim ($_->{name}),
+            name => trim ($_->{name})
         }, uniq_by { normalise_strings($_->{name}) }
             $self->_missing_labels($data);
 
@@ -832,6 +897,8 @@ sub create_edits
 
     $self->_expand_mediums($data);
 
+    $self->c->model('MB')->context->sql->begin unless $previewing;
+
     # Artists and labels:
     # ----------------------------------------
     my (%created) = $self->_edit_missing_entities(%args);
@@ -856,6 +923,8 @@ sub create_edits
 
     # Add any other extra edits (adding mediums, etc)
     $self->create_common_edits(%args);
+
+    $self->c->model('MB')->context->sql->commit unless $previewing;
 
     return $self->release;
 }
@@ -893,8 +962,6 @@ sub _edit_missing_entities
     my ($data, $create_edit, $editnote, $previewing)
         = @args{qw( data create_edit edit_note previewing )};
 
-    my %created;
-
     my @missing_artist = @{ $data->{missing}{artist} || [] };
     my @artist_edits = map {
         my $artist = $_;
@@ -902,9 +969,10 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            name => $artist->{name},
-            sort_name => $artist->{sort_name} || '',
-            comment => $artist->{comment} || '');
+            name => trim ($artist->{name}),
+            sort_name => trim ($artist->{sort_name}) || '',
+            comment => trim ($artist->{comment}) || '',
+            ipi_codes => [ ]);
     } grep { !$_->{entity_id} } @missing_artist;
 
     my @missing_label = @{ $data->{missing}{label} || [] };
@@ -914,7 +982,10 @@ sub _edit_missing_entities
             $EDIT_LABEL_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            map { $_ => $label->{$_} } qw( name sort_name comment ));
+            name => trim ($label->{name}),
+            sort_name => trim ($label->{sort_name}) || '',
+            comment => trim ($label->{comment}) || '',
+            ipi_codes => [ ]);
     } grep { !$_->{entity_id} } @{ $data->{missing}{label} };
 
     return () if $previewing;
@@ -955,6 +1026,9 @@ sub _edit_release_labels
         my $new_label = $data->{'labels'}->[$_];
         my $old_label = $self->release->labels->[$_] if $self->release;
 
+        $new_label->{name} = trim ($new_label->{name}) if $new_label->{name};
+        $new_label->{catalog_number} = trim ($new_label->{catalog_number}) if $new_label->{catalog_number};
+
         if ($old_label)
         {
             if ($new_label->{'deleted'})
@@ -973,11 +1047,8 @@ sub _edit_release_labels
                     release_label => $old_label,
                     catalog_number => $new_label->{catalog_number},
                     as_auto_editor => $data->{as_auto_editor},
+                    label => $new_label->{label_id} ? $labels->{ $new_label->{label_id} } : undef
                 );
-
-                my $label;
-                $label = $labels->{ $new_label->{label_id} } if $new_label->{label_id};
-                $args{label} = $label if $label;
 
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
@@ -1063,7 +1134,7 @@ sub _edit_release_track_edits
 
                 # Edit medium
                 my %opts = (
-                    name => $new->{name},
+                    name => trim ($new->{name}),
                     format_id => $new->{format_id},
                     to_edit => $entity,
                     separate_tracklists => 1,
@@ -1083,9 +1154,7 @@ sub _edit_release_track_edits
         }
         elsif (!$new->{deleted})
         {
-            # Medium does not exist yet.
-
-            my $add_medium_position = $self->add_medium_position ($medium_idx, $new);
+            my $add_medium_position = $new->{position};
 
             my $opts = {
                 position => $add_medium_position,
@@ -1093,7 +1162,7 @@ sub _edit_release_track_edits
                 as_auto_editor => $data->{as_auto_editor},
             };
 
-            $opts->{name} = $new->{name} if $new->{name};
+            $opts->{name} = trim ($new->{name}) if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
             if ($new->{tracks}) {
@@ -1157,6 +1226,7 @@ sub _edit_release_annotation
     my $annotation = ($self->release && $self->release->latest_annotation) ?
         $self->release->latest_annotation->text : '';
 
+    $annotation //= '';
     my $data_annotation = $data->{annotation} ? $data->{annotation} : '';
 
     if ($annotation ne $data_annotation)
@@ -1272,6 +1342,7 @@ sub _expand_track
         length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
+        number => trim ($trk->{number} // $trk->{position}),
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
@@ -1384,11 +1455,12 @@ sub track_edit_from_track
     my ($self, $track) = @_;
 
     return $self->update_track_edit_hash ({
-        artist_credit => artist_credit_to_ref ($track->artist_credit),
+        artist_credit => artist_credit_to_ref ($track->artist_credit, [ "gid" ]),
         deleted => 0,
         length => $track->length,
         name => $track->name,
-        position => $track->position
+        position => $track->position,
+        number => $track->number
     });
 }
 
@@ -1396,8 +1468,7 @@ sub track_edit_from_track
 =method edited_tracklist
 
 Returns a list of tracks, sorted by position, with deleted tracks
-removed.  It also converts artist credits to the same format used by
-'artist_credit_to_ref'.
+removed.
 
 =cut
 
@@ -1433,14 +1504,31 @@ sub _seed_parameters {
             sub { shift->model('ReleaseStatus')->find_by_name(shift) },
         ],
         [
-            'type_id', 'type',
-            sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
-        ],
-        [
             'packaging_id', 'packaging',
             sub { shift->model('ReleasePackaging')->find_by_name(shift) },
         ],
     );
+
+    if (exists $params->{type})
+    {
+        my %primary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupType')->get_all ();
+        my %secondary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupSecondaryType')->get_all ();
+
+        for my $typename (ref($params->{type}) eq 'ARRAY' ? @{ $params->{type} } : ($params->{type}))
+        {
+            if (defined $primary_types{$typename})
+            {
+                $params->{primary_type_id} = $primary_types{$typename}->id;
+            }
+            elsif (defined $secondary_types{$typename})
+            {
+                $params->{secondary_type_ids} = [] unless defined $params->{secondary_type_ids};
+                push @{ $params->{secondary_type_ids} }, $secondary_types{$typename}->id;
+            }
+        }
+
+        delete $params->{type};
+    }
 
     for my $trans (@transformations) {
         my ($key, $alias, $transform) = @$trans;
@@ -1501,13 +1589,16 @@ sub _seed_parameters {
                     @{ $params->{mediums} || []}
         )
     ) {
-        if (my $mbid = $artist_credit->{mbid}){
-            my $entity = $self->c->model('Artist')
-                ->get_by_gid($mbid);
-            $artist_credit->{name} ||= $entity->name;
-            $artist_credit->{artist}->{gid} = $entity->gid;
-            $artist_credit->{artist}->{id} = $entity->id;
-            $artist_credit->{artist}->{name} = $entity->name;
+        if (my $mbid = $artist_credit->{mbid})
+        {
+            my $entity = $self->c->model('Artist')->get_by_gid($mbid);
+            if ($entity)
+            {
+                $artist_credit->{name} ||= $entity->name;
+                $artist_credit->{artist}->{gid} = $entity->gid;
+                $artist_credit->{artist}->{id} = $entity->id;
+                $artist_credit->{artist}->{name} = $entity->name;
+            }
         }
         else {
             $artist_credit->{artist}->{name} ||= $artist_credit->{name};
@@ -1577,21 +1668,35 @@ sub _seed_parameters {
                         $track->{length} = ($length =~ /:/)
                             ? unformat_track_length ($length)
                             : $length;
+                        $track->{length} = defined $track->{length} ? int($track->{length}) : undef;
                     }
 
                     my $track = $self->update_track_edit_hash ($track);
 
                     push @edits, $track;
 
-                    if (my $recording_id = delete $track->{recording}) {
-                        if(my $recording = $self->c->model('Recording')->get_by_gid($recording_id)) {
-                            $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
-                                edit_sha1 => $track->{edit_sha1},
-                                confirmed => 1,
-                                id => $recording->id,
-                                gid => $recording->gid
-                            };
-                        }
+                    my $recording_id = delete $track->{recording};
+                    my $recording = $self->c->model('Recording')->get_by_gid($recording_id) if $recording_id;
+
+                    if ($recording)
+                    {
+                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
+                            edit_sha1 => $track->{edit_sha1},
+                            confirmed => 1,
+                            id => $recording->id,
+                            gid => $recording->gid
+                        };
+                    }
+                    else
+                    {
+                        # Have some kind of empty default which isn't undef
+                        # at this track position, FormHandler skips undef
+                        # values when processing the init_object.
+                        $params->{rec_mediums}[$medium_idx]{associations}[$track_idx] = {
+                            edit_sha1 => $track->{edit_sha1},
+                            confirmed => 1,
+                            gid => "new"
+                        };
                     }
                 }
 
