@@ -438,10 +438,12 @@ msgid "mb_server now hosted on Git"
 msgstr "mb_server φιλοξενείται πλέον στο Git"
 
 #: ../root/statistics/formats.tt:32
+#, perl-format
 msgid "% of total mediums"
 msgstr "% από σύνολο μέσων"
 
 #: ../root/statistics/formats.tt:30
+#, perl-format
 msgid "% of total releases"
 msgstr "% από σύνολο κυκλοφοριών"
 
