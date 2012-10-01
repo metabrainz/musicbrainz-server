@@ -126,7 +126,9 @@ test 'Linking Merge Release edits to recordings' => sub {
         merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
     );
 
-    is_deeply([2, 3], $edit->related_entities->{recording});
+    # Use a set because the order can be different, but the elements should be the same.
+    use Set::Scalar;
+    is(Set::Scalar->new(2, 3)->compare(Set::Scalar->new(@{ $edit->related_entities->{recording} })), 'equal', "Related recordings are correct");
 
     $edit = $c->model('Edit')->create(
         edit_type => $EDIT_RELEASE_MERGE,
@@ -164,7 +166,7 @@ test 'Linking Merge Release edits to recordings' => sub {
         ]
     );
 
-    is_deeply([], $edit->related_entities->{recording});
+    is_deeply([], $edit->related_entities->{recording}, 'empty related recordings for MERGE_APPEND');
 };
 
 1;
