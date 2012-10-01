@@ -161,6 +161,7 @@ test_requires 'Test::WWW::Selenium';
 test_requires 'Test::WWW::Selenium::Catalyst' => '0.07';
 test_requires 'Test::XPath';
 test_requires 'XML::Parser';
+test_requires 'TAP::Parser::SourceHandler::pgTAP';
 
 catalyst;
 
