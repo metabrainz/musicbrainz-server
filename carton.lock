@@ -6922,6 +6922,66 @@
          "target" : "DateTime::Format::Duration",
          "version" : "1.03"
       },
+      "DateTime::Format::ISO8601" : {
+         "dist" : "DateTime-Format-ISO8601-0.08",
+         "mymeta" : {
+            "abstract" : "Parses ISO8601 formats",
+            "author" : [
+               "Joshua Hoblitt <jhoblitt@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.120921",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "DateTime-Format-ISO8601",
+            "prereqs" : {
+               "configure" : {
+                  "requires" : {
+                     "Module::Build" : "0.38"
+                  }
+               },
+               "runtime" : {
+                  "recommends" : {
+                     "File::Find::Rule" : "0.24",
+                     "Test::Distribution" : "1.22",
+                     "Test::Pod" : "0.95"
+                  },
+                  "requires" : {
+                     "DateTime" : "0.18",
+                     "DateTime::Format::Builder" : "0.77"
+                  }
+               }
+            },
+            "provides" : {
+               "DateTime::Format::ISO8601" : {
+                  "file" : "lib/DateTime/Format/ISO8601.pm",
+                  "version" : "0.08"
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ]
+            },
+            "version" : "0.08"
+         },
+         "name" : "DateTime::Format::ISO8601",
+         "pathname" : "J/JH/JHOBLITT/DateTime-Format-ISO8601-0.08.tar.gz",
+         "provides" : {
+            "DateTime::Format::ISO8601" : {
+               "file" : "DateTime/Format/ISO8601.pm",
+               "version" : "0.08"
+            }
+         },
+         "target" : "DateTime::Format::ISO8601",
+         "version" : "0.08"
+      },
       "DateTime::Format::Natural" : {
          "dist" : "DateTime-Format-Natural-1.01",
          "mymeta" : {
