@@ -6,7 +6,7 @@
 # Alexander Dupuy <email address hidden>, 2012.
 # gr0uch0mars <email address hidden>, 2011.
 # Héctor Arroyo <email address hidden>, 2012.
-# Nicolás Tamargo <email address hidden>, 2011, 2012.
+# Nicolás Tamargo <email address hidden>, 2011-2012.
 #   <email address hidden>, 2012.
 #   Tobias Quathamer <email address hidden>, 2007.
 #   <email address hidden>, 2012.
@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2012-09-19 17:30-0700\n"
-"PO-Revision-Date: 2012-09-20 06:19+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-09-25 08:22+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -577,7 +577,7 @@ msgstr "Añadir grupo de publicaciones"
 #: ../root/release/edit/layout.tt:4 ../root/release/edit/layout.tt:13
 #, perl-format
 msgid "Add Release: {title}"
-msgstr ""
+msgstr "Añadir publicación: {title}"
 
 #: ../root/layout/menu.tt:218 ../root/recording/create.tt:16
 #: ../root/recording/create.tt:18
@@ -736,7 +736,7 @@ msgstr "Añadir grabación"
 #: ../root/release/edit_relationships.tt:259
 #, perl-format
 msgid "Add related work"
-msgstr ""
+msgstr "Añadir obra relacionada"
 
 #: ../root/release/edit_relationships.tt:243
 #: ../root/scripts/text_strings.tt:92
@@ -1018,7 +1018,7 @@ msgstr "Ha ocurrido un error: "
 #: ../root/release/edit_relationships.tt:225
 #, perl-format
 msgid "An error occurred while creating the work."
-msgstr ""
+msgstr "Ocurrió un error al crear la obra."
 
 #: ../root/annotation/common.tt:2 ../root/artist/annotation_revision.tt:1
 #: ../root/edit/details/historic/add_release_annotation.tt:13
@@ -2434,7 +2434,7 @@ msgstr "Crear nuevo atributo de relación"
 #: ../root/release/edit_relationships.tt:92
 #, perl-format
 msgid "Create a new work"
-msgstr ""
+msgstr "Crear nueva obra"
 
 #: ../root/relationship/linktype/tree.tt:43
 #, perl-format
@@ -2464,7 +2464,7 @@ msgstr "Crear relación con {other}"
 #: ../root/release/edit_relationships.tt:233
 #, perl-format
 msgid "Create work"
-msgstr ""
+msgstr "Crear obra"
 
 #: ../root/edit/search_macros.tt:284
 #, perl-format
@@ -2971,7 +2971,7 @@ msgstr "Editar tipos de relación"
 #: ../root/release/edit_relationships.tt:303
 #, perl-format
 msgid "Edit Relationships: {release}"
-msgstr ""
+msgstr "Editar relaciones: {release}"
 
 #: ../root/release/edit_annotation.tt:1
 #, perl-format
@@ -3089,7 +3089,7 @@ msgstr "Editar relación"
 #: ../root/release/sidebar.tt:86
 #, perl-format
 msgid "Edit relationships"
-msgstr ""
+msgstr "Editar relaciones"
 
 #: ../root/release/edit_annotation.tt:2
 #, perl-format
@@ -3404,7 +3404,7 @@ msgstr "Error al cancelar la edición"
 #: ../root/scripts/text_strings.tt:99
 #, perl-format
 msgid "Error loading relationships."
-msgstr ""
+msgstr "Error al cargar las relaciones"
 
 #: ../root/main/400.tt:8 ../root/main/404.tt:12 ../root/main/500.tt:37
 #, perl-format
@@ -4444,7 +4444,7 @@ msgstr "Feed de datos directo"
 #: ../root/scripts/text_strings.tt:98
 #, perl-format
 msgid "Loading..."
-msgstr ""
+msgstr "Cargando..."
 
 #: ../root/components/aliases.tt:11
 #, perl-format
@@ -6237,7 +6237,7 @@ msgstr "Rechazar cuando expire"
 #: ../root/scripts/text_strings.tt:93
 #, perl-format
 msgid "Relate recording to work"
-msgstr ""
+msgstr "Relacionar grabación con obra"
 
 #: ../root/components/common-macros.tt:501
 #, perl-format
@@ -6252,7 +6252,7 @@ msgstr "Relacionar con <abbr title=\"Uniform Resource Locator\">URL</abbr>"
 #: ../root/release/edit_relationships.tt:356
 #, perl-format
 msgid "Related Works"
-msgstr ""
+msgstr "Obras relacionadas"
 
 #: ../root/recording/index.tt:56 ../root/recording/relationships.tt:6
 #, perl-format
@@ -6443,7 +6443,7 @@ msgstr "Calidad de publicación"
 #: ../root/release/edit_relationships.tt:372
 #, perl-format
 msgid "Release Relationships"
-msgstr ""
+msgstr "Relaciones de la publicación"
 
 #: ../root/recording/index.tt:12
 #, perl-format
@@ -6976,7 +6976,7 @@ msgstr "Datos de solicitud:"
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:162
 #, perl-format
 msgid "Required field."
-msgstr ""
+msgstr "Campo obligatorio."
 
 #: ../root/edit/info.tt:48
 #, perl-format
@@ -11108,8 +11108,8 @@ msgstr "{name} de {artist}"
 #, perl-format
 msgid "{num} artist"
 msgid_plural "{num} artists"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} artista"
+msgstr[1] "{num} artistas"
 
 #: ../root/tag/artist.tt:1
 #, perl-format
@@ -11136,15 +11136,15 @@ msgstr[1] "{num}&nbsp;días"
 #, perl-format
 msgid "{num} editor"
 msgid_plural "{num} editors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} editor"
+msgstr[1] "{num} editores"
 
 #: ../root/user/subscriptions/subscriptions.tt:25
 #, perl-format
 msgid "{num} label"
 msgid_plural "{num} labels"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} discográfica"
+msgstr[1] "{num} discográficas"
 
 #: ../root/tag/label.tt:1
 #, perl-format
