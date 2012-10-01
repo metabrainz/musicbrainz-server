@@ -1666,6 +1666,68 @@
          "target" : "Cache::Memcached::Fast",
          "version" : "0.19"
       },
+      "Cache::Memcached::Managed" : {
+         "dist" : "Cache-Memcached-Managed-0.24",
+         "mymeta" : {
+            "abstract" : "provide API for managing cached information",
+            "author" : [
+               "Elizabeth Mattijsen (liz@dijkmat.nl)"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120630, CPAN::Meta::Converter version 2.120921",
+            "license" : [
+               "open_source"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Cache-Memcached-Managed",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Cache::Memcached" : "0"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.24"
+         },
+         "name" : "Cache::Memcached::Managed",
+         "pathname" : "E/EL/ELIZABETH/Cache-Memcached-Managed-0.24.tar.gz",
+         "provides" : {
+            "Cache::Memcached::Managed" : {
+               "file" : "Cache/Memcached/Managed.pm",
+               "version" : "0.24"
+            },
+            "Cache::Memcached::Managed::Inactive" : {
+               "file" : "Cache/Memcached/Managed/Inactive.pm",
+               "version" : "0.24"
+            },
+            "Cache::Memcached::Managed::Multi" : {
+               "file" : "Cache/Memcached/Managed/Multi.pm",
+               "version" : "0.24"
+            }
+         },
+         "target" : "Cache::Memcached::Managed",
+         "version" : "0.24"
+      },
       "Captcha::reCAPTCHA" : {
          "dist" : "Captcha-reCAPTCHA-0.96",
          "mymeta" : {
@@ -3135,6 +3197,74 @@
          },
          "target" : "Catalyst::Plugin::Session::Store::File",
          "version" : "0.18"
+      },
+      "Catalyst::Plugin::Session::Store::Memcached" : {
+         "dist" : "Catalyst-Plugin-Session-Store-Memcached-0.05",
+         "mymeta" : {
+            "abstract" : "Memcached storage backend for",
+            "author" : [
+               "This module is derived from L<Catalyst::Plugin::Session::FastMmap> code, and"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "Module::Install version 1.06, CPAN::Meta::Converter version 2.120921",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Catalyst-Plugin-Session-Store-Memcached",
+            "no_index" : {
+               "directory" : [
+                  "inc",
+                  "t"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.36"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "6.36"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Cache::Memcached::Managed" : "0",
+                     "Catalyst::ClassData" : "0",
+                     "Catalyst::Plugin::Session" : "0.26",
+                     "MRO::Compat" : "0",
+                     "Moose" : "0",
+                     "MooseX::Emulate::Class::Accessor::Fast" : "0",
+                     "namespace::clean" : "0"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "resources" : {
+               "license" : [
+                  "http://dev.perl.org/licenses/"
+               ],
+               "repository" : {
+                  "url" : "http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-Plugin-Session-Store-Memcached/"
+               }
+            },
+            "version" : "0.05"
+         },
+         "name" : "Catalyst::Plugin::Session::Store::Memcached",
+         "pathname" : "J/JJ/JJNAPIORK/Catalyst-Plugin-Session-Store-Memcached-0.05.tar.gz",
+         "provides" : {
+            "Catalyst::Plugin::Session::Store::Memcached" : {
+               "file" : "Catalyst/Plugin/Session/Store/Memcached.pm",
+               "version" : "0.05"
+            }
+         },
+         "target" : "Catalyst::Plugin::Session::Store::Memcached",
+         "version" : "0.05"
       },
       "Catalyst::Plugin::StackTrace" : {
          "dist" : "Catalyst-Plugin-StackTrace-0.11",
