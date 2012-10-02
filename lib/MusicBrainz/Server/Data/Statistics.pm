@@ -505,6 +505,27 @@ my %stats = (
             };
         },
     },
+    "count.work.type" => {
+        DESC => "Distribution of works by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(work.id) AS count
+                 FROM work_type type
+                 FULL OUTER JOIN work ON work.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.work.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.artistcredit" => {
         DESC => "Count of all artist credits",
         SQL => "SELECT COUNT(*) FROM artist_credit",

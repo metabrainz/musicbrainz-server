@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Work;
 use Moose;
 use namespace::autoclean;
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
@@ -14,6 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Entity::Work;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
@@ -283,6 +284,7 @@ sub load_writers
 {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_writers == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
@@ -336,6 +338,7 @@ sub load_recording_artists
 {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_artists == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
@@ -383,14 +386,19 @@ sub _find_recording_artists
 }
 
 sub is_empty {
-    my ($self, $artist_id) = @_;
+    my ($self, $work_id) = @_;
 
-    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+    return $self->sql->select_single_value(<<'EOSQL', $work_id, $STATUS_OPEN);
         SELECT TRUE
         FROM work work_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
+          EXISTS (
+            SELECT TRUE
+            FROM edit_work JOIN edit ON edit_work.edit = edit.id
+            WHERE status = ? AND work = work_row.id
+          ) OR
           EXISTS (
             SELECT TRUE FROM l_artist_work
             WHERE entity1 = work_row.id
