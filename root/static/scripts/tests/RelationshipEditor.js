@@ -107,46 +107,58 @@ var typeInfo = {
 var attrInfo = {
     "partial": {
         "name": "partial",
+        "l_name": "partial",
         "id": 579
     },
     "cover": {
         "name": "cover",
+        "l_name": "cover",
         "id": 567
     },
     "executive": {
         "name": "executive",
+        "l_name": "executive",
         "id": 425
     },
     "co": {
         "name": "co",
+        "l_name": "co",
         "id": 424
     },
     "solo": {
         "name": "solo",
+        "l_name": "solo",
         "id": 596
     },
     "instrumental": {
         "name": "instrumental",
+        "l_name": "instrumental",
         "id": 580
     },
     "instrument": {
         "name": "instrument",
+        "l_name": "instrument",
         "children": [
             {
                 "name": "strings",
+                "l_name": "strings",
                 "children": [
                     {
                         "name": "plucked string instruments",
+                        "l_name": "plucked string instruments",
                         "children": [
                             {
                                 "name": "guitars",
+                                "l_name": "guitars",
                                 "children": [
                                     {
                                         "name": "guitar",
+                                        "l_name": "guitar",
                                         "id": 229
                                     },
                                     {
                                         "name": "bass guitar",
+                                        "l_name": "bass guitar",
                                         "id": 277
                                     }
                                 ],
@@ -154,10 +166,12 @@ var attrInfo = {
                             },
                             {
                                 "name": "lyre",
+                                "l_name": "lyre",
                                 "id": 109
                             },
                             {
                                 "name": "zither",
+                                "l_name": "zither",
                                 "id": 123
                             }
                         ],
@@ -171,22 +185,27 @@ var attrInfo = {
     },
     "associate": {
         "name": "associate",
+        "l_name": "associate",
         "id": 527
     },
     "assistant": {
         "name": "assistant",
+        "l_name": "assistant",
         "id": 526
     },
     "additional": {
         "name": "additional",
+        "l_name": "additional",
         "id": 1
     },
     "live": {
         "name": "live",
+        "l_name": "live",
         "id": 578
     },
     "guest": {
         "name": "guest",
+        "l_name": "guest",
         "id": 194
     }
 };

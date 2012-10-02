@@ -35,7 +35,7 @@ ko.bindingHandlers.selectAttribute = (function() {
                 attrs = relationshipAttrs[child.name];
 
             opt.value = child.id;
-            opt.innerHTML = _.repeat("&#160;&#160;", indent) + child.name;
+            opt.innerHTML = _.repeat("&#160;&#160;", indent) + child.l_name;
             if (child.unaccented) opt.setAttribute("data-unaccented", child.unaccented);
             if (attrs && attrs.indexOf(child.id) > -1) opt.selected = true;
             doc.appendChild(opt);

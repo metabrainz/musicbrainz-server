@@ -115,9 +115,9 @@ sub build_type_info {
 
     my %type_info;
     for my $root (@link_type_tree) {
-        my @name = split / /, $root->name;
-        next if $name[0] !~ /(recording|work|release(?!_group))/;
-        $type_info{ $name[0] } = _build_children($root, \&_build_type);
+        my $type_key = join('-', $root->entity0_type, $root->entity1_type);
+        next if $type_key !~ /(recording|work|release(?!_group))/;
+        $type_info{ $type_key } = _build_children($root, \&_build_type);
     }
     return \%type_info;
 }
@@ -127,12 +127,13 @@ sub build_attr_info {
     sub _build_attr {
         {
             id   => $_->id,
-            name => $_->l_name,
+            name => $_->name,
+            l_name => $_->l_name,
             $_->description  ? ( descr    => $_->l_description ) : (),
             $_->all_children ? ( children => _build_children($_, \&_build_attr)) : (),
         };
     }
-   my %hash = map { $_->l_name => _build_attr($_) } $root->all_children;
+   my %hash = map { $_->name => _build_attr($_) } $root->all_children;
    return \%hash;
 }
 
