@@ -23,7 +23,7 @@ echo `date` : "Building and installing translations"
 make -C po all_quiet && make -C po deploy
 
 echo `date` : "Bringing a new set of processes up"
-if carton exec -- plackup -d -Ilib -s FCGI -E deployment -S fcgi.socket --nproc 20 -keep-stderr=1
+if carton exec -- plackup -D -Ilib -s FCGI -E deployment -S fcgi.socket --nproc=20 -keep-stderr=1
 then
     echo `date` : "Terminating old processes"
     if [[ -z "$CURRENT" ]]

@@ -135,7 +135,7 @@
             <p>[% l('If none of these labels match the label you intended, you can still
                      create a new label.') %]</p>
             [% ELSE %]
-            <p>[% l("We couldn't find an label with the name you entered. If you wish to
+            <p>[% l("We couldn't find a label with the name you entered. If you wish to
                      create a new label, please fill in the fields below:") %]</p>
             [% END %]
             [% new_entity_form(label_row) %]

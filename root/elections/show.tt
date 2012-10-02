@@ -35,7 +35,7 @@
 
         [% END %]
 
-        <dt>[% l('Status:') %]</dt>
+        <dt>[% lp('Status:', 'election status') %]</dt>
         <dd>
             [% IF election.is_open %]
                 [% l(election.status_name, { date => UserDate.format(election.open_time) }) | html %]
