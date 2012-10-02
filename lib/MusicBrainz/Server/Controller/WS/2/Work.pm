@@ -55,6 +55,8 @@ sub work : Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $work = $c->stash->{entity};
 
+    return unless defined $work;
+
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($work);
 

@@ -37,7 +37,7 @@ form div.row label,
 form div.row div.label {
     float: left;
     text-align: right;
-    width: 132px;
+    min-width: 132px;
     margin-right: 12px;
 }
 

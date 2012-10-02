@@ -17,6 +17,9 @@
           [%- artwork.comment | html -%]
         </p>
         [%- END -%]
+        <p class="small">
+          [% l('All sizes:') %] [% cover_art_links(artwork) %]
+        </p>
         [%- IF c.user_exists -%]
           <div class="buttons">
             <a href="[% c.uri_for_action('/release/edit_cover_art', [ release.gid ], artwork.id) %]">
