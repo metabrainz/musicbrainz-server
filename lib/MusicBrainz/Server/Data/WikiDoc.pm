@@ -31,14 +31,14 @@ sub _fix_html_links
     my $href = $node->attr('href') || "";
 
     # Remove broken links & links to images in the wiki
-    if ($href =~ m,^http://$wiki_server/Image:, || $class =~ m/new/)
+    if ($href =~ m,^https?://$wiki_server/Image:, || $class =~ m/new/)
     {
         $node->replace_with ($node->content_list);
     }
     # if this is not a link to the wikidocs server, don't mess with it.
-    elsif ($href =~ m,^http://$wiki_server,)
+    elsif ($href =~ m,^https?://$wiki_server,)
     {
-        $href =~ s,^http://$wiki_server/?,http://$server/doc/,;
+        $href =~ s,^https?://$wiki_server/?,//$server/doc/,;
         $node->attr('href', $href);
     }
 }
@@ -65,7 +65,7 @@ sub _fix_html_markup
     for my $node ($tree->findnodes ('//img')->get_nodelist)
     {
         my $src = $node->attr('src') || "";
-        $node->attr('src', $src) if ($src =~ s,/-/images,http://$wiki_server/-/images,);
+        $node->attr('src', $src) if ($src =~ s,/-/images,//$wiki_server/-/images,);
     }
 
     for my $node ($tree->findnodes ('//table')->get_nodelist)
@@ -123,7 +123,7 @@ sub _load_page
     my $response = $self->c->lwp->get($doc_url);
 
     if (!$response->is_success) {
-        if ($response->is_redirect && $response->header("Location") =~ /http:\/\/(.*?)\/(.*)$/) {
+        if ($response->is_redirect && $response->header("Location") =~ /https?:\/\/(.*?)\/(.*)$/) {
             return $self->get_page(uri_unescape($2));
         }
         return undef;
@@ -138,7 +138,7 @@ sub _load_page
         return undef;
     }
 
-    if ($content =~ /<span class="redirectText"><a href="http:\/\/.*?\/(.*?)"/) {
+    if ($content =~ /<span class="redirectText"><a href="https?:\/\/.*?\/(.*?)"/) {
         return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => uri_unescape($1) });
     }
 

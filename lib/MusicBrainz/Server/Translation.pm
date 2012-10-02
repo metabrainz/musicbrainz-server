@@ -102,13 +102,15 @@ sub set_language
     my @avail_lang;
     if (defined $lang) {
         @avail_lang = ($lang);
-    } else {
+    } elsif (DBDefs::LANGUAGE_FALLBACK_TO_BROWSER) {
         # change e.g. 'en-aq' to 'en_AQ'
         @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } 
             grep {
                 my $l = $_;
                 grep { $l eq $_ } DBDefs::MB_LANGUAGES
             } $self->all_system_languages;
+    } else {
+        @avail_lang = ('en');
     }
     my $set_lang = web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
     if (!defined $set_lang) {

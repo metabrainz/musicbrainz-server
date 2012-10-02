@@ -46,8 +46,8 @@ MB.tests.TrackParser.BugFixes = function() {
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
-                QUnit.equals(r.number, expected.number, expected.number);
-                QUnit.equals(r.title, expected.title, expected.title);
+                QUnit.equal(r.number, expected.number, expected.number);
+                QUnit.equal(r.title, expected.title, expected.title);
             });
         });
 
@@ -110,9 +110,9 @@ MB.tests.TrackParser.BugFixes = function() {
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
-                QUnit.equals(r.position, idx+1, test.bug + ', ' + expected.title);
-                QUnit.equals(r.title, expected.title, test.bug + ', ' + expected.title);
-                QUnit.equals(r.duration, expected.duration, test.bug + ', ' + expected.title);
+                QUnit.equal(r.position, idx+1, test.bug + ', ' + expected.title);
+                QUnit.equal(r.title, expected.title, test.bug + ', ' + expected.title);
+                QUnit.equal(r.duration, expected.duration, test.bug + ', ' + expected.title);
             });
         });
 

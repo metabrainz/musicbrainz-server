@@ -30,7 +30,7 @@
 
 [%- external_links = display_favicons(entity, 1); -%]
 [%- IF external_links -%]
-<h2>[% l('External links') %]</h2>
+<h2 class="external-links">[% l('External links') %]</h2>
 <ul class="external_links">
   [%- external_links -%]
 </ul>
@@ -39,7 +39,7 @@
 [%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
 [%- release_group_links = display_favicons(entity.release_group, 0); -%]
 [%- IF release_group_links -%]
-<h2>[% l('Release group external links') %]</h2>
+<h2 class="release-group-external-links">[% l('Release group external links') %]</h2>
 <ul class="external_links">[% release_group_links %]</ul>
 [%- END -%]
 [%- END -%]
