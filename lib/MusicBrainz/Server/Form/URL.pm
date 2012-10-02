@@ -11,11 +11,7 @@ has_field 'url' => (
     required  => 1,
 );
 
-has_field 'description' => (
-    type => '+MusicBrainz::Server::Form::Field::Text'
-);
-
-sub edit_field_names { qw( url description ) }
+sub edit_field_names { qw( url ) }
 
 __PACKAGE__->meta->make_immutable;
 1;
