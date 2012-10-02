@@ -8,7 +8,7 @@
     [%- WRAPPER 'components/with-pager.tt' -%]
     <table class="tbl">
       <thead>
-        <th>[% l('Tag') %]</th>
+        <th>[% lp('Tag', 'noun') %]</th>
         <th style="width: 10em">[% l('Usage Count') %]</th>
       </thead>
       <tbody>
