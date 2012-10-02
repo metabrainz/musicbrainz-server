@@ -1,3 +1,5 @@
+[%- PROCESS 'components/details.tt' -%]
+
 [% WRAPPER "recording/layout.tt" title=l('Details') page='details' %]
 <h2>[%- l('Details') -%]</h2>
 <table class="details" about="[% rdfa_recording_curi(recording) %]">
@@ -13,7 +15,7 @@
   </tr>
   <tr>
     <th>[% l('Last updated:') %]</th>
-    <td>[% UserDate.format(recording.last_updated) %]</td>
+    <td>[% last_updated(recording) %]</td>
   </tr>
   <tr>
     <th>

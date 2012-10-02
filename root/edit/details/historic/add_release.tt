@@ -26,7 +26,7 @@
   </tr>
 
   <tr>
-    <th>[% l('Status:') %]</th>
+    <th>[% lp('Status:', 'release status') %]</th>
     <td>[% edit.display_data.status.name %]</td>
   </tr>
 

@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use Carp;
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::ArtistCredit;
@@ -360,12 +360,16 @@ sub load_for_artist_credits {
 sub is_empty {
     my ($self, $artist_id) = @_;
 
-    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+    return $self->sql->select_single_value(<<'EOSQL', $artist_id, $STATUS_OPEN);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
+          EXISTS (
+            SELECT TRUE FROM edit_artist
+            WHERE status = ? AND artist = artist_row.id
+          ) OR
           EXISTS (
             SELECT TRUE FROM artist_credit_name
             WHERE artist = artist_row.id
