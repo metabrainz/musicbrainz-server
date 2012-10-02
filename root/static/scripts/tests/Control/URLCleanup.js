@@ -361,6 +361,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label'
                 ],
                 [
+                    'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+                    'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif'
+                ],
+                [
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
                 ]

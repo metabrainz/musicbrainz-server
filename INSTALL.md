@@ -250,6 +250,12 @@ Creating the database
 
             pushd /tmp/dumps/ && md5sum -c MD5SUMS && popd
 
+        You can also verify that the data dumps were indeed created by
+        MusicBrainz verifying them against our GPG signing key:
+
+            gpg --recv-keys C777580F
+            gpg --verify-files /tmp/dump/*.gpg
+
         If this is OK and you wish to continue, you can import them with:
 
             carton exec ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo

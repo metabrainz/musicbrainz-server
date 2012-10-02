@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th>[% l('Candidate') %]</th>
-                <th>[% l('Status') %]</th>
+                <th>[% lp('Status', 'election status') %]</th>
                 <th>[% l('Start date') %]</th>
                 <th>[% l('End date') %]</th>
                 <th>&nbsp;</th>
