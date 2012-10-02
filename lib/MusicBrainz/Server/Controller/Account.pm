@@ -503,6 +503,7 @@ sub _send_confirmation_email
         $c->model('Email')->send_email_verification(
             email             => $email,
             verification_link => $verification_link,
+            ip                => $c->req->address
         );
     }
     catch {

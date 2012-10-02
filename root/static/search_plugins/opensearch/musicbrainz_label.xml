@@ -2,7 +2,7 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
                        xmlns:moz="http://www.mozilla.org/2006/browser/search/">
   <!-- Created on Tue, 11 Sep 2007 22:47:34 GMT -->
-  <ShortName>MusicBrainz: Label (indexed)</ShortName>
+  <ShortName>MusicBrainz: Label</ShortName>
   <Description>Indexed search for a label on MusicBrainz.org</Description>
   <Url type="text/html" method="get" template="http://musicbrainz.org/search/textsearch.html?type=label&amp;limit=25&amp;handlearguments=1&amp;query={searchTerms}"/>
   <Developer>http://musicbrainz.org/doc/ContactUs</Developer>

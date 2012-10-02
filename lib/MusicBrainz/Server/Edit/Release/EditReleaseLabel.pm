@@ -180,7 +180,7 @@ sub accept
 
     my %args = %{ $self->merge_changes };
     $args{label_id} = delete $args{label}
-        if $args{label};
+        if exists $args{label};
 
     if (my $label_id = $args{label_id}) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(

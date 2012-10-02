@@ -1,5 +1,5 @@
 [%- WRAPPER "url/layout.tt" title=l("URL Information") page='index' -%]
-    <h2>[% l('URL Details') %]</h2>
+    <h2 class="url-details">[% l('URL Details') %]</h2>
     <table class="details">
         <tr>
             <th>[% l('URL:') %]</th>
@@ -12,7 +12,7 @@
             </tr>
         [% END %]
     </table>
-    <h2>[% l("Relationships") %]</h2>
+    <h2 class="relationships">[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=url -%]
 [%- END -%]
 
