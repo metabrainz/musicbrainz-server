@@ -75,6 +75,10 @@ sub load_form : Private {
 sub load : Private {
     my ($self, $c) = @_;
 
+    my $release = $c->stash->{release};
+    $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroup')->load_meta($release->release_group);
+
     my $form = $self->load_form($c);
     my $json = JSON->new;
     my $attr_info = build_attr_info($self->attr_tree);
