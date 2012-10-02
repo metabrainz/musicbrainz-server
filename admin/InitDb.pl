@@ -234,8 +234,7 @@ sub CreateRelations
     $ENV{"PGPASSWORD"} = $DB->password;
 
     system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $_))
-        for ($DB->schema, 'cover_art_archive', 'report');
-
+        for ($DB->schema, 'cover_art_archive', 'report', 'statistics');
     die "\nFailed to create schema\n" if ($? >> 8);
 
     if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
@@ -252,6 +251,7 @@ sub CreateRelations
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
 
     if ($import)
     {
@@ -266,36 +266,39 @@ sub CreateRelations
     }
 
     RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
-    RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating primary keys ...");
+    RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating CAA primary keys ...");
+    RunSQLScript($DB, "statistics/CreatePrimaryKeys.sql", "Creating statistics primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
-    RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
 
     RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
         if HasPLPerlSupport();
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
-    RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating indexes ...");
+    RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
+    RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
 
     RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding foreign key constraints ...")
+    RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding CAA foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
-	RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
+    RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "SetSequences.sql", "Setting raw initial sequence values ...");
+    RunSQLScript($DB, "statistics/SetSequences.sql", "Setting raw initial statistics sequence values ...");
 
     RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
-    RunSQLScript($DB, "caa/CreateViews.sql", "Creating views ...");
+    RunSQLScript($DB, "caa/CreateViews.sql", "Creating CAA views ...");
 
     RunSQLScript($DB, "CreateTriggers.sql", "Creating triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
-    RunSQLScript($DB, "caa/CreateTriggers.sql", "Creating triggers ...")
+    RunSQLScript($DB, "caa/CreateTriggers.sql", "Creating CAA triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");
@@ -304,9 +307,10 @@ sub CreateRelations
     {
         CreateReplicationFunction();
         RunSQLScript($DB, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
+        RunSQLScript($DB, "statistics/CreateReplicationTriggers.sql", "Creating statistics replication triggers ...");
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
-    {
+	{
         RunSQLScript($DB, "ReplicationSetup.sql", "Setting up replication ...");
     }
 
