@@ -24,7 +24,7 @@ CREATE TABLE artist (
     type                INTEGER, -- references artist_type.id
     country             INTEGER, -- references country.id
     gender              INTEGER, -- references gender.id
-    comment             VARCHAR(255),
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     ended               BOOLEAN NOT NULL DEFAULT FALSE
@@ -134,7 +134,7 @@ CREATE TABLE artist_credit_name (
     position            SMALLINT NOT NULL, -- PK
     artist              INTEGER NOT NULL, -- references artist.id CASCADE
     name                INTEGER NOT NULL, -- references artist_name.id
-    join_phrase         TEXT
+    join_phrase         TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE artist_gid_redirect
@@ -674,7 +674,7 @@ CREATE TABLE label (
     label_code          INTEGER CHECK (label_code > 0 AND label_code < 100000),
     type                INTEGER, -- references label_type.id
     country             INTEGER, -- references country.id
-    comment             VARCHAR(255),
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     ended               BOOLEAN NOT NULL DEFAULT FALSE
@@ -971,7 +971,7 @@ CREATE TABLE recording (
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
-    comment             VARCHAR(255),
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -1042,7 +1042,7 @@ CREATE TABLE release (
     date_month          SMALLINT,
     date_day            SMALLINT,
     barcode             VARCHAR(255),
-    comment             VARCHAR(255),
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     quality             SMALLINT NOT NULL DEFAULT -1,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -1059,7 +1059,7 @@ CREATE TABLE release_raw
     modify_count         INTEGER DEFAULT 0,
     source              INTEGER DEFAULT 0,
     barcode             VARCHAR(255),
-    comment             VARCHAR(255)
+    comment             VARCHAR(255) NOT NULL DEFAULT ''
 );
 
 CREATE TABLE release_tag_raw
@@ -1135,7 +1135,7 @@ CREATE TABLE release_group (
     name                INTEGER NOT NULL, -- references release_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references release_group_primary_type.id
-    comment             VARCHAR(255),
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -1313,7 +1313,7 @@ CREATE TABLE work (
     name                INTEGER NOT NULL, -- references work_name.id
     artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
-    comment             VARCHAR(255),
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     language            INTEGER  -- references language.id
