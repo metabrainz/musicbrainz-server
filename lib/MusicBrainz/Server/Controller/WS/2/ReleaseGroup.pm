@@ -76,6 +76,8 @@ sub release_group : Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $rg = $c->stash->{entity};
 
+    return unless defined $rg;
+
     my $stash = WebServiceStash->new;
 
     $self->release_group_toplevel ($c, $stash, $rg);

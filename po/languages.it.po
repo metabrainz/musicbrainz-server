@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-12 08:55+0000\n"
+"PO-Revision-Date: 2012-09-19 16:52+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1799,7 +1799,7 @@ msgstr "Quechua"
 #. frequency:1 iso_code_3:qya
 #: DB:language/name:5662
 msgid "Quenya"
-msgstr ""
+msgstr "Quenya"
 
 #. frequency:1 iso_code_3:raj
 #: DB:language/name:345
@@ -1994,7 +1994,7 @@ msgstr "Siksika"
 #. frequency:1 iso_code_3:sjn
 #: DB:language/name:5989
 msgid "Sindarin"
-msgstr ""
+msgstr "Sindarin"
 
 #. frequency:1 iso_code_3:snd
 #: DB:language/name:387

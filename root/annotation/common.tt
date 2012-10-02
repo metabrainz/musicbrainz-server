@@ -1,5 +1,5 @@
 [%- IF annotation.text -%]
-    <h2>[% l('Annotation') %]</h2>
+    <h2 class="annotation">[% l('Annotation') %]</h2>
     <div class="annotation">
         <div class="annotation-body[% IF !full_annotation %] annotation-collapse[% END %]">
                 [% annotation.text | format_wikitext  %]

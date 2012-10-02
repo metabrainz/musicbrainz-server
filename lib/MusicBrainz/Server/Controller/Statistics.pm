@@ -5,7 +5,7 @@ use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::Country;
 use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
-use List::UtilsBy qw( rev_nsort_by );
+use List::UtilsBy qw( rev_nsort_by sort_by );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
@@ -24,13 +24,15 @@ sub statistics : Path('')
     my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
     my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
     my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
+    my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
-	statuses => \%statuses,
+        statuses => \%statuses,
         packagings => \%packagings,
         primary_types => \%primary_types,
         secondary_types => \%secondary_types,
+        work_types => \@work_types,
         stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
     );
 }

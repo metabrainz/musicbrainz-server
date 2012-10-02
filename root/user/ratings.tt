@@ -1,25 +1,25 @@
-[% WRAPPER "user/profile/layout.tt" title=l("Ratings") page="ratings" %]
+[%-
+  titles = { 'artist' => l('Artist ratings'),
+             'label' => l('Label ratings'),
+             'recording' => l('Recording ratings'),
+             'release' => l('Release ratings'),
+             'release_group' => l('Release group ratings')
+           };
+  title = titles.${ type };
+-%]
 
-    [% FOREACH entity IN [
-        [l("Artist ratings"), "artist"],
-        [l("Label ratings"), "label"],
-        [l("Release group ratings"), "release_group"],
-        [l("Recording ratings"), "recording"],
-        [l("Work ratings"), "work"],
-        ]
-    %]
-        [% IF ratings.${ entity.1 } %]
-            <h2>[% entity.0 %]</h2>
-            <ul>
-            [% FOREACH rating IN ratings.${ entity.1 } %]
-                [% e = rating.${ entity.1 } %]
-                <li>[% rating_stars(e, !viewing_own_profile) %] - [% link_entity (e) %]</li>
-            [% END %]
-            </ul>
+[% WRAPPER "user/profile/layout.tt" page="ratings" %]
+  <h2>[% title %]</h2>
+  [% IF ratings.size %]
+    [% WRAPPER 'components/with-pager.tt' %]
+      <ul>
+        [% FOR entity IN ratings %]
+          <li>[% rating_stars(entity, !viewing_own_profile) %] -
+            [% link_entity(entity) %]</li>
         [% END %]
+      </ul>
     [% END %]
-    [% UNLESS ratings.size %]
-        <h2>[%- l('Ratings') -%]</h2>
-        <p>[%- l('{user} has not rated anything.', { user => user.name }) %]</p>
-    [% END %]
+  [% ELSE %]
+    <p>[% l('No ratings.') %]</p>
+  [% END %]
 [% END %]
