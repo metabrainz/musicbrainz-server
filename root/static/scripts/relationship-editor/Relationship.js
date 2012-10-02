@@ -40,7 +40,7 @@ mapping = {
 mapping.end_date = mapping.begin_date;
 
 
-RE.Relationship = function(obj, tryToMerge) {
+RE.Relationship = function(obj, tryToMerge, show) {
     obj.link_type = obj.link_type || defaultLinkType(obj.source.type, obj.target.type);
     var type = Util.types(obj.link_type), relationship, c = cache[type] = cache[type] || {};
 
@@ -51,6 +51,8 @@ RE.Relationship = function(obj, tryToMerge) {
         delete c[obj.id];
         return null;
     }
+
+    if (show) relationship.show();
     return relationship;
 };
 
@@ -192,7 +194,7 @@ Relationship.prototype.workChanged = function(work) {
 
     $.get("/ws/js/entity/" + gid + "?inc=rels")
         .success(function(data) {
-            Util.parseRelationships(data, false);
+            Util.parseRelationships(data);
         })
         .complete(function() {
             self.loadingWork(false);
@@ -202,16 +204,13 @@ Relationship.prototype.workChanged = function(work) {
 
 
 Relationship.prototype.show = function() {
-    var source = this.source;
+    if (!this.visible) {
+        this.type.peek() == "recording-work"
+            ? this.source.performanceRelationships.push(this)
+            : this.source.relationships.push(this);
 
-    if (this.type.peek() == "recording-work") {
-        if (source.performanceRelationships.peek().indexOf(this) == -1)
-            source.performanceRelationships.push(this);
-
-    } else if (source.relationships.peek().indexOf(this) == -1) {
-        source.relationships.push(this);
+        this.visible = true;
     }
-    this.visible = true;
 };
 
 
