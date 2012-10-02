@@ -12949,6 +12949,70 @@
          "target" : "Devel::Symdump",
          "version" : "2.08"
       },
+      "Digest::HMAC" : {
+         "dist" : "Digest-HMAC-1.03",
+         "mymeta" : {
+            "abstract" : "Keyed-Hashing for Message Authentication",
+            "author" : [
+               "Gisle Aas <gisle@activestate.com>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.57_05, CPAN::Meta::Converter version 2.120921",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Digest-HMAC",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Digest::MD5" : "2",
+                     "Digest::SHA" : "1",
+                     "perl" : "5.004"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "1.03"
+         },
+         "name" : "Digest::HMAC",
+         "pathname" : "G/GA/GAAS/Digest-HMAC-1.03.tar.gz",
+         "provides" : {
+            "Digest::HMAC" : {
+               "file" : "Digest/HMAC.pm",
+               "version" : "1.03"
+            },
+            "Digest::HMAC_MD5" : {
+               "file" : "Digest/HMAC_MD5.pm",
+               "version" : "1.01"
+            },
+            "Digest::HMAC_SHA1" : {
+               "file" : "Digest/HMAC_SHA1.pm",
+               "version" : "1.03"
+            }
+         },
+         "target" : "Digest::HMAC_SHA1",
+         "version" : "1.03"
+      },
       "Digest::MD5::File" : {
          "dist" : "Digest-MD5-File-0.08",
          "mymeta" : {
