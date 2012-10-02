@@ -127,7 +127,7 @@ sub search
             if ($type eq "recording");
 
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
-            entity.date_year, entity.date_month, entity.date_day,'
+            entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
             if ($type eq 'release');
 
         $extra_columns .= 'entity.language AS language_id,'

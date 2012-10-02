@@ -251,9 +251,12 @@ sub attach : Local
             $c->model('ReleaseLabel')->load(@releases);
             $c->model('Label')->load(map { $_->all_labels } @releases);
 
+            my @rgs = $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseGroup')->load_meta(@rgs);
+
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
-                results => $releases
+                results => [sort_by { $_->entity->release_group ? $_->entity->release_group->gid : '' } @$releases]
             );
             $c->detach;
         }
