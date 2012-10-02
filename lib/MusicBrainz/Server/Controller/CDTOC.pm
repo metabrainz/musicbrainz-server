@@ -15,6 +15,8 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
 
+use List::UtilsBy qw( sort_by );
+
 use HTTP::Status qw( :constants );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -39,6 +41,8 @@ sub _load_releases
     my @releases = $c->model('Release')->load(@mediums);
     $c->model('MediumFormat')->load(@mediums);
     $c->model('Medium')->load_for_releases(@releases);
+    my @rgs = $c->model('ReleaseGroup')->load(@releases);
+    $c->model('ReleaseGroup')->load_meta(@rgs);
     $c->model('Country')->load(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
@@ -202,6 +206,8 @@ sub attach : Local
         $c->model('Country')->load(@$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);
+        my @rgs = $c->model('ReleaseGroup')->load(@$releases);
+        $c->model('ReleaseGroup')->load_meta(@rgs);
 
         $c->stash(
             artist => $artist,
