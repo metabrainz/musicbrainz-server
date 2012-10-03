@@ -116,6 +116,7 @@ test all => sub {
     $email->send_email_verification(
         email => 'user@example.com',
         verification_link => 'http://musicbrainz.org/verify-email',
+        ip => '127.0.0.1'
         );
 
     is($email->transport->delivery_count, 1);
@@ -135,7 +136,7 @@ test all => sub {
                  "\n".
                  "If clicking the link above doesn't work, please copy and paste the URL in a\n".
                  "new browser window instead.\n".
-                 "This email was triggered by a request from the IP address [].\n".
+                 "This email was triggered by a request from the IP address [127.0.0.1].\n".
                  "\n".
                  "Thanks for using MusicBrainz!\n".
                  "\n".

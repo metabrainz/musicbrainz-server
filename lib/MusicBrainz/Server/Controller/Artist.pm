@@ -695,7 +695,7 @@ sub process_filter
     unless (exists $c->req->params->{'filter.cancel'}) {
         my $cookie = $c->req->cookies->{filter};
         my $has_filter_params = grep(/^filter\./, keys %{ $c->req->params });
-        if ($has_filter_params || (defined($cookie) && $cookie->value eq '1')) {
+        if ($has_filter_params || ($cookie && defined($cookie->value) && $cookie->value eq '1')) {
             my $filter_form = $create_form->();
             if ($filter_form->submitted_and_valid($c->req->params)) {
                 for my $name ($filter_form->filter_field_names) {

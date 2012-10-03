@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
+use Test::Warn;
 
 use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode is_valid_ean );
 
@@ -11,7 +12,9 @@ test 'Test trim_in_place' => sub {
     my $d = ' a  b  c ';
     my $e = undef;
 
-    trim_in_place($a, $b, $c, $d, $e);
+    warning_is {
+        trim_in_place($a, $b, $c, $d, $e)
+    } 'Uninitialized value passed to trim_in_place';
 
     is( $a, '' );
     is( $b, 'a' );

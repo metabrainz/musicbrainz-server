@@ -53,7 +53,7 @@ INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
 INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 EOSQL
 
-    my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1);
+    my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1, 100, 0);
     is($hits, 2);
     cmp_set([ map { $_->id } @$artists ], [ 1, 2 ]);
 };

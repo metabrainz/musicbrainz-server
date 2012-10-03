@@ -16,6 +16,8 @@ sub statistics : Path('')
 {
     my ($self, $c) = @_;
 
+    my $latest_stats = try_fetch_latest_statistics($c);
+
 # TODO: 
 #       ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id); fails
 #       for duplicate key 1
@@ -33,7 +35,7 @@ sub statistics : Path('')
         primary_types => \%primary_types,
         secondary_types => \%secondary_types,
         work_types => \@work_types,
-        stats    => $c->model('Statistics::ByDate')->get_latest_statistics()
+        stats => $latest_stats
     );
 }
 
@@ -83,7 +85,7 @@ sub countries : Local
 {
     my ($self, $c) = @_;
 
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $stats = try_fetch_latest_statistics($c);
     my $country_stats = [];
     if (defined $stats) {
         my $artist_country_prefix = 'count.artist.country';
@@ -113,7 +115,8 @@ sub coverart : Local
 {
     my ($self, $c) = @_;
 
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $stats = try_fetch_latest_statistics($c);
+
     my $release_type_stats = [];
     my $release_status_stats = [];
     my $release_format_stats = [];
@@ -152,7 +155,8 @@ sub languages_scripts : Path('languages-scripts')
 {
     my ($self, $c) = @_;
 
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $stats = try_fetch_latest_statistics($c);
+
     my @language_stats;
     my $script_stats = [];
     if (defined $stats) {
@@ -200,7 +204,8 @@ sub formats : Path('formats')
 {
     my ($self, $c) = @_;
 
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $stats = try_fetch_latest_statistics($c);
+
     my $format_stats = [];
     if (defined $stats) {
         my $release_format_prefix = 'count.release.format';
@@ -226,34 +231,29 @@ sub formats : Path('formats')
 
 sub editors : Path('editors') {
     my ($self, $c) = @_;
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+
+    my $stats = try_fetch_latest_statistics($c);
 
     if (defined $stats) {
-        my $top_recently_active_editors = [
-            map { { editor_id => $stats->statistic("editor.top_recently_active.rank.$_"),
-                    count => $stats->statistic("count.edit.top_recently_active.rank.$_") } } @{ [1..25] }
-        ];
-        my $top_active_editors = [
-            map { { editor_id => $stats->statistic("editor.top_active.rank.$_"),
-                    count => $stats->statistic("count.edit.top_active.rank.$_") } } @{ [1..25] }
-        ];
-        my $top_recently_active_voters = [
-            map { { editor_id => $stats->statistic("editor.top_recently_active_voters.rank.$_"),
-                    count => $stats->statistic("count.vote.top_recently_active_voters.rank.$_") } } @{ [1..25] }
-        ];
-        my $top_active_voters = [
-            map { { editor_id => $stats->statistic("editor.top_active_voters.rank.$_"),
-                    count => $stats->statistic("count.vote.top_active_voters.rank.$_") } } @{ [1..25] }
-        ];
+        my $top_recently_active_editors =
+            _editor_data_points($stats, 'editor.top_recently_active.rank',
+                                'count.edit.top_recently_active.rank');
+        my $top_active_editors =
+            _editor_data_points($stats, 'editor.top_active.rank',
+                                'count.edit.top_active.rank');
+        my $top_recently_active_voters =
+            _editor_data_points($stats, 'editor.top_recently_active_voters.rank',
+                                'count.vote.top_recently_active_voters.rank');
+        my $top_active_voters =
+            _editor_data_points($stats, 'editor.top_active_voters.rank',
+                                'count.vote.top_active_voters.rank');
 
-        my $editors = $c->model('Editor')->get_by_ids( map { $_->{editor_id} }
-            (@$top_recently_active_editors, @$top_active_editors,
-             @$top_recently_active_voters, @$top_active_voters) );
-        foreach my $dataset ($top_recently_active_editors, $top_active_editors,
-             $top_recently_active_voters, $top_active_voters) {
-            for (@$dataset) {
-                $_->{editor} = $editors->{ delete $_->{editor_id} };
-            }
+        my @data_points = ( @$top_recently_active_editors, @$top_active_editors,
+                            @$top_recently_active_voters, @$top_active_voters );
+
+        my $editors = $c->model('Editor')->get_by_ids(map { $_->{editor_id} } @data_points);
+        for my $data_point (@data_points) {
+            $data_point->{editor} = $editors->{ delete $data_point->{editor_id} };
         }
 
         $c->stash(
@@ -267,11 +267,32 @@ sub editors : Path('editors') {
     }
 }
 
+sub _editor_data_point {
+    my ($stats, $editor_id_key, $count_key, $index) = @_;
+
+    my $editor_id = $stats->statistic("$editor_id_key.$index") or return undef;
+    my $count = $stats->statistic("$count_key.$index") or return undef;
+
+    return {
+        editor_id => $editor_id,
+        count => $count
+    }
+}
+
+sub _editor_data_points {
+    my ($stats, $editor_id, $count) = @_;
+    return [
+        grep { defined }
+            map { _editor_data_point($stats, $editor_id, $count, $_) }
+                (1..25)
+    ];
+}
+
 sub relationships : Path('relationships') {
     my ($self, $c) = @_;
+    my $stats = try_fetch_latest_statistics($c);
     my $pairs = [ $c->model('Relationship')->all_pairs() ];
     my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => $c->model('LinkType')->get_tree($_->[0], $_->[1]) } } @$pairs };
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
     $c->stash(
         types => $types,
 	stats => $stats
@@ -281,7 +302,7 @@ sub relationships : Path('relationships') {
 sub edits : Path('edits') {
     my ($self, $c) = @_;
 
-    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
+    my $stats = try_fetch_latest_statistics($c);
 
     my %by_category;
     if (defined $stats) {
@@ -292,9 +313,10 @@ sub edits : Path('edits') {
 
         for my $category (keys %by_category) {
             $by_category{$category} = [
-                reverse sort { $stats->statistic('count.edit.type.' . $a->edit_type) <=> 
-                       $stats->statistic('count.edit.type.' . $b->edit_type) }
-                    @{ $by_category{$category} }
+                reverse sort {
+                    ($stats->statistic('count.edit.type.' . $a->edit_type) // 0) <=>
+                        ($stats->statistic('count.edit.type.' . $b->edit_type) // 0)
+                    } @{ $by_category{$category} }
                 ];
         }
     }
@@ -303,6 +325,19 @@ sub edits : Path('edits') {
         by_category => \%by_category,
         stats => $stats
     );
+}
+
+sub try_fetch_latest_statistics {
+    my $c = shift;
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics()
+        or $c->detach('no_statistics');
+
+    return $stats;
+}
+
+sub no_statistics : Private {
+    my ($self, $c) = @_;
+    $c->stash( template => 'statistics/no_statistics.tt' );
 }
 
 =head1 LICENSE
