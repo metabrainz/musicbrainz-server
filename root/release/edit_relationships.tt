@@ -144,6 +144,15 @@
                <div class="error" data-bind="text: end_date.error"></div>
           </td>
         </tr>
+        <tr>
+          <td colspan="2" data-bind="with: relationship">
+            <label>
+              <input type="checkbox" data-bind="checked: ended"/>
+              [% l('This relationship has ended.') %]
+            </label>
+            <div class="error" data-bind="text: ended.error"></div>
+          </td>
+        </tr>
         <!-- ko if: loading -->
         <tr><td colspan="2" data-bind="html: MB.RelationshipEditor.UI.loadingIndicator"></td></tr>
         <!-- /ko -->
@@ -278,7 +287,9 @@
     <span class="remove-button">&#215;</span>
     <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
     <span class="entity" data-bind="html: target().rendering, css: {'rel-edit': edits_pending}"></span>
-    <!-- ko text: dateRendering --><!-- /ko -->
+    <!-- ko if: dateRendering -->
+      (<!-- ko text: dateRendering --><!-- /ko -->)
+    <!-- /ko -->
   </div>
 </script>
 
@@ -287,7 +298,9 @@
     <!-- ko with: target --><input type="checkbox"/><!-- /ko -->
     <span class="entity" data-bind="html: target().rendering, css: {'rel-edit': edits_pending}"></span>
     (<!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->)
-    <!-- ko text: dateRendering --><!-- /ko -->
+    <!-- ko if: dateRendering -->
+      (<!-- ko text: dateRendering --><!-- /ko -->)
+    <!-- /ko -->
     <span class="remove-button">&#215;</span>
     <!-- ko if: loadingWork -->
       <div data-bind="html: $root.RE.UI.loadingIndicator"></div>

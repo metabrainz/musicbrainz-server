@@ -24,9 +24,9 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
 
 mapping = {
     // entities (source, target) have their own mapping options in Entity.js
-    ignore:  ["source", "target", "visible", "ended", "direction"],
+    ignore:  ["source", "target", "visible", "direction"],
     copy:    ["edits_pending", "id"],
-    include: ["link_type", "action", "backward", "begin_date", "end_date", "attributes"],
+    include: ["link_type", "action", "backward", "begin_date", "end_date", "ended", "attributes"],
     attributes: {
         update: function(options) {return $.extend(true, {}, options.data)}
     },
@@ -34,6 +34,9 @@ mapping = {
         update: function(options) {
             return new Fields.PartialDate(options.data);
         }
+    },
+    ended: {
+        update: function(options) {return Boolean(options.data)}
     }
 };
 
@@ -75,6 +78,7 @@ var Relationship = function(obj) {
 
     this.begin_date = new Fields.PartialDate();
     this.end_date = new Fields.PartialDate();
+    this.ended = ko.observable(false);
     this.attributes = new Fields.Attributes(this);
 
     this.dateRendering = ko.computed({read: this.renderDate, owner: this})
@@ -104,6 +108,7 @@ var Relationship = function(obj) {
     // relationship as having changes.
     this.begin_date.extend({field: [this, "begin_date"]});
     this.end_date.extend({field: [this, "end_date"]});
+    this.ended.extend({field: [this, "ended"]});
     this.attributes.extend({field: [this, "attributes"]});
 
     this.linkPhrase = ko.computed(this.buildLinkPhrase, this).extend({throttle: 1});
@@ -279,18 +284,21 @@ Relationship.prototype.buildLinkPhrase = function() {
 
 function renderDate(date) {
     var year = date.year(), month = date.month(), day = date.day();
+
+    month = month && _.pad(month, 2, "0");
+    day = day && _.pad(day, 2, "0");
+
     return year ? year + (month ? "-" + month + (day ? "-" + day : "") : "") : "";
 }
 
 Relationship.prototype.renderDate = function() {
     var begin_date = renderDate(this.begin_date.peek()),
-        end_date = renderDate(this.end_date.peek());
+        end_date = renderDate(this.end_date.peek()), ended = this.ended();
 
     if (!begin_date && !end_date) return "";
-    if (begin_date == end_date) return MB.text.Date.on + " " + begin_date;
+    if (begin_date == end_date) return begin_date;
 
-    return (begin_date ? MB.text.Date.from + " " + begin_date + " \u2013" : MB.text.Date.until) + " " +
-           (end_date || "????");
+    return begin_date + " \u2013 " + (end_date || (ended ? "????" : ""));
 };
 
 // Contruction of form fields
@@ -325,6 +333,7 @@ Relationship.prototype.buildFields = function(num, result) {
     bf(prefix, "", this, sf);
     bf(prefix, "period.begin_date", this.begin_date.peek(), dateFields);
     bf(prefix, "period.end_date", this.end_date.peek(), dateFields);
+    result[prefix +  "period.ended"] = this.ended.peek() ? 1 : 0;
     bf(prefix, "attrs", this.attributes.peek(), attrs);
     bf(prefix, "entity.0", entity[0], entityFields);
     bf(prefix, "entity.1", entity[1], entityFields);

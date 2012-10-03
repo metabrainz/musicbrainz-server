@@ -80,6 +80,7 @@ var parseRelationship = _.memoize(function(obj, source, target_type) {
 
     obj.begin_date = Util.parseDate(obj.begin_date || "");
     obj.end_date = Util.parseDate(obj.end_date || "");
+    obj.ended = Boolean(obj.ended);
     obj.backward = (obj.direction == "backward");
 
     orig = orig[obj.id] = $.extend(true, {}, obj);

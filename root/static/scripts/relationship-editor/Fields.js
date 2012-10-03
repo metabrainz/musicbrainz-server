@@ -41,6 +41,10 @@ var validationHandlers = {
         validateDatePeriod(relationship.begin_date, field, null, validateDate(field, value));
     },
 
+    ended: function(field, value) {
+        _.isBoolean(value) ? field.error("") : field.error(MB.text.InvalidValue);
+    },
+
     backward: function(field, value) {
         field.error(_.isBoolean(value) ? "" : MB.text.InvalidValue);
     },

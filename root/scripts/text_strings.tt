@@ -110,11 +110,6 @@
         AttributeNotSupported: '[% l('This attribute is not supported for the selected relationship type.') | js %]',
         AttributeTooMany: '[% l('This attribute can only be specified {max} times. You specified {n}.') | js %]',
         AttributeRequired: '[% l('This attribute is required.') | js %]',
-        Date: {
-            on: '[% l('on') |js %]',
-            from: '[% l('from') |js %]',
-            until: '[% l('until') |js %]',
-        },
         FocusInstrument: '[% l('Click here to choose an instrument') | js %]',
         FocusVocal: '[% l('Click here to choose a vocal') | js %]',
         NoChanges: '[% l('You haven\'t made any changes!') | js %]',

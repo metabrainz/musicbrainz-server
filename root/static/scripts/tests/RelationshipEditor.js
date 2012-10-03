@@ -567,26 +567,31 @@ MB.tests.RelationshipEditor.Relationship = function() {
             {
                 begin_date: {year: 2001, month: 5, day: 13},
                 end_date: {},
-                expected: "from 2001-5-13 – ????"
+                ended: true,
+                expected: "2001-05-13 – ????"
             },
             {
                 begin_date: {year: 2001, month: 5, day: 13},
-                end_date: {year: 2002, month: 8, day: 12},
-                expected: "from 2001-5-13 – 2002-8-12"
+                end_date: {},
+                ended: false,
+                expected: "2001-05-13 – "
             },
             {
                 begin_date: {year: 2001, month: 5, day: 13},
                 end_date: {year: 2001, month: 5, day: 13},
-                expected: "on 2001-5-13"
+                ended: true,
+                expected: "2001-05-13"
             },
             {
                 begin_date: {},
                 end_date: {year: 2002, month: 8, day: 12},
-                expected: "until 2002-8-12"
+                ended: true,
+                expected: " – 2002-08-12"
             },
             {
                 begin_date: {},
                 end_date: {},
+                ended: true,
                 expected: ""
             }
         ];
@@ -602,11 +607,13 @@ MB.tests.RelationshipEditor.Relationship = function() {
             b.month(test.end_date.month);
             b.day(test.end_date.day);
 
+            relationship.ended(test.ended);
             var result = relationship.renderDate();
 
             QUnit.equal(result, test.expected, [
                 JSON.stringify(test.begin_date),
-                JSON.stringify(test.end_date)
+                JSON.stringify(test.end_date),
+                JSON.stringify(test.ended)
             ].join(", "));
         });
 
@@ -619,25 +626,32 @@ MB.tests.RelationshipEditor.Relationship = function() {
         relationship.backward("foo");
         QUnit.equal(relationship.errorCount, 2, "relationship.errorCount");
 
-        // date must exist
-        relationship.begin_date("2001-01-32");
+        // ended must be boolean
+        relationship.ended(null);
         QUnit.equal(relationship.errorCount, 3, "relationship.errorCount");
 
+        // date must exist
+        relationship.begin_date("2001-01-32");
+        QUnit.equal(relationship.errorCount, 4, "relationship.errorCount");
+
         relationship.begin_date("2001-01-31");
-        QUnit.equal(relationship.errorCount, 2, "relationship.errorCount");
+        QUnit.equal(relationship.errorCount, 3, "relationship.errorCount");
 
         // end date must be after begin date
         relationship.end_date("2000-01-31");
-        QUnit.equal(relationship.errorCount, 3, "relationship.errorCount");
+        QUnit.equal(relationship.errorCount, 4, "relationship.errorCount");
 
         relationship.end_date("2002-01-31");
-        QUnit.equal(relationship.errorCount, 2, "relationship.errorCount");
+        QUnit.equal(relationship.errorCount, 3, "relationship.errorCount");
 
         relationship.target().gid = "00000000-0000-0000-0000-000000000000";
         relationship.target.notifySubscribers(relationship.target());
-        QUnit.equal(relationship.errorCount, 1, "relationship.errorCount");
+        QUnit.equal(relationship.errorCount, 2, "relationship.errorCount");
 
         relationship.backward(true);
+        QUnit.equal(relationship.errorCount, 1, "relationship.errorCount");
+
+        relationship.ended(true);
         QUnit.equal(relationship.errorCount, 0, "relationship.errorCount");
     });
 };
