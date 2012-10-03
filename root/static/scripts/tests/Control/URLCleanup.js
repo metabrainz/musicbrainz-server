@@ -119,6 +119,22 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.youtube.label
                 ],
                 [
+                    'artist', 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
+                    MB.constants.LINK_TYPES.downloadpurchase.artist
+                ],
+                [
+                    'release', 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'recording', 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
+                    MB.constants.LINK_TYPES.downloadpurchase.recording
+                ],
+                [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     MB.constants.LINK_TYPES.allmusic.artist
                 ],
@@ -302,6 +318,26 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     'http://www.allmusic.com/performance/mq0000061129',
+                    'recording'
+                ],
+                [
+                    'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
+                    'http://itunes.apple.com/artist/id444923726',
+                    'artist'
+                ],
+                [
+                    'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
+                    'http://itunes.apple.com/gb/album/id543575947',
+                    'release'
+                ],
+                [
+                    'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
+                    'http://itunes.apple.com/au/preorder/id499465357',
+                    'release'
+                ],
+                [
+                    'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
+                    'http://itunes.apple.com/music-video/id564322420',
                     'recording'
                 ],
 
