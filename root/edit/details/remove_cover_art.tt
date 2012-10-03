@@ -7,7 +7,7 @@
   </tr>
 
   <tr>
-    <th>[% l('Types:') %]</th>
+    <th>[% ln('Type:', 'Types:', edit.display_data.types.size) %]</th>
     <td>
       [% IF edit.display_data.types.size %]
         [% USE Map %]

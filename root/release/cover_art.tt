@@ -10,7 +10,7 @@
           [%- display_artwork (artwork, undef, undef, 'mb-caa') -%]
         </div>
         <p>
-          [% l('Types:') %] [% comma_only_list(artwork.types) || '-' %]
+          [% ln('Type:', 'Types:', artwork.types.size) %] [% comma_only_list(artwork.types) || '-' %]
         </p>
         [%- IF artwork.comment -%]
         <p>
