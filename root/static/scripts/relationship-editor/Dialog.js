@@ -574,14 +574,12 @@ BatchRelationshipDialog.accept = function(callback) {
 
     model.target = relationship.target();
 
-    Util.renderRelationships(targets, function(target) {
+    Util.callbackQueue(targets, function(target) {
         model.source = target;
         delete model.id;
 
-        if (!hasCallback || callback(model)) {
-            var newRelationship = RE.Relationship(model, true);
-            if (newRelationship) return newRelationship;
-        }
+        if (!hasCallback || callback(model))
+            RE.Relationship(model, true, true);
     });
 
     Dialog.hide();

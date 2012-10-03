@@ -26,13 +26,6 @@ RE.releaseViewModel = {
     RE: RE,
     media: ko.observableArray([]),
 
-    addRelationship: function(elements, relationship) {
-        if (relationship.promise) {
-            _.defer(relationship.promise);
-            delete relationship.promise;
-        }
-    },
-
     checkboxes: (function() {
         var data = {
             recordingStrings: ko.observable([]),
@@ -178,16 +171,18 @@ UI.init = function(releaseGID, data) {
 releaseLoaded = function(data) {
     data.type = "release";
     RE.Entity(data);
-    var trackCount = 0;
 
-    var media = data.mediums;
-    for (var i = 0; i < media.length; i++)
-        trackCount += parseMedium(media[i], RE.releaseViewModel.media, data);
-
-    Util.parseRelationships(data, true);
+    for (var i = 0, trackCount = 0, medium; medium = data.mediums[i]; i++)
+        trackCount += medium.tracks.length;
 
     initButtons();
     initCheckboxes(trackCount);
+
+    Util.callbackQueue(data.mediums, function(medium) {
+        parseMedium(medium, RE.releaseViewModel.media, data);
+    });
+
+    Util.parseRelationships(data);
 };
 
 
@@ -205,16 +200,16 @@ parseMedium = function(medium, media, release) {
     medium.recordings = ko.observableArray([]);
     media.push(medium);
 
-    _.map(tracks, function(track) {
-        _.defer(parseTrack, track, medium, release);
+    Util.callbackQueue(tracks, function(track) {
+        var recording = parseTrack(track, release);
+        Util.parseRelationships(track.recording);
+        medium.recordings.push(recording);
     });
-    return tracks.length;
 };
 
 
-parseTrack = function(track, medium, release) {
+parseTrack = function(track, release) {
     var recording = track.recording;
-
     recording.type = "recording";
     recording.name = track.name;
     recording.position = track.position;
@@ -225,8 +220,7 @@ parseTrack = function(track, medium, release) {
     if (!Util.compareArtistCredits(release.artist_credit, track.artist_credit))
         recording.artistCredit = renderArtistCredit(track.artist_credit);
 
-    Util.parseRelationships(recording, true);
-    medium.recordings.push(RE.Entity(recording));
+    return RE.Entity(recording);
 };
 
 
@@ -260,8 +254,8 @@ UI.checkedWorks = function() {
 
 function initCheckboxes(trackCount) {
 
-    var $medium_recordings = $tracklist.find("input.medium-recordings"),
-        $medium_works = $tracklist.find("input.medium-works"),
+    var medium_recording_selector = "input.medium-recordings",
+        medium_work_selector = "input.medium-works",
         recording_selector = "td.recording > input[type=checkbox]",
         work_selector = "td.works > div.ar > input[type=checkbox]",
         checkboxes = RE.releaseViewModel.checkboxes;
@@ -288,8 +282,8 @@ function initCheckboxes(trackCount) {
         return count;
     }
 
-    function medium($inputs, selector, counter) {
-        $inputs.change(function(event) {
+    function medium(medium_selector, selector, counter) {
+        $tracklist.on("change", medium_selector, function(event) {
             var checked = this.checked,
                 $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
                     .find(selector).filter(checked ? ":not(:checked)" : ":checked")
@@ -298,10 +292,11 @@ function initCheckboxes(trackCount) {
         });
     }
 
-    function _release($inputs, cls) {
+    function _release(medium_selector, cls) {
         $('<input type="checkbox"/>&#160;')
             .change(function(event) {
-                $inputs.prop("checked", this.checked).change();
+                $tracklist.find(medium_selector)
+                    .prop("checked", this.checked).change();
             })
             .prependTo("#tracklist th." + cls);
     }
@@ -324,11 +319,11 @@ function initCheckboxes(trackCount) {
         });
     }
 
-    medium($medium_recordings, recording_selector, checkboxes.recordingCount);
-    medium($medium_works, work_selector, checkboxes.workCount);
+    medium(medium_recording_selector, recording_selector, checkboxes.recordingCount);
+    medium(medium_work_selector, work_selector, checkboxes.workCount);
 
-    _release($medium_recordings, "recordings");
-    _release($medium_works, "works");
+    _release(medium_recording_selector, "recordings");
+    _release(medium_work_selector, "works");
 
     range(recording_selector, checkboxes.recordingCount);
     range(work_selector, checkboxes.workCount);

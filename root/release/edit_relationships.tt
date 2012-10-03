@@ -236,8 +236,7 @@
     </div>
 
 <script type="text/html" id="template.relationships">
-  <div class="ars" data-bind="template: {name: 'template.relationship',
-    foreach: relationships, afterRender: $root.addRelationship}">
+  <div class="ars" data-bind="template: {name: 'template.relationship', foreach: relationships}">
   </div>
   <span class="add-rel btn">
     <img src="/static/images/icons/add.png" class="bottom"/> [% l('Add relationship') %]
@@ -259,8 +258,10 @@
         &#8592; <img src="/static/images/icons/add.png" class="bottom"> [% l('Add related work') %] &#8594;
       </span>
     </td>
-    <td class="works" data-bind="template: {name: 'template.relationship.performance',
-      foreach: performanceRelationships, afterRender: $root.addRelationship}">
+    <td class="works" data-bind="template: {
+        name: 'template.relationship.performance',
+        foreach: performanceRelationships
+    }">
     </td>
   </tr>
 </script>
