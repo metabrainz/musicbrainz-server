@@ -81,6 +81,7 @@ var parseRelationship = function(args) {
 
     obj.begin_date = Util.parseDate(obj.begin_date || "");
     obj.end_date = Util.parseDate(obj.end_date || "");
+    obj.backward = (obj.direction == "backward");
 
     orig = orig[obj.id] = $.extend(true, {}, obj);
     orig.target.type = args.target_type;
