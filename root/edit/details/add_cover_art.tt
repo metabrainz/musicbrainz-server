@@ -18,7 +18,7 @@
     <th>[% l('Types:') %]</th>
     <td>
         [% USE Map %]
-        [% comma_only_list(edit.display_data.types.map('name')) | html %]
+        [% comma_only_list(edit.display_data.types.map('l_name')) | html %]
     </td>
   </tr>
   [% END %]
