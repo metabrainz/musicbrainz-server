@@ -22,7 +22,7 @@ $mech->submit_form( with_fields => {
 $mech->content_contains("We've sent you instructions on how to reset your password.");
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-my $email = $email_transport->deliveries->[-1]->{email};
+my $email = $email_transport->shift_deliveries->{email};
 is($email->get_header('Subject'), 'Password reset request');
 like($email->get_body, qr{http://localhost/reset-password.*});
 

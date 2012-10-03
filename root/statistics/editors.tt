@@ -1,8 +1,5 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
-[%- html_title = l('Editors') -%]
-[%- PROCESS "statistics/macros-footer.tt" -%]
-[% WRAPPER 'statistics/layout.tt' title=html_title full_width=1 page='editors' %]
-[%- PROCESS "statistics/macros-header.tt" -%]
+[% WRAPPER 'statistics/layout.tt' title=l('Editors') full_width=1 page='editors' %]
 [%- MACRO display_editor_stats(data_points, table_label, editor_label, count_label) BLOCK -%]
   <h3>[% table_label %]</h3>
   <table class="tbl">

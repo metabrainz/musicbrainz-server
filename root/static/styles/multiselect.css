@@ -31,6 +31,17 @@ div.multiselect > div.menu > a.hover {
     border: 1px #FC6714 dotted;
 }
 
+div.multiselect > div.menu > a > em {
+    background: #FEFFDE;
+    font-style: normal;
+}
+
+div.multiselect > div.menu > a.hover > em {
+    color: #FEFFDE;
+    background: inherit;
+    font-style: normal;
+}
+
 div.multiselect > div.items > a {
     display: block;
     padding: 1px;

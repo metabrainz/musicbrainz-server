@@ -19,8 +19,7 @@
 
 $(function() {
 
-var activeSelect = null, cache = {}, canRemoveItems = true,
-    canAddItems = true, keyEvent = window.opera ? "keypress" : "keydown";
+var activeSelect = null, cache = {}, canRemoveItems = true;
 
 function killEvent(event) {
     event.stopPropagation();
@@ -56,7 +55,11 @@ function moveCursor(event) {
             if (activeItem)
                 nextItem = activeSelect.next(activeItem);
 
-            if (event.keyCode == 9 && !activeOption && !nextItem) return;
+            if (event.keyCode == 9 && !activeOption && !nextItem) {
+                if (activeSelect.menu.style.display == "none" && !activeItem)
+                    activeSelect = null;
+                return;
+            }
         case 40: // down
             nextItem = nextItem || activeSelect.next(activeItem);
 
@@ -82,7 +85,7 @@ function moveCursor(event) {
 }
 
 $("body")
-    .on(keyEvent, moveCursor)
+    .on("keydown", moveCursor)
     .on("click", function() {
 
         if (activeSelect) {
@@ -93,7 +96,7 @@ $("body")
     .on("click", "div.multiselect > div.menu > a", function(event) {
         killEvent(event);
         // XXX figure out why hitting the enter key on invisible menu options gets us here
-        if (this.style.display == "none" || !canAddItems) return;
+        if (this.style.display == "none") return;
         activeSelect.select(this);
     })
     .on("hover", "div.multiselect > div.menu > a", function(event) {
@@ -108,7 +111,7 @@ $("body")
             activeSelect.hoverOption = this;
         }
     })
-    .on(keyEvent, function(event) {
+    .on("keydown", function(event) {
         if (event.isPropagationStopped()) return;
         if (activeSelect === null) return;
 
@@ -121,7 +124,7 @@ $("body")
                 canRemoveItems && activeItem.click();
 
             } else if (activeOption) {
-                canAddItems && activeSelect.select(activeOption);
+                activeSelect.select(activeOption);
 
             } else return;
              killEvent(event);
@@ -130,8 +133,29 @@ $("body")
         }
     });
 
+// opera incorrectly fires keypress events for special keys (in *addition* to
+// keydown events), against the spec. these need to be killed so that their
+// default action doesn't occur. (this is fixed in 12.10 and above.)
+// http://www.quirksmode.org/dom/events/keys.html
+
+$(document).on("keypress", function(event) {
+    if (activeSelect)
+        switch (event.keyCode) {
+            case 9: // tab
+            case 27: // esc
+            case 33: // page up
+            case 34: // page down
+            case 38: // up
+            case 40: // down
+            case 13: // enter
+                killEvent(event);
+                return false;
+        }
+    return true;
+});
+
 var multiselect = function(input, placeholder, cacheKey) {
-    var self = this;
+    var self = this, inputFired = false, lastTerm = "";
     this.hoverOption = null;
     this.values = $(input).val() || [];
     this.term = "";
@@ -155,7 +179,7 @@ var multiselect = function(input, placeholder, cacheKey) {
     this.selectedOptions = [];
     this.buildOptions(cacheKey);
 
-    this.search.addEventListener("click", function(event) {
+    $(this.search).on("click", function(event) {
         killEvent(event);
 
         if (self.menu.style.display != "none") {
@@ -163,14 +187,12 @@ var multiselect = function(input, placeholder, cacheKey) {
         } else {
             self.show();
             var activeOption = self.activeOption() || self.firstOption();
-            activeOption ? self.activeOption(activeOption) : self.hide();
+            activeOption ? self.activateOption(activeOption) : self.hide();
         }
-    }, false);
-
-    this.search.addEventListener(keyEvent, function(event) {
-
+    })
+    .on("keydown", function(event) {
         if (event.keyCode == 13) { // enter
-            if (self.hoverOption && canAddItems)
+            if (self.hoverOption)
                 self.select(self.hoverOption);
 
         } else if (event.keyCode == 38) { // up
@@ -195,11 +217,18 @@ var multiselect = function(input, placeholder, cacheKey) {
         } else return;
 
         killEvent(event);
-    }, false);
-
-    this.search.addEventListener("input", function(event) {
+    })
+    .on("input", function(event) {
         self.lookup(this.value);
-    }, false);
+        inputFired = true;
+        lastTerm = this.value;
+    })
+    // IE9 doesn't fire input for backspace, etc. IE8 doesn't support input.
+    .on("keyup", function() {
+        if (!inputFired && lastTerm != this.value)
+            $(this).trigger("input");
+        inputFired = false;
+    });
 
     this.container.appendChild(this.items);
     this.container.appendChild(this.search);
@@ -216,9 +245,6 @@ var multiselect = function(input, placeholder, cacheKey) {
                 self.select(this);
             });
     }
-
-    // not certain why, but opera 10 needs this delay.
-    setTimeout(function() {self.menuTop()}, 10);
 };
 
 multiselect.prototype.activeItem = function() {
@@ -261,10 +287,9 @@ multiselect.prototype.next = function(a, skip) {
     }
 };
 
-multiselect.prototype.activateOption = function(option) {
-
+multiselect.prototype.activateOption = function(option, focus) {
     if (!option) return;
-    option.focus();
+    if (focus !== false) option.focus();
     if (option === this.hoverOption) return;
 
     this.hoverOption && (this.hoverOption.className = "");
@@ -275,17 +300,7 @@ multiselect.prototype.activateOption = function(option) {
 
 multiselect.prototype.select = function(option) {
     var self = this, value = option.getAttribute("data-value");
-
-    if (option.style.display != "none") {
-        canAddItems = false;
-
-        $(option).slideUp("fast", function() {
-            canAddItems = true;
-        });
-    }
-
-    var next = this.next(option) || this.prev(option);
-    next ? this.activateOption(next) : (this.hide() || this.search.focus());
+    option.style.display = "none";
 
     if (this.values.indexOf(value) === -1) {
         this.values.push(value);
@@ -297,9 +312,10 @@ multiselect.prototype.select = function(option) {
     item.href = "#";
     item.innerHTML = "&#215; " + $.trim(option.textContent || option.innerText);
 
-    item.addEventListener("click", function(event) {
+    $(item).on("click", function(event) {
         killEvent(event);
         canRemoveItems = false;
+        self.hide();
         item.focus();
 
         var value = option.getAttribute("data-value"),
@@ -309,52 +325,68 @@ multiselect.prototype.select = function(option) {
         $(self.input).val(self.values).change();
 
         next = self.next(item) || self.prev(item);
-
-        next ? next.focus()
-            : (self.hide() || self.search.focus());
+        next ? next.focus() : (self.hide() || self.search.focus());
 
         index = self.selectedOptions.indexOf(option);
         if (index > -1) self.selectedOptions.splice(index, 1);
         if (self.matchesTerm(option)) option.style.display = "block";
 
-        $(item).slideUp("fast", function() {
+        $(item).slideUp(100, function() {
             self.items.removeChild(item);
             canRemoveItems = true;
-            self.menuTop();
         });
-    }, false);
+    });
 
     this.items.appendChild(item);
-    self.menuTop();
+    this.hide();
+    this.search.value = "";
+    this.search.focus();
 };
 
 multiselect.prototype.matchesTerm = function(option) {
-    var name = (option.getAttribute("data-unaccented") || option.textContent ||
-        option.innerText).toLowerCase();
-    return name.indexOf(this.term) > -1;
+    var name = option.getAttribute("data-unaccented") || option.textContent || option.innerText,
+        index = name.toLowerCase().indexOf(this.term);
+
+    if (index > -1) {
+        option.innerHTML = (name.substring(0, index) + "<em>" +
+            name.substring(index, index + this.term.length) + "</em>" +
+            name.substring(index + this.term.length, name.length));
+        return true;
+    }
+    option.innerHTML = name;
+    return false;
 }
 
 multiselect.prototype.lookup = function(term) {
-    var self = this;
+    var self = this, first = true;
     this.term = term.toLowerCase();
-    this.hide();
+    if (!this.term) this.hide();
 
     var $options = $(this.options)
-        .hide()
         .not(this.selectedOptions)
-        .filter(function() {return self.matchesTerm(this)})
-        .show();
+        .filter(function() {
+            var match = self.matchesTerm(this);
+            this.style.display = match ? "block" : "none";
 
-    if ($options.length) {
-        this.show();
-        this.activateOption($options[0]);
+            // in browsers with slow js engines (e.g. opera 10), calling
+            // activateOption right away inside the filter prevents ugly
+            // flickering/jumping from occuring.
+            if (match && first) {
+                self.activateOption(this, false);
+                first = false;
+            }
+            return match;
+        });
+
+    if (this.term) {
+        $options.length ? this.show() : this.hide();
     }
 };
 
 multiselect.prototype.show = function() {
     var self = this;
 
-    this.menuTop();
+    this.menu.style.top = $(this.container).outerHeight() + "px";
     this.menu.style.display = "block";
     activeSelect = this;
 
@@ -370,10 +402,6 @@ multiselect.prototype.hide = function() {
     this.menu.style.display = "none";
     this.hoverOption && (this.hoverOption.className = "");
     this.hoverOption = null;
-};
-
-multiselect.prototype.menuTop = function() {
-    this.menu.style.top = $(this.container).outerHeight() + "px";
 };
 
 multiselect.prototype.buildOptions = function(cacheKey) {
