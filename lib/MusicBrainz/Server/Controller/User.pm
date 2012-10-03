@@ -315,8 +315,8 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash(
         user     => $user,
         template => 'user/profile.tt',
-        last_day_count => $c->model('Edit')->editor_last_day_count($user->id),
-        open_count => $c->model('Edit')->editor_open_count($user->id)
+        last_day_count => $c->model('Editor')->last_24h_edit_count($user->id),
+        open_count => $c->model('Editor')->open_edit_count($user->id)
     );
 }
 
