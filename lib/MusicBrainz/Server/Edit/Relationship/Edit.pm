@@ -7,11 +7,11 @@ use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
-  partial_date_from_row
   type_to_model
 );
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -148,8 +148,8 @@ sub _build_relationship
     return Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
-            begin_date => partial_date_from_row( $begin ),
-            end_date   => partial_date_from_row( $end ),
+            begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $begin ),
+            end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $end ),
             ended      => $ended,
             attributes => [
                 map {

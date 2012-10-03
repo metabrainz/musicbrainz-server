@@ -735,6 +735,17 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         return { 'names': ret };
     };
 
+    self.isComplex = function () {
+        var ret = self.box.length > 1,
+            box = self.box[0];
+
+        if (!ret && box !== undefined) {
+            ret = box.$id.val() || box.$gid.val();
+        }
+
+        return ret;
+    };
+
     self.targetBlurred = function(event) {
         self.box[0].$name.val (self.$artist_input.val ());
         self.box[0].$name.trigger ('blur');

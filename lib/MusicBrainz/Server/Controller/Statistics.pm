@@ -224,13 +224,45 @@ sub formats : Path('formats')
 
 sub editors : Path('editors') {
     my ($self, $c) = @_;
-    $c->stash(
-        top_recently_active_editors => $c->model('Statistics')->top_recently_active_editors,
-        top_editors => $c->model('Statistics')->top_editors,
+    my $stats = $c->model('Statistics::ByDate')->get_latest_statistics();
 
-        top_recently_active_voters => $c->model('Statistics')->top_recently_active_voters,
-        top_voters => $c->model('Statistics')->top_voters,
-    );
+    if (defined $stats) {
+        my $top_recently_active_editors = [
+            map { { editor_id => $stats->statistic("editor.top_recently_active.rank.$_"),
+                    count => $stats->statistic("count.edit.top_recently_active.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_active_editors = [
+            map { { editor_id => $stats->statistic("editor.top_active.rank.$_"),
+                    count => $stats->statistic("count.edit.top_active.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_recently_active_voters = [
+            map { { editor_id => $stats->statistic("editor.top_recently_active_voters.rank.$_"),
+                    count => $stats->statistic("count.vote.top_recently_active_voters.rank.$_") } } @{ [1..25] }
+        ];
+        my $top_active_voters = [
+            map { { editor_id => $stats->statistic("editor.top_active_voters.rank.$_"),
+                    count => $stats->statistic("count.vote.top_active_voters.rank.$_") } } @{ [1..25] }
+        ];
+
+        my $editors = $c->model('Editor')->get_by_ids( map { $_->{editor_id} }
+            (@$top_recently_active_editors, @$top_active_editors,
+             @$top_recently_active_voters, @$top_active_voters) );
+        foreach my $dataset ($top_recently_active_editors, $top_active_editors,
+             $top_recently_active_voters, $top_active_voters) {
+            for (@$dataset) {
+                $_->{editor} = $editors->{ delete $_->{editor_id} };
+            }
+        }
+
+        $c->stash(
+            stats => $stats,
+            top_recently_active_editors => $top_recently_active_editors,
+            top_editors => $top_active_editors,
+
+            top_recently_active_voters => $top_recently_active_voters,
+            top_voters => $top_active_voters,
+        );
+    }
 }
 
 sub relationships : Path('relationships') {

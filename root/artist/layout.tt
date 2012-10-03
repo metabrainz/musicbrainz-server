@@ -1,16 +1,16 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? artist.name _ " - ${title}" : artist.name -%]
 
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_artist_curi(artist)%]
-        <h2>[% l('Artist information') %]</h2>
+        <h2 class="artist-information">[% l('Artist information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=rdfa_sort_name(artist.sort_name)
+               content=rdfa_sort_name(artist.sort_name) class="sort-name"
                    IF artist.name != artist.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(artist.l_type_name)
+               content=html_escape(artist.l_type_name) class="type"
                    IF artist.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
-               property='foaf:gender'
+               property='foaf:gender' class="gender"
                content=html_escape(artist.l_gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended -%]
@@ -39,11 +39,11 @@
             [%- END -%]
             [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=html_escape(artist.country.l_name)
+               content=html_escape(artist.country.l_name) class="country"
                    IF artist.country -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=rdfa_artist_ipi(ipi_code) %]
+                 content=rdfa_artist_ipi(ipi_code) class="ipi-code" %]
             [%- END -%]
         [% END %]
 
@@ -53,7 +53,7 @@
             async = c.uri_for_action('/artist/tag_async', [ artist.gid ])
             -%]
 
-        <h2>[% l('Editing') %]</h2>
+        <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
                 [% UNLESS artist.is_special_purpose %]
@@ -113,7 +113,7 @@
         </ul>
 
         [% IF c.user_exists && !artist.is_special_purpose %]
-        <h2>[% l("Subscriptions") %]</h2>
+        <h2 class="subscriptions">[% l("Subscriptions") %]</h2>
         <ul class="links">
             [% IF c.user_exists && !artist.is_special_purpose %]
                 [% IF subscribed %]

@@ -262,6 +262,36 @@ ws_test 'release lookup with discids and puids',
     </release>
 </metadata>';
 
+ws_test 'release lookup, barcode is NULL',
+    '/release/fbe4eb72-0f24-3875-942e-f581589713d4' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
+        <title>For Beginner Piano</title><status>Official</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>eng</language><script>Latn</script>
+        </text-representation>
+        <date>1999-09-23</date><country>US</country>
+        <asin>B00001IVAI</asin>
+    </release>
+</metadata>';
+
+ws_test 'release lookup, barcode is empty string',
+    '/release/dd66bfdd-6097-32e3-91b6-67f47ba25d4c' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c">
+        <title>For Beginner Piano</title><status>Official</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>eng</language><script>Latn</script>
+        </text-representation>
+        <date>1999-09-13</date><country>GB</country>
+        <barcode />
+    </release>
+</metadata>';
+
 };
 
 1;

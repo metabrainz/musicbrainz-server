@@ -5,15 +5,15 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_recording_curi(recording)%]
-        <h2>[% l('Recording information') %]</h2>
+        <h2 class="recording-information">[% l('Recording information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-               content=artist_credit(recording.artist_credit) %]
+               content=artist_credit(recording.artist_credit) class="artist" %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-               content=rdfa_recording_duration(recording)
+               content=rdfa_recording_duration(recording) class="length"
                    IF recording.length -%]
             [%- FOR isrc IN isrcs -%]
-                [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]
+                [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" %]
                 [% rdfa_recording_isrc(recording, isrc) %]
                 [% IF c.user_exists %]
                 [% l('({delete_uri|remove})', {
@@ -28,7 +28,7 @@
             async = c.uri_for_action('/recording/tag_async', [ recording.gid ])
             -%]
 
-        <h2>[% l('Editing') %]</h2>
+        <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
           [% IF c.user_exists %]
           <li>[% link_entity(recording, 'add_isrc', l('Add ISRC')) %]</li>
