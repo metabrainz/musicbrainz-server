@@ -72,7 +72,7 @@
         <!-- ko if: showAutocomplete -->
         <tr>
           <td class="section">
-            <select data-bind="targetType: $data,
+            <select id="target-type" data-bind="targetType: $data,
               disable: mode() == 'edit' || relationship().type() == 'recording-work'"></select>
           </td>
           <td>

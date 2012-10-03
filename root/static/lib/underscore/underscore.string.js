@@ -3,7 +3,7 @@
 //  Underscore.string is freely distributable under the terms of the MIT license.
 //  Documentation: https://github.com/epeli/underscore.string
 //  Some code is borrowed from MooTools and Alexandru Marasteanu.
-//  Version '2.2.0rc'
+//  Version '2.3.0'
 
 !function(root, String){
   'use strict';
@@ -28,11 +28,13 @@
 
   var slice = [].slice;
 
-  var defaultToWhiteSpace = function(characters){
-    if (characters != null) {
+  var defaultToWhiteSpace = function(characters) {
+    if (characters == null)
+      return '\\s';
+    else if (characters.source)
+      return characters.source;
+    else
       return '[' + _s.escapeRegExp(characters) + ']';
-    }
-    return '\\s';
   };
 
   var escapeChars = {
@@ -174,7 +176,7 @@
 
   var _s = {
 
-    VERSION: '2.2.0rc',
+    VERSION: '2.3.0',
 
     isBlank: function(str){
       if (str == null) str = '';
@@ -378,7 +380,7 @@
     },
 
     words: function(str, delimiter) {
-      if (str == null || str == '') return '';
+      if (_s.isBlank(str)) return [];
       return _s.trim(str, delimiter).split(delimiter || /\s+/);
     },
 
@@ -473,19 +475,27 @@
       return ~pos ? str.slice(0, pos) : str;
     },
 
-    toSentence: function(array, separator, lastSeparator) {
+    toSentence: function(array, separator, lastSeparator, serial) {
       separator = separator || ', '
       lastSeparator = lastSeparator || ' and '
       var a = array.slice(), lastMember = a.pop();
 
+      if (array.length > 2 && serial) lastSeparator = _s.rtrim(separator) + lastSeparator;
+
       return a.length ? a.join(separator) + lastSeparator + lastMember : lastMember;
+    },
+
+    toSentenceSerial: function() {
+      var args = slice.call(arguments);
+      args[3] = true;
+      return _s.toSentence.apply(_s, args);
     },
 
     slugify: function(str) {
       if (str == null) return '';
 
-      var from  = "ąàáäâãćęèéëêìíïîłńòóöôõùúüûñçżź",
-          to    = "aaaaaaceeeeeiiiilnooooouuuunczz",
+      var from  = "ąàáäâãåæćęèéëêìíïîłńòóöôõøùúüûñçżź",
+          to    = "aaaaaaaaceeeeeiiiilnoooooouuuunczz",
           regex = new RegExp(defaultToWhiteSpace(from), 'g');
 
       str = String(str).toLowerCase().replace(regex, function(c){
