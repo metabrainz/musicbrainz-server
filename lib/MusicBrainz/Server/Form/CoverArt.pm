@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Form::CoverArt;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -16,7 +15,7 @@ has_field 'type_id' => (
     multiple  => 1,
 );
 
-sub options_type_id { 
+sub options_type_id {
     my $self = shift;
 
     my %types_by_name = map { $_->name => $_ } $self->ctx->model('CoverArtType')->get_all ();
@@ -27,7 +26,7 @@ sub options_type_id {
 
     my $ret = [
         map {
-            defined $_ ? ($_->id => l($_->name)) : ()
+            defined $_ ? ($_->id => $_->l_name) : ()
         } ($front, $back, values %types_by_name, $other) ];
 
     return $ret;

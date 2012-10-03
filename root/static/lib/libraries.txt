@@ -110,7 +110,7 @@ url:         http://knockoutjs.com/documentation/plugins-mapping.html
 
 library:     Underscore
 license:     MIT
-version:     1.3.3
+version:     1.4.0
 author:      Jeremy Ashkenas, DocumentCloud
 url:         http://underscorejs.org
 
@@ -118,6 +118,6 @@ url:         http://underscorejs.org
 
 library:     Underscore.string
 license:     MIT
-version:     2.2.0rc
+version:     2.3.0
 author:      Esa-Matti Suuronen
 url:         http://epeli.github.com/underscore.string

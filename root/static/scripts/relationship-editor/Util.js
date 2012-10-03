@@ -49,29 +49,28 @@ Util.init = function(typeInfo, attrInfo) {
 };
 
 
-Util.parseRelationships = function(obj) {
-    var source = RE.Entity(obj), args = {source: source, result: []};
+Util.parseRelationships = function(source) {
+    var result = [];
 
-    if (obj.relationships)
-        $.each(obj.relationships, function(target_type, rel_types) {
-            if (obj.type == "work" && target_type == "recording") return;
-            if (target_type == "url") return; // no url support yet
-            args.target_type = target_type;
+    if (source.relationships) $.each(source.relationships, function(target_type, rel_types) {
+        if (source.type == "work" && target_type == "recording") return;
+        if (target_type == "url") return; // no url support yet
 
-            $.each(rel_types, function(rel_type, rels) {
+        $.each(rel_types, function(rel_type, rels) {
 
-                for (var i = 0; i < rels.length; i++) {
-                    args.obj = rels[i];
-                    parseRelationship(args);
-                }
-            });
+            for (var i = 0, obj; obj = rels[i]; i++) {
+                var target = obj.target;
+                result.push(parseRelationship(obj, source, target_type));
+                result.push.apply(result, Util.parseRelationships(target));
+            }
         });
-    Util.renderRelationships(args.result, _.identity);
+    });
+    return result;
 };
 
 
-var parseRelationship = function(args) {
-    var obj = args.obj, target, type = RE.Util.types(obj.link_type),
+var parseRelationship = _.memoize(function(obj, source, target_type) {
+    var target, type = RE.Util.types(obj.link_type),
         orig = originalFields[type] = originalFields[type] || {};
 
     Util.attrsForLinkType(obj.link_type, function(attr) {
@@ -81,49 +80,28 @@ var parseRelationship = function(args) {
 
     obj.begin_date = Util.parseDate(obj.begin_date || "");
     obj.end_date = Util.parseDate(obj.end_date || "");
+    obj.backward = (obj.direction == "backward");
 
     orig = orig[obj.id] = $.extend(true, {}, obj);
-    orig.target.type = args.target_type;
+    orig.target.type = target_type;
     orig.target = RE.Entity(orig.target);
     orig.attributes = ko.toJS(obj.attributes);
 
     target = obj.target;
-    target.type = args.target_type;
+    target.type = target_type;
 
-    if (args.target_type == "url") {
+    if (target_type == "url") {
         target.name = target.url;
         delete target.url;
     }
-    obj.source = args.source;
+    obj.source = RE.Entity(source);
     obj.target = RE.Entity(target);
 
-    args.result.push(RE.Relationship(obj));
-    if (target.relationships) Util.parseRelationships(target);
-};
+    return RE.Relationship(obj, false, true);
 
-// trying to render a ton of relationships all at once is *slow*. this helper
-// function is designed to not do that. each relationship promises to create
-// the next one once it's done rendering itself. the promise is called back in
-// RelationshipEditor.js -> release.addRelationship.
-
-Util.renderRelationships = function(targets, callback) {
-    function next(index) {
-
-        return function() {
-            var target = targets[index], nextTarget = targets[index + 1],
-                promise = nextTarget ? next(index + 1) : undefined,
-                relationship = callback(target);
-
-            if (relationship) {
-
-                relationship.promise = promise;
-                relationship.show();
-
-            } else if (promise) promise();
-        };
-    }
-    next(0)();
-};
+}, function(obj, source, target_type) {
+    return [source.type, target_type, obj.id].join("-");
+});
 
 
 var dateRegex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
@@ -142,8 +120,8 @@ Util.compareArtistCredits = function(a, b) {
     var an = a.length, bn = b.length;
     if (an != bn) return false;
 
-    for (var i = 0; i < an.length; i++) {
-        var aac = a[an], bac = b[bn];
+    for (var i = 0; i < an; i++) {
+        var aac = a[i], bac = b[i];
 
         if (aac.artist.gid != bac.artist.gid) return false;
         if (aac.artist.name != bac.artist.name) return false;
@@ -207,6 +185,20 @@ Util.mergeDates = function(a, b) {
 
     return (((ay && by && ay != by) || (am && bm && am != bm) || (ad && bd && ad != bd)) ?
             false : {year: ay || by, month: am || bm, day: ad || bd});
+};
+
+
+Util.callbackQueue = function(targets, callback) {
+    var next = function(index) {
+        return function() {
+            var target = targets[index];
+            if (target) {
+                callback(target);
+                _.defer(next(index + 1));
+            }
+        };
+    };
+    next(0)();
 };
 
 return RE;

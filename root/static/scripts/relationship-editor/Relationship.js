@@ -40,7 +40,7 @@ mapping = {
 mapping.end_date = mapping.begin_date;
 
 
-RE.Relationship = function(obj, tryToMerge) {
+RE.Relationship = function(obj, tryToMerge, show) {
     obj.link_type = obj.link_type || defaultLinkType(obj.source.type, obj.target.type);
     var type = Util.types(obj.link_type), relationship, c = cache[type] = cache[type] || {};
 
@@ -51,6 +51,8 @@ RE.Relationship = function(obj, tryToMerge) {
         delete c[obj.id];
         return null;
     }
+
+    if (show) relationship.show();
     return relationship;
 };
 
@@ -65,13 +67,11 @@ var Relationship = function(obj) {
     this.action = ko.observable(obj.action || "");
     this.hasErrors = ko.observable(false);
 
-    var linkType = obj.link_type || defaultLinkType(obj.source.type, obj.target.type);
-    this.link_type = new Fields.Integer(linkType).extend({field: [this, "link_type"]});
+    obj.link_type = obj.link_type || defaultLinkType(obj.source.type, obj.target.type),
+    obj.backward = obj.backward || (obj.source.type != Util.types(obj.link_type).split("-")[0]);
 
-    this.backward = ko.observable(obj.source.type != Util.types(linkType).split("-")[0])
-        .extend({field: [this, "backward"]});
-
-    delete linkType;
+    this.link_type = new Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
+    this.backward = ko.observable(obj.backward).extend({field: [this, "backward"]});
 
     this.begin_date = new Fields.PartialDate();
     this.end_date = new Fields.PartialDate();
@@ -106,7 +106,6 @@ var Relationship = function(obj) {
     this.end_date.extend({field: [this, "end_date"]});
     this.attributes.extend({field: [this, "attributes"]});
 
-    this.entity = ko.computed(computeEntities, this);
     this.linkPhrase = ko.computed(this.buildLinkPhrase, this).extend({throttle: 1});
     this.loadingWork = ko.observable(false);
 
@@ -118,22 +117,6 @@ var Relationship = function(obj) {
 };
 
 
-var computeEntities = (function() {
-
-    var rw = /release|work/, alu = /artist|label|url/,
-        targetIsFirst = function(type0, type1, backward) {
-            return (type0 == type1 || (type0 == "recording" && rw.test(type1))
-                ? backward : alu.test(type0));
-        };
-
-    return function() {
-        var type = Util.types(this.link_type()), types = type.split("-");
-        return (targetIsFirst(types[0], types[1], this.backward())
-            ? [this.target(), this.source] : [this.source, this.target()]);
-    };
-}());
-
-
 var defaultLinkType = function(sourceType, targetType) {
     var type = sourceType + "-" + targetType, linkType;
 
@@ -142,6 +125,11 @@ var defaultLinkType = function(sourceType, targetType) {
 
     linkType = linkType[0];
     return linkType.descr ? linkType.id : linkType.children[0].id;
+};
+
+
+Relationship.prototype.entity = function() {
+    return this.backward() ? [this.target(), this.source] : [this.source, this.target()];
 };
 
 
@@ -192,7 +180,7 @@ Relationship.prototype.workChanged = function(work) {
 
     $.get("/ws/js/entity/" + gid + "?inc=rels")
         .success(function(data) {
-            Util.parseRelationships(data, false);
+            Util.parseRelationships(data);
         })
         .complete(function() {
             self.loadingWork(false);
@@ -202,16 +190,13 @@ Relationship.prototype.workChanged = function(work) {
 
 
 Relationship.prototype.show = function() {
-    var source = this.source;
+    if (!this.visible) {
+        this.type.peek() == "recording-work"
+            ? this.source.performanceRelationships.push(this)
+            : this.source.relationships.push(this);
 
-    if (this.type.peek() == "recording-work") {
-        if (source.performanceRelationships.peek().indexOf(this) == -1)
-            source.performanceRelationships.push(this);
-
-    } else if (source.relationships.peek().indexOf(this) == -1) {
-        source.relationships.push(this);
+        this.visible = true;
     }
-    this.visible = true;
 };
 
 
@@ -269,11 +254,13 @@ Relationship.prototype.buildLinkPhrase = function() {
         ? typeInfo.phrase : typeInfo.reverse_phrase;
 
     $.each(this.attributes(), function(name, observable) {
-        var value = observable(), str = name, isArray = $.isArray(value);
+        var value = observable(),
+            str = Util.attrRoot(name).l_name,
+            isArray = $.isArray(value);
 
         if (!value || isArray && !value.length) return;
         if (isArray) {
-            value = $.map(value, function(v) {return Util.attrInfo(v).name});
+            value = $.map(value, function(v) {return Util.attrInfo(v).l_name});
 
             var list = value.slice(0, -1).join(", ");
             str = (list && list + " & ") + (value.pop() || "");
@@ -331,7 +318,7 @@ var buildField = function(prefix, name, obj, fields) {
 };
 
 Relationship.prototype.buildFields = function(num, result) {
-    var attrs = _.keys(this.attributes.peek()), entity = this.entity.peek(),
+    var attrs = _.keys(this.attributes.peek()), entity = this.entity(),
         prefix = "rel-editor.rels." + num + ".", bf = _.bind(buildField, result),
         sf = (this.action.peek() == "add") ? _.rest(simpleFields) : simpleFields;
 
@@ -347,8 +334,7 @@ Relationship.prototype.buildFields = function(num, result) {
 // doesn't compare attributes, but does compare dates.
 
 Relationship.prototype.isDuplicate = function(other) {
-    var thisent = this.entity.peek(), otherent = other.entity.peek();
-
+    var thisent = this.entity(), otherent = other.entity();
     return (this.link_type.peek() == other.link_type.peek() &&
             thisent[0] === otherent[0] && thisent[1] === otherent[1] &&
             Util.mergeDates(this.begin_date, other.begin_date) &&

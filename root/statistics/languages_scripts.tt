@@ -1,3 +1,4 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
 [%- BLOCK layout_head -%]
 <script type="text/javascript">//<![CDATA[
 $(document).ready(function() {
@@ -13,30 +14,19 @@ $(document).ready(function() {
   [% IF type == 'lang' %]
     <td>[% entity.entity.l_name || l('Unknown language') %]</td>
     <td class="t">
-      [%- lang_script_search_link(type, entity.entity.iso_code_3, add_commas(entity.releases), 'release') -%]</td>
+      [%- link_searchable_property(type, entity.entity.iso_code_3 || 'unknown', 'release', add_commas(entity.releases)) -%]</td>
     <td class="t">
-      [%- lang_script_search_link(type, entity.entity.iso_code_3, add_commas(entity.works), 'work') -%]</td>
+      [%- link_searchable_property(type, entity.entity.iso_code_3 || 'unknown', 'release', add_commas(entity.works)) -%]</td>
     <td class="t">[% add_commas(entity.total) %]</td>
   [% ELSIF type == 'script' %]
     <td>[% entity.entity.l_name || l('Unknown script') %]</td>
     <td class="t">
-      [%- lang_script_search_link(type, entity.entity.iso_code, add_commas(entity.count), 'release') -%]</td>
+      [%- link_searchable_property(type, entity.entity.iso_code || 'unknown', 'release', add_commas(entity.count)) -%]</td>
   [% END %]
 </tr>
 [%- END -%]
 
-[%- MACRO lang_script_search_link(type, code, contents, entity_type) BLOCK -%]
-  [%- IF code != '' -%]
-    <a href="/search?query=[% type %]%3A[% code %]&amp;type=[% entity_type %]&amp;limit=25&amp;advanced=1">
-  [%- END -%]
-  [% contents %]
-  [%- IF code != '' -%]
-    </a>
-  [%- END -%]
-[%- END -%]
-
 [% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
-[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
 <p>[%- l('All other available languages and scripts have 0 releases and works.') -%]</p>

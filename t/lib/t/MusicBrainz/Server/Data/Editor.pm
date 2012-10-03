@@ -16,7 +16,7 @@ BEGIN { use MusicBrainz::Server::Data::Editor; }
 
 with 't::Context';
 
-test get_ratings => sub {
+test 'Test summarize_ratings' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '
@@ -25,12 +25,11 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
 ');
 
     my $editor = $test->c->model('Editor')->get_by_id(1);
-    my $ratings = $test->c->model('Editor')->get_ratings($editor);
+    my $ratings = $test->c->model('Editor')->summarize_ratings($editor);
 
-    is($ratings->{artist}->[0]->{artist}->id => 1, 'has artist entity');
-    is($ratings->{artist}->[0]->{rating} => 80, 'has raw rating');
-    is($ratings->{artist}->[0]->{artist}->rating => 80, 'has rating on entity');
-    is($ratings->{artist}->[0]->{artist}->rating_count => 1, 'has rating on entity');
+    is($ratings->{artist}->[0]->id => 1, 'has artist entity');
+    is($ratings->{artist}->[0]->rating, 80, 'has raw rating');
+    is($ratings->{artist}->[0]->rating_count => 1, 'has rating on entity');
 };
 
 test all => sub {

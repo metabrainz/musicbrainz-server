@@ -115,7 +115,7 @@ sub _load_page
     return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "MusicBrainz_Documentation" })
         if ($id eq "");
 
-    my $doc_url = sprintf "http://%s/%s?action=render", &DBDefs::WIKITRANS_SERVER, $id;
+    my $doc_url = sprintf "http://%s/%s?action=render&redirect=no", &DBDefs::WIKITRANS_SERVER, $id;
     if (defined $version) {
         $doc_url .= "&oldid=$version";
     }
