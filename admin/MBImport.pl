@@ -40,12 +40,14 @@ my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
 my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
+my $skip_ensure_editor = 0;
 
 GetOptions(
     "help|h"                    => \$fHelp,
     "ignore-errors|i!"  => \$fIgnoreErrors,
     "tmp-dir|t=s"               => \$tmpdir,
     "fix-broken-utf8"   => \$fFixUTF8,
+    "skip-editor!" => \$skip_ensure_editor
 );
 
 sub usage
@@ -58,6 +60,8 @@ Usage: MBImport.pl [options] FILE ...
                           special U+FFFD codepoint (UTF-8: 0xEF 0xBF 0xBD)
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+        --skip-editor     do not guarantee editor rows are present (useful when
+                          importing single tables).
 
 FILE can be any of: a regular file in Postgres "copy" format (as produced
 by ExportAllTables --nocompress); a gzip'd or bzip2'd tar file of Postgres
@@ -181,7 +185,7 @@ my %imported_tables;
 
 ImportAllTables();
 
-unless($imported_tables{editor}) {
+if(!$imported_tables{editor} && !$skip_ensure_editor) {
     print localtime() . " : ensuring editor information is present\n";
     EnsureEditorTable();
 }
@@ -467,6 +471,7 @@ sub ImportAllTables
         cover_art_archive.art_type
         cover_art_archive.cover_art
         cover_art_archive.cover_art_type
+        cover_art_archive.release_group_cover_art
 
         statistics.statistic
         statistics.statistic_event
