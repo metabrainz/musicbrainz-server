@@ -120,8 +120,8 @@ Util.compareArtistCredits = function(a, b) {
     var an = a.length, bn = b.length;
     if (an != bn) return false;
 
-    for (var i = 0; i < an.length; i++) {
-        var aac = a[an], bac = b[bn];
+    for (var i = 0; i < an; i++) {
+        var aac = a[i], bac = b[i];
 
         if (aac.artist.gid != bac.artist.gid) return false;
         if (aac.artist.name != bac.artist.name) return false;
