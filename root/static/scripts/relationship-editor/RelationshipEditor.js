@@ -57,7 +57,9 @@ RE.releaseViewModel = {
     submit: function(data, event) {
         event.preventDefault();
 
-        var self = this, data = {}, changed = [], addChanged;
+        var self = this, data = {}, changed = [], addChanged,
+            beforeUnload = window.onbeforeunload;
+
         this.submissionLoading(true);
 
         addChanged = function(relationship) {
@@ -90,6 +92,8 @@ RE.releaseViewModel = {
         data["rel-editor.edit_note"] = _.trim($("#id-rel-editor\\.edit_note").val());
         data["rel-editor.as_auto_editor"] = $("#id-rel-editor\\.as_auto_editor").is(":checked") ? 1 : 0;
 
+        if (beforeUnload) window.onbeforeunload = undefined;
+
         $.post("/relationship-editor", data)
             .success(function() {
                 window.location.replace("/release/" + self.GID);
@@ -101,6 +105,7 @@ RE.releaseViewModel = {
                     self.submissionLoading(false);
                     self.submissionError(statusText);
                 }
+                if (beforeUnload) window.onbeforeunload = beforeUnload;
             });
     },
 
@@ -382,6 +387,48 @@ function renderArtistCredit(obj) {
         html += RE.Entity(name.artist, "artist").rendering() + name.joinphrase;
     return html;
 }
+
+
+$(function() {
+    /* Every major browser supports onbeforeunload expect Opera. (This says
+       Opera 12 supports it, but it doesn't, at least not <= 12.10.)
+       https://developer.mozilla.org/en-US/docs/DOM/window.onbeforeunload
+     */
+    if ("onbeforeunload" in window) {
+        window.onbeforeunload = function() {
+            return MB.text.ConfirmNavigation;
+        };
+    } else {
+        var prevented = false;
+
+        /* This catches the backspace key and asks the user whether they want to
+           navigate back.
+
+           Opera < 12.10 fires both keydown and keypress events, but keypress
+           must return false. Opera >= 12.10 doesn't fire keypress for special
+           keys, so keydown must return false. Regular event listeners and/or
+           preventDefault don't work for this, they must be assigned directly
+           to document.onkeydown and document.onkeypress.
+         */
+        document.onkeydown = function(event) {
+            if (event.keyCode == 8) {
+                var node = event.srcElement || event.target, tag = node.tagName.toLowerCase(),
+                    type = (node.type || "").toLowerCase(),
+                    prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
+
+                if (prevent && !confirm(MB.text.ConfirmNavigation)) {
+                    prevented = true;
+                    return false;
+                }
+            }
+        };
+
+        document.onkeypress = function(event) {
+            if (prevented)
+                return (prevented = false);
+        };
+    }
+});
 
 return RE;
 
