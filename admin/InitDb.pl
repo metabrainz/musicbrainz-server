@@ -222,6 +222,24 @@ sub Create
     system "createlang", @opts, "plpgsql";
     system "createlang", @opts, "plperlu" if HasPLPerlSupport();
     print "\nFailed to create language -- its likely to be already installed, continuing.\n" if ($? >> 8);
+
+    # Set the default search path for the READWRITE and READONLY users
+    my $search_path = $db->schema . ", public";
+
+    if (my $READONLY = Databases->get('READONLY')) {
+        _set_search_path($system_sql, $READONLY->username, $search_path);
+    }
+
+    _set_search_path($system_sql, $db->username, $search_path);
+}
+
+sub _set_search_path {
+    my ($sql, $username, $search_path) = @_;
+
+    $sql->auto_commit(1);
+    $sql->do(
+        "ALTER USER " . $username . " SET search_path TO " . $search_path
+    );
 }
 
 sub CreateRelations

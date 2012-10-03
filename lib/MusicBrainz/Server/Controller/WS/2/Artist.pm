@@ -46,6 +46,8 @@ sub artist : Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $artist = $c->stash->{entity};
 
+    return unless defined $artist;
+
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($artist);
 

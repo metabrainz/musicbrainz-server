@@ -113,10 +113,10 @@
               <label>
               <!-- ko if: type == 'boolean' -->
                 <input type="checkbox" data-bind="checked: value"/>
-                <!-- ko text: data.name --><!-- /ko -->
+                <!-- ko text: data.l_name --><!-- /ko -->
               <!-- /ko -->
               <!-- ko if: type == 'select' -->
-                <!-- ko text: data.name --><!-- /ko --><br/>
+                <!-- ko text: data.l_name --><!-- /ko --><br/>
                 <select data-bind="selectAttribute: $data"></select>
               <!-- /ko -->
               </label>
