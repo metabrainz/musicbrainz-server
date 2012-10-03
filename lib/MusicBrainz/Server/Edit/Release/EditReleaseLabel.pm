@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use MusicBrainz::Server::Translation qw ( N_l l );
-use MusicBrainz::Server::Data::Utils qw( combined_medium_format_name );
+use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -74,12 +74,23 @@ sub process_medium_formats
     my @format_names = split(', ', $format_names);
     @format_names = @format_names[1..scalar @format_names-1];
 
+    my @formats_expand;
+    for my $format (@format_names) {
+        unless ($format eq '(unknown)') {
+            push @formats_expand, $format;
+        }
+    }
+
+    my %format_map = map {
+        $_->name => $_->l_name
+    } $self->c->model('MediumFormat')->get_all;
+
     return combined_medium_format_name(map {
         if ($_ eq '(unknown)') {
             l('(unknown)');
         }
         else {
-            $self->c->model('MediumFormat')->find_by_name($_)->l_name();
+            $format_map{$_};
         }
         } @format_names);
 }

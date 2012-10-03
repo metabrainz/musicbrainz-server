@@ -6,7 +6,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 
-use MusicBrainz::Server::Data::Utils qw( combined_medium_format_name );
+use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
