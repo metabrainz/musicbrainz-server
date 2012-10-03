@@ -1,3 +1,4 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
 [%- BLOCK layout_head -%]
 <script type="text/javascript">//<![CDATA[
 $(document).ready(function() {
@@ -36,7 +37,6 @@ $(document).ready(function() {
 [%- END -%]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
-[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
 <p>[%- l('All other available languages and scripts have 0 releases and works.') -%]</p>

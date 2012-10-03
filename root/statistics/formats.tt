@@ -1,3 +1,4 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
 [%- MACRO entry(entity) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 1 %]>
     <td class="t">[% loop.count %]</td>
@@ -15,8 +16,7 @@
 [% USE format %]
 [% round1 = format('%.2f') %]
 
-[% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %] 
-[%- PROCESS "statistics/macros-header.tt" -%]
+[% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %]
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
 
