@@ -33,11 +33,15 @@
     <td></td>
 </tr>
 [% FOREACH type IN types -%]
+[%- USE Translation('mb_server');
+    type0 = format_entity_type_name(type.value.entity_types.0);
+    type1 = format_entity_type_name(type.value.entity_types.1);
+    USE Translation('statistics') -%]
 <tr class="thead">
-    <th colspan=12>[% l('{type0}-{type1}', { type0 => format_entity_type_name(type.value.entity_types.0), type1 => format_entity_type_name(type.value.entity_types.1) } ) %]</th>
+    <th colspan=12>[% l('{type0}-{type1}', { type0 => type0, type1 => type1 } ) %]</th>
 </tr>
 <tr>
-    <th colspan=10>[% l('{type0}-{type1} relationships:', { type0 => format_entity_type_name(type.value.entity_types.0), type1 => format_entity_type_name(type.value.entity_types.1) } ) %]</th>
+    <th colspan=10>[% l('{type0}-{type1} relationships:', { type0 => type0, type1 => type1 } ) %]</th>
     <td>[% add_commas(stats.statistic('count.ar.links.' _ type.key)) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.' _ type.key, 'count.ar.links')) }) %]</td>
 </tr>
