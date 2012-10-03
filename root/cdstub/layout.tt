@@ -1,12 +1,13 @@
+[% USE Age %]
 [% WRAPPER 'layout.tt' title=l('CD stub “{title}” by {artist}',
                                { title => cdstubtoc.cdstub.title,
                                  artist => cdstubtoc.cdstub.artist || l('Various Artists') }) %]
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Added:')
-               content=display_age_ago(cdstubtoc.cdstub.age(cdstubtoc.cdstub.date_added)) -%]
+               content=display_age_ago(Age.age(cdstubtoc.cdstub.date_added)) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Last modified:')
-               content=display_age_ago(cdstubtoc.cdstub.age(cdstubtoc.cdstub.last_modified)) -%]
+               content=display_age_ago(Age.age(cdstubtoc.cdstub.last_modified)) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Lookup count:')
                content=cdstubtoc.cdstub.lookup_count -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Modify count:')

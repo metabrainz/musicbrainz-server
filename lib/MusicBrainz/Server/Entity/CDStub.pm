@@ -3,7 +3,6 @@ package MusicBrainz::Server::Entity::CDStub;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( DateTime );
-use Date::Calc qw(N_Delta_YMD Today);
 
 use namespace::autoclean;
 
@@ -81,22 +80,6 @@ has 'tracks' => (
         clear_tracks => 'clear'
     }
 );
-
-sub _YMD
-{
-    my ($date) = @_;
-    return ($date->year, $date->month, $date->day);
-}
-
-sub age
-{
-    my ($self, $begin) = @_;
-
-    my @end_YMD = Today;
-    my ($y, $m, $d) = N_Delta_YMD (_YMD ($begin), @end_YMD);
-
-    return ($y, $m, $d);
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
