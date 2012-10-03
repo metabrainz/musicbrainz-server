@@ -389,7 +389,7 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
-[%- MACRO link_searchable_search_field(search_field, search_value, entity_type, text) BLOCK -%]
+[%- MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK -%]
   [%- text = text == '' ? search_value : text -%]
   <a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) %]">
       [% text %]
