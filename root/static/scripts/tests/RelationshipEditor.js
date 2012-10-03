@@ -674,27 +674,20 @@ MB.tests.RelationshipEditor.RelationshipEditor = function() {
     QUnit.module("Relationship editor");
 
     QUnit.test('RelationshipEditor', function() {
-
         var RE = MB.RelationshipEditor, vm = RE.releaseViewModel;
-        RE.UI.init(testRelease.gid, $.extend(true, {}, testRelease));
-        QUnit.stop();
 
-        _.defer(function() {
-            QUnit.start();
+        var media = vm.media();
+        QUnit.equal(media.length, 1, "medium count");
 
-            var media = vm.media();
-            QUnit.equal(media.length, 1, "medium count");
+        var recordings = media[0].recordings();
+        QUnit.equal(recordings.length, 2, "recording count");
 
-            var recordings = media[0].recordings();
-            QUnit.equal(recordings.length, 2, "recording count");
-
-            var recording = recordings[0];
-            QUnit.equal(recording.number, "A", "recording number");
-            QUnit.equal(recording.position, 1, "recording position");
-            QUnit.equal(recording.name(), "Love Me Do", "recording name");
-            QUnit.equal(recording.id, 6393661, "recording id");
-            QUnit.equal(recording.gid, "87ec065e-f139-41b9-b3b9-f746addf5b1e", "recording gid");
-        });
+        var recording = recordings[0];
+        QUnit.equal(recording.number, "A", "recording number");
+        QUnit.equal(recording.position, 1, "recording position");
+        QUnit.equal(recording.name(), "Love Me Do", "recording name");
+        QUnit.equal(recording.id, 6393661, "recording id");
+        QUnit.equal(recording.gid, "87ec065e-f139-41b9-b3b9-f746addf5b1e", "recording gid");
     });
 };
 
@@ -785,8 +778,6 @@ MB.tests.RelationshipEditor.Dialog = function() {
                 {live: true, partial: false, instrumental: false, cover: false},
                 "recording " + i + " attributes"
             );
-
-            if (relationships[0].promise) relationships[0].promise();
         }
 
         // BatchWorkRelationshipDialog
@@ -822,7 +813,13 @@ MB.tests.RelationshipEditor.Dialog = function() {
 MB.tests.RelationshipEditor.Run = function() {
     var RE = MB.RelationshipEditor;
 
+    RE.Util.callbackQueue = function(targets, callback) {
+        for (var i = 0; i < targets.length; i++)
+            callback(targets[i]);
+    };
+
     RE.Util.init(typeInfo, attrInfo);
+    RE.UI.init(testRelease.gid, testRelease);
     RE.UI.Dialog.init();
 
     MB.tests.RelationshipEditor.Util();
