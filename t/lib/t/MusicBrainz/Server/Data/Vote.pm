@@ -37,10 +37,10 @@ test 'Email on first no vote' => sub {
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 
     $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
-    is(scalar @{ $email_transport->deliveries }, 0);
+    is($email_transport->delivery_count, 0);
 
     $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
-    is(scalar @{ $email_transport->deliveries }, 1);
+    is($email_transport->delivery_count, 1);
 };
 
 test all => sub {
@@ -70,9 +70,9 @@ $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_ABSTAIN });
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-is(scalar @{ $email_transport->deliveries }, 1);
+is($email_transport->delivery_count, 1);
 
-my $email = $email_transport->deliveries->[-1]->{email};
+my $email = $email_transport->shift_deliveries->{email};
 is($email->get_header('Subject'), 'Someone has voted against your edit #2', 'Subject explains someone has voted against your edit');
 is($email->get_header('References'), sprintf '<edit-%d@%s>', $edit->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL, 'References header contains edit id');
 is($email->get_header('To'), '"editor1" <editor1@example.com>', 'To header contains editor email');
@@ -98,8 +98,7 @@ is($edit->votes->[$_]->editor_id, 2) for 0..3;
 $vote_data->enter_votes(1, { edit_id => $edit->id, vote => $VOTE_NO });
 $edit = $test->c->model('Edit')->get_by_id($edit->id);
 $vote_data->load_for_edits($edit);
-is(scalar @{ $email_transport->deliveries }, 1);
-is($email_transport->deliveries->[-1]->{email}, $email);
+is($email_transport->delivery_count, 0);
 
 is(scalar @{ $edit->votes }, 4);
 is($edit->votes->[$_]->editor_id, 2) for 0..3;
@@ -117,8 +116,7 @@ is($edit->no_votes, 0);
 
 # Make sure future no votes do not cause another email to be sent out
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
-is(scalar @{ $email_transport->deliveries }, 1);
-is($email_transport->deliveries->[-1]->{email}, $email);
+is($email_transport->delivery_count, 0);
 
 # Entering invalid votes doesn't do anything
 $vote_data->load_for_edits($edit);

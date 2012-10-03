@@ -147,7 +147,9 @@ sub get_full_tree
         my $type_key = join('-', $obj->entity0_type, $obj->entity1_type);
         $roots{ $type_key } ||= MusicBrainz::Server::Entity::LinkType->new(
             name => l('{t0}-{t1} relationships', { t0 => $obj->entity0_type,
-                                                   t1 => $obj->entity1_type })
+                                                   t1 => $obj->entity1_type }),
+            entity0_type => $obj->entity0_type,
+            entity1_type => $obj->entity1_type,
         );
 
         my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $roots{ $type_key };

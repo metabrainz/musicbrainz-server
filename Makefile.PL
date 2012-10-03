@@ -40,6 +40,7 @@ requires 'DateTime::Format::ISO8601';
 requires 'DBIx::Connector';
 requires 'DBD::Pg'                                    => '2.11.8';
 requires 'DBI'                                        => '1.607';
+requires 'Digest::HMAC_SHA1'                          => '1.03';
 requires 'Digest::MD5'                                => '2.36';
 requires 'Digest::SHA1'                               => '2.110';
 requires 'Email::Address';

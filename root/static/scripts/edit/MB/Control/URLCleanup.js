@@ -228,6 +228,13 @@ MB.constants.CLEANUPS = {
             return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
         }
     },
+    itunes: {
+        match: new RegExp("^https?://itunes.apple.com/", "i"),
+        type: MB.constants.LINK_TYPES.downloadpurchase,
+        clean: function(url) {
+            return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/([a-z0-9!.-]+\/)?(id[0-9]+)(\?.*)?$/, "http://itunes.apple.com/$1$2/$4");
+        }
+    },
     jamendo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?jamendo\\.com","i"),
         type: MB.constants.LINK_TYPES.downloadfree,

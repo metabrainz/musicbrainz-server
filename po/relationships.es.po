@@ -3,6 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012.
 # gr0uch0mars <email address hidden>, 2011.
 # Héctor Arroyo <email address hidden>, 2012.
+#   <email address hidden>, 2012.
 # Nicolás Tamargo <email address hidden>, 2011, 2012.
 #   <email address hidden>, 2012.
 #   Tobias Quathamer <email address hidden>, 2007.
@@ -11,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-11 20:36+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-10-01 22:20+0000\n"
+"Last-Translator: kelopez <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +45,7 @@ msgstr "página de BBC music para"
 
 #: DB:link_attribute_type/description:12
 msgid "Background vocal"
-msgstr ""
+msgstr "Voces de fondo"
 
 #: DB:link_attribute_type/description:245
 msgid "Chamber orchestra"
@@ -60,22 +61,22 @@ msgstr "Licencia Creative Comons Atribución No Derivados (by-nd)"
 
 #: DB:link_attribute_type/description:257
 msgid "Creative Commons Attribution Non-commercial (by-nc) license"
-msgstr ""
+msgstr "Licencia Creative Commons Atribución No-Comercial (by-nc)"
 
 #: DB:link_attribute_type/description:258
 msgid ""
 "Creative Commons Attribution Non-commercial No Derivatives (by-nc-nd) "
 "license"
-msgstr ""
+msgstr "Licencia Creative Commons Atribución No-Comercial No-Derivadas (by-nc-nd)"
 
 #: DB:link_attribute_type/description:259
 msgid ""
 "Creative Commons Attribution Non-commercial Share Alike (by-nc-sa) license"
-msgstr ""
+msgstr "Licencia Creative Commons Atribución No-Comercial Compartir-Igual (by-nc-sa)"
 
 #: DB:link_attribute_type/description:260
 msgid "Creative Commons Attribution Share Alike (by-sa) license"
-msgstr ""
+msgstr "Licencia Creative Commons Atribución Compartir-Igual (by-sa)"
 
 #: DB:link_attribute_type/description:374
 msgid "Creative Commons Noncommercial Sampling Plus licenses"

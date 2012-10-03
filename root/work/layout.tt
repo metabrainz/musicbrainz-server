@@ -9,7 +9,8 @@
         <h2 class="work-information">[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Lyrics Language:')
-               content=html_escape(work.language.l_name) class="lyrics-language"
+               content=link_searchable_property('lang', work.language.iso_code_3, 'work', work.language.l_name)
+               class="lyrics-language"
                    IF work.language -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(work.type.l_name) class="type"

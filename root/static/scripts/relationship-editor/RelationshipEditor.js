@@ -26,13 +26,6 @@ RE.releaseViewModel = {
     RE: RE,
     media: ko.observableArray([]),
 
-    addRelationship: function(elements, relationship) {
-        if (relationship.promise) {
-            _.defer(relationship.promise);
-            delete relationship.promise;
-        }
-    },
-
     checkboxes: (function() {
         var data = {
             recordingStrings: ko.observable([]),
@@ -64,7 +57,9 @@ RE.releaseViewModel = {
     submit: function(data, event) {
         event.preventDefault();
 
-        var self = this, data = {}, changed = [], addChanged;
+        var self = this, data = {}, changed = [], addChanged,
+            beforeUnload = window.onbeforeunload;
+
         this.submissionLoading(true);
 
         addChanged = function(relationship) {
@@ -98,6 +93,8 @@ RE.releaseViewModel = {
         data["rel-editor.edit_note"] = _.trim($("#id-rel-editor\\.edit_note").val());
         data["rel-editor.as_auto_editor"] = $("#id-rel-editor\\.as_auto_editor").is(":checked") ? 1 : 0;
 
+        if (beforeUnload) window.onbeforeunload = undefined;
+
         $.post("/relationship-editor", data)
             .success(function() {
                 window.location.replace("/release/" + self.GID);
@@ -109,6 +106,7 @@ RE.releaseViewModel = {
                     self.submissionLoading(false);
                     self.submissionError(statusText);
                 }
+                if (beforeUnload) window.onbeforeunload = beforeUnload;
             });
     },
 
@@ -181,17 +179,19 @@ releaseLoaded = function(data) {
     data.type = "release";
     data.release_group.type = "release_group";
     RE.Entity(data);
-    var trackCount = 0;
 
-    var media = data.mediums;
-    for (var i = 0; i < media.length; i++)
-        trackCount += parseMedium(media[i], RE.releaseViewModel.media, data);
-
-    Util.parseRelationships(data, true);
-    Util.parseRelationships(data.release_group, true);
+    for (var i = 0, trackCount = 0, medium; medium = data.mediums[i]; i++)
+        trackCount += medium.tracks.length;
 
     initButtons();
     initCheckboxes(trackCount);
+
+    Util.callbackQueue(data.mediums, function(medium) {
+        parseMedium(medium, RE.releaseViewModel.media, data);
+    });
+
+    Util.parseRelationships(data);
+    Util.parseRelationships(data.release_group);
 };
 
 
@@ -209,16 +209,16 @@ parseMedium = function(medium, media, release) {
     medium.recordings = ko.observableArray([]);
     media.push(medium);
 
-    _.map(tracks, function(track) {
-        _.defer(parseTrack, track, medium, release);
+    Util.callbackQueue(tracks, function(track) {
+        var recording = parseTrack(track, release);
+        Util.parseRelationships(track.recording);
+        medium.recordings.push(recording);
     });
-    return tracks.length;
 };
 
 
-parseTrack = function(track, medium, release) {
+parseTrack = function(track, release) {
     var recording = track.recording;
-
     recording.type = "recording";
     recording.name = track.name;
     recording.position = track.position;
@@ -229,8 +229,7 @@ parseTrack = function(track, medium, release) {
     if (!Util.compareArtistCredits(release.artist_credit, track.artist_credit))
         recording.artistCredit = renderArtistCredit(track.artist_credit);
 
-    Util.parseRelationships(recording, true);
-    medium.recordings.push(RE.Entity(recording));
+    return RE.Entity(recording);
 };
 
 
@@ -264,8 +263,8 @@ UI.checkedWorks = function() {
 
 function initCheckboxes(trackCount) {
 
-    var $medium_recordings = $tracklist.find("input.medium-recordings"),
-        $medium_works = $tracklist.find("input.medium-works"),
+    var medium_recording_selector = "input.medium-recordings",
+        medium_work_selector = "input.medium-works",
         recording_selector = "td.recording > input[type=checkbox]",
         work_selector = "td.works > div.ar > input[type=checkbox]",
         checkboxes = RE.releaseViewModel.checkboxes;
@@ -292,8 +291,8 @@ function initCheckboxes(trackCount) {
         return count;
     }
 
-    function medium($inputs, selector, counter) {
-        $inputs.change(function(event) {
+    function medium(medium_selector, selector, counter) {
+        $tracklist.on("change", medium_selector, function(event) {
             var checked = this.checked,
                 $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
                     .find(selector).filter(checked ? ":not(:checked)" : ":checked")
@@ -302,10 +301,11 @@ function initCheckboxes(trackCount) {
         });
     }
 
-    function _release($inputs, cls) {
+    function _release(medium_selector, cls) {
         $('<input type="checkbox"/>&#160;')
             .change(function(event) {
-                $inputs.prop("checked", this.checked).change();
+                $tracklist.find(medium_selector)
+                    .prop("checked", this.checked).change();
             })
             .prependTo("#tracklist th." + cls);
     }
@@ -328,11 +328,11 @@ function initCheckboxes(trackCount) {
         });
     }
 
-    medium($medium_recordings, recording_selector, checkboxes.recordingCount);
-    medium($medium_works, work_selector, checkboxes.workCount);
+    medium(medium_recording_selector, recording_selector, checkboxes.recordingCount);
+    medium(medium_work_selector, work_selector, checkboxes.workCount);
 
-    _release($medium_recordings, "recordings");
-    _release($medium_works, "works");
+    _release(medium_recording_selector, "recordings");
+    _release(medium_work_selector, "works");
 
     range(recording_selector, checkboxes.recordingCount);
     range(work_selector, checkboxes.workCount);
@@ -391,6 +391,48 @@ function renderArtistCredit(obj) {
         html += RE.Entity(name.artist, "artist").rendering() + name.joinphrase;
     return html;
 }
+
+
+$(function() {
+    /* Every major browser supports onbeforeunload expect Opera. (This says
+       Opera 12 supports it, but it doesn't, at least not <= 12.10.)
+       https://developer.mozilla.org/en-US/docs/DOM/window.onbeforeunload
+     */
+    if ("onbeforeunload" in window) {
+        window.onbeforeunload = function() {
+            return MB.text.ConfirmNavigation;
+        };
+    } else {
+        var prevented = false;
+
+        /* This catches the backspace key and asks the user whether they want to
+           navigate back.
+
+           Opera < 12.10 fires both keydown and keypress events, but keypress
+           must return false. Opera >= 12.10 doesn't fire keypress for special
+           keys, so keydown must return false. Regular event listeners and/or
+           preventDefault don't work for this, they must be assigned directly
+           to document.onkeydown and document.onkeypress.
+         */
+        document.onkeydown = function(event) {
+            if (event.keyCode == 8) {
+                var node = event.srcElement || event.target, tag = node.tagName.toLowerCase(),
+                    type = (node.type || "").toLowerCase(),
+                    prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
+
+                if (prevent && !confirm(MB.text.ConfirmNavigation)) {
+                    prevented = true;
+                    return false;
+                }
+            }
+        };
+
+        document.onkeypress = function(event) {
+            if (prevented)
+                return (prevented = false);
+        };
+    }
+});
 
 return RE;
 

@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => { 'lostusername.email' => 'test@email.com' } 
 $mech->content_contains("We've sent you information about your MusicBrainz account.");
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-my $email = $email_transport->deliveries->[-1]->{email};
+my $email = $email_transport->shift_deliveries->{email};
 is($email->get_header('Subject'), 'Lost username');
 like($email->get_body, qr{Your MusicBrainz username is: new_editor});
 

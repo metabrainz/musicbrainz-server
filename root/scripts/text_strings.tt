@@ -118,6 +118,7 @@
         FocusInstrument: '[% l('Click here to choose an instrument') | js %]',
         FocusVocal: '[% l('Click here to choose a vocal') | js %]',
         NoChanges: '[% l('You haven\'t made any changes!') | js %]',
-        ConfirmSwap: '[% l('This tracklist has artist credits with information that will be lost if you swap artist credits with track titles. This cannot be undone. Do you wish to continue?') | js %]'
+        ConfirmSwap: '[% l('This tracklist has artist credits with information that will be lost if you swap artist credits with track titles. This cannot be undone. Do you wish to continue?') | js %]',
+        ConfirmNavigation: '[% l('All of your changes will be lost if you leave this page.') | js %]'
     });
 })(MB);

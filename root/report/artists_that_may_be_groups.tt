@@ -3,7 +3,7 @@
 <h1>[% l('Artists that may be groups') %]</h1>
 
 <ul>
-    <li>[% l('This report lists artists that have type <em>unknown</em> or <em>person</em>,
+    <li>[% l('This report lists artists that have type set to other than <em>group</em>,
               but may be <em>groups</em> because they have other artists listed as members.
               If you find that an artist here is indeed a group, change its type. If it is
               not, please make sure that the "member of" relationships are in the right

@@ -43,7 +43,7 @@ $mech->content_contains('Your profile has been updated');
 $mech->content_contains('We have sent you a verification email');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-my $email = $email_transport->deliveries->[-1]->{email};
+my $email = $email_transport->shift_deliveries->{email};
 is($email->get_header('To'), 'new_email@example.com', "Verification email sent to correct address");
 is($email->get_header('Subject'), 'Please verify your email address', "Verification email has correct subject");
 like($email->get_body, qr{http://localhost/verify-email.*}, "Verification email contains verification link");
