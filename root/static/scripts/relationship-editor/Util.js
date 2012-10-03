@@ -178,6 +178,16 @@ Util.originalFields = function(relationship, field) {
     return field ? fields[field] : fields;
 };
 
+// Attempts to merge two dates, otherwise returns false if they conflict.
+
+Util.mergeDates = function(a, b) {
+    var a = ko.toJS(a), b = ko.toJS(b), ay = a.year, am = a.month, ad = a.day,
+        by = b.year, bm = b.month, bd = b.day;
+
+    return (((ay && by && ay != by) || (am && bm && am != bm) || (ad && bd && ad != bd)) ?
+            false : {year: ay || by, month: am || bm, day: ad || bd});
+};
+
 
 Util.callbackQueue = function(targets, callback) {
     var next = function(index) {

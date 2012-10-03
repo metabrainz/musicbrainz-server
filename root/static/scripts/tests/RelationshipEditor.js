@@ -688,6 +688,8 @@ MB.tests.RelationshipEditor.Entity = function() {
             action: "add",
             link_type: 148,
             attributes: {instrument: [123, 277], guest: true},
+            begin_date: "2001",
+            end_date: ""
         }, false);
 
         var duplicateRelationship = RE.Relationship({
@@ -696,6 +698,8 @@ MB.tests.RelationshipEditor.Entity = function() {
             action: "add",
             link_type: 148,
             attributes: {instrument: [229], solo: true},
+            begin_date: "",
+            end_date: "2002"
         }, false);
 
         relationship.show();
@@ -709,11 +713,35 @@ MB.tests.RelationshipEditor.Entity = function() {
             "attributes"
         );
 
+        QUnit.deepEqual(
+            ko.toJS(relationship.begin_date),
+            {year: 2001, month: null, day: null},
+            "begin date"
+        );
+
+        QUnit.deepEqual(
+            ko.toJS(relationship.end_date),
+            {year: 2002, month: null, day: null},
+            "end date"
+        );
+
         QUnit.equal(relationship.source.relationships.indexOf(duplicateRelationship), -1,
             "removed from source's relationships");
 
         QUnit.equal(duplicateRelationship.removed, true,
             "relationship.removed");
+
+        var notDuplicateRelationship = RE.Relationship({
+            source: relationship.source,
+            target: entity,
+            action: "add",
+            link_type: 148,
+            begin_date: "2003",
+            end_date: "2004"
+        }, false);
+
+        QUnit.equal(relationship.source.mergeRelationship(notDuplicateRelationship),
+            false, "different dates -> not merged")
     });
 };
 
