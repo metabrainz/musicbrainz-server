@@ -70,6 +70,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::ReleaseGroup::Delete
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
+    MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias

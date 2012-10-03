@@ -5,6 +5,13 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
     [% WRAPPER 'layout/sidebar.tt' %]
+
+    [%- IF rg.cover_art -%]
+      <div class="cover-art">
+        [%- display_artwork (rg.cover_art) -%]
+      </div>
+    [%- END -%]
+
         <h2>[% l('Release group information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
@@ -26,6 +33,11 @@
                 <li>
                   <a href="[% c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }) %]">
                     [% l('Add release') %]
+                  </a>
+                </li>
+                <li>
+                  <a href="[% c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]) %]">
+                    [% l('Set cover art') %]
                   </a>
                 </li>
 

@@ -309,6 +309,7 @@ table.reorder-cover-art div.thumb-position {
     height: 125px;
 }
 
+#set-cover-art div.editimage img,
 div.thumb-position img {
     max-width: 125px;
     max-height: 125px;
@@ -332,3 +333,29 @@ div.thumb-position.moved {
     margin: 0 auto;
     display: block;
 }
+
+.set-cover-art div.editimage img {
+    max-width: 125px;
+    max-height: 125px;
+}
+
+#set-cover-art-images { margin: 2em 0; overflow: hidden; }
+
+.set-cover-art div.cover-image { float: left; margin: 0 10px 10px 0; }
+
+.set-cover-art div.editimage {
+    position: relative;
+    float: left;
+    width: 300px;
+    min-height: 140px;
+    margin: 3px;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+}
+
+.set-cover-art div.editimage.selected {
+    background: #ffdd99;
+    border: 1px solid #f0d090;
+}
+

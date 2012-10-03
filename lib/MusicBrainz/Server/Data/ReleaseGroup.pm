@@ -603,6 +603,20 @@ sub load_meta
     }, @_);
 }
 
+
+sub set_cover_art {
+    my ($self, $rg_id, $release_id) = @_;
+
+    $self->sql->do("
+        UPDATE cover_art_archive.release_group_cover_art
+        SET release = ? WHERE release_group = ?;
+        INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+        (SELECT ? AS release_group, ? AS release WHERE NOT EXISTS
+            (SELECT 1 FROM cover_art_archive.release_group_cover_art
+             WHERE release_group = ?));",
+        $release_id, $rg_id, $rg_id, $release_id, $rg_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

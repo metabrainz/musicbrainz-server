@@ -80,6 +80,12 @@ has 'comment' => (
     isa => 'Str'
 );
 
+has 'cover_art' => (
+    isa       => 'MusicBrainz::Server::Entity::Artwork',
+    is        => 'rw',
+    predicate => 'has_cover_art',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

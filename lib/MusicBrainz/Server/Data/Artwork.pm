@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Artwork;
 
 use Moose;
+use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     object_to_ids
     placeholders
@@ -86,6 +87,85 @@ sub find_by_release
     }
 
     return \@artwork;
+}
+
+sub find_front_cover_by_release
+{
+    my ($self, @releases) = @_;
+    my %id_to_release = object_to_ids (@releases);
+    my @ids = keys %id_to_release;
+
+    return unless @ids; # nothing to do
+    my $query = "SELECT
+            cover_art_archive.index_listing.id,
+            cover_art_archive.index_listing.release,
+            cover_art_archive.index_listing.comment,
+            cover_art_archive.index_listing.edit,
+            cover_art_archive.index_listing.ordering,
+            cover_art_archive.cover_art.edits_pending,
+            cover_art_archive.index_listing.approved,
+            cover_art_archive.index_listing.is_front,
+            cover_art_archive.index_listing.is_back
+        FROM cover_art_archive.index_listing
+        JOIN cover_art_archive.cover_art
+        ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
+        WHERE cover_art_archive.index_listing.release
+        IN (" . placeholders(@ids) . ")
+        AND is_front = true
+        ORDER BY cover_art_archive.index_listing.ordering";
+
+    my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
+                                $query, @ids);
+    foreach my $image (@artwork) {
+        foreach my $release (@{ $id_to_release{$image->release_id} })
+        {
+            $image->release ($release);
+        }
+    }
+
+    return \@artwork;
+}
+
+sub load_for_release_groups
+{
+    my ($self, @release_groups) = @_;
+    my %id_to_rg = object_to_ids (@release_groups);
+    my @ids = keys %id_to_rg;
+
+    return unless @ids; # nothing to do
+    my $query = "SELECT
+            cover_art_archive.index_listing.id,
+            cover_art_archive.index_listing.release,
+            cover_art_archive.index_listing.comment,
+            cover_art_archive.index_listing.edit,
+            cover_art_archive.index_listing.ordering,
+            cover_art_archive.index_listing.approved,
+            cover_art_archive.index_listing.is_front,
+            cover_art_archive.index_listing.is_back,
+            cover_art_archive.release_group_cover_art.release_group,
+            musicbrainz.release.gid AS release_gid
+        FROM cover_art_archive.index_listing
+        JOIN cover_art_archive.release_group_cover_art
+        ON release_group_cover_art.release = index_listing.release
+        JOIN musicbrainz.release
+        ON musicbrainz.release.id = cover_art_archive.index_listing.release
+        WHERE release_group_cover_art.release_group
+        IN (" . placeholders(@ids) . ")
+        AND is_front = true";
+
+    use Data::Dumper;
+
+    $self->sql->select($query, @ids);
+    while (my $row = $self->sql->next_row_hash_ref) {
+        my $artwork = $self->_new_from_row ($row);
+        $artwork->release (
+            MusicBrainz::Server::Entity::Release->new (
+                id => $row->{release},
+                gid => $row->{release_gid},
+                release_group_id => $row->{release_group}));
+
+        $id_to_rg{ $row->{release_group} }->[0]->cover_art ($artwork);
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
