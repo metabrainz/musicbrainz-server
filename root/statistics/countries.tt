@@ -1,3 +1,4 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
 [%- BLOCK layout_head -%]
 <script type="text/javascript">//<![CDATA[
 $(document).ready(function() {
@@ -23,7 +24,6 @@ $(document).ready(function() {
 [%- END -%]
 
 [% WRAPPER 'statistics/layout.tt' title=l('Countries') full_width=1 page='countries' %] 
-[%- PROCESS "statistics/macros-header.tt" -%]
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
 
