@@ -87,6 +87,7 @@
         ShowMore: '[% l('Show more...') | js %]',
         ShowLess: '[% l('Show less...') | js %]',
         AddNote: '[% l('Add Note') | js %]',
-        DeleteNote: '[% l('Delete Note') | js %]'
+        DeleteNote: '[% l('Delete Note') | js %]',
+        ConfirmSwap: '[% l('This tracklist has artist credits with information that will be lost if you swap artist credits with track titles. This cannot be undone. Do you wish to continue?') | js %]'
     });
 })(MB);

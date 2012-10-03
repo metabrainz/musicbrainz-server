@@ -6,7 +6,7 @@ MB.tests.utility.All = function() {
 
         var input = "ＭｕｓｉｃＢｒａｉｎｚ！～２０１１";
         var expected = "MusicBrainz!~2011";
-        QUnit.equals (MB.utility.fullWidthConverter (input),
+        QUnit.equal (MB.utility.fullWidthConverter (input),
                       expected, "fullWidthConverter (" + input + ")");
 
         input1 = {

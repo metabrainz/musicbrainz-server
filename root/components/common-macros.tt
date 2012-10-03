@@ -375,7 +375,7 @@ END -%]
     IF editor.preferences.show_gravatar;
       '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
-      '<img src="http://gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
+      '<img src="//gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
     END;
     text;
     '</a>';
@@ -502,7 +502,7 @@ END -%]
 END -%]
 
 [%- MACRO relate_to_ellipsis(entity, endpoints) BLOCK -%]
-    <a href="#relate_to">[%- l('Relate to ...') -%]</a>
+    <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
       <div class="relate-to" style="display: none">
         <input type="hidden" class="gid" value="[% entity.gid %]" />
@@ -676,6 +676,7 @@ END -%]
     ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSIF url.url.host.search('trove.nla.gov.au'); 'trove';
+    ELSIF url.url.host.search('rockinchina.com'); 'ric';
     ELSE; '';
 END %]
 

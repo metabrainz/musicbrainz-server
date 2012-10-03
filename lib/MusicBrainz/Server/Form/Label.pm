@@ -44,7 +44,7 @@ sub edit_field_names
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }
-sub options_country_id { shift->_select_all('Country') }
+sub options_country_id { shift->_select_all('Country', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Label') }
 

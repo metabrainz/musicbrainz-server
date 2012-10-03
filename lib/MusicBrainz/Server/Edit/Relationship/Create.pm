@@ -11,8 +11,9 @@ with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::PartialDate;
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
@@ -103,8 +104,8 @@ sub build_display_data
             link => Link->new(
                 type       => $loaded->{LinkType}{ $self->data->{link_type}{id} }
                     || LinkType->new($self->data->{link_type}),
-                begin_date => partial_date_from_row( $self->data->{begin_date} ),
-                end_date   => partial_date_from_row( $self->data->{end_date} ),
+                begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $self->data->{begin_date} ),
+                end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $self->data->{end_date} ),
                 ended      => $self->data->{ended},
                 attributes => [
                     map {
