@@ -49,7 +49,8 @@
         MB.tests = (MB.tests) ? MB.tests : {};
 
         qunitTap (QUnit, function() {
-          console.log.apply (console, arguments);
+          if (window.console !== undefined)
+            console.log.apply (console, arguments);
         }, { noPlan: true });
 
     //]]></script>
