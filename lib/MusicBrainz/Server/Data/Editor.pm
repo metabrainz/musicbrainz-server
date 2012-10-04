@@ -527,6 +527,32 @@ sub subscription_summary {
     );
 }
 
+sub open_edit_count
+{
+    my ($self, $editor_id) = @_;
+    my $query =
+        'SELECT count(*)
+           FROM edit
+          WHERE status = ?
+          AND editor = ?
+       ';
+
+    return $self->sql->select_single_value($query, $STATUS_OPEN, $editor_id);
+}
+
+sub last_24h_edit_count
+{
+    my ($self, $editor_id) = @_;
+    my $query =
+        "SELECT count(*)
+           FROM edit
+          WHERE editor = ?
+          AND open_time >= (now() - interval '1 day')
+       ";
+
+    return $self->sql->select_single_value($query, $editor_id);
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

@@ -241,6 +241,36 @@ test 'Deleting an editor cancels all open edits' => sub {
     is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
 };
 
+test 'Open edit and last-24-hour counts' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $applied_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'An additional comment',
+        ipi_codes => []
+    );
+
+    accept_edit($c, $applied_edit);
+
+    my $open_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => []
+    );
+
+    is ($open_edit->status, $STATUS_OPEN);
+
+    is($c->model('Editor')->open_edit_count(1), 1, "Open edit count is 1");
+    is($c->model('Editor')->last_24h_edit_count(1), 2, "Last 24h count is 2");
+};
+
 test 'subscription_summary' => sub {
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
