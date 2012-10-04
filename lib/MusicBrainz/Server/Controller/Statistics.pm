@@ -87,20 +87,18 @@ sub countries : Local
 
     my $stats = try_fetch_latest_statistics($c);
     my $country_stats = [];
-    if (defined $stats) {
-        my $artist_country_prefix = 'count.artist.country';
-        my $release_country_prefix = 'count.release.country';
-        my $label_country_prefix = 'count.label.country';
-        my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
-        foreach my $stat_name
-                (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-           if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
+    my $artist_country_prefix = 'count.artist.country';
+    my $release_country_prefix = 'count.release.country';
+    my $label_country_prefix = 'count.label.country';
+    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+        if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 
             my $release_stat = $stat_name;
             my $label_stat = $stat_name;
             $release_stat =~ s/$artist_country_prefix/$release_country_prefix/;
             $label_stat =~ s/$artist_country_prefix/$label_country_prefix/;
             push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
-           }
         }
     }
 
@@ -123,23 +121,21 @@ sub coverart : Local
     my $type_stats = [];
     my $per_release_stats = [];
 
-    if (defined $stats) {
-        foreach my $stat_name
-                (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-            if (my ($type) = $stat_name =~ /^count\.release\.type\.(.*)\.has_coverart$/) {
-                push(@$release_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
-            }
-            if (my ($status) = $stat_name =~ /^count\.release\.status\.(.*)\.has_coverart$/) {
-                push(@$release_status_stats, ({'stat_name' => $stat_name, 'status' => $status}));
-            }
-            if (my ($format) = $stat_name =~ /^count\.release\.format\.(.*)\.has_coverart$/) {
-                push(@$release_format_stats, ({'stat_name' => $stat_name, 'format' => $format}));
-            }
-            if (my ($type) = $stat_name =~ /^count\.coverart.type\.(.*)$/) {
-                push(@$type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
-            }
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+        if (my ($type) = $stat_name =~ /^count\.release\.type\.(.*)\.has_coverart$/) {
+            push(@$release_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
         }
-    } 
+        if (my ($status) = $stat_name =~ /^count\.release\.status\.(.*)\.has_coverart$/) {
+            push(@$release_status_stats, ({'stat_name' => $stat_name, 'status' => $status}));
+        }
+        if (my ($format) = $stat_name =~ /^count\.release\.format\.(.*)\.has_coverart$/) {
+            push(@$release_format_stats, ({'stat_name' => $stat_name, 'format' => $format}));
+        }
+        if (my ($type) = $stat_name =~ /^count\.coverart.type\.(.*)$/) {
+            push(@$type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+        }
+    }
 
     $c->stash(
         template => 'statistics/coverart.tt',
@@ -159,36 +155,34 @@ sub languages_scripts : Path('languages-scripts')
 
     my @language_stats;
     my $script_stats = [];
-    if (defined $stats) {
-        my %language_column_stat = (
-            releases => 'count.release.language',
-            works => 'count.work.language'
-        );
-        my %languages = map { $_->iso_code_3 => $_ }
-           grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
+    my %language_column_stat = (
+        releases => 'count.release.language',
+        works => 'count.work.language'
+    );
+    my %languages = map { $_->iso_code_3 => $_ }
+        grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
 
-        my $script_prefix = 'count.release.script';
-        my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
+    my $script_prefix = 'count.release.script';
+    my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all();
 
-        for my $iso_code (keys %languages) {
-            my %counts = map { $_ => $stats->statistic($language_column_stat{$_} . ".$iso_code") || 0 }
-                keys %language_column_stat;
-            my $total = sum values %counts;
+    for my $iso_code (keys %languages) {
+        my %counts = map { $_ => $stats->statistic($language_column_stat{$_} . ".$iso_code") || 0 }
+            keys %language_column_stat;
+        my $total = sum values %counts;
 
-            next unless $total > 0;
+        next unless $total > 0;
 
-            push @language_stats, {
-                entity => $languages{$iso_code},
-                %counts,
-                total => $total
-            };
-        }
+        push @language_stats, {
+            entity => $languages{$iso_code},
+            %counts,
+            total => $total
+        };
+    }
 
-        foreach my $stat_name
-            (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-           if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) {
-                push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
-           }
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+        if (my ($iso_code) = $stat_name =~ /^$script_prefix\.(.*)$/) {
+            push(@$script_stats, ({'entity' => $scripts{$iso_code}, 'count' => $stats->statistic($stat_name)}));
         }
     }
 
@@ -207,18 +201,16 @@ sub formats : Path('formats')
     my $stats = try_fetch_latest_statistics($c);
 
     my $format_stats = [];
-    if (defined $stats) {
-        my $release_format_prefix = 'count.release.format';
-        my $medium_format_prefix = 'count.medium.format';
-        my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all();
+    my $release_format_prefix = 'count.release.format';
+    my $medium_format_prefix = 'count.medium.format';
+    my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all();
 
-        foreach my $stat_name
-             (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
-            if (my ($format_id) = $stat_name =~ /^$medium_format_prefix\.(.*)$/) {
-                my $release_stat = $stat_name;
-                $release_stat =~ s/$medium_format_prefix/$release_format_prefix/;
-                push(@$format_stats, ({'entity' => $formats{$format_id}, 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
-            }
+    foreach my $stat_name
+        (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
+        if (my ($format_id) = $stat_name =~ /^$medium_format_prefix\.(.*)$/) {
+            my $release_stat = $stat_name;
+            $release_stat =~ s/$medium_format_prefix/$release_format_prefix/;
+            push(@$format_stats, ({'entity' => $formats{$format_id}, 'medium_count' => $stats->statistic($stat_name), 'medium_stat' => $stat_name, 'release_count' => $stats->statistic($release_stat), 'release_stat' => $release_stat}));
         }
     }
 
@@ -234,37 +226,35 @@ sub editors : Path('editors') {
 
     my $stats = try_fetch_latest_statistics($c);
 
-    if (defined $stats) {
-        my $top_recently_active_editors =
-            _editor_data_points($stats, 'editor.top_recently_active.rank',
-                                'count.edit.top_recently_active.rank');
-        my $top_active_editors =
-            _editor_data_points($stats, 'editor.top_active.rank',
-                                'count.edit.top_active.rank');
-        my $top_recently_active_voters =
-            _editor_data_points($stats, 'editor.top_recently_active_voters.rank',
-                                'count.vote.top_recently_active_voters.rank');
-        my $top_active_voters =
-            _editor_data_points($stats, 'editor.top_active_voters.rank',
-                                'count.vote.top_active_voters.rank');
+    my $top_recently_active_editors =
+        _editor_data_points($stats, 'editor.top_recently_active.rank',
+                            'count.edit.top_recently_active.rank');
+    my $top_active_editors =
+        _editor_data_points($stats, 'editor.top_active.rank',
+                            'count.edit.top_active.rank');
+    my $top_recently_active_voters =
+        _editor_data_points($stats, 'editor.top_recently_active_voters.rank',
+                            'count.vote.top_recently_active_voters.rank');
+    my $top_active_voters =
+        _editor_data_points($stats, 'editor.top_active_voters.rank',
+                            'count.vote.top_active_voters.rank');
 
-        my @data_points = ( @$top_recently_active_editors, @$top_active_editors,
-                            @$top_recently_active_voters, @$top_active_voters );
+    my @data_points = ( @$top_recently_active_editors, @$top_active_editors,
+                        @$top_recently_active_voters, @$top_active_voters );
 
-        my $editors = $c->model('Editor')->get_by_ids(map { $_->{editor_id} } @data_points);
-        for my $data_point (@data_points) {
-            $data_point->{editor} = $editors->{ delete $data_point->{editor_id} };
-        }
-
-        $c->stash(
-            stats => $stats,
-            top_recently_active_editors => $top_recently_active_editors,
-            top_editors => $top_active_editors,
-
-            top_recently_active_voters => $top_recently_active_voters,
-            top_voters => $top_active_voters,
-        );
+    my $editors = $c->model('Editor')->get_by_ids(map { $_->{editor_id} } @data_points);
+    for my $data_point (@data_points) {
+        $data_point->{editor} = $editors->{ delete $data_point->{editor_id} };
     }
+
+    $c->stash(
+        stats => $stats,
+        top_recently_active_editors => $top_recently_active_editors,
+        top_editors => $top_active_editors,
+
+        top_recently_active_voters => $top_recently_active_voters,
+        top_voters => $top_active_voters,
+    );
 }
 
 sub _editor_data_point {
@@ -305,20 +295,18 @@ sub edits : Path('edits') {
     my $stats = try_fetch_latest_statistics($c);
 
     my %by_category;
-    if (defined $stats) {
-        for my $class (EditRegistry->get_all_classes) {
-            $by_category{$class->edit_category} ||= [];
-            push @{ $by_category{$class->edit_category} }, $class;
-        }
+    for my $class (EditRegistry->get_all_classes) {
+        $by_category{$class->edit_category} ||= [];
+        push @{ $by_category{$class->edit_category} }, $class;
+    }
 
-        for my $category (keys %by_category) {
-            $by_category{$category} = [
-                reverse sort {
-                    ($stats->statistic('count.edit.type.' . $a->edit_type) // 0) <=>
-                        ($stats->statistic('count.edit.type.' . $b->edit_type) // 0)
-                    } @{ $by_category{$category} }
-                ];
-        }
+    for my $category (keys %by_category) {
+        $by_category{$category} = [
+            reverse sort {
+                ($stats->statistic('count.edit.type.' . $a->edit_type) // 0) <=>
+                    ($stats->statistic('count.edit.type.' . $b->edit_type) // 0)
+                } @{ $by_category{$category} }
+            ];
     }
 
     $c->stash(
