@@ -6,7 +6,7 @@ CREATE TABLE cover_art_archive.release_group_cover_art
     release             INTEGER NOT NULL
 );
 
-ALTER TABLE release_group_cover_art
+ALTER TABLE cover_art_archive.release_group_cover_art
    ADD PRIMARY KEY (release_group);
 
 ALTER TABLE cover_art_archive.release_group_cover_art

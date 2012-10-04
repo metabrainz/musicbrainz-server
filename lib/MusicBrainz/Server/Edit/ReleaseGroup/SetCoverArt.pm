@@ -2,8 +2,8 @@ package MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt;
 use Moose;
 use namespace::autoclean;
 
-use MooseX::Types::Moose qw( ArrayRef Str Int );
-use MooseX::Types::Structured qw( Dict Optional );
+use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
+use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_SET_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -31,7 +31,7 @@ sub alter_edit_pending {
 sub change_fields
 {
     return Dict[
-        release_id => Optional[Int],
+        release_id => Maybe[Int],
     ];
 }
 
@@ -52,11 +52,13 @@ sub initialize {
     my $rg = $opts{entity} or die 'Release Group missing';
     my $release = $opts{release} or die 'Release missing';
 
-    my %old = ( release_id => $opts{entity}->cover_art->release->id );
+    my %old;
     my %new = ( release_id => $opts{release}->id );
 
-    use Data::Dumper;
-    warn "initialize old/new: ".Dumper ({ old => \%old, new => \%new })."\n";
+    if ($opts{entity}->cover_art && $opts{entity}->cover_art->release)
+    {
+        $old{release_id} = $opts{entity}->cover_art->release->id;
+    }
 
     $self->data({
         entity => {

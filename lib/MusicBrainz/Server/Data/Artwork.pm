@@ -153,10 +153,10 @@ sub load_for_release_groups
         IN (" . placeholders(@ids) . ")
         AND is_front = true";
 
-    use Data::Dumper;
 
     $self->sql->select($query, @ids);
     while (my $row = $self->sql->next_row_hash_ref) {
+
         my $artwork = $self->_new_from_row ($row);
         $artwork->release (
             MusicBrainz::Server::Entity::Release->new (
