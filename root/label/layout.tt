@@ -14,7 +14,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" %]
                             [% label.begin_date.format %]
                             [% IF label.has_age AND not label.end_date.format %]
-                                ([% display_age (label.age) %] ago)
+                                ([% display_age_ago(label.age) %])
                             [% END %]
                         [% END %]
                     [%- END -%]
