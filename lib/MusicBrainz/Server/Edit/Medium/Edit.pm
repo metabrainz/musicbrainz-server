@@ -70,7 +70,7 @@ around _build_related_entities => sub {
                     join(':',
                          $track->{name},
                          $track->{length} || '?:??',
-                         $track->{recording_id},
+                         $track->{recording_id} // 0,
                          $track->{position},
                          join('', map {
                              $_->{artist}{id}, $_->{name}, $_->{join_phrase} || ''

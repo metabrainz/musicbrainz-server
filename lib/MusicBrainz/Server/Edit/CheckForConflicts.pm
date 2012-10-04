@@ -6,7 +6,6 @@ use namespace::autoclean;
 use Algorithm::Merge qw( merge );
 use JSON::Any;
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
-use MusicBrainz::Server::Log qw( log_debug );
 use Try::Tiny;
 
 =head1 NAME
@@ -146,7 +145,6 @@ sub merge_changes {
     }
     catch {
         if (eval { $_->isa('Conflict') }) {
-            log_debug { "Conflict detected: $_" } $_;
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('Data has changed since this edit was created, and now conflicts ' .
                               'with changes made in this edit.');

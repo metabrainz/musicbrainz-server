@@ -51,8 +51,7 @@ sub fetch {
             return @stats{@names};
         }
         else {
-            my $value = $stats{ $names[0] }
-                or warn "No statistics for '$names[0]'";
+            my $value = $stats{ $names[0] };
             return $value;
         }
     }

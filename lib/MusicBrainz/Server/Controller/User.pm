@@ -141,7 +141,6 @@ sub cookie_login : Private
         # IP address mask, sha1(previous fields + secret)
         elsif ($value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
         {
-            $c->log->info('Found version 2 format cookie');
             ($user_name, my $pass_sha1, my $expiry, my $ipmask, my $sha1)
                 = ($1, $2, $3, $4, $5);
 
@@ -152,7 +151,7 @@ sub cookie_login : Private
             die "Expired"
                 if time() > $expiry;
 
-            my $user = $c->model('Editor')->get_by_name($user_name) or last;
+            my $user = $c->model('Editor')->get_by_name($user_name) or return;
 
             my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
             die "Password sha1 do not match"

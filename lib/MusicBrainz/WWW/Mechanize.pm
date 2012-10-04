@@ -17,7 +17,7 @@ around '_make_request' => sub
     # So let's do it ourselves here, every request which results in a '401'
     # response is attempted again with the credentials set using ->credentials.
 
-    if ($response->headers->{status} eq '401')
+    if ($response->headers->{status} eq '401' && defined($response->headers->{'www-authenticate'}))
     {
         my $challenge = $response->headers->{'www-authenticate'};
         $challenge =~ tr/,/;/;
