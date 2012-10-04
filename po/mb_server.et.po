@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2012-10-01 13:49-0700\n"
-"PO-Revision-Date: 2012-10-02 08:40+0000\n"
+"PO-Revision-Date: 2012-10-03 12:52+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -2271,7 +2271,7 @@ msgstr "Plaadi-ID-d liigsete andmeradadega"
 
 #: ../root/release/edit/tracklist.tt:381
 msgid "Disc title"
-msgstr "Plaadi pealkiri"
+msgstr "Plaadi pealkiri:"
 
 #: ../root/release/edit/recordings.tt:251
 #: ../root/release/edit/tracklist.tt:354
@@ -4738,7 +4738,7 @@ msgstr ""
 msgid ""
 "Please <a href=\"{uri}\">update your profile</a> when you get time, to let "
 "other editors know a bit more about you."
-msgstr ""
+msgstr "Kui sul millalgi aega on, siis võiksid <a href=\"{uri}\">oma profiili täiendada</a>, et teised toimetajad sinu kohta veidi rohkem teada saaksid."
 
 #: ../root/main/500.tt:60
 msgid ""
@@ -4753,7 +4753,7 @@ msgstr "Palun vali tingimus"
 msgid ""
 "Please choose a valid image. Currently the Cover Art Archive only supports "
 "JPEG files."
-msgstr ""
+msgstr "Palun vali sobiv pilt. Hetkel lubab Kaanepildiarhiiv ainult JPEG-faile."
 
 #: ../root/scripts/text_strings.tt:45
 msgid "Please click lookup to search"
@@ -4943,19 +4943,19 @@ msgstr ""
 
 #: ../root/components/aliases.tt:67
 msgid "Please {log_in|log in} to add or edit aliases"
-msgstr ""
+msgstr "Aliase lisamiseks või muutmiseks {log_in|logi sisse}."
 
 #: ../root/recording/fingerprints.tt:39
 msgid "Please {login_url|log in} to edit these PUIDs."
-msgstr ""
+msgstr "Nende PUID-de muutmiseks {log_in|logi sisse}."
 
 #: ../root/release/discids.tt:57
 msgid "Please {login} to edit the disc IDs for this release."
-msgstr ""
+msgstr "Selle väljalaske plaadi-ID-de muutmiseks {login}."
 
 #: ../root/release/edit-links.tt:15
 msgid "Please {uri|log in} to edit this release"
-msgstr ""
+msgstr "Selle väljalaske muutmiseks {uri|logi sisse}."
 
 #: ../root/cdtoc/list.tt:4
 msgid "Position"
@@ -5399,7 +5399,7 @@ msgstr "Väljalaske pealkiri"
 
 #: ../root/release/edits.tt:20 ../root/release/header.tt:8
 msgid "Release by {artist}"
-msgstr "Väljalase — {artist}"
+msgstr "väljalase ~ {artist}"
 
 #: ../root/release/edit/information.tt:62
 msgid "Release event"
@@ -5413,7 +5413,7 @@ msgstr "Väljalaskerühm"
 
 #: ../root/release_group/edits.tt:20 ../root/release_group/header.tt:12
 msgid "Release group by {artist}"
-msgstr "Väljalaskerühm — {artist}"
+msgstr "väljalaskerühm ~ {artist}"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:42
 msgid "Release group external links"
@@ -6055,7 +6055,7 @@ msgstr "Vali allolevate otsingutulemuste hulgast sobiv ja klõpsa „Lisa plaat�
 msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved"
 " to."
-msgstr ""
+msgstr "Otsi üles väljalase, millele plaadi-ID „<code>{discid}</code>” teisaldada tuleks."
 
 #: ../root/user/contact.tt:20
 msgid "Send"
@@ -6825,7 +6825,7 @@ msgstr "Järgmised {count} kasutajat on seosetoimetajad:"
 
 #: ../root/user/privileged.tt:37
 msgid "The following {count} users are transclusion editors:"
-msgstr ""
+msgstr "Järgnevad {count} kasutajat on transklusioonitoimetajad:"
 
 #: ../root/user/privileged.tt:23
 msgid "The following {count} users have auto-editor privileges:"
@@ -6893,7 +6893,7 @@ msgstr ""
 #: ../root/elections/show.tt:26
 msgid ""
 "The tally of votes cast will only be shown when the election is complete."
-msgstr ""
+msgstr "häältearvestust näidatakse pärast valimise lõppu."
 
 #: ../root/freedb/show.tt:55
 msgid ""
@@ -7024,7 +7024,7 @@ msgstr "Ilmnes vähemalt üks viga, palun vaata üle järgnevad väljad: {fields
 
 #: ../root/release/cover_art.tt:37
 msgid "These images provided by the {caa|Cover Art Archive}."
-msgstr "Piltidega on varustanud {caa|Kaanepildiarhiiv}."
+msgstr "Pildid on pärit {caa|Kaanepildiarhiiv}ist."
 
 #: ../root/cdstub/edit_form.tt:9
 msgid "This CD has tracks from more than one artist (e.g. a compilation CD)"
@@ -7918,21 +7918,21 @@ msgstr ""
 
 #: ../root/admin/wikidoc/index.tt:52 ../root/admin/wikidoc/index.tt:54
 msgid "Transclusion Table"
-msgstr ""
+msgstr "Transklusioonitabel"
 
 #: ../root/admin/edit_user.tt:8
 msgid "Transclusion editor"
-msgstr ""
+msgstr "Transklusioonitoimetaja"
 
 #: ../root/user/privileged.tt:34
 msgid "Transclusion editors"
-msgstr ""
+msgstr "Transklusioonitoimetajad"
 
 #: ../root/user/privileged.tt:35
 msgid ""
 "Transclusion editors are users who add and maintain entries in the "
 "{uri|WikiDocs} transclusion table."
-msgstr ""
+msgstr "Transklusioonitoimetajad on kasutajad, kes lisavad ja hooldavad kirjeid {uri|WikiDocs}i transklusioonitabelis."
 
 #: ../root/report/index.tt:60
 msgid ""
@@ -8820,7 +8820,7 @@ msgstr ""
 
 #: ../root/user/login.tt:7
 msgid "You need to be logged in to view this page."
-msgstr "Selle lehe nägemiseks pead esmalt sisse logima."
+msgstr "Sellele lehele pääsemiseks pead sisse logima."
 
 #: ../root/release/edit/information.tt:162
 msgid "You selected {label}."
@@ -8832,23 +8832,23 @@ msgstr "Valitud on „{releasegroup}”."
 
 #: ../root/account/donation.tt:22
 msgid "You will never be nagged again!"
-msgstr ""
+msgstr "Sind ei tüüdata enam kunagi!"
 
 #: ../root/account/donation.tt:18
 msgid "You will not be nagged for another {days} days."
-msgstr ""
+msgstr "Sind ei tüüdata järgmised {days} päeva."
 
 #: ../root/user/email_sent.tt:5
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
-msgstr ""
+msgstr "Sinu e-kiri on edukalt saadetud. Kasutaja {user} lehele minemiseks klõpsa {link|siin}."
 
 #: ../root/account/change_password_ok.tt:5
 msgid ""
 "Your password has been changed. Click {link|here} to continue to your user "
 "page."
-msgstr ""
+msgstr "Sinu parool on muudetud. Oma kasutajalehele minemiseks klõpsa {link|siin}."
 
 #: ../root/account/reset_password_ok.tt:5
 msgid "Your password has been reset."
@@ -8858,7 +8858,7 @@ msgstr "Su parool on lähtestatud."
 msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user"
 " page."
-msgstr ""
+msgstr "Sinu eelistused on salvestatud. Oma kasutajalehele minemiseks klõpsa {link|siin}."
 
 #: ../root/account/edit_ok.tt:6
 msgid "Your profile has been updated."
@@ -8866,7 +8866,7 @@ msgstr "Su profiil on uuendatud."
 
 #: ../root/search/error/invalid.tt:3
 msgid "Your search query was deemed invalid by our ruthless search server."
-msgstr ""
+msgstr "Meie halastamatu otsnguserver hindas su päringu sobimatuks."
 
 #: ../root/account/register.tt:27
 msgid "Your username will be publicly visible."
@@ -9270,7 +9270,7 @@ msgstr[1] ""
 
 #: ../root/user/profile.tt:45
 msgid "{doc|Auto-Editor}"
-msgstr "{doc|Vanemtoimetaja}"
+msgstr "{doc|vanemtoimetaja}"
 
 #: ../root/cdstub/index.tt:13
 msgid "{doc|Disc ID}:"
@@ -9278,11 +9278,11 @@ msgstr "{doc|Plaadi-ID}:"
 
 #: ../root/user/profile.tt:47
 msgid "{doc|Relationship Editor}"
-msgstr "{doc|Seosetoimetaja}"
+msgstr "{doc|seosetoimetaja}"
 
 #: ../root/user/profile.tt:48
 msgid "{doc|Transclusion Editor}"
-msgstr ""
+msgstr "{doc|transklusioonitoimetaja}"
 
 #: ../root/user/subscriptions/subscriptions.tt:12
 msgid "{editor} is subscribed to:"
@@ -10150,22 +10150,22 @@ msgstr "Oodatakse 2. sekundanti"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:91
 #, perl-brace-format
 msgid "Voting open since {date}"
-msgstr "Hääletamine avatud alates {date}"
+msgstr "hääletamine avatud alates {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:92
 #, perl-brace-format
 msgid "Accepted at {date}"
-msgstr "Vastuvõetud {date}"
+msgstr "vastuvõetud {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:93
 #, perl-brace-format
 msgid "Declined at {date}"
-msgstr "Keeldutud {date}"
+msgstr "keeldutud {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:94
 #, perl-brace-format
 msgid "Cancelled at {date}"
-msgstr "Tühistatud {date}"
+msgstr "tühistatud {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:100
 msgid "Voting open"
@@ -10423,15 +10423,15 @@ msgstr "Vanuse näitamiseks pead sisestama täieliku sünnikuupäeva."
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:81
 msgid "Daily"
-msgstr "Iga päev"
+msgstr "iga päev"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:82
 msgid "Weekly"
-msgstr "Iga nädal"
+msgstr "iga nädal"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:83
 msgid "Never"
-msgstr "Mitte kunagi"
+msgstr "mitte kunagi"
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:43
 msgid "Please choose another username, this one is already taken"

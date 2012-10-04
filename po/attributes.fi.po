@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-27 12:51+0000\n"
-"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
+"PO-Revision-Date: 2012-10-03 11:05+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,6 +57,11 @@ msgctxt "release_group_secondary_type"
 msgid "Audiobook"
 msgstr "Äänikirja"
 
+#: DB:cover_art_archive.art_type/name:2
+msgctxt "cover_art_type"
+msgid "Back"
+msgstr ""
+
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
@@ -71,6 +76,11 @@ msgstr "Betamax"
 msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
+
+#: DB:cover_art_archive.art_type/name:3
+msgctxt "cover_art_type"
+msgid "Booklet"
+msgstr ""
 
 #: DB:release_status/name:3
 msgctxt "release_status"
@@ -187,6 +197,11 @@ msgctxt "gender"
 msgid "Female"
 msgstr "Nainen"
 
+#: DB:cover_art_archive.art_type/name:1
+msgctxt "cover_art_type"
+msgid "Front"
+msgstr ""
+
 #: DB:artist_type/name:2
 msgctxt "artist_type"
 msgid "Group"
@@ -257,6 +272,11 @@ msgctxt "work_type"
 msgid "Mass"
 msgstr "Messu"
 
+#: DB:cover_art_archive.art_type/name:4
+msgctxt "cover_art_type"
+msgid "Medium"
+msgstr ""
+
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
@@ -276,6 +296,11 @@ msgstr "Motetti"
 msgctxt "release_packaging"
 msgid "None"
 msgstr "Ei mitään"
+
+#: DB:cover_art_archive.art_type/name:5
+msgctxt "cover_art_type"
+msgid "Obi"
+msgstr ""
 
 #: DB:release_status/name:1
 msgctxt "release_status"
@@ -301,6 +326,11 @@ msgstr "Alkuperäinen tuotanto"
 msgctxt "artist_type"
 msgid "Other"
 msgstr "Muu"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
+msgid "Other"
+msgstr ""
 
 #: DB:gender/name:3
 msgctxt "gender"
@@ -433,10 +463,20 @@ msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
+#: DB:cover_art_archive.art_type/name:6
+msgctxt "cover_art_type"
+msgid "Spine"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr "Puhe"
+
+#: DB:cover_art_archive.art_type/name:10
+msgctxt "cover_art_type"
+msgid "Sticker"
+msgstr ""
 
 #: DB:work_type/name:6
 msgctxt "work_type"
@@ -452,6 +492,16 @@ msgstr "Sinfoninen runo"
 msgctxt "work_type"
 msgid "Symphony"
 msgstr "Sinfonia"
+
+#: DB:cover_art_archive.art_type/name:7
+msgctxt "cover_art_type"
+msgid "Track"
+msgstr ""
+
+#: DB:cover_art_archive.art_type/name:9
+msgctxt "cover_art_type"
+msgid "Tray"
+msgstr ""
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"
