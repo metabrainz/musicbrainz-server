@@ -24,7 +24,7 @@ CREATE TABLE cover_art_type (
 CREATE TABLE cover_art_archive.release_group_cover_art
 (
     release_group       INTEGER NOT NULL, -- PK, references release_group.id
-    release             INTEGER NOT NULL
+    release             INTEGER NOT NULL  -- FK, references release.id
 );
 
 COMMIT;
