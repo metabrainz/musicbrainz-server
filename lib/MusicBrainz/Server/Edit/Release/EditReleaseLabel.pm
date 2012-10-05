@@ -3,7 +3,7 @@ use Moose;
 use 5.10.0;
 
 use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Int Str ArrayRef );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Exceptions;
@@ -26,6 +26,7 @@ sub alter_edit_pending { { Release => [ shift->release_id ] } }
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::MediumFormat';
 
 subtype 'ReleaseLabelHash'
     => as Dict[
@@ -46,6 +47,7 @@ has '+data' => (
             country => Nullable[Str],
             barcode => Nullable[Str],
             combined_format => Nullable[Str],
+            medium_formats => Nullable[ArrayRef[Str]],
         ],
         new => find_type_constraint('ReleaseLabelHash'),
         old => find_type_constraint('ReleaseLabelHash')
@@ -71,28 +73,14 @@ sub process_medium_formats
 {
     my ($self, $format_names) = @_;
 
-    my @format_names = split(', ', $format_names);
-    @format_names = @format_names[1..scalar @format_names-1];
-
-    my @formats_expand;
-    for my $format (@format_names) {
-        unless ($format eq '(unknown)') {
-            push @formats_expand, $format;
-        }
-    }
-
-    my %format_map = map {
-        $_->name => $_->l_name
-    } $self->c->model('MediumFormat')->get_all;
-
     return combined_medium_format_name(map {
         if ($_ eq '(unknown)') {
             l('(unknown)');
         }
         else {
-            $format_map{$_};
+            MediumFormat->new(name => $_)->l_name;
         }
-        } @format_names);
+        } @$format_names);
 }
 
 sub build_display_data
@@ -108,8 +96,8 @@ sub build_display_data
         extra => $self->data->{release}
     };
 
-    if ($data->{extra}{combined_format} =~ m/, /) {
-        $data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{combined_format});
+    if ($data->{extra}{medium_formats}) {
+        $data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{medium_formats});
     }
 
     if (looks_like_number($data->{extra}{country})) {
@@ -183,8 +171,7 @@ sub initialize
         release => {
             id => $release_label->release->id,
             name => $release_label->release->name,
-            # first entry is to ensure this format is matched when postprocessing
-            combined_format => 'LIST_OF_FORMATS, ' . join(', ', map { defined $_->format ? $_->format->name : '(unknown)' } $release_label->release->all_mediums),
+            medium_formats => [ map { defined $_->format ? $_->format->name : '(unknown)' } $release_label->release->all_mediums ]
         },
         $self->_change_data($release_label, %opts),
     };
