@@ -1,13 +1,13 @@
 BEGIN;
 
-UPDATE artist SET comment = '' WHERE comment is NULL;
-UPDATE label SET comment = '' WHERE comment is NULL;
-UPDATE recording SET comment = '' WHERE comment is NULL;
-UPDATE release SET comment = '' WHERE comment is NULL;
-UPDATE release_raw SET comment = '' WHERE comment is NULL;
-UPDATE release_group SET comment = '' WHERE comment is NULL;
-UPDATE work SET comment = '' WHERE comment is NULL;
+ALTER TABLE artist ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');
+ALTER TABLE label ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');
+ALTER TABLE recording ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');
+ALTER TABLE release ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');
+ALTER TABLE release_raw ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');
+ALTER TABLE release_group ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');
+ALTER TABLE work ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');
 
-UPDATE artist_credit_name SET join_phrase = '' WHERE join_phrase is NULL;
+ALTER TABLE artist_credit_name ALTER COLUMN join_phrase TYPE text USING coalesce(join_phrase, '');
 
 COMMIT;

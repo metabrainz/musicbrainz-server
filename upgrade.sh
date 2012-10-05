@@ -34,8 +34,11 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120220-merge-duplicate-cr
 echo `date` : Applying admin/sql/updates/20120822-more-text-constraints.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120822-more-text-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : Applying admin/sql/updates/20120911-not-null-comments.sql
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    echo `date` : Applying admin/sql/updates/20120911-not-null-comments.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+fi
 
 ################################################################################
 # Re-enable replication
@@ -57,7 +60,7 @@ then
    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120822-more-text-constraints-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
    echo `date` : Applying admin/sql/updates/20120911-not-null-comments-master.sql
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+   OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
