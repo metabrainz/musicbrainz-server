@@ -52,4 +52,28 @@ test 'Set cover art' => sub {
     isa_ok ($exception, 'MusicBrainz::Server::Edit::Exceptions::NoChanges');
 };
 
+test 'Set cover art fails if release no longer exists' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+caa');
+    my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+    $c->model('Artwork')->load_for_release_groups ($rg);
+
+    my $release = $c->model('Release')->get_by_id(1);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_SET_COVER_ART,
+        editor_id => 1,
+        release => $release,
+        entity => $rg,
+    );
+
+    $c->model('Release')->delete ($release->id);
+
+    my $exception = exception { $edit->accept };
+    ok($exception, "An exception occured when accepting the edit");
+    isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency',
+        "... and is a failed dependancy");
+};
 

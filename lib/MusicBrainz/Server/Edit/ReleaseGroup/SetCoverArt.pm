@@ -73,8 +73,17 @@ sub initialize {
 sub accept {
     my $self = shift;
 
-    $self->c->model ('ReleaseGroup')->set_cover_art (
-        $self->data->{entity}{id}, $self->data->{new}{release_id});
+    my $release = $self->c->model('Release')->get_by_id($self->data->{new}{release_id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This release no longer exists'
+        );
+
+    my $rg = $self->c->model('ReleaseGroup')->get_by_id($self->data->{entity}{id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This release group no longer exists'
+        );
+
+    $self->c->model ('ReleaseGroup')->set_cover_art ($rg->id, $release->id);
 }
 
 sub foreign_keys {
