@@ -202,7 +202,7 @@ MB.utility.formatTrackLength = function (duration)
     var hours = 60 * minutes;
 
     var hours_str = '';
-    duration = duration + 0.5;
+    duration = duration + 500;
 
     if (duration > 1 * hours)
     {
