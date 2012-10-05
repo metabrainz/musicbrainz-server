@@ -65,6 +65,7 @@ sub foreign_keys
 
     $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
     $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
+    $keys->{Country}->{ $self->data->{release}{country} } = [] if looks_like_number($self->data->{release}{country});
 
     return $keys;
 };
@@ -101,7 +102,7 @@ sub build_display_data
     }
 
     if (looks_like_number($data->{extra}{country})) {
-        $data->{extra}{country} = $self->c->model('Country')->get_by_id($data->{extra}{country})->l_name;
+        $data->{extra}{country} = $loaded->{Country}->{ $data->{extra}{country} }->l_name if $loaded->{Country}->{$data->{extra}{country}};
     }
 
     for (qw( new old )) {
