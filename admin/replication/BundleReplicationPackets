@@ -72,7 +72,8 @@ Usage: BundleReplicationPackets root-directory [options]
                       previous packet)
     --limit           how many packets to include (default:
                       include all packets until present
-    --output          output directory for finished packet (default same as root)
+    --output          output directory for finished packet
+                      (default: root-directory/period)
 EOF
 }
 
@@ -80,7 +81,7 @@ usage(), exit if $fHelp;
 usage(), exit 2 if !@ARGV;
 
 my $rootdir = shift @ARGV;
-$outputdir ||= $rootdir;
+$outputdir ||= "$rootdir/$period";
 my $num = shift @ARGV;
 
 my @sequences = <$rootdir/replication-*.tar.bz2>;
@@ -90,15 +91,15 @@ my @sequences = <$rootdir/replication-*.tar.bz2>;
 
 # Don't look at the directory if we've been given a start sequence
 if (!$start) {
-    my @period_sequences = <$rootdir/replication-$period-*.tar.bz2>;
-    @period_sequences = reverse sort map { s%$rootdir/replication-$period-(\d+).tar.bz2%$1%; $_; } @period_sequences;
+    my @period_sequences = <$outputdir/replication-$period-*.tar.bz2>;
+    @period_sequences = reverse sort map { s%$outputdir/replication-$period-(\d+).tar.bz2%$1%; $_; } @period_sequences;
 
     if (scalar @period_sequences) {
         # Open up the most recent one for this period to determine where to start
         my $period_mostrecent = $period_sequences[0];
 
         print localtime() . " : Inspecting most recent '$period' packet ($period_mostrecent)\n";
-        my $localfile = "$rootdir/replication-$period-$period_mostrecent.tar.bz2";
+        my $localfile = "$outputdir/replication-$period-$period_mostrecent.tar.bz2";
         my $periodcheckdir = tempdir('periodcheck-XXXXXX', DIR => $tmpdir);
 
         extract_tar($localfile, $periodcheckdir);
