@@ -49,8 +49,11 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-drop-url-descripti
 echo `date` : Applying admin/sql/updates/20120922-move-statistics-tables.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120922-move-statistics-tables.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : Applying admin/sql/updates/20120911-not-null-comments.sql
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    echo `date` : Applying admin/sql/updates/20120911-not-null-comments.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+fi
 
 echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
