@@ -71,7 +71,7 @@ MB.Control.RelateTo = function () {
                 type1: cleanType(self.selected_item.type),
                 entity0: self.$gid0.val (),
                 entity1: self.selected_item.gid,
-                returnto: $self.returnto.val()
+                returnto: self.returnto.val()
             });
 
         window.location = location + '?' + query_string;
