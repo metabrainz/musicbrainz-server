@@ -153,7 +153,7 @@ NEXT_PACKET:
 my $iNextReplicationSequence = $iReplicationSequence + 1;
 my $file = "replication-$iNextReplicationSequence.tar.bz2";
 if ($period ne 'hourly') {
-    $file = "replication-$period-$iNextReplicationSequence.tar.bz2";
+    $file = "$period/replication-$period-$iNextReplicationSequence.tar.bz2";
 }
 my $url = "$baseuri/$file";
 my $localfile = "$tmpdir/$file";
