@@ -1,2 +1,1 @@
-<p>[% l('View the {doc|alias documentation} for help with aliases.', { doc => doc_link('Alias') }) %]</p>
 [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id = 3%]
