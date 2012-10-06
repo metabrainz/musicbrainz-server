@@ -472,8 +472,7 @@ sub edit : Chained('load') RequireAuth Edit {
                     $c->model('EditNote')->add_note(
                         $ac_edit->id,
                         {
-                            text => l('The artist name has been changed in edit #{id}.',
-                                      { id => $edit->id }),
+                            text => "The artist name has been changed in edit #${$edit->id}.",
                             editor_id => $EDITOR_MODBOT
                         }
                     );
@@ -635,8 +634,7 @@ sub split : Chained('load') Edit {
                 $c->model('EditNote')->add_note(
                     $rem->id,
                     {
-                        text => l('This collaboration has been split in edit #{id}.',
-                                  { id => $edit->id }),
+                        text => "This collaboration has been split in edit #${$edit->id}.",
                         editor_id => $EDITOR_MODBOT
                     }
                 );
