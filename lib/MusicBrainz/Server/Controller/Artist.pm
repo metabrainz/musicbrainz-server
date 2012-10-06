@@ -456,6 +456,7 @@ sub edit : Chained('load') RequireAuth Edit {
         post_creation => sub {
             my ($edit, $form) = @_;
 
+            my $editid = $edit->id;
             my $name = $form->field('name')->value;
             if ($name ne $artist->name) {
                 my %rename = %{ $form->rename_artist_credit_set };
@@ -472,7 +473,7 @@ sub edit : Chained('load') RequireAuth Edit {
                     $c->model('EditNote')->add_note(
                         $ac_edit->id,
                         {
-                            text => "The artist name has been changed in edit #${$edit->id}.",
+                            text => "The artist name has been changed in edit #$editid.",
                             editor_id => $EDITOR_MODBOT
                         }
                     );
@@ -616,6 +617,7 @@ sub split : Chained('load') Edit {
         post_creation => sub {
             my ($edit) = @_;
 
+            my $editid = $edit->id;
             my %artists = map { $_ => 1 } $edit->new_artist_ids;
 
             for my $relationship (grep {
@@ -634,7 +636,7 @@ sub split : Chained('load') Edit {
                 $c->model('EditNote')->add_note(
                     $rem->id,
                     {
-                        text => "This collaboration has been split in edit #${$edit->id}.",
+                        text => "This collaboration has been split in edit #$editid.",
                         editor_id => $EDITOR_MODBOT
                     }
                 );
