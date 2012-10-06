@@ -67,7 +67,7 @@ my %AlbumAttributeNames = (
     10 => [ "Remix", "Remixes", l("A release that was (re)mixed from previously released material.")],
     11 => [ "Other", "Other Releases", l("Any release that does not fit any of the categories above.")],
 
-    100 => [ "Official", "Official", l("Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"_],
+    100 => [ "Official", "Official", l("Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)") ],
     101 => [ "Promotion", "Promotions", l("A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)")],
     102 => [ "Bootleg", "Bootlegs", l("An unofficial/underground release that was not sanctioned by the artist and/or the record company.")],
     103 => [ "Pseudo-Release", "PseudoReleases", l("A pseudo-release is a duplicate release for translation/transliteration purposes.")]

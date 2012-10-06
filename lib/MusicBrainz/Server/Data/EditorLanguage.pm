@@ -92,6 +92,11 @@ sub set_languages {
     $self->c->sql->commit;
 }
 
+sub delete_editor {
+    my ($self, $editor_id) = @_;
+    $self->sql->do("DELETE FROM editor_language WHERE editor = ?", $editor_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

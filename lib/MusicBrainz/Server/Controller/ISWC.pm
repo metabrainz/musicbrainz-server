@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::ISWC;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_REMOVE_ISWC );
-use MusicBrainz::Server::Validation qw( is_valid_iswc );
+use MusicBrainz::Server::Validation qw( format_iswc is_valid_iswc );
 use List::UtilsBy qw( sort_by );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
@@ -16,6 +16,7 @@ sub base : Chained('/') PathPart('iswc') CaptureArgs(0) { }
 sub _load : Chained('/') PathPart('iswc') CaptureArgs(1)
 {
     my ($self, $c, $iswc) = @_;
+    $iswc = format_iswc($iswc);
     return unless (is_valid_iswc($iswc));
 
     my @iswcs = $c->model('ISWC')->find_by_iswc($iswc)

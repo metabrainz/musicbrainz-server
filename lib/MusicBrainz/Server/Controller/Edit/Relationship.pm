@@ -29,7 +29,7 @@ sub build_type_info
                 defined $_->max ? 0 + $_->max : undef,
             ] } $root->all_attributes;
             $info->{$root->id} = {
-                descr => $root->description,
+                descr => $root->l_description,
                 attrs => \%attrs,
             };
         }

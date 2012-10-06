@@ -32,6 +32,7 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Tag;
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -189,7 +190,8 @@ sub search
         $use_hard_search_limit = 0;
     }
     elsif ($type eq 'editor') {
-        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+        $query = "SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
+                    email
                   FROM editor, plainto_tsquery('mb_simple', ?) AS query
                   WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                   ORDER BY rank DESC
@@ -625,9 +627,7 @@ sub external_search
         {
             foreach my $result (@results)
             {
-                $result->{type} = ref($result->{entity}->{parent});
-                $result->{type} =~ s/MusicBrainz::Server::Entity:://;
-                $result->{type} = lc($result->{type});
+                $result->{type} = ref_to_type($result->{entity}->{parent});
             }
         }
 

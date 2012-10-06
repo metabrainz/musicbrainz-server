@@ -30,6 +30,29 @@ has 'medium' => (
     isa => 'Medium'
 );
 
+=head2 length
+
+Return the duration of the tracklist in microseconds.
+(or undef if the duration of one or more tracks is not known).
+
+=cut
+
+sub length {
+    my $self = shift;
+
+    my $length = 0;
+
+    for my $trk ($self->all_tracks)
+    {
+        return undef unless defined $trk->length;
+
+        $length += $trk->length;
+    }
+
+    return $length;
+}
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

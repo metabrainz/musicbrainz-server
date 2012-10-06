@@ -61,7 +61,14 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       port            => "",
     },
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
-    # READONLY => undef,
+    READONLY => {
+        database    => "musicbrainz_db",
+        schema          => "musicbrainz",
+        username    => "musicbrainz",
+        password        => "musicbrainz",
+#       host            => "",
+#       port            => "",
+    },
     # How to connect for administrative access
     SYSTEM    => {
         database    => "template1",
@@ -86,6 +93,9 @@ sub DB_SCHEMA_SEQUENCE { 15 }
 #               by applying the next replication packet in turn.  If the slave
 #               server is not going to be used for development work, change
 #               DB_STAGING_SERVER to 0.
+#
+#               A READONLY database connection must be configured if you
+#               choose RT_SLAVE, as well as the usual READWRITE.
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 use MusicBrainz::Server::Replication ':replication_type';
@@ -344,7 +354,7 @@ sub GOOGLE_ANALYTICS_CODE { '' }
 # If you're using multiple front-end webservers make sure they all connect to
 # the same memcached server.  Also make sure enough memory is configured for
 # memcached so sessions aren't evicted from the cache.
-sub SESSION_STORE { "Session::Store::Memcached" }
+sub SESSION_STORE { "Session::Store::MusicBrainz" }
 sub SESSION_STORE_ARGS
 {
     return {
@@ -376,6 +386,10 @@ sub DEVELOPMENT_SERVER { 1 }
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages
 sub MB_LANGUAGES {qw()}
+
+# Should the site fall back to browser settings when trying to set a language
+# (note: will still only use languages in MB_LANGUAGES)
+sub LANGUAGE_FALLBACK_TO_BROWSER{ 1 }
 
 # Private, please do not change
 sub _RUNNING_TESTS { 0 }
