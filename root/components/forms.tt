@@ -162,9 +162,9 @@
 
 [%- MACRO guesscase BLOCK -%]
   <fieldset class="guesscase">
-    <legend>[% l('Guess case') %]</legend>
+    <legend>[% lp('Guess case', 'header') %]</legend>
     <div style="float: right; margin: 10px;" class="buttons">
-      <a href="#guesscase">[% l('Guess case') %]</a>
+      <a href="#guesscase">[% lp('Guess case', 'button') %]</a>
     </div>
     <p class="guesscase-options">
         <select name="gc-mode" id="gc-mode"> </select>
@@ -185,7 +185,7 @@
         [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
       </p>
       <div class="buttons">
-        <a href="#guesscase">[% l('Guess case') %]</a>
+        <a href="#guesscase">[% lp('Guess case', 'button') %]</a>
       </div>
       <div class="guesscase-options">
         <table>
