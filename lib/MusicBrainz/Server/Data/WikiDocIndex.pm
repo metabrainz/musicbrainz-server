@@ -135,12 +135,15 @@ sub get_wiki_versions
 {
     my ($self, $index) = @_;
 
-    my @keys = keys %$index;
+    my @keys;
+    foreach my $key (sort { lc $a cmp lc $b } keys %$index) {
+        push @keys, $key;
+    }
+
     my @wiki_pages;
 
     while (@keys) {
-        # The API can only process 50 pages at a time, lets be conservative.
-        my $query = join ('|', splice(@keys, 0, 40));
+        my $query = join ('|', splice(@keys, 0, 50));
 
         if (!defined &DBDefs::WIKITRANS_SERVER_API) {
             warn 'WIKITRANS_SERVER_API must be defined within DBDefs.pm';
