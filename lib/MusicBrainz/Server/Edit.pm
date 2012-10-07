@@ -144,7 +144,7 @@ sub editor_may_vote
     my ($self, $editor) = @_;
     return $self->is_open &&
            defined $editor && $editor->id != $self->editor_id &&
-           !$editor->is_limited;
+           !$editor->is_limited && !$editor->is_bot;
 }
 
 sub editor_may_add_note
