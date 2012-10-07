@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-03 12:37+0000\n"
+"PO-Revision-Date: 2012-10-05 13:41+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -382,7 +382,7 @@ msgstr "toodang"
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
-msgstr "reklaam"
+msgstr "promo"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
