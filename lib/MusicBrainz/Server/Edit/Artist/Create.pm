@@ -34,7 +34,6 @@ has '+data' => (
         end_date   => Nullable[PartialDateHash],
         ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
-        isni_code   => Nullable[Str],
         isni_codes  => Optional[ArrayRef[Str]],
         ended      => Optional[Bool]
     ]
@@ -75,7 +74,7 @@ sub build_display_data
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||
             Artist->new( name => $self->data->{name} ),
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
-        isni_codes   => $self->data->{isni_codes} // [ $self->data->{isni_code} // () ],
+        isni_codes   => $self->data->{isni_codes},
         ended      => $self->data->{ended} // 0
     };
 }

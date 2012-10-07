@@ -149,8 +149,6 @@ sub format_isni
 {
     my $isni = shift;
     $isni =~ s/[\s\.]//g;
-    # FIXME
-    #$isni =~ s/^(\d{4})(\d{4})(\d{4})(\d{3})([\dX])/$1 $2 $3 $4$5/;
     return $isni;
 }
 

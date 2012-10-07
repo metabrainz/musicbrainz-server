@@ -33,7 +33,6 @@ has '+data' => (
         comment      => Nullable[Str],
         ipi_code     => Nullable[Str],
         ipi_codes    => Optional[ArrayRef[Str]],
-        isni_code     => Nullable[Str],
         isni_codes    => Optional[ArrayRef[Str]],
         ended        => Optional[Bool]
     ]
@@ -72,7 +71,7 @@ sub build_display_data
                         $loaded->{Country}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
-        isni_codes   => $self->data->{isni_codes} // [ $self->data->{isni_code} // () ],
+        isni_codes   => $self->data->{isni_codes},
         begin_date => partial_date_from_row($self->data->{begin_date}),
         end_date   => partial_date_from_row($self->data->{end_date}),
         ended      => $self->data->{ended}

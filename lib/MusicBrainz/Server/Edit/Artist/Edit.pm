@@ -45,7 +45,6 @@ sub change_fields
         comment    => Nullable[Str],
         ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
-        isni_code   => Nullable[Str],
         isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
@@ -89,7 +88,6 @@ sub build_display_data
         name       => 'name',
         sort_name  => 'sort_name',
         ipi_code   => 'ipi_code',
-        isni_code   => 'isni_code',
         comment    => 'comment',
         ended      => 'ended'
     );
@@ -192,13 +190,8 @@ sub allow_auto_edit
                                                     $self->data->{new}{ipi_code});
         return 0 if $new_ipi ne $old_ipi;
     }
-    return 0 if $self->data->{new}{isni_codes};
+    return 0 if $self->data->{new}{ipi_codes};
 
-    if ($self->data->{old}{isni_code}) {
-        my ($old_isni, $new_isni) = normalise_strings($self->data->{old}{isni_code},
-                                                    $self->data->{new}{isni_code});
-        return 0 if $new_isni ne $old_isni;
-    }
     return 0 if $self->data->{new}{isni_codes};
 
     return 1;
