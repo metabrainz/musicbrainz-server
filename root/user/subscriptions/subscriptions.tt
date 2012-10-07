@@ -1,6 +1,6 @@
-[%- MACRO subscription_summary(msgid, text, stat) BLOCK -%]
+[%- MACRO subscription_summary(single, plural, stat) BLOCK -%]
   [%- IF stat > 0 -%]
-    <li>[% ln(msgid, plural, stat, { num => stat }) %]</li>
+    <li>[% ln(single, plural, stat, { num => stat }) %]</li>
   [%- END -%]
 [%- END -%]
 
