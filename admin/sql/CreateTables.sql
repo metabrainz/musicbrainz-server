@@ -1199,7 +1199,8 @@ CREATE TABLE release_group_secondary_type (
 
 CREATE TABLE release_group_secondary_type_join (
     release_group INTEGER NOT NULL, -- PK, references release_group.id,
-    secondary_type INTEGER NOT NULL -- PK, references release_group_secondary_type.id
+    secondary_type INTEGER NOT NULL, -- PK, references release_group_secondary_type.id
+    created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
 CREATE TABLE release_name (
