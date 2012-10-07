@@ -605,29 +605,29 @@ END -%]
 END -%]
 
 [%- MACRO expiration_time(datetime) BLOCK -%]
-    [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
-        [% IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days %]
-            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
+    [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
+        [%- IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days -%]
+            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
                   Countdown.total_days(datetime),
                 { num => Countdown.total_days(datetime),
-                  exactdate => UserDate.format(datetime) }) %]
-        [% ELSIF Countdown.hours(datetime) > 0 # Show hours %]
-            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
+                  exactdate => UserDate.format(datetime) }) -%]
+        [%- ELSIF Countdown.hours(datetime) > 0 # Show hours -%]
+            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} hours</span>',
                   Countdown.hours(datetime),
                 { num => Countdown.hours(datetime),
-                  exactdate => UserDate.format(datetime) }) %]
-        [% ELSE # Only show minutes %]
-            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
+                  exactdate => UserDate.format(datetime) }) -%]
+        [%- ELSE # Only show minutes -%]
+            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} minutes</span>',
                   Countdown.minutes(datetime),
                 { num => Countdown.minutes(datetime),
-                  exactdate => UserDate.format(datetime) }) %]
-        [% END %]
-    [% ELSE %]
+                  exactdate => UserDate.format(datetime) }) -%]
+        [%- END -%]
+    [%- ELSE -%]
         [% l('Already expired') %]
-    [% END %]
+    [%- END -%]
 [%- END -%]
 
 [%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
