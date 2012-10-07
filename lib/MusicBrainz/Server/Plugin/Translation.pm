@@ -40,8 +40,6 @@ sub ln {
     }
 }
 
-sub N_ln { shift; return @_; }
-
 sub lp {
     my ($self, $msgid, $msgctxt, $vars) = @_;
 
@@ -51,5 +49,9 @@ sub lp {
     return MusicBrainz::Server::Translation::lp($msgid, $msgctxt, $vars);
     }
 }
+
+sub N_l { shift; return @_; }
+sub N_ln { shift; return @_; }
+sub N_lp { shift; return @_; }
 
 1;

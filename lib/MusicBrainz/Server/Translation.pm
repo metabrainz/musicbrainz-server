@@ -15,9 +15,9 @@ use List::UtilsBy qw( sort_by );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l )],
+    exports => [qw( l lp ln N_l N_ln N_lp )],
     groups => {
-        default => [qw( l lp ln N_l )]
+        default => [qw( l lp ln N_l N_ln N_lp )]
     }
 };
 
@@ -37,10 +37,12 @@ has 'bound' => (
     default => 0
 );
 
-sub N_l { __PACKAGE__->instance->nop_gettext(@_) }
-sub l { __PACKAGE__->instance->gettext(@_) }
-sub lp { __PACKAGE__->instance->pgettext(@_) }
-sub ln { __PACKAGE__->instance->ngettext(@_) }
+sub N_l  { __PACKAGE__->instance->nop_gettext(@_) }
+sub N_lp { __PACKAGE__->instance->nop_gettext(@_) }
+sub N_ln { __PACKAGE__->instance->nop_gettext(@_) }
+sub l    { __PACKAGE__->instance->gettext(@_) }
+sub lp   { __PACKAGE__->instance->pgettext(@_) }
+sub ln   { __PACKAGE__->instance->ngettext(@_) }
 
 sub _bind_domain
 {
