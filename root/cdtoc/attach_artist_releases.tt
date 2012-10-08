@@ -19,8 +19,8 @@ $(document).ready (function () {
 </script>
 [% END %]
 
-[% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
-  <h1>[% l('Attach CD TOC') %]</h1>
+[% WRAPPER 'layout.tt' title=lp('Attach CD TOC', 'header') full_width=1 %]
+  <h1>[% lp('Attach CD TOC', 'header') %]</h1>
   <p>[% l('You are viewing releases by {artist}.', { artist => link_entity(artist) }) %]</p>
   [% IF releases.size %]
     <p>[% l('Please select the medium you wish to attach this CD TOC to.') %]</p>
@@ -52,7 +52,7 @@ $(document).ready (function () {
         </table>
       [% END %]
       <div style="margin-top: 1em;">
-        [% form_submit(l('Attach CD TOC')) %]
+        [% form_submit(lp('Attach CD TOC', 'button/menu')) %]
       </div>
     </form>
   [% ELSE %]
