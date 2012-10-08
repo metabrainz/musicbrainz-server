@@ -209,7 +209,7 @@
                     <a href="[% c.uri_for_action('/release_group/create') %]">[% l('Add Release Group') %]</a>
                 </li>
                 <li>
-                    <a href="[% c.uri_for_action('/release_editor/add') %]">[% l('Add Release') %]</a>
+                    <a href="[% c.uri_for_action('/release_editor/add') %]">[% lp('Add Release', 'button/menu') %]</a>
                 </li>
                 <li>
                     <a href="[% c.uri_for_action('/release_editor/add', { artist = various_artist_mbid }) %]">[% l('Add Various Artists Release') %]</a>

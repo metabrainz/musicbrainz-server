@@ -483,7 +483,7 @@
               </p>
             </td>
             <td class="buttons" style="margin: 10px; vertical-align: top;">
-              <a href="#guesscase" style="float: right">[% lp('Guess case', 'button') %]</a>
+              <a href="#guesscase" style="float: right">[% lp('Guess case', 'button/menu') %]</a>
             </td>
           </tr>
         </table>
