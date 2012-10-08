@@ -35,6 +35,8 @@
       </p>
     [% END %]
 
+    [%- show_wikipedia_extract() -%]
+
     [%- filter_button() -%]
     <h2 class="discography">[% l('Discography') %]</h2>
 
