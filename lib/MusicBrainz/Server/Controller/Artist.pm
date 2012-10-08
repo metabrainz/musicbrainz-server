@@ -520,6 +520,11 @@ around _validate_merge => sub {
         return 0;
     }
 
+    if (grep { $DARTIST_ID } $merger->all_entities) {
+        $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
+        return 0;
+    }
+
     return 1;
 };
 
