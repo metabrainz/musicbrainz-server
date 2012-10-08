@@ -18,6 +18,12 @@
                     whatever page is associated with it. Make sure to double check your work
                     when updating a page!') %]
           </p>
+
+          [% IF wiki_unreachable %]
+            <p style="font-weight: bold; color: red;">
+              [% l('There was a problem accessing the wiki API.') %]
+            </p>
+          [% END %]
         [% END %]
 
         <table class="tbl wiki-pages">
