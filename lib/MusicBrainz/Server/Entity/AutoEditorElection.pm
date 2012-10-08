@@ -124,6 +124,7 @@ sub can_vote
     return 0 unless $self->is_open;
 	return 0 unless $editor->is_auto_editor;
 
+	return 0 if $editor->is_bot;
 	return 0 if $self->candidate_id == $editor->id;
 	return 0 if $self->proposer_id == $editor->id;
 	return 0 if $self->seconder_1_id == $editor->id;
@@ -139,6 +140,7 @@ sub can_second
     return 0 unless $self->is_pending;
 	return 0 unless $editor->is_auto_editor;
 
+	return 0 if $editor->is_bot;
 	return 0 if $self->candidate_id == $editor->id;
 	return 0 if $self->proposer_id == $editor->id;
 	return 0 if defined $self->seconder_1_id &&
