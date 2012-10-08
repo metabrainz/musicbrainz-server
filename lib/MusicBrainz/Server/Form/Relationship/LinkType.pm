@@ -30,7 +30,7 @@ sub _build_options
     my @options;
     if ($root->id && $root->name ne $ignore) {
         push @options, $root->id, $indent . trim($root->$attr) if $root->id;
-        $indent .= '&nbsp;&nbsp;&nbsp;';
+        $indent .= '&#xa0;&#xa0;&#xa0;';
     }
     foreach my $child ($root->all_children) {
         push @options, $self->_build_options($child, $attr, $ignore, $indent);
@@ -43,7 +43,7 @@ sub options_link_type_id
     my ($self) = @_;
 
     my $root = $self->root;
-    return [ $self->_build_options($root, 'short_link_phrase', 'ROOT', '&nbsp;') ];
+    return [ $self->_build_options($root, 'short_link_phrase', 'ROOT', '&#xa0;') ];
 }
 
 sub field_list

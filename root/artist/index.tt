@@ -84,7 +84,7 @@
                             value="[% rg.id %]" />
                     </td>
                     [% END %]
-                    <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
+                    <td class="c">[% rg.first_release_date.year or '&#x2014;' %]</td>
                     <td>
                       [% rdfa_made_rg_link(rg) %]
                       [% disambiguation(rg) %]

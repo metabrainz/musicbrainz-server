@@ -24,7 +24,7 @@
         <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
         [%- FOR medium=release.mediums -%]
             <tr class="subh[% ' mp' IF medium.edits_pending %]">
-                <td>&nbsp;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
+                <td>&#xa0;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
                     [% rdfa_medium_in_release(medium) %]
                 </td>
             </tr>

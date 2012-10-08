@@ -155,7 +155,7 @@
 
 [%- MACRO form_row_paragraph(message, label) BLOCK -%]
     [% WRAPPER form_row %]
-      <label>[%- IF label -%][%- label -%][%- ELSE -%]&nbsp;[%- END -%]</label>
+      <label>[%- IF label -%][%- label -%][%- ELSE -%]&#xa0;[%- END -%]</label>
       <p>[%- message -%]</p>
     [% END %]
 [%- END -%]
@@ -279,7 +279,7 @@
       [%- END -%]
 
       <div class="row">
-        <label> &nbsp; </label>
+        <label> &#xa0; </label>
         <span style="display: inline-block; width: 170px; text-align: right; padding-right: 10px;">
             <button type="button" class="nobutton add-artist-credit">
                 [%- l('Add Artist Credit') -%]
