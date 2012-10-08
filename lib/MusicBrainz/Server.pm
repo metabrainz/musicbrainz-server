@@ -326,6 +326,11 @@ sub execute {
 sub finalize_error {
     my $c = shift;
 
+    $_->instance->build_languages_from_header($c->req->headers)
+        for qw( MusicBrainz::Server::Translation );
+
+    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
+    my $lang = Translation->instance->set_language($cookie_lang);
     $c->next::method(@_);
 
     $c->model('MB')->context->connector->disconnect;
@@ -339,6 +344,7 @@ sub finalize_error {
         $c->view('Default')->process($c);
         $c->res->{body} = encode('utf-8', $c->res->{body});
     }
+    Translation->instance->unset_language();
 }
 
 =head1 NAME
