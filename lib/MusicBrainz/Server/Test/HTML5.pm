@@ -203,6 +203,13 @@ sub html5_ok
     }
 
     my $url = DBDefs::HTML_VALIDATOR;
+
+    unless ($url) {
+        $Test->skip("No HTML_VALIDATOR configured, skip html validation");
+        return;
+    }
+
+
     my $ua = LWP::UserAgent->new;
     $ua->timeout (10);
 
