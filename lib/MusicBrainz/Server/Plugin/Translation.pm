@@ -20,6 +20,8 @@ sub new {
     }, $class;
 }
 
+# See MusicBrainz::Server::Translation for descriptions of these functions.
+
 sub l {
     my ($self, $msgid, $vars) = @_;
 
