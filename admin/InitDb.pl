@@ -33,6 +33,7 @@ use lib "$FindBin::Bin/../lib";
 use version;
 
 use DBDefs;
+use JSON;
 use MusicBrainz::Server::Replication ':replication_type';
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
@@ -47,6 +48,7 @@ my $fCreateDB;
 my $fInstallExtension;
 my $fExtensionSchema;
 my $tmp_dir;
+my $jobs = 1;
 
 use Getopt::Long;
 
@@ -56,6 +58,20 @@ my $fVerbose = 0;
 
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
+
+open(my $schema_fh, '<', 'admin/sql/schema.json')
+    or die 'Could not find schema.json';
+
+my %schemas = %{ decode_json(do { local $/ = undef; <$schema_fh> }) };
+
+# Flatten the DDL a bit to something we can easily enumerate
+my @tables = map {
+    my $schema = $_;
+    map +{
+        schema => $schema,
+        table => $_,
+        %{ $schemas{$schema}{$_} }
+    },  sort keys %{ $schemas{$schema} } } sort keys %schemas;
 
 sub GetPostgreSQLVersion
 {
@@ -238,7 +254,8 @@ sub CreateRelations
 
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
+    my $pg_version = GetPostgreSQLVersion();
+    if ($pg_version >= version->parse ("v9.1"))
     {
         RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions for PostgreSQL 9.1 or newer");
     }
@@ -265,9 +282,6 @@ sub CreateRelations
         RunSQLScript($DB, "InsertDefaultRows.sql", "Adding default rows ...");
     }
 
-    RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
-    RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating primary keys ...");
-
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
     RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating functions ...");
@@ -275,14 +289,12 @@ sub CreateRelations
     RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
         if HasPLPerlSupport();
 
-    RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
-    RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating indexes ...");
-
-    RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
-        unless $REPTYPE == RT_SLAVE;
-
-    RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding foreign key constraints ...")
-        unless $REPTYPE == RT_SLAVE;
+    if ($REPTYPE == RT_SLAVE) {
+        AddIntegrity($pg_version, primary_keys => 1, indexes => 1, foreign_keys => 0);
+    }
+    else {
+        AddIntegrity($pg_version, primary_keys => 1, indexes => 1, foreign_keys => 1);
+    }
 
 	RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
         unless $REPTYPE == RT_SLAVE;
@@ -318,6 +330,130 @@ sub CreateRelations
 
     print localtime() . " : Initialized and imported data into the database.\n" unless $fQuiet;
 }
+
+sub AddIntegrity {
+    my ($version, %opts) = @_;
+
+    # PostgreSQL 9.1 and up can use a pre-existing index for primary keys.
+    # We take advantage of this to build primary key indexes in parallel.
+    my $supports_parallel_primary_key_creation = $version > version->parse('v9.0');
+
+    my (@indexes, @pks, @alterations);
+    for my $table (@tables) {
+        my $table_name = $table->{table};
+        my $schema_name = $table->{schema};
+        my $alter_prefix = "ALTER TABLE $schema_name.$table_name ";
+        my @alter_table;
+
+        if (my @primary_key = @{ $table->{primary_key} // [] }) {
+            my $index_columns = _index_columns(@primary_key);
+
+            my $add_pk = "ADD PRIMARY KEY ($index_columns)";
+
+            if ($supports_parallel_primary_key_creation) {
+                my $index_name = "${table_name}_pkey";
+                push @indexes, "CREATE UNIQUE INDEX $index_name ".
+                    "ON $schema_name.$table_name ($index_columns)";
+                push @alter_table, "ADD PRIMARY KEY USING INDEX $index_name";
+            }
+            else {
+                push @pks, "$alter_prefix $add_pk";
+            }
+        }
+
+        for my $index (@{ $table->{indexes} // [] }) {
+            my $ddl;
+            if(ref($index) eq 'HASH') {
+                my @columns = @{ $index->{over} };
+                my $index_columns = _index_columns(@columns);
+
+                my $unique = $index->{unique} ? 'UNIQUE ' : '';
+                $ddl = "CREATE ${unique}INDEX ".
+                    "ON $schema_name.$table_name";
+
+                if (my $using = $index->{using}) {
+                    $ddl .= " USING $using";
+                }
+
+                $ddl .= " ($index_columns)";
+
+                if (my $where = $index->{where}) {
+                    $ddl .= " WHERE $where";
+                }
+            }
+            elsif(ref($index) eq 'ARRAY') {
+                my @columns = @$index;
+                my $index_columns = _index_columns(@columns);
+
+                $ddl = "CREATE INDEX ON ".
+                    "$schema_name.$table_name ($index_columns)";
+            }
+            else {
+                die "Unknown index declaration for $schema_name.$table_name";
+            }
+
+            push @indexes, $ddl;
+        }
+
+        for my $fk (@{ $table->{references} // [] }) {
+            my $dest_schema = $fk->{schema} // $schema_name;
+            my $dest_table = $fk->{table};
+            my @from = @{$fk->{from}};
+            my @to = @{$fk->{to}};
+
+            my $alteration = 'ADD FOREIGN KEY ('. join(', ', @from) . ') ' .
+                "REFERENCES $dest_schema.$dest_table (" . join(', ', @to) . ')';
+
+            if (my $on_delete = $fk->{on_delete}) {
+                $alteration .= " ON DELETE $on_delete";
+            }
+            if (my $on_update = $fk->{on_update}) {
+                $alteration .= " ON UPDATE $on_update";
+            }
+
+            push @alter_table, $alteration;
+        }
+
+        push @alterations, "$alter_prefix " . join(", ", @alter_table)
+            if @alter_table;
+    }
+
+    my $n_running = 0;
+    for my $job_set (\@indexes, \@pks, \@alterations) {
+        my @jobs = @$job_set or next;
+
+        while (my $job = shift(@jobs)) {
+            if ($n_running >= $jobs) {
+                my $kid = wait;
+                if ($kid > 0) {
+                    $n_running--;
+                }
+            }
+
+            printf "%s: Running: $job\n", scalar(localtime)
+                if $fVerbose;
+
+            if (fork() == 0) {
+                # This will use DBIx::Connector and is fork-safe.
+                my $sql = Databases->get_connection('READWRITE')->sql;
+                $sql->auto_commit(1);
+                $sql->do($job);
+                exit(0);
+            } else {
+                $n_running++;
+            }
+        }
+
+        # Wait for everything to finish before runinng the next set of jobs
+        while ($n_running > 0) {
+            my $finished = wait;
+            last if ($finished < 0);
+            $n_running--;
+        }
+    }
+}
+
+sub _index_columns { return join(', ', @_) }
 
 sub GrantSelect
 {
@@ -440,7 +576,8 @@ GetOptions(
     "fix-broken-utf8"     => \$fFixUTF8,
     "install-extension=s" => \$fInstallExtension,
     "extension-schema=s"  => \$fExtensionSchema,
-    "tmp-dir=s"           => \$tmp_dir
+    "tmp-dir=s"           => \$tmp_dir,
+    "jobs|j=i"            => \$jobs
 ) or exit 2;
 
 $databaseName = "READWRITE" if $databaseName eq '';
@@ -484,11 +621,9 @@ elsif ($mode eq "MODE_IMPORT") { CreateRelations($DB, $SYSMB, \@ARGV) }
 
 GrantSelect("READWRITE") if $databaseName eq "READWRITE";
 
-END {
-    print localtime() . " : InitDb.pl "
-        . ($? == 0 ? "succeeded" : "failed")
-        . "\n"
-        if $started;
-}
+print localtime() . " : InitDb.pl "
+    . ($? == 0 ? "succeeded" : "failed")
+    . "\n"
+    if $started;
 
 # vi: set ts=4 sw=4 :
