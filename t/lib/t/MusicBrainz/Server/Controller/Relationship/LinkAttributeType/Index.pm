@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::More;
 use Test::XPath;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
-use MusicBrainz::Server::Test::HTML5 qw( make_xml );
 
 around run_test => sub {
     my ($orig, $test, @args) = @_;
@@ -31,7 +30,7 @@ EOSQL
 
     $mech->get_ok('/relationship-attributes');
     my $tx = Test::XPath->new(
-        xml => make_xml ($mech->content),
+        xml => $mech->content,
         xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
     $tx->ok('//html:a[contains(@href,"/relationship-attribute/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
             'has a link to edit the attribute');

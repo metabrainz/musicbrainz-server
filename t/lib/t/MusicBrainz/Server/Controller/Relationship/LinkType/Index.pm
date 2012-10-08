@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::More;
 use Test::XPath;
 use MusicBrainz::Server::Test qw( html_ok );
-use MusicBrainz::Server::Test::HTML5 qw( make_xml );
 
 around run_test => sub {
     my ($orig, $test, @args) = @_;
@@ -32,7 +31,7 @@ EOSQL
 
     $mech->get_ok('/relationships/artist-artist');
     my $tx = Test::XPath->new(
-        xml => make_xml ($mech->content),
+        xml => $mech->content,
         xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
     $tx->ok('//html:a[contains(@href,"/relationship/77a0f1d3-f9ec-4055-a6e7-24d7258c21f7/edit")]',
             'has a link to edit the relationship type');
@@ -48,7 +47,7 @@ test 'Viewing /relationships shows a full tree' => sub {
 
     $mech->get_ok('/relationships');
     my $tx = Test::XPath->new(
-        xml => make_xml ($mech->content),
+        xml => $mech->content,
         xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
     $tx->ok('//html:a[contains(@href,"/relationships/artist-artist")]',
             'has a link to artist-artist relationships');
