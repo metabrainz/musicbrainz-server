@@ -48,7 +48,7 @@
     <div class="buttons ui-helper-clearfix">
       [%- link_release(release, 'add_cover_art', lp('Add Cover Art', 'button/menu')) -%]
       [%- IF cover_art.size > 1 -%]
-        [%- link_release(release, 'reorder_cover_art', l('Reorder Cover Art')) -%]
+        [%- link_release(release, 'reorder_cover_art', lp('Reorder Cover Art', 'button/menu')) -%]
       [%- END -%]
     </div>
     [%- ELSE -%]
