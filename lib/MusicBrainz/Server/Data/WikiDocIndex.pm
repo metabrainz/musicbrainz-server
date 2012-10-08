@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::WikiDocIndex;
 use Moose;
 use namespace::autoclean;
 use Readonly;
+use List::UtilsBy qw( sort_by );
 use LWP::Simple qw();
 use LWP::UserAgent;
 use XML::Simple;
@@ -135,11 +136,7 @@ sub get_wiki_versions
 {
     my ($self, $index) = @_;
 
-    my @keys;
-    foreach my $key (sort { lc $a cmp lc $b } keys %$index) {
-        push @keys, $key;
-    }
-
+    my @keys = sort_by { lc($_) } keys %$index;
     my @wiki_pages;
 
     while (@keys) {
