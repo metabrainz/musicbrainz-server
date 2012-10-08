@@ -3,7 +3,6 @@ use Test::Routine;
 use Test::More;
 use Test::XPath;
 use MusicBrainz::Server::Test qw( html_ok );
-use MusicBrainz::Server::Test::HTML5 qw( make_xml );
 use HTTP::Status qw( :constants );
 
 around run_test => sub {
@@ -24,7 +23,7 @@ test 'Collection view has link back to all collections (signed in)' => sub {
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
     my $tx = Test::XPath->new(
-        xml => make_xml ($mech->content),
+        xml => $mech->content,
         xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
 
     $tx->ok('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a[contains(@href,"/editor1/collections")]',
@@ -39,7 +38,7 @@ test 'Collection view has link back to all collections (not yours)' => sub {
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
     my $tx = Test::XPath->new(
-        xml => make_xml ($mech->content),
+        xml => $mech->content,
         xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
 
     $tx->ok('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a[contains(@href,"/editor2/collections")]',

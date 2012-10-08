@@ -31,16 +31,16 @@
     </li>
 [% END %]
 
-[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => type0_name, type1 => type1_name }) full_width=1 %]
+[% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) full_width=1 %]
     <div id="content">
         [%- INCLUDE 'relationship/header.tt' %]
 
         <p><small><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[%- l('&lt; Back to all relationship types') -%]</a></small></p>
 
-        <h2>[% l("{type0}-{type1} relationship types", { type0 => type0_name, type1 => make_lower(type1_name) }) %]</h2>
+        <h2>[% l("{type0}-{type1} relationship types", { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) %]</h2>
 
         [%- IF c.user.is_relationship_editor -%]
-            <p><a href="[% c.uri_for_action('/relationship/linktype/create', [ types ]) %]">[% l('Create a new {type0}-{type1} relationship', { type0 => make_lower(type0_name), type1 => make_lower(type1_name) }) %]</a></p>
+            <p><a href="[% c.uri_for_action('/relationship/linktype/create', [ types ]) %]">[% l('Create a new {type0}-{type1} relationship', { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) %]</a></p>
         [%- END -%]
 
         [% IF root.children.size %]
@@ -55,7 +55,7 @@
             [% END %]
         </ul>
         [% ELSE %]
-            <p>[% l('No {type0}-{type1} relationship types found.', { type0 => type0_name, type1 => type1_name }) %]</p>
+            <p>[% l('No {type0}-{type1} relationship types found.', { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) %]</p>
         [% END %]
     </div>
 [% END %]

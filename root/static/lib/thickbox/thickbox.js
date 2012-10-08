@@ -76,7 +76,8 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			TB_imageCount = "";
 			TB_FoundURL = false;
 			if(imageGroup){
-				TB_TempArray = $("a[@rel="+imageGroup+"]").get();
+				// Below changed according to: http://www.stuffbysarah.net/2009/02/16/thickbox-and-jquery-131/
+				TB_TempArray = $("a[rel="+imageGroup+"]").get();
 				for (TB_Counter = 0; ((TB_Counter < TB_TempArray.length) && (TB_NextHTML === "")); TB_Counter++) {
 					var urlTypeTemp = TB_TempArray[TB_Counter].href.toLowerCase().match(urlString);
 						if (!(TB_TempArray[TB_Counter].href == url)) {						

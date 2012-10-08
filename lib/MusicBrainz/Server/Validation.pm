@@ -32,18 +32,23 @@ require Exporter;
 {
     our @ISA = qw( Exporter );
     our @EXPORT_OK = qw(
-        encode_entities
-        is_valid_isrc
+        unaccent_utf16
+        is_positive_integer
+        is_guid
+        trim_in_place
         is_valid_iswc
-        is_valid_ipi
         format_iswc
+        is_valid_ipi
         format_ipi
         is_valid_url
-        is_positive_integer
-        is_valid_discid
-        is_guid
-        normalise_strings
         is_freedb_id
+        is_valid_discid
+        is_valid_barcode
+        is_valid_ean
+        is_valid_isrc
+        is_tunecore
+        encode_entities
+        normalise_strings
     )
 }
 
@@ -59,23 +64,9 @@ sub unaccent_utf16 ($)
     return ( defined $str ? unac_string_utf16(''.$str) : '' );
 }
 
-#TODO: Do we still need this?
-#sub new
-#{
-#    my $class = shift;
-#    bless {}, ref($class) || $class;
-#}
-
 ################################################################################
 # Validation and sanitisation section
 ################################################################################
-
-sub IsNonEmptyString
-{
-    my $t = shift;
-    defined($t) and $t ne "";
-}
-
 
 sub is_positive_integer
 {
@@ -83,19 +74,7 @@ sub is_positive_integer
     defined($t) and not ref($t) and $t =~ /\A(\d{1,20})\z/;
 }
 
-sub IsSingleLineString
-{
-    my $t = shift;
-    defined($t) and not ref($t) or return undef;
-
-    use Encode qw( decode FB_CROAK );
-    my $s = eval { decode("utf-8", $t, FB_CROAK) };
-    return undef if $@;
-
-    $s =~ /\A([^\x00-\x1F]*)\z/;
-}
-
-sub IsGUID
+sub is_guid
 {
     my $t = $_[0];
     defined($t) and not ref($t) or return undef;
@@ -115,26 +94,9 @@ sub IsGUID
     1;
 }
 
-sub is_guid { goto \&IsGUID }
-
-sub IsValidURL
+sub trim_in_place
 {
-    my ($class, $url) = @_;
-
-    return 0 if $url =~ /\s/;
-
-    require URI;
-    my $u = eval { URI->new($url) }
-        or return 0;
-
-    return 0 if $u->scheme eq '';
-    return 0 if $u->can('authority') && !($u->authority =~ /\./);
-    return 1;
-}
-
-sub TrimInPlace
-{
-    carp "Uninitialized value passed to TrimInPlace"
+    carp "Uninitialized value passed to trim_in_place"
         if grep { not defined } @_;
     for (@_)
     {
@@ -170,7 +132,8 @@ sub is_valid_ipi
 sub format_ipi
 {
     my $ipi = shift;
-    $ipi =~ s/\D+//g;
+    return $ipi unless $ipi =~ /^[\d\s.]{9,}$/;
+    $ipi =~ s/[\s.]//g;
     return sprintf("%011.0f", $ipi)
 }
 
@@ -199,120 +162,13 @@ sub is_valid_discid
     return $discid =~ /^[A-Za-z0-9._-]{27}-/;
 }
 
-# Create a date string if the parameters are valid, or return undef.
-# For inserting dates into the database.
-sub MakeDBDateStr
-{
-    my ($year, $month, $day) = @_;
-
-    # initialize undef values to ''
-    defined or $_ = '' foreach $year, $month, $day;
-
-    return undef if $year eq '' and $month eq '' and $day eq '';
-
-    return sprintf('%04d-%02d-%02d', $year, $month, $day)
-        if IsValidDate($year, $month, $day);
-
-    return undef;
-}
-
-sub MakeDisplayDateStr
-{
-    my $str = shift;
-
-    return '' unless defined $str and $str ne '';
-
-    my ($year, $month, $day) = split m/-/, $str;
-
-    # disable warning when $day, $month or $year are non-numeric
-    no warnings 'numeric';
-    if (defined $day && 0+$day)
-    {
-        return sprintf('%04d-%02d-%02d', $year, $month, $day);
-    }
-    elsif (defined $month && 0+$month)
-    {
-        return sprintf('%04d-%02d', $year, $month);
-    }
-    elsif (defined $year && 0+$year)
-    {
-        return sprintf('%04d', $year);
-    }
-    else
-    {
-        return '';
-    }
-}
-
-sub IsValidDateOrEmpty
-{
-    my ($year, $month, $day) = @_;
-
-    return (wantarray ? ('', '', '') : 1) if $year eq '' and $month eq '' and $day eq '';
-
-    return IsValidDate($year, $month, $day);
-}
-
-# Dave's obscure date checker
-sub IsValidDate
-{
-    my ($y, $m, $d) = @_;
-
-    defined() or $_ = "" for ($y, $m, $d);
-    MusicBrainz::Server::Validation::TrimInPlace($y, $m, $d);
-    $_ eq "" or is_positive_integer($_) or return
-        for ($y, $m, $d);
-
-    # All valid dates have a year
-    return unless $y ne "" and $y >= 1000 and $y <= 2100;
-
-    # Month is either missing ...
-    $d = "", goto OK if $m eq "";
-    # ... or must be valid
-    return unless $m >= 1 and $m <= 12;
-
-    # Day is either missing ...
-    goto OK if $d eq "";
-    # ... or must be valid
-    return unless check_date($y, $m, $d);
-
-OK:
-    return (wantarray ? ($y, $m, $d) : 1);
-}
-
-sub IsDateEarlierThan
-{
-    my ($y1, $m1, $d1, $y2, $m2, $d2) = @_;
-
-    return unless IsValidDate($y1, $m1, $d1) and IsValidDate($y2, $m2, $d2);
-
-    ($m1, $m2, $d1, $d2) = (1, 1, 1, 1) if ($m1 eq '' || $m2 eq '');
-    ($d1, $d2) = (1, 1) if ($d1 eq '' || $d2 eq '');
-
-    my ($days) = Date::Calc::Delta_Days($y1, $m1, $d1, $y2, $m2, $d2);
-
-    return $days > 0;
-}
-
-sub IsValidLabelCode
-{
-    my $t = shift;
-    defined($t) and not ref($t) and $t =~ /\A(\d{1,5})\z/;
-}
-
-sub MakeDisplayLabelCode
-{
-    my $labelcode = shift;
-    return sprintf("LC-%05d", $labelcode)
-}
-
-sub IsValidBarcode
+sub is_valid_barcode
 {
     my $barcode = shift;
     return $barcode =~ /^[0-9]+$/;
 }
 
-sub IsValidEAN
+sub is_valid_ean
 {
     my $ean = shift;
     my $length = length($ean);
@@ -326,46 +182,16 @@ sub IsValidEAN
     return 0;
 }
 
-sub normalize
-{
-    my $t = $_[0];                 # utf8-bytes
-    $t = decode "utf-8", $t;       # turn into string
-    $t =~ s/[^\p{IsAlpha}]+/ /g;   # turn non-alpha to space
-    $t =~ s/\s+/ /g;               # squish
-    $t = encode "utf-8", $t;       # turn back into utf8-bytes
-    $t;
-}
-
-sub OrdinalNumberSuffix
-{
-    my ($d, $n);
-     $n = shift;
-    $d = int(($n % 100) / 10);
-    return "th" if ($d == 1);
-    $d = $n % 10;
-    return "st" if ($d == 1);
-    return "nd" if ($d == 2);
-    return "rd" if ($d == 3);
-    return "th";
-}
-
-# Append some data to a file.  Create the file if necessary.
-
-use Fcntl 'LOCK_EX';
-sub SimpleLog
-{
-    my ($file, $data) = @_;
-    return if $data eq "";
-    open(my $fh, ">>", $file) or return;
-    flock($fh, LOCK_EX) or return;
-    print $fh $data or return;
-    close $fh;
-}
-
 sub is_valid_isrc
 {
     my $isrc = $_[0];
-    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/;
+    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/ && !is_tunecore($isrc);
+}
+
+sub is_tunecore
+{
+    my $supposed_isrc = $_[0];
+    return $supposed_isrc =~ /TC\.*/;
 }
 
 ################################################################################
@@ -382,8 +208,6 @@ sub is_valid_isrc
 my %ent = ( '>' =>  '&gt;', '<' => '&lt;', q/"/ => '&quot;', q/'/ => '&#39;', '&' => '&amp;');
 sub encode_entities
 {
-    ${ $_[0] } =~ s/([<>"'&])/$ent{$1}/go, return
-        if not defined wantarray;
     my $t = $_[0];
     $t =~ s/([<>"'&])/$ent{$1}/go;
     $t;

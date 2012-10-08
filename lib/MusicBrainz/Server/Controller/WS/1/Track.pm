@@ -120,7 +120,7 @@ sub submit : Private
     for my $pair (@pairs) {
         my ($recording_id, $gid) = split(' ', $pair);
 
-        unless (MusicBrainz::Server::Validation::IsGUID($recording_id)) {
+        unless (is_guid($recording_id)) {
             $c->stash->{error} = 'Recording IDs be valid MBIDs';
             $c->detach('bad_req');
         }
@@ -161,7 +161,7 @@ sub submit_puid : Private
 
     for my $puids (values %$submit) {
         for my $puid (@$puids) {
-            unless (MusicBrainz::Server::Validation::IsGUID($puid)) {
+            unless (is_guid($puid)) {
                 $c->stash->{error} = 'PUIDs must be specified in MBID format';
                 $c->detach('bad_req');
             }

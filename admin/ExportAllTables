@@ -190,6 +190,10 @@ my @tables = qw(
     work_name
     work_tag
     work_type
+
+    cover_art_archive.art_type
+    cover_art_archive.cover_art
+    cover_art_archive.cover_art_type
 );
 
 my @replication_tables = qw(
@@ -377,6 +381,12 @@ my @group_cdstubs = qw(
     track_raw
 );
 
+my @group_cover_art_archive = (
+    'cover_art_archive.art_type',
+    'cover_art_archive.cover_art',
+    'cover_art_archive.cover_art_type',
+);
+
 my @groups = (
     \@group_core,
     \@group_derived,
@@ -553,6 +563,8 @@ sub table_rowcount
     my $table = shift;
     $table =~ s/_sanitised$//;
 
+    $table =~ s/.*\.//;
+
     $sql->select_single_value(
         "SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
         $table,
@@ -716,8 +728,11 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-stats.tar.bz2",  @group_stats);
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
+    make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
 
-    system "/usr/bin/md5sum --binary $OutputDir/*.tar.bz2 > $OutputDir/MD5SUMS";
+    system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
+           ' | grep -v mbdump-private > MD5SUMS';
+
     $? == 0 or die "md5sum returned $?";
 }
 

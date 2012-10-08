@@ -7,7 +7,7 @@ use File::Temp qw( tempfile );
 use JSON;
 use XML::LibXML;
 
-use Sub::Exporter -setup => { exports => [ qw(make_xml xhtml_ok html5_ok) ] };
+use Sub::Exporter -setup => { exports => [ qw(xhtml_ok html5_ok) ] };
 
 =func ignore_warning
 
@@ -127,34 +127,6 @@ sub save_html
 }
 
 
-=func make_xml
-
-Turns a valid HTML5 document into a well-formed XML document.
-
-=cut
-
-sub make_xml
-{
-    my ($html5) = @_;
-
-    my $newdoctype = '<?xml version="1.0" encoding="UTF-8" ?>
-        <!DOCTYPE html [
-            <!ENTITY % xhtml-lat1
-                PUBLIC "-//W3C//ENTITIES Latin 1 for XHTML//EN"
-                "http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent"> %xhtml-lat1;
-            <!ENTITY % xhtml-special
-                PUBLIC "-//W3C//ENTITIES Special for XHTML//EN"
-                "http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent"> %xhtml-special;
-            <!ENTITY % xhtml-symbol
-                PUBLIC "-//W3C//ENTITIES Symbols for XHTML//EN"
-                "http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent"> %xhtml-symbol;
-        ]>';
-
-    $html5 =~ s/<!DOCTYPE html>//;
-
-    return $newdoctype.$html5;
-};
-
 =func xhtml_ok
 
 Check if the document is well-formed xhtml. (== well-formed xml, but
@@ -168,14 +140,14 @@ sub xhtml_ok
 
     $message ||= "well-formed XHTML";
 
-    eval { XML::LibXML->load_xml (string => make_xml ($content)); };
+    eval { XML::LibXML->load_xml (string => $content); };
     if ($@)
     {
         foreach (split "\n", $@->as_string ())
         {
             $Test->diag($_);
         }
-        save_html ($Test, make_xml ($content), ".xml");
+        save_html ($Test, $content, ".xml");
         return $Test->ok (0, $message);
     }
     else
@@ -203,6 +175,13 @@ sub html5_ok
     }
 
     my $url = DBDefs::HTML_VALIDATOR;
+
+    unless ($url) {
+        $Test->skip("No HTML_VALIDATOR configured, skip html validation");
+        return;
+    }
+
+
     my $ua = LWP::UserAgent->new;
     $ua->timeout (10);
 

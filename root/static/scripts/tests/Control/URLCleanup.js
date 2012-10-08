@@ -366,8 +366,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
                     'http://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
                     'label'
+                ],
+                [
+                    'http://sv.m.wikipedia.org/wiki/Bullet',
+                    'http://sv.wikipedia.org/wiki/Bullet',
                 ]
-
             ];
 
         $.each(tests, function(i, test) {

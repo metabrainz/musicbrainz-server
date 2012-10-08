@@ -7,33 +7,35 @@
 [% BLOCK search_form %]
 <form action="[% c.req.uri.path %]" method="get" id="edit-search">
   <p>
-    Show me
-    <select name="auto_edit_filter">
-      <option value="" [% 'selected="selected"'  IF !query.auto_edit_filter.defined %]>edits</option>
-      <option value="1" [% 'selected="selected"' IF  query.auto_edit_filter == 1 %]>auto-edits</option>
-      <option value="0" [% 'selected="selected"' IF  query.auto_edit_filter == 0 %]>non-auto-edits</option>
-    </select>
-    sorted <select name="order">
-      <option [% 'selected="selected"' IF query.order == 'desc' %] value="desc">[% l('newest first') %]</option>
-      <option [% 'selected="selected"' IF query.order == 'asc'  %] value="asc">[% l('oldest first') %]</option>
-      <option [% 'selected="selected"' IF query.order == 'rand' %] value="rand">[% l('randomly') %]</option>
-    </select>
-    that
-    <select name="negation">
-      <option value="0" [% 'selected="selected"' IF !query.negate %]>match</option>
-      <option value="1" [% 'selected="selected"' IF  query.negate %]>do not match</option>
-    </select>
-    <select name="combinator">
-      <option value="and"
-              [% 'selected="selected"' IF query.combinator == 'and' %]>
-        all
-      </option>
-      <option value="or"
-              [% 'selected="selected"' IF query.combinator == 'or' %]>
-        any
-      </option>
-    </select>
-    of the following conditions:
+    [%- MACRO selected_if_matches(value, to_match, true_if_undef) BLOCK;
+        ' selected="selected"' IF (!to_match && true_if_undef) || value == to_match;
+    END -%]
+
+    [%- autoedit_select_block = '<select name="auto_edit_filter">
+      <option value=""'  _ selected_if_matches('', query.auto_edit_filter, 1)  _ '>' _ l('edits')          _ '</option>
+      <option value="1"' _ selected_if_matches('1', query.auto_edit_filter) _ '>' _ l('auto-edits')     _ '</option>
+      <option value="0"' _ selected_if_matches('0', query.auto_edit_filter) _ '>' _ l('non-auto-edits') _ '</option>
+    </select>' -%]
+    [%- sort_select_block = '<select name="order">
+      <option value="desc"' _ selected_if_matches('desc', query.order, 1) _ '>' _ l('newest first') _ '</option>
+      <option value="asc"'  _ selected_if_matches('asc', query.order)  _ '>' _ l('oldest first') _ '</option>
+      <option value="rand"' _ selected_if_matches('rand', query.order) _ '>' _ l('randomly')     _ '</option>
+    </select>' -%]
+    [%- match_or_negation_block = '<select name="negation">
+      <option value="0"' _ selected_if_matches('0', query.negate, 1) _ '>' _ l('match')        _ '</option>
+      <option value="1"' _ selected_if_matches('1', query.negate)    _ '>' _ l('do not match') _ '</option>
+    </select>' -%]
+    [%- and_vs_or_block = '<select name="combinator">
+      <option value="and"' _ selected_if_matches('and', query.combinator, 1) _ '>' _ l('all') _ '</option>
+      <option value="or"'  _ selected_if_matches('or', query.combinator)  _ '>' _ l('any') _ '</option>
+    </select>' -%]
+    [%- l('Show me {autoedit_select_block} sorted {sort_select_block} that
+          {match_or_negation_block} {and_vs_or_block} of the following
+          conditions:',
+        { autoedit_select_block => autoedit_select_block,
+          sort_select_block => sort_select_block,
+          match_or_negation_block => match_or_negation_block,
+          and_vs_or_block => and_vs_or_block }) -%]
   </p>
 
   <ul class="conditions">
@@ -96,7 +98,7 @@
     </li>
   </ul>
 
-  <span id="edit-search-submit">[% form_submit('Search') %]</span>
+  <span id="edit-search-submit">[% form_submit(l('Search')) %]</span>
 </form>
 [% PROCESS template_fields %]
 [% END %]
@@ -174,8 +176,8 @@
   <select name="args" multiple="multiple">
     [% FOR item=set_contents %]
     <option value="[% html_escape(item.0) %]"
-            [% 'selected="selected"' IF field_contents.find_argument(item.0) %]
-            >[% html_escape(item.1) %]</option>
+            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            >[% l(html_escape(item.1)) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -187,7 +189,7 @@
     [% FOR language=languages %]
     <option value="[% language.id %]"
             [% 'selected="selected"' IF field_contents.find_argument(language.id) %]
-            >[% html_escape(language.name) %]</option>
+            >[% html_escape(language.l_name) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -269,7 +271,7 @@
     [% FOR country=countries %]
     <option value="[% country.id %]"
             [% 'selected="selected"' IF field_contents.find_argument(country.id) %]
-            >[% html_escape(country.name) %]</option>
+            >[% html_escape(country.l_name) %]</option>
     [% END %]
   </select>
 [% END %]
@@ -277,7 +279,7 @@
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
-      <option>Please choose a condition</option>
+      <option>[% l('Please choose a condition') %]</option>
     [% END %]
     [% FOR field=[ [ 'id', l('ID') ],
                    [ 'open_time', l('Created') ],

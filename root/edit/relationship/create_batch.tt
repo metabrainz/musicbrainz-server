@@ -99,7 +99,7 @@
                         </div>
                         <div class="ar-descr">[% attr.description %]</div>
                     [% ELSE %]
-                        [% r.checkbox(field) %] [% attr.name %]
+                        [% r.label(field, r.checkbox(field) _ ' ' _ attr.name) %]
                         <div class="ar-descr">[% attr.description %]</div>
                     [% END %]
                     [% field_errors(form, field) %]

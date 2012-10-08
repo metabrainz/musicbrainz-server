@@ -1,13 +1,15 @@
 package MusicBrainz::Server::Controller::PUID;
 use Moose;
 
+use MusicBrainz::Server::Validation qw( is_guid );
+
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 sub load : Chained('/') PathPart('puid') CaptureArgs(1)
 {
     my ($self, $c, $id) = @_;
 
-    unless (MusicBrainz::Server::Validation::IsGUID($id)) {
+    unless (is_guid($id)) {
         $c->detach('/error_404');
     }
 
