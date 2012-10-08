@@ -331,6 +331,7 @@ sub finalize_error {
 
     my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
     my $lang = Translation->instance->set_language($cookie_lang);
+
     $c->next::method(@_);
 
     $c->model('MB')->context->connector->disconnect;
@@ -339,6 +340,8 @@ sub finalize_error {
         $c->stash->{errors} = $c->error;
         $c->stash->{template} = 'main/500.tt';
         $c->stash->{stack_trace} = $c->_stacktrace;
+        $c->stash->{current_language} = $lang;
+        $c->stash->{use_languages} = scalar @{ Translation->instance->all_languages() };
         $c->clear_errors;
         $c->res->{body} = 'clear';
         $c->view('Default')->process($c);
