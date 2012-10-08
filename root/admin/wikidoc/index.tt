@@ -32,11 +32,8 @@
                     <th>[% l('Page name') %]</th>
                     <th class="c">[% l('Transcluded version') %]</th>
                     [% IF c.user.is_wiki_transcluder %]
-                        [% IF updates_required %]
-                            <th class="c">[% l('Wiki version') %]</th>
-                        [% END %]
-
-                        <th class="c">[% l('Actions') %]</th>
+                      <th class="c">[% l('Wiki version') %]</th>
+                      <th class="c">[% l('Actions') %]</th>
                     [% END %]
                 </tr>
             </thead>
@@ -48,18 +45,16 @@
                             [% page.version %]
                         </td>
                         [% IF c.user.is_wiki_transcluder %]
-                          [% IF updates_required %]
-                            <td>
-                              [% IF page.wiki_version != page.version %]
-                                <span style="color: red;" class="wiki-version">
-                                  [%~ page.wiki_version || l('ERROR!') ~%]
-                                </span>
-                                [% IF page.wiki_version && (page.wiki_version != page.version) %]
-                                  (<a href="http://[% wiki_server %]/[% page.id | uri %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
-                                [% END %]
+                          <td>
+                            [% IF page.wiki_version != page.version %]
+                              <span style="color: red;" class="wiki-version">
+                                [%~ page.wiki_version || l('Error!') ~%]
+                              </span>
+                              [% IF page.wiki_version && (page.wiki_version != page.version) %]
+                                (<a href="http://[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
                               [% END %]
-                            </td>
-                          [% END %]
+                            [% END %]
+                          </td>
 
                           <td class="c nowrap">
                               [
