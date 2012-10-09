@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-06 23:54+0000\n"
+"PO-Revision-Date: 2012-10-07 20:34+0000\n"
 "Last-Translator: Shepard <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -26,18 +26,18 @@ msgstr "Ein Zerwürfnis in der MusicBrainz-Community führt zum Großen Streit."
 #: DB:statistic_event/description:2003-01-21
 msgid ""
 "Added support for improved TRM collision handling in the classic tagger."
-msgstr ""
+msgstr "Unterstützung für verbesserte TRM-Kollisionsbehandlung zum klassischen Tagger hinzugefügt."
 
 #: DB:statistic_event/title:2005-04-10
 msgid "Advanced relationships"
-msgstr ""
+msgstr "Erweiterte Beziehungen"
 
 #: DB:statistic_event/description:2005-04-10
 msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
-msgstr ""
+msgstr "Erweiterte Beziehungen, die es den Benutzern erlauben, die Hauptdatenbankobjekte miteinander zu verbinden, wurden herausgebracht und unbenutzte TRMs wurden von der Datenbank entfernt. Inline-Abstimmung wurde standardmäßig deaktiviert, wodurch die Abstimmaktivität abnahm."
 
 #: DB:statistic_event/title:2005-05-22
 msgid "Album languages"
@@ -46,7 +46,7 @@ msgstr "Albensprachen"
 #: DB:statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
-msgstr ""
+msgstr "Albuensprachen, Verbesserung für das Raten von Groß-/Kleinschreibung und umgestaltete Editierformulare herausgebracht."
 
 #: DB:statistic_event/title:2004-02-24
 msgid "Amazon Coverart"
@@ -56,11 +56,11 @@ msgstr "Amazon Cover-Art"
 msgid ""
 "Amazon betas <a href=\"http://soundunwound.com\">SoundUnwound</a> with data "
 "from MusicBrainz."
-msgstr ""
+msgstr "Amazon veröffentlicht <a href=\"http://soundunwound.com\">SoundUnwound</a> als Beta mit Daten von MusicBrainz."
 
 #: DB:statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr ""
+msgstr "Amazon veröffentlicht SoundUnwound als Beta"
 
 #: DB:statistic_event/description:2004-02-24
 msgid "Amazon coverart support released."
@@ -86,7 +86,7 @@ msgstr "Künstlerabonnements"
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
-msgstr ""
+msgstr "Künstlerabonnements öffentlich gemacht und verschiedene kleinere benutzerspezifische Verbesserungen herausgebracht."
 
 #: DB:statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
@@ -94,11 +94,11 @@ msgstr "Künstlerabonnements."
 
 #: DB:statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
-msgstr ""
+msgstr "BBCs dynamische Künstlerseiten"
 
 #: DB:statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
-msgstr ""
+msgstr "BBC führt dynamische Künstlerseiten basierend auf MusicBrainz-Daten ein."
 
 #: DB:statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
@@ -136,15 +136,15 @@ msgstr ""
 
 #: DB:statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
-msgstr ""
+msgstr "Sammlung, Bewertungen, CD-Stubs"
 
 #: DB:statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr ""
+msgstr "Sammlung, Bewertungen, CD-Stubs, LastUpdate herausgebracht."
 
 #: DB:statistic_event/title:2003-03-29
 msgid "Dedicated database server"
-msgstr ""
+msgstr "Dedizierter Datenbankserver"
 
 #: DB:statistic_event/description:2004-05-09
 msgid ""
@@ -182,12 +182,12 @@ msgstr "Großer Streit"
 
 #: DB:statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
-msgstr ""
+msgstr "Katalog von CD Baby als CD-Stubs importiert"
 
 #: DB:statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
-msgstr ""
+msgstr "Die Metadaten des Katalogs von CD Baby wurden in unsere CD-Stubs-Sammlung importiert."
 
 #: DB:statistic_event/title:2004-07-24
 msgid "Improve voting"
@@ -213,11 +213,11 @@ msgstr ""
 
 #: DB:statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
-msgstr ""
+msgstr "Indexierte Suche / XML WS"
 
 #: DB:statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
-msgstr ""
+msgstr "Indexierte Suche und ein neuer XML-basierter Web Service wurden herausgebracht."
 
 #: DB:statistic_event/title:2004-01-17
 msgid "Inline edits"
@@ -275,7 +275,7 @@ msgstr ""
 
 #: DB:statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
-msgstr ""
+msgstr "MetaBrainz stellt Oliver Charles ein"
 
 #: DB:statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
@@ -299,11 +299,11 @@ msgstr ""
 
 #: DB:statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
-msgstr ""
+msgstr "Der MusicBrainz-Server-Quellcode wurde von Subversion nach Git umgezogen."
 
 #: DB:statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
-msgstr ""
+msgstr "MusicBrainz kriegt seinen ersten dedizierten Datenbankserver."
 
 #: DB:statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
@@ -318,7 +318,7 @@ msgstr ""
 
 #: DB:statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
-msgstr ""
+msgstr "MusicIP PUID"
 
 #: DB:statistic_event/title:2011-05-12
 msgid "NGS No-Editing Phase"
@@ -358,7 +358,7 @@ msgstr ""
 
 #: DB:statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
-msgstr ""
+msgstr "Veröffentlichungsgruppen, ISRCs, CD-Stub-Suche"
 
 #: DB:statistic_event/title:2003-10-19 DB:statistic_event/title:2006-07-12
 msgid "Release editor"
@@ -397,7 +397,7 @@ msgstr ""
 
 #: DB:statistic_event/title:2003-01-21
 msgid "TRM collisions"
-msgstr ""
+msgstr "TRM-Kollisionen"
 
 #: DB:statistic_event/title:2007-10-17 ../root/statistics/view_js.tt:170
 msgid "Tags"
@@ -462,7 +462,7 @@ msgstr "Enthaltungen:"
 
 #: ../root/statistics/view_js.tt:71
 msgid "Abstentions"
-msgstr ""
+msgstr "Enthaltungen"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Active Editors"
@@ -490,19 +490,19 @@ msgstr "Alle Bearbeitungen, die abgelehnt wurden"
 
 #: ../root/statistics/view_js.tt:60
 msgid "All edits that have failed dependency checks"
-msgstr ""
+msgstr "Alle Bearbeitungen, die wegen Abhängigkeiten fehlgeschlagen sind"
 
 #: ../root/statistics/view_js.tt:61
 msgid "All edits that have failed prerequisite checks"
-msgstr ""
+msgstr "Alle Bearbeitungen, die wegen Vorbedingungen fehlgeschlagen sind"
 
 #: ../root/statistics/view_js.tt:59
 msgid "All edits that have hit an error"
-msgstr ""
+msgstr "Alle Bearbeitungen, die auf einen Fehler getroffen sind"
 
 #: ../root/statistics/languages_scripts.tt:32
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr ""
+msgstr "Alle anderen verfügbaren Sprachen und Schriften haben 0 Veröffentlichungen und Werke."
 
 #: ../root/statistics/view_js.tt:58
 msgid "Applied edits"
@@ -615,7 +615,7 @@ msgstr "Strichcodes:"
 
 #: ../root/statistics/index.tt:9
 msgid "Basic metadata"
-msgstr ""
+msgstr "Grundlegende Metadaten"
 
 #: ../root/statistics/coverart.tt:13
 msgid "Basics"
@@ -682,8 +682,8 @@ msgid "Count of active editors (editing or voting) during the last week"
 msgstr "Anzahl aktiver Bearbeiter (bearbeiten und abstimmen) in der letzten Woche"
 
 #: ../root/statistics/view_js.tt:71
-msgid "Count of all Am-nais votes"
-msgstr ""
+msgid "Count of all Abstain votes"
+msgstr "Anzahl aller Enthaltungsstimmen"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Count of all Artist Credits"
@@ -859,7 +859,7 @@ msgstr "Anzahl aller Veröffentlichungen von diversen Künstlern"
 
 #: ../root/statistics/view_js.tt:124
 msgid "Count of all Releases not V.A."
-msgstr ""
+msgstr "Anzahl aller Veröffentlichungen, die nicht von diversen Künstlern sind"
 
 #: ../root/statistics/view_js.tt:136
 msgid "Count of all Releases with Disc IDs"
@@ -1008,7 +1008,7 @@ msgstr "Disc-IDs:"
 
 #: ../root/statistics/timeline.tt:75
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "Zeichne ein Rechteck auf einem der Graphen"
 
 #: ../root/statistics/view_js.tt:27
 msgid "Edit Information"
@@ -1057,7 +1057,7 @@ msgstr "Bearbeitungen:"
 
 #: ../root/statistics/view_js.tt:59
 msgid "Error edits"
-msgstr ""
+msgstr "Bearbeitungen mit Fehlern"
 
 #: ../root/statistics/view_js.tt:63
 msgid "Evalnochange Edits"
@@ -1085,7 +1085,7 @@ msgstr "Fehlgeschlagen (interner Fehler):"
 
 #: ../root/statistics/index.tt:580
 msgid "Failed (prerequisite):"
-msgstr "Fehlgeschlagen (Voraussetzung):"
+msgstr "Fehlgeschlagen (Vorbedingung):"
 
 #: ../root/statistics/view_js.tt:60
 msgid "Failed edits (dependency)"
@@ -1093,7 +1093,7 @@ msgstr "Fehlgeschlagene Bearbeitungen (Abhängigkeit)"
 
 #: ../root/statistics/view_js.tt:61
 msgid "Failed edits (prerequisite)"
-msgstr "Fehlgeschlagene Bearbeitungen (Voraussetzung)"
+msgstr "Fehlgeschlagene Bearbeitungen (Vorbedingung)"
 
 #: ../root/statistics/view_js.tt:62
 msgid "Failed edits (voted down)"
@@ -1401,7 +1401,7 @@ msgstr "PUIDs (alle / einzigartig):"
 
 #: ../root/statistics/index.tt:467
 msgid "PUIDs (distinct IDs):"
-msgstr ""
+msgstr "PUIDs (eindeutige IDs):"
 
 #: ../root/statistics/index.tt:462
 msgid "PUIDs (on recordings):"
@@ -1423,15 +1423,15 @@ msgstr "Personen"
 
 #: ../root/statistics/view_js.tt:186
 msgid "Pieces of Cover Art"
-msgstr ""
+msgstr "Cover-Art-Bilder"
 
 #: ../root/statistics/coverart.tt:83
 msgid "Pieces of cover art"
-msgstr ""
+msgstr "Cover-Art-Bilder"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:90
 msgid "Pieces of cover art:"
-msgstr ""
+msgstr "Cover-Art-Bilder:"
 
 #: ../root/statistics/index.tt:387
 msgid "Primary Types"
@@ -1449,7 +1449,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:70
 msgid "Rate of Change Graph"
-msgstr ""
+msgstr "Diagramm der Veränderungsrate"
 
 #: ../root/statistics/view_js.tt:157
 msgid "Ratings"
@@ -1691,19 +1691,19 @@ msgstr ""
 
 #: ../root/statistics/editors.tt:16
 msgid "There is no data to display here."
-msgstr ""
+msgstr "Es gibt keine Daten, die hier angezeigt werden können."
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
-msgstr ""
+msgstr "Zeitleiste"
 
 #: ../root/statistics/timeline.tt:84
 msgid "Timeline Graph"
-msgstr ""
+msgstr "Zeitleistendiagramm"
 
 #: ../root/statistics/view_js.tt:56
 msgid "To-be-cancelled edits"
-msgstr ""
+msgstr "Abzubrechende Bearbeitungen"
 
 #: ../root/statistics/editors.tt:37
 msgid "Top editors overall"
@@ -1716,15 +1716,15 @@ msgstr ""
 #: ../root/statistics/countries.tt:38 ../root/statistics/formats.tt:35
 #: ../root/statistics/languages_scripts.tt:43
 msgid "Total"
-msgstr ""
+msgstr "Insgesamt"
 
 #: ../root/statistics/editors.tt:37
 msgid "Total applied edits"
-msgstr ""
+msgstr "Angewandte Bearbeitungen insgesamt"
 
 #: ../root/statistics/editors.tt:43
 msgid "Total votes"
-msgstr ""
+msgstr "Stimmen insgesamt"
 
 #: ../root/statistics/view_js.tt:119
 msgid "Tracks"
@@ -1869,7 +1869,7 @@ msgstr "von verschiedenen Künstlern:"
 
 #: ../root/statistics/view_js.tt:183
 msgid "l_{first}_{second} Relationships"
-msgstr ""
+msgstr "l_{first}_{second} Beziehungen"
 
 #: ../root/statistics/index.tt:131
 msgid "of type Group:"
@@ -1944,32 +1944,32 @@ msgstr[1] "mit {num} Disc-IDs:"
 #: ../root/statistics/coverart.tt:113
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "mit einem Cover-Art-Bild:"
+msgstr[1] "mit {num} Cover-Art-Bildern:"
 
 #: ../root/statistics/view_js.tt:82
 msgid "{country} artists"
-msgstr ""
+msgstr "{country} Künstler"
 
 #: ../root/statistics/view_js.tt:83
 msgid "{country} labels"
-msgstr ""
+msgstr "{country} Labels"
 
 #: ../root/statistics/view_js.tt:84
 msgid "{country} releases"
-msgstr ""
+msgstr "{country} Veröffentlichungen"
 
 #: ../root/statistics/view_js.tt:94
 msgid "{language} releases"
-msgstr ""
+msgstr "{language} Veröffentlichungen"
 
 #: ../root/statistics/view_js.tt:101
 msgid "{name} mediums"
-msgstr ""
+msgstr "{name} Medien"
 
 #: ../root/statistics/view_js.tt:100
 msgid "{name} releases"
-msgstr ""
+msgstr "{name} Veröffentlichungen"
 
 #: ../root/statistics/coverart.tt:19 ../root/statistics/coverart.tt:45
 #: ../root/statistics/coverart.tt:61 ../root/statistics/coverart.tt:77
@@ -2011,12 +2011,12 @@ msgstr "{n}&nbsp;%"
 
 #: ../root/statistics/view_js.tt:89
 msgid "{script} releases"
-msgstr ""
+msgstr "{script} Veröffentlichungen"
 
 #: ../root/statistics/relationships.tt:41
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/statistics/relationships.tt:44
 msgid "{type0}-{type1} relationships:"
-msgstr ""
+msgstr "{type0}-{type1} Beziehungen:"

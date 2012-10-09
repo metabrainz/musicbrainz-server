@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-05 11:08+0000\n"
+"PO-Revision-Date: 2012-10-07 03:30+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -679,8 +679,8 @@ msgid "Count of active editors (editing or voting) during the last week"
 msgstr "Aantal actieve redacteuren (bewerken of stemmen) gedurende de afgelopen week"
 
 #: ../root/statistics/view_js.tt:71
-msgid "Count of all Am-nais votes"
-msgstr "Totaal aantal onthoudingen"
+msgid "Count of all Abstain votes"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:117
 msgid "Count of all Artist Credits"
