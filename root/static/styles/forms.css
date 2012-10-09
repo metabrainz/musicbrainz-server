@@ -307,65 +307,45 @@ ul.conditions button.remove img {
     display: none;
 }
 
-.icon.add-artist-credit, .icon.add-track {
+input.icon {
+    width: 16px;
+    height: 16px;
+    border: 0 !important;
+    background-repeat: no-repeat;
+}
+
+input.add-artist-credit, input.add-track {
     background-image: url('../images/icons/add_row.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
 }
 
-.icon.remove-artist-credit, .icon.remove-track, .icon.remove-disc {
+input.remove-artist-credit, input.remove-track, input.remove-disc {
     background-image: url('../images/icons/delete_row.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
 }
 
-.icon.guesscase-track, .icon.guesscase-medium {
+input.guesscase-track, input.guesscase-medium {
     background-image: url('../images/icons/guesscase.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
 }
 
-.icon.collapse-disc {
+input.collapse-disc {
     background-image: url('../images/icons/collapse.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
 }
 
-.icon.expand-disc {
+input.expand-disc {
     background-image: url('../images/icons/expand.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
 }
 
-.icon.disc-down {
-    background-image: url('../images/icons/down.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
-}
-
-.icon.disc-up {
-    background-image: url('../images/icons/up.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
-}
-
-.icon.track-down {
+input.track-down {
     background-image: url('../images/icons/track-down.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
 }
 
-.icon.track-up {
+input.disc-down {
+    background-image: url('../images/icons/down.png');
+}
+
+input.track-up {
     background-image: url('../images/icons/track-up.png');
-    width: 16px;
-    height: 16px;
-    border: 0;
+}
+
+input.disc-up {
+    background-image: url('../images/icons/up.png');
 }
