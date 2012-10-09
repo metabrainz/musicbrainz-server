@@ -307,3 +307,65 @@ ul.conditions button.remove img {
     display: none;
 }
 
+.icon.add-artist-credit, .icon.add-track {
+    background-image: url('../images/icons/add_row.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.remove-artist-credit, .icon.remove-track, .icon.remove-disc {
+    background-image: url('../images/icons/delete_row.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.guesscase-track, .icon.guesscase-medium {
+    background-image: url('../images/icons/guesscase.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.collapse-disc {
+    background-image: url('../images/icons/collapse.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.expand-disc {
+    background-image: url('../images/icons/expand.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.disc-down {
+    background-image: url('../images/icons/down.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.disc-up {
+    background-image: url('../images/icons/up.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.track-down {
+    background-image: url('../images/icons/track-down.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+.icon.track-up {
+    background-image: url('../images/icons/track-up.png');
+    width: 16px;
+    height: 16px;
+    border: 0;
+}

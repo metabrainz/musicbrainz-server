@@ -990,3 +990,9 @@ span.release-group-type {
     border-radius: 3px;
     padding: 0 3px;
 }
+
+a.tagger-icon {
+    background: url('../images/icons/mblookup-tagger.png') no-repeat;
+    width: 41px;
+    height: 16px;
+}
