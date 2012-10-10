@@ -6,6 +6,9 @@
     <td>
       [%- descriptive_link(edit.display_data.release_group) -%]
     </td>
+  </tr>
+
+  [%- IF edit.display_data.artwork.old -%]
   <tr>
     <th>[% l('Old cover art:') %]</th>
     <td>
@@ -23,7 +26,7 @@
         </div>
     </td>
   </tr>
-
+  [%- END -%]
 
   <tr>
     <th>[% l('New cover art:') %]</th>
