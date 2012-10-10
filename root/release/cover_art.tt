@@ -10,7 +10,9 @@
           [%- display_artwork (artwork, undef, undef, 'mb-caa') -%]
         </div>
         <p>
-          [% ln('Type:', 'Types:', artwork.types.size) %] [% comma_only_list(artwork.types) || '-' %]
+          [%# Since the number isn't actually included in the string, we use multiple l() here rather than ln() %]
+          [%- IF artwork.types.size == 1; l('Type:'); ELSE; l('Types:'); END -%]
+          [% comma_only_list(artwork.types) || '-' %]
         </p>
         [%- IF artwork.comment -%]
         <p>

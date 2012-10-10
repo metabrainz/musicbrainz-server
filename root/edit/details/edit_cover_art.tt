@@ -7,7 +7,9 @@
   </tr>
 
   [%- plural = max(edit.display_data.types.old.size, edit.display_data.types.new.size) -%]
-  [% display_diff(ln('Type:', 'Types:', plural),
+  [%# Since the number isn't actually included in the string, we use multiple l() here rather than ln() %]
+  [%- IF plural == 1; type_string = l('Type:'); ELSE; type_string = l('Types:'); END -%]
+  [% display_diff(type_string,
                   html_escape(edit.display_data.types.old),
                   html_escape(edit.display_data.types.new), ", ") %]
 
