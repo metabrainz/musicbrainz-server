@@ -134,6 +134,7 @@ sub load_for_release_groups
 
     return unless @ids; # nothing to do
     my $query = "SELECT
+            DISTINCT ON (release.release_group)
             cover_art_archive.index_listing.id,
             cover_art_archive.index_listing.release,
             cover_art_archive.index_listing.comment,
@@ -142,17 +143,17 @@ sub load_for_release_groups
             cover_art_archive.index_listing.approved,
             cover_art_archive.index_listing.is_front,
             cover_art_archive.index_listing.is_back,
-            cover_art_archive.release_group_cover_art.release_group,
+            musicbrainz.release.release_group,
             musicbrainz.release.gid AS release_gid
         FROM cover_art_archive.index_listing
-        JOIN cover_art_archive.release_group_cover_art
-        ON release_group_cover_art.release = index_listing.release
         JOIN musicbrainz.release
         ON musicbrainz.release.id = cover_art_archive.index_listing.release
-        WHERE release_group_cover_art.release_group
-        IN (" . placeholders(@ids) . ")
-        AND is_front = true";
-
+        FULL OUTER JOIN cover_art_archive.release_group_cover_art
+        ON release_group_cover_art.release = musicbrainz.release.id
+        WHERE release.release_group IN (" . placeholders(@ids) . ")
+        AND is_front = true
+        ORDER BY release.release_group, release_group_cover_art.release,
+                 release.date_year, release.date_month, release.date_day";
 
     $self->sql->select($query, @ids);
     while (my $row = $self->sql->next_row_hash_ref) {
