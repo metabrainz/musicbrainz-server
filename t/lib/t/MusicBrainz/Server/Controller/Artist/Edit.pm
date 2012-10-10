@@ -190,7 +190,7 @@ INSERT INTO artist (id, gid, name, sort_name) VALUES (10, '9f0b3e1a-2431-400f-b6
 
 INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 2);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-  VALUES (1, 10, 2, 1, NULL);
+  VALUES (1, 10, 2, 1, '');
 EOSQL
 
     $mech->get_ok('/login');

@@ -163,7 +163,7 @@ sub insert
         my $release_id = $self->sql->insert_row('release_raw', {
             title => $cdstub_hash->{title},
             artist => $cdstub_hash->{artist},
-            comment => $cdstub_hash->{comment} || undef,
+            comment => $cdstub_hash->{comment} // '',
             barcode => $cdstub_hash->{barcode} || undef,
             lookup_count => int(rand(10)) # FIXME - at least comment why we do this. -- aCiD2
         }, 'id');

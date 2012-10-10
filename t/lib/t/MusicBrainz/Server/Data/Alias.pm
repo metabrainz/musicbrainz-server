@@ -128,7 +128,7 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name');
 INSERT INTO artist (id, gid, name, sort_name, comment)
     VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 1'),
            (2, '73371ea0-7217-11de-8a39-0800200c9a66', 1, 1, 'Artist 2'),
-           (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 2, 2, NULL);
+           (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 2, 2, '');
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2, 3);
@@ -166,7 +166,7 @@ test 'Exists only checks a single entity' => sub {
     $c->sql->do(<<EOSQL);
 INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, NULL),
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, ''),
            (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2, 'Artist 2'),
            (3, '1153890e-afdf-404c-85d1-aea98dfe576d', 2, 2, 'Artist 3');
 INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 2, 2), (2, 3, 3);
