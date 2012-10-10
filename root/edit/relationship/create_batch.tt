@@ -4,7 +4,6 @@
       'scripts/MB/html.js',
       'scripts/ar.js',
     ) %]"></script>
-   <script src="[% c.uri_for('/text.js') %]" type="text/javascript"></script>
 [% END %]
 
 [%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 -%]

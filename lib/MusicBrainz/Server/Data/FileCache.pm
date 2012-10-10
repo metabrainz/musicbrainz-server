@@ -33,6 +33,15 @@ sub manifest_signature {
     return $self->manifest_signatures->{$manifest};
 }
 
+sub textjs_signature {
+    my ($self, $template) = @_;
+    unless (exists $self->manifest_signatures->{'textjs' . $template}) {
+        $self->manifest_signatures->{'textjs' . $template} = file_md5_hex(DBDefs::MB_SERVER_ROOT . "/root/" . $template);
+    }
+
+    return $self->manifest_signatures->{'textjs' . $template};
+}
+
 sub _expand {
     my ($path, $type) = @_;
     if (-d $path) {
