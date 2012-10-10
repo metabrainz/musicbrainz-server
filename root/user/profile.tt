@@ -66,13 +66,13 @@
 
         [% IF user.gender;
              WRAPPER property name=l('Gender:');
-              user.gender.name;
+              user.gender.l_name;
              END;
            END; %]
 
         [% IF user.country;
              WRAPPER property name=l('Country:');
-              user.country.name;
+              user.country.l_name;
              END;
            END; %]
 
@@ -120,7 +120,7 @@
           [% WRAPPER property name=l('Languages:') %]
             <ul class="inline">
               [% FOR language=user.languages %]
-                <li>[% language.language.name %] ([% language.fluency %])</li>
+                <li>[% language.language.l_name %] ([% language.l_fluency %])</li>
               [% END %]
             </ul>
           [% END %]
@@ -145,7 +145,7 @@
         </thead>
 
         <tbody>
-        [% WRAPPER statistics name=l("Accepted") %]
+        [% WRAPPER statistics name=lp("Accepted", 'edit descriptor') %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.accepted_edits), view_url => c.uri_for_action('/user/edits/accepted', [ user.name ]) }) %]
         [% END %]
 
@@ -159,6 +159,25 @@
 
         [% WRAPPER statistics name=l("Failed") %]
             [% l('{count} ({view_url|view})', { count => add_commas(user.failed_edits), view_url => c.uri_for_action('/user/edits/failed', [ user.name ]) }) %]
+        [% END %]
+
+        [% WRAPPER statistics name=l("Open") %]
+            [% l('{count} ({view_url|view})', { count => add_commas(open_count), view_url => c.uri_for_action('/user/edits/open', [ user.name ]) }) %]
+        [% END %]
+
+        [% WRAPPER statistics name=l("Last 24 hours") %]
+            [% l('{count} ({view_url|view})', { count => add_commas(last_day_count),
+                     view_url => html_escape(c.uri_for('/search/edits', {
+                         auto_edit_filter => '', order => 'desc',
+                         negation => '0', combinator => 'and',
+                         'conditions.0.field' => 'editor',
+                         'conditions.0.operator' => '=',
+                         'conditions.0.name' => user.name,
+                         'conditions.0.args.0' => user.id,
+                         'conditions.1.field' => 'open_time',
+                         'conditions.1.operator' => '>',
+                         'conditions.1.args.0' => '24 hours ago'
+                     })) }) %]
         [% END %]
         </tbody>
     </table>

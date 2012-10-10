@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::Search::Search;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l lp );
 
 has_field 'query' => (
     type => 'Text',
@@ -40,7 +40,7 @@ sub options_type
         'cdstub'        => l('CD Stub'),
         'editor'        => l('Editor'),
         'freedb'        => l('FreeDB'),
-        'tag'           => l('Tag'),
+        'tag'           => lp('Tag', 'noun'),
     );
 
     push @options, ( 'doc' => l('Documentation') ) if &DBDefs::GOOGLE_CUSTOM_SEARCH;

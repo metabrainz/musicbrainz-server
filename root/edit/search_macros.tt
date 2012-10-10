@@ -255,7 +255,7 @@
                , [ 'subscribed', l('is in my subscriptions') ]
                ], field_contents) %]
 
-  <span class="autocomplete [% field | replace('_', '-') %]">
+  <span class="arg autocomplete [% field | replace('_', '-') %]">
       <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
       <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
       <input type="hidden" class="gid" />
@@ -285,7 +285,7 @@
                    [ 'open_time', l('Created') ],
                    [ 'expire_time', l('Expired') ],
                    [ 'close_time', l('Closed') ],
-                   [ 'status', l('Status') ],
+                   [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],
                    [ 'no_votes', l('No vote count') ],
                    [ 'yes_votes', l('Yes vote count') ],

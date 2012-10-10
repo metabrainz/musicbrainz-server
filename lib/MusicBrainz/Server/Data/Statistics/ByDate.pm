@@ -24,16 +24,15 @@ sub get_latest_statistics {
                    FROM " . $self->_table . "
                   WHERE date_collected = (SELECT MAX(date_collected) FROM ". $self->_table .")";
 
-    $self->sql->select($query) or return;
+    my @statistics = @{ $self->sql->select_list_of_hashes($query) }
+        or return undef;
 
-    my $stats = MusicBrainz::Server::Entity::Statistics::ByDate->new();
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    my $stats = MusicBrainz::Server::Entity::Statistics::ByDate->new;
+    for my $row (@statistics) {
         $stats->date_collected($row->{date_collected})
             unless $stats->date_collected;
         $stats->data->{$row->{name}} = $row->{value};
     }
-    $self->sql->finish;
 
     return $stats;
 }

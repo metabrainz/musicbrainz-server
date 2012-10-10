@@ -86,6 +86,7 @@ then
 
     # Now remove the "private" file(s)
     rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2
+    rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2.gpg
 
     # and move the rest to the FTP directory
     chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/*

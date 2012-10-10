@@ -33,7 +33,7 @@ $mech->submit_form( with_fields => {
 like($mech->uri, qr{/user/email_editor}, 'should redirect to profile page after registering');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-my $email = $email_transport->deliveries->[-1]->{email};
+my $email = $email_transport->shift_deliveries->{email};
 is($email->get_header('Subject'), 'Please verify your email address');
 like($email->get_body, qr{/verify-email}, 'has a link to verify email address');
 

@@ -1,0 +1,7 @@
+[% WRAPPER 'statistics/layout.tt' full_width=1 page='index'%]
+  <h2>[% l('No Statistics') %]</h2>
+  <p>[% l('Statistics have never been collected for this server. If you are the
+           administrator for this server, you should run
+           <code>./admin/CollectStats.pl</code> or import
+           <code>mbdump-stats.tar.bz2</code>.') %]</p>
+[% END %]

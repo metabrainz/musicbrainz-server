@@ -41,7 +41,7 @@ sub show : Chained('load') PathPart('')
         template => 'tag/index.tt',
         map {
             my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
-                $tag->id, 10);
+                $tag->id, 10, 0);
 
             ($_ . '_tags' => $entities,
              $_ . '_count' => $total)

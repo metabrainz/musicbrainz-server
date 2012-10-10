@@ -18,6 +18,8 @@ html_ok($mech->content);
 $mech->content_like(qr{Aerial});
 $mech->content_like(qr{Kate Bush});
 
+$mech->get_ok('/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI');
+
 };
 
 1;

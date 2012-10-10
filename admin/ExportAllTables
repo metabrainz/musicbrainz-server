@@ -412,6 +412,7 @@ my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
 my @tablelist;
 my $encrypt_for = undef;
+my $sign_with = undef;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
@@ -425,7 +426,8 @@ GetOptions(
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
     "help"                              => \$fHelp,
-    "encrypt-for|e=s" => \$encrypt_for
+    "encrypt-for|e=s" => \$encrypt_for,
+    "sign-with|s=s" => \$sign_with
 );
 
 sub usage
@@ -443,6 +445,7 @@ Usage: ExportAllTables [options]
         --with[out]-full-export  Do [not] export full tables
         --check-completeness     Check that all tables from DB schema are exported
     -e, --encrypt-for     A GPG aware recipient to encrypt private data for.
+    -s, --sign-with       A GPG key that is used to sign data dumps.
 
 Certain combinations of options are pointless:
  * specifying --without-replication and --without-full-export
@@ -453,9 +456,9 @@ If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
 
 GPG encryption of private data requires you pass a recipient to encrypt data
-for. This parameter can take any value that gpg(1) can take for `-r`. The user
-running ExportAllTables must have a GPG keyring setup that is aware of this
-recipient.
+for. This parameter can take any value that gpg(1) can take for
+`--recipient`. The user running ExportAllTables must have a GPG keyring setup
+that is aware of this recipient.
 
 EOF
 }
@@ -745,7 +748,7 @@ if ($fCompress and $fDoFullExport)
     $? == 0 or die "md5sum returned $?";
 
     if ($encrypt_for) {
-        system "/usr/bin/gpg -r '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "/usr/bin/gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
         system "rm $OutputDir/mbdump-private.tar.bz2";
     }
 }
@@ -799,6 +802,9 @@ sub make_tar
         ;
     $? == 0 or die "Tar returned $?";
     printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
+
+    system "/usr/bin/gpg --default-key $sign_with --sign $OutputDir/$tarfile"
+        if $sign_with;
 }
 
 sub writefile

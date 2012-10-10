@@ -289,24 +289,24 @@ is( $release->labels->[1]->catalog_number, "ABC-123-X", 'release also has catalo
 $release = $release_data->get_by_id(2);
 is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 
-my ($releases, $hits) = $release_data->find_by_artist(1, 100);
+my ($releases, $hits) = $release_data->find_by_artist(1, 100, 0);
 is( $hits, 6 );
 is( scalar(@$releases), 6 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by artist');
 ok( (grep { $_->id == 2 } @$releases), 'found release by artist');
 
-($releases, $hits) = $release_data->find_by_track_artist(3, 100);
+($releases, $hits) = $release_data->find_by_track_artist(3, 100, 0);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
 ok( (grep { $_->id == 11 } @$releases), 'found release 11' );
 ok( (grep { $_->id == 10 } @$releases) == 0, 'did not find release 10' );
 
-($releases, $hits) = $release_data->find_by_recording(1, 100);
+($releases, $hits) = $release_data->find_by_recording(1, 100, 0);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
 is( $releases->[0]->id, 3, 'found release by recording' );
 
-($releases, $hits) = $release_data->find_by_release_group(1, 100);
+($releases, $hits) = $release_data->find_by_release_group(1, 100, 0);
 is( $hits, 6 );
 is( scalar(@$releases), 6 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by release group' );
