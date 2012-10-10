@@ -1,9 +1,9 @@
 
--- jquery/jquery-1.5.1.js --
+-- jquery/jquery.js --
 
 library:     jQuery
 license:     MIT/GPLv2
-version:     1.5.1
+version:     1.7.2
 author:      John Resig
 url:         http://jquery.com
 
@@ -89,3 +89,35 @@ license:     MIT/GPL
 version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
+
+-- knockout/knockout-latest.debug.js --
+
+library:     Knockout
+license:     MIT
+version:     GIT, 2012-07-23
+author:      Steven Sanderson
+url:         http://knockoutjs.com
+
+-- knockout/knockout.mapping-latest.debug.js --
+
+library:     Knockout mapping
+license:     MIT
+version:     v2.2.3
+author:      Steven Sanderson, Roy Jacobs
+url:         http://knockoutjs.com/documentation/plugins-mapping.html
+
+-- underscore/underscore.js --
+
+library:     Underscore
+license:     MIT
+version:     1.4.0
+author:      Jeremy Ashkenas, DocumentCloud
+url:         http://underscorejs.org
+
+-- underscore/underscore.string.js --
+
+library:     Underscore.string
+license:     MIT
+version:     2.3.0
+author:      Esa-Matti Suuronen
+url:         http://epeli.github.com/underscore.string

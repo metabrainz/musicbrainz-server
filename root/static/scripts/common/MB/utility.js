@@ -17,15 +17,23 @@
 */
 
 MB.utility.keys = function (obj) {
-    var ret = [];
-    for (var key in obj) {
-        if (obj.hasOwnProperty (key))
-        {
-            ret.push (key);
-        }
+    if (null === obj) {
+        return [];
     }
+    else if (Object.keys) {
+        return Object.keys(obj);
+    }
+    else {
+        var ret = [];
+        for (var key in obj) {
+            if (obj.hasOwnProperty (key))
+            {
+                ret.push (key);
+            }
+        }
 
-    return ret;
+        return ret;
+    }
 };
 
 MB.utility.displayedValue = function(element) {
@@ -194,7 +202,7 @@ MB.utility.formatTrackLength = function (duration)
     var hours = 60 * minutes;
 
     var hours_str = '';
-    duration = duration + 0.5;
+    duration = duration + 500;
 
     if (duration > 1 * hours)
     {
@@ -249,3 +257,33 @@ MB.utility.renderArtistCredit = function (ac) {
     return html;
 }
 
+// Based on http://javascript.crockford.com/prototypal.html
+MB.utility.beget = function(o) {
+    function F() {};
+    F.prototype = o;
+    return new F;
+};
+
+MB.utility.validDate = (function() {
+    var daysInMonth = {
+        "true":  [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        "false": [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    };
+
+    return function(y, m, d) {
+        y = parseInt(y, 10) || null;
+        m = parseInt(m, 10) || null;
+        d = parseInt(d, 10) || null;
+
+        if (y === null && m === null && d === null)
+            return false;
+
+        var leapYear = (y % 400 ? (y % 100 ? !Boolean(y % 4) : false) : true).toString();
+
+        if (y === null || (d !== null && m === null) || y < 1 || (m !== null &&
+            (m < 1 || m > 12 || (d !== null && (d < 1 || d > daysInMonth[leapYear][m]))))) {
+            return false;
+        }
+        return true;
+    };
+}());

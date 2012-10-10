@@ -52,7 +52,7 @@
           </div>
         </div>
       [% END %]
-      [% form_row_select (r, 'status_id', l('Status:')) %]
+      [% form_row_select (r, 'status_id', lp('Status:', 'release status')) %]
       [% form_row_select (r, 'language_id', l('Language:')) %]
       [% form_row_select (r, 'script_id', l('Script:')) %]
 

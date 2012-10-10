@@ -3,13 +3,14 @@
     work => work.name
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [% IF work.type || work.iswcs.size || work.language %]
         <h2 class="work-information">[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Lyrics Language:')
-               content=html_escape(work.language.l_name) class="lyrics-language"
+               content=link_searchable_property('lang', work.language.iso_code_3, 'work', work.language.l_name)
+               class="lyrics-language"
                    IF work.language -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(work.type.l_name) class="type"
@@ -65,10 +66,11 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
     [% END %]
+  [%- END -%]
 
-<div id="content">
+  <div id="content">
     [%- INCLUDE 'work/header.tt' %]
     [%- content -%]
-</div>
+  </div>
 
 [%- END -%]

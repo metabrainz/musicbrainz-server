@@ -24,18 +24,18 @@ MB.Control.AnnotationHistory = function (table) {
     var $table = $(table);
 
     self.reset = function () {
-        var seenOld, seenNew;
+        var seenOld = false, seenNew = false;
         $table.find('tr').each(function(tr) {
-           var $tr = $(this),
-               $old = $tr.find('input.old'),
-               $new = $tr.find('input.new');
+            var $tr = $(this),
+                $old = $tr.find('input.old'),
+                $new = $tr.find('input.new');
 
-           seenOld = seenOld || $old.attr('checked');
+            seenOld = seenOld || !!$old.attr('checked');
 
-           $old.toggle(seenNew);
-           $new.toggle(!seenOld);
+            $old.toggle(seenNew);
+            $new.toggle(!seenOld);
 
-           seenNew = seenNew || $new.attr('checked');
+            seenNew = seenNew || !!$new.attr('checked');
         });
     };
 

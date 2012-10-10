@@ -16,20 +16,6 @@
 
 [% INCLUDE 'edit/list_header.tt' %]
 
-[% IF search %]
-    <div class="search-refine">
-        <form action="[% c.req.uri %]" method="get">
-            [% USE r = FormRenderer(form) %]
-            [% form_row_select(r, 'type', l('Type:')) %]
-            [% form_row_select(r, 'status', l('Status:')) %]
-
-         <div class="row no-label">
-             [% form_submit(l("Search")) %]
-         </div>
-       </form>
-    </div>
-[% END %]
-
 <div class="search-toggle c">
     <p>
         <strong>

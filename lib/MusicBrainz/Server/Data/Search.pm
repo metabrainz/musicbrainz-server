@@ -36,6 +36,7 @@ use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use DateTime::Format::ISO8601;
 use feature "switch";
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -127,7 +128,7 @@ sub search
             if ($type eq "recording");
 
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
-            entity.date_year, entity.date_month, entity.date_day,'
+            entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
             if ($type eq 'release');
 
         $extra_columns .= 'entity.language AS language_id,'
@@ -609,6 +610,10 @@ sub external_search
         my $xmltype = $type;
         $xmltype =~ s/freedb/freedb-disc/;
         my $pos = 0;
+        my $last_updated = $data->{created} ?
+            DateTime::Format::ISO8601->parse_datetime($data->{created}) :
+            undef;
+
         foreach my $t (@{$data->{"$xmltype-list"}->{$xmltype}})
         {
             $self->schema_fixup($t, $type);
@@ -643,7 +648,7 @@ sub external_search
         $pager->entries_per_page($limit);
         $pager->total_entries($total_hits);
 
-        return { pager => $pager, offset => $offset, results => \@results };
+        return { pager => $pager, offset => $offset, results => \@results, last_updated => $last_updated };
     }
 }
 

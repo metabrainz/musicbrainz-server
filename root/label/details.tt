@@ -1,3 +1,5 @@
+[%- PROCESS 'components/details.tt' -%]
+
 [% WRAPPER "label/layout.tt" title=l('Details') page='details' %]
 <h2>[%- l('Details') -%]</h2>
 <table class="details" [% rdfa_about_attr(rdfa_label_curi(label)) %]>
@@ -13,7 +15,7 @@
   </tr>
   <tr>
     <th>[% l('Last updated:') %]</th>
-    <td>[% UserDate.format(label.last_updated) %]</td>
+    <td>[% last_updated(label) %]</td>
   </tr>
   <tr>
     <th>

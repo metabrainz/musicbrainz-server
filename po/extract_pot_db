@@ -57,10 +57,11 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'release_packaging', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name'], 'ctx' => 'NULL'},
-              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'flags' => 'perl-format', 'where' => 'root != 14'},
-              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase'], 'flags' => 'perl-format'},
-              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'flags' => 'perl-format', 'where' => 'root = 14'},
-              {'domain' => 'instrument_descriptions', 'table' => 'link_attribute_type', 'columns' => ['description'], 'flags' => 'perl-format', 'where' => 'root = 14'}
+              {'domain' => 'attributes', 'table' => 'cover_art_archive.art_type', 'columns' => ['name'], 'ctx' => 'NULL', ctxtable => 'cover_art_type'},
+              {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
+              {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'short_link_phrase']},
+              {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'where' => 'root = 14'},
+              {'domain' => 'instrument_descriptions', 'table' => 'link_attribute_type', 'columns' => ['description'], 'where' => 'root = 14'}
              );
 my @po_objects = map { parse_db($_); } grep { $_->{domain} eq $domain } @DBDEFS;
 

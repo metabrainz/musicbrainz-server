@@ -25,16 +25,15 @@ sub get_statistic {
                    FROM " . $self->_table . "
                   WHERE name = ?";
 
-    $self->sql->select($query, $statistic) or return;
+    my @stats = @{ $self->sql->select_list_of_hashes($query, $statistic) }
+        or return undef;
 
     my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new();
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@stats) {
         $stats->name($row->{name})
             unless $stats->name;
         $stats->data->{$row->{date_collected}} = $row->{value};
     }
-    $self->sql->finish;
 
     return $stats;
 }

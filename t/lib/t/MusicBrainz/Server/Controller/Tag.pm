@@ -57,7 +57,7 @@ test 'Can view tags' => sub {
 
     $test->mech->get_ok('/tag/hip-hop%2Frap/');
     html_ok($test->mech->content);
-    $test->mech->content_like(qr{Tag “hip-hop/rap”});
+    $test->mech->content_like(qr{Tag “hip-hop/rap”}, "contains hip-hop/rap tag");
 };
 
 1;

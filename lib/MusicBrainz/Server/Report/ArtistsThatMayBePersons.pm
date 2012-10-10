@@ -6,19 +6,40 @@ with 'MusicBrainz::Server::Report::ArtistReport',
 
 sub query {
     "
-        SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
-          row_number() OVER (ORDER BY musicbrainz_collate(name.name), artist.id)
-        FROM
-            artist
-            JOIN l_artist_artist ON l_artist_artist.entity0=artist.id
-            JOIN link ON link.id=l_artist_artist.link
-            JOIN link_type ON link_type.id=link.link_type
-            JOIN artist_name AS name ON artist.name=name.id
-        WHERE
-            (artist.type = 2 OR artist.type IS NULL) AND
-            link_type.name NOT IN ('collaboration') AND
-            link_type.entity_type0 = 'artist' AND
-            link_type.entity_type1 = 'artist'
+WITH groups AS (
+         SELECT DISTINCT ON (artist.id) artist.id, artist.name FROM
+         artist
+         JOIN l_artist_artist laa ON laa.entity1 = artist.id
+         JOIN link on link.id = laa.link
+         JOIN link_type on link_type.id = link.link_type
+         WHERE artist.type IS DISTINCT FROM 1
+         AND link_type.name IN ('member of band', 'collaboration', 'conductor position')),
+     persons_entity0 AS (
+         SELECT DISTINCT ON (artist.id) artist.id, artist.name FROM
+         artist
+         JOIN l_artist_artist laa ON laa.entity0 = artist.id
+         JOIN link on link.id = laa.link
+         JOIN link_type on link_type.id = link.link_type
+         WHERE artist.type IS DISTINCT FROM 1
+         AND link_type.name IN ('member of band', 'collaboration', 'voice actor', 'conductor position', 'is person', 'married', 'sibling', 'parent', 'involved with')),
+     persons_entity1 AS (
+         SELECT DISTINCT ON (artist.id) artist.id, artist.name FROM
+         artist
+         JOIN l_artist_artist laa ON laa.entity1 = artist.id
+         JOIN link on link.id = laa.link
+         JOIN link_type on link_type.id = link.link_type
+         WHERE artist.type IS DISTINCT FROM 1
+         AND link_type.name IN ('catalogued', 'is person', 'married', 'sibling', 'parent', 'involved with')),
+     artists AS (
+         SELECT DISTINCT ON (id) id, name FROM
+             (SELECT * FROM persons_entity0
+                  UNION
+              SELECT * from persons_entity1) AS persons
+          EXCEPT
+              SELECT * from groups)
+SELECT DISTINCT ON (artists.id) artists.id AS artist_id, row_number() OVER (ORDER BY musicbrainz_collate(name.name), artists.id)
+    FROM artists
+    JOIN artist_name AS name ON artists.name = name.id
     ";
 }
 

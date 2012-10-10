@@ -3,7 +3,7 @@
     name => html_escape(recording.name)
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_recording_curi(recording)%]
         <h2 class="recording-information">[% l('Recording information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -62,10 +62,11 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
     [% END %]
+  [%- END -%]
 
-    <div id="content">
-        [%- INCLUDE 'recording/header.tt' %]
-        [%- content -%]
-    </div>
+  <div id="content">
+    [%- INCLUDE 'recording/header.tt' %]
+    [%- content -%]
+  </div>
 
 [%- END -%]

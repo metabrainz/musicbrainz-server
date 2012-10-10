@@ -4,7 +4,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::Buffer';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use Function::Parameters 'f';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_PUIDS
     $EDIT_RECORDING_ADD_ISRCS
@@ -233,7 +232,8 @@ sub recording_submit : Private
         # Submit PUIDs
         my $buffer = Buffer->new(
             limit => 100,
-            on_full => f($contents) {
+            on_full => sub {
+                my $contents = shift;
                 my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
                 return unless @$new_rows;
 
@@ -262,7 +262,8 @@ sub recording_submit : Private
         # Submit ISRCs
         $buffer = Buffer->new(
             limit => 100,
-            on_full => f($contents) {
+            on_full => sub {
+                my $contents = shift;
                 try {
                     $c->model('Edit')->create(
                         edit_type      => $EDIT_RECORDING_ADD_ISRCS,
