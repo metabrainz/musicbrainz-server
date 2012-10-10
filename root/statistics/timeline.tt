@@ -7,7 +7,7 @@
 [% END %]
 
 [% BLOCK layout_head %]
-  <script type="text/javascript" src="[% c.uri_for('/scripts', current_language, c.model('FileCache').textjs_signature('statistics/view_js.tt'), 'statistics/view.js') %]"></script>
+  <script type="text/javascript" src="[% c.uri_for('/scripts', current_language, c.model('FileCache').template_signature('statistics/view_js.tt'), 'statistics/view.js') %]"></script>
   [% script_manifest('statistics.js.manifest') %]
   <style type="text/css">
       h2#graph-toggle-header {

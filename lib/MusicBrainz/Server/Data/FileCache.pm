@@ -19,6 +19,13 @@ has manifest_signatures => (
     default => sub { {} }
 );
 
+has file_signatures => (
+    isa => Map[Str, Str],
+    is => 'ro',
+    traits => [ 'Hash' ],
+    default => sub { {} }
+);
+
 sub manifest_signature {
     my ($self, $manifest, $type) = @_;
     unless (exists $self->manifest_signatures->{$manifest}) {
@@ -33,13 +40,13 @@ sub manifest_signature {
     return $self->manifest_signatures->{$manifest};
 }
 
-sub textjs_signature {
+sub template_signature {
     my ($self, $template) = @_;
-    unless (exists $self->manifest_signatures->{'textjs' . $template}) {
-        $self->manifest_signatures->{'textjs' . $template} = file_md5_hex(DBDefs::MB_SERVER_ROOT . "/root/" . $template);
+    unless (exists $self->file_signatures->{'template' . $template}) {
+        $self->file_signatures->{'template' . $template} = file_md5_hex(DBDefs::MB_SERVER_ROOT . "/root/" . $template);
     }
 
-    return $self->manifest_signatures->{'textjs' . $template};
+    return $self->file_signatures->{'template' . $template};
 }
 
 sub _expand {
