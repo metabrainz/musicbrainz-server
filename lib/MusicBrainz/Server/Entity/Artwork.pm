@@ -3,7 +3,6 @@ package MusicBrainz::Server::Entity::Artwork;
 use Moose;
 use DBDefs;
 use MusicBrainz::Server::Entity::CoverArtType;
-use MusicBrainz::Server::Constants qw( $COVERART_FRONT_TYPE $COVERART_BACK_TYPE );
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
@@ -11,11 +10,6 @@ with 'MusicBrainz::Server::Entity::Role::Editable';
 has comment => (
     is => 'rw',
     isa => 'Str'
-);
-
-has ordering => (
-    is => 'rw',
-    isa => 'Int',
 );
 
 has cover_art_types => (

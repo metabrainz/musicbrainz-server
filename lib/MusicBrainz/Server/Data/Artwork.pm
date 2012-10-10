@@ -78,11 +78,8 @@ sub find_by_release
 
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
-    foreach my $image (@artwork) {
-        foreach my $release (@{ $id_to_release{$image->release_id} })
-        {
-            $image->release ($release);
-        }
+    for my $image (@artwork) {
+        $image->release ($id_to_release{$image->release_id}->[0]);
     }
 
     return \@artwork;
