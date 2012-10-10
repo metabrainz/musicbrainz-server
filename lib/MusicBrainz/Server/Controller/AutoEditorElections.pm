@@ -81,7 +81,6 @@ sub show : Chained('load') PathPart('') Args(0)
     $c->model('AutoEditorElection')->load_editors($election);
 
     $c->stash(
-        expiration => $election->open_time ? $election->open_time->clone->add( weeks => 1 ) : $election->propose_time->clone->add( weeks => 1 ),
         can_vote => $c->user_exists && $election->can_vote($c->user),
         can_second => $c->user_exists && $election->can_second($c->user),
         can_cancel => $c->user_exists && $election->can_cancel($c->user),
