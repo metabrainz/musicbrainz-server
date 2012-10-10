@@ -307,18 +307,20 @@ ul.conditions button.remove img {
     display: none;
 }
 
-input.icon {
+input.icon, div.icon.img {
     width: 16px;
     height: 16px;
     border: 0 !important;
     background-repeat: no-repeat;
 }
 
-input.add-artist-credit, input.add-track {
+div.img { display: inline-block; }
+
+input.add-artist-credit, input.add-track, a.add-label div, div.add-item {
     background-image: url('../images/icons/add_row.png');
 }
 
-input.remove-artist-credit, input.remove-track, input.remove-disc {
+input.remove-artist-credit, input.remove-track, input.remove-disc, a.remove-label div, div.remove-item {
     background-image: url('../images/icons/delete_row.png');
 }
 
