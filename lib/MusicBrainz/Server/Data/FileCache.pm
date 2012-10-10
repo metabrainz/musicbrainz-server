@@ -49,6 +49,15 @@ sub template_signature {
     return $self->file_signatures->{'template' . $template};
 }
 
+sub pofile_signature {
+    my ($self, $domain, $language) = @_;
+    unless (exists $self->file_signatures->{'pofile' . $domain . $language}) {
+        $self->file_signatures->{'pofile' . $domain . $language} = file_md5_hex(DBDefs::MB_SERVER_ROOT . "/po/" . $domain . '.' . $language . '.po');
+    }
+
+    return $self->file_signatures->{'pofile' . $domain . $language};
+}
+
 sub _expand {
     my ($path, $type) = @_;
     if (-d $path) {

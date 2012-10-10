@@ -9,7 +9,7 @@ sub begin : Private {}
 sub end : ActionClass('RenderView') { }
 
 sub js_text_setup : Chained('/') PathPart('scripts') CaptureArgs(2) {
-    my ($self, $c, $lang, $hash) = @_;
+    my ($self, $c, $lang_hash, $hash) = @_;
     # We rely on templates to correctly pass hash/language;
     # They're just here to ensure a different URL
 
