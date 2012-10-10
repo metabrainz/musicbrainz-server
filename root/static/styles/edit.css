@@ -355,7 +355,13 @@ div.thumb-position.moved {
 }
 
 .set-cover-art div.editimage.selected {
-    background: #ffdd99;
-    border: 1px solid #f0d090;
+    background: #bbffbb;
+    border: 1px solid #889988;
 }
 
+div.editimage button.set-cover-art {
+    position: absolute; right: 5px; bottom: 5px;
+}
+
+div.editimage p.currently-selected { display: none; }
+div.editimage.selected p.currently-selected { display: block; }

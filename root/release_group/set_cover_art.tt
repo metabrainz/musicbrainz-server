@@ -24,7 +24,7 @@
             [%- comma_list(image.types) || '-' -%]<br />
             [%- image.comment | html -%]
           </p>
-          <button class="set-cover-art" data-gid="[% image.release.gid %]" style="position: absolute; right: 5px; bottom: 5px;">[% l('Select') %]</button>
+          <button class="set-cover-art" data-gid="[% image.release.gid %]" >[% l('Select') %]</button>
         </div>
       [% END %]
       </div>
