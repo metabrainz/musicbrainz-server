@@ -417,6 +417,7 @@ sub load_with_tracklist_for_recording
                 release.packaging AS r_packaging,
                 release.quality AS r_quality,
                 release.release_group AS r_release_group,
+                release.comment AS r_comment,
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,

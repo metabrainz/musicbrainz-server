@@ -251,7 +251,7 @@ INSERT INTO release_name (name, id) VALUES ('My Demons', 137058);
 INSERT INTO artist_name (name, id) VALUES ('Distance', 591808);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 591808, 229, 1, 427385);
 INSERT INTO artist_type (name, id) VALUES ('Person', 1);
-INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 427385, 591808, NULL, NULL, NULL, '2009-12-30 20:10:06.209461+00', 591808, NULL, NULL, '', NULL, NULL, 1, NULL, '472bc127-8861-45e8-bc9e-31e8dd32de7a');
+INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 427385, 591808, NULL, NULL, NULL, '2009-12-30 20:10:06.209461+00', 591808, NULL, NULL, 'UK dubstep artist Greg Sanders', NULL, NULL, 1, NULL, '472bc127-8861-45e8-bc9e-31e8dd32de7a');
 INSERT INTO artist_name (name, id) VALUES ('DJ Distance', 230272);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 427385, 591808, 0, NULL, 76296, 591808);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 427385, 230272, 0, NULL, 68866, 230272);
@@ -533,7 +533,7 @@ INSERT INTO artist_tag (last_updated, count, artist, tag) VALUES ('2011-01-18 15
 INSERT INTO artist_tag (last_updated, count, artist, tag) VALUES ('2011-01-18 15:21:33.71184+00', 1, 9496, 104);
 INSERT INTO artist_tag (last_updated, count, artist, tag) VALUES ('2011-01-18 15:21:33.71184+00', 1, 9496, 502);
 INSERT INTO artist_tag (last_updated, count, artist, tag) VALUES ('2011-01-18 15:21:33.71184+00', 1, 9496, 19);
-INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 135345, 75219, 0, 792488);
+INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('♥', 135345, 75219, 0, 792488);
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 9496, 661715, 1, 792488);
 INSERT INTO recording (last_updated, name, edits_pending, artist_credit, length, comment, id, gid) VALUES (NULL, 2580451, 0, 792488, 242226, '', 4525123, '0cf3008f-e246-428f-abc1-35f87d584d60');
 INSERT INTO recording_tag (last_updated, count, recording, tag) VALUES (NULL, 1, 4525123, 558);
@@ -775,7 +775,7 @@ UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 273135;
 INSERT INTO artist_name (name, id) VALUES ('SKC', 393472);
 INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 100300, 393472, NULL, NULL, NULL, '2009-01-18 01:55:50.388834+00', 393472, NULL, NULL, '', NULL, NULL, 1, NULL, '75cb635d-4354-4eb7-83d4-642b7fefee5e');
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 100300;
-INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 273135, 404781, 0, 781759);
+INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES (' & ', 273135, 404781, 0, 781759);
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 100300, 393472, 1, 781759);
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', '', 23375, 0, 2, 781759, 701319, '86b4a630-4dd8-36f0-8bc9-e52fe7634320');
 INSERT INTO release (date_day, status, release_group, edits_pending, packaging, id, quality, country, last_updated, script, language, name, artist_credit, barcode, comment, date_year, date_month, gid) VALUES (13, 1, 701319, 0, NULL, 372913, -1, 221, NULL, 28, 120, 23375, 781759, NULL, '', 2004, 12, '91c1799c-fb3a-4e06-9cca-c78a6a5092c0');
@@ -797,7 +797,7 @@ INSERT INTO track (last_updated, recording, name, position, number, edits_pendin
 INSERT INTO track (last_updated, recording, name, position, number, edits_pending, artist_credit, tracklist, length, id) VALUES ('2011-01-18 15:56:00.408782+00', 7883924, 631792, 2, 2, 0, 781759, 701319, NULL, 7883924);
 INSERT INTO medium (last_updated, format, name, position, edits_pending, release, id, tracklist) VALUES ('2011-01-18 15:21:33.71184+00', 7, NULL, 1, 0, 372913, 372913, 701319);
 INSERT INTO label_name (name, id) VALUES ('Commercial Suicide', 20282);
-INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (NULL, 0, 3592, 20282, 221, NULL, NULL, 20282, 2001, NULL, 'Klute''s label', NULL, NULL, 4, NULL, '3218df3e-3de3-45e3-9a05-041528db6ee5');
+INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (NULL, 0, 3592, 20282, 221, NULL, NULL, 20282, 2001, NULL, 'UK drum & bass, Klute''s label', NULL, NULL, 4, NULL, '3218df3e-3de3-45e3-9a05-041528db6ee5');
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 3592;
 INSERT INTO release_label (last_updated, catalog_number, label, release, id) VALUES ('2011-01-18 15:52:02.917556+00', 'SUICIDE 021', 3592, 372913, 259877);
 UPDATE release_meta SET amazon_asin = NULL, info_url = NULL, date_added = '2008-04-04 09:13:40.333718+00', amazon_store = NULL WHERE id = 372913;
@@ -807,7 +807,7 @@ INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES (
 INSERT INTO release_name (name, id) VALUES ('Cool Down / Roll On', 84891);
 INSERT INTO artist_name (name, id) VALUES ('Andy C', 515533);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 515533, 108, 1, 9772);
-INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 9772, 515533, NULL, NULL, NULL, '2009-04-17 06:25:01.281186+00', 515533, NULL, NULL, '', NULL, NULL, 1, NULL, 'ec853694-30a1-4c7e-84e6-4ca87ee3c314');
+INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 9772, 515533, NULL, NULL, NULL, '2009-04-17 06:25:01.281186+00', 515533, NULL, NULL, 'UK drum & bass DJ/producer', NULL, NULL, 1, NULL, 'ec853694-30a1-4c7e-84e6-4ca87ee3c314');
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 9772;
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 9772, 515533, 0, 9772);
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', '', 84891, 0, 2, 9772, 253157, 'acc775e4-9b67-3828-a4a0-92df54273190');
@@ -839,7 +839,7 @@ INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES (
 INSERT INTO release_name (name, id) VALUES ('Acid Test / Get on Up', 134114);
 INSERT INTO artist_name (name, id) VALUES ('Sub Focus', 94766);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 94766, 313, 1, 199379);
-INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 199379, 94766, NULL, NULL, NULL, NULL, 94766, NULL, NULL, '', NULL, NULL, 1, NULL, '8cf49f40-b8fe-4a63-b4ea-f922d6145bb4');
+INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 199379, 94766, NULL, NULL, NULL, NULL, 94766, NULL, NULL, 'UK drum & bass artist Nick Douwma', NULL, NULL, 1, NULL, '8cf49f40-b8fe-4a63-b4ea-f922d6145bb4');
 INSERT INTO artist_name (name, id) VALUES ('Subfocus', 655769);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 199379, 655769, 0, NULL, 52238, 655769);
 UPDATE artist_meta SET rating_count = 2, rating = 100 WHERE id = 199379;
@@ -1471,7 +1471,7 @@ INSERT INTO track (last_updated, recording, name, position, number, edits_pendin
 INSERT INTO track (last_updated, recording, name, position, number, edits_pending, artist_credit, tracklist, length, id) VALUES ('2011-01-18 15:56:00.408782+00', 11484265, 834828, 6, 6, 0, 242, 1003086, 91000, 11484265);
 INSERT INTO medium (last_updated, format, name, position, edits_pending, release, id, tracklist) VALUES ('2011-01-18 15:21:33.71184+00', 1, NULL, 1, 0, 741970, 741970, 1003086);
 INSERT INTO label_name (name, id) VALUES ('Virgin', 50922);
-INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (3098, 0, 95, 50922, 221, NULL, NULL, 50922, 1973, NULL, '', NULL, NULL, NULL, NULL, '49b58bdb-3d74-40c6-956a-4c4b46115c9c');
+INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (3098, 0, 95, 50922, 221, NULL, NULL, 50922, 1973, NULL, 'UK/worldwide', NULL, NULL, NULL, NULL, '49b58bdb-3d74-40c6-956a-4c4b46115c9c');
 INSERT INTO label_name (name, id) VALUES ('ヴァージン・レコード', 3021);
 INSERT INTO label_name (name, id) VALUES ('Virgin Records Ltd.', 44732);
 INSERT INTO label_name (name, id) VALUES ('Virgin Records Japan', 5955);
@@ -1523,7 +1523,7 @@ INSERT INTO release_group_tag (last_updated, count, release_group, tag) VALUES (
 INSERT INTO release_name (name, id) VALUES ('Make It Hot', 455065);
 INSERT INTO artist_name (name, id) VALUES ('Nicole', 131822);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 131822, 61, 1, 301255);
-INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 301255, 131822, NULL, NULL, NULL, NULL, 131822, 1981, NULL, 'key track "Make it Hot"', 7, NULL, 1, NULL, 'b389cc97-5fea-43f2-a31c-55f81426a75a');
+INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 301255, 131822, NULL, NULL, NULL, NULL, 131822, 1981, NULL, 'US R&B artist Nicole Wray, key track "Make it Hot"', 7, NULL, 1, NULL, 'b389cc97-5fea-43f2-a31c-55f81426a75a');
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 301255;
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 301255, 131822, 0, 301255);
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', '', 455065, 0, 2, 301255, 148670, '961c672c-7a3f-30c1-9e44-4e3ab02affd5');
@@ -2578,7 +2578,7 @@ INSERT INTO tracklist (last_updated, track_count, id) VALUES ('2011-01-18 15:21:
 INSERT INTO track_name (name, id) VALUES ('Chillin''', 1812435);
 INSERT INTO artist_name (name, id) VALUES ('Mindscape', 262999);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 262999, 62, 1, 57874);
-INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 57874, 262999, NULL, NULL, NULL, NULL, 262999, NULL, NULL, '', NULL, NULL, 2, NULL, 'e92b807c-a734-4cee-a88c-1cf03d462c70');
+INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 57874, 262999, NULL, NULL, NULL, NULL, 262999, NULL, NULL, 'drum n bass from Hungary', NULL, NULL, 2, NULL, 'e92b807c-a734-4cee-a88c-1cf03d462c70');
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 57874;
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 57874, 262999, 0, 57874);
 INSERT INTO recording (last_updated, name, edits_pending, artist_credit, length, comment, id, gid) VALUES (NULL, 1812435, 0, 57874, 359000, '', 7505767, 'b80a7303-1c0e-453e-b383-8d4a2a2d222d');
@@ -2595,7 +2595,7 @@ INSERT INTO track (last_updated, recording, name, position, number, edits_pendin
 INSERT INTO medium (last_updated, format, name, position, edits_pending, release, id, tracklist) VALUES ('2011-01-18 15:21:33.71184+00', 7, NULL, 1, 0, 329521, 329521, 666171);
 INSERT INTO medium (last_updated, format, name, position, edits_pending, release, id, tracklist) VALUES ('2011-01-18 15:21:33.71184+00', 7, NULL, 2, 0, 329521, 329523, 666173);
 INSERT INTO label_name (name, id) VALUES ('Hospital Records', 14223);
-INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (12939, 0, 288, 14223, 221, 29, NULL, 14223, 1996, NULL, '', 4, NULL, 4, NULL, '8562598d-60d1-4bd6-8b85-4d709e951770');
+INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (12939, 0, 288, 14223, 221, 29, NULL, 14223, 1996, NULL, 'UK drum & bass', 4, NULL, 4, NULL, '8562598d-60d1-4bd6-8b85-4d709e951770');
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 288;
 INSERT INTO release_label (last_updated, catalog_number, label, release, id) VALUES ('2011-01-18 15:52:02.917556+00', 'NHS98', 288, 329521, 234478);
 UPDATE release_meta SET amazon_asin = NULL, info_url = NULL, date_added = '2007-12-07 04:39:46.888511+00', amazon_store = NULL WHERE id = 329521;
@@ -2940,7 +2940,7 @@ INSERT INTO release_label (last_updated, catalog_number, label, release, id) VAL
 UPDATE release_meta SET amazon_asin = NULL, info_url = NULL, date_added = '2002-09-30 00:42:53.890488+00', amazon_store = NULL WHERE id = 580942;
 INSERT INTO medium (last_updated, format, name, position, edits_pending, release, id, tracklist) VALUES ('2011-01-18 15:21:33.71184+00', 7, NULL, 1, 0, 596488, 596488, 87135);
 INSERT INTO label_name (name, id) VALUES ('Ace Records', 50091);
-INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (5982, 0, 6553, 50091, 221, NULL, NULL, 50091, NULL, NULL, 'started in 1981', NULL, NULL, 4, NULL, '6ca0c797-97f1-4701-8b62-f2f6d5fd1d10');
+INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (5982, 0, 6553, 50091, 221, NULL, NULL, 50091, NULL, NULL, 'UK, started in 1981', NULL, NULL, 4, NULL, '6ca0c797-97f1-4701-8b62-f2f6d5fd1d10');
 INSERT INTO label_name (name, id) VALUES ('Ace Records UK', 22930);
 INSERT INTO label_alias (last_updated, name, edits_pending, locale, label, id, sort_name) VALUES ('2011-01-18 15:21:33.71184+00', 22930, 0, NULL, 6553, 3854, 22930);
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 6553;
@@ -2948,7 +2948,7 @@ INSERT INTO release_label (last_updated, catalog_number, label, release, id) VAL
 UPDATE release_meta SET amazon_asin = NULL, info_url = NULL, date_added = '2002-09-30 00:42:53.890488+00', amazon_store = NULL WHERE id = 596488;
 INSERT INTO medium (last_updated, format, name, position, edits_pending, release, id, tracklist) VALUES ('2011-01-18 15:21:33.71184+00', 7, NULL, 1, 0, 596489, 596489, 87135);
 INSERT INTO label_name (name, id) VALUES ('ABC Records', 26828);
-INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (NULL, 0, 2333, 26828, 222, NULL, '2009-09-22 23:46:54.441733+00', 26828, 1965, NULL, '', NULL, NULL, 4, 1979, 'c3e5d5a2-53f2-4eab-9641-23d61e511928');
+INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (NULL, 0, 2333, 26828, 222, NULL, '2009-09-22 23:46:54.441733+00', 26828, 1965, NULL, '65-79 US', NULL, NULL, 4, 1979, 'c3e5d5a2-53f2-4eab-9641-23d61e511928');
 INSERT INTO label_name (name, id) VALUES ('ABC', 16709);
 INSERT INTO label_alias (last_updated, name, edits_pending, locale, label, id, sort_name) VALUES ('2011-01-18 15:21:33.71184+00', 16709, 0, NULL, 2333, 1922, 16709);
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 2333;
@@ -2968,7 +2968,7 @@ INSERT INTO medium_cdtoc (last_updated, medium, edits_pending, id, cdtoc) VALUES
 INSERT INTO medium_cdtoc (last_updated, medium, edits_pending, id, cdtoc) VALUES ('2011-01-18 15:21:33.71184+00', 596491, 0, 392188, 127389);
 INSERT INTO medium_cdtoc (last_updated, medium, edits_pending, id, cdtoc) VALUES ('2011-01-18 15:21:33.71184+00', 596491, 0, 392189, 339241);
 INSERT INTO label_name (name, id) VALUES ('MCA Records', 29067);
-INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (1056, 0, 347, 29067, 222, NULL, NULL, 29067, 1967, NULL, '', NULL, NULL, 4, 2004, '46a3941a-c810-47a1-974f-955effec4d09');
+INSERT INTO label (label_code, edits_pending, id, sort_name, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (1056, 0, 347, 29067, 222, NULL, NULL, 29067, 1967, NULL, 'US branch', NULL, NULL, 4, 2004, '46a3941a-c810-47a1-974f-955effec4d09');
 INSERT INTO label_name (name, id) VALUES ('MCA', 36832);
 INSERT INTO label_name (name, id) VALUES ('MCA Records Inc', 47102);
 INSERT INTO label_alias (last_updated, name, edits_pending, locale, label, id, sort_name) VALUES ('2011-01-18 15:21:33.71184+00', 36832, 0, NULL, 347, 1634, 36832);
@@ -3022,7 +3022,7 @@ UPDATE release_group_meta SET first_release_date_month = NULL, rating_count = NU
 INSERT INTO release_name (name, id) VALUES ('Exogamy', 275470);
 INSERT INTO artist_name (name, id) VALUES ('Wedlock', 421622);
 INSERT INTO artist_credit (created, name, ref_count, artist_count, id) VALUES ('2011-01-18 16:24:02.551922+00', 421622, 155, 1, 398438);
-INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 398438, 421622, NULL, NULL, NULL, '2009-09-03 07:02:56.975521+00', 421622, 2004, NULL, '', NULL, NULL, 2, NULL, '6fe9f838-112e-44f1-af83-97464f08285b');
+INSERT INTO artist (edits_pending, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, 398438, 421622, NULL, NULL, NULL, '2009-09-03 07:02:56.975521+00', 421622, 2004, NULL, 'USA electro pop', NULL, NULL, 2, NULL, '6fe9f838-112e-44f1-af83-97464f08285b');
 INSERT INTO artist_name (name, id) VALUES ('Wedlock(U.S.)', 821062);
 INSERT INTO artist_alias (last_updated, artist, name, edits_pending, locale, id, sort_name) VALUES ('2011-01-18 15:20:17.74049+00', 398438, 821062, 0, NULL, 51110, 821062);
 UPDATE artist_meta SET rating_count = 1, rating = 80 WHERE id = 398438;

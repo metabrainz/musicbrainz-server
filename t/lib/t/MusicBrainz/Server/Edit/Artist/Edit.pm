@@ -77,7 +77,7 @@ is($edit->display_data->{gender}->{old}, undef);
 is($edit->display_data->{gender}->{new}->{name}, 'Male');
 is($edit->display_data->{country}->{old}, undef);
 is($edit->display_data->{country}->{new}->{name}, 'United Kingdom');
-is($edit->display_data->{comment}->{old}, undef);
+is($edit->display_data->{comment}->{old}, '');
 is($edit->display_data->{comment}->{new}, 'New comment');
 is($edit->display_data->{begin_date}->{old}->format, '');
 is($edit->display_data->{begin_date}->{new}->format, '1990-05-10');
@@ -92,7 +92,6 @@ $edit = $c->model('Edit')->create(
     editor_id => 1,
     to_edit => $artist,
 
-    comment => undef,
     type_id => undef,
     gender_id => undef,
     country_id => undef,
@@ -174,7 +173,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     my $artist = $c->model('Artist')->get_by_id(1);
     is ($artist->name, 'Renamed artist', 'artist renamed');
     is ($artist->sort_name, 'Sort FOO', 'comment changed');
-    is ($artist->comment, undef);
+    is ($artist->comment, '');
 };
 
 test 'Check IPI changes' => sub {
@@ -251,7 +250,8 @@ sub is_unchanged {
     my $artist = shift;
     is($artist->name, 'Artist Name');
     is($artist->sort_name, 'Artist Name');
-    is($artist->$_, undef) for qw( type_id country_id gender_id comment );
+    is($artist->$_, undef) for qw( type_id country_id gender_id );
+    is($artist->comment, '');
     ok($artist->begin_date->is_empty);
     ok($artist->end_date->is_empty);
 }
