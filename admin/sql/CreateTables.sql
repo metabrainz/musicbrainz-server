@@ -1193,7 +1193,7 @@ CREATE TABLE release_group_primary_type (
 
 CREATE TABLE release_group_secondary_type (
     id SERIAL NOT NULL, -- pk
-    name TEXT NOT NULL,
+    name TEXT NOT NULL
 );
 
 CREATE TABLE release_group_secondary_type_join (
