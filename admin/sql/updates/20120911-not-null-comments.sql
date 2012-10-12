@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 ALTER TABLE artist ALTER COLUMN comment TYPE varchar(255) USING coalesce(comment, '');

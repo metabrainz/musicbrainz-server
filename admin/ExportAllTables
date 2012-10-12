@@ -192,6 +192,7 @@ my @tables = qw(
     cover_art_archive.art_type
     cover_art_archive.cover_art
     cover_art_archive.cover_art_type
+    cover_art_archive.release_group_cover_art
 
     statistics.statistic
     statistics.statistic_event
@@ -386,6 +387,7 @@ my @group_cover_art_archive = (
     'cover_art_archive.art_type',
     'cover_art_archive.cover_art',
     'cover_art_archive.cover_art_type',
+    'cover_art_archive.release_group_cover_art'
 );
 
 my @groups = (

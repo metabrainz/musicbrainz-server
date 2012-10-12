@@ -1,4 +1,5 @@
 \set ON_ERROR_STOP 1
+
 BEGIN;
 
 CREATE TABLE log_statistic

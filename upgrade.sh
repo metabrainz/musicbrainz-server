@@ -13,6 +13,15 @@ then
     exit -1
 fi
 
+# Slaves need to 'catch up' on the CAA tables. They cannot run the migration
+# unless this dump is present.
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    echo `date` : Downloading cover art archive metadata
+    mkdir -p catchup
+    OUTPUT=`wget -q "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2012-10-15/mbdump-cover-art-archive.tar.bz2" -O catchup/mbdump-cover-art-archive.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
+fi
+
 ################################################################################
 # Backup and disable replication triggers
 
@@ -23,6 +32,13 @@ then
 
     echo `date` : Drop replication triggers
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
+
+    echo `date` : Exporting just CAA tables for slaves to catchup
+    mkdir -p catchup
+    ./admin/ExportAllTables --table='cover_art_archive.art_type' \
+        --table='cover_art_archive.cover_art' \
+        --table='cover_art_archive.cover_art_type' \
+        -d catchup
 fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
@@ -58,16 +74,36 @@ then
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
+echo `date` : Applying admin/sql/updates/20120919-caa-edits-pending.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120919-caa-edits-pending.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+# Catch up slaves with new replication tables
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    echo `date` : Catching up with cover_art_archive schema
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.release_group_cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/MBImport.pl --skip-editor catchup/mbdump-cover-art-archive.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+fi
 
 ################################################################################
 # Re-enable replication
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
-    echo `date` : Create replication triggers
+    echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Create replication triggers (cover_art_archive)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/caa/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Create replication triggers (statistics)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/statistics/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
@@ -84,7 +120,7 @@ then
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120822-more-text-constraints-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying admin/sql/updates/20120911-not-null-comments-master.sql
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments-master.sql 2>&1` || ( echo "$OUTPUT" ; echo "This has *not* stopped migration, but will need to be re-ran later!" )
 fi
 
 ################################################################################
