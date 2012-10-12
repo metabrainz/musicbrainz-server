@@ -6,49 +6,75 @@ use Readonly;
 use aliased 'MusicBrainz::Server::Entity::WikipediaExtract';
 use JSON;
 use Encode qw( encode );
+use URI::Escape qw( uri_escape );
 use List::Util qw( first );
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
-Readonly my $LANG_CACHE_TIMEOUT => 60 * 60; # 1 hour
-Readonly my $EXTRACT_CACHE_TIMEOUT => 60 * 60 * 24; # 1 day
+# We'll assume interlanguage links don't change much
+Readonly my $LANG_CACHE_TIMEOUT => 60 * 60 * 24 * 7; # 1 week
+# Extracts will change more often, but
+# we still want to keep them around a while
+Readonly my $EXTRACT_CACHE_TIMEOUT => 60 * 60 * 24 * 3; # 3 days
 
 sub get_extract
 {
-    my ($self, $title, $wanted_language, $wikipedia_language) = @_;
+    my ($self, $title, $wanted_language, $wikipedia_language, %opts) = @_;
+    my $cache_only = $opts{cache_only} // 0;
 
     # trim country codes (at least for now)
     $wanted_language =~ s/[_-][A-Za-z]+$//;
 
     if ($wanted_language eq $wikipedia_language) {
-        return $self->get_extract_by_language($title, $wikipedia_language);
+        return $self->get_extract_by_language($title, $wikipedia_language, cache_only => $cache_only);
     }
 
-    my $languages = $self->get_available_languages($title, $wikipedia_language);
+    # We didn't by luck get a link in the right language
+    my $languages = $self->get_available_languages($title, $wikipedia_language, cache_only => $cache_only);
 
-    my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
-    my $english = first { $_->{lang} eq 'en' } @$languages;
+    if (defined $languages) {
+        my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
+        my $english = first { $_->{lang} eq 'en' } @$languages;
 
-    if ($lang_wanted) {
-        return $self->get_extract_by_language($lang_wanted->{'*'}, $lang_wanted->{lang});
-    } elsif ($wikipedia_language eq 'en') {
-        return $self->get_extract_by_language($title, $wikipedia_language);
-    } elsif ($english) {
-        return $self->get_extract_by_language($english->{'*'}, $english->{lang});
+        my ($use_title, $use_lang);
+        # Fetched one language, want a different one, but it's there!
+        if ($lang_wanted) {
+            $use_title = $lang_wanted->{'*'};
+            $use_lang = $lang_wanted->{lang};
+        }
+        # Don't have what we want, but we fetched English
+        elsif ($wikipedia_language eq 'en') {
+            $use_title = $title;
+            $use_lang = $wikipedia_language;
+        }
+        # Fetched a language other than English;
+        # desired language wasn't available but English was
+        elsif ($english) {
+            $use_title = $english->{'*'};
+            $use_lang = $english->{lang};
+        }
+        # Neither English nor what we wanted, just display what we have
+        else {
+            $use_title = $title;
+            $use_lang = $wikipedia_language;
+        }
+        return $self->get_extract_by_language($use_title, $use_lang, cache_only => $cache_only);
     } else {
-        return $self->get_extract_by_language($title, $wikipedia_language);
+        # We have no language data, probably because we requested cache_only
+        return undef;
     }
 }
 
 sub get_extract_by_language
 {
-    my ($self, $title, $language) = @_;
+    my ($self, $title, $language, %opts) = @_;
+    my $cache_only = $opts{cache_only} // 0;
 
     my ($cache, $cache_key) = $self->_get_cache_and_key('wp:extract', $title, $language);
 
     my $extract = $cache->get($cache_key);
 
-    unless (defined $extract) {
+    unless (defined $extract || $cache_only) {
         my $wp_url = sprintf "http://%s.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=100&format=json&redirects=1&titles=%s", $language, $title;
 
         my $ret = $self->_get_and_process_json($wp_url, $title, 'extract');
@@ -67,13 +93,14 @@ sub get_extract_by_language
 
 sub get_available_languages
 {
-    my ($self, $title, $base_language) = @_;
+    my ($self, $title, $base_language, %opts) = @_;
+    my $cache_only = $opts{cache_only} // 0;
 
     my ($cache, $cache_key) = $self->_get_cache_and_key('wp:languages', $title, $base_language);
 
     my $options = $cache->get($cache_key);
 
-    unless (defined $options) {
+    unless (defined $options || $cache_only) {
         my $languages_url = sprintf "http://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=500&format=json&redirects=1&titles=%s", $base_language, $title;
 
         my $ret = $self->_get_and_process_json($languages_url, $title, 'langlinks');
@@ -88,7 +115,8 @@ sub get_available_languages
 sub _get_cache_and_key
 {
     my ($self, $prefix, $title, $language) = @_;
-    my $cache = $self->c->cache($prefix);
+    $title = uri_escape($title);
+    my $cache = $self->c->cache('wp');
     my $cache_key = "$prefix:$title:$language";
 
     return ($cache, $cache_key)

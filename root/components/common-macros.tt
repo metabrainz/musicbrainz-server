@@ -775,8 +775,15 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO show_wikipedia_extract BLOCK -%]
     [%- IF wikipedia_extract -%]
-    <h2 class="wikipedia">[% l('Wikipedia') %]</h2>
-        [%- wikipedia_extract.content -%]
-        <a href="[% wikipedia_extract.url %]">[% l('Read more...') %]</a>
+        [%- INCLUDE 'components/wikipedia_extract.tt' -%]
+    [%- ELSIF wikipedia_extract_url -%]
+        <span style="display:none" id="wikipedia-insertion-point"></span>
+        <script type="text/javascript">//<![CDATA[
+            $.get('[% wikipedia_extract_url %]',
+                  function (data) {
+                      $('#wikipedia-insertion-point').replaceWith(data);
+                  },
+                  'html');
+        //]]></script>
     [%- END -%]
 [%- END -%]
