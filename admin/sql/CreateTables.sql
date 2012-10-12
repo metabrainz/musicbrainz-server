@@ -1194,7 +1194,6 @@ CREATE TABLE release_group_primary_type (
 CREATE TABLE release_group_secondary_type (
     id SERIAL NOT NULL, -- pk
     name TEXT NOT NULL,
-    created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
 CREATE TABLE release_group_secondary_type_join (
