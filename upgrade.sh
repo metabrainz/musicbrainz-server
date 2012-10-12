@@ -58,6 +58,9 @@ then
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
+echo `date` : Applying admin/sql/updates/20120919-caa-edits-pending.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120919-caa-edits-pending.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
