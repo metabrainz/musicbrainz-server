@@ -326,6 +326,7 @@ sub CreateRelations
         CreateReplicationFunction();
         RunSQLScript($DB, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
         RunSQLScript($DB, "statistics/CreateReplicationTriggers.sql", "Creating statistics replication triggers ...");
+        RunSQLScript($DB, "caa/CreateReplicationTriggers.sql", "Creating CAA replication triggers ...");
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
 	{
