@@ -1,5 +1,5 @@
 -- Adjust this setting to control where the objects get created.
-SET search_path = cover_art_archive;
+SET search_path = cover_art_archive, musicbrainz, public;
 
 \set ON_ERROR_STOP 1
 

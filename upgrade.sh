@@ -33,6 +33,10 @@ then
     echo `date` : Drop replication triggers
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
+    echo `date` : 'Drop replication triggers (statistics)'
+    echo 'DROP TRIGGER "reptg_statistic" ON "statistic";
+          DROP TRIGGER "reptg_statistic_event" ON "statistic_event";' | ./admin/psql READWRITE
+
     echo `date` : Exporting just CAA tables for slaves to catchup
     mkdir -p catchup
     ./admin/ExportAllTables --table='cover_art_archive.art_type' \
