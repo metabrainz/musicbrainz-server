@@ -259,7 +259,7 @@ sub insert_and_create
     my ($data, @objs) = @_;
     my $class = $data->_entity_class;
     Class::MOP::load_class($class);
-    my %map = $data->_attribute_mapping;
+    my %map = %{ $data->_attribute_mapping };
     my @ret;
     for my $obj (@objs)
     {

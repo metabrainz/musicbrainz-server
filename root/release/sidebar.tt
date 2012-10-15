@@ -21,8 +21,10 @@
     [% WRAPPER 'layout/sidebar/properties.tt';
         INCLUDE 'layout/sidebar/property.tt' label=l('Date:') class="date"
            content=release.date.format IF release.date.format;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Country:') class="country"
-           content=release.country.l_name IF release.country.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
+           content=link_searchable_property('country', release.country.iso_code, 'release', release.country.l_name)
+           class="country"
+               IF release.country.name;
 
         INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:') class="barcode"
            content=release.barcode.format property='mo:tgin' datatype='xsd:string' IF release.barcode.format;
@@ -38,13 +40,17 @@
            content=release.release_group.l_type_name IF release.release_group.type_name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Packaging:') class="packaging"
            content=release.packaging.l_name IF release.packaging.name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Status:') class="status"
+        INCLUDE 'layout/sidebar/property.tt' label=lp('Status:', 'release status') class="status"
            content=release.status.l_name IF release.status.name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Language:') class="language"
-           content=release.language.l_name IF release.language.name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Script:') class="script"
-           content=release.script.l_name IF release.script.name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:') class="data-quality"
+        INCLUDE 'layout/sidebar/property.tt' label=l('Language:')
+           content=link_searchable_property('lang', release.language.iso_code_3, 'release', release.language.l_name)
+           class="language"
+               IF release.language.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Script:')
+           content=link_searchable_property('script', release.script.iso_code, 'release', release.script.l_name)
+           class="script"
+               IF release.script.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:')
            content=quality_name(release.quality) IF release.quality != -1;
     END %]
 
@@ -83,23 +89,11 @@
 
         <hr/>
 
+        <li>[% link_release(release, 'edit_relationships', l('Edit relationships')) %]</li>
         [%# Adds <li> itself %]
         [% use_in_relationship(release) %]
-        <li>[% relate_to_ellipsis(release, ['release', 'recording']) %]</li>
+        <li>[% relate_to_ellipsis(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
-        <li>
-          <a href="[%
-            c.uri_for_action('/edit/relationship/create_batch', {
-              type => c.session.relationship.type0,
-              gid => c.session.relationship.entity0,
-              release => release.gid
-            })
-          -%]">
-            [% l('Relate {what} to recordings',
-                 { what => html_escape(c.session.relationship.name) }) %]
-          </a>
-        </li>
-
         <hr/>
 
         [% IF release.edits_pending %]

@@ -20,7 +20,7 @@ test 'basic label lookup' => sub {
             name => "Planet Mu",
             "sort-name" => "Planet Mu",
             type => "Original Production",
-            disambiguation => JSON::null,
+            disambiguation => "",
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
@@ -42,7 +42,7 @@ test 'label lookup, inc=aliases' => sub {
             name => "Planet Mu",
             "sort-name" => "Planet Mu",
             type => "Original Production",
-            disambiguation => JSON::null,
+            disambiguation => "",
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
@@ -65,7 +65,7 @@ test 'label lookup with releases, inc=media' => sub {
             name => "Planet Mu",
             "sort-name" => "Planet Mu",
             type => "Original Production",
-            disambiguation => JSON::null,
+            disambiguation => "",
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
@@ -83,7 +83,7 @@ test 'label lookup with releases, inc=media' => sub {
                     country => "GB",
                     barcode => "600116822123",
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     media => [
                         { format => "CD", "track-count" => 9, title => JSON::null },
@@ -100,7 +100,7 @@ test 'label lookup with releases, inc=media' => sub {
                     country => "GB",
                     barcode => "600116817020",
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     media => [ { format => "CD", "track-count" => 12, title => JSON::null } ]
                 }

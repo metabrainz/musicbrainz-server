@@ -1,9 +1,10 @@
-package MusicBrainz::Server::Form::Role::DatePeriod;
-use HTML::FormHandler::Moose::Role;
+package MusicBrainz::Server::Form::Field::DatePeriod;
 
+use HTML::FormHandler::Moose;
 use Date::Calc;
 use List::MoreUtils 'any';
 use MusicBrainz::Server::Translation qw( l ln );
+extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'begin_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate',

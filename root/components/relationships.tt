@@ -9,7 +9,7 @@
         <table class="details" style="width: 100%">
         [%- FOREACH relationship IN group.value.pairs -%]
             <tr>
-                <th>[% l(relationship.key) %]:</th>
+                <th>[% relationship.key %]:</th>
                 <td>
                     [% FOR rel IN relationship.value %]
                         <span[% IF rel.edits_pending %] class="mp"[% END %]>

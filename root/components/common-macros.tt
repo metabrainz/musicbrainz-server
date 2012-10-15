@@ -25,7 +25,6 @@ END -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
 
-
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
 http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
@@ -33,6 +32,10 @@ http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- USE Translation('mb_server') -%]
 [%- MACRO l(text, args) BLOCK;
     Translation.l(text, args);
+END; -%]
+
+[%- MACRO lp(text, context, args) BLOCK;
+    Translation.lp(text, context, args);
 END; -%]
 [%#- There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
 The problem surfaces when an unfinished translation file is used, in this case a plural translation would
@@ -59,6 +62,16 @@ END; -%]
           ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 });
         END;
       END;
+    END -%]
+
+[%- MACRO display_age_ago(age) BLOCK;
+        IF age.0;
+          ln('{num} year ago', '{num}&nbsp;years ago', age.0, { num => age.0 });
+        ELSIF age.1;
+          ln('{num} month ago', '{num}&nbsp;months ago', age.1, { num => age.1 });
+        ELSE;
+          ln('{num} day ago', '{num}&nbsp;days ago', age.2, { num => age.2 });
+        END;
     END -%]
 
 [%- MACRO artwork_hover(artwork) BLOCK -%]
@@ -96,18 +109,32 @@ END; -%]
     </a>
 [%- END -%]
 
+[%- MACRO cover_art_links(artwork) BLOCK -%]
+[% IF artwork.small_thumbnail %]<a href="[% artwork.small_thumbnail %]">[% l('250px') %]</a> |[% END %]
+[% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]
+<a href="[% artwork.image %]">[% l('original') %]</a>
+[%- END -%]
+
 [%- MACRO comma_list(items) BLOCK -%]
-    [%- FOREACH item IN items -%]
-        [%- item -%]
-        [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? ", " : "" -%]
-    [%- END -%]
+    [% IF items.size == 1 %]
+        [% items.0 %]
+    [% ELSE %]
+        [%- output = l('{almost_last_list_item} and {last_list_item}', {last_list_item => items.last, almost_last_list_item => items.reverse.slice(1).first}) -%]
+        [%- FOREACH item IN items.reverse.slice(2) -%]
+            [%- output = l('{list_item}, {rest}', {list_item => item, rest => output}) -%]
+        [%- END -%]
+        [%- output -%]
+    [% END %]
 [%- END -%]
+
 [%- MACRO comma_only_list(items) BLOCK -%]
-    [%- FOREACH item IN items -%]
-        [%- item -%]
-        [%- !loop.last ? ", " : "" -%]
+    [%- output = l('{last_list_item}', {last_list_item => items.last}) -%]
+    [%- FOREACH item IN items.reverse.slice(1) -%]
+        [%- output = l('{commas_only_list_item}, {rest}', {commas_only_list_item => item, rest => output}) -%]
     [%- END -%]
+    [%- output -%]
 [%- END -%]
+
 [%- MACRO form_id(field)
     IF field.form;
         "form-" _ field.form.name _ "-" _ field.name.replace('_', '-');
@@ -361,7 +388,7 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
-[%- MACRO gravatar(email) FILTER gravatar; email; END %]
+[%- MACRO gravatar(email) FILTER gravatar; email; END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
@@ -388,6 +415,12 @@ END -%]
     text = text == '' ? html_escape(edit.id) : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
+
+[%- MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK -%]
+  [%- text = text == '' ? search_value : text -%]
+  <a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
+      [%- text -%]</a>
+[%- END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
     c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
@@ -497,12 +530,27 @@ END -%]
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END -%]
 
-[%- MACRO relate_to_ellipsis(entity, endpoints) BLOCK -%]
+[%- MACRO relate_to_ellipsis(entity) BLOCK -%]
     <a style="cursor: pointer" class="relate-to">[%- l('Relate to ...') -%]</a>
     <div style="position: absolute;">
       <div class="relate-to" style="display: none">
         <input type="hidden" class="gid" value="[% entity.gid %]" />
         <input type="hidden" class="type" value="[% entity_type(entity) %]" />
+
+        <input type="hidden" class="returnto"
+               value="[%-
+          action = 'relationships';
+
+          # Recording, URLs and works show more information on their landing
+          # pages
+          IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
+             entity.isa('MusicBrainz::Server::Entity::URL') ||
+             entity.isa('MusicBrainz::Server::Entity::Work');
+             action = 'show';
+          END;
+          c.uri_for_action(c.controller.action_for(action),
+                           [ entity.gid ]) -%]" />
+
         <select style="width: 130px; margin-right: 4px;">
           <option value="artist">[% l('Artist') %]</option>
           <option value="label">[% l('Label') %]</option>
@@ -517,18 +565,6 @@ END -%]
           <input type="hidden" class="id" value=""  />
           <input type="hidden" class="gid" value=""  />
         </span>
-        [% IF endpoints.size %]
-        <select class="endpoint">
-          [% FOR endpoint=endpoints %]
-          <option value="[% endpoint %]">
-          [% SWITCH endpoint;
-               CASE 'release'; l('Relate to release');
-               CASE 'recording'; l('Relate to recordings');
-             END %]
-          </option>
-          [% END %]
-        </select>
-        [% END %]
         <br />
         <div class="buttons" style="margin-top: 0.5em; width: 100%;">
           <button class="negative cancel">[% l('Cancel') %]</button>
@@ -571,30 +607,27 @@ END -%]
 [%- MACRO expiration_time(datetime) BLOCK -%]
     [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
         [% IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days %]
-            [% l('Expires in <span class="tooltip" title="{exactdate}">{days}</span>',
-                { days => ln('{num} day', '{num} days', Countdown.total_days(datetime),
-                            { num => Countdown.total_days(datetime) })
+            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
+                  'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
+                  Countdown.total_days(datetime),
+                { num => Countdown.total_days(datetime),
                   exactdate => UserDate.format(datetime) }) %]
-        [% ELSIF Countdown.hours(datetime) > 0 # Show hours and minutes %]
-            [% l('Expires in <span class="tooltip" title="{exactdate}">{hours}, {minutes}</span>',
-                { hours   => ln('{num} hour', '{num} hours', Countdown.hours(datetime),
-                               { num => Countdown.hours(datetime) }),
-                  minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
-                               { num => Countdown.minutes(datetime) })
+        [% ELSIF Countdown.hours(datetime) > 0 # Show hours %]
+            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
+                  'Expires in <span class="tooltip" title="{exactdate}">{num} hours</span>',
+                  Countdown.hours(datetime),
+                { num => Countdown.hours(datetime),
                   exactdate => UserDate.format(datetime) }) %]
         [% ELSE # Only show minutes %]
-            [% l('Expires in <span class="tooltip" title="{exactdate}">{minutes}</span>',
-                { minutes => ln('{num} minute', '{num} minutes', Countdown.minutes(datetime),
-                               { num => Countdown.minutes(datetime) })
+            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
+                  'Expires in <span class="tooltip" title="{exactdate}">{num} minutes</span>',
+                  Countdown.minutes(datetime),
+                { num => Countdown.minutes(datetime),
                   exactdate => UserDate.format(datetime) }) %]
         [% END %]
     [% ELSE %]
         [% l('Already expired') %]
     [% END %]
-[%- END -%]
-
-[%- MACRO age(datetime) BLOCK -%]
-    [%- Age.format(datetime, "{age} ago") -%]
 [%- END -%]
 
 [%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
@@ -642,7 +675,7 @@ END -%]
     0;
 END -%]
 
-[% MACRO favicon_class(url)
+[%- MACRO favicon_class(url)
        IF url.url.host.search('amazon'); 'amazon';
     ELSIF url.url.host.search('allmusic.com'); 'allmusic';
     ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
@@ -673,7 +706,7 @@ END -%]
     ELSIF url.url.host.search('trove.nla.gov.au'); 'trove';
     ELSIF url.url.host.search('rockinchina.com'); 'ric';
     ELSE; '';
-END %]
+END -%]
 
 [%- MACRO warning_icon BLOCK -%]
    <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
@@ -725,10 +758,10 @@ http://[%- server -%]/[%- id -%]"
   [%- END -%]
 [%- END -%]
 
-[%- MACRO format_length(n) BLOCK; n | format_length; END %]
+[%- MACRO format_length(n) BLOCK; n | format_length; END -%]
 
 [%- MACRO medium_format_name(medium) BLOCK -%]
-    [% medium.format_name or l("Medium") | html %]
+    [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
 [%- MACRO medium_link(medium) BLOCK -%]
@@ -771,4 +804,27 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
     [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
+[%- END -%]
+
+[%- MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
+  [% USE Diff %]
+  [%- FOR i = loop_over %]
+     [%- IF old_prop;
+       old_length = old_base.${ loop.index }.${ old_prop } | format_length;
+         ELSE;
+       old_length = old_base.${ loop.index } | format_length;
+         END;
+         IF new_prop;
+       new_length = new_base.${ loop.index }.${ new_prop } | format_length;
+         ELSE;
+       new_length = new_base.${ loop.index } | format_length;
+         END %]
+     <table class="wrap-block details">
+         <tr>
+             <td class="old">[%- Diff.diff_side(old_length, new_length, '-', '') -%]</td>
+         </tr><tr>
+             <td class="new">[%- Diff.diff_side(old_length, new_length, '+', '') -%]</td>
+         </tr>
+     </table>
+  [%- END -%]
 [%- END -%]

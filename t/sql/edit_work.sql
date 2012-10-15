@@ -15,7 +15,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, name, artist, position, join_phrase)
-    VALUES (1, 1, 1, 0, NULL);
+    VALUES (1, 1, 1, 0, '');
 
 INSERT INTO work_type (id, name) VALUES (1, 'Remix');
 INSERT INTO work_name (id, name) VALUES (1, 'Traits (remix)');

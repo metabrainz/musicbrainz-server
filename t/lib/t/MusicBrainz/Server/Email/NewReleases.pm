@@ -72,8 +72,6 @@ test all => sub {
                     'Has release link: ' . $_->name)
         for @releases;
 
-    diag($email->text);
-
 };
 
 =head1 LICENSE

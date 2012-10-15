@@ -144,7 +144,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     my $label = $c->model('Label')->get_by_id(2);
     is ($label->name, 'Renamed label', 'label name from edit 1');
     is ($label->sort_name, 'Sort FOO', 'sort name from edit 1');
-    is ($label->comment, undef, 'no comment');
+    is ($label->comment, '', 'no comment');
 };
 
 sub create_full_edit {
@@ -170,7 +170,8 @@ sub is_unchanged {
     my $label = shift;
     is($label->name, 'Label Name');
     is($label->sort_name, 'Label Name');
-    is($label->$_, undef) for qw( comment country_id label_code );
+    is($label->$_, undef) for qw( country_id label_code );
+    is($label->comment, '');
     ok($label->begin_date->is_empty);
     ok($label->end_date->is_empty);
 }

@@ -112,6 +112,7 @@ sub _cmp
 
 sub new_from_row {
     my ($class, $row, $prefix) = @_;
+    $prefix //= '';
     my %info;
     $info{year} = $row->{$prefix . 'year'} if defined $row->{$prefix . 'year'};
     $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};

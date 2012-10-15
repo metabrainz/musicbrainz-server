@@ -68,9 +68,9 @@ sub tracklist_foreign_keys {
     };
 
     $fk->{Recording} = {
-        map {
-            $_->{recording_id} => [ 'ArtistCredit' ]
-        } @$tracklist
+        map { $_ => [ 'ArtistCredit' ] }
+            grep { defined }
+                map { $_->{recording_id } } @$tracklist
     };
 }
 

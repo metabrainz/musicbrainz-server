@@ -16,7 +16,7 @@ SET client_min_messages TO 'warning';
 INSERT INTO artist_name (id, name) VALUES (1, 'Kate Bush');
 INSERT INTO artist (id, name, sort_name, gid) VALUES (1, 1, 1, '51024420-cae8-11de-8a39-0800200c9a66');
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 1, 1, NULL);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 1, 1, '');
 
 INSERT INTO release_name (id, name) VALUES (1, 'Aerial');
 INSERT INTO release_group (id, name, artist_credit, gid) VALUES

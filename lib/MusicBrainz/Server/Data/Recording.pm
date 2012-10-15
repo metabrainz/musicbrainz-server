@@ -24,6 +24,7 @@ use MusicBrainz::Server::Entity::Recording;
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'recording' };
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'track_name' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'recording' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'recording' };
