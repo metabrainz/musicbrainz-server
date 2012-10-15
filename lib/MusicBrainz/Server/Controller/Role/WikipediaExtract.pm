@@ -46,7 +46,6 @@ sub _get_extract
     }
 }
 
-__PACKAGE__->meta->make_immutable;
 no Moose::Role;
 1;
 
