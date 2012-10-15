@@ -22,9 +22,6 @@ sub get_extract
     my ($self, $title, $wanted_language, $wikipedia_language, %opts) = @_;
     my $cache_only = $opts{cache_only} // 0;
 
-    # trim country codes (at least for now)
-    $wanted_language =~ s/[_-][A-Za-z]+$//;
-
     if ($wanted_language eq $wikipedia_language) {
         return $self->get_extract_by_language($title, $wikipedia_language, cache_only => $cache_only);
     }
