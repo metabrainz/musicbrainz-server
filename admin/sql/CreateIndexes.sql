@@ -6,7 +6,6 @@ CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
 
 CREATE UNIQUE INDEX artist_idx_null_comment ON artist (name) WHERE comment IS NULL;
-CREATE UNIQUE INDEX artist_idx_uniq_name_comment ON artist (name, comment) WHERE comment IS NOT NULL;
 
 CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
 CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
@@ -155,7 +154,6 @@ CREATE INDEX label_idx_name ON label (name);
 CREATE INDEX label_idx_sort_name ON label (sort_name);
 
 CREATE UNIQUE INDEX label_idx_null_comment ON label (name) WHERE comment IS NULL;
-CREATE UNIQUE INDEX label_idx_uniq_name_comment ON label (name, comment) WHERE comment IS NOT NULL;
 
 CREATE INDEX label_alias_idx_label ON label_alias (label);
 CREATE UNIQUE INDEX label_alias_idx_primary ON label_alias (label, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
