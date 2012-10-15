@@ -22,6 +22,7 @@ use Test::Differences;
 use Test::Mock::Class ':all';
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
+use Test::XPath;
 use XML::LibXML;
 use Email::Sender::Transport::Test;
 use Try::Tiny;
@@ -30,7 +31,7 @@ use Sub::Exporter -setup => {
     exports => [
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
-            compare_body html_ok commandline_override
+            compare_body html_ok test_xpath_html commandline_override
             capture_edits
         ),
         ws_test => \&_build_ws_test,
@@ -167,6 +168,21 @@ sub diag_lineno
         diag $line, $_;
         $line += 1;
     }
+}
+
+=func test_xpath_html
+
+Instantiate Test::XPath with the html namespace.
+
+=cut
+
+sub test_xpath_html
+{
+    my $content = shift;
+
+    return Test::XPath->new(
+        xml => $content,
+        xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
 }
 
 =func html_ok
