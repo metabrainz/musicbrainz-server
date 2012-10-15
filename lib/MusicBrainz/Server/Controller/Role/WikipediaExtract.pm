@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Controller::Role::WikipediaExtract;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use namespace::autoclean;
-use List::Util qw( first );
 
 after show => sub {
     my ($self, $c) = @_;
@@ -24,25 +23,19 @@ sub _get_extract
 
     my $entity = $c->stash->{entity};
     my $wanted_lang = $c->stash->{current_language} // 'en';
-    # remove country codes
+    # Remove country codes, at least for now
     $wanted_lang =~ s/[_-][A-Za-z]+$//;
 
-    my $entity_direction = 'entity1';
-    if ($self->isa('MusicBrainz::Server::Controller::Work')) {
-        $entity_direction = 'entity0';
-    }
-
-    my @wp_links = sort {
-        if (defined $_) {
-            my $l = $_->$entity_direction;
-            $l->language eq $wanted_lang;
-        }
-    } @{ $entity->relationships_by_link_type_names('wikipedia') };
-
-    my $wp_link = shift @wp_links;
+    my ($wp_link) = map {
+            $_->target;
+        } sort {
+            if (defined $_) {
+                my $l = $_->target;
+                $l->language eq $wanted_lang;
+            }
+        } @{ $entity->relationships_by_link_type_names('wikipedia') };
 
     if ($wp_link) {
-        $wp_link = $wp_link->$entity_direction;
 
         my $wp_extract = $c->model('WikipediaExtract')->get_extract($wp_link->page_name, $wanted_lang, $wp_link->language, cache_only => $cache_only);
         if ($wp_extract) {
@@ -53,6 +46,7 @@ sub _get_extract
     }
 }
 
+__PACKAGE__->meta->make_immutable;
 no Moose::Role;
 1;
 
