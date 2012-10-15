@@ -391,6 +391,26 @@ MB.constants.CLEANUPS = {
     }
 };
 
+MB.constants.ACCEPTED_LYRIC_HOSTS = [
+    "archive.org",
+    "magnatune.com",
+    "jamendo.com",
+    "cdbaby.com",
+    "cdbaby.name",
+    "mange-disque.tv",
+    "thastrom.se",
+    "universalpoplab.com",
+    "alpinechic.net",
+    "angelika-express.de",
+    "fixtstore.com",
+    "phantasma13.com",
+    "primordialmusic.com",
+    "transistorsounds.com",
+    "alter-x.net",
+    "zorchfactoryrecords.com",
+    "lieder.net"
+];
+
 
 MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     var self = MB.Object ();
@@ -441,8 +461,10 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     }
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
-        var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
-        return sites.test($('#id-ar\\.url').val())
+        var site = document.createElement('a');
+        site.href = $('#id-ar\\.url');
+
+        return MB.constants.ACCEPTED_LYRIC_HOSTS.indexOf(site.hostname) != -1;
     };
 
     var validateFacebook = function() {
