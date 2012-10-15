@@ -8,14 +8,14 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Break'), (2, 'Pendulum');
 SELECT lives_ok(
   $$INSERT INTO artist (gid, name, sort_name) VALUES
       ('876188d4-8f59-4b19-8cff-d7bb5e516a86', 1, 1)$$,
-  'Creating with a NULL comment is OK'
+  'Creating with a default comment is OK'
 );
 
 SELECT throws_ok(
   $$INSERT INTO artist (gid, name, sort_name) VALUES
       ('f73e142e-f884-4e80-b992-7004c3fa6bf0', 1, 1)$$,
-  23505, 'duplicate key value violates unique constraint "artist_idx_null_comment"',
-  'Cannot create other entities with NULL comments and the same name'
+  23505, 'duplicate key value violates unique constraint "artist_idx_uniq_name_comment"',
+  'Cannot create other entities with a default comments and the same name'
 );
 
 SELECT lives_ok(
@@ -44,14 +44,14 @@ INSERT INTO label_name (id, name) VALUES
 SELECT lives_ok(
   $$INSERT INTO label (gid, name, sort_name) VALUES
       ('876188d4-8f59-4b19-8cff-d7bb5e516a86', 1, 1)$$,
-  'Creating with a NULL comment is OK'
+  'Creating with a default comment is OK'
 );
 
 SELECT throws_ok(
   $$INSERT INTO label (gid, name, sort_name) VALUES
       ('f73e142e-f884-4e80-b992-7004c3fa6bf0', 1, 1)$$,
-  23505, 'duplicate key value violates unique constraint "label_idx_null_comment"',
-  'Cannot create other entities with NULL comments and the same name'
+  23505, 'duplicate key value violates unique constraint "label_idx_uniq_name_comment"',
+  'Cannot create other entities with default comments and the same name'
 );
 
 SELECT lives_ok(

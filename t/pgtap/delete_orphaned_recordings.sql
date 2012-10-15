@@ -10,7 +10,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name
     (artist_credit, artist, name, join_phrase, position)
-  VALUES (1, 1, 1, NULL, 1);
+  VALUES (1, 1, 1, '', 1);
 
 INSERT INTO track_name (id, name)
   VALUES (1, 'Orphan');
