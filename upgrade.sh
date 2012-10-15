@@ -20,6 +20,14 @@ then
     echo `date` : Downloading cover art archive metadata
     mkdir -p catchup
     OUTPUT=`wget -q "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2012-10-15/mbdump-cover-art-archive.tar.bz2" -O catchup/mbdump-cover-art-archive.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
+
+    # Catch up slaves with new replication tables
+    echo `date` : Catching up with cover_art_archive schema
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`(echo 'TRUNCATE cover_art_archive.release_group_cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/MBImport.pl --skip-editor catchup/mbdump-cover-art-archive.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
@@ -83,17 +91,6 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120919-caa-edits-pending.
 
 echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-# Catch up slaves with new replication tables
-if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
-then
-    echo `date` : Catching up with cover_art_archive schema
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.release_group_cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`./admin/MBImport.pl --skip-editor catchup/mbdump-cover-art-archive.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-fi
 
 ################################################################################
 # Re-enable replication
