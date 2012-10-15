@@ -21,12 +21,12 @@ then
     mkdir -p catchup
     OUTPUT=`wget -q "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2012-10-15/mbdump-cover-art-archive.tar.bz2" -O catchup/mbdump-cover-art-archive.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
 
-    # Catch up slaves with new replication tables
     echo `date` : Catching up with cover_art_archive schema
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.cover_art_type CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-    OUTPUT=`(echo 'TRUNCATE cover_art_archive.release_group_cover_art CASCADE' | ./admin/psql) 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`echo 'DROP SCHEMA IF EXISTS cover_art_archive CASCADE' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'CREATE SCHEMA cover_art_archive' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`./admin/psql < admin/sql/updates/20121015-caa-as-of-schema-15.sql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`./admin/psql < admin/sql/caa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`./admin/psql < admin/sql/caa/CreateViews.sql 2>&1` || ( echo "$OUTPUT" ; exit 1)
     OUTPUT=`./admin/MBImport.pl --skip-editor catchup/mbdump-cover-art-archive.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
@@ -92,6 +92,13 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120919-caa-edits-pending.
 echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    echo `date` : Indexing new cover_art_archive data
+    OUTPUT=`./admin/psql < admin/sql/caa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`./admin/psql < admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+fi
+
 ################################################################################
 # Re-enable replication
 
@@ -122,6 +129,10 @@ then
 
     echo `date` : Applying admin/sql/updates/20120911-not-null-comments-master.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120911-not-null-comments-master.sql 2>&1` || ( echo "$OUTPUT" ; echo "This has *not* stopped migration, but will need to be re-ran later!" )
+
+    echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art-master.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 fi
 
 ################################################################################

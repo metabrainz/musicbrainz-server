@@ -41,13 +41,15 @@ my $tmpdir = "/tmp";
 my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
 my $skip_ensure_editor = 0;
+my $update_replication_control = 1;
 
 GetOptions(
     "help|h"                    => \$fHelp,
     "ignore-errors|i!"  => \$fIgnoreErrors,
     "tmp-dir|t=s"               => \$tmpdir,
     "fix-broken-utf8"   => \$fFixUTF8,
-    "skip-editor!" => \$skip_ensure_editor
+    "skip-editor!" => \$skip_ensure_editor,
+    "update-replication-control!" => \$update_replication_control
 );
 
 sub usage
@@ -62,6 +64,9 @@ Usage: MBImport.pl [options] FILE ...
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
         --skip-editor     do not guarantee editor rows are present (useful when
                           importing single tables).
+        --update-replication-control whether or not this import should
+                          alter the replication control table. This flag is
+                          internal and is only be set by MusicBrainz scripts
 
 FILE can be any of: a regular file in Postgres "copy" format (as produced
 by ExportAllTables --nocompress); a gzip'd or bzip2'd tar file of Postgres
@@ -203,14 +208,17 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 # --without-replication, then replication_control.current_replication_sequence
 # would be invalid - we should trust the REPLICATION_SEQUENCE file instead.
 # The current_schema_sequence /is/ valid, however.
-$sql->auto_commit;
-$sql->do(
-    "UPDATE replication_control
-    SET current_replication_sequence = ?,
-    last_replication_date = ?",
-    ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
-    ($iReplicationSequence eq "" ? undef : $timestamp),
-);
+
+if ($update_replication_control) {
+    $sql->auto_commit;
+    $sql->do(
+        "UPDATE replication_control
+         SET current_replication_sequence = ?,
+         last_replication_date = ?",
+        ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
+        ($iReplicationSequence eq "" ? undef : $timestamp),
+    );
+}
 
 exit($errors ? 1 : 0);
 
