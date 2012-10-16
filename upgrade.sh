@@ -62,6 +62,9 @@ fi
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
+echo `date` : Updating sequence values
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : Dropping broken indexes
 OUTPUT=`echo 'DROP INDEX IF EXISTS artist_idx_uniq_name_comment' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
 OUTPUT=`echo 'DROP INDEX IF EXISTS label_idx_uniq_name_comment' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
