@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::ReleaseGroup;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     check_in_use
@@ -11,7 +12,6 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
-    partial_date_from_row
     placeholders
     query_to_list
     query_to_list_limited
@@ -54,7 +54,7 @@ sub _column_mapping {
         comment => 'comment',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
-        first_release_date => sub { partial_date_from_row(shift, 'first_release_date_') }
+        first_release_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'first_release_date_') }
     }
 }
 
@@ -216,7 +216,7 @@ sub find_by_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
@@ -233,7 +233,14 @@ sub find_by_track_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(name.name),
+                    array(
+                      SELECT name FROM release_group_secondary_type rgst
+                      JOIN release_group_secondary_type_join rgstj
+                        ON rgstj.secondary_type = rgst.id
+                      WHERE rgstj.release_group = rg.id
+                      ORDER BY name ASC
+                    ) secondary_types
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
@@ -253,7 +260,7 @@ sub find_by_track_artist
                          ON release_group.artist_credit = acn.artist_credit
                       WHERE acn.artist = ?)
                  ORDER BY
-                    rg.type,
+                    rg.type, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
@@ -265,7 +272,7 @@ sub find_by_track_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
@@ -307,7 +314,7 @@ sub filter_by_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
@@ -357,7 +364,7 @@ sub filter_by_track_artist
             my $rg = $self->_new_from_row($row);
             $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{rating_count}) if defined $row->{rating_count};
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             $rg->release_count($row->{release_count} || 0);
             return $rg;
         },
@@ -385,7 +392,7 @@ sub find_by_release
         $self->c->sql, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             return $rg;
         },
         $query, $release_id, $offset || 0);
@@ -411,7 +418,7 @@ sub find_by_release_gids
         $self->c->sql, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
-            $rg->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+            $rg->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
             return $rg;
         },
         $query, @release_gids);
@@ -592,7 +599,7 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
         $obj->release_count($row->{release_count});
-        $obj->first_release_date(partial_date_from_row($row, 'first_release_date_'));
+        $obj->first_release_date(MusicBrainz::Server::Entity::PartialDate->new_from_row($row, 'first_release_date_'));
     }, @_);
 }
 

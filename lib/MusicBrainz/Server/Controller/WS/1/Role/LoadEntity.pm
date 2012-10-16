@@ -2,13 +2,13 @@ package MusicBrainz::Server::Controller::WS::1::Role::LoadEntity;
 use Moose::Role;
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( is_guid );
 
 sub load
 {
     my ($self, $c, $type, $id) = @_;
 
-    unless (MusicBrainz::Server::Validation::IsGUID($id)) {
+    unless (is_guid($id)) {
         $self->bad_req($c, "$id is not a valid MBID");
     }
 

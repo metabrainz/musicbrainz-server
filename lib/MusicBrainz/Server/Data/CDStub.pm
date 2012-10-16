@@ -4,15 +4,14 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw(
     check_data
-    barcode_from_row
     load_subobjects
     query_to_list
     query_to_list_limited
 );
-
+use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Exceptions qw( BadData Duplicate );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( is_valid_barcode );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -40,7 +39,7 @@ sub _column_mapping
         lookup_count => 'lookup_count',
         modify_count => 'modify_count',
         source => 'source',
-        barcode => sub { barcode_from_row (shift, shift) },
+        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row (shift, shift) },
         comment => 'comment',
         discid => 'discid',
     };
@@ -131,7 +130,7 @@ sub insert
             @tracks == $cdtoc->track_count
         },
         l('Invalid barcode') => check ($data) {
-            !$data->{barcode} || MusicBrainz::Server::Validation::IsValidBarcode($data->{barcode});
+            !$data->{barcode} || is_valid_barcode($data->{barcode});
         }
     );
 

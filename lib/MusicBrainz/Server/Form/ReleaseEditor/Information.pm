@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::ReleaseEditor::Information;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( language_options script_options );
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Validation qw( is_valid_ean );
 
 extends 'MusicBrainz::Server::Form::Step';
 
@@ -45,7 +46,7 @@ sub options_primary_type_id   { shift->_select_all('ReleaseGroupType') }
 sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
-sub options_country_id        { shift->_select_all('Country') }
+sub options_country_id        { shift->_select_all('Country', sort_by_accessor => 1) }
 
 sub options_language_id       { return language_options (shift->ctx); }
 sub options_script_id         { return script_options (shift->ctx); }
@@ -60,7 +61,7 @@ sub validate {
     unless (!defined $self->field('barcode')->value ||
             $self->field('barcode')->value eq '' ||
             ($current_release && $current_release->barcode eq $self->field('barcode')->value) ||
-            MusicBrainz::Server::Validation::IsValidEAN ($self->field('barcode')->value) ||
+            is_valid_ean ($self->field('barcode')->value) ||
             $self->field('barcode_confirm')->value == 1)
     {
         $self->field('barcode')->add_error (

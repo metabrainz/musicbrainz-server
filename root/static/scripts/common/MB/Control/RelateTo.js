@@ -30,7 +30,7 @@ MB.Control.RelateTo = function () {
         return null;
     }
 
-    self.$link = $('a[href=#relate_to]');
+    self.$link = $('a.relate-to');
     self.$select = self.$relate.find ('select:first');
     self.$endpoint = self.$relate.find('select.endpoint');
     self.$type0 = self.$relate.find ('input.type');

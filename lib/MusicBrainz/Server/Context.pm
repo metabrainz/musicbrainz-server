@@ -6,6 +6,7 @@ use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
+use LWP::UserAgent;
 
 has 'cache_manager' => (
     is => 'ro',
@@ -34,6 +35,16 @@ has 'models' => (
     isa     => 'HashRef',
     is      => 'ro',
     default => sub { {} }
+);
+
+has lwp => (
+    is => 'ro',
+    default => sub {
+        my $lwp = LWP::UserAgent->new;
+        $lwp->env_proxy;
+        $lwp->timeout(5);
+        return $lwp;
+    }
 );
 
 has data_prefix => (

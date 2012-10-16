@@ -145,24 +145,6 @@ test 'Check conflicts (conflicting edits)' => sub {
     is ($label->name, 'Renamed label', 'label name from edit 1');
     is ($label->sort_name, 'Sort FOO', 'sort name from edit 1');
     is ($label->comment, undef, 'no comment');
-
-    # check IPI code conflict
-    my $edit_3 = $c->model('Edit')->create(
-        edit_type => $EDIT_LABEL_EDIT,
-        editor_id => 1,
-        to_edit   => $c->model('Label')->get_by_id(2),
-        ipi_codes => [ '00333333333' ],
-    );
-
-    my $edit_4 = $c->model('Edit')->create(
-        edit_type => $EDIT_LABEL_EDIT,
-        editor_id => 1,
-        to_edit   => $c->model('Label')->get_by_id(2),
-        ipi_codes => [ '00444444444' ],
-    );
-
-    ok !exception { $edit_3->accept }, 'accepted edit 3 (change ipi code)';
-    ok  exception { $edit_4->accept }, 'could not accept edit 4 (ipi code was changed)';
 };
 
 sub create_full_edit {

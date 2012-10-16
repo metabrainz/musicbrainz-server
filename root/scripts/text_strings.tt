@@ -85,6 +85,7 @@
         },
         link: '[% l('link') | js %]',
         ShowMore: '[% l('Show more...') | js %]',
-        ShowLess: '[% l('Show less...') | js %]'
+        ShowLess: '[% l('Show less...') | js %]',
+        ConfirmSwap: '[% l('This tracklist has artist credits with information that will be lost if you swap artist credits with track titles. This cannot be undone. Do you wish to continue?') | js %]'
     });
 })(MB);

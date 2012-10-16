@@ -6,10 +6,10 @@ use Class::MOP;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
-    partial_date_from_row
     placeholders
     query_to_list
 );
+use MusicBrainz::Server::Entity::PartialDate;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -56,8 +56,8 @@ sub _column_mapping
         edits_pending       => 'edits_pending',
         locale              => 'locale',
         type_id             => 'type_id',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         primary_for_locale  => 'primary_for_locale'
     };
 }

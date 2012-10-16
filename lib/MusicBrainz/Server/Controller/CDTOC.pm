@@ -43,6 +43,7 @@ sub _load_releases
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('CDTOC')->load(@medium_cdtocs);
     return \@medium_cdtocs;
 }
 
@@ -318,6 +319,9 @@ sub move : Local RequireAuth Edit
         $c->model('Medium')->load($medium_cdtoc);
 
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
+        $c->model('Country')->load($medium->release);
+        $c->model('ReleaseLabel')->load($medium->release);
+        $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
         $c->stash( 
@@ -354,6 +358,9 @@ sub move : Local RequireAuth Edit
             my @releases = map { $_->entity } @$releases;
             $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
+            $c->model('Country')->load(@releases);
+            $c->model('ReleaseLabel')->load(@releases);
+            $c->model('Label')->load(map { $_->all_labels } @releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;

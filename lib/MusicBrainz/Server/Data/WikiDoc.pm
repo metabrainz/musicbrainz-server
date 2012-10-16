@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use Carp;
 use Readonly;
-use LWP::UserAgent;
 use HTML::TreeBuilder::XPath;
 use MusicBrainz::Server::Entity::WikiDocPage;
 use URI::Escape qw( uri_unescape );
@@ -32,14 +31,14 @@ sub _fix_html_links
     my $href = $node->attr('href') || "";
 
     # Remove broken links & links to images in the wiki
-    if ($href =~ m,^http://$wiki_server/Image:, || $class =~ m/new/)
+    if ($href =~ m,^https?://$wiki_server/Image:, || $class =~ m/new/)
     {
         $node->replace_with ($node->content_list);
     }
     # if this is not a link to the wikidocs server, don't mess with it.
-    elsif ($href =~ m,^http://$wiki_server,)
+    elsif ($href =~ m,^https?://$wiki_server,)
     {
-        $href =~ s,^http://$wiki_server/?,http://$server/doc/,;
+        $href =~ s,^https?://$wiki_server/?,//$server/doc/,;
         $node->attr('href', $href);
     }
 }
@@ -66,7 +65,7 @@ sub _fix_html_markup
     for my $node ($tree->findnodes ('//img')->get_nodelist)
     {
         my $src = $node->attr('src') || "";
-        $node->attr('src', $src) if ($src =~ s,/-/images,http://$wiki_server/-/images,);
+        $node->attr('src', $src) if ($src =~ s,/-/images,//$wiki_server/-/images,);
     }
 
     for my $node ($tree->findnodes ('//table')->get_nodelist)
@@ -121,12 +120,10 @@ sub _load_page
         $doc_url .= "&oldid=$version";
     }
 
-    my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
-    $ua->env_proxy;
-    my $response = $ua->get($doc_url);
+    my $response = $self->c->lwp->get($doc_url);
 
     if (!$response->is_success) {
-        if ($response->is_redirect && $response->header("Location") =~ /http:\/\/(.*?)\/(.*)$/) {
+        if ($response->is_redirect && $response->header("Location") =~ /https?:\/\/(.*?)\/(.*)$/) {
             return $self->get_page(uri_unescape($2));
         }
         return undef;
@@ -141,7 +138,7 @@ sub _load_page
         return undef;
     }
 
-    if ($content =~ /<span class="redirectText"><a href="http:\/\/.*?\/(.*?)"/) {
+    if ($content =~ /<span class="redirectText"><a href="https?:\/\/.*?\/(.*?)"/) {
         return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => uri_unescape($1) });
     }
 
@@ -153,10 +150,7 @@ sub get_version
     my ($self, $id) = @_;
 
     my $doc_url = sprintf "http://%s/?title=%s", &DBDefs::WIKITRANS_SERVER, $id;
-
-    my $ua = LWP::UserAgent->new();
-    $ua->env_proxy;
-    my $response = $ua->get($doc_url);
+    my $response = $self->c->lwp->get($doc_url);
 
     my $content = $response->decoded_content;
 

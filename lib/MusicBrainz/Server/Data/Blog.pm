@@ -3,18 +3,9 @@ use Moose;
 use namespace::autoclean;
 
 use XML::RSS::Parser::Lite;
-use LWP::UserAgent;
+use Try::Tiny;
 
 with 'MusicBrainz::Server::Data::Role::Context';
-
-has lwp => (
-    is => 'ro',
-    default => sub {
-        my $ua = LWP::UserAgent->new;
-        $ua->env_proxy;
-        return $ua;
-    }
-);
 
 sub get_latest_entries {
     my ($self) = @_;
@@ -25,7 +16,12 @@ sub get_latest_entries {
     my $entry_parser = $cache->get($key);
 
     if (!$entry_parser) {
-        my $xml = $self->lwp->get("http://blog.musicbrainz.org/?feed=rss2");
+        my $xml;
+        try {
+            $xml = $self->c->lwp->get("http://blog.musicbrainz.org/?feed=rss2");
+        };
+        return undef unless $xml && $xml->is_success;
+
         $entry_parser = XML::RSS::Parser::Lite->new;
         $entry_parser->parse($xml->content);
         $cache->set($key => $entry_parser);

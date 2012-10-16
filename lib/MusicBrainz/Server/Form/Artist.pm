@@ -32,7 +32,7 @@ has_field 'country_id' => (
 );
 
 has_field 'comment' => (
-    type      => '+MusicBrainz::Server::Form::Field::Comment',
+    type      => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
 
@@ -44,7 +44,7 @@ sub edit_field_names
 
 sub options_gender_id   { shift->_select_all('Gender') }
 sub options_type_id     { shift->_select_all('ArtistType') }
-sub options_country_id  { shift->_select_all('Country') }
+sub options_country_id  { shift->_select_all('Country', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Artist') }
 

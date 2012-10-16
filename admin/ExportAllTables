@@ -190,6 +190,10 @@ my @tables = qw(
     work_name
     work_tag
     work_type
+
+    cover_art_archive.art_type
+    cover_art_archive.cover_art
+    cover_art_archive.cover_art_type
 );
 
 my @replication_tables = qw(
@@ -377,6 +381,12 @@ my @group_cdstubs = qw(
     track_raw
 );
 
+my @group_cover_art_archive = (
+    'cover_art_archive.art_type',
+    'cover_art_archive.cover_art',
+    'cover_art_archive.cover_art_type',
+);
+
 my @groups = (
     \@group_core,
     \@group_derived,
@@ -400,6 +410,7 @@ my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
 my @tablelist;
+my $encrypt_for = undef;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
@@ -413,6 +424,7 @@ GetOptions(
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
     "help"                              => \$fHelp,
+    "encrypt-for|e=s" => \$encrypt_for
 );
 
 sub usage
@@ -429,6 +441,7 @@ Usage: ExportAllTables [options]
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
         --check-completeness     Check that all tables from DB schema are exported
+    -e, --encrypt-for     A GPG aware recipient to encrypt private data for.
 
 Certain combinations of options are pointless:
  * specifying --without-replication and --without-full-export
@@ -437,6 +450,11 @@ Certain combinations of options are pointless:
 
 If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
+
+GPG encryption of private data requires you pass a recipient to encrypt data
+for. This parameter can take any value that gpg(1) can take for `-r`. The user
+running ExportAllTables must have a GPG keyring setup that is aware of this
+recipient.
 
 EOF
 }
@@ -552,6 +570,8 @@ sub table_rowcount
 {
     my $table = shift;
     $table =~ s/_sanitised$//;
+
+    $table =~ s/.*\.//;
 
     $sql->select_single_value(
         "SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
@@ -716,9 +736,17 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-stats.tar.bz2",  @group_stats);
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
+    make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
 
-    system "/usr/bin/md5sum --binary $OutputDir/*.tar.bz2 > $OutputDir/MD5SUMS";
+    system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
+           ' | grep -v mbdump-private > MD5SUMS';
+
     $? == 0 or die "md5sum returned $?";
+
+    if ($encrypt_for) {
+        system "/usr/bin/gpg -r '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "rm $OutputDir/mbdump-private.tar.bz2";
+    }
 }
 
 if ($fCompress and $fDoReplication)

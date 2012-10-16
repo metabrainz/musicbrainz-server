@@ -4,25 +4,27 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Readonly;
+use MusicBrainz::Server::Validation qw( is_guid );
 
 my $ws_defs = Data::OptList::mkopt([
      artist => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          linked   => [ qw(recording release release-group work) ],
                          inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
                                           aliases various-artists annotation
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 
@@ -43,6 +45,8 @@ sub artist : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $artist = $c->stash->{entity};
+
+    return unless defined $artist;
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($artist);
@@ -113,7 +117,7 @@ sub artist_toplevel
         $self->linked_works ($c, $stash, $opts->{works}->{items});
     }
 
-    $self->load_relationships($c, $artist);
+    $self->load_relationships($c, $stash, $artist);
 }
 
 sub artist_browse : Private
@@ -123,7 +127,7 @@ sub artist_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

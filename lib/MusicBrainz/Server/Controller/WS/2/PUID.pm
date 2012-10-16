@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -23,7 +24,7 @@ sub puid : Chained('root') PathPart('puid') Args(1)
 {
     my ($self, $c, $id) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid puid.";
         $c->detach('bad_req');

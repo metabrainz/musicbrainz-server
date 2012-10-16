@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
+use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
 use Readonly;
 use Try::Tiny;
 
@@ -15,21 +16,22 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      release => {
                          method   => 'GET',
                          linked   => [ qw(track_artist artist label recording release-group) ],
                          inc      => [ qw(artist-credits labels recordings discids
                                           release-groups media _relations annotation) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups aliases
                                           tags user-tags ratings user-ratings collections
                                           artist-credits discids media recording-level-rels
-                                          work-level-rels _relations annotation) ]
+                                          work-level-rels _relations annotation) ],
+                         optional => [ qw(fmt) ],
      },
      release => {
                          method   => 'POST',
@@ -123,7 +125,7 @@ sub release_toplevel
         $self->linked_recordings ($c, $stash, \@recordings);
     }
 
-    $self->load_relationships($c, @rels_entities);
+    $self->load_relationships($c, $stash, @rels_entities);
 
     if ($c->stash->{inc}->collections)
     {
@@ -142,7 +144,7 @@ sub release: Chained('root') PathPart('release') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    if (!MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!is_guid($gid))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -168,7 +170,7 @@ sub release_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -249,18 +251,20 @@ sub release_submit : Private
     $self->deny_readonly($c);
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
+    my $client = $c->req->query_params->{client} // $c->req->user_agent // '';
+
     my @submit;
     for my $node ($xp->find('/mb:metadata/mb:release-list/mb:release')->get_nodelist) {
         my $id = $xp->find('@mb:id', $node)->string_value or
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
-            unless MusicBrainz::Server::Validation::IsGUID($id);
+            unless is_guid($id);
 
         my $barcode = $xp->find('mb:barcode', $node)->string_value or next;
 
         $self->_error($c, "$barcode is not a valid barcode")
-            unless MusicBrainz::Server::Validation::IsValidEAN($barcode);
+            unless is_valid_ean($barcode);
 
         push @submit, { release => $id, barcode => $barcode };
     }
@@ -286,7 +290,8 @@ sub release_submit : Private
                     submissions => [ map +{
                         release => $gid_map{ $_->{release} },
                         barcode => $_->{barcode}
-                    }, @submit ]
+                    }, @submit ],
+                    client_version => $client
                 );
             });
         }

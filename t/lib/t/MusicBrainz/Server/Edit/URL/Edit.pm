@@ -16,7 +16,7 @@ with 't::Context';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
-use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED $STATUS_OPEN );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 has edit => (
@@ -101,6 +101,9 @@ test 'Can edit 2 URLs into a common URL' => sub {
     my $edit_2 = $builder->(3);
 
     is $edit_1->status, $STATUS_APPLIED;
+    is $edit_2->status, $STATUS_OPEN, 'Merging URLs is not an auto edit';
+
+    accept_edit($test->c, $edit_2);
     is $edit_2->status, $STATUS_APPLIED;
 };
 
