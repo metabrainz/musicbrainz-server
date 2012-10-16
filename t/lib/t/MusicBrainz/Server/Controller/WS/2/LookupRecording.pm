@@ -65,7 +65,7 @@ ws_test 'recording lookup, inc=annotation',
     <recording id="6e89c516-b0b6-4735-a758-38e31855dcb6">
         <title>Plock</title>
         <length>237133</length>
-        <annotation>this is a recording annotation</annotation>
+        <annotation><text>this is a recording annotation</text></annotation>
     </recording>
 </metadata>';
 

@@ -60,8 +60,8 @@ ws_test 'artist lookup, inc=annotation',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name>
+        <annotation><text>this is an artist annotation</text></annotation>
         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-        <annotation>this is an artist annotation</annotation>
     </artist>
 </metadata>';
 

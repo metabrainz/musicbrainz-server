@@ -52,7 +52,7 @@ ws_test 'label lookup, inc=annotation',
     <label type="Original Production" id="46f0f4cd-8aab-4b33-b698-f459faf64190">
         <name>Warp Records</name><sort-name>Warp Records</sort-name>
         <label-code>2070</label-code>
-        <annotation>this is a label annotation</annotation>
+        <annotation><text>this is a label annotation</text></annotation>
         <country>GB</country>
         <life-span><begin>1989</begin></life-span>
     </label>

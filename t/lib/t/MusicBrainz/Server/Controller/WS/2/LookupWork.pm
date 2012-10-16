@@ -44,7 +44,7 @@ ws_test 'work lookup, inc=annotation',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <work id="482530c1-a2ab-32e8-be43-ea5240aa7913">
     <title>Plock</title>
-    <annotation>this is a work annotation</annotation>
+    <annotation><text>this is a work annotation</text></annotation>
   </work>
 </metadata>';
 

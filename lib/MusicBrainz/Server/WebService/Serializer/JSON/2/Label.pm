@@ -4,6 +4,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of numb
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';

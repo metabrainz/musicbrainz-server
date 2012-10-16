@@ -48,6 +48,25 @@ test 'basic artist lookup' => sub {
         });
 };
 
+test 'basic artist lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic artist lookup, inc=annotation',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' => encode_json (
+        {
+            id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
+            name => "Distance",
+            "sort-name" => "Distance",
+            type => "Person",
+            annotation => "this is an artist annotation",
+            disambiguation => "UK dubstep artist Greg Sanders",
+            country => JSON::null,
+        });
+};
+
 test 'basic artist lookup, inc=aliases' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');

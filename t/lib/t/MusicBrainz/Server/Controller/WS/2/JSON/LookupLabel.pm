@@ -31,6 +31,31 @@ test 'basic label lookup' => sub {
 
 };
 
+test 'basic label lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic label lookup, inc=annotation',
+    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' => encode_json (
+        {
+            id => "46f0f4cd-8aab-4b33-b698-f459faf64190",
+            name => "Warp Records",
+            "sort-name" => "Warp Records",
+            type => "Original Production",
+            annotation => "this is a label annotation",
+            disambiguation => JSON::null,
+            "label-code" => 2070,
+            country => "GB",
+            "life-span" => {
+                "begin" => "1989",
+                "ended" => JSON::false,
+            },
+        });
+
+};
+
 test 'label lookup, inc=aliases' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');

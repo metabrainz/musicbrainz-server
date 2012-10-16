@@ -39,7 +39,7 @@ ws_test 'release group lookup, inc=annotation',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Album" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
         <title>My Demons</title>
-        <annotation>this is a release group annotation</annotation>
+        <annotation><text>this is a release group annotation</text></annotation>
         <first-release-date>2007-01-29</first-release-date>
         <primary-type>Album</primary-type>
     </release-group>

@@ -37,7 +37,7 @@ sub _serialize_annotation
         defined $entity->latest_annotation &&
         $entity->latest_annotation->text)
     {
-        push @$data, $gen->annotation($entity->latest_annotation->text);
+        push @$data, $gen->annotation($gen->text ($entity->latest_annotation->text));
     }
 }
 
@@ -121,6 +121,7 @@ sub _serialize_artist
     my @list;
     push @list, $gen->name($artist->name);
     push @list, $gen->sort_name($artist->sort_name) if ($artist->sort_name);
+    $self->_serialize_annotation(\@list, $gen, $artist, $inc, $opts) if $toplevel;
     push @list, $gen->disambiguation($artist->comment) if ($artist->comment);
     push @list, $gen->ipi($artist->ipi_codes->[0]->ipi) if ($artist->all_ipi_codes);
     push @list, $gen->ipi_list(
@@ -132,7 +133,6 @@ sub _serialize_artist
         push @list, $gen->gender($artist->gender->name) if ($artist->gender);
         push @list, $gen->country($artist->country->iso_code) if ($artist->country);
 
-        $self->_serialize_annotation(\@list, $gen, $artist, $inc, $opts);
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
     }
 

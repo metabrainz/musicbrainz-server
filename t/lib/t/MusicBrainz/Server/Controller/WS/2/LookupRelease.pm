@@ -50,7 +50,7 @@ ws_test 'release lookup, inc=annotation',
     <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
         <title>My Demons</title>
         <status>Official</status><quality>normal</quality>
-        <annotation>this is a release annotation</annotation>
+        <annotation><text>this is a release annotation</text></annotation>
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
