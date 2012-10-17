@@ -78,7 +78,9 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
         self.$length.text (data.length);
-        self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
+        if (data.appears_on) {
+            self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
+        }
 
         self.$container.find ('tr.clientmatch').show ();
 
@@ -328,13 +330,15 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             var rr_track = MB.Control.ReleaseRecordingsTrack (self, disc, idx, $track.eq(0));
             self.tracks.push (rr_track);
 
-            var appears = rr_track.select.renderReleaseGroups (
-                $bubble.find ('tr.servermatch span.appears'),
-                trk.recording.gid, trk.recording.appears_on);
+            if (trk.recording.appears_on) {
+                var appears = rr_track.select.renderReleaseGroups (
+                    $bubble.find ('tr.servermatch span.appears'),
+                    trk.recording.gid, trk.recording.appears_on);
 
-            if (appears)
-            {
-                $bubble.find ('tr.servermatch.releaselist').show ();
+                if (appears)
+                {
+                    $bubble.find ('tr.servermatch.releaselist').show ();
+                }
             }
 
             $bubble.find ('input.servermatch').attr ('checked', true).trigger ('change');
