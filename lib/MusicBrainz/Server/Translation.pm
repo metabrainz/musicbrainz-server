@@ -15,9 +15,9 @@ use List::UtilsBy qw( sort_by );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l N_ln N_lp )],
+    exports => [qw( l lp ln N_l )],
     groups => {
-        default => [qw( l lp ln N_l N_ln N_lp )]
+        default => [qw( l lp ln N_l )]
     }
 };
 
@@ -37,23 +37,10 @@ has 'bound' => (
     default => 0
 );
 
-# N_ functions are no-ops which return their arguments
-# They only exist so the strings get into the catalogs
-# There is one for each because the call signatures
-# and what should appear in the catalogs differ.
-#
-# Normal translation, singular string.
-# Takes one string argument and optionally a hashref of arguments to interpolate
-sub l    { __PACKAGE__->instance->gettext(@_) }
-sub N_l  { __PACKAGE__->instance->nop_gettext(@_) }
-# Singular translation with context
-# Takes one string to translate, a string of context, and an optional hashref
-sub lp   { __PACKAGE__->instance->pgettext(@_) }
-sub N_lp { __PACKAGE__->instance->nop_gettext(@_) }
-# Plural translation (context can be within the string)
-# Takes a singlular string, a plural string, and an optional hashref
-sub ln   { __PACKAGE__->instance->ngettext(@_) }
-sub N_ln { __PACKAGE__->instance->nop_gettext(@_) }
+sub N_l { __PACKAGE__->instance->nop_gettext(@_) }
+sub l { __PACKAGE__->instance->gettext(@_) }
+sub lp { __PACKAGE__->instance->pgettext(@_) }
+sub ln { __PACKAGE__->instance->ngettext(@_) }
 
 sub _bind_domain
 {
