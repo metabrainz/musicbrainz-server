@@ -14,7 +14,7 @@ use Encode qw(encode decode);
 
 ### TEMPLATES
 
-my @MARKERS = qw/l ln N_ln lp/;
+my @MARKERS = qw/l N_l ln N_ln lp N_lp/;
 
 my @files;
 
@@ -148,7 +148,7 @@ sub parse_file {
                         $po->msgid_plural($plural);
                         delete $po->{msgstr};
                         $po->msgstr_n( {0 => "", 1 => ""});
-                    } elsif ($type eq 'lp') {
+                    } elsif ($type eq 'lp' || $type = 'N_lp') {
                         my $context = shift @{$content};
                         $context =~ s/\r*\n\s*/ /xmsg;
                         $context =~ s/\\'/'/xmsg;
