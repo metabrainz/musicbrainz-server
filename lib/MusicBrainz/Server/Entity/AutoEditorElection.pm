@@ -177,6 +177,14 @@ sub can_see_vote_count
     }
 }
 
+sub current_expiration_time
+{
+    my ($self) = @_;
+    return $self->open_time ?
+           $self->open_time->clone->add( weeks => 1 ) :
+           $self->propose_time->clone->add( weeks => 1 );
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
