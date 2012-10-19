@@ -22,6 +22,6 @@ SELECT cover_art.*,
         JOIN cover_art_archive.art_type ON cover_art_type.type_id = art_type.id
         WHERE cover_art_type.id = cover_art.id) AS types
 FROM cover_art_archive.cover_art
-LEFT JOIN musicbrainz.edit ON edit.id = cover_art.edit;
+JOIN musicbrainz.edit ON edit.id = cover_art.edit;
 
 COMMIT;
