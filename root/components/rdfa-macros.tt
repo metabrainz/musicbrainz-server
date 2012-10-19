@@ -765,4 +765,3 @@ END -%]
     link_url(url);
   END;
 END -%]
-

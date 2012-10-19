@@ -5,6 +5,7 @@ use LWP;
 use URI::Escape;
 
 use DateTime;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -93,54 +94,18 @@ sub find_by_name
     return @editors;
 }
 
-sub _get_ratings_for_type
-{
-    my ($self, $id, $type, $me) = @_;
-
-    my $query = "
-        SELECT $type AS id, rating FROM ${type}_rating_raw
-        WHERE editor = ? ORDER BY rating DESC, editor";
-
-    my $results = $self->c->sql->select_list_of_hashes ($query, $id);
-    my $entities = $self->c->model(type_to_model($type))->get_by_ids(map { $_->{id} } @$results);
-
-    my $ratings = [];
-
-    for my $row (@$results) {
-        if ($me) {
-            $entities->{$row->{id}}->user_rating($row->{rating});
-        }
-        else {
-            $entities->{$row->{id}}->rating($row->{rating});
-            $entities->{$row->{id}}->rating_count(1);
-        }
-        push @$ratings, {
-            $type => $entities->{$row->{id}},
-            rating => $row->{rating},
-        }
-    }
-
-    # Sort by rating DESC, name ASC
-    # Sadly we can't do this in SQL, as the name is in a different schema
-    return [ sort {
-        ($b->{rating} <=> $a->{rating})
-            or
-        ($a->{$type}->name cmp $b->{$type}->name)
-    } @$ratings ];
-}
-
-sub get_ratings
+sub summarize_ratings
 {
     my ($self, $user, $me) = @_;
 
-    my $ratings = {};
-    foreach my $entity ('artist', 'label', 'recording', 'release_group', 'work')
-    {
-        my $data = $self->_get_ratings_for_type ($user->id, $entity, $me);
-        $ratings->{$entity} = $data if @$data;
-    }
+    return {
+        map {
+            my ($entities) = $self->c->model(type_to_model($_))->rating
+                ->find_editor_ratings($user->id, $me, 10, 0);
 
-    return $ratings;
+            ($_ => $entities);
+        } qw( artist label recording release_group work)
+    };
 }
 
 sub _get_tags_for_type
@@ -499,13 +464,18 @@ sub delete {
                            password = '',
                            privs = 0,
                            email = NULL,
+                           email_confirm_date = NULL,
                            website = NULL,
-                           bio = NULL
+                           bio = NULL,
+                           country = NULL,
+                           birth_date = NULL,
+                           gender = NULL
          WHERE id = ?",
         $editor_id
     );
 
     $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
+    $self->c->model('EditorLanguage')->delete_editor($editor_id);
 
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
@@ -528,7 +498,59 @@ sub delete {
                 Work
           );
 
+    # Cancel any open edits the editor still has
+    my @edits = values %{ $self->c->model('Edit')->get_by_ids(
+        @{ $self->sql->select_single_column_array(
+            'SELECT id FROM edit WHERE editor = ? AND status = ?',
+            $editor_id, $STATUS_OPEN)
+       }
+    ) };
+
+    for my $edit (@edits) {
+        $self->c->model('Edit')->cancel($edit);
+    }
+
     $self->sql->commit;
+}
+
+sub subscription_summary {
+    my ($self, $editor_id) = @_;
+
+    $self->sql->select_single_row_hash(
+        'SELECT ' .
+            join(', ', map {
+                "COALESCE(
+                   (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
+                   0) AS $_"
+            } qw( artist label editor )),
+        ($editor_id) x 3
+    );
+}
+
+sub open_edit_count
+{
+    my ($self, $editor_id) = @_;
+    my $query =
+        'SELECT count(*)
+           FROM edit
+          WHERE status = ?
+          AND editor = ?
+       ';
+
+    return $self->sql->select_single_value($query, $STATUS_OPEN, $editor_id);
+}
+
+sub last_24h_edit_count
+{
+    my ($self, $editor_id) = @_;
+    my $query =
+        "SELECT count(*)
+           FROM edit
+          WHERE editor = ?
+          AND open_time >= (now() - interval '1 day')
+       ";
+
+    return $self->sql->select_single_value($query, $editor_id);
 }
 
 no Moose;

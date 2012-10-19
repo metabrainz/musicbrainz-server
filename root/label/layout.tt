@@ -1,49 +1,50 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? label.name _ " - ${title}" : label.name -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
-        <h2>[% l('Label information') %]</h2>
+        <h2 class="label-information">[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=rdfa_sort_name(label.sort_name)
+               content=rdfa_sort_name(label.sort_name) class="sort-name"
                    IF label.name != label.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(label.l_type_name)
+               content=html_escape(label.l_type_name) class="type"
                    IF label.type -%]
             [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty AND !label.ended -%]
                     [%- IF label.begin_date.format %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" %]
                             [% label.begin_date.format %]
                             [% IF label.has_age AND not label.end_date.format %]
-                                ([% display_age (label.age) %] ago)
+                                ([% display_age_ago(label.age) %])
                             [% END %]
                         [% END %]
                     [%- END -%]
                     [% IF label.end_date.format %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
                             [% label.end_date.format %]
                             [% IF label.has_age %]
                                 ([% display_age (label.age) %])
                             [% END %]
                         [% END %]
                     [% ELSIF label.ended %]
-                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
                             [% l('[unknown]') %]
                         [% END %]
                     [% END %]
             [%- END -%]
             [%- FOR ipi_code IN label.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=rdfa_label_ipi(ipi_code) %]
+                 content=rdfa_label_ipi(ipi_code) class="ipi-code" %]
             [%- END -%]
             [%- FOR isni_code IN label.isni_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
                  content=rdfa_label_isni(isni_code) %]
             [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
-               content=html_escape(label.format_label_code)
+               content=html_escape(label.format_label_code) class="label-code"
                    IF label.label_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=html_escape(label.country.l_name)
+               content=link_searchable_property('country', label.country.iso_code, 'label', label.country.l_name)
+               class="country"
                    IF label.country -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
@@ -52,7 +53,7 @@
             async = c.uri_for_action('/label/tag_async', [ label.gid ])
             -%]
 
-        <h2>[% l('Editing') %]</h2>
+        <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
                 <li>
@@ -89,7 +90,7 @@
             [% END %]
         </ul>
 
-        <h2>[% l('Subscriptions') %]</h2>
+        <h2 class="subscriptions">[% l('Subscriptions') %]</h2>
         <ul class="links">
         [% IF c.user_exists %]
             [% IF subscribed %]
@@ -105,10 +106,11 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
     [% END %]
+  [% END -%]
 
-    <div id="content">
-        [%- INCLUDE "label/header.tt" -%]
-        [%- content -%]
-    </div>
+  <div id="content">
+    [%- INCLUDE "label/header.tt" -%]
+    [%- content -%]
+  </div>
 
 [%- END -%]

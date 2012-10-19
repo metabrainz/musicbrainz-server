@@ -2,10 +2,9 @@ package MusicBrainz::Server::Edit::Relationship::Delete;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
+use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
-    partial_date_from_row
     type_to_model
 );
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
@@ -15,6 +14,7 @@ use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
@@ -54,29 +54,10 @@ has 'relationship' => (
     is => 'rw'
 );
 
-sub edit_conditions
-{
-    return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
-    };
-}
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+    return conditions_without_autoedit($self->$orig(@args));
+};
 
 sub model0 { type_to_model(shift->data->{relationship}{link}{type}{entity0_type}) }
 sub model1 { type_to_model(shift->data->{relationship}{link}{type}{entity1_type}) }
@@ -111,8 +92,8 @@ sub build_display_data
                 ),
             verbose_phrase => $self->data->{relationship}{phrase},
             link => MusicBrainz::Server::Entity::Link->new(
-                begin_date => partial_date_from_row($self->data->{relationship}{link}{begin_date}),
-                end_date => partial_date_from_row($self->data->{relationship}{link}{end_date}), 
+                begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{begin_date}),
+                end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{end_date}), 
             )
         )
     }

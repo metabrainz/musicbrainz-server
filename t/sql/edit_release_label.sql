@@ -1,15 +1,4 @@
-
 SET client_min_messages TO 'warning';
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -17,12 +6,12 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 1, 0, NULL);
+    VALUES (1, 1, 1, 0, '');
 
 INSERT INTO label_name (id, name) VALUES (1, 'Label');
-INSERT INTO label (id, gid, name, sort_name)
-    VALUES (1, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 1, 1),
-           (2, '7214c460-97d7-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO label (id, gid, name, sort_name, comment)
+    VALUES (1, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 1, 1, 'Label 1'),
+           (2, '7214c460-97d7-11de-8a39-0800200c9a66', 1, 1, 'Label 2');
 
 INSERT INTO release_name (id, name) VALUES (1, 'Release #1');
 INSERT INTO release_group (id, gid, name, artist_credit)

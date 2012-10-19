@@ -33,7 +33,7 @@ END -%]
         [% ELSE %]
             <form>
                 <input type="text" class="tag-input" value="[% sidebar_user_tags.join(', ') %]" />
-                [% form_submit(l('Tag'), 'inline') %]
+                [% form_submit(l('Tag', 'verb'), 'inline') %]
             </form>
         [% END %]
     [% END %]

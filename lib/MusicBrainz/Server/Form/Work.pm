@@ -22,8 +22,7 @@ has_field 'name' => (
 );
 
 has_field 'comment' => (
-    type      => '+MusicBrainz::Server::Form::Field::Text',
-    maxlength => 255
+    type => '+MusicBrainz::Server::Form::Field::Comment',
 );
 
 sub edit_field_names { qw( type_id language_id name comment artist_credit ) }

@@ -23,6 +23,8 @@ $mech->content_like(qr/Track title 2/, 'content has first track');
 $mech->content_like(qr/837101029192/, 'content has barcode');
 $mech->content_like(qr/this is a comment/, 'content has comment');
 
+$mech->get_ok("/cdstub/YfSgiOEayqN77Irs.VNV.UNJ0Zs", 'fetch cdstub page, sans dash');
+
 };
 
 1;

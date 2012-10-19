@@ -16,11 +16,6 @@ has 'url' => (
     coerce => 1
 );
 
-has 'description' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 =attribute utf8_decoded
 
 Returns the URL, with entities unescaped and the string decoded from utf-8 into

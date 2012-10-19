@@ -12,6 +12,8 @@ use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
 
+use Data::Compare qw( Compare );
+
 sub edit_type { die 'Unimplemented' }
 sub edit_name { die 'Unimplemented' }
 sub l_edit_name { l(shift->edit_name) }
@@ -144,7 +146,7 @@ sub editor_may_vote
     my ($self, $editor) = @_;
     return $self->is_open &&
            defined $editor && $editor->id != $self->editor_id &&
-           !$editor->is_limited;
+           !$editor->is_limited && !$editor->is_bot;
 }
 
 sub editor_may_add_note
@@ -166,25 +168,20 @@ sub editor_may_add_note
 sub edit_conditions
 {
     return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 1,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
+        map { $_ =>
+               { duration      => 14,
+                 votes         => 3,
+                 expire_action => $EXPIRE_ACCEPT,
+                 auto_edit     => 1 }
+            } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH)
     };
+}
+
+sub edit_conditions_vary
+{
+    my $self = shift;
+    my ($low, $normal, $high) = map { $self->edit_conditions->{$_} } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH);
+    return !Compare($low, $normal) || !Compare($normal, $high);
 }
 
 sub allow_auto_edit

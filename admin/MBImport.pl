@@ -40,12 +40,16 @@ my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
 my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
+my $skip_ensure_editor = 0;
+my $update_replication_control = 1;
 
 GetOptions(
     "help|h"                    => \$fHelp,
     "ignore-errors|i!"  => \$fIgnoreErrors,
     "tmp-dir|t=s"               => \$tmpdir,
     "fix-broken-utf8"   => \$fFixUTF8,
+    "skip-editor!" => \$skip_ensure_editor,
+    "update-replication-control!" => \$update_replication_control
 );
 
 sub usage
@@ -58,6 +62,11 @@ Usage: MBImport.pl [options] FILE ...
                           special U+FFFD codepoint (UTF-8: 0xEF 0xBF 0xBD)
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+        --skip-editor     do not guarantee editor rows are present (useful when
+                          importing single tables).
+        --update-replication-control whether or not this import should
+                          alter the replication control table. This flag is
+                          internal and is only be set by MusicBrainz scripts
 
 FILE can be any of: a regular file in Postgres "copy" format (as produced
 by ExportAllTables --nocompress); a gzip'd or bzip2'd tar file of Postgres
@@ -181,7 +190,7 @@ my %imported_tables;
 
 ImportAllTables();
 
-unless($imported_tables{editor}) {
+if(!$imported_tables{editor} && !$skip_ensure_editor) {
     print localtime() . " : ensuring editor information is present\n";
     EnsureEditorTable();
 }
@@ -199,14 +208,17 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 # --without-replication, then replication_control.current_replication_sequence
 # would be invalid - we should trust the REPLICATION_SEQUENCE file instead.
 # The current_schema_sequence /is/ valid, however.
-$sql->auto_commit;
-$sql->do(
-    "UPDATE replication_control
-    SET current_replication_sequence = ?,
-    last_replication_date = ?",
-    ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
-    ($iReplicationSequence eq "" ? undef : $timestamp),
-);
+
+if ($update_replication_control) {
+    $sql->auto_commit;
+    $sql->do(
+        "UPDATE replication_control
+         SET current_replication_sequence = ?,
+         last_replication_date = ?",
+        ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
+        ($iReplicationSequence eq "" ? undef : $timestamp),
+    );
+}
 
 exit($errors ? 1 : 0);
 
@@ -446,8 +458,6 @@ sub ImportAllTables
         replication_control
         script
         script_language
-        statistic
-        statistic_event
         tag
         tag_relation
         track
@@ -469,6 +479,10 @@ sub ImportAllTables
         cover_art_archive.art_type
         cover_art_archive.cover_art
         cover_art_archive.cover_art_type
+        cover_art_archive.release_group_cover_art
+
+        statistics.statistic
+        statistics.statistic_event
     )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;

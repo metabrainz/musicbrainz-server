@@ -8,9 +8,9 @@ use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw(
-    partial_date_from_row
     type_to_model
 );
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -98,12 +98,12 @@ sub build_display_data
             old => $self->_alias_model->parent->alias_type->get_by_id($self->data->{old}{type_id}),
         },
         begin_date => {
-            new => partial_date_from_row($self->data->{new}{begin_date}),
-            old => partial_date_from_row($self->data->{old}{begin_date}),
+            new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{begin_date}),
+            old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date}),
         },
         end_date => {
-            new => partial_date_from_row($self->data->{new}{end_date}),
-            old => partial_date_from_row($self->data->{old}{end_date}),
+            new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{end_date}),
+            old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date}),
         },
         primary_for_locale => {
             new => $self->data->{new}{primary_for_locale},
@@ -185,11 +185,13 @@ sub allow_auto_edit
     return 0 if $self->data->{old}{type_id};
 
     return 0 if exists $self->data->{old}{begin_date}
-        and partial_date_from_row($self->data->{old}{begin_date})->format ne '';
+        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
     return 0 if exists $self->data->{old}{end_date}
-        and partial_date_from_row($self->data->{old}{end_date})->format ne '';
+        and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
 
     return 0 if $self->data->{old}{locale};
+
+    return 0 if exists $self->data->{new}{primary_for_locale};
 
     return 1;
 }

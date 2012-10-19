@@ -18,7 +18,7 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phra
     VALUES (1, 0, 1, 1, ' & ');
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 1, 2, 2, NULL);
+    VALUES (1, 1, 2, 2, '');
 
 ALTER SEQUENCE artist_name_id_seq RESTART 4;
 ALTER SEQUENCE artist_credit_id_seq RESTART 2;

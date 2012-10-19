@@ -9,8 +9,8 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
 
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 1, 1, 'Artist 3');
 
 INSERT INTO artist_alias (id, artist, name, sort_name, begin_date_year,
     begin_date_month, begin_date_day, end_date_year, end_date_month,

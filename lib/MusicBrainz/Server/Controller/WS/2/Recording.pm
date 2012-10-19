@@ -4,7 +4,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::Buffer';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use Function::Parameters 'f';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_PUIDS
     $EDIT_RECORDING_ADD_ISRCS
@@ -19,20 +18,21 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
                          inc      => [ qw(artist-credits puids isrcs
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings
-                                          release-groups work-level-rels) ]
+                                          release-groups work-level-rels) ],
+                         optional => [ qw(fmt) ],
      },
      recording => {
                          method => 'POST'
@@ -112,6 +112,8 @@ sub recording: Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $recording = $c->stash->{entity};
+
+    return unless defined $recording;
 
     my $stash = WebServiceStash->new;
 
@@ -230,7 +232,8 @@ sub recording_submit : Private
         # Submit PUIDs
         my $buffer = Buffer->new(
             limit => 100,
-            on_full => f($contents) {
+            on_full => sub {
+                my $contents = shift;
                 my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
                 return unless @$new_rows;
 
@@ -259,7 +262,8 @@ sub recording_submit : Private
         # Submit ISRCs
         $buffer = Buffer->new(
             limit => 100,
-            on_full => f($contents) {
+            on_full => sub {
+                my $contents = shift;
                 try {
                     $c->model('Edit')->create(
                         edit_type      => $EDIT_RECORDING_ADD_ISRCS,

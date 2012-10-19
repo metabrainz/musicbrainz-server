@@ -39,6 +39,7 @@ role {
             user      => $user,
             entities  => $entities,
             template  => "user/subscriptions/$type.tt",
+            summary   => $c->model('Editor')->subscription_summary($user->id)
         );
     };
 };

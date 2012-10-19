@@ -27,7 +27,7 @@ MB.Control.EditSummary = function(container) {
 
     self.addNote = function() {
         $toggleEditNote
-            .html('Delete Note')
+            .html(MB.text.DeleteNote)
             .unbind('click').click(self.deleteNote);
         $editNote.show();
         $editNoteField.focus();
@@ -35,7 +35,7 @@ MB.Control.EditSummary = function(container) {
 
     self.deleteNote = function() {
         $toggleEditNote
-            .html('Add Note')
+            .html(MB.text.AddNote)
             .unbind('click').click(self.addNote);
         $editNote.hide();
         $editNoteField.val('');

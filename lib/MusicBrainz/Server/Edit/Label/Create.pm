@@ -6,8 +6,8 @@ use MooseX::Types::Structured qw( Dict Optional );
 use Moose::Util::TypeConstraints qw( subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -72,8 +72,8 @@ sub build_display_data
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
         isni_codes   => $self->data->{isni_codes},
-        begin_date => partial_date_from_row($self->data->{begin_date}),
-        end_date   => partial_date_from_row($self->data->{end_date}),
+        begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date}),
+        end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date}),
         ended      => $self->data->{ended}
     };
 }

@@ -68,9 +68,6 @@ sub allow_auto_edit
 {
     my $self = shift;
 
-    my ($old_desc, $new_desc) = normalise_strings($self->data->{old}{description},
-						  $self->data->{new}{description});
-    return 0 if $old_desc ne $new_desc;
     return 0 if exists $self->data->{old}{url};
 
     return 1;
@@ -92,6 +89,18 @@ around accept => sub {
 
     # Check for any releases that might need updating
     $self->c->model('CoverArt')->url_updated($new_id);
+};
+
+after insert => sub {
+    my ($self) = @_;
+
+    # If the target URL exists, then this edit must not be an auto edit (as it
+    # would produce a merge).
+    if (my $new_url = $self->data->{new}{url}) {
+        if ($self->c->model('URL')->find_by_url($new_url)) {
+            $self->auto_edit(0);
+        }
+    }
 };
 
 sub current_instance {
@@ -116,6 +125,16 @@ around extract_property => sub {
         }
     }
 };
+
+sub _edit_hash
+{
+    my ($self, $data) = @_;
+    # Descriptions no longer exist, so remove them before trying to apply edits
+    if (exists $data->{description}) {
+       delete $data->{description};
+    }
+    return $data;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -76,6 +76,8 @@ sub label : Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $label = $c->stash->{entity};
 
+    return unless defined $label;
+
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($label);
 

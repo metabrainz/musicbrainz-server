@@ -34,8 +34,8 @@ html_ok($mech->content);
 $mech->title_like(qr/Top CD Stubs/, 'title is correct');
 $mech->content_like(qr/Test Artist/, 'content has artist name');
 $mech->content_like(qr/YfSgiOEayqN77Irs.VNV.UNJ0Zs-/, 'content has disc id');
-$mech->content_like(qr/Added 12 years ago/, 'content has added timestamp');
-$mech->content_like(qr/last modified 11 years ago/, 'content has last modified timestamp');
+$mech->content_like(qr/Added 12&nbsp;years ago/, 'content has added timestamp');
+$mech->content_like(qr/last modified 11&nbsp;years ago/, 'content has last modified timestamp');
 
 };
 
