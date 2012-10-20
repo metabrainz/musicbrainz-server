@@ -115,6 +115,14 @@ END; -%]
 <a href="[% artwork.image %]">[% l('original') %]</a>
 [%- END -%]
 
+[%- MACRO cover_art_url(url) BLOCK;
+    IF c.req.secure;
+        url | amazon_https | coverart_https;
+    ELSE;
+        url;
+    END;
+END -%]
+
 [%- MACRO comma_list(items) BLOCK -%]
     [% IF items.size == 1 %]
         [% items.0 %]

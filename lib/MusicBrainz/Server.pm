@@ -57,7 +57,9 @@ __PACKAGE__->config(
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
             'locale' => \&MusicBrainz::Server::Filters::locale,
-            'gravatar' => \&MusicBrainz::Server::Filters::gravatar
+            'gravatar' => \&MusicBrainz::Server::Filters::gravatar,
+            'amazon_https' => \&MusicBrainz::Server::Filters::amazon_https,
+            'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',

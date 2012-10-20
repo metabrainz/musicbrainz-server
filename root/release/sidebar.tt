@@ -3,14 +3,14 @@
         [%- SWITCH release.cover_art_presence -%]
         [%- CASE 'absent' -%]
           [%- IF release.cover_art_url -%]
-            <img src="[% release.cover_art_url -%]" />
+            <img src="[% cover_art_url(release.cover_art_url) -%]" />
           [%- ELSE -%]
             <p style="text-align:left">[%- l("No cover art available.") -%]</p>
           [%- END -%]
         [%- CASE 'present' -%]
           [%- SET cover_art_message = l("No front cover image available.<br/>{all|View all artwork}.",
                                         { all => c.uri_for_action('/release/cover_art', [ release.gid ]) }) -%]
-          [%- display_artwork (release_artwork, release.cover_art_url, cover_art_message) -%]
+          [%- display_artwork (release_artwork, cover_art_url(release.cover_art_url), cover_art_message) -%]
         [%- CASE 'darkened' -%]
           [%- l("No cover art available.") -%]
         [%- END -%]
