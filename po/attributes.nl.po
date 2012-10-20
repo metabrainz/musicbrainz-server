@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-05 10:58+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-10-17 19:43+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +58,7 @@ msgstr "Luisterboek"
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr ""
+msgstr "Achterkant"
 
 #: DB:work_type/name:2
 msgctxt "work_type"
@@ -78,7 +78,7 @@ msgstr "Blu-ray"
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr ""
+msgstr "Boekje"
 
 #: DB:release_status/name:3
 msgctxt "release_status"
@@ -93,7 +93,7 @@ msgstr "Onofficiële (bootleg) productie"
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr ""
+msgstr "Uitzending"
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
@@ -198,7 +198,7 @@ msgstr "Vrouw"
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
 msgid "Front"
-msgstr ""
+msgstr "Voorkant"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -273,7 +273,7 @@ msgstr "Mis"
 #: DB:cover_art_archive.art_type/name:4
 msgctxt "cover_art_type"
 msgid "Medium"
-msgstr ""
+msgstr "Medium"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -298,7 +298,7 @@ msgstr "Geen"
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
 msgid "Obi"
-msgstr ""
+msgstr "Obi"
 
 #: DB:release_status/name:1
 msgctxt "release_status"
@@ -328,7 +328,7 @@ msgstr "Overig"
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr ""
+msgstr "Overig"
 
 #: DB:gender/name:3
 msgctxt "gender"
@@ -464,7 +464,7 @@ msgstr "Soundtrack"
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
-msgstr ""
+msgstr "Rug"
 
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
@@ -474,7 +474,7 @@ msgstr "Spokenword"
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
-msgstr ""
+msgstr "Sticker"
 
 #: DB:work_type/name:6
 msgctxt "work_type"
@@ -494,12 +494,12 @@ msgstr "Symfonie"
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr ""
+msgstr "Nummer"
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
 msgid "Tray"
-msgstr ""
+msgstr "houder"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"
