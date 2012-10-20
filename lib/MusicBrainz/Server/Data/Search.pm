@@ -300,7 +300,7 @@ sub schema_fixup
             if (exists $data->{'life-span'}->{end});
     }
     if($type eq 'artist' && exists $data->{gender}) {
-        $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => $data->{gender} );
+        $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
     }
     if ($type eq 'label' && exists $data->{type})
     {

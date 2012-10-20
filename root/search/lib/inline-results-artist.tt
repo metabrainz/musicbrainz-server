@@ -7,6 +7,8 @@
         <th>[% l('Name') %]</th>
         <th>[% l('Sort Name') %]</th>
         <th>[% l('Type') %]</th>
+        <th>[% l('Gender') %]</th>
+        <th>[% l('Country') %]</th>
         <th>[% l('Begin') %]</th>
         <th>[% l('End') %]</th>
       </tr>
@@ -20,6 +22,10 @@
         </td>
         <td>[% result.entity.sort_name %]</td>
         <td>[% result.entity.l_type_name  %]</td>
+        <td>[% result.entity.l_gender_name  %]</td>
+        <td>
+            <abbr title="[% result.entity.country.l_name %]">[% result.entity.country.iso_code_for_display %]</abbr>
+        </td>
         <td>[% result.entity.begin_date.format %]</td>
         <td>
           [% IF !result.entity.end_date.is_empty;
