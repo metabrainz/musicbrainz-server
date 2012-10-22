@@ -59,14 +59,21 @@ sub post_fields
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
     my $filename = "mbid-$mbid-" . $id . '.jpg';
 
+    my %extra_fields = (
+        "x-archive-auto-make-bucket" => 1,
+        "x-archive-meta-collection" => 'coverartarchive',
+        "x-archive-meta-mediatype" => 'image',
+    );
+
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
     $policy->add ({'success_action_redirect' => $redirect});
     $policy->add ('$key eq '.$filename);
     $policy->add ('$content-type starts-with image/jpeg');
-    $policy->add ('x-archive-auto-make-bucket eq 1');
-    $policy->add ('x-archive-meta-collection eq coverartarchive');
-    $policy->add ('x-archive-meta-mediatype eq images');
+
+    for my $field (keys %extra_fields) {
+        $policy->add("$field eq " $ $extra_fields{$field});
+    }
 
     return {
         AWSAccessKeyId => $aws_id,
@@ -76,9 +83,7 @@ sub post_fields
         acl => 'public-read',
         "content-type" => 'image/jpeg',
         success_action_redirect => $redirect,
-        "x-archive-auto-make-bucket" => 1,
-        "x-archive-meta-collection" => 'coverartarchive',
-        "x-archive-meta-mediatype" => 'images',
+        %extra_fields
     };
 }
 
