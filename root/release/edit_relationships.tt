@@ -51,9 +51,10 @@
       <tbody>
         <!-- ko if: mode().match(/^batch/) == null -->
         <tr>
-          <td class="section" data-bind="text: MB.text.Entity[relationship().source.type] + ':'"></td>
+          <td class="section" data-bind="text: MB.text.Entity[sourceField()().type] + ':'"></td>
           <td>
-            <span data-bind="html: relationship().source.rendering"></span>
+            <span data-bind="html: sourceField()().rendering"></span>
+            <div class="error" data-bind="text: sourceField().error"></div>
           </td>
         </tr>
         <!-- /ko -->
@@ -61,7 +62,7 @@
           <td class="section">[% l('Type') %]:</td>
           <td>
             <select id="link-type" data-bind="linkType: relationship, value: relationship().link_type"></select>
-            <!-- ko template: {"if": relationship().source.type == relationship().target().type, afterRender: resize} -->
+            <!-- ko template: {"if": sourceField()().type == targetField()().type, afterRender: resize} -->
             <button data-bind="click: changeDirection, text: MB.text.ChangeDirection"></button>
             <!-- /ko -->
             (<a href="#" data-bind="click: toggleLinkTypeHelp">[% l('help') %]</a>)
@@ -73,7 +74,7 @@
         <tr>
           <td class="section">
             <select id="target-type" data-bind="targetType: $data,
-              disable: mode() == 'edit' || relationship().type() == 'recording-work'"></select>
+              disable: mode() == 'edit' || relationship().type == 'recording-work'"></select>
           </td>
           <td>
             <span id="autocomplete" class="autocomplete" data-bind="autocomplete: relationship">
@@ -82,7 +83,7 @@
               <input type="hidden" class="id"/>
               <input type="hidden" class="gid"/>
             </span>
-            <div class="error" data-bind="text: relationship().target.error"></div>
+            <div class="error" data-bind="text: targetField().error"></div>
           </td>
         </tr>
         <!-- /ko -->
@@ -102,13 +103,13 @@
           <td id="batch-work-lang"></td>
         </tr>
         <!-- /ko -->
-        <!-- ko template: {"if": attributes().length > 0, afterRender: resize} -->
+        <!-- ko template: {"if": attrs().length > 0, afterRender: resize} -->
         <tr>
           <td class="section">
             [% l('Attributes:') %]<br/>
             (<a href="#" data-bind="click: toggleAttributesHelp">[% l('help') %]</a>)
           </td>
-          <td data-bind="foreach: attributes">
+          <td data-bind="foreach: attrs">
             <div>
               <label>
               <!-- ko if: type == 'boolean' -->
@@ -120,7 +121,7 @@
                 <select data-bind="selectAttribute: $data"></select>
               <!-- /ko -->
               </label>
-              <div class="error" data-bind="text: $root.relationship.peek().attributes.peek()[$data.data.name].error"></div>
+              <div class="error" data-bind="text: value.error"></div>
               <div class="ar-descr" data-bind="html: data.descr, visible: $root.showAttributesHelp"></div>
             </div>
           </td>
@@ -128,7 +129,7 @@
         <!-- /ko -->
         <tr>
           <td class="section">[% l('Begin date:') %]</td>
-          <td data-bind="with: relationship">
+          <td data-bind="with: relationship().period">
                <input data-bind="value: begin_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="YYYY" size="4"/>-[%-
             -%]<input data-bind="value: begin_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="MM" size="2"/>-[%-
             -%]<input data-bind="value: begin_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="DD" size="2"/>
@@ -137,7 +138,7 @@
         </tr>
         <tr>
           <td class="section">[% l('End date:') %]</td>
-          <td data-bind="with: relationship">
+          <td data-bind="with: relationship().period">
                <input data-bind="value: end_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="YYYY" size="4"/>-[%-
             -%]<input data-bind="value: end_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="MM" size="2"/>-[%-
             -%]<input data-bind="value: end_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="DD" size="2"/>
@@ -145,7 +146,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2" data-bind="with: relationship">
+          <td colspan="2" data-bind="with: relationship().period">
             <label>
               <input type="checkbox" data-bind="checked: ended"/>
               [% l('This relationship has ended.') %]
@@ -276,17 +277,17 @@
 </script>
 
 <script type="text/html" id="template.link.phrase"><span class="link-phrase"
-        data-bind="text: linkPhrase, css: {
+        data-bind="text: linkPhrase($parents[1]), css: {
              'error-field': hasErrors,
              'rel-add':     action() == 'add',
              'rel-edit':    action() == 'edit',
              'rel-remove':  action() == 'remove'}"></span></script>
 
 <script type="text/html" id="template.relationship">
-  <div class="ar" data-bind="with: $data">
+  <div class="ar">
     <span class="remove-button">&#215;</span>
     <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
-    <span class="entity" data-bind="html: target().rendering, css: {'rel-edit': edits_pending}"></span>
+    <span class="entity" data-bind="html: target($parents[0]).rendering, css: {'rel-edit': edits_pending}"></span>
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)
     <!-- /ko -->
@@ -295,8 +296,8 @@
 
 <script type="text/html" id="template.relationship.performance">
   <div class="ar">
-    <!-- ko with: target --><input type="checkbox"/><!-- /ko -->
-    <span class="entity" data-bind="html: target().rendering, css: {'rel-edit': edits_pending}"></span>
+    <!-- ko with: entity[1] --><input type="checkbox"/><!-- /ko -->
+    <span class="entity" data-bind="html: entity[1]().rendering, css: {'rel-edit': edits_pending}"></span>
     (<!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->)
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)
@@ -306,7 +307,7 @@
       <div data-bind="html: $root.RE.UI.loadingIndicator"></div>
     <!-- /ko -->
     <!-- ko if: !loadingWork() -->
-      <!-- ko template: {name: 'template.relationships', data: target} --><!-- /ko -->
+      <!-- ko template: {name: 'template.relationships', data: entity[1]} --><!-- /ko -->
     <!-- /ko -->
     <!-- /ko -->
   </div>

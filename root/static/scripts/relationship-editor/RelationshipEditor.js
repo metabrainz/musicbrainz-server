@@ -24,6 +24,8 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
 
 RE.releaseViewModel = {
     RE: RE,
+    release: ko.observable({relationships: []}),
+    releaseGroup: ko.observable({relationships: []}),
     media: ko.observableArray([]),
 
     checkboxes: (function() {
@@ -39,14 +41,14 @@ RE.releaseViewModel = {
                 msg = strings[Math.min(strings.length - 1, data.recordingCount())];
 
             return msg ? "(" + msg + ")" : "";
-        }).extend({throttle: 100});
+        });
 
         data.workMessage = ko.computed(function() {
             var strings = data.workStrings(),
                 msg = strings[Math.min(strings.length - 1, data.workCount())];
 
             return msg ? "(" + msg + ")" : "";
-        }).extend({throttle: 100});
+        });
 
         return data;
     }()),
@@ -72,12 +74,12 @@ RE.releaseViewModel = {
 
                 _.each(recording.performanceRelationships.peek(), function(relationship) {
                     addChanged(relationship);
-                    _.each(relationship.target.peek().relationships.peek(), addChanged);
+                    _.each(relationship.entity[1].peek().relationships.peek(), addChanged);
                 });
             });
         });
-        _.each(this.release.relationships.peek(), addChanged);
-        _.each(this.releaseGroup.relationships.peek(), addChanged);
+        _.each(this.release.peek().relationships.peek(), addChanged);
+        _.each(this.releaseGroup.peek().relationships.peek(), addChanged);
 
         if (changed.length == 0) {
             this.submissionLoading(false);
@@ -118,10 +120,7 @@ RE.releaseViewModel = {
                 var parts = key.split(".");
 
                 if (parts[0] == "entity") {
-                    var i = parts[1];
-
-                    if (relationship.entity()[i] === relationship.target())
-                        relationship.target.error(error[0]);
+                    relationship.entity[parts[1]].error(error[0]);
 
                 } else if (parts[1] == "begin_date" || parts[1] == "end_date") {
                     relationship[parts[1]].error(error[0]);
@@ -156,9 +155,6 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
     // preload image to avoid flickering
     $("<img/>").attr("src", "../../../static/images/icons/add.png");
 
-    RE.releaseViewModel.release = RE.Entity({type: "release", gid: releaseGID});
-    RE.releaseViewModel.releaseGroup = RE.Entity({type: "release_group", gid: releaseGroupGID});
-
     ko.applyBindings(RE.releaseViewModel, document.getElementById("content"));
 
     if (data) {
@@ -176,9 +172,8 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
 
 
 releaseLoaded = function(data) {
-    data.type = "release";
-    data.release_group.type = "release_group";
-    RE.Entity(data);
+    RE.releaseViewModel.release(RE.Entity(data, "release"));
+    RE.releaseViewModel.releaseGroup(RE.Entity(data.release_group, "release_group"));
 
     for (var i = 0, trackCount = 0, medium; medium = data.mediums[i]; i++)
         trackCount += medium.tracks.length;
@@ -342,12 +337,12 @@ function initCheckboxes(trackCount) {
 function initButtons() {
     $("#batch-recording").click(function() {
         if (!$(this).hasClass("disabled"))
-            UI.BatchRecordingRelationshipDialog.show();
+            UI.BatchRelationshipDialog.show(UI.checkedRecordings());
     });
 
     $("#batch-work").click(function() {
         if (!$(this).hasClass("disabled"))
-            UI.BatchWorkRelationshipDialog.show();
+            UI.BatchRelationshipDialog.show(UI.checkedWorks());
     });
 
     $("#batch-create-works").click(function() {
@@ -355,11 +350,18 @@ function initButtons() {
     });
 
     $("#content").on("click", "span.add-rel", function(event) {
-        UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("artist")}, event.pageX, event.pageY);
+        var source = ko.dataFor(this);
+        UI.AddDialog.show({
+            entity: [RE.Entity({type: "artist"}), source],
+            source: source,
+            posx: event.pageX,
+            posy: event.pageY
+        });
     });
 
     $("#content").on("click", "span.relate-work", function() {
-        UI.AddDialog.show({source: ko.dataFor(this), target: Util.tempEntity("work")});
+        var source = ko.dataFor(this), target = RE.Entity({type: "work", name: source.name});
+        UI.AddDialog.show({entity: [source, target], source: source});
     });
 
     $("#content").on("click", "span.remove-button", function() {
@@ -372,15 +374,24 @@ function initButtons() {
             return;
         }
         if (action == "remove") newAction = "";
-        if (action == "edit" && newAction == "remove") relationship.reset();
+
+        if (action == "edit" && newAction == "remove")
+            relationship.fromJS(relationship.original_fields);
+
         relationship.action(newAction);
     });
 
     $("#content").on("click", "span.link-phrase", function(event) {
-        var relationship = ko.dataFor(this);
+        var relationship = ko.dataFor(this),
+            source = ko.dataFor(this.parentNode.parentNode);
 
         if (relationship.action() != "remove")
-            UI.EditDialog.show(relationship, event.pageX, event.pageY);
+            UI.EditDialog.show({
+                relationship: relationship,
+                source: source,
+                posx: event.pageX,
+                posy: event.pageY
+            });
     });
 }
 

@@ -20,263 +20,190 @@
 MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
-    Fields = RE.Fields = RE.Fields || {}, mapping, cache = {};
-
-mapping = {
-    // entities (source, target) have their own mapping options in Entity.js
-    ignore:  ["source", "target", "visible", "direction"],
-    copy:    ["edits_pending", "id"],
-    include: ["link_type", "action", "backward", "begin_date", "end_date", "ended", "attributes"],
-    attributes: {
-        update: function(options) {return $.extend(true, {}, options.data)}
-    },
-    begin_date: {
-        update: function(options) {
-            return new Fields.PartialDate(options.data);
-        }
-    },
-    ended: {
-        update: function(options) {return Boolean(options.data)}
-    }
-};
-
-mapping.end_date = mapping.begin_date;
+    Fields = RE.Fields = RE.Fields || {}, cache = {};
 
 
-RE.Relationship = function(obj, tryToMerge, show) {
-    obj.link_type = obj.link_type || defaultLinkType(obj.source.type, obj.target.type);
-    var type = Util.types(obj.link_type), relationship, c = cache[type] = cache[type] || {};
+RE.Relationship = function(obj) {
+    var type0 = obj.entity[0].type, type1 = obj.entity[1].type, relationship, key;
 
+    if (!obj.link_type) obj.link_type = defaultLinkType(type0, type1);
     if (!obj.id) obj.id = _.uniqueId("new-");
-    relationship = c[obj.id] || (c[obj.id] = new Relationship(obj));
 
-    if (tryToMerge && relationship.source.mergeRelationship(relationship)) {
-        delete c[obj.id];
-        return null;
-    }
-
-    if (show) relationship.show();
-    return relationship;
+    key = [type0, type1, obj.id].join("-");
+    return cache[key] || (cache[key] = new Relationship(obj));
 };
 
 
 var Relationship = function(obj) {
     var self = this;
 
-    this.visible = false; // new relationships still being edited aren't visible
+    this.visible = false;
     this.id = obj.id;
     this.changeCount = 0;
     this.errorCount = 0;
-    this.action = ko.observable(obj.action || "");
     this.hasErrors = ko.observable(false);
-
-    obj.link_type = obj.link_type || defaultLinkType(obj.source.type, obj.target.type),
-    obj.backward = obj.backward || (obj.source.type != Util.types(obj.link_type).split("-")[0]);
-
-    this.link_type = new Fields.Integer(obj.link_type).extend({field: [this, "link_type"]});
-    this.backward = ko.observable(obj.backward).extend({field: [this, "backward"]});
-
-    this.begin_date = new Fields.PartialDate();
-    this.end_date = new Fields.PartialDate();
-    this.ended = ko.observable(false);
-    this.attributes = new Fields.Attributes(this);
-
-    this.dateRendering = ko.computed({read: this.renderDate, owner: this})
-        .extend({throttle: 100});
-
-    // entities have a refcount so that they can be deleted when they aren't
-    // referenced by any relationship. we use a computed observable for the target,
-    // so that we don't have to remember to decrement the refcount each time the
-    // target changes.
-
-    obj.source.refcount += 1;
-    this.source = obj.source; // source can't change
-
-    obj.target.refcount += 1;
-    this.target = new Fields.Target(obj.target, this);
-
-    this.type = ko.computed(function() {return Util.types(self.link_type())});
-    if (this.type.peek() == "recording-work") obj.target.performanceRefcount += 1;
-
-    // XXX trigger the validation subscription's callback, so that validation
-    // on the target's name is registered as well.
-    this.target.notifySubscribers(this.target.peek());
-
-    ko.mapping.fromJS(obj, mapping, this);
-
-    // add these *after* pulling in the obj mapping, otherwise they'll mark the
-    // relationship as having changes.
-    this.begin_date.extend({field: [this, "begin_date"]});
-    this.end_date.extend({field: [this, "end_date"]});
-    this.ended.extend({field: [this, "ended"]});
-    this.attributes.extend({field: [this, "attributes"]});
-
-    this.linkPhrase = ko.computed(this.buildLinkPhrase, this).extend({throttle: 1});
     this.loadingWork = ko.observable(false);
+    this.edits_pending = Boolean(obj.edits_pending);
 
-    this.edits_pending
-        ? (this.openEdits = ko.computed(this.buildOpenEdits, this))
-        : (this.edits_pending = false);
+    this.action = ko.observable(obj.action || "");
+    this.link_type = new Fields.Integer(obj.link_type);
+    this.attrs = new Fields.Attributes(this);
+    this.period = {
+        begin_date: new Fields.PartialDate(),
+        end_date:   new Fields.PartialDate(),
+        ended:      ko.observable(false)
+    };
 
-    delete obj;
+    var entity0 = RE.Entity(obj.entity[0]), entity1 = RE.Entity(obj.entity[1]);
+    this.entity = [new Fields.Entity(entity0, this), new Fields.Entity(entity1, this)];
+    this.type = entity0.type + "-" + entity1.type;
+
+    this.fromJS(obj);
+    this.dateRendering = ko.computed({read: this.renderDate, owner: this});
+    this.original_fields = this.toJS();
+
+    this.entity[0].extend({field: [this, "entity.0"]});
+    this.entity[1].extend({field: [this, "entity.1"]});
+    this.link_type.extend({field: [this, "link_type"]});
+    this.attrs.extend({field: [this, "attrs"]});
+    this.period.begin_date.extend({field: [this, "period.begin_date"]});
+    this.period.end_date.extend({field: [this, "period.end_date"]});
+    this.period.ended.extend({field: [this, "period.ended"]});
 };
 
 
-var defaultLinkType = function(sourceType, targetType) {
-    var type = sourceType + "-" + targetType, linkType;
-
-    if (!(linkType = Util.typeInfoByEntities(type)))
-        linkType = Util.typeInfoByEntities(targetType + "-" + sourceType);
-
-    linkType = linkType[0];
+var defaultLinkType = function(type0, type1) {
+    var linkType = Util.typeInfoByEntities(type0 + "-" + type1);
+    if (!linkType) return null; else linkType = linkType[0];
     return linkType.descr ? linkType.id : linkType.children[0].id;
 };
 
 
-Relationship.prototype.entity = function() {
-    return this.backward() ? [this.target(), this.source] : [this.source, this.target()];
+Relationship.prototype.toJS = function() {
+    var entity0 = this.entity[0].peek(), entity1 = this.entity[1].peek();
+    return {
+        id:        this.action.peek() == "action" ? undefined : this.id,
+        link_type: this.link_type.peek(),
+        action:    this.action.peek(),
+        period: {
+            begin_date: ko.toJS(this.period.begin_date),
+            end_date:   ko.toJS(this.period.end_date),
+            ended:      this.period.ended.peek(),
+        },
+        attrs:  ko.toJS(this.attrs),
+        entity: [this.entity[0].peek().toJS(), this.entity[1].peek().toJS()]
+    };
 };
 
 
-Relationship.prototype.changeTarget = function(oldTarget, newTarget, observable) {
-    var type = this.type.peek();
-
-    observable(newTarget);
-    newTarget.refcount += 1;
-
-    if (oldTarget) {
-        oldTarget.remove();
-
-        if (type == "recording-work") oldTarget.performanceRefcount -= 1;
-
-        if  (oldTarget.type != newTarget.type) {
-            // the type changed. our relationship cache is organized by type, so we
-            // have to move the position of this relationship in the cache.
-            var oldType = Util.types(this.link_type.peek()), newType;
-
-            this.link_type(defaultLinkType(this.source.type, newTarget.type));
-            newType = this.type();
-
-            (cache[newType] = cache[newType] || {})[this.id] = cache[oldType][this.id];
-            delete cache[oldType][this.id];
-
-            // fix the direction.
-            var typeInfo = Util.typeInfo(this.link_type.peek());
-            this.backward(this.source.type != newType.split("-")[0]);
-        }
-    }
-
-    if (type == "recording-work") {
-        newTarget.performanceRefcount += 1;
-        this.workChanged(newTarget);
-    }
+Relationship.prototype.fromJS = function(obj) {
+    this.link_type(obj.link_type);
+    this.period.begin_date((obj.period || {}).begin_date || "");
+    this.period.end_date((obj.period || {}).end_date || "");
+    this.period.ended(Boolean((obj.period || {}).ended));
+    this.attrs(obj.attrs || {});
+    this.entity[0](obj.entity[0]);
+    this.entity[1](obj.entity[1]);
 };
 
-// if the user changed a work, we need to request its relationships.
 
-var worksLoading = {};
+Relationship.prototype.target = function(source) {
+    var entity0 = this.entity[0](), entity1 = this.entity[1]();
+    return source === entity0 ? entity1 : entity0;
+};
 
-Relationship.prototype.workChanged = function(work) {
-    var gid = work.gid, self = this;
-    if (worksLoading[gid]) return;
 
-    this.loadingWork(true);
-    worksLoading[gid] = 1;
+Relationship.prototype.entityChanged = function(oldEntity, newEntity) {
+    var entity0 = this.entity[0].peek(), entity1 = this.entity[1].peek(), self = this;
 
-    $.get("/ws/js/entity/" + gid + "?inc=rels")
-        .success(function(data) {
-            Util.parseRelationships(data);
-        })
-        .complete(function() {
-            self.loadingWork(false);
-            delete worksLoading[gid];
-        });
+    if (oldEntity !== entity0 && oldEntity !== entity1)
+        oldEntity.relationships.remove(this);
+
+    if (entity0.type == "recording" && entity1.type == "work" && newEntity === entity1) {
+        oldEntity.performanceCount -= 1;
+        newEntity.performanceCount += 1;
+
+        this.loadingWork(true);
+
+        $.get("/ws/js/entity/" + newEntity.gid + "?inc=rels")
+            .success(function(data) {
+                Util.parseRelationships(data);
+            })
+            .complete(function() {
+                self.loadingWork(false);
+            });
+
+    } else if (this.visible && newEntity.relationships.indexOf(this) == -1)
+        newEntity.relationships.push(this);
+
+    if (oldEntity.type == "recording" && entity1.type == "work")
+        oldEntity.performanceRelationships.remove(this);
 };
 
 
 Relationship.prototype.show = function() {
-    if (!this.visible) {
-        this.type.peek() == "recording-work"
-            ? this.source.performanceRelationships.push(this)
-            : this.source.relationships.push(this);
-
-        this.visible = true;
+    if (this.type == "recording-work") {
+        this.entity[0].peek().performanceRelationships.push(this);
+        this.entity[1].peek().performanceCount += 1;
+    } else {
+        this.entity[0].peek().relationships.push(this);
+        this.entity[1].peek().relationships.push(this);
     }
-};
-
-
-Relationship.prototype.reset = function(obj) {
-    this.hasErrors(false);
-    this.errorCount = 0;
-    var fields = Util.originalFields(this);
-
-    if (fields) {
-        ko.mapping.fromJS(fields, this);
-        this.target(fields.target);
-        this.changeCount = 0;
-    }
+    this.visible = true;
 };
 
 
 Relationship.prototype.remove = function() {
-    // prevent this from being removed twice, otherwise it screws up refcounts
-    // everywhere. this can happen if the relationship is merged into another
-    // one (thus removed), and then removed again when the dialog is closed
-    // (because the dialog sees that this.visible is false).
     if (this.removed === true) return;
+    var entity0 = this.entity[0].peek(), entity1 = this.entity[1].peek();
 
-    var recordingWork = (this.type() == "recording-work"),
-        target = this.target.peek();
+    if (this.type == "recording-work") {
+        entity0.performanceRelationships.remove(this);
+        entity1.performanceCount -= 1;
 
-    if (recordingWork) {
-        this.source.performanceRelationships.remove(this);
-        target.performanceRefcount -= 1;
+        if (entity1.performanceCount <= 0) {
+            var relationships = entity1.relationships.slice(0);
+
+            for (var i = 0; i < relationships.length; i++) {
+                var relationship = relationships[i],
+                    target = relationship.target(entity1);
+
+                if (target.type != "work" || target.performanceCount <= 0)
+                    relationship.remove();
+            }
+        }
     } else {
-        this.source.relationships.remove(this);
+        entity0.relationships.remove(this);
+        entity1.relationships.remove(this);
     }
 
-    this.source.remove();
-    target.remove();
-
-    if (recordingWork && target.performanceRefcount <= 0) {
-        var relationships = target.relationships.slice(0);
-
-        for (var i = 0; i < relationships.length; i++)
-            relationships[i].remove();
-    }
-    delete cache[this.type.peek()][this.id];
-    this.visible = false;
+    delete cache[this.type + "-" + this.id];
     this.removed = true;
+    this.visible = false;
 };
 
 // Constructs the link phrase to display for this relationship
 
-Relationship.prototype.buildLinkPhrase = function() {
-    var typeInfo = Util.typeInfo(this.link_type());
-    if (!typeInfo) return "";
+Relationship.prototype.linkPhrase = function(source) {
+    var typeInfo = Util.typeInfo(this.link_type()), attrs = {}, m,
+        phrase = source === this.entity[0]() ? typeInfo.phrase : typeInfo.reverse_phrase;
 
-    var attrs = {}, m, phrase = this.source === this.entity()[0]
-        ? typeInfo.phrase : typeInfo.reverse_phrase;
+    _.each(this.attrs(), function(observable, name) {
+        var value = observable();
 
-    $.each(this.attributes(), function(name, observable) {
-        var value = observable(),
-            str = Util.attrRoot(name).l_name,
-            isArray = $.isArray(value);
-
-        if (!value || isArray && !value.length) return;
-        if (isArray) {
-            value = $.map(value, function(v) {return Util.attrInfo(v).l_name});
+        if (_.isArray(value) && value.length) {
+            value = _.map(value, function(v) {return Util.attrInfo(v).l_name});
 
             var list = value.slice(0, -1).join(", ");
-            str = (list && list + " & ") + (value.pop() || "");
-        }
-        attrs[name] = str;
+            attrs[name] = (list && list + " & ") + (value.pop() || "");
+
+        } else if (value) attrs[name] = Util.attrRoot(name).l_name;
     });
+
     while (m = phrase.match(/\{(.*?)(?::(.*?))?\}/)) {
-        var replace = attrs[m[1]] !== undefined
+        phrase = phrase.replace(m[0], (attrs[m[1]] !== undefined)
             ? (m[2] && m[2].split("|")[0]) || attrs[m[1]]
-            : (m[2] && m[2].split("|")[1]) || "";
-        phrase = phrase.replace(m[0], replace);
+            : (m[2] && m[2].split("|")[1]) || "");
     }
     return _.clean(phrase);
 };
@@ -292,8 +219,9 @@ function renderDate(date) {
 }
 
 Relationship.prototype.renderDate = function() {
-    var begin_date = renderDate(this.begin_date.peek()),
-        end_date = renderDate(this.end_date.peek()), ended = this.ended();
+    var begin_date = renderDate(this.period.begin_date.peek()),
+        end_date = renderDate(this.period.end_date.peek()),
+        ended = this.period.ended();
 
     if (!begin_date && !end_date) return "";
     if (begin_date == end_date) return begin_date;
@@ -301,58 +229,41 @@ Relationship.prototype.renderDate = function() {
     return begin_date + " \u2013 " + (end_date || (ended ? "????" : ""));
 };
 
-// Contruction of form fields
+// Construction of form fields
 
-var simpleFields = ["id", "link_type", "action"], dateFields = ["year", "month", "day"],
-    entityFields = ["gid", "type"];
-
-var buildField = function(prefix, name, obj, fields) {
-    var field, value, prefix = prefix + (name && name + ".");
-
-    for (var i = 0; field = fields[i]; i++) {
-        value = ko.utils.unwrapObservable(obj[field]);
-        if (value) {
-            field = prefix + field;
-
-            if (_.isArray(value)) {
-                for (var j = 0; j < value.length; j++)
-                    this[field + "." + j] = value[j];
-            } else {
-                if (_.isBoolean(value)) value = value ? 1 : 0;
-                this[field] = value;
-            }
-        }
+var buildField = function(prefix, obj, result) {
+    if (_.isObject(obj) || _.isArray(obj)) {
+        _.each(obj, function(value, name) {
+            buildField(prefix + "." + name, value, result);
+        });
+    } else if (_.isBoolean(obj)) {
+        result[prefix] = obj ? 1 : 0;
+    } else if (_.isString(obj) || _.isNumber(obj)) {
+        result[prefix] = obj;
     }
 };
 
 Relationship.prototype.buildFields = function(num, result) {
-    var attrs = _.keys(this.attributes.peek()), entity = this.entity(),
-        prefix = "rel-editor.rels." + num + ".", bf = _.bind(buildField, result),
-        sf = (this.action.peek() == "add") ? _.rest(simpleFields) : simpleFields;
-
-    bf(prefix, "", this, sf);
-    bf(prefix, "period.begin_date", this.begin_date.peek(), dateFields);
-    bf(prefix, "period.end_date", this.end_date.peek(), dateFields);
-    result[prefix +  "period.ended"] = this.ended.peek() ? 1 : 0;
-    bf(prefix, "attrs", this.attributes.peek(), attrs);
-    bf(prefix, "entity.0", entity[0], entityFields);
-    bf(prefix, "entity.1", entity[1], entityFields);
+    var prefix = "rel-editor.rels." + num;
+    buildField(prefix, this.toJS(), result);
+    if (this.action.peek() == "add") delete result[prefix + ".id"];
 };
 
 // returns true if this relationship is a "duplicate" of the other.
 // doesn't compare attributes, but does compare dates.
 
 Relationship.prototype.isDuplicate = function(other) {
-    var thisent = this.entity(), otherent = other.entity();
     return (this.link_type.peek() == other.link_type.peek() &&
-            thisent[0] === otherent[0] && thisent[1] === otherent[1] &&
-            Util.mergeDates(this.begin_date, other.begin_date) &&
-            Util.mergeDates(this.end_date, other.end_date));
+            this.entity[0].peek() === other.entity[0].peek() &&
+            this.entity[1].peek() === other.entity[1].peek() &&
+            Util.mergeDates(this.period.begin_date, other.period.begin_date) &&
+            Util.mergeDates(this.period.end_date, other.period.end_date));
 };
 
 
 Relationship.prototype.buildOpenEdits = function() {
-    var orig = Util.originalFields(this), source = this.source, target = orig.target;
+    var entity0 = this.original_fields.entity[0],
+        entity1 = this.original_fields.entity[1];
 
     return _.sprintf(
         '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
@@ -362,12 +273,12 @@ Relationship.prototype.buildOpenEdits = function() {
         '&conditions.2.operator=%%3D&conditions.2.args=90%%2C233&conditions.2.args=91' +
         '&conditions.2.args=92&conditions.3.field=status&conditions.3.operator=%%3D' +
         '&conditions.3.args=1&field=Please+choose+a+condition',
-        encodeURIComponent(source.type),
-        encodeURIComponent(source.name()),
-        encodeURIComponent(source.id),
-        encodeURIComponent(target.type),
-        encodeURIComponent(target.name()),
-        encodeURIComponent(target.id)
+        encodeURIComponent(entity0.type),
+        encodeURIComponent(entity0.name),
+        encodeURIComponent(entity0.id),
+        encodeURIComponent(entity1.type),
+        encodeURIComponent(entity1.name),
+        encodeURIComponent(entity1.id)
     );
 };
 
