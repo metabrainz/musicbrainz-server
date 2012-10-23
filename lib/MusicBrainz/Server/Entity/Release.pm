@@ -6,6 +6,8 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 
+use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
+
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -185,27 +187,7 @@ sub combined_format_name
     my ($self) = @_;
     my @mediums = @{$self->mediums};
     return "" if !@mediums;
-    my %formats_count;
-    my @formats_order;
-    foreach my $medium (@mediums) {
-        my $format_name = $medium->l_format_name() || l('(unknown)');
-        if (exists $formats_count{$format_name}) {
-            $formats_count{$format_name} += 1;
-        }
-        else {
-            $formats_count{$format_name} = 1;
-            push @formats_order, $format_name;
-        }
-    }
-    my @formats;
-    foreach my $format (@formats_order) {
-        my $count = $formats_count{$format};
-        if ($count > 1 && $format) {
-            $format = $count . "\x{00D7}" . $format;
-        }
-        push @formats, $format;
-    }
-    return join " + ", @formats;
+    return combined_medium_format_name(map { $_->l_format_name() || l('(unknown)') } @mediums );
 }
 
 sub has_multiple_artists

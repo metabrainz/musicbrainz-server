@@ -41,8 +41,6 @@ my @tables = qw(
     artist_rating_raw
     artist_tag_raw
     cdtoc_raw
-    statistic
-    statistic_event
     edit
     edit_artist
     edit_label
@@ -194,6 +192,10 @@ my @tables = qw(
     cover_art_archive.art_type
     cover_art_archive.cover_art
     cover_art_archive.cover_art_type
+    cover_art_archive.release_group_cover_art
+
+    statistics.statistic
+    statistics.statistic_event
 );
 
 my @replication_tables = qw(
@@ -319,8 +321,8 @@ my @group_derived = qw(
     );
 
 my @group_stats = qw(
-    statistic
-    statistic_event
+    statistics.statistic
+    statistics.statistic_event
 );
 
 my @group_editor = qw(
@@ -385,6 +387,7 @@ my @group_cover_art_archive = (
     'cover_art_archive.art_type',
     'cover_art_archive.cover_art',
     'cover_art_archive.cover_art_type',
+    'cover_art_archive.release_group_cover_art'
 );
 
 my @groups = (

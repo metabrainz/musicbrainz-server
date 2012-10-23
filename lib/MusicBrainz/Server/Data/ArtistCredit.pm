@@ -190,7 +190,7 @@ sub find_for_artist {
 
 sub _clean {
     my $text = shift;
-    return undef unless defined($text);
+    return '' unless defined($text);
     $text =~ s/[^[:print:]]//g;
     $text =~ s/\s+/ /g;
     return $text;

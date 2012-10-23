@@ -129,8 +129,6 @@ ALTER TABLE release_tag_raw ADD CONSTRAINT release_tag_raw_pkey PRIMARY KEY (rel
 ALTER TABLE replication_control ADD CONSTRAINT replication_control_pkey PRIMARY KEY (id);
 ALTER TABLE script ADD CONSTRAINT script_pkey PRIMARY KEY (id);
 ALTER TABLE script_language ADD CONSTRAINT script_language_pkey PRIMARY KEY (id);
-ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id);
-ALTER TABLE statistic_event ADD CONSTRAINT statistic_event_pkey PRIMARY KEY (date);
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);

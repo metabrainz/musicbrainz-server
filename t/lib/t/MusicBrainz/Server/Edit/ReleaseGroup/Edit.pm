@@ -131,7 +131,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('ArtistCredit')->load($rg);
     is ($rg->name, 'Renamed release group', 'release group renamed');
-    is ($rg->comment, undef);
+    is ($rg->comment, '');
     is ($rg->artist_credit->name, 'New ac name', 'date changed');
 };
 
@@ -217,7 +217,7 @@ sub is_unchanged {
     my $rg = shift;
     is($rg->name, 'Release Name');
     is($rg->primary_type_id, undef);
-    is($rg->comment, undef);
+    is($rg->comment, '');
     is($rg->artist_credit_id, 1);
 }
 

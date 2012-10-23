@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-12 08:55+0000\n"
+"PO-Revision-Date: 2012-10-17 18:40+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1798,7 +1798,7 @@ msgstr "Quechua"
 #. frequency:1 iso_code_3:qya
 #: DB:language/name:5662
 msgid "Quenya"
-msgstr ""
+msgstr "Quenya"
 
 #. frequency:1 iso_code_3:raj
 #: DB:language/name:345
@@ -1993,7 +1993,7 @@ msgstr "Siksika"
 #. frequency:1 iso_code_3:sjn
 #: DB:language/name:5989
 msgid "Sindarin"
-msgstr ""
+msgstr "Sindarijns"
 
 #. frequency:1 iso_code_3:snd
 #: DB:language/name:387

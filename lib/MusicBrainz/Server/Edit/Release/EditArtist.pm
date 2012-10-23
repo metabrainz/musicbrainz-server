@@ -137,7 +137,7 @@ sub accept {
 
     if (!$release) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            l('This edit cannot be applied, as the release being edited no longer exists.')
+            'This edit cannot be applied, as the release being edited no longer exists.'
         );
     }
 

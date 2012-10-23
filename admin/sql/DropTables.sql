@@ -129,8 +129,6 @@ DROP TABLE release_tag_raw;
 DROP TABLE replication_control;
 DROP TABLE script;
 DROP TABLE script_language;
-DROP TABLE statistic;
-DROP TABLE statistic_event;
 DROP TABLE tag;
 DROP TABLE tag_relation;
 DROP TABLE track;

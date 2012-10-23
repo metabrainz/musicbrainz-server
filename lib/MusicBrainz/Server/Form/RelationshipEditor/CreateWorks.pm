@@ -26,8 +26,7 @@ has_field 'works.name' => (
 );
 
 has_field 'works.comment' => (
-    type      => '+MusicBrainz::Server::Form::Field::Text',
-    maxlength => 255
+    type => '+MusicBrainz::Server::Form::Field::Comment',
 );
 
 sub edit_field_names          { qw() }
