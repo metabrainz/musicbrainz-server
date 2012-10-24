@@ -46,6 +46,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.otherdatabases.artist
                 ],
                 [
+                    'artist', 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release',
+                    'http://www.dhhu.dk/w/Jonny_Hefty_%26_Gratismixtape.dk_pr%C3%A6senterer_Actionspeax_-_Louder_Than_Words_Mixtape,_MP3/',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
                 ],
@@ -242,6 +251,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://wiki.rockinchina.com/w/Beyond_Cure_(TW)',
                     'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
+                    'artist'
+                ],
+                [
+                    'http://dhhu.dk/w/Sort_Stue',
+                    'http://www.dhhu.dk/w/Sort_Stue',
                     'artist'
                 ],
                 [
