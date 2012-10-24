@@ -387,7 +387,7 @@ MB.constants.CLEANUPS = {
             //Standardising RIC
             url = url.replace(/^(?:https?:\/\/)?(wiki|www)\.rockinchina\.com\/w\/(.*)+$/, "http://www.rockinchina.com/w/$2");
             //Standardising DHHU
-            url = url.replace(/^(?:https?:\/\/)?(wiki|www)\.dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
+            url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
             return url;
         }
     }
