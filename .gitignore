@@ -35,3 +35,4 @@ root/static/styles/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0
 
 # Ignore installed translation files
 /lib/LocaleData/
+bm/test-artists.csv
