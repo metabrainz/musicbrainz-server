@@ -35,4 +35,10 @@ root/static/styles/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0
 
 # Ignore installed translation files
 /lib/LocaleData/
+
 bm/test-artists.csv
+bm/createArtist-nes.txt
+bm/createArtist-pl.txt
+bm/findArtist-nes.txt
+bm/findArtist-pl.txt
+bm/query-mbids.txt
