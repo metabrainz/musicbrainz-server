@@ -12,6 +12,7 @@ fi
 echo "Starting benchmark for $1 artists."
 echo "----------------------------------"
 
+cd "$DIR"
 python ./randomartists.py $1
 cd "$DIR/.."
 
