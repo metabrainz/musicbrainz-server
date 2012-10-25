@@ -23,7 +23,7 @@ echo -n "Benchmark createArtist with haskell/nes data access layer ... "
 carton exec -- bm/createArtist-nes.pl < bm/test-artists.csv > bm/createArtist-nes.txt
 echo "saved to bm/createArtist-nes.txt"
 echo -n "Preparing artist mbids to query ... "
-cat bm/createArtist-nes.txt bm/createArtist-pl.txt | awk '-F, ' '{ print $2 }' | sort > query-mbids.txt
+cat bm/createArtist-nes.txt bm/createArtist-pl.txt | awk '-F, ' '{ print $2 }' | sort > bm/query-mbids.txt
 echo "saved to query-mbids.txt"
 echo -n "Benchmark findArtist with perl/ngs data access layer ... "
 cat bm/query-mbids.txt | carton exec -- bm/findArtist.pl > bm/findArtist-pl.txt
