@@ -1,4 +1,6 @@
-[% WRAPPER "user/profile/layout.tt" title=l("Applications") page="applications" %]
+[% WRAPPER "layout.tt" title=l("Applications") full_width=1 %]
+
+<h1>[% l('Applications') %]</h1>
 
 [%- MACRO format_scopes(token) BLOCK;
     out = [];
