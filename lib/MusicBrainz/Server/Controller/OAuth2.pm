@@ -76,7 +76,7 @@ sub oob : Local Args(0)
         unless defined $token;
 
     $self->_send_html_error($c, 'invalid_request', 'Expired authorization code')
-        unless $token->expire_time < DateTime->now;
+        unless $token->expire_time > DateTime->now;
 
     $c->model('Application')->load($token);
 
@@ -87,68 +87,59 @@ sub token : Local Args(0)
 {
     my ($self, $c) = @_;
 
-    my ($client_id, $client_secret) = $c->request->headers->authorization_basic;
-    unless (defined $client_id) {
-        $client_id = $c->request->params->{client_id};
-        $client_secret = $c->request->params->{client_secret};
-    }
-    unless (defined $client_id) {
-        $self->_send_error($c, 'invalid_request', 'Missing client_id');
-    }
-
-    my $application = $c->model('Application')->get_by_oauth_id($client_id);
-    unless (defined $application) {
-        $self->_send_error($c, 'invalid_client', 'Unknown client_id');
+    my %params;
+    my %optional = ( client_id => 1, client_secret => 1, token_type => 1 );
+    for my $name (qw/client_id client_secret grant_type code redirect_uri token_type/) {
+        my $value = $c->request->params->{$name};
+        $params{$name} = ref($value) eq 'ARRAY' ? $value->[0] : $value;
+        $self->_send_error($c, 'invalid_request', 'Required parameter is missing: ' . $name)
+            unless $params{$name} or exists $optional{$name};
     }
 
-    if (defined $client_secret) {
-        unless ($application->oauth_secret eq $client_secret) {
-            $self->_send_error($c, 'invalid_client', 'Client not authentified, incorrect secret');
-        }
-    }
-    elsif ($application->oauth_confidential) {
-        $self->_send_error($c, 'invalid_client', 'Client not authentified, missing secret');
+    my ($auth_client_id, $auth_client_secret) = $c->request->headers->authorization_basic;
+    if (defined $auth_client_id && defined $auth_client_secret) {
+        $params{client_id} = $auth_client_id;
+        $params{client_secret} = $auth_client_secret;
     }
 
-    my $grant_type = $c->request->params->{grant_type};
-    unless (defined $grant_type) {
-        $self->_send_error($c, 'invalid_request', 'Missing grant_type');
-    }
+    $self->_send_error($c, 'invalid_client', 'Client not authentified')
+        unless defined $params{client_id} && defined $params{client_secret};
 
-    my $code = $c->request->params->{code};
-    unless (defined $grant_type) {
-        $self->_send_error($c, 'invalid_request', 'Missing parameter code');
-    }
+    my $application = $c->model('Application')->get_by_oauth_id($params{client_id});
+    $self->_send_error($c, 'invalid_client', 'Client not authentified')
+        unless defined $application;
+
+    $self->_send_error($c, 'invalid_client', 'Client not authentified')
+        unless $params{client_secret} eq $application->oauth_secret;
+
+    $self->_send_error($c, 'invalid_request', 'Mismatched redirect URI')
+        unless $params{redirect_uri} eq $application->oauth_redirect_uri;
 
     my $token;
-    if ($grant_type eq 'authorization_code') {
-        $token = $c->model('EditorOAuthToken')->get_by_authorization_code($code);
-        unless (defined $token) {
-            $self->_send_error($c, 'invalid_grant', 'Invalid authorization code');
-        }
+    if ($params{grant_type} eq 'authorization_code') {
+        $token = $c->model('EditorOAuthToken')->get_by_authorization_code($params{code});
+        $self->_send_error($c, 'invalid_grant', 'Invalid authorization code')
+            unless defined $token;
     }
-    elsif ($grant_type eq 'refresh_token') {
-        $token = $c->model('EditorOAuthToken')->get_by_refresh_token($code);
-        unless (defined $token) {
-            $self->_send_error($c, 'invalid_grant', 'Invalid refresh token');
-        }
+    elsif ($params{grant_type} eq 'refresh_token') {
+        $token = $c->model('EditorOAuthToken')->get_by_refresh_token($params{code});
+        $self->_send_error($c, 'invalid_grant', 'Invalid refresh token')
+            unless (defined $token);
     }
     else {
         $self->_send_error($c, 'unsupported_grant_type', 'Unsupported grant_type, only authorization_code and refresh_token are supported');
     }
 
-    my $token_type = $c->request->params->{token_type};
-    $token_type ||= 'bearer';
-    unless ($token_type eq 'bearer' || $token_type eq 'mac') {
-        $self->_send_error($c, 'invalid_request', 'Invalid requested token type, only bearer and mac are allowed');
-    }
+    my $token_type = lc($c->request->params->{token_type} || 'bearer');
+    $self->_send_error($c, 'invalid_request', 'Invalid requested token type, only bearer and mac are allowed')
+        unless $token_type eq 'bearer' || $token_type eq 'mac';
     my $needs_secret = $token_type eq 'mac';
 
     $c->model('MB')->with_transaction(sub {
         $c->model('EditorOAuthToken')->grant_access_token($token, $needs_secret);
         my $data = {
             access_token => $token->access_token,
-            token_type => "bearer",
+            token_type => $token_type,
             expires_in => $token->expire_time->subtract_datetime_absolute(DateTime->now)->seconds,
             refresh_token => $token->refresh_token
         };
