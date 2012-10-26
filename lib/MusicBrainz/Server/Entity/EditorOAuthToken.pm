@@ -53,6 +53,11 @@ has 'expire_time' => (
     coerce => 1
 );
 
+has [qw( scope_profile scope_tags scope_ratings )] => (
+    isa => 'Bool',
+    is => 'rw',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

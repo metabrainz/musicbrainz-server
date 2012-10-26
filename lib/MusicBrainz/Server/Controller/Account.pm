@@ -537,6 +537,44 @@ sub donation : Local RequireAuth HiddenOnSlaves
     );
 }
 
+sub applications : Path('/account/applications') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $tokens = $self->_load_paged($c, sub {
+        my ($tokens, $hits) = $c->model('EditorOAuthToken')->find_granted_by_editor($c->user->id, shift, shift);
+        return ($tokens, $hits);
+    });
+    $c->model('Application')->load(@$tokens);
+
+    use Data::Dumper;
+    warn Dumper($tokens);
+
+    $c->stash( tokens => $tokens );
+}
+
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(1) RequireAuth
+{
+    my ($self, $c, $id) = @_;
+
+    my $token = $c->model('EditorOAuthToken')->get_by_id($id);
+    if (defined $token && $token->editor_id == $c->user->id) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('EditorOAuthToken')->delete($id);
+        });
+    }
+
+    $c->response->redirect($c->uri_for_action('/account/applications'));
+    $c->detach;
+}
+
+sub register_application : Path('/account/applications/register') RequireAuth
+{
+    my ($self, $c) = @_;
+
+
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
 

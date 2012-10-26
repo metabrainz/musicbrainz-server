@@ -7,6 +7,9 @@ use MIME::Base64 qw( encode_base64url );
 use DateTime;
 use DateTime::Duration;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
+use MusicBrainz::Server::Data::Utils qw(
+    query_to_list_limited
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -17,7 +20,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, application, authorization_code, access_token, refresh_token, expire_time';
+    return 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope_profile, scope_tags, scope_ratings';
 }
 
 sub _column_mapping
@@ -30,6 +33,9 @@ sub _column_mapping
         access_token => 'access_token',
         refresh_token => 'refresh_token',
         expire_time => 'expire_time',
+        scope_profile => 'scope_profile',
+        scope_tags => 'scope_tags',
+        scope_ratings => 'scope_ratings',
     };
 }
 
@@ -57,6 +63,19 @@ sub get_by_refresh_token
     my ($self, $token) = @_;
     my @result = values %{$self->_get_by_keys('access_token', $token)};
     return $result[0];
+}
+
+sub find_granted_by_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE editor = ? AND access_token IS NOT NULL
+                 ORDER BY id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
 }
 
 sub delete_editor
@@ -103,6 +122,13 @@ sub grant_access_token
     }
 
     $self->sql->update_row($self->_table, $update, { id => $token->id });
+}
+
+sub delete
+{
+    my ($self, $id) = @_;
+
+    $self->sql->delete_row($self->_table, { id => $id });
 }
 
 __PACKAGE__->meta->make_immutable;

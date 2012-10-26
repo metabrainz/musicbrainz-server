@@ -135,9 +135,10 @@ sub token : Local Args(0)
         unless $token_type eq 'bearer' || $token_type eq 'mac';
     my $needs_secret = $token_type eq 'mac';
 
+    my $data;
     $c->model('MB')->with_transaction(sub {
         $c->model('EditorOAuthToken')->grant_access_token($token, $needs_secret);
-        my $data = {
+        $data = {
             access_token => $token->access_token,
             token_type => $token_type,
             expires_in => $token->expire_time->subtract_datetime_absolute(DateTime->now)->seconds,
@@ -146,8 +147,8 @@ sub token : Local Args(0)
         if ($needs_secret && $token->secret) {
             $data->{secret} = $token->secret;
         }
-        $self->_send_response($c, $data);
     });
+    $self->_send_response($c, $data);
 }
 
 sub _send_html_error
