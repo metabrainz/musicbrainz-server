@@ -8,6 +8,9 @@ subtype 'AggregatedTag'
 subtype 'Annotation'
     => as class_type 'MusicBrainz::Server::Entity::Annotation';
 
+subtype 'Application'
+    => as class_type 'MusicBrainz::Server::Entity::Application';
+
 subtype 'Artist'
     => as class_type 'MusicBrainz::Server::Entity::Artist';
 

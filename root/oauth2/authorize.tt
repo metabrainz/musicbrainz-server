@@ -1,0 +1,26 @@
+[% WRAPPER "layout.tt" title=l("OAuth Authorization") full_width=1 %]
+
+    <h1>[% l('Authorization') %]</h1>
+
+    <p>[% l('{app} is requesting permission to:', { app => application.name }) | html %]</p>
+
+    <ul>
+    [% IF scopes.profile %]
+        <li>[% l('View basic information about your account') %]</li>
+    [% END %]
+    [% IF scopes.tags %]
+        <li>[% l('Submit tags on your behalf') %]</li>
+    [% END %]
+    [% IF scopes.ratings %]
+        <li>[% l('Submit ratings on your behalf') %]</li>
+    [% END %]
+    </ul>
+
+    <form action="[% c.req.uri %]" method="post">
+        <span class="buttons">
+            <button type="submit" name="confirm.cancel" value="1" class="negative">[% l('No thanks') %]</button>
+            <button type="submit" name="confirm.submit" value="1">[% l('Allow access') %]</button>
+        </span>
+    </form>
+
+[% END %]

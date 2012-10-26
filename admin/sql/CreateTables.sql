@@ -10,6 +10,17 @@ CREATE TABLE annotation
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE application
+(
+    id                  SERIAL,
+    owner               INTEGER NOT NULL, -- references editor.id
+    name                TEXT NOT NULL,
+    oauth_id            TEXT NOT NULL,
+    oauth_secret        TEXT NOT NULL,
+    oauth_redirect_uri  TEXT NOT NULL,
+    oauth_confidential  BOOLEAN NOT NULL
+);
+
 CREATE TABLE artist (
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -891,6 +902,21 @@ CREATE TABLE editor_collection_release
 (
     collection          INTEGER NOT NULL, -- PK, references editor_collection.id
     release             INTEGER NOT NULL -- PK, references release.id
+);
+
+CREATE TABLE editor_oauth_token
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    application         INTEGER NOT NULL, -- references application.id
+    authorization_code  TEXT,
+    refresh_token       TEXT,
+    access_token        TEXT,
+    secret              TEXT,
+    expire_time         TIMESTAMP WITH TIME ZONE NOT NULL,
+    scope_profile       BOOLEAN NOT NULL DEFAULT FALSE,
+    scope_tags          BOOLEAN NOT NULL DEFAULT FALSE,
+    scope_ratings       BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE editor_watch_preferences
